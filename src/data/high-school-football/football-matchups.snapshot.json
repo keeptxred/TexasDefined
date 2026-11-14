@@ -30,7 +30,8 @@
       "resultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
       "sourceLabel": "MaxPreps game listing; Houston Chronicle reported final",
       "verifiedAt": "2026-10-16",
-      "phase": "regular"
+      "phase": "regular",
+      "districtGame": true
     },
     {
       "slug": "2026-10-23-houston-lamar-at-houston-memorial",
@@ -54,7 +55,8 @@
       "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
       "sourceLabel": "Memorial High School football schedule",
       "verifiedAt": "2026-10-16",
-      "phase": "regular"
+      "phase": "regular",
+      "districtGame": true
     }
   ]
 }

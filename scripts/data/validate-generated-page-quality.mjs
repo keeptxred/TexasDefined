@@ -96,12 +96,16 @@ requireAll('county editorial-first richness', countyGuide, [
   '<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />',
   'At a glance',
   'The county in numbers',
-  'County seat & communities',
-  'Places on the map',
   'Property & county services',
   'Official local resources',
   'Nearby places',
   'Keep exploring',
+]);
+forbidAll('county map section intentionally retired for all 254 counties', countyGuide, [
+  'Places on the map',
+  'County seat & communities',
+  'VanZandtCommunityMap',
+  'openstreetmap.org/search?query=',
 ]);
 requireAll('county loader-resolved feature handoff', countyGuide, [
   'countySeriesArticle: Article | null',
@@ -147,7 +151,7 @@ requireAll('statewide county enrichment', countyProfile, [
   'Census2020/State_County/MapServer/1/query',
   "url.searchParams.set('where', \"STATE='48'\")",
   "url.searchParams.set('outFields', 'COUNTY,POP100,AREALAND,AREAWATER,INTPTLAT,INTPTLON')",
-  'population2020: censusFacts.population2020',
+  "const population2020 = slug === 'mclennan' ? 260579 : censusFacts.population2020",
   'landAreaSquareMiles: censusFacts.landAreaSquareMiles',
   'waterAreaSquareMiles: censusFacts.waterAreaSquareMiles',
   'countyProfileDescription',

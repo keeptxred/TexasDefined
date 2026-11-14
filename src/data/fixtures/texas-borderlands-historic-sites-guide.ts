@@ -30,6 +30,7 @@ export const texasBorderlandsHistoricSitesGuideArticle: Article = {
     { href: "/destination/goliad-state-park", label: "Mission Espíritu Santo", description: "Read the Spanish mission system and Indigenous history alongside the San Antonio River." },
     { href: "/destination/presidio-la-bahia", label: "Presidio La Bahía", description: "Follow the military companion to Goliad's mission site across the colonial and Revolutionary eras." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide collection of source-checked historic destinations." },
+    { href: "/article/el-camino-real-de-tierra-adentro-national-historic-trail", label: "El Camino Real and the El Paso Mission Trail", description: "Follow the Lower Valley mission corridor while distinguishing active churches from the closed original Old Socorro archaeological site." },
     { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Start with the early mission landscape and Pueblo history of the El Paso Lower Valley." },
     { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "Hear a living Tigua community's own interpretation before exploring the nearby missions; the museum is separate from Ysleta Mission." },
     { href: "/destination/magoffin-home", label: "Magoffin Home", description: "Move into 19th-century El Paso through a multicultural family tied to trade, politics and U.S.-Mexico relations." },

@@ -1,5 +1,7 @@
 import { footballMatchups, footballMatchupPath } from './football-matchups';
 import { DISTRICT_5_2026_GAMES } from './football-district5-2026';
+import { DISTRICT_11_2026_GAMES } from './football-district11-2026';
+import { DISTRICT_21_2026_GAMES } from './football-district21-2026';
 
 export type DistrictFootballGame = {
   date: string;
@@ -88,14 +90,24 @@ const gameKey = (game: Pick<DistrictFootballGame, 'date' | 'away' | 'home'>) =>
  */
 export function getDistrictFootballGames(slug: string, classification: string, district: number): DistrictFootballGame[] {
   const known = new Map<string, DistrictFootballGame>();
+  // In 1A–5A the same district number exists in both divisions; a missing or
+  // mismatched division from an optional provider feed must not mix rivals.
+  const division = slug.includes('-division-ii-') ? 2 : slug.includes('-division-i-') ? 1 : null;
   if (slug === '6a-district-22') {
     for (const game of KATY_2026_DISTRICT_GAMES) known.set(gameKey(game), game);
+  }
+  if (slug === '4a-division-i-district-11') {
+    for (const game of DISTRICT_11_2026_GAMES) known.set(gameKey(game), game);
   }
   if (slug === '6a-district-5') {
     for (const game of DISTRICT_5_2026_GAMES) known.set(gameKey(game), game);
   }
+  if (slug === '6a-district-21') {
+    for (const game of DISTRICT_21_2026_GAMES) known.set(gameKey(game), game);
+  }
   for (const game of footballMatchups) {
-    if (game.classification !== classification || game.district !== district || game.phase !== 'regular') continue;
+    if (game.classification !== classification || game.district !== district || game.phase !== 'regular' || game.districtGame !== true) continue;
+    if (division !== null && game.division !== division) continue;
     const converted: DistrictFootballGame = {
       date: game.date, kickoff: game.kickoff,
       away: game.away.name, home: game.home.name, venue: game.venue,
@@ -120,6 +132,8 @@ export type SourcedDistrictRecord = {
   won: number;
   lost: number;
   tied: number;
+  pointsFor: number;
+  pointsAgainst: number;
 };
 
 // Factual scores support a derived record; standings/tiebreaks/official seeds do not follow from it.
@@ -130,13 +144,17 @@ export function getSourcedDistrictRecords(
 ): SourcedDistrictRecord[] {
   const bySchool = new Map<string, SourcedDistrictRecord>(schools.map(({ schoolName, profilePath }) => [
     schoolName,
-    { schoolName, profilePath, won: 0, lost: 0, tied: 0 },
+    { schoolName, profilePath, won: 0, lost: 0, tied: 0, pointsFor: 0, pointsAgainst: 0 },
   ]));
   for (const game of games) {
     if (game.status !== 'final' || !Number.isInteger(game.awayScore) || !Number.isInteger(game.homeScore)) continue;
     const away = bySchool.get(game.away);
     const home = bySchool.get(game.home);
     if (!away || !home || game.away === game.home) continue;
+    away.pointsFor += game.awayScore!;
+    away.pointsAgainst += game.homeScore!;
+    home.pointsFor += game.homeScore!;
+    home.pointsAgainst += game.awayScore!;
     if (game.awayScore! > game.homeScore!) {
       away.won += 1;
       home.lost += 1;
@@ -150,3 +168,45 @@ export function getSourcedDistrictRecords(
   }
   return [...bySchool.values()];
 }
+
+export type SourcedTeamDistrictRecord = SourcedDistrictRecord & {
+  played: number;
+  districtFinalsInSnapshot: number;
+  lastReportedFinal: string;
+};
+
+/**
+ * Team-level view of the same source-derived district record used by district hubs.
+ * Returns null until at least one verified district final involving the school is
+ * present. This is deliberately not a standings rank, seed or tiebreak result.
+ */
+export function getSourcedDistrictRecordForTeam(
+  games: DistrictFootballGame[],
+  schools: Array<{ schoolName: string; profilePath: string }>,
+  schoolName: string,
+): SourcedTeamDistrictRecord | null {
+  const knownSchools = new Set(schools.map((school) => school.schoolName));
+  if (!knownSchools.has(schoolName)) return null;
+
+  const validFinals = games.filter((game) =>
+    game.status === 'final'
+    && Number.isInteger(game.awayScore)
+    && Number.isInteger(game.homeScore)
+    && knownSchools.has(game.away)
+    && knownSchools.has(game.home)
+    && game.away !== game.home
+  );
+  const teamFinals = validFinals.filter((game) => game.away === schoolName || game.home === schoolName);
+  if (!teamFinals.length) return null;
+
+  const record = getSourcedDistrictRecords(games, schools).find((row) => row.schoolName === schoolName);
+  if (!record) return null;
+
+  return {
+    ...record,
+    played: record.won + record.lost + record.tied,
+    districtFinalsInSnapshot: validFinals.length,
+    lastReportedFinal: teamFinals.map((game) => game.date).sort().at(-1) ?? '',
+  };
+}
+

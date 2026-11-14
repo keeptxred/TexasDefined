@@ -59,21 +59,21 @@ const FIVE_PARKS: Readonly<Record<string, { entryNote: string; body: string[]; v
   ]
 },
   "lake-mineral-wells-state-park": {
-  "entryNote": "Strict TPWD Aug 30, 2026 fire ban prohibits ALL fires, including wood, charcoal, and even propane/containerized fuel stoves. Check before bringing cooking gear.",
+  "entryNote": "Check the current TPWD Lake Mineral Wells State Park page for live burn-ban and stove restrictions before cooking. Dated bans can expire; primitive sites also have their own ground-fire rules.",
   "body": [
     "Lake Mineral Wells State Park and its Trailway present different experiences: the lake and park campsites are clustered around the developed recreation area, while the longer linear former-railway corridor serves riders, hikers and cyclists beyond the ordinary park loop. TPWD lists Live Oak and Plateau electric camps, Post Oak water-only sites, a Cross Timbers equestrian campground and remote primitive camps that require a significant walk. Do not confuse a trailway destination with the campground's main entrance or assume every camping area has drinking water.",
-    "The official August 30, 2026 park notice is unusually strict: it prohibits ALL fires, including wood, charcoal and containerized cooking stoves such as propane. This is materially different from common Texas burn bans where propane remains permitted. Camping and meal plans need to account for that prohibition—never suggest switching from a campfire to propane as an automatic solution here. Confirm TPWD's current restrictions before travel and prepare a fire-free meal plan if still in effect."
+    "The earlier August 30, 2026 park fire restriction must not be presented as a permanent or currently effective prohibition. TPWD's official Lake Mineral Wells park page stated 'NO BURN BAN' on November 2, 2026. That report can change, so verify the latest official on-page conditions on the day of travel before using wood, charcoal or containerized fuel stoves. Primitive campsites separately prohibit ground fires regardless of a parkwide burn-ban notice."
   ],
   "visitorFaqs": [
     {
-      "question": "Can I cook on a propane stove at Lake Mineral Wells during the burn ban?",
-      "answer": "No. Unlike bans that exempt propane, TPWD's August 30 notice explicitly prohibits containerized fuel stoves along with wood and charcoal fires.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert"
+      "question": "Are propane stoves, charcoal, or campfires currently permitted at Lake Mineral Wells?",
+      "answer": "TPWD's November 2, 2026 park status showed 'NO BURN BAN,' but restrictions can change without notice. Check the official park page before cooking; primitive sites prohibit ground fires independently.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells"
     },
     {
       "question": "Are the park camping loops and Trailway the same entrance?",
       "answer": "No. The main lake campsites and linear Trailway have different approaches and trailheads. Use the official maps to reach the intended site.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert"
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells"
     }
   ]
 },
@@ -109,6 +109,6 @@ export function applyFiveParkAuthorityAlerts(destination: Destination): Destinat
       ...(destination.visitorFaqs ?? []).filter(q=>!facts.visitorFaqs.some(f=>f.question===q.question)),
       ...facts.visitorFaqs
     ],
-    sourceCheckedAt: "2026-10-17"
+    sourceCheckedAt: destination.slug === "lake-mineral-wells-state-park" ? "2026-11-02" : "2026-10-17"
   };
 }

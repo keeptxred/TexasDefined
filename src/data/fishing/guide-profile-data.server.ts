@@ -7,7 +7,7 @@ import { fishingGuideCanonicalPath } from "./guide-routing";
 const SPONSORED_GUIDE_KINDS = ["featured-guide", "lake-guide", "regional-guide", "species-guide"] as const;
 
 function buildFishingGuideProfileHead(pageData: {
-  guide: { businessName: string; bio?: string; phone?: string; website?: string; verifiedAt?: string; serviceRegions?: string[] };
+  guide: { businessName: string; bio?: string; phone?: string; website?: string; verifiedAt?: string; serviceRegions?: string[]; claimedListing?: boolean };
   canonicalPath: string;
   lakes: Array<{ lake?: { name: string } }>;
   species: Array<{ species?: { commonName: string } }>;
@@ -17,7 +17,7 @@ function buildFishingGuideProfileHead(pageData: {
   const description = guide.bio ?? `Verified Texas fishing-guide profile for ${guide.businessName}, including only sourced lake, target-species and business details.`;
   const serviceAreas = [...new Set([...lakes.map(({ lake }) => lake?.name).filter(Boolean), ...(guide.serviceRegions ?? []).map((region) => region.replaceAll("-", " "))])];
   return {
-    meta: buildMeta(texasDefinedBrand, { title: `${guide.businessName} — Verified Texas Fishing Guide`, description, canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: `${guide.businessName} — Verified Texas Fishing Guide`, description, canonicalPath, robots: guide.claimedListing && (guide.bio?.length ?? 0) >= 350 ? undefined : "noindex, follow" }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify([
       { "@context": "https://schema.org", "@type": "WebPage", name: `${guide.businessName} — Verified Texas Fishing Guide`, description, url: `${origin}${canonicalPath}`, dateModified: guide.verifiedAt },

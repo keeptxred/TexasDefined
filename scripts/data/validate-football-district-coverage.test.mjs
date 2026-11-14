@@ -26,6 +26,7 @@ test('district 22 has independent source-backed reported results and a complete 
   assert.ok(source.includes('SEVEN_LAKES_OCT_15'));
   assert.ok(source.includes('getDistrictFootballGames'));
   assert.ok(source.includes("game.phase !== 'regular'"));
+  assert.ok(source.includes("game.districtGame !== true"));
   assert.ok(source.includes("converted.status === 'final' && previous.status !== 'final'"));
 });
 
@@ -64,6 +65,21 @@ test('source-derived district W–L matches all reported games without inventing
   assert.ok(template.includes('Do not use these partial data for official UIL seeds'));
 });
 
+test('team-level district record helper remains source-derived and fail-closed', () => {
+  for (const marker of [
+    'getSourcedDistrictRecordForTeam',
+    "if (!knownSchools.has(schoolName)) return null",
+    "if (!teamFinals.length) return null",
+    'played: record.won + record.lost + record.tied',
+    'districtFinalsInSnapshot: validFinals.length',
+    "lastReportedFinal: teamFinals.map((game) => game.date).sort().at(-1) ?? ''",
+    'This is deliberately not a standings rank, seed or tiebreak result.',
+  ]) assert.ok(source.includes(marker), marker);
+  assert.ok(!source.includes('officialStanding'));
+  assert.ok(!source.includes('playoffSeed'));
+  assert.ok(!source.includes('tiebreakRank'));
+});
+
 test('shared template does not mislabel a partial scorecard as official standings', () => {
   for (const marker of [
     'data-football-district-section="coverage"',
@@ -78,4 +94,128 @@ test('shared template does not mislabel a partial scorecard as official standing
   assert.ok(head.includes('Katy ISD District 22-6A Football: 2026 Scores & Schedule'));
   assert.ok(template.includes('data-football-district-section="teams"'));
   assert.ok(template.includes('data-football-district-section="official-sources"'));
+});
+
+
+const district16Data = readFileSync(new URL('../../src/data/high-school-football/football-district16-2026.ts', import.meta.url), 'utf8');
+const district16Component = readFileSync(new URL('../../src/components/sports/District16Coverage.tsx', import.meta.url), 'utf8');
+
+test('District 16 standings snapshot is internally consistent and strictly source-dated', () => {
+  const rows = [...district16Data.matchAll(/\{ name: '([^']+)', match: '([^']+)', won: (\d+), lost: (\d+), pf: (\d+), pa: (\d+), overall: '([^']+)' \}/g)]
+    .map((m) => ({ name: m[1], won: +m[3], lost: +m[4], pf: +m[5], pa: +m[6] }));
+  assert.equal(rows.length, 8, 'all 8 CFISD district schools');
+  assert.equal(new Set(rows.map((r) => r.name)).size, 8, 'no duplicate entries');
+  assert.ok(rows.every((r) => r.won + r.lost === 4), 'same four district games per team as of October 18');
+  assert.equal(rows.reduce((sum, r) => sum + r.won, 0), 16);
+  assert.equal(rows.reduce((sum, r) => sum + r.lost, 0), 16);
+  assert.equal(rows.reduce((sum, r) => sum + r.pf, 0), rows.reduce((sum, r) => sum + r.pa, 0));
+  assert.ok(district16Data.includes("DISTRICT_16_STANDINGS_AS_OF = 'October 18, 2026'"));
+  assert.ok(district16Data.includes('NOT a live feed'));
+});
+
+test('District 16 next-round schedule and four Week 8 finals remain separate from its standings snapshot', () => {
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:15|16|17)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/\{ date: '2026-(?:10|11)-\d\d', kickoff:/g)].length, 12, 'full 12-match run-in');
+  assert.ok(district16Data.includes("kickoff: 'Kickoff unconfirmed'"), 'do not invent uncertain November 7 kickoff');
+  for (const key of ['Cypress Woods', 'Cypress Falls', 'Cypress Lakes', 'Langham Creek', 'Jersey Village', 'Cy-Fair', 'Cypress Creek', 'Cypress Ridge']) {
+    assert.ok(district16Data.includes(key), key);
+  }
+  for (const marker of [
+    'data-football-district-section="district-16-2026"',
+    'data-football-district-records="reported-standings-snapshot"',
+    'not a continuously updated scoreboard',
+    'not every game played',
+    'All twelve remaining district fixtures',
+    'DISTRICT_16_CFISD_TICKETS_URL',
+    'DISTRICT_16_CFISD_SCHEDULE_URL',
+    'teamHref',
+  ]) assert.ok(district16Component.includes(marker), marker);
+  assert.ok(template.includes('<District16Coverage schools={district.programs} />'));
+  assert.ok(template.includes('district16Pilot ? <Related href="#district-16-results"'));
+  assert.ok(template.includes('!district16Pilot && !district9Pilot && (katyPilot || district5Pilot || games.length > 0)'));
+  assert.ok(template.includes('{district9Pilot && <District9Guide />}'), 'District 9 retains its evergreen guide instead of sourced-games UI');
+  assert.ok(head.includes('District 16-6A Football: 2026 Standings, Scores & Schedule'));
+});
+
+test('generic districts never advertise unrelated statewide matchups or front-load affiliate offers', () => {
+ assert.ok(template.includes('games.length ? <Related href="#district-game-coverage"'));
+ assert.ok(template.includes('No independently verified district matchups are published here yet'));
+ assert.ok(!template.includes('href="/texas-high-school-football-matchups" title="Documented matchups"'));
+ assert.ok(template.indexOf('data-football-district-section="official-sources"') < template.lastIndexOf('<FootballFanOffers slug='));
+ assert.equal((template.match(/<FootballFanOffers slug=/g) || []).length, 1);
+});
+test('District 16 production verifies actual standings, fixtures, mobile and desktop', () => {
+ const workflow=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+ const prod=readFileSync(new URL('../../scripts/ci/verify-district16-production.mjs',import.meta.url),'utf8');
+ assert.ok(workflow.includes('node scripts/ci/verify-district16-production.mjs'));
+ assert.ok(workflow.includes('node scripts/ci/verify-district16-responsive-browser.mjs'));
+ assert.ok(prod.includes('no-cache, no-store'));
+ assert.ok(prod.includes('CFISD tickets, stadiums and game-day logistics'));
+ assert.ok(district16Component.includes('data-district16-result="final"'));
+ assert.ok(district16Component.includes('data-district16-result="scheduled"'));
+});
+
+const teamTemplate = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
+test('team pages cannot label older unconfirmed games as their next fixture', () => {
+  assert.ok(teamTemplate.includes('game.date >= todayTexas'));
+  assert.ok(!teamTemplate.includes('game.date >= editorial.season.verifiedAt'));
+});
+const district11 = readFileSync(new URL('../../src/data/high-school-football/football-district11-2026.ts', import.meta.url), 'utf8');
+
+test('2026 District 11 has complete, distinct and traceable seven-school round robin fixtures', () => {
+  const finals = [...district11.matchAll(/reportedFinal\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)]
+    .map((m) => ({ date: m[1], away: m[2], home: m[3], awayScore: +m[4], homeScore: +m[5] }));
+  const future = [...district11.matchAll(/upcoming\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)"\)/g)]
+    .map((m) => ({ date: m[1], away: m[2], home: m[3] }));
+  assert.equal(finals.length, 15, '15 reported finals through October 23');
+  assert.equal(future.length, 6, 'six published remaining fixtures');
+  const schools = ['Bay City', 'El Campo', 'Navasota', 'Needville', 'Royal', 'Sealy', 'West Columbia Columbia'];
+  const seen = new Set();
+  for (const game of [...finals, ...future]) {
+    assert.ok(Number.isFinite(Date.parse(game.date + 'T00:00:00Z')), game.date);
+    assert.ok(schools.includes(game.away) && schools.includes(game.home), 'both schools must belong to the UIL roster');
+    assert.notEqual(game.away, game.home);
+    const key = [game.away, game.home].sort().join('|');
+    assert.ok(!seen.has(key), 'duplicated district pairing ' + key);
+    seen.add(key);
+  }
+  assert.equal(seen.size, 21, '7 schools must meet all six district opponents exactly once');
+  for (const school of schools) {
+    assert.equal([...finals, ...future].filter((g) => g.away === school || g.home === school).length, 6, school);
+    assert.ok(district11.includes('"' + school + '": "https://www.maxpreps.com/'), 'named score source for ' + school);
+  }
+  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-10-29'"));
+  assert.ok(district11.includes('www.uiltexas.org/football/playoff-brackets/4AD1'));
+});
+
+test('District 11 score-derived records do not invent official standings', () => {
+  const finals = [...district11.matchAll(/reportedFinal\('2026-\d{2}-\d{2}', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)];
+  const records = new Map();
+  for (const m of finals) {
+    const [, away, home, awayRaw, homeRaw] = m;
+    const awayScore = Number(awayRaw), homeScore = Number(homeRaw);
+    assert.ok(Number.isInteger(awayScore) && awayScore >= 0);
+    assert.ok(Number.isInteger(homeScore) && homeScore >= 0);
+    if (!records.has(away)) records.set(away, [0, 0]);
+    if (!records.has(home)) records.set(home, [0, 0]);
+    assert.notEqual(awayScore, homeScore, 'no unexplained tied final score');
+    if (awayScore > homeScore) { records.get(away)[0]++; records.get(home)[1]++; }
+    else { records.get(home)[0]++; records.get(away)[1]++; }
+  }
+  assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
+    'Bay City': [5, 0], 'El Campo': [3, 1], 'Navasota': [2, 2],
+    'Needville': [1, 3], 'Royal': [0, 4], 'Sealy': [4, 1],
+    'West Columbia Columbia': [0, 4],
+  });
+  assert.ok(source.includes("slug === '4a-division-i-district-11'"));
+  assert.ok(source.includes('DISTRICT_11_2026_GAMES'));
+  assert.ok(source.includes('if (division !== null && game.division !== division) continue;'), 'provider cannot mix DII results into a DI district');
+  assert.ok(template.includes("const district11Pilot = district.slug === '4a-division-i-district-11'"));
+  assert.ok(template.includes('data-football-district-section="district-11-context"'));
+  assert.ok(template.includes('data-football-district-section="district-11-game-day"'));
+  assert.ok(template.includes('District 11 playoff path:'));
+  assert.ok(template.includes('DISTRICT_11_PLAYOFF_SOURCE'));
+  assert.ok(head.includes('District 11-4A Division I Football: 2026 Scores & Schedule'));
+  assert.ok(template.indexOf('<FootballMonetizationSlot') > template.indexOf('data-football-district-section="teams"'), 'football should precede advertising');
 });

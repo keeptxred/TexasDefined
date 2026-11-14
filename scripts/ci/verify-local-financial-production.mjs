@@ -1,4 +1,5 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, readFileSync } from 'node:fs';
+import { checkYearSpecificTaxRateRow } from './tax-history-row-contract.mjs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
@@ -9,6 +10,7 @@ const FETCH_ATTEMPTS = 3;
 const FETCH_TIMEOUT_MS = 15_000;
 const FETCH_RETRY_DELAY_MS = 1_500;
 const VERIFY_CONCURRENCY = 4;
+const TAX_ONLY = process.env.TEXAS_TAX_VERIFY_ONLY === '1';
 
 const cityMappings = [
   { slug: 'houston', name: 'Houston', tax: '/property-tax-calculator/houston', relocation: '/article/moving-to-houston-address-checklist' },
@@ -43,12 +45,12 @@ function fail(label, message) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchProduction(path) {
+async function fetchProduction(path, baseOrigin = origin) {
   let lastError;
 
   for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
-    const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+    const url = `${baseOrigin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
 
     try {
       const response = await fetch(url, {
@@ -204,14 +206,257 @@ async function verifyPropertyTax(page) {
   }
 }
 
+// A prior statewide importer mapped empty historical M&O / I&S fields to zero.
+// Keep the affected Escobares city history source-qualified on both production
+// entry points, including the independently documented 2024 local supplement.
+async function verifyEscobaresTaxingUnit() {
+  const path = '/property-tax/taxing-unit/escobares';
+  for (const [label, baseOrigin] of [
+    ['canonical', origin],
+    ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+  ]) {
+    const check = `taxing-unit:escobares:${label}`;
+    try {
+      const { response, body } = await fetchProduction(path, baseOrigin);
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
+      const validHeading = headingText.includes('escobares') && headingText.includes('property tax rate');
+      const required = [
+        'Annual tax rates, with source distinctions',
+        '0.340447',
+        '0.263594',
+        '0.076853',
+        '0.314658',
+        '2024-tax-rates-2.pdf',
+        'Starr Central Appraisal District',
+        'Locally verified',
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      const yearRow = checkYearSpecificTaxRateRow(body,{
+        year: 2024, rate: '0.340447', agency: 'Starr Central Appraisal District',
+      });
+      if(!yearRow.ok) missing.push('year-specific history row: '+yearRow.reason);
+      if (!response.ok) fail(check, `HTTP ${response.status}`);
+      else if (hasNoindex(body)) fail(check, 'unexpected robots noindex');
+      else if (!validHeading) fail(check, 'expected Escobares property tax rate H1 is missing');
+      else if (missing.length) fail(check, `missing verified content: ${missing.join(', ')}`);
+      else if (body.includes('>0.000000<')) fail(check, 'legacy missing historical components still rendered as zero');
+      else {
+        console.log(`[${check}] verified local 2024 total, M&O, I&S and source evidence (HTTP ${response.status})`);
+        appendSummary(`| ✅ pass | ${check} | 2024 0.340447 = 0.263594 + 0.076853; local source cited; no legacy zero components |\n`);
+      }
+    } catch (error) {
+      fail(check, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+// Production contract: all evidence-backed local tax-rate supplements and
+// the cross-workbook Woodlands classification must remain correct on both
+// canonical and direct-Worker responses.
+const verifiedLocalTaxingUnits = [
+  { slug: 'city-of-union-valley', year: 2021, rate: '0.000000', agency: 'Hunt County Appraisal District', zeroCity: true },
+  { slug: 'city-of-union-valley', year: 2022, rate: '0.000000', agency: 'Hunt County Appraisal District', statewideRate: '0.287248', conflict: true, zeroCity: true },
+  { slug: 'city-of-little-river-academy', year: 2024, rate: '0.410001', agency: 'Bell County Appraisal District' },
+  { slug: 'poetry', year: 2023, rate: '0.000000', agency: 'Kaufman County Appraisal District', zeroCity: true },
+  { slug: 'cooper', year: 2024, rate: '0.649272', agency: 'Delta County Appraisal District' },
+  { slug: 'escobares', year: 2024, rate: '0.340447', agency: 'Starr Central Appraisal District' },
+  { slug: 'miami', year: 2024, rate: '0.870299', agency: 'Roberts County Tax Assessor-Collector' },
+  { slug: 'rio-grande-city', year: 2024, rate: '0.521090', agency: 'Starr Central Appraisal District' },
+  { slug: 'roma', year: 2024, rate: '0.567900', agency: 'Starr Central Appraisal District' },
+  { slug: 'southside-place', year: 2024, rate: '0.340896', agency: 'City of Southside Place' },
+  { slug: 'stafford', year: 2024, rate: '0.000000', agency: 'City of Stafford', zeroCity: true },
+  { slug: 'culberson-county', year: 2025, rate: '0.1330247', agency: 'Culberson County Appraisal District', latest: true },
+  { slug: 'post-oak-bend', year: 2021, rate: '0.000000', agency: 'Kaufman County Appraisal District', zeroCity: true },
+  { slug: 'post-oak-bend', year: 2024, rate: '0.000000', agency: 'City of Post Oak Bend', zeroCity: true },
+  { slug: 'post-oak-bend', year: 2025, rate: '0.000000', agency: 'City of Post Oak Bend', zeroCity: true, latest: true },
+  { slug: 'van-horn', year: 2025, rate: '0.492123', agency: 'Culberson County Appraisal District', latest: true },
+];
+const taxHistoryOrigins = [
+  ['canonical', origin],
+  ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+];
+
+const austinEsd3Ledger = JSON.parse(readFileSync(new URL('../../src/data/property/austin-county-esd3-adopted.json', import.meta.url), 'utf8'));
+
+// Guard the exact published authority page, not just unrelated tax-page samples.
+// Read the versioned local evidence ledger so next year's approved automatic
+// rate refresh remains compatible without hard-coding the 2026 figures.
+async function verifyAustinEsd3Authority() {
+  if (austinEsd3Ledger.unitSlug !== 'austin-county-esd-3') {
+    fail('austin-esd3:ledger', 'wrong independently verified tax-district identity');
+    return;
+  }
+  const current = austinEsd3Ledger.rates.at(-1);
+  if (!current || !Number.isInteger(current.year) || !Number.isFinite(current.totalRate) || !current.resolutionUrl) {
+    fail('austin-esd3:ledger', 'missing newest validated local rate / resolution');
+    return;
+  }
+  const path = '/property-tax/taxing-unit/austin-county-esd-3';
+  const expectedRate = current.totalRate.toFixed(6);
+  const expectedTax100k = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+    .format(1000 * current.totalRate);
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:austin-county-esd-3:' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const content = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<[^>]*>/g, ' ').replace(/&nbsp;|&#160;/gi, ' ')
+        .replace(/\s+/g, ' ').trim();
+      const requiredContent = [
+        'Austin County ESD #3 property tax rate',
+        'Official local government record',
+        'adopted tax rate',
+        'How to verify the correct bill',
+        'Official documents and verification',
+        'Annual tax rates, with source distinctions',
+        'independently documented local adopted rate',
+        expectedRate,
+        expectedTax100k,
+      ];
+      const requiredHtml = [
+        origin + path,
+        current.resolutionUrl,
+        austinEsd3Ledger.sourceRateTable,
+        austinEsd3Ledger.sourceResolutionIndex,
+        'esearch.austincad.org',
+        'Dataset',
+      ];
+      const missing = [
+        ...requiredContent.filter((value) => !content.includes(value)),
+        ...requiredHtml.filter((value) => !body.includes(value)),
+      ];
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (hasNoindex(body)) fail(label, 'unexpected robots noindex on source-backed authority page');
+      else if (missing.length) fail(label, 'missing sourced adopted-rate authority content: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified live ' + current.year + ' independently adopted rate ' + expectedRate + ', source URLs, parcel guidance, calculations, and indexable canonical');
+        appendSummary('| ✅ pass | ' + label + ' | live ' + current.year + ' adopted ' + expectedRate + '/$100, government sources, parcel and history context, indexable canonical |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+
+async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroCity, conflict, statewideRate }) {
+  const path = '/property-tax/taxing-unit/' + slug;
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:' + slug + ':' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const required = [
+        'Annual tax rates, with source distinctions',
+        'Locally verified', agency, rate, String(year), 'display-only',
+        'How the locally sourced rates were verified',
+        'Evidence last checked by Texas Defined',
+        origin + path,
+      ];
+      if (latest) required.push('Latest independently verified local rate (display only)');
+      if (conflict) required.push('Unresolved official-source discrepancy.', '0.287248', '2022');
+      if (zeroCity) required.push('A zero <strong>city</strong> rate does not mean');
+      if (slug === 'culberson-county') required.push('separately levied local districts or road/F&amp;M taxes');
+      const missing = required.filter((needle) => !body.includes(needle));
+      const yearRow = checkYearSpecificTaxRateRow(body,{year,rate,agency,conflict,statewideRate});
+      if(!yearRow.ok) missing.push('year-specific history row: '+yearRow.reason);
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (missing.length) fail(label, 'missing source-qualified rate details: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified ' + year + ' source-qualified rate ' + rate);
+        appendSummary('| ✅ pass | ' + label + ' | ' + year + ': ' + rate + '/$100, agency cited, display-only |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+// Exact GSC 5xx examples exported 2026-10-29: both have five source-reported
+// Comptroller tax years in the shared production DB. Keep these two pages in
+// the existing daily tax-only smoke instead of starting a whole-site crawler.
+const gscFiveHundredTaxingUnits = [
+  { slug: 'edna', name: 'Edna' },
+  { slug: 'jackson-county-esd-1', name: 'Jackson County ESD #1' },
+];
+
+async function verifyGscFiveHundredTaxingUnit({ slug, name }) {
+  const path = '/property-tax/taxing-unit/' + slug;
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'gsc-5xx-tax-unit:' + slug + ':' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      const validHeading = headingText.includes(name.toLowerCase()) && headingText.includes('property tax rate');
+      const required = [
+        origin + path,
+        'Annual tax rates, with source distinctions',
+        '5 of 5',
+        '2025',
+        'Dataset',
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
+      else if (!validHeading) fail(label, 'expected source-backed taxing-unit H1 is missing');
+      else if (missing.length) fail(label, 'missing expected tax history/canonical metadata: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified 200/indexable, 2021–2025 history and canonical');
+        appendSummary('| ✅ pass | ' + label + ' | HTTP 200, 5 reported tax years, title, canonical, indexable Dataset |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+async function verifyWoodlandsClassification() {
+  const path = '/property-tax/taxing-unit/the-woodlands-township';
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:the-woodlands-township:' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      // React SSR can split visible heading text across nodes. Compare
+      // normalized H1 text, not an exact raw-HTML string.
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      const validHeading = headingText.includes('the woodlands township') && headingText.includes('property tax rate');
+      const required = [
+        'Annual tax rates, with source distinctions',
+        '5 of 5', 'Harris County', 'Montgomery County', origin + path,
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (!validHeading) fail(label, 'expected Woodlands property tax rate H1 is missing');
+      else if (missing.length) fail(label, 'mixed or missing histories: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] confirmed one classification across five annual rates');
+        appendSummary('| ✅ pass | ' + label + ' | five tax years, single classification, two counties |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
 appendSummary('\n## Local financial production verification\n\n');
 appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
 
-await runWithConcurrency(affordabilityPages, verifyAffordability);
-await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
-await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
-await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
+if (!TAX_ONLY) {
+  await runWithConcurrency(affordabilityPages, verifyAffordability);
+  await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
+  await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
+  await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
+}
+await verifyEscobaresTaxingUnit();
+await verifyAustinEsd3Authority();
+await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
+await verifyWoodlandsClassification();
+await runWithConcurrency(gscFiveHundredTaxingUnits, verifyGscFiveHundredTaxingUnit);
 
+if (!TAX_ONLY) {
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');
   if (!response.ok) fail('sitemap', `HTTP ${response.status}`);
@@ -233,5 +478,11 @@ try {
   fail('sitemap', error instanceof Error ? error.message : String(error));
 }
 
+}
+
 if (process.exitCode) process.exit(process.exitCode);
+if (TAX_ONLY) {
+  console.log(`Independent live Texas tax-rate verification passed on canonical and direct Worker endpoints (${verifiedLocalTaxingUnits.length} official local observations, Woodlands classification and ${gscFiveHundredTaxingUnits.length} exported GSC 5xx examples).`);
+} else {
 console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${salaryNeededPages.length} salary-needed pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
+}

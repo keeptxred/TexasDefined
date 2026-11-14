@@ -410,6 +410,7 @@ const citiesArticle: Article = {
   sourceUrl: "https://www.census.gov/quickfacts/",
   internalLinks: [
     { href: "/article/texas-regions-explained", label: "Texas regions explained", description: "Start with the physical geography behind the cultural and climate differences." },
+    { href: "/article/texas-rio-grande-river-guide", label: "Rio Grande River guide", description: "Trace the river past El Paso and other Texas border communities to the Gulf of Mexico." },
     { href: "/browse/cities", label: "Browse Texas cities", description: "Research individual cities after narrowing the region." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Add county taxes, services, history and geography to the comparison." },
     { href: "/article/texas-jobs-economy-industries", label: "Texas jobs and industries", description: "Match your career field to the parts of Texas where it is concentrated." },
@@ -423,6 +424,8 @@ const citiesArticle: Article = {
     p("Choosing a place to live in Texas is less like choosing a neighborhood inside one state and more like choosing among several different regional systems. Houston and El Paso do not share a climate. Dallas and Fort Worth share a metro economy but deliberately maintain different identities. Austin can be geographically close to San Antonio while feeling very different in housing, politics, technology employment and daily rhythm."),
     p("The state also contains places that do not revolve around the big metros at all: the Rio Grande Valley, Panhandle, Piney Woods, Hill Country, Coastal Bend and Big Bend country. The correct question is not 'What is the best city in Texas?' It is 'Which tradeoffs fit the way my household actually lives?'"),
 
+    h("Which major Texas city is on the Rio Grande?"),
+    p("El Paso is the answer when the choices are Dallas, Houston, San Antonio and El Paso. The Rio Grande flows beside El Paso at the U.S.–Mexico border; it does not run through the other three cities. Farther downstream it also passes other major Texas border communities, including Laredo and Brownsville. This geographic difference is one reason El Paso and South Texas border cities have a distinct regional identity."),
     h("Houston: enormous, diverse and organized around multiple job centers"),
     p("Houston is the largest city in Texas and the core of a much larger metropolitan area. Energy, medicine, ports, aerospace, manufacturing and international business give the region an unusually broad employment base. Its food culture reflects decades of immigration from Latin America, Asia, Africa, the Middle East and beyond."),
     p("The physical experience is sprawl. Downtown is only one center among many: the Texas Medical Center, Uptown, Energy Corridor, Greenway, Westchase and suburban employment centers can all matter to a commute. A home that is 'in Houston' tells you very little until you know where the job is."),

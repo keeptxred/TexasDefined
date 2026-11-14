@@ -1,183 +1,155 @@
-import { useState } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
+import { KingsCamoGearOffers } from "@/components/hunting/KingsCamoGearOffers";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { Container } from "@/components/layout/Container";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
-const standoutCamping = [
+// Related river authority is contextual planning information, not a
+// recommendation that a particular park represents an entire camping type.
+const riverCampingTopics = [
+  { slug: "garner-state-park", title: "Frio River camping", dek: "Plan camping near the Frio River with verified access and paddling guidance." },
+  { slug: "guadalupe-river-state-park", title: "Guadalupe River camping", dek: "Explore camping near the Guadalupe River and separate river access rules." },
+  { slug: "brazos-bend-state-park", title: "Brazos River camping", dek: "Research camping near the Brazos River, fishing and river access." },
+];
+
+const riverCampingGuides = [...new Map(riverCampingTopics.flatMap((item) =>
+  riverAuthorityLinksForArticleMetadata({ slug: item.slug, title: item.title, dek: item.dek, tags: [] })
+).map((link) => [link.href, link])).values()];
+
+// Editorial starting points illustrate different trip decisions. They are not a
+// universal ranking, sponsored placements or substitutes for the full finder.
+// Every link resolves to an existing, source-checked campground profile.
+const campingStartingPoints = [
   {
-    slug: "garner-state-park",
-    to: "/destination/garner-state-park",
-    eyebrow: "River weekends",
-    label: "Garner State Park",
-    body: "A strong Hill Country choice when the Frio River, swimming and a mix of tent and RV sites are the center of the trip.",
-    image: { src: "/images/state-parks/garner-state-park.jpg", alt: "Garner State Park in Texas", width: 1600, height: 230, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+    destinationSlug: "garner-state-park",
+    trip: "River weekend",
+    reasoning: "Choose the Frio River setting when swimming and both tent and RV inventory matter to your group.",
+    tradeoff: "Garner's Shady Meadows full-hookup sites are RV-only; tents are not permitted in that loop.",
   },
   {
-    slug: "palo-duro-canyon-state-park",
-    to: "/destination/palo-duro-canyon-state-park",
-    eyebrow: "Canyon scenery",
-    label: "Palo Duro Canyon State Park",
-    body: "Camp inside the canyon with developed RV and tent options, primitive hike-in camping and immediate access to the park trail system.",
-    image: { src: "/images/state-parks/palo-duro-canyon-state-park.jpg", alt: "Palo Duro Canyon State Park in Texas", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+    destinationSlug: "mustang-island-state-park",
+    trip: "Gulf Coast camping",
+    reasoning: "Compare reservable electric sites behind the dunes with a distinctly different primitive-beach option.",
+    tradeoff: "Primitive beach camping is weather-dependent and not reservable; verify current access.",
   },
   {
-    slug: "mustang-island-state-park",
-    to: "/destination/mustang-island-state-park",
-    eyebrow: "Beach camping",
-    label: "Mustang Island State Park",
-    body: "Choose developed electric sites behind the dunes or weather-dependent primitive camping directly along the Gulf.",
-    image: { src: "/images/state-parks/mustang-island-state-park.jpg", alt: "Mustang Island State Park in Texas", width: 1600, height: 1067, credit: "William L. Farr · CC BY 4.0 · Wikimedia Commons" },
+    destinationSlug: "enchanted-rock-state-natural-area",
+    trip: "Hiking-focused tent trip",
+    reasoning: "A useful fit when trail access and walk-in or primitive tent camping matter more than RV conveniences.",
+    tradeoff: "Expect to carry gear to some sites; this is not a full-hookup RV option.",
   },
   {
-    slug: "caddo-lake",
-    to: "/destination/caddo-lake",
-    eyebrow: "Paddling & fishing",
-    label: "Caddo Lake State Park",
-    body: "An East Texas base for Big Cypress Bayou and Caddo Lake paddling, fishing and developed campsites, including a small verified full-hookup inventory.",
-    image: { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn", width: 1600, height: 1067 },
+    destinationSlug: "palo-duro-canyon-state-park",
+    trip: "Flexible canyon trip",
+    reasoning: "Developed tent and RV choices coexist with primitive hike-in camping, so groups can compare camping formats.",
+    tradeoff: "The primitive permits, site dimensions and heat exposure need separate planning.",
   },
   {
-    slug: "big-bend-national-park",
-    to: "/destination/big-bend-national-park",
-    eyebrow: "Remote & backcountry",
-    label: "Big Bend National Park",
-    body: "A destination for desert, mountains, Rio Grande canyon scenery and backcountry camping where permits, season and heat materially change the trip.",
-    image: { src: "/images/explore/national-parks/big-bend-national-park.jpg", alt: "Big Bend National Park in Texas", width: 1600, height: 2133, credit: "Betty Alex · U.S. National Park Service · Public domain · Wikimedia Commons" },
+    destinationSlug: "caddo-lake",
+    trip: "Fishing and lake access",
+    reasoning: "East Texas lake and fishing access with some verified full-hookup RV sites makes this a practical comparison.",
+    tradeoff: "Full hookups are not available at every site; select the specific campsite before paying.",
   },
   {
-    slug: "brazos-bend-state-park",
-    to: "/destination/brazos-bend-state-park",
-    eyebrow: "Near Houston",
-    label: "Brazos Bend State Park",
-    body: "A practical Houston-area camping escape beside the Brazos River watershed, with developed sites, primitive walk-in camping, wetlands, trails and wildlife.",
-    image: { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Brazos Bend State Park in Texas", width: 1600, height: 1280, credit: "Mike Fisher · CC BY 2.0 · Wikimedia Commons" },
+    destinationSlug: "mckinney-falls-state-park",
+    trip: "Camping near Austin",
+    reasoning: "A developed campground near Austin with trails and water-oriented activities, without a long intercity drive.",
+    tradeoff: "Water and swimming conditions vary; check current park notices rather than assuming access.",
   },
 ] as const;
-
-const riverCampingGuides = [...new Map(standoutCamping.flatMap((item) =>
-  riverAuthorityLinksForArticleMetadata({slug: item.slug, title: item.label, dek: item.body, tags: []})
-).map((link) => [link.href, link])).values()];
 
 export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")({ component: CampingGuidePage });
 
 function CampingGuidePage() {
   const { entries } = Route.useLoaderData();
-  const hero = standoutCamping[1].image;
-  const [failedImages, setFailedImages] = useState<Set<string>>(() => new Set());
-  const markImageFailed = (src: string) => setFailedImages((current) => {
-    const next = new Set(current);
-    next.add(src);
-    return next;
-  });
-
   return <main>
     <section className="border-b border-border bg-muted/30">
-      <Container className="grid gap-10 py-12 md:py-16 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-20">
-        <div>
-          <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground"><Link to="/">Home</Link> · <Link to="/explore">Explore</Link> · Camping</nav>
-          <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
-          <h1 className="mt-3 max-w-4xl font-display text-5xl leading-none md:text-7xl">Best Places to Go Camping in Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture and the official reservation links for live booking details.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#campground-finder" className="inline-flex border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find a campground</a>
-            <Link to="/explore/rv-parks" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Browse the RV park directory</Link>
-          </div>
-          <p className="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">Availability, prices, closures, burn restrictions and beach conditions can change quickly. Confirm the final details with the managing agency immediately before booking or travel.</p>
+      <Container className="py-10 md:py-16">
+        <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground"><Link to="/">Home</Link> · <Link to="/explore">Explore</Link> · Camping</nav>
+        <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
+        <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight md:text-5xl">Best Places to Go Camping in Texas</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Find the right Texas campsite for your trip, whether you want an RV hookup, a river weekend, a Gulf beach or a primitive backcountry escape. Filter source-checked public campgrounds and follow the official links to confirm site-level details.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-muted-foreground">By <Link to="/about" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Defined editorial desk</Link> · Editorial comparison updated November 4, 2026. Each campground retains its separate official-source verification date. This is documented desk research, not a claim that every campground was personally visited.</p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a href="#campground-finder" className="inline-flex items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Search {entries.length} campgrounds ↓</a>
+          <a href="#camping-trip-types" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold">Browse camping types</a>
         </div>
-        <figure className="overflow-hidden border border-border bg-background">
-          {!failedImages.has(hero.src) ? <img
-            src={hero.src}
-            alt={hero.alt}
-            width={hero.width}
-            height={hero.height}
-            className="aspect-[4/3] w-full object-cover"
-            fetchPriority="high"
-            onError={() => markImageFailed(hero.src)}
-          /> : <div className="aspect-[4/3] bg-muted" aria-hidden />}
-          <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">
-            {!failedImages.has(hero.src) ? <>Palo Duro Canyon State Park · Panhandle camping · {hero.credit}</> : <>Palo Duro Canyon State Park · Panhandle camping</>}
-          </figcaption>
-        </figure>
+        <div className="mt-8 grid max-w-4xl gap-3 border-t border-border pt-5 text-sm lg:grid-cols-3">
+          <p><strong className="block text-xl font-semibold text-foreground">{entries.length}</strong><span className="text-muted-foreground">researched campground profiles</span></p>
+          <p><strong className="block text-xl font-semibold text-foreground">7</strong><span className="text-muted-foreground">Texas camping regions</span></p>
+          <p><strong className="block text-xl font-semibold text-foreground">Official sources</strong><span className="text-muted-foreground">for campsite rules and booking</span></p>
+        </div>
+        <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">Park conditions, campsite availability, prices and fire restrictions may change. Check the managing agency and the exact campsite before booking or traveling.</p>
+      </Container>
+    </section>
+
+    <section id="camping-start-here" className="scroll-mt-24 py-12 md:py-16" aria-labelledby="camping-starting-points-title">
+      <Container>
+        <p className="eyebrow text-primary">Where to camp first</p>
+        <h2 id="camping-starting-points-title" className="mt-2 font-display text-4xl md:text-5xl">Six Texas camping starting points, by trip</h2>
+        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">There is no single best campground for every camper. These source-backed examples show meaningful choices and drawbacks. They are not a numeric ranking; the complete campground finder below includes other qualifying places for each camping style.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {campingStartingPoints.map((point) => {
+            const match = entries.find(({ profile }) => profile.destinationSlug === point.destinationSlug && !profile.profileSlug);
+            if (!match) return null;
+            const profile = match.profile;
+            return <article key={point.destinationSlug} className="border border-border bg-background p-6">
+              <p className="eyebrow text-primary">{point.trip}</p>
+              <h3 className="mt-2 font-display text-2xl">{profile.name}</h3>
+              <p className="mt-3 text-sm leading-7">{point.reasoning}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Plan around:</strong> {point.tradeoff}</p>
+              <a href={`#${profile.profileSlug || profile.destinationSlug}`} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">See verified profile, sources and booking rules ↓</a>
+            </article>;
+          })}
+        </div>
+        <p className="mt-5 text-sm text-muted-foreground">Selections prioritize distinct camping styles, official facility evidence and trip-specific trade-offs—not paid placement. <a href="#camping-methodology" className="font-semibold text-primary underline">Read the selection method ↓</a></p>
       </Container>
     </section>
 
     <nav aria-label="Camping guide sections" className="border-b border-border bg-background">
-      <Container className="flex gap-2 overflow-x-auto py-4 text-sm font-semibold">
-        <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip types</a>
-        <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Campground finder</a>
-        <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">When to camp</a>
-        <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">How it is verified</a>
-        <a href="#camping-questions" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Questions</a>
-        <a href="#camping-next-steps" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Keep planning</a>
+      <Container className="flex gap-2 overflow-x-auto py-3 text-sm font-semibold">
+        <a href="#camping-start-here" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Start here</a>
+        <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Camping types</a>
+        <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Find campgrounds</a>
+        <a href="#camping-alerts" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Park advisories</a>
+        <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Seasons</a>
+        <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Verification</a>
+        <a href="#camping-questions" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">FAQ</a>
+        <a href="#camping-next-steps" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip planning</a>
       </Container>
     </nav>
-
-    <section id="camping-trip-types" className="scroll-mt-24 py-12 md:py-16">
-      <Container>
-        <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Start here</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Visit a State Park</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Texas camping changes dramatically from Gulf beaches to Hill Country rivers, East Texas forests and West Texas desert. These are useful starting points, not a one-size-fits-all ranking.</p>
-        </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
-            {item.image.src === caddoLake ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /> : !failedImages.has(item.image.src) ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={() => markImageFailed(item.image.src)} /> : <div className="aspect-[16/9] bg-muted" aria-hidden />}
-            <div className="p-6">
-              <p className="eyebrow text-primary">{item.eyebrow}</p>
-              <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.body}</p>
-              <span className="mt-5 inline-block text-sm font-semibold text-primary">Open destination guide →</span>
-            </div>
-          </Link>)}
-        </div>
-        {riverCampingGuides.length > 0 ? <nav className="mt-9 border-t border-border pt-7" aria-label="Related river camping and visitor guides">
-          <h3 className="font-display text-2xl">Plan the river portion of your camping trip</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These named rivers relate to the campgrounds above. Their guides explain lawful access, separate river routes, fishing and trip logistics; a nearby campsite does not grant unrestricted riverbank entry.</p>
-          <div className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
-            {riverCampingGuides.map((link) => <Link key={link.href} to={link.href} className="border-t border-border pt-3 text-sm font-semibold text-primary hover:underline">{link.label} →</Link>)}
-          </div>
-        </nav> : null}
-      </Container>
-    </section>
 
     <section id="campground-finder" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Campground finder</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the camping trip you want</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county, managing agency or nearby city. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Find camping that fits your trip</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">Choose a camping type below to see all matching researched places, then narrow by region, nearby city, campground or verified facilities. No single park is assumed to be the right choice for everyone. If an amenity is not listed, we have not verified it; that does not mean the amenity is unavailable.</p>
         </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">Prefer a statewide overview? <a href="https://tpwd.texas.gov/state-parks/parks-map" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Explore the official Texas state parks map ↗</a>. National parks and other public campgrounds are included in the finder below.</p>
         <CampingDiscovery entries={entries} />
       </Container>
     </section>
 
-    <div data-stay-nearby-slot aria-label="Places to stay before or after a Texas camping trip" />
-
-    <section className="py-12 md:py-16">
-      <Container className="grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
-        <div>
-          <p className="eyebrow text-primary">Camping guide vs. RV directory</p>
-          <h2 className="mt-2 font-display text-4xl">Two tools, two different jobs</h2>
-          <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">This page is the decision guide: standout destinations plus a curated, source-checked public-camping finder. The separate RV Parks & Campgrounds directory is the broader statewide inventory for travelers who want to compare many more RV-specific places, including private and public options.</p>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-            <Link to="/explore/rv-parks" className="text-primary underline-offset-4 hover:underline">Open the RV park directory →</Link>
-            <Link to="/explore/state-parks" className="text-primary underline-offset-4 hover:underline">Browse Texas state parks →</Link>
-            <Link to="/explore/trip-planner" search={{}} className="text-primary underline-offset-4 hover:underline">Build a Texas trip →</Link>
-          </div>
+    <section id="camping-alerts" className="scroll-mt-24 border-y border-border bg-muted/30 py-10">
+      <Container>
+        <p className="eyebrow text-primary">Before you travel</p>
+        <h2 className="mt-2 font-display text-3xl md:text-4xl">Recent official park advisories</h2>
+        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">Confirmed notices are matched against official park alerts. If a source changes, its notice switches to a needs-review warning rather than retaining an unsupported claim. Published verification dates change only when notice status or content changes; scheduled checks run independently. Neither is a live availability guarantee. Open the primary source before traveling.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {CAMPING_OPERATIONAL_ALERTS.map((alert) => <article key={alert.destinationSlug} className="border border-border bg-background p-5">
+            <h3 className="font-display text-xl">{alert.parkName}</h3>
+            <p className="mt-2 text-sm leading-6">{alert.notice}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{alert.status === "confirmed" ? "Advisory verified" : "Advisory last checked"} {alert.checkedAt} · {alert.status === "confirmed" ? "Notice verified" : "Changed; recheck official source"}</p>
+            <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Official park alerts ↗</a>
+          </article>)}
         </div>
-        <aside className="border border-border bg-background p-6">
-          <p className="eyebrow text-primary">Before you reserve</p>
-          <div className="mt-4 space-y-4 text-sm leading-6 text-muted-foreground">
-            <p><strong className="text-foreground">Check the exact site.</strong> Electrical service, shade, pad length and waterfront access can vary inside the same campground.</p>
-            <p><strong className="text-foreground">Check the calendar.</strong> Popular Texas parks can fill well ahead of weekends and holidays, and primitive areas can close because of weather or fire conditions.</p>
-            <p><strong className="text-foreground">Check the rig limits.</strong> Some national-park and older state-park loops have meaningful RV-length or road restrictions.</p>
-          </div>
-        </aside>
       </Container>
     </section>
+
+    <div data-stay-nearby-slot aria-label="Places to stay before or after a Texas camping trip" />
 
     <section id="camping-seasons" className="scroll-mt-24 py-12 md:py-16">
       <Container>
@@ -203,6 +175,7 @@ function CampingGuidePage() {
       <Container>
         <p className="eyebrow text-primary">How the guide is built</p>
         <h2 className="mt-2 font-display text-4xl">Useful first, verified underneath</h2>
+        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">Our editorial starting points are chosen from the published campground records for their different combinations of setting, camping format, verified facilities and planning constraints. We explain who a campground may suit and where it can be a poor fit. These are comparative editorial judgments, not visitor ratings or claims of on-site testing. Source dates belong to individual profiles and do not automatically reset when the page is edited. For sourcing and corrections, read our <Link to="/editorial-policy" className="font-semibold text-primary underline">editorial policy</Link>.</p>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Official-source amenities</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Hookups, showers, site-length notes, accessibility and generator rules are shown only when an official park or reservation source supports them.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Public camping first</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The finder prioritizes TPWD, National Park Service, U.S. Army Corps of Engineers, U.S. Forest Service and other public land managers.</p></div>
@@ -219,12 +192,24 @@ function CampingGuidePage() {
         </div>
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Does “full hookup” apply to every site in a campground?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. Hookups can vary by loop and individual site. The finder only uses the full-hookup filter when an official source verifies that inventory, and you should still confirm the exact site before paying.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I pitch a tent in Garner State Park's full-hookup loop?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. TPWD lists 12 Shady Meadows full-hookup sites (#144–155) and explicitly prohibits tents at those sites. Other Garner camping categories must be checked separately. The campground-level “Tent” and “Full hookup” labels do not mean both apply to the same site. <a href="https://tpwd.texas.gov/state-parks/garner/fees-facilities/campsites" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Verify on TPWD's campsite list ↗</a>.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I bring pets to most Texas state park campgrounds?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD says pets are welcome at almost all Texas state parks, subject to restrictions. Keep pets on a leash no longer than six feet, never leave them unattended, and keep them out of park buildings and designated swimming areas. Some parks and primitive or trail areas have additional restrictions, including Enchanted Rock. A missing “Pet friendly” tag in this finder does not mean pets are banned: only explicitly verified profiles receive that tag. <a href="https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Read TPWD's official pet rules and exceptions ↗</a> and confirm the exact campsite before booking.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Why are campground prices not listed here?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Rates, fees, minimum stays and availability can change faster than the editorial guide. Use the official reservation link on each profile for the current price and booking terms.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I search for camping near a city?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Yes. The campground finder indexes researched destination and metro search terms in addition to park, campground, county and managing-agency names.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Is this the same as the RV park directory?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. This is a curated public-camping decision guide. The RV Parks & Campgrounds directory is the broader inventory for comparing many more RV-oriented places, including private and public options.</p></div>
         </div>
       </Container>
     </section>
+
+    {riverCampingGuides.length > 0 ? <nav aria-label="Related rivers for camping trips" className="border-y border-border py-4">
+      <Container>
+        <h2 className="font-display text-2xl">Camping near a Texas river?</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">River access rules and paddling routes are separate from campground reservations.</p>
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          {riverCampingGuides.map((link) => <Link key={link.href} to={link.href} className="text-primary underline-offset-4 hover:underline">{link.label} →</Link>)}
+        </div>
+      </Container>
+    </nav> : null}
 
     <section id="camping-next-steps" className="scroll-mt-24 py-12 md:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
@@ -243,5 +228,6 @@ function CampingGuidePage() {
         </div>
       </Container>
     </section>
+    <KingsCamoGearOffers context="camping" pathname="/best-places-to-go-camping-in-texas" />
   </main>;
 }

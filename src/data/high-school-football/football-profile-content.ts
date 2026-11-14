@@ -1,3 +1,9 @@
+import {
+  uilEnrollmentFallsWithinBand,
+  uilFootballEnrollmentBand,
+  uilFootballEnrollmentBandForEnrollment,
+} from './enrollment-bands.ts';
+
 export type FootballProfileContentInput = {
   displayName: string;
   program?: {
@@ -65,12 +71,24 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     // Notices include venue construction, access, and schedule advisories.
     // Never convert their mere presence into a fabricated season cancellation.
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
+    const format = program.footballType === '11-Man' ? ' an eleven-man program' : program.footballType === '6-Man' ? ' a six-man program' : program.footballType ? ` a ${program.footballType.toLowerCase()} program` : ' a UIL football program';
+    const districtInfo = program.districtName ? ` The school is matched to ${program.districtName}.` : '';
+    const schoolIdentity = identity?.mascot ? ` Its independently verified mascot is the ${identity.mascot}${identity.colors ? `, and the recorded school colors are ${identity.colors}` : ''}.` : '';
+
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
+    const finalBand = uilFootballEnrollmentBand(program.classification, program.division);
+    const enrollmentFitsFinalBand = uilEnrollmentFallsWithinBand(program.uilEnrollment, finalBand);
+    const finalPlacement = program.division
+      ? `${program.classification} Division ${program.division === 1 ? 'I' : 'II'}`
+      : program.classification;
+    const placementException = program.uilEnrollment && enrollmentFitsFinalBand === false
+      ? ` That enrollment falls outside the normal published cutoff for ${finalPlacement}; the final UIL football alignment controls competition placement.`
+      : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
     const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
+    return `${team} football is${format} in ${alignment}${place ? ` from ${place}` : ''}.${districtInfo}${schoolIdentity}${enrollment}${placementException}${coach}${notice}${enrollmentFitsFinalBand === false ? '' : ' The final UIL alignment controls competition placement.'} Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
@@ -114,29 +132,36 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   if (editorial?.coach) {
     items.push({
       question: `Who is the ${displayName} football head coach?`,
-      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
+      answer: `TexasDefined's current sourced coach record identifies ${editorial.coach.name} as the head football coach. The source trail on this page shows the underlying school, news or roster source used for that attribution.`,
     });
   }
 
   if (program) {
+    const alignment = footballProfileAlignmentLabel(input);
     items.push({
-      question: `What classification is ${displayName} football in for 2026–28?`,
-      answer: `${displayName} is in ${footballProfileAlignmentLabel(input)} for the current UIL 2026–28 football alignment.`,
+      question: `What is ${displayName}'s 2026–28 UIL football alignment?`,
+      answer: `${displayName} is in ${alignment} for the current UIL football alignment. Classification, division and district are combined here instead of repeated as separate FAQ answers.`,
     });
-    items.push({
-      question: `What football district is ${displayName} in?`,
-      answer: `${displayName} is assigned to UIL District ${program.district} in ${program.division ? `${program.classification} Division ${program.division === 1 ? 'I' : 'II'}` : program.classification} for the 2026–28 alignment cycle.`,
-    });
+
     if (program.uilEnrollment) {
-      items.push({
-        question: `What enrollment does UIL list for ${displayName}?`,
-        answer: `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students for this program. That figure is used for classification and is not a live daily campus enrollment count.`,
-      });
+      const finalBand = uilFootballEnrollmentBand(program.classification, program.division);
+      const enrollmentFitsFinalBand = uilEnrollmentFallsWithinBand(program.uilEnrollment, finalBand);
+      if (enrollmentFitsFinalBand === false) {
+        const enrollmentBasedBand = uilFootballEnrollmentBandForEnrollment(program.uilEnrollment);
+        const enrollmentBasedPlacement = enrollmentBasedBand
+          ? `${enrollmentBasedBand.classification}${enrollmentBasedBand.division ? ` Division ${enrollmentBasedBand.division === 1 ? 'I' : 'II'}` : ''} (${enrollmentBasedBand.label})`
+          : null;
+        items.push({
+          question: `Why does ${displayName}'s UIL enrollment not match its final football placement?`,
+          answer: `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students. The published cutoff table places that enrollment in ${enrollmentBasedPlacement ?? 'a different enrollment band'}, while the final football alignment places the program in ${alignment}. The final alignment controls competition placement; the enrollment snapshot is not a live daily campus count.`,
+        });
+      }
     }
-    if (program.districtName) {
+
+    if (program.footballType === '6-Man') {
       items.push({
-        question: `What school district is ${displayName} in?`,
-        answer: `TexasDefined's TEA AskTED match places ${displayName} in ${program.districtName}. Families should still verify attendance-zone assignment for a specific address with the district.`,
+        question: `Does ${displayName} play six-man football?`,
+        answer: `${displayName} is listed as a six-man program in the current 2026–28 UIL football alignment. Six-man is the competition format, not a ranking of team quality.`,
       });
     }
   } else if (privateAlignment) {
@@ -165,7 +190,7 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     items.push({
       question: `Where can I verify the current ${displayName} football schedule and scores?`,
       answer: editorial?.schedule
-        ? `Use the school-published ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
+        ? `Use the cited ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
         : 'Use the UIL Texas Scoreboard and the school or district athletics source linked on this page. Game dates, kickoff times and venues can change during the season.',
     });
   }

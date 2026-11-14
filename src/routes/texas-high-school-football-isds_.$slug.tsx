@@ -11,9 +11,15 @@ export const Route = createFileRoute('/texas-high-school-football-isds/$slug')({
     return profile;
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: 'Football ISD profile not found' }, { name: 'robots', content: 'noindex' }] };
+    // During streamed SSR the head can be evaluated before async loader data
+    // resolves. A transient absence is NOT evidence that the URL is missing.
+    // The loader's explicit notFound() handles genuinely unknown ISD slugs.
+    // Do not emit a sticky noindex tag on a successfully fetched ISD profile.
+    if (!loaderData) return { meta: [{ title: 'Texas high school football by ISD' }] };
     const canonicalPath = loaderData.profilePath;
-    const description = `${loaderData.districtName} football research: ${loaderData.programCount} current UIL ${loaderData.programCount === 1 ? 'program' : 'programs'}, school profiles, classifications, exact UIL enrollment and relocation links.`;
+    const description = loaderData.verifiedEvidence
+      ? `${loaderData.districtName}: verified ${loaderData.highestClassification} Division II ${loaderData.programs[0]?.footballType} 2026 UIL football, TEA campus ${loaderData.verifiedEvidence.campusId} in ${loaderData.verifiedEvidence.countyName} County, enrollment and school profile.`
+      : `${loaderData.districtName} football research: ${loaderData.programCount} current UIL ${loaderData.programCount === 1 ? 'program' : 'programs'}, school profiles, classifications, exact UIL enrollment and relocation links.`;
     return {
       meta: [
         { title: `${loaderData.districtName} Football Programs: High Schools, UIL Classes & Enrollment` },

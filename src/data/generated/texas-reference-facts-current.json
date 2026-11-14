@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-10-27",
+  "homestead": {
+    "generalSchoolUsd": 140000,
+    "sourceUrl": "https://comptroller.texas.gov/taxes/property-tax/exemptions/"
+  },
+  "txdot": {
+    "shortTermCountsLowerBound": 75000,
+    "continuousStationsLowerBound": 350,
+    "sourceUrl": "https://www.txdot.gov/data-maps/traffic-count-maps.html"
+  }
+}

@@ -80,3 +80,40 @@ test("State Fair standalone route remains correct after October 18", () => {
   assert.equal(ended.title, "State Fair of Texas: Visitor Guide & Next Dates");
   assert.doesNotMatch(ended.description, /2026|Sept\. 25-Oct\. 18/);
 });
+
+test("ended Texas Rose Festival edition must not keep a 2026 search snippet", () => {
+  const roseFestival2026 = {
+    canonicalPath: "/event/texas-rose-festival",
+    title: "Texas Rose Festival 2026: Tyler Dates, Parade & Schedule",
+    description: "Plan the 2026 Texas Rose Festival in Tyler with dates and tickets.",
+    eventName: "Texas Rose Festival",
+    eventOccurrenceEndDate: "2026-10-18",
+  };
+  const expired = resolveEventSnippet(roseFestival2026, "2026-10-29");
+  assert.equal(expired.title, "Texas Rose Festival: Visitor Guide & Next Dates");
+  assert.doesNotMatch(expired.description, /2026|tickets/i);
+  const evergreen = { ...roseFestival2026,
+    title: "Texas Rose Festival Tyler: Parade, Coronation & Guide",
+    description: "Plan the Texas Rose Festival and confirm the next official schedule." };
+  assert.deepEqual(resolveEventSnippet(evergreen, "2026-10-29"), {
+    title: evergreen.title, description: evergreen.description,
+  });
+});
+
+test("Bands of America San Antonio Nov 6–7 snippet expires after the confirmed event", () => {
+  const superRegional = {
+    canonicalPath: "/event/bands-of-america-san-antonio-super-regional",
+    title: "Bands of America San Antonio Super Regional 2026: Nov. 6–7",
+    description: "Bands of America San Antonio runs Nov. 6–7, 2026 at the Alamodome. Check prelims and finals schedules, ticket options, parking and official event links.",
+    eventName: "Bands of America San Antonio Super Regional Championship",
+    eventOccurrenceEndDate: "2026-11-07",
+  };
+  assert.deepEqual(resolveEventSnippet(superRegional, "2026-11-07"), {
+    title: superRegional.title,
+    description: superRegional.description,
+  });
+  const expired = resolveEventSnippet(superRegional, "2026-11-08");
+  assert.equal(expired.title, "Bands of America San Antonio Super Regional Championship: Visitor Guide & Next Dates");
+  assert.doesNotMatch(expired.description, /2026|Nov\\. 6/);
+  assert.match(expired.description, /confirm the next schedule/);
+});

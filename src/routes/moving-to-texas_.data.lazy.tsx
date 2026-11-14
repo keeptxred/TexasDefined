@@ -90,7 +90,7 @@ function RelocationDataCenterPage() {
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-primary">Metro relocation guide</p>
               <h3 className="mt-2 font-display text-2xl">{metro.name}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Counties: {metro.counties.join(', ')}</p>
-              {metro.jobCountJune2026 ? <p className="mt-2 text-sm leading-6 text-muted-foreground">June 2026 nonfarm payrolls: {metro.jobCountJune2026.toLocaleString()} · BLS preliminary</p> : null}
+              {metro.jobCountAugust2026 ? <p className="mt-2 text-sm leading-6 text-muted-foreground">August 2026 nonfarm payrolls: {metro.jobCountAugust2026.toLocaleString()} · BLS preliminary</p> : metro.jobCountJune2026 ? <p className="mt-2 text-sm leading-6 text-muted-foreground">June 2026 nonfarm payrolls (historical): {metro.jobCountJune2026.toLocaleString()} · BLS snapshot</p> : null}
               <a href={metro.guideHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open metro guide →</a>
             </article>)}
           </div>

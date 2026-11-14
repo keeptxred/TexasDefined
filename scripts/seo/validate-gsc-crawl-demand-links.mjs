@@ -4,7 +4,10 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const propertyHub = read('src/routes/property.tsx');
 const fredericksburgGuide = read('src/data/fixtures/fredericksburg-history-weekend-guide.ts');
 const campingGuide = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
+const campingProfiles = read('src/data/camping/discovery.ts');
+const campingFinder = read('src/components/camping/CampingDiscovery.tsx');
 const serverEntry = read('src/server-entry.ts');
+const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const localHousingHubServer = read('src/data/homeownership-cost-hub-page.server.ts');
 const localHousingHub = read('src/routes/texas-homeownership-cost-calculator.lazy.tsx');
 const failures = [];
@@ -88,8 +91,29 @@ if (!fredericksburgGuide.includes('relatedDestinations: ["fredericksburg"')) {
   failures.push('Fredericksburg history guide must preserve the destination relationship signal.');
 }
 
-if (!campingGuide.includes('to: "/destination/garner-state-park"')) {
-  failures.push('Statewide camping guide must retain a direct Garner State Park destination link.');
+for (const marker of [
+  'const fredericksburgAuthority = preservedExploreDestinations.find(',
+  'destination.slug === "fredericksburg"',
+  'rawDestinations[position] = fredericksburgAuthority',
+]) {
+  if (!exploreSitemap.includes(marker)) {
+    failures.push(`Explore sitemap lost Fredericksburg authority precedence marker: ${marker}`);
+  }
+}
+
+if ((exploreSitemap.match(/await auditedFredericksburgSitemapEntry\(\)/g) ?? []).length !== 2 ||
+    !exploreSitemap.includes('auditDestination(canonical).readyForIndexing') ||
+    !exploreSitemap.includes('isPrimaryTripPlannerDestination(canonical)')) {
+  failures.push('Explore sitemap must retain audited Fredericksburg both in normal generation and emergency fallback.');
+}
+
+// Garner remains discoverable from its verified campground profile. An
+// arbitrary one-park-per-camping-type editorial card is not required for SEO.
+if (!campingProfiles.includes('destinationSlug: "garner-state-park"')
+    || !campingGuide.includes('<CampingDiscovery entries={entries} />')
+    || !campingFinder.includes('to="/destination/$slug"')
+    || !campingFinder.includes('params={{ slug: profile.destinationSlug }}')) {
+  failures.push('Statewide camping guide lost the researched Garner profile or its canonical destination link.');
 }
 
 const legacyPitmastersSlug = 'live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp';

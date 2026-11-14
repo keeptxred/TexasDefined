@@ -14,8 +14,7 @@ export const Route = createFileRoute("/fishing/reports/$slug")({
     const { report, canonicalPath, lake, updates, freshness, contributorGuide } = loaderData;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const description = `${report.summary} Published ${report.publishedAt.slice(0, 10)}; ${freshness === "expired" ? "historical and no longer current" : freshness === "stale" ? "stale dated snapshot" : "within the current verified reporting window"}.`;
-    const meta = buildMeta(texasDefinedBrand, { title: `${report.title} — Texas Fishing Report`, description, canonicalPath });
-    if (freshness === "expired") meta.push({ name: "robots", content: "noindex, follow" });
+    const meta = buildMeta(texasDefinedBrand, { title: `${report.title} — Texas Fishing Report`, description, canonicalPath, robots: freshness === "current" ? undefined : "noindex, follow" });
     return { meta, links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify([
       { "@context": "https://schema.org", "@type": "WebPage", name: report.title, description, url: `${origin}${canonicalPath}`, dateModified: report.verifiedAt, datePublished: report.publishedAt },
       { "@context": "https://schema.org", "@type": "Article", headline: report.title, description: report.summary, datePublished: report.publishedAt, dateModified: report.verifiedAt ?? report.publishedAt, about: [lake.name, ...updates.map((entry) => entry.species?.commonName).filter(Boolean)], ...(contributorGuide ? { author: { "@type": "Organization", name: contributorGuide.businessName } } : {}) },

@@ -39,7 +39,7 @@ function Page() {
       <header className="border-b border-border py-10">
         <p className="eyebrow text-primary">UIL football history · current programs</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas high school football state championship history</h1>
-        <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">All-time UIL state-title and state-final totals for current 2026–28 football programs, tied directly to each school’s TexasDefined research profile.</p>
+        <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">All-time UIL state-title and state-final totals for current 2026–28 football programs, tied directly to each school’s TexasDefined team guide.</p>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="/texas-high-school-football-teams" className="text-primary">Search all 1,268 UIL programs →</a>
           <a href="/texas-high-school-football-districts" className="text-primary">Browse all 192 UIL districts →</a>

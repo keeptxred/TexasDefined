@@ -1,0 +1,182 @@
+{
+  "recordedAt": "2026-10-29",
+  "site": "sc-domain:texasdefined.com",
+  "gsc": {
+    "searchType": "web",
+    "dataState": "final",
+    "startDate": "2026-09-29",
+    "endDate": "2026-10-26",
+    "sevenDayStart": "2026-10-20",
+    "note": "Both pages gained indexed impressions during the most recent seven days; 7-day and 28-day totals are the same at this baseline."
+  },
+  "experiments": [
+    {
+      "url": "https://texasdefined.com/article/texas-cultural-regions-explained",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "The Cultural Regions of Texas: How Migration Created Different Texases",
+      "newTitle": "Texas Cultural Regions: History, Migration & Communities",
+      "oldDescriptionSource": "Texas has one border on the map and many cultural borders on the ground. Indigenous homelands, Spanish and Tejano settlement, Southern migration, slavery and freedom, European immigration, ranching, railroads, oil and modern global migration all created places that can feel distinctly Texan and distinctly different from one another.",
+      "oldDescriptionNote": "Original editorial dek; exact search meta output was not directly retrievable for this baseline.",
+      "newDescription": "Explore Texas cultural regions shaped by Indigenous, Tejano, Black, German, Czech and other communities, from settlement and migration to music and traditions.",
+      "baseline": {
+        "clicks": 2,
+        "impressions": 303,
+        "ctr": 0.006600660066006601,
+        "averagePosition": 6.075907590759076
+      },
+      "reason": "Google query rows center on 'cultural regions of texas'; shortened search title leads with that intent without altering editorial H1."
+    },
+    {
+      "url": "https://texasdefined.com/event/polar-express-palestine",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Palestine Polar Express 2026: Train Classes, Fares & Visitor Guide",
+      "newTitle": "Palestine Polar Express 2026: Dates, Tickets & Train Guide",
+      "oldDescription": "Palestine Polar Express 2026: official Texas State Railroad calendar Nov 13–Dec 28, departure times, train tickets, fares and hotels.",
+      "newDescription": "Plan Palestine Polar Express 2026 train rides with verified Nov. 13–Dec. 28 departures, seating classes, fares, access details and official ticket links.",
+      "baseline": {
+        "clicks": 3,
+        "impressions": 436,
+        "ctr": 0.006880733944954129,
+        "averagePosition": 9.149082568807339
+      },
+      "reason": "Branded event query and ticket planning; organizer-verified 2026 departures, with search copy prioritizing dates and ticket utility."
+    },
+    {
+      "url": "https://texasdefined.com/sports-venue/datcu-stadium",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "DATCU Stadium Denton: Parking, Map & North Texas Football",
+      "newTitle": "DATCU Stadium: Capacity, Parking & UNT Football",
+      "oldDescription": "Plan a DATCU Stadium visit in Denton with parking, map, arrival and event information for North Texas football and other stadium events.",
+      "newDescription": "DATCU Stadium in Denton seats 30,100 for UNT football. Find current capacity, parking, stadium map, arrival guidance and official Mean Green sources.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 451,
+        "ctr": 0,
+        "averagePosition": 9.416851441241684
+      },
+      "reason": "Branded seat-capacity searches form a prominent query cohort; official University of North Texas athletics currently confirms 30,100 seats. Capacity is answered by the page, but prior snippet omitted it.",
+      "officialSource": "https://meangreensports.com/facilities/datcu-stadium/4"
+    },
+    {
+      "url": "https://texasdefined.com/explore/casinos/naskila-leggett",
+      "classification": "TECHNICAL SNIPPET DEFECT",
+      "secondaryClassification": "CTR IMPROVEMENT",
+      "oldTitleSource": "Naskila Casino Leggett: The New East Texas Gaming Location | Texas Defined",
+      "oldTitleNote": "Prior route pre-appended publisher and buildMeta appended it again; exact deployed title may have been budget-truncated.",
+      "newTitle": "Naskila Casino Leggett TX: Address, Hours & What's Open",
+      "oldDescription": "A separate, newly opened Naskila property with electronic bingo machines and food service at the future resort site.",
+      "newDescription": "Naskila Casino Leggett is open 24/7 at 10314 US 59 N near Livingston. Find the temporary casino, 300+ electronic bingo machines and dining—not the future resort.",
+      "baseline": {
+        "clicks": 4,
+        "impressions": 570,
+        "ctr": 0.007017543859649123,
+        "averagePosition": 10.029824561403508
+      },
+      "last7Days": {
+        "clicks": 2,
+        "impressions": 438,
+        "ctr": 0.0045662100456621,
+        "averagePosition": 10.262557077625571
+      },
+      "reason": "Brand plus Leggett intent accounts for most visible queries. Replace generic 'new location' search copy with operator-confirmed location, 24-hour access and distinction from unbuilt resort. Remove duplicate publisher branding across all casino guide titles.",
+      "officialSource": "https://www.naskila.com/leggett/"
+    },
+    {
+      "url": "https://texasdefined.com/destination/galveston-bay",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Galveston Bay | Texas Travel Guide",
+      "newTitle": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
+      "oldDescriptionSource": "Texas' largest estuary, where freshwater flowing toward the Upper Gulf Coast mixes with Gulf saltwater across a broad network of open bay, marsh, oyster reef and shoreline habitat used for fishing, boating, paddling and wildlife watching.",
+      "oldDescriptionNote": "Long editorial summary; exact 160-character server title/description truncation not independently confirmed.",
+      "newDescription": "Explore Galveston Bay, Texas’s largest estuary. Find fishing, paddling, boating, wildlife and shoreline access guidance for Galveston, Kemah, Seabrook and Texas City.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 124,
+        "ctr": 0,
+        "averagePosition": 15.596774193548388
+      },
+      "reason": "Generic branded 'Texas Travel Guide' title omits what makes the bay page useful. GSC dominant query galveston bay: 99 impressions/0 clicks at average position 9.5. Preserve distinct H1 and canonical; clarify estuary and available visit utility.",
+      "officialSource": "https://gbep.texas.gov/galveston-bay-101/"
+    },
+    {
+      "url": "https://texasdefined.com/sports-venue/don-haskins-center",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Don Haskins Center El Paso: Parking, Events & UTEP Basketball",
+      "newTitle": "Don Haskins Center: Capacity, Parking & UTEP Events",
+      "oldDescription": "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venue information for UTEP basketball and arena events.",
+      "newDescription": "Don Haskins Center in El Paso seats 12,000 for UTEP basketball. Find parking, arena entry, visitor guidance and official event and ticket information.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 229,
+        "ctr": 0,
+        "averagePosition": 14.799126637554584
+      },
+      "reason": "Capacity searches visible at competitive positions; the title did not answer them. 12,000 verified by UTEP and current on-page facts.",
+      "officialSource": "https://utepminers.com/sports/2017/6/7/sports-facilities-spec-rel-haskins-html.aspx"
+    },
+    {
+      "url": "https://texasdefined.com/event/bands-of-america-san-antonio-super-regional",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Bands of America San Antonio Super Regional 2026",
+      "newTitle": "Bands of America San Antonio Super Regional 2026: Nov. 6–7",
+      "oldDescription": "Plan the 2026 Bands of America San Antonio Super Regional with event dates, venue guidance and links to official organizer information.",
+      "newDescription": "Bands of America San Antonio runs Nov. 6–7, 2026 at the Alamodome. Check prelims and finals schedules, ticket options, parking and official event links.",
+      "baseline": {
+        "clicks": 1,
+        "impressions": 330,
+        "ctr": 0.0030303030303030303,
+        "averagePosition": 9.354545454545455
+      },
+      "sourceVerifiedAt": "2026-10-29",
+      "eventDates": {
+        "start": "2026-11-06",
+        "end": "2026-11-07",
+        "status": "organizer-confirmed"
+      },
+      "reason": "Strong branded 2026 schedule search intent with 330 impressions but only one click at average position 9.35; exact official Nov 6–7 dates and prep/finals ticket utility are useful. Existing runtime event lifecycle must retire the edition after November 7.",
+      "officialSources": [
+        "https://marching.musicforall.org/san-antonio-super-regional/",
+        "https://www.alamodome.com/events/detail/bands-of-america-2026"
+      ]
+    }
+  ],
+  "protectedWithoutChanges": [
+    {
+      "url": "https://texasdefined.com/article/texas-rivers-explained",
+      "title": "Major Rivers in Texas: Boundary Rivers, Regions & Map",
+      "reason": "Protected distinct river-system overview intent; no justified replacement without more precise query evidence."
+    },
+    {
+      "url": "https://texasdefined.com/article/texas-high-school-football-playoffs-explained",
+      "title": "How Do the Texas High School Football Playoffs Work?",
+      "reason": "Current snippet directly answers generic 'how do' queries; broad impression mix may explain depressed overall CTR."
+    },
+    {
+      "url": "https://texasdefined.com/explore/painted-churches/map",
+      "reason": "Preserve separate map intent ownership from the broader hub, even when both rank."
+    }
+  ],
+  "intentOwners": [
+    {
+      "query": "painted churches of texas map",
+      "owner": "/explore/painted-churches/map",
+      "related": "/explore/painted-churches",
+      "gscPages": [
+        {
+          "url": "/explore/painted-churches",
+          "impressions": 71,
+          "clicks": 3,
+          "position": 7.732394366197183
+        },
+        {
+          "url": "/explore/painted-churches/map",
+          "impressions": 75,
+          "clicks": 0,
+          "position": 6.88
+        }
+      ],
+      "status": "existing separate intents preserved; internal link and Google selection follow-up outstanding"
+    }
+  ],
+  "followUp": "Allow sufficient finalized impressions after deployment; compare the next 28-day completed window by page, query mix and position before changing the same experiment again."
+}

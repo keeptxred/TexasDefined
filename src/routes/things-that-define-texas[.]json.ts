@@ -16,7 +16,7 @@ export const Route = createFileRoute('/things-that-define-texas.json')({
           canonicalCollection: TEXAS_ICONS_COLLECTION_URL,
           methodology: TEXAS_ICONS_METHODOLOGY_URL,
           asOf: '2026-08-19',
-          scope: 'TexasDefined editorial reference to 250 foods, places, landscapes, brands, traditions, wildlife, sayings and cultural markers associated with Texas. The collection distinguishes official facts, Texas origins, Texas adoption and editorial cultural context.',
+          scope: 'TexasDefined research archive of foods, places, landscapes, brands, traditions, wildlife, sayings and cultural markers associated with Texas. The collection distinguishes official facts, Texas origins, Texas adoption and editorial cultural context.',
           fields: {
             id: 'Stable editorial item number from 1 through 250.',
             chapter: 'One of the eight Things That Define Texas editorial chapters.',

@@ -1,0 +1,32 @@
+name: Football Batch013 first-five source contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/**'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/BATCH013-FIRST-FIVE-*.md'
+      - 'scripts/ci/verify-football-b013-first-five-counties.mjs'
+      - '.github/workflows/football-b013-first-five-source-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/high-school-football/**'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/BATCH013-FIRST-FIVE-*.md'
+      - 'scripts/ci/verify-football-b013-first-five-counties.mjs'
+      - '.github/workflows/football-b013-first-five-source-contract.yml'
+permissions:
+  contents: read
+jobs:
+  validate-b013-first-five:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail-closed Batch013 editorial and reciprocal county source validation
+        run: node scripts/ci/verify-football-b013-first-five-counties.mjs

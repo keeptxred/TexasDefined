@@ -1,5 +1,8 @@
 # Blum Bobcats — Batch 006 individual primary-source football audit
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Authored October 16, 2026. IMPLEMENTED on review branch, NOT protected-merged, DEPLOYED, browser VERIFIED or editorially signed off.** Existing 105 verified school entries are preserved; the new dossier is not a certification.
 
 ## Official governing identity and current school
@@ -21,3 +24,13 @@
 ## Two-way geographic route and gating
 
 Blum campus and district are in Hill County; connect existing `/county/hill` ↔ canonical `/texas-high-school-football-teams/blum` school page, without inventing a new city guide or ticketing URLs. Preserve the original separate Abbott and Aquilla entries. Verify physical location separately from district boundary. This change requires protected canonical CI, production exact-SHA deployment, independent real browser mobile/desktop SEO/schema/h1, reciprocal link and 2019 identity checks and signed-off source review; do not promote to VERIFIED based on writing this file.
+
+## October 19, 2026 — Blum–Avalon result and independent date discrepancy
+
+[Six-Man Football's Thursday final-score ledger](https://sixmanfootball.com/scores/) reports **Blum 66, Avalon 60**; the [Blum program schedule](https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/) lists **October 15**. The independently published [October 17 MaxPreps recap](https://www.maxpreps.com/news/s7-CNyvCckSPpkSS98KPow/football-recap-blum-fends-off-avalon--how-to-watch.htm) also confirms **Blum 66, Avalon 60** and a **2–6** season tally, but labels the game **October 16**. Preserve the Six-Man source calendar date in the fixture field while clearly qualifying the conflicting day. A reported score is not independently certified by the school or UIL. Do not assume gate, parking, ADA, image rights, or final school editorial/production acceptance. The previously VERIFIED 105 remain untouched.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blum ISD's current High School Football page was rechecked and still explicitly lists **Cooper Thornhill — Head Football Coach**, with assistants separately named. The first-party coaching evidence remains current enough to retain the page's coaching field without relying on third-party directories.
+
+No new first-party evidence was found for the football venue's exact public entrance, parking allocation, ticket/cash rules, accessible seating, or reusable team/stadium photography. The 2019 UIL championship evidence, reported 66–60 Avalon result with date discrepancy, and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

@@ -73,7 +73,7 @@ for (const label of ['article cards', 'feature heroes', 'category heroes', 'dest
   requireMarker(label, 'onError=');
 }
 
-for (const label of ['article body images', 'evergreen guide hero', 'camping discovery cards', 'county feature image']) {
+for (const label of ['article body images', 'evergreen guide hero', 'county feature image']) {
   requireMarker(label, 'hideFailedImageContainer');
   requireMarker(label, 'onError=');
 }
@@ -155,14 +155,14 @@ for (const marker of [
   'onError={() => setFailedHero(heroSrc)}',
 ]) requireMarker('sports quick-answer hero', marker);
 
-for (const marker of [
-  'failedImages',
-  'markImageFailed',
-  'failedImages.has(hero.src)',
-  'markImageFailed(item.image.src)',
-  'item.image.src === caddoLake',
-  'aria-hidden',
-]) requireMarker('camping guide imagery', marker);
+// Camping campground imagery must be site-specific and rights-verified before
+// it is rendered; these surfaces currently intentionally show no images.
+for (const label of ['camping discovery cards', 'camping guide imagery']) {
+  const body = source.get(label) ?? '';
+  if (body.includes('<img') || body.includes('campingCardImages') || body.includes('item.image')) {
+    errors.push(label + ' must not render unverified park/wildlife photos as campground images');
+  }
+}
 
 for (const marker of [
   'recoverOrHideImage',

@@ -132,9 +132,64 @@ async function verifyMetro(path, name, sitemap) {
   assert(hasMeta(html, 'property', 'og:description'), `${name} must expose Open Graph description metadata`);
 }
 
+
+const newlyVerifiedFestivalGuides = [
+  ["diwalisa-san-antonio", "DiwaliSA Festival of Lights"],
+  ["homestead-fair-waco", "Homestead Fair"],
+  ["waco-wonderland", "Waco Wonderland"],
+  ["whooping-crane-festival", "Whooping Crane Festival"],
+  ["dallas-international-film-festival", "Dallas International Film Festival"],
+  ["worldfest-houston", "WorldFest-Houston International Film Festival"],
+  ["waco-independent-film-festival", "Waco Independent Film Festival"],
+  ["texas-international-fishing-tournament", "Texas International Fishing Tournament"],
+  ["texas-food-truck-showdown", "Texas Food Truck Showdown"],
+  ["san-jacinto-day-celebration", "San Jacinto Day Celebration and Battle Reenactment"],
+  ["cliburn-international-young-pianists-competition", "Cliburn International Competition for Young Pianists"],
+  ["grapefest", "GrapeFest"],
+];
+
+async function verifyFestivalGuide(slug, name, sitemap) {
+  const route = "/event/" + slug;
+  const html = await fetchProduction(route, name);
+  const readable = decode(html);
+  assert(canonical(html) === origin + route, name + ": canonical mismatch");
+  assert(readable.includes(name), name + ": event name missing");
+  assert(readable.includes("Visit the official event site"), name + ": official organizer link missing");
+  assert(readable.includes("Planning your visit"), name + ": visitor guidance missing");
+  assert(readable.includes("Official event links"), name + ": source trail missing");
+  assert(hasMeta(html, "property", "og:title"), name + ": Open Graph title missing");
+  assert(hasMeta(html, "property", "og:description"), name + ": Open Graph description missing");
+  const indexed = sitemap.includes("<loc>" + origin + route + "</loc>");
+  const noindex = /(?:^|[\s,])noindex(?:$|[\s,])/i.test(robots(html));
+  assert(indexed !== noindex, name + ": sitemap/noindex contract mismatch");
+  if (indexed) assert(hasMeta(html, "property", "og:image"), name + ": indexable guide lacks reviewed social image");
+  if (slug === "grapefest") assert(readable.includes("2027"), "GrapeFest must display the verified 2027 edition");
+  console.log("[festival:" + slug + "] canonical, visitor guidance, source and indexing verified");
+}
+
+async function verifyFestivalHub(slug, title, sitemap) {
+  const route = "/events/" + slug;
+  const html = await fetchProduction(route, title);
+  assert(canonical(html) === origin + route, title + ": topic canonical mismatch");
+  assert(decode(html).includes(title), title + ": topic title missing");
+  assert(html.includes('href="/event/'), title + ": individual event links missing");
+  const indexed = sitemap.includes("<loc>" + origin + route + "</loc>");
+  const noindex = /(?:^|[\s,])noindex(?:$|[\s,])/i.test(robots(html));
+  assert(indexed !== noindex, title + ": sitemap/noindex contract mismatch");
+  console.log("[festival-hub:" + slug + "] canonical, event links and indexing verified");
+}
+
 const sitemap = await fetchProduction('/sitemap.xml', 'event sitemap');
 assert(!sitemap.includes('/events/events/'), 'sitemap must not contain duplicate /events/events/ routes');
 for (const [slug, name, weekendPath] of guides) await verifyGuide(slug, name, weekendPath, sitemap);
 await verifyMetro('/events/austin-this-weekend', 'Austin this weekend', sitemap);
 await verifyMetro('/events/san-antonio-this-weekend', 'San Antonio this weekend', sitemap);
+// Bounded request batches protect the public edge from a verification spike.
+for (let i = 0; i < newlyVerifiedFestivalGuides.length; i += 3) {
+  await Promise.all(newlyVerifiedFestivalGuides.slice(i, i + 3).map(
+    ([slug, name]) => verifyFestivalGuide(slug, name, sitemap)
+  ));
+}
+await verifyFestivalHub("dia-de-los-muertos", "Día de los Muertos Festivals in Texas", sitemap);
+await verifyFestivalHub("texas-independence", "Texas Independence Day & San Jacinto Heritage Events", sitemap);
 console.log('Events expansion production verification passed.');

@@ -31,7 +31,7 @@ type FootballSource = {
 type FootballVenue = {
   policyUrl?: string;
   name: string;
-  address: string;
+  address?: string;
   sourceUrl: string;
   verifiedAt: string;
 };
@@ -102,7 +102,7 @@ export function FootballGameNightGuide({
   const scheduleUrl = schedule?.sourceUrl?.startsWith('https://')
     ? schedule.sourceUrl
     : season?.sourceUrl?.startsWith('https://') ? season.sourceUrl : null;
-  const venueUrl = venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
+  const venueUrl = slug === 'katy' ? '#katy-stadiums' : venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
   const ticketUrl = schedule?.ticketUrl?.startsWith('https://') ? schedule.ticketUrl : null;
   const schoolScheduleUrl = schedule?.officialScheduleUrl?.startsWith('https://') ? schedule.officialScheduleUrl : null;
   const stadiumRulesUrl = venue?.policyUrl?.startsWith('https://') ? venue.policyUrl : null;
@@ -182,13 +182,13 @@ export function FootballGameNightGuide({
         {venueUrl && (
           <a href={venueUrl} onClick={() => recordAction(slug, 'venue-guide', venueUrl)}
             className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
-            Stadium guide →
+            {slug === 'katy' ? 'Both Katy ISD stadiums ↓' : 'Stadium guide →'}
           </a>
         )}
       </div>
       {venue && (
         <p className="mt-5 text-sm leading-7 text-muted-foreground">
-          <strong className="text-foreground">Sourced venue relationship:</strong> {venue.name} — {venue.address}.
+          <strong className="text-foreground">Sourced venue relationship:</strong> {venue.name}{venue.address ? <> — {venue.address}</> : null}.
           Confirm the actual game's host, entrance and parking before leaving.
           {' '}<a href={venue.sourceUrl} onClick={() => recordAction(slug, 'venue-source', venue.sourceUrl)}
             target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
@@ -198,8 +198,11 @@ export function FootballGameNightGuide({
       )}
       {!venue && venueLink && (
         <p className="mt-5 text-sm leading-7 text-muted-foreground">
-          <strong className="text-foreground">Related football venue:</strong> {venueLink.venueName} ({venueLink.relationshipLabel}).
-          This does not establish the location of the next game.
+          {slug === 'katy' ? (
+            <>Katy ISD assigns games to <strong className="text-foreground">Legacy Stadium and Rhodes Stadium</strong>. Use the two-stadium guide below and confirm the specific host for each game.</>
+          ) : (
+            <><strong className="text-foreground">Related football venue:</strong> {venueLink.venueName} ({venueLink.relationshipLabel}). This does not establish the location of the next game.</>
+          )}
         </p>
       )}
 

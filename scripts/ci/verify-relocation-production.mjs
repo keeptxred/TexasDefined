@@ -168,11 +168,28 @@ for (const [fromPath, toPath] of redirectRoutes) {
   await verifyRedirect(fromPath, toPath);
 }
 
+// The generic series title is also present on the OLD article. Validate the
+// new editorial body and independent transit citations, not merely existence.
+const HOUSTON_COMMUTER_PATH = '/article/best-houston-suburbs-for-commuters';
+const houstonAuthorityMarkers = [
+  'Best Houston Suburbs for Commuters: Compare by Job Corridor',
+  '31.1-minute',
+  'The Woodlands Express',
+  'Fort Bend Transit',
+  'Methodology, sources and what this guide cannot claim',
+];
+
 for (const [path, needle] of routes) {
   const { response } = await fetchLive(
     path,
     path,
-    (candidateResponse, body) => validatePage(path, needle, candidateResponse, body),
+    (candidateResponse, body) => {
+      const pageError = validatePage(path, needle, candidateResponse, body);
+      if (pageError) return pageError;
+      if (path !== HOUSTON_COMMUTER_PATH) return null;
+      const missing = houstonAuthorityMarkers.find((marker) => !body.includes(marker));
+      return missing ? `Houston authority article is stale or incomplete: missing ${missing}` : null;
+    },
   );
   console.log(`PASS ${path}: ${response.status}, expected content, canonical, indexable meta`);
 }

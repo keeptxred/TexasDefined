@@ -1,0 +1,618 @@
+/**
+ * Individually annotated research against linked primary, archival and
+ * scholarly sources. Per-page research review dates are maintained in
+ * texas-music-history-evidence.ts and must not be inferred from deployment.
+ * The "reading" fields are independent interpretations, not quotations or
+ * claims that Texas Defined personally inspected every archival object.
+ * Each linked source must substantiate its adjacent factual "record".
+ */
+export type MusicResearchFinding = {
+  heading: string;
+  record: string;
+  reading: string;
+  source: string;
+  href: string;
+};
+export type MusicResearchDossier = {
+  heading: string;
+  introduction: string;
+  findings: readonly MusicResearchFinding[];
+  caution: string;
+};
+export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
+  "broken-spoke-austin-history": {
+    heading: "The Broken Spoke: a building, a floor, and two different dates",
+    introduction: "The state marker, city preservation recommendation and retrospective club histories answer different questions. Reading them together shows why preserving a dance hall means more than recalling the musicians who played there.",
+    findings: [
+      {
+        heading: "A former lumberyard on a once-rural road",
+        record: "Texas Historical Commission marker 23384 places James White's 1964 business at 3201 South Lamar, at a former lumberyard outside Austin's then city limits. It describes jukebox dancing and live weekend bands before White enlarged the room with a stage and dedicated dance hall.",
+        reading: "The Spoke was not designed as an already-famous country attraction. The addition of a purpose-built dance space shows the audience helped determine the building's use; the room's history is also a history of South Austin's expanding geography.",
+        source: "Texas Historical Commission, Broken Spoke marker 23384",
+        href: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023384&fn=print"
+      },
+      {
+        heading: "A marker's year is not its dedication day",
+        record: "The state marker is recorded under 2021; the Governor's Office dates its public dedication to April 2023. These dates describe separate stages in the recognition process.",
+        reading: "A venue timeline should not flatten award, marker manufacture and public ceremony into a single event. This distinction matters when readers encounter apparently inconsistent dates on plaques and news stories.",
+        source: "Governor's Office, April 13, 2023 dedication record",
+        href: "https://gov.texas.gov/news/post/first-lady-abbott-dedicates-broken-spoke-texas-historical-marker-in-austin"
+      },
+      {
+        heading: "The 2023 recommendation was followed by an adopted ordinance",
+        record: "On May 1, 2023, Austin's Music Commission recommended historic zoning for the Broken Spoke. Austin City Council later approved the zoning change on all three readings on May 18, 2023, as Ordinance 20230518-074; the two actions must not be conflated.",
+        reading: "The 2021 state marker record, April 2023 marker dedication, May 2023 commission advice and enacted May 18 historic zoning are four distinct milestones. The original commission recommendation must not be presented as the final city action.",
+        source: "Austin City Council, enacted historic-zoning action May 18, 2023",
+        href: "https://www.austintexas.gov/council/2023/20230518-reg"
+      },
+      {
+        heading: "Country history heard from the dance floor",
+        record: "The marker names touring figures including Bob Wills, Ernest Tubb, Tex Ritter and Kitty Wells alongside White's bookings of Austin-area bands.",
+        reading: "That list spans national touring stars and local working musicians. The room's long-term contribution is the recurring meeting between the two on a public dance floor, not the claim that any one performer or country subgenre began there.",
+        source: "Texas Historical Commission, marker text",
+        href: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023384&fn=print"
+      },
+      {
+        heading: "The first paid band makes the local economy visible",
+        record: "Texas State University's Center for Texas Music History identifies D. G. Burrow and the Western Melodies as James White's first booked act in 1964 and reports a payment of thirty-two dollars. This is the university's later historical account, not a surviving 1964 receipt.",
+        reading: "Opening-night economics are easy to lose beneath the later celebrity list. A locally hired band and a small payment show a dance hall building an ordinary working-musician circuit before it became a landmark.",
+        source: "Texas State University, Center for Texas Music History",
+        href: "https://www.txst.edu/ctmh/publications/hartman-series/broken-spoke.html"
+      },
+      {
+        "heading": "The proposed protection became an enacted city ordinance",
+        "record": "Austin's Music Commission recommended historic zoning on May 1, 2023; the City Council's action notes for May 18 record case C14H-2022-0176 as approved on all three readings, and the city's meeting archive identifies executed Ordinance 20230518-074. The city's adopted action followed its recommendation and the separately dedicated state marker.",
+        "reading": "The venue now has two distinguishable layers of recognition: a state historical marker and a local historic-zoning action. Reporting only the earlier recommendation understates its legal preservation history; neither recognition is the same thing as city ownership or a guarantee of continued operation.",
+        "source": "City of Austin, May 18, 2023 Council action and executed ordinance",
+        "href": "https://www.austintexas.gov/council/2023/20230518-reg"
+      },
+      {
+        "heading": "The rezoning centered on the hall, not the whole commercial tract",
+        "record": "Austin's May 18 agenda identified Annetta White as the business owner and HLLC CWS 704 SPE LLC as the landowner; city staff, Historic Landmark Commission and Planning Commission recommended the commercial-services-to-historic zoning change. The city's planning record specified historic protection for the building footprint.",
+        "reading": "A dance hall can be culturally continuous while its building and surrounding land have distinct ownership and land-use histories. Distinguishing the building-footprint recommendation from the wider parcel avoids suggesting the entire South Lamar commercial tract was made a museum.",
+        "source": "City of Austin, May 18 Council action notes, item 74",
+        "href": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1159"
+      }
+    ],
+    caution: "The state marker and the Handbook of Texas frame the original restaurant and dance floor slightly differently. Both agree on the 1964 establishment and later expansion; neither should be treated as a floor-plan record."
+  },
+  "continental-club-austin-history": {
+    heading: "The Continental Club's opening year is disputed",
+    introduction: "The club's own account says 1955; independent published histories say 1957. The responsible approach is to show the disagreement rather than silently choose the date repeated most often.",
+    findings: [
+      {
+        heading: "1955 according to the club; 1957 according to the Handbook",
+        record: "The Continental Club's current official history states that it opened in 1955. Christy Lynn Hodson's Handbook of Texas entry identifies a 1957 opening at 1315 South Congress under Morin Scott. Austin's adopted Greater South River City neighborhood plan independently prints 1957.",
+        reading: "Until an original license, advertisement or property record establishes which event each year denotes, the exact opening year should be marked disputed. 'Operating since the 1950s' is safer than presenting 1955 or 1957 as settled.",
+        source: "Handbook of Texas, Continental Club; compare venue history",
+        href: "https://www.tshaonline.org/handbook/entries/continental-club"
+      },
+      {
+        heading: "One room has served very different publics",
+        record: "The Handbook identifies Morin Scott's supper-club period, 1960s burlesque, Martin Schuler's neighborhood tavern, late-1970s rock bookings and 1980s connections to Liberty Lunch.",
+        reading: "The defining continuity is the location, not an uninterrupted roots-music program. Treating the club as perpetually rockabilly erases the changes in ownership, clientele and the South Congress economy that made later reinvention possible.",
+        source: "Handbook of Texas, researched institutional history",
+        href: "https://www.tshaonline.org/handbook/entries/continental-club"
+      },
+      {
+        heading: "The 1987 renovation recovered four wall paintings",
+        record: "In 1987 Steve Wertheimer leased the venue and restored four original European street-scene murals associated with its supper-club era. The Handbook documents this specific restoration, not just a general cosmetic facelift.",
+        reading: "The murals connect today's music room to its restaurant-and-dance origins. They are physical evidence of layered use, while the musical program around them changed dramatically.",
+        source: "Handbook of Texas, Wertheimer restoration",
+        href: "https://www.tshaonline.org/handbook/entries/continental-club"
+      },
+      {
+        heading: "A Houston branch demonstrates institutional reach",
+        record: "The Handbook records the Continental Club's Houston sister location opening on Main Street in July 2000, with regional musicians playing both clubs.",
+        reading: "The Austin story extends beyond one building when musicians and bookings are shared between cities. That circuit is distinct from, and should not be confused with, the South Congress building's age.",
+        source: "Handbook of Texas, sister-club section",
+        href: "https://www.tshaonline.org/handbook/entries/continental-club"
+      },
+      {
+        heading: "The city did enact historic zoning in 2008",
+        record: "Austin City Council enacted Ordinance 20080821-059 for 1315 South Congress, adding the Historic Landmark (H) combining district under case C14H-2008-0018. This was an adopted ordinance, as was the Broken Spoke's later historic-zoning ordinance in May 2023; the dates, case numbers and properties are different.",
+        reading: "The city's legal record protects a property, not every booking, performer or band associated with it. The ordinance is stronger evidence for the 2008 status than a promotional claim that the room is 'legendary'.",
+        source: "City of Austin, enacted ordinance 20080821-059",
+        href: "https://services.austintexas.gov/edims/document.cfm?id=120731"
+      },
+      {
+        heading: "New wave and roots rock occupied the same address in different decades",
+        record: "The venue's own historical account describes its 1983–1987 period as a home for new wave, punk and rock performances, followed by a 1987 renovation and new emphasis on roots, country, blues and rockabilly. The venue is describing its own changing programming, not claiming the street itself invented these styles.",
+        reading: "The survival story is not one unbroken genre. The room remained useful by accommodating different audiences and then reinterpreting its midcentury visual character; that is a stronger preservation explanation than calling it timeless.",
+        source: "Continental Club, first-party account of the 1983–1987 bookings",
+        href: "https://continentalclub.com/about/"
+      },
+      {
+        "heading": "A city permit file separates the club from its upstairs gallery",
+        "record": "In its 2008 zoning review for 1313 and 1315 South Congress, Austin staff distinguished the main club at 1315 from an upstairs art gallery in the adjoining 1313 building, connected by a rear staircase. Staff described a grandfathering provision for the original club's liquor sales that did not automatically extend to the later gallery space.",
+        "reading": "The club's institutional footprint extended into another building, but the two spaces faced different land-use rules. That evidence is more specific than describing the address simply as one timeless music room, and explains how later cultural functions could depend on ordinary municipal approvals.",
+        "source": "City of Austin, Continental Club zoning review C14-2008-0093",
+        "href": "https://services.austintexas.gov/edims/document.cfm?id=119225"
+      },
+      {
+        "heading": "The city's 2008 staff report is an older witness to the 1957 date",
+        "record": "Austin's 2008 zoning staff report says the club at 1315 South Congress had operated since 1957. That agrees with the Handbook of Texas but differs from the venue's own 1955 date. A retrospective 2008 city report does not itself prove what happened in either year.",
+        "reading": "This provides another dated statement of the 1957 chronology and shows why the date disagreement deserves a clearly labeled note. A permit review written more than fifty years later is not an opening-night advertisement or incorporation record.",
+        "source": "City of Austin, June 2008 Continental Club planning report",
+        "href": "https://services.austintexas.gov/edims/document.cfm?id=119225"
+      }
+    ],
+    caution: "The 1955/1957 discrepancy remains unresolved without contemporaneous records. Neither date is silently presented as definitive, and the city plan's 1957 wording may trace back to the same historical sources as the Handbook."
+  },
+  "antones-austin-history": {
+    heading: "What survived when Antone's changed buildings",
+    introduction: "Antone's history tests a simple question: can a music venue be historically continuous when its address is not? Its founding bookings, repeated moves and blues relationships suggest the lasting unit is an institution rather than a facade.",
+    findings: [
+      {
+        heading: "The opening bill stated a musical mission",
+        record: "Clifford Antone opened the Sixth Street club on July 15, 1975, with Clifton Chenier and His Red-Hot Louisiana Band. Sunnyland Slim and Big Walter Horton were among the other early performers.",
+        reading: "Booking a zydeco musician first made Antone's a Gulf Coast crossroads from opening night. Describing it only as an Austin guitar-blues room hides that broader Louisiana–Texas touring exchange.",
+        source: "Handbook of Texas, Antone's",
+        href: "https://www.tshaonline.org/handbook/entries/antones"
+      },
+      {
+        heading: "The club's history is a sequence of addresses",
+        record: "The Handbook lists moves to Anderson Lane around 1980, Guadalupe Street in 1981, West Fifth Street in 1997 and East Riverside in 2013. The club's own retrospective instead dates its Guadalupe opening to September 3, 1982. The current East Fifth Street era began in 2015.",
+        reading: "Addresses and opening-night dates are different historical claims. Here, two reputable accounts disagree on the Guadalupe transition; the discrepancy needs to be shown, not rewritten as an undisputed move in 1981.",
+        source: "Handbook of Texas, retrospective of successive sites (1981 date)",
+        href: "https://www.tshaonline.org/handbook/entries/antones"
+      },
+      {
+        heading: "The club dates its Guadalupe opening night to 1982",
+        record: "Antone's official venue history specifically dates the Fabulous Thunderbirds' opening of its Guadalupe location to September 3, 1982, while the Handbook of Texas lists the move as 1981. Neither source documents a contemporaneous lease or advertisement here that resolves the difference.",
+        reading: "The club's dated show is stronger evidence for a public opening night than a broad retrospective relocation year. It remains possible the sources describe different phases, but this is an interpretation, not a documented resolution.",
+        source: "Antone's official chronology, September 3, 1982",
+        href: "https://antonesnightclub.com/history/"
+      },
+      {
+        heading: "Black blues masters met younger Austin listeners",
+        record: "The Handbook's Clifford Antone biography explains his motive to book blues, R&B, gospel and zydeco performers for an Austin audience that had limited access to those touring acts.",
+        reading: "The club was both a commercial stage and a conduit between generations. Its contribution should be credited to the older, often Black and Louisiana-based musicians as well as to the promoter and later local guitarists.",
+        source: "Handbook of Texas, Clifford Jamal Antone",
+        href: "https://www.tshaonline.org/handbook/entries/antone-clifford-jamal"
+      },
+      {
+        heading: "Downtown return is not a return to the original building",
+        record: "The club's official history records its December 31, 2015 reopening at the present East Fifth Street site, after multiple relocations.",
+        reading: "The city's phrase 'historic club' describes a continuing organization and repertoire; it must not be read to imply unbroken occupancy of its original Sixth Street storefront.",
+        source: "Antone's official historical chronology",
+        href: "https://antonesnightclub.com/history/"
+      },
+      {
+        heading: "A record shop and label extended the club beyond the stage",
+        record: "Antone's Record Shop says Clifford Antone opened the shop across from the Guadalupe Street nightclub in 1987, and its back office supported Antone's Records. The shop reports the label eventually issued more than sixty titles; the statement is the operator's retrospective, not an independent release-by-release discography.",
+        reading: "The venue became a music institution with more than nightly admission. Records and retail gave the club's artists a longer-lived way to circulate music, distinct from the building where a show took place.",
+        source: "Antone's Record Shop, official historical account",
+        href: "https://antonesrecordshop.com/pages/about"
+      }
+    ],
+    caution: "Historical photographs of the Lavaca location must be labeled as former premises, not current visitor directions. Present programming should be checked through the club rather than inferred from earlier eras."
+  },
+  "billy-bobs-texas-history": {
+    heading: "The Stockyards building changed uses before and after 1981",
+    introduction: "Billy Bob's is simultaneously a music club and an example of industrial reuse. Its financial break in 1988 is essential to telling that story accurately.",
+    findings: [
+      {
+        heading: "A 1910 livestock building carried multiple economies",
+        record: "The venue's official history dates the original open-air cattle barn to 1910 and its 1936 enclosure to a Texas Centennial project. The Handbook adds Globe Aircraft manufacturing during World War II; a department-store period preceded conversion to a nightclub.",
+        reading: "The stockyard setting is not an invented Western facade. The building's changes show a livestock district adapting to aviation, shopping and finally cultural tourism.",
+        source: "Handbook of Texas, Billy Bob's Texas",
+        href: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas"
+      },
+      {
+        heading: "A national country moment met a 100,000-square-foot room",
+        record: "Billy Bob's opened April 1, 1981, in a 100,000-square-foot venue with capacity for roughly 6,000 people, as the Urban Cowboy-era boom reshaped popular country music.",
+        reading: "That scale distinguishes it from intimate dance halls. A destination entertainment operation could book nationally recognizable acts while embedding music in bull-riding, food and Fort Worth Stockyards tourism.",
+        source: "Handbook of Texas, opening and country boom",
+        href: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas"
+      },
+      {
+        heading: "1988 interrupts any claim of uninterrupted operation",
+        record: "The Handbook documents bankruptcy and a January 8, 1988 closing. Holt Hickman, Steve Murrin and Donald K. Jury reopened the club on November 28, 1988.",
+        reading: "The gap belongs prominently in the chronology. It illustrates that the venue's success was tied to the Stockyards' wider commercial recovery, not automatic permanence.",
+        source: "Handbook of Texas, closure and reopening",
+        href: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas"
+      },
+      {
+        heading: "Live recordings created a second kind of legacy",
+        record: "Billy Bob's and Smith Music Group launched the Live at Billy Bob's series in 1998 after earlier live recordings by individual artists.",
+        reading: "The recordings turned performances into objects that could circulate after concerts ended. A venue that once mainly brought crowds into the Stockyards also sent Fort Worth performances to listeners elsewhere.",
+        source: "Handbook of Texas, Live at Billy Bob's",
+        href: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas"
+      },
+      {
+        heading: "The surrounding Stockyards district has its own preservation rules",
+        record: "Fort Worth identifies the Stockyards as a historic district and describes its transition from the city's livestock and meatpacking economy to a visitor destination. The city adopted the Stockyards form-based district framework in 2017.",
+        reading: "The club is one part of a larger protected urban landscape. Historic district regulations cannot be read as proof that every individual venue building has the same designation, but they explain the preservation pressures surrounding Billy Bob's.",
+        source: "City of Fort Worth, Stockyards Historic and Form-Based Code District",
+        href: "https://www.fortworthtexas.gov/departments/development-services/historic-preservation/historic-stockyards"
+      },
+      {
+        heading: "An opening-night negative documents dancers, not just celebrities",
+        record: "UT Arlington Special Collections catalogs Rodger Mallison's Fort Worth Star-Telegram negative AR406-6-7478, frame 27, dated April 1, 1981. The description identifies dancers on the dance floor at the opening, rather than a posed publicity image of the headline performer.",
+        reading: "The dated archive shifts attention from the venue's size claim to its actual opening-night use. The dance floor and its patrons are historical evidence of how a huge space functioned as a social club.",
+        source: "UT Arlington Special Collections, Star-Telegram negative 10016028",
+        href: "https://mavmatrix.uta.edu/specialcollections_startelegram1980s/228/"
+      },
+      {
+        heading: "The archive also preserves a photograph from the closure year",
+        record: "Another UT Arlington Star-Telegram catalog record identifies a Billy Bob's exterior photograph by Rodger Mallison dated January 31, 1988, after the Handbook's January 8 closure date. The catalog grants no unrestricted commercial reuse of the image.",
+        reading: "Opening-night and closure-era records make the timeline testable. They prevent the public-history mistake of describing the present honky-tonk as if it operated without interruption from 1981.",
+        source: "UT Arlington Special Collections, Star-Telegram negative 10016022",
+        href: "https://mavmatrix.uta.edu/specialcollections_startelegram1980s/1800/"
+      },
+      {
+        "heading": "A television report is dated to the day the honky-tonk closed",
+        "record": "UNT Libraries holds a KXAS-TV/NBC 5 news-video catalog entry about Billy Bob's dated January 8, 1988 at 10 p.m. The station described the news footage as a 1-minute-35-second Betacam item; its archival subject terms include closures, creditors, debt, employees, layoffs and unpaid taxes. Those subject labels are catalog metadata, not a transcript of the footage.",
+        "reading": "The surviving same-day broadcast record complements the Handbook's closure chronology with an identifiable contemporary news artifact. Its catalog establishes the newsroom's coverage of the financial and employment context without pretending that the complete video was independently transcribed.",
+        "source": "UNT Libraries, NBC 5/KXAS news collection, January 8, 1988",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2227177/"
+      },
+      {
+        "heading": "An archival image dates the attempted revival before reopening",
+        "record": "The Fort Worth Star-Telegram's retrospective photo inventory identifies a November 13, 1988 image of Don Jury, Steven Murrin and Ken Brixey working to revive Billy Bob's, attributed to Beatrice Terrazas and the Star-Telegram archive at UT Arlington. The Handbook places the reopening on November 28; the photographic caption establishes organizing activity before that date, not the opening date itself.",
+        "reading": "The closure and relaunch were a process with investors, labor and commercial risk, not an instantaneous continuation of the 1981 business. The image is linked as documentary evidence; its copyright status does not authorize reproduction on this page.",
+        "source": "Fort Worth Star-Telegram, historical photo inventory attributed to UT Arlington",
+        "href": "https://www.star-telegram.com/news/local/fort-worth/article267883027.html"
+      }
+    ],
+    caution: "The advertised 'world's largest' description is the venue's marketing label, not a globally audited record. Capacity, amenities and bull-riding schedules should be confirmed when planning a visit."
+  },
+  "texas-music-cities": {
+    heading: "A comparison based on what each city's institutions did",
+    introduction: "Rather than ranking genres or claiming a single birthplace, these records compare four ways music escaped its neighborhood: broadcasting, record companies, neighborhood dance and independently circulated tapes.",
+    findings: [
+      {
+        heading: "Austin broadcast performances beyond the room",
+        record: "Austin City Limits taped Willie Nelson's pilot on October 17, 1974 and PBS broadcast it during a pledge campaign in March 1975.",
+        reading: "That is distribution through television: an Austin stage reached viewers who had never visited Austin. It is a different mechanism from booking a bigger concert hall.",
+        source: "Austin City Limits, production history",
+        href: "https://acltv.com/history-of-acl/"
+      },
+      {
+        heading: "Houston made national music through a local business chain",
+        record: "Don Robey founded Peacock Records in Houston in 1949 and took control of Duke Records in 1953; operations involved rehearsal/demo spaces, recording studios and distribution.",
+        reading: "Houston's significance was not simply where performers lived. The label infrastructure helped artists move from neighborhood performance to nationally marketed records.",
+        source: "Handbook of Texas, Duke-Peacock Records",
+        href: "https://www.tshaonline.org/handbook/entries/duke-peacock-records"
+      },
+      {
+        heading: "San Antonio's night spots made genre boundaries porous",
+        record: "The West Side Sound entry traces mixed Chicano, African American and Anglo ensembles playing East and West Side venues in the late 1950s, with both local Harlem-label singles and later national hits.",
+        reading: "This was musical exchange among people sharing venues and working bands, not a single top-down studio invention. It also did not erase the separate history of Texas-Mexican conjunto.",
+        source: "Handbook of Texas, West Side Sound",
+        href: "https://www.tshaonline.org/handbook/entries/west-side-sound"
+      },
+      {
+        heading: "Corpus Christi's businesses connected a regional circuit",
+        record: "Johnny Herrera's House of Music opened in 1961; Freddie Records and Hacienda Records developed label and studio capacity in the Coastal Bend.",
+        reading: "The infrastructure made South Texas songs reproducible and findable. That differs from the original social circulation of music in dance halls and from the worldwide distribution created by a major-label contract.",
+        source: "Handbook of Texas, Texas recording industry",
+        href: "https://www.tshaonline.org/handbook/entries/recording-industry"
+      },
+      {
+        heading: "Dallas's Deep Ellum used a neighborhood business network",
+        record: "The Handbook of Texas traces Deep Ellum's Black commercial district and its importance to blues and jazz, including venues, businesses and the musicians who circulated there. Its history concerns a place and community rather than a single signature recording.",
+        reading: "Dallas contributes a different mechanism from a television studio or one record company: streets of performance and commercial exchange made visiting musicians and local audiences mutually visible.",
+        source: "Handbook of Texas, Deep Ellum",
+        href: "https://www.tshaonline.org/handbook/entries/deep-ellum"
+      },
+      {
+        heading: "Lubbock built a memorial network after the recordings",
+        record: "Civic Lubbock dates the West Texas Walk of Fame's beginnings to a 1979 Buddy Holly benefit and identifies Littlefield's Waylon Jennings as the next inductee in 1980. The original Holly recording career and this later civic commemoration are separate periods.",
+        reading: "Lubbock shows how a local scene can be remembered through civic institutions after national fame. Its memorial economy should not be confused with the earlier KDAV and Clovis recording network that created the music.",
+        source: "Civic Lubbock, history of the West Texas Walk of Fame",
+        href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
+      },
+      {
+        "heading": "A preserved Austin broadcast is a different kind of proof from a Houston label ledger",
+        "record": "UNT Libraries describes a U-matic copy of a Willie Nelson and Tracy Nelson Austin City Limits program recorded in 1976 and broadcast in 1977, preserved in its Jack Kendrick Advertising Collection. Separately, the University of Houston describes ACA studio session master books with session dates and artist names in its Duke-Peacock collection.",
+        "reading": "The two collections reveal different paths from place to listener: Austin exported filmed performances through a public-television network, while Houston's business and studio paperwork documented a recording and label industry. This is an evidence-based comparison of institutions, not a claim that either city's music was confined to one medium.",
+        "source": "University of North Texas Libraries, Jack Kendrick Advertising Collection",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2572561/"
+      },
+      {
+        "heading": "A San Antonio concert map measures different evidence again",
+        "record": "UT San Antonio's Sounds of San Anto project says its historical concert map draws on research shared by San Antonio Public Library Texana archivist Andrew Crews, includes mapped performances between 1970 and 2010, and is incomplete by the project's own account.",
+        "reading": "A concert map can reconstruct a city's venue geography but cannot tally every audience, musician or informal community dance. Comparing its limits with Austin's television episodes and Houston's session books is more useful than treating each Texas music city as a winner in the same genre contest.",
+        "source": "UT San Antonio, Sounds of San Anto project methodology",
+        "href": "https://cedish.utsa.edu/sounds/about"
+      }
+    ],
+    caution: "The comparison is illustrative, not comprehensive. Dallas–Fort Worth's Deep Ellum and modern-jazz stories and Lubbock's radio-to-Clovis recording pathway are covered in the linked city guides; a city may have all of these kinds of infrastructure."
+  },
+  "austin-music-history": {
+    heading: "Austin's claim to music history rests on three different networks",
+    introduction: "The national TV image of Austin cannot explain the whole scene. A public-broadcast station, a neighborhood honky-tonk and a blues promoter each worked with different audiences and musical traditions.",
+    findings: [
+      {
+        heading: "A television pilot had a test and a transmission",
+        record: "Austin City Limits recorded Willie Nelson on October 17, 1974. The pilot aired in March 1975 and led to a regular PBS series; the show's own history identifies Bill Arhos, Paul Bosner and Bruce Scafe as central organizers.",
+        reading: "Recording date, transmission date and regular-series launch should not be merged. The people behind public television turned a local performance scene into a recurring national medium.",
+        source: "Austin City Limits, official production history",
+        href: "https://acltv.com/history-of-acl/"
+      },
+      {
+        heading: "A dance hall had its own older audience",
+        record: "The Texas Historical Commission dates the Broken Spoke's opening to 1964 and describes live country bands, jukebox dancing and the later enlargement of the dance floor.",
+        reading: "The Spoke predates the city's most famous television platform. The Austin sound did not begin with the camera; dancers, bands and owners were already maintaining a live economy before national recognition.",
+        source: "Texas Historical Commission, Broken Spoke marker",
+        href: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023384&fn=print"
+      },
+      {
+        heading: "Antone's gave blues its own institutional base",
+        record: "Clifford Antone opened his blues-focused club in 1975 with a first bill led by Clifton Chenier, followed by established blues musicians such as Sunnyland Slim and Big Walter Horton.",
+        reading: "It would be misleading to portray Austin's blues identity as merely a branch of its country and outlaw story. Antone's built relationships with an older Gulf Coast and Black blues tradition that had its own touring history.",
+        source: "Handbook of Texas, Antone's",
+        href: "https://www.tshaonline.org/handbook/entries/antones"
+      },
+      {
+        heading: "The city had several overlapping public audiences",
+        record: "The Handbook's account of Austin City Limits locates the show within the progressive-country mixture of country, rock and folk that expanded in the 1970s.",
+        reading: "National fame rewarded an already mixed scene. Austin's distinctive contribution is not ownership of any one genre, but the coexistence of dance-floor country, blues institutions and a public media platform.",
+        source: "Handbook of Texas, Austin City Limits",
+        href: "https://www.tshaonline.org/handbook/entries/austin-city-limits"
+      },
+      {
+        heading: "The first broadcast season reveals a wider Austin than the cowboy shorthand",
+        record: "Austin City Limits' own season-one anthology lists Townes Van Zandt with Clifton Chenier and a program pairing Flaco Jiménez with Ry Cooder, alongside Asleep at the Wheel and the Original Texas Playboys. These are documented 1976 program credits, not a claim that the musicians were all Austin residents.",
+        reading: "The official episode list is a direct test of the stereotype. The television series carried zydeco and border accordion music with the country and songwriter culture that shaped its public image; the city story must acknowledge this wider programmed audience.",
+        source: "Austin City Limits, original season-one program anthology",
+        href: "https://acltv.com/anthology/"
+      },
+      {
+        "heading": "A preserved U-matic program distinguishes taping from broadcast",
+        "record": "UNT Libraries catalogues a 59-minute-37-second U-matic videotape from the Jack Kendrick Advertising Collection featuring Willie Nelson's Red Headed Stranger performance and Tracy Nelson on Austin City Limits. The library dates its production 1976/1977 and notes PBS broadcasts in 1977, rather than calling it the 1974 pilot.",
+        "reading": "Preservation formats and distribution dates matter. The physical videotape is evidence of what a broadcaster archived, while the 1974 pilot, 1975 tapings and 1976 first season form a different sequence. A responsible timeline should not collapse those into a single famous appearance.",
+        "source": "UNT Libraries, Jack Kendrick Advertising Collection ACL tape",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2572561/"
+      },
+      {
+        "heading": "Public television funding made Austin's local sound a national experiment",
+        "record": "The Handbook of Texas describes Bill Arhos, Paul Bosner and Bruce Scafe taking the Willie Nelson pilot to a PBS station planning forum. It reports that 34 stations aired the pilot and that the program initially needed backing from five stations to remain in distribution, achieved with help from KQED in San Francisco.",
+        "reading": "Austin's national reputation did not follow automatically from a strong local music scene. A public-media funding and distribution decision converted a local performance experiment into recurring national programming, which helps explain the city's particular institutional advantage.",
+        "source": "Handbook of Texas, Austin City Limits broadcasting history",
+        "href": "https://www.tshaonline.org/handbook/entries/austin-city-limits"
+      }
+    ],
+    caution: "A broadcast record documents what television showed, not a complete census of the city's musicians. Black, Mexican American and local working-band histories should not disappear beneath the Willie Nelson story."
+  },
+  "houston-music-history": {
+    heading: "From 2809 Erastus to the home-made grey tape",
+    introduction: "Two eras of Houston music demonstrate how artists could build distribution without relocating to a coastal record-industry capital: Don Robey's postwar labels and DJ Screw's much later mixtape network.",
+    findings: [
+      {
+        heading: "A label office was not the same as a finished-record studio",
+        record: "After buying Duke Records in 1953, Don Robey moved his business to 2809 Erastus Street, the former Bronze Peacock. The on-site facility was primarily for rehearsals and demos; the Handbook identifies ACA and Gold Star among the studios used for finished recordings and mastering.",
+        reading: "Houston's recording economy occupied several addresses and specialist businesses. Treating every Duke-Peacock release as recorded at the Bronze Peacock would erase the distributed production chain.",
+        source: "Handbook of Texas, Duke-Peacock Records",
+        href: "https://www.tshaonline.org/handbook/entries/duke-peacock-records"
+      },
+      {
+        heading: "A university finding aid preserves Screw's working method",
+        record: "University of Houston Special Collections describes DJ Screw using two copies of a record, turntable pitch controls, a crossfader and a four-track machine to build the slowed, repeated sound. Its collection is catalogued as 2010-023.",
+        reading: "The distinctiveness is technical as well as geographic: chopping and slowing were made through a repeatable process involving specific consumer and studio equipment, not an abstract label applied to any slow rap.",
+        source: "University of Houston Libraries, DJ Screw Collection finding aid",
+        href: "https://findingaids.lib.uh.edu/repositories/2/resources/14"
+      },
+      {
+        heading: "Cassette sales became an independent local channel",
+        record: "The same archival finding aid says Screw sold his tapes from home, made personalized tapes for listeners and artists, and opened Screwed Up Records and Tapes in 1998.",
+        reading: "The shop and the made-to-order tape challenge a neat major-label history. Houston rap moved through relationships, local retail and repeated listening before much of the outside industry recognized its reach.",
+        source: "University of Houston Libraries, DJ Screw Collection",
+        href: "https://findingaids.lib.uh.edu/repositories/2/resources/14"
+      },
+      {
+        heading: "The surviving archive is not a free media library",
+        record: "University of Houston lists four linear feet of Screw-related materials, including sound recordings, business material and equipment; some are restricted, and physical ownership does not transfer copyright.",
+        reading: "Readers can check the archive's catalogue, but a history website cannot treat the recordings or photographs as automatically reusable. The provenance is valuable without republishing protected recordings.",
+        source: "University of Houston, collection conditions of access and use",
+        href: "https://findingaids.lib.uh.edu/repositories/2/resources/14"
+      },
+      {
+        heading: "The Fifth Ward's club history cannot be reduced to the record labels",
+        record: "The Fifth Ward Cultural Arts District identifies Club Matinee as a community music venue operating from 1936 to 1973 and describes how highway and urban-renewal projects fragmented the surrounding neighborhood. The district reports that Hurricane Harvey destroyed many physical records, motivating community oral-history preservation.",
+        reading: "Recording-company history survives more easily in label catalogs than the everyday social geography of Black music. The loss of a room and of its archival traces is itself part of Houston's music story.",
+        source: "Fifth Ward Cultural Arts District, community memory and Club Matinee",
+        href: "https://www.5thwardarts.com/history"
+      },
+      {
+        heading: "Gospel was central to Peacock's business, not an aside",
+        record: "The Fifth Ward Cultural Arts District describes the Peacock and Duke labels' 1950s work with the Five Blind Boys of Mississippi alongside Bobby Bland and Junior Parker, linking gospel and gospel-oriented blues within the same Houston enterprise.",
+        reading: "Houston's R&B and gospel chapters should not be separated into unrelated lists of names. Local ownership, talent and distribution operated across sacred and secular markets even when their audiences and performance contexts differed.",
+        source: "Fifth Ward Cultural Arts District, Peacock Records account",
+        href: "https://www.5thwardarts.com/history"
+      },
+      {
+        "heading": "Recording-session logbooks survive alongside the record-label publicity",
+        "record": "The University of Houston says its Duke-Peacock digital collection includes artists' publicity photographs and ACA studio master books logging dates, times and performers on recording sessions. UH distinguishes this digitized selection from the larger physical Texas Music Collection.",
+        "reading": "Promotional photographs show whom a label marketed; studio logbooks can help establish where and when recording labor occurred. Neither format alone proves sales figures or artistic influence, so they should be used for different factual claims rather than folded into one vague 'archive' citation.",
+        "source": "University of Houston Special Collections, Duke-Peacock and ACA master books",
+        "href": "https://www.uh.edu/news-events/stories/2015/september/0923dukepeacock.php"
+      },
+      {
+        "heading": "Financial folders make the label's business history researchable",
+        "record": "University of Houston Libraries lists separate Duke/Peacock Records financial files dated 1950–1964 and promotional files dated 1951–1967 in box 6 of its Texas Music Collection. The inventory identifies the material's scope; it does not disclose figures from individual account books.",
+        "reading": "Houston's musical infrastructure can be studied as an employer and an accounting enterprise as well as a roster of artists. The finding aid points a reader toward evidence for future research without claiming to have inspected private financial totals.",
+        "source": "University of Houston Libraries, Texas Music Collection box 6 finding aid",
+        "href": "https://findingaids.lib.uh.edu/repositories/2/top_containers/255"
+      }
+    ],
+    caution: "The archival collection documents DJ Screw's methods; it does not by itself verify every later claim about who invented or adopted the style first. Album or recording rights require separate permission."
+  },
+  "san-antonio-music-history": {
+    heading: "The West Side Sound was not confined to the West Side",
+    introduction: "The genre name can obscure where the bands worked. Institutional music history identifies East Side clubs, cross-community working bands and specific records that distinguish this sound from the older conjunto tradition.",
+    findings: [
+      {
+        heading: "A name that hides half the map",
+        record: "The Handbook places the West Side Sound's origins in cantinas, house parties and venues on both San Antonio's east and west sides in the late 1950s.",
+        reading: "The neighborhood label should not be used to erase the East Side's Black performers, clubs and touring connections. It names a musical identity rather than an exact geographic boundary.",
+        source: "Handbook of Texas, West Side Sound",
+        href: "https://www.tshaonline.org/handbook/entries/west-side-sound"
+      },
+      {
+        heading: "Eastwood Country Club connected local and touring acts",
+        record: "The Handbook says Doug Sahm, Spot Barnett and Rocky Morales filled in with the Eastwood Country Club house band and accompanied touring performers. Barnett's 20th Century Orchestra also worked at Club Ebony.",
+        reading: "A club's house band was an informal music school and employment network. The collaboration of musicians from different communities can be documented through their work, without overstating how completely social barriers disappeared.",
+        source: "Handbook of Texas, East Side house bands",
+        href: "https://www.tshaonline.org/handbook/entries/west-side-sound"
+      },
+      {
+        heading: "Two recorded hits reached beyond local clubs",
+        record: "The Handbook names Sunny and the Sunliners' 1963 version of 'Talk to Me' and the Sir Douglas Quintet's 1965 'She's About a Mover' as moments of national exposure.",
+        reading: "These examples offer concrete tests of the genre's reach instead of a vague statement that San Antonio became influential. Neither recording makes the West Side Sound identical to conjunto.",
+        source: "Handbook of Texas, national recordings and dates",
+        href: "https://www.tshaonline.org/handbook/entries/west-side-sound"
+      },
+      {
+        heading: "Conjunto and West Side Sound meet without merging",
+        record: "The Handbook traces West Side Sound's initial core to piano-triplet R&B and rock, with later dialogue with country and conjunto; Texas-Mexican conjunto has a separate accordion-and-bajo-sexto history.",
+        reading: "A page that treats these traditions as interchangeable loses their different instrumental lineages. San Antonio matters precisely because musicians could borrow across established musical practices.",
+        source: "Handbook of Texas, Texas-Mexican conjunto",
+        href: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto"
+      },
+      {
+        heading: "Living musicians are part of the historical evidence",
+        record: "UT San Antonio reported in 2022 that its West Side Sound Oral History Project was collecting interviews, photographs and records with community partners; a 2025 university update describes further oral-history presentation and archiving work.",
+        reading: "Local testimony can check the gaps left by commercial releases and retrospective genre labels. The project is a research resource, not a license to copy interview audio, photographs or collections without permission.",
+        source: "UT San Antonio, West Side Sound Oral History Project",
+        href: "https://education.utsa.edu/news/2022/02/westside-sound.html"
+      },
+      {
+        heading: "A 2025 film records musicians whom discographies alone miss",
+        record: "UT San Antonio documented the West Side Sound Oral History Project's 2025 film on Dimas Garza, directed by Chuco Garcia. Its described interviews include musicians, families and local historians; the public project also involves community record collectors and scholars.",
+        reading: "A discography measures what reached commercial recording, not which musicians sustained weddings, dances and neighborhood ensembles. The named oral-history effort supplies a route to evaluate those less visible contributions without inventing first-person testimony.",
+        source: "UT San Antonio, 2025 West Side Sound Oral History Project report",
+        href: "https://education.utsa.edu/news/2025/10/west-side-sound-oral-history-project-youve-succeeded-event-preview.html"
+      },
+      {
+        "heading": "A public-library concert list has become a time-and-place map",
+        "record": "UT San Antonio's Sounds of San Anto project says it built a concert-mapping project from research shared by San Antonio Public Library Texana archivist Andrew Crews. The map covers concerts and venues between 1970 and 2010; its team explicitly warns that the dataset does not capture every event or venue.",
+        "reading": "An incomplete map can still test where music circulated across the city, not just which hit singles received radio play. The honest limitation matters: absence from the map is not proof that a neighborhood lacked live music.",
+        "source": "UT San Antonio, Sounds of San Anto map methodology",
+        "href": "https://cedish.utsa.edu/sounds/about"
+      },
+      {
+        "heading": "Corrido performance and newspaper accounts offer different kinds of local memory",
+        "record": "The same UT San Antonio project compares the oral-tradition corrido about Gregorio Cortez with historical newspaper coverage, and features musical interpretations by Panfilo's Guera and Pinata Protest. These are modern interpretations in a public-history project, not recovered recordings from the early twentieth century.",
+        "reading": "San Antonio's music history reaches beyond West Side R&B into Spanish-language narrative traditions. Setting songs beside print records demonstrates how musical memory and written journalism can tell different parts of a borderland story without calling a present-day performance an original historical artifact.",
+        "source": "UT San Antonio, Sounds of San Anto Gregorio Cortez research project",
+        "href": "https://cedish.utsa.edu/sounds/about"
+      }
+    ],
+    caution: "The history describes cross-community collaboration in a segregated society. It should not romanticize the period as one of universal musical or social equality."
+  },
+  "corpus-christi-music-history": {
+    heading: "The Coastal Bend music trade existed before Selena's fame",
+    introduction: "The strongest Corpus Christi story is a sequence of businesses and working circuits: songwriting, retail, independent recording capacity and live performance, followed by national visibility.",
+    findings: [
+      {
+        heading: "Johnny Herrera moved from records to retail",
+        record: "The Handbook says Herrera started Gaviota Records in 1951 and opened the House of Music in Corpus Christi in 1961, at South Port and Buford. The shop became a meeting place for established artists and emerging musicians including Freddy Martinez and Abraham Quintanilla.",
+        reading: "A record shop connected music makers and buyers before internet discovery existed. Herrera's history is also a reminder that the city's recorded-music infrastructure predates Selena's career by decades.",
+        source: "Handbook of Texas, Johnny Herrera",
+        href: "https://www.tshaonline.org/handbook/entries/herrera-juan-william-johnny"
+      },
+      {
+        heading: "Two local labels did different recording work",
+        record: "Freddie Martínez created Freddie Records to issue his own work and later recorded other regional musicians. The Handbook identifies Hacienda Records as builder of a 24-track studio in South Texas in the late 1970s.",
+        reading: "Independent labels and expensive studio capacity are distinct kinds of investment. Together they helped working bands produce recordings within reach of the Corpus Christi–Rio Grande Valley circuit.",
+        source: "Handbook of Texas, Recording Industry",
+        href: "https://www.tshaonline.org/handbook/entries/recording-industry"
+      },
+      {
+        heading: "The family band's touring years preceded major-label success",
+        record: "The Handbook dates the Quintanilla family's move to Corpus Christi to 1982 and Selena's EMI Latin agreement to 1989. Her band performed in rural dance halls and urban nightclubs during the intervening years.",
+        reading: "The seven-year span explains why 'discovered in Corpus Christi' is too small a story. Live audiences, independent labels and regional touring created the skills and fan base that major-label distribution later amplified.",
+        source: "Handbook of Texas, Selena Quintanilla Perez",
+        href: "https://www.tshaonline.org/handbook/entries/quintanilla-perez-selena-selena"
+      },
+      {
+        heading: "Commemoration and music-making are separate stories",
+        record: "The Handbook documents Corpus Christi's Selena memorial in 1997 and the family museum opening in 1998, after the artist's 1995 death.",
+        reading: "Memorial sites explain the city's present-day relationship to Selena, while the earlier business and band history explains what Corpus Christi contributed to the music industry in her lifetime.",
+        source: "Handbook of Texas, Selena memorial and museum",
+        href: "https://www.tshaonline.org/handbook/entries/quintanilla-perez-selena-selena"
+      },
+      {
+        heading: "A university collection preserves Freddie Records' working materials",
+        record: "Texas A&M University-Corpus Christi's Bell Library catalog identifies the Freddie Martinez 'Freddie Records' Collection, Coll. 266 (1969–2020). Its historical finding aid credits Freddie and JoAnn Martinez with starting the label in a garage with $400 in November 1969, and inventories early records, period flyers and 2019 fiftieth-anniversary materials. Those figures come from the university's retrospective finding aid, not an independently examined original 1969 ledger.",
+        reading: "A dated archive of recordings and advertising offers more precise evidence of a label's regional infrastructure than an unsourced list of famous clients. Catalog descriptions establish what survives; they are not permission to republish the collection.",
+        source: "Texas A&M University-Corpus Christi, Freddie Records archival finding aid",
+        href: "https://txarchives.org/tamucc/finding_aids/00266.xml"
+      },
+      {
+        heading: "The museum preserves personal history, not the complete music industry",
+        record: "The Selena Museum's Google Arts and Culture institutional partner profile says the Quintanilla family established its museum in 1998 and describes displays of clothing, awards, memorabilia and family photographs at Q Productions.",
+        reading: "This collection offers a documented route into Selena's life and legacy, but it cannot substitute for separate archives about the broader musicians, record shops and studio workers in the Coastal Bend. Museum hours and fees remain current-operator questions.",
+        source: "Selena Museum, institutional Google Arts and Culture profile",
+        href: "https://artsandculture.google.com/partner/the-selena-museum"
+      }
+    ],
+    caution: "A musical birthplace is not the same as a recording location, a family home or a present-day museum. The Selena Museum's visitor details change; historical sources alone cannot verify opening hours."
+  },
+  "lubbock-music-history": {
+    heading: "Lubbock radio, a failed Nashville deal and a Clovis studio",
+    introduction: "Buddy Holly's breakthrough becomes more revealing when the unsuccessful records are included. The sequence was local broadcasting, a Nashville recording attempt and independent production across the New Mexico line.",
+    findings: [
+      {
+        heading: "KDAV offered an audience before a national label",
+        record: "The Handbook and Lubbock's musical heritage accounts document Buddy Holly's early performances with Bob Montgomery on local radio station KDAV, before a nationally successful single existed.",
+        reading: "The station provided a regular public test for a young band. That work is a different historical contribution from the later Clovis studio sessions that produced national recordings.",
+        source: "Handbook of Texas, Buddy Holly",
+        href: "https://www.tshaonline.org/handbook/entries/holley-charles-hardin-buddy-holly"
+      },
+      {
+        heading: "The 1956 Decca period was not the 1957 Crickets hit",
+        record: "After a 1956 Decca contract and unsuccessful Nashville recordings, Holly returned to Texas. The Handbook places the recording partnership with Norman Petty's Clovis, New Mexico studio in February 1957 and the Crickets' first Brunswick hit release in May.",
+        reading: "There were different versions and stages of 'That'll Be the Day.' A timeline that jumps straight from a 1956 contract to a 1957 hit makes label, studio and recording history look simpler than it was.",
+        source: "Handbook of Texas, The Crickets",
+        href: "https://www.tshaonline.org/handbook/entries/crickets"
+      },
+      {
+        heading: "West Texas crossed a state line to make a national record",
+        record: "The Texas Historical Commission's Buddy Holly marker dates the Clovis recording of the breakthrough version of 'That'll Be the Day' to February 25, 1957 and notes that the group toured nationally and in England.",
+        reading: "The recording site is in New Mexico, while the artists and rehearsal culture were rooted in West Texas. Lubbock's influence cannot be understood by insisting that every important event took place inside the city.",
+        source: "Texas Historical Commission, Buddy Holly marker",
+        href: "https://atlas.thc.texas.gov/Details?atlasnumber=5507018312&fn=print"
+      },
+      {
+        heading: "The Crickets were a working band, not a solo pseudonym",
+        record: "The Handbook identifies fellow musicians Jerry Allison, Joe B. Mauldin and Niki Sullivan in the Crickets' 1957 line-up, while also describing earlier collaborators.",
+        reading: "A biography focused only on Holly misses the collaborative writing, rhythm and band identity that shaped early rock-and-roll's sound and its later influence.",
+        source: "Handbook of Texas, The Crickets",
+        href: "https://www.tshaonline.org/handbook/entries/crickets"
+      },
+      {
+        heading: "A rejected recording became a National Recording Registry selection",
+        record: "The Library of Congress traces 'That'll Be the Day' through failed label pitches, an initial Brunswick pressing of only 1,000 copies and the May 27, 1957 release. Regional radio attention helped the recording grow into a national hit despite lukewarm industry assessments.",
+        reading: "The Crickets' success was not guaranteed when the tape left Clovis. Small initial distribution and disc-jockey support are concrete mechanisms by which a West Texas band reached national listeners.",
+        source: "Library of Congress, National Recording Registry history",
+        href: "https://blogs.loc.gov/now-see-hear/2022/02/from-the-national-recording-registry-thatll-be-the-day-1957/"
+      },
+      {
+        heading: "The later West Texas Walk of Fame is an act of memory, not the origin of the hit",
+        record: "Civic Lubbock states that a 1979 concert helped fund a Buddy Holly statue and named him the first West Texas Walk of Fame inductee, with Waylon Jennings following in 1980. Its board assumed stewardship in 1983.",
+        reading: "These dates help separate two separate historical processes: the 1950s recordings made elsewhere in a regional studio network, and later Lubbock efforts to preserve an increasingly global musical reputation.",
+        source: "Civic Lubbock, original West Texas Walk of Fame chronology",
+        href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
+      },
+      {
+        "heading": "Texas Tech preserves the researcher's trail as well as Holly's fame",
+        "record": "Texas Tech University's Southwest Collection describes the Bill Griggs Papers, 1926–2016, as holding Buddy Holly Memorial Society correspondence, research and publications, music-event programs, photographs and surviving interview tapes. The finding aid distinguishes the researcher's later memorial materials from the 1950s recording sessions themselves.",
+        "reading": "This archive lets a future historian test how Lubbock preserved and interpreted Holly's legacy, rather than mistaking a 1970s memorial society document for a contemporaneous 1957 studio record. It also reveals where some interview evidence may be held but subject to access and copyright rules.",
+        "source": "Texas Tech Southwest Collection, Guide to the Bill Griggs Papers",
+        "href": "https://txarchives.org/ttusw/finding_aids/40066.xml"
+      },
+      {
+        "heading": "The local radio show predates the national studio breakthrough",
+        "record": "Civic Lubbock's Buddy Holly biographical record describes early on-air performances as 'Buddy & Jack' and later 'Buddy & Bob' on KDAV, before discussing the 1956 Decca contract and 1957 Norman Petty recordings. The account is a later civic biography and does not provide an original broadcast recording.",
+        "reading": "KDAV was a local testing and exposure platform before the Clovis sessions and national releases. Labeling the evidence as retrospective avoids giving the false impression that a surviving 1950s KDAV tape or station log has been examined.",
+        "source": "Civic Lubbock, Buddy Holly West Texas Walk of Fame biography",
+        "href": "https://civiclubbock.org/inductee/buddy-holly/"
+      }
+    ],
+    caution: "Source accounts differ about early recording-session personnel. Date the recording, name the credited band, and avoid treating every rehearsal participant as a member of one fixed line-up."
+  }
+};

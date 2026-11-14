@@ -1,10 +1,9 @@
 import { use } from 'react';
 
-import { buildCountyStatewideContext, loadTexasCountyComparison } from '@/data/county-comparison';
+import { loadCountyStatewideContext } from '@/data/county-statewide-context.remote';
 
 export function CountyStatewideContextSection({ countyName, countySlug }: { countyName: string; countySlug: string }) {
-  const rows = use(loadTexasCountyComparison());
-  const context = buildCountyStatewideContext(rows, countySlug);
+  const context = use(loadCountyStatewideContext(countySlug));
   const facts = [
     context.population ? { label: '2020 population', ...context.population } : null,
     context.landArea ? { label: 'land area', ...context.landArea } : null,

@@ -1,0 +1,90 @@
+name: TexasDefined source-only newsroom evidence hydration
+
+# Reviews original publication evidence only; never generates or publishes.
+# Continues collecting qualified original evidence while article publication is inactive.
+on:
+  schedule:
+    - cron: '26 0,6,12,18 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-source-evidence-hydration.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/news/texasdefined-draft-evidence-gate.mjs'
+      - 'scripts/news/texasdefined-draft-evidence-gate.test.mjs'
+      - 'scripts/news/texasdefined-editorial-source-eligibility.mjs'
+      - 'scripts/data/validate-texasdefined-auto-publication.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-source-only-hydration
+  cancel-in-progress: false
+
+jobs:
+  source-evidence:
+    if: github.repository == 'keeptxred/TexasDefined'
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      NEWSROOM_HYDRATION_URL: https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/hydrate-newsroom-source-pages
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Verify publication activation remains independent
+        run: node scripts/data/validate-texasdefined-auto-publication.mjs
+      - name: Verify source-only workflow cannot publish or call AI
+        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs scripts/news/texasdefined-source-hydration-backoff.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs
+      - name: Fetch up to eight eligible original source pages, zero AI
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --hydrate-top=8 | tee /tmp/td-evidence.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows = fs.readFileSync('/tmp/td-evidence.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(x=>JSON.parse(x));
+          const summary = rows.find(x=>x.mode==='hydrate');
+          if (!summary || summary.aiCalls!==0 || !Number.isInteger(summary.scanned)
+            || !Number.isInteger(summary.requested) || !Number.isInteger(summary.updated)
+            || summary.requested>8 || summary.requested<0 || summary.updated>summary.requested
+            || summary.published!==undefined) {
+            throw new Error('Source hydration did not return a complete 0-AI nonpublishing report');
+          }
+          const report = [
+            '# TexasDefined original source evidence hydration',
+            'Scanned: '+summary.scanned,
+            'Requested direct source pages: '+summary.requested,
+            'Hydrated: '+summary.updated,
+            'AI calls: '+summary.aiCalls,
+            'Published articles: 0 (not an operation in this workflow)',
+            'No quality, owner activation, or editorial approval flags modified.',
+          ].join('\n');
+          console.log(report);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report+'\n');
+          NODE
+      - name: Inspect currently qualified publication queue without changing approvals or generating AI
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/td-dry-run.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows=fs.readFileSync('/tmp/td-dry-run.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(x=>JSON.parse(x));
+          const q=rows.find(x=>x.mode==='dry-run');
+          if (!q || q.published!==0 || q.skipped!==0 || q.failed!==0 || q.rawEligible!==q.eligible+q.held
+            || q.eligible!==q.selected+q.deferred) {
+            throw new Error('TexasDefined dry-run failed closed: inconsistent read-only queue accounting');
+          }
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+            '\n## Current quality-gated TexasDefined publication readiness (read-only)\n'+
+            'Ready-view records: '+q.rawEligible+'; safe and current: '+q.eligible+
+            '; held or stale: '+q.held+'; selected: '+q.selected+
+            '; published in this workflow: '+q.published+'\n');
+          console.log(JSON.stringify(q));
+          NODE

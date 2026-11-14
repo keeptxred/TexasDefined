@@ -1,5 +1,8 @@
 # Boyd Yellowjackets — independent Batch 006 football dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements below describing an unmerged branch are historical and superseded by this current release checkpoint.
+
+
 **October 17, 2026**. Not browser-VERIFIED or editorially accepted. This is Boyd ISD in Wise County, 11-man, UIL **2026–28 3A Division I District 4**. The official first-party classification is [UIL 3AD1FB2026.pdf](https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf); not an estimate or previous alignment.
 
 ## Source-verified campus, school identity and history
@@ -28,3 +31,23 @@ Boyd ISD publishes 700 Knox Avenue, Boyd, TX 76023 and office 940-433-9580: [off
 The school page `/texas-high-school-football-teams/boyd` links to `/county/wise`, and the corresponding Wise county guide adds a reciprocal football link. All original FAQs distinguish this particular school, its coaching and its actual sourced history. A current head-coach field is deliberately omitted where first-party confirmation was insufficient. No school logo, team photo or facility image is reused without documented license. An actual school photo still requires rights validation; an unrelated stock image is never substituted.
 
 **Before acceptance:** canonical protected CI on reconciled main, successful exact-SHA production deployment, school/county targeted real Chrome desktop/390px/320px SEO/JSON-LD/FAQ/links/axe checks, game-day and photo-rights evidence, and real nine-dimension Supabase editorial acceptance. Registry stays IMPLEMENTED until these are proven. No broad audit and no synthetic editorial sign-off.
+
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' October 17 completed Boyd–Peaster game recap](https://www.maxpreps.com/news/fUut-PcoIkG0vnA3SOiEbg/football-recap-tough-loss-for-boyd.htm) reports **Peaster 44, Boyd 13**, placing the Yellowjackets at **2–5 through October 16**. The source-dated 1983 and 2004 UIL state championships and separate, unresolved first-party head-coach designation are preserved.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
+
+## October 19, 2026 — first-party athletics director and third-party coaching roles
+
+[Boyd ISD's district leadership roster](https://boydisd.net/districtleadershipteam) confirms **Shawn Sparks athletic director**. [September 2026 MaxPreps Boyd staff](https://www.maxpreps.com/tx/boyd/boyd-yellowjackets/football/staff/) separately calls Sparks varsity head coach; Boyd's [football coaching page](https://boydisd.net/yellowjacketfootball) has a HEAD COACH image section but did not expose an independently readable official appointment name. The page now distinguishes roles without overclaiming school confirmation. Reported Peaster 44–13 October 16 result retained. No claimed image rights, gate details or final editorial signoff.
+
+## October 19, 2026 — directly reported 2026 head-football-coach interview confirms Shawn Sparks
+[NTX Varsity Sports' August 25, 2026 original Boyd preseason coverage](https://www.ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/) identifies and quotes **Shawn Sparks** as football coach beginning his second Boyd season. [MaxPreps' September 19 varsity staff record](https://www.maxpreps.com/tx/boyd/boyd-yellowjackets/football/staff/) separately lists him head coach, and [Boyd ISD's district leadership roster](https://boydisd.net/districtleadershipteam) identifies him as athletics director. The official team's image-led HEAD COACH section does not prove readable school-issued hiring text. The public page's coaching field, notice, overview and team-specific FAQ now use the original dated local interview as the head-football attribution, without confusing that with stadium visitor requirements or claiming formal human verification.
+
+## October 20, 2026 — current first-party high-school identity and address recheck
+[Boyd ISD's official Boyd High School page](https://boydisd.net/highschool) confirms **700 Knox Ave Boyd TX 76023**, campus phone **940-433-9580**, and names principal Jennifer Railsback; separate district office remains **600 Knox Ave**. This corroborates campus-versus-district distinction, but neither address is an independently validated football game-night stadium gate or ADA route. Existing school football program already uses first-party AD evidence for **Shawn Sparks** and a dated football-specific [NTX Varsity Sports 2026 report](https://www.ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/) for head-coach attribution. No newly verified ticket policy or licensed photo found, so existing public editorial is **not redundantly rewritten**. Preserve genuine 1983 and 2004 titles, source-reported 2–5 through Oct16 and future Paradise/Vernon/Bowie games as scheduled rather than scored.
+
+## October 20, 2026 — school-issued football schedules, tickets and streaming entry points
+[Boyd ISD Yellowjacket Football](https://boydisd.net/yellowjacketfootball) is the first-party **varsity & JV football schedule hub**, stronger than the previous generic Boyd high-school homepage. [Boyd ISD Pay Online](https://www.boydisd.net/payonline) specifically lists **Purchase Athletic Event Tickets** and **Subscribe To Livestream Games**. The guide now links both destinations and explains that a district gateway is not proof of any individual October 2026 game being available or streamed for free, a gate entrance, specific ticket pricing or accepted passes. [Boyd ISD district leadership](https://boydisd.net/districtleadershipteam) separately names **Shawn Sparks** athletic director; independent 2026 varsity reporting already supports his head-football coach title. Keep Wise County Boyd distinct from Bowie.
+

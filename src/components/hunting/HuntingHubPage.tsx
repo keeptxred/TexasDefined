@@ -1,11 +1,14 @@
 import { HuntingAuthorityHub } from "./HuntingAuthority";
 import { HuntingHubSchema } from "./HuntingSchema";
+import { HuntingRegulationArchiveNotice } from "./HuntingRegulationArchiveNotice";
+import { HuntingCountyProvider } from "./HuntingCountyContext";
 
 export default function HuntingHubPage() {
   return (
     <>
       <HuntingHubSchema />
-      <HuntingAuthorityHub />
+      <HuntingRegulationArchiveNotice />
+      <HuntingCountyProvider><HuntingAuthorityHub /></HuntingCountyProvider>
     </>
   );
 }

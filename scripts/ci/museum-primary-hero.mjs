@@ -15,6 +15,15 @@ export function primaryDestinationHeroSrc(html) {
     .replace(/&amp;/gi, "&");
 }
 
+/** Primary alt belongs to the same licensed hero image, not a sidebar card. */
+export function primaryDestinationHeroAlt(html) {
+  const markup = html.match(/<div\b[^>]*\bdata-image-fallback-label\b[^>]*>\s*<\/div>\s*<img\b[^>]*>/i)?.[0] ?? "";
+  const tag = markup.match(/<img\b[^>]*>/i)?.[0] ?? "";
+  return (tag.match(/\balt=["']([^"']*)["']/i)?.[1] ?? "")
+    .replace(/&quot;/gi, '"').replace(/&#(?:39|x27);/gi, "'")
+    .replace(/&amp;/gi, "&").trim();
+}
+
 export function isMissingPrimaryDestinationHero(html) {
   const src = primaryDestinationHeroSrc(html);
   return !src || /(?:^|\/)texasdefined-destination-placeholder\.svg(?:[?#]|$)/i.test(src);

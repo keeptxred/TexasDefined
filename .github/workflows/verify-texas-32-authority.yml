@@ -1,0 +1,115 @@
+name: Texas 32-page authority contract
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/priority-search-pages*.ts'
+      - 'src/routes/texas-*.tsx'
+      - 'src/routes/gruene-hall-history*.tsx'
+      - 'src/routes/track-texas-drivers-license*.tsx'
+      - 'src/routes/replace-texas-registration-receipt*.tsx'
+      - 'src/components/editorial/PrioritySearchPage.tsx'
+      - 'src/data/texas-music-guides-*.ts'
+      - 'scripts/data/validate-texas-32-authority.mjs'
+      - 'scripts/ci/verify-texas-32-production.mjs'
+      - 'scripts/ci/verify-texas-32-browser.mjs'
+      - '.github/workflows/verify-texas-32-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/priority-search-pages*.ts'
+      - 'src/routes/texas-*.tsx'
+      - 'src/routes/gruene-hall-history*.tsx'
+      - 'src/routes/track-texas-drivers-license*.tsx'
+      - 'src/routes/replace-texas-registration-receipt*.tsx'
+      - 'src/components/editorial/PrioritySearchPage.tsx'
+      - 'src/data/texas-music-guides-*.ts'
+      - 'scripts/data/validate-texas-32-authority.mjs'
+      - 'scripts/ci/verify-texas-32-production.mjs'
+      - 'scripts/ci/verify-texas-32-browser.mjs'
+  workflow_dispatch:
+  # Exact owner-authorized checkpoint comment, not a follower of deployments.
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '23 13 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-32-authority-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-contract:
+    if: github.event_name != 'issue_comment'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate all 32 authority routes and content guards
+        run: node scripts/data/validate-texas-32-authority.mjs
+      - name: Check production and browser verifier syntax
+        run: |
+          node --check scripts/ci/verify-texas-32-production.mjs
+          node --check scripts/ci/verify-texas-32-browser.mjs
+      - name: Validate source-backed Texas state comparisons
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+      - name: Validate Texas flag primary-source history
+        run: node scripts/data/validate-texas-flag-authority.mjs
+
+  # Full live checks are intentionally weekly/on-demand, not another
+  # permanent deployment follower. The canonical deployment smoke covers
+  # changed routes and the protected merge gate owns deterministic QA.
+  production-acceptance:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7036 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-texas-32-production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fresh uncached live HTTP, canonical, indexability and content check for all 32
+        run: node scripts/ci/verify-texas-32-production.mjs
+      - name: Preserve per-route production acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-32-production-acceptance
+          path: .artifacts/texas-32-production-acceptance.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  browser-acceptance:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7036 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-texas-32-production')
+    needs: [production-acceptance]
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Use runner Chrome with isolated Playwright driver
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-32-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check representative desktop and mobile page usability
+        run: node scripts/ci/verify-texas-32-browser.mjs
+      - name: Upload per-viewport browser screenshots and acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-32-browser-screenshots
+          path: artifacts/texas-32-browser/
+          if-no-files-found: warn
+          retention-days: 14

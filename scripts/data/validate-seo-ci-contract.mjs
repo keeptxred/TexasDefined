@@ -150,6 +150,12 @@ const cultureGatePosition = deployRunsCentralPredeploy
   : deployWorkflow.indexOf('Validate Texas culture authority before deploy');
 const buildPosition = deployWorkflow.indexOf('Build production bundle');
 const deployPosition = deployWorkflow.indexOf('Deploy TexasDefined Worker');
+const staleGuardPosition = deployWorkflow.indexOf('Refuse superseded Worker revision');
+if (staleGuardPosition < 0 || staleGuardPosition >= deployPosition
+    || !deployWorkflow.includes('git ls-remote --exit-code origin refs/heads/main')
+    || !deployWorkflow.includes('latest_main" != "$GITHUB_SHA"')) {
+  errors.push('Production Worker replacement must reject superseded run SHAs against live main before publishing.');
+}
 if (cultureGatePosition < 0 || buildPosition < 0 || deployPosition < 0 || cultureGatePosition > buildPosition || cultureGatePosition > deployPosition) {
   errors.push('Texas culture authority validation must run before the production build and Worker deployment.');
 }

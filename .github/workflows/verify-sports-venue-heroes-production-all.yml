@@ -23,6 +23,9 @@ on:
 
 permissions:
   contents: read
+  # The local audit reusable workflow also requests actions:read.
+  # Preserve least-privilege compatibility even though owner hold disables its job.
+  actions: read
 
 concurrency:
   group: sports-venue-heroes-local-${{ github.ref }}

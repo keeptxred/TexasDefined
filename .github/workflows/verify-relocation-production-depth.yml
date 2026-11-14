@@ -41,7 +41,13 @@ jobs:
             {
               label: 'El Paso',
               path: '/article/moving-to-el-paso-guide',
-              depthNeedle: 'Water belongs in the housing budget',
+              depthNeedle: 'Which part of El Paso should you live in?',
+              extraNeedles: [
+                'Moving to El Paso, Texas:',
+                'El Paso at a glance: costs and commuting',
+                'El_Paso_skyline.jpg',
+                'El Paso Water rates and fees',
+              ],
             },
           ];
 
@@ -59,14 +65,16 @@ jobs:
             });
             const body = await response.text();
             const depthPresent = body.includes(check.depthNeedle);
+            const missingExtraNeedles = (check.extraNeedles ?? []).filter((needle) => !body.includes(needle));
             const readingTimeMatch = body.match(/About\s+(\d+)\s+minutes?/i);
             const readingMinutes = readingTimeMatch ? Number(readingTimeMatch[1]) : 0;
             const readingTimeHealthy = readingMinutes >= minReadingMinutes;
 
-            if (!response.ok || !depthPresent || !readingTimeHealthy) {
+            if (!response.ok || !depthPresent || !readingTimeHealthy || missingExtraNeedles.length > 0) {
               failed = true;
               const problems = [
                 !depthPresent ? `missing depth marker: ${check.depthNeedle}` : null,
+                ...missingExtraNeedles.map((needle) => `missing authority marker: ${needle}`),
                 !readingTimeMatch ? 'missing rendered reading-time byline' : null,
                 readingTimeMatch && !readingTimeHealthy
                   ? `rendered reading time ${readingMinutes}m is below ${minReadingMinutes}m minimum`

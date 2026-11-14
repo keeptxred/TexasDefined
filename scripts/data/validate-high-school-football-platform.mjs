@@ -1,11 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { certifiedBatch015 } from '../ci/verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from '../ci/verified-football-b016-certificate.mjs';
+import { certifiedBatch017 } from '../ci/verified-football-b017-certificate.mjs';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const errors = [];
 const requireText = (source, marker, label) => {
   if (!source.includes(marker)) errors.push(`${label} missing: ${marker}`);
+};
+const forbidText = (source, marker, label) => {
+  if (source.includes(marker)) errors.push(`${label} must not include retired copy: ${marker}`);
 };
 
 const files = [
@@ -37,7 +43,10 @@ const footballSitemapPath = 'src/data/high-school-football/football-sitemap.serv
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
+const footballIdentityAccentPath = 'src/data/high-school-football/football-identity-accent.ts';
+const footballTeamSeasonOverlayPath = 'src/data/high-school-football/football-team-season-overlay.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
+const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
@@ -57,6 +66,8 @@ const footballCalendarGuidePath = 'src/data/fixtures/texas-high-school-football-
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const productionSmokePath = 'scripts/ci/verify-friday-night-lights-production.mjs';
+const productionSurfaceSmokePath = 'scripts/ci/verify-production-surfaces.mjs';
+const footballAuthorityRegistryPath = 'docs/football-authority/REGISTRY.json';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -90,6 +101,7 @@ for (const file of [
   programProfileFunctionsPath,
   footballProfileContentPath,
   footballProgramEditorialPath,
+  footballBatch008EditorialPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
@@ -108,6 +120,8 @@ for (const file of [
   footballCalendarGuidePath,
   evergreenRegistryPath,
   productionSmokePath,
+  productionSurfaceSmokePath,
+  footballAuthorityRegistryPath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -130,9 +144,49 @@ if (!errors.length) {
   const schoolDistrict = read(files[8]);
   const relocationFinder = read(files[9]);
   const entityPage = read(files[10]);
+  // In production JavaScript object literals, quoted and unquoted county keys
+  // identify the same property. A later research batch silently overwrote
+  // eleven earlier county groups (including Bullard, Burton, Bushland and
+  // Bridgeport). Keep every researched school's reciprocal link reachable.
+  const countyLinkMaps = [
+    'batch002FootballCountyLinks',
+    'supplementalFootballCountyLinks',
+  ];
+  const countyLinkKeysByMap = new Map();
+  for (const mapName of countyLinkMaps) {
+    const startMarker = 'const ' + mapName + ':';
+    const mapBody = entityPage.split(startMarker)[1]?.split(/\n};/)[0];
+    if (!mapBody) {
+      errors.push('Football reciprocal county map missing: ' + mapName);
+      continue;
+    }
+    const keys = [...mapBody.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)]
+      .map(match => match[1] || match[2]);
+    const seen = new Set();
+    const repeated = [];
+    for (const county of keys) {
+      if (seen.has(county)) repeated.push(county);
+      seen.add(county);
+    }
+    if (repeated.length) errors.push('Duplicate campus county keys in ' + mapName + ': ' + [...new Set(repeated)].join(', '));
+    countyLinkKeysByMap.set(mapName, seen);
+  }
+  for (const marker of [
+    'const researchedFootballCountyLinks =',
+    '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+    '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    'researchedFootballCountyLinks.map((school)',
+    '.filter((school) => Boolean(school?.slug && school?.name))',
+  ]) requireText(entityPage, marker, 'Merged campus county reciprocal football links');
+  for (const slug of ['bullard','burton','bushland','bridgeport','calvert','brenham','canyon-randall','brownsboro','buda-johnson']) {
+    requireText(entityPage, "slug: '" + slug + "'", 'Research school county link ' + slug);
+  }
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
+const footballIdentityAccent = read(footballIdentityAccentPath);
+const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
+  const footballBatch008Editorial = read(footballBatch008EditorialPath);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
@@ -146,6 +200,14 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const featuredProfileServer = read('src/data/high-school-football/featured-program-profile.server.ts');
+  for (const [code, name] of [[programProfileServer, 'UIL detail'], [featuredProfileServer, 'legacy featured detail']]) {
+    requireText(code, 'loadRemoteSources: false', name + ' SSR must avoid external cold fetches');
+  }
+  requireText(directory, 'loadRemoteSources?: boolean;', 'Football directory optional external dependency');
+  requireText(directory, 'options.loadRemoteSources === false', 'Football profile offline-safe UIL fallback');
+  requireText(directory, 'loadTeaSchoolDirectory()', 'Directory search must retain optional live TEA data');
+  requireText(directory, 'loadUilRecentFootballHistory()', 'Directory search must retain optional official UIL history');
   const footballProgramIndex = read(footballProgramIndexPath);
   const footballSitemap = read(footballSitemapPath);
   const footballVenueLinks = read(footballVenueLinksPath);
@@ -168,11 +230,65 @@ if (!errors.length) {
   const footballCalendarGuide = read(footballCalendarGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
   const productionSmoke = read(productionSmokePath);
+  const productionSurfaceSmoke = read(productionSurfaceSmokePath);
+  const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
+  // Sparse identity arrays throw on .find(identity => identity.slug) for all
+  // unlisted teams after the first hole. One accidental double comma previously
+  // made non-Batch008 UIL team pages respond HTTP 500. Validate source AND
+  // preserve a defensive lookup for future malformed rows.
+  if (/}\s*,\s*,/.test(schoolIdentities)) {
+    errors.push('Football verified identity records contain a sparse array entry (double separator)');
+  }
+  requireText(schoolIdentities,
+    'identity?.slug === slug',
+    'Fail-safe verified football identity lookup against missing array entries');
+  const identitySlugs = [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)]
+    .map((match) => match[1]);
+  const verifiedIdentitySlugs = new Set(identitySlugs);
+  if (verifiedIdentitySlugs.size !== identitySlugs.length) {
+    const seen = new Set();
+    const duplicateSlugs = identitySlugs.filter((slug) => {
+      if (seen.has(slug)) return true;
+      seen.add(slug);
+      return false;
+    });
+    errors.push('Football identities duplicate canonical school slugs: ' + [...new Set(duplicateSlugs)].join(', '));
+  }
+  const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
+    ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
+  );
+  const researchedProgramsMissingVerifiedIdentity = researchedFootballRecords
+    .filter((record) => !verifiedIdentitySlugs.has(record.slug))
+    .map((record) => record.slug)
+    .sort();
+  if (researchedProgramsMissingVerifiedIdentity.length) {
+    errors.push(
+      `Researched/deployed football programs missing verified mascot identity records: ${researchedProgramsMissingVerifiedIdentity.join(', ')}`,
+    );
+  }
+  // NCES campus 481206000703 is in Cherokee County, not the default
+  // Bullard ISD / Smith County match. Keep canonical school context accurate.
+  requireText(programProfileServer,
+    "canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }",
+    'Bullard exact campus-county exception');
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
+  // School-specific football FAQs sometimes cite original district ticket and
+  // athletics URLs inline. Keep those safe sources clickable instead of showing
+  // unlinked raw URLs, without altering the underlying FAQ JSON-LD answer text.
+  for (const required of [
+    'function renderFootballFaqAnswer(answer: string)',
+    "if (!part.startsWith('https://')) return part;",
+    'rel="noopener noreferrer nofollow"',
+    '{renderFootballFaqAnswer(item.answer)}',
+    // A long Columbus ISD athletics URL in a sourced overview previously
+    // pushed the entire 320px document wider than the viewport.
+    '{renderFootballFaqAnswer(paragraph)}',
+    '[overflow-wrap:anywhere]',
+  ]) requireText(featuredProfilePage, required, 'Clickable and narrow-safe football source URLs');
   const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
@@ -250,6 +366,15 @@ if (!errors.length) {
     "'Shamrock ISD 2026 football schedule'",
     "texas-high-school-football-teams/shamrock</loc>",
   ]) requireText(productionSmoke, marker, 'Shamrock football live production contract');
+
+  for (const marker of [
+    "['football-district8-v2-hub', '/texas-high-school-football-districts/5a-division-ii-district-8'",
+    "['football-katy-district22-v2-hub', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-katy-district22-6a-format', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-1a-d1-district14-v2-hub', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-six-man', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-abbott-link', '/texas-high-school-football-districts/1a-division-i-district-14'",
+  ]) requireText(productionSurfaceSmoke, marker, 'Always-on football district variant production guards');
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -553,7 +678,7 @@ if (!errors.length) {
     errors.push(`Football school identity data fell below 185 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
-  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","cypress-ranch","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
+  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
   for (const slug of obsoleteIdentitySlugs) {
     if (schoolIdentities.includes(`slug: '${slug}'`)) {
       errors.push(`Football school identity data must use the canonical UIL slug instead of legacy alias: ${slug}.`);
@@ -561,6 +686,20 @@ if (!errors.length) {
   }
   requireText(schoolIdentities, "slug: 'wills-point'", 'Wills Point verified football identity');
   requireText(schoolIdentities, "mascot: 'Tigers'", 'Wills Point verified football identity');
+  for (const marker of [
+    'colorsSourceUrl?: string',
+    'colorsSourceLabel?: string',
+    'colorsVerifiedAt?: string',
+    "slug: 'center'",
+    "colors: 'Purple and Gold'",
+    "slug: 'chester'",
+    "slug: 'celina'",
+    "colors: 'Orange and White'",
+    "slug: 'celeste'",
+    "colors: 'Royal Blue and White'",
+    'slug: "castroville-medina-valley"',
+    'colors: "Orange and Black"',
+  ]) requireText(schoolIdentities, marker, 'Football school color provenance');
 
   if (programProfileServer.includes('matchFeaturedFootballProgram')) {
     errors.push('Current UIL football profiles must resolve identity directly by canonical UIL slug, not through the former seed-list matcher.');
@@ -808,6 +947,54 @@ if (!errors.length) {
   const exactEnrollmentCount = (exactEnrollments.match(/^\s*"[^"]+": \{"enrollment":[0-9.]+,"submittedConference":"[1-6]A"\},$/gm) ?? []).length;
   if (exactEnrollmentCount !== 1268) errors.push(`Exact UIL football enrollment data expected 1,268 schools; found ${exactEnrollmentCount}.`);
 
+  const exactEnrollmentBySchool = new Map(
+    [...exactEnrollments.matchAll(/^\s*"([^"]+)": \{"enrollment":([0-9.]+),"submittedConference":"([1-6]A)"\},?$/gm)]
+      .map((match) => [match[1], { enrollment: Number(match[2]), submittedConference: match[3] }]),
+  );
+  const enrollmentBandSpecs = [
+    ['6A', null, 2215, null],
+    ['5A', 1, 1870, 2214],
+    ['5A', 2, 1305, 1869],
+    ['4A', 1, 896, 1304],
+    ['4A', 2, 550, 895],
+    ['3A', 1, 367, 549],
+    ['3A', 2, 246, 366.9],
+    ['2A', 1, 175.6, 245.9],
+    ['2A', 2, 105, 175.5],
+    ['1A', 1, 57.6, 104.9],
+    ['1A', 2, null, 57.5],
+  ];
+  const alignmentEnrollmentExceptions = [];
+  const submittedConferenceExceptions = [];
+  const missingEnrollmentRows = [];
+  for (const block of alignment.matchAll(/\{\s*classification:'([1-6]A)',\s*division:(1|2|null),\s*footballType:'[^']+',\s*sourceUrl:'[^']+',\s*districts:\[([\s\S]*?)\]\s*\}/g)) {
+    const classification = block[1];
+    const division = block[2] === 'null' ? null : Number(block[2]);
+    const districtRows = [...block[3].matchAll(/'([^']*)'|"([^"]*)"/g)].map((match) => match[1] ?? match[2]);
+    for (const districtRow of districtRows) {
+      for (const school of districtRow.split(';').map((value) => value.trim()).filter(Boolean)) {
+        const exact = exactEnrollmentBySchool.get(school);
+        if (!exact) {
+          missingEnrollmentRows.push(school);
+          continue;
+        }
+        const band = enrollmentBandSpecs.find(([bandClass, bandDivision]) => bandClass === classification && bandDivision === division);
+        if (band) {
+          const [, , min, max] = band;
+          const fits = (min == null || exact.enrollment >= min) && (max == null || exact.enrollment <= max);
+          if (!fits) alignmentEnrollmentExceptions.push(school);
+        }
+        if (exact.submittedConference !== classification) submittedConferenceExceptions.push(school);
+      }
+    }
+  }
+  if (missingEnrollmentRows.length) errors.push(`UIL alignment schools missing exact enrollment rows: ${missingEnrollmentRows.join(', ')}`);
+  if (alignmentEnrollmentExceptions.length !== 49) errors.push(`Expected 49 UIL programs whose enrollment falls outside the normal final-placement cutoff band; found ${alignmentEnrollmentExceptions.length}.`);
+  if (submittedConferenceExceptions.length !== 7) errors.push(`Expected 7 UIL programs whose submitted conference differs from final football classification; found ${submittedConferenceExceptions.length}.`);
+  for (const school of ['Shamrock', 'Boys Ranch', 'Garland', 'San Antonio Houston']) {
+    if (!alignmentEnrollmentExceptions.includes(school)) errors.push(`Known enrollment-placement exception missing from statewide guard: ${school}`);
+  }
+
   for (const marker of [
     'const EXPECTED_TOTAL = 1268',
     'Exact UIL school-name join failed',
@@ -830,6 +1017,8 @@ if (!errors.length) {
     'https://www.uiltexas.org/athletics/conference-cutoffs',
     'uilFootballEnrollmentBand',
     'uilFootballConferenceBand',
+    'uilEnrollmentFallsWithinBand',
+    'uilFootballEnrollmentBandForEnrollment',
   ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
 
   for (const marker of [
@@ -871,11 +1060,14 @@ if (!errors.length) {
     'Show all {classPrograms.length.toLocaleString()} {item} programs',
     'Every current UIL football program gets the same directory and profile treatment.',
     'All 1,268',
-    '6A → 1A · enrollment classification',
-    'A 6A school is listed above a 5A school because it is in the larger-enrollment classification',
+    '6A → 1A · final UIL classification',
+    'UIL classifications generally reflect enrollment',
+    'the final UIL alignment controls football placement',
+    'some programs fall outside the normal published cutoff band',
+    'A 6A school is listed above a 5A school because of its final UIL classification',
     'Open team football guide →',
     'not because TexasDefined has rated its football program as better',
-    'UIL enrollment band:',
+    'Normal UIL enrollment band:',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballConferenceBand',
     'uilEnrollment',
@@ -931,11 +1123,112 @@ if (!errors.length) {
   ]) requireText(footballDistrictIndexRoute, marker, 'Football district directory route');
 
   for (const marker of [
+    "buckholts:",
+    "'buda-hays':",
+    "'buda-johnson':",
+    "getBatch008FootballProgramEditorial",
+    "Varsity Opponent",
+    "Mark Torres",
+    "Sam Carlin",
+    "buffalo:",
+    "bullard:",
+    "buna:",
+    "Trent Jones",
+    "Colton Bradford",
+    "Kevin Terrier",
+    "Mildred final not independently verified",
+    "Buna 46",
+    "burkburnett:",
+    "burkeville:",
+    "burleson:",
+    "Jody Littleton",
+    "Keith Hendrix",
+    "Phillip Tanner",
+    "SETXsports reports 12-61",
+    "Midlothian Heritage",
+    "'burleson-centennial':",
+    "burnet:",
+    "burton:",
+    "Blake Meyer",
+    "Ben Speer",
+    "Jason Hodde",
+    "Lancaster",
+    "Bremond",
+    "bushland:",
+    "bynum:",
+    "'caddo-mills':",
+    "William Rabson",
+    "C. Morgan",
+    "Kodi Crane",
+    "Ferris 53-35",
+    "Hereford 57-21",
+    "caldwell:",
+    "callisburg:",
+    "calvert:",
+    "Sean Witherwax",
+    "Eddie Gill",
+    "Marcus Wortham",
+    "Franklin",
+    "Brazos Valley",
+    "'cameron-yoe':",
+    "campbell:",
+    "canadian:",
+    "Aaron Babino",
+    "Preston Compton",
+    "Andy Cavalier",
+    "canton:",
+    "canutillo:",
+    "canyon:",
+    "'canyon-randall':",
+    "Heath Ragle",
+    "Scott Brooks",
+    "Matt Lovorn",
+    "Dan Sherwood",
+    "Chapin",
+    "Randall beat Canyon 24-21",
+  ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
+
+  for (const marker of [
+    "import { footballMatchups } from './football-matchups';",
+    "import { applyFootballMatchupSnapshot } from './football-team-season-overlay';",
+    'applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)',
+  ]) requireText(programProfileServer, marker, 'Statewide football matchup overlay wiring');
+
+  for (const marker of [
+    "recordLabel: 'Verified snapshot record'",
+    "game.result && row.result && game.result !== row.result",
+    "editorial ?? { slug: teamSlug, overview: [], faq: [] }",
+    "game.status !== 'final'",
+  ]) requireText(footballTeamSeasonOverlay, marker, 'Statewide football matchup overlay safeguards');
+
+  forbidText(footballProgramEditorial, "footballMatchups", 'Base football editorial registry must not own runtime matchup reconciliation');
+
+  requireText(programProfileServer, "import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';", 'Football Batch 008 lazy loader');
+  requireText(programProfileServer, "(await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug)", 'Football Batch 008 editorial precedence');
+  forbidText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 eager import');
+  const batch008Loader = read('src/data/high-school-football/program-editorial-b008-loader.server.ts');
+  requireText(batch008Loader, "await import('./program-editorial-b008')", 'Football Batch 008 conditional import');
+  requireText(batch008Loader, "if (!BATCH008_FOOTBALL_SLUGS.has(slug)) return undefined;", 'Avoid loading Batch 008 for unrelated school profiles');
+  const publishedBatch008Slugs = [...footballBatch008Editorial.matchAll(/^  ((?:'[^']+'|[a-z][a-z0-9-]*)):\s*\{/gm)]
+    .map((match) => match[1].replaceAll("'", ''));
+  const loaderBatch008Slugs = [...batch008Loader.matchAll(/^  '([a-z0-9-]+)',?$/gm)].map((match) => match[1]);
+  if (publishedBatch008Slugs.length !== 25 || loaderBatch008Slugs.length !== 25
+    || publishedBatch008Slugs.some((slug) => !loaderBatch008Slugs.includes(slug))) {
+    errors.push('Conditional Batch 008 loader must retain all and only the 25 researched school slugs');
+  }
+
+  for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-districts')",
     'Texas high school football districts',
     'Browse all 192 current UIL football districts',
     'Search all 1,268 UIL programs',
   ]) requireText(footballDistrictIndexPage, marker, 'Football district directory page');
+
+  forbidText(footballDistrictIndexPage, 'research profile', 'Football district directory page');
+  forbidText(classificationGuide, 'research profile', 'Football classifications guide');
+  forbidText(footballChampionshipPage, 'research profile', 'Football championship history page');
+  forbidText(scoresSchedulesGuide, 'research profile', 'Football scores and schedules guide');
+  forbidText(footballHub, 'research profile', 'Friday Night Lights hub');
 
   for (const marker of [
     "createFileRoute('/texas-high-school-football-districts/$slug')",
@@ -955,6 +1248,11 @@ if (!errors.length) {
     'data-football-district-section="official-sources"',
     'district.programs.map((program, index)',
     'href={program.profilePath}',
+    'uilEnrollmentFallsWithinBand',
+    'placementExceptionPrograms',
+    'Normal enrollment band:',
+    'final UIL football alignment controls competition placement',
+    'Placement exception',
     'program.uilEnrollment',
     'uilFootballEnrollmentBand',
     'https://www.uiltexas.org/maxpreps/',
@@ -969,6 +1267,7 @@ if (!errors.length) {
     'district.enrollmentSourceUrl',
     'UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page durable contract');
+  forbidText(footballDistrictPage, 'research usability', 'Football district detail page');
 
   for (const marker of [
     'loadUilAllTimeFootballHistory',
@@ -1027,10 +1326,62 @@ if (!errors.length) {
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
+  requireText(featuredProfilePage, "const footballName = identity?.mascot ?", 'Verified mascot precedence over editorial SEO title');
+  forbidText(featuredProfilePage, 'const footballName = authoredFootballH1 || (identity?.mascot', 'Do not prefer stale authored mascot title');
+  // Older campus-county PR #5401 became stale while the complete canonical
+  // map was already shipped. Retain its useful regression protections without
+  // overwriting newer team/editorial data.
+  for (const marker of [
+    'const researchedCountyLink = researchedCampusCounty[slug]',
+    "'abbott': 'hill'",
+    "'abernathy': 'hale'",
+    "'alief-hastings': 'harris'",
+    "'katy': 'fort-bend'",
+    "'fort-davis': 'jeff-davis'",
+    "'southlake-carroll': 'tarrant'",
+    "'bruceville-eddy': 'mclennan'",
+  ]) requireText(featuredProfilePage, marker, 'Canonical school-slug campus-county mapping');
+  const countyLookupStart = featuredProfilePage.indexOf('const researchedCountyLink = researchedCampusCounty[slug]');
+  const countyLookupEnd = featuredProfilePage.indexOf('const associationLabel', countyLookupStart);
+  const countyLookup = countyLookupStart >= 0 && countyLookupEnd > countyLookupStart
+    ? featuredProfilePage.slice(countyLookupStart, countyLookupEnd)
+    : '';
+  requireText(countyLookup, 'const countyPath = researchedCountyLink', 'Campus-county path from canonical slug');
+  for (const retired of [
+    "editorial?.slug ? researchedCampusCounty[editorial.slug]",
+    "schoolName === 'Alief Hastings'",
+    "schoolName === 'Abilene Wylie'",
+    "schoolName === 'Katy'",
+    "schoolName === 'Fort Davis'",
+    "schoolName === 'Southlake Carroll'",
+  ]) forbidText(countyLookup, retired, 'Do not infer campus county from display name inside the county resolver');
+
+
+  for (const marker of [
+    'footballIdentityAccentFromColors',
+    "editorial?.theme?.accentHex ? undefined : footballIdentityAccentFromColors(identity?.colors)",
+    "accentHex={identityPanelAccent}",
+    "verifiedColors={verifiedIdentityAccent ? identity?.colors : undefined}",
+    'it is not an official school brand hex',
+  ]) requireText(featuredProfilePage, marker, 'Verified football identity accent rendering');
+
+  for (const marker of [
+    'These values are intentionally editorial approximations, not school brand hex',
+    'Neutral-only color labels return undefined',
+    'raw identity strings',
+    "/\\b(?:texas burnt orange|burnt orange)\\b/i",
+    "/\\b(?:navy blue|navy)\\b/i",
+    "/\\b(?:hunter green|forest green)\\b/i",
+    "/\\b(?:panther blue|roo blue|frenship blue|bright blue|blue)\\b/i",
+  ]) requireText(footballIdentityAccent, marker, 'Football identity accent palette safeguards');
+
+  if (featuredProfilePage.includes('borderTopColor: identity?.colors')) {
+    errors.push('Football profile must never pass the raw school color label directly into CSS.');
+  }
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'Official district enrollment',
     '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
@@ -1039,7 +1390,7 @@ if (!errors.length) {
     'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
     'All-time UIL state-final record',
-    'Freshman, JV and varsity path',
+    'Use the district’s current registration process',
     'Football eligibility is a separate question from school admission.',
     'UIL eligibility standards ↗',
     'UIL detailed eligibility rules ↗',
@@ -1048,7 +1399,11 @@ if (!errors.length) {
     'Football game venues',
     'venueLinks.length > 0',
     'Venue details last reviewed',
-    'Identity last reviewed',
+    'Mascot evidence last reviewed',
+    'School-color evidence last reviewed',
+    'color evidence may have a separate source and review date',
+    'School color source ↗',
+    'Mascot and colors appear only when TexasDefined has a named source it can cite',
     'identity &&',
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
@@ -1062,22 +1417,45 @@ if (!errors.length) {
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
+    'Live scores & schedule links',
+    'TexasDefined does not publish an unverified team-specific schedule.',
     'UIL Texas Scoreboard gateway ↗',
     'it is not an official district-standings table',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
+    'uilFootballEnrollmentBandForEnrollment',
+    'Enrollment-based cutoff band',
+    'Enrollment and football placement are different here.',
+    'Final football placement',
     'UIL reported enrollment',
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
     'Quick answers',
     'Source trail',
+    'Coach source ↗',
+    'Campus source ↗',
+    'Team schedule source ↗',
+    'Season snapshot source ↗',
+    'Team venue source ↗',
     'Football FAQ',
     'profileSummary',
     'quickFacts',
     'faq',
+    "new Intl.DateTimeFormat('en-US'",
+    'formatFootballDate',
+    '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
+    '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
+    '<time dateTime={colorsVerifiedAt}>{formatFootballDate(colorsVerifiedAt)}</time>',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    'Mascot and colors are published only from a school or district source.',
+    '<td className="px-3 py-3 font-semibold">{game.date}</td>',
+    'Research beyond the score',
+    'What families should check next',
+    'Freshman, JV and varsity path',
+    '2026 schedule & results sources',
+    'TexasDefined does not publish a team-specific schedule here unless',
     'All ${program.districtName} football programs →',
     'TEA directory match pending',
     'Exact UIL enrollment pending',
@@ -1107,12 +1485,48 @@ if (!errors.length) {
   requireText(featuredProfilePage, '/article/texas-high-school-football-2026-season-calendar', 'Football school profile calendar discovery');
   requireText(featuredProfilePage, '2026 UIL season calendar →', 'Football school profile calendar discovery');
 
+  requireText(
+    footballProfileContent,
+    "TexasDefined's current sourced coach record identifies",
+    'Football coach FAQ source attribution',
+  );
+  for (const marker of [
+    "What is ${displayName}'s 2026–28 UIL football alignment?",
+    "Why does ${displayName}'s UIL enrollment not match its final football placement?",
+    "Does ${displayName} play six-man football?",
+    "Classification, division and district are combined here instead of repeated as separate FAQ answers.",
+  ]) requireText(footballProfileContent, marker, 'Compact football FAQ generator');
+
+  for (const retired of [
+    "What classification is ${displayName} football in for 2026–28?",
+    "What football district is ${displayName} in?",
+    "What enrollment does UIL list for ${displayName}?",
+    "What school district is ${displayName} in?",
+    "Does ${displayName} play six-man or eleven-man football?",
+  ]) {
+    if (footballProfileContent.includes(retired)) {
+      errors.push(`Football FAQ generator still contains retired repetitive template: ${retired}`);
+    }
+  }
+  if (footballProfileContent.includes('The current school-source entry used by TexasDefined')) {
+    errors.push('Football coach FAQ must not label third-party coach evidence as a school-source entry.');
+  }
+
   for (const marker of [
     'buildFootballProfileSummary',
     'buildFootballProfileQuickFacts',
     'buildFootballProfileFaq',
+    'uilFootballEnrollmentBandForEnrollment',
+    'The final alignment controls competition placement',
+    'if (enrollmentFitsFinalBand === false)',
+    'Why does ${displayName}\'s UIL enrollment not match its final football placement?',
     'Classification is not a quality ranking.',
+    'That enrollment falls outside the normal published cutoff for',
+    'the final UIL football alignment controls competition placement.',
+    'Use the cited ${editorial.schedule.label} linked on this page',
+
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  forbidText(footballProfileContent, 'Use the school-published ${editorial.schedule.label} linked on this page', 'Football profile schedule-source attribution');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
     'quickFacts: buildFootballProfileQuickFacts',
@@ -1202,16 +1616,29 @@ if (!errors.length) {
   for (const marker of [
     'How Do the Texas High School Football Playoffs Work?',
     'https://www.uiltexas.org/football/playoff-brackets',
-    'top two teams from each 1A six-man district',
-    'top four teams from each district advance in 2A through 6A',
-    'the two schools with the larger enrollments go to the Division I bracket',
-    'What \'bi-district\' means',
+    'What does bi-district mean in Texas high school football?',
+    'It does not mean a team won two district championships.',
+    '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
+  // Qualification facts are presented once in the responsive comparison and
+  // illustrated enrollment-split reference, rather than duplicated in body copy.
+  // Assert the public-facing, composed page's source retains each UIL rule.
+  const playoffReference = read('src/components/content/FootballPlayoffsReference.tsx');
+  for (const [marker, label] of [
+    ['["1A six-man", "Top two"', '1A district advances top two'],
+    ['["2A–5A", "Top four"', '2A–5A district advances top four'],
+    ['["6A", "Top four"', '6A district advances top four'],
+    ['Two larger qualifiers to I; two smaller to II', '6A two larger qualifiers enter Division I'],
+    ['Only the four qualifying schools are compared.', '6A division selection is limited to qualifiers'],
+    ['Division I · larger qualifiers', '6A larger qualifiers visual'],
+    ['Division II · smaller qualifiers', '6A smaller qualifiers visual'],
+  ]) requireText(playoffReference, marker, 'Football playoff guide: ' + label);
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
+  requireText(read('src/routes/texas-high-school-football-playoff-brackets.tsx'), 'to="/article/texas-high-school-football-playoffs-explained"', 'Football brackets reciprocal playoff explainer discovery');
   for (const marker of [
     'Texas High School Football Scores 2026: Schedules & UIL Scoreboard',
     'https://www.uiltexas.org/athletics/uil-maxpreps',
@@ -1291,6 +1718,378 @@ if (!errors.length) {
   requireText(dataSources, "id:'uil-football-calendar'", 'Texas source registry');
   requireText(dataSources, "title:'2026–27 UIL football calendar and season dates'", 'Texas source registry');
 
+  // Small, source-dated Batch 006 contract: never resurrect a stale coach roster
+  // merely because a third-party site still advertises a historical appointment.
+  // This parses four existing school objects; it makes no network calls or crawls.
+  const footballEditorialRecord = (slug) => {
+    const marker = '  "' + slug + '": {';
+    const pos = footballProgramEditorial.indexOf(marker);
+    if (pos === -1) {
+      errors.push('Missing school-specific football editorial record: ' + slug);
+      return null;
+    }
+    const start = footballProgramEditorial.indexOf('{', pos);
+    let depth = 0;
+    let quoted = false;
+    let escaped = false;
+    for (let i = start; i < footballProgramEditorial.length; i++) {
+      const ch = footballProgramEditorial[i];
+      if (quoted) {
+        if (escaped) escaped = false;
+        else if (ch === '\\') escaped = true;
+        else if (ch === '"') quoted = false;
+      } else if (ch === '"') quoted = true;
+      else if (ch === '{') depth++;
+      else if (ch === '}' && --depth === 0) {
+        try {
+          return JSON.parse(footballProgramEditorial.slice(start, i + 1));
+        } catch (error) {
+          errors.push('Invalid JSON-like football editorial for ' + slug + ': ' + error.message);
+          return null;
+        }
+      }
+    }
+    errors.push('Unterminated school-specific football editorial: ' + slug);
+    return null;
+  };
+
+  const batch006IdentityContracts = [
+    ['big-sandy-harmony', 'Eagles'],
+    ['big-spring', 'Steers'],
+    ['bishop', 'Badgers'],
+    ['blackwell', 'Hornets'],
+    ['blanco', 'Panthers'],
+    ['blanket', 'Tigers'],
+    ['blooming-grove', 'Lions'],
+    ['bloomington', 'Bobcats'],
+    ['blue-ridge', 'Tigers'],
+    ['bluff-dale', 'Bobcats'],
+    ['blum', 'Bobcats'],
+    ['boerne', 'Greyhounds'],
+    ['boerne-champion', 'Chargers'],
+    ['bogata-rivercrest', 'Rebels'],
+    ['boling', 'Bulldogs'],
+    ['bonham', 'Purple Warriors'],
+    ['booker', 'Kiowas'],
+    ['borden-county', 'Coyotes'],
+    ['borger', 'Bulldogs'],
+    ['bosqueville', 'Bulldogs'],
+    ['bovina', 'Mustangs'],
+    ['bowie', 'Jackrabbits'],
+    ['bowie-gold-burg', 'Bears'],
+    ['boyd', 'Yellowjackets'],
+    ['boys-ranch', 'Roughriders'],
+  ];
+  for (const [slug, mascot] of batch006IdentityContracts) {
+    requireText(
+      schoolIdentities,
+      `slug: '${slug}', mascot: '${mascot}'`,
+      'Batch 006 verified school/district mascot identity',
+    );
+  }
+
+  const batch006VenueContracts = [
+    ['bishop', 'George Luna Stadium', 'bhs.bishopcisd.net/'],
+    ['blooming-grove', 'Lion Stadium', 'bgisd.org/apps/events/2026/10/'],
+    ['blue-ridge', 'Tiger Stadium', 'brisd.net/o/brisd/page/athletics'],
+  ];
+  for (const [slug, venueName, sourceFragment] of batch006VenueContracts) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    if (program.venue?.name !== venueName) {
+      errors.push('Batch 006 first-party venue identity missing or changed: ' + slug);
+    }
+    if (!program.venue?.sourceUrl?.includes(sourceFragment)) {
+      errors.push('Batch 006 venue must retain its school/district source: ' + slug);
+    }
+    if (!/gate|entrance/i.test(program.venue?.note || '')) {
+      errors.push('Batch 006 venue qualification must preserve entrance/gate limitations: ' + slug);
+    }
+  }
+
+  const bishop = footballEditorialRecord('bishop');
+  if (bishop) {
+    const bishopMilestones = Array.isArray(bishop.milestones) ? bishop.milestones : [];
+    if (!bishopMilestones.some((milestone) =>
+      milestone?.title === 'Badger Stadium renamed George Luna Stadium' &&
+      milestone?.sourceUrl === 'https://www.kztv10.com/news/local-news/badger-stadium-renamed-after-former-bishop-athletic-director-george-luna'
+    )) {
+      errors.push('Bishop must retain the sourced George Luna Stadium renaming milestone.');
+    }
+    const bishopFaq = Array.isArray(bishop.faq) ? bishop.faq : [];
+    const bishopTicketAnswer = bishopFaq.find((item) => item?.question === 'Where can I check Bishop CISD football tickets for homecoming?')?.answer || '';
+    for (const source of [
+      'https://www.bishopcisd.net/athletics/ticket-sales',
+      'https://www.bishopcisd.net/parents-students/tickets-sales',
+    ]) {
+      if (!bishopTicketAnswer.includes(source)) {
+        errors.push('Bishop ticket FAQ must retain first-party source: ' + source);
+      }
+    }
+  }
+
+  for (const token of [
+    "slug: 'blanket', mascot: 'Tigers', colors: 'Black and gold'",
+    "slug: 'borden-county', mascot: 'Coyotes', colors: 'Columbia blue, red and white'",
+  ]) requireText(schoolIdentities, token, 'Official Batch 006 school colors');
+
+  requireText(read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'), 'game.date >= todayTexas', 'Prevent stale next football fixture');
+  forbidText(read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'), 'game.date >= editorial.season.verifiedAt', 'Do not use the old editorial snapshot date for next fixture');
+  const currentCoachContracts = [
+    ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
+    ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
+    ['blackwell', 'Clint Linman', 'sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html'],
+    ['bogata-rivercrest', 'Laytner Kennedy', 'maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/'],
+    ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
+    ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
+    ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
+    ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
+    ['bovina', 'Wade Wilson', 'newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/'],
+    ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
+    ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
+    ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/'],
+  ];
+  for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    if (program.coach?.name !== expectedCoach) {
+      errors.push('Outdated or unsupported Batch 006 coach: ' + slug
+        + '; expected sourced ' + expectedCoach + ', got ' + (program.coach?.name || 'none'));
+    }
+    if (!program.coach?.sourceUrl?.includes(sourceFragment)) {
+      errors.push('Batch 006 coach attribution missing dated football source: ' + slug);
+    }
+    const faq = program.faq?.find(({ question }) => /coach|staff|athletic.director/i.test(question));
+    if (!faq || !faq.answer.includes(expectedCoach)) {
+      errors.push('Batch 006 coach FAQ contradicts current sourced coach: ' + slug);
+    }
+  }
+  // The 2026 MaxPreps history still names Travis McClain at Rivercrest,
+  // despite the AFCA's Oct 8, 2026 profile documenting his Mount Vernon
+  // appointment in January 2025. Never promote that stale 2026 history field
+  // over the separately dated August 29 varsity staff list.
+  const rivercrest = footballEditorialRecord('bogata-rivercrest');
+  if (rivercrest?.coach?.name === 'Travis McClain') {
+    errors.push('Stale Rivercrest history must not identify Mount Vernon coach Travis McClain as Rivercrest 2026 head coach.');
+  }
+  const harmony = footballEditorialRecord('big-sandy-harmony');
+  if (harmony?.coach?.name === 'Jeremy Jenkins'
+      || harmony?.coach?.sourceUrl?.includes('maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/')) {
+    errors.push('Stale MaxPreps Harmony roster must not identify deceased former coach Jeremy Jenkins as the 2026 current head coach.');
+  }
+  // Bounded Batch 006 regression check; a <25-program> audit, not a site crawl.
+  // Use the existing registry assignment rather than a second school roster.
+  const footballRegistry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const footballBatch006 = footballRegistry.batch?.number === 6
+    ? footballRegistry.batch
+    : footballRegistry.completedBatches?.find(({ number }) => number === 6);
+  if (!footballBatch006 || footballBatch006.slugs?.length !== 25) {
+    errors.push('Batch 006 canonical football assignment must retain all 25 original school slugs');
+  } else {
+    const todayUtc = new Date().toISOString().slice(0, 10);
+    const batchSeoTitles = new Set();
+    for (const slug of footballBatch006.slugs) {
+      const program = footballEditorialRecord(slug);
+      if (!program) continue;
+      // Bounded metadata budget: keep each school and year legible in search,
+      // while preserving unique program identity (Bowie versus Gold-Burg, etc.).
+      const seoTitle = (program.seo?.title || '').trim();
+      const seoDescription = (program.seo?.description || '').trim();
+      if (!seoTitle || seoTitle.length > 70 || !seoTitle.includes('2026')) {
+        errors.push('Batch 006 school SEO title absent, oversized or missing season: ' + slug);
+      }
+      if (batchSeoTitles.has(seoTitle)) {
+        errors.push('Batch 006 duplicate school-specific SEO title: ' + slug);
+      }
+      batchSeoTitles.add(seoTitle);
+      if (!seoDescription || seoDescription.length > 160 || !seoDescription.includes('2026')) {
+        errors.push('Batch 006 SEO description absent, over 160 characters, or missing 2026 season: ' + slug);
+      }
+      const played = program.season?.games?.filter(({ result }) => Boolean(result)) || [];
+      const wins = played.filter(({ result }) => result.startsWith('W ')).length;
+      const losses = played.filter(({ result }) => result.startsWith('L ')).length;
+      const record = program.season?.record?.match(/^(\d+)[–-](\d+)/);
+      if (!record || Number(record[1]) !== wins || Number(record[2]) !== losses) {
+        errors.push('Batch 006 2026 W-L summary contradicts scored game rows: ' + slug);
+      }
+      // A verified result must be directly traceable from the public school page.
+      // The school UI renders "Verify latest recorded final" only if this link
+      // is populated; without it, the date-qualified score has no per-result CTA.
+      // A 2026 final may link to its dated report or current 2026 team result ledger,
+      // not a prior-season MaxPreps /25-26/ schedule.
+      if (played.length > 0 && (!/^https:\/\//.test(program.season?.latestResultSourceUrl || '')
+        || /\/25-26\//.test(program.season?.latestResultSourceUrl || ''))) {
+        errors.push('Batch 006 completed season lacks current clickable latest-result evidence: ' + slug);
+      }
+      // A dated W–L claim in a search snippet must equal the played-game ledger.
+      // Evergreen descriptions without a W–L claim remain valid; do not parse
+      // historic state titles, district identifiers or reported point scores.
+      const seoRecord = seoDescription.match(/\b(\d+)[–-](\d+)\s+through\s+(?:Oct\.?|October|Sept\.?|September|Nov\.?|November)\b/i);
+      if (seoRecord && (Number(seoRecord[1]) !== wins || Number(seoRecord[2]) !== losses)) {
+        errors.push('Batch 006 dated SEO W-L contradicts completed 2026 games: ' + slug);
+      }
+      const games = program.season?.games || [];
+      if (games.length < 7) errors.push('Batch 006 researched games unexpectedly sparse: ' + slug);
+      for (let i = 0; i < games.length; i++) {
+        const game = games[i];
+        if (!/^\d{4}-\d\d-\d\d$/.test(game.date || '') || !game.opponent) {
+          errors.push('Batch 006 fixture has invalid ISO date or unnamed opponent: ' + slug);
+        }
+        if (i > 0 && games[i - 1].date >= game.date) {
+          errors.push('Batch 006 games out of date order or duplicate date: ' + slug);
+        }
+        if (game.result && (!/^[WL]\s/.test(game.result) || game.date > todayUtc)) {
+          errors.push('Batch 006 scored fixture has malformed or future-dated result: ' + slug);
+        }
+      }
+      // A milestone dated 2026 must never send readers to MaxPreps' prior
+      // 2025–26 season. Older 2025 history may still legitimately use that URL.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-–])/.test(milestone.date || '') && /\/25-26\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 2026 milestone links to an obsolete 2025 season: ' + slug);
+        }
+        if (!/^https:\/\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 historical milestone lacks a clickable source URL: ' + slug);
+        }
+      }
+      if ((program.faq || []).length < 5) {
+        errors.push('Batch 006 source-backed school FAQ unexpectedly missing: ' + slug);
+      }
+      if ((program.faq || []).some(({ question }) => (question || '').includes(' for ' + slug + ' against '))) {
+        errors.push('Batch 006 public football FAQ exposes raw lowercase slug instead of school name: ' + slug);
+      }
+      const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
+      if (new Set(normalized).size !== normalized.length) {
+        errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
+      }
+      // Prevent prior-year varsity schedules from masquerading as evidence
+      // for the current 2026 season. Keep actual 2025 history links intact.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-/])/.test(milestone.date || '')
+            && (milestone.sourceUrl || '').includes('/25-26/schedule/')) {
+          errors.push('Batch 006 2026 milestone cites prior season schedule: ' + slug
+            + ' / ' + milestone.title);
+        }
+      }
+      // School-owned/press photo assets require affirmative provenance.
+      // Original CSS/SVG data visualizations are not documentary photos.
+      if (program.photo && (!program.photo.license || !program.photo.sourceUrl
+          || !program.photo.credit || !program.photo.alt)) {
+        errors.push('Batch 006 football photo lacks reuse rights/credit/alt evidence: ' + slug);
+      }
+    }
+  }
+
+  // These source-dated October 16 results already exist in the game ledgers.
+  // Protect the human-readable overview/FAQ too: correct table data is not
+  // sufficient when a search answer still calls a completed game "upcoming".
+  const october16NarrativeChecks = [
+    {
+      slug: 'big-sandy-harmony',
+      opponent: 'Edgewood',
+      score: 'L 0–48',
+      overview: ['Edgewood', '48–0'],
+      faq: ['0–8', 'October 16', 'Edgewood'],
+      rejected: ['The latest completed result independently checked was an October 9 loss to Quitman'],
+    },
+    {
+      slug: 'booker',
+      opponent: 'White Deer',
+      score: 'L 22–38',
+      overview: ['White Deer', '38–22', '4–4'],
+      rejected: ['White Deer, Wildorado and Boys Ranch are subsequent fixtures'],
+    },
+    {
+      slug: 'borden-county',
+      opponent: 'Westbrook',
+      score: 'W 54–28',
+      overview: ['Westbrook', '54–28', '7–0', 'August 18'],
+      rejected: ['Westbrook, Klondike, Ira and Sands are fixtures with no independently certified scores'],
+    },
+    {
+      slug: 'blanco',
+      opponent: 'Karnes City',
+      score: 'W 54–6',
+      overview: ['Karnes City', '54–6', '5–3'],
+      rejected: ['Remaining fixtures are schedules, not predicted outcomes.'],
+    },
+    {
+      slug: 'bloomington',
+      opponent: 'Danbury',
+      score: 'W 42–0',
+      overview: ['Danbury', '42–0', '3–5'],
+      rejected: [],
+    },
+  ];
+  for (const { slug, opponent, score, overview, faq = [], rejected } of october16NarrativeChecks) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    const match = (program.season?.games || []).find((game) =>
+      game.date === '2026-10-16' && game.opponent === opponent);
+    if (!match || match.result !== score) {
+      errors.push('Batch 006 October 16 game source changed or disappeared: ' + slug);
+    }
+    const overviewText = (program.overview || []).join(' ');
+    const faqText = (program.faq || []).map(({ question, answer }) => question + ' ' + answer).join(' ');
+    for (const phrase of overview) {
+      if (!overviewText.includes(phrase)) errors.push('Batch 006 October 16 overview stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of faq) {
+      if (!faqText.includes(phrase)) errors.push('Batch 006 October 16 FAQ stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of rejected) {
+      if ((overviewText + ' ' + faqText).includes(phrase)) {
+        errors.push('Batch 006 October 16 prose still contains superseded snapshot: ' + slug);
+      }
+    }
+  }
+
+  // The Bluff Dale school-issued 2026 calendar corrects an incomplete
+  // third-party season feed. Keep all three published varsity fixtures visible;
+  // each may gain a score later without breaking this source-integrity test.
+  const bluffDale = footballEditorialRecord('bluff-dale');
+  if (bluffDale) {
+    const originalCalendar = 'bdisd.smartsiteshost.com/page/page_calendar?calID=136451';
+    if (!bluffDale.schedule?.sourceUrl?.includes(originalCalendar)) {
+      errors.push('Bluff Dale 2026 season schedule must cite the first-party ISD calendar');
+    }
+    const originalVarsityFixtures = [
+      ['2026-10-23', 'Milford', 'Away', true],
+      ['2026-10-29', 'Pinnacle Christian', 'Home', false],
+      ['2026-11-05', 'Avalon', 'Home', true],
+    ];
+    for (const [date, opponent, site, district] of originalVarsityFixtures) {
+      const game = bluffDale.season?.games?.find(g => g.date === date && g.opponent === opponent);
+      if (!game || game.site !== site || Boolean(game.district) !== district) {
+        errors.push('Bluff Dale official 2026 game missing/misidentified: ' + date + ' ' + opponent);
+      }
+    }
+    const narrative = [
+      ...(bluffDale.overview || []),
+      ...(bluffDale.faq || []).map(({ answer }) => answer),
+    ].join(' ');
+    if (!narrative.includes('October 23') || !narrative.includes('October 22')) {
+      errors.push('Bluff Dale must preserve school-versus-specialist Milford date discrepancy');
+    }
+  }
+
+  const outdatedCoachCaveats = [
+    ['boerne', 'rather than assuming an unverified coach'],
+    ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
+    ['bloomington', 'but the distinct football appointment has not been confirmed with a district hiring announcement'],
+    ['blanco', 'Fans seeking an up-to-the-minute coach or staffing contact should use Blanco ISD Athletics rather than an undated index'],
+  ];
+  for (const [slug, outdatedPhrase] of outdatedCoachCaveats) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    const narrative = [...(program.overview || []), ...(program.faq || []).map(({ answer }) => answer)].join(' ');
+    if (narrative.includes(outdatedPhrase)) {
+      errors.push('Batch 006 rendered coach narrative still contains superseded caveat: ' + slug);
+    }
+  }
+
   for (const [file, source] of [
     [files[4], finder],
     [files[5], countyModule],
@@ -1315,6 +2114,1385 @@ if (!errors.length) {
     }
   }
 }
+
+
+function batch009Cohort(registry) {
+  return registry.batch.number === 9
+    ? registry.batch
+    : registry.completedBatches.find(x=>x.number===9 && x.state==='VERIFIED_BATCH_009_COMPLETE');
+}
+
+// The five scheduled Chrome cohorts complete independently, sometimes after
+// the fifth-numbered cohort's completion event. The collector must be invoked
+// by whichever cohort finishes last; a green collector with a missing ZIP is
+// only a safe no-change result, never acceptance evidence. A single protected
+// workflow-file push trigger allows this repair to use already retained
+// technical evidence without creating another site-wide browser audit.
+const batch010CollectorWorkflow = read('.github/workflows/certify-football-b010-from-chrome.yml');
+for(const label of ['first','second','third','fourth','fifth']){
+  if(!batch010CollectorWorkflow.includes(
+    'Football Batch 010 '+label+'-five live production acceptance'))
+    errors.push('Batch010 certificate runner must listen for '+label+'-five completion');
+}
+if(!batch010CollectorWorkflow.includes("push:") ||
+   !batch010CollectorWorkflow.includes("'.github/workflows/certify-football-b010-from-chrome.yml'") ||
+   !batch010CollectorWorkflow.includes("github.event_name == 'push'") ||
+   !batch010CollectorWorkflow.includes('cancel-in-progress: false'))
+  errors.push('Batch010 missing bounded protected source-push recovery/serialized real-evidence collector');
+
+// The 25 Batch009 schools may be marked VERIFIED only after five real Chrome jobs,
+// retained evidence artifacts, exact deployed SHA and a single published Worker.
+// Never conflate this technical certification with photo rights or human signoff.
+const batch009Certification = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const batch009Certified = batch009Cohort(batch009Certification)?.state === 'VERIFIED_BATCH_009_COMPLETE';
+const batch010Certification = batch009Certification.completedBatches.find(b => b.number === 10 && b.state === 'VERIFIED_BATCH_010_COMPLETE');
+const batch010Certified = Boolean(batch010Certification);
+// The certified Batch010 is immutable historical evidence once Batch011 is
+// assigned; the active registry pointer must be allowed to move forward.
+// This is a read-only validation view, not a rewrite of the signed archive.
+const batch010View=(registry)=>{
+  if(registry.batch.number===10)return registry;
+  if(registry.batch.number<11 || !batch010Certified) {
+    errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
+    return registry;
+  }
+  return {...registry,batch:{...batch010Certification,currentSchool:null,nextSchool:null}};
+};
+const batch010ExpectedUnreviewed = 1062 -
+  batch009Certification.schoolRecords.filter(x=>
+    x.batch>10 && x.status!=='NOT_REVIEWED').length;
+
+const batch010ExpectedStatus = batch010Certified ? 'VERIFIED' : 'IMPLEMENTED';
+const batch010ExpectedProduction = batch010Certified;
+const batch010ExpectedTotalVerified = batch010Certified ? 230 : 205;
+// Later certified cohorts do not rewrite the immutable Batch010 baseline.
+const historicalVerifiedThrough010 = batch009Certification.schoolRecords.filter(x => x.status === 'VERIFIED' && x.batch <= 10).length;
+const batch010ExpectedImplemented = batch010Certified ? 0 : 25;
+const batch010ExpectedRemaining = batch010Certified ? 0 : 25;
+if (batch010Certified) {
+  const r = batch010View(batch009Certification);
+  const proof = batch010Certification.technicalAcceptance;
+  const cohorts = ['first-five','second-five','third-five','fourth-five','fifth-five'];
+  const counties = [5,5,3,5,4];
+  const shots = [20,26,21,20,19];
+  const validSha = /^[a-f0-9]{40}$/;
+  const validWorker = /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/;
+  const recordedWorker = proof?.observedWorkerVersions?.[0];
+  const sourceCommit = proof?.productionDeploymentGitSha;
+  const deploymentRun = proof?.productionDeploymentRun;
+  const groups = proof?.groups;
+  const observedWindow=proof?.verificationObservationWindow;
+  const from=Date.parse(proof?.cloudflareActiveFrom||'');
+  const replaced=proof?.cloudflareReplacedAt===null ? Infinity :
+    Date.parse(proof?.cloudflareReplacedAt||'');
+  const ledgerVerified=Date.parse(proof?.githubWorkerLedgerVerifiedAt||'');
+  if(!validWorker.test(proof?.cloudflareDeploymentId||'') ||
+     !Number.isSafeInteger(proof?.githubWorkerLedgerDeploymentId) ||
+     proof.githubWorkerLedgerDeploymentId<=0 ||
+     !Number.isFinite(from) || !(replaced>from) ||
+     !Number.isFinite(ledgerVerified) || ledgerVerified<from ||
+     !Array.isArray(observedWindow) || observedWindow.length!==5)
+    errors.push('Batch010 historical Cloudflare 100%-active production window missing or invalid');
+  for(let i=0;i<5;i++) {
+    const w=observedWindow?.[i], g=groups?.[i];
+    const start=Date.parse(w?.browserStartedAt||''),end=Date.parse(w?.browserCompletedAt||'');
+    if(w?.cohort!==cohorts[i].split('-')[0] || w?.runId!==g?.runId ||
+       !Number.isFinite(start) || !Number.isFinite(end) ||
+       start<from || start<ledgerVerified || end<start || end>=replaced)
+      errors.push('Batch010 cohort Chrome timing is outside matching Cloudflare deployment: '+cohorts[i]);
+  }
+  if (r.batch.number !== 10 || r.batch.slugs.length !== 25 ||
+      r.batch.individuallyVerified !== 25 || r.batch.remainingToVerify !== 0 ||
+      r.batch.remainingAssigned !== 0 || r.batch.remainingToImplement !== 0 ||
+      historicalVerifiedThrough010 !== 230 ||
+      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED' && x.batch===10).length !== 0 ||
+      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length !== batch010ExpectedUnreviewed ||
+      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch<10).length !== 205 ||
+      batch010Certification.individuallyVerified !== 25 ||
+      batch010Certification.remainingToVerify !== 0 ||
+      batch010Certification.slugs.length !== 25 ||
+      JSON.stringify(batch010Certification.slugs) !== JSON.stringify(r.batch.slugs) ||
+      proof?.schoolCount !== 25 || proof?.schoolCasesPassed !== 75 ||
+      proof?.schoolCasesFailed !== 0 || proof?.countyCasesPassed !== 22 ||
+      proof?.countyCasesFailed !== 0 || proof?.screenshotsSaved !== 106 ||
+      proof?.sitemapUrlsPassed !== 25 || proof?.workerVersionMatchesDeploy !== true ||
+      proof?.observedWorkerVersions?.length !== 1 || !validWorker.test(recordedWorker || '') ||
+      !validSha.test(sourceCommit || '') || !Number.isSafeInteger(deploymentRun) || deploymentRun <= 0 ||
+      proof?.editorialHumanSignoffsClaimed !== 0 || proof?.manualAccessibilityAccepted !== false ||
+      proof?.schoolPhotoReuseRightsAccepted !== false || !Array.isArray(groups) || groups.length !== 5) {
+    errors.push('Batch010 certification requires all 25 sourced schools, 75 browser cases, 22 counties, 106 screenshots and a single real deployed Worker.');
+  }
+  for (let i=0;i<5;i++) {
+    const group = groups?.[i];
+    const slugs = r.batch.slugs.slice(i*5,(i+1)*5);
+    const runId = group?.runId;
+    const artifactId = group?.artifactId;
+    if(group?.label !== cohorts[i] || !Number.isSafeInteger(runId) || runId<=0 ||
+       !Number.isSafeInteger(artifactId) || artifactId<=0 ||
+       group?.schoolCasesPassed !== 15 || group?.countyCasesPassed !== counties[i] ||
+       group?.screenshotsSaved !== shots[i] || group?.workerVersion !== recordedWorker ||
+       JSON.stringify(group?.schoolSlugs) !== JSON.stringify(slugs) ||
+       group?.runUrl !== 'https://github.com/keeptxred/TexasDefined/actions/runs/'+runId ||
+       group?.artifactUrl !== group?.runUrl+'/artifacts/'+artifactId) {
+      errors.push('Batch010 cohort lacks exact archived Chrome acceptance metadata: '+cohorts[i]);
+    }
+    for (const slug of slugs) {
+      const row = r.schoolRecords.find(x => x.slug===slug);
+      if(!row || row.batch !== 10 || row.status !== 'VERIFIED' ||
+         row.actualProductionVerified !== true || row.technicalBrowserRun !== runId ||
+         row.acceptanceEvidenceArtifact !== artifactId ||
+         row.productionWorkerVersion !== recordedWorker ||
+         row.verifiedDeploymentRun !== deploymentRun ||
+         row.verifiedDeploymentGitSha !== sourceCommit ||
+         row.manualAccessibilityAccepted !== false ||
+         row.schoolPhotoReuseRightsAccepted !== false ||
+         row.editorialHumanSignoff !== false) {
+        errors.push('Batch010 school lacks matching published Chrome and release evidence: '+slug);
+      }
+    }
+  }
+}
+const batch009ExpectedStatus = batch009Certified ? 'VERIFIED' : 'IMPLEMENTED';
+const batch009ExpectedProduction = batch009Certified;
+const batch009ExpectedTotalVerified = batch009Certified ? batch010ExpectedTotalVerified : 180;
+const batch009ExpectedImplemented = batch009Certified ? 0 : 25;
+const batch009ExpectedPending = batch009Certified ? 0 : 25;
+if(batch009Certified) {
+  const r = batch009Certification;
+  const historical009 = batch009Cohort(r);
+  const sha = '50cbde86199b5bfa0dd1f83142f0f9f95656aedf';
+  const version = 'ec1fdfd7-2e11-42e4-ae63-15befca2bc52';
+  const deployRun = 40606053728;
+  const proof = [
+    {offset:0,run:40607160511,artifact:12781656104,counties:4,shots:31},
+    {offset:5,run:40607160473,artifact:12781066252,counties:5,shots:29},
+    {offset:10,run:40607160531,artifact:12781706017,counties:4,shots:22},
+    {offset:15,run:40607160523,artifact:12781521222,counties:5,shots:20},
+    {offset:20,run:40607160611,artifact:12781081268,counties:5,shots:20},
+  ];
+  const cohorts = r.completedBatches.filter(x => x.number === 9);
+  const completed = cohorts[0], evidence = completed?.technicalAcceptance;
+  if(cohorts.length!==1 || completed.state!=='VERIFIED_BATCH_009_COMPLETE' ||
+      completed.individuallyVerified!==25 || historical009.individuallyVerified!==25 ||
+      historical009.remainingToVerify!==0 || historical009.remainingAssigned!==0 ||
+      historical009.remainingToImplement!==0 || historical009.slugs.length!==25 ||
+      evidence.schoolCount!==25 || evidence.schoolCasesPassed!==75 ||
+      evidence.schoolCasesFailed!==0 || evidence.countyCasesPassed!==23 ||
+      evidence.countyCasesFailed!==0 || evidence.screenshotsSaved!==122 ||
+      evidence.sitemapUrlsPassed!==25 || !evidence.workerVersionMatchesDeploy ||
+      evidence.observedWorkerVersions?.length!==1 ||
+      evidence.observedWorkerVersions[0]!==version ||
+      evidence.productionDeploymentRun!==deployRun ||
+      evidence.productionDeploymentGitSha!==sha ||
+      evidence.editorialHumanSignoffsClaimed!==0 ||
+      evidence.manualAccessibilityAccepted!==false ||
+      evidence.schoolPhotoReuseRightsAccepted!==false ||
+      evidence.groups?.length!==5) {
+    errors.push('Batch009 Chrome certification requires five exact successful evidence-backed groups and one deployed Worker.');
+  }
+  for (const [i,p] of proof.entries()) {
+    const group = evidence?.groups?.[i];
+    const slugs = historical009.slugs.slice(p.offset,p.offset+5);
+    if(group?.runId!==p.run || group?.artifactId!==p.artifact ||
+        group?.schoolCasesPassed!==15 || group?.countyCasesPassed!==p.counties ||
+        group?.screenshotsSaved!==p.shots || group?.workerVersion!==version ||
+        JSON.stringify(group?.schoolSlugs)!==JSON.stringify(slugs) ||
+        !group?.runUrl?.endsWith('/actions/runs/'+p.run) ||
+        !group?.artifactUrl?.endsWith('/artifacts/'+p.artifact)) {
+      errors.push('Batch009 exact Chrome cohort report mismatch: group '+(i+1));
+    }
+    for(const slug of slugs) {
+      const record = r.schoolRecords.find(x=>x.slug===slug);
+      if(!record || record.status!=='VERIFIED' ||
+         record.actualProductionVerified!==true ||
+         record.batch!==9 || record.technicalBrowserRun!==p.run ||
+         record.acceptanceEvidenceArtifact!==p.artifact ||
+         record.productionWorkerVersion!==version ||
+         record.verifiedDeploymentRun!==deployRun ||
+         record.verifiedDeploymentGitSha!==sha ||
+         record.manualAccessibilityAccepted!==false ||
+         record.schoolPhotoReuseRightsAccepted!==false ||
+         record.editorialHumanSignoff!==false) {
+        errors.push('Batch009 school lacks published-Chrome evidence or retains unsupported claims: '+slug);
+      }
+    }
+  }
+  if(r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch009ExpectedTotalVerified ||
+     r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
+     r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
+       r.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length) ||
+     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10&&x.batch!==9).length!==(batch010Certified?205:180) ||
+     r.counts.total!==1292) errors.push('Batch009 technical certification must preserve all historical verified and unreviewed schools.');
+}
+
+/** Batch 009 incremental source guard. Preserve all 180 previously technical-VERIFIED school records. */
+{
+  const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const batch009 = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader009 = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const profile009 = read('src/data/high-school-football/football-program-profile.server.ts');
+  const initial = ['canyon-west-plains', 'carrizo-springs', 'carrollton-creekview', 'carrollton-ranchview', 'carrollton-smith'];
+  const schools = registry.schoolRecords;
+  if (batch009Cohort(registry).number !== 9 || batch009Cohort(registry).slugs.length !== 25) errors.push('Batch 009 must reserve exactly 25 canonical schools.');
+  if (schools.filter((school) => school.status === 'VERIFIED' && school.batch <= 10).length !== batch009ExpectedTotalVerified) errors.push('Batch 009 must preserve all 180 independently production VERIFIED schools.');
+  if (batch009Cohort(registry).individuallyVerified !== (batch009Certified ? 25 : 0) || batch009Cohort(registry).remainingToVerify !== batch009ExpectedPending) errors.push('Batch 009 cannot claim verified schools before strict postdeploy browser checks.');
+  if (!profile009.includes('loadBatch009FootballProgramEditorial(canonicalSlug)')) errors.push('Batch 009 SSR conditional editorial loader not wired.');
+  for (const slug of initial) {
+    const school = schools.find((entry) => entry.slug === slug);
+    if (!school || school.status !== batch009ExpectedStatus || school.batch !== 9 || school.actualProductionVerified !== batch009ExpectedProduction) errors.push('Batch 009 school must be IMPLEMENTED but not VERIFIED: ' + slug);
+    if (!batch009.includes('"'+slug+'": {') || !loader009.includes('"'+slug+'"')) errors.push('Batch 009 per-school editorial loader missing: ' + slug);
+    const audit = read('docs/football-authority/schools/' + slug + '.md');
+    if (!audit.includes('Not merged, deployed or browser VERIFIED') || !audit.includes('https://')) errors.push('Batch 009 individual researched dossier/release caveat missing: ' + slug);
+  }
+}
+
+
+/** Batch 009 campus structure: promote only source-backed school/campus
+ * locations and keep them explicitly separate from stadium/gate claims. */
+{
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const campusEvidence = [
+    ['chester', '273 Yellowjacket Dr, Chester, TX 75936', 'https://www.chesterisd.com/'],
+    ['chillicothe', '1610 S. 6th Street, Chillicothe, TX 79225', 'https://www.cisd-tx.net/'],
+    ['center-point', '207 China Street, Center Point, TX 78010', 'https://www.cpisd.net/employee-resources'],
+    ['centerville', '813 South Commerce, Centerville, TX 75833', 'https://www.centerville.k12.tx.us/63130_2'],
+    ['channelview', '1100 Sheldon Road, Channelview, TX 77530', 'https://www.cvisd.org/o/chs'],
+    ['cedar-hill', '1 Longhorn Blvd., Cedar Hill, TX 75104', 'https://chhs.chisd.net/contact'],
+    ['celina', '3455 N. Preston Road, Celina, TX 75009', 'https://chs.celinaisd.com/about-us'],
+    ['charlotte', '70 Trojan Drive, Charlotte, TX 78011', 'https://www.charlotteisd.net/pages/uploaded_files/CISD%20Student%20Handbook%202024_2025.pdf'],
+  ];
+  for (const [slug, address, sourceUrl] of campusEvidence) {
+    const start = editorial.indexOf('"'+slug+'": {');
+    const next = editorial.indexOf('\n  "', start + 4);
+    const section = start >= 0 ? editorial.slice(start, next > start ? next : editorial.length) : '';
+    if (!section.includes('"campus": {')) errors.push('Batch 009 verified campus block missing: '+slug);
+    if (!section.includes(address)) errors.push('Batch 009 verified campus address missing: '+slug);
+    if (!section.includes(sourceUrl)) errors.push('Batch 009 verified campus source missing: '+slug);
+    if (!/not a (?:verified )?(?:spectator entrance|stadium gate|game-day gate)|verify event entrance separately|access is separate/.test(section)) {
+      errors.push('Batch 009 campus must remain explicitly distinct from football spectator access: '+slug);
+    }
+  }
+}
+
+/** Second Batch 009 group: preserve source qualification, TAPPS separation
+ * and no pre-deployment VERIFIED promotion. */
+{
+  const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
+  if (batch009Cohort(registry).implementedOnBranch !== 25 || batch009Cohort(registry).remainingToImplement !== 0) errors.push('Batch 009 all twenty-five individually sourced implementation records must match the planned cohort.');
+  for (const slug of slugs) {
+    const record = registry.schoolRecords.find(s => s.slug === slug);
+    if (!record || record.status !== batch009ExpectedStatus || record.actualProductionVerified !== batch009ExpectedProduction) errors.push('Second group falsely promoted or missing: '+slug);
+    requireText(editorial, '"'+slug+'": {', 'Second group specific football profile');
+    requireText(loader, '"'+slug+'"', 'Second group conditional football profile loader');
+    const dossier = read('docs/football-authority/schools/'+slug+'.md');
+    requireText(dossier, 'not merged, deployed or browser VERIFIED', 'Second group release limitation');
+    requireText(dossier, 'https://', 'Second group researched source');
+  }
+  if (!profile.includes('loadBatch009FootballProgramEditorial(legacy.featured.slug)')) errors.push('Castle Hills private-program SSR must load sourced Batch 009 editorial separately from UIL');
+  for (const key of ['Wheatley Heights Sports Complex','TAPPS Six-Man Division I District 3','not UIL']) {
+    requireText(editorial, key, 'Castle Hills private-school identity');
+  }
+}
+
+/** First/second Batch009 workflow contracts. These are the two workflow files
+ * that previously acquired duplicated step blocks and cross-cohort copy/paste
+ * paths. Validate both syntax-adjacent structure and cohort-specific semantics. */
+{
+  const contracts = [
+    {
+      label: 'first-five',
+      workflowPath: '.github/workflows/verify-football-b009-first-five-production.yml',
+      workflowName: 'Football Batch 009 first-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-first-five-production.mjs',
+      artifactPath: 'artifacts/b009-first-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-first-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-first-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-first-five-production[.]yml',
+      countyCount: 4,
+      forbidden: ['verify-football-b009-next-five-production.mjs', 'artifacts/b009-next-five-production-chrome/'],
+    },
+    {
+      label: 'second-five',
+      workflowPath: '.github/workflows/verify-football-b009-next-five-production.yml',
+      workflowName: 'Football Batch 009 second-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-next-five-production.mjs',
+      artifactPath: 'artifacts/b009-next-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-next-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-next-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-next-five-production[.]yml',
+      countyCount: 5,
+      forbidden: ['verify-football-b009-first-five-production.mjs', 'artifacts/b009-first-five-production-chrome/'],
+    },
+  ];
+  for (const contract of contracts) {
+    const wf = read(contract.workflowPath);
+    const verifier = read(contract.verifierPath);
+    const count = (needle) => wf.split(needle).length - 1;
+    const detect = wf.indexOf('if grep -Eq');
+    const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+    const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+    if (count('      - uses: actions/setup-node@v4') !== 1
+        || count('      - name: Install isolated Chrome driver') !== 1
+        || count('      - name: Verify 5 school pages') !== 1
+        || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('          fi')
+        || !scopeShell.includes(contract.scopeVerifierToken)
+        || !scopeShell.includes(contract.scopeWorkflowToken)
+        || /\n\s*- uses: actions\//.test(scopeShell)) {
+      errors.push('Batch009 '+contract.label+' production workflow scope or Chrome job malformed/duplicated.');
+    }
+    for (const exact of [
+      'name: '+contract.workflowName,
+      "workflows: ['Deploy TexasDefined production']",
+      "github.event.workflow_run.conclusion == 'success'",
+      'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+      'run: node '+contract.verifierPath,
+      'path: '+contract.artifactPath,
+      contract.countyCount+' counties',
+    ]) if (!wf.includes(exact)) errors.push('Batch009 '+contract.label+' live acceptance safety missing '+exact);
+    for (const forbidden of contract.forbidden) {
+      if (wf.includes(forbidden)) errors.push('Batch009 '+contract.label+' workflow contains cross-cohort copy/paste reference '+forbidden);
+    }
+    if (!verifier.includes(contract.verifierOut)
+        || !verifier.includes('report.countyChecks.length!=='+contract.countyCount)
+        || !verifier.includes('versions.size!==1')) {
+      errors.push('Batch009 '+contract.label+' verifier output/county/Worker contract does not match its workflow.');
+    }
+  }
+}
+
+/** Third individually researched five-school cohort; no premature verified status. */
+{
+  const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial=read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader=read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const county=read(files[10]);
+  const third=['cedar-hill','cedar-park','cedar-park-vista-ridge','celeste','celina'];
+  if(registry.schoolRecords.filter(s=>s.status==='VERIFIED' && s.batch<=10 && s.batch!==9).length!==(batch010Certified?205:180)) errors.push('Do not demote the independently VERIFIED 180 older schools or the 25 validly certified Batch010 schools.');
+  for(const slug of third) {
+    const school=registry.schoolRecords.find(s=>s.slug===slug);
+    if(!school||school.status!==batch009ExpectedStatus||school.actualProductionVerified!==batch009ExpectedProduction)errors.push('Batch 009 third cohort unverified status missing: '+slug);
+    requireText(loader, '"'+slug+'"', 'Batch 009 third cohort lazy route');
+    requireText(editorial, '"'+slug+'": {', 'Batch 009 third cohort original editorial');
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    requireText(dossier,'not merged, deployed or browser VERIFIED','Third cohort acceptance not yet proved');
+    requireText(dossier,'https://','Third cohort evidence');
+    requireText(county,"slug: '"+slug+"'","Third cohort reciprocal county link");
+  }
+  for(const marker of ['Marc Bindel','2015','Chad Scott','Nicholas Ward','Demetrius Rector']) requireText(editorial,marker,'Third cohort individual coaching/title research');
+}
+
+/** Prevent silent object-literal overwrites of researched county football links.
+ * Duplicate keys inside either map can suppress valid programs. Reusing a county
+ * key across the base and supplemental maps is intentional because render-time
+ * concatenation preserves both independently researched cohorts. */
+{
+  const entityPage = read(files[10]);
+  const baseStart = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const supplementalStart = entityPage.indexOf('const supplementalFootballCountyLinks:', baseStart);
+  const end = entityPage.indexOf('\nconst siteUrl = ', supplementalStart);
+  if (baseStart < 0 || supplementalStart < 0 || end < 0) {
+    errors.push('Football county reciprocal base/supplemental link objects missing.');
+  } else {
+    const sections = [
+      ['base', entityPage.slice(baseStart, supplementalStart)],
+      ['supplemental', entityPage.slice(supplementalStart, end)],
+    ];
+    for (const [label, section] of sections) {
+      const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
+      const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+      if (duplicates.length) errors.push('Duplicate football county link keys inside '+label+' map would suppress school links: ' + [...new Set(duplicates)].join(', '));
+    }
+    const combined = sections.map(([, section]) => section).join('\n');
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith','celeste','celina']) {
+      requireText(combined, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+    for (const marker of [
+      '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+      '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    ]) requireText(entityPage, marker, 'Football county link maps must concatenate rather than overwrite');
+  }
+}
+
+// The post-deploy Batch009 third-five acceptance must be a syntactically
+// contiguous, single-copy workflow, not merely a present filename. Duplicated
+// steps inside a shell run: block silently disable the actual Chrome job.
+{
+  const wf = read('.github/workflows/verify-football-b009-third-five-production.yml');
+  const count = (needle) => wf.split(needle).length - 1;
+  const detect = wf.indexOf('if grep -Eq');
+  const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+  const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+  if (count('      - uses: actions/setup-node@v4') !== 1
+      || count('      - name: Install isolated Chrome driver') !== 1
+      || count('      - name: Verify 5 school pages') !== 1
+      || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+      || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+      || !scopeShell.includes('          fi')
+      || /\n\s*- uses: actions\//.test(scopeShell)) {
+    errors.push('Batch009 third-five production workflow scope or Chrome job malformed/duplicated.');
+  }
+  for (const exact of [
+    'verify-football-b009-third-five-production.mjs',
+    'path: artifacts/b009-third-five-production-chrome/',
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+  ]) if (!wf.includes(exact)) errors.push('Batch009 third-five live acceptance safety missing ' + exact);
+}
+
+// Batch009 fourth-five contract: strict editorial and technical evidence,
+// including unresolved coach titles. Protected prior schools remain immutable.
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const authored = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const route = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const accepting = read('scripts/ci/verify-football-b009-fourth-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b009-fourth-five-production.yml');
+  const targets = [
+    ['center','shelby','Jack Alvarez'],
+    ['center-point','kerr','Mario Laque'],
+    ['centerville','leon','Kyle Hardee'],
+    ['channelview','harris','Averion Hurts'],
+    ['charlotte','atascosa','Timothy Williams'],
+  ];
+  if (batch009Cohort(reg).number !== 9 || batch009Cohort(reg).slugs.length !== 25 || batch009Cohort(reg).implementedOnBranch !== 25 ||
+      batch009Cohort(reg).remainingToImplement !== 0 || batch009Cohort(reg).remainingToVerify !== batch009ExpectedPending ||
+      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch009ExpectedTotalVerified ||
+      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==batch009ExpectedImplemented ||
+      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
+      reg.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length)) {
+    errors.push('Batch009 verified-only cohort invariant: 180 VERIFIED / 25 IMPLEMENTED / 1,087 NOT_REVIEWED before Chrome acceptance.');
+  }
+  const graphicList = route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] || '';
+  for (const [slug,countySlug,fact] of targets) {
+    const row = reg.schoolRecords.find(x=>x.slug===slug);
+    if (!row || row.batch!==9 || row.status!==batch009ExpectedStatus || row.actualProductionVerified!==batch009ExpectedProduction)
+      errors.push('Fourth-five school not strictly IMPLEMENTED: '+slug);
+    for (const [source,needle,label] of [
+      [authored,'"'+slug+'": {','source-backed editorial'],
+      [loader,'"'+slug+'"','lazy server loader'],
+      [identities,"slug: '"+slug+"'","school identity"],
+      [route,"'"+slug+"': '"+countySlug+"'","exact campus county"],
+      [county,"slug: '"+slug+"'","reciprocal county link"],
+      [accepting,"'"+slug+"'","production Chrome suite"],
+      [authored,fact,"distinct sourced school fact"],
+    ]) if (!source.includes(needle)) errors.push('Missing '+label+' for '+slug);
+    const dossier = read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<600 || !dossier.includes('https://') || !dossier.includes('IMPLEMENTED'))
+      errors.push('Fourth-five source dossier insufficient for '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not render fictitious 2026 results graphic for '+slug);
+  }
+  for(const phrase of ['Brent Beadle','Mario Laque','conflict','Timothy Williams']) {
+    if(!authored.includes(phrase)) errors.push('Conflicting current coach information was not retained: '+phrase);
+  }
+  if(!wf.includes("workflows: ['Deploy TexasDefined production']") ||
+     !wf.includes("github.event.workflow_run.conclusion == 'success'") ||
+     !wf.includes('ref: ${{ github.event.workflow_run.head_sha || github.sha }}') ||
+     !wf.includes('path: artifacts/b009-fourth-five-production-chrome/') ||
+     !wf.includes('scripts/ci/verify-football-b009-fourth-five-production.mjs') ||
+     !wf.includes('echo "run=true" >> "$GITHUB_OUTPUT"') ||
+     !wf.includes('echo "run=false" >> "$GITHUB_OUTPUT"') ||
+     (wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1)
+    errors.push('Fourth-five deployed-Chrome workflow must be intact and exact-SHA scoped.');
+  if(!accepting.includes('report.schoolChecks.length!==15') ||
+     !accepting.includes('report.countyChecks.length!==5') ||
+     !accepting.includes('report.screenshots!==20') ||
+     !accepting.includes('Original TexasDefined typographic football identity panel'))
+    errors.push('Fourth-five production Chrome acceptance must cover 15 views, 5 counties and 20 screenshots.');
+}
+
+// Final-five Batch009 source and exact-deployment Chrome contract. Do not
+// confuse authored school editorial with a completed verified football season.
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const checker = read('scripts/ci/verify-football-b009-fifth-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b009-fifth-five-production.yml');
+  const targets = [
+    ['cherokee','san-saba','Iredell'],
+    ['chester','tyler','Coleman Butter'],
+    ['chico','wise','California'],
+    ['childress','childress','Bo Helm'],
+    ['chillicothe','hardeman','Zack Ryan'],
+  ];
+  if (batch009Cohort(reg).number !== 9 || batch009Cohort(reg).slugs.length !== 25 ||
+      batch009Cohort(reg).implementedOnBranch !== 25 || batch009Cohort(reg).remainingToImplement !== 0 || batch009Cohort(reg).remainingToVerify !== batch009ExpectedPending ||
+      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch009ExpectedTotalVerified ||
+      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==batch009ExpectedImplemented ||
+      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
+      reg.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length)) errors.push('Final-five Batch009 must preserve 180 VERIFIED / 25 IMPLEMENTED / 1,087 NOT_REVIEWED until real Chrome.');
+  const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] || '';
+  for (const [slug,countySlug,fact] of targets) {
+    const record=reg.schoolRecords.find(x=>x.slug===slug);
+    if (!record || record.status!==batch009ExpectedStatus || record.actualProductionVerified!==batch009ExpectedProduction || record.batch!==9)
+      errors.push('Final-five school must be IMPLEMENTED, not technically VERIFIED: '+slug);
+    for (const [content,needle,label] of [
+      [editorial,'"'+slug+'": {','source-specific school editorial'],
+      [editorial,fact,'documented school-specific fact'],
+      [loader,'"'+slug+'"','conditional server load'],
+      [identities,"slug: '"+slug+"'",'school identity'],
+      [team,"'"+slug+"': '"+countySlug+"'",'campus county'],
+      [county,"slug: '"+slug+"'",'reciprocal county card'],
+      [checker,"'"+slug+"'",'live-Chrome target'],
+    ]) if (!content.includes(needle)) errors.push('Final-five '+label+' missing: '+slug);
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<800 || !dossier.includes('IMPLEMENTED') || !dossier.includes('https://'))
+      errors.push('Final-five researched school dossier missing/insufficient: '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not invent a scored-2026 timeline graphic for '+slug);
+  }
+  for(const required of ['Chillicothe ISD','25/26','Zack Ryan','California','Bo Helm','Coleman Butter'])
+    if(!editorial.includes(required)) errors.push('Final-five source conflict or official role lost: '+required);
+  for(const marker of [
+    "workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'scripts/ci/verify-football-b009-fifth-five-production.mjs',
+    'path: artifacts/b009-fifth-five-production-chrome/',
+    'echo "run=true" >> "$GITHUB_OUTPUT"',
+    'echo "run=false" >> "$GITHUB_OUTPUT"',
+  ]) if(!wf.includes(marker)) errors.push('Fifth-five exact-deployment scoped workflow missing: '+marker);
+  if((wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1 ||
+     !checker.includes('report.schoolChecks.length!==15') ||
+     !checker.includes('report.countyChecks.length!==5') ||
+     !checker.includes('report.screenshots!==20') ||
+     !checker.includes('versions.size!==1')) errors.push('Final-five browser verifier must require 15 school checks, 5 counties, 20 screenshots, and one Worker version.');
+}
+
+// Stadium names and school campuses are not public spectator street addresses.
+// Preserve first-party venue relationships while omitting invented city-only
+// directions that look like fully verified stadium addresses.
+{
+  const footballEditorial = read('src/data/high-school-football/program-editorial.ts');
+  const gameNight = read('src/components/sports/FootballGameNightGuide.tsx');
+  const schoolPage = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  if(!footballEditorial.includes('address?: string;') || !gameNight.includes('address?: string;'))
+    errors.push('Venue address must remain optional when only venue name is verified.');
+  if(!gameNight.includes('venue.address ? <> — {venue.address}</> : null') ||
+     !schoolPage.includes('editorial.venue.address && <Snapshot label="Address"'))
+    errors.push('Public football game-night and school pages may show venue street only when verified.');
+  const matches = [...footballEditorial.matchAll(/"venue":\s*\{[\s\S]*?\n\s*\}/g)];
+  for (const [index, match] of matches.entries()) {
+    const address = match[0].match(/"address":\s*"([^"]+)"/)?.[1];
+    if (address && !/\d/.test(address)) errors.push('Venue '+index+' contains city/notice prose masquerading as street address: '+address);
+  }
+}
+
+// Current school-authored venue names are useful to visitors without
+// converting a campus mailing address or a city-only label into a gate address.
+// The source rows are public school sites; no school marks or photo rights follow.
+{
+  const editor = read('src/data/high-school-football/program-editorial.ts');
+  const venues = [
+    ['blanket','Tiger Stadium','blanketisd.org','901 Avenue H, Blanket, TX 76432'],
+    ['borger','Bulldog Stadium','borgerisd.net',null],
+    ['bosqueville','Bulldog Stadium','bosquevilleisd.org',null],
+    ['bovina','Mustang Stadium','bovinaisd.org',null],
+    ['bowie','Jackrabbit Stadium','bowieisd.net',null],
+  ];
+  for (const [slug,name,domain,verifiedAddress] of venues) {
+    const start = editor.indexOf('  "'+slug+'": {');
+    const end = editor.indexOf('\n  "',start+8);
+    const school = start>=0 ? editor.slice(start,end<0?editor.length:end) : '';
+    if (!school.includes('"venue": {') || !school.includes('"name": "'+name+'"') ||
+        !school.includes(domain) || !school.includes('"verifiedAt": "2026-10-27"'))
+      errors.push('Source-based football venue missing or unattributed: '+slug);
+    const venuePart = school.split('"venue": {')[1]?.split('\n    },')[0] || '';
+    if (verifiedAddress) {
+      if (!venuePart.includes('"address": "'+verifiedAddress+'"')) errors.push('Officially mapped Blanket stadium address lost');
+    } else if (venuePart.includes('"address":')) errors.push('Unsourced public spectator address added for '+slug);
+    if (!venuePart.includes('gate') && !venuePart.includes('entry') && !venuePart.includes('entrance')) errors.push('Venue entry-access caution missing for '+slug);
+  }
+}
+
+// A cron stanza does not run Chrome if the top-level job gate excludes schedule.
+// Keep this regression check in protected football CI: a green workflow with
+// skipped Chrome and no screenshot artifact is not technical certification.
+for (const cohort of ['first','second','third','fourth','fifth']) {
+  const workflow = read(`.github/workflows/verify-football-b010-${cohort}-five-production.yml`);
+  const jobGate = workflow.split('jobs:\n  chrome:\n    if: ${{ ')[1]?.split(' }}')[0] ?? '';
+  for (const required of [
+    "github.event_name == 'workflow_dispatch'",
+    "github.event_name == 'schedule'",
+    "github.event.workflow_run.conclusion == 'success'",
+  ]) {
+    if (!jobGate.includes(required)) errors.push(`Batch010 ${cohort} Chrome job-level event gate excludes: ${required}`);
+  }
+  if (!workflow.includes("SCHEDULED_ACCEPTANCE: ${{ github.event_name == 'schedule' }}") ||
+      !workflow.includes('scripts/data/validate-high-school-football-platform[.]mjs') ||
+      !workflow.includes('scripts/ci/prepare-football-b010-certification[.]mjs') ||
+      !workflow.includes('node scripts/ci/pin-football-b010-production-release.mjs') ||
+      !workflow.includes("ref: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}") ||
+      !read(`scripts/ci/verify-football-b010-${cohort}-five-production.mjs`).includes('process.env.FOOTBALL_CHROME_SOURCE_SHA') ||
+      !read(`scripts/ci/verify-football-b010-${cohort}-five-production.mjs`).includes('process.env.FOOTBALL_EXPECTED_WORKER_VERSION') ||
+      !workflow.includes("steps.release.outputs.ready == 'true'") ||
+      !workflow.includes('if: steps.scope.outputs.run == \'true\''))
+    errors.push(`Batch010 ${cohort} must retain pending-school scope on scheduled Chrome verification`);
+}
+
+
+// Batch011 is an assignment of exactly the next 25 canonical candidates,
+// NOT new technical or editorial certification. Prior 230 schools stay
+// VERIFIED and each assigned future school remains NOT_REVIEWED until
+// original primary-source editorial and protected release are complete.
+{
+  const r=batch009Certification;
+  if(r.batch.number===11){
+    const expected=[
+      'colorado-city-colorado','columbus','comal-canyon','comal-canyon-lake',
+      'comal-davenport','comal-pieper','comal-smithson-valley','comanche',
+      'comfort','commerce','como-pickton','conroe','conroe-caney-creek',
+      'conroe-grand-oaks','conroe-oak-ridge','conroe-the-woodlands',
+      'conroe-woodlands-college-park','converse-judson','coolidge','cooper',
+      'coppell','copperas-cove','cornerstone-christian',
+      'corpus-christi-calallen','corpus-christi-carroll'
+    ];
+    const firstFive=expected.slice(0,5);
+    const graduated = r.batch.state === 'VERIFIED_BATCH_011_COMPLETE' &&
+      r.batch.individuallyVerified === 25 &&
+      r.completedBatches.some(b => b.number === 11 && b.state === 'VERIFIED_BATCH_011_COMPLETE' &&
+        b.technicalAcceptance?.schoolCount === 25 &&
+        b.technicalAcceptance?.schoolCasesPassed === 75 &&
+        b.technicalAcceptance?.countyCasesPassed === 18);
+    const implemented=graduated ? 25 : expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
+    const sourceReady=implemented>=5;
+    if(![0,5,10,15,20,25].includes(implemented) ||
+       (!graduated && r.batch.state!=='IN_PROGRESS') || r.batch.slugs.length!==25 ||
+       JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
+       r.batch.individuallyVerified!==(graduated?25:0) ||
+       r.batch.remainingToImplement!==25-implemented ||
+       r.batch.remainingAssigned!==25-implemented ||
+       r.batch.remainingToVerify!==(graduated?0:25) ||
+       r.batch.implementedOnBranch!==implemented ||
+       r.batch.currentSchool!==(implemented===25?null:expected[implemented]) ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==(graduated?25:0))
+      errors.push('Batch011 must advance in complete 5-school cohorts, keeping 230 previous VERIFIED');
+    for(const [i,slug] of expected.entries()) {
+      const school=r.schoolRecords.find(x=>x.slug===slug);
+      const expectedStatus=graduated?'VERIFIED':sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
+      if(!school || school.status!==expectedStatus || school.batch!==11 ||
+        school.actualProductionVerified!==graduated ||
+        school.schoolPhotoReuseRightsAccepted===true ||
+        school.manualAccessibilityAccepted===true)
+        errors.push('Batch011 missing safe status or falsely certified: '+slug);
+      if(sourceReady&&i<implemented&&
+         (!school.audit || !school.implementedOnBranch || !school.researchCompletedAt ||
+          !school.implementationNotes || school.editorialHumanSignoff!==false ||
+          school.schoolPhotoReuseRightsAccepted!==false ||
+          school.manualAccessibilityAccepted!==false))
+        errors.push('Batch011 first-five lacks individualized source-implementation audit: '+slug);
+    }
+
+  // First Batch011 cohort is a real source-authored change, NOT live Chrome
+  // certification. Guard separate school content, exact campus geography,
+  // original identity, and a narrow bound on eventual real 18-PNG evidence.
+  if(r.batch.implementedOnBranch>=5){
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const src=read('src/data/high-school-football/program-editorial-b011.ts');
+    const profile=read('src/data/high-school-football/football-program-profile.server.ts');
+    const identity=read('src/data/high-school-football/school-identities.ts');
+    const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const countyPage=read('src/routes/$kind.$slug.lazy.tsx');
+    const verifier=read('scripts/ci/verify-football-b011-first-five-production.mjs');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+    const first=[
+      ['colorado-city-colorado','mitchell','Daniel Mejia'],
+      ['columbus','colorado','Matt Schobel'],
+      ['comal-canyon','comal','Sean McAuliffe'],
+      ['comal-canyon-lake','comal','Lawrence Parker'],
+      ['comal-davenport','comal','Zimmerhanzel']
+    ];
+    if(!profile.includes('loadBatch011FootballProgramEditorial(canonicalSlug)') ||
+       !loader.includes("import('./program-editorial-b011')") ||
+       !workflow.includes('Deploy TexasDefined production') ||
+       !workflow.includes('steps.release.outputs.sha') ||
+       !workflow.includes('node scripts/ci/pin-football-b010-production-release.mjs') ||
+       !workflow.includes('artifacts/b011-*/report.json') ||
+       !verifier.includes('report.schoolChecks.length!==15') ||
+       !verifier.includes('report.countyChecks.length!==3') ||
+       !verifier.includes('report.schoolChecks.length!==15') ||
+       !verifier.includes('process.env.FOOTBALL_CHROME_SOURCE_SHA') ||
+       !verifier.includes('process.env.FOOTBALL_EXPECTED_WORKER_VERSION'))
+      errors.push('Batch011 first-five original source loader or strict school/county Chrome contract absent');
+    for(const [slug,physicalCounty,person] of first) {
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!src.includes('"'+slug+'": {') || !src.includes(person) ||
+         !identity.includes("slug: '"+slug+"'") ||
+         !loader.includes("'"+slug+"'") ||
+         !team.includes("'"+slug+"': '"+physicalCounty+"'") ||
+         !countyPage.includes("slug: '"+slug+"'") ||
+         !verifier.includes("'"+slug+"'") ||
+         dossier.length<1500 || !dossier.includes('https://'))
+        errors.push('Batch011 missing individually sourced school/coach/identity/county/dossier: '+slug);
+    }
+    if(!src.includes('The 2026 Lone Star Cup') && !src.includes('Lone Star Cup'))
+      errors.push('Davenport all-sports cup must not be confused with football championship');
+  }
+  // Batch011 second-five governance: independent source-specific dossiers,
+  // school identities, physical counties, isolated Chrome and evidence path.
+  // No status is accepted as technically VERIFIED until independent proof merges.
+  if(r.batch.implementedOnBranch>=10){
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const src=read('src/data/high-school-football/program-editorial-b011.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const counties=read('src/routes/$kind.$slug.lazy.tsx');
+    const chrome=read('scripts/ci/verify-football-b011-second-five-production.mjs');
+    const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+    const cases=[
+      ['comal-pieper','bexar','Eduardo (Eddie) Salas'],
+      ['comal-smithson-valley','comal','Larry Hill'],
+      ['comanche','comanche','Jake Escobar'],
+      ['comfort','kendall','Jay Rieken'],
+      ['commerce','hunt','John McSheffery']
+    ];
+    for(const [slug,county,name] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!src.includes('"'+slug+'": {') || !src.includes(name) ||
+         !identities.includes("slug: '"+slug+"'") || !loader.includes("'"+slug+"'") ||
+         !team.includes("'"+slug+"': '"+county+"'") ||
+         !counties.includes("slug: '"+slug+"'") ||
+         dossier.length<2000 || !dossier.includes('https://'))
+        errors.push('Batch011 second-five source, county, coach-role or dossier absent: '+slug);
+    }
+    for(const token of ['report.schoolChecks.length!==15',
+      'report.countyChecks.length!==5',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION'])
+      if(!chrome.includes(token)) errors.push('Second-five strict Chrome evidence guard missing: '+token);
+    for(const token of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs',
+      'artifacts/b011-*/report.json'])
+      if(!flow.includes(token)) errors.push('Second-five deployment/source verification workflow missing: '+token);
+    if(src.includes('"comfort":') && /"comfort"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"comfort":'),src.indexOf('"commerce":'))))
+      errors.push('Comfort 2025 HFC interview cannot be mislabeled confirmed 2026 coaching appointment');
+  }
+  if(r.batch.implementedOnBranch>=15){
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const src=read('src/data/high-school-football/program-editorial-b011.ts');
+    const ids=read('src/data/high-school-football/school-identities.ts');
+    const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const county=read('src/routes/$kind.$slug.lazy.tsx');
+    const verify=read('scripts/ci/verify-football-b011-third-five-production.mjs');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+    const cases=[
+      ['como-pickton','hopkins','Jeremy Griffin'],
+      ['conroe','montgomery','Cedric Hardeman'],
+      ['conroe-caney-creek','montgomery','Taylor Cobb'],
+      ['conroe-grand-oaks','montgomery','Shaun McDowell'],
+      ['conroe-oak-ridge','montgomery','Tyler Blackshire']
+    ];
+    for(const [slug,campus,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!src.includes('"'+slug+'": {') ||
+         !src.includes(person) || !loader.includes("'"+slug+"'") ||
+         !ids.includes("slug: '"+slug+"'") ||
+         !team.includes("'"+slug+"': '"+campus+"'") ||
+         !county.includes("slug: '"+slug+"'") ||
+         dossier.length<2000 || !dossier.includes('https://'))
+        errors.push('Batch011 third-five distinct school-source, campus county or dossier missing: '+slug);
+    }
+    for(const t of ['report.schoolChecks.length!==15',
+      'report.countyChecks.length!==2',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
+      '/tmp/td-b011-third-chrome/node_modules/playwright-core'])
+      if(!verify.includes(t)) errors.push('Third-five real Chrome evidence guard missing '+t);
+    for(const t of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
+      if(!workflow.includes(t)) errors.push('Third-five exact production release or evidence workflow missing '+t);
+    if(/"como-pickton"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"como-pickton":'),src.indexOf('"conroe":'))))
+      errors.push('Como-Pickton 2025 head football coach role is not 2026 first-party confirmed');
+  }
+
+  if(r.batch.implementedOnBranch>=20){
+    const source=read('src/data/high-school-football/program-editorial-b011.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const county=read('src/routes/$kind.$slug.lazy.tsx');
+    const chrome=read('scripts/ci/verify-football-b011-fourth-five-production.mjs');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+    const cases=[
+      ['conroe-the-woodlands','montgomery','Jim (James) Rapp'],
+      ['conroe-woodlands-college-park','montgomery','Michael Buro'],
+      ['converse-judson','bexar','Vernon Hughes'],
+      ['coolidge','limestone','six-man'],
+      ['cooper','delta','Bruce Silman']
+    ];
+    for(const [slug,physicalCounty,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!source.includes('"'+slug+'": {')||!source.includes(person)||
+         !identities.includes("slug: '"+slug+"'")||
+         !loader.includes("'"+slug+"'")||
+         !school.includes("'"+slug+"': '"+physicalCounty+"'")||
+         !county.includes("slug: '"+slug+"'")||
+         dossier.length<2000||!dossier.includes('https://'))
+        errors.push('Fourth five sourced school profile, staff, six-man identity or county link missing: '+slug);
+    }
+    for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
+      '/tmp/td-b011-fourth-chrome/node_modules/playwright-core'])
+      if(!chrome.includes(marker)) errors.push('Fourth-five independent real browser evidence guard missing: '+marker);
+    for(const marker of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
+      if(!workflow.includes(marker)) errors.push('Fourth-five pinned live Worker workflow or artifact hold missing: '+marker);
+    for(const slug of ['coolidge','cooper']){
+      const next=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
+      if(/"coach"\s*:\s*\{/.test(next)) errors.push('Unconfirmed 2026 head football coach must not be asserted: '+slug);
+    }
+  }
+
+  if(r.batch.implementedOnBranch===25){
+    const source=read('src/data/high-school-football/program-editorial-b011.ts');
+    const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const counties=read('src/routes/$kind.$slug.lazy.tsx');
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const profile=read('src/data/high-school-football/football-program-profile.server.ts');
+    const chrome=read('scripts/ci/verify-football-b011-fifth-five-production.mjs');
+    const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+    const cases=[
+      ['coppell','dallas','Antonio Wiley'],
+      ['copperas-cove','coryell','Rodney Southern'],
+      ['cornerstone-christian','bexar','Clayton Guillory'],
+      ['corpus-christi-calallen','nueces','Charlie Reeve'],
+      ['corpus-christi-carroll','nueces','Calvin Neatherlin']
+    ];
+    for(const [slug,physicalCounty,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!source.includes('"'+slug+'": {')||!source.includes(person)||
+         !loader.includes("'"+slug+"'")||
+         !identities.includes("slug: '"+slug+"'")||
+         !school.includes("'"+slug+"': '"+physicalCounty+"'")||
+         !counties.includes("slug: '"+slug+"'")||
+         dossier.length<2000||!dossier.includes('https://'))
+        errors.push('Fifth-five individual source, staff, campus county or dossier absent: '+slug);
+    }
+    const privateBranch=profile.slice(profile.indexOf('if (!seed) {'),profile.indexOf('const result = await searchFootballPrograms'));
+    if(!privateBranch.includes('loadBatch011FootballProgramEditorial(legacy.featured.slug)') ||
+      !privateBranch.includes('districtPath: null'))
+      errors.push('Private San Antonio Cornerstone needs modern authored source without invented UIL district');
+    for(const flag of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','/tmp/td-b011-fifth-chrome/node_modules/playwright-core'])
+      if(!chrome.includes(flag))errors.push('Fifth-five exact live Worker Chrome verification guard missing: '+flag);
+    for(const flag of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
+      if(!flow.includes(flag))errors.push('Fifth-five protected pinned release or screenshot archive missing: '+flag);
+    for(const slug of ['corpus-christi-calallen','corpus-christi-carroll']){
+      const body=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
+      if(/"coach"\s*:\s*\{/.test(body))errors.push('Unverified head football coach must not be assigned from AD/coordinator role: '+slug);
+    }
+    if(!source.includes('not a UIL program')||!source.includes('Rodney Southern'))
+      errors.push('Private Cornerstone non-UIL and new Copperas Cove coach distinctions lost');
+  }
+
+    if(!r.completedBatches.some(x=>x.number===10 &&
+      x.state==='VERIFIED_BATCH_010_COMPLETE' &&
+      x.technicalAcceptance?.screenshotsSaved===106))
+      errors.push('Batch011 assignment cannot weaken archived 106-screenshot Batch010 certificate');
+  } else if(r.batch.number===12){
+    const archived=r.completedBatches.find(x=>x.number===11);
+    const expectedNext=r.schoolRecords.filter(x=>x.batch===12);
+    const first25=r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED'&&x.batch===null).slice(0,25);
+    const assignedIndex=r.schoolRecords.findIndex(x=>x.slug===r.batch.slugs[0]);
+    const originalOrder=r.schoolRecords.slice(assignedIndex,assignedIndex+25).map(x=>x.slug);
+    if(!archived || archived.state!=='VERIFIED_BATCH_011_COMPLETE' ||
+       archived.individuallyVerified!==25 || archived.technicalAcceptance?.schoolCount!==25 ||
+       archived.technicalAcceptance?.schoolCasesPassed!==75 ||
+       archived.technicalAcceptance?.countyCasesPassed!==18 ||
+       archived.technicalAcceptance?.browserExecutionCount!==1 ||
+       archived.noNextBatchAssigned!==false ||
+       r.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length!==25)
+      errors.push('Batch012 requires intact protected Batch011 25-school production certificate');
+    const assignedOnly=r.batch.state==='ASSIGNED_SOURCE_RESEARCH';
+    const implementedPendingChrome=r.batch.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_CHROME';
+    const archived012=r.completedBatches.filter(x=>x.number===12);
+    const completed=archived012.length===1 && r.batch.state==='VERIFIED_BATCH_012_COMPLETE';
+    const cert=archived012[0];
+    const proof=cert?.technicalAcceptance;
+    const certifiedWorker=proof?.observedWorkerVersions?.[0];
+    const certified=completed &&
+      cert.state==='VERIFIED_BATCH_012_COMPLETE' &&
+      cert.individuallyVerified===25 &&
+      cert.noNextBatchAssigned===true &&
+      proof?.schoolCount===25 && proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+      proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+      proof?.browserExecutionCount===1 && proof?.sitemapUrlsPassed===25 &&
+      proof?.workerVersionMatchesDeploy===true &&
+      /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(certifiedWorker||'') &&
+      /^[a-f0-9]{40}$/.test(proof?.productionDeploymentGitSha||'') &&
+      Number.isSafeInteger(proof?.productionDeploymentRun) &&
+      Number.isSafeInteger(proof?.githubWorkerLedgerDeploymentId) &&
+      Number.isSafeInteger(proof?.chromeRunId) &&
+      Number.isSafeInteger(proof?.chromeArtifactId) &&
+      r.batch.individuallyVerified===25 && r.batch.remainingToVerify===0 &&
+      r.batch.remainingAssigned===0 && r.batch.implementedOnBranch===25 &&
+      r.batch.remainingToImplement===0 &&
+      expectedNext.every(x=>x.status==='VERIFIED' && x.actualProductionVerified===true &&
+        x.productionWorkerVersion===certifiedWorker &&
+        x.verifiedDeploymentGitSha===proof?.productionDeploymentGitSha &&
+        x.technicalBrowserRun===proof?.chromeRunId &&
+        x.acceptanceEvidenceArtifact===proof?.chromeArtifactId);
+    const stateValid=assignedOnly
+      ? r.batch.implementedOnBranch===0 && r.batch.remainingToImplement===25 &&
+        r.batch.currentSchool===r.batch.slugs[0] && r.batch.nextSchool===r.batch.slugs[1] &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===1037 &&
+        expectedNext.every(x=>x.status==='NOT_REVIEWED' && x.actualProductionVerified!==true) &&
+        archived012.length===0
+      : implementedPendingChrome
+      ? r.batch.implementedOnBranch===25 && r.batch.remainingToImplement===0 &&
+        r.batch.currentSchool===null && r.batch.nextSchool===null &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===1012 &&
+        expectedNext.every(x=>x.status==='IMPLEMENTED' && x.actualProductionVerified!==true) &&
+        archived012.length===0
+      : certified;
+    if(!stateValid || r.batch.slugs.length!==25 ||
+       JSON.stringify(r.batch.slugs)!==JSON.stringify(originalOrder) ||
+       expectedNext.length!==25 ||
+       r.batch.individuallyVerified!==(certified?25:0) ||
+       r.batch.remainingToVerify!==(certified?0:25) ||
+       r.batch.remainingAssigned!==(certified?0:25) ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==(certified?280:255) ||
+       r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==(certified?0:implementedPendingChrome?25:0))
+      errors.push('Batch012 must preserve exactly 25 canonical assigned, pending, or evidence-backed technically VERIFIED schools; no premature promotion');
+  } else if(r.batch.number>=13){
+    // Historical certificates are immutable. New assignments must never be
+    // interpreted as fresh Batch010/011/012 Chrome evidence.
+    for(const n of [10,11,12]){
+      const cert=r.completedBatches.find(x=>x.number===n);
+      if(!cert || cert.state!==`VERIFIED_BATCH_${String(n).padStart(3,'0')}_COMPLETE` ||
+         cert.individuallyVerified!==25 ||
+         r.schoolRecords.filter(x=>x.batch===n&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length!==25)
+        errors.push('Historical football batch '+n+' must retain its own signed certificate and 25 production-verified schools');
+    }
+    const b013Certificate=r.completedBatches.find(x=>x.number===13 && x.state==='VERIFIED_BATCH_013_COMPLETE');
+    const certifiedB013=r.batch.number===13 && r.batch.state==='VERIFIED_BATCH_013_COMPLETE';
+    if(certifiedB013){
+      const proof=b013Certificate?.technicalAcceptance;
+      const accepted=Boolean(
+        b013Certificate?.individuallyVerified===25 &&
+        proof?.schoolCount===25 && proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+        proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+        proof?.browserExecutionCount===1 && proof?.chromeRunId===42231309646 &&
+        proof?.chromeArtifactId===13509411368 &&
+        proof?.productionDeploymentGitSha==='9a760dd3ee17eb7818f4ab632d3f3445a84115b4' &&
+        proof?.observedWorkerVersions?.length===1 &&
+        proof?.observedWorkerVersions[0]==='0876bb6f-d11e-448d-9798-d27fb1bbbd50' &&
+        proof?.githubWorkerLedgerDeploymentId===7602055186 &&
+        r.batch.individuallyVerified===25 && r.batch.remainingToVerify===0 &&
+        r.batch.remainingAssigned===0 && r.batch.remainingToImplement===0 &&
+        r.schoolRecords.filter(x=>x.status==='VERIFIED').length===305 &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===987 &&
+        r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length===0 &&
+        r.batch.slugs.length===25 && new Set(r.batch.slugs).size===25 &&
+        r.batch.slugs.every(slug=>{
+          const row=r.schoolRecords.find(x=>x.slug===slug);
+          return row?.batch===13 && row.status==='VERIFIED' && row.actualProductionVerified===true &&
+            row.technicalBrowserRun===proof.chromeRunId &&
+            row.acceptanceEvidenceArtifact===proof.chromeArtifactId &&
+            row.productionWorkerVersion===proof.observedWorkerVersions[0] &&
+            row.verifiedDeploymentGitSha===proof.productionDeploymentGitSha &&
+            row.schoolPhotoReuseRightsAccepted===false && row.manualAccessibilityAccepted===false;
+        })
+      );
+      if(!accepted) errors.push('Batch013 certification requires exact 25-school signed 75+25 Chrome evidence and historical 280-school preservation');
+    } else if(r.batch.number===14 && r.batch.state==='VERIFIED_BATCH_014_COMPLETE'){
+      // Signed historical production acceptance is mandatory before promotion.
+      const cert=r.completedBatches.find(x=>x.number===14 && x.state==='VERIFIED_BATCH_014_COMPLETE');
+      const proof=cert?.technicalAcceptance;
+      const accepted=Boolean(cert?.individuallyVerified===25 && proof?.schoolCount===25 &&
+        proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+        proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+        proof?.browserExecutionCount===1 && proof?.chromeRunId===42313435965 &&
+        proof?.chromeArtifactId===13550240398 &&
+        proof?.githubWorkerLedgerDeploymentId===7613348297 &&
+        proof?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' &&
+        proof?.observedWorkerVersions?.length===1 &&
+        proof.observedWorkerVersions[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2' &&
+        r.completedBatches.some(x=>x.number===13 && x.state==='VERIFIED_BATCH_013_COMPLETE' && x.individuallyVerified===25) &&
+        r.batch.individuallyVerified===25 && r.batch.remainingAssigned===0 &&
+        r.batch.remainingToVerify===0 && r.batch.remainingToImplement===0 &&
+        r.schoolRecords.filter(x=>x.status==='VERIFIED').length===330 &&
+        r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length===0 &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===962 &&
+        r.batch.slugs.length===25 && new Set(r.batch.slugs).size===25 &&
+        r.batch.slugs.every(slug=>{
+          const row=r.schoolRecords.find(x=>x.slug===slug);
+          return row?.batch===14 && row.status==='VERIFIED' && row.actualProductionVerified===true &&
+            row.technicalBrowserRun===proof.chromeRunId && row.acceptanceEvidenceArtifact===proof.chromeArtifactId &&
+            row.productionWorkerVersion===proof.observedWorkerVersions[0] &&
+            row.verifiedDeploymentGitSha===proof.productionDeploymentGitSha &&
+            row.verifiedGithubWorkerLedgerDeploymentId===proof.githubWorkerLedgerDeploymentId &&
+            row.schoolPhotoReuseRightsAccepted===false && row.manualAccessibilityAccepted===false;
+        }));
+      if(!accepted) errors.push('Batch014 certification requires exact 25-school signed 75+25 Chrome evidence and 305 historical certificates');
+    } else if(r.batch.number===15 && r.batch.state==='VERIFIED_BATCH_015_COMPLETE'){
+      // No generic assignment path may accept production verification. Pin signed
+      // 75-school-viewport + 25 reciprocal-county Chrome, exact Worker/source,
+      // unchanged 330 older certificates and all 25 individual school records.
+      if(!certifiedBatch015(r))
+        errors.push('Batch015 certification requires exact 25-school signed 75+25 Chrome evidence, source/Worker identity and preserved 330 historical certificates');
+    } else if(r.batch.number===16 && r.batch.state==='VERIFIED_BATCH_016_COMPLETE'){
+      // New batch cannot inherit Batch015 or an arbitrary run's success.
+      // Exact immutable source/Worker/75+25 Chrome and 355 older certificates.
+      if(!certifiedBatch016(r))
+        errors.push('Batch016 certification requires exact 25-school signed 75+25 Chrome evidence, source/Worker identity and 355 historic certificates');
+    } else if(r.batch.number===17 && r.batch.state==='VERIFIED_BATCH_017_COMPLETE'){
+      // Exact immutable 75+25 Chrome and signed 100% Cloudflare Worker evidence
+      // must accompany the protected evidence-only registry transition.
+      if(!certifiedBatch017(r) || !certifiedBatch016(r))
+        errors.push('Batch017 graduation must retain 380 signed historical certificates and 25 exact Worker-pinned Chrome/county passes');
+    } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
+       r.batch.slugs.some(slug=>{
+         const row=r.schoolRecords.find(x=>x.slug===slug);
+         return !row || row.batch!==r.batch.number || row.actualProductionVerified===true;
+       }))
+      errors.push('Future football batch must assign exactly 25 distinct non-verified canonical schools');
+  } else if(r.batch.number!==10){
+    errors.push('Football authority active assignment requires certified historical predecessors.');
+  }
+}
+
+// Batch011 consolidated release acceptance: source contract is not production proof.
+{
+ const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+ const report=read('scripts/ci/verify-football-b011-single-run-reports.mjs');
+ for(const token of ["workflows: ['Deploy TexasDefined production']",'node scripts/ci/pin-football-b010-production-release.mjs','ref: ${{ steps.release.outputs.sha }}','FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}','scripts/ci/verify-football-b011-single-run-reports.mjs','artifacts/b011-*/report.json','if-no-files-found: error'])if(!flow.includes(token))errors.push('Batch011 consolidated pinned Chrome contract missing: '+token);
+ for(const token of ['for cohort in first second third fourth fifth; do', 'node "scripts/ci/verify-football-b011-${cohort}-five-production.mjs"']) if(!flow.includes(token)) errors.push('Batch011 consolidated five-cohort execution contract missing: '+token);
+ if(!report.includes('75')||!report.includes('18'))errors.push('Batch011 75 viewport / 18 county compact acceptance missing');
+}
+
+// Batch010 first-five sourced contract. Do not confuse implementation with
+// successful published Chrome acceptance or official source rights.
+{
+  const reg=batch010View(JSON.parse(read('docs/football-authority/REGISTRY.json')));
+  const first = ['chilton','china-spring','christoval','cibolo-steele','cisco'];
+  const counties = ['falls','mclennan','tom-green','guadalupe','eastland'];
+  const facts = ['Bennie Huitt','Josh Gregory','Tanner McLean','David Saenz','Kevin Stennett'];
+  const editorial = read('src/data/high-school-football/program-editorial-b010.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==25 ||
+     reg.batch.individuallyVerified!==(batch010Certified?25:0) || reg.batch.remainingToImplement!==0 || reg.batch.remainingToVerify!==batch010ExpectedRemaining ||
+     reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch010ExpectedTotalVerified ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===10).length!==batch010ExpectedImplemented ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==batch010ExpectedUnreviewed ||
+     reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10&&x.batch!==10).length!==205 ||
+     reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
+     errors.push('Batch010 protected third-cohort registry must preserve 205 VERIFIED / twenty-five individually IMPLEMENTED / 1,062 NOT_REVIEWED and archived Batch009 evidence.');
+  }
+  if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
+  const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
+  for(let i=0;i<first.length;i++) {
+    const slug = first[i], row=reg.schoolRecords.find(x=>x.slug===slug);
+    if(!row || row.batch!==10 || row.status!==batch010ExpectedStatus || row.actualProductionVerified!==batch010ExpectedProduction) errors.push('Batch010 school must be source IMPLEMENTED but technically pending: '+slug);
+    for(const [source,marker,label] of [
+      [editorial,'"'+slug+'": {','unique school editorial'],
+      [editorial,facts[i],'distinct first-party coaching evidence'],
+      [loader,"'"+slug+"'",'conditional SSR loader'],
+      [identities,"slug: '"+slug+"'",'source-backed school mascot'],
+      [team,"'"+slug+"': '"+counties[i]+"'",'school campus physical county'],
+      [county,"slug: '"+slug+"'",'reciprocal county card'],
+      [checker,"'"+slug+"'",'actual Chrome school target'],
+    ]) if(!source.includes(marker)) errors.push('Batch010 missing '+label+': '+slug);
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<500 || !dossier.includes('https://') || !dossier.includes('NOT')) errors.push('Batch010 source dossier incomplete or falsely certified: '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not invent source-scored 2026 timeline graphic for Batch010 '+slug);
+  }
+  for(const exact of [
+    "workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'scripts/ci/verify-football-b010-first-five-production.mjs',
+    'path: artifacts/b010-first-five-production-chrome/',
+    'echo "run=true" >> "$GITHUB_OUTPUT"',
+    'echo "run=false" >> "$GITHUB_OUTPUT"',
+  ]) if(!wf.includes(exact)) errors.push('Batch010 protected live Chrome workflow contract missing: '+exact);
+  if((wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1 ||
+     !checker.includes('report.schoolChecks.length!==15') ||
+     !checker.includes('report.countyChecks.length!==5') ||
+     !checker.includes('report.screenshots!==20') ||
+     !checker.includes('versions.size!==1')) errors.push('Batch010 must require 15 school views, five county pages, 20 archived screenshots and one Worker.');
+}
+
+
+// Batch 010 second five: independent published-source records, correct 1A
+// six-man classification, original score graphics only for reported finals,
+// and dedicated non-skipped production browser acceptance.
+{
+ const reg=batch010View(JSON.parse(read('docs/football-authority/REGISTRY.json')));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identity=read('src/data/high-school-football/school-identities.ts');
+ const route=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const checker=read('scripts/ci/verify-football-b010-second-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-second-five-production.yml');
+ const five=[
+   ['clarendon','donley','Brenton Whitaker'],
+   ['clarksville','red-river','Thavis Miller'],
+   ['claude','armstrong','Brantlee Lemons'],
+   ['cleburne','johnson','AJ Sheppard'],
+   ['cleveland','liberty','Ajani Sanders']
+ ];
+ const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
+   reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==batch010ExpectedRemaining||
+   reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch<=10).length!==batch010ExpectedTotalVerified)
+   errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and no remaining Batch010 source assignments');
+ for(const [slug,countySlug,coach] of five){
+   const row=reg.schoolRecords.find(s=>s.slug===slug);
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
+     errors.push('Second five not source-IMPLEMENTED or falsely certified: '+slug);
+   for(const [body,marker,label] of [
+     [editorial,'"'+slug+'": {','individualized original football profile'],
+     [editorial,coach,'school-specific sourced coaching'],
+     [loader,"'"+slug+"'",'server-only slug loader'],
+     [identity,"slug: '"+slug+"'",'school identity'],
+     [route,"'"+slug+"': '"+countySlug+"'",'physical campus county'],
+     [county,"slug: '"+slug+"'",'reciprocal county school link'],
+     [checker,"'"+slug+"'",'actual postdeploy Chrome target']
+   ]) if(!body.includes(marker))errors.push('Batch010 second five '+label+' missing: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<500||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('School-specific pending evidence dossier missing: '+slug);
+   if(['clarksville','cleburne'].includes(slug)!==graphic.includes("'"+slug+"'"))
+     errors.push('Dated 2026 original-score graphics must be restricted to two source-backed schools: '+slug);
+ }
+ if(!editorial.includes('2026-10-24')||!editorial.includes('2026-10-23'))
+   errors.push('Date-specific October results evidence missing from Batch010 second five');
+ if(!editorial.includes('six-man Class 1A Division I')||!editorial.includes('2000 E Houston St')&& !editorial.includes('1600 E Houston St'))
+   errors.push('Claude six-man or Cleveland actual campus identity missing');
+ for(const token of ["workflows: ['Deploy TexasDefined production']","github.event.workflow_run.conclusion == 'success'",
+ 'scripts/ci/verify-football-b010-second-five-production.mjs','path: artifacts/b010-second-five-production-chrome/',
+ 'echo "run=true" >> "$GITHUB_OUTPUT"','echo "run=false" >> "$GITHUB_OUTPUT"'])
+    if(!wf.includes(token))errors.push('Strict second-five production workflow contract absent: '+token);
+ for(const token of ['report.schoolChecks.length!==15','report.countyChecks.length!==5','report.screenshots!==26','versions.size!==1'])
+    if(!checker.includes(token))errors.push('Second-five non-skippable acceptance counts/Worker consistency missing: '+token);
+}
+
+// Third Batch010 school-specific cohort: preserve protected 205 historical schools
+// and require independently sourced 2026 coaching, correct Clint campus splits,
+// one date-scoped result graphic and exact-version browser acceptance.
+{
+ const reg=batch010View(JSON.parse(read('docs/football-authority/REGISTRY.json')));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identity=read('src/data/high-school-football/school-identities.ts');
+ const route=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const checker=read('scripts/ci/verify-football-b010-third-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-third-five-production.yml');
+ const five=[
+ ['cleveland-tarkington','liberty','Jake Howard'],
+ ['clifton','bosque','Brent Finney'],
+ ['clint','el-paso','Rosuel Martinez'],
+ ['clint-horizon','el-paso','Omar Garcia'],
+ ['clint-mountain-view','el-paso','DJ Check']
+ ];
+ const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
+    reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==batch010ExpectedRemaining||
+    reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch<=10).length!==batch010ExpectedTotalVerified)
+   errors.push('Batch010 third five registry must retain 205 protected VERIFIED and zero NOT_REVIEWED assigned schools');
+ for(const [slug,countySlug,coach] of five){
+   const row=reg.schoolRecords.find(s=>s.slug===slug);
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
+     errors.push('Batch010 third five unverified source-implementation status missing: '+slug);
+   for(const [source,term,label] of [
+     [editorial,'"'+slug+'": {','original researched editorial'],
+     [editorial,coach,'source-qualified 2026 head coaching'],
+     [loader,"'"+slug+"'",'conditional server-only profile'],
+     [identity,"slug: '"+slug+"'",'verified campus mascot identity'],
+     [route,"'"+slug+"': '"+countySlug+"'",'independently sourced campus county'],
+     [county,"slug: '"+slug+"'",'county reciprocity'],
+     [checker,"'"+slug+"'",'non-skipped Chrome school acceptance']
+   ])if(!source.includes(term))errors.push('Batch010 third five '+label+' missing: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<800||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('School-specific third cohort research dossier absent: '+slug);
+   if((slug==='clint-mountain-view')!==graphic.includes("'"+slug+"'"))
+     errors.push('Source-backed 2026 result graphic must be restricted to Mountain View among new schools: '+slug);
+ }
+ for(const marker of ['2026-10-23','2026-10-28','2026–28','A. L. Nelson Stadium','Rosuel Martinez','Omar Garcia','DJ Check','Brent Finney'])
+   if(!editorial.includes(marker))errors.push('Third-cohort individual source and date evidence missing: '+marker);
+ for(const marker of ["workflows: ['Deploy TexasDefined production']","github.event.workflow_run.conclusion == 'success'",
+    'scripts/ci/verify-football-b010-third-five-production.mjs','path: artifacts/b010-third-five-production-chrome/'])
+   if(!wf.includes(marker))errors.push('Third-five scoped Chrome workflow missing: '+marker);
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==3','report.screenshots!==21','versions.size!==1'])
+   if(!checker.includes(marker))errors.push('Third five acceptance counts and one-worker guard missing: '+marker);
+}
+
+// Batch010 fourth cohort: five newly researched, separately sourced programs.
+// A prepared GitHub branch is not proof of a published release or non-skipped Chrome.
+{
+ const reg=batch010View(JSON.parse(read('docs/football-authority/REGISTRY.json')));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identities=read('src/data/high-school-football/school-identities.ts');
+ const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const verifier=read('scripts/ci/verify-football-b010-fourth-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-fourth-five-production.yml');
+ const schools=[
+   ['clute-brazoswood','brazoria','Eric Luster'],
+   ['clyde','callahan','Danny Dudgeon'],
+   ['coahoma','howard','Chris Joslin'],
+   ['coldspring-oakhurst','san-jacinto','Chad Allen'],
+   ['coleman','coleman','Zach Edington']
+ ];
+ const totals=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
+   reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
+   reg.batch.remainingToVerify!==batch010ExpectedRemaining||reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch010ExpectedTotalVerified||(totals.IMPLEMENTED||0)!==(batch010ExpectedImplemented+reg.schoolRecords.filter(x=>x.batch>10&&x.status==='IMPLEMENTED').length)||
+   totals.NOT_REVIEWED!==batch010ExpectedUnreviewed)
+   errors.push('Batch010 fourth cohort must maintain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED, all assigned schools authored');
+ const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ for(const [slug,countySlug,coach] of schools) {
+   const row=reg.schoolRecords.find(r=>r.slug===slug);
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
+     errors.push('Fourth-cohort school must be IMPLEMENTED, not production VERIFIED: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<950||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('Fourth-cohort independently researched dossier missing: '+slug);
+   for(const [source,marker,label] of [
+     [editorial,'"'+slug+'": {','individual original source-backed editorial'],
+     [editorial,coach,'coach verification with role caveats'],
+     [loader,"'"+slug+"'","conditional server-only profile import"],
+     [identities,"slug: '"+slug+"'","independently sourced school mascot"],
+     [team,"'"+slug+"': '"+countySlug+"'","campus-county outbound navigation"],
+     [county,"slug: '"+slug+"'","reciprocal county school card"],
+     [verifier,"'"+slug+"'","strict postdeployment Chrome school target"]
+   ])if(!source.includes(marker))errors.push('Fourth cohort '+label+' missing: '+slug);
+   if(graphicList.includes("'"+slug+"'"))
+     errors.push('Fourth cohort unverified 2026 final-score illustration forbidden: '+slug);
+ }
+ for(const marker of ["workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    "scripts/ci/verify-football-b010-fourth-five-production.mjs",
+    "path: artifacts/b010-fourth-five-production-chrome/",
+    "SCHEDULED_ACCEPTANCE",
+    "github.event_name == 'workflow_dispatch'"])
+   if(!wf.includes(marker))errors.push('Fourth-cohort protected Chrome workflow missing: '+marker);
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==5',
+   'versions.size!==1'])
+   if(!verifier.includes(marker))errors.push('Fourth-cohort 15 viewport / 5 county / 20 screenshot / one Worker guard missing: '+marker);
+ if(!editorial.includes('Hopper Field')||!editorial.includes('interim')||
+   !editorial.includes('Clyde')||!editorial.includes('Coahoma Community College'))
+   errors.push('Fourth cohort venue, interim-coach, district and similar-name evidence missing');
+}
+
+// Batch010 final fifth cohort. All 25 have distinct source-backed authored
+// profiles, but none can become technically VERIFIED from a green skipped job.
+{
+ const reg=batch010View(JSON.parse(read('docs/football-authority/REGISTRY.json')));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identities=read('src/data/high-school-football/school-identities.ts');
+ const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const verifier=read('scripts/ci/verify-football-b010-fifth-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-fifth-five-production.yml');
+ const five=[
+  ['college-station','brazos','Stoney Pryor'],
+  ['college-station-a-and-m-consolidated','brazos','Brandon Schmidt'],
+  ['colleyville-heritage','tarrant','Jerry Edwards'],
+  ['collinsville','grayson','Garrett Patterson'],
+  ['colmesneil','tyler','Chad Coker']
+ ];
+ const counts=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
+    reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
+    reg.batch.remainingToVerify!==batch010ExpectedRemaining||reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch010ExpectedTotalVerified||
+    (counts.IMPLEMENTED||0)!==(batch010ExpectedImplemented+reg.schoolRecords.filter(x=>x.batch>10&&x.status==='IMPLEMENTED').length)||counts.NOT_REVIEWED!==batch010ExpectedUnreviewed)
+   errors.push('Batch010 final source-only state must retain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED; no new batch assigned before live acceptance');
+ const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ for(const [slug,countySlug,coach] of five){
+  const rec=reg.schoolRecords.find(x=>x.slug===slug);
+  if(!rec||rec.status!==batch010ExpectedStatus||rec.batch!==10||rec.actualProductionVerified!==batch010ExpectedProduction)
+    errors.push('Batch010 fifth-cohort school is not safely pending verification: '+slug);
+  const dossier=read('docs/football-authority/schools/'+slug+'.md');
+  if(dossier.length<950||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+    errors.push('Missing fifth cohort individual source dossier '+slug);
+  for(const [src,mark,label] of [
+    [editorial,'"'+slug+'": {','unique source-backed editorial'],
+    [editorial,coach,'qualified coach role'],
+    [loader,"'"+slug+"'","conditional server-only loader"],
+    [identities,"slug: '"+slug+"'","mascot identity source"],
+    [team,"'"+slug+"': '"+countySlug+"'","outbound school-to-campus county link"],
+    [county,"slug: '"+slug+"'","county-to-school reciprocal card"],
+    [verifier,"'"+slug+"'","strict live Chrome target"]
+  ])if(!src.includes(mark))errors.push('Batch010 fifth cohort '+label+' missing for '+slug);
+  if(graphicList.includes("'"+slug+"'"))errors.push('Fifth cohort invented final-score graphic forbidden: '+slug);
+ }
+ const tylerSupplement=county.split('const supplementalFootballCountyLinks:')[1]?.split('\n};')[0]??'';
+ if((tylerSupplement.match(/'tyler': \[/g)||[]).length!==1||!tylerSupplement.includes("slug: 'chester'")||
+    !tylerSupplement.includes("slug: 'colmesneil'"))
+   errors.push('Adding Colmesneil must preserve existing Chester county football link without duplicate Tyler keys');
+ for(const marker of ["workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    "scripts/ci/verify-football-b010-fifth-five-production.mjs",
+    "path: artifacts/b010-fifth-five-production-chrome/",
+    "SCHEDULED_ACCEPTANCE"])
+    if(!wf.includes(marker))errors.push('Batch010 fifth cohort scoped workflow protection missing: '+marker);
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','versions.size!==1'])
+    if(!verifier.includes(marker))errors.push('Fifth-cohort 15 school / four county / 19 screenshot / Worker identity guard missing: '+marker);
+ if(!verifier.includes('/tmp/td-b010-fifth-chrome/node_modules/playwright-core') ||
+    verifier.includes('/tmp/td-b010-third-chrome/node_modules/playwright-core'))
+   errors.push('Fifth-cohort verifier must import its own Playwright install; third-cohort dependency forbidden');
+ if(!editorial.includes('Stoney Pryor')||!editorial.includes('Brandon Schmidt')||
+    !editorial.includes('Jerry Edwards')||!editorial.includes('Garrett Patterson')||
+    !editorial.includes('Chad Coker')||!editorial.includes('Chris Hicks')||
+    !editorial.includes('Collinsville Kahoks'))
+    errors.push('Fifth-cohort distinct school/coach and predecessor evidence absent');
+}
+
+
+// Finalized GSC 2026-09-29–10-26: generic "UIL 6A football districts"
+// searched the individual District 6-6A page instead of the state directory.
+// Preserve local district pages but make the full 6A list clearly discoverable.
+const sixADirectorySeo = read(footballDistrictIndexRoutePath);
+const sixADirectoryBody = read(footballDistrictIndexPagePath);
+const districtDetailBody = read(footballDistrictPagePath);
+for (const marker of [
+  'including every Texas 6A district plus 5A–1A six-man',
+]) requireText(sixADirectorySeo, marker, 'Complete UIL 6A search intent owner');
+for (const marker of [
+  'uil-6a-districts',
+  'The complete 2026–28 UIL 6A football district list is below',
+  'This is the statewide 6A directory',
+]) requireText(sixADirectoryBody, marker, '6A directory section intent and anchor');
+for (const marker of [
+  'district.classification === "6A"',
+  '/texas-high-school-football-districts#uil-6a-districts',
+  'All UIL 6A football districts',
+]) requireText(districtDetailBody, marker, 'Specific 6A district-to-statewide-list contextual navigation');
 
 if (errors.length) {
   console.error('High-school football platform validation failed:');

@@ -1,0 +1,76 @@
+name: Five authority hubs responsive Chrome acceptance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-five-authority-responsive.mjs'
+      - '.github/workflows/verify-five-authority-responsive.yml'
+      - 'src/routes/sports.lazy.tsx'
+      - 'src/components/dogs/DogsHubPage.tsx'
+      - 'src/components/hunting/HuntingAuthority.tsx'
+      - 'src/routes/sports.friday-night-lights.lazy.tsx'
+      - 'src/routes/texas-tailgating-guide.lazy.tsx'
+      - 'src/data/fixtures/texas-sports-weekend-calendar-guide.ts'
+      - 'src/data/fixtures/lazy-standalone-evergreen.ts'
+  schedule:
+    - cron: '27 15 * * 4'
+  workflow_dispatch:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: five-hub-responsive-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  browser:
+    if: >-
+      github.event_name != 'issue_comment' ||
+      (github.event.issue.number == 7170 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/visual-five-hubs')
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify precise five-hub and sports article Chrome contract
+        run: |
+          node --check scripts/ci/verify-five-authority-responsive.mjs
+          node scripts/ci/verify-five-authority-responsive.mjs --self-test
+      - name: Install headless Chrome driver without changing site dependencies
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-five-hub-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify immutable Worker and desktop/mobile source guidance
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
+        run: node scripts/ci/verify-five-authority-responsive.mjs
+      - uses: actions/upload-artifact@v4
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
+        with:
+          name: five-authority-responsive-${{ github.run_id }}
+          path: artifacts/five-hub-responsive/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Surface real mobile/desktop failures in the open quality checkpoint
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh issue reopen 7170 --repo "$REPOSITORY" || true
+          gh issue comment 7170 --repo "$REPOSITORY" --body "Five-hub desktop/mobile Chrome review failed. Investigate screenshot artifact and real exception before changing assertions. Run: $RUN_URL"

@@ -19,7 +19,7 @@ export const Route = createFileRoute('/texas-data/county-growth.csv')({
           });
         }
 
-        const header = ['fips', 'county_name', 'population_base_2020', 'population_estimate_2025', 'population_change', 'population_change_percent'];
+        const header = ['fips', 'county_name', 'population_base_2020', 'population_estimate_' + data.vintage, 'population_change', 'population_change_percent'];
         const rows = data.rows
           .slice()
           .sort((a, b) => a.fips.localeCompare(b.fips))
@@ -27,7 +27,7 @@ export const Route = createFileRoute('/texas-data/county-growth.csv')({
             row.fips,
             row.countyName,
             row.populationBase2020,
-            row.populationEstimate2025,
+            row.populationEstimate,
             row.populationChange,
             row.populationChangePercent.toFixed(4),
           ]);
@@ -36,7 +36,7 @@ export const Route = createFileRoute('/texas-data/county-growth.csv')({
         return new Response(`${csv}\n`, {
           headers: {
             'content-type': 'text/csv; charset=utf-8',
-            'content-disposition': 'attachment; filename="texas-county-population-growth-2020-2025.csv"',
+            'content-disposition': 'attachment; filename="texas-county-population-growth-2020-' + data.vintage + '.csv"',
             'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
             'x-robots-tag': 'noindex, follow',
           },

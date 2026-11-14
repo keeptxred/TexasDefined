@@ -30,6 +30,7 @@ const COLLECTION_LABELS: Record<string, string> = {
   "state-parks": "State Parks",
   "small-town-texas": "Small Town Texas",
   "texas-christmas": "Texas Christmas",
+  "fishing-shirts": "Fishing Shirts",
   holiday: "Holiday Collection",
 };
 

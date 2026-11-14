@@ -58,7 +58,8 @@ function toProduct(row: StoreProduct): Product {
     colors: row.colors ?? [],
     variants: Array.isArray(row.variants) ? row.variants : [],
     category: inferShopCategory(row),
-    tags: row.tags ?? [],
+    // Heartland's hp-* internal sync markers must not become consumer-facing search tags.
+    tags: (row.tags ?? []).filter((tag) => !/^hp-[a-z0-9_-]+$/i.test(tag)),
     isFeatured: row.featured === true,
     displayOrder: Number.isFinite(row.displayOrder) ? Number(row.displayOrder) : 0,
     isNew: row.isNew === true,
@@ -90,4 +91,41 @@ export async function fetchAssignedShopProducts(params: { collection?: Slug; lim
     console.error("Assigned TexasDefined shop catalog unavailable", error);
     return [];
   }
+}
+
+/**
+ * Complete published catalog for XML sitemap and Merchant Center.
+ * Unlike interactive product discovery this function is fail-closed: a
+ * temporary upstream failure must not silently erase indexed product URLs.
+ * Published-to-TexasDefined is the authoritative visibility flag; the
+ * legacy is_active flag belongs to the KeepTXRed storefront.
+ */
+export async function fetchAllPublishedShopProductsForIndexing(): Promise<Product[]> {
+  const products: Product[] = [];
+  const seen = new Set<string>();
+  const pageSize = 250;
+  const maxProducts = 10000;
+  for (let offset = 0; offset < maxProducts; offset += pageSize) {
+    const url = new URL("/api/public/store-products", commerceApiBase());
+    url.searchParams.set("site", "texasdefined");
+    url.searchParams.set("limit", String(pageSize));
+    url.searchParams.set("offset", String(offset));
+    const response = await fetch(url, {
+      headers: { accept: "application/json" },
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!response.ok) throw new Error(`Published shop catalog request failed at offset ${offset} (HTTP ${response.status})`);
+    const payload = await response.json() as { ok?: boolean; products?: StoreProduct[]; error?: string };
+    if (!payload.ok || !Array.isArray(payload.products)) {
+      throw new Error(payload.error || `Published shop catalog invalid at offset ${offset}`);
+    }
+    for (const row of payload.products) {
+      if (!row.id || !row.title || !row.imageUrl) continue; // Individual detail route also hides incomplete records.
+      if (seen.has(row.id)) throw new Error(`Published shop catalog pagination repeated product ${row.id}`);
+      seen.add(row.id);
+      products.push(toProduct(row));
+    }
+    if (payload.products.length < pageSize) return products;
+  }
+  throw new Error(`Published shop catalog reached ${maxProducts} rows; increase bounded pagination before indexing`);
 }

@@ -330,7 +330,7 @@ export function enhanceExistingRiverGuide(article: Article): Article {
    h("Legal access, mapped launch points and parking"),p(supplement.access),
    h("Where to fish and which rules apply"),p(supplement.fishing),
    h("Camping, facilities, lodging and a second-day plan"),p(supplement.camp),
-   h("River-specific visitor FAQs"),
+   h("Frequently asked questions about this river"),
    ...supplement.faq.flatMap(([question,answer])=>[h(question),p(answer)]),
    h("2026 recreation source review and trip-day verification"),
    p("Research update October 12, 2026. Access and fishing notes are grounded in linked TPWD primary sources, with known lease expirations, reach-specific rules and conditions identified. The reader must check the current operator notices, NWS flood products, USGS gauges and fishing regulations before travel. Published facts do not constitute a real-time opening or water-safety clearance.")

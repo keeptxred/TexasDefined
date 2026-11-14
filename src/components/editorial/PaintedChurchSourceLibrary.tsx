@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-catalog";
 import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 

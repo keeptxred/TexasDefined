@@ -11,6 +11,17 @@ const PLACEHOLDER_MARKERS = [
 ];
 
 const DESTINATION_PLACEHOLDER = "/images/texasdefined-destination-placeholder.svg";
+// Exact high-resolution landscape, creator and CC BY-SA 4.0 license independently
+// checked against its Wikimedia original on 2026-10-19. Other remote park photos
+// still fall back to their approved local maps by default.
+const VERIFIED_FRANKLIN_PANORAMA = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Franklin_Mountains_Panorama_2016.jpg?width=1600";
+function hasApprovedFranklinHero(destination: Destination): boolean {
+  return destination.slug === "franklin-mountains-state-park" &&
+    destination.hero.src === VERIFIED_FRANKLIN_PANORAMA &&
+    destination.hero.credit?.includes("Susan Barnum") &&
+    destination.hero.credit?.includes("CC BY-SA 4.0");
+}
+
 
 /** Equivalent imported records may use a state-park category even when the
  * exact, licensed photo was resolved by the broader Explore image pipeline.
@@ -76,6 +87,7 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
       return { ...destination, hero: DEVILS_RIVER_LANDSCAPE_IMAGE };
     }
 
+    if (hasApprovedFranklinHero(destination)) return destination;
     const mapped = mappedHero(destination.slug);
     if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
       return { ...destination, hero: mapped };
@@ -105,6 +117,7 @@ export function applyStateParkHeroAsset(destination: Destination): Destination {
     return { ...destination, hero: DEVILS_RIVER_LANDSCAPE_IMAGE };
   }
   if (!isTexasStateParkDestination(destination)) return destination;
+  if (hasApprovedFranklinHero(destination)) return destination;
   const mapped = mappedHero(destination.slug);
   if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
     return { ...destination, hero: mapped };

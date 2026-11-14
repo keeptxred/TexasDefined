@@ -15,13 +15,19 @@ export const Route = createFileRoute("/what-does-chud-mean")({
     if (!data) throw notFound();
     return data;
   },
-  head: ({ loaderData }) => loaderData ? buildPrioritySearchHead({
-    canonicalPath,
-    title: "What Does Chud Mean? 2026 Slang Meaning and Texas Search Trend",
-    description: loaderData.intro,
-    data: loaderData,
-    about: ["chud meaning", "internet slang", "Texas slang searches", "2026 slang"],
-  }) : {},
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const head = buildPrioritySearchHead({
+      canonicalPath,
+      title: "What Does Chud Mean? 2026 Slang Meaning and Texas Search Trend",
+      description: loaderData.intro,
+      data: loaderData,
+      about: ["chud meaning", "internet slang", "Texas slang searches", "2026 slang"],
+    });
+    // Internet/political slang is not distinctive Texas travel or cultural
+    // authority. Keep the factual reference accessible without indexing it.
+    return { ...head, meta: [...head.meta, { name: "robots", content: "noindex, follow" }] };
+  },
   component: Page,
 });
 

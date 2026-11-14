@@ -5,6 +5,9 @@ const authority = read("src/data/fixtures/seasonal-authority-articles.ts");
 const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
+const hillCountryFallHero = read("src/data/fixtures/hill-country-fall-colors-hero.ts");
+const eastTexasFallHero = read("src/data/fixtures/east-texas-fall-colors-hero.ts");
+const articleRoute = read("src/routes/article.$slug.tsx");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
 const countyRegistry = read("src/data/county-seasonal-links.ts");
 const countyLegacyLinks = read("src/data/fixtures/seasonal-county-links.ts");
@@ -14,6 +17,7 @@ const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
 const server = read("src/server.ts");
+const imageRights = read("src/data/image-rights.ts");
 
 const groups = {
   bluebonnets: ["texas-bluebonnets-complete-guide", "best-places-to-see-bluebonnets-in-texas", "texas-bluebonnet-road-trip", "bluebonnets-near-austin", "bluebonnets-near-houston", "bluebonnets-near-dallas-fort-worth", "bluebonnets-near-san-antonio", "texas-bluebonnet-festivals", "is-it-illegal-to-pick-bluebonnets-in-texas"],
@@ -36,6 +40,72 @@ for (const [group, slugs] of Object.entries(groups)) {
     if (!links.includes(`\"${slug}\"`)) fail(`${group}: missing reciprocal authority-link entry ${slug}`);
   }
 }
+
+// The live Hill Country article renders its own embedded internalLinks.
+// Supplemental discovery links alone do not guarantee a visible reciprocal link.
+const hillCountryInternalLinks = intents.split('slug: "hill-country-fall-colors"')[1]?.split("body: [")[0] ?? "";
+if (!hillCountryInternalLinks.includes('href: "/article/east-texas-fall-colors"')) {
+  fail("Hill Country must render a direct East Texas reciprocal link");
+}
+
+// Verify links embedded in the full rendered article fixtures, not only supplemental links.
+const foliageArticleLinks = [
+  ["fall-in-texas-complete-guide", authority, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["texas-fall-foliage-road-trip", authority, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["east-texas-fall-colors", intents, ["/article/best-texas-state-parks-for-fall-colors"]],
+  ["hill-country-fall-colors", intents, ["/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["best-texas-state-parks-for-fall-colors", intents, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors"]],
+];
+for (const [slug, source, targets] of foliageArticleLinks) {
+  const metadata = source.split('slug: "' + slug + '"')[1]?.split("body: [")[0] ?? "";
+  for (const target of targets) {
+    if (!metadata.includes('href: "' + target + '"')) fail(slug + ": missing rendered foliage link to " + target);
+  }
+}
+
+// Protect the Hill Country fall guide from accidentally reusing a green park photo.
+// Both list/discovery and the full article must share the same verified autumn hero.
+for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
+  if (!source.includes('hero: hillCountryFallColorsHero')) fail(`Hill Country fall ${name} must use the verified autumn hero`);
+  if (!source.includes('import { hillCountryFallColorsHero } from "./hill-country-fall-colors-hero"')) fail(`Hill Country fall ${name} missing shared photo import`);
+}
+for (const marker of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas", "Golden-orange and rust-red autumn", "G. Lamar", "24 Nov 2012", "CC BY 2.0"]) {
+  if (!hillCountryFallHero.includes(marker) && !hillCountryFallHero.includes(marker.toLowerCase())) fail(`Hill Country autumn hero missing ${marker}`);
+}
+for (const marker of ["Hero photo: G. Lamar, November 2012", "CC BY 2.0 license", "foliageHeroRights?.license", "not a verified report of current foliage"]) {
+  if (!articleRoute.includes(marker)) fail(`Hill Country hero credit or historical caveat missing: ${marker}`);
+}
+
+// East Texas should also illustrate actual autumn foliage, not evergreen Caddo Lake.
+for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
+  if (!source.includes('hero: eastTexasFallColorsHero')) fail(`East Texas fall ${name} must use the authentic Daingerfield autumn hero`);
+  if (!source.includes('import { eastTexasFallColorsHero } from "./east-texas-fall-colors-hero"')) fail(`East Texas fall ${name} missing shared autumn photo import`);
+}
+for (const marker of ["Daingerfield_sp_reflection.jpg", "autumn trees", "Larry D. Moore", "24 Oct 2014", "CC BY 4.0"]) {
+  if (!eastTexasFallHero.includes(marker)) fail(`East Texas autumn hero missing ${marker}`);
+}
+if (!articleRoute.includes("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014")) fail("East Texas autumn hero date and provenance missing");
+
+// Photo rights metadata must identify authentic locations, both creators,
+// both CC licenses and the original Commons file pages.
+for (const token of [
+  "29567585500",
+  "Daingerfield_sp_reflection",
+  "G. Lamar",
+  "Larry D. Moore",
+  "creativecommons.org/licenses/by/",
+  "commons.wikimedia.org/wiki/File:",
+  "The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_(29567585500).jpg",
+  "Daingerfield_sp_reflection.jpg",
+  "Guadalupe_river_state_park_bluff.jpg",
+  "acquireLicensePage",
+  "creator:",
+]) if (!imageRights.includes(token)) fail(`Fall image structured-data provenance missing ${token}`);
+if (/decodeURIComponent\(src|src\.slice\(src\.lastIndexOf/.test(imageRights)) {
+  fail("Commons source links must use verified original filenames, never proxied image URLs");
+}
+
+
 
 for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
   const retiredSlug = from.slice("/article/".length);

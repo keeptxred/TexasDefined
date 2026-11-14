@@ -28,6 +28,22 @@ function forbidText(source, needle, message) {
   if (source.includes(needle)) failures.push(message);
 }
 
+// The permanent Texas Rose Festival page was excluded by noindex at Google's
+// last 2026-10-27 crawl because it lacked an approved image. Do not turn off
+// the fail-closed noindex gate: require an actually licensed venue photograph.
+const roseImageRecord = read('src/data/major-event-schema-enrichment-batch1.server.ts')
+  .split('slug: "texas-rose-festival"')[1]?.split('\n  },')[0] ?? '';
+for (const token of [
+  'Special:Redirect/file/Tyler_Rose_Garden.jpg?width=1600',
+  'sourceUrl: "https://commons.wikimedia.org/wiki/File:Tyler_Rose_Garden.jpg"',
+  'sourceType: "wikimedia"',
+  'licenseName: "Creative Commons Attribution 2.0 Generic"',
+  'licenseUrl: "https://creativecommons.org/licenses/by/2.0/"',
+  'Robert Nunnally',
+  'exactLocation: true',
+  'approvedForCommercialUse: true',
+]) requireText(roseImageRecord, token, 'Texas Rose Festival governed exact-location image must stay licensed and indexable');
+
 for (const [needle, message] of [
   ['"@type": "Event"', 'Dedicated event pages must emit Event JSON-LD.'],
   ['name: event.name', 'Event JSON-LD must include the event name.'],
@@ -44,11 +60,14 @@ for (const [needle, message] of [
   ['addressCountry: "US"', 'Event location must include addressCountry.'],
   ['...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {})', 'Event image must come only from governed occurrence enrichment.'],
   ['...(organizer ? { organizer } : {})', 'Verified organizers must be emitted when available.'],
-  ['...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted only for non-expired occurrences.'],
+  ['...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted only for non-expired occurrences.'],
   ['...(performers?.length ? { performer: performers } : {})', 'Verified performers must be emitted when available.'],
 ]) requireText(eventPage, needle, message);
 
-requireText(eventPage, 'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length', 'Expired event pages must suppress stale ticket-price UI.');
+requireText(eventPage, 'const offersMarkup = displayOffers.length', 'Event pages must render only offers admitted by the lifecycle and availability gate.');
+requireText(eventPage, 'const eligibleOfferWindows = occurrenceWindows.filter', 'Secondary visible offers must check each occurrence rather than mixing cancelled sessions.');
+requireText(eventPage, '.filter((offer) => majorEventOfferIsActionable(offer))', 'Secondary offers must suppress dated-out and sold-out prices.');
+requireText(eventPage, 'occurrenceEnrichment?.offers?.filter((offer) => majorEventOfferIsActionable(offer))', 'Event rich results must suppress expired and sold-out offer records.');
 requireText(eventPage, 'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate', 'Rescheduled Event JSON-LD must support previousStartDate.');
 requireText(eventPage, 'occurrenceEnrichment?.lifecycle?.status === "rescheduled"', 'previousStartDate must be gated to rescheduled events.');
 

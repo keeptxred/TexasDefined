@@ -14,6 +14,42 @@ import { footballClassificationRank, footballProgramProfilePath, footballProgram
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
+import { footballMatchups } from './football-matchups';
+import { applyFootballMatchupSnapshot } from './football-team-season-overlay';
+import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
+import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-loader.server';
+import { loadBatch010FootballProgramEditorial } from './program-editorial-b010-loader.server';
+import { loadBatch011FootballProgramEditorial } from './program-editorial-b011-loader.server';
+import { loadBatch012FootballProgramEditorial } from './program-editorial-b012-loader.server';
+import { loadBatch013FootballProgramEditorial } from './program-editorial-b013-loader.server';
+import { loadBatch014FootballProgramEditorial } from './program-editorial-b014-loader.server';
+import { loadBatch015FootballProgramEditorial } from './program-editorial-b015-loader.server';
+import { getBatch016EarlyEditorial } from './program-editorial-b016-early';
+import { getBatch016GroupOneEditorial } from './program-editorial-b016-group1';
+import { getBatch016EarthEditorial } from './program-editorial-b016-earth';
+import { getBatch016SecondFiveEditorial } from './program-editorial-b016-group2';
+import { getBatch016ThirdFiveEditorial } from './program-editorial-b016-group3';
+import { getBatch016FourthFiveEditorial } from './program-editorial-b016-group4';
+import { getBatch016FifthFiveEditorial } from './program-editorial-b016-group5';
+import { getBatch017FirstFiveEditorial } from './program-editorial-b017-group1';
+import { getBatch017SecondFiveEditorial } from './program-editorial-b017-group2';
+import { getBatch017ThirdFiveEditorial } from './program-editorial-b017-group3';
+import { getBatch017FourthFiveEditorial } from './program-editorial-b017-group4';
+import { getBatch017FifthFiveEditorial } from './program-editorial-b017-group5';
+import { getBatch018FifthFiveEditorial } from './program-editorial-b018-fifth-five';
+import { getBatch018FourthFiveEditorial } from './program-editorial-b018-fourth-five';
+import { getBatch018ThirdFiveEditorial } from './program-editorial-b018-third-five';
+import { getBatch018SecondFiveEditorial } from './program-editorial-b018-second-five';
+import { getBatch018FirstFabensEditorial } from './program-editorial-b018-fabens';
+import { getBatch018FairfieldEditorial } from './program-editorial-b018-fairfield';
+import { getBatch018FalfurriasEditorial } from './program-editorial-b018-falfurrias';
+import { getBatch018FallsCityEditorial } from './program-editorial-b018-falls-city';
+import { getBatch018FarmersvilleEditorial } from './program-editorial-b018-farmersville';
+import { loadBatch012GroupTwoEditorial } from './program-editorial-b012-group2-loader.server';
+import { loadBatch012Group3FootballProgramEditorial } from './program-editorial-b012-group3-loader.server';
+import { loadBatch012Group4FootballProgramEditorial } from './program-editorial-b012-group4-loader.server';
+import { loadBatch012Group5FootballProgramEditorial } from './program-editorial-b012-group5-loader.server';
+import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
@@ -128,7 +164,14 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   if (!seed) {
     const legacy = await getFeaturedFootballProgramProfile(slug);
     if (!legacy) return null;
-    const editorial = getFootballProgramEditorial(legacy.featured.slug);
+    // Featured private-school programs (such as TAPPS Castle Hills) require
+    // the same source-backed batch overlay without entering the UIL dataset.
+    const authoredEditorial = getBatch018FifthFiveEditorial(legacy.featured.slug) ?? getBatch018FourthFiveEditorial(legacy.featured.slug) ?? getBatch018ThirdFiveEditorial(legacy.featured.slug) ?? getBatch018SecondFiveEditorial(legacy.featured.slug)
+      ?? (await loadBatch011FootballProgramEditorial(legacy.featured.slug))
+      ?? (await loadBatch010FootballProgramEditorial(legacy.featured.slug))
+      ?? (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
+      ?? getFootballProgramEditorial(legacy.featured.slug);
+    const editorial = applyFootballMatchupSnapshot(authoredEditorial, legacy.featured.slug, footballMatchups);
     const profileContent = {
       displayName: legacy.featured.displayName,
       program: legacy.program,
@@ -158,7 +201,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     };
   }
 
-  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
+  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100, loadRemoteSources: false });
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.sourceSchoolName];
   const matchedProgram: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
@@ -234,6 +277,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const primaryCampus = otherCampusCorrections[canonicalSlug];
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
+    // NCES campus 481206000703 places Bullard High in Cherokee County,
+    // even when an AskTED city/ISD match returns Smith County. This changes
+    // campus county only; UIL placement and TEA school identity remain intact.
+    : canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }
     : canonicalSlug === 'austin-johnson' ? austinLbjProgram
     : primaryCampus ? {
       ...seed, profilePath: footballProgramProfilePath(seed.schoolName),
@@ -251,7 +298,19 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     officialSchoolName: program.officialSchoolName,
     districtName: program.districtName,
   });
-  const editorial = getFootballProgramEditorial(canonicalSlug);
+  // Preserve Batch 008's validated precedence; only replace the result on a
+  // source-backed, individually implemented Batch 009 slug.
+  const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
+  // Dedicated first-party Lone Star history/visitor guide. Keep score, W/L and
+  // standings automation in its separate deferred, rights-gated pipeline.
+  const loneStarEditorial = canonicalSlug === 'frisco-lone-star'
+    ? (await import('./program-editorial-frisco-lone-star')).getFriscoLoneStarEditorial()
+    : undefined;
+  const baseEditorial = loneStarEditorial ?? getBatch018FifthFiveEditorial(canonicalSlug) ?? getBatch018FourthFiveEditorial(canonicalSlug) ?? getBatch018ThirdFiveEditorial(canonicalSlug) ?? getBatch018SecondFiveEditorial(canonicalSlug) ?? getBatch018FirstFabensEditorial(canonicalSlug) ?? getBatch018FairfieldEditorial(canonicalSlug) ?? getBatch018FalfurriasEditorial(canonicalSlug) ?? getBatch018FallsCityEditorial(canonicalSlug) ?? getBatch018FarmersvilleEditorial(canonicalSlug) ?? getBatch017FirstFiveEditorial(canonicalSlug) ?? getBatch017SecondFiveEditorial(canonicalSlug) ?? getBatch017ThirdFiveEditorial(canonicalSlug) ?? getBatch017FourthFiveEditorial(canonicalSlug) ?? getBatch017FifthFiveEditorial(canonicalSlug) ?? (await loadBatch012Group5FootballProgramEditorial(canonicalSlug)) ?? getBatch016EarlyEditorial(canonicalSlug) ?? getBatch016GroupOneEditorial(canonicalSlug) ?? getBatch016EarthEditorial(canonicalSlug) ?? getBatch016SecondFiveEditorial(canonicalSlug) ?? getBatch016ThirdFiveEditorial(canonicalSlug) ?? getBatch016FourthFiveEditorial(canonicalSlug) ?? getBatch016FifthFiveEditorial(canonicalSlug) ?? (await loadBatch015FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch014FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch013FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group4FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group3FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012GroupTwoEditorial(canonicalSlug)) ?? (await loadBatch012FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
+  const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
+    ? applyAubreyAutoResults(baseEditorial)
+    : baseEditorial;
+  const editorial = applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups);
   const profileContent = {
     displayName,
     program,

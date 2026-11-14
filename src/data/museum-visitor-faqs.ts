@@ -14,6 +14,1242 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "austin-county-jail-museum-bellville": [
+    {
+      "question": "Is the Austin County Jail Museum in Austin or Bellville?",
+      "answer": "It is in Bellville, Austin County, at 36 South Bell Street, not in the city of Austin. The county's museum listing has this visitor address, while the county administration contact has a separate 1 E Main St address.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What are the public hours and can I visit on a weekday?",
+      "answer": "Austin County government currently posts Saturdays, 11 a.m.–3 p.m., staffed by volunteers. Ordinary daily walk-in access is not published. Call 979-877-5642 or 713-385-7141 before driving, and inquire separately about any group or weekday arrangement.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is there an admission fee or a timed ticket?",
+      "answer": "The county's current museum page does not clearly specify a general ticket charge or reserved timed-entry system. Ask a volunteer for the current fee or donation policy and any group arrangements before traveling; don't rely on a free-admission assumption.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Why is this jail historic?",
+      "answer": "The brick Austin County Jail opened in 1896, replaced an inadequate predecessor, and served as jail and sheriff's family home until 1982. It is recorded as a Texas historic landmark, with Romanesque Revival turrets, crenellation and arched stone-trimmed windows.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Can visitors see the jail's original gallows?",
+      "answer": "No. The Texas Historical Commission historical marker records a single gallows use in 1901 and says that the gallows were removed. Visitors should expect interpretive history, not a surviving working execution structure.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Does the museum have accessible entrance routes and bathrooms?",
+      "answer": "The preserved multi-story 1896 jail includes historic stairs and cells, and the operator has not posted a complete verified wheelchair route or restroom inventory. Ask volunteers which entrances, floors and restrooms accommodate your particular needs before arriving.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "How long should I plan for a visit?",
+      "answer": "About 45–75 minutes is a flexible travel-planning estimate for a small historic jail museum, not an official guaranteed tour duration. Staffing, guided interpretation, the historic areas available and visitor interest can change the time required.",
+      "verificationUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is the museum suitable for families and school groups?",
+      "answer": "The jail can support age-appropriate learning about county government, architecture and the way sheriffs' families lived. Historic stairs and sensitive incarceration/execution history call for adult supervision and suitable interpretation; arrange groups with the operator.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What other historic places can I combine with the museum?",
+      "answer": "Bellville's courthouse square is a short walk from the jail, with independent historic buildings and markers. For a longer Austin County route, compare San Felipe de Austin's colonial history, but confirm its separate visitor timetable and admission.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    }
+  ],
+  "barrington-living-history-farm": [
+    {
+      "question": "When can I tour Barrington Living History Farm rather than just the grounds?",
+      "answer": "The Texas Historical Commission currently posts farm and townsite visits on Wednesday through Sunday, 10 a.m. to 4:30 p.m. Visitor-center and general grounds access on Monday or Tuesday does not mean the farm buildings and interpreters are open. Confirm holidays or weather closures before setting out.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What are the current adult and family ticket prices at Barrington?",
+      "answer": "The operator lists standard admission at $10 for adults, $6 for visitors aged 6 to 17 and free for children five and under; discount categories cost $8. A family option for two adults and one child is $22 plus $1 for each additional child. Group rates and program tickets have different conditions.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is Anson Jones's home original or rebuilt for the museum?",
+      "answer": "The Jones house is a surviving historical structure associated with his residence, but other farm buildings and enslaved-quarters displays have been reconstructed as an interpretive 1850s landscape. Visitors should distinguish actual surviving material from structures based on historical research instead of calling every cabin original.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Barrington tell the stories of the people held in slavery there?",
+      "answer": "The Texas Historical Commission interprets the cotton farm's enslaved residents, work routines and living quarters using Jones-era records, not merely the biography of the final Republic president. The kitchen, quarters, crops and household must be understood in the context of labor coerced from enslaved people.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are Barrington's farm paths and buildings all wheelchair accessible?",
+      "answer": "The historical landscape includes outdoor dirt paths, and some tours involve stairs or historic thresholds. The Texas Historical Commission asks group organizers to identify ramp requirements before arrival. Contact visitor staff at 936-878-2214 for precise current access; online descriptions do not establish that every building is barrier-free.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How early should a group schedule a tour of Barrington?",
+      "answer": "The Texas Historical Commission advises reserving adult groups about four weeks ahead and arranging payment a week before the visit. Ask explicitly for the farm and tell staff about mobility requirements. The published adult-group price differs from normal family and child admission, so do not assume a drop-in group receives the same program.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are all farm and livestock demonstrations shown every day?",
+      "answer": "Period cooking, field work, livestock care and other demonstrations follow the farm's agricultural calendar, staff and weather. The operator does not promise every activity at a fixed hourly schedule, so visitors should confirm an advertised event if a specific demonstration is essential to their trip.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do Barrington tours continue when thunderstorms approach?",
+      "answer": "The Texas Historical Commission says Barrington's outdoor visits close for thunder or lightning within eight miles and resume only after an appropriate clear period. Farm access is therefore not guaranteed merely because the visitor center is open; check actual site alerts on stormy days.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "bastrop-county-museum-visitor-center": [
+    {
+      "question": "Where is the Bastrop County Museum and Visitor Center located?",
+      "answer": "The historical society's museum and visitor-center desk occupy 904 Main Street, Bastrop, Texas 78602. The organization moved its collections to this downtown site in 2011. Call 512-303-0904 for current entry assistance or accessibility information.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the Bastrop County Museum open on Sunday?",
+      "answer": "Dedicated museum hours and FAQ pages list Monday through Saturday, 10 a.m. to 5 p.m., last entry 4:30 p.m. But the same operator's homepage footer lists Sunday 11 a.m. to 3 p.m. Since its own official schedules disagree, call 512-303-0904 before planning any Sunday visit.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What does the Bastrop County Museum charge for a regular visit?",
+      "answer": "The operator currently lists general admission at $8, with children ages 12 and under, active military and veterans admitted free. Members enter free and eligible EBT cardholder families may access a $5 Museums for All family rate. Confirm eligibility and current terms on the official admission page.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I set aside for Bastrop's museum galleries?",
+      "answer": "The historical society's visitor FAQ estimates about 30 minutes to one hour for the museum itself, depending on how closely visitors read its permanent and changing exhibits. Time spent at the separate visitor desk or walking downtown is additional; arrive before the 4:30 p.m. last-admission cutoff.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the museum visitor center also provide county travel advice?",
+      "answer": "Yes. The historical society operates a local tourist information desk in the same building as its historical exhibits, with staff providing maps and advice about Bastrop's downtown, attractions and local history. A ticket to the museum does not include admission to independently managed outdoor sites.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is public parking available near the museum on Main Street?",
+      "answer": "The museum's posted directions identify free public parking along Main Street and nearby side streets in downtown Bastrop. A parking description does not guarantee an open accessible space; check curb signs and call staff for specific step-free entrance or mobility arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I just walk into the Bastrop County research archive?",
+      "answer": "For research on Bastrop genealogy or county records, the operator asks visitors to make an appointment so staff can prepare appropriate assistance. A regular public gallery visit is distinct from unsupervised access to its archive, so researchers should submit specific topics before traveling.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I bring pets or food into the Bastrop museum exhibits?",
+      "answer": "The museum's published visitor FAQ states that only service animals are permitted inside the museum and that food and drinks may be consumed in the visitor-center area, not near exhibit collections. Ask staff about any additional accommodation or school-group arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "baytown-historical-museum": [
+    {
+      "question": "Where is Baytown Historical Museum, and what is the building?",
+      "answer": "The museum is at 220 West Defee Street in Baytown, Harris County. It occupies the former Goose Creek federal post office dating to 1936–37, rather than a modern museum campus.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When is Baytown Historical Museum open?",
+      "answer": "Baytown's official tourism bureau lists Tuesday–Saturday, 10 a.m.–2 p.m. Other local directories display Wednesday–Saturday, 10 a.m.–4 p.m. Because public schedules conflict, telephone 281-427-8768 for the date you intend to visit instead of relying on an open-now badge.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Baytown Historical Museum charge admission?",
+      "answer": "The City of Baytown's tourism listing advertises free general museum admission. Do not assume that group programs, special events or nearby independent attractions share identical policies; confirm those before booking.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is inside Baytown Historical Museum?",
+      "answer": "The city describes local-history exhibits from the Karankawa through the regional oil boom. Building interpretation also covers the former Goose Creek Post Office and its WPA-era artwork, with wider local context for Goose Creek, Pelly and Baytown.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Why is a former post office used as the museum?",
+      "answer": "The Louis A. Simon-designed federal building served as a post office until 1985, after which it became the museum's home. Texas historical heritage materials describe the early International Style architecture and interior mural by Philip Parisi.",
+      "verificationUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the museum accessible to wheelchair users?",
+      "answer": "The historic building has front entrance steps, but the published visitor listing does not establish whether an alternate step-free entrance, lift, restroom and parking route are available. Call staff at 281-427-8768 for a specific accessibility plan; do not infer lack of any accessible entrance solely from a photograph.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I allow and is it suitable for children?",
+      "answer": "As a small community museum, a flexible 45–75-minute stop is a planning estimate, not an operator-guaranteed visit length. The historical displays can be interesting for families; ask directly about school groups, age-appropriate programs, holiday access and hands-on activities.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What can I combine with a museum visit in Baytown?",
+      "answer": "After confirming admission and hours, explore Baytown's downtown Arts District or other Harris County history sites as separate stops. Travel time, ticket rules and operating hours vary by venue; consult each operator rather than assuming the museum offers a combined ticket.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Who photographed the museum building, and may TexasDefined reuse it?",
+      "answer": "Jim Evans photographed the actual former Baytown post office on October 29, 2020. The original Wikimedia Commons file is licensed CC BY-SA 4.0, requiring photographer credit, a link to the license and compliance with share-alike terms for adaptations.",
+      "verificationUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "bayou-bend-collection-gardens": [
+    {
+      "question": "Where is Bayou Bend, and is it part of MFAH's downtown campus?",
+      "answer": "Bayou Bend is the Museum of Fine Arts, Houston's separate house museum and gardens at 6003 Memorial Drive in River Oaks. It is not one of the main galleries on the MFAH Museum District campus. Begin at the Lora Jean Kilroy Visitor and Education Center and use the Bayou Bend ticket rather than assuming a main-campus admission covers both.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What days and times is Bayou Bend open?",
+      "answer": "MFAH currently lists Wednesday through Saturday 10 a.m. to 5 p.m., Sunday 1 to 5 p.m., with last admission at 4 p.m.; Monday and Tuesday are closed. An older version of its Bayou Bend page advertised noon opening on Wednesday, so confirm the live official day-specific page before traveling.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much are Bayou Bend house-and-garden tickets?",
+      "answer": "The operator currently lists adults at $14; students with identification, seniors and teens 13–18 at $12; children 12 and under, active U.S. military and MFAH members are free. These figures cover ordinary house-and-garden admission and may differ from garden-only admission, special programs or the separate MFAH main campus.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Must I reserve an ordinary self-guided house visit in advance?",
+      "answer": "MFAH's operator tours page states that the self-guided house tour is included in admission and does not require a reservation. Guided Highlights Tours run about one hour and Study Tours about ninety minutes, with availability depending on date and staff. Buy tickets directly with the operator for a planned docent experience.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can a wheelchair user visit Bayou Bend's second floor and gardens?",
+      "answer": "MFAH expressly reports that the historic house's second floor is inaccessible to wheelchair and walker users, and that much of the gardens have difficult terrain and stairs. The wheelchair-accessible property entrance differs from the main route. Call 713-639-7750 to coordinate directions, accessible areas and alternative ways to experience the collection.",
+      "verificationUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What makes the collection different from a traditional art museum?",
+      "answer": "Bayou Bend's collection of more than 2,500 American decorative-art objects is installed through 28 rooms and galleries inside Ima Hogg's former home. The operator describes objects made or used in the United States from 1620 to 1876, including furniture, paintings, silver, glass, ceramics and textiles. These reconstructed period settings are interpretive rather than untouched family interiors.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How far ahead must a group of twelve or more book Bayou Bend?",
+      "answer": "The museum offers guided and self-guided group packages for groups of twelve or more and asks for a reservation at least two weeks in advance for group discounts and availability. Special lectures or visitor-center receptions carry separate charges. Call group tours at 713-639-7758 and disclose any mobility accommodation needs.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I take photos in Bayou Bend house and gardens?",
+      "answer": "Personal visitor photography is encouraged under the museum's rules, but tripods, selfie sticks, monopods, external flash, props and drones are not permitted, and commercial or posed photo sessions require advance arrangements and fees. Copyright and artwork-reproduction permissions are distinct from the right to take personal pictures during a visit.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "austin-history-center-austin": [
+    {
+      "question": "Where is the Austin History Center located now?",
+      "answer": "As of the 2025 move, the Austin History Center is inside the John Henry Faulk Building at 800 Guadalupe Street, not the original history center building at 810 Guadalupe. The Austin Public Library says the first floor holds exhibits and the second floor contains the Reading Room and meeting space. Use the 800 Guadalupe entrance for current public services.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When can I visit the Austin History Center in 2026?",
+      "answer": "The official Faulk Building listing posts public hours Wednesday through Saturday, noon to 5 p.m., with Sunday, Monday and Tuesday closed. This is the historical collections facility, not the Austin Public Library Central Library downtown at 710 W Cesar Chavez. Holidays and temporary exhibition arrangements can change; verify the operator's current listing.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do I need an appointment to use the Austin History Center Reading Room?",
+      "answer": "The operator explicitly says no appointment is needed for ordinary Reading Room access during open hours. An important exception applies to unappraised City records and photographs stored in cold storage: contact the archive at least two weeks ahead so staff can prepare those materials. Large research projects may need repeated visits.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What must I do before examining original archival materials?",
+      "answer": "Sign in at the desk, leave bags and cases in provided lockers, use pencils rather than pens, and request original materials with staff assistance. The Reading Room allows a limited number of loose notes and silent cameras or laptops. Archival materials remain onsite and cannot be borrowed or checked out like circulating library books.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I visit with children or a school group?",
+      "answer": "The Austin History Center welcomes children in the Reading Room when they are supervised and quiet enough to protect fragile records and allow others to study. Exhibits may be easier for younger visitors than a long archival research session. Ask the city's staff about school-group experiences and any dedicated programs rather than assuming unguided group access.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are there public exhibits, or is the center only an archive?",
+      "answer": "The public Faulk Building has exhibit space on the first floor and archive consultation on the second. In October 2026, the library features In Circulation: A Century of the Austin Public Library, an exhibition scheduled September 22, 2026 through April 22, 2027. These dates describe a temporary exhibit, not permanent admission hours or a promise every display is always available.",
+      "verificationUrl": "https://library.austintexas.gov/ahc",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What collections are useful for researching Austin people or buildings?",
+      "answer": "The archive offers city directories, neighborhood files, historical newspapers, photographs, maps, oral histories, municipal records, genealogy and property research guides. Search the online collections catalogs first, then bring known names, addresses and approximate dates. Research staff can point to materials but do not perform unlimited full investigations for visitors.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/research",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How do parking and accessibility work at the current history center?",
+      "answer": "Austin Public Library identifies the public facility at 800 Guadalupe Street and historically lists nearby metered street parking and multiple bus routes. Do not confuse access to the Faulk Building with the former 810 Guadalupe site. The operator does not provide a complete public inventory of every wheelchair route and archive assistive setup on the Faulk listing; call 512-974-7480 to confirm arrival and access needs.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "alley-log-cabin-museum-columbus": [
+    {
+      "question": "Can I visit the Alley Log Cabin without an appointment?",
+      "answer": "Do not assume it operates on daily museum hours. The nonprofit operator specifically asks visitors to arrange tours through the Columbus Chamber of Commerce at 979-732-8385 or info@columbustexas.org. The trust's weekday office hours are not the cabin's public visiting schedule.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Where is the Alley Log Cabin and Antique Tool Museum?",
+      "answer": "The Columbus Historical Preservation Trust gives its museum address as 1230 Bowie Street in Columbus, Colorado County. This is the relocated historic cabin, not Abram Alley's original rural homestead; use the site's address instead of an old marker location or the trust's separate office address.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the log cabin itself really from 1836?",
+      "answer": "The operator dates the original two-room oak cabin to 1836. It stood at the family's original site until 1976, when it was moved into Columbus and restored. Some components, roof materials and porches have since been reconstructed, so distinguish the historic structure from later preservation work.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the cabin tour include the Antique Tool Museum?",
+      "answer": "The operator presents them together as the Alley Log Cabin and Antique Tool Museum. The separate tool-building opened as a museum in 1996 and displays farming, ranching and blacksmithing implements. Confirm which interiors will be included when arranging a tour, rather than promising unrestricted access.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much does a visit to the historic cabin cost?",
+      "answer": "The current operator page does not publish an ordinary walk-in admission price or a universal online ticket. Ask the Columbus Chamber of Commerce about tour arrangements, donation expectations, group minimums and any costs before traveling; do not rely on unrelated attraction directories for pricing.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the historic log cabin accessible to wheelchair users?",
+      "answer": "The operator's public description discusses original log construction, a loft stair and restored historic rooms but does not publish a complete wheelchair-route or accessible-restroom inventory. Contact the Columbus Historical Preservation Trust and request a specific explanation of step-free entrances and tour access in advance.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is special about the Antique Tool Museum collections?",
+      "answer": "Its displays interpret the tools that supported nineteenth-century Colorado County farms, ranches and trades. The operator names oxen yokes, corn shellers, woodworking equipment, plows and regional barbed wire. These are real working-life objects, rather than a second log cabin or a modern machinery showroom.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I combine this with other Columbus historic buildings?",
+      "answer": "Yes, the historic Columbus area has other preservation-trust properties such as the Stafford Opera House and the Dilue Rose Harris House, but each may have its own tour or event arrangements. Confirm separate access with the trust before planning a multi-property visit; the cabin appointment does not prove adjacent interiors are open.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "san-angelo-museum-of-fine-arts": [
+    {
+      "question": "Is the San Angelo Museum of Fine Arts free to visit?",
+      "answer": "Yes. The operator describes general gallery admission as free for everyone, including access to changing exhibitions. Do not extend that promise to concerts, rentals, fundraising events or workshops: selected ticketed programs may cost extra. Check the exact activity before attending.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What are the museum's Thursday and Sunday hours?",
+      "answer": "The museum lists Thursday as noon to 7 p.m., which differs from its Tuesday, Wednesday, Friday and Saturday 10 a.m.–4 p.m. schedule. Sunday hours are 1–4 p.m. and Monday is closed. It also closes for some major holidays; check the operator's day-of visitor information.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is there free parking beside the San Angelo Museum of Fine Arts?",
+      "answer": "Yes. The museum says free parking is available adjacent to its building at 1 Love Street near the Concho River in downtown San Angelo. Parking for special events or busy days may be limited, so follow current signs and plan a short walk rather than expecting a reserved space.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can wheelchair users visit all museum galleries?",
+      "answer": "The museum states that its galleries are fully wheelchair accessible and offers loan wheelchairs upon request at the front desk. Service dogs are welcome. For specific entrances, assistance or unusual event setups, call visitor services at 325-653-3333 before traveling.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can families bring strollers and snacks into SAMFA?",
+      "answer": "Strollers are allowed if a parent or guardian pushes the stroller forward-facing, rather than pulling it. Food and drinks, including bottled water and gum, are not permitted inside galleries except for certain medical accommodations. There is no verified on-site café, so arrange snacks and meals separately.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Are flash photography or paid photo shoots permitted inside SAMFA?",
+      "answer": "Ordinary personal photography is generally allowed unless a particular artwork or exhibition says otherwise, but flash, tripods, selfie sticks and video equipment are not permitted in the galleries. Commercial filming or posed promotional photo shoots require advance approval and may involve a rental fee.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is San Angelo museum's monthly Family Day?",
+      "answer": "The museum publishes a free Family Day on the third Saturday of the month, generally from 10 a.m. to 2 p.m., with exhibition-linked activities, artmaking and studio experiences. The theme and precise activity stations change. Confirm the date and program rather than assuming every advertised workshop is available every visit.",
+      "verificationUrl": "https://www.samfa.org/familyday",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/familyday",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Are museum school field trips walk-in or arranged ahead?",
+      "answer": "School field trips are education-led experiences that require planning with the museum's schools-and-families staff. The operator describes grade-level programs from pre-K through middle school using gallery conversation, observation, reasoning and studio art, so groups should arrange the chosen format before arrival.",
+      "verificationUrl": "https://www.samfa.org/fieldtrips",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/fieldtrips",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is the Concho Clay Studio and is it included with free gallery admission?",
+      "answer": "The Concho Clay Studio is an active ceramics education space operated by the museum with adult classes and community learning. Do not assume any paid studio course, materials or scheduled workshop is included simply because general exhibition admission is free; consult the studio's current registration details.",
+      "verificationUrl": "https://www.samfa.org/conchoclay",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/conchoclay",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Which art exhibitions are on view at SAMFA in October 2026?",
+      "answer": "The official October 2026 calendar lists Discovering Global Treasures in Concho Valley Collections through October 25 and Spirit of the Ranch from October 22, 2026 through January 3, 2027. Both dates are temporary facts, not evergreen promises; check the exhibitions calendar when planning a later visit.",
+      "verificationUrl": "https://www.samfa.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    }
+  ],
+  "museum-of-south-texas-history-edinburg": [
+    {
+      "question": "What are the Museum of South Texas History's regular admission prices?",
+      "answer": "The current museum-operated price table lists adults 18 and older at $9, seniors 62 and older with ID at $6, students 13 and older with ID at $6, children ages 4–12 at $5, and children 3 and younger free. Active military with ID is listed at $6, with a seasonal Blue Star Museums exception; check the ticket page for your date.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the museum free on Saturday mornings in Edinburg?",
+      "answer": "Regular admission is free before noon on Saturdays, but the museum explicitly excludes certain special events and programming. Do not treat an evening event or other separately ticketed program as free; check the current events calendar before making a trip expressly for free admission.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is Museum of South Texas History open on Sundays or Mondays?",
+      "answer": "The posted public hours are Tuesday through Saturday from 10 a.m. to 5 p.m. and Sunday from 1 to 5 p.m. The museum is closed on Mondays, major holidays and some event dates. If you are planning a long drive, confirm special closures on the official calendar before leaving.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Where can I park to visit the museum on Closner Boulevard?",
+      "answer": "The operator identifies two free visitor lots: its main lot on Closner Boulevard (Business US 281) and an overflow lot on Kuhn Street north of the museum. Hidalgo County Courthouse parking on McIntyre Street may provide additional spaces during weekends or evening events, subject to local availability and signage.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can visitors enter the original 1910 Hidalgo County Jail?",
+      "answer": "Yes, the preserved 1910 jail is part of the museum campus, with interpretation of the former cells, jailer's quarters and surviving gallows trap-door. The museum describes a substantial 2017–2019 restoration; this is a historic part of the visit, not a still-operating detention facility. Verify access to a particular room before travel.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is the Rio Grande Legacy exhibition about?",
+      "answer": "The museum's Rio Grande Legacy sequence interprets South Texas and northeastern Mexico as a connected borderland. Sections called River Frontier and River Crossroads explore landscape, Indigenous peoples, Spanish settlement and twentieth-century change; consult the museum about any galleries temporarily unavailable during an exhibition changeover.",
+      "verificationUrl": "https://mosthistory.org/about-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/about-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Do I need an appointment to use the Margaret H. McAllen Memorial Archives?",
+      "answer": "Yes. Reading-room access is separate from ordinary exhibition admission and requires a research appointment. The museum posts appointment availability Tuesday through Friday, 9 a.m. to noon and 1 to 4 p.m., and asks researchers to contact archives@mosthistory.org. Class archive tours need advance arrangements, not drop-in walkups.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Does the museum offer activities for schoolchildren or self-guided family visits?",
+      "answer": "The museum publishes a self-guided visit PDF and learning materials for fourth- and seventh-grade Texas history, plus selected hands-on activities. Some interactive items are conditional or described on older museum pages, so teachers and parents should confirm current access before promising a specific activity to children.",
+      "verificationUrl": "https://mosthistory.org/education/tour-activities/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/education/tour-activities/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the Museum of South Texas History accessible for wheelchair users?",
+      "answer": "The museum's visitor-information page states that the facility is ADA accessible. That is not a guarantee that every surface in the historic jail or landscaped outdoor park is level; visitors requiring a particular doorway, route, lift or assistance should telephone 956-383-6911 before visiting.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can I take museum photos and publish them commercially?",
+      "answer": "The museum allows certain handheld cameras and devices for ordinary visits but restricts tripods, lighting rigs and professional equipment. Its permission form specifically distinguishes personal shoots from commercial/promotional production, which requires direct permission. The independently photographer-licensed 2021 exterior jail photo used by TexasDefined has its own CC BY 4.0 rights and is not museum marketing imagery.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    }
+  ],
+  "mcnay-art-museum-san-antonio": [
+      {
+          "question": "Does the McNay Art Museum have free parking?",
+          "answer": "Yes. The McNay says its 25-acre campus has multiple free public parking lots, with accessible spaces indicated on its visitor map. Do not confuse its north-central San Antonio address with downtown River Walk parking.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "When are the McNay's free-admission hours, and do they cover special exhibitions?",
+          "answer": "General admission is free on Thursdays from 4 to 9 p.m. and the first Sunday of each month from noon to 5 p.m. The museum currently charges an additional $10 for special exhibition access during those free windows, so decide which galleries you want to see before booking.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much does admission cost for teens, children and adults at the McNay?",
+          "answer": "The October 2026 official table lists general admission with special exhibition at $23, teens 13–19 at $10, and children 12 and younger free. The museum lists further qualifying discounts and free categories; always verify the live ticket screen for your visit date.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors photograph the McNay galleries and outdoor sculpture?",
+          "answer": "Informal, flash-free photography for personal use is generally allowed in galleries unless the specific exhibition or work forbids it. Ask staff before photographing; staged or professional photography is subject to separate rules, and permission to photograph is not permission to reuse copyrighted artworks commercially.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are wheelchairs and accessible routes available at the McNay?",
+          "answer": "The McNay states that accessible parking, an accessible entrance, elevators and loan wheelchairs are available. Most galleries are accessible, but some areas can require extra help. Contact visitor services about specific routes or accommodations before making the trip.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much time should I allow for the McNay residence and sculpture grounds?",
+          "answer": "A focused 90-minute visit is a reasonable editorial plan for a few galleries and the residence; allow two hours or longer if you also want the sculpture campus and temporary exhibitions. These are planning suggestions, not museum-mandated tour durations, and the weather affects outdoor time.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are pets allowed on the McNay grounds or in the art galleries?",
+          "answer": "The museum permits leashed pets on its outdoor grounds, while only service animals may enter the galleries. Keep animals under control around sculpture and visitors, and consult visitor services if an assistance-animal accommodation requires clarification.",
+          "verificationUrl": "https://www.mcnayart.org/general-information/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/general-information/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What is on view at the McNay during late October 2026?",
+          "answer": "The museum lists the portrait exhibition Two Faced through March 14, 2027 and A People's History: The American Experiment on Stage through November 8, 2026. These are dated temporary offerings, not permanent attractions. Check the official exhibition calendar before traveling.",
+          "verificationUrl": "https://www.mcnayart.org/exhibitions/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/exhibitions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
+  "texas-military-forces-museum": [
+      {
+          "question": "How much does the Texas Military Forces Museum charge for admission or parking?",
+          "answer": "There is no admission charge, and the Texas Military Department states that museum parking is free. Donations support the museum. Being free does not waive Camp Mabry security screening, which is mandatory for adult visitors.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What days and hours is the Texas Military Forces Museum open?",
+          "answer": "The museum publishes daily hours of 10 a.m. to 4 p.m., including weekends. However, entry to Camp Mabry must occur before the Visitor Control Center closes at 3 p.m. on both weekdays and weekends; installation restrictions and weather may cause exceptional closures.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What documents do I need to enter Camp Mabry to visit the museum?",
+          "answer": "The Texas Military Department's current visitor screening guide says adults should bring a REAL ID-compliant driver's license or state ID, or a U.S. passport, plus vehicle make/color/plate details and proof of insurance. Visitors are screened at the 35th Street Gate Visitor Control Center. If your documentation differs, call security before making the trip.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors use a foreign passport to tour the Texas Military Forces Museum?",
+          "answer": "Do not assume ordinary museum entry is available to foreign nationals. Texas Military Department guidance says foreign nationals generally need official business or a pre-approved appointment, and museum guidance notes restrictions without acceptable U.S. documentation. Contact Camp Mabry visitor control for a case-specific ruling before traveling.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Do weekend museum visitors need an appointment for Camp Mabry screening?",
+          "answer": "Individual weekend walk-up screening is now available at the Camp Mabry Visitor Control Center from 8 a.m. to 3 p.m., though eligibility and successful vetting are still required. Groups should send entrance information at least five business days in advance.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can children climb on the military vehicles or tanks in the museum?",
+          "answer": "No. The museum expressly prohibits touching or climbing any artifacts, including tanks, trucks, equipment and mannequins inside or outside. Parents and chaperones should explain this before arriving with young children.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How long does a guided tour take and are school group visits free?",
+          "answer": "Museum guidance says a guided visit usually takes about 1.5–2 hours and that guided tours are free, with donations welcome. Organized groups should contact the museum and coordinate Camp Mabry security in advance; the military installation controls entry even when a tour is booked.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Is the Texas Military Forces Museum entrance at 2200 or 3038 West 35th Street?",
+          "answer": "Both addresses appear in operator materials for different purposes. Camp Mabry's official street address is 2200 West 35th Street; the museum supplies 3038 West 35th Street for GPS navigation. Do not drive to an old closed entrance: use the current Maintenance Drive/35th Street Gate and check in at the Visitor Control Center before proceeding to Building 6.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
+  "menil-collection-houston": [
+    {
+        "question": "Is admission to the Menil Collection in Houston always free?",
+        "answer": "Yes. The Menil states that admission to all of its art buildings and campus green spaces is always free. You do not need a paid ticket to tour the main building, but each satellite gallery can have different exhibitions, opening arrangements or temporary closures.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What hours is the Menil Collection open and on which days?",
+        "answer": "The current public schedule is Wednesday through Sunday, 11 a.m.–7 p.m., and the art museum is closed on Mondays and Tuesdays. Check the official visit and campus pages if you are going to Richmond Hall or another individual exhibition venue.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Which parking lot should visitors use at the Menil Collection?",
+        "answer": "The museum identifies a main parking lot at 1515 West Alabama Street and another parking area next to Richmond Hall at 1500 Richmond Avenue. Some neighborhood street parking is available. The main art building is at 1533 Sul Ross Street.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors take pictures inside the Menil Collection galleries?",
+        "answer": "Photography and video are not permitted in the Menil's art galleries. Casual photography is permitted in entryways and hallways, but rules about artwork, people and outdoor media uses must still be respected. Carrying a camera does not authorize commercial photo work.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are wheelchairs, service animals and accessible entrances available at the Menil?",
+        "answer": "The operator states that every Menil art building has an accessible entrance, accessible parking exists at its designated lots, and a limited supply of wheelchairs can be borrowed. Trained and leashed service animals are permitted indoors; pets and emotional-support animals are not.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are the Cy Twombly Gallery and Menil Drawing Institute part of the main building?",
+        "answer": "No. They are separate Menil Collection campus buildings: the Menil Drawing Institute at 1412 West Main Street and the Cy Twombly Gallery at 1501 Branard Street. Richmond Hall's Dan Flavin installation is another distinct venue, at 1500 Richmond Avenue.",
+        "verificationUrl": "https://www.menil.org/campus",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/campus",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does the Menil Collection provide docent-led group tours?",
+        "answer": "The operator does not offer guided gallery tours or permit public lecturing inside the galleries. Groups larger than 15 are encouraged to reserve, and groups of 30 or more need at least a week's advance notice. School groups must provide one adult chaperone per ten students.",
+        "verificationUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Why are there so few wall labels in the Menil Collection galleries?",
+        "answer": "The Menil deliberately emphasizes looking directly at artworks rather than filling gallery walls with explanatory text. Free gallery guides, including English and Spanish versions, are available at the museum and can help visitors who want more context.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How large is the Menil campus and when did its main building open?",
+        "answer": "The Menil identifies a 30-acre neighborhood campus in Houston with several separate art buildings. The foundation was established in 1954 and the Renzo Piano-designed main building opened in 1987. The collection totals more than 25,000 works, not all of which are on view.",
+        "verificationUrl": "https://www.menil.org/about",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/about",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can families bring strollers and food into the Menil Collection?",
+        "answer": "Strollers are welcomed in the galleries, and outdoor green spaces provide places to pause, but the art buildings do not allow food or beverages. Large bags and luggage may be checked at the complimentary coat check; children should stay close to adults near artworks.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    }
+],
+  "grace-museum-abilene": [
+    {
+        "question": "What are the Grace Museum's regular Abilene opening hours?",
+        "answer": "The downtown Grace Museum at 102 Cypress Street publishes Tuesday through Saturday, 10 a.m.–5 p.m., and closes on Sundays and Mondays. Thursday evenings offer a separate free admission window from 5 p.m. to 8 p.m., subject to museum programming and closures.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How much is admission to The Grace Museum in 2026?",
+        "answer": "The operator currently lists $10 for adults 18 and older, $7 for children age four and up, seniors 65+, students and educators, and military veterans with qualifying identification. Children under four, members and active-duty military with families are listed as free.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is The Grace Museum free on Thursday evenings?",
+        "answer": "Yes. The museum advertises free downtown museum admission on Thursday nights from 5–8 p.m. This is not a standing statement that the separate Spark Science Center across Abilene is free at the same time, so check each facility separately.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the Spark Science Center inside The Grace Museum building?",
+        "answer": "There are two distinct locations. The Grace Museum is at 102 Cypress Street and has a Spark learning area on the second floor; the separate Spark Science Center is at 1620 South 3rd Street in Abilene Heritage Square with its own admission.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What does the two-location Grace and Spark Science Center ticket cost?",
+        "answer": "The same-day combo admission is currently listed at $20 per adult and $10 for the reduced-price groups, with eligible members and children under four free. Regular admission to Spark Science Center alone is $14 for adults and $8 for the reduced categories.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the 1909 Grace Museum building wheelchair accessible?",
+        "answer": "The museum identifies an accessible ramp on the North 1st Street side, an elevator to all floors, accessible restrooms and a wheelchair that may be requested at the Lobby Desk. Accessible parking exists in the museum's adjacent North 1st Street lots.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What original historic building houses The Grace Museum?",
+        "answer": "The museum occupies the former Hotel Grace, a 1909 downtown Abilene hotel built to serve passengers arriving by Texas and Pacific Railway. The adapted art-and-history museum became a downtown cultural institution in 1992.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors see reconstructed West Texas rooms at The Grace Museum?",
+        "answer": "Yes. The operator's third-floor history collection includes reconstructed parlor and kitchen settings illustrating domestic life in 1910, 1928 and 1948. Other history galleries rotate objects, so a named temporary exhibit is not guaranteed year-round.",
+        "verificationUrl": "https://thegracemuseum.org/history/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/history/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does The Grace Museum have an America 250 exhibition in 2026?",
+        "answer": "The museum lists an America 250 community-history exhibition from January 17 through November 28, 2026. It connects Abilene and neighboring communities with the broader national anniversary and should not be described as permanent after its advertised end.",
+        "verificationUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can teachers arrange Grace Museum school group tours for a lower rate?",
+        "answer": "Yes. The museum lists $5 advance-scheduled school group tours for teachers and students. This school rate is tied to a prearranged program, not an automatic reduced walk-up ticket for everyone accompanying a child; schools should request a tour in advance.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    }
+],
+  "frontiers-of-flight-museum-dallas": [
+    {
+        "question": "What are Frontiers of Flight Museum's weekday and Sunday hours?",
+        "answer": "The museum's published regular opening times are Monday through Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m. The same official page lists several full-day and partial special-event closures during 2026, so verify the precise date rather than assuming a normal Sunday or weekday opening.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How much does Frontiers of Flight Museum admission cost?",
+        "answer": "The posted admission is $20 for visitors age 13 and older, $12 for children ages 3–12 and $10 for seniors age 65 or older. Separate ID-based discounts apply to qualifying service members, veterans and first responders; children younger than three are not assigned an explicit price on the same tariff, so confirm with staff.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can Frontiers of Flight tickets be purchased at the door?",
+        "answer": "Yes. The museum offers tickets online and at the front desk, and says ordinary individual visitors do not need advance reservations. Groups of 15 or more should arrange their visit in advance to receive group rates and confirm their requested slot.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Where is Frontiers of Flight Museum and is parking free?",
+        "answer": "Frontiers of Flight Museum is at 6911 Lemmon Avenue beside Dallas Love Field. Its official directions specify entering from University Boulevard off Lemmon Avenue and following the access road south. Visitor parking is free, with designated accessible spaces near the main entrance.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Frontiers of Flight Museum wheelchair and sensory accessible?",
+        "answer": "The museum identifies accessible restrooms on every floor, an elevator to the second-floor galleries, free first-come loan wheelchairs and parking near the main entrance. It is a KultureCity-certified sensory-inclusive venue. Individual aircraft cockpit entry is not thereby guaranteed, and visitors should confirm specific exhibit access.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can I see the Apollo 7 command module at Frontiers of Flight?",
+        "answer": "Yes. The museum's permanent spaceflight gallery lists the flown Apollo 7 command module, a moon rock display and artifacts relating to Mercury, Gemini, the Space Shuttle and International Space Station. Confirm particular gallery availability before making a trip solely for one object.",
+        "verificationUrl": "https://flightmuseum.com/exhibits/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/exhibits/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Does Frontiers of Flight Museum have food service?",
+        "answer": "Yes. The operator lists Jetsetters Coffee Lounge inside the museum, serving coffee, breakfast, lunch and snacks. Its operating hours can differ from admission hours, so check the operator's current lounge schedule if your visit depends on a meal.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can I bring suitcases from Dallas Love Field into the museum?",
+        "answer": "The museum explicitly says it does not provide visitor-bag storage. Travelers on a Love Field layover should not plan on leaving rolling luggage or carry-on baggage at the desk and should arrange storage elsewhere before buying admission.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Are school field trips and group tours the same as ordinary admission?",
+        "answer": "No. The operator has a dedicated field-trip program and requests advance booking for groups of at least 15 to access group visitor rates. Educational programming and ordinary admission are separate arrangements and should not be assumed included just because a class arrives at the museum.",
+        "verificationUrl": "https://flightmuseum.com/education/field-trips/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/education/field-trips/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can visitors take photos inside the Frontiers of Flight Museum?",
+        "answer": "The museum permits personal photography but states that photography or filming for uses beyond personal purposes requires prior request and written approval. TexasDefined's already licensed 2015 Wikimedia Commons hero image has independent photographer-granted reuse rights; that license does not waive rules for new on-site shoots.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    }
+],
+  "museum-of-texas-tech-university-lubbock": [
+    {
+        "question": "Is admission to the Museum of Texas Tech University free?",
+        "answer": "Yes. The main Museum of Texas Tech University offers free entry to its public galleries. The Moody Planetarium inside the museum charges separately for scheduled shows, so visitors should not interpret free general museum admission as a free planetarium ticket.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What are the museum's opening hours and campus holiday closures?",
+        "answer": "Texas Tech lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with Mondays and university holidays closed. Its 2026 calendar includes closures November 26–30 and December 23 through January 1, 2027. Check the current university museum calendar for event-related early closing.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Where is the museum located and where can visitors park?",
+        "answer": "The museum is at 3301 Fourth Street at Indiana Avenue in Lubbock. Official visitor guidance identifies free public parking on the north side along Fourth Street and the west side along Indiana Avenue. The accessible entrance is on the east side, but there is no vehicle parking immediately at that doorway.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Moody Planetarium included with the free museum admission?",
+        "answer": "No. The separate Moody Planetarium program lists $6 adult tickets, $4 for ages 4–17, seniors, and college students with IDs, and free admission for children age three and younger. Schedules depend on show dates, and special-event free screenings should not be assumed on ordinary days.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "When does Moody Planetarium show films and laser performances?",
+        "answer": "The planetarium's official information identifies Friday, Saturday and Sunday as its regular public show days and publishes a dated list of individual presentations. Some weeks have special closures or events, so use the exact monthly calendar rather than a recurring daily showtime.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How many wheelchair spaces are in Moody Planetarium?",
+        "answer": "The planetarium describes 74 total positions with two wheelchair-designated spaces. The museum separately advises accessibility visitors to call 806-742-2490 to discuss individual needs, and a theater seating allowance should not be mistaken for an entire-building access guarantee.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What can families see at the Museum of Texas Tech University?",
+        "answer": "The institution describes permanent galleries spanning paleontology, Ice Age biodiversity, Southwestern anthropology, art, clothing and textiles, history and natural science, plus rotating exhibitions. Planetarium shows offer a separate astronomy-focused activity with age and ticket policies.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can visitors access all of the museum's millions of scientific specimens?",
+        "answer": "No. Texas Tech describes research holdings of roughly 9.6 million objects across collections, including the Natural Science Research Laboratory with millions of specimens. These scientific holdings are not equivalent to public gallery displays; specialized research access differs from a general family visit.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Lubbock Lake Landmark a gallery inside the Texas Tech museum?",
+        "answer": "No. Lubbock Lake Landmark is an affiliated but physically separate archaeological and natural-history preserve that Texas Tech says contains evidence of approximately 12,000 years of occupation. Visiting its outdoor trails requires separate transportation and checking the Landmark's own opening arrangements.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can schools book a private Moody Planetarium show?",
+        "answer": "Yes. Texas Tech states that groups of 20 or more can request a private planetarium show and that school programs must be arranged at least two weeks in advance. The operator lists special school-group admission and arrival guidance; these conditions differ from ordinary walk-up museum admission.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    }
+],
   "texas-country-music-hall-of-fame-carthage": [
     {
         "question": "When is the Texas Country Music Hall of Fame museum open?",
@@ -3743,31 +4979,31 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
   ],
   "modern-art-museum-fort-worth": [
     {
-      "question": "Are the galleries at the Modern Art Museum of Fort Worth open in October 2026?",
-      "answer": "No. The museum officially closes its exhibition galleries September 29 through October 30, 2026 while installing the next collection presentation. The rest of the building offers FREE In the Making sculpture-making activities, cinema and performance programming, its shop and Café Modern. Verify the announced October 31 gallery reopening before making a gallery-focused trip.",
-      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "question": "Are the Modern Art Museum of Fort Worth's galleries open after the 2026 installation?",
+      "answer": "Yes. The September 29–October 30 installation closure has ended. The museum opened In the Making: Stories from the Collection on October 31, 2026, with the exhibition scheduled through August 15, 2027. Check the current exhibitions and visitor-hours pages for later installation days or holiday closures before traveling.",
+      "verificationUrl": "https://www.themodern.org/exhibitions/current",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
-      "question": "Is the Modern free to visit in October 2026?",
-      "answer": "Yes for its special October 2026 lobby sculpture project and museum entry during gallery installation, according to the operator. Galleries are closed the entire September 29–October 30 period. Outside this temporary arrangement regular adult gallery admission is $16, with the museum's weekly free-Friday and half-price Sunday policies.",
-      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-      "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
-    },
-    {
-      "question": "When are regular museum galleries normally open?",
-      "answer": "Ordinary public hours are Tuesday–Thursday 10 a.m.–5 p.m., Friday 10 a.m.–8 p.m., Saturday and Sunday 10 a.m.–5 p.m., closed Monday and major holidays. These hours do not mean the exhibition galleries are open during the October 2026 installation period.",
+      "question": "How much does it cost to visit the Modern, and when is admission free?",
+      "answer": "Regular adult admission is $16; visitors under 18 enter free. The museum lists other eligible discounted admission, free general admission on Fridays, and half-price general admission on Sundays. Special programs may have their own rules; verify the visitor page before booking a trip.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
+    },
+    {
+      "question": "When are the Modern's exhibition galleries normally open?",
+      "answer": "The museum lists Tuesday–Thursday, Saturday and Sunday 10 a.m.–5 p.m.; Friday 10 a.m.–8 p.m.; and closure on Mondays and listed holidays. Its October 2026 installation closure has ended. Confirm any new special closures with the museum, particularly for seasonal holidays and exhibition changes.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Does Café Modern serve a full meal or just snacks?",
@@ -3779,22 +5015,22 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     },
     {
-      "question": "Does Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
-      "answer": "Yes, during normal gallery operations Fridays offer free general museum admission and Sundays offer half-price tickets. The October 2026 gallery closure supersedes normal expectations; visitors may instead attend free public lobby programs.",
+      "question": "Does the Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
+      "answer": "Yes. Under the museum's current general admission policy, Fridays are free and Sundays are half-price. Visitors under 18 also receive free general admission. Check special exhibitions, holiday closures and program tickets independently instead of assuming every add-on is free.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
-      "question": "Are there children's programs and Sunday family tours during the October installation?",
-      "answer": "The free In the Making: The Sculpture Project provides hands-on artmaking suitable for families during the October closure. The operator separately states there are no normal Public Tours or Sunday Family Tours in October 2026, with family tour dates advertised to resume after reopening.",
+      "question": "Does the Modern offer family programs and Sunday family tours?",
+      "answer": "The museum lists a Sunday Family Tour at 2 p.m., plus scheduled docent-led tours and family-oriented programs. These take place during normal museum operations, not the concluded October 2026 gallery installation. Check the published tours calendar for the particular visit date and any registration rules.",
       "verificationUrl": "https://www.themodern.org/tours",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionEvidenceUrl": "https://www.themodern.org/tours",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Is the museum wheelchair accessible, including Café Modern?",
@@ -3806,13 +5042,13 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     },
     {
-      "question": "Where is Modern Art Museum of Fort Worth and how long should I allow?",
-      "answer": "The Modern is at 3200 Darnell Street in Fort Worth's Cultural District, a short walk from the Kimbell and Amon Carter. During October 2026 an architecture, free artmaking and restaurant visit may be shorter than a conventional gallery outing. When exhibition rooms reopen, allow roughly 90 minutes to two hours for a selective art-focused visit; this is an editorial estimate.",
+      "question": "Where is the Modern Art Museum of Fort Worth, and how long should I allow?",
+      "answer": "The museum is at 3200 Darnell Street in Fort Worth's Cultural District, within a short walk of the Kimbell and Amon Carter museums. Allow about 90 minutes to two hours for a selective art-focused visit; this is an editorial planning estimate, not an operator time requirement. Include additional time for Café Modern, the architecture and reflecting pond.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Are visitors allowed to take photos, bring food, or sketch in galleries?",
@@ -5696,6 +6932,182 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "yoakum-heritage-museum": [
+    {
+      "question": "Where is Yoakum Heritage Museum, and is it in Yoakum County?",
+      "answer": "The museum is at 312 Simpson Street in the city of Yoakum, Lavaca County, TX 77995. The city extends into neighboring DeWitt County; the unrelated Yoakum County Heritage and Art Museum is in Plains in the South Plains region.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "What are the currently published Yoakum Heritage Museum hours?",
+      "answer": "The Texas Historical Commission's last published museum listing gives Sunday, Tuesday and Thursday 1–4 p.m. and Friday 10 a.m.–4 p.m. That listing was last updated August 8, 2021, so it does not establish today's hours or special holiday openings. Call 361-293-7022 before a trip.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is Yoakum Heritage Museum free or donation-based?",
+      "answer": "The current state directory does not independently verify an admission price, discount or donation policy. Older local sources discuss free admission, but that is historical information, not a promise about 2026. Ask museum staff what a visitor should expect to pay or donate.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Does Yoakum Heritage Museum have railroad and saddle exhibits?",
+      "answer": "Yes. Texas Time Travel describes San Antonio and Aransas Pass Railway photographs and memorabilia, the Leather Room, and hand-tooled saddles and other local leather goods. Specific objects or rooms may be temporarily off view, so ask ahead about particular interests.",
+      "verificationUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Why is the museum located in the Elkins-Browning house?",
+      "answer": "A local centennial history records a community museum charter in January 1982 and a separate house donation by Mary Bell Browning on December 1, 1986. The former J. K. Elkins home had been rebuilt around 1912, and its architecture is part of the historical experience.",
+      "verificationUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Can wheelchair users reach the upper exhibits in the historic house?",
+      "answer": "The building is a multi-story historic home, and we could not independently verify the museum's current accessible entrance, stair-lift operation or gallery-level accessibility policies. Contact the museum directly with the needs of your group rather than assuming step-free access.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is the Christmas Tree Forest open at Yoakum Heritage Museum this year?",
+      "answer": "The museum has been described as hosting a Christmas Tree Forest, but independently verified dates, admission terms and current 2026 exhibit details were not available from the primary sources reviewed. Check the museum-managed announcements or call before making a holiday visit.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "How long should families or school groups plan for a visit?",
+      "answer": "Allow around 45–90 minutes as an editorial estimate for the railroad, leather, military and house-history themes. School groups and visitors requesting interpretation or accessibility help should contact museum staff in advance; no standard booked tour duration is independently confirmed.",
+      "verificationUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is there a restaurant, cafe, gift shop or free parking onsite?",
+      "answer": "The sources reviewed confirm the address and historical displays but do not establish an onsite cafe, full-service restaurant, gift shop, dedicated parking lot or current photography/pet rules. Make independent dining plans and ask staff about parking, photography and visitor services.",
+      "verificationUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    }
+  ],
+  "medal-of-honor-host-city-museum-gainesville": [
+    {
+      "question": "Which NCTC campus building houses the museum, and is it the same as the older library memorial?",
+      "answer": "NCTC's official Gainesville campus map identifies the Medal of Honor Host City Museum as Building 2700 at 1525 West California Street. A separate Commemorative Air Force page describes an older Texas Medal of Honor Memorial at the NCTC library; its directions and wheelchair-access statement should not be applied to the 2025 museum building. Confirm special mobility arrangements directly with the museum.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cafgroundforces.wixsite.com/main/museum",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-09"
+    },
+    {
+      "question": "Where is the Medal of Honor Host City Museum in Gainesville?",
+      "answer": "The museum is on the North Central Texas College Gainesville campus at 1525 West California Street, Gainesville, Texas 76240. Do not follow a route to the separately operated National Medal of Honor Museum in Arlington; these are different destinations.",
+      "verificationUrl": "https://medalofhonorhostcity.com/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Is the Gainesville museum free, or do I need an advance ticket?",
+      "answer": "The North Central Texas College field-trip handbook states that museum admission is free. The institution does not specify a general public timed-entry booking requirement on its visitor page; school groups follow separate mandatory advance scheduling rules. Confirm special event arrangements before traveling.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "What days and hours can visitors go to the museum?",
+      "answer": "NCTC currently posts regular hours Monday through Thursday from 8 a.m. to 5 p.m. and Friday from 8 a.m. to noon. It publishes no routine Saturday or Sunday walk-in schedule. Campus holidays and private events may change availability, so verify directly before leaving home.",
+      "verificationUrl": "https://www.nctc.edu/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://medalofhonorhostcity.com/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Are the summer hours different from the regular visitor schedule?",
+      "answer": "Yes. The museum's field-trip handbook separately lists summer Monday through Thursday from 7:30 a.m. to 5:30 p.m. and Friday closed. That differs from the currently posted regular Friday hours. Confirm which academic-calendar schedule is in effect for your visit; older 2025 opening stories are not a reliable current-hours source.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://northcentraltc.squarespace.com/news/medal-of-honor-host-city-museum-now-open-to-the-public",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "How do school groups reserve a guided visit and what are the limits?",
+      "answer": "NCTC requires all school groups to schedule at least two weeks in advance. A group is limited to 100 participants including teachers and chaperones; larger groups are split into separate sessions. The handbook calls for one adult chaperone per ten students and arrival at least fifteen minutes early.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nctc.edu/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Where can I park and how should a school bus arrive?",
+      "answer": "The NCTC field-trip handbook places an open parking lot across from the museum entrance and allows buses to drop off and pick up students at that entrance. Exact accessible parking details and temporary campus access rules are not specified; ask staff if your route or vehicle has special requirements.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mapcarta.com/W1444560241",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "What displays and programs are actually available at the museum?",
+      "answer": "The operator describes Medal of Honor recipient histories, personal artifacts, memorabilia, educational experiences and special lectures. The published donation policy lists the types of objects the museum seeks, but it does not guarantee that every listed artifact is presently displayed. Consult the museum's live event and exhibit information rather than relying on a fixed display inventory.",
+      "verificationUrl": "https://www.nctc.edu/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Is this the same place as the National Medal of Honor Museum in Arlington?",
+      "answer": "No. The Medal of Honor Host City Museum is in Gainesville on the NCTC campus, focusing on recipient histories and Gainesville's Host City traditions. The National Medal of Honor Museum is a separate Arlington institution with its own museum map, admission conditions and visitor program; verify travel plans for the correct city.",
+      "verificationUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Can wheelchair users visit and are food and photographs permitted?",
+      "answer": "NCTC has not published a complete accessible entrance, gallery route or sensory-services inventory on the museum page. Call 940-668-3330 to confirm accommodations. Its field-trip handbook prohibits gallery food and drinks except lidded bottled water, and allows photographs unless a guide or exhibit says otherwise. Check whether these group instructions also apply to your visit.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nctc.edu/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    }
   ]
+
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];

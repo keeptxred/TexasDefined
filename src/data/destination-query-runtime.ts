@@ -1,3 +1,4 @@
+import { reviewedAttractionDestinations } from "./reviewed-attraction-authorities";
 import { isOfficialTexasNpsDestination } from "./texas-national-park-service-directory";
 import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
@@ -16,14 +17,17 @@ import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes"
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
+import { applyMagoffinHomeAuthority } from "./magoffin-home-authority";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
 import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
 import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
 import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
+import { applyHistoricVisitorUpgrades20261019 } from "./historic-site-visitor-upgrades-20261019";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { applyRestrictedOwnerDestinationMedia } from "./restricted-owner-destination-media";
 import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
@@ -35,6 +39,12 @@ import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
 const WATER_COLLECTION = "swimming-holes-river-tubing";
 const RV_COLLECTION = "rv-parks";
 const CAVERN_COLLECTION = "caverns";
+const WACO_CURATED_ATTRACTION_SLUGS = new Set<Slug>([
+  "cottonland-castle",
+  "waco-suspension-bridge",
+  "cameron-park-waco",
+  "cameron-park-zoo",
+]);
 const REMOTE_DESTINATION_TIMEOUT_MS = 3_000;
 
 type RemoteCatalogResult = {
@@ -125,6 +135,23 @@ async function cityPassPreservedFor(query: Omit<DestinationQuery, "brandId">): P
   return filterPreservedDestinations(await loadCityPassDestinationExpansion(), query);
 }
 
+async function loadWacoDestinationExpansion(): Promise<Destination[]> {
+  // Waco's researched attraction dossiers are loaded when queried, not in
+  // the shared initial Explore client catalog.
+  const { wacoViatorAttractionDestinations } = await import("./waco-viator-attraction-destinations");
+  return wacoViatorAttractionDestinations;
+}
+
+async function wacoPreservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
+  return filterPreservedDestinations(await loadWacoDestinationExpansion(), query);
+}
+
+async function enhanceWacoMuseumDestinations(rows: Destination[]): Promise<Destination[]> {
+  if (!rows.some(({ slug }) => slug === "dr-pepper-museum-waco" || slug === "texas-ranger-hall-of-fame-museum-waco")) return rows;
+  const { applyWacoMuseumAuthority } = await import("./waco-museum-authority-upgrades");
+  return rows.map(applyWacoMuseumAuthority);
+}
+
 async function loadPublicCavernDestinationFallbacks(): Promise<Destination[]> {
   const [{ publicCavernDestinationFallbacks }, { cavernExpansionDestinations }] = await Promise.all([
     import("./public-cavern-destinations"),
@@ -182,7 +209,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
-  return enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched)));
+  return applyHistoricVisitorUpgrades20261019(enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))));
 }
 
 function applyResolvedHero(destination: Destination) {
@@ -210,7 +237,7 @@ function applyResolvedHero(destination: Destination) {
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
+  const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
@@ -219,7 +246,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
   ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
-  const improved = enrichHistoricSiteCatalog(curated)
+  const historicEnriched = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
@@ -228,6 +255,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichTexasHistoricSiteAuthority)
     .map(enrichFullHistoricSiteAuthority)
     .map(enrichResearchedHistoricSiteDepth)
+    .map(applyHistoricVisitorUpgrades20261019)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
     // Remote Explore results can still carry missing-image placeholders. Apply
@@ -236,6 +264,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
@@ -300,12 +329,16 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
   const cityPassPreserved = await cityPassPreservedFor(params);
-  const baseReady = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
+  const wacoPreserved = await wacoPreservedFor(params);
+  // Preserve the existing remote/core/preserved/local source fallback contract.
+  const baseReady = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, mergeDestinations(enriched, core, preserved, local)));
+  const wacoReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, baseReady));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    baseReady,
+    wacoReady,
     abilenePreserved,
     cavernPreserved,
     cityPassPreserved,
+    wacoPreserved,
   ));
   const fallbackReady = reconcileExploreCatalog(mergeDestinations(
     abilenePreserved,
@@ -313,20 +346,48 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     local,
     cavernPreserved,
     cityPassPreserved,
+    wacoPreserved,
   ));
-  const merged = mergeReadyCatalogs(primaryReady, fallbackReady);
+  const merged = mergeReadyCatalogs(reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, primaryReady)), fallbackReady);
   const scoped = filterDestinationsByScope(merged, params);
-  if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
-  return params.limit ? scoped.slice(0, params.limit) : scoped;
+  // For bounded non-featured queries, apply the full Waco museum authority
+  // upgrade only to actual returned rows. This avoids importing the 19 KB
+  // Waco overlay on unrelated county/region pages while keeping the same
+  // ordered results and unmodified detail for the selected records.
+  if (params.featured) return featuredFallback(await enhanceWacoMuseumDestinations(scoped), params.limit ?? 6);
+  if (params.limit) return enhanceWacoMuseumDestinations(scoped.slice(0, params.limit));
+  return enhanceWacoMuseumDestinations(scoped);
 }
 
-export async function getResolvedDestination(slug: Slug) {
-  // These five canonical guides are curated locally. Keep their complete
-  // research server-side and out of the shared discovery JS bundle.
-  if (["schlitterbahn-new-braunfels", "six-flags-over-texas", "seaworld-san-antonio", "six-flags-fiesta-texas"].includes(slug)) {
+async function getResolvedDestinationBase(slug: Slug) {
+  const reviewed = reviewedAttractionDestinations.find((item) => item.slug === slug);
+  if (reviewed) {
+    const readyReviewed = resolveSeoReadyDestination(reviewed);
+    if (readyReviewed) return readyReviewed;
+  }
+  // The separately researched Yoakum Heritage Museum authority record includes
+  // rights-owned, explicitly illustrative museum artwork. A thin remote Explore
+  // row may share this slug but carry a generic no-photo placeholder. Select
+  // the source-verified original first; never replace it with a photograph of
+  // another Yoakum museum or an unlicensed exterior.
+  if (slug === "yoakum-heritage-museum") {
+    const original = preservedExploreDestinations.find((destination) => destination.slug === slug);
+    const ready = resolveSeoReadyDestination(original);
+    if (ready?.hero.src === "/images/yoakum-heritage-museum-editorial.svg"
+      && ready.hero.credit?.includes("TexasDefined original")) return ready;
+  }
+  if (slug === "davis-hill-state-park") return (await import("./davis-hill-authority-fallback")).davisHillFallback;
+  // These four research-verified local authority records outrank a stale or
+  // thin remote row sharing the same slug. Other destinations avoid the import.
+  if (WACO_CURATED_ATTRACTION_SLUGS.has(slug)) {
+    const curated = (await loadWacoDestinationExpansion()).find((destination) => destination.slug === slug);
+    const readyCurated = resolveSeoReadyDestination(curated);
+    if (readyCurated) return readyCurated;
+  }
+  if (["schlitterbahn-new-braunfels","six-flags-over-texas","seaworld-san-antonio","six-flags-fiesta-texas"].includes(slug)) {
     const { top50ThemeParkDestinations } = await import("./top50-theme-park-destinations");
-    const researched = top50ThemeParkDestinations.find((item) => item.slug === slug);
-    const ready = resolveSeoReadyDestination(researched);
+    const authored = top50ThemeParkDestinations.find(item => item.slug === slug);
+    const ready = resolveSeoReadyDestination(authored);
     if (ready) return ready;
   }
   if (slug === "congress-avenue-bridge-bat-colony") {
@@ -358,6 +419,12 @@ export async function getResolvedDestination(slug: Slug) {
   const readyPreserved = resolveSeoReadyDestination(preserved);
   if (readyPreserved) return readyPreserved;
 
+  const wacoPreserved = WACO_CURATED_ATTRACTION_SLUGS.has(slug)
+    ? (await loadWacoDestinationExpansion()).find((destination) => destination.slug === slug)
+    : undefined;
+  const readyWacoPreserved = resolveSeoReadyDestination(wacoPreserved);
+  if (readyWacoPreserved) return readyWacoPreserved;
+
   const cavernPreserved = (await loadPublicCavernDestinationFallbacks()).find((destination) => destination.slug === slug);
   const readyCavernPreserved = resolveSeoReadyDestination(cavernPreserved);
   if (readyCavernPreserved) return readyCavernPreserved;
@@ -384,15 +451,37 @@ export async function getResolvedDestination(slug: Slug) {
     if (core) weakCandidates.push(core);
   }
 
-  const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
+  const fallback = preserved ?? wacoPreserved ?? cavernPreserved ?? cityPassPreserved;
   if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
   if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
   return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local;
 }
 
+export async function getResolvedDestination(slug: Slug) {
+  const resolved = await getResolvedDestinationBase(slug);
+  if (!resolved) return resolved;
+  const enhanced = (await enhanceWacoMuseumDestinations([resolved]))[0];
+  // Six official TPWD 2026 park visitor overlays remain the final resolver
+  // for their exact slugs before the shared SSR + client destinationQuery
+  // caches them. Do not place unrelated overlays after this protected layer.
+  if ([
+    "kickapoo-cavern-state-park", "possum-kingdom-state-park",
+    "lake-casa-blanca-international-state-park", "lake-colorado-city-state-park",
+    "purtis-creek-state-park", "martin-dies-jr-state-park",
+  ].includes(slug)) {
+    const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities");
+    return applySixLaterTPWDAuthorities(enhanced);
+  }
+  // A valid remote destination row can outrank the preserved catalog while
+  // omitting owner-supplied gallery media. For the separately governed Olive
+  // Co. slug, restore only the exact licensed media after ordinary resolution;
+  // all remote editorial fields remain authoritative.
+  return applyRestrictedOwnerDestinationMedia(enhanced);
+}
+
 export async function listResolvedDestinationSearchCatalog() {
   let enrichedFailed = false;
-  const [enriched, cavernFallbacks, cityPassFallbacks] = await Promise.all([
+  const [enriched, cavernFallbacks, cityPassFallbacks, wacoFallbacks] = await Promise.all([
     withDestinationRemoteTimeout("Explore destination search catalog", (signal) => fetchExploreDestinations({ limit: 5000, signal }))
       .catch((error) => {
         enrichedFailed = true;
@@ -401,6 +490,7 @@ export async function listResolvedDestinationSearchCatalog() {
       }),
     loadPublicCavernDestinationFallbacks(),
     loadCityPassDestinationExpansion(),
+    loadWacoDestinationExpansion(),
   ]);
   const core = enrichedFailed
     ? await withDestinationRemoteTimeout("Core destination search catalog", (signal) => fetchCoreExploreDestinations({ limit: 5000, signal }))
@@ -409,18 +499,23 @@ export async function listResolvedDestinationSearchCatalog() {
         return [] as Destination[];
       })
     : [];
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  // Preserve the established publication/readiness contract for the remote,
+  // core and locally preserved index before overlaying source-verified Waco.
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))));
+  const wacoFirstCatalog = reconcileExploreCatalog(mergeDestinations(wacoFallbacks, preservedSearchCatalog));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    preservedSearchCatalog,
+    wacoFirstCatalog,
     abileneAreaDestinationFallbacks,
     cavernFallbacks,
     cityPassFallbacks,
   ));
   const fallbackReady = reconcileExploreCatalog(mergeDestinations(
+    wacoFallbacks,
     abileneAreaDestinationFallbacks,
     preservedExploreDestinations,
     cavernFallbacks,
     cityPassFallbacks,
   ));
-  return reconcileExploreCatalog(mergeReadyCatalogs(primaryReady, fallbackReady));
+  const museumEnhancedCatalog = await enhanceWacoMuseumDestinations(mergeReadyCatalogs(reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, primaryReady)), fallbackReady));
+  return reconcileExploreCatalog(museumEnhancedCatalog);
 }

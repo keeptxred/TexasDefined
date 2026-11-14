@@ -15,7 +15,7 @@ function toHomeownershipProfile(profile: LocalHomeAffordabilityProfile): LocalHo
     ...profile,
     ownershipPath,
     ownershipTitle: `${profile.name} homeownership cost calculator`,
-    ownershipSeoTitle: `${profile.name} Homeownership Cost Calculator | Texas Defined`,
+    ownershipSeoTitle: `${profile.name} Homeownership Cost Calculator`,
     ownershipDescription: `Estimate the monthly and annual cost of owning a home in ${profile.name} using mortgage, parcel-specific property taxes, insurance, utilities, maintenance, HOA or district costs and other recurring expenses.`,
     ownershipIntro: `A useful ${profile.name} ownership budget goes beyond principal and interest. Use this page to combine the mortgage with property taxes, insurance, utilities, maintenance, HOA or district charges and other recurring costs, then replace the starting assumptions with numbers for the exact property.`,
     ownershipFaqs: [

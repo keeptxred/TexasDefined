@@ -11,9 +11,9 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/county/$county')({
   loader: async ({ params }) => {
-    const { getCountyPropertyRecordBySlug } = await import('@/data/property/county-property-data');
+    const { getCompleteCountyPropertyRecords } = await import('@/data/property/county-property-complete.functions');
     const normalizedSlug = params.county.trim().toLowerCase();
-    const county = getCountyPropertyRecordBySlug(normalizedSlug);
+    const county = (await getCompleteCountyPropertyRecords()).find((item) => item.slug === normalizedSlug) ?? null;
     if (!county) throw notFound();
 
     if (params.county !== county.slug) {

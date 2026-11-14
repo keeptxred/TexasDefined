@@ -13,7 +13,7 @@ const readRouteSurface = (file) => {
 const route = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
-const resources = read('src/routes/texas-resources.tsx');
+const resources = readRouteSurface('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
 const remoteInternalLinks = read('src/data/remote-evergreen-internal-links.ts');
 const newestEvergreenEntry = read('src/data/fixtures/newest-evergreen.ts');
@@ -28,7 +28,61 @@ const homepage = readRouteSurface('src/routes/index.tsx');
 const brand = read('src/brand/texasdefined.ts');
 const queries = read('src/data/queries.ts');
 const searchRoute = read('src/routes/search.tsx');
+const lakesAuthority = read('src/data/fixtures/texas-lakes-reservoirs-explained.ts');
+const lakesAuthorityStub = read('src/data/fixtures/texas-lakes-reservoirs-explained-stub.ts');
 const errors = [];
+
+// Keep the statewide reservoirs explainer grounded, illustrated and synchronized with its lazy stub.
+for (const marker of [
+  'How many major reservoirs?', 'How many major river basins?', 'How many coastal basins?',
+  'off-channel reservoirs', 'Arbuckle Reservoir', 'Conservation storage',
+  '2027 State Water Plan', 'waterdatafortexas.org/reservoirs/statewide',
+  'tpwd.texas.gov/state-parks/caddo-lake/history',
+  'tpwd.texas.gov/education/resources/aquatic-science/tas/chapters/chapter-9/',
+  'images/illustrations/texas-reservoir-on-off-channel.svg',
+  'images/illustrations/texas-reservoir-conservation-flood-pools.svg',
+  '/fishing/lakes/lake-conroe', '/fishing/lakes/lake-livingston',
+  '/fishing/lakes/sam-rayburn-reservoir',
+  '188 major water-supply reservoirs',
+  'cannot all describe the same inventory',
+  'Existing_Major_Water_Supply_Reservoirs_042026.pdf',
+  'Recommended_New_Major_Water_Supply_Reservoirs_042026.pdf',
+  'William L. Farr', 'CC BY-SA 4.0',
+  'Big_Cypress_Bayou,_Caddo_Lake_State_Park',
+  'Creative Commons BY-SA 4.0 license',
+]) {
+  if (!lakesAuthority.includes(marker)) errors.push(`Texas reservoirs authority guide missing: ${marker}`);
+}
+const obsoleteReservoirClaims = [
+  'nearly every familiar inland lake is really a river or creek held behind a dam',
+  'If a dam created the permanent pool by impounding a stream or river',
+];
+for (const claim of obsoleteReservoirClaims) {
+  if (lakesAuthority.includes(claim) || lakesAuthorityStub.includes(claim)) {
+    errors.push(`Texas reservoirs guide still includes inaccurate on-channel-only claim: ${claim}`);
+  }
+}
+if (!lakesAuthority.includes('credit: "U.S. Army Corps of Engineers · Public domain"')
+  || !lakesAuthorityStub.includes('credit: "U.S. Army Corps of Engineers · Public domain"')) {
+  errors.push('Reservoir guide and stub must credit the U.S. Army Corps of Engineers hero image.');
+}
+if (!lakesAuthority.includes('Texas has relatively few large natural inland lakes.')
+  || !lakesAuthorityStub.includes('Texas has relatively few large natural inland lakes.')) {
+  errors.push('Reservoir guide and discovery summary must keep the same off-channel-aware lead.');
+}
+
+for (const image of [
+  'public/images/illustrations/texas-reservoir-on-off-channel.svg',
+  'public/images/illustrations/texas-reservoir-conservation-flood-pools.svg',
+]) {
+  const svg = read(image);
+  if (!svg.includes('<svg ') || !svg.includes('<title ') || !svg.includes('<desc ') || !svg.includes('</svg>')) {
+    errors.push(`Texas reservoirs diagram missing accessible SVG structure: ${image}`);
+  }
+}
+if (!lakesAuthority.includes('updatedAt: "2026-10-20"') || !lakesAuthorityStub.includes('updatedAt: "2026-10-20"')) {
+  errors.push('Texas reservoirs article and stub update dates must agree.');
+}
 
 const pillars = [
   'texas-rivers-explained',
@@ -299,7 +353,7 @@ for (const marker of [
 }
 
 if (!publicRoutes.includes('"/texas-explained"')) errors.push('Texas Explained must remain an indexable static public route.');
-if (!resources.includes("['Texas Explained', '/texas-explained']")) errors.push('Start Here must keep a visible link to Texas Explained.');
+if (!resources.includes("['Texas Explained', '/texas-explained']") && !resources.includes('<Link to="/texas-explained"')) errors.push('Texas Resources must keep a visible link to Texas Explained.');
 
 for (const marker of ['const texasExplainedLink', 'href: "/texas-explained"', 'Explore the full Texas Explained collection']) {
   if (!internalLinks.includes(marker)) errors.push(`Texas Explained reciprocal-link contract missing: ${marker}.`);
@@ -324,6 +378,17 @@ for (const marker of [
 
 for (const marker of ['to="/texas-explained"', 'Want the why behind Texas?', 'Read all 10 guides →', 'rivers, reservoirs, roads, towns, plants, wildlife, homes, land and migration patterns']) {
   if (!searchRoute.includes(marker)) errors.push(`Texas Explained zero-query search discovery contract missing: ${marker}.`);
+}
+
+const culturalRegionsGuide = read('src/data/fixtures/texas-cultural-regions-explained.ts');
+for (const marker of [
+  'Why did cultures differ from one region of early Texas to another?',
+  'How many cultural regions does Texas have?',
+  'There is no official number of Texas cultural regions',
+  'a different question: where landscapes and habitats change',
+  '/things-unique-to-texas/culture-music',
+]) {
+  if (!culturalRegionsGuide.includes(marker)) errors.push('Texas cultural-regions search answer missing: ' + marker);
 }
 
 if (errors.length) {

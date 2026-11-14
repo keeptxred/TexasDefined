@@ -14,6 +14,7 @@ export type FootballMatchup = {
   classification: string;
   division?: 1 | 2;
   district?: number;
+  districtGame?: boolean;
   home: FootballTeam;
   away: FootballTeam;
   status: 'scheduled' | 'final';
@@ -28,6 +29,20 @@ export type FootballMatchup = {
   phase: 'regular' | 'playoff';
   round?: 'bi-district' | 'area' | 'regional' | 'quarterfinal' | 'semifinal' | 'final';
 };
+
+// Treat a still-unsourced scheduled result as unconfirmed after its listed
+// game date has clearly passed. Wait 48 hours from UTC start of the game day:
+// this avoids incorrectly calling a Texas Friday-evening kickoff past merely
+// because UTC already rolled to Saturday. Never infer completion or a final.
+export function footballMatchupIsPastUnconfirmed(
+  game: Pick<FootballMatchup, 'date' | 'status'>,
+  nowMillis: number = Date.now(),
+): boolean {
+  if (game.status === 'final') return false;
+  const startOfDateUtc = Date.parse(game.date + 'T00:00:00Z');
+  return Number.isFinite(startOfDateUtc) &&
+    nowMillis >= startOfDateUtc + 48 * 60 * 60 * 1000;
+}
 
 // This small, curated snapshot is not a live scoreboard. Never manufacture a score
 // from kickoff dates or advance a winner without a verified final.

@@ -314,7 +314,7 @@ const sportsVenuePhotos: Record<string, SportsVenuePhoto> = {
   },
   'reliant-stadium': {
     slug: 'reliant-stadium',
-    alt: 'Reliant Stadium, now NRG Stadium, in Houston, Texas',
+    alt: 'Reliant Stadium in Houston, Texas (formerly NRG Stadium)',
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Nrg_stadium.jpg?width=1600',
     sourcePage: 'https://commons.wikimedia.org/wiki/File:Nrg_stadium.jpg',
     sourceName: 'Wikimedia Commons',

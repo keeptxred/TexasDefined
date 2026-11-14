@@ -3,6 +3,10 @@ name: Bing IndexNow
 on:
   schedule:
     - cron: "23 * * * *"
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       full:
@@ -24,11 +28,13 @@ concurrency:
 
 jobs:
   submit:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: texasdefined-publication
     timeout-minutes: 15
     env:
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
+      INDEXNOW_STRICT: 'true'
       INDEXNOW_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full && 'true' || 'false' }}
       INDEXNOW_URLS: ${{ github.event_name == 'workflow_dispatch' && inputs.urls || '' }}
       INDEXNOW_FRESHNESS_HOURS: ${{ github.event_name == 'schedule' && '3' || '2' }}
@@ -36,6 +42,8 @@ jobs:
     steps:
       - name: Check out TexasDefined
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@v5

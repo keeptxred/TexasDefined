@@ -28,12 +28,26 @@ export const viatorDestinationExpansionWave12: Destination[] = [
     coordinates: { lat: 30.25763, lng: -98.12487 },
     address: "2530 W. Fitzhugh Rd., Dripping Springs, TX 78620",
     hero: {
-      src: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg",
-      alt: "Texas Hill Country landscape near Dripping Springs, used as regional context for Texas Hill Country Olive Co.",
+      src: "/images/destinations/texas-hill-country-olive-co-bistro.webp",
+      alt: "Stone bistro and gift shop entrance at Texas Hill Country Olive Co. in Dripping Springs, with the Orchard Lane sign",
       width: 1600,
-      height: 790,
-      credit: "Corey Leopold · CC BY 2.0 · Wikimedia Commons · regional context image, not the venue",
+      height: 1071,
+      credit: "Texas Hill Country Olive Co.",
     },
+    // Exact-property photographs supplied by the owner under a non-exclusive,
+    // revocable editorial-only license received via admin@texasdefined.com on
+    // 2026-10-27. No paid placements, merchandise, or AI alteration.
+    gallery: [{
+      image: {
+        src: "/images/destinations/texas-hill-country-olive-co-exterior.webp",
+        alt: "Texas Hill Country Olive Co. stone bistro exterior viewed across the grounds in Dripping Springs",
+        width: 1600,
+        height: 1068,
+        credit: "Texas Hill Country Olive Co.",
+      },
+      caption: "A second view of the company-owned bistro building and Hill Country grounds, supplied directly by the business.",
+      sourceUrl: "https://texashillcountryoliveco.com/",
+    }],
     bestSeason: "The property welcomes visitors year-round. Fall through spring usually makes time around the orchard and patio more comfortable, while the indoor tasting, shop and bistro keep the stop practical during hotter or rainy Hill Country days.",
     entryNote: "The gift shop, bistro and orchard are open to public visitors without a guided-tasting ticket. Guided tastings have limited capacity and the company recommends booking online. Its former production-floor mill tour is no longer offered; current guided tastings use an in-depth process video instead. Check the official site for the current schedule before driving out.",
     highlights: [

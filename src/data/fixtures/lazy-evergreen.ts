@@ -1,4 +1,5 @@
 import hillCountryHero from "@/assets/generated/hill-country-identity.jpg";
+import roadTripHero from "@/assets/road-trip.jpg";
 import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.jpg";
 import courthouseHero from "@/assets/generated/texas-courthouse-square.jpg";
 import foundationHero from "@/assets/generated/texas-foundation-clay-drought.jpg";
@@ -35,6 +36,19 @@ import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
 import { texasWildlifeGuideStub } from "./texas-wildlife-guide-stub";
 
+const texasRoadTripRulesStub: Article = {
+  id: "evergreen-texas-road-trip-rules", brandId: "texasdefined", slug: "texas-road-trip-rules",
+  title: "Texas Road Trip Rules: What to Check Before You Drive",
+  dek: "Texas road trips are shaped by more than speed limits: passing lanes, emergency vehicles, flooded low-water crossings, electronic tolls and long distances between services. Use the official state sources and a region-by-region checklist.",
+  category: "road-trips",
+  hero: { src: roadTripHero, alt: "Two-lane Texas highway approaching a distant horizon, with wide shoulders and open land", width: 1600, height: 1067 },
+  authorId: "a-marisol", publishedAt: "2026-11-13", updatedAt: "2026-11-13", readingMinutes: 15,
+  tags: ["Texas road trip rules", "Texas highway driving", "Move Over or Slow Down", "TxDOT", "DriveTexas", "low-water crossings", "Texas toll tags"],
+  featured: false, sourceName: "Texas Department of Transportation — Driving safety and laws",
+  sourceUrl: "https://www.txdot.gov/safety/driving-laws/tips-highway-driving.html",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const texasFarmToMarketRoadsExplainedStub: Article = {
   id: "evergreen-texas-farm-to-market-roads-explained", brandId: "texasdefined", slug: "texas-farm-to-market-roads-explained",
   title: "Farm-to-Market Roads: The Texas Highway System Most People Don't Understand",
@@ -52,7 +66,7 @@ const texasRiversExplainedStub: Article = {
   dek: "Major Texas rivers and 15 river basins explained, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity and Sabine.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "The Guadalupe River flowing beneath bald cypress trees in the Texas Hill Country", width: 1600, height: 1115, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-13", updatedAt: "2026-10-18", readingMinutes: 17,
+  authorId: "a-marisol", publishedAt: "2026-08-13", updatedAt: "2026-10-18", readingMinutes: 14,
   tags: ["texas rivers", "river basins", "brazos river", "colorado river", "guadalupe river", "rio grande", "texas geography", "texas water"],
   featured: true, sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp",
   body: [], relatedCollections: [], relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],
@@ -123,7 +137,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 };
 
 export const lazyEvergreenArticleStubs: Article[] = [
-  buyingLandInTexasGuideStub, texasFarmToMarketRoadsExplainedStub, texasWildflowersGuideStub, texasTreesGuideStub,
+  buyingLandInTexasGuideStub, texasFarmToMarketRoadsExplainedStub, texasRoadTripRulesStub, texasWildflowersGuideStub, texasTreesGuideStub,
   texasWildlifeGuideStub, texasCulturalRegionsExplainedStub, texasHomeArchitectureRegionsStub, texasHurricanePreparationStub,
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
@@ -179,6 +193,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
 
   if (slug === buyingLandInTexasGuideStub.slug) { const { buyingLandInTexasGuideArticle } = await import("./buying-land-in-texas-guide"); return addSourceLinks(buyingLandInTexasGuideArticle, buyingLandOfficialLinks); }
   if (slug === texasFarmToMarketRoadsExplainedStub.slug) { const { texasFarmToMarketRoadsExplainedArticle } = await import("./texas-farm-to-market-roads-explained"); return texasFarmToMarketRoadsExplainedArticle; }
+  if (slug === texasRoadTripRulesStub.slug) { const { texasRoadTripRulesArticle } = await import("./texas-road-trip-rules"); return texasRoadTripRulesArticle; }
   if (slug === texasWildflowersGuideStub.slug) { const { texasWildflowersGuideArticle } = await import("./texas-wildflowers-guide"); return addSourceLinks(texasWildflowersGuideArticle, [wildlifeReciprocalLink]); }
   if (slug === texasTreesGuideStub.slug) { const { texasTreesGuideArticle } = await import("./texas-trees-guide"); return addSourceLinks(texasTreesGuideArticle, [wildlifeReciprocalLink]); }
   if (slug === texasWildlifeGuideStub.slug) { const { texasWildlifeGuideArticle } = await import("./texas-wildlife-guide"); return addSourceLinks(texasWildlifeGuideArticle, texasWildlifeOfficialLinks); }

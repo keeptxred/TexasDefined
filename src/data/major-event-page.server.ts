@@ -1,9 +1,15 @@
 import { formatDateRange } from "@/domain/utils/format";
+import { buildHotelsComEvergreenClick, hotelsComPageSid, PALESTINE_HOTELS_SID } from "@/lib/cj-hotels-evergreen";
+import { getPalestinePolarExpressRollover } from "./palestine-polar-express-rollover.server";
+import { applyVerifiedMardiGrasSourceFacts } from "./events/mardi-gras-auto-published.server";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { loadTicketmasterEventsServer } from "./events/ticketmaster-events.server";
 import { resolveEventTicketCta } from "./events/ticketing";
+import { expandFestivalGuide } from "./festival-visitor-guide-extras.server";
+import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
+import { verifiedViatorMarketUrl, hasVerifiedViatorMarketUrl } from "./viator-destination-links";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
 import { getExpandedMajorEventAuthorityServer } from "./major-event-expanded-authority.server";
 import { getExpandedMajorEventAuthorityTranche3Server } from "./major-event-expanded-authority-tranche3.server";
@@ -55,15 +61,28 @@ import { getExpandedMajorEventAuthorityTranche48Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche49Server } from "./major-event-expanded-authority-tranche49.server";
 import { getExpandedMajorEventAuthorityTranche50Server } from "./major-event-expanded-authority-tranche50.server";
 import { getExpandedMajorEventAuthorityTranche51Server } from "./major-event-expanded-authority-tranche51.server";
+import { getExpandedMajorEventAuthorityTranche52Server } from "./major-event-expanded-authority-tranche52.server";
+import { getExpandedMajorEventAuthorityTranche53Server } from "./major-event-expanded-authority-tranche53.server";
+import { getExpandedMajorEventAuthorityTranche54Server } from "./major-event-expanded-authority-tranche54.server";
+import { getExpandedMajorEventAuthorityTranche55Server } from "./major-event-expanded-authority-tranche55.server";
+import { getExpandedMajorEventAuthorityTranche56Server } from "./major-event-expanded-authority-tranche56.server";
+import { getExpandedMajorEventAuthorityTranche57Server } from "./major-event-expanded-authority-tranche57.server";
+import { getExpandedMajorEventAuthorityTranche58Server } from "./major-event-expanded-authority-tranche58.server";
+import { getExpandedMajorEventAuthorityTranche59Server } from "./major-event-expanded-authority-tranche59.server";
 import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
+  type EventSchemaLifecycleStatus,
+  type EventSchemaOffer,
   isCompliantMajorEventImage,
 } from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
-const HOTELS_COM_AFFILIATE_URL = "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/";
+const HOTELS_COM_AFFILIATE_URL = "https://www.hotels.com/";
+// CJ-generated Hotels.com Evergreen Link ID 15734399 (PID 101876465).
+// Preserve the Palestine city destination and the same year-free SID for every season.
+const PALESTINE_HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick("https://www.hotels.com/de1634643/hotels-palestine-texas/", PALESTINE_HOTELS_SID);
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
 const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
 const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
@@ -164,10 +183,18 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche48Server(slug)
     ?? getExpandedMajorEventAuthorityTranche49Server(slug)
     ?? getExpandedMajorEventAuthorityTranche50Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche51Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche51Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche52Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche53Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche54Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche55Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche56Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche57Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche58Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche59Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
-    return {
+    return expandFestivalGuide({
       ...event,
       countySlug: "grimes",
       countyName: "Grimes County",
@@ -185,7 +212,7 @@ export function getMajorEventRecordServer(slug: string) {
         ...event.sources,
         { label: "Grimes County local governments — City of Todd Mission", url: "https://grimescountytexas.gov/index.asp?DE=3022B303-9FE9-41DE-A0CF-258F294C1D5F&SEC=FCB69960-DFD0-4FC5-BD10-AF5392EB0EF8" },
       ],
-    };
+    });
   }
   if (event.slug === "mardi-gras-galveston") {
     return {
@@ -197,26 +224,156 @@ export function getMajorEventRecordServer(slug: string) {
       ],
     };
   }
-  return event;
+  if (event.slug === "kemah-yachty-gras") {
+    return {
+      ...event,
+      occurrenceWindows: [
+        { label: "Yachty Gras boat parade", startDate: "2027-02-06", endDate: "2027-02-06" },
+        { label: "Grand Mardi Gras street parade", startDate: "2027-02-09", endDate: "2027-02-09" },
+      ],
+    };
+  }
+  if (event.slug === "polar-express-palestine") {
+    const verified = getPalestinePolarExpressRollover().next;
+    if (verified) {
+      // All event indexes share this same official season range; never roll
+      // calendar cards forward based only on last year's recurring dates.
+      return expandFestivalGuide({
+        ...event,
+        startDate: verified.startDate,
+        endDate: verified.endDate,
+        sourceCheckedAt: verified.verifiedAt,
+        dateNote: "Dates sourced to the organizer's official 2027 calendars; actual seat inventory is only confirmed by railroad checkout.",
+      });
+    }
+  }
+  return expandFestivalGuide(applyVerifiedMardiGrasSourceFacts(event));
 }
 
 const officialAirshowTicketPages: Record<string, string> = {
   "wings-over-houston-airshow": "https://wingsoverhouston.com/2026-woha-tickets-sasp/",
   "amigo-airsho": "https://www.amigoairsho.com/tickets",
   "texas-capital-air-show": "https://texascapitalairshow.com/tickets/",
-  "bluebonnet-airshow": "https://www.bluebonnetairshow.com/",
+  // Official organizer's current March 20, 2027 TicketSignup event checkout.
+  // This is the exact airshow, not the generic Bluebonnet homepage or 2026 show.
+  "bluebonnet-airshow": "https://www.ticketsignup.io/TicketEvent/BluebonnetAirshow",
 };
 
-function buildOfficialAirshowTicketMarkupServer(slug: string) {
-  const href = officialAirshowTicketPages[slug];
-  const event = getMajorEventRecordServer(slug);
-  if (!href || !event || (event.endDate ?? event.startDate) < new Date().toISOString().slice(0, 10)) return "";
-  return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Buy from the official air-show organizer</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Current admission, age rules, parking passes and cancellation policies are controlled by the organizer. This link is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
+// Only verified Viator city catalogs are eligible. These are complementary local
+// activities, never event tickets or a claim that a festival is sold on Viator.
+const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel: string; idea: string }> = {
+  "houston-livestock-show-rodeo": { marketSlug: "houston", cityLabel: "Houston", idea: "sightseeing, museums and city experiences before or after the rodeo" },
+  "san-antonio-stock-show-rodeo": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "historical tours and missions experiences on a separate day" },
+  "sxsw": { marketSlug: "austin", cityLabel: "Austin", idea: "city and culture tours between conference commitments" },
+  "austin-city-limits-music-festival": { marketSlug: "austin", cityLabel: "Austin", idea: "sightseeing outside your festival days" },
+  "fiesta-san-antonio": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "local heritage and missions experiences between Fiesta events" },
+  "texas-sandfest": { marketSlug: "port-aransas", cityLabel: "Port Aransas", idea: "island and coastal experiences outside the sculpture grounds" },
+  "dickens-on-the-strand": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic neighborhood tours and other island attractions" },
+  "polar-express-galveston": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic downtown tours and family-friendly activities before or after your separately ticketed train ride" },
+  "galveston-juneteenth-celebrations": { marketSlug: "galveston", cityLabel: "Galveston", idea: "African American history and other local heritage experiences" },
+  // Verified city-level Viator inventories complement holiday outings; never mislabel city tours as event admission.
+  "grapevine-christmas-capital-of-texas": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas sightseeing on a separate DFW trip day; this is not Grapevine festival admission" },
+  "austin-trail-of-lights": { marketSlug: "austin", cityLabel: "Austin", idea: "Austin museums and sightseeing before the evening trail" },
+  "houston-zoo-lights": { marketSlug: "houston", cityLabel: "Houston", idea: "Museum District and Houston sightseeing outside the Zoo Lights ticket window" },
+  "moody-gardens-ice-land": { marketSlug: "galveston", cityLabel: "Galveston", idea: "island sightseeing and history tours on another part of the holiday weekend" },
+  "holiday-at-the-dallas-arboretum": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas city tours beyond the Arboretum admission" },
+  "galaxy-lights-space-center-houston": { marketSlug: "houston", cityLabel: "Houston", idea: "Houston sightseeing outside the space-themed evening event" },
+  "ford-holiday-river-parade": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "River Walk, mission and history tours on a separate day from the parade" },
+  "gaylord-texan-ice": { marketSlug: "dallas", cityLabel: "Dallas", idea: "independent Dallas-area tours on another day, not resort or ICE! admission" },
+  "grand-prairie-prairie-lights": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas-area sightseeing before a separately ticketed Grand Prairie lights drive" },
+  "moody-gardens-holiday-in-the-gardens": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic Galveston tours separate from Moody Gardens holiday attraction admission" },
+  "grapevine-north-pole-express": { marketSlug: "dallas", cityLabel: "Dallas", idea: "DFW history or sightseeing outside your separately timed Grapevine train excursion" },
+  "dallas-zoo-lights": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas history and sightseeing on a different part of the holiday trip" },
+};
+
+function buildFestivalNearbyExperiencesMarkupServer(slug: string) {
+  const match = festivalExperienceMarkets[slug];
+  if (!match || !hasVerifiedViatorMarketUrl(match.marketSlug)) return "";
+  const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(match.marketSlug), `td-festival-${slug}`);
+  return `<section data-festival-nearby-experiences class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Explore beyond the festival</p><h2 class="mt-2 font-display text-3xl">Tours and experiences in ${esc(match.cityLabel)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Consider ${esc(match.idea)}. These independent Viator listings are <strong>not festival tickets</strong>; operators, availability, prices, meeting points and accessibility must be checked before booking.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="festival-nearby-experiences" data-commercial-partner="viator" data-commercial-placement="festival-nearby-experiences">Explore ${esc(match.cityLabel)} tours on Viator →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying bookings. Admission to the festival itself is not included.</p></section>`;
 }
 
-export function buildMajorEventTicketingMarkupServer(slug: string) {
-  const matches = loadTicketmasterEventsServer()
-    .filter((record) => record.guidePath === `/event/${slug}`);
+export function buildOfficialAirshowTicketMarkupServer(slug: string, now = new Date()) {
+  const href = officialAirshowTicketPages[slug];
+  const event = getMajorEventRecordServer(slug);
+  // Date comes from the Texas venue, not UTC midnight. Expired or lifecycle-
+  // changed shows must not promote old admission even when an organizer link
+  // still responds or its historic checkout is visible.
+  const texasParts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const part = (type: "year" | "month" | "day") => texasParts.find((item) => item.type === type)?.value ?? "00";
+  const today = [part("year"), part("month"), part("day")].join("-");
+  const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(slug)?.lifecycle;
+  if (!href || !event || (event.endDate ?? event.startDate) < today
+    || (lifecycle && lifecycle.status !== "scheduled")) return "";
+
+  return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Check official air-show ticket options</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The official event-specific ticket page lists any available admission, age rules and purchase conditions. Availability, final fees and cancellation policies are controlled by the organizer; TexasDefined does not hold seats. This is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
+}
+
+/** Show-date comparisons must use Texas-local midnight, not UTC rollover. */
+export function majorEventTicketTexasToday(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const part = (kind: "year" | "month" | "day") => parts.find((item) => item.type === kind)?.value ?? "00";
+  return [part("year"), part("month"), part("day")].join("-");
+}
+
+/** The guide's verified cancellation wins over a stale provider sale flag. */
+export function majorEventGuideTicketsAllowed(lifecycleStatus?: EventSchemaLifecycleStatus) {
+  return lifecycleStatus === undefined || lifecycleStatus === "scheduled";
+}
+
+/** Admission offers must obey the reviewed lifecycle and the Texas-local occurrence day. */
+export function majorEventGuideOffersAllowed(
+  status?: EventSchemaLifecycleStatus,
+  occurrenceEndDate?: string,
+  now = new Date(),
+) {
+  return majorEventGuideTicketsAllowed(status)
+    && (!occurrenceEndDate || occurrenceEndDate >= majorEventTicketTexasToday(now));
+}
+
+/** A dated or explicitly sold-out price is not an actionable booking offer. */
+export function majorEventOfferIsActionable(offer: EventSchemaOffer, now = new Date()) {
+  const today = majorEventTicketTexasToday(now);
+  return offer.availability !== "https://schema.org/SoldOut"
+    && (!offer.validFrom || offer.validFrom.slice(0, 10) <= today)
+    && (!offer.validThrough || offer.validThrough.slice(0, 10) >= today);
+}
+
+/** Preserve the provider's published venue-local wall clock; never invent a time. */
+export function majorEventSessionTimeLabel(time?: string) {
+  if (!time) return "Time to confirm with provider";
+  const match = /^(\d{1,2}):(\d{2})$/.exec(time);
+  if (!match) return "Time to confirm with provider";
+  const hour = Number(match[1]);
+  if (hour > 23 || Number(match[2]) > 59) return "Time to confirm with provider";
+  return `${hour % 12 || 12}:${match[2]} ${hour < 12 ? "AM" : "PM"}`;
+}
+
+// South Pole's verified organizer season starts November 28, 2026; a
+// provider-side Nov 27 session must not be promoted as festival admission.
+// Narrow the guard to this reconciled conflict so unrelated previews or
+// early admission at other events are not silently removed.
+export function majorEventTicketInsideVerifiedSeasonServer(slug: string, candidateDate: string) {
+  if (slug !== "south-pole-illuminated-festival") return true;
+  const authority = getMajorEventRecordServer(slug);
+  return Boolean(authority && candidateDate >= authority.startDate
+    && candidateDate <= (authority.endDate ?? authority.startDate));
+}
+
+export function buildMajorEventTicketingMarkupServer(slug: string, now = new Date()) {
+  // An official event can be cancelled, postponed, or rescheduled while its
+  // Ticketmaster Discovery listing still carries old on-sale metadata.
+  // Preserve source/organizer content elsewhere on the guide, but do not
+  // render misleading event-specific admission or sponsored affiliate CTAs.
+  const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(slug)?.lifecycle;
+  if (!majorEventGuideTicketsAllowed(lifecycle?.status)) return "";
+  const matches = loadTicketmasterEventsServer(undefined, now)
+    .filter((record) => record.guidePath === `/event/${slug}`
+      && majorEventTicketInsideVerifiedSeasonServer(slug, record.startDate));
   const actionable = matches.flatMap((record) => {
     const cta = resolveEventTicketCta(record.ticketing);
     return cta ? [{ record, cta }] : [];
@@ -225,50 +382,115 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
   if (actionable.length === 1) {
     const { record, cta } = actionable[0];
     const affiliateAttributes = cta.isAffiliate
-      ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-ticket" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-ticket"`
+      ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-ticket" data-affiliate-event-id=\"${esc(record.id)}\" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-ticket"`
       : "";
     const disclosure = cta.disclosure
       ? `<p class="mt-3 text-xs text-muted-foreground">${esc(cta.disclosure)}</p>`
       : "";
-    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Current ticket availability</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The live event feed currently has one actionable ticket listing for ${esc(record.title)}. Checkout is handled by the ticket provider.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${disclosure}</section>`;
+    const officialPrimaryNote = slug === "big-12-football-championship"
+      ? '<p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The Big 12 Conference identifies SeatGeek as its official primary public ticketing channel. This Ticketmaster listing is an additional commercial option, not a representation that Ticketmaster is the conference\'s primary box office. Compare seller terms and ticket availability with the conference\'s official ticket page before purchasing.</p>'
+      : "";
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Check ticket options</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The provider lists an event-specific ticket destination for ${esc(record.title)}. Confirm current availability, prices and fees directly with the seller; TexasDefined does not hold seats.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${officialPrimaryNote}${disclosure}</section>`;
   }
 
   if (actionable.length > 1) {
-    const dates = actionable.map(({ record }) => record.startDate).sort();
-    const start = dates[0];
-    const end = dates.at(-1) ?? start;
-    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Multiple ticketed sessions</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">This parent event currently has multiple ticketed days or sessions. Compare the live listings before choosing a ticket so you land on the correct date or session.</p><p class="mt-5"><a class="font-semibold text-primary underline" href="/events?start=${esc(start)}&amp;end=${esc(end)}">Compare ticketed sessions →</a></p></section>`;
+    const upcoming = actionable
+      .filter(({ record }) => record.startDate >= majorEventTicketTexasToday(now))
+      .sort((a, b) => a.record.startDate.localeCompare(b.record.startDate))
+      .slice(0, 6);
+    if (!upcoming.length) return "";
+    const dates = upcoming.map(({ record }) => record.startDate).sort();
+    const first = dates[0];
+    const last = dates.at(-1) ?? first;
+    const rows = upcoming.map(({ record, cta }) => {
+      const tracking = cta.isAffiliate
+        ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-session" data-affiliate-event-id=\"${esc(record.id)}\" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-session"`
+        : "";
+      const performanceTime = majorEventSessionTimeLabel(record.startTime);
+      const performanceLocation = record.venueName ? ` · ${esc(record.venueName)}` : "";
+      const accessibleLabel = `${cta.label.replace(" →", "")}: ${record.title}, ${record.startDate}, ${performanceTime}${record.venueName ? ", " + record.venueName : ""}`;
+      return `<li class="flex flex-col gap-2 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between"><span><strong>${esc(record.startDate)}</strong> · ${esc(performanceTime)}${performanceLocation} · ${esc(record.title)}</span><a class="font-semibold text-primary underline" aria-label="${esc(accessibleLabel)}" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${tracking}>${esc(cta.label)}</a></li>`;
+    }).join("");
+    const hasAffiliate = upcoming.some(({ cta }) => cta.isAffiliate);
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Choose the exact ticketed session</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The current live event feed contains multiple sessions. Confirm the artist, date, venue and ticket type before checkout; a parking pass is not arena admission.</p><ul class="mt-5">${rows}</ul><p class="mt-4"><a class="font-semibold text-primary underline" href="/events?start=${esc(first)}&amp;end=${esc(last)}">Compare ticketed sessions →</a></p>${hasAffiliate ? '<p class="mt-3 text-xs text-muted-foreground">Affiliate links · ticket checkout is handled by the provider. TexasDefined may earn a commission from qualifying purchases.</p>' : ""}</section>`;
   }
 
   return "";
 }
 
 export function loadMajorEventPageServer(slug: string) {
-  const event = getMajorEventRecordServer(slug);
-  if (!event) return null;
+  const publishedEvent = getMajorEventRecordServer(slug);
+  if (!publishedEvent) return null;
+  const rollover = slug === "polar-express-palestine" ? getPalestinePolarExpressRollover() : null;
+  const verifiedNext = rollover?.next ?? null;
+  const awaitingNewSeason = Boolean(rollover?.awaiting);
+  // The JSON artifact is updated only from independently validated official
+  // calendar imagery by the protected GitHub refresh process. Never extrapolate.
+  const event = verifiedNext ? {
+    ...publishedEvent,
+    startDate: verifiedNext.startDate,
+    endDate: verifiedNext.endDate,
+    sourceCheckedAt: verifiedNext.verifiedAt,
+    seoTitle: "Palestine Polar Express 2027: Official Train Schedule & Visitor Guide",
+    seoDescription: "Texas State Railroad's verified 2027 departure dates, train tickets, visitor planning and Palestine hotels. Check live checkout for seats.",
+    dateNote: "2027 dates and times are transcribed from the Texas State Railroad's published November and December calendars. Individual trains can sell out; always check official ticket inventory.",
+    sources: publishedEvent.sources.filter(source => !source.url.includes("visitpalestine.com/events/2026/")),
+  } : awaitingNewSeason ? {
+    ...publishedEvent,
+    seoTitle: "Palestine Polar Express: 2027 Dates Not Yet Announced",
+    seoDescription: "The 2026 Polar Express season has ended. The Texas State Railroad has not yet published a verified 2027 schedule. See official booking information and Palestine visitor tips.",
+    dateNote: "The last confirmed Palestine Polar Express season ended December 28, 2026. The next season's dates are not yet published or verified; the past departure calendar is not a 2027 schedule.",
+  } : publishedEvent;
+  const isPalestinePolarExpress = event.slug === "polar-express-palestine";
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
-  const dateLabel = formatMajorEventDateLabelServer(event);
+  const dateLabel = awaitingNewSeason ? "2027 schedule not yet announced" : formatMajorEventDateLabelServer(event);
   const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
+  const nearbyExperiencesMarkup = buildFestivalNearbyExperiencesMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
+  const yearQualifiedEventName = event.name.includes(String(eventYear)) ? event.name : `${event.name} ${eventYear}`;
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
   const expiredConfirmedOccurrence = hasExpiredConfirmedEventOccurrence(event);
-  const dateConfidenceMarkup = recurrenceDerived
+  const dateConfidenceMarkup = awaitingNewSeason
+    ? '<div data-polar-express-season-pending="true" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>2027 departure dates are not yet announced.</strong> Do not book travel around an assumed date. The prior 2026 season has ended.</div>'
+    : verifiedNext
+      ? '<div data-polar-express-season-verified="2027" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Railroad-published 2027 schedule.</strong> Published times are not a claim that tickets or seats remain available; check the official checkout.</div>'
+      : recurrenceDerived
     ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
     : expiredConfirmedOccurrence
       ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
       : "";
-  const snapshotMarkup = `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+  const snapshotMarkup = isPalestinePolarExpress ? "" : `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Dates</p><p class="mt-2 font-semibold">${esc(dateLabel)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Venue</p><p class="mt-2 font-semibold">${esc(event.venue || event.city)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
-    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${event.slug === "polar-express-palestine" ? (awaitingNewSeason ? "Awaiting organizer's 2027 dates" : verifiedNext ? "Official 2027 railroad calendar; verify seats" : "Railroad calendar; verify live checkout") : recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
   </section>`;
-  const quickFactsMarkup = event.quickFacts?.length
-    ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${event.quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
-    : "";
-  const planning = event.planningSections.map((item) => {
+  const seasonSensitive = awaitingNewSeason || Boolean(verifiedNext);
+  const quickFacts = seasonSensitive
+    ? (event.quickFacts ?? []).filter(fact => !/2026|fare|premium|historical.preservation fee/i.test(fact.label + " " + fact.value))
+    : event.quickFacts;
+  // Palestine is an editorial travel guide, not a multi-card metrics dashboard.
+  // Keep its extensive fares/accessibility detail in the booking + planning copy.
+  // Other event guides retain their existing structured fact-grid presentation.
+  const quickFactsMarkup = isPalestinePolarExpress
+    ? `<section data-major-event-quick-facts="true" data-polar-express-editorial-essentials="true" aria-label="Trip essentials" class="mt-8 border-y border-border py-6">
+        <h2 class="font-display text-2xl">Trip essentials</h2>
+        <div class="mt-4 grid gap-x-10 gap-y-5 md:grid-cols-3">
+          <p class="text-sm leading-6"><strong class="block text-foreground">Where to board</strong><span class="text-muted-foreground">Texas State Railroad, Palestine Depot<br />789 Park Road 70</span></p>
+          <p class="text-sm leading-6"><strong class="block text-foreground">Allow enough time</strong><span class="text-muted-foreground">Approximately one-hour train ride. Arrive 45 minutes before departure.</span></p>
+          <p class="text-sm leading-6"><strong class="block text-foreground">Accessibility and seating</strong><span class="text-muted-foreground">Call <a class="underline" href="tel:+18556327729">855-632-7729</a> for the accessible railcar. Compare coach, dome and premium cars below.</span></p>
+        </div>
+      </section>`
+    : quickFacts?.length
+      ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
+      : "";
+  const seasonPlanning = seasonSensitive
+    ? event.planningSections.filter(item =>
+        !/2026|2027|fare tiers|published prices|diesel locomotive/i.test(item.title + " " + item.body))
+    : event.planningSections;
+  const planning = seasonPlanning.map((item) => {
     const supplement = event.slug === "chappell-hill-bluebonnet-festival"
       && item.title === CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE
       ? CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP
@@ -284,13 +506,40 @@ export function loadMajorEventPageServer(slug: string) {
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...normalizedRelatedItems.filter((item) => item.href !== countyHref)]
     : normalizedRelatedItems;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
-  const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${HOTELS_COM_AFFILIATE_URL}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">Search hotels on Hotels.com →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
+  const hotelBookingHref = isPalestinePolarExpress ? PALESTINE_HOTELS_AFFILIATE_URL
+    : buildHotelsComEvergreenClick(HOTELS_COM_AFFILIATE_URL, hotelsComPageSid(`/event/${event.slug}`));
+  const hotelBookingLabel = isPalestinePolarExpress ? "Compare hotels in Palestine →" : "Search hotels on Hotels.com →";
+  const palestineScheduleMarkup = isPalestinePolarExpress
+    ? `<section data-polar-express-2026-schedule="true" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><p class="eyebrow text-primary">Before booking</p><h2 class="mt-2 font-display text-2xl">2026 train departures and tickets</h2><p class="mt-3 leading-7">Texas State Railroad’s official November and December 2026 calendars confirm service on November 13 and December 28. Nov 13: 5:30 and 7:00 PM; Dec 28: 3:00, 4:30, 6:00 and 7:30 PM. December 18 is also scheduled. These are advertised trains, not guaranteed available seats: check the live booking calendar or call 855-632-7729 for current inventory.</p><p class="mt-3 text-sm leading-6 text-muted-foreground"><strong>Official railroad calendar:</strong> Nov 13–15, 19–24, 27–29; Dec 3–6, 9–13, 15–16, 18–23, 26–28. No departures shown Dec 24–25. Not every day in the season has service.</p><div class="mt-5 flex flex-wrap gap-3"><a class="inline-flex min-h-11 items-center rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground" href="${esc(event.officialUrl)}" target="_blank" rel="noopener noreferrer" data-event-official-ticket-cta="true">Check live train tickets ↗</a><a class="inline-flex min-h-11 items-center rounded-lg border border-border px-5 py-3 font-semibold text-primary" href="https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332" target="_blank" rel="noopener noreferrer">See city’s 2026 event listing ↗</a></div><p class="mt-4 text-sm text-muted-foreground">Train uses a diesel locomotive in 2026. Arrive at least 45 minutes early; collect boarding passes 15 minutes before departure. A $20-per-ticket cancellation fee applies to eligible cancellations 30+ days ahead; no refund within 30 days.</p></section>`
+    : "";
+  const rolloverPanel = awaitingNewSeason
+    ? `<section data-polar-express-season-pending="true" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><h2 class="font-display text-2xl">2027 departure calendar not yet announced</h2><p class="mt-3 leading-7">Texas State Railroad has not yet published a verified new-season calendar. Its last confirmed 2026 season is complete. Do not infer future dates from last year's trains.</p><p class="mt-4"><a class="font-semibold text-primary underline" href="https://texasstaterailroad.net/the-polar-express/" target="_blank" rel="noopener noreferrer">Check Texas State Railroad for schedule announcements ↗</a></p></section>`
+    : verifiedNext
+      ? `<section data-polar-express-season-verified="2027" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><h2 class="font-display text-2xl">Official 2027 train departure calendar</h2><p class="mt-3 leading-7">Railroad-published departures from ${esc(verifiedNext.startDate)} through ${esc(verifiedNext.endDate)}. These are scheduled times, not an indication that tickets remain available.</p><ul class="mt-4 grid gap-2 sm:grid-cols-2">${verifiedNext.dates.map(day => `<li class="text-sm">${esc(day.date)} · ${esc(day.times.join(", "))}</li>`).join("")}</ul><p class="mt-4"><a data-event-official-ticket-cta="true" class="font-semibold text-primary underline" href="https://texasstaterailroad.net/the-polar-express/" target="_blank" rel="noopener noreferrer">Check current ticket availability ↗</a></p></section>`
+      : palestineScheduleMarkup;
+  const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${hotelBookingHref}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">${hotelBookingLabel}</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
   const displayImage = isCompliantMajorEventImage(schemaEnrichment?.image) ? schemaEnrichment.image : undefined;
-  const displayOffers = [
-    ...(schemaEnrichment?.offers ?? []),
-    ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
-  ].filter((offer, index, offers) => offers.findIndex((candidate) => `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index);
+  // The historical enrichment catalog is not a live checkout feed. Never
+  // resurrect a cancelled, past, or explicitly sold-out occurrence through the
+  // secondary price list after its primary ticket CTA was suppressed.
+  const eligibleOfferWindows = occurrenceWindows.filter((window) =>
+    majorEventGuideOffersAllowed(
+      getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle?.status,
+      window.endDate ?? window.startDate,
+    ));
+  const displayOffers = !expiredConfirmedOccurrence
+    && majorEventGuideTicketsAllowed(schemaEnrichment?.lifecycle?.status)
+    && eligibleOfferWindows.length
+    ? [
+        ...(schemaEnrichment?.offers ?? []),
+        ...Object.entries(schemaEnrichment?.occurrences ?? {}).flatMap(([label, item]) =>
+          eligibleOfferWindows.some((window) => window.label === label) ? (item.offers ?? []) : []),
+      ]
+        .filter((offer) => majorEventOfferIsActionable(offer))
+        .filter((offer, index, offers) => offers.findIndex((candidate) =>
+          `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index)
+    : [];
   const displayPerformers = [
     ...(schemaEnrichment?.performers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.performers ?? []),
@@ -298,7 +547,7 @@ export function loadMajorEventPageServer(slug: string) {
   const organizerMarkup = schemaEnrichment?.organizer
     ? `<p><strong>Organizer:</strong> <a class="font-semibold text-primary underline" href="${esc(schemaEnrichment.organizer.url)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.organizer.name)} ↗</a></p>`
     : "";
-  const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length
+  const offersMarkup = displayOffers.length
     ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — ${offer.price === 0 ? "Free" : offer.price.toFixed(2) + " " + offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
     : "";
   const performersMarkup = displayPerformers.length
@@ -332,8 +581,11 @@ export function loadMajorEventPageServer(slug: string) {
   const lifecycleMarkup = lifecycleRows.length
     ? `<div data-event-lifecycle-status="true"><h3 class="font-display text-xl">Schedule status</h3><ul class="mt-2 space-y-2">${lifecycleRows.join("")}</ul></div>`
     : "";
+  const enrichmentReviewMarkup = isPalestinePolarExpress || !schemaEnrichment
+    ? ""
+    : `<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p>`;
   const enrichmentMarkup = schemaEnrichment
-    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
+    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}${enrichmentReviewMarkup}</div></section>`
     : "";
   const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
     .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
@@ -341,7 +593,7 @@ export function loadMajorEventPageServer(slug: string) {
   const sourceReviewMarkup = event.sourceCheckedAt
     ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
     : "";
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"${isPalestinePolarExpress ? ' data-polar-express-editorial-intro="true"' : ""}><p class="eyebrow text-primary">${isPalestinePolarExpress ? "Texas railroad experiences" : "Major Texas event"}</p><h1 class="mt-3 font-display ${isPalestinePolarExpress ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"}">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${!isPalestinePolarExpress && event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}${!isPalestinePolarExpress ? `<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p>` : ""}</header>${snapshotMarkup}${isPalestinePolarExpress ? `${rolloverPanel}${heroImageMarkup}${quickFactsMarkup}` : `${quickFactsMarkup}${rolloverPanel}${heroImageMarkup}`}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
@@ -365,7 +617,7 @@ export function loadMajorEventPageServer(slug: string) {
           ...(occurrenceEnrichment.organizer.url ? { url: occurrenceEnrichment.organizer.url } : {}),
         }
       : undefined;
-    const offers = occurrenceEnrichment?.offers?.map((offer) => ({
+    const offers = occurrenceEnrichment?.offers?.filter((offer) => majorEventOfferIsActionable(offer)).map((offer) => ({
       "@type": "Offer",
       name: offer.name,
       url: offer.url,
@@ -395,7 +647,7 @@ export function loadMajorEventPageServer(slug: string) {
       location,
       ...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {}),
       ...(organizer ? { organizer } : {}),
-      ...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {}),
+      ...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {}),
       ...(performers?.length ? { performer: performers } : {}),
     };
   });
@@ -407,15 +659,15 @@ export function loadMajorEventPageServer(slug: string) {
     name: event.name,
     city: event.city,
     title: event.seoTitle ?? (recurrenceDerived
-      ? `${event.name} ${eventYear}: Projected Dates & Texas Travel Guide`
+      ? `${yearQualifiedEventName}: Projected Dates & Texas Travel Guide`
       : expiredConfirmedOccurrence
         ? `${event.name}: Dates & Texas Travel Guide`
-        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`),
+        : `${yearQualifiedEventName}: Dates & Texas Travel Guide`),
     description: event.seoDescription ?? (recurrenceDerived
-      ? `${event.name} ${eventYear} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
+      ? `${yearQualifiedEventName} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
       : expiredConfirmedOccurrence
         ? `${event.name} in ${event.city}, Texas: latest confirmed dates, official sources and practical planning while the next occurrence is pending.`
-        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`),
+        : `${yearQualifiedEventName} in ${event.city}, Texas: dates, official sources and practical trip planning.`),
     html,
     jsonLd,
   };

@@ -12,7 +12,7 @@ for (const requirement of [
   'https://www.tdi.texas.gov/consumer/homeowners-losses-by-county.html',
   'https://www.tdi.texas.gov/general/documents/home-owners-losses-by-county-25.csv',
   'https://www.tdi.texas.gov/news/2026/tdi06222026.html',
-  'statewideAverageAnnualPremium: 3506',
+  'statewideAverageAnnualPremium: 3489',
   'activeHomeownersPolicies: 8233096',
   'statewidePaidLosses: 8_740_000_000',
   'windHailShareSince2019: 0.62',

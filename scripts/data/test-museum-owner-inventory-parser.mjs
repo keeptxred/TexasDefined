@@ -29,6 +29,16 @@ assert.ok(report.uniqueRows.every((row, index) => index === 0 || report.uniqueRo
   "The first occurrence of each unique name must preserve owner source order");
 assert.ok(report.flagged.some(row => row.submittedName === "Art Museum of the Americas"),
   "Washington, DC Art Museum of the Americas must be excluded from Texas inventory");
+for (const [legacyName, expectedSlug] of [
+  ["Admiral Nimitz Gallery", "national-museum-pacific-war"],
+  ["Angelina County History Center", "the-history-center-diboll"],
+  ["Babe Didrikson Zaharias Museum", "babe-didrikson-zaharias-museum-beaumont"],
+]) {
+  const row = report.rows.find(item => item.submittedName === legacyName);
+  assert.equal(row?.canonicalSlug, expectedSlug, legacyName + " should map to the known canonical museum guide");
+  assert.equal(row?.status, "existing-authority-dossier-needs-independent-certification",
+    legacyName + " may not create duplicate museum authority content");
+}
 const scurry = report.rows.filter(row => row.submittedName === "Scurry County Museum");
 assert.ok(scurry.length >= 2, "Repeated Scurry County Museum entries must be preserved");
 assert.ok(scurry.some(row => row.duplicateOfOccurrence !== null), "Repeated names must point to their first occurrence");

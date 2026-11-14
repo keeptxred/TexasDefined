@@ -1,0 +1,95 @@
+name: Verify First Turkey Quarterly (GitHub Only)
+
+'on':
+  # 11:17 a.m. Central Standard Time, Jan 3–5, 2027.
+  # Retry window protects against delayed source and deployment queues.
+  # Explicit year guard makes this a one-time verification, not an annual task.
+  schedule:
+    - cron: '17 17 3,4,5 1 *'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: read
+  issues: write
+
+concurrency:
+  group: first-texas-turkey-quarterly-2027
+  cancel-in-progress: false
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Enforce the one-time 2027 verification window
+        id: window
+        shell: bash
+        run: |
+          set -euo pipefail
+          today="$(date -u +%Y%m%d)"
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" && ( "$today" < "20270103" || "$today" > "20270105" ) ]]; then
+            echo "execute=false" >> "$GITHUB_OUTPUT"
+            echo "The Jan 2027 verification was one-time. This later-year schedule is a no-op."
+          else
+            echo "execute=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check out protected main and commit history
+        if: steps.window.outputs.execute == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Node.js
+        if: steps.window.outputs.execute == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test scheduled-run provenance and screenshot contract
+        if: steps.window.outputs.execute == 'true'
+        run: |
+          node --check scripts/automation/verify-first-turkey-quarterly.mjs
+          node --test scripts/automation/verify-first-turkey-quarterly.test.mjs
+      - name: Verify first real quarterly source, protected PR, finisher and production
+        if: steps.window.outputs.execute == 'true'
+        id: audit
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/automation/verify-first-turkey-quarterly.mjs
+      - name: Save independent GitHub acceptance evidence
+        if: always() && steps.window.outputs.execute == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: turkey-first-quarterly-2027-${{ github.run_id }}
+          path: artifacts/turkey-first-quarterly-2027/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Open one durable GitHub issue when verification fails
+        if: steps.window.outputs.execute == 'true' && steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='First TPWD Turkey Quarterly GitHub Acceptance Failed (2027-01)'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -z "$existing" ]]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The January 2 scheduled TPWD turkey quarterly refresh did not pass end-to-end acceptance. No unsafe season facts may be auto-published. See the GitHub audit run and attached result.json/screenshots: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID . GitHub's existing protected quarterly finisher retries automatically; this verifier will recheck within its Jan 3–5 window. Investigate only the specific failed stage, not Cloudflare account connectivity."
+          fi
+      - name: Close GitHub exception issue after verified recovery
+        if: steps.window.outputs.execute == 'true' && steps.audit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='First TPWD Turkey Quarterly GitHub Acceptance Failed (2027-01)'
+          issue="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -n "$issue" ]]; then
+            gh issue close "$issue" --repo "$GITHUB_REPOSITORY" --comment "Verified the actual Jan 2027 scheduled source and protected release path. See the successful GitHub Actions evidence in this workflow run."
+          fi
+      - name: Fail closed on unverified January quarterly source or live proof
+        if: steps.window.outputs.execute == 'true' && steps.audit.outcome == 'failure'
+        run: exit 1

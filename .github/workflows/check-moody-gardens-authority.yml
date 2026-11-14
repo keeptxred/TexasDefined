@@ -1,0 +1,78 @@
+name: Check Moody Gardens visitor-fact freshness
+
+# One operator / one destination; never run the owner-held full-site crawler.
+on:
+  workflow_dispatch:
+  schedule:
+    # Moody Gardens publishes the coming week's schedule on Fridays.
+    - cron: "35 17 * * 5"
+    # Time-critical checks before the one-off Nov. 16, 2026 closure.
+    # The job's date gate skips this annual cron after 2026.
+    - cron: "10 14 14-16 11 *"
+    # The event ends at Nov. 17 00:00 CST: independently verify that the
+    # ordinary public URLs actually stopped showing the advisory.
+    - cron: "30 6 17 11 *"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: check-moody-gardens-authority
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify operator facts and editorial review date
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Guard extra Nov. 14–17 scheduled checks to 2026
+        id: window
+        shell: bash
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          if [[ ( "${SCHEDULE:-}" == "10 14 14-16 11 *" || "${SCHEDULE:-}" == "30 6 17 11 *" ) && "$(date -u +%Y)" != "2026" ]]; then
+            echo "execute=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "execute=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.window.outputs.execute == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.window.outputs.execute == 'true'
+        with:
+          node-version: "22"
+      - name: Verify source monitor regression tests
+        if: steps.window.outputs.execute == 'true'
+        run: node --test scripts/data/check-moody-gardens-official.test.mjs
+      - name: Run bounded official-source monitor
+        id: check
+        if: steps.window.outputs.execute == 'true'
+        continue-on-error: true
+        run: node scripts/data/check-moody-gardens-official.mjs
+      - name: Verify public HTML while advisory is active and after it expires
+        id: live_notice
+        if: steps.window.outputs.execute == 'true' && (github.event.schedule == '10 14 14-16 11 *' || github.event.schedule == '30 6 17 11 *')
+        continue-on-error: true
+        run: node scripts/production/verify-moody-gardens-production.mjs
+      - name: Create a single review issue if monitoring finds drift
+        if: steps.window.outputs.execute == 'true' && (steps.check.outcome == 'failure' || steps.live_notice.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Moody Gardens official visitor facts require review"
+          count="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title $title" --json number --jq 'length')"
+          if [ "$count" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "$title" \
+              --body "The bounded Moody Gardens operator-source or post-expiry live HTML check failed. This may indicate the Nov. 16 early closing was CANCELLED, its last-entry time changed, an expired cached warning is still visible, another operator claim drifted, or the editorial review aged past 30 days. Check https://www.moodygardens.com/visitor-info/hours against our published time-boxed advisory. Inspect workflow logs, verify changed facts, then correct the guide and run production acceptance. Do not auto-update sourceCheckedAt without a source-backed review. Page: https://texasdefined.com/destination/moody-gardens"
+          fi
+      - name: Report validation failure
+        if: steps.check.outcome == 'failure' || steps.live_notice.outcome == 'failure'
+        run: |
+          echo "Moody Gardens authority facts require review; see the dedicated issue and logs." >&2
+          exit 1

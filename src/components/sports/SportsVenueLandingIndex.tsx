@@ -12,6 +12,7 @@ export function SportsVenueLandingIndex({ compact = false }: { compact?: boolean
         <p className="mt-3 text-sm leading-6 text-muted-foreground">Use a local sports market when planning a trip, a sport-specific index for a statewide view, or compare all verified venue guides in one table.</p>
         <a href="/horse-racing" className="mt-5 block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Texas horse racing: every live track and historic license →</a>
         <a href="/sports-venues/compare" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare all Texas sports venues →</a>
+        <p className="mt-5 text-sm leading-6 text-muted-foreground">Planning a company outing rather than a spectator trip? <a href="/corporate-events" className="font-semibold text-primary underline underline-offset-2">Compare corporate group activities and event venues by headcount</a>.</p>
       </div>
       <div className="grid gap-8 xl:grid-cols-2">
         <LandingGroup label="Texas sports markets" items={markets} />

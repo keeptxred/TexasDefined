@@ -46,7 +46,23 @@ function WildlifeHubPage() {
 
     <Section>
       <Container>
-        <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The authority catalog includes current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Individual destination pages remain subject to TexasDefined's normal indexing-readiness safeguards." />
+        <div className="border-y border-border py-9 sm:py-12">
+          <p className="eyebrow text-primary">Research brief · November 2026</p>
+          <h2 className="mt-3 max-w-4xl font-display text-3xl leading-tight sm:text-4xl">UTEP researchers trace a century of captive-bred mallard ancestry</h2>
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
+            A November 4, 2026 University of Texas at El Paso study examined genetic data from more than 400 historical museum mallards and over 600 contemporary birds. It linked game-farm releases to lower genetic diversity and higher inbreeding in some wild mallard populations. The effect varied sharply by flyway: the Atlantic and parts of the Mississippi flyways had much more domestic ancestry, while Central and Pacific flyway samples stayed largely wild. The research is about population genetics and conservation decisions, not a Texas hunting closure or a finding that all Texas mallards are equally affected.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
+            <a className="text-primary underline underline-offset-4" href="https://www.utep.edu/newsfeed/2026/november/utep-researcher-leads-first-of-its-kind-study-on-genetic-changes-in-wild-ducks.html" target="_blank" rel="noopener noreferrer">Read the original UTEP study announcement</a>
+            <Link className="text-primary underline underline-offset-4" to="/texas-birds-guide">Texas birding field guide</Link>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The refuge guides include current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Check each refuge's official U.S. Fish and Wildlife Service page for current closures, seasonal restrictions and visitor operations." />
         <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {refuges.map((destination, index) => isDestinationPhotoPlaceholder(destination.hero.src)
             ? <article key={destination.slug} className="border-t border-border pt-5">
@@ -67,7 +83,7 @@ function WildlifeHubPage() {
           <div><p className="eyebrow text-primary">Plan with current conditions</p><h2 className="mt-3 font-display text-4xl">Habitat first, then the county</h2></div>
           <div className="grid gap-6 sm:grid-cols-2">
             <p className="text-sm leading-7 text-muted-foreground">Bird migration, water levels, heat, storms, hunting seasons and conservation work can change what is open and what you are likely to see. Use each refuge&apos;s official federal visitor source for day-of-trip alerts and access rules.</p>
-            <p className="text-sm leading-7 text-muted-foreground">TexasDefined ties refuge records into county and regional discovery so a wildlife stop can become part of a larger trip. Hunters should also use the <Link to="/hunting" className="font-semibold text-primary underline underline-offset-4">Texas hunting hub</Link> for TPWD license, season and public-hunting verification before assuming a wildlife destination is open to hunting.</p>
+            <p className="text-sm leading-7 text-muted-foreground">Use the county and regional guides to pair a wildlife refuge visit with nearby places, while checking the refuge's official access rules before the drive. Hunters should also use the <Link to="/hunting" className="font-semibold text-primary underline underline-offset-4">Texas hunting hub</Link> for TPWD license, season and public-hunting verification before assuming a wildlife destination is open to hunting.</p>
           </div>
         </div>
       </Container>

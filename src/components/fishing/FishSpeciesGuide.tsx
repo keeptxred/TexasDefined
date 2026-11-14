@@ -1,14 +1,32 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import type { loadLargemouthBassPageDataServer } from "@/data/fishing/largemouth-bass-page-data.server";
 
 type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
 
 const seasonLabel: Record<string, string> = { spring: "Spring", summer: "Summer", fall: "Fall", winter: "Winter" };
+const formatRegion = (value: string) => value.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
 export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
   const { species, profile, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
+  const [lakeSearch, setLakeSearch] = useState("");
+  const [qualityFilter, setQualityFilter] = useState("all");
+  const [regionFilter, setRegionFilter] = useState("all");
+  const [finderHydrated, setFinderHydrated] = useState(false);
+  useEffect(() => { setFinderHydrated(true); }, []);
+  const regionOptions = [...new Set(rankedLakes.map((row) => row.lake.region))].sort();
+  const searchTerm = lakeSearch.trim().toLocaleLowerCase();
+  const filteredLakes = rankedLakes.filter((row) =>
+    (!searchTerm || row.lake.name.toLocaleLowerCase().includes(searchTerm)) &&
+    (qualityFilter === "all" || row.relation.quality === qualityFilter) &&
+    (regionFilter === "all" || row.lake.region === regionFilter)
+  );
+  const hasLakeFilters = Boolean(lakeSearch || qualityFilter !== "all" || regionFilter !== "all");
 
   return (
     <>
@@ -31,9 +49,10 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <p className="eyebrow text-ink-foreground/70">Texas species fishing guide</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Largemouth Bass Fishing in Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">{species.summary}</p>
+          <a href="/shop/fishing-shirts" className="mt-5 inline-block border-b border-ink-foreground/50 pb-1 text-sm font-semibold text-ink-foreground/85 hover:text-ink-foreground">Browse Texas fishing shirts →</a>
           <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
             <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
-            <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
+            <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map(formatRegion).join(", ") : "Statewide"}</dd></div>
             <div><dt className="eyebrow text-ink-foreground/55">Source review</dt><dd className="mt-2 text-ink-foreground">{profile.verifiedAt}</dd></div>
           </dl>
         </Container>
@@ -54,6 +73,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
             <p className="eyebrow text-primary">Official source</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Core biology and statewide identity are anchored to the Texas Parks & Wildlife Department species fact sheet.</p>
             <a href={profile.sources[0].url} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">TPWD largemouth bass fact sheet →</a>
+            <FishingMerchSpotlight speciesName={species.commonName} compact />
           </aside>
         </section>
 
@@ -96,20 +116,77 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           </div>
         </section>
 
+        <section className="mt-16 border-t border-border pt-10" aria-labelledby="bass-identification">
+          <p className="eyebrow text-primary">Identification and handling</p>
+          <h2 id="bass-identification" className="mt-3 font-display text-4xl">Identify Your Bass Before Checking a Limit</h2>
+          <div className="mt-7 grid gap-6 md:grid-cols-3">
+            {[
+              { slug: "largemouth-bass", label: "Largemouth bass" },
+              { slug: "spotted-bass", label: "Spotted bass" },
+              { slug: "smallmouth-bass", label: "Smallmouth bass" },
+            ].map((fish) => {
+              const photo = getFishingFishImage(fish.slug);
+              return <article key={fish.slug} className="border-t border-border py-4">
+                <h3 className="mb-4 font-display text-xl">{fish.label}</h3>
+                {photo ? <FishingPhoto image={photo} imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : <p className="text-sm text-muted-foreground">Identification photo not available</p>}
+              </article>;
+            })}
+          </div>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Compare the mouth, lateral markings and dorsal fins across these sourced reference photos. Individual variation and hybridization mean a photograph alone may not settle every identification; use official TPWD species descriptions where uncertain.</p>
+          <div className="mt-7 grid gap-6 md:grid-cols-3">
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Check several features</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Largemouth bass commonly display a dark lateral band and a broad mouth. Compare mouth extension, body markings and dorsal fins together; color alone is not enough to distinguish every black-bass species.</p></article>
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Consider similar bass</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Spotted, smallmouth and Guadalupe bass occur in Texas. Habitat and appearance can overlap. If a retained fish is uncertain, consult official identification guidance before applying its limit.</p></article>
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Release responsibly</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Wet your hands, minimize air exposure and support the body of a large fish rather than holding it horizontally by the jaw alone. Check handling advisories for deep-caught fish.</p></article>
+          </div>
+          <a href={profile.sources[0].url} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Consult TPWD largemouth species guidance →</a>
+        </section>
+
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="best-lakes">
           <p className="eyebrow text-primary">Texas bass lakes</p>
           <h2 id="best-lakes" className="mt-3 font-display text-4xl">Texas Lakes for Largemouth Bass</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{profile.rankingMethod}</p>
-          <div className="mt-8 divide-y divide-border border-y border-border">
-            {rankedLakes.map((row, index) => (
-              <article key={row.relation.id} className="grid gap-4 py-6 sm:grid-cols-[70px_1fr_auto] sm:items-start">
-                <p className="font-display text-3xl text-primary">#{index + 1}</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Lake Abilene is excluded while the TPWD park alert prohibits fishing due to low water. <a href="https://tpwd.texas.gov/state-parks/abilene/alert/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/50">Check the official Lake Abilene closure alert</a>. Confirm current access at every destination before traveling.</p>
+          <div data-bass-lake-finder-ready={finderHydrated ? "true" : "false"} className="mt-8 grid gap-4 border-y border-border py-6 md:grid-cols-3">
+            <label htmlFor="bass-lake-search" className="flex flex-col gap-2 text-sm font-semibold">
+              Search by lake name
+              <input id="bass-lake-search" type="search" value={lakeSearch} onChange={(event) => setLakeSearch(event.target.value)}
+                placeholder="e.g. Lake Fork" autoComplete="off" className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" />
+            </label>
+            <label htmlFor="bass-lake-quality" className="flex flex-col gap-2 text-sm font-semibold">
+              TPWD-backed fishery quality
+              <select id="bass-lake-quality" value={qualityFilter} onChange={(event) => setQualityFilter(event.target.value)}
+                className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <option value="all">All quality tiers</option>
+                {(["excellent", "good", "fair", "poor", "unknown"] as const).filter((quality) => rankedLakes.some((row) => row.relation.quality === quality)).map((quality) => (
+                  <option key={quality} value={quality}>{quality.charAt(0).toUpperCase() + quality.slice(1)}</option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="bass-lake-region" className="flex flex-col gap-2 text-sm font-semibold">
+              Texas region
+              <select id="bass-lake-region" value={regionFilter} onChange={(event) => setRegionFilter(event.target.value)}
+                className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <option value="all">All regions</option>
+                {regionOptions.map((region) => <option key={region} value={region}>{formatRegion(region)}</option>)}
+              </select>
+            </label>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+            <p role="status" aria-live="polite">{filteredLakes.length} of {rankedLakes.length} source-backed lakes shown. Quality tiers describe documented fishery context, not current bite conditions.</p>
+            {hasLakeFilters ? <button type="button" onClick={() => { setLakeSearch(""); setQualityFilter("all"); setRegionFilter("all"); }}
+              className="border-b border-primary pb-1 font-semibold text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Clear lake filters</button> : null}
+          </div>
+          {filteredLakes.length === 0 ? <p className="mt-7 border border-border p-6 text-sm text-muted-foreground">No lakes match the selected filters. Try another lake name, region or quality tier.</p> : null}
+          <div className="mt-6 divide-y divide-border border-y border-border">
+            {filteredLakes.map((row) => (
+              <article key={row.relation.id} data-bass-lake={row.lake.slug} className="grid gap-4 py-6 sm:grid-cols-[105px_1fr_auto] sm:items-start">
+                <p className="font-display text-lg capitalize text-primary">{row.relation.quality}</p>
                 <div>
                   <h3 className="font-display text-2xl"><a href={row.href} className="hover:text-primary">{row.lake.name}</a></h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{row.lake.summary}</p>
-                  {row.relation.seasonalPatterns.length > 0 && <p className="mt-3 text-xs leading-5 text-muted-foreground">{row.relation.seasonalPatterns.map((pattern) => `${pattern.season}: ${pattern.summary}`).join(" ")}</p>}
+                  {row.relation.seasonalPatterns.length > 0 && <ul className="mt-3 space-y-1 text-xs leading-5 text-muted-foreground">{row.relation.seasonalPatterns.map((pattern, index) => <li key={`${pattern.season}-${index}`}><strong className="text-foreground">{seasonLabel[pattern.season] ?? (pattern.season === "year-round" ? "Year-round" : pattern.season)}:</strong> {pattern.summary}</li>)}</ul>}
                 </div>
-                <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground"><p>{row.relation.quality}</p><p className="mt-1">{row.relation.prominence}</p></div>
+                <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground"><p>Species role</p><p className="mt-1">{row.relation.prominence}</p></div>
               </article>
             ))}
           </div>

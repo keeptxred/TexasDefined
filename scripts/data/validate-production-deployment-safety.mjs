@@ -12,6 +12,14 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+for (const [source, label] of [[workflow, 'canonical deployment'], [restore, 'verified Worker recovery']]) {
+  if (!source.includes('CLOUDFLARE_API_TOKEN: '+String.fromCharCode(36)+'{{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}')) failures.push(label + ' must use dedicated production deployment token.');
+  if (source.includes('secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN')) failures.push(label + ' must never fall back to general Cloudflare credentials.');
+}
+const packageManifest = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+if (/\bwrangler\s+(?:deploy|rollback|versions\s+(?:upload|deploy))\b|\bnpm\s+run\s+build\s*&&\s*wrangler\b/i.test(packageManifest.scripts?.deploy ?? '')) {
+  failures.push('The npm deploy shortcut must not publish or roll back the production Worker outside the canonical GitHub workflow.');
+}
 if (!premerge.includes("'scripts/ci/wait-for-cloudflare-git-build.test.mjs'")) {
   failures.push('Canonical premerge validation no longer runs the Cloudflare check-run retry regression tests.');
 }
@@ -86,16 +94,26 @@ if (pushTriggerBlock.includes('\n    paths:') || pushTriggerBlock.includes('\n  
   failures.push('Production deployment must not path-filter main pushes while Cloudflare Git integration can deploy every production-branch push.');
 }
 
+// The protected concurrency lock must cover the Cloudflare Worker publish and
+// its blocking acceptance checks, without making the optional queued GSC
+// reusable workflow suppress more recent main-branch production releases.
+const deployJobAt = workflow.indexOf('  deploy:\n');
+const deployLockAt = workflow.indexOf('    concurrency:\n      group: texasdefined-production\n      cancel-in-progress: false');
+if (deployJobAt < 0 || deployLockAt < deployJobAt) {
+  failures.push('The Cloudflare deploy job must own its serialized texasdefined-production lock.');
+}
+if (workflow.includes('\nconcurrency:\n  group: texasdefined-production')) {
+  failures.push('Do not place production lock at workflow scope: queued downstream GSC checks would block later Worker deployments.');
+}
+if (!workflow.includes('needs: deploy') ||
+    !workflow.includes('Verify GSC manual-next production after deploy')) {
+  failures.push('Keep the independent post-deploy GSC verification dependent on a successful Worker release.');
+}
+
 for (const [needle, label] of [
   ['group: texasdefined-production', 'serialized production deployment concurrency group'],
   ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
-  ['timeout 180s sudo apt-get update -qq', 'bounded ImageMagick apt metadata refresh'],
-  ['Dir::Etc::sourcelist="sources.list.d/ubuntu.sources"', 'governed image packages must refresh only official signed Ubuntu runner sources'],
-  ['Dir::Etc::sourceparts="-"', 'exclude unrelated broken third-party apt sources without skipping image safety gates'],
-  ['if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]', 'fail closed if official Ubuntu runner source unavailable'],
-  ['timeout 180s sudo apt-get install -y --no-install-recommends imagemagick', 'bounded ImageMagick package install'],
-  ['librsvg2-bin', 'install SVG delegate for governed Discover editorial images'],
-  ['command -v rsvg-convert', 'require working SVG delegate before image materialization'],
+  ['node scripts/assets/check-governed-discover-image-runtime.mjs', 'require real SVG to WebP runtime validation before materialization'],
   ['id: runtime_smoke', 'predeploy built Worker SSR smoke step'],
   ['node scripts/ci/verify-built-worker-ssr.mjs', 'predeploy built Worker SSR smoke command'],
   ['id: live_direct_health', 'direct Worker health step'],

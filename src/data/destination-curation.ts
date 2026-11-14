@@ -4,6 +4,9 @@ const TPWD = "Texas Parks and Wildlife Department";
 
 const curated: Record<string, Partial<Destination>> = {
   "sheldon-lake-state-park": {
+    visitorFacts: [
+      { topic: "hours", label: "Park hours", detail: "Daily 8 a.m.–5 p.m.; closed Thanksgiving and Dec. 24–25.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
+    ],
     hero: {
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tower_Sheldon_Lake_SP_Harris_Co_Texas_2024.jpg?width=1600",
       alt: "John Jacob Observation Tower above the wetlands and prairie at Sheldon Lake State Park",
@@ -13,6 +16,10 @@ const curated: Record<string, Partial<Destination>> = {
     },
   },
   "brazos-bend-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$7 per person age 13 or older; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Open daily, 8 a.m.–10 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend", checkedAt: "2026-10-21" },
+    ],
     summary: "Wetlands, coastal prairie and bottomland forest southwest of Houston, best known for close-but-safe alligator viewing, prolific birdlife and miles of flat trails around Elm and 40-Acre lakes.",
     nearestTown: "Needville",
     bestSeason: "Fall through spring for cooler trail weather; wildlife viewing is good year-round",
@@ -24,6 +31,10 @@ const curated: Record<string, Partial<Destination>> = {
     accessibilityNotes: "The park has accessible facilities and offers an all-terrain wheelchair by reservation; contact the park before arrival for current availability.",
   },
   "garner-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$8 daily for visitors age 13 or older; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/garner", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Open daily, 8 a.m.–10 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/garner", checkedAt: "2026-10-21" },
+    ],
     summary: "A Hill Country favorite on the Frio River, where limestone hills, cypress-lined water, Old Baldy and the park’s long-running summer dances make the destination as social as it is scenic.",
     nearestTown: "Concan",
     bestSeason: "Late spring through early fall for river time; fall and winter are quieter for hiking",
@@ -41,6 +52,10 @@ const curated: Record<string, Partial<Destination>> = {
     },
   },
   "dinosaur-valley-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$8 daily for adult day use; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Gate open daily, 6 a.m.–10 p.m.; office 8:30 a.m.–4:30 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley", checkedAt: "2026-10-21" },
+    ],
     summary: "A Paluxy River park near Glen Rose where 113-million-year-old dinosaur tracks appear in the limestone riverbed, backed by more than 20 miles of trails through rugged North Texas terrain.",
     nearestTown: "Glen Rose",
     bestSeason: "Spring and fall for hiking; track visibility depends on Paluxy River levels",
@@ -52,10 +67,22 @@ const curated: Record<string, Partial<Destination>> = {
     accessibilityNotes: "The park offers an all-terrain wheelchair by request. Individual river track sites may require uneven or wet access, so ask staff about current conditions.",
   },
   "pedernales-falls-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$6 daily for visitors age 13 or older; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/pedernales-falls", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Office open daily, 8 a.m.–4:30 p.m.; park gates close 10 p.m.–8 a.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/pedernales-falls", checkedAt: "2026-10-21" },
+    ],
     summary: "Thirty miles west of Austin, the Pedernales River pours across broad shelves of Hill Country limestone, creating a dramatic falls area plus separate places for swimming, hiking, camping and river access.", nearestTown: "Johnson City", bestSeason: "Fall through spring for hiking; warm months are popular for swimming in designated river areas", entryNote: "Swimming and wading are prohibited in the falls area. The river can rise rapidly during flash floods, and busy dates often require advance reservations.", highlights: ["Pedernales Falls overlook and limestone river terraces", "Designated swimming and tubing access away from the falls area", "Hill Country hiking and biking trails including Twin Falls Nature Trail", "Camping, birding, fishing and equestrian opportunities"], body: ["Pedernales Falls is a study in what water does to limestone. The river spreads across broad rock shelves, drops through channels and pools, and turns a familiar Hill Country landscape into one of the region’s most recognizable state-park scenes.", "The falls area is for looking and hiking, not swimming. Swimming, wading and tubing are allowed only in designated portions of the river elsewhere in the park. That separation matters because the Pedernales can change quickly, especially when storms upstream send a flash flood through what looked like calm water minutes earlier.", "Give the park more time than a quick overlook. Trails range from short nature walks to longer Hill Country routes, and camping, fishing and birding can easily fill a day or weekend. Check active alerts and river conditions before your visit."], managingAuthority: TPWD, officialUrl: "https://tpwd.texas.gov/state-parks/pedernales-falls" },
   "colorado-bend-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$5 daily for adults; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/colorado-bend", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Park open daily, 6 a.m.–10 p.m.; headquarters 8:45 a.m.–4:15 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/colorado-bend", checkedAt: "2026-10-21" },
+    ],
     summary: "A rugged Colorado River park northwest of Austin with 70-foot Gorman Falls, spring-fed pools, cave tours and more than 35 miles of hike-and-bike trails through limestone canyon country.", nearestTown: "Bend", bestSeason: "Fall through spring for hiking; spring flow and recent rainfall can affect waterfalls and pools", entryNote: "Road and trail conditions can be rugged, cave tours require reservations, and popular dates may fill. Check current alerts before the long drive in.", highlights: ["Gorman Falls, a 70-foot spring-fed travertine waterfall", "More than 35 miles of hiking and biking trails", "Spicewood Springs pools and Colorado River access", "Guided cave tours into the park’s karst landscape"], body: ["Colorado Bend is one of the more rugged state-park experiences within a reasonable drive of Austin. The landscape mixes river corridor, limestone uplands, springs and caves, and much of the appeal comes from feeling farther from pavement and services than the map suggests.", "Gorman Falls is the signature destination: a 70-foot spring-fed waterfall built from delicate travertine deposits. It is not a swimming waterfall, but nearby Spicewood Springs and the Colorado River add water to an itinerary that can also include hiking, mountain biking, fishing or paddling.", "This is a park where preparation improves the trip. Trails can be rocky, the access road and weather can affect travel times, and cave tours need advance reservations. Bring water, download what you need before losing cell service, and check park alerts before departure."], managingAuthority: TPWD, officialUrl: "https://tpwd.texas.gov/state-parks/colorado-bend" },
   "caprock-canyons-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Daily admission", detail: "$5 daily for adults; children age 12 and under enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "Open daily; park office 8:30 a.m.–5 p.m., closed noon–1 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons", checkedAt: "2026-10-21" },
+    ],
     summary: "Red-rock canyon country beneath the Caprock Escarpment, home to the official Texas State Bison Herd, Lake Theo and a trail network that connects with a long converted-rail Trailway across the Panhandle.", nearestTown: "Quitaque", coordinates: { lat: 34.410296, lng: -101.053264 }, bestSeason: "Spring and fall for hiking and biking; summer heat can be severe", entryNote: "The park often reaches capacity. Reserve ahead, carry ample water and keep at least 50 yards from bison and other wildlife.", highlights: ["Official Texas State Bison Herd roaming restored prairie", "Canyon trails and overlooks beneath the Caprock Escarpment", "Caprock Canyons Trailway with bridges and historic Clarity Tunnel", "Lake Theo for fishing, no-wake boating and swimming"], body: ["Caprock Canyons delivers the Panhandle’s biggest visual surprise: flat plains breaking suddenly into red and orange canyon walls below the Caprock Escarpment. The official Texas State Bison Herd roams the park’s restored prairie, making the landscape feel active rather than preserved behind a fence.", "The park has an extensive trail system for hiking, biking and horseback riding, while the separate Trailway follows an old rail corridor across three counties and through Clarity Tunnel. Short canyon walks, longer ridge routes and Lake Theo make it possible to build very different trips around the same park.", "Bison are wild and require distance, and the open Panhandle landscape offers little forgiveness in extreme heat. Reserve entry on busy dates, carry more water than you expect to need, and check current trail and wildlife notices before setting out."], managingAuthority: TPWD, officialUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons" },
 };
 

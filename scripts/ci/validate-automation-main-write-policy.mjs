@@ -40,6 +40,8 @@ for (const contract of [
   requireText(eventSyncScriptPath, eventSyncScript, contract);
 }
 
+requireText(eventSyncScriptPath, eventSyncScript, 'retainVerifiedOfficialEvents(freshRows, existingRows, EVENTS');
+
 const eventsPath = '.github/workflows/sync-texas-events.yml';
 const events = read(eventsPath);
 for (const contract of [
@@ -47,6 +49,7 @@ for (const contract of [
   'actions: write',
   'automation/texas-events-sync-${GITHUB_RUN_ID}',
   'gh pr create',
+  'git add -N -- ops/editorial/ticketmaster-authority-candidates.json',
   'Prevalidate generated refresh branch',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"',
   'owner-side event-refresh finisher',
@@ -67,8 +70,12 @@ for (const contract of [
   'automation/texas-events-sync-${sync_run_id}',
   'Refresh authoritative Texas events catalog',
   'github-actions[bot]',
-  'src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json',
+  'src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json',
+  'ops/editorial/event-ticketing-verification-ledger.json',
+  'validate_managed_probe_ledger "$base" "$head"',
+  'del(.updatedAt, .statewide.ticketLinkProbes, .statewide.ticketLinkProbeCursor, .statewide.ticketLinkProbeLatestRun)',
   'git merge --no-edit origin/main',
+  'node scripts/events/reconcile-ticketing-refresh-conflicts.mjs',
   'git push origin "HEAD:$BRANCH"',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml',
@@ -80,9 +87,42 @@ for (const contract of [
   '--match-head-commit "$validated_sha"',
   'Protected auto-merge is waiting for branch policy',
   'git merge-base --is-ancestor "$validated_sha" origin/main',
+  'gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"',
 ]) {
   requireText(eventFinisherPath, eventFinisher, contract);
 }
+// Unrelated content releases must not repeatedly invalidate the exact-SHA
+// generated data gate. Only governed catalog drift calls for a new validation.
+requireText(eventFinisherPath, eventFinisher, 'shared_base="$(git merge-base origin/main "origin/$BRANCH")"');
+requireText(eventFinisherPath, eventFinisher, 'if allowed_path "$path"; then');
+requireText(eventFinisherPath, eventFinisher, 'if [[ "$governed_drift" == "true" ]]; then');
+
+// A GITHUB_TOKEN-authored merge cannot fire the push deploy workflow. Only
+// after the exact-SHA merge check may the finisher dispatch the established
+// serialized release; never dispatch before source validation or auto-merge.
+const deployedAfterMerge = eventFinisher.indexOf('gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"');
+const mergeVerifiedAt = eventFinisher.indexOf('git merge-base --is-ancestor "$validated_sha" origin/main');
+if (mergeVerifiedAt < 0 || deployedAfterMerge <= mergeVerifiedAt) {
+  failures.push(`${eventFinisherPath} must dispatch production only after the validated merge is present on main`);
+}
+requireText(eventFinisherPath, eventFinisher, 'actions: write');
+const prodPath = '.github/workflows/deploy-production.yml';
+const prod = read(prodPath);
+for (const required of ['workflow_dispatch:', 'group: texasdefined-production', 'Verify Christmas 2026 source-calendar production']) {
+  requireText(prodPath, prod, required);
+}
+forbidPattern(eventsPath, events, /gh\\s+workflow\\s+run\\s+deploy-production\\.yml/, 'dispatch production before the finisher verifies the protected merge');
+
+const refreshConflictGuard = read('scripts/events/reconcile-ticketing-refresh-conflicts.mjs');
+for (const marker of [
+  'validateConflicts(conflicts)', 'chooseByTimestamp(oursTicketmaster, mainTicketmaster',
+  'mergeTicketProbeLedger', 'const merged = structuredClone(theirs)',
+  "git('diff', '--name-only', '--diff-filter=U')",
+]) requireText('scripts/events/reconcile-ticketing-refresh-conflicts.mjs', refreshConflictGuard, marker);
+requireText('scripts/ci/run-premerge-validation.mjs',
+  read('scripts/ci/run-premerge-validation.mjs'),
+  'reconcile-ticketing-refresh-conflicts.test.mjs');
+
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+HEAD:main/, 'push reconciled event data directly to main');
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push reconciled event data directly to main');
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+.*--force/, 'force-push the generated event refresh branch');
@@ -140,4 +180,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main and dispatching the existing protected production workflow; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');

@@ -1,0 +1,32 @@
+name: Monitor Texas turkey regulations
+
+'on':
+  schedule:
+    - cron: '21 13 * * 1'
+    - cron: '41 13 1 1,4,7,10 *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/data/check-turkey-regulations.mjs'
+      - 'src/data/hunting/turkey-guide.ts'
+      - 'src/components/hunting/TurkeySeasonGuide.tsx'
+      - 'scripts/automation/monitor-turkey-regulations.sh'
+      - '.github/workflows/check-turkey-regulations.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check official TPWD turkey sources and report unsafe drift
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/automation/monitor-turkey-regulations.sh

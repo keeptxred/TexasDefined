@@ -141,8 +141,15 @@ for (const [id, name, rank, hotelsId] of paintedExpected) {
   requireCondition(/^https:\/\//.test(context?.source?.url || '') && context?.source?.verifiedAt === '2026-09-19', `${id} production source evidence drifted.`);
   const target = property?.bookingTargets?.[0];
   requireCondition(property?.bookingTargets?.length === 1 && target?.provider === 'hotels.com' && target?.verified === true && target?.ctaLabel === 'View on Hotels.com', `${id} verified Hotels.com target metadata drifted.`);
-  requireCondition(target?.affiliateUrl?.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/'), `${id} is missing the TexasDefined CJ Hotels.com wrapper.`);
-  requireCondition(target?.affiliateUrl?.includes(`/ho${String(hotelsId).replace(/^ho/, '')}/`), `${id} Hotels.com exact-property identifier drifted.`);
+  const click = new URL(target?.affiliateUrl || 'https://invalid.example/');
+  const hotelDestination = click.searchParams.get('url') || '';
+  requireCondition(click.origin === 'https://www.anrdoezrs.net'
+    && click.pathname === '/click-101876465-15734399'
+    && click.searchParams.size === 2
+    && click.searchParams.get('sid') === 'td_explore_painted_churches'
+    && /^https:\/\/www\.hotels\.com\/ho\d+\//.test(hotelDestination),
+    `${id} missing CJ Hotels.com Evergreen PID/AID, verified SID or exact-property link.`);
+  requireCondition(hotelDestination.includes(`/ho${String(hotelsId).replace(/^ho/, '')}/`), `${id} Hotels.com exact-property identifier drifted.`);
   requireCondition(!paintedAffiliateUrls.has(target?.affiliateUrl), `${id} reuses another Painted Churches affiliate target.`);
   paintedAffiliateUrls.add(target.affiliateUrl);
 }

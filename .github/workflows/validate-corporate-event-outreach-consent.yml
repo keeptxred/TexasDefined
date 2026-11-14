@@ -1,0 +1,35 @@
+name: Corporate event venue sharing consent contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events.functions.ts'
+      - 'src/data/corporate-events.server.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261023184500_group_event_venue_outreach_consent.sql'
+      - 'scripts/data/validate-corporate-event-outreach-consent.mjs'
+      - '.github/workflows/validate-corporate-event-outreach-consent.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events.functions.ts'
+      - 'src/data/corporate-events.server.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261023184500_group_event_venue_outreach_consent.sql'
+      - 'scripts/data/validate-corporate-event-outreach-consent.mjs'
+      - '.github/workflows/validate-corporate-event-outreach-consent.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/data/validate-corporate-event-outreach-consent.mjs

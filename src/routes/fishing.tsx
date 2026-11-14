@@ -25,22 +25,57 @@ export const Route = createFileRoute("/fishing")({
   },
   loader: async ({ context }) => {
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
-    const [lakes, species, lakeSpecies] = await Promise.all([
+    const { getFishingResourceAvailability } = await import("@/data/fishing/resource-availability.functions");
+    const [lakes, species, lakeSpecies, resourceAvailability] = await Promise.all([
       context.queryClient.ensureQueryData(fishingLakesQuery({ featured: true, limit: 12 })),
       context.queryClient.ensureQueryData(fishSpeciesQuery({ limit: 50 })),
       context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery()),
+      getFishingResourceAvailability(),
     ]);
-    return { lakes, species, lakeSpecies };
+    return { lakes, species, lakeSpecies, resourceAvailability };
   },
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.", canonicalPath: "/fishing" }), links: [canonicalLink(texasDefinedBrand, "/fishing")] }),
+  head: ({ loaderData }) => {
+    const origin = `https://${texasDefinedBrand.identity.domain}`;
+    const url = `${origin}/fishing`;
+    const title = "Texas Fishing Guide — Lakes, Fish Species & Local Fishing";
+    const description = "Explore Texas fishing lake by lake, with sourced lake facts, target species, seasonal patterns, access facilities, regulations and trip planning.";
+    const publicLakes = (loaderData?.lakes ?? []).filter((lake) => Boolean(lake.verifiedAt) && lake.sources.length > 0);
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "CollectionPage", "@id": url + "#page", url, name: title, description,
+          isPartOf: { "@id": origin + "/#website" }, mainEntity: { "@id": url + "#lakes" },
+          citation: [
+            "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
+            "https://tpwd.texas.gov/regulations/outdoor-annual/fishing",
+          ] },
+        { "@type": "ItemList", "@id": url + "#lakes",
+          name: "Sourced Texas fishing lake guides", numberOfItems: publicLakes.length,
+          itemListElement: publicLakes.map((lake, index) => ({
+            "@type": "ListItem", position: index + 1, name: lake.name,
+            url: origin + "/fishing/lakes/" + lake.slug,
+          })) },
+        { "@type": "BreadcrumbList", "@id": url + "#breadcrumbs",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: origin },
+            { "@type": "ListItem", position: 2, name: "Fishing", item: url },
+          ] },
+      ],
+    };
+    return {
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with sourced lake facts, target species, seasonal patterns, access facilities, regulations and trip planning.", canonicalPath: "/fishing" }),
+      links: [canonicalLink(texasDefinedBrand, "/fishing")],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
+    };
+  },
   component: FishingPage,
 });
 
 function FishingPage() {
-  const { lakes, species, lakeSpecies } = Route.useLoaderData();
+  const { lakes, species, lakeSpecies, resourceAvailability } = Route.useLoaderData();
   return (
     <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fishing guide…</div>}>
-      <FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies} />
+      <FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies} resourceAvailability={resourceAvailability} />
     </Suspense>
   );
 }

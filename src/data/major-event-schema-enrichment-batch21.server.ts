@@ -39,9 +39,10 @@ export const majorEventSchemaEnrichmentBatch21: MajorEventSchemaEnrichment[] = [
     slug: "shiner-beer-run",
     organizer,
     sources: [
+      { label: "RunSignUp — 2026 race schedule and distances", url: "https://runsignup.com/Race/TX/Shiner/ShinerBeerRun" },
       { label: "Shiner official 15th Annual Beer Run", url: "https://shiner.com/event/15th-annual-beer-run/" },
       { label: "Shiner official events calendar", url: "https://shiner.com/events/" },
     ],
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-10-29",
   },
 ];

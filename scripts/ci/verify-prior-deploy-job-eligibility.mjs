@@ -1,0 +1,471 @@
+/**
+ * A complete GitHub Actions job can be marked failed after a real Worker
+ * publish. Reuse its *asset handoff* only if it passed exact deploy, runtime,
+ * and dual-origin asset checks and failed solely at an explicitly approved
+ * post-deploy non-asset check (historical exact-run exception only).
+ *
+ * This qualifies an asset artifact, not a whole-site release or 95+ authority.
+ * verify-prior-asset-handoff.mjs separately requires the active Worker version,
+ * exact source SHA, all expected asset hashes and both public origins.
+ */
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
+
+const CRITICAL = [
+  'Deploy TexasDefined Worker',
+  'Capture deployed Worker version',
+  'Verify direct Worker health',
+  'Verify canonical production health',
+  'Verify current and previous release JS/CSS on both public origins',
+];
+const ALLOWED_POSTDEPLOY_NON_ASSET_FAILURE = 'Verify MSR Houston responsive visitor page and licensed photo';
+
+// Nov 11 run #43113183643/job #130834293835 published its Worker and passed
+// all five protected deploy/health/dual-origin original-byte checkpoints.
+// The only failing later job step was the independent "Verify base production
+// surfaces" image metadata test. Its log names only the unusual-Texas-businesses
+// ImageObject missing verified rights, not a missing asset or runtime failure.
+// The underlying root is the doubly encoded Britten%2520USA proxy filename;
+// source matching is fixed in PR #7016. This EXACT failed job's original-byte
+// handoff may seed the next deploy ONLY if the source fix is present and the
+// separate exact Worker/source/dual-origin SHA verifier succeeds. It is NOT a
+// successful deploy or permission to suppress the failed production check.
+const KNOWN_PUBLISHED_IMAGE_RIGHTS_REGRESSION = Object.freeze({
+  runId: 43113183643,
+  jobId: 130834293835,
+  failedStep: 'Verify base production surfaces',
+});
+
+// Nov 12 run #43152537155 published the active Worker and passed all original
+// JS/CSS bytes on both origins. Its sole later failure was a 30-second
+// direct-Worker Fredericksburg HTML transport timeout, retried twice: all
+// earlier El Paso redirects, sitemap and canonical page checks had passed.
+// This exact run may provide ORIGINAL asset bytes to the next deploy only
+// after the bounded transport retry has been fixed in source AND the separate
+// exact active Worker/source SHA/two-origin-hash gate passes. The failed
+// independent page QA remains failed and must run again on the new release.
+const KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT = Object.freeze({
+  runId: 43152537155,
+  jobId: 130964877163,
+  failedStep: 'Verify base production surfaces',
+});
+
+// Nov 12 #43251806283 published its Worker, passed direct/canonical health
+// and the complete dual-origin old/new SHA asset audit. A later sports-venue
+// checker demanded a second source-review sentence that was never in the
+// actual directory. PR #7039 removed only that impossible assertion, preserving
+// current individual-record date and karting closure checks. Eligible ONLY to
+// reuse verified original bytes after separate active Worker/source/hash checks.
+const KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION = Object.freeze({
+  runId: 43251806283,
+  jobId: 131299301592,
+  failedStep: 'Verify sports venue editorial production',
+});
+
+// Nov 12 run #43314663760/job #131519408864 actually published the
+// 100%-traffic Worker 2f9420e0-0eba-4721-8727-a338a82cba72 from SHA
+// 05719211996457c662e8d6d176883937ba9cf98e. GitHub logged success for
+// deploy, Worker-version capture, both health probes, and full dual-origin
+// original-byte JS/CSS verification. The only later failed step was the
+// independent Fredericksburg Explore sitemap canonical assertion.
+// This exception qualifies ORIGINAL BYTES ONLY after the exact-sitemap
+// uniqueness repair (#7050) and diagnostic strict gate (#7049) are in source;
+// neither the failed full release nor its broken sitemap is certified.
+const KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP = Object.freeze({
+  runId: 43314663760,
+  jobId: 131519408864,
+  failedStep: 'Verify base production surfaces',
+});
+
+// Historical 2026-11-09 run #42640439772 actually published the Worker and
+// passed the deployment, health and BOTH-origin original JS/CSS checks.
+// The two later title checks failed after publication because the initial Bing
+// title budget shortened complete visitor-facing titles. The correction was
+// subsequently merged in PR #6888. This is an EXACT run+job exception to
+// recover that published Worker's asset handoff, never a general exception for
+// failed SEO validation or an unverified deployment.
+const KNOWN_PUBLISHED_BING_TITLE_REGRESSION = {
+  runId: 42640439772,
+  jobId: 129239799336,
+  steps: [
+    'Verify District 6 complete 28-game archive, analysis and attribution on both production origins',
+    'Verify base production surfaces',
+  ],
+};
+
+// Exact Nov 12, 2026 23:50Z live Worker 632decb8-3e25-43dd-a42f-73b236ea6336
+// was published from SHA ab4becf... in deploy run 43331358104.
+// Dual-origin original-byte asset, canonical+direct health, deployment and
+// Worker-version capture passed. Three *later* checks failed on unrelated
+// statewide responsive HTTP, Explore sitemap and CJ tracking contracts.
+// Qualifies its immutable asset handoff only; NEVER calls its site release
+// successful, suppresses future verifiers, or accepts any other failed run.
+// The caller separately checks exact active version/source SHA/all original
+// asset hashes/two origins; the time-bound workflow exception expires at 72h.
+const NOV12_PUBLISHED_WORKER_UNRELATED_LIVE_FAILURES = Object.freeze({
+  runId: 43331358104,
+  jobId: 131576580894,
+  failedSteps: [
+    'Verify ticketing and Christmas pages at mobile and desktop widths',
+    'Verify base production surfaces',
+    'Verify changed CJ account tracking without affiliate clicks',
+  ],
+});
+
+// Nov 13 run #43440830866 published Worker 14cd9057-b9e3-4cf6-b2f8-3e103afe7657
+// at 100% from source SHA f3e92256e6659d25d03ba2b938f99e09b8702805.
+// All five protected deploy/health/dual-origin byte checks passed, including
+// 6,762 original-byte source/hash records for 139 emitted assets. Its single
+// later failure was the independent /events Chrome SSR HTTP 500 (Cloudflare
+// Ray a59e758888c7a2e0-LAX). This exception can ONLY qualify the immutable
+// exact-run asset handoff to seed the next release. It does NOT certify that
+// event page or this failed release, and the next Worker must pass all real
+// page acceptance checks again, independently of this historical failure.
+// The caller enforces the exact currently-active Worker version, source SHA,
+// original asset hashes and BOTH origins, before using any old bytes.
+const NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE = Object.freeze({
+  runId: 43440830866,
+  jobId: 131937683043,
+  failedStep: 'Verify ticketing and Christmas pages at mobile and desktop widths',
+  sourceSha: 'f3e92256e6659d25d03ba2b938f99e09b8702805',
+  workerVersion: '14cd9057-b9e3-4cf6-b2f8-3e103afe7657',
+});
+
+// Nov 13 deploy #43460115327 genuinely published 100%-traffic Worker
+// 6f58c413-3ace-4666-9fd3-dba3afb7d5da from source 3836f5f8...,
+// then proved deployed version, both origins' health, and each original
+// JS/CSS byte on both origins. Only two later, independent page acceptance
+// checks failed: mobile MSR Chrome navigation timed out without receiving
+// the first response, and three Batch018 District 21 profiles lacked
+// their source-checked league overlay. Subsequent code now (a) retries only
+// transient MSR navigation timeouts, preserving all visual/rights assertions,
+// and (b) shows independent District 21 evidence regardless of authored
+// program season/notice overlays. This exception qualifies ONLY the exact
+// published Worker's immutable asset handoff, NOT its failed page checks.
+// The next deploy must rerun and pass every page acceptance test and the
+// separate exact Worker/source SHA/dual-origin original-byte verifier.
+const NOV13_PUBLISHED_WORKER_MSR_DISTRICT21 = Object.freeze({
+  runId: 43460115327,
+  jobId: 132004453072,
+  sourceSha: '3836f5f8d492b970ba6a6e7edb10679309250479',
+  workerVersion: '6f58c413-3ace-4666-9fd3-dba3afb7d5da',
+  failedSteps: [
+    'Verify MSR Houston responsive visitor page and licensed photo',
+    'Verify District 21 hub and eight team scorecards on production',
+  ],
+});
+
+// Nov 13 #43447328975 actually published 100%-traffic Worker
+// 1e9cbeec-7e97-470f-9531-91ce2ab0946b from exact SHA 3cd985...
+// and passed all five critical publish/health/dual-origin old+new asset
+// hash checks. The sole later failure was the independent turkey Chrome
+// test's 25-second /hunting internal request timeout, while its hunting
+// hub browser passed. Do not mark that page/test/release as successful.
+// Eligible only to preserve the exact published ORIGINAL asset bytes once
+// the narrowly bounded timeout retry is present in the next source.
+// Nov 13 publish run #43509240362 attempt 1 shipped the current 100%-traffic
+// Worker 79902b61 and passed deploy, version capture, both public-origin
+// health probes, and complete old/new JS/CSS original-byte validation. Only
+// a later District 16 Chrome navigation reached TimeoutError after 45s.
+// Attempt 2 of the SAME run was correctly rejected as a stale source and must
+// never stand in for the published attempt 1. This exact exception qualifies
+// immutable original asset bytes ONLY once the District 16 verifier has its
+// narrowly bounded transport retry. It does not certify the failed release,
+// nor skip independent next-release browser acceptance.
+const NOV13_PUBLISHED_DISTRICT16_NAV_TIMEOUT = Object.freeze({
+  runId: 43509240362,
+  jobId: 132174849722,
+  sourceSha: '9019a46c4317fbbbd69ceb348fc2f02d2e589498',
+  workerVersion: '79902b61-3641-48db-a400-ddc81e71a162',
+  failedStep: 'Verify District 16 mobile and desktop rendered layout',
+});
+
+const NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT = Object.freeze({
+  runId: 43447328975,
+  jobId: 131960103008,
+  failedStep: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  sourceSha: '3cd9851671f9077f9f57e4bc7d648816826002f2',
+  workerVersion: '1e9cbeec-7e97-470f-9531-91ce2ab0946b',
+});
+
+// Nov 13 published Worker 7d2202c2... from source 4d9b10c7... in
+// workflow #43524206406. The full Worker publish, version capture,
+// canonical/direct health and EVERY emitted/retained JS/CSS dual-origin
+// original-byte check succeeded. Only a separate District 5 production
+// verifier timed out on the direct workers.dev *request* after the canonical
+// origin had already passed all 28 schedule cards and data assertions.
+// It must re-run with a strictly bounded transient transport retry on the
+// next revision. This qualifies its immutably evidenced original asset
+// handoff only, NEVER the failed page acceptance or release status.
+const NOV13_PUBLISHED_DISTRICT5_DIRECT_TIMEOUT = Object.freeze({
+  runId: 43524206406,
+  jobId: 132225789491,
+  failedStep: 'Verify District 5-6A scorecard on direct Worker and canonical domain',
+  sourceSha: '4d9b10c7ada94b9843202d0400d59f8ad7b6eec1',
+  workerVersion: '7d2202c2-619a-458f-be72-ce21eee8c61b',
+});
+
+// Nov 14 run #43608793638 actually shipped the 100%-traffic Worker
+// 695cd863-f891-4b2b-8c60-22f722f7cc0e from SHA 5f80e24f....
+// It passed Worker publish, version capture, direct/canonical health and
+// COMPLETE dual-origin original-byte old/new CSS/JS validation. One later,
+// independent Moody Gardens browser test observed its title changing after
+// hydration. PR #7171 fixes the title/description source mismatch and adds
+// a post-hydration browser assertion. Recover ORIGINAL BYTES ONLY from this
+// EXACT failed run and job after the separately enforced Worker/source/hash
+// and dual-origin safety gate succeeds; never certify the page or release.
+const NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE = Object.freeze({
+  runId: 43608793638,
+  jobId: 132489033467,
+  sourceSha: '5f80e24f9791b86ec8ab87e9f2fb910cca21521f',
+  workerVersion: '695cd863-f891-4b2b-8c60-22f722f7cc0e',
+  failedStep: 'Verify Moody Gardens four-viewport browser authority and layout',
+});
+
+export function qualifyPriorDeployJob(payload) {
+  const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
+  if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
+  const job = jobs[0];
+  if (!['success', 'failure'].includes(job.conclusion)) throw Error('Deploy job has not completed');
+  const steps = Array.isArray(job.steps) ? job.steps : [];
+  for (const name of CRITICAL) {
+    const matched = steps.filter((step) => step.name === name);
+    if (matched.length !== 1 || matched[0].conclusion !== 'success') {
+      throw Error('Required published-Worker safety gate not successful: ' + name);
+    }
+  }
+  const failures = steps.filter((step) => step.conclusion === 'failure').map((step) => step.name);
+  if (job.conclusion === 'success') {
+    if (failures.length) throw Error('Success job reports failed substeps');
+    return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const moody = NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE;
+  if (job.run_id === moody.runId && job.id === moody.jobId &&
+      failures.length === 1 && failures[0] === moody.failedStep) {
+    const route = readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+    const seo = readFileSync('src/lib/seo.ts', 'utf8');
+    const browser = readFileSync('scripts/ci/verify-moody-gardens-responsive-browser.mjs', 'utf8');
+    const guard = readFileSync('scripts/data/validate-destination-data-integrity.mjs', 'utf8');
+    const title = 'Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide';
+    const description = 'Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.';
+    if (!route.includes('"moody-gardens": "'+title+'"') ||
+        !route.includes('"'+description+'"') ||
+        !seo.includes('title: "'+title+'"') ||
+        !seo.includes('description: "'+description+'"') ||
+        !browser.includes('await page.waitForLoadState("load"') ||
+        !browser.includes('assert.equal(facts.metaDescription,') ||
+        !guard.includes('Moody Gardens hydrated destination metadata must exactly match the SSR title and description')) {
+      throw Error('Exact published Moody Worker asset handoff rejected until hydration metadata mismatch is source-repaired and real Chrome verification remains strict');
+    }
+    return {eligible:true,mode:'exact-nov14-moody-posthydration-original-assets-only',
+      exactRun:moody.runId,criticalChecks:CRITICAL.length,permittedFailures:failures,
+      requiredSourceSha:moody.sourceSha,requiredWorkerVersion:moody.workerVersion};
+  }
+  if (job.run_id === moody.runId || job.id === moody.jobId) {
+    throw Error('Moody source-verified published Worker has unexpected failure, job or run evidence: '+failures.join(', '));
+  }
+  const repairedRelease = NOV13_PUBLISHED_WORKER_MSR_DISTRICT21;
+  if (job.run_id === repairedRelease.runId && job.id === repairedRelease.jobId &&
+      failures.length === repairedRelease.failedSteps.length &&
+      repairedRelease.failedSteps.every(name => failures.includes(name))) {
+    // Fail closed unless BOTH independently failing checks are fixed in the
+    // code that will be deployed next. These guards do not waive runtime QA.
+    const mobile = readFileSync('scripts/ci/verify-msr-houston-browser.mjs', 'utf8');
+    const football = readFileSync('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', 'utf8');
+    if (!mobile.includes('for (let attempt = 1; attempt <= 2; attempt++)') ||
+        !mobile.includes("if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error") ||
+        !mobile.includes("assert.equal(response?.status(), 200") ||
+        !mobile.includes("assert.deepEqual(failures, []") ||
+        !football.includes("program?.classification === '6A' && program.district === 21 && hasDistrict21TeamScorecard(schoolName);") ||
+        football.includes("&& !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName)") ||
+        !football.includes('<District21TeamSeason schoolName={schoolName} />')) {
+      throw Error('Exact MSR/District21 failed release is not source-repaired; reject old asset handoff');
+    }
+    return { eligible: true, mode: 'exact-nov13-msr-district21-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: repairedRelease.runId, requiredSourceSha: repairedRelease.sourceSha,
+      requiredWorkerVersion: repairedRelease.workerVersion };
+  }
+  // This exact failed publish is KNOWN to have two independent failed checks.
+  // A forged one-failure transcript would otherwise fall through to the
+  // historical generic MSR-only exception below. Reject it explicitly.
+  if (job.run_id === repairedRelease.runId || job.id === repairedRelease.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 MSR/District21 published Worker: ' + failures.join(', '));
+  }
+  const district5 = NOV13_PUBLISHED_DISTRICT5_DIRECT_TIMEOUT;
+  if (job.run_id === district5.runId && job.id === district5.jobId &&
+      failures.length === 1 && failures[0] === district5.failedStep) {
+    // Do not weaken the 28-card, 16-result, direct/canonical checks.
+    const source = readFileSync('scripts/ci/verify-district-5-production.mjs', 'utf8');
+    // The production verifier originally retried only initial request timeouts.
+    // A newer strict helper also retries aborted response bodies, without retrying
+    // a received HTTP error or omitting a single District 5 content assertion.
+    const originalInlineRetry =
+      source.includes('for (let attempt = 1; attempt <= 2; attempt++)') &&
+      source.includes("if (attempt === 2 || !transient) throw error") &&
+      source.includes("assert.equal(response.status, 200");
+    const helperSource = source.includes("import { fetchLiveDistrict5Html } from './district5-transient-http.mjs';")
+      ? readFileSync('scripts/ci/district5-transient-http.mjs', 'utf8')
+      : '';
+    const strictBodyRetry =
+      source.includes('const html = await fetchLiveDistrict5Html(url, origin);') &&
+      helperSource.includes('const MAX_TRANSIENT_ATTEMPTS = 3;') &&
+      helperSource.includes('attempts >= 1 && attempts <= MAX_TRANSIENT_ATTEMPTS') &&
+      helperSource.includes('if (!isTransientTransportError(error)) throw error;') &&
+      helperSource.includes('assert.equal(response.status, 200') &&
+      helperSource.includes('return await response.text()') &&
+      helperSource.includes('if (attempt === attempts)') &&
+      helperSource.includes('await sleep(750 * attempt)');
+    if (!(originalInlineRetry || strictBodyRetry) ||
+        !source.includes("'https://texasdefined-site.freddy-coppola.workers.dev'") ||
+        !source.includes("'https://texasdefined.com'") ||
+        !source.includes("assert.equal(games.length, 28") ||
+        !source.includes("assert.ok(reportedFinals.length >= 16") ||
+        !source.includes("assert.equal(pending.length + reportedFinals.length, 28") ||
+        !source.includes('await Promise.all(origins.map(check));')) {
+      throw Error('Exact District5 original asset handoff blocked until bounded transport retry preserves both-origin data assertions');
+    }
+    return { eligible: true, mode: 'exact-nov13-district5-transport-original-assets-only',
+      criticalChecks: CRITICAL.length, exactRun: district5.runId,
+      requiredSourceSha: district5.sourceSha,
+      requiredWorkerVersion: district5.workerVersion,
+      permittedFailures: failures };
+  }
+  if (job.run_id === district5.runId || job.id === district5.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 District5: ' + failures.join(', '));
+  }
+  const district16 = NOV13_PUBLISHED_DISTRICT16_NAV_TIMEOUT;
+  if (job.run_id === district16.runId && job.id === district16.jobId &&
+      job.run_attempt === 1 && failures.length === 1 && failures[0] === district16.failedStep) {
+    const browserSource = readFileSync('scripts/ci/verify-district16-responsive-browser.mjs', 'utf8');
+    if (!browserSource.includes("for (let attempt = 1; attempt <= 2; attempt++)") ||
+        !browserSource.includes("if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error") ||
+        !browserSource.includes("assert.equal(response?.status(),200") ||
+        !browserSource.includes("assert.equal(facts.rows,8)") ||
+        !browserSource.includes("assert.equal(facts.finals,4)") ||
+        !browserSource.includes("assert.equal(facts.fixtures,12)") ||
+        !browserSource.includes("assert.deepEqual(errors,[]")) {
+      throw Error('Exact District 16 timeout retry not repaired without weakening full browser assertions');
+    }
+    return {eligible:true,mode:'exact-nov13-district16-transport-original-assets-only',
+      exactRun:district16.runId,criticalChecks:CRITICAL.length,permittedFailures:failures,
+      requiredSourceSha:district16.sourceSha,requiredWorkerVersion:district16.workerVersion};
+  }
+  // Prevent another attempt of this failed run (or a substituted job ID)
+  // from qualifying through the less specific historical visual exception.
+  if (job.run_id === district16.runId || job.id === district16.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 District16: ' + failures.join(', '));
+  }
+  const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
+  if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&
+      failures.length === 1 && failures[0] === turkeyTimeout.failedStep) {
+    const visualVerifier = readFileSync('scripts/ci/verify-turkey-hunting-browser.mjs', 'utf8');
+    if (!visualVerifier.includes('TURKEY_TRANSIENT_LINK_TIMEOUT') ||
+        !visualVerifier.includes('attempt <= 3') ||
+        !visualVerifier.includes('attempt === 3') ||
+        !visualVerifier.includes('assert.ok(verified, "linked TexasDefined route was not verified: " + path)')) {
+      throw Error('Published turkey link timeout cannot qualify until narrow retries preserve strict link assertions');
+    }
+    return { eligible: true, mode: 'exact-nov13-turkey-timeout-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: turkeyTimeout.runId, requiredSourceSha: turkeyTimeout.sourceSha,
+      requiredWorkerVersion: turkeyTimeout.workerVersion };
+  }
+  const exactNov13 = NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE;
+  if (job.run_id === exactNov13.runId && job.id === exactNov13.jobId
+    && failures.length === 1 && failures[0] === exactNov13.failedStep) {
+    return { eligible: true, mode: 'exact-nov13-active-worker-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: exactNov13.runId, requiredSourceSha: exactNov13.sourceSha,
+      requiredWorkerVersion: exactNov13.workerVersion };
+  }
+  const exactNov12 = NOV12_PUBLISHED_WORKER_UNRELATED_LIVE_FAILURES;
+  if (job.run_id === exactNov12.runId && job.id === exactNov12.jobId
+    && failures.length === exactNov12.failedSteps.length
+    && exactNov12.failedSteps.every(name => failures.includes(name))) {
+    return { eligible: true, mode: 'exact-nov12-active-worker-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: exactNov12.runId };
+  }
+  const historical = KNOWN_PUBLISHED_BING_TITLE_REGRESSION;
+  const knownBingTitleFailure =
+    job.run_id === historical.runId &&
+    job.id === historical.jobId &&
+    failures.length === historical.steps.length &&
+    historical.steps.every((name) => failures.includes(name));
+  if (knownBingTitleFailure) {
+    // Only the asset handoff is eligible, not the failed page release. The
+    // caller still must verify the exact active Worker version, source SHA,
+    // every original hash and both public origins before it reuses bytes.
+    return { eligible: true, mode: 'historical-published-title-regression-assets-only', criticalChecks: CRITICAL.length, permittedFailures: failures };
+  }
+  const imageIncident = KNOWN_PUBLISHED_IMAGE_RIGHTS_REGRESSION;
+  if (job.run_id === imageIncident.runId && job.id === imageIncident.jobId
+      && failures.length === 1 && failures[0] === imageIncident.failedStep) {
+    const source = readFileSync('src/routes/article.$slug.tsx', 'utf8');
+    if (!source.includes('Britten(?:%2520|%20| )USA')) {
+      throw Error('The verified image-rights source gate is not repaired');
+    }
+    return { eligible: true, mode: 'exact-image-rights-incident-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: imageIncident.runId };
+  }
+  const sportsIncident = KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION;
+  if (job.run_id === sportsIncident.runId && job.id === sportsIncident.jobId &&
+      failures.length === 1 && failures[0] === sportsIncident.failedStep) {
+    const source = readFileSync('scripts/production/verify-sports-venue-editorial-production.mjs', 'utf8');
+    if (!source.includes("assertIncludes(html, 'The most recently checked individual venue record in this collection was verified'") ||
+        !source.includes("assertIncludes(html, 'karting operation announced a temporary closure'") ||
+        source.includes("assertIncludes(html, 'The latest individual venue source check was'")) {
+      throw Error('Exact motorsports source-review verifier is not repaired without relaxing dated-record and closure checks');
+    }
+    return { eligible: true, mode: 'exact-published-worker-sports-date-assertion-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: sportsIncident.runId };
+  }
+  const sitemapIncident = KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP;
+  if (job.run_id === sitemapIncident.runId &&
+      job.id === sitemapIncident.jobId &&
+      failures.length === 1 && failures[0] === sitemapIncident.failedStep) {
+    const sitemapSource = readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+    const liveVerifier = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
+    if (!sitemapSource.includes('function dedupeUrlEntries(') ||
+        (sitemapSource.match(/const entries = dedupeUrlEntries\(\[/g) ?? []).length !== 2 ||
+        !sitemapSource.includes('await auditedFredericksburgSitemapEntry()') ||
+        !liveVerifier.includes('const expectedMatches = sitemap.split(expected).length - 1;')) {
+      throw Error('Published Fredericksburg sitemap incident needs source-level duplicate fix and strict measured live verifier');
+    }
+    // The separate old-Worker handoff still verifies exact live 100%-traffic
+    // version, source SHA, every original asset SHA and both public origins.
+    return { eligible: true, mode: 'exact-published-worker-fredericksburg-sitemap-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0],
+      exactRun: sitemapIncident.runId };
+  }
+  const fredericksburgIncident = KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT;
+  if (job.run_id === fredericksburgIncident.runId &&
+      job.id === fredericksburgIncident.jobId &&
+      failures.length === 1 && failures[0] === fredericksburgIncident.failedStep) {
+    const source = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
+    if (!source.includes('const MAX_TRANSPORT_ATTEMPTS = 3;') ||
+        !source.includes('attempt === MAX_TRANSPORT_ATTEMPTS')) {
+      throw Error('The exact Fredericksburg transport timeout retry is not repaired');
+    }
+    return { eligible: true, mode: 'exact-published-worker-transport-timeout-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0],
+      exactRun: fredericksburgIncident.runId };
+  }
+  if (failures.length !== 1 || failures[0] !== ALLOWED_POSTDEPLOY_NON_ASSET_FAILURE) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence: ' + failures.join(', '));
+  }
+  // Narrow exception: the exact published Worker passed health and hash checks;
+  // its unrelated responsive screenshot failed after deployment.
+  return { eligible: true, mode: 'postdeploy-visual-check-failed-only', criticalChecks: CRITICAL.length, permittedFailure: failures[0] };
+}
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    const evidence = JSON.parse(readFileSync(0, 'utf8'));
+    console.log(JSON.stringify(qualifyPriorDeployJob(evidence)));
+  } catch (error) {
+    console.error('::warning title=Reject unverified previous deployment::' + String(error?.message || error));
+    process.exitCode = 1;
+  }
+}

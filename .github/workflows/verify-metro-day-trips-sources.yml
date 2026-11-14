@@ -1,0 +1,39 @@
+name: Verify metro day-trip operator sources
+
+on:
+  schedule:
+    - cron: "17 13 * * 1"
+  workflow_dispatch:
+  # Prove the same live read-only source check before source-monitor changes merge.
+  pull_request:
+    paths:
+      - ".github/workflows/verify-metro-day-trips-sources.yml"
+      - "scripts/data/check-metro-day-trips-sources.mjs"
+      - "src/data/metro-day-trip-editorial.ts"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: metro-day-trips-source-health
+  cancel-in-progress: false
+
+jobs:
+  verify-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check official operator destinations and emit dated source report
+        run: node scripts/data/check-metro-day-trips-sources.mjs
+      - name: Upload source-health report even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metro-day-trips-source-health
+          path: reports/metro-day-trips-sources.json
+          if-no-files-found: warn
+          retention-days: 90

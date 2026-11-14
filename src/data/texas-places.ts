@@ -6,17 +6,32 @@ const COUNTY_NAMES = `Anderson|Andrews|Angelina|Aransas|Archer|Armstrong|Atascos
 const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 // Texas county INCITS/FIPS codes are the odd three-digit sequence 001–507
-// in alphabetical county order. The state FIPS prefix is 48, so Anderson is
-// GEOID 48001 and Zavala is GEOID 48507.
-export const TEXAS_COUNTIES: TexasCounty[] = COUNTY_NAMES.map((name, index) => ({
-  code: String(index * 2 + 1).padStart(3, '0'),
+// in the Census Bureau's county-name order. Census FIPS places McCulloch,
+// McLennan and McMullen directly after Lynn, while our human-facing name list
+// uses display alphabetical order after Maverick. Never infer official FIPS
+// identity from the index of a display-sorted array.
+const CENSUS_FIPS_ORDER = COUNTY_NAMES.filter((name) => !['McCulloch', 'McLennan', 'McMullen'].includes(name));
+const afterLynn = CENSUS_FIPS_ORDER.indexOf('Lynn');
+if (afterLynn < 0) throw new Error('Cannot assemble Texas Census county FIPS order');
+CENSUS_FIPS_ORDER.splice(afterLynn + 1, 0, 'McCulloch', 'McLennan', 'McMullen');
+const CENSUS_COUNTY_FIPS_BY_NAME = new Map(
+  CENSUS_FIPS_ORDER.map((name, index) => [name, String(index * 2 + 1).padStart(3, '0')] as const),
+);
+if (CENSUS_COUNTY_FIPS_BY_NAME.size !== 254) throw new Error('Texas Census FIPS order must contain 254 unique counties');
+function fipsCountyCode(name: string): string {
+  const value = CENSUS_COUNTY_FIPS_BY_NAME.get(name);
+  if (!value) throw new Error(`Unmapped Texas Census county identity: ${name}`);
+  return value;
+}
+export const TEXAS_COUNTIES: TexasCounty[] = COUNTY_NAMES.map((name) => ({
+  code: fipsCountyCode(name),
   name: `${name} County`,
   slug: slugify(name),
   officialDirectoryUrl: 'https://www.texas.gov/texas-county-websites.html',
 }));
 
 export const TEXAS_CITIES: TexasCity[] = [
-  ['Abilene','Taylor','West Central'],['Allen','Collin','North Texas'],['Amarillo','Potter','Panhandle'],['Arlington','Tarrant','North Texas'],['Austin','Travis','Central Texas'],['Baytown','Harris','Gulf Coast'],['Beaumont','Jefferson','Southeast Texas'],['Brownsville','Cameron','Rio Grande Valley'],['Bryan','Brazos','Brazos Valley'],['Carrollton','Dallas','North Texas'],['College Station','Brazos','Brazos Valley'],['Conroe','Montgomery','Gulf Coast'],['Corpus Christi','Nueces','Coastal Bend'],['Dallas','Dallas','North Texas'],['Denton','Denton','North Texas'],['Edinburg','Hidalgo','Rio Grande Valley'],['El Paso','El Paso','Far West Texas'],['Fort Worth','Tarrant','North Texas'],['Frisco','Collin','North Texas'],['Galveston','Galveston','Gulf Coast'],['Garland','Dallas','North Texas'],['Georgetown','Williamson','Central Texas'],['Grand Prairie','Dallas','North Texas'],['Harlingen','Cameron','Rio Grande Valley'],['Houston','Harris','Gulf Coast'],['Hurst','Tarrant','North Texas'],['Irving','Dallas','North Texas'],['Katy','Harris','Gulf Coast'],['Killeen','Bell','Central Texas'],['Laredo','Webb','South Texas'],['League City','Galveston','Gulf Coast'],['Lewisville','Denton','North Texas'],['Longview','Gregg','East Texas'],['Lubbock','Lubbock','South Plains'],['McAllen','Hidalgo','Rio Grande Valley'],['McKinney','Collin','North Texas'],['Mesquite','Dallas','North Texas'],['Midland','Midland','Permian Basin'],['Missouri City','Fort Bend','Gulf Coast'],['New Braunfels','Comal','Central Texas'],['Odessa','Ector','Permian Basin'],['Pasadena','Harris','Gulf Coast'],['Pearland','Brazoria','Gulf Coast'],['Plano','Collin','North Texas'],['Port Arthur','Jefferson','Southeast Texas'],['Richardson','Dallas','North Texas'],['Round Rock','Williamson','Central Texas'],['San Angelo','Tom Green','West Central'],['San Antonio','Bexar','South Central'],['San Marcos','Hays','Central Texas'],['Sugar Land','Fort Bend','Gulf Coast'],['Temple','Bell','Central Texas'],['The Woodlands','Montgomery','Gulf Coast'],['Tyler','Smith','East Texas'],['Victoria','Victoria','Coastal Bend'],['Waco','McLennan','Central Texas'],['Wichita Falls','Wichita','North Texas'],
+  ['Abilene','Taylor','West Central'],['Allen','Collin','North Texas'],['Amarillo','Potter','Panhandle'],['Arlington','Tarrant','North Texas'],['Austin','Travis','Central Texas'],['Baytown','Harris','Gulf Coast'],['Beaumont','Jefferson','Southeast Texas'],['Brownsville','Cameron','Rio Grande Valley'],['Bryan','Brazos','Brazos Valley'],['Carrollton','Dallas','North Texas'],['College Station','Brazos','Brazos Valley'],['Conroe','Montgomery','Gulf Coast'],['Corpus Christi','Nueces','Coastal Bend'],['Dallas','Dallas','North Texas'],['Del Rio','Val Verde','Southwest Texas'],['Denton','Denton','North Texas'],['Edinburg','Hidalgo','Rio Grande Valley'],['El Paso','El Paso','Far West Texas'],['Fort Worth','Tarrant','North Texas'],['Frisco','Collin','North Texas'],['Galveston','Galveston','Gulf Coast'],['Garland','Dallas','North Texas'],['Georgetown','Williamson','Central Texas'],['Grand Prairie','Dallas','North Texas'],['Harlingen','Cameron','Rio Grande Valley'],['Houston','Harris','Gulf Coast'],['Hurst','Tarrant','North Texas'],['Irving','Dallas','North Texas'],['Katy','Harris','Gulf Coast'],['Killeen','Bell','Central Texas'],['Laredo','Webb','South Texas'],['League City','Galveston','Gulf Coast'],['Lewisville','Denton','North Texas'],['Longview','Gregg','East Texas'],['Lubbock','Lubbock','South Plains'],['McAllen','Hidalgo','Rio Grande Valley'],['McKinney','Collin','North Texas'],['Mesquite','Dallas','North Texas'],['Midland','Midland','Permian Basin'],['Missouri City','Fort Bend','Gulf Coast'],['New Braunfels','Comal','Central Texas'],['Odessa','Ector','Permian Basin'],['Pasadena','Harris','Gulf Coast'],['Pearland','Brazoria','Gulf Coast'],['Plano','Collin','North Texas'],['Port Arthur','Jefferson','Southeast Texas'],['Richardson','Dallas','North Texas'],['Round Rock','Williamson','Central Texas'],['San Angelo','Tom Green','West Central'],['San Antonio','Bexar','South Central'],['San Marcos','Hays','Central Texas'],['Sugar Land','Fort Bend','Gulf Coast'],['Temple','Bell','Central Texas'],['The Woodlands','Montgomery','Gulf Coast'],['Tyler','Smith','East Texas'],['Victoria','Victoria','Coastal Bend'],['Waco','McLennan','Central Texas'],['Wichita Falls','Wichita','North Texas'],
 ].map(([name, county, region]) => ({ name, county, region, slug: slugify(name) }));
 
 export function findTexasPlaces(query: string) {

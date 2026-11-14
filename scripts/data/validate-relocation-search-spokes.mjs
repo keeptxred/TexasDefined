@@ -16,6 +16,9 @@ const paths = {
   expansionLazy: "src/data/fixtures/lazy-relocation-authority-expansion.ts",
   wave5: "src/data/fixtures/relocation-authority-wave5.ts",
   wave5Lazy: "src/data/fixtures/lazy-relocation-authority-wave5.ts",
+  wave5Media: "src/data/fixtures/relocation-wave5-media.ts",
+  imageRights: "src/data/heritage-photo-license-links.ts",
+  articleRoute: "src/routes/article.$slug.tsx",
   repositories: "src/data/fixtures/repositories.ts",
   checklist: "src/routes/moving-to-texas-checklist.tsx",
 };
@@ -153,6 +156,29 @@ for (const slug of wave5Slugs) {
   requireText(files.wave5Lazy, `slug: "${slug}"`, `relocation authority wave 5 stub missing ${slug}`);
   requireText(files.hub, `/article/${slug}`, `relocation hub missing wave 5 link to ${slug}`);
 }
+// Subject-accurate photos must be unique across the relocation recommendations
+// and must resolve to the same image from lightweight stubs and full articles.
+const relatedHeroRecords = [
+  ["how-to-verify-texas-moving-company", "moverVerificationHero", "Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG"],
+  ["health-insurance-when-moving-to-texas", "healthCoverageHero", "Doctor_consults_with_patient.jpg"],
+  ["military-family-moving-to-texas", "militaryFamilyHero", "BOSP_helps_single-parent_soldiers_manage_Army_and_family_life_120908-A-XZ708-003.jpg"],
+];
+for (const [slug, heroName, filename] of relatedHeroRecords) {
+  for (const [label, recordSource] of [["article", files.wave5], ["stub", files.wave5Lazy]]) {
+    const start = recordSource.indexOf(`slug: "${slug}"`);
+    if (start < 0 || !recordSource.slice(start, start + 1000).includes(`hero: ${heroName},`)) {
+      fail(`${label} ${slug} is missing its distinct ${heroName} photograph`);
+    }
+  }
+  if (!files.wave5Media.includes(`/${filename}?width=1280`)) fail(`missing shared Commons source for ${slug}`);
+  if (!files.imageRights.includes(`"/article/${slug}"`)) fail(`missing on-page Commons source and license links for ${slug}`);
+}
+if (new Set(relatedHeroRecords.map(([, , file]) => file)).size !== 3) fail("recommendation images must be distinct");
+if (files.wave5Media.includes("road-trip.jpg")) fail("generic road-trip hero must not be reused for these three stories");
+for (const token of ["relatedWithDistinctHeroImages", 'item.hero.src.split("?")[0]', "seenSources.has(source)"]) {
+  requireText(files.articleRoute, token, `sitewide related-story image deduplication missing ${token}`);
+}
+
 for (const token of [
   "Texas Attorney General Renter’s Rights",
   "Texas Property Code Chapter 92",

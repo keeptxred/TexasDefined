@@ -27,7 +27,14 @@ export const Route = createFileRoute("/fishing/seasons")({
   }),
   loader: () => getFishingSeasonData(),
   head: ({ loaderData }) => {
-    const lakes = [...new Map((loaderData?.entries ?? []).map((entry) => [entry.lake.id, entry.lake])).values()];
+    // Describe the representative lakes actually rendered on the canonical landing page.
+    // Do not assert all 72 lake profiles are visibly itemized on the root URL.
+    const regionalEntries = [...new Map((loaderData?.entries ?? [])
+      .filter((entry) => Boolean(entry.relation.verifiedAt) && entry.relation.sources.some((source) => source.url.startsWith("https://")))
+      .map((entry) => [entry.lake.id, entry])).values()];
+    const lakes = regionalEntries
+      .filter((entry, index, all) => all.findIndex((candidate) => candidate.lake.region === entry.lake.region) === index)
+      .slice(0, 6).map((entry) => entry.lake);
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [

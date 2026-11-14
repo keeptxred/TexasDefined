@@ -50,7 +50,7 @@ function profile(input: {
     kind,
     eyebrow: `${name} home affordability`,
     title: `${name} home affordability calculator`,
-    seoTitle: `${name} Home Affordability Calculator | Texas Defined`,
+    seoTitle: `${name} Home Affordability Calculator`,
     description: `Estimate a possible ${name} home-price range using household income, monthly debt, down payment, interest rate, and your own local tax and insurance assumptions.`,
     intro: `Use this ${name} calculator to pressure-test a home-price range before you shop. It keeps income, monthly debt, down payment, financing and recurring ownership costs visible instead of treating purchase price as the only affordability question.`,
     housingContext: context,

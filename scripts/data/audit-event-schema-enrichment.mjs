@@ -127,8 +127,20 @@ for (const record of lifecycleRecords) {
   }
 }
 
+// Examine photo-specific evidence instead of licence metadata: the valid name
+// "Creative Commons Attribution 2.0 Generic" must not imply a fallback image.
+// Generic photo descriptions, fallback URLs, and Palo Duro substitutions fail closed.
 const genericFallbackImages = records
-  .filter((record) => /\bimage\s*:\s*\{/.test(record.source) && /palo[-_ ]?duro|generic|fallback/i.test(record.source))
+  .filter((record) => {
+    const match = /\bimage\s*:\s*\{/.exec(record.source);
+    if (!match) return false;
+    const start = record.source.indexOf('{', match.index);
+    const end = matchingObjectEnd(record.source, start);
+    if (end < 0) return true;
+    const imageBody = record.source.slice(start, end);
+    return [...imageBody.matchAll(/\b(url|alt|sourceUrl|rightsNote)\s*:\s*(["'])(.*?)\2/gs)]
+      .some(([, , , value]) => /palo[-_ ]?duro|\bgeneric\b|\bfallback\b/i.test(value));
+  })
   .map((record) => record.slug);
 
 const imageRecords = records.filter((record) => /\bimage\s*:\s*\{/.test(record.source));

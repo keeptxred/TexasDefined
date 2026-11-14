@@ -23,8 +23,11 @@ on:
       - 'src/data/fixtures/repositories.ts'
   workflow_dispatch:
 
+# Reusable local audit declares actions: read. The caller cannot grant fewer
+# rights than its callee, even when the owner-held audit job is skipped.
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: all-254-county-local-${{ github.ref }}

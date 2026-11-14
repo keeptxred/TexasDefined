@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -23,6 +24,9 @@ function primarySitemapCacheRequest(request: Request): Request {
 
 
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
+// Independently source-checked campground operations are page edits, not a
+// blanket restamping of the underlying campground research.
+const CAMPING_GUIDE_LASTMOD = CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt).sort().at(-1) ?? "2026-09-02";
 const AUTHORITY_LASTMOD = "2026-09-01";
 const AUTHORITY_STATIC_PATHS = [
   "/track-texas-drivers-license",
@@ -31,10 +35,13 @@ const AUTHORITY_STATIC_PATHS = [
   "/texas-toll-tags",
   "/start-a-business-in-texas",
   "/everything-bigger-in-texas",
-  "/what-does-chud-mean",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
-  "/best-places-to-go-camping-in-texas": PRIORITY_SEO_LASTMOD,
+  "/texas-jobs-without-four-year-degree": "2026-11-10",
+  "/texas-career-training-options": "2026-11-10",
+  "/texas-government-jobs": "2026-11-10",
+  "/texas-cities-nature-jobs": "2026-11-10",
+  "/best-places-to-go-camping-in-texas": CAMPING_GUIDE_LASTMOD,
   "/texas-state-fair": PRIORITY_SEO_LASTMOD,
   "/texas-two-step": PRIORITY_SEO_LASTMOD,
   "/texas-fishing-license": PRIORITY_SEO_LASTMOD,
@@ -45,6 +52,8 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",
+  "/holiday/magical-winter-lights": "2026-10-21",
+  "/holiday/enchant-christmas-arlington": "2026-10-21",
   "/texas-historic-landmarks": "2026-10-12",
   "/texas-symbols": "2026-08-20",
   "/editorial-policy": "2026-09-01",
@@ -52,7 +61,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/sourcing-methodology": "2026-09-01",
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
-  "texas-high-school-football-playoffs-explained": "2026-10-16",
+  "texas-high-school-football-playoffs-explained": "2026-10-25",
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
   "texas-rivers-explained": "2026-10-18",
@@ -189,7 +198,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const discoveryOnlyLocalArticlePaths = [
           ...articles
             .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
-            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
         ].filter((entry) => !indexableLocalArticlePaths.has(entry.path));
         if (discoveryOnlyLocalArticlePaths.length > 0) {
           console.info(`Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`);
@@ -243,7 +252,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           import("@/data/local-salary-needed"),
         ]);
 
+        const { default: proTeams } = await import("@/data/pro-teams.json");
         const entries: SitemapEntry[] = [
+          ...proTeams.map((team) => ({ path: `/sports/teams/${team.slug}`, lastmod: "2026-10-21" })),
+          { path: "/destination/davis-hill-state-park", lastmod: "2026-10-20" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
@@ -267,13 +279,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,
           ...(indexableRemoteNews.length ? [{ path: "/news" }] : []),
-          ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
-          ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
+          ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.updatedAt ?? article.publishedAt) })),
+          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: countyGrowth.verifiedAt }] : []),
           ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
           ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),

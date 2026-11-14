@@ -1,0 +1,58 @@
+{
+  "alan-henry-reservoir": {
+    "name": "Alan Henry Reservoir",
+    "summary": "TPWD lists mercury-related fish-consumption restrictions for certain catfish, crappie and bass.",
+    "sourceNeedle": "Lake Alan Henry in Garza and Kent counties",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "canyon-lake": {
+    "name": "Canyon Lake",
+    "summary": "TPWD lists mercury-related consumption limits for striped bass and longnose gar.",
+    "sourceNeedle": "Canyon Lake in Comal County",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "caddo-lake": {
+    "name": "Caddo Lake",
+    "summary": "TPWD lists mercury-related consumption limits for largemouth bass and freshwater drum.",
+    "sourceNeedle": "Caddo Lake in Harrison and Marion counties",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "lake-livingston": {
+    "name": "Lake Livingston",
+    "summary": "TPWD lists species-specific consumption restrictions, including a do-not-eat advisory for gar.",
+    "sourceNeedle": "Lake Livingston and Trinity River",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "lake-meredith": {
+    "name": "Lake Meredith",
+    "summary": "TPWD lists mercury-related consumption limits for walleye.",
+    "sourceNeedle": "Lake Meredith in Hutchinson",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "lake-worth": {
+    "name": "Lake Worth",
+    "summary": "TPWD lists restrictions affecting several species because of PCBs and dioxins.",
+    "sourceNeedle": "Lake Worth and Trinity River upstream",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "sam-rayburn-reservoir": {
+    "name": "Sam Rayburn Reservoir",
+    "summary": "TPWD lists consumption restrictions affecting certain fish from Sam Rayburn and contiguous Neches River waters.",
+    "sourceNeedle": "Sam Rayburn reservoirs",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  },
+  "toledo-bend-reservoir": {
+    "name": "Toledo Bend Reservoir",
+    "summary": "TPWD lists mercury-related consumption limits for largemouth bass and freshwater drum.",
+    "sourceNeedle": "Toledo Bend Reservoir in Newton",
+    "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    "reviewedAt": "2026-11-06"
+  }
+}

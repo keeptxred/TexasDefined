@@ -56,16 +56,23 @@ for (const marker of [
   'HUD homebuying guidance',
 ]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
 for (const marker of [
-  'import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg"',
+  'import { salaryAffordabilityHero, homeClosingHero } from "./texas-home-finance-media"',
   'import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg"',
-  'import smallTown from "@/assets/small-town.jpg"',
-  'const closingHero: Article["hero"]',
   'const utilityHero: Article["hero"]',
-  'const salaryHero: Article["hero"]',
-  '"migration-finance-depth-closing", closingHero',
+  '"migration-finance-depth-closing", homeClosingHero',
   '"migration-finance-depth-utilities", utilityHero',
-  '"migration-finance-depth-salary", salaryHero',
+  '"migration-finance-depth-salary", salaryAffordabilityHero',
 ]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen topic-specific hero contract missing: ${marker}`);
+// The card registry must share the same media objects as the full articles.
+for (const marker of [
+  'hero: homeClosingHero',
+  'hero: salaryAffordabilityHero',
+]) if (!lazyMigrated.includes(marker)) errors.push(`Finance catalog hero mismatch: ${marker}`);
+const financePhotoMedia = fs.readFileSync("src/data/fixtures/texas-home-finance-media.ts", "utf8");
+for (const marker of [
+  'export const homeClosingHero: Article["hero"]',
+  'export const salaryAffordabilityHero: Article["hero"]',
+]) if (!financePhotoMedia.includes(marker)) errors.push(`Finance shared hero definition missing: ${marker}`);
 if (financeDepth.includes('import heroHillCountry from "@/assets/hero-hill-country.jpg"')) errors.push('Finance evergreen deep articles must not collapse back onto one generic Hill Country hero.');
 
 const financeDepth2Slugs = ['texas-house-down-payment-guide','should-you-refinance-texas-mortgage','texas-homeowners-insurance-guide'];
@@ -111,8 +118,26 @@ for (const marker of [
 for (const marker of [
   'Treat flooding as more than one map color',
   'Verify CPS Energy and SAWS service instead of assuming it',
-  'Confirm vehicle and emissions requirements before the move',
+  'Vehicle registration, taxes and moving paperwork',
 ]) if (!relocationDepth2.includes(marker)) errors.push(`Second relocation evergreen depth marker missing: ${marker}`);
+for (const marker of [
+  'El Paso at a glance: costs and commuting',
+  'Which part of El Paso should you live in?',
+  'Healthcare and access to services',
+  'Frequently asked questions about moving to El Paso',
+  'https://www.census.gov/quickfacts/fact/table/elpasocitytexas/',
+  'https://www.bls.gov/eag/eag.tx_elpaso_msa.htm',
+  'https://www.yisd.net/',
+  'https://www.sisd.net/',
+  'href: "/county/el-paso"',
+  'href: "/metro-area/el-paso-metro"',
+  'El_Paso_Franklin_Mountains_and_Scenic_Drive_aerial.jpg',
+  'Transmountain_Road_cut.jpg',
+  'Quintin Soloviev',
+  'updatedAt: "2026-10-19"',
+]) if (!relocationDepth2.includes(marker)) errors.push('El Paso guide authority content missing: '+marker);
+if (!lazyMigrated.includes('hero: elPasoMovingHero')) errors.push('El Paso editorial stub must use its licensed city-specific photo.');
+
 
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');

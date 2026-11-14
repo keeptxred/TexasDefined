@@ -16,7 +16,7 @@ function toInsuranceProfile(profile: LocalHomeAffordabilityProfile): LocalHomeIn
     ...profile,
     insurancePath,
     insuranceTitle: `${profile.name} home insurance cost calculator`,
-    insuranceSeoTitle: `${profile.name} Home Insurance Cost Calculator | Texas Defined`,
+    insuranceSeoTitle: `${profile.name} Home Insurance Cost Calculator`,
     insuranceDescription: `Estimate a ${profile.name} homeowners-insurance planning range from replacement cost, rate assumptions, separate wind or flood costs, and deductible credits without entering personal information.`,
     insuranceIntro: `Use this ${profile.name} page to test a homeowners-insurance budget before requesting quotes. The calculator does not assign a city or county average premium: enter your own replacement-cost and coverage assumptions, then replace the result with property-specific insurer pricing before making a decision.`,
     insurancePlanningPoints: [

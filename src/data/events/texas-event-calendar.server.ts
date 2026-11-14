@@ -19,6 +19,18 @@ const categoryLabels: Record<TexasEventRecord["category"], string> = {
   culture: "Arts & Culture",
 };
 
+/** A stored vendor link never overrides authoritative event cancellation. */
+function activeEventTicketCta(event: TexasEventRecord) {
+  return event.status === "scheduled" ? resolveEventTicketCta(event.ticketing) : null;
+}
+
+function eventStatusLabel(event: TexasEventRecord) {
+  if (event.status === "scheduled") return "";
+  if (event.status === "cancelled") return "Cancelled";
+  if (event.status === "postponed") return "Postponed — new date not confirmed";
+  return "Rescheduled — confirm new date with organizer";
+}
+
 function matchesLocation(event: TexasEventRecord, value: string) {
   if (!value) return true;
   const divider = value.indexOf(":");
@@ -143,10 +155,10 @@ export function buildTexasEventCarouselItemsServer(records: readonly TexasEventR
     categoryLabel: categoryLabels[event.category],
     dateLabel: formatCarouselRange(event),
     locationLabel: `${event.city}${event.venueName ? ` · ${event.venueName}` : ""}`,
-    guideLabel: event.guidePath.startsWith("/events?") ? "View in calendar" : "Event guide",
-    statusLabel: event.status === "scheduled" ? "" : event.status,
+    guideLabel: event.guidePath?.startsWith("/events?") ? "View in calendar" : "Event guide",
+    statusLabel: eventStatusLabel(event),
     lastVerifiedLabel: formatShortDay(event.lastVerifiedAt.slice(0, 10)),
-    ticketCta: resolveEventTicketCta(event.ticketing),
+    ticketCta: activeEventTicketCta(event),
   }));
 }
 
@@ -156,14 +168,19 @@ export function buildGlobalEventCalendarServer(
 ) {
   const today = texasTodayIso();
   const contextMatches = records.filter((event) =>
-    (!search.category || event.category === search.category)
+    (!search.category || (search.category === "tpwd" ? event.sourceName === "Texas Parks and Wildlife Department" : search.category === "guides" ? Boolean(event.guidePath && !event.guidePath.startsWith("/events")) : event.category === search.category))
     && matchesLocation(event, search.location)
     && (!search.venue || event.venueId === search.venue));
   const filtered = contextMatches.filter((event) => overlapsRange(event, search.start, search.end));
-  const displayed = filtered.slice(0, 48);
+  const exactDay = search.start && search.start === search.end ? search.start : "";
+  // On a selected day, newly starting performances must not be buried behind
+  // 48 continuous-season attractions that opened earlier. Stable sort keeps
+  // the existing order within each group and preserves all calendar counts.
+  const displayed = (exactDay
+    ? [...filtered].sort((left, right) => Number(right.startDate === exactDay) - Number(left.startDate === exactDay))
+    : filtered).slice(0, 48);
   const monthKey = validDate(search.start) ? search.start.slice(0, 7) : today.slice(0, 7);
   const { start: monthStart, end: monthEnd } = monthBounds(monthKey);
-  const exactDay = search.start && search.start === search.end ? search.start : "";
   const nextEvent = contextMatches.find((event) => (event.endDate ?? event.startDate) >= today);
   const categories = [...new Set(records.map((event) => event.category))].sort();
   const cityOptions = [...new Set(records.map((event) => event.city).filter(Boolean))].sort();
@@ -189,6 +206,7 @@ export function buildGlobalEventCalendarServer(
     showClearDates: Boolean(search.start || search.end),
     previousHref: calendarHref(search, monthBounds(shiftMonth(monthKey, -1))),
     todayHref: calendarHref(search, { start: today, end: today }),
+    nextWeekHref: calendarHref(search, { start: today, end: new Date(Date.parse(`${today}T12:00:00Z`) + 6 * 86400000).toISOString().slice(0, 10) }),
     nextHref: calendarHref(search, monthBounds(shiftMonth(monthKey, 1))),
     clearDatesHref: calendarHref(search, { start: "", end: "" }),
     nextEventHref: nextEvent ? calendarHref(search, { start: nextEvent.startDate, end: nextEvent.startDate }) : "",
@@ -210,9 +228,12 @@ export function buildGlobalEventCalendarServer(
     }),
     results: displayed.map((event) => ({
       ...event,
+      // When upstream records have no editorial guide, link to the dated calendar instead.
+      guidePath: event.guidePath || calendarHref(search, { start: event.startDate, end: event.startDate }),
       dateLabel: formatRange(event),
       lastVerifiedLabel: formatDay(event.lastVerifiedAt.slice(0, 10)),
-      ticketCta: resolveEventTicketCta(event.ticketing),
+      statusLabel: eventStatusLabel(event),
+      ticketCta: activeEventTicketCta(event),
     })),
   };
 }

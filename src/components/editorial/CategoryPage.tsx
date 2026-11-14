@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
+import type { ReactNode } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
-import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -50,13 +50,17 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml, showDestinations = true, beforeStories, featuredTitle = "This month’s selection", maxFeaturedAgeDays }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
   intro: string;
   image?: ImageRef | undefined;
   authorityHtml?: string | null;
+  showDestinations?: boolean;
+  beforeStories?: ReactNode;
+  featuredTitle?: string;
+  maxFeaturedAgeDays?: number;
 }) {
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
@@ -64,8 +68,16 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   const { data: categories } = useSuspenseQuery(categoriesQuery());
 
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
-  const lead = articles[0];
-  const others = lead ? articles.slice(1) : articles;
+  // A dated story is not a current sports update merely because it remains featured
+  // in an archival collection. Other categories keep their existing editorial feed.
+  const cutoff = maxFeaturedAgeDays === undefined ? null : Date.now() - maxFeaturedAgeDays * 86_400_000;
+  const currentArticles = cutoff === null ? articles : articles.filter((article) => {
+    const published = Date.parse(article.publishedAt);
+    return Number.isFinite(published) && published >= cutoff && published <= Date.now();
+  });
+  const archivedArticles = cutoff === null ? [] : articles.filter((article) => !currentArticles.includes(article));
+  const lead = currentArticles[0];
+  const others = lead ? currentArticles.slice(1) : currentArticles;
   const belongsToTexasLife = TEXAS_LIFE_DEPARTMENTS.has(category);
   const belongsToExplore = !belongsToTexasLife;
   // The official 18-unit directory must always exist as SSR-rendered React
@@ -74,27 +86,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   const authorityHtml = category === "national-parks" && originalAuthorityHtml
     ? originalAuthorityHtml.replace(/<section\b[^>]*\bid="complete-texas-nps-inventory"[^>]*>[\s\S]*?<\/section>/, "")
     : originalAuthorityHtml;
-  const answerItems = [
-    {
-      question: `What is this ${belongsToExplore ? "Texas guide" : "section"} about?`,
-      answer: intro,
-    },
-    ...(destinations.length > 0 ? [{
-      question: "What can I explore here?",
-      answer: `${destinations.length.toLocaleString("en-US")} places are currently mapped in this section of the Texas Defined guide.`,
-    }] : []),
-    ...(articles.length > 0 ? [{
-      question: "What can I read here?",
-      answer: `${articles.length.toLocaleString("en-US")} editorial ${articles.length === 1 ? "story is" : "stories are"} currently available, including practical guides and deeper features.`,
-    }] : []),
-    ...(belongsToExplore ? [{
-      question: "How should I use this page?",
-      answer: "Start with the mapped places, then use the related stories and regional links to narrow down where to go and what to know before the trip.",
-    }] : [{
-      question: "How should I use this page?",
-      answer: "Use the featured stories and practical links as a starting point, then move into the related Texas Life guides for more specific planning.",
-    }]),
-  ];
+
 
   return (
     <>
@@ -125,12 +117,6 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         </section>
       )}
 
-      <AnswerSummary
-        eyebrow="At a glance"
-        title={`What to know about ${eyebrow}`}
-        items={answerItems}
-      />
-
       {category === "national-parks" ? <TexasNpsInventory /> : null}
 
       {belongsToExplore && authorityHtml ? (
@@ -141,16 +127,18 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         <LivingAuthorityPaths currentCategory={category} />
       </Suspense>
 
+      {beforeStories}
+
       {lead && (
         <Section>
           <Container>
-            <SectionHeader eyebrow="Featured story" title="This month’s selection" description="A closer look at one story from this section, selected by Texas Defined." />
+            <SectionHeader eyebrow="Featured story" title={featuredTitle} description="A closer look at one story from this section, selected by Texas Defined." />
             <div className="mt-10 max-w-5xl"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
       )}
 
-      {destinations.length > 0 && (
+      {showDestinations && destinations.length > 0 && (
         <Section tone="surface">
           <Container>
             <SectionHeader eyebrow="The field guide" title={`${eyebrow}, mapped`} description={`${destinations.length.toLocaleString("en-US")} places in the Texas Defined guide, with the details you need to choose where to go next.`} />
@@ -165,6 +153,17 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
             <SectionHeader eyebrow="More from this section" title="Stories, notes and dispatches" />
             <ul className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
               {others.map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {archivedArticles.length > 0 && (
+        <Section>
+          <Container>
+            <SectionHeader eyebrow="Archive, not current results" title="Earlier reporting and explainers" description="Original publication dates are retained. These stories are historical background, not a live sports scoreboard or current event feed. For today's results and official schedules use the governing organizations linked above." />
+            <ul className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+              {archivedArticles.slice(0, 12).map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}
             </ul>
           </Container>
         </Section>

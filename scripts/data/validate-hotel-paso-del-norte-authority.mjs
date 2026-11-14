@@ -54,7 +54,13 @@ contains(route, '"hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History 
 contains(route, 'isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"]', "Hotel schema typing");
 contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical address");
 contains(route, 'postalCode: "79901"', "schema postal code");
-contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
+contains(route, "Historical photographs of", "preserve generic place-specific gallery heading");
+contains(route, "Hotel Paso del Norte: historic exterior and postcard", "hotel archive heading identifies its remaining exterior photos");
+contains(route, 'id="hotel-paso-dome-photos"', "prominent Hotel Paso dome section near article top");
+contains(route, 'destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0)', "one dome photo feature with no duplicate image in lower gallery");
+contains(route, 'Library of Congress original, photographer credit and reuse information', "photographer and reproduction rights next to featured image");
+contains(route, 'https://texashistory.unt.edu/ark:/67531/metapth613579/', "linked-only Ponsford/Trost archive reference");
+contains(route, 'Both predate the hotel\'s 2020 restoration', "historical date caveat visible next to dome photography");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
 contains(html, "hotelPasoStay", "Hotel Paso route scoped CJ placement");
 contains(html, "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/", "source-verified exact hotel booking destination");
@@ -65,6 +71,11 @@ contains(guide, "TexasDefined has not established paid-referral or affiliate rel
 contains(guide, "check latest route brochure", "free downtown walking tour current-route caveat");
 contains(guide, "https://thc.texas.gov/historic-sites/magoffin-home", "Magoffin authoritative closure source");
 contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Magoffin photograph");
+const magoffinVerified = nearbyHistoricSites.match(/const magoffinHomeVerifiedBody = \[([\s\S]*?)\n\];/)?.[1] ?? "";
+assert.ok(magoffinVerified.split("\n").filter((line) => line.trimStart().startsWith('"')).length >= 4, "Magoffin needs at least four original history and visitor-access paragraphs in direct lookup fallback");
+assert.ok(magoffinVerified.length >= 1200, "Magoffin direct lookup body must be substantive, not a two-paragraph seed");
+for (const fact of ["1971", "2007", "closed for restoration through 2027", "visitor center is open", "virtual tour"]) contains(magoffinVerified, fact, "verified Magoffin source and access");
+contains(nearbyHistoricSites, 'body: site.slug === "magoffin-home" ? magoffinHomeVerifiedBody', "standalone Magoffin records must use the verified body before readiness check");
 contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
 contains(nearbyHistoricSites, "CC BY 4.0", "image attribution");
 contains(nearbyHistoricSites, "historic home is closed through 2027", "Magoffin destination visitor alert");

@@ -2,7 +2,7 @@ import { useLocation } from '@tanstack/react-router';
 
 import { CitationTrustPanel, type CitationSource } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
-import { paintedChurchAuthorityExpansionDateLabel } from '@/data/painted-church-authority-sources';
+import { paintedChurchAuthorityExpansionDateLabel } from '@/data/painted-church-authority-catalog';
 
 type TrustConfig = {
   title: string;
@@ -24,11 +24,16 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
   '/texas-data': {
     title: 'Texas data catalog sources',
     sources: [
-      { name: 'U.S. Census Bureau', url: 'https://www.census.gov/' },
-      { name: 'Texas State Library and Archives Commission', url: 'https://www.tsl.texas.gov/ref/abouttx/' },
+      { name: 'U.S. Census Bureau — population estimates', url: 'https://www.census.gov/data/datasets/time-series/demo/popest/2020s-state-total.html' },
+      { name: 'U.S. Census Bureau — American Community Survey', url: 'https://www.census.gov/programs-surveys/acs' },
+      { name: 'U.S. Bureau of Labor Statistics — metropolitan employment', url: 'https://www.bls.gov/news.release/archives/metro_09302026.htm' },
+      { name: 'Texas Department of Insurance — homeowners insurance market', url: 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html' },
+      { name: 'Texas Comptroller — property-tax rates and levies', url: 'https://comptroller.texas.gov/taxes/property-tax/rates/' },
+      { name: 'Texas Department of Transportation — traffic count maps', url: 'https://www.txdot.gov/data-maps/traffic-count-maps.html' },
+      { name: 'Texas State Library and Archives Commission — Texas facts', url: 'https://www.tsl.texas.gov/ref/abouttx/' },
     ],
-    methodology: 'The Texas Data hub is a catalog across multiple public datasets. Each dataset page controls its own source list, year, methodology and freshness; the hub does not create a synthetic catalog-wide verification date.',
-    lastVerified: 'Catalog source hierarchy reviewed August 11, 2026. Dataset-specific source and modification dates control individual figures.',
+    methodology: 'The Texas Data hub aggregates independently dated public datasets and Texas Defined-maintained geography and venue directories. Individual briefs identify their responsible source, year, methodology and last verification. Employment data is not seasonally adjusted; 2025 homeowners premiums are preliminary. Historical releases remain accessible for comparison, not as current data.',
+    lastVerified: 'Catalog source coverage reconciled October 20, 2026. Dataset-specific source dates and modification dates control individual figures.',
   },
   '/things-unique-to-texas': {
     title: 'Things That Define Texas sources',
@@ -37,18 +42,18 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
-    methodology: 'The 250-entry collection is an editorial map of Texas identity. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic deeper-guide links are limited to exact, well-supported matches.',
-    lastVerified: 'Collection structure, methodology and deeper-link policy reviewed August 19, 2026.',
+    methodology: 'The curated collection is an editorial map of Texas identity, not a fixed-length list. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic deeper-guide links are limited to exact, well-supported matches.',
+    lastVerified: 'Editorial selection, methodology and deeper-link policy reviewed November 13, 2026.',
   },
   '/things-unique-to-texas/methodology': {
     title: 'Things That Define Texas methodology sources',
     sources: [
-      { name: 'Main 250-item collection', url: 'https://texasdefined.com/things-unique-to-texas' },
+      { name: 'Main Texas culture guide', url: 'https://texasdefined.com/things-unique-to-texas' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
-    methodology: 'This page controls the inclusion standard, official-fact-versus-folklore distinction, internal cross-link rules, handling of changing information and correction policy for the 250-item collection.',
-    lastVerified: 'Collection methodology documented and reviewed August 19, 2026.',
+    methodology: 'This page controls the inclusion standard, official-fact-versus-folklore distinction, internal cross-link rules, handling of changing information and correction policy for the evolving Texas culture guide.',
+    lastVerified: 'Collection methodology and flexible research scope reviewed November 13, 2026.',
   },
   '/explore/top-attractions': {
     title: 'Top 25 attraction research and verification',

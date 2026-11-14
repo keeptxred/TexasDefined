@@ -5,7 +5,7 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
     eyebrow: "Texas driving",
     title: "How to Track Your Texas Driver License or ID Card",
     intro: "Use the official Texas DPS mailing-status system to check whether a newly issued, renewed or replaced driver license or identification card is still being processed or has been mailed.",
-    updated: "September 1, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "Texas DPS says a driver license or ID card usually takes two to three weeks from the transaction date to be mailed. Use the official DPS 'Where's my Driver License or ID card?' status tool to check your card rather than a third-party tracker.",
     sections: [
       {
@@ -23,6 +23,44 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
         paragraphs: ["Check the official status first. If the automated system does not resolve the problem, follow the DPS customer-service instructions shown on the status page. Do not enter driver-license numbers, dates of birth or other identity information into an unofficial tracking website."],
         links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }],
       },
+      {
+        "heading": "What you need for the DPS lookup",
+        "paragraphs": [
+          "Open DPS's official card-status page, which leads to a government lookup. The lookup asks for details matching your existing driver license or identification record. Have the card number and date of birth ready if you already have them. Do not submit that information to TexasDefined or a search-engine advertisement pretending to be the DPS portal.",
+          "The status lookup concerns production and delivery of a card after an accepted transaction. It cannot answer whether your driving privilege is valid or substitute for a separate eligibility, suspension or renewal inquiry."
+        ],
+        "links": [
+          {
+            "label": "Official DPS card-status page",
+            "href": "https://www.dps.texas.gov/section/driver-license/wheres-my-driver-license-or-id-card",
+            "external": true
+          },
+          {
+            "label": "DPS driver license services",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "What to do when the system shows no result or the card is overdue",
+        "paragraphs": [
+          "First check that the name, date of birth and identifying details match the DPS record. If you renewed recently, keep the transaction confirmation and any temporary card available while processing continues. Do not submit a second paid renewal just because the card has not arrived.",
+          "DPS says mailing ordinarily takes two to three weeks. When the lookup cannot resolve the issue, use the customer-service contact offered on the DPS page. Have your transaction date and reference documents ready, but share sensitive identification only through the official secure government channel. If you have moved since the transaction, ask DPS how to correct the address rather than assuming the postal service will forward the card."
+        ],
+        "links": [
+          {
+            "label": "DPS official license status and customer service",
+            "href": "https://www.dps.texas.gov/section/driver-license/wheres-my-driver-license-or-id-card",
+            "external": true
+          },
+          {
+            "label": "Texas driver license transactions",
+            "href": "/texas-drivers-license",
+            "external": false
+          }
+        ]
+      },
     ],
     related: [{ label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas by Texas (TxT)", href: "/texas-by-texas-txt" }, { label: "Texas DMV", href: "/texas-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
     faq: [
@@ -36,7 +74,7 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
     eyebrow: "Texas services",
     title: "What Is Texas by Texas (TxT)?",
     intro: "Texas by Texas, usually called TxT, is the State of Texas account for completing supported government transactions, managing linked services and receiving reminders from one dashboard.",
-    updated: "September 1, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "TxT is the State of Texas government's official digital assistant and account system. Texas.gov currently lists services including eligible driver license and ID transactions, vehicle-registration renewal, boat-registration services and additional participating-agency transactions.",
     sections: [
       {
@@ -54,6 +92,93 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
         paragraphs: ["Texas.gov currently says account creation requires a personal email address, mobile phone number, a current Texas driver license or ID and a Social Security number for identity verification. Confirm current requirements with Texas.gov before starting."],
         links: [{ label: "Create or learn about a TxT account", href: "https://www.texas.gov/texas-by-texas/", external: true }],
       },
+      {
+        "heading": "Which transactions belong in TxT?",
+        "paragraphs": [
+          "Texas.gov lists driver license and ID renewal, replacement and address updates, certain learner-to-provisional upgrades, personal vehicle registration renewal, and supported boat-registration or decal transactions. Additional participating agencies may appear in the dashboard. A listed service is not a promise that your individual record is eligible to finish online.",
+          "TxT is most useful for households that manage more than one eligible state transaction and want reminders. It does not replace every agency office or resolve all documentation issues. For a first driver license, title dispute, complex vehicle ownership change or other transaction missing from the menu, use the responsible agency's instructions."
+        ],
+        "table": {
+          "caption": "TxT task routing — state service coverage verified on Texas.gov",
+          "columns": [
+            "Service",
+            "Typical online path",
+            "When to use a separate guide"
+          ],
+          "rows": [
+            [
+              "Renew eligible driver license or ID",
+              "TxT / DPS",
+              "First-time applicants and in-person document checks"
+            ],
+            [
+              "Replace eligible DL/ID; update address",
+              "TxT / DPS",
+              "Track a card already mailed on the DPS status site"
+            ],
+            [
+              "Renew personal vehicle registration",
+              "TxT / TxDMV",
+              "Title transfers and inspection-record problems"
+            ],
+            [
+              "Boat renewal or replacement decals",
+              "TxT supported boating services",
+              "Nonstandard ownership or documentation issues"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "Texas.gov TxT service list",
+            "href": "https://www.texas.gov/texas-by-texas/",
+            "external": true
+          },
+          {
+            "label": "Texas vehicle registration renewal",
+            "href": "/texas-vehicle-registration-renewal",
+            "external": false
+          }
+        ]
+      },
+      {
+        "heading": "Set up an account without confusing TxT with a private service",
+        "paragraphs": [
+          "Use txt.texas.gov or the official Texas.gov link. Texas.gov says you need a personal email address, mobile number, current Texas driver license or state ID and Social Security number for identity verification. Set up sign-in and notification preferences in the state system, not in a TexasDefined form.",
+          "If identity verification fails, follow the account help in the official portal. TexasDefined does not create TxT accounts, handle state payments or collect your license number. Do not provide identity documents to a third-party guide, pop-up advertisement or unsolicited message."
+        ],
+        "links": [
+          {
+            "label": "Official TxT account portal",
+            "href": "https://txt.texas.gov/",
+            "external": true
+          },
+          {
+            "label": "Texas.gov TxT help",
+            "href": "https://www.texas.gov/texas-by-texas/",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "A practical example: license renewal and vehicle registration",
+        "paragraphs": [
+          "A driver whose current card is eligible for online renewal can check the license task in TxT and pay through the government service. If the same household also needs to renew a passenger-vehicle registration, the registration task can be linked separately. The card is issued by DPS; the registration is a TxDMV and county-office service even though both can appear on the dashboard.",
+          "The deadlines are not interchangeable. A mailed driver license can take weeks to arrive; registration renewal has its own inspection and eligibility conditions. Keep each confirmation and follow the appropriate agency's tracking instructions."
+        ],
+        "links": [
+          {
+            "label": "Track a DPS driver license",
+            "href": "/track-texas-drivers-license",
+            "external": false
+          },
+          {
+            "label": "Texas registration renewal rules",
+            "href": "/texas-vehicle-registration-renewal",
+            "external": false
+          }
+        ]
+      },
     ],
     related: [{ label: "Track a Texas driver license", href: "/track-texas-drivers-license" }, { label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Texas resources", href: "/texas-resources" }],
     faq: [
@@ -67,7 +192,7 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
     eyebrow: "Texas driving",
     title: "How to Replace a Lost Texas Vehicle Registration Receipt",
     intro: "Lost the receipt that proves your Texas vehicle registration? TxDMV provides a duplicate-receipt process using Form VTR-275, identification and the current duplicate-receipt fee.",
-    updated: "September 1, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "TxDMV says a duplicate receipt for the current registration period can be requested with Form VTR-275, a copy of current government-issued photo identification and a $2 fee. Requests may be made through TxDMV or a county tax office using the methods the agency allows.",
     sections: [
       {
@@ -84,6 +209,44 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
         heading: "Receipt versus registration sticker",
         paragraphs: ["A duplicate registration receipt is not the same transaction as replacing a lost registration sticker. TxDMV publishes a separate replacement-sticker process and fee, so use the form that matches what is actually missing."],
         links: [{ label: "TxDMV vehicle-registration information", href: "https://www.txdmv.gov/motorists/register-your-vehicle", external: true }, { label: "Texas vehicle-registration guide", href: "/texas-vehicle-registration" }],
+      },
+      {
+        "heading": "The four-step duplicate-receipt checklist",
+        "paragraphs": [
+          "1. Confirm you need proof of the current registration period, not a replacement windshield sticker or an entirely new registration. 2. Download and complete TxDMV Form VTR-275, selecting the duplicate registration receipt request. 3. Sign it, attach a copy of current government-issued photo ID and include the $2 fee. 4. Submit the packet in person at a county tax office or TxDMV Regional Service Center, or mail it to the address specified on the official form.",
+          "For a mailed request, follow the form's current instructions and never mail cash. If submitting to a county office, contact the county for accepted payment methods. TxDMV notes that the mailing address printed on the form is valid even when it has no street name."
+        ],
+        "links": [
+          {
+            "label": "Official VTR-275 application",
+            "href": "https://www.txdmv.gov/sites/default/files/form_files/VTR-275.pdf",
+            "external": true
+          },
+          {
+            "label": "TxDMV duplicate receipt FAQ",
+            "href": "https://www.txdmv.gov/faqs?field_faq_category_target_id=All&find=Registration+duplicate+",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "What a duplicate receipt does not fix",
+        "paragraphs": [
+          "A duplicate receipt documents an existing current registration; it does not renew an expired registration, replace a windshield sticker or transfer ownership of the vehicle. The TxDMV registration manual limits duplicate receipts to currently registered vehicles.",
+          "TxDMV says commercial vehicles must carry the receipt, while it recommends keeping the receipt in noncommercial vehicles as proof of registration. If you are missing both the registration proof and sticker, ask your county office which separate requests and fees apply before mailing the wrong form."
+        ],
+        "links": [
+          {
+            "label": "Official registration and renewal instructions",
+            "href": "https://www.txdmv.gov/motorists/register-your-vehicle",
+            "external": true
+          },
+          {
+            "label": "Texas vehicle registration guide",
+            "href": "/texas-vehicle-registration",
+            "external": false
+          }
+        ]
       },
     ],
     related: [{ label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Texas DMV", href: "/texas-dmv" }, { label: "Find my DMV or county office", href: "/find-my-dmv" }, { label: "Texas by Texas (TxT)", href: "/texas-by-texas-txt" }],
@@ -176,39 +339,110 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
   },
 
   "everything-bigger-in-texas": {
-    eyebrow: "Texas facts",
+    eyebrow: "Texas claims, checked",
     title: "Is Everything Really Bigger in Texas? Famous Texas Size Claims Fact-Checked",
-    intro: "The slogan is a joke, but some of Texas's best-known size claims are real. Here are a few Texas-scale facts that hold up when checked against authoritative sources—and a reminder not to turn a slogan into a statistic.",
-    updated: "September 1, 2026",
-    quickAnswer: "No, not literally everything is bigger in Texas. But several famous examples are genuinely enormous: the Texas State Historical Association describes King Ranch at about 825,000 acres, larger than Rhode Island, while Texas Parks and Wildlife identifies Bracken Cave near San Antonio as home to the world's largest known bat colony.",
+    intro: "King Ranch, bat colonies, the Texas Capitol and the state's vast territory produce some genuine records. This fact-check separates measurable comparisons from claims that change depending on what is being counted.",
+    updated: "November 13, 2026",
+    quickAnswer: "Not everything is bigger in Texas. The Texas Capitol is 14.64 feet taller than the U.S. Capitol under the State Preservation Board's measuring method, and King Ranch covers more land than Rhode Island does. But Alaska has far more land than Texas, and a ranch is not the same thing as a state with coastal waters.",
     sections: [
       {
-        heading: "King Ranch really is larger than Rhode Island",
-        paragraphs: ["The Texas State Historical Association describes King Ranch as roughly 825,000 acres, or nearly 1,300 square miles, spread across four divisions in South Texas. TSHA states that its area is larger than the state of Rhode Island."],
-        links: [{ label: "Texas State Historical Association: King Ranch", href: "https://www.tshaonline.org/handbook/entries/king-ranch", external: true }, { label: "King Ranch official maps", href: "https://king-ranch.com/about-us/maps/", external: true }],
+        heading: "Six Texas superlatives at a glance",
+        paragraphs: [
+          "Size claims become useful only after the comparison has a unit and a definition. The table pairs each familiar claim with its measurable version, a verdict and the main source. All acre-to-square-mile conversions use 640 acres per square mile; approximate figures remain approximate.",
+          "A claim may be true under one definition and false under another. The important distinction for King Ranch is between Rhode Island's land area and Rhode Island's combined land-and-water area, not a semantic technicality."
+        ],
+        table: {
+          caption: "Texas superlatives, definitions and sourced verdicts — reviewed November 13, 2026",
+          columns: ["Claim", "Measured comparison", "Verdict / qualifier"],
+          rows: [
+            ["King Ranch is bigger than Rhode Island", "About 825,000 acres = 1,289 sq mi; Rhode Island land: 1,033.89 sq mi (2020 Census).", "True when comparing land areas; do not equate this with Rhode Island's total area including water."],
+            ["Texas is the biggest U.S. state", "Texas land: 261,267.85 sq mi; Alaska land: 571,022.38 sq mi (2020 Census).", "False nationwide; Texas is the largest among the contiguous 48 states."],
+            ["Texas Capitol is taller than the U.S. Capitol", "302.64 ft versus 288 ft, measured from specified ground-level points to the statues.", "True by 14.64 ft under the Texas State Preservation Board's definition."],
+            ["Bracken Cave has the largest known bat colony", "Texas Parks and Wildlife describes more than 15 million Mexican free-tailed bats.", "Agency-supported, seasonal estimate; not a fixed census or an unrestricted public attraction."],
+            ["Big Bend National Park is bigger than Rhode Island", "NPS: 801,163 acres = about 1,252 sq mi; Rhode Island land: 1,033.89 sq mi.", "Larger than Rhode Island's land area, smaller than the state's full land-and-water area."],
+            ["Every Texas thing is the largest", "No common unit; broad slogan spans food, geography, history and marketing.", "Not a testable blanket fact. Check individual claims instead."]
+          ]
+        },
+        links: [
+          { label: "U.S. Census: Texas land area", href: "https://www.census.gov/quickfacts/fact/table/TX/LND110210", external: true },
+          { label: "U.S. Census: Rhode Island land area", href: "https://www.census.gov/quickfacts/fact/table/RI/POP060210", external: true },
+          { label: "Census state land-area comparison", href: "https://www2.census.gov/programs-surveys/sis/activities/math/mm-10_student.pdf", external: true }
+        ]
       },
       {
-        heading: "Bracken Cave is a world-scale bat colony",
-        paragraphs: ["Texas Parks and Wildlife identifies Bracken Cave Preserve near San Antonio as the world's largest known bat colony and says it is home to more than 15 million Mexican free-tailed bats. Colony estimates vary over time, so the current agency figure is more useful than repeating a fixed viral number."],
-        links: [{ label: "TPWD: Bracken Cave Preserve", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/bracken-cave-preserve.phtml", external: true }],
+        heading: "King Ranch: a striking comparison with a hidden definition",
+        paragraphs: [
+          "The Handbook of Texas puts King Ranch at approximately 825,000 acres on four separate South Texas divisions. Dividing by 640 gives roughly 1,289 square miles. The 2020 U.S. Census records Rhode Island at about 1,034 square miles of land; on that basis King Ranch's acreage exceeds Rhode Island's land area by approximately 255 square miles, or about 25%. The calculation compares the ranch's reported acreage to a government's measured land area, not two identical survey methods.",
+          "The familiar claim is often shortened to 'bigger than the entire state of Rhode Island.' That can mislead: Rhode Island includes bays and other water area in total-area figures. The careful version is that King Ranch has greater reported acreage than Rhode Island's land area. The ranch's four divisions are not one unbroken giant square."
+        ],
+        links: [
+          { label: "Handbook of Texas: King Ranch and its four divisions", href: "https://www.tshaonline.org/handbook/entries/king-ranch", external: true },
+          { label: "U.S. Census: Rhode Island area", href: "https://www.census.gov/quickfacts/fact/table/RI/POP060210", external: true },
+          { label: "King Ranch official maps", href: "https://king-ranch.com/about-us/maps/", external: true }
+        ]
       },
       {
-        heading: "Texas itself is huge—but second in U.S. land area",
-        paragraphs: ["Texas is the largest state in the contiguous United States by area, but Alaska is larger overall. That distinction is a useful example of why 'bigger in Texas' claims should be checked rather than repeated automatically."],
-        links: [{ label: "Texas facts", href: "/texas-facts" }, { label: "Texas icons", href: "/texas-icons" }],
+        heading: "Texas land versus Alaska: first among the lower 48 is not first nationally",
+        paragraphs: [
+          "Texas covers about 261,268 square miles of land, compared with Alaska's approximately 571,022 square miles in the 2020 Census geographical comparison. Alaska therefore has more than twice Texas's land area; California, at about 155,858 square miles, ranks below Texas. This is a land-area comparison, not an assertion about population, coastline or total land plus water.",
+          "The difference between 'largest contiguous state' and 'largest state' is not pedantic. It is the whole answer to the familiar Texas question and demonstrates why geographic superlatives need an explicit category."
+        ],
+        links: [{ label: "Census Bureau: state land areas", href: "https://www2.census.gov/programs-surveys/sis/activities/math/mm-10_student.pdf", external: true }]
       },
       {
-        heading: "Treat the slogan as culture, then verify the numbers",
-        paragraphs: ["'Everything is bigger in Texas' works because it compresses Texas geography, ranching, highways, cities, food and state pride into one memorable line. TexasDefined treats each specific superlative as a factual claim that needs its own source, date and definition."],
-        links: [{ label: "Things unique to Texas", href: "/things-unique-to-texas" }, { label: "Texas history", href: "/texas-history" }],
+        heading: "The Texas Capitol really is taller — if you compare the published measuring points",
+        paragraphs: [
+          "The Texas State Preservation Board gives the state Capitol's height as 302.64 feet from the south-front ground level to the Goddess of Liberty star. It measures the U.S. Capitol at 288 feet from the east-front ground level to the top of the Statue of Freedom. That yields a 14.64-foot advantage for the Texas building.",
+          "Buildings can be measured to roofs, domes, statues or other reference points. The comparison is true under the Board's published definition, and that definition belongs beside the number. Texas's Capitol is a historical work of architecture, not proof of any claim about the relative size of the two legislatures."
+        ],
+        links: [{ label: "Texas State Preservation Board: Capitol myths and measurements", href: "https://tspb.texas.gov/prop/tc/tc-history/myths-legends/index.html", external: true }]
       },
+      {
+        heading: "Bracken Cave: a real biological superlative, with seasonal uncertainty",
+        paragraphs: [
+          "Texas Parks and Wildlife describes the Bracken Cave Preserve near San Antonio as the world's largest known bat colony, home to more than 15 million Mexican free-tailed bats. This is a seasonal maternity colony whose numbers change during migration and breeding; the figure is not a permanent count of bats at the cave on any arbitrary day.",
+          "There is also an access distinction. The cave and surrounding habitat are protected by Bat Conservation International. Calling it a world-scale natural wonder should not suggest a visitor can drive up for an unscheduled bat emergence or enter the cave. Use the current land manager's booking and conservation guidance rather than older generic sightseeing descriptions."
+        ],
+        links: [
+          { label: "TPWD: Bracken Cave Preserve", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/bracken-cave-preserve.phtml", external: true },
+          { label: "TPWD: Texas bat-watching sites", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/", external: true }
+        ]
+      },
+      {
+        heading: "Big Bend's footprint: another example where the measurement matters",
+        paragraphs: [
+          "The National Park Service records Big Bend National Park at 801,163 acres, about 1,252 square miles. That is larger than Rhode Island's land area and a little smaller than the reported acreage of King Ranch. But Big Bend is a federally protected national park and King Ranch is a privately held ranch complex: their size figures describe completely different institutions.",
+          "The park stretches from Rio Grande canyons to Chisos Mountains habitats and is worth explaining through its geology and conservation role, not only its size. The 'everything bigger' slogan is most useful here as a doorway to the landscape's real natural history."
+        ],
+        links: [
+          { label: "National Park Service: Big Bend statistics", href: "https://home.nps.gov/bibe/learn/management/statistics.htm", external: true },
+          { label: "TexasDefined: Big Bend National Park", href: "/destination/big-bend-national-park" }
+        ]
+      },
+      {
+        heading: "How this fact-check was made",
+        paragraphs: [
+          "Figures above were taken from the Texas State Preservation Board, the U.S. Census Bureau, National Park Service, Texas Parks and Wildlife, and the Handbook of Texas. We convert acres to square miles by dividing by 640 and round figures only after conversion. Estimates are marked as such; historical source figures may change when their publishers revise data.",
+          "Claims about 'largest' are interpreted narrowly: geography uses land area unless total area is expressly stated, biological claims repeat their agencies' 'largest known' qualification, and architectural comparisons specify the measurement endpoints. We have not personally surveyed the ranch, counted bats or measured buildings."
+        ],
+        links: [
+          { label: "More source-backed Texas facts", href: "/texas-facts" },
+          { label: "Official Texas symbols and designations", href: "/texas-symbols" }
+        ]
+      }
     ],
-    related: [{ label: "Texas facts", href: "/texas-facts" }, { label: "Texas icons", href: "/texas-icons" }, { label: "Things unique to Texas", href: "/things-unique-to-texas" }, { label: "Texas history", href: "/texas-history" }],
+    related: [
+      { label: "Texas facts", href: "/texas-facts" },
+      { label: "Texas capitals and local designations", href: "/texas-capital-designations" },
+      { label: "Things unique to Texas", href: "/things-unique-to-texas" },
+      { label: "Texas history", href: "/texas-history" }
+    ],
     faq: [
-      { question: "Is King Ranch really bigger than Rhode Island?", answer: "Yes. The Texas State Historical Association describes King Ranch at about 825,000 acres, nearly 1,300 square miles, and larger in area than Rhode Island." },
-      { question: "Does Texas have the world's largest bat colony?", answer: "Texas Parks and Wildlife identifies Bracken Cave Preserve near San Antonio as the world's largest known bat colony and currently describes it as home to more than 15 million Mexican free-tailed bats." },
-      { question: "Is Texas the largest U.S. state?", answer: "No. Alaska is larger. Texas is the largest state in the contiguous United States." },
-    ],
+      { question: "Is King Ranch bigger than Rhode Island?", answer: "King Ranch's reported 825,000 acres (about 1,289 square miles) exceeds Rhode Island's 1,033.89 square miles of land. The frequently repeated wording does not distinguish that from Rhode Island's full area including water." },
+      { question: "Is Texas the biggest state in the United States?", answer: "No. Alaska is much larger in land area. Texas ranks first among the contiguous 48 states." },
+      { question: "Is the Texas Capitol taller than the U.S. Capitol?", answer: "Yes, by 14.64 feet using the measuring points published by the Texas State Preservation Board." },
+      { question: "Can anyone visit Bracken Cave to see bats?", answer: "Do not assume walk-up access. It is a protected Bat Conservation International property; check current access rules and organized bat-watch opportunities before traveling." }
+    ]
   },
 
   "what-does-chud-mean": {

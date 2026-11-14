@@ -50,10 +50,10 @@ export const houstonGalvestonMuseumDestinations: Destination[] = [
       alt: "The Menil Collection art museum and lawn in Houston",
       width: 1600,
       height: 1152,
-      credit: "Francisco Anzola · Wikimedia Commons",
+      credit: "Francisco Anzola · 28 June 2011 · CC BY 2.0 · Wikimedia Commons · Menil Collection Houston (5887512203).jpg",
     },
     bestSeason: "Year-round; mild fall, winter and spring weather is best for walking between the main building, satellite spaces and surrounding green areas.",
-    entryNote: "Admission to the Menil Collection is free. Individual campus buildings can have different schedules or temporary closures, so check the official visit page for the spaces open on the day of your trip.",
+    entryNote: "Admission is always free; standard hours Wednesday–Sunday 11 a.m.–7 p.m., closed Monday and Tuesday. Start at the main building, 1533 Sul Ross Street. Free parking at 1515 West Alabama Street and by Richmond Hall. Separate satellite venues may have changing hours and exhibit closures.",
     highlights: ["Free admission", "Renzo Piano main building", "Surrealist and modern art", "Walkable art campus"],
     body: [
       "The Menil Collection offers a deliberately different museum experience from Houston's larger encyclopedic institutions. The galleries are intimate, naturally lit and designed to keep the encounter with individual works at the center of the visit. The collection ranges from ancient and Indigenous objects to Surrealism, modern art and postwar work, with changing installations rather than a fixed one-time checklist.",

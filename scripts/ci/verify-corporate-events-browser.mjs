@@ -1,0 +1,396 @@
+import assert from 'node:assert/strict';
+import { isCloudflareRumTelemetryRequest } from './corporate-browser-request-policy.mjs';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH
+  || '/tmp/texasdefined-corporate-qa/node_modules/playwright-core');
+const axeCore = require(process.env.AXE_CORE_PATH
+  || '/tmp/texasdefined-corporate-qa/node_modules/axe-core');
+const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
+// workflow_run uses the current main as GITHUB_SHA even when checking out a
+// different, successfully deployed release. Keep evidence tied to that release.
+const releasedSha = process.env.PRODUCTION_COMMIT_SHA || process.env.GITHUB_SHA || null;
+const evidenceDir = 'artifacts/corporate-events-browser';
+// Inspect live, anonymous server-rendered HTML too; compiled-client scans
+// cannot detect an accidental server-side payload leak. Never log response
+// bodies or personal values to CI artifacts, only generic failure categories.
+const privateHtmlLedger = /\btexasdefined_group_event_(?:requests|partner_applications|partner_outreach|offers|offer_click_totals|outcome_events)\b/i;
+const privateHtmlKeyName = /\b(?:SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY|SUPABASE_SERVICE_KEY)\b/i;
+const cases = [
+  { name: 'mobile', width: 390, height: 844 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1365, height: 900 },
+];
+await mkdir(evidenceDir, { recursive: true });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROME_BIN || undefined,
+  args: ['--no-sandbox', '--disable-dev-shm-usage'],
+});
+const results = [];
+let failed = false;
+
+try {
+  for (const view of cases) {
+    const result = { viewport: view.name, checks: [], errors: [] };
+    results.push(result);
+    const context = await browser.newContext({ viewport: { width: view.width, height: view.height } });
+    // Capture the *generated text*, not sensitive user contact details.
+    // Clipboard is stubbed so the test does not depend on desktop clipboard
+    // permissions; this is a public, synthetic shortlist URL only.
+    await context.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async (text) => { window.__tdCopiedShare = text; } },
+      });
+    });
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('request', request => {
+      if (request.method() !== 'GET' && request.method() !== 'HEAD'
+        && /\/corporate-events(?:[/?#]|$)/.test(request.url())) {
+        errors.push('Browser verifier attempted a non-read-only event request: ' + request.method());
+      }
+    });
+    try {
+      const response = await page.goto(origin + '/corporate-events?corporate_browser_verify='
+        + encodeURIComponent(view.name + '-' + (releasedSha || 'manual')), {
+        waitUntil: 'domcontentloaded', timeout: 50_000,
+      });
+      assert.equal(response?.status(), 200, view.name + ': public finder must be HTTP 200');
+      const anonymousHtml = await response.text();
+      assert(!privateHtmlLedger.test(anonymousHtml),
+        view.name + ': public SSR response contains a private corporate ledger identifier');
+      assert(!privateHtmlKeyName.test(anonymousHtml),
+        view.name + ': public SSR response contains a privileged service-key name');
+      result.checks.push('Anonymous SSR excludes private corporate ledger and service-key identifiers');
+      await page.getByRole('heading', {
+        level: 1, name: 'Plan a company event worth leaving the office for.',
+      }).waitFor({ state: 'visible', timeout: 25_000 });
+      await page.getByRole('heading', { name: 'A practical guide to corporate event types' }).waitFor();
+      await page.getByRole('heading', { name: 'Your event shortlist' }).waitFor();
+      // The page headings above may already be present in SSR HTML before
+      // React event handlers are bound. Never fill a controlled input until
+      // the page's existing mount/URL-restore effect confirms readiness.
+      // This marker contains no user or organizer information.
+      await page.locator('main#main[data-corporate-hydrated="true"]')
+        .waitFor({ state: 'visible', timeout: 25_000 });
+      result.checks.push('Live hydrated public finder and six-type educational guides');
+
+      const horizontalOverflow = await page.evaluate(() => ({
+        documentWidth: document.documentElement.scrollWidth,
+        viewportWidth: document.documentElement.clientWidth,
+      }));
+      assert(horizontalOverflow.documentWidth <= horizontalOverflow.viewportWidth + 2,
+        view.name + ': horizontal overflow: ' + JSON.stringify(horizontalOverflow));
+      result.checks.push('No horizontal viewport overflow');
+
+      const guests = page.getByRole('spinbutton', { name: 'Number of guests' });
+      // Exercise real keyboard focus traversal in the fully hydrated public
+      // finder at every viewport, not just static axe field labels. This is
+      // read-only and does not submit a form or put personal data in artifacts.
+      await guests.focus();
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': Number of guests must accept keyboard focus');
+      await page.keyboard.press('Tab');
+      const nextFocusInsideMain = await page.evaluate(() => {
+        const focused = document.activeElement;
+        const bounds = focused?.getBoundingClientRect();
+        return !!focused && focused !== document.body
+          && !!focused.closest('main#main')
+          && !!bounds && bounds.width > 0 && bounds.height > 0;
+      });
+      assert(nextFocusInsideMain,
+        view.name + ': Tab from the headcount input must reach a visible control inside the finder');
+      await page.keyboard.press('Shift+Tab');
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': reverse keyboard traversal must return to the headcount input');
+      result.checks.push('Live Tab/Shift+Tab keyboard traversal keeps accessible focus in the finder');
+      await guests.fill('8001');
+      await page.getByText('Choose a whole-number group of 2 to 8,000 guests.').waitFor();
+      assert.equal(await guests.getAttribute('aria-invalid'), 'true',
+        view.name + ': invalid group sizes need accessible field error state');
+      await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).waitFor();
+      assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
+        'Invalid headcount may not submit a planning request');
+      await guests.fill('45');
+      assert.equal(await guests.getAttribute('aria-invalid'), 'false');
+      const cityInput = page.locator('input[placeholder="Houston"]');
+      const broadTypes = page.getByRole('checkbox', { name: /Show relevant group venues from other event types/i });
+      await broadTypes.check();
+      for (const market of ['Dallas', 'Dallas-Fort Worth', 'Austin', 'San Antonio', 'El Paso', '77002', 'Texas']) {
+        await cityInput.fill(market);
+        await page.getByText(market + ' · 45 guests', { exact: false }).first().waitFor();
+        const label = await page.getByRole('heading', { level: 2, name: /group event options?/ }).textContent();
+        assert(Number(label?.match(/(\d+) group event/)?.[1]) > 0,
+          view.name + ': no sourced venue candidates for ' + market);
+      }
+      await cityInput.fill('Houston');
+      await page.getByText('Houston · 45 guests', { exact: false }).first().waitFor();
+      await broadTypes.uncheck();
+      result.checks.push('Seven real Texas city/DFW/ZIP/statewide market filters return sourced candidates');
+
+      // Houston Build 2 release acceptance: exercise actual hydrated city,
+      // event-type and guest-count filters against the public production page.
+      // Unknown aggregate capacity remains quote-required, never bookable.
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      await cityInput.fill('Cypress');
+      await guests.fill('100');
+      const cypressHall = page.getByRole('heading', { level: 3, name: 'Cypress Event Hall' });
+      await cypressHall.waitFor({ state: 'visible', timeout: 12_000 });
+      const hallCard = await cypressHall.locator('xpath=ancestor::article').textContent();
+      assert(hallCard?.includes('100-guest venue capacity')
+        && hallCard.includes('Source reviewed 2026-10-28'),
+        view.name + ': Cypress Event Hall must retain its sourced 100-person limit');
+      await guests.fill('101');
+      await cypressHall.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await guests.fill('20');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('private-dining');
+      const unionKitchen = page.getByRole('heading', { level: 3, name: 'The Union Kitchen — Towne Lake' });
+      await unionKitchen.waitFor({ state: 'visible', timeout: 12_000 });
+      const unionCard = await unionKitchen.locator('xpath=ancestor::article').textContent();
+      assert(unionCard?.includes('maximum of 32 people')
+        && unionCard.includes('semi-private'),
+        view.name + ': Towne Lake dining must not imply a fully private 33-person room');
+      await guests.fill('33');
+      await unionKitchen.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await cityInput.fill('Sugar Land');
+      await guests.fill('12');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      const sugarLandEscape = page.getByRole('heading', { level: 3, name: 'Escapology Sugar Land' });
+      await sugarLandEscape.waitFor({ state: 'visible', timeout: 12_000 });
+      const escapeCard = await sugarLandEscape.locator('xpath=ancestor::article').textContent();
+      assert(escapeCard?.includes('seven rooms')
+        && escapeCard.includes('Confirm with venue'),
+        view.name + ': Escapology must disclose unknown whole-group capacity');
+
+      await cityInput.fill('League City');
+      await guests.fill('50');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      const partyBoats = page.getByRole('heading', { level: 3, name: 'Houston Party Boats' });
+      await partyBoats.waitFor({ state: 'visible', timeout: 12_000 });
+      const boatCard = await partyBoats.locator('xpath=ancestor::article').textContent();
+      assert(boatCard?.includes('Houston Party Boat up to 49')
+        && boatCard.includes('Celebration up to 75'),
+        view.name + ': boat capacity must distinguish the two vessels');
+      await guests.fill('76');
+      await partyBoats.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await cityInput.fill('Houston');
+      await guests.fill('45');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      result.checks.push('Houston Build 2 Cypress, Sugar Land and League City live cards, categories and 32/75/100-person cutoffs');
+
+      // Verify real source-reviewed capacity *by format*, not a fabricated
+      // single-room maximum, open time, or quoted corporate package.
+      const venueArea = page.locator('input[placeholder="e.g., Downtown, Katy, Clear Lake"]');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      await venueArea.fill('Museum District');
+      await guests.fill('6000');
+      const zoo = page.getByRole('heading', { level: 3, name: 'Houston Zoo' });
+      await zoo.waitFor({ state: 'visible', timeout: 12_000 });
+      const zooCard = await zoo.locator('xpath=ancestor::article').textContent();
+      assert(zooCard?.includes('entire-Zoo after-hours rental reaches 6,000')
+        && zooCard.includes('NOT interchangeable'),
+        view.name + ': full Zoo buyout must not imply a 6,000-person single-room event');
+      await guests.fill('6001');
+      await zoo.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('20');
+      await zoo.waitFor({ state: 'visible', timeout: 12_000 });
+      await guests.fill('19');
+      await zoo.waitFor({ state: 'detached', timeout: 12_000 });
+      await venueArea.fill('Westchase');
+      await guests.fill('550');
+      const pelazzio = page.getByRole('heading', { level: 3, name: 'Pelazzio' });
+      await pelazzio.waitFor({ state: 'visible', timeout: 12_000 });
+      const ballroomCard = await pelazzio.locator('xpath=ancestor::article').textContent();
+      assert(ballroomCard?.includes('Tuscany AB/Wing')
+        && ballroomCard.includes('NOT a single-room 550-person setup'),
+        view.name + ': combined ballroom limit must be disclosed clearly');
+      await guests.fill('551');
+      await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('75');
+      await pelazzio.waitFor({ state: 'visible', timeout: 12_000 });
+      await guests.fill('74');
+      await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
+      await venueArea.fill('');
+      await guests.fill('45');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      result.checks.push('Documented 6,000-person entire-Zoo and 550-person combined-ballroom formats, min/max exclusion, and no invented room guarantee');
+
+      const dateInput = page.locator('input[type="date"]');
+      const today = await dateInput.getAttribute('min');
+      assert(/^\d{4}-\d{2}-\d{2}$/.test(today || ''), 'Missing Texas-local minimum event date');
+      const yesterday = new Date(Date.parse(today + 'T12:00:00Z') - 86400000).toISOString().slice(0, 10);
+      await dateInput.fill(yesterday);
+      assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
+        'Past event dates must block planner submission before hitting the server');
+      await page.getByText('Choose a real event date that is today or later in Texas', { exact: false }).waitFor();
+      await dateInput.fill(today);
+      assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isEnabled(), true);
+      await dateInput.fill('');
+      result.checks.push('Optional event date uses Texas calendar and rejects expired dates without a POST');
+
+      await page.getByRole('combobox', { name: 'Maximum budget per person' }).selectOption('100');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      await page.getByRole('button', { name: 'Compare', exact: true }).first()
+        .waitFor({ state: 'visible', timeout: 12_000 });
+      await page.getByRole('button', { name: 'Compare', exact: true }).first().click();
+      const proposal = page.locator('#proposal');
+      await proposal.getByText('$4,500', { exact: true }).waitFor();
+      assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count() >= 1, true);
+      result.checks.push('45 guests, $100/person -> illustrative $4,500 ceiling, and shortlist selection');
+      for (const count of [13, 25, 100, 300, 500, 5000, 8000]) {
+        await guests.fill(String(count));
+        await page.waitForFunction((n) =>
+          document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: ' + n), count);
+        const body = await proposal.locator('.td-print-summary').textContent();
+        const total = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
+          maximumFractionDigits: 0 }).format(count * 100);
+        assert(body?.includes('Total planning ceiling: ' + total),
+          view.name + ': incorrect illustrative budget at group size ' + count);
+      }
+      // Only a documented full-center option covers 8,000; no live opening is claimed.
+      await guests.fill('8000');
+      await page.getByRole('heading', { level: 3, name: 'Space Center Houston' })
+        .waitFor({ state: 'visible', timeout: 12_000 });
+      await guests.fill('45');
+      await page.waitForFunction(() =>
+        document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: 45'));
+      result.checks.push('13, 25, 100, 300, 500, 5,000 and 8,000 guests recalculate planning ceilings without vendor quotes');
+
+      const request = page.locator('#planning-request form');
+      assert.equal(await request.evaluate(form => form.checkValidity()), false,
+        'Form must require valid identity/contact and explicit organizer consent');
+      const personalConsent = request.locator('input[name="consentContact"]');
+      assert.equal(await personalConsent.isChecked(), false);
+      result.checks.push('Required contact consent; no customer data submitted');
+
+      await proposal.getByRole('button', { name: 'Copy share link' }).click();
+      const copied = await page.evaluate(() => window.__tdCopiedShare || '');
+      assert(copied, view.name + ': shortlist clipboard capture missing');
+      const url = new URL(copied);
+      assert.equal(url.origin, origin);
+      assert.equal(url.pathname, '/corporate-events');
+      assert.equal(url.searchParams.get('city'), 'Houston');
+      assert.equal(url.searchParams.get('guests'), '45');
+      assert.equal(url.searchParams.get('budget'), '100');
+      assert.equal(url.searchParams.get('type'), 'team-building');
+      assert(url.searchParams.get('venues')?.length, view.name + ': selected venue missing from public share link');
+      assert(!/email|phone|contactName|companyAddress2/.test(url.search),
+        'Share link may not contain organizer contact fields');
+      result.checks.push('Shareable shortlist URL contains public planning choices without private contact fields');
+      await page.getByRole('button', { name: 'Shortlisted', exact: true }).first().click();
+      assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count(), 0,
+        view.name + ': removing the only selected venue did not clear the shortlist');
+      await page.goto(copied, { waitUntil: 'domcontentloaded', timeout: 50_000 });
+      await page.getByRole('button', { name: 'Shortlisted', exact: true }).first()
+        .waitFor({ state: 'visible', timeout: 25_000 });
+      assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count(), 1);
+      result.checks.push('Shortlist removal and URL reloading restores exactly one approved public venue');
+
+      await page.emulateMedia({ media: 'print' });
+      const visibility = await page.locator('#proposal').evaluate(el => getComputedStyle(el).visibility);
+      assert.equal(visibility, 'visible');
+      const summary = await page.locator('#proposal .td-print-summary').evaluate(el => ({
+        display: getComputedStyle(el).display,
+        content: el.textContent || '',
+      }));
+      assert.notEqual(summary.display, 'none');
+      assert(summary.content.includes('Group size: 45'));
+      assert(summary.content.includes('Total planning ceiling: $4,500'));
+      assert(summary.content.includes('Illustrative group totals'));
+      result.checks.push('Printable management proposal excludes fictional quotes and shows planning caveats');
+      await page.emulateMedia({ media: 'screen' });
+      // Offline automated accessibility smoke on fully hydrated production HTML.
+      // axe is bundled in the isolated GitHub runner, not fetched from a CDN.
+      // This never submits customer data and is not a claim of full manual WCAG conformance.
+      await page.addScriptTag({ content: axeCore.source });
+      const a11yViolations = await page.evaluate(async () => {
+        const root = document.querySelector('main#main') || document;
+        const findings = await window.axe.run(root, {
+          runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] },
+        });
+        return findings.violations.map(v => ({
+          id: v.id, impact: v.impact, affectedElements: v.nodes.length,
+          selectors: v.nodes.slice(0, 3).map(n => n.target.join(' > ')),
+        }));
+      });
+      result.accessibilityViolations = a11yViolations;
+      const severeA11y = a11yViolations.filter(v => v.impact === 'critical' || v.impact === 'serious');
+      assert.deepEqual(severeA11y, [],
+        view.name + ': serious/critical WCAG A/AA defects: ' + JSON.stringify(severeA11y));
+      result.checks.push('Automated WCAG 2/2.1 A/AA axe inspection found no serious/critical issues; moderate issues retained in evidence');
+      await page.screenshot({ path: evidenceDir + '/' + view.name + '.png', fullPage: false });
+      assert.deepEqual(errors, [], view.name + ': unhandled browser errors or prohibited requests');
+      result.checks.push('No browser JS errors or event form POSTs');
+
+      // Exercise the real locked staff route anonymously, not just the
+      // public finder. No access key is entered and no server function is
+      // invoked. The browser context has no prior authenticated session.
+      // A fresh tab prevents in-flight public-finder requests from being
+      // misclassified as anonymous staff-page requests. Session storage is
+      // tab-scoped, so no admin credential can carry over from the finder.
+      const adminPage = await context.newPage();
+      const unexpectedAdminWrites = [];
+      adminPage.on('request', request => {
+        const requestUrl = new URL(request.url());
+        if (requestUrl.origin === origin
+          && request.method() !== 'GET' && request.method() !== 'HEAD') {
+          // Cloudflare injects its first-party analytics beacon into this locked
+          // page. It is not an application write; exclude ONLY the exact RUM
+          // endpoint, not other POSTs or generic /cdn-cgi routes.
+          if (isCloudflareRumTelemetryRequest(request.method(), request.url(), origin)) return;
+          // Only the path and method are logged, never query strings or payloads.
+          unexpectedAdminWrites.push(request.method() + ' ' + requestUrl.pathname);
+        }
+      });
+      const adminResponse = await adminPage.goto(origin + '/admin/sports-partners?corporate_browser_verify='
+        + encodeURIComponent(view.name + '-' + (releasedSha || 'manual')), {
+        waitUntil: 'domcontentloaded', timeout: 50_000,
+      });
+      assert.equal(adminResponse?.status(), 200,
+        view.name + ': anonymous staff unlock page must render HTTP 200');
+      const adminHtml = await adminResponse.text();
+      assert(!privateHtmlLedger.test(adminHtml),
+        view.name + ': locked staff SSR response exposed a private corporate ledger name');
+      assert(!privateHtmlKeyName.test(adminHtml),
+        view.name + ': locked staff SSR response exposed a privileged service-key identifier');
+      await adminPage.getByRole('heading', { name: 'Unlock advertiser operations' })
+        .waitFor({ state: 'visible', timeout: 25_000 });
+      await adminPage.getByRole('button', { name: 'Unlock advertiser dashboard' })
+        .waitFor({ state: 'visible' });
+      assert.equal(await adminPage.locator('#corporate-event-ops').count(), 0,
+        view.name + ': corporate private operator panel rendered without authentication');
+      assert.equal(await adminPage.evaluate(() =>
+        sessionStorage.getItem('texasdefined:sports-partner-admin-key')), null,
+        view.name + ': anonymous page must not manufacture an admin credential');
+      assert.deepEqual(unexpectedAdminWrites, [],
+        view.name + ': anonymous staff page attempted non-read-only same-origin requests');
+      result.checks.push('Anonymous staff SSR shows unlock only, no private operator panel or ledger identifiers, and no application writes (Cloudflare RUM telemetry exempt)');
+      await adminPage.close();
+      console.log('PASS ' + view.name + ': ' + result.checks.join('; '));
+    } catch (error) {
+      failed = true;
+      result.errors.push(error instanceof Error ? error.message : String(error));
+      await page.screenshot({ path: evidenceDir + '/' + view.name + '-failed.png', fullPage: false })
+        .catch(() => {});
+      console.error('FAIL ' + view.name + ': ' + result.errors.join('; '));
+    } finally {
+      await context.close();
+    }
+  }
+} finally {
+  await browser.close();
+  await writeFile(evidenceDir + '/results.json', JSON.stringify({
+    url: origin + '/corporate-events', sha: releasedSha,
+    createdAt: new Date().toISOString(), results,
+    noProductionInquiriesSubmitted: true,
+  }, null, 2));
+}
+if (failed) process.exitCode = 1;

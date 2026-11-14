@@ -1,0 +1,92 @@
+name: Van Zandt desktop and mobile production acceptance
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-van-zandt-browser.mjs'
+      - '.github/workflows/verify-van-zandt-browser.yml'
+      - 'src/components/property/CountyTaxRateSection.tsx'
+      - 'src/components/sports/HighSchoolFootballLookup.tsx'
+      - 'src/components/content/VanZandtCountySpotlight.tsx'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'scripts/ci/county-no-map-section.test.mjs'
+      - 'src/components/authority/ContextualOfficialSources.tsx'
+      - 'src/data/county-profile.remote.ts'
+      - 'src/routes/$kind.$slug.tsx'
+      - 'src/data/knowledge-graph/index.ts'
+      - 'src/data/county-statewide-context.remote.ts'
+      - 'src/components/content/CountyStatewideContextSection.tsx'
+      - 'scripts/ci/verify-van-zandt-closure.mjs'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: van-zandt-browser-${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact tested revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Skip live Chromium QA on unrelated deployments
+        id: qa_scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_run" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --name-only HEAD^ HEAD > /tmp/td-qa-changed-files.txt
+          if grep -Eiq '^(src/(routes/\$kind[.]\$slug|components/(property/CountyTaxRateSection|sports/HighSchoolFootballLookup|content/(VanZandtCountySpotlight|CountyGuideSections|CountyStatewideContextSection)|authority/ContextualOfficialSources)|data/(county-profile|county-statewide-context|knowledge-graph))|scripts/ci/(verify-van-zandt|county-no-map-section)|[.]github/workflows/verify-van-zandt-browser[.]yml)' /tmp/td-qa-changed-files.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Relevant deployed source changed: run focused browser QA."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: skip specialized production Chromium QA."
+          fi
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard against any county map section returning
+        run: node --test scripts/ci/county-no-map-section.test.mjs
+      - name: Install isolated Chrome browser automation dependency
+        if: steps.qa_scope.outputs.run == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-van-zandt-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Verify desktop/mobile load, failure fallback, SEO and published links
+        if: steps.qa_scope.outputs.run == 'true'
+        env:
+          EXPECT_VAN_ZANDT_COMPACT_LAYOUT: ${{ github.event_name == 'workflow_run' }}
+        run: node scripts/ci/verify-van-zandt-browser.mjs
+      - name: Verify all county team pages, 16s hung requests, OSM links and focused accessibility
+        if: steps.qa_scope.outputs.run == 'true'
+        env:
+          EXPECT_SERVER_ONLY_COUNTY_SOURCES: ${{ github.event_name == 'workflow_run' }}
+        run: node scripts/ci/verify-van-zandt-closure.mjs
+      - name: Preserve Chrome screenshots and failure evidence
+        if: always() && steps.qa_scope.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: van-zandt-browser-acceptance
+          path: artifacts/van-zandt-acceptance/
+          if-no-files-found: warn
+          retention-days: 14

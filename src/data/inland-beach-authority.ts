@@ -200,7 +200,7 @@ export const inlandSwimmingBeaches: readonly InlandBeachRecord[] = [
     lake: "Ratcliff Lake",
     nearestTown: "Kennard / Ratcliff",
     managingAgency: "U.S. Forest Service",
-    officialUrl: "https://www.fs.usda.gov/r08/texas/recreation/ratcliff-lake-936-655-2299",
+    officialUrl: "https://www.recreation.gov/camping/campgrounds/234362",
     evidence: "The U.S. Forest Service confirms swimming at Ratcliff Lake in Davy Crockett National Forest; the federally managed Recreation.gov listing explicitly describes a designated swimming area with no lifeguard.",
     experience: "Ratcliff Lake is a 45-acre former sawmill log pond surrounded by Davy Crockett National Forest. The developed day-use swimming area differs from shoreline fishing or boat access and offers a shaded Piney Woods alternative to major Texas reservoirs.",
     arrival: "From Crockett, take State Highway 7 east toward Kennard and Ratcliff, then enter the signed recreation area. The U.S. Forest Service identifies a day-use vehicle fee and operating hours; check the current operator notice before relying on published amounts or times.",

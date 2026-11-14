@@ -12,18 +12,20 @@ permissions:
   deployments: write
   statuses: write
 
-concurrency:
-  group: texasdefined-production
-  cancel-in-progress: false
-
 jobs:
   deploy:
+    # Keep every Worker publish and its blocking runtime checks serialized.
+    # The separately queued GSC follow-up must not hold this lock and suppress
+    # subsequent main-branch releases after the Worker is already verified.
+    concurrency:
+      group: texasdefined-production
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 25
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
       CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
@@ -44,6 +46,22 @@ jobs:
       - name: Publish pending production status
         run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
 
+      - name: Refuse obsolete source before expensive validation
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
       - name: Validate retired integration traces
         run: node scripts/ci/validate-retired-integration-traces.mjs
 
@@ -63,31 +81,11 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Install governed image build dependency
+      - name: Validate governed SVG and raster image renderer
         if: success()
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Discover materialization handles governed local SVG editorial assets as well
-          # as raster images. ImageMagick's SVG delegate uses rsvg-convert; a runner
-          # with convert already installed is not necessarily SVG-capable.
-          if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
-            exit 0
-          fi
-          # Ubuntu 24.04 GitHub runner images can ship a broken third-party
-          # Microsoft apt source. This job only needs Ubuntu-packaged ImageMagick
-          # and librsvg: update from the runner's signed official Ubuntu sources,
-          # not unrelated vendor repositories that can return HTTP 404.
-          # Fail closed when the Ubuntu official source is absent; never skip
-          # image materialization, attribution or dimension checks.
-          if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
-            echo "::error title=Official Ubuntu apt source missing::Cannot safely install governed image dependencies."
-            exit 1
-          fi
-          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
-          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
-          (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1)
-          command -v rsvg-convert >/dev/null 2>&1
+        # Actually rasterize an SVG and decode the resulting WebP. Replaces the
+        # flaky GitHub runner apt mirror without weakening any derivative checks.
+        run: node scripts/assets/check-governed-discover-image-runtime.mjs
 
       - name: Report Cloudflare deployment credential source
         shell: bash
@@ -95,7 +93,8 @@ jobs:
           if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
             echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
           else
-            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+            echo '::error title=Dedicated Cloudflare deploy token missing::Configure CLOUDFLARE_DEPLOY_API_TOKEN in the texasdefined-publication environment; production will not use a general token.'
+            exit 1
           fi
 
       - name: Publish validation pending
@@ -105,8 +104,13 @@ jobs:
       - name: Validate authority before deploy
         id: validation
         run: |
+          python3 scripts/ci/validate_football_directory_navigation.py
           node scripts/ci/run-validation-suite.mjs predeploy
+          node --test scripts/ci/verify-referenced-assets-production.test.mjs
+          node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node scripts/data/validate-national-cemetery-authority.mjs
+          node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
+          node --check scripts/ci/verify-authority-category-live.mjs
 
       - name: Publish validation result
         if: always()
@@ -195,6 +199,22 @@ jobs:
 
           restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
           echo "Restored $restored_count governed Discover derivatives from $restored_artifacts matching prior production artifact(s)."
+      - name: Refuse obsolete source before production build
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
       - name: Build production bundle
         id: build
         shell: bash
@@ -257,6 +277,27 @@ jobs:
           path: public/images/discover/*.webp
           if-no-files-found: error
           retention-days: 1
+
+      # A newer main can merge while the expensive Vite build runs. Do not
+      # spend minutes doing SSR, historical Worker fetch, retention and old
+      # original-byte probes for an obsolete SHA. The final pre-Wrangler
+      # revision refusal remains mandatory; this is an additional early gate.
+      - name: Refuse superseded source immediately after build
+        id: postbuild_supersession
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot verify latest main::Fail closed before historical asset work.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker source::Current build is ${GITHUB_SHA}, latest main is ${latest_main}; refusing costly stale postbuild verification."
+            exit 1
+          fi
+          echo "Latest main confirmed after build: ${latest_main}"
 
       - name: Publish bundle budget pending
         if: success()
@@ -354,6 +395,11 @@ jobs:
           STAGE_OUTCOME: ${{ steps.predeploy_health.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-predeploy-health "$STAGE_OUTCOME" "Current production is healthy; deploy may proceed" "Current production health failed; deploy blocked"
 
+      - name: Capture predeploy hashed-asset HTTP baseline
+        id: asset_continuity_before
+        if: ${{ always() && steps.predeploy_health.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/probe-asset-version-continuity.mjs before
       - name: Wait for Cloudflare Git build to settle
         id: cloudflare_git_build
         if: success()
@@ -365,6 +411,197 @@ jobs:
         id: rollback_target
         if: success()
         run: node scripts/ci/capture-active-worker-version.mjs
+
+      # A cached page or an old browser tab can request a prior release's hashed
+      # JS/CSS after the Worker has been replaced. Capture the old manifest while
+      # the preceding Worker is still serving, without any extra deployments.
+      # Do NOT inherit an unshipped build from a failed/superseded prior run.
+      # Its built hashes never existed on the active Worker, and selecting it
+      # silently drops otherwise healthy old assets from the next release.
+      - name: Restore active Worker's verified successful asset handoff
+        id: historical_asset_snapshot
+        if: success()
+        shell: bash
+        env:
+          EXPECTED_ACTIVE_WORKER_VERSION: ${{ steps.rollback_target.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts/prior-asset-extraction
+          # A real Worker publish can be followed by a failed independent browser check.
+          # Accept its old client assets only when BOTH guards pass: exact active
+          # Worker version / source SHA / dual-origin hashes, and a GitHub job
+          # proving deploy + runtime + asset delivery succeeded with only the
+          # documented non-asset responsive screenshot failure. Never accept
+          # a failed publish, failed health check, or unshipped build.
+          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=100" --jq '.workflow_runs[] | [.id, .head_sha] | @tsv')"
+          if [[ -z "$previous_runs" ]]; then
+            echo "::error title=No eligible predecessor::Refusing Worker replacement without a verified published asset handoff."
+            exit 1
+          fi
+          restored=0
+          # A single published Nov 10 Worker (7ed30068) passed deployment and
+          # health but the 7,280 original-byte audit saw TWO network transport
+          # errors on canonical, so the release correctly remained FAILED.
+          # Recover only from its immutable GitHub artifact after fresh exact-SHA
+          # 200/MIME verification on BOTH origins, with the same 100%-traffic
+          # Worker, original source SHA and exact GitHub job-step evidence.
+          # Wrong hashes, 404, stale Worker, extra failure, expired 72h: FAIL.
+          if [[ "$EXPECTED_ACTIVE_WORKER_VERSION" == '7ed30068-bd0d-4ddb-b4f2-ddfe3909dadf' ]]; then
+            prior_run=42842196279
+            prior_sha=a651c58e630b303a2b82bc31c936a3ad9f335a03
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
+              | node scripts/ci/recertify-transient-asset-handoff.mjs --verify-job
+            node scripts/ci/recertify-transient-asset-handoff.mjs --repair \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha" \
+              "$candidate/asset-delivery-report.recertified.json"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.recertified.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"
+            cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            cp "$candidate/asset-delivery-report.recertified.json" .artifacts/prior-asset-recertified-evidence.json
+            echo "Recertified the exact active Worker with two fresh original-byte proofs; prior job remains FAILED."
+            restored=1
+          fi
+          # One-time original-byte restoration for the Nov12 published Worker.
+          # Entire previous site release remains failed; preserve all 5 exact
+          # deploy/version/dual-origin health + original SHA asset gates.
+          if [[ "$restored" != 1 && "$EXPECTED_ACTIVE_WORKER_VERSION" == '632decb8-3e25-43dd-a42f-73b236ea6336' ]]; then
+            if [[ "$(date -u +%s)" -gt "$(date -u -d '2026-11-15T23:50:11Z' +%s)" ]]; then
+              echo '::error title=Expired asset recovery::Nov12 handoff is older than 72 hours.'
+              exit 1
+            fi
+            prior_run=43331358104
+            prior_sha=ab4becf67b1e4bdd4d04f204f0f32beffccfa1ef
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
+              | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
+            cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            echo "Recovered exact-active-Worker source-verified original bytes from run $prior_run; independent failed page checks remain failed."
+            restored=1
+          fi
+          if [[ "$restored" != 1 ]]; then
+          while IFS=$'\t' read -r prior_run prior_sha; do
+            [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
+            [[ "$prior_run" != "$GITHUB_RUN_ID" ]] || continue
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            if ! gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate" >/dev/null 2>&1; then
+              continue
+            fi
+            if node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"; then
+              # Run 43509240362 has a *published* attempt 1 and a later
+              # rejected stale-source attempt 2. Only the immutable original
+              # attempt 1 job may qualify; never treat a retry as publication.
+              if [[ "$prior_run" == '43509240362' ]]; then
+                jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/attempts/1/jobs?per_page=100")"
+              else
+                jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100")"
+              fi
+              if ! printf '%s\n' "$jobs_json" | node scripts/ci/verify-prior-deploy-job-eligibility.mjs; then
+                echo "Reject candidate $prior_run: published Worker provenance or postdeploy failure evidence is unsafe."
+                continue
+              fi
+              cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+              echo "Restored exact-active-Worker SHA-backed handoff from run $prior_run matching $EXPECTED_ACTIVE_WORKER_VERSION."
+              restored=1
+              break
+            fi
+          done <<< "$previous_runs"
+          fi
+          if [[ "$restored" != 1 ]]; then
+            echo "::error title=Wrong prior asset handoff::No source-verified published asset handoff matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
+            exit 1
+          fi
+
+      - name: Capture old HTML JS/CSS hashes before Worker replacement
+        id: capture_asset_handoff
+        if: success()
+        run: node scripts/ci/verify-referenced-assets-production.mjs --capture
+
+      # Exact old client JS/CSS filenames were observed returning 404 to
+      # Googlebot after full Worker replacements. Before replacing the still-
+      # active Worker, fetch bounded verified bytes for recent hashes and make
+      # Wrangler include them in this next version's dist/client asset set.
+      - name: Retain bounded old hashed client assets
+        id: retain_critical_assets
+        if: success()
+        run: node scripts/ci/retain-critical-hashed-assets.mjs --retain
+
+      # Recover only known 404 historical hashes if they still exist in a
+      # pinned old first-party Worker version URL. Source MIME, SHA and file
+      # bytes are checked and verified again on both public origins postdeploy.
+      # This emergency backfill expires automatically after 72h; unavailable
+      # original binaries stay marked unresolved, never fabricated.
+      # Retention failures are fail-closed; retain the exact omitted paths and
+      # budget accounting for diagnosis without relaxing any preservation gate.
+      - name: Upload bounded old-asset retention diagnostic
+        if: always() && steps.retain_critical_assets.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: old-hashed-asset-retention-${{ github.run_id }}
+          path: .artifacts/retained-critical-assets-report.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Recover exact observed old JS hashes from pinned Worker versions
+        if: success()
+        run: |
+          node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
+          node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
+
+      # The archived 2026-11-08 successful Worker genuinely served 25 exact
+      # immutable hashes that failed during false-predecessor releases.
+      # Restore ONLY identical original bytes from its pinned Cloudflare
+      # version, within original firstSeenAt+72h. Unavailable sources are
+      # reported unresolved, never replaced with generated JS.
+      - name: Recover 25 exact source-SHA-proven Nov8 JS originals
+        if: success()
+        run: |
+          node --test scripts/ci/recover-nov8-original-hashes.test.mjs
+          node scripts/ci/recover-nov8-original-hashes.mjs --recover
+
+      # Only two SHA/size/age-proven original stylesheets in the immutable
+      # successful 05:03Z Worker are eligible. Restore exact bytes when
+      # available before replacement; leave others unresolved or expired.
+      - name: Recover two Nov8 source-SHA-proven CSS originals
+        if: success()
+        run: |
+          node --test scripts/ci/recover-nov8-original-styles.test.mjs
+          node scripts/ci/recover-nov8-original-styles.mjs --recover
+
+      # Retried or queued old workflow runs must never roll back a newer main
+      # release. GitHub concurrency serializes jobs but does not guarantee
+      # that a manual rerun is newer than the currently published commit.
+      - name: Refuse superseded Worker revision
+        id: current_main_guard
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'guard_state=invalid-main' >> "$GITHUB_OUTPUT"
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo 'guard_state=superseded' >> "$GITHUB_OUTPUT"
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo 'guard_state=current' >> "$GITHUB_OUTPUT"
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
 
       - name: Publish Cloudflare deploy pending
         if: success()
@@ -423,6 +660,14 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/hunting/youth-hunting
+            https://texasdefined.com/best-places-to-go-camping-in-texas
+            https://texasdefined.com/texas-data
+            https://texasdefined.com/article/texas-high-school-football-playoffs-explained
+            https://texasdefined.com/texas-data/texas-homeowners-premium-history
+            https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026
+            https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026
+            https://texasdefined.com/destination/moody-gardens
             https://texasdefined.com/sports-venue/msr-houston
             https://texasdefined.com/sports-venues/motorsports
             https://texasdefined.com/texas-state-fair
@@ -430,6 +675,12 @@ jobs:
             https://texasdefined.com/county/ellis
             https://texasdefined.com/article/ellis-county-waxahachie-ennis-blackland-prairie-texas
             https://texasdefined.com/explore/painted-churches
+            https://texasdefined.com/explore/painted-churches/people/gottfried-flury
+            https://texasdefined.com/destination/young-county-museum-of-history-and-culture
+            https://texasdefined.com/destination/old-post-office-museum-art-center-graham
+            https://texasdefined.com/explore/museums
+            https://texasdefined.com/county/young
+            https://texasdefined.com/destination/graham
             https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso
             https://texasdefined.com/city/el-paso
             https://texasdefined.com/county/el-paso
@@ -442,6 +693,7 @@ jobs:
             https://texasdefined.com/article/best-dallas-suburbs-for-commuters
             https://texasdefined.com/article/east-texas-fall-colors
             https://texasdefined.com/article/texas-property-taxes-for-new-residents
+            https://texasdefined.com/property-tax/taxing-unit/escobares
             https://texasdefined.com/article/corporate-relocation-to-texas
             https://texasdefined.com/article/employee-relocation-guide-to-texas
             https://texasdefined.com/sitemap.xml
@@ -456,8 +708,10 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          # Every release can regress Worker static-asset delivery even when no image files changed.
+          # Fail closed on all governed WebP binaries, canonical and direct; preserve existing rollback.
           PRODUCTION_HEALTH_LABEL: direct-worker
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -506,23 +760,156 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
-      # The homepage health probe cannot certify the federal directory or
-      # the exact Palo Alto battlefield photograph. Only NPS owner changes
-      # trigger these two-page, two-origin and single-image checks.
-      - name: Verify NPS directory and Palo Alto production authority
+      # Fresh, cache-busted public HTML parity on both real origins. Do not
+      # mistake an old CDN snapshot or an HTTP-200 HTML shell for this release.
+      - name: Verify updated homepage HTML on canonical and direct Worker
+        id: homepage_live_parity
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-homepage-fresh-production.mjs
+
+      - name: Preserve homepage live SSR verification evidence
+        if: ${{ always() && steps.homepage_live_parity.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: homepage-live-parity-${{ github.run_id }}
+          path: .artifacts/homepage-live-parity.json
+          if-no-files-found: error
+          retention-days: 14
+
+      # Release acceptance for the source-backed fishing indexability gate:
+      # compare real canonical HTML robots with every governed live sitemap feed.
+      - name: Verify fishing lake robots and sitemap publication parity
+        id: live_fishing_publication_parity
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-fishing-live-publication-parity.mjs
+
+      - name: Preserve fishing live publication parity evidence
+        if: ${{ always() && steps.live_fishing_publication_parity.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-live-publication-parity-${{ github.run_id }}
+          path: .artifacts/fishing-live-publication-parity.json
+          if-no-files-found: error
+          retention-days: 14
+
+      # Recheck visitor-visible ordinary HTML after the cache purge, not just
+      # Worker process health or a cached search-reader rendering.
+      - name: Verify current fishing lakes directory and Falcon SSR HTML
+        id: live_fishing_fresh
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-fishing-lakes-fresh-production.mjs
+
+      - name: Preserve fishing directory and Falcon HTML release evidence
+        if: ${{ always() && steps.live_fishing_fresh.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-fresh-release-${{ github.run_id }}
+          path: .artifacts/fishing-lakes-fresh-release.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Measure postdeploy hashed-asset continuity
+        id: asset_continuity_after
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/probe-asset-version-continuity.mjs after
+
+      - name: Preserve cross-deployment hashed-asset forensic evidence
+        if: ${{ always() && (steps.asset_continuity_before.outcome != 'skipped' || steps.asset_continuity_after.outcome != 'skipped') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: hashed-asset-continuity-${{ github.run_id }}
+          path: .artifacts/asset-continuity-*.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      # This is a separate hard gate from homepage HTML health: detect a present
+      # document that references missing JS/CSS, including previously available
+      # hashes carried from the last two regular production versions.
+      - name: Verify current and previous release JS/CSS on both public origins
+        id: live_asset_handoff
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.capture_asset_handoff.outcome == 'success' }}
+        env:
+          EXPECTED_DEPLOYED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}
+        run: node scripts/ci/verify-referenced-assets-production.mjs --verify
+
+      - name: Preserve old/new asset delivery evidence and next-release handoff
+        if: ${{ always() && steps.capture_asset_handoff.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: asset-handoff-${{ github.run_id }}
+          path: |
+            .artifacts/asset-handoff-snapshot.json
+            .artifacts/asset-delivery-report.json
+            .artifacts/retained-critical-assets-report.json
+            .artifacts/observed-hash-recovery-report.json
+            .artifacts/nov8-original-hash-recovery-report.json
+            .artifacts/nov8-original-css-recovery-report.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+      # A successful homepage health probe does not guarantee the 2026 Palestine
+      # booking guide has correct dates, tickets, photo attribution or affiliate city.
+      - name: Verify Palestine Polar Express 2026 live booking authority
+        id: live_palestine_polar_express
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          node --check scripts/ci/verify-palestine-polar-express-production.mjs
+          node scripts/ci/verify-palestine-polar-express-production.mjs
+
+      # A healthy Worker/homepage does not prove that the organizer-backed
+      # Christmas 2026 calendar reached the canonical and cache-busted HTML.
+      # Run inside the existing single-publisher production concurrency lock.
+      - name: Verify Christmas 2026 source-calendar production
+        id: live_christmas_hub
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          node --check scripts/ci/verify-christmas-hub-production.mjs
+          node scripts/ci/verify-christmas-hub-production.mjs
+
+      # The Christmas hub alone cannot prove that each dated concert renders
+      # once in the statewide calendar (or that ticket CTAs remain accessible).
+      - name: Verify 12 Christmas concerts individually in live events calendar
+        id: live_christmas_12_calendar
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          node --check scripts/ci/verify-christmas-calendar-12-production.mjs
+          node scripts/ci/verify-christmas-calendar-12-production.mjs
+
+      # Enforce exact post-deploy football guide content instead of accepting
+      # a healthy homepage while the guide still serves the old hero or date.
+      - name: Verify 2026 playoff guide updated hero, brackets and edge freshness
+        id: live_playoff_guide
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/production/verify-football-playoffs-guide-production.mjs
+
+      # The homepage health probe does not certify Chamizal, the complete federal
+      # directory, or the Palo Alto photograph. Every production deploy must run
+      # exact page checks; otherwise unrelated commits can silently serve stale HTML.
+      - name: Verify Moody Gardens production authority
+        id: live_moody_gardens
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/production/verify-moody-gardens-production.mjs
+
+      - name: Verify NPS directory, Chamizal and Palo Alto production authority
         id: live_nps_authority
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --name-only HEAD^ HEAD | grep -Eq '^(scripts/production/verify-nps-park-production\.mjs|src/components/editorial/(TexasNpsInventory\.tsx|CategoryPage\.tsx)|src/data/(texas-national-park-service-directory\.ts|texas-nps-directory-ssr-fallback\.ts|military-history-destinations\.ts|four-nps-visitor-authorities\.ts|remaining-six-nps-authorities\.ts)|\.github/workflows/deploy-production\.yml)$'; then
-            node scripts/production/verify-nps-park-production.mjs
-          else
-            echo "NPS source and photo unchanged; scoped acceptance skipped."
-          fi
+          node scripts/production/verify-nps-park-production.mjs
 
       - name: Preserve NPS live acceptance evidence
         if: ${{ always() && steps.live_nps_authority.outcome != 'skipped' }}
@@ -553,31 +940,6 @@ jobs:
           name: six-park-authority-live-${{ github.run_id }}
           path: .artifacts/six-park-authority-production.json
           if-no-files-found: ignore
-          retention-days: 14
-
-      - name: Prepare District 5 responsive Chrome verification
-        id: district5_browser_deps
-        if: ${{ always() && steps.live_district5.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
-          test -n "$CHROME_BIN"
-          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-
-      - name: Verify District 5 desktop and mobile screenshots in Chrome
-        id: live_district5_browser
-        if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
-        run: node scripts/ci/verify-district-5-responsive-browser.mjs
-
-      - name: Preserve District 5 responsive acceptance evidence
-        if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: district5-responsive-browser-${{ github.run_id }}
-          path: artifacts/district5-responsive-browser/
-          if-no-files-found: warn
           retention-days: 14
 
       # Six specifically updated public state-park guides, not a sitewide crawl.
@@ -717,10 +1079,123 @@ jobs:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
+      - name: Prepare MSR Houston mobile and desktop browser acceptance
+        id: live_msr_browser_deps
+        if: ${{ always() && steps.live_sports_venue_editorial.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify MSR Houston responsive visitor page and licensed photo
+        id: live_msr_browser
+        if: ${{ always() && steps.live_msr_browser_deps.outcome == 'success' && steps.live_sports_venue_editorial.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        shell: bash
+        run: node scripts/ci/verify-msr-houston-browser.mjs
+
+      - name: Preserve MSR Houston desktop/mobile evidence
+        if: ${{ always() && steps.live_msr_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: msr-houston-browser-${{ github.run_id }}
+          path: artifacts/msr-houston-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Verify District 21 hub and eight team scorecards on production
+        id: live_district21
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-district21-football-production.mjs
+
       - name: Verify District 5-6A scorecard on direct Worker and canonical domain
         id: live_district5
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         run: node scripts/ci/verify-district-5-production.mjs
+
+      - name: Verify District 16 scorecards and official links on direct Worker and canonical domain
+        id: live_district16
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-district16-production.mjs
+
+      - name: Verify District 6 complete 28-game archive, analysis and attribution on both production origins
+        id: live_district6
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          DISTRICT6_EXPECT_FULL: '1'
+        run: node scripts/ci/verify-district6-production.mjs
+
+      # The district's HTML is checked on every deploy; its responsive browser check
+      # must also run on every deploy, not only when the broad sports change group fires.
+      # The previous change-scope condition skipped the visual gate on the exact
+      # deployment that introduced it (2026-10-18, run 39132892906).
+      - name: Prepare District 5 responsive Chrome verification
+        id: district5_browser_deps
+        if: ${{ always() && steps.live_district5.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify District 5 desktop and mobile screenshots in Chrome
+        id: live_district5_browser
+        if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district-5-responsive-browser.mjs
+
+      - name: Verify District 16 mobile and desktop rendered layout
+        id: live_district16_browser
+        if: ${{ always() && steps.live_district16.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district16-responsive-browser.mjs
+
+      # Reuse the existing single Chrome install; two narrow screens on one District 6 URL.
+      - name: Verify District 6 mobile 390px and 320px rendered layout
+        id: live_district6_browser
+        if: ${{ always() && steps.live_district6.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district6-responsive-browser.mjs
+
+      # One Moody Gardens URL at 320/390/768/1280px; reuse the Chrome and
+      # Playwright package already installed for District 5, not a new crawler.
+      - name: Verify Moody Gardens four-viewport browser authority and layout
+        id: live_moody_browser
+        if: ${{ always() && steps.live_moody_gardens.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-moody-gardens-responsive-browser.mjs
+
+      # Bounded three-page event checkout/accessibility smoke; reuse Chrome
+      # already installed for District 5 rather than adding another dependency.
+      # Never click ticket links or claim live seats, prices, or commissions.
+      - name: Verify ticketing and Christmas pages at mobile and desktop widths
+        id: live_events_browser
+        if: ${{ always() && steps.live_christmas_12_calendar.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' && steps.change_scope.outputs.events == 'true' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-events-mobile-browser.mjs
+
+      - name: Preserve bounded event browser verification screenshots
+        if: ${{ always() && steps.live_events_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: events-mobile-browser-${{ github.run_id }}
+          path: artifacts/events-mobile-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Preserve District 5 responsive acceptance evidence
+        if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: district5-responsive-browser-${{ github.run_id }}
+          path: artifacts/district5-responsive-browser/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
         id: live_east_texas_foliage
@@ -782,9 +1257,68 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         shell: bash
         run: |
-          set -o pipefail
+          set -euo pipefail
           mkdir -p .artifacts
           node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-el-paso-fredericksburg-release.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-authority-category-live.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
+
+      # Hunting-only rendered acceptance. Reuse the standard scoped production
+      # deployment, never create another deploy or crawl unrelated pages.
+      - name: Verify hunting hub and turkey guide in desktop/mobile Chrome
+        id: live_hunting_visual
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Scope against the last verified deployment, not just HEAD^.
+          # An automated merge can be followed by an unrelated main commit.
+          if node scripts/ci/hunting-browser-release-scope.mjs; then
+            echo 'Verify bounded hunting pages against the live visitor experience.'
+          else
+            decision=$?
+            if [[ "$decision" == '10' ]]; then
+              echo 'No hunting change since last verified production; skip Chrome.'
+              exit 0
+            fi
+            exit "$decision"
+          fi
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-hunting-hub-responsive-browser.mjs
+           CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-turkey-hunting-browser.mjs
+
+      - name: Preserve hunting desktop and mobile visual proof
+        if: ${{ always() && steps.live_hunting_visual.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: hunting-hub-visual-${{ github.run_id }}
+          path: artifacts/hunting-hub-responsive/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Explicit, opt-in full production XML integrity proof. It runs only
+      # for a protected merge whose commit title includes [verify-sitemaps],
+      # never on ordinary deploys or for unreviewed PRs.
+      - name: Verify both production XML sitemaps on explicit request
+        id: sitemap_integrity
+        if: ${{ always() && github.event_name == 'push' && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' && contains(github.event.head_commit.message, '[verify-sitemaps]') }}
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          timeout 240s node scripts/ci/verify-sitemap-production-integrity.mjs 2>&1 | tee .artifacts/production-sitemap-integrity.log
+
+      - name: Preserve explicit production XML sitemap audit evidence
+        if: ${{ always() && steps.sitemap_integrity.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-sitemap-integrity-${{ github.run_id }}
+          path: .artifacts/production-sitemap-integrity.log
+          if-no-files-found: error
+          retention-days: 90
 
       - name: Preserve live city sitemap verification evidence
         if: ${{ always() && steps.live_base.outcome != 'skipped' }}
@@ -803,6 +1337,24 @@ jobs:
           path: .artifacts/changed-production-pages.json
           if-no-files-found: error
           retention-days: 7
+
+      - name: Verify museum visitor pages after museum-related deployment changes
+        id: live_museums
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -o pipefail
+          node --test scripts/ci/museum-primary-hero.test.mjs scripts/ci/verify-changed-museum-production.test.mjs
+          node scripts/ci/verify-changed-museum-production.mjs
+
+      - name: Preserve change-scoped museum production verification evidence
+        if: ${{ always() && steps.live_museums.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-live-deploy-acceptance-${{ github.run_id }}
+          path: .artifacts/museum-production-acceptance.json
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Verify Event structured-data production
         id: live_events
@@ -857,6 +1409,22 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: Verify changed CJ account tracking without affiliate clicks
+        id: live_cj_account
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.cj_affiliate == 'true' }}
+        run: node scripts/ci/verify-cj-account-production.mjs
+
+      - name: Preserve CJ account verification evidence
+        # If a predeploy asset gate fails, the CJ live checker never runs and
+        # no CJ file can exist; do not manufacture a second unrelated failure.
+        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' && steps.live_cj_account.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cj-account-production-${{ github.run_id }}
+          path: .artifacts/cj-account-production.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Verify advertiser production
         id: live_advertiser
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.advertiser == 'true' }}
@@ -867,7 +1435,8 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
+        # Require completed District 5, 16, and 21 HTML acceptance plus 5/16 desktop/mobile Chrome acceptance.
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()
@@ -927,6 +1496,7 @@ jobs:
           RUNTIME_SMOKE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
           PREDEPLOY_HEALTH_OUTCOME: ${{ steps.predeploy_health.outcome }}
           CLOUDFLARE_GIT_BUILD_OUTCOME: ${{ steps.cloudflare_git_build.outcome }}
+          MAIN_GUARD_RESULT: ${{ steps.current_main_guard.outputs.guard_state }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
@@ -944,6 +1514,7 @@ jobs:
             echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
             echo "| Current production health | PREDEPLOY / RECOVERY | ${PREDEPLOY_HEALTH_OUTCOME:-not-run} |"
             echo "| Cloudflare Git-build serialization | DEPLOYMENT / CONCURRENCY | ${CLOUDFLARE_GIT_BUILD_OUTCOME:-not-run} |"
+            echo "| Current-main Worker guard | DEPLOYMENT / SUPERSEDED | ${MAIN_GUARD_RESULT:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
@@ -964,8 +1535,14 @@ jobs:
             echo '::error title=Pipeline failure class: PREDEPLOY / RECOVERY::Current production was unhealthy, so the workflow failed closed before replacing the Worker.'
           elif [[ "$CLOUDFLARE_GIT_BUILD_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: DEPLOYMENT / CONCURRENCY::The Cloudflare Git integration did not settle before the protected deployment deadline; no verified replacement was attempted.'
+          elif [[ "$MAIN_GUARD_RESULT" == 'superseded' ]]; then
+            echo '::error title=Pipeline failure class: SUPERSEDED REVISION::Main advanced while this run was validating; the Worker guard correctly refused an older release. No Cloudflare deployment was attempted by this run. Review newer main and deploy.'
+          elif [[ "$MAIN_GUARD_RESULT" == 'invalid-main' ]]; then
+            echo '::error title=Pipeline failure class: MAIN SHA LOOKUP::GitHub main could not be verified; the Worker guard failed closed before deploy.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+          elif [[ '${{ steps.postbuild_supersession.outcome }}' == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: STALE SOURCE::Postbuild revision guard refused a superseded main SHA; no Worker deploy or live verifier ran.'
           elif [[ "$LIVE_OUTCOME" != 'success' ]]; then
             echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a raw production verifier failed. The exact child outcome is listed above.'
           elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then
@@ -979,3 +1556,12 @@ jobs:
         env:
           PIPELINE_OUTCOME: ${{ job.status }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-production "$PIPELINE_OUTCOME" "Production deploy and blocking runtime verification passed" "Production pipeline failed; see the GitHub job summary"
+
+  verify-gsc-manual-next-production:
+    name: Verify GSC manual-next production after deploy
+    needs: deploy
+    # Gate on full protected main deployment and verified Worker recovery ledger.
+    if: ${{ needs.deploy.result == 'success' && github.ref == 'refs/heads/main' }}
+    uses: ./.github/workflows/verify-gsc-manual-next-production.yml
+    permissions:
+      contents: read

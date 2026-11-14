@@ -12,7 +12,7 @@ A permanent event guide may enter the rolling weekend and regional collections o
 
 | Source | Coverage | Role | Publication rule |
 | --- | --- | --- | --- |
-| Texas Parks & Wildlife Department calendar | Statewide public-land events | First-party discovery | Auto-publish only records that clear the existing confidence/editorial gate |
+| Texas Parks & Wildlife Department calendar | Statewide public-land activities | Factual discovery only | A separate short-lived park-activity index uses official title, date, park identifier and outbound link; matched-park records join the shared calendar, never become event leaf pages |
 | Ticketmaster bounded Texas discovery | Statewide ticketed entertainment | Commercial discovery/ticketing | Stale, cancelled or >48-hour-old inventory is hidden; permanent-guide facts remain organizer-controlled |
 | First-party annual anchor pages in the event sync | Major recurring Texas events | First-party date discovery | Only publish when a current date can be parsed from the official source |
 | Permanent major-event authority catalog | Statewide named events | First-party curated authority | Stable guide + explicit date/source review |
@@ -75,3 +75,21 @@ Dedicated `family-events-this-weekend`, `free-events-this-weekend`, `outdoor-eve
 ## Image and social source policy
 
 Event images may render only when item-level reuse rights are verified. `official-source-only` and `unknown` images are not silently republished. A missing safe image is preferable to an unauthorized organizer image. Social previews may use the existing compliant brand fallback when an event-specific reusable asset is unavailable; the page title, description, canonical and current event facts must remain event-specific.
+
+## TPWD park activity integration — October 21, 2026
+
+- The previously referenced `scripts/events/sync-texas-events.mjs` parser was not the daily scheduled command; the active workflow runs `sync-texas-events-safe.mjs` for major annual events. TPWD was registered as a source but not being imported by that workflow.
+- `scripts/events/sync-tpwd-calendar.mjs` now independently reads the official TPWD calendar in the existing daily sync workflow and stores a 90-day factual inventory in `src/data/generated/tpwd-events.json`. A parser test runs before each import. An empty/failed response leaves the previous file alone and fails the workflow rather than replacing good data.
+- Records contain only factual short event titles, published event dates, calendar park identifiers and official event hyperlinks. No copyrighted descriptions, photos or graphics are copied, and no new event-detail or bulk-indexed doorway pages are generated. TexasDefined writes its own short planning prompt.
+- Event cards are displayed only for a uniquely matched official state-park destination in the current site registry, using that destination's existing location and region. Ambiguous locations and non-park TPWD programming are skipped, not assigned invented locations. The source timestamp expires after seven days; past occurrences do not render.
+- TPWD may update programs, admissions and cancellations with little notice. Each event retains its TPWD deep link as the authority for current details. Source disappearance on the next successful refresh removes cancelled/unlisted occurrences from the index.
+- No official bulk feed or commercial reuse license was established. Do not expand the import to copy descriptions, images, arbitrary event-page bodies or a commercial mirror without written permission. Source: https://tpwd.texas.gov/site/policies/copyright-policy and https://tpwd.texas.gov/site/policies/linking-policy.
+- The calendar also provides first-party category links for hikes, birding and stargazing. Park visitor-essential sections link back to the official statewide TPWD schedule, even if the source parser is temporarily unavailable.
+
+## Expanded TPWD visitor-events rollout — October 21, 2026
+
+- TPWD publishes visitor-worthy events with titles that do not contain standard activity keywords (examples: Trail of Terror, Pirates of the Canyon, Picnic in the Park). The source parser now accepts factual, dated official calendar occurrences by default and excludes routine facility hours, career/recruiting, administrative meetings, professional workshops and similar non-travel listings. Unmatched locations still fail closed.
+- Both the statewide calendar and existing state-park visitor pages now use unit-aware park identities to avoid mixing Birch Creek with Nails Creek or other separately operated areas. Qualified programs at TPWD-managed state historic sites may appear when there is exactly one known matching destination.
+- An optional exact start date on /explore/trip-planner calculates each itinerary day's date and displays only matching official TPWD programs at park stops on that specific day. Choosing a travel month without an exact start date never implies an event is scheduled.
+- The TPWD discovery sync must not block unrelated annual-event or Ticketmaster source refreshes if its publisher site becomes unreachable; the workflow emits an explicit warning and retains the previous TPWD inventory. TPWD records expire automatically after seven days without a successful refresh, and out-of-window occurrences are not shown.
+- PR validation runs TPWD parser regression tests, including non-keyword visitor programs and exclusion criteria; the standard protected merge gate and deployment workflow apply. Do not infer successful source ingestion from code being merged; verify the first data-refresh PR and live park-calendar surfaces.

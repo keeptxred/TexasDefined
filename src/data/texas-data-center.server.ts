@@ -1,3 +1,8 @@
+import currentMetroPayrolls from '@/data/generated/texas-metro-payrolls-current.json';
+import currentHomeowners from '@/data/generated/tdi-homeowners-current.json';
+import currentStatePopulation from '@/data/generated/texas-state-population-current.json';
+import currentReferenceFacts from '@/data/generated/texas-reference-facts-current.json';
+
 export type TexasDataset = {
   slug: string;
   title: string;
@@ -15,18 +20,18 @@ export type TexasDataset = {
 export const TEXAS_DATASETS: TexasDataset[] = [
   {
     slug: 'county-property-tax-rates',
-    title: 'Texas County Property-Tax Rate Examples',
-    description: 'Compare selected adopted county government property-tax rates. City, school-district, and special-district rates are separate.',
-    category: 'Property taxes', year: 2024, updated: '2026-07-30', unit: 'percent',
-    sourceName: 'Texas Comptroller property-tax rate data',
-    sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
-    methodology: 'Selected adopted county rates are shown for planning and comparison. Missing counties are not treated as zero, and the values do not represent a complete combined property-tax bill.',
+    title: 'Texas County Property-Tax Rate Examples — archived 2024',
+    description: 'Compare ten verified 2024 adopted county-government property-tax rates, retained as a dated fallback if the monthly live importer is temporarily unavailable.',
+    category: 'Property taxes', year: 2024, updated: '2026-10-27', unit: 'percent',
+    sourceName: 'Texas Comptroller of Public Accounts — 2024 County Rates and Levies',
+    sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/docs/2024-county-rates-levies.xlsx',
+    methodology: 'These ten 2024 adopted county-government-only rates are transcribed from the official Texas Comptroller annual workbook. Rates are dollars per $100 taxable value, equivalent to the displayed percent. City, school-district and special-district rates are additional; this is not a combined tax bill. Latest complete verified year takes precedence when database imports are available.',
     rows: [
-      { label: 'El Paso County', value: 0.45 }, { label: 'Fort Bend County', value: 0.4383 },
-      { label: 'Harris County', value: 0.3769 }, { label: 'Williamson County', value: 0.3331 },
-      { label: 'Travis County', value: 0.3047 }, { label: 'Bexar County', value: 0.2768 },
-      { label: 'Dallas County', value: 0.2179 }, { label: 'Tarrant County', value: 0.1945 },
-      { label: 'Denton County', value: 0.1898 }, { label: 'Collin County', value: 0.1499 },
+      { label: 'El Paso County', value: 0.426323 }, { label: 'Fort Bend County', value: 0.824 },
+      { label: 'Harris County', value: 0.38529 }, { label: 'Williamson County', value: 0.399999 },
+      { label: 'Travis County', value: 0.344445 }, { label: 'Bexar County', value: 0.299999 },
+      { label: 'Dallas County', value: 0.2155 }, { label: 'Tarrant County', value: 0.1875 },
+      { label: 'Denton County', value: 0.187869 }, { label: 'Collin County', value: 0.149343 },
     ],
   },
   {
@@ -41,13 +46,15 @@ export const TEXAS_DATASETS: TexasDataset[] = [
   },
   {
     slug: 'homestead-exemption-history',
-    title: 'Texas School Homestead Exemption History',
-    description: 'Track major statewide mandatory school-district residence-homestead exemption levels.',
-    category: 'Historical trends', year: 2025, updated: '2026-07-30', unit: 'dollars',
-    sourceName: 'Texas Constitution and Texas Comptroller guidance',
-    sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/exemptions/residence-faq.php',
-    methodology: 'Major statewide mandatory school-district exemption levels are shown. Local optional exemptions and special exemptions are not included.',
+    title: 'Texas School Homestead Exemption History and Current Mandatory Amount',
+    description: 'Track historic statewide school-district residence-homestead exemption amounts alongside the current source-verified general exemption.',
+    category: 'Historical trends', year: Number(currentReferenceFacts.verifiedAt.slice(0, 4)),
+    updated: currentReferenceFacts.verifiedAt, unit: 'dollars',
+    sourceName: 'Texas Comptroller — Property Tax Exemptions and Texas Tax Code 11.13(b)',
+    sourceUrl: currentReferenceFacts.homestead.sourceUrl,
+    methodology: 'The current general residence-homestead exemption is verified against the Comptroller official description of Tax Code 11.13(b). The current amount is not assigned an unverified legislative effective year. Historic annual exemption levels are retained separately, and local, senior and disability exemptions are not included.',
     rows: [
+      { label: 'Current general school homestead exemption', value: currentReferenceFacts.homestead.generalSchoolUsd, note: 'Current-law amount; official source checked ' + currentReferenceFacts.verifiedAt + '. Do not infer the effective tax year from this date.' },
       { label: '2025', value: 140000 }, { label: '2023', value: 100000 },
       { label: '2022', value: 40000 }, { label: '2015', value: 25000 },
     ],
@@ -109,7 +116,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     slug: 'texas-homeowners-premium-history',
     title: 'Texas Homeowners Insurance Average Premium History',
     description: 'Track Texas statewide average annual homeowners premiums from 2019 through the preliminary 2025 market estimate.',
-    category: 'Insurance', year: 2025, updated: '2026-08-26', unit: 'dollars',
+    category: 'Insurance', year: 2025, updated: '2026-10-20', unit: 'dollars',
     sourceName: 'Texas Department of Insurance homeowners insurance market overview',
     sourceUrl: 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html',
     methodology: 'Texas Department of Insurance statewide average annual homeowners premiums are shown for trend context. The 2025 figure is preliminary. A statewide average is not a quote and should not be used as a substitute for address-specific coverage, deductible, roof, wind, flood or insurer pricing research.',
@@ -118,19 +125,36 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: '2020', value: 1987 },
       { label: '2021', value: 2124 },
       { label: '2022', value: 2374 },
-      { label: '2023', value: 2800 },
+      { label: '2023', value: 2795 },
       { label: '2024', value: 3291 },
-      { label: '2025', value: 3506, note: 'Preliminary TDI statewide average.' },
+      { label: '2025', value: 3489, note: 'Preliminary TDI statewide average; checked October 2026.' },
     ],
+  },
+  {
+    slug: 'texas-homeowners-premium-latest',
+    title: `Texas Homeowners Average Premiums and Coverage — ${currentHomeowners.sourceYear}`,
+    description: `Texas Department of Insurance homeowner average annual premium and coverage trends through the latest verified ${currentHomeowners.sourceYear} chart.`,
+    category: 'Insurance',
+    year: currentHomeowners.sourceYear,
+    updated: currentHomeowners.verifiedAt,
+    unit: 'dollars',
+    sourceName: 'Texas Department of Insurance — Texas Statistical Plan for Residential Risks',
+    sourceUrl: currentHomeowners.sourceUrl,
+    methodology: 'Official TDI statewide homeowners average premium and average insured coverage are distinct nominal statistics, not individual-policy quotes, rate filings, or constant-policy price indexes. Historical annual values are preserved. Newly appended years remain conservatively marked preliminary until explicit finality can be verified. Reviewed with source-year, policy-type, and revision bounds by the weekly GitHub source updater.',
+    rows: currentHomeowners.rows.map(row => ({
+      label: String(row.year),
+      value: row.premium,
+      note: `Average annual homeowners premium. TDI average insured coverage: ${row.coverage.toLocaleString('en-US')}.${row.preliminary ? ' Preliminary or not explicitly finalized.' : ''}`,
+    })),
   },
   {
     slug: 'texas-metro-payrolls-june-2026',
     title: 'Texas Metro Nonfarm Payroll Employment — June 2026',
-    description: 'Compare total nonfarm payroll employment across major Texas metropolitan areas used in relocation research.',
+    description: 'Historical June 2026 snapshot of total nonfarm payroll employment across major Texas metropolitan areas. For the most recent source-verified month, use the rolling Texas metro payrolls dataset.',
     category: 'Jobs', year: 2026, updated: '2026-08-26', unit: 'count',
     sourceName: 'U.S. Bureau of Labor Statistics metropolitan area employment table',
-    sourceUrl: 'https://www.bls.gov/news.release/metro.t03.htm',
-    methodology: 'Values are June 2026 preliminary total nonfarm payroll employment from the BLS metropolitan area table and are not seasonally adjusted. BLS publishes the source table in thousands; Texas Defined multiplies those values by 1,000 for display. Payroll employment is one labor-market indicator and is not a ranking of relocation quality.',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_07292026.htm',
+    methodology: 'Values are June 2026 preliminary total nonfarm payroll employment from the July 29, 2026 BLS metropolitan area release (Table 3) and are not seasonally adjusted. BLS publishes the source table in thousands; Texas Defined multiplies those values by 1,000 for display. This is a historical release that may differ from subsequently revised figures. Payroll employment is one labor-market indicator and is not a ranking of relocation quality.',
     rows: [
       { label: 'Dallas–Fort Worth–Arlington', value: 4363300 },
       { label: 'Houston–Pasadena–The Woodlands', value: 3521500 },
@@ -147,20 +171,139 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: 'Tyler', value: 122100 },
     ],
   },
+
+  {
+    slug: 'texas-metro-payrolls-august-2026',
+    title: 'Texas Metro Nonfarm Payroll Employment — August 2026',
+    description: 'Compare August 2026 preliminary nonfarm payroll employment across major Texas metropolitan areas, using the September 30, 2026 BLS release.',
+    category: 'Jobs', year: 2026, updated: '2026-10-20', unit: 'count',
+    sourceName: 'U.S. Bureau of Labor Statistics — Metropolitan Area Employment and Unemployment, August 2026',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    methodology: 'Values are August 2026 preliminary total nonfarm payroll employment from BLS Table 3, released September 30, 2026, and are not seasonally adjusted. The published table reports thousands of jobs; Texas Defined multiplies each value by 1,000. These are establishment payroll jobs, not resident workers, and this dated snapshot can be revised by BLS in later releases.',
+    rows: [
+      { label: 'Dallas–Fort Worth–Arlington', value: 4357000 },
+      { label: 'Houston–Pasadena–The Woodlands', value: 3495300 },
+      { label: 'Austin–Round Rock–San Marcos', value: 1415900 },
+      { label: 'San Antonio–New Braunfels', value: 1191700 },
+      { label: 'El Paso', value: 363500 },
+      { label: 'McAllen–Edinburg–Mission', value: 308100 },
+      { label: 'Corpus Christi', value: 202300 },
+      { label: 'Lubbock', value: 176300 },
+      { label: 'Brownsville–Harlingen', value: 159500 },
+      { label: 'College Station–Bryan', value: 142100 },
+      { label: 'Waco', value: 142900 },
+      { label: 'Amarillo', value: 130700 },
+      { label: 'Tyler', value: 122600 },
+    ],
+  },
   {
     slug: 'texas-traffic-monitoring-coverage',
     title: 'TxDOT Statewide Traffic Monitoring Coverage',
-    description: 'Understand the scale of the Texas traffic-count system behind address, corridor and commute research.',
-    category: 'Transportation', year: 2026, updated: '2026-08-26', unit: 'count',
-    sourceName: 'Texas Department of Transportation traffic count maps',
-    sourceUrl: 'https://www.txdot.gov/data-maps/traffic-count-maps.html',
-    methodology: 'TxDOT describes a statewide program with more than 75,000 short-term traffic counts collected each year and more than 350 permanent continuous-count stations. These values describe monitoring coverage, not the traffic volume on a specific road. Use TxDOT STARS II and current local project information for a candidate address or commute.',
+    description: 'Understand the source-verified scale of the Texas traffic count program and its continuous traffic monitoring stations.',
+    category: 'Transportation', year: Number(currentReferenceFacts.verifiedAt.slice(0, 4)),
+    updated: currentReferenceFacts.verifiedAt, unit: 'count',
+    sourceName: 'Texas Department of Transportation — Traffic Count Maps',
+    sourceUrl: currentReferenceFacts.txdot.sourceUrl,
+    methodology: 'TxDOT describes published lower-bound counts for annual short-term traffic collections and continuous stations, not exact audited totals. Values are reproduced as the published minimum thresholds and must be read as more than the displayed figures. The county coverage count is a statewide geography reference.',
     rows: [
-      { label: 'Short-term traffic counts collected each year', value: 75000, note: 'TxDOT states that it collects more than 75,000 short-term traffic counts annually.' },
-      { label: 'Permanent continuous traffic monitoring stations', value: 350, note: 'TxDOT states that it maintains more than 350 permanent monitoring stations.' },
-      { label: 'Texas counties covered by DISCOS statistics', value: 254, note: 'TxDOT publishes annual district and county statistics across every Texas county.' },
+      { label: 'Short-term traffic counts collected each year', value: currentReferenceFacts.txdot.shortTermCountsLowerBound, note: 'TxDOT states more than this many short-term traffic counts per year.' },
+      { label: 'Permanent continuous traffic monitoring stations', value: currentReferenceFacts.txdot.continuousStationsLowerBound, note: 'TxDOT states more than this many continuous count stations.' },
+      { label: 'Texas counties covered by DISCOS statistics', value: 254, note: 'Texas has 254 counties, with TxDOT annual district and county statistics.' },
+    ],
+  },
+  {
+    slug: 'texas-metro-payrolls-latest',
+    title: 'Texas Metro Nonfarm Payroll Employment — ' +
+      new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+        .format(new Date(currentMetroPayrolls.releaseMonth + '-01T00:00:00Z')),
+    description: 'Most recently verified monthly BLS nonfarm payroll job estimates for major Texas metro areas, sourced from the official BLS metro release or its Federal Reserve series distribution, with source and observation month identified.',
+    category: 'Jobs',
+    year: Number(currentMetroPayrolls.releaseMonth.slice(0, 4)),
+    updated: currentMetroPayrolls.publishedDate,
+    unit: 'count',
+    sourceName: currentMetroPayrolls.sourceUrl.startsWith('https://fred.stlouisfed.org/')
+      ? 'Federal Reserve Bank of St. Louis (FRED) — BLS monthly metro nonfarm payroll series'
+      : 'U.S. Bureau of Labor Statistics — Metropolitan Area Employment and Unemployment, Table 3',
+    sourceUrl: currentMetroPayrolls.sourceUrl,
+    methodology: currentMetroPayrolls.sourceUrl.startsWith('https://fred.stlouisfed.org/')
+      ? 'Monthly BLS metropolitan nonfarm payroll jobs, not seasonally adjusted, distributed by the Federal Reserve Bank of St. Louis. Each of the same thirteen named series is checked for one common observation month, complete numerical values, and a conservative forty-day source maturity window. The publishedDate field is the date Texas Defined verified this FRED distribution, not the date of an official BLS Table 3 news release. This rolling, revisable snapshot is distinct from archived official release briefs.'
+      : 'Most recent verified BLS metropolitan Table 3 nonfarm payroll jobs, not seasonally adjusted; source rows report thousands and are multiplied by 1,000. Monthly data are preliminary and revised in later releases. This rolling snapshot does not replace the separately retained historic monthly briefs.',
+    rows: currentMetroPayrolls.rows,
+  },
+  {
+    slug: 'texas-population-and-migration-latest',
+    title: 'Texas Population and Migration — Census Vintage ' + currentStatePopulation.vintage,
+    description: 'Latest verified Census state population and components of change; Texas yearly figures share one estimates vintage and are subject to revision.',
+    category: 'Relocation and migration',
+    year: currentStatePopulation.vintage,
+    updated: currentStatePopulation.verifiedAt,
+    sourceName: 'U.S. Census Bureau — State Population Totals and Components of Change',
+    sourceUrl: currentStatePopulation.sourceUrl,
+    methodology: 'Census Population Estimates Program official state NST-EST ALLDATA file, same vintage for July 1 current and prior year; growth reconciles exactly to domestic and international net migration, natural increase and published residual. Estimates are not a census count or migration-flow survey. Historical Vintage 2025 briefs remain available independently.',
+    unit: 'count',
+    rows: [
+      { label: 'Texas population — July 1, ' + currentStatePopulation.vintage, value: currentStatePopulation.population },
+      { label: 'Numeric population growth — prior July to current July', value: currentStatePopulation.populationChange },
+      { label: 'Net domestic migration', value: currentStatePopulation.domesticMigration },
+      { label: 'Net international migration', value: currentStatePopulation.internationalMigration },
+      { label: 'Natural increase', value: currentStatePopulation.naturalIncrease },
     ],
   },
 ];
+
+const COUNTY_EXAMPLE_SLUGS = [
+  'el-paso-county', 'fort-bend-county', 'harris-county', 'williamson-county',
+  'travis-county', 'bexar-county', 'dallas-county', 'tarrant-county',
+  'denton-county', 'collin-county',
+] as const;
+
+// The existing monthly, source-verified Comptroller import owns the database.
+// This bounded server-only view reads the newest *complete* finalized county
+// example set; it does not fetch official sites on pageview, fabricate missing
+// rates, or overwrite archived 2024 source snapshots.
+export async function getCurrentCountyPropertyTaxExamples(candidateYear?: number): Promise<TexasDataset | null> {
+  const { supabase } = await import('@/integrations/supabase/client');
+  const db = supabase as any;
+  const { data: years, error: yearError } = await db.from('texas_property_tax_rates')
+    .select('year').eq('type', 'county').order('year', { ascending: false }).limit(1);
+  if (yearError) throw yearError;
+  const year = candidateYear ?? Number(years?.[0]?.year);
+  if (!Number.isInteger(year) || year < 2024 || year > new Date().getUTCFullYear()) return null;
+
+  const { data, error } = await db.from('texas_property_tax_rates')
+    .select('year,slug,name,total_rate,source_status,source_url,variable_rate,rate_unavailable,imported_at')
+    .eq('year', year).eq('type', 'county').in('slug', [...COUNTY_EXAMPLE_SLUGS]);
+  if (error) throw error;
+  const rows = data ?? [];
+  const bySlug = new Map(rows.map((row: any) => [row.slug, row] as const));
+  if (rows.length !== COUNTY_EXAMPLE_SLUGS.length || bySlug.size !== COUNTY_EXAMPLE_SLUGS.length) return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
+  const officialUrl = `https://comptroller.texas.gov/taxes/property-tax/docs/${year}-county-rates-levies.xlsx`;
+  const values = [];
+  for (const slug of COUNTY_EXAMPLE_SLUGS) {
+    const row = bySlug.get(slug) as any;
+    const value = Number(row?.total_rate);
+    if (!row || row.source_status !== 'reported-final' || row.source_url !== officialUrl ||
+      row.variable_rate || row.rate_unavailable || !Number.isFinite(value) || value <= 0 || value >= 5 ||
+      row.name !== slug.split('-').slice(0, -1).map((part: string) =>
+        part.charAt(0).toUpperCase() + part.slice(1)).join(' ') + ' County') return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
+    values.push({ label: row.name, value, note: `${year} adopted county-only rate, dollars per $100 taxable value.` });
+  }
+  const original = TEXAS_DATASETS.find((item) => item.slug === 'county-property-tax-rates');
+  if (!original) throw new Error('County rate examples missing from the Texas Data registry');
+  const updated = rows.map((row: any) => String(row.imported_at || '').slice(0, 10))
+    .filter((value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value)).sort().at(-1);
+  if (!updated) return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
+  return {
+    ...original,
+    title: `Texas County Property-Tax Rate Examples — ${year}`,
+    description: `Compare ten official ${year} adopted Texas county government property-tax rates; city, school-district, and special-district rates are separate.`,
+    year,
+    updated,
+    sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
+    sourceUrl: officialUrl,
+    methodology: `Verified ${year} county-government-only rates from the Texas Comptroller annual workbook, stored by the existing scheduled import. Rates are dollars per $100 taxable value, numerically equal to the percent shown here. This is not a complete parcel tax bill; check your other local taxing units and exemptions.`,
+    rows: values,
+  };
+}
 
 export const getTexasDataset = (slug: string) => TEXAS_DATASETS.find((dataset) => dataset.slug === slug);

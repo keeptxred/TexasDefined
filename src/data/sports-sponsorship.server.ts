@@ -22,11 +22,17 @@ import type {
  * shortcut. Traffic evidence should be reviewed before it is changed.
  */
 export const SPORTS_SPONSOR_OUTREACH_HOLD = true;
+// Scoped pilot from October 23 Google Search football traffic: approved team/district placements only.
+// The independent sports venue launch hold remains active.
+export const FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED = true;
+function isFootballSponsorSurface(path: string) {
+  return /^\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(path);
+}
 export const SPORTS_SPONSOR_OUTREACH_HOLD_REASON =
   'Sports sponsorship outreach is on hold until TexasDefined has sufficient real sports-page traffic to support credible sponsor conversations.';
 
 function assertSponsorLaunchReady() {
-  if (SPORTS_SPONSOR_OUTREACH_HOLD) throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
+  if (SPORTS_SPONSOR_OUTREACH_HOLD && !FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED) throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
 }
 
 function assertHttpsUrl(value: string, label: string) {
@@ -68,7 +74,11 @@ function toPublicPlacement(row: Record<string, unknown>): PublicSportsSponsorPla
 }
 
 export async function loadActiveSportsSponsorPlacement(surfacePath: string): Promise<PublicSportsSponsorPlacement | null> {
-  if (SPORTS_SPONSOR_OUTREACH_HOLD) return null;
+  if (!isFootballSponsorSurface(surfacePath)) {
+    if (SPORTS_SPONSOR_OUTREACH_HOLD) return null;
+  } else if (!FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED) {
+    return null;
+  }
 
   const client = supabaseAdmin as any;
   const now = new Date().toISOString();
@@ -266,16 +276,42 @@ export async function setSportsSponsorPlacementStatus(
   const client = supabaseAdmin as any;
   const { data: existing, error: existingError } = await client
     .from('texasdefined_sports_sponsor_placements')
-    .select('id,sponsor_id,approved_at,texasdefined_sports_sponsors!inner(status)')
+    .select('id,sponsor_id,surface_path,approved_at,texasdefined_sports_sponsors!inner(status,source_inquiry_id)')
     .eq('id', placementId)
     .maybeSingle();
   if (existingError) throw new Error(`Sports sponsor placement could not be checked: ${existingError.message}`);
   if (!existing?.id) throw new Error('Sports sponsor placement was not found.');
+  if (status === 'approved' && SPORTS_SPONSOR_OUTREACH_HOLD && !isFootballSponsorSurface(String(existing.surface_path))) {
+    throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
+  }
 
   const sponsorJoin = existing.texasdefined_sports_sponsors;
   const sponsorStatus = Array.isArray(sponsorJoin) ? sponsorJoin[0]?.status : sponsorJoin?.status;
   if (status === 'approved' && sponsorStatus !== 'approved') {
     throw new Error('Approve the sponsor before approving a placement.');
+  }
+
+  // Founding football inventory must never go live from an unpaid draft.
+  // Approval is tied to the existing versioned agreement and Stripe-confirmed
+  // payment state; an inquiry, prospect or draft invoice alone is insufficient.
+  if (status === 'approved' && isFootballSponsorSurface(String(existing.surface_path))) {
+    const sourceInquiryId = Array.isArray(sponsorJoin)
+      ? sponsorJoin[0]?.source_inquiry_id : sponsorJoin?.source_inquiry_id;
+    if (!sourceInquiryId) throw new Error('Link the paid advertiser inquiry to this football sponsor before approval.');
+    const { data: inquiry, error: inquiryError } = await client
+      .from('texasdefined_partner_inquiries')
+      .select('advertiser_agreement_id')
+      .eq('id', sourceInquiryId).maybeSingle();
+    if (inquiryError || !inquiry?.advertiser_agreement_id) {
+      throw new Error('An accepted advertiser agreement is required before football placement approval.');
+    }
+    const { data: agreement, error: agreementError } = await client
+      .from('texasdefined_advertiser_agreements')
+      .select('status,payment_status')
+      .eq('id', inquiry.advertiser_agreement_id).maybeSingle();
+    if (agreementError || agreement?.status !== 'accepted' || agreement?.payment_status !== 'paid') {
+      throw new Error('Football sponsorship placement requires an accepted agreement and confirmed payment.');
+    }
   }
 
   const update: Record<string, unknown> = {

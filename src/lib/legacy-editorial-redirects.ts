@@ -15,6 +15,9 @@ const destinationAliases: Record<string, string> = {
   "barrington-farm-site": "barrington-living-history-farm",
   "fanthorp-inn-state-historic-site": "fanthorp-inn",
   "battleship-texas-state-historic-site": "battleship-texas",
+  // Two published Edinburg museum records describe the same physical museum.
+  // Preserve the researched wave47 authority guide and 301 the older wave2 alias.
+  "museum-south-texas-history-edinburg": "museum-of-south-texas-history-edinburg",
   "port-isabel-lighthouse-state-park": "port-isabel-lighthouse",
   "port-isabel-lighthouse-state-historic-site": "port-isabel-lighthouse",
   "monument-hill-kreische-brewery-state-historic-site": "monument-hill",
@@ -27,10 +30,55 @@ export const LEGACY_EDITORIAL_REDIRECTS: Record<string, string> = Object.fromEnt
   ),
 );
 LEGACY_EDITORIAL_REDIRECTS["/museum/barrington-farm-site"] = "/destination/barrington-living-history-farm";
+// Barton Warnock visitor interpretation and permits are covered in the Big Bend Ranch guide.
+LEGACY_EDITORIAL_REDIRECTS["/destination/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
 // Historical San Antonio links: the city guide is /city/, not a destination.
 LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
+// El Paso's researched city authority lives at /city/el-paso, not a second
+// destination slug. Preserve old destination referrals without duplicate SEO.
+LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";
 // County feature was published with a -texas suffix; retain old inbound links.
 LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas";
+
+// Exact historical GSC aliases: all targets were confirmed HTTP 200 and
+// self-canonical in production on 2026-11-13. The source URL alone is not a
+// reason to create a duplicate authority page or relax any target noindex gate.
+LEGACY_EDITORIAL_REDIRECTS["/attraction/dr-pepper-museum"] = "/destination/dr-pepper-museum-waco";
+LEGACY_EDITORIAL_REDIRECTS["/destination/dr-pepper-museum"] = "/destination/dr-pepper-museum-waco";
+LEGACY_EDITORIAL_REDIRECTS["/attraction/hill-country-louise-merrick-unit-state-natural-area"] = "/destination/hill-country-state-natural-area";
+LEGACY_EDITORIAL_REDIRECTS["/destination/hill-country-louise-merrick-unit-state-natural-area"] = "/destination/hill-country-state-natural-area";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/indian-lodge-state-park-lodge"] = "/destination/indian-lodge";
+LEGACY_EDITORIAL_REDIRECTS["/destination/indian-lodge-state-park-lodge"] = "/destination/indian-lodge";
+// Seminole Canyon's 200 canonical remains editorially noindex today.
+LEGACY_EDITORIAL_REDIRECTS["/destination/seminole-canyon-state-park-historic-site"] = "/destination/seminole-canyon-state-park";
+
+// Historical GSC article aliases; preserve the original published authority page.
+LEGACY_EDITORIAL_REDIRECTS["/news/stephen-f-austin-father-of-texas"] = "/article/stephen-f-austin-father-of-texas";
+LEGACY_EDITORIAL_REDIRECTS["/news/juan-seguin-tejano-texas-revolution"] = "/article/juan-seguin-tejano-texas-revolution";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-spurs-texas-basketball-culture"] = "/article/san-antonio-spurs-texas-basketball-culture";
+LEGACY_EDITORIAL_REDIRECTS["/news/texas-oil-boom-wichita-falls-west-texas-rigs"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
+LEGACY_EDITORIAL_REDIRECTS["/news/dr-pepper-waco-texas-history"] = "/dr-pepper-texas-history";
+LEGACY_EDITORIAL_REDIRECTS["/news/davy-crockett-texas-alamo-legend"] = "/article/davy-crockett-texas-alamo-legend";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-stock-show-rodeo-history-guide"] = "/article/san-antonio-stock-show-rodeo-history-guide";
+// The published Ray Roberts State Park guide independently covers both units
+// and their separate actual addresses, campground facilities and access notes.
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/destination/fredericksburg-texas-wineries-things-to-do-guide"] = "/article/fredericksburg-texas-wineries-things-to-do-guide";
+
+// Old Search Console links for two genuine, already published Texas homeowner
+// research guides. Never send visitors to an unrelated calculator or generic hub.
+LEGACY_EDITORIAL_REDIRECTS["/article/texas-home-insurance-guide"] = "/article/texas-homeowners-insurance-guide";
+LEGACY_EDITORIAL_REDIRECTS["/article/texas-hurricane-preparation-guide"] = "/article/texas-hurricane-preparation-homeowners-renters";
+// The former article slug named Spindletop and the Permian Basin. The live
+// canonical oil-boom authority article already covers both regions plus Wichita
+// Falls, and lists TSHA and Railroad Commission primary sources.
+LEGACY_EDITORIAL_REDIRECTS["/article/texas-oil-boom-history-spindletop-permian-basin"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
+// Long-form Cameron County series was consolidated to its canonical county profile.
+LEGACY_EDITORIAL_REDIRECTS["/article/cameron-county-brownsville-harlingen-south-padre-rio-grande"] = "/county/cameron";
 
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",

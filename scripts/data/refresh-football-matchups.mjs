@@ -40,6 +40,10 @@ for (const game of incoming.games) {
     || !school(game.home) || !school(game.away) || game.home.slug === game.away.slug
     || !/^[1-6]A$/.test(game.classification) || typeof game.kickoff !== 'string' || game.kickoff.length > 60
     || !['regular','playoff'].includes(game.phase) || !['scheduled','final'].includes(game.status)
+    || (game.phase === 'regular' && typeof game.districtGame !== 'boolean')
+    || (game.districtGame === true && (!Number.isInteger(game.district) || game.district < 1 || game.district > 32))
+    || (game.districtGame !== true && game.district !== undefined)
+    || (game.phase === 'playoff' && game.districtGame === true)
     || !https(game.sourceUrl) || !date(game.verifiedAt) || typeof game.sourceLabel !== 'string'
     || game.sourceLabel.length < 3 || game.sourceLabel.length > 180 || seen.has(game.slug)) {
     throw new Error('Invalid or duplicated score feed record: ' + String(game?.slug));
@@ -55,7 +59,8 @@ for (const game of incoming.games) {
   const old = bySlug.get(game.slug);
   if (old) {
     if (old.date !== game.date || old.home.slug !== game.home.slug || old.away.slug !== game.away.slug
-      || old.classification !== game.classification || old.phase !== game.phase)
+      || old.classification !== game.classification || old.phase !== game.phase
+      || old.districtGame !== game.districtGame || old.district !== game.district)
       throw new Error('Provider attempted to rewrite game identity: ' + game.slug);
     if (old.status === 'final' && (game.status !== 'final' || game.homeScore !== old.homeScore || game.awayScore !== old.awayScore))
       throw new Error('Conflicting final score requires manual reconciliation: ' + game.slug);

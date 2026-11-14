@@ -67,7 +67,7 @@ export const aquariumMarineDestinations1: Destination[] = [
     highlights: ["Aquarium Pyramid", "Penguins, seals and sharks", "Jellyfish and reefs", "Coral conservation"],
     body: [
       "For aquarium-focused visitors, the Aquarium Pyramid is the reason Moody Gardens belongs in this statewide collection. The large indoor route moves through multiple ocean regions and mixes major animal habitats with conservation interpretation, giving Galveston a substantial marine-life attraction even when beach weather is poor.",
-      "Moody Gardens is a complex rather than a single-ticket room. The Rainforest Pyramid, Discovery Museum, theaters, seasonal attractions and hotel can turn the property into a full-day or overnight anchor, so families should decide whether the aquarium is the main event or one part of a broader pass before buying tickets.",
+      "Moody Gardens is a complex rather than a single-ticket room. The Rainforest Pyramid, the Galveston Children's Museum inside the Discovery Pyramid, theaters, seasonal attractions and hotel can turn the property into a full-day or overnight anchor, so families should decide whether the aquarium is the main event or one part of a broader pass before buying tickets.",
       "The Aquarium Pyramid’s conservation work gives the visit a Texas Gulf connection beyond display. Moody Gardens highlights coral work tied to the Flower Garden Banks National Marine Sanctuary, while animal encounters and lab programs vary by schedule and should be checked close to the visit.",
     ],
     managingAuthority: "Moody Gardens",

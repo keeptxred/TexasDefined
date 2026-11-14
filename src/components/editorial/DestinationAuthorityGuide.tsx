@@ -32,6 +32,11 @@ export function DestinationAuthorityGuide({
   const primaryTimeline = topAttractionTimeline(destination.slug);
   const timeline = primaryTimeline.length ? primaryTimeline : historicSiteAuthorityTimeline(destination.slug);
   const primarySource = authority.sources[0];
+  // The Japanese Tea Garden already leads with its exact 30–60 minute visit
+  // decision and publishes three distinct, operator-sourced visitor FAQs.
+  // Avoid a second full-width 'Common visitor questions' section containing
+  // nothing but the same duration repeated as one question.
+  const showSeparateVisitorQuestions = destination.slug !== "san-antonio-japanese-tea-garden";
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
   const questions: Array<{ q: string; a: string; sourceUrl?: string }> = [
@@ -74,7 +79,7 @@ export function DestinationAuthorityGuide({
 
           <section aria-labelledby={`${destination.slug}-itineraries`}>
             <p className="eyebrow text-primary">Use the time you have</p>
-            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">Three ways to visit</h2>
+            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">{destination.slug === "battleship-texas" ? "Three ways to explore while the ship is closed" : authority.itineraries.length === 2 ? "Two ways to visit" : authority.itineraries.length === 1 ? "Suggested visit" : "Three ways to visit"}</h2>
             <div className="mt-7 grid gap-5 sm:grid-cols-3">
               {authority.itineraries.map((plan) => <article key={plan.label} className="border-t-2 border-foreground pt-5">
                 <p className="eyebrow text-primary">{plan.duration}</p>
@@ -103,14 +108,14 @@ export function DestinationAuthorityGuide({
 
     <Section tone={timeline.length > 0 ? undefined : "surface"}>
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
-          <section aria-labelledby={`${destination.slug}-traveler-questions`}>
+        <div className={showSeparateVisitorQuestions ? "grid gap-12 lg:grid-cols-[1.2fr_.8fr]" : "mx-auto max-w-3xl"}>
+          {showSeparateVisitorQuestions && <section aria-labelledby={`${destination.slug}-traveler-questions`}>
             <p className="eyebrow text-primary">Before you go</p>
             <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
               {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}{item.sourceUrl && /^https:\/\//.test(item.sourceUrl) && <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener" className="ml-2 inline-block border-b border-primary text-primary">Official verification ↗</a>}</dd></div>)}
             </dl>
-          </section>
+          </section>}
 
           <aside>
             <section aria-labelledby={`${destination.slug}-sources`}>

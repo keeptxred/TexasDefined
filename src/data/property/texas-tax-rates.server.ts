@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import type { TexasTaxRateRecord, TexasTaxRateSourceStatus, TexasTaxingUnitType } from './texas-tax-rates.generated';
+import { cachedPublishedTax } from './published-tax-cache.server';
 
 export const TAX_RATE_SOURCE_NAME = 'Texas Comptroller of Public Accounts — Property Tax Assistance Division';
 export const TAX_RATE_SOURCE_PAGE = 'https://comptroller.texas.gov/taxes/property-tax/rates/';
@@ -57,6 +58,7 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
     debtServiceRate: numeric(row.debt_service_rate),
     levy: numeric(row.levy),
     sourceUrl: row.source_url,
+    importedAt: row.imported_at ?? null,
     sourceStatus: row.source_status as TexasTaxRateSourceStatus,
     variableRate: Boolean(row.variable_rate),
     rateVariants: (row.rate_variants ?? []).map((value) => Number(value)).filter(Number.isFinite),
@@ -67,6 +69,7 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
 }
 
 export async function getLatestTaxRateYearServer() {
+  return cachedPublishedTax('latest-tax-year', async () => {
   const { data, error } = await db
     .from('texas_property_tax_rates')
     .select('year')
@@ -75,6 +78,7 @@ export async function getLatestTaxRateYearServer() {
   if (error) throw error;
   const year = Number(data?.[0]?.year);
   return Number.isInteger(year) ? year : FALLBACK_LATEST_YEAR;
+  });
 }
 
 export function availableTaxYears(latestYear: number) {
@@ -96,6 +100,7 @@ export function taxRateMetadata(latestYear: number, generatedAt: string | null =
 }
 
 export async function getCountyTaxRateSummaryServer(countySlug: string, year: number): Promise<{ summary: CountyTaxRateSummary; generatedAt: string | null }> {
+  return cachedPublishedTax(`county-tax-summary:${year}:${countySlug}`, async () => {
   const { data, error } = await db
     .from('texas_property_tax_rates')
     .select('*')
@@ -118,16 +123,21 @@ export async function getCountyTaxRateSummaryServer(countySlug: string, year: nu
       specialDistricts: byType('special-district'),
     },
   };
+  });
 }
 
-export async function searchTaxingUnitsServer(query: string, year: number, limit = 100): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
+export async function searchTaxingUnitsServer(query: string, year: number, limit = 100, type?: TexasTaxingUnitType): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
   const safeQuery = query.replace(/[%_]/g, ' ').replace(/\s+/g, ' ').trim();
   if (!safeQuery) return { records: [], generatedAt: null };
-  const { data, error } = await db
+  let dbQuery = db
     .from('texas_property_tax_rates')
     .select('*')
     .eq('year', year)
-    .ilike('name', `%${safeQuery}%`)
+    .ilike('name', `%${safeQuery}%`);
+  // Filter the official category BEFORE applying the result cap; filtering
+  // a mixed workbook result client-side can silently omit requested units.
+  if (type) dbQuery = dbQuery.eq('type', type);
+  const { data, error } = await dbQuery
     .order('name', { ascending: true })
     .limit(Math.max(1, Math.min(100, limit)));
   if (error) throw error;
@@ -135,7 +145,34 @@ export async function searchTaxingUnitsServer(query: string, year: number, limit
   return { records: rows.map(mapTaxRateRow), generatedAt: rows[0]?.imported_at ?? null };
 }
 
+
+/** Source-year-matched school comparisons for a single associated county.
+ * This is comparative context only: district boundaries are not inferred from
+ * county association, and a person's parcel never inherits every district.
+ */
+export async function getSchoolDistrictPeerRatesServer(countySlug: string, year: number, currentSlug: string, currentRate: number) {
+  if (!/^[a-z0-9-]+$/.test(countySlug) || !Number.isInteger(year) || year < 2021 || year > 2100
+    || !Number.isFinite(currentRate) || currentRate < 0) return [];
+  const rows = await cachedPublishedTax(`isd-peers:${countySlug}:${year}`, async () => {
+    const { data, error } = await db
+      .from('texas_property_tax_rates')
+      .select('*')
+      .eq('type', 'school-district')
+      .eq('year', year)
+      .contains('county_slugs', [countySlug])
+      .order('name', { ascending: true })
+      .limit(200);
+    if (error) throw error;
+    return ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow)
+      .filter((entry) => !entry.rateUnavailable && !entry.variableRate && entry.sourceStatus === 'reported-final' && entry.totalRate != null);
+  });
+  return rows.filter((entry) => entry.slug !== currentSlug)
+    .sort((a, b) => Math.abs(a.totalRate! - currentRate) - Math.abs(b.totalRate! - currentRate) || a.name.localeCompare(b.name))
+    .slice(0, 5);
+}
+
 export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasTaxingUnitType): Promise<TexasTaxRateRecord[]> {
+  return cachedPublishedTax(`unit-tax-history:${type ?? 'auto'}:${slug}`, async () => {
   let query = db
     .from('texas_property_tax_rates')
     .select('*')
@@ -144,7 +181,55 @@ export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasT
   if (type) query = query.eq('type', type);
   const { data, error } = await query;
   if (error) throw error;
-  return ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
+  let records = ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
+  if (!records.length) return records;
+  // A slug is not guaranteed unique across source-workbook types. The Woodlands
+  // Township appears as both a city and a special district for 2021–2023,
+  // but only as a special district for 2024–2025. Never interleave two
+  // classified sources into a single year-by-year history or count a year twice.
+  if (!type && new Set(records.map((record) => record.type)).size > 1) {
+    const newestYear = Math.max(...records.map((record) => record.year));
+    const latestTypes = [...new Set(records.filter((record) => record.year === newestYear).map((record) => record.type))];
+    if (latestTypes.length !== 1) {
+      throw new Error(`Ambiguous taxing-unit classification for slug "${slug}"; specify type explicitly`);
+    }
+    records = records.filter((record) => record.type === latestTypes[0]);
+  }
+  // Local supplements are only joined to detailed taxing-unit history pages.
+  // County rollups, statewide insights, and parcel calculators continue to
+  // consume original Comptroller records without an implicit override.
+  const { data: localRows, error: localError } = await db
+    .from('texas_tax_local_verified_rates')
+    .select('tax_year,unit_type,slug,official_unit_id,total_rate,maintenance_operations_rate,debt_service_rate,source_url,component_source_url,source_agency,verified_on,evidence_note')
+    .eq('slug', slug)
+    .eq('status', 'verified');
+  if (localError) throw localError;
+  for (const record of records) {
+    const local = (localRows ?? []).find((row: any) =>
+      row.tax_year === record.year &&
+      row.unit_type === record.type &&
+      record.officialTaxingUnitIds.includes(row.official_unit_id)
+    );
+    if (!local) continue;
+    const localTotal = numeric(local.total_rate)!;
+    const localMo = numeric(local.maintenance_operations_rate);
+    const localDebt = numeric(local.debt_service_rate);
+    const mode = record.totalRate == null ? 'supplement'
+      : Math.abs(record.totalRate - localTotal) > 0.000001 ? 'conflict' : 'corroborated';
+    record.localVerification = {
+      totalRate: localTotal,
+      maintenanceOperationsRate: localMo,
+      debtServiceRate: localDebt,
+      sourceUrl: local.source_url,
+      componentSourceUrl: local.component_source_url,
+      sourceAgency: local.source_agency,
+      verifiedOn: local.verified_on,
+      evidenceNote: local.evidence_note,
+      mode,
+    };
+  }
+  return records;
+  });
 }
 
 export async function getTaxRateDatasetCountServer() {
@@ -155,6 +240,7 @@ export async function getTaxRateDatasetCountServer() {
 
 
 export async function getStatewideTaxRateInsightsServer(year: number) {
+  return cachedPublishedTax(`statewide-tax-insights:${year}`, async () => {
   const base = () => db
     .from('texas_property_tax_rates')
     .select('*')
@@ -189,5 +275,5 @@ export async function getStatewideTaxRateInsightsServer(year: number) {
     lowest: ((lowestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
     highest: ((highestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
     generatedAt: ((lowestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? ((highestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? null,
-  };
+  };  });
 }

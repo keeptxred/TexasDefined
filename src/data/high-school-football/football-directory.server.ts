@@ -5,16 +5,8 @@ import {
   type UilFootballExactEnrollment,
 } from './uil-football-enrollments-2026.generated';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
-import {
-  loadUilRecentFootballHistory,
-  recentFootballHistoryFromLoaded,
-  type UilRecentFootballHistory,
-} from './uil-football-recent-history.server';
-import {
-  allTimeFootballHistoryFromLoaded,
-  loadUilAllTimeFootballHistory,
-  type UilAllTimeFootballHistory,
-} from './uil-football-all-time-history.server';
+import type { UilRecentFootballHistory } from './uil-football-recent-history.server';
+import type { UilAllTimeFootballHistory } from './uil-football-all-time-history.server';
 
 const TEA_DIRECTORY_URL = 'https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx';
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
@@ -460,21 +452,34 @@ export async function searchFootballPrograms(options: {
   county?: string;
   district?: string;
   limit?: number;
+  // Detail-page SSR must not depend on cold external AskTED/UIL archive connections.
+  // Directory searches retain all external enrichment by default.
+  loadRemoteSources?: boolean;
 }) {
   const query = cleanName(options.query ?? '');
   const county = cleanName(options.county ?? '').replace(/\bcounty\b/g, '').trim();
   const district = cleanName(options.district ?? '');
   const limit = Math.min(Math.max(options.limit ?? 50, 1), 500);
 
-  const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
-    loadTeaSchoolDirectory(),
-    loadUilRecentFootballHistory(),
-    loadUilAllTimeFootballHistory(),
-  ]);
+  const [directoryResult, historyResult, allTimeHistoryResult] = options.loadRemoteSources === false
+    ? [null, null, null] as const
+    : await Promise.allSettled([
+      loadTeaSchoolDirectory(),
+      // ISD pages never need UIL championship archives. Import these only
+      // for explicit football directory searches, not for every ISD SSR.
+      import('./uil-football-recent-history.server').then(async (module) => ({
+        history: await module.loadUilRecentFootballHistory(),
+        resolve: module.recentFootballHistoryFromLoaded,
+      })),
+      import('./uil-football-all-time-history.server').then(async (module) => ({
+        history: await module.loadUilAllTimeFootballHistory(),
+        resolve: module.allTimeFootballHistoryFromLoaded,
+      })),
+    ]);
 
-  const directoryAvailable = directoryResult.status === 'fulfilled';
-  const historyAvailable = historyResult.status === 'fulfilled';
-  const allTimeHistoryAvailable = allTimeHistoryResult.status === 'fulfilled';
+  const directoryAvailable = directoryResult?.status === 'fulfilled';
+  const historyAvailable = historyResult?.status === 'fulfilled';
+  const allTimeHistoryAvailable = allTimeHistoryResult?.status === 'fulfilled';
   const directory: TeaSchoolDirectoryRecord[] = directoryAvailable ? directoryResult.value : [];
   const recentHistory = historyAvailable ? historyResult.value : null;
   const allTimeHistory = allTimeHistoryAvailable ? allTimeHistoryResult.value : null;
@@ -528,10 +533,10 @@ export async function searchFootballPrograms(options: {
     candidates.map((program) => {
       const base = withDirectory(program, directoryMatcher);
       const history = recentHistory
-        ? recentFootballHistoryFromLoaded(recentHistory, base.schoolName, base.officialSchoolName)
+        ? recentHistory.resolve(recentHistory.history, base.schoolName, base.officialSchoolName)
         : null;
       const allTime = allTimeHistory
-        ? allTimeFootballHistoryFromLoaded(allTimeHistory, history, base.schoolName, base.officialSchoolName)
+        ? allTimeHistory.resolve(allTimeHistory.history, history, base.schoolName, base.officialSchoolName)
         : null;
       return {
         ...base,

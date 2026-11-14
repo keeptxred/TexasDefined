@@ -11,11 +11,20 @@ import {
 const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
+// Keep IndexNow discovery in parity with the published sitemap index.
+// Shop products currently have no reliable <lastmod>, so unchanged products
+// are not resubmitted hourly; real publish/updates use INDEXNOW_URLS.
 const sitemapUrls = [
   `${origin}/sitemap.xml`,
   `${origin}/sitemap-explore.xml`,
   `${origin}/sitemap-texas-icons.xml`,
+  `${origin}/sitemap-evergreen.xml`,
+  `${origin}/sitemap-shop.xml`,
 ];
+const optionalSitemapUrls = new Set([
+  `${origin}/sitemap-evergreen.xml`,
+  `${origin}/sitemap-shop.xml`,
+]);
 const fullSubmission = process.env.INDEXNOW_FULL === 'true';
 const freshnessHours = Math.max(1, Number(process.env.INDEXNOW_FRESHNESS_HOURS || 72));
 const explicitUrls = parseExplicitUrls(process.env.INDEXNOW_URLS, { origin });
@@ -45,7 +54,17 @@ await verifyIndexNowKey({ origin, key });
 let selected = explicitUrls;
 let selectionMode = explicitUrls.length ? 'explicit transition/publish event' : 'sitemap meaningful changes';
 if (!selected.length) {
-  const nested = await Promise.all(sitemapUrls.map((sitemapUrl) => collectSitemapEntries(sitemapUrl, { origin })));
+  const nested = await Promise.all(sitemapUrls.map(async (sitemapUrl) => {
+    try {
+      return await collectSitemapEntries(sitemapUrl, { origin });
+    } catch (error) {
+      // A transient optional feed outage must not suppress notifications for
+      // healthy primary, Explore and icon pages. This is surfaced in CI logs.
+      if (!optionalSitemapUrls.has(sitemapUrl)) throw error;
+      console.warn(`IndexNow optional sitemap unavailable: ${sitemapUrl}: ${error instanceof Error ? error.message : String(error)}`);
+      return [];
+    }
+  }));
   selected = selectMeaningfulUrls(nested.flat(), { full: fullSubmission, freshnessHours });
   selectionMode = fullSubmission ? 'full canonical sitemap' : `canonical URLs changed in the last ${freshnessHours}h`;
 }

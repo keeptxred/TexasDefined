@@ -46,10 +46,26 @@ for (const [slug, requirement] of Object.entries(expectedLocal)) {
   if (localHosts.size < 2) failures.push(`${slug}: fewer than two distinct local property-tax authority hosts.`);
 }
 
-for (const [slug, date] of Object.entries(expectedGenerated)) {
+for (const [slug, baselineDate] of Object.entries(expectedGenerated)) {
   const block = blockFor(generated, slug);
-  if (!block) failures.push(`${slug}: generated verified county record missing.`);
-  else if (!block.includes(`lastVerifiedAt: '${date}'`)) failures.push(`${slug}: expected generated verification date ${date}.`);
+  if (!block) {
+    failures.push(`${slug}: generated verified county record missing.`);
+    continue;
+  }
+  // A verified official refresh may advance its review date. Require the
+  // known baseline, a real UTC date not in the future, and county-specific
+  // official directory provenance; never accept a calendar-only stamp.
+  const date = /lastVerifiedAt:\s*'(\d{4}-\d{2}-\d{2})'/.exec(block)?.[1];
+  const today = new Date().toISOString().slice(0, 10);
+  const parsed = date ? new Date(date + 'T00:00:00Z') : null;
+  if (!parsed || Number.isNaN(parsed.getTime()) ||
+      parsed.toISOString().slice(0, 10) !== date ||
+      date < baselineDate || date > today) {
+    failures.push(`${slug}: generated review date must be between ${baselineDate} and ${today} (actual ${date ?? 'missing'}).`);
+  }
+  if (!block.includes(`https://comptroller.texas.gov/taxes/property-tax/county-directory/${slug}.php`)) {
+    failures.push(`${slug}: generated record missing county-specific official-source provenance.`);
+  }
 }
 
 for (const feature of [

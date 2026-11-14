@@ -1,3 +1,4 @@
+import { chipJoannaGainesMagnoliaWacoArticle } from "./chip-joanna-gaines-magnolia-waco";
 import { rioGrandeWildScenicRiverAuthorityArticle } from "./rio-grande-wild-scenic-river-authority";
 import { texasNpsHistoricTrailGuides } from "./texas-nps-historic-trail-guides";
 import type {
@@ -14,7 +15,8 @@ import type {
 import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
-import type { Article, ArticleBlock, SearchDocument } from "../types";
+import type { Article, SearchDocument } from "../types";
+import { calculateArticleReadingMinutes } from "../article-reading-time";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
@@ -41,6 +43,7 @@ import {
  */
 
 const editorialArticles = [
+  chipJoannaGainesMagnoliaWacoArticle,
   rioGrandeWildScenicRiverAuthorityArticle,
   ...texasNpsHistoricTrailGuides,
   ...exploreFeatureArticleStubs,
@@ -145,17 +148,7 @@ const take = <T>(rows: T[], limit?: number) => (limit ? rows.slice(0, limit) : r
 const newestFirst = <T extends { publishedAt: string }>(rows: T[]) =>
   [...rows].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 
-const wordsInBlock = (block: ArticleBlock) => {
-  const text = block.type === "list"
-    ? block.items.join(" ")
-    : "text" in block
-      ? block.text
-      : "";
-  return text.trim() ? text.trim().split(/\s+/).length : 0;
-};
-
 const normalizeArticle = (article: Article): Article => {
-  const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
   const additions = COUNTY_INTERNAL_LINK_ADDITIONS[article.slug] ?? [];
   const existingInternalLinks = article.internalLinks ?? [];
   const internalLinks = [
@@ -166,9 +159,7 @@ const normalizeArticle = (article: Article): Article => {
     ...article,
     hero: COUNTY_HERO_OVERRIDES[article.slug] ?? article.hero,
     internalLinks,
-    readingMinutes: wordCount > 0
-      ? Math.max(1, Math.ceil(wordCount / 220))
-      : article.readingMinutes,
+    readingMinutes: calculateArticleReadingMinutes(article),
   };
 };
 

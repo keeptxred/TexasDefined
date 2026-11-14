@@ -5,20 +5,20 @@ import { jsonLd } from "@/lib/seo";
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
 const fairConcluded = () => Date.now() >= Date.parse("2026-10-19T00:00:00-05:00");
-const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
+const seoDescription = "The 2026 State Fair of Texas concluded October 18 at Fair Park in Dallas. Review historical dates, hours, ticket prices, food, DART and next-date sources.";
 
 const stateFairData = {
     eyebrow: "Texas events",
     title: "State Fair of Texas 2026: Dates, Hours, Tickets, Food, Rides and Fair Park",
-    intro: "A current 2026 State Fair of Texas planning guide for Fair Park in Dallas, including hours, admission, parking and DART, coupons, discounts, new foods, Big Tex Choice Award winners, rides, college football, family planning and first-timer itineraries.",
+    intro: "An archive of the 2026 State Fair of Texas at Fair Park in Dallas, covering historical hours, admission, parking, DART, coupons, food, award winners, rides, college football and family itineraries.",
     updated: "September 25, 2026",
-    quickAnswer: "The 2026 State Fair runs September 25–October 18 at Fair Park in Dallas. Hours: 10 a.m.–9 p.m. Sunday–Thursday and 10 a.m.–10 p.m. Friday–Saturday; last entry 9 p.m. Verify official ticket prices and discounts.",
+    quickAnswer: "The 2026 State Fair concluded October 18 at Fair Park in Dallas. The hours and admission information below are historical; check the organizer for future Fair dates and prices.",
     sections: [
       {
         heading: "2026 dates, hours and Fair Park location",
         paragraphs: [
-          "The 2026 State Fair of Texas runs Friday, September 25 through Sunday, October 18 at Fair Park in Dallas. The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m.",
-          "Parking gates and ticket booths open daily at 9:30 a.m. The Midway opens at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays. Fair Park museum hours can differ from the Fair's operating hours, so check individual museum schedules if they are part of your visit."
+          "The 2026 State Fair of Texas ran Friday, September 25 through Sunday, October 18 at Fair Park in Dallas. Its hours were 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays, with last entry at 9 p.m.",
+          "During the 2026 Fair, parking gates and ticket booths opened at 9:30 a.m. daily. The Midway opened at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays. Fair Park museum hours can differ from the Fair's operating hours, so check individual museum schedules if they are part of your visit."
         ],
         links: [
           { label: "Official State Fair hours", href: "https://bigtex.com/faqs/fair-hours/", external: true },
@@ -30,10 +30,10 @@ const stateFairData = {
         heading: "2026 ticket prices and admission",
         paragraphs: [
           "2026 gate: adults $15 Mon–Thu/$25 Fri–Sun; seniors 60+ $13 Mon–Wed/$7 Thu/$20 Fri–Sun; ages 3–12 $10 daily, 2 and under free. After 5: ages 13+ $10 Mon–Thu/$20 Fri–Sun; seniors still $7 Thursdays.",
-          "Online fees may apply. Check discounts; school-issued 2026 student tickets were extended through October 18, including both final weekends."
+          "These are historical 2026 prices, not admission offers currently available to purchase. Online fees applied; school-issued 2026 student tickets were extended through October 18, including both final weekends. Check the organizer for future rates."
         ],
         links: [
-          { label: "Official tickets and packages", href: "https://bigtex.com/buy-tickets-new/", external: true },
+          { label: "Organizer for future dates and tickets", href: "https://bigtex.com/", external: true },
           { label: "Official discounts and ways to save", href: "https://bigtex.com/discounts/", external: true }
         ]
       },
@@ -51,8 +51,8 @@ const stateFairData = {
       {
         heading: "How Food & Midway Coupons work",
         paragraphs: [
-          "Food, Midway rides and Midway games use State Fair coupons rather than ordinary cash at the point of sale. One coupon is currently valued at $1, making the posted coupon price easy to translate into dollars.",
-          "Unused coupons do not expire under the Fair's current policy, so older valid coupons can be used on a later visit. Merchandise vendors may use other payment methods, so keep coupons mainly for food, rides and games."
+          "At the 2026 Fair, food, Midway rides and games used Fair coupons rather than ordinary cash at the point of sale. Each coupon was valued at $1, making the posted coupon price easy to translate into dollars. Verify the coupon price and payment rules for the next edition.",
+          "The organizer stated that unused coupons did not expire under the 2026 policy, meaning visitors could retain them for another edition. Confirm the policy with the organizer before relying on old coupons. Merchandise vendors may use other payment methods, so keep coupons mainly for food, rides and games."
         ],
         links: [
           { label: "Official coupon FAQ", href: "https://bigtex.com/faqs/coupons/", external: true }
@@ -61,8 +61,8 @@ const stateFairData = {
       {
         heading: "More than 100 daily activities included with admission",
         paragraphs: [
-          "Admission covers 100+ daily activities: music, livestock, the Texas Auto Show, Creative Arts, parades, Big Tex, family shows, and the African American Museum and Hall of State.",
-          "Food, rides, games and some attractions cost extra. Use the official map and daily schedule to plan a lower-cost route."
+          "In 2026, admission covered 100+ daily activities: music, livestock, the Texas Auto Show, Creative Arts, parades, Big Tex, family shows, and the African American Museum and Hall of State.",
+          "Food, rides, games and some attractions cost extra. For a future visit, confirm the new Fair schedule and map before planning a lower-cost route."
         ],
         links: [
           { label: "Official included attractions FAQ", href: "https://bigtex.com/faqs/attractions/", external: true },
@@ -74,7 +74,7 @@ const stateFairData = {
         heading: "Best 2026 State Fair foods and award winners",
         paragraphs: [
           "The 2026 Big Tex Choice Awards winners are Burger Chop Tater Tacos for Best Taste – Savory, Fletcher's Chocolate Corny Dog for Best Taste – Sweet, Tropical Coco Fresca for Best Taste – Sipper, and Berry Me in Matcha for Most Creative.",
-          "The broader 2026 new-food lineup includes items such as Texas Brisket Pierogies, Spicy Carbonara Ramen Korean Corn Dog, Triple Chocolate Flautas and Twinkle Twinkle Brisket Star. Use the official food map once you are on the grounds so you do not spend your day backtracking."
+          "The broader 2026 new-food lineup includes items such as Texas Brisket Pierogies, Spicy Carbonara Ramen Korean Corn Dog, Triple Chocolate Flautas and Twinkle Twinkle Brisket Star. For a future visit, check the organizer's updated food map before heading to the grounds."
         ],
         links: [
           { label: "TexasDefined 2026 State Fair food guide", href: "/article/state-fair-texas-2026-new-foods-guide" },
@@ -199,16 +199,16 @@ const stateFairData = {
 };
 
 const faq = [
-  { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas runs September 25 through October 18, 2026, at Fair Park in Dallas." },
-  { question: "What are the 2026 State Fair of Texas hours?", answer: "The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m. Parking gates and ticket booths open at 9:30 a.m." },
+  { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas ran September 25 through October 18, 2026, at Fair Park in Dallas." },
+  { question: "What are the 2026 State Fair of Texas hours?", answer: "During the 2026 Fair, hours were 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry was at 9 p.m.; parking gates and ticket booths opened at 9:30 a.m." },
   { question: "How much are 2026 State Fair of Texas tickets?", answer: "2026 gate: adults $15 Mon–Thu/$25 Fri–Sun; seniors 60+ $13 Mon–Wed/$7 Thu/$20 Fri–Sun; ages 3–12 $10 daily, 2 and under free. After 5: ages 13+ $10 Mon–Thu/$20 Fri–Sun; Thursday seniors $7. Online fees apply." },
-  { question: "What is included with State Fair admission?", answer: "Admission includes 100+ daily music, exhibits, livestock, arts and family activities. Food, Midway rides/games and some attractions cost extra." },
+  { question: "What is included with State Fair admission?", answer: "In 2026, admission included more than 100 daily activities, including music, livestock, arts and family shows. Food, Midway rides, games and certain attractions cost extra." },
   { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas, Texas." },
   { question: "Can I take DART to the State Fair of Texas?", answer: "Yes. DART's Green Line serves Fair Park Station and MLK Jr. Station, both convenient to fairground entrances." },
-  { question: "How do State Fair of Texas coupons work?", answer: "Food, Midway rides and Midway games use Fair coupons. One coupon is currently worth $1, and unused coupons do not expire under the Fair's current policy." },
+  { question: "How do State Fair of Texas coupons work?", answer: "Food, Midway rides and Midway games use Fair coupons. In 2026, each coupon was worth $1. The Fair said coupons did not expire, but check the next edition's policy before using old ones." },
   { question: "Can I bring food and drinks into the State Fair of Texas?", answer: "The Fair allows outside food and nonalcoholic beverages subject to current container, cooler and bag restrictions. Check the official FAQ before your visit because rules can change." },
   { question: "What food won the 2026 Big Tex Choice Awards?", answer: "The 2026 winners are Burger Chop Tater Tacos for savory, Fletcher's Chocolate Corny Dog for sweet, Tropical Coco Fresca for sipper, and Berry Me in Matcha for most creative." },
-  { question: "What time does the State Fair Midway open?", answer: "The 2026 Midway opens at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays." },
+  { question: "What time does the State Fair Midway open?", answer: "The 2026 Midway opened at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays." },
   { question: "What is the State Fair of Texas known for?", answer: "Big Tex, the Midway, inventive fair food, livestock and agriculture, the Texas Auto Show, live music, college football and historic Fair Park are major parts of the experience." },
 ];
 

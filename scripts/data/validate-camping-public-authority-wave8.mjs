@@ -40,13 +40,11 @@ for (const marker of [
 if (!route.includes("CAMPING_DISCOVERY_PROFILES_WAVE8")) failures.push("camping guide loader does not include Wave 8");
 if (!route.includes('import("@/data/camping/profiles-wave8")')) failures.push("camping guide loader does not dynamically import Wave 8");
 
-for (const [slug, imagePath] of [
-  ["cedar-hill-state-park", "/images/state-parks/cedar-hill-state-park.jpg"],
-  ["goose-island-state-park", "/images/state-parks/goose-island-state-park.jpg"],
-  ["lake-corpus-christi-state-park", "/images/state-parks/lake-corpus-christi-state-park.jpg"],
-  ["padre-island-national-seashore", "/images/explore/national-parks/padre-island-national-seashore.jpg"],
-]) {
-  if (!component.includes(`"${slug}": { src: "${imagePath}"`)) failures.push(`missing governed Wave 8 image mapping: ${slug}`);
+// Site-wide scenery and wildlife must not be presented as campsite photos.
+// Preserve the official-site inventory; photography requires separate verified
+// campground-level identity and rights before it can return to this guide.
+if (component.includes("campingCardImages") || component.includes("<img")) {
+  failures.push("Camping finder cannot present unverified park-level photos as exact campsites.");
 }
 
 for (const [slug] of requiredProfiles) {
@@ -85,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping public authority Wave 8 validated: six current first-party-backed public camping additions, lean discovery projection, source-dated facts, guarded canonical destination links, governed local imagery where available, first-come/reservation caveats and no volatile price or partial-map data are intact.");
+console.log("Camping public authority Wave 8 validated: six current first-party-backed public camping additions, lean discovery projection, source-dated facts, guarded canonical destination links, campground photo-integrity safeguards, first-come/reservation caveats and no volatile price or partial-map data are intact.");

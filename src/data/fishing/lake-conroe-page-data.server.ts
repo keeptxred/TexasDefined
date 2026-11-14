@@ -1,16 +1,15 @@
 import {
   lakeConroeAccess,
   lakeConroeBoatingNotes,
-  lakeConroeCamping,
   lakeConroeFish,
   lakeConroeHabitat,
   lakeConroeNearby,
   lakeConroeOverview,
-  lakeConroeRegulations,
   lakeConroeReportSnapshot,
   lakeConroeSectionMeta,
   lakeConroeSources,
 } from "./lake-conroe-prototype";
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { LAKE_CONROE_SECTION_SLUGS, LAKE_CONROE_VERIFIED_AT } from "./lake-conroe-routing";
 
 const lakeConroePageCopy = {
@@ -101,7 +100,9 @@ const lakeConroePageCopy = {
 } as const;
 
 export function loadLakeConroePageDataServer() {
+  const research = LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"];
   return {
+    sectionResearch: { reviewedAt: research.reviewedAt, sourceUrls: research.sourceUrls },
     verifiedAt: LAKE_CONROE_VERIFIED_AT,
     sections: LAKE_CONROE_SECTION_SLUGS.map((slug) => ({ slug, ...lakeConroeSectionMeta[slug] })),
     overview: lakeConroeOverview,
@@ -114,9 +115,9 @@ export function loadLakeConroePageDataServer() {
     sources: lakeConroeSources,
     fish: lakeConroeFish,
     access: lakeConroeAccess,
-    regulations: lakeConroeRegulations,
-    camping: lakeConroeCamping,
-    nearby: lakeConroeNearby,
+    regulations: research.regulations.map((row) => ({ species: row.label, limit: row.text, sourceUrl: row.sourceUrl })),
+    camping: research.camping.map((site) => ({ ...site, source: "usfsCagle" as const })),
+    nearby: [...lakeConroeNearby, ...research.nearby],
     copy: lakeConroePageCopy,
   };
 }

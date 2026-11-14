@@ -1,0 +1,47 @@
+name: Batch 007 targeted school Chrome acceptance
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b007-targeted-production.mjs'
+      - '.github/workflows/verify-football-b007-targeted-production.yml'
+permissions:
+  contents: read
+concurrency:
+  group: football-b007-targeted-school-acceptance
+  cancel-in-progress: false
+jobs:
+  targeted:
+    # Hold the same repository concurrency group as deploy-production.yml.
+    # This bounded Chrome run must never sample two different Worker revisions
+    # while other protected main deployments replace the active Worker.
+    # GitHub will queue deployments, not cancel them; live content, sitemap,
+    # media/source and strict one-Worker assertions stay unchanged.
+    concurrency:
+      group: texasdefined-production
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify bounded script syntax
+        run: node --check scripts/ci/verify-football-b007-targeted-production.mjs
+      - name: Install isolated Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b007-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Run 25-school targeted production Chrome at three widths
+        run: node scripts/ci/verify-football-b007-targeted-production.mjs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b007-targeted-chrome-evidence
+          path: artifacts/b007-targeted-browser/
+          if-no-files-found: warn
+          retention-days: 21

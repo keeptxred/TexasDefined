@@ -9,6 +9,7 @@ import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.func
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSection, isShowcaseLakeSlug, showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { isShowcaseLakeSectionIndexReady } from "@/data/fishing/showcase-section-index-readiness";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -45,7 +46,9 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     // Do not index thin report/guide sections until real dated reports or verified guides are present.
     const unfilledSection = (loaderData.section === "reports" && loaderData.reports.length === 0)
       || (loaderData.section === "guides" && !loaderData.guides.some((guide) => guide.verifiedListing));
-    const robots = unfilledSection ? "noindex, follow" : undefined;
+    const hasStandaloneAuthority = loaderData.kind !== "showcase"
+      || isShowcaseLakeSectionIndexReady(loaderData.pageData, loaderData.section);
+    const robots = unfilledSection || !hasStandaloneAuthority ? "noindex, follow" : undefined;
     if (loaderData.kind === "conroe") {
       const { section, pageData } = loaderData;
       const page = pageData.sections.find((item) => item.slug === section);
@@ -53,7 +56,12 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       const canonicalPath = lakeConroeCanonicalPath(section);
       const url = `${siteUrl}${canonicalPath}`;
       const overviewUrl = `${siteUrl}${lakeConroeCanonicalPath()}`;
-      const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: sectionCitations(section, pageData.sources) };
+      const sourceDate = (section === "camping" || section === "nearby" || section === "regulations") ? pageData.sectionResearch.reviewedAt : pageData.verifiedAt;
+      const sourcesForSection = section === "camping" ? pageData.camping.map((row) => row.href)
+        : section === "regulations" ? pageData.regulations.map((row) => row.sourceUrl)
+        : section === "nearby" ? pageData.nearby.filter((row) => row.external).map((row) => row.href)
+        : sectionCitations(section, pageData.sources);
+      const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: sourceDate, citation: [...new Set(sourcesForSection)] };
       const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
       return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
     }
@@ -63,7 +71,12 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     const canonicalPath = showcaseLakeCanonicalPath(pageData.slug, section);
     const url = `${siteUrl}${canonicalPath}`;
     const overviewUrl = `${siteUrl}${showcaseLakeCanonicalPath(pageData.slug)}`;
-    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: showcaseSectionCitations(section, pageData.sources) };
+    const sourceDate = (section === "camping" || section === "nearby" || section === "regulations") ? pageData.sectionResearch?.reviewedAt ?? pageData.verifiedAt : pageData.verifiedAt;
+    const sourcesForSection = section === "camping" ? pageData.camping.map((row) => row.href)
+      : section === "regulations" ? pageData.regulations.map((row) => row.sourceUrl).filter((url): url is string => Boolean(url))
+      : section === "nearby" ? pageData.nearby.filter((row) => row.external).map((row) => row.href)
+      : showcaseSectionCitations(section, pageData.sources);
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: sourceDate, citation: [...new Set(sourcesForSection)] };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
     return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
   },

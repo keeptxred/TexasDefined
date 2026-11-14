@@ -1,5 +1,5 @@
 /**
- * Independent 11-city production ACCESSIBILITY + COMPLETE RENDERED LINK inventory.
+ * Independent 12-city production ACCESSIBILITY + COMPLETE RENDERED LINK inventory.
  *
  * Diagnostic research only. axe-core signals do NOT certify full WCAG compliance;
  * external 403/429/timeouts are inconclusive and never automatically classified 404.
@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-city-qa/node_modules/playwright-core');
 const axe = require(process.env.AXE_CORE_PATH || '/tmp/texasdefined-city-qa/node_modules/axe-core');
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const cities = ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock'];
+const cities = ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock','del-rio'];
 const viewports = [['mobile',390,844],['tablet',768,1024],['desktop',1440,900]];
 const out = 'artifacts/city-authority-independent';
 await mkdir(out,{recursive:true});

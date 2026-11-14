@@ -8,6 +8,7 @@ function browserHarness() {
   let ms = 300000;
   const stored = new Map();
   const listeners = [];
+  const resourceListeners = [];
   const reloads = [];
   const storage = {
     getItem(key) { return stored.get(key) ?? null; },
@@ -15,20 +16,24 @@ function browserHarness() {
   };
   const navigator = { onLine: true };
   const window = {
-    addEventListener(name, listener) {
+    addEventListener(name, listener, capture) {
       if (name === 'vite:preloadError') listeners.push(listener);
+      if (name === 'error' && capture === true) resourceListeners.push(listener);
     },
     sessionStorage: storage,
-    location: { reload() { reloads.push(ms); } },
+    location: { href: 'https://texasdefined.com/property-tax/taxing-unit/ennis-isd',
+      origin: 'https://texasdefined.com', reload() { reloads.push(ms); } },
   };
-  vm.runInNewContext(staleChunkRecoveryScript, { window, navigator, Date: { now: () => ms } });
+  vm.runInNewContext(staleChunkRecoveryScript, { window, navigator, URL, Date: { now: () => ms } });
   assert.equal(listeners.length, 1, 'register exactly one Vite error listener');
+  assert.equal(resourceListeners.length, 1, 'register exactly one capturing script-resource error listener');
   const fire = (message) => {
     let prevented = false;
     listeners[0]({ payload: { message }, preventDefault() { prevented = true; } });
     return prevented;
   };
-  return { fire, stored, storage, navigator, reloads, advance: (delta) => { ms += delta; } };
+  const fireAsset = (src, tagName = 'SCRIPT') => resourceListeners[0]({ target: { src, tagName } });
+  return { fire, fireAsset, stored, storage, navigator, reloads, advance: (delta) => { ms += delta; } };
 }
 
 test('a stale dynamic import triggers one real reload and preserves the throttle', () => {
@@ -83,4 +88,37 @@ test('production Chrome gate detects version skew and never silently accepts a s
   assert.ok(qa.includes("check(workerVersions.size===1"), 'mixed Workers must be a hard acceptance failure');
   assert.ok(qa.includes("check(false,view+': lazy-module recovery was needed during production acceptance'"), 'a self-healed lazy chunk must not silently certify the deployment');
   assert.ok(qa.includes("report.assetTransportIssues=report.checks.flatMap"), 'record chunk HTTP/transport evidence');
+});
+
+test('failed initial same-origin hashed <script> reloads once, shared with Vite preloads', () => {
+  const h = browserHarness();
+  h.fireAsset('https://texasdefined.com/assets/main-BbzNQxMh.js');
+  assert.equal(h.reloads.length, 1, 'a 404 on the initial HTML module script must trigger recovery');
+  assert.equal(h.fire('Failed to fetch dynamically imported module'), false);
+  assert.equal(h.reloads.length, 1, 'resource failure and Vite failure share the same throttle');
+  h.advance(120001);
+  h.fireAsset('https://texasdefined.com/assets/property-tax.taxing-unit._unit-BdLFe-27.js');
+  assert.equal(h.reloads.length, 2, 'one new attempt allowed after cooldown');
+});
+
+test('never reload for external, non-JS, non-script, offline or invalid resource errors', () => {
+  const h = browserHarness();
+  h.fireAsset('https://www.googletagmanager.com/gtm.js');
+  h.fireAsset('https://evil.invalid/assets/main-A.js');
+  h.fireAsset('https://texasdefined.com/assets/main-B.css');
+  h.fireAsset('https://texasdefined.com/public/main-A.js');
+  h.fireAsset('https://texasdefined.com/assets/main-A.js', 'LINK');
+  h.fireAsset('%not-a-url');
+  assert.equal(h.reloads.length, 0);
+  h.navigator.onLine = false;
+  h.fireAsset('https://texasdefined.com/assets/main-A.js');
+  assert.equal(h.reloads.length, 0);
+});
+
+test('storage denied and module reload throttled after failed initial script', () => {
+  const h = browserHarness();
+  h.storage.setItem = () => { throw new Error('blocked session storage'); };
+  h.fireAsset('https://texasdefined.com/assets/Container-D5VE1rr_.js');
+  assert.equal(h.reloads.length, 0);
+  assert.equal(h.fire('Failed to fetch dynamically imported module'), false);
 });

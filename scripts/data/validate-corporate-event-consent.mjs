@@ -1,0 +1,39 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { corporateEventTexasToday, isUpcomingCorporateEventDate } from '../../src/data/corporate-event-dates.ts';
+
+const now = new Date('2026-10-24T02:00:00.000Z'); // October 23, 9 PM Texas time.
+assert.equal(corporateEventTexasToday(now), '2026-10-23');
+assert.equal(isUpcomingCorporateEventDate('2026-10-23', now), true);
+assert.equal(isUpcomingCorporateEventDate('2026-10-24', now), true);
+assert.equal(isUpcomingCorporateEventDate('2026-10-22', now), false);
+assert.equal(isUpcomingCorporateEventDate('2027-02-29', now), false);
+assert.equal(isUpcomingCorporateEventDate('2028-02-29', now), true);
+assert.equal(isUpcomingCorporateEventDate('2026-02-31', now), false);
+assert.equal(isUpcomingCorporateEventDate('not-a-date', now), false);
+assert.equal(isUpcomingCorporateEventDate('2026-13-01', now), false);
+const api = readFileSync('src/data/corporate-events.functions.ts','utf8');
+const groupBudget = readFileSync('src/data/corporate-event-budgets.ts','utf8');
+const largeGroupMigration = readFileSync('supabase/migrations/20261024164000_group_event_verified_large_groups.sql','utf8');
+const page = readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
+const partner = readFileSync('src/components/events/GroupEventPartnerApplication.tsx','utf8');
+const privacy = readFileSync('src/routes/privacy.lazy.tsx','utf8');
+assert(api.includes('isUpcomingCorporateEventDate(data.eventDate)'), 'Server must reject past dates, not just client controls');
+assert(api.includes('groupSize: z.number().int().min(2).max(8000)'), 'Server must bound documented large event headcounts');
+assert(page.includes('headcount <= 8000') && page.includes('guests <= 8000') && page.includes('max={8000}'), 'Client input and URL restore must use the server limit');
+assert(page.includes('aria-invalid={!validHeadcount}') && page.includes('aria-describedby="corporate-group-size-guidance"'),
+  'Headcount errors need a visible and assistive-tech-identified message');
+assert(page.includes('Choose a whole-number group of 2 to 8,000 guests.') && page.includes('full-venue or multi-space packages'),
+  'Large groups need truthful available-format guidance without a booking guarantee');
+assert(groupBudget.includes('groupSize <= 8000'), 'Budgets must support documented 5,000-8,000 guest events');
+assert(largeGroupMigration.includes('DROP CONSTRAINT texasdefined_group_event_requests_group_size_check') && largeGroupMigration.includes('CHECK (group_size BETWEEN 2 AND 8000)'), 'DB must enforce same headcount limit');
+assert(page.includes('const validEventDate = !eventDate || isUpcomingCorporateEventDate(eventDate)'), 'Client must follow the same Texas date rule');
+assert(page.includes('min={corporateEventTexasToday()}'), 'Date picker must display Texas-local earliest allowed event date');
+assert(page.includes('!validHeadcount || !validEventDate || !city.trim()'), 'Invalid event dates must never submit form');
+assert(page.includes('role="alert"') && page.includes('corporate-date-error'), 'Invalid dates must have visible accessible guidance');
+assert(!page.includes('/about#privacy-terms') && page.includes('href="/privacy"'), 'Planner privacy link must reach canonical policy');
+assert(!partner.includes('/about#privacy-terms') && partner.includes('href="/privacy"'), 'Business applicant privacy link must reach canonical policy');
+assert(privacy.includes('Company Event Planning and Venue Applications'));
+assert(privacy.includes('does not automatically forward'), 'Planner PII must not be described as automatically shared');
+assert(privacy.includes('Last updated October 23, 2026.'));
+console.log('Corporate events: real Texas dates, disclosure and canonical privacy link PASS.');

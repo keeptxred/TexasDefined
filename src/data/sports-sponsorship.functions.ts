@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
-const surfacePathSchema = z.string().regex(/^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-teams\/[a-z0-9-]+)$/);
+const surfacePathSchema = z.string().regex(/^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+)$/);
 const accessKeySchema = z.string().min(20).max(200);
 const httpsUrlSchema = z.string().url().refine((value) => value.startsWith('https://'), 'URL must use https.');
 const optionalIsoSchema = z.string().datetime().nullable().optional();

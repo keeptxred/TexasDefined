@@ -1,4 +1,5 @@
 import type { Article, ArticleBlock } from "../types";
+import { USS_LEXINGTON_CV16_READING_MINUTES } from "./uss-lexington-reading-time.generated.ts";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
@@ -34,7 +35,7 @@ export const ussLexingtonCv16HistoryVisitorGuideArticle: Article = {
   authorId: "a-marisol",
   publishedAt: "2026-10-14",
   updatedAt: "2026-10-14",
-  readingMinutes: 18,
+  readingMinutes: USS_LEXINGTON_CV16_READING_MINUTES,
   tags: ["USS Lexington CV-16", "Blue Ghost aircraft carrier", "USS Lexington Corpus Christi", "Texas naval museums", "World War II Pacific", "Essex class carriers", "Naval aviation", "Corpus Christi museums"],
   featured: true,
   sourceName: "USS Lexington Museum on the Bay",

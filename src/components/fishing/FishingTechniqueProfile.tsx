@@ -1,6 +1,10 @@
 import { Container } from "@/components/layout/Container";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
+import { fishingTechniqueFieldGuide } from "@/data/fishing/technique-field-guide";
+import { fishingTechniqueSourceNotes } from "@/data/fishing/technique-source-notes";
+import { techniqueReservoirComparisons, TECHNIQUE_RESEARCH_REVIEWED_AT } from "@/data/fishing/technique-primary-source-comparisons";
+import { isGenericLakeTechniqueSummary } from "@/data/fishing/technique-content-quality";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
 import { relatedFishingTechniques } from "@/data/fishing/related-techniques";
@@ -11,6 +15,9 @@ import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-rout
 export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfileData }) {
   const { technique } = data;
   const guide = fishingTechniqueGuideContent[technique.slug];
+  const fieldGuide = fishingTechniqueFieldGuide[technique.slug];
+  const sourceNote = fishingTechniqueSourceNotes[technique.slug as keyof typeof fishingTechniqueSourceNotes];
+  const reservoirContrast = techniqueReservoirComparisons[technique.slug];
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const images = fishingTechniqueImages[technique.slug];
   const relatedTechniques = technique.slug in relatedFishingTechniques ? relatedFishingTechniques[technique.slug as keyof typeof relatedFishingTechniques] : [];
@@ -28,14 +35,14 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-20">
         <p className="eyebrow text-ink-foreground/65">{titleCase(technique.category)} technique</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{technique.name === "Crankbaits" ? "How to Fish Crankbaits in Texas" : `How to Fish ${technique.name} in Texas`}</h1>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{technique.slug === "trolling" ? "How to Troll for Fish in Texas" : technique.name === "Crankbaits" ? "How to Fish Crankbaits in Texas" : `How to Fish ${technique.name} in Texas`}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{guide?.plainEnglish ?? technique.summary}</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <a href="#how-to-fish-it" className="border-b border-ink-foreground pb-1 font-semibold">How to fish it ↓</a>
           <a href="#seasonal-guide" className="border-b border-ink-foreground/50 pb-1">Season guide ↓</a>
           <a href="#lake-applications" className="border-b border-ink-foreground/50 pb-1">Texas lake applications ↓</a>
           <a href="#questions" className="border-b border-ink-foreground/50 pb-1">Questions ↓</a>
-          <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">Fresh reports →</a>
+          <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">Dated reports →</a>
         </div>
       </Container>
     </header>
@@ -52,16 +59,56 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           decoding="async"
           className="aspect-[16/9] w-full object-cover"
         />
-        <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">{images.hero.caption}</figcaption>
+        <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">{images.hero.caption}{images.hero.sourceUrl ? <> · <a href={images.hero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Photo source</a></> : null}{images.hero.licenseUrl ? <> · <a href={images.hero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></> : null}</figcaption>
       </figure>
     </Container> : null}
 
     <Container className="py-12 sm:py-16">
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
-        <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakes.length}</p></div>
-        <div><p className="eyebrow text-muted-foreground">Verified species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p></div>
-        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.length}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakeCount}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Lake-linked species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p><p className="mt-1 text-xs leading-5 text-muted-foreground">Species documented in this method’s linked lake records</p></div>
+        <div><p className="eyebrow text-muted-foreground">Seasonal scope</p><p className="mt-2 font-display text-4xl">{data.seasons.includes("year-round") ? "All year" : data.seasons.length}</p><p className="mt-1 text-xs leading-5 text-muted-foreground">{data.seasons.includes("year-round") ? "This method has a year-round lake record, not a daily catch forecast" : "Seasons named in linked lake records"}</p></div>
       </section>
+
+      {sourceNote ? <section className="border-b border-border py-12" aria-labelledby="official-water-example">
+        <p className="eyebrow text-primary">A Texas example from the source record</p>
+        <h2 id="official-water-example" className="mt-3 font-display text-4xl sm:text-5xl">What {sourceNote.lake} Tells Us</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div>
+            <h3 className="font-display text-xl">What Texas Parks & Wildlife documents</h3>
+            <p className="mt-3 text-sm leading-7">{sourceNote.officialFinding}</p>
+            <a href={sourceNote.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Read the TPWD reservoir guide ↗</a>
+          </div>
+          <div>
+            <h3 className="font-display text-xl">How to use that information</h3>
+            <p className="mt-3 text-sm leading-7">{sourceNote.interpretation}</p>
+            <p className="mt-4 text-xs leading-6 text-muted-foreground">{sourceNote.limitation}</p>
+          </div>
+        </div>
+      </section> : null}
+
+      {reservoirContrast ? <section className="border-b border-border py-12" aria-labelledby="lake-contrast-heading">
+        <p className="eyebrow text-primary">Compare two actual Texas waters</p>
+        <h2 id="lake-contrast-heading" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">{reservoirContrast.headline}</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{reservoirContrast.intro}</p>
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {[reservoirContrast.first, reservoirContrast.second].map((water) => <article key={water.lake} className="border-t border-border py-5">
+            <h3 className="font-display text-2xl">{water.lake}</h3>
+            <p className="mt-4 text-sm leading-7"><strong>Documented by TPWD:</strong> {water.fact}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Planning decision:</strong> {water.implication}</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a href={water.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Read TPWD lake tactics ↗</a>
+              <a href={water.lakePath} className="font-semibold text-primary underline underline-offset-4">Lake guide →</a>
+            </div>
+          </article>)}
+        </div>
+        <div className="mt-6 max-w-4xl border-l-2 border-primary pl-5">
+          <h3 className="font-display text-xl">What changes your first cast?</h3>
+          <p className="mt-2 text-sm leading-7">{reservoirContrast.choice}</p>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">{reservoirContrast.limit}</p>
+        </div>
+        <p className="mt-6 max-w-4xl text-xs leading-6 text-muted-foreground">Texas Defined editorial analysis based on linked Texas Parks & Wildlife reservoir guides. These are comparisons of published fishery descriptions, not firsthand trip reports or evidence of today's catch. TPWD pages reviewed {TECHNIQUE_RESEARCH_REVIEWED_AT}; the date is not a current fishing report.</p>
+      </section> : null}
 
       {guide ? <>
         <section className="py-12" aria-labelledby="when-to-use">
@@ -69,7 +116,6 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <div>
               <p className="eyebrow text-primary">When to use</p>
               <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When to Use {technique.name}</h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">These are practical technique fundamentals. The Texas lake, species and season claims farther down remain tied to the verified source relationships in the fishing dataset.</p>
             </div>
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
               {guide.whenToUse.map((item) => <div key={item} className="bg-background p-6"><p className="text-sm leading-7">{item}</p></div>)}
@@ -125,24 +171,34 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         {technique.slug === "soft-plastics" ? <SoftPlasticsRiggingVisual /> : null}
         {authority?.diagram ? <TechniqueDiagram diagram={authority.diagram} /> : null}
 
+        {fieldGuide ? <section className="border-y border-border py-12" aria-labelledby="field-decisions">
+          <p className="eyebrow text-primary">On the water</p>
+          <h2 id="field-decisions" className="mt-3 font-display text-4xl sm:text-5xl">{fieldGuide.title}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{fieldGuide.intro} Start with the situation that matches your water, then make one adjustment at a time.</p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {fieldGuide.decisions.map((row) => <article key={row.situation} className="border-t border-border py-5">
+              <h3 className="font-display text-2xl">{row.situation}</h3>
+              <p className="mt-3 text-sm leading-7"><strong>Start:</strong> {row.start}</p>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong>Adjust:</strong> {row.adjust}</p>
+              <p className="mt-2 text-xs leading-6 text-muted-foreground"><strong>Watch for:</strong> {row.caution}</p>
+            </article>)}
+          </div>
+        </section> : null}
+
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="eyebrow text-primary">Where to fish</p>
-              <h2 className="mt-3 font-display text-4xl">Where to Fish {technique.name}</h2>
-              <ol className="mt-7 space-y-4">
-                {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
-                </li>)}
+              <h2 className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "Where to Troll for Fish" : `Where to Fish ${technique.name}`}</h2>
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
+                {guide.whereToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
             <div>
               <p className="eyebrow text-primary">How to fish</p>
-              <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">How to Fish {technique.name}</h2>
-              <ol className="mt-7 space-y-4">
-                {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
-                </li>)}
+              <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "How to Troll for Fish" : `How to Fish ${technique.name}`}</h2>
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
+                {guide.howToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
           </div>
@@ -152,6 +208,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <p className="eyebrow text-primary">Target differences</p>
           <h2 id="species-differences" className="mt-3 font-display text-4xl sm:text-5xl">{authority.speciesTitle ?? `${technique.name} by Target Species`}</h2>
           {authority.speciesIntro ? <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{authority.speciesIntro}</p> : null}
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This section describes how anglers may apply the method to different fish. The source-backed <strong>lake connections</strong> counted above are limited to {data.species.map((fish) => fish.commonName).join(", ")} in the published database. A species discussed below is not automatically verified for every lake on this page.</p>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
             {authority.speciesGuide.map((row) => <article key={row.label} className="bg-background p-6">
               <h3 className="font-display text-2xl">{row.label}</h3>
@@ -170,7 +227,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <section id="seasonal-guide" className="py-12" aria-labelledby="seasonal-guide-heading">
           <p className="eyebrow text-primary">Seasonal guide</p>
           <h2 id="seasonal-guide-heading" className="mt-3 font-display text-4xl sm:text-5xl">Season-by-Season Guide</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Seasonal notes below are broad technique guidance, not a live fishing report. Check current water temperature, weather, lake level, access and fresh reports before a trip.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Water temperature, wind, lake level and fish position change how a method works. Use the seasonal starting points below alongside current reports and local access conditions.</p>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
             {guide.seasonalGuide.map((row) => <article key={row.season} className="bg-background p-6">
               <p className="eyebrow text-primary">{row.season}</p>
@@ -192,15 +249,16 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Verified lake coverage</p>
           <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">Each entry below comes from a lake-technique relationship already attached to a complete TexasDefined fishing guide. A lake missing from this page is simply not yet covered by this verified technique dataset.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Start with these {data.featuredProfiles.length} Texas lake examples. Each links to water-specific target species and seasonal information. All {data.lakeCount} covered lakes are listed below; check local access, fishing rules and recent reports before traveling.</p>
+          <p className="mt-3 text-sm leading-7"><a href="/fishing/lakes" className="border-b border-primary font-semibold text-primary">Browse all Texas fishing lake guides →</a> to compare additional waters.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
-          {data.profiles.map((row) => <article key={row.profile.id} className="border-t border-border py-8">
+          {data.featuredProfiles.map((row) => <article key={row.profile.id} className="border-t border-border py-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div><p className="eyebrow text-primary">Lake guide</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
               <span className="border border-border px-3 py-1.5 text-xs">{row.profile.seasons.map(titleCase).join(" · ")}</span>
             </div>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>
+            {!isGenericLakeTechniqueSummary(row.profile.summary) && <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>}
             <div className="mt-5">
               <p className="eyebrow text-muted-foreground">Target species</p>
               <ul className="mt-3 flex flex-wrap gap-2">{row.species.map((fish) => <li key={fish.id}><a href={fishingFoundationAnchor("species", fish.slug)} className="inline-block border border-border px-3 py-1.5 text-xs hover:border-primary hover:text-primary">{fish.commonName}</a></li>)}</ul>
@@ -208,14 +266,26 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <a href={fishingFoundationAnchor("lake", row.lake.slug)} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} fishing guide →</a>
           </article>)}
         </div>
+        <details className="mt-8 border-y border-border py-6">
+          <summary className="cursor-pointer font-semibold text-primary">Browse all {data.lakeCount} lakes for {technique.name.toLowerCase()} (alphabetical)</summary>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a lake to see its species, seasonal information and access notes. The presence of a method here is not a prediction of current fishing conditions.</p>
+          <ul className="mt-6 grid gap-x-8 md:grid-cols-2">
+            {data.allProfiles.map((row) => <li key={row.profile.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-border py-3 text-sm">
+              <a href={fishingFoundationAnchor("lake", row.lake.slug)} className="font-semibold underline decoration-primary/40 underline-offset-4">{row.lake.name}</a>
+              <span className="text-xs text-muted-foreground">{row.profile.seasons.map(titleCase).join(" · ")}</span>
+            </li>)}
+          </ul>
+        </details>
       </section>
 
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Current conditions</p><h2 className="mt-2 font-display text-3xl">Check Current Conditions Before You Fish</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
-          <p>This page does not claim that {technique.name.toLowerCase()} is productive today, that it is the best technique statewide, or that a particular product or brand should be purchased.</p>
-          <p>For a trip happening now, pair this durable relationship data with <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather, water conditions, access information and <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>.</p>
-          <p>Season labels on the verified lake cards describe the seasons explicitly attached to the source-backed lake-technique relationship. The broader seasonal guide above explains technique mechanics and does not override current conditions.</p>
+          <p>{technique.slug === "trolling" ? "Before you troll" : `Before fishing with ${technique.name.toLowerCase()}`}, check your setup and the conditions on the water.</p>
+          {guide?.tripChecks?.length ? <ul className="space-y-3 border-l-2 border-primary pl-5">
+            {guide.tripChecks.map((check) => <li key={check}>{check}</li>)}
+          </ul> : null}
+          <p>Review <a href="/fishing/reports" className="border-b border-primary text-primary">dated fishing reports and archives</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">bait and fishing regulations</a>, weather, access and water conditions before a trip.</p>
         </div>
       </section>
 
@@ -261,7 +331,8 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
         <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
-        <div className="mt-7 grid gap-5 md:grid-cols-2">{data.sources.map((source) => <article key={source.url} className="border-t border-border pt-5">
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons distinguish published findings from editorial interpretation and practical planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail. Read our <a href="/editorial-policy" className="text-primary underline underline-offset-4">editorial policy</a>, <a href="/sourcing-methodology" className="text-primary underline underline-offset-4">source methodology</a> or <a href="/corrections-policy" className="text-primary underline underline-offset-4">request a correction</a>.</p>
+        <div className="mt-7 grid gap-5 md:grid-cols-2">{data.featuredSources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
           <a href={source.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open official/source page ↗</a>
@@ -271,7 +342,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="border-t border-border py-10">
         <div className="flex flex-wrap gap-5 text-sm">
           <a href={FISHING_TECHNIQUES_DIRECTORY_PATH} className="border-b border-primary pb-1 font-semibold text-primary">← Browse all fishing techniques</a>
-          <a href="/fishing/reports" className="border-b border-primary pb-1 font-semibold text-primary">Check current fishing reports →</a>
+          <a href="/fishing/reports" className="border-b border-primary pb-1 font-semibold text-primary">Browse dated fishing reports →</a>
           <a href="/fishing/seasons" className="border-b border-primary pb-1 font-semibold text-primary">Fishing by season →</a>
         </div>
       </section>

@@ -1,0 +1,45 @@
+name: Refresh TPWD Turkey Authority Quarterly
+
+'on':
+  schedule:
+    - cron: '17 15 2 1,4,7,10 *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
+      - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
+      - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
+  pull_request:
+    paths:
+      - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
+      - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
+      - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
+      - 'src/data/hunting/turkey-quarterly-facts.json'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: td-turkey-quarterly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  quarterly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test, verify official sources and refresh only corroborated turkey data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/automation/refresh-turkey-authority-quarterly.sh

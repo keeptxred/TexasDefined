@@ -10,21 +10,44 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 
 const contract = read("src/data/events/texas-event-record.ts");
 const resolver = read("src/data/events/ticketing.ts");
+const providerClassifier = read("src/data/events/ticket-provider.ts");
+const curatedChristmas = read("src/data/events/christmas-performances-2026.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
+for (const marker of ['currentSourceTicketOffers(offers)', 'offer.availability !== "https://schema.org/SoldOut"', 'within(offer.validFrom, "start")', 'within(offer.validThrough, "end")']) requireText(adapter, marker, "organizer offer sale lifecycle");
+for (const marker of ['affiliate.searchParams.size !== 4', 'partnerpropertyid', 'MediaPartnerPropertyId']) requireText(resolver, marker, "complete approved Impact attribution");
 const calendar = read("src/data/events/texas-event-calendar.server.ts");
 const component = read("src/components/events/EventTicketCta.tsx");
 const carousel = read("src/components/editorial/TexasEventCarousel.tsx");
 const landing = read("src/components/events/EventsLandingPage.tsx");
 const majorEventPage = read("src/data/major-event-page.server.ts");
-const docs = read("docs/event-ticketing-provider-architecture.md");
+const metroEventPage = read("src/routes/explore.near.$metro.$collection.lazy.tsx");
 
-for (const provider of ["official", "ticketmaster", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
+const siteAnalytics = read("src/platform/analytics.ts");
+requireText(siteAnalytics, "stepId: anchor.dataset.affiliateEventId", "first-party event-specific commercial click attribution");
+const docs = read("docs/event-ticketing-provider-architecture.md");
+const affiliateClick = read("src/lib/affiliate-click.ts");
+requireText(metroEventPage, '<EventTicketCta cta={event.ticketCta} eventId={event.id}', "metro guides must attribute sponsored ticket clicks to exact event");
+requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affiliate click attribution");
+
+for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
 for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "sold-out", "off-sale", "cancelled", "unknown"]) requireText(contract, `\"${status}\"`, "sale-status contract");
-for (const token of ["safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
-for (const token of ['provider: "official"', "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
+for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: link.provider === "vivid-seats" ? "Resale Tickets →"', 'link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
+for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(currentOffers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
-for (const token of ["resolveEventTicketCta", "ticketCta: resolveEventTicketCta(event.ticketing)"]) requireText(calendar, token, "calendar projection");
+for (const token of ['isEventSpecificTicketDestination', 'publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
+  requireText(providerClassifier, token, "provider-neutral checkout domain classification");
+}
+for (const token of [
+  'featuredTicketUrl: "https://cart.alleytheatre.org/10216/10226"',
+  '"christmas-carol-houston-2026": "13:30"',
+  "providerForVerifiedTicketUrl(show.featuredTicketUrl ?? show.sourceUrl)",
+  "officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl",
+  "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
+]) requireText(curatedChristmas, token, "date-aware safe Christmas show checkout classification");
+
+for (const token of ["resolveEventTicketCta", "activeEventTicketCta", 'event.status === "scheduled"', "eventStatusLabel", "ticketCta: activeEventTicketCta(event)"]) requireText(calendar, token, "calendar lifecycle-safe projection");
+requireText(landing, 'Event status: {event.statusLabel}', "calendar exposes authoritative cancellation/postponement");
 for (const token of [
   "target=\"_blank\"",
   "rel={cta.rel}",
@@ -35,32 +58,299 @@ for (const token of [
   'data-affiliate-placement={partner ? placement : undefined}',
   'data-commercial-partner={partner}',
   'data-commercial-placement={partner ? placement : undefined}',
-  'trackAffiliateClick({ partner, label: cta.label, placement, module: "event-ticketing" })',
+  'trackAffiliateClick({ partner, label: cta.label, placement, module: "event-ticketing", eventId })',
+  'data-affiliate-event-id={partner ? eventId : undefined}',
 ]) requireText(component, token, "ticket CTA component");
 if (component.includes('data-commercial-partner={cta.provider}')) failures.push("official ticket CTAs must not be marked commercial; metadata must remain affiliate-gated");
-for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(carousel, token, "carousel integration");
-for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(landing, token, "calendar integration");
-for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
+for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(carousel, token, "carousel integration");
+for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(landing, token, "calendar integration");
+for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "data-affiliate-event-id", "Check ticket options", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
 for (const token of ["Calendar workstream", "Venue-page workstream", "Do not read raw ticketing.links in presentation components", "getSportsVenueUpcomingEvents", "buildTexasEventCarouselItemsServer", "Ticketmaster", "SeatGeek", "Vivid Seats", "No checkout", "environment/secrets manager", "deduplicated by destination URL", "validate-event-ticket-positive-path.mjs", "verify-event-ticketing-production.mjs"]) requireText(docs, token, "integration documentation");
 
+// Published sale status is source evidence only; never promote a Buy Tickets
+// link to live seats, transaction success or event-specific commission proof.
+const ticketEvidenceLedger = JSON.parse(read("ops/editorial/event-ticketing-verification-ledger.json"));
+if (ticketEvidenceLedger.events.length !== 12) failures.push("Christmas verification ledger must preserve all 12 curated performances");
+for (const id of ["king-country-fort-worth-2026", "pentatonix-fort-worth-2026"]) {
+  const reviewed = ticketEvidenceLedger.events.find((entry) => entry.id === id);
+  if (reviewed?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.formerName !== "Dickies Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venueRenameEffective !== "2026-10-26"
+    || !reviewed?.factVerification?.dateTimeVenue?.venueNamingSourceUrl?.startsWith("https://www.globenewswire.com/")) {
+    failures.push("Fort Worth arena rename evidence must align with current curated admission venue: " + id);
+  }
+}
+const seenCurated = new Set();
+for (const event of ticketEvidenceLedger.events) {
+  if (seenCurated.has(event.id)) failures.push("Christmas verification ledger duplicate event ID: " + event.id);
+  seenCurated.add(event.id);
+  if (["venue-published-on-sale", "organizer-published-on-sale"].includes(event.publicSaleStatus)) {
+    const evidence = event.publicSaleEvidence;
+    let safeSource = false;
+    try {
+      const url = new URL(evidence?.sourceUrl);
+      safeSource = url.protocol === "https:" && !url.username && !url.password;
+    } catch {}
+    if (!safeSource || !/^20\d{2}-\d{2}-\d{2}$/.test(evidence?.checkedAt || "")
+      || String(evidence?.finding || "").length < 30
+      || !String(evidence?.verificationScope || "").includes("not seat inventory")) {
+      failures.push("Published sale status lacks explicit bounded primary-source evidence: " + event.id);
+    }
+  }
+  // Each reported fact has independent evidence and scope; a verified calendar
+  // listing or program approval must never upgrade seats, checkout totals or
+  // per-event commission eligibility.
+  const facts = event.factVerification;
+  if (!facts) failures.push("Christmas fact verification fields missing: " + event.id);
+  else {
+    for (const key of ["eventIdentity","dateTimeVenue","ticketUrl","productionCalendar",
+      "sourcePublishedSale","seatInventory","checkoutFinalPrice","affiliateProgramApproval",
+      "eventSpecificCommissionEligibility"]) {
+      if (!facts[key]?.status) failures.push("Missing independent ticket fact: " + event.id + "." + key);
+    }
+    if (facts.eventIdentity?.status !== "SOURCE_VERIFIED"
+      || facts.eventIdentity?.sourceUrl !== event.eventSourceVerifiedUrl
+      || facts.eventIdentity?.checkedAt !== event.eventSourceVerifiedAt) {
+      failures.push("Identity verification lacks matching primary source evidence: " + event.id);
+    }
+    if (facts.dateTimeVenue?.status !== "SOURCE_VERIFIED"
+      || facts.dateTimeVenue?.performanceDate !== event.date
+      || facts.dateTimeVenue?.performanceTime !== event.showtime
+      || facts.dateTimeVenue?.city !== event.city
+      || facts.dateTimeVenue?.venue !== event.venue) {
+      failures.push("Date, time or venue fact differs from separately sourced record: " + event.id);
+    }
+    if (facts.ticketUrl?.sourceUrl !== (event.checkoutUrl ?? event.eventSourceVerifiedUrl)
+      || facts.ticketUrl?.sourceEvidence !== event.purchaseDestinationEvidence) {
+      failures.push("Ticket URL fact does not match primary-source/checkout evidence: " + event.id);
+    }
+    if (facts.productionCalendar?.status !== "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT"
+      || facts.productionCalendar?.workflowRunId !== ticketEvidenceLedger.productionAcceptance.workflowRunId
+      || facts.productionCalendar?.checkedAt !== event.productionVerifiedAt) {
+      failures.push("Production acceptance fact mismatches historical workflow: " + event.id);
+    }
+    if (facts.sourcePublishedSale?.status !== event.publicSaleStatus
+      || facts.sourcePublishedSale?.checkedAt !== event.publicSaleEvidence?.checkedAt
+      || facts.sourcePublishedSale?.sourceUrl !== event.publicSaleEvidence?.sourceUrl) {
+      failures.push("Published sale fact is not backed by separate dated venue evidence: " + event.id);
+    }
+    if (facts.seatInventory?.status !== "NOT_VERIFIED"
+      || facts.checkoutFinalPrice?.status !== "NOT_VERIFIED"
+      || facts.eventSpecificCommissionEligibility?.status !== "NOT_VERIFIED") {
+      failures.push("Restricted seat, final checkout price or event commission fact overclaimed: " + event.id);
+    }
+    if (facts.affiliateProgramApproval?.status !== "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY"
+      || !String(facts.affiliateProgramApproval.scope).includes("does not guarantee any individual event")) {
+      failures.push("Affiliate program approval must not imply provider-wide/event eligibility: " + event.id);
+    }
+    if (facts.lastCheckedAt !== event.checkedAt
+      || facts.evidenceSource !== event.eventSourceVerifiedUrl
+      || facts.pullRequestEvidence !== event.pr
+      || facts.productionDeploymentEvidence?.workflowRunId !== ticketEvidenceLedger.productionAcceptance.workflowRunId
+      || facts.productionDeploymentEvidence?.deploymentId !== ticketEvidenceLedger.productionAcceptance.cloudflareDeploymentId
+      || facts.productionDeploymentEvidence?.workerVersionId !== ticketEvidenceLedger.productionAcceptance.cloudflareVersionId) {
+      failures.push("Independent ticket verification timestamps / PR / deployment evidence drift: " + event.id);
+    }
+  }
+  if (event.inventoryStatus === "VERIFIED" && !event.inventoryEvidence) failures.push("Seat inventory cannot be verified without evidence: " + event.id);
+  if (event.checkoutPriceStatus === "VERIFIED" && !event.checkoutPriceEvidence) failures.push("Checkout price cannot be verified without evidence: " + event.id);
+  if (event.affiliateEligibility === "VERIFIED" && !event.commissionEligibilityEvidence) failures.push("Event commission cannot be verified from Impact URL alone: " + event.id);
+}
+
 const runtimeTest = String.raw`
-import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
+import { mergeEventTicketing, resolveEventTicketCta } from './src/data/events/ticketing.ts';
+import { providerForVerifiedTicketUrl, publicTicketHostname, isEventSpecificTicketDestination } from './src/data/events/ticket-provider.ts';
+const supported = {
+ 'https://www.ticketmaster.com/event/ABC123': 'ticketmaster',
+ 'https://www.ticketweb.com/event/holiday-concert/142347': 'ticketweb',
+ 'https://www.livenation.com/event/some-id/holiday-concert': 'live-nation',
+ 'https://www.etix.com/ticket/v/32639/crighton-theatre': 'etix',
+ 'https://www.axs.com/events/1234/verified-event': 'axs',
+ 'https://www.eventbrite.com/e/some-event-tickets-123': 'eventbrite',
+ 'https://seatgeek.com/events/some-event': 'seatgeek',
+ 'https://www.vividseats.com/concerts': 'vivid-seats',
+ 'https://www.hebcenter.com/events/detail/show': 'official',
+};
+for (const [url, provider] of Object.entries(supported)) {
+  if(providerForVerifiedTicketUrl(url) !== provider) throw new Error('Wrong recognized provider: '+url);
+}
+for (const bad of [
+ 'https://www.ticketmaster.com.evil.test/event/ABC123',
+ 'https://ticketmaster.com@evil.test/event/ABC123',
+ 'http://www.ticketmaster.com/event/ABC123',
+ 'https://user:password@www.ticketmaster.com/event/ABC123',
+ 'https://www.ticketmaster.com:8443/event/ABC123',
+ 'javascript:alert(1)',
+ 'https://localhost:8080/test',
+]) {
+  const p = providerForVerifiedTicketUrl(bad);
+  if (p !== null && p !== 'official' && bad.includes('evil.test')) throw new Error('Lookalike domain elevated: '+bad);
+  if (bad.startsWith('http:') || bad.startsWith('javascript:') || bad.includes('password@') || bad.includes(':8443') || bad.includes('localhost:')) {
+    if (p !== null) throw new Error('Unsafe URL was accepted: '+bad);
+  }
+}
+
 const now = new Date('2026-09-11T21:00:00Z');
-const source = { kind: 'official-event', name: 'Verified source' };
+const source = { kind: 'provider', name: 'Ticketmaster' };
+const official = 'https://www.ticketmaster.com/example/event/ABC123';
+const impact = (target, campaign='264167') => 'https://ticketmaster.evyy.net/c/7758914/'+campaign+'/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u='+encodeURIComponent(target);
 const base = { provider: 'ticketmaster', saleStatus: 'on-sale', source, lastVerifiedAt: '2026-09-11T20:00:00Z' };
-const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'https://affiliate.example.com/deep' }], offers: [] }, now);
-if (!both || both.label !== 'Find Tickets →' || !both.isAffiliate || both.href !== 'https://affiliate.example.com/deep') throw new Error('affiliate priority failed');
-const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'https://affiliate.example.com/deep', affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
+const approved = impact(official);
+const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
+if (!both || both.label !== 'Find Tickets →' || !both.isAffiliate || both.href !== approved) throw new Error('authorized same-event Impact priority failed');
+
+const manualAdmission = { ...base, provider: 'official', saleStatus: 'unknown',
+  officialTicketUrl: official, source: { kind: 'official-event', name: 'Verified organizer' } };
+const signedAdmission = { ...base, officialTicketUrl: official, affiliateUrl: approved };
+const enriched = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [signedAdmission], offers: [] });
+if (!enriched || enriched.links.length !== 1 || enriched.links[0].affiliateUrl !== approved)
+  throw new Error('one exact show must resolve one provider record retaining its approved Impact deep link');
+const enrichedCta = resolveEventTicketCta(enriched, now);
+if (!enrichedCta || !enrichedCta.isAffiliate || enrichedCta.href !== approved)
+  throw new Error('canonical editorial record lost approved exact-event commission link');
+const backwards = mergeEventTicketing({ links: [signedAdmission], offers: [] },
+  { links: [manualAdmission], offers: [] });
+if (backwards?.links.length !== 1 || backwards.links[0].affiliateUrl !== approved)
+  throw new Error('approved commercial identity cannot be overwritten by weaker duplicate official record');
+const manualWithFragment = { ...manualAdmission, officialTicketUrl: official + '#tickets' };
+const sameDestination = mergeEventTicketing({ links: [manualWithFragment], offers: [] },
+  { links: [signedAdmission], offers: [] });
+if (sameDestination?.links.length !== 1 || sameDestination.links[0].officialTicketUrl !== official)
+  throw new Error('URL fragment cannot manufacture a second ticketed event');
+const separateMatinee = { ...manualAdmission, officialTicketUrl: official + '?performance=matinee' };
+const separateEvening = { ...manualAdmission, officialTicketUrl: official + '?performance=evening' };
+const distinct = mergeEventTicketing({ links: [separateMatinee], offers: [] },
+  { links: [separateEvening], offers: [] });
+if (distinct?.links.length !== 2) throw new Error('distinct dated/showtime query identities must remain separate');
+const invalidAffiliateDuplicate = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [{ ...signedAdmission, affiliateUrl: impact('https://www.ticketmaster.com/another/event/OTHER') }], offers: [] });
+const invalidDuplicateCta = resolveEventTicketCta(invalidAffiliateDuplicate, now);
+if (invalidAffiliateDuplicate?.links.length !== 1 || !invalidDuplicateCta
+  || invalidDuplicateCta.isAffiliate || invalidDuplicateCta.href !== official)
+  throw new Error('wrong-show affiliate duplicate cannot win sponsored status or create a second CTA');
+const providerOffsale = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [{ ...signedAdmission, affiliateUrl: undefined, saleStatus: 'off-sale' }], offers: [] });
+if (providerOffsale?.links.length !== 1 || resolveEventTicketCta(providerOffsale, now) !== null)
+  throw new Error('provider-confirmed off-sale state must override stale editorial unknown purchase link');
+
+const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved, affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
 if (!expired || expired.label !== 'Official Tickets →' || expired.isAffiliate) throw new Error('expired affiliate fallback failed');
-const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
-if (!unsafe || unsafe.href !== 'https://tickets.example.com/official') throw new Error('unsafe affiliate fallback failed');
-const soldOut = resolveEventTicketCta({ links: [{ ...base, saleStatus: 'sold-out', officialTicketUrl: 'https://tickets.example.com/official' }], offers: [] }, now);
+const expiredUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  affiliateExpiresAt: '2026-09-12T21:00:00Z', officialExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
+if (expiredUnderlying !== null) throw new Error('live Impact wrapper must not revive expired exact official checkout');
+const liveUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  affiliateExpiresAt: '2026-09-12T21:00:00Z', officialExpiresAt: '2026-09-12T21:00:00Z' }], offers: [] }, now);
+if (!liveUnderlying?.isAffiliate || liveUnderlying.href !== approved)
+  throw new Error('future source URL lease should preserve authorized Impact action');
+const invalidUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  officialExpiresAt: 'not-a-date' }], offers: [] }, now);
+if (invalidUnderlying !== null) throw new Error('invalid official URL expiry cannot be bypassed via Impact tracking');
+const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
+if (!unsafe || unsafe.href !== official || unsafe.isAffiliate) throw new Error('unsafe affiliate fallback failed');
+const soldOut = resolveEventTicketCta({ links: [{ ...base, saleStatus: 'sold-out', officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
 if (soldOut !== null) throw new Error('sold-out suppression failed');
+const rankedA = impact(official,'264167');
+const rankedB = impact(official,'264168');
 const prioritized = resolveEventTicketCta({ links: [
-  { ...base, provider: 'seatgeek', affiliateUrl: 'https://seatgeek.example.com/deep', priority: 20 },
-  { ...base, provider: 'vivid-seats', affiliateUrl: 'https://vivid.example.com/deep', priority: 10 },
+  { ...base, officialTicketUrl: official, affiliateUrl: rankedA, priority: 20 },
+  { ...base, officialTicketUrl: official, affiliateUrl: rankedB, priority: 10 },
 ], offers: [] }, now);
-if (!prioritized || prioritized.provider !== 'vivid-seats') throw new Error('provider-neutral priority failed');
+if (!prioritized || prioritized.href !== rankedA) throw new Error('wrong merchant ID must not override approved affiliate');
+const ticketweb = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
+const ticketwebAffiliate = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: ticketweb, affiliateUrl: impact(ticketweb) }], offers: [] }, now);
+if (!ticketwebAffiliate?.isAffiliate || ticketwebAffiliate.href !== impact(ticketweb)) throw new Error('authorized TicketWeb affiliate deep link rejected');
+for (const invalid of [
+  ['unapproved-host','https://affiliate.example.com/deep'],
+  ['wrong-publisher','https://ticketmaster.evyy.net/c/9999999/264167/4272?u='+encodeURIComponent(official)],
+  ['wrong-merchant-id','https://ticketmaster.evyy.net/c/7758914/264168/4272?u='+encodeURIComponent(official)],
+  ['wrong-merchant','https://ticketmaster.evyy.net/c/7758914/264167/9999?u='+encodeURIComponent(official)],
+  ['missing-partner-property',impact(official).replace('&partnerpropertyid=8837726','')],
+  ['missing-media-property',impact(official).replace('&MediaPartnerPropertyId=8837726','')],
+  ['incorrect-partner-property',impact(official).replace('partnerpropertyid=8837726','partnerpropertyid=9999999')],
+  ['incorrect-media-property',impact(official).replace('MediaPartnerPropertyId=8837726','MediaPartnerPropertyId=9999999')],
+  ['wrong-tracking-subid',impact(official).replace('subId1=texasdefined','subId1=unreviewed')],
+  ['duplicate-property',impact(official)+'&partnerpropertyid=8837726'],
+  ['unapproved-extra-param',impact(official)+'&affiliate_bonus=1'],
+  ['wrong-event',impact('https://www.ticketmaster.com/different/event/ZZZ999')],
+  ['wrong-provider',impact('https://www.ticketmaster.com/example/event/ABC123')+'&u='+encodeURIComponent(official)],
+  ['unsafe-embedded',impact('https://evil.example.net/event/ABC123')],
+]) {
+  const resolved = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: invalid[1] }], offers: [] }, now);
+  if (!resolved || resolved.isAffiliate || resolved.href !== official) throw new Error(invalid[0]+' must fall back to verified official URL');
+}
+const unapprovedPartner = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek', officialTicketUrl: 'https://seatgeek.com/event/123', affiliateUrl: 'https://seatgeek.com/aff/123' }], offers: [] }, now);
+if (!unapprovedPartner || unapprovedPartner.isAffiliate) throw new Error('unapproved partner incorrectly marked sponsored');
+const resale = resolveEventTicketCta({ links: [{ ...base, provider: 'vivid-seats',
+  source: { kind: 'official-event', name: 'Vivid Seats' },
+  officialTicketUrl: 'https://www.vividseats.com/concerts/holiday-concert-tickets/production-id' }], offers: [] }, now);
+if (!resale || resale.label !== 'Resale Tickets →' || resale.isAffiliate || !resale.disclosure?.includes('resale marketplace')) {
+  throw new Error('Known resale marketplace must have truthful unsponsored disclosure');
+}
+const mixedMarketplace = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek',
+  source: { kind: 'official-event', name: 'SeatGeek' },
+  officialTicketUrl: 'https://seatgeek.com/events/some-event' }], offers: [] }, now);
+if (!mixedMarketplace || mixedMarketplace.label !== 'View Tickets →' || mixedMarketplace.isAffiliate) {
+  throw new Error('Mixed primary and resale marketplace must not claim official primary admission');
+}
+const sourceSpoof = resolveEventTicketCta({ links: [{ ...base, source: { kind: 'manual-verified', name: 'Ticketmaster' }, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
+if (!sourceSpoof || sourceSpoof.isAffiliate) throw new Error('unqualified affiliate source accepted');
+const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://user:pw@tickets.example.com/buy' }], offers: [] }, now);
+if (credentialsLink !== null) throw new Error('ticket URL credentials accepted');
+const privateHost = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://localhost/buy' }], offers: [] }, now);
+if (privateHost !== null) throw new Error('localhost ticket destination accepted');
+for (const [host, isPublic] of [
+  ['ticketmaster.com',true], ['events.dallasarboretum.org',true],
+  ['127.0.0.1',false], ['192.168.1.80',false], ['10.0.0.8',false],
+  ['[::1]',false], ['localhost',false], ['tickets.local',false],
+  ['host.internal',false], ['foo.test',false], ['test.invalid',false],
+  ['fake.example',false], ['foo.lan',false], ['ssh.onion',false],
+  ['internal',false],
+]) {
+  if (publicTicketHostname(host) !== isPublic) throw new Error('wrong public checkout host classification: '+host);
+}
+for (const uri of [
+  'https://127.0.0.1/event/ABC',
+  'https://[::1]/event/ABC',
+  'https://192.168.1.1/event/ABC',
+  'https://10.0.0.2/event/ABC',
+  'https://box.internal/event/ABC',
+  'https://tickets.local/event/ABC',
+  'https://fake.ticketmaster.com.evil.test/event/ABC',
+]) {
+  if (providerForVerifiedTicketUrl(uri) !== null) throw new Error('private/unsafe checkout provider accepted: '+uri);
+  const cta = resolveEventTicketCta({ links: [{...base, officialTicketUrl:uri, affiliateUrl:uri}], offers: [] }, now);
+  if (cta !== null) throw new Error('private/unsafe checkout CTA rendered: '+uri);
+}
+// Public ticket directories and school-wide game selectors are NOT checkouts
+// for one verified event. Preserve organizer-details links elsewhere.
+for (const destination of [
+  'https://gofan.co/app/school/TX11743?activity=Football&gender=Boys&level=Varsity',
+  'https://gofan.co/school/TX11743',
+  'https://www.etix.com/ticket/v/32639/crighton-theatre',
+  'https://www.ticketmaster.com/browse',
+  'https://www.ticketweb.com/venue/1234',
+  'https://www.eventbrite.com/o/holiday-productions-12345',
+  'https://www.axs.com/venues/1234',
+  'https://www.livenation.com/venue/1234',
+  'https://seatgeek.com/venues/arena',
+  'https://www.vividseats.com/concerts',
+  'https://tickets.verified-organizer.org/',
+]) {
+  if (isEventSpecificTicketDestination(destination)) throw new Error('general provider listing incorrectly treated as exact admission: '+destination);
+  const cta = resolveEventTicketCta({links:[{...base, provider:providerForVerifiedTicketUrl(destination) ?? 'official', officialTicketUrl:destination}],offers:[]},now);
+  if(cta!==null) throw new Error('generic venue/school/catalog created a misleading ticket CTA: '+destination);
+}
+for (const destination of [
+ 'https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre',
+ 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123',
+ 'https://www.ticketweb.com/event/holiday-show-tickets/14859023',
+ 'https://www.eventbrite.com/e/local-festival-tickets-12345678',
+ 'https://ticketing.roninpos.app/events/wfesttickets',
+]) {
+  if (!isEventSpecificTicketDestination(destination)) throw new Error('reviewed exact event destination was incorrectly blocked: '+destination);
+}
 const empty = resolveEventTicketCta({ links: [{ ...base }], offers: [] }, now);
 if (empty !== null) throw new Error('empty CTA suppression failed');
 `;

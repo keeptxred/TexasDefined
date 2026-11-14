@@ -6,19 +6,15 @@ import { Container } from "@/components/layout/Container";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/things-unique-to-texas/methodology";
-const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules, data distributions and corrections.";
+const description = "How TexasDefined researches and selects the places, stories and traditions that define Texas, with sourcing, editorial scope and correction rules.";
 
 export const Route = createFileRoute("/things-unique-to-texas/methodology")({
-  loader: async () => {
-    const { TEXAS_ICON_DEEPER_GUIDE_COUNT } = await import("@/data/things-unique-to-texas-reference");
-    return { deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT };
-  },
   head: () => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const url = `${origin}${canonicalPath}`;
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: "Things That Define Texas Methodology | Texas Defined",
+        title: "Things That Define Texas Methodology",
         description,
         canonicalPath,
       }),
@@ -36,8 +32,8 @@ export const Route = createFileRoute("/things-unique-to-texas/methodology")({
               description,
               isPartOf: { "@id": `${origin}/#website` },
               about: { "@id": `${origin}/things-unique-to-texas#collection` },
-              author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
-              dateModified: "2026-08-19",
+              author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/editorial-policy` },
+              dateModified: "2026-11-13",
             },
             {
               "@type": "BreadcrumbList",
@@ -56,8 +52,6 @@ export const Route = createFileRoute("/things-unique-to-texas/methodology")({
 });
 
 function ThingsThatDefineTexasMethodology() {
-  const { deeperGuideCount } = Route.useLoaderData();
-
   return (
     <main>
       <Container className="py-12 sm:py-16">
@@ -87,8 +81,21 @@ function ThingsThatDefineTexasMethodology() {
             </MethodSection>
 
             <MethodSection title="Cross-link policy">
-              <p>The 250-entry collection is designed as an internal reference map. When TexasDefined already maintains a strong destination guide, Texas Explained article, state-symbol page, sports reference, food guide or other canonical resource, the magazine entry links into that deeper page instead of creating duplicate thin content.</p>
+              <p>The research pool is an internal reference map, not a promise to publish a fixed number of entries. When TexasDefined already maintains a strong destination guide, Texas Explained article, state-symbol page, sports reference, food guide or other canonical resource, the magazine entry links into that deeper page instead of creating duplicate thin content.</p>
               <p>Automatic canonical links are limited to direct, high-confidence matches. We do not force a link simply because two places are nearby or broadly related. A more general guide may still appear in a chapter's related-reading section when it adds context without presenting itself as the exact entity.</p>
+            </MethodSection>
+
+            <MethodSection title="What a fact check looks like in this collection">
+              <p>Three examples illustrate our editorial boundary. Topo Chico was created in Monterrey, Mexico and is included as an adopted Texas drinking tradition, not a Texas-invented brand. Caddo Mounds is a historic Caddo archaeological landscape rather than a naturally formed geological wonder. The San Antonio River Walk is a designed urban corridor, not an undeveloped river ecosystem. We classify these subjects by what they actually are rather than the category that makes the longest list.</p>
+              <p>When a source conflicts with a popular story, the source wins for measurable dates, designations and legal facts. Historical context can draw from the Handbook of Texas, the Texas Historical Commission, the Texas State Library and Archives Commission, universities, museums and other accountable institutions. Attraction closures, permitted activities and prices require a current managing-agency or operator notice; a cultural overview must not promise live access.</p>
+              <p>We do not claim first-hand experience unless reporting evidence supports it. Summaries should identify origins, regional differences and disputed claims; unsupported statements that an item is the first, largest, oldest, most popular or uniquely Texan are excluded or qualified with source definitions.</p>
+              <p>Examples can be checked in <Link to="/things-unique-to-texas/food-drink" className="text-primary underline">Food &amp; Drink</Link>, <Link to="/things-unique-to-texas/natural-wonders" className="text-primary underline">Natural Wonders</Link>, <Link to="/things-unique-to-texas/landmarks" className="text-primary underline">Landmarks</Link>, and the <a href="https://www.tsl.texas.gov/ref/abouttx/capitals" target="_blank" rel="noopener noreferrer" className="text-primary underline">State Library's official place-designation register</a>.</p>
+            </MethodSection>
+
+            <MethodSection title="Corrections, unresolved claims and evidence confidence">
+              <p>Editors compare an entry's wording against the controlling historical, government or original institutional source. Where the source provides a range, era, approval-date exception or category distinction, the published wording must preserve that qualification. For a disputed birthplace or origin, we say what is known and what is contested rather than selecting a tidy unsupported story.</p>
+              <p>When a factual problem is confirmed, we correct the public description and its dataset record together, review the canonical link and category assignment, and update the affected validation rules. If an exact guide does not exist, a related page is labelled as related coverage; it should not masquerade as a standalone guide to that one item. We retain stable IDs even when moving an entry to a more accurate category.</p>
+              <p>For visitor-facing claims that cannot be checked at the time of publication, we omit temporary hours or prices and link to the responsible agency. Corrections may be sent through the <Link to="/about" className="text-primary underline">site contact and editorial information</Link>. Changes to durable facts are reflected in the public guide; a review date does not guarantee that volatile information remains current indefinitely.</p>
             </MethodSection>
 
             <MethodSection title="Changing information">
@@ -97,9 +104,9 @@ function ThingsThatDefineTexasMethodology() {
             </MethodSection>
 
             <MethodSection title="Data distributions">
-              <p>The downloadable CSV and JSON are generated from the same 250 editorial records and canonical-link resolver as the human-readable collection. They do not maintain a separate copy of the list. A row's <code>deeperGuide</code> field is present only when TexasDefined has a direct, high-confidence canonical page for that exact entry.</p>
-              <p>At the current source state, {deeperGuideCount} of the 250 records resolve to a deeper canonical TexasDefined guide. That count is computed from the same reference rows used by the CSV and JSON rather than maintained as a separate editorial number.</p>
-              <p>The collection page remains the canonical reader-facing citation target. Use the CSV for tabular analysis and the JSON when a machine-readable object format is more useful. Both downloads link back to this methodology and the canonical collection.</p>
+              <p>The downloadable CSV and JSON are generated from the current editorial research pool and its canonical-link resolver. The public guide can feature a curated subset without implying that every research item deserves equal attention. A row's <code>deeperGuide</code> field is present only when TexasDefined has a direct, high-confidence canonical page for that exact entry.</p>
+              <p>The research pool can expand, shrink or be reorganized as evidence improves. Its row count is not a publication target or a claim that every topic originated in Texas.</p>
+              <p>The curated guide remains the canonical reader-facing introduction. Use the CSV for tabular research and the JSON when machine-readable reference data is helpful. Both downloads link back to this methodology and the published guide.</p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <a href="/things-that-define-texas.csv" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download CSV →</a>
                 <a href="/things-that-define-texas.json" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download JSON →</a>
@@ -108,7 +115,7 @@ function ThingsThatDefineTexasMethodology() {
 
             <MethodSection title="Corrections and maintenance">
               <p>Corrections should preserve the distinction between origin, adoption, official designation and cultural association. If a deeper TexasDefined page changes its canonical route, the magazine link map should be updated in the same change rather than leaving a stale internal link.</p>
-              <p>The collection is structurally validated for 250 unique numbered entries across eight chapters. TexasDefined also validates its canonical link resolver, data distributions and production routes so linked cards, structured data and machine-readable downloads continue pointing to the same underlying collection.</p>
+              <p>The research records retain stable, unique IDs for traceability, but their total is not an editorial goal. TexasDefined validates internal links, data distributions and production routes as the research pool and published chapter selections evolve.</p>
             </MethodSection>
           </div>
 
@@ -116,9 +123,9 @@ function ThingsThatDefineTexasMethodology() {
             <div className="border border-border bg-muted/25 p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Collection contract</p>
               <dl className="mt-5 space-y-4 text-sm">
-                <div><dt className="font-semibold">Entries</dt><dd className="mt-1 text-muted-foreground">250 numbered Texas icons</dd></div>
-                <div><dt className="font-semibold">Chapters</dt><dd className="mt-1 text-muted-foreground">8 editorial categories</dd></div>
-                <div><dt className="font-semibold">Deeper guide links</dt><dd className="mt-1 text-muted-foreground">{deeperGuideCount} computed relationships</dd></div>
+                <div><dt className="font-semibold">Editorial approach</dt><dd className="mt-1 text-muted-foreground">Curated selection; no fixed item quota or ranking</dd></div>
+                <div><dt className="font-semibold">Scope</dt><dd className="mt-1 text-muted-foreground">Texas foods, places, cultures, history and regional identity</dd></div>
+                <div><dt className="font-semibold">Research archive</dt><dd className="mt-1 text-muted-foreground">Maintained separately from the reader-facing selection</dd></div>
                 <div><dt className="font-semibold">Canonical collection</dt><dd className="mt-1"><Link to="/things-unique-to-texas" className="text-primary underline-offset-4 hover:underline">Things That Define Texas</Link></dd></div>
                 <div><dt className="font-semibold">Editorial accountability</dt><dd className="mt-1"><Link to="/about" className="text-primary underline-offset-4 hover:underline">About TexasDefined</Link></dd></div>
               </dl>

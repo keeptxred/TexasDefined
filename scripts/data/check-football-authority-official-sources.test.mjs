@@ -1,0 +1,150 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { normalizeVisibleText, isDue, validateLedger, selectSourceCohort, probeSource } from './check-football-authority-official-sources.mjs';
+
+test('source monitor ignores JavaScript/style UI churn and fingerprints visible source facts', () => {
+  const one = '<html><head><title>A</title></head><body><script>nonce=123</script><style>.x{color:red}</style><main><h1>Football</h1><p>Coach Sample 2026</p></main></body></html>';
+  const two = '<html><head><title>Different</title></head><body><script>nonce=999</script><style>.x{color:blue}</style><main> Football  Coach Sample 2026 </main></body></html>';
+  assert.equal(normalizeVisibleText(one),normalizeVisibleText(two));
+  assert.ok(normalizeVisibleText(one).includes('Coach Sample 2026'));
+});
+
+test('calendar review dates reject malformed dates and respect UTC day boundaries', () => {
+  assert.equal(isDue('2026-10-31','2026-10-28'),false);
+  assert.equal(isDue('2026-10-31','2026-10-31'),true);
+  assert.equal(isDue('2026-10-31','2026-11-01'),true);
+  assert.throws(()=>isDue('2026-02-30','2026-11-01'),/Invalid calendar/);
+});
+
+test('source watch permits only bounded explicit official URL hosts and valid registry slugs', () => {
+  const data = {schemaVersion:1,nextSourceIndex:0,safety:{sourceCountCap:30,perRunSourceCap:25,perSourceTimeoutMs:12000,
+    maxBodyBytes:1600000,approvedDomains:['example.edu','realignment.uiltexas.org','another-school.edu']},
+    sources:Array.from({length:10},(_,i)=>({
+      slug:'school-'+i,url:'https://example.edu/football/'+i,reviewAfter:'2026-11-07',
+      contentFingerprint:null,lastObservedAt:null}))};
+  const registry={schoolRecords:data.sources.map(s=>({slug:s.slug}))};
+  assert.equal(validateLedger(data,registry,'2026-10-28'),10);
+  const altered=structuredClone(data);
+  altered.sources[0].url='https://example.edu.attacker.com/redirect';
+  assert.throws(()=>validateLedger(altered,registry,'2026-10-28'),/authorized official host/i);
+  const duplicate=structuredClone(data); duplicate.sources[1].slug=duplicate.sources[0].slug;
+  assert.throws(()=>validateLedger(duplicate,registry,'2026-10-28'),/Unique source ID/);
+});
+
+test('cursor checks at most 25 sources and eventually reaches all 36 official URLs', () => {
+  const ledger = { nextSourceIndex:0,safety:{perRunSourceCap:25},sources:
+    Array.from({length:36},(_,i)=>({slug:'school-'+i})) };
+  const first=selectSourceCohort(ledger);
+  assert.equal(first.length,25);
+  assert.equal(first[0].slug,'school-0');
+  assert.equal(first[24].slug,'school-24');
+  ledger.nextSourceIndex=(ledger.nextSourceIndex+first.length)%ledger.sources.length;
+  const second=selectSourceCohort(ledger);
+  assert.equal(second.length,25);
+  assert.equal(second[0].slug,'school-25');
+  assert.equal(second[11].slug,'school-0');
+  assert.equal(new Set([...first,...second].map(x=>x.slug)).size,36);
+  assert.equal(ledger.nextSourceIndex,25);
+});
+
+test('watch inventory fails closed for invalid cursor or a large per-run scan', () => {
+  const data={schemaVersion:1,nextSourceIndex:0,
+    safety:{sourceCountCap:36,perRunSourceCap:25,perSourceTimeoutMs:12000,
+      maxBodyBytes:1600000,approvedDomains:['example.edu','district.edu','realignment.uiltexas.org']},
+    sources:Array.from({length:36},(_,i)=>({
+      slug:'school-'+i,url:'https://example.edu/'+i,
+      reviewAfter:'2026-11-07',contentFingerprint:null,lastObservedAt:null}))};
+  const registry={schoolRecords:data.sources.map(row=>({slug:row.slug}))};
+  assert.equal(validateLedger(data,registry,'2026-10-28'),36);
+  data.nextSourceIndex=36;
+  assert.throws(()=>validateLedger(data,registry,'2026-10-28'),/cursor/);
+  data.nextSourceIndex=0;data.safety.perRunSourceCap=26;
+  assert.throws(()=>validateLedger(data,registry,'2026-10-28'),/more than 25/);
+});
+
+test('official source never fetches off-allowlist redirect destination', async () => {
+  const savedFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, options) => {
+    seen.push(String(url));
+    assert.equal(options.redirect, 'manual');
+    return new Response(null, {status:302,headers:{location:'https://unapproved.example/secret'}});
+  };
+  try {
+    await assert.rejects(
+      probeSource({url:'https://example.edu/football'}, {allowed:new Set(['example.edu']),timeoutMs:2000,maxBytes:1600000}),
+      /unauthorized official host/);
+    assert.deepEqual(seen,['https://example.edu/football']);
+  } finally { globalThis.fetch = savedFetch; }
+});
+
+test('official source permits bounded same-host redirects before hashing', async () => {
+  const savedFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, options) => {
+    seen.push(String(url));
+    assert.equal(options.redirect, 'manual');
+    if (seen.length === 1) return new Response(null, {status:302,headers:{location:'/football/varsity'}});
+    return new Response('<html><body><h1>Football</h1><p>'+'School-published varsity schedule '.repeat(8)+'</p></body></html>',
+      {status:200,headers:{'content-type':'text/html'}});
+  };
+  try {
+    const result=await probeSource({url:'https://example.edu/football'},{allowed:new Set(['example.edu']),timeoutMs:2000,maxBytes:1600000});
+    assert.equal(seen.length,2);
+    assert.equal(seen[1],'https://example.edu/football/varsity');
+    assert.match(result.fingerprint,/^[a-f0-9]{64}$/);
+  } finally { globalThis.fetch = savedFetch; }
+});
+
+
+test('Batch011 school-owned source watch covers all 25 without exceeding the bounded rotating scan', () => {
+  const data=JSON.parse(readFileSync('docs/football-authority/official-source-watch.json','utf8'));
+  const registry=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+  assert.ok(data.sources.length>=62,'Preserve all existing 62 source watches while future cohorts are added');
+  assert.equal(data.safety.perRunSourceCap,25);
+  assert.equal(validateLedger(data,registry,'2026-10-29'),data.sources.length);
+  const current=registry.schoolRecords.filter(x=>x.batch===11).map(x=>x.slug);
+  assert.equal(current.length,25);
+  for(const slug of current){
+    const item=data.sources.find(x=>x.slug===slug);
+    assert.ok(item,'Missing original school URL from Batch011 monitor: '+slug);
+    assert.ok(item.reviewAfter>='2027-01-29','Original quarterly review must not regress');
+    assert.ok(item.url.startsWith('https://'));
+    assert.ok(!/maxpreps|scorestream|sblive|espn/.test(item.url),'Unapproved score feed '+slug);
+  }
+  const clone={...data,nextSourceIndex:data.nextSourceIndex};
+  const visited=new Set();
+  for(let i=0;i<Math.ceil(data.sources.length/data.safety.perRunSourceCap);i++){ 
+    const sample=selectSourceCohort(clone);
+    assert.equal(sample.length,25,'No whole-site scan');
+    for(const row of sample)visited.add(row.slug);
+    clone.nextSourceIndex=(clone.nextSourceIndex+sample.length)%clone.sources.length;
+  }
+  assert.equal(visited.size,data.sources.length,'Bounded rotating runs cover every source even as inventory grows');
+});
+
+test('all Batch018 canonical schools have one first-party source in the bounded recurring watch', () => {
+  const data=JSON.parse(readFileSync('docs/football-authority/official-source-watch.json','utf8'));
+  const registry=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+  const slugs=['fabens','fairfield','falfurrias','falls-city','farmersville',
+    'farwell','ferris','first-baptist-dallas','flatonia','florence',
+    'floresville','floydada','follett','forestburg','forney',
+    'forsan','fort-bend-austin','fort-bend-bush','fort-bend-christian',
+    'fort-bend-clements','fort-bend-crawford','fort-bend-dulles',
+    'fort-bend-elkins','fort-bend-hightower','fort-bend-kempner'];
+  assert.equal(slugs.length,25);
+  assert.equal(validateLedger(data,registry,'2026-11-14'),data.sources.length);
+  assert.equal(data.safety.perRunSourceCap,25,'Never allow an unbounded source crawl');
+  for (const slug of slugs) {
+    const matches=data.sources.filter(s => s.slug===slug);
+    assert.equal(matches.length,1,'Exactly one source watch for '+slug);
+    const row=matches[0];
+    assert.ok(registry.schoolRecords.some(s=>s.slug===slug),'Source must describe a canonical registered school');
+    assert.ok(row.reviewAfter>='2027-01-29','Preserve protected quarterly review date for '+slug);
+    assert.ok(data.safety.approvedDomains.includes(new URL(row.url).hostname),'Explicit first-party allowlist for '+slug);
+    assert.ok(!/maxpreps|scorestream|sblive|espn|hudl\.com/.test(row.url),
+      'Do not scrape protected score/film vendors in official-source monitor: '+slug);
+    assert.equal(row.contentFingerprint,null,'New school source must begin with no fabricated fingerprint');
+  }
+});

@@ -1,8 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh } from './county-property-snapshot-codec.mjs';
+import { normalizeVerifiedCountyOfficeUrl, retryPublicOfficeGetAfterHeadStatus } from './county-office-link-normalization.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
+const SUPPLEMENT_OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-supplement.server.ts');
 const USER_AGENT = 'TexasDefined county property verifier/1.0';
 const CONCURRENCY = 8;
 const AUDIT_ONLY = process.argv.includes('--audit-only');
@@ -92,17 +95,41 @@ if (AUDIT_ONLY) {
   if (rows.length !== 254 && !requested) process.exitCode = 1;
   // Do not write the generated property dataset in read-only audit mode.
 } else {
-let merged = {};
-try {
-  const existing = await fs.readFile(OUTPUT, 'utf8');
-  merged = parseExistingSnapshot(existing);
-} catch {}
+let curated = {};
+let supplement = {};
+try { curated = parseExistingCountySnapshot(await fs.readFile(OUTPUT,'utf8')); }
+catch(error) { if (error?.code !== 'ENOENT') throw error; }
+try { supplement = parseExistingCountySnapshot(await fs.readFile(SUPPLEMENT_OUTPUT,'utf8'),'COUNTY_PROPERTY_SUPPLEMENT'); }
+catch(error) { if (error?.code !== 'ENOENT') throw error; }
+let merged = { ...supplement, ...curated };
+const curatedSlugs = new Set(Object.keys(curated));
 const previousCount = Object.keys(merged).length;
 
-for (const { county, fetched, enrichment } of results) {
-  if (enrichment) merged[county.slug] = enrichment;
-  else if (fetched) delete merged[county.slug];
+const ambiguousWithdrawals = results.filter(result =>
+  isAmbiguousCountyWithdrawal(merged[result.county.slug], result));
+const ambiguousSlugs = new Set(ambiguousWithdrawals.map(result => result.county.slug));
+if (ambiguousWithdrawals.length) {
+  // An official county page can be reachable and current while its outgoing
+  // office HTTPS link times out or a field fails to parse. Never delete a
+  // verified prior record or promote its verification date on that evidence.
+  // Quarantine only the affected counties so unrelated verified updates can
+  // still progress through the reviewable PR and protected publication gates.
+  const warning = 'County office source review needed: '+
+    ambiguousWithdrawals.map(result => result.county.slug).join(', ')+
+    '. Prior records and their verification dates were preserved, not reverified.';
+  console.warn('::warning title=County contacts quarantined::'+warning);
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const detail = ambiguousWithdrawals.map(result =>
+      '| '+result.county.slug+' | '+result.county.url+' | '+
+      (result.audit?.appraisalSourceUpdated ?? 'unknown')+' | '+
+      (result.audit?.taxOfficeSourceUpdated ?? 'unknown')+' |').join('\n');
+    await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,
+      '\n### Unresolved official county contacts (not advanced or removed)\n\n'+
+      '| County | Official source | Appraisal source date | Tax source date |\n'+
+      '| --- | --- | --- | --- |\n'+detail+'\n');
+  }
 }
+merged = applyQuarantinedCountyRefresh(merged, results, ambiguousSlugs);
 
 const ordered = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => a.localeCompare(b)));
 const nextCount = Object.keys(ordered).length;
@@ -110,7 +137,12 @@ if (!requested && previousCount >= 4 && nextCount < Math.floor(previousCount * M
   throw new Error(`Refusing statewide county-property refresh that would shrink verified coverage from ${previousCount} to ${nextCount}. This likely indicates an upstream markup/parser failure; investigate before accepting a large withdrawal.`);
 }
 
-await fs.writeFile(OUTPUT, renderSnapshot(ordered));
+const nextCurated = Object.fromEntries(Object.entries(ordered).filter(([slug]) => curatedSlugs.has(slug)));
+const nextExtra = Object.fromEntries(Object.entries(ordered).filter(([slug]) => !curatedSlugs.has(slug)));
+if (curatedSlugs.size && Object.keys(nextCurated).length < Math.floor(curatedSlugs.size * MIN_RETAINED_RATIO))
+  throw new Error('Refusing to withdraw too many curated county contacts');
+await fs.writeFile(OUTPUT, renderSnapshot(nextCurated));
+await fs.writeFile(SUPPLEMENT_OUTPUT, renderSupplement(nextExtra));
 const refreshed = results.filter((item) => item.enrichment).length;
 const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
 console.log(`County property snapshot now contains ${nextCount} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
@@ -139,7 +171,7 @@ async function secureOfficeUrl(raw) {
     url = new URL(raw);
     if (!['http:', 'https:'].includes(url.protocol) || !url.hostname
       || /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.0\.0\.0|::1)/i.test(url.hostname)) return null;
-    if (url.protocol === 'https:') return url.toString();
+    if (url.protocol === 'https:') return normalizeVerifiedCountyOfficeUrl(url.toString());
     url.protocol = 'https:';
   } catch { return null; }
   // The directory sometimes advertises HTTP even when the office's secure
@@ -151,13 +183,36 @@ async function secureOfficeUrl(raw) {
   };
   try {
     let response = await fetch(url.toString(), { ...options, method: 'HEAD' });
-    if (response.status === 405 || response.status === 501) {
+    if (retryPublicOfficeGetAfterHeadStatus(response.status)) {
+      // HEAD-only 403 is common for otherwise public offices. A same-URL
+      // bounded GET must still independently succeed, without a challenge.
       response = await fetch(url.toString(), { ...options, method: 'GET' });
-      if (response.body) await response.body.cancel();
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+        console.warn('::notice title=County HTTPS GET rejected::Host '+url.hostname+
+          ', GET status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+        return null;
+      }
+      // Reject successful HTTP responses which are actually authentication
+      // gateways or account-lockout pages. A real office landing page should
+      // be public HTML rather than a login or binary attachment.
+      const mime = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (!mime.startsWith('text/html') && !mime.startsWith('application/xhtml+xml')) return null;
+      const publicHtml = (await response.text()).slice(0, 128000);
+      if (/<title[^>]*>[ ]*(?:log[ ]*in|sign[ ]*in|access[ ]*denied|unauthorized|forbidden|account[ ]*locked)/i.test(publicHtml) ||
+          /<input[^>]+type=['"]password['"]/i.test(publicHtml)) return null;
+    }
+    if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+      console.warn('::notice title=County HTTPS HEAD rejected::Host '+url.hostname+
+        ', status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+      return null;
     }
     const resolved = new URL(response.url);
-    return response.ok && resolved.protocol === 'https:' ? resolved.toString() : null;
-  } catch { return null; }
+    return normalizeVerifiedCountyOfficeUrl(resolved.toString());
+  } catch (error) {
+    console.warn('::notice title=County HTTPS source check failed::Host '+url.hostname+
+      ', error '+(error instanceof Error ? error.name : 'Unknown'));
+    return null;
+  }
 }
 
 function parseCountyDirectory(html) {
@@ -279,16 +334,6 @@ function extractStreetAddress(section) {
   return cleanText(stripHtml(after.slice(0, end >= 0 ? end : undefined)));
 }
 
-function parseExistingSnapshot(text) {
-  const marker = 'export const COUNTY_PROPERTY_ENRICHMENT';
-  if (!text.includes(marker)) return {};
-  const body = text.slice(text.indexOf('= {', text.indexOf(marker)) + 2, text.lastIndexOf('\n};') + 2);
-  const jsonLike = body
-    .replace(/([,{]\s*)([a-z][a-z0-9-]*):/gi, '$1"$2":')
-    .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, (_, value) => JSON.stringify(value.replace(/\\'/g, "'")));
-  try { return JSON.parse(jsonLike); } catch { return {}; }
-}
-
 function renderTypescriptValue(value, depth = 0) {
   if (typeof value === 'string') {
     return "'" + value.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n') + "'";
@@ -325,6 +370,20 @@ function renderSnapshot(records) {
   ];
   for (const [slug, record] of Object.entries(records)) {
     lines.push(`  ${slug}: ${renderTypescriptValue(record, 1)},`);
+  }
+  lines.push('};', '');
+  return lines.join('\n');
+}
+
+function renderSupplement(records) {
+  const lines = [
+    "import type { CountyPropertyEnrichment } from './county-property-enrichment.generated';",
+    '',
+    '// Server-only verified county contacts; do not include in shared client bundles.',
+    'export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment> = {',
+  ];
+  for (const [slug, record] of Object.entries(records)) {
+    lines.push(`  ${/^[a-z][a-z0-9_]*$/.test(slug) ? slug : JSON.stringify(slug)}: ${renderTypescriptValue(record, 1)},`);
   }
   lines.push('};', '');
   return lines.join('\n');

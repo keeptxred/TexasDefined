@@ -1,4 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -11,10 +13,17 @@ import {
   type MetroProximityResult,
 } from "@/data/metro-proximity";
 import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
+import { dallasDriveLabel, getDallasSmallTownDrive, DALLAS_DRIVES_VERIFIED_AT } from "@/data/dallas-small-town-drives";
 import type { MetroProximityTownResult } from "@/data/metro-proximity-town-references";
 import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
+import { curatedMetroDayTrips, EL_PASO_SOURCE_BACKED_OUTINGS } from "@/data/metro-day-trip-editorial";
+import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { trackAffiliateClick, trackAffiliateImpression } from "@/lib/affiliate-click";
+
+const seenDayTripImpressions = new WeakSet<Element>();
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -91,6 +100,16 @@ function austinEditorial(slug: string) {
 
 const MCALLEN_EDITORIAL_TRIPS = [
   {
+    slug: "quinta-mazatlan",
+    externalOnly: true,
+    title: "Quinta Mazatlán",
+    label: "McAllen · Urban nature and birding",
+    plan: "Local morning or relaxed half day",
+    why: "Visit an urban sanctuary with historic Spanish Revival architecture, native Tamaulipan brushland, birding paths and city-run ecology programs—without leaving McAllen.",
+    caution: "At 600 Sunset Drive, parking is limited during the expansion project; consider carpooling or rideshare. Closed Sunday and Monday. Check current admission, hours and construction notices (official sources reviewed October 19, 2026).",
+    official: "https://www.quintamazatlan.com/visit-explore/park-hours-admission",
+  },
+  {
     slug: "bentsen-rio-grande-valley-state-park",
     title: "Bentsen-Rio Grande Valley State Park",
     label: "Western Valley · Birding",
@@ -105,7 +124,7 @@ const MCALLEN_EDITORIAL_TRIPS = [
     label: "Alamo · Subtropical habitat",
     plan: "Half day, best started early",
     why: "Walk rare riparian and subtropical woodland, including the shorter Chachalaca Trail, and look for Valley specialty birds.",
-    caution: "Trails may be open when the visitor center is closed. Check trail conditions, entry fees and refuge rules.",
+    caution: "FWS reports Levee Road temporarily closed to pedestrians and cyclists; bicyclists should use Bobcat Trail as a detour. Other trails may remain accessible. Recheck the official notice, fees and trail conditions before traveling (reviewed October 18, 2026).",
     official: "https://www.fws.gov/refuge/santa-ana/visit-us",
   },
   {
@@ -136,6 +155,16 @@ const MCALLEN_EDITORIAL_TRIPS = [
     official: "https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center",
   },
   {
+    slug: "sabal-palm-sanctuary",
+    externalOnly: true,
+    title: "Sabal Palm Sanctuary & Historic Rabb Plantation",
+    label: "Brownsville · Rio Grande palm forest",
+    plan: "Longer wildlife-focused day",
+    why: "Walk more than three miles of trails in native sabal palm forest and stop at the historic 1892 Rabb Plantation House visitor center.",
+    caution: "At 8435 Sabal Palm Grove Road, the operator lists 7 a.m.–5 p.m. access except Wednesdays, with an admission charge. Trails are walking-only; no bicycles. Check the current schedule and river-area directions before departing (reviewed October 19, 2026).",
+    official: "https://www.sabalpalmsanctuary.org/",
+  },
+  {
     slug: "laguna-atascosa-national-wildlife-refuge",
     title: "Laguna Atascosa National Wildlife Refuge",
     label: "Cameron County · Longer wildlife day",
@@ -164,7 +193,83 @@ const MCALLEN_EDITORIAL_TRIPS = [
   },
 ] as const;
 
-function McAllenDayTripsAuthority() {
+/** Exact attraction locations from the existing destination catalog, Commons
+ * photo geotags and operator addresses. Map pins are orientation markers,
+ * not guaranteed entrance locations; navigation uses named destinations. */
+const MCALLEN_FEATURED_POINTS = {
+  "quinta-mazatlan": { lat: 26.17674, lng: -98.22976, query: "Quinta Mazatlan, 600 Sunset Drive, McAllen TX" },
+  "bentsen-rio-grande-valley-state-park": { lat: 26.186, lng: -98.381, query: "Bentsen Rio Grande Valley State Park, Mission TX" },
+  "santa-ana-national-wildlife-refuge": { lat: 26.08, lng: -98.14, query: "Santa Ana National Wildlife Refuge, Green Jay Road, Alamo TX" },
+  "estero-llano-grande-state-park": { lat: 26.126411, lng: -97.956518, query: "Estero Llano Grande State Park, Weslaco TX" },
+  "museum-of-south-texas-history-edinburg": { lat: 26.30284, lng: -98.16138, query: "Museum of South Texas History, Edinburg TX" },
+  "old-hidalgo-pumphouse-museum": { lat: 26.09689, lng: -98.26177, query: "Old Hidalgo Pumphouse Museum, 902 S 2nd Street, Hidalgo TX" },
+  "sabal-palm-sanctuary": { lat: 25.85, lng: -97.4188, query: "Sabal Palm Sanctuary, 8435 Sabal Palm Grove Road, Brownsville TX" },
+  "laguna-atascosa-national-wildlife-refuge": { lat: 26.23, lng: -97.35, query: "Laguna Atascosa National Wildlife Refuge, Ocelot Road, Los Fresnos TX" },
+  "port-isabel-lighthouse": { lat: 26.077984, lng: -97.207133, query: "Port Isabel Lighthouse, Port Isabel TX" },
+  "south-padre-island-beaches": { lat: 26.113528, lng: -97.164556, query: "South Padre Island public beach access, South Padre Island TX" },
+} as const;
+
+const MCALLEN_OPEN_IMAGES = {
+  "museum-of-south-texas-history-edinburg": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1000",
+    alt: "Historic 1910 Hidalgo County Jail building, now part of the Museum of South Texas History in Edinburg",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  "quinta-mazatlan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/QUINTA_MAZATLAN%2C_Mc_Allen%2C_Tx_-06_%2816663465252%29.jpg?width=1000",
+    alt: "Quinta Mazatlán's landscaped grounds in McAllen, Texas",
+    credit: "Alan Schmierer · CC0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:QUINTA_MAZATLAN,_Mc_Allen,_Tx_-06_(16663465252).jpg",
+    license: "https://creativecommons.org/publicdomain/zero/1.0/",
+  },
+  "sabal-palm-sanctuary": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabal_Palm_Sanctuary%2C_Cameron_Co._TX%3B_11_Apr_2016.jpg?width=1000",
+    alt: "Old-growth sabal palm forest at Sabal Palm Sanctuary near Brownsville",
+    credit: "William L. Farr · CC BY-SA 4.0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:Sabal_Palm_Sanctuary,_Cameron_Co._TX;_11_Apr_2016.jpg",
+    license: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+} as const;
+
+function McAllenFeaturedMap() {
+  const [slug, setSlug] = useState<(typeof MCALLEN_EDITORIAL_TRIPS)[number]["slug"]>("quinta-mazatlan");
+  const trip = MCALLEN_EDITORIAL_TRIPS.find((item) => item.slug === slug) ?? MCALLEN_EDITORIAL_TRIPS[0];
+  const point = MCALLEN_FEATURED_POINTS[trip.slug];
+  const bbox = [point.lng - 0.075, point.lat - 0.05, point.lng + 0.075, point.lat + 0.05].join(",");
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${point.lat}%2C${point.lng}`;
+  const route = `https://www.google.com/maps/dir/?api=1&origin=McAllen%2C%20TX&destination=${encodeURIComponent(point.query)}&travelmode=driving`;
+  const openFullMap = `https://www.openstreetmap.org/#map=13/${point.lat}/${point.lng}`;
+  return <section className="mt-14 border-t border-border pt-8" aria-labelledby="mcallen-featured-map">
+    <p className="eyebrow text-primary">Map & current road routes</p>
+    <h3 id="mcallen-featured-map" className="mt-2 font-display text-3xl">Choose any of the ten featured outings</h3>
+    <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Choose an attraction to move the map pin, then open Google Maps for current road directions from central McAllen. Pins indicate approximate attractions, not guaranteed entry gates. Check the official operator before departing.</p>
+    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label="Select a featured McAllen day trip on the map">
+        {MCALLEN_EDITORIAL_TRIPS.map((stop) => <button type="button" key={stop.slug}
+          aria-pressed={stop.slug === slug} onClick={() => setSlug(stop.slug)}
+          className={`min-h-11 border px-3 py-3 text-left text-sm font-semibold transition-colors ${stop.slug === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>{stop.title}</button>)}
+      </div>
+      <div>
+        <iframe key={trip.slug} title={`Interactive OpenStreetMap location of ${trip.title}`} src={mapUrl} loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade" className="w-full border border-border" style={{ height: "clamp(320px, 60vw, 440px)" }} />
+        <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. The embedded map shows one selected marker at a time.</p>
+        <div className="mt-4 border-t border-border pt-4">
+          <p className="font-display text-2xl">{trip.title}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{trip.plan} · {trip.label}</p>
+          <div className="mt-4 flex flex-wrap gap-5 text-sm font-semibold">
+            <a href={route} target="_blank" rel="noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current drive from McAllen ↗</a>
+            <a href={openFullMap} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1">Open map directly in OpenStreetMap ↗</a>
+            <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1">Official visitor information ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>;
+}
+
+function McAllenDayTripsAuthority({ results }: { results: MetroProximityResult[] }) {
   return <section className="border-b border-border bg-surface" aria-labelledby="mcallen-day-trip-guide">
     <Container className="py-14 sm:py-18">
       <p className="eyebrow text-primary">The Lower Rio Grande Valley, properly explored</p>
@@ -172,30 +277,37 @@ function McAllenDayTripsAuthority() {
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">McAllen is a gateway to remarkable wildlife and borderland history—not just a starting point for distant Gulf beaches. A short local excursion can be as memorable as a full coastal day. These are editorial trip anchors, not a ranking by straight-line mileage.</p>
       <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {MCALLEN_EDITORIAL_TRIPS.map((trip) => {
+          const openPhoto = trip.slug === "quinta-mazatlan" ? MCALLEN_OPEN_IMAGES["quinta-mazatlan"] : trip.slug === "sabal-palm-sanctuary" ? MCALLEN_OPEN_IMAGES["sabal-palm-sanctuary"] : trip.slug === "museum-of-south-texas-history-edinburg" ? MCALLEN_OPEN_IMAGES["museum-of-south-texas-history-edinburg"] : null;
+          const catalogPhoto = results.find((row) => row.destination.slug === trip.slug)?.destination.hero;
+          const photo = openPhoto ?? (catalogPhoto && !isDestinationPhotoPlaceholder(catalogPhoto.src) ? catalogPhoto : null);
           return <article key={trip.slug} className="border-t border-border pt-5">
+            {photo && <figure className="mb-5"><div className="aspect-video overflow-hidden bg-muted"><img loading={trip.slug === "quinta-mazatlan" ? "eager" : "lazy"} decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.closest("figure")?.classList.add("hidden"); }} /></div>
+              {photo.credit && <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Photo: {openPhoto ? <><a href={openPhoto.source} target="_blank" rel="noopener noreferrer" className="underline">{openPhoto.credit}</a> · <a href={openPhoto.license} target="_blank" rel="noopener noreferrer" className="underline">License</a></> : photo.credit}</figcaption>}</figure>}
             <p className="eyebrow text-primary">{trip.label}</p>
             <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
             <p className="mt-3 text-sm font-semibold">{trip.plan}</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{trip.why}</p>
             <p className="mt-3 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {trip.caution}</p>
             <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
-              <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">Read the TexasDefined guide →</Link>
-              <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
+              {!("externalOnly" in trip) && <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">Read the TexasDefined guide →</Link>}
+              <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">{("externalOnly" in trip) ? "Plan using the official visitor site ↗" : "Official visitor information ↗"}</a>
             </div>
           </article>;
         })}
       </div>
+      <McAllenFeaturedMap />
       <div className="mt-14 border-t border-border pt-8">
         <p className="eyebrow text-primary">Build a day, not a checklist</p>
         <h3 className="mt-3 font-display text-3xl">Three practical ways to explore from McAllen</h3>
         <div className="mt-7 grid gap-7 lg:grid-cols-3">
-          <div><h4 className="font-display text-2xl">Wildlife before the heat · Half day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Start early at Bentsen or Santa Ana and allow two to three hours for trails and overlooks. Bring water and sun protection, then return to McAllen for lunch. Choose one refuge rather than racing through both.</p></div>
+          <div><h4 className="font-display text-2xl">Wildlife before the heat · Half day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Start early at Bentsen or Santa Ana and allow two to three hours for trails and overlooks, or choose Quinta Mazatlán for a shorter, city-based nature walk. Bring water and sun protection; avoid racing between refuges.</p></div>
           <div><h4 className="font-display text-2xl">Wetlands + Valley heritage · Most of a day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Visit Estero Llano Grande early, take a lunch break in Weslaco, then consider the Museum of South Texas History in Edinburg for an indoor history afternoon. Check the museum's opening days and allow for driving between towns.</p></div>
           <div><h4 className="font-display text-2xl">Port Isabel + South Padre · Full coastal day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Leave early for Port Isabel and visit the lighthouse in the morning if climbs are available. After lunch, cross to one South Padre beach access for the afternoon. Confirm bridge traffic, beach flags, parking rules and weather; consider an overnight for a slower pace.</p></div>
         </div>
       </div>
       <div className="mt-10 border-t border-border pt-7">
         <h3 className="font-display text-2xl">How the recommendations work</h3>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Quinta Mazatlán offers a close-to-home nature outing, while Sabal Palm Sanctuary is a longer Brownsville-area trip. Both link directly to their operators until a full, source-verified TexasDefined destination guide exists; Old Hidalgo Pumphouse already has one and is listed only once.</p>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Visitor information was reviewed against state, federal and museum websites in October 2026. The additional places below are screened by geography, not promised road mileage or driving times. The Lower Rio Grande Valley National Wildlife Refuge map pin is its public visitor headquarters near Alamo, not every refuge unit. Choose a specific public-use unit before departing. Padre Island National Seashore near Corpus Christi is better planned as a separate, longer coastal or overnight trip. Confirm current access, operating hours, weather and road conditions before leaving.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
           <Link to="/explore/near/$metro" params={{ metro: "mcallen" }} className="eyebrow border-b border-primary pb-1 text-primary">Explore all trips near McAllen →</Link>
@@ -458,19 +570,185 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
   </>;
 }
 
+type DallasMapTown = {
+  name: string;
+  slug: string;
+  link: string;
+  point: { lat: number; lng: number };
+  drive: { readonly minutes: number; readonly sourceUrl: string };
+};
+
+function DallasSmallTownsInteractiveMap({
+  towns, origin,
+}: {
+  towns: DallasMapTown[];
+  origin: { lat: number; lng: number };
+}) {
+  const [selectedSlug, setSelectedSlug] = useState(towns[0]?.slug ?? "");
+  const town = towns.find((entry) => entry.slug === selectedSlug) ?? towns[0];
+  if (!town) return null;
+
+  // A north-up, source-coordinate orientation map rendered in our own SVG.
+  // The former remote OpenStreetMap iframe returned a blank map in every
+  // desktop and mobile production Chrome test. Do not depend on tile hosts.
+  const longitudeToX = (longitude: number) => 55 + ((longitude + 100) / 7.5) * 850;
+  const latitudeToY = (latitude: number) => 570 - ((latitude - 30) / 5) * 500;
+  const originX = longitudeToX(origin.lng);
+  const originY = latitudeToY(origin.lat);
+  const selectedX = longitudeToX(town.point.lng);
+  const selectedY = latitudeToY(town.point.lat);
+  const drivingUrl = "https://www.google.com/maps/dir/?api=1&origin=Dallas%2C%20TX&destination=" +
+    encodeURIComponent(town.name + ", Texas") + "&travelmode=driving";
+  const detailedMapUrl = "https://www.openstreetmap.org/?mlat=" +
+    encodeURIComponent(String(town.point.lat)) + "&mlon=" +
+    encodeURIComponent(String(town.point.lng)) + "#map=11/" + town.point.lat + "/" + town.point.lng;
+
+  return <section className="border-y border-border bg-background" aria-labelledby="dallas-small-town-map">
+    <Container className="py-14 sm:py-18">
+      <p className="eyebrow text-primary">Explore the map</p>
+      <h2 id="dallas-small-town-map" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">See where each small town is before you drive</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+        Select a town to see its relative geographic location and direction from Dallas.
+        The orientation map uses actual town-center coordinates, and live directions open separately.
+      </p>
+      <div className="mt-9 grid gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-2 gap-2 overflow-y-auto pr-2" style={{ maxHeight: 450 }} role="group" aria-label="Choose a Dallas small town on the map">
+          {towns.map((entry) => <button type="button" key={entry.slug}
+            data-map-town-choice={entry.slug} aria-pressed={selectedSlug === entry.slug} onClick={() => setSelectedSlug(entry.slug)}
+            className={"min-h-11 border px-3 py-3 text-left text-sm transition-colors " +
+              (selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary")}>
+            <span className="block font-semibold">{entry.name}</span><span className="mt-1 block text-xs">{dallasDriveLabel(entry.drive.minutes)}</span>
+          </button>)}
+        </div>
+        <div>
+          <svg data-dallas-orientation-map data-selected-town={town.slug} viewBox="0 0 960 620"
+            role="img" aria-labelledby="dallas-orientation-title dallas-orientation-description"
+            className="w-full border border-border" style={{ background: "#f6f0e6" }}>
+            <title id="dallas-orientation-title">North Texas orientation: Dallas to {town.name}</title>
+            <desc id="dallas-orientation-description">
+              North-up geographic-coordinate plot of Dallas, selected town, and other trip choices.
+              The dashed line shows direction only, not a driving route or mileage.
+            </desc>
+            <rect width="960" height="620" fill="#f6f0e6" />
+            {[-99, -98, -97, -96, -95, -94, -93].map((longitude) =>
+              <line key={longitude} x1={longitudeToX(longitude)} x2={longitudeToX(longitude)} y1={65} y2={565}
+                stroke="#c8c0b5" strokeWidth={1} strokeDasharray="4 8" />)}
+            {[31, 32, 33, 34].map((latitude) =>
+              <line key={latitude} x1={55} x2={905} y1={latitudeToY(latitude)} y2={latitudeToY(latitude)}
+                stroke="#c8c0b5" strokeWidth={1} strokeDasharray="4 8" />)}
+            <text x={75} y={94} fontSize={19} fill="#675a48" fontWeight={700}>North Texas / East Texas</text>
+            <text x={878} y={92} fontSize={24} fill="#3c4b42" fontWeight={700}>N ↑</text>
+            {towns.filter((entry) => entry.slug !== town.slug).map((entry) =>
+              <circle key={entry.slug} data-map-other-town={entry.slug}
+                cx={longitudeToX(entry.point.lng)} cy={latitudeToY(entry.point.lat)}
+                r={7} fill="#997d60" opacity={0.65}><title>{entry.name}</title></circle>)}
+            <line data-role="direction-line" x1={originX} y1={originY} x2={selectedX} y2={selectedY}
+              stroke="#aa4e22" strokeWidth={4} strokeDasharray="8 7" />
+            <circle data-role="dallas-origin" cx={originX} cy={originY} r={11}
+              fill="#304e47" stroke="#f6f0e6" strokeWidth={4} />
+            <text x={originX + 18} y={originY - 16} fontSize={21} fontWeight={700} fill="#304e47">Dallas</text>
+            <circle data-role="selected-town" cx={selectedX} cy={selectedY} r={13}
+              fill="#aa4e22" stroke="#ffffff" strokeWidth={5} />
+            <text data-role="town-name" x={selectedX + (selectedX > 710 ? -22 : 22)} y={selectedY - 19}
+              fontSize={23} fontWeight={700} textAnchor={selectedX > 710 ? "end" : "start"} fill="#843f1d">{town.name}</text>
+            <text x={55} y={599} fontSize={17} fill="#675a48">Coordinate positions only • Not a road map or driving-time scale</text>
+          </svg>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Reliable on-page orientation without external map tiles. Dots mark approximate town centers;
+            the dashed line is a direction indicator, not the road you should drive.
+          </p>
+          <h3 className="mt-5 font-display text-3xl">{town.name}</h3>
+          <p className="mt-2 text-sm text-muted-foreground">Typical one-way trip: {dallasDriveLabel(town.drive.minutes)} from Dallas; congestion may change the drive.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href={drivingUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Check current driving route ↗</a>
+            <a href={detailedMapUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Open detailed town map ↗</a>
+            <a href={town.link} className="border-b border-border pb-1 hover:text-primary">Read town information ↗</a>
+            <a href={town.drive.sourceUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Drive-time source ↗</a>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>;
+}
+
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
+  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
+  // Affiliate scripts must not mutate the Dallas lazy React outlet before
+  // hydration. The dedicated stay slot is rendered after the editorial guide.
+  useEffect(() => {
+    if (!isDallasRoadRing) return;
+    document.documentElement.dataset.tdDallasRoadGuideHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:dallas-road-guide-hydrated"));
+    return () => { delete document.documentElement.dataset.tdDallasRoadGuideHydrated; };
+  }, [isDallasRoadRing, collection.slug]);
+  // Third-party/first-party lodging DOM writes must wait until *every* metro
+  // day-trip lazy React tree has hydrated, not just McAllen. The root-ready
+  // signal fires before lazy outlet hydration and cannot protect these cards.
+  useEffect(() => {
+    if (collection.slug !== "day-trips") return;
+    document.documentElement.dataset.tdMetroDayTripsHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:metro-day-trips-hydrated"));
+    if (isMcAllenDayTrips) {
+      document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1";
+      window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
+    }
+    return () => {
+      delete document.documentElement.dataset.tdMetroDayTripsHydrated;
+      if (isMcAllenDayTrips) delete document.documentElement.dataset.tdMcAllenDayTripsHydrated;
+    };
+  }, [collection.slug, isMcAllenDayTrips]);
+  // Count a tour affiliate impression only if a user actually sees the panel.
+  // A WeakSet deduplicates React StrictMode effect remounts for the same DOM node.
+  useEffect(() => {
+    if (collection.slug !== "day-trips" || !pageData.indexReady || typeof IntersectionObserver === "undefined") return;
+    const market = metro.slug === "mcallen" ? "south-padre-island" : metro.slug === "amarillo" ? "amarillo-palo-duro" : metro.slug;
+    if (!hasVerifiedViatorMarketUrl(market)) return;
+    const panel = document.querySelector("[data-day-trip-viator-market]");
+    if (!panel || seenDayTripImpressions.has(panel)) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.2)) return;
+      observer.disconnect();
+      if (seenDayTripImpressions.has(panel)) return;
+      seenDayTripImpressions.add(panel);
+      trackAffiliateImpression({
+        partner: "viator",
+        label: metro.slug === "mcallen" ? "South Padre Island activities" : metro.name + " activities",
+        placement: "metro-day-trips-experience",
+        module: "metro-proximity",
+      });
+    }, { threshold: 0.2 });
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, [collection.slug, metro.slug, metro.name, pageData.indexReady]);
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
-  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
-  const curatedSlugs = isMcAllenDayTrips ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug)) : new Set<string>();
-  const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
-    .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band && !curatedSlugs.has(row.destination.slug)) }))
-    .filter((group) => group.rows.length > 0);
+  const featuredCityTrips = curatedMetroDayTrips(metro.slug, collection.slug, results);
+  // McAllen\u2019s verified partner landing page covers South Padre excursions,
+  // not the entire Rio Grande Valley. All other markets link to their own
+  // previously verified Viator city pages; no product inventory is asserted.
+  const experienceMarketSlug = metro.slug === "mcallen" ? "south-padre-island" : metro.slug === "amarillo" ? "amarillo-palo-duro" : metro.slug;
+  const offersVerifiedTours = collection.slug === "day-trips" && pageData.indexReady && hasVerifiedViatorMarketUrl(experienceMarketSlug);
+  const curatedSlugs = isMcAllenDayTrips
+    ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug))
+    : new Set<string>(featuredCityTrips.map((trip) => trip.slug));
+  const groups = isDallasRoadRing
+    ? [{ band: "longer-day-trip" as const, rows: results }]
+    : (["close-in", "easy-day-trip", "longer-day-trip"] as const)
+      .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band && !curatedSlugs.has(row.destination.slug)) }))
+      .filter((group) => group.rows.length > 0);
+  const dallasOptions = isDallasRoadRing
+    ? [
+        ...results.map((row) => ({ name: row.destination.name, slug: row.destination.slug, link: `/destination/${row.destination.slug}`, point: row.destination.coordinates, drive: getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown) })),
+        ...townReferences.map((row) => ({ name: row.town.name, slug: row.town.slug, link: row.town.officialUrl, point: row.town.coordinates, drive: getDallasSmallTownDrive(row.town.slug, row.town.name) })),
+      ].filter((row): row is typeof row & { drive: NonNullable<typeof row.drive> } => Boolean(row.drive))
+        .sort((a, b) => a.drive.minutes - b.drive.minutes || a.name.localeCompare(b.name))
+    : [];
   const mapMarkers = [
     ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: countyNames(row.town.county).length === 1 ? `/county/${countySlug(row.town.county)}` : "/browse/counties", distanceMiles: row.distanceMiles })),
-    ...results.map((row) => ({ id: row.destination.slug, label: row.destination.slug === "lower-rio-grande-valley-national-wildlife-refuge" ? "Lower Rio Grande Valley refuge visitor headquarters" : row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
+    ...results.filter((row) => !isMcAllenDayTrips || !curatedSlugs.has(row.destination.slug)).map((row) => ({ id: row.destination.slug, label: row.destination.slug === "lower-rio-grande-valley-national-wildlife-refuge" ? "Lower Rio Grande Valley refuge visitor headquarters" : row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
   ]
     .sort((left, right) => left.distanceMiles - right.distanceMiles)
     .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
@@ -512,7 +790,189 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
-    {isMcAllenDayTrips && <McAllenDayTripsAuthority />}
+    {isMcAllenDayTrips && <McAllenDayTripsAuthority results={results} />}
+
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border bg-surface" data-el-paso-short-trips="separate-from-distance-results"
+      aria-labelledby="el-paso-close-in-day-outings">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Closer than the 18-mile day-trip search window</p>
+        <h2 id="el-paso-close-in-day-outings" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Two worthwhile local outings in El Paso</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          The geographic list below begins 18 straight-line miles from central El Paso. These two legitimate visitor destinations sit
+          inside that screening distance, so they should not be mistaken for missing parks or counted among the longer-distance results.
+          This is local planning guidance, not a change to the page's source-coverage or indexing threshold.
+        </p>
+        <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Franklin Mountains State Park</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              A desert hiking or mountain-biking outing in El Paso itself. Select the right park access point and trail for your group;
+              TPWD recommends advance day-use reservations because the Tom Mays Unit can reach capacity. Carry water, check park alerts
+              and treat summer exposure seriously.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "franklin-mountains-state-park" }} className="border-b border-primary pb-1 text-primary">Franklin Mountains visitor guide →</Link>
+              <a href="https://tpwd.texas.gov/state-parks/parks/franklin-mountains/" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">TPWD entry and alerts ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Chamizal National Memorial</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Explore borderlands history and the peaceful settlement of an international boundary dispute. NPS lists separate
+              opening hours for the outdoor memorial grounds and the Cultural Center; check those hours and federal holiday closures
+              before planning exhibits or a theater visit.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "chamizal-national-memorial" }} className="border-b border-primary pb-1 text-primary">Chamizal visitor guide →</Link>
+              <a href="https://www.nps.gov/cham/planyourvisit/hours.htm" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">NPS hours and closures ↗</a>
+            </div>
+          </article>
+        </div>
+      </Container>
+    </section>}
+
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border" data-el-paso-source-backed-outings="operator-leads-not-indexable-destinations"
+      aria-labelledby="el-paso-sourced-outings">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Research-backed routes around Far West Texas</p>
+        <h2 id="el-paso-sourced-outings" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Choose a destination before choosing a drive</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          The trip collection below shows only eligible TexasDefined destination guides that meet its independent catalog
+          rules. These additional operator-sourced ideas give you practical options for history, a museum, a desert excursion
+          or a long mountain day. They are research leads, not five new destination profiles or a claim that the collection
+          now meets its indexing threshold. Combine nearby stops, such as the San Elizario district and Los Portales Museum,
+          rather than counting two stops in one town as two separate day trips.
+        </p>
+        <div className="mt-9 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {EL_PASO_SOURCE_BACKED_OUTINGS.map((outing) => <article key={outing.key}
+            id={`el-paso-outing-${outing.key}`}
+            className="border-t border-border pt-5" data-el-paso-source-backed-outing={outing.key}>
+            <p className="eyebrow text-primary">{outing.fit}</p>
+            <h3 className="mt-3 font-display text-2xl">{outing.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{outing.plan}</p>
+            <p className="mt-4 text-sm leading-7"><strong>Check before going:</strong> {outing.check}</p>
+            <a href={outing.sourceUrl} target="_blank" rel="noopener noreferrer"
+              className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">
+              {outing.sourceLabel} ↗
+            </a>
+          </article>)}
+        </div>
+        <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
+          Editorial research reviewed October 26, 2026. Park restrictions, museum access, outdoor conditions and
+          route times can change; verify with the linked operator before travel. The 18–150-mile collection
+          below retains its existing geographic and source-quality eligibility checks.
+        </p>
+      </Container>
+    </section>}
+
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border bg-surface" data-el-paso-trip-decisions="planning-guidance-not-extra-catalog-count"
+      aria-labelledby="el-paso-trip-decisions-title">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Pick the kind of day you actually have</p>
+        <h2 id="el-paso-trip-decisions-title" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Three ways to plan an El Paso outing</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          These are ways to organize the existing parks, heritage sites and official visitor references above—not additional destination records
+          or evidence that the geographic collection qualifies for search indexing.
+          In this part of Texas, access rules and return travel matter more than how many stops fit on a list.
+        </p>
+        <div className="mt-8 grid gap-8 lg:grid-cols-3">
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="mission-trail">
+            <p className="eyebrow text-primary">History and local culture</p>
+            <h3 className="mt-3 font-display text-2xl">Make the Mission Trail one connected outing</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Start with a mission that is open to visitors, then continue along the nine-mile heritage corridor toward
+              San Elizario. Pair its historic district with Los Portales Museum when the museum is open. These are
+              active places of worship and separately managed attractions, not one walkable campus.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Confirm parish, museum and visitor-center hours.
+              The Mission Trail Association advises driving between sites rather than walking the full corridor.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href="#el-paso-outing-san-elizario-historic-district" className="border-b border-primary pb-1 text-primary">San Elizario research →</a>
+              <a href="https://www.elpasomissions.org/faqs/" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official Mission Trail visiting FAQ ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="hueco-tanks">
+            <p className="eyebrow text-primary">Permit-first desert day</p>
+            <h3 className="mt-3 font-display text-2xl">Reserve Hueco Tanks before planning the route</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              North Mountain self-guided entry is capacity-limited; TPWD directs visitors to reserve by phone.
+              Ranger-led visits into protected areas require advance booking, so a spur-of-the-moment plan can
+              fail even when the park itself is open. Allow for orientation and a safe return before closing.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Review TPWD's live road-condition alerts
+              and restrictions, and do not rely solely on GPS directions on Hueco Tanks Road.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "hueco-tanks-state-park-and-historic-site" }} className="border-b border-primary pb-1 text-primary">Hueco Tanks visitor guide →</Link>
+              <a href="https://tpwd.texas.gov/state-parks/hueco-tanks/alert" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">TPWD current park alerts ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="guadalupe">
+            <p className="eyebrow text-primary">A long, single-destination day</p>
+            <h3 className="mt-3 font-display text-2xl">Choose Pine Springs or Salt Basin Dunes</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Pine Springs is the national park's main visitor hub and trailhead. Salt Basin Dunes requires a
+              different approach to the park's western side, travel on a clay road and an additional walk from
+              the parking area. Treat them as alternative outings, not guaranteed same-day additions.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Carry adequate water, compare actual
+              road routes, check desert weather and confirm day-use rules. NPS warns the dunes access road
+              may become unsafe after rain; do not attempt that route when wet.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href="#el-paso-outing-guadalupe-pine-springs" className="border-b border-primary pb-1 text-primary">Pine Springs research →</a>
+              <a href="https://www.nps.gov/gumo/planyourvisit/dunes.htm" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">NPS dune access and safety ↗</a>
+            </div>
+          </article>
+        </div>
+      </Container>
+    </section>}
+
+    {featuredCityTrips.length > 0 && <section className="border-b border-border bg-surface" data-metro-curated-day-trips={metro.slug} aria-labelledby="metro-featured-day-trips">
+      <Container className="py-14 sm:py-18">
+        <p className="eyebrow text-primary">A better starting point than the mileage list</p>
+        <h2 id="metro-featured-day-trips" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose your {metro.name} day trip by experience</h2>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">These researched destinations have full TexasDefined guides in the current catalog. Each choice includes the operating authority's visitor source and live driving directions. This is independent editorial selection, not a paid ranking. Distances elsewhere on this page are geographic screening estimates—not road times.</p>
+        <div className="mt-9 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {featuredCityTrips.map(({ slug, fit, why, check, sourceUrl, result }) => <article key={slug} className="border-t border-border pt-5" data-curated-day-trip={slug}>
+            <p className="eyebrow text-primary">{fit}</p>
+            <h3 className="mt-3 font-display text-3xl">{result.destination.name}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{why}</p>
+            <p className="mt-4 text-sm leading-7"><strong>Check before going:</strong> {check}</p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug }} className="border-b border-primary pb-1 text-primary">Full visitor guide →</Link>
+              <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
+              <a href={maps.drivingRouteUrl(metro.center, result.destination.coordinates)} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Check actual drive ↗</a>
+            </div>
+          </article>)}
+        </div>
+      </Container>
+    </section>}
+
+    {offersVerifiedTours && <section className="border-b border-border" data-day-trip-viator-market={experienceMarketSlug}>
+      <Container className="py-10 sm:py-12">
+        <div className="grid items-center gap-6 md:grid-cols-[1.4fr_0.6fr]">
+          <div>
+            <p className="eyebrow text-primary">Optional tours and activities</p>
+            <h2 className="mt-2 font-display text-3xl">Find a guided experience that fits your trip</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{isMcAllenDayTrips
+              ? "For a South Padre Island coastal outing, compare current boat trips and guided experiences offered through Viator. This is not a booking list for inland Rio Grande Valley wildlife refuges or museums."
+              : `Compare guided tours and activities in the ${metro.name} market. These optional experiences are separate from the state parks and independently researched day-trip stops above; check the actual tour location, dates and transport before booking.`}</p>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on a qualifying Viator booking, at no extra cost to you. Listing, availability, prices and booking conditions are controlled by Viator and its suppliers. Editorial choices are independent of affiliate links.</p>
+          </div>
+          <div className="flex flex-col items-start gap-4">
+            <a href={buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug), `td-day-trips-${metro.slug}`)}
+              target="_blank" rel="sponsored nofollow noopener noreferrer"
+              onClick={() => trackAffiliateClick({ partner: "viator", label: isMcAllenDayTrips ? "Browse South Padre Island activities" : `Browse ${metro.name} activities`, placement: "metro-day-trips-experience", module: "metro-proximity" })}
+              className="inline-flex min-h-11 items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
+              {isMcAllenDayTrips ? "Browse South Padre Island activities ↗" : `Browse ${metro.name} tours & activities ↗`}
+            </a>
+            <Link to="/explore/trip-planner" className="border-b border-border pb-1 text-sm font-semibold hover:border-primary hover:text-primary">Plan the independent route first →</Link>
+          </div>
+        </div>
+      </Container>
+    </section>}
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
@@ -559,6 +1019,42 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
+    {isDallasRoadRing && <section className="border-b border-border bg-surface" data-dallas-road-guide>
+      <Container className="py-14 sm:py-18">
+        <p className="eyebrow text-primary">Plan an actual Dallas road trip</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose by travel time and the kind of day you want</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The figures below are published typical one-way road-time estimates from Dallas, not flight-distance conversions or live predictions. Allow more time for rush-hour traffic, stops and weekend crowds. Checked {DALLAS_DRIVES_VERIFIED_AT}.</p>
+        <div className="mt-8 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm" style={{ minWidth: 560 }}>
+            <caption className="sr-only">Compare Dallas small-town driving-time estimates and their sources</caption>
+            <thead className="border-y border-border"><tr><th className="py-3 pr-4">Town</th><th className="px-4 py-3">Typical one-way drive</th><th className="px-4 py-3">Published estimate</th><th className="py-3 pl-4">Current directions</th></tr></thead>
+            <tbody>{dallasOptions.map((row) => <tr key={row.slug} className="border-b border-border">
+              <td className="py-4 pr-4"><a className="font-semibold hover:text-primary" href={row.link}>{row.name}</a></td>
+              <td className="px-4 py-4">{dallasDriveLabel(row.drive.minutes)}</td>
+              <td className="px-4 py-4"><a href={row.drive.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">View source ↗</a></td>
+              <td className="py-4 pl-4"><a href={`https://www.google.com/maps/dir/?api=1&origin=Dallas%2C%20TX&destination=${encodeURIComponent(row.name + ", Texas")}&travelmode=driving`} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Check live drive ↗</a></td>
+            </tr>)}</tbody>
+          </table>
+        </div>
+        {collection.slug === "small-towns-1-hour" && <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Historic squares</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Start in Waxahachie for the Ellis County Courthouse and historic architecture. Save time for downtown cafes and independent shops rather than trying to see every festival or museum at once.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Flowers and railroad heritage</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Ennis is especially appealing during its spring bluebonnet season, but its brick-street center, theaters and railroad past make it worth exploring year-round. Check the city calendar for trail dates.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Shopping and East Texas</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Canton for its celebrated First Monday Trade Days or Terrell for aviation history and downtown shopping. Confirm market dates and museum opening hours before leaving.</p></article>
+        </div>}
+        {collection.slug === "small-towns-2-hours" && <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Dinosaur country</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Glen Rose works for families pairing the historic center with Dinosaur Valley State Park or Fossil Rim. Parks and attractions have separate tickets or entry conditions; leave enough time for one main attraction.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Granbury on the water</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Build a day around Granbury Square, lakefront scenery, a meal and an optional theater performance. A slower overnight makes sense when evening entertainment is your reason to go.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">East Texas heritage</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Mineola, Mount Vernon and Palestine each offer different railroad, courthouse or downtown-history experiences. Pick one corridor rather than connecting widely separated towns in one day.</p></article>
+        </div>}
+        {collection.slug === "small-towns-3-hours" && <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Jefferson: history and an overnight</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Make Jefferson the anchor for a historic East Texas trip: riverport-era buildings, museums, independent shops and a leisurely dinner. It's a long out-and-back; consider staying overnight instead of rushing home.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Graham: downtown and lake country</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Graham's unusually large courthouse square and local history, then choose a lake-country stop if weather and park access cooperate. This is a full-day westbound escape rather than a quick lunch drive.</p></article>
+          <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Crockett or Clarksville: slower Texas history</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Crockett for East Texas pine-country history and the nearby national forest, or Clarksville for its old courthouse townscape and Red River County heritage. They are different trips, not a practical same-day pair.</p></article>
+        </div>}
+        <p className="mt-8 text-sm leading-7 text-muted-foreground">For details about individual attractions, follow the TexasDefined destination guide when available, then consult the official local source before booking tours, tickets, lodging or timed events.</p>
+      </Container>
+    </section>}
+
     {eventContext.events.length > 0 && <section className="border-y border-border bg-surface">
       <Container className="py-14 sm:py-18">
         <p className="eyebrow text-primary">{eventContext.kind === "weekend-destinations" ? "Plan around the calendar" : "Dated things to do"}</p>
@@ -571,7 +1067,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
             <p className="mt-2 text-sm text-muted-foreground">{event.locationLabel}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
               <a href={event.guidePath} className="border-b border-primary pb-1 text-primary">Event guide →</a>
-              <EventTicketCta cta={event.ticketCta} linkClassName="border-b border-border pb-1 hover:text-primary" wrapperClassName="inline-flex flex-wrap gap-2" disclosureClassName="basis-full text-xs font-normal text-muted-foreground" />
+              <EventTicketCta cta={event.ticketCta} eventId={event.id} linkClassName="border-b border-border pb-1 hover:text-primary" wrapperClassName="inline-flex flex-wrap gap-2" disclosureClassName="basis-full text-xs font-normal text-muted-foreground" />
               <a href={event.officialEventUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Official event site ↗</a>
             </div>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Last verified {event.lastVerifiedLabel}. Confirm event-day details with the official source before traveling.</p>
@@ -581,23 +1077,25 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
-    {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
-      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
+    {isDallasRoadRing && <DallasSmallTownsInteractiveMap towns={dallasOptions} origin={metro.center} />}
+
+    {mapMarkers.length > 0 && !isMcAllenDayTrips && !isDallasRoadRing && <Container className="py-14 sm:py-18">
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={isMcAllenDayTrips ? `additional researched places near ${metro.name}` : `${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">{isMcAllenDayTrips ? "More places to consider" : isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
-          <h2 className="mt-3 font-display text-4xl">{isMcAllenDayTrips ? `${group.rows.length} additional place${group.rows.length === 1 ? "" : "s"} beyond the curated itineraries` : isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
+          <p className="eyebrow text-primary">{isDallasRoadRing ? "Detailed destination guides" : isMcAllenDayTrips ? "More places to consider" : isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
+          <h2 className="mt-3 font-display text-4xl">{isDallasRoadRing ? `${group.rows.length} researched TexasDefined destinations in this road-time range` : isMcAllenDayTrips ? `${group.rows.length} additional place${group.rows.length === 1 ? "" : "s"} beyond the curated itineraries` : isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
             <div className="mb-3 flex items-baseline justify-between gap-4">
-              <p className="eyebrow text-primary">{isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : isMcAllenDayTrips ? "Check the actual driving route" : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
+              <p className="eyebrow text-primary">{isDallasRoadRing && getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown) ? dallasDriveLabel(getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown)!.minutes) + " estimated drive" : isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : isMcAllenDayTrips ? "Check the actual driving route" : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
               <span className="text-xs text-muted-foreground">{row.destination.nearestTown}</span>
             </div>
-            <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} />
+            <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} allowOwnerLicensedPhoto={metro.slug === "austin" && collection.slug === "day-trips"} />
             {isAustinTwoHourGuide && austinEditorial(row.destination.slug) && <div className="mt-4 border-l-2 border-border pl-4">
               <p className="text-sm font-semibold">{austinEditorial(row.destination.slug)!.bestFor}</p>
               <p className="mt-1 text-sm leading-6 text-muted-foreground">{austinEditorial(row.destination.slug)!.note}</p>
@@ -625,6 +1123,26 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           </article>)}
         </div>
         {(availableAustinSlugs.has("schulenburg") || availableAustinSlugs.has("la-grange")) && <a href="/explore/painted-churches" className="eyebrow mt-8 inline-block border-b border-primary pb-1 text-primary">Explore the Painted Churches authority guide →</a>}
+      </Container>
+    </section>}
+
+    {collection.slug === "day-trips" && pageData.indexReady && <section className="border-y border-border bg-surface" data-day-trip-commercial-paths={metro.slug}>
+      <Container className="py-12 sm:py-14">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <p className="eyebrow text-primary">Optional overnight planning</p>
+            <h2 className="mt-3 font-display text-3xl">Make a longer trip without rushing home</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Some destinations are better with an evening or overnight. Compare nearby hotels and rentals using the existing booking options after choosing your destination; no stay or availability is guaranteed.</p>
+            <a href="#expedia-travel-surface" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">See optional hotel and rental choices ↓</a>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying booking links, at no additional cost to you. Booking terms and availability come from the provider.</p>
+          </div>
+          <div>
+            <p className="eyebrow text-primary">For local visitor businesses</p>
+            <h2 className="mt-3 font-display text-3xl">Reach readers planning Texas day trips</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Hotels, outfitters, attractions, chambers and travel businesses can request information about disclosed advertising or sponsorship. Editorial destinations and rankings are never for sale; no placement is implied or guaranteed.</p>
+            <a href={"/partner-with-us?focus=contact&source=" + encodeURIComponent("/explore/near/" + metro.slug + "/day-trips")} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Inquire about local travel partnerships →</a>
+          </div>
+        </div>
       </Container>
     </section>}
 

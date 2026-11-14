@@ -1,0 +1,100 @@
+// Source-backed authority contract: intentionally checks the published guide and
+// internal discovery, not a manufactured SEO word count or ranking "grade".
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const read = (path) => readFileSync(resolve(root, path), "utf8");
+const page = read("src/routes/warriors-refuge-west-columbia.tsx");
+const policy = read("src/lib/public-routes.ts");
+const resources = read("src/routes/texas-resources.lazy.tsx");
+const resourcesHead = read("src/routes/texas-resources.tsx");
+const living = read("src/routes/texas-living.tsx");
+
+for (const [name, text] of Object.entries({
+  "source-checked date": "2026-11-09",
+  "correct street address": "212 N. 14th St",
+  "public phone": "345-3800",
+  "VA homeless hotline": "877-424-3838",
+  "Veterans Crisis Line": "988",
+  "housing admission caveat": "not a guarantee",
+  "financial assistance funding caveat": "not guaranteed",
+  "financial assistance source": "https://thewarriorsrefuge.us/twr-financial-assistance/",
+  "primary provider": "https://thewarriorsrefuge.us/contacts/",
+  "verified direct intake email": "rickie@thewarriorsrefuge.us",
+  "family counseling off-campus distinction": "families who do not live on campus",
+  "employment eligibility": "at risk of homelessness",
+  "eligible-service no-cost statement": "free to eligible veterans and families",
+  "official VA": "https://department.va.gov/homeless/nationalcallcenter/",
+  "provider distinction": "different eligibility rules",
+  "official intake email": "rickie@thewarriorsrefuge.us",
+  "cost of eligible services": "free to eligible veterans and families",
+  "family counseling access": "families who do not live on campus",
+  "employment eligibility": "recently released from incarceration",
+  "direct provider application guidance": "provider's online application link",
+  "provider historical sourcing": "https://thewarriorsrefuge.us/aboutus/",
+  "financial grant request channels": "as a walk-in",
+  "financial grant appointment": "provided by appointment",
+  "financial grant annual limit": "up to twice per year",
+  "financial grant tax restriction": "Grant funds do not cover taxes",
+  "original intake checklist": "A useful first-call checklist",
+  "structured NGO": '"@type": "NGO"',
+  "structured breadcrumbs": '"@type": "BreadcrumbList"',
+  "canonical SEO": "canonicalLink",
+  "editorial accountability": "Texas Defined editorial desk",
+})) {
+  assert.ok(page.toLowerCase().includes(text.toLowerCase()), `Missing ${name}`);
+}
+assert.ok(page.includes("Brazoria, Fort Bend, Galveston, Harris, Jefferson and Matagorda"), "Missing verified grant counties");
+assert.ok(page.includes('createFileRoute("/warriors-refuge-west-columbia")'), "Dedicated route must be registered");
+assert.ok(!/noindex|nofollow/.test(page), "Authority page must not be marked noindex");
+assert.ok(policy.includes('"/warriors-refuge-west-columbia"'), "Guide must be on the governed static indexable registry");
+for (const [name, file] of [["Texas Resources", resources], ["resources SEO discovery", resourcesHead], ["Texas Life", living]]) {
+  assert.ok(file.includes("/warriors-refuge-west-columbia"), `Missing ${name} internal link`);
+}
+const photoPath = "public/images/warriors-refuge-sign.avif";
+const photo = readFileSync(resolve(root, photoPath));
+assert.ok(photo.length >= 3000 && photo.length <= 100000, "Reader-supplied photo must exist and be reasonably optimized");
+assert.equal(photo.toString("ascii", 4, 12), "ftypavif", "Photo must be actual AVIF bytes, not a broken text placeholder");
+assert.ok(page.includes('src="/images/warriors-refuge-sign.avif"'), "Guide must display the photo");
+assert.ok(page.includes('Photo supplied by a reader'), "Photo attribution should be visible");
+assert.ok(page.includes('alt="The Warrior\'s Refuge sign'), "Photo must have meaningful descriptive alt text");
+console.log("PASS Warrior's Refuge guide: source attribution, service distinctions, accessibility calls-to-action, indexable registry and 3 discovery integrations.");
+
+// Network checks are a freshness research alarm, never permission to silently
+// change a verified source date or claim that current eligibility is guaranteed.
+if (process.argv.includes("--remote")) {
+  const refs = [
+    ["contacts", "https://thewarriorsrefuge.us/contacts/", [/West Columbia/i, /rickie@thewarriorsrefuge\.us/i]],
+    ["published intake contact", "https://thewarriorsrefuge.us/contacts/", /rickie@thewarriorsrefuge\.us/i],
+    ["family counseling program", "https://thewarriorsrefuge.us/how-we-help/", /Texas Veterans Family Alliance Grant/i],
+    ["employment eligibility", "https://thewarriorsrefuge.us/how-we-help/", /recently released from incarceration/i],
+    ["programs", "https://thewarriorsrefuge.us/how-we-help/", [/Transitional Housing/i, /Texas Veterans Family Alliance Grant/i, /Warrior Empowerment Project/i]],
+    ["grant", "https://thewarriorsrefuge.us/twr-financial-assistance/", /Brazoria County/i],
+    ["volunteer", "https://thewarriorsrefuge.us/getinvolved/", /VOLUNTEER/i],
+    ["federal housing support", "https://department.va.gov/homeless/nationalcallcenter/", /877-424-3838/i],
+  ];
+  const problems = [];
+  for (const [name, url, expected] of refs) {
+    try {
+      const resp = await fetch(url, { headers: { "user-agent": "TexasDefined-source-verifier/1.0 (public service information)" }, signal: AbortSignal.timeout(15000) });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const html = await resp.text();
+      const plain = html.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ");
+      const markers = Array.isArray(expected) ? expected : [expected];
+      for (const marker of markers) {
+        if (!marker.test(plain)) throw new Error(`Expected source marker ${marker} not found`);
+      }
+      console.log(`OK ${name}`);
+    } catch (error) {
+      problems.push(`${name} ${url}: ${error?.message ?? String(error)}`);
+    }
+  }
+  if (problems.length) {
+    console.error("SOURCE_REVIEW needed (do not automatically change eligibility or verified date):");
+    for (const p of problems) console.error("SOURCE_REVIEW", p);
+    process.exitCode = 1;
+  }
+}

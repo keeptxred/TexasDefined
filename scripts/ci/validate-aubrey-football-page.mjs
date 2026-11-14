@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const editorial = readFileSync('src/data/high-school-football/program-editorial.ts', 'utf8');
+const identities = readFileSync('src/data/high-school-football/school-identities.ts', 'utf8');
 const route = readFileSync('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', 'utf8');
 const guide = readFileSync('src/components/sports/FootballGameNightGuide.tsx', 'utf8');
 const start = editorial.indexOf('  "aubrey": {');
@@ -25,13 +26,20 @@ assert.equal(aubrey.schedule.ticketUrl, 'https://gofan.co/app/school/TX90134');
 assert.equal(aubrey.venue.policyUrl, 'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies');
 assert.equal(aubrey.venue.address, '510 Spring Hill Road, Aubrey, TX 76227');
 assert.ok(aubrey.seo.title.includes('Schedule, Scores & Tickets'));
-assert.ok(route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must appear in the page heading');
+assert.ok(identities.includes("slug: 'aubrey'") && identities.includes("mascot: 'Chaparrals'"), 'Aubrey Chaparrals identity must come from the verified identity registry');
+assert.ok(!route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must not be hardcoded in the shared route');
 assert.ok(!route.includes("repeating-linear-gradient(90deg"), 'Decorative yard-line overlay must not cover hero text or obstruct automated contrast inspection');
-assert.ok(route.includes('photo-1508209495879-445d5febf597'), 'Aubrey hero must show a sourced Friday-night football photograph');
-assert.ok(route.includes('Representative high-school football photo, not an Aubrey team or stadium image'), 'Representative non-Aubrey photo requires an explicit disclosure');
-assert.ok(route.includes('Tim Mossholder / Unsplash'), 'Keep the football image photographer credit');
-assert.ok(route.includes('href="https://unsplash.com/license"'), 'Aubrey photo must link its specific confirmed Unsplash License separately from photographer credit');
-assert.ok(route.includes('>Unsplash License</a>'), 'Aubrey photo license must be visible to readers, not just metadata');
+// Sitewide original school-identity policy: a Colorado game photo is not
+// an Aubrey-specific image. Preserve the photo-credit/rights requirements for
+// any other genuinely sourced football hero without mandating a generic one.
+assert.equal(aubrey.photo, undefined, 'No unrelated Colorado representative football photo on the Aubrey school guide');
+const timelineSet = route.slice(route.indexOf('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS'),route.indexOf(']);',route.indexOf('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS')));
+assert.ok(timelineSet.includes("'aubrey'"), 'Aubrey must show its original 2026 source-backed results graphic instead of a generic photo');
+assert.ok(route.includes('<ReportedFormIllustration'), 'Original results graphic component must remain available');
+assert.ok(route.includes('editorial?.photo ? (') && route.includes('photo={editorial.photo}'), 'Every rights-governed football image renders at hero, with original fallback otherwise');
+for(const token of ['function FootballSourcedPhoto(', 'src={photo.src}', 'alt={photo.alt}', '{photo.caption}', '{photo.credit}', 'href={photo.sourceUrl}', 'href={photo.licenseUrl}', '{photo.license}', "priority={slug === 'aubrey' || slug === 'katy' || slug === 'fort-davis'}"]) assert.ok(route.includes(token), 'Sourced media hero contract missing: '+token);
+assert.ok(!route.includes('src="https://images.unsplash.com/photo-1508209495879'), 'Do not hardcode Aubrey image in JSX');
+assert.ok(!route.includes('{editorial.photo && <figure'), 'Do not repeat governed football photo below hero');
 assert.ok(route.includes('Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'), 'Mobile introduction should remain concise without repeating all score cards');
 assert.ok(!route.includes('Original TexasDefined football illustration'), 'Never restore the Aubrey clip-art football panel');
 assert.ok(!route.includes('viewBox="0 0 180 110"'), 'Aubrey football clip-art SVG must be removed');

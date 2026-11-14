@@ -99,6 +99,12 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Keep CJ provider code and privileged Supabase client off ordinary pages.
+    if (new URL(request.url).pathname === "/api/internal/cj-account-sync") {
+      const { cjAccountSyncResponse } = await import("./lib/cj-account-sync.server");
+      return (await cjAccountSyncResponse(request, env)) ??
+        new Response("Not found", { status: 404 });
+    }
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
       if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });

@@ -35,6 +35,7 @@ export const guadalupeCountySeguinCiboloGuadalupeRiverArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/sports", label: "Texas sports coverage", description: "Find statewide Texas sports guides alongside Seguin university football context." },
     { href: "/county/gonzales", label: "Explore Gonzales County", description: "Follow the Guadalupe River east toward Gonzales and the opening chapter of the Texas Revolution." },
     { href: "/county/wilson", label: "Explore Wilson County", description: "Head south toward Floresville, La Vernia and the San Antonio River country." },
     { href: "/county/comal", label: "Explore Comal County", description: "Continue northwest toward New Braunfels, Canyon Lake and German Texas heritage." },
@@ -43,6 +44,11 @@ export const guadalupeCountySeguinCiboloGuadalupeRiverArticle: Article = {
   ],
   relatedCollections: [],
   relatedDestinations: [],
+  sources: [
+    { label: "Texas Lutheran University Athletics — Nov. 7 original 28–20 game recap and campus remembrance", url: "https://tlubulldogs.com/news/2026/11/7/football-tlu-holds-on-for-28-20-win-over-centenary-la.aspx" },
+    { label: "Texas Lutheran Athletics — original 2026 team results and cumulative statistics", url: "https://tlubulldogs.com/sports/football/stats" },
+    { label: "KSAT San Antonio — independently reported championship and TLU remembrance, Nov. 8, 2026", url: "https://www.ksat.com/sports/2026/11/08/texas-lutheran-football-honors-fallen-teammates-clinches-conference-championship/" },
+  ],
   body: [
     p("Guadalupe County sits at one of the most dynamic junctions in Texas. Seguin, its historic county seat, grew along the Guadalupe River as a market town, military outpost and civic center. To the west, communities such as Schertz and Cibolo now tie the county directly into the San Antonio metropolitan area. Between them lies a landscape of blackland and coastal prairie, farms, ranches, creek bottoms, subdivisions, manufacturing plants and old roads that have carried travelers for nearly two centuries."),
     p("The county is easy to underestimate because it can look like a commuter corridor on a map. In reality, Guadalupe County contains several distinct Texas stories at once: Republic-era settlement, German immigration, Mexican and Tejano heritage, slavery and emancipation, cattle and cotton, railroads, concrete innovation, Lutheran education, river power, military growth, suburban expansion and modern logistics. The Guadalupe River provides the strongest physical thread connecting those eras."),
@@ -82,6 +88,8 @@ export const guadalupeCountySeguinCiboloGuadalupeRiverArticle: Article = {
     h("Education became a long-running civic priority"),
     p("Seguin residents organized schools early, including institutions that predated the Civil War. Churches and community groups frequently supported education when formal public systems were limited. Black churches later played an especially important role in establishing schools and educational opportunities for African American residents."),
     p("Texas Lutheran University, whose roots in the Lutheran educational tradition eventually brought the institution to Seguin in the early twentieth century, remains one of the city’s defining institutions. The campus connects Guadalupe County to the broader story of German Lutheran education in Texas."),
+    p("Texas Lutheran's modern athletics program is another tangible connection between the campus and its community. On November 7, 2026, the Bulldogs defeated Centenary College (Louisiana) 28–20 at Bulldog Stadium in Seguin, finishing the regular season 8–1 and winning a third consecutive Southern Collegiate Athletic Conference regular-season title. The university's official box score puts the SCAC mark at 4–0 and the home mark at 5–0. These are dated 2026 results, not next season's standings or a claim that an upcoming postseason championship has been won."),
+    p("That final home game also included a university remembrance of former players A’Jean Augustine and Deyreck Dean, who died in a November 2026 crash. Texas Lutheran says the team carried their jerseys during its pregame entrance and wore commemorative helmet stickers. This account stays with the university's confirmed public tribute: it does not speculate about the accident, assign blame or use family grief as a sports attraction. Official game reporting and the university's published records are listed among the sources for this update."),
 
     h("Railroads expanded the county’s reach"),
     p("Railroads tied Guadalupe County more closely to San Antonio, Houston and national markets. They helped move cotton, cattle, manufactured goods and passengers while encouraging growth around stations and junctions. Seguin benefited, but smaller communities also gained new commercial opportunities."),

@@ -68,7 +68,7 @@ These are **file-specific, independently checked** image rights, not a blanket l
 ## 6. No licensed original-site photos: Lipantitlán and Old Socorro Mission
 
 - **Lipantitlán:** The live guide incorrectly used a generic small-town photo, and the individual photographed historic-site imagery found on THC, Texas Time Travel, TripAdvisor and Flickr was not released under a demonstrated reuse license. In particular, the site-specific Flickr contributor source displayed **All rights reserved**. The generic photo is not a photograph of the marker or surviving landscape. Substitute a candid branded photo-unavailable placeholder; retain the researched accessible THC guide with noindex until proper site-specific photography is acquired. Do not present an illustration as a real reconstructed fort.
-- **Old Socorro Mission:** The previous Wikimedia Commons/public-domain photograph depicts the **currently operating Socorro Mission** on the El Paso Mission Trail. The researched original Old Socorro archaeological site is a **different location** and is closed to visitors. The image license is not the problem; the subject is wrong. Remove it from the original-site photo catalog. Substitute a photo-unavailable placeholder and noindex until exact-original-site rights and subject identity are established. The functioning mission can retain its own separately identified photography.
+- **Old Socorro Mission:** The previous Wikimedia Commons/public-domain photograph depicts the **currently operating Socorro Mission** on the El Paso Mission Trail. The researched original Old Socorro archaeological site is a **different location** and is closed to visitors. The image license is not the problem; the subject is wrong. Remove it from the original-site photo catalog. Keep the original-site hero **text-first** and maintain **noindex** until exact-original-site rights and subject identity are established. A photograph of the later operating church may appear only as a clearly identified **contextual comparison**, not as an original-site hero. The dedicated archive guide captions an NPS public-domain photo of the later church and links its individual source: https://commons.wikimedia.org/wiki/File:Socorro_Mission,_Mission_Trail,_El_Paso,_Texas_(2b1d2a78-155d-451f-679e-7d70fee5ef0f).jpg (original U.S. National Park Service work, public domain in the U.S.; subject is **not** the 1680s archaeological site).
 - A page's route continuing to respond HTTP 200 does not mean the venue is currently visitable, its hero is correctly licensed, or that the page may stay indexable. Do not stamp the historical content as editorially certified on the strength of source HTTP checks.
 
 ## 7. Fort McKavett — source-checked October 17, 2026
@@ -79,3 +79,39 @@ These are **file-specific, independently checked** image rights, not a blanket l
 - File-level license: **CC0 1.0 Universal Public Domain Dedication**, from the photographer, https://creativecommons.org/publicdomain/zero/1.0/ . The existing photo credit and descriptive alt text accurately identify the exact fort. The Commons file contains geotagged camera details in the immediate fort grounds and expressly identifies the photographed barracks.
 - Reuse decision: **Approved**, subject to normal live image rendering/contrast checks; preserve the Commons file URL as the image-rights evidence. This is not a TexasDefined original photo and does not grant reuse rights over official THC photography or other Commons photos.
 - Current visitor facts and historical claims are separately sourced to THC and are not verified by the image itself.
+
+### Six additional exact-site photographs — checked October 20, 2026
+
+The gallery augments the existing 2015 barracks hero with six different
+subjects photographed at Fort McKavett. Every original file was checked
+individually using Wikimedia Commons image metadata (artist, image description,
+image dimensions, license and capture date). Each 960-pixel rendition returned
+**HTTP 200, Content-Type: image/jpeg** through the TexasDefined image proxy.
+
+| Subject | Original Commons file | Photographer · license | Photo date |
+| --- | --- | --- | --- |
+| Hospital / present-day visitor-center building | [Fort McKavett Hospital](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Hospital.jpg) | Articseahorse · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | June 3, 2017 |
+| Fort headquarters | [Fort McKavett HQ](https://commons.wikimedia.org/wiki/File:Fort_McKavett_HQ.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Commander's house | [Fort McKavett Commander's house](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Commander%27s_house.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Hospital medical-supply display | [Fort McKavett hospital medical supplies](https://commons.wikimedia.org/wiki/File:Fort_McKavett_hospital_medical_supplies.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Cannon exhibit | [Fort McKavett Cannon](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Cannon.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Buffalo Soldier interpretive sign | [Buffalo Soldiers at the Fort McKavett State Historic Site](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg) | Pi3.124 · [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | November 29, 2013 |
+
+Each image's visible caption includes an accurate photo subject and a link
+to its specific Commons file page with creator and license information.
+The file is shown as published, scaled to fit the page; no altered derivatives
+are represented as unmodified originals. These older photographs are not
+claims about current exhibits, accessibility or building status; the Buffalo
+Soldier interpretation photograph is *a sign*, not a historical troop portrait.
+
+## Texas Historical Commission source and photograph policy — verified October 29, 2026
+
+Official policy: https://thc.texas.gov/policies . THC is a trusted **research and citation source**, but being a Texas state agency does not put its photos into the public domain.
+
+- **Source facts, records and direct links:** Cite THC/Atlas records for designations, nominations, markers and site context. Check visitor access, ownership and dates with the operator; a National Register listing is not an invitation to enter private property. THC recommends links to its homepage, and requires continued verification if linking to subpages.
+- **THC-owned photography:** The more specific *Photo Request* policy says THC retains copyright, requires permission for a specified one-time use, prohibits unapproved changes and requires a credit line. Use the contact on the current Photo Request page. Do not assume its general noncommercial-use language authorizes a monetized TexasDefined image gallery.
+- **Portal to Texas History and Atlas scans:** Viewing, downloading or citing a scan does not grant republishing rights. Check item-level creator and rights; if unclear, keep only an outbound research link.
+- **Technical safeguards:** Do not hotlink THC photos, frame THC pages or use the THC logo as link artwork. THC requests text-only links and discourages image hotlinking.
+- **Automation:** Existing monthly `.github/workflows/thc-atlas-census.yml` and weekly `.github/workflows/thc-landmark-watch.yml` are discovery/verifications, not publication or image-reuse approval. Atlas records can be wrong or sensitive. Keep duplicate/alias, identity, licensing and public-access reviews before indexing.
+
+Source status reconciliation (October 29, 2026): the official THC National Register page lists **Rosewood Elementary (Austin, Travis County) in October 2026** and **Patricia Welder and Hampton C. Robinson Jr. House** and **Cindy Walker House** in **July 2026**. See https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places . The watcher now interprets visible month headings rather than markup-sensitive raw text matching.

@@ -12,6 +12,12 @@ test('Network directory is indexable only after public directory launch and actu
 });
 test('Only independently published business profiles become indexable; all private pages stay noindex',()=>{
  const source=route('network.business.$slug.tsx');
+ // Only published, independently reviewed pages may have indexable metadata.
+ // Do not reintroduce raw unbounded business-name <title> construction.
+ assert.match(source,/meta:\s*buildMeta\(texasDefinedBrand,/);
+ assert.match(source,/canonicalPath/);
+ assert.match(source,/canonicalLink\(texasDefinedBrand, canonicalPath\)/);
+ assert.doesNotMatch(source,/business_name[^\n]*\| Texas Defined Network/);
  assert.match(source,/NETWORK_DIRECTORY_ENABLED!==["']true["']\)return null/);
  assert.match(source,/\.eq\(["']is_published["'],\s*true\)/);
  assert.match(source,/return listing \? \{\.\.\.listing,indexable:true\} : null/);

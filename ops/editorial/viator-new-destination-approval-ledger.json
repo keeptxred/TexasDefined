@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "baselineCaptured": "2026-10-29",
+  "note": "Grandfathered preexisting TexasDefined source-verified Viator discovery destinations, not a declaration that new pages may auto-publish.",
+  "existingSlugs": [
+    "king-william-historic-district",
+    "galveston-tree-sculptures",
+    "south-padre-island-sandcastle-trail",
+    "galveston-historic-red-light-district",
+    "magnolia-market-at-the-silos",
+    "rockport-little-bay",
+    "san-antonio-botanical-garden",
+    "southfork-ranch",
+    "buffalo-bayou-park-cistern",
+    "houston-downtown-tunnels",
+    "barton-creek-greenbelt",
+    "buckhorn-saloon-museum",
+    "the-drag-austin",
+    "deep-ellum",
+    "strand-historic-district",
+    "galveston-seawall",
+    "galveston-bay",
+    "seismique-houston",
+    "texas-hill-country-olive-co",
+    "flat-creek-estate"
+  ],
+  "approvedNew": {}
+}

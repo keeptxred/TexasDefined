@@ -1,21 +1,22 @@
+import { ElPasoAreaCrossLinks } from '@/components/content/ElPasoAreaAuthority';
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
-import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
+import { LostMaplesFoliageStatus } from "@/components/editorial/LostMaplesFoliageStatus";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
-import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
+import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
+import { showSeasonDecision } from "@/data/destination-editorial-relevance";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
-import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
@@ -28,6 +29,38 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+
+// Monetization modules are visitor-only enhancements; avoid loading their
+// application code on every editorial article or in the primary JS bundle.
+const SchoolSupplyPartners = lazy(() =>
+  import("@/components/monetization/SchoolSupplyPartners").then((m) => ({ default: m.SchoolSupplyPartners })),
+);
+const FootballFanOffers = lazy(() =>
+  import("@/components/sports/FootballFanOffers").then((m) => ({ default: m.FootballFanOffers })),
+);
+
+// Magnolia-only affiliate UI stays off the shared article client bundle.
+const MagnoliaWacoAffiliateLinks = lazy(() =>
+  import("@/components/monetization/MagnoliaWacoAffiliateLinks").then((module) => ({ default: module.MagnoliaWacoAffiliateLinks })),
+);
+
+const AuthorityVisitorTools = lazy(() =>
+  import("@/components/editorial/AuthorityVisitorTools").then((module) => ({ default: module.AuthorityVisitorTools })),
+);
+
+// Keep the 14 KB interactive foliage map/gallery module out of the default
+// client bundle; these tools are used only by the East Texas fall guide.
+const EastTexasFoliageParkMap = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliageParkMap })),
+);
+const EastTexasFoliagePhotoGallery = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliagePhotoGallery })),
+);
+
+// This large comparison is isolated to the single Houston commuter article.
+const HoustonCommuterPlanner = lazy(() =>
+  import("@/components/relocation/HoustonCommuterPlanner").then((module) => ({ default: module.HoustonCommuterPlanner })),
+);
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -44,6 +77,19 @@ const TexasRiverBasinReference = lazy(() =>
 );
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+// Primary-record citations appear next to the historical sections they support.
+const BLUE_BELL_SECTION_REFERENCES: Record<string, ReadonlyArray<{ label: string; url: string }>> = {
+  "A creamery built around Washington County dairies": [{ label: "Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/blue-bell-creameries" }, { label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }],
+  "E. F. Kruse and the change to Blue Bell": [{ label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }, { label: "Blue Bell company history", url: "https://www.bluebell.com/about-us/" }],
+  "Blue Bell history at a glance": [{ label: "Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/blue-bell-creameries" }, { label: "Homemade Vanilla history", url: "https://www.bluebell.com/news/blue-bell-homemade-vanilla-celebrates-50th-anniversary/" }],
+  "Why Homemade Vanilla became a symbol": [{ label: "Blue Bell 50th-anniversary account", url: "https://www.bluebell.com/news/blue-bell-homemade-vanilla-celebrates-50th-anniversary/" }],
+  "Growth without becoming available everywhere": [{ label: "Blue Bell company history", url: "https://www.bluebell.com/about-us/" }],
+  "The Brenham factory is part of the historical record": [{ label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }],
+  "The 2015 listeria outbreak and recalls": [{ label: "CDC 2015 outbreak record", url: "https://archive.cdc.gov/www_cdc_gov/listeria/outbreaks/ice-cream-03-15/index.html" }, { label: "FDA investigation records", url: "https://www.fda.gov/about-fda/oii-foia-electronic-reading-room/blue-bell-creameries" }],
+  "Federal penalties and what happened in 2020": [{ label: "Justice Department sentencing record", url: "https://www.justice.gov/archives/opa/pr/blue-bell-creameries-ordered-pay-1725-million-criminal-penalties-connection-2015-listeria" }, { label: "DOJ civil resolution", url: "https://www.justice.gov/civil/consumer-protection-branch/cases/blue-bell-creameries" }],
+  "Visiting Blue Bell in Brenham": [{ label: "Official Brenham visitor information", url: "https://www.bluebell.com/visit-blue-bell/" }],
+};
+
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
 const MOVING_TO_TEXAS_PILLAR_SLUG = "moving-to-texas-what-nobody-tells-you";
 const texasExplainedPillarOrder = [
@@ -92,28 +138,49 @@ const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "t
 // Only football planning explainers get the generic overnight-travel offer.
 // No event, venue or hotel proximity is claimed for these editorial pages.
 const footballTravelArticleSlugs = new Set([
-  "texas-high-school-football-playoffs-explained",
   "texas-high-school-football-newcomers",
   "texas-high-school-football-scores-schedules",
   "texas-high-school-football-classifications-1a-6a",
   "texas-six-man-football-rules-explained",
+  "texas-high-school-football-playoffs-explained",
 ]);
+
+// Keep existing reviewed evergreen guides eligible, and allow new high-school
+// football guides only when the actual editorial body has an explicit travel
+// planning section. This rule covers future relevant articles without turning
+// every football explainer or unrelated sports story into a shopping page.
+function isFootballTravelPlanningArticle(article: Article): boolean {
+  if (article.category !== "sports") return false;
+  if (footballTravelArticleSlugs.has(article.slug)) return true;
+  const topic = `${article.slug.replace(/-/g, " ")} ${article.title}`;
+  if (!/\b(?:high school football|six man football)\b/i.test(topic)) return false;
+  return article.body.some((block) =>
+    block.type === "heading"
+      && /\b(?:before you travel|travel planning|planning (?:your|a) (?:football )?(?:trip|visit|weekend)|road.trip planning|where to stay|championship weekend|game.day travel)\b/i.test(block.text ?? ""),
+  );
+}
 
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
 const FAQ_ARTICLE_SLUGS = new Set([
+  "chip-and-joanna-gaines-magnolia-waco",
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "hill-country-fall-colors",
   "texas-high-school-football-playoffs-explained",
+  "moving-to-el-paso-guide",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
+  "chip-and-joanna-gaines-magnolia-waco": "Frequently asked questions about Chip and Joanna Gaines",
   "texas-high-school-football-playoffs-explained": "Frequently asked questions",
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
+  "hill-country-fall-colors": "Frequently asked questions",
+  "moving-to-el-paso-guide": "Frequently asked questions about moving to El Paso",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -154,6 +221,22 @@ function articleDepartment(category: string): ArticleDepartment {
   if (category === "guides") return { name: "Guides", path: "/guides", usesExploreCategory: false };
   if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
   return { name: "Explore", path: "/explore", usesExploreCategory: true };
+}
+
+// Keep recommendation imagery editorially distinct, even when several old
+// articles still point to one shared placeholder. Query-string sizes are not
+// distinct photographs; prefer fewer valid cards over repeated filler.
+function relatedWithDistinctHeroImages(related: Article[], current: Article): Article[] {
+  const seenSources = new Set<string>();
+  return related
+    .filter((item) => item.id !== current.id && (current.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`)))
+    .filter((item) => {
+      const source = item.hero.src.split("?")[0];
+      if (seenSources.has(source)) return false;
+      seenSources.add(source);
+      return true;
+    })
+    .slice(0, 3);
 }
 
 function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
@@ -208,16 +291,25 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    return { article, authors, categories, related, destinations, graph };
+    // A Wikimedia photo inside /media/remote?url= carries double encoding:
+    // Britten%2520USA. Keep the lazy gate source-specific, but accept that
+    // exact delivery form; imageRightsFor independently verifies Commons origin.
+    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%2520|%20| )USA|Cafe_Table_at_Ocho_Restaurant/.test(article.hero.src)
+      ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
+    return { article, authors, categories, related, destinations, graph, imageRights };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { article, authors, categories, destinations, graph } = loaderData;
+    const { article, authors, categories, destinations, graph, imageRights } = loaderData;
     const primarySource = articlePrimarySource(article);
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
-    const imageRights = imageRightsFor(article.hero.src);
+    // This licensed Commons photograph has verified attribution and reuse terms.
+    // Carry its existing on-page credit/source links into Google-readable ImageObject metadata.
+    const houstonCommuterImageRights = article.slug === "best-houston-suburbs-for-commuters"
+      ? heritagePhotoRightsForPath(canonicalPath)
+      : null;
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
@@ -247,6 +339,11 @@ export const Route = createFileRoute("/article/$slug")({
       height: article.hero.height,
       representativeOfPage: true,
       ...(article.hero.credit ? { creditText: article.hero.credit } : {}),
+      ...(houstonCommuterImageRights ? {
+        license: houstonCommuterImageRights.licenseUrl,
+        acquireLicensePage: houstonCommuterImageRights.sourceUrl,
+        creator: { "@type": "Person", name: "Famartin" },
+      } : {}),
       ...(imageRights ?? {}),
     };
 
@@ -338,7 +435,10 @@ export const Route = createFileRoute("/article/$slug")({
         acceptedAnswer: { "@type": "Answer", text: answer },
       })),
     } : null;
+    const magnoliaPeopleSchema = article.slug === "chip-and-joanna-gaines-magnolia-waco"
+      ? magnoliaPeopleSchemaForArticle(articleUrl) : [];
     const schemaGraph = [
+      ...magnoliaPeopleSchema,
       webPageSchema,
       imageSchema,
       ...(authorSchema ? [authorSchema] : []),
@@ -373,7 +473,7 @@ export const Route = createFileRoute("/article/$slug")({
 });
 
 function ArticlePage() {
-  const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  const { article, graph, categories, destinations, authors, related, imageRights } = Route.useLoaderData();
   // BB-35's long lazy article hydrates after the root shell. Third-party
   // lodging integrations must not mutate this React-owned subtree until mount.
   useEffect(() => {
@@ -418,17 +518,27 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
-  const hideGenericRelatedRail = article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
+  const foliageHeroRights = imageRights;
+  const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
+  const showFootballTravelOffers = isFootballTravelPlanningArticle(article) && !shouldNoindexTexasGatewayArticle(article);
+  // Position the offer after useful planning guidance, before FAQs and sources.
+  // Other eligible guides without those headings use the after-body fallback.
+  const footballTravelInsertIndex = showFootballTravelOffers
+    ? article.body.findIndex((block) => block.type === "heading"
+      && /^(?:frequently asked questions|sources and verification|sources and further reading)\b/i.test(block.text?.trim() ?? ""))
+    : -1;
+  const footballTravelOffer = showFootballTravelOffers
+    ? <Suspense fallback={null}><FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /></Suspense>
+    : null;
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
     : -1;
   const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
     ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
     : -1;
-  const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
-  const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
   const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
 
   return <article>
@@ -465,12 +575,13 @@ function ArticlePage() {
           <span>{formatReadingTime(article.readingMinutes)}</span>
         </div>
       ) : <Byline author={author} meta={`${formatDate(article.publishedAt)}${article.updatedAt && article.updatedAt !== article.publishedAt ? ` · Updated ${formatDate(article.updatedAt)}` : ""} · ${formatReadingTime(article.readingMinutes)}`} />}
-      {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
+      
       {!isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
+      {article.slug === "east-texas-fall-colors" && <nav aria-label="East Texas fall guide navigation" className="mt-4 text-sm"><a href="#east-texas-fall-trip-planner" className="font-semibold text-primary underline underline-offset-4">Jump to the six-park comparison, map and dated photographs ↓</a></nav>}
       {isTexasExplainedPillar && (isTexasRiversArticle ? <aside className="mt-6 border-y border-border py-4" aria-label="Texas Explained series">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <p className="font-semibold text-foreground">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
@@ -502,21 +613,50 @@ function ArticlePage() {
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
       {article.slug === "texas-high-school-football-playoffs-explained" ? <FootballPlayoffsReference /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
-        {isTexasRiversArticle ? <>
-          <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
-          <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>
-          {riverBodyAfterBasinReference.length > 0 ? <ArticleBody blocks={riverBodyAfterBasinReference} entities={graph} /> : null}
-        </> : <ArticleBody blocks={article.body} entities={graph} />}
+        {isTexasRiversArticle ? (
+          <ArticleBody
+            blocks={article.body}
+            entities={graph}
+            insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
+            insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
+          />
+        ) : article.slug === "best-houston-suburbs-for-commuters" ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={9}
+            insertBefore={<Suspense fallback={<section className="my-8 border-y border-border py-6 text-sm" aria-label="Houston suburb comparison loading">Loading Houston corridor comparison and cost worksheet…</section>}><HoustonCommuterPlanner /></Suspense>} />
+        ) : footballTravelInsertIndex >= 0 ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={footballTravelInsertIndex}
+            insertBefore={footballTravelOffer} />
+        ) : article.slug === "blue-bell-ice-cream-brenham-texas-history" ? (
+          <ArticleBody blocks={article.body} entities={graph} sectionReferences={BLUE_BELL_SECTION_REFERENCES} />
+        ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
-      {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
+      {article.slug === "fredericksburg-texas-wineries-things-to-do-guide" ? (
+        <Suspense fallback={<section className="my-10 border-t border-border pt-8" aria-label="Loading wine-country comparison and trip tools" />}>
+          <AuthorityVisitorTools />
+        </Suspense>
+      ) : null}
+      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <Suspense fallback={<div className="my-10 h-36 border-y border-border" aria-label="Loading Waco tour options" />}><MagnoliaWacoAffiliateLinks /></Suspense>}
+      <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
+      {showFootballTravelOffers && footballTravelInsertIndex < 0 ? footballTravelOffer : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
+      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><Suspense fallback={null}><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></Suspense></> : null}
+      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
+        <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
+        {" · "}
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY-SA 4.0 license</a>
+        {" · Responsive display may crop the photograph"}
+      </> : imageRights ? <>
+        <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a>
+        {imageRights.license !== imageRights.acquireLicensePage && <>{" · "}<a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Image license and reuse terms</a></>}
+        {imageRights.creator["@type"] === "Person" && <>{" · Responsive display may crop or resize the photograph"}</>}
+      </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}{article.slug === "blue-bell-ice-cream-brenham-texas-history" && corridorHeroRights ? " · Photo may be cropped for responsive display" : null}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
@@ -541,48 +681,60 @@ function ArticlePage() {
       </aside>}
       {!isTexasRiversArticle && article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
     </Container>
-    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
+    {article.slug !== "east-texas-fall-colors" && relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : isCaminoRealArticle ? "El Paso history" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : isCaminoRealArticle ? "Explore the El Paso mission corridor and directly related borderlands places." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
   ? <article className="border-t border-border pt-5">
       <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
       <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
-      {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
+      {showSeasonDecision(destination) && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
     {article.slug === "east-texas-fall-colors" && <Section tone="surface"><Container>
+      <span id="east-texas-fall-trip-planner" className="block scroll-mt-28" />
       <SectionHeader eyebrow="Plan your fall trip" title="Six places to compare" />
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are evergreen planning suggestions, not live leaf-color reports. Select a park to see its official alerts, trails and reservation information. Color varies within and between parks.</p>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
+
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Compare the six parks below and use their official visitor information to check current alerts, trails and reservations before setting out.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {([
-          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
-          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },
-          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: null },
-          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
-          { name: "Cooper Lake State Park", note: "Additional northeast Texas lake option", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: null },
-          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/destination/martin-creek-lake-state-park" },
+          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", walk: "Rustling Leaves · 2.4 mi · moderate", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
+          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", walk: "Caddo Forest · 0.7 mi · moderate, with steps", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake-state-park" },
+          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", walk: "Lakeview Loop · 0.6 mi · easy", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: "/destination/lake-bob-sandlin-state-park" },
+          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", walk: "Lakeshore · 2.1 mi · easy", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
+          { name: "Cooper Lake State Park", note: "South Sulphur and Doctors Creek are separate units", walk: "Honey Creek (South Sulphur) · 0.3 mi · easy", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: "/destination/cooper-lake-state-park" },
+          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", walk: "Harmony Hill · 1.7 mi · easy", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/destination/martin-creek-lake-state-park" },
         ] as const).map((place) => <article key={place.name} className="border border-border bg-background p-5">
           <h3 className="font-display text-xl">{place.name}</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">{place.note}</p>
+          <p className="mt-2 text-sm leading-6"><strong>Suggested first trail:</strong> {place.walk}</p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <a href={place.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official park info ↗</a>
             {place.guide && <a href={place.guide} className="font-semibold text-primary underline underline-offset-4">Texas Defined guide →</a>}
+            {place.name === "Caddo Lake State Park" && <a href="https://tpwd.texas.gov/state-parks/caddo-lake/park_events/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Current ranger programs ↗</a>}
           </div>
         </article>)}
       </div>
-      <EastTexasFoliageParkMap />
-      <EastTexasFoliagePhotoGallery />
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas parks map">Loading the six-park map…</section>}><EastTexasFoliageParkMap /></Suspense>
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas photograph gallery">Loading the credited photo gallery…</section>}><EastTexasFoliagePhotoGallery /></Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
         <a href="/article/best-texas-state-parks-for-fall-colors" className="font-semibold text-primary underline underline-offset-4">More fall-color state parks →</a>
       </nav>
     </Container></Section>}
-    {article.slug === "east-texas-fall-colors" && <Section><Container><SectionHeader eyebrow="Keep planning" title="More fall foliage guides" /><div className="mt-6 grid gap-4 sm:grid-cols-3">
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/fall-in-texas-complete-guide">Texas fall season guide →</a>
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
-    </div></Container></Section>}
-    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {article.slug === "hill-country-fall-colors" && <Section tone="surface"><Container>
+      <SectionHeader eyebrow="Plan with current information" title="Lost Maples foliage updates and photo credits" />
+      <LostMaplesFoliageStatus />
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Check dated Texas Parks and Wildlife foliage photographs and park alerts before choosing a trip date. The hero photograph shows golden-orange and rust-red autumn leaves at Lost Maples State Natural Area on November 24, 2012; it is a historical example, not a verified report of current foliage conditions.</p>
+      <nav aria-label="Lost Maples current reports and credited hero photograph" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official Lost Maples foliage report ↗</a>
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples/images/foliage" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD foliage photographs ↗</a>
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Lost Maples access and alerts ↗</a>
+        <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: G. Lamar, November 2012 ↗</a>
+        <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">CC BY 2.0 license (image adapted for layout) ↗</a>
+      </nav>
+    </Container></Section>}
+    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }

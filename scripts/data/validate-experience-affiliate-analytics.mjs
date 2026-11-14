@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
 const citypass = fs.readFileSync('src/components/monetization/CityPassCalloutContent.tsx', 'utf8');
+const citypassData = fs.readFileSync('src/data/citypass.ts', 'utf8');
 const cityViator = fs.readFileSync('public/city-experience-affiliate.js', 'utf8');
 const canonicalViatorLinks = fs.readFileSync('src/data/viator-destination-links.ts', 'utf8');
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
@@ -43,9 +44,10 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying CityPASS® purchases', 'CityPASS disclosure'],
 ]) requireText(citypass, needle, label);
 
-// This connection is paused while its three approved 7eer tracking redirects
-// consistently return HTTP 404. Direct official links MUST NOT claim commission
-// or emit affiliate analytics, even though historical approved IDs are retained.
+// Only the new account-specific CJ Click URLs are enabled, not the previously
+// broken 7eer redirects. Preserve truthful disclosure and conditional link
+// behavior if a future verification requires disabling tracking again.
+requireText(citypassData, 'CITYPASS_AFFILIATE_LINKS_ENABLED = true', 'Account-approved CJ CityPASS activation');
 for (const [needle, label] of [
   ['CITYPASS_AFFILIATE_LINKS_ENABLED ? "citypass" : undefined', 'Conditional CityPASS partner/commercial metadata'],
   ['CITYPASS_AFFILIATE_LINKS_ENABLED ? () => trackAffiliateClick(', 'Conditional CityPASS click analytics'],
@@ -125,6 +127,70 @@ if (cityViator.includes('viator-destination-links') || cityViator.includes('viat
 if (/window\.location\s*=|window\.location\.href\s*=/.test([tracker, citypass, cityViator, destinationViator, statewideViator].join('\n'))) {
   errors.push('Experience affiliate analytics must not force redirects.');
 }
+
+// Waco attribution and indexed contextual discovery are separate from paid
+// tickets. The seven overview URLs must never be promoted as admission.
+const wacoIndex = fs.readFileSync('src/data/waco-viator-attraction-links.ts', 'utf8');
+const wacoOffer = fs.readFileSync('src/components/monetization/WacoDestinationOffer.tsx', 'utf8');
+const wacoMagnolia = fs.readFileSync('src/components/monetization/WacoMagnoliaCrosslinks.tsx', 'utf8');
+const magnolia = fs.readFileSync('src/components/monetization/MagnoliaWacoAffiliateLinks.tsx', 'utf8');
+const curatedPairings = fs.readFileSync('src/data/destination-curated-pairings.ts', 'utf8');
+const stadium = fs.readFileSync('src/data/sports-venue-guide-wave4.ts', 'utf8');
+const stadiumComponent = fs.readFileSync('src/components/sports/SportsVenueGuidePage.tsx', 'utf8');
+for (const slug of [
+  'dr-pepper-museum-waco', 'cottonland-castle', 'waco-suspension-bridge',
+  'cameron-park-waco', 'cameron-park-zoo',
+  'texas-ranger-hall-of-fame-museum-waco', 'mclane-stadium',
+]) requireText(wacoIndex, `slug: "${slug}"`, 'seven distinct Waco attraction overview routes');
+for (const [source, needle, label] of [
+  [wacoOffer, 'wacoViatorAttractionForSlug(slug)', 'attraction-specific Waco overview registry'],
+  [wacoOffer, 'not an entry ticket', 'admission/ticket non-equivalence'],
+  [wacoOffer, 'buildViatorAffiliateUrl(attraction.viatorUrl, placement)', 'Waco tracked overview link'],
+  [wacoOffer, 'rel="sponsored nofollow noopener noreferrer"', 'Waco sponsored relationship'],
+  [wacoOffer, 'trackAffiliateClick(', 'Waco first-party click tracking'],
+  [wacoOffer, 'Affiliate disclosure:', 'Waco local disclosure'],
+  [wacoOffer, 'WacoViatorExperienceCards', 'separately bookable experiences'],
+  [destinationViator, 'if (!market) return huntingLinks;', 'Preserved fail-closed generic inventory with separately reviewed Waco attraction links'],
+  [destinationViator, '/waco|cottonland|cameron-park|magnolia-market/.test(destination.slug)', 'Lazy Waco-only placement prefilter; exact offer eligibility remains in wacoViatorAttractionForSlug'],
+  [magnolia, 'WacoMagnoliaCrosslinks', 'Magnolia independent Waco visitor guides'],
+  [wacoMagnolia, 'WACO_VIATOR_ATTRACTIONS.map', 'all seven Waco guide links'],
+  [wacoMagnolia, 'WacoViatorExperienceCards', 'Waco supplier-specific booking'],
+  [wacoMagnolia, '/waco-attractions', 'Waco authority hub from Magnolia visitor context'],
+  [wacoMagnolia, '/dallas-to-waco-magnolia-tours', 'Waco tour planning from Magnolia visitor context'],
+  [stadiumComponent, '<WacoDestinationOffer slug="mclane-stadium" />', 'McLane venue overview without fabricated ticket'],
+  [stadium, "reviewedAt: '2026-10-25'", 'dated official McLane visitor evidence'],
+  [stadium, 'South Plaza and Gate B', 'Baylor 2026 official stroller entrance correction'],
+  [stadium, 'https://baylorbears.com/facilities/mclane-stadium/30', 'official Baylor access authority'],
+  [curatedPairings, '"cameron-park-zoo": ["cameron-park-waco"', 'reciprocal Waco park links'],
+]) requireText(source, needle, label);
+
+// Preserve the October 2026 Waco Silos search/visitor improvement without
+// enlarging eagerly loaded SEO metadata or weakening affiliate disclosures.
+const magnoliaSeo = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const magnoliaData = fs.readFileSync('src/data/viator-destination-expansion-base.ts', 'utf8');
+const magnoliaPlan = fs.readFileSync('scripts/ci/production-change-scope.mjs', 'utf8');
+const magnoliaSmoke = fs.readFileSync('scripts/ci/verify-changed-production-pages.mjs', 'utf8');
+for (const token of [
+  '"/destination/magnolia-market-at-the-silos": {',
+  'Magnolia Market at the Silos Waco: Hours, Parking & Guide',
+  'location at 601 Webster Avenue, parking, shops, bakery',
+]) requireText(magnoliaSeo, token, 'Magnolia Waco SSR SEO');
+const serverSeoStart = magnoliaSeo.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {');
+const magnoliaSeoAt = magnoliaSeo.indexOf('"/destination/magnolia-market-at-the-silos": {');
+if (!(serverSeoStart >= 0 && magnoliaSeoAt > serverSeoStart && magnoliaSeoAt < magnoliaSeo.indexOf('} : {};', serverSeoStart))) {
+  errors.push('Magnolia Waco metadata must remain SSR-only for the protected client bundle');
+}
+for (const token of [
+  '9th Street and Webster Avenue',
+  'sourceCheckedAt: "2026-10-26"',
+  'https://magnolia.com/pages/visit',
+]) requireText(magnoliaData, token, 'Magnolia current official visitor facts');
+for (const token of [
+  "candidates.add('/destination/magnolia-market-at-the-silos')",
+  "expectedHrefsByPage['/destination/magnolia-market-at-the-silos']",
+]) requireText(magnoliaPlan, token, 'Magnolia change-scoped production verification');
+for (const token of ['Magnolia Waco SEO title missing from production', 'Magnolia Waco verified free parking missing from production'])
+  requireText(magnoliaSmoke, token, 'Magnolia production title/parking assertions');
 
 if (errors.length) {
   console.error('Experience affiliate analytics validation failed:');

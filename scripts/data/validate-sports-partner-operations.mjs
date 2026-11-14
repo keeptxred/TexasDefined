@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, routeHead, routeLazy, adminLayout, partnerRouteHead, partnerRouteLazy, venueGuide, venueDirectory] = await Promise.all([
+const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, routeHead, routeLazy, adminLayout, partnerRouteHead, partnerRouteLazy, partnerQuery, venueGuide, venueDirectory] = await Promise.all([
   read('supabase/migrations/20260814040011_create_texasdefined_admin_access_keys.sql'),
   read('supabase/migrations/20260814042306_link_sports_partner_leads_to_sponsors.sql'),
   read('src/data/sports-partner-leads.server.ts'),
@@ -16,6 +16,7 @@ const [migration, promotionMigration, server, functions, promotionServer, promot
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
+  read('src/lib/partner-search.ts'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venues.tsx'),
 ]);
@@ -129,8 +130,12 @@ assert(!route.includes('loader:'), 'Sports partner admin route must not SSR-load
 assert(adminLayout.includes('Sports partner leads'), 'Admin operations navigation must expose the gated sports partner lead view.');
 assert(adminLayout.includes('to="/admin/sports-partners"'), 'Admin operations navigation must link to /admin/sports-partners.');
 
-for (const marker of ['sports-travel', 'sanitizePartnerSource', 'sourcePath: search.sourcePath']) {
-  assert(partnerRoute.includes(marker), `Partner inquiry route is missing lead-attribution marker: ${marker}.`);
+for (const marker of ['sports-travel', 'sourcePath: search.source']) {
+  assert(partnerRoute.includes(marker), `Partner inquiry form is missing lead-attribution marker: ${marker}.`);
+}
+assert(partnerRouteHead.includes('validateSearch: parsePartnerSearch'), 'Partner route must validate public query keys with the canonical parser.');
+for (const marker of ['sanitizePartnerSource', 'texas-high-school-football-(?:teams|districts)', 'search.source ?? search.sourcePath']) {
+  assert(partnerQuery.includes(marker), `Partner query parser missing protected source handling: ${marker}.`);
 }
 assert(venueGuide.includes('type=sports-travel&source=${encodeURIComponent(canonicalPath)}'), 'Individual venue guides must attribute sports partner leads to their canonical source path.');
 assert(venueDirectory.includes('type=sports-travel&source=%2Fsports-venues'), 'Statewide sports directory must attribute sports partner leads to /sports-venues.');

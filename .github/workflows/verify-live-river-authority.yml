@@ -16,6 +16,9 @@ on:
       - 'src/components/editorial/TexasRiverValleysLandscapePage.tsx'
       - 'src/components/fishing/FishingHub.tsx'
       - 'src/routes/article.$slug.tsx'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/data/fixtures/texas-explained-river-profiles-remaining.ts'
+      - 'src/data/fixtures/texas-explained-river-profiles-remaining-stubs.ts'
       - 'scripts/ci/verify-live-river-authority.mjs'
       - '.github/workflows/verify-live-river-authority.yml'
 

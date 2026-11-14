@@ -35,7 +35,7 @@ export const Route = createFileRoute('/texas-data/county-housing-costs.csv')({
         return new Response(`${body}\n`, {
           headers: {
             'content-type': 'text/csv; charset=utf-8',
-            'content-disposition': 'attachment; filename="texas-county-housing-costs-acs-2024.csv"',
+            'content-disposition': `attachment; filename="texas-county-housing-costs-acs-${data.year}.csv"`,
             'cache-control': 'public, max-age=86400, s-maxage=86400',
             'x-robots-tag': 'noindex, follow',
           },

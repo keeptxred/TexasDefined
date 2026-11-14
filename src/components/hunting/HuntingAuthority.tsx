@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { TEXAS_COUNTIES } from "@/data/texas-places";
 
 import { Container } from "@/components/layout/Container";
+import wildlifePhoto from "@/assets/wildlife.jpg";
+import publicAccessFacts from "@/data/hunting/public-access-facts.json";
+import speciesSeasonCalendar from "@/data/hunting/species-season-calendar.json";
 import {
   HUNTING_AUTHORITY_TOPICS,
   HUNTING_HUB_GROUPS,
@@ -10,7 +15,13 @@ import {
   type HuntingAuthorityTopic,
 } from "@/data/hunting/authority";
 import { HUNTING_AUTHORITY_TOPICS_V2, HUNTING_V2_HUB_GROUPS } from "@/data/hunting/authority-v2";
+import { TurkeySeasonGuide } from "./TurkeySeasonGuide";
+import { HuntingSeasonPlanner } from "./HuntingSeasonPlanner";
+import { HuntingPublicAccessPlanner } from "./HuntingPublicAccessPlanner";
+import { HuntingTripStayOptions } from "./HuntingTripStayOptions";
+import { KingsCamoGearOffers } from "./KingsCamoGearOffers";
 import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
+import { deerSeasonRange, deerSeasonYear, deerSourceCheckLabel, texasDeerSeason, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 
 const ALL_HUNTING_TOPICS: Record<string, HuntingAuthorityTopic> = {
   ...HUNTING_AUTHORITY_TOPICS,
@@ -31,15 +42,178 @@ function ResourceLink({ link }: { link: HuntingAuthorityLink }) {
   return <Link to={link.href} className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{link.label}</Link>;
 }
 
-function FreshnessPanel() {
-  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">Verified {HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
+function DeerSeasonTable() {
+  const rows = texasDeerSeason.rows.map((row) => [row.season, row.area, deerSeasonRange(row.id as DeerSeasonId, "short")]);
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-season-dates">
+    <Container>
+      <div className="max-w-5xl">
+        <p className="eyebrow text-primary">{deerSeasonYear} season at a glance</p>
+        <h2 id="deer-season-dates" className="mt-2 font-display text-3xl md:text-4xl">Texas white-tailed deer hunting dates</h2>
+        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">This table summarizes TPWD's zone calendar. Dates do not override county-specific legal deer, antler restrictions, land access or special permit requirements.</p>
+        <div className="mt-6 grid gap-3 md:hidden">
+          {rows.map(([season, area, dates], index) => <div key={index} data-deer-mobile-date={index} className="border border-border p-4"><p className="font-semibold">{season}</p><p className="text-sm text-muted-foreground">{area}</p><p className="mt-2 font-semibold">{dates}</p></div>)}
+        </div>
+        <div className="mt-6 hidden overflow-x-auto rounded-sm border border-border md:block">
+          <table className="w-full min-w-[36rem] text-left text-sm">
+            <caption className="sr-only">{deerSeasonYear} Texas white-tailed deer season dates by season and zone</caption>
+            <thead className="bg-muted/50 text-foreground"><tr><th scope="col" className="px-4 py-3 font-semibold">Season</th><th scope="col" className="px-4 py-3 font-semibold">Area</th><th scope="col" className="px-4 py-3 font-semibold">Dates</th></tr></thead>
+            <tbody className="divide-y divide-border">{rows.map(([season, area, dates], index) => <tr key={index}><th scope="row" className="px-4 py-3 font-semibold">{season}</th><td className="px-4 py-3 text-muted-foreground">{area}</td><td className="px-4 py-3 whitespace-nowrap">{dates}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">Late seasons have limits on legal deer; youth-only hunts have age restrictions. Always check the official county listing before hunting.</p>
+        <p className="mt-2 text-xs text-muted-foreground">TPWD date snapshot recorded {deerSourceCheckLabel()}; the full legal guide has a separate editorial review date, and GitHub rechecks the official calendars weekly.</p>
+        <div className="mt-4 text-sm"><ResourceLink link={{ label: "TPWD official white-tailed deer season dates and county rules", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true }} /></div>
+      </div>
+    </Container>
+  </section>;
+}
+
+
+/** Link directly to TPWD's live county regulations instead of publishing a stale
+ * static copy of 254 county-specific legal limits or CWD zone overlays.
+ */
+function DeerCountyRegulationsFinder() {
+  const [countySlug, setCountySlug] = useState("");
+  const county = TEXAS_COUNTIES.find(item => item.slug === countySlug);
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-county-finder">
+    <Container>
+      <div className="max-w-5xl">
+        <p className="eyebrow text-primary">Official county regulations</p>
+        <h2 id="deer-county-finder" className="mt-2 font-display text-3xl md:text-4xl">Check the exact county before you hunt</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+          TPWD maintains different bag limits, antler restrictions, permitted hunt dates and special notices for each county.
+          This selection opens TPWD’s latest official county page directly, rather than showing a potentially outdated copy.
+          CWD testing zones can cross county boundaries; verify those separately.
+        </p>
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <div className="w-full max-w-md">
+            <label htmlFor="deer-tpwd-county" className="mb-2 block text-sm font-semibold">Choose a Texas county</label>
+            <select id="deer-tpwd-county" className="w-full rounded-sm border border-border bg-background px-3 py-3 text-foreground"
+              value={countySlug} onChange={event => setCountySlug(event.target.value)}>
+              <option value="">Choose one of 254 counties</option>
+              {TEXAS_COUNTIES.map(item => <option key={item.slug} value={item.slug}>{item.name}</option>)}
+            </select>
+          </div>
+          {county ? <a className="inline-flex items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+            href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"}
+            target="_blank" rel="noopener noreferrer">
+            Open TPWD rules for {county.name} ↗
+          </a> : <span className="inline-flex items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">
+            Select a county to open official rules
+          </span>}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-4 text-sm">
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd/" target="_blank" rel="noopener noreferrer">Live CWD zones and testing ↗</a>
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/licenses/tagging-instructions/tagging-deer" target="_blank" rel="noopener noreferrer">Current deer tagging instructions ↗</a>
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/after-killing-a-deer/" target="_blank" rel="noopener noreferrer">After-harvest transportation and testing ↗</a>
+        </div>
+      </div>
+    </Container>
+  </section>;
+}
+
+/** Independent reader-facing regional planning comparison; qualitative, not county legal advice. */
+function DeerRegionPlanningMatrix() {
+  const regions = [
+    { region: "Hill Country / Edwards Plateau", habitat: "Oak-juniper ridges, creek bottoms and openings", tradeoff: "Food and water distribution can shift movement sharply with drought; do not assume neighboring ranches have equal deer density.", access: "Mostly permission or lease planning; check any individual public hunt notice." },
+    { region: "South Texas Plains", habitat: "Thornscrub, mesquite, senderos and riparian corridors", tradeoff: "Cover can limit visibility; ranch management and individual property rules vary.", access: "Private ranch access is common; verify MLDP tags if the property participates." },
+    { region: "Pineywoods / East Texas", habitat: "Pine-hardwood forest, cutovers and bottomlands", tradeoff: "Shorter sightlines make safe shot selection and a known backstop especially important.", access: "Search TPWD public-area legal-game listings; do not assume every forest tract allows deer hunts." },
+    { region: "Cross Timbers / North Texas", habitat: "Oak woodland, pasture edges and agricultural mosaics", tradeoff: "Property boundaries and neighboring activity matter; typical breeding timing differs from South Texas.", access: "Confirm parcel boundaries and the exact county's legal deer and reporting rules." },
+    { region: "West Texas", habitat: "Localized draws, brush and transition country", tradeoff: "White-tailed and mule-deer ranges overlap in places; verify species identification and species-specific rules.", access: "Check the property and TPWD county listing before assuming either deer species is legal." },
+  ];
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-region-planner"><Container>
+    <div className="max-w-5xl">
+      <p className="eyebrow text-primary">TexasDefined's regional comparison</p>
+      <h2 id="deer-region-planner" className="mt-2 font-display text-3xl md:text-4xl">Choose a hunting region for the right reasons</h2>
+      <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">This original planning matrix compares habitat, field tradeoffs and access questions; it is not a county-rule table or a prediction of deer abundance. Use it to narrow a trip, then confirm access, exact seasons, tags and safety with TPWD and the property manager.</p>
+      <div className="mt-6 overflow-x-auto border border-border">
+        <table className="w-full min-w-[48rem] text-left text-sm">
+          <caption className="sr-only">Texas deer habitat and hunt-planning comparisons by region</caption>
+          <thead className="bg-muted/50"><tr><th scope="col" className="px-4 py-3">Region</th><th scope="col" className="px-4 py-3">Landscape to scout</th><th scope="col" className="px-4 py-3">Practical tradeoff</th><th scope="col" className="px-4 py-3">Access question</th></tr></thead>
+          <tbody className="divide-y divide-border">{regions.map(row => <tr key={row.region}><th scope="row" className="px-4 py-4 align-top font-semibold">{row.region}</th><td className="px-4 py-4 align-top text-muted-foreground">{row.habitat}</td><td className="px-4 py-4 align-top text-muted-foreground">{row.tradeoff}</td><td className="px-4 py-4 align-top text-muted-foreground">{row.access}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p className="mt-4 text-sm leading-6 text-muted-foreground">Source context: TPWD deer ecology and regional rut research; the comparisons and planning judgments are TexasDefined editorial synthesis, not TPWD legal classifications.</p>
+      <div className="mt-3 flex flex-wrap gap-5 text-sm">
+        <ResourceLink link={{ label: "TPWD deer management research", href: "https://tpwd.texas.gov/huntwild/wild/game_management/deer/", external: true }} />
+        <ResourceLink link={{ label: "TPWD regional rut research", href: "https://tpwd.texas.gov/huntwild/hunt/planning/rut_whitetailed_deer/", external: true }} />
+      </div>
+    </div>
+  </Container></section>;
+}
+
+function FreshnessPanel({ topic }: { topic?: HuntingAuthorityTopic }) {
+  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {topic?.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">{topic?.slug === "texas-deer-hunting" ? "Published TPWD data snapshot " + deerSourceCheckLabel() : (topic?.reviewedOn ? "Topic source review " + (topic?.reviewedLabel ?? topic.reviewedOn) : topic ? "Statewide source overview checked " + HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel : "Source review " + HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel)}</p>{!topic ? <p className="mt-2 text-xs text-muted-foreground">Editorial hub updated {HUNTING_REGULATION_FRESHNESS.editorialUpdatedLabel}; official source checks are recorded separately.</p> : null}</div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.reviewScope}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
+}
+
+
+function SpeciesSeasonSnapshot({ slug }: { slug: string }) {
+  const sections = speciesSeasonCalendar.sections.filter((section) => section.slugs.includes(slug));
+  if (!sections.length) return null;
+  const rulesReviewedForSameSeason = speciesSeasonCalendar.seasonYear === HUNTING_REGULATION_FRESHNESS.seasonYear;
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="tpwd-species-season-snapshot">
+    <Container><div className="max-w-5xl">
+      <p className="eyebrow text-primary">Official statewide calendar</p>
+      <h2 id="tpwd-species-season-snapshot" className="mt-2 font-display text-3xl md:text-4xl">TPWD {speciesSeasonCalendar.seasonYear} season dates</h2>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+        The following zone and season dates are maintained from TPWD's official statewide calendar (source checked {speciesSeasonCalendar.checkedAt}). These are not property authorizations or county-specific legal rules; always confirm TPWD's species rule, applicable endorsements and public-hunting access before hunting.
+      </p>
+      {!rulesReviewedForSameSeason ? <p className="mt-3 font-semibold text-primary">The dates are from a newer TPWD calendar than this guide's last fully reviewed regulatory text. Older legal-rule explanations are historical until individually verified. Use current TPWD county and species rules.</p> : null}
+      {sections.map((section) => <div key={section.heading} className="mt-6">
+        <h3 className="font-display text-2xl">{section.heading}</h3>
+        <div className="mt-3 overflow-x-auto border border-border">
+          <table className="w-full min-w-[36rem] text-sm">
+            <caption className="sr-only">{section.heading} TPWD {speciesSeasonCalendar.seasonYear} statewide date summary</caption>
+            <thead className="bg-muted/50"><tr><th scope="col" className="px-4 py-3 text-left">Season</th><th scope="col" className="px-4 py-3 text-left">Area / zone</th><th scope="col" className="px-4 py-3 text-left">TPWD dates</th></tr></thead>
+            <tbody className="divide-y divide-border">{section.rows.map((row) => <tr key={row.season + row.zone}><th scope="row" className="px-4 py-3 text-left font-semibold">{row.season}</th><td className="px-4 py-3">{row.zone}</td><td className="px-4 py-3">{row.dates}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>)}
+      <p className="mt-5 text-sm"><a href={speciesSeasonCalendar.source} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline">View the official TPWD source calendar ↗</a></p>
+    </div></Container>
+  </section>;
 }
 
 export function HuntingAuthorityHub() {
-  return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Hunting</span></nav><p className="eyebrow text-primary">Texas hunting guide</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Hunting Texas: licenses, public land, species and season planning</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with access and legal planning, then connect the hunt to wildlife habitat, counties, camping, fishing, parks and trip planning. Current-rule questions route back to Texas Parks and Wildlife Department instead of treating an independent publication as the legal authority.</p><div className="mt-8 flex flex-wrap gap-3"><Link to="/hunting/public-hunting" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find public hunting →</Link><Link to="/hunting/texas-hunting-license" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Hunting licenses →</Link><Link to="/explore/outdoors" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Public lands & outdoors →</Link><Link to="/explore/trip-planner" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Build a trip →</Link></div></Container></section>
+  return <div>
+    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Hunting</span></nav><p className="eyebrow text-primary">Texas hunting guide</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Hunting Texas: licenses, public land, species and season planning</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with access and legal planning, then connect the hunt to wildlife habitat, counties, camping, fishing, parks and trip planning. Current-rule questions route back to Texas Parks and Wildlife Department instead of treating an independent publication as the legal authority.</p><div className="mt-8 flex flex-wrap gap-3"><a href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">TPWD hunting area finder ↗</a><Link to="/hunting/public-hunting" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Understand public access →</Link><Link to="/hunting/texas-hunting-license" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Hunting licenses →</Link><Link to="/explore/outdoors" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Public lands & outdoors →</Link><Link to="/explore/trip-planner" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Build a trip →</Link></div><nav aria-label="Jump to hunting resources" className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm"><a href="#hunting-access" className="font-semibold text-primary underline underline-offset-4">Access checklist</a><a href="#public-hunting-planner" className="font-semibold text-primary underline underline-offset-4">Plan a TPWD public-hunt search</a><a href="#hunting-season-planner" className="font-semibold text-primary underline underline-offset-4">Season planner</a><a href="#hunting-guides" className="font-semibold text-primary underline underline-offset-4">All hunting guides</a></nav><figure className="mt-8 max-w-5xl"><img src={wildlifePhoto} alt="White-tailed deer in Texas brush habitat; not a claim of public hunting access" width={1200} height={675} className="w-full object-cover" decoding="async" /><figcaption className="mt-3 text-sm text-muted-foreground">Texas wildlife habitat. Confirm permission and legal game for each property before hunting.</figcaption></figure></Container></section>
     <FreshnessPanel />
-    <section className="py-12 md:py-16"><Container><div className="grid gap-12">{ALL_HUNTING_HUB_GROUPS.map((group) => <section key={group.title}><div className="grid gap-4 border-b border-border pb-5 lg:grid-cols-[1fr_2fr] lg:items-end"><h2 className="font-display text-3xl md:text-4xl">{group.title}</h2><p className="max-w-2xl text-sm leading-7 text-muted-foreground">{group.description}</p></div><div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{group.slugs.map((slug) => { const topic = ALL_HUNTING_TOPICS[slug]; return <Link key={slug} to={`/hunting/${slug}`} className="group border border-border p-5 transition hover:border-primary"><p className="eyebrow text-primary">{topic.eyebrow}</p><h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{topic.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{topic.description}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span></Link>; })}</div></section>)}</div></Container></section>
+    <section id="hunting-access" className="scroll-mt-28 border-b border-border py-12 md:py-16" aria-labelledby="hunt-planning-steps"><Container>
+      <p className="eyebrow text-primary">Start here</p><h2 id="hunt-planning-steps" className="mt-3 font-display text-3xl md:text-4xl">Four decisions before choosing a hunting spot</h2>
+      <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">1. Private or public land?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Private land requires landowner permission. Public units require the exact TPWD access record and possibly a permit. Recreational access is not automatically hunting access.</p><p className="mt-4 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.publicAreaSearch}/></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">2. Which permit opens the gate?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The {publicAccessFacts.seasonYear} TPWD APH permit costs ${publicAccessFacts.aphPermitUsd}. A Limited Public Use permit costs ${publicAccessFacts.limitedPublicUsePermitUsd} and does not authorize hunting. Drawn, E-Postcard or area permits have separate rules.</p><p className="mt-4 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.aph}/></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">3. Species, county and season?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Deer restrictions can change at county roads. Dove and waterfowl vary by zone. Check the precise species, date, legal methods, bag limits and tagging requirements.</p><p className="mt-4 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates}/></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">4. License, education and harvest?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Most hunters need an appropriate license; some activities require endorsements or federal stamps. Hunter education, public-land permit, check-in, tagging and reporting rules may also apply.</p><p className="mt-4 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.licenses}/></p></div>
+      </div>
+      <p className="mt-5 text-sm leading-7 text-muted-foreground">Public permit figures are official TPWD program facts, separately monitored on GitHub; a license and applicable stamps are additional to an APH permit. Youth access can have different eligibility. TPWD says 2026–27 is the last season for the printed Public Hunting Lands Map Booklet; use the official online area search and current APH notices rather than relying on a saved booklet.</p>
+    </Container></section>
+    <section className="border-b border-border bg-muted/30 py-12 md:py-16" aria-labelledby="hunting-permit-choice"><Container>
+      <p className="eyebrow text-primary">Permit choice, not a hunt guarantee</p><h2 id="hunting-permit-choice" className="mt-3 font-display text-3xl md:text-4xl">Which public-land access route fits the hunt?</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The 2026–27 TPWD public-hunting program distinguishes an annual hunting access permit from recreational-only access, limited daily hunts and selected drawings. Even a valid permit does not establish that a named unit is open for your chosen species on your date.</p>
+      <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[42rem] text-left text-sm"><caption className="sr-only">2026–27 Texas public-hunting permit and eligibility comparison</caption><thead className="bg-surface"><tr><th scope="col" className="p-4">Access route</th><th scope="col" className="p-4">What TPWD authorizes</th><th scope="col" className="p-4">Final check before a trip</th></tr></thead><tbody className="divide-y divide-border">
+        <tr><th scope="row" className="p-4">Annual Public Hunting permit: $48</th><td className="p-4">Hunting on participating units during listed opportunities, subject to the license, stamps, legal game and area restrictions.</td><td className="p-4">Exact 2026–27 unit, hunt dates and legal-game box; APH is not a statewide open-land pass.</td></tr>
+        <tr><th scope="row" className="p-4">Limited Public Use permit: $12</th><td className="p-4">Permitted nonhunting recreation on designated public-hunting lands; it does not authorize hunting.</td><td className="p-4">Verify whether the unit permits the intended recreation and the area-specific restrictions.</td></tr>
+        <tr><th scope="row" className="p-4">Regular daily permit: generally $20</th><td className="p-4">Selected first-come, first-served small-game and waterfowl hunts; TPWD waives the fee for qualifying youth under 17 and APH holders.</td><td className="p-4">Area availability, any capacity limit, required license/endorsements and mandatory daily check-in/out.</td></tr>
+        <tr><th scope="row" className="p-4">Drawn / special hunt</th><td className="p-4">Only the selection or separately designated permit may convey access for the published hunt and time.</td><td className="p-4">Actual drawing status, unit, application conditions, species, equipment and check-in procedure.</td></tr>
+      </tbody></table></div>
+      <p className="mt-5 text-sm leading-7 text-muted-foreground">For example, a hunter planning a designated daily waterfowl opportunity should not purchase an LPU permit expecting it to authorize the hunt. First identify the exact unit and daily-hunt procedure, then check the hunting license and all applicable endorsements. The TPWD page distinguishes the $20 daily permit fee from annual access and explains exemptions; no local inventory is inferred here.</p>
+      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm"><a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/index.phtml" target="_blank" rel="noopener noreferrer">TPWD 2026–27 APH and LPU program ↗</a><a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/huntwild/hunt/public/regular_daily_permits/" target="_blank" rel="noopener noreferrer">TPWD regular daily hunts ↗</a><a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" target="_blank" rel="noopener noreferrer">Official unit and legal-game search ↗</a></div>
+    </Container></section>
+    <HuntingPublicAccessPlanner />
+    <HuntingSeasonPlanner />
+    <section className="border-b border-border bg-muted/30 py-12 md:py-16" aria-labelledby="hunting-2026-changes"><Container>
+      <p className="eyebrow text-primary">2026–27 regulation changes</p><h2 id="hunting-2026-changes" className="mt-3 font-display text-3xl md:text-4xl">What changed for Texas hunters this season?</h2>
+      <div className="mt-7 grid gap-5 md:grid-cols-2">
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">White-tailed deer</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD expanded the antlerless-deer “doe days” window from four to 16 days in 21 specified counties or county portions, November 14–29, 2026. It is not statewide; some county boundaries follow highways. Confirm your property’s county rules before taking an antlerless deer.</p><p className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link className="font-semibold text-primary underline" to="/hunting/texas-deer-hunting">Deer season and county rules →</Link><a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/newsmedia/releases/?req=20260904a" target="_blank" rel="noopener noreferrer">TPWD’s 21-county announcement ↗</a></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">Dove zones</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">South Zone regular season opened September 1 and Special White-winged Dove Days were eliminated. Remaining segments differ among North, Central and South zones.</p><p className="mt-4 text-sm"><Link className="font-semibold text-primary underline" to="/hunting/dove-hunting">Dove hunting guide →</Link></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">Wild turkey</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Matagorda and Wharton counties are closed to turkey hunting. Unbearded wild turkey hens cannot be harvested statewide.</p><p className="mt-4 text-sm"><Link className="font-semibold text-primary underline" to="/hunting/turkey-hunting">Turkey hunting guide →</Link></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">Muzzleloader definition</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD revised the muzzleloader definition for 2026–27 to accommodate new muzzleloading technology. Confirm that your specific equipment qualifies under the current means-and-methods rule and the hunt-specific legal equipment listing.</p><p className="mt-4 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.currentChanges}/></p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-2xl">Licensing and digital tags</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD updated license-buyer identity checks. Digital license users must have their license available in the field and follow electronic tagging procedures in the Texas Hunt &amp; Fish app.</p><p className="mt-4 text-sm"><Link className="font-semibold text-primary underline" to="/hunting/texas-hunting-license">License requirements →</Link></p></div>
+      </div>
+      <p className="mt-5 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonChanges}/></p>
+    </Container></section>
+    <section id="hunting-guides" className="scroll-mt-28 py-12 md:py-16"><Container><div className="grid gap-12">{ALL_HUNTING_HUB_GROUPS.map((group, index) => <details key={group.title} open={index < 3} className="group border-b border-border pb-4"><summary className="grid cursor-pointer gap-4 border-b border-border pb-5 lg:grid-cols-[1fr_2fr] lg:items-end"><h2 className="font-display text-3xl md:text-4xl">{group.title}</h2><p className="max-w-2xl text-sm leading-7 text-muted-foreground">{group.description}</p></summary><div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{group.slugs.map((slug) => { const topic = ALL_HUNTING_TOPICS[slug]; return <Link key={slug} to={`/hunting/${slug}`} className="group border border-border p-5 transition hover:border-primary"><p className="eyebrow text-primary">{topic.eyebrow}</p><h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{topic.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{topic.description}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span></Link>; })}</div></details>)}</div></Container></section>
     <section className="border-y border-border py-12"><Container>
       <h2 className="font-display text-3xl md:text-4xl">Understand the species, then verify the current hunt</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These independently researched wildlife profiles explain identification, habitat and Texas range. They do not establish a legal season, bag limit, public-land permit or county-specific rule. Verify all current restrictions directly with <a href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline">TPWD's official hunting regulations</a> before planning a hunt.</p>
@@ -55,18 +229,36 @@ export function HuntingAuthorityHub() {
     </Container></section>
 
     <section className="border-y border-border bg-muted/30 py-12"><Container><div className="grid gap-8 lg:grid-cols-[1fr_2fr]"><div><p className="eyebrow text-primary">Connected Texas discovery</p><h2 className="mt-3 font-display text-4xl">A hunt is also a place-based trip</h2></div><div className="grid gap-5 sm:grid-cols-2"><p className="text-sm leading-7 text-muted-foreground">Public hunting works best when access records connect to counties, regions, wildlife habitat and nearby destinations. Use TexasDefined's outdoor and wildlife systems to understand the place around the hunt.</p><p className="text-sm leading-7 text-muted-foreground">Camping, fishing, parks and trip-planning links make it easier to turn a permit or drawn hunt into a realistic itinerary without weakening the distinction between travel guidance and legal hunting rules.</p></div><div className="lg:col-start-2 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/outdoors" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Public lands & outdoors</Link><Link to="/explore/wildlife" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Wildlife</Link><Link to="/best-places-to-go-camping-in-texas" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Camping</Link><Link to="/fishing" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Fishing</Link><Link to="/explore/state-parks" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">State parks</Link><Link to="/browse/counties" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Counties</Link></div></div></Container></section>
-  </main>;
+    <HuntingTripStayOptions />
+    <KingsCamoGearOffers context="hub" pathname="/hunting" />
+  </div>;
 }
 
 export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTopic }) {
   const officialSources = [...new Map(topic.sections.flatMap((section) => section.links ?? []).filter((link) => link.external).map((link) => [link.href, link] as const)).values()];
-  return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">{topic.title}</span></nav><p className="eyebrow text-primary">{topic.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{topic.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{topic.description}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">TPWD season source {HUNTING_REGULATION_FRESHNESS.seasonYear} · verified {HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></Container></section>
+  return <div>
+    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">{topic.title}</span></nav><p className="eyebrow text-primary">{topic.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{topic.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{topic.description}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">TPWD season sources {topic.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear} · {topic.slug === "texas-deer-hunting" ? "official data snapshot " + deerSourceCheckLabel() : "source review " + (topic.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel)}</p>{topic.slug === "texas-deer-hunting" ? <div className="mt-5 max-w-4xl border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Editorial responsibility: TexasDefined.</strong> Guide reviewed {topic.reviewedLabel ?? topic.reviewedOn}; official-date data snapshot {deerSourceCheckLabel()}. These dates track different checks. The independent publication is not a government regulator or a substitute for checking the exact TPWD county rules.</div> : null}{topic.slug === "texas-deer-hunting" ? <figure className="mt-8 max-w-4xl">
+  <img src="https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt" alt="Close view of a white-tailed buck standing in tall grass" width={1000} height={664} loading="lazy" decoding="async" className="aspect-[3/2] w-full object-cover" />
+  <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">White-tailed deer (representative species photograph). Tom Koerner / U.S. Fish &amp; Wildlife Service, public domain. <a className="text-primary underline underline-offset-2" href="https://www.fws.gov/media/white-tailed-deer-buck-0" target="_blank" rel="noreferrer noopener">Photo source and rights</a>.</figcaption>
+</figure> : null}</Container></section>
     <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{topic.quickAnswer}</p></div></Container></section>
-    <FreshnessPanel />
-    <section className="py-12 md:py-16"><Container><div className="max-w-4xl divide-y divide-border">{topic.sections.map((section, index) => <section key={section.heading} className="py-8 first:pt-0"><p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</p><h2 className="mt-2 font-display text-3xl md:text-4xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 leading-8 text-muted-foreground">{paragraph}</p>)}{section.links?.length ? <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{section.links.map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div> : null}</section>)}</div></Container></section>
-    <section className="border-t border-border bg-surface py-12" aria-labelledby="hunting-faq-heading"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Quick answers</p><h2 id="hunting-faq-heading" className="mt-2 font-display text-3xl md:text-4xl">Frequently asked questions</h2><div className="mt-6 divide-y divide-border border-y border-border">{topic.faq.map((item) => <details key={item.question} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.question}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.answer}</p></details>)}</div></div></Container></section>
+    <SpeciesSeasonSnapshot slug={topic.slug} />
+    {topic.slug === "texas-deer-hunting" ? <DeerSeasonTable /> : null}
+    {topic.slug === "texas-deer-hunting" ? <DeerCountyRegulationsFinder /> : null}
+    {topic.slug === "texas-deer-hunting" ? <DeerRegionPlanningMatrix /> : null}
+    {topic.slug === "turkey-hunting" ? <TurkeySeasonGuide /> : null}
+    <FreshnessPanel topic={topic} />
+    {topic.slug === "texas-deer-hunting" ? <nav aria-label="Contents of the deer hunting guide" className="border-b border-border bg-muted/20 py-8">
+      <Container><div className="max-w-5xl"><p className="eyebrow text-primary">In this guide</p>
+        <ul className="mt-4 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
+          {topic.sections.map((section, index) => <li key={section.heading}><a className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary" href={`#deer-guide-${index + 1}`}>{section.heading}</a></li>)}
+        </ul>
+      </div></Container>
+    </nav> : null}
+    <section className="py-12 md:py-16"><Container><div className="max-w-4xl divide-y divide-border">{topic.sections.map((section, index) => <section key={section.heading} id={topic.slug === "texas-deer-hunting" ? `deer-guide-${index + 1}` : undefined} className="scroll-mt-24 py-8 first:pt-0"><p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</p><h2 className="mt-2 font-display text-3xl md:text-4xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 leading-8 text-muted-foreground">{paragraph}</p>)}{section.links?.length ? <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{section.links.map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div> : null}</section>)}</div></Container></section>
+    {topic.faq.length > 0 ? <section className="border-t border-border bg-surface py-12" aria-labelledby="hunting-faq-heading"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Quick answers</p><h2 id="hunting-faq-heading" className="mt-2 font-display text-3xl md:text-4xl">Frequently asked questions</h2><div className="mt-6 divide-y divide-border border-y border-border">{topic.faq.map((item) => <details key={item.question} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.question}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.answer}</p></details>)}</div></div></Container></section> : null}
     {officialSources.length ? <section className="border-t border-border py-10"><Container><div className="grid max-w-4xl gap-6 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Verify with TPWD</p><h2 className="mt-2 font-display text-3xl">Current official sources</h2></div><div><p className="text-sm leading-7 text-muted-foreground">TexasDefined explains how the pieces fit together. Texas Parks and Wildlife Department remains the source to verify current licenses, seasons, limits, methods, tagging, reporting and public-hunt access.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{officialSources.map((link) => <ResourceLink key={`source-${link.href}`} link={link} />)}</div></div></div></Container></section> : null}
-    <section className="border-t border-border bg-muted/30 py-10"><Container><h2 className="font-display text-3xl">Related Texas guides</h2><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm"><ResourceLink link={{ label: "Texas hunting hub", href: "/hunting" }} />{topic.related.map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div></Container></section>
-  </main>;
+    <section className="border-t border-border bg-muted/30 py-10"><Container><h2 className="font-display text-3xl">Related Texas guides</h2><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm"><ResourceLink link={{ label: "Texas hunting hub", href: "/hunting" }} />{topic.related.filter((link) => link.href !== "/hunting").map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div></Container></section>
+    <KingsCamoGearOffers context="topic" pathname={`/hunting/${topic.slug}`} topicSlug={topic.slug} />
+  </div>;
 }

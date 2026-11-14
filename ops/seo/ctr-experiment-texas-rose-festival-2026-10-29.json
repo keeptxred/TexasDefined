@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-10-29",
+  "url": "https://texasdefined.com/event/texas-rose-festival",
+  "classification": "TECHNICAL SNIPPET DEFECT",
+  "oldTitle": "Texas Rose Festival 2026: Tyler Dates, Parade & Schedule",
+  "newTitle": "Texas Rose Festival Tyler: Parade, Coronation & Guide",
+  "oldDescription": "Plan the 2026 Texas Rose Festival in Tyler with official dates, parade and schedule information, venue details and practical Smith County trip planning.",
+  "newDescription": "Plan the Texas Rose Festival in Tyler with the Rose Parade, Queen's Tea, coronation, gardens and official visitor sources. Verify next festival dates before travel.",
+  "gscBaseline": {
+    "period": "2026-09-29/2026-10-26",
+    "source": "Authenticated finalized GSC Web Search, page dimension",
+    "clicks": 0,
+    "impressions": 126,
+    "ctr": 0,
+    "averagePosition": 8.420634920634921
+  },
+  "sourceFacts": {
+    "festival2026": "The official Texas Rose Festival calendar lists Oct. 15-18, 2026; the edition ended before this fix.",
+    "parade2027": "The parade organizer Strutters confirms Saturday Oct. 16, 2027 for the PARADE only; this does not confirm all 2027 festival events/dates.",
+    "fullFestival2027": "Unconfirmed based on checked official festival site. The SEO title is intentionally evergreen until the festival organizer confirms its full 2027 occurrence."
+  },
+  "officialSources": [
+    "https://www.texasrosefestival.org/",
+    "https://strutters.org/events/texas-rose-festival-parade-2027/"
+  ],
+  "reason": "The old static GSC title and validator protected a concluded 2026 edition even though runtime lifecycle fallback could mitigate it. Update source and validator to current evergreen intent; protect date expiration in tests rather than stale raw experiment strings.",
+  "deploymentNote": "PR merge and production snippet verification must be independently confirmed. Google may still rewrite displayed results."
+}

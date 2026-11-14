@@ -10,6 +10,12 @@ on:
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'scripts/ci/validate-aubrey-football-page.mjs'
       - 'scripts/ci/check-aubrey-score-freshness.mjs'
+      - 'scripts/data/update-aubrey-verified-results.mjs'
+      - 'scripts/ci/test-aubrey-verified-results.mjs'
+      - 'src/data/high-school-football/aubrey-auto-results*'
+      - 'src/data/high-school-football/football-program-profile.server.ts'
+      - '.github/workflows/aubrey-verified-score-sync.yml'
+      - '.github/workflows/finish-aubrey-score-sync.yml'
       - '.github/workflows/aubrey-football-freshness.yml'
   schedule:
     - cron: '15 15 * * *'
@@ -30,6 +36,8 @@ jobs:
         run: node scripts/ci/validate-aubrey-football-page.mjs
       - name: Test duplicate head-coach FAQ variants
         run: node --experimental-strip-types scripts/ci/validate-football-head-coach-faq.mjs
+      - name: Test independently corroborated Aubrey score ingestion
+        run: node --test scripts/ci/test-aubrey-verified-results.mjs
 
   check-overdue-scores:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'

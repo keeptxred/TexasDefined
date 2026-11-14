@@ -41,7 +41,9 @@ function validateProfile(profile, registry, now = new Date()) {
   const slug = profile.slug ?? '(unknown)';
   if (!slugRe.test(profile.slug ?? '') || RESTRICTED_SLUGS.has(profile.slug)) fail(slug + ': invalid or reserved stable slug');
   if (profile.status !== 'published') fail(slug + ': published manifest only accepts explicitly published records');
-  if (profile.ownerApproved !== true) fail(slug + ': owner editorial sign-off is required');
+  // Owner-directed site-wide publication policy: a separate human/owner
+  // editorial sign-off is OPTIONAL. Never assert approval when absent.
+  // Retain the independent source, rights, original-content, and QA gates.
   if (typeof profile.editor !== 'string' || profile.editor.trim().length < 5) fail(slug + ': visible accountable editor required');
   if (typeof profile.title !== 'string' || profile.title.trim().length < 30 || profile.title.length > 135) fail(slug + ': distinctive editorial title required');
   const expectedPath = '/sports/softball/' + profile.slug;

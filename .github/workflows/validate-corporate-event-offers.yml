@@ -1,0 +1,30 @@
+name: Validate corporate event partner offers
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events-offers*'
+      - 'src/components/events/ApprovedCorporateEventOffers.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-offers.mjs'
+      - '.github/workflows/validate-corporate-event-offers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events-offers*'
+      - 'src/components/events/ApprovedCorporateEventOffers.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-offers.mjs'
+      - '.github/workflows/validate-corporate-event-offers.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enforce only approved, current offers and protected partner details
+        run: node scripts/data/validate-corporate-event-offers.mjs

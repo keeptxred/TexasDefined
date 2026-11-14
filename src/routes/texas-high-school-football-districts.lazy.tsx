@@ -34,7 +34,7 @@ function Page() {
       <header className="border-b border-border py-10">
         <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas high school football districts</h1>
-        <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Browse all 192 current UIL football districts. Each district page lists every member school in the official 2026–28 alignment and links directly to that program’s TexasDefined research profile.</p>
+        <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Browse all 192 current UIL football districts. Each district page lists every member school in the official 2026–28 alignment and links directly to that program’s TexasDefined team guide.</p>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="/texas-high-school-football-teams" className="text-primary">Search all 1,268 UIL programs →</a>
           <a href="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">Understand 1A through 6A →</a>
@@ -80,7 +80,7 @@ function Page() {
       </section>
 
       <div className="mt-12 space-y-12">
-        {groupEntries.map(([label, entries]) => <section key={label} className="border-t-2 border-foreground pt-5">
+        {groupEntries.map(([label, entries]) => <section key={label} id={label === "6A" ? "uil-6a-districts" : undefined} className="border-t-2 border-foreground pt-5">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="eyebrow text-primary">{entries[0]?.footballType}</p>
@@ -88,6 +88,7 @@ function Page() {
             </div>
             <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{entries.length} districts</span>
           </div>
+          {label === "6A" && <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">The complete 2026–28 UIL 6A football district list is below. Choose a numbered district to see its member schools and local schedule sources. This is the statewide 6A directory, not the standings for a single district.</p>}
           <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {entries.map((district) => <a key={district.slug} href={district.profilePath} className="group bg-background p-5 hover:bg-surface">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">District {district.district}</p>

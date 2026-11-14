@@ -89,6 +89,26 @@ const advertiser = workflow('advertiser-production-verification');
 requireMarker(advertiser, "github.event_name == 'pull_request'", 'Advertiser PR-only syntax validation missing');
 requireMarker(advertiser, 'node --check scripts/ci/verify-advertiser-production.mjs', 'Advertiser PR source syntax check missing');
 requireMarker(advertiser, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Advertiser verifier must check out exact deployed SHA');
+const advertiserLiveVerifier = fs.readFileSync('scripts/ci/verify-advertiser-production.mjs', 'utf8');
+for (const marker of [
+  'School Page Pilot', 'District Football Pilot', 'Regional Football Pilot',
+  '$9/month', '$19/month', '$39/month',
+  'Submitting an inquiry is free and does not start a subscription.',
+  'No school affiliation or traffic guarantees.',
+  '/texas-high-school-football-teams/aledo',
+  '/texas-high-school-football-districts/6a-district-22',
+  'data-football-monetization="v1"',
+  'footballSponsorSlot',
+  'Paid placement by',
+  'Sponsor this page',
+  "'$249', '$499', '$999'",
+  "cache: variant.bypassCache ? 'no-store' : 'default'",
+]) requireMarker(advertiserLiveVerifier, marker, `Advertiser live verifier must protect reviewed founding and standard advertising terms: ${marker}`);
+const hubAcceptance = advertiserLiveVerifier.split("name: 'advertiser hub'")[1]?.split("name: 'advertiser terms'")[0] ?? '';
+const hubForbidden = hubAcceptance.split('\n').find((line) => line.trim().startsWith('forbidden:')) ?? '';
+if (!hubForbidden || /\$(?:9|19|39)\/month/.test(hubForbidden))
+  failures.push('Approved football founding rates must be required by live acceptance, never forbidden.');
+
 for (const name of ['verify-event-structured-data-production','verify-jasper-blue-hole-production','verify-sitemap-production-integrity']) {
   const source = workflow(name);
   requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out exact deployed SHA`);
@@ -231,8 +251,25 @@ requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link aud
 requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
 if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
-requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
-requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
+const scheduledSeasonal = scanPolicy.scheduledFeatureWorkflows ?? [];
+if (scheduledSeasonal.length !== 1 || scheduledSeasonal[0] !== 'verify-seasonal-production')
+  failures.push('Weekly seasonal production must remain the only approved scheduled feature audit');
+if (scanPolicy.manualFeatureWorkflows.includes('verify-seasonal-production'))
+  failures.push('Seasonal production must be automated rather than manual-only');
+noDirectPush(seasonal, 'Seasonal production verifier');
+if (/^  workflow_dispatch:/m.test(seasonal))
+  failures.push('Seasonal production must be schedule-only; manual dispatch is prohibited');
+requireMarker(seasonal, "cron: '37 14 * * 1'", 'Weekly seasonal automation schedule missing');
+requireMarker(seasonal, 'Select last successfully deployed protected main revision', 'Seasonal verifier must select deployed rather than moving main');
+requireMarker(seasonal, 'actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=1', 'Seasonal verifier must use one bounded successful production lookup');
+requireMarker(seasonal, 'texasdefined-production', 'Seasonal verifier must enforce protected production status');
+requireMarker(seasonal, 'DEPLOY_SHA=$deploy_sha', 'Seasonal status must bind to the deployed SHA');
+requireMarker(seasonal, 'actions: read', 'Seasonal workflow needs read-only deployment lookup');
+if (/^  (workflow_run|push|pull_request):/m.test(seasonal))
+  failures.push('Full seasonal audit must not fan out on pushes, PRs, or every deployment');
+if (seasonal.includes('Wait for production deploy on push fallback') || seasonal.includes('for attempt in $(seq 1 36)'))
+  failures.push('Scheduled seasonal audit must not restore deployment polling');
+
 const sports = workflow('verify-sports-venue-editorial-production');
 noDirectPush(sports, 'Sports venue standalone helper');
 if (sports.includes('workflow_run:')) failures.push('Sports venue production check must run natively inside deploy, not via downstream workflow_run');
@@ -304,7 +341,7 @@ for (const [name, liveStep] of [
   ['destination-canonical-smoke', 'Verify canonical destination consolidation live'],
   ['cloudflare-production-smoke', 'Verify Cloudflare Workers, public DNS and production AI binding'],
   ['verify-budget-planner-browser', 'Exercise live budget calculator, privacy, persistence, export'],
-  ['verify-city-authority-browser', 'Run 11 city live Chrome checks at all 3 viewports'],
+  ['verify-city-authority-browser', 'Run 12 city live Chrome checks at all 3 viewports'],
 ]) {
   const source = workflow(name);
   requireMarker(source, 'statuses: read', `${name} must have read-only exact-commit status access`);

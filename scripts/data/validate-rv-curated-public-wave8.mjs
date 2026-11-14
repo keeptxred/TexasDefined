@@ -18,7 +18,7 @@ const wave8 = [
   ['lost-maples-state-natural-area-rv-campground', 'Lost Maples State Natural Area RV Campground', 'https://tpwd.texas.gov/state-parks/lost-maples'],
   ['mckinney-falls-state-park-rv-loop', 'McKinney Falls State Park RV Loop', 'https://tpwd.texas.gov/state-parks/mckinney-falls'],
   ['padre-island-national-seashore-malaquite-campground', 'Padre Island National Seashore Malaquite Campground', 'https://www.nps.gov/pais/planyourvisit/malaquite_campground.htm'],
-  ['ratcliff-lake-recreation-area-rv-sites', 'Ratcliff Lake Recreation Area RV Sites', 'https://www.fs.usda.gov/r08/texas/recreation/ratcliff-lake-936-655-2299'],
+  ['ratcliff-lake-recreation-area-rv-sites', 'Ratcliff Lake Recreation Area RV Sites', 'https://www.recreation.gov/camping/campgrounds/234362'],
   ['cagle-recreation-area-rv-loop', 'Cagle Recreation Area RV Loop', 'https://www.recreation.gov/camping/campgrounds/234004'],
 ];
 

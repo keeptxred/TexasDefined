@@ -2,6 +2,9 @@ name: TexasDefined publication production smoke
 
 on:
   workflow_dispatch:
+  # Bounded daily independent assurance: ten public GET requests, no writes.
+  schedule:
+    - cron: '47 14 * * *'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -11,32 +14,59 @@ permissions:
   contents: read
 
 concurrency:
-  group: texasdefined-publication-production-smoke
+  # Keep daily verification from cancelling a different release smoke.
+  group: texasdefined-publication-production-smoke-${{ github.event_name == 'schedule' && 'daily' || 'release' }}
   cancel-in-progress: true
 
 jobs:
   verify-publication-surfaces:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - name: Verify auto-publication activation remains unset
+      - name: Verify explicit auto-publication activation state
         env:
           TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
         shell: bash
         run: |
           set -euo pipefail
-          if [ -n "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          elif [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
             echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
-            echo "::error::TexasDefined automatic publication must remain unset until explicit activation is approved."
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "::error::Invalid activation value; must be absent or exactly true"
             exit 1
           fi
-          echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
-        run: node scripts/ci/verify-texasdefined-publication-production.mjs
+        if: github.event_name != 'schedule'
+        run: |
+          node scripts/ci/verify-texasdefined-publication-production.mjs
+          node --check scripts/ci/verify-november-imagery-production.mjs
+          node scripts/ci/verify-november-imagery-production.mjs
+      # Bounded source-vintage acceptance deliberately runs after *every*
+      # successful production deployment. Rapid main merges can cancel the
+      # deployment which introduced a data update, while a later unrelated
+      # commit wins the deployment queue. HEAD^..HEAD scope tests would skip
+      # validation of the official BLS/Census release in that case.
+      # This is 2 hub + 4 dataset detail + 4 CSV HTTP checks, not a site scan.
+      - name: Check Texas Data live acceptance syntax
+        run: node --check scripts/ci/verify-texas-data-production.mjs
+      - name: Verify current Texas Data hub, BLS/Census vintages and four public CSVs
+        run: node scripts/ci/verify-texas-data-production.mjs
+
+      - name: Verify Zapata museum live authority after every successful production release
+        if: github.event_name != 'schedule'
+        run: node scripts/ci/verify-zapata-museum-production.mjs
+      - name: Verify Motel 6 production tracking and football stay CTA
+        if: github.event_name != 'schedule'
+        run: node scripts/ci/verify-motel6-production.mjs
+

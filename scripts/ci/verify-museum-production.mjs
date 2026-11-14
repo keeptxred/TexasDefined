@@ -3,11 +3,12 @@
  * Bounded, post-deployment museum acceptance.
  *
  * Distinguish page transport and search-index readiness from a full independent
- * editorial certification. Exactly one HTTP request per URL; do not poll CI or
+ * editorial certification. Normally one HTTP request per URL, with one
+ * bounded retry for transient transport timeouts only; do not poll CI or
  * accept unrelated stock photography to make an unverified guide indexable.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
-import { primaryDestinationHeroSrc, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
+import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const origin = (process.env.TD_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/+$/, "");
 const local = JSON.parse(readFileSync("public/museum-verification-manifest.json", "utf8"));
@@ -19,26 +20,47 @@ const required = [
   { slug: "port-isabel-historical-museum", indexed: true, image: "Part_of_an_elaborate_", phrase: "Fish mural across the historic" },
   { slug: "sixth-floor-museum-at-dealey-plaza", indexed: true, phrase: "Is the museum accessible by DART or the TRE train?" },
   { slug: "uss-lexington-museum-corpus-christi", indexed: true, phrase: "Can visitors buy ordinary USS Lexington admission tickets online?" },
-  { slug: "texas-country-music-hall-of-fame-carthage", indexed: true, image: "Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG", phrase: "Are Hall of Fame induction concerts included in museum admission?", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
-  { slug: "bryan-museum-galveston", indexed: true, image: "Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg", phrase: "Was The Bryan Museum originally the Galveston Orphans Home?", licenseUrl: "https://creativecommons.org/licenses/by/2.0/" },
+  { slug: "texas-country-music-hall-of-fame-carthage", indexed: true, image: "Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG", phrase: "Are Hall of Fame induction concerts included in museum admission?", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/", primaryAlt: "Texas Country Music Hall of Fame and Tex Ritter Museum building in Carthage", commonsFile: "Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG" },
+  { slug: "bryan-museum-galveston", indexed: true, image: "Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg", phrase: "Was The Bryan Museum originally the Galveston Orphans Home?", licenseUrl: "https://creativecommons.org/licenses/by/2.0/", primaryAlt: "The Bryan Museum in Galveston, photographed January 2025", commonsFile: "Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg" },
+  { slug: "menil-collection-houston", indexed: true, image: "Menil_Collection_Houston_(5887512203).jpg", phrase: "Is admission to the Menil Collection in Houston always free?", licenseUrl: "https://creativecommons.org/licenses/by/2.0/" },
+  { slug: "grace-museum-abilene", indexed: true, image: "The_Grace_Museum_Abilene_Texas_2015.jpg", phrase: "Is the Spark Science Center inside The Grace Museum building?", licenseUrl: "https://creativecommons.org/licenses/by/4.0/" },
+  { slug: "frontiers-of-flight-museum-dallas", indexed: true, image: "Frontiers_of_Flight_Museum_December_2015_107_", phrase: "Can I see the Apollo 7 command module at Frontiers of Flight?", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+  { slug: "museum-of-texas-tech-university-lubbock", indexed: true, image: "Museum_of_Texas_Tech_University_IMG_0038.JPG", phrase: "Is Moody Planetarium included with the free museum admission?", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+  { slug: "museum-of-south-texas-history-edinburg", indexed: true, image: "Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg", phrase: "Is the museum free on Saturday mornings in Edinburg?", licenseUrl: "https://creativecommons.org/licenses/by/4.0/" },
+  { slug: "mcnay-art-museum-san-antonio", indexed: true, image: "McNay_Art_Museum_May_2018_2_(Courtyard).jpg", phrase: "When are the McNay's free-admission hours, and do they cover special exhibitions?", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+  { slug: "texas-military-forces-museum", indexed: true, image: "Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_", phrase: "What documents do I need to enter Camp Mabry to visit the museum?", licenseUrl: "https://creativecommons.org/licenses/by/2.0/" },
   { slug: "museum-of-the-gulf-coast-port-arthur", indexWhenPhotoCleared: true },
   { slug: "el-paso-holocaust-museum", indexWhenPhotoCleared: true },
   { slug: "texas-broadcast-museum-kilgore", indexWhenPhotoCleared: true },
   { slug: "johnny-nelson-katy-heritage-museum", indexWhenPhotoCleared: true },
 ];
 const errors = [], observations = [], openPhotoGaps = [];
+// Existing bounded 19-page smoke remains default for manual workflows.
+// Protected deploys can opt into complete canonical route acceptance for every
+// published museum through MUSEUM_VERIFY_ALL_GUIDES=1. Source HTTP and SSR do
+// not independently certify museum editorial content or image pixels.
+const fullManifestSweep = process.env.MUSEUM_VERIFY_ALL_GUIDES === "1";
 const decode = value => value.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
 function attr(markup, name) {
   const match = name === "href" ? markup.match(/href="([^"]*)"/i) : markup.match(/content="([^"]*)"/i);
   return decode(match?.[1] || "");
 }
 async function get(path) {
-  const response = await fetch(origin + path, {
-    redirect: "follow",
-    signal: AbortSignal.timeout(25000),
-    headers: { "Cache-Control": "no-cache", "User-Agent": "TexasDefined-Museum-Production/1.0" },
-  });
-  return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const response = await fetch(origin + path, {
+        redirect: "follow",
+        signal: AbortSignal.timeout(30000),
+        headers: { "Cache-Control": "no-cache", "User-Agent": "TexasDefined-Museum-Production/1.0" },
+      });
+      return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
+    } catch (error) {
+      // Only transient transport timeouts merit one retry; never HTTP,
+      // image, licensing, canonical or indexability failures.
+      if (attempt === 2 || !["TimeoutError", "AbortError"].includes(error?.name)) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
 }
 function analyzeRoute(c, doc) {
   const path = "/destination/" + c.slug, issues = [];
@@ -51,20 +73,32 @@ function analyzeRoute(c, doc) {
   const robots = attr(robotTag, "content");
   const noindex = robots.includes("noindex");
   const primaryHero = primaryDestinationHeroSrc(doc.body);
+  const primaryAlt = primaryDestinationHeroAlt(doc.body);
   const hasMissingHero = isMissingPrimaryDestinationHero(doc.body);
   if (!doc.body.includes(c.slug.split("-").slice(0,2).join("-")) && !doc.body.includes("<h1")) issues.push("no recognizable page heading");
   if (c.indexed && noindex) issues.push("previously recovered guide reverted to noindex");
   if (c.indexed && hasMissingHero) issues.push("indexable guide reverted to missing-photo placeholder");
+  if (!hasMissingHero && !primaryAlt) issues.push("museum primary photograph missing alt text");
+  if (hasMissingHero && !noindex) issues.push("unlicensed or missing primary museum image is indexable");
+  if (c.primaryAlt && !primaryAlt.includes(c.primaryAlt))
+    issues.push("primary museum image alt mismatches photographed site: " + primaryAlt);
   if (c.image && !primaryHero.includes(c.image)) issues.push("required subject-specific primary hero missing: " + c.image);
   if (c.licenseUrl && !doc.body.includes(`href="${c.licenseUrl}"`)) issues.push("missing clickable Creative Commons hero license: " + c.licenseUrl);
-  if (c.licenseUrl && !doc.body.includes("https://commons.wikimedia.org/wiki/File:")) issues.push("missing clickable Commons original-photo credit");
+  if (c.licenseUrl && !doc.body.includes("https://commons.wikimedia.org/wiki/File:"))
+    issues.push("missing clickable Commons original-photo credit");
+  if (c.commonsFile) {
+    const originalLinks = [...doc.body.matchAll(/<a\b[^>]*href=["'](https:\/\/commons\.wikimedia\.org\/wiki\/File:[^"']+)["'][^>]*>/gi)]
+      .map(match => decode(match[1]));
+    if (!originalLinks.some(href => href.includes(c.commonsFile)))
+      issues.push("wrong or missing exact original Commons photograph link: " + c.commonsFile);
+  }
   if (c.phrase && !decode(doc.body).includes(c.phrase)) issues.push("researched visible visitor information absent: " + c.phrase);
   if (c.indexWhenPhotoCleared) {
     if (hasMissingHero && !noindex) issues.push("missing-photo page improperly indexable");
     if (hasMissingHero && noindex) openPhotoGaps.push(path);
     if (!hasMissingHero && noindex) issues.push("photo available but page still noindex");
   }
-  return { path, status: doc.status, canonical, robots, primaryHero, missingPhoto: hasMissingHero, issues };
+  return { path, status: doc.status, canonical, robots, primaryHero, primaryAlt, missingPhoto: hasMissingHero, issues };
 }
 try {
   const doc = await get("/museum-verification-manifest.json");
@@ -81,22 +115,51 @@ try {
 } catch (error) {
   errors.push("Manifest request failed: " + String(error));
 }
-await Promise.all(required.map(async c => {
-  try {
-    const result = analyzeRoute(c, await get("/destination/" + c.slug));
-    observations.push(result);
-    errors.push(...result.issues.map(issue => c.slug + ": " + issue));
-  } catch (error) {
-    errors.push(c.slug + ": " + String(error));
+// Required-photo guides used to launch all requests together, causing
+// coincident 25-second timeouts under Cloudflare load. Check every guide with
+// bounded concurrency; one real read per page, same fail-closed assertions.
+const requiredWorkerCount = Math.min(6, required.length);
+await Promise.all(Array.from({ length: requiredWorkerCount }, async (_, index) => {
+  for (let i = index; i < required.length; i += requiredWorkerCount) {
+    const c = required[i];
+    try {
+      const result = analyzeRoute(c, await get("/destination/" + c.slug));
+      observations.push(result);
+      errors.push(...result.issues.map(issue => c.slug + ": " + issue));
+    } catch (error) {
+      errors.push(c.slug + ": " + String(error));
+    }
   }
 }));
+const requiredSlugs = new Set(required.map(c => c.slug));
+const extraPaths = fullManifestSweep
+  ? [...expectedPaths].filter(path => !requiredSlugs.has(path.slice("/destination/".length)))
+  : [];
+// Limit concurrent requests. An expanded museum inventory should not turn one
+// release smoke into an unbounded Cloudflare request burst.
+const workers = Array.from({ length: Math.min(4, extraPaths.length) }, async (_, index) => {
+  for (let i = index; i < extraPaths.length; i += 4) {
+    const path = extraPaths[i];
+    try {
+      const result = analyzeRoute({ slug: path.slice("/destination/".length) }, await get(path));
+      observations.push(result);
+      errors.push(...result.issues.map(issue => path + ": " + issue));
+    } catch (error) {
+      errors.push(path + ": " + String(error));
+    }
+  }
+});
+await Promise.all(workers);
 const report = {
   checkedAt: new Date().toISOString(),
   origin,
   verifiedFrom: process.env.GITHUB_SHA || null,
-  scope: "Manifest and twelve specific visitor routes, not every Texas museum",
+  scope: fullManifestSweep
+    ? `Live manifest and all ${local.museums.length} museum destination routes (SSR/transport, not browser/editorial certification)`
+    : `Manifest and ${required.length} specific visitor routes, not every Texas museum`,
+  fullManifestSweep,
   authorityCertified: false,
-  checkedRoutes: required.length,
+  checkedRoutes: required.length + extraPaths.length,
   remainingPhotographicGaps: openPhotoGaps.sort(),
   errors,
   observations,
@@ -105,7 +168,7 @@ mkdirSync(".artifacts", { recursive: true });
 writeFileSync(".artifacts/museum-production-acceptance.json", JSON.stringify(report, null, 2) + "\n");
 console.log("Museum production acceptance:", JSON.stringify({
   manifestExpectedAtLeast: local.museums.length,
-  checkedRoutes: required.length,
+  checkedRoutes: required.length + extraPaths.length,
   openPhotoGaps: openPhotoGaps.length,
   failures: errors.length,
 }));

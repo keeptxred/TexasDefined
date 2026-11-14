@@ -10,6 +10,7 @@ import { BookingCarRentalCard } from "@/components/monetization/BookingCarRental
 import type { CategorySlug } from "@/data/types";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
+const CuratedTourismPage = lazy(() => import("@/components/explore/CuratedTourismPage").then((module) => ({ default: module.CuratedTourismPage })));
 const WaterTowersPage = lazy(() => import("@/components/explore/WaterTowersPage").then((module) => ({ default: module.WaterTowersPage })));
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
@@ -17,6 +18,10 @@ const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-tr
 export const Route = createLazyFileRoute("/explore/$category")({ component: ExploreCategoryPage, notFoundComponent: CategoryNotFound });
 
 function ExploreCategoryPage() {
+  const loaderData = Route.useLoaderData();
+  if ("curated" in loaderData && loaderData.curated && "existing" in loaderData && loaderData.existing) {
+    return <Suspense fallback={<Container className="py-24">Loading Texas guides…</Container>}><CuratedTourismPage collection={loaderData.curated} existing={loaderData.existing} /></Suspense>;
+  }
   const { destinations, authorityHtml } = Route.useLoaderData();
   const { category: match } = Route.useLoaderData();
   if (match.slug === "water-towers") {
@@ -81,6 +86,7 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+    {match.slug === "state-parks" ? <Container className="pb-10 sm:pb-14"><section className="border-t border-border pt-8" aria-labelledby="davis-hill-future-reference"><p className="eyebrow text-primary">Future state natural area</p><h2 id="davis-hill-future-reference" className="mt-2 font-display text-3xl">Davis Hill: protected, not open for visits</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Davis Hill lies in Liberty County near the Trinity River, not in the Davis Mountains. TPWD does not advertise a public entrance or camping reservations. Our independent source-backed guide covers its salt-dome geology, plants, history and access status.</p><Link to="/destination/davis-hill-state-park" className="mt-4 inline-block border-b border-primary pb-1 text-primary">Explore Davis Hill research and access guidance →</Link></section></Container> : null}
     {(match.slug === "beaches-coast" || match.slug === "lakes-rivers") ? <Container className="pb-10 sm:pb-14">
       <section className="border-y border-border py-8" aria-labelledby="inland-beaches-bridge">
         <p className="eyebrow text-primary">Freshwater swimming and the Texas coast are different trips</p>

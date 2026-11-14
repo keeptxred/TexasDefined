@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
+import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
-import { description, pageTitle, stepNames, steps } from './find-my-dmv';
+import { description, pageTitle, sourceVerifiedLabel, stepNames, steps } from './find-my-dmv';
 
 export const Route = createLazyFileRoute('/find-my-dmv')({
   component: Page,
@@ -42,7 +43,7 @@ function Page() {
               <a className="border border-border p-5 transition-colors hover:border-primary" href="https://www.dps.texas.gov/apps/Rolodex/index.asp" target="_blank" rel="noreferrer noopener">
                 <p className="eyebrow text-primary">Licenses and IDs</p>
                 <h3 className="mt-2 font-display text-2xl">DPS driver license office</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">Driver licenses and state identification cards are handled by the Texas Department of Public Safety rather than the county vehicle-registration office.</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">Driver licenses and state identification cards are handled by DPS, not county vehicle-registration offices. DPS requires appointments for driver-license and ID services; check the official scheduler before visiting.</p>
                 <span className="mt-4 inline-block text-sm font-semibold text-primary">Find a driver license office ↗</span>
               </a>
             </div>
@@ -70,6 +71,18 @@ function Page() {
             </div>
           </section>
 
+          <CitationTrustPanel
+            className="my-8"
+            title="Sources, methodology and verification"
+            sources={[
+              { name: 'TxDMV — New to Texas registration', url: 'https://www.txdmv.gov/motorists/new-to-texas', note: 'Registration steps, county tax office responsibilities and emissions-county guidance.' },
+              { name: 'TxDMV — Find your county tax office', url: 'https://www.txdmv.gov/find-your-local-tax-office-dmv', note: 'Official county-level vehicle services lookup.' },
+              { name: 'TxDMV — Regional service centers', url: 'https://www.txdmv.gov/regional-service-centers', note: 'Current regional-center services, appointments and office status.' },
+              { name: 'DPS — Driver license office search', url: 'https://www.dps.texas.gov/apps/Rolodex/index.asp', note: 'Official driver-license office locations and appointment guidance.' },
+            ]}
+            methodology="We compare the current official TxDMV and DPS service descriptions and direct visitors to the corresponding agency locators. This is a service-routing guide, not a self-maintained address directory: office assignments, closures, wait times, appointments, fees and specific document requirements must be rechecked with the responsible agency before visiting."
+            lastVerified={sourceVerifiedLabel}
+          />
           <aside className="py-6 text-sm leading-6 text-muted-foreground">Office locations, appointments, fees and document requirements can change. Confirm your transaction with TxDMV, DPS and your county tax office before traveling.</aside>
         </article>
       </Container>

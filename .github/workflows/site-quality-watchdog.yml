@@ -27,9 +27,33 @@ jobs:
 
       - run: npm ci
 
+      - name: Validate homepage editorial diversity and concision
+        run: |
+          node --experimental-strip-types --test scripts/data/homepage-editorial.test.mjs
+          node --experimental-strip-types --test scripts/data/homepage-reading-time.test.mjs
+
+          node --experimental-strip-types --test scripts/data/discovery-reading-time.test.mjs
+          node scripts/data/validate-homepage-seo.mjs
+          node --test scripts/ci/verify-homepage-fresh-production.test.mjs
+          node --test scripts/ci/audit-homepage-vitals.test.mjs
+
+      - name: Verify fresh homepage SSR parity on both public origins
+        id: homepage_live
+        continue-on-error: true
+        run: node scripts/ci/verify-homepage-fresh-production.mjs
+
+      - name: Observe Google homepage field Core Web Vitals
+        id: homepage_vitals
+        continue-on-error: true
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: node scripts/ci/audit-homepage-vitals.mjs
+
       - name: Run recurring site quality audit
         id: quality
         continue-on-error: true
+        env:
+          SITE_QUALITY_LIVE: '1'
         run: node scripts/data/run-site-quality-watch.mjs
 
       - name: Preserve quality report
@@ -40,17 +64,22 @@ jobs:
           path: |
             site-quality-report.md
             site-quality-report.json
+            .artifacts/42-page-pair-production.json
+            .artifacts/homepage-live-parity.json
+            .artifacts/homepage-vitals-evidence.json
           if-no-files-found: error
           retention-days: 30
 
       - name: Open or update watchdog issue
-        if: github.event_name != 'pull_request' && steps.quality.outcome == 'failure'
+        if: github.event_name != 'pull_request' && (steps.quality.outcome == 'failure' || steps.homepage_live.outcome == 'failure' || steps.homepage_vitals.outcome == 'failure')
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
             const title = '[Site Quality] TexasDefined watchdog failures';
-            const report = fs.readFileSync('site-quality-report.md', 'utf8').slice(0, 50000);
+            const report = fs.readFileSync('site-quality-report.md', 'utf8').slice(0, 35000);
+            const evidencePaths = ['.artifacts/homepage-live-parity.json', '.artifacts/homepage-vitals-evidence.json'];
+            const evidence = evidencePaths.map(path => fs.existsSync(path) ? path + ':\n' + fs.readFileSync(path, 'utf8').slice(0, 6000) : path + ': not written').join('\n\n');
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
@@ -60,6 +89,11 @@ jobs:
               `Latest run: ${runUrl}`,
               '',
               report,
+              '',
+              'Homepage live SSR and official field-vitals evidence:',
+              '```json',
+              evidence,
+              '```',
             ].join('\n');
 
             const { data: issues } = await github.rest.issues.listForRepo({
@@ -83,7 +117,7 @@ jobs:
             }
 
       - name: Close recovered watchdog issue
-        if: github.event_name != 'pull_request' && steps.quality.outcome == 'success'
+        if: github.event_name != 'pull_request' && steps.quality.outcome == 'success' && steps.homepage_live.outcome == 'success' && steps.homepage_vitals.outcome == 'success'
         uses: actions/github-script@v7
         with:
           script: |
@@ -113,9 +147,11 @@ jobs:
               });
             }
 
-      - name: Fail workflow when quality checks fail
-        if: steps.quality.outcome == 'failure'
-        run: exit 1
+      - name: Fail workflow when any quality check fails
+        if: steps.quality.outcome == 'failure' || steps.homepage_live.outcome == 'failure' || steps.homepage_vitals.outcome == 'failure'
+        run: |
+          echo "::error title=Site quality watchdog failed::Review quality, homepage live and field-vitals evidence in the report artifact and the linked issue."
+          exit 1
       - name: Audit Dallas Black History live pages and sitemap links
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: node scripts/ci/check-dallas-black-history-production.mjs

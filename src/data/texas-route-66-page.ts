@@ -14,7 +14,7 @@ function buildHubHead(canonicalPath: string, pageUrl: string) {
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Route 66 Road Trip: Complete Stop-by-Stop Guide | Texas Defined",
+      title: "Texas Route 66 Road Trip: Complete Stop-by-Stop Guide",
       description: hubDescription,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -68,7 +68,7 @@ function buildStopHead(canonicalPath: string, pageUrl: string, stop: TexasRoute6
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: `${stop.name} Route 66 Guide | Texas Defined`,
+      title: `${stop.name} Route 66 Guide`,
       description,
       robots: readyForIndexing ? undefined : "noindex, follow",
     }),

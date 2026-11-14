@@ -1,0 +1,336 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
+
+const { chromium } = createRequire(import.meta.url)(process.env.PLAYWRIGHT_CORE_PATH || "/tmp/texasdefined-foliage-qa/node_modules/playwright-core");
+const origin = (process.env.PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
+const output = "artifacts/east-texas-foliage-browser";
+const parks = [
+  ["Daingerfield", "33.025"],
+  ["Caddo Lake", "32.69"],
+  ["Lake Bob Sandlin", "33.063"],
+  ["Tyler", "32.479"],
+  ["Cooper Lake", "33.321"],
+  ["Martin Creek Lake", "32.274"],
+];
+const viewports = [
+  { label: "mobile", width: 390, height: 844, isMobile: true },
+  { label: "desktop", width: 1440, height: 900, isMobile: false },
+];
+const findings = [];
+const failures = [];
+// Googlebot-style request probes verify HTTP behavior before Chrome follows redirects.
+// A spoofed User-Agent does NOT prove verified Google's IPs are allowed by Cloudflare.
+async function verifyCanonicalHttpContract() {
+  const clean = origin + "/article/east-texas-fall-colors";
+  const googlebotHeaders = { "user-agent": "Googlebot/2.1 (+http://www.google.com/bot.html)" };
+  const variants = [
+    clean + "?utm_source=chatgpt.com",
+    clean + "?foliage_browser_qa=regression",
+    clean + "/",
+    origin + "/article/East-Texas-Fall-Colors",
+    ...(origin === "https://texasdefined.com" ? ["https://www.texasdefined.com/article/east-texas-fall-colors?utm_source=chatgpt.com"] : []),
+  ];
+  for (const url of variants) {
+    const response = await fetch(url, { redirect: "manual", headers: googlebotHeaders });
+    const location = response.headers.get("location");
+    if (response.status !== 301 || location !== clean) {
+      throw new Error("Canonical redirect broken " + url + ": HTTP " + response.status + " Location " + location);
+    }
+    await response.body?.cancel();
+  }
+  const response = await fetch(clean, { redirect: "manual", headers: googlebotHeaders });
+  if (response.status !== 200) throw new Error("Clean foliage page not Googlebot-style accessible: HTTP " + response.status);
+  if (/\b(noindex|nofollow)\b/i.test(response.headers.get("x-robots-tag") || "")) {
+    throw new Error("Clean foliage page has blocking X-Robots-Tag");
+  }
+  const html = await response.text();
+  const links = html.match(/<link\b[^>]*>/gi) || [];
+  const canonicalLinks = links.filter(link => /\brel=["'][^"']*canonical[^"']*["']/i.test(link));
+  if (canonicalLinks.length !== 1 || !canonicalLinks[0].includes(clean)) {
+    throw new Error("Clean foliage page missing unique self-canonical: " + canonicalLinks.length);
+  }
+  const robots = (html.match(/<meta\b[^>]*>/gi) || []).filter(meta => /\bname=["'](?:robots|googlebot)["']/i.test(meta));
+  if (robots.some(tag => /\b(noindex|nofollow)\b/i.test(tag))) throw new Error("Clean foliage page has noindex/nofollow meta");
+  if (!html.includes("Daingerfield") || !html.includes("Caddo Lake")) throw new Error("Googlebot-style HTML missing core destination content");
+  console.log("PASS canonical clean 200, five redirect variants 301, unique self-canonical, no index block, HTML content");
+}
+await verifyCanonicalHttpContract();
+
+await mkdir(output, { recursive: true });
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROME_BIN || "/usr/bin/google-chrome",
+  args: ["--no-sandbox", "--disable-dev-shm-usage"],
+});
+try {
+  for (const viewport of viewports) {
+    const context = await browser.newContext({
+      viewport: { width: viewport.width, height: viewport.height },
+      isMobile: viewport.isMobile,
+      hasTouch: viewport.isMobile,
+      deviceScaleFactor: 1,
+    });
+    // Avoid creating analytics events or interacting with third-party commerce.
+    await context.route(/(google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i, route => route.abort());
+    const page = await context.newPage();
+    try {
+      const response = await page.goto(origin + "/article/east-texas-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0,12), { waitUntil: "domcontentloaded", timeout: 45000 });
+      if (response?.status() !== 200) throw new Error("HTTP " + response?.status());
+      const eastHero = page.locator('img[alt*="Orange and yellow autumn trees"]').first();
+      await eastHero.waitFor({ state: "attached", timeout: 15000 });
+      await eastHero.scrollIntoViewIfNeeded();
+      await eastHero.evaluate(image => image.decode().catch(() => {}));
+      if (await eastHero.evaluate(image => image.naturalWidth) < 300) throw new Error("Daingerfield autumn hero did not load");
+      const eastHeroSrc = await eastHero.getAttribute("src");
+      if (!eastHeroSrc?.includes("Daingerfield_sp_reflection.jpg")) throw new Error("East Texas hero is not the approved Daingerfield autumn photograph: " + eastHeroSrc);
+      if (!await page.getByText("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014", { exact: false }).count()) throw new Error("East Texas historical hero caveat missing");
+
+      // Targeted authority regression: avoid reintroducing the one-card destination
+      // rail when the guide already provides six useful official-source park cards.
+      if (await page.getByRole("heading", { name: "Places connected to this story", exact: true }).count()) {
+        throw new Error("East Texas duplicate related-destination section returned");
+      }
+      if (await page.getByText("Uncertain", { exact: true }).count()) {
+        throw new Error("Unrelated nearby town leaked into East Texas park recommendations");
+      }
+      const planner = page.getByRole("heading", { name: "Six places to compare", exact: true }).locator("xpath=ancestor::section[1]");
+      await planner.waitFor({ state: "visible" });
+      for (const name of [
+        "Daingerfield State Park", "Caddo Lake State Park", "Lake Bob Sandlin State Park",
+        "Tyler State Park", "Cooper Lake State Park", "Martin Creek Lake State Park",
+      ]) {
+        if (await planner.getByRole("heading", { name, level: 3, exact: true }).count() !== 1) {
+          throw new Error("Missing unique six-park comparison card: " + name);
+        }
+      }
+      const tripJump = page.getByRole("link", { name: "Jump to the six-park comparison, map and dated photographs" });
+      if (await tripJump.getAttribute("href") !== "#east-texas-fall-trip-planner") throw new Error("Top-of-guide trip planner jump is broken");
+      if (!await page.locator("#east-texas-fall-trip-planner").count()) throw new Error("Trip planner anchor missing");
+      const expectedGuides = [
+        ["Daingerfield State Park", "/destination/daingerfield-state-park", "Rustling Leaves"],
+        ["Caddo Lake State Park", "/destination/caddo-lake-state-park", "Caddo Forest"],
+        ["Lake Bob Sandlin State Park", "/destination/lake-bob-sandlin-state-park", "Lakeview Loop"],
+        ["Tyler State Park", "/destination/tyler-state-park", "Lakeshore"],
+        ["Cooper Lake State Park", "/destination/cooper-lake-state-park", "Honey Creek"],
+        ["Martin Creek Lake State Park", "/destination/martin-creek-lake-state-park", "Harmony Hill"],
+      ];
+      for (const [name, guide, trail] of expectedGuides) {
+        const card = planner.getByRole("heading", { name, level: 3, exact: true }).locator("xpath=ancestor::article[1]");
+        const href = await card.getByRole("link", { name: "Texas Defined guide" }).getAttribute("href");
+        if (href !== guide) throw new Error(name + " internal guide lost: " + href);
+        if (!await card.getByText(trail, { exact: false }).count()) throw new Error(name + " trail comparison missing " + trail);
+      }
+      const caddoCard = planner.getByRole("heading", { name: "Caddo Lake State Park", level: 3, exact: true }).locator("xpath=ancestor::article[1]");
+      if (await caddoCard.getByRole("link", { name: "Current ranger programs" }).getAttribute("href") !== "https://tpwd.texas.gov/state-parks/caddo-lake/park_events/") throw new Error("Caddo current official event calendar missing");
+      if (await page.getByRole("heading", { name: "More fall foliage guides", exact: true }).count()) throw new Error("Duplicate end-of-guide foliage link rail returned");
+      for (const [name, destination] of [
+        ["Daingerfield State Park visitor information", "daingerfield"],
+        ["Caddo Lake State Park visitor information", "caddo-lake"],
+        ["Lake Bob Sandlin State Park visitor information", "lake-bob-sandlin"],
+        ["Tyler State Park visitor information", "tyler"],
+        ["Cooper Lake State Park", "cooper-lake"],
+        ["Martin Creek Lake State Park", "martin-creek-lake"],
+      ]) {
+        const link = page.getByRole("link", { name, exact: false })
+          .filter({ hasText: name }).first();
+        const href = await link.getAttribute("href");
+        if (href !== "https://tpwd.texas.gov/state-parks/" + destination) {
+          throw new Error("Contextual TPWD link missing or wrong for " + name + ": " + href);
+        }
+      }
+      for (const [heading, marker] of [
+        ["Choose a park by trail constraints, not a color forecast", "Do not choose solely by distance"],
+        ["Research and evidence behind this guide", "Source review: November 7, 2026"],
+      ]) {
+        if (await page.getByRole("heading", { name: heading, exact: true }).count() !== 1
+          || !await page.getByText(marker, { exact: false }).count()) {
+          throw new Error("East Texas original research or disclosure missing: " + heading);
+        }
+      }
+      if (!await page.getByText("2.4-mile Rustling Leaves Trail", { exact: false }).count()) {
+        throw new Error("Daingerfield trail specifics missing");
+      }
+      for (const question of [
+        "Does East Texas have fall colors?", "Is October too early?",
+        "Where can I see fall foliage without a boat?", "Are the colors at peak right now?",
+      ]) {
+        if (await page.getByRole("heading", { level: 3, name: question, exact: true }).count() !== 1) {
+          throw new Error("East Texas FAQ hierarchy regressed: " + question);
+        }
+      }
+
+      await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
+      const overview = page.locator('section[aria-labelledby="east-texas-all-parks-heading"]');
+      await overview.getByRole("heading", { name: "All six parks on one map" }).waitFor({ state: "visible" });
+      if (await overview.locator("svg circle").count() !== 6) throw new Error("All-six-park overview must show six map pins");
+      if (await overview.locator("svg polyline").count() !== 2) throw new Error("Both suggested itinerary lines must appear");
+      const selector = page.getByRole("group", { name: "Choose park to locate on map" });
+      // Server-rendered controls remain disabled until React hydration completes.
+      // Verify the first real state transition before checking any initially selected park.
+      await page.waitForFunction(() => {
+        const button = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === "Caddo Lake");
+        return Boolean(button && !button.disabled);
+      }, null, { timeout: 15000 });
+      const selection = [];
+      const parkSequence = [...parks.slice(1, 2), ...parks.slice(0, 1), ...parks.slice(2)];
+      for (const [parkName, latitude] of parkSequence) {
+        const button = selector.getByRole("button", { name: parkName, exact: true });
+        await button.click();
+        await page.waitForFunction(name => {
+          const button = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === name);
+          return button?.getAttribute("aria-pressed") === "true";
+        }, parkName, { timeout: 8000 });
+        if ((await button.getAttribute("aria-pressed")) !== "true") throw new Error("Selection did not update: " + parkName);
+        const iframe = page.locator('iframe[title^="Interactive map around"]');
+        const src = await iframe.getAttribute("src");
+        if (!(src || "").includes("marker=" + latitude)) throw new Error("Map marker did not move: " + parkName + " => " + src);
+        selection.push(parkName);
+      }
+      // Verify keyboard activation changes the same live map, not just button focus.
+      for (const [parkName, latitude, key] of [
+        ["Tyler", "32.479", "Enter"],
+        ["Daingerfield", "33.025", "Space"],
+      ]) {
+        const button = selector.getByRole("button", { name: parkName, exact: true });
+        await button.focus();
+        await page.keyboard.press(key);
+        await page.waitForFunction(name => {
+          const active = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === name);
+          return active?.getAttribute("aria-pressed") === "true";
+        }, parkName, { timeout: 8000 });
+        const marker = await page.locator('iframe[title^="Interactive map around"]').getAttribute("src");
+        if (!(marker || "").includes("marker=" + latitude)) throw new Error("Keyboard map selection failed: " + parkName + " via " + key);
+      }
+      const routeLinks = [
+        ["Open four-stop driving directions", ["Tyler", "Cooper", "Sandlin", "Daingerfield"]],
+        ["Open three-stop driving directions", ["Tyler", "Martin", "Caddo"]],
+      ];
+      for (const [label, names] of routeLinks) {
+        const href = await page.getByRole("link", { name: label }).getAttribute("href");
+        if (!href?.startsWith("https://www.google.com/maps/dir/?api=1")) throw new Error("Driving link missing: " + label);
+        const decoded = decodeURIComponent(href);
+        for (const name of names) if (!decoded.includes(name)) throw new Error("Route does not include " + name);
+      }
+      const gallery = page.locator('section[aria-labelledby="east-texas-foliage-gallery"]');
+      await gallery.scrollIntoViewIfNeeded();
+      const photos = gallery.locator("figure");
+      if (await photos.count() !== 6) throw new Error("Expected six distinct licensed park photographs, one per featured park");
+      for (let i = 0; i < 6; i++) {
+        const item = photos.nth(i);
+        const photo = item.locator("img");
+        await photo.scrollIntoViewIfNeeded();
+        await photo.evaluate(async image => {
+          if (!image.complete) await new Promise(resolve => {
+            image.addEventListener("load", resolve, { once: true });
+            image.addEventListener("error", resolve, { once: true });
+          });
+        });
+        const width = await photo.evaluate(image => image.naturalWidth);
+        if (width < 100) throw new Error("Gallery photo did not load: " + i);
+        if (!await item.getByRole("link", { name: "Wikimedia source" }).count()) throw new Error("Missing image provenance: " + i);
+        if (!await item.getByRole("link", { name: "License terms" }).count()) throw new Error("Missing image license: " + i);
+      }
+      // Validate the live replacement sources as well as their generic image load status.
+      // A fallback image may load successfully, but that must not masquerade as the
+      // intended park photograph or the dated October foliage example.
+      for (const [label, expectedSrc] of [
+        ["Martin Creek Lake State Park", "Docks_at_Martin_Creek_Lake_State_Park_2019.jpg"],
+        ["Daingerfield State Park — October lake reflection", "Daingerfield_sp_reflection.jpg"],
+        ["Caddo Lake State Park", "Caddo_Lake_at_golden_hour.jpg"],
+      ]) {
+        const figure = gallery.locator("figure").filter({ has: page.getByText(label, { exact: true }) });
+        if (await figure.count() !== 1) throw new Error("Expected exactly one gallery image for " + label);
+        const actualSrc = await figure.locator("img").getAttribute("src");
+        if (!actualSrc?.includes(expectedSrc)) throw new Error("Unexpected photo source for " + label + ": " + actualSrc);
+      }
+      for (const label of ["Caddo Lake State Park", "Lake Bob Sandlin State Park", "Tyler State Park", "Cooper Lake State Park (South Sulphur Unit)", "Martin Creek Lake State Park"]) {
+        if (!await gallery.getByText(label, { exact: true }).count()) throw new Error("Six-park image coverage missing " + label);
+      }
+      if (!await gallery.getByText("Martin Creek Lake State Park", { exact: true }).count()) throw new Error("Martin Creek lakeshore photograph missing");
+      if (!await gallery.getByText("Daingerfield State Park — October lake reflection", { exact: true }).count()) throw new Error("October Daingerfield photograph missing");
+      if (!await gallery.getByText("October 30, 2023", { exact: false }).count()) throw new Error("Dated October Caddo photo disclosure missing");
+      if (!await gallery.getByText("Shiva Shenoy", { exact: false }).count()) throw new Error("Caddo licensed photo author credit missing");
+      if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail returned");
+      const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+      if (dimensions.document > dimensions.viewport + 8) throw new Error("Horizontal overflow: " + (dimensions.document - dimensions.viewport));
+      await page.screenshot({ path: output + "/" + viewport.label + ".png", fullPage: true, animations: "disabled" });
+      findings.push({ viewport: viewport.label, parks: selection, photos: 6, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
+      console.log("PASS " + viewport.label + " foliage authority links, FAQ, park cards, map, driving links and licensed gallery");
+    } catch (error) {
+      failures.push(viewport.label + ": " + String(error?.message || error));
+      console.error("::error title=East Texas foliage browser QA::" + failures.at(-1));
+      try { await page.screenshot({ path: output + "/FAIL-" + viewport.label + ".png", fullPage: true, timeout: 15000 }); } catch {}
+    } finally {
+      await page.close();
+      await context.close();
+    }
+  }
+
+  // Keep the Hill Country hero, historical credit and current TPWD link honest
+  // on both real Chrome viewport sizes. This is a non-commerce read-only test.
+  for (const viewport of viewports) {
+    const context = await browser.newContext({
+      viewport: { width: viewport.width, height: viewport.height },
+      isMobile: viewport.isMobile,
+      hasTouch: viewport.isMobile,
+      deviceScaleFactor: 1,
+    });
+    await context.route(/(google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i, route => route.abort());
+    const page = await context.newPage();
+    try {
+      const response = await page.goto(origin + "/article/hill-country-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0, 12), { waitUntil: "domcontentloaded", timeout: 45000 });
+      if (response?.status() !== 200) throw new Error("Hill Country HTTP " + response?.status());
+      await page.getByRole("heading", { level: 1, name: "Where to See Fall Colors in the Texas Hill Country" }).waitFor({ state: "visible", timeout: 20000 });
+      const hero = page.locator('img[alt*="autumn maple leaves"]').first();
+      await hero.waitFor({ state: "attached", timeout: 15000 });
+      await hero.scrollIntoViewIfNeeded();
+      await hero.evaluate(image => image.decode().catch(() => {}));
+      if (await hero.evaluate(image => image.naturalWidth) < 300) throw new Error("Lost Maples hero did not load");
+      const heroSrc = await hero.getAttribute("src");
+      if (!heroSrc?.includes("The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_")) throw new Error("Wrong Hill Country autumn hero: " + heroSrc);
+      await page.getByRole("heading", { name: "Lost Maples foliage updates and photo credits" }).waitFor({ state: "visible" });
+      const tpwd = await page.getByRole("link", { name: /Official Lost Maples foliage report/ }).getAttribute("href");
+      if (tpwd !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Incorrect official foliage report link");
+      await page.getByRole("heading", { name: "Latest stored official Lost Maples foliage observation" }).waitFor({ state: "visible" });
+      const datedSource = await page.getByRole("link", { name: /Read TPWD's dated foliage report/ }).getAttribute("href");
+      if (datedSource !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Dated official foliage feed source missing");
+      for (const [label, expected] of [
+        ["dated official Lost Maples foliage report", "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports"],
+        ["Lost Maples park information and alerts", "https://tpwd.texas.gov/state-parks/lost-maples"],
+        ["official Garner State Park information", "https://tpwd.texas.gov/state-parks/garner"],
+        ["official Guadalupe River State Park visitor guide", "https://tpwd.texas.gov/state-parks/guadalupe-river"],
+      ]) {
+        const link = await page.getByRole("link", { name: new RegExp(label, "i") }).getAttribute("href");
+        if (link !== expected) throw new Error("Hill Country contextual TPWD link missing or wrong: " + label);
+      }
+      await page.getByRole("heading", { level: 3, name: "Are the Hill Country leaves at peak this week?" }).waitFor({ state: "visible" });
+      const photoLink = await page.getByRole("link", { name: /Hero photo: G. Lamar, November 2012/ }).getAttribute("href");
+      if (!photoLink?.includes("29567585500")) throw new Error("Historical photo source link missing");
+      const ccLink = await page.getByRole("link", { name: /CC BY 2.0 license/ }).getAttribute("href");
+      if (ccLink !== "https://creativecommons.org/licenses/by/2.0/") throw new Error("Historical photo rights link missing");
+      if (!await page.getByText("not a verified report of current foliage conditions", { exact: false }).count()) throw new Error("Historical photo caveat missing");
+      if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail on Hill Country article");
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+      if (canonical !== "https://texasdefined.com/article/hill-country-fall-colors") throw new Error("Hill Country canonical incorrect: " + canonical);
+      const robotsMeta = page.locator('meta[name="robots"]');
+      const robots = (await robotsMeta.count()) ? await robotsMeta.first().getAttribute("content") : null;
+      if (/noindex/i.test(robots || "")) throw new Error("Hill Country article unexpectedly noindex");
+      const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+      if (dimensions.document > dimensions.viewport + 8) throw new Error("Hill Country horizontal overflow: " + (dimensions.document - dimensions.viewport));
+      await page.screenshot({ path: output + "/hill-country-" + viewport.label + ".png", fullPage: true, animations: "disabled" });
+      findings.push({ viewport: "hill-country-" + viewport.label, loadedHero: true, historicalCredit: true, officialReport: true, overflow: dimensions.document - dimensions.viewport, result: "pass" });
+      console.log("PASS Hill Country " + viewport.label + " historical hero, rights, official foliage link and responsive layout");
+    } catch (error) {
+      failures.push("hill-country-" + viewport.label + ": " + String(error?.message || error));
+      console.error("::error title=Hill Country foliage browser QA::" + failures.at(-1));
+      try { await page.screenshot({ path: output + "/FAIL-hill-country-" + viewport.label + ".png", fullPage: true, timeout: 15000 }); } catch {}
+    } finally {
+      await page.close();
+      await context.close();
+    }
+  }
+} finally {
+  await browser.close();
+}
+await writeFile(output + "/results.json", JSON.stringify({ findings, failures, sha: process.env.GITHUB_SHA || null }, null, 2));
+if (failures.length) process.exitCode = 1;

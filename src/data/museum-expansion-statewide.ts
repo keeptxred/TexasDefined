@@ -108,8 +108,8 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     coordinates: { lat: 29.873163, lng: -93.932913 },
     hero: museumPlaceholder("Museum of the Gulf Coast"),
     bestSeason: "Year-round indoor museum; a strong all-weather Port Arthur stop that pairs well with coastal, music and petroleum-history itineraries.",
-    entryNote: "The museum currently operates Monday through Saturday and is closed Sundays and holidays. Confirm hours, admission and any temporary gallery closures on the official site before visiting.",
-    highlights: ["Gulf Coast regional history", "Music Hall of Fame", "Sports Hall of Fame", "Natural and maritime history"],
+    entryNote: "As checked October 19, 2026, the museum posts Monday-Saturday hours of 9 a.m.-5 p.m., closed Sundays and holidays. Admission is $8 for adults, $6 for seniors 62+, $3 for ages 4-18 and free for children under 4; college students with valid ID are $4. The public entrance and visitor parking are along Lakeshore Drive at 700 Procter Street. Confirm current fees, holiday hours and gallery closures before traveling.",
+    highlights: ["Gulf Coast history and maritime collections", "Music Hall of Fame including Port Arthur native Janis Joplin", "Sports and Notable People halls of fame", "Regional art and Robert Rauschenberg exhibits"],
     body: [
       "Museum of the Gulf Coast tells the story of the Texas-Louisiana coastal region as a connected place. Permanent exhibits move from natural history and Indigenous presence through European settlement, maritime activity, petroleum development, immigration and the modern industrial Gulf Coast.",
       "Popular-culture galleries broaden that history through people who came from the region. The museum's music and sports halls of fame connect Port Arthur and surrounding communities with nationally known performers and athletes, giving visitors a more personal route into the area's identity.",
@@ -118,7 +118,7 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     officialUrl: "https://www.museumofthegulfcoast.org/",
     managingAuthority: "Port Arthur Historical Society in partnership with the City of Port Arthur",
     address: "700 Procter St, Port Arthur, TX 77640",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
   },
   {
     id: "museum-statewide-mcfaddin-ward",

@@ -1,0 +1,33 @@
+name: Verify original Texas Road Trip Rules GSC authority article
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/texas-road-trip-rules.ts'
+      - 'src/data/fixtures/lazy-evergreen.ts'
+      - 'scripts/ci/verify-built-worker-ssr-core.mjs'
+      - 'scripts/data/validate-texas-road-trip-rules-authority.test.mjs'
+      - '.github/workflows/validate-road-trip-rules-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/texas-road-trip-rules.ts'
+      - 'src/data/fixtures/lazy-evergreen.ts'
+      - 'scripts/ci/verify-built-worker-ssr-core.mjs'
+      - 'scripts/data/validate-texas-road-trip-rules-authority.test.mjs'
+      - '.github/workflows/validate-road-trip-rules-authority.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  article:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/data/validate-texas-road-trip-rules-authority.test.mjs

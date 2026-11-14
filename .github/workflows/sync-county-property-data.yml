@@ -8,6 +8,8 @@ on:
       - main
     paths:
       - 'scripts/data/sync-county-property-data.mjs'
+      - '.github/workflows/sync-county-property-data.yml'
+      - '.github/workflows/finish-county-property-refresh.yml'
   workflow_dispatch:
     inputs:
       county:
@@ -55,6 +57,7 @@ jobs:
 
       - name: Validate generated snapshot and crawl policy
         run: |
+          node --test scripts/data/county-property-snapshot-codec.test.mjs scripts/data/county-office-link-normalization.test.mjs
           node scripts/data/validate-county-property-enrichment.mjs
           node scripts/data/validate-generated-page-quality.mjs
           node scripts/data/validate-entity-template-quality.mjs
@@ -67,7 +70,7 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/property/county-property-enrichment.generated.ts; then
+          if git diff --quiet -- src/data/property/county-property-enrichment.generated.ts src/data/property/county-property-supplement.server.ts; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "County property snapshot is already current."
           else
@@ -79,13 +82,22 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         id: branch
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           branch="automation/county-property-refresh-${GITHUB_RUN_ID}"
+          base_sha="$(git rev-parse main)"
+          # GitHub's token can update source data but cannot introduce
+          # workflow changes in an initial remote branch push. Create
+          # the branch at existing trusted main via the git-refs API first;
+          # push only the new source-data commit on top of that known SHA.
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/git/refs" \
+            -f ref="refs/heads/$branch" -f sha="$base_sha" >/dev/null
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
-          git add src/data/property/county-property-enrichment.generated.ts
+          git add src/data/property/county-property-enrichment.generated.ts src/data/property/county-property-supplement.server.ts
           git commit -m 'Refresh verified county property data'
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
@@ -102,4 +114,4 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh verified Texas county property-tax data' \
-            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. Full repository validation will run on this pull request before merge.'
+            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. The trusted finisher requires source-run identity, zero existing county withdrawals, unchanged researched search/payment links and protected CI before enabling GitHub auto-merge.'

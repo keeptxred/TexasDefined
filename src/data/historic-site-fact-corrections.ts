@@ -37,11 +37,28 @@ export function applyHistoricSiteFactCorrections(destination: Destination): Dest
   }
 
   if (destination.slug === "old-socorro-mission") {
-    // The Commons photo labeled Socorro Mission depicts the currently operating
-    // later mission church, NOT the restricted original archaeological site.
-    // Preserve truthful reference information but noindex the original-site page
-    // until a licensed, exact-original-site photograph is established.
-    return { ...destination, hero: missingDestinationHero(destination) };
+    // THC's protected seventeenth-century archaeological site is NOT the
+    // separately operating nineteenth-century Socorro Mission. Exact-site
+    // photographs are not licensed; keep the index/hero quality gate intact.
+    return {
+      ...destination,
+      address: "10551 Nicholas Rd, Socorro, TX 79927 (CLOSED; not a public entrance)",
+      managingAuthority: "Texas Historical Commission",
+      sourceCheckedAt: "2026-10-30",
+      summary: "The closed Old Socorro Mission archaeological site preserves the history of a seventeenth-century mission church and Piro Pueblo settlement following the 1680 Pueblo Revolt. This is not the operating modern Socorro Mission.",
+      bestSeason: "No public season — the original archaeology site is closed.",
+      entryNote: "CLOSED TO THE PUBLIC. There are no tours, visitor facilities or site entrance. Do not use the protected site's historical address as travel directions. The modern Socorro Mission church is separate.",
+      directions: undefined,
+      reservationUrl: undefined,
+      highlights: [
+        "Protected State Antiquities Landmark, closed to the public",
+        "Piro Pueblo settlement and the aftermath of the 1680 Pueblo Revolt",
+        "Permanent adobe mission church completed by 1691",
+        "Rio Grande floods and the move to a different site in the 1840s",
+        "1980s archaeological excavations identified original church walls",
+      ],
+      hero: missingDestinationHero(destination),
+    };
   }
 
   if (destination.slug === "lipantitlan") {

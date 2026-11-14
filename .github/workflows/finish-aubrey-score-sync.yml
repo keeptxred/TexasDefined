@@ -1,0 +1,82 @@
+name: Finish verified Aubrey scores
+
+on:
+  workflow_run:
+    workflows:
+      - Aubrey verified scores
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: aubrey-scores-protected-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Revalidate exact score-only bot PR and enable protected merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/aubrey-results-${SOURCE_RUN_ID}"
+          result="$(gh pr list --base main --head "$branch" --state open --json number,title,url,headRefOid --limit 2)"
+          count="$(jq 'length' <<< "$result")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No generated Aubrey update PR; no new verified finals.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo 'Ambiguous Aubrey update PR'; exit 1; }
+          pr="$(jq -r '.[0].number' <<< "$result")"
+          url="$(jq -r '.[0].url' <<< "$result")"
+          title="$(jq -r '.[0].title' <<< "$result")"
+          [[ "$title" == 'Publish independently verified Aubrey football finals' ]] || exit 1
+          author="$(gh api "repos/$REPOSITORY/pulls/$pr" --jq '.user.login')"
+          [[ "$author" == 'github-actions[bot]' ]] || { echo 'Untrusted PR author'; exit 1; }
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          git checkout -B "$branch" "origin/$branch"
+          base="$(git merge-base origin/main HEAD)"
+          changed="$(git diff --name-only "$base" HEAD)"
+          [[ "$changed" == 'src/data/high-school-football/aubrey-auto-results.snapshot.json' ]] || {
+            echo 'Generated PR must change exactly one Aubrey score snapshot file.'
+            exit 1
+          }
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git merge --no-edit origin/main
+            changed="$(git diff --name-only origin/main HEAD)"
+            [[ "$changed" == 'src/data/high-school-football/aubrey-auto-results.snapshot.json' ]] || exit 1
+            git push origin "HEAD:$branch"
+          fi
+          sha="$(git rev-parse HEAD)"
+          node --test scripts/ci/test-aubrey-verified-results.mjs
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$sha" ]] || { echo 'PR changed after validation'; exit 1; }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo 'Main advanced; leave PR open rather than auto-publish stale results.'
+            exit 1
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$sha"             -f state='success' -f context='Required merge gate'             -f description='Exact Aubrey snapshot passed protected canonical and merge-gate validation'             -f target_url="$url" >/dev/null
+          gh pr merge "$url" --auto --squash --match-head-commit "$sha"
+          echo "Protected auto-merge enabled for validated Aubrey score PR: $url"

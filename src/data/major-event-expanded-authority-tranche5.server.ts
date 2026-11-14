@@ -16,10 +16,10 @@ const expandedDetails: ExpandedDetails[] = [
     planningSections: [
       { title: "Be downtown well before 9 a.m.", body: "The City of Houston lists the 2026 parade for 9 a.m. on Thanksgiving morning. Build in time for downtown access, walking and finding a viewing location before the route becomes crowded." },
       { title: "Review the street closures", body: "The city publishes a parade street-closure schedule and route information. Check the current version before choosing parking or a drop-off point." },
-      { title: "Decide between free viewing and reserved seating", body: "Most spectators can view from the route, while the city also provides reserved-seat information when sales are available. Confirm the current options before the event." },
+      { title: "Decide between free viewing and reserved seating", body: "The City of Houston confirms its 77th H-E-B Thanksgiving Day Parade on November 26, 2026 at 9 a.m. Downtown public route viewing and reserved parade seating are separate options. The city's official event page links to a route map, Grand Marshal and performer details, and reserved-seat purchasing; use those current links rather than an unofficial resale listing." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Plan more of the Houston holiday visit." }, { href: "/events", label: "Texas events calendar", description: "Compare other Texas holiday events." }],
-    sources: [{ label: "City of Houston Thanksgiving Day Parade", url: "https://www.houstontx.gov/thanksgivingparade/index.html" }, { label: "Houston Mayor's Office of Special Events", url: "https://preflight.houstontx.gov/specialevents/index.html" }],
+    sources: [{ label: "City of Houston Thanksgiving Day Parade", url: "https://www.houstontx.gov/thanksgivingparade/index.html" }, { label: "Houston Thanksgiving Parade official volunteer and participation logistics", url: "https://www.houstontx.gov/thanksgivingparade/volunteer.html" }],
   },
   {
     slug: "charro-days-fiesta",

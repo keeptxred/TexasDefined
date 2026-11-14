@@ -38,6 +38,7 @@ if (!errors.length) {
   const indexPage = read(files.indexPage);
   const detailRoute = read(files.detailRoute);
   const detailPage = read(files.detailPage);
+  requireText(detailPage, "if (!district) return <Container", "async ISD profile SSR undefined guard");
   const schoolProfile = read(files.schoolProfile);
   const finder = read(files.finder);
   const relocation = read(files.relocation);
@@ -62,6 +63,16 @@ if (!errors.length) {
     'score >= 90 && score === bestScore',
   ]) requireText(directory, marker, 'Indexed, tie-safe AskTED matcher');
   if (directory.includes('const ranked = matcher.rows')) errors.push('Football ISD matching must not rescan the entire TEA directory for every program.');
+  // The ISD index and profile never render UIL championship history. Keep
+  // those optional archive chunks out of the cold Worker route import graph.
+  // Dynamic lookups are still required for explicit team-history searches.
+  for (const symbol of ['loadUilRecentFootballHistory', 'loadUilAllTimeFootballHistory']) {
+    if (directory.includes('  ' + symbol + ',')) errors.push('Eager heavyweight UIL history import in ISD SSR: ' + symbol);
+  }
+  for (const module of ['./uil-football-recent-history.server', './uil-football-all-time-history.server']) {
+    requireText(directory, "import('" + module + "')", 'Lazy archive imports for explicit football search');
+    requireText(directory, 'import type {', 'History types must be erased from Worker SSR runtime');
+  }
 
   for (const marker of [
     'isdProfilePath?: string',
@@ -111,6 +122,21 @@ if (!errors.length) {
     'School lists inside each ISD are ordered by UIL enrollment classification from 6A through 1A',
     'Browse all 1,268 UIL programs',
   ]) requireText(indexPage, marker, 'Football ISD index page');
+
+  // Google fetched Katy ISD successfully on 2026-10-17 but recorded a
+  // noindex meta tag, while Houston ISD was indexed. The route loader throws a
+  // 404 for genuinely missing districts; its head fallback must not interpret
+  // unresolved streamed loaderData as a permanent indexability decision.
+  if (!detailRoute.includes("if (!profile) throw notFound()")) {
+    errors.push('Unknown football ISD routes must still fail closed with notFound().');
+  }
+  if (!detailRoute.includes("if (!loaderData) return { meta: [{ title: 'Texas high school football by ISD' }] };")) {
+    errors.push('Unresolved ISD loader data must retain a safe, non-noindex head fallback.');
+  }
+  const unresolvedIsdHead = detailRoute.split("if (!loaderData) return")[1]?.split("\n")[0] ?? '';
+  if (/noindex|robots/.test(unresolvedIsdHead)) {
+    errors.push('ISD async head fallback must not publish noindex before the route loader has resolved.');
+  }
 
   for (const marker of [
     "createFileRoute('/texas-high-school-football-isds/$slug')",

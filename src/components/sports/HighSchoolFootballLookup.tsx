@@ -96,6 +96,9 @@ export function HighSchoolFootballLookup({
   useEffect(() => {
     if (!countyName) return;
     const controller = new AbortController();
+    let cancelled = false;
+    let timedOut = false;
+    const deadline = setTimeout(() => { timedOut = true; controller.abort(); }, 16000);
 
     async function loadCounty() {
       setLoading(true);
@@ -113,16 +116,19 @@ export function HighSchoolFootballLookup({
         setSelectedKeys([]);
         setShowAllMatches(showAllByDefault);
       } catch (cause) {
-        if (controller.signal.aborted) return;
-        setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
+        if (cancelled) return;
+        setError(timedOut
+          ? 'The county football lookup timed out. Use the statewide finder or a school guide while the directory recovers.'
+          : cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
         setPrograms([]);
       } finally {
-        if (!controller.signal.aborted) setLoading(false);
+        clearTimeout(deadline);
+        if (!cancelled) setLoading(false);
       }
     }
 
     void loadCounty();
-    return () => controller.abort();
+    return () => { cancelled = true; clearTimeout(deadline); controller.abort(); };
   }, [countyName, showAllByDefault]);
 
   const runQuery = useCallback(async (value: string) => {

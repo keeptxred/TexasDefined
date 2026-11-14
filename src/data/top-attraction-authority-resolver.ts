@@ -17,12 +17,52 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
     {
       label: "Moody Gardens — current hours and pricing",
       url: "https://www.moodygardens.com/visitor-info/hours",
-      scope: "Current attraction schedules, Discovery Museum closure guidance and daily visitor information.",
+      scope: "Published attraction hours, current special-event schedule changes and day-specific visitor information.",
     },
     {
       label: "Moody Gardens — visitor FAQ and parking",
       url: "https://www.moodygardens.com/visitor-info/faq",
       scope: "Current parking, accessibility, ticketing and visitor-policy guidance.",
+    },
+    {
+      label: "Moody Gardens — Aquarium Pyramid and Coral Reef Lab",
+      url: "https://www.moodygardens.com/attractions/aquarium-pyramid",
+      scope: "First-party marine habitats, Jellyfish Gallery, animal encounters and Flower Garden Banks sanctuary conservation context.",
+    },
+    {
+      label: "Moody Gardens — Rainforest Pyramid exhibit sequence",
+      url: "https://www.moodygardens.com/attractions/rainforest-pyramid",
+      scope: "First-party canopy, Nightfall, rainforest-floor habitats, giant river otters and free-roaming birds.",
+    },
+    {
+      label: "Moody Gardens — Discovery Pyramid and Galveston Children's Museum",
+      url: "https://www.moodygardens.com/attractions/discovery-pyramid",
+      scope: "Operator-confirmed open children's museum, upstairs location, ticket-specific admission requirements, members-only morning hour and Audience Recognition Theater.",
+    },
+    {
+      label: "Galveston Children's Museum — own hours and admission",
+      url: "https://www.galvestoncm.org/general-info-admission",
+      scope: "First-party museum-specific holiday closures, Galveston Children's Museum-only early member hour, and admission ages; not a generic pyramid schedule.",
+    },
+    {
+      label: "Galveston Children's Museum — named exhibit spaces",
+      url: "https://www.galvestoncm.org/exhibits",
+      scope: "Operator descriptions of Our Town fishing-boat and turtle-clinic play, the Room to Grow age-2-to-5 calm area, and other hands-on exhibits.",
+    },
+    {
+      label: "Moody Gardens — accessibility",
+      url: "https://www.moodygardens.com/visitor-info/accessibility",
+      scope: "Wheelchairs, accessible seating, captioning and Rainforest Pyramid service-animal policy.",
+    },
+    {
+      label: "Moody Gardens — maps, directions and parking",
+      url: "https://www.moodygardens.com/visitor-info/map-directions",
+      scope: "Official driving directions, complimentary self-parking and paid parking upgrade options.",
+    },
+    {
+      label: "Moody Gardens — official ticket checkout",
+      url: "https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&cg=ti",
+      scope: "Current ticket prices, age categories and Value Pass options; variable amounts must not be hardcoded.",
     },
     {
       label: "Moody Gardens — events calendar",
@@ -40,9 +80,9 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
  */
 export function resolveTopAttractionAuthority(destination: Destination): Destination {
   const authority = applyTopAttractionAuthority(destination);
-  const base = authority.slug === "moody-gardens" && authority.sourceCheckedAt !== "2026-10-05"
-    ? { ...authority, sourceCheckedAt: "2026-10-05" }
-    : authority;
+  // Preserve the destination's genuine last verified date. Never backdate a
+  // fresh operator check to an older editorial snapshot.
+  const base = authority;
   if (!base.authorityGuide) return base;
   const currentSources = base.slug === "moody-gardens" ? moodyGardensSources() : [];
   return {

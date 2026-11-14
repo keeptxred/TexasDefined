@@ -16,9 +16,9 @@ function requireText(source, needle, label) {
 }
 
 for (const [needle, label] of [
-  ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
+  ["buildCjAccountClick('booking.com', pathname, BOOKING_CAR_RENTAL_DESTINATION)", 'reviewed account-specific Cars creative and page SID'],
   ['https://www.booking.com/cars/country/us.html', 'Booking.com U.S. car-rental destination'],
-  ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ deep-link base'],
+  ["import { buildCjAccountClick } from '@/lib/cj-account-links'", 'shared advertiser-scoped CJ builder'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Compare rental cars on Booking.com', 'Booking.com car-rental CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings', 'affiliate disclosure'],

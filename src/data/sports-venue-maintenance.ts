@@ -13,7 +13,7 @@ export function applySportsVenueMaintenance(
       ...profile,
       parking: 'Toyota Stadium is in a multi-year modernization, so available lots, open stadium sides and pedestrian routes can change as construction advances. FC Dallas publishes the current paid, reserved and season-member parking plan for each renovation phase; use that live matchday guidance instead of a prior-season map.',
       arrival: 'Construction is changing normal stadium circulation through the phased modernization. Confirm the current open gates, concourses and parking approaches on FC Dallas’s official stadium information page before driving to Frisco rather than relying on a fixed side-of-stadium instruction.',
-      verifiedAt,
+      verifiedAt: '2026-10-19',
     };
   }
 

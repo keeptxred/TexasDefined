@@ -127,7 +127,7 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
                 <dl className="mt-4 space-y-2 text-xs leading-5">
                   <div><dt className="font-semibold text-foreground">Counties to check</dt><dd className="text-muted-foreground">{metro.counties.join(", ")}</dd></div>
                   <div><dt className="font-semibold text-foreground">Places in the research layer</dt><dd className="text-muted-foreground">{metro.places.join(", ")}</dd></div>
-                  {metro.jobCountJune2026 && <div><dt className="font-semibold text-foreground">June 2026 nonfarm payrolls</dt><dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS preliminary</dd></div>}
+                  {metro.jobCountAugust2026 ? <div><dt className="font-semibold text-foreground">August 2026 nonfarm payrolls</dt><dd className="text-muted-foreground">{metro.jobCountAugust2026.toLocaleString()} · BLS preliminary</dd></div> : metro.jobCountJune2026 ? <div><dt className="font-semibold text-foreground">June 2026 nonfarm payrolls (historical)</dt><dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS historical snapshot</dd></div> : null}
                 </dl>
                 <a href={metro.guideHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open metro guide →</a>
               </article>)}

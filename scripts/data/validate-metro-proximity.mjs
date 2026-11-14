@@ -28,6 +28,11 @@ const paths = {
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   audit: "scripts/data/audit-metro-proximity-index-readiness.ts",
   auditRunner: "scripts/data/run-metro-proximity-audit.mjs",
+  restrictedOwnerMedia: "src/data/restricted-owner-destination-media.ts",
+  oliveDestination: "src/data/viator-destination-expansion-wave12.ts",
+  destinationRuntime: "src/data/destination-query-runtime.ts",
+  metroProductionBrowser: "scripts/ci/verify-metro-day-trips-production.mjs",
+  oliveRights: "docs/image-rights/texas-hill-country-olive-co-2026-10-27.md",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -36,6 +41,45 @@ for (const path of Object.values(paths)) {
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+
+// Restricted owner-supplied Olive Co. photos must survive a valid remote
+// destination winning source precedence. Preserve the exact rights-governed
+// media without making the full local record outrank current remote editorial data.
+for (const token of [
+  'const OWNER_MEDIA_SLUG = "texas-hill-country-olive-co"',
+  'const OWNER_HERO = "/images/destinations/texas-hill-country-olive-co-bistro.webp"',
+  'const OWNER_GALLERY = "/images/destinations/texas-hill-country-olive-co-exterior.webp"',
+  'const OWNER_CREDIT = "Texas Hill Country Olive Co."',
+  'const OWNER_SOURCE = "https://texashillcountryoliveco.com/"',
+  "export function applyRestrictedOwnerDestinationMedia",
+  "hero: approved.hero",
+  "gallery,",
+]) requireText(files.restrictedOwnerMedia, token, `Olive Co. restricted owner-media reconciliation missing ${token}`);
+for (const token of [
+  'import { applyRestrictedOwnerDestinationMedia } from "./restricted-owner-destination-media";',
+  "return applyRestrictedOwnerDestinationMedia(enhanced);",
+]) requireText(files.destinationRuntime, token, `resolved destination does not preserve Olive Co. licensed media: ${token}`);
+for (const token of [
+  "/images/destinations/texas-hill-country-olive-co-bistro.webp",
+  "/images/destinations/texas-hill-country-olive-co-exterior.webp",
+  'sourceUrl: "https://texashillcountryoliveco.com/"',
+]) requireText(files.oliveDestination, token, `Olive Co. canonical licensed-media record missing ${token}`);
+for (const token of [
+  "non-exclusive, royalty-free, revocable",
+  "No advertising, sponsored or paid placements; no merchandise.",
+  "No generative-AI alteration or enhancement.",
+  "remove both photos from all uses within 14 days",
+]) requireText(files.oliveRights, token, `Olive Co. rights restriction missing ${token}`);
+for (const token of [
+  'photo("texas-hill-country-olive-co-exterior.webp")',
+  "proof.exterior?.loaded",
+  "proof.credit",
+  'proof.preview.loaded',
+  'proof.preview.width===1600&&proof.preview.height===900',
+  'ogImage==="https://texasdefined.com/images/discover/texas-hill-country-olive-co.webp"',
+  'await image.decode()',
+]) requireText(files.metroProductionBrowser, token, `Olive Co. production photo acceptance weakened: ${token}`);
+requireText(files.test, "owner-licensed Olive Co. gallery survives remote destination precedence", "Olive Co. remote-precedence regression test missing");
 
 for (const token of [
   'slug: "old-hidalgo-pumphouse-museum"',
@@ -67,7 +111,7 @@ for (const token of [
 
 for (const token of [
   'collection.slug !== "things-to-do" && collection.slug !== "weekend-trips"',
-  "effectiveEnd", "horizonIso", "resultTownKeys", "metroKeys", "eventIdentity",
+  "effectiveEnd", "horizonIso", "resultTownKeys", "representedTownKeys", "townReferences", "metroKeys", "eventIdentity",
   "event.ticketCta?.isAffiliate", 'protocol === "https:"', ".slice(0, 12)",
 ]) requireText(files.eventSelection, token, `metro event selector contract missing ${token}`);
 for (const token of [
@@ -76,7 +120,7 @@ for (const token of [
   "buildMetroProximityEventContextServer",
 ]) requireText(files.eventServer, token, `metro event server contract missing ${token}`);
 for (const token of [
-  "buildMetroProximityEventContextServer", "eventContext",
+  "buildMetroProximityEventContextServer", "eventContext", "results, townReferences",
 ]) requireText(files.pageData, token, `metro event page-data integration missing ${token}`);
 for (const token of [
   "EventTicketCta", "event.ticketCta", "Upcoming events in and near",
@@ -236,6 +280,20 @@ for (const token of [
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
+// Preserve two operator-backed McAllen day trips without pretending that an
+// incomplete local destination page exists. They intentionally link externally.
+for (const marker of [
+  'slug: "quinta-mazatlan"',
+  'title: "Quinta Mazatlán"',
+  'slug: "sabal-palm-sanctuary"',
+  'title: "Sabal Palm Sanctuary & Historic Rabb Plantation"',
+  'https://www.quintamazatlan.com/visit-explore/park-hours-admission',
+  'https://www.sabalpalmsanctuary.org/',
+  'externalOnly: true',
+  '!("externalOnly" in trip) && <Link',
+  'Quinta Mazatlán offers a close-to-home nature outing',
+]) requireText(files.collectionUi, marker, `McAllen verified operator day trip missing ${marker}`);
+
 // The McAllen lighthouse editorial card must link to the actual canonical
 // destination slug, not a non-existent historic-site alias.
 requireText(files.collectionUi, 'slug: "port-isabel-lighthouse"', "McAllen Port Isabel Lighthouse link must use the canonical destination slug");
@@ -330,5 +388,17 @@ for (const forbidden of [
 ]) {
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
+
+
+// GSC 2026-10-29: "day trips from texarkana" surfaced the broad hub in 85
+// impressions, while the correct day-trip child received six. Preserve distinct
+// intent ownership without noindexing or canonicalizing either useful page.
+for (const expected of [
+  'Things to Do Near Texarkana: Parks, Towns & Guides',
+  'Day Trips From Texarkana: Parks, Towns & Outings',
+  'const isTexarkanaDayTrips = metro.slug === "texarkana" && collection.slug === "day-trips"',
+  'source-backed day-trip destinations from Texarkana',
+]) requireText(files.pageData, expected, 'Texarkana broad-vs-day-trip SEO intent contract missing: ' + expected);
+requireText(files.hubComponent, 'Day Trips From Texarkana', 'Texarkana hub must link with descriptive day-trip intent anchor');
 
 console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations remain distance-ranked, source-backed, diversity-gated, duplicate-resistant and fail-closed for indexing, with supplemental official-source town references allowed to close verified geography gaps without manufacturing thin destination pages.");

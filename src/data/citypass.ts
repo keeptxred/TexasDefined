@@ -2,11 +2,11 @@ export const CITYPASS_GUIDE_PATH = "/guides/citypass-texas";
 
 export type CityPassMarket = "Dallas" | "Houston" | "San Antonio";
 
-// The three 7eer tracked URLs were repeatedly HTTP 404 during independent
-// production QA on 2026-10-10. Retain the exact approved campaign identifiers
-// for partner remediation, but NEVER send readers to known-dead redirect URLs
-// until a new tracked destination has been verified in a real browser.
-export const CITYPASS_AFFILIATE_LINKS_ENABLED = false;
+// Official CityPASS CJ creatives were reconfirmed in the account-specific Get Code
+// screens on 2026-10-29 (TexasDefined publisher 101876465). The retired 7eer
+// redirects returned 404; only the new CJ market-specific Click URLs are active.
+// Keep the official product URLs below as the explicit non-affiliate fallback.
+export const CITYPASS_AFFILIATE_LINKS_ENABLED = true;
 
 export const CITYPASS_OFFICIAL_URLS: Readonly<Record<CityPassMarket, string>> = {
   "Dallas": "https://www.citypass.com/dallas",
@@ -15,9 +15,9 @@ export const CITYPASS_OFFICIAL_URLS: Readonly<Record<CityPassMarket, string>> = 
 };
 
 export const CITYPASS_AFFILIATE_URLS: Readonly<Record<CityPassMarket, string>> = {
-  "Dallas": "https://citypass.7eer.net/c/7236213/305537/3331",
-  "Houston": "https://citypass.7eer.net/c/7236213/305542/3331",
-  "San Antonio": "https://citypass.7eer.net/c/7236213/305547/3331",
+  "Dallas": "https://www.dpbolvw.net/click-101876465-12186930",
+  "Houston": "https://www.jdoqocy.com/click-101876465-17329800",
+  "San Antonio": "https://www.dpbolvw.net/click-101876465-17329806",
 };
 
 const DESTINATION_MARKETS: Readonly<Record<string, CityPassMarket>> = {

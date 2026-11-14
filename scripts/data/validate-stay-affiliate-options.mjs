@@ -1,3 +1,4 @@
+import { expectedCjAccountClick } from '../ci/cj-account-link-contract.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
@@ -15,8 +16,21 @@ const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md',
 const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
 const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
 const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+
 // Expedia owns async DOM placement. The CJ layer must be explicitly notified
 // after insertion and route updates, rather than relying on main subtree timing.
+// Preserve the verified local-US Magnolia hotel and rental destinations.
+for (const marker of [
+  'const isMagnoliaWacoGuide',
+  'https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center',
+  'Browse rentals near Waco Convention Center on Vrbo',
+]) {
+  if (!source.includes(marker)) throw new Error('Waco stay destination changed: ' + marker);
+}
+if (source.includes('https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco')) {
+  throw new Error('Waco stays must not revert to the Canadian-dollar Vrbo catalog');
+}
 const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
 if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
   throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
@@ -31,6 +45,73 @@ for (const needle of [
 }
 
 const errors = [];
+
+function hotelsEvergreenMatches(value, destination, sid) {
+  try {
+    const u = new URL(value);
+    const actualSid = u.searchParams.get('sid') || '';
+    return u.origin === 'https://www.anrdoezrs.net' &&
+      u.pathname === '/click-101876465-15734399' &&
+      u.searchParams.size === 2 &&
+      u.searchParams.get('url') === destination &&
+      /^td_[a-z0-9_]{1,60}$/.test(actualSid) &&
+      actualSid.length <= 64 &&
+      (!sid || actualSid === sid);
+  } catch { return false; }
+}
+
+// Fort McKavett is a history-and-visitor guide, so lodging belongs with
+// practical visit planning. Avoid two near-identical hotel headings at page end.
+if (!destinationPlanner.includes('destination.slug !== "fort-mckavett" && (') ||
+    !destinationPlanner.includes('<div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />')) {
+  errors.push('Destination Visit Planner must not duplicate Fort McKavett\'s earlier contextual lodging slot.');
+}
+if (!destinationRouteSource.includes('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot')) {
+  errors.push('Fort McKavett destination guide must explicitly place Stay Nearby immediately after Planning your visit.');
+}
+const routePlanning = destinationRouteSource.indexOf('id="before-you-go"');
+const routeSlot = destinationRouteSource.indexOf('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot');
+const routeResearch = destinationRouteSource.indexOf('id="destination-research-sources"');
+if (!(routePlanning >= 0 && routePlanning < routeSlot && routeSlot < routeResearch)) {
+  errors.push('Fort McKavett lodging slot must be after visitor planning and before research citations.');
+}
+for (const snippet of [
+  'if (normalizePath() !== "/destination/fort-mckavett" && normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading);',
+  'if (normalizePath() === "/destination/fort-mckavett") {',
+  'if (slot && current.parentElement !== slot) placeSurface(current, main);',
+]) if (!expediaBootstrap.includes(snippet)) {
+  errors.push('Fort McKavett consolidated lodging heading or late-hydration repositioning missing: ' + snippet);
+}
+
+// The Expedia button must be the SAME click-loaded button, inside the CJ
+// action row before Vrbo, and not a duplicate second lodging box.
+for (const [sourceText, needle, label] of [
+  [expediaBootstrap, 'search.dataset.expediaStaysSearch = "true"', 'original Expedia search control marked for relocation'],
+  [expediaBootstrap, 'disclosure.dataset.expediaDisclosure = "true"', 'original Expedia disclosure identified for consolidation'],
+  [expediaBootstrap, '? "py-2" : "border-y border-border py-8"', 'avoid double-bordered Fort McKavett lodging boxes'],
+  [source, 'function unifyFortMcKavettBookingActions(surface, choice)', 'Fort McKavett one-panel integration'],
+  [source, 'actions.insertBefore(expediaButton, vrbo);', 'Expedia button immediately before Vrbo'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}', 'Expedia and Vrbo adjacent in a two-column desktop grid'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{grid-template-columns:1fr}', 'one-column mobile stay actions'],
+  [source, 'panel.appendChild(widgetHost)', 'Expedia widget inside same booking panel'],
+  [source, 'surface.querySelector(\'[data-expedia-disclosure="true"]\')?.remove();', 'single consolidated affiliate disclosure'],
+  [source, 'unifyFortMcKavettBookingActions(expediaSurface, choice);', 'one-panel integration is invoked'],
+]) if (!sourceText.includes(needle)) errors.push('Fort McKavett unified lodging regression: ' + label);
+
+// Camping must have one affiliate panel, not separate CJ and Expedia boxes.
+// Keep the original click-loaded search and all four tracked providers.
+for (const [body, marker, label] of [
+  [expediaBootstrap, 'normalizePath() === "/best-places-to-go-camping-in-texas") search.dataset.expediaStaysSearch = "true"', 'Expedia search relocation marker'],
+  [expediaBootstrap, 'normalizePath() === "/best-places-to-go-camping-in-texas") disclosure.dataset.expediaDisclosure = "true"', 'Expo disclosure relocation marker'],
+  [expediaBootstrap, 'normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading)', 'separate Expedia heading suppressed'],
+  [source, 'function unifyCampingBookingActions(surface, choice)', 'camping-specific consolidation'],
+  [source, 'heading.textContent = "RV rentals and nearby stays"', 'single lodging heading'],
+  [source, 'actions.appendChild(expediaButton)', 'same Expedia button inserted into CJ choices'],
+  [source, 'surface.querySelector(".td-stay-widget-host")', 'widget host kept in panel'],
+  [source, 'surface.dataset.stayConsolidated = "camping"', 'idempotence marker'],
+  [source, 'unifyCampingBookingActions(expediaSurface, choice);', 'consolidation invoked on sync'],
+]) if (!body.includes(marker)) errors.push('Camping one-panel lodging regression: ' + label);
+
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
 }
@@ -118,7 +199,7 @@ try {
         for (const choice of choices) {
           if (!choice.destination.startsWith('https://www.hotels.com/ho')
             || !choice.sourceUrl.startsWith('https://')
-            || !api.buildCjDeepLink(choice.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
+            || !hotelsEvergreenMatches(api.buildCjDeepLink(choice.destination), choice.destination)) {
             errors.push(`Casino route ${route} must use verified Hotels.com exact property and CJ deep link.`);
           }
         }
@@ -144,9 +225,16 @@ try {
     const travelocityDeepLink = api.buildCjDeepLink('https://www.travelocity.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
     const rvshareDeepLink = api.buildCjDeepLink('https://rvshare.com/');
-    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
-      if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
-        errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
+    if (!hotelsEvergreenMatches(hotelsDeepLink, 'https://www.hotels.com/')) {
+      errors.push('Hotels.com must use CJ-approved Evergreen PID 101876465 and AID 15734399, with a bounded route SID.');
+    }
+    const palestineDestination = 'https://www.hotels.com/de1634643/hotels-palestine-texas/';
+    if (!hotelsEvergreenMatches(api.buildCjDeepLink(palestineDestination, '/event/polar-express-palestine'), palestineDestination, 'td_polar_palestine')) {
+      errors.push('Palestine referral must preserve CJ PID/AID, city deep link and td_polar_palestine SID.');
+    }
+    for (const [value, partner] of [[orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
+      if (value !== expectedCjAccountClick(partner.toLowerCase(), '/')) {
+        errors.push(`${partner} must use its independently verified CJ creative, exact destination and page SID.`);
       }
     }
 
@@ -191,7 +279,7 @@ try {
       if (seenPropertyDestinations.has(destination)) errors.push(`${property.id} reuses another property's Hotels.com destination: ${destination}`);
       seenPropertyDestinations.add(destination);
       const affiliateUrl = api.buildCjDeepLink(destination);
-      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) {
+      if (!hotelsEvergreenMatches(affiliateUrl, destination)) {
         errors.push(`${property.id} exact Hotels.com target does not generate a TexasDefined CJ deep link.`);
       }
     }
@@ -206,7 +294,7 @@ try {
         || stay.destination !== 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/'
         || stay.sourceUrl !== 'https://www.hotelpdn.com/location'
         || stay.verifiedAt !== '2026-10-17'
-        || !api.buildCjDeepLink(stay.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/')) {
+        || !hotelsEvergreenMatches(api.buildCjDeepLink(stay.destination, '/destination/hotel-paso-del-norte'), stay.destination, 'td_destination_hotel_paso_del_norte')) {
         errors.push('Hotel Paso exact-property listing, verified operator identity or publisher deeplink drifted.');
       }
       for (const pathname of ['/destination/magoffin-home', '/city/el-paso', '/county/el-paso', '/destination/hotel-paso-del-norte-other', '/explore/casinos/near-houston']) {
@@ -243,7 +331,7 @@ try {
       if (seenFeaturedGolfDestinations.has(stay.destination)) errors.push(`${pathname} reuses another featured golf Hotels.com destination.`);
       seenFeaturedGolfDestinations.add(stay.destination);
       const affiliateUrl = api.buildCjDeepLink(stay.destination);
-      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) errors.push(`${pathname} featured golf stay does not generate a TexasDefined CJ deep link.`);
+      if (!hotelsEvergreenMatches(affiliateUrl, stay.destination)) errors.push(`${pathname} featured golf stay does not generate a TexasDefined CJ deep link.`);
     }
     if (api.featuredGolfStay('/sports-venue/colonial-country-club') !== null) errors.push('Colonial must keep its governed three-card cohort instead of receiving the text-only featured-golf fallback.');
     if (api.featuredGolfStay('/sports-venue/globe-life-field') !== null) errors.push('Non-golf venues must fail closed for the featured-golf stay mapping.');
@@ -273,7 +361,7 @@ if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaP
 
 for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
-  ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
+  ['CJ_VERIFIED_STAY_LINKS', 'verified advertiser-specific Get Code registry'],
   ['const VERIFIED_PROPERTY_DESTINATIONS = new Map([', 'exact Hotels.com property registry'],
   ['const FEATURED_GOLF_STAYS = new Map([', 'source-backed featured golf stay registry'],
   ['https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'Omni PGA Frisco exact Hotels.com target'],
@@ -393,7 +481,8 @@ if (!eventRoute.includes('LEGACY_PLAN_VISIT_HEADING') || !eventRoute.includes('"
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
   ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
-  ['Things to do and see', 'destination planning adjacency'],
+  ['destinationEditorialLinks(destination.slug)', 'destination-specific planning adjacency'],
+  ['Related editorial guides for ${destination.name}', 'accessible related-guide navigation'],
 ]) requireText(destinationPlanner, needle, label);
 
 for (const [needle, label] of [

@@ -50,14 +50,88 @@ async function discoverImagePurgeUrls() {
 const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
 
 const alwaysPurgeUrls = [
+  // Ten source-verified music history authority articles: earlier acceptance
+  // only exercised nonce queries, which may hide older clean HTML at the edge.
+  // Purge canonical HTML after a verified Worker replacement; never purge the zone.
+  ...[
+    "/broken-spoke-austin-history",
+    "/continental-club-austin-history",
+    "/antones-austin-history",
+    "/billy-bobs-texas-history",
+    "/texas-music-cities",
+    "/austin-music-history",
+    "/houston-music-history",
+    "/san-antonio-music-history",
+    "/corpus-christi-music-history",
+    "/lubbock-music-history",
+  ].map((path) => `https://${zoneName}${path}`),
+  // Protected attraction PR #7014 changes shared route metadata, city discovery,
+  // county visitor links and image rights. Invalidate exactly these canonical
+  // pages after successful Worker replacement, never the whole zone.
+  ...[
+    "/destination/san-antonio-japanese-tea-garden",
+    "/destination/fort-worth-water-gardens",
+    "/destination/houston-botanic-garden",
+    "/city/san-antonio",
+    "/city/fort-worth",
+    "/city/houston",
+    "/county/bexar",
+    "/county/tarrant",
+    "/county/harris",
+    "/sitemap-explore.xml",
+  ].map((path) => `https://${zoneName}${path}`),
+  // Google-specific indexing changes must not leave a stale primary XML sitemap
+  // in Cloudflare's edge cache after the Worker deploys the new policy.
+  `https://${zoneName}/sitemap.xml`,
+  // List and map use separate query-string cache keys. Purge each visitor
+  // variant after verified Worker replacement; stale ?view=map HTML otherwise
+  // can keep presenting a superseded 15-lake map after source updates.
+  `https://${zoneName}/fishing/plan`,
+  `https://${zoneName}/fishing/plan?view=map`,
+  `https://${zoneName}/fishing/plan?view=list`,
+  // Preserve the 72-guide fishing release after every Worker update; a stale
+  // edge snapshot must not show an old species grade, defensive copy or layout.
+  ...[
+    "/fishing/lakes",
+    "/fishing/lakes/falcon-international-reservoir",
+    "/fishing/lakes/lake-somerville",
+    "/fishing/lakes/lake-bridgeport",
+    "/fishing/lakes/lake-tawakoni",
+    "/fishing/lakes/richland-chambers-reservoir",
+    "/fishing/lakes/cedar-creek-reservoir",
+    "/fishing/lakes/lake-palestine",
+    "/fishing/lakes/medina-lake",
+    "/fishing/lakes/lake-sweetwater",
+  ].map((path) => "https://" + zoneName + path),
+  // Preserve the live, ordinary Fredericksburg weekend article after editorial rewrites.
+  `https://${zoneName}/article/fredericksburg-texas-wineries-things-to-do-guide`,
+  // Keep source-verified 2027 Mardi Gras guide and statewide calendar canonical HTML in sync
+  // with new Worker releases. A cancelled deploy can otherwise leave 2026 edge HTML cached.
+  `https://${zoneName}/event/oak-cliff-mardi-gras-parade`,
+  // Public 2027 Port Arthur gate-hour corrections must reach ordinary visitor HTML too.
+  `https://${zoneName}/event/mardi-gras-port-arthur`,
+  // Independently licensed Beaumont images must not be hidden behind stale noindex HTML.
+  `https://${zoneName}/event/mardi-gras-southeast-texas-beaumont`,
+  `https://${zoneName}/event/beaumont-pardi-gras`,
+  `https://${zoneName}/events/mardi-gras`,
   ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.
   `https://${zoneName}/event/chappell-hill-bluebonnet-festival`,
   `https://${zoneName}/article/ima-hogg-texas-legacy`,
   `https://${zoneName}/article/camping-in-texas-with-your-dog`,
   `https://${zoneName}/article/texas-high-school-football-scores-schedules`,
-  // District 22 uses a published game-week snapshot; stale HTML must not keep the old directory-only layout.
+  // Published football game-week snapshots and their linked school profiles
+  // share a sourced league ledger. Invalidate the whole local authority cluster
+  // after a verified deployment; do not leave old HTML pointing at new game data.
   `https://${zoneName}/texas-high-school-football-districts/6a-district-22`,
+  // Katy's evergreen football guide must not retain a cached 2026-schedule SEO title or obsolete PDF after release.
+  `https://${zoneName}/texas-high-school-football-teams/katy`,
+  `https://${zoneName}/texas-high-school-football-districts/6a-district-21`,
+  ...[
+    'fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements',
+    'fort-bend-elkins', 'fort-bend-hightower', 'fort-bend-ridge-point',
+    'fort-bend-travis', 'houston-strake-jesuit',
+  ].map((slug) => `https://${zoneName}/texas-high-school-football-teams/${slug}`),
   `https://${zoneName}/article/best-lighthouses-to-visit-in-texas`,
   `https://${zoneName}/article/texas-medal-of-honor-heroes`,
   `https://${zoneName}/article/texas-red-river-war-guide`,
@@ -66,6 +140,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-frontier-forts-road-trip`,
   `https://${zoneName}/article/texas-ecoregions-habitats-guide`,
   `https://${zoneName}/county/collin`,
+  // El Paso County guide uses a licensed first-party hero and must not retain cached pre-image HTML.
+  `https://${zoneName}/county/el-paso`,
   `https://${zoneName}/county/crockett`,
   `https://${zoneName}/county/dickens`,
   `https://${zoneName}/destination/zapata-county-museum-history`,
@@ -78,6 +154,10 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/destination/san-antonio-aquarium`,
   `https://${zoneName}/destination/houston-interactive-aquarium-animal-preserve`,
   `https://${zoneName}/destination/ut-marine-science-institute-patton-center`,
+  // Do not serve cached pre-rewrite Chamizal HTML after the researched NPS guide deploys.
+  `https://${zoneName}/destination/chamizal-national-memorial`,
+  // Preserve fresh park admission, trail comparisons, camping and image updates.
+  `https://${zoneName}/destination/franklin-mountains-state-park`,
   `https://${zoneName}/destination/texas-hill-country-olive-co`,
   `https://${zoneName}/destination/brazos-bend-state-park`,
   `https://${zoneName}/destination/devils-river-state-natural-area`,

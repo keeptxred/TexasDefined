@@ -4,6 +4,20 @@ import kolacheHero from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import orderingBbqHero from "@/assets/ordering-bbq-hero-photo.jpg";
 import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 import type { Article } from "../types";
+import { USS_LEXINGTON_CV16_READING_MINUTES } from "./uss-lexington-reading-time.generated.ts";
+
+const texasSportsWeekendCalendarGuideStub: Article = {
+  id: "authority-texas-sports-weekend-calendar-guide", brandId: "texasdefined", slug: "texas-sports-weekend-calendar-guide",
+  title: "Texas Sports Weekends: The Calendar Check Before You Buy Tickets",
+  dek: "UIL football playoffs, college games, the NBA, RODEOHOUSTON and COTA each publish different kinds of schedules. Here is the practical way to check the right event, location and admission before committing to a Texas sports trip.",
+  category: "sports",
+  hero: { src: footballHero, alt: "Editorial illustration of Texas high school football players walking toward a stadium under the lights; not a real matchup or current event photograph", width: 1600, height: 900 },
+  authorId: "a-marisol", publishedAt: "2026-11-14", readingMinutes: 10,
+  tags: ["texas sports weekends", "2026 uil playoffs", "college football travel", "nba texas teams", "rodeo calendar", "cota events", "game day planning"],
+  featured: true, sourceName: "UIL, NCAA, NBA, RODEOHOUSTON and Circuit of The Americas",
+  sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
 
 const rodeo101Stub: Article = {
   id: "evergreen-rodeo-101", brandId: "texasdefined", slug: "rodeo-101-guide-events-rules-traditions",
@@ -44,8 +58,8 @@ const texasHighSchoolFootballPlayoffsStub: Article = {
   title: "How Do the Texas High School Football Playoffs Work?",
   dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
   category: "sports",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800", alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas", width: 1800, height: 1200, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-16", readingMinutes: 6,
+  hero: { src: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Celina_High_School%2C_Friday_Night_Football.jpg", alt: "Celina High School football field at night, with players and flags spelling Celina on the turf", width: 2042, height: 719, credit: "Heidi Knapp · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-20", readingMinutes: 4,
   tags: ["texas high school football playoffs", "uil football playoffs", "texas football bracket", "bi-district football", "6A football playoffs", "texas state championships"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
   body: [], relatedCollections: [], relatedDestinations: [],
@@ -289,7 +303,7 @@ const ussLexingtonCv16HistoryVisitorGuideStub: Article = {
   dek: "The complete story of USS Lexington: Pacific combat, postwar aviation, service as a Navy training carrier, and the preserved Corpus Christi museum with current visitor details and archival photos.",
   category: "texas-history", region: "gulf-coast",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Lexington_%28CV-16%29_underway_on_13_June_1944.jpg?width=1600", alt: "USS Lexington CV-16 in the Pacific on June 13, 1944", width: 5732, height: 4313, credit: "U.S. Navy 80-G-236932 · Public domain · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 18,
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: USS_LEXINGTON_CV16_READING_MINUTES,
   tags: ["USS Lexington", "CV-16", "Blue Ghost", "Corpus Christi", "WWII aircraft carrier"], featured: true,
   sourceName: "USS Lexington Museum on the Bay", sourceUrl: "https://usslexington.com/about-the-uss-lexington/the-ship/",
   body: [], relatedCollections: [], relatedDestinations: ["uss-lexington-museum-corpus-christi", "texas-state-aquarium", "battleship-texas"],
@@ -417,6 +431,7 @@ const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
 
 export const standaloneEvergreenStubs: Article[] = [
   historicSanAntonioHeritageRoadTripStub,
+  texasSportsWeekendCalendarGuideStub,
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
@@ -455,6 +470,7 @@ export const standaloneEvergreenStubs: Article[] = [
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === texasSportsWeekendCalendarGuideStub.slug) return import("./texas-sports-weekend-calendar-guide").then((module) => module.texasSportsWeekendCalendarGuideArticle);
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
   if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);

@@ -3,14 +3,13 @@ import { Link } from "@tanstack/react-router";
 
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
-import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
 import { distanceMiles, featuredDestinationRelationships, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
-import { isTop50AuthorityWave1, isTop50ThemeParkDestination, isTop50BatColonyDestination } from "@/data/top50-authority-wave1-slugs";
+import { shouldRenderFullDestinationAuthorityGuide } from "@/data/destination-authority-presentation";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
@@ -38,32 +37,6 @@ const CAMPING_DESTINATION_SLUGS = new Set([
 
 const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville";
 const WHIRLYBALL_SLUG = "whirlyball-hurst";
-
-const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
-  SAM_HOUSTON_MUSEUM_SLUG,
-  "whirlyball-hurst",
-  "my-story-museum-crystal-city",
-  "enchanted-rock-state-natural-area",
-  "san-jacinto-battleground",
-  "barton-springs-pool",
-  "uss-lexington-museum-corpus-christi",
-  "waco-mammoth-national-monument",
-  "national-museum-pacific-war",
-  "museum-of-fine-arts-houston",
-  "kimbell-art-museum-fort-worth",
-  "strand-historic-district",
-  // Include live history destinations curated under other public categories.
-  "fort-davis-national-historic-site",
-  "san-jacinto-battleground",
-  "the-alamo",
-  "goliad-state-park",
-  "fort-lancaster",
-  "fort-griffin",
-  "fort-mckavett",
-  "washington-on-the-brazos",
-  "presidio-la-bahia",
-  "palo-alto-battlefield-national-historical-park",
-]);
 
 const AREA_GROUPS: Array<{
   key: keyof Omit<DestinationAreaGuide, "intro">;
@@ -158,12 +131,9 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
-  const historicGuide = destination.category === "historic-sites" ||
-    ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
-  const isIndividuallyRegisteredAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
-  const hasExtendedAuthorityGuide = isIndividuallyRegisteredAuthorityGuide ||
-    (Boolean(destination.authorityGuide) && (historicGuide || isTop50AuthorityWave1(destination.slug) || isTop50ThemeParkDestination(destination.slug) || isTop50BatColonyDestination(destination.slug)));
+  const hasExtendedAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination);
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
+  const isMoodyGardens = destination.slug === "moody-gardens";
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
@@ -173,13 +143,12 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     : null;
 
   return <>
-    {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
-    {topAttractionRank ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
-    {destination.slug !== "moody-gardens" ? <DestinationAreaGuideSection destination={destination} /> : null}
+    {!isMoodyGardens ? <DestinationAreaGuideSection destination={destination} /> : null}
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
@@ -194,7 +163,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
       </Container>
     </Section> : null}
 
-    <Container><TexasExplainedContextLinks surface="destination" /></Container>
+    {!isMoodyGardens && <Container><TexasExplainedContextLinks surface="destination" /></Container>}
 
     <Section tone="ink" className="py-8 sm:py-10">
       <Container>

@@ -158,8 +158,122 @@ async function verifyDynamicCollection(collection, sitemap) {
   const inSitemap = sitemap.includes(`<loc>${origin}${collection.path}</loc>`);
   assert(hasNoindex(html) === !shouldIndex, `${collection.label} robots policy must match ${count} guides and ${collection.threshold}-guide threshold`);
   assert(inSitemap === shouldIndex, `${collection.label} sitemap policy must match ${count} guides and ${collection.threshold}-guide threshold`);
+  // Verify the Christmas collection is actually present in server-rendered production during the season.
+  const today = new Date().toISOString().slice(0,10);
+  if (collection.path === '/events/christmas-events' && today >= '2026-10-23' && today <= '2027-01-02') {
+    for (const needle of ['Source-verified local traditions','Christmas lights, parades and community festivals','Official event schedule','Christmas travel sponsorships','Frisco']) {
+      assert(decoded.includes(needle), 'Live Christmas event collection missing reviewed seasonal coverage: '+needle);
+    }
+  }
+  // Production SSR must expose exactly the unexpired fall card set. This runs
+  // every day under the existing GitHub schedule, independently of new deploys.
+  if (collection.path === '/events/fall-festivals') {
+    const texasParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+    }).formatToParts(new Date());
+    const datePart = (type) => texasParts.find((part) => part.type === type)?.value || '00';
+    const texasToday = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
+    const cardTags = [...html.matchAll(/<li\b[^>]*\bdata-fall-end-date="[0-9]{4}-[0-9]{2}-[0-9]{2}"[^>]*>/gi)].map((match) => match[0]);
+    assert(cardTags.length === count, `fall festival SSR card count ${cardTags.length} must match ${count} qualifying guides`);
+    for (const tag of cardTags) {
+      const end = tag.match(/data-fall-end-date="([^"]+)"/i)?.[1];
+      const name = decodeHtmlEntities(tag.match(/data-fall-name="([^"]+)"/i)?.[1] || '');
+      assert(end && end >= texasToday, `expired fall festival card still shown: ${name} (${end})`);
+      assert(!/(christmas|holiday|hollydays|home for the holidays|polar express|santa|nutcracker|zoo lights|ice land|dickens|south pole|wild bright|thanksgiving day parade)/i.test(name), `winter or Christmas event leaked into fall collection: ${name}`);
+    }
+    console.log(`[fall freshness] ${cardTags.length} unexpired, seasonally relevant SSR cards as of ${texasToday}`);
+  }
+  if (collection.path === '/events/november-events') await verifyNovember2026EditorialRelease(html);
   verifyCollectionSchema(html, collection.label);
   console.log(`[${collection.label}] ${count} guides; ${shouldIndex ? 'indexable/in sitemap' : 'noindex/out of sitemap'} verified`);
+}
+
+
+function visiblePageText(html) {
+  return decodeHtmlEntities(html)
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function verifyNovember2026EditorialRelease(november) {
+  // This is an exact-season guard. The permanent November URL advances to
+  // November 2027 when the 2026 season ends; do not assert stale-year results.
+  const texasDateParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const part = (type) => texasDateParts.find((entry) => entry.type === type)?.value;
+  const safeToday = `${part('year')}-${part('month')}-${part('day')}`;
+  if (safeToday < '2026-10-29' || safeToday > '2026-11-30') return;
+
+  const visible = visiblePageText(november);
+  assert(visible.includes('November in Texas brings Wurstfest'), 'November landing lost visitor-facing opening copy');
+  assert(visible.includes('Browse November events'), 'November landing lost the filterable event directory');
+  assert(!/automatically noindexes|stays indexable only|thin seasonal page/i.test(visible), 'November landing leaked technical SEO/indexing implementation language');
+  for (const label of [
+    'Filter November events by date',
+    'Filter November events by region',
+    'Filter November events by city',
+    'Filter November events by category',
+  ]) {
+    assert(november.includes(label), `November landing lost accessible filter: ${label}`);
+  }
+  for (const name of [
+    'ThunderCloud Subs Turkey Trot',
+    'Dallas YMCA Turkey Trot',
+    'Fort Worth YMCA Turkey Trot',
+    'Calaveras de Azúcar Festival',
+    'GM Financial Parade of Lights',
+    'Texas Christkindl Market',
+    'Austin Studio Tour',
+  ]) {
+    assert(visible.includes(name), `November landing lost organizer-confirmed event: ${name}`);
+  }
+
+  assert(visible.includes('Family activities Nov 13–15; main market Nov 18–22'), 'November A Christmas Affair split windows missing');
+  assert(visible.includes('7 direct organizer listings'), 'November listing count does not include all organizer-only events');
+
+  // Real production SSR must show one rights-reviewed photo or explicitly
+  // illustrative event visual for each of the 55 November results.
+  const cards = [...november.matchAll(/<li\b[^>]*\bdata-november-event-card="[^"]*"[^>]*>([\s\S]*?)<\/li>/gi)];
+  const displayedCount = visible.match(/([0-9,]+) of ([0-9,]+) organizer-verified events match your filters/);
+  assert(displayedCount, 'November visual acceptance requires the visible calendar results count');
+  const expectedCards = Number(displayedCount[2].replace(/,/g, ''));
+  assert(expectedCards >= 55, 'November event listings should retain the 55 verified opening events');
+  assert(cards.length === expectedCards, 'November visual acceptance expected ' + expectedCards + ' event cards; received ' + cards.length);
+  let editorialCount = 0;
+  let photoCount = 0;
+  for (const [index, card] of cards.entries()) {
+    const visuals = [...card[1].matchAll(/\bdata-event-visual="(editorial|photograph)"/g)].map((match) => match[1]);
+    assert(visuals.length === 1, 'November card ' + (index + 1) + ' needs exactly one valid visual; got ' + visuals.length);
+    if (visuals[0] === 'editorial') {
+      editorialCount += 1;
+      assert(card[1].includes('not event photography'), 'November card ' + (index + 1) + ' illustration must disclose its nature');
+    } else {
+      photoCount += 1;
+      assert(/<img\b[^>]*\balt="[^"]+"/i.test(card[1]), 'November card ' + (index + 1) + ' source photograph requires alt text');
+    }
+  }
+  assert(editorialCount + photoCount === expectedCards, 'Every November listing needs a visual');
+  const pageVisuals = [...november.matchAll(/\bdata-event-visual="(editorial|photograph)"/g)];
+  assert(pageVisuals.length >= expectedCards + 4, 'The four featured November event cards must also render visuals');
+  console.log('[November imagery] ' + cards.length + '/' + expectedCards + ' visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
+
+
+  const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
+  const johnsonText = visiblePageText(lights);
+  assert(johnsonText.includes('November 27, 2026') && johnsonText.includes('January 3, 2027'), 'Johnson City event dates reverted from organizer-confirmed season');
+  assert(!/2026[–-]27\\s+2026/.test(lights), 'Johnson City SEO title repeats 2026');
+  assert(lights.includes('https://lightsspectacular.com/faqs'), 'Johnson City organizer source missing');
+
+  const south = await fetchProduction('/event/south-pole-illuminated-festival', 'South Pole lights 2026 guide');
+  const southText = visiblePageText(south);
+  assert(southText.includes('November 28') && southText.includes('December 28, 2026'), 'South Pole guide lost organizer season dates');
+  assert(south.includes('https://www.southpoleoftexas.com/'), 'South Pole organizer source missing');
+  assert(!south.includes('<strong>2026-11-27</strong>'), 'South Pole guide promotes pre-opening Ticketmaster admission');
+  console.log('[November 2026 editorial] verified current organizer seasons, SEO title, new filters, and four first-party event additions');
 }
 
 async function verifyAlwaysNoindexCurrentMonth(sitemap) {

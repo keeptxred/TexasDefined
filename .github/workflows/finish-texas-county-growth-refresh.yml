@@ -1,0 +1,99 @@
+name: Finish Census County Growth Refresh
+
+on:
+  workflow_run:
+    workflows: [Refresh Census County Population Growth]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful official Census county refresh GitHub Actions run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: finish-census-texas-county-growth
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Reconcile and finish source-verified Census county growth PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_run' ]]; then
+            run_id="$SOURCE_RUN_ID"
+          else
+            run_id="$MANUAL_RUN_ID"
+          fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run ID'; exit 1; }
+          branch="automation/texas-county-growth-$run_id"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No new official Census county release or revision produced by this run'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo '::error::Ambiguous scheduled county PR count'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Refresh verified Texas county population growth' &&
+             "$(jq -r '.[0].headRefName' <<< "$pr_json")" == "$branch" &&
+             "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected county PR author, title, or branch'; exit 1;
+          }
+          git config user.name 'Texas Defined County Data Finisher'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          merge_base="$(git merge-base origin/main "origin/$branch")"
+          changed="$(git diff --name-only "$merge_base" "origin/$branch")"
+          [[ "$changed" == 'src/data/generated/texas-county-growth-current.json' ]] || {
+            echo '::error::Only complete Census county snapshot may auto-merge'; exit 1;
+          }
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Main overlaps generated Census changes'; exit 1;
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          node --test scripts/data/refresh-texas-county-growth.test.mjs
+          node scripts/data/validate-texas-county-growth.mjs
+          validated_sha="$(git rev-parse HEAD)"
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::County PR changed during exact-branch validation'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced during validation'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Canonical validation passed for verified Census county snapshot' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"

@@ -14,7 +14,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "Genres do not develop in isolation. Musicians need rooms where they can work repeatedly, audiences need places where styles become social habits, and promoters need stages that connect local performers with touring acts. Texas dance halls, clubs and honky-tonks supplied that infrastructure across very different eras.",
           "A venue guide therefore answers a different question from an artist biography. Instead of asking who made the music, it asks where people heard it, danced to it, argued about it, mixed genres and passed a local sound to the next generation."
         ],
-        links: [{ href: "/texas-music", label: "Texas Music authority hub" }]
+        links: [{ href: "/texas-music", label: "Texas music and its history" }]
       },
       {
         heading: "Gruene Hall and the community dance-hall tradition",
@@ -30,12 +30,12 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Broken Spoke opened in 1964 on South Lamar and grew from a cafe into a dance hall associated with traditional country, Western swing and the social ritual of the Texas two-step. Its history overlaps both older country stars and the 1970s Austin progressive-country movement.",
           "What makes the Spoke especially useful as a reference point is continuity. The venue links touring legends, local regulars, dance lessons and a physical floor where country music is still treated as participatory culture rather than only a concert product."
         ],
-        links: [{ href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/texas-two-step", label: "Texas two-step guide" }]
+        links: [{ href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and two-step culture" }]
       },
       {
         heading: "The Continental Club and South Congress",
         body: [
-          "The Continental Club opened in 1955 and changed identities repeatedly: supper club, burlesque venue, workingman's bar and eventually one of Austin's best-known live-music rooms. Its later history includes blues, country, roots rock, rockabilly, punk and other scenes that reflect the city's habit of letting genres share geography.",
+          "The Continental Club's own history gives 1955 as its opening year, while the Handbook of Texas gives 1957. Across the decades it changed identities repeatedly: supper club, burlesque venue, workingman's bar and eventually one of Austin's best-known live-music rooms. Its later history includes blues, country, roots rock, rockabilly, punk and other scenes that reflect the city's habit of letting genres share geography.",
           "The City of Austin designated the South Congress property as a historic landmark in 2008. That status reinforces an important point: the building itself, not only the names that played there, is part of Austin's cultural record."
         ],
         links: [{ href: "/continental-club-austin-history", label: "Continental Club history" }]
@@ -44,7 +44,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "Antone's and Austin blues",
         body: [
           "Clifford Antone opened Antone's in 1975 as a club centered on blues. Touring masters and younger Austin musicians shared the same ecosystem, and the venue became a bridge between older blues traditions and a new generation of Texas players.",
-          "Antone's moved several times, so its authority does not depend on one building. The durable institution is the programming idea: preserve direct contact with blues history while giving local musicians a place to learn, perform and develop their own voices."
+          "Antone's has moved several times. Its place in Texas music history comes from the musicians and audiences it brought together, not from a single building. It gave touring blues performers and younger Austin players a shared stage."
         ],
         links: [{ href: "/antones-austin-history", label: "Antone's history" }, { href: "/texas-blues", label: "Texas Blues guide" }]
       },
@@ -60,13 +60,13 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "The next layer: historic and lost rooms",
         body: [
           "A complete Texas venue history cannot stop with places that still sell tickets. Deep Ellum clubs, Houston's Eldorado Ballroom, Austin's Armadillo World Headquarters, Pasadena's Gilley's, Dallas's Longhorn Ballroom, East Austin's Victory Grill and many other rooms shaped scenes even when the original operation changed or disappeared.",
-          "TexasDefined treats those places as a second research layer rather than folding them into thin profiles. The goal is to preserve what each room contributed, distinguish surviving buildings from vanished institutions, and connect the venue to the genre and neighborhood histories it helped create."
+          "Some of those rooms have closed, moved or changed ownership, but their stories remain. The guide distinguishes surviving buildings from lost stages and follows the musicians, neighborhoods and local scenes linked to each place."
         ],
         links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and honky-tonks" }]
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "The statewide authority hub for Texas genres, musicians, scenes and places." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore Texas genres, musicians, recording scenes and historic performance spaces." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks", description: "The broader cultural guide to dance floors, two-step etiquette and community halls." },
       { href: "/texas-country-outlaw", label: "Texas country & outlaw country", description: "The country-music history that overlaps many of the state's landmark rooms." }
     ]
@@ -160,12 +160,12 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Broken Spoke remains strongly associated with the Texas two-step. The venue's official programming still includes dance instruction, reinforcing the idea that country music here is meant to move a floor rather than only face a stage.",
           "For a first-time visitor, the useful lesson is not to romanticize choreography. Watch the room, follow the flow of traffic and understand that partner dancing is part of the venue's living etiquette."
         ],
-        links: [{ href: "/texas-two-step", label: "Texas two-step guide" }]
+        links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and two-step culture" }]
       },
       {
         heading: "Preservation in a changing South Austin",
         body: [
-          "South Lamar has changed dramatically around the Broken Spoke, which makes the survival of the low-slung dance hall especially visible. The venue received an official Texas historical marker, dedicated in 2023, recognizing a history that had already become part of the state's country-music narrative.",
+          "South Lamar has changed dramatically around the Broken Spoke, which makes the survival of the low-slung dance hall especially visible. The venue's Texas historical marker was dedicated in April 2023. Austin City Council also passed its local historic-zoning change on May 18, 2023, by Ordinance 20230518-074. These are separate state-recognition and municipal land-use actions; the local zoning concerned the dance-hall building rather than the entire surrounding commercial tract.",
           "Current calendars and visitor rules should always be checked with the venue. The evergreen value of the place is the surviving relationship between room, dance floor, traditional country and Austin's changing urban landscape."
         ],
         links: [{ href: "/texas-music-venues", label: "Legendary Texas music venues" }]
@@ -173,21 +173,21 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
     ],
     related: [
       { href: "/texas-country-outlaw", label: "Texas country & outlaw country", description: "The Austin movement that overlapped the Broken Spoke's traditional-country history." },
-      { href: "/texas-two-step", label: "Texas two-step", description: "How to understand the partner-dance tradition still associated with the Spoke." },
+      { href: "/texas-dance-halls-honky-tonks", label: "Texas two-step and dance halls", description: "How to understand the partner-dance tradition still associated with the Spoke." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks", description: "The larger statewide culture of live music and social dancing." }
     ]
   },
   "continental-club-austin-history": {
     slug: "continental-club-austin-history",
-    eyebrow: "South Congress since 1955",
+    eyebrow: "South Congress since the 1950s",
     title: "Continental Club Austin History: From 1950s Supper Club to a South Congress Music Landmark",
-    dek: "The Continental Club's changing identities—from supper club to roots-music landmark—mirror more than seven decades of Austin nightlife and live-music history.",
-    quickAnswer: "Austin's Continental Club opened on South Congress in 1955 as a private supper club. Over the following decades it operated through burlesque and workingman's-bar phases before becoming deeply associated with live music, including late-1970s and early-1980s blues, country and rock performers and later roots rock, rockabilly and garage music. The City of Austin designated the property a historic landmark in 2008. Its significance comes from continuity: one small South Congress room has absorbed multiple eras of Austin nightlife while remaining a working live-music venue.",
+    dek: "The Continental Club's changing identities—from supper club to roots-music landmark—mirror roughly seven decades of Austin nightlife and live-music history.",
+    quickAnswer: "Austin's Continental Club began as a private supper club on South Congress in the 1950s: the venue gives 1955, while the Handbook of Texas and Austin's adopted neighborhood plan give 1957. Its precise opening year is unresolved in these published accounts. Over the following decades it operated through burlesque and workingman's-bar phases before becoming deeply associated with live music, including late-1970s and early-1980s blues, country and rock performers and later roots rock, rockabilly and garage music. The City of Austin designated the property a historic landmark in 2008. Its significance comes from continuity: one small South Congress room has absorbed multiple eras of Austin nightlife while remaining a working live-music venue.",
     sections: [
       {
         heading: "The club began before modern 'music Austin'",
         body: [
-          "The Continental Club opened in 1955 as a private supper club, long before Austin's current live-music brand existed. Its earliest identity was tied to mid-century nightlife rather than the singer-songwriter and roots scenes that later made the address famous.",
+          "The Continental Club's own account dates its supper-club opening to 1955; both the Handbook of Texas and Austin's 2005 adopted neighborhood plan state 1957. That discrepancy should remain visible until contemporary licensing or newspaper records settle the original opening date. The room predates Austin's current live-music branding either way. Its earliest identity was tied to mid-century nightlife rather than the singer-songwriter and roots scenes that later made the address famous.",
           "The room subsequently passed through burlesque and workingman's-bar phases. Those changes are not side notes; they show how entertainment districts evolve as neighborhoods, audiences and business models change."
         ]
       },
@@ -217,7 +217,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "How to use the Continental Club in a Texas music itinerary",
         body: [
           "Treat the club as a bridge between Austin eras rather than as a checklist stop for one genre. Pair its South Congress location with the city's blues, country and rock histories, then compare the room with a larger dance hall such as the Broken Spoke or a blues-specific institution such as Antone's.",
-          "The official venue remains the controlling source for the current calendar, admission rules and operating details. The historical value is more durable: a 1955 room still functioning inside a radically changed Austin corridor."
+          "The official venue remains the controlling source for the current calendar, admission rules and operating details. The historical value is more durable: a mid-century room still functioning inside a radically changed Austin corridor, regardless of the unresolved 1955/1957 opening-date conflict."
         ],
         links: [{ href: "/texas-music-venues", label: "Legendary Texas music venues" }, { href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/antones-austin-history", label: "Antone's history" }]
       }
@@ -263,7 +263,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Handbook of Texas credits Antone's with helping Austin's broader live-music reputation. That does not mean the club created the city's music culture by itself; Austin already had dance halls, country rooms, psychedelic venues and other scenes.",
           "What Antone's added was a strong blues institution with national relationships. It made the preservation of an older Black American music tradition central to the story Austin told about contemporary live music."
         ],
-        links: [{ href: "/texas-music", label: "Texas Music authority hub" }]
+        links: [{ href: "/texas-music", label: "Texas music and its history" }]
       },
       {
         heading: "The current club is a doorway into the longer story",

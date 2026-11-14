@@ -1,7 +1,7 @@
 import type { Guide } from "./types";
 
 const GUIDE_HREFS: Record<string, string> = {
-  "property-tax-estimator": "/decide/property-taxes",
+  "property-tax-estimator": "/texas-property-tax-estimator",
   "cost-of-living-comparison": "/texas-cost-of-living-calculator",
   "state-park-reservation-playbook": "/explore/state-parks",
   "texas-regions-explained": "/explore",

@@ -53,8 +53,9 @@ export const majorEventSchemaEnrichmentBatch14: MajorEventSchemaEnrichment[] = [
     slug: "rockport-songwriter-festival",
     organizer: organization("Rockport Songwriter Association", "https://rockportsongwriterassociation.com/"),
     sources: [
+      { label: "Rockport Songwriter Association — official Nov 5–8 ticketed festival and availability", url: "https://rockportsongwriterassociation.com/festival" },
       { label: "2026 Rockport Songwriter Festival chamber listing", url: "https://members.rockport-fulton.org/events/details/5th-annual-rockport-songwriter-festival-64419" },
     ],
-    verifiedAt: "2026-09-05",
+    verifiedAt: "2026-10-29",
   },
 ];

@@ -3,6 +3,8 @@
 **Owner:** TexasDefined sole administrator  
 **Scope:** individual UIL girls’ softball team profiles proposed after the 2026–27 alignment directory
 
+**Superseding site-wide owner decision, October 20, 2026:** [Formal editor/owner sign-off is OPTIONAL across all TexasDefined pages](../editorial/SITEWIDE_PUBLICATION_VERIFICATION_POLICY.md), including softball. Publishing still requires the complete school-specific factual/source, image-rights, privacy, tests and production requirements below; an absent human approval or nine-dimension form cannot by itself block a sourced, technically passing page.
+
 ## Nonnegotiable decision
 
 **The 1,192 UIL school/district listings do not authorize 1,192 individual pages.** They are the correct sport-specific discovery dataset, not verified rosters, team histories or permission to duplicate a page template. The searchable directory at `/sports/softball/schools` remains useful and canonical regardless of how many individual teams earn an authority profile.
@@ -55,7 +57,7 @@ The executable source of truth is `scripts/softball/complete-first-release-audit
 | Source disclosure | 6 attributable records minimum, 3 independent hosts, UIL + another type of official primary source, 18 distinct dated source-linked claims, visible reviewed date, correction contact/method |
 | Writing and distinctness | 13 individually researched topical sections (at least 65 substantive words each), 1,050+ combined topical words, distinctive opening thesis, low intra/inter-page similarity; **minimums are not a writing target or permission to pad** |
 | Image | Actual team/field-specific image with local asset, named credit, meaningful alt text, original source and separate license/permission evidence; no unlicensed school logo or random generated “team photograph”; no identifiable minors through this automated pipeline |
-| Page governance | Explicit editor and owner approval, stable slug, correct page-specific canonical/title/description/Article+SportsTeam schema, breadcrumbs, hub/directory/local crosslinks, accessible/mobile UX and direct correct status codes |
+| Page governance | Responsible editorial/publisher attribution (formal named approval optional), stable slug, correct page-specific canonical/title/description/Article+SportsTeam schema, breadcrumbs, hub/directory/local crosslinks, accessible/mobile UX and direct correct status codes |
 | Staleness and conflicts | Last verified within 183 days; year-specific claims and cited sources; conflicting records resolved or held, never silently guessed |
 
 When a school cannot meet the requirement, **keep it as a verified directory listing**, update the research backlog and do not index a separate page. "No titles found" can be useful if backed by the full official archive; "data not available" on multiple central sections is **not** a complete authority profile. User-requested completeness does not justify writing speculative facts.
@@ -64,16 +66,16 @@ When a school cannot meet the requirement, **keep it as a verified directory lis
 
 - `src/data/softball/published-team-profiles.json` starts with **zero** team pages. Each future profile requires deliberate insertion; a listing import cannot publish it.
 - `src/data/softball/published-team-index.json` is a **slim client/sitemap allowlist** of only the approved manifest's exact `(slug, UIL school name, softball conference, district, region)` records. It must be updated in the same reviewed change as each finished manifest entry. One-way or extra listings fail CI; never place the entire article manifest into a client directory module.
-- `scripts/softball/authority-contract.mjs` checks official district identity, sources, factual claims, coverage, uniqueness, rights, corrections and editorial sign-off.
+- `scripts/softball/authority-contract.mjs` checks official district identity, sources, factual claims, coverage, uniqueness, rights and corrections; it **does not require separate owner/editor sign-off**.
 - `scripts/softball/verify-publications.mjs` cross-checks public routes/sitemap, server-only exact approved team loader and lazy page, school-specific canonical/JSON-LD, duplicate school-season, a complete research audit for every team in each batch, and previously published pages retained. Unknown teams return 404.
 - `scripts/softball/test-authority-contract.mjs` exercises a complete **synthetic test-only fixture** plus many intentionally invalid cases. That fixture must never be inserted into the public manifest.
 - The two validators run in `npm run softball:authority:validate`, `npm run softball:validate`, `npm run data:validate`, and **early within the protected `scripts/ci/run-premerge-validation.mjs` required Merge Gate**.
 - The existing built Cloudflare Worker SSR smoke script reads the published manifest and checks **every newly approved profile** for its school-specific heading. Never accept a 200 that actually shows the hub, a blank shell or a generic school page.
-- **Tests are evidence and regression safeguards, not substitutes for a human reviewing every claim, rendered page and source URL.**
+- **Tests are evidence and regression safeguards, not blanket factual or human WCAG certification. Research must be source-supported, accurately qualified and corrected when disputed; optional separate human review does not block a valid publication.**
 
 ## Release method, designed around failures already encountered
 
-**Phase 0 — once:** This policy and fail-closed validator, negative fixture tests, SSR acceptance wiring, owner review standard and shared complete team-page engine pass before individual team publication. No mass team route or sitemap injection.
+**Phase 0 — once:** This policy and fail-closed validator, negative fixture tests, SSR acceptance wiring, optional review documentation and shared complete team-page engine pass before individual team publication. No mass team route or sitemap injection.
 
 **Phase 1 — pilot:** Independently research **3–5 diverse schools** (urban, rural, 2A including smaller listing, complex name/ISD and championship history). Complete all fields and verify them manually. Use the shared source-aware server/SSR/lazy authority component; avoid a new file route for every team. Test an actual season change, duplicate-named school and 404. No generic repetitive templates.
 
@@ -107,4 +109,4 @@ Do **not** manufacture names, biographies, exact records, recruiting contacts, t
 - No newly authorized individual UIL team profile has passed this authority-page publication contract yet.
 - Continue scope tracked in [GitHub issue #4652](https://github.com/keeptxred/TexasDefined/issues/4652).
 
-**Complete team-page engine documentation:** [APPROVED_TEAM_PAGE_ENGINE.md](./APPROVED_TEAM_PAGE_ENGINE.md). The complete manifest stays server-only; the 1,192-school directory and sitemap read only the tiny exact-key approved index. In addition to title-per-team built Worker SSR, the CI worker must reject an unapproved team slug with a real HTTP 404. Human source and published page verification remains mandatory.
+**Complete team-page engine documentation:** [APPROVED_TEAM_PAGE_ENGINE.md](./APPROVED_TEAM_PAGE_ENGINE.md). The complete manifest stays server-only; the 1,192-school directory and sitemap read only the tiny exact-key approved index. In addition to title-per-team built Worker SSR, the CI worker must reject an unapproved team slug with a real HTTP 404. Individual source-evidence and actual published-page technical verification remain mandatory; a separate named human editorial certification is not.

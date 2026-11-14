@@ -4,8 +4,27 @@
   const EXPEDIA_SURFACE_ID = "expedia-travel-surface";
   const STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const CJ_PUBLISHER_ID = "101876465";
-  const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
+  // Generated from src/data/cj-account-verified-links.json; checked by the canonical account-link test.
+  const CJ_VERIFIED_STAY_LINKS = {"rvshare":{"advertiserId":"5126501","linkId":"15734916","base":"https://www.kqzyfj.com/click-101876465-15734916","destination":"https://rvshare.com/","deepLink":true,"includeDestination":true,"allowedDestinations":["https://rvshare.com/"]},"orbitz":{"advertiserId":"4861280","linkId":"15734579","base":"https://www.tkqlhce.com/click-101876465-15734579","destination":"https://www.orbitz.com/","deepLink":true,"includeDestination":true,"allowedDestinations":["https://www.orbitz.com/"]},"travelocity":{"advertiserId":"1549809","linkId":"15230459","base":"https://www.kqzyfj.com/click-101876465-15230459","destination":"https://www.travelocity.com/","deepLink":true,"includeDestination":false,"allowedDestinations":["https://www.travelocity.com/"]},"vrbo":{"advertiserId":"2691607","linkId":"10697641","base":"https://www.tkqlhce.com/click-101876465-10697641","destination":"https://www.vrbo.com/","deepLink":true,"includeDestination":false,"allowedDestinations":["https://www.vrbo.com/","https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center"]},"vrbo-owner":{"advertiserId":"2691607","linkId":"10697642","base":"https://www.dpbolvw.net/click-101876465-10697642","destination":"https://www.vrbo.com/en-us/list/lead","deepLink":true,"includeDestination":true,"allowedDestinations":["https://www.vrbo.com/en-us/list/lead"]}};
+  // CJ-generated Hotels.com Evergreen click: preserve link AID and partner-specific SID.
+  const CJ_HOTELS_EVERGREEN_BASE = "https://www.anrdoezrs.net/click-101876465-15734399";
   const HOTELS_DESTINATION = "https://www.hotels.com/";
+  // Verified Palestine destination directory for the Polar Express booking guide.
+  const PALESTINE_HOTELS_DESTINATION = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
+  // Independently verified 2026-10-26 Hotels.com city directories, not room inventory.
+  const MCALLEN_HOTELS_DESTINATION = "https://www.hotels.com/de1644308/hotels-mcallen-and-vicinity-texas/";
+  const SOUTH_PADRE_HOTELS_DESTINATION = "https://www.hotels.com/de1644316/hotels-south-padre-island-and-vicinity-texas/";
+  // Approved standard Motel 6 CJ creative; PID 101876465 is not account CID 8062457.
+  const MOTEL6_STANDARD_AID = "17198227";
+  const MOTEL6_PATH = /^\/(?:article\/(?:fredericksburg-history-weekend-guide|goliad-history-weekend-guide|washington-on-the-brazos-weekend-guide)(?:\/|$)|explore\/(?:road-trips(?:\/|$)|weekend-getaways(?:\/|$)|near\/[a-z0-9-]+\/day-trips(?:\/|$))|texas-tailgating-guide(?:\/|$)|texas-roadside-oddities(?:\/|$)|event\/[a-z0-9-]*(?:halloween|haunted|ghost|pumpkin|trick-or-treat)[a-z0-9-]*(?:\/|$))/;
+  function motel6Eligible(pathname = window.location.pathname) {
+    return MOTEL6_PATH.test(String(pathname || "").replace(/\/+$/, ""));
+  }
+  function buildMotel6Link(aid, pathname = window.location.pathname) {
+    if (aid === MOTEL6_STANDARD_AID) return "https://www.tkqlhce.com/click-" + CJ_PUBLISHER_ID + "-" + aid + "?sid=" + encodeURIComponent(hotelsComPageSid(pathname));
+    throw new Error("Unreviewed Motel 6 CJ link ID");
+  }
+
   const ORBITZ_DESTINATION = "https://www.orbitz.com/";
   const TRAVELOCITY_DESTINATION = "https://www.travelocity.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
@@ -99,8 +118,8 @@
     return normalized === "/destination/hotel-paso-del-norte" ? HOTEL_PASO_EXACT_STAY : null;
   }
 
-  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
-  const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const HOTEL_FIRST_PATH = /^\/(?:sports\/teams\/|event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
+  const BOTH_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
   const TRAVEL_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
@@ -127,12 +146,37 @@
     });
   }
 
-  function buildCjDeepLink(destination) {
+  function hotelsComPageSid(pathname = window.location.pathname) {
+    const path = "/" + String(pathname).split("?")[0].replace(/^\/+|\/+$/g, "").toLowerCase();
+    if (path === "/event/polar-express-palestine") return "td_polar_palestine";
+    const key = path.slice(1).replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "home";
+    if (key.length <= 53) return "td_" + key;
+    let hash = 2166136261;
+    for (const char of path) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+    return "td_" + key.slice(0, 47) + "_" + hash.toString(36).padStart(7, "0");
+  }
+
+  function buildCjDeepLink(destination, pathname = window.location.pathname) {
     const parsed = new URL(destination);
     if (!["www.hotels.com", "www.orbitz.com", "www.travelocity.com", "www.vrbo.com", "rvshare.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
-    return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
+    if (parsed.hostname === "www.hotels.com") {
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash || parsed.port) throw new Error("Unsafe Hotels.com target");
+      const sid = hotelsComPageSid(pathname);
+      if (!/^td_[a-z0-9_]{1,60}$/.test(sid) || sid.length > 64) throw new Error("Invalid CJ Hotels.com SID");
+      return `${CJ_HOTELS_EVERGREEN_BASE}?sid=${encodeURIComponent(sid)}&url=${encodeURIComponent(parsed.toString())}`;
+    }
+    if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.hash || parsed.port) throw new Error('Unsafe CJ destination');
+    const target = parsed.toString();
+    const program = target === VRBO_OWNER_DESTINATION ? 'vrbo-owner'
+      : ({ 'www.orbitz.com': 'orbitz', 'www.travelocity.com': 'travelocity', 'www.vrbo.com': 'vrbo', 'rvshare.com': 'rvshare' })[parsed.hostname];
+    const entry = CJ_VERIFIED_STAY_LINKS[program];
+    if (!entry || !entry.allowedDestinations.includes(target)) throw new Error('Unverified advertiser destination');
+    const click = new URL(entry.base);
+    click.searchParams.set('sid', hotelsComPageSid(pathname));
+    if (entry.includeDestination || target !== entry.destination) click.searchParams.set('url', target);
+    return click.toString();
   }
 
   function exactPropertyDestination(name) {
@@ -183,6 +227,33 @@
     return link;
   }
 
+  function createMotel6Link() {
+    const link = document.createElement("a");
+    const label = "Explore Motel 6 budget stays";
+    link.href = buildMotel6Link(MOTEL6_STANDARD_AID);
+    link.target = "_blank";
+    link.rel = "sponsored nofollow noopener noreferrer";
+    link.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+    link.textContent = label;
+    link.dataset.affiliatePartner = "motel6";
+    link.dataset.affiliatePlacement = "motel6-budget-travel";
+    link.dataset.commercialPartner = "motel6";
+    link.dataset.commercialPlacement = link.dataset.affiliatePlacement;
+    link.addEventListener("click", () => {
+      const detail = {
+        event: "affiliate_click",
+        affiliate_partner: "motel6",
+        affiliate_label: label,
+        affiliate_placement: link.dataset.affiliatePlacement,
+        page_path: window.location.pathname,
+      };
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(detail);
+      window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
+    });
+    return link;
+  }
+
   function addStyles(target) {
     if (document.getElementById("td-stay-affiliate-styles")) return;
     const style = document.createElement("style");
@@ -194,6 +265,7 @@
       .td-stay-affiliate-title{margin:0;font-family:inherit;font-size:clamp(1.35rem,2vw,1.75rem);font-weight:700;line-height:1.15;color:var(--foreground)}
       .td-stay-affiliate-copy{margin:.65rem 0 0;max-width:56rem;font-size:.95rem;line-height:1.6;color:var(--muted-foreground)}
       .td-stay-affiliate-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+      .td-stay-affiliate-actions--fort-mckavett{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
       .td-stay-affiliate-button,.td-stay-affiliate-jump{display:inline-flex;min-height:2.75rem;align-items:center;justify-content:center;padding:.7rem 1rem;border:1px solid var(--border);font-size:.9rem;font-weight:700;text-decoration:none;transition:opacity .15s ease,background .15s ease}
       .td-stay-affiliate-button:hover,.td-stay-affiliate-jump:hover{opacity:.88}
       .td-stay-affiliate-button:focus-visible,.td-stay-affiliate-jump:focus-visible{outline:2px solid var(--foreground);outline-offset:3px}
@@ -204,7 +276,7 @@
       .td-stay-affiliate-source a{color:var(--foreground);text-underline-offset:2px}
       .td-vrbo-owner-referral{padding-top:1.75rem;padding-bottom:2.5rem}
       @media (max-width:767px){.td-stay-nearby .td-stay-heading-row{align-items:stretch;flex-direction:column}.td-stay-affiliate-jump{width:100%}}
-      @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}}
+      @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}.td-stay-affiliate-actions--fort-mckavett{grid-template-columns:1fr}}
       @media (prefers-reduced-motion:reduce){.td-stay-affiliate-button,.td-stay-affiliate-jump{transition:none}}
     `;
     (target || document.head || document.documentElement).appendChild(style);
@@ -229,6 +301,9 @@
     const hotelPasoExact = exactPropertyFirst ? null : hotelPasoStay();
     const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
+    const isPalestinePolarExpress = window.location.pathname.replace(/\/+$/, "") === "/event/polar-express-palestine";
+    const isMcAllenDayTrips = window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips";
+    const isWacoDayTrips = window.location.pathname.replace(/\/+$/, "") === "/explore/near/waco/day-trips";
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
@@ -258,8 +333,26 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
+    if (isMcAllenDayTrips) {
+      eyebrow.textContent = "Compare lodging providers";
+      heading.textContent = "Stay in McAllen, or turn the coast into a weekend";
+      copy.textContent = "If McAllen is your day-trip base, compare lodging in the Valley. For a longer South Padre Island outing, consider an island overnight rather than a late return. These are area listings—not verified rooms or rates. Check dates, driving time and cancellation terms with the provider.";
+    }
+    if (isWacoDayTrips) {
+      heading.textContent = "Turn a Waco-area outing into a weekend";
+      copy.textContent = "Waco can make a convenient overnight base for Lake Whitney, Mother Neff or a museum weekend. These named properties have independently verified Hotels.com listings, but no room price, opening or availability is guaranteed.";
+    }
     if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
+    if (isPalestinePolarExpress) {
+      heading.textContent = "Palestine hotels for the train ride";
+      copy.textContent = "Start with hotels in Palestine, not a generic nationwide search. Choose your exact train date first, then compare room costs, cancellation policies and driving time to the Palestine Depot.";
+    }
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
+    if (window.location.pathname.replace(new RegExp("/+$"), "") === "/best-places-to-go-camping-in-texas") {
+      eyebrow.textContent = "Plan your overnight stay";
+      heading.textContent = "RV rentals and nearby stays";
+      copy.textContent = "For campsites, use the official booking links in the campground finder above. Need an RV rental or a hotel before or after your camping trip? Compare the providers below, then check the campsite\u2019s vehicle limits and the provider\u2019s current terms.";
+    }
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
@@ -292,9 +385,52 @@
         placement: `casino-stay-${slug}-${index + 1}`,
       }));
     });
-    actions.appendChild(createTrackedLink({
-      destination: HOTELS_DESTINATION,
-      label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
+    const isMagnoliaWacoGuide = window.location.pathname.replace(/\/+$/, "") === "/article/chip-and-joanna-gaines-magnolia-waco";
+    if (isMagnoliaWacoGuide) {
+      heading.textContent = "Waco hotels and rentals near Magnolia";
+      copy.textContent = "Choose a real Waco hotel listing or browse Waco vacation rentals. These independent booking links are not official Magnolia reservations. Check dates, price, location and cancellation rules on each provider.";
+      for (const name of ["Hotel 1928", "Hilton Waco", "Courtyard by Marriott Waco"]) {
+        actions.appendChild(createTrackedLink({
+          destination: VERIFIED_PROPERTY_DESTINATIONS.get(name),
+          label: `View ${name} on Hotels.com`,
+          variant: name === "Hotel 1928" ? "primary" : "secondary",
+          placement: "magnolia-waco-exact-hotel"
+        }));
+      }
+      actions.appendChild(createTrackedLink({
+        destination: "https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center",
+        label: "Browse rentals near Waco Convention Center on Vrbo",
+        variant: "secondary",
+        placement: "magnolia-waco-vrbo-rentals"
+      }));
+    } else {
+    if (isMcAllenDayTrips) {
+      actions.appendChild(createTrackedLink({
+        destination: MCALLEN_HOTELS_DESTINATION,
+        label: "Compare McAllen-area hotels",
+        variant: "primary",
+        placement: "mcallen-day-trips-base-hotels",
+      }));
+      actions.appendChild(createTrackedLink({
+        destination: SOUTH_PADRE_HOTELS_DESTINATION,
+        label: "Turn South Padre Island into a weekend",
+        variant: "secondary",
+        placement: "mcallen-day-trips-coastal-weekend",
+      }));
+    } else if (isWacoDayTrips) {
+      for (const name of ["Hotel 1928", "Hilton Waco", "Courtyard by Marriott Waco"]) {
+        const destination = exactPropertyDestination(name);
+        if (!destination) continue;
+        actions.appendChild(createTrackedLink({
+          destination,
+          label: `Compare ${name} on Hotels.com`,
+          variant: name === "Hilton Waco" ? "primary" : "secondary",
+          placement: "waco-day-trips-weekend-stay",
+        }));
+      }
+    } else actions.appendChild(createTrackedLink({
+      destination: isPalestinePolarExpress ? PALESTINE_HOTELS_DESTINATION : HOTELS_DESTINATION,
+      label: isPalestinePolarExpress ? "Compare Palestine hotels on Hotels.com" : exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
       variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
@@ -321,6 +457,8 @@
       }));
     }
 
+    }
+    if (motel6Eligible()) actions.appendChild(createMotel6Link());
     if (showRvshare) {
       actions.appendChild(createTrackedLink({
         destination: RVSHARE_DESTINATION,
@@ -339,6 +477,7 @@
         : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.")
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
+    if (motel6Eligible()) disclosure.textContent += " Motel 6 is an additional sponsored budget-stay option; TexasDefined may earn a commission on qualifying reservations.";
     panel.append(eyebrow, heading, copy, actions, disclosure);
     if (hotelPasoExact) {
       const sourceNote = document.createElement("p");
@@ -503,6 +642,16 @@
 
   function placeBookingChoice(surface, choice, exactPropertyFirst) {
     choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
+    // One coherent overnight section on McAllen: preserve all affiliate choices
+    // but place them inside the existing Expedia container, not as a second section.
+    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
+      const parent = surface.querySelector(":scope > .mx-auto");
+      if (parent) {
+        if (choice.parentElement !== parent || choice !== parent.lastElementChild) parent.appendChild(choice);
+        if (surface.dataset.stayConsolidated !== "true") surface.dataset.stayConsolidated = "true";
+        return;
+      }
+    }
     if (exactPropertyFirst) {
       const scopedStyle = Array.from(surface.children).find((child) => child.tagName === "STYLE");
       if (scopedStyle) {
@@ -516,6 +665,76 @@
     }
     if (choice.parentElement === surface && choice === surface.firstElementChild) return;
     surface.prepend(choice);
+  }
+
+  function unifyFortMcKavettBookingActions(surface, choice) {
+    // The two booking integrations share one real panel on this historic-site
+    // route. Move the original Expedia button (including its existing click
+    // handler), NOT a clone or new unaudited affiliate link.
+    if (window.location.pathname.replace(/\/+$/, "") !== "/destination/fort-mckavett") return;
+    const panel = choice.querySelector(".td-stay-affiliate-panel");
+    const actions = panel?.querySelector(".td-stay-affiliate-actions");
+    const vrbo = Array.from(actions?.querySelectorAll("a") || [])
+      .find((link) => link.dataset.affiliatePartner === "vrbo");
+    const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
+    if (!panel || !actions || !vrbo || !expediaButton) return;
+    actions.classList.add("td-stay-affiliate-actions--fort-mckavett");
+
+    if (!expediaButton.classList.contains("td-stay-affiliate-button")) {
+      expediaButton.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+      expediaButton.textContent = "Search Expedia stays";
+      expediaButton.setAttribute("aria-label", "Search Expedia stays on this page");
+    }
+    if (expediaButton.parentElement !== actions || expediaButton.nextElementSibling !== vrbo)
+      actions.insertBefore(expediaButton, vrbo);
+
+    // Reveal Expedia's real deferred search inside the same booking box.
+    const widgetHost = surface.querySelector(".td-stay-widget-host");
+    if (widgetHost && widgetHost.parentElement !== panel) panel.appendChild(widgetHost);
+
+    const disclosure = panel.querySelector(".td-stay-affiliate-disclosure");
+    if (disclosure) {
+      const fullDisclosure = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or Expedia bookings, at no additional cost to you. Availability, rates and booking terms are provided by each booking service.";
+      if (disclosure.textContent !== fullDisclosure) disclosure.textContent = fullDisclosure;
+    }
+    // One disclosure and one bordered box. The Expedia host is preserved
+    // until a visitor chooses to search; no vendor library loads automatically.
+    surface.querySelector('[data-expedia-disclosure="true"]')?.remove();
+    const emptyFallback = surface.querySelector(":scope > .mx-auto");
+    if (emptyFallback && !emptyFallback.children.length) emptyFallback.remove();
+  }
+
+  function unifyCampingBookingActions(surface, choice) {
+    // The campground guide has a SINGLE trip-planning affiliate box.
+    // Keep the original intent-loaded Expedia button and analytics handler,
+    // but move that same node into the CJ choices, never clone/recreate it.
+    if (window.location.pathname.replace(new RegExp("/+$"), "") !== "/best-places-to-go-camping-in-texas") return;
+    if (surface.dataset.surfaceType !== "generic") return;
+    const panel = choice.querySelector(".td-stay-affiliate-panel");
+    const actions = panel?.querySelector(".td-stay-affiliate-actions");
+    const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
+    if (!panel || !actions || !expediaButton) return;
+
+    expediaButton.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+    expediaButton.textContent = "Search Expedia stays";
+    expediaButton.setAttribute("aria-label", "Search for hotel stays on Expedia without leaving this camping guide");
+    if (expediaButton.parentElement !== actions || expediaButton !== actions.lastElementChild)
+      actions.appendChild(expediaButton);
+
+    // The existing Expedia widget host stays inside the same bordered panel,
+    // so activating search never produces a second lodging section.
+    const widgetHost = surface.querySelector(".td-stay-widget-host");
+    if (widgetHost && widgetHost.parentElement !== panel) panel.appendChild(widgetHost);
+
+    const disclosure = panel.querySelector(".td-stay-affiliate-disclosure");
+    if (disclosure) {
+      const unifiedDisclosure = "Affiliate disclosure: TexasDefined may earn a commission from qualifying RVshare, Hotels.com, Travelocity or Expedia activity, at no additional cost to you. Availability, rates and booking terms come from each provider.";
+      if (disclosure.textContent !== unifiedDisclosure) disclosure.textContent = unifiedDisclosure;
+    }
+    surface.querySelector('[data-expedia-disclosure="true"]')?.remove();
+    const emptyExpediaContainer = surface.querySelector(":scope > .mx-auto");
+    if (emptyExpediaContainer && !emptyExpediaContainer.children.length) emptyExpediaContainer.remove();
+    surface.dataset.stayConsolidated = "camping";
   }
 
   function upgradeExactPropertyCards(surface) {
@@ -551,19 +770,23 @@
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
     const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
+    const motel6Mode = motel6Eligible() ? "standard" : "none";
     const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
     const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
       ? `casino:${casinoPath}`
       : (!exactPropertyFirst && hotelPasoStay() ? "hotel-paso-exact" : choiceMode);
     let choice = existing;
-    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice.parentElement === expediaSurface)) {
+    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice?.dataset.motel6Mode === motel6Mode && choice.parentElement === expediaSurface)) {
       choice?.remove();
       choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
+      choice.dataset.motel6Mode = motel6Mode;
       choice.dataset.mode = choiceMode;
       if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
+    unifyFortMcKavettBookingActions(expediaSurface, choice);
+    unifyCampingBookingActions(expediaSurface, choice);
 
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
@@ -589,6 +812,20 @@
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
     if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
+    // Do not mutate the first curated article or stay slot before the lazy
+    // metro outlet has hydrated. A root-level ready event alone is too early.
+    // Apply this to all metros: Chrome production QA observed React #418
+    // on multiple non-McAllen day-trip guides after early affiliate writes.
+    // Preserve the earlier independently verified McAllen readiness contract
+    // while guarding every metro against lazy-outlet hydration races.
+    if (path === "/explore/near/mcallen/day-trips" &&
+        document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1") return true;
+    if (/^\/explore\/near\/dallas\/small-towns-[123]-hours?$/.test(path)) {
+      return document.documentElement.dataset.tdDallasRoadGuideHydrated !== "1";
+    }
+    if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(path)) {
+      return document.documentElement.dataset.tdMetroDayTripsHydrated !== "1";
+    }
     // BB-35's lazy article must commit before booking options alter #main.
     if (path === "/article/battleship-texas-bb-35-history-restoration") {
       return document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
@@ -598,6 +835,7 @@
 
   function sync() {
     scheduled = false;
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(window.location.pathname) && !document.querySelector('[data-pro-team-hydrated="true"]')) return;
     if (waitingForFootballCountyHydration()) return;
     addStyles();
     syncBookingChoice();
@@ -618,10 +856,15 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:dallas-road-guide-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
+    buildMotel6Link,
+    motel6Eligible,
     buildCjDeepLink,
     bookingIntent,
     comparisonHotelDestination,

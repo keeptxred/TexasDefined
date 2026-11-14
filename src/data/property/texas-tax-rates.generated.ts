@@ -18,10 +18,24 @@ export type TexasTaxRateRecord = {
   debtServiceRate: number | null;
   levy: number | null;
   sourceUrl: string;
+  // Timestamp when the official workbook row was last ingested, not an editorial review date.
+  importedAt?: string | null;
   sourceStatus: TexasTaxRateSourceStatus;
   officialTaxingUnitIds: string[];
   splitAcrossCads: boolean;
   rateUnavailable: boolean;
+  // A separately sourced display-only supplement, never used in parcel calculations.
+  localVerification?: {
+    totalRate: number;
+    maintenanceOperationsRate: number | null;
+    debtServiceRate: number | null;
+    sourceUrl: string;
+    componentSourceUrl: string | null;
+    sourceAgency: string;
+    verifiedOn: string;
+    evidenceNote: string;
+    mode: 'supplement' | 'corroborated' | 'conflict';
+  };
 };
 
 // Retained for compatibility with code that imports the historical static contract.

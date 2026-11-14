@@ -4,7 +4,11 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'src/data/events/official-venue-events.server.ts'
+      - 'scripts/data/validate-official-venue-ticketing.mjs'
       - 'src/data/events/texas-event-record.ts'
+      - 'scripts/events/verify-editorial-ticket-links.mjs'
+      - 'scripts/events/verify-editorial-ticket-links.test.mjs'
       - 'src/data/events/ticketing.ts'
       - 'src/data/events/texas-event-records.server.ts'
       - 'src/data/events/texas-event-calendar.server.ts'
@@ -14,6 +18,8 @@ on:
       - 'src/components/editorial/TexasEventCarousel.tsx'
       - 'scripts/data/validate-event-ticketing-architecture.mjs'
       - 'scripts/data/validate-event-ticket-positive-path.mjs'
+      - 'scripts/data/validate-statewide-editorial-ticket-cohorts.mjs'
+      - 'scripts/data/validate-major-event-ticket-lifecycle.mjs'
       - 'docs/event-ticketing-provider-architecture.md'
       - '.github/workflows/validate-event-ticketing.yml'
   workflow_dispatch:
@@ -40,6 +46,12 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
+      - name: Verify exact Choctaw game checkout source boundaries
+        run: node --experimental-strip-types scripts/data/validate-official-venue-ticketing.mjs
+
+      - name: Validate bounded official editorial seller URL probes
+        run: node --test scripts/events/verify-editorial-ticket-links.test.mjs
+
       - name: Validate provider-neutral ticket architecture
         run: node scripts/data/validate-event-ticketing-architecture.mjs
 
@@ -48,3 +60,9 @@ jobs:
 
       - name: Validate canonical official-ticket positive path
         run: node scripts/data/validate-event-ticket-positive-path.mjs
+
+      - name: Validate all upcoming editorial ticket records in cohorts of 50
+        run: node scripts/data/validate-statewide-editorial-ticket-cohorts.mjs
+
+      - name: Validate organizer cancellation gate on major-event guide tickets
+        run: node scripts/data/validate-major-event-ticket-lifecycle.mjs

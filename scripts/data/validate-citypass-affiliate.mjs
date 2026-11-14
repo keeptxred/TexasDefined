@@ -35,7 +35,7 @@ for (const [needle, label] of [
 requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
 requireText(calloutWrapper, 'showGuideLink?: boolean', 'Guide self-link suppression contract');
 requireText(calloutContent, 'CITYPASS_AFFILIATE_URLS[market]', 'Market-specific CityPASS CTA target');
-requireText(cityPassData, 'CITYPASS_AFFILIATE_LINKS_ENABLED = false', 'Pause nonfunctional tracked redirects pending partner reissue');
+requireText(cityPassData, 'CITYPASS_AFFILIATE_LINKS_ENABLED = true', 'Restore account-approved CJ CityPASS tracking on all three markets');
 requireText(cityPassData, 'CITYPASS_OFFICIAL_URLS', 'Verified CityPASS fallback URL map');
 requireText(calloutContent, 'CITYPASS_OFFICIAL_URLS[market]', 'Working direct official CityPASS CTA target');
 requireText(calloutContent, 'CITYPASS_AFFILIATE_LINKS_ENABLED ? "citypass" : undefined', 'No misleading tracking for direct links');
@@ -44,11 +44,14 @@ requireText(calloutContent, 'showGuideLink = true', 'Contextual guide-link defau
 requireText(calloutContent, 'Check current {market} CityPASS® price', 'Price-oriented affiliate CTA');
 
 const affiliateTargets = [
-  ['Dallas', 'https://citypass.7eer.net/c/7236213/305537/3331'],
-  ['Houston', 'https://citypass.7eer.net/c/7236213/305542/3331'],
-  ['San Antonio', 'https://citypass.7eer.net/c/7236213/305547/3331'],
+  ['Dallas', 'https://www.dpbolvw.net/click-101876465-12186930'],
+  ['Houston', 'https://www.jdoqocy.com/click-101876465-17329800'],
+  ['San Antonio', 'https://www.dpbolvw.net/click-101876465-17329806'],
 ];
 for (const [market, url] of affiliateTargets) requireText(cityPassData, `"${market}": "${url}"`, `${market} affiliate URL`);
+if (/https:\/\/citypass\.7eer\.net\//.test(cityPassData)) {
+  errors.push('Broken legacy 7eer CityPASS links must not be reintroduced.');
+}
 if (cityPassData.includes('https://www.anrdoezrs.net/click-101876465-11436795')) {
   errors.push('CityPASS affiliate data must not regress to the generic CJ link; preserve the three market-specific CityPASS destinations.');
 }
@@ -146,8 +149,21 @@ for (const marker of [
 const priceFacts = [
   ['Dallas', '$64', '$46', '4 of 6', 'up to 56%'],
   ['Houston', '$82', '$72', '5 of 7', 'up to 52%'],
-  ['San Antonio', '$63', '$53', '4 of 8', 'up to 41%'],
+  ['San Antonio', '$63', '$53', '4 of 8', 'up to 42%'],
 ];
+for (const marker of [
+  'SAN_ANTONIO_RATE_EFFECTIVE_AT = Date.parse("2026-11-02T06:00:00Z")',
+  'adult: "$67"',
+  'child: "$57"',
+  'maxSavings: "up to 38%"',
+  'maxValue: "$108.00"',
+  'maxDollarSavings: "$41.00"',
+  'October 23, 2026',
+  'November 1',
+  'November 2',
+  'marketSummariesAt(now)',
+]) requireText(guidePage, marker, 'San Antonio scheduled CityPASS price rollover');
+
 for (const [market, adult, child, selection, savings] of priceFacts) {
   for (const value of [`market: "${market}"`, `adult: "${adult}"`, `child: "${child}"`, `selection: "${selection}"`, `maxSavings: "${savings}"`]) {
     requireText(guidePage, value, `${market} buying-guide price facts`);

@@ -115,9 +115,56 @@ The booking layer now appears in two primary places:
 1. `/explore#tours-experiences` — the statewide experience-market directory, including compact reviewed inventory signals;
 2. canonical `/destination/:slug` pages — a market-matched booking card that can surface the same category-level signals while sending the visitor to current Viator inventory.
 
-Both surfaces keep prices, ratings, review counts and current availability on Viator rather than hard-coding volatile values into TexasDefined.
+Both surfaces keep prices, ratings, review counts and date-specific availability on Viator instead of hard-coding volatile values into TexasDefined. The live API preview additionally shows freshly fetched product names/images on eligible market cards.
 
 Rich research records and curated product seeds stay outside the lightweight client runtime projection so statewide booking discovery does not consume the protected main-bundle performance headroom.
+
+## Live Viator API market previews (October 2026)
+
+TexasDefined uses the already installed `VIATOR_API_KEY` Cloudflare Worker secret
+to retrieve **current product summaries on demand**. This is an affiliate
+implementation, not a ticket-sale or booking service.
+
+- Destination booking panels request previews only when the visitor scrolls
+  near the panel; market directory cards offer an explicit **Show current tour
+  previews** button. Search engines receive the unchanged editorial/affiliate
+  fallback without triggering API queries.
+- `GET /api/viator/market/:market/products` is a same-origin, no-query,
+  allowlisted server endpoint. Only the 14 markets in
+  `src/lib/viator-market-feed.ts` with **already verified** official Viator
+  destination IDs may be queried. Never substitute local names or infer an
+  API destination ID from prose.
+- The Worker makes a single `/products/search` API request per cache miss,
+  `pagination: { start: 1, count: 12 }`, displays up to four vetted preview
+  results, and caches the sanitized result for 20 minutes at the edge
+  (browser cache 2 minutes). There is **no nightly catalog ingestion**,
+  no permanent product store, no mass pagination, and no new API secret.
+- Product URLs come from the Viator API `productUrl` field and must be used **unchanged**, including Viator's affiliate tracking and campaign. The allowlist rejects cross-site URLs, untracked products and mismatched publisher attribution, falling back to existing destination links. Campaigns use
+  `texasdefined-api-<market-slug>` and first-party click tracking continues
+  per placement and product code.
+- Cards show Viator's actual product titles and available cover images.
+  Date-dependent prices, review totals and bookable times are **not** copied
+  to TexasDefined; customers must confirm all of these on Viator before
+  booking. A failed API search never causes an invented offer: verified
+  destination-level affiliate links continue working.
+- This live search is a **marketplace feed, not an endorsement or a claim of
+  admission** to the named TexasDefined location. All public-site access and
+  operating claims still use official sources.
+- No scheduled GitHub refresh job is required: user-initiated, cached API
+  requests automatically obtain fresh listings on a subsequent visit after
+  cache expiry. Avoid any GitHub job that runs `/products/search` for all
+  markets as a batch; Viator requires search to be for real user requests.
+
+Verification: `node --experimental-strip-types --test
+src/lib/__tests__/viator-market-feed.test.ts` and the existing affiliate
+analytics validator. Both run on PR/push; the market contract also blocks
+the production pre-deploy validation suite. Production diagnostics should
+check a single verified market endpoint, not crawl the whole catalog.
+
+API eligibility and usage rules: Viator's official partner technical guide
+allows basic-access affiliates to use `/products/search` for on-demand
+results, with a one-hour maximum search result cache and a 50-result maximum
+per search page. This feature uses fewer results and a shorter cache.
 
 ## Production safeguards
 

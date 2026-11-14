@@ -4,6 +4,7 @@
  * Fail closed if an apparently healthy release omits the league schedule or records.
  */
 import assert from 'node:assert/strict';
+import { fetchLiveDistrict5Html } from './district5-transient-http.mjs';
 
 const path = '/texas-high-school-football-districts/6a-district-5';
 const origins = [
@@ -15,18 +16,9 @@ async function check(origin) {
   const url = new URL(path, origin);
   // Query parameter avoids mistaking a previously cached HTML page for the new release.
   url.searchParams.set('district5_acceptance', (process.env.GITHUB_SHA ?? 'manual').slice(0, 12));
-  const response = await fetch(url, {
-    redirect: 'follow',
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: {
-      'user-agent': 'TexasDefined-District5-Production-Smoke/1.0',
-      'cache-control': 'no-cache',
-      'accept': 'text/html',
-    },
-  });
-  assert.equal(response.status, 200, `${origin} returned ${response.status}`);
-  const html = await response.text();
+  // Retries only transport failures, including an aborted response body. Actual
+  // HTTP statuses and all source-backed content assertions remain fail-closed.
+  const html = await fetchLiveDistrict5Html(url, origin);
   assert.ok(html.length > 6_000, `${origin}: HTML response unexpectedly short (${html.length})`);
 
   for (const marker of [

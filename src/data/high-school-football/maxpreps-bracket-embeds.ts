@@ -1,16 +1,70 @@
+import type { MaxPrepsTournamentWidgetConfig } from '@/components/sports/MaxPrepsTournamentWidget';
+
 /**
  * Only embed code explicitly issued by MaxPreps may be configured here.
  * The public tournament page and UIL bracket page are NOT embed URLs.
  *
  * MaxPreps requires a signed-in account to generate a tournament widget.
  * Do not guess or derive embed URLs, scrape brackets, or proxy provider HTML.
- * Store only the iframe src from MaxPreps' official generated embed snippet.
- * If their generated code uses a different integration type, review it first.
+ * Store only a provider-issued iframe src or generated JavaScript widget data.
+ * The 2026 UIL 6A and 5A Division I/II widgets use verified anchor attributes and the official script.
  *
  * These public URLs are not credentials. Leave entries absent until verified.
  */
 export type TexasFootballBracketKey =
   `${'1A'|'2A'|'3A'|'4A'|'5A'|'6A'}D${1|2}`;
+
+/**
+ * Provider-generated codes pasted by the owner on 2026-10-20. These are
+ * official MaxPreps JavaScript anchor widgets, NOT iframe URLs.
+ *
+ * The owner supplied 6A D1, 6A D2, 5A D1, and 5A D2 snippets, including the
+ * same explicitly generated member ID in all four. Do not infer that ID
+ * for the remaining eight brackets; preserve their official source links.
+ */
+export const approvedMaxPrepsJsTournamentWidgets: Partial<
+  Record<TexasFootballBracketKey, MaxPrepsTournamentWidgetConfig>
+> = {
+  '6AD1': {
+    title: '2026 UIL Texas Football State Championships 2026 Football Conference 6A D1',
+    href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=ade72ad3-0f62-42ef-a2cb-143bf425942b',
+    memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
+    width: 900,
+    height: 600,
+    allowScrollbar: true,
+  },
+  '6AD2': {
+    title: '2026 UIL Texas Football State Championships 2026 Football Conference 6A D2',
+    href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=412dffeb-8db4-405a-90d8-d835b3a6ca23',
+    memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
+    width: 900,
+    height: 600,
+    allowScrollbar: true,
+  },
+  '5AD1': {
+    title: '2026 UIL Texas Football State Championships 2026 Football Conference 5A D1',
+    href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=4cc4d252-d23d-41ad-b706-761d65cdfe58',
+    memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
+    width: 900,
+    height: 600,
+    allowScrollbar: true,
+  },
+  '5AD2': {
+    title: '2026 UIL Texas Football State Championships 2026 Football Conference 5A D2',
+    href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=15f0b8b4-192d-4208-828c-4f26f39ce6a8',
+    memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
+    width: 900,
+    height: 600,
+    allowScrollbar: true,
+  },
+};
+
+export function approvedMaxPrepsJsTournamentWidget(classification: string, division: 1 | 2) {
+  const key = `${classification}D${division}` as TexasFootballBracketKey;
+  return Object.prototype.hasOwnProperty.call(approvedMaxPrepsJsTournamentWidgets, key)
+    ? approvedMaxPrepsJsTournamentWidgets[key] ?? null
+    : null;
+}
 
 export const maxPrepsTournamentEmbedUrls: Partial<Record<TexasFootballBracketKey, string>> = {
   // '6AD1': 'https://<actual MaxPreps-issued iframe URL>',

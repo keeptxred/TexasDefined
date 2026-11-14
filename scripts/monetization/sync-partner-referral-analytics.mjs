@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { changedReferralAggregates } from './partner-referral-write-gate.mjs';
 
 const DATASET = 'texas_defined_outcomes';
 const TABLE = 'texasdefined_partner_referral_daily';
@@ -192,6 +193,42 @@ async function latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey) {
   return Math.max(0, (Date.now() - syncedAt) / 60_000);
 }
 
+// Read the complete 31-day window before writing. An hourly Cloudflare
+// recomputation previously UPSERTed *every* unchanged row, rewriting the
+// synced_at field and generating heavy PostgreSQL WAL with no new activity.
+// Fail closed on incomplete pagination; never treat failed reads as "empty".
+async function loadExistingAggregates(supabaseUrl, serviceRoleKey) {
+  const cutoff = new Date();
+  cutoff.setUTCHours(0,0,0,0);
+  cutoff.setUTCDate(cutoff.getUTCDate() - WINDOW_DAYS);
+  const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
+  endpoint.searchParams.set('metric_date', `gte.${cutoff.toISOString().slice(0,10)}`);
+  endpoint.searchParams.set('select',
+    'metric_date,partner,placement,page_path,destination_hash,destination_url,acquisition_source,click_count,impression_count');
+  endpoint.searchParams.set('order',
+    'metric_date.asc,partner.asc,placement.asc,page_path.asc,destination_hash.asc,acquisition_source.asc');
+
+  const pageSize = 500;
+  const rows = [];
+  for (let offset=0;offset<MAX_ROWS;offset+=pageSize) {
+    endpoint.searchParams.set('limit', String(pageSize));
+    endpoint.searchParams.set('offset', String(offset));
+    const response = await fetch(endpoint, {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+        Accept:'application/json',
+      },
+    });
+    if (!response.ok) throw new Error(`Supabase referral comparison fetch failed with HTTP ${response.status}`);
+    const page = await response.json();
+    if (!Array.isArray(page)) throw new Error('Supabase referral comparison returned invalid page');
+    rows.push(...page);
+    if (page.length < pageSize) return rows;
+  }
+  throw new Error('Supabase referral comparison exceeds the bounded 10000-row safety limit');
+}
+
 async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   if (!rows.length) return;
   const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
@@ -259,7 +296,9 @@ const apiToken = required('CLOUDFLARE_API_TOKEN');
 const rawRows = await queryCloudflare(accountId, apiToken);
 if (rawRows.length >= MAX_ROWS) throw new Error(`Cloudflare result hit the ${MAX_ROWS}-row safety cap; refine the aggregation before syncing.`);
 const rows = normalizeRows(rawRows);
-await upsertRows(supabaseUrl, serviceRoleKey, rows);
+const existingAggregates = await loadExistingAggregates(supabaseUrl, serviceRoleKey);
+const changedRows = changedReferralAggregates(rows, existingAggregates);
+await upsertRows(supabaseUrl, serviceRoleKey, changedRows);
 const heartbeat = heartbeatRow();
 await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
 const retentionCutoff = await pruneOldRows(supabaseUrl, serviceRoleKey);
@@ -267,4 +306,4 @@ const retentionCutoff = await pruneOldRows(supabaseUrl, serviceRoleKey);
 const searchStarts = rows.filter((row) => row.partner === 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const clicks = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const impressions = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.impression_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates (${changedRows.length} inserted/changed, ${rows.length - changedRows.length} unchanged skipped) covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);

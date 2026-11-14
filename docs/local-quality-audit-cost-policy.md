@@ -7,17 +7,22 @@ Worker after every deployment. This intentionally supersedes their previous
 post-deployment workflow wiring requirement. All content, graph, robots,
 canonical, image-size, provenance, and strict failure assertions remain required.
 
-`audit-whole-site-production.yml` is the single weekly coordinator. It calls
-`audit-site-quality-local.yml` to build the site once and run all nine complete
-audits against a local workerd process on the GitHub runner. The nine cover
+`audit-whole-site-production.yml` formerly scheduled the consolidated weekly crawl.
+**Owner hold, October 19, 2026: no sitewide audits may run or restart.** Its cron
+was removed and both the caller and reusable audit job have explicit false guards,
+so neither a manual dispatch nor a workflow call can launch an audit. Future
+reactivation requires the owner's explicit approval. The preserved local-runner
+implementation is not an authorization to execute it. Historically these audits
+used one local workerd build to run nine complete checks. The nine cover
 internal links, sitemap indexability, Discover images, sports venue heroes, all
 254 county pages, RV images, lake reciprocal links, whole-site page quality,
 and Friday Night Lights. The six additional migrations supersede their former
-per-deployment or independent scheduled production-crawl requirements. The
-coordinator preserves the permanent authority backlog issue #4704 using the local
-report and uploads evidence even when an audit fails. Source-only PR checks remain. The former
-workflow names remain manual entry points for a single complete local audit.
-Run locally after `npm ci` and `npm run build` with:
+per-deployment or independent scheduled production-crawl requirements. Before being disabled, the
+coordinator preserved permanent authority backlog issue #4704 with the local
+report and uploaded evidence. Existing backlog information remains intact. Source-only PR checks remain. Source-only pull-request validation and ordinary deploy health checks remain active;
+full-site manual workflow entry points are disabled at job level.
+Retained for historical reproducibility only; do not run without new authorization.
+Former local command after `npm ci` and `npm run build`:
 
     node scripts/ci/run-local-quality-audits.mjs all
 

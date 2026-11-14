@@ -129,7 +129,42 @@ await verifySurface({
   ],
 });
 
+// One bounded post-release check; never enumerate Viator's product catalog.
+// A transient upstream outage must not block unrelated TexasDefined publishes.
+async function verifyLiveMarketFeed() {
+  const url = `${origin}/api/viator/market/houston/products`;
+  try {
+    const response = await fetch(url, {
+      cache: 'no-store',
+      signal: AbortSignal.timeout(15_000),
+      headers: { 'user-agent': 'TexasDefined-CI-Viator-Live/1.0' },
+    });
+    if (response.status === 503) {
+      console.warn('[viator-production] LIVE_API_UNAVAILABLE: existing verified Viator fallback links remain available.');
+      return;
+    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const body = await response.json();
+    if (body.source !== 'viator' || body.market !== 'houston' || !Array.isArray(body.products) || body.products.length > 4) {
+      throw new Error('Invalid bounded market feed response');
+    }
+    for (const item of body.products) {
+      const destination = new URL(item.url);
+      if (!destination.hostname.endsWith('.viator.com') ||
+          destination.searchParams.get('pid') !== 'P00318227' ||
+          destination.searchParams.get('mcid') !== '42383' ||
+          destination.searchParams.get('medium') !== 'api' ||
+          'pricing' in item) throw new Error('Unsafe or untracked Viator product preview');
+    }
+    console.log(`[viator-production] Live Houston API feed reachable; ${body.products.length} safe, tracked previews returned.`);
+  } catch (error) {
+    console.error('[viator-production] live market feed validation failed:', error);
+    process.exit(1);
+  }
+}
+
 await verifyCityBootstrap();
+await verifyLiveMarketFeed();
 console.log('[viator-production] Explore directory, representative destination booking card and city affiliate bootstrap passed live verification.');
 
 await import('./verify-ask-texas-government-production.mjs');

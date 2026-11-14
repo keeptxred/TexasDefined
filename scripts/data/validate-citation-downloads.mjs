@@ -9,6 +9,7 @@ const cityCountyCsv = await read('src/routes/texas-data.city-county-relationship
 const sportsRoute = await read('src/routes/sports-venues.compare.tsx');
 const sportsCsv = await read('src/routes/sports-venues.compare[.]csv.ts');
 const sportsData = await read('src/data/sports-venue-comparison.ts');
+const sportsInventory = await read('src/data/sports-venue-comparison-inventory.ts');
 const topRoute = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
@@ -22,8 +23,29 @@ const iconsCsv = await read('src/routes/things-that-define-texas[.]csv.ts');
 const iconsJson = await read('src/routes/things-that-define-texas[.]json.ts');
 const iconsReferenceData = await read('src/data/things-unique-to-texas-reference.ts');
 
+// The existing post-deploy smoke must test the currently deployed verified
+// Texas Data after *every* successful deploy, even if an intermediate data
+// release was superseded before deployment. Never freeze future TDI premiums.
+const smokeWorkflow = await read('.github/workflows/texasdefined-publication-production-smoke.yml');
+const liveDataSmoke = await read('scripts/ci/verify-texas-data-production.mjs');
+
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
+
+expect(smokeWorkflow.includes("if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}"), 'Texas Data smoke must only run on manual, scheduled, or successful deployment checks');
+expect(smokeWorkflow.includes("cron: '47 14 * * *'"), 'Official-source live acceptance must have one bounded daily GitHub check');
+expect(smokeWorkflow.includes("group: texasdefined-publication-production-smoke-${{ github.event_name == 'schedule' && 'daily' || 'release' }}"), 'Daily audit must not cancel protected release smoke');
+expect((smokeWorkflow.match(/if: github.event_name != 'schedule'/g) ?? []).length === 3, 'Daily check must skip unrelated news, museums, and affiliate audits');
+
+expect(smokeWorkflow.includes('run: node --check scripts/ci/verify-texas-data-production.mjs'), 'Texas Data smoke must check live verifier syntax');
+expect(smokeWorkflow.includes('run: node scripts/ci/verify-texas-data-production.mjs'), 'Every successful deployment must verify the live Texas Data hub, release vintages and CSVs');
+expect(!smokeWorkflow.includes('texas_data_scope'), 'Data-only publication must not be skipped because a later unrelated merge won deployment');
+expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
+expect(liveDataSmoke.includes('currentBlsReleaseLabel') && liveDataSmoke.includes('currentBlsHubPayrolls'), 'Live acceptance must verify current official BLS observation month and four metro values');
+expect(liveDataSmoke.includes("const metroDetailPath = '/texas-data/texas-metro-payrolls-latest'") && liveDataSmoke.includes("for (const row of currentBls.rows)"), 'Public live acceptance must validate exact latest BLS dataset page and all 13 current metro counts');
+expect(liveDataSmoke.includes("const countyGrowthDetailPath = '/texas-data/county-growth'") && liveDataSmoke.includes("'live-Census-county-detail'"), 'Public live acceptance must validate the verified Census county vintage detail');
+expect(!liveDataSmoke.includes("'$3,489'"), 'Live acceptance must not freeze the historic TDI premium');
+
 
 for (const token of [
   "encodingFormat: 'text/csv'",
@@ -34,7 +56,7 @@ for (const token of [
   "createFileRoute('/texas-data/county-growth.csv')",
   "'content-type': 'text/csv; charset=utf-8'",
   "'x-robots-tag': 'noindex, follow'",
-  "'content-disposition': 'attachment; filename=\"texas-county-population-growth-2020-2025.csv\"'",
+  "'content-disposition': 'attachment; filename=\"texas-county-population-growth-2020-'",
   'if (!data.available)',
   'status: 503',
   'population_change_percent',
@@ -75,6 +97,10 @@ for (const token of [
   'CURATED_KNOWLEDGE_GRAPH_SEED',
   "entity.kind === 'sports-venue'",
   '.map(applyCurrentEntityCorrections)',
+  'SPORTS_VENUE_COMPARISON_INVENTORY_COUNT',
+]) expect(sportsInventory.includes(token), `sports venue comparison inventory missing: ${token}`);
+for (const token of [
+  'SPORTS_VENUE_COMPARISON_INVENTORY',
   'getSportsVenueEnrichmentAll(venue.slug)',
   'canonicalPath: canonicalEntityPath(venue)',
 ]) expect(sportsData.includes(token), `sports venue comparison shared-data contract missing: ${token}`);

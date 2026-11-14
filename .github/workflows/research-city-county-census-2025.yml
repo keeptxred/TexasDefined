@@ -1,0 +1,33 @@
+name: Cross-check city/county boundaries against 2025 Census
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/data/research-city-county-census-2025.py'
+      - '.github/workflows/research-city-county-census-2025.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install isolated free/open-source spatial libraries
+        run: python -m pip install --disable-pip-version-check 'shapely>=2,<3' 'pyproj>=3,<4'
+      - name: Validate script syntax
+        run: python -m py_compile scripts/data/research-city-county-census-2025.py
+      - name: Independently cross-check 57 directory place footprints against TIGERweb 2025
+        run: python scripts/data/research-city-county-census-2025.py
+      - name: Preserve all Census geometry mismatch evidence (not a release certificate)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-county-census-2025-${{ github.run_id }}
+          path: artifacts/city-county-census-2025/
+          if-no-files-found: warn
+          retention-days: 14

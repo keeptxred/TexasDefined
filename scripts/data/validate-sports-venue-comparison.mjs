@@ -4,9 +4,11 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [route, data, csv, publicRoutes, landingIndex, sportsSearch, llms, citationGuide, citationManifest] = await Promise.all([
+const [route, data, inventory, directory, csv, publicRoutes, landingIndex, sportsSearch, llms, citationGuide, citationManifest] = await Promise.all([
   read('src/routes/sports-venues.compare.tsx'),
   read('src/data/sports-venue-comparison.ts'),
+  read('src/data/sports-venue-comparison-inventory.ts'),
+  read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venues.compare[.]csv.ts'),
   read('src/lib/public-routes.ts'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
@@ -26,20 +28,33 @@ for (const marker of [
   'SPORTS_VENUE_COMPARISON_WITH_CAPACITY',
   'SPORTS_VENUE_COMPARISON_WITH_OPENED',
   'SPORTS_VENUE_COMPARISON_LATEST_REVIEW',
-  'Compare 84 verified Texas sports venues',
+  'Compare Texas sports venues by location',
   "'@type': 'CollectionPage'",
   "'@type': 'Dataset'",
   "'@type': 'DataDownload'",
   "encodingFormat: 'text/csv'",
   'contentUrl: csvUrl',
   "'@type': 'ItemList'",
-  "'@type': 'FAQPage'",
   "'@type': 'BreadcrumbList'",
   'numberOfItems: rows.length',
   'Compare Texas sports venues',
-  'How many Texas sports venues are in this comparison?',
-  'missing values are left blank rather than inferred',
+  'What the figures can and cannot tell you',
+  'Why some capacity cells are blank',
+  'What the opening field means',
+  'Blank means no comparable figure is recorded',
+  'Current operations need current sources',
   'Venue-by-venue comparison',
+  'useMemo',
+  'typeFilter',
+  'regionFilter',
+  'capacityOnly',
+  'Texas region',
+  'Show only venues with published capacity',
+  'visibleRows',
+  'aria-live="polite"',
+  'Venue or location',
+  'Official source',
+  'row.officialUrl',
   '<table',
   "row.capacity ?? '—'",
   "row.opened ?? '—'",
@@ -50,21 +65,25 @@ for (const marker of [
   '<SportsVenueLandingIndex compact />',
 ]) assert(route.includes(marker), `Sports venue comparison route is missing quality/SEO/download marker: ${marker}.`);
 
+assert(!route.includes("'@type': 'FAQPage'"), 'Venue comparison should use direct editorial methodology rather than FAQ rich-result markup.');
+
 for (const forbidden of [
   'TEXAS_ENTITY_REGISTRY',
   'entitiesByKind',
   'loadTexasKnowledgeGraph',
   'SponsoredSportsPlacement',
-  'CURATED_KNOWLEDGE_GRAPH_SEED',
   'getSportsVenueEnrichmentAll',
 ]) assert(!route.includes(forbidden), `Sports venue comparison route must use the shared comparison module rather than heavy or duplicated dependency: ${forbidden}.`);
 
 for (const marker of [
-  'CURATED_KNOWLEDGE_GRAPH_SEED',
-  "entity.kind === 'sports-venue'",
-  '.map(applyCurrentEntityCorrections)',
-  'new Map(',
+  'SPORTS_VENUE_COMPARISON_INVENTORY',
   'getSportsVenueEnrichmentAll(venue.slug)',
+  'getSportsVenueGuideGalaxy(venue.slug)',
+  'getSportsVenueGuideWave7(venue.slug)',
+  'getSportsVenueGuidePilot(venue.slug)',
+  'capacity: enrichment?.capacity ?? guide?.capacity',
+  'opened: enrichment?.opened ?? guide?.opened',
+  'latestIsoDate([enrichment?.verifiedAt, guide?.reviewedAt, venue.sourceCheckedAt])',
   'canonicalPath: canonicalEntityPath(venue)',
   'officialUrl: venue.officialUrl',
   'SPORTS_VENUE_COMPARISON_ROWS',
@@ -140,6 +159,18 @@ if (manifest) {
     }
   }
 }
+
+for (const marker of [
+  "import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed'",
+  "entity.kind === 'sports-venue'",
+  '.map(applyCurrentEntityCorrections)',
+  'new Map(',
+  'SPORTS_VENUE_COMPARISON_INVENTORY_COUNT',
+]) assert(inventory.includes(marker), 'Comparison seed inventory missing parity marker: ' + marker);
+assert(data.includes('const venueRecords = SPORTS_VENUE_COMPARISON_INVENTORY'), 'Comparison table must use shared slug-deduplicated seed.');
+assert(directory.includes("import('@/data/sports-venue-comparison-inventory')"), 'Directory must lazy-load lightweight comparison inventory.');
+assert(directory.includes('catalogCount: SPORTS_VENUE_COMPARISON_INVENTORY_COUNT'), 'Directory must display comparison inventory count, not dynamic graph length.');
+assert(!directory.includes('catalogCount: allSportsVenues.length'), 'Directory cannot claim graph length as comparison-table count.');
 
 if (errors.length) {
   console.error('Sports venue comparison validation failed:');

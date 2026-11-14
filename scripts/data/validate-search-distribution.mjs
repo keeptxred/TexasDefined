@@ -20,6 +20,7 @@ const submitter = read('scripts/seo/submit-indexnow.mjs');
 const library = read('scripts/seo/indexnow-lib.mjs');
 const workflow = read('.github/workflows/bing-indexnow.yml');
 const productionVerifier = read('scripts/seo/verify-search-production.mjs');
+const renderedBingSeo = read('scripts/seo/rendered-bing-seo.mjs');
 const keyFile = read(`public/${key}.txt`).trim();
 
 if (keyFile !== key) errors.push('IndexNow ownership key file must exactly match the configured key.');
@@ -48,7 +49,12 @@ for (const expected of [
 for (const expected of [
   'Googlebot/2.1', 'bingbot/2.0', 'Applebot/0.1', 'DuckDuckBot/1.0', 'OAI-SearchBot/1.0',
   'Public IndexNow key verification failed.', 'canonical mismatch', 'SITEMAPS', 'CSS', 'JavaScript', 'Image',
+  'assertRenderedBingSeo(html, url)', "'/shop/product/'",
 ]) requireText(productionVerifier, expected, `Production search verifier is missing required contract: ${expected}`);
+for (const expected of [
+  'function inspectRenderedBingSeo', 'export function assertRenderedBingSeo',
+  'missingAlts', 'maxTitleLength = 68',
+]) requireText(renderedBingSeo, expected, 'Bing SSR title/ALT evidence validator missing: ' + expected);
 if (/^\s*push:\s*$/m.test(workflow)) errors.push('IndexNow workflow must not submit directly from an undeployed push.');
 if (/\bnpx\s+wrangler\s+deploy\b/.test(workflow)) errors.push('IndexNow workflow must not duplicate production deployment.');
 if (errors.length) {

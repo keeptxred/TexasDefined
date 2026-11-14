@@ -1,29 +1,38 @@
 import type { Destination } from "./types";
 
+// Dates describe different editorial events. A source check is not a page modification.
+// Update the substantive-edit date only after a real editorial change is released.
+export const moodyGardensEditorialDates = {
+  fullGuideReviewed: "2026-11-09",
+  museumFactsReviewed: "2026-11-14",
+  lastSubstantiveEdit: "2026-11-14",
+} as const;
+
 export function applyMoodyGardensCurrentCuration(destination: Destination): Destination {
   if (destination.slug !== "moody-gardens") return destination;
 
   return {
     ...destination,
-    sourceCheckedAt: "2026-10-05",
+    sourceCheckedAt: moodyGardensEditorialDates.fullGuideReviewed,
     entryNote:
-      "Moody Gardens sells admission by attraction and through combination packages. The Discovery Museum is temporarily closed and is scheduled to reopen in November 2026; the Audience Recognition Theater remains open with regular showtimes. The Aquarium and Rainforest Pyramids, theaters and seasonal attractions can have separate hours, so check the official daily schedule before buying a package.",
+      "Moody Gardens sells tickets for individual attractions and several combinations. The Galveston Children's Museum upstairs in the Discovery Pyramid has separate admission terms, a GCM-only early member hour and its own holiday closures; verify exactly which attractions your ticket covers before purchasing.",
     highlights: [
       "Aquarium Pyramid with marine habitats",
       "Rainforest Pyramid with tropical plants and wildlife",
       "Audience Recognition Theater and 3D/4D programming",
-      "Discovery Museum scheduled to reopen in November 2026",
+      "Galveston Children's Museum now open upstairs in Discovery Pyramid",
       "Holiday in the Gardens from Nov. 21, 2026 to Jan. 2, 2027",
     ],
     body: [
-      "Moody Gardens is Galveston's strongest all-weather family attraction because its signature glass pyramids create fully indoor experiences that do not depend on beach conditions. The complex began as an educational project and has grown into a collection of wildlife, science, entertainment and hospitality attractions spread around Offatts Bayou on the west side of the island.",
-      "The Aquarium Pyramid is the clearest first priority for marine-life visitors. Large habitats organize animals by ocean region and let families move from Gulf and Caribbean themes to penguins, seals and other marine species without the heat or wind of the shoreline. The Rainforest Pyramid shifts the experience completely, creating a warm tropical environment with free-ranging birds, plants and other wildlife.",
-      "Because each major attraction can take substantial time, a good visit is selective rather than automatic. As of October 5, 2026, the Discovery Museum is temporarily closed and scheduled to reopen in November, while the Audience Recognition Theater remains open with regular showtimes. Families interested mainly in animals may spend most of the day between the aquarium and rainforest, and ticket bundles make the most sense when the itinerary genuinely has time for the included experiences.",
-      "Moody Gardens changes with the season. Holiday in the Gardens runs November 21, 2026 through January 2, 2027, with ICE LAND: Caribbean Christmas, the Holiday Lights Trail, ice skating and other evening attractions. Palm Beach and water-focused activities are warm-weather draws, so check the official calendar instead of assuming every attraction operates year-round.",
-      "Accessibility is unusually well integrated across the property. Moody Gardens reports accessible parking, ramps and restrooms throughout the complex, complimentary wheelchairs and wheelchair access to its major attractions and theaters. Because the Rainforest Pyramid has special service-animal restrictions tied to its wildlife, visitors using service animals should review the current policy before arrival.",
+      "Moody Gardens works as an indoor alternative when Galveston's beach weather is unfavorable: the Aquarium Pyramid emphasizes marine life, the Rainforest Pyramid immerses visitors in a living tropical environment, and the Discovery Pyramid pairs hands-on children's activities with a participatory theater. The complex began as an educational project and now occupies a campus of wildlife, science, entertainment and hospitality facilities beside Offatts Bayou on the west side of the island.",
+      "Choose the Aquarium Pyramid when the main goal is watching marine animals: its ocean-region galleries include penguins, seals, sharks and the Jellyfish Gallery, while the Coral Reef Lab connects local conservation to NOAA's Flower Garden Banks sanctuary. Choose the Rainforest Pyramid for a different kind of visit: the route moves from the canopy to lower forest habitats, with free-roaming birds, giant river otters, a dimly lit Nightfall exhibit and a waterfall. It is a warmer, humid indoor setting, not a second aquarium.",
+      "Discovery Pyramid offers two different experiences. Upstairs, the Galveston Children's Museum has Our Town, where children can explore a pretend fishing boat, shop and sea turtle clinic, and Room to Grow, a calmer hands-on area for ages 2 to 5. Downstairs, 20,000 Leagues Under the Sea: An Interactive Adventure is a participatory Nautilus submarine voyage with 3D visuals and 4D effects. A child who enjoys open-ended play may prefer the museum over theater effects; check the showtime before deciding. For a wildlife-centered day, Aquarium and Rainforest may fill the available time without Discovery.",
+      "Moody Gardens changes with the season. Holiday in the Gardens is scheduled from November 21, 2026 through January 2, 2027, with ICE LAND: Caribbean Christmas, the Holiday Lights Trail, ice skating and other evening attractions. Palm Beach is closed for the 2026 season and the operator lists a summer 2027 reopening, so check the official calendar instead of assuming attractions operate year-round.",
+      "The warm, humid Rainforest Pyramid and its free-roaming animals are a different sensory environment from the Aquarium or theaters. Travelers planning around heat, mobility, hearing accommodations or service animals should check the operator's attraction-specific access policy; the practical details below distinguish loaner wheelchairs, theater captioning and the Rainforest service-animal restriction.",
       "Its west-island location makes Moody Gardens easy to combine with Galveston's other sides. The Seawall and Pleasure Pier provide classic Gulf-front activity, the Strand and East End hold the city's strongest historic architecture, and Galveston Island State Park offers a quieter natural coastline farther west. A two-day trip can therefore balance indoor family attractions, beach time and historic Galveston without leaving the island.",
     ],
     directions:
-      "Moody Gardens is on the west side of Galveston Island near Scholes International Airport and Offatts Bayou. It is easiest to reach by car from Interstate 45 and 61st Street. Standard self-parking is free, while upgraded parking options cost extra; special events can increase traffic around the complex.",
+      "Moody Gardens is on the west side of Galveston Island near Scholes International Airport and Offatts Bayou. Driving directions from Houston use Interstate 45, 61st Street, Seawall Boulevard, 81st Street and Jones Road to Hope Boulevard. Standard self-parking is free, with optional paid parking upgrades; special events can increase traffic around the complex.",
+    accessibilityNotes: "Moody Gardens has accessible parking and restrooms, ramps, free first-come wheelchairs at the Visitor Center and Aquarium Pyramid with a license deposit, accessible theater seating and captioning on request. Service animals cannot enter the Rainforest Pyramid; see the official accessibility policy before planning a visit.",
   };
 }

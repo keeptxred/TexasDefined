@@ -60,3 +60,13 @@ export function uilEnrollmentFallsWithinBand(
   if (band.maxEnrollment != null && enrollment > band.maxEnrollment) return false;
   return true;
 }
+
+export function uilFootballEnrollmentBandForEnrollment(
+  enrollment: number | null | undefined,
+) {
+  if (enrollment == null) return null;
+  return UIL_FOOTBALL_ENROLLMENT_BANDS_2026_28.find((band) =>
+    (band.minEnrollment == null || enrollment >= band.minEnrollment)
+      && (band.maxEnrollment == null || enrollment <= band.maxEnrollment),
+  ) ?? null;
+}

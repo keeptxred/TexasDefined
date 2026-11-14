@@ -1,0 +1,277 @@
+#!/usr/bin/env node
+// Read-only post-deployment city guide browser verification.
+// Never follows a booking link or changes editorial/source data.
+import assert from "node:assert/strict";
+import { createRequire } from "node:module";
+import { mkdir, writeFile } from "node:fs/promises";
+
+const metros = ["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "beaumont-port-arthur", "college-station", "tyler", "amarillo", "lubbock", "midland-odessa", "el-paso"];
+const approvedViator = new Set(["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "amarillo", "el-paso"]);
+const viewports = [{ name:"desktop", width:1365, height:900, isMobile:false }, { name:"mobile", width:390, height:844, isMobile:true }];
+const directory = "artifacts/metro-day-trips-production";
+const targetSha = process.env.TARGET_DEPLOY_SHA || process.env.GITHUB_SHA || "";
+if (process.argv.includes("--self-test")) {
+  assert.equal(new Set(metros).size, 14);
+  assert.equal(viewports.length, 2);
+  assert.ok(approvedViator.size < metros.length);
+  console.log("Metro day trips fourteen-market browser contract passed");
+  process.exit(0);
+}
+const require = createRequire(import.meta.url);
+const { chromium } = require("/tmp/texasdefined-metro-qa/node_modules/playwright-core");
+await mkdir(directory,{ recursive:true });
+const results = [], failures = [];
+const browser = await chromium.launch({ executablePath:process.env.CHROME_BIN || "/usr/bin/google-chrome", headless:true, args:["--no-sandbox","--disable-dev-shm-usage"] });
+try {
+  for(const metro of metros) for(const viewport of viewports) {
+    const context = await browser.newContext({viewport:{width:viewport.width,height:viewport.height},isMobile:viewport.isMobile,hasTouch:viewport.isMobile,deviceScaleFactor:1});
+    const page = await context.newPage();
+    const record = {metro,viewport:viewport.name,status:"unverified",workerVersion:null,checks:[],pageErrors:[]};
+    const check=(name,passed,detail="")=>{
+      const row={name,passed:Boolean(passed),detail:String(detail).slice(0,250)};
+      record.checks.push(row);
+      if(!passed)failures.push({metro,viewport:viewport.name,...row});
+    };
+    page.on("pageerror",error=>record.pageErrors.push(error.message.slice(0,200)));
+    try {
+      const pathname="/explore/near/"+metro+"/day-trips";
+      const response=await page.goto("https://texasdefined.com"+pathname+"?qa="+encodeURIComponent(targetSha.slice(0,12)||"live"),{waitUntil:"domcontentloaded",timeout:45000});
+      record.workerVersion=response?.headers()["x-texasdefined-worker-version"]||null;
+      check("HTTP 200",response?.status()===200,response?.status());
+      if(response?.status()!==200){record.status="http-error";continue;}
+      await page.locator("main h1").waitFor({state:"visible",timeout:25000});
+      await page.waitForTimeout(800);
+      const data=await page.evaluate(()=>{
+        const cards=[...document.querySelectorAll("[data-metro-curated-day-trips] [data-curated-day-trip]")];
+        const affiliate=document.querySelector("[data-day-trip-viator-market] a[href*='viator.com']");
+        return {
+          h1:document.querySelector("main h1")?.textContent||"",
+          canonical:document.querySelector('link[rel="canonical"]')?.href||"",
+          robots:document.querySelector('meta[name="robots"]')?.content||"",
+          slugs:cards.map(card=>card.getAttribute("data-curated-day-trip")),
+          allLinked:cards.every(card=>card.querySelector('a[href^="/destination/"]')&&[...card.querySelectorAll("a")].some(a=>a.href.includes("google.com/maps"))),
+          mapCount:document.querySelectorAll('a[href*="google.com/maps"]').length,
+          affiliate:affiliate?{href:affiliate.href,rel:affiliate.rel}:null,
+          documentWidth:document.documentElement.scrollWidth,
+          viewportWidth:innerWidth
+        };
+      });
+      const indexReady=!/noindex/i.test(data.robots);
+      record.status=indexReady?"indexable":"quality-gated";
+      check("canonical URL",data.canonical==="https://texasdefined.com"+pathname,data.canonical);
+      if(metro==="el-paso"){
+        const local=await page.evaluate(()=>({
+          guides:[...document.querySelectorAll('[data-el-paso-short-trips] a[href^="/destination/"]')].map(a=>a.getAttribute("href")),
+          sources:[...document.querySelectorAll('[data-el-paso-short-trips] a[href^="https://"]')].map(a=>a.getAttribute("href"))
+        }));
+        check("El Paso close-in outings are distinct from governed distance inventory",
+          local.guides.length===2
+          && local.guides.includes("/destination/franklin-mountains-state-park")
+          && local.guides.includes("/destination/chamizal-national-memorial")
+          && local.sources.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/")
+          && local.sources.includes("https://www.nps.gov/cham/planyourvisit/hours.htm"),
+          JSON.stringify(local));
+        const researched=await page.evaluate(()=>({
+          cards:[...document.querySelectorAll('[data-el-paso-source-backed-outing]')].map(article=>({
+            key:article.getAttribute("data-el-paso-source-backed-outing"),
+            url:article.querySelector('a[href^="https://"]')?.getAttribute("href")||"",
+            title:article.querySelector("h3")?.textContent||""
+          })),
+          disclaimer:document.querySelector('[data-el-paso-source-backed-outings]')?.textContent||""
+        }));
+        check("El Paso operator-backed visitor choices remain sourced and separate from indexable catalog",
+          researched.cards.length===5
+          && new Set(researched.cards.map(card=>card.key)).size===5
+          && researched.cards.every(card=>card.url.startsWith("https://")&&card.title.length>6)
+          && researched.cards.some(card=>card.url.includes("vanhorntexas.org"))
+          && researched.cards.some(card=>card.url.includes("elpasomissions.org"))
+          && researched.disclaimer.includes("not five new destination profiles"),
+          JSON.stringify(researched.cards));
+        const plans=await page.evaluate(()=>({
+          cards:[...document.querySelectorAll('[data-el-paso-trip-plan]')].map(node=>({
+            key:node.getAttribute("data-el-paso-trip-plan"),
+            links:[...node.querySelectorAll("a")].map(a=>({href:a.getAttribute("href"),target:a.getAttribute("target"),rel:a.getAttribute("rel")})),
+            text:node.textContent||""
+          })),
+          description:document.querySelector('[data-el-paso-trip-decisions]')?.textContent||"",
+          actualAnchors:[...document.querySelectorAll('[data-el-paso-source-backed-outing]')].map(node=>node.id)
+        }));
+        const externalSources=plans.cards.flatMap(card=>card.links.filter(link=>link.href?.startsWith("https://")));
+        const allInternalAnchors=plans.cards.flatMap(card=>card.links.filter(link=>link.href?.startsWith("#")));
+        check("El Paso three practical day-trip decisions cite safe visitor access without inflating indexable inventory",
+          plans.cards.length===3
+          && ["mission-trail","hueco-tanks","guadalupe"].every(key=>plans.cards.some(card=>card.key===key))
+          && plans.description.includes("not additional destination records")
+          && plans.cards.some(card=>card.text.includes("North Mountain self-guided"))
+          && plans.cards.some(card=>card.text.includes("after rain"))
+          && externalSources.some(link=>link.href==="https://www.elpasomissions.org/faqs/")
+          && externalSources.some(link=>link.href==="https://tpwd.texas.gov/state-parks/hueco-tanks/alert")
+          && externalSources.some(link=>link.href==="https://www.nps.gov/gumo/planyourvisit/dunes.htm")
+          && externalSources.every(link=>link.target==="_blank"&&link.rel?.includes("noopener"))
+          && allInternalAnchors.every(link=>plans.actualAnchors.includes(link.href.slice(1))),
+          JSON.stringify({plans:plans.cards.map(c=>c.key),externalSources,actualAnchors:plans.actualAnchors}));
+      }
+      check("correct city heading",data.h1.toLowerCase().includes(metro.split("-")[0]),data.h1);
+      check("unique curated destination IDs",new Set(data.slugs).size===data.slugs.length,data.slugs.join(","));
+      check("curated destinations have guides and directions",data.allLinked,data.slugs.length);
+      check("map route links available",data.mapCount>0,data.mapCount);
+      check("no horizontal overflow",data.documentWidth<=data.viewportWidth+2,data.documentWidth+"/"+data.viewportWidth);
+      if(indexReady){
+        // A quality-gated destination record can have a valid hero URL that
+        // returns 404 after a later asset deployment. Prove at least one
+        // actual photo renders in the governed day-trip card collection.
+        // Scroll one card into view to trigger legitimate lazy loading; do
+        // not suppress broken requests or accept blank image frames.
+        const firstPhoto=page.locator("main [data-image-frame] img").first();
+        const photoExists=(await firstPhoto.count())>0;
+        if(photoExists) await firstPhoto.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+        if(photoExists) await page.waitForFunction(()=>{
+          const img=document.querySelector("main [data-image-frame] img");
+          return !!img&&img.complete&&img.naturalWidth>0&&img.naturalHeight>0;
+        },null,{timeout:12000}).catch(()=>{});
+        const photo=await page.evaluate(()=>{
+          const img=document.querySelector("main [data-image-frame] img");
+          return img?{src:img.currentSrc||img.src,alt:img.alt,complete:img.complete,width:img.naturalWidth,height:img.naturalHeight}:null;
+        });
+        check("destination card photograph loads",
+          photoExists&&!!photo?.src&&!!photo?.alt&&photo.complete&&photo.width>0&&photo.height>0,
+          JSON.stringify(photo));
+        // A full-page screenshot does not trigger offscreen lazy-loaded photos.
+        // Exercise multiple cards as a traveler scrolls before preserving visual evidence.
+        // Limit the sample to keep this focused 14-market acceptance inexpensive.
+        const images=page.locator("main [data-image-frame] img");
+        const imageCount=Math.min(await images.count(),6);
+        const scrolledPhotos=[];
+        for(let imageIndex=0;imageIndex<imageCount;imageIndex++){
+          const img=images.nth(imageIndex);
+          await img.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          await page.waitForFunction(index=>{
+            const image=document.querySelectorAll("main [data-image-frame] img")[index];
+            return !!image&&image.complete;
+          },imageIndex,{timeout:8000}).catch(()=>{});
+          scrolledPhotos.push(await img.evaluate(image=>({
+            src:image.currentSrc||image.src,
+            alt:image.alt,
+            destinationPath:(image.closest('a[href^="/destination/"]')||image.closest('article')?.querySelector('a[href^="/destination/"]'))?.getAttribute('href')||"",
+            width:image.naturalWidth,
+            height:image.naturalHeight,
+            loaded:image.complete&&image.naturalWidth>0&&image.naturalHeight>0
+          })).catch(error=>({src:"",alt:"",loaded:false,error:String(error)})));
+        }
+        // Preserve full sampled image URLs and alt text in the machine-readable
+        // artifact. The 250-character check summary cannot support an image-rights
+        // or identity audit; neither URL reachability nor alt text proves licensing.
+        record.photoEvidence=scrolledPhotos;
+        check("scrolled destination photographs load",
+          imageCount>=1&&scrolledPhotos.every(image=>image.loaded&&!!image.alt),
+          JSON.stringify(scrolledPhotos.map(image=>({...image,src:image.src.slice(0,140)}))).slice(0,500));
+
+        check("indexable city has curated guide",data.slugs.length>=1,data.slugs.length);
+        if(approvedViator.has(metro)){
+          const panel=page.locator("[data-day-trip-viator-market]");
+          await panel.waitFor({state:"attached",timeout:15000});
+          check("affiliate CTA disclosure relationship",!!data.affiliate?.rel?.includes("sponsored")&&!!data.affiliate?.rel?.includes("nofollow"),JSON.stringify(data.affiliate));
+          await panel.scrollIntoViewIfNeeded();
+          await page.waitForTimeout(1200);
+          const impressions=await page.evaluate(()=>(window.dataLayer||[]).filter(e=>e?.event==="affiliate_impression"&&e.affiliate_placement==="metro-day-trips-experience").length);
+          check("visible offer fires one measured impression",impressions===1,impressions);
+        }else check("no invented Viator market",data.affiliate===null,JSON.stringify(data.affiliate));
+      }else check("no monetization on gated collection",data.affiliate===null,JSON.stringify(data.affiliate));
+      check("no hydration errors",!record.pageErrors.some(e=>/hydration|React error #418|React error #423/i.test(e)),record.pageErrors.join(";"));
+      const screenshot=directory+"/"+metro+"-"+viewport.name+".png";
+      await page.screenshot({path:screenshot,fullPage:true,animations:"disabled",timeout:30000});
+      record.screenshot=screenshot;
+      if(metro==="austin"){
+        const oliveCard=page.locator('[data-metro-curated-day-trips] [data-curated-day-trip="texas-hill-country-olive-co"]').first();
+        if(await oliveCard.count()){
+          await oliveCard.scrollIntoViewIfNeeded({timeout:10000});
+          const cardPhoto=await oliveCard.evaluate(element=>{
+            const img=element.querySelector("img");
+            const attribution=[...element.querySelectorAll("a[href]")].some(link=>
+              link.href==="https://texashillcountryoliveco.com/"&&link.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            return {src:img?.src||"",loaded:!!img&&img.complete&&img.naturalWidth>=1200,attribution};
+          });
+          check("Austin curated owner photo stays exact-property and visibly credited",
+            cardPhoto.src.includes("texas-hill-country-olive-co-bistro.webp")&&cardPhoto.loaded&&cardPhoto.attribution,
+            JSON.stringify(cardPhoto).slice(0,400));
+        }
+      }
+      if(metro==="austin"){
+        // The separately licensed owner-supplied photograph must remain an
+        // actual subject-matched image with linked owner credit and gallery.
+        // This release check never clicks any monetized/affiliate link.
+        const owner=await context.newPage();
+        try{
+          const ownerPath="/destination/texas-hill-country-olive-co";
+          const ownerResponse=await owner.goto("https://texasdefined.com"+ownerPath+"?qa="+encodeURIComponent(targetSha.slice(0,12)||"live"),{waitUntil:"domcontentloaded",timeout:45000});
+          await owner.locator("main h1").waitFor({state:"visible",timeout:20000});
+          const hero=owner.locator('img[src*="texas-hill-country-olive-co-bistro.webp"]').first();
+          const exterior=owner.locator('img[src*="texas-hill-country-olive-co-exterior.webp"]').first();
+          await hero.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          await exterior.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          // Full-page screenshots do not automatically decode offscreen lazy
+          // images. Wait for the actual authorized gallery source before capture.
+          await exterior.evaluate(async (img)=>{
+            if (!img.complete) {
+              await Promise.race([
+                new Promise(resolve=>{img.addEventListener("load",resolve,{once:true});img.addEventListener("error",resolve,{once:true});}),
+                new Promise(resolve=>setTimeout(resolve,6000))
+              ]);
+            }
+            if (img.complete&&img.naturalWidth) await img.decode().catch(()=>{});
+          }).catch(()=>{});
+          const proof=await owner.evaluate(async ()=>{
+            const photos=[...document.images];
+            const photo=needle=>{const img=photos.find(x=>x.src.includes(needle));return img?{loaded:img.complete&&img.naturalWidth>=1200&&img.naturalHeight>0,alt:img.alt,width:img.naturalWidth,height:img.naturalHeight,src:img.src}:null;};
+            const links=[...document.querySelectorAll('a[href]')];
+            const credit=links.find(a=>a.href==="https://texashillcountryoliveco.com/"&&a.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            const ogImage=document.querySelector('meta[property="og:image"]')?.content||"";
+            const preview={src:ogImage,loaded:false,width:0,height:0};
+            if(ogImage==="https://texasdefined.com/images/discover/texas-hill-country-olive-co.webp"){
+              // Route-specific Discover preview is generated from the licensed
+              // source; its URL is intentionally NOT the destination hero URL.
+              const image=new Image();
+              image.src=ogImage;
+              try{await image.decode();preview.loaded=true;preview.width=image.naturalWidth;preview.height=image.naturalHeight;}catch{}
+            }
+            return {
+              title:document.querySelector("main h1")?.textContent||"",
+              bistro:photo("texas-hill-country-olive-co-bistro.webp"),
+              exterior:photo("texas-hill-country-olive-co-exterior.webp"),
+              credit:!!credit,
+              preview
+            };
+          });
+          const photoReady=ownerResponse?.status()===200
+            &&proof.title.includes("Texas Hill Country Olive Co.")
+            &&proof.bistro?.loaded&&!!proof.bistro.alt
+            &&proof.exterior?.loaded&&!!proof.exterior.alt
+            &&proof.credit
+            &&proof.preview.loaded&&proof.preview.width===1600&&proof.preview.height===900;
+          check("licensed olive company exact-site photo, source link and editorial gallery",
+            photoReady,
+            JSON.stringify({
+              http:ownerResponse?.status(),
+              title:proof.title,
+              bistroLoaded:proof.bistro?.loaded,
+              exteriorLoaded:proof.exterior?.loaded,
+              heroAlt:proof.bistro?.alt,
+              galleryAlt:proof.exterior?.alt,
+              credit:proof.credit,
+              preview:proof.preview
+            }).slice(0,1200));
+          const ownerShot=directory+"/texas-hill-country-olive-co-"+viewport.name+".png";
+          await owner.screenshot({path:ownerShot,fullPage:true,animations:"disabled",timeout:30000});
+          record.ownerPhotoScreenshot=ownerShot;
+        }catch(error){
+          check("licensed olive company exact-site photo, source link and editorial gallery",false,String(error));
+        }finally{await owner.close();}
+      }
+    }catch(error){
+      check("scenario completed",false,error?.message||error);
+      await page.screenshot({path:directory+"/"+metro+"-"+viewport.name+"-error.png",timeout:12000}).catch(()=>{});
+    }finally{results.push(record);await context.close();}
+  }
+}finally{await browser.close();await writeFile(directory+"/report.json",JSON.stringify({checkedAt:new Date().toISOString(),targetSha,results,failures},null,2)+"\n");}
+for(const result of results)console.log(result.metro,result.viewport,result.status,result.checks.filter(x=>x.passed).length+"/"+result.checks.length);
+if(failures.length){console.error("Metro production acceptance failed:",JSON.stringify(failures));process.exitCode=1;}

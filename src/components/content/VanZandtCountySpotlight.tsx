@@ -22,6 +22,18 @@ const destinations = [
     label: 'TexasDefined Wills Point Depot Museum guide',
   },
   {
+    name: 'Salt Palace Museum & Visitors Center',
+    detail: 'Visit the museum devoted to Grand Saline salt extraction and community history. Confirm current opening hours with the museum before your trip.',
+    href: 'https://grandsalinesaltpalace.com/',
+    label: 'Official Salt Palace museum site',
+  },
+  {
+    name: 'Van Zandt County Courthouse',
+    detail: 'See the active 1937 Art Deco / Classical Moderne county courthouse at 121 East Dallas Street in Canton, a Recorded Texas Historic Landmark.',
+    href: 'https://atlas.thc.texas.gov/Details/4302000092',
+    label: 'Texas Historical Commission record',
+  },
+  {
     name: 'Grand Saline salt heritage',
     detail: 'Explore how the salt dome, brine production and railroad access shaped the community and the wider county.',
     href: 'https://www.tshaonline.org/handbook/entries/van-zandt-county',
@@ -34,7 +46,7 @@ export function VanZandtCountySpotlight() {
     <section className="border-b border-border py-10 sm:py-12" aria-labelledby="van-zandt-guide-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <div>
-          <p className="eyebrow text-primary">Start exploring · October 2026 review</p>
+          <p className="eyebrow text-primary">Start exploring · 2026 source review</p>
           <h2 id="van-zandt-guide-heading" className="mt-2 font-display text-4xl">Van Zandt County essentials</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Independent research guide · County seat: Canton</p>
         </div>
@@ -47,7 +59,7 @@ export function VanZandtCountySpotlight() {
             <a href="#county-references-heading" className="text-primary underline underline-offset-4">Sources</a>
           </nav>
           <div id="van-zandt-guide-places" className="mt-8 scroll-mt-24">
-            <h3 className="font-display text-2xl">Four ways to explore the county</h3>
+            <h3 className="font-display text-2xl">Six ways to explore the county</h3>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {destinations.map((place) => <div key={place.name} className="border-t border-border pt-4">
                 <h4 className="font-display text-xl">{place.name}</h4>

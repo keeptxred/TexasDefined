@@ -1,0 +1,80 @@
+name: Verify government jobs authority after production
+
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Scope acceptance to government jobs content changes
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only HEAD^ HEAD | grep -Eq '^src/routes/texas-government-jobs(\.lazy)?\.tsx$'; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'Government jobs route not changed in this release; no new remote probes.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Verify two live HTML origins, canonicals, H1, actual copy and sitemap
+        if: steps.scope.outputs.changed == 'true'
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          
+          const path='/texas-government-jobs';
+          const hosts=['https://texasdefined.com','https://texasdefined-site.freddy-coppola.workers.dev'];
+          async function get(url) {
+            let last;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                const response=await fetch(url,{
+                  headers: {'User-Agent':'TexasDefined-OfficialHiring-Live-Acceptance/1.0','Cache-Control':'no-cache'},
+                  redirect:'manual',signal:AbortSignal.timeout(22000),
+                });
+                if([429,502,503,504].includes(response.status)&&attempt<3)continue;
+                return {response,body:await response.text()};
+              }catch(err){ last=err; }
+            }
+            throw last||Error('Unable to fetch '+url);
+          }
+          for (const host of hosts){
+            const {response,body}=await get(host+path);
+            assert.equal(response.status,200,host+path+' status');
+            assert.match(response.headers.get('content-type')||'',/text\/html/,'HTML response');
+            const tags=[...body.matchAll(/<link\b[^>]*>/gi)].map(m=>m[0]).filter(s=>/\brel=["']canonical["']/i.test(s));
+            assert.equal(tags.length,1,host+' exactly one canonical');
+            assert(tags[0].includes('href="https://texasdefined.com'+path+'"')||tags[0].includes("href='https://texasdefined.com"+path+"'"),'Wrong canonical on '+host);
+            assert(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body),'Unexpected noindex on '+host);
+            assert(/<h1\b/i.test(body),'SSR heading missing on '+host);
+            const visible=body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');
+            for(const phrase of ['Applying for a Texas government job','WorkInTexas','CAPPS','March 10, 2026','State Auditor','military employment preference'])assert(visible.includes(phrase),'Missing live original research: '+phrase+' '+host);
+            console.log('PASS',host+path,'200 / single canonical / no noindex / SSR source-backed content');
+          }
+          const {response:sresp,body:xml}=await get('https://texasdefined.com/sitemap.xml');
+          assert.equal(sresp.status,200,'Sitemap HTTP 200');
+          assert(xml.includes('<loc>https://texasdefined.com'+path+'</loc>'),'New guide missing canonical primary sitemap entry');
+          console.log('PASS canonical primary sitemap entry');
+          const {response:rresp,body:robots}=await get('https://texasdefined.com/robots.txt');
+          assert.equal(rresp.status,200,'Robots HTTP 200');
+          assert(!robots.includes('Disallow: '+path),'Explicit route disallow present');
+          console.log('PASS robots contains no explicit disallow for government jobs guide');
+          
+          JS

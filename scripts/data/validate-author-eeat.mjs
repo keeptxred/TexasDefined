@@ -127,11 +127,11 @@ for (const signal of [
   'Sources and official records',
   'Corrections and updates',
   'Clear separation of guidance',
-  'To report a factual error or request a correction',
+  'For corrections and firsthand Texas visitor updates',
   '/editorial-policy',
   '/sourcing-methodology',
   '/corrections-policy',
-  'to="/partner-with-us"',
+  'to="/corrections-policy"',
 ]) {
   if (!about.includes(signal)) failures.push(`About-page editorial accountability signal missing: ${signal}.`);
 }
@@ -154,7 +154,8 @@ for (const [name, source, required] of [
     'Time-sensitive information',
     'How to report an error',
     'What happens after a report',
-    'to="/partner-with-us"',
+    'mailto:admin@texasdefined.com?subject=Texas%20Defined%20editorial%20correction',
+    'Share a firsthand Texas update',
   ]],
   ['Sourcing Methodology', sourcingMethodology, [
     'Source hierarchy',
@@ -181,8 +182,23 @@ if (!rootRoute.includes('contactType: "editorial, corrections and general inquir
   failures.push('Publisher Organization contact point must describe editorial and corrections inquiries.');
 }
 
-if (articleRoute.includes('"@type": "Person"')) {
-  failures.push('Article schema still presents institutional bylines as Person; convert it to Organization before remediation is complete.');
+// Scope the institutional-author assertion to authorSchema, rather than
+// incorrectly rejecting legitimate Person creators on licensed ImageObjects.
+const authorSchemaStart = articleRoute.indexOf('const authorSchema =');
+const articleSchemaStart = articleRoute.indexOf('const articleSchema =', authorSchemaStart);
+if (authorSchemaStart < 0 || articleSchemaStart <= authorSchemaStart) {
+  failures.push('Article schema must retain its explicit institutional authorSchema block.');
+} else {
+  const institutionalAuthorSchema = articleRoute.slice(authorSchemaStart, articleSchemaStart);
+  if (!institutionalAuthorSchema.includes('"@type": "Organization"')) {
+    failures.push('Institutional article authorSchema must declare Organization.');
+  }
+  if (institutionalAuthorSchema.includes('"@type": "Person"')) {
+    failures.push('Institutional article authorSchema must not declare Person.');
+  }
+}
+if (!articleRoute.includes('author: { "@id": authorId }')) {
+  failures.push('Article JSON-LD author reference must point to the validated institutional authorSchema ID.');
 }
 
 if (failures.length) {

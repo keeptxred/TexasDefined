@@ -14,7 +14,7 @@ export const texas_cypress_river_basin_guideStub: Article = { id: "evergreen-tex
 
 export const texas_lavaca_river_guideStub: Article = { id: "evergreen-texas-lavaca-river-guide", brandId: "texasdefined", slug: "texas-lavaca-river-guide",
   title: "Lavaca River: Navidad Tributary, Lake Texana & Lavaca Bay", dek: "Texas's smallest major river basin, from Gonzales County through Navidad drainage toward the coast", category: "lakes-rivers",
-  hero: {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Swing_Bridge_Over_Lavaca_River.jpg?width=1600","alt":"Union Pacific swing railroad bridge crossing the Lavaca River near Lolita, Texas","width":1600,"height":1051,"credit":"Patrick Feller · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Swing_Bridge_Over_Lavaca_River.jpg · License: https://creativecommons.org/licenses/by/2.0/"}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
+  hero: {"src":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Swing_Bridge_Over_Lavaca_River.jpg/1280px-Swing_Bridge_Over_Lavaca_River.jpg","alt":"Union Pacific swing railroad bridge crossing the Lavaca River near Lolita, Texas","width":1280,"height":841,"credit":"Patrick Feller · CC BY 2.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Swing_Bridge_Over_Lavaca_River.jpg · License: https://creativecommons.org/licenses/by/2.0/"}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
   tags: ["Lavaca River","Lavaca River basin","Texas rivers","Texas water","Texas Defined","TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/lavaca/index.asp", body: [], relatedCollections: [], relatedDestinations: [] };
 
@@ -25,7 +25,7 @@ export const texas_neches_river_guideStub: Article = { id: "evergreen-texas-nech
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/neches/index.asp", body: [], relatedCollections: [], relatedDestinations: [] };
 
 export const texas_nueces_river_guideStub: Article = { id: "evergreen-texas-nueces-river-guide", brandId: "texasdefined", slug: "texas-nueces-river-guide",
-  title: "Nueces River: Frio, Choke Canyon & Corpus Christi Water", dek: "Hill Country tributaries join an arid South Texas basin draining to Nueces Bay", category: "lakes-rivers",
+  title: "Nueces River: Frio, Choke Canyon & Corpus Christi Water", dek: "Follow the Nueces River from Hill Country headwaters and Frio tributaries to South Texas reservoirs, coastal water supplies and Nueces Bay.", category: "lakes-rivers",
   hero: {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Nueces_River_between_La_Pryor_and_Uvalde%2C_TX_IMG_4256.JPG?width=1600","alt":"Nueces River between La Pryor and Uvalde in South Texas, photographed July 2010","width":1600,"height":1200,"credit":"Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Nueces_River_between_La_Pryor_and_Uvalde,_TX_IMG_4256.JPG · License: https://creativecommons.org/licenses/by-sa/3.0/"}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
   tags: ["Nueces River","Nueces River basin","Texas rivers","Texas water","Texas Defined","TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/nueces/index.asp", body: [], relatedCollections: [], relatedDestinations: [] };

@@ -1,14 +1,534 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+const turkeyQuarterlyCheckedAt = JSON.parse(readFileSync('src/data/hunting/turkey-quarterly-facts.json', 'utf8')).checkedAt;
+
+// Derive strict release markers from the reviewed event sources, rather than
+// leaving fixed dates that outlive later verified editorial updates.
+function verifiedGalvestonDate(file, field) {
+  const source = readFileSync(file, 'utf8');
+  const pos = source.indexOf('slug: "mardi-gras-galveston"');
+  if (pos < 0) throw new Error('Missing Galveston record in ' + file);
+  const match = source.slice(pos, pos + 8000).match(new RegExp(field + ':\\s*"([0-9]{4}-[0-9]{2}-[0-9]{2})"'));
+  if (!match) throw new Error('Missing Galveston ' + field + ' date in ' + file);
+  return match[1];
+}
+export const galvestonFactsDate = verifiedGalvestonDate('src/data/major-event-expanded-authority-tranche25.server.ts', 'sourceCheckedAt');
+export const galvestonEditorialDate = verifiedGalvestonDate('src/data/major-event-schema-enrichment-batch6.server.ts', 'verifiedAt');
+// Both cache-busted release checks and ordinary visitor URLs must expose
+// the corrected data. A successful query-string check alone can hide stale
+// canonical HTML if the exact path was omitted from Cloudflare purge targets.
+function assertTexasDataContents(path, body) {
+  const requireText = (value) => {
+    if (!body.includes(value)) throw new Error('Texas Data production content missing: ' + value);
+  };
+  if (path === '/texas-data') {
+    // Reject a stale or mislabeled opening title on the cache-busted response
+    // AND the ordinary visitor response checked later in this verifier.
+    const h1 = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+    const visibleHeading = h1.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (visibleHeading !== 'Texas by the Numbers') {
+      throw new Error('Texas Data hub opening H1 is stale: ' + (visibleHeading || 'missing'));
+    }
+    // HTML escapes the ampersand in <title>; decode common entity forms before checking.
+    const titleMarkup = body.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
+    const documentTitle = titleMarkup.replace(/&amp;|&#38;|&#x26;/gi, '&');
+    if (!documentTitle.includes('Texas by the Numbers: Population, Housing, Jobs & Counties')) {
+      throw new Error('Texas Data hub browser title is stale or missing');
+    }
+    for (const value of ['Texas at a glance',
+      'Latest verified BLS nonfarm payroll jobs',
+      '/texas-data/texas-metro-payrolls-latest',
+      '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026',
+      'Major Texas metro payrolls', 'Texas Defined insurance research',
+      'not an exhaustive list of every incorporated municipality']) requireText(value);
+    if (body.includes('DFW nonfarm payrolls')) throw new Error('Texas Data hub still serves the superseded DFW-only snapshot');
+  }
+  if (path === '/texas-data/texas-homeowners-premium-history') {
+    for (const value of ['$2,795', '$3,489', 'October 20, 2026']) requireText(value);
+    if (body.includes('$2,800')) throw new Error('Texas Data premiums still expose the incorrect 2023 value');
+  }
+  if (path === '/texas-data/texas-metro-payrolls-august-2026') {
+    for (const value of ['August 2026', '4,357,000', '3,495,300', 'metro_09302026.htm']) requireText(value);
+  }
+  if (path === '/texas-data/texas-metro-payrolls-june-2026') {
+    for (const value of ['June 2026', '4,363,300', 'metro_07292026.htm']) requireText(value);
+  }
+  if (path !== '/texas-data' && body.includes('No additional note.')) {
+    throw new Error('Texas Data brief still exposes missing-note placeholders');
+  }
+}
+
+/**
+ * Read-only SSR acceptance for the corporate marketplace. The page is
+ * independently usable without logging in or sending a real inquiry.
+ * Every candidate is checked on both the release URL and visitor URL.
+ */
+function assertCorporateEventContents(html, type) {
+  const required = [
+    'Plan a company event worth leaving the office for.',
+    'Corporate events in Texas cities',
+    'A practical guide to corporate event types',
+    'Houston corporate events',
+    'Ask before you commit',
+    'Published group capacity',
+    'Request a quote',
+    'Submitting this form does not request a quote from a venue',
+    'I agree TexasDefined may use this information to contact me',
+    'Capacity is not live availability.',
+    'BreadcrumbList',
+    'ItemList',
+    'application/ld+json',
+    '/privacy',
+  ];
+  for (const marker of required) {
+    if (!html.includes(marker)) {
+      throw new Error('Corporate marketplace ' + type + ' SSR missing: ' + marker);
+    }
+  }
+  if (/<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
+    throw new Error('Corporate marketplace ' + type + ' incorrectly noindexed');
+  }
+}
+
+function assertMagoffinLicensedImageStructuredData(html) {
+  const pageUrl = 'https://texasdefined.com/destination/magoffin-home';
+  // Validate JSON-LD from the delivered HTML, not strings in unrelated markup.
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , source]) => {
+      try {
+        const value = JSON.parse(source);
+        return Array.isArray(value) ? value : [value];
+      } catch { return []; }
+    });
+  const nodes = documents.flatMap((doc) => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const attraction = nodes.find((node) => node?.['@id'] === pageUrl + '#attraction'
+    && [node['@type']].flat().includes('TouristAttraction'));
+  const images = Array.isArray(attraction?.image) ? attraction.image : attraction?.image ? [attraction.image] : [];
+  const image = images.find((node) => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.url !== 'string' || !/^https:\/\//.test(image.url)
+    || typeof image.caption !== 'string' || !image.caption.includes('Magoffin')
+    || !image.creditText?.includes('Larry D. Moore')
+    || image.creator?.['@type'] !== 'Person' || image.creator?.name !== 'Larry D. Moore'
+    || image.copyrightNotice !== '© 2009 Larry D. Moore'
+    || image.license !== 'https://creativecommons.org/licenses/by/4.0/'
+    || image.acquireLicensePage !== 'https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg') {
+    throw new Error('Magoffin Home photograph rights missing from live structured data ImageObject');
+  }
+  const visibleMarkup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visibleMarkup.includes('Larry D. Moore') || !visibleMarkup.includes('CC BY 4.0')) {
+    throw new Error('Magoffin Home photograph has no visible photographer/license attribution');
+  }
+}
+
+function assertMoodyGardensLicensedImageStructuredData(html) {
+  const pageUrl = 'https://texasdefined.com/destination/moody-gardens';
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , source]) => {
+      try { const value = JSON.parse(source); return Array.isArray(value) ? value : [value]; }
+      catch { return []; }
+    });
+  const nodes = documents.flatMap((doc) => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const attraction = nodes.find((node) => node?.['@id'] === pageUrl + '#attraction'
+    && [node['@type']].flat().includes('TouristAttraction'));
+  const images = Array.isArray(attraction?.image) ? attraction.image : attraction?.image ? [attraction.image] : [];
+  const image = images.find((node) => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.url !== 'string' || !image.url.includes('Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg')
+    || image.contentUrl !== image.url
+    || typeof image.caption !== 'string' || !image.caption.includes('Moody Gardens')
+    || !image.creditText?.includes('Larry D. Moore')
+    || image.creator?.['@type'] !== 'Person' || image.creator?.name !== 'Larry D. Moore'
+    || image.copyrightNotice !== '© 2026 Larry D. Moore'
+    || image.license !== 'https://creativecommons.org/licenses/by/4.0/'
+    || image.acquireLicensePage !== 'https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg') {
+    throw new Error('Moody Gardens primary image metadata missing verified photographer and licensing fields');
+  }
+  const visibleMarkup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visibleMarkup.includes('Larry D. Moore') || !visibleMarkup.includes('CC BY 4.0')) {
+    throw new Error('Moody Gardens photograph lacks visible photographer/license attribution');
+  }
+}
+
+// A previously successful deploy could still serve Katy's old title and
+// missing stadium section from the ordinary, cached URL. Inspect both surfaces.
+export function assertKatyFootballContents(html, surface = 'release') {
+  const title = (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    .replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (!title.includes('Katy Tigers Football: Nine Texas State Titles & Stadium Guide')) {
+    throw new Error('Katy ' + surface + ' has stale title or promised on-page schedule');
+  }
+  for (const marker of [
+    'Where Katy football plays',
+    'Legacy Stadium',
+    'Jack F. Rhodes Memorial Stadium',
+    '1830 Katyland Drive',
+    '1733 Katyland Drive',
+    'Katy ISD varsity football tickets',
+    'https://www.vancoevents.com/us/eventlist/varsityfb',
+    'https://katyabc.org/features/katy-football-record-book/',
+    'clear-bag-regulation',
+    'County clarification',
+    'NCES Katy High School source',
+    'id="football-current-season"',
+    'data-football-sponsor-interest="true"',
+  ]) {
+    if (!html.includes(marker)) throw new Error('Katy ' + surface + ' missing production marker: ' + marker);
+  }
+  if (html.includes('record_book_02.26.24.pdf')
+    || html.includes('Texas game-day gear and independent designs')) {
+    throw new Error('Katy ' + surface + ' still contains obsolete archival link or duplicate shop panel');
+  }
+}
+
+// Frisco Lone Star's researched content previously passed source-only tests
+// while live-public verification was missing. Require both edge and visitor HTML.
+export function assertLoneStarFootballContents(html, surface = 'release') {
+  const title = (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    .replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (!title.includes('Frisco Lone Star Rangers Football | History & 2026 District 5')) {
+    throw new Error('Lone Star ' + surface + ' has stale or generic SEO title');
+  }
+  for (const marker of [
+    'Frisco Lone Star Rangers football represents Lone Star High School',
+    'Official 2026 schedule &amp; game-day resources',
+    '2026-Fball-Schedule-8-21.pdf',
+    'https://www.friscoisd.org/o/lshs',
+    'Jeff Rayburn',
+    '14 consecutive winning seasons',
+    'id="football-current-season"',
+    'Program overview',
+    'The program story',
+    'Source trail',
+    '"@type":"SportsTeam"',
+    '"@type":"FAQPage"',
+  ]) {
+    if (!html.includes(marker)) throw new Error('Lone Star ' + surface + ' missing deployed authority marker: ' + marker);
+  }
+  if (html.includes('https://sf2.friscoisd.org/campus/high-school/lone-star/home')) {
+    throw new Error('Lone Star ' + surface + ' still links obsolete campus website');
+  }
+  if (/<meta\b[^>]*name=["']robots["'][^>]*noindex/i.test(html)) {
+    throw new Error('Lone Star ' + surface + ' incorrectly emits noindex');
+  }
+}
+
+// Check cache-busted and ordinary visitor URLs. A deployed Worker alone
+// cannot certify youth-season advice while a stale canonical HTML copy persists.
+// A healthy URL is not sufficient: reject the old generic turkey page and
+// verify the legally important sections in both canonical and cache-busted SSR.
+/** Protect the actual 2026-27 hub experience on both ordinary visitor and
+ * cache-bypassed HTML. An HTTP 200 or a correct guide href is not enough. */
+export function assertHuntingHubPlanner(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas hunting season planner',
+    'Species or game category',
+    'Official calendar checked',
+    'Editorial hub updated',
+    'Source review',
+    'Four decisions before choosing a hunting spot',
+    '2026–27 regulation changes',
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Hunting hub ' + surface + ' missing planner/source marker: ' + marker);
+  }
+  // These previously collided because multiple categories shared the guide slug.
+  for (const option of ['deer', 'turkey', 'species:Goose', 'species:Snipe', 'species:Woodcock']) {
+    if (!html.includes('value="' + option + '"')) throw new Error('Hunting hub ' + surface + ' missing distinct species option: ' + option);
+  }
+  if (!/<select\b[^>]*\bid=["']hunting-species-select["']/.test(html)) {
+    throw new Error('Hunting hub ' + surface + ' missing accessible species picker');
+  }
+}
+
+export function assertTurkeyHuntingAuthority(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas Turkey Hunting: 2026–27 Seasons, Regulations',
+    'Texas turkey dates, without the guesswork',
+    'Official 2026–27 wild turkey season dates',
+    'No unbearded hens',
+    'Matagorda and Wharton are closed',
+    'Official Texas turkey hunting zone maps',
+    'National Refuge Spring Turkey drawings',
+    // These new authority sections must be visible on BOTH release and canonical HTML.
+    // Old turkey copy alone is insufficient proof that the authority upgrade deployed.
+    'Two verified 2027 public turkey draw opportunities',
+    'Find walk-in turkey hunting where it is actually legal',
+    'Using TPWD turkey harvest numbers responsibly',
+    'TPWD legal-game and property finder',
+    'Hagerman hunt rules and permit details',
+    'East Lake hunt rules and permit details',
+    // The source-backed quarterly dataset must be visible in BOTH visitor HTML variants.
+    'TPWD draw and survey data machine-checked ' + turkeyQuarterlyCheckedAt,
+    'Machine-checked ' + turkeyQuarterlyCheckedAt,
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Turkey hunting ' + surface + ' authority section missing: ' + marker);
+  }
+}
+
+function assertYouthHuntingAuthority(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas youth-only hunting dates for',
+    'Youth age, license and hunter-education rules',
+    'Four ways to arrange a first Texas hunt',
+    'First youth hunt: preparation and safety checklist',
+    'Tagging, harvest reports and CWD checks',
+    'Youth hunting FAQs',
+    'Official regulations and updates',
+    'Check youth hunting rules for your county',
+    'TexasDefined editorial team',
+    'Select your county',
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Youth hunting '+surface+' authority section missing: '+marker);
+  }
+  if (!html.includes('850.jpg') || !html.includes('fws.gov/media/youth-hunter')) {
+    throw new Error('Youth hunting ' + surface + ' image and photo-credit source missing');
+  }
+  if (!visible.includes('Upcoming') && !visible.includes('In progress') && !visible.includes('Ended')) {
+    throw new Error('Youth hunting ' + surface + ' date-window status missing');
+  }
+}
+
+// Bounded acceptance of visitor-facing 2027 festival gates on BOTH the cache-busted
+// release and ordinary canonical HTML. No event-specific image rights exist yet:
+// the guide must remain noindex until the separate licensed-photo gate is passed.
+export function assertPortArthurFestivalGateFacts(html, surface) {
+  for (const fact of [
+    'February 5–7, 2027',
+    'Friday February 5, 6–11:30 p.m.',
+    'Saturday February 6, noon–11:30 p.m.',
+    'Sunday February 7, noon–7 p.m.',
+    'These are FESTIVAL GATE windows, not parade or concert start times.',
+    'individual parade start times, road-closure maps and ticket prices',
+    'Ben J. Rogers Regional Visitors Center',
+  ]) {
+    if (!html.includes(fact)) throw new Error('Port Arthur ' + surface + ' is missing current gate-hour/source caveat: ' + fact);
+  }
+  const robots = [...html.matchAll(/<meta\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => /\bname=["']robots["']/i.test(tag));
+  if (!robots.some((tag) => /\bnoindex\b/i.test(tag))) {
+    throw new Error('Port Arthur ' + surface + ' incorrectly indexed without an approved event-specific hero photo');
+  }
+}
+
+// Exact historical-content acceptance is intentionally bounded to reviewed
+// event pages selected by the existing change-scoped deploy plan. Check both
+// the cache-busted release and normal visitor URL, never the whole event site.
+export function assertCompleted2026EventFacts(path, body, surface = 'release') {
+  const contracts = {
+    '/event/state-fair-classic': {
+      required: ['The September 26, 2026 State Fair Classic is complete.', '2026 State Fair Classic: final score and date', 'Grambling State 14'],
+      forbidden: ['The 2026 State Fair Classic is scheduled for Saturday', 'Kickoff is 6 p.m. in 2026'],
+    },
+    '/event/floresville-peanut-festival': {
+      required: ['The 2026 Floresville Peanut Festival concluded October 10.', 'The completed 2026 festival ran on four days', '2026 Grand Parade was October 10'],
+      forbidden: ['Use Saturday for the Grand Parade and full downtown day'],
+    },
+    '/event/east-texas-state-fair': {
+      required: ['The East Texas State Fair 2026 edition concluded October 4 in Tyler.', '2026 East Texas State Fair: completed', 'Historical 2026 grounds and arena ticket rules'],
+      forbidden: ['Use September 25-October 4 as the confirmed 2026 fair run'],
+    },
+    '/event/crossroads-of-texas-country-festival': {
+      // 2026 remains in a successful search title by deliberate editorial choice.
+      // Accept only archived edition facts, not false upcoming-2026 trip advice.
+      required: [
+        'The October 24, 2026 Crossroads of Texas GO TEXAN Country Festival has concluded',
+        '2026 music archive: Jake Worthington',
+        'CBS Texas — October 25, 2026 post-event report',
+      ],
+      forbidden: [
+        'The organizer now publishes a full 2026 main-stage running order',
+        'The main-stage headline show is scheduled to end at 7:30 p.m.',
+      ],
+    },
+  };
+  const contract = contracts[path];
+  if (!contract) return;
+  const normalized = body.replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (path === '/event/crossroads-of-texas-country-festival') {
+    // Google reported noindex on its *October 7* crawl, before the approved
+    // courthouse image was added. Do not silently serve noindex now that
+    // the reviewed exact-location Wikimedia image satisfies event rights QA.
+    // This checks rendered robots only; never bypass the image policy.
+    const robotsMetaTags = [...normalized.matchAll(/<meta\b[^>]*>/gi)]
+      .map(match => match[0]).filter(tag => /\bname=["']robots["']/i.test(tag));
+    if (robotsMetaTags.some(tag => /\bnoindex\b/i.test(tag))) {
+      throw new Error('Crossroads event page unexpectedly noindex despite approved exact-location event image: ' + surface);
+    }
+  }
+  for (const marker of contract.required) if (!normalized.includes(marker)) {
+    throw new Error('Expired event ' + path + ' ' + surface + ' missing verified historical content: ' + marker);
+  }
+  for (const marker of contract.forbidden) if (normalized.includes(marker)) {
+    throw new Error('Expired event ' + path + ' ' + surface + ' still advertises past edition as upcoming: ' + marker);
+  }
+}
+
+// Source-verified, fixed nine-URL regression contract for the 2026-11-08
+// Google Search Console image metadata warning. No unrelated page crawling.
+const GSC_IMAGE_RIGHTS_EXPECTED = Object.freeze({
+  '/article/texas-restaurants-for-out-of-town-visitors': {
+    creator: 'Nan Palmero', type: 'Person', copyright: '© Nan Palmero',
+    license: 'https://creativecommons.org/licenses/by/2.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg',
+  },
+  '/article/unusual-texas-businesses-services': {
+    creator: 'Dustin Moore', type: 'Person', copyright: '© Dustin Moore',
+    license: 'https://creativecommons.org/licenses/by/2.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Britten_USA.jpg',
+  },
+  '/article/blue-bell-ice-cream-brenham-texas-history': {
+    creator: 'Larry D. Moore', type: 'Person', copyright: '© 2008 Larry D. Moore',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg',
+  },
+  '/article/texas-high-school-football-playoffs-explained': {
+    creator: 'Heidi Knapp', type: 'Person', copyright: '© Heidi Knapp',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg',
+  },
+  '/article/texas-six-man-football-rules-explained': {
+    creator: 'Fortguy', type: 'Person', copyright: '© Fortguy',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Bart_Coan_Field_from_west.jpg',
+  },
+  '/article/texas-cultural-regions-explained': {
+    creator: 'Renelibrary', type: 'Person', copyright: '© Renelibrary',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Panna_Maria_(1_of_1).jpg',
+  },
+  '/article/texas-major-cities-regional-differences': {
+    creator: 'Leeannoneal', type: 'Person', copyright: '© Leeannoneal',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Houston_texas_usa_skyline.jpg',
+  },
+  '/article/texas-lakes-reservoirs-explained': {
+    creator: 'U.S. Army Corps of Engineers', type: 'Organization',
+    copyright: 'Public domain — official U.S. Army Corps of Engineers federal government work; no copyright claim',
+    license: 'https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg',
+    source: 'https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg',
+  },
+  '/destination/south-padre-island': {
+    creator: 'Spheroidite', type: 'Person', copyright: '© Spheroidite',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg',
+  },
+  '/destination/big-bend-ranch-state-park': {
+    creator: 'Jcllorca', type: 'Person', copyright: '© Jcllorca',
+    license: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Harvest_moon_in_Big_Bend_Ranch_State_Park.JPG',
+  },
+});
+
+export function assertGscImageRights(html, path, surface = 'production') {
+  const expected = GSC_IMAGE_RIGHTS_EXPECTED[path];
+  if (!expected) throw new Error('Unexpected image-rights page in production acceptance: ' + path);
+  const pageUrl = 'https://texasdefined.com' + path;
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , json]) => {
+      try {
+        const doc = JSON.parse(json);
+        return Array.isArray(doc) ? doc : [doc];
+      } catch { return []; }
+    });
+  const nodes = documents.flatMap(doc => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const objects = nodes.flatMap(node => {
+    const images = Array.isArray(node?.image) ? node.image : node?.image ? [node.image] : [];
+    return [node, ...images];
+  });
+  const image = objects.find(node => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.contentUrl !== 'string' || !/^https:\/\//.test(image.contentUrl)
+    || image.contentUrl !== image.url
+    || image.creator?.['@type'] !== expected.type
+    || image.creator?.name !== expected.creator
+    || image.copyrightNotice !== expected.copyright
+    || image.license !== expected.license
+    || image.acquireLicensePage !== expected.source
+    || !image.creditText?.includes(expected.creator)) {
+    throw new Error('Missing or incorrect ImageObject source rights on ' + path + ' (' + surface + ')');
+  }
+  // Rights must be visible to readers, not only in structured data.
+  const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visible.includes(expected.creator)) {
+    throw new Error('Visible creator attribution missing on ' + path + ' (' + surface + ')');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
+const texasDataPages = plan.texasDataPages ?? [];
+const eventAuthorityPages = plan.eventAuthorityPages ?? [];
+const corporateEventPages = plan.corporateEventPages ?? [];
+const mardiGrasHubPages = plan.mardiGrasHubPages ?? [];
+const TEXAS_DATA_ROUTES = [
+  '/texas-data',
+  '/texas-data/texas-homeowners-premium-history',
+  '/texas-data/texas-metro-payrolls-august-2026',
+  '/texas-data/texas-metro-payrolls-june-2026',
+];
 const regionGuidePages = plan.regionGuidePages ?? [];
 const footballGameNightPages = plan.footballGameNightPages ?? [];
+const katyFootballPages = plan.katyFootballPages ?? [];
+const loneStarFootballPages = plan.loneStarFootballPages ?? [];
+const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
+const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
+const magoffinHomePages = plan.magoffinHomePages ?? [];
+const moodyGardensPages = plan.moodyGardensPages ?? [];
+const imageRightsPages = plan.imageRightsPages ?? [];
+const davisHillPages = plan.davisHillPages ?? [];
+if (!Array.isArray(loneStarFootballPages) || loneStarFootballPages.length > 1 || loneStarFootballPages.some(p => p !== '/texas-high-school-football-teams/frisco-lone-star' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Lone Star production contract');
+if (!Array.isArray(katyFootballPages) || katyFootballPages.length > 1 || katyFootballPages.some(p => p !== '/texas-high-school-football-teams/katy' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Katy football production contract');
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
-if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 2 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
+if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPages.some(p => !TEXAS_DATA_ROUTES.includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Texas Data production contract');
+if (!Array.isArray(corporateEventPages) || corporateEventPages.length > 1 ||
+  corporateEventPages.some(p => p !== '/corporate-events' || !plan.selectedPaths?.includes(p))) {
+  throw new Error('Invalid bounded corporate marketplace production smoke contract');
+}
+if (!Array.isArray(eventAuthorityPages) || eventAuthorityPages.length > 8 || eventAuthorityPages.some(p => !/^\/event\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded event authority production contract');
+if (!Array.isArray(mardiGrasHubPages) || mardiGrasHubPages.length > 1 || mardiGrasHubPages.some(p => p !== '/events/mardi-gras' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Mardi Gras hub production contract');
+if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
+if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
+if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
+if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
+if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 10
+  || imageRightsPages.some(path => !Object.hasOwn(GSC_IMAGE_RIGHTS_EXPECTED, path) || !plan.selectedPaths?.includes(path)))
+  throw new Error('Invalid bounded GSC ImageObject production acceptance contract');
+if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
+if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
 for (const path of plan.selectedPaths) {
@@ -28,6 +548,18 @@ for (const path of plan.selectedPaths) {
       if (finalPage.origin !== origin) throw new Error('Redirect left the production origin');
       const expectedCanonical = finalPage.origin + finalPage.pathname;
       if (links.length !== 1 || actual !== expectedCanonical) throw new Error(`Unexpected canonical: ${actual || 'missing'}`);
+      // Magnolia Waco: ensure current Google-facing metadata and source-verified
+      // free-parking details actually appear in production SSR, not only source.
+      if (path === '/destination/magnolia-market-at-the-silos') {
+        const titleMarkup = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
+        const actualTitle = titleMarkup.replace(/&amp;|&#38;|&#x26;/gi, '&');
+        if (!actualTitle.includes('Magnolia Market at the Silos Waco: Hours, Parking & Guide')) {
+          throw new Error('Magnolia Waco SEO title missing from production');
+        }
+        if (!html.includes('9th Street and Webster Avenue')) {
+          throw new Error('Magnolia Waco verified free parking missing from production');
+        }
+      }
       const expectedHrefs = plan.expectedHrefsByPage?.[path] ?? [];
       if (!Array.isArray(expectedHrefs) || expectedHrefs.length > 40) throw new Error('Invalid expected outbound link contract');
       if (expectedHrefs.length) {
@@ -39,11 +571,231 @@ for (const path of plan.selectedPaths) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
       }
+      if (imageRightsPages.includes(path)) {
+        assertGscImageRights(html, path, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Image-Rights-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('GSC image-rights ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        assertGscImageRights(await visitor.text(), path, 'ordinary visitor URL');
+      }
+      if (path === '/hunting') {
+        assertHuntingHubPlanner(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Hunting-Hub-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Hunting hub canonical visitor URL failed: HTTP ' + visitor.status);
+        }
+        assertHuntingHubPlanner(await visitor.text(), 'canonical visitor');
+      }
+      if (path === '/hunting/turkey-hunting') {
+        assertTurkeyHuntingAuthority(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Turkey-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Turkey hunting canonical visitor URL failed: HTTP ' + visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        assertTurkeyHuntingAuthority(visitorHtml, 'canonical visitor');
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1 || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Turkey hunting canonical visitor link missing or incorrect');
+        }
+      }
+      if (path === '/hunting/youth-hunting') {
+        assertYouthHuntingAuthority(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Youth-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Youth hunting canonical visitor URL failed: HTTP '+visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        assertYouthHuntingAuthority(visitorHtml, 'canonical visitor');
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1 || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Youth hunting canonical visitor link missing or incorrect');
+        }
+      }
+      if (corporateEventPages.includes(path)) {
+        assertCorporateEventContents(html, 'cache-busted');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Corporate-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Corporate marketplace visitor URL failed: HTTP ' + visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1
+          || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Corporate marketplace visitor URL has an unexpected canonical');
+        }
+        assertCorporateEventContents(visitorHtml, 'ordinary visitor URL');
+      }
+      if (mardiGrasHubPages.includes(path)) {
+        // Check both the cache-busted release and the actual visitor URL:
+        // a new hub is not accepted if the CDN still serves an old listing.
+        const expectedGuides = [
+          '/event/mardi-gras-galveston',
+          '/event/mardi-gras-port-arthur',
+          '/event/cowboy-mardi-gras-bandera',
+          '/event/kemah-yachty-gras',
+          '/event/oak-cliff-mardi-gras-parade',
+        ];
+        const checkHub = (body, surface) => {
+          if (!body.includes('Mardi Gras in Texas') || !body.includes('2027')) {
+            throw new Error('Mardi Gras hub ' + surface + ' lacks current statewide heading and season');
+          }
+          // The 2026-only Oak Cliff listing can survive a superficially successful
+          // deployment; demand the partner-confirmed 2027 date in actual visitor HTML.
+          for (const fact of ['Oak Cliff Mardi Gras Parade', 'February 7, 2027', '1 p.m.', 'Dash for the Beads']) {
+            if (!body.includes(fact)) {
+              throw new Error('Mardi Gras hub ' + surface + ' is missing Oak Cliff 2027 source fact: ' + fact);
+            }
+          }
+          if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
+            throw new Error('Mardi Gras hub ' + surface + ' is unexpectedly noindex');
+          }
+          for (const guide of expectedGuides) {
+            if (!body.includes('href="' + guide + '"')) {
+              throw new Error('Mardi Gras hub ' + surface + ' lacks live guide: ' + guide);
+            }
+          }
+          if (!body.includes('href="' + canonical.href + '"')) {
+            throw new Error('Mardi Gras hub ' + surface + ' lacks correct canonical link');
+          }
+        };
+        checkHub(html, 'release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Mardi-Gras-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Mardi Gras hub ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        checkHub(await visitor.text(), 'ordinary visitor URL');
+      }
+      if (eventAuthorityPages.includes(path)) {
+        for (const required of ['Planning your visit', 'Official event links', 'data-event-discovery-tail="true"']) {
+          if (!html.includes(required)) throw new Error('Event guide SSR missing authority content: ' + required);
+        }
+        // The ordinary visitor URL must also serve the current page, not a cached
+        // 404 or stale non-event document masked by a cache-busted release check.
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Event-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const visitorHtml = await visitor.text();
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Event guide ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        if (!visitorHtml.includes('Planning your visit') || !visitorHtml.includes('Official event links')
+          || !visitorHtml.includes('data-event-discovery-tail="true"')
+          || !visitorHtml.includes('href="' + canonical.href + '"')) {
+          throw new Error('Event guide ordinary visitor URL lacks canonical SSR authority content');
+        }
+        assertCompleted2026EventFacts(path, html, 'cache-busted release');
+        assertCompleted2026EventFacts(path, visitorHtml, 'ordinary visitor URL');
+        if (path === '/event/oak-cliff-mardi-gras-parade') {
+          // The historical 2016 Davis Street photo must stay accurately credited,
+          // while the event itself must display the independent 2027 partner date.
+          for (const [surface, body] of [['release', html], ['ordinary visitor URL', visitorHtml]]) {
+            for (const required of [
+              'Sunday, February 7, 2027', '1 p.m.', 'Dash for the Beads', 'Michael Barera', '2016',
+            ]) {
+              if (!body.includes(required)) {
+                throw new Error('Oak Cliff Mardi Gras ' + surface + ' missing current date, source or licensed history: ' + required);
+              }
+            }
+            if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
+              throw new Error('Oak Cliff Mardi Gras ' + surface + ' is unexpectedly noindex despite compliant image');
+            }
+          }
+        }
+        if (path === '/event/mardi-gras-port-arthur') {
+          assertPortArthurFestivalGateFacts(html, 'cache-busted release');
+          assertPortArthurFestivalGateFacts(visitorHtml, 'ordinary visitor URL');
+        }
+        if (path === '/event/mardi-gras-galveston') {
+          // A successful cache-busted URL must not mask a stale visitor-facing
+          // page without its exact-event licensed image and 2027 source review.
+          for (const [surface, body] of [['release', html], ['ordinary visitor URL', visitorHtml]]) {
+            for (const required of [
+              'Last reviewed ' + galvestonEditorialDate,
+              'Event facts last source-checked ' + galvestonFactsDate,
+              'A Yee',
+              '2013 Mardi Gras',
+            ]) {
+              if (!body.includes(required)) {
+                throw new Error('Galveston Mardi Gras ' + surface + ' missing verified current content: ' + required);
+              }
+            }
+            if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
+              throw new Error('Galveston Mardi Gras ' + surface + ' is unexpectedly noindex despite licensed exact-location hero');
+            }
+          }
+        }
+      }
       if (regionGuidePages.includes(path) && !/<h[2-4]\b[^>]*>\s*How to use the seven regions when planning a trip\s*<\/h[2-4]>/i.test(html)) {
         throw new Error('Texas regions guide is missing its reader-facing SSR heading');
       }
       if (downloadButtonPages.includes(path) && !/<button\b[^>]*>\s*Download CSV\s*<\/button>/i.test(html)) {
         throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
+      }
+      // Check both the new release through a cache-busted request and the
+      // ordinary, unmodified visitor URL. Do not use cache-control: no-cache
+      // for the second request; that would bypass the CDN response we must test.
+      if (texasDataPages.includes(path)) {
+        assertTexasDataContents(path, html);
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Canonical-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const visitorHtml = await visitorResponse.text();
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Texas Data ordinary visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        const visitorCanonicals = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonicals.length !== 1 ||
+            !visitorCanonicals[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Texas Data ordinary visitor URL has an unexpected canonical');
+        }
+        try {
+          assertTexasDataContents(path, visitorHtml);
+        } catch (error) {
+          throw new Error('Texas Data ordinary visitor URL still serves stale HTML: ' + error.message);
+        }
+      }
+      // The vessel is CLOSED. Generic itineraries had reached production even
+      // after previous source-only tests passed; assert actual SSR copy.
+      if (battleshipVisitorPages.includes(path)) {
+        if (!html.includes('Three ways to explore while the ship is closed')
+          || !html.includes('The ship is closed for ordinary boarding')
+          || !html.includes('Not applicable')) {
+          throw new Error('Battleship Texas still serves generic visitor guidance instead of the closed-vessel authority guide');
+        }
       }
       if (footballGameNightPages.includes(path)) {
         const guide = html.indexOf('Game-night essentials');
@@ -53,16 +805,148 @@ for (const path of plan.selectedPaths) {
         if (!html.includes('href="#football-current-season"')) throw new Error('Football schedule jump link missing from SSR');
         if (!html.includes('Browse the TexasDefined shop')) throw new Error('Football commerce link absent from SSR');
       }
+      if (katyFootballPages.includes(path)) {
+        assertKatyFootballContents(html, 'cache-busted release');
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Katy-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Katy ordinary visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        const visitorHtml = await visitorResponse.text();
+        if (!visitorHtml.includes('href="' + canonical.href + '"')) {
+          throw new Error('Katy canonical visitor URL is missing its original canonical');
+        }
+        assertKatyFootballContents(visitorHtml, 'ordinary visitor URL');
+      }
+      if (loneStarFootballPages.includes(path)) {
+        assertLoneStarFootballContents(html, 'cache-busted release');
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-LoneStar-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Lone Star canonical visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        assertLoneStarFootballContents(await visitorResponse.text(), 'ordinary visitor URL');
+      }
+      if (magoffinHomePages.includes(path)) {
+        for (const required of ['Historic home closed through 2027', 'Magoffin Home visitor FAQ', '1117 Magoffin Avenue']) {
+          if (!html.includes(required)) throw new Error('Magoffin Home current authority SSR missing: ' + required);
+        }
+        if (html.includes('Tours and experiences near Magoffin Home State Historic Site')) {
+          throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
+        }
+        assertMagoffinLicensedImageStructuredData(html);
+        // A cache-busted page must not mask stale structured data on the actual
+        // visitor URL; Google will generally crawl that canonical URL.
+        const ordinaryResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Magoffin-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!ordinaryResponse.ok || ordinaryResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Magoffin Home canonical visitor URL failed: HTTP ' + ordinaryResponse.status);
+        }
+        const ordinaryHtml = await ordinaryResponse.text();
+        assertMagoffinLicensedImageStructuredData(ordinaryHtml);
+      }
+      if (moodyGardensPages.includes(path)) {
+        assertMoodyGardensLicensedImageStructuredData(html);
+        // The public canonical response must be correct as well: a cache-busted
+        // successful smoke alone would not prove Google sees fresh metadata.
+        const ordinaryResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Moody-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!ordinaryResponse.ok || ordinaryResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Moody Gardens canonical visitor URL failed: HTTP ' + ordinaryResponse.status);
+        }
+        assertMoodyGardensLicensedImageStructuredData(await ordinaryResponse.text());
+      }
+      if (davisHillPages.includes(path)) {
+        // The old Davis Hill build had image metadata but no visible hero.
+        // Assert the deployed HTML itself exposes TWO distinct article images.
+        const heroUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg';
+        if (!html.includes(heroUrl) || !html.includes('Trinity River National Wildlife Refuge') || !html.includes('CC BY 4.0')) {
+          throw new Error('Davis Hill SSR is missing the licensed photographic hero or required location/rights attribution');
+        }
+        const heroResponse = await fetchImpl(heroUrl, {
+          headers: { accept: 'image/jpeg', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const heroBytes = await heroResponse.arrayBuffer();
+        if (!heroResponse.ok || heroResponse.headers.get('cf-mitigated') === 'challenge'
+          || !(heroResponse.headers.get('content-type') || '').toLowerCase().includes('image/jpeg') || heroBytes.byteLength < 10000) {
+          throw new Error('Davis Hill licensed photographic hero is unavailable: HTTP ' + heroResponse.status);
+        }
+        const inline = '/images/state-parks/davis-hill-salt-dome-concept.svg';
+        if (!html.includes(inline)) throw new Error('Davis Hill article is missing the separate geology figure');
+        const inlineResponse = await fetchImpl(new URL(inline, origin), {
+          headers: { accept: 'image/svg+xml', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
+          signal: AbortSignal.timeout(20000),
+        });
+        const inlineBody = await inlineResponse.text();
+        if (!inlineResponse.ok || !(inlineResponse.headers.get('content-type') || '').toLowerCase().includes('image/svg+xml')
+          || !inlineBody.includes('<svg ') || inlineBody.length < 500) {
+          throw new Error('Davis Hill interior geology image is missing: HTTP ' + inlineResponse.status);
+        }
+        if (html.indexOf(heroUrl) >= html.indexOf(inline)) {
+          throw new Error('Davis Hill photo hero does not precede the inline geology image');
+        }
+        const ordinary = await fetchImpl(canonical, { headers: { 'user-agent': 'TexasDefined-Davis-Hill-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(20000) });
+        const ordinaryHtml = await ordinary.text();
+        if (!ordinary.ok || !ordinaryHtml.includes('https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg')) {
+          throw new Error('Davis Hill canonical visitor URL still lacks the visible hero');
+        }
+      }
       results.push({ path, passed: true, attempt }); failure = null; break;
     } catch (error) { failure = error.message; }
   }
   if (failure) results.push({ path, passed: false, error: failure });
 }
+// Fredericksburg's dynamic sitemap membership is a separate acceptance from
+// the page's HTTP 200/canonical. Only run after the sitemap or this planner
+// changes; fetch one live XML document, never enumerate statewide URLs.
+if (fredericksburgSitemapPaths.length) {
+  let failure;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const url = new URL('/sitemap-explore.xml', origin);
+      url.searchParams.set('deploy_smoke', plan.head + '-' + attempt);
+      const response = await fetchImpl(url, {
+        redirect: 'follow',
+        headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-Explore-Sitemap-SSR-Smoke' },
+        signal: AbortSignal.timeout(30000),
+      });
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') throw new Error('Explore sitemap HTTP ' + response.status);
+      const xml = await response.text();
+      if (!xml.includes('<loc>https://texasdefined.com/destination/fredericksburg</loc>')) {
+        throw new Error('Fredericksburg missing from the live Explore sitemap');
+      }
+      if (!xml.includes('<loc>https://texasdefined.com/destination/magoffin-home</loc>')) {
+        throw new Error('Magoffin Home missing from the live Explore sitemap');
+      }
+      results.push({ path: '/sitemap-explore.xml', passed: true, attempt, requiredUrl: '/destination/fredericksburg' });
+      failure = null;
+      break;
+    } catch (error) { failure = error instanceof Error ? error.message : String(error); }
+  }
+  if (failure) results.push({ path: '/sitemap-explore.xml', passed: false, error: failure });
+}
 // These are explicit, governed 301 aliases, not ordinary indexable HTML pages.
 // Do not follow the redirect or a 200 landing page would mask a broken 301.
 for (const check of redirectChecks) {
-  if (!['/texas-vs/california', '/texas-vs/florida'].includes(check.path) ||
-      check.target !== '/article/texas-vs-' + check.path.split('/').pop() + '-differences') {
+  const allowed = {
+    '/texas-vs/california': '/article/texas-vs-california-differences',
+    '/texas-vs/florida': '/article/texas-vs-florida-differences',
+    '/destination/museum-south-texas-history-edinburg': '/destination/museum-of-south-texas-history-edinburg',
+  };
+  if (!Object.hasOwn(allowed, check.path) || allowed[check.path] !== check.target) {
     throw new Error('Unexpected canonical redirect check');
   }
   let failure;

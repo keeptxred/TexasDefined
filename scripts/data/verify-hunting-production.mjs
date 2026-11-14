@@ -1,6 +1,24 @@
+import fs from 'node:fs';
+
+const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
+const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+const quarterlyCheckedAt = JSON.parse(fs.readFileSync('src/data/hunting/turkey-quarterly-facts.json', 'utf8')).checkedAt;
+const freshnessFile = fs.readFileSync('src/data/hunting/freshness.ts', 'utf8');
+const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
+function deerDate(id, edge) {
+  const row = deerSeasons.rows.find((item) => item.id === id);
+  if (!row || !row[edge]) throw new Error('Missing verified deer season date: ' + id + '.' + edge);
+  const date = new Date(row[edge] + 'T12:00:00Z');
+  return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })
+    .format(date).replace(/^(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec) /, '$1. ');
+}
+
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const cacheBypass = process.env.GITHUB_SHA || Date.now().toString(36);
 
 const representativeTopics = [
   {
@@ -13,11 +31,19 @@ const representativeTopics = [
   },
   {
     path: '/hunting/texas-deer-hunting',
-    needles: ['Texas White-Tailed Deer Hunting Guide', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
+    needles: ['Texas White-Tailed Deer Hunting Guide', 'Texas white-tailed deer hunting dates', deerDate('generalNorth', 'start'), deerDate('generalSouth', 'end'), 'Chronic wasting disease: testing and carcass movement', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
+  },
+  {
+    path: '/hunting/turkey-hunting',
+    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Two verified 2027 public turkey draw opportunities', 'Find walk-in turkey hunting where it is actually legal', 'Using TPWD turkey harvest numbers responsibly', 'TPWD legal-game and property finder', 'TPWD draw and survey data machine-checked ' + quarterlyCheckedAt, 'Machine-checked ' + quarterlyCheckedAt, 'Current official sources'],
   },
   {
     path: '/hunting/youth-hunting',
-    needles: ['Texas Youth Hunting Guide: 2026–27 Youth-Only Seasons & Requirements', 'TPWD season source', 'Current official sources'],
+    needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
+  },
+  {
+    path: '/hunting/mule-deer',
+    needles: ['Texas Mule Deer Hunting Guide', 'TPWD ' + speciesSeasons.seasonYear + ' season dates', 'Panhandle', 'Trans-Pecos', 'View the official TPWD source calendar'],
   },
   {
     path: '/hunting/squirrel-hunting',
@@ -95,11 +121,12 @@ function extractVisibleText(html) {
   return decodeHtmlEntities(withoutNonVisibleContent).replace(/\s+/g, ' ').trim();
 }
 
-async function fetchDocument(pathname) {
+async function fetchDocument(pathname, cacheBust = true) {
   let lastError;
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const response = await fetch(`${origin}${pathname}`, {
+      const url = pathname.endsWith('.xml') || !cacheBust ? origin + pathname : origin + pathname + '?hunting-smoke=' + encodeURIComponent(cacheBypass);
+      const response = await fetch(url, {
         headers: {
           'user-agent': userAgent,
           accept: pathname.endsWith('.xml') ? 'application/xml,text/xml;q=0.9,*/*;q=0.8' : 'text/html,*/*;q=0.8',
@@ -128,7 +155,7 @@ async function fetchDocument(pathname) {
       return extractVisibleText(text);
     } catch (error) {
       lastError = error;
-      if (attempt < 4) await sleep(5_000);
+      if (attempt < 2) await sleep(1_500);
     }
   }
   throw lastError instanceof Error ? lastError : new Error(`Failed to fetch ${pathname}`);
@@ -164,11 +191,25 @@ async function verify() {
   requireText(hub, 'Fur-bearing animals & trapping', 'Hunting v2 hub');
   requireText(hub, 'Texas Squirrel Hunting Guide', 'Hunting v2 hub');
   requireText(hub, 'Texas Trapping & Fur-Bearer Guide', 'Hunting v2 hub');
+  requireText(hub, 'Four decisions before choosing a hunting spot', 'Hunting hub');
+  requireText(hub, 'TPWD hunting area finder', 'Hunting hub');
+  requireText(hub, '2026–27 regulation changes', 'Hunting hub');
+  requireText(hub, 'Source review ' + reviewedLabel, 'Hunting hub');
+  requireText(hub, 'Editorial hub updated ' + editorialLabel, 'Hunting hub');
+  requireText(hub, 'Texas hunting season planner', 'Hunting hub');
+  requireText(hub, 'Species or game category', 'Hunting hub');
+  requireText(hub, 'White-tailed deer', 'Hunting hub');
 
   representativeTopics.forEach((topic, index) => {
     const visibleText = topicBodies[index];
     for (const needle of topic.needles) requireText(visibleText, needle, topic.path);
   });
+
+  // A successful query-string response alone can hide an older cached visitor page.
+  // Re-check only the exact canonical turkey URL to keep the release probe bounded.
+  const turkeyVisitorText = await fetchDocument('/hunting/turkey-hunting', false);
+  const turkeyContract = representativeTopics.find((topic) => topic.path === '/hunting/turkey-hunting');
+  for (const marker of turkeyContract.needles) requireText(turkeyVisitorText, marker, 'Canonical turkey visitor page');
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
 

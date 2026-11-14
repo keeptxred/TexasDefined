@@ -13,7 +13,7 @@ export const RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS = [
 type CuratedUpdate = Pick<Destination,
   "summary" | "bestSeason" | "entryNote" | "highlights" | "body" | "officialUrl" |
   "sourceCheckedAt" | "address" | "managingAuthority" | "coordinates"
->;
+> & Partial<Pick<Destination, "reservationUrl" | "directions" | "visitorFacts">>;
 
 const TPWD = "Texas Parks and Wildlife Department";
 
@@ -83,20 +83,29 @@ const WAVE4: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS)[number], Curated
     coordinates: { lat: 27.672162, lng: -97.175309 },
   },
   "martin-creek-lake-state-park-rv-area": {
-    summary: "Martin Creek Lake State Park near Tatum has a substantial East Texas electric campground with 13 lakefront 30-amp sites, six 50-amp sites and 37 additional 30-amp sites, all with water hookups.",
-    bestSeason: "Spring and summer are TPWD's busy seasons. Cooler fall and winter dates can suit hiking and fishing, while summer stays require heat and storm planning.",
-    entryNote: "TPWD recommends reservations because the park can reach capacity. Electric campsites use several Bee Tree and Broken Bowl loops with 30- or 50-amp service and water; confirm the exact loop and electrical class for your rig before arrival.",
-    highlights: ["56 electric campsites across three site classes", "Lakefront 30-amp sites", "Water hookups at electric sites", "Fishing and East Texas lake access"],
+    summary: "Martin Creek Lake State Park RV camping near Tatum: compare 56 reservable water-and-electric campsites in Bee Tree and Broken Bowl, including 13 lakefront 30-amp sites, six 50-amp sites and 37 standard 30-amp sites. Rates range from $17–$20 nightly plus entrance fees.",
+    bestSeason: "Spring and summer are busiest for camping and lake recreation, according to TPWD; cooler fall and winter trips suit lakeside walks and year-round fishing. Check TPWD's current park alerts and locally posted fire restrictions before each visit.",
+    entryNote: "Reserve the exact Bee Tree or Broken Bowl site and power class through TPWD. Current listed nightly rates are $17–$20 plus $4 per adult daily entrance fee; gate hours are 6 a.m.–10 p.m. For late check-in, call (903) 836-4336 before 5 p.m. on arrival day to obtain gate instructions.",
+    highlights: ["56 reservable water-and-electric campsites in two named areas", "13 lakefront 30-amp Bee Tree sites at $20 nightly", "Six Bee Tree 50-amp sites at $20 nightly", "37 standard 30-amp sites at $17 nightly", "Shared RV dump station and nearby shower restrooms", "Official late-arrival gate instructions and current alerts"],
     body: [
-      "Martin Creek Lake State Park offers a larger electric-camping inventory than its quiet East Texas setting might suggest. TPWD lists 13 lakefront 30-amp electric sites in the Bee Tree loop, six 50-amp electric sites in the same loop and 37 additional 30-amp electric sites split between Bee Tree and Broken Bowl. Those electric sites include water hookups, picnic tables and fire rings with grills, with showers nearby.",
-      "Because the campground has multiple electrical classes and loops, the reservation should match the RV rather than simply selecting the first available campsite. Travelers who want a lakefront position need to target the 13 designated lakefront sites; travelers who require 50-amp service have a much smaller six-site inventory. TPWD notes that the park can reach capacity and recommends reservations for camping and day use, especially during its spring and summer busy season.",
-      "The park sits southeast of Longview near Tatum and works well as a fishing, paddling and lakeside camping stop in the Piney Woods. Weather and lake conditions can change, and the campground's mix of site types makes pre-arrival verification worthwhile. Texas Defined uses licensed Martin Creek Lake State Park imagery and treats TPWD's current campsite and park pages as the controlling source for amenities, fees and reservation details.",
+      "This RV area is part of the public Martin Creek Lake State Park, not a private RV resort. The official park map divides camping among the shoreline-oriented Bee Tree Camping Area and the compact Broken Bowl Camping Area, with separate shelter and walk-in primitive areas elsewhere in the park. This matters more than a generic 'lake campground' label: study the map and your actual numbered campsite before towing in, especially when you are choosing a scenic stay instead of a convenient overnight stop. The map also shows the shared campground facilities and the road layout between the main gate and each loop.",
+      "A useful stay can be built around the park itself. After settling in, visitors can walk to the lighted fishing pier or follow the bridge to the island trail; anglers can also use the boat ramp and fish-cleaning station. On a second morning, explore the Old Henderson Road Loop and Harmony Hill Loop, which follow an early travel corridor and the site of a former East Texas community. The adjacent power plant warms the lake year-round, which explains its appeal to winter anglers and why the industrial facility is a visible part of some lake views.",
+      "Treat this as an outdoor-focused campground rather than a full-service RV resort: plan meals, supplies and water use before arriving, and inspect the individual reserved site for pad length, shelter and proximity to showers. The state park's general guide covers recreation and park history; this separate RV guide concentrates on choosing an electric campsite, understanding the booking terms, and avoiding surprises on arrival. Visitors who need a lakefront location or a particular electrical service should rely on the official numbered site selection, not on a park-wide amenities list.",
     ],
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
-    sourceCheckedAt: "2026-09-13",
+    reservationUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121",
+    sourceCheckedAt: "2026-11-10",
     address: "9515 County Road 2181D, Tatum, TX 75691-3425",
+    directions: "From Tatum, travel southwest on State Highway 43, then turn south on County Road 2183 toward the state park. Use the reserved loop and campsite number for the final approach.",
     managingAuthority: TPWD,
     coordinates: { lat: 32.27795, lng: -94.566051 },
+    visitorFacts: [
+      { topic: "camping", label: "RV campsite types and prices", detail: "13 lakefront 30-amp electric sites ($20), six 50-amp electric sites ($20), and 37 standard 30-amp electric sites ($17). Water is provided. These nightly rates exclude daily entrance fees.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites", checkedAt: "2026-10-31" },
+      { topic: "admission", label: "Separate daily park entrance fee", detail: "Adult visitors age 13 and older pay $4 per day; children 12 and under enter free. TPWD warns fees can change.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/entrance-fees", checkedAt: "2026-10-31" },
+      { topic: "reservations", label: "After-hours camping arrival", detail: "Gate operates 6 a.m.–10 p.m. Late arrivals must call (903) 836-4336 before 5 p.m. on arrival day for a gate code and check in by 9 a.m. next morning.", sourceUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121", checkedAt: "2026-10-31" },
+      { topic: "camping", label: "RV dump station and campsite map", detail: "Official park facility map marks a shared dump station, two electric campsite areas and showers; water and power hookups do not imply sewer connections at each campsite.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/map", checkedAt: "2026-10-31" },
+      { topic: "access", label: "Current park alerts and fire rules", detail: "On November 10, 2026, TPWD listed invasive Argentine ants in some campsites on its park-alert page. Fire restrictions can change: check live TPWD notices and follow posted park rules before lighting any fire.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-11-10" },
+    ],
   },
   "atlanta-state-park-rv-loop": {
     summary: "Atlanta State Park on Wright Patman Lake offers a broad mix of RV-capable sites, including full-hookup 30- and 50-amp campsites plus additional electric sites with water in several campground areas.",

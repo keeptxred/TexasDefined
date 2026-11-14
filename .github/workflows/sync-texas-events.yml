@@ -6,9 +6,37 @@ on:
     paths:
       - ".github/workflows/sync-texas-events.yml"
       - ".github/workflows/finish-texas-events-refresh.yml"
+      - "scripts/events/reconcile-ticketing-refresh-conflicts.mjs"
+      - "scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs"
       - "scripts/events/sync-texas-events-safe.mjs"
+      - "scripts/events/retain-verified-official-events.mjs"
+      - "scripts/events/retain-verified-official-events.test.mjs"
+      - "scripts/events/check-november-event-sources.mjs"
+      - "scripts/events/check-november-event-sources.test.mjs"
+      - "src/data/events/november-official-picks-2026.ts"
+      - "scripts/events/check-mardi-gras-official-sources.mjs"
+      - "scripts/events/check-mardi-gras-official-sources.test.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.test.mjs"
+      - "scripts/events/sync-mardi-gras-protected-2027.mjs"
+      - "scripts/events/sync-mardi-gras-protected-2027.test.mjs"
+      - "src/data/events/mardi-gras-verified-source-updates.json"
+      - "scripts/events/sync-tpwd-calendar.mjs"
+      - "scripts/events/sync-tpwd-calendar.test.mjs"
+      - "src/data/events/tpwd-event-records.server.ts"
+      # Shared admission normalization and resolver changes must get a bounded
+      # immediate verification run; do not rely solely on a potentially delayed
+      # GitHub cron. Reuse this SAME daily governed refresh and merge gate.
+      - "src/data/events/texas-event-records.server.ts"
+      - "src/data/events/ticketing.ts"
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.mjs"
+      - "scripts/events/verify-editorial-ticket-links.mjs"
+      - "scripts/events/verify-editorial-ticket-links.test.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.test.mjs"
+      - "scripts/events/build-ticketmaster-authority-candidates.mjs"
+      - "scripts/events/build-ticketmaster-authority-candidates.test.mjs"
       - "src/data/events-generated.ts"
       - "src/data/events-remote.ts"
   schedule:
@@ -18,6 +46,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write # Only for precise official Mardi Gras source discrepancy review; do not alter event dates blindly.
   actions: write
 
 concurrency:
@@ -40,8 +69,105 @@ jobs:
         with:
           node-version: "22"
 
+      # Homepage event cards derive from this same daily source-controlled event
+      # refresh; no second scheduler, no arbitrary seasonal date rollovers.
+      - name: Verify homepage selection, freshness and SEO contracts
+        run: |
+          node --experimental-strip-types --test scripts/data/homepage-events.test.mjs
+          node scripts/data/validate-homepage-seo.mjs
+
+      # Reuse the governed daily events job. Investigate source drift instead of
+      # modifying published event dates based on brittle HTML or stale seasons.
+      - name: Validate November collection and date-source safety contracts
+        run: node --test scripts/events/check-november-event-sources.test.mjs
+
+      - name: Review official November event-date sources
+        id: november_sources
+        continue-on-error: true
+        run: node scripts/events/check-november-event-sources.mjs
+
+      - name: Open or reuse a bounded November event date-review issue
+        if: steps.november_sources.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="[November events] Verify official organizer dates"
+          existing="$(gh issue list --state open --search 'Verify official organizer dates in:title' --json title,number --jq '.[] | select(.title == "[November events] Verify official organizer dates") | .number' | head -n 1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The November event organizer-source watcher detected a changed source, inaccessible page, or an expired 2026 season. Inspect $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and confirm all dates with current first-party organizer evidence. Do not automatically roll over 2026 dates, substitute Ticketmaster sessions for event-season dates, or publish guesses."
+          fi
+          echo "::warning title=November event source review required::Tracked as an existing or newly opened issue; current listings remain unchanged."
+
+      - name: Test Mardi Gras official-source watch safety and date fixtures
+        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs scripts/events/parse-mardi-gras-official-facts.test.mjs
+
+      # Reuse this daily Texas-events workflow: no separate scheduler, no auto-rollover of dates.
+      # A changed official source opens or reuses a bounded review issue and preserves last-known-good records.
+      - name: Check official Mardi Gras 2027 sources for material changes
+        id: mardi_gras_sources
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          MARDI_GRAS_SOURCE_LEDGER_PATH: ${{ runner.temp }}/mardi-gras-official-sources.json
+        run: node scripts/events/check-mardi-gras-official-sources.mjs
+
+      - name: Keep bounded official-source observations in the existing GitHub run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mardi-gras-official-source-observations
+          path: ${{ runner.temp }}/mardi-gras-official-sources.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Escalate Mardi Gras watcher infrastructure failure without blocking other Texas events
+        if: steps.mardi_gras_sources.outcome == 'failure'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title="[Mardi Gras source review] Watcher infrastructure failure"
+          existing="$(gh issue list --state open --search 'Watcher infrastructure failure in:title' --json title,number --jq '.[] | select(.title == "[Mardi Gras source review] Watcher infrastructure failure") | .number' | head -n 1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The existing daily Mardi Gras source-check program failed internally at $(date -u +%Y-%m-%dT%H:%M:%SZ). Review $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Preserve last-known-good event facts, noindex and image rights; do not invent event dates or treat the last successful check as current."
+          fi
+          echo "::error title=Mardi Gras official-source watcher failed::Incident tracked in a stable GitHub issue. Source facts must remain last-known-good."
+
+      # Exact organizer Event JSON-LD can yield protected multi-surface updates
+      # only for Orange and the DISTINCT Beaumont public festival. The source
+      # checker above writes the ledger from THIS run; if it failed, hold all.
+      - name: Test protected Mardi Gras 2027 source promotion and safety fixtures
+        run: node --test scripts/events/sync-mardi-gras-protected-2027.test.mjs
+
+      - name: Propose verified Mardi Gras source facts through the existing event refresh PR
+        if: steps.mardi_gras_sources.outcome == 'success'
+        env:
+          MARDI_GRAS_SOURCE_LEDGER_PATH: ${{ runner.temp }}/mardi-gras-official-sources.json
+        run: node scripts/events/sync-mardi-gras-protected-2027.mjs
+
+      - name: Validate protected Mardi Gras occurrence registry before committing
+        run: node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
+
+      - name: Test strict retention of still-current source-verified festival dates
+        run: node --test scripts/events/retain-verified-official-events.test.mjs
+
       - name: Sync authoritative Texas events
         run: node scripts/events/sync-texas-events-safe.mjs
+
+      - name: Test TPWD calendar parser
+        run: node --test scripts/events/sync-tpwd-calendar.test.mjs
+
+      - name: Sync upcoming TPWD visitor activities
+        id: tpwd
+        continue-on-error: true
+        run: node scripts/events/sync-tpwd-calendar.mjs
+
+      - name: Warn if official TPWD feed cannot be reached
+        if: steps.tpwd.outcome == 'failure'
+        run: echo "::warning title=TPWD source temporarily unavailable::The prior TPWD event catalog remains unchanged and will expire automatically; other event providers still refresh."
 
       - name: Sync Ticketmaster Texas events
         env:
@@ -49,11 +175,41 @@ jobs:
           TICKETMASTER_IMPACT_BASE_URL: https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726
         run: node scripts/events/sync-ticketmaster-events.mjs
 
+      - name: Test Ticketmaster authority candidate classification
+        run: node --test scripts/events/build-ticketmaster-authority-candidates.test.mjs
+
+      - name: Build Ticketmaster authority research queue
+        run: node scripts/events/build-ticketmaster-authority-candidates.mjs
+
+      - name: Test safe public ticket link probes
+        run: node --test scripts/events/verify-ticketmaster-link-batch.test.mjs
+
+      - name: Test governed event refresh conflict preservation
+        run: node --test scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs
+
+      - name: Check the next 40 verified-provider event destinations
+        run: node scripts/events/verify-ticketmaster-link-batch.mjs
+
+      - name: Test bounded official editorial seller probes
+        run: node --test scripts/events/verify-editorial-ticket-links.test.mjs
+
+      # The editorial verifier loads TS event records through Vite SSR. Earlier
+      # sync steps are dependency-free; install the locked project dependencies
+      # only before this step so its Vite import resolves on the runner.
+      - name: Install locked dependencies for editorial seller verification
+        run: npm ci --ignore-scripts
+
+      - name: Check the next 25 official editorial purchase URLs
+        run: node scripts/events/verify-editorial-ticket-links.mjs
+
       - name: Detect catalog changes
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json; then
+          # On the first sync, the research queue is untracked. Make it visible
+          # to git diff without staging contents until the refresh branch is made.
+          git add -N -- ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
+          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json src/data/events/mardi-gras-verified-source-updates.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Texas events catalog is already current."
           else
@@ -71,7 +227,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json
+          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json src/data/events/mardi-gras-verified-source-updates.json
           git commit -m "data: refresh Texas events catalog"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"

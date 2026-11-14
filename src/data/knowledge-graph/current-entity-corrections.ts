@@ -23,10 +23,15 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
     corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
   }
 
+  if (corrected.id === 'sports-venue:dickies-arena') {
+    corrected = { ...corrected, sourceCheckedAt: '2026-10-26' };
+  }
+
   if (corrected.id === 'sports-venue:jones-att-stadium') {
     corrected = {
       ...corrected,
       name: 'Galaxy Stadium',
+      officialUrl: 'https://texastech.com/facilities/galaxy-stadium/2',
       aliases: [...new Set([...corrected.aliases, 'Jones AT&T Stadium', 'Jones ATT Stadium', 'Jones Stadium', 'Galaxy Stadium'])],
       description: 'Galaxy Stadium in Lubbock is the home of Texas Tech Red Raiders football and one of West Texas’s major college-sports destinations. The venue adopted the Galaxy Stadium name beginning with the 2026 football season under a 15-year naming-rights agreement, while its long history at the heart of the Texas Tech campus continues to make game weekends a regional travel draw.',
       sourceCheckedAt: checkedAt,

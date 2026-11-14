@@ -1,6 +1,7 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingReportCanonicalPath, fishingReportFreshness, FISHING_REPORTS_VERIFIED_AT } from "./report-routing";
 import { isPublicFishingReportValid } from "./report-validation";
+import { latestFishingSourceReviewDate } from "./source-review-dates";
 
 export async function loadFishingReportDirectoryDataServer() {
   const [reports, lakes, species, guides, lakeSpecies, advertisers, placements] = await Promise.all([
@@ -38,7 +39,7 @@ export async function loadFishingReportDirectoryDataServer() {
     .filter((entry) => Boolean(entry.advertiser));
 
   return {
-    verifiedAt: FISHING_REPORTS_VERIFIED_AT,
+    verifiedAt: latestFishingSourceReviewDate(editorialReports.map(({ report }) => report), FISHING_REPORTS_VERIFIED_AT),
     editorialOrder: "Newest verified report first. Sponsorship never changes report order or editorial recommendations.",
     reports: editorialReports,
     filters: {

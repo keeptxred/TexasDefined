@@ -4,7 +4,6 @@ import type { CampingProfile } from "./types";
 const NPS = "National Park Service";
 const USACE = "U.S. Army Corps of Engineers";
 const USFS = "U.S. Forest Service";
-const RECREATION_GOV = "https://www.recreation.gov/";
 const VERIFIED_AT = "2026-09-02";
 
 type CampgroundDiscoveryProfile = CampingDiscoveryProfile & { profileSlug: string };
@@ -118,7 +117,7 @@ export const CAMPING_PROFILES_WAVE3: CampingProfile[] = [
     amenities: ["restrooms", "ada-site", "shade", "hiking"],
     reservationPolicy: "All Pine Springs campsites are reservable through Recreation.gov up to six months ahead under current NPS rules.",
     reservationAuthority: "Recreation.gov",
-    reservationUrl: RECREATION_GOV,
+    reservationUrl: "https://www.recreation.gov/camping/campgrounds/258851",
     siteLengthNote: "The campground has 13 RV sites; RVs and trailers 55 feet or longer are prohibited on the Pine Springs campground road.",
     campingNotes: [
       "Pine Springs has 20 walk-in tent sites and 13 paved RV sites near the visitor center and Guadalupe Peak trail system.",
@@ -143,7 +142,7 @@ export const CAMPING_PROFILES_WAVE3: CampingProfile[] = [
     amenities: ["restrooms", "shade", "hiking"],
     reservationPolicy: "Dog Canyon campsites are reservable through Recreation.gov up to six months ahead under current NPS rules.",
     reservationAuthority: "Recreation.gov",
-    reservationUrl: RECREATION_GOV,
+    reservationUrl: "https://www.recreation.gov/camping/campgrounds/258852",
     siteLengthNote: "Dog Canyon has four RV sites and a 23-foot maximum RV length; there are no hookups or dump station.",
     campingNotes: [
       "Dog Canyon sits at about 6,300 feet on the remote north side of Guadalupe Mountains National Park, roughly a two-hour drive from Pine Springs.",
@@ -207,15 +206,15 @@ export const CAMPING_PROFILES_WAVE3: CampingProfile[] = [
     amenities: ["electric-30", "showers", "lake-access", "swimming", "fishing", "hiking"],
     reservationPolicy: "Some Ratcliff Lake sites are reservable through Recreation.gov; other availability may be handled under current Forest Service operating procedures.",
     reservationAuthority: "U.S. Forest Service / Recreation.gov",
-    reservationUrl: RECREATION_GOV,
+    reservationUrl: "https://www.recreation.gov/camping/campgrounds/234362",
     campingNotes: [
       "Ratcliff Lake surrounds a 45-acre lake in Davy Crockett National Forest and supports camping, swimming, fishing and hiking.",
       "The Forest Service lists both non-electric sites and 30-amp electric sites, plus group camping.",
-      "Potable water is available from centrally located campground faucets. The Forest Service page also identifies two accessible bathrooms with showers; its separate restroom field is internally inconsistent, so this profile does not assert a general restroom amenity beyond that verified shower note.",
+      "Potable water is available from centrally located campground faucets. Recreation.gov documents flush toilets and hot and cold showers. Accessibility can vary by campsite and facility; confirm specific bathroom accessibility directly with the operator before reserving.",
     ],
     searchTerms: ["Ratcliff Lake camping", "Davy Crockett National Forest camping", "East Texas forest camping", "30 amp camping East Texas"],
     verifiedAt: VERIFIED_AT,
-    sources: [{ label: "U.S. Forest Service Ratcliff Lake", url: "https://www.fs.usda.gov/r08/texas/recreation/ratcliff-lake-936-655-2299", fields: ["30-amp sites", "group camping", "reservations", "potable water", "accessible showers", "swimming", "fishing", "hiking"] }],
+    sources: [{ label: "U.S. Forest Service Ratcliff Lake", url: "https://www.recreation.gov/camping/campgrounds/234362", fields: ["30-amp sites", "group camping", "reservations", "potable water", "accessible showers", "swimming", "fishing", "hiking"] }],
   },
 ];
 

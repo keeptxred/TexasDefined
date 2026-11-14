@@ -1,0 +1,276 @@
+{
+  "site": "sc-domain:texasdefined.com",
+  "recordedAt": "2026-10-29",
+  "gscPeriod": [
+    "2026-09-29",
+    "2026-10-26"
+  ],
+  "state": "final",
+  "searchType": "web",
+  "queryRows": 9214,
+  "source": "Authenticated Search Console per-query export plus targeted per-query page breakdowns",
+  "limitations": "Anonymized low-volume query rows are withheld by GSC. Do not infer per-page query ownership from the general query export. Each URL distribution below comes from separately executed targeted breakdowns; 18 sampled queries, not an exhaustive all-query-by-page matrix.",
+  "queryOwnerChecks": [
+    {
+      "query": "day trips from texarkana",
+      "total": {
+        "impressions": 92,
+        "clicks": 0,
+        "position": 4.923913043478261
+      },
+      "distribution": [
+        [
+          "/explore/near/texarkana",
+          85,
+          4.647058823529411
+        ],
+        [
+          "/explore/near/texarkana/day-trips",
+          6,
+          1.8333333333333335
+        ],
+        [
+          "/explore/near/texarkana/weekend-trips",
+          1,
+          47
+        ]
+      ],
+      "intendedOwner": "/explore/near/texarkana/day-trips",
+      "classification": "INTENT CONFLICT",
+      "remediation": "PR #6342: broad hub and dedicated day trips separate meta intents; hub links to child with descriptive day-trip anchor; preserve self-canonicals."
+    },
+    {
+      "query": "painted churches of texas map",
+      "total": {
+        "impressions": 146,
+        "clicks": 3,
+        "position": 7.294520547945205
+      },
+      "distribution": [
+        [
+          "/explore/painted-churches",
+          71,
+          7.732394366197183
+        ],
+        [
+          "/explore/painted-churches/map",
+          75,
+          6.88
+        ]
+      ],
+      "intendedOwner": "/explore/painted-churches/map",
+      "classification": "INTENT CONFLICT",
+      "remediation": "Preserve existing newly indexed map with distinct title, map intent, and contextual hub-to-map anchor; allow search re-selection and future data. No change in this audit."
+    },
+    {
+      "query": "what does bi district mean",
+      "total": {
+        "impressions": 48,
+        "clicks": 0,
+        "position": 4.833333333333334
+      },
+      "distribution": [
+        [
+          "/article/texas-high-school-football-playoffs-explained",
+          46,
+          3.630434782608696
+        ],
+        [
+          "/texas-high-school-football-districts/1a-division-ii-district-14",
+          1,
+          35
+        ],
+        [
+          "/texas-high-school-football-teams/cotton-center",
+          1,
+          30
+        ]
+      ],
+      "intendedOwner": "/article/texas-high-school-football-playoffs-explained",
+      "classification": "KEEP",
+      "remediation": "No change; the explainer already owns 96% of visible impressions."
+    },
+    {
+      "query": "district standings",
+      "total": {
+        "impressions": 65,
+        "clicks": 3,
+        "position": 8.538461538461538
+      },
+      "distributionCount": 61,
+      "intendedOwner": "Distinct district/team pages, not one statewide URL",
+      "classification": "KEEP",
+      "remediation": "Query is too generic to assign one owner. Owner deferred standings automation and no ranking metadata should claim unverified live standings."
+    },
+    {
+      "query": "rivers",
+      "total": {
+        "impressions": 274,
+        "clicks": 0,
+        "position": 8.974452554744525
+      },
+      "distribution": [
+        [
+          "/article/texas-rivers-explained",
+          274,
+          8.974452554744525
+        ]
+      ],
+      "intendedOwner": "/article/texas-rivers-explained",
+      "classification": "KEEP",
+      "remediation": "Preserve protected major-rivers title and distinct river-basin child intent."
+    },
+    {
+      "query": "polar express palestine",
+      "total": {
+        "impressions": 196,
+        "clicks": 1,
+        "position": 8.933673469387756
+      },
+      "distribution": [
+        [
+          "/event/polar-express-palestine",
+          196,
+          8.933673469387756
+        ]
+      ],
+      "intendedOwner": "/event/polar-express-palestine",
+      "classification": "CTR IMPROVEMENT",
+      "remediation": "PR #6338: highlight official 2026 event dates and booking utility."
+    },
+    {
+      "query": "unt stadium capacity",
+      "total": {
+        "impressions": 42,
+        "clicks": 0,
+        "position": 8.976190476190476
+      },
+      "distribution": [
+        [
+          "/sports-venue/datcu-stadium",
+          42,
+          8.976190476190476
+        ]
+      ],
+      "intendedOwner": "/sports-venue/datcu-stadium",
+      "classification": "CTR IMPROVEMENT",
+      "remediation": "PR #6341: add capacity intent to title; source-backed 30,100 seats in description."
+    },
+    {
+      "query": "naskila casino leggett tx",
+      "distribution": [
+        [
+          "/explore/casinos/naskila-leggett",
+          145,
+          11.482758620689655
+        ]
+      ],
+      "intendedOwner": "/explore/casinos/naskila-leggett",
+      "classification": "KEEP"
+    },
+    {
+      "query": "galveston bay",
+      "distribution": [
+        [
+          "/destination/galveston-bay",
+          99,
+          9.505050505050505
+        ]
+      ],
+      "intendedOwner": "/destination/galveston-bay",
+      "classification": "KEEP"
+    },
+    {
+      "query": "district 5 6a football standings",
+      "distribution": [
+        [
+          "/texas-high-school-football-districts/6a-district-5",
+          75,
+          6.12
+        ]
+      ],
+      "intendedOwner": "/texas-high-school-football-districts/6a-district-5",
+      "classification": "KEEP"
+    },
+    {
+      "query": "district 7 6a football standings",
+      "distribution": [
+        [
+          "/texas-high-school-football-districts/6a-district-7",
+          65,
+          7.153846153846154
+        ]
+      ],
+      "intendedOwner": "/texas-high-school-football-districts/6a-district-7",
+      "classification": "KEEP"
+    },
+    {
+      "query": "bartlett football",
+      "distribution": [
+        [
+          "/texas-high-school-football-teams/bartlett",
+          69,
+          8.478260869565219
+        ]
+      ],
+      "intendedOwner": "/texas-high-school-football-teams/bartlett",
+      "classification": "KEEP"
+    },
+    {
+      "query": "texas native plants",
+      "distribution": [
+        [
+          "/article/best-native-plants-texas-yard",
+          84,
+          73.96428571428571
+        ]
+      ],
+      "classification": "RANKING PROBLEM"
+    },
+    {
+      "query": "texas bbq",
+      "distribution": [
+        [
+          "/explore/food-bbq",
+          72,
+          45.416666666666664
+        ]
+      ],
+      "classification": "RANKING PROBLEM"
+    },
+    {
+      "query": "things to do in dallas",
+      "distribution": [
+        [
+          "/explore/near/dallas/things-to-do",
+          47,
+          64.76595744680851
+        ]
+      ],
+      "classification": "RANKING PROBLEM"
+    },
+    {
+      "query": "last day of state fair 2026",
+      "distribution": [
+        [
+          "/texas-state-fair",
+          39,
+          9.820512820512821
+        ]
+      ],
+      "classification": "KEEP",
+      "remediation": "Expired event title is evergreen; page explicitly marks 2026 as historical archive in H1/body."
+    },
+    {
+      "query": "texas two-step",
+      "distribution": [
+        [
+          "/texas-two-step",
+          39,
+          8.948717948717949
+        ]
+      ],
+      "classification": "KEEP"
+    }
+  ]
+}

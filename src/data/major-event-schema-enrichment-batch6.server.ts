@@ -35,7 +35,8 @@ export const majorEventSchemaEnrichmentBatch6: MajorEventSchemaEnrichment[] = [
   {
     slug: "houston-art-car-parade",
     organizer: organization("The Orange Show Center for Visionary Art", "https://orangeshow.org/"),
-    offers: [usdOffer("Parade admission", 0, "https://www.thehoustonartcarparade.com/")],
+    // The parade is free. Reserved seating and VIPit are separate optional
+    // products, not required parade admission; don't emit a purchase CTA.
     sources: [
       { label: "Houston Art Car Parade official site", url: "https://www.thehoustonartcarparade.com/" },
       { label: "Houston Art Car Parade official history", url: "https://www.thehoustonartcarparade.com/history-of-the-houston-art-car-para" },
@@ -45,11 +46,24 @@ export const majorEventSchemaEnrichmentBatch6: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-galveston",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Galveston_Mardi_Gras_Parade_2013_08.jpg?width=1600",
+      alt: "A 2013 Mardi Gras parade group passing down The Strand in Galveston, Texas; historical archival image, not the 2027 celebration",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Galveston_Mardi_Gras_Parade_2013_08.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — A Yee",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Actual Galveston Mardi Gras photographed February 3, 2013 by A Yee on The Strand, including Shriners Hospitals participants tossing beads. Wikimedia Commons confirms the Flickr original's CC BY 2.0 license. Historical documentation only; credit A Yee and link to source and license.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     sources: [
       { label: "Mardi Gras! Galveston official site", url: "https://www.mardigrasgalveston.com/" },
       { label: "Mardi Gras! Galveston official 2027 parade schedule", url: "https://www.mardigrasgalveston.com/parade-schedule/" },
+      { label: "Mardi Gras! Galveston official ticket and free-admission FAQ", url: "https://www.mardigrasgalveston.com/faqs/" },
     ],
-    verifiedAt: "2026-09-02",
+    verifiedAt: "2026-10-26",
   },
   {
     slug: "texas-state-forest-festival",

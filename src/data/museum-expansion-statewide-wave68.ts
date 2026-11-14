@@ -1,3 +1,4 @@
+import { YSLETA_CULTURAL_CENTER_MURAL } from "./ysleta-cultural-center-media";
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import { statewideMuseumExpansionWave69Destinations } from "./museum-expansion-statewide-wave69";
 import type { Destination, ImageRef } from "./types";
@@ -38,13 +39,7 @@ export const statewideMuseumExpansionWave68Destinations: Destination[] = [
     nearestTown: "El Paso",
     county: "El Paso County",
     coordinates: { lat: 31.68237, lng: -106.31952 },
-    hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center.jpg?width=1600",
-      alt: "Authentic photograph of the Tigua Cultural Center at Ysleta del Sur Pueblo in El Paso, Texas",
-      width: 1600,
-      height: 1200,
-      credit: "Sue Barnum · 2020 · CC BY-SA 4.0 · Wikimedia Commons",
-    },
+    hero: YSLETA_CULTURAL_CENTER_MURAL,
     bestSeason: "Year-round for the indoor museum; fall through spring is especially comfortable for combining the Cultural Center with the El Paso Mission Trail and other Lower Valley heritage stops.",
     entryNote: "Museum-specific official sources list Wednesday–Sunday, 10 a.m.–4 p.m.; other Cultural Center and gift-shop pages list different schedules. Call (915) 859-7700 to confirm museum access, admission, tours and public programming. School/group tours require advance coordination.",
     highlights: [

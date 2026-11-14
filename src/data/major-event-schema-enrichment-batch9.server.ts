@@ -92,7 +92,9 @@ export const majorEventSchemaEnrichmentBatch9: MajorEventSchemaEnrichment[] = [
   {
     slug: "austin-powwow",
     organizer: organization("Native American Cultural Center", "https://austinpowwow.net/"),
-    offers: [usdOffer("Child under 12 admission", 0, "https://austinpowwow.net/")],
+    // Free entry for children under 12 is a policy, not a checkout.
+    // The organizer homepage's Buy Tickets is a reader-facing navigation
+    // action; no independently verified exact 2026 admission URL is supplied.
     sources: [
       { label: "Austin Powwow official 2026 event page", url: "https://austinpowwow.net/" },
       { label: "Austin Powwow official organizer background", url: "https://austinpowwow.net/about-austin-powwow/" },
@@ -117,9 +119,10 @@ export const majorEventSchemaEnrichmentBatch9: MajorEventSchemaEnrichment[] = [
     ],
     sources: [
       { label: "Houston Ballet Nutcracker Market official 2026 page", url: "https://www.houstonballet.org/nutcrackermarket" },
+      { label: "Reliant Park — event venue and Nov 12–15 date", url: "https://www.reliantpark.com/event/nutcracker-market/" },
       { label: "Houston Ballet Nutcracker Market official event background", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/" },
       { label: "Houston Ballet Nutcracker Market official Early Bird admission", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/tickets-events/nutcracker-market-tickets/early-bird-admission/" },
     ],
-    verifiedAt: "2026-09-02",
+    verifiedAt: "2026-10-29",
   },
 ];

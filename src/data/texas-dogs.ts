@@ -6,6 +6,7 @@ export interface DogBreedProfile {
   personality: string;
   texasFit: string;
   designHooks: string[];
+  care?: { movement: string; coatAndHome: string; texasPlan: string; sourceUrl: string };
 }
 
 export interface DogBreedSummary {

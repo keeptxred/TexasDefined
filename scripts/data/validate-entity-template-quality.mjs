@@ -19,6 +19,7 @@ const entityFoodDestinations = read('src/components/content/EntityFoodDestinatio
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
+const countyContextRemote = read('src/data/county-statewide-context.remote.ts');
 const countyComparison = read('src/data/county-comparison.ts');
 const countyComparisonTable = read('src/components/counties/TexasCountyComparisonTable.tsx');
 const entityIndex = read('src/data/knowledge-graph/index.ts');
@@ -63,8 +64,11 @@ for (const feature of ['findCompleteTexasEntity','TEXAS_ENTITY_REGISTRY','const 
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
 }
 if (entityRoute.includes('loadTexasKnowledgeGraph()')) errors.push('Generic entity pages must not load the full remote knowledge graph per request.');
-for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','County seat & communities','Places on the map','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
+for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
+}
+for (const retiredCountyMap of ['Places on the map','County seat & communities','VanZandtCommunityMap','openstreetmap.org/search?query=']) {
+  if (countyGuide.includes(retiredCountyMap)) errors.push('Retired county map section must not return: ' + retiredCountyMap);
 }
 for (const feature of ['countySeriesArticle: Article | null']) {
   if (!countyGuide.includes(feature)) errors.push(`County loader-resolved feature handoff missing: ${feature}`);
@@ -78,9 +82,15 @@ for (const forbiddenTemplateCopy of ['Where it is','A sense of place','How to us
 for (const feature of ['Verified county profile','What the data says about','populationDensityPerSquareMile','waterSharePercent','Dividing those two Census figures','structured place directory','not a claim that the list contains every incorporated place','CountyStatewideContextSection','countySlug(countyName)']) {
   if (!countyIdentity.includes(feature)) errors.push(`County identity uniqueness contract missing: ${feature}`);
 }
-for (const feature of ['Statewide context','Where {countyName} sits in the county data','buildCountyStatewideContext','loadTexasCountyComparison','of {fact.comparedCount} counties with source data','missing source values are excluded rather than estimated']) {
+for (const feature of ['Statewide context','Where {countyName} sits in the county data','loadCountyStatewideContext(countySlug)','of {fact.comparedCount} counties with source data','missing source values are excluded rather than estimated']) {
   if (!countyStatewide.includes(feature)) errors.push(`County statewide context missing: ${feature}`);
 }
+// The statewide rankings must use the same verified source records, but that
+// 254-county computation must run on the server, not fetch official sources from browsers.
+for (const feature of ["createServerFn({ method: 'GET' })",'buildCountyStatewideContext(await loadTexasCountyComparison(), data.slug)', 'countyContextServerFn({ data: { slug } })', 'countyContextCache.set(slug, promise)']) {
+  if (!countyContextRemote.includes(feature)) errors.push(`Server-side county ranking contract missing: ${feature}`);
+}
+if (countyStatewide.includes('use(loadTexasCountyComparison())')) errors.push('County rankings may not fetch all 254 county sources directly in visitor browsers.');
 for (const feature of ['populationDensityPerSquareMile','waterSharePercent','buildCountyStatewideContext','metricRank','landAreaSquareMiles','difference || a.name.localeCompare(b.name)']) {
   if (!countyComparison.includes(feature)) errors.push(`County comparison uniqueness contract missing: ${feature}`);
 }
@@ -268,12 +278,12 @@ for (const feature of [
   'Census2020/State_County/MapServer/1/query',
   "url.searchParams.set('where', \"STATE='48'\")",
   "url.searchParams.set('outFields', 'COUNTY,POP100,AREALAND,AREAWATER,INTPTLAT,INTPTLON')",
-  'population2020: censusFacts.population2020',
+  "const population2020 = slug === 'mclennan' ? 260579 : censusFacts.population2020",
   'landAreaSquareMiles: censusFacts.landAreaSquareMiles',
   'waterAreaSquareMiles: censusFacts.waterAreaSquareMiles',
   'populationDensityPerSquareMile',
   'waterSharePercent',
-  'density(censusFacts.population2020, censusFacts.landAreaSquareMiles)',
+  'density(population2020, censusFacts.landAreaSquareMiles)',
   'waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles)',
   'roughly ${formatDensity(densityValue)} residents per square mile',
   'Broader community coverage is added only when a place-to-county relationship is present',
@@ -321,6 +331,46 @@ for (const marker of [
 if (entityDepth.includes('Verify the district and campus from an exact address')) {
   errors.push('City relocation cards must not claim district-map tools certify campus attendance zones.');
 }
+
+// Reader-facing entity and refuge descriptions must serve visitors, never
+// expose TexasDefined editorial/indexing workflows as if they are guidance.
+const wildlifeGuide = read('src/routes/explore.wildlife.lazy.tsx');
+if (entityDepth.includes('is included in TexasDefined as a practical public-service reference')) errors.push('Government visitor context must not advertise the publisher workflow.');
+if (!entityDepth.includes('Use it to understand what the office or agency handles')) errors.push('Government visitor context must offer actionable official-source guidance.');
+if (wildlifeGuide.includes('normal indexing-readiness safeguards') || wildlifeGuide.includes('The authority catalog includes current federal names')) errors.push('Wildlife guide must avoid internal indexing and catalogue language.');
+if (!wildlifeGuide.includes("Check each refuge's official U.S. Fish and Wildlife Service page for current closures")) errors.push('Wildlife visitor guide must advise official access and closure checks.');
+
+// Editorial templates must describe real visitor value, not our indexing,
+// canonicalization, audit or publishing machinery in destination prose.
+for (const path of [
+  'src/data/gaming.ts',
+  'src/data/museum-expansion-statewide-wave32.ts',
+  'src/data/museum-expansion-statewide-wave42.ts',
+  'src/data/museum-expansion-statewide-wave44.ts',
+  'src/data/museum-expansion-statewide-wave50.ts',
+  'src/data/museum-expansion-statewide-wave51.ts',
+  'src/data/museum-expansion-statewide-wave52.ts',
+  'src/data/museum-expansion-statewide-wave53.ts',
+  'src/data/museum-expansion-statewide-wave54.ts',
+]) {
+  const prose = read(path);
+  for (const phrase of [
+    'TexasDefined\'s event system handles',
+    'canonical TexasDefined destination',
+    'TexasDefined anchor for',
+    'TexasDefined consolidates the audit',
+    'standalone TexasDefined authority destination',
+    'canonical museum authority destination for search',
+    'county-level internal linking',
+  ]) {
+    if (prose.includes(phrase)) errors.push('Internal editorial-process wording exposed in visitor copy: ' + path + ': ' + phrase);
+  }
+}
+
+// A reader-facing heritage guide must not describe our canonicalization model
+// or refer travelers to an internal editorial coverage layer.
+if (read('src/data/museum-expansion-statewide-wave66.ts').includes('TexasDefined treats 130 N. Waco Street as the canonical visitor location')) errors.push('Van Alstyne museum prose still exposes publisher canonical workflow.');
+if (read('src/data/museum-expansion-statewide-wave79.ts').includes("TexasDefined's Rockwall County coverage")) errors.push('Royse City museum prose still exposes publisher editorial coverage.');
 
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 

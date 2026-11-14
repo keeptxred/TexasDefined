@@ -38,6 +38,7 @@ export const texasCulturalRegionsExplainedArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
   internalLinks: [
+    { href: "/things-unique-to-texas/culture-music", label: "Texas traditions and cultural icons", description: "Browse the verified 250-item collection for regional music, celebrations, foodways and everyday Texas traditions." },
     { href: "/article/texas-german-belt", label: "The German-Texan heritage landscape", description: "Follow primary historical sources through New Braunfels, Fredericksburg and smaller towns." },
     { href: "/article/texas-wine-country", label: "Texas wine country", description: "See modern economic geography alongside older Hill Country communities." },
     {
@@ -74,6 +75,10 @@ export const texasCulturalRegionsExplainedArticle: Article = {
     p("The result is a set of overlapping cultural regions rather than a neat map with hard borders. The Hill Country can be German-Texan, Tejano, ranching country and modern Austin exurbia at the same time. East Texas can be Southern, African American, Caddo homeland, timber country and oil country. Houston can belong to the Gulf Coast while also being one of the most international cities in the country."),
     p("Thinking in cultural regions helps explain why Texas can feel so different from county to county without any part of it feeling less Texan."),
 
+    h("Why did cultures differ from one region of early Texas to another?"),
+    p("Different Indigenous nations had their own languages, trade networks, land-use practices and political traditions long before Texas became a state. Coastal wetlands, East Texas forests, the High Plains and the desert borderlands also supported different livelihoods. Spanish and Mexican settlements, Tejano communities, migration from the U.S. South, slavery and emancipation, European immigration and later railroad, oil and urban growth added distinct cultural influences. Geography, migration, power and economics—not one uniform 'Texas culture'—explain many of the differences."),
+    h("How many cultural regions does Texas have?"),
+    p("There is no official number of Texas cultural regions. Maps that divide the state into broad geographic or ecological regions do not define its many overlapping cultural histories. East Texas, South Texas, the Hill Country, the Gulf Coast, North Texas and the Trans-Pecos can be useful cultural starting points, but their boundaries are not fixed and no community belongs to only one tradition. A map of the Texas Parks and Wildlife natural regions answers a different question: where landscapes and habitats change."),
     h("Cultural regions are layers, not official boundaries"),
     p("Texas has official counties, highways, river basins and political districts. It does not have an official set of cultural regions. Any cultural map is an interpretation of patterns that blur at the edges."),
     p("That is useful rather than inconvenient. A cultural region becomes visible when several things line up: settlement history, language, religion, agriculture, architecture, music, food, transportation and economic ties. When those patterns persist across generations, a place develops a recognizable local identity."),

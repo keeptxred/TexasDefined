@@ -88,7 +88,7 @@ function MadeInTexasPage() {
                 <div className="mt-6 space-y-3 text-sm font-semibold">
                   <a href="/texas-industries" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore Texas industries →</a>
                   <a href="/texas-facts" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">100 essential Texas facts →</a>
-                  <a href="/things-unique-to-texas" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">250 things that define Texas →</a>
+                  <a href="/things-unique-to-texas" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Things that define Texas →</a>
                   <a href="/texas-history" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Texas history →</a>
                   <a href="/browse/counties" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all counties →</a>
                 </div>

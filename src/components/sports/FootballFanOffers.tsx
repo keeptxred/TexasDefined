@@ -1,3 +1,6 @@
+import { buildCjAccountClick } from '@/lib/cj-account-links';
+import { useLocation } from '@tanstack/react-router';
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from '@/lib/cj-hotels-evergreen';
 import { trackAffiliateClick } from '@/lib/affiliate-click';
 
 type Offer = Readonly<{
@@ -16,36 +19,53 @@ export const VERIFIED_FOOTBALL_GEAR_OFFERS: readonly Offer[] = [];
 
 const HOTEL_CJ_PUBLISHER_ID = '101876465';
 const HOTELS_DESTINATION = 'https://www.hotels.com/';
-// Use the same approved CJ deep-link contract as stay-affiliate-options.js.
-const HOTELS_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(HOTELS_DESTINATION)}`;
+// Approved evergreen Motel 6 CJ creative with TexasDefined property PID.
+// Hotels.com uses its own CJ-approved Evergreen creative and current page SID.
 // RVshare is an existing active CJ advertiser for TexasDefined. This uses the
-// same previously verified destination and DLG builder as stay-affiliate-options.js.
+// same verified Evergreen creative, destination and page SID as the stay bootstrap.
 const RVSHARE_DESTINATION = 'https://rvshare.com/';
-const RVSHARE_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(RVSHARE_DESTINATION)}`;
 
-function isVerifiedProductUrl(url: string) {
-  try {
-    const parsed = new URL(url);
-    // Every additional network/merchant requires a reviewed allowlist change.
-    return parsed.protocol === 'https:' &&
-      parsed.hostname === 'www.anrdoezrs.net' &&
-      parsed.pathname.startsWith(`/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/`);
-  } catch {
-    return false;
-  }
+function isVerifiedProductUrl(offer: Offer) {
+  // The exact prefix enforces HTTPS, the CJ host, our publisher ID, and Rexing.
+  // Do not add retailers without account approval and verified Get Link output.
+  return offer.partner === 'rexing' &&
+    offer.trackedUrl.startsWith(`https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/https://rexing.com/`);
 }
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const RVSHARE_AFFILIATE_URL = buildCjAccountClick('rvshare', pathname, RVSHARE_DESTINATION);
+  const MOTEL6_STANDARD_URL = buildCjAccountClick('motel6-standard', pathname);
+  const HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick(HOTELS_DESTINATION, hotelsComPageSid(pathname));
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
-  const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer.trackedUrl));
+  const isStateChampionshipGuide = slug === 'texas-high-school-football-playoffs-explained';
+  const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer));
 
   return (
     <section aria-label="Football fan shopping and travel" className="mt-6 border-t border-border pt-5">
-      <h3 className="font-display text-2xl leading-tight">Friday-night fan essentials</h3>
+      <h3 className="font-display text-2xl leading-tight">{isStateChampionshipGuide ? 'Plan your Texas playoff trip' : 'Friday-night fan essentials'}</h3>
       <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
         For the stands: consider a padded bleacher seat, warm layers, rain protection and a portable charger.
         Check your game's bag, seat and food rules with the actual host venue before buying.
       </p>
+      {isStateChampionshipGuide && showHotels && (
+        <div className="mt-4 border-l-2 border-primary bg-surface p-4">
+          <p className="font-semibold">2026 state finals: Arlington, December 16–19</p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            UIL lists the state championship games at AT&amp;T Stadium in Arlington. That is the confirmed finals venue, not the location of earlier playoff rounds. Verify the date and game with UIL before booking a stay.
+          </p>
+          <a href="https://www.uiltexas.org/football/state" target="_blank" rel="noopener noreferrer"
+            className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4">
+            Official UIL championship schedule and ticket information ↗
+          </a>
+        </div>
+      )}
+      {showHotels || gearOffers.length > 0 ? (
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">
+          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, hotel bookings or RV reservations, at no additional cost to you.
+          TexasDefined is not affiliated with the schools and these are not official team offers.
+        </p>
+      ) : null}
       {gearOffers.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-3">
           {gearOffers.map((offer) => (
@@ -53,6 +73,7 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
               <p className="font-semibold">{offer.title}</p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">{offer.description}</p>
               <a href={offer.trackedUrl} target="_blank" rel="sponsored nofollow noopener noreferrer"
+                data-commercial-partner={offer.partner} data-commercial-placement={`football-team-${slug}`}
                 onClick={() => trackAffiliateClick({ partner: offer.partner, label: offer.cta, placement: `football-team-${slug}`, module: 'football-fan-essentials' })}
                 className="mt-3 inline-flex min-h-11 items-center font-semibold text-primary underline underline-offset-4">
                 {offer.cta} ↗
@@ -81,6 +102,22 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
       {showHotels && (
         <div className="mt-4 flex flex-wrap items-center justify-between gap-4 bg-background p-4">
           <div className="max-w-3xl">
+            <p className="font-semibold">Prefer a budget motel for the drive?</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
+              Explore Motel 6 budget stays only after confirming the game location and date. Prices, property locations and availability are not guaranteed.
+            </p>
+          </div>
+          <a href={MOTEL6_STANDARD_URL} target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-commercial-partner="motel6" data-commercial-placement="football-budget-motel"
+            onClick={() => trackAffiliateClick({ partner: 'motel6', label: 'Motel 6 budget stays', placement: `football-motel6-${slug}`, module: 'football-fan-essentials' })}
+            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-3 text-sm font-semibold text-foreground hover:bg-surface">
+            Compare Motel 6 stays ↗
+          </a>
+        </div>
+      )}
+      {showHotels && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4 bg-background p-4">
+          <div className="max-w-3xl">
             <p className="font-semibold">Traveling to a football game with family or friends?</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">
               Compare RV rentals for a road trip or overnight stay. Do not assume the school, stadium or venue allows RV parking or tailgating; confirm rules and parking separately before reserving.
@@ -94,12 +131,6 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
           </a>
         </div>
       )}
-      {showHotels || gearOffers.length > 0 ? (
-        <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, hotel bookings or RV reservations, at no additional cost to you.
-          TexasDefined is not affiliated with the schools and these are not official team offers.
-        </p>
-      ) : null}
     </section>
   );
 }

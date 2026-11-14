@@ -1,3 +1,5 @@
+import { TexasRiverBasinInteractiveMap } from "./TexasRiverBasinInteractiveMap";
+
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
 const lastVerified = "2026-10-18";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
@@ -51,15 +53,9 @@ const researchedProfiles: Record<string, string> = {
 };
 
 const comparisonMetrics = [
-  { label: "Largest river basins by Texas land area", column: 1, unit: "sq. mi." },
-  { label: "Longest river lengths within Texas", column: 2, unit: "miles" },
-  { label: "Highest published average annual flow", column: 3, unit: "acre-feet/year" },
-] as const;
-
-const basinHighlights = [
-  { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
-  { label: "Longest river segment in Texas", value: "Rio Grande", detail: "889 river miles in Texas" },
-  { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
+  { label: "Largest basins by land area in Texas", column: 1, unit: "square miles" },
+  { label: "Longest rivers within Texas", column: 2, unit: "miles" },
+  { label: "Most water per year, on average", column: 3, unit: "acre-feet per year" },
 ] as const;
 
 const csvHeaders = [
@@ -115,7 +111,9 @@ const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURICompone
 
 export function TexasRiverBasinReference() {
   return (
-    <div className="mt-8" aria-labelledby="major-basin-reference-heading">
+    <>
+      <TexasRiverBasinInteractiveMap />
+      <div className="mt-8" aria-labelledby="major-basin-reference-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow text-primary">Compare the river basins</p>
@@ -135,14 +133,14 @@ export function TexasRiverBasinReference() {
             download="texasdefined-texas-river-basins.csv"
             className="underline decoration-border underline-offset-4"
           >
-            Download CSV ↓
+            Download table (CSV) ↓
           </a>
           <a
             href={jsonDownloadHref}
             download="texasdefined-texas-river-basins.json"
             className="underline decoration-border underline-offset-4"
           >
-            Download JSON ↓
+            Download data (JSON) ↓
           </a>
         </div>
       </div>
@@ -151,21 +149,11 @@ export function TexasRiverBasinReference() {
 The Texas Water Development Board figures answer three different questions: how much Texas land drains into each river system, how many miles of the named river lie within Texas, and its published average annual water volume. None of these numbers tells you today's river level. Compare the charts or open the full source table below.
       </p>
 
-      <dl className="mt-5 flex flex-wrap gap-2">
-        {basinHighlights.map((item) => (
-          <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
-            <dt className="text-muted-foreground">{item.label}</dt>
-            <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
-            <dd className="mt-2 text-primary">{item.detail}</dd>
-          </div>
-        ))}
-      </dl>
-
       <section className="mt-7" aria-labelledby="basin-comparison-charts">
         <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           These rankings use the state's published reference figures, not estimates of today's river flow.
-          A long river does not necessarily drain the most land or carry the most water on average.
+          A long river does not necessarily drain the most land or carry the most water on average. One acre-foot is about 326,000 gallons.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-3">
           {comparisonMetrics.map((metric) => {
@@ -252,6 +240,7 @@ Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gall
           ))}
         </ul>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

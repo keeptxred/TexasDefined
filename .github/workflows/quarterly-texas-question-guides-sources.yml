@@ -1,0 +1,44 @@
+name: Quarterly Texas career and nature sources review
+
+on:
+  schedule:
+    - cron: '23 13 15 1,4,7,10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texas-question-guides-source-audit
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Review primary-source wage releases and TPWD park examples
+        id: audit
+        continue-on-error: true
+        run: node scripts/data/audit-texas-question-guide-freshness.mjs
+      - name: Open one durable action item when external sources need review
+        if: steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='[source-review] Texas career and nature guides need verification'
+          if gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Existing source-review issue is already open; no duplicate created.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh issue create             --repo "$GITHUB_REPOSITORY"             --title "$title"             --body "Official BLS metro wage releases or Texas Parks and Wildlife source examples need editorial review, or one remote source blocked the scheduled checker. Check run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Review the source URLs and actual data before changing public copy. Update source dates, page facts and validation snapshots only when independently confirmed; no automatic unsupported restamping."
+      - name: Report required review as a failed source-audit run
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

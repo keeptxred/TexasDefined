@@ -2,12 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
+import { withResearchedCampingPetPolicy } from "@/data/camping/pet-policies";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Best Places to Go Camping in Texas | Parks, Beaches & Campgrounds";
 const description = "Find the best places to go camping in Texas, from Hill Country rivers and Gulf beaches to canyon, forest and desert campsites. Compare verified campgrounds, camping styles, facilities and official reservation sources.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+// Updated only when substantive editorial guidance changes, not on routine source pings.
+const EDITORIAL_UPDATED_AT = "2026-11-04";
 
 function profileAnchor(profile: { destinationSlug: string; profileSlug?: unknown }) {
   return typeof profile.profileSlug === "string" && profile.profileSlug ? profile.profileSlug : profile.destinationSlug;
@@ -26,6 +30,8 @@ export const Route = createFileRoute(canonicalPath)({
       { CAMPING_DISCOVERY_PROFILES_WAVE6 },
       { CAMPING_DISCOVERY_PROFILES_WAVE7 },
       { CAMPING_DISCOVERY_PROFILES_WAVE8 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE9 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE10 },
     ] = await Promise.all([
       import("@/data/camping/discovery"),
       import("@/data/camping/profiles-wave2"),
@@ -35,6 +41,8 @@ export const Route = createFileRoute(canonicalPath)({
       import("@/data/camping/profiles-wave6"),
       import("@/data/camping/profiles-wave7"),
       import("@/data/camping/profiles-wave8"),
+      import("@/data/camping/profiles-wave9"),
+      import("@/data/camping/profiles-wave10"),
     ]);
     const profiles = [
       ...CAMPING_DISCOVERY_PROFILES,
@@ -45,12 +53,16 @@ export const Route = createFileRoute(canonicalPath)({
       ...CAMPING_DISCOVERY_PROFILES_WAVE6,
       ...CAMPING_DISCOVERY_PROFILES_WAVE7,
       ...CAMPING_DISCOVERY_PROFILES_WAVE8,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE9,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE10,
     ];
-    return { entries: profiles.map((profile) => ({ profile })) };
+    return { entries: profiles.map((profile) => ({ profile: withResearchedCampingPetPolicy(profile) })) };
   },
   head: ({ loaderData }) => {
     const entries = loaderData?.entries ?? [];
-    const modified = entries.map(({ profile }) => profile.verifiedAt).sort().at(-1) ?? "2026-09-02";
+    // Page metadata reflects substantive operational-notice updates; individual
+    // campground verifiedAt dates continue to represent their own source research.
+    const modified = [EDITORIAL_UPDATED_AT, ...entries.map(({ profile }) => profile.verifiedAt), ...CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt)].sort().at(-1) ?? EDITORIAL_UPDATED_AT;
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -64,6 +76,8 @@ export const Route = createFileRoute(canonicalPath)({
             name: title,
             description,
             dateModified: modified,
+            author: { "@type": "Organization", name: "Texas Defined", url: absoluteUrl(texasDefinedBrand, "/about") },
+            publisher: { "@type": "Organization", name: "Texas Defined", url: absoluteUrl(texasDefinedBrand, "/") },
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             mainEntity: { "@id": `${pageUrl}#camping-directory` },
           },

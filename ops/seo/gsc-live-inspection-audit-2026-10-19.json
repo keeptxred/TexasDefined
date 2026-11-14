@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-10-19",
+  "source": {
+    "system": "Google Search Console",
+    "property": "sc-domain:texasdefined.com",
+    "permissionLevel": "siteOwner",
+    "APIs": [
+      "URL Inspection",
+      "Search Analytics",
+      "Sitemaps"
+    ]
+  },
+  "scope": {
+    "purpose": "Refresh the September 13 manual-submission control cohort and next-priority cohort against live GSC, preserving the existing technical/indexability guards while replacing stale October 17 status with current evidence.",
+    "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-13.json",
+    "productionRevisionReviewed": "183ac3a332ff094f99bdd525641869f4785a9264",
+    "searchAnalyticsWindow": {
+      "current": {
+        "startDate": "2026-09-19",
+        "endDate": "2026-10-16",
+        "dataState": "final",
+        "searchType": "web"
+      },
+      "previous": {
+        "startDate": "2026-08-22",
+        "endDate": "2026-09-18",
+        "dataState": "final",
+        "searchType": "web"
+      }
+    }
+  },
+  "sitemaps": [
+    {
+      "path": "https://texasdefined.com/sitemap.xml",
+      "lastDownloaded": "2026-10-18T07:31:33.132Z",
+      "pending": false,
+      "warnings": 0,
+      "errors": 0,
+      "submittedUrlsReported": 3213
+    },
+    {
+      "path": "https://texasdefined.com/sitemap-explore.xml",
+      "lastDownloaded": "2026-10-19T05:43:28.936Z",
+      "pending": false,
+      "warnings": 0,
+      "errors": 0,
+      "submittedUrlsReported": 956
+    }
+  ],
+  "september13ManualSubmittedControl": {
+    "total": 10,
+    "submittedAndIndexed": 10,
+    "indexedRate": 1,
+    "urls": [
+      "/property-tax-calculators",
+      "/property-tax-calculator/harris-county",
+      "/property-tax-calculator/dallas-county",
+      "/property-tax-calculator/travis-county",
+      "/property-tax-calculator/tarrant-county",
+      "/property-tax-calculator/collin-county",
+      "/texas-over-65-property-tax-calculator",
+      "/texas-rent-vs-buy-calculator",
+      "/texas-salary-comparison-by-city",
+      "/explore/lakes-rivers"
+    ],
+    "interpretation": "All ten URLs recorded as manually submitted on 2026-09-13 still return PASS / Submitted and indexed in live URL Inspection. This remains a small, non-random control cohort and is not causal proof that manual submission alone produced indexing."
+  },
+  "september13NextBatch": {
+    "total": 10,
+    "summary": {
+      "submittedAndIndexed": 3,
+      "unknownToGoogle": 7
+    },
+    "indexed": [
+      {
+        "path": "/property-tax-calculator/bexar-county",
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "lastCrawlTime": "2026-10-13T19:31:03Z",
+        "selfCanonical": true
+      },
+      {
+        "path": "/texas-home-insurance-calculator/houston",
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "lastCrawlTime": "2026-10-19T08:12:33Z"
+      },
+      {
+        "path": "/destination/garner-state-park",
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "lastCrawlTime": "2026-10-12T04:43:54Z",
+        "selfCanonical": true
+      }
+    ],
+    "pendingManualRequest": [
+      {
+        "path": "/property-tax-calculator/fort-bend-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/property-tax-calculator/montgomery-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/property-tax-calculator/williamson-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/property-tax-calculator/hidalgo-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/texas-mortgage-calculator/houston",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/texas-home-affordability-calculator/houston",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      },
+      {
+        "path": "/destination/fredericksburg",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google"
+      }
+    ],
+    "interpretation": "Three URLs have graduated to indexed since the September cohort was created. Seven remain unknown to Google despite current sitemap generation, protected internal crawl-demand links and production indexability/canonical guards. Do not rewrite or noindex them solely from this state."
+  },
+  "currentTechnicalEvidence": {
+    "crawlDemandValidator": "scripts/seo/validate-gsc-crawl-demand-links.mjs",
+    "productionVerifier": "scripts/ci/verify-gsc-manual-next-production.mjs",
+    "productionWorkflow": ".github/workflows/verify-gsc-manual-next-production.yml",
+    "note": "The current production guard protects all ten original next-batch URLs. Keeping indexed graduates in the guard is intentional because it also prevents canonical/robots regressions."
+  },
+  "nextActions": [
+    "Use Search Console URL Inspection request-indexing UI only for the seven pending URLs if manual quota is available; the connected/public URL Inspection API does not expose a request-indexing mutation.",
+    "Do not resubmit the three indexed graduates or the ten September control URLs.",
+    "Re-inspect the seven pending URLs after Google has had time to recrawl; escalate to content/duplication remediation only if page-level evidence identifies a defect.",
+    "Keep sitemap, internal-link and canonical/indexability production guards green."
+  ],
+  "sitewideSearchPerformance": {
+    "current": {
+      "startDate": "2026-09-19",
+      "endDate": "2026-10-16",
+      "clicks": 497,
+      "impressions": 60857,
+      "ctr": 0.008166685837290698,
+      "averagePosition": 12.710205892502096
+    },
+    "previous": {
+      "startDate": "2026-08-22",
+      "endDate": "2026-09-18",
+      "clicks": 144,
+      "impressions": 33355,
+      "ctr": 0.004317193824014391,
+      "averagePosition": 27.102353470244342
+    },
+    "deltas": {
+      "clicks": 353,
+      "clicksPercent": 245.14,
+      "impressions": 27502,
+      "impressionsPercent": 82.45,
+      "ctrPercentagePoints": 0.3849,
+      "averagePositionImprovement": 14.39
+    },
+    "interpretation": "Finalized Search Analytics shows continued strong organic growth while seven priority URLs remain unknown to Google. The unresolved inspection cohort is not evidence of a sitewide traffic or ranking collapse."
+  }
+}

@@ -24,7 +24,11 @@ test('governed sports placements are looked up only for valid active football pr
   assert.match(pageLoader, /surfacePath: \`\/texas-high-school-football-teams\/\$\{profile\.slug\}\`/);
   assert.match(pageLoader, /return \{ \.\.\.profile, sponsorPlacement \}/);
   assert.match(profile, /SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
-  assert.match(profile, /\{sponsorPlacement \? \(/);
+  // Most programs show sponsors near the top; school-specific authority pages may
+  // defer the same governed placement until after sourced football coverage.
+  assert.match(profile, /\{(?:slug !== 'frisco-lone-star' && )?sponsorPlacement \? \(/);
+  assert.match(profile, /slug === 'frisco-lone-star'[\s\S]*?<SponsoredSportsPlacement/);
+  assert.match(profile, /<SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
   assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
 });
 
@@ -68,24 +72,85 @@ test('first-party action tracking respects existing automation and shop analytic
   assert.doesNotMatch(panel, /localStorage|sessionStorage|sendBeacon/);
 });
 
-test('team sponsorship paths are staged but no launch hold is bypassed', () => {
-  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-teams\/[a-z0-9-]+)$/;
+test('team and district sponsorship paths are allowlisted while the venue launch hold stays active', () => {
+  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+)$/;
   for (const path of [
     '/sports-venues',
     '/sports-venue/eagle-stadium-allen',
     '/texas-high-school-football-teams/southlake-carroll',
     '/texas-high-school-football-teams/aledo',
+    '/texas-high-school-football-districts/6a-district-22',
   ]) assert.equal(allowed.test(path), true, path);
   for (const path of [
     '/texas-high-school-football-teams/../../admin',
     '/texas-high-school-football-teams/',
     '/texas-high-school-football-teams/fake?redirect=x',
+    '/texas-high-school-football-districts/../../admin',
   ]) assert.equal(allowed.test(path), false, path);
 
-  assert.match(functions, /texas-high-school-football-teams/);
+  assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(migration, /texas-high-school-football-teams/);
   assert.match(migration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
   assert.match(migration, /ADD CONSTRAINT texasdefined_sports_sponsor_placements_surface_path_check/);
   assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
   assert.match(sponsorServer, /if \(SPORTS_SPONSOR_OUTREACH_HOLD\) return null/);
+});
+
+
+test('football monetization is shared, disclosed, source-preserving, and payment-gated', () => {
+  const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
+  const districtPage = read('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx');
+  const districtLoader = read('src/routes/texas-high-school-football-districts_.$slug.tsx');
+  const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
+  const partnerHead = read('src/routes/partner-with-us.tsx');
+  const partnerQuery = read('src/lib/partner-search.ts');
+  const inquiry = read('src/data/partner-inquiry.functions.ts');
+  const prices = read('src/data/football-sponsorship-packages.ts');
+  const districtMigration = read('supabase/migrations/20261025184500_extend_sports_sponsor_football_district_surfaces.sql');
+  assert.match(panel, /data-football-monetization="v1"/);
+  assert.match(panel, /data-football-sponsor-interest/);
+  assert.match(panel, /data-football-shop-cta/);
+  assert.match(panel, /!hasSponsor/);
+  assert.match(profile, /<FootballMonetizationSlot/);
+  assert.match(districtPage, /<FootballMonetizationSlot/);
+  assert.match(districtPage, /<SponsoredSportsPlacement/);
+  assert.match(districtLoader, /getActiveSportsSponsorPlacement/);
+  assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(partnerHead, /validateSearch: parsePartnerSearch/);
+  assert.match(partnerQuery, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(partnerQuery, /source: typeof incomingSource === 'string' \? sanitizePartnerSource\(incomingSource\)/);
+  assert.match(inquiry, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(prices, /footballFoundingPackages/);
+  assert.match(panel, /Founding placements start at \$9\/month/);
+  assert.match(prices, /Never change an existing signed price/);
+  for (const amount of ['9', '19', '39']) assert.match(prices, new RegExp('monthlyPrice: ' + amount));
+  assert.match(sponsorForm, /custom agreement and payment verification required/);
+  assert.match(sponsorServer, /FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED = true/);
+  assert.match(sponsorServer, /!isFootballSponsorSurface\(String\(existing\.surface_path\)\)/);
+  assert.match(sponsorServer, /agreement\?\.payment_status !== 'paid'/);
+  assert.match(sponsorServer, /agreement\?\.status !== 'accepted'/);
+  assert.match(districtMigration, /texas-high-school-football-districts/);
+  assert.match(districtMigration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
+});
+
+test('Katy non-score repairs preserve sourced stadiums, maintained record-book link and clear pilot selection', () => {
+  const profile = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const head = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
+  const editorialData = read('src/data/high-school-football/program-editorial.ts');
+  const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
+  const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
+  const gameNight = read('src/components/sports/FootballGameNightGuide.tsx');
+  assert.match(gameNight, /slug === 'katy' \? '#katy-stadiums'/);
+  assert.match(gameNight, /Both Katy ISD stadiums/);
+  const katyGuide = read('src/components/sports/KatyStadiumGuide.tsx');
+  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/', 'katyisd.org/athletics/facilities/clear-bag-regulation', 'khs.katyisd.org/athletics/home', 'www.vancoevents.com/us/eventlist/varsityfb']) assert.ok(katyGuide.includes(item), `Katy stadium guide missing: ${item}`);
+  assert.ok(profile.includes('NCES Katy High School source'));
+  assert.match(profile, /<KatyStadiumGuide \/>/);
+  assert.match(editorialData, /Katy Tigers Football: Nine Texas State Titles & Stadium Guide/);
+  assert.match(editorialData, /https:\/\/katyabc\.org\/features\/katy-football-record-book\//);
+  assert.doesNotMatch(editorialData, /record_book_02\.26\.24\.pdf/);
+  assert.match(head, /title: editorial\?\.seo\?\.title \?\? defaultTitle/);
+  assert.match(panel, /const isKaty = surfacePath ===/);
+  assert.match(sponsorForm, /selectedFootballPackage \? `football-\$\{selectedFootballPackage\}` : selectedTier/);
+  assert.match(profile, /id="football-current-season"/); // Future schedule widget mount stays intact.
 });

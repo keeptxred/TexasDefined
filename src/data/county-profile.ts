@@ -57,6 +57,9 @@ type TigerwebCountyFeature = {
  // Verify using the Handbook of Texas and county roads/municipal boundaries map.
 const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
   'van-zandt': ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'],
+  // Source: El Paso County Elections municipalities; TWDB 2022 El Paso County map
+  // Additional named places are unincorporated communities, not municipalities.
+  'el-paso': ['El Paso', 'Anthony', 'Vinton', 'Canutillo', 'Westway', 'Horizon City', 'Socorro', 'San Elizario', 'Clint', 'Fabens', 'Montana Vista', 'Tornillo'],
 };
 
 // Same authoritative county-seat register as fetchCountySeats(), retained so a
@@ -66,10 +69,12 @@ const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
 // Cross-check: https://www.tarrantcountytx.gov/content/main/en/county/about-tarrant.html
 const VERIFIED_COUNTY_SEAT_FALLBACKS: Record<string, string> = {
   tarrant: 'Fort Worth',
+  'el-paso': 'El Paso',
 };
 
 const VERIFIED_2025_CENSUS_ESTIMATES: Record<string, number> = {
   'van-zandt': 66130, // Census QuickFacts, Vintage 2025, July 1 estimate.
+  'el-paso': 877858, // Census QuickFacts, Vintage 2025, July 1 estimate.
 };
 
 const cache = new Map<string, Promise<CountyProfile>>();
@@ -115,13 +120,16 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const longitude = censusFacts.longitude ?? fallbackGeography?.longitude;
   const usedGeographyFallback = fallbackGeography != null && (censusFacts.latitude == null || censusFacts.longitude == null);
   const majorCommunities = Array.from(new Set([countySeatName, ...(VERIFIED_COUNTY_COMMUNITIES[slug] ?? knownCommunities)].filter((value): value is string => Boolean(value))));
-  const populationDensityPerSquareMile = density(censusFacts.population2020, censusFacts.landAreaSquareMiles);
+  // Census QuickFacts 2020, FIPS 48309: McLennan County 260,579 residents.
+  // Source: https://www.census.gov/quickfacts/fact/table/mclennancountytexas/PST045225
+  const population2020 = slug === 'mclennan' ? 260579 : censusFacts.population2020;
+  const populationDensityPerSquareMile = density(population2020, censusFacts.landAreaSquareMiles);
   const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
 
   return {
     countySeat,
     countySeatPlace,
-    population2020: censusFacts.population2020,
+    population2020,
     population2025Estimate: VERIFIED_2025_CENSUS_ESTIMATES[slug],
     landAreaSquareMiles: censusFacts.landAreaSquareMiles,
     waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,
@@ -135,6 +143,7 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
       CENSUS_TIGERWEB_SOURCE_URL,
       ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
       ...(slug === 'van-zandt' ? ['https://www.tshaonline.org/handbook/entries/van-zandt-county', 'https://www.census.gov/quickfacts/fact/table/vanzandtcountytexas/PST045225', 'https://www.vanzandtcounty.org/upload/page/2695/2025%20DOCS/VanZandtCountyWallMap11292023.pdf'] : []),
+      ...(slug === 'el-paso' ? ['https://www.census.gov/quickfacts/fact/table/elpasocountytexas/PST045225', 'https://epcountyvotestx.gov/maps/municipalities', 'https://www.twdb.texas.gov/board/2022/01/Board/Brd06.pdf'] : []),
     ],
   };
 }

@@ -16,11 +16,13 @@ const migrated = [
   ['friday-night-lights-production-smoke', 'football', 'verify-friday-night-lights-production'],
 ];
 
-test('one weekly coordinator runs all nine full contracts on the reusable local build', () => {
+test('all nine local contracts remain available in source but weekly coordinator is disabled', () => {
   assert.equal(Object.keys(LOCAL_QUALITY_AUDITS).length, 9);
   const coordinator = read('.github/workflows/audit-whole-site-production.yml');
   const reusable = read('.github/workflows/audit-site-quality-local.yml');
-  assert.match(coordinator, /^  schedule:/m);
+  assert.doesNotMatch(coordinator, /^  schedule:/m);
+  assert.match(coordinator, /audit-production:\n\s+# Defense in depth:[^\n]*\n\s+if: \$\{\{ false \}\}/);
+  assert.match(reusable, /jobs:\n  audit:\n\s+# Reusable callers[^\n]*\n\s+if: \$\{\{ false \}\}/);
   assert.match(coordinator, /uses: \.\/\.github\/workflows\/audit-site-quality-local.yml/);
   assert.match(coordinator, /audit: all/);
   assert.match(coordinator, /needs: audit-production/);

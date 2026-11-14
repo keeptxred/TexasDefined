@@ -1,0 +1,103 @@
+name: Verify fishing lakes directory in live Chrome
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
+      - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/routes/fishing.lakes.tsx'
+      - 'src/lazy/fishing-compare.tsx'
+      - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/data/fishing/lake-directory-answers.ts'
+      - 'src/data/fishing/fixtures.ts'
+      - 'src/data/fishing/slugs.ts'
+      - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
+      - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
+      # A production deploy-system repair must re-certify the exact deployed SHA,
+      # even when the fishing directory's source code itself is unchanged.
+      - '.github/workflows/deploy-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: write
+
+concurrency:
+  # PR revisions supersede by PR number; main-push jobs keep source SHA identity.
+  # A later commit must not cancel deployed-descendant desktop/mobile certification.
+  group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    name: Validate fishing lakes real-browser verifier syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/ci/verify-fishing-lakes-directory-browser.mjs
+      - run: node --check scripts/ci/wait-for-fishing-access-protected-production.mjs
+      - run: node --test scripts/ci/fishing-access-deployment-source.test.mjs
+
+  browser:
+    if: github.event_name != 'pull_request'
+    name: Live desktop and mobile fishing lakes directory acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Mark live fishing-lakes Chrome certification pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-fishing-lakes-browser pending "Waiting for protected deployment and desktop/mobile acceptance"
+      - name: Wait for a successful protected production main descendant that includes this source SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        # Reuse the tested fail-closed ancestry + protected-status gate already used by fishing access.
+        run: node scripts/ci/wait-for-fishing-access-protected-production.mjs
+      - name: Install isolated Chrome driver without changing repository dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-fishing-lakes-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check real visitor filters, sorting, comparison, safety notices and SEO metadata
+        id: verify_browser
+        run: node scripts/ci/verify-fishing-lakes-directory-browser.mjs
+      - name: Publish honest live fishing-lakes Chrome certification
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWSER_OUTCOME: ${{ steps.verify_browser.outcome }}
+        shell: bash
+        run: |
+          outcome=failure
+          [[ "$BROWSER_OUTCOME" == 'success' ]] && outcome=success
+          node scripts/ci/publish-github-status.mjs texasdefined-fishing-lakes-browser "$outcome" "Live desktop and mobile fishing lakes directory accepted" "Live desktop/mobile fishing lakes certification failed or did not run"
+      - name: Preserve screenshots and machine-readable results even if a check fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-browser-${{ github.run_id }}
+          path: artifacts/fishing-lakes-directory-browser/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,3 +1,4 @@
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
@@ -67,7 +68,6 @@ const historical2026 = [
   ["WASP Homecoming & Fly-In", "Sweetwater"],
   ["Wings Over South Texas", "Kingsville"],
   ["The Great Texas Air Show", "San Antonio"],
-  ["Armed Forces Day Fly-In & Historic Aircraft Show", "Greenville"],
   ["Biplanes and Breakfast", "Rockport"],
   ["Kaboom Town Airport Air Show", "Addison"],
   ["Thunder Over East Texas", "Athens"],
@@ -91,6 +91,7 @@ const confirmedHeritageFlyIns = [
     label: "Antique and classic aircraft",
     planning: "The Texas Antique Airplane Association confirms September 18, 2027. The precise flying program, opening hours and admission fees are not yet announced.",
     officialUrl: "https://texasantiqueairplane.com/flyin.html",
+    guideUrl: "/event/fall-festival-of-flight-gainesville",
   },
   {
     slug: "ranger-old-school-fly-in-airshow",
@@ -102,6 +103,19 @@ const confirmedHeritageFlyIns = [
     label: "Historic-airfield fly-in",
     planning: "Confirmed for October 1–3, 2027. Fly-in and drive-in entry have different rules; the organizer currently lists Saturday adult drive-in admission at $15 and 17-and-under free.",
     officialUrl: "https://www.rangerairfield.org/airshow",
+    guideUrl: "/event/ranger-old-school-fly-in-airshow",
+  },
+  {
+    slug: "greenville-armed-forces-day-fly-in",
+    name: "Armed Forces Day Historic Aircraft Fly-In — Greenville",
+    city: "Greenville",
+    venue: "Greenville Municipal Airport · Majors Field",
+    startDate: "2027-05-08",
+    endDate: "2027-05-08",
+    label: "Historic military and classic aircraft",
+    planning: "Organizer confirms May 8, 2027, 9 a.m.–4 p.m. with free public admission; vintage-aircraft rides are optional paid products. Aircraft appearances depend on weather and maintenance. Check accessibility and parking with the airport.",
+    officialUrl: "https://www.greenvilleflyin.org/",
+    guideUrl: "https://www.greenvilleflyin.org/",
   },
 ] as const;
 
@@ -136,7 +150,7 @@ const airShowCollectionSchema = {
         "@type": "ListItem",
         position: confirmed.length + index + 1,
         name: event.name,
-        url: "https://texasdefined.com/event/" + event.slug,
+        url: event.guideUrl.startsWith("http") ? event.guideUrl : "https://texasdefined.com" + event.guideUrl,
       })),
     ],
   },
@@ -188,12 +202,12 @@ function TexasAirShowsPage() {
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           {confirmedHeritageFlyIns.map((event) => <article key={event.slug} className="flex flex-col border border-border p-6">
             <p className="eyebrow text-primary">{event.label} · {event.city}</p>
-            <h4 className="mt-3 font-display text-2xl"><a className="hover:text-primary" href={"/event/" + event.slug}>{event.name}</a></h4>
+            <h4 className="mt-3 font-display text-2xl"><a className="hover:text-primary" href={event.guideUrl}>{event.name}</a></h4>
             <p className="mt-3 font-semibold">{formatDate(event.startDate)}{event.endDate !== event.startDate ? " – " + formatDate(event.endDate) : ""}</p>
             <p className="mt-1 text-sm text-muted-foreground">{event.venue}</p>
             <p className="mt-5 flex-1 leading-7 text-muted-foreground">{event.planning}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-              <a className="text-primary underline" href={"/event/" + event.slug}>Full visitor guide →</a>
+              <a className="text-primary underline" href={event.guideUrl}>{event.guideUrl.startsWith("http") ? "Official visitor details →" : "Full visitor guide →"}</a>
               <a className="underline" href={event.officialUrl} target="_blank" rel="noopener noreferrer">Official organizer updates ↗</a>
             </div>
           </article>)}
@@ -214,7 +228,7 @@ function TexasAirShowsPage() {
       <section className="mt-14 border-t border-border pt-10">
         <h2 className="font-display text-3xl">Hotels and overnight planning</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">A hotel is most useful when you need to arrive before morning gate opening, avoid post-show traffic or extend your visit around a Texas destination. Each individual show guide has the site's existing location-aware stay options. We do not advertise invented nightly rates or claim a hotel is next to an airfield without checking.</p>
-        <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="airshows-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="airshows-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels on Hotels.com ↗</a>
+        <a href={buildHotelsComEvergreenClick("https://www.hotels.com/", hotelsComPageSid("/events/air-shows"))} target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="airshows-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="airshows-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels on Hotels.com ↗</a>
         <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission on qualifying hotel bookings at no additional cost to you. Ticket links above go directly to event organizers and are not presented as Ticketmaster affiliate offers.</p>
       </section>
 

@@ -2,6 +2,12 @@ import type { DestinationTimelineEvent } from "./destination-timelines-top-attra
 
 // Curated historic-site chronology. Use primary operators as citation authorities, not unsourced dates.
 const HISTORIC_SITE_TIMELINES: Record<string, DestinationTimelineEvent[]> = {
+  "magoffin-home": [
+    { date: "1875–1877", title: "The Magoffin homestead is built and occupied", description: "The Texas Historical Commission’s district walking-tour brochure dates the Magoffin family homestead to around 1875. Its house history records Joseph and Octavia moving into their new adobe residence in 1877.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+    { date: "1881", title: "Railroads transform the district", description: "The arrival of railroads accelerated residential and commercial development around the Magoffin home, changing a formerly rural neighborhood. The official walking-tour brochure documents the transition.", sourceLabel: "THC — Magoffin Historic District walking tour", sourceUrl: "https://thc.texas.gov/sites/default/files/2025-01/Magoffin_walking_tour_new.pdf" },
+    { date: "1971", title: "National Register recognition", description: "The home was added to the National Register of Historic Places, acknowledging the significance of the surviving adobe building.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+    { date: "2007", title: "Texas Historical Commission takes ownership", description: "The Texas Historical Commission became the managing owner, supporting preservation and historical interpretation of the home.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+  ],
   "lipantitlan": [
     { date: "1831", title: "Mexican forces build a picket fort", description: "A small garrison establishes a fort near the former Lipan Apache camping area in anticipation of expanding Anglo settlement.", sourceLabel: "Texas Historical Commission — Lipantitlán", sourceUrl: "https://thc.texas.gov/historic-sites/lipantitlan" },
     { date: "November 1835", title: "The garrison surrenders", description: "Texian volunteers take control of the fort during the Revolution, before a later Mexican counterattack in the region.", sourceLabel: "Texas Historic Sites Atlas — Fort Lipantitlán", sourceUrl: "https://atlas.thc.texas.gov/Details/5507018022" },

@@ -1,0 +1,28 @@
+name: District 5 live-acceptance network retry regression
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-district-5-production.mjs'
+      - 'scripts/ci/district5-transient-http.mjs'
+      - 'scripts/ci/district5-transient-http.test.mjs'
+      - '.github/workflows/validate-district5-transport.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-network-retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify transport retry guard and production smoke syntax
+        run: |
+          node --check scripts/ci/verify-district-5-production.mjs
+          node --check scripts/ci/district5-transient-http.mjs
+          node --test scripts/ci/district5-transient-http.test.mjs

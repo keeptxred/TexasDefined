@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-28",
+  "purpose": "Official-source availability and stable-content-change detection only. A digest change is NOT a verified football score or factual correction.",
+  "safety": {
+    "approvedDomains": [
+      "achs.fortbendisd.gov",
+      "ahs.fortbendisd.gov",
+      "amchs.csisd.org",
+      "anderson.conroeisd.net",
+      "athletics.c-isd.com",
+      "athletics.calallen.org",
+      "bhs.fortbendisd.gov",
+      "bwhs.brazosportisd.net",
+      "carroll.ccisd.us",
+      "cchs.conroeisd.net",
+      "chhs.gcisd.net",
+      "chs.clevelandisd.org",
+      "chs.clintweb.net",
+      "chs.columbusisd.org",
+      "chs.commerceisd.org",
+      "chs.conroeisd.net",
+      "chs.fortbendisd.gov",
+      "clhs.comalisd.org",
+      "collinsvilleisd.org",
+      "coveathletics.ccisd.com",
+      "cpisd.net",
+      "cshs.csisd.org",
+      "dhs.comalisd.org",
+      "dhs.fortbendisd.gov",
+      "ehs.fortbendisd.gov",
+      "fbacademy.com",
+      "fhs.bcisd.us",
+      "fhs.forneyisd.net",
+      "files-backend.assets.thrillshare.com",
+      "hhs.clintweb.net",
+      "hhs.fortbendisd.gov",
+      "highschool.farmersvilleisd.net",
+      "judsonhs.judsonisd.org",
+      "khs.fortbendisd.gov",
+      "mvhs.clintweb.net",
+      "orhs.conroeisd.net",
+      "phs.comalisd.org",
+      "realignment.uiltexas.org",
+      "svhs.comalisd.org",
+      "tigersjags.fisd.us",
+      "twhs.conroeisd.net",
+      "www.ccity.esc14.net",
+      "www.centerisd.org",
+      "www.centerville.k12.tx.us",
+      "www.charlotteisd.net",
+      "www.cherokeeisd.net",
+      "www.chesterisd.com",
+      "www.chicoisdtx.net",
+      "www.childressisd.net",
+      "www.chiltonisd.org",
+      "www.chinaspringisd.net",
+      "www.christovalisd.org",
+      "www.ciscoisd.net",
+      "www.cisd-tx.net",
+      "www.clarendonisd.net",
+      "www.claudeisd.net",
+      "www.cliftonisd.org",
+      "www.clydeisd.org",
+      "www.coahomaisd.com",
+      "www.cocisd.org",
+      "www.colemanisd.net",
+      "www.colmesneilisd.net",
+      "www.comalisd.org",
+      "www.comancheisd.net",
+      "www.comfortisd.net",
+      "www.conroeisd.net",
+      "www.coolidgeisd.org",
+      "www.cooperisd.net",
+      "www.coppellisd.com",
+      "www.cpcisd.net",
+      "www.cvisd.org",
+      "www.fabensisd.net",
+      "www.fairfieldeagles.net",
+      "www.farwellschools.org",
+      "www.fcisd.net",
+      "www.flatoniaisd.net",
+      "www.florenceisd.net",
+      "www.floydadaisd.esc17.net",
+      "www.follettisd.net",
+      "www.forestburgisd.net",
+      "www.forsan.esc18.net",
+      "www.fortbendchristian.org",
+      "www.friscoisd.org",
+      "www.jacketnationathletics.com",
+      "www.sa-ccs.org",
+      "www.scucisd.org",
+      "www.tarkingtonisd.net"
+    ],
+    "sourceCountCap": 1500,
+    "perSourceTimeoutMs": 12000,
+    "maxBodyBytes": 1600000,
+    "perRunSourceCap": 25
+  },
+  "nextSourceIndex": 0,
+  "sources": [
+    {
+      "slug": "chilton",
+      "url": "https://www.chiltonisd.org/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "china-spring",
+      "url": "https://www.chinaspringisd.net/page/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "christoval",
+      "url": "https://www.christovalisd.org/events",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cibolo-steele",
+      "url": "https://www.scucisd.org/o/steele/page/athletics/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cisco",
+      "url": "https://www.ciscoisd.net/37047_3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clarendon",
+      "url": "https://www.clarendonisd.net/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clarksville",
+      "url": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "claude",
+      "url": "https://www.claudeisd.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleburne",
+      "url": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleveland",
+      "url": "https://chs.clevelandisd.org/staff/?page_no=25",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleveland-tarkington",
+      "url": "https://www.tarkingtonisd.net/calendar",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clifton",
+      "url": "https://www.cliftonisd.org/o/cisda/staff",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint",
+      "url": "https://chs.clintweb.net/athletics/football",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint-horizon",
+      "url": "https://hhs.clintweb.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint-mountain-view",
+      "url": "https://mvhs.clintweb.net/",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "uil-2026-alignment",
+      "url": "https://realignment.uiltexas.org/",
+      "reviewAfter": "2026-12-01",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "center",
+      "url": "https://www.centerisd.org/page/dis.athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "center-point",
+      "url": "https://cpisd.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "centerville",
+      "url": "https://www.centerville.k12.tx.us/46669_3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "channelview",
+      "url": "https://www.cvisd.org/page/athletics/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "charlotte",
+      "url": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cherokee",
+      "url": "https://www.cherokeeisd.net/live-feed/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chester",
+      "url": "https://www.chesterisd.com/page/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "childress",
+      "url": "https://www.childressisd.net/o/childress/page/athletic-schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chillicothe",
+      "url": "https://www.cisd-tx.net/215133_2",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chico",
+      "url": "https://www.chicoisdtx.net/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clute-brazoswood",
+      "url": "https://bwhs.brazosportisd.net/activities/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clyde",
+      "url": "https://www.clydeisd.org/page/athleticinformation",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coahoma",
+      "url": "https://www.coahomaisd.com/o/chs/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coldspring-oakhurst",
+      "url": "https://www.cocisd.org/departments/athletics/schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coleman",
+      "url": "https://www.colemanisd.net/departments/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "college-station",
+      "url": "https://cshs.csisd.org/about-us/directory",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "college-station-a-and-m-consolidated",
+      "url": "https://amchs.csisd.org/about-us/staff-directory",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colleyville-heritage",
+      "url": "https://chhs.gcisd.net/staff?page_no=3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "collinsville",
+      "url": "https://collinsvilleisd.org/football-schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colmesneil",
+      "url": "https://www.colmesneilisd.net/page/athletics/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "frisco-lone-star",
+      "url": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colorado-city-colorado",
+      "url": "https://www.ccity.esc14.net/article/2238803",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "columbus",
+      "url": "https://chs.columbusisd.org/apps/pages/index.jsp?pREC_ID=2146838&type=d&uREC_ID=2105726",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-canyon",
+      "url": "https://www.comalisd.org/apps/pages/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-canyon-lake",
+      "url": "https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2691168&type=u&uREC_ID=2799055",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-davenport",
+      "url": "https://dhs.comalisd.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-pieper",
+      "url": "https://phs.comalisd.org/apps/staff/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-smithson-valley",
+      "url": "https://svhs.comalisd.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comanche",
+      "url": "https://www.comancheisd.net/page/chs.staff_directory",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comfort",
+      "url": "https://www.comfortisd.net/46529_2",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "commerce",
+      "url": "https://chs.commerceisd.org/activities/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "como-pickton",
+      "url": "https://www.cpcisd.net/live-feed/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe",
+      "url": "https://chs.conroeisd.net/o/chs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-caney-creek",
+      "url": "https://cchs.conroeisd.net/o/cchs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-grand-oaks",
+      "url": "https://www.conroeisd.net/o/gohs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-oak-ridge",
+      "url": "https://orhs.conroeisd.net/page/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-the-woodlands",
+      "url": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-woodlands-college-park",
+      "url": "https://anderson.conroeisd.net/o/twcphs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "converse-judson",
+      "url": "https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coolidge",
+      "url": "https://www.coolidgeisd.org/quick_links/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cooper",
+      "url": "https://www.cooperisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coppell",
+      "url": "https://www.coppellisd.com/o/chs",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "copperas-cove",
+      "url": "https://coveathletics.ccisd.com/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cornerstone-christian",
+      "url": "https://www.sa-ccs.org/athletics/football",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "corpus-christi-calallen",
+      "url": "https://athletics.calallen.org/about-us",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "corpus-christi-carroll",
+      "url": "https://carroll.ccisd.us/page/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fabens",
+      "url": "https://www.fabensisd.net/departments/athletics/wildcats",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fairfield",
+      "url": "https://www.fairfieldeagles.net/sport/football/boys/?tab=schedule",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "falfurrias",
+      "url": "https://fhs.bcisd.us/activities/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "falls-city",
+      "url": "https://www.fcisd.net/athletics/athletic-schedules",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "farmersville",
+      "url": "https://highschool.farmersvilleisd.net/apps/pages/index.jsp?pREC_ID=1043869&type=d&uREC_ID=456318",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "farwell",
+      "url": "https://www.farwellschools.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "ferris",
+      "url": "https://www.jacketnationathletics.com/sport/football/boys/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "first-baptist-dallas",
+      "url": "https://fbacademy.com/athletics/athletics-info/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "flatonia",
+      "url": "https://www.flatoniaisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "florence",
+      "url": "https://www.florenceisd.net/o/fhs/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "floresville",
+      "url": "https://tigersjags.fisd.us/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "floydada",
+      "url": "https://www.floydadaisd.esc17.net/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "follett",
+      "url": "https://www.follettisd.net/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forestburg",
+      "url": "https://www.forestburgisd.net/about-fisd",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forney",
+      "url": "https://fhs.forneyisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forsan",
+      "url": "https://www.forsan.esc18.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-austin",
+      "url": "https://ahs.fortbendisd.gov/athletics/home",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-bush",
+      "url": "https://bhs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-christian",
+      "url": "https://www.fortbendchristian.org/athletics/calendar",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-clements",
+      "url": "https://chs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-crawford",
+      "url": "https://achs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-dulles",
+      "url": "https://dhs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-elkins",
+      "url": "https://ehs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-hightower",
+      "url": "https://hhs.fortbendisd.gov/our-school",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-kempner",
+      "url": "https://khs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    }
+  ]
+}

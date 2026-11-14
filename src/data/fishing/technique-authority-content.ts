@@ -78,7 +78,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Tandem blades", depth: "Shallow–mid", bestFor: "General-purpose balance of flash, vibration and lift" },
       { label: "Heavier slow-roll setup", depth: "Mid-depth–deep", bestFor: "Deeper cover, ledges and keeping the bait down during a controlled retrieve" },
     ],
-    speciesTitle: "Best Fits for Spinnerbaits",
+    speciesTitle: "Spinnerbait Targets: Documented and Other Possibilities",
+    speciesIntro: "The lake-linked species count above comes from cited records. Smallmouth and Guadalupe bass notes below are general technique applications, not additional verified lake associations.",
     speciesGuide: [
       { label: "Largemouth bass", guidance: "Use the lure as a cover-oriented search bait around wood, grass, docks, riprap and wind-blown banks." },
       { label: "Smallmouth bass", guidance: "On waters where they are present, spinnerbaits can cover wind-exposed rocky structure and points when fish are willing to chase." },
@@ -141,10 +142,11 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Slow natural-bait troll", depth: "Variable", bestFor: "Open-water fish that are following forage but not responding to fast artificials" },
     ],
     speciesTitle: "Trolling by Fishery",
+    speciesIntro: "The verified lake links above focus on the fish recorded in the fishing catalog. The black-bass note below explains another possible use; it is not a verified black-bass trolling entry for each linked lake.",
     speciesGuide: [
       { label: "Striped and hybrid bass", guidance: "Use electronics and bait location to set the target depth rather than trolling an arbitrary contour." },
       { label: "White bass", guidance: "Smaller profiles and repeatable passes can work around schooling fish and channel-oriented movement." },
-      { label: "Black bass", guidance: "Where source-backed for a lake, contour trolling can cover points, creek channels and offshore structure efficiently." },
+      { label: "Black bass — general technique note", guidance: "Contouring points and creek channels can be a presentation option where local fisheries guidance supports it. Do not treat that as a source-backed black-bass trolling claim for every linked lake." },
     ],
     diagram: {
       eyebrow: "Trolling at a glance",
@@ -271,12 +273,13 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
     },
     regulationNotes: {
       title: "Texas Live-Bait Rules Come First",
-      intro: "Bait species, collection methods and transport rules can change what is legal even when the fishing technique itself is familiar.",
+      intro: "For live bait, the water in the bucket and the origin of the bait can change what is legal. These rules come from TPWD's current Outdoor Annual; verify the individual water and county before travel.",
       bullets: [
-        "Do not use a Texas game fish, or any part of one, as bait.",
-        "Use only bait species and collection methods allowed under current Texas and water-specific rules.",
-        "Check live-bait transport and invasive-species restrictions before moving bait from one water body to another.",
-        "Some counties, rivers and reservoirs have additional bait restrictions, so the statewide rule is not the only check.",
+        "A Texas game fish, or any part of a game fish, cannot be used as bait. Check the allowed nongame species and collection methods before collecting minnows or shad.",
+        "Commercial live bait that has not touched public lake water may be transported in water from another lawful source with a dated receipt identifying the bait seller. Keep that receipt.",
+        "Live bait that has come into contact with public water can be used as bait only on that same water body; do not take the bait or lake water to another reservoir.",
+        "Before leaving or approaching a public fresh water body, drain vessels, livewells, bait buckets and other onboard receptacles as required by TPWD's invasive-species rules.",
+        "Some Texas counties, rivers and reservoirs add species or possession restrictions. Check current water-specific exceptions rather than assuming every lawful bait fish may travel everywhere.",
       ],
       sourceUrl: texasFishingRulesUrl,
       sourceLabel: "Texas Parks & Wildlife — current fishing regulations",

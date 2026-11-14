@@ -1,11 +1,13 @@
-import { lazy, Suspense } from "react";
+import { Fragment, lazy, Suspense, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
+import CaminoMissionTrailRoute from "@/components/editorial/CaminoMissionTrailRoute";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
+import { TEXAS_RIVERS_BODY_PHOTO_OVERRIDES } from "@/data/texas-rivers-body-photo-overrides";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
@@ -44,6 +46,7 @@ const metroRelocationGuidePaths = new Set([
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
 const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
+// Render the three mission stops in server HTML; a lazy empty fallback hides these links from crawlers.
 const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
 const BOLIVAR_HISTORY_PATH = "/article/point-bolivar-lighthouse-history";
 
@@ -107,7 +110,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
   );
 }
 
-export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
+export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBefore, sectionReferences }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeIndex?: number; insertBefore?: ReactNode; sectionReferences?: Record<string, ReadonlyArray<{ label: string; url: string }>> }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length).split("/")[0] : "";
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
@@ -115,6 +118,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const showLoopsSpursVisual = pathname === LOOPS_SPURS_PATH;
   const showBolivarHistoryPhotoSources = pathname === BOLIVAR_HISTORY_PATH;
   const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
+  const showCaminoMissionTrail = pathname === "/article/el-camino-real-de-tierra-adentro-national-historic-trail";
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   // The six-man article opens with two editorial lead paragraphs before its reference graphics.
@@ -137,6 +141,17 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     remainingLinks -= maxLinks;
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
+  // Link verified TPWD park sources only in the two regional foliage guides. Other article
+  // prose keeps the shared auto-entity-link behavior unchanged.
+  const renderFoliageSourceLinks = (text: string, requestedLinks: number) => {
+    if (!["east-texas-fall-colors", "hill-country-fall-colors"].includes(articleSlug ?? "") || !text.includes("](https://tpwd.texas.gov/")) return render(text, requestedLinks);
+    const pieces = text.split(/(\[[^\]]+\]\(https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+\))/g);
+    return pieces.map((piece, partIndex) => {
+      const source = piece.match(/^\[([^\]]+)\]\((https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+)\)$/);
+      if (source) return <a key={"tpwd-" + partIndex} href={source[2]} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{source[1]} ↗</a>;
+      return piece ? <Fragment key={"text-" + partIndex}>{render(piece, requestedLinks)}</Fragment> : null;
+    });
+  };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
     {blocks.slice(0, sixManLeadCount).map((block, index) => block.type === "paragraph"
@@ -147,43 +162,101 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
       if (index < sixManLeadCount) return null;
-      switch (block.type) {
+      const rendered = (() => {
+        switch (block.type) {
         case "heading":
+          if (showCaminoMissionTrail && block.text === "Route map and three confirmed stops") {
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><CaminoMissionTrailRoute /></div>;
+          }
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
           }
-          if (articleSlug === "texas-high-school-football-playoffs-explained" && block.text.endsWith("?") && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions")) {
+          if (block.text.endsWith("?") && (
+            (articleSlug === "chip-and-joanna-gaines-magnolia-waco" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about Chip and Joanna Gaines"))
+            || (articleSlug === "texas-high-school-football-playoffs-explained" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "east-texas-fall-colors" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "hill-country-fall-colors" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "moving-to-el-paso-guide" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about moving to El Paso"))
+          )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
+          }
+          if (sectionReferences?.[block.text]?.length) {
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><p className="mb-6 text-xs leading-6 text-muted-foreground">Historical background: {sectionReferences[block.text].map((source, sourceIndex) => <span key={source.url}>{sourceIndex > 0 ? " · " : ""}<a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a></span>)}</p></div>;
           }
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
-        case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
-        case "image": return (
-          <figure key={index} className="my-10 sm:my-12">
-            <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
-              <img
-                src={block.image.src}
-                alt={block.image.alt}
-                width={block.image.width}
-                height={block.image.height}
-                loading="lazy"
-                decoding="async"
-                className="h-auto w-full object-contain"
-                onError={(event) => hideFailedImageContainer(event.currentTarget)}
-              />
-            </div>
-            {(block.caption || block.image.credit) && (
-              <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
-                {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}<CommonsImageCreditLink src={block.image.src} />
-              </figcaption>
-            )}
-            {articleSlug === "best-lighthouses-to-visit-in-texas" && block.image.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
-          </figure>
-        );
+        case "list":
+          // This dated chronology is an editorial timeline, not an unordered list.
+          // Keep it server-rendered, readable without JS and comfortable on mobile.
+          if (articleSlug === "blue-bell-ice-cream-brenham-texas-history"
+            && blocks[index - 1]?.type === "heading"
+            && blocks[index - 1].text === "Blue Bell history at a glance") {
+            return <ol key={index} aria-label="Blue Bell Creameries historical timeline" className="my-8 grid gap-3 sm:grid-cols-2">
+              {block.items.map((item) => {
+                const event = /^(\d{4}|1980s)\s*[—-]\s*(.+)$/.exec(item);
+                return <li key={item} className="border-l-2 border-primary bg-muted/20 px-4 py-4">
+                  <span className="font-display text-2xl font-semibold text-primary">{event?.[1] ?? "History"}</span>
+                  <p className="mt-2 text-sm leading-7 text-foreground/85">{event?.[2] ?? item}</p>
+                </li>;
+              })}
+            </ol>;
+          }
+          if (((articleSlug === "texas-rivers-explained" && blocks[index - 1]?.text === "Texas Rivers at a Glance")
+            || (articleSlug === "texas-lakes-reservoirs-explained" && blocks[index - 1]?.text === "Texas lakes and reservoirs at a glance"))
+            && blocks[index - 1]?.type === "heading") {
+            return (
+              <dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">
+                {block.items.map((item) => {
+                  const questionEnd = item.indexOf("?");
+                  const question = questionEnd >= 0 ? item.slice(0, questionEnd + 1) : item;
+                  const answer = questionEnd >= 0 ? item.slice(questionEnd + 1).trim() : "";
+                  return (
+                    <div key={item} className="rounded-sm border border-border bg-surface p-4 sm:p-5">
+                      <dt className="font-display text-lg font-semibold leading-snug">{render(question, 1)}</dt>
+                      {answer ? <dd className="mt-2 text-sm leading-6 text-muted-foreground">{render(answer, 2)}</dd> : null}
+                    </div>
+                  );
+                })}
+              </dl>
+            );
+          }
+          return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{renderFoliageSourceLinks(item, 2)}</li>)}</ul>;
+        case "image": {
+          const articleImage = articleSlug === "texas-rivers-explained"
+            ? TEXAS_RIVERS_BODY_PHOTO_OVERRIDES[block.image.src] ?? block.image
+            : block.image;
+          return (
+            <figure key={index} className="my-10 sm:my-12">
+              <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
+                <img
+                  src={articleImage.src}
+                  alt={articleImage.alt}
+                  width={articleImage.width}
+                  height={articleImage.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-auto w-full object-contain"
+                  onError={(event) => hideFailedImageContainer(event.currentTarget)}
+                />
+              </div>
+              {(block.caption || articleImage.credit) && (
+                <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {block.caption}{block.caption && articleImage.credit ? " · " : ""}{articleImage.credit}<CommonsImageCreditLink src={articleImage.src} />
+                </figcaption>
+              )}
+              {articleSlug === "best-lighthouses-to-visit-in-texas" && articleImage.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
+            </figure>
+          );
+        }
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
-        default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
+        default: return <p key={index} className="mt-6 first:mt-0">{renderFoliageSourceLinks(block.text, 4)}</p>;
+        }
+      })();
+      if (insertBeforeIndex === index && insertBefore) {
+        return <Fragment key={`article-insert-${index}`}>{insertBefore}{rendered}</Fragment>;
       }
+      return rendered;
     })}
     {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;

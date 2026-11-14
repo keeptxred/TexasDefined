@@ -1,0 +1,61 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
+const read = p => readFileSync(p,'utf8');
+const slugs=['de-soto','decatur','deer-park','del-rio','del-valle'];
+const expectedCounties=new Map([['de-soto','dallas'],['decatur','wise'],['deer-park','harris'],['del-rio','val-verde'],['del-valle','travis']]);
+const expectedMascots=new Map([['de-soto','Eagles'],['decatur','Eagles'],['deer-park','Deer'],['del-rio','Rams'],['del-valle','Cardinals']]);
+const source=read('src/data/high-school-football/program-editorial-b014-group5.ts');
+const match=source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
+assert.ok(match,'five distinct last-five editorial entries missing');
+const guides=JSON.parse(match[1]);
+assert.deepEqual(Object.keys(guides),slugs,'fifth-five canonical authored roster must match assigned 25');
+const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const b014Certified = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
+assert.ok(reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE'),'Batch014 signed graduation must remain archived');
+assert.deepEqual(reg.completedBatches.find(b=>b.number===14).slugs.slice(20,25),slugs,'final five canonical assigned order');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch<=16).length,certifiedBatch016(reg)?380:certifiedBatch015(reg)?355:b014Certified?330:305,'preserve all earlier production certificates');
+
+
+assert.equal((reg.completedBatches||[]).some(b=>b.number===14),b014Certified,'only signed production Chrome permits archived B014 certificate');
+const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
+assert.ok(loader.includes("import('./program-editorial-b014-group5')"),'fifth-five not wired into SSR loader');
+assert.ok(read('src/data/high-school-football/football-program-profile.server.ts').includes('loadBatch014FootballProgramEditorial(canonicalSlug)'),'production SSR resolver missing B014');
+const teams=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const counties=read('src/routes/$kind.$slug.lazy.tsx');
+const campus=teams.split('const researchedCampusCounty: Record<string, string> = {')[1]?.split('\n  };')[0];
+const reciprocal=counties.split('const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {')[1]?.split('\n};')[0];
+assert.ok(campus&&reciprocal,'county/source mapping absent');
+const identities=read('src/data/high-school-football/school-identities.ts');
+const dossier=read('docs/football-authority/BATCH014-FIFTH-FIVE-SOURCES.md');
+const leadSet=new Set();
+for(const slug of slugs){
+ const guide=guides[slug],county=expectedCounties.get(slug);
+ assert.equal(guide?.slug,slug,slug+' absent original editorial');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,b014Certified?'VERIFIED':'IMPLEMENTED',slug+' source status not integrated');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.actualProductionVerified,b014Certified,slug+' not Chrome certified');
+ assert.ok(loader.includes("'"+slug+"'"),slug+' missing SSR loader gate');
+ assert.equal(campus.split("'"+slug+"': '"+county+"'").length-1,1,slug+' missing/duplicate correct physical campus county');
+ const row=reciprocal.split("'"+county+"': [")[1]?.split('],')[0];
+ assert.ok(row&&row.includes("slug: '"+slug+"'"),slug+' missing county reciprocal anchor');
+ assert.ok(dossier.includes('`'+slug+'`'),slug+' missing independently sourced research');
+ const matchIdentity=identities.matchAll(new RegExp("slug:\\s*'"+slug+"'","g"));
+ const found=[...matchIdentity];assert.equal(found.length,1,slug+' duplicate/missing mascot identity');
+ assert.ok(identities.slice(found[0].index,found[0].index+110).includes("mascot: '"+expectedMascots.get(slug)+"'"),slug+' mascot mismatch');
+ assert.ok(guide.campus?.sourceUrl?.startsWith('https://')&&guide.campus?.verifiedAt,slug+' first-party campus evidence missing');
+ assert.ok(guide.schedule?.sourceUrl?.startsWith('https://')&&guide.schedule?.verifiedAt,slug+' official athletics schedule missing');
+ assert.ok(guide.overview?.length>=4&&guide.milestones?.length>=2&&guide.faq?.length>=3,slug+' distinct substantive guide incomplete');
+ const lead=guide.overview[0]?.trim().toLowerCase();
+ assert.ok(lead?.length>=110&&!leadSet.has(lead),slug+' repetitive or weak school-specific intro');
+ leadSet.add(lead);
+}
+assert.ok(guides.decatur.overview.some(s=>s.includes('Shoemaker')&&s.includes('Eagle Summit')),'Decatur school vs football stadium distinction required');
+assert.ok(guides['deer-park'].overview.some(s=>s.includes('eTix')&&s.includes('clear-bag')),'Deer Park 2026 online tickets and bag policy required');
+assert.ok(guides['del-valle'].overview.some(s=>s.includes('JV')&&s.includes('Burger Annex')),'Del Valle JV-specific venue caution required');
+assert.ok(guides['del-rio'].overview.some(s=>s.includes('Frenchey McCrea')&&s.includes('athletic director')),'Del Rio leadership caveat required');
+assert.ok(guides['de-soto'].overview.some(s=>s.includes('Mathis')&&s.includes('2025')),'DeSoto district-sourced championship and leadership history required');
+console.log('PASS: Batch014 25/25 source-authored guides, final-five identities and county reciprocity, 305 historical VERIFIED preserved; Chrome certification still pending');
+
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,b014Certified?25:0,'Batch014 graduation must have signed exact production evidence');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,b014Certified?0:25,'all 25 source-authored Batch014 schools must remain accounted for');

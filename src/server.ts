@@ -1,11 +1,21 @@
 import "./lib/error-capture";
+import { applyHashedModuleDocumentCachePolicy } from "./lib/hashed-asset-document-cache-policy";
+import { applyMoodyGardensNoticeCachePolicy } from "./lib/moody-gardens-notice-cache-policy";
+import { reviewedAttractionCanonicalRedirect } from "./lib/reviewed-attraction-canonical-redirect";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
+import { hasUnresolvedPublicRouteToken } from "./lib/public-route-tokens";
+import { legacyAppleIconRedirect } from "./lib/legacy-apple-icon";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
 import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
+import { optimizedRemoteImageUpstream } from "./lib/remote-image-upstream";
+import { pinnedRemoteImageVariant } from "./lib/pinned-remote-image-variants";
+import { normalizeViatorMarketProducts, VIATOR_LIVE_DESTINATION_IDS, type ViatorLiveMarketResponse } from "./lib/viator-market-feed";
+import { attractionDiscoveryRequestBody, viatorAttractionCandidates, type ViatorAttractionDiscoveryResponse } from "./lib/viator-attraction-discovery";
+import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "./lib/viator-seasonal-discovery";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -22,8 +32,32 @@ const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
+// GSC historical aliases that previously 301'd into non-existent /destination/
+// pages. TPWD confirms that the public campground/attraction represented by
+// each old import is CLOSED or NOT YET OPEN. A direct 404 is more honest than
+// a misleading permanent redirect to an unbuilt guide or a different park.
+// Re-review if TPWD announces public reopening; do not silently index stubs.
+const UNAVAILABLE_HISTORICAL_PARK_ALIASES = new Set([
+  "/state-park/fairfield-lake-state-park",
+  "/state-park/wyler-aerial-tramway-state-park",
+  "/attraction/chinati-mountains-state-natural-area",
+]);
+
 const ENTITY_REDIRECTS: Record<string, string> = {
   ...LEGACY_EDITORIAL_REDIRECTS,
+  // Historical SH16 destination import now has a substantive route-specific section in the sourced scenic-drive authority guide.
+  "/destination/texas-highway-16-hill-country": "/article/scenic-drives-in-texas",
+  // Historic GSC State Fair event slug resolves to the already published evergreen fair guide.
+  "/event/state-fair-of-texas": "/texas-state-fair",
+  // Old TanStack path spelling with a route-group underscore is not a distinct guide.
+  "/things-unique-to-texas_/methodology": "/things-unique-to-texas/methodology",
+  // Previously generated 2027-only Carnival occurrence URLs have no standalone
+  // major-Event guide. Their closest published evergreen visitor guide is this hub.
+  // Never redirect to a non-existent /event/<yearless-slug> authority page.
+  "/event/crystal-beach-mardi-gras-chicken-run-2027": "/events/mardi-gras",
+  "/event/jefferson-queen-mab-ball-2027": "/events/mardi-gras",
+  "/event/beaumont-lagniappe-mardi-gras-soiree-2027": "/events/mardi-gras",
+  "/event/livingston-mardi-gras-gumbo-cookoff-2027": "/events/mardi-gras",
   "/lake/caddo-lake": "/destination/caddo-lake",
   "/state-park/palo-duro-canyon-state-park": "/destination/palo-duro-canyon-state-park",
   "/state-park/enchanted-rock-state-natural-area": "/destination/enchanted-rock-state-natural-area",
@@ -60,6 +94,22 @@ function canonicalHostRedirect(request: Request) {
   return Response.redirect(url.toString(), 301);
 }
 
+/** Keep one permanent, indexable East Texas foliage article URL.
+ * Source variants (UTM/query, trailing slash, mixed case and www) redirect
+ * directly to the published URL; they cannot serve separately crawlable HTML.
+ * Other article URLs and their query parameters are unchanged.
+ */
+export function eastTexasFoliageCanonicalRedirect(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const hostname = url.hostname.toLowerCase();
+  if (hostname !== "texasdefined.com" && hostname !== "www.texasdefined.com") return null;
+  if (url.pathname.replace(/\/+$/, "").toLowerCase() !== "/article/east-texas-fall-colors") return null;
+  const canonical = "https://texasdefined.com/article/east-texas-fall-colors";
+  if (url.toString() === canonical) return null;
+  return Response.redirect(canonical, 301);
+}
+
 export function adsTxtResponse(request: Request): Response | null {
   const url = new URL(request.url);
   if (url.pathname !== "/ads.txt") return null;
@@ -88,6 +138,40 @@ function legacyCountyRedirect(request: Request) {
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
   return Response.redirect(url.toString(), 301);
+}
+
+/** A serialized router pattern is not a visitor URL. Fail before TanStack
+ * can normalize literal "$slug" into a 307-to-404 or /undefined chain.
+ * Do not redirect these invalid paths to generic content hubs.
+ */
+export function invalidPublicRouteTemplateResponse(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  if (!hasUnresolvedPublicRouteToken(url.pathname)) return null;
+  return new Response(request.method === "HEAD" ? null : "Not found", {
+    status: 404,
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=300",
+      "x-robots-tag": "noindex, follow",
+    },
+  });
+}
+
+export function unavailableHistoricalParkAliasResponse(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  let normalized = url.pathname.toLowerCase();
+  while (normalized.length > 1 && normalized.endsWith("/")) normalized = normalized.slice(0, -1);
+  if (!UNAVAILABLE_HISTORICAL_PARK_ALIASES.has(normalized)) return null;
+  return new Response(request.method === "HEAD" ? null : "Not found", {
+    status: 404,
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=300",
+      "x-robots-tag": "noindex, follow",
+    },
+  });
 }
 
 function canonicalEntityRedirect(request: Request) {
@@ -155,6 +239,10 @@ function cachedHeadResponse(response: Response) {
 }
 
 const VIATOR_API_BASE = "https://api.viator.com/partner";
+/* Cloudflare Workers throws TypeError for fetch({redirect:"error"}).
+ * Use "manual" and reject 3xx before consuming/forwarding provider data.
+ * https://developers.cloudflare.com/workers/runtime-apis/request/
+ */
 const VIATOR_API_PREFIX = "/api/viator";
 const MAX_VIATOR_SEARCH_BODY_BYTES = 32_768;
 const VIATOR_PRODUCT_CODE_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
@@ -228,7 +316,7 @@ function viatorHeaders(request: Request, apiKey: string): Headers {
   const locale = request.headers.get("accept-language")?.split(",", 1)[0]?.trim() || "en-US";
   const currency = request.headers.get("accept-currency")?.trim().toUpperCase() || "USD";
   return new Headers({
-    Accept: "application/json",
+    Accept: "application/json;version=2.0",
     "Accept-Currency": /^[A-Z]{3}$/.test(currency) ? currency : "USD",
     "Accept-Language": /^[A-Za-z]{2,3}(?:-[A-Za-z]{2})?$/.test(locale) ? locale : "en-US",
     "Content-Type": "application/json",
@@ -237,10 +325,17 @@ function viatorHeaders(request: Request, apiKey: string): Headers {
 }
 
 function viatorUpstreamResponse(upstream: Response, cacheControl: string): Response {
+  // Cloudflare Workers does not support redirect:'error'; manual redirects are
+  // intentionally not followed or forwarded to users (including credential
+  // bearing redirects). Never forward the API key to another origin.
+  if (upstream.status >= 300 && upstream.status < 400) {
+    return viatorError("Viator upstream redirect rejected", 502);
+  }
   const headers = new Headers({
     "Cache-Control": upstream.ok ? cacheControl : "no-store",
     "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
     "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow, noarchive",
   });
   const retryAfter = upstream.headers.get("retry-after");
   if (retryAfter) headers.set("Retry-After", retryAfter);
@@ -249,6 +344,173 @@ function viatorUpstreamResponse(upstream: Response, cacheControl: string): Respo
     statusText: upstream.statusText,
     headers,
   });
+}
+
+/**
+ * Live, limited product previews for a verified Texas market. Never ingest the
+ * full catalog; refresh via the on-demand search model (20 minute edge cache).
+ * Search API data is not a verified price, reservation, or public-site fact.
+ */
+/**
+ * Viator attraction research: one bounded sample per market, one-week edge TTL.
+ * This is deliberately not an indexable route or a publishing endpoint. A
+ * separate official-source editorial check is required before creating pages.
+ */
+/** A Christmas-themed supplier SEARCH, not evidence of any dated event. */
+async function viatorChristmasExperienceResponse(request: Request, apiKey: string, ctx: unknown, market: string) {
+  if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
+  if (new URL(request.url).search) return viatorError("Unexpected query parameters", 400);
+  if (!Object.prototype.hasOwnProperty.call(VIATOR_LIVE_DESTINATION_IDS, market)) return viatorError("Unreviewed market", 404);
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return cached;
+  try {
+    const headers = viatorHeaders(request, apiKey);
+    headers.set("Accept", "application/json;version=2.0");
+    headers.set("Accept-Language", "en-US");
+    headers.set("Accept-Currency", "USD");
+    const endpoint = new URL(VIATOR_API_BASE + "/search/freetext");
+    endpoint.searchParams.set("campaign-value", `texasdefined-api-${market}`);
+    const upstream = await fetch(endpoint.toString(), {
+      method: "POST", headers, body: JSON.stringify(christmasExperienceSearchBody(market)),
+      redirect: "manual", signal: AbortSignal.timeout(8_000),
+    });
+    if (!upstream.ok) {
+      console.warn("[viator-christmas] upstream status", market, upstream.status);
+      return viatorError("Holiday experiences are temporarily unavailable", 503);
+    }
+    const products = normalizeChristmasViatorExperiences(await upstream.json());
+    const response = Response.json({
+      source:"viator",market,refreshedAt:new Date().toISOString(),products,
+      category:"seasonal-experiences-not-calendar-events",
+    }, {headers:{
+      "Cache-Control":"public, max-age=120, s-maxage=1200",
+      "X-Content-Type-Options":"nosniff",
+      "X-Robots-Tag":"noindex, nofollow, noarchive",
+    }});
+    const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+    if (cache && typeof waitUntil === "function") waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+    return response;
+  } catch (error) {
+    console.warn("[viator-christmas] search failed", market, error instanceof Error ? error.name : "unknown");
+    return viatorError("Holiday experiences are temporarily unavailable", 503);
+  }
+}
+
+async function viatorAttractionResearchResponse(request: Request, apiKey: string, ctx: unknown, market: string) {
+  if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
+  if (new URL(request.url).search) return viatorError("Unexpected query parameters", 400);
+  if (!Object.prototype.hasOwnProperty.call(VIATOR_LIVE_DESTINATION_IDS, market)) {
+    return viatorError("Unreviewed Viator destination", 404);
+  }
+  const headers = new Headers({
+    "Cache-Control": "public, max-age=600, s-maxage=604800",
+    "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow, noarchive",
+  });
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return cached;
+  try {
+    const apiHeaders = viatorHeaders(request, apiKey);
+    apiHeaders.set("Accept", "application/json;version=2.0");
+    apiHeaders.set("Accept-Language", "en-US");
+    const upstream = await fetch(VIATOR_API_BASE + "/attractions/search", {
+      method: "POST",
+      headers: apiHeaders,
+      body: JSON.stringify(attractionDiscoveryRequestBody(market)),
+      redirect: "manual",
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!upstream.ok) {
+      console.warn("[viator-attractions] upstream status", market, upstream.status);
+      return viatorError("Viator attraction discovery unavailable", 503);
+    }
+    const candidates = viatorAttractionCandidates(await upstream.json(), market);
+    const payload: ViatorAttractionDiscoveryResponse = {
+      source: "viator", market, checkedAt: new Date().toISOString(),
+      candidates, incomplete: true, robots: "noindex",
+    };
+    const response = Response.json(payload, { headers });
+    const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+    if (cache && typeof waitUntil === "function") {
+      waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+    }
+    return response;
+  } catch (error) {
+    console.warn("[viator-attractions] discovery failed", market, error instanceof Error ? error.name : "unknown");
+    return viatorError("Viator attraction discovery unavailable", 503);
+  }
+}
+
+async function viatorMarketFeedResponse(
+  request: Request,
+  apiKey: string,
+  ctx: unknown,
+  market: string,
+): Promise<Response> {
+  if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
+  const url = new URL(request.url);
+  if (url.search) return viatorError("Unexpected query parameters", 400);
+  if (!Object.prototype.hasOwnProperty.call(VIATOR_LIVE_DESTINATION_IDS, market)) {
+    return viatorError("Unknown verified Viator market", 404);
+  }
+
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return cached;
+
+  const endpoint = new URL(VIATOR_API_BASE + "/products/search");
+  endpoint.searchParams.set("campaign-value", `texasdefined-api-${market}`);
+  const headers = viatorHeaders(request, apiKey);
+  headers.set("Accept", "application/json;version=2.0");
+  headers.set("Accept-Language", "en-US");
+  headers.set("Accept-Currency", "USD");
+  try {
+    const upstream = await fetch(endpoint.toString(), {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        filtering: { destination: VIATOR_LIVE_DESTINATION_IDS[market] },
+        sorting: { sort: "DEFAULT", order: "DESCENDING" },
+        pagination: { start: 1, count: 12 },
+        currency: "USD",
+      }),
+      redirect: "manual",
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!upstream.ok) {
+      console.warn("[viator-market-feed] upstream status", market, upstream.status);
+      return viatorError("Current Viator inventory is temporarily unavailable", 503);
+    }
+    const payload = await upstream.json();
+    const products = normalizeViatorMarketProducts(payload);
+    const result: ViatorLiveMarketResponse = {
+      source: "viator",
+      market,
+      refreshedAt: new Date().toISOString(),
+      products,
+    };
+    const response = Response.json(result, {
+      headers: {
+        "Cache-Control": "public, max-age=120, s-maxage=1200",
+        "Content-Type": "application/json; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex, nofollow, noarchive",
+      },
+    });
+    const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+    if (cache && typeof waitUntil === "function") {
+      waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+    }
+    return response;
+  } catch (error) {
+    console.warn("[viator-market-feed] request failed", market, error instanceof Error ? error.name : "unknown");
+    return viatorError("Current Viator inventory is temporarily unavailable", 503);
+  }
 }
 
 async function viatorApiResponse(
@@ -266,6 +528,15 @@ async function viatorApiResponse(
   const apiKey = viatorApiKey(env);
   if (!apiKey) return viatorError("Viator integration is unavailable", 503);
 
+  const christmasMarketMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/christmas\/?$/);
+  if (christmasMarketMatch) return viatorChristmasExperienceResponse(request, apiKey, ctx, christmasMarketMatch[1]);
+
+  const attractionResearchMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/attractions\/?$/);
+  if (attractionResearchMatch) return viatorAttractionResearchResponse(request, apiKey, ctx, attractionResearchMatch[1]);
+
+  const marketMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/products\/?$/);
+  if (marketMatch) return viatorMarketFeedResponse(request, apiKey, ctx, marketMatch[1]);
+
   if (url.pathname === VIATOR_API_PREFIX + "/products/search") {
     if (request.method !== "POST") return viatorError("Method not allowed", 405, "POST");
     if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
@@ -280,7 +551,7 @@ async function viatorApiResponse(
       method: "POST",
       headers: viatorHeaders(request, apiKey),
       body: request.body,
-      redirect: "error",
+      redirect: "manual",
     });
     return viatorUpstreamResponse(upstream, "private, max-age=60");
   }
@@ -304,7 +575,7 @@ async function viatorApiResponse(
   const upstream = await fetch(VIATOR_API_BASE + "/products/" + encodeURIComponent(productCode), {
     method: "GET",
     headers: viatorHeaders(request, apiKey),
-    redirect: "error",
+    redirect: "manual",
   });
   const response = viatorUpstreamResponse(upstream, "public, max-age=300, s-maxage=3600");
   const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
@@ -324,14 +595,46 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
   const target = allowedRemoteImageUrl(requestUrl.searchParams.get("url") ?? "");
   if (!target) return new Response("Remote image URL not allowed", { status: 400 });
 
+  // Two audited Wikimedia photographs have rights-matched 1200px local
+  // WebP copies under the deployment's static assets. Redirect the original
+  // public proxy URLs to those exact immutable photos; the calling page
+  // retains its existing source/creator/license attribution and hero markup.
+  // This branch precedes the old edge cache, so stale oversized responses
+  // cannot hide these approved optimized copies.
+  const pinnedPath = pinnedRemoteImageVariant(target);
+  if (pinnedPath) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL(pinnedPath, request.url).href,
+        "Cache-Control": "public, max-age=86400, s-maxage=604800",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+  }
+
   const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
-  const cacheKey = new Request(request.url, { method: "GET" });
+  // A new internal cache namespace bypasses pre-fix full-resolution entries.
+  // Public URLs and HTML image identity remain unchanged.
+  const cacheKeyUrl = new URL(request.url);
+  cacheKeyUrl.searchParams.set("_tdimg", "sized-v1");
+  const cacheKey = new Request(cacheKeyUrl.toString(), { method: "GET" });
   const cached = cache ? await cache.match(cacheKey) : undefined;
   if (cached) return request.method === "HEAD" ? cachedHeadResponse(cached) : cached;
 
-  const upstream = await fetchAllowedRemoteImage(target);
+  const optimizedTarget = optimizedRemoteImageUpstream(target);
+  let upstream = await fetchAllowedRemoteImage(optimizedTarget);
+  let contentType = upstream.headers.get("content-type") ?? "";
+  let servedOptimized = optimizedTarget.href !== target.href;
+  // If a resized variant is unavailable, preserve the licensed original
+  // instead of silently substituting an unrelated image or returning a 404.
+  if (servedOptimized && (!upstream.ok || !contentType.toLowerCase().startsWith("image/"))) {
+    await upstream.body?.cancel();
+    upstream = await fetchAllowedRemoteImage(target);
+    contentType = upstream.headers.get("content-type") ?? "";
+    servedOptimized = false;
+  }
   if (!upstream.ok) return new Response("Remote image unavailable", { status: upstream.status });
-  const contentType = upstream.headers.get("content-type") ?? "";
   if (!contentType.toLowerCase().startsWith("image/")) {
     return new Response("Remote resource is not an image", { status: 415 });
   }
@@ -340,6 +643,7 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
     "Cache-Control": "public, max-age=86400, s-maxage=604800",
     "Content-Type": contentType,
     "X-Content-Type-Options": "nosniff",
+    "X-TexasDefined-Image-Variant": servedOptimized ? "upstream-sized" : "original",
   });
   for (const headerName of ["etag", "last-modified"]) {
     const value = upstream.headers.get(headerName);
@@ -376,8 +680,29 @@ function applyMetroProximityEdgeCachePolicy(request: Request, response: Response
   });
 }
 
+// This evergreen guide had been served from stale edge HTML after a successful
+// deploy, despite updated fixture assets. Keep its canonical SSR HTML uncacheable;
+// the existing targeted deployment purge invalidates any older cached copy.
+function applyPlayoffGuideEdgeCachePolicy(request: Request, response: Response): Response {
+  const url = new URL(request.url);
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (url.pathname !== "/article/texas-high-school-football-playoffs-explained") return response;
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
-  const cacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, response);
+  const cacheSafeResponse = applyMoodyGardensNoticeCachePolicy(request,
+    applyHashedModuleDocumentCachePolicy(request,
+      applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response))));
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
   const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
@@ -427,16 +752,47 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const reviewedAttractionRedirect = reviewedAttractionCanonicalRedirect(request);
+      if (reviewedAttractionRedirect) return reviewedAttractionRedirect;
+      const foliageCanonicalRedirect = eastTexasFoliageCanonicalRedirect(request);
+      if (foliageCanonicalRedirect) return foliageCanonicalRedirect;
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
+      const unresolvedRoute = invalidPublicRouteTemplateResponse(request);
+      if (unresolvedRoute) return unresolvedRoute;
+      const legacyAppleIcon = legacyAppleIconRedirect(request);
+      if (legacyAppleIcon) return legacyAppleIcon;
       const adsTxt = adsTxtResponse(request);
       if (adsTxt) return adsTxt;
+
+      // Supplemental Bing Webmaster feed: intentionally NOT added to Google's
+      // public sitemap index/robots; Bingbot can index staged football HTML.
+      if ((request.method === "GET" || request.method === "HEAD") &&
+          new URL(request.url).pathname === "/sitemap-bing-football.xml") {
+        const { bingExcludedFootballSitemapEntries } = await import("./data/high-school-football/football-sitemap.server");
+        const { paths } = bingExcludedFootballSitemapEntries();
+        const origin = "https://texasdefined.com";
+        const escapeXml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+          paths.map((path) => `  <url><loc>${escapeXml(origin + path)}</loc></url>`).join('\n') +
+          '\n</urlset>\n';
+        return new Response(request.method === "HEAD" ? null : xml, {
+          status: 200,
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=300",
+          },
+        });
+      }
       const image = await remoteImageResponse(request, ctx);
       if (image) return image;
       const viator = await viatorApiResponse(request, env, ctx);
       if (viator) return viator;
       const countyRedirect = legacyCountyRedirect(request);
       if (countyRedirect) return countyRedirect;
+      const unavailableParkAlias = unavailableHistoricalParkAliasResponse(request);
+      if (unavailableParkAlias) return unavailableParkAlias;
       const entityRedirect = canonicalEntityRedirect(request);
       if (entityRedirect) return entityRedirect;
       const handler = await getServerEntry();

@@ -47,7 +47,7 @@ export function buildWeekendEditorialPackageServer(collection: ResolvedTemporalE
   const preheader = items.length
     ? `${items.length} source-verified Texas event guides, led by ${names}.`
     : "Source-verified Texas event guides for the current Friday-through-Sunday window.";
-  const intro = `Texas Defined checked the current event authority catalog for ${collection.dateContext}. Use each permanent guide for the organizer source, date context and practical planning details, and recheck the official organizer before leaving.`;
+  const intro = `Here are Texas events to consider for ${collection.dateContext}. Open each guide for the published date, organizer details and practical ideas; check the official organizer for updates before you leave.`;
   const newsletterMarkdown = [
     `# ${subject}`,
     "",

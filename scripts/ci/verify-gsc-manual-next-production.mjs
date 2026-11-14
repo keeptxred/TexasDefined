@@ -90,6 +90,21 @@ for (const path of priorityPaths) {
   );
 }
 
+const exploreSitemapPath = '/sitemap-explore.xml';
+const { body: exploreSitemap, response: sitemapResponse } = await fetchLive(exploreSitemapPath);
+const expectedSitemap = new URL(exploreSitemapPath, origin);
+const finalSitemap = new URL(sitemapResponse.url);
+requireCondition(
+  finalSitemap.origin === expectedSitemap.origin && finalSitemap.pathname === expectedSitemap.pathname,
+  `${exploreSitemapPath} redirected to ${finalSitemap.href}.`,
+);
+
+const fredericksburgLoc = `<loc>${new URL('/destination/fredericksburg', origin).href}</loc>`;
+requireCondition(
+  exploreSitemap.includes(fredericksburgLoc),
+  `Fredericksburg is missing from the live Explore sitemap at ${expectedSitemap.href}.`,
+);
+
 console.log(
-  `GSC manual-next production verification passed: ${priorityPaths.length} priority URLs are live, indexable, non-redirecting and self-canonical.`,
+  `GSC manual-next production verification passed: ${priorityPaths.length} priority URLs are live, indexable, non-redirecting and self-canonical; Fredericksburg is listed in the live Explore sitemap.`,
 );

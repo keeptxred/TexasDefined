@@ -13,7 +13,7 @@ export interface ShowcaseLakeFish {
 export interface ShowcaseLakeAccess {
   name: string;
   operator: string;
-  kind: "public-ramp" | "marina" | "park" | "resort";
+  kind: "public-ramp" | "marina" | "park" | "resort" | "shore" | "pier" | "kayak-launch";
   launch: string;
   fee: string;
   availability: string;
@@ -48,7 +48,8 @@ export interface ShowcaseLakePrototype {
   fish: ShowcaseLakeFish[];
   access: ShowcaseLakeAccess[];
   boatingNotes: string[];
-  regulations: { label: string; text: string }[];
+  regulations: { label: string; text: string; sourceUrl?: string }[];
+  sectionResearch?: { reviewedAt: string; sourceUrls: string[] };
   camping: { name: string; type: string; summary: string; href: string }[];
   nearby: { label: string; description: string; href: string; external: boolean }[];
   businessCategories: string[];

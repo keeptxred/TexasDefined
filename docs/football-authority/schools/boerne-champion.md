@@ -1,5 +1,8 @@
 # Boerne Champion Chargers — individualized Batch 006 football research
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Checkpoint October 16, 2026.** Samuel V. Champion High School **Chargers**, 201 Charger Blvd, Boerne TX 78006, **830-357-2600**, Kendall County. **Not the Boerne Greyhounds**, whose 2022 state-final and current 5A Division II history must not be transferred to Champion. **IMPLEMENTED on dependent branch only; not merged, independently Chrome production-VERIFIED or formally editorially accepted**.
 
 ## UIL district and official school sources
@@ -13,3 +16,13 @@
 
 ## Implementation and remaining acceptance
 Authored unique SEO, dated seasonal score table, current officially named coach, source-critical team distinction, seven independent FAQs, two-way Kendall county guide links, and official ticket/transport notes. Before production release, require canonical `scripts/ci/run-premerge-validation.mjs` and protected Merge Gate on reconciled head and production descendant health. Then use actual desktop/mobile Chrome on exact production SHA for title/canonical, FAQ JSON-LD, accessible navigation, county links, tickets, fixture freshness and photo rights (none claimed). No unlicensed stadium or logo imagery; no formal nine-dimension editorial acceptance without sourced manual review. **105 prior VERIFIED school records must not change.**
+
+## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
+
+[Seguin Today's October 17 on-the-scene report](https://seguintoday.com/2026/10/17/fast-starting-champion-hands-seguin-57-7-defeat/) confirms **Boerne Champion 57, Seguin 7** on October 16 at Boerne ISD Stadium. This advances Champion's reported 2026 record to **7–0 through October 16**. The canonical editorial model's October 16 fixture, dated record, SEO description, source label, and outdated future-game explanatory text are updated on the accompanying score-correction branch. Older October 2 statements are historical checkpoints, not current results. This update does **not** claim school-supplied UIL certification, a licensed photograph, individual editorial acceptance or successful deployment.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Champion High School's current official **Coaching Staff** page was rechecked and still explicitly lists **Blane Ellis — Head Coach** under Football, with Alan Ford as defensive coordinator and Tyler Mangold as offensive coordinator. This remains direct first-party support for the current Champion football coaching field and keeps the Chargers distinct from Boerne High's Greyhounds staff.
+
+No new first-party evidence was found for the exact public football entrance, general parking allocation, comprehensive accessible seating, or reusable stadium/team photography rights beyond the already documented event-specific shuttle/ticket rules. The reported 7–0 through October 16 record and separate Champion-vs-Greyhounds identity controls remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

@@ -7,6 +7,44 @@ on:
       - 'src/data/hunting*'
       - 'src/data/hunting/**'
       - 'src/routes/hunting*'
+      - 'src/components/hunting/**'
+      - 'scripts/data/check-turkey-regulations.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
+      - 'scripts/automation/monitor-turkey-regulations.sh'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
+      - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
+      - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
+      - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - '.github/workflows/finish-turkey-authority-quarterly.yml'
+      - '.github/workflows/verify-first-turkey-quarterly.yml'
+      - 'scripts/automation/verify-first-turkey-quarterly.mjs'
+      - 'scripts/automation/verify-first-turkey-quarterly.test.mjs'
+      - 'src/brand/texasdefined.ts'
+      - 'scripts/data/refresh-hunting-official-facts.mjs'
+      - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - '.github/workflows/monitor-hunting-tpwd-sources.yml'
+      - 'scripts/data/refresh-hunting-species-seasons.mjs'
+      - 'scripts/data/refresh-hunting-species-seasons.test.mjs'
+      - 'scripts/data/monitor-hunting-live-freshness.mjs'
+      - '.github/workflows/refresh-hunting-species-calendar.yml'
+      - '.github/workflows/finish-hunting-species-calendar.yml'
+      - '.github/workflows/monitor-hunting-live-freshness.yml'
+      - 'scripts/data/hunting-season-window-status.test.mjs'
+      - 'scripts/data/validate-hunting-final-access.mjs'
+      - 'scripts/data/validate-hunting-guide-audit.mjs'
+      - 'scripts/data/check-hunting-season-rollover.mjs'
+      - 'scripts/data/check-hunting-season-rollover.test.mjs'
+      - 'scripts/ci/verify-hunting-hub-responsive-browser.mjs'
+      - 'scripts/ci/verify-turkey-hunting-browser.mjs'
+      - 'scripts/ci/verify-turkey-automation-contract.test.mjs'
+      - 'scripts/ci/hunting-browser-release-scope.mjs'
+      - 'scripts/ci/hunting-browser-release-scope.test.mjs'
+      - 'scripts/ci/production-change-scope.mjs'
+      - '.github/workflows/deploy-production.yml'
+      - 'scripts/ci/hunting-hub-planner-production.test.mjs'
+      - 'scripts/ci/verify-changed-production-pages.mjs'
+      - 'scripts/data/monitor-hunting-live-freshness.mjs'
       - 'scripts/data/validate-hunting-authority.mjs'
       - '.github/workflows/validate-hunting-authority.yml'
   workflow_dispatch:
@@ -26,4 +64,27 @@ jobs:
         with:
           node-version: 22
       - name: Validate hunting authority contract
-        run: node scripts/data/validate-hunting-authority.mjs
+        run: |
+          node scripts/data/validate-hunting-authority.mjs
+          node scripts/data/validate-hunting-guide-audit.mjs
+          node scripts/data/validate-hunting-final-access.mjs
+          node --test scripts/data/check-hunting-season-rollover.test.mjs
+          node --check scripts/ci/verify-hunting-hub-responsive-browser.mjs
+          node --check scripts/ci/verify-turkey-hunting-browser.mjs
+          node --test scripts/ci/verify-turkey-automation-contract.test.mjs
+          node --check scripts/automation/verify-first-turkey-quarterly.mjs
+          node --test scripts/automation/verify-first-turkey-quarterly.test.mjs
+          node --check scripts/ci/hunting-browser-release-scope.mjs
+          node --test scripts/ci/hunting-browser-release-scope.test.mjs
+          node --test scripts/data/hunting-season-window-status.test.mjs
+          node --test scripts/ci/hunting-hub-planner-production.test.mjs
+          node --check scripts/data/monitor-hunting-live-freshness.mjs
+          node --test scripts/data/refresh-hunting-species-seasons.test.mjs
+          node scripts/data/refresh-hunting-species-seasons.mjs
+          node --check scripts/data/monitor-hunting-live-freshness.mjs
+          node --test scripts/data/refresh-turkey-season-calendar.test.mjs
+          node --check scripts/data/refresh-turkey-season-calendar.mjs
+          node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
+          node --check scripts/data/refresh-turkey-authority-quarterly.mjs
+          bash -n scripts/automation/monitor-turkey-regulations.sh
+          bash -n scripts/automation/refresh-turkey-authority-quarterly.sh

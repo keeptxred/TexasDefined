@@ -68,6 +68,18 @@ function validLastModified(value?: string): string | undefined {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
 }
 
+// One canonical URL can arise from several independent Explore lists.
+// Enforce a whole-sitemap uniqueness invariant, not merely a per-list one.
+function dedupeUrlEntries(entries: readonly string[]): string[] {
+  const seen = new Set<string>();
+  return entries.filter((xml) => {
+    const match = xml.match(/<loc>([^<]+)<\/loc>/);
+    if (!match || seen.has(match[1])) return false;
+    seen.add(match[1]);
+    return true;
+  });
+}
+
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
   if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
@@ -141,6 +153,61 @@ async function indexReadyWaterParkPaths(): Promise<string[]> {
   }
 }
 
+// Preserve the same reviewed public town guide that the destination route serves.
+// Audit the full canonical record: neither a thin remote row nor an emergency
+// sitemap fallback may silently drop an already indexable destination.
+async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
+  try {
+    const { smallTownWave1Destinations } = await import("@/data/small-town-destinations-wave1");
+    const canonical = smallTownWave1Destinations.find((destination) => destination.slug === "fredericksburg");
+    if (!canonical) {
+      console.error("Fredericksburg sitemap source missing from reviewed small-town wave1 catalog");
+      return null;
+    }
+    if (!isPrimaryTripPlannerDestination(canonical)) {
+      console.error("Fredericksburg sitemap canonical is not an eligible primary trip-planner destination");
+      return null;
+    }
+    const audit = auditDestination(canonical);
+    if (!audit.readyForIndexing) {
+      // Keep fail-closed publication, but preserve actionable quality codes in
+      // Cloudflare logs instead of silently returning an empty sitemap entry.
+      console.error("Fredericksburg sitemap canonical failed quality gate", {
+        score: audit.score,
+        issueCodes: audit.issues.map((issue) => issue.code),
+      });
+      return null;
+    }
+    const canonicalEntry = entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+    if (!canonicalEntry) {
+      console.error("Fredericksburg audited sitemap canonical rejected by route/indexability policy");
+    }
+    return canonicalEntry;
+  } catch (error) {
+    console.error("Fredericksburg audited sitemap source unavailable", error);
+    return null;
+  }
+}
+
+// Keep Magoffin's indexable canonical guide discoverable when an enriched Explore
+// row is stale, thin, or absent. Apply the same reviewed restoration authority
+// used by the live detail page, then enforce the ordinary indexability gate.
+async function auditedMagoffinSitemapEntry(): Promise<string | null> {
+  try {
+    const [{ preservedExploreDestinations }, { applyMagoffinHomeAuthority }] = await Promise.all([
+      import("@/data/destination-preserved-catalog"),
+      import("@/data/magoffin-home-authority"),
+    ]);
+    const source = preservedExploreDestinations.find((destination) => destination.slug === "magoffin-home");
+    if (!source) return null;
+    const canonical = applyMagoffinHomeAuthority(source);
+    if (!isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) return null;
+    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+  } catch (error) {
+    console.error("Magoffin Home audited sitemap source unavailable", error);
+    return null;
+  }
+}
 async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
@@ -151,6 +218,11 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    "/explore/scenic-trains",
+    "/explore/dude-ranches",
+    "/explore/spa-retreats",
+    "/explore/wildlife-safaris",
+    "/explore/botanical-gardens",
     "/explore/water-parks",
     "/explore/inland-beaches",
     ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
@@ -161,19 +233,20 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/water-towers",
     "/destination/whirlyball-hurst",
     ...PAINTED_CHURCH_STATIC_PATHS,
-    "/explore/top-50-attractions",
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
+    "/explore/big-bend-scenic-drives",
     "/explore/route-66/texas-road-trip",
     "/explore/landscapes",
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
     ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
-  const entries = [...new Set(fallbackPaths)]
-    .map((path) => entry(path))
-    .filter((item): item is string => Boolean(item))
-    .join("\n");
+  const entries = dedupeUrlEntries([
+    ...[...new Set(fallbackPaths)].map((path) => entry(path)),
+    await auditedFredericksburgSitemapEntry(),
+    await auditedMagoffinSitemapEntry(),
+  ].filter((item): item is string => Boolean(item))).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
   return new Response(xml, {
     status: 200,
@@ -190,12 +263,13 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
     handlers: {
       GET: async () => {
         try {
-        const { categories, regions } = await import("@/data/fixtures/texas");
+        const { categories, regions, destinations: originalEditorialDestinations } = await import("@/data/fixtures/texas");
         const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
         const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment");
         const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
         const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { wacoViatorAttractionDestinations } = await import("@/data/waco-viator-attraction-destinations");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
         const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
@@ -269,6 +343,21 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
+        const wacoSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...wacoViatorAttractionDestinations.filter((destination) => destination.slug && !wacoSlugs.has(destination.slug)));
+
+        // The detail resolver falls back to this checked-in authority record when
+        // a remote Fredericksburg duplicate is too weak for indexing. Mirror that
+        // precedence here so the same indexable canonical page cannot disappear
+        // from the Explore sitemap solely because a thinner remote row exists.
+        const fredericksburgAuthority = preservedExploreDestinations.find(
+          (destination) => destination.slug === "fredericksburg",
+        );
+        if (fredericksburgAuthority) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === fredericksburgAuthority.slug);
+          if (position >= 0) rawDestinations[position] = fredericksburgAuthority;
+          else rawDestinations.push(fredericksburgAuthority);
+        }
 
         // WhirlyBall Hurst is a hand-curated canonical guide. A stale or thinner
         // remote row with the same slug must not shadow the checked-in record and
@@ -303,18 +392,52 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(firstCapitolReference);
         }
 
+        // A public indexable detail URL must not disappear from the Explore
+        // sitemap because the full reviewed record lives outside the remote
+        // Explore listing. These are the source records used by the detail page.
+        // Keep the ordinary indexability and visitability gates below.
+        const { reviewedAttractionDestinations } = await import("@/data/reviewed-attraction-authorities");
+        const coreGuideSlugs = new Set(["caddo-lake", "blue-hole-wimberley"]);
+        const reviewedAttractionSlugs = new Set([
+          "fort-worth-water-gardens",
+          "houston-botanic-garden",
+          "san-antonio-japanese-tea-garden",
+        ]);
+        const editorialCanonicalSources = [
+          ...originalEditorialDestinations.filter((item) => coreGuideSlugs.has(item.slug)),
+          ...preservedExploreDestinations.filter((item) => item.slug === "blanco"),
+          ...reviewedAttractionDestinations.filter((item) => reviewedAttractionSlugs.has(item.slug)),
+        ];
+        for (const canonicalDestination of editorialCanonicalSources) {
+          const position = rawDestinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) rawDestinations[position] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
-        // Public catalogs deliberately carry lightweight summaries of new
-        // Top-50 parks and the Congress Avenue bat colony. Audit the exact
-        // complete, sourced destinations before giving them canonical sitemap URLs.
+        // The preserved index retains compact descriptions. Audit the detailed
+        // destination before including each new attraction in the sitemap.
         const [{ top50ThemeParkDestinations }, { congressAvenueBatDestination }] = await Promise.all([
           import("@/data/top50-theme-park-destinations"),
           import("@/data/congress-avenue-bat-colony-authority"),
         ]);
-        for (const researched of [...top50ThemeParkDestinations, congressAvenueBatDestination]) {
-          const position = destinations.findIndex((destination) => destination.slug === researched.slug);
-          if (position >= 0) destinations[position] = researched;
-          else destinations.push(researched);
+        for (const authored of [...top50ThemeParkDestinations, congressAvenueBatDestination]) {
+          const index = destinations.findIndex(row => row.slug === authored.slug);
+          if (index >= 0) destinations[index] = authored;
+          else destinations.push(authored);
+        }
+        // Mirror the full, source-checked records served by the lazy Waco
+        // destination resolver, even if the remote catalog has stale summaries.
+        for (const canonicalDestination of wacoViatorAttractionDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
+        const { applyWacoMuseumAuthority } = await import("@/data/waco-museum-authority-upgrades");
+        for (let index = 0; index < destinations.length; index += 1) {
+          if (destinations[index].slug === "dr-pepper-museum-waco" || destinations[index].slug === "texas-ranger-hall-of-fame-museum-waco") {
+            destinations[index] = applyWacoMuseumAuthority(destinations[index]);
+          }
         }
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
@@ -378,6 +501,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+    "/explore/scenic-trains",
+    "/explore/dude-ranches",
+    "/explore/spa-retreats",
+    "/explore/wildlife-safaris",
+    "/explore/botanical-gardens",
           "/explore/water-parks",
           "/explore/inland-beaches",
           ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
@@ -390,6 +518,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
+          "/explore/big-bend-scenic-drives",
+          "/explore/lighthouses",
           ...route66Paths,
           "/explore/landscapes",
           ...landscapePaths,
@@ -398,8 +528,30 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
         const destinationEntries = sitemapIndexableDestinations
-          .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
+          .map((item) => entry(`/destination/${item.slug}`, item.updatedAt ?? item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        // A remote or curated catalog may omit the canonical town record; do
+        // not bypass the destination quality gate or create duplicate XML rows.
+        const auditedFredericksburgEntry = await auditedFredericksburgSitemapEntry();
+        if (auditedFredericksburgEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/fredericksburg</loc>`))) {
+          destinationEntries.push(auditedFredericksburgEntry);
+        }
+        // Match the detail loader's audited Magoffin overlay without publishing a
+        // second XML record when its canonical URL is already in the catalog.
+        const auditedMagoffinEntry = await auditedMagoffinSitemapEntry();
+        if (auditedMagoffinEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/magoffin-home</loc>`))) {
+          destinationEntries.push(auditedMagoffinEntry);
+        }
+        // The same canonical public detail-resolution pipeline determines
+        // eligibility for these two source-precedence holdouts. The server-only
+        // helper preserves the Metro proximity sitemap's separate readiness
+        // owner and keeps the destination audit and availability gates intact.
+        const { loadCanonicalDestinationSitemapParity } = await import("@/data/destination-sitemap-detail-parity.server");
+        for (const resolved of await loadCanonicalDestinationSitemapParity()) {
+          const row = entry(resolved.path, resolved.lastmod);
+          const loc = `<loc>${BASE_URL}${resolved.path}</loc>`;
+          if (row && !destinationEntries.some((item) => item.includes(loc))) destinationEntries.push(row);
+        }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
         // canonical destination pipeline as live metro pages. Do not pass the
@@ -413,14 +565,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .filter((item): item is string => Boolean(item));
         const techniqueEntries = paintedChurchTechniques.map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const symbolEntries = paintedChurchSymbols.map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const peopleEntries = paintedChurchPeople.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
+        const peopleEntries = paintedChurchPeople.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, item.slug === "gottfried-flury" ? "2026-11-11" : "2026-08-18")).filter((item): item is string => Boolean(item));
         const heritageEntries = paintedChurchHeritage.map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
-        const entries = [
+        const entries = dedupeUrlEntries([
           ...staticEntries,
           ...destinationEntries,
           ...proximityEntries,
@@ -433,7 +585,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...glossaryEntries,
           ...itineraryEntries,
           ...searchGuideEntries,
-        ].join("\n");
+        ]).join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {

@@ -1,0 +1,2806 @@
+{
+  "date": "2026-10-29",
+  "siteUrl": "sc-domain:texasdefined.com",
+  "source": "Authenticated Google Search Console via HYPD",
+  "searchType": "web",
+  "dataState": "final",
+  "startDate": "2026-09-29",
+  "endDate": "2026-10-26",
+  "dataFinalizedThrough": "2026-10-26",
+  "rows": 4052,
+  "exportTruncated": false,
+  "scopeCaveat": "This is the COMPLETE GSC page performance export for the period, NOT the complete indexable URL inventory. Pages without impressions are absent; no HTML, canonical or robot-state certification is implied.",
+  "minimumImpressionsForTriage": 100,
+  "counts": {
+    "gscPages": 4052,
+    "meaningfulImpressionPages": 303,
+    "competitiveLowCtrReviewCandidates": 216,
+    "rankingPositionOver20": 34
+  },
+  "bands": {
+    "candidateRule": "100+ impressions AND average position 3–20 AND CTR below 2%; editorial review candidate ONLY, not a confirmed snippet problem",
+    "rankingRule": "100+ impressions AND average position above 20; ranking-first review ONLY, not proof snippet good"
+  },
+  "families": [
+    {
+      "family": "football-teams",
+      "pages": 1119,
+      "impressions": 54437,
+      "clicks": 446
+    },
+    {
+      "family": "article",
+      "pages": 165,
+      "impressions": 21699,
+      "clicks": 191
+    },
+    {
+      "family": "football-districts",
+      "pages": 166,
+      "impressions": 15569,
+      "clicks": 410
+    },
+    {
+      "family": "explore",
+      "pages": 260,
+      "impressions": 11574,
+      "clicks": 73
+    },
+    {
+      "family": "destination",
+      "pages": 293,
+      "impressions": 8317,
+      "clicks": 21
+    },
+    {
+      "family": "sports-venue",
+      "pages": 79,
+      "impressions": 4065,
+      "clicks": 15
+    },
+    {
+      "family": "property-tax",
+      "pages": 843,
+      "impressions": 3553,
+      "clicks": 49
+    },
+    {
+      "family": "event",
+      "pages": 74,
+      "impressions": 3513,
+      "clicks": 37
+    },
+    {
+      "family": "fishing",
+      "pages": 206,
+      "impressions": 2636,
+      "clicks": 10
+    },
+    {
+      "family": "texas-vs",
+      "pages": 44,
+      "impressions": 2038,
+      "clicks": 6
+    },
+    {
+      "family": "county",
+      "pages": 176,
+      "impressions": 1525,
+      "clicks": 6
+    },
+    {
+      "family": "things-unique-to-texas",
+      "pages": 9,
+      "impressions": 1331,
+      "clicks": 13
+    },
+    {
+      "family": "events",
+      "pages": 29,
+      "impressions": 1281,
+      "clicks": 20
+    },
+    {
+      "family": "painted-churches",
+      "pages": 97,
+      "impressions": 1200,
+      "clicks": 40
+    },
+    {
+      "family": "texas-homecoming-mums",
+      "pages": 1,
+      "impressions": 861,
+      "clicks": 3
+    },
+    {
+      "family": "texas-state-fair",
+      "pages": 1,
+      "impressions": 794,
+      "clicks": 2
+    },
+    {
+      "family": "home",
+      "pages": 1,
+      "impressions": 626,
+      "clicks": 3
+    },
+    {
+      "family": "sports-venues",
+      "pages": 17,
+      "impressions": 615,
+      "clicks": 3
+    },
+    {
+      "family": "texas-high-school-football-isds",
+      "pages": 105,
+      "impressions": 553,
+      "clicks": 1
+    },
+    {
+      "family": "texas-home-equity-calculator",
+      "pages": 1,
+      "impressions": 504,
+      "clicks": 0
+    },
+    {
+      "family": "texas-symbols",
+      "pages": 35,
+      "impressions": 497,
+      "clicks": 7
+    },
+    {
+      "family": "texas-industries",
+      "pages": 8,
+      "impressions": 443,
+      "clicks": 2
+    },
+    {
+      "family": "texas-high-school-football-teams",
+      "pages": 1,
+      "impressions": 397,
+      "clicks": 1
+    },
+    {
+      "family": "city",
+      "pages": 7,
+      "impressions": 380,
+      "clicks": 0
+    },
+    {
+      "family": "texas-high-school-football-districts",
+      "pages": 1,
+      "impressions": 377,
+      "clicks": 4
+    },
+    {
+      "family": "gaming",
+      "pages": 11,
+      "impressions": 376,
+      "clicks": 6
+    },
+    {
+      "family": "food",
+      "pages": 26,
+      "impressions": 369,
+      "clicks": 0
+    },
+    {
+      "family": "horse-racing",
+      "pages": 3,
+      "impressions": 329,
+      "clicks": 1
+    },
+    {
+      "family": "texas-high-school-football-championship-history",
+      "pages": 1,
+      "impressions": 313,
+      "clicks": 0
+    },
+    {
+      "family": "metro-area",
+      "pages": 6,
+      "impressions": 290,
+      "clicks": 0
+    },
+    {
+      "family": "sports",
+      "pages": 4,
+      "impressions": 264,
+      "clicks": 0
+    },
+    {
+      "family": "hunting",
+      "pages": 3,
+      "impressions": 258,
+      "clicks": 2
+    },
+    {
+      "family": "texas-home-insurance-calculator",
+      "pages": 5,
+      "impressions": 256,
+      "clicks": 1
+    },
+    {
+      "family": "texas-two-step",
+      "pages": 1,
+      "impressions": 212,
+      "clicks": 0
+    },
+    {
+      "family": "texas-toll-tags",
+      "pages": 1,
+      "impressions": 210,
+      "clicks": 1
+    },
+    {
+      "family": "texas-history",
+      "pages": 1,
+      "impressions": 208,
+      "clicks": 1
+    },
+    {
+      "family": "property-tax-calculator",
+      "pages": 13,
+      "impressions": 203,
+      "clicks": 0
+    },
+    {
+      "family": "texas-data",
+      "pages": 9,
+      "impressions": 195,
+      "clicks": 6
+    },
+    {
+      "family": "texas-utility-cost-calculator",
+      "pages": 1,
+      "impressions": 185,
+      "clicks": 1
+    },
+    {
+      "family": "find-my-school-district",
+      "pages": 1,
+      "impressions": 181,
+      "clicks": 1
+    },
+    {
+      "family": "texas-explained",
+      "pages": 1,
+      "impressions": 163,
+      "clicks": 2
+    },
+    {
+      "family": "texas-drivers-license",
+      "pages": 1,
+      "impressions": 147,
+      "clicks": 0
+    },
+    {
+      "family": "moving-to-texas",
+      "pages": 3,
+      "impressions": 146,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-rate-history",
+      "pages": 1,
+      "impressions": 141,
+      "clicks": 7
+    },
+    {
+      "family": "learn",
+      "pages": 11,
+      "impressions": 135,
+      "clicks": 0
+    },
+    {
+      "family": "texas-vehicle-registration-fees-taxes",
+      "pages": 1,
+      "impressions": 121,
+      "clicks": 0
+    },
+    {
+      "family": "texas-cost-of-living-calculator",
+      "pages": 6,
+      "impressions": 115,
+      "clicks": 1
+    },
+    {
+      "family": "news",
+      "pages": 3,
+      "impressions": 98,
+      "clicks": 0
+    },
+    {
+      "family": "texas-icons",
+      "pages": 8,
+      "impressions": 96,
+      "clicks": 0
+    },
+    {
+      "family": "texas-salary-needed-calculator",
+      "pages": 6,
+      "impressions": 90,
+      "clicks": 0
+    },
+    {
+      "family": "dr-pepper-texas-history",
+      "pages": 1,
+      "impressions": 88,
+      "clicks": 1
+    },
+    {
+      "family": "barbacoa-big-red-san-antonio",
+      "pages": 1,
+      "impressions": 79,
+      "clicks": 2
+    },
+    {
+      "family": "texas-blue-norther-weather-guide",
+      "pages": 1,
+      "impressions": 73,
+      "clicks": 0
+    },
+    {
+      "family": "shop",
+      "pages": 31,
+      "impressions": 71,
+      "clicks": 0
+    },
+    {
+      "family": "texas-brand-origin-stories",
+      "pages": 1,
+      "impressions": 69,
+      "clicks": 1
+    },
+    {
+      "family": "find-my-county",
+      "pages": 1,
+      "impressions": 63,
+      "clicks": 2
+    },
+    {
+      "family": "holiday",
+      "pages": 2,
+      "impressions": 62,
+      "clicks": 2
+    },
+    {
+      "family": "texas-slang-explained",
+      "pages": 1,
+      "impressions": 62,
+      "clicks": 0
+    },
+    {
+      "family": "texas-facts",
+      "pages": 1,
+      "impressions": 56,
+      "clicks": 3
+    },
+    {
+      "family": "texas-resources",
+      "pages": 1,
+      "impressions": 56,
+      "clicks": 0
+    },
+    {
+      "family": "texas-flag",
+      "pages": 1,
+      "impressions": 54,
+      "clicks": 0
+    },
+    {
+      "family": "made-in-texas",
+      "pages": 1,
+      "impressions": 51,
+      "clicks": 2
+    },
+    {
+      "family": "dogs",
+      "pages": 8,
+      "impressions": 51,
+      "clicks": 0
+    },
+    {
+      "family": "texas-rock-rockabilly",
+      "pages": 1,
+      "impressions": 51,
+      "clicks": 0
+    },
+    {
+      "family": "texas-music",
+      "pages": 1,
+      "impressions": 46,
+      "clicks": 0
+    },
+    {
+      "family": "wildlife-species",
+      "pages": 4,
+      "impressions": 46,
+      "clicks": 0
+    },
+    {
+      "family": "compare-texas-cities",
+      "pages": 3,
+      "impressions": 45,
+      "clicks": 0
+    },
+    {
+      "family": "billy-bobs-texas-history",
+      "pages": 1,
+      "impressions": 44,
+      "clicks": 1
+    },
+    {
+      "family": "find-my-dmv",
+      "pages": 1,
+      "impressions": 44,
+      "clicks": 1
+    },
+    {
+      "family": "texas-over-65-property-tax-calculator",
+      "pages": 1,
+      "impressions": 44,
+      "clicks": 1
+    },
+    {
+      "family": "texas-property-tax-estimator?county=bailey",
+      "pages": 1,
+      "impressions": 42,
+      "clicks": 0
+    },
+    {
+      "family": "texas-stargazing-guide",
+      "pages": 1,
+      "impressions": 42,
+      "clicks": 0
+    },
+    {
+      "family": "find-my-homestead-exemption",
+      "pages": 1,
+      "impressions": 41,
+      "clicks": 0
+    },
+    {
+      "family": "texas-music-cities",
+      "pages": 1,
+      "impressions": 40,
+      "clicks": 0
+    },
+    {
+      "family": "find-my-property-tax",
+      "pages": 1,
+      "impressions": 39,
+      "clicks": 0
+    },
+    {
+      "family": "texas-college-towns",
+      "pages": 1,
+      "impressions": 36,
+      "clicks": 0
+    },
+    {
+      "family": "texas-school-district-property-tax-comparison",
+      "pages": 1,
+      "impressions": 34,
+      "clicks": 1
+    },
+    {
+      "family": "continental-club-austin-history",
+      "pages": 1,
+      "impressions": 34,
+      "clicks": 0
+    },
+    {
+      "family": "browse",
+      "pages": 2,
+      "impressions": 33,
+      "clicks": 0
+    },
+    {
+      "family": "texas-home-affordability-calculator",
+      "pages": 5,
+      "impressions": 33,
+      "clicks": 0
+    },
+    {
+      "family": "texas-sacred-places",
+      "pages": 1,
+      "impressions": 33,
+      "clicks": 0
+    },
+    {
+      "family": "gruene-hall-history",
+      "pages": 1,
+      "impressions": 32,
+      "clicks": 3
+    },
+    {
+      "family": "texas-country-outlaw",
+      "pages": 1,
+      "impressions": 32,
+      "clicks": 0
+    },
+    {
+      "family": "texas-mortgage-calculator",
+      "pages": 1,
+      "impressions": 32,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=guadalupe",
+      "pages": 1,
+      "impressions": 30,
+      "clicks": 0
+    },
+    {
+      "family": "texas-roadside-oddities",
+      "pages": 1,
+      "impressions": 29,
+      "clicks": 0
+    },
+    {
+      "family": "texas-vehicle-registration-renewal",
+      "pages": 1,
+      "impressions": 28,
+      "clicks": 1
+    },
+    {
+      "family": "texas-hip-hop",
+      "pages": 1,
+      "impressions": 27,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=atascosa",
+      "pages": 1,
+      "impressions": 27,
+      "clicks": 0
+    },
+    {
+      "family": "texas-living",
+      "pages": 1,
+      "impressions": 26,
+      "clicks": 0
+    },
+    {
+      "family": "texas-moving-cost-calculator",
+      "pages": 1,
+      "impressions": 24,
+      "clicks": 2
+    },
+    {
+      "family": "texas-food-trail",
+      "pages": 1,
+      "impressions": 24,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=bowie",
+      "pages": 1,
+      "impressions": 24,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=camp",
+      "pages": 1,
+      "impressions": 24,
+      "clicks": 0
+    },
+    {
+      "family": "austin-music-history",
+      "pages": 1,
+      "impressions": 23,
+      "clicks": 1
+    },
+    {
+      "family": "partner-with-us",
+      "pages": 3,
+      "impressions": 23,
+      "clicks": 0
+    },
+    {
+      "family": "texas-rock-climbing-bouldering-guide",
+      "pages": 1,
+      "impressions": 23,
+      "clicks": 0
+    },
+    {
+      "family": "texas-jazz",
+      "pages": 1,
+      "impressions": 22,
+      "clicks": 0
+    },
+    {
+      "family": "appraisal-district",
+      "pages": 5,
+      "impressions": 21,
+      "clicks": 0
+    },
+    {
+      "family": "state-park",
+      "pages": 8,
+      "impressions": 20,
+      "clicks": 1
+    },
+    {
+      "family": "texas-disabled-veteran-property-tax-calculator",
+      "pages": 1,
+      "impressions": 20,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=jim-hogg",
+      "pages": 1,
+      "impressions": 20,
+      "clicks": 0
+    },
+    {
+      "family": "texas-budget-planner",
+      "pages": 1,
+      "impressions": 19,
+      "clicks": 1
+    },
+    {
+      "family": "guides",
+      "pages": 1,
+      "impressions": 19,
+      "clicks": 0
+    },
+    {
+      "family": "texas-conjunto-tejano",
+      "pages": 1,
+      "impressions": 19,
+      "clicks": 0
+    },
+    {
+      "family": "texas-natural-wonders-bucket-list",
+      "pages": 1,
+      "impressions": 19,
+      "clicks": 0
+    },
+    {
+      "family": "authors",
+      "pages": 3,
+      "impressions": 17,
+      "clicks": 0
+    },
+    {
+      "family": "find-my-utilities",
+      "pages": 1,
+      "impressions": 17,
+      "clicks": 0
+    },
+    {
+      "family": "property",
+      "pages": 1,
+      "impressions": 17,
+      "clicks": 0
+    },
+    {
+      "family": "real-estate",
+      "pages": 1,
+      "impressions": 17,
+      "clicks": 0
+    },
+    {
+      "family": "texas-salary-comparison-by-city",
+      "pages": 1,
+      "impressions": 17,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=coke",
+      "pages": 1,
+      "impressions": 16,
+      "clicks": 0
+    },
+    {
+      "family": "texas-homestead-savings-calculator",
+      "pages": 1,
+      "impressions": 15,
+      "clicks": 0
+    },
+    {
+      "family": "houston-music-history",
+      "pages": 1,
+      "impressions": 14,
+      "clicks": 0
+    },
+    {
+      "family": "texas-mud-tax-impact-calculator",
+      "pages": 1,
+      "impressions": 14,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator?county=irion",
+      "pages": 1,
+      "impressions": 14,
+      "clicks": 0
+    },
+    {
+      "family": "texas-chili-con-carne-history",
+      "pages": 1,
+      "impressions": 13,
+      "clicks": 0
+    },
+    {
+      "family": "events?venue=sports-venue%3Aatt-stadium",
+      "pages": 1,
+      "impressions": 12,
+      "clicks": 0
+    },
+    {
+      "family": "texas-homeownership-cost-calculator",
+      "pages": 2,
+      "impressions": 12,
+      "clicks": 0
+    },
+    {
+      "family": "german-czech-texas-towns",
+      "pages": 1,
+      "impressions": 11,
+      "clicks": 0
+    },
+    {
+      "family": "texas-music-timeline",
+      "pages": 1,
+      "impressions": 11,
+      "clicks": 0
+    },
+    {
+      "family": "texas-mountain-biking-guide",
+      "pages": 1,
+      "impressions": 10,
+      "clicks": 1
+    },
+    {
+      "family": "citation-guide",
+      "pages": 1,
+      "impressions": 10,
+      "clicks": 0
+    },
+    {
+      "family": "moving-to-texas-checklist",
+      "pages": 1,
+      "impressions": 10,
+      "clicks": 0
+    },
+    {
+      "family": "texas-birds-guide",
+      "pages": 1,
+      "impressions": 10,
+      "clicks": 0
+    },
+    {
+      "family": "texas-food-history",
+      "pages": 1,
+      "impressions": 10,
+      "clicks": 0
+    },
+    {
+      "family": "decide",
+      "pages": 2,
+      "impressions": 9,
+      "clicks": 0
+    },
+    {
+      "family": "moving-to-texas?originState=Wisconsin",
+      "pages": 1,
+      "impressions": 9,
+      "clicks": 0
+    },
+    {
+      "family": "network",
+      "pages": 1,
+      "impressions": 9,
+      "clicks": 0
+    },
+    {
+      "family": "texas-sales-tax-explained",
+      "pages": 1,
+      "impressions": 9,
+      "clicks": 0
+    },
+    {
+      "family": "privacy",
+      "pages": 1,
+      "impressions": 8,
+      "clicks": 0
+    },
+    {
+      "family": "texas-tailgating-guide",
+      "pages": 1,
+      "impressions": 8,
+      "clicks": 0
+    },
+    {
+      "family": "about",
+      "pages": 1,
+      "impressions": 7,
+      "clicks": 1
+    },
+    {
+      "family": "texas-agricultural-valuation-calculator",
+      "pages": 1,
+      "impressions": 7,
+      "clicks": 1
+    },
+    {
+      "family": "texas-music-venues",
+      "pages": 1,
+      "impressions": 7,
+      "clicks": 0
+    },
+    {
+      "family": "dallas-fort-worth-music-history",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "do",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "return-refund-policy",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-escrow-calculator",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-estimator",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "texas-unique-lodging",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "texas-vehicle-registration",
+      "pages": 1,
+      "impressions": 6,
+      "clicks": 0
+    },
+    {
+      "family": "find-my-emergency-services",
+      "pages": 1,
+      "impressions": 5,
+      "clicks": 0
+    },
+    {
+      "family": "lubbock-music-history",
+      "pages": 1,
+      "impressions": 5,
+      "clicks": 0
+    },
+    {
+      "family": "antones-austin-history",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "broken-spoke-austin-history",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "events?start=2026-11-25&end=2026-11-25",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "texas-breakfast-taco-guide",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "texas-chicken-fried-steak-guide",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-county-comparison-calculator",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "texas-salary-calculator",
+      "pages": 1,
+      "impressions": 4,
+      "clicks": 0
+    },
+    {
+      "family": "cavern",
+      "pages": 1,
+      "impressions": 3,
+      "clicks": 0
+    },
+    {
+      "family": "moving-to-texas?originState=South%20Carolina",
+      "pages": 1,
+      "impressions": 3,
+      "clicks": 0
+    },
+    {
+      "family": "property-tax-calculators",
+      "pages": 1,
+      "impressions": 3,
+      "clicks": 0
+    },
+    {
+      "family": "texas-gospel-rnb-pop",
+      "pages": 1,
+      "impressions": 3,
+      "clicks": 0
+    },
+    {
+      "family": "agency",
+      "pages": 2,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "partner-with-us?type=sports-travel&source=%2Fsports-venue%2Fmckinney-isd-stadium",
+      "pages": 1,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "tax-office",
+      "pages": 1,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "texas-dance-halls-honky-tonks",
+      "pages": 1,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-bill-breakdown",
+      "pages": 1,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "texas-property-tax-protest-savings-calculator",
+      "pages": 1,
+      "impressions": 2,
+      "clicks": 0
+    },
+    {
+      "family": "corrections-policy",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "events?start=2026-11-27&end=2026-11-27",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "moving-to-texas?originState=Rhode%20Island",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "national-forest",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "sourcing-methodology",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "texas-capital-designations",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "texas-home-equity-growth-calculator",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "texas-old-west",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "texas-rent-vs-buy-calculator",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    },
+    {
+      "family": "texas-tall-tales-folklore",
+      "pages": 1,
+      "impressions": 1,
+      "clicks": 0
+    }
+  ],
+  "ctrReviewCandidates": [
+    {
+      "path": "/article/texas-high-school-football-playoffs-explained",
+      "clicks": 93,
+      "impressions": 6893,
+      "ctr": 0.013491948353402002,
+      "averagePosition": 5.733932975482373
+    },
+    {
+      "path": "/article/texas-rivers-explained",
+      "clicks": 8,
+      "impressions": 2841,
+      "ctr": 0.0028159098908834917,
+      "averagePosition": 8.745864132347766
+    },
+    {
+      "path": "/article/texas-six-man-football-rules-explained",
+      "clicks": 11,
+      "impressions": 1413,
+      "ctr": 0.00778485491861288,
+      "averagePosition": 6.352441613588111
+    },
+    {
+      "path": "/things-unique-to-texas",
+      "clicks": 9,
+      "impressions": 899,
+      "ctr": 0.010011123470522803,
+      "averagePosition": 11.57397107897664
+    },
+    {
+      "path": "/texas-homecoming-mums",
+      "clicks": 3,
+      "impressions": 861,
+      "ctr": 0.003484320557491289,
+      "averagePosition": 8.587688734030198
+    },
+    {
+      "path": "/texas-state-fair",
+      "clicks": 2,
+      "impressions": 794,
+      "ctr": 0.0025188916876574307,
+      "averagePosition": 11.486146095717885
+    },
+    {
+      "path": "/article/texas-lakes-reservoirs-explained",
+      "clicks": 7,
+      "impressions": 742,
+      "ctr": 0.009433962264150943,
+      "averagePosition": 11.607816711590296
+    },
+    {
+      "path": "/sports-venue/freeman-coliseum",
+      "clicks": 1,
+      "impressions": 677,
+      "ctr": 0.0014771048744460858,
+      "averagePosition": 9.1506646971935
+    },
+    {
+      "path": "/texas-high-school-football-teams/aledo",
+      "clicks": 1,
+      "impressions": 590,
+      "ctr": 0.001694915254237288,
+      "averagePosition": 8.58813559322034
+    },
+    {
+      "path": "/explore/casinos/naskila-leggett",
+      "clicks": 4,
+      "impressions": 570,
+      "ctr": 0.007017543859649123,
+      "averagePosition": 10.029824561403508
+    },
+    {
+      "path": "/article/texas-major-cities-regional-differences",
+      "clicks": 7,
+      "impressions": 564,
+      "ctr": 0.012411347517730497,
+      "averagePosition": 11.299645390070921
+    },
+    {
+      "path": "/article/texas-highway-designations-explained",
+      "clicks": 6,
+      "impressions": 523,
+      "ctr": 0.011472275334608031,
+      "averagePosition": 6.474187380497132
+    },
+    {
+      "path": "/texas-high-school-football-teams/southlake-carroll",
+      "clicks": 3,
+      "impressions": 479,
+      "ctr": 0.006263048016701462,
+      "averagePosition": 7.576200417536534
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-6",
+      "clicks": 5,
+      "impressions": 467,
+      "ctr": 0.010706638115631691,
+      "averagePosition": 8.094218415417558
+    },
+    {
+      "path": "/article/texas-ecoregions-habitats-guide",
+      "clicks": 2,
+      "impressions": 460,
+      "ctr": 0.004347826086956522,
+      "averagePosition": 8.493478260869566
+    },
+    {
+      "path": "/sports-venue/datcu-stadium",
+      "clicks": 0,
+      "impressions": 451,
+      "ctr": 0,
+      "averagePosition": 9.416851441241684
+    },
+    {
+      "path": "/texas-high-school-football-districts/4a-division-i-district-1",
+      "clicks": 2,
+      "impressions": 448,
+      "ctr": 0.004464285714285714,
+      "averagePosition": 8.174107142857142
+    },
+    {
+      "path": "/event/polar-express-palestine",
+      "clicks": 3,
+      "impressions": 436,
+      "ctr": 0.006880733944954129,
+      "averagePosition": 9.149082568807339
+    },
+    {
+      "path": "/article/texas-river-basins-guide",
+      "clicks": 0,
+      "impressions": 436,
+      "ctr": 0,
+      "averagePosition": 7.722477064220183
+    },
+    {
+      "path": "/texas-high-school-football-teams",
+      "clicks": 1,
+      "impressions": 397,
+      "ctr": 0.0025188916876574307,
+      "averagePosition": 11.967254408060453
+    },
+    {
+      "path": "/texas-high-school-football-districts",
+      "clicks": 4,
+      "impressions": 377,
+      "ctr": 0.010610079575596816,
+      "averagePosition": 7.641909814323608
+    },
+    {
+      "path": "/article/texas-school-districts-explained",
+      "clicks": 1,
+      "impressions": 377,
+      "ctr": 0.002652519893899204,
+      "averagePosition": 7.3315649867374
+    },
+    {
+      "path": "/article/spanish-texas-military-battle-medina",
+      "clicks": 0,
+      "impressions": 364,
+      "ctr": 0,
+      "averagePosition": 8.14010989010989
+    },
+    {
+      "path": "/article/texas-settlement-patterns-explained",
+      "clicks": 2,
+      "impressions": 357,
+      "ctr": 0.0056022408963585435,
+      "averagePosition": 5.159663865546219
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-26",
+      "clicks": 7,
+      "impressions": 355,
+      "ctr": 0.01971830985915493,
+      "averagePosition": 7.938028169014085
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-i-district-1",
+      "clicks": 3,
+      "impressions": 351,
+      "ctr": 0.008547008547008548,
+      "averagePosition": 9.227920227920228
+    },
+    {
+      "path": "/texas-high-school-football-teams/bandera",
+      "clicks": 4,
+      "impressions": 348,
+      "ctr": 0.011494252873563218,
+      "averagePosition": 7.614942528735632
+    },
+    {
+      "path": "/texas-high-school-football-districts/3a-division-i-district-1",
+      "clicks": 3,
+      "impressions": 342,
+      "ctr": 0.008771929824561403,
+      "averagePosition": 8.114035087719298
+    },
+    {
+      "path": "/event/bands-of-america-san-antonio-super-regional",
+      "clicks": 1,
+      "impressions": 330,
+      "ctr": 0.0030303030303030303,
+      "averagePosition": 9.354545454545455
+    },
+    {
+      "path": "/texas-high-school-football-teams/katy",
+      "clicks": 2,
+      "impressions": 327,
+      "ctr": 0.0061162079510703364,
+      "averagePosition": 8.149847094801224
+    },
+    {
+      "path": "/explore/near/tyler/small-towns-1-hour",
+      "clicks": 0,
+      "impressions": 324,
+      "ctr": 0,
+      "averagePosition": 12.212962962962964
+    },
+    {
+      "path": "/texas-high-school-football-teams/north-crowley",
+      "clicks": 1,
+      "impressions": 321,
+      "ctr": 0.003115264797507788,
+      "averagePosition": 7.426791277258567
+    },
+    {
+      "path": "/texas-high-school-football-championship-history",
+      "clicks": 0,
+      "impressions": 313,
+      "ctr": 0,
+      "averagePosition": 9.338658146964857
+    },
+    {
+      "path": "/texas-high-school-football-teams/bartlett",
+      "clicks": 2,
+      "impressions": 305,
+      "ctr": 0.006557377049180328,
+      "averagePosition": 7.459016393442623
+    },
+    {
+      "path": "/texas-high-school-football-teams/celina",
+      "clicks": 1,
+      "impressions": 304,
+      "ctr": 0.003289473684210526,
+      "averagePosition": 6.717105263157895
+    },
+    {
+      "path": "/article/texas-cultural-regions-explained",
+      "clicks": 2,
+      "impressions": 303,
+      "ctr": 0.006600660066006601,
+      "averagePosition": 6.075907590759076
+    },
+    {
+      "path": "/texas-high-school-football-teams/longview",
+      "clicks": 1,
+      "impressions": 288,
+      "ctr": 0.003472222222222222,
+      "averagePosition": 9.21875
+    },
+    {
+      "path": "/horse-racing",
+      "clicks": 1,
+      "impressions": 287,
+      "ctr": 0.003484320557491289,
+      "averagePosition": 10.89198606271777
+    },
+    {
+      "path": "/explore/near/dallas/small-towns",
+      "clicks": 0,
+      "impressions": 286,
+      "ctr": 0,
+      "averagePosition": 18.622377622377623
+    },
+    {
+      "path": "/sports-venue/united-supermarkets-arena",
+      "clicks": 0,
+      "impressions": 284,
+      "ctr": 0,
+      "averagePosition": 10.102112676056338
+    },
+    {
+      "path": "/texas-high-school-football-teams/aubrey",
+      "clicks": 4,
+      "impressions": 272,
+      "ctr": 0.014705882352941176,
+      "averagePosition": 7.735294117647059
+    },
+    {
+      "path": "/texas-high-school-football-teams/allen",
+      "clicks": 0,
+      "impressions": 267,
+      "ctr": 0,
+      "averagePosition": 7.662921348314606
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-28",
+      "clicks": 3,
+      "impressions": 251,
+      "ctr": 0.01195219123505976,
+      "averagePosition": 8.673306772908367
+    },
+    {
+      "path": "/events/fall-festivals",
+      "clicks": 3,
+      "impressions": 250,
+      "ctr": 0.012,
+      "averagePosition": 8.783999999999999
+    },
+    {
+      "path": "/explore/landscapes/where-does-texas-turn-into-desert",
+      "clicks": 0,
+      "impressions": 248,
+      "ctr": 0,
+      "averagePosition": 8.193548387096774
+    },
+    {
+      "path": "/article/texas-farm-to-market-roads-explained",
+      "clicks": 2,
+      "impressions": 243,
+      "ctr": 0.00823045267489712,
+      "averagePosition": 9.452674897119342
+    },
+    {
+      "path": "/explore/landscapes",
+      "clicks": 3,
+      "impressions": 241,
+      "ctr": 0.012448132780082987,
+      "averagePosition": 7.556016597510373
+    },
+    {
+      "path": "/texas-high-school-football-teams/duncanville",
+      "clicks": 2,
+      "impressions": 238,
+      "ctr": 0.008403361344537815,
+      "averagePosition": 8.764705882352942
+    },
+    {
+      "path": "/texas-high-school-football-teams/melissa",
+      "clicks": 1,
+      "impressions": 234,
+      "ctr": 0.004273504273504274,
+      "averagePosition": 9.004273504273504
+    },
+    {
+      "path": "/texas-industries",
+      "clicks": 2,
+      "impressions": 232,
+      "ctr": 0.008620689655172414,
+      "averagePosition": 17.04741379310345
+    },
+    {
+      "path": "/explore/near/houston/small-towns",
+      "clicks": 1,
+      "impressions": 229,
+      "ctr": 0.004366812227074236,
+      "averagePosition": 16.912663755458517
+    },
+    {
+      "path": "/sports-venue/don-haskins-center",
+      "clicks": 0,
+      "impressions": 229,
+      "ctr": 0,
+      "averagePosition": 14.799126637554584
+    },
+    {
+      "path": "/explore/near/abilene/small-towns-1-hour",
+      "clicks": 0,
+      "impressions": 227,
+      "ctr": 0,
+      "averagePosition": 11.69603524229075
+    },
+    {
+      "path": "/texas-high-school-football-teams/lindale",
+      "clicks": 3,
+      "impressions": 226,
+      "ctr": 0.01327433628318584,
+      "averagePosition": 6.95575221238938
+    },
+    {
+      "path": "/texas-high-school-football-teams/odessa-permian",
+      "clicks": 1,
+      "impressions": 226,
+      "ctr": 0.004424778761061947,
+      "averagePosition": 8.163716814159292
+    },
+    {
+      "path": "/texas-high-school-football-teams/athens",
+      "clicks": 1,
+      "impressions": 223,
+      "ctr": 0.004484304932735426,
+      "averagePosition": 7.538116591928251
+    },
+    {
+      "path": "/article/texas-rio-grande-river-guide",
+      "clicks": 0,
+      "impressions": 222,
+      "ctr": 0,
+      "averagePosition": 8.252252252252251
+    },
+    {
+      "path": "/texas-high-school-football-teams/austin-vandegrift",
+      "clicks": 0,
+      "impressions": 221,
+      "ctr": 0,
+      "averagePosition": 9.352941176470589
+    },
+    {
+      "path": "/texas-high-school-football-teams/lubbock-cooper-liberty",
+      "clicks": 4,
+      "impressions": 220,
+      "ctr": 0.01818181818181818,
+      "averagePosition": 7.995454545454545
+    },
+    {
+      "path": "/texas-high-school-football-teams/waxahachie",
+      "clicks": 1,
+      "impressions": 220,
+      "ctr": 0.004545454545454545,
+      "averagePosition": 8.059090909090909
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-23",
+      "clicks": 4,
+      "impressions": 219,
+      "ctr": 0.0182648401826484,
+      "averagePosition": 6.8493150684931505
+    },
+    {
+      "path": "/texas-high-school-football-teams/rule",
+      "clicks": 0,
+      "impressions": 216,
+      "ctr": 0,
+      "averagePosition": 7.8842592592592595
+    },
+    {
+      "path": "/article/six-flags-over-texas-meaning",
+      "clicks": 1,
+      "impressions": 213,
+      "ctr": 0.004694835680751174,
+      "averagePosition": 15.572769953051644
+    },
+    {
+      "path": "/texas-two-step",
+      "clicks": 0,
+      "impressions": 212,
+      "ctr": 0,
+      "averagePosition": 13.14622641509434
+    },
+    {
+      "path": "/texas-high-school-football-teams/kerrville-tivy",
+      "clicks": 1,
+      "impressions": 211,
+      "ctr": 0.004739336492890996,
+      "averagePosition": 8
+    },
+    {
+      "path": "/hunting/annual-public-hunting-permit",
+      "clicks": 2,
+      "impressions": 210,
+      "ctr": 0.009523809523809525,
+      "averagePosition": 9.447619047619048
+    },
+    {
+      "path": "/texas-high-school-football-teams/frisco-wakeland",
+      "clicks": 2,
+      "impressions": 210,
+      "ctr": 0.009523809523809525,
+      "averagePosition": 9.028571428571428
+    },
+    {
+      "path": "/texas-toll-tags",
+      "clicks": 1,
+      "impressions": 210,
+      "ctr": 0.004761904761904762,
+      "averagePosition": 18.247619047619047
+    },
+    {
+      "path": "/texas-high-school-football-teams/alvin-shadow-creek",
+      "clicks": 2,
+      "impressions": 206,
+      "ctr": 0.009708737864077669,
+      "averagePosition": 8.04368932038835
+    },
+    {
+      "path": "/destination/magnolia-market-at-the-silos",
+      "clicks": 0,
+      "impressions": 206,
+      "ctr": 0,
+      "averagePosition": 19.95145631067961
+    },
+    {
+      "path": "/texas-high-school-football-districts/2a-division-i-district-2",
+      "clicks": 1,
+      "impressions": 204,
+      "ctr": 0.004901960784313725,
+      "averagePosition": 7.700980392156863
+    },
+    {
+      "path": "/explore/near/san-angelo/small-towns-1-hour",
+      "clicks": 0,
+      "impressions": 204,
+      "ctr": 0,
+      "averagePosition": 8.230392156862745
+    },
+    {
+      "path": "/texas-high-school-football-teams/bastrop",
+      "clicks": 1,
+      "impressions": 202,
+      "ctr": 0.0049504950495049506,
+      "averagePosition": 7.772277227722772
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-6",
+      "clicks": 2,
+      "impressions": 201,
+      "ctr": 0.009950248756218905,
+      "averagePosition": 9.562189054726367
+    },
+    {
+      "path": "/article/texas-ranch-to-market-roads-explained",
+      "clicks": 0,
+      "impressions": 194,
+      "ctr": 0,
+      "averagePosition": 7.041237113402062
+    },
+    {
+      "path": "/explore/near/houston/small-towns-3-hours",
+      "clicks": 0,
+      "impressions": 193,
+      "ctr": 0,
+      "averagePosition": 15.471502590673575
+    },
+    {
+      "path": "/texas-high-school-football-teams/austin-westlake",
+      "clicks": 2,
+      "impressions": 192,
+      "ctr": 0.010416666666666666,
+      "averagePosition": 7.442708333333333
+    },
+    {
+      "path": "/things-unique-to-texas/texas-brands",
+      "clicks": 1,
+      "impressions": 191,
+      "ctr": 0.005235602094240838,
+      "averagePosition": 8.256544502617801
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-13",
+      "clicks": 2,
+      "impressions": 190,
+      "ctr": 0.010526315789473684,
+      "averagePosition": 7.815789473684211
+    },
+    {
+      "path": "/texas-high-school-football-teams/lewisville-flower-mound",
+      "clicks": 1,
+      "impressions": 189,
+      "ctr": 0.005291005291005291,
+      "averagePosition": 6.783068783068783
+    },
+    {
+      "path": "/texas-utility-cost-calculator",
+      "clicks": 1,
+      "impressions": 185,
+      "ctr": 0.005405405405405406,
+      "averagePosition": 7.572972972972973
+    },
+    {
+      "path": "/find-my-school-district",
+      "clicks": 1,
+      "impressions": 181,
+      "ctr": 0.0055248618784530384,
+      "averagePosition": 15.193370165745856
+    },
+    {
+      "path": "/texas-high-school-football-teams/austin-lasa",
+      "clicks": 2,
+      "impressions": 180,
+      "ctr": 0.011111111111111112,
+      "averagePosition": 8.35
+    },
+    {
+      "path": "/event/heart-o-texas-fair-rodeo",
+      "clicks": 0,
+      "impressions": 180,
+      "ctr": 0,
+      "averagePosition": 8.005555555555556
+    },
+    {
+      "path": "/texas-high-school-football-teams/comal-smithson-valley",
+      "clicks": 1,
+      "impressions": 177,
+      "ctr": 0.005649717514124294,
+      "averagePosition": 7.5875706214689265
+    },
+    {
+      "path": "/explore/near/abilene/small-towns-3-hours",
+      "clicks": 0,
+      "impressions": 177,
+      "ctr": 0,
+      "averagePosition": 8.853107344632768
+    },
+    {
+      "path": "/texas-high-school-football-teams/dallas-highland-park",
+      "clicks": 1,
+      "impressions": 176,
+      "ctr": 0.005681818181818182,
+      "averagePosition": 6.846590909090909
+    },
+    {
+      "path": "/article/texas-trinity-river-guide",
+      "clicks": 0,
+      "impressions": 176,
+      "ctr": 0,
+      "averagePosition": 8.818181818181818
+    },
+    {
+      "path": "/texas-high-school-football-teams/frisco-lone-star",
+      "clicks": 3,
+      "impressions": 172,
+      "ctr": 0.01744186046511628,
+      "averagePosition": 6.8895348837209305
+    },
+    {
+      "path": "/texas-high-school-football-teams/mckinney-north",
+      "clicks": 3,
+      "impressions": 168,
+      "ctr": 0.017857142857142856,
+      "averagePosition": 17.666666666666668
+    },
+    {
+      "path": "/texas-high-school-football-teams/forney",
+      "clicks": 0,
+      "impressions": 168,
+      "ctr": 0,
+      "averagePosition": 9.81547619047619
+    },
+    {
+      "path": "/texas-high-school-football-teams/keller",
+      "clicks": 2,
+      "impressions": 167,
+      "ctr": 0.011976047904191617,
+      "averagePosition": 9.497005988023952
+    },
+    {
+      "path": "/texas-high-school-football-teams/arlington-martin",
+      "clicks": 1,
+      "impressions": 166,
+      "ctr": 0.006024096385542169,
+      "averagePosition": 6.873493975903615
+    },
+    {
+      "path": "/texas-high-school-football-teams/waco-midway",
+      "clicks": 2,
+      "impressions": 159,
+      "ctr": 0.012578616352201259,
+      "averagePosition": 9.226415094339623
+    },
+    {
+      "path": "/texas-high-school-football-teams/mesquite",
+      "clicks": 1,
+      "impressions": 159,
+      "ctr": 0.006289308176100629,
+      "averagePosition": 7.861635220125786
+    },
+    {
+      "path": "/texas-high-school-football-teams/pflugerville-hendrickson",
+      "clicks": 2,
+      "impressions": 158,
+      "ctr": 0.012658227848101266,
+      "averagePosition": 9.265822784810126
+    },
+    {
+      "path": "/explore/near/abilene/small-towns",
+      "clicks": 2,
+      "impressions": 156,
+      "ctr": 0.01282051282051282,
+      "averagePosition": 7.314102564102564
+    },
+    {
+      "path": "/texas-high-school-football-teams/dallas-south-oak-cliff",
+      "clicks": 1,
+      "impressions": 156,
+      "ctr": 0.00641025641025641,
+      "averagePosition": 6.884615384615385
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-3",
+      "clicks": 3,
+      "impressions": 155,
+      "ctr": 0.01935483870967742,
+      "averagePosition": 5.838709677419355
+    },
+    {
+      "path": "/texas-high-school-football-teams/salado",
+      "clicks": 3,
+      "impressions": 155,
+      "ctr": 0.01935483870967742,
+      "averagePosition": 6.15483870967742
+    },
+    {
+      "path": "/texas-high-school-football-districts/1a-division-i-district-1",
+      "clicks": 0,
+      "impressions": 154,
+      "ctr": 0,
+      "averagePosition": 10.058441558441558
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-2",
+      "clicks": 2,
+      "impressions": 153,
+      "ctr": 0.013071895424836602,
+      "averagePosition": 7.222222222222222
+    },
+    {
+      "path": "/article/best-lighthouses-to-visit-in-texas",
+      "clicks": 1,
+      "impressions": 152,
+      "ctr": 0.006578947368421052,
+      "averagePosition": 13.881578947368421
+    },
+    {
+      "path": "/texas-high-school-football-teams/weatherford",
+      "clicks": 1,
+      "impressions": 152,
+      "ctr": 0.006578947368421052,
+      "averagePosition": 7.75
+    },
+    {
+      "path": "/texas-high-school-football-teams/alief-taylor",
+      "clicks": 2,
+      "impressions": 150,
+      "ctr": 0.013333333333333334,
+      "averagePosition": 7.413333333333333
+    },
+    {
+      "path": "/explore/near/waco/small-towns-3-hours",
+      "clicks": 1,
+      "impressions": 149,
+      "ctr": 0.006711409395973154,
+      "averagePosition": 9.046979865771812
+    },
+    {
+      "path": "/texas-high-school-football-teams/garland-sachse",
+      "clicks": 0,
+      "impressions": 149,
+      "ctr": 0,
+      "averagePosition": 8.221476510067113
+    },
+    {
+      "path": "/explore/near/college-station/small-towns-3-hours",
+      "clicks": 1,
+      "impressions": 148,
+      "ctr": 0.006756756756756757,
+      "averagePosition": 6.878378378378378
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-7",
+      "clicks": 0,
+      "impressions": 146,
+      "ctr": 0,
+      "averagePosition": 7.5
+    },
+    {
+      "path": "/explore/near/texarkana",
+      "clicks": 1,
+      "impressions": 145,
+      "ctr": 0.006896551724137931,
+      "averagePosition": 9.282758620689656
+    },
+    {
+      "path": "/texas-high-school-football-teams/ballinger",
+      "clicks": 2,
+      "impressions": 144,
+      "ctr": 0.013888888888888888,
+      "averagePosition": 8.256944444444445
+    },
+    {
+      "path": "/texas-high-school-football-teams/tyler-legacy",
+      "clicks": 1,
+      "impressions": 144,
+      "ctr": 0.006944444444444444,
+      "averagePosition": 8.347222222222221
+    },
+    {
+      "path": "/texas-high-school-football-teams/san-antonio-alamo-heights",
+      "clicks": 2,
+      "impressions": 143,
+      "ctr": 0.013986013986013986,
+      "averagePosition": 6.468531468531468
+    },
+    {
+      "path": "/texas-high-school-football-teams/anna",
+      "clicks": 0,
+      "impressions": 141,
+      "ctr": 0,
+      "averagePosition": 9.26241134751773
+    },
+    {
+      "path": "/texas-high-school-football-teams/amarillo-palo-duro",
+      "clicks": 1,
+      "impressions": 140,
+      "ctr": 0.007142857142857143,
+      "averagePosition": 7.7
+    },
+    {
+      "path": "/explore/landscapes/south-texas-brush-country",
+      "clicks": 0,
+      "impressions": 139,
+      "ctr": 0,
+      "averagePosition": 6.676258992805756
+    },
+    {
+      "path": "/texas-high-school-football-teams/port-neches-groves",
+      "clicks": 0,
+      "impressions": 139,
+      "ctr": 0,
+      "averagePosition": 8.705035971223023
+    },
+    {
+      "path": "/texas-high-school-football-teams/round-rock-mcneil",
+      "clicks": 0,
+      "impressions": 139,
+      "ctr": 0,
+      "averagePosition": 7.64748201438849
+    },
+    {
+      "path": "/texas-high-school-football-teams/van-alstyne",
+      "clicks": 0,
+      "impressions": 139,
+      "ctr": 0,
+      "averagePosition": 7.201438848920863
+    },
+    {
+      "path": "/texas-high-school-football-teams/midlothian",
+      "clicks": 1,
+      "impressions": 138,
+      "ctr": 0.007246376811594203,
+      "averagePosition": 7.3768115942028984
+    },
+    {
+      "path": "/explore/near/texarkana/small-towns",
+      "clicks": 2,
+      "impressions": 136,
+      "ctr": 0.014705882352941176,
+      "averagePosition": 8.75
+    },
+    {
+      "path": "/texas-high-school-football-teams/college-station",
+      "clicks": 2,
+      "impressions": 136,
+      "ctr": 0.014705882352941176,
+      "averagePosition": 5.8088235294117645
+    },
+    {
+      "path": "/texas-high-school-football-teams/argyle",
+      "clicks": 1,
+      "impressions": 136,
+      "ctr": 0.007352941176470588,
+      "averagePosition": 10.580882352941176
+    },
+    {
+      "path": "/texas-high-school-football-teams/garland-naaman-forest",
+      "clicks": 1,
+      "impressions": 136,
+      "ctr": 0.007352941176470588,
+      "averagePosition": 7.6838235294117645
+    },
+    {
+      "path": "/sports/softball",
+      "clicks": 0,
+      "impressions": 136,
+      "ctr": 0,
+      "averagePosition": 14.522058823529411
+    },
+    {
+      "path": "/event/red-river-rivalry",
+      "clicks": 0,
+      "impressions": 134,
+      "ctr": 0,
+      "averagePosition": 8.843283582089551
+    },
+    {
+      "path": "/article/texas-brazos-river-guide",
+      "clicks": 1,
+      "impressions": 133,
+      "ctr": 0.007518796992481203,
+      "averagePosition": 11.308270676691729
+    },
+    {
+      "path": "/article/texas-wildlife-guide",
+      "clicks": 2,
+      "impressions": 132,
+      "ctr": 0.015151515151515152,
+      "averagePosition": 16.06818181818182
+    },
+    {
+      "path": "/texas-high-school-football-teams/boerne-champion",
+      "clicks": 2,
+      "impressions": 131,
+      "ctr": 0.015267175572519083,
+      "averagePosition": 6.427480916030534
+    },
+    {
+      "path": "/texas-high-school-football-teams/whitehouse",
+      "clicks": 1,
+      "impressions": 130,
+      "ctr": 0.007692307692307693,
+      "averagePosition": 6.538461538461538
+    },
+    {
+      "path": "/texas-high-school-football-teams/lorena",
+      "clicks": 2,
+      "impressions": 128,
+      "ctr": 0.015625,
+      "averagePosition": 8.078125
+    },
+    {
+      "path": "/texas-high-school-football-teams/italy",
+      "clicks": 1,
+      "impressions": 128,
+      "ctr": 0.0078125,
+      "averagePosition": 7.40625
+    },
+    {
+      "path": "/texas-high-school-football-teams/anahuac",
+      "clicks": 1,
+      "impressions": 127,
+      "ctr": 0.007874015748031496,
+      "averagePosition": 6.622047244094488
+    },
+    {
+      "path": "/texas-high-school-football-teams/anderson-shiro",
+      "clicks": 1,
+      "impressions": 127,
+      "ctr": 0.007874015748031496,
+      "averagePosition": 7.653543307086614
+    },
+    {
+      "path": "/texas-high-school-football-teams/ennis",
+      "clicks": 1,
+      "impressions": 127,
+      "ctr": 0.007874015748031496,
+      "averagePosition": 6.866141732283465
+    },
+    {
+      "path": "/texas-high-school-football-teams/caddo-mills",
+      "clicks": 1,
+      "impressions": 126,
+      "ctr": 0.007936507936507936,
+      "averagePosition": 6.436507936507937
+    },
+    {
+      "path": "/article/texas-trees-guide",
+      "clicks": 0,
+      "impressions": 126,
+      "ctr": 0,
+      "averagePosition": 9.642857142857142
+    },
+    {
+      "path": "/event/texas-rose-festival",
+      "clicks": 0,
+      "impressions": 126,
+      "ctr": 0,
+      "averagePosition": 8.420634920634921
+    },
+    {
+      "path": "/explore/near/corpus-christi/small-towns",
+      "clicks": 0,
+      "impressions": 126,
+      "ctr": 0,
+      "averagePosition": 8.142857142857142
+    },
+    {
+      "path": "/texas-high-school-football-teams/frisco",
+      "clicks": 2,
+      "impressions": 125,
+      "ctr": 0.016,
+      "averagePosition": 10.376
+    },
+    {
+      "path": "/article/texas-home-architecture-regions",
+      "clicks": 0,
+      "impressions": 125,
+      "ctr": 0,
+      "averagePosition": 13.904
+    },
+    {
+      "path": "/texas-high-school-football-teams/angleton",
+      "clicks": 0,
+      "impressions": 125,
+      "ctr": 0,
+      "averagePosition": 6.608
+    },
+    {
+      "path": "/texas-high-school-football-teams/big-sandy-harmony",
+      "clicks": 0,
+      "impressions": 125,
+      "ctr": 0,
+      "averagePosition": 7.176
+    },
+    {
+      "path": "/texas-high-school-football-districts/6a-district-12",
+      "clicks": 2,
+      "impressions": 124,
+      "ctr": 0.016129032258064516,
+      "averagePosition": 7.862903225806452
+    },
+    {
+      "path": "/explore/near/killeen-temple/lakes-rivers",
+      "clicks": 1,
+      "impressions": 124,
+      "ctr": 0.008064516129032258,
+      "averagePosition": 10.185483870967742
+    },
+    {
+      "path": "/texas-high-school-football-teams/burleson-centennial",
+      "clicks": 1,
+      "impressions": 124,
+      "ctr": 0.008064516129032258,
+      "averagePosition": 7.42741935483871
+    },
+    {
+      "path": "/destination/galveston-bay",
+      "clicks": 0,
+      "impressions": 124,
+      "ctr": 0,
+      "averagePosition": 15.596774193548388
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-1",
+      "clicks": 0,
+      "impressions": 124,
+      "ctr": 0,
+      "averagePosition": 9.564516129032258
+    },
+    {
+      "path": "/texas-high-school-football-teams/fort-worth-chisholm-trail",
+      "clicks": 1,
+      "impressions": 123,
+      "ctr": 0.008130081300813009,
+      "averagePosition": 6.9105691056910565
+    },
+    {
+      "path": "/texas-high-school-football-teams/plano-east",
+      "clicks": 1,
+      "impressions": 123,
+      "ctr": 0.008130081300813009,
+      "averagePosition": 7.59349593495935
+    },
+    {
+      "path": "/texas-high-school-football-teams/bridgeland",
+      "clicks": 0,
+      "impressions": 123,
+      "ctr": 0,
+      "averagePosition": 7.349593495934959
+    },
+    {
+      "path": "/texas-high-school-football-teams/gilmer",
+      "clicks": 0,
+      "impressions": 123,
+      "ctr": 0,
+      "averagePosition": 6.186991869918699
+    },
+    {
+      "path": "/texas-high-school-football-teams/little-elm",
+      "clicks": 2,
+      "impressions": 122,
+      "ctr": 0.01639344262295082,
+      "averagePosition": 7.155737704918033
+    },
+    {
+      "path": "/texas-high-school-football-teams/rockwall",
+      "clicks": 0,
+      "impressions": 122,
+      "ctr": 0,
+      "averagePosition": 6.286885245901639
+    },
+    {
+      "path": "/texas-high-school-football-districts/4a-division-ii-district-9",
+      "clicks": 2,
+      "impressions": 120,
+      "ctr": 0.016666666666666666,
+      "averagePosition": 6.925
+    },
+    {
+      "path": "/texas-high-school-football-districts/2a-division-ii-district-2",
+      "clicks": 1,
+      "impressions": 120,
+      "ctr": 0.008333333333333333,
+      "averagePosition": 6.216666666666667
+    },
+    {
+      "path": "/texas-high-school-football-teams/sanger",
+      "clicks": 1,
+      "impressions": 120,
+      "ctr": 0.008333333333333333,
+      "averagePosition": 7.15
+    },
+    {
+      "path": "/sports-venue/reed-arena",
+      "clicks": 0,
+      "impressions": 120,
+      "ctr": 0,
+      "averagePosition": 12.358333333333333
+    },
+    {
+      "path": "/texas-high-school-football-teams/lewisville-hebron",
+      "clicks": 0,
+      "impressions": 120,
+      "ctr": 0,
+      "averagePosition": 7.183333333333334
+    },
+    {
+      "path": "/texas-high-school-football-teams/meridian",
+      "clicks": 0,
+      "impressions": 120,
+      "ctr": 0,
+      "averagePosition": 7.725
+    },
+    {
+      "path": "/texas-high-school-football-teams/bellville",
+      "clicks": 1,
+      "impressions": 119,
+      "ctr": 0.008403361344537815,
+      "averagePosition": 8.033613445378151
+    },
+    {
+      "path": "/texas-high-school-football-teams/decatur",
+      "clicks": 1,
+      "impressions": 119,
+      "ctr": 0.008403361344537815,
+      "averagePosition": 6.798319327731092
+    },
+    {
+      "path": "/texas-high-school-football-teams/arlington",
+      "clicks": 1,
+      "impressions": 118,
+      "ctr": 0.00847457627118644,
+      "averagePosition": 8.745762711864407
+    },
+    {
+      "path": "/texas-high-school-football-teams/temple",
+      "clicks": 1,
+      "impressions": 117,
+      "ctr": 0.008547008547008548,
+      "averagePosition": 11.222222222222221
+    },
+    {
+      "path": "/sports-venue/childrens-health-stadium-prosper",
+      "clicks": 0,
+      "impressions": 117,
+      "ctr": 0,
+      "averagePosition": 8.923076923076923
+    },
+    {
+      "path": "/texas-high-school-football-teams/crandall",
+      "clicks": 0,
+      "impressions": 116,
+      "ctr": 0,
+      "averagePosition": 5.663793103448276
+    },
+    {
+      "path": "/article/texas-german-belt",
+      "clicks": 2,
+      "impressions": 115,
+      "ctr": 0.017391304347826087,
+      "averagePosition": 9.8
+    },
+    {
+      "path": "/texas-high-school-football-teams/jefferson",
+      "clicks": 1,
+      "impressions": 115,
+      "ctr": 0.008695652173913044,
+      "averagePosition": 6.095652173913043
+    },
+    {
+      "path": "/texas-high-school-football-teams/lancaster",
+      "clicks": 1,
+      "impressions": 115,
+      "ctr": 0.008695652173913044,
+      "averagePosition": 5.6173913043478265
+    },
+    {
+      "path": "/texas-high-school-football-teams/pflugerville-weiss",
+      "clicks": 1,
+      "impressions": 115,
+      "ctr": 0.008695652173913044,
+      "averagePosition": 10.852173913043478
+    },
+    {
+      "path": "/explore/near/houston/state-parks",
+      "clicks": 0,
+      "impressions": 115,
+      "ctr": 0,
+      "averagePosition": 17.243478260869566
+    },
+    {
+      "path": "/texas-high-school-football-teams/lake-belton",
+      "clicks": 0,
+      "impressions": 115,
+      "ctr": 0,
+      "averagePosition": 8.791304347826088
+    },
+    {
+      "path": "/explore/landscapes/most-beautiful-landscapes-in-texas",
+      "clicks": 0,
+      "impressions": 114,
+      "ctr": 0,
+      "averagePosition": 7.982456140350878
+    },
+    {
+      "path": "/texas-high-school-football-teams/dripping-springs",
+      "clicks": 0,
+      "impressions": 114,
+      "ctr": 0,
+      "averagePosition": 8.81578947368421
+    },
+    {
+      "path": "/texas-high-school-football-teams/floresville",
+      "clicks": 0,
+      "impressions": 114,
+      "ctr": 0,
+      "averagePosition": 6.228070175438597
+    },
+    {
+      "path": "/event/charro-days-fiesta",
+      "clicks": 1,
+      "impressions": 113,
+      "ctr": 0.008849557522123894,
+      "averagePosition": 5.982300884955753
+    },
+    {
+      "path": "/texas-high-school-football-teams/houston-strake-jesuit",
+      "clicks": 1,
+      "impressions": 113,
+      "ctr": 0.008849557522123894,
+      "averagePosition": 10.91150442477876
+    },
+    {
+      "path": "/texas-high-school-football-teams/denton",
+      "clicks": 0,
+      "impressions": 113,
+      "ctr": 0,
+      "averagePosition": 8.504424778761063
+    },
+    {
+      "path": "/texas-high-school-football-teams/mesquite-poteet",
+      "clicks": 0,
+      "impressions": 113,
+      "ctr": 0,
+      "averagePosition": 5.68141592920354
+    },
+    {
+      "path": "/texas-high-school-football-teams/royse-city",
+      "clicks": 0,
+      "impressions": 113,
+      "ctr": 0,
+      "averagePosition": 6.6371681415929205
+    },
+    {
+      "path": "/texas-high-school-football-teams/devine",
+      "clicks": 2,
+      "impressions": 112,
+      "ctr": 0.017857142857142856,
+      "averagePosition": 5.848214285714286
+    },
+    {
+      "path": "/sports-venue/tdecu-stadium",
+      "clicks": 0,
+      "impressions": 112,
+      "ctr": 0,
+      "averagePosition": 9.589285714285714
+    },
+    {
+      "path": "/texas-high-school-football-teams/goldthwaite",
+      "clicks": 2,
+      "impressions": 110,
+      "ctr": 0.01818181818181818,
+      "averagePosition": 6.027272727272727
+    },
+    {
+      "path": "/texas-high-school-football-teams/alief-elsik",
+      "clicks": 0,
+      "impressions": 110,
+      "ctr": 0,
+      "averagePosition": 8.727272727272727
+    },
+    {
+      "path": "/texas-high-school-football-teams/houston-memorial",
+      "clicks": 1,
+      "impressions": 109,
+      "ctr": 0.009174311926605505,
+      "averagePosition": 6.376146788990826
+    },
+    {
+      "path": "/event/fulton-oysterfest",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 5.853211009174312
+    },
+    {
+      "path": "/texas-high-school-football-teams/arlington-bowie",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 7.385321100917431
+    },
+    {
+      "path": "/texas-high-school-football-teams/keller-central",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 8.275229357798164
+    },
+    {
+      "path": "/texas-high-school-football-teams/prosper-walnut-grove",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 8.8348623853211
+    },
+    {
+      "path": "/texas-high-school-football-teams/richardson-berkner",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 7.660550458715596
+    },
+    {
+      "path": "/explore/near/dallas/small-towns-3-hours",
+      "clicks": 1,
+      "impressions": 108,
+      "ctr": 0.009259259259259259,
+      "averagePosition": 8.685185185185185
+    },
+    {
+      "path": "/article/texas-prairies-grasslands-guide",
+      "clicks": 0,
+      "impressions": 108,
+      "ctr": 0,
+      "averagePosition": 9.49074074074074
+    },
+    {
+      "path": "/texas-high-school-football-teams/austin-lake-travis",
+      "clicks": 0,
+      "impressions": 108,
+      "ctr": 0,
+      "averagePosition": 9.157407407407407
+    },
+    {
+      "path": "/event/poteet-strawberry-festival",
+      "clicks": 1,
+      "impressions": 107,
+      "ctr": 0.009345794392523364,
+      "averagePosition": 7.4392523364485985
+    },
+    {
+      "path": "/texas-high-school-football-teams/alvin-iowa-colony",
+      "clicks": 1,
+      "impressions": 107,
+      "ctr": 0.009345794392523364,
+      "averagePosition": 8.94392523364486
+    },
+    {
+      "path": "/sports-venues/high-school-football",
+      "clicks": 0,
+      "impressions": 107,
+      "ctr": 0,
+      "averagePosition": 9.19626168224299
+    },
+    {
+      "path": "/texas-high-school-football-districts/4a-division-i-district-7",
+      "clicks": 2,
+      "impressions": 106,
+      "ctr": 0.018867924528301886,
+      "averagePosition": 6.952830188679245
+    },
+    {
+      "path": "/texas-high-school-football-teams/garland-rowlett",
+      "clicks": 0,
+      "impressions": 106,
+      "ctr": 0,
+      "averagePosition": 9.367924528301886
+    },
+    {
+      "path": "/explore/landscapes/piney-woods",
+      "clicks": 0,
+      "impressions": 105,
+      "ctr": 0,
+      "averagePosition": 19.742857142857144
+    },
+    {
+      "path": "/texas-high-school-football-teams/fort-worth-boswell",
+      "clicks": 0,
+      "impressions": 105,
+      "ctr": 0,
+      "averagePosition": 6.238095238095238
+    },
+    {
+      "path": "/texas-high-school-football-teams/frisco-reedy",
+      "clicks": 0,
+      "impressions": 105,
+      "ctr": 0,
+      "averagePosition": 8.6
+    },
+    {
+      "path": "/texas-high-school-football-teams/plano-west",
+      "clicks": 0,
+      "impressions": 105,
+      "ctr": 0,
+      "averagePosition": 9.314285714285715
+    },
+    {
+      "path": "/event/austin-reggae-festival",
+      "clicks": 1,
+      "impressions": 104,
+      "ctr": 0.009615384615384616,
+      "averagePosition": 7.288461538461538
+    },
+    {
+      "path": "/texas-high-school-football-teams/north-richland-hills-birdville",
+      "clicks": 2,
+      "impressions": 103,
+      "ctr": 0.019417475728155338,
+      "averagePosition": 6.184466019417476
+    },
+    {
+      "path": "/texas-high-school-football-teams/arlington-lamar",
+      "clicks": 0,
+      "impressions": 103,
+      "ctr": 0,
+      "averagePosition": 8.54368932038835
+    },
+    {
+      "path": "/texas-vs/new-jersey",
+      "clicks": 0,
+      "impressions": 103,
+      "ctr": 0,
+      "averagePosition": 10.097087378640778
+    },
+    {
+      "path": "/texas-high-school-football-teams/alief-hastings",
+      "clicks": 2,
+      "impressions": 102,
+      "ctr": 0.0196078431372549,
+      "averagePosition": 8.049019607843137
+    },
+    {
+      "path": "/texas-high-school-football-teams/hallsville",
+      "clicks": 1,
+      "impressions": 102,
+      "ctr": 0.00980392156862745,
+      "averagePosition": 6.7745098039215685
+    },
+    {
+      "path": "/texas-high-school-football-teams/wimberley",
+      "clicks": 1,
+      "impressions": 102,
+      "ctr": 0.00980392156862745,
+      "averagePosition": 5.892156862745098
+    },
+    {
+      "path": "/texas-high-school-football-teams/baytown-goose-creek-memorial",
+      "clicks": 0,
+      "impressions": 102,
+      "ctr": 0,
+      "averagePosition": 6.7745098039215685
+    },
+    {
+      "path": "/sports-venue/moody-center",
+      "clicks": 0,
+      "impressions": 101,
+      "ctr": 0,
+      "averagePosition": 19.26732673267327
+    },
+    {
+      "path": "/texas-high-school-football-teams/boerne",
+      "clicks": 0,
+      "impressions": 101,
+      "ctr": 0,
+      "averagePosition": 7.792079207920792
+    },
+    {
+      "path": "/explore/near/killeen-temple/small-towns-2-hours",
+      "clicks": 1,
+      "impressions": 100,
+      "ctr": 0.01,
+      "averagePosition": 7.45
+    },
+    {
+      "path": "/texas-high-school-football-districts/5a-division-ii-district-9",
+      "clicks": 1,
+      "impressions": 100,
+      "ctr": 0.01,
+      "averagePosition": 8.64
+    },
+    {
+      "path": "/texas-high-school-football-teams/godley",
+      "clicks": 1,
+      "impressions": 100,
+      "ctr": 0.01,
+      "averagePosition": 6.46
+    },
+    {
+      "path": "/event/houston-thanksgiving-day-parade",
+      "clicks": 0,
+      "impressions": 100,
+      "ctr": 0,
+      "averagePosition": 8.4
+    }
+  ],
+  "rankingFirstCandidates": [
+    {
+      "path": "/destination/moody-gardens",
+      "clicks": 1,
+      "impressions": 2549,
+      "ctr": 0.00039231071008238524,
+      "averagePosition": 47.39270302079247
+    },
+    {
+      "path": "/explore/near/dallas/things-to-do",
+      "clicks": 0,
+      "impressions": 931,
+      "ctr": 0,
+      "averagePosition": 58.254564983888294
+    },
+    {
+      "path": "/",
+      "clicks": 3,
+      "impressions": 626,
+      "ctr": 0.004792332268370607,
+      "averagePosition": 35.79233226837061
+    },
+    {
+      "path": "/destination/martin-creek-lake-state-park-rv-area",
+      "clicks": 0,
+      "impressions": 589,
+      "ctr": 0,
+      "averagePosition": 47.407470288624786
+    },
+    {
+      "path": "/texas-home-equity-calculator",
+      "clicks": 0,
+      "impressions": 504,
+      "ctr": 0,
+      "averagePosition": 83.13690476190476
+    },
+    {
+      "path": "/destination/houston-zoo",
+      "clicks": 0,
+      "impressions": 334,
+      "ctr": 0,
+      "averagePosition": 31.308383233532933
+    },
+    {
+      "path": "/texas-history",
+      "clicks": 1,
+      "impressions": 208,
+      "ctr": 0.004807692307692308,
+      "averagePosition": 30.51923076923077
+    },
+    {
+      "path": "/explore/food-bbq",
+      "clicks": 0,
+      "impressions": 202,
+      "ctr": 0,
+      "averagePosition": 48.836633663366335
+    },
+    {
+      "path": "/article/fredericksburg-texas-wineries-things-to-do-guide",
+      "clicks": 0,
+      "impressions": 198,
+      "ctr": 0,
+      "averagePosition": 61.343434343434346
+    },
+    {
+      "path": "/city/lubbock",
+      "clicks": 0,
+      "impressions": 187,
+      "ctr": 0,
+      "averagePosition": 53.68983957219251
+    },
+    {
+      "path": "/article/best-native-plants-texas-yard",
+      "clicks": 0,
+      "impressions": 179,
+      "ctr": 0,
+      "averagePosition": 61.497206703910614
+    },
+    {
+      "path": "/article/corporate-relocation-to-texas",
+      "clicks": 1,
+      "impressions": 175,
+      "ctr": 0.005714285714285714,
+      "averagePosition": 47.78285714285714
+    },
+    {
+      "path": "/sports-venues/football",
+      "clicks": 0,
+      "impressions": 171,
+      "ctr": 0,
+      "averagePosition": 20.619883040935672
+    },
+    {
+      "path": "/texas-explained",
+      "clicks": 2,
+      "impressions": 163,
+      "ctr": 0.012269938650306749,
+      "averagePosition": 24.79754601226994
+    },
+    {
+      "path": "/article/texas-high-school-football-scores-schedules",
+      "clicks": 2,
+      "impressions": 151,
+      "ctr": 0.013245033112582781,
+      "averagePosition": 22.13907284768212
+    },
+    {
+      "path": "/explore/historic-sites",
+      "clicks": 0,
+      "impressions": 149,
+      "ctr": 0,
+      "averagePosition": 60.49664429530201
+    },
+    {
+      "path": "/texas-drivers-license",
+      "clicks": 0,
+      "impressions": 147,
+      "ctr": 0,
+      "averagePosition": 36.82312925170068
+    },
+    {
+      "path": "/destination/caddo-lake",
+      "clicks": 0,
+      "impressions": 141,
+      "ctr": 0,
+      "averagePosition": 45.822695035460995
+    },
+    {
+      "path": "/texas-home-insurance-calculator/austin",
+      "clicks": 0,
+      "impressions": 139,
+      "ctr": 0,
+      "averagePosition": 34.18705035971223
+    },
+    {
+      "path": "/property-tax/county/bell",
+      "clicks": 0,
+      "impressions": 135,
+      "ctr": 0,
+      "averagePosition": 38.888888888888886
+    },
+    {
+      "path": "/events/tournaments-golf",
+      "clicks": 1,
+      "impressions": 121,
+      "ctr": 0.008264462809917356,
+      "averagePosition": 27.388429752066116
+    },
+    {
+      "path": "/texas-vehicle-registration-fees-taxes",
+      "clicks": 0,
+      "impressions": 121,
+      "ctr": 0,
+      "averagePosition": 25.297520661157026
+    },
+    {
+      "path": "/explore/near/victoria/lakes-rivers",
+      "clicks": 0,
+      "impressions": 120,
+      "ctr": 0,
+      "averagePosition": 24.191666666666666
+    },
+    {
+      "path": "/explore/near/dallas/state-parks",
+      "clicks": 0,
+      "impressions": 115,
+      "ctr": 0,
+      "averagePosition": 24.51304347826087
+    },
+    {
+      "path": "/article/texas-cattle-ranching-history-guide",
+      "clicks": 0,
+      "impressions": 114,
+      "ctr": 0,
+      "averagePosition": 62.20175438596491
+    },
+    {
+      "path": "/destination/south-padre-island-beaches",
+      "clicks": 0,
+      "impressions": 111,
+      "ctr": 0,
+      "averagePosition": 61.91891891891892
+    },
+    {
+      "path": "/metro-area/greater-san-antonio",
+      "clicks": 0,
+      "impressions": 110,
+      "ctr": 0,
+      "averagePosition": 42.236363636363635
+    },
+    {
+      "path": "/explore/small-towns",
+      "clicks": 1,
+      "impressions": 109,
+      "ctr": 0.009174311926605505,
+      "averagePosition": 21.03669724770642
+    },
+    {
+      "path": "/sports",
+      "clicks": 0,
+      "impressions": 109,
+      "ctr": 0,
+      "averagePosition": 43.07339449541284
+    },
+    {
+      "path": "/destination/guadalupe-mountains-national-park",
+      "clicks": 0,
+      "impressions": 106,
+      "ctr": 0,
+      "averagePosition": 60.235849056603776
+    },
+    {
+      "path": "/explore/near/waco/things-to-do",
+      "clicks": 0,
+      "impressions": 106,
+      "ctr": 0,
+      "averagePosition": 73.19811320754717
+    },
+    {
+      "path": "/destination/galveston-island-state-park",
+      "clicks": 0,
+      "impressions": 105,
+      "ctr": 0,
+      "averagePosition": 38.95238095238095
+    },
+    {
+      "path": "/explore/near/tyler/things-to-do",
+      "clicks": 0,
+      "impressions": 101,
+      "ctr": 0,
+      "averagePosition": 72.5049504950495
+    },
+    {
+      "path": "/article/best-dallas-suburbs-for-commuters",
+      "clicks": 0,
+      "impressions": 100,
+      "ctr": 0,
+      "averagePosition": 27.07
+    }
+  ]
+}

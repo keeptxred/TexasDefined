@@ -7,6 +7,10 @@ const glossary = routeSource("explore.painted-churches.glossary.$slug.tsx");
 const heritage = routeSource("explore.painted-churches.heritage.$slug.tsx");
 const people = routeSource("explore.painted-churches.people.$slug.tsx");
 const preservation = routeSource("explore.painted-churches.preservation.$slug.tsx");
+const editorial = routeSource("editorial-policy.tsx");
+const flury = readFileSync(new URL("../components/editorial/GottfriedFluryAuthority.tsx", import.meta.url), "utf8");
+const peopleData = readFileSync(new URL("../data/painted-church-people.ts", import.meta.url), "utf8");
+const exploreSitemap = routeSource("sitemap-explore[.]xml.ts");
 
 describe("Painted Churches reference-page depth", () => {
   it("keeps glossary interpretation tied to church-specific evidence", () => {
@@ -21,10 +25,70 @@ describe("Painted Churches reference-page depth", () => {
     expect(heritage).toContain("documented communities rather than stereotypes");
   });
 
-  it("distinguishes documented people roles and later intervention", () => {
-    expect(people).toContain("How Texas Defined handles attribution");
-    expect(people).toContain("Those roles are not interchangeable");
-    expect(people).toContain("rather than filling gaps from style alone");
+  it("keeps attribution boilerplate out of every biography and only in editorial policy", () => {
+    expect(people).not.toContain("How Texas Defined handles attribution");
+    expect(people).not.toContain("Those roles are not interchangeable");
+    expect(editorial).toContain("How Texas Defined handles attribution");
+    expect(editorial).toContain("Those roles are not interchangeable");
+    expect(editorial).toContain("rather than filling gaps from style alone");
+  });
+
+  it("documents Flury with independently cited biography, verified imagery, and cautious attributions", () => {
+    expect(people).toContain("<GottfriedFluryAuthority />");
+    expect(people).toContain("birthDate: isFlury ?");
+    expect(people).toContain("deathDate: isFlury ?");
+    expect(people).toContain('sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined');
+    expect(peopleData).toContain("Gottfried (Godfrey) Flury (1864–1936)");
+    for (const required of ["Documented versus uncertain work", "1972", "National Register", "Key dates in Flury’s life and legacy", "March 24, 2018", "moravia-ascension-of-our-lord", "The shared decorative vocabulary", "Became a naturalized United States citizen", "1929–1934", "mechanical engineering", "Godfrey Flury Collection, 1887–1981", "Smithsonian Archives of American Art", "Godfrey Flury Scrapbook", "we have not inspected the original Flury papers", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "We link to that archive rather than reproduce the photograph without permission.", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
+      expect(flury).toContain(required);
+    }
+    expect(flury).not.toContain("Artistic interpretation");
+    expect(flury).not.toContain("Verified location photography");
+    expect(flury).not.toContain("The chronology intentionally");
+    expect(flury).not.toContain("as it appears today");
+    expect(flury).not.toContain("license</a> · source and attribution</a>");
+  });
+
+
+  it("makes the Flury research independently useful, attributed, and linked to the official property record", () => {
+    for (const fact of [
+      "A church made by more than one pair of hands",
+      "After 1901 · Father Louis Netardus",
+      "Later 20th century · Gene A. Mikulik",
+      "1972 and 1983 · Documentary record",
+      "June 21, 1983",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
+      "Texas Defined History &amp; Heritage Desk",
+      "Published-source and archival-catalog cross-check completed November 10, 2026",
+      "to=\"/corrections-policy\"",
+    ]) {
+      expect(flury).toContain(fact);
+    }
+    expect(people).toContain("Published sources and archive catalogs cross-checked November 10, 2026");
+    expect(people).toContain('dateModified: "2026-11-11"');
+    expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
+    expect(flury).not.toContain("How Texas Defined handles attribution");
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-11" : "2026-08-18"');
+  });
+
+  it("compares independently documented painting campaigns and keeps palm hypothesis qualified", () => {
+    for (const claim of [
+      "Did Praha’s palm trees find their way into Flury’s paintings?",
+      "Bob Harms",
+      "the proposed local inspiration remains a hypothesis",
+      "Praha, High Hill and Moravia: three different painting campaigns",
+      "Ferdinand Stockert and Hermann Kern",
+      "Fred Donecker and his sons",
+      "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html",
+      "https://npgallery.nps.gov/AssetDetail/NRIS/83003138",
+      "https://austinpbs.org/paintedchurches/highhill",
+      "https://austinpbs.org/paintedchurches/filmupdates",
+      "November 11, 2026",
+    ]) expect(flury).toContain(claim);
+    expect(people).toContain("botanical and inter-church research sources cross-checked November 11, 2026");
+    expect(people).toContain('dateModified: "2026-11-11"');
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-11"');
+    expect(flury).not.toContain("It is proven that local palms inspired");
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {

@@ -763,10 +763,32 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "el-paso",
+    "name": "El Paso Museum of History",
+    "category": "Museums & discovery",
+    "description": "Downtown museum of regional borderlands history, interactive digital heritage and changing exhibitions.",
+    "sourceUrl": "https://epmuseumofhistory.org/visit/plan-your-visit"
+  },
+  {
+    "county": "el-paso",
+    "name": "La Nube STEAM Discovery Center",
+    "category": "Museums & discovery",
+    "description": "Downtown interactive science and STEAM experiences for families; check current admission and access.",
+    "sourceUrl": "https://la-nube.org/"
+  },
+  {
+    "county": "el-paso",
+    "name": "National Border Patrol Museum",
+    "category": "Museums & discovery",
+    "description": "Nonprofit museum tracing Border Patrol history through equipment, artifacts, vehicles and exhibitions.",
+    "sourceUrl": "https://borderpatrolmuseum.com/exhibits/"
+  },
+  {
+    "county": "el-paso",
     "name": "Chamizal National Memorial",
     "category": "History & heritage",
     "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
-    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
+    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm",
+    "relatedGuideHref": "/destination/chamizal-national-memorial"
   },
   {
     "county": "el-paso",
@@ -1097,6 +1119,14 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "National Park Service visitor center and Longleaf Pine Trail on FM 420 near Kountze; the preserve's other units extend across multiple counties.",
     "sourceUrl": "https://www.nps.gov/bith/planyourvisit/visitor-center.htm"
+  },
+  {
+    "county": "harris",
+    "name": "Houston Botanic Garden",
+    "category": "Parks & recreation",
+    "description": "Ticketed botanical garden on a former golf-course site, with global plant collections, Gulf Coast prairie and stormwater wetlands; check the operator for current admission and opening rules.",
+    "sourceUrl": "https://hbg.org/visit/",
+    "relatedGuideHref": "/destination/houston-botanic-garden"
   },
   {
     "county": "harris",
@@ -2153,7 +2183,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Fort Worth Water Gardens",
     "category": "Art & architecture",
     "description": "Downtown architectural water garden with multiple pools and plaza walkways; no swimming or wading is permitted, and construction notices may affect access.",
-    "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/water-gardens"
+    "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
+    "relatedGuideHref": "/destination/fort-worth-water-gardens"
   },
   {
     "county": "taylor",

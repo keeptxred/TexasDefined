@@ -177,7 +177,7 @@ export const dfwMuseumDestinations: Destination[] = [
       credit: "Michael Barera · Wikimedia Commons · CC BY-SA 4.0",
     },
     bestSeason: "Year-round indoor museum; a good all-weather stop near Love Field, with especially easy planning on an arrival or departure day.",
-    entryNote: "The museum is normally open daily, with occasional full or partial closures for special events. Check the official visitor-information page before traveling, particularly on fall event dates.",
+    entryNote: "Monday–Saturday 10 a.m.–5 p.m.; Sunday 1–5 p.m. Adult $20, children ages 3–12 $12, seniors 65+ $10, with additional ID discounts. Special-event closure dates apply during 2026; check operator notices. Free parking, accessible galleries and Jetsetters café. Group rates require advance booking for 15+.",
     highlights: ["Historic and experimental aircraft", "Commercial airline history", "Spaceflight exhibits", "Dallas Love Field setting"],
     body: [
       "Frontiers of Flight Museum uses Dallas's aviation history as a gateway into a much larger story of flight. Aircraft, models, spacecraft and airline material connect early aviation experiments with military technology, commercial travel and space exploration. The collection is especially strong when visitors notice how much of that history intersects with companies, airports and engineers tied to North Texas.",
@@ -187,7 +187,7 @@ export const dfwMuseumDestinations: Destination[] = [
     officialUrl: "https://flightmuseum.com/visit/",
     managingAuthority: "Frontiers of Flight Museum",
     address: "6911 Lemmon Ave, Dallas, TX 75209",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-18",
   },
   {
     id: "museum-expansion-kimbell",

@@ -91,10 +91,17 @@ if (verifiedHotelsComProperties.length !== 30) fail(`Stay readiness must reconci
 const verifiedDestinationHotels = verifiedHotelsComProperties.filter((property) => ids.has(property.propertyId));
 if (verifiedDestinationHotels.length !== 12) fail(`All 12 controlled destination-cohort properties must have governed Hotels.com exact-property links; found ${verifiedDestinationHotels.length}.`);
 const targetedProperties = (paintedChurchesRegistry.properties || []).filter((property) => property.status === 'active');
-const targetedVerifiedHotels = targetedProperties.filter((property) => (property.bookingTargets || []).some((target) =>
-  target.provider === 'hotels.com'
-  && target.verified === true
-  && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl || '')));
+const targetedVerifiedHotels = targetedProperties.filter((property) => (property.bookingTargets || []).some((target) => {
+  if (target.provider !== 'hotels.com' || target.verified !== true) return false;
+  try {
+    const click = new URL(target.affiliateUrl);
+    return click.origin === 'https://www.anrdoezrs.net' &&
+      click.pathname === '/click-101876465-15734399' &&
+      click.searchParams.size === 2 &&
+      click.searchParams.get('sid') === 'td_explore_painted_churches' &&
+      /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(click.searchParams.get('url') || '');
+  } catch { return false; }
+}));
 if (targetedProperties.length !== 3) fail(`Painted Churches readiness expects 3 active targeted properties; found ${targetedProperties.length}.`);
 if (targetedVerifiedHotels.length !== 3) fail(`All 3 Painted Churches properties must contribute governed direct Hotels.com exact-property links; found ${targetedVerifiedHotels.length}.`);
 if (verifiedHotelsComProperties.length + targetedVerifiedHotels.length !== 33) fail('Stay readiness must reconcile 33 governed exact-property links across the standard and Painted Churches cohorts.');

@@ -101,7 +101,7 @@ export const Route = createFileRoute("/explore/top-attractions")({
     const jsonUrl = absoluteUrl(texasDefinedBrand, "/top-25-texas-attractions.json");
     const methodologyUrl = absoluteUrl(texasDefinedBrand, "/explore/top-attractions/methodology");
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Top 25 Texas Attractions | Texas Defined", description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Top 25 Texas Attractions", description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",

@@ -1,0 +1,34 @@
+Texas Defined Reference Dataset Use Terms
+Version 1.0 — November 8, 2026
+Canonical notice: https://texasdefined.com/dataset-reference-license-v1.txt
+
+Covered Texas Defined reference compilations:
+1. https://texasdefined.com/texas-property-tax-rate-history
+2. https://texasdefined.com/things-unique-to-texas
+   including its linked Things That Define Texas CSV and JSON reference downloads.
+
+Permission for Texas Defined's original editorial selection, arrangement, and
+explanatory material: You may access, download, cite, and quote reasonable
+excerpts from the covered reference compilations for personal, educational,
+and internal research purposes, provided you identify Texas Defined and link
+to the canonical reference page and, when appropriate, the original source.
+This permission does not extend to republishing the compiled editorial work
+in bulk, resale, commercial redistribution, use of Texas Defined branding,
+or presenting our material as official government information. Obtain written
+permission for uses beyond these limited terms.
+
+Third-party and public records exclusion: Texas Defined does not claim
+ownership of raw government facts, Texas Comptroller property-tax records, or
+third-party material. Those records and third-party rights are not relicensed
+by this notice. Check the originating agency's documentation and any
+applicable terms before redistributing source files. Image licensing is
+separate and must be assessed for each image.
+
+Research caution: Historical tax rates and other data can be revised,
+incomplete, or subject to changes in administrative boundaries and source
+formats. These compilations are provided as research references, without
+a guarantee of currency or suitability for a particular use. For legal,
+financial, or parcel-specific decisions, consult the controlling official
+source and a qualified professional where necessary.
+
+Questions or additional reuse permissions: admin@texasdefined.com

@@ -33,6 +33,18 @@ function policyPathsFor(slug: string) {
 }
 
 describe("Texas Life reciprocal policy and discovery graph", () => {
+  it("answers the El Paso Rio Grande geography query and links to the authoritative river guide", () => {
+    const article = texasLifeSplitArticles.find((item) => item.slug === "texas-major-cities-regional-differences");
+    expect(article).toBeDefined();
+    expect(article?.body.some((block) => block.type === "heading" && block.text === "Which major Texas city is on the Rio Grande?")).toBe(true);
+    expect(article?.body.some((block) => block.type === "paragraph" && block.text.includes("El Paso is the answer when the choices are Dallas, Houston, San Antonio and El Paso."))).toBe(true);
+    expect(linksFor("texas-major-cities-regional-differences")).toContain("/article/texas-rio-grande-river-guide");
+    const releasePlanner = readFileSync(new URL("../../../scripts/ci/production-change-scope.mjs", import.meta.url), "utf8");
+    expect(releasePlanner).toContain("changedFiles.includes('src/data/fixtures/texas-life-split-source.ts')");
+    expect(releasePlanner).toContain("expectedHrefsByPage['/article/texas-major-cities-regional-differences']");
+
+  });
+
   it("keeps practical guides connected back to the companion policy authority", () => {
     expect(policyPathsFor("texas-jobs-economy-industries")).toEqual(expect.arrayContaining([
       "/policy/right-to-work",

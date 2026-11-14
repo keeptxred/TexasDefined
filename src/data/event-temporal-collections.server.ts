@@ -1,4 +1,5 @@
 import type { TexasEvent, TexasRegion } from "./types";
+import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server.ts";
 
 export interface TemporalEventDirectoryItem {
   slug: string;
@@ -48,7 +49,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     title: "Things to Do in Texas This Weekend",
     eyebrow: "Texas This Weekend",
     description: "Find source-verified things to do in Texas this weekend, with permanent event guides, official sources and practical trip-planning links.",
-    lead: "Texas This Weekend is a rolling Friday-through-Sunday guide built from Texas Defined's source-checked event authority catalog rather than a dump of one-line listings. Every recommendation links to a permanent guide with the organizer source, date context and nearby trip-planning paths.",
+    lead: "Planning a Friday-through-Sunday getaway in Texas? Browse events selected for this weekend, follow each guide to the organizer's latest dates and directions, and find nearby places worth adding to the trip.",
     planningTitle: "Pick one anchor event, then build the weekend around it",
     planningIntro: "A statewide weekend list can make destinations look closer together than they are. Choose the event first, then use its city, county and regional links to keep the rest of the trip geographically realistic.",
     planningPoints: [
@@ -126,13 +127,13 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     title: "November Events in Texas",
     eyebrow: "November calendar",
     description: "Plan November events in Texas with verified dates for festivals, food weekends, heritage events, races, fairs and early holiday traditions.",
-    lead: "November bridges Texas fall-festival season and the first major holiday events. This stable discovery page rolls to the next November automatically and stays indexable only while the verified event inventory is deep enough to satisfy the search intent.",
+    lead: "November in Texas brings Wurstfest, food and cultural festivals, major holiday markets, Thanksgiving runs and the first winter light displays. Browse the dates below, then narrow by region, event type or the part of November you can travel.",
     planningTitle: "Use November weather and geography to your advantage",
     planningIntro: "Cooler temperatures make longer outdoor days easier, but holiday openings and major event weekends can still create sharp demand in individual towns and metro districts.",
     planningPoints: [
       "Confirm event-day operating hours and weather procedures directly with the organizer close to departure.",
       "Pair a festival or race with nearby food, museum, park or small-town coverage instead of crossing the state for a second unrelated event.",
-      "The page automatically noindexes when the next November has too few verified guides, preventing a thin seasonal page from lingering in search.",
+      "For Thanksgiving weekend, check race start times, holiday closures, festival operating nights and parking before you travel.",
     ],
     relatedPaths: ["/events/fall-festivals", "/events/christmas-events", "/events/arts-culture"],
     minimumIndexableItems: 6,
@@ -433,7 +434,23 @@ function resolveSeasonYear(todayParts: ReturnType<typeof texasDateParts>, season
 }
 
 function holidayName(name: string) {
-  return /(christmas|holiday|dickens|nutcracker|lights|river parade)/i.test(name);
+  // Do not classify winter/Christmas attractions as fall festivals merely because
+  // their first operating date falls in November.
+  return /\b(christmas|holiday|holidays|hollydays|dickens|nutcracker|zoo lights|trail of lights|winter lights|ice land|santa|polar express|merry|jingle|yuletide|advent|lightscape|christkindl|christkindel)\b/i.test(name)
+    || /\b(?:tree lighting|holiday lights|christmas lights|south pole|wild bright|home for the holidays)\b/i.test(name);
+}
+
+function nonFestivalParadeName(name: string) {
+  // Parade dates can be valid and useful, but a stand-alone Thanksgiving
+  // parade is not a fall festival. Keep its permanent guide and route it
+  // through the broader /events calendar, not this topical discovery hub.
+  return /\bthanksgiving(?: day)? parade\b/i.test(name);
+}
+
+function fallFestivalName(name: string) {
+  // Named community, harvest, food, culture and fair traditions. A September–
+  // November occurrence by itself is not enough to make an event a festival.
+  return /festival|oktoberfest|fest\b|festivals|\bfair\b|harvest|pumpkin|autumn|fall|fiesta|heritage|folk|craft|arts|art show|rodeo|round.?up|antique|celebration|parade|chili|cook.?off|food|blues|jazz|music|market|carnival|scarecrow|halloween/i.test(name);
 }
 
 function countyFairName(name: string) {
@@ -469,13 +486,34 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
       const year = resolveSeasonYear(parts, 11);
       start = isoFromParts(year, 9, 1);
       end = isoFromParts(year, 11, 30);
-      filtered = events.filter((event) => event.category !== "sport" && overlaps(event, start, end));
+      filtered = events.filter((event) =>
+        event.category !== "sport"
+        && Boolean(event.sourceCheckedAt)
+        && !/Recurrence-derived planning window/i.test(event.detail)
+        && !holidayName(event.name)
+        && !nonFestivalParadeName(event.name)
+        && fallFestivalName(event.name)
+        && overlaps(event, start, end)
+        // Expired occurrences belong on their permanent guide, never in the
+        // live discovery collection or its ItemList structured data.
+        && (event.endDate ?? event.startDate) >= today
+      );
       break;
     }
     case "christmas": {
-      const year = parts.month === 1 && parts.day <= 5 ? parts.year - 1 : parts.year;
-      start = isoFromParts(year, 11, 15);
-      end = isoFromParts(year + 1, 1, 5);
+      // The dated Christmas hub includes community occurrences beginning as
+      // early as November 6 and verified winter attractions into mid-January.
+      // Do not falsely advertise a fixed Nov 15–Jan 5 verified window.
+      const year = parts.month === 1 && parts.day <= 31 ? parts.year - 1 : parts.year;
+      const earliestSeasonDate = isoFromParts(year, 11, 1);
+      const latestSeasonDate = isoFromParts(year + 1, 1, 31);
+      const activeCommunityDates = getVerifiedChristmasCommunityEvents2026(now)
+        .filter((event) => event.startDate <= latestSeasonDate
+          && (event.endDate ?? event.startDate) >= earliestSeasonDate);
+      start = activeCommunityDates.map((event) => event.startDate).sort()[0]
+        ?? isoFromParts(year, 11, 15);
+      end = activeCommunityDates.map((event) => event.endDate ?? event.startDate).sort().at(-1)
+        ?? isoFromParts(year + 1, 1, 5);
       filtered = events.filter((event) => holidayName(event.name) && overlaps(event, start, end));
       break;
     }
@@ -533,7 +571,12 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
   return {
     start,
     end,
-    items: filtered.sort((left, right) => left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name)),
+    items: filtered.sort((left, right) => {
+      // An in-progress multiweek festival belongs ahead of future starts.
+      const leftStart = definition.filterKind === "fall" && left.startDate < today ? today : left.startDate;
+      const rightStart = definition.filterKind === "fall" && right.startDate < today ? today : right.startDate;
+      return leftStart.localeCompare(rightStart) || left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
+    }),
   };
 }
 

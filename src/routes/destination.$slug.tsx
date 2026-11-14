@@ -12,17 +12,23 @@ import { verifiedDevilsRiverPhotoRights } from "@/data/verified-devils-river-lan
 import { relatedDestinationHeroSrc } from "@/data/related-destination-hero";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
+import { isHoustonBotanicRecyclingOfferActive } from "@/lib/houston-botanic-recycles";
+import { verifiedReviewedAttractionGalleryRights } from "@/lib/reviewed-attraction-gallery-rights";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
-import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
+import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
+import { moodyGardensEditorialDates } from "@/data/destination-curation-moody-gardens";
+import { ElPasoAreaCrossLinks } from "@/components/content/ElPasoAreaAuthority";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
+import { showSeasonDecision, showAdvancePlanningDecision } from "@/data/destination-editorial-relevance";
 import { distanceMiles } from "@/data/destination-relationships";
 import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
@@ -37,6 +43,21 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
 const CoastalBeachFieldGuide = lazy(() => import("@/components/content/CoastalBeachFieldGuide"));
+
+const DestinationVerifiedVisitorFacts = lazy(() =>
+  import("@/components/editorial/DestinationVerifiedVisitorFacts").then((module) => ({ default: module.DestinationVerifiedVisitorFacts })),
+);
+
+const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinCreekRvAuthority"));
+
+
+// This substantial below-the-fold visitor guide streams on demand rather than
+// inflating the site-wide client entry bundle with destination-only logic.
+const DestinationVisitPlanner = lazy(() =>
+  import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
+);
+
+const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
 
 const DestinationViatorBooking = lazy(() =>
   import("@/components/editorial/DestinationViatorBooking").then((module) => ({
@@ -65,8 +86,13 @@ const ZapataCountyMuseumAuthority = lazy(() =>
 const YoungCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/YoungCountyMuseumAuthority")
 );
+const YoakumHeritageMuseumAuthority = lazy(() => import("@/components/editorial/YoakumHeritageMuseumAuthority"));
+// This protected archaeological site is not an open historic church.
+// Load its research guide separately and preserve exact-site photo noindex.
+const OldSocorroMissionAuthority = lazy(() => import("@/components/editorial/OldSocorroMissionAuthority"));
 
 const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
+const DavisHillAuthority = lazy(() => import("@/components/editorial/DavisHillAuthority"));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -127,11 +153,14 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // exceeded the internal 90-character live audit limit after brand suffixing.
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
+  "moody-gardens": "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
   "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
   "booker-t-washington-high-school-dallas": "Booker T. Washington Arts High School: Dallas History",
   "crow-museum-asian-art-dallas": "Crow Museum of Asian Art: Dallas Exhibits & Visit",
   "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
   "hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History & Stay Guide",
+  "franklin-mountains-state-park": "Franklin Mountains State Park: Trails, Fees & Camping",
 };
 
 function destinationSeoTitle(name: string, categoryName: string) {
@@ -180,16 +209,37 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
       destination = resolveCoastalHeritageAuthority(destination);
     }
+    // Always apply the authoritative closure and visitor-center overlay last.
+    // This also protects direct destination fallback reads that fail the general
+    // search-readiness gate before the runtime can apply the local override.
+    if (destination.slug === "magoffin-home") {
+      const { applyMagoffinHomeAuthority } = await import("@/data/magoffin-home-authority");
+      destination = applyMagoffinHomeAuthority(destination);
+    }
+    // These three historic places have primary published URLs in older
+    // state-park and destination collections. A specialized curator or remote
+    // fallback can replace part of their record after normal enrichment; apply
+    // the place-specific research and schedules on the final detail page too.
+    if (["washington-on-the-brazos", "san-jacinto-battleground", "goliad-state-park"].includes(destination.slug)) {
+      const { enrichTexasHistoricSiteAuthority } = await import("@/data/historic-site-authority-2026");
+      destination = enrichTexasHistoricSiteAuthority(destination);
+    }
+    // Site-specific closed-property cleanup must survive remote enrichment
+    // and must not suggest visiting the protected 1680 Socorro site.
+    if (destination.slug === "old-socorro-mission") {
+      const { enrichResearchedHistoricSiteDepth } = await import("@/data/historic-site-depth-all");
+      destination = enrichResearchedHistoricSiteDepth(destination);
+    }
+    // Site-specific additions apply after all existing park, museum and historic research layers.
     if (["uss-lexington-museum-corpus-christi","waco-mammoth-national-monument","national-museum-pacific-war","museum-of-fine-arts-houston","kimbell-art-museum-fort-worth","strand-historic-district"].includes(destination.slug)) {
       const { applyTop50MuseumHistoricUpgrade } = await import("@/data/top50-museum-historic-upgrades");
       destination = applyTop50MuseumHistoricUpgrade(destination);
     }
-
     if (["san-antonio-river-walk","natural-bridge-caverns","moody-gardens","guadalupe-mountains-national-park","enchanted-rock-state-natural-area","houston-museum-of-natural-science","dallas-arboretum-and-botanical-garden","galveston-island-historic-pleasure-pier","san-jacinto-battleground","houston-zoo","barton-springs-pool","hamilton-pool-preserve","cadillac-ranch","gruene-historic-district","fredericksburg-historic-district"].includes(destination.slug)) {
       const { applyTop50FinalVisitorAnswers } = await import("@/data/top50-final-visitor-faqs");
       destination = applyTop50FinalVisitorAnswers(destination);
     }
-    if (["enchanted-rock-state-natural-area", "san-jacinto-battleground", "barton-springs-pool"].includes(destination.slug)) {
+    if (["enchanted-rock-state-natural-area","san-jacinto-battleground","barton-springs-pool"].includes(destination.slug)) {
       const { applyTop50FinalAuthority } = await import("@/data/top50-final-park-historic-authority");
       destination = applyTop50FinalAuthority(destination);
     }
@@ -202,20 +252,36 @@ export const Route = createFileRoute("/destination/$slug")({
     ]);
     const graph = destinationAutoLinkGraph(destination, completeGraph);
     const dallasHeritage = destination.nearestTown === "Dallas" && destination.category === "historic-sites" ? (await import("@/data/dallas-black-history-research")).dallasBlackHistoryFor(destination.slug) : undefined;
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage };
+    // The RV campground is within this park, not a separate nearby attraction.
+    // Keep the park crosslink in the researched RV guide without misleading distance cards or schema.
+    const relevantRelationshipGroups = destination.slug === "martin-creek-lake-state-park-rv-area"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => item.slug !== "martin-creek-lake-state-park") }))
+        .filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
+    // Source-specific rights stay in the lazily loaded route data, not the
+    // shared main-client bundle (which has a strict byte budget).
+    // These three canonical reviewed Commons heroes have exact-source licenses
+    // in image-rights.ts. Lazy-load the registry only for those real photos,
+    // retaining the bounded main-client performance budget.
+    const imageRights = /South_Padre_Island_beach_panorama|San_Antonio_Japanese_Tea_Garden_2022|Fort_Worth_Water_Gardens_01|Houston_Botanic_Garden/.test(destination.hero.src)
+      ? (await import("@/data/image-rights")).imageRightsFor(destination.hero.src) : null;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage, imageRights };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { destination, categories, relationshipGroups, dallasHeritage } = loaderData;
+    const { destination, categories, relationshipGroups, dallasHeritage, imageRights } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
+    const isGainesvilleMedalMuseum = destination.slug === "medal-of-honor-host-city-museum-gainesville";
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
+    const isYoakumMuseum = destination.slug === "yoakum-heritage-museum";
     const isHotelPasoDelNorte = destination.slug === "hotel-paso-del-norte";
+    const isOldSocorro = destination.slug === "old-socorro-mission";
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
-    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas"].includes(destination.slug);
+    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas", "davis-hill-state-park"].includes(destination.slug);
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
@@ -224,12 +290,50 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
     const imageUrl = hasUsableHero ? absoluteUrl(texasDefinedBrand, destination.hero.src) : undefined;
+    // Exact local photo/photographer/license triple is vetted in the source
+    // registry. Never infer rights from a page slug or generic Commons credit.
+    const verifiedParkPhoto = verifiedLocalParkCredit(destination.hero);
+    const localParkImageRights = verifiedParkPhoto ? {
+      creator: { "@type": "Person" as const, name: verifiedParkPhoto.author },
+      copyrightNotice: `© ${verifiedParkPhoto.author}`,
+      license: verifiedParkPhoto.licenseUrl,
+      acquireLicensePage: verifiedParkPhoto.fileUrl,
+    } : {};
     const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
     const categoryPath = destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
-    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
-    const attractionSchema = { "@type": isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
+    // Source-review date and substantive page modification are distinct events.
+    const substantiveModifiedAt = destination.slug === "moody-gardens"
+      ? moodyGardensEditorialDates.lastSubstantiveEdit : destination.sourceCheckedAt;
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(substantiveModifiedAt ? { dateModified: substantiveModifiedAt } : {}) };
+    // The licensed exact-site Magoffin hero has verified Wikimedia provenance.
+    // Attribute it only when that photographer's image is actually being served.
+    const magoffinImageRights = destination.slug === "magoffin-home" && destination.hero.credit?.includes("Larry D. Moore")
+      ? {
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          copyrightNotice: "© 2009 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg",
+        }
+      : {};
+    // This photo's author, copyright year and CC BY 4.0 rights are verified
+    // against the exact Wikimedia Commons file description, not inferred from
+    // unrelated destination photos or a generic photographer credit.
+    const moodyGardensImageRights = destination.slug === "moody-gardens"
+      // destinationQuery calls prepareDestinationForDelivery(), which proxies Wikimedia
+      // URLs before this loader builds JSON-LD. Match the precise delivered URL,
+      // not the raw source URL, so photo rights survive that transformation.
+      && destination.hero.src === editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg?width=1600")
+      && destination.hero.credit === "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+      ? {
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          copyrightNotice: "© 2026 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg",
+        }
+      : {};
+    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isGainesvilleMedalMuseum ? { telephone: "+1-940-668-3330", sameAs: "https://www.nctc.edu/museum/" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, contentUrl: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}), ...(imageRights ?? {}), ...localParkImageRights, ...magoffinImageRights, ...moodyGardensImageRights }] } : {}), ...(validGeo && !isYoakumMuseum ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = {
       "@type": "ItemList",
       "@id": `${url}#related-places`,
@@ -253,8 +357,16 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.slug === "fort-mckavett"
+        title: isGainesvilleMedalMuseum ? "Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide" : isOldSocorro ? "Old Socorro Mission, Texas: Archaeology, History & Closure" : destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
+        description: isGainesvilleMedalMuseum
+          ? "Plan a free visit to Gainesville’s Medal of Honor Host City Museum at NCTC: current hours, campus closures, exhibit context, school trips, parking and sources."
+          : isOldSocorro
+          ? "Old Socorro Mission is a closed, protected archaeology site in El Paso County. Read the Piro Pueblo and Pueblo Revolt history, floods and the separate modern Socorro church."
+          : destination.slug === "moody-gardens"
+          ? "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips."
+          : destination.slug === "galveston-bay"
+          ? "Explore Galveston Bay, Texas’s largest estuary. Find fishing, paddling, boating, wildlife and shoreline access guidance for Galveston, Kemah, Seabrook and Texas City."
+          : destination.slug === "fort-mckavett"
           ? "Explore Fort McKavett State Historic Site in Menard County: Buffalo Soldier history, restored barracks, admission, accessibility and tour tips."
           : destination.summary,
         canonicalPath,
@@ -262,7 +374,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "franklin-mountains-state-park" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#franklin-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#visitor-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
@@ -270,12 +382,15 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage, imageRights } = Route.useLoaderData();
+  if (destination.slug === "old-socorro-mission") return <Suspense fallback={null}><OldSocorroMissionAuthority /></Suspense>;
+  if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
   if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
   if (destination.slug === "young-county-museum-of-history-and-culture") return <Suspense fallback={null}><YoungCountyMuseumAuthority /></Suspense>;
+  if (destination.slug === "yoakum-heritage-museum") return <Suspense fallback={null}><YoakumHeritageMuseumAuthority destination={destination} /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
@@ -285,6 +400,8 @@ function DestinationPage() {
   let remainingLinks = surfacePolicy.pageBudget;
   const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
+  const showSeason = showSeasonDecision(destination);
+  const showEntryPlanning = showAdvancePlanningDecision(destination);
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
   const authoritySourceLinks = [...new Map((destination.authorityGuide?.sources ?? [])
     .filter((source) => validExternalUrl(source.url))
@@ -292,11 +409,40 @@ function DestinationPage() {
   const documentaryPhotoSource = authoritySourceLinks.find((source) => source.label === "Historic-site photo: source, original creator and usage rights");
   const corridorHeroRights = heritagePhotoRightsForPath(`/destination/${destination.slug}`);
   const devilsRiverPhotoRights = verifiedDevilsRiverPhotoRights(destination.hero);
+  const localStateParkPhotoRights = verifiedLocalParkCredit(destination.hero);
   const commonsHeroRights = commonsHeroAttribution(destination.hero.src, destination.hero.credit);
-  const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl ?? devilsRiverPhotoRights?.sourceUrl ?? verifiedLocalParkCredit(destination.hero)?.fileUrl ?? commonsHeroRights?.sourceUrl;
+  // Use the same exact-source rights returned to JSON-LD, never infer a
+  // photographer or license merely from the attraction's name.
+  const isReviewedAttraction = [
+    "san-antonio-japanese-tea-garden",
+    "fort-worth-water-gardens",
+    "houston-botanic-garden",
+  ].includes(destination.slug);
+  const reviewedAttractionFacts = destination.slug === "san-antonio-japanese-tea-garden" ? [
+    { question: "Free admission and hours", answer: "Free daily admission, 7 a.m.–5 p.m. Allow about 30–60 minutes." },
+    { question: "Upper and lower garden access", answer: "The upper pavilion and Jingu House have a ramped approach; the lower ponds and waterfall routes require stairs." },
+    { question: "Entrance and parking", answer: "3853 N. St. Mary's Street beside the zoo. Accessible parking is available in the garden lot; spaces are not guaranteed." },
+    { question: "Pets and nearby stops", answer: "Leashed dogs are welcome. Brackenridge Park is next door; San Antonio Zoo has separate ticketing." },
+  ] : destination.slug === "fort-worth-water-gardens" ? [
+    { question: "Free admission and hours", answer: "Free general admission (Visit Fort Worth); city park hours 6 a.m.–10 p.m. daily. Swimming and wading are prohibited." },
+    { question: "What is there to see?", answer: "The cascading Active Pool, still Quiet Pool and fountain-driven Aerated Pool offer three different experiences." },
+    { question: "Stairs and viewing", answer: "View the Active Pool from upper paths without descending. Ask Fort Worth Parks about current step-free routes and construction notices." },
+    { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
+  ] : destination.slug === "houston-botanic-garden" ? [
+    { question: "Daytime tickets and reservations", answer: "Adults $12; ages 3–17, students with ID, seniors and active military $8; under age 3 free but every visitor needs a ticket or member reservation." },
+    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. The Visit page lists Thanksgiving and Christmas closures; the About page also lists New Year's Day. Confirm January 1 hours through the official ticket calendar." },
+    { question: "What to explore?", answer: "Global and Culinary gardens, Coastal Prairie, Stormwater Wetlands and the Susan Garver Family Discovery Garden." },
+    { question: "Arrival and access", answer: "Enter One Botanic Lane from Park Place Boulevard. Free daytime parking; bring your own wheelchair or stroller if needed. Allow 1.5–2 hours." },
+  ] : null;
+
+  const oliveCompanyOwnerPhoto = destination.slug === "texas-hill-country-olive-co"
+    && destination.hero.src === "/images/destinations/texas-hill-country-olive-co-bistro.webp";
+  const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl ?? devilsRiverPhotoRights?.sourceUrl ?? localStateParkPhotoRights?.fileUrl ?? commonsHeroRights?.sourceUrl ?? (oliveCompanyOwnerPhoto ? "https://texashillcountryoliveco.com/" : undefined);
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
+  const relatedRiverGuides = riverAuthorityLinksForDestination(destination.slug);
+  const isHotelPasoDelNorte = destination.slug === "hotel-paso-del-norte";
 
   const locationAnswer = isChokeCanyon
     ? `${destination.name} has two public units west of Three Rivers: Calliham in McMullen County and South Shore in Live Oak County.`
@@ -318,7 +464,9 @@ function DestinationPage() {
       }))
       .filter((group) => group.destinations.length > 0)
       .slice(0, 3)
-    : relationshipGroups;
+    : destination.slug === "magoffin-home"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => { const miles = distanceMiles(destination, item); return miles !== null && miles <= 40; }) })).filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
   const mapMarkers = isChokeCanyon
     ? [
       { id: `${destination.id}-calliham`, label: "Calliham Unit — headquarters, camping and full-service facilities", point: destination.coordinates },
@@ -350,41 +498,152 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
+        {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
       </Container>
+
     </section>
 
-    <AnswerSummary
-      eyebrow="Quick trip facts"
-      title={`${destination.name} at a glance`}
-      items={[
-        { question: `Where is ${destination.name}?`, answer: locationAnswer },
-        { question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason },
-        { question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote },
-        ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
-      ]}
-    />
+    {isReviewedAttraction && imageRights && (
+      <div data-attraction-photo-credit className="border-b border-border bg-surface py-3 text-sm leading-6 text-muted-foreground">
+        <Container>
+          <span>Photo: {imageRights.creator.name}. </span>
+          <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 break-words">Original photograph and attribution</a>
+          <span aria-hidden="true"> · </span>
+          <a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+            {imageRights.license.includes("/zero/") ? "CC0 1.0 dedication" : "CC BY-SA 4.0 license"}
+          </a>
+        </Container>
+      </div>
+    )}
+
+    {destination.slug === "magoffin-home" && (
+      <section role="status" aria-label="Magoffin Home restoration and visitor access" className="border-b border-border bg-surface py-6 text-foreground">
+        <Container>
+          <p className="text-xs font-bold uppercase tracking-[0.14em]">Restoration alert · Verified October 19, 2026</p>
+          <h2 className="mt-2 font-display text-2xl sm:text-3xl">Historic home closed through 2027 · Visitor center open</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7">Do not plan an ordinary interior tour of the house at 1120 Magoffin Avenue. The visitor center across the street at 1117 Magoffin Avenue is open Tuesday–Saturday, 9 a.m.–4 p.m. Contact the Texas Historical Commission at <a href="tel:+19155335147" className="font-semibold underline">915-533-5147</a> for current programs, admission during restoration and special-event reservations.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="https://thc.texas.gov/historic-sites/magoffin-home" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Official closure notice and virtual tour ↗</a>
+            <a href="https://thc.texas.gov/sites/default/files/2025-01/Magoffin_walking_tour_new.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Historic district walking tour ↗</a>
+            <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className="underline underline-offset-4">Explore El Paso County →</Link>
+          </div>
+        </Container>
+      </section>
+    )}
+
+    {destination.slug === "houston-botanic-garden" && isHoustonBotanicRecyclingOfferActive() && (
+      <section data-hbg-recycles-offer role="status" aria-label="Temporary Houston Botanic Garden admission offer" className="border-b border-border bg-surface py-5">
+        <Container>
+          <p className="text-sm font-semibold text-foreground">Nov. 13–15, 2026 only · H-E-B Texas Recycles</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Houston-area residents can receive free <strong>daytime general admission</strong> by bringing one plastic bag or bottle <strong>per person</strong> to exchange at the garden ticket window. Redeem during the 9 a.m.–5 p.m. daytime window; this does not establish free admission to separately ticketed evening events. Normal ticket rates and reservations are listed below.</p>
+          <a href="https://hbg.org/visit/texas-recycles/" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline underline-offset-2">Official eligibility and redemption details</a>
+        </Container>
+      </section>
+    )}
+
+    {reviewedAttractionFacts ? (
+      <AnswerSummary eyebrow="Plan your visit" title={`${destination.name}: visitor essentials`} items={reviewedAttractionFacts} />
+    ) : (
+      <AnswerSummary
+        eyebrow={destination.slug === "moody-gardens" ? "Start with the essentials" : "Quick trip facts"}
+        title={destination.slug === "moody-gardens" ? "Moody Gardens: address, admission and timing" : `${destination.name} at a glance`}
+        items={[
+          { question: `Where is ${destination.name}?`, answer: locationAnswer },
+          ...(showSeason && destination.slug !== "moody-gardens" ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
+          ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
+          ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
+        ]}
+      />
+    )}
+
+    <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
+
+    {destination.slug === "martin-creek-lake-state-park-rv-area" && <Suspense fallback={null}><MartinCreekRvAuthority /></Suspense>}
+
+
+    {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
+      <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
+        <Container>
+          <p className="eyebrow text-primary">Restoration-aware questions</p>
+          <h2 id="magoffin-visitor-faq-title" className="mt-2 font-display text-3xl">Magoffin Home visitor FAQ</h2>
+          <dl className="mt-6 grid gap-6 md:grid-cols-2">
+            {destination.visitorFaqs.map((item) => <div key={item.question} className="border-t border-border pt-5">
+              <dt className="font-semibold">{item.question}</dt>
+              <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
+              {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official source ↗</a>}
+            </div>)}
+          </dl>
+        </Container>
+      </section>
+    ) : null}
+
+    {isHotelPasoDelNorte && destination.gallery?.[0] && (
+      <section aria-labelledby="hotel-paso-dome-photos" className="border-b border-border bg-surface">
+        <Container className="grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:items-center">
+          <figure className="min-w-0">
+            <img
+              src={editorialImageSrc(destination.gallery[0].image.src)}
+              alt={destination.gallery[0].image.alt}
+              width={destination.gallery[0].image.width}
+              height={destination.gallery[0].image.height}
+              loading="eager"
+              decoding="async"
+              className="h-auto w-full bg-background object-contain"
+              onError={(event) => recoverOrHideImage(event.currentTarget)}
+            />
+            <figcaption className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
+              <p>{destination.gallery[0].caption}</p>
+              <a href={destination.gallery[0].sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">
+                Library of Congress original, photographer credit and reuse information — {destination.gallery[0].image.credit}
+              </a>
+            </figcaption>
+          </figure>
+          <div className="min-w-0">
+            <p className="eyebrow text-primary">Inside the Dome Bar</p>
+            <h2 id="hotel-paso-dome-photos" className="mt-3 font-display text-3xl leading-tight md:text-4xl">Two views of the historic stained-glass dome</h2>
+            <p className="mt-4 text-base leading-7 text-foreground/90">
+              The opening photo is a 2015 CC0 overhead view. This wider Library of Congress photograph, taken by Carol M. Highsmith in 2014, shows how the dome relates to the room's ornate interior. Both predate the hotel's 2020 restoration and should not be confused with current booking photographs.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              The El Paso Public Library also preserves an older black-and-white Ponsford/Trost dome-room image. Because its publication rights have not been independently established, we link to the archival record instead of copying the photo.
+            </p>
+            <a href="https://texashistory.unt.edu/ark:/67531/metapth613579/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-2">
+              View the historic dome-room photograph at the Portal to Texas History ↗
+            </a>
+          </div>
+        </Container>
+      </section>
+    )}
 
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
-          <p className="eyebrow text-primary">The experience</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
+          <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Inside the pyramids" : "The experience"}</p>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destination.slug === "moody-gardens" ? "Aquarium, Rainforest or Discovery: how to choose" : destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
-            <p className="eyebrow text-primary">Documentary photographs</p>
-            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">Historical photographs of {destination.name}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access.</p>
+            <p className="eyebrow text-primary">{oliveCompanyOwnerPhoto ? "Photos supplied by the business" : "Documentary photographs"}</p>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : destination.slug === "magoffin-home" ? "Magoffin family: historical portraits" : destination.slug === "fort-mckavett" ? "Fort McKavett: buildings, exhibits and historical interpretation" : oliveCompanyOwnerPhoto ? "A closer look at the bistro exterior" : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "Gainesville’s separate Medal of Honor Park: 2017 photos" : isReviewedAttraction ? `Additional documentary views of ${destination.name}` : `Historical photographs of ${destination.name}`}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{destination.slug === "magoffin-home" ? "These public-domain nineteenth-century portraits document the family behind the adobe house. They do not depict current rooms or visitor access." : destination.slug === "fort-mckavett" ? "Six exact-site photographs from 2013–2017, each linked to its individual Wikimedia Commons source, photographer and Creative Commons license. They document the site at the time of photography, not the condition or exhibitions available today." : oliveCompanyOwnerPhoto ? "This additional exact-property exterior image was supplied directly by Texas Hill Country Olive Co. for noncommercial editorial presentation. Exterior photographs do not establish current menus, tour availability or operating hours." : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "These 2017 Creative Commons–licensed photographs by Michael Barera document Gainesville’s separate Medal of Honor Park, not the museum that opened on the NCTC campus in 2025. Neither image shows the college museum building or its exhibitions." : isReviewedAttraction ? "Each image documents a named feature at the actual attraction, with its own photographer, original Commons source, and verified Creative Commons license. Photo dates are not proof of current access or operations." : "Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access."}</p>
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
-              {destination.gallery.map((item) => (
+              {destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0).map((item) => (
                 <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
                   <img src={editorialImageSrc(item.image.src)} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
                   <figcaption className="space-y-2 p-4 text-sm leading-6">
                     <p>{item.caption}</p>
-                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">Image source and reuse terms — {item.image.credit}</a>
+                    {isReviewedAttraction && verifiedReviewedAttractionGalleryRights(item.sourceUrl) ? (
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-primary">
+                        <span>Photo: {verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.creator} · resized for web</span>
+                        <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Original image</a>
+                        <span aria-hidden="true">·</span>
+                        <a href={verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.licenseLabel} license</a>
+                      </div>
+                    ) : (
+                      <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">{oliveCompanyOwnerPhoto ? "Photo: Texas Hill Country Olive Co." : `Image source and reuse terms — ${item.image.credit}`}</a>
+                    )}
                   </figcaption>
                 </figure>
               ))}
@@ -394,20 +653,23 @@ function DestinationPage() {
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         {(destination.category === "beaches-coast" || destination.slug === "galveston-island-state-park" || destination.slug === "goose-island-state-park") && <Suspense fallback={null}><CoastalBeachFieldGuide destinationSlug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
-          <p className="eyebrow text-primary">The details</p>
-          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
+          <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Getting there" : "The details"}</p>
+          <h2 id="before-you-go" className="mt-3 font-display text-3xl">{destination.slug === "moody-gardens" ? "Address, access and arrival" : "Planning your visit"}</h2>
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Area</dt><dd className="mt-2 text-base"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
-            <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
+            {showSeason && destination.slug !== "moody-gardens" && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>}
             {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{countyLabel}</Link> : countyLabel}</dd></div>}
             {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
-            <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
-            {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
+            {showEntryPlanning && destination.slug !== "moody-gardens" && <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>}
+            {destination.accessibilityNotes && destination.slug !== "moody-gardens" && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
             {destination.directions && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Getting there</dt><dd className="mt-2 text-base leading-7">{destination.directions}</dd></div>}
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
-        {authoritySourceLinks.length > 0 && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
+        {/* Keep this contextual hotel module with the visitor planning information;
+            without a dedicated slot both commercial layers fall to the guide footer. */}
+        {destination.slug === "fort-mckavett" && <div data-stay-nearby-slot aria-label="Places to stay when visiting Fort McKavett" />}
+        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && !isReviewedAttraction && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
           <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>
@@ -418,10 +680,34 @@ function DestinationPage() {
             </li>)}
           </ul>
         </section>}
-        {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
+        {destination.slug === "magnolia-market-at-the-silos" && <section className="mt-10 border-t border-border pt-8" aria-label="Chip and Joanna Gaines history and Magnolia visitor guide">
+          <p className="eyebrow text-primary">The people behind Magnolia</p>
+          <h2 className="mt-2 font-display text-3xl">Chip and Joanna Gaines: from Fixer Upper to the Silos</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Learn how the Baylor graduates built a Waco-based renovation, television, home and hospitality company, then plan the other Magnolia-related stops across town.</p>
+          <Link to="/article/$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }} className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Read our Chip and Joanna Gaines authority guide →</Link>
+        </section>}
+        {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
+        {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
+        {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && destination.slug !== "magoffin-home" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
-        {!isChokeCanyon && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
+        {/* Keep curated river relationships in initial HTML for every mapped
+            destination, including primary trip-planner records. A lazy planner
+            is not a crawlable substitute for an actual editorial backlink. */}
+        {relatedRiverGuides.length > 0 && (
+          <nav aria-label={`Related river guides for ${destination.name}`} className="mt-10 border-t border-border pt-8">
+            <h2 className="font-display text-2xl">Related Texas river guides</h2>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              {relatedRiverGuides.map((guide) => (
+                <div key={guide.href} className="border-l-2 border-primary pl-4">
+                  <Link to={guide.href} className="font-semibold underline decoration-primary/40 underline-offset-4">{guide.label}</Link>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{guide.description}</p>
+                </div>
+              ))}
+            </div>
+          </nav>
+        )}
+        {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><Suspense fallback={null}><DestinationVisitPlanner destination={destination} /></Suspense></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 
@@ -433,7 +719,8 @@ function DestinationPage() {
       </aside>
     </Container>
 
+    {countySlug === "el-paso" ? <Container><ElPasoAreaCrossLinks kind="destination" slug={destination.slug} /></Container> : null}
     {isChokeCanyon ? compactNearby.length > 0 && <Section className="py-10 sm:py-12 lg:py-14" tone="surface"><Container><SectionHeader eyebrow="Nearby" title="Three practical additions near Choke Canyon" description="A short list of close-by stops instead of a long statewide recommendation feed." /><div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{compactNearby.map((item) => <DestinationCard key={item.id} destination={item} regionLabel={item.region === destination.region ? region?.name : undefined} />)}</div></Container></Section> : <DestinationRelationships destination={destination} groups={relationshipGroupsForPage} regionName={region?.name} />}
-    {!isChokeCanyon && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
+    {!isChokeCanyon && destination.slug !== "moody-gardens" && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
   </>;
 }

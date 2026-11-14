@@ -1,3 +1,4 @@
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { SHOWCASE_LAKE_SECTION_SLUGS } from "./showcase-lake-routing";
 import { showcaseLakePrototypes } from "./showcase-lakes-prototype";
@@ -17,7 +18,20 @@ const sectionLabel = {
 
 export function loadShowcaseLakesPageDataServer() {
   const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes, ...statewideNetworkShowcaseLakePrototypes };
-  return Object.fromEntries(Object.entries(prototypes).map(([slug, lake]) => {
+  return Object.fromEntries(Object.entries(prototypes).map(([slug, baseLake]) => {
+    // A completed research dossier updates only the sections backed by its
+    // individual operator sources. The main fishery verifiedAt is unchanged.
+    const researched = LAKE_AUTHORITY_RESEARCH_WAVE1[slug];
+    const lake = researched ? {
+      ...baseLake,
+      camping: researched.camping,
+      regulations: researched.regulations,
+      nearby: [...baseLake.nearby, ...researched.nearby],
+      sectionResearch: {
+        reviewedAt: researched.reviewedAt,
+        sourceUrls: researched.sourceUrls,
+      },
+    } : baseLake;
     const hasNamedAccess = lake.access.some((site) => !site.name.toLowerCase().includes("public access inventory") && !site.name.toLowerCase().includes("access overview"));
     const hasNamedCamping = lake.camping.some((site) => !/camping and lodging planning|trip-planning options/i.test(site.type + " " + site.name));
     const sections = SHOWCASE_LAKE_SECTION_SLUGS.map((section) => ({

@@ -2,6 +2,7 @@ import { assertValidFishingCatalog } from "./validation";
 import type {
   FishSpecies,
   FishingCatalog,
+  FishingAccessPoint,
   FishingLake,
   FishingSource,
   FishingTechnique,
@@ -148,13 +149,13 @@ export const fishingLakes: FishingLake[] = [
     slug: "sam-rayburn-reservoir",
     status: "published",
     verifiedAt: VERIFIED_AT,
-    sources: [lakeSources.samRayburn, lakeLocationSources.samRayburn],
+    sources: [lakeSources.samRayburn, lakeLocationSources.samRayburn, { id: "tpwd-sam-rayburn-legal-boundaries", name: "TPWD Reservoir Boundaries", url: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/reservoir-boundaries", checkedAt: "2026-11-05", sourceType: "state" }],
     name: "Sam Rayburn Reservoir",
     summary: "A 114,500-acre Pineywoods reservoir with year-round largemouth bass, crappie and catfish fishing and extensive vegetation, timber and creek-channel habitat.",
     region: "piney-woods",
     waterType: "reservoir",
     waterClass: "freshwater",
-    counties: [],
+    counties: ["Angelina", "Jasper", "Nacogdoches", "Sabine", "San Augustine"],
     nearestCities: ["Jasper", "Lufkin", "Brookeland"],
     coordinates: { lat: 31.060751, lng: -94.106025 },
     surfaceAcres: 114500,
@@ -194,13 +195,13 @@ export const fishingLakes: FishingLake[] = [
     slug: "lake-texoma",
     status: "published",
     verifiedAt: VERIFIED_AT,
-    sources: [lakeSources.texoma, lakeLocationSources.texoma],
+    sources: [lakeSources.texoma, lakeLocationSources.texoma, { id: "tpwd-texoma-cooke-grayson-boundaries", name: "TPWD — Lake Texoma official reservoir county boundaries", url: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/reservoir-boundaries", checkedAt: "2026-11-07", sourceType: "state" }],
     name: "Lake Texoma",
     summary: "A large Red River reservoir on the Texas-Oklahoma border with a self-sustaining striped bass fishery plus strong smallmouth bass, catfish, crappie and white bass opportunities.",
     region: "prairies-lakes",
     waterType: "reservoir",
     waterClass: "freshwater",
-    counties: [],
+    counties: ["Cooke", "Grayson"],
     nearestCities: ["Denison", "Sherman", "Pottsboro"],
     coordinates: { lat: 33.818158, lng: -96.572493 },
     surfaceAcres: 74686,
@@ -309,13 +310,40 @@ export const lakeTechniqueProfiles: LakeTechniqueProfile[] = [
   { id: "texoma-live-bait", lakeId: "lake-texoma", techniqueId: "live-bait", speciesIds: ["striped-bass", "blue-catfish", "flathead-catfish"], seasons: ["year-round"], summary: "Live-bait presentations are important across several Lake Texoma open-water and catfish fisheries.", verifiedAt: VERIFIED_AT, sources: relationSource(lakeSources.texoma) },
 ];
 
+const CONROE_ACCESS_REVIEWED = "2026-11-04";
+const conroeAccessSource: FishingSource = {
+  id: "tpwd-lake-conroe-access",
+  name: "Texas Parks & Wildlife Department — Lake Conroe Public Access",
+  url: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/access.phtml",
+  checkedAt: CONROE_ACCESS_REVIEWED,
+  sourceType: "state",
+};
+const conroeAccessBase = {
+  brandId: BRAND,
+  status: "published" as const,
+  verifiedAt: CONROE_ACCESS_REVIEWED,
+  lakeIds: ["lake-conroe"],
+  sources: [conroeAccessSource],
+};
+/** Sourced facilities, not promises of today's fees, closures or ramp usability. */
+export const sourcedLakeConroeAccessPoints: FishingAccessPoint[] = [
+  { ...conroeAccessBase, id: "conroe-access-stubblefield", slug: "stubblefield-lake-launch", name: "Stubblefield Lake", kind: "boat-ramp", feeRequired: false, description: "Small-boat dirt launch in Sam Houston National Forest. TPWD lists no launch fee; separate recreation-area charges may apply.", launchNotes: "Small boats only. Check water and road conditions before traveling." },
+  { ...conroeAccessBase, id: "conroe-access-cagle", slug: "cagle-recreation-area", name: "Cagle Recreation Area", kind: "boat-ramp", feeRequired: true, description: "Forest Service recreation area with a two-lane concrete launch for all boat types per TPWD.", launchNotes: "TPWD lists a fee. Confirm current charges and access with the managing agency." },
+  { ...conroeAccessBase, id: "conroe-access-stow-a-way", slug: "stow-a-way-marina", name: "Stow-a-way Marina", kind: "marina", description: "Private Lake Conroe marina with a three-lane concrete boat launch listed by TPWD.", amenities: ["Boat launch"], phone: "936-856-4531" },
+  { ...conroeAccessBase, id: "conroe-access-scotts-ridge", slug: "scotts-ridge-boat-ramp", name: "Scott's Ridge", kind: "boat-ramp", feeRequired: true, description: "Forest Service access with a two-lane concrete ramp for all boat types according to TPWD.", launchNotes: "TPWD lists a fee; confirm road closures and facility access." },
+  { ...conroeAccessBase, id: "conroe-access-fm-830", slug: "fm-830-boat-ramp", name: "FM 830 Ramp", kind: "boat-ramp", feeRequired: false, description: "TPWD-maintained facility with two concrete boat ramps; TPWD lists no launch fee.", launchNotes: "Check water level and ramp usability before departure." },
+  { ...conroeAccessBase, id: "conroe-access-april-plaza", slug: "april-plaza-marina", name: "April Plaza Marina", kind: "marina", description: "Private marina with a three-lane concrete launch documented by TPWD.", amenities: ["Boat launch"], phone: "936-588-1144" },
+  { ...conroeAccessBase, id: "conroe-access-pier-105", slug: "pier-105-ramp", name: "Pier 105", kind: "boat-ramp", feeRequired: true, description: "Private Texas 105 access with a three-lane concrete boat ramp listed by TPWD.", launchNotes: "Verify current charges and launch conditions with the operator." },
+  { ...conroeAccessBase, id: "conroe-access-lakeview", slug: "lakeview-marina", name: "Lakeview Marina", kind: "marina", description: "Private marina off Texas 105 with concrete boat ramps documented by TPWD.", amenities: ["Boat launch"], phone: "936-588-3190" },
+];
+
 export const fixtureFishingCatalog: FishingCatalog = assertValidFishingCatalog({
   lakes: fishingLakes,
   species: fishSpecies,
   techniques: fishingTechniques,
   lakeSpecies: lakeSpeciesProfiles,
   lakeTechniques: lakeTechniqueProfiles,
-  accessPoints: [],
+  accessPoints: sourcedLakeConroeAccessPoints,
   tackleShops: [],
   guides: [],
   reports: [],

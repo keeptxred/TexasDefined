@@ -52,6 +52,11 @@ function Page() {
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Search by high school, ISD, city or county. TexasDefined starts with the complete current UIL football alignment, then adds Texas Education Agency school-directory context only when the campus match is unambiguous. Use each team guide for district opponents, enrollment, verified identity and venue details, history and current-season source links.</p>
       </header>
 
+      <nav aria-label="Browse Texas high school football" className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+        <a href="/texas-high-school-football-districts" className="text-primary underline underline-offset-4">Browse all 192 UIL districts and member teams →</a>
+        <a href="/texas-high-school-football-isds" className="text-primary underline underline-offset-4">Browse teams by ISD →</a>
+      </nav>
+
       <HighSchoolFootballLookup initialQuery={q} />
 
       <UilFootballProgramDirectory programs={programs} />

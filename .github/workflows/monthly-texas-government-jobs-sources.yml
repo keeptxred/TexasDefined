@@ -1,0 +1,47 @@
+name: Monthly Texas government jobs source review
+
+on:
+  schedule:
+    - cron: '37 13 12 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texas-government-employment-sources
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Confirm Texas state job application instructions and official pay sources
+        id: check
+        continue-on-error: true
+        run: node scripts/data/audit-texas-government-jobs-sources.mjs
+      - name: Record one durable action item when official sources require review
+        if: steps.check.outcome == 'failure'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title='[source-review] Texas government jobs guidance needs verification'
+          if gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Existing review issue open; no duplicate created.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh issue create \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --body "Verify the first-party sources of /texas-government-jobs. Source check: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Review TWC WorkInTexas, agency CAPPS exceptions, salary schedules and ERS benefits. Do not automatically restamp page dates or claim current openings. Investigate bot blocks separately."
+      - name: Fail explicitly when source review is needed
+        if: steps.check.outcome == 'failure'
+        run: exit 1

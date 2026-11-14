@@ -114,7 +114,9 @@ export default function ContextualOfficialSources() {
   if (!sourceSet) return <div className="h-20 sm:h-24" aria-hidden="true" />;
 
   return (
-    <aside className="mt-20 border-y border-border bg-background sm:mt-24" aria-label={sourceSet.title}>
+    <aside className={pathname === '/county/van-zandt'
+      ? 'mt-4 border-y border-border bg-background sm:mt-6'
+      : 'mt-20 border-y border-border bg-background sm:mt-24'} aria-label={sourceSet.title}>
       <Container className="py-10 sm:py-12">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr] lg:gap-12">
           <div>

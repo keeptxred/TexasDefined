@@ -89,7 +89,7 @@ export const largemouthBassEditorialProfile: FishSpeciesEditorialProfile = {
   articleLinks: [
     { title: "Why Almost All Texas Lakes Are Man-Made", href: "/article/texas-lakes-reservoirs-explained", summary: "Understand the reservoir system behind many of Texas' most important bass fisheries." },
   ],
-  rankingMethod: "Lake rankings are generated from TexasDefined's source-backed lake-species relationships. Fishery quality is scored first, then primary-vs-secondary prominence, then stable lake identity — not paid placement.",
+  rankingMethod: "The listing is organized by TPWD-backed lake-fishery quality tiers (excellent, good, fair, poor, unknown), then species prominence, with alphabetical ties. These are categories of reported fishery quality, not measured head-to-head catch-rate rankings. Sponsorship never affects placement.",
   regulationNote: "Texas freshwater limits and waterbody-specific exceptions can change. Check TPWD's current statewide rules and the individual lake's exceptions before fishing; TexasDefined does not freeze a bag or length limit into an evergreen species page.",
   regulationSource: freshwaterLimits,
   sources: [largemouthFactSheet, freshwaterLimits, lakeFinder],

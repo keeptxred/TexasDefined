@@ -1,6 +1,8 @@
+import { assertRenderedBingSeo } from './rendered-bing-seo.mjs';
+
 const ORIGIN = 'https://texasdefined.com';
 const KEY = '0c2b08423ce5be707dd931f57239acf1';
-const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-texas-icons.xml'];
+const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-shop.xml', '/sitemap-evergreen.xml', '/sitemap-texas-icons.xml'];
 const USER_AGENTS = [
   'Googlebot/2.1 (+http://www.google.com/bot.html)',
   'bingbot/2.0 (+http://www.bing.com/bingbot.htm)',
@@ -53,7 +55,7 @@ function chooseRepresentatives(entries) {
   const urls = entries.map((entry) => entry.url);
   const families = [
     '/destination/', '/article/', '/events', '/guides', '/county/', '/fishing/',
-    '/property-tax/', '/data/', '/school/', '/high-school-football/', '/explore/',
+    '/property-tax/', '/data/', '/school/', '/high-school-football/', '/shop/product/', '/explore/',
   ];
   const chosen = new Set([`${ORIGIN}/`]);
   for (const family of families) {
@@ -80,6 +82,9 @@ async function verifyHtml(url, userAgent) {
   if (new URL(canonical, ORIGIN).href !== cleanExpected.href) throw new Error(`${url} canonical mismatch: ${canonical}`);
   const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   if (visibleText.length < 300) throw new Error(`${url} exposes too little primary HTML content to ${userAgent}`);
+  // Already fetched bounded representative HTML: validate what Bing actually sees.
+  // Source-only TSX ALT checks miss undefined dynamic props and injected HTML.
+  assertRenderedBingSeo(html, url);
   return html;
 }
 
@@ -101,6 +106,31 @@ for (const token of ['Googlebot', 'Bingbot', 'Applebot', 'DuckDuckBot', 'OAI-Sea
   if (!robotsText.includes(token)) throw new Error(`robots.txt missing ${token}`);
 }
 
+// Verify the stable sitemap index separately from its existing URL feeds.
+// Do not claim that the index itself is a collection of article URLs.
+if (!robotsText.includes(`Sitemap: ${ORIGIN}/sitemap-index.xml`)) {
+  throw new Error('robots.txt does not advertise the sitemap index');
+}
+const sitemapIndexResponse = await fetchResponse(`${ORIGIN}/sitemap-index.xml`, USER_AGENTS[5], 'manual');
+if (sitemapIndexResponse.status !== 200) {
+  throw new Error(`sitemap-index.xml returned HTTP ${sitemapIndexResponse.status}`);
+}
+if (!(sitemapIndexResponse.headers.get('content-type') ?? '').includes('xml')) {
+  throw new Error('sitemap-index.xml is not served with an XML content type');
+}
+const sitemapIndexText = await sitemapIndexResponse.text();
+if (!sitemapIndexText.includes('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
+  throw new Error('sitemap-index.xml does not contain a valid sitemap index root');
+}
+const sitemapIndexFeeds = sitemapIndexText.split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('<sitemap><loc>'))
+  .map((line) => line.replace('<sitemap><loc>', '').replace('</loc></sitemap>', ''));
+const expectedIndexFeeds = SITEMAPS.map((path) => `${ORIGIN}${path}`);
+if (JSON.stringify(sitemapIndexFeeds) !== JSON.stringify(expectedIndexFeeds)) {
+  throw new Error('sitemap-index.xml feed inventory differs from canonical production sitemap paths');
+}
+
 const keyResponse = await fetchResponse(`${ORIGIN}/${KEY}.txt`, USER_AGENTS[5], 'manual');
 if (keyResponse.status !== 200 || (await keyResponse.text()).trim() !== KEY) throw new Error('Public IndexNow key verification failed.');
 
@@ -116,4 +146,4 @@ await verifyAsset(homepageHtml, /<link[^>]+rel=["']stylesheet["'][^>]+href=["'](
 await verifyAsset(homepageHtml, /<script[^>]+src=["']([^"']+)["']/i, 'JavaScript');
 await verifyAsset(homepageHtml, /<img[^>]+src=["']([^"']+)["']/i, 'Image');
 
-console.log(`TexasDefined production search verification passed: ${sitemapEntries.length} canonical sitemap entries checked structurally; ${representatives.length} representative template URLs verified; Googlebot, Bingbot, Applebot, DuckDuckBot, OAI-SearchBot and anonymous crawler HTTP access passed; required rendering assets are reachable.`);
+console.log(`TexasDefined production search verification passed: ${sitemapEntries.length} canonical sitemap entries checked structurally; ${representatives.length} representative template URLs verified; Googlebot, Bingbot, Applebot, DuckDuckBot, OAI-SearchBot and anonymous crawler HTTP access passed; required rendering assets are reachable; bounded SSR title/ALT coverage passed.`);

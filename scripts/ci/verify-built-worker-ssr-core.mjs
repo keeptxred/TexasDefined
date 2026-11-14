@@ -31,6 +31,120 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/article/texas-road-trip-rules', requiredText: 'Texas Road Trip Rules: What to Check Before You Drive', label: 'Texas road-trip driving rules repaired GSC 404 with original authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'DriveTexas.org', label: 'Official live closure tool in new road trip authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'Move Over or Slow Down', label: 'Updated protected roadside law present in road trip authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'https://texasdefined.com/article/texas-road-trip-rules', label: 'Self canonical of restored GSC road trip article' },
+  // Genuine former GSC /city/del-rio 404 requires the sourced municipal guide.
+  { path: '/city/del-rio', requiredText: 'https://texasdefined.com/city/del-rio', label: 'Del Rio GSC 404 repaired with self-canonical municipal guide' },
+  { path: '/city/del-rio', requiredText: '34,673', label: 'Del Rio Census 2020 population in server HTML' },
+  { path: '/city/del-rio', requiredText: 'San Felipe Creek', label: 'Del Rio spring-fed visitor and water-system context' },
+  { path: '/city/del-rio', requiredText: 'JherreraCODR', label: 'Del Rio Brown Plaza photo source credit visible' },
+  { path: '/texas-high-school-football-isds/brookesmith-isd', requiredText: '025908001', label: 'independent Brookesmith ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/morgan-isd', requiredText: '018903001', label: 'independent Morgan ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/walnut-springs-isd', requiredText: '018905003', label: 'independent Walnut Springs ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/three-rivers-isd', requiredText: '149902001', label: 'independent Three Rivers ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'Juana Pedrasa', label: 'Source-backed Fort Leaton borderlands heritage guide restores GSC 404' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: '16952 FM 170 East', label: 'Fort Leaton real western gateway address' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'https://tpwd.texas.gov/state-parks/fort-leaton', label: 'Fort Leaton official TPWD source visible' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: 'Una Tierra', label: 'Barton Warnock exhibit and park eastern entrance' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: '21800 FM 170', label: 'Barton Warnock eastern office address' },
+  { path: '/article/scenic-drives-in-texas', requiredText: 'Texas 16 — Bandera, Medina and Kerrville', label: 'Real scenic-drive article adds specific Texas Highway 16 route rather than generic redirect hub' },
+  { path: '/article/scenic-drives-in-texas', requiredText: 'https://www.dot.state.tx.us/tpp/hwy/SH/SH0016.htm', label: 'Texas Highway 16 scenic-drive research displays primary TxDOT SH16 designation reference' },
+  // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
+  // research record used a different slug from the actual owner roster.
+  { path: '/texas-icons/shaquille-oneal', requiredText: '1989 Class 3A', label: 'Shaquille icon now publishes exact Cole championship and not a 404' },
+  { path: '/texas-icons/shaquille-oneal', requiredText: 'tshof.org/inductee/shaquille-oneal', label: 'Shaquille authority guide cites Texas Sports Hall of Fame primary evidence' },
+  { path: '/texas-icons/shaquille-oneal', requiredText: 'https://texasdefined.com/texas-icons/shaquille-oneal', label: 'Shaquille exact historical GSC URL is the self-canonical published page' },
+  // Gainesville's user-requested authority page must render locally before deployment.
+  // A valid source fixture alone is not publication evidence.
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Medal of Honor Host City Museum', label: 'Gainesville Medal of Honor museum SSR renders rather than an unfound route' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: '1525 W California', label: 'Gainesville museum SSR renders the source-verified physical location' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Duane E. Dewey', label: 'Gainesville museum SSR carries dated original recipient-gallery research' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Campus map: Museum Building 2700', label: 'Gainesville museum SSR renders operator-sourced campus wayfinding' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'A deeper recipient-history visit', label: 'Gainesville visitor route is researched and not generic preserved-site filler' },
+  { path: '/sports/teams', requiredText: 'Pick the game.', label: 'Pro-team index renders its actual loader and 13-team guide' },
+  { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
+  { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
+  { path: '/sports/teams/dallas-cowboys', requiredText: 'data-pro-team-guide="dallas-cowboys"', label: 'Cowboys guide renders lodging planning rather than parent hub' },
+  // One locally built Worker request proves the supplemental Bing XML is real
+  // and includes a Google-staged page before any production deployment.
+  { path: '/sitemap-bing-football.xml', requiredText: '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', label: 'Bing-only staged football feed renders XML rather than a 404 or generic page' },
+  { path: '/sitemap-bing-football.xml', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/colorado-city-colorado', label: 'Bing XML preserves discovery of a Google-noindexed team' },
+  // Ensure both cold generic and research-overlay UIL team SSR work before we deploy.
+  // District 21 previously returned eight HTTP 500s while the district hub was healthy.
+  { path: '/texas-high-school-football-teams/fort-bend-hightower', requiredText: 'data-football-d21-team-section="fort-bend-hightower"', label: 'District 21 team SSR must render source-checked football season instead of 500' },
+  { path: '/texas-high-school-football-teams/fort-bend-elkins', requiredText: 'data-football-d21-team-section="fort-bend-elkins"', label: 'Second District 21 team SSR must render distinct scorecard' },
+  // Nov 13 production release returned HTTP 200 without these three teams'
+  // source-checked scorecards while the other five members passed. A 200 is
+  // not enough: prove the exact built SSR markup BEFORE Worker replacement.
+  { path: '/texas-high-school-football-teams/fort-bend-austin', requiredText: 'data-football-d21-team-section="fort-bend-austin"', label: 'Fort Bend Austin must SSR its verified District 21 scorecard' },
+  { path: '/texas-high-school-football-teams/fort-bend-bush', requiredText: 'data-football-d21-team-section="fort-bend-bush"', label: 'Fort Bend Bush must SSR its verified District 21 scorecard' },
+  { path: '/texas-high-school-football-teams/fort-bend-clements', requiredText: 'data-football-d21-team-section="fort-bend-clements"', label: 'Fort Bend Clements must SSR its verified District 21 scorecard' },
+  { path: '/texas-high-school-football-teams/gunter', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/gunter', label: 'Independent generic UIL team SSR has correct canonical' },
+  { path: '/texas-high-school-football-teams/buckholts', requiredText: 'Buckholts Badgers Football', label: 'Batch 008 researched six-man team SSR loads its published individual model' },
+
+  // One bounded local SSR request verifies this school-specific dynamic editorial
+  // import, links and 2026 schedule; grouping prevents five separate cold loads.
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Frisco Lone Star Rangers football represents Lone Star High School', label: 'Frisco Lone Star source-backed SSR imports its dedicated program editorial' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Official 2026 schedule', label: 'Lone Star 2026 official schedule section replaces generic live-scores heading' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: '2026-Fball-Schedule-8-21.pdf', label: 'Lone Star includes Frisco ISD varsity football schedule PDF' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'https://www.friscoisd.org/o/lshs', label: 'Lone Star school identity points to current official Frisco ISD campus' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Jeff Rayburn', label: 'Lone Star coach is included in dated school-specific football facts' },
+
+  { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
+  { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
+  { path: '/events/mardi-gras', requiredText: 'Chicken Run &amp; Gumbo Cook-off', label: 'Mardi Gras hub differentiates January Crystal Beach fundraiser from February parade' },
+  { path: '/events/mardi-gras', requiredText: 'Queen Mab Ball', label: 'Mardi Gras hub covers Jefferson ticketed ball separately from main festival' },
+  { path: '/events/mardi-gras', requiredText: 'Lagniappe Mardi Gras', label: 'Mardi Gras hub distinguishes second confirmed Beaumont charity event from public festival' },
+  { path: '/events/mardi-gras', requiredText: 'time to reconfirm', label: 'Crystal Beach contradictory start times are never represented as confirmed' },
+  { path: '/events/mardi-gras', requiredText: 'Two Creeks Mardi Gras Gumbo Cookoff', label: 'Mardi Gras hub links verified Livingston resort companion event' },
+  { path: '/events/mardi-gras', requiredText: 'Krewe of Porus', label: 'Mardi Gras hub includes independently dated Houston Third Ward parade' },
+  { path: '/events/mardi-gras', requiredText: 'Inaugural Granbury Carnival', label: 'Mardi Gras hub includes independently dated Granbury Carnival' },
+  { path: '/events/mardi-gras', requiredText: 'Bastrop Mardi Gras Festival', label: 'Mardi Gras hub includes city-tourism verified Bastrop parade' },
+  { path: '/events/mardi-gras', requiredText: 'do not assume public walk-in admission', label: 'Livingston resort event keeps visitor access caveat' },
+  { path: '/events/mardi-gras', requiredText: 'H.C.R. 50', label: 'Mardi Gras hub grounds Galveston capital title in the Texas Legislature' },
+  { path: '/texas-capital-designations', requiredText: '/events/mardi-gras', label: 'Official capital designations cross-link to Mardi Gras event hub' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
+  { path: '/event/mardi-gras-upriver-jefferson', requiredText: 'Renelibrary', label: 'Jefferson actual downtown 2015 photographer and credit are visible' },
+  { path: '/event/mardi-gras-upriver-jefferson', requiredText: '2015', label: 'Jefferson 2015 town-center photo is labeled archival, not 2027' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'Sunday, February 7, 2027', label: 'Oak Cliff date comes from verified 2027 partner schedule' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'Dash for the Beads', label: 'Oak Cliff visitor guide credits parade partner source' },
+  { path: '/events/mardi-gras', requiredText: 'Oak Cliff Mardi Gras Parade', label: 'Statewide Mardi Gras hub lists newly confirmed Oak Cliff parade' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'Michael Barera', label: 'Oak Cliff exact Davis Street photo credit visible' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: '2016', label: 'Oak Cliff Davis Street image labeled as historic, not a new parade' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'CC BY-SA 4.0', label: 'Oak Cliff route photograph has visible share-alike license' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: 'Renelibrary', label: 'Palestine historical district photo attribution renders' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: '2017', label: 'Palestine photograph is honestly labeled 2017 versus 2027' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: 'CC BY-SA 4.0', label: 'Palestine historic district photo retains visible sharealike license' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'Tony Webster', label: 'Kemah source-accurate Boardwalk photo credit SSR renders' },
+  { path: '/event/kemah-yachty-gras', requiredText: '2019', label: 'Kemah archival venue photo is not misrepresented as a 2027 parade' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'CC BY 2.0', label: 'Kemah photo license is visible in SSR' },
+  { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
+  { path: '/events/mardi-gras', requiredText: 'Galveston: the 2027 parades and free days worth planning around', label: 'Statewide Mardi Gras hub contains verified 2027 festival day selection' },
+  { path: '/events/mardi-gras', requiredText: '6:30 p.m.', label: 'Statewide Mardi Gras hub shows verified Fat Tuesday parade time' },
+  { path: '/event/mardi-gras-galveston', requiredText: 'Knights of Momus Grand Night Parade at 6 p.m.', label: 'Galveston guide preserves 2027 signature parade time' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'These are FESTIVAL GATE windows, not parade or concert start times.', label: 'Port Arthur published 2027 gate hours must not be mistaken for a parade timetable' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'individual parade start times, road-closure maps and ticket prices', label: 'Port Arthur guide preserves the still-unconfirmed parade route and paid admission details' },
+  { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
+  { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
+  // El Paso authority acceptance: real SSR must publish the researched metro guide
+  // and crawlable city / relocation backlinks, not the old statewide fallback.
+  { path: '/metro-area/el-paso-metro', requiredText: 'What counts as the El Paso metro?', label: 'El Paso metro includes researched two-county guide' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Hudspeth County', label: 'El Paso metro retains federal two-county geography' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Connected El Paso guides', label: 'El Paso metro renders reciprocal link rail' },
+  { path: '/metro-area/el-paso-metro', requiredText: '/county/hudspeth', label: 'El Paso metro links to Hudspeth County' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Quintin Soloviev', label: 'El Paso metro preserves licensed skyline attribution' },
+  { path: '/city/el-paso', requiredText: '/metro-area/el-paso-metro', label: 'El Paso city guide links back to metro' },
+  { path: '/article/moving-to-el-paso-guide', requiredText: '/metro-area/el-paso-metro', label: 'Moving to El Paso article links to metro guide' },
+  // A merged Magoffin code change is not proof of publication; inspect the real
+  // locally built Worker SSR rather than trusting module-level source markers.
+  { path: '/destination/magoffin-home', requiredText: 'Historic home closed through 2027', label: 'Magoffin restoration alert is SSR-rendered' },
+  { path: '/destination/magoffin-home', requiredText: 'Magoffin Home visitor FAQ', label: 'Magoffin restored visitor FAQ replaces generic-only guide' },
+  { path: '/destination/magoffin-home', requiredText: '1117 Magoffin Avenue', label: 'Magoffin current visitor-center arrival address is visible' },
+  { path: '/destination/magoffin-home', requiredText: 'acquireLicensePage', label: 'Magoffin photograph ImageObject preserves license acquisition metadata in SSR' },
+  { path: '/destination/magoffin-home', requiredText: '© 2009 Larry D. Moore', label: 'Magoffin photograph ImageObject publishes verified copyright attribution' },
   { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
   { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
   { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
@@ -104,7 +218,7 @@ const smokeTargets = [
   { path: '/fishing/techniques/crankbaits', requiredText: 'How to Fish Crankbaits in Texas', label: 'crankbaits technique detail route' },
   { path: '/fishing/techniques/spinnerbaits', requiredText: 'How to Fish Spinnerbaits in Texas', label: 'spinnerbaits technique detail route' },
   { path: '/fishing/techniques/topwater', requiredText: 'How to Fish Topwater in Texas', label: 'topwater technique detail route' },
-  { path: '/fishing/techniques/trolling', requiredText: 'How to Fish Trolling in Texas', label: 'trolling technique detail route' },
+  { path: '/fishing/techniques/trolling', requiredText: 'How to Troll for Fish in Texas', label: 'trolling technique detail route' },
   { path: '/fishing/techniques/vertical-jigging', requiredText: 'How to Fish Vertical Jigging in Texas', label: 'vertical-jigging technique detail route' },
   { path: '/fishing/techniques/jigs-and-minnows', requiredText: 'How to Fish Jigs and Minnows in Texas', label: 'jigs-and-minnows technique detail route' },
   { path: '/fishing/techniques/live-bait', requiredText: 'How to Fish Live Bait in Texas', label: 'live-bait technique detail route' },
@@ -134,10 +248,67 @@ const smokeTargets = [
   })),
   { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
   { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
-  { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
+  { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–', label: 'Texas Data child route body' },
 ];
 
+// The holiday route is permanent, while each date-specific show must expire from
+// SSR assertions on its actual final day. Dates below are midnight AFTER each
+// verified event in America/Chicago (November and December = CST).
+smokeTargets.push({
+  path: '/events/christmas-events',
+  requiredText: 'Texas Christmas &amp; Holiday Events',
+  label: 'Christmas authority hub renders its actual SSR page',
+});
+const requireChristmasShowUntil = (deadlineUtc, requiredText, label) => {
+  if (Date.now() < Date.parse(deadlineUtc)) {
+    smokeTargets.push({ path: '/events/christmas-events', requiredText, label });
+  }
+};
+requireChristmasShowUntil('2026-12-28T06:00:00Z', 'Holiday events and concerts in Texas (2026)', '2026 Christmas performances render before the last run ends');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '33rd Annual Christmas/Kwanzaa Concert', 'Bruton Christmas concert visible through its Dec 11 date');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '0C00653DBA7FA947', 'Exact Dec 11 Bruton Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-18T06:00:00Z', '0C00653DB901A616', 'Exact Dec 17 Bruton jazz Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-24T06:00:00Z', '0C0064CA0668F4BE', 'Exact Dec 23 Dallas Grand Ol Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'etix.com/ticket/v/32639/crighton-theatre', 'Conroe show ticket link visible through final Dec 20 performance');
+requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderland', 'Cedar Park Christmas Eve Cirque Musica show');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
+
 const redirectTargets = [
+  { path: '/historic-site/fort-leaton-state-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/fort-leaton-state-historic-site', expectedQuery: ['source','gsc'], label: 'historic Fort Leaton alias 301 to real destination' },
+  { path: '/state-park/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock state-park alias maps to eastern park gateway guide' },
+  { path: '/destination/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock destination alias maps to eastern gateway guide' },
+  { path: '/article/texas-oil-boom-history-spindletop-permian-basin?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-oil-boom-wichita-falls-west-texas-rigs', expectedQuery: ['source','gsc'], label: 'GSC former Spindletop Permian oil-guide historical alias' },
+  { path: '/destination/texas-highway-16-hill-country?source=gsc', expectedStatus: 301, expectedPath: '/article/scenic-drives-in-texas', expectedQuery: ['source','gsc'], label: 'substantive SH16 route-specific authority guide historical GSC alias' },
+  { path: '/article/cameron-county-brownsville-harlingen-south-padre-rio-grande?source=gsc', expectedStatus: 301, expectedPath: '/county/cameron', expectedQuery: ['source','gsc'], label: 'historical Cameron County series legacy alias to county authority' },
+  { path: '/article/texas-home-insurance-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-homeowners-insurance-guide', expectedQuery: ['source','gsc'], label: 'published homeowner insurance historical GSC alias' },
+  { path: '/article/texas-hurricane-preparation-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-hurricane-preparation-homeowners-renters', expectedQuery: ['source','gsc'], label: 'published hurricane preparedness historical GSC alias' },
+  { path: '/destination/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/state-park/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/destination/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/state-park/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/news/davy-crockett-texas-alamo-legend?source=gsc', expectedStatus: 301, expectedPath: '/article/davy-crockett-texas-alamo-legend', expectedQuery: ['source','gsc'], label: 'published Crockett historical GSC news alias' },
+  { path: '/news/san-antonio-stock-show-rodeo-history-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/san-antonio-stock-show-rodeo-history-guide', expectedQuery: ['source','gsc'], label: 'published San Antonio Stock Show historical GSC alias' },
+  { path: '/news/stephen-f-austin-father-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/article/stephen-f-austin-father-of-texas', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/juan-seguin-tejano-texas-revolution?source=gsc', expectedStatus: 301, expectedPath: '/article/juan-seguin-tejano-texas-revolution', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/san-antonio-spurs-texas-basketball-culture?source=gsc', expectedStatus: 301, expectedPath: '/article/san-antonio-spurs-texas-basketball-culture', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/texas-oil-boom-wichita-falls-west-texas-rigs?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-oil-boom-wichita-falls-west-texas-rigs', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/dr-pepper-waco-texas-history?source=gsc', expectedStatus: 301, expectedPath: '/dr-pepper-texas-history', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/destination/fredericksburg-texas-wineries-things-to-do-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/fredericksburg-texas-wineries-things-to-do-guide', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/attraction/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/attraction/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/state-park/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/seminole-canyon-state-park-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
+  { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
+  // Preserve incoming dated Carnival links without serving an unverified leaf
+  // or tying the canonical destination to the 2027 occurrence.
+  { path: '/event/crystal-beach-mardi-gras-chicken-run-2027?source=legacy', expectedStatus: 301, expectedPath: '/events/mardi-gras', expectedQuery: ['source','legacy'], label: 'retired dated Mardi Gras companion' },
+  { path: '/event/jefferson-queen-mab-ball-2027?source=legacy', expectedStatus: 301, expectedPath: '/events/mardi-gras', expectedQuery: ['source','legacy'], label: 'retired dated Mardi Gras companion' },
+  { path: '/event/beaumont-lagniappe-mardi-gras-soiree-2027?source=legacy', expectedStatus: 301, expectedPath: '/events/mardi-gras', expectedQuery: ['source','legacy'], label: 'retired dated Mardi Gras companion' },
+  { path: '/event/livingston-mardi-gras-gumbo-cookoff-2027?source=legacy', expectedStatus: 301, expectedPath: '/events/mardi-gras', expectedQuery: ['source','legacy'], label: 'retired dated Mardi Gras companion' },
   { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
   { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
   {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
@@ -271,6 +442,17 @@ const requestHeaders = {
   'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
 };
 
+// Approved, rights-reviewed Mardi Gras photo pages must not quietly remain noindex.
+// Keep unapproved event leaves fail-closed; only test positive approvals here.
+const licensedMardiGrasPages = new Set([
+  '/event/mardi-gras-galveston',
+  '/event/cowboy-mardi-gras-bandera',
+  '/event/kemah-yachty-gras',
+  '/event/mardi-gras-upriver-jefferson',
+  '/event/palestine-mardi-gras-parade',
+  '/event/oak-cliff-mardi-gras-parade',
+]);
+
 async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
     const response = await fetch(smokeUrl(group.path, attemptToken), {
@@ -289,6 +471,25 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       });
       if (missingChecks.length) {
         return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
+      // The Bing-only XML must contain the exact evolving Google-staged cohort,
+      // not merely the expected example URL. Fail BEFORE deploying any mismatch.
+      if (group.path === '/sitemap-bing-football.xml') {
+        const policy = JSON.parse(readFileSync('src/data/high-school-football/google-index-eligibility.generated.json', 'utf8'));
+        const expected = 1292 - policy.teamIndexableSlugs.length + 192 - policy.districtIndexableSlugs.length;
+        const entries = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+        if (entries.length !== expected || new Set(entries).size !== entries.length) {
+          return `Bing football sitemap count/uniqueness mismatch: ${entries.length} vs expected ${expected}`;
+        }
+        if (!entries.every((value) => /^https:\/\/texasdefined\.com\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(value))) {
+          return 'Bing football supplemental feed contains a noncanonical or non-football URL';
+        }
+      }
+      if (licensedMardiGrasPages.has(group.path)) {
+        const robotsMetaTags = body.match(/<meta\b[^>]*>/gi) || [];
+        const stillNoindex = robotsMetaTags.some((tag) =>
+          /\bname\s*=\s*["']robots["']/i.test(tag) && /\bnoindex\b/i.test(tag));
+        if (stillNoindex) return `${group.path} has licensed location-accurate imagery but still emits meta robots noindex`;
       }
       return '';
     }
@@ -332,6 +533,23 @@ async function checkRedirectTarget(target, attemptToken) {
     return `${target.label} (${target.path}) failed: ${detail}`;
   }
 }
+
+// The same real Worker must 404 historical router-template strings before SSR,
+// including encoded values that previously produced a 307 -> 404 chain.
+const forbiddenTemplateRoutes = [
+  { path: '/explore/casinos/$slug', label: 'unsubstituted casino route' },
+  { path: '/explore/near/$metro/$collection', label: 'unsubstituted proximity route' },
+  { path: '/explore/painted-churches_/guides_/$slug', label: 'legacy guide template must not become undefined' },
+  { path: '/events/%2524collection', label: 'double-escaped event template' },
+];
+
+// TPWD confirms these legacy imports are not visitor-ready and do not have
+// an independently approved published authority page. No 301-to-404 chain.
+const unavailableHistoricalParkRoutes = [
+  { path: '/state-park/fairfield-lake-state-park?source=gsc', label: 'Fairfield closed state-park import direct HTTP 404' },
+  { path: '/state-park/wyler-aerial-tramway-state-park?source=gsc', label: 'Wyler suspended tramway import direct HTTP 404' },
+  { path: '/attraction/chinati-mountains-state-natural-area?source=gsc', label: 'Chinati not-open attraction import direct HTTP 404' },
+];
 
 // Do not accept a generic 200/hub for an unapproved or invented UIL team.
 // The built Worker must return a real HTTP 404, even before any profiles are live.
@@ -433,6 +651,18 @@ try {
       const failure = await verifyWithRetries(forbiddenSoftballRoute, checkForbiddenSoftballRoute, 'unapproved softball team 404');
       if (failure) failures.push(failure);
       else console.log('[route] verified (404): '+forbiddenSoftballRoute.path+' (never publish invented UIL schools)');
+    }
+
+    for (const target of forbiddenTemplateRoutes) {
+      const failure = await verifyWithRetries(target, checkForbiddenSoftballRoute, 'invalid template URL 404', 1);
+      if (failure) failures.push(failure);
+      else console.log('[route] verified direct HTTP 404: ' + target.path);
+    }
+
+    for (const target of unavailableHistoricalParkRoutes) {
+      const failure = await verifyWithRetries(target, checkForbiddenSoftballRoute, 'closed historic import HTTP 404', 1);
+      if (failure) failures.push(failure);
+      else console.log('[route] verified direct HTTP 404 (no broken redirect): ' + target.path);
     }
 
     for (const target of redirectTargets) {

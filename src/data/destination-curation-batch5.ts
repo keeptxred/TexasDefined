@@ -4,6 +4,11 @@ const TPWD = "Texas Parks and Wildlife Department";
 
 const curated: Record<string, Partial<Destination>> = {
   "mother-neff-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $2 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/mother-neff", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Gate and visitor center", detail: "The park gate is open daily 8 a.m.–8 p.m.; the visitor center is open 9 a.m.–4 p.m. and closes from noon to 1 p.m. on weekdays.", sourceUrl: "https://tpwd.texas.gov/state-parks/mother-neff", checkedAt: "2026-10-21" },
+      { topic: "access", label: "South gate closure", detail: "The entrance gate at the south end of the park is closed indefinitely. Use the park's published directions to the operating gate.", sourceUrl: "https://tpwd.texas.gov/state-parks/mother-neff", checkedAt: "2026-10-21" },
+    ],
     summary: "Texas' first state park, a compact Central Texas landscape of prairie, limestone bluffs, wooded creek bottoms and a historic Civilian Conservation Corps legacy near the Leon River.",
     nearestTown: "Moody",
     bestSeason: "Fall through spring for comfortable hiking and prairie walks",
@@ -18,6 +23,11 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/mother-neff",
   },
   "lockhart-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $3 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/lockhart", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Gate hours and seasonal office", detail: "Park open daily 6 a.m.–10 p.m. Office March–September: 7:30 a.m.–7 p.m. except Wednesday until 5 p.m.; October–February: 7:30 a.m.–5 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/lockhart", checkedAt: "2026-10-21" },
+      { topic: "swimming", label: "Pool season", detail: "The swimming pool season typically runs from Memorial Day weekend through Labor Day weekend; check park notices for current pool access.", sourceUrl: "https://tpwd.texas.gov/state-parks/lockhart", checkedAt: "2026-10-21" },
+    ],
     summary: "A small Central Texas state park beside Clear Fork Creek, notable for wooded trails, a historic CCC-built recreation landscape and the only golf course in the Texas State Park system.",
     nearestTown: "Lockhart",
     bestSeason: "Fall through spring for hiking and golf; summer visits are best early or late in the day",
@@ -32,6 +42,11 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/lockhart",
   },
   "longhorn-cavern-state-park": {
+    visitorFacts: [
+      { topic: "hours", label: "Park grounds and holiday", detail: "Park grounds and facilities open daily except December 25. Tour schedules are provided separately by the cavern operator.", sourceUrl: "https://tpwd.texas.gov/state-parks/longhorn-cavern", checkedAt: "2026-10-21" },
+      { topic: "reservations", label: "Cavern tour admission and schedule", detail: "Cave-tour fees and times are set by the cave-tour operator; check the tour schedule or contact the park before visiting.", sourceUrl: "https://tpwd.texas.gov/state-parks/longhorn-cavern", checkedAt: "2026-10-21" },
+      { topic: "camping", label: "Day-use only park", detail: "Longhorn Cavern State Park has no overnight camping; TPWD directs overnight visitors to nearby Inks Lake State Park.", sourceUrl: "https://tpwd.texas.gov/state-parks/longhorn-cavern", checkedAt: "2026-10-21" },
+    ],
     summary: "A Hill Country cavern carved by ancient underground water, explored on guided tours beneath a historic 1930s Civilian Conservation Corps park landscape near Burnet.",
     nearestTown: "Burnet",
     bestSeason: "Year-round; the cavern offers a naturally cooler underground outing during hot weather",
@@ -46,6 +61,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/longhorn-cavern",
   },
   "martin-dies-jr-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $4 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-dies-jr", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and headquarters schedule", detail: "The park is open daily 6 a.m.–10 p.m. Headquarters opens 8:30 a.m.–noon and 1:15–5 p.m., with a midday closure.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-dies-jr", checkedAt: "2026-10-21" },
+    ],
     summary: "An East Texas park where the Angelina and Neches river country meets the edge of the Big Thicket, with paddling, cypress-lined sloughs, fishing and forest camping around the B.A. Steinhagen Reservoir.",
     nearestTown: "Jasper",
     bestSeason: "Fall through spring for paddling, hiking and camping with lower heat and humidity",
@@ -60,6 +79,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-dies-jr",
   },
   "mission-tejas-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $4 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/mission-tejas", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Days of operation", detail: "Texas Parks and Wildlife lists the park as open daily; verify current gate access and conditions before arrival.", sourceUrl: "https://tpwd.texas.gov/state-parks/mission-tejas", checkedAt: "2026-10-21" },
+    ],
     summary: "A quiet East Texas history-and-nature park preserving a 1930s reconstruction of Mission San Francisco de los Tejas, the Rice Family Log Home and pineywoods trails along El Camino Real.",
     nearestTown: "Grapeland",
     bestSeason: "Fall through spring for comfortable hiking and historical exploration",
@@ -74,6 +97,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/mission-tejas",
   },
   "meridian-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $5 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/meridian", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "The park is open daily 6 a.m.–10 p.m.; office hours are daily 8:15 a.m.–4:45 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/meridian", checkedAt: "2026-10-21" },
+    ],
     summary: "A small limestone-and-cedar park northwest of Waco centered on a spring-fed lake built by the Civilian Conservation Corps, with trails, fishing, paddling and historic stonework.",
     nearestTown: "Meridian",
     bestSeason: "Fall through spring for hiking; warm months add swimming and paddling",
@@ -88,6 +115,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/meridian",
   },
   "martin-creek-lake-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $4 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and holiday office hours", detail: "The park is open daily 6 a.m.–10 p.m.; the office closes at noon on Thanksgiving Day and all day on December 25.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-10-21" },
+    ],
     summary: "An East Texas reservoir park near Longview with pine and hardwood forest, fishing, lakeside camping and a footbridge to an island trail on Martin Creek Lake.",
     nearestTown: "Tatum",
     bestSeason: "Fall through spring for camping and trails; fishing is a year-round draw",
@@ -102,6 +133,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
   },
   "atlanta-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $3 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/atlanta", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Daily park hours", detail: "The park is open daily from 6 a.m. to 10 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/atlanta", checkedAt: "2026-10-21" },
+    ],
     summary: "A wooded Northeast Texas park on Wright Patman Lake, combining tall pines, hardwood forest, swimming, fishing, paddling and lakeside camping near Texarkana.",
     nearestTown: "Atlanta",
     bestSeason: "Spring and fall for camping and trails; summer is popular for lake recreation",
@@ -116,6 +151,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/atlanta",
   },
   "bonham-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $4 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/bonham", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and office hours", detail: "The park is open daily 6 a.m.–10 p.m.; office hours are 8:15 a.m.–4:45 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/bonham", checkedAt: "2026-10-21" },
+    ],
     summary: "A compact North Texas park built by the Civilian Conservation Corps around a small lake, with wooded trails, paddling, fishing and historic stone-and-timber structures northeast of Dallas.",
     nearestTown: "Bonham",
     bestSeason: "Fall through spring for trails and picnics; warm months suit paddling and swimming when open",
@@ -130,6 +169,10 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/bonham",
   },
   "buescher-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $5 daily; children 12 and younger enter free. TPWD lists a separate adult group day-use rate.", sourceUrl: "https://tpwd.texas.gov/state-parks/buescher", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Daily park hours", detail: "The park is open daily from 6 a.m. to 10 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/buescher", checkedAt: "2026-10-21" },
+    ],
     summary: "A wooded park near Smithville connected to Bastrop State Park by a scenic road, with a small lake, CCC history and trails through recovering Lost Pines habitat.",
     nearestTown: "Smithville",
     bestSeason: "Fall through spring for hiking and cycling; warm months work well for paddling and fishing",

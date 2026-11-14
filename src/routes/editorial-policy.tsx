@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/editorial-policy";
-const reviewedAt = "2026-09-14";
+const reviewedAt = "2026-11-03";
 const description = "Read the Texas Defined editorial policy covering bylines, sourcing, verification, updates, independence, automated tools, visual media, and the distinction between editorial guidance and official authority.";
 
 export const Route = createFileRoute(canonicalPath)({
@@ -95,7 +95,7 @@ function EditorialPolicyPage() {
           <p className="eyebrow text-primary">Editorial standards</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-none sm:text-6xl">Editorial Policy</h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{description}</p>
-          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed September 14, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed November 3, 2026.</p>
         </Container>
       </section>
 
@@ -108,6 +108,13 @@ function EditorialPolicyPage() {
             </section>
           ))}
 
+          <section className="border-t border-border pt-6" id="historical-attribution">
+            <h2 className="font-display text-3xl text-foreground">How Texas Defined handles attribution</h2>
+            <p className="mt-4">A name on a Painted Church page can represent very different work: architect, decorative painter, parish artist, later restorer, historian or researcher. Those roles are not interchangeable. Texas Defined keeps the role labels explicit and connects a person to a church only when the cited record supports that relationship.</p>
+            <p className="mt-4">Attribution also needs a time layer. A surviving interior may combine original work with later repainting, conservation or reconstruction, so identifying a person does not mean that every visible surface can be assigned to that person. The linked church profile carries the narrower chronology and preservation evidence for the building itself.</p>
+            <p className="mt-4">When the historical record is incomplete, our biographical profiles stay within what the source can support rather than filling gaps from style alone. Readers can follow a profile's connected churches and related techniques to compare documented work, then consult its source trail to distinguish original authorship from later intervention.</p>
+          </section>
+
           <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">Related trust resources</h2>
             <ul className="mt-4 list-disc space-y-2 pl-6">
@@ -115,7 +122,7 @@ function EditorialPolicyPage() {
               <li><a href="/corrections-policy" className="border-b border-primary text-primary">Corrections Policy</a> — how to report factual errors and source changes.</li>
               <li><Link to="/citation-guide" className="border-b border-primary text-primary">Citation Guide</Link> — how maintained Texas Defined references relate to original sources and canonical URLs.</li>
               <li><Link to="/about" className="border-b border-primary text-primary">About Texas Defined</Link> — publication identity, mission and editorial accountability.</li>
-              <li><Link to="/partner-with-us" className="border-b border-primary text-primary">Contact Texas Defined</Link> — submit a correction, source update or editorial question.</li>
+              <li><Link to="/corrections-policy" className="border-b border-primary text-primary">Contact the editorial desk</Link> — report a correction or firsthand visitor update.</li>
             </ul>
           </section>
         </div>

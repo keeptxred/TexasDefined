@@ -1,6 +1,7 @@
 export const CITY_AUTHORITY_INDEX = [
   { name: 'Houston', slug: 'houston' },
   { name: 'Dallas', slug: 'dallas' },
+  { name: 'Del Rio', slug: 'del-rio' },
   { name: 'Fort Worth', slug: 'fort-worth' },
   { name: 'Austin', slug: 'austin' },
   { name: 'San Antonio', slug: 'san-antonio' },

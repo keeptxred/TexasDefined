@@ -1,0 +1,163 @@
+import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
+
+// Reviewed organizer evidence only. Omit offers, photographs and unannounced 2027
+// event-date promises rather than invent ticket prices or image licensing.
+export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
+  {
+    slug: "mardi-gras-port-arthur",
+    organizer: { type: "Organization", name: "Mardi Gras Port Arthur", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
+    sources: [
+      { label: "Visit Port Arthur — February 5–7, 2027 organizer confirmation", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
+      { label: "Ben J. Rogers Regional Visitors Center — Procter Street 2027 festival gate hours", url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/" },
+    ],
+    verifiedAt: "2026-10-28",
+  },
+  {
+    slug: "mardi-gras-upriver-jefferson",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/JeffersonTx1.JPG?width=1600",
+      alt: "Austin Street Mercantile and historic downtown Jefferson, Texas in April 2015; actual Mardi Gras Upriver town-center setting, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary's own photograph of historic downtown Jefferson's Austin Street Mercantile, taken April 22, 2015, near the 2027 Mardi Gras Upriver gathering at The Alley, 113 West Austin Street. This is a historical venue-area streetscape, not a photograph of the 2027 festival. Attribution: Renelibrary, CC BY-SA 4.0; any layout crops or adaptations are likewise offered under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    organizer: { type: "Organization", name: "Krewe of Hebe", url: "https://mardigrasupriver.com/events/" },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrasupriver.com/events/" },
+      { label: "Jefferson exact-town historic downtown photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "cowboy-mardi-gras-bandera",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Everybody%2C%20and%20we%20mean%20everybody%2C%20dresses%20up%20for%20Mardi%20Gras%2C%20Texas%20style%2C%20in%20little%20Bandera%2C%20the%20%22Cowboy%20Capital%20of%20Texas%2C%22%20west%20of%20San%20Antonio%2C%20Texas%20LCCN2014631491.tif?width=1600",
+      alt: "Costumed revelers at Bandera's historic Cowboy Mardi Gras in 2014; archival photograph, not the 2027 celebration",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Everybody%2C%20and%20we%20mean%20everybody%2C%20dresses%20up%20for%20Mardi%20Gras%2C%20Texas%20style%2C%20in%20little%20Bandera%2C%20the%20%22Cowboy%20Capital%20of%20Texas%2C%22%20west%20of%20San%20Antonio%2C%20Texas%20LCCN2014631491.tif",
+      sourceType: "wikimedia",
+      licenseName: "Public domain — Carol M. Highsmith / Library of Congress",
+      licenseUrl: "https://www.loc.gov/rr/print/res/482_high.html",
+      rightsNote: "Carol M. Highsmith photographed the actual Bandera Cowboy Mardi Gras in 2014 for the Library of Congress Lyda Hill Texas Collection. Her photographs are in the public domain; archival image does not depict the 2027 parade.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
+    organizer: { type: "Organization", name: "11th Street Cowboy Bar", url: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras" },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "crystal-beach-mardi-gras-parade",
+    organizer: { type: "Organization", name: "Lighthouse Krewe", url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027" },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "kemah-yachty-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kemah_Boardwalk_in_Kemah%2C_Texas_%2847557130751%29.jpg?width=1600",
+      alt: "Kemah Boardwalk waterfront beside Galveston Bay photographed in 2019; an actual parade viewing venue, not a photograph of the 2027 Mardi Gras parades",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — Tony Webster",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Tony Webster photographed the actual Kemah Boardwalk waterfront on April 3, 2019 (GPS 29.547333, -95.019195). Wikimedia Commons records the original Flickr upload and confirmed CC BY 2.0 on August 31, 2021. This is a 2019 venue photograph at the confirmed 2027 Kemah parade waterfront, not an image of a Mardi Gras boat or street parade; credit Tony Webster and link to source and license. If cropped for a hero, indicate that the Commons width=1600 derivative was scaled/cropped for layout.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    // Two independently organized parade occurrences: do not assign the boat
+    // event's organizer to the street event or vice versa in Event JSON-LD.
+    sources: [
+      { label: "Yachty Gras — official 28th annual February 6, 2027 boat parade", url: "https://www.yachtygras.com/" },
+      { label: "Krewe du Lac — official February 9, 2027 Grand Mardi Gras street parade", url: "https://krewedulac.net/events" },
+      { label: "Kemah Boardwalk waterfront venue photograph and CC BY 2.0 license (Tony Webster, 2019)", url: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "palestine-mardi-gras-parade",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown_Palestine_Wiki_4.jpg?width=1600",
+      alt: "Buildings in the Palestine New Town Commercial Historic District in October 2017; downtown parade-area streetscape, not the 2027 Mardi Gras parade",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary photographed buildings in Palestine's New Town Commercial Historic District on October 28, 2017. Texas tourism lists the January 30, 2027 Mardi Gras parade in downtown Palestine and the city describes its Main Street District tradition. This is a historic downtown setting photograph, not footage from a parade; credit Renelibrary under CC BY-SA 4.0, with any layout crop or adapted derivative available under the same license.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.traveltexas.com/event/mardi-gras-parade/6363/" },
+      { label: "Palestine downtown historic district photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "beaumont-pardi-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Beaumont_February_16_025.JPG?width=1600",
+      alt: "Actual Beaumont Civic Center entrance and plaza photographed February 16, 2015, the venue for the separate Circle of Hope Pardi Gras benefit; not a photograph of the fundraiser",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_025.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — LUSportsFan",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "LUSportsFan photographed the actual Beaumont Civic Center entrance and plaza at 701 Main Street, Beaumont, Texas, on February 16, 2015. Wikimedia Commons identifies this as the entrance of the Civic Center, the verified venue of Southeast Texas Circle of Hope's distinct 2027 Pardi Gras charity event. This is archival venue photography, not an image of the charity event or a public Mardi Gras parade. Credit LUSportsFan and link to source/license. Responsive cropping/resizing is an adaptation shared under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    organizer: { type: "Organization", name: "Southeast Texas Circle of Hope", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
+    sources: [
+      { label: "Southeast Texas Circle of Hope — 2027 Pardi Gras charity event", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
+      { label: "Beaumont Civic Center entrance — exact venue, LUSportsFan CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_025.JPG" },
+    ],
+    verifiedAt: "2026-10-29",
+  },
+  {
+    slug: "mardi-gras-on-the-sabine-orange",
+    organizer: { type: "Organization", name: "City of Orange", url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "oak-cliff-mardi-gras-parade",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Oak_Cliff_September_2016_41_%28Davis_Street%29.jpg?width=1600",
+      alt: "West Davis Street in the Oak Cliff neighborhood of Dallas photographed in September 2016; the historic Mardi Gras parade route, not a 2027 parade image",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Michael Barera",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera photographed Davis Street in Oak Cliff, Dallas on September 5, 2016 (GPS 32.749447, -96.842772). Go Oak Cliff's official 2026 parade followed West Davis Street from near Kessler Theater/Nova toward Bishop Avenue; The partnered Dash for the Beads lists Go Oak Cliff’s parade for February 7, 2027 at 1 p.m.; the final 2027 route remains unannounced by Go Oak Cliff. Historical actual street-route photograph, not a parade image; photographer credit and any layout derivatives/crops under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    organizer: { type: "Organization", name: "Go Oak Cliff", url: "https://gooakcliff.org/mardigras" },
+    sources: [
+      { label: "Go Oak Cliff official parade information (2026 route; 2027 route pending)", url: "https://gooakcliff.squarespace.com/mardigras" },
+      { label: "Dash for the Beads — partner-confirmed 2027 parade date and start time", url: "https://www.dashforthebeads.org/the-race/" },
+      { label: "Oak Cliff exact Davis Street photo/CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg" },
+    ],
+    verifiedAt: "2026-10-27",
+  },
+  {
+    slug: "mardi-gras-southeast-texas-beaumont",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BeaumontMardiGrasParade312532.jpg?width=1600",
+      alt: "A colorful Mardi Gras float at the actual Mardi Gras of Southeast Texas parade in Doggett Ford Park, Beaumont, on March 1, 2025; archival photograph, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — 2C2KPhotography",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "2C2KPhotography photographed the Mardi Gras of Southeast Texas parade at Doggett Ford Park in Beaumont, Texas, on March 1, 2025. Original Flickr photograph 54361490428, verified by Wikimedia Commons FlickreviewR 2 on March 4, 2025 as CC BY 2.0 (commercial reuse and modifications allowed with attribution). This is an archival actual-event photograph from 2025; the 2027 festival has not been confirmed. Credit 2C2KPhotography, link to source and CC BY 2.0 license, and identify any responsive hero crop/resize as an adaptation.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    organizer: { type: "Organization", name: "Mardi Gras of Southeast Texas", url: "https://mardigrastx.com/" },
+    sources: [
+      { label: "Mardi Gras of Southeast Texas — organizer (most recently verified 2026 event)", url: "https://mardigrastx.com/" },
+      { label: "2C2KPhotography — 2025 parade at Doggett Ford Park, Beaumont, CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg" },
+    ],
+    verifiedAt: "2026-10-29",
+  },
+];

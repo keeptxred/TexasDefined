@@ -1,5 +1,8 @@
 # Blue Ridge Tigers (Texas) — Batch 006 individual authority dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Research date:** October 15, 2026. **Status:** IMPLEMENTED on dependent feature branch only. NOT merged, deployed, individually browser-VERIFIED, formally editorially accepted or licensed for school photos. This is Blue Ridge **Collin County, Texas**, not Blue Ridge High School in South Carolina.
 
 ## Official identities, visitors and staff
@@ -17,3 +20,13 @@ The [updated MaxPreps Texas Blue Ridge result feed](https://www.maxpreps.com/tx/
 ## Editorial and technical acceptance (still outstanding)
 
 Authored non-generic source-backed program overview, original graphics-only styling, 2024/25/26 chronology, 10 dated fixtures and six specific FAQs. Need actual protected PR validation, exact live deployment, individual desktop/mobile Chrome, original source links, truthful schema/canonical/sitemap, Collin County contextual reciprocal links, visible image/contrast/keyboard checks and no claimed rights for unlicensed photos. Record separate nine-dimension school editorial sign-off. Prior 105 VERIFED records must remain unchanged.
+
+## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
+
+[MaxPreps' October 16 completed Blue Ridge at Leonard game](https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa) gives **Blue Ridge 48, Leonard 40** and **3–5 through October 16**. The accompanying editorial correction updates the dated result, record, SEO summary and October 16 explanation, while retaining prior October 9 historical reporting and dated sources. This is reported result evidence only, not a substitute for official UIL certification, photo permissions, published-release identification or full editorial/browser acceptance.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blue Ridge ISD's current athletics page and Blue Ridge High School staff directory were rechecked and both explicitly identify **Jason Russell as Athletic Director/Head Football Coach**. The first-party evidence therefore remains stronger than generic sports-directory labels and continues to support the page's current coaching field.
+
+The same district athletics material references Tiger Stadium but does not establish the exact public football entrance, parking allocation, ticket/cash rules, comprehensive accessible-seating details, or reusable football photography rights. The reported 3–5 record through October 16 and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

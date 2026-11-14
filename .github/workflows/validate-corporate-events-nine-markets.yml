@@ -1,0 +1,33 @@
+name: Validate nine Texas corporate-event markets
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events.ts'
+      - 'src/routes/corporate-events.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/events/CorporateEventMetroGuides.tsx'
+      - 'scripts/data/validate-corporate-events-nine-markets.mjs'
+      - '.github/workflows/validate-corporate-events-nine-markets.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events.ts'
+      - 'src/routes/corporate-events.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/events/CorporateEventMetroGuides.tsx'
+      - 'scripts/data/validate-corporate-events-nine-markets.mjs'
+      - '.github/workflows/validate-corporate-events-nine-markets.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-events-nine-markets.mjs
+      - run: node --experimental-strip-types scripts/data/validate-corporate-events.mjs
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-metros.mjs

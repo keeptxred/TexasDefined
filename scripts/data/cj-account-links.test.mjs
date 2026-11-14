@@ -1,0 +1,225 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import test from 'node:test';
+import vm from 'node:vm';
+import ts from 'typescript';
+import { cjAccountRegistry, expectedCjAccountClick, expectedCjPageSid } from '../ci/cj-account-link-contract.mjs';
+
+const read = path => readFileSync(path, 'utf8');
+const hotelsModule = { exports: {} };
+vm.runInNewContext(ts.transpile(read('src/lib/cj-hotels-evergreen.ts'), { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 }), { exports: hotelsModule.exports, URL });
+const accountModule = { exports: {} };
+vm.runInNewContext(ts.transpile(read('src/lib/cj-account-links.ts'), { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true }), {
+  exports: accountModule.exports, URL,
+  require(id) {
+    if (id.includes('cj-account-verified-links.json')) return cjAccountRegistry;
+    if (id === './cj-hotels-evergreen') return hotelsModule.exports;
+    throw new Error('Unexpected dependency ' + id);
+  },
+});
+const build = accountModule.exports.buildCjAccountClick;
+const staySandbox = { URL, console, CustomEvent: class {}, window: { location: { pathname: '/' }, addEventListener() {}, requestAnimationFrame() {} }, document: { readyState: 'loading', addEventListener() {}, querySelectorAll() { return []; } } };
+vm.runInNewContext(read('public/stay-affiliate-options.js'), staySandbox);
+const stay = staySandbox.window.TexasDefinedStayAffiliateOptions;
+
+test('registry is pinned to individually captured CJ creatives, never a shared advertiser AID', () => {
+  assert.equal(cjAccountRegistry.publisherId, '101876465');
+  for (const [program, advertiser, aid, host] of [
+    ['booking.com', '7854081', '17289008', 'www.jdoqocy.com'],
+    ['rvshare', '5126501', '15734916', 'www.kqzyfj.com'],
+    ['orbitz', '4861280', '15734579', 'www.tkqlhce.com'],
+    ['travelocity', '1549809', '15230459', 'www.kqzyfj.com'],
+    ['vrbo', '2691607', '10697641', 'www.tkqlhce.com'],
+    ['vrbo-owner', '2691607', '10697642', 'www.dpbolvw.net'],
+    ['motel6-standard', '7624468', '17198227', 'www.tkqlhce.com'],
+    ['motel6-halloween', '7624468', '17371482', 'www.kqzyfj.com'],
+  ]) {
+    const entry = cjAccountRegistry.links[program];
+    assert.equal(entry.advertiserId, advertiser);
+    assert.equal(entry.linkId, aid);
+    assert.equal(entry.base, `https://${host}/click-101876465-${aid}`);
+  }
+  assert.equal(Object.keys(cjAccountRegistry.links).filter(key => key.startsWith('gearup-')).length, 8);
+  assert.equal(cjAccountRegistry.links['really-good-stuff'], undefined, 'expired relationship must not be active');
+});
+
+test('React, public bootstrap and production expectations agree on exact destinations and stable bounded SIDs', () => {
+  for (const route of ['/', '/destination/waco', '/event/polar-express-palestine', '/article/' + 'long-slug-'.repeat(15)]) {
+    assert.equal(accountModule.exports.cjPageSid(route), expectedCjPageSid(route));
+    assert.equal(accountModule.exports.cjPageSid(route + '?ignored=1'), expectedCjPageSid(route));
+    for (const [program, entry] of Object.entries(cjAccountRegistry.links)) {
+      const actual = build(program, route);
+      assert.equal(actual, expectedCjAccountClick(program, route));
+      const parsed = new URL(actual);
+      assert.ok(parsed.searchParams.get('sid').length <= 64);
+      assert.equal(parsed.pathname, '/click-101876465-' + entry.linkId);
+      if (['rvshare', 'orbitz', 'travelocity', 'vrbo', 'vrbo-owner'].includes(program)) {
+        for (const destination of entry.allowedDestinations) assert.equal(stay.buildCjDeepLink(destination, route), build(program, route, destination));
+      }
+    }
+    assert.equal(stay.buildMotel6Link('17198227', route), build('motel6-standard', route));
+    if (typeof stay.motel6CampaignActive === 'function') assert.equal(stay.buildMotel6Link('17371482', route), build('motel6-halloween', route));
+  }
+});
+
+test('unknown programs, cross-advertiser destinations, credentials and unreviewed targets fail closed', () => {
+  assert.throws(() => build('unapproved', '/'));
+  assert.throws(() => build('rvshare', '/', 'https://www.hotels.com/'));
+  assert.throws(() => build('booking.com', '/', 'https://www.booking.com/'));
+  for (const destination of ['http://rvshare.com/', 'https://user@rvshare.com/', 'https://rvshare.com/#fragment', 'https://rvshare.com/?unknown=1', 'https://www.vrbo.com/unreviewed-property']) assert.throws(() => stay.buildCjDeepLink(destination, '/'));
+  assert.throws(() => stay.buildMotel6Link('15734399', '/'));
+});
+
+test('all 26 Angi service destinations use their own captured creative and retain page attribution', () => {
+  const sandbox = { URL, console, CustomEvent: class {}, MutationObserver: class { observe() {} }, window: { location: { pathname: '/' }, addEventListener() {}, clearTimeout() {}, setTimeout() {} }, document: { documentElement: {}, addEventListener() {} } };
+  const source = read('public/angi-home-services.js');
+  vm.runInNewContext(source.replace(/\}\)\(\);\s*$/, 'window.__verifiedAngi = { services, buildAngiClick, chooseService };})();'), sandbox);
+  const api = sandbox.window.__verifiedAngi;
+  assert.equal(api.services.length, 26);
+  const creativeByEntryPoint = {
+    '43313936':'17142826','43313937':'17142830','43313943':'17142838','43303139':'17141194','43303137':'17141190','44920547':'17252545','43313940':'17142833','43313942':'17142835','43313954':'17297358','43313957':'17297374','43313945':'17344173','43313956':'17297376','43313952':'17307735','43313950':'17344185','43303140':'17141195','43313938':'17142831','43303138':'17141193','44954937':'17276038','46163723':'17344214','43313951':'17297375','43313944':'17142839','43313939':'17142832','45292678':'17297390','46163719':'17344204','46163722':'17344212','44364980':'17219562',
+  };
+  for (const service of api.services) {
+    const entry = cjAccountRegistry.links['angi-' + service.key];
+    assert.equal(entry.advertiserId, '7439025');
+    assert.equal(entry.destination, service.url);
+    assert.equal(entry.linkId, creativeByEntryPoint[new URL(service.url).searchParams.get('entry_point_id')]);
+    for (const route of ['/article/texas-roofs-hail-wind-heat', '/article/' + 'long-slug-'.repeat(15)]) {
+      assert.equal(api.buildAngiClick(service, route), expectedCjAccountClick('angi-' + service.key, route));
+    }
+    assert.throws(() => api.buildAngiClick({ ...service, url: 'https://example.com/' }, '/'));
+  }
+  assert.ok(source.includes('href="${buildAngiClick(service, pathname)}"'));
+  assert.equal(api.chooseService('unrelated', '/article/texas-roofs-hail-wind-heat').key, 'roofing');
+  assert.equal(api.chooseService('roofing', '/article/corporate-relocation-to-texas'), null);
+});
+
+test('CJ production acceptance stays inside the existing change-scoped deployment lock', () => {
+  const workflow = read('.github/workflows/deploy-production.yml');
+  assert.ok(workflow.includes('group: texasdefined-production'));
+  assert.ok(workflow.includes("steps.change_scope.outputs.cj_affiliate == 'true'"));
+  assert.ok(workflow.includes('run: node scripts/ci/verify-cj-account-production.mjs'));
+  const verifier = read('scripts/ci/verify-cj-account-production.mjs');
+  assert.ok(verifier.includes("assert.equal(url.origin, new URL(origin).origin"));
+  assert.ok(verifier.includes("redirect: 'error'"));
+  assert.ok(!verifier.includes('fetch(href') && !verifier.includes('fetch(expected'));
+});
+
+test('booking and football components initialize and render route-specific URLs during SSR', () => {
+  const route = '/article/texas-high-school-football-playoffs-explained';
+  const render = (file, name, props) => {
+    const exports = {};
+    vm.runInNewContext(ts.transpile(read(file), { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX }), {
+      exports, URL,
+      require(id) {
+        if (id.endsWith('/cj-account-links')) return accountModule.exports;
+        if (id.endsWith('/cj-hotels-evergreen')) return hotelsModule.exports;
+        if (id.endsWith('/affiliate-click')) return { trackAffiliateClick() { throw new Error('Rendering must never emit a click'); } };
+        if (id === '@tanstack/react-router') return { useLocation: () => route };
+        if (id === 'react') return { useEffect() {}, useState: () => [0, () => {}] };
+        if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+        throw new Error('Unexpected dependency ' + id);
+      },
+    });
+    const anchors = [];
+    function visit(node) {
+      if (Array.isArray(node)) return node.forEach(visit);
+      if (!node || typeof node !== 'object') return;
+      if (node.type === 'a') anchors.push(node.props);
+      visit(node.props?.children);
+    }
+    visit(exports[name](props));
+    return anchors;
+  };
+  const booking = render('src/components/monetization/BookingCarRentalCard.tsx', 'BookingCarRentalCard', { placement: 'test-placement' });
+  assert.equal(booking[0].href, expectedCjAccountClick('booking.com', route));
+  assert.equal(booking[0]['data-commercial-placement'], 'test-placement');
+  const football = render('src/components/sports/FootballFanOffers.tsx', 'FootballFanOffers', { slug: 'texas-high-school-football-playoffs-explained', hasUpcomingAwayTravel: false, showTravelPlanning: true });
+  for (const [partner, program] of [['rvshare', 'rvshare'], ['motel6', 'motel6-standard']]) assert.equal(football.find(a => a['data-commercial-partner'] === partner)?.href, expectedCjAccountClick(program, route));
+  assert.equal(football.find(a => a['data-commercial-partner'] === 'hotels.com')?.href, new URL('https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=https%3A%2F%2Fwww.hotels.com%2F').href);
+});
+
+test('Kings Camo gear placements use only nine captured active creatives and respect topic opt-outs', () => {
+  const creativeCatalog = {
+    'kings-camo-shop': ['15774549', 'www.jdoqocy.com'],
+    'kings-camo-pants': ['15778343', 'www.kqzyfj.com'],
+    'kings-camo-rain-jacket': ['15780356', 'www.anrdoezrs.net'],
+    'kings-camo-backpacks': ['17264966', 'www.anrdoezrs.net'],
+    'kings-camo-kids': ['17271947', 'www.anrdoezrs.net'],
+    'kings-camo-women': ['17283114', 'www.dpbolvw.net'],
+    'kings-camo-turkey-accessories': ['17247851', 'www.tkqlhce.com'],
+    'kings-camo-lightweight-shirts': ['17273131', 'www.jdoqocy.com'],
+    'kings-camo-camping': ['17302272', 'www.kqzyfj.com'],
+  };
+  assert.equal(Object.keys(cjAccountRegistry.links).filter(key => key.startsWith('kings-camo-')).length, 9);
+  for (const [program, [id, host]] of Object.entries(creativeCatalog)) {
+    const entry = cjAccountRegistry.links[program];
+    assert.equal(entry.advertiserId, '7016567');
+    assert.equal(entry.linkId, id);
+    assert.equal(entry.base, `https://${host}/click-101876465-${id}`);
+    assert.equal(entry.includeDestination, false, 'do not fabricate deep-link targets');
+    assert.equal(entry.deepLink, false, 'exported product creative is not a verified deep-link creative');
+    assert.equal(build(program, '/hunting'), expectedCjAccountClick(program, '/hunting'));
+  }
+
+  const source = read('src/components/hunting/KingsCamoGearOffers.tsx');
+  // A stale production verifier can fail the release after the new Worker is already live.
+  // Keep its selected first hub creative aligned with the tested, account-approved offer.
+  const liveVerifier = read('scripts/ci/verify-cj-account-production.mjs');
+  assert.ok(liveVerifier.includes("['/hunting', 'kings-camo-lightweight-shirts']"),
+    'production CJ no-click verifier must recognize the first approved hunting hub offer');
+  assert.ok(!/\b(sale|discount|% off|coupon|2025 calendars)\b/i.test(source), 'avoid stale promotional assertions');
+  assert.ok(source.includes('rel="sponsored nofollow noopener noreferrer"'));
+  assert.ok(source.includes('trackAffiliateClick('));
+  assert.ok(source.includes('Affiliate disclosure:'));
+  const youthRoute = read('src/components/hunting/YouthHuntingPage.tsx');
+  assert.ok(youthRoute.includes('<KingsCamoGearOffers context="topic" pathname="/hunting/youth-hunting" topicSlug="youth-hunting" />'), 'youth guide must mount the separate Kings Camo youth offer');
+  const hunting = read('src/components/hunting/HuntingAuthority.tsx');
+  const camping = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
+  assert.ok(hunting.includes('<KingsCamoGearOffers context="hub" pathname="/hunting" />'));
+  assert.ok(hunting.includes('context="topic" pathname={`/hunting/${topic.slug}`} topicSlug={topic.slug}'));
+  assert.ok(camping.includes('<KingsCamoGearOffers context="camping" pathname="/best-places-to-go-camping-in-texas" />'));
+
+  const exports = {};
+  vm.runInNewContext(ts.transpile(source, { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true }), {
+    exports, URL,
+    require(id) {
+      if (id.endsWith('/cj-account-links')) return accountModule.exports;
+      if (id.endsWith('/affiliate-click')) return { trackAffiliateClick() { throw new Error('Must never emit a click during SSR'); } };
+      if (id.endsWith('/Container')) return { Container: 'Container' };
+      if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+      throw new Error('Unexpected dependency ' + id);
+    },
+  });
+  function anchors(props) {
+    const result = [];
+    const visit = node => {
+      if (Array.isArray(node)) return node.forEach(visit);
+      if (!node || typeof node !== 'object') return;
+      if (node.type === 'a') result.push(node.props);
+      visit(node.props?.children);
+    };
+    visit(exports.KingsCamoGearOffers(props));
+    return result;
+  }
+  for (const [props, programs] of [
+    [{ context: 'hub', pathname: '/hunting' }, ['kings-camo-lightweight-shirts', 'kings-camo-rain-jacket', 'kings-camo-backpacks']],
+    [{ context: 'topic', pathname: '/hunting/turkey-hunting', topicSlug: 'turkey-hunting' }, ['kings-camo-turkey-accessories', 'kings-camo-pants']],
+    [{ context: 'topic', pathname: '/hunting/youth-hunting', topicSlug: 'youth-hunting' }, ['kings-camo-kids']],
+    [{ context: 'camping', pathname: '/best-places-to-go-camping-in-texas' }, ['kings-camo-camping']],
+    [{ context: 'topic', pathname: '/hunting/texas-hunting-license', topicSlug: 'texas-hunting-license' }, []],
+    [{ context: 'topic', pathname: '/hunting/hunting-seasons', topicSlug: 'hunting-seasons' }, []],
+    [{ context: 'topic', pathname: '/hunting/public-hunting', topicSlug: 'public-hunting' }, []],
+  ]) {
+    const links = anchors(props);
+    assert.equal(links.length, programs.length);
+    for (let index = 0; index < programs.length; index++) {
+      const anchor = links[index];
+      assert.equal(anchor.href, expectedCjAccountClick(programs[index], props.pathname));
+      assert.equal(anchor['data-commercial-partner'], 'kings-camo');
+      assert.ok(anchor['data-commercial-placement']);
+      assert.equal(anchor.rel, 'sponsored nofollow noopener noreferrer');
+      assert.equal(typeof anchor.onClick, 'function');
+    }
+  }
+});

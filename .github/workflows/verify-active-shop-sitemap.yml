@@ -1,0 +1,77 @@
+name: Verify published shop sitemap after production deployment
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+  # Catch catalog changes that occur without any application deployment.
+  schedule:
+    - cron: '53 13 * * 0'
+  pull_request:
+    paths:
+      - .github/workflows/verify-active-shop-sitemap.yml
+      - scripts/ci/verify-active-shop-sitemap-production.mjs
+      - scripts/ci/verify-editorial-sitemap-parity-production.mjs
+      - scripts/ci/verify-three-attractions-responsive-browser.mjs
+
+permissions:
+  contents: read
+
+concurrency:
+  group: active-shop-sitemap-verify-${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Verify live published product URL parity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check out verified source
+        uses: actions/checkout@v4
+        with:
+          # Bind postdeployment validation to the EXACT release source rather
+          # than a newer main commit merged while the long Worker job ran.
+          # Strict live checks must be interpreted against deployed source.
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || 'main' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check verifier syntax
+        run: node --check scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Syntax-check editorial sitemap verifier
+        run: node --check scripts/ci/verify-editorial-sitemap-parity-production.mjs
+      - name: Syntax-check bounded attraction browser verifier
+        run: node --check scripts/ci/verify-three-attractions-responsive-browser.mjs
+      - name: Prepare existing Chrome for three reviewed attraction guides
+        id: reviewed_attraction_chrome
+        if: ${{ always() && github.event_name != 'pull_request' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify three attraction authority guides in mobile and desktop Chrome
+        if: ${{ always() && steps.reviewed_attraction_chrome.outcome == 'success' }}
+        run: node scripts/ci/verify-three-attractions-responsive-browser.mjs
+      - name: Preserve bounded attraction visual acceptance evidence
+        if: ${{ always() && steps.reviewed_attraction_chrome.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: three-attraction-browser-${{ github.run_id }}
+          path: artifacts/three-attraction-browser/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Check live sitemap against every published shop product
+        if: ${{ github.event_name != 'pull_request' }}
+        run: node scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Verify reviewed editorial and Network terms sitemap parity
+        if: ${{ github.event_name != 'pull_request' }}
+        run: node scripts/ci/verify-editorial-sitemap-parity-production.mjs
+

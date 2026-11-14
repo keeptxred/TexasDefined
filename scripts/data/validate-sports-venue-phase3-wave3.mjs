@@ -8,6 +8,8 @@ const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
 const images = read('src/data/sports-venue-images.ts');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
 const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
+const parkingBatch6 = read('src/data/parking-maps-batch6.ts');
+const frostParkingSvg = read('public/images/parking-maps/frost-bank-center.svg');
 const registry = JSON.parse(read('public/stay-nearby-hotels.json'));
 const failures = [];
 
@@ -157,6 +159,45 @@ if (tmsStart === -1 || guides.indexOf('\n  "', tmsStart + 1) !== -1) {
   failures.push('Texas Motor Speedway must remain the terminal guide registry record for the existing Phase 2 compatibility contract.');
 }
 if (fs.existsSync('src/data/sports-venue-guide-route.ts')) failures.push('Superseded sports-venue-guide-route.ts helper must remain removed.');
+
+
+// Current authority facts added during the October 2026 refresh must not regress.
+const toyotaGuideStart = guides.indexOf('"toyota-center-houston": {');
+const toyotaGuideEnd = guides.indexOf('\n  "', toyotaGuideStart + 1);
+const toyotaGuideBlock = guides.slice(toyotaGuideStart, toyotaGuideEnd === -1 ? undefined : toyotaGuideEnd);
+for (const marker of [
+  'capacity: "18,055 for basketball"',
+  'opened: "October 2003"',
+  'Toyota Center bag policy',
+  'Toyota Center accessibility guide',
+  'reviewedAt: "2026-10-19"',
+]) requireText(toyotaGuideBlock, marker, 'Toyota Center October 2026 authority refresh');
+
+const frostGuideStart = guides.indexOf('"frost-bank-center": {');
+const frostGuideEnd = guides.indexOf('\n  "', frostGuideStart + 1);
+const frostGuideBlock = guides.slice(frostGuideStart, frostGuideEnd === -1 ? undefined : frostGuideEnd);
+for (const marker of [
+  'capacity: "18,354 for basketball"',
+  'address: "1 Frost Bank Center Drive, San Antonio, TX 78219"',
+  'Frost Bank Center bag policy',
+  'Frost Bank Center accessibility guide',
+  'reviewedAt: "2026-10-19"',
+]) requireText(frostGuideBlock, marker, 'Frost Bank Center October 2026 authority refresh');
+
+const toyotaEditorial = findEditorialBlocks('toyota-center-houston').map(({ block }) => block).join('\n');
+requireText(toyotaEditorial, "capacity: '18,055 for basketball'", 'Toyota Center comparison capacity');
+requireText(toyotaEditorial, "opened: 'October 2003'", 'Toyota Center comparison opening date');
+
+const frostEditorial = findEditorialBlocks('frost-bank-center').map(({ block }) => block).join('\n');
+requireText(frostEditorial, "capacity: '18,354 for basketball'", 'Frost Bank Center comparison capacity');
+requireText(frostEditorial, 'Pink Lot', 'Frost Bank Center current rideshare guidance');
+if (frostEditorial.includes('rideshare pickup zone in Lot 5')) failures.push('Frost Bank Center must not restore obsolete Lot 5 rideshare guidance.');
+for (const source of [parkingBatch6, frostParkingSvg]) {
+  requireText(source, 'Pink Lot', 'Frost Bank Center current parking map');
+  if (/Rideshare pickup zone: Lot 5|identifies Lot 5 as the designated rideshare/i.test(source)) {
+    failures.push('Frost Bank Center parking map must not restore obsolete Lot 5 rideshare guidance.');
+  }
+}
 
 if (failures.length) {
   console.error('Sports venue Phase 3 wave-three validation failed:');

@@ -3,6 +3,8 @@ import { useEffect } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { editorialImageSrc } from "@/lib/editorial-image-delivery";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 
 type FairPhoto = {
   file: string;
@@ -138,8 +140,8 @@ function StateFairLivePanel() {
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Midway</p><p className="mt-2 font-display text-3xl">11 AM most days</p></div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Official schedule ↗" : "Today’s schedule ↗"}</a>
-              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Organizer schedule ↗" : "Today’s schedule ↗"}</a>
+              <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
               <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
               <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
             </div>
@@ -173,7 +175,7 @@ export function StateFairPlanningStrip() {
               <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
               <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">{fairFinished ? "The 2026 Fair ended. Check the organizer for next year's tickets." : "Buy Fair admission officially. Use game guides for Cotton Bowl visits."}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
+                <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
                 <Link to="/event/state-fair-classic" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">State Fair Classic guide</Link>
                 <Link to="/event/red-river-rivalry" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Red River Rivalry guide</Link>
               </div>
@@ -181,6 +183,16 @@ export function StateFairPlanningStrip() {
             <div data-stay-nearby-slot data-state-fair-stay-slot aria-label="Places to stay for the State Fair of Texas" />
           </div>
 
+          <div className="mt-8 border-y border-border py-7" data-state-fair-dallas-experiences>
+            <p className="eyebrow text-primary">Add a Dallas day</p>
+            <h3 className="mt-2 font-display text-2xl">Explore Dallas outside Fair Park</h3>
+            <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Fair admission, Cotton Bowl game tickets and independently booked Dallas tours are three different purchases. The 2026 Fair is over; use our Dallas guide for neighborhood ideas and check current operator listings if you want a museum, history or city tour on a separate day.</p>
+            <div className="mt-4 flex flex-wrap items-center gap-5">
+              <Link to="/county/dallas" className="font-semibold text-primary underline">Explore Dallas County →</Link>
+              <a href={buildViatorAffiliateUrl(verifiedViatorMarketUrl("dallas"), "td-state-fair-dallas")} target="_blank" rel="sponsored nofollow noopener noreferrer" className="font-semibold text-primary underline" data-affiliate-partner="viator" data-affiliate-placement="state-fair-dallas-experiences" data-commercial-partner="viator" data-commercial-placement="state-fair-dallas-experiences">Browse Dallas tours on Viator ↗</a>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings; these experiences do not include State Fair admission.</p>
+          </div>
           <div className="mt-10" data-state-fair-featured-gallery>
             <div className="flex items-end justify-between gap-6">
               <div><p className="eyebrow text-primary">State Fair photo carousel</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Big Tex, the Midway and Fair Park</h2></div>
@@ -210,6 +222,38 @@ export function StateFairPlanningStrip() {
                   {" "}· Display-cropped for layout.
                 </figcaption>
               </figure>
+            </div>
+            <div className="mt-10 max-w-4xl" data-state-fair-2026-bigtex-gallery>
+              <p className="eyebrow text-primary">Big Tex during the 2026 Fair</p>
+              <h3 className="mt-2 font-display text-2xl">Big Tex's 2026 look, from two angles</h3>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
+                Two independently published, openly licensed photographs document Big Tex during the completed 2026 season.
+                Unlike the 2019 historical archive, both images were taken in October 2026.
+              </p>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                {[
+                  { file: "Big Tex (northwest view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northwest", view: "Northwest view" },
+                  { file: "Big Tex (northeast view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northeast", view: "Northeast view" },
+                ].map((photo) => (
+                  <figure key={photo.file} className="overflow-hidden border border-border bg-background">
+                    <img
+                      src={commonsImage(photo.file, 720)}
+                      alt={photo.alt}
+                      className="w-full object-cover"
+                      style={{ aspectRatio: "3 / 4" }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption className="space-y-1 px-4 py-3 text-xs leading-5 text-muted-foreground">
+                      {photo.view}, October 2026 · Photo: Texan29CleburnePhotographer ·{" "}
+                      <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC0 1.0</a>
+                      {" "}·{" "}
+                      <a href={commonsSource(photo.file)} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons original</a>
+                      {" "}· Display-cropped for layout.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
             </div>
           </div>
         </Container>

@@ -62,7 +62,7 @@ for (const slug of requiredCoreSlugs) assert(slugs.has(slug), `core Texas symbol
 assert(functions.includes('getTexasSymbolsDirectoryData') && functions.includes('loadTexasSymbolsDirectoryDataServer'), 'hub server function must delegate to the server-side directory loader');
 assert(server.includes('currentTexasSymbols') && server.includes('featuredTexasSymbols') && server.includes('historicalTexasSymbols'), 'server directory loader must keep current, featured, and historical datasets separate');
 assert(route.includes('getTexasSymbolsDirectoryData'), 'hub route must load the server-backed Texas Symbols directory');
-assert(route.includes('currentTexasSymbols') && route.includes('featuredTexasSymbols'), 'hub structured data must derive from the current and featured symbol collections');
+assert(route.includes('featuredTexasSymbols') && route.includes('numberOfItems: featuredSymbols.length') && hub.includes('currentTexasSymbols'), 'hub structured data count must match featured symbol list while the public directory retains all current symbols');
 assert(hub.includes('Every current designation in the source list'), 'hub must retain the complete current-designation directory');
 assert(hub.includes('Verify with {sourceName}'), 'hub must expose the authoritative source link');
 assert(hub.includes('historicalTexasSymbols'), 'hub must visibly handle historical designations');

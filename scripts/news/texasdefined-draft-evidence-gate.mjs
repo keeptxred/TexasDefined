@@ -1,0 +1,46 @@
+/**
+ * A source body is not a license to pad a routine recap into a 750-word
+ * "original" article. This gate applies to DRAFT/PUBLICATION selection only.
+ * Hydration still collects eligible factual material without AI or approval.
+ */
+export const MIN_ORIGINAL_SOURCE_WORDS = 320;
+export const MIN_ORIGINAL_SOURCE_CHARS = 2200;
+
+export function isSubstantiveTexasDefinedDraftSource(item) {
+  const body = String(item?.extracted_body ?? '').replace(/\s+/g,' ').trim();
+  if (body.length < MIN_ORIGINAL_SOURCE_CHARS) return false;
+  if (body.split(/\s+/).filter(Boolean).length < MIN_ORIGINAL_SOURCE_WORDS) return false;
+
+  // A third-party article alone is not original independent magazine research.
+  // Unless the source is an institutional .gov/.edu original, require at least
+  // two recorded sources. A count is only a first-pass signal, not a certificate
+  // of independence; final draft provenance checks still apply.
+  let host = '';
+  try { host = new URL(String(item?.link ?? '')).hostname.toLowerCase(); } catch { /* held */ }
+  const institutionalOriginal = /(?:^|\.)(?:gov|edu)$/.test(host);
+  const sourceCount = Number(item?.source_count);
+  if (!institutionalOriginal && (!Number.isInteger(sourceCount) || sourceCount < 2)) return false;
+
+  // A single team press statement or one reporter's routine game report cannot
+  // independently substantiate a new 750-word sports news article. Preserve
+  // it for human research, not automatic long-form generation.
+  if (String(item?.target_section ?? '').toLowerCase() === 'sports'
+      && (!Number.isInteger(Number(item?.source_count)) || Number(item.source_count) < 2)) return false;
+
+  const title = String(item?.title ?? '').toLowerCase().trim();
+  // An opinion column, fan reaction, advertorial or promotional hot take is
+  // never independently reportable news merely because a feed claims two
+  // source references. Preserve these as research leads, not 750-word articles.
+  if (/\b(?:opinion|editorial|commentary|fan reaction|hot take|advertorial|sponsored content|single.source opinion)\b/.test(title)) return false;
+  // Routine game summaries, fixtures and broad national explainers belong in
+  // sports/event guides or curated roundups, not individual 750-word pages.
+  if (/\b(?:playoff (?:schedule|pairings)|bi-district playoff schedule|scores? and schedule|game preview|non-conference action|host(?:s|ing)? .{3,80} in (?:non-conference|conference) action)\b/.test(title)) return false;
+  if (/\b(?:beat|beats|defeat(?:s|ed)?|top(?:s|ped)?|edge(?:s|d)?|triumph(?:s|ed)? over)\b.{0,120}\b(?:nets|pacers|colts|cowboys|mavericks|texans|spurs|rockets|longhorns|aggies|cougars)\b/.test(title)) return false;
+  if (/\b(?:mavericks|cowboys|texans|spurs|rockets|longhorns|aggies|cougars)\b.{0,120}\b(?:beat|beats|defeat(?:s|ed)?|triumph(?:s|ed)? over|edge(?:s|d)?)\b/.test(title)) return false;
+  if (/^(?:what is|explained: what is|how is)\b/.test(title) && !/\b(?:texas|dallas|houston|austin|san antonio|el paso|fort worth|lubbock)\b/.test(title)) return false;
+  // Other outlets' curated destination/dining lists are their editorial work,
+  // not a standalone news event to rewrite into an AI-generated 'authority' page.
+  // Surface them for subject research and update an existing authority guide instead.
+  if (/\b(?:ultimate (?:local )?(?:dining|travel|visitor) guide|where to take out-of-town guests|best \d+|top \d+|events roundup|weekend roundup)\b/.test(title)) return false;
+  return true;
+}

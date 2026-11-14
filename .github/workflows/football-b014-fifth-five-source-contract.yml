@@ -1,0 +1,34 @@
+name: Football Batch014 fifth-five source contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/**'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'docs/football-authority/BATCH014-FIFTH-FIVE-SOURCES.md'
+      - 'scripts/ci/verify-football-b014-fifth-five-source.mjs'
+      - '.github/workflows/football-b014-fifth-five-source-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/high-school-football/**'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'docs/football-authority/BATCH014-FIFTH-FIVE-SOURCES.md'
+      - 'scripts/ci/verify-football-b014-fifth-five-source.mjs'
+      - '.github/workflows/football-b014-fifth-five-source-contract.yml'
+permissions:
+  contents: read
+jobs:
+  validate-b014-fifth-five:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail-closed fifth-five original school source and reciprocal county validation
+        run: node scripts/ci/verify-football-b014-fifth-five-source.mjs

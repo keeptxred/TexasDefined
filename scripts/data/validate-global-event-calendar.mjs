@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { execFileSync } from "node:child_process";
 
 const root = process.cwd();
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -10,6 +11,149 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
+const ticketmasterMatcher = read("src/data/events/ticketmaster-event-match.ts");
+const ticketmasterLoader = read("src/data/events/ticketmaster-events.server.ts");
+requireText(ticketmasterLoader, "ticketmasterIsPrimaryAdmissionTitle(event.name)", "Ticketmaster add-on filter");
+for (const marker of [
+  "export function ticketmasterVenueMatches(",
+  "export function ticketmasterShowtimeMatches(",
+  "matchingProviderPerformances === 1",
+  "export function ticketmasterIsPrimaryAdmissionTitle(",
+]) requireText(ticketmasterMatcher, marker, "pure Ticketmaster venue and showtime identity");
+for (const marker of [
+  'from "./ticketmaster-event-match"',
+  "const existing = new Map<string, number[]>();",
+  "performanceMatches(records[candidate])",
+  "ticketmasterVenueMatches(record, providerRecord)",
+  "ticketmasterShowtimeMatches(record, providerRecord, sameVenueProviderCount)",
+  "isReviewedChristmasTicketmasterDoorTime(record, providerRecord, sameVenueProviderCount)",
+  "ticketmasterVenueMatches(editorial, providerRecord)",
+  "ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount)",
+  "const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();",
+  "const sameVenueProviderCount =",
+  "remember(key, records.length)",
+]) requireText(adapter, marker, "venue-safe Ticketmaster duplicate reconciliation");
+
+const christmasShows = read("src/data/events/christmas-performances-2026.server.ts");
+for (const marker of ["export function isReviewedChristmasTicketmasterDoorTime", 'curated.slug === "grand-ol-christmas-dallas-2026"', "sameVenueProviderPerformances === 1"]) {
+  requireText(christmasShows, marker, "verified Dallas doors versus showtime exception");
+}
+const christmasProductionAcceptance = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
+for (const marker of [
+  "const cases = [",
+  "cases.length !== 12",
+  "new Set(cases.map(x=>x[0]))",
+  "ev-results-list",
+  "expected exactly one",
+  "ev-ticket",
+  "const editorial = matched.filter(card => !card.id.startsWith('ticketmaster:'))",
+
+  "christmas-calendar-qa",
+]) requireText(christmasProductionAcceptance, marker, "live Christmas 12-show production acceptance");
+try {
+  execFileSync(process.execPath, ["--check", path.join(root, "scripts/ci/verify-christmas-calendar-12-production.mjs")], { stdio: "pipe" });
+} catch (error) {
+  failures.push("live Christmas 12-show production acceptance must have valid JavaScript syntax: " + String(error.stderr || error.message));
+}
+
+const mardiGrasCompanions = read("src/data/events/mardi-gras-companion-events-2027.server.ts");
+const mardiGrasHub = read("src/routes/events.mardi-gras.lazy.tsx");
+const mardiGrasNewFestivals = read("src/data/events/mardi-gras-new-festivals-2027.server.ts");
+requireText(adapter, "getVerifiedMardiGrasNewFestivalCalendarEvents2027()", "shared calendar new Mardi Gras parades");
+if ((mardiGrasNewFestivals.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 5) failures.push("Bastrop, Houston and Granbury must produce five unique, source-dated events");
+for (const slug of [
+  "bastrop-mayors-mardi-gras-ball",
+  "bastrop-mardi-gras-festival",
+  "bastrop-lighted-mardi-gras-parade",
+  "houston-krewe-of-porus-parade",
+  "granbury-carnival",
+]) requireText(mardiGrasNewFestivals, slug, "additional Mardi Gras source-qualified calendar records");
+for (const text of [
+  'id="more-parades"',
+  "Bastrop Mardi Gras Festival &amp; Lighted Parade",
+  "Krewe of Porus",
+  "Inaugural Granbury Carnival",
+  "Bastrop Mayor's Mardi Gras Ball",
+  "/events?start=2027-02-05&amp;end=2027-02-07#calendar",
+]) requireText(mardiGrasHub, text, "statewide additional Mardi Gras festival discovery");
+
+for (const token of [
+  'getVerifiedMardiGrasCompanionCalendarEvents2027()',
+  'const knownCompanions = new Set(',
+  'knownCompanions.has(key)',
+]) requireText(adapter, token, "Mardi Gras event calendar integration");
+for (const slug of [
+  "crystal-beach-mardi-gras-chicken-run",
+  "jefferson-queen-mab-ball",
+  "beaumont-lagniappe-mardi-gras-soiree",
+  "livingston-mardi-gras-gumbo-cookoff",
+  "port-arthur-mardi-gras-masquerade-ball",
+  "yachty-gras-kickoff-party",
+  "jefferson-mardi-gras-tshirt-poster-party",
+  "yachty-gras-parade-awards-breakfast",
+]) requireText(mardiGrasCompanions, slug, "Mardi Gras exact-event calendar record");
+if (/slug: "[a-z0-9-]+-20\d{2}"/.test(mardiGrasCompanions)) failures.push("Mardi Gras companion event public slugs must be evergreen and must not end in an event year");
+if ((mardiGrasCompanions.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 8) failures.push("2027 Mardi Gras companion calendar must include eight unique curated events");
+if ((mardiGrasCompanions.match(/startTime:/g) ?? []).length !== 4) failures.push("Only the confirmed Jefferson, Beaumont, Port Arthur and merchandise-party companion start times may be asserted");
+for (const token of [
+  "getVerifiedMardiGrasCompanionCalendarEvents2027",
+  "2027-01-16", "2027-01-23", "2027-02-05", "2027-02-06",
+  "officialEventUrl:", "lastVerifiedAt: \"2026-10-25\"",
+]) requireText(mardiGrasCompanions, token, "Mardi Gras verified event records");
+for (const token of [
+  "Crystal Beach · Saturday, January 16 · time to reconfirm",
+  "One local calendar lists 5–8 p.m. while another lists 9:30 a.m.–5 p.m.",
+  "Two Creeks Mardi Gras Gumbo Cookoff",
+  "Port Arthur Chamber Mardi Gras Masquerade Ball",
+  "Yachty Gras Parade Awards Breakfast",
+  "Find the January 30 Seabrook gathering in the calendar",
+  "Find the January 31 merchandise party in the calendar",
+  "/events?start=2027-02-05&amp;end=2027-02-06#calendar",
+  "do not assume public walk-in admission",
+]) requireText(mardiGrasHub, token, "Mardi Gras hub current source/visitor details");
+
+const christmas = read("src/data/events/christmas-performances-2026.server.ts");
+const christmasHub = `${read("src/routes/events.$collection.tsx")}\n${read("src/routes/events.$collection.lazy.tsx")}`;
+const christmasIds = [...christmas.matchAll(/id: "([^"]+-2026)"/g)].map((match) => match[1]);
+if (christmasIds.length !== 12 || new Set(christmasIds).size !== 12) {
+  failures.push("Christmas statewide calendar must project exactly 12 unique curated shows");
+}
+for (const needle of [
+  "getVerifiedChristmasPerformanceCalendarRecords2026",
+  "isSameChristmasPerformanceCalendarEvent",
+  "startDate: show.date",
+  "confirmedStartTimes[show.id]",
+  "matchChristmasTicketmasterPerformance(show, ticketmaster, today)",
+  "ticketmasterVenueMatches({ venueName: show.venue }, event)",
+  "ticketmasterShowtimeMatches({ startTime }, event, candidates.length)",
+  "exactShowtime.length === 1",
+
+  "officialEventUrl: show.sourceUrl",
+  "officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl",
+  "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
+  "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
+  'saleStatus: "unknown"',
+  'category: theatreIds.has(show.id) ? "culture" : "music"',
+]) requireText(christmas, needle, "curated Christmas calendar projection");
+for (const needle of [
+  "getVerifiedChristmasPerformanceCalendarRecords2026()",
+  "isSameChristmasPerformanceCalendarEvent(performance, record)",
+  "isSameChristmasPerformanceCalendarEvent(performance, providerRecord)",
+  "mergeEventTicketing(records[index].ticketing, performance.ticketing)",
+]) requireText(adapter, needle, "shared event registry Christmas integration");
+for (const needle of [
+  "View this show on the statewide calendar",
+  "encodeURIComponent(`city:${show.city}`)",
+  '/events?start=',
+]) requireText(christmasHub, needle, "Christmas hub calendar crosslinks");
+for (const needle of [
+  'Number(right.startDate === exactDay) - Number(left.startDate === exactDay)',
+  'const exactDay = search.start && search.start === search.end',
+]) requireText(calendarServer, needle, "exact-day event visibility");
+if (/endDate: show.endDate/.test(christmas)) {
+  failures.push("Do not treat a discontinuous Christmas theatre run as daily calendar availability");
+}
+
 const eventDirectoryFacade = read("src/data/major-event-directory.ts");
 const eventCalendarFacade = read("src/data/major-event-calendar.ts");
 const eventServerSurface = `${eventDirectoryFacade}\n${eventCalendarFacade}`;
@@ -31,11 +175,13 @@ for (const selector of ["eventsForVenue", "eventsForCity", "eventsForCounty", "e
 for (const lifecycle of ["scheduled", "cancelled", "postponed", "rescheduled"]) requireText(contract, `\"${lifecycle}\"`, "lifecycle contract");
 for (const rights of ["verified-reusable", "official-source-only", "unknown"]) requireText(contract, `\"${rights}\"`, "image-rights contract");
 
-for (const token of ["getGeneratedTexasEvents(500)", "loadMajorEventGuideDirectoryServer", "getMajorEventRecordServer", "getMajorEventSchemaEnrichmentServer", "resolveSportsVenueEventLink", "getSportsVenuePhoto", 'rightsStatus: "unknown"', "displayAllowed: false", "buildDisplayImage", 'rightsStatus: "verified-reusable"', "photo.licenseName", "photo.licenseUrl", "photo.author", "displayAllowed: true", "loadUpcomingTexasEventRecordsServer"]) requireText(adapter, token, "event adapter");
-for (const token of ["buildGlobalEventCalendarServer", "buildTexasEventCarouselItemsServer", "formatCarouselRange", "categoryLabel", "lastVerifiedLabel", "contextMatches", "matchesLocation", "overlapsRange", 'timeZone: "America/Chicago"', "calendarDays", "calendarHref", "slice(0, 48)", "previousHref", "todayHref", "nextHref", "calendarDays: calendarDays(monthKey).map", "results: displayed.map"]) requireText(calendarServer, token, "server calendar view model");
+for (const token of ["getGeneratedTexasEvents(500)", "loadMajorEventGuideDirectoryServer", "getMajorEventRecordServer", "getMajorEventSchemaEnrichmentServer", "resolveSportsVenueEventLink", "getSportsVenuePhoto", "isCompliantMajorEventImage", "const approved = isCompliantMajorEventImage(image)", 'rightsStatus: approved ? "verified-reusable" : "unknown"', "displayAllowed: approved", "licenseName: approved ? image.licenseName : undefined", "licenseUrl: approved ? image.licenseUrl : undefined", "credit: approved ? image.rightsNote : undefined", "buildDisplayImage", 'rightsStatus: "verified-reusable"', "photo.licenseName", "photo.licenseUrl", "photo.author", "displayAllowed: true", "loadUpcomingTexasEventRecordsServer"]) requireText(adapter, token, "event adapter");
+requireText(calendarServer, 'guidePath: event.guidePath || calendarHref(search, { start: event.startDate, end: event.startDate })', "calendar fallback link for events with no guide");
+requireText(landing, 'event.guidePath?.startsWith("/events?")', "SSR-safe event guide label");
+for (const token of ['search.category === "guides"', "buildGlobalEventCalendarServer", "buildTexasEventCarouselItemsServer", "formatCarouselRange", "categoryLabel", "lastVerifiedLabel", "contextMatches", "matchesLocation", "overlapsRange", 'timeZone: "America/Chicago"', "calendarDays", "calendarHref", "slice(0, 48)", "previousHref", "todayHref", "nextWeekHref", "nextHref", "calendarDays: calendarDays(monthKey).map", "results: displayed.map"]) requireText(calendarServer, token, "server calendar view model");
 for (const token of ["createServerFn", "loadUpcomingTexasCalendarRecordsServer", "upcomingEventRecords", "buildTexasEventCarouselItemsServer(records.slice(0, 12))", "buildGlobalEventCalendarServer", "calendarView", "noindex, follow"]) requireText(eventServerSurface, token, "normalized landing-event integration");
 for (const token of ["createServerFn", "getMajorEventLandingDirectory", "loadUpcomingTexasCalendarRecordsServer", "buildGlobalEventCalendarServer"]) requireText(eventCalendarFacade, token, "deferred calendar RPC boundary");
-requireText(calendarServer, "filtered.slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
+requireText(calendarServer, ": filtered).slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
 if (eventCalendarFacade.includes("limit: 200")) failures.push("calendar must not truncate the inventory before date/location filters");
 if (eventDirectoryFacade.includes("loadUpcomingTexasEventRecordsServer") || eventDirectoryFacade.includes("buildGlobalEventCalendarServer")) failures.push("eager event directory facade must not own global calendar normalization");
 
@@ -49,7 +195,12 @@ if (globalStyles.includes(".ec-") || globalStyles.includes(".ev-")) failures.pus
 for (const token of ["validateSearch", "location:", "start:", "end:", "category:", "venue:", "getMajorEventLandingDirectory", 'import("@/data/major-event-calendar")', 'import("@/data/major-event-directory")', 'import("@/data/queries")', "data: deps.search", "filtered: deps.filtered", "head: ({ loaderData }) => loaderData?.head ?? {}"] ) requireText(route, token, "events route search/SEO contract");
 if (route.includes('import { getEventsPageHead } from "@/data/major-event-directory"')) failures.push("events route must keep the event-head server-function facade behind the loader boundary");
 if (route.includes('import { eventsQuery, regionsQuery } from "@/data/queries"')) failures.push("events route must keep query helpers behind the loader boundary");
-for (const token of ["TexasEventCarousel", "GlobalEventCalendar", "calendarView.calendarDays", "calendarView.previousHref", "calendarView.todayHref", "calendarView.nextHref", "Previous", "Today", "Next", "Jump to next event", 'name="location"', 'name="category"', 'name="venue"', "aria-current", "Official event site", "Last verified", "calendarView.results.length", "calendarView.totalCount"]) requireText(routeSurface, token, "global calendar UX");
+const carouselOffset = landing.indexOf('<Container><TexasEventCarousel');
+const calendarOffset = landing.indexOf('<GlobalEventCalendar calendarView={calendarView}');
+const editorialOffset = landing.indexOf('<DiscoverySection eyebrow="Plan by time"');
+if (!(carouselOffset >= 0 && calendarOffset > carouselOffset && editorialOffset > calendarOffset)) failures.push("interactive monthly calendar must follow upcoming carousel and precede editorial discovery collections");
+
+for (const token of ['value="guides"', "Next 7 days", "TexasEventCarousel", "GlobalEventCalendar", "calendarView.calendarDays", "calendarView.previousHref", "calendarView.todayHref", "calendarView.nextWeekHref", "calendarView.nextHref", "Previous", "Today", "Next", "Jump to next event", 'name="location"', 'name="category"', 'name="venue"', "aria-current", "Official event site", "Last verified", "calendarView.results.length", "calendarView.totalCount"]) requireText(routeSurface, token, "global calendar UX");
 
 for (const token of ["createServerFn", "loadUpcomingTexasEventRecordsServer", "buildTexasEventCarouselItemsServer", "getSportsVenuePhoto", "venueId = `sports-venue:${data.slug}`", "limit: 9", "const photo = getSportsVenuePhoto(data.slug)", "event.image.url === photo.imageUrl", "event.image.sourceUrl === photo.sourcePage", "eventWithoutVenueHeroFallback", "events,", "calendarHref:"]) requireText(venueEventFacade, token, "venue event server boundary");
 for (const token of ["isSportsVenueGuidePilot(params.slug)", 'import(\'@/data/sports-venue-events.functions\')', "upcomingEvents: guideEvents?.events ?? []", "eventCalendarHref: guideEvents?.calendarHref ?? '/events'", "upcomingEvents={upcomingEvents}", "eventCalendarHref={eventCalendarHref}"]) requireText(sportsVenueRoute, token, "sports venue route integration");

@@ -11,16 +11,16 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
   category: "sports",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800",
-    alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas",
-    width: 1800,
-    height: 1200,
-    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
+    src: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Celina_High_School%2C_Friday_Night_Football.jpg",
+    alt: "Celina High School football field at night, with players and flags spelling Celina on the turf",
+    width: 2042,
+    height: 719,
+    credit: "Heidi Knapp · CC BY-SA 4.0 · Wikimedia Commons",
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
-  updatedAt: "2026-10-16",
-  readingMinutes: 6,
+  updatedAt: "2026-10-25",
+  readingMinutes: 4,
   tags: [
     "texas high school football playoffs",
     "uil football playoffs",
@@ -51,9 +51,29 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       description: "Understand why 1A six-man uses a different field, first-down distance, exchange rule, scoring values and 45-point ending rule.",
     },
     {
+      href: "/texas-high-school-football-playoff-brackets",
+      label: "Browse the official 2026 UIL playoff brackets",
+      description: "Choose a class and division, open the official bracket and distinguish scheduled games from verified results.",
+    },
+    {
       href: "/texas-high-school-football-teams",
       label: "Find a Texas high school football team",
       description: "Search current UIL programs by school, ISD, city or county and see classification, district and recent state-final history.",
+    },
+    {
+      href: "/texas-high-school-football-districts",
+      label: "Browse all 192 Texas UIL football districts",
+      description: "Start with the current 2026–28 district alignment and follow each district's sourced schedule, teams and playoff qualification context.",
+    },
+    {
+      href: "/texas-high-school-football-championship-history",
+      label: "Texas UIL football state championship history",
+      description: "Check historical state-title and state-final appearances from official UIL archives, linked to current football programs.",
+    },
+    {
+      href: "/sports/friday-night-lights",
+      label: "Friday Night Lights: Texas football guide",
+      description: "Navigate stadium traditions, school-team guides, rules, homecoming and Friday-night planning.",
     },
     {
       href: "/article/texas-high-school-football-2026-season-calendar",
@@ -70,9 +90,9 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   relatedDestinations: [],
   body: [
     h("Who qualifies from a district?"),
-    p("The top two teams from each 1A six-man district qualify; the top four teams from each district advance in 2A through 6A. Classes 1A–5A already have their divisions before the season. In 6A, the two schools with the larger enrollments go to the Division I bracket after the four qualifiers are known; the other two enter Division II."),
-    h("What 'bi-district' means"),
-    p("Bi-district is the opening playoff round: qualifiers from paired districts meet in the first elimination games."),
+    p("District placement, not statewide media rankings or overall win percentage, decides the qualifiers. The table above shows how many advance from 1A six-man and 2A–6A; your district’s final certified standings resolve ties."),
+    h("What does bi-district mean in Texas high school football?"),
+    p("Bi-district means the first round of the UIL football playoffs. Teams that qualified from two paired districts play elimination games; winners advance to the area round in 2A–6A or the regional round in 1A six-man. It does not mean a team won two district championships."),
     p("District finish feeds a fixed bracket, with no weekly reseeding. In 2A through 5A, paired districts match first against fourth and second against third within the same classification and division. In 1A and each 6A division, the paired-district representatives meet winner against runner-up."),
     p("Non-district losses do not automatically eliminate a team. Qualification comes from district placement under that district’s standings and tiebreak rules. Media rankings do not award seeds or change the bracket."),
     h("Who gets home field?"),
@@ -88,12 +108,12 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
     h("Is Division I the bracket for better teams?"),
     p("No. Divisions separate teams by enrollment rules. In 6A, only the four qualifying schools are compared: the two larger qualifiers enter Division I and the two smaller enter Division II. UIL uses the enrollment figures from official reclassification and realignment, with an exception for enrollments affected by new high schools."),
     h("Does the higher seed always host a playoff game?"),
-    p("No. The higher district finisher has the first-round home-field choice in 5A and 6A only, or the schools can mutually agree on a neutral site. Equal finishes use a coin toss or agreement, subject to UIL’s applicable prior-meeting provisions. Later rounds and other classifications follow the site agreement and home-and-home rules in Section 1250(i). Home-field rights do not mean a school can unilaterally choose every kickoff date and time."),
+    p("No. A higher district finish matters for the opening round in 5A and 6A, but home-field rights do not carry automatically into later rounds. Check the site agreement and Section 1250(i), explained above, before arranging travel."),
     h("Where should I buy tickets and find a broadcast?"),
     p("Start with the participating school or district’s official athletics announcement. Verify the opponent, date, kickoff, stadium and ticket seller together; a team’s usual home stadium may not be its playoff venue. For state finals, use UIL’s state-championship page for current tickets and broadcast announcements. Do not assume last season’s broadcaster or prices still apply."),
     h("Does this guide cover private-school playoffs?"),
     p("This guide explains UIL football. TAPPS and other private-school associations run separate competitions; their divisions, qualification rules and championships should not be read from a UIL bracket."),
     h("Sources and verification"),
-    p("Qualification, the 2026 calendar and playoff-site rules checked October 16, 2026 against the UIL sources listed below. Bracket examples use hypothetical teams, not predicted qualifiers. Official UIL brackets control the path, including any vacancy or bye.")
+    p("Qualification, the 2026 calendar and playoff-site rules checked October 20, 2026 against the UIL sources listed below. Bracket examples use hypothetical teams, not predicted qualifiers. Official UIL brackets control the path, including any vacancy or bye.")
   ],
 };

@@ -1,4 +1,5 @@
 import type { Destination } from "./types";
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 
 export const militaryHistoryDestinations: Destination[] = [
   {
@@ -71,13 +72,7 @@ export const militaryHistoryDestinations: Destination[] = [
     region: "prairies-lakes",
     nearestTown: "Austin",
     coordinates: { lat: 30.3136, lng: -97.7611 },
-    hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
-      alt: "A 2019 ceremony inside the Texas Military Forces Museum at Camp Mabry in Austin",
-      width: 3000,
-      height: 2002,
-      credit: "Sgt. 1st Class Jim Greenhill / U.S. Army National Guard · Public domain · Wikimedia Commons",
-    },
+    hero: museumLicensedHeroes["texas-military-forces-museum"],
     bestSeason: "Year-round indoor museum; verify Camp Mabry access requirements before leaving home.",
     entryNote: "The museum is on active Camp Mabry. Adult visitors are subject to installation security screening and photo-ID requirements, and the visitor-control cutoff can be earlier than museum closing time. Check the museum's current access instructions before visiting.",
     highlights: ["Texas National Guard", "36th Infantry Division", "Military vehicles", "Texas State Guard", "Camp Mabry"],
@@ -89,7 +84,8 @@ export const militaryHistoryDestinations: Destination[] = [
     officialUrl: "https://texasmilitaryforcesmuseum.org/",
     managingAuthority: "Texas Military Department",
     address: "3038 W 35th St, Austin, TX 78703",
-    sourceCheckedAt: "2026-08-19",
+    sourceCheckedAt: "2026-10-19",
+    accessibilityNotes: "For mobility, sensory or visitor-control accommodations call 512-782-5659 before traveling; published security-screening rules do not establish details for every gallery.",
     county: "Travis",
     areaGuide: {
       intro: "Camp Mabry sits just west of central Austin, so the museum can fit easily into a broader history day. Use the military collection as the institutional stop, then add the Capitol, state-history museums or nearby central-city neighborhoods depending on how much time you have.",

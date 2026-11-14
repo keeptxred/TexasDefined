@@ -73,6 +73,27 @@ const guides: Record<string, ShopCollectionGuide> = {
       { href: '/texas-barbecue-styles-explained', label: 'Texas barbecue styles explained', description: 'Compare Central, East, South, and West Texas barbecue traditions.' },
     ],
   },
+
+  'fishing-shirts': {
+    intro: 'Texas Defined fishing shirts are inspired by specific parts of the Texas fishing experience: freshwater bass, quiet lake weekends, lure collections, dawn casts, and the Gulf Coast redfish fishery. These are original graphic T-shirts intended for everyday wear, rather than technical sun-protection or on-water performance clothing. The designs have organic artwork edges instead of square poster prints. Choose a shirt by the water and fishing memory that fit you, then verify size, garment, colors, price, and delivery details on the current product page.',
+    principles: [
+      { title: 'Designed for anglers, not claimed as technical gear', text: 'Graphic T-shirts are casual apparel. Do not mistake a fishing image for UPF-rated fabric, waterproof construction, or another technical performance claim.' },
+      { title: 'Texas-specific subjects', text: 'Largemouth bass, lake boats, vintage tackle, sunrise fishing, and Gulf Coast redfish reflect real fishing experiences; designs are not endorsements by tournament organizers, public lakes, or equipment makers.' },
+      { title: 'The shirt must work beyond the mockup', text: 'Review the actual garment’s available color, cut, size chart, care guidance, and listing photography before deciding. Print color can vary by garment and display.' },
+    ],
+    checklist: [
+      'Check the product’s live price, size chart, and available colors before placing an order.',
+      'Review fabric composition and care information on the seller’s current product details; do not assume all shirts have identical blanks.',
+      'Remember that illustrative backgrounds and photographs of fishing scenery do not imply affiliation with a named Texas lake or fishing brand.',
+      'For days on the water, use appropriate sun protection; these graphic shirts are not represented as certified UV-protective clothing.',
+    ],
+    useItFor: 'Pick Texas Bass Co. or Chasing Largemouth for freshwater bass fishing; Lake Weekend for boat trips and cabin stays; Texas Tackle Club for lure collectors; Sunrise Cast for dawn lake anglers; and Texas Coastal Angler for Gulf Coast redfish enthusiasts. Browse the six actual items below for current purchase options.',
+    relatedLinks: [
+      { href: '/fishing', label: 'Texas fishing guide', description: 'Find lakes, species, regulations, reports and trip-planning resources.' },
+      { href: '/fishing/lakes', label: 'Texas fishing lakes', description: 'Explore the waters and destinations behind the designs.' },
+      { href: '/fishing/species', label: 'Texas fish species', description: 'Read about the species represented in the apparel.' },
+    ],
+  },
 };
 
 export function shopCollectionGuideFor(slug: string) {

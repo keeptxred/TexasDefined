@@ -1,8 +1,11 @@
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
+import { loadShowcaseLakesPageDataServer } from "./showcase-lakes-page-data.server";
+import { isShowcaseLakeSectionIndexReady } from "./showcase-section-index-readiness";
 import { FISHING_HABITAT_VERIFIED_AT, FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "./habitat-guides";
 import { LAKE_CONROE_SECTION_SLUGS, LAKE_CONROE_VERIFIED_AT, lakeConroeCanonicalPath } from "./lake-conroe-routing";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_PLANNER_VERIFIED_AT, FISHING_TRIP_PLANNER_PATH } from "./planner-routing";
 import { FISHING_REGULATIONS_PATH, FISHING_REGULATIONS_VERIFIED_AT } from "./regulations-routing";
-import { FISHING_SEASONS_PATH, FISHING_SEASONS_VERIFIED_AT } from "./season-routing";
+import { FISHING_SEASONS_PATH, FISHING_SEASONS_PAGE_REVIEWED_AT } from "./season-routing";
 import { EXPANDED_SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_SECTION_SLUGS, SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_VERIFIED_AT, STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS, STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT, WAVE2_SHOWCASE_LAKE_SLUGS, WAVE2_SHOWCASE_LAKE_VERIFIED_AT, showcaseLakeCanonicalPath } from "./showcase-lake-routing";
 import { COMPLETE_FISHING_SPECIES_SLUGS } from "./slugs";
 import { FISHING_SPECIES_DIRECTORY_PATH, FISHING_SPECIES_VERIFIED_AT, fishingSpeciesCanonicalPath } from "./species-routing";
@@ -12,6 +15,9 @@ import { FISHING_TECHNIQUES_DIRECTORY_PATH, FISHING_TECHNIQUES_VERIFIED_AT, PUBL
 export const FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes";
 export const FISHING_LAKES_DIRECTORY_VERIFIED_AT = "2026-10-12";
 const ALL_SHOWCASE_LAKE_SLUGS = [...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS, ...WAVE2_SHOWCASE_LAKE_SLUGS, ...STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS] as const;
+// Derived from the same evidence records used by the rendered page and robots tag.
+// Pure in-memory source lookup; no remote calls or on-request full-site crawling.
+const SHOWCASE_LAKE_AUTHORITY_DATA = loadShowcaseLakesPageDataServer();
 const WAVE2_SET = new Set<string>(WAVE2_SHOWCASE_LAKE_SLUGS);
 const STATEWIDE_SET = new Set<string>(STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS);
 const OCTOBER_12_NEW_LAKES = new Set<string>(["lake-stamford", "lake-sweetwater", "lake-georgetown", "benbrook-lake", "granger-lake", "aquilla-lake", "white-rock-lake"]);
@@ -26,7 +32,7 @@ export const FISHING_SITEMAP_ENTRIES = [
   { path: FISHING_LAKES_DIRECTORY_PATH, lastmod: FISHING_LAKES_DIRECTORY_VERIFIED_AT },
   { path: FISHING_TRIP_PLANNER_PATH, lastmod: FISHING_PLANNER_VERIFIED_AT },
   { path: FISHING_LAKE_COMPARE_PATH, lastmod: FISHING_PLANNER_VERIFIED_AT },
-  { path: FISHING_SEASONS_PATH, lastmod: FISHING_SEASONS_VERIFIED_AT },
+  { path: FISHING_SEASONS_PATH, lastmod: FISHING_SEASONS_PAGE_REVIEWED_AT },
   { path: FISHING_TECHNIQUES_DIRECTORY_PATH, lastmod: FISHING_TECHNIQUES_VERIFIED_AT },
   { path: FISHING_STRUCTURE_PATH, lastmod: FISHING_HABITAT_VERIFIED_AT },
   { path: FISHING_VEGETATION_PATH, lastmod: FISHING_HABITAT_VERIFIED_AT },
@@ -34,17 +40,18 @@ export const FISHING_SITEMAP_ENTRIES = [
     .filter((slug) => isFishingTechniqueHeroReady(slug))
     .map((slug) => ({ path: fishingTechniqueCanonicalPath(slug), lastmod: FISHING_TECHNIQUES_VERIFIED_AT })),
   { path: FISHING_REGULATIONS_PATH, lastmod: FISHING_REGULATIONS_VERIFIED_AT },
-  { path: lakeConroeCanonicalPath(), lastmod: LAKE_CONROE_VERIFIED_AT },
+  { path: lakeConroeCanonicalPath(), lastmod: LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt },
   // Guides/reports receive noindex until verified records actually exist. The
   // qualified section URLs are emitted from the corresponding server loaders.
   ...LAKE_CONROE_SECTION_SLUGS
     .filter((section) => section !== "guides" && section !== "reports")
-    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
+    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: (section === "camping" || section === "nearby" || section === "regulations") ? LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt : LAKE_CONROE_VERIFIED_AT })),
   ...ALL_SHOWCASE_LAKE_SLUGS.flatMap((slug) => [
-    { path: showcaseLakeCanonicalPath(slug), lastmod: lakeSitemapDate(slug) },
+    { path: showcaseLakeCanonicalPath(slug), lastmod: LAKE_AUTHORITY_RESEARCH_WAVE1[slug]?.reviewedAt ?? lakeSitemapDate(slug) },
     ...SHOWCASE_LAKE_SECTION_SLUGS
       .filter((section) => section !== "guides" && section !== "reports")
-      .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: lakeSitemapDate(slug) })),
+      .filter((section) => isShowcaseLakeSectionIndexReady(SHOWCASE_LAKE_AUTHORITY_DATA[slug], section))
+      .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: (section === "regulations" || section === "camping" || section === "nearby") ? LAKE_AUTHORITY_RESEARCH_WAVE1[slug]?.reviewedAt ?? lakeSitemapDate(slug) : lakeSitemapDate(slug) })),
   ]),
   { path: FISHING_SPECIES_DIRECTORY_PATH, lastmod: FISHING_SPECIES_VERIFIED_AT },
   ...COMPLETE_FISHING_SPECIES_SLUGS.map((slug) => ({ path: fishingSpeciesCanonicalPath(slug), lastmod: FISHING_SPECIES_VERIFIED_AT })),

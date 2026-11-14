@@ -11,7 +11,9 @@ const links = read("src/data/fixtures/lighthouse-authority-links.ts");
 const searchIntentStubs = read("src/data/fixtures/lazy-lighthouse-search-intents.ts");
 const searchIntentArticles = read("src/data/fixtures/lighthouse-search-intent-articles.ts");
 const newestEvergreen = read("src/data/fixtures/lazy-newest-evergreen.ts");
-const hub = read("src/routes/explore.lighthouses.tsx");
+// The SEO head stays eager; visitor content is intentionally loaded through
+// the registered lazy route. Validate both pieces as one public experience.
+const hub = `${read("src/routes/explore.lighthouses.tsx")}\n${read("src/routes/explore.lighthouses.lazy.tsx")}`;
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
 const visitorMatrix = read("src/components/content/LighthouseVisitPlanner.tsx");
 const articleRenderer = read("src/components/editorial/ArticleBody.tsx");

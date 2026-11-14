@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
+import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 type SourceNote = { label: string; href: string; note: string };
@@ -15,32 +18,51 @@ const citySources: Record<string, readonly SourceNote[]> = {
     { label: "Handbook of Texas — Country Music", href: "https://www.tshaonline.org/handbook/entries/country-music", note: "Documents Austin's 1970s progressive-country movement, its mixed audiences and key venues." },
     { label: "Handbook of Texas — Austin City Limits", href: "https://www.tshaonline.org/handbook/entries/austin-city-limits", note: "Documents the program's 1974–76 origins and connection to Austin's progressive-country scene." },
     { label: "Handbook of Texas — Antone's", href: "https://www.tshaonline.org/handbook/entries/antones", note: "Documents Clifford Antone's blues club and its role in Austin's live-music identity." },
+    { label: "Austin City Limits — Original program history", href: "https://acltv.com/history-of-acl/", note: "Primary production account documenting the 1974 Willie Nelson pilot taping, March 1975 broadcast and the organizers behind the public-broadcast series." },
   ],
   "houston-music-history": [
     { label: "Handbook of Houston — Music", href: "https://www.tshaonline.org/handbook/projects/houston/place/houston/category/music", note: "TSHA's city-specific collection covering Houston musicians, genres, venues and music businesses." },
     { label: "Handbook of Texas — Duke-Peacock Records", href: "https://www.tshaonline.org/handbook/entries/duke-peacock-records", note: "Documents Don Robey's Houston labels and their national role in blues, R&B, gospel and soul." },
     { label: "Handbook of Texas — Rap and Hip-Hop", href: "https://www.tshaonline.org/handbook/entries/rap-and-hip-hop", note: "Documents Houston rap, DJ Screw, chopped-and-screwed music and later independent networks." },
+    { label: "University of Houston — DJ Screw archival collection", href: "https://findingaids.lib.uh.edu/repositories/2/resources/14", note: "Collection 2010-023 describes the equipment, creation, local sale and surviving archive of screw tapes; its access conditions do not grant general republication rights." },
   ],
   "san-antonio-music-history": [
     { label: "Handbook of Texas — Texas-Mexican Conjunto", href: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto", note: "Documents the borderland development of conjunto and its accordion-and-bajo-sexto foundation." },
     { label: "Handbook of Texas — West Side Sound", href: "https://www.tshaonline.org/handbook/entries/west-side-sound", note: "Documents San Antonio's intercultural R&B, rock-and-roll, conjunto and country hybrid beginning in the late 1950s." },
+    { label: "UT San Antonio — West Side Sound oral histories", href: "https://education.utsa.edu/news/2022/02/westside-sound.html", note: "Describes a community-partnered effort to record oral histories, preserve photographs and document cultural memory beyond commercial records." },
   ],
   "lubbock-music-history": [
     { label: "Handbook of Texas — Buddy Holly", href: "https://www.tshaonline.org/handbook/entries/holley-charles-hardin-buddy-holly", note: "Documents Holly's Lubbock upbringing, local radio work and early musical development." },
     { label: "Handbook of Texas — The Crickets", href: "https://www.tshaonline.org/handbook/entries/crickets", note: "Documents the Lubbock formation and early history of the Crickets." },
     { label: "Handbook of Texas — Recording Industry", href: "https://www.tshaonline.org/handbook/entries/recording-industry", note: "Places Lubbock and West Texas musicians inside the regional recording network that helped launch early rock and roll." },
+    { label: "Library of Congress — The Crickets' 1957 national recording", href: "https://blogs.loc.gov/now-see-hear/2022/02/from-the-national-recording-registry-thatll-be-the-day-1957/", note: "Uses National Recording Registry research to document the initially rejected tape, small first pressing, May 27 release and regional radio promotion." },
   ],
   "dallas-fort-worth-music-history": [
     { label: "Handbook of Texas — Deep Ellum", href: "https://www.tshaonline.org/handbook/entries/deep-ellum", note: "Documents the Dallas district's Black commercial, blues and jazz history." },
     { label: "Handbook of Texas — Blues", href: "https://www.tshaonline.org/handbook/entries/blues", note: "Documents Deep Ellum, Central Track and the Dallas musicians central to early Texas blues." },
     { label: "Handbook of Texas — Jazz", href: "https://www.tshaonline.org/handbook/entries/jazz", note: "Documents Fort Worth's Ornette Coleman network and its importance to modern jazz." },
     { label: "Handbook of Texas — Recording Industry", href: "https://www.tshaonline.org/handbook/entries/recording-industry", note: "Documents early Dallas recording studios and North Texas country, R&B and rockabilly recording activity." },
+    { label: "Handbook of Texas — WBAP", href: "https://www.tshaonline.org/handbook/entries/wbap", note: "Documents Fort Worth radio's 1922 start, the January 1923 barn dance and regional broadcasting." },
+    { label: "Handbook of Texas — Radio", href: "https://www.tshaonline.org/handbook/entries/radio", note: "Clarifies the Light Crust Doughboys' KFJZ start before their later move to WBAP in 1931." },
+    { label: "Handbook of Texas — James Earl 'Pop' Sellers", href: "https://www.tshaonline.org/handbook/entries/sellers-james-earl-j-e-pop", note: "Biographical account of the Dallas recording engineer, early studios and commercial recordings." },
+    { label: "Handbook of Texas — Longhorn Ballroom", href: "https://www.tshaonline.org/handbook/entries/longhorn-ballroom", note: "Describes the room's 1950 Bob Wills origins, later name and wider genre history." },
   ],
 };
 
 export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
+  const sourceReviewedAt = musicHistoryResearchCheckedAt[guide.slug] ?? musicSourceReviewedAt;
+  const articleModifiedAt = musicHistoryArticleModifiedAt[guide.slug] ?? musicSourceReviewedAt;
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = citySources[guide.slug] ?? [];
+  const milestones = musicHistoryMilestones[guide.slug] ?? [];
+  const shortAnswerHeading: Record<string, string> = {
+    "texas-music-cities": "Why the state's six music centers took different paths",
+    "austin-music-history": "Austin's live stages became a national platform",
+    "houston-music-history": "Neighborhood businesses built an independent music economy",
+    "san-antonio-music-history": "The West Side and the borderland crossroads",
+    "lubbock-music-history": "Where South Plains radio met rock and roll",
+    "dallas-fort-worth-music-history": "Two North Texas cities with intertwined music industries",
+  };
   const isHub = guide.slug === "texas-music-cities";
   const breadcrumbs = [
     { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
@@ -51,7 +73,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, articleSection: "Texas Music", citation: sources.map((source) => source.href), isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
+      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, dateModified: articleModifiedAt, isAccessibleForFree: true, articleSection: "Texas Music", citation: [...sources.map((source) => source.href), ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? [])], isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
       { "@type": "WebPage", "@id": `${canonicalUrl}#page`, url: canonicalUrl, name: guide.title, description: guide.dek, isPartOf: { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: "TexasDefined", url: siteUrl }, breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` }, mainEntity: { "@id": `${canonicalUrl}#article` } },
       { "@type": "BreadcrumbList", "@id": `${canonicalUrl}#breadcrumb`, itemListElement: breadcrumbs },
     ],
@@ -70,11 +92,22 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
         <header className="border-b border-border py-10 sm:py-14">
           <p className="eyebrow text-primary">{guide.eyebrow}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
+          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/authors/a-hollis" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={sourceReviewedAt}>{musicHistoryDateLabel(sourceReviewedAt)}</time></p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link>{!isHub ? <Link to="/texas-music-cities" className="border-b border-primary pb-1 text-primary">Compare Texas music cities →</Link> : null}</div>
         </header>
-        <section className="border-b border-border py-8" aria-labelledby="quick-answer"><p className="eyebrow text-primary">Quick answer</p><h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2><p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p></section>
+        <section className="border-b border-border py-8" aria-labelledby="quick-answer"><p className="eyebrow text-primary">Quick answer</p><h2 id="quick-answer" className="mt-2 font-display text-3xl">{shortAnswerHeading[guide.slug] ?? "Why this city matters to Texas music"}</h2><p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p></section>
         <div>{guide.sections.map((section, index) => <section key={section.heading} className="grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]"><div><p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")}</p><h2 className="mt-2 font-display text-3xl leading-tight">{section.heading}</h2></div><div className="max-w-3xl space-y-5">{section.body.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}{section.bullets?.length ? <ul className="grid gap-3 border-l border-primary/40 pl-5 text-sm leading-7">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}{section.links?.length ? <div className="flex flex-wrap gap-x-6 gap-y-3 pt-1 text-sm font-semibold">{section.links.map((link) => <Link key={link.href} to={link.href} className="border-b border-primary text-primary">{link.label}</Link>)}</div> : null}</div></section>)}</div>
-        <section className="border-b border-border py-10" aria-labelledby="city-source-notes"><p className="eyebrow text-primary">Sources</p><h2 id="city-source-notes" className="mt-2 font-display text-3xl">Historical authority behind this guide</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Historical framing is anchored to scholarly and institutional Texas music sources. The pages focus on durable history rather than changing concert calendars, ticketing or nightlife listings.</p><ul className="mt-6 divide-y divide-border border-y border-border">{sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ul></section>
+        {isHub ? <section className="border-b border-border py-10" aria-labelledby="music-city-comparison">
+          <p className="eyebrow text-primary">Research comparison</p>
+          <h2 id="music-city-comparison" className="mt-2 font-display text-4xl">What made each Texas music city different?</h2>
+          <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">This comparison tracks the institutions that helped music circulate, not a ranking of cities or a claim that any city invented a whole genre. Each evidence link leads to an institutional history; the city guides provide deeper context.</p>
+          <div className="mt-7 overflow-x-auto"><table className="w-full border-collapse text-left text-sm leading-6" style={{ minWidth: 660 }}><caption className="sr-only">Comparison of six Texas music cities, defining styles and institutions</caption><thead><tr className="border-b border-border"><th scope="col" className="py-3 pr-5">City</th><th scope="col" className="py-3 pr-5">Music connection</th><th scope="col" className="py-3 pr-5">Local infrastructure</th><th scope="col" className="py-3">Evidence</th></tr></thead><tbody>{musicCitiesComparison.map((city) => <tr key={city.name} className="border-b border-border align-top"><th scope="row" className="py-4 pr-5"><Link to={city.href} className="text-primary underline underline-offset-4">{city.name}</Link></th><td className="py-4 pr-5">{city.signature}</td><td className="py-4 pr-5">{city.infrastructure}</td><td className="py-4"><a href={city.sourceUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4" aria-label={`Historical source for ${city.name}`}>Historical source ↗</a></td></tr>)}</tbody></table></div>
+        </section> : milestones.length ? <section className="border-b border-border py-10" aria-labelledby="music-city-milestones">
+          <p className="eyebrow text-primary">Documented milestones</p><h2 id="music-city-milestones" className="mt-2 font-display text-4xl">A source-linked chronology</h2>
+          <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
+        </section> : null}
+        <TexasMusicEvidenceDossier slug={guide.slug} />
+        <section className="border-b border-border py-10" aria-labelledby="city-source-notes"><p className="eyebrow text-primary">Sources</p><h2 id="city-source-notes" className="mt-2 font-display text-3xl">Sources and further reading</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This guide distinguishes historical evidence from editorial interpretation. The research links above document specific dates and institutions; this list supplies further context. Current venue schedules and ticket arrangements are outside the scope of this historical source review.</p><ul className="mt-6 divide-y divide-border border-y border-border">{sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ul></section>
         <section className="py-12" aria-labelledby="related-reading"><p className="eyebrow text-primary">Keep exploring</p><h2 id="related-reading" className="mt-2 font-display text-4xl">Related TexasDefined guides</h2><div className="mt-6 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">{guide.related.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-6"><strong className="font-display text-2xl leading-tight group-hover:text-primary">{item.label}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-5 block text-sm font-semibold text-primary">Read next →</span></Link>)}</div></section>
       </article>
     </Container>

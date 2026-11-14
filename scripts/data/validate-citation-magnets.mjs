@@ -123,7 +123,7 @@ expect(countyGrowth.includes("loaderData?.available ? 'index, follow, max-image-
 expect(countyGrowth.includes("lazy(() => import('@/components/data/CountyGrowthContent'))"), 'county growth UI must remain manually split from the main client bundle');
 expect(countyGrowth.includes("await import('@/data/census-county-growth')"), 'county growth source parser must remain dynamically imported by the route loader');
 expect(countyGrowthContent.includes('CitationTrustPanel'), 'county growth content must expose visible source/methodology/verification context');
-for (const token of ['co-est2025-alldata.csv', "cells[index.STATE] !== '48'", 'ESTIMATESBASE2020', 'POPESTIMATE2025', 'rows.length >= 250']) expect(countyGrowthData.includes(token), `county growth source contract missing: ${token}`);
+for (const token of ['createServerFn', 'texas-county-growth-current.json', 'verified.rows.length === 254']) expect(countyGrowthData.includes(token), `county growth source contract missing: ${token}`);
 
 expect(footer.includes('to="/citation-guide"'), 'site footer must link the citation guide');
 expect(citationGuide.includes("createFileRoute('/citation-guide')"), 'citation guide route must remain canonical');
@@ -182,4 +182,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including the multi-source Top 25 authority cluster, Census Vintage 2025 county growth, and four source-backed destination authority guides.`);
+console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including the multi-source Top 25 authority cluster, rolling official Census county growth, and four source-backed destination authority guides.`);

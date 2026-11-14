@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { SportsVenueLandingIndex } from '@/components/sports/SportsVenueLandingIndex';
@@ -9,7 +10,7 @@ const siteUrl = 'https://texasdefined.com';
 const canonicalPath = '/sports-venues/compare';
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const csvUrl = `${siteUrl}/sports-venues/compare.csv`;
-const description = 'Compare 84 verified Texas sports venues by location, venue type, capacity and opening date where those details are available, then open the full visitor guide for each stadium, arena, ballpark, racetrack or sports destination.';
+const description = 'Compare Texas sports venues by location, venue type, capacity and opening date where those details are available. Search the source-reviewed inventory and open individual visitor guides.';
 
 export const Route = createFileRoute('/sports-venues/compare')({
   loader: async () => {
@@ -39,25 +40,27 @@ export const Route = createFileRoute('/sports-venues/compare')({
 
 function SportsVenueComparisonPage() {
   const { rows, withCapacity, withOpened, latestReview } = Route.useLoaderData();
-  const quickAnswers = [
-    {
-      question: 'How many Texas sports venues are in this comparison?',
-      answer: `TexasDefined currently compares ${rows.length} verified sports venue guides across professional, college, high-school, motorsports, golf, Western-sports, tournament and other destination categories.`,
-    },
-    {
-      question: 'Does every Texas sports venue have a capacity listed?',
-      answer: `No. Capacity is shown only when the verified venue profile contains a useful figure. ${withCapacity} of ${rows.length} venue records currently display capacity information; missing values are left blank rather than inferred.`,
-    },
-    {
-      question: 'Are opening dates available for every venue?',
-      answer: `No. ${withOpened} of ${rows.length} venue records currently include an opening year or opening-history note. TexasDefined leaves the field blank when the profile does not contain a verified value.`,
-    },
-    {
-      question: 'Where should I verify current parking, ticketing and entry rules?',
-      answer: 'Open the individual TexasDefined venue guide, then use its official planning links for current parking maps, tickets, gate times, entry rules and event-specific instructions. Those details can change after this comparison is reviewed.',
-    },
-  ];
-
+  const [term, setTerm] = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [regionFilter, setRegionFilter] = useState('all');
+  const [capacityOnly, setCapacityOnly] = useState(false);
+  const [sortBy, setSortBy] = useState<'name' | 'location' | 'type'>('name');
+  const types = useMemo(() => [...new Set(rows.map((row) => row.type))].sort(), [rows]);
+  const regions = useMemo(() => [...new Set(rows.map((row) => row.region).filter((value): value is string => Boolean(value)))].sort(), [rows]);
+  const visibleRows = useMemo(() => {
+    const query = term.trim().toLocaleLowerCase('en-US');
+    const filtered = rows.filter((row) =>
+      (typeFilter === 'all' || row.type === typeFilter)
+      && (regionFilter === 'all' || row.region === regionFilter)
+      && (!capacityOnly || Boolean(row.capacity))
+      && (!query || [row.venue.name, row.city, row.county, row.type]
+        .some((value) => value?.toLocaleLowerCase('en-US').includes(query))));
+    return filtered.sort((a, b) => {
+      const left = sortBy === 'location' ? a.city ?? a.county ?? '' : sortBy === 'type' ? a.type : a.venue.name;
+      const right = sortBy === 'location' ? b.city ?? b.county ?? '' : sortBy === 'type' ? b.type : b.venue.name;
+      return left.localeCompare(right) || a.venue.name.localeCompare(b.venue.name);
+    });
+  }, [rows, term, typeFilter, regionFilter, capacityOnly, sortBy]);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -99,15 +102,6 @@ function SportsVenueComparisonPage() {
         })),
       },
       {
-        '@type': 'FAQPage',
-        '@id': `${canonicalUrl}#answers`,
-        mainEntity: quickAnswers.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
-        })),
-      },
-      {
         '@type': 'BreadcrumbList',
         '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
@@ -146,19 +140,60 @@ function SportsVenueComparisonPage() {
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="comparison-answers-heading">
           <div>
-            <p className="eyebrow text-primary">Quick answers</p>
-            <h2 id="comparison-answers-heading" className="mt-2 font-display text-3xl leading-tight">How to read the comparison</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Blank fields mean the verified profile does not currently contain that comparison value; TexasDefined does not fill gaps with guesses.</p>
+            <p className="eyebrow text-primary">Before choosing a venue</p>
+            <h2 id="comparison-answers-heading" className="mt-2 font-display text-3xl leading-tight">What the figures can and cannot tell you</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">A comparison of source-reviewed records, not a live ticket, parking or accessibility inventory.</p>
           </div>
           <div className="grid gap-x-8 md:grid-cols-2">
-            {quickAnswers.map((item) => <article key={item.question} className="border-t border-border py-5">
-              <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
-            </article>)}
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Why some capacity cells are blank</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{withCapacity} of {rows.length} venues currently have a sourced capacity figure in their profiles. Blank means no comparable figure is recorded, not that a venue has no seats. Football, arena, concert and tournament configurations can differ, so published capacities should not be treated as a ranking.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">What the opening field means</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{withOpened} of {rows.length} profiles include an opening year or opening-history note. Expansions, replacement stadiums and venue renamings may need more context than a single year. Use the individual guide to understand the timeline.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Choose by destination as well as sport</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">The Houston, Dallas–Fort Worth, Austin and smaller-market collections compare actual visitor journeys. A venue's county or sport does not show whether it is close to your hotel, transit stop or another event.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Current operations need current sources</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">The newest individual profile review is {latestReview ? formatDate(latestReview) : 'not recorded here'}; older records may have older checks. Parking assignments, ticket sale dates, accessibility arrangements and admission requirements must be confirmed with the venue for the specific event.</p>
+            </article>
           </div>
         </section>
 
         <section className="border-b border-border py-12" aria-labelledby="comparison-table-heading">
+          <form role="search" aria-label="Filter venue comparison" className="mb-8 grid gap-4 border-y border-border py-5 sm:grid-cols-3" onSubmit={(event) => event.preventDefault()}>
+            <label className="block text-sm font-semibold" htmlFor="venue-search">Venue or location
+              <input id="venue-search" type="search" value={term} onChange={(event) => setTerm(event.target.value)} placeholder="e.g. Lubbock or ballpark" className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground" />
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-type-filter">Venue type
+              <select id="venue-type-filter" value={typeFilter} onChange={(event) => setTypeFilter(event.target.value)} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="all">All types</option>
+                {types.map((type) => <option key={type} value={type}>{type}</option>)}
+              </select>
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-region-filter">Texas region
+              <select id="venue-region-filter" value={regionFilter} onChange={(event) => setRegionFilter(event.target.value)} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="all">All regions</option>
+                {regions.map((region) => <option key={region} value={region}>{region}</option>)}
+              </select>
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-sort">Sort by
+              <select id="venue-sort" value={sortBy} onChange={(event) => setSortBy(event.target.value as 'name' | 'location' | 'type')} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="name">Venue name</option>
+                <option value="location">Location</option>
+                <option value="type">Venue type</option>
+              </select>
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-capacity-only">
+              <input id="venue-capacity-only" type="checkbox" checked={capacityOnly} onChange={(event) => setCapacityOnly(event.target.checked)} className="mr-2" />
+              Show only venues with published capacity
+            </label>
+          </form>
+          <p role="status" aria-live="polite" className="mb-6 text-sm text-muted-foreground">Showing {visibleRows.length} of {rows.length} venues. <button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => { setTerm(''); setTypeFilter('all'); setRegionFilter('all'); setCapacityOnly(false); setSortBy('name'); }}>Reset filters</button></p>
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
               <p className="eyebrow text-primary">All verified venues</p>
@@ -167,7 +202,7 @@ function SportsVenueComparisonPage() {
             </div>
             <div className="min-w-0 overflow-x-auto border-t border-border">
               <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-                <caption className="sr-only">Comparison of {rows.length} verified Texas sports venues by location, type, capacity and opening information.</caption>
+                <caption className="sr-only">Comparison of {visibleRows.length} matching Texas sports venues by location, type, capacity and opening information.</caption>
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-[0.12em] text-muted-foreground">
                     <th scope="col" className="py-4 pr-5 font-semibold">Venue</th>
@@ -175,16 +210,19 @@ function SportsVenueComparisonPage() {
                     <th scope="col" className="py-4 pr-5 font-semibold">Type</th>
                     <th scope="col" className="py-4 pr-5 font-semibold">Capacity</th>
                     <th scope="col" className="py-4 pr-5 font-semibold">Opened</th>
+                    <th scope="col" className="py-4 pr-5 font-semibold">Official source</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((row) => <tr key={row.venue.id} className="border-b border-border align-top">
+                  {visibleRows.map((row) => <tr key={row.venue.id} className="border-b border-border align-top">
                     <td className="py-4 pr-5"><a href={row.canonicalPath} className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">{row.venue.name}</a></td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.city ?? row.county ?? 'Texas'}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.type}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.capacity ?? '—'}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.opened ?? '—'}</td>
+                    <td className="py-4 pr-5 text-muted-foreground">{row.officialUrl ? <a href={row.officialUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Venue site ↗</a> : '—'}</td>
                   </tr>)}
+                  {!visibleRows.length ? <tr><td colSpan={6} className="py-8 text-muted-foreground">No venues match those filters. Try another sport or location.</td></tr> : null}
                 </tbody>
               </table>
             </div>

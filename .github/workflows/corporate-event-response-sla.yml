@@ -1,0 +1,31 @@
+name: Corporate Event Response Tracking Contracts
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-event-response-sla.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261024004500_group_event_first_contact_sla.sql'
+      - 'scripts/data/validate-corporate-event-response-sla.mjs'
+      - '.github/workflows/corporate-event-response-sla.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-event-response-sla.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261024004500_group_event_first_contact_sla.sql'
+      - 'scripts/data/validate-corporate-event-response-sla.mjs'
+      - '.github/workflows/corporate-event-response-sla.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-response-sla.mjs

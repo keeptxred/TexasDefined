@@ -1,5 +1,8 @@
 # Bonham Purple Warriors — original Batch 006 football authority
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements below describing an unmerged branch are historical and superseded by this current release checkpoint.
+
+
 **Research checkpoint:** October 17, 2026. **School:** Bonham High School, Bonham ISD, Fannin County, Texas. **Candidate PR branch:** `feature/football-b006-bonham-20261016-chat`. **Status IMPLEMENTED on branch only**, not merged, deployed, independently Chrome verified or formally editorially accepted. Historical 105 VERIFIED and deployed Harmony/Big Spring are unchanged.
 
 ## Official identity and classification
@@ -33,3 +36,7 @@ Future at time of checkpoint: **Oct23 at Wills Point, Oct30 at Sunnyvale, Nov6 v
 
 ## Implementation and still-required acceptance
 Distinctive Bonham program editorial includes seven original FAQs, ten dated games, school/district location separation, dated head-coach announcement, historical playoff context, stadium media rules and sources. Confirm live Fannin County authority/football reciprocal crosslinks (do not assert existing routes without proof), real production Chrome desktop/mobile page, SEO/JSON-LD/accessibility and independent photo rights. Run canonical `node scripts/ci/run-premerge-validation.mjs` via the protected Merge Gate on the newest main, then verify deployed exact SHA. No additional broad site audit. Only promote to VERIFIED via legitimate full nine-dimension editorial acceptance.
+
+## October 20, 2026 — district clarifies purchase-at-entrance QR codes and senior passes
+[Bonham ISD's first-party Back-to-School visitor guidance](https://www.bonhamisd.org/257931_2) explicitly states all junior-high/high-school HOME athletic tickets are **online only**, with purchasing through its official ticket page or Hometown Fan app; **QR codes are displayed at the event entrance to direct visitors to online purchase**, and **existing senior passes remain valid and accepted at the gate**. It also provides where to obtain a new senior pass, but this does not constitute a generic stadium box-office cash promise. [The district's current athletics page](https://www.bonhamisd.org/104427_2) confirms online-only tickets, Aaron Ford assistant AD and the 2026–27 football schedule resource. The source-facing venue note, ticket notice, guide overview and stadium FAQ now reflect those operationally useful distinctions while retaining uncertainty about exact stadium vehicle entrance, parking/ADA, each game's ticket availability and sideline media rules. No new result or nine-dimension acceptance claim.
+

@@ -1,0 +1,39 @@
+name: Corporate Events Marketplace Contracts
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-event*'
+      - 'src/data/corporate-events*'
+      - 'src/components/events/CorporateEvent*'
+      - 'src/routes/corporate-events.tsx'
+      - 'src/routes/admin.sports-partners.lazy.tsx'
+      - 'scripts/data/validate-corporate-event*'
+      - '.github/workflows/corporate-events-contracts.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-event*'
+      - 'src/data/corporate-events*'
+      - 'src/components/events/CorporateEvent*'
+      - 'src/routes/corporate-events.tsx'
+      - 'src/routes/admin.sports-partners.lazy.tsx'
+      - 'scripts/data/validate-corporate-event*'
+      - '.github/workflows/corporate-events-contracts.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate editorial sourced provider directory
+        run: node --experimental-strip-types scripts/data/validate-corporate-events.mjs
+      - name: Validate protected operator console and approval governance
+        run: node scripts/data/validate-corporate-event-admin.mjs

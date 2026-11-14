@@ -1,0 +1,81 @@
+import fs from "node:fs";
+import assert from "node:assert/strict";
+
+const read = (p) => fs.readFileSync(p, "utf8");
+const paths = [
+  "/fishing/techniques",
+  ...["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling", "vertical-jigging", "jigs-and-minnows", "live-bait", "cut-bait"].map((s) => `/fishing/techniques/${s}`),
+  "/fishing/regulations",
+  "/fishing/species",
+  "/fishing/species/largemouth-bass",
+];
+assert.equal(paths.length, 13, "Exactly 13 authority URLs must be checked");
+const route = read("src/data/fishing/technique-routing.ts");
+const field = read("src/data/fishing/technique-field-guide.ts");
+const tServer = read("src/data/fishing/technique-data.server.ts");
+const techniqueGuide = read("src/data/fishing/technique-guide-content.ts");
+const techniqueAuthority = read("src/data/fishing/technique-authority-content.ts");
+const pairWatch = read("scripts/ci/verify-42-page-pairs-production.mjs");
+const productionWorkflow = read(".github/workflows/fishing-thirteen-production.yml");
+const tProfile = read("src/components/fishing/FishingTechniqueProfile.tsx");
+const tDirectory = read("src/components/fishing/FishingTechniqueDirectory.tsx");
+const speciesDirectory = read("src/components/fishing/FishSpeciesDirectory.tsx");
+const speciesServer = read("src/data/fishing/species-directory-data.server.ts");
+const speciesGuideServer = read("src/data/fishing/species-guide-data.server.ts");
+const bassGuide = read("src/components/fishing/FishSpeciesGuide.tsx");
+const bassServer = read("src/data/fishing/largemouth-bass-page-data.server.ts");
+const bassProfile = read("src/data/fishing/species-profiles.ts");
+const regulations = read("src/routes/fishing.regulations.tsx");
+const regulationData = read("src/data/fishing/regulations-routing.ts");
+const closures = read("src/data/fishing/operational-closures.ts");
+for (const slug of paths.slice(1, 10).map((p) => p.split("/").at(-1))) {
+  assert(route.includes(JSON.stringify(slug)), `Missing public technique route ${slug}`);
+  assert(field.includes(`${JSON.stringify(slug)}:`), `Missing unique field guidance for ${slug}`);
+}
+assert.equal((field.match(/situation:/g) ?? []).length, 28, "Expect 27 independent decision records and one type declaration");
+assert(tServer.includes("allProfiles: profiles.map"), "Complete lake registry was hidden behind featured selection");
+assert(tProfile.includes("data.allProfiles.map"), "Page does not link the complete verified source-backed lake set");
+assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decisions not displayed");
+assert(tProfile.includes("guide.whereToFish.map((item) =>") && tProfile.includes("guide.howToFish.map((item) =>") && (tProfile.match(/<ol className="mt-7 space-y-4" style=\{\{ listStyleType: "decimal", paddingLeft: "1.75rem" \}\}>/g) ?? []).length === 2, "Technique numbered lists must use one native ordered-list marker, without duplicate printed numbers");
+assert(tProfile.includes('data.seasons.includes("year-round") ? "All year"') && !tProfile.includes("four seasons, not five"), "Seasonal scope must be described for readers without counting year-round as a fifth season");
+assert(tDirectory.includes("Year-round means a narrower season was not recorded"), "Directory must explain applicability without internal taxonomy language");
+assert(speciesDirectory.includes("Directory records versus standalone guides"), "Directory claims all species have full guides");
+assert(speciesDirectory.includes("row.completeGuide ?"), "Directory incorrectly labels non-complete species");
+assert(!speciesDirectory.includes("Every published fish record opens a standalone Texas guide"), "Untrue blanket promise");
+assert(speciesServer.includes("isFishingCurrentlyClosed"), "Directory exposes closed fishing destinations");
+assert(speciesGuideServer.includes("isFishingCurrentlyClosed"), "Species profiles expose closed fishing destinations");
+assert(tServer.includes("isFishingCurrentlyClosed"), "Technique pages expose closed fishing destinations");
+assert(bassServer.includes("isFishingCurrentlyClosed"), "Bass destinations expose closed fishing sites");
+assert(!bassGuide.includes("#{index + 1}"), "Unjustified numerical bass-lake ranking");
+assert(bassGuide.includes("bass-identification"), "Bass species identification guidance missing");
+assert(bassGuide.includes('id="bass-lake-search"') && bassGuide.includes('id="bass-lake-quality"') && bassGuide.includes('id="bass-lake-region"'), "Long bass lake list must have accessible search, quality and region controls");
+assert(bassGuide.includes("filteredLakes.map") && bassGuide.includes("Clear lake filters") && bassGuide.includes("aria-live"), "Bass lake filtering must be interactive and expose accessible result feedback");
+assert(bassProfile.includes("not measured head-to-head catch-rate rankings"), "Bass ranking methodology remains misleading");
+assert(closures.includes("lake-abilene") && closures.includes("fishing-prohibited"), "Official Lake Abilene closure missing");
+assert(regulations.includes("rules-explained") && regulations.includes("bait-transport"), "Regulations still links-only");
+assert(regulations.includes("TPWD_GENERAL_FISHING_RULES_URL"), "Primary legal source missing");
+assert(regulationData.includes('FISHING_REGULATORY_YEAR_END = "2027-08-31"'), "2026-27 regulatory edition metadata missing");
+for (const phrase of ["game fish", "lake water", "Gulf of Mexico", "waterbody"]) {
+  assert(regulations.toLowerCase().includes(phrase.toLowerCase()), `Missing explanation ${phrase}`);
+}
+for (const p of paths) {
+  const sourcePath = p === "/fishing/techniques" ? "src/routes/fishing.techniques.tsx"
+    : p.startsWith("/fishing/techniques/") ? "src/data/fishing/technique-routing.ts"
+    : p === "/fishing/regulations" ? "src/routes/fishing.regulations.tsx"
+    : p === "/fishing/species" ? "src/routes/fishing.species.tsx"
+    : "src/routes/fishing.species.largemouth-bass.tsx";
+  assert(fs.existsSync(sourcePath), `Missing route for ${p}`);
+}
+// Editorial depth and legality are content contracts, not assertions against retired wording.
+for (const phrase of ["functioning aerator", "slip-sinker", "crappie brush", "hook placement", "float stop", "personally caught bait"]) {
+  assert(techniqueGuide.includes(phrase), `Live-bait field guide lost method-specific practical advice: ${phrase}`);
+}
+for (const phrase of ["dated receipt", "public water", "drain vessels", "lake water"]) {
+  assert(techniqueAuthority.includes(phrase), `Live-bait TPWD handling explanation missing: ${phrase}`);
+}
+assert(productionWorkflow.includes("run: node scripts/ci/verify-42-page-pairs-production.mjs"), "A successful production fishing release must exercise the strict live 42-pair editorial watchdog");
+assert(pairWatch.includes("incomplete/duplicate SSR lake inventory") && pairWatch.includes("new Set(lakeLinks).size"),
+  "The 42-pair watchdog must verify complete, unique SSR lake links rather than a retired copy string");
+assert(pairWatch.includes('path === "/fishing/techniques/trolling" ? "How to Troll for Fish in Texas"'),
+  "The 42-pair watchdog must accept the naturally worded trolling title");
+console.log("PASS: 13 Texas fishing authority routes; 9 unique field guides; verified relationships; honest coverage; central closure exclusion; current TPWD legal explanations.");

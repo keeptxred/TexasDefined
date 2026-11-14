@@ -12,7 +12,7 @@ const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.ser
 const eventLeafRoute = fs.readFileSync(path.join(root, 'src/routes/event.$slug.tsx'), 'utf8');
 const temporalCollections = fs.readFileSync(path.join(root, 'src/data/event-temporal-collections.server.ts'), 'utf8');
 const weekendDigest = fs.readFileSync(path.join(root, 'src/data/texas-this-weekend.server.ts'), 'utf8');
-const collectionRoute = fs.readFileSync(path.join(root, 'src/routes/events.$collection.tsx'), 'utf8');
+const collectionRoute = [fs.readFileSync(path.join(root, 'src/routes/events.$collection.tsx'), 'utf8'), fs.readFileSync(path.join(root, 'src/routes/events.$collection.lazy.tsx'), 'utf8')].join('\n');
 const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
 const dateConfidence = fs.readFileSync(path.join(root, 'src/data/major-event-date-confidence.ts'), 'utf8');
 const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
@@ -239,9 +239,9 @@ for (const feature of [
   '"@type": "Offer"',
   '...(occurrenceEnrichment?.image ? { image:',
   '...(organizer ? { organizer } : {})',
-  '...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})',
+  '...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {})',
   '...(performers?.length ? { performer: performers } : {})',
-  'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length',
+  'const offersMarkup = displayOffers.length',
   'Event details',
   'Last reviewed',
 ]) {
@@ -361,6 +361,33 @@ if (route.includes('"@type": "CollectionPage"') || route.includes('"@type": "Ite
 }
 if (serverHead.includes('"@type": "Event"') || serverHead.includes('eventStatus: "https://schema.org/EventScheduled"') || serverHead.includes('eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"')) {
   errors.push('The Events hub must remain collection/discovery markup; Event rich-result occurrence markup belongs on dedicated /event/:slug pages.');
+}
+
+// One-off Event markup must not be restored on multi-window or expired
+// unannounced Mardi Gras guides merely to silence a cached-page verifier.
+// Require both raw-HTML and hydrated-Chrome acceptance to reflect the same
+// existing source/date-confidence policy.
+const mardiGrasFreshness = fs.readFileSync(path.join(root, 'scripts/ci/verify-authority-canonical-freshness.mjs'), 'utf8');
+const mardiGrasChrome = fs.readFileSync(path.join(root, 'scripts/ci/verify-mardi-gras-browser.mjs'), 'utf8');
+const multiOrExpiredMardiGrasGuides = [
+  'mardi-gras-galveston',
+  'kemah-yachty-gras',
+  'mardi-gras-southeast-texas-beaumont',
+  'mardi-gras-on-the-sabine-orange',
+];
+for (const slug of multiOrExpiredMardiGrasGuides) {
+  if (!mardiGrasFreshness.includes(`'/event/${slug}'`)) {
+    errors.push(`Mardi Gras raw-HTML schema confidence contract missing: ${slug}.`);
+  }
+  if (!mardiGrasChrome.includes(`"${slug}"`)) {
+    errors.push(`Mardi Gras real-Chrome schema confidence contract missing: ${slug}.`);
+  }
+}
+for (const marker of ['evergreenMardiGrasWebPageRoutes.has(route)', 'must not claim single Event schema']) {
+  if (!mardiGrasFreshness.includes(marker)) errors.push(`Mardi Gras raw-HTML guarded WebPage schema assertion missing: ${marker}.`);
+}
+for (const marker of ['WEBPAGE_ONLY_SLUGS.has(guide.slug)', 'data.hasWebPage && !data.hasEvent']) {
+  if (!mardiGrasChrome.includes(marker)) errors.push(`Mardi Gras Chrome schema confidence assertion missing: ${marker}.`);
 }
 
 if (errors.length) {

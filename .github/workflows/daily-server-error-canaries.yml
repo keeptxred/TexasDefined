@@ -1,0 +1,43 @@
+name: Daily bounded TexasDefined and KeepTXRed server-error canaries
+on:
+  schedule:
+    - cron: '17 12 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ci/probe-server-error-routes.mjs'
+      - 'scripts/ci/probe-server-error-routes.test.mjs'
+      - '.github/workflows/daily-server-error-canaries.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Canary contract tests
+        run: node --test scripts/ci/probe-server-error-routes.test.mjs
+  public-probes:
+    if: github.event_name != 'pull_request'
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify selected live public URLs and content
+        run: node scripts/ci/probe-server-error-routes.mjs
+      - name: Preserve daily audit artifact even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: two-site-public-canaries-${{ github.run_id }}
+          path: reports/server-error-canaries/
+          retention-days: 70
+          if-no-files-found: warn

@@ -1,0 +1,236 @@
+name: Refresh Texas fishing lakes directory
+
+on:
+  # The existing fishing URL acceptance and source-inventory workflows remain
+  # responsible for bounded daily SEO checks and the twice-weekly TPWD inventory.
+  # These schedules add dedicated directory restriction and quarterly fact reviews.
+  schedule:
+    - cron: "37 14 * * 1,4"
+    - cron: "49 15 2 1,4,7,10 *"
+    - cron: "17 15 15 8 *" # August pre-season Outdoor Annual/harvest-research gate
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/components/fishing/FishingSeasonDirectory.tsx'
+      - 'src/routes/fishing.seasons.tsx'
+      - 'src/data/fishing/monthly-editorial.ts'
+      - 'src/data/fishing/season-routing.ts'
+      - 'src/data/fishing/season-data.server.ts'
+      - 'scripts/data/validate-fishing-seasons.mjs'
+      - 'scripts/ci/audit-fishing-seasons-tpwd-sources.mjs'
+      - 'src/components/fishing/FishingResultsMap.tsx'
+      - 'src/lazy/fishing-plan.tsx'
+      - 'src/data/fishing/consumption-advisories.json'
+      - 'scripts/ci/audit-fishing-planner-live-sources.mjs'
+      - 'scripts/ci/research-fishing-map-coordinates.mjs'
+      - 'src/data/fishing/planner-twdb-coordinates.json'
+      - 'src/data/fishing/planner-official-coordinate-fallbacks.json'
+      - 'scripts/ci/audit-fishing-planner-alternate-coordinates.mjs'
+      - 'src/data/fishing/planner-data.server.ts'
+      - 'scripts/data/validate-fishing-planner-platform.mjs'
+      - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/data/fishing/statewide-lake-network.ts'
+      - 'src/data/fishing/planner-data.server.ts'
+      - 'src/lazy/fishing-compare.tsx'
+      - 'src/routes/fishing.compare.tsx'
+      - 'scripts/ci/audit-fishing-compare-authority.mjs'
+      - 'scripts/data/validate-fishing-planner-platform.mjs'
+      - 'src/data/fishing/lake-authority-research-wave1.ts'
+      - 'src/data/fishing/slugs.ts'
+      - 'src/data/fishing/fixtures.ts'
+      - 'src/routes/fishing.lakes.tsx'
+      - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
+      - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
+      - 'scripts/ci/tpwd-lake-source-identity.mjs'
+      - 'scripts/ci/tpwd-lake-source-identity.test.mjs'
+      - 'scripts/ci/audit-fishing-lake-grade-sources.mjs'
+      - 'scripts/ci/tpwd-fishery-grades.mjs'
+      - 'scripts/ci/tpwd-fishery-grades.test.mjs'
+      - 'scripts/data/validate-fishing-lakes-directory.mjs'
+      - 'scripts/ci/verify-fishing-lakes-fresh-production.mjs'
+      - 'scripts/ci/verify-fishing-lakes-fresh-production.test.mjs'
+      - 'scripts/ci/purge-cloudflare-cache.mjs'
+      - '.github/workflows/deploy-production.yml'
+      - 'scripts/data/validate-fishing-lake-research.mjs'
+      - '.github/workflows/fishing-lakes-directory-refresh.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: fishing-lakes-directory-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate lake directory, source registry and scheduled workflow
+        run: |
+          node scripts/data/validate-fishing-lakes-directory.mjs
+          node scripts/data/validate-fishing-seasons.mjs
+          node --check scripts/ci/audit-fishing-seasons-tpwd-sources.mjs
+          node scripts/ci/audit-fishing-seasons-tpwd-sources.mjs --plan
+          node --check scripts/ci/verify-fishing-lakes-fresh-production.mjs
+          node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
+          node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
+          node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
+          node --test scripts/ci/tpwd-lake-source-identity.test.mjs
+          node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
+          node --check scripts/ci/audit-fishing-lake-grade-sources.mjs
+          node --test scripts/ci/tpwd-fishery-grades.test.mjs
+          node scripts/ci/audit-fishing-lake-grade-sources.mjs --plan
+          node --check scripts/ci/audit-fishing-planner-live-sources.mjs
+          node scripts/ci/audit-fishing-planner-live-sources.mjs --plan
+          node --check scripts/ci/audit-fishing-planner-alternate-coordinates.mjs
+          node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --plan
+          node scripts/ci/audit-fishing-compare-authority.mjs --local
+      - name: Verify posted official lake access restrictions
+        if: github.event_name != 'pull_request'
+        id: source
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Check source-backed comparison grades and Amistad NPS current-status provider
+        if: github.event_name != 'pull_request'
+        id: compare
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-compare-authority.mjs --remote
+      - name: Check current published lake authority research in PR
+        if: github.event_name == 'pull_request'
+        run: node scripts/data/validate-fishing-lake-research.mjs
+      - name: Smoke-test both official TPWD lake-source types in PR
+        if: github.event_name == 'pull_request'
+        run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs --smoke
+      - name: Review lake-specific official TPWD fishing regulations and fishery sources
+        if: github.event_name != 'pull_request'
+        id: regulations
+        continue-on-error: true
+        env:
+          FISHING_LAKES_FULL_REVIEW: ${{ (github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *' || github.event.schedule == '17 15 15 8 *') && '1' || '0' }}
+        run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs
+      - name: Install locked catalog dependencies for source-grade comparison
+        if: github.event_name != 'pull_request'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Compare published species-by-lake ratings to official TPWD grade tables
+        if: github.event_name != 'pull_request'
+        id: grades
+        continue-on-error: true
+        env:
+          FISHING_LAKES_FULL_REVIEW: ${{ (github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *' || github.event.schedule == '17 15 15 8 *') && '1' || '0' }}
+        run: node scripts/ci/audit-fishing-lake-grade-sources.mjs
+      - name: Verify planner fish-consumption warnings and TPWD report pause status
+        if: github.event_name != 'pull_request'
+        id: planner
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-planner-live-sources.mjs
+      - name: Review monthly TPWD fishing-source examples
+        if: github.event_name != 'pull_request'
+        id: seasons
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-seasons-tpwd-sources.mjs --remote
+      - name: Quarterly source and lake authority review
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *' || github.event.schedule == '17 15 15 8 *'
+        id: quarterly
+        continue-on-error: true
+        run: |
+          node scripts/data/validate-fishing-lake-research.mjs
+          node scripts/data/validate-fishing-sitemap-indexability.mjs
+          node scripts/seo/fishing-authority-inventory.mjs
+      - name: Save source review evidence
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-directory-refresh-${{ github.run_id }}
+          path: |
+            .artifacts/fishing-lakes-directory-source-check.json
+            .artifacts/fishing-lake-regulation-sources.json
+            .artifacts/fishing-lake-fishery-grade-evidence.json
+            .artifacts/fishing-planner-source-review.json
+            .artifacts/fishing-compare-authority-check.json
+            .artifacts/fishing-seasons-tpwd-source-review.json
+            fishing-authority-registered-urls.json
+            fishing-authority-registered-urls.md
+          if-no-files-found: warn
+          retention-days: 45
+      - name: Create or update actionable GitHub source drift issue
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.grades.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.seasons.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing lakes directory official-source refresh drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          detail="$(node -e 'const fs=require("fs");for(const p of [".artifacts/fishing-lake-regulation-sources.json",".artifacts/fishing-planner-source-review.json",".artifacts/fishing-compare-authority-check.json",".artifacts/fishing-seasons-tpwd-source-review.json"]){if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}}')"
+          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a lake-specific fishery/regulation source mismatch, an actual TPWD fishery-grade disagreement, a planner consumption-advisory/report-status change, a comparison fishery-grade mismatch, a seasonal TPWD published-reference change, an NPS condition-source drift, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail on unresolved official-source or contract drift
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.grades.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.seasons.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        run: exit 1
+
+  coordinate-research:
+    # Official TWDB map monitoring runs on scheduled/manual checks, never on
+    # unrelated PRs. Transient TWDB network outages must not fail page-content
+    # pull requests; scheduled drift failures still raise review issues.
+    if: github.event_name != 'pull_request'
+    # Reuse this established lake-source schedule; discovery never edits lake
+    # catalog records or silently upgrades unreviewed TWDB map coordinates.
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Discover exact-name reservoir positions from official TWDB GeoJSON
+        id: twdb
+        continue-on-error: true
+        run: node scripts/ci/research-fishing-map-coordinates.mjs
+      - name: Check the ten separate TPWD, TCEQ and USGS lake reference sources
+        id: alternates
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs
+      - name: Preserve review candidates and unmatched lakes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-twdb-map-review
+          path: |
+            .artifacts/fishing-planner-twdb-coordinate-candidates.json
+            .artifacts/fishing-planner-official-coordinate-review.json
+          retention-days: 45
+          if-no-files-found: warn
+      - name: Record TWDB coordinate-source drift without altering published points
+        if: steps.twdb.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing planner TWDB map-coordinate source drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          body="Official TWDB reservoir point source has become unavailable, ambiguous, or shifted significantly. Do not silently remove or invent lake locations. Review .artifacts/fishing-planner-twdb-coordinate-candidates.json from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and correct the confirmed source mismatch."
+          if [[ -n "$existing" ]]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+      - name: Record alternate lake-coordinate official-source drift
+        if: steps.alternates.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing planner government coordinate source drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          body="A verified lake-point source from TPWD, USGS or TCEQ changed or was unavailable. Investigate the coordinate source review artifact from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Never silently restamp source verification dates or guess replacement coordinates."
+          if [[ -n "$existing" ]]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+      - name: Fail on unresolved alternate coordinate-source drift
+        if: steps.alternates.outcome == 'failure'
+        run: exit 1
+      - name: Fail on unresolved TWDB source drift
+        if: steps.twdb.outcome == 'failure'
+        run: exit 1

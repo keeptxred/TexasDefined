@@ -18,6 +18,10 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Technology & Semiconductors', href: '/texas-industries/technology-semiconductors', context: 'North Texas combines telecommunications, enterprise technology, electronics and semiconductor activity.' },
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Air cargo, highways, rail and distribution make the Metroplex a national logistics hub.' },
   ],
+  'del-rio': [
+    { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Laughlin Air Force Base near Del Rio is an active military pilot-training installation, not an open tourist destination or civilian scheduled-airline hub. Aviation employment and visitor access follow the base’s separate federal requirements.' },
+    { label: 'Hospitality, Tourism & Culture', href: '/texas-industries/hospitality-tourism-culture', context: 'Amistad National Recreation Area west of town, Whitehead Memorial Museum and the spring-fed San Felipe corridor create a locally distinct tourism economy with different operating authorities, access rules and fees.' },
+  ],
   'fort-worth': [
     { label: 'Gaming & Esports', href: '/gaming/dfw', context: 'Fort Worth connects to the wider DFW gaming market through game development, collegiate esports, events and regional technology infrastructure.' },
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Fort Worth is a major aircraft, defense, engineering and aerospace-supplier center.' },

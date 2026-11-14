@@ -39,6 +39,7 @@ export const Route = createFileRoute('/api/ai/entities')({
         '@type': 'Dataset',
         '@id': `${apiUrl}?id=${encodeURIComponent(entity.id)}#dataset`,
         name: `TexasDefined entity record: ${entity.name}`,
+        description: entity.description?.trim() || `Machine-readable Texas Defined entity record for ${entity.name}, including available source, location and verification details.`,
         url: `${apiUrl}?id=${encodeURIComponent(entity.id)}`,
         creator: { '@id': organizationId },
         publisher: { '@id': organizationId },
@@ -120,7 +121,7 @@ function toJsonLd(entity: TexasEntityRecord) {
     dateModified: entity.sourceCheckedAt,
     additionalType: entity.kind,
     additionalProperty: provenanceProperties(entity),
-    subjectOf: { '@type': 'Dataset', '@id': `${apiUrl}?id=${encodeURIComponent(entity.id)}#dataset` },
+    subjectOf: { '@id': `${apiUrl}?id=${encodeURIComponent(entity.id)}#dataset` },
   };
 }
 

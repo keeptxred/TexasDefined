@@ -7,6 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import type { TexasEvent, TexasRegion } from "./types";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { majorEventIndexRecords } from "./major-event-index";
+import { getMajorEventSchemaOccurrenceEnrichmentServer } from "./major-event-schema-enrichment.server";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
 
@@ -22,6 +23,8 @@ export interface MajorEventGuideDirectoryItem {
   startDate: string;
   endDate?: string;
   sourceCheckedAt?: string;
+  /** Rights-reviewed event-specific image only; never an unrelated fallback. */
+  image?: { url: string; alt: string; sourceUrl?: string; sourceType?: string; licenseName?: string; licenseUrl?: string; rightsNote?: string; approvedForCommercialUse?: boolean };
 }
 
 interface EventDiscoveryLink {
@@ -68,6 +71,9 @@ const eventTimingLinks: EventDiscoveryLink[] = [
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
+  { href: "/events/dia-de-los-muertos", title: "Día de los Muertos in Texas", description: "Compare separate San Antonio, Houston and Austin celebrations with verified city-specific schedules." },
+  { href: "/events/texas-independence", title: "Texas Independence & San Jacinto", description: "March 2 and April 21 heritage commemorations with distinct event guides and official sources." },
+  { href: "/events/mardi-gras", title: "Mardi Gras in Texas", description: "Source-confirmed 2027 Texas Mardi Gras parades and city-by-city travel guides, with unannounced traditions clearly separated." },
   { href: "/events/air-shows", title: "Texas air shows", description: "Confirmed jet-team shows, warbird exhibitions, military-base air shows and verified fly-in weekends with practical travel guides." },
   { href: "/events/tournaments", title: "Texas tournaments", description: "Browse 250 competition seeds across 22 sports and activity categories, with county connections where the supplied location is clear." },
   { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
@@ -103,7 +109,17 @@ function texasTodayIso(now = new Date()) {
   return `${value("year")}-${value("month")}-${value("day")}`;
 }
 
+// Directory source is an immutable, deploy-versioned editorial registry. Reuse
+// its expensive record joins during a Texas-local day; still refresh ordering
+// when a new day begins. Copy the returned rows so callers cannot mutate the
+// cross-request snapshot.
+let guideDirectoryCache: { day: string; rows: MajorEventGuideDirectoryItem[] } | undefined;
+
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
+  const today = texasTodayIso();
+  if (guideDirectoryCache?.day === today) {
+    return guideDirectoryCache.rows.map((row) => ({ ...row, image: row.image ? { ...row.image } : undefined }));
+  }
   const coreSlugs = new Set(majorEventIndexRecords.map((event) => event.slug));
   const coreEvents = majorEventIndexRecords.map(({ slug }) => {
     const event = getMajorEventRecordServer(slug);
@@ -114,14 +130,15 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     ...coreEvents,
     ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
   ];
-  const today = texasTodayIso();
   const prioritySlugs = new Set(priorityEventGuides.map((event) => event.slug));
 
-  return [
+  const rows = [
     ...priorityEventGuides,
     ...events
       .filter((event) => !prioritySlugs.has(event.slug))
-      .map((event) => ({
+      .map((event) => {
+        const image = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug)?.image;
+        return {
         slug: event.slug,
         href: `/event/${event.slug}`,
         name: event.name,
@@ -133,13 +150,17 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
         startDate: event.startDate,
         endDate: event.endDate,
         sourceCheckedAt: event.sourceCheckedAt,
-      })),
+        image: image ? { url: image.url, alt: image.alt, sourceUrl: image.sourceUrl, sourceType: image.sourceType, licenseName: image.licenseName, licenseUrl: image.licenseUrl, rightsNote: image.rightsNote, approvedForCommercialUse: image.approvedForCommercialUse } : undefined,
+      };
+      }),
   ].sort((left, right) => {
     const leftPast = (left.endDate || left.startDate) < today;
     const rightPast = (right.endDate || right.startDate) < today;
     if (leftPast !== rightPast) return leftPast ? 1 : -1;
     return left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
   });
+  guideDirectoryCache = { day: today, rows };
+  return rows.map((row) => ({ ...row, image: row.image ? { ...row.image } : undefined }));
 }
 
 export function loadMajorEventLandingDirectoryServer() {

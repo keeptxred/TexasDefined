@@ -61,6 +61,18 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
       { type: 'jurisdiction-overlap', targetId: 'county:rockwall' },
     ],
   ),
+  'del-rio': {
+    ...city(
+    'Del Rio is the Val Verde County seat along the Rio Grande opposite Ciudad Acuña, built around the spring-fed San Felipe Creek and shaped by the US–Mexico border, Laughlin Air Force Base and nearby Amistad National Recreation Area. Del Rio is not the reservoir itself: the NPS visitor center, boat ramps and recreation sites lie west of the city and have separate lake-use permits and changing water-access conditions. Downtown museums, the San Felipe neighborhood and municipal services belong to the city, while school, utility, property-tax and county-service questions require an exact address.',
+    'https://www.cityofdelrio.com/', 'south-texas', undefined,
+    ['border-city', 'val-verde', 'rio-grande', 'san-felipe-springs', 'amistad-national-recreation-area', 'military-aviation', 'historic-downtown'],
+    [
+      { type: 'located-in-county', targetId: 'county:val-verde' },
+      { type: 'nearby-visitor-area', targetId: 'national-park:amistad-national-recreation-area' },
+    ],
+      ),
+    sourceCheckedAt: '2026-11-13',
+  },
   'fort-worth': {
     ...city(
       'Fort Worth is the western anchor of Dallas–Fort Worth, pairing Stockyards cattle and rail history with a nationally significant Cultural District, downtown and Sundance Square, major aviation and defense employment, the Trinity River and a fast-growing urban footprint. Tarrant County is the city’s primary county context, but Fort Worth’s incorporated limits also extend into Denton, Parker, Johnson and Wise counties, so taxes, schools, records and services must be verified by exact address.',
@@ -158,9 +170,9 @@ const METRO_OVERRIDES: Record<string, AuthorityOverride> = {
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'el-paso-metro': {
-    description: 'The El Paso Metropolitan Area connects the core city with El Paso County, border-region mobility, relocation research, travel planning and nearby places across Far West Texas. It also keeps municipal and county services distinct from the broader cross-jurisdictional planning role of the El Paso Metropolitan Planning Organization.',
-    officialUrl: 'https://www.elpasompo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'west-texas',
-    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
+    description: 'The El Paso, Texas metropolitan statistical area includes El Paso and Hudspeth counties, connecting the urban border city with the rural lands east of it. The Franklin Mountains, Rio Grande, Fort Bliss and trade with Ciudad Juárez shape travel, housing and employment. The El Paso Metropolitan Planning Organization covers a different transportation-planning area that includes parts of southern New Mexico; its boundary is not the same as the two-county U.S. statistical metro.',
+    officialUrl: 'https://www.elpasompo.org/AboutUs', sourceConfidence: 'official', sourceCheckedAt: '2026-10-19', status: 'active', region: 'west-texas',
+    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'regional-county', targetId: 'county:hudspeth' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
     tags: ['metro', 'border-region', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'corpus-christi-metro': {

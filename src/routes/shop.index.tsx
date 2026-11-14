@@ -183,6 +183,7 @@ function ShopPage() {
             <StoryLink href="/best-places-to-go-camping-in-texas" title="Best places to camp in Texas">Start with the campsite before deciding what deserves space in the gear bin.</StoryLink>
             <StoryLink href="/article/bluebonnet-season-field-guide" title="Chasing bluebonnet season">The practical field guide behind the Wildflower House collection.</StoryLink>
             <StoryLink href="/article/what-defines-texas-barbecue" title="What defines Texas barbecue">The smoke, patience and butcher-paper culture behind Smoke & Salt.</StoryLink>
+            <StoryLink href="/shop/fishing-shirts" title="Texas fishing shirts">Bass lakes, dawn casts and Gulf Coast redfish inspire the collection of original fishing graphic tees.</StoryLink>
           </div>
         </Container>
       </section>

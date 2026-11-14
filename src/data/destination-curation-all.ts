@@ -1,3 +1,4 @@
+import { applyFranklinMountainsVisitorAuthority } from "./franklin-mountains-visitor-authority";
 import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
 import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
 import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
@@ -69,6 +70,7 @@ import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-att
 import { applyCuratedTopAttractionsBatch3 } from "./destination-curation-top-attractions-batch3";
 import { applyCuratedTopAttractionsBatch4 } from "./destination-curation-top-attractions-batch4";
 import { applyCuratedTopAttractionsBatch5 } from "./destination-curation-top-attractions-batch5";
+import { applyAttractionVisitorDepth } from "./attraction-visitor-depth-20261020";
 import type { Destination } from "./types";
 
 // `queries.ts` imports this module before it snapshots the preserved destination
@@ -195,6 +197,8 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applySixParkVisitorAuthorityGuide,
   applyInksLakeVisitorAuthority,
   applyDevilsSinkholeVisitorAuthority,
+  applyFranklinMountainsVisitorAuthority,
+  applyAttractionVisitorDepth,
 ];
 
 function runCurators(destination: Destination): Destination {

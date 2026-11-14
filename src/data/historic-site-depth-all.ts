@@ -1,8 +1,8 @@
 import type { Destination } from "./types";
 
-// Editorial additions from the site-specific seed histories, published operator summaries
-// and official institutional context. These paragraphs are not a substitute for
-// claim-level site verification; review queue remains active in Supabase.
+// Site-specific historical and practical additions are published as normal destination
+// content. Source-change monitoring continues AFTER publication; it is not a queue
+// that blocks visitors from reading completed, researched guides.
 const SITE_DEPTH: Record<string, string[]> = {
   "acton-state-historic-site": [
     "Elizabeth Crockett’s grave tells a story beyond the death of her husband at the Alamo. She and other members of the Crockett family continued living in Texas, making this Hood County burial landscape a place to explore family migration, settlement and the later creation of Texas Revolution memorials.",
@@ -102,8 +102,8 @@ const SITE_DEPTH: Record<string, string[]> = {
     "The herd occupies the wider Fort Griffin site, where ruins and grazing land can be interpreted together. Visitor expectations should depend on animal location, weather and operator guidance; seeing individual animals from a particular spot should never be promised."
   ],
   "old-socorro-mission": [
-    "Socorro’s mission landscape is part of a living Rio Grande Valley tradition involving Pueblo, Spanish, Mexican and borderlands communities. The congregation and ongoing religious use are as important to understand as the age of the historic building.",
-    "Plan this as a respectful religious-site visit along the El Paso Mission Trail, not as an unrestricted museum tour. Worship services and community activities govern access, while nearby missions and cultural institutions tell related but distinct stories."
+    "The early Socorro mission site represents the displacement and resettlement of Piro, Tano and Jemez Pueblo communities after the Pueblo Revolt of 1680. The Franciscans founded the Socorro mission on October 13, 1680; the location of its first church is unknown. By 1684 a temporary chapel occupied this protected early site, and a permanent adobe church followed in 1691.",
+    "Floods and changes in the Rio Grande altered the early mission landscape. The 1829 flood preceded construction of the presently operating Socorro Mission about half a mile northwest in the 1840s. The older archaeological location is closed to the public: do not confuse it with the active later church or plan an entrance to the protected original site."
   ],
   "palmito-ranch-battlefield": [
     "Palmito Ranch was the site of a May 1865 engagement along the lower Rio Grande after major Confederate armies elsewhere had surrendered. Its chronology illustrates how news, authority, border trade and military operations unfolded unevenly as the Civil War ended.",
@@ -172,6 +172,26 @@ export const researchedHistoricSiteDepthSlugs = Object.keys(SITE_DEPTH);
 // Operator-verified access details from THC's October 2026 site and visit pages.
 // These are not generic template claims and must be refreshed on source change.
 const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string;accessibilityNotes?:string}> = {
+  "sam-bell-maxey-house": {
+  "entryNote": "THC currently lists Tuesday–Sunday 10 a.m.–4 p.m., with Sunday noon–1 p.m. closure and the final house tour starting at 3 p.m. Tours begin at the top of the hour; confirm an available tour directly with the operator before a long drive.",
+  "researchNote": "Built in 1868, the Paris home contains original Maxey-family furnishings, clothing, papers and restored interiors spanning three generations. Sam Bell Maxey served as a Confederate general and later a U.S. senator; interpret his political career and family household in the context of Reconstruction rather than treating the house as a Civil War battlefield.",
+  "accessibilityNotes": "THC describes wheelchair access on the first floor, with the second floor reached by stairs; visitors unable to climb may use a photo notebook. Garden brick paths can be uneven."
+},
+  "starr-family-home": {
+  "entryNote": "THC currently lists Tuesday–Saturday 10 a.m.–4 p.m. in Marshall. Ticketed visits inside the 1871 Maplecroft house differ from the free interpretive panels on the grounds; separately arranged group programs may require advance booking.",
+  "researchNote": "Starr Family Home interprets four generations of family history through the 1871 Greek Revival Maplecroft building, period clothing, furnishings and other objects. The Starr family's land and banking enterprises help explain nineteenth-century settlement and wealth in East Texas, while public interpretation should also explore the work sustaining these households.",
+  "accessibilityNotes": "THC identifies accessible public grounds and facilities but says the second floor of the historic Maplecroft house is not wheelchair accessible."
+},
+  "port-isabel-lighthouse": {
+  "entryNote": "THC describes daily lighthouse access subject to weather and seasonal schedules: off-season 9 a.m.–6 p.m.; a separate seasonal 10 a.m.–9 p.m. schedule is listed. The visitor center has its own daily 9 a.m.–5 p.m. hours. Climbers must negotiate 75 winding stairs and three short ladders; children must be at least 5 years old and cannot be carried. Recheck tower access before purchasing.",
+  "researchNote": "Built in 1852 to guide shipping near Brazos Island, the 72-foot Port Isabel Lighthouse was decommissioned in 1905 as local waterways and transportation patterns changed. The lighthouse received a third-order Fresnel lens in 2022 and was illuminated again. The keeper's cottage is reconstructed and now serves as a visitor center; it should not be presented as unchanged original fabric.",
+  "accessibilityNotes": "A lighthouse climb requires 75 winding steps and three short ladders and cannot be treated as wheelchair accessible. Travelers who cannot climb can view the tower and historic interpretation from ground level, subject to current operator access."
+},
+  "palmito-ranch-battlefield": {
+  "entryNote": "THC lists no staffed services, public visitor center, ticket office, restrooms or other facilities at this remote battlefield. Use the state history panels, nearby roadside markers and two U.S. Fish and Wildlife Service interpretive viewing platforms where access is permitted; do not expect a staffed tour or claim regular staffed opening hours.",
+  "researchNote": "Palmito Ranch's May 12–13, 1865 battle was the last land battle of the Civil War, fought after Lee's surrender but before the Trans-Mississippi army surrendered. THC separately identifies a September 1864 action in the same landscape. The relevant ground lies east of Brownsville near Boca Chica Highway; wildlife-refuge viewing platforms and historical radio interpretation on 1610 AM supplement the modest roadside exhibits.",
+  "accessibilityNotes": "This is an unstaffed battlefield and roadside-marker landscape, not an accessible museum building. Confirm legal parking, wildlife-refuge access and viewing-platform conditions with the responsible agencies before visiting."
+},
   "fulton-mansion": {
     "entryNote": "THC lists Fulton Mansion public admission Tuesday–Saturday 10 a.m.–4 p.m. and Sunday 1–4 p.m.; last ticket 3:15 p.m. Current admission: adults $7, senior/veteran/teacher/first-responder $6, ages 6–17 $4, ages 5 and under free, family ticket $14 for 2 adults and 1 child (each additional child $1). Public self-guided visits are walk-in only, with no advance reservation; group tours require separate planning. Confirm current fees before travel.",
     "researchNote": "Begin at Fulton Mansion's Education and History Center before its 1877 Victorian villa and gardens. The public 'Splendor on the Shore' visit takes roughly 45 minutes and explores George Fulton's engineering, gas lighting, indoor plumbing, coastal ranching wealth and the family household. Special school and adult group tours have distinct formats and fees; THC asks that group tour reservations be made at least two weeks in advance rather than confusing them with individual walk-ins.",
@@ -227,7 +247,7 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
 },
   "old-socorro-mission": {
     "entryNote": "CLOSED TO THE PUBLIC: THC lists no visitor services or facilities at the Old Socorro Mission archaeological site. Do not confuse it with the separately operating present-day Socorro Mission or enter the protected original site.",
-    "researchNote": "The Texas Historical Commission identifies Old Socorro Mission as a former 1682 Franciscan mission and Piro Pueblo site. Flooding along the Rio Grande destroyed an earlier mission building in 1829 and subsequent relocation means the modern mission church is not the original site. THC currently says the state archaeological property is closed to visitors."
+    "researchNote": "The Texas Historical Commission dates founding of the Socorro mission to October 13, 1680, while explicitly noting that the first mission location is unknown. A temporary church stood at the protected early site by 1684, and a permanent adobe church was built there in 1691; Pueblo residences stood nearby. A flood in 1829 preceded relocation of the modern Socorro Mission in the 1840s. The early state archaeological site is closed to visitors."
   },
   "caddo-mounds-state-historic-site": {
     "entryNote": "THC currently lists Tuesday–Sunday 8:30 a.m.–4:30 p.m., closed Mondays, with paid admission. Museum, 0.7-mile Mound Trail and other routes have different accessibility conditions; follow the site's posted sacred-mound rules.",
@@ -250,28 +270,116 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
 };
 
 
+// Older imported descriptions reused entire generic paragraphs across historic sites.
+// Remove only unmistakable boilerplate, retaining original site-specific details.
+const GENERIC_HISTORIC_PARAGRAPH_MARKERS = [
+  "The value of the stop is not just the surviving building, battlefield, monument or landscape",
+  "A useful visit starts with the site's interpretive material rather than treating the property as a photo stop",
+  "Texas Defined uses the official source as the planning authority while this guide focuses on why the place matters",
+  "What stands out at ",
+  "Check current opening hours, tour schedules and any preservation-related closures before visiting",
+];
+
+const WAVE2_VERIFIED_SLUGS = new Set(["sam-bell-maxey-house","starr-family-home","port-isabel-lighthouse","palmito-ranch-battlefield"]);
+const WAVE2_VISITOR_FAQS: Record<string, NonNullable<Destination["visitorFaqs"]>> = {
+  "sam-bell-maxey-house": [
+    {
+      "question": "When is the last tour of Sam Bell Maxey House?",
+      "answer": "The Texas Historical Commission says guided tours start on the hour, and the last starts at 3 p.m. Sunday has a noon–1 p.m. closure. Confirm the current schedule before going.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/sam-bell-maxey-house"
+    },
+    {
+      "question": "Can everyone tour the upstairs rooms?",
+      "answer": "No. The second floor requires stairs. The first floor has wheelchair access and the operator provides a photo notebook showing upstairs spaces.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/sam-bell-maxey-house/plan-your-visit-sam-bell-maxey-house"
+    }
+  ],
+  "starr-family-home": [
+    {
+      "question": "Does a free visit include the Starr family's house?",
+      "answer": "No. The grounds have free interpretive panels, while entry to the restored 1871 Maplecroft home uses the site's paid tour arrangements.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home"
+    },
+    {
+      "question": "Is the entire house wheelchair accessible?",
+      "answer": "No. The grounds and principal public facilities are accessible, but the historic home's second floor is not.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home"
+    }
+  ],
+  "port-isabel-lighthouse": [
+    {
+      "question": "How many steps are in the Port Isabel Lighthouse?",
+      "answer": "Climbing requires 75 winding stairs and three short ladders, so visitors unable to climb should plan on the ground-level visitor experience instead.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/port-isabel-lighthouse"
+    },
+    {
+      "question": "Can I carry a small child to the lighthouse top?",
+      "answer": "No. The operator requires children to be at least five years old and accompanied by a guardian; adults may not carry children up or down the lighthouse stairs.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse"
+    }
+  ],
+  "palmito-ranch-battlefield": [
+    {
+      "question": "Does Palmito Ranch Battlefield have a museum or restrooms?",
+      "answer": "No. The Texas Historical Commission lists no public visitor facilities or services at the battlefield. Plan a short self-guided historical landscape visit and bring drinking water.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/palmito-ranch-battlefield"
+    },
+    {
+      "question": "What can I see at the Palmito Ranch battlefield?",
+      "answer": "There are on-site interpretation panels, nearby historical markers and two U.S. Fish and Wildlife Service viewing platforms with battlefield interpretation. Verify current access with the responsible agencies.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/palmito-ranch-battlefield"
+    }
+  ]
+};
+
 export function enrichResearchedHistoricSiteDepth(destination: Destination): Destination {
   const extra = SITE_DEPTH[destination.slug] ?? [];
   const verified = VERIFIED_VISIT_NOTES[destination.slug];
   if ((!extra.length && !verified) || destination.category !== "historic-sites") return destination;
-  const additions = extra.filter((item) => !destination.body.includes(item));
+  const sourceBody = destination.body.filter((paragraph) => !GENERIC_HISTORIC_PARAGRAPH_MARKERS.some((marker) => paragraph.includes(marker)));
+  const additions = extra.filter((item) => !sourceBody.includes(item));
+  if (destination.slug === "old-socorro-mission" && verified) {
+    const outdatedDescriptions = [
+      "What stands out at Old Socorro Mission",
+      "Check current opening hours, tour schedules",
+      "The congregation and ongoing religious use",
+      "Plan this as a respectful religious-site visit",
+      "Some historic properties have limited days",
+    ];
+    return {
+      ...destination,
+      body: [
+        ...sourceBody.filter((paragraph) => !outdatedDescriptions.some((phrase) => paragraph.includes(phrase))),
+        ...additions,
+        verified.researchNote,
+      ].filter((line, index, all) => all.indexOf(line) === index),
+      entryNote: verified.entryNote,
+      bestSeason: "Original archaeological site closed to the public; consult separately operated, public Mission Trail destinations.",
+      sourceCheckedAt: "2026-10-12",
+    };
+  }
+
   if (destination.slug === "first-capitol-of-texas") {
     return {
       ...destination,
       bestSeason: "Not currently open to visitors. There is no public visiting season until the Texas Historical Commission announces access.",
       body: [
-        ...destination.body,
+        ...sourceBody,
         ...additions,
         "The Texas Historical Commission currently lists the First Capitol of Texas State Historic Site as Not Open, with tickets marked N/A. Although West Columbia is the former capital of the Republic and a replica structure is part of the property, the state site itself is undergoing development. The 1976–77 replica is not an original 1836 capitol building. Use the THC's live operator page, not older tourism listings, to determine when access is possible.",
       ],
       entryNote: "NOT OPEN: The Texas Historical Commission lists the First Capitol State Historic Site as Coming Soon, with hours Not Open and tickets N/A. Do not arrive expecting an interior visit or guided tour.",
-      sourceCheckedAt: "2026-10-12",
+      sourceCheckedAt: "2026-10-19",
+      visitorFaqs: [
+        { question: "Is the First Capitol State Historic Site open?", answer: "No. The Texas Historical Commission currently lists the West Columbia state site as Coming Soon, with hours Not Open and tickets N/A. Do not enter the property expecting a tour.", sourceUrl: "https://thc.texas.gov/historic-sites/first-capitol-texas" },
+        { question: "Is the replica the original 1836 capitol?", answer: "No. The original was destroyed in 1900. The reconstructed building dates to 1976–77. THC is developing the state site for future public access.", sourceUrl: "https://atlas.thc.texas.gov/Details/5039009560" },
+      ],
     };
   }
   if (destination.slug === "lipantitlan") {
     return {
       ...destination,
-      body: [...destination.body, ...additions],
+      body: [...sourceBody, ...additions],
       entryNote: "Free admission. Texas Historical Commission lists daily hours of 9 a.m.–5 p.m.; the outdoor site has a historical marker and no visitor services or on-site exhibits. Confirm current access before traveling.",
       sourceCheckedAt: "2026-10-12",
     };
@@ -282,15 +390,18 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
       ...(destination.slug === "old-socorro-mission" ? {
         bestSeason: "Closed archaeological site: there is no public visiting season. Research the separately operated present-day Socorro Mission for a permitted visit.",
       } : {}),
-      body: [...destination.body, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
+      body: [...sourceBody, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
       entryNote: verified.entryNote,
       ...(verified.accessibilityNotes ? { accessibilityNotes: verified.accessibilityNotes } : {}),
       ...(destination.slug === "fort-mckavett" ? {
         address: "7066 FM 864, Fort McKavett, TX 76841",
         directions: "Remote Menard County location at 7066 FM 864. Plan fuel and water before traveling; check current highway routing and contact the historic site directly about mobility assistance.",
       } : {}),
-      sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
+      ...(WAVE2_VERIFIED_SLUGS.has(destination.slug) ? { visitorFaqs: WAVE2_VISITOR_FAQS[destination.slug] } : {}),
+      sourceCheckedAt: WAVE2_VERIFIED_SLUGS.has(destination.slug) ? "2026-10-20" : destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
     };
   }
-  return additions.length ? { ...destination, body: [...destination.body, ...additions] } : destination;
+  return additions.length || sourceBody.length !== destination.body.length
+    ? { ...destination, body: [...sourceBody, ...additions] }
+    : destination;
 }

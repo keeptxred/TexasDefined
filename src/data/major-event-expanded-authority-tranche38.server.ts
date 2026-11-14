@@ -65,13 +65,13 @@ const records: MajorEventAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-07",
     endDate: "2026-11-10",
-    venue: "National Butterfly Center",
+    dateNote: "The 30th organizer-confirmed festival runs November 7–10, 2026 at National Butterfly Center in Mission. FREE public Community Day is Saturday November 7 from 9 a.m.–2 p.m.; paid multi-day field-trip registration closed October 23 and is no longer accepting applicants. Do not present the closed registration as available.", venue: "National Butterfly Center",
     officialUrl: "https://texasbutterflyfestival.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "The Texas Butterfly Festival makes Mission and the Lower Rio Grande Valley a national wildlife-travel destination, combining guided field trips, workshops, photography, habitat exploration and a public Community Day around one of the country's richest butterfly regions.",
     planningSections: [
       { title: "Use November 7-10 as the confirmed 2026 festival window", body: "The organizer publishes the 30th annual Texas Butterfly Festival for November 7 through 10, 2026 in Mission. Community Day is Saturday, November 7, while registered festival programming continues with field trips and educational activities over the following days." },
-      { title: "Choose between Community Day and registered programming", body: "The free Community Day is designed for broad public participation, while the fuller festival registration includes workshops, guided field trips, receptions and other scheduled experiences. Review the registration package before deciding which days belong in your itinerary." },
+      { title: "Choose between Community Day and registered programming", body: "Community Day on Saturday November 7 from 9 a.m.–2 p.m. is free and open to the public at the National Butterfly Center. The organizer separately lists ticketed multi-day field trips and workshops, but 2026 registration closed October 23 and is no longer taking registrations. Do not mistake the free Community Day for entry to the paid field-trip cohorts." },
       { title: "Treat habitat conditions as part of the experience", body: "Butterfly activity is inherently tied to weather, habitat and migration. Use the National Butterfly Center and festival updates close to travel time rather than assuming every target species or field-trip condition can be guaranteed months in advance." },
     ],
     relatedLinks: [

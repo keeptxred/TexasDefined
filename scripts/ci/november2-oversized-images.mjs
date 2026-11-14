@@ -1,0 +1,206 @@
+// Exact 50 image URLs and historical transfer bytes contained in the owner's
+// November 2 audit paste. The report header says 110, but only 50 rows were
+// included. Never imply the missing 60 rows were tested.
+// These identities are solely for bounded production transfer-size checks.
+export const NOVEMBER_2_IMAGE_AUDIT = [
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/San Solomon Springs Balmorhea State Park, Balmorhea, Texas.jpg",
+    6620072
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/4/40/Tenth_Street_Historic_District_Freedmen's_Town_TxHM_(29573143580).jpg",
+    5975466
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/4/45/San_Marcos_River_San_Marcos_Texas_2023.jpg",
+    5850365
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/9/91/African_American_Museum_August_2016_10_(Facing_the_Rising_Sun_Freedman's_Cemetery_exhibit).jpg",
+    5505024
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Entrance Sign Neches River NWR.jpg",
+    4299543
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dallas_Holocaust_&_Human_Rights_Museum_Photo.png?width=1600",
+    3450668
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Natural_bridge_caverns_bridge.jpg?width=1600",
+    3317473
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/H-E-B.jpg",
+    3117715
+  ],
+  [
+    "/images/explore/historic-sites/goliad-state-park.jpg",
+    3015314
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/8/83/Llano_River_in_Junction,_TX_IMG_4345.JPG",
+    2979762
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carl guenther house 2012.jpg?width=1600",
+    2971154
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/b/ba/Comal_River_in_Landa_Park.jpg",
+    2893588
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comal_River_in_Landa_Park.jpg?width=1600",
+    2893588
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buc-ee's_Texas.jpg",
+    2890094
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Santa Ana National Wildlife Refuge.jpg",
+    2865443
+  ],
+  [
+    "/images/state-parks/old-tunnel-state-park.jpg",
+    2722097
+  ],
+  [
+    "/images/state-parks/mother-neff-state-park.jpg",
+    2680960
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_former_jail.jpg?width=1600",
+    2527572
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/4/42/An_aerial_photo_of_the_USS_Lexington_in_Corpus_Christi.jpg",
+    2441148
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Olivewood_Cemetery,_Houston,_Texas_0505101341BW_(4590379590).jpg?width=1600",
+    2389077
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_nature_center_entrance.jpg?width=1600",
+    2382992
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/El Sal Del Rey.jpg",
+    2330758
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acton_Cemetery_–_20190516_123629_(47809742402).jpg?width=1600",
+    2330178
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Edward steves homestead.jpg?width=1600",
+    2281381
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_courthouse_2015.jpg?width=1600",
+    2264754
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Harry_ransom_center_2012.jpg?width=1600",
+    2223672
+  ],
+  [
+    "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg",
+    2215613
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos valley museum of natural history.jpg?width=1600",
+    2187839
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hiking_with_Dogs_(52360667545).jpg?width=1600",
+    2090610
+  ],
+  [
+    "/images/explore/historic-sites/alibates-flint-quarries-national-monument.jpg",
+    2065976
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Anahuac National Wildlife Refuge (5A) Chambers Co. TX; 1 Dec 2018.jpg",
+    2060140
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lake_travis_from_iguana_grill_2013.jpg?width=1600",
+    2044429
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Aransas National Wildlife Refuge, Aransas County, Texas, USA (27 November 2011).jpg",
+    2013978
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Book_of_Texas_(1916)_(14771239644).jpg?width=1600",
+    1977032
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dewitt courthouse.jpg?width=1600",
+    1974526
+  ],
+  [
+    "/images/state-parks/world-birding-center-bentsen-rio-grande-valley-state-park.jpg",
+    1934077
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg",
+    1885225
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
+    1760885
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boerne_ag_museum_2013.jpg?width=1600",
+    1736376
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Main street schulenburg 2012.jpg?width=1600",
+    1664092
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabine_National_Forest,_Toledo_Bend_Reservoir,_Texas.jpg?width=1600",
+    1658192
+  ],
+  [
+    "/images/explore/beaches-coast/mustang-island-state-park.jpg",
+    1628409
+  ],
+  [
+    "/images/state-parks/tyler-state-park.jpg",
+    1589198
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission San Juan Capistrano, San Antonio, Texas.jpg?width=1600",
+    1553793
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Reeves county courthouse 2009.jpg?width=1600",
+    1549849
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600",
+    1519213
+  ],
+  [
+    "https://upload.wikimedia.org/wikipedia/commons/7/7b/Garner_state_park.jpg",
+    1486833
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg_historic_district_2008.jpg?width=1600",
+    1486409
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Science Spectrum kinetic sculpture fall 2023.jpg?width=1600",
+    1463548
+  ],
+  [
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/ATTCenter.jpg",
+    1425251
+  ]
+];

@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const snapshotPath = 'src/data/property/county-property-enrichment.generated.ts';
 const snapshot = fs.readFileSync(snapshotPath, 'utf8');
+const additionalSnapshot = fs.readFileSync('src/data/property/county-property-supplement.server.ts', 'utf8');
+const allSnapshots = snapshot + '\n' + additionalSnapshot;
 const localVerification = fs.readFileSync('src/data/property/county-property-local-verification.ts', 'utf8');
 const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'utf8');
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
@@ -12,6 +14,60 @@ const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8
 const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
+
+const countyTemplate = fs.readFileSync('src/components/property/CountyPropertyTaxTemplate.tsx', 'utf8');
+for (const countySlug of ['lubbock', 'rockwall', 'taylor', 'throckmorton', 'van-zandt']) {
+  if (!countyTemplate.includes("'" + countySlug + "'")) {
+    failures.push('County tax office collection exception missing: ' + countySlug);
+  }
+}
+for (const requiredText of [
+  'assessorDoesNotCollectPropertyTaxes',
+  'does not collect property taxes',
+  'the actual collecting unit on your property-tax statement',
+  'The appraisal district may collect some or all local property taxes',
+]) {
+  if (!countyTemplate.includes(requiredText)) {
+    failures.push('County payment guidance must preserve verified non-collection disclaimer: ' + requiredText);
+  }
+}
+if (countyTemplate.includes('The appraisal district does not collect the tax bill.')) {
+  failures.push('False blanket statement that appraisal districts never collect property taxes');
+}
+
+const sourceCodec = fs.readFileSync('scripts/data/county-property-snapshot-codec.mjs', 'utf8');
+if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
+    !sourceCodec.includes('preserveSourcedCountyLinks(next[county.slug], enrichment)') ||
+    !sync.includes('isAmbiguousCountyWithdrawal(merged[result.county.slug], result)') ||
+    !sourceCodec.includes('export function isAmbiguousCountyWithdrawal(') ||
+    !sourceCodec.includes('export function applyQuarantinedCountyRefresh(') ||
+    !sourceCodec.includes("['propertySearchUrl','paymentUrl']") ||
+    !sourceCodec.includes("sourceUrls: [...new Set(")) {
+  failures.push('Official county contact refresh must preserve only source-proven, fresh same-office search/payment links.');
+}
+
+const officeLinkGate = fs.readFileSync('scripts/data/county-office-link-normalization.mjs', 'utf8');
+for (const feature of [
+  'export function normalizeVerifiedCountyOfficeUrl(',
+  'userlockedout|accessdenied',
+  "url.searchParams.delete('time')",
+]) {
+  if (!officeLinkGate.includes(feature)) failures.push('Official county office HTTPS link quarantine missing '+feature);
+}
+for (const feature of [
+  "normalizeVerifiedCountyOfficeUrl(url.toString())",
+  "normalizeVerifiedCountyOfficeUrl(resolved.toString())",
+]) {
+  if (!sync.includes(feature)) failures.push('County office importer bypasses verified HTTPS destination safety: '+feature);
+}
+if (!refreshWorkflow.includes('scripts/data/county-office-link-normalization.test.mjs')) {
+  failures.push('County source workflow must execute office link safety unit tests before opening generated PRs');
+}
+
+if (!sourceCodec.includes('if (previouslyCurrent) return true;') ||
+    !sourceCodec.includes('return !confirmedStale;')) {
+  failures.push('Previously source-current county contacts must never be deleted solely on contradictory later source dates');
+}
 const SOURCE_MAX_AGE_DAYS = 730;
 const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
@@ -95,6 +151,8 @@ for (const feature of [
   'nextCount < Math.floor(previousCount * MIN_RETAINED_RATIO)',
   'Refusing statewide county-property refresh that would shrink verified coverage',
   'parseCountyPage',
+  'const ambiguousSlugs = new Set(ambiguousWithdrawals.map(result => result.county.slug))',
+  'Prior records and their verification dates were preserved, not reverified.',
   'appraisal.websiteUrl',
   'taxOffice.websiteUrl',
   'isFreshSourceDate(appraisal.lastUpdated)',
@@ -102,7 +160,7 @@ for (const feature of [
   'sourceUpdatedAt:',
   'appraisalDistrict: appraisalUpdated',
   'taxOffice: taxUpdated',
-  'else if (fetched) delete merged[county.slug]',
+  'applyQuarantinedCountyRefresh(merged, results, ambiguousSlugs)',
   'lastVerifiedAt: sourceChecked',
   'sourceUrls: [sourceUrl, appraisal.websiteUrl, taxOffice.websiteUrl]',
 ]) {
@@ -138,6 +196,7 @@ for (const feature of [
   'group: texasdefined-county-property-sync',
   'cancel-in-progress: false',
   'node scripts/data/sync-county-property-data.mjs',
+  'node --test scripts/data/county-property-snapshot-codec.test.mjs',
   'node scripts/data/validate-county-property-enrichment.mjs',
   'node scripts/data/validate-generated-page-quality.mjs',
   'node scripts/data/validate-entity-template-quality.mjs',
@@ -145,6 +204,11 @@ for (const feature of [
   'node scripts/data/validate-crawl-demand.mjs',
   'node scripts/data/validate-freshness-signals.mjs',
   'node scripts/data/validate-sitemap-routes.mjs',
+  '.github/workflows/sync-county-property-data.yml',
+  'GH_TOKEN: ${{ github.token }}',
+  'base_sha="$(git rev-parse main)"',
+  'gh api -X POST "repos/${GITHUB_REPOSITORY}/git/refs"',
+  '-f ref="refs/heads/$branch" -f sha="$base_sha" >/dev/null',
   'git checkout -b "$branch"',
   'gh pr create',
   "--base main",
@@ -153,6 +217,33 @@ for (const feature of [
 }
 if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('County property refresh workflow must never push generated source changes directly to main.');
 if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
+
+// The trusted finisher may auto-merge only source-scoped, non-destructive
+// official county contacts after complete canonical protected validation.
+const countyFinisher = fs.readFileSync('.github/workflows/finish-county-property-refresh.yml', 'utf8');
+for (const feature of [
+  'workflow_run:',
+  'workflows: [Refresh county property data]',
+  "paths: ['.github/workflows/finish-county-property-refresh.yml']",
+  'head_repository.full_name',
+  'branch="automation/county-property-refresh-$run_id"',
+  "'github-actions[bot]'",
+  'git diff --name-only',
+  'git rebase origin/main',
+  'Automated refresh cannot delete source-backed county contacts',
+  "['propertySearchUrl','paymentUrl']",
+  'node --test scripts/data/county-property-snapshot-codec.test.mjs',
+  'node scripts/data/validate-county-property-enrichment.mjs',
+  'dispatch-validate-branch.sh "$branch" validate.yml',
+  'dispatch-validate-branch.sh "$branch" merge-gate.yml',
+  'git merge-base --is-ancestor origin/main',
+  'gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit',
+]) {
+  if (!countyFinisher.includes(feature)) failures.push('County finisher missing protected zero-loss feature '+feature);
+}
+if (!refreshWorkflow.includes("'.github/workflows/finish-county-property-refresh.yml'")) {
+  failures.push('County finisher changes must trigger a fresh official source-run');
+}
 
 const legacyStandaloneProtection = validateWorkflow.includes('Validate county property enrichment') && validateWorkflow.includes('node scripts/data/validate-county-property-enrichment.mjs');
 const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-premerge-validation.mjs')
@@ -166,17 +257,17 @@ if (!legacyStandaloneProtection && !centralizedProtection) {
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');
 if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contains an insecure office website URL.');
 
-const recordMatches = [...snapshot.matchAll(/^  (?:(?:"([a-z0-9-]+)")|([a-z0-9-]+)):\s*\{/gm)];
+const recordMatches = [...allSnapshots.matchAll(/^  (?:(?:["']([a-z0-9-]+)["'])|([a-z0-9-]+)):\s*\{/gm)];
 const recordSlugs = recordMatches.map((match) => match[1] || match[2]).filter(Boolean);
 if (recordSlugs.length === 0) failures.push('Snapshot must contain at least one verified county record.');
 if (recordSlugs.length > 254) failures.push(`Snapshot contains ${recordSlugs.length} county records; maximum is 254.`);
 if (new Set(recordSlugs).size !== recordSlugs.length) failures.push('Snapshot contains duplicate top-level county slugs.');
 
-const comptrollerPages = [...snapshot.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
+const comptrollerPages = [...allSnapshots.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
 const uniqueComptrollerPages = new Set(comptrollerPages);
 if (uniqueComptrollerPages.size < recordSlugs.length) failures.push('Every snapshot county must retain its own county-specific Comptroller source URL.');
 
-const verificationDates = [...snapshot.matchAll(/lastVerifiedAt:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((match) => match[1]);
+const verificationDates = [...allSnapshots.matchAll(/lastVerifiedAt:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((match) => match[1]);
 if (verificationDates.length < recordSlugs.length) failures.push('Every snapshot county must have a verification date.');
 for (const value of verificationDates) {
   const timestamp = Date.parse(value);
@@ -184,7 +275,7 @@ for (const value of verificationDates) {
   else if (timestamp > Date.now() + 24 * 60 * 60 * 1000) failures.push(`Snapshot contains a future verification date: ${value}`);
 }
 
-const upstreamFreshness = [...snapshot.matchAll(/sourceUpdatedAt:\s*\{\s*appraisalDistrict:\s*['"](\d{4}-\d{2}-\d{2})['"],\s*taxOffice:\s*['"](\d{4}-\d{2}-\d{2})['"]\s*\}/g)];
+const upstreamFreshness = [...allSnapshots.matchAll(/sourceUpdatedAt:\s*\{\s*appraisalDistrict:\s*['"](\d{4}-\d{2}-\d{2})['"],\s*taxOffice:\s*['"](\d{4}-\d{2}-\d{2})['"]\s*\}/g)];
 if (upstreamFreshness.length < recordSlugs.length) failures.push('Every snapshot county must persist both upstream office update dates.');
 for (const match of upstreamFreshness) {
   for (const value of [match[1], match[2]]) {

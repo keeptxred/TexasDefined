@@ -28,3 +28,35 @@ test('blocks policy boilerplate and transient sports tickers without blocking us
   assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title: 'Historic Muny Golf Course nears ownership agreement' }), true);
   assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title: 'SMU announces future lacrosse program' }), true);
 });
+
+
+test('holds legal actions, criminal allegations, government funding and regulatory decisions even on direct sites', () => {
+  for (const title of [
+    "Bexar County DA Joe Gonzales seeks to recuse himself from Neil Calfas case, citing potential conflict",
+    "El Paso mayor's brother sentenced for wire fraud in NBA Ponzi scheme",
+    "FBI raids Midlothian oil and gas business facing multiple fraud lawsuits",
+    "Houston considers restrictions on gas stations near residential neighborhoods",
+    "METRO approves $40 million plan to repair roads, sidewalks along bus routes",
+    "City council approves zoning changes for new housing development",
+    "County commissioners vote on budget for bridge project",
+  ]) assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title }), false, title);
+});
+test('excludes recycled sports pairings and events roundup headlines', () => {
+  for (const title of [
+    "2026 Central Texas HSFB Playoff Pairings",
+    "Day Trips & Beyond: November Events Roundup",
+    "Week 10 live scores",
+    "Scores and Schedule",
+  ]) assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title }), false, title);
+});
+test('retains substantive original Texas visitor science and culture reporting', () => {
+  for (const title of [
+    "Holly Hop Ice Cream Shoppe closing after 18 years",
+    "McKinney National Airport prepares for first commercial passenger flights",
+    "Houston Museum of Natural Science opens free Fall to Earth exhibit",
+    "Starship launch targeted for November 13 at Starbase",
+    "City of Buda unveils public-art dachshund sculpture",
+    "Historic Texas railroad museum announces new display",
+    "Texas high school football team wins state championship",
+  ]) assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title }), true, title);
+});

@@ -158,11 +158,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-11-08",
     venue: "The Harbor Tent at Charlotte Plummer's",
     officialUrl: "https://members.rockport-fulton.org/events/details/5th-annual-rockport-songwriter-festival-64419",
-    sourceCheckedAt: "2026-09-05",
-    whyItMatters: "The Rockport Songwriter Festival is a five-day coastal music gathering built around live songwriter performances in Fulton, giving visitors a smaller-scale Texas music experience tied directly to the Rockport-Fulton waterfront.",
+    sourceCheckedAt: "2026-10-29",
+    dateNote: "The Rockport-Fulton Chamber counts a free Wednesday, November 4, 2026 Guy Clark open-mic prelude in the November 4–8 community program. The Rockport Songwriter Association and main ticket provider identify the ticketed festival as November 5–8. The organizer reports its main festival weekend passes sold out; recheck remaining add-on event tickets directly before traveling.",
+    whyItMatters: "The Rockport Songwriter Festival brings Texas songwriters to Fulton\u0027s waterfront. A free Wednesday night prelude leads into the November 5–8 main festival, with separate dinner shows, performances and optional boat cruises.",
     planningSections: [
-      { title: "Use November 4-8 as the confirmed 2026 run", body: "The Rockport-Fulton Chamber lists the fifth annual festival from Wednesday, November 4 at 6 p.m. through Sunday, November 8 at 10 p.m., with live performances planned each day." },
-      { title: "Check the lineup before choosing the night", body: "The chamber listing confirms the date window and venue, while individual performance details are released separately. Use the organizer and chamber schedule before committing to one evening." },
+      { title: "Distinguish the free November 4 prelude from the main festival", body: "The chamber lists November 4–8 as the wider event period. The songwriter association separately advertises November 5–8 as the ticketed festival, preceded by a free Guy Clark song pull and open mic on Wednesday, November 4. Do not mistake a free opening night for access to the paid weekend shows." },
+      { title: "Check sold-out weekend passes and separately ticketed extras", body: "As checked October 29, 2026, the official organizer marked the main festival weekend passes sold out, with a limited number of separate Thursday fundraiser and boat-cruise options noted. Availability changes; consult the official organizer and event ticket listing for exact dates, eligibility and remaining tickets before booking accommodations." },
       { title: "Turn the festival into a coastal music weekend", body: "The Harbor Tent is in Fulton on the waterfront, making the festival easy to combine with seafood, Rockport attractions and other Aransas County stops between performances." },
     ],
     relatedLinks: [
@@ -171,6 +172,8 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas music festivals." },
     ],
     sources: [
+      { label: "Rockport Songwriter Association — official 2026 festival and ticket availability", url: "https://rockportsongwriterassociation.com/festival" },
+      { label: "Rockport Songwriter Association — November 4 free prelude details", url: "https://rockportsongwriterassociation.com/news" },
       { label: "Rockport-Fulton Chamber — 2026 Rockport Songwriter Festival", url: "https://members.rockport-fulton.org/events/details/5th-annual-rockport-songwriter-festival-64419" },
       { label: "Rockport-Fulton Chamber festival calendar", url: "https://members.rockport-fulton.org/events/search?Lookahead=&c=1&q=" },
     ],

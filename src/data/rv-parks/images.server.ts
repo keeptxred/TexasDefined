@@ -2091,7 +2091,7 @@ export const RV_PARK_LICENSED_IMAGES: Readonly<Record<string, RvParkLicensedImag
   "martin-creek-lake-state-park-rv-area": {
     src: "/images/rv-parks/martin-creek-lake-state-park-rv-area.jpg",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Fishing%20Pier%20Martin%20Creek%20Lake%20State%20Park%202019.jpg",
-    alt: "Martin Creek Lake State Park near Tatum, Texas",
+    alt: "Fishing pier, Martin Creek Lake State Park near Tatum — a lake view, not an RV campsite",
     width: 1600,
     height: 900,
     creator: "Larry D. Moore",

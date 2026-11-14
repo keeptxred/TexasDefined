@@ -1,4 +1,9 @@
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import twdbPlannerCoordinates from "./planner-twdb-coordinates.json";
+import officialCoordinateFallbacks from "./planner-official-coordinate-fallbacks.json";
+import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
+import { statewideNetworkLakeDefinitions } from "./statewide-lake-network";
 import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_PLANNER_VERIFIED_AT } from "./planner-routing";
@@ -24,6 +29,18 @@ export async function loadFishingPlannerDataServer() {
   const verifiedBusinesses = businesses.filter(isFishingRecordVerified);
 
   const rows = lakes.map((lake) => {
+    // TWDB lake coordinates are reservoir reference points, never ramps.
+    // Retain stronger existing source-backed coordinates when already present.
+    const twdbPoint = !lake.coordinates
+      ? twdbPlannerCoordinates[lake.slug as keyof typeof twdbPlannerCoordinates]
+      : undefined;
+    const alternatePoint = !lake.coordinates && !twdbPoint
+      ? officialCoordinateFallbacks[lake.slug as keyof typeof officialCoordinateFallbacks]
+      : undefined;
+    const sourcePoint = twdbPoint ?? alternatePoint;
+    const mappedLake = sourcePoint
+      ? { ...lake, coordinates: { lat: sourcePoint.lat, lng: sourcePoint.lng } }
+      : lake;
     const targets = lakeSpecies
       .filter((relation) => relation.lakeId === lake.id)
       .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
@@ -53,8 +70,39 @@ export async function loadFishingPlannerDataServer() {
       .sort((a, b) => a.service.name.localeCompare(b.service.name))
       .map((entry) => ({ ...entry, href: fishingServiceCanonicalPath(entry.service.slug) }));
 
+    const research = LAKE_AUTHORITY_RESEARCH_WAVE1[lake.slug];
+    const network = statewideNetworkLakeDefinitions.find((entry) => entry.slug === lake.slug);
+    const importantAdvisories = (research?.regulations ?? [])
+      .filter((entry) => /advisory|mussel|closure|launch|ramp|border|licen[cs]e|water level/i.test(entry.label))
+      .slice(0, 4)
+      .map((entry) => ({
+        label: entry.label,
+        // A dated research note must never masquerade as today's ramp status.
+        text: /current low-water launch closures|ramp (?:open|clos|status)|launch closures/i.test(entry.label)
+          ? "Managing-agency ramp and facility status changes with water level and maintenance. Historical open/closed descriptions may be obsolete; consult the linked live operator status before choosing a launch."
+          : entry.text,
+        sourceUrl: entry.sourceUrl,
+      }));
+    const source = lake.sources.find((entry) => entry.url.includes("tpwd.texas.gov/fishboat/fish/recreational/lakes/")) ?? lake.sources[0];
+
     return {
-      lake,
+      lake: mappedLake,
+      coordinateSource: sourcePoint ? {
+        label: twdbPoint ? `Texas Water Development Board — ${twdbPoint.sourceName}` : alternatePoint!.sourceName,
+        url: sourcePoint.sourceUrl,
+        reviewedAt: sourcePoint.reviewedAt,
+        pointType: alternatePoint?.pointType ?? "Reservoir reference point",
+      } : null,
+      comparisonAuthority: {
+        lakeSource: source?.url ?? "",
+        lakeSourceReviewedAt: source?.checkedAt ?? lake.verifiedAt ?? null,
+        fisheryReviewedAt: targets.reduce<string | null>((latest, target) => target.relation.verifiedAt && (!latest || target.relation.verifiedAt > latest) ? target.relation.verifiedAt : latest, null),
+        accessReviewedAt: lakeAccess.reduce<string | null>((latest, entry) => entry.point.verifiedAt && (!latest || entry.point.verifiedAt > latest) ? entry.point.verifiedAt : latest, null),
+        levelSource: network?.waterDataSlug ? "https://waterdatafortexas.org/reservoirs/individual/" + network.waterDataSlug : (expandedShowcaseLakePrototypes[lake.slug as keyof typeof expandedShowcaseLakePrototypes]?.sources.liveLevel?.url ?? null),
+        operatorConditionsSource: lake.slug === "amistad-reservoir" ? "https://www.nps.gov/amis/planyourvisit/conditions.htm" : null,
+        advisoryReviewedAt: research?.reviewedAt ?? null,
+        importantAdvisories,
+      },
       href: fishingFoundationAnchor("lake", lake.slug),
       fullGuide: isCompleteFishingLakeSlug(lake.slug),
       targets,

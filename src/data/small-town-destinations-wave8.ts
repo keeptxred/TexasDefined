@@ -41,7 +41,7 @@ export const smallTownWave8Destinations: Destination[] = [
     summary: "Clifton is a Bosque County arts and heritage town with a Texas Main Street downtown, a restored 1916 theater, major Norwegian-American history, the Bosque Museum and access to the Bosque River and nearby lake country.",
     category: "small-towns", region: "prairies-lakes", nearestTown: "Clifton", county: "Bosque",
     coordinates: { lat: 31.7824, lng: -97.5767 },
-    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown%20Clifton%20Wiki%203%20(1%20of%201).jpg?width=1600", alt: "Historic downtown buildings in Clifton, Texas", width: 1152, height: 782, credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons" },
+    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown%20Clifton%20Wiki%201%20(1%20of%201).jpg?width=1600", alt: "Historic downtown buildings in Clifton, Texas", width: 1800, height: 1093, credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons" },
     bestSeason: "Fall through spring for downtown walking; early December for Norwegian Country Christmas when current event dates are confirmed",
     entryNote: "Many heritage sites and seasonal events operate on limited schedules. Confirm museum, theater and historic-site hours before travel, especially when planning around Norwegian Country Christmas or tours in the Norse Historic District.",
     highlights: ["historic downtown", "Norwegian heritage", "Bosque Museum", "Cliftex Theatre", "Bosque Arts Center", "Norse Historic District"],

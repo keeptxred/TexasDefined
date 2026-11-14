@@ -20,15 +20,25 @@ const entries = [
   [114, "Lee Trevino", "lee-trevino"],
   [115, "Patrick Mahomes", "patrick-mahomes"],
   [116, "Drew Brees", "drew-brees"],
-  [117, "Shaquille O'Neal", "shaquille-o-neal"],
+  [117, "Shaquille O'Neal", "shaquille-oneal"],
   [118, "David Robinson", "david-robinson"],
   [119, "Dirk Nowitzki", "dirk-nowitzki"],
   [120, "Vince Young", "vince-young"],
 ];
 
+// Mirror the canonical roster slugifier, including removal (not replacement)
+// of apostrophes. A research slug that differs makes a factual page 404.
+const rosterSlug = (name) => name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/&/g, ' and ').replace(/['’]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 for (const [rank, name, slug] of entries) {
+  if (rosterSlug(name) !== slug) failures.push(`Research slug not the real public roster URL: ${name} -> ${rosterSlug(name)}, research ${slug}`);
   if (!source.includes(`${rank},${name},Sports,`)) failures.push(`Sports roster drift at rank ${rank}: expected ${name}.`);
   if (!research.includes(`slug: "${slug}"`)) failures.push(`Missing sports batch-2 research profile: ${slug}.`);
+}
+const shaqSection = research.slice(research.indexOf('slug: "shaquille-oneal"'), research.indexOf('slug: "david-robinson"'));
+for (const evidence of ["1989 Class 3A", "Texas Sports Hall of Fame", "1,941 points", "412 blocked shots", "not in Texas", "1996 Olympic gold", "tshof.org/inductee/shaquille-oneal", "lsusports.net/sports/mb/roster/season/1991-92/player/shaquille-oneal"]) {
+  if (!shaqSection.includes(evidence)) failures.push(`Source-backed Shaquille O'Neal Texas Icons authority detail missing: ${evidence}`);
 }
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 10) failures.push("Sports batch 2 must contain exactly ten researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 10) failures.push("Every sports batch-2 profile must retain a publication boundary note.");

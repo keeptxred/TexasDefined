@@ -7,6 +7,8 @@ import { decodeEntities } from './html-entities.mjs';
 import { fetchTextWithRetry } from './audit-fetch.mjs';
 import { expiredEventSnippetIssues } from './expired-event-snippet.mjs';
 import { classifySnippetPage, snippetClassificationCounts } from './snippet-classification.mjs';
+import { extractSnippetHtmlSignals } from './snippet-html-signals.mjs';
+import { parseGscPageCsv, compareGscPageWindows } from './gsc-snapshot-compare.mjs';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
 const USER_AGENT = 'TexasDefinedWholeSiteQualityAudit/2.0 (+https://texasdefined.com)';
@@ -17,6 +19,15 @@ const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 const OUT_AUTHORITY_TSV = process.env.AUDIT_AUTHORITY_TSV || '/tmp/texasdefined-authority-review.tsv';
 const OUT_LINK_GRAPH_TSV = process.env.AUDIT_LINK_GRAPH_TSV || '/tmp/texasdefined-contextual-link-graph.tsv';
 const OUT_SNIPPET_TSV = process.env.AUDIT_SNIPPET_TSV || '/tmp/texasdefined-snippet-classification.tsv';
+const GSC_CTR_BASELINE_FILE = process.env.GSC_CTR_BASELINE_FILE || '';
+const GSC_SEVEN_DAY_BASELINE_FILE = process.env.GSC_SEVEN_DAY_BASELINE_FILE || '';
+
+// Fail closed on malformed date-specific GSC evidence. Do not turn a snapshot
+// into a permanent or silently stale CI dependency: set the path explicitly.
+async function readGscBaseline(file) {
+  return file ? parseGscPageCsv(await fs.readFile(file, 'utf8'), ORIGIN) : new Map();
+}
+
 
 const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;
 const LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|destination-specific photograph not yet available/i;
@@ -24,6 +35,7 @@ const BAD_TITLE_RE = /^(Unavailable|Story unavailable|Page not found|404)(?:\s*\
 const GENERIC_TITLE_RE = /^(?:Texas ?Defined|Home|Guide|Article|Events|Explore|Search|Texas Guide)(?:\s*[|–—-]\s*(?:Texas ?Defined))?$/i;
 const TITLE_REVIEW_LENGTH = 70;
 const TITLE_HARD_MAX_LENGTH = 90;
+const DESCRIPTION_REVIEW_LENGTH = 165;
 const INTENT_STOP_WORDS = new Set([
   'a','an','and','are','as','at','by','for','from','guide','in','is','of','on','or','page','the','to','with',
   'texasdefined','defined',
@@ -76,13 +88,24 @@ function thinThreshold(pathname){
  return 120;
 }
 async function auditPage(url){
- const issues=[],warnings=[]; let status=0,finalUrl=url,contentType='',title='',description='',canonical='',h1='',words=0,h1s=0,authority=null;
+ const issues=[],warnings=[]; let status=0,finalUrl=url,contentType='',title='',description='',canonical='',h1='',words=0,h1s=0,authority=null,ogImage='',snippetSignals=null;
  try{
   const {response,body}=await fetchText(url); status=response.status; finalUrl=response.url; contentType=response.headers.get('content-type')||'';
   if(status!==200) issues.push({code:'http-status',detail:String(status)});
   if(status===200&&contentType.toLowerCase().includes('text/html')){
    title=innerText(firstTag(body,'title')); description=metaContent(body,'description'); canonical=canonicalHref(body); h1=innerText(firstTag(body,'h1')); words=wordCount(body); h1s=h1Count(body);
    authority=auditAuthorityEvidence(url,body);
+    snippetSignals=extractSnippetHtmlSignals(body);
+    ogImage=metaContent(body,'og:image');
+    if(snippetSignals.invalidJsonLdCount>0) issues.push({code:'malformed-json-ld',detail:String(snippetSignals.invalidJsonLdCount)});
+    if(!metaContent(body,'og:title')) warnings.push({code:'missing-og-title',detail:''});
+    if(!metaContent(body,'og:description')) warnings.push({code:'missing-og-description',detail:''});
+    if(description.length>DESCRIPTION_REVIEW_LENGTH) warnings.push({code:'description-review-length',detail:description.length+' chars'});
+    if(title && description && normalizeSpace(title).toLowerCase()===normalizeSpace(description).toLowerCase()) warnings.push({code:'title-description-redundant',detail:''});
+    if(/^\/(?:article|destination|event|sports-venue)\//.test(new URL(url).pathname)) {
+      if(!ogImage) warnings.push({code:'missing-editorial-og-image',detail:''});
+      if(!snippetSignals.hasBreadcrumbSchema && !snippetSignals.hasVisibleBreadcrumb) warnings.push({code:'missing-breadcrumb-evidence',detail:''});
+    }
    if(!title) issues.push({code:'missing-title',detail:''});
    else {
     if(BAD_TITLE_RE.test(title)) issues.push({code:'fallback-title',detail:title});
@@ -128,26 +151,45 @@ async function auditPage(url){
    if(finalUrl!==url&&new URL(finalUrl).pathname!==new URL(url).pathname) issues.push({code:'unexpected-redirect',detail:finalUrl});
   }
  }catch(error){issues.push({code:'fetch-error',detail:error?.message||String(error)});}
- return {url,finalUrl,status,contentType,title,description,canonical,h1,words,h1s,issues,warnings,authority};
+ return {url,finalUrl,status,contentType,title,description,canonical,h1,words,h1s,issues,warnings,authority,ogImage,snippetSignals};
 }
 async function mapLimit(items,limit,fn){const results=new Array(items.length);let cursor=0;async function worker(){while(true){const i=cursor++;if(i>=items.length)return;results[i]=await fn(items[i],i);if((i+1)%100===0)console.log('Audited '+(i+1)+'/'+items.length);}}await Promise.all(Array.from({length:Math.max(1,Math.min(limit,items.length))},worker));return results;}
 function duplicateIssues(results,field,code){const groups=new Map();for(const result of results){const value=normalizeSpace(result[field]||'').toLowerCase();if(!value)continue;const list=groups.get(value)||[];list.push(result);groups.set(value,list);}for(const list of groups.values()){if(list.length<2)continue;const urls=list.map(x=>x.url).join(', ');for(const item of list)item.issues.push({code,detail:urls});}}
+function repeatedEditorialOgImageWarnings(results){
+ const groups=new Map();
+ for(const result of results){
+  if(!/^\/(?:article|destination|event)\//.test(new URL(result.url).pathname)||!result.ogImage) continue;
+  const image=result.ogImage.toLowerCase(); const group=groups.get(image)||[];group.push(result);groups.set(image,group);
+ }
+ for(const group of groups.values()) if(group.length>=5) for(const item of group) item.warnings.push({code:'repeated-editorial-og-image-review',detail:group.length+' editorial pages use this image; check relevance/rights before changing'});
+}
 
+const gscBaseline = await readGscBaseline(GSC_CTR_BASELINE_FILE);
+const gscRecentBaseline = await readGscBaseline(GSC_SEVEN_DAY_BASELINE_FILE);
+if (GSC_SEVEN_DAY_BASELINE_FILE && !GSC_CTR_BASELINE_FILE) throw new Error('Supply the 28-day GSC baseline when comparing seven-day performance');
 const {pageUrls,sitemaps,sitemapFailures}=await collectUrls();
 console.log('Discovered '+pageUrls.length+' unique indexable URLs from '+sitemaps.length+' sitemap(s); '+sitemapFailures.length+' sitemap failure(s).');
 const results=await mapLimit(pageUrls,CONCURRENCY,auditPage);
 duplicateIssues(results,'title','duplicate-title'); duplicateIssues(results,'description','duplicate-description');
-for (const result of results) result.snippet = classifySnippetPage(result);
+repeatedEditorialOgImageWarnings(results);
+for (const result of results) {
+  result.gsc = gscBaseline.get(result.url) ?? null;
+  result.gscRecent = gscRecentBaseline.get(result.url) ?? null;
+  result.gscComparison = result.gsc && result.gscRecent ? compareGscPageWindows(result.gsc, result.gscRecent) : null;
+  result.snippet = classifySnippetPage(result);
+}
 const snippetClassifications = snippetClassificationCounts(results);
 const linkGraph = enrichAuthorityLinkGraph(results);
 const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=>r.warnings?.length),byCode={},warningsByCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;for(const result of warningPages)for(const warning of result.warnings)warningsByCode[warning.code]=(warningsByCode[warning.code]||0)+1;
 const authorityByFamily={};const authorityFlags={};
 for(const result of results){if(!result.authority)continue;const a=result.authority;const group=authorityByFamily[a.family]??={pages:0,withReviewFlags:0,missingPrimarySourceCandidates:0};group.pages++;if(a.reviewFlags.length)group.withReviewFlags++;if(a.reviewFlags.includes('no-identifiable-primary-source-host'))group.missingPrimarySourceCandidates++;for(const flag of a.reviewFlags)authorityFlags[flag]=(authorityFlags[flag]??0)+1;}
 localAuditFetch.assertComplete();
-await fs.writeFile(OUT_JSON,JSON.stringify({auditRuntime:'local-built-worker',sourceSha:process.env.GITHUB_SHA || null,auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement:'NOT AVAILABLE FROM PUBLIC HTML',results},null,2)+'\n');
+await fs.writeFile(OUT_JSON,JSON.stringify({auditRuntime:'local-built-worker',sourceSha:process.env.GITHUB_SHA || null,auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement: GSC_CTR_BASELINE_FILE
+    ? 'Finalized GSC snapshot explicitly joined per page (not live)' : 'NOT AVAILABLE FROM PUBLIC HTML',
+  gscBaselinePath:GSC_CTR_BASELINE_FILE||null,gscRecentBaselinePath:GSC_SEVEN_DAY_BASELINE_FILE||null,gscMeasuredPages:results.filter(r=>r.gsc).length,gscComparedPages:results.filter(r=>r.gscComparison).length,results},null,2)+'\n');
 const rows=[['url','status','words','h1s','title','description','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
-const snippetRows=[['url','primary_classification','evidence','classification_basis','html_verified','indexable_candidate','family','title','description','h1','canonical','technical_issues','warnings','gsc_measurement'],...results.map(r=>[r.url,r.snippet.classification,r.snippet.evidence.join(','),r.snippet.basis,String(r.snippet.htmlVerified),String(r.snippet.eligibleIndexableCandidate),r.authority?.family||'',r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code).join(','),r.warnings.map(i=>i.code).join(','),'unavailable'])];
+const snippetRows=[['url','primary_classification','evidence','classification_basis','html_verified','indexable_candidate','family','title','description','h1','canonical','technical_issues','warnings','gsc_measurement','gsc_clicks','gsc_impressions','gsc_ctr','gsc_average_position','og_image','schema_types','json_ld_count','invalid_json_ld_count','breadcrumb_schema','visible_breadcrumb','gsc_7d_clicks','gsc_7d_impressions','gsc_7d_ctr','gsc_7d_position','gsc_prior21_ctr','gsc_prior21_position','gsc_7d_ctr_delta','gsc_7d_position_delta'],...results.map(r=>[r.url,r.snippet.classification,r.snippet.evidence.join(','),r.snippet.basis,String(r.snippet.htmlVerified),String(r.snippet.eligibleIndexableCandidate),r.authority?.family||'',r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code).join(','),r.warnings.map(i=>i.code).join(','),r.gsc?'finalized snapshot':'unavailable',r.gsc?.clicks??'',r.gsc?.impressions??'',r.gsc?.ctr??'',r.gsc?.averagePosition??'',r.ogImage??'',r.snippetSignals?.schemaTypes.join('|')??'',r.snippetSignals?.jsonLdCount??'',r.snippetSignals?.invalidJsonLdCount??'',r.snippetSignals?.hasBreadcrumbSchema??'',r.snippetSignals?.hasVisibleBreadcrumb??'',r.gscRecent?.clicks??'',r.gscRecent?.impressions??'',r.gscRecent?.ctr??'',r.gscRecent?.averagePosition??'',r.gscComparison?.previous21?.ctr??'',r.gscComparison?.previous21?.averagePosition??'',r.gscComparison?.ctrDelta??'',r.gscComparison?.positionDelta??''])];
 await fs.writeFile(OUT_SNIPPET_TSV,snippetRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
 const authorityRows=[['priority','family','url','technical_issues','review_flags','link_graph_review','incoming_contextual_pages','reciprocal_contextual_pages','outgoing_sitemap_pages','main_words','source_hosts','candidate_official_source_urls','internal_destinations','date_signal','editorial_certification'],...results.filter(r=>r.authority && (r.authority.reviewFlags.length||r.issues.length)).sort((a,b)=>a.authority.priority-b.authority.priority||b.issues.length-a.issues.length||a.url.localeCompare(b.url)).map(r=>[r.authority.priority,r.authority.family,r.url,r.issues.map(i=>i.code).join(','),r.authority.reviewFlags.join(','),r.authority.linkGraphFlags.join(','),r.authority.inboundContextualPages,r.authority.reciprocalContextualPages,r.authority.outboundSitemapPageLinks,r.authority.mainWords,r.authority.identifiablePrimarySourceHosts,r.authority.officialEvidenceCandidates.join(' | '),r.authority.internalLinkDestinations,r.authority.visibleReviewDate,r.authority.editorialCertification])];
 await fs.writeFile(OUT_AUTHORITY_TSV,authorityRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');

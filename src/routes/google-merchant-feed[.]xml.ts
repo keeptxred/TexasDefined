@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
+import { fetchAllPublishedShopProductsForIndexing } from "@/data/shop-products-remote";
 import type { Product, ProductVariant } from "@/data/types";
 import { merchantOfferDescription } from "@/lib/merchant-offer-description";
 import { additionalMerchantImages } from "@/lib/merchant-offer-images";
@@ -192,7 +192,7 @@ export const Route = createFileRoute("/google-merchant-feed.xml")({
     handlers: {
       GET: async () => {
         try {
-          const products = await fetchAssignedShopProducts();
+          const products = await fetchAllPublishedShopProductsForIndexing();
           const items = products.flatMap(merchantItems);
           return response(renderFeed(items));
         } catch (error) {

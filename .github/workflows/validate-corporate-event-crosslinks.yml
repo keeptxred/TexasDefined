@@ -1,0 +1,33 @@
+name: Corporate events reciprocal internal-link contract
+on:
+  pull_request:
+    paths:
+      - 'src/components/events/CorporateEventRelatedResources.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/sports/SportsVenueLandingIndex.tsx'
+      - 'src/routes/explore.index.lazy.tsx'
+      - 'src/routes/partner-with-us.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-crosslinks.mjs'
+      - '.github/workflows/validate-corporate-event-crosslinks.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/events/CorporateEventRelatedResources.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/sports/SportsVenueLandingIndex.tsx'
+      - 'src/routes/explore.index.lazy.tsx'
+      - 'src/routes/partner-with-us.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-crosslinks.mjs'
+      - '.github/workflows/validate-corporate-event-crosslinks.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/data/validate-corporate-event-crosslinks.mjs

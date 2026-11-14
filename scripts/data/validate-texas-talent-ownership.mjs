@@ -64,8 +64,8 @@ requireCondition(
   "future Texas Talent canonical ownership must remain centralized in launch metadata",
 );
 requireCondition(
-  launch.includes('publishable: mechanicalReady && editorialApproved') && launch.includes('profile.readiness.launchStatus === "launch-ready"'),
-  "handoff to the dedicated Texas Talent canonical route must continue to require mechanical readiness and explicit launch approval",
+  launch.includes('publishable: mechanicalReady,') && launch.includes('profile.readiness.launchStatus === "launch-ready"'),
+  "handoff to the dedicated Texas Talent canonical route must require verified source/rights/links/depth, with named approval optional",
 );
 
 for (const requiredRendererToken of ["heroImage.credit", "heroImage.licenseLabel", "heroImage.sourceUrl", "heroImage.licenseUrl", "heroImage?.rightsNote"]) {

@@ -9,6 +9,34 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "san-antonio-japanese-tea-garden": [
+    { href: "/destination/san-antonio-zoo", label: "Nearby San Antonio Zoo", description: "Plan a separate ticketed zoo visit beside Brackenridge Park; its admission and hours differ from the free garden." },
+    { href: "/city/san-antonio", label: "San Antonio city guide", description: "Connect the garden to the Broadway, Brackenridge Park and Museum Reach visitor districts." },
+    { href: "/county/bexar", label: "Bexar County attractions", description: "Explore the local museum, park and historic-site network without an unnecessary cross-city drive." },
+  ],
+  "fort-worth-water-gardens": [
+    { href: "/city/fort-worth", label: "Fort Worth city guide", description: "Build a downtown architecture walk around the free Water Gardens and nearby convention-center district." },
+    { href: "/destination/amon-carter-museum-american-art-fort-worth", label: "Amon Carter Museum of American Art", description: "Compare the Water Gardens' public architecture with a separate free museum visit in the Cultural District." },
+    { href: "/county/tarrant", label: "Tarrant County attractions", description: "Continue to Fort Worth museums, parks and nearby visitor places with confirmed local context." },
+  ],
+  "houston-botanic-garden": [
+    { href: "/city/houston", label: "Houston city guide", description: "Place the ticketed garden within southeast Houston rather than the more distant Museum District." },
+    { href: "/destination/lone-star-flight-museum-houston", label: "Lone Star Flight Museum", description: "Consider a separate southeast-Houston aviation museum outing and check its own entry rules." },
+    { href: "/county/harris", label: "Harris County visitor guide", description: "Find nearby travel context while keeping the garden's operator-ticket rules separate." },
+  ],
+  "chisholm-trail-heritage-museum": [
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Pair Cuero's cattle-drive history with Yoakum's leather, railways and historic house." },
+    { href: "/county/dewitt", label: "Explore DeWitt County", description: "Connect Cuero and Yoakum in DeWitt County's wider ranching region." },
+  ],
+  "chamizal-national-memorial": [
+    { href: "/county/el-paso", label: "Explore El Paso County", description: "Place Chamizal within the county's river-border, missions, military and cultural history." },
+    { href: "/metro-area/el-paso-metro", label: "El Paso metropolitan guide", description: "Connect the national memorial with the region's museums, historic neighborhoods and visitor landmarks." },
+    { href: "/destination/magoffin-home", label: "Magoffin Home and El Paso history", description: "Compare nineteenth-century borderland family and trade history with Chamizal's twentieth-century treaty story; verify current house restoration access." },
+    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Trace earlier Rio Grande settlements along the historic El Paso Mission Trail." },
+    { href: "/destination/franklin-mountains-state-park", label: "Franklin Mountains State Park", description: "Explore the landscape that frames the binational metro area on a separate outdoor outing." },
+    { href: "/article/moving-to-el-paso-guide", label: "Living in El Paso", description: "Understand the contemporary city and neighborhood geography around these historic sites." },
+  ],
+
   "luckenbach": [
     { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
   ],
@@ -598,6 +626,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "shiner": [
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Follow the railway corridor for Yoakum leather history, train shops and its preserved 1912 home." },
     {
       href: "/destination/spoetzl-brewery",
       label: "Plan the K. Spoetzl Brewery visit",

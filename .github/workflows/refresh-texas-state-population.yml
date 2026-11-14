@@ -1,0 +1,80 @@
+name: Refresh Census Texas Population
+
+on:
+  schedule:
+    - cron: '53 12 8 * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-texas-state-population.yml'
+      - 'scripts/data/refresh-texas-state-population.mjs'
+      - 'scripts/data/refresh-texas-state-population.test.mjs'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: texas-census-population-scheduled-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Test Census population and migration source consistency
+        run: node --test scripts/data/refresh-texas-state-population.test.mjs
+      - name: Review official Census annual Texas population source
+        run: node scripts/data/refresh-texas-state-population.mjs
+      - name: Detect verified new official-source values
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/generated/texas-state-population-current.json src/data/texas-data-center.ts; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No updated Census Texas state totals. Archived source pages unchanged." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            git diff --stat -- src/data/generated/texas-state-population-current.json src/data/texas-data-center.ts >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Create isolated verified data branch
+        if: steps.changes.outputs.changed == 'yes'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/texas-data-census-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/generated/texas-state-population-current.json src/data/texas-data-center.ts
+          git commit -m "data: refresh verified Census Texas state population"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+      - name: Open protected official data refresh PR
+        if: steps.changes.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Refresh latest verified Texas population and migration" \
+            --body "Scheduled official Census NST-EST Texas population refresh. Vintage year, Texas FIPS, state source file, prior-year comparison, migration and natural-change components are verified. Historical Census vintage pages remain unchanged. Protected validation and owner-side finisher run before merge."
+          echo "Refresh PR opened; protected GitHub finisher handles merging." >> "$GITHUB_STEP_SUMMARY"

@@ -24,6 +24,8 @@ const relocationData = read('src/data/relocation-authority.ts');
 const relocationAddress = read('src/data/relocation-address.ts');
 const relocationAddressServer = read('src/data/relocation-address.server.ts');
 const dataCenter = read('src/data/texas-data-center.server.ts');
+const verifiedReferenceFacts = JSON.parse(read('src/data/generated/texas-reference-facts-current.json'));
+
 const movingChecklist = read('src/routes/moving-to-texas-checklist.tsx');
 
 for (const target of [
@@ -188,8 +190,15 @@ for (const slug of [
 ]) {
   if (!dataCenter.includes(`slug: '${slug}'`)) failures.push(`Texas Data Desk must retain relocation dataset ${slug}.`);
 }
-for (const domain of ['census.gov', 'tdi.texas.gov', 'bls.gov', 'txdot.gov']) {
+for (const domain of ['census.gov', 'tdi.texas.gov', 'bls.gov']) {
   if (!dataCenter.includes(domain)) failures.push(`Relocation Data Desk must retain authoritative source ${domain}.`);
+}
+// The live TxDOT source URL now resides in the validated server-only generated
+// reference facts rather than as a literal in the data catalog itself.
+if (!dataCenter.includes('sourceUrl: currentReferenceFacts.txdot.sourceUrl') ||
+    !dataCenter.includes("slug: 'texas-traffic-monitoring-coverage'") ||
+    verifiedReferenceFacts?.txdot?.sourceUrl !== 'https://www.txdot.gov/data-maps/traffic-count-maps.html') {
+  failures.push('Relocation Data Desk must retain official TxDOT provenance through verified reference facts.');
 }
 
 for (const officialSource of [

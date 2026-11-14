@@ -104,7 +104,7 @@ if (loader.includes("seasonal-intent-depth-blocks") || loader.includes("applySea
 if (!loader.includes('await import("./seasonal-intent-articles")')) {
   fail("lazy seasonal resolver lost its canonical dynamic import");
 }
-if (articles.includes("readingMinutes: 1") || depth.includes("readingMinutes: 1") || loader.includes("readingMinutes: 1")) {
+if ([articles, depth, loader].some((source) => /\breadingMinutes:\s*1(?!\d)/.test(source))) {
   fail("seasonal intent sources must never advertise a one-minute canonical article");
 }
 
@@ -149,6 +149,168 @@ for (const marker of [
 
 if (!depth.includes("Quick answer: when and where to go")) {
   fail("East Texas fall-color canonical depth marker is missing");
+}
+// Hill Country must remain useful, distinct from its East Texas sibling, and
+// consolidated rather than repeating the same three park summaries twice.
+const hillBase = articleBlock("hill-country-fall-colors");
+const hillSupplement = depthBlock("hill-country-fall-colors");
+const hillBodyWords = baseBodyWordCount(hillBase) + supplementalBodyWordCount("hill-country-fall-colors", hillSupplement);
+if (hillBodyWords < 1000) fail(`Hill Country route is too thin for a park-by-park planning guide (${hillBodyWords} body words)`);
+for (const marker of [
+  "Quick answer: where should you go?",
+  "Lost Maples State Natural Area: concentrated maple color",
+  "Garner State Park: Frio River and fall reflections",
+  "Guadalupe River State Park: cypress without the maple crowds",
+  "A practical one-day itinerary",
+  "A two-day western Hill Country weekend",
+  "How to read the official foliage updates",
+  "Frequently asked questions",
+]) if (!(`${hillBase}\n${hillSupplement}`).includes(marker)) fail(`Hill Country planning guide missing section: ${marker}`);
+for (const redundant of [
+  'h("Lost Maples requires reservation strategy")',
+  'h("Garner and the Frio offer a broader landscape")',
+  'h("The Guadalupe corridor is the easier Central Texas option")',
+]) if (hillSupplement.includes(redundant)) fail("Hill Country repeating legacy section: " + redundant);
+const hillBaseHeadings = [...hillBase.matchAll(/type: "heading", text: "([^"]+)"/g)].map(match => match[1]);
+const hillDepthHeadings = [...hillSupplement.matchAll(/\bh\("([^"]+)"\)/g)].map(match => match[1]);
+if (new Set([...hillBaseHeadings, ...hillDepthHeadings]).size !== hillBaseHeadings.length + hillDepthHeadings.length)
+  fail("Hill Country duplicated a section heading between canonical base and supplements");
+
+// Four official TPWD URLs in the Hill Country body must be contextual live links,
+// not raw unclickable source strings.
+const hillBody = hillBase.split("body: [")[1] ?? "";
+const hillTpwd = hillBody.match(/https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+const hillLinkedTpwd = hillBody.match(/\]\(https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+if (hillTpwd.length !== 4 || hillLinkedTpwd.length !== 4)
+  fail("Hill Country must render four contextual TPWD source links");
+const articleBodyRenderer = fs.readFileSync("src/components/editorial/ArticleBody.tsx", "utf8");
+if (!articleBodyRenderer.includes('["east-texas-fall-colors", "hill-country-fall-colors"].includes(articleSlug ?? "")') ||
+    !articleBodyRenderer.includes('articleSlug === "hill-country-fall-colors" && blocks.slice(0, index)'))
+  fail("Hill Country TPWD link rendering and FAQ h3 hierarchy require protection");
+
+// The Hill Country report is refreshed automatically, never by manual seasonal audits.
+const sourceRefresh = fs.readFileSync("scripts/data/refresh-lost-maples-foliage.mjs", "utf8");
+const refreshWorkflow = fs.readFileSync(".github/workflows/refresh-lost-maples-foliage.yml", "utf8");
+const finishWorkflow = fs.readFileSync(".github/workflows/finish-lost-maples-foliage.yml", "utf8");
+const foliageWidget = fs.readFileSync("src/components/editorial/LostMaplesFoliageStatus.tsx", "utf8");
+const hillArticleRoute = fs.readFileSync("src/routes/article.$slug.tsx", "utf8");
+for (const marker of ["extractOfficialFoliageReport", "No dated official observation paragraph found", "Official TPWD page has no report headed for this calendar year"]) {
+  if (!sourceRefresh.includes(marker)) fail("Automatic Lost Maples official report parser missing fail-closed marker: " + marker);
+}
+if (!refreshWorkflow.includes("cron: '17 14 * 10,11 *'") || !refreshWorkflow.includes("node scripts/data/refresh-lost-maples-foliage.mjs"))
+  fail("Lost Maples requires a daily October–November source refresh, not manual audits");
+if (!finishWorkflow.includes("workflow_run:") || !finishWorkflow.includes("dispatch-validate-branch.sh"))
+  fail("Lost Maples automatic data changes must use trusted protected checks");
+if (!foliageWidget.includes("MAX_AGE_DAYS = 14") || !foliageWidget.includes("report.observations") ||
+    !hillArticleRoute.includes("<LostMaplesFoliageStatus />"))
+  fail("Hill Country live article must display source observations and suppress stale reports");
+if (hillArticleRoute.includes("Official 2026 Lost Maples foliage report"))
+  fail("Hill Country link to annually changing TPWD reports must not hardcode 2026");
+
+// Keep the live East Texas page useful without duplicating its six-park planner.
+// The official TPWD links are authored in canonical copy and rendered as real anchors.
+const eastTexasCopy = depthBlock("east-texas-fall-colors");
+const articleRenderer = fs.readFileSync("src/components/editorial/ArticleBody.tsx", "utf8");
+const articleRoute = fs.readFileSync("src/routes/article.$slug.tsx", "utf8");
+const rawTpwdReferences = eastTexasCopy.match(/https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+const linkedTpwdReferences = eastTexasCopy.match(/\]\(https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+if (linkedTpwdReferences.length < 8 || linkedTpwdReferences.length !== rawTpwdReferences.length) {
+  fail("East Texas fall guide must have at least eight contextual, directly clickable official TPWD references and no raw URLs");
+}
+if (!eastTexasCopy.includes("2.4-mile Rustling Leaves Trail") || !eastTexasCopy.includes("0.8-mile Mountain View Trail")) {
+  fail("East Texas fall guide lost source-backed Daingerfield trail recommendations");
+}
+for (const marker of [
+  "Choose a park by trail constraints, not a color forecast",
+  "South Sulphur unit of Cooper Lake first for a brief easy interpretive walk",
+  "the short 0.7-mile Caddo Forest Trail is moderate and includes steps",
+  "Research and evidence behind this guide",
+  "Source review: November 7, 2026",
+  "not a six-park live foliage report",
+  "not firsthand field-test results",
+]) if (!eastTexasCopy.includes(marker)) fail("East Texas source transparency or original visitor-fit comparison missing: " + marker);
+if (!articles.includes('slug: "east-texas-fall-colors"') || !articles.includes('updatedAt: "2026-11-07"')) {
+  fail("East Texas editorial modified date must match November 7 source-backed research");
+}
+if (eastTexasCopy.includes("Uncertain is the name of a nearby Texas community")) {
+  fail("East Texas fall guide contains out-of-context town-name clarification");
+}
+if (!articleRenderer.includes("renderFoliageSourceLinks(block.text, 4)") || !articleRenderer.includes("renderFoliageSourceLinks(item, 2)")) {
+  fail("East Texas fall guide's contextual TPWD source links must render in paragraphs and lists");
+}
+if (!articleRenderer.includes('articleSlug === "east-texas-fall-colors" && blocks.slice(0, index)')) {
+  fail("East Texas foliage FAQ questions must render as nested h3 headings");
+}
+if (!articleRoute.includes('article.slug !== "east-texas-fall-colors" && relatedDestinations.length > 0 && <Section>')) {
+  fail("East Texas foliage page must not duplicate the six-park cards with a stray Caddo destination rail");
+}
+if (!eastTexasCopy.includes("not confirmed reports of current peak color")) {
+  fail("East Texas seasonal guidance must not imply verified live peak foliage");
+}
+for (const guide of [
+  "/destination/daingerfield-state-park",
+  "/destination/caddo-lake-state-park",
+  "/destination/lake-bob-sandlin-state-park",
+  "/destination/tyler-state-park",
+  "/destination/cooper-lake-state-park",
+  "/destination/martin-creek-lake-state-park",
+]) if (!articleRoute.includes('guide: "' + guide + '"')) fail("East Texas six-park planner missing actual internal guide: " + guide);
+for (const trail of ["Rustling Leaves · 2.4 mi", "Caddo Forest · 0.7 mi", "Lakeview Loop · 0.6 mi", "Lakeshore · 2.1 mi", "Honey Creek (South Sulphur) · 0.3 mi", "Harmony Hill · 1.7 mi"]) {
+  if (!articleRoute.includes(trail)) fail("East Texas quick-comparison lost verified trail " + trail);
+}
+if (!articleRoute.includes('href="#east-texas-fall-trip-planner"') ||
+    !articleRoute.includes('id="east-texas-fall-trip-planner"') ||
+    !articleRoute.includes("https://tpwd.texas.gov/state-parks/caddo-lake/park_events/"))
+  fail("East Texas visitor navigation or self-updating official Caddo program calendar missing");
+if (articleRoute.includes('title="More fall foliage guides"')) fail("East Texas duplicate related-reading section returned");
+
+// This editorial URL has one crawlable origin: no tracking-parameter,
+ // trailing-slash, uppercase or www variants may deliver a second 200 document.
+const foliageServer = fs.readFileSync("src/server.ts", "utf8");
+const foliageMedia = fs.readFileSync("src/components/editorial/EastTexasFoliageMedia.tsx", "utf8");
+for (const marker of [
+  "export function eastTexasFoliageCanonicalRedirect(request: Request)",
+  'url.pathname.replace(/\\/+$/, "").toLowerCase()',
+  '"https://texasdefined.com/article/east-texas-fall-colors"',
+  "Response.redirect(canonical, 301)",
+  "const foliageCanonicalRedirect = eastTexasFoliageCanonicalRedirect(request)",
+]) if (!foliageServer.includes(marker)) fail("Single East Texas canonical redirect lost: " + marker);
+for (const marker of [
+  "Rustling Leaves Trail as moderate",
+  "Mountain View Trail as challenging",
+  "official Caddo Lake trail list",
+  "Lakeview Loop is an easy 0.6-mile",
+  "official Tyler trail guide",
+  "Honey Creek Interpretive Trail",
+  "Harmony Hill Loop",
+  "not a live foliage observation",
+]) if (!eastTexasCopy.includes(marker)) fail("East Texas guide lost verified trail or photo disclosure: " + marker);
+if (!foliageMedia.includes("Six real park photographs, with dated autumn examples") ||
+    !foliageMedia.includes("photographerCredit") ||
+    !foliageMedia.includes("Caddo_Lake_at_golden_hour.jpg") ||
+    !foliageMedia.includes("Shiva Shenoy") ||
+    !foliageMedia.includes("https://creativecommons.org/licenses/by/2.0/") ||
+    foliageMedia.includes("View_in_Daingerfield_State_Park_Texas_2023.jpg") ||
+    foliageMedia.includes("April photograph — bald cypress, not fall color"))
+  fail("East Texas gallery must retain six distinct source-licensed park images with dated October Daingerfield/Caddo proof and no redundant May photo");
+
+const eastFoliageBrowser = fs.readFileSync("scripts/ci/verify-east-texas-foliage-browser.mjs", "utf8");
+const eastFoliageWorkflow = fs.readFileSync(".github/workflows/verify-east-texas-foliage-browser.yml", "utf8");
+for (const marker of [
+  "East Texas duplicate related-destination section returned",
+  "Missing unique six-park comparison card:",
+  "Contextual TPWD link missing or wrong for",
+  "East Texas FAQ hierarchy regressed:",
+]) {
+  if (!eastFoliageBrowser.includes(marker)) fail(`East Texas post-deploy Chrome acceptance lost: ${marker}`);
+}
+for (const marker of [
+  "src/data/fixtures/seasonal-intent-depth-blocks.ts",
+  "src/components/editorial/ArticleBody.tsx",
+  "src/routes/article.$slug.tsx",
+  "cron: '17 13 * 10-11 *'",
+]) {
+  if (!eastFoliageWorkflow.includes(marker)) fail(`Daily or post-deploy foliage Chrome QA scope missing: ${marker}`);
 }
 
 if (!process.exitCode) {

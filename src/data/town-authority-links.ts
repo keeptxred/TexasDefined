@@ -144,8 +144,11 @@ export function townAuthorityContextualLinks(
     .filter((candidate) => candidate.slug !== destination.slug &&
       candidate.name.toLowerCase() === destination.nearestTown.toLowerCase())
     .map((candidate) => candidate.slug);
+  // Water Gardens has a more useful Fort Worth city guide; do not promote
+  // Grapevine just because it shares Tarrant County.
   const sameCounty = destination.county && !/[,;/&]/.test(destination.county)
     ? (countyTowns[countyKey(destination.county)] ?? []).filter((slug) => {
+      if (destination.slug === "fort-worth-water-gardens" && slug !== "fort-worth") return false;
       const candidate = townBySlug.get(slug);
       return Boolean(candidate && destination.coordinates &&
         near(destination.coordinates, { lat: candidate.lat, lng: candidate.lng }) <= 60);

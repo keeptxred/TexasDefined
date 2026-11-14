@@ -1,20 +1,7 @@
-import roadTrip from "@/assets/road-trip.jpg";
-import smallTown from "@/assets/small-town.jpg";
+import { houstonCommuterHero, dallasCommuterHero, propertyTaxHero, corporateRelocationHero, employeeRelocationHero } from "./relocation-remaining-media";
 import type { Article } from "../types";
 
-const moveHero: Article["hero"] = {
-  src: roadTrip,
-  alt: "A Texas highway leading toward a new city and a new home",
-  width: 1600,
-  height: 1067,
-};
 
-const suburbHero: Article["hero"] = {
-  src: smallTown,
-  alt: "A Texas community with homes, streets and a downtown district",
-  width: 1600,
-  height: 1067,
-};
 
 const stub = (
   id: string,
@@ -32,16 +19,17 @@ const stub = (
 export const relocationAuthorityExpansionStubs: Article[] = [
   stub("relocation-authority-houston-commuters", {
     slug: "best-houston-suburbs-for-commuters",
-    title: "Best Houston Suburbs for Commuters: Choose by Job Corridor",
-    dek: "A practical Houston-area shortlist organized around the job corridor, transit option and daily trip—not a generic ranking of suburbs.",
+    title: "Best Houston Suburbs for Commuters: Compare by Job Corridor",
+    dek: "Evidence-backed Houston commuter-area comparisons, real transit options, congestion cautions, a geographic map and a two-home commute cost worksheet.",
     category: "moving-to-texas",
     region: "gulf-coast",
-    hero: suburbHero,
+    hero: houstonCommuterHero,
     publishedAt: "2026-09-29",
-    readingMinutes: 8,
+    updatedAt: "2026-11-08",
+    readingMinutes: 11,
     tags: ["houston", "suburbs", "commuting", "relocation", "moving to texas"],
-    sourceName: "METRO Park & Ride",
-    sourceUrl: "https://www.ridemetro.org/riding-metro/transit-services/park-and-ride-bus",
+    sourceName: "Houston TranStar historical travel times",
+    sourceUrl: "https://traffic.houstontranstar.org/hist/hist_traveltimes_menu.aspx",
   }),
   stub("relocation-authority-dallas-commuters", {
     slug: "best-dallas-suburbs-for-commuters",
@@ -49,7 +37,7 @@ export const relocationAuthorityExpansionStubs: Article[] = [
     dek: "A Dallas-area commuter guide built around the actual workplace, rail and road corridor, toll exposure and household budget instead of a one-size-fits-all suburb ranking.",
     category: "moving-to-texas",
     region: "prairies-lakes",
-    hero: suburbHero,
+    hero: dallasCommuterHero,
     publishedAt: "2026-09-29",
     readingMinutes: 8,
     tags: ["dallas", "dfw", "suburbs", "commuting", "relocation"],
@@ -61,7 +49,7 @@ export const relocationAuthorityExpansionStubs: Article[] = [
     title: "Texas Property Taxes for New Residents",
     dek: "How Texas property taxes, appraisal districts, taxing units and homestead exemptions fit together when you buy a home after moving to the state.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: propertyTaxHero,
     publishedAt: "2026-09-29",
     readingMinutes: 8,
     tags: ["property taxes", "homestead exemption", "homebuyer", "relocation", "moving to texas"],
@@ -73,7 +61,7 @@ export const relocationAuthorityExpansionStubs: Article[] = [
     title: "Corporate Relocation to Texas: Employer & Site-Selection Guide",
     dek: "A practical Texas corporate-relocation framework for employers evaluating sites, workforce, registration, taxes, employee transition and household logistics.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: corporateRelocationHero,
     publishedAt: "2026-09-29",
     readingMinutes: 9,
     tags: ["corporate relocation", "business", "workforce", "site selection", "texas economy"],
@@ -85,7 +73,7 @@ export const relocationAuthorityExpansionStubs: Article[] = [
     title: "Employee Relocation Guide to Texas",
     dek: "A practical employee transfer guide for Texas: relocation benefits, housing, commute, taxes, utilities, vehicle registration, driver licensing and first-month tasks.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: employeeRelocationHero,
     publishedAt: "2026-09-29",
     readingMinutes: 9,
     tags: ["employee relocation", "moving to texas", "corporate relocation", "new resident", "relocation benefits"],

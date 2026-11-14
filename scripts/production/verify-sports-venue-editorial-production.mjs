@@ -121,6 +121,7 @@ const venuePageChecks = [
     ordered: [
       'Karting is temporarily closed. The road course is a separate operation.',
       'How to participate',
+      'Call office: 281-369-0677',
       'Can you actually drive at MSR Houston?',
       'The three-stage track-day checklist',
       'Questions about MSR Houston',
@@ -202,6 +203,12 @@ for (const marker of [
   'Can you actually drive at MSR Houston?',
   'The three-stage track-day checklist',
   'Is MSR Houston karting open in October 2026?',
+  'Call office: 281-369-0677',
+  'Instructor-led supercar drive or ride-along',
+  'https://www.thextremexperience.com/tracks/msr-houston',
+  'Sea Center Texas',
+  'Varner-Hogg Plantation',
+  'Angleton lodging and tourism',
 ]) {
   assertIncludes(msrCanonicalHtml, marker, 'MSR Houston canonical production guide');
 }
@@ -234,7 +241,8 @@ for (const [label, raw] of [
 ]) {
   const html = decodeHtml(raw);
   assertIncludes(html, 'The most recently checked individual venue record in this collection was verified', label);
-  assertIncludes(html, 'The latest individual venue source check was', label);
+  // The directory intentionally displays one accurate, dated latest-record disclosure.
+  // A second invented per-venue sentence would falsely imply every entry has the same review date.
   assertIncludes(html, 'karting operation announced a temporary closure', label);
   for (const stale of [
     'Venue source records on this page were reviewed through',
@@ -245,6 +253,42 @@ for (const [label, raw] of [
 }
 console.log('PASS MSR Houston motorsports directory canonical review-date and karting notice: ' + msrDirectoryUrl);
 
+
+// Keep the GSC-backed Reed Arena search-intent repair honest on both the
+// cache-busted release URL and the ordinary URL visitors actually receive.
+// This is a single targeted page, NOT a sitewide HTTP crawl.
+const reedBusted = await fetchText('/sports-venue/reed-arena');
+const reedCanonicalUrl = `${baseUrl}/sports-venue/reed-arena`;
+const reedCanonicalResponse = await fetch(reedCanonicalUrl, {
+  cache: 'no-store',
+  signal: AbortSignal.timeout(30_000),
+  headers: {
+    'cache-control': 'no-cache',
+    pragma: 'no-cache',
+    'user-agent': 'TexasDefined Reed Arena canonical visitor snippet verifier',
+  },
+  redirect: 'follow',
+});
+if (!reedCanonicalResponse.ok) {
+  throw new Error(`Reed Arena canonical page returned HTTP ${reedCanonicalResponse.status}`);
+}
+for (const [label, source] of [
+  ['Reed Arena cache-busted visitor snippet', reedBusted.text],
+  ['Reed Arena canonical visitor snippet', await reedCanonicalResponse.text()],
+]) {
+  const html = decodeHtml(source);
+  for (const marker of [
+    'Reed Arena Bag Policy: Parking & Visitor Guide',
+    'Reed Arena in College Station uses Texas A&M',
+    'clear-bag 12-1-1 policy',
+    // The visible guide takes its source-backed bag rule from the higher-priority
+    // wave-3 quality profile, not the later fallback Batch 5 arrival text.
+    '12-1-1 clear-bag policy',
+    'https://12thman.com/facilities/a-to-z/reed-arena',
+  ]) assertIncludes(html, marker, label);
+  for (const marker of banned) assertAbsent(html, marker, label);
+}
+console.log(`PASS Reed Arena source-backed search snippet and entry policy on canonical + cache-busted production: ${reedCanonicalUrl}`);
 
 const entityChecks = [
   {

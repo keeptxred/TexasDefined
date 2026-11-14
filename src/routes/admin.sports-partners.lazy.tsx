@@ -2,6 +2,12 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
+import { CorporateEventOpsPanel } from '@/components/events/CorporateEventOpsPanel';
+import { CorporateEventQuotePrepPanel } from '@/components/events/CorporateEventQuotePrepPanel';
+import { CorporateEventOutcomePanel } from '@/components/events/CorporateEventOutcomePanel';
+import { CorporateEventSourceReviewPanel } from '@/components/events/CorporateEventSourceReviewPanel';
+import { CorporateEventPartnerInvitationKit } from '@/components/events/CorporateEventPartnerInvitationKit';
+import { CorporateEventPartnerOutreachPanel } from '@/components/events/CorporateEventPartnerOutreachPanel';
 import { createAdvertiserAgreementOffer } from '@/data/advertiser-agreement.functions';
 import { getAdvertiserLeadDashboard, setAdvertiserLeadStatus } from '@/data/advertiser-leads.functions';
 import type { AdvertiserLead, AdvertiserLeadDashboard, AdvertiserLeadStatus } from '@/data/advertiser-leads.types';
@@ -189,6 +195,12 @@ function AdvertiserLeadsPage() {
         error={error}
         success={success}
       />}
+      {dashboard ? <CorporateEventOpsPanel accessKey={accessKey} /> : null}
+      {dashboard ? <CorporateEventQuotePrepPanel accessKey={accessKey} /> : null}
+      {dashboard ? <CorporateEventOutcomePanel accessKey={accessKey} /> : null}
+      {dashboard ? <CorporateEventSourceReviewPanel /> : null}
+      {dashboard ? <CorporateEventPartnerInvitationKit /> : null}
+      {dashboard ? <CorporateEventPartnerOutreachPanel accessKey={accessKey} /> : null}
     </main>
   </Container>;
 }

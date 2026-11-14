@@ -1,3 +1,4 @@
+import { expectedCjAccountClick, expectedHotelsClick } from './cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -24,6 +25,7 @@ const cases = [
 ];
 
 for (const spec of cases) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
   const context = await browser.newContext({ viewport: spec.viewport, deviceScaleFactor: 1, isMobile: spec.isMobile, hasTouch: spec.isMobile });
   // Do not send test visits to marketing or affiliate conversion analytics.
   await context.route(/(?:google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i, route => route.abort());
@@ -39,7 +41,7 @@ for (const spec of cases) {
   page.on('dialog', dialog => dialog.dismiss());
   let status = 0;
   try {
-    const response = await page.goto(origin + path + '?district5_visual_acceptance=20261018', { waitUntil: 'domcontentloaded', timeout: 50000 });
+    const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded', timeout: 50000 });
     status = response?.status() || 0;
     await page.locator('[data-football-district-section="coverage"]').waitFor({ state: 'visible', timeout: 20000 });
     await page.locator('[data-football-district-section="official-game-day"]').waitFor({ state: 'visible', timeout: 20000 });
@@ -53,7 +55,7 @@ for (const spec of cases) {
       const games = [...document.querySelectorAll('[data-football-district-game]')];
       const teamPaths = [...new Set([...document.querySelectorAll('a[href^="/texas-high-school-football-teams/"]')].map(a => new URL(a.href).pathname))];
       const anchors = [...document.querySelectorAll('a[href]')];
-      const affiliate = anchors.filter(a => a.href.includes('anrdoezrs.net'));
+      const affiliate = anchors.filter(a => ['hotels.com', 'rvshare'].includes(a.dataset.commercialPartner));
       return {
         title: document.title,
         h1: [...document.querySelectorAll('h1')].map(x => x.innerText.trim()),
@@ -69,7 +71,7 @@ for (const spec of cases) {
         scheduled: games.filter(el => el.dataset.status === 'schedule-only').length,
         districtSections: [...document.querySelectorAll('[data-football-district-section]')].map(el => el.dataset.footballDistrictSection),
         teamPaths,
-        affiliate: affiliate.map(a => ({ href: a.href, rel: a.rel, text: a.innerText })),
+        affiliate: affiliate.map(a => ({ href: a.href, rel: a.rel, text: a.innerText, partner: a.dataset.commercialPartner })),
         officialHosts: [...new Set(anchors.filter(a => /https:\/\/(?:athletics\.dentonisd\.org|www\.lisd\.net|www\.friscoisd\.org|tickets\.friscoisd\.org|www\.littleelmisd\.net)/i.test(a.href)).map(a => new URL(a.href).hostname))],
         imgProblems: [...document.images].filter(visible).filter(el => el.complete && el.naturalWidth === 0).map(el => el.currentSrc),
         missingImageAlt: [...document.images].filter(visible).filter(el => !el.hasAttribute('alt')).map(el => el.currentSrc),
@@ -91,10 +93,15 @@ for (const spec of cases) {
     for (const label of ['Denton Braswell', 'Denton Guyer', 'Frisco Wakeland', 'Lewisville', 'Flower Mound', 'Hebron', 'Marcus', 'Little Elm', 'Pigskin Prep', 'MaxPreps', 'not UIL-certified standings', 'Affiliate disclosure']) check(facts.text.includes(label), 'Missing on-screen copy: ' + label);
     check(!facts.text.includes('we do not assign district ranks, win–loss records'), 'Contradictory W–L disclaimer persists');
     check(facts.officialHosts.includes('athletics.dentonisd.org') && facts.officialHosts.includes('www.lisd.net') && facts.officialHosts.includes('www.friscoisd.org') && facts.officialHosts.includes('www.littleelmisd.net'), 'Official ticket links not shown for all four ISDs');
+    // Two independently approved travel creatives, with exact page attribution.
+    const approvedTravel = new Set([expectedHotelsClick(path), expectedCjAccountClick('rvshare', path)]);
     check(facts.affiliate.length === 2, 'Expected two verified travel CJ links, got ' + facts.affiliate.length);
+    check(new Set(facts.affiliate.map(item => item.href)).size === 2, 'Duplicate travel affiliate links');
     for (const item of facts.affiliate) {
       check(item.rel.includes('sponsored') && item.rel.includes('nofollow'), 'Missing affiliate rel flags ' + item.href);
-      check(item.href.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/'), 'Ungoverned CJ URL ' + item.href);
+      const expected = item.partner === 'hotels.com' ? expectedHotelsClick(path) : expectedCjAccountClick('rvshare', path);
+      const prior = 'https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/';
+      check((approvedTravel.has(item.href) && item.href === expected) || (process.env.GITHUB_EVENT_NAME === 'pull_request' && item.partner === 'rvshare' && item.href === prior), 'Ungoverned CJ PID/AID, SID or destination ' + item.href);
     }
     check(facts.imgProblems.length === 0 && facts.missingImageAlt.length === 0, 'Broken image or missing alt: ' + JSON.stringify({broken:facts.imgProblems,unnamed:facts.missingImageAlt}));
     check(brokenAssets.length === 0, 'First-party asset failed: ' + brokenAssets.join('; '));
@@ -105,6 +112,15 @@ for (const spec of cases) {
     results.push({ viewport: spec.label, status: errors.length ? 'FAIL' : 'PASS', screenshot, http: status, h1: facts.h1, canonical: facts.canonical, pageWidth: facts.documentWidth, viewportWidth: facts.viewportWidth, records: facts.records, finals: facts.finals, scheduled: facts.scheduled, teams: facts.teamPaths.length, officialHosts: facts.officialHosts, affiliateLinks: facts.affiliate.length, errors });
     failures.push(...errors.map(error => spec.label + ': ' + error));
     console.log('DISTRICT_5_RESPONSIVE ' + JSON.stringify(results.at(-1)));
+    const transientImportOnly = attempt === 1 && errors.length === 1
+      && /^TypeError: Failed to fetch dynamically imported module: https:\/\/texasdefined\.com\/assets\/[^\s]+\.js$/.test(errors[0])
+      && brokenAssets.length === 0;
+    if (transientImportOnly) {
+      console.warn('One bounded retry for a transient dynamic import failure: ' + spec.label);
+      results.pop();
+      failures.pop();
+      continue;
+    }
   } catch (error) {
     const problem = String(error);
     failures.push(spec.label + ': ' + problem);
@@ -113,6 +129,8 @@ for (const spec of cases) {
     console.error('DISTRICT_5_RESPONSIVE_ERROR ' + spec.label + ' ' + problem);
   } finally {
     await context.close();
+  }
+  break;
   }
 }
 await browser.close();

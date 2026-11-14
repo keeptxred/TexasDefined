@@ -16,9 +16,10 @@ const requiredFiles = {
     '<dd',
   ],
   'src/components/editorial/CategoryPage.tsx': [
-    'AnswerSummary',
-    'What is this ${belongsToExplore ? "Texas guide" : "section"} about?',
-    'How should I use this page?',
+    'CategoryBreadcrumb',
+    'DestinationCollectionGrid',
+    'authorityHtml',
+    'LivingAuthorityPaths',
   ],
   'src/components/calculators/CalculatorPage.tsx': [
     'AnswerSummary',

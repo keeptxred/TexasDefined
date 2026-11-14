@@ -123,9 +123,28 @@ jobs:
 
           allowed_path() {
             case "$1" in
-              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json) return 0 ;;
+              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json|src/data/events/mardi-gras-verified-source-updates.json|ops/editorial/ticketmaster-authority-candidates.json|ops/editorial/event-ticketing-verification-ledger.json) return 0 ;;
               *) return 1 ;;
             esac
+          }
+
+          validate_managed_probe_ledger() {
+            local base="$1"
+            local head="$2"
+            local file="ops/editorial/event-ticketing-verification-ledger.json"
+            git diff --quiet "$base" "$head" -- "$file" && return 0
+            # The refresh bot may only update its own rotating provider URL
+            # probe evidence, cursor and run timestamp. Editorial verification
+            # statuses, 12-show evidence and source identities are immutable.
+            local strip='. | del(.updatedAt, .statewide.ticketLinkProbes, .statewide.ticketLinkProbeCursor, .statewide.ticketLinkProbeLatestRun)'
+            local before after
+            before="$(git show "$base:$file" | jq -cS "$strip")" || return 1
+            after="$(git show "$head:$file" | jq -cS "$strip")" || return 1
+            if [[ "$before" != "$after" ]]; then
+              echo "::error title=Unauthorized event-ledger edit::Generated refresh modified manually verified event facts outside the bounded ticket-link probes."
+              return 1
+            fi
+            echo "Validated generated ticket-link probe evidence without changing authoritative event verification."
           }
 
           validate_generated_diff() {
@@ -136,7 +155,7 @@ jobs:
               [[ -z "$path" ]] && continue
               found=1
               if ! allowed_path "$path"; then
-                echo "::error title=Unexpected generated refresh path::$path is outside the two governed event catalogs."
+                echo "::error title=Unexpected generated refresh path::$path is outside the governed event catalogs and candidate queue."
                 return 1
               fi
             done < <(git diff --name-only "$base" "$head")
@@ -144,6 +163,7 @@ jobs:
               echo "::error title=Empty generated refresh::The event-refresh PR contains no governed catalog changes."
               return 1
             fi
+            validate_managed_probe_ledger "$base" "$head"
           }
 
           publish_required_status() {
@@ -162,8 +182,8 @@ jobs:
           git config user.name "Texas Defined Event Refresh Finisher"
           git config user.email "actions@users.noreply.github.com"
 
-          for attempt in 1 2 3; do
-            echo "Finisher attempt $attempt/3 for $PR_URL"
+          for attempt in 1 2 3 4 5; do
+            echo "Finisher attempt $attempt/5 for $PR_URL"
             git fetch --no-tags origin main "$BRANCH"
 
             remote_head="$(git rev-parse "origin/$BRANCH")"
@@ -177,15 +197,24 @@ jobs:
             validate_generated_diff "$merge_base" "origin/$BRANCH"
 
             git checkout -B "$BRANCH" "origin/$BRANCH"
+          # Validate the ACTUAL bot branch, not the checked-out main source.
+          node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
             if ! git merge-base --is-ancestor origin/main HEAD; then
               echo "Current main advanced; merging it into the generated refresh branch without rewriting history."
               if ! git merge --no-edit origin/main; then
-                git merge --abort || true
-                echo "::error title=Event refresh reconciliation conflict::Current main overlaps the generated event catalogs. No merge was attempted."
-                exit 1
+                # Only the strictly approved generated catalogs and managed HTTP
+                # probe checkpoint may be reconciled. Current main's manually
+                # verified editorial findings are never overwritten.
+                if ! node scripts/events/reconcile-ticketing-refresh-conflicts.mjs; then
+                  git merge --abort || true
+                  echo "::error title=Unsafe event refresh conflict::Generated refresh was not merged because its conflict lacked trustworthy source or verification evidence."
+                  exit 1
+                fi
+                git commit --no-edit
               fi
               validate_generated_diff origin/main HEAD
+              node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
               git push origin "HEAD:$BRANCH"
             fi
 
@@ -201,8 +230,26 @@ jobs:
               continue
             fi
             if ! git merge-base --is-ancestor origin/main "origin/$BRANCH"; then
-              echo "::notice title=Main advanced during validation::Reconcile and validation will run again."
-              continue
+              # During the multi-minute protected test suite, unrelated content
+              # PRs frequently merge on main. Invalidating already-proven event
+              # data for EVERY unrelated commit made a busy site impossible to
+              # refresh (run 40616270909 exhausted all three attempts).
+              # Revalidate ONLY if governed catalog/verification paths changed
+              # in current main after the validated branch's common ancestor.
+              # GitHub branch protection still independently controls merge.
+              shared_base="$(git merge-base origin/main "origin/$BRANCH")"
+              governed_drift=false
+              while IFS= read -r path; do
+                [[ -z "$path" ]] && continue
+                if allowed_path "$path"; then
+                  echo "::notice title=Governed source changed::Main updated $path during validation; retry with a fresh reconciliation."
+                  governed_drift=true
+                fi
+              done < <(git diff --name-only "$shared_base" origin/main)
+              if [[ "$governed_drift" == "true" ]]; then
+                continue
+              fi
+              echo "::notice title=Unrelated main commits::Accepting exact-SHA event validation; protected GitHub auto-merge will enforce current branch policy."
             fi
 
             # PRs opened with GITHUB_TOKEN cannot trigger their own pull_request workflows.
@@ -246,8 +293,16 @@ jobs:
             fi
 
             echo "Event refresh merged through the protected auto-merge path at validated head $validated_sha."
+
+            # A merge authored with GITHUB_TOKEN does not raise a new push
+            # workflow run. workflow_dispatch is the supported exception:
+            # launch the existing serialized production publisher on current
+            # main instead of leaving refreshed events undeployed. The normal
+            # Worker upload, Christmas smoke, and release gates remain intact.
+            gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"
+            echo "Triggered the existing protected TexasDefined production workflow for current main."
             exit 0
           done
 
-          echo "::error title=Event refresh could not stabilize::Main advanced during all three validation attempts; leaving $PR_URL open without merging."
+          echo "::error title=Event refresh could not stabilize::Governed event data or protected branch checks changed across all five validation attempts; leaving $PR_URL open without merging."
           exit 1

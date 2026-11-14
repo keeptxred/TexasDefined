@@ -65,6 +65,7 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "lyndon-b-johnson-state-park-and-historic-site",
   "lyndon-b-johnson-state-park-state-historic-site",
   "monument-hill-kreische-brewery-state-historic-site",
+  "museum-south-texas-history-edinburg", // Same Edinburg museum as the stronger museum-of- authority guide
   "palo-duro-canyon",
   "porretto-beach",
   "port-isabel-lighthouse-state-park",

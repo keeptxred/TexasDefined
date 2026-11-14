@@ -1,3 +1,22 @@
+import { readFileSync } from 'node:fs';
+
+// Compare visitor-facing archived event copy against the current reviewed source.
+// The source date and historical heading changed when the 2026 festival ended;
+// requiring old pre-event text made unrelated production deployments fail.
+function verifiedCrossroadsSnapshot() {
+  const source = readFileSync('src/data/major-event-expanded-authority-tranche41.server.ts', 'utf8');
+  const start = source.indexOf('slug: "crossroads-of-texas-country-festival"');
+  if (start < 0) throw new Error('Missing Crossroads source record');
+  const end = source.indexOf('\n  {\n    slug:', start + 1);
+  const record = source.slice(start, end < 0 ? undefined : end);
+  const date = record.match(/sourceCheckedAt:\s*"(20\d{2}-\d{2}-\d{2})"/)?.[1];
+  if (!date) throw new Error('Missing editorial Crossroads source date');
+  const historicalHeading = '2026 music archive: Jake Worthington, Kenny Whitmire and smaller stages';
+  if (!record.includes(historicalHeading)) throw new Error('Crossroads archive heading changed; review live expectations');
+  return { date, historicalHeading };
+}
+const crossroadsSource = verifiedCrossroadsSnapshot();
+
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
@@ -278,7 +297,14 @@ async function verifyFiestaLeaf() {
   assert(event.organizer?.name === 'Fiesta San Antonio Commission', 'Fiesta organizer must match repository-reviewed evidence');
   assert(asArray(event.offers).length === 0, 'Fiesta 2027 schema must intentionally omit unreleased offers');
   assert(asArray(event.performer).length === 0, 'Fiesta 2027 schema must intentionally omit unannounced performers');
-  assert(asArray(event.image).length === 0, 'Fiesta schema must not substitute generic fallback imagery');
+  // Fiesta now has a documented public-domain photograph of the actual
+  // 2014 Battle of Flowers Parade; do not confuse an approved historical
+  // scene with generic image fallback. Pin the exact reviewed image so an
+  // unrelated stock/placeholder URL cannot silently enter Event JSON-LD.
+  const approvedFiestaImage = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg/960px-Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg';
+  const fiestaImages = asArray(event.image);
+  assert(fiestaImages.length === 1 && fiestaImages[0] === approvedFiestaImage,
+    'Fiesta Event schema must use only the reviewed Fiesta Battle of Flowers photograph');
   console.log('[fiesta-san-antonio] organizer plus future-year omission policy verified');
 }
 
@@ -417,7 +443,7 @@ async function verifyCrossroadsFestivalLeaf() {
     'Saturday, October 24',
     '9 a.m.–7 p.m.',
     '200+ downtown booths',
-    'Music: Jake Worthington, Kenny Whitmire and the smaller stages',
+    crossroadsSource.historicalHeading,
     'Parking, walking and navigating downtown',
     'Visit Waxahachie — official downtown parking map',
     'Ellis County Museum',
@@ -428,7 +454,7 @@ async function verifyCrossroadsFestivalLeaf() {
     'Crossroads Festival & Parking Maps',
     'Whataburger Kids Zone',
     'Explore historic Waxahachie',
-    'Event facts last source-checked 2026-10-18',
+    'Event facts last source-checked ' + crossroadsSource.date,
   ]) assert(readable.includes(marker), `Crossroads festival is missing verified visitor content: ${marker}`);
 
   const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));

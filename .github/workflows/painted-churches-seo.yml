@@ -1,6 +1,9 @@
 name: Painted Churches SEO Authority
 
 on:
+  # Re-run all Painted Churches authority contracts every quarter, even without a code push.
+  schedule:
+    - cron: '19 13 1 1,4,7,10 *'
   push:
     branches: [main]
     paths:
@@ -10,6 +13,8 @@ on:
       - "src/routes/guides.tsx"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
+      - "src/components/editorial/GottfriedFluryAuthority.tsx"
+      - "src/lib/painted-church-reference-depth.test.ts"
       - "src/components/editorial/ExploreTopicPaths.tsx"
       - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
@@ -31,6 +36,8 @@ on:
       - "src/routes/guides.tsx"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
+      - "src/components/editorial/GottfriedFluryAuthority.tsx"
+      - "src/lib/painted-church-reference-depth.test.ts"
       - "src/components/editorial/ExploreTopicPaths.tsx"
       - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"

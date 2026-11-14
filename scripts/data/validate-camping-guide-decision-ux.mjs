@@ -7,6 +7,7 @@ const component = read("src/components/camping/CampingDiscovery.tsx");
 const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const destinationGuides = read("src/data/camping/destination-guides.ts");
+const petRules = read("src/data/camping/pet-policies.ts");
 const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
@@ -34,10 +35,26 @@ for (const label of [
   "Pet friendly",
 ]) requireText(component, label, "camping quick-match coverage");
 
-requireText(component, "Destination view — verify the exact campsite on the official reservation page.", "camping image disclosure");
-requireText(component, "campingCardImages", "camping destination imagery");
-requireText(component, "Why choose this campground", "campground decision context");
-requireText(component, "Managed by:", "campground managing-agency context");
+// Trip types must reveal *all* matching campground choices, rather than
+// mapping each type to one editorial park. Selecting a type retains geography.
+for (const label of ["Tent camping", "RV camping", "Backcountry camping", "Group camping", "River camping"]) {
+  requireText(component, label, "real campground trip-type coverage");
+}
+requireText(component, 'id="camping-trip-types"', "real trip-type navigation target");
+requireText(component, 'matchesTripType(profile, match)', "trip type must map to real campground profiles");
+requireText(component, "aria-pressed={active}", "trip type selection feedback");
+requireText(component, "aria-controls=\"camping-results\"", "trip type results association");
+requireText(component, "after your filters", "trip type matching result count");
+requireText(component, "const clearTripType", "clear camping type without losing location");
+if (page.includes("standoutCamping.map") || page.includes("Best camping destinations by trip type")) {
+  failures.push("camping trip types must not lead with one arbitrary state park");
+}
+
+// A park-wide wildlife/landscape photo must never impersonate a campsite.
+if (component.includes("campingCardImages") || component.includes("<img")) failures.push("campground card imagery lacks site-specific verification");
+if (page.includes("item.image") || page.includes("<img")) failures.push("unverified editorial campsite imagery reintroduced");
+requireText(component, "Facilities, reservations &amp; site rules", "campground expandable decision context");
+requireText(component, "Managed by {profile.managingAgency}", "campground managing-agency context");
 requireText(component, "profile.whyCampHere", "campground choice rendering");
 requireText(component, "Managing agency", "campground agency filter");
 requireText(component, "Sort results", "campground result sorting");
@@ -63,10 +80,23 @@ requireText(component, "profile.planningDetail", "campground planning-detail ren
 requireText(component, "hasCampingDestinationGuide", "campground canonical destination-link registry");
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
 requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campground structured-data destination guard");
+requireText(route, "withResearchedCampingPetPolicy(profile)", "apply source-backed pet rules to every discovered campground");
+requireText(component, "profile.petPolicySourceUrl", "link operator pet restrictions at profile level");
+requireText(component, "profile.petPolicyResearchedAt", "pet research provenance separate from campground facility verification");
+for (const marker of ["CAMPING_PET_POLICY_RESEARCHED_AT", "CAMPING_TPWD_PET_RULES_URL", "government-canyon-state-natural-area", "seminole-canyon-state-park-and-historic-site", "enchanted-rock-state-natural-area", "inks-lake-state-park", "big-bend-national-park", "guadalupe-mountains-national-park", "padre-island-national-seashore", "cedar-breaks-park-lake-georgetown", "russell-park-lake-georgetown", "withResearchedCampingPetPolicy"]) {
+  requireText(petRules, marker, "camping official pet-policy source and exception contract");
+}
 requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structured-data anchor fallback");
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(page, "Match the season to the part of Texas", "camping seasonal planning");
+for (const marker of ['id="camping-start-here"', "Six Texas camping starting points, by trip", "campingStartingPoints.map", "tradeoff", "not a numeric ranking", "Texas Defined editorial desk", "Editorial comparison updated November 4, 2026", 'to="/editorial-policy"', "not visitor ratings or claims of on-site testing", "Shady Meadows full-hookup sites", "tpwd.texas.gov/state-parks/garner/fees-facilities/campsites"]) {
+  requireText(page, marker, "camping editorial decision guidance");
+}
+requireText(route, "EDITORIAL_UPDATED_AT", "substantive editorial modified date");
+requireText(route, 'author: { "@type": "Organization", name: "Texas Defined"', "truthful organizational JSON-LD authorship");
+requireText(component, "Pet friendly is a verified-only filter", "transparent incomplete pet-policy coverage");
+requireText(read("src/data/camping/discovery.ts"), "Shady Meadows full-hookup sites", "Garner site-level camping distinction");
 requireText(page, 'aria-label="Camping guide sections"', "camping long-page jump navigation");
 for (const anchor of ["#camping-trip-types", "#campground-finder", "#camping-seasons", "#camping-methodology", "#camping-questions", "#camping-next-steps"]) {
   requireText(page, anchor, "camping jump-navigation target");
@@ -75,12 +105,11 @@ for (const anchor of ["#camping-trip-types", "#campground-finder", "#camping-sea
 requireText(page, 'href="https://www.weather.gov/"', "camping weather authority outbound citation");
 if (page.includes('to="/texas-weather"')) throw new Error("Camping guide must not link a nonexistent weather route");
 requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
+requireText(page, "Can I bring pets to most Texas state park campgrounds?", "camping state park pets guidance");
+requireText(page, "https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions/", "camping state park pets official citation");
 requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
-
-const imageCount = (component.match(/"[^"]+": \{ src: "\/images\//g) || []).length;
-if (imageCount < 15) failures.push(`camping destination imagery: expected at least 15 governed local image mappings, found ${imageCount}`);
 
 const rioGrandeBlock = profileWave3.slice(
   Math.max(0, profileWave3.indexOf('name: "Rio Grande Village RV Campground"') - 240),
@@ -152,4 +181,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, one-click metro shortcuts, researched destination and metro search terms, normalized electrical/facility filtering, agency filtering, result sorting, decision-oriented three-profile comparison with verification dates, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, one-click metro shortcuts, researched destination and metro search terms, normalized electrical/facility filtering, agency filtering, result sorting, decision-oriented three-profile comparison with verification dates, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, campsite-photo integrity and compact expandable site details, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");

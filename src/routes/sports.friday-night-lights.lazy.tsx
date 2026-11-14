@@ -1,14 +1,15 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import footballEditorialIllustration from "@/assets/high-school-football-hero.jpg";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 
 export const Route = createLazyFileRoute("/sports/friday-night-lights")({ component: FridayNightLightsPage });
 
 const startHere = [
   {
-    title: "Friday night football matchups & verified scores",
-    description: "Explore source-backed individual games, schedules, results and both school pages. Each result shows when its source was checked.",
+    title: "Curated matchups & documented scores (not a live statewide scoreboard)",
+    description: "Browse individual source-backed game records, not a full-season scoreboard. Check the record’s source date; for current scores, use the school, district or UIL-linked sources.",
     href: "/texas-high-school-football-matchups",
     label: "Browse matchups",
   },
@@ -71,7 +72,7 @@ const startHere = [
   },
   {
     title: "Browse every current UIL football district",
-    description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
+    description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s team guide.",
     href: "/texas-high-school-football-districts",
     label: "Browse UIL districts",
   },
@@ -129,6 +130,7 @@ function FridayNightLightsPage() {
         <p className="eyebrow mt-10 text-primary">Texas high school football</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Friday Night Lights, Defined</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas high school football makes more sense when you stop treating it as only a game. This is the hub for the stadiums, school traditions, six-man towns, marching bands, homecoming mums, rivalries, playoff culture and practical details that shape a Friday night across the state.</p>
+        <figure className="mt-9 max-w-5xl"><img src={footballEditorialIllustration} alt="Editorial illustration of Texas high school football players approaching a stadium under the lights" width={1600} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover" /><figcaption className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined editorial illustration, not documentary photography of a specific team, school or 2026 game.</figcaption></figure>
       </Container>
     </section>
 
@@ -151,9 +153,32 @@ function FridayNightLightsPage() {
       </Container>
     </section>
 
-    <section className="border-b border-border bg-background">
+    <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-16">
+      <p className="eyebrow text-primary">2026 postseason · verified planning</p><h2 id="football-postseason-verify" className="mt-3 max-w-4xl font-display text-4xl">Don't mistake a curated matchup archive for this week's scores</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The local matchup directory documents only games for which individual evidence was saved; it is not a complete or real-time scoreboard. With the 2026 district certification deadline on November 7 and the first playoff round scheduled November 12–14, bracket updates, opponents and game sites should be rechecked against the UIL and the participating schools. The official UIL site remains the rule and postseason source.</p>
+      <div className="mt-7 grid gap-5 md:grid-cols-3">
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">1 · Identify the bracket</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Use classification and division from the current 2026–28 UIL alignment, not an old rivalry label or last season's district.</p><a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline">Official UIL brackets ↗</a></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">2 · Confirm the matchup</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Check both school athletic announcements for opponent, kickoff, venue, ticket allocation and weather changes; bracket listings may precede final site arrangements.</p><Link to="/texas-high-school-football-teams" className="mt-3 inline-block text-sm font-semibold text-primary underline">Find the school guide →</Link></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">3 · Verify the trip</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">A neutral-site game may shift parking, admission and travel. Confirm stadium address, accessibility, bag restrictions, and any updates directly with the host.</p><Link to="/sports-venues/high-school-football" className="mt-3 inline-block text-sm font-semibold text-primary underline">Stadium planning →</Link></article>
+      </div>
+      <p className="mt-6 text-xs leading-6 text-muted-foreground">Sources: <a href="https://www.uiltexas.org/football" target="_blank" rel="noopener noreferrer" className="underline">UIL 2026–27 football dates</a> and <a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="underline">UIL playoff brackets</a>. School and host information must be checked for each game.</p>
+    </Container></section>
+
+    <section className="border-b border-border bg-background" aria-labelledby="fnl-bracket-comparison">
       <Container className="py-12 sm:py-16">
-        <FootballFanOffers slug="friday-night-lights" hasUpcomingAwayTravel={false} showTravelPlanning />
+        <p className="eyebrow text-primary">Compare before you travel</p>
+        <h2 id="fnl-bracket-comparison" className="mt-3 font-display text-4xl">Why the playoff path changes by classification</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The Texas high-school football postseason is not one uniform bracket. The UIL's official rules distinguish six-man 1A, the split divisions of 2A–5A and the 6A enrollment split. That affects how a fan should identify a school, confirm the right opponent and plan the next trip. The table describes the published qualification framework, not a prediction of this week's winners.</p>
+        <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[42rem] text-left text-sm"><caption className="sr-only">2026 UIL football playoff qualification comparison by conference</caption><thead className="bg-surface"><tr><th scope="col" className="p-4">Conference</th><th scope="col" className="p-4">Who advances under UIL rules</th><th scope="col" className="p-4">What a visiting fan should check</th></tr></thead><tbody className="divide-y divide-border">
+          <tr><th scope="row" className="p-4">1A six-man, Divisions I and II</th><td className="p-4">The top two teams from each district reach the postseason in their designated divisions.</td><td className="p-4">Do not transfer an 11-man district rule or venue assumption to a six-man team. Confirm the exact 1A division and host field.</td></tr>
+          <tr><th scope="row" className="p-4">2A–5A, Divisions I and II</th><td className="p-4">The top four teams from each district advance in the district's assigned division.</td><td className="p-4">Check both conference and division before matching a bracket listing to a ticket offer or hotel search.</td></tr>
+          <tr><th scope="row" className="p-4">6A, Divisions I and II</th><td className="p-4">Four teams advance per district; among those four, the two larger-enrollment schools enter Division I, and the other two Division II.</td><td className="p-4">Do not assume a school's division from an older season or a previous playoff run. Confirm its current bracket and game site.</td></tr>
+        </tbody></table></div>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">A first-round trip</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">With the first 2026 round scheduled for November 12–14, verify the pairing and exact venue through the published UIL bracket and the two schools. A bracket entry is not proof of a specific parking lot or stadium's accessible seating.</p><a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">UIL 2026–27 brackets ↗</a></article>
+          <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">A championship-week trip</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The UIL places the 12 conference-and-division finals on December 16–19 in Arlington. Pick the correct classification's game before booking an overnight stay; recheck tickets, gate policy and kickoff with UIL and AT&amp;T Stadium rather than relying on an older season recap.</p><a href="https://www.uiltexas.org/football/state" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">UIL championship schedule ↗</a></article>
+        </div>
+        <p className="mt-6 text-xs leading-6 text-muted-foreground">Source: <a href="https://www.uiltexas.org/football/playoff-brackets" className="underline" target="_blank" rel="noopener noreferrer">UIL published playoff qualification rules and alignments</a>, with dates from <a href="https://www.uiltexas.org/football" className="underline" target="_blank" rel="noopener noreferrer">the UIL 2026 football calendar</a>. TexasDefined's visitor scenarios are independent planning analysis, not reported on-site observations.</p>
       </Container>
     </section>
 
@@ -246,6 +271,12 @@ function FridayNightLightsPage() {
           <RelatedCard title="Texas college towns" body="See how football, universities and local identity continue beyond high school into the state's college towns." href="/texas-college-towns" />
           <RelatedCard title="Texas Sports" body="Return to the statewide sports hub for college and pro football, basketball, rodeo, motorsports and more." href="/sports" />
         </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border bg-background">
+      <Container className="py-12 sm:py-16">
+        <FootballFanOffers slug="friday-night-lights" hasUpcomingAwayTravel={false} showTravelPlanning />
       </Container>
     </section>
 

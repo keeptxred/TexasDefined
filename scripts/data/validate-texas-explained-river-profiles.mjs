@@ -9,6 +9,7 @@ const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
 const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
+const articleBodyComponent = read('src/components/editorial/ArticleBody.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -47,6 +48,8 @@ for (const marker of [
   'See all river basins →',
   'Explore All 15 Major Texas River Basins',
   'Texas River Basins Explained →',
+  'Texas Lakes & Reservoirs Explained →',
+  '/article/texas-lakes-reservoirs-explained',
   'Explore Texas Lakes & Rivers →',
   '<TexasRiversCitationTrust />',
 ]) if (!authority.includes(marker)) errors.push(`Texas rivers map-first authority contract missing: ${marker}`);
@@ -73,19 +76,15 @@ for (const marker of [
   'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
   'const majorBasins = [',
   'const coastalBasins = [',
-  'const basinHighlights = [',
-  'Largest basin in Texas',
-  'Longest river segment in Texas',
-  'Highest average flow',
   'const csvHeaders = [',
   '"basin_type"',
   'const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;',
   'const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;',
   'methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison.',
   'download="texasdefined-texas-river-basins.csv"',
-  'Download CSV ↓',
+  'Download table (CSV) ↓',
   'download="texasdefined-texas-river-basins.json"',
-  'Download JSON ↓',
+  'Download data (JSON) ↓',
   '<details className="mt-5',
   'Open the full 15-basin comparison',
   'Eight coastal basins drain directly toward bays and the Gulf',
@@ -98,6 +97,12 @@ for (const marker of [
   '!isTexasRiversArticle && internalLinks.length > 0',
   '!isTexasRiversArticle && article.tags.length > 0',
 ]) if (!articleRoute.includes(marker)) errors.push(`Texas rivers simplified presentation contract missing: ${marker}`);
+
+for (const marker of [
+  'articleSlug === "texas-rivers-explained"',
+  'blocks[index - 1]?.text === "Texas Rivers at a Glance"',
+  '<dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">',
+]) if (!articleBodyComponent.includes(marker)) errors.push(`Texas rivers quick-answer card contract missing: ${marker}`);
 
 if (!articleRoute.includes('!isTexasRiversArticle && <Section tone="surface">')
   && !articleRoute.includes('!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface">')) {
@@ -187,6 +192,15 @@ for (const [name, slug, twdbPath] of additionalBasins) {
   const next = begin < 0 ? -1 : additionalGuides.indexOf('\nexport const ', begin);
   const body = begin < 0 ? '' : additionalGuides.slice(begin, next > begin ? next : additionalGuides.length);
   const wordCount = body.slice(body.indexOf('body: [')).split(/\s+/).length;
+
+  // Article summaries must satisfy the existing 80-character index-readiness
+  // threshold and match their lazy/discovery metadata; this protects Nueces.
+  const description = body.match(/\bdek:\s*"([^"]+)"/)?.[1] ?? '';
+  const stubIndex = additionalStubs.indexOf(`slug: "${slug}"`);
+  const stubDescription = stubIndex < 0 ? '' : additionalStubs.slice(stubIndex).match(/\bdek:\s*"([^"]+)"/)?.[1] ?? '';
+  if (description.length < 80 || stubDescription !== description)
+    errors.push(`River description index readiness or stub mismatch: ${slug} (length=${description.length})`);
+
   if (wordCount < 600) errors.push(`New river guide below 600-word floor: ${name}, ${wordCount}`);
   if (!body.includes(`/river_basins/${twdbPath}`)) errors.push(`Missing official TWDB source: ${name}`);
   if (!body.includes('/article/texas-rivers-explained') || !body.includes('/article/texas-river-basins-guide') || !body.includes('/texas-explained')) errors.push(`Missing profile backlinks: ${slug}`);
@@ -231,7 +245,7 @@ for (const marker of [
   'showBays',
   'TWDB',
 ]) if (!interactiveMap.includes(marker)) errors.push(`TWDB interactive map source/control missing: ${marker}`);
-if (!authority.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted on rivers hub');
+if (!basinReference.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted after the river-basin explainer');
 
 if (errors.length) {
   console.error('Texas Explained river profile validation failed:');

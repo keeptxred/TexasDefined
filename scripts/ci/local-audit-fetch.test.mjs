@@ -120,7 +120,9 @@ test('all three complete audits are local-only and no longer fan out after deplo
   const scheduled = readFileSync('.github/workflows/audit-site-quality-local.yml', 'utf8');
   assert.doesNotMatch(scheduled, /schedule:/);
   const coordinator = readFileSync('.github/workflows/audit-whole-site-production.yml', 'utf8');
-  assert.match(coordinator, /schedule:/);
+  assert.doesNotMatch(coordinator, /^  schedule:/m);
+  assert.match(coordinator, /audit-production:\n\s+# Defense in depth:[^\n]*\n\s+if: \$\{\{ false \}\}/);
+  assert.match(scheduled, /jobs:\n  audit:\n\s+# Reusable callers[^\n]*\n\s+if: \$\{\{ false \}\}/);
   assert.match(coordinator, /audit: all/);
   assert.match(scheduled, /run-local-quality-audits.mjs/);
   assert.doesNotMatch(scheduled, /workflow_run:|secrets\.|secrets: inherit/);

@@ -1,12 +1,14 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { getTexasIconCategory } from "@/data/things-unique-to-texas";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/things-unique-to-texas/$category")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    // The 45KB curated reference catalog is needed for this chapter only.
+    // Preserve SSR/JSON-LD loader data without shipping all chapter records in main.
+    const { getTexasIconCategory } = await import("@/data/things-unique-to-texas");
     const category = getTexasIconCategory(params.category);
     if (!category) throw notFound();
     return category;
@@ -48,7 +50,7 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
             about: { "@type": "Place", name: "Texas" },
             isBasedOn: methodologyUrl,
             author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
-            dateModified: "2026-08-19",
+            dateModified: "2026-11-13",
             mainEntity: category ? {
               "@type": "ItemList",
               numberOfItems: itemList.length,

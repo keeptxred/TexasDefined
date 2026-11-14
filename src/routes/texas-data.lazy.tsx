@@ -1,27 +1,14 @@
 import { createLazyFileRoute, Link, Outlet, useRouterState } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 
-import { description, sportsComparisonCsvPath, sportsComparisonPath } from './texas-data';
+import { description, featuredDataProducts, nextStops } from './texas-data';
 
-
-const nextStops = [
-  ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
-  ['Texas industries', '/texas-industries', 'Connect statewide economic data with sourced sector guides, regional industry hubs and county pathways.'],
-  ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
-  ['County population growth', '/texas-data/county-growth', 'Compare Census Vintage 2025 county population change from the 2020 estimates base to July 1, 2025.'],
-  ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],
-  ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
-  ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
-  ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current Texas Defined city directory mapped to counties and regions.'],
-  ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
-  ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
-  ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
-  ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
-] as const;
-
-const editorialLabel = (value: string) => value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
+const editorialLabel = (value: string) => value.replaceAll('-', ' ');
+const numberFormatter = new Intl.NumberFormat('en-US');
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
 export const Route = createLazyFileRoute('/texas-data')({ component: TexasDataRoute });
 
@@ -33,15 +20,172 @@ function TexasDataRoute() {
 
 function Page() {
   const { datasets } = Route.useLoaderData();
+  const [searchQuery, setSearchQuery] = useState('');
+  const currentPopulation = datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-latest')
+    ?? datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-2025');
+  const homeowners = datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-latest')
+    ?? datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-history');
+  const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-latest')
+    ?? datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-august-2026');
+
+  const population = currentPopulation?.rows.find((row) => row.label.startsWith('Texas population — July 1, '))?.value;
+  const populationGrowth = currentPopulation?.rows.find((row) => row.label.includes('Numeric population growth'))?.value;
+  const domesticMigration = currentPopulation?.rows.find((row) => row.label === 'Net domestic migration')?.value;
+  const homeownersYear = homeowners?.slug === 'texas-homeowners-premium-latest' ? homeowners.year : 2025;
+  const homeownersPremium = homeowners?.rows.find((row) => row.label === String(homeownersYear))?.value;
+  const majorMetroPayrolls = payrolls?.rows.filter((row) => ['Dallas–Fort Worth–Arlington', 'Houston–Pasadena–The Woodlands', 'Austin–Round Rock–San Marcos', 'San Antonio–New Braunfels'].includes(row.label)) ?? [];
+
+  const headlineStats = [
+    population ? { value: numberFormatter.format(population), label: 'Texas population', note: `July 1, ${currentPopulation?.year} Census estimate`, to: '/texas-data/texas-population-and-migration-latest' } : null,
+    populationGrowth ? { value: `+${numberFormatter.format(populationGrowth)}`, label: 'Population growth', note: `July ${Number(currentPopulation?.year) - 1} to July ${currentPopulation?.year}`, to: '/texas-data/texas-population-and-migration-latest' } : null,
+    domesticMigration ? { value: `+${numberFormatter.format(domesticMigration)}`, label: 'Net domestic migration', note: `July ${Number(currentPopulation?.year) - 1} to July ${currentPopulation?.year}`, to: '/texas-data/texas-population-and-migration-latest' } : null,
+    homeownersPremium ? { value: currencyFormatter.format(homeownersPremium), label: 'Average homeowners premium', note: `${homeownersYear} statewide TDI average; preliminary or not explicitly finalized`, to: `/texas-data/${homeowners?.slug ?? 'texas-homeowners-premium-history'}` } : null,
+
+  ].filter(Boolean) as Array<{ value: string; label: string; note: string; to: string }>;
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const matchingDatasets = normalizedQuery
+    ? datasets.filter((dataset) => [dataset.title, dataset.description, dataset.category, dataset.sourceName, String(dataset.year)].some((field) => field.toLowerCase().includes(normalizedQuery)))
+    : datasets;
+  const categories = matchingDatasets.reduce<Record<string, typeof datasets>>((groups, dataset) => {
+    const key = dataset.category;
+    groups[key] = [...(groups[key] ?? []), dataset];
+    return groups;
+  }, {});
+
   return <>
-    <DepartmentHero current="Texas Data" eyebrow="Texas at a glance" title="The numbers behind everyday Texas" description={description} />
+    <DepartmentHero
+      current="Texas Data"
+      eyebrow="Texas at a glance"
+      title="Texas by the Numbers"
+      description={description}
+    />
     <Container className="py-12 sm:py-16">
-      <aside className="max-w-3xl border-y border-border py-5 text-sm leading-7 text-muted-foreground"><p className="eyebrow text-primary">About the data</p><p className="mt-3">Public and verified reference data is most useful when it has context. Each dataset or comparison includes source notes, review context and a path back to the underlying information.</p></aside>
-      <section className="py-12" aria-labelledby="figures-heading"><div className="border-b border-border pb-4"><p className="eyebrow text-primary">Texas data</p><h2 id="figures-heading" className="mt-2 font-display text-4xl">A closer look at the numbers</h2></div><div className="grid sm:grid-cols-2 lg:grid-cols-3">{datasets.map((dataset, index) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className={`group border-b border-border py-7 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''}`}><p className="eyebrow text-primary">{editorialLabel(dataset.category)} · {dataset.year}</p><h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{dataset.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p><span className="mt-5 block text-sm font-semibold">Open the data brief →</span></Link>)}</div></section>
-      <section className="border-y border-border py-8" aria-labelledby="homeowners-research-heading"><p className="eyebrow text-primary">Original research · Homeowners insurance</p><h2 id="homeowners-research-heading" className="mt-2 font-display text-3xl">Texas homeowners premiums versus coverage</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compare annual statewide insurance premiums and insured coverage from 2016 to 2025, including original calculations and a downloadable dataset.</p><Link to="/texas-data/research/texas-homeowners-premiums-vs-coverage" className="mt-4 inline-block border-b border-primary text-sm font-semibold text-primary">Read the research and download the data →</Link></section>
-      <section className="border-y border-border py-10" aria-labelledby="reference-data-heading"><div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Reference datasets</p><h2 id="reference-data-heading" className="mt-2 font-display text-4xl">Data from across Texas Defined</h2></div><article className="border-t border-border py-5"><p className="eyebrow text-primary">Sports travel · 84 venues</p><h3 className="mt-2 font-display text-3xl">Texas Sports Venue Comparison</h3><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A source-aligned comparison of verified stadiums, arenas, ballparks, racetracks and other sports destinations. Capacity and opening fields remain blank when the verified profile does not contain a usable value.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to={sportsComparisonPath} className="border-b border-primary text-primary">Open comparison →</Link><a href={sportsComparisonCsvPath} className="border-b border-primary text-primary">Download CSV ↓</a></div></article></div></section>
-      <section className="border-t border-border py-12" aria-labelledby="help-heading"><div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Use the numbers</p><h2 id="help-heading" className="mt-2 font-display text-4xl">Where to go next</h2></div><div className="grid sm:grid-cols-2">{nextStops.map(([title, to, copy]) => <Link key={to} to={to} className="group border-t border-border py-5 sm:px-5"><h3 className="font-display text-2xl group-hover:text-primary">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p><span className="mt-3 block text-sm font-semibold">Continue →</span></Link>)}</div></div></section>
-      <aside className="border-y border-border py-5 text-sm leading-6 text-muted-foreground">Texas Defined uses public and verified information as a starting point for understanding the state. For official decisions, deadlines, eligibility or current event-day details, follow the source links to the responsible agency, venue or organizer.</aside>
+      {headlineStats.length > 0 && <section aria-labelledby="snapshot-heading" className="border-y border-border">
+        <div className="py-6">
+          <p className="eyebrow text-primary">Current snapshot</p>
+          <h2 id="snapshot-heading" className="mt-2 font-display text-3xl sm:text-4xl">Texas at a glance</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Selected Texas statistics from sourced, dated releases. Each figure identifies its vintage.</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+          {headlineStats.map((stat, index) => <Link key={stat.label} to={stat.to} className={`group border-t border-border py-6 sm:px-5 ${index > 0 ? 'lg:border-l' : ''}`}>
+            <p className="font-display text-3xl leading-none sm:text-4xl">{stat.value}</p>
+            <h3 className="mt-3 text-sm font-semibold group-hover:text-primary">{stat.label}</h3>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">{stat.note}</p>
+          </Link>)}
+        </div>
+      </section>}
+
+      {majorMetroPayrolls.length > 0 && <section aria-labelledby="metro-snapshot-heading" className="border-b border-border py-10">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div><p className="eyebrow text-primary">Comparable metro employment</p><h2 id="metro-snapshot-heading" className="mt-2 font-display text-3xl">Major Texas metro payrolls</h2></div>
+          <Link to="/texas-data/$datasetSlug" params={{ datasetSlug: payrolls?.slug ?? 'texas-metro-payrolls-august-2026' }} className="text-sm font-semibold text-primary underline underline-offset-4">Full dataset & methodology →</Link>
+        </div>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{payrolls?.title}. Latest verified BLS nonfarm payroll jobs (not seasonally adjusted), not resident workers or a measure of job quality. This is a dated monthly snapshot subject to revision; compare metros using the same source, month and methodology.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{majorMetroPayrolls.map((metro) => <div key={metro.label} className="border-t border-border pt-4"><p className="font-display text-2xl">{numberFormatter.format(metro.value)}</p><p className="mt-2 text-sm text-muted-foreground">{metro.label}</p></div>)}</div>
+      </section>}
+
+      <section className="py-12" aria-labelledby="featured-heading">
+        <p className="eyebrow text-primary">Data from across Texas Defined</p>
+        <div className="border-b border-border pb-4">
+          <p className="eyebrow text-primary">Featured data products</p>
+          <h2 id="featured-heading" className="mt-2 font-display text-4xl">Compare Texas by county, city and place</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These cross-vertical reference datasets sit alongside the statewide data briefs and are now part of the same Texas Data catalog.</p>
+        </div>
+        <div className="grid md:grid-cols-2">
+          {featuredDataProducts.map((dataset, index) => <article key={dataset.path} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? 'md:border-l' : ''}`}>
+            <p className="eyebrow text-primary">{dataset.category}</p>
+            <h3 className="mt-2 font-display text-3xl leading-tight"><Link to={dataset.path} className="hover:text-primary">{dataset.title}</Link></h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{dataset.description}</p>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">Source: {dataset.source}</p>
+            {dataset.path === '/texas-data/city-county-relationships' && <p className="mt-2 text-xs leading-5 text-muted-foreground">Coverage: entries currently maintained by Texas Defined, not an exhaustive list of every incorporated municipality or census-designated place in Texas. See the dataset for its current record count.</p>}
+            {dataset.path === '/sports-venues/compare' && <p className="mt-2 text-xs leading-5 text-muted-foreground">Capacity and opening fields remain blank when the verified profile does not contain a usable value.</p>}
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <Link to={dataset.path} className="border-b border-primary text-primary">Explore dataset →</Link>
+              <a href={dataset.csvPath} className="border-b border-primary text-primary">Download CSV ↓</a>
+            </div>
+          </article>)}
+        </div>
+      </section>
+
+      <section className="border-y border-border py-12" aria-labelledby="briefs-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Official-source briefs</p>
+            <h2 id="briefs-heading" className="mt-2 font-display text-4xl">Explore Texas data by topic</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Each brief identifies its source, data vintage and methodology.</p>
+            <label htmlFor="texas-data-search" className="mt-6 block text-sm font-semibold">Search official data briefs</label>
+            <input id="texas-data-search" type="search" autoComplete="off" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search jobs, insurance, taxes…" className="mt-2 w-full rounded-none border border-border bg-background px-3 py-3 text-sm text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" />
+            <p className="mt-2 text-xs text-muted-foreground" aria-live="polite">{matchingDatasets.length} of {datasets.length} briefs shown</p>
+          </div>
+          <div className="space-y-10">
+            {matchingDatasets.length === 0 && <p role="status" className="border-y border-border py-8 text-sm text-muted-foreground">No data briefs match that search. Try a different topic or source.</p>}
+            {Object.entries(categories).map(([category, categoryDatasets]) => <section key={category} aria-labelledby={`category-${category.replaceAll(' ', '-').toLowerCase()}`}>
+              <div className="border-b border-border pb-3">
+                <h3 id={`category-${category.replaceAll(' ', '-').toLowerCase()}`} className="font-display text-3xl">{editorialLabel(category)}</h3>
+              </div>
+              <div className="grid sm:grid-cols-2">
+                {[...categoryDatasets].sort((a, b) => b.updated.localeCompare(a.updated)).map((dataset) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className="group border-b border-border py-6 sm:px-5">
+                  <p className="eyebrow text-primary">{dataset.year} data · Updated {dataset.updated}</p>
+                  <h4 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{dataset.title}</h4>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p>
+                  <span className="mt-4 block text-sm font-semibold">Open data brief →</span>
+                </Link>)}
+              </div>
+            </section>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12" aria-labelledby="county-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Local Texas</p>
+            <h2 id="county-heading" className="mt-2 font-display text-4xl">Continue into all 254 counties</h2>
+          </div>
+          <div className="max-w-3xl">
+            <p className="text-base leading-8 text-muted-foreground">Statewide averages can hide large local differences. Use the county directory for local context, then return to county population growth and housing comparisons when you need an apples-to-apples statewide view.</p>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <Link to="/browse/counties" className="border-b border-primary text-primary">Browse all counties →</Link>
+              <Link to="/texas-data/county-growth" className="border-b border-primary text-primary">Compare county growth →</Link>
+              <Link to="/texas-data/county-housing-costs" className="border-b border-primary text-primary">Compare housing costs →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-12" aria-labelledby="sources-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Sources & methodology</p>
+            <h2 id="sources-heading" className="mt-2 font-display text-4xl">Built from authoritative public data</h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined uses sources including the U.S. Census Bureau, U.S. Bureau of Labor Statistics, Texas Comptroller, Texas Department of Insurance and Texas Department of Transportation. Dataset pages identify the responsible source, methodology, data vintage and update date. For official decisions, deadlines, eligibility or current legal requirements, follow the source link to the responsible agency.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The source registry below links the responsible agencies; a listed source does not mean every record was checked today. Each brief's last-updated date applies only to that dataset; source publication date and last verification are distinct. Where independent Texas Defined research is used, its methods and limitations are documented on the research page.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">A newer publication can supersede an older estimate. Texas Defined keeps historical briefs when they add comparison value, but labels their year and methodology rather than silently presenting old data as current.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-12" aria-labelledby="research-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Original analysis</p><h2 id="research-heading" className="mt-2 font-display text-4xl">Texas Defined insurance research</h2></div>
+          <div><h3 className="font-display text-3xl">Homeowners premiums versus coverage</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore the historical relationship between statewide homeowners premiums and reported coverage levels. The 2025 premium is preliminary, and an average is not an individual household quote. Review source methodology, definitions and limits before making comparisons.</p>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <Link to="/texas-data/research/texas-homeowners-premiums-vs-coverage" className="border-b border-primary text-primary">Read original analysis →</Link>
+              <Link to="/texas-data/$datasetSlug" params={{datasetSlug: 'texas-homeowners-premium-history'}} className="border-b border-primary text-primary">See TDI premium history →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="border-t border-border py-12" aria-labelledby="help-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Use the numbers</p><h2 id="help-heading" className="mt-2 font-display text-4xl">Where to go next</h2></div>
+          <div className="grid sm:grid-cols-2">{nextStops.map(([title, to, copy]) => <Link key={to} to={to} className="group border-t border-border py-5 sm:px-5"><h3 className="font-display text-2xl group-hover:text-primary">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p><span className="mt-3 block text-sm font-semibold">Continue →</span></Link>)}</div>
+        </div>
+      </section>
     </Container>
   </>;
 }

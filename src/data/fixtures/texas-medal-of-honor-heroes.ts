@@ -27,6 +27,7 @@ export const texasMedalOfHonorHeroesArticle: Article = {
   sourceName: "U.S. Army",
   sourceUrl: "https://www.army.mil/medalofhonor/",
   internalLinks: [
+    { href: "/destination/medal-of-honor-host-city-museum-gainesville", label: "Medal of Honor Host City Museum in Gainesville", description: "Visit a free NCTC museum about Medal of Honor recipients and the local Host City program; check its current weekday schedule." },
     { href: "/destination/fort-sam-houston-national-cemetery", label: "Fort Sam Houston National Cemetery", description: "Visit the San Antonio cemetery where Roy Benavidez and several other Medal of Honor recipients are buried." },
     { href: "/article/texas-world-war-ii-historic-sites-guide", label: "Texas and World War II", description: "Place Audie Murphy and Macario Garcia inside the larger wartime story." },
     { href: "/article/texas-recent-wars-military-history", label: "Texas in recent wars", description: "Continue from Vietnam-era service into the modern Texas military landscape." },
@@ -35,7 +36,7 @@ export const texasMedalOfHonorHeroesArticle: Article = {
     { href: "/texas-history", label: "Texas History", description: "Return to the statewide history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["texas-military-forces-museum", "fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery"],
+  relatedDestinations: ["texas-military-forces-museum", "medal-of-honor-host-city-museum-gainesville", "fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery"],
   body: [
     p("The Medal of Honor is the United States' highest military decoration, awarded for conspicuous gallantry at the risk of life above and beyond the call of duty. Texas has deep connections to many recipients, but those connections are not all the same. Some were born in Texas, some entered the service here, some made the state their home, and some are buried in Texas military cemeteries."),
     p("It is also important to distinguish the federal Medal of Honor from the Texas Legislative Medal of Honor. The latter is the state's highest military award and is created through Texas law and legislative action. This guide focuses primarily on federal Medal of Honor recipients with strong Texas ties, while noting where the state has separately honored them."),
@@ -69,6 +70,7 @@ export const texasMedalOfHonorHeroesArticle: Article = {
 
     h("Places in Texas where the stories connect"),
     list(
+      "Medal of Honor Host City Museum in Gainesville: a free North Central Texas College museum centered on recipient histories, artifacts and the city\x27s ongoing Host City tradition.",
       "Audie Murphy/American Cotton Museum in Greenville: connects Murphy's Hunt County origins with his wartime service and public legacy.",
       "Fort Sam Houston National Cemetery in San Antonio: burial place of Roy Benavidez and several other Medal of Honor recipients.",
       "Texas Military Forces Museum at Camp Mabry: connects decorated Texans with the wider history of the Texas Guard and state military forces.",

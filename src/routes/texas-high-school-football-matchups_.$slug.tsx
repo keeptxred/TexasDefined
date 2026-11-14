@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
-import { getFootballMatchup, footballTeamPath, footballMatchupPath, FOOTBALL_BRACKET_SOURCE } from '@/data/high-school-football/football-matchups';
+import { getFootballMatchup, footballTeamPath, footballMatchupPath, footballMatchupIsPastUnconfirmed, FOOTBALL_BRACKET_SOURCE } from '@/data/high-school-football/football-matchups';
 
 const origin = 'https://texasdefined.com';
 
@@ -19,14 +19,18 @@ export const Route = createFileRoute('/texas-high-school-football-matchups/$slug
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: name + ': ' + game.date + ' Football Score & Game Guide',
-        description: name + ' — ' + game.date + '. ' + (game.status === 'final' ? 'Reported final: ' + game.away.name + ' ' + game.awayScore + ', ' + game.home.name + ' ' + game.homeScore + '.' : 'Kickoff: ' + game.kickoff + '.') + ' Check game source and team profiles.',
+        title: name + ': ' + game.date + ' Football Game & Score Sources',
+        description: name + ' — ' + game.date + '. ' + (game.status === 'final' ? 'Reported final: ' + game.away.name + ' ' + game.awayScore + ', ' + game.home.name + ' ' + game.homeScore + '.' : (footballMatchupIsPastUnconfirmed(game) ? 'Game date passed; no final verified.' : 'Kickoff: ' + game.kickoff + '.')) + ' Check game source and team profiles.',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         '@context': 'https://schema.org', '@type': 'SportsEvent',
         name, url: origin + canonicalPath, startDate: game.date,
-        eventStatus: game.status === 'final' ? 'https://schema.org/EventCompleted' : 'https://schema.org/EventScheduled',
+        ...(game.status === 'final'
+          ? { eventStatus: 'https://schema.org/EventCompleted' }
+          : footballMatchupIsPastUnconfirmed(game)
+            ? {} // The outcome is unknown: do not fabricate completion or current scheduling.
+            : { eventStatus: 'https://schema.org/EventScheduled' }),
         homeTeam: { '@type': 'SportsTeam', name: game.home.name },
         awayTeam: { '@type': 'SportsTeam', name: game.away.name },
       })],
@@ -38,6 +42,7 @@ export const Route = createFileRoute('/texas-high-school-football-matchups/$slug
 function Page() {
   const game = Route.useLoaderData();
   const isFinal = game.status === 'final' && Number.isInteger(game.homeScore) && Number.isInteger(game.awayScore);
+  const isPastUnconfirmed = footballMatchupIsPastUnconfirmed(game);
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-5xl" data-football-matchup={game.slug}>
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
@@ -46,7 +51,7 @@ function Page() {
       <header className="mt-10 border-b border-border pb-10">
         <p className="eyebrow text-primary">{game.classification} football · {game.district ? 'District ' + game.district : 'UIL'} · {game.date}</p>
         <h1 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">{game.away.name} vs. {game.home.name}</h1>
-        <p className="mt-4 text-base text-muted-foreground">{isFinal ? 'Reported final score' : 'Upcoming game · ' + game.kickoff}</p>
+        <p className="mt-4 text-base text-muted-foreground">{isFinal ? 'Reported final score' : isPastUnconfirmed ? 'Past fixture · no verified final' : 'Upcoming game · ' + game.kickoff}</p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {[{ team: game.away, score: game.awayScore, position: 'Away' }, { team: game.home, score: game.homeScore, position: 'Home' }].map(({ team, score, position }) => <div key={position} className="border border-border bg-surface p-6">
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">{position}</p>

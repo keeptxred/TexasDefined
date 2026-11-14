@@ -53,6 +53,7 @@ const sources = [
   { label: "Museum: school and group tour policies", href: schoolUrl },
   { label: "Zapata County: museum address and contact", href: countyUrl },
   { label: "Texas Historical Commission heritage program: museum history", href: heritageUrl },
+  { label: "Texas Historical Commission Atlas: museum registry (archival listing; confirm contact details)", href: "https://atlas.thc.texas.gov/Details/4200001169" },
 ];
 
 export default function ZapataCountyMuseumAuthority() {
@@ -71,7 +72,7 @@ export default function ZapataCountyMuseumAuthority() {
         <p className="eyebrow text-ink-foreground/80">South Texas · Zapata County · Museum</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Zapata County Museum of History</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/85">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
-        <p className="mt-5 text-xs text-ink-foreground/80">Original TexasDefined editorial illustration, not a photograph of the museum. To see the actual building, visit the <a href="https://www.co.zapata.tx.us/page/zapata.comm.court.project.museum" target="_blank" rel="noopener noreferrer" className="underline">Zapata County Commissioners Court photo gallery</a>.</p>
+        <p className="mt-5 text-xs text-ink-foreground/80">Original TexasDefined editorial illustration, not a photograph of the museum. For a photograph of the actual museum building, visit the <a href={heritageUrl} target="_blank" rel="noopener noreferrer" className="underline">Texas Historical Commission’s Zapata museum listing</a>.</p>
       </Container>
     </section>
 
@@ -88,7 +89,7 @@ export default function ZapataCountyMuseumAuthority() {
         <a className="border-b border-primary pb-1 font-semibold text-primary" href={exhibitsUrl} target="_blank" rel="noopener noreferrer">Museum exhibits ↗</a>
         <a className="border-b border-primary pb-1 font-semibold text-primary" href="https://www.google.com/maps/search/?api=1&amp;query=805+N+US+Hwy+83+Zapata+TX+78076" target="_blank" rel="noopener noreferrer">Map and directions ↗</a>
       </div>
-      <p className="mt-4 text-xs leading-6 text-muted-foreground">Hours and admission last checked October 9, 2026 against the museum’s published visitor information. The museum says the last tour begins at 3:30 p.m.; <a href="https://zapatamuseum.com/index.php/contact-us" target="_blank" rel="noopener noreferrer" className="underline">verify with staff before travel</a>, especially around holidays.</p>
+      <p className="mt-4 text-xs leading-6 text-muted-foreground">Hours and admission last checked October 19, 2026 against the museum’s published visitor information. The museum says the last tour begins at 3:30 p.m.; <a href="https://zapatamuseum.com/index.php/contact-us" target="_blank" rel="noopener noreferrer" className="underline">verify with staff before travel</a>, especially around holidays.</p>
     </Container>
 
     <section className="border-y border-border py-14 sm:py-16">
@@ -116,6 +117,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Collections and exhibits</p>
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
+      <p className="mt-5 max-w-3xl leading-8"><strong>Language of the exhibits:</strong> The museum describes its historical storyline as presented in English and Spanish, with artifacts and interactive displays. Confirm directly with staff if you need a guided tour or other assistance in a particular language. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum’s description of its exhibits ↗</a></p>
       <p className="mt-5 max-w-3xl leading-8"><strong>Start with the introduction:</strong> The museum says escorted visitors begin in a theater near the entrance with an eight-minute film spanning the region’s geologic origins through the present. Ask staff how this presentation fits your visit, particularly if you have limited time. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum tour overview ↗</a></p>
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">
@@ -162,11 +164,12 @@ export default function ZapataCountyMuseumAuthority() {
       <Container>
         <p className="eyebrow text-primary">Sources and editorial standard</p>
         <h2 className="mt-3 font-display text-3xl">How this guide was verified</h2>
-        <p className="mt-4 max-w-3xl leading-7">TexasDefined editorial research · Last checked October 9, 2026. Museum hours, admission, tour policies and exhibit topics are attributed to the museum and Zapata County; historical context is cross-checked against the Texas Historical Commission's heritage tourism program. Exhibit availability and operating details can change without notice.</p>
+        <p className="mt-4 max-w-3xl leading-7">TexasDefined editorial research · Last checked October 19, 2026. Museum hours, admission, tour policies and exhibit topics are attributed to the museum and Zapata County; historical context is cross-checked against the Texas Historical Commission's heritage tourism program. Exhibit availability and operating details can change without notice.</p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {sources.map((source) => <li key={source.href}><a className="text-sm underline text-primary" href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}
         </ul>
-        <p className="mt-8 text-xs text-muted-foreground">Recommended citation: TexasDefined. “Zapata County Museum of History: Exhibits, Hours &amp; Admission.” Verified October 9, 2026. https://texasdefined.com/destination/zapata-county-museum-history</p>
+        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-4 text-sm leading-7 text-muted-foreground"><strong>Directory-link advisory (October 21, 2026):</strong> Some older government and heritage directory listings link to a museum web address that now displays unrelated promotional content. Use those listings for historical context only; for visiting details, rely on the <a href={visitorUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">museum's visitor-information page</a> or call <a href="tel:+19567658983" className="underline">(956) 765-8983</a>. TexasDefined does not link directly to the outdated site.</p>
+        <p className="mt-8 text-xs text-muted-foreground">Recommended citation: TexasDefined. “Zapata County Museum of History: Exhibits, Hours &amp; Admission.” Verified October 19, 2026. https://texasdefined.com/destination/zapata-county-museum-history</p>
       </Container>
     </section>
   </main>;

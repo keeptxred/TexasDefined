@@ -1,9 +1,14 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
+import { musicHistoryMilestones, musicSourceReviewedAt, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 const canonicalUrl = `${siteUrl}/corpus-christi-music-history`;
+const sourceReviewedAt = musicHistoryResearchCheckedAt["corpus-christi-music-history"] ?? musicSourceReviewedAt;
+const articleModifiedAt = musicHistoryArticleModifiedAt["corpus-christi-music-history"] ?? musicSourceReviewedAt;
 
 const sources = [
   {
@@ -31,6 +36,7 @@ const sources = [
 export const Route = createLazyFileRoute("/corpus-christi-music-history")({ component: CorpusChristiMusicHistoryPage });
 
 function CorpusChristiMusicHistoryPage() {
+  const milestones = musicHistoryMilestones["corpus-christi-music-history"];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -43,8 +49,11 @@ function CorpusChristiMusicHistoryPage() {
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+        author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` },
+        dateModified: articleModifiedAt,
+        isAccessibleForFree: true,
         articleSection: "Texas Music",
-        citation: sources.map((source) => source.href),
+        citation: [...sources.map((source) => source.href), ...musicResearchDossiers["corpus-christi-music-history"].findings.map((finding) => finding.href)],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
         about: [
           { "@type": "Place", name: "Corpus Christi, Texas" },
@@ -96,6 +105,7 @@ function CorpusChristiMusicHistoryPage() {
               <Link to="/texas-conjunto-tejano" className="border-b border-primary pb-1 text-primary">Texas conjunto & Tejano →</Link>
               <Link to="/texas-music-timeline" className="border-b border-primary pb-1 text-primary">Texas Music timeline →</Link>
             </div>
+            <p className="mt-5 text-sm text-muted-foreground">By <Link to="/authors/a-hollis" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={sourceReviewedAt}>{musicHistoryDateLabel(sourceReviewedAt)}</time></p>
           </header>
 
           <section className="border-b border-border py-8" aria-labelledby="corpus-quick-answer">
@@ -142,16 +152,23 @@ function CorpusChristiMusicHistoryPage() {
           <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]">
             <div><p className="eyebrow text-primary">05</p><h2 className="mt-2 font-display text-3xl leading-tight">Corpus and San Antonio played different roles in the Tejano story</h2></div>
             <div className="max-w-3xl space-y-5">
-              <p className="text-base leading-8 text-muted-foreground">San Antonio is indispensable to the history of conjunto, Tejano and the West Side Sound, especially as a place where border, R&B, rock and country traditions overlapped. Corpus Christi adds a different kind of authority: record retail, independent labels, studio capacity and a Coastal Bend base close to the dance circuits of South Texas and the Rio Grande Valley.</p>
+              <p className="text-base leading-8 text-muted-foreground">San Antonio is indispensable to the history of conjunto, Tejano and the West Side Sound, especially as a place where border, R&B, rock and country traditions overlapped. Corpus Christi contributed something different: record retailers, independent labels, recording studios and a Coastal Bend base within reach of South Texas and Rio Grande Valley dance circuits.</p>
               <p className="text-base leading-8 text-muted-foreground">Reading the two cities together prevents the statewide story from collapsing into a single birthplace claim. Texas music grew through connected regional systems, and Corpus Christi's importance comes from how effectively it linked artists, businesses, recordings and audiences across that system.</p>
               <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-music-cities" className="border-b border-primary text-primary">Compare Texas music cities</Link><Link to="/texas-music" className="border-b border-primary text-primary">Return to the Texas Music hub</Link></div>
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="corpus-chronology">
+            <p className="eyebrow text-primary">The evidence trail</p>
+            <h2 id="corpus-chronology" className="mt-2 font-display text-4xl">Milestones in a Coastal Bend recording center</h2>
+            <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
+          </section>
+
+          <TexasMusicEvidenceDossier slug="corpus-christi-music-history" />
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
             <p className="eyebrow text-primary">Sources</p>
-            <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Historical authority behind this guide</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This page focuses on durable history and relies primarily on the Texas State Historical Association's Handbook of Texas and Handbook of Texas Music. It does not hardcode changing museum, venue, ticket or visitor information.</p>
+            <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Sources for Corpus Christi’s music history</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The dated milestones above link directly to historical sources. These further references document how the record businesses and performers fit the wider South Texas music economy; current ticket prices, opening hours and visitor policies are not historical claims.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}
             </ul>

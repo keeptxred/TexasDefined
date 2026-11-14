@@ -1,7 +1,9 @@
 import snapshot from '../generated/ticketmaster-events.json';
+import { majorEventIndexRecords } from '../major-event-index';
 import { geographyForPlace } from '../geography-knowledge-graph';
 import { resolveSportsVenueEventLink } from '../sports-venue-event-links';
 import type { TexasEventRecord, TexasEventTicketSaleStatus } from './texas-event-record';
+import { ticketmasterIsPrimaryAdmissionTitle } from './ticketmaster-event-match';
 
 interface TicketmasterRow {
   id: string; name: string; startDate: string; startTime?: string; city: string; venue: string;
@@ -45,17 +47,56 @@ export function ticketmasterAuthorityGuidePath(name: string, city: string) {
     candidate.city.toLocaleLowerCase("en-US") === normalizedCity
     && normalizedName.startsWith(candidate.prefix),
   );
-  return match ? `/event/${match.slug}` : undefined;
+  if (match) return `/event/${match.slug}`;
+  // Exact city + normalized organizer event name only. Never guess from a
+  // city-wide title substring or from overlapping dates alone.
+  const normalizeName = (value: string) => value.toLocaleLowerCase('en-US')
+    .replace(/\b20\d{2}\b/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  const canonical = normalizeName(name);
+  const indexed = majorEventIndexRecords.find((event) =>
+    event.city.toLocaleLowerCase('en-US') === normalizedCity
+    && normalizeName(event.name) === canonical,
+  );
+  return indexed ? `/event/${indexed.slug}` : undefined;
+}
+
+// Provider dates are interpreted in the event's Texas-local calendar, not in
+// UTC. A fresh API snapshot can still contain completed one-day events.
+// Never treat a past event as a live/affiliate ticket offer.
+function texasTodayIso(now: Date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const value = (kind: "year" | "month" | "day") => parts.find((part) => part.type === kind)?.value ?? "00";
+  return `${value("year")}-${value("month")}-${value("day")}`;
 }
 
 export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = snapshot, now = new Date()): TexasEventRecord[] {
   const fetchedAt = catalog.fetchedAt;
   // Hide stale commercial inventory if the daily refresh stops succeeding.
   if (!fetchedAt || !Number.isFinite(Date.parse(fetchedAt)) || now.getTime() - Date.parse(fetchedAt) > 48 * 3600000 || Date.parse(fetchedAt) > now.getTime()) return [];
+  const today = texasTodayIso(now);
   return catalog.events.flatMap((event): TexasEventRecord[] => {
     const region = geographyForPlace(event.city)?.travelRegionIds[0];
-    if (!region || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
-    const venue = resolveSportsVenueEventLink(event.venue);
+    if (!ticketmasterIsPrimaryAdmissionTitle(event.name) || !region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
+      || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
+    const matchedAuthorityGuide = ticketmasterAuthorityGuidePath(event.name, event.city);
+    // The organizer confirms this 2026 festival begins November 28.
+    // The provider's conflicting November 27 session is not approved as a
+    // live festival ticket/calendar listing. Do not suppress 2027 editions.
+    if (matchedAuthorityGuide === '/event/south-pole-illuminated-festival'
+        && event.startDate === '2026-11-27') return [];
+    // Keep the former venue name for stable old-provider venue-slug lookup,
+    // while presenting the official Ariat Arena naming-rights change from
+    // October 26, 2026. Only change the exact Fort Worth arena identity.
+    const isRebrandedFortWorthArena = event.city.trim().toLowerCase() === 'fort worth'
+      && /^(?:dickies|ariat) arena(?:,?\s*fort worth)?$/i.test(event.venue.trim());
+    const displayedVenue = isRebrandedFortWorthArena ? 'Ariat Arena' : event.venue;
+    // Existing canonical route uses the original venue slug; both the old
+    // and new Discovery labels must resolve to the same physical facility.
+    const venue = resolveSportsVenueEventLink(isRebrandedFortWorthArena ? 'Dickies Arena' : event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
     const saleStatus: TexasEventTicketSaleStatus = event.status === 'offsale' ? 'off-sale'
       : event.status === 'soldout' ? 'sold-out'
@@ -64,13 +105,13 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     const category = event.segment === 'Sports' ? 'sport' : event.segment === 'Music' ? 'music' : 'culture';
     return [{
       id: `ticketmaster:${event.id}`, slug: `ticketmaster-${event.id}`, title: event.name,
-      summary: `${event.name} at ${event.venue || 'a local venue'} in ${event.city}. Check Ticketmaster for current ticket availability and event details.`,
-      guidePath: ticketmasterAuthorityGuidePath(event.name, event.city) ?? `/events?start=${event.startDate}&end=${event.startDate}`,
+      summary: `${event.name} at ${displayedVenue || 'a local venue'} in ${event.city}. Check Ticketmaster for current ticket availability and event details.`,
+      guidePath: matchedAuthorityGuide ?? `/events?start=${event.startDate}&end=${event.startDate}`,
       startDate: event.startDate, startTime: event.startTime, city: event.city, region, category,
-      venueName: event.venue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
+      venueName: displayedVenue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
       officialEventUrl: event.officialUrl, status: 'scheduled', lastVerifiedAt: fetchedAt, lastUpdatedAt: fetchedAt,
       sourceName: 'Ticketmaster',
-      ticketing: { offers: [], links: [{ provider: 'ticketmaster', officialTicketUrl: event.officialUrl,
+      ticketing: { offers: [], links: [{ provider: new URL(event.officialUrl).hostname.toLowerCase().replace(/^www\./, '') === 'ticketweb.com' ? 'ticketweb' : 'ticketmaster', officialTicketUrl: event.officialUrl,
         affiliateUrl: event.affiliateUrl, saleStatus, lastVerifiedAt: fetchedAt,
         source: { kind: 'provider', name: 'Ticketmaster', url: event.officialUrl },
         affiliateExpiresAt: new Date(Date.parse(fetchedAt) + 48 * 3600000).toISOString(),

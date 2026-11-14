@@ -4,7 +4,7 @@ import { lazy, Suspense } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { getFishSpeciesDirectoryData } from "@/data/fishing/species-directory-data.functions";
-import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
+import { FISHING_SPECIES_DIRECTORY_PATH, FISHING_SPECIES_DIRECTORY_EDITORIAL_UPDATED_AT } from "@/data/fishing/species-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishSpeciesDirectory = lazy(() => import("@/components/fishing/FishSpeciesDirectory").then((module) => ({ default: module.FishSpeciesDirectory })));
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/fishing/species")({
     const url = `${siteUrl}${canonicalPath}`;
     const rows = loaderData?.groups.flatMap((group) => group.species) ?? [];
     const itemList = rows.map((row, index) => ({ "@type": "ListItem", position: index + 1, name: row.commonName, url: `${siteUrl}${fishingFoundationAnchor("species", row.slug)}` }));
-    const webPage = { "@type": "CollectionPage", "@id": url, url, name: "Texas Freshwater Fish Species", description: "Browse Texas fishing species, verified lake relationships and complete statewide guides as they publish.", isPartOf: { "@id": `${siteUrl}/#website` }, dateModified: loaderData?.verifiedAt, mainEntity: { "@type": "ItemList", numberOfItems: rows.length, itemListElement: itemList } };
+    const webPage = { "@type": "CollectionPage", "@id": url, url, name: "Texas Freshwater Fish Species", description: "Browse Texas fishing species, verified lake relationships and complete statewide guides as they publish.", isPartOf: { "@id": `${siteUrl}/#website` }, dateModified: FISHING_SPECIES_DIRECTORY_EDITORIAL_UPDATED_AT, mainEntity: { "@type": "ItemList", numberOfItems: rows.length, itemListElement: itemList } };
     const faq = { "@type": "FAQPage", "@id": `${url}#answers`, mainEntity: [
       { "@type": "Question", name: "How many fish records are in the TexasDefined species directory?", acceptedAnswer: { "@type": "Answer", text: `TexasDefined currently publishes ${loaderData?.totalSpecies ?? 0} freshwater fish species or practical fishing-group records in this directory.` } },
       { "@type": "Question", name: "How many fish have complete standalone species guides?", acceptedAnswer: { "@type": "Answer", text: `Currently ${loaderData?.completeSpeciesGuides ?? 0} species clears the complete statewide-guide standard. Other records remain directory profiles instead of becoming thin standalone pages.` } },

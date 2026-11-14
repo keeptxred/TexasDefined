@@ -6,7 +6,7 @@ import { FISHING_LAKE_COMPARE_PATH } from "@/data/fishing/planner-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Compare complete Texas fishing lake guides by verified fishery strengths, geography, current reports and verified local coverage.";
+const description = "Compare Texas fishing lakes by source-backed fishery grades, seasonal opportunities, documented access, official conditions, safety advisories and detailed lake guides.";
 type CompareSearch = { lake1?: string; lake2?: string; lake3?: string };
 
 export const Route = createFileRoute("/fishing/compare")({

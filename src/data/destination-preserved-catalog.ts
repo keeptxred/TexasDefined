@@ -1,5 +1,6 @@
 import { bigThicketNationalPreserveAuthority } from "./big-thicket-national-preserve-authority";
 import { blackwellSchoolNationalHistoricSite } from "./blackwell-school-national-historic-site";
+import { fortLeatonHistoricSiteAuthority } from "./fort-leaton-historic-site-authority";
 import { esteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
 import { rayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
@@ -35,6 +36,7 @@ import { hotelPasoDelNorteAuthorityDestination } from "./hotel-paso-del-norte-au
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
+import { medalOfHonorHostCityMuseumDestinations } from "./medal-of-honor-host-city-museum";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
@@ -100,6 +102,7 @@ import { statewideMuseumExpansionWave49Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave50Destinations } from "./museum-expansion-statewide-wave50";
 import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-statewide-wave51";
 import { youngCountyMuseumAuthorityDestinations } from "./young-county-museum-authority-destination";
+import { yoakumHeritageMuseumDestinations } from "./yoakum-heritage-museum-authority-destination";
 import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
 import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
 import { nacogdochesDowntownHistoricDistrictDestinations } from "./nacogdoches-downtown-historic-district-destination";
@@ -148,6 +151,7 @@ import { wildlifeManagementAreaWave7Destinations } from "./wildlife-management-a
 import { wildlifeManagementAreaWave8Destinations } from "./wildlife-management-area-destinations-wave8";
 import { wildlifeManagementAreaWave9Destinations } from "./wildlife-management-area-destinations-wave9";
 import type { Destination } from "./types";
+import { indianLodgeAuthorityDestination } from "./indian-lodge-authority-destination";
 
 const newBraunfelsSeasonalFallback: Destination = {
   id: "preserved-new-braunfels",
@@ -238,6 +242,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  [fortLeatonHistoricSiteAuthority],
   [blackwellSchoolNationalHistoricSite],
   [bigThicketNationalPreserveAuthority],
   olivewoodCemeteryDestinations,
@@ -275,6 +280,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   hidalgoPumphouseAuthorityDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
+  medalOfHonorHostCityMuseumDestinations,
   houstonGalvestonMuseumDestinations,
   hoggLegacyDestinations,
   dfwMuseumDestinations,
@@ -340,6 +346,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave50Destinations,
   statewideMuseumExpansionWave51Destinations,
   youngCountyMuseumAuthorityDestinations,
+  yoakumHeritageMuseumDestinations,
   nacogdochesSanAugustineAuthorityDestinations,
   nacogdochesSanAugustineForestDestinations,
   nacogdochesDowntownHistoricDistrictDestinations,
@@ -386,4 +393,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
+  [indianLodgeAuthorityDestination],
 ).map(enrichMuseumMedia).map(enrichSanAntonioHeritageAuthority);

@@ -1,0 +1,2041 @@
+{
+  "vintage": 2025,
+  "asOf": "2025-07-01",
+  "sourceUrl": "https://www.census.gov/data/datasets/time-series/demo/popest/2020s-counties-total.html",
+  "sourceFileUrl": "https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/counties/totals/co-est2025-alldata.csv",
+  "rows": [
+    {
+      "fips": "48001",
+      "countyName": "Anderson County",
+      "populationBase2020": 57922,
+      "populationEstimate": 59805,
+      "populationChange": 1883,
+      "populationChangePercent": 3.2509236559511066
+    },
+    {
+      "fips": "48003",
+      "countyName": "Andrews County",
+      "populationBase2020": 18611,
+      "populationEstimate": 18914,
+      "populationChange": 303,
+      "populationChangePercent": 1.628069421309978
+    },
+    {
+      "fips": "48005",
+      "countyName": "Angelina County",
+      "populationBase2020": 86511,
+      "populationEstimate": 88154,
+      "populationChange": 1643,
+      "populationChangePercent": 1.899180451040908
+    },
+    {
+      "fips": "48007",
+      "countyName": "Aransas County",
+      "populationBase2020": 23828,
+      "populationEstimate": 26146,
+      "populationChange": 2318,
+      "populationChangePercent": 9.72805103239886
+    },
+    {
+      "fips": "48009",
+      "countyName": "Archer County",
+      "populationBase2020": 8552,
+      "populationEstimate": 9129,
+      "populationChange": 577,
+      "populationChangePercent": 6.746959775491113
+    },
+    {
+      "fips": "48011",
+      "countyName": "Armstrong County",
+      "populationBase2020": 1847,
+      "populationEstimate": 1843,
+      "populationChange": -4,
+      "populationChangePercent": -0.2165674066053059
+    },
+    {
+      "fips": "48013",
+      "countyName": "Atascosa County",
+      "populationBase2020": 49137,
+      "populationEstimate": 53590,
+      "populationChange": 4453,
+      "populationChangePercent": 9.062417322994893
+    },
+    {
+      "fips": "48015",
+      "countyName": "Austin County",
+      "populationBase2020": 30168,
+      "populationEstimate": 33625,
+      "populationChange": 3457,
+      "populationChangePercent": 11.459162025987801
+    },
+    {
+      "fips": "48017",
+      "countyName": "Bailey County",
+      "populationBase2020": 6905,
+      "populationEstimate": 6963,
+      "populationChange": 58,
+      "populationChangePercent": 0.8399710354815352
+    },
+    {
+      "fips": "48019",
+      "countyName": "Bandera County",
+      "populationBase2020": 20836,
+      "populationEstimate": 22876,
+      "populationChange": 2040,
+      "populationChangePercent": 9.790746784411596
+    },
+    {
+      "fips": "48021",
+      "countyName": "Bastrop County",
+      "populationBase2020": 97229,
+      "populationEstimate": 118908,
+      "populationChange": 21679,
+      "populationChangePercent": 22.296845591335916
+    },
+    {
+      "fips": "48023",
+      "countyName": "Baylor County",
+      "populationBase2020": 3465,
+      "populationEstimate": 3472,
+      "populationChange": 7,
+      "populationChangePercent": 0.20202020202020202
+    },
+    {
+      "fips": "48025",
+      "countyName": "Bee County",
+      "populationBase2020": 31055,
+      "populationEstimate": 32515,
+      "populationChange": 1460,
+      "populationChangePercent": 4.701336338753824
+    },
+    {
+      "fips": "48027",
+      "countyName": "Bell County",
+      "populationBase2020": 370790,
+      "populationEstimate": 402248,
+      "populationChange": 31458,
+      "populationChangePercent": 8.484047574098547
+    },
+    {
+      "fips": "48029",
+      "countyName": "Bexar County",
+      "populationBase2020": 2009323,
+      "populationEstimate": 2160088,
+      "populationChange": 150765,
+      "populationChangePercent": 7.503273490623459
+    },
+    {
+      "fips": "48031",
+      "countyName": "Blanco County",
+      "populationBase2020": 11378,
+      "populationEstimate": 13581,
+      "populationChange": 2203,
+      "populationChangePercent": 19.361926524872562
+    },
+    {
+      "fips": "48033",
+      "countyName": "Borden County",
+      "populationBase2020": 629,
+      "populationEstimate": 567,
+      "populationChange": -62,
+      "populationChangePercent": -9.85691573926868
+    },
+    {
+      "fips": "48035",
+      "countyName": "Bosque County",
+      "populationBase2020": 18232,
+      "populationEstimate": 18918,
+      "populationChange": 686,
+      "populationChangePercent": 3.762615182097411
+    },
+    {
+      "fips": "48037",
+      "countyName": "Bowie County",
+      "populationBase2020": 92894,
+      "populationEstimate": 92696,
+      "populationChange": -198,
+      "populationChangePercent": -0.2131461665984886
+    },
+    {
+      "fips": "48039",
+      "countyName": "Brazoria County",
+      "populationBase2020": 372046,
+      "populationEstimate": 419080,
+      "populationChange": 47034,
+      "populationChangePercent": 12.641985130870914
+    },
+    {
+      "fips": "48041",
+      "countyName": "Brazos County",
+      "populationBase2020": 233840,
+      "populationEstimate": 249088,
+      "populationChange": 15248,
+      "populationChangePercent": 6.5206979131029765
+    },
+    {
+      "fips": "48043",
+      "countyName": "Brewster County",
+      "populationBase2020": 9544,
+      "populationEstimate": 9458,
+      "populationChange": -86,
+      "populationChangePercent": -0.901089689857502
+    },
+    {
+      "fips": "48045",
+      "countyName": "Briscoe County",
+      "populationBase2020": 1436,
+      "populationEstimate": 1474,
+      "populationChange": 38,
+      "populationChangePercent": 2.6462395543175488
+    },
+    {
+      "fips": "48047",
+      "countyName": "Brooks County",
+      "populationBase2020": 7126,
+      "populationEstimate": 6579,
+      "populationChange": -547,
+      "populationChangePercent": -7.676115632893629
+    },
+    {
+      "fips": "48049",
+      "countyName": "Brown County",
+      "populationBase2020": 38106,
+      "populationEstimate": 38711,
+      "populationChange": 605,
+      "populationChangePercent": 1.5876764813940063
+    },
+    {
+      "fips": "48051",
+      "countyName": "Burleson County",
+      "populationBase2020": 17639,
+      "populationEstimate": 20549,
+      "populationChange": 2910,
+      "populationChangePercent": 16.497533873802368
+    },
+    {
+      "fips": "48053",
+      "countyName": "Burnet County",
+      "populationBase2020": 49125,
+      "populationEstimate": 57015,
+      "populationChange": 7890,
+      "populationChangePercent": 16.061068702290076
+    },
+    {
+      "fips": "48055",
+      "countyName": "Caldwell County",
+      "populationBase2020": 45882,
+      "populationEstimate": 55150,
+      "populationChange": 9268,
+      "populationChangePercent": 20.199642561353038
+    },
+    {
+      "fips": "48057",
+      "countyName": "Calhoun County",
+      "populationBase2020": 20104,
+      "populationEstimate": 19599,
+      "populationChange": -505,
+      "populationChangePercent": -2.5119379228014327
+    },
+    {
+      "fips": "48059",
+      "countyName": "Callahan County",
+      "populationBase2020": 13706,
+      "populationEstimate": 14491,
+      "populationChange": 785,
+      "populationChangePercent": 5.727418648766963
+    },
+    {
+      "fips": "48061",
+      "countyName": "Cameron County",
+      "populationBase2020": 421127,
+      "populationEstimate": 433946,
+      "populationChange": 12819,
+      "populationChangePercent": 3.043974857940716
+    },
+    {
+      "fips": "48063",
+      "countyName": "Camp County",
+      "populationBase2020": 12464,
+      "populationEstimate": 13380,
+      "populationChange": 916,
+      "populationChangePercent": 7.349165596919127
+    },
+    {
+      "fips": "48065",
+      "countyName": "Carson County",
+      "populationBase2020": 5799,
+      "populationEstimate": 5805,
+      "populationChange": 6,
+      "populationChangePercent": 0.10346611484738748
+    },
+    {
+      "fips": "48067",
+      "countyName": "Cass County",
+      "populationBase2020": 28449,
+      "populationEstimate": 28651,
+      "populationChange": 202,
+      "populationChangePercent": 0.7100425322506942
+    },
+    {
+      "fips": "48069",
+      "countyName": "Castro County",
+      "populationBase2020": 7363,
+      "populationEstimate": 7295,
+      "populationChange": -68,
+      "populationChangePercent": -0.9235366019285617
+    },
+    {
+      "fips": "48071",
+      "countyName": "Chambers County",
+      "populationBase2020": 46539,
+      "populationEstimate": 57594,
+      "populationChange": 11055,
+      "populationChangePercent": 23.75427061174499
+    },
+    {
+      "fips": "48073",
+      "countyName": "Cherokee County",
+      "populationBase2020": 50543,
+      "populationEstimate": 53337,
+      "populationChange": 2794,
+      "populationChangePercent": 5.5279662861325995
+    },
+    {
+      "fips": "48075",
+      "countyName": "Childress County",
+      "populationBase2020": 6666,
+      "populationEstimate": 6643,
+      "populationChange": -23,
+      "populationChangePercent": -0.34503450345034503
+    },
+    {
+      "fips": "48077",
+      "countyName": "Clay County",
+      "populationBase2020": 10217,
+      "populationEstimate": 10764,
+      "populationChange": 547,
+      "populationChangePercent": 5.3538220612704315
+    },
+    {
+      "fips": "48079",
+      "countyName": "Cochran County",
+      "populationBase2020": 2545,
+      "populationEstimate": 2546,
+      "populationChange": 1,
+      "populationChangePercent": 0.03929273084479371
+    },
+    {
+      "fips": "48081",
+      "countyName": "Coke County",
+      "populationBase2020": 3306,
+      "populationEstimate": 3412,
+      "populationChange": 106,
+      "populationChangePercent": 3.2062915910465817
+    },
+    {
+      "fips": "48083",
+      "countyName": "Coleman County",
+      "populationBase2020": 7686,
+      "populationEstimate": 7915,
+      "populationChange": 229,
+      "populationChangePercent": 2.9794431433775697
+    },
+    {
+      "fips": "48085",
+      "countyName": "Collin County",
+      "populationBase2020": 1066201,
+      "populationEstimate": 1297179,
+      "populationChange": 230978,
+      "populationChangePercent": 21.663645035035607
+    },
+    {
+      "fips": "48087",
+      "countyName": "Collingsworth County",
+      "populationBase2020": 2652,
+      "populationEstimate": 2487,
+      "populationChange": -165,
+      "populationChangePercent": -6.221719457013575
+    },
+    {
+      "fips": "48089",
+      "countyName": "Colorado County",
+      "populationBase2020": 20637,
+      "populationEstimate": 21439,
+      "populationChange": 802,
+      "populationChangePercent": 3.886223772835199
+    },
+    {
+      "fips": "48091",
+      "countyName": "Comal County",
+      "populationBase2020": 161449,
+      "populationEstimate": 209166,
+      "populationChange": 47717,
+      "populationChangePercent": 29.555463335170856
+    },
+    {
+      "fips": "48093",
+      "countyName": "Comanche County",
+      "populationBase2020": 13597,
+      "populationEstimate": 14432,
+      "populationChange": 835,
+      "populationChangePercent": 6.141060528057659
+    },
+    {
+      "fips": "48095",
+      "countyName": "Concho County",
+      "populationBase2020": 3302,
+      "populationEstimate": 3607,
+      "populationChange": 305,
+      "populationChangePercent": 9.236826165960025
+    },
+    {
+      "fips": "48097",
+      "countyName": "Cooke County",
+      "populationBase2020": 41674,
+      "populationEstimate": 44461,
+      "populationChange": 2787,
+      "populationChangePercent": 6.687622978355809
+    },
+    {
+      "fips": "48099",
+      "countyName": "Coryell County",
+      "populationBase2020": 83092,
+      "populationEstimate": 85592,
+      "populationChange": 2500,
+      "populationChangePercent": 3.0087132335242863
+    },
+    {
+      "fips": "48101",
+      "countyName": "Cottle County",
+      "populationBase2020": 1379,
+      "populationEstimate": 1224,
+      "populationChange": -155,
+      "populationChangePercent": -11.240029006526468
+    },
+    {
+      "fips": "48103",
+      "countyName": "Crane County",
+      "populationBase2020": 4673,
+      "populationEstimate": 4554,
+      "populationChange": -119,
+      "populationChangePercent": -2.5465439760325275
+    },
+    {
+      "fips": "48105",
+      "countyName": "Crockett County",
+      "populationBase2020": 3098,
+      "populationEstimate": 2769,
+      "populationChange": -329,
+      "populationChangePercent": -10.619754680438993
+    },
+    {
+      "fips": "48107",
+      "countyName": "Crosby County",
+      "populationBase2020": 5128,
+      "populationEstimate": 4852,
+      "populationChange": -276,
+      "populationChangePercent": -5.382215288611544
+    },
+    {
+      "fips": "48109",
+      "countyName": "Culberson County",
+      "populationBase2020": 2186,
+      "populationEstimate": 2267,
+      "populationChange": 81,
+      "populationChangePercent": 3.705397987191217
+    },
+    {
+      "fips": "48111",
+      "countyName": "Dallam County",
+      "populationBase2020": 7135,
+      "populationEstimate": 7508,
+      "populationChange": 373,
+      "populationChangePercent": 5.227750525578136
+    },
+    {
+      "fips": "48113",
+      "countyName": "Dallas County",
+      "populationBase2020": 2612087,
+      "populationEstimate": 2661397,
+      "populationChange": 49310,
+      "populationChangePercent": 1.8877625438968915
+    },
+    {
+      "fips": "48115",
+      "countyName": "Dawson County",
+      "populationBase2020": 12461,
+      "populationEstimate": 11776,
+      "populationChange": -685,
+      "populationChangePercent": -5.49715111146778
+    },
+    {
+      "fips": "48117",
+      "countyName": "Deaf Smith County",
+      "populationBase2020": 18592,
+      "populationEstimate": 18626,
+      "populationChange": 34,
+      "populationChangePercent": 0.18287435456110154
+    },
+    {
+      "fips": "48119",
+      "countyName": "Delta County",
+      "populationBase2020": 5224,
+      "populationEstimate": 5549,
+      "populationChange": 325,
+      "populationChangePercent": 6.221286370597244
+    },
+    {
+      "fips": "48121",
+      "countyName": "Denton County",
+      "populationBase2020": 906530,
+      "populationEstimate": 1069346,
+      "populationChange": 162816,
+      "populationChangePercent": 17.960354318114128
+    },
+    {
+      "fips": "48123",
+      "countyName": "DeWitt County",
+      "populationBase2020": 19829,
+      "populationEstimate": 20309,
+      "populationChange": 480,
+      "populationChangePercent": 2.420696958999445
+    },
+    {
+      "fips": "48125",
+      "countyName": "Dickens County",
+      "populationBase2020": 1769,
+      "populationEstimate": 1692,
+      "populationChange": -77,
+      "populationChangePercent": -4.352741661955907
+    },
+    {
+      "fips": "48127",
+      "countyName": "Dimmit County",
+      "populationBase2020": 8615,
+      "populationEstimate": 8024,
+      "populationChange": -591,
+      "populationChangePercent": -6.860127684271619
+    },
+    {
+      "fips": "48129",
+      "countyName": "Donley County",
+      "populationBase2020": 3258,
+      "populationEstimate": 3213,
+      "populationChange": -45,
+      "populationChangePercent": -1.3812154696132597
+    },
+    {
+      "fips": "48131",
+      "countyName": "Duval County",
+      "populationBase2020": 9830,
+      "populationEstimate": 9402,
+      "populationChange": -428,
+      "populationChangePercent": -4.354018311291964
+    },
+    {
+      "fips": "48133",
+      "countyName": "Eastland County",
+      "populationBase2020": 17754,
+      "populationEstimate": 18143,
+      "populationChange": 389,
+      "populationChangePercent": 2.1910555367804436
+    },
+    {
+      "fips": "48135",
+      "countyName": "Ector County",
+      "populationBase2020": 165177,
+      "populationEstimate": 173801,
+      "populationChange": 8624,
+      "populationChangePercent": 5.221065886897086
+    },
+    {
+      "fips": "48137",
+      "countyName": "Edwards County",
+      "populationBase2020": 1424,
+      "populationEstimate": 1370,
+      "populationChange": -54,
+      "populationChangePercent": -3.7921348314606744
+    },
+    {
+      "fips": "48139",
+      "countyName": "Ellis County",
+      "populationBase2020": 192460,
+      "populationEstimate": 240867,
+      "populationChange": 48407,
+      "populationChangePercent": 25.151719837888393
+    },
+    {
+      "fips": "48141",
+      "countyName": "El Paso County",
+      "populationBase2020": 865715,
+      "populationEstimate": 877858,
+      "populationChange": 12143,
+      "populationChangePercent": 1.40265560836996
+    },
+    {
+      "fips": "48143",
+      "countyName": "Erath County",
+      "populationBase2020": 42545,
+      "populationEstimate": 43911,
+      "populationChange": 1366,
+      "populationChangePercent": 3.2107180632271715
+    },
+    {
+      "fips": "48145",
+      "countyName": "Falls County",
+      "populationBase2020": 16966,
+      "populationEstimate": 17869,
+      "populationChange": 903,
+      "populationChangePercent": 5.322409524932217
+    },
+    {
+      "fips": "48147",
+      "countyName": "Fannin County",
+      "populationBase2020": 35836,
+      "populationEstimate": 39265,
+      "populationChange": 3429,
+      "populationChangePercent": 9.568590244446924
+    },
+    {
+      "fips": "48149",
+      "countyName": "Fayette County",
+      "populationBase2020": 24473,
+      "populationEstimate": 25459,
+      "populationChange": 986,
+      "populationChangePercent": 4.02892984104932
+    },
+    {
+      "fips": "48151",
+      "countyName": "Fisher County",
+      "populationBase2020": 3673,
+      "populationEstimate": 3692,
+      "populationChange": 19,
+      "populationChangePercent": 0.5172883201742444
+    },
+    {
+      "fips": "48153",
+      "countyName": "Floyd County",
+      "populationBase2020": 5397,
+      "populationEstimate": 4881,
+      "populationChange": -516,
+      "populationChangePercent": -9.560867148415786
+    },
+    {
+      "fips": "48155",
+      "countyName": "Foard County",
+      "populationBase2020": 1097,
+      "populationEstimate": 1044,
+      "populationChange": -53,
+      "populationChangePercent": -4.831358249772106
+    },
+    {
+      "fips": "48157",
+      "countyName": "Fort Bend County",
+      "populationBase2020": 823997,
+      "populationEstimate": 975191,
+      "populationChange": 151194,
+      "populationChangePercent": 18.34885321184422
+    },
+    {
+      "fips": "48159",
+      "countyName": "Franklin County",
+      "populationBase2020": 10357,
+      "populationEstimate": 10994,
+      "populationChange": 637,
+      "populationChangePercent": 6.150429661098774
+    },
+    {
+      "fips": "48161",
+      "countyName": "Freestone County",
+      "populationBase2020": 19439,
+      "populationEstimate": 20811,
+      "populationChange": 1372,
+      "populationChangePercent": 7.057976233345337
+    },
+    {
+      "fips": "48163",
+      "countyName": "Frio County",
+      "populationBase2020": 18391,
+      "populationEstimate": 18823,
+      "populationChange": 432,
+      "populationChangePercent": 2.348975042140177
+    },
+    {
+      "fips": "48165",
+      "countyName": "Gaines County",
+      "populationBase2020": 21599,
+      "populationEstimate": 23956,
+      "populationChange": 2357,
+      "populationChangePercent": 10.912542247326265
+    },
+    {
+      "fips": "48167",
+      "countyName": "Galveston County",
+      "populationBase2020": 350682,
+      "populationEstimate": 372207,
+      "populationChange": 21525,
+      "populationChangePercent": 6.13803959142471
+    },
+    {
+      "fips": "48169",
+      "countyName": "Garza County",
+      "populationBase2020": 5815,
+      "populationEstimate": 4510,
+      "populationChange": -1305,
+      "populationChangePercent": -22.44196044711952
+    },
+    {
+      "fips": "48171",
+      "countyName": "Gillespie County",
+      "populationBase2020": 26746,
+      "populationEstimate": 28527,
+      "populationChange": 1781,
+      "populationChangePercent": 6.658939654527781
+    },
+    {
+      "fips": "48173",
+      "countyName": "Glasscock County",
+      "populationBase2020": 1115,
+      "populationEstimate": 1128,
+      "populationChange": 13,
+      "populationChangePercent": 1.1659192825112108
+    },
+    {
+      "fips": "48175",
+      "countyName": "Goliad County",
+      "populationBase2020": 7017,
+      "populationEstimate": 7208,
+      "populationChange": 191,
+      "populationChangePercent": 2.7219609519737777
+    },
+    {
+      "fips": "48177",
+      "countyName": "Gonzales County",
+      "populationBase2020": 19648,
+      "populationEstimate": 20159,
+      "populationChange": 511,
+      "populationChangePercent": 2.600773615635179
+    },
+    {
+      "fips": "48179",
+      "countyName": "Gray County",
+      "populationBase2020": 21226,
+      "populationEstimate": 20919,
+      "populationChange": -307,
+      "populationChangePercent": -1.4463393950815038
+    },
+    {
+      "fips": "48181",
+      "countyName": "Grayson County",
+      "populationBase2020": 135601,
+      "populationEstimate": 153613,
+      "populationChange": 18012,
+      "populationChangePercent": 13.283087882832723
+    },
+    {
+      "fips": "48183",
+      "countyName": "Gregg County",
+      "populationBase2020": 124300,
+      "populationEstimate": 126095,
+      "populationChange": 1795,
+      "populationChangePercent": 1.4440868865647627
+    },
+    {
+      "fips": "48185",
+      "countyName": "Grimes County",
+      "populationBase2020": 29304,
+      "populationEstimate": 34252,
+      "populationChange": 4948,
+      "populationChangePercent": 16.885066885066884
+    },
+    {
+      "fips": "48187",
+      "countyName": "Guadalupe County",
+      "populationBase2020": 172729,
+      "populationEstimate": 201111,
+      "populationChange": 28382,
+      "populationChangePercent": 16.431519895327362
+    },
+    {
+      "fips": "48189",
+      "countyName": "Hale County",
+      "populationBase2020": 32523,
+      "populationEstimate": 31819,
+      "populationChange": -704,
+      "populationChangePercent": -2.164621959843803
+    },
+    {
+      "fips": "48191",
+      "countyName": "Hall County",
+      "populationBase2020": 2825,
+      "populationEstimate": 2737,
+      "populationChange": -88,
+      "populationChangePercent": -3.1150442477876106
+    },
+    {
+      "fips": "48193",
+      "countyName": "Hamilton County",
+      "populationBase2020": 8224,
+      "populationEstimate": 8680,
+      "populationChange": 456,
+      "populationChangePercent": 5.544747081712062
+    },
+    {
+      "fips": "48195",
+      "countyName": "Hansford County",
+      "populationBase2020": 5275,
+      "populationEstimate": 4944,
+      "populationChange": -331,
+      "populationChangePercent": -6.274881516587678
+    },
+    {
+      "fips": "48197",
+      "countyName": "Hardeman County",
+      "populationBase2020": 3548,
+      "populationEstimate": 3292,
+      "populationChange": -256,
+      "populationChangePercent": -7.215332581736189
+    },
+    {
+      "fips": "48199",
+      "countyName": "Hardin County",
+      "populationBase2020": 56245,
+      "populationEstimate": 58723,
+      "populationChange": 2478,
+      "populationChangePercent": 4.405724953329185
+    },
+    {
+      "fips": "48201",
+      "countyName": "Harris County",
+      "populationBase2020": 4730408,
+      "populationEstimate": 5045026,
+      "populationChange": 314618,
+      "populationChangePercent": 6.6509696415192945
+    },
+    {
+      "fips": "48203",
+      "countyName": "Harrison County",
+      "populationBase2020": 68830,
+      "populationEstimate": 71956,
+      "populationChange": 3126,
+      "populationChangePercent": 4.541624291733256
+    },
+    {
+      "fips": "48205",
+      "countyName": "Hartley County",
+      "populationBase2020": 5363,
+      "populationEstimate": 4904,
+      "populationChange": -459,
+      "populationChangePercent": -8.558642550811113
+    },
+    {
+      "fips": "48207",
+      "countyName": "Haskell County",
+      "populationBase2020": 5420,
+      "populationEstimate": 5499,
+      "populationChange": 79,
+      "populationChangePercent": 1.4575645756457565
+    },
+    {
+      "fips": "48209",
+      "countyName": "Hays County",
+      "populationBase2020": 241064,
+      "populationEstimate": 304390,
+      "populationChange": 63326,
+      "populationChangePercent": 26.269372448810273
+    },
+    {
+      "fips": "48211",
+      "countyName": "Hemphill County",
+      "populationBase2020": 3385,
+      "populationEstimate": 3083,
+      "populationChange": -302,
+      "populationChangePercent": -8.921713441654358
+    },
+    {
+      "fips": "48213",
+      "countyName": "Henderson County",
+      "populationBase2020": 82151,
+      "populationEstimate": 88595,
+      "populationChange": 6444,
+      "populationChangePercent": 7.844091976969239
+    },
+    {
+      "fips": "48215",
+      "countyName": "Hidalgo County",
+      "populationBase2020": 870788,
+      "populationEstimate": 921549,
+      "populationChange": 50761,
+      "populationChangePercent": 5.829317813290951
+    },
+    {
+      "fips": "48217",
+      "countyName": "Hill County",
+      "populationBase2020": 35868,
+      "populationEstimate": 39503,
+      "populationChange": 3635,
+      "populationChangePercent": 10.13438162150106
+    },
+    {
+      "fips": "48219",
+      "countyName": "Hockley County",
+      "populationBase2020": 21523,
+      "populationEstimate": 21600,
+      "populationChange": 77,
+      "populationChangePercent": 0.35775681828741346
+    },
+    {
+      "fips": "48221",
+      "countyName": "Hood County",
+      "populationBase2020": 61592,
+      "populationEstimate": 70501,
+      "populationChange": 8909,
+      "populationChangePercent": 14.464540849460969
+    },
+    {
+      "fips": "48223",
+      "countyName": "Hopkins County",
+      "populationBase2020": 36797,
+      "populationEstimate": 39063,
+      "populationChange": 2266,
+      "populationChangePercent": 6.158110715547463
+    },
+    {
+      "fips": "48225",
+      "countyName": "Houston County",
+      "populationBase2020": 22081,
+      "populationEstimate": 22316,
+      "populationChange": 235,
+      "populationChangePercent": 1.0642633938680313
+    },
+    {
+      "fips": "48227",
+      "countyName": "Howard County",
+      "populationBase2020": 34860,
+      "populationEstimate": 30504,
+      "populationChange": -4356,
+      "populationChangePercent": -12.495697074010327
+    },
+    {
+      "fips": "48229",
+      "countyName": "Hudspeth County",
+      "populationBase2020": 3200,
+      "populationEstimate": 3433,
+      "populationChange": 233,
+      "populationChangePercent": 7.28125
+    },
+    {
+      "fips": "48231",
+      "countyName": "Hunt County",
+      "populationBase2020": 99959,
+      "populationEstimate": 123336,
+      "populationChange": 23377,
+      "populationChangePercent": 23.386588501285527
+    },
+    {
+      "fips": "48233",
+      "countyName": "Hutchinson County",
+      "populationBase2020": 20611,
+      "populationEstimate": 19633,
+      "populationChange": -978,
+      "populationChangePercent": -4.745039056814322
+    },
+    {
+      "fips": "48235",
+      "countyName": "Irion County",
+      "populationBase2020": 1508,
+      "populationEstimate": 1463,
+      "populationChange": -45,
+      "populationChangePercent": -2.9840848806366047
+    },
+    {
+      "fips": "48237",
+      "countyName": "Jack County",
+      "populationBase2020": 8471,
+      "populationEstimate": 9563,
+      "populationChange": 1092,
+      "populationChangePercent": 12.89104001888797
+    },
+    {
+      "fips": "48239",
+      "countyName": "Jackson County",
+      "populationBase2020": 14991,
+      "populationEstimate": 15393,
+      "populationChange": 402,
+      "populationChangePercent": 2.6816089653792274
+    },
+    {
+      "fips": "48241",
+      "countyName": "Jasper County",
+      "populationBase2020": 32978,
+      "populationEstimate": 33075,
+      "populationChange": 97,
+      "populationChangePercent": 0.29413548426223546
+    },
+    {
+      "fips": "48243",
+      "countyName": "Jeff Davis County",
+      "populationBase2020": 1999,
+      "populationEstimate": 1711,
+      "populationChange": -288,
+      "populationChangePercent": -14.4072036018009
+    },
+    {
+      "fips": "48245",
+      "countyName": "Jefferson County",
+      "populationBase2020": 256538,
+      "populationEstimate": 254321,
+      "populationChange": -2217,
+      "populationChangePercent": -0.864199455831105
+    },
+    {
+      "fips": "48247",
+      "countyName": "Jim Hogg County",
+      "populationBase2020": 4834,
+      "populationEstimate": 4555,
+      "populationChange": -279,
+      "populationChangePercent": -5.771617707902358
+    },
+    {
+      "fips": "48249",
+      "countyName": "Jim Wells County",
+      "populationBase2020": 38902,
+      "populationEstimate": 38804,
+      "populationChange": -98,
+      "populationChangePercent": -0.25191506863400337
+    },
+    {
+      "fips": "48251",
+      "countyName": "Johnson County",
+      "populationBase2020": 180009,
+      "populationEstimate": 218048,
+      "populationChange": 38039,
+      "populationChangePercent": 21.131721191718192
+    },
+    {
+      "fips": "48253",
+      "countyName": "Jones County",
+      "populationBase2020": 19655,
+      "populationEstimate": 20861,
+      "populationChange": 1206,
+      "populationChangePercent": 6.135843296871025
+    },
+    {
+      "fips": "48255",
+      "countyName": "Karnes County",
+      "populationBase2020": 14773,
+      "populationEstimate": 15018,
+      "populationChange": 245,
+      "populationChangePercent": 1.6584309212752995
+    },
+    {
+      "fips": "48257",
+      "countyName": "Kaufman County",
+      "populationBase2020": 145337,
+      "populationEstimate": 209235,
+      "populationChange": 63898,
+      "populationChangePercent": 43.96540454254595
+    },
+    {
+      "fips": "48259",
+      "countyName": "Kendall County",
+      "populationBase2020": 44301,
+      "populationEstimate": 53289,
+      "populationChange": 8988,
+      "populationChangePercent": 20.28848107266202
+    },
+    {
+      "fips": "48261",
+      "countyName": "Kenedy County",
+      "populationBase2020": 350,
+      "populationEstimate": 319,
+      "populationChange": -31,
+      "populationChangePercent": -8.857142857142856
+    },
+    {
+      "fips": "48263",
+      "countyName": "Kent County",
+      "populationBase2020": 750,
+      "populationEstimate": 674,
+      "populationChange": -76,
+      "populationChangePercent": -10.133333333333333
+    },
+    {
+      "fips": "48265",
+      "countyName": "Kerr County",
+      "populationBase2020": 52595,
+      "populationEstimate": 54037,
+      "populationChange": 1442,
+      "populationChangePercent": 2.7417054853122917
+    },
+    {
+      "fips": "48267",
+      "countyName": "Kimble County",
+      "populationBase2020": 4283,
+      "populationEstimate": 4438,
+      "populationChange": 155,
+      "populationChangePercent": 3.6189586738267567
+    },
+    {
+      "fips": "48269",
+      "countyName": "King County",
+      "populationBase2020": 262,
+      "populationEstimate": 192,
+      "populationChange": -70,
+      "populationChangePercent": -26.717557251908396
+    },
+    {
+      "fips": "48271",
+      "countyName": "Kinney County",
+      "populationBase2020": 3133,
+      "populationEstimate": 3128,
+      "populationChange": -5,
+      "populationChangePercent": -0.15959144589849983
+    },
+    {
+      "fips": "48273",
+      "countyName": "Kleberg County",
+      "populationBase2020": 31043,
+      "populationEstimate": 30315,
+      "populationChange": -728,
+      "populationChangePercent": -2.345134168733692
+    },
+    {
+      "fips": "48275",
+      "countyName": "Knox County",
+      "populationBase2020": 3353,
+      "populationEstimate": 3192,
+      "populationChange": -161,
+      "populationChangePercent": -4.801670146137787
+    },
+    {
+      "fips": "48277",
+      "countyName": "Lamar County",
+      "populationBase2020": 50083,
+      "populationEstimate": 51503,
+      "populationChange": 1420,
+      "populationChangePercent": 2.835293412934529
+    },
+    {
+      "fips": "48279",
+      "countyName": "Lamb County",
+      "populationBase2020": 13041,
+      "populationEstimate": 12579,
+      "populationChange": -462,
+      "populationChangePercent": -3.542673107890499
+    },
+    {
+      "fips": "48281",
+      "countyName": "Lampasas County",
+      "populationBase2020": 21629,
+      "populationEstimate": 23657,
+      "populationChange": 2028,
+      "populationChangePercent": 9.376300337509825
+    },
+    {
+      "fips": "48283",
+      "countyName": "La Salle County",
+      "populationBase2020": 6657,
+      "populationEstimate": 6517,
+      "populationChange": -140,
+      "populationChangePercent": -2.1030494216614093
+    },
+    {
+      "fips": "48285",
+      "countyName": "Lavaca County",
+      "populationBase2020": 20340,
+      "populationEstimate": 20651,
+      "populationChange": 311,
+      "populationChangePercent": 1.5290068829891839
+    },
+    {
+      "fips": "48287",
+      "countyName": "Lee County",
+      "populationBase2020": 17480,
+      "populationEstimate": 18729,
+      "populationChange": 1249,
+      "populationChangePercent": 7.145308924485126
+    },
+    {
+      "fips": "48289",
+      "countyName": "Leon County",
+      "populationBase2020": 15762,
+      "populationEstimate": 16894,
+      "populationChange": 1132,
+      "populationChangePercent": 7.181829717040984
+    },
+    {
+      "fips": "48291",
+      "countyName": "Liberty County",
+      "populationBase2020": 91661,
+      "populationEstimate": 121364,
+      "populationChange": 29703,
+      "populationChangePercent": 32.40527596251405
+    },
+    {
+      "fips": "48293",
+      "countyName": "Limestone County",
+      "populationBase2020": 22148,
+      "populationEstimate": 22849,
+      "populationChange": 701,
+      "populationChangePercent": 3.1650713382698212
+    },
+    {
+      "fips": "48295",
+      "countyName": "Lipscomb County",
+      "populationBase2020": 3061,
+      "populationEstimate": 2955,
+      "populationChange": -106,
+      "populationChangePercent": -3.4629206141783735
+    },
+    {
+      "fips": "48297",
+      "countyName": "Live Oak County",
+      "populationBase2020": 11335,
+      "populationEstimate": 11929,
+      "populationChange": 594,
+      "populationChangePercent": 5.240405822673137
+    },
+    {
+      "fips": "48299",
+      "countyName": "Llano County",
+      "populationBase2020": 21282,
+      "populationEstimate": 23353,
+      "populationChange": 2071,
+      "populationChangePercent": 9.731228268019922
+    },
+    {
+      "fips": "48301",
+      "countyName": "Loving County",
+      "populationBase2020": 62,
+      "populationEstimate": 52,
+      "populationChange": -10,
+      "populationChangePercent": -16.129032258064516
+    },
+    {
+      "fips": "48303",
+      "countyName": "Lubbock County",
+      "populationBase2020": 310646,
+      "populationEstimate": 328906,
+      "populationChange": 18260,
+      "populationChangePercent": 5.878073434069648
+    },
+    {
+      "fips": "48305",
+      "countyName": "Lynn County",
+      "populationBase2020": 5593,
+      "populationEstimate": 6017,
+      "populationChange": 424,
+      "populationChangePercent": 7.580904702306454
+    },
+    {
+      "fips": "48307",
+      "countyName": "McCulloch County",
+      "populationBase2020": 7633,
+      "populationEstimate": 7472,
+      "populationChange": -161,
+      "populationChangePercent": -2.109262413205817
+    },
+    {
+      "fips": "48309",
+      "countyName": "McLennan County",
+      "populationBase2020": 260588,
+      "populationEstimate": 272020,
+      "populationChange": 11432,
+      "populationChangePercent": 4.38700170383901
+    },
+    {
+      "fips": "48311",
+      "countyName": "McMullen County",
+      "populationBase2020": 601,
+      "populationEstimate": 544,
+      "populationChange": -57,
+      "populationChangePercent": -9.484193011647255
+    },
+    {
+      "fips": "48313",
+      "countyName": "Madison County",
+      "populationBase2020": 13461,
+      "populationEstimate": 14226,
+      "populationChange": 765,
+      "populationChangePercent": 5.683084466235792
+    },
+    {
+      "fips": "48315",
+      "countyName": "Marion County",
+      "populationBase2020": 9842,
+      "populationEstimate": 9896,
+      "populationChange": 54,
+      "populationChangePercent": 0.5486689697216013
+    },
+    {
+      "fips": "48317",
+      "countyName": "Martin County",
+      "populationBase2020": 5246,
+      "populationEstimate": 5284,
+      "populationChange": 38,
+      "populationChangePercent": 0.7243614182234084
+    },
+    {
+      "fips": "48319",
+      "countyName": "Mason County",
+      "populationBase2020": 3953,
+      "populationEstimate": 3990,
+      "populationChange": 37,
+      "populationChangePercent": 0.9359979762205919
+    },
+    {
+      "fips": "48321",
+      "countyName": "Matagorda County",
+      "populationBase2020": 36254,
+      "populationEstimate": 36463,
+      "populationChange": 209,
+      "populationChangePercent": 0.5764881116566448
+    },
+    {
+      "fips": "48323",
+      "countyName": "Maverick County",
+      "populationBase2020": 57887,
+      "populationEstimate": 58823,
+      "populationChange": 936,
+      "populationChangePercent": 1.616943355157462
+    },
+    {
+      "fips": "48325",
+      "countyName": "Medina County",
+      "populationBase2020": 50861,
+      "populationEstimate": 56881,
+      "populationChange": 6020,
+      "populationChangePercent": 11.836180963803306
+    },
+    {
+      "fips": "48327",
+      "countyName": "Menard County",
+      "populationBase2020": 1962,
+      "populationEstimate": 1956,
+      "populationChange": -6,
+      "populationChangePercent": -0.3058103975535168
+    },
+    {
+      "fips": "48329",
+      "countyName": "Midland County",
+      "populationBase2020": 170341,
+      "populationEstimate": 187855,
+      "populationChange": 17514,
+      "populationChangePercent": 10.281729002412806
+    },
+    {
+      "fips": "48331",
+      "countyName": "Milam County",
+      "populationBase2020": 24753,
+      "populationEstimate": 26258,
+      "populationChange": 1505,
+      "populationChangePercent": 6.080071102492627
+    },
+    {
+      "fips": "48333",
+      "countyName": "Mills County",
+      "populationBase2020": 4454,
+      "populationEstimate": 4580,
+      "populationChange": 126,
+      "populationChangePercent": 2.828917826672654
+    },
+    {
+      "fips": "48335",
+      "countyName": "Mitchell County",
+      "populationBase2020": 8995,
+      "populationEstimate": 8947,
+      "populationChange": -48,
+      "populationChangePercent": -0.5336297943301834
+    },
+    {
+      "fips": "48337",
+      "countyName": "Montague County",
+      "populationBase2020": 20011,
+      "populationEstimate": 21966,
+      "populationChange": 1955,
+      "populationChangePercent": 9.76962670531208
+    },
+    {
+      "fips": "48339",
+      "countyName": "Montgomery County",
+      "populationBase2020": 620551,
+      "populationEstimate": 781194,
+      "populationChange": 160643,
+      "populationChangePercent": 25.8871551250421
+    },
+    {
+      "fips": "48341",
+      "countyName": "Moore County",
+      "populationBase2020": 21363,
+      "populationEstimate": 21891,
+      "populationChange": 528,
+      "populationChangePercent": 2.471562982727145
+    },
+    {
+      "fips": "48343",
+      "countyName": "Morris County",
+      "populationBase2020": 11974,
+      "populationEstimate": 12133,
+      "populationChange": 159,
+      "populationChangePercent": 1.3278770669784534
+    },
+    {
+      "fips": "48345",
+      "countyName": "Motley County",
+      "populationBase2020": 1062,
+      "populationEstimate": 1043,
+      "populationChange": -19,
+      "populationChangePercent": -1.7890772128060264
+    },
+    {
+      "fips": "48347",
+      "countyName": "Nacogdoches County",
+      "populationBase2020": 64666,
+      "populationEstimate": 66035,
+      "populationChange": 1369,
+      "populationChangePercent": 2.1170321343519003
+    },
+    {
+      "fips": "48349",
+      "countyName": "Navarro County",
+      "populationBase2020": 52629,
+      "populationEstimate": 57181,
+      "populationChange": 4552,
+      "populationChangePercent": 8.649223811966786
+    },
+    {
+      "fips": "48351",
+      "countyName": "Newton County",
+      "populationBase2020": 12220,
+      "populationEstimate": 11954,
+      "populationChange": -266,
+      "populationChangePercent": -2.176759410801964
+    },
+    {
+      "fips": "48353",
+      "countyName": "Nolan County",
+      "populationBase2020": 14737,
+      "populationEstimate": 14117,
+      "populationChange": -620,
+      "populationChangePercent": -4.207097781095202
+    },
+    {
+      "fips": "48355",
+      "countyName": "Nueces County",
+      "populationBase2020": 353346,
+      "populationEstimate": 352992,
+      "populationChange": -354,
+      "populationChangePercent": -0.10018508770440306
+    },
+    {
+      "fips": "48357",
+      "countyName": "Ochiltree County",
+      "populationBase2020": 10015,
+      "populationEstimate": 9284,
+      "populationChange": -731,
+      "populationChangePercent": -7.299051422865702
+    },
+    {
+      "fips": "48359",
+      "countyName": "Oldham County",
+      "populationBase2020": 1759,
+      "populationEstimate": 1783,
+      "populationChange": 24,
+      "populationChangePercent": 1.3644115974985787
+    },
+    {
+      "fips": "48361",
+      "countyName": "Orange County",
+      "populationBase2020": 84812,
+      "populationEstimate": 86266,
+      "populationChange": 1454,
+      "populationChangePercent": 1.7143800405602978
+    },
+    {
+      "fips": "48363",
+      "countyName": "Palo Pinto County",
+      "populationBase2020": 28415,
+      "populationEstimate": 30791,
+      "populationChange": 2376,
+      "populationChangePercent": 8.361780749604081
+    },
+    {
+      "fips": "48365",
+      "countyName": "Panola County",
+      "populationBase2020": 22497,
+      "populationEstimate": 23018,
+      "populationChange": 521,
+      "populationChangePercent": 2.3158643374672176
+    },
+    {
+      "fips": "48367",
+      "countyName": "Parker County",
+      "populationBase2020": 148241,
+      "populationEstimate": 184767,
+      "populationChange": 36526,
+      "populationChangePercent": 24.639607126233635
+    },
+    {
+      "fips": "48369",
+      "countyName": "Parmer County",
+      "populationBase2020": 9874,
+      "populationEstimate": 9678,
+      "populationChange": -196,
+      "populationChangePercent": -1.9850111403686448
+    },
+    {
+      "fips": "48371",
+      "countyName": "Pecos County",
+      "populationBase2020": 15198,
+      "populationEstimate": 14560,
+      "populationChange": -638,
+      "populationChangePercent": -4.197920779049875
+    },
+    {
+      "fips": "48373",
+      "countyName": "Polk County",
+      "populationBase2020": 50121,
+      "populationEstimate": 53434,
+      "populationChange": 3313,
+      "populationChangePercent": 6.610003790826201
+    },
+    {
+      "fips": "48375",
+      "countyName": "Potter County",
+      "populationBase2020": 118622,
+      "populationEstimate": 114453,
+      "populationChange": -4169,
+      "populationChangePercent": -3.514525130245654
+    },
+    {
+      "fips": "48377",
+      "countyName": "Presidio County",
+      "populationBase2020": 6130,
+      "populationEstimate": 5433,
+      "populationChange": -697,
+      "populationChangePercent": -11.370309951060358
+    },
+    {
+      "fips": "48379",
+      "countyName": "Rains County",
+      "populationBase2020": 12157,
+      "populationEstimate": 13542,
+      "populationChange": 1385,
+      "populationChangePercent": 11.392613309204574
+    },
+    {
+      "fips": "48381",
+      "countyName": "Randall County",
+      "populationBase2020": 140670,
+      "populationEstimate": 152351,
+      "populationChange": 11681,
+      "populationChangePercent": 8.303831662756807
+    },
+    {
+      "fips": "48383",
+      "countyName": "Reagan County",
+      "populationBase2020": 3427,
+      "populationEstimate": 3166,
+      "populationChange": -261,
+      "populationChangePercent": -7.615990662386928
+    },
+    {
+      "fips": "48385",
+      "countyName": "Real County",
+      "populationBase2020": 2757,
+      "populationEstimate": 2745,
+      "populationChange": -12,
+      "populationChangePercent": -0.4352557127312296
+    },
+    {
+      "fips": "48387",
+      "countyName": "Red River County",
+      "populationBase2020": 11589,
+      "populationEstimate": 11816,
+      "populationChange": 227,
+      "populationChangePercent": 1.9587539908533953
+    },
+    {
+      "fips": "48389",
+      "countyName": "Reeves County",
+      "populationBase2020": 14743,
+      "populationEstimate": 12138,
+      "populationChange": -2605,
+      "populationChangePercent": -17.669402428271045
+    },
+    {
+      "fips": "48391",
+      "countyName": "Refugio County",
+      "populationBase2020": 6741,
+      "populationEstimate": 6657,
+      "populationChange": -84,
+      "populationChangePercent": -1.2461059190031152
+    },
+    {
+      "fips": "48393",
+      "countyName": "Roberts County",
+      "populationBase2020": 830,
+      "populationEstimate": 867,
+      "populationChange": 37,
+      "populationChangePercent": 4.457831325301205
+    },
+    {
+      "fips": "48395",
+      "countyName": "Robertson County",
+      "populationBase2020": 16755,
+      "populationEstimate": 17839,
+      "populationChange": 1084,
+      "populationChangePercent": 6.469710534168904
+    },
+    {
+      "fips": "48397",
+      "countyName": "Rockwall County",
+      "populationBase2020": 107884,
+      "populationEstimate": 140738,
+      "populationChange": 32854,
+      "populationChangePercent": 30.45307923325053
+    },
+    {
+      "fips": "48399",
+      "countyName": "Runnels County",
+      "populationBase2020": 9896,
+      "populationEstimate": 9693,
+      "populationChange": -203,
+      "populationChangePercent": -2.0513338722716252
+    },
+    {
+      "fips": "48401",
+      "countyName": "Rusk County",
+      "populationBase2020": 52222,
+      "populationEstimate": 54854,
+      "populationChange": 2632,
+      "populationChangePercent": 5.040021446899774
+    },
+    {
+      "fips": "48403",
+      "countyName": "Sabine County",
+      "populationBase2020": 9900,
+      "populationEstimate": 10012,
+      "populationChange": 112,
+      "populationChangePercent": 1.1313131313131313
+    },
+    {
+      "fips": "48405",
+      "countyName": "San Augustine County",
+      "populationBase2020": 7921,
+      "populationEstimate": 7722,
+      "populationChange": -199,
+      "populationChangePercent": -2.512309051887388
+    },
+    {
+      "fips": "48407",
+      "countyName": "San Jacinto County",
+      "populationBase2020": 27406,
+      "populationEstimate": 29488,
+      "populationChange": 2082,
+      "populationChangePercent": 7.596876596365759
+    },
+    {
+      "fips": "48409",
+      "countyName": "San Patricio County",
+      "populationBase2020": 68757,
+      "populationEstimate": 72053,
+      "populationChange": 3296,
+      "populationChangePercent": 4.793693733001731
+    },
+    {
+      "fips": "48411",
+      "countyName": "San Saba County",
+      "populationBase2020": 5721,
+      "populationEstimate": 5787,
+      "populationChange": 66,
+      "populationChangePercent": 1.1536444677503932
+    },
+    {
+      "fips": "48413",
+      "countyName": "Schleicher County",
+      "populationBase2020": 2448,
+      "populationEstimate": 2245,
+      "populationChange": -203,
+      "populationChangePercent": -8.292483660130719
+    },
+    {
+      "fips": "48415",
+      "countyName": "Scurry County",
+      "populationBase2020": 16908,
+      "populationEstimate": 16162,
+      "populationChange": -746,
+      "populationChangePercent": -4.412112609415661
+    },
+    {
+      "fips": "48417",
+      "countyName": "Shackelford County",
+      "populationBase2020": 3105,
+      "populationEstimate": 3197,
+      "populationChange": 92,
+      "populationChangePercent": 2.9629629629629632
+    },
+    {
+      "fips": "48419",
+      "countyName": "Shelby County",
+      "populationBase2020": 24137,
+      "populationEstimate": 24286,
+      "populationChange": 149,
+      "populationChangePercent": 0.6173095247959565
+    },
+    {
+      "fips": "48421",
+      "countyName": "Sherman County",
+      "populationBase2020": 2777,
+      "populationEstimate": 2781,
+      "populationChange": 4,
+      "populationChangePercent": 0.14404033129276198
+    },
+    {
+      "fips": "48423",
+      "countyName": "Smith County",
+      "populationBase2020": 233470,
+      "populationEstimate": 252549,
+      "populationChange": 19079,
+      "populationChangePercent": 8.171927870818521
+    },
+    {
+      "fips": "48425",
+      "countyName": "Somervell County",
+      "populationBase2020": 9205,
+      "populationEstimate": 10261,
+      "populationChange": 1056,
+      "populationChangePercent": 11.472026072786528
+    },
+    {
+      "fips": "48427",
+      "countyName": "Starr County",
+      "populationBase2020": 65916,
+      "populationEstimate": 66319,
+      "populationChange": 403,
+      "populationChangePercent": 0.6113841859336124
+    },
+    {
+      "fips": "48429",
+      "countyName": "Stephens County",
+      "populationBase2020": 9100,
+      "populationEstimate": 9380,
+      "populationChange": 280,
+      "populationChangePercent": 3.076923076923077
+    },
+    {
+      "fips": "48431",
+      "countyName": "Sterling County",
+      "populationBase2020": 1371,
+      "populationEstimate": 1349,
+      "populationChange": -22,
+      "populationChangePercent": -1.604668125455872
+    },
+    {
+      "fips": "48433",
+      "countyName": "Stonewall County",
+      "populationBase2020": 1245,
+      "populationEstimate": 1186,
+      "populationChange": -59,
+      "populationChangePercent": -4.738955823293173
+    },
+    {
+      "fips": "48435",
+      "countyName": "Sutton County",
+      "populationBase2020": 3378,
+      "populationEstimate": 3203,
+      "populationChange": -175,
+      "populationChangePercent": -5.180580224985198
+    },
+    {
+      "fips": "48437",
+      "countyName": "Swisher County",
+      "populationBase2020": 6973,
+      "populationEstimate": 6703,
+      "populationChange": -270,
+      "populationChangePercent": -3.8720780152014918
+    },
+    {
+      "fips": "48439",
+      "countyName": "Tarrant County",
+      "populationBase2020": 2110969,
+      "populationEstimate": 2248466,
+      "populationChange": 137497,
+      "populationChangePercent": 6.513454247788575
+    },
+    {
+      "fips": "48441",
+      "countyName": "Taylor County",
+      "populationBase2020": 143233,
+      "populationEstimate": 150077,
+      "populationChange": 6844,
+      "populationChangePercent": 4.778228480866839
+    },
+    {
+      "fips": "48443",
+      "countyName": "Terrell County",
+      "populationBase2020": 762,
+      "populationEstimate": 702,
+      "populationChange": -60,
+      "populationChangePercent": -7.874015748031496
+    },
+    {
+      "fips": "48445",
+      "countyName": "Terry County",
+      "populationBase2020": 11830,
+      "populationEstimate": 11720,
+      "populationChange": -110,
+      "populationChangePercent": -0.9298393913778529
+    },
+    {
+      "fips": "48447",
+      "countyName": "Throckmorton County",
+      "populationBase2020": 1447,
+      "populationEstimate": 1554,
+      "populationChange": 107,
+      "populationChangePercent": 7.394609536973047
+    },
+    {
+      "fips": "48449",
+      "countyName": "Titus County",
+      "populationBase2020": 31247,
+      "populationEstimate": 31563,
+      "populationChange": 316,
+      "populationChangePercent": 1.011297084520114
+    },
+    {
+      "fips": "48451",
+      "countyName": "Tom Green County",
+      "populationBase2020": 120002,
+      "populationEstimate": 120602,
+      "populationChange": 600,
+      "populationChangePercent": 0.4999916668055532
+    },
+    {
+      "fips": "48453",
+      "countyName": "Travis County",
+      "populationBase2020": 1290157,
+      "populationEstimate": 1389670,
+      "populationChange": 99513,
+      "populationChangePercent": 7.713247302460088
+    },
+    {
+      "fips": "48455",
+      "countyName": "Trinity County",
+      "populationBase2020": 13604,
+      "populationEstimate": 14384,
+      "populationChange": 780,
+      "populationChangePercent": 5.733607762422817
+    },
+    {
+      "fips": "48457",
+      "countyName": "Tyler County",
+      "populationBase2020": 19814,
+      "populationEstimate": 20443,
+      "populationChange": 629,
+      "populationChangePercent": 3.1745230644998483
+    },
+    {
+      "fips": "48459",
+      "countyName": "Upshur County",
+      "populationBase2020": 40889,
+      "populationEstimate": 44410,
+      "populationChange": 3521,
+      "populationChangePercent": 8.61111790457091
+    },
+    {
+      "fips": "48461",
+      "countyName": "Upton County",
+      "populationBase2020": 3308,
+      "populationEstimate": 3131,
+      "populationChange": -177,
+      "populationChangePercent": -5.350665054413542
+    },
+    {
+      "fips": "48463",
+      "countyName": "Uvalde County",
+      "populationBase2020": 24565,
+      "populationEstimate": 24963,
+      "populationChange": 398,
+      "populationChangePercent": 1.6201913291268064
+    },
+    {
+      "fips": "48465",
+      "countyName": "Val Verde County",
+      "populationBase2020": 47587,
+      "populationEstimate": 47835,
+      "populationChange": 248,
+      "populationChangePercent": 0.521150734444281
+    },
+    {
+      "fips": "48467",
+      "countyName": "Van Zandt County",
+      "populationBase2020": 59536,
+      "populationEstimate": 66130,
+      "populationChange": 6594,
+      "populationChangePercent": 11.075651706530502
+    },
+    {
+      "fips": "48469",
+      "countyName": "Victoria County",
+      "populationBase2020": 91318,
+      "populationEstimate": 92656,
+      "populationChange": 1338,
+      "populationChangePercent": 1.4652094877242166
+    },
+    {
+      "fips": "48471",
+      "countyName": "Walker County",
+      "populationBase2020": 76409,
+      "populationEstimate": 83842,
+      "populationChange": 7433,
+      "populationChangePercent": 9.727911633446322
+    },
+    {
+      "fips": "48473",
+      "countyName": "Waller County",
+      "populationBase2020": 56769,
+      "populationEstimate": 69858,
+      "populationChange": 13089,
+      "populationChangePercent": 23.05659779104793
+    },
+    {
+      "fips": "48475",
+      "countyName": "Ward County",
+      "populationBase2020": 11647,
+      "populationEstimate": 11125,
+      "populationChange": -522,
+      "populationChangePercent": -4.481840817377866
+    },
+    {
+      "fips": "48477",
+      "countyName": "Washington County",
+      "populationBase2020": 35795,
+      "populationEstimate": 38288,
+      "populationChange": 2493,
+      "populationChangePercent": 6.964659868696746
+    },
+    {
+      "fips": "48479",
+      "countyName": "Webb County",
+      "populationBase2020": 267114,
+      "populationEstimate": 281224,
+      "populationChange": 14110,
+      "populationChangePercent": 5.282388792800078
+    },
+    {
+      "fips": "48481",
+      "countyName": "Wharton County",
+      "populationBase2020": 41589,
+      "populationEstimate": 42060,
+      "populationChange": 471,
+      "populationChangePercent": 1.1325110005049412
+    },
+    {
+      "fips": "48483",
+      "countyName": "Wheeler County",
+      "populationBase2020": 4987,
+      "populationEstimate": 4773,
+      "populationChange": -214,
+      "populationChangePercent": -4.291157008221376
+    },
+    {
+      "fips": "48485",
+      "countyName": "Wichita County",
+      "populationBase2020": 129357,
+      "populationEstimate": 129555,
+      "populationChange": 198,
+      "populationChangePercent": 0.15306477422945802
+    },
+    {
+      "fips": "48487",
+      "countyName": "Wilbarger County",
+      "populationBase2020": 12887,
+      "populationEstimate": 12481,
+      "populationChange": -406,
+      "populationChangePercent": -3.1504617055947857
+    },
+    {
+      "fips": "48489",
+      "countyName": "Willacy County",
+      "populationBase2020": 20161,
+      "populationEstimate": 19971,
+      "populationChange": -190,
+      "populationChangePercent": -0.9424135707554189
+    },
+    {
+      "fips": "48491",
+      "countyName": "Williamson County",
+      "populationBase2020": 609059,
+      "populationEstimate": 752827,
+      "populationChange": 143768,
+      "populationChangePercent": 23.60493810944424
+    },
+    {
+      "fips": "48493",
+      "countyName": "Wilson County",
+      "populationBase2020": 49753,
+      "populationEstimate": 56139,
+      "populationChange": 6386,
+      "populationChangePercent": 12.835406910136072
+    },
+    {
+      "fips": "48495",
+      "countyName": "Winkler County",
+      "populationBase2020": 7793,
+      "populationEstimate": 7540,
+      "populationChange": -253,
+      "populationChangePercent": -3.2465032721673297
+    },
+    {
+      "fips": "48497",
+      "countyName": "Wise County",
+      "populationBase2020": 68617,
+      "populationEstimate": 83778,
+      "populationChange": 15161,
+      "populationChangePercent": 22.09510762638996
+    },
+    {
+      "fips": "48499",
+      "countyName": "Wood County",
+      "populationBase2020": 44852,
+      "populationEstimate": 49688,
+      "populationChange": 4836,
+      "populationChangePercent": 10.7821278872737
+    },
+    {
+      "fips": "48501",
+      "countyName": "Yoakum County",
+      "populationBase2020": 7691,
+      "populationEstimate": 7438,
+      "populationChange": -253,
+      "populationChangePercent": -3.2895592250682615
+    },
+    {
+      "fips": "48503",
+      "countyName": "Young County",
+      "populationBase2020": 17865,
+      "populationEstimate": 18154,
+      "populationChange": 289,
+      "populationChangePercent": 1.617688217184439
+    },
+    {
+      "fips": "48505",
+      "countyName": "Zapata County",
+      "populationBase2020": 13889,
+      "populationEstimate": 13753,
+      "populationChange": -136,
+      "populationChangePercent": -0.9791921664626682
+    },
+    {
+      "fips": "48507",
+      "countyName": "Zavala County",
+      "populationBase2020": 9677,
+      "populationEstimate": 9037,
+      "populationChange": -640,
+      "populationChangePercent": -6.61361992353002
+    }
+  ],
+  "verifiedAt": "2026-10-28"
+}

@@ -1,0 +1,69 @@
+name: Warrior's Refuge authority source check
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/warriors-refuge-west-columbia.tsx'
+      - 'src/routes/texas-resources.tsx'
+      - 'src/routes/texas-resources.lazy.tsx'
+      - 'src/routes/texas-living.tsx'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/ci/verify-warriors-refuge-authority.mjs'
+      - '.github/workflows/warriors-refuge-source-check.yml'
+  schedule:
+    - cron: '17 11 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate local authority contract
+        run: node scripts/ci/verify-warriors-refuge-authority.mjs
+      - name: Monitor authoritative provider and federal sources
+        if: github.event_name != 'pull_request'
+        id: remote
+        continue-on-error: true
+        run: node scripts/ci/verify-warriors-refuge-authority.mjs --remote 2>&1 | tee "${RUNNER_TEMP}/warriors-refuge-sources.log"
+      - name: Open or reconcile source-research issue without fictitious restamping
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          CHECK_OUTCOME: ${{ steps.remote.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Warrior's Refuge: official program source review needed"
+          issue_number="$(gh issue list --state all --search "\"Warrior's Refuge: official program source review needed\" in:title" --limit 100 --json number,title --jq '.[] | select(.title == "Warrior\u0027s Refuge: official program source review needed") | .number' | head -1)"
+          if [[ "$CHECK_OUTCOME" == "success" ]]; then
+            if [[ -n "$issue_number" && "$(gh issue view "$issue_number" --json state --jq '.state')" == 'OPEN' ]]; then
+              gh issue close "$issue_number" --comment 'Scheduled official-source check passed. No dates were restamped and no factual edits were auto-inferred.'
+            fi
+            exit 0
+          fi
+          {
+            echo 'The official provider or VA information may have changed, become unavailable, or blocked automated access. This is a source-research signal, not proof that a program rule changed.'
+            echo
+            echo 'Check the first-party source pages against `/warriors-refuge-west-columbia`, correct material facts if documented, and then update the actual review date. Do not assume housing availability or grant eligibility.'
+            echo
+            echo '### Source-check output'
+            echo '~~~text'
+            cat "$RUNNER_TEMP/warriors-refuge-sources.log"
+            echo '~~~'
+          } > "$RUNNER_TEMP/warriors-refuge-issue.md"
+          if [[ -z "$issue_number" ]]; then
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/warriors-refuge-issue.md"
+          else
+            gh issue edit "$issue_number" --body-file "$RUNNER_TEMP/warriors-refuge-issue.md"
+            [[ "$(gh issue view "$issue_number" --json state --jq '.state')" == 'OPEN' ]] || gh issue reopen "$issue_number"
+          fi

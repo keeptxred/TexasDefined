@@ -14,11 +14,6 @@ function countyNameWithoutSuffix(name: string) {
   return name.replace(/ County$/, '');
 }
 
-function countyFipsFromAlphabeticalIndex(index: number) {
-  const countyCode = String(index * 2 + 1).padStart(3, '0');
-  return `${TEXAS_STATE_FIPS}${countyCode}`;
-}
-
 function majorCitiesForCounty(countyName: string) {
   const baseName = countyNameWithoutSuffix(countyName);
   return TEXAS_CITIES
@@ -27,14 +22,14 @@ function majorCitiesForCounty(countyName: string) {
     .sort((a, b) => a.localeCompare(b));
 }
 
-function buildCountyPropertyRecord(county: (typeof TEXAS_COUNTIES)[number], index: number): CountyPropertyRecord {
+function buildCountyPropertyRecord(county: (typeof TEXAS_COUNTIES)[number]): CountyPropertyRecord {
   const base = createEmptyCountyPropertyRecord(county);
   const enrichment = COUNTY_PROPERTY_ENRICHMENT[county.slug];
   const localVerification = COUNTY_PROPERTY_LOCAL_VERIFICATION[county.slug];
 
   return {
     ...base,
-    fips: countyFipsFromAlphabeticalIndex(index),
+    fips: `${TEXAS_STATE_FIPS}${county.code}`,
     majorCities: majorCitiesForCounty(county.name),
     appraisalDistrict: {
       ...base.appraisalDistrict,
@@ -107,6 +102,28 @@ export function validateImportedTexasCountyPropertyData() {
 
   if (COUNTY_PROPERTY_RECORDS[0]?.name !== 'Anderson County' || COUNTY_PROPERTY_RECORDS[0]?.fips !== '48001') {
     errors.push('Expected Anderson County to map to FIPS 48001.');
+  }
+
+  // Census/INCITS anchor identities; the public name list is display-sorted,
+  // which differs from Census FIPS ordering around the Mc* counties.
+  const verifiedFips: Readonly<Record<string, string>> = {
+    'anderson': '48001',
+    'la-salle': '48283',
+    'mcculloch': '48307',
+    'mclennan': '48309',
+    'mcmullen': '48311',
+    'matagorda': '48321',
+    'maverick': '48323',
+    'medina': '48325',
+    'el-paso': '48141',
+    'tarrant': '48439',
+    'zavala': '48507',
+  };
+  for (const [slug, expected] of Object.entries(verifiedFips)) {
+    const actual = COUNTY_PROPERTY_BY_SLUG.get(slug)?.fips;
+    if (actual !== expected) {
+      errors.push(`Census/FIPS county identity mismatch for ${slug}: expected ${expected}, received ${actual ?? '(missing)'}`);
+    }
   }
 
   const last = COUNTY_PROPERTY_RECORDS.at(-1);

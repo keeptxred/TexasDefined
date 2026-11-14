@@ -1,0 +1,54 @@
+name: Verify Hood CAD school tax adoption sources
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-hood-isd-official-source.yml'
+      - 'scripts/data/check-hood-isd-official-source.mjs'
+      - 'src/data/property/hood-cad-isd-adopted.json'
+      - 'src/data/property/isd-exemptions.ts'
+      - 'src/components/property/IsdTaxAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'scripts/data/isd-exemptions.test.mjs'
+      - 'scripts/data/validate-isd-tax-authority.mjs'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
+  pull_request:
+    paths:
+      - '.github/workflows/verify-hood-isd-official-source.yml'
+      - 'scripts/data/check-hood-isd-official-source.mjs'
+      - 'src/data/property/hood-cad-isd-adopted.json'
+      - 'src/data/property/isd-exemptions.ts'
+      - 'src/components/property/IsdTaxAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'scripts/data/isd-exemptions.test.mjs'
+      - 'scripts/data/validate-isd-tax-authority.mjs'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 11 * * 3'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-isd-source-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reconcile tracked adopted rates with live Hood CAD source
+        run: node scripts/data/check-hood-isd-official-source.mjs
+      - name: Validate component arithmetic, provenance, and template
+        run: node scripts/data/validate-isd-tax-authority.mjs
+      - name: Check tax-year-specific historical exemption calculations
+        run: node --experimental-strip-types --test scripts/data/isd-exemptions.test.mjs

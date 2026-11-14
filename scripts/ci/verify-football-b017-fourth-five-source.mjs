@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
+const read=p=>fs.readFileSync(p,'utf8');
+const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+// A graduated cohort remains immutable after the next batch is assigned.
+const historicalBatch017=reg.batch?.number===17?reg.batch:reg.completedBatches?.find(batch=>batch.number===17);
+assert.ok(historicalBatch017,'Signed Batch017 historical certificate must be retained');
+const source=read('src/data/high-school-football/program-editorial-b017-group4.ts');
+const edges=read('src/data/high-school-football/batch017-county-edges.ts');
+const server=read('src/data/high-school-football/football-program-profile.server.ts');
+const slugs=["elgin","elkhart","elysian-fields","ennis","era"];
+assert.equal(historicalBatch017.number,17);
+assert.deepEqual(historicalBatch017.slugs.slice(15,20),slugs);
+const graduatedB017=certifiedBatch017(reg);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 earlier signed certificates');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
+assert.ok(graduatedB017||reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=20);
+assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=892);
+for(const slug of slugs){const row=reg.schoolRecords.find(x=>x.slug===slug);assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED');assert.equal(row?.actualProductionVerified,graduatedB017);assert.ok(source.includes(JSON.stringify(slug)+': {'));assert.ok(edges.includes("slug: '"+slug+"'"));}
+assert.ok(server.includes('getBatch017FourthFiveEditorial(canonicalSlug)'));
+assert.equal((source.match(/"slug": "/g)||[]).length,5);
+for(const s of ['Travis','Texas Department of Licensing and Regulation','Jerry Ives Memorial Stadium','Harrison','Ennis','Don Drake','Era','Cooke','5AD2FB2026.pdf','3AD2FB2026.pdf','2AD1FB2026.pdf','2AD2FB2026.pdf'])assert.ok(source.includes(s),'Missing specific primary-source distinction '+s);
+for(const county of ['travis','anderson','harrison','ellis','cooke'])assert.ok(edges.includes("county: '"+county+"'"),county+' missing');
+assert.ok(!source.includes('"season":')&&!source.includes('"photo":'));
+console.log('PASS Batch017 fourth five: distinct UIL, campus county, original editorial, no false production certification');

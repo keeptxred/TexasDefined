@@ -50,7 +50,8 @@ export const Route = createFileRoute('/api/property-tax-rates')({
           }
 
           if (query) {
-            const { records, generatedAt } = await searchTaxingUnitsServer(query, year, 100);
+            const searchType = type && ['county', 'city', 'school-district', 'special-district'].includes(type) ? type : undefined;
+            const { records, generatedAt } = await searchTaxingUnitsServer(query, year, 100, searchType);
             return Response.json({ ready: true, metadata: taxRateMetadata(latestYear, generatedAt, records.length), results: records }, { headers: HEADERS });
           }
 

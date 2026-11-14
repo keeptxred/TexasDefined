@@ -9,11 +9,19 @@ import type { Destination } from "./types";
  * gives state parks and adjacent attractions a reverse link back to the cavern.
  */
 const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
+  // Waco editorial visitor routes: deliberate reciprocal pairings, not arbitrary proximity.
+  "dr-pepper-museum-waco": ["waco-suspension-bridge", "cottonland-castle", "texas-ranger-hall-of-fame-museum-waco", "magnolia-market-at-the-silos"],
+  "cottonland-castle": ["magnolia-market-at-the-silos", "dr-pepper-museum-waco"],
+  "waco-suspension-bridge": ["cameron-park-waco", "texas-ranger-hall-of-fame-museum-waco", "dr-pepper-museum-waco"],
+  "cameron-park-waco": ["cameron-park-zoo", "waco-suspension-bridge"],
+  "cameron-park-zoo": ["cameron-park-waco", "waco-suspension-bridge"],
+  "texas-ranger-hall-of-fame-museum-waco": ["mayborn-museum-waco", "dr-pepper-museum-waco"],
   "southern-pacific-passenger-depot-del-rio": ["whitehead-memorial-museum", "del-rio"],
   "clifton-whipple-truss-bridge": ["clifton", "bosque-museum"],
   "bosque-river-bridge-meridian": ["meridian", "meridian-state-park"],
   "holland-hotel": ["alpine-downtown-historic-district", "alpine", "kokernot-field"],
   "hotel-paso-del-norte": ["el-paso-museum-of-art", "magoffin-home", "ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "franklin-mountains-state-park"],
+  "magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"],
   "sycamore-creek-bridge-fort-worth": ["fort-worth-stockyards"],
   "regency-suspension-bridge": ["goldthwaite", "san-saba"],
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],

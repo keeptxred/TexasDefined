@@ -12,7 +12,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Music Cities: Austin, Houston, San Antonio, DFW & Corpus Christi",
+      title: "Texas Music Cities: Austin, Houston & Beyond",
       description: guide.dek,
       type: "article",
     }),

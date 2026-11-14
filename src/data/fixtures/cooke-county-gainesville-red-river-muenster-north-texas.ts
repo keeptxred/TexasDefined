@@ -35,6 +35,8 @@ export const cookeCountyGainesvilleRedRiverMuensterNorthTexasArticle: Article = 
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/medal-of-honor-host-city-museum-gainesville", label: "Medal of Honor Host City Museum", description: "Plan a visit to NCTC\x27s free Gainesville museum with hours, school visit rules and exhibits." },
+    { href: "/destination/morton-museum-of-cooke-county", label: "Morton Museum of Cooke County", description: "Follow Gainesville\x27s civic history through its 1884 former city hall and local collections." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/montague", label: "Explore Montague County", description: "Continue west through the Red River Cross Timbers toward Nocona, Bowie and the Chisholm Trail corridor." },
     { href: "/county/denton", label: "Explore Denton County", description: "Head south toward Denton, the Elm Fork and the fast-growing northern Metroplex." },
@@ -128,6 +130,7 @@ export const cookeCountyGainesvilleRedRiverMuensterNorthTexasArticle: Article = 
     p("This transportation advantage creates both opportunity and pressure. Gainesville can serve travelers, freight and regional employers, but growth also pushes north from the Metroplex. Cooke County increasingly balances development along the interstate with preservation of rural land, historic towns and working agriculture."),
 
     h("How to explore Cooke County"),
+    p("The Medal of Honor Host City Museum on the NCTC campus explores the award\x27s recipients and Gainesville\x27s annual recognition tradition. It makes a meaningful contrast to the county-wide collections at the Morton Museum. Check the NCTC museum\x27s weekday and summer schedules before planning a visit."),
     p("Begin in downtown Gainesville at the restored Cooke County Courthouse. Walk the courthouse square and nearby historic streets, then follow local museum and railroad landmarks to understand how the city moved from frontier seat to transportation center. The compact downtown makes the county's civic story easy to read on foot."),
     p("From Gainesville, drive west on U.S. 82 to Lindsay and Muenster for German Catholic settlement history and open farm country. A southern loop toward Valley View and the Ray Roberts Lake area shows the prairie-and-reservoir landscape, while roads north from Gainesville lead toward the Red River and the Oklahoma line."),
 

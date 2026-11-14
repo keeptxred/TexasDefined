@@ -12,6 +12,7 @@ const temporalSitemapPath = path.join(dataDir, "event-temporal-sitemap.server.ts
 const collectionLoaderPath = path.join(dataDir, "event-collection-page.server.ts");
 const directoryPath = path.join(dataDir, "major-event-directory.server.ts");
 const collectionRoutePath = path.join(root, "src", "routes", "events.$collection.tsx");
+const collectionLazyRoutePath = path.join(root, "src", "routes", "events.$collection.lazy.tsx");
 const eventsLayoutRoutePath = path.join(root, "src", "routes", "events.tsx");
 const eventsLayoutLazyRoutePath = path.join(root, "src", "routes", "events.lazy.tsx");
 const eventsRoutePath = path.join(root, "src", "routes", "events.index.tsx");
@@ -27,6 +28,7 @@ const fail = (message) => {
 };
 
 const loader = read(loaderPath);
+if (!loader.includes('slug === "big-12-football-championship"') || !loader.includes('SeatGeek as its official primary public ticketing channel')) fail("Big 12 primary ticket seller disclosure missing");
 const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
@@ -34,7 +36,12 @@ const temporalCollections = read(temporalCollectionsPath);
 const temporalSitemap = read(temporalSitemapPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
-const collectionRoute = read(collectionRoutePath);
+const evergreenSitemap = read(path.join(dataDir, "event-evergreen-sitemap.server.ts"));
+const collectionCriticalRoute = read(collectionRoutePath);
+const collectionLazyRoute = read(collectionLazyRoutePath);
+const collectionRoute = `${collectionCriticalRoute}\n${collectionLazyRoute}`;
+if (collectionCriticalRoute.includes("component: EventCollectionPage")) fail("event collection UI must stay behind the lazy route boundary");
+if (!collectionLazyRoute.includes('createLazyFileRoute("/events/$collection")') || !collectionLazyRoute.includes("component: EventCollectionPage")) fail("event collection lazy route boundary is missing");
 const eventsLayoutRoute = read(eventsLayoutRoutePath);
 const eventsLayoutLazyRoute = read(eventsLayoutLazyRoutePath);
 const eventsRoute = read(eventsRoutePath);
@@ -98,6 +105,8 @@ for (const slug of ledgerSlugs) {
 }
 
 const requiredCollectionPaths = [
+  "/events/dia-de-los-muertos",
+  "/events/texas-independence",
   "/events/rodeos",
   "/events/food-festivals",
   "/events/music-festivals",
@@ -139,6 +148,9 @@ if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
 }
 if (new Set(collectionPaths).size !== collectionPaths.length) fail("event authority collection paths must be unique");
+if (!collections.includes('kind: "topic"') || !collections.includes("EVENT_TOPIC_SLUGS") || !collectionLoader.includes("EVENT_TOPIC_SLUGS[evergreen!.value]") || !evergreenSitemap.includes("EVENT_TOPIC_SLUGS[collection.value]")) {
+  fail("reviewed statewide topic collections must filter by named verified event-guide slugs");
+}
 for (const routePath of requiredCollectionPaths) {
   if (!collectionPaths.includes(routePath)) fail(`event collection registry is missing ${routePath}`);
   if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events server discovery directory does not expose ${routePath}`);
@@ -295,7 +307,7 @@ for (const marker of [
   'slug: "crossroads-of-texas-country-festival"',
   'startDateTime: "2026-10-24T09:00:00-05:00"',
   'endDateTime: "2026-10-24T19:30:00-05:00"',
-  'sourceCheckedAt: "2026-10-18"',
+  'sourceCheckedAt: "2026-10-29"',
   'quickFacts: [',
   'Jake Worthington',
   'Kenny Whitmire',
@@ -308,7 +320,7 @@ for (const marker of [
   'Ethan Pacheco',
   'Jade Flores',
   'Java Llamas',
-  'Downtown music after the main-stage finale',
+  '2026 downtown music after the main-stage finale',
   'CROSSROADS26',
   '/destination/waxahachie',
   '/texas-music',
@@ -325,6 +337,186 @@ for (const marker of [
 if (!loader.includes('data-major-event-quick-facts') || !loader.includes('event.seoTitle ??')) {
   fail("major-event visitor essentials and metadata overrides must remain available");
 }
+
+
+const palestineAuthority = read(path.join(dataDir, "major-event-expanded-authority-tranche58.server.ts"));
+const stayClient = read(path.join(root, "public", "stay-affiliate-options.js"));
+
+// A real organizer re-review changes this date. Validate provenance freshness
+// without freezing one historical editorial timestamp into the merge gate.
+const palestineRecord = palestineAuthority.match(
+  /slug:\s*"polar-express-palestine"[\s\S]{0,1400}?sourceCheckedAt:\s*"(\d{4}-\d{2}-\d{2})"/,
+);
+if (!palestineRecord) {
+  fail("Palestine Polar Express booking authority missing ISO editorial source-review date");
+} else {
+  const checkedAt = palestineRecord[1];
+  const parsed = Date.parse(checkedAt + "T00:00:00Z");
+  const validCalendarDate = Number.isFinite(parsed) && new Date(parsed).toISOString().slice(0, 10) === checkedAt;
+  const asOf = new Date().toISOString().slice(0, 10);
+  if (!validCalendarDate || checkedAt < "2026-10-26" || checkedAt > asOf) {
+    fail("Palestine Polar Express editorial review must be a real past date no earlier than the verified 2026 source baseline");
+  }
+}
+// A season window is not daily service or a ticket-availability guarantee.
+// Keep publisher links first-party or via the existing approved CJ deep-link path.
+for (const marker of [
+  'slug: "polar-express-palestine"',
+  'startDate: "2026-11-13"',
+  'endDate: "2026-12-28"',
+  'officialUrl: "https://texasstaterailroad.net/the-polar-express/"',
+  'Texas State Railroad’s own November and December 2026',
+  'November 13–15, 19–24 and 27–29',
+  'December 18',
+  'November 13 has 5:30 and 7:00 PM',
+  'December 28 has 3:00, 4:30, 6:00 and 7:30 PM',
+  'a posted departure does NOT imply that tickets remain unsold',
+  'cancellations at least 30 days ahead incur a $20 fee',
+  'diesel locomotive',
+  'https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332',
+  'href: "/events/christmas-events"',
+]) if (!palestineAuthority.includes(marker)) fail("Palestine Polar Express booking authority missing " + marker);
+for (const marker of [
+  'data-polar-express-editorial-intro="true"',
+  'data-polar-express-editorial-essentials="true"',
+  'Trip essentials',
+  'isPalestinePolarExpress ? "" : `<section data-major-event-snapshot',
+  'Where to board',
+  'Allow enough time',
+  'Accessibility and seating',
+  'data-polar-express-2026-schedule="true"',
+  'data-event-official-ticket-cta="true"',
+  'Dec 3–6, 9–13, 15–16, 18–23, 26–28',
+  'Official railroad calendar:',
+  'PALESTINE_HOTELS_AFFILIATE_URL',
+  'de1634643/hotels-palestine-texas/',
+  'buildHotelsComEvergreenClick',
+  'PALESTINE_HOTELS_SID',
+  'hotelsComPageSid',
+  'event.slug === "polar-express-palestine"',
+  'const enrichmentReviewMarkup = isPalestinePolarExpress || !schemaEnrichment',
+  '${performersMarkup}${enrichmentReviewMarkup}',
+]) if (!loader.includes(marker)) fail("Palestine Polar Express SSR booking UI missing " + marker);
+for (const marker of [
+  'PALESTINE_HOTELS_DESTINATION',
+  'Compare Palestine hotels on Hotels.com',
+  'click-101876465-15734399',
+  'td_polar_palestine',
+  'isPalestinePolarExpress',
+]) if (!stayClient.includes(marker)) fail("Palestine Polar Express client booking UI missing " + marker);
+
+// Event guide slugs and canonical URLs must survive annual schedule updates.
+for (const forbidden of [
+  'polar-express-palestine-2026',
+  'polar-express-palestine-2027',
+  '/event/2026/polar-express-palestine',
+  '/event/2027/polar-express-palestine',
+]) if (loader.includes('canonicalUrl = `${siteUrl}/event/${forbidden}`')) fail("Year-specific Palestine canonical regression");
+if (!loader.includes('canonicalUrl = `${siteUrl}/event/${event.slug}`')) fail("Permanent yearless major-event canonical missing");
+
+const evergreenHelper = read(path.join(root, "src/lib/cj-hotels-evergreen.ts"));
+for (const required of [
+  'click-101876465-15734399',
+  'td_polar_palestine',
+  'parsed.hostname !== "www.hotels.com"',
+  'url.searchParams.set("sid", sid)',
+  'url.searchParams.set("url", parsed.toString())',
+]) if (!evergreenHelper.includes(required)) fail("CJ Hotels.com Evergreen approved-link safety contract missing " + required);
+if (loader.includes('links/101876465/type/dlg/https://www.hotels.com/')) {
+  fail("Palestine server-rendered referral still uses old untracked CJ Hotels.com link");
+}
+
+const palestineImageEnrichment = read(path.join(dataDir, "major-event-schema-enrichment-batch32.server.ts"));
+for (const marker of [
+  'slug: "polar-express-palestine"',
+  'Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express',
+  'Historical 2015 Texas State Railroad Polar Express',
+  'Photo: Michael Gras, M.Ed.',
+  'not the 2026 diesel locomotive',
+  'licenseName: "CC BY 2.0"',
+  'licenseUrl: "https://creativecommons.org/licenses/by/2.0/"',
+  'approvedForCommercialUse: true',
+]) if (!palestineImageEnrichment.includes(marker)) fail("Palestine Polar Express licensed historical image missing " + marker);
+
+const palestineLiveVerifier = read(path.join(root, "scripts/ci/verify-palestine-polar-express-production.mjs"));
+if (!palestineLiveVerifier.includes('Duplicate misleading event-review timestamp remains on Palestine guide')) {
+  fail("Palestine production verifier must reject contradictory review timestamps");
+}
+const protectedDeployWorkflow = read(path.join(root, ".github/workflows/deploy-production.yml"));
+for (const marker of [
+  'data-polar-express-2026-schedule="true"',
+  'data-event-official-ticket-cta="true"',
+  'de1634643/hotels-palestine-texas/',
+  'Southern_Pine_Lumber_Co._No._28',
+  'Michael Gras',
+  'verify-polar-express=',
+  'cache: "no-store"',
+]) if (!palestineLiveVerifier.includes(marker)) fail("Palestine production verification guard missing " + marker);
+if (!protectedDeployWorkflow.includes("id: live_palestine_polar_express") ||
+    !protectedDeployWorkflow.includes("node scripts/ci/verify-palestine-polar-express-production.mjs")) {
+  fail("Protected deploy must verify the 2026 Palestine Polar Express live booking page");
+}
+
+// Ended-edition content must not keep advertising October 10, 2026 as a
+// future kickoff. The event remains a useful evergreen guide and historical
+// archive until the organizer publishes a new occurrence.
+const redRiverIndex = read(path.join(dataDir, "major-event-index.ts"));
+const redRiverGuide = read(path.join(dataDir, "major-event-expanded-authority-tranche9.server.ts"));
+for (const token of [
+  "The October 10, 2026 game is complete",
+  "Oklahoma defeated Texas 27–24",
+  'sourceCheckedAt: "2026-10-29"',
+]) if (!redRiverIndex.includes(token)) fail("Red River expired-edition search freshness missing: " + token);
+for (const token of [
+  "has already been played",
+  "For the next edition, first confirm its date",
+  "https://soonersports.com/game-center/15626",
+]) if (!redRiverGuide.includes(token)) fail("Red River evergreen visitor guidance missing: " + token);
+if (redRiverGuide.includes("Texas lists the 2026 game for 2:30 p.m.")) fail("Red River guide restored an expired game-day planning claim");
+
+// The 2026 Heart O' Texas Fair & Rodeo has ended. The raw 2026 search
+// experiment is already retired by the runtime event-snippet lifecycle;
+ // keep the body from advertising stale hours, prices or tickets as current.
+const completedHotFair = read(path.join(dataDir, "major-event-expanded-authority-tranche39.server.ts"));
+for (const marker of [
+  "concluded October 18",
+  "The completed 2026 fair schedule",
+  "those were 2026 prices",
+  "Do not use these historical performance times",
+]) if (!completedHotFair.toLowerCase().includes(marker.toLowerCase())) fail("Expired Heart O' Texas search freshness missing: " + marker);
+if (completedHotFair.includes("The fair runs October 8-18, 2026.") ||
+    completedHotFair.includes("The current official ticket page lists advance general fair admission at $18")) {
+  fail("Historical Heart O' Texas edition must not imply its 2026 admission and dates are current");
+}
+
+// Expired 2026 state-fair and festival editions must not remain actionable 2026 trip instructions.
+// Keep the source-backed historical results and do not guess an unconfirmed future edition.
+for (const [file, mustContain, mustNotContain] of [
+  ["major-event-expanded-authority-tranche47.server.ts", ["Prairie View A&M defeated Grambling State 21–14", "2026 State Fair Classic: final score and date", "Grambling State Athletics — September 26, 2026 final score"], ["The 2026 State Fair Classic is scheduled for Saturday", "Kickoff is 6 p.m. in 2026"]],
+  ["major-event-expanded-authority-tranche41.server.ts", ["2026 Floresville Peanut Festival concluded October 10", "2026 Grand Parade was October 10", "next edition requires a new organizer announcement"], ["Use Saturday for the Grand Parade and full downtown day"]],
+  ["major-event-expanded-authority-tranche39.server.ts", ["East Texas State Fair 2026 edition concluded October 4", "2026 East Texas State Fair: completed", "Historical 2026 grounds and arena ticket rules"], ["Use September 25-October 4 as the confirmed 2026 fair run"]],
+]) {
+  const contents = read(path.join(dataDir, file));
+  for (const marker of mustContain) if (!contents.includes(marker)) fail("Expired event guide freshness marker missing: " + file + " " + marker);
+  for (const marker of mustNotContain) if (contents.includes(marker)) fail("Expired event guide restored upcoming edition claim: " + file + " " + marker);
+}
+
+// October 24 Crossroads Festival is a completed edition. Preserve its
+// well-performing existing SEO title and the organizer's detailed historical
+// schedule while rejecting forward-looking 2026 booking instructions.
+const completedCrossroads = read(path.join(dataDir, "major-event-expanded-authority-tranche41.server.ts"));
+for (const marker of [
+  "The October 24, 2026 Crossroads of Texas GO TEXAN Country Festival has concluded",
+  "2026 music archive: Jake Worthington",
+  "2026 downtown music after the main-stage finale",
+  "CBS Texas — October 25, 2026 post-event report",
+  'seoTitle: "Crossroads of Texas Country Festival 2026 | Free Music & Parking Guide"',
+]) if (!completedCrossroads.includes(marker)) fail("Crossroads completed-edition contract missing: " + marker);
+for (const stale of [
+  "Check the festival\\'s current schedule shortly before traveling.",
+  "The organizer now publishes a full 2026 main-stage running order",
+  "The main-stage headline show is scheduled to end at 7:30 p.m.",
+]) if (completedCrossroads.includes(stale)) fail("Crossroads historical program advertised as upcoming: " + stale);
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {

@@ -1,0 +1,164 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+
+const CANONICAL = "https://texasdefined.com/best-places-to-go-camping-in-texas";
+const MAX_ATTEMPTS = 3;
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const generated = fs.readFileSync("src/data/camping/official-alerts.generated.ts", "utf8");
+const captured = generated.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
+if (!captured) throw Error("Official camping advisory snapshot could not be parsed");
+const expectedAlerts = JSON.parse(captured[1]);
+if (expectedAlerts.length !== 5 || expectedAlerts.some(x => !["confirmed", "needs-review"].includes(x.status)))
+  throw Error("Camping advisory snapshot invalid or unexpectedly changed");
+
+function verify(html, { synthetic = false } = {}) {
+  const errors = [];
+  if (!synthetic && html.length < 25_000) errors.push("unexpectedly short SSR document");
+  const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&amp;/gi, "&").replace(/&#(?:x27|39);|&apos;/gi, "'").replace(/&quot;/gi, '"')
+    .replace(/\s+/g, " ");
+  const mustHave = [
+    "Best Places to Go Camping in Texas",
+    "Choose your camping type or activity",
+    "Recent official park advisories",
+    "Campground finder",
+    "Park camping / reservation instructions",
+    // The daily probe must verify the actual editorial upgrade, not just old page scaffolding.
+    "Six Texas camping starting points, by trip",
+    "Texas Defined editorial desk",
+    "Shady Meadows full-hookup sites",
+    "Pet friendly is a verified-only filter",
+  ];
+  for (const expected of mustHave) if (!text.includes(expected)) errors.push("missing: " + expected);
+  const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
+  const count = profileCount ? Number(profileCount[2]) : 0;
+  if (!profileCount || Number(profileCount[1]) !== count || count < 72) errors.push("campground profile count less than verified baseline 72");
+  // Parse the real trip-filter button first. SSR may split the label and
+  // count with React boundaries, spans, or numeric HTML entities.
+  // Keep the >=55 source-backed minimum; a genuinely stale 7 must fail.
+  const petButtons = [...html.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/gi)]
+    .map(([, markup]) => markup.replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&#(?:40|x28);/gi, "(")
+      .replace(/&#(?:41|x29);/gi, ")")
+      .replace(/&(?:nbsp|#160|#xA0);/gi, " ")
+      .replace(/\s+/g, " ").trim());
+  const petButton = petButtons.find(value => /^Pet friendly(?:\s|\()/i.test(value));
+  const petLabelAndCount = /Pet friendly\s*\(\s*(\d+)\s*\)/i;
+  const petMatch = petLabelAndCount.exec(petButton ?? "") ?? petLabelAndCount.exec(text);
+  const petCount = petMatch ? Number(petMatch[1]) : null;
+  if (petCount === null || petCount < 55) {
+    // Evidence for staleness versus markup drift without dumping page bodies
+    // or silently weakening the protected acceptance contract.
+    errors.push("fewer than 55 evidence-backed pet camping profiles in live filter"
+      + "; parsed=" + (petCount ?? "none")
+      + "; button=" + JSON.stringify((petButton ?? "not-found").slice(0, 100))
+      + "; researched-marker=" + text.includes("Policy researched 2026-11-05")
+      + "; html-bytes=" + html.length);
+  }
+  if (!text.includes("Official pet rules")) errors.push("no operator-specific pet policy links in live SSR");
+  // Each notice and operator URL must belong to its OWN park card. Several
+  // official alerts intentionally share a needs-review notice; searching the
+  // full document masked stale/misassigned cards (false-positive acceptance).
+  const advisorySection = /<section\b(?=[^>]*\bid=["']camping-alerts["'])[^>]*>([\s\S]*?)<\/section>/i.exec(html)?.[1] ?? "";
+  const advisoryCards = [...advisorySection.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/gi)].map(([, markup]) => ({
+    markup,
+    text: markup.replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
+      .replace(/&amp;/gi, "&").replace(/&#(?:x27|39);|&apos;/gi, "'")
+      .replace(/&quot;/gi, '"').replace(/\s+/g, " "),
+  }));
+  if (advisoryCards.length !== expectedAlerts.length) errors.push("official advisory card count differs from source snapshot");
+  for (const alert of expectedAlerts) {
+    const card = advisoryCards.find(({ markup }) => [...markup.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi)]
+      .some(([, heading]) => heading.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() === alert.parkName));
+    if (!card) {
+      errors.push("missing monitored park advisory card: " + alert.parkName);
+      continue;
+    }
+    if (!card.text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
+    if (!card.markup.includes(alert.sourceUrl)) errors.push("missing live operator source: " + alert.parkName);
+  }
+  if (!text.includes("Notice verified") && !text.includes("Changed; recheck official source"))
+    errors.push("missing official advisory status labels");
+  const links = [...html.matchAll(/<link\b[^>]*>/gi)].map(m => m[0]);
+  const canonical = links.some(link => /rel=["']canonical["']/i.test(link)
+    && link.includes(CANONICAL));
+  if (!canonical) errors.push("missing exact canonical link");
+  const robotTags = [...html.matchAll(/<meta\b[^>]*>/gi)].map(m => m[0])
+    .filter(tag => /name=["']robots["']/i.test(tag));
+  if (robotTags.some(tag => /noindex|nofollow/i.test(tag))) errors.push("unexpected noindex/nofollow robots directive");
+  for (const href of [
+    "https://www.recreation.gov/camping/campgrounds/258851",
+    "https://www.recreation.gov/camping/campgrounds/258852",
+    "https://www.recreation.gov/camping/campgrounds/234362",
+    "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
+  ]) if (!html.includes(href)) errors.push("missing specific campground destination: " + href);
+  if (/<h2[^>]*>\s*Visit a State Park\s*<\/h2>/i.test(html)) errors.push("outdated park-only heading");
+  if (text.includes("Official reservations/details")) errors.push("generic reservation CTA remains visible");
+  if (errors.length) throw Error(errors.join("; "));
+  return { campgrounds: count, advisories: expectedAlerts.length, specificBookingLinks: 4 };
+}
+
+if (process.argv.includes("--self-test")) {
+  const fixtures = [
+    '<link rel="canonical" href="' + CANONICAL + '">',
+    '<h1>Best Places to Go Camping in Texas</h1>',
+    '<h2>Six Texas camping starting points, by trip</h2>',
+    '<p>Pet friendly (61)</p><p>Official pet rules</p>',
+    '<div>By Texas Defined editorial desk</div>',
+    '<p>Garner Shady Meadows full-hookup sites are RV-only.</p>',
+    '<p>Pet friendly is a verified-only filter.</p>',
+    '<h2>Choose your camping type or activity</h2>',
+    '<h2>Recent official park advisories</h2>',
+    '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
+    '<div>Park camping / reservation instructions Notice verified</div>',
+    '<section id="camping-alerts">',
+    ...expectedAlerts.map(alert => '<article><h3>' + alert.parkName + '</h3><p>' + alert.notice + '</p><a href="' + alert.sourceUrl + '">Official park alerts</a></article>'),
+    '</section>',
+    ...[
+      "https://www.recreation.gov/camping/campgrounds/258851",
+      "https://www.recreation.gov/camping/campgrounds/258852",
+      "https://www.recreation.gov/camping/campgrounds/234362",
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
+    ].map(href => '<a href="' + href + '">Source</a>'),
+  ].join("");
+  assert.deepEqual(verify(fixtures, { synthetic: true }), { campgrounds: 72, advisories: 5, specificBookingLinks: 4 });
+  assert.throws(() => verify(fixtures.replace("Recent official park advisories", "Old alerts"), { synthetic: true }), /missing/);
+  assert.throws(() => verify(fixtures.replace("Six Texas camping starting points, by trip", "Old generic list"), { synthetic: true }), /starting points/);
+  assert.throws(() => verify(fixtures.replace("Shady Meadows full-hookup sites", "Generic Garner camping"), { synthetic: true }), /Shady Meadows/);
+  assert.throws(() => verify(fixtures.replace("Pet friendly (61)", "Pet friendly (7)"), { synthetic: true }), /55 evidence-backed/);
+  assert.doesNotThrow(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button>Pet friendly<!-- --> (61)</button>'), { synthetic: true }));
+  assert.doesNotThrow(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button><span>Pet friendly</span> &#40;61&#41;</button>'), { synthetic: true }));
+  assert.throws(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button>Pet friendly<!-- --> (7)</button>'), { synthetic: true }), /55 evidence-backed/);
+  assert.throws(() => verify(fixtures.replace("Official pet rules", "Unverified dog camping"), { synthetic: true }), /pet policy links/);
+  assert.throws(() => verify(fixtures.replace("Pet friendly is a verified-only filter", "All parks accept pets"), { synthetic: true }), /Pet friendly/);
+  assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
+  assert.throws(() => verify(fixtures.replace(expectedAlerts[0].notice, "Outdated park information"), { synthetic: true }), /live notice differs/);
+  assert.throws(() => verify(fixtures.replace("Showing 72 of 72 verified profiles", "Showing 12 of 12 verified profiles"), { synthetic: true }), /count less/);
+  console.log("Camping production verifier self-test passed.");
+  process.exit(0);
+}
+
+for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+  const url = new URL(CANONICAL);
+  url.searchParams.set("camping_verify", (process.env.GITHUB_RUN_ID || "manual") + "-" + attempt);
+  try {
+    const response = await fetch(url, {
+      redirect: "follow",
+      headers: { "user-agent": "TexasDefined Camping Authority Production Monitor/1.0", "cache-control": "no-cache" },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!response.ok || new URL(response.url).pathname !== new URL(CANONICAL).pathname)
+      throw Error("HTTP " + response.status + " final URL " + response.url);
+    const html = await response.text();
+    const result = verify(html);
+    console.log("PASS Camping live SSR / canonical / booking targets / notices:", JSON.stringify(result));
+    process.exit(0);
+  } catch (error) {
+    console.error("FAIL camping live check attempt " + attempt + "/" + MAX_ATTEMPTS + ": " + (error instanceof Error ? error.message : String(error)));
+    if (attempt < MAX_ATTEMPTS) await wait(5000);
+  }
+}
+process.exit(1);

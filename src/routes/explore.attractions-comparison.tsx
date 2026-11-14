@@ -14,7 +14,7 @@ export const Route = createFileRoute('/explore/attractions-comparison')({
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const destinations = loaderData ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Attractions Comparison | Texas Defined', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Attractions Comparison', description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         '@context': 'https://schema.org',

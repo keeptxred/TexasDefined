@@ -37,6 +37,24 @@ const routes = [
 ];
 const failures = [];
 
+// Local calculator profiles feed their title directly to buildMeta(), which
+// already appends "| Texas Defined". Reintroducing prebranded profile values
+// duplicates the publisher and can prematurely truncate a useful query title.
+for (const [dataFile, headFile, fieldName, queryIntent] of [
+  ['src/data/local-salary-needed.ts', 'src/data/local-salary-needed-page.server.ts', 'salarySeoTitle', 'Salary Needed to Live in'],
+  ['src/data/local-homeownership-cost.ts', 'src/data/local-homeownership-cost-page.server.ts', 'ownershipSeoTitle', 'Homeownership Cost Calculator'],
+  ['src/data/local-home-insurance.ts', 'src/data/local-home-insurance-page.server.ts', 'insuranceSeoTitle', 'Home Insurance Cost Calculator'],
+  ['src/data/local-cost-of-living.ts', 'src/data/local-cost-of-living-page.server.ts', 'seoTitle', 'Cost of Living Calculator'],
+  ['src/data/local-home-affordability.ts', 'src/data/local-home-affordability-page.server.ts', 'seoTitle', 'Home Affordability Calculator'],
+]) {
+  const data = fs.readFileSync(dataFile, 'utf8');
+  const head = fs.readFileSync(headFile, 'utf8');
+  if (!data.includes(queryIntent)) failures.push('Local finance search-intent title missing: ' + dataFile);
+  if (!head.includes('buildMeta(texasDefinedBrand, {')) failures.push('Local finance shared title builder missing: ' + headFile);
+  const titleProperty = new RegExp('\\b' + fieldName + '\\s*:\\s*[^\\n]*\\|\\s*Texas Defined');
+  if (titleProperty.test(data)) failures.push('Prebranded local finance SEO title repeats publisher: ' + dataFile);
+}
+
 for (const feature of [
   "'@type': 'WebPage'",
   "'@id': `${pageUrl}#page`",

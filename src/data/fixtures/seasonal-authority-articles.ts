@@ -279,9 +279,11 @@ export const seasonalAuthorityArticles: Article[] = [
     tags: ["fall in texas", "texas fall colors", "lost maples", "east texas fall", "autumn road trip"], featured: true, relatedCollections: [], relatedDestinations: ["caddo-lake"],
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
     internalLinks: [
-      { href: "/article/best-places-for-fall-colors-in-texas", label: "Find the strongest fall-color destinations", description: "Compare Hill Country, East Texas, North Texas and West Texas." },
+      { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare state parks for fall color", description: "Pick foliage landscapes by park and region." },
       { href: "/article/texas-fall-foliage-road-trip", label: "Plan a fall foliage road trip", description: "Build a weekend around color instead of isolated park stops." },
       { href: "/article/caddo-lake-cypress-morning", label: "Spend a morning on Caddo Lake", description: "Explore one of East Texas' most atmospheric autumn landscapes." },
+      { href: "/article/east-texas-fall-colors", label: "Explore East Texas fall colors", description: "Compare Daingerfield, Tyler and Caddo Lake." },
+      { href: "/article/hill-country-fall-colors", label: "Explore Hill Country fall colors", description: "Plan Lost Maples, Garner and the Guadalupe." },
     ],
     body: [
       { type: "paragraph", text: "Texas fall is late, uneven and much better than its reputation. Color arrives in pockets rather than as one statewide wave. The strongest displays usually depend on river corridors, hardwood forests, elevation or a particular stand of trees rather than endless mountainsides." },
@@ -329,8 +331,10 @@ export const seasonalAuthorityArticles: Article[] = [
     tags: ["texas fall road trip", "fall foliage", "lost maples", "garner", "guadalupe river"], relatedCollections: [], relatedDestinations: [],
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Check the statewide fall guide", description: "Compare regions and timing before committing to the Hill Country." },
-      { href: "/article/best-places-for-fall-colors-in-texas", label: "Compare the strongest foliage stops", description: "Swap in East Texas when current reports look better." },
+      { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare fall-color state parks", description: "Choose parks by scenery and current reports." },
       { href: "/explore/state-parks", label: "Browse the state-park network", description: "Add hikes, camping and nearby parks to the route." },
+      { href: "/article/hill-country-fall-colors", label: "Hill Country fall route details", description: "Check Lost Maples, Garner and the Guadalupe." },
+      { href: "/article/east-texas-fall-colors", label: "East Texas foliage alternative", description: "See Daingerfield, Tyler and Caddo Lake." },
     ],
     body: [
       { type: "paragraph", text: "Texas fall road trips work best when they follow water. Rivers and canyons concentrate the deciduous trees that create the color, and they also give you something worth seeing if a warm spell delays the leaves." },

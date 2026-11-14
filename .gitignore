@@ -16,6 +16,10 @@ dist-ssr
 .nitro
 *.local
 
+# Manually researched corporate public-venue address/geocode candidates
+# Never commit unreviewed location research or internal provenance files.
+.artifacts/corporate-events/
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

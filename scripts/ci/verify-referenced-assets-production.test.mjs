@@ -1,0 +1,910 @@
+import assert from 'node:assert/strict';
+import { verifyPriorAssetHandoff } from './verify-prior-asset-handoff.mjs';
+import { INCIDENT, qualifyKnownPublishedNetworkFailure, verifyOriginalIncident, repairReportWithIndependentProbes } from './recertify-transient-asset-handoff.mjs';
+import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
+import { readFileSync } from 'node:fs';
+import { test } from 'node:test';
+import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+
+test('only a successful active Worker predecessor with both-origin original SHA proof is accepted', () => {
+  const version='953ec55d-c98c-41e8-b59e-613878d2a7c3', sha='a'.repeat(40);
+  const chunks=['/assets/Header-BPIUxtUq.js','/assets/createLucideIcon-DbfCmcaA.js'];
+  const snap={snapshots:[{sourceCommit:sha,builtAssets:chunks.map(path=>({path}))}]};
+  const delivery={expected:version,failures:[],assets:chunks.flatMap(path=>
+    ['direct','canonical'].map(origin=>({path,origin,status:200,ok:true,sha256:'b'.repeat(64),oldHashMatches:true})))};
+  assert.deepEqual(verifyPriorAssetHandoff(snap,delivery,{expectedWorkerVersion:version,expectedSourceSha:sha}),
+    {worker:version,sha,emitted:2,checked:4});
+  assert.throws(()=>verifyPriorAssetHandoff(snap,delivery,
+    {expectedWorkerVersion:version,expectedSourceSha:'c'.repeat(40)}),/source SHA/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,delivery,
+    {expectedWorkerVersion:'d6028a42-0535-460f-9c8e-b8d2d5db8a8f',expectedSourceSha:sha}),/active Worker/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,failures:['real missing hash']},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/failed asset deliveries/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,assets:delivery.assets.filter(x=>x.origin==='direct')},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/both-origin|direct and canonical/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,assets:[{...delivery.assets[0],sha256:'wrong'},...delivery.assets.slice(1)]},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/invalid SHA/);
+  assert.throws(()=>verifyPriorAssetHandoff({snapshots:[]},delivery,
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/source SHA/);
+});
+
+test('GitHub production restores only current active Worker dual-origin SHA-verified artifacts with explicit deploy evidence', () => {
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  assert.match(wf,/runs\?per_page=100/);
+  assert.match(wf,/actions\/runs\/\$prior_run\/jobs\?per_page=100/);
+  assert.match(wf,/verify-prior-deploy-job-eligibility\.mjs/);
+  assert.match(wf,/steps\.rollback_target\.outputs\.version_id/);
+  assert.match(wf,/verify-prior-asset-handoff\.mjs/);
+  assert.match(wf,/Wrong prior asset handoff/);
+  assert.doesNotMatch(wf,/runs\?per_page=8/);
+  assert.doesNotMatch(wf,/if \[\[ "\$deploy_conclusion" != "success" \]\]/);
+});
+
+test('only one known post-deploy browser failure can qualify an otherwise fully verified active Worker for asset reuse', () => {
+  const mandatory=[
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Verify current and previous release JS/CSS on both public origins',
+  ];
+  const make = (conclusion, failing=[]) => ({
+    jobs:[{
+      name:'deploy', conclusion,
+      steps:[
+        ...mandatory.map(name=>({name,conclusion:'success'})),
+        ...failing.map(name=>({name,conclusion:'failure'})),
+      ],
+    }],
+  });
+  assert.equal(qualifyPriorDeployJob(make('success')).mode,'successful-deploy-job');
+  const visualFailure='Verify MSR Houston responsive visitor page and licensed photo';
+  assert.equal(qualifyPriorDeployJob(make('failure',[visualFailure])).mode,
+    'postdeploy-visual-check-failed-only');
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Deploy TexasDefined Worker'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify canonical production health'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',[visualFailure,'Verify current and previous release JS/CSS on both public origins'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify MSR Houston desktop metadata'])),/unapproved/);
+  // Exact failed source-verified 11/11 release is allowed to contribute only
+  // SHA-checked old Worker assets; an unrelated failure still blocks deployment.
+  const failedImageIncident=make('failure',['Verify base production surfaces']);
+  failedImageIncident.jobs[0].id=130834293835;
+  failedImageIncident.jobs[0].run_id=43113183643;
+  assert.equal(qualifyPriorDeployJob(failedImageIncident).mode, 'exact-image-rights-incident-assets-only');
+  assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],id:130834293836}]}),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],run_id:43113183644}]}),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify base production surfaces'])),/unapproved/);
+  // A Nov12 Worker published before unrelated statewide QA failures. This
+  // does not grant permission to bypass ANY direct/canonical/hash/Worker gate.
+  const nov12Failures=[
+    'Verify ticketing and Christmas pages at mobile and desktop widths',
+    'Verify base production surfaces',
+    'Verify changed CJ account tracking without affiliate clicks',
+  ];
+  const nov12=make('failure',nov12Failures);
+  nov12.jobs[0].run_id=43331358104;
+  nov12.jobs[0].id=131576580894;
+  assert.equal(qualifyPriorDeployJob(nov12).mode,'exact-nov12-active-worker-original-assets-only');
+  for (const mutate of [
+    x=>x.jobs[0].run_id++,
+    x=>x.jobs[0].id++,
+    x=>x.jobs[0].steps.push({name:'Unknown failure',conclusion:'failure'}),
+    x=>x.jobs[0].steps.find(s=>s.name==='Verify canonical production health').conclusion='failure',
+  ]) {
+    const forged=structuredClone(nov12);
+    mutate(forged);
+    assert.throws(()=>qualifyPriorDeployJob(forged),/unapproved|Required published/);
+  }
+  const currentHandoffWorkflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  assert.match(currentHandoffWorkflow,/EXPECTED_ACTIVE_WORKER_VERSION.*632decb8-3e25-43dd-a42f-73b236ea6336/);
+  assert.match(currentHandoffWorkflow,/verify-prior-asset-handoff\.mjs/);
+  assert.match(currentHandoffWorkflow,/2026-11-15T23:50:11Z/);
+
+  // Exact November 12 published Worker passed all original-byte and dual-origin
+  // runtime checks; the sole later directory check demanded nonexistent copy.
+  const sportsIncident=make('failure',['Verify sports venue editorial production']);
+  sportsIncident.jobs[0].run_id=43251806283;
+  sportsIncident.jobs[0].id=131299301592;
+  const sportsHandoff=qualifyPriorDeployJob(sportsIncident);
+  assert.equal(sportsHandoff.mode,'exact-published-worker-sports-date-assertion-assets-only');
+  assert.equal(sportsHandoff.exactRun,43251806283);
+  const sportsWrongRun=structuredClone(sportsIncident);
+  sportsWrongRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(sportsWrongRun),/unapproved/);
+  const sportsWrongJob=structuredClone(sportsIncident);
+  sportsWrongJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(sportsWrongJob),/unapproved/);
+  const sportsExtraFailure=structuredClone(sportsIncident);
+  sportsExtraFailure.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(sportsExtraFailure),/Required published|unapproved/);
+  const sportsMissingHealth=structuredClone(sportsIncident);
+  sportsMissingHealth.jobs[0].steps=sportsMissingHealth.jobs[0].steps.filter(x=>x.name!=='Verify direct Worker health');
+  assert.throws(()=>qualifyPriorDeployJob(sportsMissingHealth),/Required published-Worker safety gate/);
+  const sportsVerifier=readFileSync('scripts/production/verify-sports-venue-editorial-production.mjs','utf8');
+  assert.match(sportsVerifier,/The most recently checked individual venue record in this collection was verified/);
+  assert.match(sportsVerifier,/karting operation announced a temporary closure/);
+  assert.doesNotMatch(sportsVerifier,/assertIncludes\(html, 'The latest individual venue source check was'/);
+
+  // Nov 12, 2026: a real Worker with complete two-origin original JS/CSS
+  // proof may contribute assets despite the later independent Fredericksburg
+  // direct-Worker transport timeout. Do NOT call the failed release successful.
+  const timeoutIncident=make('failure',['Verify base production surfaces']);
+  timeoutIncident.jobs[0].id=130964877163;
+  timeoutIncident.jobs[0].run_id=43152537155;
+  const timeoutApproval=qualifyPriorDeployJob(timeoutIncident);
+  assert.equal(timeoutApproval.mode,'exact-published-worker-transport-timeout-assets-only');
+  assert.equal(timeoutApproval.exactRun,43152537155);
+  const wrongTimeoutRun=structuredClone(timeoutIncident);
+  wrongTimeoutRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongTimeoutRun),/unapproved/);
+  const wrongTimeoutJob=structuredClone(timeoutIncident);
+  wrongTimeoutJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongTimeoutJob),/unapproved/);
+  const timeoutWithExtraFailure=structuredClone(timeoutIncident);
+  timeoutWithExtraFailure.jobs[0].steps.push({name:'Other production failure',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(timeoutWithExtraFailure),/unapproved/);
+  const timeoutWithMissingHealth=structuredClone(timeoutIncident);
+  timeoutWithMissingHealth.jobs[0].steps=timeoutWithMissingHealth.jobs[0].steps.filter(x=>x.name!=='Verify canonical production health');
+  assert.throws(()=>qualifyPriorDeployJob(timeoutWithMissingHealth),/Required published-Worker safety gate/);
+  // The newer Nov 12 Worker is live and its exact original JS/CSS was verified
+  // on both public origins, but the independent sitemap check failed later.
+  // Reuse only that asset proof after #7050's sitemap uniqueness repair.
+  const sitemapIncident=make('failure',['Verify base production surfaces']);
+  sitemapIncident.jobs[0].run_id=43314663760;
+  sitemapIncident.jobs[0].id=131519408864;
+  const sitemapApproval=qualifyPriorDeployJob(sitemapIncident);
+  assert.equal(sitemapApproval.mode,'exact-published-worker-fredericksburg-sitemap-assets-only');
+  assert.equal(sitemapApproval.exactRun,43314663760);
+  const badSitemapRun=structuredClone(sitemapIncident);
+  badSitemapRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapRun),/unapproved/);
+  const badSitemapJob=structuredClone(sitemapIncident);
+  badSitemapJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapJob),/unapproved/);
+  const badSitemapCritical=structuredClone(sitemapIncident);
+  badSitemapCritical.jobs[0].steps=badSitemapCritical.jobs[0].steps.filter(x=>x.name!=='Verify canonical production health');
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapCritical),/Required published-Worker safety gate/);
+  const badSitemapExtraFailure=structuredClone(sitemapIncident);
+  badSitemapExtraFailure.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapExtraFailure),/Required published|unapproved/);
+  const repairedSitemapSource=readFileSync('src/routes/sitemap-explore[.]xml.ts','utf8');
+  assert.equal((repairedSitemapSource.match(/const entries = dedupeUrlEntries\(\[/g)??[]).length,2);
+  assert.match(readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8'),/const expectedMatches = sitemap\.split\(expected\)\.length - 1;/);
+  const productionTransportTest=readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8');
+  assert.match(productionTransportTest,/const MAX_TRANSPORT_ATTEMPTS = 3;/);
+  assert.match(productionTransportTest,/attempt === MAX_TRANSPORT_ATTEMPTS/);
+  const twoFailures=make('failure',['Verify base production surfaces','Verify current and previous release JS/CSS on both public origins']);
+  twoFailures.jobs[0].id=130834293835;twoFailures.jobs[0].run_id=43113183643;
+  assert.throws(()=>qualifyPriorDeployJob(twoFailures),/Required published|unapproved/);
+  // The exact 2026-11-09 published Worker passed all five asset/health
+  // checkpoints but failed two subsequent title-verification steps. Reuse its
+  // verified original bytes only, never classify the failed release as healthy.
+  const bingTitleFailures=[
+    'Verify District 6 complete 28-game archive, analysis and attribution on both production origins',
+    'Verify base production surfaces',
+  ];
+  const knownPublished=make('failure',bingTitleFailures);
+  knownPublished.jobs[0].run_id=42640439772;
+  knownPublished.jobs[0].id=129239799336;
+  assert.equal(qualifyPriorDeployJob(knownPublished).mode,
+    'historical-published-title-regression-assets-only');
+  const wrongRun=structuredClone(knownPublished);
+  wrongRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongRun),/unapproved/);
+  const wrongJob=structuredClone(knownPublished);
+  wrongJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongJob),/unapproved/);
+  const changedFailures=structuredClone(knownPublished);
+  changedFailures.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(changedFailures),/Required published|unapproved/);
+  const extraFailure=structuredClone(knownPublished);
+  extraFailure.jobs[0].steps.push({name:'Other postdeploy check',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(extraFailure),/unapproved/);
+  const missingFailure=structuredClone(knownPublished);
+  missingFailure.jobs[0].steps=missingFailure.jobs[0].steps.filter(x=>x.name!==bingTitleFailures[1]);
+  assert.throws(()=>qualifyPriorDeployJob(missingFailure),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',[])),/unapproved|missing failure evidence/);
+  const withoutHealth=make('success');
+  withoutHealth.jobs[0].steps=withoutHealth.jobs[0].steps.filter(x=>x.name!=='Verify direct Worker health');
+  assert.throws(()=>qualifyPriorDeployJob(withoutHealth),/Required published-Worker safety gate/);
+  assert.throws(()=>qualifyPriorDeployJob({jobs:[]}),/exactly one deploy/);
+});
+
+test('three observed Bingbot 404 module families enter source-matched built handoff only when Vite emits them', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'CountyTaxRateSection-BJBHgsSN.js',
+    'PublishableGraphic-DgFKoNsV.js',
+    '_kind._slug.lazy-Ba1uajBm.js',
+  ];
+  const paths = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const name of observed) assert.ok(paths.includes('/assets/' + name), name);
+  assert.equal(paths.length, 5);
+  const absent = selectBuiltRouteAssets(required).map(x => x.path);
+  for (const name of observed) assert.ok(!absent.includes('/assets/' + name), name);
+  assert.equal(absent.length, 2);
+});
+
+test('Nov 7 real 404 dependency families are captured only when Vite emits them', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'useSuspenseQuery-Dia7dPYd.js',
+    'ProductCard-DaXnFySq.js',
+    'ProductDetailPage-V5CkOE3O.js',
+    'DestinationVisitPlanner-DwqBJjIU.js',
+    'CountySelectorField-C7_Bl4DE.js',
+    'destination-query-runtime-CUt-8q2H.js',
+    'state-park-heroes-jjq_cvfi.js',
+    'index.lazy-0y_vgYAe.js',
+    'index-CODHQR2C.js',
+    'events-generated-BWH0jV3u.js',
+    'HighSchoolFootballLookup-BMRQQ3fR.js',
+    'SchoolSupplyPartners-BQBobRkv.js',
+    'PrioritySearchPage-BsxFi8O1.js',
+    'football-district21-2026-s8fTgoDW.js',
+    'national-wildlife-refuge-destinations-DIOyTW1E.js',
+  ];
+  const emitted = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const file of observed) assert.ok(emitted.includes('/assets/' + file), file);
+  assert.equal(new Set(emitted).size, observed.length + required.length);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'no nonexistent optional files');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>'index-Family'+String(i)+'.js')]),
+    /at most eight distinct/, 'still bound real index variants');
+});
+
+test('recently healthy Texas Gateway and football 404 modules enter bounded emitted-chunk handoff', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'texas-gateway-lifestyle-batch6-CAF9mNoS.js',
+    'texas-gateway-identity-batch16-Cy6AU-K1.js',
+    'texas-gateway-monthly-batch15-CHlkxh45.js',
+    'texas-high-school-football-teams.lazy-B1bsRoZi.js',
+    'texas-DKPbpnwC.js',
+    'texas-gateway-decision-batch12-DCeNfaJx.js',
+    'texas-gateway-decision-batch13-Dz-l0EQZ.js',
+    'texas-gateway-regional-batch7-El5XsW8Z.js',
+    'lazy-authority-legacy-DEdbAnqF.js',
+    'texas-gateway-bestof-batch8-BtR_dD4f.js',
+    'texas-gateway-lifestyle-batch3-CSzIIG0q.js',
+  ];
+  const built = selectBuiltRouteAssets([...required,...observed]).map(x=>x.path);
+  for (const name of observed) assert.ok(built.includes('/assets/'+name), name);
+  assert.equal(new Set(built).size,required.length+observed.length);
+  assert.equal(selectBuiltRouteAssets(required).length,2, 'unemitted old file is never fabricated');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9}, (_,i)=>'texas-gateway-lifestyle-batch'+i+'-HashA123.js')]),
+    /at most eight distinct/, 'gateway family is finite, never silently truncated');
+});
+
+test('Nov 8 live emitted crawler and 200-to-404 families receive source-matched handoff only if built', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observedEmitted = [
+    'county.lazy-CN-npj2N.js',
+    'fishing.lakes._slug._section-SAcYBOjM.js',
+    'TexasPointMapGraphic-DGvrlMw4.js',
+    'TopAttractionCollectionLinks-B0LbmQB9.js',
+    'CategoryPage-DOTe1bzN.js',
+    'ExploreDestinationComparison-mu2hvhSD.js',
+    'image-library-Dd8HPpM7.js',
+    'SamRayburnContext-v6bOT7Dp.js',
+    'explore._category.lazy-DZiO3Vjf.js',
+    'texas-high-school-football-matchups-CENB0BVf.js',
+    'FishingMerchSpotlight-BMgKvqHG.js',
+    'sports-venue._slug-r1wTB9Ju.js',
+    'fishing.lakes._slug._section-ujh1drSP.js',
+    'fishing.lakes._slug._section-6ou4C88I.js',
+  ];
+  const selected = selectBuiltRouteAssets([...required,...observedEmitted]).map(x=>x.path);
+  for (const name of observedEmitted) assert.ok(selected.includes('/assets/'+name), name);
+  assert.equal(new Set(selected).size, required.length+observedEmitted.length);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'never invent missing old chunk bytes');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>'fishing.lakes._slug._section-Hash'+i+'.js')]),
+    /at most eight distinct/, 'source-matched fishing-family bound remains enforced');
+});
+
+test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
+  const html = [
+    '<script type="module" crossorigin src="/assets/main-LkbE9wUL.js"></script>',
+    '<link rel="modulepreload" href="/assets/Container-Cz1cjZOJ.js">',
+    '<link rel="stylesheet" href="/assets/entry-C82abc.css">',
+    '<link rel="preload" as="script" href="/assets/Header-BsOq5IkK.js">',
+    '<script src="https://other.example/assets/tracker-X.js"></script>',
+    '<link rel="stylesheet" href="/favicon.ico">',
+    '<script type="module">import("/assets/internal-A.js")</script>',
+    '<script src="/assets/../../private.js"></script>',
+    '<script src="/assets/main-LkbE9wUL.js"></script>',
+  ].join('\n');
+  assert.deepEqual(referencesFromHtml(html).map(x => x.path), [
+    '/assets/main-LkbE9wUL.js',
+    '/assets/Container-Cz1cjZOJ.js',
+    '/assets/entry-C82abc.css',
+    '/assets/Header-BsOq5IkK.js',
+  ]);
+});
+
+test('a missing, challenged, empty or wrong-MIME asset fails closed', () => {
+  const okJs = { status: 200, bytes: 123, mime: 'text/javascript; charset=utf-8', challenge: false };
+  const okCss = { ...okJs, mime: 'text/css' };
+  assert.equal(validAssetResponse('js', okJs), true);
+  assert.equal(validAssetResponse('css', okCss), true);
+  for (const response of [
+    { ...okJs, status: 404 }, { ...okJs, status: 302 },
+    { ...okJs, status: 503, mime: 'text/html' },
+    { ...okJs, bytes: 0 }, { ...okJs, challenge: true },
+    { ...okJs, mime: 'text/html' },
+  ]) assert.equal(validAssetResponse('js', response), false);
+  assert.equal(validAssetResponse('css', okJs), false);
+});
+
+test('retain only one older generation plus current, never grow indefinitely', () => {
+  const fake = id => ({ format: 1, pages: [{ path: '/', assets: [{ path: '/assets/x-' + id + '.js', wasAvailable: true }] }] });
+  const one = nextSnapshotHistory(null, fake(1));
+  assert.equal(one.snapshots.length, 1);
+  const two = nextSnapshotHistory(one, fake(2));
+  assert.equal(two.snapshots.length, 2);
+  const three = nextSnapshotHistory(two, fake(3));
+  assert.deepEqual(three.snapshots.map(x => x.pages[0].assets[0].path), ['/assets/x-2.js', '/assets/x-3.js']);
+});
+
+test('hidden forensic and cross-release asset artifacts must actually upload', () => {
+  const workflow = readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+  for (const name of ['hashed-asset-continuity-', 'asset-handoff-']) {
+    const index = workflow.indexOf('name: ' + name);
+    assert.ok(index >= 0, name + ': missing artifact upload');
+    const nextStep = workflow.indexOf('\n      - name:', index + 1);
+    const config = workflow.slice(index, nextStep >= 0 ? nextStep : workflow.length);
+    assert.match(config, /include-hidden-files: true/, name + ': .artifacts would be silently excluded');
+    assert.match(config, /if-no-files-found: error/, name + ': lost evidence must fail the pipeline');
+  }
+});
+
+test('select exact emitted football and tax lazy-route chunks even when absent from HTML', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js',
+    'property-tax.taxing-unit._unit-CGuzIffC.js',
+    'Container-Cz1cjZOJ.js',
+    'main-LkbE9wUL.js',
+    'other.lazy-123.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files), [
+    { path: '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/property-tax.taxing-unit._unit-CGuzIffC.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/main-LkbE9wUL.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/Container-Cz1cjZOJ.js', kind: 'js', source: 'built-client-chunk' },
+  ]);
+  assert.deepEqual(referencesFromHtml('<script src="/assets/main-LkbE9wUL.js"></script>').map(x => x.path), [
+    '/assets/main-LkbE9wUL.js',
+  ], 'do not incorrectly assume lazy imports are present as HTML asset tags');
+});
+
+test('discover event and food lazy-route hashes observed missing for Microsoft search crawler', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+    'events.lazy-C3.js',
+    'events._collection.lazy-D4.js',
+    'food._slug.lazy-E5.js',
+    'another-unrelated.lazy-Z9.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files).map(x => x.path), [
+    '/assets/texas-high-school-football-teams_._slug.lazy-A1.js',
+    '/assets/property-tax.taxing-unit._unit-B2.js',
+    '/assets/events.lazy-C3.js',
+    '/assets/events._collection.lazy-D4.js',
+    '/assets/food._slug.lazy-E5.js',
+  ]);
+  // Unemitted optional chunks are not fabricated into a deployment.
+  assert.equal(selectBuiltRouteAssets(files.slice(0, 2)).length, 2);
+  assert.deepEqual(selectBuiltRouteAssets([...files, 'food._slug.lazy-DUPLICATE.js'])
+    .map(x => x.path).filter(x => x.includes('/food._slug.lazy-')), [
+      '/assets/food._slug.lazy-DUPLICATE.js',
+      '/assets/food._slug.lazy-E5.js',
+    ], 'legitimate multiple Vite outputs within one optional route family stay covered');
+  assert.throws(() => selectBuiltRouteAssets([...files, ...Array.from({length: 9},
+    (_, i) => 'food._slug.lazy-OVERFLOW' + i + '.js')]),
+    /at most eight distinct/, 'unbounded optional route family must fail closed');
+  assert.throws(() => selectBuiltRouteAssets([...files, 'food._slug.lazy-E5.js']),
+    /at most eight distinct/, 'same exact filename duplicated must fail closed');
+});
+
+test('handoff discovers actual generated district and sports dependency chunks', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+  ];
+  const observed = [
+    'texas-high-school-football-districts_._slug.lazy-LUNlVWLt.js',
+    'texas-high-school-football-districts.lazy-qUVgGBGS.js',
+    'useLocation-BggeWcAi.js',
+    'SponsoredSportsPlacement-VM9ICMMH.js',
+    'createLucideIcon-yBqUUiDC.js',
+    'ContextualOfficialSources-CoOaVWuv.js',
+    'CitationTrustPanel-BF2Efeia.js',
+    'CitationCollectionTrustRouter-CQsMd_7t.js',
+    'analytics-aWB69Ydr.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets([...required, ...observed]).map(x => x.path).slice(2),
+    observed.map(x => '/assets/' + x));
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'do not create fictitious old hashes');
+});
+
+test('discover observed old major article, destination, sports and discovery JS families', () => {
+  const base = [
+    'texas-high-school-football-teams_._slug.lazy-BASE.js',
+    'property-tax.taxing-unit._unit-BASE.js',
+  ];
+  const historical = [
+    'article._slug-Bo6h8g51.js',
+    'destination._slug-CyHpA01o.js',
+    'events.index.lazy-Bv3IVzKY.js',
+    'explore.index.lazy-CDks8Iov.js',
+    'search.lazy-DOdUUwCn.js',
+    'fishing.lakes._slug-bnM1eCOw.js',
+    'texas-high-school-football-playoff-brackets-BG2nCdNx.js',
+    'MuseumAuthorityNetworkSection-DMbCzSMq.js',
+    'museum-authority-heroes-DChJMGcZ.js',
+    'texas-data.lazy-Bmna2q7H.js',
+  ];
+  const selected = selectBuiltRouteAssets([...base, ...historical]);
+  assert.deepEqual(selected.slice(2).map(a => a.path), historical.map(name => '/assets/' + name));
+  assert.equal(selectBuiltRouteAssets(base).length, 2, 'optional unbuilt chunks must not be fabricated');
+});
+
+test('observed Bing calculator and answer modules are included only when emitted', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-BASE.js',
+    'property-tax.taxing-unit._unit-BASE.js',
+  ];
+  const observed = [
+    'PropertyCalculatorFramework-BfNaFZpi.js',
+    'AnswerSummary-ClpRNP9w.js',
+    'texas-home-insurance-calculator.lazy-B-Cusmus.js',
+  ];
+  const selected = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const name of observed) assert.ok(selected.includes('/assets/' + name), name);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'missing optional files must not be fabricated');
+});
+
+test('production build may emit two distinct article route chunks and both must be checked', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+    'article._slug-EAST.js',
+    'article._slug-WEST.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files).slice(2).map(x => x.path), [
+    '/assets/article._slug-EAST.js',
+    '/assets/article._slug-WEST.js',
+  ]);
+  assert.throws(() => selectBuiltRouteAssets([...files,
+    'property-tax.taxing-unit._unit-ANOTHER.js']),
+    /Expected exactly one production client chunk/);
+});
+
+test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
+  assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production client chunk/);
+  assert.throws(() => selectBuiltRouteAssets([
+    'texas-high-school-football-teams_._slug.lazy-A.js',
+    'texas-high-school-football-teams_._slug.lazy-B.js',
+    'property-tax.taxing-unit._unit-C.js',
+  ]), /Expected exactly one production client chunk/);
+});
+
+test('handoff persists old built hashes and current built hashes for next release', () => {
+  const snapshot = id => ({
+    format: 1, pages: [],
+    builtAssets: [{ path: '/assets/property-tax.taxing-unit._unit-' + id + '.js', kind: 'js' }],
+    legacyAssets: [{ path: '/assets/texas-high-school-football-teams_._slug.lazy-' + id + '.js',
+      kind: 'js', wasAvailable: true, preSha256: id }],
+  });
+  const after = nextSnapshotHistory(nextSnapshotHistory(null, snapshot('OLD')), snapshot('NEW'));
+  assert.deepEqual(after.snapshots.map(s => s.builtAssets[0].path), [
+    '/assets/property-tax.taxing-unit._unit-OLD.js',
+    '/assets/property-tax.taxing-unit._unit-NEW.js',
+  ]);
+  assert.equal(after.snapshots[1].legacyAssets[0].preSha256, 'NEW');
+});
+
+test('strict production gate checks built lazy modules and previously confirmed old modules on both origins', () => {
+  const code = readFileSync('scripts/ci/verify-referenced-assets-production.mjs', 'utf8');
+  assert.match(code, /selectBuiltRouteAssets\(await readdir\('dist\/client\/assets'\)\)/);
+  assert.match(code, /const legacyResponses = await auditAssets\(CANONICAL, priorBuilt\)/);
+  assert.match(code, /const a of newBuilt/);
+  assert.match(code, /OPTIONAL_BUILT_CHUNK_PATTERNS/);
+  assert.match(code, /RouteStatusScreens-/);
+  assert.match(code, /for \(const a of inherited.values\(\)\)/);
+  assert.match(code, /for \(const origin of \[DIRECT, CANONICAL\]\)/);
+  assert.match(code, /record\.sha256 === a\.preSha256/);
+});
+
+test('capture common CSS, header/footer and fallback chunks when built, without failing on optional missing', () => {
+  const core = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+  ];
+  assert.equal(selectBuiltRouteAssets(core).length, 2);
+  assert.deepEqual(selectBuiltRouteAssets([...core,
+    'styles-C3.css', 'Header-D4.js', 'Footer-E5.js', 'RouteStatusScreens-F6.js', 'x-G7.js'
+  ]).map(x => x.path), [
+    '/assets/texas-high-school-football-teams_._slug.lazy-A1.js',
+    '/assets/property-tax.taxing-unit._unit-B2.js',
+    '/assets/styles-C3.css', '/assets/Header-D4.js', '/assets/Footer-E5.js',
+    '/assets/RouteStatusScreens-F6.js', '/assets/x-G7.js',
+  ]);
+});
+
+test('Nov 2 observed Meta/Bing chunks enter bounded predeploy handoff when emitted', () => {
+  const required = ['texas-high-school-football-teams_._slug.lazy-Test1234.js',
+    'property-tax.taxing-unit._unit-Test1234.js'];
+  const observed = [
+  "external-link-DASm7Sot.js",
+  "useBaseQuery-DAwRZeNC.js",
+  "DestinationCard-CogOLLKC.js",
+  "useQuery-6nTz4IUX.js",
+  "SectionHeader-Do5UIIvo.js",
+  "FootballFanOffers-DXCuhNe8.js",
+  "ElPasoAreaAuthority-D_3Wtymp.js",
+  "internal-linking-Dmlhp8ZR.js",
+  "ArticleCard-OgqXjgNN.js",
+  "UnusualBusinessAuthorityPanel-oTnuUrSP.js",
+  "ArticleBody-Dfj6eFOG.js",
+  "ParkingMapPanel-BZAeEgAI.js",
+  "event._slug.lazy-JE-wjs_e.js",
+  "shop.lazy-tGIKuzrC.js",
+  "shop.product._productId-BUYhfVVT.js",
+  "historic-sites-Dw2IKh_M.js",
+  "museum-authority-network-Bl2sJ_Sq.js",
+  "DestinationVerifiedVisitorFacts-DsdmC2Dw.js",
+  "BookingCarRentalCard-BtJO_4As.js",
+  "DestinationViatorBooking-DzgY8zhJ.js",
+  "town-authority-links-BTV8jAtI.js",
+  "CityPassContextualCallout-zSFvIGcO.js",
+  "CityPassCalloutContent-YecoYaOL.js",
+  "TexasExplainedContextLinks-CX8yFupy.js",
+  "TexasEventCarousel-Bjl-TKRv.js",
+  "sports-traffic.functions-BM-ItR2d.js"
+];
+  const selected = selectBuiltRouteAssets([...required, ...observed]).map(asset => asset.path);
+  for (const name of observed) assert.equal(selected.includes('/assets/' + name), true, name);
+  assert.equal(selected.length, observed.length + 2);
+  const absent = selectBuiltRouteAssets(required).map(asset => asset.path);
+  assert.equal(absent.length, 2, 'never fabricate absent old assets');
+});
+
+test('Nov2 current missing metro/map families are discovered only if Vite emitted them', () => {
+  const required=['texas-high-school-football-teams_._slug.lazy-ONE.js','property-tax.taxing-unit._unit-TWO.js'];
+  const observed = [
+  "MapPreview-B9_3N0vq.js",
+  "dallas-small-town-drives-CoKJb-D-.js",
+  "explore.near._metro._collection.lazy-Bu6boA-B.js",
+  "explore.near._metro.lazy-ADqGB_m8.js",
+  "explore.near._metro._collection-HAHNflr3.js",
+  "explore.near._metro-BsxC36wI.js"
+];
+  const found=selectBuiltRouteAssets([...required,...observed]).map(x=>x.path);
+  for (const filename of observed) assert.ok(found.includes('/assets/'+filename),filename);
+  assert.equal(selectBuiltRouteAssets(required).length,2);
+});
+
+test('full cross-release retention cohort is verified without sampling, with a finite per-origin bound', () => {
+  const page = new Map(Array.from({ length: 80 }, (_, i) => ['/assets/entry-' + i + '.js', {kind:'js'}]));
+  // Production retains up to two immutable hash generations and current emitted
+  // lazy-route chunks; the previous 250 limit failed before a single HTTP probe.
+  const retained = new Map([...page, ...Array.from({ length: 192 }, (_, i) =>
+    ['/assets/old-' + i + '.js', {kind:'js', preSha256:'verified'}])]);
+  const combined = new Map([...retained, ...Array.from({ length: 96 }, (_, i) =>
+    ['/assets/built-' + i + '.js', {kind:'js', source:'built-lazy-route'}])]);
+  assert.equal(combined.size, 368);
+  assert.equal(assertBoundedCrossReleaseSet(combined), 368);
+  assert.equal(combined.size, 368, 'the guard must not truncate any old or current asset');
+  assert.equal(assertBoundedCrossReleaseSet(new Map(Array.from({length:MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN},
+    (_, i) => ['/assets/test-' + i + '.js', {kind:'js'}]))), MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN);
+  assert.throws(() => assertBoundedCrossReleaseSet(new Map(Array.from({length:MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN+1},
+    (_, i) => ['/assets/test-' + i + '.js', {kind:'js'}]))),
+    /Cross-release asset verification cap exceeded: 513 > 512; inspect retained-asset history, do not truncate/);
+  assert.throws(() => assertBoundedCrossReleaseSet([]), /must be a Map/);
+});
+
+test('all 1,500 immutable originals are audited once in stable order and bounded concurrency',async()=>{
+  const originals=Array.from({length:1500},(_,i)=>'/assets/Old-'+String(i).padStart(4,'0')+'.js');
+  let concurrent=0,maxConcurrent=0;
+  const visited=new Set();
+  const result=await mapBounded(originals,MAX_ASSET_AUDIT_CONCURRENCY,async(path,index)=>{
+    assert.equal(visited.has(path),false,'duplicate asset verification');
+    visited.add(path);concurrent++;
+    maxConcurrent=Math.max(maxConcurrent,concurrent);
+    await new Promise(resolve=>setImmediate(resolve));
+    concurrent--;
+    return {path,index,ok:true};
+  });
+  assert.equal(result.length,1500);
+  assert.equal(visited.size,1500);
+  assert.ok(maxConcurrent<=6 && maxConcurrent>1);
+  assert.deepEqual(result.map(x=>x.path),originals);
+  await assert.rejects(mapBounded([],0,async()=>{}),/Invalid bounded/);
+});
+
+test('bounded request pacing prevents direct Workers.dev 503 probe bursts without sampling',async()=>{
+  assert.ok(MAX_ASSET_AUDIT_CONCURRENCY <= 3, 'asset verifier must not send a six-way rapid flood');
+  assert.ok(ASSET_REQUEST_START_GAP_MS >= 40, 'every asset probe must be paced');
+  const scheduled = [];
+  const clock = () => 1000;
+  const pace = createAssetRequestPacer(40, clock, async (delay) => { scheduled.push(delay); });
+  await Promise.all(Array.from({ length: 5 }, () => pace()));
+  assert.deepEqual(scheduled, [0, 40, 80, 120, 160],
+    'exact requests must start at distinct bounded intervals');
+  assert.throws(() => createAssetRequestPacer(0), /Invalid per-request/);
+  assert.throws(() => createAssetRequestPacer(1001), /Invalid per-request/);
+  const source = readFileSync('scripts/ci/verify-referenced-assets-production.mjs','utf8');
+  assert.match(source, /await paceAssetRequest\(\)/, 'rate limit must be applied to real audit requests');
+  assert.match(source, /for \(const origin of \[DIRECT, CANONICAL\]\)/, 'both origins remain required');
+  assert.match(source, /record\.sha256 === a\.preSha256/, 'original-byte verification remains required');
+  assert.match(source, /errorBodySample/, 'HTTP 503 response evidence must survive into failure artifacts');
+});
+
+test('HTML probe retry permits exactly one transient transport timeout, never false acceptance',async()=>{
+  let calls=0,pauses=0;
+  const success=await retryOneTransportTimeout(async()=>{
+    calls++;
+    if(calls===1)throw Object.assign(new Error('transient timeout'),{name:'TimeoutError'});
+    return {status:200,version:'expected-sha'};
+  },async()=>{pauses++;});
+  assert.deepEqual(success,{status:200,version:'expected-sha'});
+  assert.equal(calls,2);
+  assert.equal(pauses,1);
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw Object.assign(new Error('still unavailable'),{name:'TimeoutError'});
+  },async()=>{}),/still unavailable/);
+  assert.equal(calls,2,'never loop endlessly on a failed source');
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw new Error('wrong Worker SHA or HTTP 503 is not a network timeout');
+  },async()=>{throw Error('must not pause');}),/wrong Worker SHA/);
+  assert.equal(calls,1,'never retry a substantive release failure');
+});
+
+
+
+test('bulk old/current JS audit retries a transient Undici transport error once but never an HTTP failure', async () => {
+  const code = readFileSync('scripts/ci/verify-referenced-assets-production.mjs','utf8');
+  assert.match(code, /retryOneTransportTimeout\(\(\) => retrieveAsset\(origin,path,kind\)\)/,
+    'the real 7,000+ request audit must use the bounded transport retry helper');
+  let calls=0;
+  const successful = await retryOneTransportTimeout(async () => {
+    calls++;
+    if (calls === 1) throw Object.assign(new TypeError('fetch failed'),
+      {cause:{code:'UND_ERR_CONNECT_TIMEOUT'}});
+    return {status:200,mime:'text/javascript',bytes:75,sha256:'original'};
+  },async()=>{});
+  assert.equal(calls,2);
+  assert.equal(successful.sha256,'original');
+
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw Object.assign(new TypeError('fetch failed'),{cause:{code:'UND_ERR_SOCKET'}});
+  },async()=>{}),/fetch failed/);
+  assert.equal(calls,2,'exhausted transport errors still fail closed');
+
+  calls=0;
+  const real404=await retryOneTransportTimeout(async()=>{
+    calls++;return {status:404,mime:'text/html',bytes:0};
+  },async()=>{throw new Error('HTTP response must not be retried');});
+  assert.equal(real404.status,404);
+  assert.equal(calls,1,'HTTP 404 is not converted into success');
+
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw new Error('immutable original SHA mismatch');
+  },async()=>{throw new Error('forbidden retry');}),/SHA mismatch/);
+  assert.equal(calls,1,'substantive integrity failures remain fatal');
+});
+
+
+test('Nov8 Bing and OAI missing JS families are selected only when actually emitted', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+  ];
+  const emitted = [
+    'ViatorLiveProducts-DoZs-ryZ.js',
+    'CoastalBeachFieldGuide-DZ5PpwCp.js',
+    'ShowcaseLakeGuide-mhR86b08.js',
+    'fishing-C5l9Sb8A.js',
+    'texas-vs._state-CnYeEt_l.js',
+  ];
+  const observed404 = [
+    'ViatorLiveProducts-Jux2flJS.js',
+    'CoastalBeachFieldGuide-BAzzF2Bu.js',
+    'ShowcaseLakeGuide-YLPt_fev.js',
+    'fishing-DoHbvkpK.js',
+    'texas-vs._state-CyW7efgg.js',
+  ];
+  const current = selectBuiltRouteAssets([...required, ...emitted]).map(x=>x.path);
+  assert.equal(current.length,7);
+  for (const name of emitted) assert.ok(current.includes('/assets/'+name),name);
+  const missing = selectBuiltRouteAssets(required).map(x=>x.path);
+  for (const name of observed404) assert.equal(missing.includes('/assets/'+name),false,
+    'never synthesize historical hashes only because they were observed 404');
+  const overCap = [...required, ...Array.from({length:9},(_,i)=>
+    'ViatorLiveProducts-D'+String(i).padStart(7,'0')+'.js')];
+  assert.throws(()=>selectBuiltRouteAssets(overCap),/at most eight distinct/);
+  assert.equal(selectBuiltRouteAssets([...required,'ViatorLiveProduct-FAKEHASH.js']).length,2);
+});
+
+
+test('all 4 actual Nov8 Vite CSS entries remain subject to the old/new SHA handoff', () => {
+  const required = ['texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js'];
+  const css = [
+    'styles-Ks56_bF1.css','TexasEventCarousel-BDRm5fsK.css',
+    'events.index-4MFImTVS.css','network-DHryN7XU.css',
+  ];
+  const actual = selectBuiltRouteAssets([...required,...css]);
+  assert.equal(actual.length,6);
+  for (const name of css) {
+    const item = actual.find(x=>x.path==='/assets/'+name);
+    assert.ok(item,name);
+    assert.equal(item.kind,'css');
+    assert.equal(item.source,'built-client-chunk');
+  }
+  assert.equal(selectBuiltRouteAssets(required).length,2,
+    'never invent an old stylesheet that the current Vite build did not emit');
+  assert.throws(()=>selectBuiltRouteAssets([...required,...Array.from({length:9},(_,i)=>
+    'network-'+String(i).padStart(8,'0')+'.css')]),/at most eight distinct/,
+    'route CSS must never bypass the per-family finite cap');
+});
+
+
+test('Nov9 Googlebot/Bingbot old-hash module families enter bounded handoff only when Vite emitted', () => {
+  const required=[
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+  ];
+  // These 12 were genuinely emitted as dist/client assets in successful
+  // protected production build #42665261387; filenames are not invented.
+  const current=[
+    'TaxingUnitRatePage-BuhcrGFx.js',
+    'find-my-county.lazy-CEBzOrcB.js',
+    'fishing.species-DjbEViUn.js',
+    'fishing.species._slug-CwKLsxhL.js',
+    'fishing.species._slug.lazy-DD4Krxif.js',
+    'EventTicketCta-BAV5sfwY.js',
+    'sports.lazy-CUvgqouJ.js',
+    'texas-data._datasetSlug.lazy-C69uIPp5.js',
+    'SportsVenueLandingIndex-BkGuYYZk.js',
+    'DestinationAuthorityGuide-B9bEY5jn.js',
+    'DepartmentHero-DySnRUWZ.js',
+    'SportsVenueGuidePilotContent-BQ2VvE9M.js',
+  ];
+  const selected=selectBuiltRouteAssets([...required,...current]);
+  assert.equal(selected.length,current.length+2);
+  for (const file of current) {
+    assert.deepEqual(selected.find(a=>a.path==='/assets/'+file),
+      {path:'/assets/'+file,kind:'js',source:'built-client-chunk'},file);
+  }
+  // A past crawler 404 does not justify manufacturing bytes or hashes.
+  const stale=[
+    'TaxingUnitRatePage-BVZvxcvB.js',
+    'find-my-county.lazy-DxrwGteb.js',
+    'fishing.species-m8WWQKAw.js',
+    'sports.lazy-D90zCdrw.js',
+    'texas-data._datasetSlug.lazy-BX2ZT5W_.js',
+  ];
+  const without=selectBuiltRouteAssets(required).map(a=>a.path);
+  for (const file of stale)
+    assert.equal(without.includes('/assets/'+file),false,file);
+  // Per-family ceiling is still enforced instead of truncating silently.
+  assert.throws(()=>selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>
+      'SportsVenueLandingIndex-'+String(i).padStart(8,'0')+'.js')]),
+    /at most eight distinct/);
+});
+
+
+test('postbuild supersession gate rejects stale main before asset work, preserving final deploy refusal', () => {
+  const workflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  const build=workflow.indexOf('      - name: Build production bundle');
+  const early=workflow.indexOf('      - name: Refuse superseded source immediately after build');
+  const budget=workflow.indexOf('      - name: Publish bundle budget pending');
+  const archive=workflow.indexOf("      - name: Restore active Worker's verified successful asset handoff");
+  const final=workflow.indexOf('      - name: Refuse superseded Worker revision');
+  assert.ok(build>=0 && build<early && early<budget && budget<archive && archive<final,
+    'refuse stale after build but before all costly verification, retaining late pre-Wrangler refusal');
+  const step=workflow.slice(early,budget);
+  assert.match(step,/if: success\(\)/);
+  assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
+  assert.match(step,/latest_main.*GITHUB_SHA/);
+  assert.match(step,/exit 1/);
+});
+
+
+test('exact Nov10 already-published Worker can be recertified only by fresh both-origin matching original bytes', () => {
+  const paths=Object.keys(INCIDENT.failedPaths);
+  const ordinary=Array.from({length: INCIDENT.assetCount/2-paths.length},
+    (_,i)=>'/assets/proven-'+String(i).padStart(4,'0')+'.js');
+  const assets=[...ordinary,...paths].flatMap(path => ['direct','canonical'].map(origin=>{
+    const failed=origin==='canonical' && paths.includes(path);
+    return {path,origin,kind:'js',sources:['old'],oldHashMatches:true,
+      status: failed ? 'network-error' : 200, ok:!failed,
+      sha256:failed?undefined:(INCIDENT.failedPaths[path] || 'c'.repeat(64))};
+  }));
+  const original={
+    checkedAt:INCIDENT.checkedAt, expected:INCIDENT.workerVersion,
+    assets, failures: paths.map(path=>({path,origin:'canonical',status:'network-error',
+      sources:['old'],hashMismatch:false})),
+  };
+  const snapshot={snapshots:[{sourceCommit:INCIDENT.sourceSha,
+    builtAssets:ordinary.slice(0,139).map(path=>({path}))}]};
+  const args={workerVersion:INCIDENT.workerVersion,sourceSha:INCIDENT.sourceSha,
+    now:Date.parse(INCIDENT.checkedAt)+5000};
+  assert.equal(verifyOriginalIncident(snapshot,original,args).checked,INCIDENT.assetCount);
+  const probes=paths.flatMap(path=>['direct','canonical'].map(origin=>({
+    path,origin,url:'https://'+origin+'.example'+path,status:200,contentType:'text/javascript',
+    sha256:INCIDENT.failedPaths[path],bytes:1234,challenge:false,checkedAt:INCIDENT.checkedAt,
+  })));
+  const fixed=repairReportWithIndependentProbes(snapshot,original,probes,args);
+  assert.equal(fixed.failures.length,0);
+  assert.equal(fixed.assets.filter(item=>item.recoveryProof).length,2);
+  assert.equal(fixed.recertification.originalJobStillFailed,true);
+  assert.equal(verifyPriorAssetHandoff(snapshot,fixed,{
+    expectedWorkerVersion:INCIDENT.workerVersion,expectedSourceSha:INCIDENT.sourceSha,
+  }).checked,INCIDENT.assetCount);
+  assert.throws(()=>verifyOriginalIncident(snapshot,{...original,
+    failures:[...original.failures,{path:'/assets/third.js',origin:'direct',status:'network-error'}]},args),/only the two|known/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,{...original,
+    assets:original.assets.map((a,i)=>i===0?{...a,status:404,ok:false}:a)},args),
+    /original direct|unverified|status/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,original,{...args,workerVersion:'48cbc260-6582-4262-ae84-dd17d5a49d79'}),/pinned/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,original,{
+    ...args,now:Date.parse(INCIDENT.checkedAt)+73*3600000}),/72-hour/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.map((p,i)=>i===1?{...p,sha256:'0'.repeat(64)}:p),args),
+    /fresh origin|SHA/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.map((p,i)=>i===1?{...p,status:404}:p),args),/fresh origin|SHA/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.filter(p=>p.origin==='direct'),args),/both fresh origins/i);
+});
+
+test('known published network-error incident requires exact GitHub failure, health and artifact steps', () => {
+  const mandatory=[
+    "Restore active Worker's verified successful asset handoff",
+    'Capture old HTML JS/CSS hashes before Worker replacement',
+    'Retain bounded old hashed client assets',
+    'Refuse superseded Worker revision',
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Measure postdeploy hashed-asset continuity',
+    'Preserve old/new asset delivery evidence and next-release handoff',
+  ];
+  const job={id:INCIDENT.jobId,run_id:INCIDENT.runId,name:'deploy',conclusion:'failure',
+    steps:[...mandatory.map(name=>({name,conclusion:'success'})),
+    {name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'}]};
+  assert.equal(qualifyKnownPublishedNetworkFailure({jobs:[job]}).verified,true);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,id:job.id+1}]}),/another/i);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,
+    steps:[...job.steps,{name:'Deploy another Worker',conclusion:'failure'}]}]}),/Unrelated|additional/i);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,
+    steps:job.steps.map(x=>x.name==='Verify direct Worker health'?{...x,conclusion:'skipped'}:x)}]}),
+    /safety step/i);
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  assert.match(wf,/recertify-transient-asset-handoff\.mjs --verify-job/);
+  assert.match(wf,/recertify-transient-asset-handoff\.mjs --repair/);
+});

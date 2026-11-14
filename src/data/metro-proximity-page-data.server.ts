@@ -16,6 +16,7 @@ import {
   selectMetroProximityDestinations,
 } from "./metro-proximity";
 import { metroProximityCollectionPresentation } from "./metro-proximity-presentation";
+import { getDallasSmallTownDrive, DALLAS_DRIVES_VERIFIED_AT } from "./dallas-small-town-drives";
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
@@ -171,12 +172,16 @@ export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
     .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
     .slice(0, 12);
   const canonicalPath = metroProximityCanonicalPath(metro.slug);
-  const title = `Day Trips & Things to Do Near ${metro.name}`;
+  const title = metro.slug === "texarkana"
+    ? "Things to Do Near Texarkana: Parks, Towns & Guides"
+    : `Day Trips & Things to Do Near ${metro.name}`;
   const count = new Set([
     ...collections.flatMap((row) => row.results.map((item) => `destination:${item.destination.slug}`)),
     ...collections.flatMap((row) => row.townReferences.map((item) => `town:${item.town.slug}`)),
   ]).size;
-  const description = `Plan day trips and things to do near ${metro.name}, Texas with ${count} source-backed parks, towns, lakes, historic sites and outdoor destinations ordered by approximate distance.`;
+  const description = metro.slug === "texarkana"
+    ? `Explore ${count} source-backed parks, lakes, small towns and historic places near Texarkana. Use the dedicated day-trips and weekend-trips guides for focused outing ideas.`
+    : `Plan day trips and things to do near ${metro.name}, Texas with ${count} source-backed parks, towns, lakes, historic sites and outdoor destinations ordered by approximate distance.`;
   const image = highlights[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;
   const reviewedAt = latestReview([
@@ -240,31 +245,51 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
-  const eventContext = buildMetroProximityEventContextServer(metro, collection, results);
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results, townReferences);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
+  const isTexarkanaDayTrips = metro.slug === "texarkana" && collection.slug === "day-trips";
+  const isDallasThingsToDo = metro.slug === "dallas" && collection.slug === "things-to-do";
+  const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
-  const title = isTexarkanaRoadTrips
+  const title = isDallasThingsToDo
+    ? "Things to Do in Dallas & Nearby: Museums, Parks & Day Trips"
+    : isTexarkanaDayTrips
+    ? "Day Trips From Texarkana: Parks, Towns & Outings"
+    : isTexarkanaRoadTrips
     ? "Best Road Trips From Texarkana, Texas"
     : isAustinTwoHourGuide
       ? `${optionCount} Small Towns About 1–2 Hours From Austin, Texas`
+      : isDallasRoadRing
+        ? collection.slug === "small-towns-1-hour"
+          ? "Small Towns About an Hour or Less From Dallas, Texas"
+          : collection.slug === "small-towns-2-hours"
+            ? "Small Towns About 1–2 Hours From Dallas, Texas"
+            : "Small Towns About 2–3 Hours From Dallas, Texas"
       : presentation.usesGeographicRing
         ? `${presentation.titlePrefix} ${metro.name}, Texas`
         : metroProximityTitle(metro, collection);
-  const description = isMcAllenDayTrips
+  const description = isDallasThingsToDo
+    ? `Plan things to do in Dallas and nearby: ${optionCount} researched attractions including museums, parks, skyline stops and family activities, plus day-trip ideas, local guides and current driving-route links.`
+    : isTexarkanaDayTrips
+    ? `Compare ${optionCount} source-backed day-trip destinations from Texarkana, including parks, towns, lakes and historic sites. Distances are geographic estimates; check actual routes and travel times.`
+    : isMcAllenDayTrips
     ? "Choose meaningful McAllen day trips in the Rio Grande Valley: Bentsen-Rio Grande Valley State Park, Santa Ana Refuge, birding, Edinburg history, Port Isabel and South Padre Island. Local and longer outings, official visitor sources and live driving links."
     : isTexarkanaRoadTrips
       ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
       : isAustinTwoHourGuide
       ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
+      : isDallasRoadRing
+        ? `Compare ${optionCount} Dallas small-town road trips screened by researched typical driving-time estimates, with official visitor sources, practical trip ideas and current driving links. Traffic and actual routes vary.`
       : presentation.usesGeographicRing
         ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
         : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
     ...townReferences.map((row) => row.town.sourceCheckedAt),
+    ...(isDallasRoadRing ? [DALLAS_DRIVES_VERIFIED_AT] : []),
   ]);
   const image = results[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;

@@ -1,5 +1,6 @@
 export type FishingTechniqueGuideContent = {
   plainEnglish: string;
+  tripChecks: string[];
   whenToUse: string[];
   whereToFish: string[];
   howToFish: string[];
@@ -13,6 +14,11 @@ export type FishingTechniqueGuideContent = {
 
 export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideContent> = {
   "crankbaits": {
+    tripChecks: [
+      "Check the depth of the point, ledge or shoreline cover you intend to work; select a diving range that actually reaches it.",
+      "Review water clarity and wind before choosing a tight wobble, broad wobble or lipless presentation.",
+      "Confirm lake level and submerged-hazard conditions so deliberate bottom contact does not become an avoidable snag or boating risk.",
+    ],
     plainEnglish: "A crankbait is a hard-bodied moving lure designed to swim, wobble or vibrate through a specific part of the water column. The practical question is not simply whether to throw one, but which style reaches the cover, depth and speed you need without spending the whole retrieve above or below the fish.",
     whenToUse: [
       "When you need to cover water and find active fish rather than soak one spot.",
@@ -61,6 +67,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     ]
   },
   "soft-plastics": {
+    tripChecks: [
+      "Identify the cover you will fish—vegetation, docks, timber, rock or offshore structure—before selecting a weedless or finesse rig.",
+      "Check wind and depth to determine whether a weightless fall can be controlled or a sinker is needed.",
+      "Use the lake's current conditions and access report to choose reachable, legal fishing areas rather than assuming an old seasonal pattern is active.",
+    ],
     plainEnglish: "Soft plastics are one of the most adaptable ways to fish Texas bass water because the same bait family can be rigged weedless, weightless, on a jig head or on specialized rigs from inches of water to deep offshore structure. The key is choosing the rig for the cover, depth and mood of the fish before worrying about color.",
     whenToUse: [
       "When bass are holding tightly to vegetation, timber, docks, brush or other cover.",
@@ -112,6 +123,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     ]
   },
   "spinnerbaits": {
+    tripChecks: [
+      "Check wind exposure, visibility and shallow cover before picking a blade profile for lift, flash or vibration.",
+      "Compare the fish-holding depth with the bait's running depth; a fast retrieve can keep an otherwise suitable lure above the target.",
+      "Check grass growth, floating debris and local access so a cover-oriented retrieve remains practical.",
+    ],
     plainEnglish: "Spinnerbaits combine flash, vibration and a single-hook profile that can move efficiently through shallow cover, vegetation and stained water.",
     whenToUse:["Windy banks and low-light periods.","Stained water where vibration helps fish locate the bait.","Around shallow wood, grass and docks.","When baitfish are active and bass are willing to chase."],
     whereToFish:["Wind-blown shorelines.","Standing timber and laydowns.","Grass edges and flooded vegetation.","Riprap, docks and shallow points."],
@@ -121,6 +137,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Retrieving too high above the cover.","Choosing blade combinations without considering water clarity.","Avoiding contact with cover completely.","Failing to retune a bent wire frame."]
   },
   "topwater": {
+    tripChecks: [
+      "Check surface chop, wind direction and safe access before choosing a popper, walking bait, frog or faster-moving surface lure.",
+      "Identify whether the intended area has open water, sparse cover or matted vegetation; each calls for a different surface presentation.",
+      "Treat dawn, dusk and seasonal patterns as planning clues, then confirm current fish activity rather than assuming a surface bite.",
+    ],
     plainEnglish: "Topwater fishing keeps the lure on or near the surface and is most effective when fish are willing to feed upward.",
     whenToUse:["Low light, cloud cover and schooling activity.","Warm-water periods when fish are shallow.","Around vegetation, points and flooded cover.","When baitfish are visibly being chased near the surface."],
     whereToFish:["Grass edges and open pockets.","Points, seawalls and riprap.","Shallow flats and creek mouths.","Around schooling fish in open water."],
@@ -130,6 +151,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Setting the hook at the splash instead of after feeling the fish.","Working every lure at the same cadence.","Ignoring baitfish size.","Using surface presentations when fish are clearly feeding deeper."]
   },
   "trolling": {
+    tripChecks: [
+      "Check the applicable waterbody's trolling and boating rules, marked hazards and current lake level before selecting a route.",
+      "Use depth information and observed forage or fish position to set the target zone; avoid choosing a lure solely by its advertised maximum depth.",
+      "Account for wind, boat speed and traffic when planning safe, repeatable passes.",
+    ],
     plainEnglish: "Trolling presents one or more baits behind a moving boat so anglers can cover open water, maintain depth and intercept roaming fish.",
     whenToUse:["When striped, hybrid or other open-water fish are scattered.","When fish are following creek channels, river channels or bait schools.","When covering large reservoirs efficiently matters.","When depth control is more important than repeated casting."],
     whereToFish:["Channel edges and bends.","Open-water flats near bait.","Main-lake points and humps.","Areas where sonar shows suspended fish or bait."],
@@ -139,33 +165,193 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Trolling without a target depth.","Making productive passes once instead of repeating them.","Ignoring speed changes during turns.","Failing to monitor for fouled lures."]
   },
   "vertical-jigging": {
-    plainEnglish: "Vertical jigging works a spoon, slab, jig or similar lure directly beneath the boat over fish, structure or bait.",
-    whenToUse:["When sonar shows fish concentrated below the boat.","When fish are deep or suspended.","When schooling fish stop chasing horizontally.","When wind or current makes casting inefficient."],
-    whereToFish:["Creek and river channels.","Bridge structure and deep timber openings.","Main-lake humps and points.","Directly over suspended schools."],
-    howToFish:["Drop to the fish rather than automatically to the bottom.","Use short controlled lifts before trying exaggerated strokes.","Watch the lure on sonar when possible and adjust to the fish's depth.","Keep tension during the fall because many strikes come as the lure drops."],
-    setup:["Use line with low stretch for depth sensitivity.","Choose lure weight heavy enough to stay vertical in wind or current.","A shorter responsive rod can improve control near the boat.","Use a leader appropriate to water clarity and target species."],
+    tripChecks: [
+      "Verify current fish or forage depth with available observations or electronics before lowering a jig to a fixed depth.",
+      "Check wind and boat control; excessive drift can pull the lure away from fish directly under the boat.",
+      "Review underwater timber, bridge restrictions and accessible offshore structure before committing to a precise vertical presentation.",
+    ],
+    plainEnglish: "Vertical jigging works a spoon, slab, jig or similar artificial lure directly beneath the boat. Unlike live-bait fishing, the angler supplies every pulse and flutter; the key is to keep that lure within the narrow band marked by fish or forage while managing boat drift, line angle and the speed of each fall.",
+    whenToUse: [
+      "When sonar shows fish concentrated below the boat.",
+      "When fish are deep or suspended.",
+      "When schooling fish stop chasing horizontally.",
+      "When wind or current makes casting inefficient.",
+      "When a school appears as a compact sonar return under a stationary boat and a cast would carry a lure well past the target.",
+      "When bass chase a falling slab or spoon but ignore a long horizontal retrieve; a controlled drop can repeat the same path through the marked depth.",
+      "When steep channel walls or deep bridge openings leave little room to retrieve a moving lure without scraping the structure.",
+    ],
+    whereToFish: [
+      "Creek and river channels.",
+      "Bridge structure and deep timber openings.",
+      "Main-lake humps and points.",
+      "Directly over suspended schools.",
+      "The crest and sides of a submerged hump where electronics distinguish fish arches from brush, rock or bottom clutter.",
+      "The outside edge of deep channel bends, particularly where a steep contour permits holding the boat over the drop rather than drifting across it.",
+      "Open vertical lanes around bridge supports or flooded standing timber, staying clear of restricted zones and avoiding blind drops into branches.",
+      "The upper or lower edge of a bait ball, with the lure stopped at the depth of fish marks rather than falling unchecked through the entire water column.",
+    ],
+    howToFish: [
+      "Drop to the fish rather than automatically to the bottom.",
+      "Use short controlled lifts before trying exaggerated strokes.",
+      "Watch the lure on sonar when possible and adjust to the fish's depth.",
+      "Keep tension during the fall because many strikes come as the lure drops.",
+      "Identify the bottom return and any suspended marks before opening the bail; use a marked line or depth display so the first descent stops above the fish rather than inside the school.",
+      "Make a short lift with the rod tip, then follow the lure down on a semi-taut line. An abrupt slack loop can hide a strike or allow the jig to tumble into nearby timber.",
+      "Compare a restrained quiver with a more pronounced lift-and-drop sequence. If the school follows but does not strike, shorten the cadence and add a still pause instead of repeatedly raising the lure higher.",
+      "With a spoon or slab, let the lure flutter on the fall, but stop the descent deliberately at the next marked elevation. Repeatedly hitting bottom can foul hooks and waste the best part of the presentation.",
+      "If wind pulls the line diagonally away from the transducer cone, reposition the boat or select an appropriate heavier lure instead of pretending the fish and jig are still aligned.",
+      "After a strike, note whether it happened on the lift, controlled drop or pause. Repeat that exact movement while the school remains in range rather than randomly changing jig color.",
+      "Lift the lure clear of the water before moving the boat to a new sonar mark; a dangling heavy spoon beside a running propeller is an avoidable hazard.",
+    ],
+    setup: [
+      "Use line with low stretch for depth sensitivity.",
+      "Choose lure weight heavy enough to stay vertical in wind or current.",
+      "A shorter responsive rod can improve control near the boat.",
+      "Use a leader appropriate to water clarity and target species.",
+      "Choose the slab, spoon or jig weight for a nearly vertical line angle, not simply for maximum casting distance. The useful weight changes with drift, depth and lure profile.",
+      "Inspect the lure's attachment eye, split rings and hook sharpness after contact with rock or hard bridge structure; bent hardware spoils action and compromises the hookset.",
+      "Manage line twist from repeatedly spinning spoons by checking the leader and replacing twisted or frayed sections before another deep drop.",
+      "Set the drag before the first descent, especially when striped or hybrid bass may surge beneath the hull; short-range pressure leaves less margin for a locked drag.",
+      "Use the boat's depth reference and a repeatable rod-tip height to compare lifts. A controlled six-inch rise and a high overhead sweep are not interchangeable presentations.",
+    ],
     seasonalGuide:[{season:"Spring",guidance:"Useful when fish stage deeper before or after shallow movements."},{season:"Summer",guidance:"A strong option for deep schools and offshore structure."},{season:"Fall",guidance:"Effective around concentrated bait and schooling fish."},{season:"Winter",guidance:"Often one of the most precise ways to target tightly grouped deep fish."}],
-    commonMistakes:["Jigging below the fish.","Using too light a lure to stay vertical.","Overworking the lure.","Ignoring strikes that occur on the fall."]
+    commonMistakes: [
+      "Jigging below the fish.",
+      "Using too light a lure to stay vertical.",
+      "Overworking the lure.",
+      "Ignoring strikes that occur on the fall.",
+      "Assuming a mark on the fish finder sits at the same horizontal position after the boat drifts; the screen depicts a changing cone of water, not a permanent waypoint.",
+      "Sweeping the rod so far that the lure exits the school on every lift, then wondering why the fish quit following.",
+      "Letting a heavy slab free-fall into brush and striking the bottom hard enough to bury the hook point in debris.",
+      "Changing lures after each missed strike without first reproducing the depth and cadence of the previous successful presentation.",
+    ],
   },
   "jigs-and-minnows": {
-    plainEnglish: "Jigs and minnows are core crappie presentations because both can be fished precisely around brush, timber, bridges and seasonal spawning cover.",
-    whenToUse:["When crappie are relating tightly to cover.","When fish are suspended at a repeatable depth.","During spring movements toward spawning areas.","When a slow controlled presentation is more effective than searching quickly."],
-    whereToFish:["Brush piles and standing timber.","Bridge columns and shade lines.","Creek-channel edges.","Shallow spawning cover in season."],
-    howToFish:["Keep the bait just above crappie whenever their depth is known.","Move quietly around shallow or pressured fish.","Hold or swim jigs with small movements before trying aggressive action.","When using live minnows, keep them lively and rigged so they can move naturally."],
-    setup:["Light or medium-light tackle improves bite detection.","Use enough weight to maintain depth control without overpowering the presentation.","Longer rods can help place baits accurately around cover.","Use electronics or depth references to repeat the productive zone."],
+    tripChecks: [
+      "Check the depth of brush, timber, bridge structure or suspended crappie before deciding between a vertical jig and a float-controlled presentation.",
+      "If using minnows, verify legal bait species, collection and transport requirements for the specific water.",
+      "Use wind and water clarity to choose jig weight and retrieve pace so the bait can stay just above the holding depth.",
+    ],
+    plainEnglish: "For crappie, a small artificial jig and a living minnow solve different problems. A jig can be pitched, swum or held against a specific edge of a brush pile; a legal minnow beneath a float can stay beside a dock post without constant rod movement. This guide emphasizes crappie size, cover, float setting and jig placement rather than treating every kind of live bait as the same approach.",
+    whenToUse: [
+      "When crappie are relating tightly to cover.",
+      "When fish are suspended at a repeatable depth.",
+      "During spring movements toward spawning areas.",
+      "When a slow controlled presentation is more effective than searching quickly.",
+      "When crappie are tucked under a dock walkway and a compact jig can be skipped or pitched into the shade without dragging a line through the structure.",
+      "When brush is tall enough that a slip float can suspend a minnow just over the branches while the angler remains off the cover.",
+      "When a spring bank has scattered shallow spawning cover and a lightweight casting jig can probe individual openings without anchoring on top of the fish.",
+    ],
+    whereToFish: [
+      "Brush piles and standing timber.",
+      "Bridge columns and shade lines.",
+      "Creek-channel edges.",
+      "Shallow spawning cover in season.",
+      "The shaded edge of a marina slip or dock with legal public access, working separate pilings instead of treating the whole dock as one target.",
+      "The top and outer branches of a mapped crappie brush pile, where a vertically lowered jig can be retrieved without crossing the dense center.",
+      "Shallow stake beds or submerged reeds during seasonal movement when a fixed float depth prevents bait from settling into vegetation.",
+      "The sides of a concrete bridge column, allowing for clearance and posted navigation rules rather than tying to or fishing in an unsafe traffic lane.",
+    ],
+    howToFish: [
+      "Keep the bait just above crappie whenever their depth is known.",
+      "Move quietly around shallow or pressured fish.",
+      "Hold or swim jigs with small movements before trying aggressive action.",
+      "When using live minnows, keep them lively and rigged so they can move naturally.",
+      "Use a small jighead with a soft-plastic body sized for the crappie and available cover. Start with a natural, restrained retrieve; the tail's motion can provide enough action without a sharp hook-jarring twitch.",
+      "Pitch beyond the brush edge, count the jig down and bring it across the upper limbs. If it hangs, alter cast direction or switch to a float rather than repeatedly ripping through the same branches.",
+      "On a slip-float rig, position the stopper so the hook travels just above the crappie's holding level. Recheck the setting when moving from a shallow pocket to deeper dock water.",
+      "Place a lively legal minnow through a suitable hook location without piercing its vital organs, then watch the float for sideways movement or an unusual stop, not only a dramatic plunge.",
+      "When a float drifts out of the dock shade, reel back and re-present it. Letting it drift into an open boat lane or under an occupied dock is neither effective nor considerate.",
+      "For a dock-shooting jig, keep the rod path low and controlled, and use the method only with ample clearance and safe access; it is not a reason to cast toward people or boats.",
+      "If a crappie strikes during the count-down, repeat the number of seconds rather than guessing the depth or immediately upsizing the offering.",
+    ],
+    setup: [
+      "Light or medium-light tackle improves bite detection.",
+      "Use enough weight to maintain depth control without overpowering the presentation.",
+      "Longer rods can help place baits accurately around cover.",
+      "Use electronics or depth references to repeat the productive zone.",
+      "An ultralight or light spinning rod and manageable line make delicate crappie jigs easier to cast; heavier tackle can overpower tiny hooks and tear thin mouths.",
+      "Carry more than one jighead weight so the plastic can glide naturally under a dock or reach deeper brush without requiring an excessively fast retrieve.",
+      "Match the slip-float's buoyancy to the sinker and bait so subtle crappie movement remains visible; an oversized float may hide the very bite being watched.",
+      "Use a landing net when lifting crappie from a tall dock or steep bank instead of swinging a fish by a small hook over the rail.",
+      "Keep a compact hook-removal tool available when fishing minnows; the quicker a deep-hooked fish can be handled properly, the less time it spends out of water.",
+    ],
     seasonalGuide:[{season:"Spring",guidance:"Move progressively shallower as fish approach spawning cover."},{season:"Summer",guidance:"Deeper brush, timber and bridge structure become more important."},{season:"Fall",guidance:"Cooling water can regroup fish around channels and cover."},{season:"Winter",guidance:"Deep structure and concentrated schools reward precise vertical presentations."}],
-    commonMistakes:["Fishing beneath suspended crappie.","Moving the bait too aggressively.","Failing to repeat the exact productive depth.","Making excessive noise around shallow cover."]
+    commonMistakes: [
+      "Fishing beneath suspended crappie.",
+      "Moving the bait too aggressively.",
+      "Failing to repeat the exact productive depth.",
+      "Making excessive noise around shallow cover.",
+      "Treating the brush pile's bottom depth as the bait depth even when its highest branches are several feet above the lakebed.",
+      "Swinging a lightwire jig into a crappie's mouth with a bass-style hookset and enlarging the hook hole.",
+      "Letting a slip-float stopper slide along the line unnoticed, causing the minnow to hang inside rather than above the brush.",
+      "Choosing a bright jig solely by color before testing a different fall rate, float setting or cast angle around the same crappie cover.",
+    ],
   },
   "live-bait": {
-    plainEnglish: "Live bait uses natural prey such as shad or minnows to present scent, movement and profile with minimal artificial action.",
-    whenToUse:["When fish are keying tightly on natural forage.","For striped, hybrid, crappie or catfish applications where live bait is established locally.","When fish are suspended and a bait can be held at their depth.","When artificial lures are being ignored."],
-    whereToFish:["Around bait schools.","Channel edges and points.","Brush, timber and bridge structure.","Open water where target fish are suspended."],
-    howToFish:["Match bait size to the forage and target species.","Keep bait lively and replace weak bait promptly.","Control depth deliberately rather than letting the bait wander out of the strike zone.","Use only legal bait species and collection methods for the specific water body."],
-    setup:["Use hooks sized to the bait rather than only the target fish.","Aeration and temperature control are essential for keeping bait healthy.","Use enough weight to control depth while preserving natural movement.","Check current Texas bait and water-body rules before collecting, transporting or using live bait."],
-    seasonalGuide:[{season:"Spring",guidance:"Can be highly effective around migrations and spawning-related movements."},{season:"Summer",guidance:"Depth control becomes especially important for open-water fish."},{season:"Fall",guidance:"Follow bait concentrations as fish feed heavily before winter."},{season:"Winter",guidance:"Slower presentations can keep natural forage near less-active fish."}],
-    commonMistakes:["Using weak or stressed bait.","Ignoring legal bait restrictions.","Fishing at the wrong depth.","Using hooks or weights that overpower the bait."]
+    tripChecks: [
+      "Choose a legal bait source before packing the boat. When buying live minnows or shad, keep the dated receipt that identifies the seller; personally caught bait has different water-to-water restrictions.",
+      "Inspect the bait tank before leaving: functioning aerator, sufficient clean source water, secure lid and a way to avoid heat buildup in the afternoon sun.",
+      "Decide whether the fish you want are cruising a bank, holding over brush or suspended above a channel. Pack a float, a freeline option and a depth-controlled setup instead of only one bottom rig.",
+    ],
+    plainEnglish: "Live bait depends on keeping the bait alive and swimming naturally at the correct depth. A lively minnow hovering above a crappie brush pile calls for a different hook, leader and presentation than shad suspended over open water for stripers. Bait origin and transport rules matter before either rig goes into a lake.",
+    whenToUse: [
+      "When you can identify a forage school or individual fish on sonar and hold a living bait just above the depth they occupy.",
+      "For crappie tucked into standing timber, bridge shade or brush, where a small minnow under a float can be presented repeatedly at one measured depth.",
+      "For open-water striped or hybrid bass where legally sourced, healthy shad can be kept in the fish's depth band without dragging a sinker through the school.",
+      "When fish inspect but ignore fast artificial presentations and a slower, self-moving offering gives them time to approach.",
+      "When a short, controlled drift or stationary presentation makes more sense than searching the entire shoreline with moving lures.",
+    ],
+    whereToFish: [
+      "On the upwind edge of a visible baitfish school, placing the offering through the fish's travel lane rather than the noisy center of the school.",
+      "Beside bridge pilings or suspended crappie brush, keeping a minnow above the limbs so the line does not wrap timber.",
+      "Along the contour of a creek-channel swing where sonar shows isolated fish above bottom, not merely where a depth map shows the deepest hole.",
+      "At points adjoining open basins when fish and forage appear at a consistent midwater depth.",
+      "In sheltered pockets where a small float stays readable and a bank angler can maintain a controlled presentation.",
+      "Away from swimmers, busy boat ramps and restricted zones when drifting or positioning a vessel over schooling fish.",
+    ],
+    howToFish: [
+      "Choose the bait size for the mouth of the target fish; a small crappie minnow and a larger open-water shad should not be rigged as though they were interchangeable.",
+      "Start with the shallowest possible weight that holds the chosen depth. A bait fighting an oversized sinker often twists the leader and loses its free swimming action.",
+      "For a float rig, measure the distance from bobber to hook and shorten it until the minnow clears the top of the brush. A dangling bait buried inside branches is both hard to see and hard to retrieve.",
+      "For suspended fish, mark the school on sonar and lower a slip-sinker or other controlled presentation to their level; do not automatically drop the bait to the lake bed.",
+      "For a freeline presentation in calm, manageable water, watch the direction of travel and let the bait swim without continually tightening the line.",
+      "Use the smallest practical hook that can hold the bait and land the intended fish. Check that the point is exposed, the bait can still swim and the hook has not damaged it beyond usefulness.",
+      "After an unsuccessful pass, change only one factor: the depth setting, boat position, hook placement or bait size. That makes a second attempt informative rather than random.",
+      "Replace lethargic bait. A surface-gasping minnow in a warm unoxygenated bucket is not equivalent to a fresh, active bait from a properly maintained tank.",
+      "When moving to another water body, stop and confirm the legal origin, receipt and water-contact status of any leftover bait instead of assuming the contents of the livewell may travel.",
+    ],
+    setup: [
+      "A battery-powered aerator, properly sized bait container and shade can matter more than extra terminal tackle on a warm Texas afternoon.",
+      "Check water temperature and oxygen supply throughout the outing; do not cram too many baitfish into a container simply because the lid closes.",
+      "Keep a selection of small bait hooks, light leaders, slip floats, bobber stops and removable weights for fine depth adjustments without rebuilding the entire rig.",
+      "For crappie, a visible float and a long, flexible rod make it easier to hold a small minnow beside cover without swinging over branches.",
+      "For stripers or hybrids, use tackle that can control a stronger fish while keeping the bait and leader aligned with the chosen water column.",
+      "Carry a way to measure the bait's actual swimming depth: a float stop, marked line, electronics or a depth reference near the cover.",
+      "Use a net or wet hands to reduce handling stress and release unused bait only where the applicable rules allow; never move aquatic organisms into a different water body.",
+    ],
+    seasonalGuide: [
+      { season: "Spring", guidance: "Crappie may move toward shallower cover in stages while open-water forage shifts with warming water. Adjust float depth near brush rather than assuming every spring bite is at the bank." },
+      { season: "Summer", guidance: "A shaded, oxygenated bait tank is especially important in hot weather. Suspended stripers and hybrids may be well above a channel bottom even when anglers can see the drop on a map." },
+      { season: "Fall", guidance: "Find the actual forage concentration before choosing an anchoring point. A school can shift from the back of a creek to open water while a historically productive dock remains empty." },
+      { season: "Winter", guidance: "When fish move less, try a quieter, measured minnow presentation with longer holds near a known depth. Protect the bait from sudden temperature changes and check seasonal access limitations." },
+    ],
+    commonMistakes: [
+      "Keeping minnows in direct sunlight until they gasp at the surface.",
+      "Hooking a bait so aggressively that its natural movement is lost before the first cast.",
+      "Setting a fixed float far beneath the fish or letting a sinker pull a shad below the suspended school.",
+      "Assuming a good sonar mark means fish are actively feeding without testing an alternative depth or approach.",
+      "Moving personally caught bait, lake-contact water or fish between reservoirs without checking TPWD restrictions.",
+      "Discarding unused bait into a different water body.",
+      "Confusing a healthy natural presentation with a guarantee of a bite on a particular day.",
+    ],
   },
   "cut-bait": {
+    tripChecks: [
+      "Confirm the source fish is legal bait under current Texas and water-specific rules before cutting or transporting it.",
+      "Plan chilled storage and replace pieces that lose firmness or no longer keep the hook point exposed.",
+      "Check flow, wind and channel access before choosing a fixed bottom rig, three-way setup or controlled drift.",
+    ],
     plainEnglish: "Cut bait uses pieces of a legally obtained bait fish to release scent and oils for catfish. In Texas, the source fish matters as much as the rig: game fish or any part of a game fish may not be used as bait, and water-specific bait rules can be more restrictive.",
     whenToUse:[
       "For blue catfish where fresh cut forage is an established reservoir or river presentation.",

@@ -5,12 +5,49 @@ const primarySitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
+const sitemapIndex = fs.readFileSync('public/sitemap-index.xml', 'utf8');
+const robots = fs.readFileSync('public/robots.txt', 'utf8');
+const expectedSitemapUrls = [
+  'https://texasdefined.com/sitemap.xml',
+  'https://texasdefined.com/sitemap-explore.xml',
+  'https://texasdefined.com/sitemap-shop.xml',
+  'https://texasdefined.com/sitemap-evergreen.xml',
+  'https://texasdefined.com/sitemap-texas-icons.xml',
+];
+
 
 const playoffsArticle = fs.readFileSync('src/data/fixtures/texas-high-school-football-playoffs.ts', 'utf8');
 const playoffUpdatedAt = playoffsArticle.match(/updatedAt:\s*"([^\"]+)"/)?.[1];
 const playoffSitemapDate = primarySitemap.match(/"texas-high-school-football-playoffs-explained":\s*"([^\"]+)"/)?.[1];
 if (!playoffUpdatedAt || playoffUpdatedAt !== playoffSitemapDate) {
   failures.push('Football playoff sitemap lastmod must match its verified editorial updatedAt.');
+}
+
+// A stable sitemap index must list only live governed feeds. Never invent
+// freshness dates for a sitemap index or overwrite page timestamps on a deploy.
+if (!sitemapIndex.includes('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
+  failures.push('Sitemap index XML root or namespace missing.');
+}
+const indexedFeeds = sitemapIndex.split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('<sitemap><loc>'))
+  .map((line) => line.replace('<sitemap><loc>', '').replace('</loc></sitemap>', ''));
+if (JSON.stringify(indexedFeeds) !== JSON.stringify(expectedSitemapUrls)) {
+  failures.push('Sitemap index must reference each owned and verified feed exactly once, in the documented order.');
+}
+if (sitemapIndex.includes('<lastmod>')) failures.push('Static sitemap index must not claim an unverified feed modification date.');
+if (!robots.includes('Sitemap: https://texasdefined.com/sitemap-index.xml')) {
+  failures.push('robots.txt must advertise the new sitemap index without replacing old endpoints.');
+}
+for (const url of expectedSitemapUrls) {
+  if (!robots.includes(`Sitemap: ${url}`)) failures.push(`Previously advertised sitemap must stay discoverable: ${url}`);
+}
+const articleLastmodUsesEditorialUpdates = primarySitemap.split('toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt)').length - 1;
+if (articleLastmodUsesEditorialUpdates !== 3) {
+  failures.push('Article sitemap entries must prefer source-backed updatedAt, with reviewed overrides and publishedAt as fallbacks.');
+}
+if (!primarySitemap.includes('toDate(article.updatedAt ?? article.publishedAt)')) {
+  failures.push('News sitemap lastmod must prefer an actual editorial updatedAt when available.');
 }
 
 const forbiddenDynamicFreshness = [
@@ -31,9 +68,25 @@ for (const required of [
 if (!primarySitemap.includes('lastmod: toDate(entity.sourceCheckedAt)')) {
   failures.push('Primary sitemap entity lastmod must remain tied to the governed sourceCheckedAt field.');
 }
-if (!exploreSitemap.includes('entry(`/destination/${item.slug}`, item.sourceCheckedAt)')) {
-  failures.push('Explore sitemap destination lastmod must remain tied to sourceCheckedAt rather than request time.');
+// Edited attraction guides use dated, author-asserted content updates;
+// ordinary destinations retain their last official source check. Never generate
+// lastmod from request/deployment time, which would mislead crawlers.
+if (!exploreSitemap.includes('entry(`/destination/${item.slug}`, item.updatedAt ?? item.sourceCheckedAt)')) {
+  failures.push('Explore sitemap destination lastmod must prefer a genuine editorial updatedAt and fall back to sourceCheckedAt; never request time.');
 }
+const reviewedAttractions = fs.readFileSync('src/data/reviewed-attraction-authorities.ts', 'utf8');
+const marker = 'export const reviewedAttractionDestinations: Destination[] = ';
+if (!reviewedAttractions.includes(marker)) throw Error('Reviewed attraction catalog export missing');
+const reviewedRecords = JSON.parse(reviewedAttractions.split(marker)[1].trim().replace(/;\s*$/, ''));
+const checkedSlugs = ['san-antonio-japanese-tea-garden', 'fort-worth-water-gardens', 'houston-botanic-garden'];
+if (!Array.isArray(reviewedRecords) || reviewedRecords.length !== checkedSlugs.length || reviewedRecords.some((item) =>
+  !checkedSlugs.includes(item.slug) || !/^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt ?? '') ||
+  !/^\d{4}-\d{2}-\d{2}$/.test(item.updatedAt ?? '') ||
+  !Number.isFinite(Date.parse(item.sourceCheckedAt)) || !Number.isFinite(Date.parse(item.updatedAt)) ||
+  Date.parse(item.updatedAt) < Date.parse(item.sourceCheckedAt) || Date.parse(item.updatedAt) > Date.now())) {
+  failures.push('Reviewed attraction lastmod must be a source-backed, dated editorial change on exactly three original records.');
+}
+
 if (!countyRoute.includes('...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {})')) {
   failures.push('County structured-data dateModified must remain conditional on a real lastVerifiedAt value.');
 }

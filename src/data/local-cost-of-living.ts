@@ -39,7 +39,7 @@ function profile(input: {
     ...input,
     path,
     title: `${input.name} cost of living calculator`,
-    seoTitle: `${input.name} Cost of Living Calculator | Texas Defined`,
+    seoTitle: `${input.name} Cost of Living Calculator`,
     description: `Compare a current household budget with a possible ${input.name} budget using your own housing, transportation, utilities, insurance, food and recurring-cost assumptions instead of a citywide average.`,
     intro: `Use this ${input.name} cost-of-living planner to compare the household you have now with the household you are considering after a move. Enter the monthly costs that actually apply to you rather than relying on a single city index.`,
     affordabilityLabel: `${input.name} home affordability calculator`,

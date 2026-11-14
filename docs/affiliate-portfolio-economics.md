@@ -1,3 +1,4 @@
+<!-- 2026-10-27 relationship/link update: see cj-tracking-verification-2026-10-27.md. Historical commission-rate observations below were not re-certified by the tracking audit. -->
 # TexasDefined affiliate portfolio economics
 
 Reviewed 2026-09-25 from current active CJ account terms supplied from the publisher account, TexasDefined first-party referral aggregates, and direct-partner materials where noted.
@@ -16,8 +17,8 @@ Never activate an ordinary advertiser URL merely because the program is approved
 | --- | --- | --- | --- |
 | GearUP | 70% on qualifying new-user membership payments; 30-day referral period; unlimited occurrences | Gaming latency/routing guides | KEEP HIGH-VALUE NICHE. Limit to genuine routing/latency intent. |
 | Rexing | Active CJ: 15% qualifying purchases; 45-day referral period; unlimited occurrences; standard locking | Governed catalog prepared; not live yet | READY PENDING TRACKED LINKS. Best fit: automotive, dash-cam, road-trip essentials, vehicle-tech, fishing and hunting/outdoors content. |
-| Really Good Stuff | Active CJ: 4% Website Purchase; 5-day referral period; unlimited occurrences | School/classroom supply surfaces | KEEP DEFAULT SCHOOL-SUPPLY ROUTE. Longer attribution than DSS at the same 4% rate. |
-| Discount School Supply | Active CJ: 4% Discount School Supply Purchase V2; 1-day referral period; unlimited occurrences; standard locking | Not live while only legacy CJ email wrappers are available in repo history | VALID SECONDARY ROUTE PENDING CLEAN TRACKED LINK. Use when exact product/category/availability beats RGS; do not use brand/coupon SEM or unapproved coupon codes. |
+| Really Good Stuff | CJ relationship expired 1-Oct-2026, rechecked 27-Oct-2026 | School/classroom editorial reference only | TRACKING DISABLED. A new manually approved relationship and fresh Get Code review are required before commissions can be claimed. |
+| Discount School Supply | Active CJ: 4% Discount School Supply Purchase V2; 1-day referral period; unlimited occurrences; standard locking | Not activated; clean CJ Get Code 15733428 verified 27-Oct-2026 | VERIFIED SECONDARY ROUTE; NOT ACTIVATED. Use when exact product/category/availability beats RGS; do not use brand/coupon SEM or unapproved coupon codes. |
 | RVshare | Active CJ: 4% reservation; 30-day referral period. Active Owner Listing table shows $5 with 45-day referral, but the same terms also list “list your RV” transactions as non-commissionable. | High-intent camping/RV/state-park/outdoors/road-trip surfaces | PRIMARY RENTAL CTA on RV-intent routes. Do not build an owner-acquisition CTA until CJ resolves the owner-listing contradiction. |
 | Vrbo | Active CJ traveler booking: 2%; 7-day referral period. Owner action material: $20 qualifying new live listing with 60-day referral. | Broader vacation-rental intent and owner context | KEEP where vacation-rental intent is genuine. RVshare remains primary for true RV-rental intent. |
 | Booking.com APAC | 4% stays; 6% Cars Pay Now; 3.8% Cars Pay Local; 4% attractions; 4% airport taxis; $2 flights. Reservation must occur in the same browser session; current terms say no cookie tracking. | Rental-car placements and selected travel surfaces | KEEP governed rental-car route while expected value remains competitive; account for the much shorter same-session attribution behavior. Booking.com Australia is intentionally out of scope. |
@@ -100,7 +101,7 @@ High-priority content fit:
 
 ### Discount School Supply
 
-The active 4% / 1-day term supersedes the prior 0% assumption. Really Good Stuff remains the default at the same 4% rate because its verified referral period is five days. DSS can return as a secondary/exact-category option after a clean shopper-facing CJ tracking URL is obtained. Legacy `email.cj.com` wrappers remain prohibited.
+The active 4% / 1-day term supersedes the prior 0% assumption. Really Good Stuff expired on 2026-10-01 and now retains only a direct editorial retailer link. DSS Get Code 15733428 was verified on 2026-10-27, but no program substitution or new placement was made. Its historical economics above do not establish current RGS eligibility. Legacy `email.cj.com` wrappers remain prohibited.
 
 ### Motel 6 / Studio 6
 

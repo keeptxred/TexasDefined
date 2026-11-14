@@ -1,5 +1,6 @@
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { fetchFinancialProductionHtml } from './fetch-financial-production-html.mjs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
@@ -122,13 +123,12 @@ function writeDiagnostics() {
 async function fetchProduction(path) {
   const separator = path.includes('?') ? '&' : '?';
   const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}`)}`;
-  const response = await fetch(url, {
-    redirect: 'follow',
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: { 'user-agent': 'TexasDefined-CI-Statewide-Financial-Discovery/1.0' },
+  const result = await fetchFinancialProductionHtml(url, {
+    onRetry: ({ attempt, error }) => console.warn(
+      `::warning title=Transient financial page request retry::${path} attempt ${attempt}/3: ${error}`,
+    ),
   });
-  return { requestedUrl: url, response, body: await response.text() };
+  return { requestedUrl: url, ...result };
 }
 
 appendSummary('\n## Statewide financial discovery verification\n\n');

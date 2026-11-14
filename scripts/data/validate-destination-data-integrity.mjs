@@ -5,6 +5,9 @@ import path from 'node:path';
 const root = process.cwd();
 const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const authoritySections = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationAuthoritySections.tsx'), 'utf8');
+const authorityRelationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
+const authorityPresentation = fs.readFileSync(path.join(root, 'src/data/destination-authority-presentation.ts'), 'utf8');
 const destinationViator = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationViatorBooking.tsx'), 'utf8');
 const destinationCurationBatch20 = fs.readFileSync(path.join(root, 'src/data/destination-curation-batch20.ts'), 'utf8');
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
@@ -16,7 +19,40 @@ const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.t
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 // Destination layout regressions belong in this existing integrity gate so spacing fixes cannot silently drift.
+
+
+
 const errors = [];
+
+// Rendering a complete authority guide twice repeats the same research,
+ // itineraries and sources, and makes real visitor answers harder to find.
+ // Both existing and future destinations must share one routing decision.
+ for (const [name, source, required] of [
+   ['full-guide policy', authorityPresentation, [
+     'export function shouldRenderFullDestinationAuthorityGuide(destination: Destination)',
+     'AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug)',
+     'topTexasAttractionRank(destination.slug)',
+     'destination.slug === "chamizal-national-memorial"',
+     'destination.slug === "moody-gardens"',
+   ]],
+   ['relationship full-guide slot', authorityRelationships, [
+     'const hasExtendedAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
+     '<DestinationAuthorityGuide destination={destination}',
+     'topAttractionRank && hasExtendedAuthorityGuide',
+   ]],
+   ['inline guide sections', authoritySections, [
+     'const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
+     '{guide && !hasSeparateAuthorityGuide && <section aria-labelledby="destination-authority-assessment"',
+     '{guide && !hasSeparateAuthorityGuide && destination.slug !== "chamizal-national-memorial"',
+     'destination.visitorFaqs.map(',
+     'Photograph attribution',
+   ]],
+ ]) {
+   for (const marker of required) {
+     if (!source.includes(marker)) errors.push('Duplicate-guide prevention missing from ' + name + ': ' + marker);
+   }
+ }
+
 
 for (const feature of [
   'function hasValidCoordinates',
@@ -52,7 +88,9 @@ for (const stale of [
 for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
-  'eyebrow="Quick trip facts"',
+  '"Quick trip facts"',
+  'eyebrow={destination.slug === "moody-gardens" ? "Start with the essentials" : "Quick trip facts"}',
+  '<DestinationVerifiedVisitorFacts destination={destination} />',
   'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
   if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);
@@ -93,13 +131,15 @@ for (const marker of [
   if (!destinationAudit.includes(marker)) errors.push(`Destination fallback-copy audit marker missing: ${marker}.`);
 }
 
-for (const sourceMarker of [
+// The indexing audit still detects legacy synthetic copy, but the catalog
+// transformer must not manufacture any of that copy for new or existing pages.
+for (const staleCopy of [
   'is a Texas destination',
   'Those details make it easier to decide whether this stop fits a quick outing',
   'works best as part of a trip built around the surrounding region',
   'Use the official visitor-information link on this page for the latest details',
 ]) {
-  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+  if (destinationQuality.includes(staleCopy)) errors.push(`Synthetic destination filler must not be generated: ${staleCopy}.`);
 }
 
 for (const feature of [
@@ -114,23 +154,19 @@ if (!queryImplementation.replace(/\s+/g, "").replace(/,\)/g, ")").includes(exact
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'function unique(values: string[])',
-  'activityPattern.test(item)',
-  'facilityPattern.test(item)',
-  '!activities.includes(item)',
-  '!facilities.includes(item)',
   'data-stay-nearby-slot',
+  'StateParkVisitorEssentials',
+  'DestinationAuthoritySections',
+  'destinationEditorialLinks(destination.slug)',
+  'townAuthorityContextualLinks(destination)',
   'BookingCarRentalCard',
-  'drivingIntentPattern',
+  'destination.category === "road-trips"',
   'showRentalCarOption',
-  'While you’re there',
-  'Things to do and see',
-  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
-  '{ title: "Visitor facilities", items: facilities }',
-  'groups.map((group, index)',
-  'group.items.map((item)',
 ]) {
-  if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
+  if (!destinationPlanner.includes(feature)) errors.push(`Destination planner lacks visitor-led feature: ${feature}.`);
+}
+for (const stale of ['Things to do and see', 'Visitor facilities', 'groups.map((group, index)']) {
+  if (destinationPlanner.includes(stale)) errors.push(`Redundant visitor-planner content must not return: ${stale}.`);
 }
 for (const stale of [
   'const practicalTips = unique([',
@@ -197,11 +233,149 @@ for (const slug of historicalMuseumReferences) {
   if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
+// Moody Gardens uses an independently maintained visitor guide. Keep the
+// operator's current status, evidence links and source review date coherent
+// across all rendering layers without re-enabling duplicated authority blocks.
+const moodyCuration = fs.readFileSync(path.join(root, 'src/data/destination-curation-moody-gardens.ts'), 'utf8');
+const moodyResolver = fs.readFileSync(path.join(root, 'src/data/top-attraction-authority-resolver.ts'), 'utf8');
+const moodyAquariumFallback = fs.readFileSync(path.join(root, 'src/data/aquarium-marine-destinations-1.ts'), 'utf8');
+const moodyAdditionalDepth = fs.readFileSync(path.join(root, 'src/data/attraction-visitor-depth-20261020.ts'), 'utf8');
+const moodySpotlights = fs.readFileSync(path.join(root, 'src/components/editorial/MoodyGardensSpotlights.tsx'), 'utf8');
+const moodyProduction = fs.readFileSync(path.join(root, 'scripts/production/verify-moody-gardens-production.mjs'), 'utf8');
+const moodyDate = moodyCuration.match(/fullGuideReviewed: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+if (!moodyDate || moodyDate !== '2026-11-09' || !moodyCuration.includes('sourceCheckedAt: moodyGardensEditorialDates.fullGuideReviewed')) {
+  errors.push('Moody Gardens must retain its Nov. 9 full-guide review separately from modifications.');
+}
+const moodyRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const moodySeo = fs.readFileSync(path.join(root, 'src/lib/seo.ts'), 'utf8');
+const moodyTitle = 'Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide';
+const moodyDescription = 'Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.';
+if (!moodyRoute.includes('"moody-gardens": "' + moodyTitle + '"')
+    || !moodyRoute.includes('"' + moodyDescription + '"')
+    || !moodySeo.includes('title: "' + moodyTitle + '"')
+    || !moodySeo.includes('description: "' + moodyDescription + '"')) {
+  errors.push('Moody Gardens hydrated destination metadata must exactly match the SSR title and description; do not let browser hydration replace them with generic travel SEO.');
+}
+if (!moodyCuration.includes('museumFactsReviewed: "2026-11-14"')
+    || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-14"')
+    || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time>')
+    || !moodyRoute.includes('moodyGardensEditorialDates.lastSubstantiveEdit')) {
+  errors.push('Moody Gardens must separate substantive WebPage dateModified from its older, honest source-review dates.');
+}
+if (moodyResolver.includes('sourceCheckedAt: "2026-10-05"')) errors.push('Moody Gardens resolver still rewrites the genuine source check date to October 5.');
+
+// The base aquarium listing and the source-citation metadata must not
+// resurrect the superseded Discovery Museum closure story when a curated
+// overlay fails or when the operator evidence is rendered independently.
+if (moodyResolver.includes('Discovery Museum closure guidance')) {
+  errors.push('Moody Gardens operator-source scope still claims an obsolete Discovery Museum closure.');
+}
+if (!moodyResolver.includes('Published attraction hours, current special-event schedule changes')) {
+  errors.push('Moody Gardens official-hours source scope must describe current schedule exceptions.');
+}
+const moodyAquariumBlock = moodyAquariumFallback.split('slug: "moody-gardens"')[1]?.split('slug: "sea-life-grapevine-aquarium"')[0] ?? '';
+if (!moodyAquariumBlock.includes("Galveston Children's Museum inside the Discovery Pyramid")) {
+  errors.push('Moody Gardens aquarium collection fallback must describe the currently open children\'s museum.');
+}
+if (/Discovery Museum, theaters, seasonal attractions/.test(moodyAquariumBlock)) {
+  errors.push('Moody Gardens aquarium collection fallback still mentions obsolete Discovery Museum copy.');
+}
+
+for (const [name, source] of [['destination curation', moodyCuration], ['spotlights', moodySpotlights], ['visitor-depth overlay', moodyAdditionalDepth]]) {
+  for (const stale of ['temporarily closed', 'scheduled to reopen in November', 'Closed now; scheduled to reopen']) {
+    if (source.toLowerCase().includes(stale.toLowerCase())) errors.push('Moody Gardens ' + name + ' still publishes obsolete closure: ' + stale);
+  }
+}
+for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026", "9 to 10 AM is reserved for museum members"]) {
+  if (!(moodyCuration + '\n' + moodySpotlights).includes(marker)) errors.push('Moody Gardens lacks new visitor evidence: ' + marker);
+}
+
+if (!moodyCuration.includes("GCM-only early member hour") || !moodySpotlights.includes("9 to 10 AM is reserved for museum members")) {
+  errors.push("Moody Gardens admission planning must distinguish the museum's members-only hour from general opening hours.");
+}
+if (moodyCuration.includes("children's museum entry is included with a Moody Gardens ticket")
+    || moodyResolver.includes("included ticket admission")) {
+  errors.push("Moody Gardens must not imply every attraction ticket automatically admits the children's museum.");
+}
+if (!moodyCuration.includes("separate admission terms")
+    || !moodySpotlights.includes("a ticket that includes Galveston Children's Museum admission")
+    || !moodySpotlights.includes("separate museum admission")
+    || !moodySpotlights.includes("general admission at $15 per person age 2 and older")
+    || !moodyResolver.includes("ticket-specific admission requirements")) {
+  errors.push("Moody Gardens must explain museum admission eligibility across visitor facts, planning and official-source citations.");
+}
+if (!moodyProduction.includes("separate museum admission") || !moodyProduction.includes("included ticket admission")) {
+  errors.push("Moody Gardens live acceptance must reject overbroad museum ticket-inclusion claims.");
+}
+if (!moodyCuration.includes("its own holiday closures") || !moodySpotlights.includes("Thanksgiving Day")
+    || !moodySpotlights.includes("Sunday after the Momus Parade")
+    || !moodySpotlights.includes("https://www.galvestoncm.org/general-info-admission")
+    || !moodyResolver.includes("https://www.galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens must show the children's museum's own verified holiday closures and first-party museum source.");
+}
+if (!moodyProduction.includes('"Thanksgiving Day"') || !moodyProduction.includes("galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens live acceptance must verify distinct GCM holiday closures and linked first-party admission evidence.");
+}
+if (!moodySpotlights.includes("9 to 10 AM is reserved for museum members")) {
+  errors.push("Moody Gardens prominent visit note must flag the 9-to-10-AM museum members-only hour.");
+}
+if (!moodySpotlights.includes("Normal public hours are 10 AM to 5 PM")
+    || !moodySpotlights.includes("Museum-only cost example")
+    || !moodySpotlights.includes("$15 per person")
+    || !moodySpotlights.includes("$60 before discounts")
+    || !moodySpotlights.includes("Everybody Plays program offers $5 per person for up to five guests")
+    || !moodySpotlights.includes("SNAP or Medicaid benefits")
+    || !moodySpotlights.includes("special events are excluded")
+    || !moodySpotlights.includes("https://www.galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens must retain sourced separate children's museum admission prices, worked family example, accessible discount eligibility and a direct museum source.");
+}
+if (!moodyProduction.includes('"Museum-only cost example"')
+    || !moodyProduction.includes('"Everybody Plays"')
+    || !moodyProduction.includes('"$60 before discounts"')) {
+  errors.push("Moody Gardens production gate must independently check museum price and discount decision guidance.");
+}
+
+for (const link of [
+  'https://www.moodygardens.com/attractions/discovery-pyramid',
+  'https://www.moodygardens.com/visitor-info/accessibility',
+  'https://www.moodygardens.com/visitor-info/map-directions',
+  'https://tickets.moodygardens.com/',
+]) {
+  if (!(moodyResolver + moodySpotlights).includes(link)) errors.push('Moody Gardens lacks official visitor link: ' + link);
+}
+if (moodyAdditionalDepth.includes('"moody-gardens": [')) errors.push('Moody Gardens must not append a second legacy visitor-depth block after its independently maintained current guide.');
+if (!moodySpotlights.includes('slug: "galveston-bay"')) {
+  errors.push('Moody Gardens must link directly to its relevant Galveston Bay marine-ecology guide.');
+}
+for (const [name, source, markers] of [
+  ['specific aquarium research', moodyCuration + moodySpotlights, ['Jellyfish Gallery', 'Flower Garden Banks', 'Coral Reef Lab']],
+  ['specific rainforest research', moodyCuration + moodySpotlights, ['Nightfall', 'giant river otters', 'canopy']],
+  ['Discovery exhibit research', moodyCuration + moodySpotlights, ['20,000 Leagues Under the Sea', 'Our Town', 'Room to Grow', '3D/4D']],
+  ['primary exhibit citations', moodyResolver, ['https://www.moodygardens.com/attractions/aquarium-pyramid', 'https://www.moodygardens.com/attractions/rainforest-pyramid', 'https://www.galvestoncm.org/exhibits']],
+]) {
+  for (const marker of markers) {
+    if (!source.includes(marker)) errors.push('Moody Gardens missing ' + name + ': ' + marker);
+  }
+}
+if (moodyCuration.includes("Galveston's strongest all-weather family attraction")
+    || moodyCuration.includes('clearest first priority')) {
+  errors.push('Moody Gardens must make specific visitor recommendations without unsubstantiated superlatives.');
+}
+if (!moodyProduction.includes('staleClosureMarkers') || !moodyProduction.includes('dateModified')) errors.push('Moody Gardens live acceptance must reject old closures and stale structured dates.');
+if (!moodyProduction.includes('Discovery Museum closure guidance') || !moodyProduction.includes('The Rainforest Pyramid, Discovery Museum, theaters')) {
+  errors.push('Moody Gardens live acceptance must reject closure-era text from independently rendered source and directory layers.');
+}
+
 if (errors.length) {
   console.error('Editorial content integrity validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
+// The bounded Moody Gardens operator monitor is exercised offline in PR CI
+// before its Friday scheduled network check; no external fetch in pre-merge.
+execFileSync(process.execPath, ['--test', 'scripts/data/check-moody-gardens-official.test.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--experimental-strip-types', '--test', 'scripts/data/moody-gardens-visit-notice.test.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--experimental-strip-types', '--test', 'scripts/data/moody-gardens-notice-cache-policy.test.mjs'], { stdio: 'inherit' });
 execFileSync(process.execPath, ['scripts/data/validate-dallas-black-history.mjs'], { stdio: 'inherit' });
 console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');

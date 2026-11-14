@@ -10,6 +10,10 @@ Purpose: do not use any image of a different museum, nearby city, AI approximati
 | Texas Energy Museum, Beaumont | https://commons.wikimedia.org/wiki/File:Texas_Energy_Museum,_front_entrance.jpg | Creative Commons BY-SA 4.0 International | JJonahJackalope, 2024 | Exact front entrance; original 4000 × 2252 |
 | George Ranch Historical Park | https://www.loc.gov/item/2014633335/ | Library of Congress rights advisory: no known restrictions on publication; user must independently assess rights | Carol M. Highsmith / Library of Congress, 2014, LC-DIG-highsm-29135 | Costumed interpreter at George Ranch, not a generic ranch |
 
+| McNay Art Museum, San Antonio | https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg | Creative Commons BY-SA 4.0 International; source creator personally licensed work | Michael Barera, 24 May 2018 | Exact historic McNay museum courtyard, not an unrelated San Antonio building. Attribution source and license links required on published hero; pixel/render QA outstanding. |
+
+| Texas Military Forces Museum, Austin | https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg | Creative Commons BY 2.0 Generic; FlickrReview confirmed 2019 | Sgt. 1st Class Jim Greenhill, 12 January 2019 | Exact museum presentation inside Camp Mabry. Corrects historic destination credit incorrectly claiming public domain; image is CC BY 2.0, must link source and license. Pixel and live display QA pending. |
+
 License compliance:
 - Retain photographer attribution, title, museum-specific image context, source URL, Creative Commons license name/link and modifications wherever the page/photo component allows.
 - Creative Commons BY-SA licensing imposes additional terms on adapted photos; ensure any derivative delivery meets share-alike and credit requirements.
@@ -210,3 +214,91 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - **Historical context:** January 2025 site photograph, not evidence for all current galleries, visitor routes or fall 2026 hours.
 - **Production status:** license and location source documented; actual pixel rendering, attribution, responsive crop and canonical indexing remain **unverified** until live deployment QA. Not independently certified.
 
+
+## Frontiers of Flight Museum — Dallas (verified October 18, 2026)
+
+- **Correct exhibit and institution:** [Frontiers of Flight Museum December 2015 107 (Vought V-173 "Flying Pancake").jpg](https://commons.wikimedia.org/wiki/File:Frontiers_of_Flight_Museum_December_2015_107_(Vought_V-173_%22Flying_Pancake%22).jpg) is a specific aviation artifact on exhibit at the Dallas Love Field museum, not a generic airplane photo.
+- Photographer: **Michael Barera**; taken December 12, 2015. Commons describes the original 6,000×4,000 photo as own work and independently lists commercial-compatible **CC BY-SA 4.0** (and CC BY-SA 3.0) licensing with credit and share-alike requirements. Use [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/). The existing `src/data/museum-expansion-dfw.ts` hero already carries the exact Vought V-173 image and photographer credit. Do not create a second generic image or imply this 2015 photo documents 2026 temporary exhibitions.
+- Operator site restrictions on new photography for other-than-personal use are not blanket restrictions on reuse of this independently photographer-licensed 2015 original. The actual remote JPEG, on-page original file and CC links, responsive crop and pixel display require post-deployment acceptance.
+
+## Museum of Texas Tech University — Lubbock (verified October 18, 2026)
+
+- **Exact building photograph:** [Museum of Texas Tech University IMG 0038.JPG](https://commons.wikimedia.org/wiki/File:Museum_of_Texas_Tech_University_IMG_0038.JPG) is photographer **Billy Hathorn**'s own photo from April 3, 2009, uploaded April 10, 2009. The original is 2,592×1,944 pixels, with an affirmative [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license (other optional licenses also recorded).
+- Hero record `src/data/museum-authority-heroes.ts` is keyed only to `museum-of-texas-tech-university-lubbock`; the existing destination record replaces its missing-image placeholder with this exact licensed photo. Credit photographer, named source and license; when resizing or cropping follow CC share-alike and modification-notice terms. **This is a 2009 exterior photograph, not proof of today's museum display arrangements.**
+- Source/license verification is complete, but browser-level photograph pixel rendering, attribution links, alternate text and mobile crop are **not certified** until the merged page is visually checked.
+
+
+## Menil Collection (Houston) and Grace Museum (Abilene) — October 19, 2026
+
+These authority upgrades **reuse existing, accurate destination photographs**, not stock or fabricated substitutes, and add source-specific license attribution.
+
+- **The Menil Collection**, canonical `/destination/menil-collection-houston`: actual Houston museum photographed by **Francisco Anzola**, 28 June 2011. [Wikimedia original](https://commons.wikimedia.org/wiki/File:Menil_Collection_Houston_(5887512203).jpg) records Flickr transfer and reviewer-confirmed **CC BY 2.0 Generic**, https://creativecommons.org/licenses/by/2.0/ . Existing hero is `https://commons.wikimedia.org/wiki/Special:Redirect/file/Menil_Collection_Houston_(5887512203).jpg?width=1600`. Added photographer/date/CC license to existing destination credit and clickable original-image/license support from the already merged Commons hero credit feature. The image depicts the museum building, not the latest on-view artwork.
+- **The Grace Museum**, canonical `/destination/grace-museum-abilene`: exterior of the original downtown Abilene Hotel Grace / museum building, photographed by **Larry D. Moore** on 26 September 2015. [Wikimedia original](https://commons.wikimedia.org/wiki/File:The_Grace_Museum_Abilene_Texas_2015.jpg) is the photographer's original, **CC BY 4.0 International**, https://creativecommons.org/licenses/by/4.0/ . The rights statement specifically requires attribution, link to license and requests the source image link. The existing destination hero override is normalized from Commons `Special:FilePath` to `Special:Redirect/file/The_Grace_Museum_Abilene_Texas_2015.jpg?width=1600` so clickable attribution resolves through the existing template. Not a photo of the separately located Spark Science Center.
+- **Reuse conditions**: commercial website display is permitted by the cited licenses with author, link to license, any transformations/crops noted as applicable; no endorsement implied. The operator's indoor/gallery photography rules are distinct from licensed older exterior pictures.
+- **Acceptance pending**: production hero pixels, mobile layouts, link navigation and photo caption legibility require browser visual QA after protected merge. The manifest and FAQ contract should not equate HTTP 200 with editorial certification.
+
+
+## Museum of South Texas History — Edinburg (verified sources October 19, 2026)
+
+- **Exact museum heritage-wing photo:** [Old Hidalgo County Jail Edinburg Texas 2021.jpg](https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg) was taken August 26, 2021, by **Larry D. Moore**. Commons describes this historic 1910 jail building as part of the Museum of South Texas History, and records the author's own work under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) with photographer credit, original-file link and license link required.
+- **Replacement scope:** Replace the existing museum-placeholder hero on the *canonical* `/destination/museum-of-south-texas-history-edinburg`, not the 301 legacy alias or a new museum listing. The photo shows the old-jail wing, not every modern gallery or any temporary 2026 exhibit.
+- **Rights distinction:** The museum's ordinary visitor photo/equipment and professional-shoot restrictions are not an override of a photographer's separately licensed 2021 exterior image. Do not assume the museum's own exhibit photos or website assets are reusable.
+- **Acceptance outstanding:** Post-merge live image decode/pixels, mobile crop, clickable Commons original and CC license, exact visitor copy and independent editorial side-by-side verification. The museum authority certificate remains `not-certified`.
+
+## San Angelo Museum of Fine Arts (verified sources October 19, 2026)
+
+- Exact subject: [San Angelo September 2019 44 (San Angelo Museum of Fine Arts).jpg](https://commons.wikimedia.org/wiki/File:San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg) is Michael Barera's original September 7, 2019 photograph of the actual museum building, under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Attribution, original image and Creative Commons terms must be linked visibly. A crop or other adaptation must honor the relevant license obligations.
+- This clears a generic placeholder for the existing canonical `/destination/san-angelo-museum-of-fine-arts` by the licensed-hero registry. It is an exterior building photograph and does not certify 2026 paintings or gallery installations.
+- Commercial image reuse of photographs from SAMFA's own site is expressly restricted; only the separately photographer-licensed Wikimedia work is authorized by the cited Commons license.
+- Still pending protected merge, visual decoding/mobile layout, clickable license and direct comparison of live guide with museum's visitor policy. **Not independently certified.**
+
+
+## Alley Log Cabin & Antique Tool Museum, Columbus — licensed exact-site photograph (2026-10-24)
+
+- **Actual subject:** Abram Alley Log Cabin exterior at the preservation trust museum site in Columbus, Texas, photographed 4 November 2013. The cabin's original rural site was different before the 1976 relocation.
+- **Photographer:** Billy Hathorn, own work. **License:** Creative Commons Attribution-ShareAlike 3.0 Unported, commercial reuse permitted with attribution; adaptations must comply with ShareAlike.
+- **Exact original:** https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin%2C_Columbus%2C_TX_IMG_8238.JPG
+- **License:** https://creativecommons.org/licenses/by-sa/3.0/
+- **Operator identity and current tours:** https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/
+- **Hero transport:** https://commons.wikimedia.org/wiki/Special:Redirect/file/Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG?width=1600
+- **Required alternative text:** Actual Abram Alley Log Cabin at 1230 Bowie Street in Columbus, Texas, photographed November 4, 2013.
+- **Acceptance caution:** The image's HTTP response is NOT browser visual certification. Check image subject, responsive crop, original source, credit and license links on production before marking certified.
+
+
+## Austin History Center — exact current Faulk Building (2026-10-24)
+
+- **Canonical museum:** /destination/austin-history-center-austin
+- **Current physical site:** John Henry Faulk Building, 800 Guadalupe Street, Austin, occupied by Austin History Center since 2025. City operator: https://library.austintexas.gov/austin-history-center. The older 1933 History Center building at 810 Guadalupe is NOT used as a current-site photo substitute.
+- **Original photograph:** https://commons.wikimedia.org/wiki/File:John_Henry_Faulk_Central_Library.jpg, exterior December 7, 2025, by Thejudahrice. **License:** https://creativecommons.org/licenses/by-sa/4.0/ (CC BY-SA 4.0; commercially reusable with appropriate credit and share alike for adaptations).
+- **Rendered hero source:** https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600
+- **Alt:** John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move.
+- **Production acceptance:** Browser decode, responsive crop, correct attribution/original-license links and canonical/indexing confirmation are NOT YET verified. No independent editorial certification.
+
+## Bayou Bend Collection and Gardens — licensed property photograph and limitations (2026-10-24)
+
+- **Existing canonical destination:** `/destination/bayou-bend-collection-gardens`. The owner-inventory entry refers to this exact MFAH house museum, not a new visitable identity.
+- **Actual museum photograph already in existing destination:** Wikimedia Commons [BayouBendHome.JPG](https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG), author **Postoak**, original upload March 22, 2008, depicting the Bayou Bend estate house in Houston. File's author released the exact photo to the **public domain worldwide**, and wherever that is not available grants permission for any purpose without conditions. This is the documented commercial-use evidence for the destination hero at `https://commons.wikimedia.org/wiki/Special:Redirect/file/BayouBendHome.JPG?width=1600`.
+- This **does not** grant rights to reproduce MFAH's collection catalog images or to carry out an on-property commercial photo shoot: the current [museum operator policy](https://www.mfah.org/visit/bayou-bend/photography-guidelines) requires permission for commercial shoots and restricts tripods/drones. Photo source link is the rights record; there is no CC license link to invent for a photographer-public-domain dedication.
+- **Remaining acceptance:** Live SSR image source/alt and indexed canonical, actual decoded house image and mobile crop, and independent editorial competitor evaluation. Neither a Commons file reference nor normal HTTP transport alone counts as visual certification.
+
+## Baytown Historical Museum — licensed exact-site building photograph (2026-10-24)
+
+- **Canonical museum identity:** `/destination/baytown-historical-museum` at 220 West Defee Street in Baytown, Texas. The museum occupies the former Goose Creek federal post office. Official operator location and free-admission visitor listing: https://www.visitbaytown.com/arts-culture .
+- **Original image:** [Old Baytown Post Office.jpg](https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg). The photograph **depicts the exact museum building**, not just another post office or downtown Baytown attraction. Photographer **Jim Evans**, 29 October 2020, 3823 × 2635 JPEG. Commons original file directly identifies the building's later use as Baytown Historical Museum.
+- **License and conditions:** [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/), commercial reuse allowed with attribution, license link, change disclosure and share-alike requirements for adaptations. Preserve license/source links and do not imply the photographer endorses TexasDefined.
+- **Delivery source:** `https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Baytown_Post_Office.jpg?width=1600` using the existing remote-media pipeline; no raw hotlink substitution or generic Texas photo. Exact museum alt text and photographer/source/license credit are registered in `museum-authority-heroes.ts`.
+- **Outstanding acceptance:** Verify live image pixels, mobile decode/crop, rendered source attribution/license links, valid canonical/indexing, museum-specific FAQs and independent editorial source evaluation after deployment. Rights documentation alone is not proof of browser rendering or editorial certification. Public museum visiting hours conflict between the city and other directories and must be qualified until the operator confirms them.
+
+## Barrington Farm and Bastrop County Museum — precise photo rights (2026-10-24)
+
+- **Barrington canonical:** `/destination/barrington-living-history-farm`, Anson Jones's historic house at Washington-on-the-Brazos. Photographer **Pi3.124**, 27 February 2016, original Commons file: https://commons.wikimedia.org/wiki/File:Barrington_Farm,_residence_of_Dr._Anson_Jones.jpg . License: https://creativecommons.org/licenses/by-sa/4.0/ . New exact Commons hero source: https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600 . A pre-existing local photo on this canonical was attributed to the same creator, but local URL alone did not expose an automatic clickable original-image source; the explicit Commons delivery path corrects that attribution limitation. Check image pixels/mobile before visual certification.
+- **Bastrop canonical:** `/destination/bastrop-county-museum-visitor-center`, currently at **904 Main St** since 2011. Photo depicts exact Bastrop County Historical Society Museum, by **Larry D. Moore**, 1 July 2014: https://commons.wikimedia.org/wiki/File:Bastrop_county_historical_society_museum.jpg . Photographer's own commercial-use license https://creativecommons.org/licenses/by/4.0/ (CC BY 4.0). Hero source: https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600 . The pre-existing museum listing still had a missing-image placeholder and a `noindex` gate when tested on Oct 24; only clear indexing once real approved media and full visitor guide are actually delivered and accepted.
+- License records identify the exact photographers and museum subjects. This record is documentary photo-rights evidence **not** an editorial competitor certification or browser-decoded image test. The four separate photo-blocked museums still lack rights-approved hero images.
+
+## Austin County Jail Museum — Bellville exact-building reuse evidence (2026-10-25)
+
+- **Canonical:** `/destination/austin-county-jail-museum-bellville`; **subject:** original 1896 Austin County jail building at 36 S Bell St, Bellville, not Austin city or a generic county jail.
+- **Original photograph:** https://commons.wikimedia.org/wiki/File:Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg . Photographer **Renelibrary**, own work, 13 June 2020, original 1800 × 1197 pixels, Commons file specifically depicts the historic jail/museum exterior.
+- **License:** https://creativecommons.org/licenses/by-sa/4.0/ (Creative Commons Attribution–ShareAlike 4.0 International). Credit the named author, link source and terms; Commons holds the original photographer license statement.
+- **Planned site hero delivery:** https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg?width=1600 . Accurate alt text must describe the turrets, red-brick jail facade and Bellville location.
+- **Current verification limits:** License and exact-museum identification researched, but HTTP transport, actual responsive image decode, production indexing, mobile crop and editorial acceptance are **not yet independently verified**. Any failed media fetch leaves image/readiness guards intact.

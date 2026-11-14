@@ -1,4 +1,5 @@
 import { curatedDestinationPairings } from "./destination-curated-pairings";
+import { isPrimaryTripPlannerDestination } from "./destination-availability";
 import type { CategorySlug, Destination } from "./types";
 
 export type DestinationRelationshipGroup = {
@@ -30,7 +31,9 @@ const WEEKEND_CATEGORIES = new Set<CategorySlug>(["small-towns", "food-bbq", "ro
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
-  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
+  return Number.isFinite(lat) && Number.isFinite(lng)
+    && Math.abs(lat) <= 90 && Math.abs(lng) <= 180
+    && !(lat === 0 && lng === 0);
 }
 
 export function distanceMiles(left: Destination, right: Destination): number | null {
@@ -80,7 +83,12 @@ export function buildDestinationRelationshipGroups(
   destination: Destination,
   catalog: Destination[],
 ): DestinationRelationshipGroup[] {
-  const others = catalog.filter((item) => item.slug && item.slug !== destination.slug);
+  // Historical reference pages remain directly readable, but a closed museum
+  // or otherwise unavailable venue must not be sold as a visitable nearby stop.
+  // Apply the same authoritative visitability policy as the Trip Planner to
+  // BOTH editorial pairings and distance-ranked suggestions.
+  const others = catalog.filter((item) => item.slug && item.slug !== destination.slug
+    && isPrimaryTripPlannerDestination(item));
   const used = new Set<string>();
   const take = (items: Destination[], limit = 6) => unique(items)
     .filter((item) => !used.has(item.slug))
@@ -101,9 +109,10 @@ export function buildDestinationRelationshipGroups(
     return miles !== null && miles <= 75;
   }));
 
-  const sameTown = take(others.filter((item) =>
-    item.nearestTown.trim().toLowerCase() === destination.nearestTown.trim().toLowerCase(),
-  ));
+  const town = destination.nearestTown?.trim().toLowerCase();
+  const sameTown = take(town ? others.filter((item) =>
+    item.nearestTown?.trim().toLowerCase() === town,
+  ) : []);
 
   const complementary = new Set(COMPLEMENTARY_CATEGORIES[destination.category] ?? []);
   const nearbyComplementary = take(nearest(

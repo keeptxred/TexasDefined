@@ -1,11 +1,11 @@
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
-import type { DogBreedProfile, DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
+import type { DogBreedProfile, DogBreedSummary } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
 
 export default function DogBreedPage() {
-  const { breed, related, collections } = routeApi.useLoaderData() as { breed: DogBreedProfile; related: DogBreedSummary[]; collections: DogDesignCollection[] };
+  const { breed, related } = routeApi.useLoaderData() as { breed: DogBreedProfile; related: DogBreedSummary[] };
   return <>
     <article>
       <header className="border-b border-border bg-surface/40">
@@ -17,25 +17,32 @@ export default function DogBreedPage() {
           </nav>
           <p className="eyebrow mt-10 text-primary">{breed.shortName} Defined</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{breed.name}: {breed.deck}</h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">Personality first, then the jokes, settings and design concepts that actually make sense for the breed.</p>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">A practical Texas ownership guide: compare activity, grooming, summer planning and the breed’s characteristics before the lighter cultural and design ideas.</p>
         </Container>
       </header>
 
       <Container className="py-12 sm:py-16">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="mx-auto max-w-4xl">
           <div className="space-y-12">
-            <section><p className="eyebrow text-primary">The short version</p><h2 className="mt-3 font-display text-4xl leading-tight">Why {breed.shortName} people recognize the joke immediately</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.personality}</p></section>
+            <section><p className="eyebrow text-primary">The short version</p><h2 className="mt-3 font-display text-4xl leading-tight">What a {breed.shortName} is known for</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.personality}</p></section>
+            {breed.care ? <section className="border-y border-border py-10" aria-labelledby="breed-care-decisions">
+              <p className="eyebrow text-primary">Owner planning · evidence-linked</p><h2 id="breed-care-decisions" className="mt-3 font-display text-4xl leading-tight">Three decisions before bringing a {breed.shortName} into your Texas routine</h2>
+              <div className="mt-7 grid gap-6">
+                <div><h3 className="font-display text-2xl">Daily movement and enrichment</h3><p className="mt-2 leading-8 text-muted-foreground">{breed.care.movement}</p></div>
+                <div><h3 className="font-display text-2xl">Coat, home and upkeep</h3><p className="mt-2 leading-8 text-muted-foreground">{breed.care.coatAndHome}</p></div>
+                <div><h3 className="font-display text-2xl">Texas climate and outdoor decisions</h3><p className="mt-2 leading-8 text-muted-foreground">{breed.care.texasPlan}</p></div>
+              </div>
+              <p className="mt-6 text-sm leading-7 text-muted-foreground">Breed patterns are starting points, not guarantees for an individual dog. Ask your veterinarian about exercise, temperature tolerance and specific health concerns. <a href={breed.care.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Compare the AKC breed profile ↗</a>.</p>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold"><Link to="/article/$slug" params={{slug:"texas-dog-heat-safety"}} className="text-primary underline">Texas heat-safety guide →</Link><Link to="/article/$slug" params={{slug:"hiking-texas-trails-with-your-dog"}} className="text-primary underline">Dog-friendly trail planning →</Link><Link to="/article/$slug" params={{slug:"adopting-a-dog-in-texas"}} className="text-primary underline">Texas adoption checklist →</Link></div>
+            </section> : null}
             <section className="border-y border-border py-10"><p className="eyebrow text-primary">Texas fit</p><h2 className="mt-3 font-display text-4xl leading-tight">Where the breed meets Texas life</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.texasFit}</p>
               <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold"><Link to="/explore/road-trips" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Texas road trips</Link><Link to="/explore/outdoors" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Outdoors & wildlife</Link><Link to="/texas-living" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Texas Life</Link></div>
             </section>
-            <section><p className="eyebrow text-primary">Design directions</p><h2 className="mt-3 font-display text-4xl leading-tight">The shirt ideas that feel native to the breed</h2>
+            <section><p className="eyebrow text-primary">Creative culture, not care advice</p><h2 className="mt-3 font-display text-4xl leading-tight">A lighthearted look at the breed’s personality</h2>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">{breed.designHooks.map((hook, index) => <div key={hook} className="border border-border p-5"><span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</span><h3 className="mt-3 font-display text-2xl capitalize">{hook}</h3></div>)}</div>
             </section>
-            <section className="border-t border-border pt-10"><p className="eyebrow text-primary">Collection families</p><h2 className="mt-3 font-display text-4xl leading-tight">One {breed.shortName}, several completely different looks</h2>
-              <div className="mt-7 grid gap-5 md:grid-cols-2">{collections.map((collection) => <div key={collection.slug} className="border border-border p-5"><p className="eyebrow text-muted-foreground">{collection.tagline}</p><h3 className="mt-2 font-display text-2xl">{collection.name}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{collection.description}</p><a href={`/dogs#${collection.slug}`} className="eyebrow mt-4 inline-block text-primary">See the collection idea →</a></div>)}</div>
-            </section>
+            <section className="border-t border-border pt-10"><p className="eyebrow text-primary">Further reading</p><h2 className="mt-3 font-display text-3xl">Turn general breed advice into a local plan</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Before choosing a Texas park or lake, check local pet access and your dog's individual health and fitness. Veterinary advice and official destination rules outrank general breed averages.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/article/$slug" params={{slug:"taking-your-dog-to-texas-state-parks"}} className="text-primary underline">State park pet rules →</Link><Link to="/article/$slug" params={{slug:"texas-dog-lake-river-safety"}} className="text-primary underline">Water safety →</Link><Link to="/article/$slug" params={{slug:"camping-in-texas-with-your-dog"}} className="text-primary underline">Camping with dogs →</Link></div><p className="mt-5 text-sm leading-7 text-muted-foreground">For playful breed design collections, <Link to="/dogs/{-$breed}" params={{ breed: undefined }} className="font-semibold text-primary underline">return to the Texas Dogs hub</Link>; this breed guide prioritizes actual owner decisions.</p></section>
           </div>
-          <aside><div className="sticky top-24 border border-border p-6"><p className="eyebrow text-primary">Creative brief</p><h2 className="mt-3 font-display text-3xl">{breed.shortName} shirt signals</h2><ul className="mt-5 space-y-3 text-sm leading-6 text-muted-foreground">{breed.designHooks.map((hook) => <li key={hook}>— {hook}</li>)}</ul></div></aside>
         </div>
       </Container>
     </article>

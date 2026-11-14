@@ -77,18 +77,44 @@ const MARKET_SUMMARIES = [
     child: "$53",
     childAges: "ages 3–11",
     selection: "4 of 8",
-    maxSavings: "up to 41%",
-    maxValue: "$107.10",
-    maxDollarSavings: "$44.10",
+    maxSavings: "up to 42%",
+    maxValue: "$108.18",
+    maxDollarSavings: "$45.18",
     example: "San Antonio Zoo + San Antonio Museum of Art + San Antonio Botanical Garden + Tower of the Americas",
     reservation: "The Alamo Exhibit and Church currently requires a reservation.",
     officialUrl: "https://www.citypass.com/san-antonio",
   },
 ] as const;
 
+// CityPASS's October 23 affiliate notice says San Antonio's new rates appear
+// online November 1 and take effect November 2, 2026. On November 1 the
+// checkout may change at an unspecified hour, so we preserve the verified
+// prior price until the stated effective date and direct buyers to live pricing.
+// November 2 midnight in San Antonio is 06:00 UTC (CST after DST ends).
+const SAN_ANTONIO_RATE_EFFECTIVE_AT = Date.parse("2026-11-02T06:00:00Z");
+const SAN_ANTONIO_ANNOUNCED_RATES = {
+  adult: "$67",
+  child: "$57",
+  maxSavings: "up to 38%",
+  maxValue: "$108.00",
+  maxDollarSavings: "$41.00",
+} as const;
+
+function marketSummariesAt(now: number) {
+  return MARKET_SUMMARIES.map((market) =>
+    market.market === "San Antonio" && now >= SAN_ANTONIO_RATE_EFFECTIVE_AT
+      ? { ...market, ...SAN_ANTONIO_ANNOUNCED_RATES }
+      : market
+  );
+}
+
 export const Route = createLazyFileRoute("/guides/citypass-texas")({ component: CityPassTexasGuide });
 
 function CityPassTexasGuide() {
+  const now = Date.now();
+  const sanAntonioNewRatesEffective = now >= SAN_ANTONIO_RATE_EFFECTIVE_AT;
+  const marketSummaries = marketSummariesAt(now);
+  const sanAntonioSummary = marketSummaries.find((market) => market.market === "San Antonio")!;
   return <>
     <CityPassStructuredData description={CITYPASS_GUIDE_DESCRIPTION} reviewedAt={CITYPASS_GUIDE_REVIEWED_AT} />
     <DepartmentHero
@@ -130,7 +156,7 @@ function CityPassTexasGuide() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {MARKET_SUMMARIES.map((item) => <tr key={item.market}>
+              {marketSummaries.map((item) => <tr key={item.market}>
                 <th scope="row" className="px-5 py-4 font-semibold text-foreground"><a href={`#${item.market.toLowerCase().replace(" ", "-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{item.market}</a></th>
                 <td className="px-5 py-4 text-muted-foreground">{item.adult}</td>
                 <td className="px-5 py-4 text-muted-foreground">{item.child} <span className="block text-xs">{item.childAges}</span></td>
@@ -141,6 +167,9 @@ function CityPassTexasGuide() {
             </tbody>
           </table>
         </div>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">
+          CityPASS notified affiliates on October 23, 2026, that San Antonio prices would rise to $67 per adult and $57 per child (ages 3–11), available online November 1 and effective November 2. {sanAntonioNewRatesEffective ? "The comparison now reflects those announced prices; confirm the live checkout before purchasing." : "Until the effective date, the comparison retains the previously verified price; check the official checkout for an earlier November 1 change."}
+        </p>
         <p className="mt-4 text-xs leading-6 text-muted-foreground">There are 21 listed attraction choices across the three separate city products (6 Dallas + 7 Houston + 8 San Antonio). That is a count of program listings, not 21 attractions available on a single pass.</p>
         <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="#dallas" className="border-b border-primary pb-1 text-primary">Dallas details ↓</a>
@@ -154,7 +183,7 @@ function CityPassTexasGuide() {
       <Container>
         <SectionHeader eyebrow="Do the math" title="What the maximum savings examples actually look like" description="These examples use the current adult box-office prices CityPASS publishes for its own savings comparison. Variable-date ticket prices and discounts can change what you would really pay." />
         <div className="mt-10 grid gap-8 lg:grid-cols-3">
-          {MARKET_SUMMARIES.map((item) => <article key={item.market} className="border-t border-border pt-5">
+          {marketSummaries.map((item) => <article key={item.market} className="border-t border-border pt-5">
             <p className="eyebrow text-primary">{item.market}</p>
             <h3 className="mt-3 font-display text-3xl">{item.adult} pass</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">CityPASS currently compares that with as much as <strong className="text-foreground">{item.maxValue}</strong> in regular adult admission, or <strong className="text-foreground">{item.maxDollarSavings}</strong> maximum dollar savings.</p>
@@ -212,9 +241,9 @@ function CityPassTexasGuide() {
       <Container>
         <div id="san-antonio" className="scroll-mt-24 grid gap-10 lg:grid-cols-2">
           <div>
-            <SectionHeader eyebrow="San Antonio CityPASS® — $63 adult / $53 child" title="Choose 4 of 8 San Antonio attractions" description="San Antonio currently advertises savings up to 41%. The Alamo Exhibit and Church currently requires a reservation." />
+            <SectionHeader eyebrow={`San Antonio CityPASS® — ${sanAntonioSummary.adult} adult / ${sanAntonioSummary.child} child`} title="Choose 4 of 8 San Antonio attractions" description={`San Antonio's ${sanAntonioNewRatesEffective ? "announced new rate offers" : "current official site advertises"} savings ${sanAntonioSummary.maxSavings}. The Alamo Exhibit and Church currently requires a reservation. Verify the official checkout price before purchasing.`} />
             <AttractionList items={SAN_ANTONIO_ATTRACTIONS} />
-            <CityMath sentence="The current maximum-value adult comparison uses San Antonio Zoo, San Antonio Museum of Art, San Antonio Botanical Garden and Tower of the Americas: $107.10 in CityPASS's published regular-price comparison versus the $63 pass." />
+            <CityMath sentence={`The adult comparison uses San Antonio Zoo, San Antonio Museum of Art, San Antonio Botanical Garden and Tower of the Americas: ${sanAntonioSummary.maxValue} in CityPASS's ${sanAntonioNewRatesEffective ? "announced" : "current published"} regular-price comparison versus the ${sanAntonioSummary.adult} pass. Confirm amounts at checkout.`} />
             <SourceLinks cityPath="/city/san-antonio" officialUrl="https://www.citypass.com/san-antonio" market="San Antonio" />
           </div>
           <CityPassCallout market="San Antonio" placement="rail" showGuideLink={false} />

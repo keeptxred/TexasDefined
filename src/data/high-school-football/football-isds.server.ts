@@ -5,6 +5,11 @@ import {
 import { footballIsdProfilePath, footballIsdSlug } from './football-isd-slugs';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { footballClassificationRank } from './program-slugs';
+import { reconcileVerifiedFootballIsdBridge } from './verified-uil-isd-bridges';
+import { verifiedFootballIsdAuthority, verifiedFootballIsdBridge } from './verified-uil-isd-bridges';
+import { UIL_FOOTBALL_PROGRAMS_2026 } from './uil-football-alignments-2026.server';
+import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
+import { footballProgramProfilePath } from './program-slugs';
 
 export type FootballIsdProgram = Pick<
   FootballProgramDirectoryResult,
@@ -35,6 +40,7 @@ export type FootballIsdSummary = {
 };
 
 export type FootballIsdProfile = FootballIsdSummary & {
+  verifiedEvidence?: NonNullable<ReturnType<typeof verifiedFootballIsdAuthority>>;
   programs: FootballIsdProgram[];
   enrollmentLink: ReturnType<typeof getOfficialFootballEnrollmentLink> | null;
 };
@@ -72,7 +78,8 @@ async function assembleFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory
   const districtNameBySlug = new Map<string, string>();
   let unmatchedProgramCount = 0;
 
-  for (const program of programs) {
+  for (const uilProgram of programs) {
+    const program = reconcileVerifiedFootballIsdBridge(uilProgram);
     if (!program.districtName) {
       unmatchedProgramCount += 1;
       continue;
@@ -166,7 +173,59 @@ export async function getFootballIsdDirectory() {
   };
 }
 
+/**
+ * Four specifically confirmed 2026 UIL→TEA ownerships can render without a
+ * live AskTED network call. This is not an open-ended district fallback:
+ * each source URL, exact UIL school, class, football format and TEA campus ID
+ * is fixed in the separately reviewed evidence ledger. A renamed/unmatched
+ * school fails closed until the next source review.
+ */
+function verifiedGscFootballIsdProfile(slug: string): FootballIsdProfile | null {
+  const evidence = verifiedFootballIsdAuthority(slug);
+  if (!evidence) return null;
+  const matched = UIL_FOOTBALL_PROGRAMS_2026.filter((program) =>
+    verifiedFootballIsdBridge(program)?.districtName === evidence.districtName);
+  if (matched.length !== 1) return null;
+  const uilProgram = matched[0];
+  const exact = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[uilProgram.sourceSchoolName];
+  const base: FootballProgramDirectoryResult = {
+    ...uilProgram,
+    profilePath: footballProgramProfilePath(uilProgram.schoolName),
+    ...(exact ? { uilEnrollment: exact.enrollment, uilSubmittedConference: exact.submittedConference } : {}),
+  };
+  const program = reconcileVerifiedFootballIsdBridge(base);
+  return {
+    slug,
+    profilePath: footballIsdProfilePath(evidence.districtName),
+    districtName: evidence.districtName,
+    programCount: 1,
+    highestClassification: program.classification,
+    cities: [evidence.city],
+    countyNames: [evidence.countyName],
+    teaDistrictProfileUrl: program.teaDistrictProfileUrl,
+    programs: [{
+      schoolName: program.schoolName,
+      officialSchoolName: program.officialSchoolName,
+      profilePath: program.profilePath,
+      classification: program.classification,
+      division: program.division,
+      district: program.district,
+      footballType: program.footballType,
+      uilEnrollment: program.uilEnrollment,
+      city: program.city,
+      countyName: program.countyName,
+      teaSchoolProfileUrl: program.teaSchoolProfileUrl,
+    }],
+    enrollmentLink: getOfficialFootballEnrollmentLink(evidence.districtName) ?? null,
+    verifiedEvidence: evidence,
+  };
+}
+
 export async function getFootballIsdProfile(slug: string) {
+  // Do not let an eight-second AskTED timeout produce 500/404 for a district
+  // whose one current UIL team and TEA campus are independently certified.
+  const sourceBacked = verifiedGscFootballIsdProfile(slug);
+  if (sourceBacked) return sourceBacked;
   const built = await buildFootballIsdDirectory();
   return built.isds.find((district) => district.slug === slug) ?? null;
 }
