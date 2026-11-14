@@ -81,6 +81,10 @@ if(!liveAcceptance.includes('get(slug,"visitor")') ||
   fail("Music production verification must test the genuine unmodified canonical URL, not only a query nonce");
 if(!liveAcceptance.includes('googlebot-like') || !liveAcceptance.includes("Unauthenticated crawler-UA"))
   fail("Crawler-like diagnosis must avoid falsely representing authenticated Googlebot access");
+if(!liveAcceptance.includes("Clean canonical article differs from cache-busted") ||
+   !liveAcceptance.includes("const cleanArticle=articleText(visitor)") ||
+   !liveAcceptance.includes("Antones disputed Guadalupe 1981/1982 opening evidence absent"))
+  fail("Production acceptance must compare every clean music SSR article to its cache-busted variants and guard Antone's 1981/1982 source correction");
 if(!hub.includes('"/corpus-christi-music-history"')) fail("Statewide city hub omits Corpus Christi");
 if(!cityView.includes('musicCitiesComparison.map') || !cityView.includes('scope="col"') || !cityView.includes('<caption')) fail("Missing accessible city-by-city comparison");
 if(!cityView.includes('musicHistoryMilestones') || !venueView.includes('musicHistoryMilestones') || !corpus.includes('musicHistoryMilestones')) fail("Unlinked evidence-based chronologies");
