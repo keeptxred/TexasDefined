@@ -23,7 +23,7 @@ const FBCA: FootballProgramEditorial = {
     'The Upper School and Eagles football athletic complex are at 1250 Seventh Street, Sugar Land TX 77478, telephone 281-263-9175. The Lower/Middle School campus at 1201 Lakeview Drive is a separate visitor destination.',
     'The school’s campus map says to enter the athletic complex through the driveway to the left of the baseball field on Seventh Street. It does not guarantee that every game uses the same gate or that accessible parking is universally available.',
     'On April 2, 2026, the academy announced Kendrick Kitchens as new head football coach effective June 1, after serving as offensive coordinator/quarterbacks coach. The current school coaches directory confirms him as head football coach.',
-    'The academy publishes Upper School athletics calendars and Rank One links. No unsourced 2026 final scores, playoff bracket, ticket price, school-owned photograph or UIL district assignment is claimed.'
+    'For academy home athletics, its Upper School map shows the Seventh Street driveway by the baseball field; for away and playoff games, the event host controls venue and admission. TAPPS football alignment, not the academy’s general 5A description, determines postseason pairing.'
   ],
   milestones: [
     { date: 'April 2, 2026', title: 'School-announced head coach appointment', body: 'The academy appointed Kendrick Kitchens head football coach effective June 1, 2026.', sourceUrl: 'https://www.fortbendchristian.org/about/news/detail/~board/news/post/kendrick-kitchens-named-head-football-coach', sourceLabel: 'Official Fort Bend Christian Academy coaching announcement' },

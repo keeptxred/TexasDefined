@@ -24,7 +24,7 @@ const HIGHTOWER: FootballProgramEditorial = {
     'The school describes L.V. Hightower’s 30-year Fort Bend ISD career, including athletics administration at Dulles, and offers medical science and digital media career academies. This is unique school history, not a claim about varsity results.',
     'The school’s September 2026 Band Night notice identifies Hall Stadium at 3335 Hurricane Lane, separate from the high-school address. Band Night’s free admission and home-side seating are not general football policies.',
     'A 2026 third-party varsity schedule names Cornelius Anthony as football coach, but the first-party school pages checked here do not confirm his current head-coach appointment; no current coach is asserted.',
-    'No unverified football score, parking promise, accessible gate or school-owned image rights are claimed.'
+    'Hall Stadium at 3335 Hurricane Lane appears in a September 2026 school Band Night notice, while the Hightower campus is at 3333 Hurricane Lane. Football visitors should confirm the game host’s seating and gate rules rather than assuming a band event’s special admission terms carry over.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL 6A District 21', body: 'Fort Bend Hightower is in Class 6A District 21 for eleven-man football.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

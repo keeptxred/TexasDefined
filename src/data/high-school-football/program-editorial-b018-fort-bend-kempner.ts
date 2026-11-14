@@ -23,7 +23,7 @@ const KEMPNER: FootballProgramEditorial = {
     'I. H. Kempner High School lists 14777 Voss Road, Sugar Land TX 77498, telephone 281-634-2300 and principal Reginald Brown. The current school contact differs from old third-party postal ZIP variants.',
     'Kempner’s official sports-medicine page explains its concussion return-to-play process and gives the student-athlete training room telephone 281-634-2363. This resource is for athlete medical coordination, not public ticketing or stadium gate directions.',
     'The Fort Bend ISD athletics schedule lists a November 6 Kempner at Lamar varsity fixture at Traylor, demonstrating that school campus and game stadium may differ. Confirm the exact host for every date.',
-    'Third-party 2026 rosters list Troy DeGar as coach, but the first-party Kempner school pages checked do not confirm the current head-coach appointment; no unsupported coach title, score, ticket price or school-owned image is asserted.'
+    'Kempner’s sports-medicine number, 281-634-2363, serves student-athlete care rather than public event access. A dated road fixture at Traylor Stadium needs the host’s ticket and driving notice, separate from the Voss Road classroom campus and training-room contact.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL Class 5A Division II district', body: 'Kempner is in eleven-man 5A Division II District 11.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

@@ -23,7 +23,7 @@ const ELKINS: FootballProgramEditorial = {
     'Lawrence E. Elkins High School is at 7007 Knights Court, Missouri City TX 77459, telephone 281-634-2600, with principal Courtney Muceus according to Fort Bend ISD’s campus directory and school website.',
     'A Fort Bend ISD Elkins football parent presentation names Trae Grimes as co-campus coordinator and head football coach. This is a first-party school document, though staff can change and should be checked before future seasons.',
     'The school’s current administration page describes Courtney Muceus’s previous work at First Colony Middle School. That school connection does not make the two campuses interchangeable for athletics.',
-    'For each Knights varsity game, confirm the actual Fort Bend ISD host stadium, kickoff, tickets and accessibility. No unsourced final score, stadium gate or licensed school image is claimed.'
+    'Elkins High’s Knights Court campus is distinct from First Colony Middle School, where its principal previously worked. Use Elkins’s own varsity listing and the actual host stadium; a staff biography cannot substitute for an athletics travel address.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL 6A District 21', body: 'Fort Bend Elkins is assigned to Class 6A District 21 for eleven-man football.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

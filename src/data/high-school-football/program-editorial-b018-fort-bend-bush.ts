@@ -23,7 +23,7 @@ const BUSH: FootballProgramEditorial = {
     'George Bush High School’s official website lists 6707 FM 1464, Richmond TX 77407, telephone 281-634-6060, with principal Mario MacDonald. The 2026–27 Fort Bend ISD campus directory confirms that address.',
     'The school’s official site identifies the Broncos and publishes a 2025–26 TEA B accountability rating. This campus-specific school context is distinct from the football season and must not be treated as a team ranking.',
     'Third-party 2026 football rosters list Colonious McNeal as head coach, but older directories have other names. Because the first-party school sources checked do not verify the current football appointment, this guide does not assert a current head coach.',
-    'Confirm the specific Fort Bend ISD football game host, kickoff, stadium, admission, parking and accessible entry. No unsourced final scores, stadium gates or copyrighted school images are claimed.'
+    'George Bush High’s 6707 FM 1464 address is a campus contact in Richmond. For a 6A District 21 game, the district’s varsity calendar and actual event host determine the athletics stadium, visitor seating and current ticket instructions.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL Class 6A district', body: 'Fort Bend Bush is assigned to Class 6A District 21 for eleven-man football.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

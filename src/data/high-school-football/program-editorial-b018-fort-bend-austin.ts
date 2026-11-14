@@ -23,7 +23,7 @@ const FB_AUSTIN: FootballProgramEditorial = {
     'Stephen F. Austin High School is in Sugar Land, Fort Bend County, at 3434 Pheasant Creek Drive, telephone 281-634-2000. It must not be confused with Austin ISD’s Austin High Maroons.',
     'The school athletics page lists Christopher Wilson as head football coach and athletic coordinator, with Jasmine Hartman as another athletic coordinator. School-specific staff data takes precedence over older third-party reports describing a coaching vacancy.',
     'The 2026–27 Fort Bend ISD campus directory lists the school’s Sugar Land 77498 ZIP; a third-party football roster lists 77478. Use the school’s first-party address and confirm the host stadium independently.',
-    'No unverified 2026 score, game-day stadium gate, ticket price, parking guarantee or unlicensed team image is claimed.'
+    'The correct school is Stephen F. Austin High in Sugar Land, not Austin ISD’s Austin High in central Texas. Fort Bend ISD’s dated game calendar identifies the host stadium; use that listing instead of the Pheasant Creek Drive classroom campus when planning football travel.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL Class 6A district', body: 'Fort Bend Austin is assigned to Class 6A District 21 for eleven-man football.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical alignment' },
