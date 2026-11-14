@@ -49,7 +49,7 @@ for (const marker of [
   '"@type": "Article"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
-  'dateModified: "2026-11-11"',
+  'dateModified: "2026-11-14"',
   'articleSection: "Texas Sports & Game Day"',
 ]) {
   assert(tailgatingRoute.includes(marker), `Texas tailgating structured authority missing marker: ${marker}`);
