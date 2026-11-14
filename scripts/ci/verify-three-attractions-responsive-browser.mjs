@@ -117,6 +117,30 @@ try {
         }
         assert.deepEqual(pageErrors, [], guide.slug + " " + viewport.label + " client errors");
         await page.screenshot({ path: artifactDir + "/" + guide.slug + "-" + viewport.label + ".png", fullPage: false });
+        const expectedGalleryCount = guide.slug === "san-antonio-japanese-tea-garden" ? 1
+          : guide.slug === "fort-worth-water-gardens" ? 2 : 0;
+        if (expectedGalleryCount) {
+          const gallery = page.locator("#destination-photo-archive");
+          await gallery.scrollIntoViewIfNeeded();
+          await page.waitForFunction((count) => {
+            const images = [...document.querySelectorAll("#destination-photo-archive figure img")];
+            return images.length === count && images.every((img) => img.complete && img.naturalWidth >= 500 && img.naturalHeight >= 500);
+          }, expectedGalleryCount, { timeout: 30000 });
+          const galleryFacts = await gallery.evaluate((section) => ({
+            images: [...section.querySelectorAll("figure img")].map((img) => ({
+              alt: img.alt, width: img.naturalWidth, height: img.naturalHeight,
+            })),
+            licenses: [...section.querySelectorAll('figure a[href^="https://creativecommons.org/"]')].map((a) => a.href),
+            sources: [...section.querySelectorAll('figure a[href^="https://commons.wikimedia.org/wiki/File:"]')].map((a) => a.href),
+          }));
+          assert.equal(galleryFacts.images.length, expectedGalleryCount, "Exact-site gallery image count " + guide.slug);
+          assert.equal(galleryFacts.licenses.length, expectedGalleryCount, "Every gallery photo has a license link " + guide.slug);
+          assert.equal(galleryFacts.sources.length, expectedGalleryCount, "Every gallery photo has an original-source link " + guide.slug);
+          assert.ok(galleryFacts.images.every((image) => image.alt && image.width >= 500), "Every gallery photograph is descriptive and loads");
+          await page.screenshot({ path: artifactDir + "/" + guide.slug + "-" + viewport.label + "-gallery.png", fullPage: false });
+          console.log("PASS attraction authentic Commons gallery", guide.slug, viewport.label, JSON.stringify(galleryFacts));
+        }
+
         console.log("PASS attraction Chrome", guide.slug, viewport.label, JSON.stringify(facts));
       } finally {
         await context.close();
