@@ -62,7 +62,7 @@ test("scheduled Nov 14-17 checks verify active/expired ordinary HTML and dedupli
   const acceptance = readFileSync("scripts/production/verify-moody-gardens-production.mjs", "utf8");
   assert.match(workflow, /cron: "10 14 14-16 11 \*"/);
   assert.match(workflow, /cron: "30 6 17 11 \*"/);
-  assert.match(workflow, /Nov\. 16 advisory expires/);
+  assert.match(workflow, /while advisory is active and after it expires/);
   assert.match(workflow, /id: live_notice/);
   assert.match(workflow, /steps\.live_notice\.outcome == 'failure'/);
   assert.match(workflow, /node scripts\/production\/verify-moody-gardens-production\.mjs/);
