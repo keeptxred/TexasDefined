@@ -1,0 +1,50 @@
+# Supplementary historical Google Search Console Crawl stats 404 sample, 2026-10-31.
+# Source: owner-uploaded texasdefined.com-Crawl-stats-By-response-2026-10-31.zip, Table.csv.
+# 954 request observations, 846 distinct URLs: 795 hashed /assets/ observations and
+# 159 non-asset observations over 82 distinct non-asset paths.
+# Exactly 40 of 82 overlap the separately protected 99-path Page indexing sample.
+# THESE 42 ARE DIFFERENT historical Crawl stats examples, NOT the missing 500-item
+# Page indexing "Not found (404)" export, and no present-day defect is presumed.
+# Source URLs are path-only; no template is expanded or published as a fake page.
+/apple-app-site-association
+/destination/battleship-texas-state-historic-site
+/destination/caprock-canyons-trailway-estelline-terminal-state-park
+/destination/davis-hill-state-park
+/destination/fanthorp-inn-state-historic-site
+/destination/hueco-tanks-state-park-and-historic-site
+/destination/lake-somerville-state-park
+/destination/lipantitlan-state-historic-site
+/destination/palo-pinto-mountains-state-park
+/destination/port-isabel-lighthouse-state-park
+/destination/ray-roberts-lake-state-park
+/destination/san-jacinto-battleground-state-historic-site
+/destination/san-jacinto-monument-state-historic-site
+/destination/seminole-canyon-state-park-and-historic-site
+/explore/painted-churches_/guides_/undefined
+/historic-site/lyndon-b-johnson-state-park-state-historic-site
+/shop/product/6a6ec7148aec8d3bec05f72d
+/shop/product/6a763c699519879479041976
+/shop/product/6a7729d84c9ec38c7d0f6f7c
+/state-park/bastrop-state-park
+/state-park/big-bend-ranch-state-park
+/state-park/big-spring-state-park
+/state-park/brazos-bend-state-park
+/state-park/caprock-canyons-state-park
+/state-park/choke-canyon-calliham-unit-state-park
+/state-park/colorado-bend-state-park
+/state-park/copper-breaks-state-park
+/state-park/daingerfield-state-park
+/state-park/davis-hill-state-park
+/state-park/eisenhower-state-park
+/state-park/falcon-state-park
+/state-park/garner-state-park
+/state-park/lake-brownwood-state-park
+/state-park/lake-whitney-state-park
+/state-park/lockhart-state-park
+/state-park/martin-creek-lake-state-park
+/state-park/palo-pinto-mountains-state-park
+/state-park/pedernales-falls-state-park
+/state-park/purtis-creek-state-park
+/state-park/sea-rim-state-park
+/state-park/south-llano-river-state-park
+/state-park/world-birding-center-bentsen-rio-grande-valley-state-park
