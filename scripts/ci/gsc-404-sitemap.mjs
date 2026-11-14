@@ -1,7 +1,17 @@
 // Pure bounded sitemap evidence helpers for the exact historic 99-URL GSC sample.
 // No crawling, external network calls, publication or Google indexing claims.
 const ALLOWED_HOSTS = new Set(['texasdefined.com', 'www.texasdefined.com']);
-export const GSC_SITEMAP_SEEDS = Object.freeze(['/sitemap.xml', '/sitemap-explore.xml']);
+// The six publicly advertised XML sitemap sources are listed in
+// robots.txt/sitemap-index.xml. RSS is a separate feed, not a urlset.
+// Cover all XML public discovery surfaces, not just primary + Explore.
+export const GSC_SITEMAP_SEEDS = Object.freeze([
+  '/sitemap-index.xml',
+  '/sitemap.xml',
+  '/sitemap-explore.xml',
+  '/sitemap-shop.xml',
+  '/sitemap-evergreen.xml',
+  '/sitemap-texas-icons.xml',
+]);
 
 function sitePath(rawUrl) {
   const url = new URL(rawUrl.replaceAll('&amp;', '&'));
