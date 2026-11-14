@@ -23,6 +23,7 @@ const evidence = read("src/data/texas-music-history-evidence.ts");
 const dossiers = read("src/data/texas-music-history-dossiers.ts");
 const liveAcceptance = read("scripts/ci/verify-music-history-production.mjs");
 const cachePurge = read("scripts/ci/purge-cloudflare-cache.mjs");
+const musicWorkflow = read(".github/workflows/verify-music-history-authority.yml");
 const dossierView = read("src/components/editorial/TexasMusicEvidenceDossier.tsx");
 const venueView = read("src/components/editorial/TexasMusicVenueGuide.tsx");
 const cityView = read("src/components/editorial/TexasMusicCityGuide.tsx");
@@ -74,6 +75,7 @@ if(!dossiers.includes("The club dates its Guadalupe opening night to 1982") ||
    !dossiers.includes("Guadalupe Street in 1981") ||
    !dossiers.includes("September 3, 1982"))
   fail("Antone's official 1982 Guadalupe opening and Handbook 1981 retrospective must remain transparently distinguished");
+if(!musicWorkflow.includes("github.event.issue.number || github.ref")) fail("Music acceptance concurrency must be isolated per issue so unrelated comments cannot cancel the workflow");
 if(!liveAcceptance.includes('get(slug,"visitor")') ||
    !liveAcceptance.includes('["visitor",visitor]') ||
    !liveAcceptance.includes('cleanCanonicalStatus') ||
