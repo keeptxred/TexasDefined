@@ -36,6 +36,16 @@ for (const group of config.groups) {
       catalog.includes('if (slug === texasSportsWeekendCalendarGuideStub.slug)'), "Sports current story not available through catalog and detail route");
     assert.ok(story.includes('publishedAt: "' + lead.publishedAt + '"'), "Current sports story published date inconsistent with reviewed source manifest");
     assert.ok(story.includes('sourceUrl: "https://www.uiltexas.org/football/playoff-brackets"'), "Current sports story missing official primary source");
+    assert.ok((story.match(/\\bp\\("/g) ?? []).length >= 12, "New sports story lacks distinct reported/analytical paragraphs");
+    for (const url of [
+      "https://www.uiltexas.org/football/playoff-brackets",
+      "https://www.ncaa.com/scoreboard/football/fbs",
+      "https://www.nba.com/schedule",
+      "https://www.rodeohouston.com/event-calendar/",
+      "https://circuitoftheamericas.com/events/",
+    ]) assert.ok(story.includes(url), "New sports story missing source: " + url);
+    assert.ok(story.includes("Sources") || story.includes("sources: ["), "Sports story must carry a visible primary-source registry");
+
     const storyDay = Date.parse(lead.publishedAt + "T00:00:00Z");
     const storyAge = Math.floor((nowDay.getTime() - storyDay) / 86_400_000);
     assert.ok(Number.isFinite(storyDay) && storyDay <= nowDay.getTime(), "Sports lead date invalid or future");
