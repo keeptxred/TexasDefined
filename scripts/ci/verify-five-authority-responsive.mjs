@@ -78,13 +78,27 @@ try{
       const outside=await page.locator('main a[href^="https://"]').count();
       verify("primary-source links accessible",outside>=spec.minimumSources,outside);
       await page.waitForLoadState("load",{timeout:25000}).catch(()=>{});
+      if(spec.path==="/sports"){
+        const inventory=await page.locator("main table").evaluateAll(elements=>elements.map((el,index)=>({
+          index,caption:el.querySelector("caption")?.textContent?.trim()||"",
+          columns:el.querySelectorAll('th[scope="col"]').length,
+          section:el.closest("section")?.getAttribute("aria-labelledby")||"",
+          excerpt:el.outerHTML.slice(0,250),
+        })));
+        console.log("SPORTS_TABLE_INVENTORY "+JSON.stringify({viewport:viewport.name,tables:inventory}));
+      }
       if(spec.hasTable){
-        const tables=page.locator("main table"),count=await tables.count();
+        const tableSelector=spec.path==="/sports"
+          ? 'section[aria-labelledby="sports-choose-official"] table'
+          : "main table";
+        const tables=page.locator(tableSelector),count=await tables.count();
         verify("meaningful comparison table",count>0,count);
         if(count>0){
           const table=tables.first();
-          verify("table caption",await table.locator("caption").count()>0);
-          verify("column scopes",await table.locator("th[scope=col]").count()>=2);
+          verify("table caption",await table.locator("caption").count()>0,
+            JSON.stringify({selector:tableSelector,html:(await table.evaluate(el=>el.outerHTML)).slice(0,800)}));
+          verify("column scopes",await table.locator("th[scope=col]").count()>=2,
+            JSON.stringify({selector:tableSelector,html:(await table.evaluate(el=>el.outerHTML)).slice(0,800)}));
           const display=await table.evaluate(el=>{
             let p=el.parentElement,scrollable=false;
             while(p&&p.tagName!=="BODY"){

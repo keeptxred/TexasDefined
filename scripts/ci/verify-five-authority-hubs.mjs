@@ -13,6 +13,7 @@ const paths = {
   category: "src/components/editorial/CategoryPage.tsx",
   football: "src/routes/sports.friday-night-lights.lazy.tsx",
   hunt: "src/components/hunting/HuntingPublicAccessPlanner.tsx",
+  huntingHub: "src/components/hunting/HuntingAuthority.tsx",
   tailgate: "src/routes/texas-tailgating-guide.lazy.tsx",
   tailgateHead: "src/routes/texas-tailgating-guide.tsx",
 };
@@ -37,6 +38,8 @@ assert.ok(source.category.indexOf("{beforeStories}") < source.category.indexOf("
 includesAll("sports", ["https://www.ncaa.com/scoreboard/football/fbs", "https://www.nba.com/schedule", "https://www.rodeohouston.com/event-calendar/", "https://circuitoftheamericas.com/events/", "showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball", "beforeStories={sportFirstNavigation}", 'featuredTitle="Featured from the sports desk"']);
 includesAll("football", ["high-school-football-hero.jpg", "not documentary photography of a specific team", "Why the playoff path changes by classification", "6A, Divisions I and II", "Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
 includesAll("hunt", ["Four checks before you treat an area as available", "Match legal game and dates", "Confirm the exact boundaries"]);
+assert.ok(!source.huntingHub.includes("return <main>") && !source.huntingHub.includes("</main>"),
+  "Hunting hub/topic components must not add nested main landmarks under the app shell");
 includesAll("tailgate", ["Three trips, three very different packing decisions", "A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "9 feet wide by 12 feet deep", "arlington-tailgate-diagram-desc", "Original TexasDefined dimensional diagram", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
 includesAll("tailgateHead", ['dateModified: "2026-11-14"']);
 console.log("PASS five-hub focused authority content, source and topical-scope guards");
