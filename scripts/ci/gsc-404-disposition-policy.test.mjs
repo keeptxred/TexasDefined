@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import {
   INTENTIONAL_404_DISPOSITIONS,
   RESTORE_REQUIRED_GSC_PATHS,
@@ -140,4 +140,54 @@ test('every one of the frozen 99 GSC source URLs has a distinct evidence-backed 
   for (const path of templates) {
     assert.equal(observed(path, 404, 404, {invalidTemplate: true}).review, 'expected-404', path);
   }
+});
+
+test('intentional 404s and literal route tokens never leak into the static sitemap registry or clickable raw links', () => {
+  const sourceRegistry = readFileSync('src/lib/public-routes.ts', 'utf8');
+  const mainSitemap = readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+  const exploreSitemap = readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+  const forbidden = [
+    ...Object.keys(INTENTIONAL_404_DISPOSITIONS),
+    ...inventory.filter((item) => item.split('/').some((part) => part.startsWith(String.fromCharCode(36)))),
+  ];
+  assert.equal(forbidden.length, 28, 'Only the 12 disallowed legacy resources and 16 raw route templates are excluded');
+  assert.ok(sourceRegistry.includes('hasUnresolvedPublicRouteToken(value)'), 'Sitemap path registration must retain shared invalid-token guard');
+
+  for (const item of forbidden) {
+    const quoted = JSON.stringify(item);
+    assert.ok(!sourceRegistry.includes(quoted), 'Nonexistent or unapproved page in public sitemap route registry: ' + item);
+    assert.ok(!mainSitemap.includes(quoted), 'Nonexistent or unapproved page registered by primary sitemap: ' + item);
+    assert.ok(!exploreSitemap.includes(quoted), 'Nonexistent or unapproved page registered by Explore sitemap: ' + item);
+  }
+
+  const stack = ['src'];
+  const clickable = [];
+  while (stack.length) {
+    const directory = stack.pop();
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const filepath = directory + '/' + entry.name;
+      if (entry.isDirectory()) {
+        stack.push(filepath);
+        continue;
+      }
+      if (!/\\.(?:ts|tsx)$/.test(entry.name)) continue;
+      const source = readFileSync(filepath, 'utf8');
+      for (const item of forbidden) {
+        // A TanStack <Link to="/family/$slug" params={...}> is valid;
+        // a plain href with the raw route-template token is not.
+        const attributes = [
+          'href="' + item + '"', "href='" + item + "'",
+          'href: "' + item + '"', "href: '" + item + "'",
+        ];
+        if (Object.hasOwn(INTENTIONAL_404_DISPOSITIONS, item)) {
+          // Deliberately absent resources are not valid navigation targets
+          // whether referenced by a raw anchor or typed router link.
+          attributes.push('to="' + item + '"', "to='" + item + "'",
+            'to: "' + item + '"', "to: '" + item + "'");
+        }
+        if (attributes.some((fragment) => source.includes(fragment))) clickable.push(filepath + ' -> ' + item);
+      }
+    }
+  }
+  assert.deepEqual(clickable, [], 'Readers must not discover known nonexistent/unapproved 404 paths from source links');
 });
