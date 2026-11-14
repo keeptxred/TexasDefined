@@ -21,7 +21,7 @@ function parseStaticJson(path, before, after) {
     const char = source[index];
     if (quoted) {
       if (escaped) escaped = false;
-      else if (char === "\\\\" ) escaped = true;
+      else if (char === "\\" ) escaped = true;
       else if (char === '"') quoted = false;
     } else if (char === '"') quoted = true;
     else if (char === "{" || char === "[") depth++;
