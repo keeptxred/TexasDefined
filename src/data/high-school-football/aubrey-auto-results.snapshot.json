@@ -34,6 +34,17 @@
       "secondarySourceUrl": "https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-november-6-01m6rw22dr0m",
       "verifiedAt": "2026-11-12",
       "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "date": "2026-11-12",
+      "opponent": "Andrews",
+      "aubreyScore": 63,
+      "opponentScore": 24,
+      "district": false,
+      "primarySourceUrl": "https://www.expressnews.com/sports/article/thursday-s-scores-22528332.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+      "verifiedAt": "2026-11-14",
+      "verificationMethod": "manual-editorial-review"
     }
   ]
 }
