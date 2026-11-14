@@ -237,12 +237,31 @@ for (const slug of historicalMuseumReferences) {
 // across all rendering layers without re-enabling duplicated authority blocks.
 const moodyCuration = fs.readFileSync(path.join(root, 'src/data/destination-curation-moody-gardens.ts'), 'utf8');
 const moodyResolver = fs.readFileSync(path.join(root, 'src/data/top-attraction-authority-resolver.ts'), 'utf8');
+const moodyAquariumFallback = fs.readFileSync(path.join(root, 'src/data/aquarium-marine-destinations-1.ts'), 'utf8');
 const moodyAdditionalDepth = fs.readFileSync(path.join(root, 'src/data/attraction-visitor-depth-20261020.ts'), 'utf8');
 const moodySpotlights = fs.readFileSync(path.join(root, 'src/components/editorial/MoodyGardensSpotlights.tsx'), 'utf8');
 const moodyProduction = fs.readFileSync(path.join(root, 'scripts/production/verify-moody-gardens-production.mjs'), 'utf8');
 const moodyDate = moodyCuration.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
 if (!moodyDate || moodyDate < '2026-11-09') errors.push('Moody Gardens visitor source check must not revert to the prior closure-era date.');
 if (moodyResolver.includes('sourceCheckedAt: "2026-10-05"')) errors.push('Moody Gardens resolver still rewrites the genuine source check date to October 5.');
+
+// The base aquarium listing and the source-citation metadata must not
+// resurrect the superseded Discovery Museum closure story when a curated
+// overlay fails or when the operator evidence is rendered independently.
+if (moodyResolver.includes('Discovery Museum closure guidance')) {
+  errors.push('Moody Gardens operator-source scope still claims an obsolete Discovery Museum closure.');
+}
+if (!moodyResolver.includes('Published attraction hours, current special-event schedule changes')) {
+  errors.push('Moody Gardens official-hours source scope must describe current schedule exceptions.');
+}
+const moodyAquariumBlock = moodyAquariumFallback.split('slug: "moody-gardens"')[1]?.split('slug: "sea-life-grapevine-aquarium"')[0] ?? '';
+if (!moodyAquariumBlock.includes("Galveston Children's Museum inside the Discovery Pyramid")) {
+  errors.push('Moody Gardens aquarium collection fallback must describe the currently open children\'s museum.');
+}
+if (/Discovery Museum, theaters, seasonal attractions/.test(moodyAquariumBlock)) {
+  errors.push('Moody Gardens aquarium collection fallback still mentions obsolete Discovery Museum copy.');
+}
+
 for (const [name, source] of [['destination curation', moodyCuration], ['spotlights', moodySpotlights], ['visitor-depth overlay', moodyAdditionalDepth]]) {
   for (const stale of ['temporarily closed', 'scheduled to reopen in November', 'Closed now; scheduled to reopen']) {
     if (source.toLowerCase().includes(stale.toLowerCase())) errors.push('Moody Gardens ' + name + ' still publishes obsolete closure: ' + stale);
@@ -262,6 +281,9 @@ for (const link of [
 if (!moodyAdditionalDepth.includes('Galveston Children')) errors.push('Moody Gardens additional visitor-depth text must describe the currently open children\'s museum.');
 if (!moodySpotlights.includes('strand-historic-district')) errors.push('Moody Gardens Strand pairing must use the dedicated destination route.');
 if (!moodyProduction.includes('staleClosureMarkers') || !moodyProduction.includes('dateModified')) errors.push('Moody Gardens live acceptance must reject old closures and stale structured dates.');
+if (!moodyProduction.includes('Discovery Museum closure guidance') || !moodyProduction.includes('The Rainforest Pyramid, Discovery Museum, theaters')) {
+  errors.push('Moody Gardens live acceptance must reject closure-era text from independently rendered source and directory layers.');
+}
 
 if (errors.length) {
   console.error('Editorial content integrity validation failed:');

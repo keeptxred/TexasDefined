@@ -17,7 +17,7 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
     {
       label: "Moody Gardens — current hours and pricing",
       url: "https://www.moodygardens.com/visitor-info/hours",
-      scope: "Current attraction schedules, Discovery Museum closure guidance and daily visitor information.",
+      scope: "Published attraction hours, current special-event schedule changes and day-specific visitor information.",
     },
     {
       label: "Moody Gardens — visitor FAQ and parking",
