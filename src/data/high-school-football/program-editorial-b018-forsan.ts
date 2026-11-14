@@ -22,7 +22,7 @@ const FORSAN: FootballProgramEditorial = {
     'UIL’s 2026–28 alphabetical alignment places Forsan in Class 2A Division I District 4 for eleven-man football. This is the competition assignment, not a 2026 score or current standing.',
     'Forsan ISD lists 411 West 6th St, Forsan TX 79733 and telephone 432-457-2223. The district operates the Forsan junior-high/high-school campus; do not infer a stadium entrance from the school office.',
     'On February 26, 2025, Forsan ISD announced Casey Thompson as its new athletic director/head football coach. The current school staff directory confirms that same role; older school handbooks can list different staff.',
-    'For the November 13 Abernathy playoff, the school’s live feed specified 7 p.m. at Wigwam Stadium in Seminole, with Forsan designated the home team despite playing away from the school campus. Its host ticket link was for that dated fixture; spectators should check each new game’s actual venue and host policy.'
+    'For the November 13 Abernathy playoff, the school’s live feed specified 7 p.m. at Wigwam Stadium in Seminole, with Forsan designated the home team despite playing away from the school campus. Its host ticket link was for that dated fixture; spectators should check each new game’s actual venue and host policy.',
     'The Midland Reporter-Telegram’s November 14 account records Forsan rallying from a 14-point fourth-quarter deficit to beat Abernathy 35–28; it identifies Owen Bishop, Ashton Ellis and Cole Wyatt in the comeback. That is attributed independent game reporting, not a result taken from the school’s pregame calendar. It also does not determine the next game’s venue or ticket rules.'
   ],
   milestones: [
