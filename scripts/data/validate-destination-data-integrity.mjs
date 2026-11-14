@@ -88,7 +88,8 @@ for (const stale of [
 for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
-  'eyebrow="Quick trip facts"',
+  '"Quick trip facts"',
+  'eyebrow={destination.slug === "moody-gardens" ? "Start with the essentials" : "Quick trip facts"}',
   '<DestinationVerifiedVisitorFacts destination={destination} />',
   'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
@@ -299,7 +300,7 @@ if (moodyCuration.includes("children's museum entry is included with a Moody Gar
 if (!moodyCuration.includes("separate admission terms")
     || !moodySpotlights.includes("a ticket that includes Galveston Children's Museum admission")
     || !moodySpotlights.includes("separate museum admission")
-    || !moodySpotlights.includes("Ages 2+ need admission that explicitly covers the museum.")
+    || !moodySpotlights.includes("general admission at $15 per person age 2 and older")
     || !moodyResolver.includes("ticket-specific admission requirements")) {
   errors.push("Moody Gardens must explain museum admission eligibility across visitor facts, planning and official-source citations.");
 }
