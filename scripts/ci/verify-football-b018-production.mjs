@@ -64,10 +64,10 @@ try{
     // Delivery policy and sitemap consistency ARE checked below, but search
     // engine indexing itself is never inferred from a Chrome response.
     const indexableForGoogle=googleReady.has(slug);
-    assert.ok(!/\\bnoindex\\b/i.test(data.robots),'generic noindex would also hide from Bing: '+slug);
-    assert.equal(/\\bnoindex\\b/i.test(data.googlebot),!indexableForGoogle,'Googlebot staging drift: '+slug);
+    assert.ok(!/\bnoindex\b/i.test(data.robots),'generic noindex would also hide from Bing: '+slug);
+    assert.equal(/\bnoindex\b/i.test(data.googlebot),!indexableForGoogle,'Googlebot staging drift: '+slug);
     const xRobots=(await response.headerValue('x-robots-tag'))||'';
-    assert.ok(!/\\bnoindex\\b/i.test(xRobots) || (/googlebot:\\s*noindex/i.test(xRobots) && !indexableForGoogle),'generic X-Robots-Tag noindex: '+slug);
+    assert.ok(!/\bnoindex\b/i.test(xRobots) || (/googlebot:\s*noindex/i.test(xRobots) && !indexableForGoogle),'generic X-Robots-Tag noindex: '+slug);
     if (width===1366) report.googleDeliveryChecks.push({slug,indexableForGoogle,googlebot:data.googlebot,robots:data.robots,xRobots});
     assert.equal(data.h1.length,1,'H1 '+slug);
     assert.ok(/football/i.test(data.h1[0]||''),'football H1 '+slug);
@@ -127,6 +127,39 @@ assert.equal(report.googleDeliveryChecks.length,25,'all 25 Google delivery polic
 assert.equal(report.screenshots.length,75,'all 75 screenshot artifacts required');
 assert.equal(report.countyChecks.length,25,'all 25 county reciprocal checks required');
 assert.deepEqual(report.failures,[],'Batch018 Chrome failure');
+// The Google-only sitemap must contain exactly the 16 policy-eligible Batch018
+// schools and withhold nine staged pages; Bing's separate feed must invert
+// those memberships. Neither implies an actual Google indexing decision.
+try {
+ const checkSitemap=async path=>{
+  const url=new URL(path,origin);
+  url.searchParams.set('b018_evidence',process.env.GITHUB_RUN_ID||'manual');
+  const response=await fetch(url,{redirect:'manual',headers:{'Cache-Control':'no-cache','User-Agent':'TexasDefined-B018-Index-Policy/1.0'},signal:AbortSignal.timeout(30000)});
+  assert.equal(response.status,200,'live sitemap HTTP '+path);
+  assert.match(response.headers.get('content-type')||'',/xml/i,'live sitemap MIME '+path);
+  const version=response.headers.get('x-texasdefined-worker-version');
+  if(version)assert.equal(version.trim(),worker,'mixed Worker sitemap '+path);
+  const body=await response.text();
+  assert.match(body,/<urlset\b/i,'live sitemap XML '+path);
+  const urls=[...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
+  assert.equal(new Set(urls).size,urls.length,'duplicate URLs in '+path);
+  return new Set(urls);
+ };
+ const [googleUrls,bingUrls]=await Promise.all([checkSitemap('/sitemap.xml'),checkSitemap('/sitemap-bing-football.xml')]);
+ for(const slug of report.schoolSlugs){
+  const url=origin+'/texas-high-school-football-teams/'+slug;
+  const inGoogle=googleUrls.has(url),inBing=bingUrls.has(url);
+  assert.equal(inGoogle,googleReady.has(slug),'Google sitemap eligibility drift: '+slug);
+  assert.equal(inBing,!googleReady.has(slug),'Bing supplemental eligibility drift: '+slug);
+ }
+ report.sitemapPolicy={googleEligible:16,googleStaged:9,googleFeed:'/sitemap.xml',bingFeed:'/sitemap-bing-football.xml',checkedAt:new Date().toISOString()};
+ save();
+}catch(error){
+ report.failures.push({slug:'sitemap-index-policy',width:0,error:String(error.message||error).slice(0,400)});
+ save();
+ throw error;
+}
+
 // Accepting screenshots while a new Worker deployment overtakes the live origin
 // would be misleading even if every earlier response matched the old UUID.
 // Recheck the canonical live Worker after ALL 75/25 cases, outside browser
@@ -145,4 +178,4 @@ try {
  save();
  throw error;
 }
-console.log('PASS: 25 Batch018 source-authored schools x 3 viewports, 25 reciprocal county checks, closing live Worker identity, one exact signed Worker; Batch018 registry remains source-IMPLEMENTED pending signed graduation; indexability is unasserted.');
+console.log('PASS: 75 Batch018 Chrome viewports, 25 county reciprocals, 25 Googlebot/Bing metadata policies, 16 Google sitemap entries and 9 separately staged Bing feed entries, exact signed Worker/source; GSC indexing and human signoffs unasserted.');
