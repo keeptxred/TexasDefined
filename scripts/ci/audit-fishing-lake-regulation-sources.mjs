@@ -38,7 +38,7 @@ const week = Math.floor((Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.g
 const cohort = ((week * 2 + (now.getUTCDay() === 4 ? 1 : 0)) % 6 + 6) % 6;
 const mode = process.argv.includes("--plan") ? "plan" : process.argv.includes("--smoke") ? "smoke"
   : process.argv.includes("--full") || process.env.FISHING_LAKES_FULL_REVIEW === "1" ? "full" : "cohort";
-const selected = mode === "smoke" ? ["lake-buchanan", "lewisville-lake"].map((slug) => {
+const selected = mode === "smoke" ? ["lake-buchanan", "lewisville-lake", "lake-lbj"].map((slug) => {
   const item = all.find((candidate) => candidate.slug === slug);
   if (!item) throw new Error("Missing smoke-test lake: " + slug);
   return item;
