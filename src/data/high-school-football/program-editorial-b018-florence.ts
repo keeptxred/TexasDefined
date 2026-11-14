@@ -23,7 +23,7 @@ const FLORENCE: FootballProgramEditorial = {
     'Florence High School lists 401 FM 970, Florence TX 76527, telephone 254-793-2495. The state school report card independently confirms that physical campus address.',
     'Florence High School’s official staff directory lists Quentin Posey as athletic director/head football coach and Russell Porterfield as principal. Do not confuse the coach’s school title with an unrelated Florence athletics listing.',
     'The district administrative office is listed at 306 College Avenue, separate from the high school campus. A school address alone is not proof of an event’s stadium entrance or parking conditions.',
-    'No unsourced final score, 2026 winning record, ticket price, accessibility guarantee or rights to reproduce school-owned photography is claimed.'
+    'Visitors may encounter two district addresses: Florence High at 401 FM 970 and administration at 306 College Avenue. For a varsity event, ask the listed school athletics contact which stadium and visitor entrance apply to that particular date.'
   ],
   milestones: [
     { date: '2026–28', title: 'Official UIL football classification', body: 'Florence is in eleven-man Class 3A Division II District 13.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical alignment' },

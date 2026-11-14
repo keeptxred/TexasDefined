@@ -33,7 +33,7 @@ const FABENS: FootballProgramEditorial = {
     'Fabens High School is the school campus at 601 NE G Avenue. The district athletics office gives 600 NE 4th Street, phone (915) 765-2634. Keep those locations distinct when planning a visit.',
     'Fabens ISD is an El Paso County school district. The Wildcats are not El Paso ISD Bowie or Irvin, even though UIL places them in the same football district.',
     'For a specific game, verify varsity versus junior varsity, kickoff, venue, admission and accessibility with Fabens ISD athletics and the actual host. A third-party schedule alone is not a first-party event confirmation.',
-    'No unverified current coach, 2026 score, season record, stadium gate, accessible parking guarantee or licensed school photo is asserted.'
+    'At a road fixture against Clint, Clint Mountain View, El Paso Bowie or El Paso Irvin, follow the host’s athletics notice rather than the Fabens campus map. For a Fabens home fixture, confirm the field and entry route with the district athletics office at (915) 765-2634.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL football classification', body: 'Fabens is in 4A Division II District 1 with Clint, Clint Mountain View, El Paso Bowie and El Paso Irvin.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf', sourceLabel: 'Official UIL 2026–28 football alignment' },

@@ -23,7 +23,7 @@ const FOLLETT: FootballProgramEditorial = {
     'Follett ISD lists 205 E Ivanhoe Ave, Follett TX 79034, telephone 806-653-2301. This contact address alone does not prove the entrance to a particular game.',
     'The school athletics page separately lists varsity/JV football and junior-high football. Verify the varsity six-man schedule rather than importing junior-high dates or an unsourced third-party score.',
     'The school staff directory lists Tad Smith as athletic director. It does not establish that he is the current head football coach; older and third-party coaching lists have changed, so a first-party current appointment is needed before naming one.',
-    'No fabricated 2026 score, school logo rights, universal accessibility condition, stadium gate or unsupported coaching attribution is claimed.'
+    'For this six-man program, UIL District 1 identifies Follett’s conference peers separately from larger eleven-man schedules. The school posts varsity/JV and junior-high calendars separately, so choose varsity and confirm the host before traveling.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL six-man alignment', body: 'Follett is in 1A Division II six-man District 1 with Groom, Hedley, Lefors, McLean and Miami.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf', sourceLabel: 'UIL official 2026–28 1A Division II six-man alignment' },

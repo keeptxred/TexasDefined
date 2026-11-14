@@ -24,7 +24,7 @@ const FARMERSVILLE: FootballProgramEditorial = {
     'The high school’s 2026–27 athletics page uses Rank One for current schedules and links a separate 2026 varsity football schedule. Do not confuse varsity, junior varsity or other sport calendars.',
     'The official athletics schedule page lists Zac Quinlan as athletic director and head football coach. The high school publishes the school contact and calendar in the same directory.',
     'Farmersville ISD’s homepage advertises Hometown Ticketing, while an older high-school home-game notice refers to TicketSpicket. Rather than assume one provider for every fixture, follow the current event-specific host link.',
-    'No unsourced final scores, stadium entrance, ticket prices, parking/accessibility guarantee or licensed team image is claimed.'
+    'A Farmersville Rank One listing identifies the game and team level; the event-specific host link should determine admission. If an older TicketSpicket notice conflicts with the current Hometown Ticketing link, use the current fixture rather than a previous season’s announcement.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL football alignment', body: 'Farmersville is assigned to Class 4A Division II District 7, eleven-man football.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical realignment' },

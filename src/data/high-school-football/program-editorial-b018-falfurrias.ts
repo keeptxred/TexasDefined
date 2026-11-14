@@ -23,7 +23,7 @@ const FALFURRIAS: FootballProgramEditorial = {
     'The campus is at 100 Jersey Drive, Falfurrias, Texas 78355; the school lists telephone 361-325-8091. The district administrative office at 200 W. Bennett Street is not the campus or a verified football entrance.',
     'Falfurrias High School’s own athletics page lists football schedules and Hometown Ticketing. It identifies Lamar Rodriguez as head coach, while the Brooks County ISD athletics department separately lists him as athletic director.',
     'For each game, confirm the current opponent, home or away designation, stadium, kickoff, ticket provider and accessible entry with the event host. A campus address alone does not establish the stadium gate.',
-    'No unverified 2026 wins, final scores, ticket prices, venue entrances or school-logo reuse rights are asserted.'
+    'Falfurrias athletics links a football calendar and Hometown Ticketing. Select a specific varsity fixture before relying on a purchase link, and use the event host’s directions rather than treating the school’s Jersey Drive contact as a stadium gate.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL eleven-man football district', body: 'Falfurrias is assigned to 3A Division II District 16 in the official UIL alphabetical realignment.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical alignment' },

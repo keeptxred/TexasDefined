@@ -23,7 +23,7 @@ const FBA: FootballProgramEditorial = {
     'The school lists its campus and on-campus football/soccer/track stadium at 7898 Samuell Blvd., Dallas, TX 75228, telephone 972-453-1321. NCES has a different street number, 7894 Samuell Blvd.; use the school’s current first-party visitor address and confirm the host before travel.',
     'The school football page describes Jason Lovvorn’s tenure and its 2023 undefeated title season. Its current contact page identifies him as head of school. Do not infer a current 2026 head-coach appointment solely from historical coaching achievements.',
     'First Baptist Academy’s athletics page offers ticket and schedule links. The school’s campus security procedures describe school-day visitors; game-day ticketing, parking and accessibility should be confirmed with the event host.',
-    'The school’s published 2023 championship history is a dated achievement, not a 2026 season result. No unlicensed logo, roster photo, new win-loss record or unsupported ticket price is asserted.'
+    'First Baptist Academy’s documented 2023 championship is program history rather than a present-season score. Use the academy’s current varsity calendar to identify a 2026 opponent and the hosting school’s event notice for admission and directions.'
   ],
   milestones: [
     { date: '2013', title: 'School-documented TAPPS title', body: 'The academy’s football program page lists a 2013 TAPPS state championship.', sourceUrl: 'https://fbacademy.com/athletics/dallas-football-program/', sourceLabel: 'First Baptist Academy official football history' },
