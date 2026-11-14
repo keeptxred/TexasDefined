@@ -49,7 +49,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum is open daily; 9 to 10 AM is reserved for museum members. Ages 2+ need admission that explicitly covers the museum." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally opens daily; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday closures can differ from the pyramids." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
@@ -102,6 +102,8 @@ export function MoodyGardensSpotlights() {
             <p className="mt-3 text-sm leading-6 text-foreground/85">{note.value}</p>
           </div>)}
         </div>
+
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-muted-foreground">The Galveston Children's Museum lists its own closures, including Thanksgiving Day, Christmas Eve, Christmas Day and New Year's Day. A pyramid being open does not guarantee museum admission. <a href="https://www.galvestoncm.org/general-info-admission" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-2">Check the museum's official hours and admission</a>.</p>
 
         <div className="mt-9 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((card) => <article key={card.title} className="overflow-hidden border border-border bg-background shadow-sm">
@@ -198,7 +200,7 @@ export function MoodyGardensSpotlights() {
             <a href="https://www.moodygardens.com/visitor-info/accessibility" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official accessibility details</a>
           </div>
         </div>
-        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk independently checked these operator-published visitor facts on November 9, 2026. Attraction hours, ticket prices and seasonal availability are controlled by Moody Gardens and may change after review.</p>
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026. The Galveston Children's Museum's separate admission, early-entry membership and holiday-closure rules were checked against its own visitor page on November 14, 2026. Attraction hours, ticket terms and seasonal availability may change after those reviews.</p>
       </Container>
     </Section>
 

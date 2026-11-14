@@ -36,6 +36,15 @@ test("museum inclusion must be reviewed when the operator no longer confirms it"
   assert.ok(errors.some((message) => message.includes("ticket that includes Galveston Children's Museum admission")));
 });
 
+test("GCM's own admission page must preserve separate holiday closures and 9–10 member hour", () => {
+  const admission = targetSources.find((source) => source.url === "https://www.galvestoncm.org/general-info-admission");
+  assert.ok(admission, "dedicated GCM admission source must remain registered");
+  const page = html("<h2>New Hours at Moody Gardens</h2><p>GCM Members Only 9 to 10 AM</p><p>General Admission (Ages 2+)</p><p>Closed on Thanksgiving Day, Christmas Eve and the Sunday after the Momus Parade.</p>");
+  assert.deepEqual(validateOperatorEvidence(admission, page), []);
+  const changed = html("<h2>New Hours at Moody Gardens</h2><p>GCM Members Only 9 to 10 AM</p><p>General Admission (Ages 2+)</p>");
+  assert.ok(validateOperatorEvidence(admission, changed).some((error) => error.includes("Thanksgiving Day")));
+});
+
 test("a generic navigation 'now open' cannot hide a museum closure", () => {
   const content = "<nav>Now open today</nav><h2>Galveston Children's Museum</h2><p>Temporarily closed during renovation; check for reopening.</p><p>Audience Recognition Theater downstairs</p>";
   assert.ok(validateOperatorEvidence(discovery, html(content)).some((error) => error.includes("no longer clearly")));

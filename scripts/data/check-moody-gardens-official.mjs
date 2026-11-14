@@ -14,6 +14,11 @@ export const targetSources = [
     requiresOpenMuseum: true,
   },
   {
+    name: "Galveston Children's Museum first-party admission and holiday exclusions",
+    url: "https://www.galvestoncm.org/general-info-admission",
+    markers: ["GCM Members Only", "General Admission (Ages 2+)", "Thanksgiving Day", "Christmas Eve", "Sunday after the Momus Parade"],
+  },
+  {
     name: "Admissions and visitor FAQ",
     url: "https://www.moodygardens.com/visitor-info/faq",
     markers: ["Value Pass", "self-parking", "children", "picnic"],
