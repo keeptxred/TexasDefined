@@ -9,6 +9,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = new URL('../../', import.meta.url);
 const SNAPSHOT = new URL('../../src/data/high-school-football/aubrey-auto-results.snapshot.json', import.meta.url);
+const POSTSEASON = new URL('../../src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json', import.meta.url);
 const EDITORIAL = new URL('../../src/data/high-school-football/program-editorial.ts', import.meta.url);
 const iso = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && new Date(value + 'T00:00:00Z').toISOString().startsWith(value);
@@ -55,22 +56,25 @@ function validateFeed(feed, hostname, today) {
   }
   return map;
 }
-export function reconcileAubreyResults({ editorial, snapshot, primary, secondary, primaryHost, secondaryHost, today }) {
+export function reconcileAubreyResults({ editorial, snapshot, primary, secondary, primaryHost, secondaryHost, today, playoffFixtures = [] }) {
   if (!primaryHost || !secondaryHost || primaryHost === secondaryHost) {
     throw new Error('Aubrey score providers must have separate independent hostnames');
   }
   if (snapshot.teamSlug !== 'aubrey' || snapshot.season !== '2026'
-    || !Array.isArray(snapshot.verifiedResults) || snapshot.verifiedResults.length > 10) {
+    || !Array.isArray(snapshot.verifiedResults) || snapshot.verifiedResults.length > 16) {
     throw new Error('Invalid Aubrey published-score snapshot');
   }
   const first = validateFeed(primary, primaryHost, today);
   const second = validateFeed(secondary, secondaryHost, today);
-  const known = new Map(editorial.season.games.map((row) => [row.date, row]));
+  if (!Array.isArray(playoffFixtures) || playoffFixtures.length > 6) throw new Error('Unbounded Aubrey playoff fixtures');
+  const allFixtures = [...editorial.season.games, ...playoffFixtures];
+  const known = new Map(allFixtures.map((row) => [row.date, row]));
+  if (known.size !== allFixtures.length) throw new Error('Duplicate regular-season and postseason fixture dates');
   const published = new Map(snapshot.verifiedResults.map((row) => [row.date, row]));
   const merged = [...published.values()];
   const pending = [];
   let added = 0;
-  for (const game of editorial.season.games) {
+  for (const game of allFixtures) {
     if (game.result || game.date >= today) continue;
     const a = first.get(game.date), b = second.get(game.date);
     const old = published.get(game.date);
@@ -146,8 +150,12 @@ async function main() {
   ]);
   const editorial = aubreyEditorial(readFileSync(EDITORIAL,'utf8'));
   const snapshot = JSON.parse(readFileSync(SNAPSHOT, 'utf8'));
+  const postseason = JSON.parse(readFileSync(POSTSEASON, 'utf8'));
+  if (postseason.season !== '2026' || postseason.teamSlug !== 'aubrey' || !Array.isArray(postseason.games)) {
+    throw new Error('Postseason fixture snapshot identity mismatch');
+  }
   const result = reconcileAubreyResults({
-    editorial, snapshot, primary, secondary, primaryHost, secondaryHost, today: texasToday(),
+    editorial, snapshot, primary, secondary, primaryHost, secondaryHost, today: texasToday(), playoffFixtures: postseason.games,
   });
   if (result.added) {
     writeFileSync(SNAPSHOT, JSON.stringify(result.snapshot,null,2) + '\n');
