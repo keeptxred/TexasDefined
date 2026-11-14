@@ -19,6 +19,40 @@ const expectedArchivalFindings = {
   "corpus-christi-music-history": "A university collection preserves Freddie Records",
   "lubbock-music-history": "The later West Texas Walk of Fame"
 };
+const expectedNov14Additions = {
+  "broken-spoke-austin-history": [
+    "The proposed protection became an enacted city ordinance",
+    "The rezoning centered on the hall, not the whole commercial tract"
+  ],
+  "continental-club-austin-history": [
+    "A city permit file separates the club from its upstairs gallery",
+    "The city's 2008 staff report is an older witness to the 1957 date"
+  ],
+  "billy-bobs-texas-history": [
+    "A television report is dated to the day the honky-tonk closed",
+    "An archival image dates the attempted revival before reopening"
+  ],
+  "texas-music-cities": [
+    "A preserved Austin broadcast is a different kind of proof from a Houston label ledger",
+    "A San Antonio concert map measures different evidence again"
+  ],
+  "austin-music-history": [
+    "A preserved U-matic program distinguishes taping from broadcast",
+    "Public television funding made Austin's local sound a national experiment"
+  ],
+  "houston-music-history": [
+    "Recording-session logbooks survive alongside the record-label publicity",
+    "Financial folders make the label's business history researchable"
+  ],
+  "san-antonio-music-history": [
+    "A public-library concert list has become a time-and-place map",
+    "Corrido performance and newspaper accounts offer different kinds of local memory"
+  ],
+  "lubbock-music-history": [
+    "Texas Tech preserves the researcher's trail as well as Holly's fame",
+    "The local radio show predates the national studio breakthrough"
+  ]
+};
 const nonce=Date.now().toString(36);
 const results=[];
 function attrs(tag,name){return tag.match(new RegExp("\\b"+name+"\\s*=\\s*[\"']([^\"']+)[\"']","i"))?.[1]??null}
@@ -71,6 +105,10 @@ async function verify(slug){
   }
   if(((main.match(/What the record establishes/g)||[]).length)<5) errors.push(kind+" fewer than five independently annotated research findings");
   if(!visible(main).includes(expectedArchivalFindings[slug]))errors.push(kind+" updated city/venue primary archival finding absent");
+   for (const marker of expectedNov14Additions[slug]??[]) {
+    if(!visible(main).includes(marker)) errors.push(kind+" November archival research missing: "+marker);
+   }
+   if(slug==="broken-spoke-austin-history"&&!visible(main).includes("20230518-074"))errors.push(kind+" adopted Austin historic zoning ordinance missing");
   if(slug==="continental-club-austin-history"&&!visible(main).includes("1955")||slug==="continental-club-austin-history"&&!visible(main).includes("1957"))errors.push(kind+" Continental opening-date dispute was not published");
   if(slug==="antones-austin-history" && (!visible(main).includes("Guadalupe Street in 1981") || !visible(main).includes("September 3, 1982"))) errors.push(kind+" Antones disputed Guadalupe 1981/1982 opening evidence absent");
 
