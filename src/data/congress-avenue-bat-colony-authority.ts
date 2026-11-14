@@ -84,7 +84,7 @@ export const congressAvenueBatDestination: Destination = {
       {
         "name": "Travis County visitor places",
         "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
-        "href": "/browse/counties#county-travis"
+        "href": "/county/travis"
       }
     ],
     "familyStops": [
