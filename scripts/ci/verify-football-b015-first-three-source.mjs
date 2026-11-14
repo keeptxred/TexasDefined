@@ -9,7 +9,7 @@ const source = read('src/data/high-school-football/program-editorial-b015.ts');
 const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
 assert.ok(match, 'Batch015 editorial map missing');
 const guides = JSON.parse(match[1]);
-const authoredKeys = [...match[1].matchAll(/^  "([a-z0-9-]+)": \\{$/gm)].map(x => x[1]);
+const authoredKeys = [...match[1].matchAll(/^  "([a-z0-9-]+)": \{$/gm)].map(x => x[1]);
 assert.equal(authoredKeys.length, 25, 'Batch015 must author 25 records, not silently shadow duplicate schools');
 assert.equal(new Set(authoredKeys).size, authoredKeys.length,
   'Every Batch015 football school must have one source-of-truth editorial record, not a duplicate map key');
