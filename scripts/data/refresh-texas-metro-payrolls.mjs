@@ -143,7 +143,11 @@ export function parseFredCsv(csv, previous, checkedAt = new Date().toISOString()
   return {
     releaseMonth: month,
     publishedDate: same ? previous.publishedDate : checkedAt,
-    sourceUrl: fredCsvUrl,
+    // A fallback transport is not a newly published release. Retain the
+    // already verified original BLS archive citation when month and all
+    // thirteen figures match; otherwise recurring scheduled jobs create
+    // identical source-URL-only PRs and replace stronger primary provenance.
+    sourceUrl: same ? previous.sourceUrl : fredCsvUrl,
     units: 'total nonfarm payroll jobs, not seasonally adjusted',
     rows,
   };
@@ -226,7 +230,7 @@ async function official(url) {
   if (html.length < 6000) throw new Error('BLS source unexpectedly short: ' + url);
   return html;
 }
-export async function refresh({ fetchSource = official, read = p => fs.readFile(p, 'utf8'), write = (p, v) => fs.writeFile(p, v) } = {}) {
+export async function refresh({ fetchSource = official, fetchFredSource = fredSource, read = p => fs.readFile(p, 'utf8'), write = (p, v) => fs.writeFile(p, v) } = {}) {
   const previous = JSON.parse(await read(dataPath));
   // Independent official summary corroborates the latest-month Table 3.
   let data;
@@ -237,7 +241,7 @@ export async function refresh({ fetchSource = official, read = p => fs.readFile(
     data = { ...release, units: 'total nonfarm payroll jobs, not seasonally adjusted', rows };
   } catch (error) {
     console.warn('Direct BLS source failed; checking Federal Reserve BLS-series distribution: ' + String(error));
-    const csv = await fredSource();
+    const csv = await fetchFredSource();
     try {
       data = parseFredCsv(csv, previous);
     } catch (fallbackError) {
