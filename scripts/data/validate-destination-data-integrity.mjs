@@ -246,6 +246,15 @@ if (!moodyDate || moodyDate !== '2026-11-09' || !moodyCuration.includes('sourceC
   errors.push('Moody Gardens must retain its Nov. 9 full-guide review separately from modifications.');
 }
 const moodyRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const moodySeo = fs.readFileSync(path.join(root, 'src/lib/seo.ts'), 'utf8');
+const moodyTitle = 'Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide';
+const moodyDescription = 'Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.';
+if (!moodyRoute.includes('"moody-gardens": "' + moodyTitle + '"')
+    || !moodyRoute.includes('"' + moodyDescription + '"')
+    || !moodySeo.includes('title: "' + moodyTitle + '"')
+    || !moodySeo.includes('description: "' + moodyDescription + '"')) {
+  errors.push('Moody Gardens hydrated destination metadata must exactly match the SSR title and description; do not let browser hydration replace them with generic travel SEO.');
+}
 if (!moodyCuration.includes('museumFactsReviewed: "2026-11-14"')
     || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-14"')
     || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time>')

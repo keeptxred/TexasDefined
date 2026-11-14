@@ -151,6 +151,7 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
+  "moody-gardens": "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
   "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
   "booker-t-washington-high-school-dallas": "Booker T. Washington Arts High School: Dallas History",
   "crow-museum-asian-art-dallas": "Crow Museum of Asian Art: Dallas Exhibits & Visit",
@@ -330,6 +331,8 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
           ? "Plan a free visit to Gainesville’s Medal of Honor Host City Museum at NCTC: current hours, campus closures, exhibit context, school trips, parking and sources."
           : isOldSocorro
           ? "Old Socorro Mission is a closed, protected archaeology site in El Paso County. Read the Piro Pueblo and Pueblo Revolt history, floods and the separate modern Socorro church."
+          : destination.slug === "moody-gardens"
+          ? "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips."
           : destination.slug === "galveston-bay"
           ? "Explore Galveston Bay, Texas’s largest estuary. Find fishing, paddling, boating, wildlife and shoreline access guidance for Galveston, Kemah, Seabrook and Texas City."
           : destination.slug === "fort-mckavett"
