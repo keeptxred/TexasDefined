@@ -122,7 +122,13 @@ export function MoodyGardensSpotlights() {
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">Museum-only cost example</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Normal public hours are 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). To enter, guests need a Moody Gardens membership, a ticket that includes Galveston Children's Museum admission, or separate museum admission. Two adults and two children ages 4–12 would pay $60 before discounts for the museum only, not the Aquarium, Rainforest or theater. Senior (65+) and active military admission is $12 per person. The Everybody Plays program offers $5 per person for up to five guests with SNAP or Medicaid benefits, using a benefits card and photo ID; special events are excluded. The museum closes on Thanksgiving Day, Christmas Eve, Christmas Day, New Year's Day, Easter and the Sunday after the Momus Parade, even if other pyramids are open. Always verify its current hours and eligibility before purchasing.
+                On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Normal public hours are 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). To enter, guests need a Moody Gardens membership, a ticket that includes Galveston Children's Museum admission, or separate museum admission.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Two adults and two children ages 4–12 would pay $60 before discounts for the museum only, not the Aquarium, Rainforest or theater. Senior (65+) and active military admission is $12 per person. The Everybody Plays program offers $5 per person for up to five guests with SNAP or Medicaid benefits, using a benefits card and photo ID; special events are excluded.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                The museum closes on Thanksgiving Day, Christmas Eve, Christmas Day, New Year's Day, Easter and the Sunday after the Momus Parade, even if other pyramids are open. Check its current hours and eligibility before buying.
               </p>
               <a href="https://www.galvestoncm.org/general-info-admission" target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official museum admission and discounts</a>
             </div>
