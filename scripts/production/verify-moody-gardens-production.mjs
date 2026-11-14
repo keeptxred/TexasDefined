@@ -35,6 +35,10 @@ const forbiddenMarkers = [
   "Things to do and see",
 ];
 
+const earlyClosingMarker = "Monday, Nov. 16: attractions close early";
+const earlyClosingNoticeActive = Date.now() >= Date.parse("2026-11-13T00:00:00Z")
+  && Date.now() < Date.parse("2026-11-17T06:00:00Z");
+
 const failures = [];
 for (const [label, rawUrl] of targets) {
   const url = new URL(rawUrl);
@@ -61,6 +65,12 @@ for (const [label, rawUrl] of targets) {
   }
   for (const marker of forbiddenMarkers) {
     if (html.includes(marker)) failures.push(`${label}: stale/duplicate authority claim: ${marker}`);
+  }
+  if (earlyClosingNoticeActive && !html.includes(earlyClosingMarker)) {
+    failures.push(`${label}: Nov. 16 early-closing notice missing while the operator alert is active`);
+  }
+  if (!earlyClosingNoticeActive && html.includes(earlyClosingMarker)) {
+    failures.push(`${label}: expired Nov. 16 early-closing notice remains published`);
   }
   const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
   if (!currentSchemaDate || currentSchemaDate < "2026-11-09") failures.push(`${label}: wrong or stale schema dateModified: ${currentSchemaDate ?? "missing"}`);
