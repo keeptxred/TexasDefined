@@ -70,7 +70,7 @@ test('Federal Reserve BLS fallback verifies all 13 NSA series, synchronized mont
   assert.equal(data.rows.length, 13);
   assert.equal(data.rows[0].value, 4357000);
   assert.equal(data.publishedDate, '2026-09-30', 'same data must not invent a new publication date');
-  assert.match(data.sourceUrl, /^https:\/\/fred\.stlouisfed\.org\/graph\//);
+  assert.equal(data.sourceUrl, old.sourceUrl, 'identical BLS values retain the stronger dated BLS primary source');
   validateFresh(data, old);
   assert.throws(() => parseFredCsv(makeCsv(ids.slice(1)), old), /changed the required/);
   assert.throws(() => parseFredCsv(makeCsv(ids, areas.slice(0, 12).map(([, n]) => String(n))), old), /no complete/);
@@ -117,4 +117,29 @@ test('Federal Reserve monthly metro series must mature beyond the official relea
   assert.equal(published.releaseMonth, '2026-09');
   assert.equal(published.sourceUrl.startsWith('https://fred.stlouisfed.org/'), true);
   assert.equal(published.publishedDate, '2026-11-09');
+});
+
+
+test('mature FRED fallback with identical published figures does not create a redundant PR', async () => {
+  const old = {
+    releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    units: 'total nonfarm payroll jobs, not seasonally adjusted',
+    rows: parseMetroTable(table(areas)),
+  };
+  const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
+    'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
+    'WACO348NAN','AMAR148NAN','TYLE348NAN'];
+  const csv = 'observation_date,' + ids.join(',') + '\\n2026-08-01,' +
+    areas.map(([, value]) => value).join(',') + '\\n';
+  const writes = [];
+  const changed = await refresh({
+    fetchSource: async () => { throw new Error('BLS primary temporarily unavailable'); },
+    fetchFredSource: async () => csv,
+    read: async file => file.endsWith('.json') ? JSON.stringify(old) :
+      "export const TEXAS_DATASETS = [ { slug: 'texas-metro-payrolls-latest', updated: '2026-09-30' } ];",
+    write: async (name, data) => { writes.push({ name, data }); },
+  });
+  assert.equal(changed, false, 'transport provenance alone must not count as a new payroll release');
+  assert.deepEqual(writes, [], 'unchanged source-backed figures must not rewrite JSON or bridge');
 });
