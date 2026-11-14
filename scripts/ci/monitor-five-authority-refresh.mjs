@@ -27,6 +27,11 @@ for (const group of config.groups) {
   assert.ok(Array.isArray(group.requiredLiveMarkers) && group.requiredLiveMarkers.length > 0);
   for (const marker of group.requiredLiveMarkers)
     assert.ok(content.includes(marker), group.path + ": required content absent from source: " + marker);
+  if (group.path === "/sports") {
+    assert.ok(content.includes("maxFeaturedAgeDays={35}"), "Sports must time-gate current news independently of archives");
+    const category = await readFile("src/components/editorial/CategoryPage.tsx", "utf8");
+    assert.ok(category.includes("Archive, not current results"), "Old sports stories must retain visibly archival labeling");
+  }
   for (const item of group.officialSources) {
     assert.equal(new URL(item.url).protocol, "https:", group.path + ": unsafe official source URL");
     assert.ok(item.name && item.containsAny.length > 0, group.path + ": source contract incomplete");
