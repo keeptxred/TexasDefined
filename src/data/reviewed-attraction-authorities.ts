@@ -159,17 +159,17 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Swimming and wading prohibited"
     ],
     "body": [
-      "Admission is free at Fort Worth Water Gardens, 1502 Commerce Street, beside the convention-center district. The city lists daily hours of 6 a.m.–10 p.m. Swimming and wading are prohibited. The terraces and pool edges are not a splash-play area, and visitors should check official park and construction notices before leaving.",
+      "Visit Fort Worth confirms free admission, and the City of Fort Worth lists 6 a.m.–10 p.m. daily hours. The park sits at 1502 Commerce Street near the convention center. Swim and wade nowhere in the pools; this is a civic landscape, not a splash-play attraction. Check the city's construction project and park page before relying on a particular route.",
       "The 1974 downtown landscape designed by Philip Johnson and John Burgee has three deliberately different water environments. The Active Pool's stepped descent surrounds a powerful cascade; the Quiet Pool emphasizes a still surface and enclosure; and the Aerated Pool uses upward-moving fountains. Comparing them is a lesson in how sound and movement change the experience of one urban block.",
-      "At the Active Pool, water falls down geometric terraces into a deep central basin. The upper rim provides a clear architectural view; descending is optional and involves stepped surfaces near moving water. Visitors worried about heights, balance or slippery footing can stay on the upper approaches.",
+      "The Active Pool sends water down tiered concrete walls into a basin 38 feet below the upper plaza, according to the City of Fort Worth. Its descending path uses narrow, table-topped steps; the surrounding rim gives a view without descending. Visitors who have trouble with stairs, balance or heights can appreciate the pool from above.",
       "The Quiet Pool presents a contrasting still surface and a more secluded setting, with planted edges and a reflective mood. Its calmness makes the scale and noise of the Active Pool more noticeable by comparison.",
-      "The Aerated Pool brings movement back through fountain jets. Watch from the designated public paths rather than entering the water. Even a brief circuit that includes all three settings tells a fuller story than an Active Pool photo alone.",
+      "The Aerated Pool's 40 nozzles send fountains up from ground level, a striking opposite to the Active Pool's descent. Watch from the designated surrounding paths, not from the water. Seeing all three pool environments makes the park's contrasting sounds and forms clearer than a single viewpoint.",
       "The Water Gardens opened in 1974 as a gift from the Amon G. Carter Foundation to the city. This block had been part of Fort Worth's nineteenth-century Hell's Half Acre district; the new civic park gave a very different purpose to downtown land once known for cattle-trail saloons and entertainment. The city reports about 19,000 gallons of water circulating per minute across the park, including roughly 10,500 at the Active Pool. The engineering makes the architects' concrete forms feel different at each basin.",
       "The City of Fort Worth lists an improvement project in final design with a projected 2027 completion. That schedule does not establish that the park is currently closed or that any particular route is blocked. Review the official park page and the project status before visiting, especially if construction affects access.",
       "Budget roughly 30–60 minutes for the three pools and upper viewpoints. Longer time suits architectural photography, but changing light, weather and downtown events can alter conditions. Wear secure footwear; exposed terraces can be hot in summer.",
       "Swimming and wading are forbidden. Supervise children closely near water, drops and hard concrete edges, and do not use the Active Pool's lower steps as a mandatory route.",
       "Visitors who avoid steps can still view much of the architectural composition from the upper public approaches and adjoining sidewalks. The Active Pool descent uses stairs and is not a suitable mobility route. For detailed step-free access, current entrances or accessible parking arrangements, contact Fort Worth Parks rather than assuming every terrace is barrier-free.",
-      "Use the city's park map for the current entrance arrangement at 1502 Commerce Street. Parking rules and transit stops vary in downtown Fort Worth; confirm any proposed garage or stop before relying on it. The convention-center district and nearby Fort Worth museums can form a separate outing with their own hours."
+      "The City identifies the primary entrance near the northwest corner of the park. Use 1502 Commerce Street and its park map to plan your approach; garages, nearby transit and construction detours can change. The convention-center district and downtown Fort Worth museums are separate outings with their own hours."
     ],
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
@@ -185,7 +185,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       {
         "question": "Is the park free?",
         "answer": "Yes. There is no general admission charge.",
-        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens"
+        "sourceUrl": "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/"
       },
       {
         "question": "Can I see the Active Pool without taking the stairs?",
@@ -238,6 +238,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "The Cultural Landscape Foundation — Water Garden historical landscape profile",
           "url": "https://www.tclf.org/landscapes/fort-worth-water-garden",
           "scope": "1974 dedication, Philip Johnson's landscape design and contrasting pools in cultural context"
+        },
+        {
+          "label": "Visit Fort Worth — Water Gardens free admission and architectural visitor summary",
+          "url": "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/",
+          "scope": "Official destination-marketing confirmation of free admission, downtown location and the three distinct pools"
         }
       ]
     },
@@ -245,7 +250,14 @@ export const reviewedAttractionDestinations: Destination[] = [
       {
         "topic": "admission",
         "label": "Admission",
-        "detail": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
+        "detail": "Free public admission confirmed by Visit Fort Worth; no ticket purchase required for ordinary park entry.",
+        "sourceUrl": "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/",
+        "checkedAt": "2026-11-14"
+      },
+      {
+        "topic": "hours",
+        "label": "Hours and safety",
+        "detail": "City of Fort Worth lists 6 a.m.–10 p.m. daily, prohibits swimming and wading, and posts project notices separately.",
         "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
         "checkedAt": "2026-11-14"
       }

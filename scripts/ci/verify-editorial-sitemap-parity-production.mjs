@@ -162,6 +162,15 @@ for (const guide of attractionCertification) {
       throw Error("unrelated Grapevine recommendation remains in Fort Worth destination links");
     }
     if (guide.path === "/destination/fort-worth-water-gardens") {
+      // Distinct, independently source-backed admission versus hours must be
+      // reflected in the *live clean canonical*, not merely the source catalog.
+      // The city publishes hours/no-wading; Visit Fort Worth publishes free entry.
+      for (const essential of ["Visit Fort Worth", "38 feet", "40 nozzles"]) {
+        if (!body.includes(essential)) throw Error("Fort Worth source-backed visitor fact absent from fresh SSR: " + essential);
+      }
+      if (/the city lists free entry/i.test(body)) {
+        throw Error("Fort Worth must not cite City as the source of the bureau's free-admission fact");
+      }
       // The linked Modern Art Museum preview used to promote a month-old
       // gallery closure after the museum reopened on October 31, 2026.
       // Keep contextual visitor guidance truthful on the actual live SSR page.

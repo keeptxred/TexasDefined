@@ -395,7 +395,7 @@ function DestinationPage() {
     { question: "Entrance and parking", answer: "3853 N. St. Mary's Street beside the zoo. Accessible parking is available in the garden lot; spaces are not guaranteed." },
     { question: "Pets and nearby stops", answer: "Leashed dogs are welcome. Brackenridge Park is next door; San Antonio Zoo has separate ticketing." },
   ] : destination.slug === "fort-worth-water-gardens" ? [
-    { question: "Free admission and hours", answer: "The city lists free entry, 6 a.m.–10 p.m. every day. Swimming and wading are prohibited." },
+    { question: "Free admission and hours", answer: "Free general admission (Visit Fort Worth); city park hours 6 a.m.–10 p.m. daily. Swimming and wading are prohibited." },
     { question: "What is there to see?", answer: "The cascading Active Pool, still Quiet Pool and fountain-driven Aerated Pool offer three different experiences." },
     { question: "Stairs and viewing", answer: "View the Active Pool from upper paths without descending. Ask Fort Worth Parks about current step-free routes and construction notices." },
     { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
