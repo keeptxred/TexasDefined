@@ -49,13 +49,6 @@ const cards = [
   },
 ] as const;
 
-const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally admits the public from 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday closures can differ from the pyramids. Special-event opening hours may also change." },
-  { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
-  { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
-  { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
-] as const;
-
 const itineraries = [
   {
     time: "About 2 hours",
@@ -97,15 +90,6 @@ export function MoodyGardensSpotlights() {
           </aside>
         )}
 
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {currentNotes.map((note) => <div key={note.label} className="border-t-2 border-primary bg-background px-5 py-5 shadow-sm">
-            <p className="eyebrow text-primary">{note.label}</p>
-            <p className="mt-3 text-sm leading-6 text-foreground/85">{note.value}</p>
-          </div>)}
-        </div>
-
-        <p className="mt-4 max-w-4xl text-sm leading-6 text-muted-foreground">The Galveston Children's Museum lists its own closures, including Thanksgiving Day, Christmas Eve, Christmas Day and New Year's Day. A pyramid being open does not guarantee museum admission. <a href="https://www.galvestoncm.org/general-info-admission" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-2">Check the museum's official hours and admission</a>.</p>
-
         <div className="mt-9 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((card) => <article key={card.title} className="overflow-hidden border border-border bg-background shadow-sm">
             <a href={card.href} target="_blank" rel="noreferrer noopener" className="group block">
@@ -135,28 +119,23 @@ export function MoodyGardensSpotlights() {
             <p className="mt-5 text-sm leading-6 text-muted-foreground">
               Buy for the itinerary you can actually complete. Moody Gardens offers individual-attraction admission, a combined Aquarium + Rainforest ticket and a broader Value Pass. Compare the eligible attractions and date-specific checkout totals before you pay: a Value Pass is not automatically the best deal for a shorter stop.
             </p>
-            <div className="mt-5 border-t-2 border-primary py-5">
-              <strong className="font-display text-2xl">Best first-time default</strong>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children's Museum in the Discovery Pyramid instead of a second wildlife stop; check separate museum admission or a ticket that explicitly includes it.</p>
-            </div>
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">Museum-only cost example</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Two adults and two children ages 4–12 would pay $60 before discounts for the museum only, not the Aquarium, Rainforest or theater. The museum separately lists $12 senior (65+) and active military admission. Its Everybody Plays program offers $5 per person for up to five guests with SNAP or Medicaid benefits, using a benefits card and photo ID; special events are excluded. Verify current prices and eligibility before visiting.
+                On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Normal public hours are 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). To enter, guests need a Moody Gardens membership, a ticket that includes Galveston Children's Museum admission, or separate museum admission.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Two adults and two children ages 4–12 would pay $60 before discounts for the museum only, not the Aquarium, Rainforest or theater. Senior (65+) and active military admission is $12 per person. The Everybody Plays program offers $5 per person for up to five guests with SNAP or Medicaid benefits, using a benefits card and photo ID; special events are excluded.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                The museum closes on Thanksgiving Day, Christmas Eve, Christmas Day, New Year's Day, Easter and the Sunday after the Momus Parade, even if other pyramids are open. Check its current hours and eligibility before buying.
               </p>
               <a href="https://www.galvestoncm.org/general-info-admission" target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official museum admission and discounts</a>
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">What a family of four should compare</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                For two adults and two children ages 4–12, price the exact attractions you will visit:
-                two adult tickets and two child tickets for each separate attraction, or
-                the four-person Aquarium + Rainforest combination when those are your two
-                stops, versus two adult Value Passes plus two child Value Passes.
-                Select the lower total that actually covers your itinerary. Children 3 and under are admitted
-                free with a regularly priced ticket, and senior (65+) and other discounts
-                may change the comparison. Taxes, promotions and pass inclusions can change;
-                use the official checkout for the actual amounts. The Galveston Children's Museum has its own admission requirements for ages 2 and older; a general Moody Gardens attraction ticket does not necessarily include it.
+                For two adults and two children ages 4–12, price the exact attractions you will visit: individual Aquarium and Rainforest admission, the four-person combined Aquarium + Rainforest ticket, or two adult and two child Value Passes. Check whether each option includes the museum or theater, rather than adding their price or entry privileges by assumption. Compare the final checkout totals for your visit date, including applicable age discounts and promotions.
               </p>
               <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
                 <a href="https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&cg=ti" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>

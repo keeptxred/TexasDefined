@@ -158,3 +158,27 @@ test("missing or invalid alert dates cannot invent a currently displayed notice"
   assert.deepEqual(validateOperatorEarlyClosureNotice(officialHtml, "", Date.now()), []);
   assert.deepEqual(validateOperatorEarlyClosureNotice(officialHtml, 'startsAt: "2026-99-99"', Date.now()), []);
 });
+
+
+test("Moody Gardens editorial consolidates museum tickets into one sourced decision", () => {
+  const guide = readFileSync("src/components/editorial/MoodyGardensSpotlights.tsx", "utf8");
+  const curation = readFileSync("src/data/destination-curation-moody-gardens.ts", "utf8");
+  const route = readFileSync("src/routes/destination.$slug.tsx", "utf8");
+  const relationships = readFileSync("src/components/editorial/DestinationRelationships.tsx", "utf8");
+  const booking = readFileSync("src/components/editorial/DestinationViatorBooking.tsx", "utf8");
+  const comparison = readFileSync("docs/editorial/moody-gardens-comparative-authority-review-20261114.md", "utf8");
+  assert.equal((guide.match(/Museum-only cost example/g) ?? []).length, 1);
+  assert.equal((guide.match(/a ticket that includes Galveston Children's Museum admission/g) ?? []).length, 1);
+  assert.match(guide, /9 to 10 AM is reserved for museum members/);
+  assert.match(guide, /Two adults and two children ages 4–12 would pay \$60 before discounts/);
+  assert.match(guide, /Thanksgiving Day/);
+  assert.doesNotMatch(guide, /const currentNotes/);
+  assert.doesNotMatch(curation, /According to Moody Gardens, guests age 2 and older need/);
+  assert.match(route, /showEntryPlanning && destination.slug !== "moody-gardens"/);
+  assert.match(route, /destination.slug !== "moody-gardens" && relatedArticles.length/);
+  assert.match(relationships, /!isMoodyGardens && <Container><TexasExplainedContextLinks/);
+  assert.match(booking, /"moody-gardens"\].includes\(destination.slug\)/);
+  for (const source of ["www.moodygardens.com/visitor-info/faq", "www.visitgalveston.com/directory/moody-gardens/", "www.galvestoncm.org/general-info-admission"]) {
+    assert.ok(comparison.includes(source), "missing independently compared source: " + source);
+  }
+});

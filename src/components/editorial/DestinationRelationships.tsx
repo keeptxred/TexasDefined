@@ -163,7 +163,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
       </Container>
     </Section> : null}
 
-    <Container><TexasExplainedContextLinks surface="destination" /></Container>
+    {!isMoodyGardens && <Container><TexasExplainedContextLinks surface="destination" /></Container>}
 
     <Section tone="ink" className="py-8 sm:py-10">
       <Container>
