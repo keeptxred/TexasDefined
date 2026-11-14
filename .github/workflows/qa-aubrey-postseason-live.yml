@@ -1,0 +1,47 @@
+name: Aubrey 2026 postseason production browser QA
+on:
+  push:
+    branches:
+      - qa/aubrey-postseason-live-20261114
+    paths:
+      - scripts/ci/verify-aubrey-postseason-production.mjs
+      - .github/workflows/qa-aubrey-postseason-live.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write
+concurrency:
+  group: aubrey-postseason-single-page-qa
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify only Aubrey production postseason on desktop and mobile
+        id: browser
+        run: node scripts/ci/verify-aubrey-postseason-production.mjs
+      - name: Publish Aubrey postseason browser verification
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-aubrey-postseason-browser "$BROWSER_OUTCOME" "Aubrey live postseason desktop/mobile passed" "Aubrey live postseason check failed; inspect report/screenshots"
+      - name: Preserve Aubrey desktop/mobile screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aubrey-postseason-desktop-mobile
+          path: artifacts/aubrey-postseason-visual/
+          if-no-files-found: warn
+          retention-days: 14
