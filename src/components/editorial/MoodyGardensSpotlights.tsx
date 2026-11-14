@@ -50,7 +50,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally admits the public from 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday and special-event hours can differ from the pyramids." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally admits the public from 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday closures can differ from the pyramids. Special-event opening hours may also change." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
