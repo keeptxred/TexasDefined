@@ -51,6 +51,18 @@ jobs:
           AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
           AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
         run: node scripts/data/update-aubrey-verified-results.mjs
+      - name: Record score-provider errors or conflicting finals for editorial review
+        if: ${{ failure() && steps.import.outcome == 'failure' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='BLOCKED: Aubrey authorized score feed failed validation'
+          url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The licensed Aubrey feed import rejected an unavailable provider, wrong opponent, unknown fixture, contradictory historical score, invalid source, or other failed input. Run: $url. No unverified score was published; inspect the run before changing or republishing any result."
+          fi
       - name: Flag overdue games that still lack both matching confirmations
         if: ${{ steps.import.outputs.needs_review == 'true' }}
         env:
