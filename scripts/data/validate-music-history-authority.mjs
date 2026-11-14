@@ -27,6 +27,8 @@ const dossierView = read("src/components/editorial/TexasMusicEvidenceDossier.tsx
 const venueView = read("src/components/editorial/TexasMusicVenueGuide.tsx");
 const cityView = read("src/components/editorial/TexasMusicCityGuide.tsx");
 const hub = read("src/data/texas-music-cities-hub.ts");
+const deskProfile = read("src/routes/authors.$author.tsx");
+const browserAcceptance = read("scripts/ci/verify-music-history-browser.mjs");
 const publicRoutes = read("src/lib/public-routes.ts");
 const boilerplate = /(?:in today's fast.paced world|delve into|unlock the secrets|ultimate guide to everything|comprehensive tapestry|lorem ipsum)/i;
 function block(source, slug) {
@@ -54,11 +56,14 @@ for(const slug of slugs) {
   if(!research) fail("Missing individual research dossier: "+slug);
   for(const field of ["heading:", "record:", "reading:", "source:", "href:"]) {
     const count = (research.match(new RegExp("\\b"+field,"g"))||[]).length;
-    if(count < 4) fail("Music dossier needs at least four independently annotated findings: "+slug+" / "+field+" = "+count);
+    if(count < 5) fail("Music dossier needs at least five independently annotated findings: "+slug+" / "+field+" = "+count);
   }
   const researchSources=[...research.matchAll(/href: "(https:\/\/[^"]+)"/g)].map(x=>x[1]);
-  if(new Set(researchSources).size < 2)fail("No independent corroboration across music research findings: "+slug);
+  if(new Set(researchSources).size < 3)fail("Too few independent cited records for music research: "+slug);
+  if(new Set(researchSources.map(u=>new URL(u).hostname)).size < 2)fail("Research must rely on at least two separately hosted institutions: "+slug);
   if(boilerplate.test(research))fail("Boilerplate in researched findings: "+slug);
+  if(!deskProfile.includes('href: "/'+slug+'"'))fail("Editorial desk author archive omits historical feature: "+slug);
+  if(!evidence.includes('"'+slug+'": "2026-11-14"'))fail("Article-specific historical research review/modify date absent: "+slug);
   if(boilerplate.test(base)) fail("Boilerplate wording: "+slug);
   const words = (base.replace(/https?:\/\/\S+/g," ").match(/\b[A-Za-z][A-Za-z'-]*\b/g)||[]).length;
   if(words<520) fail("Insufficient contextual body text: "+slug+" ("+words+" words)");
@@ -85,11 +90,15 @@ if(!liveAcceptance.includes("Clean canonical article differs from cache-busted")
    !liveAcceptance.includes("const cleanArticle=articleText(visitor)") ||
    !liveAcceptance.includes("Antones disputed Guadalupe 1981/1982 opening evidence absent"))
   fail("Production acceptance must compare every clean music SSR article to its cache-busted variants and guard Antone's 1981/1982 source correction");
+if(!deskProfile.includes('to="/editorial-policy"'))fail("Canonical author profile must link to the one centralized editorial policy");
+if(!deskProfile.includes('musicHistoryEditorialArticles.map'))fail("Music author page omits its own canonical history archive");
+if(!liveAcceptance.includes('PASS editorial desk profile') || !liveAcceptance.includes('expectedArchivalFindings') || !liveAcceptance.includes('article modification date not updated'))fail("Live acceptance missing archive/byline/update provenance checks");
+if(!browserAcceptance.includes('desk byline links to one institutional profile') || !browserAcceptance.includes('at least five independently researched findings'))fail("Mobile and desktop browser acceptance missing upgraded research/byline checks");
 if(!hub.includes('"/corpus-christi-music-history"')) fail("Statewide city hub omits Corpus Christi");
 if(!cityView.includes('musicCitiesComparison.map') || !cityView.includes('scope="col"') || !cityView.includes('<caption')) fail("Missing accessible city-by-city comparison");
 if(!cityView.includes('musicHistoryMilestones') || !venueView.includes('musicHistoryMilestones') || !corpus.includes('musicHistoryMilestones')) fail("Unlinked evidence-based chronologies");
 for (const [label, view] of [["city",cityView],["venue",venueView],["Corpus",corpus]]) {
-  if(!view.includes('Texas Defined Editorial Desk') || !view.includes('dateModified: musicSourceReviewedAt') || !view.includes('to="/editorial-policy"')) fail("Editorial byline and structured date missing: "+label);
+  if(!view.includes('Texas Defined Editorial Desk') || !view.includes('dateModified: articleModifiedAt') || !view.includes('to="/authors/a-hollis"') || !view.includes('url: `${siteUrl}/authors/a-hollis`') || !view.includes('Historical sources checked')) fail("Central linked editorial desk byline and honest article-specific date missing: "+label);
   if(!view.includes('sourceUrl') || !view.includes('sourceLabel')) fail("Point-of-claim citation links missing: "+label);
 }
 for (const slug of ["broken-spoke-austin-history","continental-club-austin-history","antones-austin-history","billy-bobs-texas-history"]) {

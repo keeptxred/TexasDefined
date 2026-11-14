@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
 import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
-import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
+import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 type SourceNote = { label: string; href: string; note: string };
@@ -50,6 +50,8 @@ const citySources: Record<string, readonly SourceNote[]> = {
 };
 
 export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
+  const sourceReviewedAt = musicHistoryResearchCheckedAt[guide.slug] ?? musicSourceReviewedAt;
+  const articleModifiedAt = musicHistoryArticleModifiedAt[guide.slug] ?? musicSourceReviewedAt;
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = citySources[guide.slug] ?? [];
   const milestones = musicHistoryMilestones[guide.slug] ?? [];
@@ -71,7 +73,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` }, dateModified: musicSourceReviewedAt, isAccessibleForFree: true, articleSection: "Texas Music", citation: [...sources.map((source) => source.href), ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? [])], isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
+      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, dateModified: articleModifiedAt, isAccessibleForFree: true, articleSection: "Texas Music", citation: [...sources.map((source) => source.href), ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? [])], isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
       { "@type": "WebPage", "@id": `${canonicalUrl}#page`, url: canonicalUrl, name: guide.title, description: guide.dek, isPartOf: { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: "TexasDefined", url: siteUrl }, breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` }, mainEntity: { "@id": `${canonicalUrl}#article` } },
       { "@type": "BreadcrumbList", "@id": `${canonicalUrl}#breadcrumb`, itemListElement: breadcrumbs },
     ],
@@ -90,7 +92,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
         <header className="border-b border-border py-10 sm:py-14">
           <p className="eyebrow text-primary">{guide.eyebrow}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
-          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={musicSourceReviewedAt}>November 13, 2026</time></p>
+          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/authors/a-hollis" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={sourceReviewedAt}>{musicHistoryDateLabel(sourceReviewedAt)}</time></p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link>{!isHub ? <Link to="/texas-music-cities" className="border-b border-primary pb-1 text-primary">Compare Texas music cities →</Link> : null}</div>
         </header>
         <section className="border-b border-border py-8" aria-labelledby="quick-answer"><p className="eyebrow text-primary">Quick answer</p><h2 id="quick-answer" className="mt-2 font-display text-3xl">{shortAnswerHeading[guide.slug] ?? "Why this city matters to Texas music"}</h2><p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p></section>
