@@ -33,7 +33,8 @@ export const reviewedAttractionDestinations: Destination[] = [
     "body": [
       "Free admission and a 7 a.m.–5 p.m. daily schedule make the Japanese Tea Garden an easy stop next to Brackenridge Park and the San Antonio Zoo. Plan about 30–60 minutes. The upper pavilion and Jingu House are reached by ramp from the upper garden; the lower pond paths and waterfall area require stairs. Accessible parking is available in the garden lot, but a space cannot be guaranteed.",
       "San Antonio's Japanese Tea Garden occupies a former limestone quarry and cement works. Stone bridges cross koi ponds beneath steep quarry walls, while a waterfall and planted terraces turn the industrial excavation into part of the landscape rather than hiding it. The upper level offers the broadest overview without a descent.",
-      "The San Antonio Parks Foundation traces the garden's conception to parks commissioner Ray Lambert in 1916. Local residents and businesses helped build its ponds, bridges, walks and pavilion. Kimi Eizo and Miyoshi Jingu lived at the garden and operated its Bamboo Room from 1926; their family's experience belongs alongside the quarry workers and the artisans of the nearby historic Mexican Village in the site's history.",
+      "San Antonio Parks Commissioner Ray Lambert's project turned an abandoned cement quarry into lily ponds and gardens between 1917 and 1918. Donated bulbs, the city nursery and the public utility helped furnish the early setting; the bridges, pagoda and tiered walls still demonstrate how the former industrial terrain shaped the design. The city records German masons' earlier quarry work, a 1920 Mexican Village supporting local artisans, and a concrete torii-style entrance gate by Dionicio Rodríguez.",
+      "The Jingu family's story is essential to the garden's identity. Japanese-American artist Kimi Eizo Jingu and his wife Miyoshi lived and worked at the garden, and the family opened the Bamboo Room for tea and light food in 1926. After Eizo's death in 1938, the family continued operations until they were evicted amid anti-Japanese sentiment during World War II in 1942. The gardens were renamed the Chinese Sunken Garden before the original name was formally restored in the 1980s. Understanding the displacement and later rededication adds historical context beyond the ponds and waterfall.",
       "Visitors interested in that history can use the Foundation's augmented-reality garden guide, which includes archival photographs, a site map and stories of the Jingu family. The upper quarry overlook also makes it easier to see how paths and stonework follow the site's steep grades.",
       "Visitors able to use stairs can explore the lower bridges, koi ponds and waterfall approaches. Those who need a step-free visit should stay with the ramp-accessible upper garden and pavilion; the operator does not describe the lower paths or waterfall base as wheelchair accessible. Families with strollers should plan around the stairways and open pond edges.",
       "Allow 30–60 minutes for the garden itself, or longer for photographs, interpretive material and a stop at Jingu House if it is serving. In summer, the exposed upper areas can be hot; water, shoes with grip and a morning visit are sensible. Wet stairs warrant extra care.",
@@ -97,6 +98,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "San Antonio Parks Foundation — visitor information",
           "url": "https://saparks.org/japanese-tea-garden/",
           "scope": "Official visitor rules, operating details and access information"
+        },
+        {
+          "label": "City of San Antonio Parks & Recreation — Japanese Tea Garden history and restoration",
+          "url": "https://www.sa.gov/Directory/Departments/Parks/Parks-Facilities/Buildings-Centers/Japanese-Tea-Garden",
+          "scope": "Historic cement-quarry conversion, labor, 1926 Jingu family operations, wartime eviction and rededication"
         }
       ]
     },
