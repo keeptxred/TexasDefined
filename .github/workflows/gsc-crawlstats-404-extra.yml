@@ -35,6 +35,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check 42-path live audit and policy JavaScript syntax
+        run: |
+          node --check scripts/ci/audit-gsc-crawlstats-404-extra.mjs
+          node --check scripts/ci/gsc-crawlstats-404-extra-policy.mjs
       - name: Test immutable source partition and HTTP classification contract
         run: node --test scripts/ci/gsc-crawlstats-404-extra-policy.test.mjs
 
