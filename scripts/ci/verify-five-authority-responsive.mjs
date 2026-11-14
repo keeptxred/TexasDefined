@@ -78,6 +78,15 @@ try{
       const outside=await page.locator('main a[href^="https://"]').count();
       verify("primary-source links accessible",outside>=spec.minimumSources,outside);
       await page.waitForLoadState("load",{timeout:25000}).catch(()=>{});
+      if(spec.path==="/sports"){
+        const inventory=await page.locator("main table").evaluateAll(elements=>elements.map((el,index)=>({
+          index,caption:el.querySelector("caption")?.textContent?.trim()||"",
+          columns:el.querySelectorAll('th[scope="col"]').length,
+          section:el.closest("section")?.getAttribute("aria-labelledby")||"",
+          excerpt:el.outerHTML.slice(0,250),
+        })));
+        console.log("SPORTS_TABLE_INVENTORY "+JSON.stringify({viewport:viewport.name,tables:inventory}));
+      }
       if(spec.hasTable){
         const tableSelector=spec.path==="/sports"
           ? 'section[aria-labelledby="sports-choose-official"] table'
