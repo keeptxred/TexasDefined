@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "maintainedBy": "GitHub Actions — five TexasDefined authority hubs",
+  "policy": "A successful HTTP check is NOT a factual review. lastFactReviewAt changes only after an editor compares official sources and resolves discrepancies. Do not fake dated stories, scores, event times, or source-checked dates.",
+  "groups": [
+    {
+      "id": "hunting-regulations",
+      "path": "/hunting",
+      "runUtcWeekdays": [
+        3
+      ],
+      "maxReviewAgeDays": 14,
+      "lastFactReviewAt": "2026-11-14",
+      "lastFactReviewScope": "TPWD 2026–27 APH/LPU/daily permit terms and public-land applicability",
+      "requiredLiveMarkers": [
+        "Which public-land access route fits the hunt?",
+        "TPWD",
+        "regular daily permit"
+      ],
+      "officialSources": [
+        {
+          "name": "TPWD APH access",
+          "url": "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/index.phtml",
+          "containsAny": [
+            "Annual Public Hunting",
+            "2026-27"
+          ]
+        },
+        {
+          "name": "TPWD regular daily hunt",
+          "url": "https://tpwd.texas.gov/huntwild/hunt/public/regular_daily_permits/",
+          "containsAny": [
+            "Regular",
+            "Permit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dog-safety",
+      "path": "/dogs",
+      "runUtcWeekdays": [
+        1
+      ],
+      "maxReviewAgeDays": 30,
+      "lastFactReviewAt": "2026-11-14",
+      "lastFactReviewScope": "State park pet access, AVMA hot weather, Texas DSHS rabies and CDC harmful algae",
+      "requiredLiveMarkers": [
+        "Pick the outing before you pack for the dog",
+        "Texas DSHS",
+        "CDC harmful-algae"
+      ],
+      "officialSources": [
+        {
+          "name": "TPWD pets in state parks",
+          "url": "https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions/",
+          "containsAny": [
+            "Pets",
+            "leash"
+          ]
+        },
+        {
+          "name": "Texas DSHS rabies",
+          "url": "https://www.dshs.texas.gov/notifiable-conditions/zoonosis-control/zoonosis-control-diseases-and-conditions/rabies",
+          "containsAny": [
+            "Rabies",
+            "vaccination"
+          ]
+        },
+        {
+          "name": "CDC algae pet safety",
+          "url": "https://www.cdc.gov/harmful-algal-blooms/prevention/preventing-pet-and-livestock-illnesses.html",
+          "containsAny": [
+            "pets",
+            "bloom"
+          ]
+        },
+        {
+          "name": "AVMA warm weather",
+          "url": "https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety",
+          "containsAny": [
+            "warm weather",
+            "heat"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sports-current",
+      "path": "/sports",
+      "runUtcWeekdays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "maxReviewAgeDays": 7,
+      "lastFactReviewAt": "2026-11-14",
+      "lastFactReviewScope": "UIL verified season/bracket source; other sports must be independently sourced before publication",
+      "requiredLiveMarkers": [
+        "Find the authoritative schedule, then plan the trip",
+        "Archive, not current results"
+      ],
+      "officialSources": [
+        {
+          "name": "UIL playoff brackets",
+          "url": "https://www.uiltexas.org/football/playoff-brackets",
+          "containsAny": [
+            "Football Playoff Brackets",
+            "2026-2027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "football-postseason",
+      "path": "/sports/friday-night-lights",
+      "runUtcWeekdays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "maxReviewAgeDays": 7,
+      "lastFactReviewAt": "2026-11-14",
+      "lastFactReviewScope": "UIL current bracket, qualification and 2026 dates; individual games require school verification",
+      "requiredLiveMarkers": [
+        "Why the playoff path changes by classification",
+        "6A, Divisions I and II",
+        "Curated matchups"
+      ],
+      "officialSources": [
+        {
+          "name": "UIL 2026 schedule",
+          "url": "https://www.uiltexas.org/football",
+          "containsAny": [
+            "Possible Playing Dates",
+            "Playoff Dates"
+          ]
+        },
+        {
+          "name": "UIL division qualification",
+          "url": "https://www.uiltexas.org/football/playoff-brackets",
+          "containsAny": [
+            "the top two teams",
+            "the top four teams"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tailgate-venue-policies",
+      "path": "/texas-tailgating-guide",
+      "runUtcWeekdays": [
+        5
+      ],
+      "maxReviewAgeDays": 14,
+      "lastFactReviewAt": "2026-11-14",
+      "lastFactReviewScope": "Named venue tailgate area distinctions and FoodSafety.gov guidance; game-specific availability not asserted",
+      "requiredLiveMarkers": [
+        "Three trips, three very different packing decisions",
+        "FoodSafety.gov",
+        "A comparison that changes your packing list"
+      ],
+      "officialSources": [
+        {
+          "name": "AT&T Stadium parking",
+          "url": "https://attstadium.com/stadium-info/parking/",
+          "containsAny": [
+            "Tailgating",
+            "Parking"
+          ]
+        },
+        {
+          "name": "Aggieland rules",
+          "url": "https://12thman.com/tailgating/rules",
+          "containsAny": [
+            "Tailgating",
+            "Rules"
+          ]
+        },
+        {
+          "name": "FoodSafety.gov game-day safety",
+          "url": "https://www.foodsafety.gov/blog/game-day-food-safety-tips",
+          "containsAny": [
+            "Game Day",
+            "food safety"
+          ]
+        }
+      ]
+    }
+  ]
+}
