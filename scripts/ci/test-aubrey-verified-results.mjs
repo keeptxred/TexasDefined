@@ -77,11 +77,12 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
   assert.ok(start>=0 && end>start);
   const editorial=JSON.parse('{'+raw.slice(start,end).trim().replace(/,\s*$/,'')+'}').aubrey;
   const snapshot=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
-  assert.equal(snapshot.verifiedResults.length,3,'Three individual, cited late-season finals');
+  assert.equal(snapshot.verifiedResults.length,4,'Three late regular-season finals plus one separately verified playoff final');
   assert.deepEqual(snapshot.verifiedResults.map(x=>[x.date,x.opponent,x.aubreyScore,x.opponentScore]),[
     ['2026-10-23','Lake Dallas',28,21],
     ['2026-10-30','Alvarado',70,40],
     ['2026-11-06','Godley',55,22],
+    ['2026-11-12','Andrews',63,24],
   ]);
   for(const result of snapshot.verifiedResults){
     assert.equal(result.verificationMethod,'manual-editorial-review');
@@ -90,14 +91,19 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
   }
   const primary={season:'2026',teamSlug:'aubrey',games:[]};
   const secondary={season:'2026',teamSlug:'aubrey',games:[]};
-  const result=reconcileAubreyResults({editorial,snapshot,primary,secondary,primaryHost,secondaryHost,today:'2026-11-13'});
+  const playoff=JSON.parse(readFileSync('src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json','utf8'));
+  assert.equal(playoff.games.length,2);
+  assert.equal(playoff.games[0].opponent,'Andrews');
+  assert.equal(playoff.games[1].opponent,'Canyon');
+  assert.equal(playoff.games[1].result,undefined,'Upcoming Canyon fixture must not have invented final');
+  const result=reconcileAubreyResults({editorial,snapshot,primary,secondary,primaryHost,secondaryHost,today:'2026-11-14',playoffFixtures:playoff.games});
   assert.equal(result.added,0);
   assert.deepEqual(result.pending,[],'Historical verified scores cannot be flagged missing due to sparse feeds');
-  const games=editorial.season.games.map(game=>{
+  const games=[...editorial.season.games,...playoff.games].map(game=>{
     const extra=snapshot.verifiedResults.find(x=>x.date===game.date);
     return { ...game, result:game.result || (extra ? (extra.aubreyScore>extra.opponentScore?'W ':'L ')+extra.aubreyScore+'–'+extra.opponentScore:undefined) };
   });
-  assert.equal(games.filter(game=>game.result?.startsWith('W ')).length,7);
+  assert.equal(games.filter(game=>game.result?.startsWith('W ')).length,8);
   assert.equal(games.filter(game=>game.result?.startsWith('L ')).length,3);
   assert.equal(games.filter(game=>game.district && game.result?.startsWith('W ')).length,7);
   assert.equal(games.filter(game=>game.district && game.result?.startsWith('L ')).length,0);
@@ -108,6 +114,31 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
       aubreyScore:71,opponentScore:40,
       sourceUrl:'https://'+secondaryHost+'/2026-10-30',
     }]},
-    primaryHost,secondaryHost,today:'2026-11-13',
+    primaryHost,secondaryHost,today:'2026-11-14',playoffFixtures:playoff.games,
   }),/published Aubrey final was contradicted/);
+});
+
+test('new licensed playoff finals can update the existing verified upcoming Canyon fixture but cannot invent opponents',()=>{
+  const published=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
+  const playoff=JSON.parse(readFileSync('src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json','utf8'));
+  const fakeRecord={season:{games:[{date:'2026-11-12',opponent:'Andrews',site:'Neutral',district:false},
+    {date:'2026-11-19',opponent:'Canyon',site:'Neutral',district:false}]}};
+  const canyon=(host,score=28)=>({
+    season:'2026',teamSlug:'aubrey',games:[{
+      date:'2026-11-19',opponent:'Canyon',status:'final',aubreyScore:score,opponentScore:21,
+      sourceUrl:'https://'+host+'/2026-11-19',
+    }],
+  });
+  const empty={season:'2026',teamSlug:'aubrey',verifiedResults:[]};
+  const outcome=reconcileAubreyResults({editorial:fakeRecord,snapshot:empty,
+    primary:canyon(primaryHost),secondary:canyon(secondaryHost),primaryHost,secondaryHost,
+    today:'2026-11-20',playoffFixtures:[]});
+  assert.equal(outcome.added,1);
+  assert.equal(outcome.snapshot.verifiedResults[0].district,false);
+  assert.throws(()=>reconcileAubreyResults({editorial:fakeRecord,snapshot:empty,
+    primary:canyon(primaryHost),secondary:canyon(secondaryHost,35),primaryHost,secondaryHost,
+    today:'2026-11-20'}),/Conflicting/);
+  assert.throws(()=>reconcileAubreyResults({editorial:fakeRecord,snapshot:empty,
+    primary:canyon(primaryHost),secondary:canyon(secondaryHost),primaryHost,secondaryHost,
+    today:'2026-11-18'}),/future|Invalid/i);
 });
