@@ -1,0 +1,52 @@
+name: Top 50 attraction authority contract
+
+on:
+  push:
+    branches:
+      - feat/top-50-attractions-authority-20261017
+    paths:
+      - 'src/data/top50-*.ts'
+      - 'src/data/texas-top50-ranking.ts'
+      - 'src/data/destination-authority-top50-wave1.ts'
+      - 'src/data/congress-avenue-bat-colony-authority.ts'
+      - 'src/data/destination-authority-presentation.ts'
+      - 'src/routes/explore.top-50-attractions.tsx'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/routeTree.gen.ts'
+      - 'scripts/data/validate-top-50-attraction-authority.mjs'
+      - '.github/workflows/top50-attraction-contract.yml'
+  pull_request:
+    paths:
+      - 'src/data/top50-*.ts'
+      - 'src/data/texas-top50-ranking.ts'
+      - 'src/data/destination-authority-top50-wave1.ts'
+      - 'src/data/congress-avenue-bat-colony-authority.ts'
+      - 'src/routes/explore.top-50-attractions.tsx'
+      - 'scripts/data/validate-top-50-attraction-authority.mjs'
+  workflow_dispatch:
+  # Once merged, the structural contract runs weekly on the default branch.
+  # This is NOT a substitute for operator-fact refresh or manual photo-rights review.
+  schedule:
+    - cron: '23 14 * * 5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: top50-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  content-contract:
+    name: Check all 50 ranked attraction guide records
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify parser syntax
+        run: node --check scripts/data/validate-top-50-attraction-authority.mjs
+      - name: Validate 50 canonical attraction guides and evidence
+        run: node scripts/data/validate-top-50-attraction-authority.mjs
