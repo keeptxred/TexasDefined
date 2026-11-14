@@ -76,7 +76,9 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "ray-roberts-lake-jordon-unit-state-park",
   "san-jacinto-monument-state-historic-site",
   "san-marcos-springs-spring-lake",
-  "seminole-canyon-state-park",
+  // The short URL is the sole published public canonical for this TPWD park.
+  // The longer historic-site source slug is an import/curation alias only.
+  "seminole-canyon-state-park-and-historic-site",
   "seminole-canyon-state-park-state-historic-site",
   "sheldon-lake-state-park-environmental-learning-center",
   "world-birding-center-bentsen-rio-grande-valley-state-park",
