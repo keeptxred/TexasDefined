@@ -75,7 +75,7 @@ async function verify(slug){
  // Each cache-busted variant must serve the SAME server-rendered article as
  // the ordinary canonical visitor URL, not merely the same minimum headings.
  // This catches older edge-cached research surviving after a Worker deploy.
- const articleText=(data)=>data?visible(data.html.match(/<main\\b[^>]*>([\\s\\S]*?)<\\/main>/i)?.[1]??""):null;
+ const articleText=(data)=>data?visible(data.html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1]??""):null;
  const cleanArticle=articleText(visitor);
  for(const [kind,data] of [["desktop",desktop],["mobile",mobile]]){
   if(cleanArticle!==null && data && articleText(data)!==cleanArticle)
