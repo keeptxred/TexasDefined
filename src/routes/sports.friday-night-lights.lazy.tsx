@@ -162,9 +162,21 @@ function FridayNightLightsPage() {
       <p className="mt-6 text-xs leading-6 text-muted-foreground">Sources: <a href="https://www.uiltexas.org/football" target="_blank" rel="noopener noreferrer" className="underline">UIL 2026–27 football dates</a> and <a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="underline">UIL playoff brackets</a>. School and host information must be checked for each game.</p>
     </Container></section>
 
-    <section className="border-b border-border bg-background">
+    <section className="border-b border-border bg-background" aria-labelledby="fnl-bracket-comparison">
       <Container className="py-12 sm:py-16">
-        <FootballFanOffers slug="friday-night-lights" hasUpcomingAwayTravel={false} showTravelPlanning />
+        <p className="eyebrow text-primary">Compare before you travel</p>
+        <h2 id="fnl-bracket-comparison" className="mt-3 font-display text-4xl">Why the playoff path changes by classification</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The Texas high-school football postseason is not one uniform bracket. The UIL's official rules distinguish six-man 1A, the split divisions of 2A–5A and the 6A enrollment split. That affects how a fan should identify a school, confirm the right opponent and plan the next trip. The table describes the published qualification framework, not a prediction of this week's winners.</p>
+        <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[42rem] text-left text-sm"><caption className="sr-only">2026 UIL football playoff qualification comparison by conference</caption><thead className="bg-surface"><tr><th scope="col" className="p-4">Conference</th><th scope="col" className="p-4">Who advances under UIL rules</th><th scope="col" className="p-4">What a visiting fan should check</th></tr></thead><tbody className="divide-y divide-border">
+          <tr><th scope="row" className="p-4">1A six-man, Divisions I and II</th><td className="p-4">The top two teams from each district reach the postseason in their designated divisions.</td><td className="p-4">Do not transfer an 11-man district rule or venue assumption to a six-man team. Confirm the exact 1A division and host field.</td></tr>
+          <tr><th scope="row" className="p-4">2A–5A, Divisions I and II</th><td className="p-4">The top four teams from each district advance in the district's assigned division.</td><td className="p-4">Check both conference and division before matching a bracket listing to a ticket offer or hotel search.</td></tr>
+          <tr><th scope="row" className="p-4">6A, Divisions I and II</th><td className="p-4">Four teams advance per district; among those four, the two larger-enrollment schools enter Division I, and the other two Division II.</td><td className="p-4">Do not assume a school's division from an older season or a previous playoff run. Confirm its current bracket and game site.</td></tr>
+        </tbody></table></div>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">A first-round trip</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">With the first 2026 round scheduled for November 12–14, verify the pairing and exact venue through the published UIL bracket and the two schools. A bracket entry is not proof of a specific parking lot or stadium's accessible seating.</p><a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">UIL 2026–27 brackets ↗</a></article>
+          <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">A championship-week trip</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The UIL places the 12 conference-and-division finals on December 16–19 in Arlington. Pick the correct classification's game before booking an overnight stay; recheck tickets, gate policy and kickoff with UIL and AT&amp;T Stadium rather than relying on an older season recap.</p><a href="https://www.uiltexas.org/football/page/playoff-brackets" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">UIL championship schedule ↗</a></article>
+        </div>
+        <p className="mt-6 text-xs leading-6 text-muted-foreground">Source: <a href="https://www.uiltexas.org/football/playoff-brackets" className="underline" target="_blank" rel="noopener noreferrer">UIL published playoff qualification rules and alignments</a>, with dates from <a href="https://www.uiltexas.org/football" className="underline" target="_blank" rel="noopener noreferrer">the UIL 2026 football calendar</a>. TexasDefined's visitor scenarios are independent planning analysis, not reported on-site observations.</p>
       </Container>
     </section>
 
@@ -257,6 +269,12 @@ function FridayNightLightsPage() {
           <RelatedCard title="Texas college towns" body="See how football, universities and local identity continue beyond high school into the state's college towns." href="/texas-college-towns" />
           <RelatedCard title="Texas Sports" body="Return to the statewide sports hub for college and pro football, basketball, rodeo, motorsports and more." href="/sports" />
         </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border bg-background">
+      <Container className="py-12 sm:py-16">
+        <FootballFanOffers slug="friday-night-lights" hasUpcomingAwayTravel={false} showTravelPlanning />
       </Container>
     </section>
 
