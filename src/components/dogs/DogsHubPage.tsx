@@ -1,5 +1,6 @@
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import texasDogsIllustration from "@/assets/navigation-texas-dogs.svg?no-inline";
 import type { DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
@@ -99,6 +100,7 @@ export default function DogsHubPage() {
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas dog life: parks, heat, travel and breeds</h1>
         <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
         <p className="mt-5 max-w-3xl font-display text-2xl leading-8">Better Texas days for dogs and their people.</p>
+        <figure className="mt-9 max-w-4xl"><img src={texasDogsIllustration} alt="Editorial illustration of a small long-haired Chihuahua against a warm Texas-evening background" width={1200} height={800} loading="lazy" decoding="async" className="h-auto w-full object-cover" /><figcaption className="mt-2 text-xs leading-6 text-muted-foreground">Texas Dogs Defined editorial illustration—not a photograph of a dog-friendly park or a representation of current outdoor conditions.</figcaption></figure>
       </Container>
     </section>
 
