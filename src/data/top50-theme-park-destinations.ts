@@ -38,6 +38,7 @@ export const top50ThemeParkDestinations: Destination[] = [
     ],
     "body": [
       "Schlitterbahn grew into a signature Texas waterpark because its New Braunfels setting is inseparable from the river culture around it. Visitors come for a mix of fast slides, family play areas and water attractions that use the terrain differently from a conventional compact amusement park. Give yourself time to navigate the park and use the current official map rather than assuming every attraction is beside the main entrance.",
+      "Schlitterbahn's origins run deeper than modern water-ride marketing. According to the Texas State Historical Association, the Henry family began transforming the former Camp Landa resort on the Comal River after taking it over in 1966, and the family waterpark opened in 1979. That history helps explain its unusually close relationship to New Braunfels river recreation and the spread-out resort setting: the attraction grew from a riverside family business, not from a purpose-built shopping mall or a single enclosed theme park.",
       "The most important decision is whether your group values high-intensity rides, relaxed pool time or attractions children can share. Choose two or three anchors from the operator's current map, then build breaks and meals around them. Ride dispatch, section openings, height rules and seasonal schedules change, and a headline attraction shown on a marketing page is not a promise it will run on a specific date.",
       "Arriving in New Braunfels takes another piece of planning. The waterpark entrance and resort check-in are not the same address. The operator currently identifies the waterpark entrance at 400 N. Liberty Avenue and general parking as free, but you should still confirm the correct lot and rules for your ticket. Save the separate Comal/Guadalupe river tubing experience for another block rather than treating the waterpark as a public river put-in.",
       "Families should not copy the same ride list from another group. Build the day around each swimmer's ability and the posted height and health requirements, then designate a meeting point and regular check-in times. A child who enjoys shallow splash areas may not be ready for fast water slides, while older riders can lose valuable time crossing the park to meet friends. Read the ride descriptions together before arrival, and confirm the day's actual availability; a waterpark map is a navigational aid, not an operational guarantee.",
@@ -168,6 +169,16 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "CC BY-SA 2.0 — ljpelletier; 2004 archival pool image",
           "url": "https://creativecommons.org/licenses/by-sa/2.0/",
           "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
+        },
+        {
+          "label": "Texas State Historical Association — Schlitterbahn",
+          "url": "https://www.tshaonline.org/handbook/entries/schlitterbahn",
+          "scope": "Historical founding, Henry family, 1979 opening and Comal River setting."
+        },
+        {
+          "label": "Six Flags — Schlitterbahn original park history",
+          "url": "https://www.sixflags.com/blog/media-center/schlitterbahn-new-braunfels-history",
+          "scope": "Operator history documenting the resort development, original waterpark and ride innovation."
         }
       ]
     }
@@ -204,6 +215,7 @@ export const top50ThemeParkDestinations: Destination[] = [
     ],
     "body": [
       "Six Flags Over Texas is not just another park with roller coasters. The Arlington attraction opened in 1961 and gave the Six Flags name to the wider theme-park business, tying modern entertainment to Texas's six-flag historical motif. Visitors come primarily for rides, but understanding the original park's history adds perspective to one of the state's longest-running large amusement venues.",
+      "Texas State Historical Association and Tarrant County archival sources trace the park to developer Angus G. Wynne Jr. and its August 5, 1961 public opening. The original concept organized entertainment around periods represented by the flags that had flown over Texas, rather than a collection of unrelated thrill rides. Modern attractions have changed dramatically, but visitors can still read the park as a landmark in the evolution of family-focused regional tourism between Dallas and Fort Worth.",
       "Park strategy matters more than chasing every headline attraction. Pick a manageable ride list based on height requirements, intensity and group preferences. Some people will spend an entire day on major coasters; a family with young children needs a different route with rest stops, shows and shorter walks. Daily operations, weather-related suspensions and seasonal events can change what is usable.",
       "The park sits in Arlington's busy visitor corridor, but it is not the same ticket or property as Hurricane Harbor Arlington, AT&T Stadium or Globe Life Field. Check the exact Six Flags arrival page for the correct park, budget for parking according to your ticket, and avoid combining a major stadium event and a full theme-park day unless your group has a realistic travel and parking plan.",
       "The original Six Flags park is best understood through Arlington, not Fort Worth's Stockyards or Dallas's downtown museums. The amusement park predates the stadium district's more recent development and is a destination on its own. Some tours of North Texas try to combine a coaster day with a stadium event, but those are separate operations with different parking rules and crowd patterns. Build travel time into the schedule, particularly if a concert or sports game will bring an additional crowd to Arlington that evening.",
@@ -329,6 +341,16 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "Six Flags historic entrance photograph",
           "url": "https://commons.wikimedia.org/wiki/File:Six_Flags_over_Texas_(Entrance).JPG",
           "scope": "Public-domain original 2006 entrance photograph; cannot stand in for current signage."
+        },
+        {
+          "label": "Texas State Historical Association — Six Flags Over Texas",
+          "url": "https://www.tshaonline.org/handbook/entries/six-flags-over-texas",
+          "scope": "Independent historical account of park's 1961 opening, Angus Wynne and the regional theme park model."
+        },
+        {
+          "label": "Tarrant County Archives — original Six Flags history",
+          "url": "https://www.tarrantcountytx.gov/en/tarrant-county-archives/holdings/named-collections/w/wreden-kathy-b.html",
+          "scope": "Archival materials and opening-day historical context."
         }
       ]
     }
@@ -365,6 +387,7 @@ export const top50ThemeParkDestinations: Destination[] = [
     ],
     "body": [
       "SeaWorld San Antonio is a hybrid park: some visitors want marine wildlife interpretation and presentations, while others prioritize large rides. Treat those as two different trip patterns rather than assuming the same half-day itinerary will work for both. The park's daily schedule is the most useful planning document because showtimes and ride availability determine how far you have to walk between activities.",
+      "The San Antonio Express-News archive dates the park's opening to April 15, 1988, during an era when San Antonio was expanding beyond its downtown historical attractions. That long history is part of why the park attracts different kinds of visitors today: some want a marine-education visit, while others expect a modern roller-coaster day. Compare the current animal-care, accessibility and performance offerings with older memories of the park; its experiences and programming have changed across decades.",
       "The operator's published FAQ says standard SeaWorld admission includes the park's rides, shows and attractions, while Aquatica is separately ticketed unless your ticket or pass expressly includes it. That distinction matters for families looking for a waterpark day. Choose your ticket first and do not assume a printed advertisement for an adjacent experience makes it part of your general admission.",
       "SeaWorld's setting on San Antonio's western side is different from the downtown Alamo/River Walk corridor. Give the park its own day, account for outdoor heat and transitions between marine exhibits and thrill rides, and let children who are uncomfortable with loud presentations or very large crowds choose calmer areas. Always verify the operator's current animal-care and program information rather than assuming a particular show or animal encounter will occur.",
       "SeaWorld's strongest family itinerary does not require everyone to ride every coaster. Prioritize animal habitats or educational programs for visitors interested in marine life, then fit a smaller ride block between scheduled presentations. The official app and daily schedule are more reliable than an older printed itinerary because activities may change in response to weather, animal-care priorities and special programming. Guests needing accessible routes or a less stimulating setting should check the park's current accommodation guidance and identify quieter breaks before the visit.",
@@ -495,6 +518,11 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "CC BY-SA 3.0 — TheConduqtor; 2007 archival entry image",
           "url": "https://creativecommons.org/licenses/by-sa/3.0/",
           "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
+        },
+        {
+          "label": "San Antonio Express-News — SeaWorld's 1988 opening",
+          "url": "https://www.expressnews.com/sa300/article/SeaWorld-opened-to-eager-crowds-30-years-ago-12833256.php",
+          "scope": "Original local reporting on 1988 park opening and San Antonio historical context."
         }
       ]
     }
@@ -531,6 +559,7 @@ export const top50ThemeParkDestinations: Destination[] = [
     ],
     "body": [
       "Six Flags Fiesta Texas is distinct from Six Flags Over Texas in Arlington. Its San Antonio setting uses a dramatic former quarry backdrop, and its attraction mix includes high-intensity coasters, rides for different ages and scheduled entertainment. Plan it as a major standalone day, not a casual side trip on an already full downtown San Antonio itinerary.",
+      "The City of San Antonio's adopted UTSA regional plan documents how formerly mined Beckmann Quarry land became the setting for Fiesta Texas and the wider La Cantera entertainment corridor. The park opened in 1992 with a stronger emphasis on music and staged entertainment than today's coaster-heavy image might suggest. Read the outdoor amphitheater and quarry walls as evidence of that original design rather than expecting the entire history to be told by individual rides.",
       "The best route depends on which rides your group can actually use. Height and health restrictions, weather, maintenance and seasonal schedules are more decisive than a fixed list of famous attractions. Choose a small number of high-priority rides, cluster them by park zone, and schedule food and shade breaks before the afternoon heat adds friction.",
       "The operator lists the park at 17000 IH-10 West and publishes event-specific calendars rather than one universal schedule. During holiday periods, selected rides and shows may operate on different days from the main season. Keep the theme park separate from SeaWorld and the downtown River Walk, which have separate addresses, admission and travel logistics.",
       "The former quarry backdrop makes Fiesta Texas visually different from a flat amusement park. That dramatic setting also means the visit can involve long outdoor walks in open sun between rides. Summer visitors should start with the rides that matter most, carry drinking water according to park rules and build time for shade or indoor entertainment into the schedule. Families with children of different ages will have a better visit when they agree on a meeting plan and confirm which attractions everyone is eligible to ride.",
@@ -661,6 +690,16 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "CC BY-SA 4.0 — Wacky Windjammer; 2026 entry photograph",
           "url": "https://creativecommons.org/licenses/by-sa/4.0/",
           "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
+        },
+        {
+          "label": "City of San Antonio — UTSA Area Regional Center Plan",
+          "url": "https://www.sa.gov/files/assets/main/v/1/planning/documents/adopted-plans/utsa-area-regional-center-plan-2019.pdf",
+          "scope": "Adopted city planning source documenting redevelopment of the Beckmann Quarry and surrounding visitor corridor."
+        },
+        {
+          "label": "SFFT Source — historical park opening timeline",
+          "url": "https://www.sfftsource.com/history-timeline",
+          "scope": "Independent enthusiast chronology of the 1992 opening and original entertainment-focused park programming."
         }
       ]
     }
