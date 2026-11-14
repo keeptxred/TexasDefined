@@ -269,7 +269,7 @@ export function qualifyPriorDeployJob(payload) {
         !checker.includes('const decodedVisitorCopy = normalizeMoodyGardensTextEntities(html);') ||
         !checker.includes('if (!decodedVisitorCopy.includes(marker)) failures.push') ||
         !checker.includes('if (decodedVisitorCopy.includes(marker)) failures.push') ||
-        !checker.includes(\"a ticket that includes Galveston Children's Museum admission\") ||
+        !checker.includes("a ticket that includes Galveston Children's Museum admission") ||
         !checker.includes('for (const [label, rawUrl] of targets)') ||
         !normalization.includes('export function normalizeMoodyGardensTextEntities(html)') ||
         !test.includes('production acceptance handles the apostrophes in rendered museum admissions') ||
