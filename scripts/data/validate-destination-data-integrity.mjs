@@ -267,9 +267,17 @@ for (const [name, source] of [['destination curation', moodyCuration], ['spotlig
     if (source.toLowerCase().includes(stale.toLowerCase())) errors.push('Moody Gardens ' + name + ' still publishes obsolete closure: ' + stale);
   }
 }
-for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026"]) {
+for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026", "9 to 10 AM reserved for museum members"]) {
   if (!(moodyCuration + '\n' + moodySpotlights).includes(marker)) errors.push('Moody Gardens lacks new visitor evidence: ' + marker);
 }
+
+if (!moodyCuration.includes("with 9 to 10 AM reserved for museum members")) {
+  errors.push("Moody Gardens admission planning must distinguish the museum's members-only hour from general opening hours.");
+}
+if (!moodySpotlights.includes("9 to 10 AM is reserved for museum members")) {
+  errors.push("Moody Gardens prominent visit note must flag the 9-to-10-AM museum members-only hour.");
+}
+
 for (const link of [
   'https://www.moodygardens.com/attractions/discovery-pyramid',
   'https://www.moodygardens.com/visitor-info/accessibility',
