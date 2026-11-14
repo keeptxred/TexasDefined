@@ -7,6 +7,18 @@ const slugs=[
  "texas-music-cities","austin-music-history","houston-music-history","san-antonio-music-history",
  "corpus-christi-music-history","lubbock-music-history"
 ];
+const expectedArchivalFindings = {
+  "broken-spoke-austin-history": "The first paid band makes the local economy visible",
+  "continental-club-austin-history": "New wave and roots rock occupied the same address",
+  "antones-austin-history": "A record shop and label extended the club beyond the stage",
+  "billy-bobs-texas-history": "An opening-night negative documents dancers",
+  "texas-music-cities": "Dallas's Deep Ellum used a neighborhood business network",
+  "austin-music-history": "The first broadcast season reveals a wider Austin",
+  "houston-music-history": "The Fifth Ward's club history cannot be reduced",
+  "san-antonio-music-history": "A 2025 film records musicians",
+  "corpus-christi-music-history": "A university collection preserves Freddie Records",
+  "lubbock-music-history": "The later West Texas Walk of Fame"
+};
 const nonce=Date.now().toString(36);
 const results=[];
 function attrs(tag,name){return tag.match(new RegExp("\\b"+name+"\\s*=\\s*[\"']([^\"']+)[\"']","i"))?.[1]??null}
@@ -57,14 +69,19 @@ async function verify(slug){
   for(const heading of ["Research file", "What the record establishes", "Our reading", "What remains uncertain:"]) {
    if(!visible(main).includes(heading))errors.push(kind+" missing source/interpretation research section: "+heading);
   }
-  if(((main.match(/What the record establishes/g)||[]).length)<4) errors.push(kind+" fewer than four grounded research findings");
+  if(((main.match(/What the record establishes/g)||[]).length)<5) errors.push(kind+" fewer than five independently annotated research findings");
+  if(!visible(main).includes(expectedArchivalFindings[slug]))errors.push(kind+" updated city/venue primary archival finding absent");
   if(slug==="continental-club-austin-history"&&!visible(main).includes("1955")||slug==="continental-club-austin-history"&&!visible(main).includes("1957"))errors.push(kind+" Continental opening-date dispute was not published");
   if(slug==="antones-austin-history" && (!visible(main).includes("Guadalupe Street in 1981") || !visible(main).includes("September 3, 1982"))) errors.push(kind+" Antones disputed Guadalupe 1981/1982 opening evidence absent");
 
-  for(const marker of ["Texas Defined Editorial Desk","November 13, 2026","Historical source"]){
+  for(const marker of ["Texas Defined Editorial Desk","November 14, 2026","Historical source"]){
    if(!visible(html).includes(marker) && marker!=="Historical source")errors.push(kind+" missing published evidence: "+marker);
   }
   if(!html.includes('application/ld+json')||!html.includes('BreadcrumbList')||!html.includes('dateModified'))errors.push(kind+" article/breadcrumb JSON-LD evidence missing");
+  if(!/["']dateModified["']\s*:\s*["']2026-11-14["']/.test(html))errors.push(kind+" article modification date not updated after substantive research");
+  if(!html.includes('"url":"https://texasdefined.com/authors/a-hollis"'))errors.push(kind+" author Organization does not identify canonical editorial desk profile");
+  const bylineAnchor=(main.match(/<a\b[^>]*>/gi)??[]).some(tag=>attrs(tag,"href")==="/authors/a-hollis");
+  if(!bylineAnchor)errors.push(kind+" visible byline does not link to central editorial desk");
   if(!html.includes('tshaonline.org') && slug!=="continental-club-austin-history")errors.push(kind+" institutional citations absent");
   if(slug==="texas-music-cities"&&!visible(html).includes("What made each Texas music city different?"))errors.push(kind+" accessible comparison missing");
   if(slug!=="texas-music-cities"&&!visible(html).match(/documented milestones|source-linked chronology|Milestones in a Coastal Bend recording center/i))errors.push(kind+" per-page source-linked chronology missing");
@@ -110,4 +127,17 @@ results.forEach(r=>console.log((r.ok?"PASS ":"FAIL ")+r.slug+
  (r.errors.length?" "+r.errors.join(" | "):"")+
  (r.crawlerWarnings.length?" CRAWLER-UA ADVISORY: "+r.crawlerWarnings.join(" | "):"")));
 console.log("Production music history acceptance "+results.filter(x=>x.ok).length+"/"+slugs.length);
-if(results.some(x=>!x.ok))process.exitCode=1;
+// Verify the *actual* desk profile once, including its centrally maintained
+// editorial-policy link and archive of every history story it claims.
+let profileOk=true;
+try{
+ const profile=await fetch(base+"/authors/a-hollis",{headers:{"Accept":"text/html","Cache-Control":"no-cache"},signal:AbortSignal.timeout(30000)});
+ const page=await profile.text();
+ if(profile.status!==200)throw Error("HTTP "+profile.status);
+ for(const marker of ["/editorial-policy","Texas Defined Editorial Desk",...slugs.map(x=>"/"+x)]){
+  if(!page.includes(marker))throw Error("missing profile field "+marker);
+ }
+ if(/\bnoindex\b/i.test(profile.headers.get("x-robots-tag")??""))throw Error("profile marked noindex");
+ console.log("PASS editorial desk profile: central policy and 10 historical bylines");
+}catch(e){profileOk=false;console.error("FAIL editorial desk profile: "+String(e))}
+if(results.some(x=>!x.ok)||!profileOk)process.exitCode=1;
