@@ -14,6 +14,15 @@ for (const [slug, facts] of entries) {
   assert.ok(source.includes('2026-11-13'));
   assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(source), 'No unlicensed images or unsourced scores: ' + slug);
 }
+const forsan = read('src/data/high-school-football/program-editorial-b018-forsan.ts');
+// Official Nov13 site was a neutral stadium, not the campus. The 35–28
+// score and fourth-quarter play narrative come from attributed local reporting.
+for (const fact of ['Wigwam Stadium', 'Seminole', 'forsan.esc18.net/live-feed',
+  '35–28', '14-point fourth-quarter deficit', 'Midland Reporter-Telegram',
+  'https://www.mrt.com/sports/highschool/article/big-spring-permian-forsan-advance-uil-football-22530172.php']) {
+  assert.ok(forsan.includes(fact), 'Forsan missing distinct stadium or press source: ' + fact);
+}
+assert.ok(!forsan.includes('No third-party 2026 result'), 'outdated Forsan score disclaimer');
 const edges = read('src/data/high-school-football/batch018-fourth-five-county-edges.ts');
 for (const [slug,county] of [['forsan','howard'],['fort-bend-austin','fort-bend'],['fort-bend-bush','fort-bend'],['fort-bend-christian','fort-bend'],['fort-bend-clements','fort-bend']]) {
   assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: '" + county + "'"), 'Missing campus county: ' + slug);
