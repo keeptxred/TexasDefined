@@ -9,6 +9,40 @@ const slugs=[
 "broken-spoke-austin-history","continental-club-austin-history","antones-austin-history",
 "billy-bobs-texas-history","texas-music-cities","austin-music-history","houston-music-history",
 "san-antonio-music-history","corpus-christi-music-history","lubbock-music-history"];
+const expectedNov14Additions = {
+  "broken-spoke-austin-history": [
+    "The proposed protection became an enacted city ordinance",
+    "The rezoning centered on the hall, not the whole commercial tract"
+  ],
+  "continental-club-austin-history": [
+    "A city permit file separates the club from its upstairs gallery",
+    "The city's 2008 staff report is an older witness to the 1957 date"
+  ],
+  "billy-bobs-texas-history": [
+    "A television report is dated to the day the honky-tonk closed",
+    "An archival image dates the attempted revival before reopening"
+  ],
+  "texas-music-cities": [
+    "A preserved Austin broadcast is a different kind of proof from a Houston label ledger",
+    "A San Antonio concert map measures different evidence again"
+  ],
+  "austin-music-history": [
+    "A preserved U-matic program distinguishes taping from broadcast",
+    "Public television funding made Austin's local sound a national experiment"
+  ],
+  "houston-music-history": [
+    "Recording-session logbooks survive alongside the record-label publicity",
+    "Financial folders make the label's business history researchable"
+  ],
+  "san-antonio-music-history": [
+    "A public-library concert list has become a time-and-place map",
+    "Corrido performance and newspaper accounts offer different kinds of local memory"
+  ],
+  "lubbock-music-history": [
+    "Texas Tech preserves the researcher's trail as well as Holly's fame",
+    "The local radio show predates the national studio breakthrough"
+  ]
+};
 const viewports=[{name:"mobile",width:390,height:844,isMobile:true},{name:"desktop",width:1365,height:900,isMobile:false}];
 const report={checkedAt:new Date().toISOString(),checks:[],failures:[]};
 await mkdir(dir,{recursive:true});
@@ -30,6 +64,8 @@ try{
    check("one main landmark",await page.locator("main").count()===1);
    const mainText=await page.locator("main").innerText({timeout:12000}).catch(()=>"");
    check("historical content visible",mainText.length>1300,mainText.length);
+    for(const marker of expectedNov14Additions[slug]??[]) check("original Nov14 archival research visible: "+marker,mainText.includes(marker));
+    if(slug==="broken-spoke-austin-history")check("enacted zoning ordinance visible",mainText.includes("20230518-074"));
    check("accountable editorial desk visible",mainText.includes("Texas Defined Editorial Desk"));
    check("desk byline links to one institutional profile",await page.locator('main a[href="/authors/a-hollis"]').count()===1);
    check("source review date is visible",mainText.includes("November 14, 2026"));
