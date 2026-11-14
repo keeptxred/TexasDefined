@@ -77,22 +77,31 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
   assert.ok(start>=0 && end>start);
   const editorial=JSON.parse('{'+raw.slice(start,end).trim().replace(/,\s*$/,'')+'}').aubrey;
   const snapshot=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
-  assert.equal(snapshot.verifiedResults.length,4,'Three late regular-season finals plus one separately verified playoff final');
-  assert.deepEqual(snapshot.verifiedResults.map(x=>[x.date,x.opponent,x.aubreyScore,x.opponentScore]),[
+  // These four manually corroborated historical finals are an immutable
+  // baseline, NOT an upper bound: future verified playoff results must pass
+  // protected checks without editing this test after every new game.
+  const baseline = [
     ['2026-10-23','Lake Dallas',28,21],
     ['2026-10-30','Alvarado',70,40],
     ['2026-11-06','Godley',55,22],
     ['2026-11-12','Andrews',63,24],
-  ]);
+  ];
+  assert.ok(snapshot.verifiedResults.length >= baseline.length && snapshot.verifiedResults.length <= 16);
+  for (const [date, opponent, aubreyScore, opponentScore] of baseline) {
+    const row = snapshot.verifiedResults.find(x=>x.date===date);
+    assert.ok(row, 'Previously published Aubrey final must remain: '+date);
+    assert.deepEqual([row.opponent,row.aubreyScore,row.opponentScore],[opponent,aubreyScore,opponentScore]);
+    assert.equal(row.verificationMethod,'manual-editorial-review');
+  }
   for(const result of snapshot.verifiedResults){
-    assert.equal(result.verificationMethod,'manual-editorial-review');
+    assert.ok(['manual-editorial-review','dual-authorized-feed'].includes(result.verificationMethod), 'Unknown publication provenance: '+result.date);
     assert.ok(result.primarySourceUrl.startsWith('https://') && result.secondarySourceUrl.startsWith('https://'));
     assert.notEqual(new URL(result.primarySourceUrl).hostname,new URL(result.secondarySourceUrl).hostname);
   }
   const primary={season:'2026',teamSlug:'aubrey',games:[]};
   const secondary={season:'2026',teamSlug:'aubrey',games:[]};
   const playoff=JSON.parse(readFileSync('src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json','utf8'));
-  assert.equal(playoff.games.length,2);
+  assert.ok(playoff.games.length >= 2 && playoff.games.length <= 6, 'Retain two verified playoff fixtures while permitting later rounds');
   assert.equal(playoff.games[0].opponent,'Andrews');
   assert.equal(playoff.games[1].opponent,'Canyon');
   assert.equal(playoff.games[1].result,undefined,'Upcoming Canyon fixture must not have invented final');
@@ -103,8 +112,8 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
     const extra=snapshot.verifiedResults.find(x=>x.date===game.date);
     return { ...game, result:game.result || (extra ? (extra.aubreyScore>extra.opponentScore?'W ':'L ')+extra.aubreyScore+'–'+extra.opponentScore:undefined) };
   });
-  assert.equal(games.filter(game=>game.result?.startsWith('W ')).length,8);
-  assert.equal(games.filter(game=>game.result?.startsWith('L ')).length,3);
+  assert.ok(games.filter(game=>game.result?.startsWith('W ')).length>=8, 'Keep eight documented wins; later verified wins are allowed');
+  assert.ok(games.filter(game=>game.result?.startsWith('L ')).length>=3, 'Keep three documented losses; later playoff results are allowed');
   assert.equal(games.filter(game=>game.district && game.result?.startsWith('W ')).length,7);
   assert.equal(games.filter(game=>game.district && game.result?.startsWith('L ')).length,0);
   assert.throws(()=>reconcileAubreyResults({
