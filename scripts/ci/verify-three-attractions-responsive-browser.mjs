@@ -75,7 +75,7 @@ try {
             noindex: /\bnoindex\b/i.test(robot),
             genericAtGlance: [...document.querySelectorAll("h2")].some((h) => h.textContent?.includes("at a glance")),
             duplicateResearchPanel: Boolean(document.querySelector("#destination-research-sources")),
-            datedPrimarySources: document.querySelector("#destination-authority-sources")?.closest("section")?.querySelectorAll("a[href^='https://']")?.length ?? 0,
+            datedPrimarySources: (document.querySelector("#destination-authority-sources")?.closest("section") ?? document.getElementById(alt.includes("San Antonio Japanese Tea Garden") ? "san-antonio-japanese-tea-garden-sources" : alt.includes("Fort Worth Water Gardens") ? "fort-worth-water-gardens-sources" : "houston-botanic-garden-sources")?.closest("section"))?.querySelectorAll("a[href^='https://']")?.length ?? 0,
             editorialMetaLanguage: /Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(document.body.innerText),
             photoCredit: (() => {
               const el = document.querySelector("[data-attraction-photo-credit]");
