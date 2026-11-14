@@ -39,7 +39,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: music-history-authority-${{ github.event_name }}-${{ github.ref }}
+  # Issue comments on unrelated project tickets must not cancel a ten-page audit.
+  # Scope comment-triggered concurrency to the exact issue number (7081).
+  group: music-history-authority-${{ github.event_name }}-${{ github.event_name == 'issue_comment' && github.event.issue.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
