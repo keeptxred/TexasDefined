@@ -12,7 +12,7 @@ const santaStart = authority.indexOf('slug: "santas-wonderland-college-station"'
 const santaEnd = santaStart < 0 ? -1 : authority.indexOf('slug: "houston-zoo-lights"', santaStart);
 const santaRecord = santaStart < 0 || santaEnd < 0 ? '' : authority.slice(santaStart, santaEnd);
 // Repeated object keys silently overwrite operator-confirmed visitor guidance.
-if ((santaRecord.match(/\\bdateNote:/g) ?? []).length !== 1) {
+if ((santaRecord.match(/\bdateNote:/g) ?? []).length !== 1) {
   issues.push("Santa's Wonderland must have exactly one authoritative dateNote");
 }
 if (!santaRecord.includes('November 13, 2026–January 3, 2027') ||
