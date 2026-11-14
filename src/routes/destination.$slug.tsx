@@ -394,7 +394,7 @@ function DestinationPage() {
     { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
   ] : destination.slug === "houston-botanic-garden" ? [
     { question: "Daytime tickets and reservations", answer: "Adults $12; ages 3–17, students with ID, seniors and active military $8; under age 3 free but every visitor needs a ticket or member reservation." },
-    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. Closed Thanksgiving, Christmas and New Year's Day." },
+    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. Thanksgiving and Christmas are listed as closures; the About page also lists New Year's Day, so verify January 1 on the ticket calendar." },
     { question: "What to explore?", answer: "Global and Culinary gardens, Coastal Prairie, Stormwater Wetlands and the Susan Garver Family Discovery Garden." },
     { question: "Arrival and access", answer: "Enter One Botanic Lane from Park Place Boulevard. Free daytime parking; bring your own wheelchair or stroller if needed. Allow 1.5–2 hours." },
   ] : null;
