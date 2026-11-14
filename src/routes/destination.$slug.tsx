@@ -649,7 +649,7 @@ function DestinationPage() {
         {/* Keep this contextual hotel module with the visitor planning information;
             without a dedicated slot both commercial layers fall to the guide footer. */}
         {destination.slug === "fort-mckavett" && <div data-stay-nearby-slot aria-label="Places to stay when visiting Fort McKavett" />}
-        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
+        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && !isReviewedAttraction && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
           <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>
