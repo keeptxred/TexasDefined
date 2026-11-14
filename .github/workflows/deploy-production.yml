@@ -1162,6 +1162,13 @@ jobs:
         if: ${{ always() && steps.live_district6.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
         run: node scripts/ci/verify-district6-responsive-browser.mjs
 
+      # One Moody Gardens URL at 320/390/768/1280px; reuse the Chrome and
+      # Playwright package already installed for District 5, not a new crawler.
+      - name: Verify Moody Gardens four-viewport browser authority and layout
+        id: live_moody_browser
+        if: ${{ always() && steps.live_moody_gardens.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-moody-gardens-responsive-browser.mjs
+
       # Bounded three-page event checkout/accessibility smoke; reuse Chrome
       # already installed for District 5 rather than adding another dependency.
       # Never click ticket links or claim live seats, prices, or commissions.
