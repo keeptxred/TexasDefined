@@ -12,6 +12,7 @@ on:
       - 'src/routes/sports.friday-night-lights.lazy.tsx'
       - 'src/routes/texas-tailgating-guide.lazy.tsx'
       - 'src/data/fixtures/texas-sports-weekend-calendar-guide.ts'
+      - 'src/data/fixtures/lazy-standalone-evergreen.ts'
   schedule:
     - cron: '27 15 * * 4'
   workflow_dispatch:
