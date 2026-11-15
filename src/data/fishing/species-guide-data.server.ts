@@ -40,12 +40,18 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
   const url = `${origin}${canonicalPath}`;
   const speciesImage = getFishingFishImage(species.slug);
   const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
+  const hasLinkedLakes = lakes.length > 0;
+  const hasFieldGuide = Boolean(fishIdentification[species.slug]);
   const title = isBlueCatfish
     ? "Blue Catfish in Texas: Fishing Guide"
-    : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
+    : !hasLinkedLakes && hasFieldGuide
+      ? `${species.commonName} in Texas — Fish Identification & Habitat`
+      : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
   const description = isBlueCatfish
     ? "Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."
-    : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
+    : !hasLinkedLakes && hasFieldGuide
+      ? `Identify ${species.commonName} in Texas: TPWD-backed markings, size, similar fish, habitats, seasonal biology, fishing context and current regulation sources.`
+      : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
