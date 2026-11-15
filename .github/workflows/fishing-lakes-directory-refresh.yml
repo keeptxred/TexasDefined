@@ -27,6 +27,8 @@ on:
       - 'src/data/fishing/planner-twdb-coordinates.json'
       - 'src/data/fishing/planner-official-coordinate-fallbacks.json'
       - 'scripts/ci/audit-fishing-planner-alternate-coordinates.mjs'
+      - 'scripts/ci/fishing-gnis-coordinate-source.mjs'
+      - 'scripts/ci/fishing-gnis-coordinate-source.test.mjs'
       - 'src/data/fishing/planner-data.server.ts'
       - 'scripts/data/validate-fishing-planner-platform.mjs'
       - 'src/data/fishing/lake-directory-advisories.json'
@@ -91,6 +93,8 @@ jobs:
           node scripts/ci/audit-fishing-planner-live-sources.mjs --plan
           node --check scripts/ci/audit-fishing-planner-alternate-coordinates.mjs
           node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --plan
+          node --test scripts/ci/fishing-gnis-coordinate-source.test.mjs
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --smoke; fi
           node scripts/ci/audit-fishing-compare-authority.mjs --local
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
