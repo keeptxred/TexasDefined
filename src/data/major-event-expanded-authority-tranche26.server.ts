@@ -70,10 +70,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-05-09",
     venue: "Taylor County Expo Center",
     officialUrl: "https://www.westernheritageclassic.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Western Heritage Classic is an Abilene destination weekend built around working-ranch traditions, combining ranch rodeo, chuckwagon competition, horse events, cowboy music and poetry, a parade, trade exhibits and heritage programming at the Taylor County Expo Center.",
     planningSections: [
-      { title: "Hold May 6-9 for the 2027 Classic", body: "The organizer publishes May 6-9, 2027 as the official event window. The detailed schedule is still being filled in, so use the dates for travel planning and recheck the organizer before choosing individual performances." },
+      { title: "2027 Classic confirmed May 6–9; performances not announced", body: "The organizer's 2027 schedule confirms May 6–9 at the Taylor County Expo Center but explicitly says the full schedule is coming soon. The posted facility address is 1700 Highway 36, with GPS navigation to 1801 E. South 11th Street in Abilene. Do not reuse 2026 ranch rodeo, chuckwagon or ticket times as confirmed 2027 details." },
       { title: "Choose the ranch events that matter most", body: "The official event catalog spans ranch rodeo, chuckwagon cooking, matched horse racing, ranch-horse competition, a parade, music, poetry and other demonstrations. Prioritize a few signature programs instead of assuming every activity fits into one day." },
       { title: "Use the Expo Center logistics", body: "The organizer publishes ticket, parking, RV and grounds information for the Taylor County Expo Center. Confirm the current 2027 access rules once ticket sales and final schedules are live." },
     ],
