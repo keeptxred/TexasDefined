@@ -4,6 +4,19 @@ import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
 export const PAGE_BUDGET = 40;
+export const TEXAS_CULTURE_AUTHORITY_PAGES = Object.freeze([
+  "/things-unique-to-texas/landmarks",
+  "/things-unique-to-texas/roadside-small-towns",
+  "/things-unique-to-texas/culture-music",
+  "/things-unique-to-texas/wildlife-landscape",
+  "/things-unique-to-texas/slang-folklore",
+  "/texas-food-history",
+  "/texas-food-trail",
+  "/texas-roadside-oddities",
+  "/texas-slang-explained",
+  "/what-does-chud-mean"
+]);
+
 export const REPRESENTATIVE_PATHS = ['/', '/explore', '/texas-history', '/sports', '/fishing', '/events', '/shop', '/city/houston', '/article/bluebonnet-season-field-guide', '/destination/flat-creek-estate', '/county/travis'];
 const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src\/(?:worker|server|styles|index\.css|components\/layout|routes\/__root|lib\/(?:seo|public-routes|public-route-tokens)))/;
 const groups = {
@@ -85,6 +98,28 @@ function articleLinkRegistry(source) {
 export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null, enforceCriticalCanaries = false }) {
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
+  // Editorial directories and consolidated guide registries do not declare
+  // their public URLs in changed-file route syntax. Cover these exact ten
+  // published paths when their shared evidence, rendering or governance changes,
+  // including this planner policy itself. Never broaden this to a sitewide crawl.
+  const texasCultureAuthorityPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/texas-icon-chapter-evidence.ts',
+    'src/data/things-unique-to-texas.ts',
+    'src/data/texas-evergreen-guides.ts',
+    'src/routes/things-unique-to-texas_.$category.tsx',
+    'src/routes/things-unique-to-texas_.$category.lazy.tsx',
+    'src/routes/texas-food-history.tsx',
+    'src/routes/what-does-chud-mean.tsx',
+    'src/components/editorial/TexasEvergreenGuide.tsx',
+    '.github/workflows/validate-texas-culture-authority.yml',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    for (const path of TEXAS_CULTURE_AUTHORITY_PAGES) {
+      texasCultureAuthorityPages.add(path);
+      candidates.add(path);
+    }
+  }
   const expectedHrefsByPage = {};
   // Exact thirteen source-verified GSC ImageObject examples only. Test their *deployed* JSON-LD
   // when the shared rights registry changes; no sitewide image crawl.
@@ -638,7 +673,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...moodyGardensPages, ...davisHillPages, ...imageRightsPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...texasCultureAuthorityPages, ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...moodyGardensPages, ...davisHillPages, ...imageRightsPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
