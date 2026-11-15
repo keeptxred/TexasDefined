@@ -84,7 +84,7 @@ export const TOP_ATTRACTION_ROAD_TRIPS: readonly TopAttractionRoadTrip[] = [
     name: "Texas Panhandle canyon & Route 66 road trip",
     duration: "2–3 days",
     summary: "Combine Palo Duro Canyon's landscape with Cadillac Ranch and Amarillo's Route 66 identity for a short Panhandle route built around two very different Texas icons.",
-    planningNote: "Use cooler daylight hours for the canyon and reserve Amarillo's roadside-art stops for the more flexible part of the schedule.",
+    planningNote: "Use cooler daylight hours for the state-park canyon and reserve Amarillo's roadside-art stops for the flexible part of the schedule. The separate Tierra Blanca Creek guide explains the upper watershed and refuge access; do not treat private creek banks as another state-park entrance.",
     stops: ["palo-duro-canyon-state-park", "cadillac-ranch"],
   },
   {
