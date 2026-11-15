@@ -77,9 +77,9 @@ function TierraBlancaCreekGuide() {
               <p className="mt-4 text-base leading-8">No. Tierra Blanca is an upstream watercourse, not an alternate name for Palo Duro Canyon State Park. The Texas State Historical Association traces the creek from eastern New Mexico through Deaf Smith and Randall counties to a junction with Palo Duro Creek east of Canyon. That meeting forms the Prairie Dog Town Fork of the Red River. The waterway continues into Palo Duro Canyon.</p>
               <p className="mt-4 text-base leading-8">The distinction matters for a visitor. A creek on a geographic map does not establish a trailhead, parking lot or right of entry. Large stretches of rural Panhandle creek land are privately held. For legitimate, managed outings, use Buffalo Lake National Wildlife Refuge west of Canyon or the separately operated Palo Duro Canyon State Park east of Canyon.</p>
             </div>
-            <aside className="border-l border-primary bg-background p-6" aria-label="The watercourse in order">
+            <aside className="border border-primary bg-background p-6" aria-label="The watercourse in order">
               <h3 className="font-display text-xl">Read the watercourse</h3>
-              <ol className="mt-4 space-y-3 text-sm leading-6">
+              <ol className="mt-4 space-y-4 text-sm leading-6">
                 <li><strong>1. Tierra Blanca Creek</strong> — flows through Deaf Smith and Randall counties</li>
                 <li><strong>2. Palo Duro Creek</strong> — joins it east of Canyon</li>
                 <li><strong>3. Prairie Dog Town Fork</strong> — formed at their confluence</li>
@@ -90,7 +90,7 @@ function TierraBlancaCreekGuide() {
           </section>
 
           <figure className="border-b border-border py-10">
-            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-sm object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
+            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-lg object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
             <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Palo Duro Canyon State Park shows the dramatic downstream landscape. This is a photo of the state park, not a claimed photograph of Tierra Blanca Creek or a public creek access point. Existing TexasDefined image credit: Larry D. Moore, CC BY 4.0, Wikimedia Commons.</figcaption>
           </figure>
 
@@ -166,8 +166,8 @@ function TierraBlancaCreekGuide() {
             <h2 id="itinerary" className="mt-2 font-display text-3xl">Amarillo and Canyon road trips that tell the whole story</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">The right trip depends on whether you want the upper creek's grassland ecology, the county's museums and ranching context, or the state's most spectacular downstream canyon scenery. These are separate outings. No drive-time promise is made because weather, park access and traffic vary.</p>
             <div className="mt-6 divide-y divide-border border-y border-border">
-              {itineraries.map((trip) => <section key={trip.heading} className="grid gap-4 py-7 sm:grid-cols-2">
-                <div className="text-sm font-bold uppercase tracking-wide text-primary">{trip.time}</div>
+              {itineraries.map((trip) => <section key={trip.heading} className="grid gap-4 py-6 sm:grid-cols-2">
+                <div className="text-sm font-semibold text-primary">{trip.time}</div>
                 <div>
                   <h3 className="font-display text-2xl">{trip.heading}</h3>
                   <p className="mt-3 text-base leading-8 text-muted-foreground">{trip.body}</p>
@@ -180,7 +180,7 @@ function TierraBlancaCreekGuide() {
           <section className="border-b border-border py-10" aria-labelledby="questions">
             <p className="eyebrow text-primary">Practical questions</p>
             <h2 id="questions" className="mt-2 font-display text-3xl">What travelers often get wrong</h2>
-            <dl className="mt-6 space-y-7">
+            <dl className="mt-6 space-y-4">
               <div><dt className="font-display text-xl">Can I walk to the creek from Palo Duro Canyon State Park?</dt><dd className="mt-2 leading-7 text-muted-foreground">Not by assuming that its mapped state-park trails follow Tierra Blanca Creek. That creek meets Palo Duro Creek upstream of the named canyon stretch. Use TPWD's signed trails and property boundaries for the state park; do not invent a trail connection.</dd></div>
               <div><dt className="font-display text-xl">Is Buffalo Lake full of water?</dt><dd className="mt-2 leading-7 text-muted-foreground">Usually not. FWS says the once-impounded lake is typically dry and receives water during major flood events. The refuge emphasizes birding, habitat, auto touring, hiking and established facilities; swimming and wading are prohibited. Do not plan a boating or swimming trip from the name.</dd></div>
               <div><dt className="font-display text-xl">Is Tierra Blanca the same as the Canadian River Breaks?</dt><dd className="mt-2 leading-7 text-muted-foreground">No. The Canadian River valley toward Canadian and Lake Meredith is a different drainage system farther north. Both help explain why the Texas Panhandle is not uniformly flat, but one cannot be used as directions to the other.</dd></div>
