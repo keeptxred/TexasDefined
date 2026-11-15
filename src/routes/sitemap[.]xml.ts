@@ -43,6 +43,7 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/county/dallas": "2026-11-15", // Source-backed Institute of Letters history verified Nov 15; keep county canonical.
   "/texas-jobs-without-four-year-degree": "2026-11-10",
   "/texas-career-training-options": "2026-11-10",
   "/texas-government-jobs": "2026-11-10",
@@ -293,7 +294,17 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
-          ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
+          ...entityPages.map((entity) => {
+            const path = canonicalEntityPath(entity);
+            const editorialDate = STATIC_LASTMOD_BY_PATH[path];
+            // A verifiable editorial edit is a real lastmod even if the
+            // underlying entity-registry source was last checked months ago.
+            // Preserve the later of sourceCheckedAt and known edit date;
+            // never stamp sitemap entries with request/CI/deployment time.
+            const lastmod = editorialDate && editorialDate > (entity.sourceCheckedAt ?? "")
+              ? editorialDate : entity.sourceCheckedAt;
+            return { path, lastmod: toDate(lastmod) };
+          }),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
