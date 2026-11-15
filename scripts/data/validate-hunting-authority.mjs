@@ -170,7 +170,7 @@ for (const expected of [
   'Grayson', 'Washington', 'Gillespie', 'County',
   'texasdefined.com/hunting/texas-deer-hunting', '2026-11-15',
   'after-killing-a-deer', 'annual_public_hunting/search.phtml',
-  'no independent professional reviewer', 'county'
+  'an independent professional reviewer', 'county'
 ]) requireText(deerSourceRecord.toLowerCase(), expected.toLowerCase(), 'deer claim-level primary-source record missing ' + expected);
 requireText(deer, 'reviewedOn: "2026-11-15"', 'new deer editorial changes must have genuine updated date');
 requireText(deer, 'reviewedLabel: "November 15, 2026"', 'deer editorial visible date out of sync');
