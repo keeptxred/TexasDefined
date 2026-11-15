@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
@@ -125,6 +126,25 @@ function extractVisibleText(html) {
   return decodeHtmlEntities(withoutNonVisibleContent).replace(/\s+/g, ' ').trim();
 }
 
+// React's complete descriptive alt text continues after "buck". Match the
+// entire image tag and a prefix-safe ALT ATTRIBUTE, not a falsely closed string.
+function findDeerHeroImageTag(html) {
+  return [...html.matchAll(/<img\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .find((tag) => /\balt="Close view of a white-tailed buck[^"]*"/i.test(tag)) ?? null;
+}
+
+if (process.argv.includes('--self-test')) {
+  const fullAlt = '<img src="/white-tail.jpg" width="1000" alt="Close view of a white-tailed buck standing in tall grass" loading="eager" fetchpriority="high">';
+  const reordered = '<IMG loading="eager" ALT="Close view of a white-tailed buck standing in tall grass" fetchPriority="high" src="/white-tail.jpg">';
+  assert.equal(findDeerHeroImageTag(fullAlt), fullAlt);
+  assert.equal(findDeerHeroImageTag(reordered), reordered);
+  assert.equal(findDeerHeroImageTag('<img alt="White-tail in grass" loading="lazy">'), null);
+  assert.equal(findDeerHeroImageTag('<script>alt="Close view of a white-tailed buck"</script>'), null);
+  console.log('Deer full descriptive ALT image extraction contract passed offline.');
+  process.exit(0);
+}
+
 async function fetchDocument(pathname, cacheBust = true, rawHtml = false) {
   let lastError;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
@@ -227,7 +247,7 @@ async function verify() {
   // Require both the cache-bypassed Worker and the exact visitor URL. Cloudflare
   // HTML cache can otherwise hide a stale canonical page behind a fresh query.
   const deerHtml = await fetchDocument('/hunting/texas-deer-hunting', true, true);
-  const hero = deerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  const hero = findDeerHeroImageTag(deerHtml);
   if (!hero) throw new Error('Source-attributed deer hero is missing from server-rendered HTML');
   requireText(hero.toLowerCase(), 'loading="eager"', 'Deer LCP image priority');
   requireText(hero.toLowerCase(), 'fetchpriority="high"', 'Deer LCP image high priority');
@@ -249,7 +269,7 @@ async function verify() {
   for (const marker of requiredDeerMarkers) {
     requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
   }
-  const canonicalHero = canonicalDeerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  const canonicalHero = findDeerHeroImageTag(canonicalDeerHtml);
   if (!canonicalHero || /loading="lazy"/i.test(canonicalHero) ||
     !/loading="eager"/i.test(canonicalHero) || !/fetchpriority="high"/i.test(canonicalHero)) {
     throw new Error('Exact canonical deer visitor hero lacks eager/high-priority LCP treatment');
