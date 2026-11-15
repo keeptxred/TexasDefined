@@ -52,7 +52,13 @@ async function verifyOperatorWithCurl(url, names, textHints, requiredEvidence) {
     }
     return { verified: true, transport: "curl-direct-operator", origin: actual.origin, bytesChecked: content.length };
   } catch (error) {
-    return { verified: false, error: String(error?.message ?? error).slice(0, 350) };
+    const detail = [
+      error?.code ? "code=" + error.code : "",
+      error?.signal ? "signal=" + error.signal : "",
+      typeof error?.stderr === "string" ? error.stderr.trim().slice(-260) : "",
+      String(error?.message ?? error).split("\\n").slice(-1)[0].slice(-180),
+    ].filter(Boolean).join(" | ");
+    return { verified: false, error: detail.slice(0, 460) };
   }
 }
 async function check(url, names = [], textHints = [], requiredEvidence = []) {
