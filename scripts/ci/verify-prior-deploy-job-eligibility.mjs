@@ -283,10 +283,15 @@ export function qualifyPriorDeployJob(payload) {
       failures.length === 1 && failures[0] === recurrence.failedStep) {
     const route = readFileSync('src/data/major-event-page.server.ts', 'utf8');
     const verifier = readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
-    if (!route.includes('Treat Memorial Day Weekend as the stable planning window') ||
+    const protectedPlanningNeedles = [
+      "Treat Memorial Day Weekend as the stable planning window",
+      "Do not turn the Memorial Day recurrence into a confirmed 2027 ticket",
+    ];
+    const liveContractStillStrict = protectedPlanningNeedles.some(needle =>
+      verifier.includes("planningNeedle: '" + needle + "'") && route.includes(needle));
+    if (!liveContractStillStrict ||
         !route.includes('recheck the organizer for the confirmed schedule') ||
         !route.includes('esc(recurrencePlanningNotice)') ||
-        !verifier.includes("planningNeedle: 'Treat Memorial Day Weekend as the stable planning window'") ||
         !verifier.includes("assert(!nodes.some((node) => hasType(node, 'Event'))") ||
         !verifier.includes("assert(nodes.every((node) => !Object.hasOwn(node, 'startDate')")) {
       throw Error('The exact published Nov15 asset handoff is blocked until the recurrence date notice is repaired without weakening the scheduled Event schema exclusions');
