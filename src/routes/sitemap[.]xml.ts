@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
+import { TEXAS_DEER_AUTHORITY_TOPIC } from "@/data/hunting/authority-deer";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -17,7 +18,12 @@ function getPrimarySitemapEdgeCache(): EdgeCache | null {
 
 function primarySitemapCacheRequest(request: Request): Request {
   const cacheUrl = new URL(request.url);
+  // Use a content-versioned *internal* cache key: otherwise a Worker deploy can
+  // serve a previous sitemap edge-cache object with an obsolete deer lastmod.
+  // Query strings on the public request are still stripped. A real editorial
+  // date change automatically moves to a new key; monitoring checks do not.
   cacheUrl.search = "";
+  cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
