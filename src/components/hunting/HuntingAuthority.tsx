@@ -118,6 +118,8 @@ function DeerCountyRegulationsFinder() {
  * different regulatory decisions; it never claims any specific land is open.
  */
 function DeerCountyWorkedExample() {
+  // Fail closed after the 2026–27 season rolls over; county examples need new verification.
+  if (texasDeerSeason.startYear !== 2026) return null;
   const examples = [
     {
       county: "Grayson",
