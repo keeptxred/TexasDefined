@@ -68,14 +68,14 @@ function TierraBlancaCreekGuide() {
             <p className="mt-4 text-sm text-muted-foreground">Original TexasDefined field-independent research and source synthesis · Substantively reviewed November 15, 2026</p>
           </header>
 
-          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(16rem,0.85fr)]" aria-labelledby="first-answer">
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-2" aria-labelledby="first-answer">
             <div>
               <p className="eyebrow text-primary">Start here</p>
               <h2 id="first-answer" className="mt-2 font-display text-3xl">Is Tierra Blanca Creek the same place as Palo Duro Canyon?</h2>
               <p className="mt-4 text-base leading-8">No. Tierra Blanca is an upstream watercourse, not an alternate name for Palo Duro Canyon State Park. The Texas State Historical Association traces the creek from eastern New Mexico through Deaf Smith and Randall counties to a junction with Palo Duro Creek east of Canyon. That meeting forms the Prairie Dog Town Fork of the Red River. The waterway continues into Palo Duro Canyon.</p>
               <p className="mt-4 text-base leading-8">The distinction matters for a visitor. A creek on a geographic map does not establish a trailhead, parking lot or right of entry. Large stretches of rural Panhandle creek land are privately held. For legitimate, managed outings, use Buffalo Lake National Wildlife Refuge west of Canyon or the separately operated Palo Duro Canyon State Park east of Canyon.</p>
             </div>
-            <aside className="border-l-4 border-primary bg-muted/30 p-6" aria-label="The watercourse in order">
+            <aside className="border-l border-primary bg-background p-6" aria-label="The watercourse in order">
               <h3 className="font-display text-xl">Read the watercourse</h3>
               <ol className="mt-4 space-y-3 text-sm leading-6">
                 <li><strong>1. Tierra Blanca Creek</strong> — flows through Deaf Smith and Randall counties</li>
@@ -88,7 +88,7 @@ function TierraBlancaCreekGuide() {
           </section>
 
           <figure className="border-b border-border py-10">
-            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-[16/9] w-full rounded-sm object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
+            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-sm object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
             <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Palo Duro Canyon State Park shows the dramatic downstream landscape. This is a photo of the state park, not a claimed photograph of Tierra Blanca Creek or a public creek access point. Existing TexasDefined image credit: Larry D. Moore, CC BY 4.0, Wikimedia Commons.</figcaption>
           </figure>
 
@@ -161,7 +161,7 @@ function TierraBlancaCreekGuide() {
             <h2 id="itinerary" className="mt-2 font-display text-3xl">Amarillo and Canyon road trips that tell the whole story</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">The right trip depends on whether you want the upper creek's grassland ecology, the county's museums and ranching context, or the state's most spectacular downstream canyon scenery. These are separate outings. No drive-time promise is made because weather, park access and traffic vary.</p>
             <div className="mt-6 divide-y divide-border border-y border-border">
-              {itineraries.map((trip) => <section key={trip.heading} className="grid gap-4 py-7 sm:grid-cols-[9rem_minmax(0,1fr)]">
+              {itineraries.map((trip) => <section key={trip.heading} className="grid gap-4 py-7 sm:grid-cols-2">
                 <div className="text-sm font-bold uppercase tracking-wide text-primary">{trip.time}</div>
                 <div>
                   <h3 className="font-display text-2xl">{trip.heading}</h3>
