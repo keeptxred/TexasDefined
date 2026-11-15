@@ -351,7 +351,7 @@ async function verifyHidalgoBorderFestLeaf() {
 }
 
 /** Current official McKinney Main Street event, not an expired 2026 occurrence. */
-async function verifyFreeOfferLeaf() {
+async function verifyConfirmedMcKinney2027Leaf() {
   const path = '/event/mckinney-oktoberfest';
   const startDate = '2027-09-24';
   const endDate = '2027-09-26';
@@ -511,7 +511,7 @@ try {
   await verifyFiestaLeaf();
   await verifyExpiredConfirmedLeaf();
   await verifyHidalgoBorderFestLeaf();
-  await verifyFreeOfferLeaf();
+  await verifyConfirmedMcKinney2027Leaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyCrossroadsFestivalLeaf();
   await verifyRecurringLeaf();
