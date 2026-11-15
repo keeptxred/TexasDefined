@@ -5,11 +5,12 @@ import {
   sourceForFishingGuideReview,
   PINNED_FISHING_OPERATOR_SOURCE_SLUGS,
   isSameOperatorOrigin,
+  officialFishingGuideSingleRowMatches,
 } from "./fishing-operator-source-witnesses.mjs";
 
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
 
-test("two researched operators have pinned, same-origin official detail witnesses", () => {
+test("two researched fishing sources retain strict operator or government authority witnesses", () => {
   assert.deepEqual([...PINNED_FISHING_OPERATOR_SOURCE_SLUGS].sort(), [
     "captain-steve-barnes-texoma", "reel-um-n-sam-rayburn-guide",
   ]);
@@ -17,10 +18,17 @@ test("two researched operators have pinned, same-origin official detail witnesse
     const guide = guides.find((candidate) => candidate.slug === slug);
     assert.ok(guide, slug + ": missing independently curated operator");
     const result = sourceForFishingGuideReview(guide);
-    assert.equal(new URL(result.url).origin, new URL(guide.url).origin);
+    if (slug === "captain-steve-barnes-texoma") {
+      assert.equal(new URL(result.url).origin, "https://wildlifedepartment.com");
+      assert.equal(result.sourceKind, "government-license");
+    } else {
+      assert.equal(new URL(result.url).origin, new URL(guide.url).origin);
+      assert.equal(result.sourceKind, "operator-detail");
+    }
     assert.notEqual(result.url, guide.url, "detail witness must be more specific than an unreliable homepage");
     assert.ok(result.identity.length >= 3);
-    assert.ok(result.identity.includes(guide.phone), "operator phone must corroborate identity");
+    const digits = (s) => s.replace(/[^0-9]/g, "");
+    assert.ok(result.identity.some(value => digits(value).includes(digits(guide.phone))), "phone must corroborate identity");
   }
 });
 
@@ -49,4 +57,18 @@ test("reject any HTTP downgrade, untrusted redirect or malformed operator verifi
   assert.equal(isSameOperatorOrigin(origin, "https://txfishingguide.com.evil.test/"), false);
   assert.equal(isSameOperatorOrigin(origin, "not-a-url"), false);
   assert.equal(isSameOperatorOrigin("not-a-url", origin), false);
+});
+
+test("government licensed fishing guide must match all identity clues in ONE official table row", () => {
+  const row = "<tr><td>Capt.Steve Barnes Guide Servic</td><td>(940)841-0910</td><td>Steve L Barnes</td></tr>";
+  const proof = ["Capt.Steve Barnes Guide Servic", "(940)841-0910", "Steve L Barnes"];
+  assert.equal(officialFishingGuideSingleRowMatches("<table>" + row + "</table>", proof), true);
+  for (const html of [
+    "",
+    "<table><tr><td>unrelated</td></tr>" + row.replace("940", "941") + "</table>",
+    row.replace("Steve L Barnes", "Different Guide"),
+    row.replace("Steve L Barnes", "Different Guide") + "<tr><td>Steve L Barnes</td></tr>",
+    row + row,
+    "<script>Capt.Steve Barnes Guide Servic (940)841-0910 Steve L Barnes</script>",
+  ]) assert.equal(officialFishingGuideSingleRowMatches(html, proof), false);
 });
