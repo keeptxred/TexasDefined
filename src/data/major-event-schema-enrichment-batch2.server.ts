@@ -337,7 +337,9 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "mckinney-oktoberfest",
     organizer: organization("McKinney Main Street", "https://www.mckinneytexas.org/115/Main-Street"),
-    offers: [usdOffer("General festival admission", 0, "https://www.mckinneytexas.org/400/Holiday-Activities-and-Camps")],
+    // The new September 24–26, 2027 occurrence is officially confirmed, but
+    // 2027 admission terms are not. Do not import a free offer from 2026.
+    offers: [],
     sources: [
       { label: "City of McKinney official 2026 Oktoberfest listing", url: "https://www.mckinneytexas.org/400/Holiday-Activities-and-Camps" },
       { label: "City of McKinney Main Street special-event information", url: "https://www.mckinneytexas.org/1343/Special-Event-Vendor-Opportunities" },
