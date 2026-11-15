@@ -82,13 +82,13 @@ export const VERIFIED_TOURNAMENT_BATCH4_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 UIL Wrestling State Championships are scheduled for February 12–13 at the Berry Center in Cypress.",
     whyItMatters: "The UIL wrestling championships concentrate Texas public-school boys and girls title brackets at the Berry Center, creating a two-day statewide championship event in northwest Harris County.",
     planningNotes: [
-      "Use the UIL state page for the final mat schedule, weigh-in timing and championship-session details because those operational pieces can be published after the dates are fixed.",
-      "The Berry Center in Cypress is the confirmed 2027 venue; check current UIL spectator and parking guidance before event day.",
+      "UIL confirms the 2027 state tournament February 12–13 at Berry Center in Cypress. Its state website still displays a timetable labelled 2025–2026; those mat and weigh-in times should not be reused as a confirmed 2027 schedule. Check the 2027 event-day update before planning session arrival.",
+      "The official 2026–27 UIL wrestling calendar identifies February 5–6 regionals followed by February 12–13 state finals. Confirm whether the spectator session you want is boys or girls and obtain current parking and digital ticket instructions before departure.",
       "Plan any Houston-area stops around the tournament schedule rather than describing the event simply as downtown Houston; Cypress is the host community.",
     ],
     officialUrl: "https://www.uiltexas.org/wrestling/state",
     officialSourceLabel: "UIL Wrestling State Championships official page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-15",
   },
   {
     slug: "uil-spirit-state-championships",
