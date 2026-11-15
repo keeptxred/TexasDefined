@@ -97,7 +97,8 @@ jobs:
           node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --plan
           node --test scripts/ci/fishing-gnis-coordinate-source.test.mjs
           node --test scripts/ci/fishing-usgs-coordinate-source.test.mjs
-          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --smoke; fi
+          # Source-coordinate changes must pass all ten official checks, not only the five USGS/GNIS station smoke probes.
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs; fi
           node scripts/ci/audit-fishing-compare-authority.mjs --local
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
