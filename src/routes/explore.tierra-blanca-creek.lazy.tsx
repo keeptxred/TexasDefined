@@ -19,7 +19,7 @@ const related = [
   { url: "/explore/near/amarillo/road-trips", label: "Road trips from Amarillo", detail: "Use Canyon and the refuge as a deliberate loop, not a supposed creek-access shortcut" },
   { url: "/explore/near/amarillo/day-trips", label: "Day trips from Amarillo", detail: "Choose a single major outing and check current conditions" },
   { url: "/explore/route-66/texas-road-trip", label: "Texas Route 66 road trip", detail: "Connect the Panhandle landscape with Amarillo's roadside heritage" },
-  { url: "/article/randall-county-canyon-palo-duro-texas", label: "Randall County and Canyon history", detail: "Ranching, the county seat and historic developments around the creek junction" },
+  { url: "/county/randall", label: "Randall County and Canyon history", detail: "Ranching, the county seat and historic developments around the creek junction" },
   { url: "/explore/region/panhandle", label: "Explore the Texas Panhandle", detail: "More landscapes and culture across the High Plains" },
 ] as const;
 
@@ -142,7 +142,7 @@ function TierraBlancaCreekGuide() {
                 <p className="eyebrow text-primary">Museum and town context</p>
                 <h3 className="mt-2 font-display text-xl">Canyon, Texas</h3>
                 <p className="mt-3 text-sm leading-7">Explore local and regional history in Canyon, including the Panhandle-Plains Historical Museum at West Texas A&amp;M. This provides context for ranching, geography and Indigenous heritage, but it does not grant access to adjacent private creek properties.</p>
-                <a href="/article/randall-county-canyon-palo-duro-texas" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Randall County and Canyon guide</a>
+                <a href="/county/randall" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Randall County and Canyon guide</a>
               </article>
               <article className="border border-border p-5">
                 <p className="eyebrow text-primary">Downstream rock scenery</p>
