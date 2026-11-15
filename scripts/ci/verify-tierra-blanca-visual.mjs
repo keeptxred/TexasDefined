@@ -68,7 +68,7 @@ try {
           imageAlts: figures.map(f => f.querySelector("img")?.getAttribute("alt") || ""),
           hasByline: article?.textContent?.includes("Travel & Outdoors Desk") || false,
           hasSourceNote: article?.textContent?.includes("How this guide was researched") || false,
-          hasTrailComparison: !!document.querySelector('section#tierra-blanca-visit-decision table'),
+          hasTrailComparison: !!document.querySelector('section[aria-labelledby="tierra-blanca-visit-decision"] table'),
           headingCount: article?.querySelectorAll("h1").length || 0,
         };
       });
