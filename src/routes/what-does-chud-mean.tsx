@@ -34,7 +34,7 @@ export const Route = createFileRoute("/what-does-chud-mean")({
 function Page() {
   return (
     <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas terminology guide…</div>}>
-      <PrioritySearchPage data={Route.useLoaderData()} />
+      <PrioritySearchPage data={Route.useLoaderData()} officialSourcesHeading="Dictionary and trend-report sources" officialSourcesIntro="The linked dictionary records the modern uses of this term. The published trend report describes a limited 2026 Google Trends comparison; it does not prove that the word originated in Texas, is commonly spoken by Texans, or remained the top search after the study period." />
     </Suspense>
   );
 }
