@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { runBoundedSourceChecks } from "./run-bounded-source-checks.mjs";
 
 const access = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
@@ -15,6 +17,44 @@ const normalize = (value) => value
   .replace(/&nbsp;/gi, " ")
   .replace(/<[^>]*>/g, " ")
   .normalize("NFKD").toLowerCase().replace(/[^a-z0-9]/g, "");
+// Some small operator hosts intermittently reject Node fetch on GitHub runners.
+// A second standard HTTPS client is permitted ONLY for these two exact already
+// verified operator pages. No generic proxy, mirror, cache, or content waiver.
+const curlExec = promisify(execFile);
+const curlPermittedOperators = new Set([
+  "https://txfishingguide.com/trips-and-charters/lake-texoma-striper-trips/",
+  "https://www.rayburncountry.com/bass-fishing/",
+]);
+async function verifyOperatorWithCurl(url, names, textHints, requiredEvidence) {
+  if (!curlPermittedOperators.has(url)) return null;
+  try {
+    const { stdout } = await curlExec("curl", [
+      "--fail", "--silent", "--show-error", "--location", "--compressed",
+      "--proto", "=https", "--proto-redir", "=https", "--max-redirs", "3",
+      "--max-time", "15", "--connect-timeout", "7",
+      "--user-agent", "Mozilla/5.0 (compatible; TexasDefinedSourceIntegrity/1.0; +https://texasdefined.com/fishing)",
+      "--write-out", "\\nTD_SOURCE_FINAL_URL:%{url_effective}",
+      url,
+    ], { timeout: 17000, maxBuffer: 1200000 });
+    const marker = stdout.lastIndexOf("\\nTD_SOURCE_FINAL_URL:");
+    if (marker < 0) throw Error("curl did not record the final origin");
+    const actual = new URL(stdout.slice(marker + "\\nTD_SOURCE_FINAL_URL:".length).trim());
+    const original = new URL(url);
+    if (actual.origin !== original.origin) throw Error("operator redirected away from the recorded first-party origin");
+    const content = stdout.slice(0, marker).slice(0, 600000);
+    if (content.length < 100) throw Error("operator returned an empty response");
+    const normalized = normalize(content);
+    const missing = names.filter((name) => !normalized.includes(normalize(name)));
+    const hintsMissing = textHints.length && !textHints.some((hint) => normalized.includes(normalize(hint)));
+    const missingEvidence = requiredEvidence.filter((fact) => !normalized.includes(normalize(fact)));
+    if (missing.length || hintsMissing || missingEvidence.length) {
+      throw Error("operator page does not contain required identity and lake source text: " + missing.concat(missingEvidence).join(", "));
+    }
+    return { verified: true, transport: "curl-direct-operator", origin: actual.origin, bytesChecked: content.length };
+  } catch (error) {
+    return { verified: false, error: String(error?.message ?? error).slice(0, 350) };
+  }
+}
 async function check(url, names = [], textHints = [], requiredEvidence = []) {
   try {
     // TPWD intermittently resets groups of automated connections. Preserve the
@@ -50,13 +90,27 @@ async function check(url, names = [], textHints = [], requiredEvidence = []) {
     const missing = names.filter((name) => !normalized.includes(normalize(name)));
     const hintsMissing = textHints.length && !textHints.some((hint) => normalized.includes(normalize(hint)));
     const missingEvidence = requiredEvidence.filter((fact) => !normalized.includes(normalize(fact)));
-    if (missing.length || hintsMissing || missingEvidence.length) issues.push({
-      source: url, missingFacilityNames: missing, missingOfficialFacts: missingEvidence, pageTypeMismatch: Boolean(hintsMissing),
-    });
+    if (missing.length || hintsMissing || missingEvidence.length) {
+      const directRetry = await verifyOperatorWithCurl(url, names, textHints, requiredEvidence);
+      if (directRetry?.verified) {
+        checked.push({ url, http: 200, namesChecked: names.length, missing: 0, missingOfficialFacts: 0, pageTypeMismatch: false, ...directRetry });
+        return;
+      }
+      issues.push({
+        source: url, missingFacilityNames: missing, missingOfficialFacts: missingEvidence,
+        pageTypeMismatch: Boolean(hintsMissing), directRetry: directRetry?.error,
+      });
+    }
     checked.push({ url, http: response.status, namesChecked: names.length, missing: missing.length, missingOfficialFacts: missingEvidence.length, pageTypeMismatch: Boolean(hintsMissing) });
   } catch (error) {
-    issues.push({ source: url, error: String(error?.message ?? error) });
-    checked.push({ url, error: String(error?.message ?? error) });
+    const directRetry = await verifyOperatorWithCurl(url, names, textHints, requiredEvidence);
+    if (directRetry?.verified) {
+      checked.push({ url, http: 200, namesChecked: names.length, missing: 0, missingOfficialFacts: 0, pageTypeMismatch: false, ...directRetry });
+      return;
+    }
+    const failed = { source: url, error: String(error?.message ?? error), directRetry: directRetry?.error };
+    issues.push(failed);
+    checked.push({ url, error: failed.error, directRetry: directRetry?.error });
   }
 }
 // Keep every verified TPWD name check, but do not serialize unrelated HTTP
