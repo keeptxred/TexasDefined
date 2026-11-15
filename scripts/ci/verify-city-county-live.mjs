@@ -48,9 +48,9 @@ try {
     assert.match(res.headers()['content-disposition']||'',/attachment/i);
     assert.notEqual(res.headers()['cf-mitigated'],'challenge');
     const rows=parseCsv(body);assert.deepEqual(rows[0],headers);
-    assert.equal(rows.length-1,57,'Directory row count');
+    assert.equal(rows.length-1,58,'Directory row count');
     records=rows.slice(1).map(values=>{assert.equal(values.length,headers.length);return Object.fromEntries(headers.map((h,i)=>[h,values[i]]));});
-    assert.equal(new Set(records.map(r=>r.city_name)).size,57);
+    assert.equal(new Set(records.map(r=>r.city_name)).size,58);
     for(const r of records){
       const counties=r.all_counties.split(';').map(s=>s.trim());
       assert.equal(Number(r.county_count),counties.length,r.city_name);
@@ -73,8 +73,8 @@ try {
     const multiCountyCount=records.filter(r=>Number(r.county_count)>1).length;
     assert.equal(multiCountyCount,30,'Directory has 30 multi-county places (San Antonio already counted)');
     assert.equal(records.find(r=>r.city_name==='The Woodlands')?.place_type,'census_designated_place');
-    report.csv={status:200,rows:57,multiCounty:multiCountyCount,mode:isPredeployPR?'predeploy':'postdeploy',bytes:Buffer.byteLength(body),result:'PASS'};
-    console.log('PASS live CSV — 57 rows, '+multiCountyCount+' multi-county, authoritative examples, downloadable format');
+    report.csv={status:200,rows:58,multiCounty:multiCountyCount,mode:isPredeployPR?'predeploy':'postdeploy',bytes:Buffer.byteLength(body),result:'PASS'};
+    console.log('PASS live CSV — 58 rows, '+multiCountyCount+' multi-county, authoritative examples, downloadable format');
   }catch(e){report.csv={result:'FAIL'};fail('CSV',e);}
   browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN,args:['--no-sandbox','--disable-dev-shm-usage']});
   for(const [name,width,height,mobile] of [['desktop',1280,850,false],['mobile',390,844,true],['small-mobile',320,700,true]]){
@@ -109,13 +109,13 @@ try {
       info.geometry={pageWidth:d.pageWidth,windowWidth:d.windowWidth,tableWidth:d.tableWidth,boxWidth:d.boxWidth,overflow:d.overflow};
       assert.match(d.title,/City-to-County Reference/);assert.match(d.desc||'',/multi-county/i);
       assert.equal(d.canonical,site+path);assert.match(d.h1,/What county is a Texas city in/i);
-      assert.equal(d.rows.length,57);assert.ok(d.csvLink&&d.addressLink);
+      assert.equal(d.rows.length,58);assert.ok(d.csvLink&&d.addressLink);
       assert.ok(d.breadcrumbs.includes('/')&&d.breadcrumbs.includes('/texas-data'));
       assert.equal(d.overflow,'auto');assert.ok(d.pageWidth<=d.windowWidth+10,'Page-wide horizontal overflow');
       assert.ok(d.fontSize>=13,'Unreadably small table text');
       assert.equal(jsErrors.length,0,'Browser errors: '+jsErrors.join('; '));
       if(records){
-        const found=new Map(d.rows.map(r=>[r.name,r]));assert.equal(found.size,57);
+        const found=new Map(d.rows.map(r=>[r.name,r]));assert.equal(found.size,58);
         for(const record of records){
           const row=found.get(record.city_name);assert.ok(row,record.city_name+' row missing');
           assert.deepEqual(row.counties,record.all_counties.split(';').map(s=>s.trim()),record.city_name+' CSV/table conflict');
@@ -128,7 +128,7 @@ try {
         const dataset=d.ld.find(s=>s['@type']==='Dataset');
         assert.ok(dataset&&d.ld.some(s=>s['@type']==='BreadcrumbList'));
         assert.equal(dataset.distribution?.contentUrl,site+path+'.csv');
-        assert.equal(dataset.variableMeasured?.length,57);
+        assert.equal(dataset.variableMeasured?.length,58);
         for(const record of records){
           const item=dataset.variableMeasured.find(s=>s.name===record.city_name);
           assert.equal(item?.value,record.all_counties.split(';').map(s=>s.trim()).join(', '),record.city_name+' JSON-LD');
