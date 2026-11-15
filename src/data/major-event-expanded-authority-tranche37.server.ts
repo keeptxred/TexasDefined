@@ -100,11 +100,11 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer's 2027 headline window is March 17-21. The core public show traditionally occupies Friday through Sunday, with technical, exhibitor and setup programming earlier in the week; check the final 2027 schedule as it is released.",
     venue: "Embassy Suites Dallas-Frisco Hotel and Convention Center",
     officialUrl: "https://texaspinball.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Texas Pinball Festival brings hundreds of playable machines, tournaments, seminars, collectors, manufacturers and enthusiasts together in Frisco, making it a distinctive North Texas destination event centered on arcade history, restoration and competitive play.",
     planningSections: [
-      { title: "Use March 17-21 as the organizer-published 2027 window", body: "The festival's official home page announces March 17 through 21, 2027 in Frisco. The organizer says 2027 passes go on sale in fall 2026, so recheck the ticket and schedule pages before booking around a particular session." },
-      { title: "Separate the public show from pre-festival programming", body: "The current event format includes technical and exhibitor activity before the main public Friday-through-Sunday show. Use the final 2027 schedule to determine whether an earlier arrival adds value for your ticket type or interests." },
+      { title: "2027 tickets are on sale; main public festival runs March 19–21", body: "The organizer's 2027 sales page confirms Wednesday March 17 as collector Tech Day, Thursday March 18 as Tech Day/exhibitor setup, and main public Friday March 19 (4 p.m.–1 a.m.), Saturday March 20 (9 a.m.–11 p.m.) and Sunday March 21 (9 a.m.–2 p.m.). The overall event window is March 17–21, but Wednesday and Thursday require their own permitted access; do not treat them as ordinary public admission days." },
+      { title: "Buy the correct session: adult and child day-pass prices vary", body: "The 2027 organizer lists Friday adult $60/child $25, Saturday adult $70/child $35 and Sunday adult $35/child $20. Weekend presale windows have separate prices; some schedule links incorrectly label Thursday as March 19 (that date is Friday), so resolve the conflict against its dated main sales page and actual 2027 calendar before booking special pre-festival sessions." },
       { title: "Plan for a hands-on convention rather than a passive expo", body: "The festival emphasizes hundreds of playable machines alongside tournaments, seminars, vendors and collector activity. Leave enough time to play and explore the floor instead of treating it as a quick exhibit walk-through." },
     ],
     relatedLinks: [
