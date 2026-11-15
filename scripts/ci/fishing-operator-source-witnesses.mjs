@@ -7,8 +7,9 @@
 const reviewed = Object.freeze({
   "captain-steve-barnes-texoma": Object.freeze({
     homepage: "https://txfishingguide.com/",
-    witness: "https://txfishingguide.com/trips-and-charters/lake-texoma-striper-trips/",
-    identity: Object.freeze(["Steve Barnes", "940-841-0910", "Lake Texoma", "striped bass"]),
+    witness: "https://wildlifedepartment.com/fishing/fishing-guides",
+    sourceKind: "oklahoma-licensed-guide-list",
+    identity: Object.freeze(["Capt.Steve Barnes Guide Servic", "(940)841-0910", "Steve L Barnes"]),
   }),
   "reel-um-n-sam-rayburn-guide": Object.freeze({
     homepage: "https://www.rayburncountry.com/",
@@ -25,12 +26,17 @@ export function sourceForFishingGuideReview(guide) {
   if (!proof) return { url: guide.url, identity: [] };
   const homepage = new URL(guide.url);
   const witness = new URL(proof.witness);
+  const governmentLicense = proof.sourceKind === "oklahoma-licensed-guide-list";
+  const approvedOrigin = governmentLicense
+    ? (guide.slug === "captain-steve-barnes-texoma" && witness.origin === "https://wildlifedepartment.com")
+    : homepage.origin === witness.origin;
   if (guide.url !== proof.homepage || homepage.protocol !== "https:"
-      || witness.protocol !== "https:" || homepage.origin !== witness.origin
+      || witness.protocol !== "https:" || !approvedOrigin
       || proof.identity.length < 3 || proof.identity.some((text) => !text.trim())) {
     throw new Error("Reviewed fishing operator homepage/witness identity drift: " + guide.slug);
   }
-  return { url: proof.witness, identity: [...proof.identity] };
+  return { url: proof.witness, identity: [...proof.identity],
+    sourceKind: governmentLicense ? "government-license" : "operator-detail" };
 }
 
 export const PINNED_FISHING_OPERATOR_SOURCE_SLUGS = Object.freeze(Object.keys(reviewed));
@@ -45,4 +51,14 @@ export function isSameOperatorOrigin(requestUrl, responseUrl) {
   } catch {
     return false;
   }
+}
+
+/** An official licensing entry must be one exact table row, never words from
+ * multiple unrelated business records on an aggregated public roster. */
+export function officialFishingGuideSingleRowMatches(html, evidence) {
+  if (typeof html !== "string" || !Array.isArray(evidence) || evidence.length < 3) return false;
+  const simplify = (s) => s.replace(/<[^>]+>/g, " ").replace(/&(?:nbsp|amp);/gi, " ")
+    .normalize("NFKD").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const rows = html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) ?? [];
+  return rows.filter(row => evidence.every(text => simplify(row).includes(simplify(text)))).length === 1;
 }
