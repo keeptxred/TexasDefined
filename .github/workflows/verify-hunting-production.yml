@@ -21,7 +21,9 @@ jobs:
         with:
           node-version: 22
       - name: Validate hunting smoke syntax without probing undeployed production
-        run: node --check scripts/data/verify-hunting-production.mjs
+        run: |
+          node --check scripts/data/verify-hunting-production.mjs
+          node scripts/data/verify-hunting-production.mjs --self-test
 
   verify:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
