@@ -336,13 +336,16 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mckinney-oktoberfest",
-    organizer: organization("McKinney Main Street", "https://www.mckinneytexas.org/115/Main-Street"),
-    offers: [usdOffer("General festival admission", 0, "https://www.mckinneytexas.org/400/Holiday-Activities-and-Camps")],
+    organizer: organization("McKinney Main Street", "https://downtownmckinney.com/events"),
+    // Organizer explicitly confirms Sept 24-26, 2027, but has NOT announced
+    // 2027 admission prices or special-activity registration. The prior 2026
+    // no-charge general admission must NOT become a 2027 Google Offer.
+    offers: [],
     sources: [
-      { label: "City of McKinney official 2026 Oktoberfest listing", url: "https://www.mckinneytexas.org/400/Holiday-Activities-and-Camps" },
-      { label: "City of McKinney Main Street special-event information", url: "https://www.mckinneytexas.org/1343/Special-Event-Vendor-Opportunities" },
+      { label: "McKinney Main Street: verified September 24–26, 2027 dates and future vendor applications", url: "https://downtownmckinney.com/events/event-opportunities" },
+      { label: "McKinney Main Street: official Oktoberfest visitor and organizer page", url: "https://downtownmckinney.com/events/oktoberfest" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-11-15",
   },
   {
     slug: "fort-worth-oktoberfest",
