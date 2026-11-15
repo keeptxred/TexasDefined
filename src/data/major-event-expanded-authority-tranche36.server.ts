@@ -75,12 +75,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-29",
     venue: "Alamodome",
     officialUrl: "https://www.alamobowl.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Valero Alamo Bowl is one of San Antonio's largest annual sports-travel events, bringing a nationally televised postseason college football matchup to the Alamodome and surrounding it with Bowl Week fan programming downtown.",
     planningSections: [
       { title: "Anchor the trip on December 29", body: "The Valero Alamo Bowl organization confirms the 2026 game for Tuesday, December 29 at 8 p.m. Central at the Alamodome, with national television coverage on ESPN." },
       { title: "Treat game day as a downtown event district", body: "Official Bowl programming includes pregame fan activities near the Alamodome, and the venue sits within walking distance of downtown hotels and attractions. Review the current Bowl Week calendar and transportation guidance before deciding whether to drive, walk or use rideshare." },
-      { title: "Leave room for Bowl Week changes", body: "Teams are selected after the College Football Playoff field is announced, so matchup-specific rallies, band appearances and fan events can develop late in the season. Use the official bowl calendar for the final itinerary rather than relying on preseason assumptions." },
+      { title: "Wait for the December 6 team announcement before finalizing fan events", body: "The organizer's 2026 media schedule tentatively places the team announcement on Sunday, December 6 at 3 p.m. Central, with a head-coaches press conference at 4 p.m. Matchup-dependent celebrations and fan schedules can change after the College Football Playoff selections; check the official game-week calendar rather than guessing participants." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build more San Antonio stops around the bowl game." },
@@ -91,6 +91,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Valero Alamo Bowl 2026 game-date announcement", url: "https://www.alamobowl.com/gamedate2026/" },
       { label: "Valero Alamo Bowl official home page", url: "https://www.alamobowl.com/" },
       { label: "Valero Alamo Bowl game-day FAQ", url: "https://www.alamobowl.com/faqs/" },
+      { label: "Valero Alamo Bowl tentative 2026 media and team-announcement schedule", url: "https://www.alamobowl.com/media/media-schedule-information/" },
     ],
   },
 ];
