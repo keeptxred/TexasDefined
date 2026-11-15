@@ -26,6 +26,12 @@ test("checks the exact guide when only its browser audit script changes", () => 
   )), true);
 });
 
+test("runs deer sitemap/hero publication proof only for hunting changes or the proof contract", () => {
+  assert.equal(shouldRunHuntingBrowser(plan(["scripts/data/verify-hunting-production.mjs"], [])), true);
+  assert.equal(shouldRunHuntingBrowser(plan(["scripts/ci/hunting-browser-release-scope.mjs"], [])), true);
+  assert.equal(shouldRunHuntingBrowser(plan(["src/components/hunting/HuntingAuthority.tsx"], ["/hunting/turkey-hunting"])), true);
+});
+
 test("does not trigger Chrome audit on unrelated pages", () => {
   assert.equal(shouldRunHuntingBrowser(plan(
     ["scripts/events/check-november-event-sources.mjs"], ["/events/november-events"]
