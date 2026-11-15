@@ -277,7 +277,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
           },
           {
             "label": "U.S. Fish and Wildlife Service: Texas wild-rice",
-            "url": "https://www.fws.gov/rivers/rivers/species/texas-wild-rice-zizania-texana"
+            "url": "https://www.fws.gov/species/texas-wild-rice-zizania-texana"
           }
         ]
       }
