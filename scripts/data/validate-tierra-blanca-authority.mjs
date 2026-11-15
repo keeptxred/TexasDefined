@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 const read = (path) => fs.readFileSync(path, "utf8");
 const head = read("src/routes/explore.tierra-blanca-creek.tsx");
 const article = read("src/routes/explore.tierra-blanca-creek.lazy.tsx");
+const visitorEvidence = read("src/components/explore/TierraBlancaVisitorEvidence.tsx");
 const publicRoutes = read("src/lib/public-routes.ts");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
 const amarillo = read("src/routes/explore.near.$metro.$collection.lazy.tsx");
@@ -42,6 +43,9 @@ contains(article, [
   '/explore/near/amarillo/road-trips', '/explore/near/amarillo/day-trips',
   '/destination/palo-duro-canyon-state-park',
 ], "Main guide / editorial sourcing");
+contains(article, ['TierraBlancaVisitorEvidence', 'Travel &amp; Outdoors Desk', 'Research method', 'How this guide was researched', 'Can I collect arrowheads or artifacts found beside the creek?'], 'Human-authored visitor and research disclosures');
+assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at least seven substantive visitor FAQs');
+contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
 contains(amarillo, [
   'metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips")',
   'href="/explore/tierra-blanca-creek"',
@@ -63,7 +67,7 @@ const sourceAudit = read("scripts/ci/verify-tierra-blanca-quarterly.mjs");
 const failureReporter = read("scripts/ci/report-tierra-blanca-authority-failure.mjs");
 assert.ok(!fs.existsSync(".github/workflows/verify-tierra-blanca-authority.yml"), "Remove zero-job failing legacy quarterly workflow");
 contains(auditSchedule, [
-  "schedule:", "17 14 10 1,4,7,10 *", "workflow_dispatch:",
+  "schedule:", "17 14 10 1,4,7,10 *", "31 14 12 * *", "workflow_dispatch:",
   "node scripts/data/validate-tierra-blanca-authority.mjs",
   "node scripts/ci/verify-tierra-blanca-quarterly.mjs",
   "node scripts/ci/report-tierra-blanca-authority-failure.mjs",
