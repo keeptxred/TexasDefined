@@ -5,6 +5,7 @@ type Source = { name: string; url: string; supports: string };
 const sources: Source[] = [
   { name: "Texas State Historical Association — Tierra Blanca Creek", url: "https://www.tshaonline.org/handbook/entries/tierra-blanca-creek", supports: "Course, confluence, settlements, reservoirs and the creek's High Plains setting" },
   { name: "U.S. Fish & Wildlife Service — Buffalo Lake NWR visitor information", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us", supports: "Public access, trails, seasonal hours, fees and directions near Umbarger" },
+  { name: "U.S. Fish & Wildlife Service — Buffalo Lake refuge history", url: "https://www.fws.gov/refuge/buffalo-lake/about-us", supports: "1937 water-conservation project, 1938 dam, 1970s creek drying, typically dry modern refuge" },
   { name: "U.S. Fish & Wildlife Service — Refuge rules", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/rules-policies", supports: "No collecting, access boundaries, wildlife and trail protections" },
   { name: "Texas Parks & Wildlife — Palo Duro Canyon State Park", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", supports: "Park access, activities, warnings and reservations" },
   { name: "Texas Parks & Wildlife — Palo Duro Canyon maps and directions", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map", supports: "Public park entrance, road approach and boundaries" },
@@ -16,6 +17,7 @@ const sources: Source[] = [
 
 const related = [
   { url: "/destination/palo-duro-canyon-state-park", label: "Palo Duro Canyon State Park", detail: "The managed public canyon destination: trails, campsites, entry and safety" },
+  { url: "/destination/buffalo-lake-national-wildlife-refuge", label: "Buffalo Lake National Wildlife Refuge", detail: "Managed public trails and protected habitat along the Tierra Blanca drainage" },
   { url: "/explore/near/amarillo/road-trips", label: "Road trips from Amarillo", detail: "Use Canyon and the refuge as a deliberate loop, not a supposed creek-access shortcut" },
   { url: "/explore/near/amarillo/day-trips", label: "Day trips from Amarillo", detail: "Choose a single major outing and check current conditions" },
   { url: "/explore/route-66/texas-road-trip", label: "Texas Route 66 road trip", detail: "Connect the Panhandle landscape with Amarillo's roadside heritage" },
@@ -96,7 +98,7 @@ function TierraBlancaCreekGuide() {
             <div className="mt-5 space-y-4 text-base leading-8">
               <p>Much of the Llano Estacado is a broad, high, gently sloping surface. Streams reveal the relief that disappears across a distant horizon: cutbanks, local escarpments and branching valleys. The TSHA describes Tierra Blanca's upper course in flat-to-rolling country with local escarpments, followed by shallow depressions and changing soils. This is not the same exposed rock corridor at every point along its course.</p>
               <p>Water and erosion connect the visual extremes. Tierra Blanca and Palo Duro creeks converge near the old T Anchor Ranch headquarters area; downstream the Prairie Dog Town Fork exposes deeper geological layers in Palo Duro Canyon. The rust, ocher and pale rock bands that visitors photograph at the state park are the visible result of different sediments and long periods of erosion, not evidence that all the creek's banks look like the Lighthouse formation.</p>
-              <p>Buffalo Lake, near Umbarger, is an impoundment on Tierra Blanca Creek. The refuge's name should not be mistaken for a reliable expanse of open water: check current refuge conditions and plan around its birds, grasslands, trails and public viewing areas instead of assuming boating or swimming is available.</p>
+              <p>Buffalo Lake, near Umbarger, is an impoundment on Tierra Blanca Creek. The U.S. Fish and Wildlife Service dates the conservation project to 1937 and Umbarger Dam to 1938. Springs and the creek's reliable flow declined in the 1970s as agricultural and urban groundwater use increased. FWS now describes the lake as typically dry, recharged mainly by major storm runoff. Plan around the refuge's birds, grasslands, marked trails and designated public viewing areas, not an expectation of swimming or boating.</p>
             </div>
           </section>
 
@@ -135,7 +137,7 @@ function TierraBlancaCreekGuide() {
               <article className="border border-border p-5">
                 <p className="eyebrow text-primary">Upper creek setting</p>
                 <h3 className="mt-2 font-display text-xl">Buffalo Lake National Wildlife Refuge</h3>
-                <p className="mt-3 text-sm leading-7">South of Umbarger on FM 168, roughly 10 miles west of Canyon. Public auto tour, signed trails and refuge-managed viewing areas. Current FWS listing: $2 per vehicle day entry; seasonal refuge hours differ. Carry water and obey no-collecting rules.</p>
+                <p className="mt-3 text-sm leading-7">South of Umbarger on FM 168, roughly 10 miles west of Canyon. Public auto tour, signed trails and refuge-managed viewing areas. Current FWS listing: $2 per vehicle day entry; refuge trails and auto-tour road open 8 a.m.–8 p.m. April–September and 8 a.m.–6 p.m. October–March. Carry water and follow no-collecting, no-drone and no-swimming rules.</p>
                 <a href="https://www.fws.gov/refuge/buffalo-lake/visit-us" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official access, fee and seasonal hours</a>
               </article>
               <article className="border border-border p-5">
@@ -175,7 +177,7 @@ function TierraBlancaCreekGuide() {
             <h2 id="questions" className="mt-2 font-display text-3xl">What travelers often get wrong</h2>
             <dl className="mt-6 space-y-7">
               <div><dt className="font-display text-xl">Can I walk to the creek from Palo Duro Canyon State Park?</dt><dd className="mt-2 leading-7 text-muted-foreground">Not by assuming that its mapped state-park trails follow Tierra Blanca Creek. That creek meets Palo Duro Creek upstream of the named canyon stretch. Use TPWD's signed trails and property boundaries for the state park; do not invent a trail connection.</dd></div>
-              <div><dt className="font-display text-xl">Is Buffalo Lake full of water?</dt><dd className="mt-2 leading-7 text-muted-foreground">Not necessarily. It is a refuge with an impoundment on the Tierra Blanca drainage, and water levels vary. FWS emphasizes birding, habitat, auto touring, hiking and established facilities; check current conditions rather than planning a boat trip from the name.</dd></div>
+              <div><dt className="font-display text-xl">Is Buffalo Lake full of water?</dt><dd className="mt-2 leading-7 text-muted-foreground">Usually not. FWS says the once-impounded lake is typically dry and receives water during major flood events. The refuge emphasizes birding, habitat, auto touring, hiking and established facilities; swimming and wading are prohibited. Do not plan a boating or swimming trip from the name.</dd></div>
               <div><dt className="font-display text-xl">Is Tierra Blanca the same as the Canadian River Breaks?</dt><dd className="mt-2 leading-7 text-muted-foreground">No. The Canadian River valley toward Canadian and Lake Meredith is a different drainage system farther north. Both help explain why the Texas Panhandle is not uniformly flat, but one cannot be used as directions to the other.</dd></div>
               <div><dt className="font-display text-xl">Where should I go if I want the red cliff photographs?</dt><dd className="mt-2 leading-7 text-muted-foreground">Choose Palo Duro Canyon State Park, using TPWD's current park map and access guidance. Buffalo Lake refuge shows another face of the High Plains; it is not a guaranteed substitute for Palo Duro's monumental rock formations.</dd></div>
             </dl>
