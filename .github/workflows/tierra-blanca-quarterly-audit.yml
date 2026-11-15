@@ -36,6 +36,9 @@ jobs:
       - name: Protect editorial claims, canonical URL and discovery links
         run: node scripts/data/validate-tierra-blanca-authority.mjs
       - name: Confirm source facts, live HTML and unique sitemap entry
+        # On a main push, the new Worker may not have deployed yet. Never fail a valid
+        # source change against an older live page; postdeploy runs separately.
+        if: github.event_name != 'push'
         run: node scripts/ci/verify-tierra-blanca-quarterly.mjs
       - name: Open an issue for any factual or publishing regression
         if: failure()
