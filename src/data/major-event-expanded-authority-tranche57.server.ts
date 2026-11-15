@@ -749,7 +749,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2026-12-13",
     venue: "Main Street Bethlehem, Burnet",
     officialUrl: "https://www.fbcburnet.org/main-street-bethlehem",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Main Street Bethlehem is Burnet's outdoor living-history-style interpretation of biblical Bethlehem, presented by First Baptist Church Burnet. Its two December weekends are a community and faith-based visitor tradition rather than a commercial holiday light park.",
     quickFacts: [
       {
@@ -787,8 +787,8 @@ const records: ChristmasAuthorityRecord[] = [
         body: "First Baptist's current visitor guidance says much parking is south of Highway 29; pedestrians must use marked crosswalks when crossing Highways 29 or 281. Do not encourage shortcuts across high-speed roads."
       },
       {
-        title: "Treat tickets and donations carefully",
-        body: "Historic editions were offered free with donations welcomed. Check the live 2026 church page for any reservation or ticket changes; do not attach an affiliate admission checkout to a community church event."
+        title: "Admission is free; observe the church's current entry policy",
+        body: "First Baptist Church Burnet explicitly says the December 2026 Main Street Bethlehem experience is free for everyone. The site prohibits large backpacks and requires clear bags and inspection of bags or purses at entry; pets are prohibited except for service animals. Donations support the presentation and local and global missions. Do not attach an affiliate checkout or promise reserved admission."
       },
       {
         title: "Make it a Burnet-area family trip",

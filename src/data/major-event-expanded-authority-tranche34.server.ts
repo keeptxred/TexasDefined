@@ -14,12 +14,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-06",
     venue: "Circuit of The Americas",
     officialUrl: "https://www.fiaformulae.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Formula E brings its all-electric world championship to Circuit of The Americas for the first Austin E-Prix, adding a new international motorsports weekend to the city's already deep racing calendar and marking one of the series' limited U.S. stops.",
     planningSections: [
-      { title: "Anchor the trip on February 6", body: "Formula E and the FIA publish Austin at Circuit of The Americas for February 6, 2027 on the Season 13 calendar. Recheck the championship and COTA event pages closer to race day for session times, ticket products and support programming." },
+      { title: "Race date is February 6; confirm the date on each ticket product", body: "Formula E's current Austin event page and global calendar both list Saturday, February 6, 2027 at COTA. The event page's ticket module currently contains February 5 labels for some grandstands despite the official February 6 race date. Treat this as an organizer ticket-label conflict requiring confirmation before purchase; do not describe February 5 as the confirmed race." },
       { title: "Plan for a COTA race day", body: "Circuit of The Americas sits southeast of central Austin and major race days can materially change traffic and parking demand. Use official transportation and parking guidance rather than normal venue assumptions." },
-      { title: "Treat this as a new Austin event", body: "The 2027 race is Formula E's first Austin E-Prix. Do not assume operating patterns from Formula 1, MotoGP or NASCAR at the same circuit; use Formula E-specific event instructions when they are published." },
+      { title: "Treat this as a new Austin event with provisional session details", body: "The 2027 race is Formula E's first Austin E-Prix and is set to debut its GEN4 competition cars. The organizer lists a Fan Village, gaming and music, but says detailed race-session times are not available yet; do not infer practice, qualifying or entertainment slots from other COTA events." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build more of Austin and Travis County around the race." },
@@ -28,6 +28,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Formula E official Season 13 calendar", url: "https://www.fiaformulae.com/en/news/1074658/season-13-calendar-where-will-formula-e-be-racing-in-2026-27" },
       { label: "Formula E official Austin calendar announcement", url: "https://www.fiaformulae.com/en/news/1074657/formula-e-and-fia-unveil-record-breaking-21-race-2026-27-calendar-for-gen4-era" },
+      { label: "Formula E — current Austin race and ticket information", url: "https://www.fiaformulae.com/en/austin" },
     ],
   },
   {

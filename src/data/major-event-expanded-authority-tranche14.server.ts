@@ -14,10 +14,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer confirms the 42nd annual Parker County Peach Festival for Saturday, July 10, 2027 from 8 a.m. to 4 p.m. in Historic Downtown Weatherford and notes that the festival is always held on the second Saturday in July.",
     venue: "Historic Downtown Weatherford",
     officialUrl: "https://www.parkercountypeachfestival.org/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Parker County Peach Festival turns Weatherford's peach-growing identity into one of North Texas' largest one-day food and community festivals, combining local produce, food, arts and crafts, entertainment, children's activities and long-running traditions downtown.",
     planningSections: [
-      { title: "Treat it as a concentrated one-day trip", body: "The organizer confirms the 2027 festival for 8 a.m. to 4 p.m. on Saturday, July 10. With more than 200 arts, crafts, food and activity booths plus two entertainment stages and two children's areas, an early arrival gives visitors the most useful planning margin." },
+      { title: "Use 2027 event heading rather than stale 2026 body copy", body: "The Weatherford Chamber's live event heading confirms Saturday, July 10, 2027, 8 a.m.–4 p.m. as the 42nd annual Peach Festival, with 200-plus booths, two stages and two children's areas. Lower on the same webpage, older body paragraphs still promote July 11, 2026; those are not the upcoming dates. The chamber discourages bringing pets because summer paving and parking lots can be hot for paws." },
       { title: "Use the transportation plan", body: "The festival takes over Historic Downtown Weatherford. Check the organizer's current map, parking and shuttle information before traveling rather than assuming normal downtown parking will be available." },
       { title: "Build the day around Parker County peaches", body: "The festival's identity is agricultural rather than generic fairground entertainment. Make room for peach food, local growers, the Peach Food Competition and other traditions before filling the schedule with unrelated stops." },
     ],
@@ -43,12 +43,12 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer confirms the 2027 Buc Days festival window for April 29 through May 9. Individual attractions, rodeo performances, parades and concerts have their own schedules within that period, so use the official daily calendar before traveling.",
     venue: "Buc Days Festival Grounds and Hilliard Center",
     officialUrl: "https://bucdays.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Buc Days is a Corpus Christi spring tradition that combines the waterfront city's rodeo heritage with a carnival, parades, concerts, professional bull riding and youth programming, making the festival useful as both an event destination and a Gulf Coast trip anchor.",
     planningSections: [
       { title: "Choose the attraction before choosing the day", body: "The overall 2027 festival runs April 29 through May 9, but the rodeo, PBR, concerts, parades, carnival and other programs do not all operate on identical schedules. Start with the official event calendar for the attraction that matters most." },
       { title: "Rodeo visitors should target May 4-8", body: "The organizer lists Rodeo Corpus Christi for May 4-8, 2027 at 7 p.m. at Hilliard Center Arena. Treat those performances as fixed appointments and leave time for festival-ground activities before the arena event." },
-      { title: "Use the festival as a Corpus Christi anchor", body: "Buc Days can support more than a single-event visit. Build waterfront, food and other Nueces County stops around the scheduled festival attraction instead of treating each component as a separate trip." },
+      { title: "Use actual festival gates and the waterfront address", body: "Buc Days publishes April 29–May 9, 2027, with general festival gates opening at 4 p.m. on weekdays and noon on weekends. The Stripes Carnival is outside the Hilliard Center at 1901 N. Shoreline Boulevard. Arena concerts and rodeo sessions require separately verified times and ticket products; do not assume everything is open throughout the festival's multi-day range." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Build a broader Corpus Christi and Gulf Coast itinerary." },
@@ -58,6 +58,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Buc Days official site", url: "https://bucdays.com/" },
       { label: "Buc Days Stripes Carnival 2027", url: "https://bucdays.com/attractions/stripes-carnival/" },
       { label: "Rodeo Corpus Christi official page", url: "https://bucdays.com/rodeo-pbr/rodeo-corpus-christi/" },
+      { label: "Buc Days 2027 visitor FAQs and carnival location", url: "https://bucdays.com/faqs/" },
     ],
   },
   {

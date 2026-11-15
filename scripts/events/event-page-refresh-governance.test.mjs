@@ -323,3 +323,58 @@ test('the entire real editorial backlog has a bounded seven-day GitHub source-ch
   }
   assert.deepEqual(validateEventRefreshCoverage(inventory), []);
 });
+
+
+test('November 15 editorial corrections agree across guide, provider and organizer-source gates', () => {
+  const source = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8');
+  const event = (file, slug) => {
+    const body = source(file);
+    const start = body.indexOf('slug: "' + slug + '"');
+    assert.ok(start >= 0, 'Missing reviewed event ' + slug + ' in ' + file);
+    const end = body.indexOf('\n  },', start);
+    return body.slice(start, end < 0 ? undefined : end);
+  };
+  const south = event('src/data/major-event-expanded-authority-tranche47.server.ts', 'south-pole-illuminated-festival');
+  assert.match(south, /startDate: "2026-11-27"/);
+  assert.match(south, /endDate: "2026-12-27"/);
+  assert.match(south, /sourceCheckedAt: "2026-11-15"/);
+  assert.match(south, /mcallenholidayparade\.com\/tree-lighting-ceremony/);
+  const sourceMonitor = source('scripts/events/check-november-event-sources.mjs');
+  assert.ok(sourceMonitor.includes('November\\s+27\\s*[-–]\\s*December\\s+27'), 'November source monitor must require current dates');
+  const partner = source('src/data/events/ticketmaster-events.server.ts');
+  assert.doesNotMatch(partner, /event\.startDate === '2026-11-27'\) return \[\]/);
+  const prairie = event('src/data/major-event-expanded-authority-tranche59.server.ts', 'grand-prairie-prairie-lights');
+  assert.match(prairie, /2026-11-15/);
+  assert.match(prairie, /motorcycle preview November 20/);
+  const big12 = event('src/data/major-event-expanded-authority-tranche47.server.ts', 'big-12-football-championship');
+  assert.match(big12, /2026-11-15/);
+  assert.match(big12, /final edition/);
+  assert.match(big12, /2026\/11\/9\/2026-edward-jones-big-12-football-championship/);
+  const sun = event('src/data/tournaments/verified-profiles.ts', 'the-sun-bowl');
+  assert.match(sun, /name: "Old El Paso Sun Bowl"/);
+  assert.match(sun, /noon Mountain Standard Time/);
+  for (const [file, slug] of [
+    ['src/data/tournaments/verified-profiles.ts', 'the-first-responder-bowl'],
+    ['src/data/tournaments/verified-profiles.ts', 'the-armed-forces-bowl'],
+    ['src/data/tournaments/verified-profiles.ts', 'the-texas-bowl'],
+    ['src/data/tournaments/verified-profiles.ts', 'the-cotton-bowl-classic'],
+    ['src/data/tournaments/verified-profiles-batch4.ts', 'uil-spirit-state-championships'],
+    ['src/data/tournaments/verified-profiles-batch4.ts', 'uil-wrestling-state-championships'],
+    ['src/data/major-event-expanded-authority-tranche36.server.ts', 'valero-alamo-bowl'],
+    ['src/data/major-event-expanded-authority-tranche33.server.ts', 'spurs-austin-international-half'],
+    ['src/data/major-event-expanded-authority-tranche34.server.ts', 'austin-e-prix'],
+    ['src/data/major-event-expanded-authority-tranche41.server.ts', 'texas-citrus-fiesta'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'beaumont-pardi-gras'],
+    ['src/data/major-event-expanded-authority-tranche15.server.ts', 'houston-auto-show'],
+    ['src/data/major-event-expanded-authority-tranche15.server.ts', 'sandhills-stock-show-rodeo'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'cowboy-mardi-gras-bandera'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'crystal-beach-mardi-gras-parade'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-on-the-sabine-orange'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'kemah-yachty-gras'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-upriver-jefferson'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-port-arthur'],
+    ['src/data/major-event-expanded-authority-tranche25.server.ts', 'mardi-gras-galveston'],
+    ['src/data/major-event-expanded-authority-tranche57.server.ts', 'main-street-bethlehem-burnet'],
+  ]) assert.match(event(file, slug), /sourceCheckedAt: "2026-11-15"/,
+    'Reverified organizer facts need a per-record editorial evidence date: ' + slug);
+});

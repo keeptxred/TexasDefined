@@ -79,9 +79,10 @@ try {
     fetchedAt: southPoleClock.toISOString(),
     events: [southPoleFixture, { ...southPoleFixture, id: 'south-pole-confirmed-opening', startDate: '2026-11-28' }],
   }, southPoleClock);
-  assert.equal(allowedSouthPole.length, 1,
-    'Statewide calendar cannot promote disputed Nov 27 provider inventory as festival admission');
-  assert.equal(allowedSouthPole[0].startDate, '2026-11-28');
+  assert.equal(allowedSouthPole.length, 2,
+    'Statewide calendar retains both exact November 27 and 28 festival sessions confirmed by organizer');
+  assert.equal(allowedSouthPole[0].startDate, '2026-11-27');
+  assert.equal(allowedSouthPole[1].startDate, '2026-11-28');
   assert.equal(allowedSouthPole[0].guidePath, '/event/south-pole-illuminated-festival');
 
   assert.equal(ticketmasterAuthorityGuidePath('Bands Of America: San Antonio Super Regional Championship Prelims', 'San Antonio'), '/event/bands-of-america-san-antonio-super-regional');

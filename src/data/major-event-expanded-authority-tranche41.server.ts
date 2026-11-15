@@ -54,11 +54,11 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     ],
     venue: "Mission Event Center and downtown Mission venues",
     officialUrl: "https://www.texascitrusfiesta.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Texas Citrus Fiesta has celebrated Mission and the Rio Grande Valley's citrus-growing heritage since 1932 through elaborate citrus-themed costumes, royal traditions, community festivities and the downtown Parade of Oranges.",
     planningSections: [
       { title: "Choose a featured event before booking the trip", body: "The 2027 organizer calendar spreads major Fiesta programs across January 25, 28, 29 and 30 rather than operating as one continuous festival site. Pick the Product Costume Style Show, coronation, Fun Fair, parade or Royal Ball first, then build the trip around that exact date." },
-      { title: "Use January 30 for the parade", body: "The organizer specifically schedules the 2027 Parade of Oranges for Saturday, January 30 at noon along Conway Avenue. Arrive with enough time for downtown access and review the official route before departure." },
+      { title: "Use the official January 30 Parade of Oranges route", body: "The 2027 Parade of Oranges is scheduled Saturday, January 30 at noon along Conway Avenue in Mission, from Griffin Parkway/495 to First Street. The parade producer lists participant check-in at 8 a.m. and judging at 10 a.m.; those are pre-parade organizational times, not the public parade start. Leave extra time for local street access." },
       { title: "Connect the Fiesta to the Rio Grande Valley", body: "Mission's citrus story is regional, so the event works well as the fixed point of a broader Hidalgo County trip. Leave room for nearby Valley destinations instead of treating one Fiesta program as the entire visit." },
     ],
     relatedLinks: [

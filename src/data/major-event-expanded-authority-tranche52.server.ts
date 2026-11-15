@@ -15,7 +15,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "Downtown Port Arthur",
     officialUrl: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/",
-    sourceCheckedAt: "2026-10-28",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Port Arthur's 2027 return to city-hosted Mardi Gras is a new destination celebration shaped by the area's Cajun and Gulf Coast culture. The Port Arthur Convention & Visitors Bureau says the February 5–7 program will include parades, live music, food and family activities. It should not be confused with the separately organized Mardi Gras of Southeast Texas event that moved to Beaumont.",
     quickFacts: [
       {
@@ -41,8 +41,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     planningSections: [
       {
-        title: "A return to Port Arthur, not a second name for Beaumont's festival",
-        body: "Port Arthur formerly hosted Mardi Gras of Southeast Texas, which moved to Beaumont. The Port Arthur Convention & Visitors Bureau is now organizing a distinct 2027 celebration. Verify the Port Arthur schedule instead of following old Beaumont or former Port Arthur itineraries."
+        title: "Visit Port Arthur confirms a separate 2027 festival",
+        body: "The Port Arthur Convention & Visitors Bureau reconfirms February 5–7, 2027 for the new community-led celebration, independent of the longstanding Mardi Gras of Southeast Texas organization in Beaumont. It is marketed as family-friendly with parades, food and music; exact parade and entertainment schedules belong to this festival's official calendar rather than historic Port Arthur listings."
       },
       {
         title: "Anchor your trip to the February 5–7 weekend",
@@ -109,7 +109,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "The Alley, 113 West Austin, historic downtown Jefferson",
     officialUrl: "https://mardigrasupriver.com/events/",
-    sourceCheckedAt: "2026-10-26",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Jefferson's Krewe of Hebe gives East Texas a Mardi Gras weekend in a compact historic river town. The organizer confirms February 5–7, 2027, with a Viva Las Vegas theme; the earlier Queen Mab Ball is a separate January 23 occasion. Jefferson is appealing for travelers who want small-town heritage alongside the parade rather than a coastal entertainment district.",
     quickFacts: [
       {
@@ -147,8 +147,8 @@ const records: MajorEventAuthorityRecord[] = [
         body: "The organizer identifies The Alley at 113 West Austin, Jefferson, TX 75657 as the 2027 festival venue. The public festival takes place in walkable historic downtown; reserve lodging according to your parade day and allow extra walking time when streets close. Check the organizer for the precise route and accessible arrival options."
       },
       {
-        title: "Confirm each 2027 parade before choosing a viewing spot",
-        body: "Jefferson traditionally hosts several distinct parades across the weekend, but a prior-year booklet is not the current-year schedule. Use the Krewe of Hebe 2027 event pages for exact starting points, times, and updated street maps."
+        title: "Organizer reconfirms February 5–7 and the Viva Las Vegas theme",
+        body: "Krewe of Hebe's current 2027 home page again lists February 5–7 and the Viva Las Vegas theme. The 2027 events page includes a Queen Mab Ball and separate krewe activities; do not treat tentative historic parade times or private-ball entry as this year's public parade schedule. Consult specific current organizer event pages before choosing viewing spots."
       },
       {
         title: "Bring children to the right events",
@@ -207,7 +207,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-01-31",
     venue: "11th Street Cowboy Bar and downtown Bandera",
     officialUrl: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     dateNote: "Bandera tourism's individual 2027 event lists January 28–31; its general save-the-date list says January 28–30. Check the final Sunday program with the host. Parade on Saturday, January 30, time to be announced.",
     whyItMatters: "Bandera's Cowboy Mardi Gras mixes Hill Country honky-tonk music and Main Street parade traditions with Cajun flavors and Mardi Gras costume culture. Official Bandera tourism currently lists January 28–31, 2027 at 11th Street Cowboy Bar, although its broader save-the-date index ends January 30; the specific Sunday program needs confirmation.",
     quickFacts: [
@@ -234,8 +234,8 @@ const records: MajorEventAuthorityRecord[] = [
         body: "The 11th Street Cowboy Bar is the anchor for live music and dancing, while the published Saturday, January 30 Main Street parade appeals to a broader public. Check access rules separately rather than assuming a music admission covers every event."
       },
       {
-        title: "2027 calendars disagree about the end date",
-        body: "The Bandera tourism event detail lists January 28–31, whereas its save-the-dates page says January 28–30. The Saturday parade date is explicit but its time remains to be announced. Confirm Sunday programming and headline sets before committing to a Sunday-only trip."
+        title: "2027 calendar conflicts remain unresolved; music lineup not posted",
+        body: "The current detailed Bandera tourism entry still lists January 28–31, while its general save-the-dates page says January 28–30. Saturday, January 30 is the confirmed Main Street parade, with exact start time TBA. The tourism page still labels the music lineup as loading, so do not invent Sunday acts or parade start times."
       },
       {
         title: "Build your day around Main Street closures",
@@ -294,7 +294,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-06",
     venue: "Highway 87, Crystal Beach, Bolivar Peninsula",
     officialUrl: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Crystal Beach offers a different Mardi Gras experience from Galveston's ticketed Strand entertainment district: a community parade along Highway 87 on the Bolivar Peninsula. The regional events publisher lists February 6, 2027 and an 11:30 a.m.–1:30 p.m. parade window; the Lighthouse Krewe's annual tradition is also documented by Crystal Beach tourism.",
     quickFacts: [
       {
@@ -302,8 +302,8 @@ const records: MajorEventAuthorityRecord[] = [
         value: "Saturday, February 6, 2027"
       },
       {
-        label: "Published parade window",
-        value: "11:30 a.m.–1:30 p.m.; organizer check recommended"
+        label: "Parade start",
+        value: "11:30 a.m. February 6 — confirmed by Lighthouse Krewe"
       },
       {
         label: "Route described",
@@ -320,8 +320,8 @@ const records: MajorEventAuthorityRecord[] = [
         body: "The 2027 regional listing describes staging near Camp Margaritaville RV Resort and a route along Highway 87 ending at Gregory Park. Review last-minute traffic controls; do not park on the route, at an unauthorized business, or where emergency access could be blocked."
       },
       {
-        title: "Arrive ahead of late-morning festivities",
-        body: "The event listing uses both an 11 a.m. calendar start and an 11:30 a.m. parade start, so arrive early and confirm the latest procession time. Expect the highway corridor to be less useful for through-driving while the parade is active."
+        title: "Use the krewe's actual 11:30 a.m. procession start",
+        body: "The organizer, Bolivar Peninsula Lighthouse Krewe, confirms the 2027 Under the Big Top parade begins at 11:30 a.m. Saturday, February 6. Float staging begins 9 a.m. at Camp Margaritaville, with judging by 10 a.m.; these are participant times, not public parade kickoff. The parade travels roughly four miles along Highway 87 to Gregory Park."
       },
       {
         title: "A beach getaway is different from a downtown ticketed festival",
@@ -359,8 +359,8 @@ const records: MajorEventAuthorityRecord[] = [
         url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027"
       },
       {
-        label: "Crystal Beach tourism — Lighthouse Krewe tradition",
-        url: "https://crystalbeach.com/events/annual-events/mardi-gras-parade/"
+        label: "Bolivar Lighthouse Krewe — February 6, 2027 parade start and route",
+        url: "https://www.lighthousekrewe.org/parade-2026"
       }
     ]
   },
@@ -377,12 +377,12 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "Two separate confirmed celebrations: Yachty Gras boat parade February 6 and Grand Mardi Gras street parade February 9. These are not four days of continuous activities.",
     venue: "Kemah waterfront and Kemah Boardwalk",
     officialUrl: "https://krewedulac.net/events",
-    sourceCheckedAt: "2026-10-26",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Two different Kemah organizations put Carnival on the water and in the streets. Yachty Gras independently confirms its 28th annual night boat parade for February 6, 2027, while Krewe du Lac lists the Grand Mardi Gras street parade for Fat Tuesday, February 9, at Kemah Boardwalk. Plan for two separately organized parades, not a continuous four-day festival.",
     quickFacts: [
       {
         label: "Boat parade",
-        value: "February 6, 2027 — Yachty Gras"
+        value: "February 6, 2027 — Yachty Gras; 7 p.m. organizer start"
       },
       {
         label: "Street parade",
@@ -411,8 +411,8 @@ const records: MajorEventAuthorityRecord[] = [
         body: "The independent Yachty Gras organization confirms February 6 for its 28th annual illuminated boat parade through Clear Lake toward Kemah Boardwalk. Krewe du Lac confirms February 9 at 11 a.m. for its Grand Mardi Gras street parade at the Boardwalk. These are separately organized experiences requiring different viewing and travel plans."
       },
       {
-        title: "Waterfront views are location-specific",
-        body: "Yachty Gras says boats begin in Clear Lake, pass Kemah Boardwalk, turn in Galveston Bay and head back. Spectators should use the published public viewing recommendations rather than private docks. Boat entrants have a different process: the 2027 registration lists a $95 skipper fee and a mandatory February 6, 10 a.m. meeting at Sundance Grill, 800 Mariners Drive. That fee is for registered boats, not a spectator admission charge."
+        title: "Boat parade departs at 7 p.m.; spectator viewing is separate from boat entry",
+        body: "Yachty Gras officially confirms a 7 p.m. February 6, 2027 boat parade from Clear Lake, past Kemah Boardwalk and into Galveston Bay before returning. Spectators should use published public waterfront viewing recommendations rather than private docks. The $95 participant registration and mandatory 10 a.m. skipper meeting at Sundance Grill concern entrants only, not spectator admission. Boats may make multiple passes and viewing time varies by shoreline position."
       },
       {
         title: "Prepare for Kemah Boardwalk crowding",
@@ -545,7 +545,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-01-23",
     venue: "Beaumont Civic Center, 701 Main Street",
     officialUrl: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Beaumont's Pardi Gras is a ticketed Mardi Gras-themed charity fundraiser hosted by Southeast Texas Circle of Hope, scheduled for January 23, 2027 at the Beaumont Civic Center. It is distinct from Mardi Gras of Southeast Texas, the separate parade-and-concert festival whose 2027 schedule has not yet been confirmed.",
     quickFacts: [
       {
@@ -572,7 +572,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Confirm admission before arrival",
-        body: "This is a ticketed charity evening. The organizer posts ticket tiers and fundraiser activities, including a silent auction. Review current inclusions, fees, age requirements and refund policies on the original event listing."
+        body: "The organizer's current 2027 listing shows Saturday, January 23 from 7–11 p.m. at Beaumont Civic Center with general ticket options shown at $31.25–$35 before any checkout changes. Its detailed schedule also lists doors beginning at 6 p.m. and a silent auction from 6:15–9 p.m. Confirm your ticket's specific arrival instructions rather than assuming the public event start is the door time."
       },
       {
         title: "Plan for an indoor evening, not parade viewing",
@@ -622,15 +622,15 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-02-07",
     endDate: "2026-02-07",
-    dateNote: "Historical occurrence only: Saturday February 7, 2026. The City of Orange explicitly states that 2027 information will be published later; no future date is currently confirmed.",
+    dateNote: "The City of Orange's main festival page still says its 2027 festival schedule is pending, although its 2027 FAQ explicitly confirms a Krewe of Krewes Parade for January 30 at 6 p.m. These are separate levels of confirmation: do not infer the full riverfront program has been announced.",
     venue: "Riverfront Boardwalk & Pavilion, Downtown Orange",
     officialUrl: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Orange's riverfront Mardi Gras combines Cajun food and music with the Krewe of Krewes procession, second-line participation and a parade for children. The city verifies its February 7, 2026 festival but explicitly says 2027 dates and details will be announced later. This is a historic planning guide, not an announced 2027 event.",
     quickFacts: [
       {
         label: "Next 2027 festival",
-        value: "Date not announced by City of Orange as of October 21, 2026"
+        value: "Main festival schedule pending; city FAQ confirms Krewe of Krewes parade Jan. 30 at 6 p.m."
       },
       {
         label: "Most recently verified festival",
@@ -647,8 +647,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     planningSections: [
       {
-        title: "2027 is pending — do not reuse the 2026 Saturday",
-        body: "The City's official event page specifically says 2027 information will be updated later. February 7 was the 2026 event date, not a template for the next Carnival weekend. Wait for a year-specific announcement before reserving a nonrefundable trip."
+        title: "January 30 parade confirmed; other 2027 festival details pending",
+        body: "The city's FAQ identifies a January 30, 2027 Krewe of Krewes parade at 6 p.m., starting at First Street and Front Avenue and continuing via Fifth, Division, Tenth and Green. The main Mardi Gras on the Sabine festival page still shows February 2026 details and promises a future 2027 update. Do not attribute those 2026 concert, vendor or gate hours to January 30."
       },
       {
         title: "Understand the riverfront event layout",

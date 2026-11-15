@@ -14,11 +14,11 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The Houston Auto Show's official media page confirms the 2027 Houston Auto & Boat Show for January 27-31, 2027 at NRG Center.",
     venue: "NRG Center",
     officialUrl: "https://www.houstonautoshow.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Houston Auto & Boat Show is a major Texas consumer exhibition that brings new vehicles, automotive technology, ride-and-drive experiences and marine displays into one NRG Center event, making it useful for enthusiasts and shoppers alike.",
     planningSections: [
-      { title: "Choose a weekday or weekend strategy", body: "The official show schedule lists January 27-31, 2027, with longer daytime access on Saturday and Sunday and later closing times Wednesday through Saturday. Use the current hours page before buying tickets because exhibit and ride-and-drive schedules may differ from building hours." },
-      { title: "Plan for a large indoor show floor", body: "NRG Center consolidates a large number of automotive and boat exhibits under one roof. Build in enough time for display halls, brand activations and any test-drive experiences rather than planning the visit around a single booth." },
+      { title: "Choose a weekday or weekend by actual opening hours", body: "The 2027 organizer schedule is Wednesday–Friday 11 a.m.–8 p.m., Saturday 10 a.m.–8 p.m. and Sunday 10 a.m.–6 p.m. The separately ticketed January 26 VIP preview is not included in general-admission dates. Confirm individual rides and displays close to the show." },
+      { title: "Distinguish public show admission from special access", body: "The organizer advertises $20 general admission, plus ticketing fees; children age six and younger are admitted free. Public show dates are January 27–31; the January 26 VIP preview is a separate evening product. The combined Auto & Boat Show uses one general admission ticket, but verify any ride-and-drive age or licensing rules directly." },
       { title: "Use NRG Park logistics", body: "Parking, entry and event-day traffic around NRG Park can add time to the visit. Check official parking and ticket instructions shortly before departure and avoid assuming a normal non-event arrival pattern." },
     ],
     relatedLinks: [
@@ -28,6 +28,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Houston Auto Show official site", url: "https://www.houstonautoshow.com/" },
       { label: "Houston Auto Show 2027 press and show information", url: "https://www.houstonautoshow.com/press-news-media/" },
+      { label: "Houston Auto Show official about, 2027 admission and hours", url: "https://www.houstonautoshow.com/about-the-show/" },
     ],
   },
   {
@@ -71,10 +72,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "Texas A&M AgriLife-linked 4-H stock-show guidance lists the 2027 SandHills Stock Show & Rodeo for January 7-16 in Odessa, and the Ector County Coliseum ticketing venue lists event entries throughout that same window.",
     venue: "Ector County Coliseum",
     officialUrl: "https://sandhillsstockshow.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Sandhills Stock Show & Rodeo is one of the early anchors of the Texas winter livestock-and-rodeo calendar, bringing agricultural exhibitors and rodeo competition to Odessa at the start of the major-show season.",
     planningSections: [
-      { title: "Use the January 7-16 show window", body: "Current Texas 4-H major-show guidance lists the SandHills Stock Show & Rodeo for January 7-16, 2027 in Odessa, while the Ector County Coliseum ticketing calendar shows Sandhills events across the same dates. Verify the detailed stock-show and rodeo schedule before choosing a day." },
+      { title: "Use the January 7–16 show window; check performance status", body: "Texas A&M AgriLife's Uvalde County major-show calendar lists January 7–16, 2027 in Odessa. The WPRA's circuit schedule lists evening rodeo performances January 7–9 and January 14–16 at 7:30 p.m., but its entry still carries a Pending designation. Confirm each session and ticket status with the organizer before making a nonrefundable booking." },
       { title: "Separate livestock and rodeo planning", body: "A stock show and a ticketed rodeo are related but not interchangeable experiences. Decide whether livestock judging, exhibitors or a rodeo performance is the primary goal, then use the relevant official schedule and entry information." },
       { title: "Plan Odessa logistics before arrival", body: "The Ector County Coliseum is the main venue anchor. Check current parking, gate and ticket details before traveling, particularly for evening rodeo performances and higher-attendance weekend dates." },
     ],
@@ -84,7 +85,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Sandhills Stock Show & Rodeo official site", url: "https://sandhillsstockshow.com/" },
-      { label: "Texas A&M AgriLife-linked major stock show schedule", url: "https://www.uvaldecounty4h.com/stock-show-information" },
+      { label: "Texas A&M AgriLife — Uvalde County major show dates", url: "https://agrilifeextension.tamu.edu/counties/uvalde-county/" },
+      { label: "WPRA Sandhills 2027 rodeo performances (pending)", url: "https://test.wpra.com/standings-circuit-auto/?month=01&standingsYear=2027&type=pro" },
       { label: "Ector County Coliseum event ticketing calendar", url: "https://www.axs.com/venues/100925/ector-county-coliseum-odessa-tickets" },
     ],
   },

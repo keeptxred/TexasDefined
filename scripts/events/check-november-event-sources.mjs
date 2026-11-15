@@ -5,7 +5,7 @@ export const targets = [
   { name: "Texas Christkindl Market", url: "https://txchristkindlmarket.com/", patterns: [/Nov\.?\s*20\s*[-–]\s*22/i, /Nov\.?\s*27\s*[-–]\s*Dec\.?\s*23/i, /2026/i] },
   { name: "Austin Studio Tour", url: "https://atxstudiotour.com/", patterns: [/November\s+14\s*[-–]\s*15/i, /(?:November\s+|\s*&\s*|\s+and\s+)21\s*[-–]\s*22/i, /2026/i] },
   { name: "Johnson City Lights Spectacular", url: "https://lightsspectacular.com/faqs", patterns: [/November\s+27,?\s+2026/i, /January\s+3,?\s+2027/i] },
-  { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+28\s*[-–]\s*December\s+28/i, /2026/i] },
+  { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+27\s*[-–]\s*December\s+27/i, /2026/i] },
   { name: "Rockport Songwriter Festival", url: "https://rockportsongwriterassociation.com/festival", patterns: [/(?:November|Nov\.?)\s+5\s*[-–]\s*8,?\s*2026/i] },
   { name: "A Christmas Affair (Austin)", url: "https://www.jlaustin.org/a-christmas-affair/", patterns: [/Nov\.?\s*13\s*[-–]\s*22,?\s*2026/i, /Nov\.?\s*13\s*[-–]\s*15/i, /Nov\.?\s*18\s*[-–]\s*22/i] },
   { name: "UIL Volleyball State Tournament", url: "https://www.uiltexas.org/volleyball/state", patterns: [/November\s+19(?:th)?/i, /November\s+21(?:st)?/i, /2026/i] },

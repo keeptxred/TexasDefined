@@ -13,10 +13,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-08-30",
     venue: "Gillespie County Fairgrounds",
     officialUrl: "https://gillespiefair.com/gillespie-county-fair",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Gillespie County Fair is a durable Hill Country travel anchor because it combines livestock and agricultural exhibits, carnival traditions, community competitions and live pari-mutuel horse racing in Fredericksburg during one concentrated late-summer weekend.",
     planningSections: [
-      { title: "Choose the fair day around the program", body: "The organizer lists the 138th Gillespie County Fair for Thursday through Sunday, August 27-30, 2026. Livestock, exhibits and midway activity vary by day, so use the current fair schedule before deciding when to arrive." },
+      { title: "Only the 2026 fair's dates remain posted", body: "The association still displays the completed 138th Gillespie County Fair for August 27–30, 2026. A separate 2027 Queen's Court application on its page is NOT a schedule announcement for the next fair. Its 2026 stage lineups, livestock shows and ticket details should remain clearly historical until next year's dates are supplied." },
       { title: "Save Saturday or Sunday for horse racing", body: "The organizer says the final two days of the 2026 fair include live pari-mutuel horse racing. Visitors coming primarily for racing should build the trip around Saturday or Sunday and verify race-day ticket details before leaving." },
       { title: "Pair the fair with Fredericksburg", body: "The fairgrounds are close enough to Fredericksburg to make the event the fixed point of a broader Hill Country weekend. Leave time for the town and Gillespie County rather than treating the fair as a drive-in-only stop." },
     ],
