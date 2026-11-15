@@ -187,6 +187,7 @@ if (!/lastVerified:\s*"20\d{2}-\d{2}-\d{2}"/.test(freshness)) throw new Error('H
 requireText(freshness, 'editorialUpdatedLabel:', 'editorial update date marker missing');
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
 requireText(sitemap, 'HUNTING_AUTHORITY_PATHS', 'hunting sitemap paths missing');
+requireText(sitemap, 'TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn', 'sitemap deer lastmod must match real editorial revision rather than unrelated source checks');
 requireText(huntingRoute, 'getHuntingAuthorityTopicV2', 'v2 route lookup missing');
 requireText(huntingHub, 'HUNTING_V2_HUB_GROUPS', 'v2 hub grouping missing');
 requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry missing');
