@@ -37,12 +37,14 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
     </header>
 
     <Container className="py-12 sm:py-16">
+      {(data.lakes.length > 0 || data.seasonalPatterns.length > 0 || data.relatedTechniques.length > 0) && (
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4" aria-label="Species coverage">
         <Stat label="Linked lake profiles" value={data.lakes.length} />
         <Stat label="Season patterns" value={data.seasonalPatterns.length} />
         <Stat label="Techniques listed" value={data.relatedTechniques.length} />
         <Stat label="Source pages" value={data.sources.length} />
       </section>
+      )}
 
       <FishIdentificationSection speciesName={species.commonName} identification={data.identification} />
 
