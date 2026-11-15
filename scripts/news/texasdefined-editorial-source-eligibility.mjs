@@ -33,10 +33,12 @@ export function isTexasDefinedDirectEditorialSource(item) {
   // reporting, not a park/visitor article—even if a shared-feed classifier
   // placed it in the TexasDefined Explore category. Match either headline
   // order and leave launches, public beach access and parks guides alone.
-  const operator = /\\b(?:spacex|starbase|boca chica)\\b/;
-  const landDeal = /\\b(?:public parkland|public park land|public land|state park land|parkland sale|park land sale|parkland purchase)\\b/;
-  const spaceLandDisposition = operator.test(normalizedTitle) && landDeal.test(normalizedTitle)
-    && /\\b(?:sale|sell|buy|purchase|lease|acquir|eyeing|eyes|consider|pause|deal|trade|transfer|won't buy|wont buy)\\b/.test(normalizedTitle);
+  const operator = /\b(?:spacex|starbase|boca chica)\b/;
+  const landDeal = /\b(?:public parkland|public park land|public land|state park land|parkland sale|park land sale|parkland purchase)\b/;
+  const landTransactionVerb = /\b(?:sale|sell|selling|buy|buying|bought|purchase|purchas\w*|lease|leas\w*|acquir\w*|eyeing|eyes|consider\w*|pause|deal|trade|transfer\w*)\b/;
+  const spaceLandDisposition = operator.test(normalizedTitle)
+    && landDeal.test(normalizedTitle)
+    && landTransactionVerb.test(normalizedTitle);
   if (publicAffairsTitle || spaceLandDisposition) return false;
   // Such items should not be expanded into 750-word "original reporting".
   if (/\b(?:privacy policy|cookie policy|terms of (?:use|service)|accessibility statement|user agreement)\b/.test(normalizedTitle)) return false;
