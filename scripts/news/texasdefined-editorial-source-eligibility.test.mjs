@@ -67,6 +67,7 @@ test('public SpaceX parkland transactions are KTR public affairs, not TD visitor
     'SpaceX confirms it’s eyeing public parkland, but says it won’t buy Boca Chica Beach',
     'SpaceX reveals details on its proposal to buy Boca Chica State Park',
     'Texas Parks and Wildlife weighs the sale of Boca Chica State Park to SpaceX',
+    'Boca Chica State Park sold to Starbase for expansion',
     'Hinojosa asks for pause on state park land sale to SpaceX',
     'Texas considers leasing public land near Starbase',
     'Boca Chica public parkland transfer to SpaceX draws questions',
