@@ -48,11 +48,12 @@ const expandedDetails: ExpandedDetails[] = [
     whyItMatters: "The CASI Terlingua International Chili Championship combines competitive chili, live entertainment and a remote Big Bend setting, so travel logistics matter much more than they do for a city festival.",
     planningSections: [
       { title: "Treat Terlingua logistics as part of the event", body: "Rancho CASI de los Chisos is outside a major metro area. Decide on lodging or camping, fuel and supplies before making the drive into the Big Bend region." },
-      { title: "Use the full event window", body: "CASI lists November 3-7, 2026 for the championship gathering, with the championship itself tied to the first Saturday of November. Review the master schedule for the days you plan to attend." },
+      { title: "60th 2027 TICC finale Saturday November 6", body: "CASI's 2026 winners announcement expressly announces the next 60th championship gathering for November 2–6, 2027. Elsewhere on the same page it refers to a November 1 start, while the current event homepage still describes the 59th 2026 event and 2026 entertainment. The CASI competition rules fix its chili championship on the first Saturday in November, which falls November 6, 2027. Confirm whether November 1 is an organizer setup day before planning early public admission." },
       { title: "Confirm camping and entry rules", body: "The event has its own ticketing, vendor and campground guidance. Check the current organizer information rather than relying on general Terlingua travel advice." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-brewster", label: "Explore Brewster County", description: "Plan the wider Big Bend trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other Texas food events." }],
-    sources: [{ label: "CASI Terlingua International Chili Championship official page", url: "https://www.casichili.net/ticc-home-page.html" }, { label: "CASI organization and championship background", url: "https://www.casichili.net/about-casi.html" }],
+    sources: [{ label: "CASI Terlingua International Chili Championship official page", url: "https://www.casichili.net/ticc-home-page.html" }, { label: "CASI 2026 winners with 60th 2027 announcement and conflicting setup date", url: "https://www.casichili.net/2026-ticc-winners.html" },
+      { label: "CASI championship rules and Saturday cookoff", url: "https://www.casichili.net/uploads/3/7/7/2/37727781/rules_2025-2027-2.pdf" }],
   },
   {
     slug: "austin-celtic-festival",
