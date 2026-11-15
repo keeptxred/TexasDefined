@@ -545,7 +545,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-01-23",
     venue: "Beaumont Civic Center, 701 Main Street",
     officialUrl: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Beaumont's Pardi Gras is a ticketed Mardi Gras-themed charity fundraiser hosted by Southeast Texas Circle of Hope, scheduled for January 23, 2027 at the Beaumont Civic Center. It is distinct from Mardi Gras of Southeast Texas, the separate parade-and-concert festival whose 2027 schedule has not yet been confirmed.",
     quickFacts: [
       {
@@ -572,7 +572,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Confirm admission before arrival",
-        body: "This is a ticketed charity evening. The organizer posts ticket tiers and fundraiser activities, including a silent auction. Review current inclusions, fees, age requirements and refund policies on the original event listing."
+        body: "The organizer's current 2027 listing shows Saturday, January 23 from 7–11 p.m. at Beaumont Civic Center with general ticket options shown at $31.25–$35 before any checkout changes. Its detailed schedule also lists doors beginning at 6 p.m. and a silent auction from 6:15–9 p.m. Confirm your ticket's specific arrival instructions rather than assuming the public event start is the door time."
       },
       {
         title: "Plan for an indoor evening, not parade viewing",
