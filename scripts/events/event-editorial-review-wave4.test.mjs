@@ -57,3 +57,21 @@ test('historical-only festivals never advertise fabricated 2027 admission', () =
   assert.doesNotMatch(luling, /startDate: "2027-06-24"/);
   assert.match(record(20,'rockport-art-festival'), /2027 art-fest calendar pending/);
 });
+
+test('McKinney 2027 Event schema never reuses the 2026 free-admission offer', () => {
+  const current = eventRecord('src/data/major-event-index.ts', 'mckinney-oktoberfest');
+  const evidence = eventRecord('src/data/major-event-schema-enrichment-batch2.server.ts', 'mckinney-oktoberfest');
+  const live = fs.readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
+  assert.match(current, /startDate: "2027-09-24"/);
+  assert.match(current, /endDate: "2027-09-26"/);
+  assert.match(current, /current public admissions and special-event times are not yet confirmed/);
+  assert.match(evidence, /downtownmckinney\.com\/events\/event-opportunities/);
+  assert.match(evidence, /verifiedAt: "2026-11-15"/);
+  assert.doesNotMatch(evidence, /offers:|usdOffer|2026-09-25|Holiday-Activities-and-Camps/);
+  assert.match(live, /async function verifyConfirmedMcKinney2027Leaf/);
+  assert.match(live, /const startDate = '2027-09-24'/);
+  assert.match(live, /const endDate = '2027-09-26'/);
+  assert.match(live, /asArray\(event\.offers\)\.length === 0/);
+  assert.match(live, /McKinney Main Street confirms September 24–26, 2027/);
+  assert.match(live, /Latest confirmed occurrence has ended/);
+});
