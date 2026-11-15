@@ -209,6 +209,8 @@ function TierraBlancaCreekGuide() {
             </nav>
           </section>
 
+          <p className="mt-6 text-sm leading-7 text-muted-foreground">This research is published by the TexasDefined editorial desk. Read our <a href="/about" className="font-semibold text-primary underline underline-offset-4">publisher information</a>, <a href="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">editorial policy</a> and <a href="/sourcing-methodology" className="font-semibold text-primary underline underline-offset-4">source methodology</a>. No on-the-ground visit or privately accessed archaeological site is claimed.</p>
+
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Editorial verification</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Primary sources and what each supports</h2>
