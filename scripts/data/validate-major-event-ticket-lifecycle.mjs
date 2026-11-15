@@ -46,10 +46,11 @@ try {
   assert.equal(majorEventTicketTexasToday(new Date('2027-07-04T13:30:00Z')), '2027-07-04');
   assert.equal(buildMajorEventTicketingMarkupServer('this-major-event-does-not-exist', new Date('2026-12-06T00:30:00Z')), '',
     'unknown event cannot gain a ticket CTA at Texas midnight');
-  assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-11-27'), false,
-    'Ticketmaster Nov 27 session precedes organizer-confirmed McAllen festival start and must be suppressed');
+  assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-11-27'), true,
+    'Organizer and exact-session provider both now confirm Nov 27 festival admission');
   assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-11-28'), true);
-  assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-12-28'), true);
+  assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-12-27'), true);
+  assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-12-28'), false);
   assert.equal(majorEventTicketInsideVerifiedSeasonServer('south-pole-illuminated-festival', '2026-12-29'), false);
   assert.equal(majorEventTicketInsideVerifiedSeasonServer('any-other-event', '2026-11-27'), true,
     'Narrow organizer conflict guard must not suppress unrelated ticket sessions');
