@@ -105,13 +105,13 @@ export const VERIFIED_TOURNAMENT_BATCH4_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 UIL Spirit State Championships run January 13–16 at the Fort Worth Convention Center.",
     whyItMatters: "UIL Spirit brings Texas school cheer programs across classifications and the coed division to downtown Fort Worth for four days of qualifying and state-final performances.",
     planningNotes: [
-      "Use the UIL conference schedule to choose the correct competition day because classifications are distributed across the four-day championship window.",
-      "The Fort Worth Convention Center is the confirmed 2027 venue; review UIL spectator guidance for tickets, downtown parking and any updated performance-order information.",
-      "Allow extra downtown travel time on championship weekend and build broader Fort Worth plans only after the team's performance day is known.",
+      "UIL confirms January 13–16, 2027 at Fort Worth Convention Center, but division-by-day classifications and spectator maps are still marked TBA. Buy the correct classification ticket only after checking UIL's current performance order.",
+      "Spectator tickets are digital through HomeTown Ticketing and sold by conference. UIL states there are no refunds; the scanned ticket is exchanged for a venue-entry wristband. Review the official spectator information before purchase.",
+      "The Fort Worth Stock Show Parade may affect downtown traffic and parking on Saturday morning. Allow additional arrival time, and verify your team's conference and day before committing to other Fort Worth plans.",
     ],
     officialUrl: "https://www.uiltexas.org/spirit/spirit-state-championships",
     officialSourceLabel: "UIL Spirit State Championships official page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-15",
   },
 ];
 
