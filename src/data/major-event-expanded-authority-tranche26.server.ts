@@ -99,10 +99,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-04-24",
     venue: "Turkey, Texas",
     officialUrl: "https://bobwillsday.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Bob Wills Day turns the small Panhandle town of Turkey into a living Western Swing destination, bringing together dances, musicians, fiddling traditions, museum programming and a free outdoor concert around the hometown legacy of Bob Wills.",
     planningSections: [
-      { title: "Use the organizer's 2027 save-the-date", body: "The official Bob Wills Day site already publishes April 22, 23 and 24, 2027. Treat that Thursday-through-Saturday window as confirmed while waiting for the detailed 2027 dance, contest and concert schedule." },
+      { title: "2027 Bob Wills Day is April 22–24, not the old April 2026 ticket period", body: "Turkey, Texas' official Bob Wills Day site directly confirms April 22–24, 2027. A linked Eve of the Eve ticket product is still labelled 2026, so it is not a verified 2027 admission product. Confirm the new 2027 dance, fiddle contest and outdoor concert timetable before choosing a day." },
       { title: "Make Saturday the heritage anchor", body: "The Bob Wills Foundation says the celebration has traditionally centered on the last Saturday of April, and the official outdoor concert is tied to that Saturday tradition. If you can attend only one day, review the final Saturday program first." },
       { title: "Plan for a very small host town", body: "Turkey has limited lodging and services compared with a metro festival destination. Arrange accommodations and driving logistics early, then use the organizer for final venue and ticket details." },
     ],
