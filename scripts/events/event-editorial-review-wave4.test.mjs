@@ -57,3 +57,19 @@ test('historical-only festivals never advertise fabricated 2027 admission', () =
   assert.doesNotMatch(luling, /startDate: "2027-06-24"/);
   assert.match(record(20,'rockport-art-festival'), /2027 art-fest calendar pending/);
 });
+
+
+test('2027 McKinney dates do not inherit 2026 ticket claims or old live-verifier dates', () => {
+  const record2027 = eventRecord('src/data/major-event-index.ts', 'mckinney-oktoberfest');
+  assert.match(record2027, /startDate: "2027-09-24"/);
+  assert.match(record2027, /endDate: "2027-09-26"/);
+  assert.match(record2027, /current public admissions and special-event times are not yet confirmed/);
+  const schema = eventRecord('src/data/major-event-schema-enrichment-batch2.server.ts', 'mckinney-oktoberfest');
+  assert.match(schema, /offers: \[\]/);
+  assert.doesNotMatch(schema, /usdOffer\(/);
+  const smoke = fs.readFileSync(path.resolve('scripts/ci/verify-event-structured-data-production.mjs'), 'utf8');
+  assert.match(smoke, /async function verifyMcKinneyConfirmed2027Leaf/);
+  assert.match(smoke, /const startDate = '2027-09-24'/);
+  assert.match(smoke, /const endDate = '2027-09-26'/);
+  assert.match(smoke, /must not publish stale 2026 Offer JSON-LD for 2027/);
+});
