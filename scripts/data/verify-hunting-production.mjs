@@ -8,6 +8,8 @@ const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const deerEditorialReviewed = /reviewedOn:\s*"([^"]+)"/.exec(fs.readFileSync('src/data/hunting/authority-deer.ts', 'utf8'))?.[1];
 if (!/^20\d\d-\d\d-\d\d$/.test(deerEditorialReviewed ?? '')) throw new Error('Missing trustworthy deer editorial modified date');
+const deerEditorialDateLabel = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' })
+  .format(new Date(deerEditorialReviewed + 'T12:00:00Z'));
 if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
@@ -222,19 +224,35 @@ async function verify() {
   if (sitemap.split(deerLocation).length !== 2) throw new Error('Deer sitemap canonical must appear exactly once');
   requireText(sitemap, deerEntry, 'Exact deer editorial sitemap lastmod');
 
-  // Read only the target page's server HTML to enforce eager-loading above-the-fold photo.
+  // Require both the cache-bypassed Worker and the exact visitor URL. Cloudflare
+  // HTML cache can otherwise hide a stale canonical page behind a fresh query.
   const deerHtml = await fetchDocument('/hunting/texas-deer-hunting', true, true);
   const hero = deerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
   if (!hero) throw new Error('Source-attributed deer hero is missing from server-rendered HTML');
   requireText(hero.toLowerCase(), 'loading="eager"', 'Deer LCP image priority');
   requireText(hero.toLowerCase(), 'fetchpriority="high"', 'Deer LCP image high priority');
   if (/loading="lazy"/i.test(hero)) throw new Error('Near-top deer photo cannot be lazy-loaded');
-  const deerVisible = extractVisibleText(deerHtml);
-  for (const marker of ['Same November weekend, three different county rulebooks',
-    'Grayson County', 'Washington County', 'Gillespie County',
-    'Read the claim-by-claim source record', 'within 48 hours',
-    'Guide reviewed November 15, 2026']) {
-    requireText(deerVisible, marker, 'Revised deer authority source comparison');
+  // The editorial date is independently governed. Worked 2026–27 county cases
+  // deliberately disappear at the next calendar rollover until re-researched.
+  const requiredDeerMarkers = [
+    'Guide reviewed ' + deerEditorialDateLabel,
+    ...(deerSeasons.startYear === 2026 ? [
+      'Same November weekend, three different county rulebooks',
+      'Grayson County', 'Washington County', 'Gillespie County',
+      'Read the claim-by-claim source record', 'within 48 hours',
+    ] : []),
+  ];
+  for (const marker of requiredDeerMarkers) {
+    requireText(extractVisibleText(deerHtml), marker, 'Revised deer authority source comparison');
+  }
+  const canonicalDeerHtml = await fetchDocument('/hunting/texas-deer-hunting', false, true);
+  for (const marker of requiredDeerMarkers) {
+    requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
+  }
+  const canonicalHero = canonicalDeerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  if (!canonicalHero || /loading="lazy"/i.test(canonicalHero) ||
+    !/loading="eager"/i.test(canonicalHero) || !/fetchpriority="high"/i.test(canonicalHero)) {
+    throw new Error('Exact canonical deer visitor hero lacks eager/high-priority LCP treatment');
   }
 
 

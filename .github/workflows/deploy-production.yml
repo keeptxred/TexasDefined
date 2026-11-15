@@ -1289,6 +1289,9 @@ jobs:
           npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
           CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-hunting-hub-responsive-browser.mjs
            CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-turkey-hunting-browser.mjs
+          # Exact live XML lastmod plus both canonical and cache-bypassed deer SSR.
+          # Bounded to hunting release scope under the existing single deploy lock.
+          node scripts/data/verify-hunting-production.mjs
 
       - name: Preserve hunting desktop and mobile visual proof
         if: ${{ always() && steps.live_hunting_visual.outcome != 'skipped' }}
