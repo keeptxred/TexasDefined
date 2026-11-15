@@ -32,6 +32,11 @@ test("runs deer sitemap/hero publication proof only for hunting changes or the p
   assert.equal(shouldRunHuntingBrowser(plan(["src/components/hunting/HuntingAuthority.tsx"], ["/hunting/turkey-hunting"])), true);
 });
 
+test("triggers deer canonical + sitemap verification when deer page changes alone", () => {
+  assert.equal(shouldRunHuntingBrowser(plan(["src/components/hunting/HuntingAuthority.tsx"], ["/hunting/texas-deer-hunting"])), true);
+  assert.equal(shouldRunHuntingBrowser(plan(["src/data/hunting/authority-deer.ts"], ["/hunting/texas-deer-hunting"])), true);
+});
+
 test("does not trigger Chrome audit on unrelated pages", () => {
   assert.equal(shouldRunHuntingBrowser(plan(
     ["scripts/events/check-november-event-sources.mjs"], ["/events/november-events"]
