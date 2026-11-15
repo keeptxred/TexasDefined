@@ -15,8 +15,8 @@ describe("Nov 9 original Texas Institute of Letters history in Dallas authority"
     expect(body).toContain("J. Frank Dobie");
   });
   it("distinguishes historical meeting from contemporary venue operations and nonexistent recurring event", () => {
-    expect(body).toContain("does not mean the Texas Institute of Letters has its permanent headquarters");
-    expect(body).toContain("repeats the original November 9 gathering as an annual public event");
+    expect(body).toContain("does not maintain permanent headquarters or a daily exhibition there");
+    expect(body).toContain("founding meeting was not an annual public event");
   });
   it("cites true 1936 primary council records, TSHA corroboration and the Hall steward", () => {
     const src = new Set(a.sources?.map(s => s.url));
