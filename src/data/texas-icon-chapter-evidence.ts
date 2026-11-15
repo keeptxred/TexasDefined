@@ -1,7 +1,7 @@
 /**
  * Distinctive, source-checked editorial framing for the public culture
  * chapters. These are interpretive explanations, not duplicated entry blurbs.
- * Reviewed 2026-11-13. Do not claim personal visits or original interviews.
+ * Reviewed 2026-11-15. Do not claim personal visits or original interviews.
  */
 export type ChapterEvidence = {
   title: string;
