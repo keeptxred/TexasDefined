@@ -6,6 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {gnisQueryForSummary,inspectGnisPoint} from "./fishing-gnis-coordinate-source.mjs";
+import {usgsQueryForMonitoringPage,inspectUsgsMonitoringPoint} from "./fishing-usgs-coordinate-source.mjs";
 
 const file = "src/data/fishing/planner-official-coordinate-fallbacks.json";
 const registry = JSON.parse(fs.readFileSync(file, "utf8"));
@@ -41,11 +42,18 @@ async function fetchVerified(url){
 }
 async function review([slug,record]){
  const gnis=gnisQueryForSummary(record.sourceUrl);
+ const usgs=usgsQueryForMonitoringPage(record.sourceUrl);
  try{
-  const response=await fetchVerified(gnis?.queryUrl||record.sourceUrl);
+  const response=await fetchVerified(gnis?.queryUrl||usgs?.queryUrl||record.sourceUrl);
   if(gnis){
    const result=inspectGnisPoint(await response.json(),gnis.sourceId,record);
    checks.push({slug,url:record.sourceUrl,verificationUrl:gnis.queryUrl,status:response.status,...result});
+   if(result.issue)errors.push(slug+": "+result.issue+"; inspect source before changing a lake pin");
+   return;
+  }
+  if(usgs){
+   const result=inspectUsgsMonitoringPoint(await response.json(),usgs.sourceId,record);
+   checks.push({slug,url:record.sourceUrl,verificationUrl:usgs.queryUrl,status:response.status,...result});
    if(result.issue)errors.push(slug+": "+result.issue+"; inspect source before changing a lake pin");
    return;
   }
@@ -55,13 +63,13 @@ async function review([slug,record]){
   checks.push({slug,url:record.sourceUrl,status:response.status,nameMatched,latMatched,lngMatched});
   if(!nameMatched||!latMatched||!lngMatched)errors.push(slug+": official source name or published coordinate has drifted; inspect before changing a map pin");
  }catch(error){
-  checks.push({slug,url:record.sourceUrl,verificationUrl:gnis?.queryUrl,error:String(error?.message??error)});
+  checks.push({slug,url:record.sourceUrl,verificationUrl:gnis?.queryUrl||usgs?.queryUrl,error:String(error?.message??error)});
   errors.push(slug+": primary-source fetch failed; preserve existing reviewed point until investigated");
  }
 }
 
 if (!plan && errors.length === 0) {
-  const scoped=smoke?records.filter(([,r])=>Boolean(gnisQueryForSummary(r.sourceUrl))):records;
+  const scoped=smoke?records.filter(([,r])=>Boolean(gnisQueryForSummary(r.sourceUrl)||usgsQueryForMonitoringPage(r.sourceUrl))):records;
   const concurrency = 3;
   for (let i = 0; i < scoped.length; i += concurrency) {
     await Promise.all(scoped.slice(i, i + concurrency).map(review));
