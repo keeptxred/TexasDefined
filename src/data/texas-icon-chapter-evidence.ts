@@ -101,7 +101,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
   },
   "roadside-small-towns": {
     "title": "How to tell a roadside landmark from a useful small-town stop",
-    "introduction": "These entries mix permanent public art, commercial attractions, towns and broad craft traditions. A cowboy-hat Eiffel Tower has a precise address; leatherwork and state-shaped souvenirs do not. The visitor information below concerns named places, while the chapter cards preserve the broader culture index.",
+    "introduction": "Texas roadside culture ranges from a cowboy-hat Eiffel Tower in Paris to working leather shops, dance halls and desert towns. Named installations make short photo stops, while historic neighborhoods and living communities reward longer visits.",
     "findings": [
       {
         "heading": "The Panhandle is a real, manageable roadside corridor",
@@ -124,7 +124,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
         "heading": "Paris, Texas offers more than a novelty photograph",
         "paragraphs": [
           "Paris's 65-foot Eiffel Tower with a cowboy hat stands outside the Love Civic Center at 2025 South Collegiate Drive. The local visitor organization also identifies the adjacent Red River Valley Veterans Memorial and Trail de Paris. Those nearby places make this a more useful town stop than treating the sculpture as a destination requiring an entire day.",
-          "This is a Texas adaptation of a famous foreign landmark, not an original nineteenth-century Paris monument. The entry belongs with roadside art rather than being presented as a designated historic property."
+          "Built in 1993, the modern steel replica plays on the town's French namesake. The red cowboy hat and the nearby memorial tell visitors far more about local identity than a comparison to the original French tower would."
         ],
         "sources": [
           {
@@ -141,7 +141,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
         "heading": "Treat living towns and commercial attractions differently",
         "paragraphs": [
           "A town such as Marfa or Terlingua has residents, institutions and changing local conditions; it is not an unattended amusement site. Small-town entries should emphasize a precise destination and nearby museums, parks or local businesses where confirmed, with respect for private property.",
-          "Artworks, businesses and spontaneous roadside displays have different access rules. This directory identifies cultural touchstones; the separate Texas Roadside Oddities guide organizes practical visit sequences. Neither list should imply that every entry is open, free, staffed or accessible at all hours."
+          "Artworks, businesses and spontaneous roadside displays have different access rules. Public art can be approached differently from a ticketed performance or a privately run dance hall. Some stops are free-standing roadside sculptures; others involve admission, reservations or private land. Local visitor information is the decisive source on access."
         ],
         "sources": [
           {
@@ -158,13 +158,13 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
   },
   "culture-music": {
     "title": "Why Texas has several musical histories, not one signature sound",
-    "introduction": "Texas dance halls, border communities, Black urban neighborhoods and rural touring circuits shaped overlapping but distinct musical traditions. A cultural index cannot collapse them into a single country-music narrative.",
+    "introduction": "Accordion music from the Texas–Mexico border, African-American blues, swing orchestras, gospel, rodeo celebrations and multigenerational dance halls each reflect different communities and musical histories.",
     "findings": [
       {
         "heading": "Conjunto, Tejano and Western swing crossed different musical borders",
         "paragraphs": [
           "Conjunto is associated with accordion-led dance music along the Texas–Mexico border; Tejano music covers a wider set of Mexican-American styles and audiences. Western swing instead grew through country and string-band ensembles drawing on jazz, blues and popular dance music. Similar dance-floor use does not mean these are the same genre.",
-          "The Handbook of Texas music project traces the interactions among European immigrant polkas, music from northern Mexico, African-American blues and gospel, and Anglo country musicians. Specific artists, recordings, dates and communities belong in the dedicated music-history guides, while this chapter makes the relationships legible."
+          "Narciso Martínez helped establish a distinctive accordion-led conjunto style, while Milton Brown's Fort Worth band and Bob Wills helped shape Western swing. Their music shared dance audiences but grew from different local and cross-cultural musical networks."
         ],
         "sources": [
           {
@@ -181,7 +181,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
         "heading": "Black Texas music is foundational, not a footnote",
         "paragraphs": [
           "Texas blues developed through African-American musicians working across house parties, dances, churches, migration routes and later the recording industry. The TSHA's blues history describes its encounters with Gulf Coast, rural Anglo, Hispanic, Cajun, Creole and Central European musical traditions.",
-          "Treat Houston, East Texas and Dallas as distinct music scenes, not a generic box labeled Texas blues. Readers researching musicians should move to named histories and venues; this category does not invent interviews or claim first-hand performance reviews."
+          "Dallas's Deep Ellum was an important performance center for Blind Lemon Jefferson, while Sam Lightnin' Hopkins became associated with Houston and East Texas blues. Their histories show why a single Texas-blues label cannot describe every local performance circuit."
         ],
         "sources": [
           {
@@ -221,7 +221,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
         "heading": "Ten ecoregions explain the state's striking differences",
         "paragraphs": [
           "Texas Parks and Wildlife recognizes ten broad ecoregions, from the Piney Woods and Gulf Prairies to the High Plains and Trans-Pecos. Rainfall ranges dramatically between the humid east and desert west. That helps explain why cypress swamps, shortgrass plains, limestone juniper woodlands and arid canyons occur within the same state.",
-          "This index includes both plants and animals; it is not a complete field guide. Use the ecoregion first, then confirm seasonal range, protected status and species identification through TPWD rather than inferring an animal is present year-round everywhere in Texas."
+          "A painted bunting breeding in warm-season brush habitat and a wintering whooping crane on the coast illustrate different kinds of seasonal presence. An ocelot in South Texas thornscrub occupies an entirely different conservation setting from widespread armadillos or domestic Longhorn cattle."
         ],
         "sources": [
           {
@@ -325,7 +325,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
         "heading": "Distinguish folklore from documented local history",
         "paragraphs": [
           "Tall tales about enormous jackalopes, ghost lights and exaggerated ranch feats can be enjoyable without being recorded as scientific or historical fact. Explain who tells a story, where it circulates and whether a dependable primary record exists.",
-          "This chapter collects familiar identity markers. The Texas Slang Explained guide gives usage and meaning; the official-symbols guide treats legal designations; the mythology entries should be labeled as folklore instead of presented as sightings or verifiable events."
+          "Pecos Bill's feats and jackalopes belong to tall-tale traditions. The state flower and flag have legal recognition, while 'all hat, no cattle' is an idiom whose meaning depends on shared ranch imagery. Their cultural roles overlap without making the claims equivalent."
         ],
         "sources": [
           {
