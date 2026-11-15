@@ -367,6 +367,14 @@ test('November 15 editorial corrections agree across guide, provider and organiz
     ['src/data/major-event-expanded-authority-tranche52.server.ts', 'beaumont-pardi-gras'],
     ['src/data/major-event-expanded-authority-tranche15.server.ts', 'houston-auto-show'],
     ['src/data/major-event-expanded-authority-tranche15.server.ts', 'sandhills-stock-show-rodeo'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'cowboy-mardi-gras-bandera'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'crystal-beach-mardi-gras-parade'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-on-the-sabine-orange'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'kemah-yachty-gras'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-upriver-jefferson'],
+    ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-port-arthur'],
+    ['src/data/major-event-expanded-authority-tranche25.server.ts', 'mardi-gras-galveston'],
+    ['src/data/major-event-expanded-authority-tranche57.server.ts', 'main-street-bethlehem-burnet'],
   ]) assert.match(event(file, slug), /sourceCheckedAt: "2026-11-15"/,
     'Reverified organizer facts need a per-record editorial evidence date: ' + slug);
 });
