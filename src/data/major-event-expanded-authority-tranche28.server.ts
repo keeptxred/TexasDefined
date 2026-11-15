@@ -101,10 +101,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The festival weekend runs November 6-8, 2026. Friday is the separate Made In Texas kickoff event at the Long Center, followed by daytime festival programming Saturday and Sunday; ticket access varies by product.",
     venue: "Long Center and Auditorium Shores",
     officialUrl: "https://www.austinfoodandwinefestival.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Austin Food & Wine Festival brings chef-driven tastings, live-fire cooking, wine and spirits programming, demonstrations and Texas-focused food experiences to central Austin over a three-day November weekend.",
     planningSections: [
-      { title: "Match the ticket to the day you actually want", body: "The organizer confirms November 6-8, 2026. Friday's Made In Texas event is a separate evening kickoff, while Saturday and Sunday center on daytime festival access, so verify the ticket product before building the trip around all three days." },
+      { title: "The November 6–8, 2026 edition has concluded", body: "The official Austin Food & Wine Festival site now thanks 2026 attendees and invites signups for future news; 2027 dates are unannounced. The Friday Made In Texas kickoff at the Long Center and Saturday–Sunday tastings were separately ticketed in 2026. Do not advertise past chef lineups, admission or festival hours as 2027 availability." },
       { title: "Treat Friday and the weekend as different venues and formats", body: "Made In Texas is scheduled at the Long Center on Friday evening, while the daytime festival and Hands-On Grilling programming use the Auditorium Shores area. Review the current schedule and ticket inclusions before assuming one entrance plan covers the entire weekend." },
       { title: "Prioritize tastings and demos instead of trying everything", body: "The organizer promotes chef showcases, tasting sessions, demonstrations and live-fire programming with a large talent roster. Pick a few priority experiences before arrival and leave room for lines and movement between festival areas." },
     ],
