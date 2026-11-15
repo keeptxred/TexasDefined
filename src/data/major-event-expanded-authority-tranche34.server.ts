@@ -42,11 +42,11 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2027-03-05",
     endDate: "2027-03-07",
     venue: "Circuit of The Americas",
-    officialUrl: "https://www.nascar.com/",
-    sourceCheckedAt: "2026-08-29",
+    officialUrl: "https://circuitoftheamericas.com/event/nascar/",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "NASCAR returns to Circuit of The Americas for a March 5-7, 2027 road-course weekend, with national-series action culminating in the DuraMAX Texas Grand Prix and extending Austin's role as one of the country's most varied motorsports destinations.",
     planningSections: [
-      { title: "Use March 5-7 as the race-weekend window", body: "NASCAR's official 2027 schedule announcement confirms the COTA weekend for March 5-7, with the Cup Series DuraMAX Texas Grand Prix on Sunday, March 7. Additional start times and on-track details can be added when NASCAR and COTA publish them." },
+      { title: "March 5–7 confirmed; Cup road-course race is Sunday, March 7", body: "Circuit of The Americas now sells 2027 NASCAR weekend, Sunday, camping and premium packages for March 5–7, culminating in the March 7 DuraMAX Texas Grand Prix NASCAR Cup race over COTA's 17-turn road course. Start times and additional series sessions must come from the final NASCAR/COTA schedule, not older F1 or MotoGP event calendars." },
       { title: "Plan the circuit trip before arrival", body: "COTA is outside central Austin, so parking, shuttle and road-access choices matter. Recheck official race-weekend transportation instructions and allow extra time for peak arrival and departure periods." },
       { title: "Separate the weekend from Austin's other COTA events", body: "Formula 1, Formula E and other series use the same facility under different schedules and policies. Use NASCAR's current weekend guide for ticket access, allowed items, camping and fan programming." },
     ],
@@ -58,6 +58,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "NASCAR official 2027 schedule announcement", url: "https://www.nascar.com/news-media/2026/08/12/2027-nascar-schedule-announcements-latest-dates-tracks-and-changes/" },
       { label: "NASCAR official 2027 national-series schedule", url: "https://www.nascar.com/news-media/2026/08/26/2027-nascar-schedule-confirmed-dates-tracks-for-all-three-national-series/" },
+      { label: "Circuit of The Americas current NASCAR race and ticket guide", url: "https://circuitoftheamericas.com/event/nascar/" },
     ],
   },
   {
