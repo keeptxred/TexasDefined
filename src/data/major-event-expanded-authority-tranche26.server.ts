@@ -41,10 +41,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-11",
     venue: "Memorial Park South Picnic Lane",
     officialUrl: "https://www.bayoucityartfestival.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Bayou City Art Festival Memorial Park turns one of Houston's signature green spaces into a three-day juried fine-art festival with hundreds of artists, food, music and family activities, making it a strong fall arts anchor for a Houston trip.",
     planningSections: [
-      { title: "Anchor the visit to October 9-11", body: "The producer confirms the 2026 Memorial Park festival for Friday through Sunday, October 9-11, with gates open 10 a.m. to 6 p.m. daily. Use those published hours as the fixed point for the day." },
+      { title: "October 2026 Memorial Park festival has finished", body: "The producer's official Memorial Park landing page now thanks visitors for the completed edition; no 2027 Memorial Park dates have been announced. The October 9–11, 2026 10 a.m.–6 p.m. hours are historical, not 2027 planning guidance. Bayou City has different festival locations and seasons; use the current exact edition before buying tickets." },
       { title: "Use the festival transportation plan", body: "The official festival information directs general parking to Delmar Stadium with shuttle service to the festival entrance. Recheck current parking-pass and shuttle details before driving to Memorial Park." },
       { title: "Leave time to actually browse the art", body: "The producer describes a large juried field spanning 19 art disciplines. A short drop-in can miss the point of the event, so allow a broad browsing window before adding other Houston stops." },
     ],
