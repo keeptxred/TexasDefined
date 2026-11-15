@@ -7,9 +7,16 @@ const dates = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.jso
 if (dates.rows.length !== 8) throw new Error('Deer season dataset must include eight documented season rows');
 if (!dates.regulations || !Number.isInteger(dates.regulations.annualBagMax) || !dates.regulations.antlerlessReportingCounties) throw new Error('Deer guide requires verified TPWD regulatory facts');
 
+// Editorial modification must match a real ISO-dated substantive change;
+// never pin the validation to a one-off date or auto-stamp after a fetch.
+const editorialDate = /reviewedOn:\s*"(20\d\d-\d\d-\d\d)"/.exec(source)?.[1];
+if (!editorialDate || !Number.isFinite(Date.parse(editorialDate+'T12:00:00Z'))) throw new Error('Deer editorial date is missing or invalid');
+const editorialLabel = new Intl.DateTimeFormat('en-US',{ timeZone:'UTC',month:'long',day:'numeric',year:'numeric' }).format(new Date(editorialDate+'T12:00:00Z'));
+if (!source.includes('reviewedLabel: "' + editorialLabel + '"')) throw new Error('Deer editorial review date and human-readable label differ');
+
 // Local contract is always checked, including on PRs without external networking.
 for (const marker of [
-  'reviewedOn: "2026-11-13"',
+  'reviewedOn:',
   'deerSeasonRange(',
   'regulations.reportingHours',
   'regulations.specialAntlerSpreadInches',
