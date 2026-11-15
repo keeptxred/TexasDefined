@@ -121,7 +121,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2026-12-31",
     "venue": "Lynn Creek Park · 5610 Lake Ridge Parkway, Grand Prairie",
     "officialUrl": "https://www.gptx.org/Community-Calendar/Prairie-Lights-2026",
-    "sourceCheckedAt": "2026-10-23",
+    "sourceCheckedAt": "2026-11-15",
     "seoTitle": "Prairie Lights 2026 Grand Prairie: Dates, Drive-Through & Parking",
     "seoDescription": "Prairie Lights at Lynn Creek Park runs nightly Nov. 26–Dec. 31, 2026, 6–10 p.m. Plan drive-through admission, peak holiday traffic and a DFW light-filled day trip.",
     "whyItMatters": "Grand Prairie's Prairie Lights is a signature two-mile drive-through light park at Lynn Creek Park, with millions of lights arranged along the vehicle route. Unlike a downtown free-to-walk display, admission and the driving queue are part of the experience. The city confirms nightly 6–10 p.m. operation from Thanksgiving through New Year's Eve 2026.",
@@ -158,7 +158,11 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Check the ticket's vehicle terms",
-        "body": "Published pricing can depend on vehicle type, purchase timing or add-on experiences. Verify the permitted occupancy and whether online booking is required. The city's listing confirms the dates but does not promise a fixed all-season price."
+        "body": "The City of Grand Prairie currently lists a $50 regular general-admission car pass and advertises a conditional $35 advance-only offer for November 30–December 4 with code EARLY26. This promotional window is not the all-season price; confirm checkout terms and vehicle category directly with the operator before purchasing."
+      },
+      {
+        title: "Do not confuse walk-through previews with drive-through nights",
+        "body": "Before regular nightly vehicle admission begins November 26, the city schedules a motorcycle preview November 20, pedestrian Sneak-A-Peek November 21–22 and a bicycle ride November 23. These are separate special events with distinct access and ticketing; a standard Prairie Lights car pass is not a general walk-through ticket."
       },
       {
         title: "Follow Lynn Creek Park entrance guidance",
@@ -203,6 +207,10 @@ const records: ChristmasExtendedRecord[] = [
       {
         "label": "Prairie Lights organizer",
         "url": "https://prairielights.org/"
+      },
+      {
+        "label": "City of Grand Prairie — November 2026 special previews and season announcement",
+        "url": "https://www.gptx.org/Newsroom/Special-Events-at-Prairie-Lights-2026"
       }
     ],
     "dateNote": "The City of Grand Prairie confirms every night November 26–December 31, 6–10 p.m.; recheck weather, traffic and ticket details."
