@@ -198,6 +198,9 @@ assert(!route.includes('"@type": "FAQPage"') && component.includes("buildFishing
 assert(sourceAudit.includes('Lake Abilene Closures') && sourceAudit.includes('swimming and fishing are not allowed'), "Official TPWD Lake Abilene closure language must be checked.");
 assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/abilene/alert/", "Lake Abilene directory warning must point directly to the official TPWD alert.");
 assert(advisories["lake-abilene"]?.verifiedAt && advisories["lake-abilene"]?.notice.includes("fishing"), "Lake Abilene restriction requires a dated, explicit visible warning.");
+assert(advisories["fort-parker-state-park-lake"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/fort-parker/alert", "Fort Parker launch closure must cite the official TPWD alert.");
+assert(advisories["fort-parker-state-park-lake"]?.verifiedAt === "2026-11-15" && /Navasota River boat ramp closed October 19, 2026 through January 10, 2027/.test(advisories["fort-parker-state-park-lake"]?.notice || ""), "Fort Parker advisory must retain the dated river-ramp closure and no unsupported reopening.");
+assert(sourceAudit.includes("isFortParker") && sourceAudit.includes("Navasota River boat ramp") && sourceAudit.includes("both fishing piers are closed"), "Scheduled primary-source monitor must fail closed on Fort Parker official ramp/pier alert drift.");
 const samRayburnStart = lakeFixtures.indexOf('slug: "sam-rayburn-reservoir"');
 const samRayburnSection = lakeFixtures.slice(samRayburnStart, samRayburnStart + 1400);
 for (const county of ["Angelina", "Jasper", "Nacogdoches", "Sabine", "San Augustine"]) assert(samRayburnSection.includes(`"${county}"`), `Sam Rayburn missing TPWD reservoir-boundary county: ${county}`);
