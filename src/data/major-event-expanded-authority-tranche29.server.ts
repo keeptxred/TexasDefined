@@ -13,10 +13,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-11",
     venue: "Gruene Historic District, Gruene Hall and The Grapevine",
     officialUrl: "https://gruenemusicandwinefest.org/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The 40th Gruene Music & Wine Festival combines Texas and Americana music, Texas wine and beer, historic Gruene venues and fundraising for the United Way of Comal & Guadalupe Counties across four distinct October event days.",
     planningSections: [
-      { title: "Treat each day as a different event experience", body: "The organizer confirms October 8-11, 2026 and programs four distinct days: Thursday's kickoff party, Friday's Stars & Guitars, Saturday's Tastings & Tunes and Sunday's all-star playlist. Pick the day by program before buying tickets or arranging lodging." },
+      { title: "Organizer ticket page still describes completed October 2026", body: "The festival's official October 8–11 page still advertises 2026 performances by Robert Earl Keen and Shane Smith & The Saints. Its home navigation currently displays generic website-template links rather than a 2027 announcement. Do not book an assumed 2027 date or treat those old performance ticket links as current admission until the producer publishes the next program." },
       { title: "Know which activities are free and which are ticketed", body: "Some festival components are free while others require tickets or tables. Review the official ticket page for the exact program you want instead of assuming one festival admission covers the full four-day run." },
       { title: "Use historic Gruene as part of the itinerary", body: "Programming is spread across Gruene Hall, The Grapevine and the historic district. Leave walking and dining time between activities and connect the festival to a wider New Braunfels and Comal County visit." },
     ],
