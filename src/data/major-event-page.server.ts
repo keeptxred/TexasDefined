@@ -353,10 +353,9 @@ export function majorEventSessionTimeLabel(time?: string) {
   return `${hour % 12 || 12}:${match[2]} ${hour < 12 ? "AM" : "PM"}`;
 }
 
-// South Pole's verified organizer season starts November 28, 2026; a
-// provider-side Nov 27 session must not be promoted as festival admission.
-// Narrow the guard to this reconciled conflict so unrelated previews or
-// early admission at other events are not silently removed.
+// South Pole's organizer now confirms November 27–December 27, 2026.
+// Keep this season-specific guard to suppress off-window provider sessions
+// while allowing the corroborated November 27 ticketed start.
 export function majorEventTicketInsideVerifiedSeasonServer(slug: string, candidateDate: string) {
   if (slug !== "south-pole-illuminated-festival") return true;
   const authority = getMajorEventRecordServer(slug);
