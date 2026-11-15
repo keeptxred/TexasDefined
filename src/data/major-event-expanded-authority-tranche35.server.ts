@@ -14,10 +14,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-11-01",
     venue: "Dallas Arboretum and Botanical Garden",
     officialUrl: "https://www.dallasarboretum.org/autumn-at-the-arboretum/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Autumn at the Arboretum is one of North Texas's largest fall destination events, transforming the Dallas Arboretum with more than 100,000 pumpkins, gourds and squash while layering seasonal installations and special programming onto the garden's regular visitor experience.",
     planningSections: [
-      { title: "Use September 19 through November 1 as the confirmed 2026 window", body: "The Dallas Arboretum publishes Autumn at the Arboretum for September 19 through November 1, 2026. The garden is open daily, but special evening programs and individual activities have their own dates and ticketing, so use the organizer calendar for day-specific planning." },
+      { title: "Harvest Hues concluded November 1; 2027 dates are unannounced", body: "The official site shows the completed September 19–November 1, 2026 Harvest Hues display with over 100,000 pumpkins, gourds and squash. Its later November holiday classes are separate Arboretum programs, not extensions of the fall festival. Do not project 2027 dates or tickets until the garden announces that season." },
       { title: "Plan around the Pumpkin Village", body: "The 2026 Harvest Hues presentation uses more than 100,000 pumpkins, gourds and squash across Pumpkin Village. Weekend traffic and special-program dates can increase demand, so advance admission and parking planning are worthwhile." },
       { title: "Build the visit into a Dallas day", body: "The Arboretum sits on Garland Road near White Rock Lake. Pairing the garden with nearby East Dallas or lake-area stops can make better use of the trip than treating the festival as an isolated photo stop." },
     ],
