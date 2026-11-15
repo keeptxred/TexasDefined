@@ -17,6 +17,7 @@ on:
       - 'scripts/data/fishing-access-kind.test.mjs'
       - 'scripts/data/validate-fishing-inventory-expansion.mjs'
       - 'scripts/ci/audit-fishing-inventory-sources.mjs'
+      - 'scripts/ci/fishing-access-source-witnesses.json'
       - 'scripts/ci/run-bounded-source-checks.mjs'
       - 'scripts/ci/test-run-bounded-source-checks.mjs'
       - '.github/workflows/fishing-source-inventory.yml'
