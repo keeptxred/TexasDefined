@@ -32,6 +32,14 @@ jobs:
               "https://texasdefined.com/explore/tierra-blanca-creek",
           ):
               assert needle.lower() in page.lower(), f"Live article missing {needle}"
+          for reciprocal_path in (
+              "/explore/near/amarillo/road-trips",
+              "/explore/near/amarillo/day-trips",
+              "/destination/palo-duro-canyon-state-park",
+              "/county/randall",
+          ):
+              linked = get(reciprocal_path)
+              assert 'href="/explore/tierra-blanca-creek"' in linked, f"Missing live reciprocal guide link: {reciprocal_path}"
           sitemap = get("/sitemap-explore.xml")
           assert "<loc>https://texasdefined.com/explore/tierra-blanca-creek</loc>" in sitemap, "Canonical missing in Explore sitemap"
           print("PASS Tierra Blanca guide, source-grounded content, canonical and sitemap on deployed site")

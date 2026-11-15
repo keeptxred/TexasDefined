@@ -1,0 +1,40 @@
+name: Tierra Blanca Creek quarterly factual verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tierra-blanca-quarterly-audit.yml'
+      - 'scripts/ci/verify-tierra-blanca-quarterly.mjs'
+      - 'scripts/ci/report-tierra-blanca-authority-failure.mjs'
+      - 'scripts/data/validate-tierra-blanca-authority.mjs'
+  schedule:
+    - cron: '17 14 10 1,4,7,10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: tierra-blanca-quarterly-authority
+  cancel-in-progress: false
+
+jobs:
+  source-and-production-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect editorial claims, canonical URL and discovery links
+        run: node scripts/data/validate-tierra-blanca-authority.mjs
+      - name: Confirm source facts, live HTML and unique sitemap entry
+        run: node scripts/ci/verify-tierra-blanca-quarterly.mjs
+      - name: Open an issue for any factual or publishing regression
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/report-tierra-blanca-authority-failure.mjs
