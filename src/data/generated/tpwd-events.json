@@ -1,67 +1,7 @@
 {
-  "generatedAt": "2026-11-14T17:11:18.344Z",
+  "generatedAt": "2026-11-15T15:24:02.165Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "All About Snakes",
-      "startDate": "2026-11-14",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-snakes/2026-11-14"
-    },
-    {
-      "title": "All About Us: a Guided Hike",
-      "startDate": "2026-11-14",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-14"
-    },
-    {
-      "title": "Archery 101",
-      "startDate": "2026-11-14",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-14"
-    },
-    {
-      "title": "Coffee with the Bison",
-      "startDate": "2026-11-14",
-      "parkKey": "caprock-canyons",
-      "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/coffee-with-the-bison-1/2026-11-14"
-    },
-    {
-      "title": "Gator Talk – American Alligator VS Tyrannosaurus Rex. Who is the ultimate Survivalist",
-      "startDate": "2026-11-14",
-      "parkKey": "huntsville",
-      "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/gator-talk-2013-american-alligator-vs-tyrannosaurus-rex-who-is-the-ultimate-survivalist/2026-11-14"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-14",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-14"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-14",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-14"
-    },
-    {
-      "title": "Reptiles with a Ranger",
-      "startDate": "2026-11-14",
-      "parkKey": "lake-brownwood",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-14"
-    },
-    {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
-      "startDate": "2026-11-14",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-14"
-    },
-    {
-      "title": "World Birding Center Birding Tours",
-      "startDate": "2026-11-14",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-14"
-    },
     {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-11-15",
@@ -1537,6 +1477,24 @@
       "startDate": "2027-02-07",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-07"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2027-02-13",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-13"
+    },
+    {
+      "title": "Art In The Park",
+      "startDate": "2027-02-13",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/art-in-the-park-1/2027-02-13"
+    },
+    {
+      "title": "Brazos River Pickers",
+      "startDate": "2027-02-13",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/copy_of_brazos-river-pickers_10-03-26/2027-02-13"
     }
   ]
 }
