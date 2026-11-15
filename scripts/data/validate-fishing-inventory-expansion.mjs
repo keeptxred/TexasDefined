@@ -67,6 +67,14 @@ for (const slug of [
   "atx-fishing-travis-bass",
   "brent-hodges-possum-kingdom",
 ]) assert.ok(guides.some((guide) => guide.slug === slug), "Missing verified, named guide source: " + slug);
+const directGuideSources = new Map([
+  ["captain-steve-barnes-texoma", "https://txfishingguide.com/trips-and-charters/lake-texoma-striper-trips/"],
+  ["reel-um-n-sam-rayburn-guide", "https://www.rayburncountry.com/bass-fishing/"],
+]);
+for (const [slug, url] of directGuideSources) {
+  assert.equal(guides.find((guide) => guide.slug === slug)?.url, url,
+    slug + ": retain the checked operator's direct first-party service page");
+}
 for (const guide of guides) {
   assert.match(guide.url, /^https:\/\//);
   assert.ok(guide.summary && guide.summary.length > 50, guide.slug + ": no business-specific description");
@@ -173,6 +181,7 @@ for (const [lakeId, sites] of Object.entries(officialWitnesses)) {
 }
 const inventoryMonitor = read("scripts/ci/audit-fishing-inventory-sources.mjs");
 const inventoryMonitorWorkflow = read(".github/workflows/fishing-source-inventory.yml");
+assert.ok(inventoryMonitor.includes("directGuideEvidence") && inventoryMonitor.includes("Lake Sam Rayburn") && inventoryMonitor.includes("Capt. Steve"), "Original operator and lake must be verified by live first-party text");
 assert.ok(inventoryMonitor.includes("officialWitnesses") && inventoryMonitor.includes("missingOfficialFacts") && inventoryMonitor.includes("approvedAlternateOrigins"), "Official witness audit must fail closed on renamed facilities and unsupported alternate domains");
 assert.ok(inventoryMonitorWorkflow.includes("fishing-access-source-witnesses.json"), "Reviewed official witnesses must trigger source-review CI");
 for (const marker of [
