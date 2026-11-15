@@ -138,7 +138,7 @@ try {
         await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/washington"]').count() > 0 &&
         await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/gillespie"]').count() > 0);
       verify('source-check provenance is publicly linked',
-        await page.locator('a[href*="docs/editorial/deer-hunting-2026-11-15-source-check.md"]').count() > 0);
+        await page.locator('a[href="#deer-source-record"]').count() > 0);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
       if (await photo.count()) {
