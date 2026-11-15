@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const head = read("src/routes/explore.tierra-blanca-creek.tsx");
@@ -54,6 +55,9 @@ assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoi
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
 contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
+for (const script of ["scripts/ci/verify-tierra-blanca-quarterly.mjs", "scripts/ci/report-tierra-blanca-authority-failure.mjs"]) {
+  execFileSync(process.execPath, ["--check", script], { stdio: "pipe" });
+}
 const auditSchedule = read(".github/workflows/tierra-blanca-quarterly-audit.yml");
 const sourceAudit = read("scripts/ci/verify-tierra-blanca-quarterly.mjs");
 const failureReporter = read("scripts/ci/report-tierra-blanca-authority-failure.mjs");
