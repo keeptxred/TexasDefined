@@ -4,6 +4,7 @@ import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshn
 import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-source-eligibility.mjs';
 import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evidence-gate.mjs';
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
+import { isOriginalInstitutionalEvidenceLead } from './texasdefined-institutional-evidence-hydration.mjs';
 import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
 import { liveDestinationSlugs, relevantDestinationRows } from './texasdefined-live-destination-catalog.mjs';
 
@@ -185,10 +186,35 @@ async function hydrateTopCurrentCandidates() {
   if (!Array.isArray(candidates) || candidates.length >= 150) {
     throw new Error('Bounded source-candidate read was incomplete; no automatic scanning or hydration.');
   }
+  // A separate bounded, primary-source-only research lane repairs the
+  // discovery deadlock: official .gov/.edu pages often arrive with a low
+  // classification-confidence or REVIEW flag, before readable body extraction.
+  // Hydration writes ONLY original extracted_body/fetch telemetry, never
+  // approval, category, source-count, publication readiness or a new article.
+  const officialParams = new URLSearchParams({
+    select: 'id,title,source,link,pub_date,extracted_body,viral_signals,preflight_json,ready_for_rewrite,target_site,target_section,classification_confidence,texas_relevance_score,source_reputation_score,internal_slug,texasdefined_slug',
+    order: 'pub_date.desc',
+    limit: '80',
+  });
+  officialParams.set('pub_date', `gte.${since}`);
+  officialParams.set('target_site', 'eq.texasdefined');
+  officialParams.set('texas_relevance_score', 'gte.70');
+  officialParams.set('source_reputation_score', 'gte.85');
+  officialParams.set('texasdefined_slug', 'is.null');
+  officialParams.set('internal_slug', 'is.null');
+  // SQL wildcard discovery is ONLY a narrowing hint. The pure selector
+  // independently checks the true HTTPS hostname, locked state and subject.
+  officialParams.set('or', '(link.ilike.*.gov/*,link.ilike.*.edu/*)');
+  const officialCandidates = await supabase(`/rest/v1/texasdefined_story_queue?${officialParams}`).then(r => r.json());
+  if (!Array.isArray(officialCandidates) || officialCandidates.length >= 80) {
+    throw new Error('Bounded official source evidence read was incomplete; no approval or publication.');
+  }
   // The KTR source-only endpoint already writes fetch-state telemetry for every
   // requested feed ID. Respect a 24-hour failure cooldown, otherwise the same
   // six blocked publisher pages can consume all eight slots indefinitely.
-  const candidateIds = candidates.map((row) => Number(row.id)).filter(Number.isSafeInteger);
+  const candidateIds = [...new Set([...officialCandidates, ...candidates]
+    .map(row => Number(row.id)).filter(Number.isSafeInteger))];
+  const scannedCount = candidateIds.length;
   const stateUrl = new URLSearchParams({
     select: 'feed_item_id,last_attempt_at,last_result,chars',
     limit: String(candidateIds.length),
@@ -199,14 +225,20 @@ async function hydrateTopCurrentCandidates() {
     : [];
   if (!Array.isArray(stateRows)) throw new Error('Source fetch-state ledger returned an invalid response; refuse to hide repeated failures.');
   const failedRecently = cooldownFeedIds(stateRows);
-  const targets = dedupeAutomationQueue(candidates.filter((item) =>
+  const official = officialCandidates.filter(item =>
+    isOriginalInstitutionalEvidenceLead(item) && !failedRecently.has(Number(item.id)));
+  const officialIds = new Set(official.map(item => Number(item.id)));
+  const approved = candidates.filter(item =>
     isAutomationSafeQueueItem(item)
     && item.ready_for_rewrite === true
     && String(item.extracted_body ?? '').trim().length < 1200
-    && !failedRecently.has(Number(item.id))
-  )).slice(0, hydrateTop);
+    && !failedRecently.has(Number(item.id)));
+  // Reserve a small first-party research allotment without starving
+  // ordinary, independently approved hydration leads. No AI or publication.
+  const targets = dedupeAutomationQueue([...official.slice(0,3), ...approved, ...official.slice(3)]).slice(0, hydrateTop);
+  const originalSelected = targets.filter(item => officialIds.has(Number(item.id))).length;
   if (!targets.length) {
-    console.log(JSON.stringify({ mode: 'hydrate', scanned: candidates.length, requested: 0, updated: 0, charsWritten: 0, aiCalls: 0, cooldownSkipped: failedRecently.size }));
+    console.log(JSON.stringify({ mode: 'hydrate', scanned: scannedCount, officialCandidates: officialCandidates.length, originalSelected: 0, requested: 0, updated: 0, charsWritten: 0, aiCalls: 0, cooldownSkipped: failedRecently.size }));
     return;
   }
   const hydrationResponse = await fetch(NEWSROOM_HYDRATION_URL, {
@@ -222,7 +254,8 @@ async function hydrateTopCurrentCandidates() {
     throw new Error('Source-only hydration returned an incomplete result or a nonzero AI-call count.');
   }
   console.log(JSON.stringify({
-    mode: 'hydrate', scanned: candidates.length, requested: targets.length,
+    mode: 'hydrate', scanned: scannedCount, officialCandidates: officialCandidates.length,
+    originalSelected, requested: targets.length,
     updated: payload.updated, charsWritten: payload.charsWritten, aiCalls: 0,
     ids: targets.map((item) => item.id),
     noReadableSource: payload.results.filter((result) => result.reason === 'no_readable_body').length,
