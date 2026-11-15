@@ -41,6 +41,14 @@ export function FishIdentificationSection({ speciesName, identification }: {
           <p className="mt-3 text-sm leading-7 text-muted-foreground">{identification.caution}</p>
         </article>
       </div>
+      {identification.naturalHistory?.length ? (
+        <div className="mt-10 max-w-4xl border-t border-border pt-8">
+          <h3 className="font-display text-3xl">Diet, Spawning and Natural History</h3>
+          <div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">
+            {identification.naturalHistory.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+          </div>
+        </div>
+      ) : null}
       <p className="mt-8 max-w-3xl text-xs leading-6 text-muted-foreground">
         Species accounts and size descriptions are drawn from Texas Parks & Wildlife Department sources;
         fishing techniques are practical editorial interpretation, not a prediction of local conditions.
