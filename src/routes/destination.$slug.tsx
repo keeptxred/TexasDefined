@@ -602,6 +602,11 @@ function DestinationPage() {
           <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Inside the pyramids" : "The experience"}</p>
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destination.slug === "moody-gardens" ? "Aquarium, Rainforest or Discovery: how to choose" : destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
+          {destination.slug === "palo-duro-canyon-state-park" && <aside className="mt-7 border-l-4 border-primary bg-surface p-6" aria-label="Palo Duro Canyon upstream watershed">
+            <h3 className="font-display text-2xl">Where does Palo Duro's river begin?</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Tierra Blanca Creek and Palo Duro Creek meet east of Canyon to form the Prairie Dog Town Fork of the Red River. Their upstream history and refuge access are separate from this state park's managed entrances. The new guide explains the watercourse, Indigenous archaeology, ranching and Georgia O'Keeffe's documented Canyon-area art without presenting private creek banks as park trails.</p>
+            <a href="/explore/tierra-blanca-creek" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore the Tierra Blanca Creek authority guide</a>
+          </aside>
         </section>
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
