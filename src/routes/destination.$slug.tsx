@@ -607,6 +607,11 @@ function DestinationPage() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Tierra Blanca Creek and Palo Duro Creek meet east of Canyon to form the Prairie Dog Town Fork of the Red River. Their upstream history and refuge access are separate from this state park's managed entrances. The new guide explains the watercourse, Indigenous archaeology, ranching and Georgia O'Keeffe's documented Canyon-area art without presenting private creek banks as park trails.</p>
             <a href="/explore/tierra-blanca-creek" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore the Tierra Blanca Creek authority guide</a>
           </aside>
+          {destination.slug === "buffalo-lake-national-wildlife-refuge" && <aside className="mt-7 border-l-4 border-primary bg-surface p-6" aria-label="Tierra Blanca Creek hydrology and regional road trips">
+            <h3 className="font-display text-2xl">Why is Buffalo Lake usually dry?</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">The U.S. Fish and Wildlife Service says the lake was impounded on Tierra Blanca Creek in 1938, but groundwater withdrawals and reduced spring and creek flows left it typically dry by the 1970s. This is a protected refuge for wildlife viewing, hiking and designated camping—not an open lake for swimming or boating. The Tierra Blanca Creek guide follows the waterway toward its junction with Palo Duro Creek near Canyon and connects an Amarillo road trip with the separate state park.</p>
+            <a href="/explore/tierra-blanca-creek" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore Tierra Blanca Creek and Canyon's historic watershed</a>
+          </aside>
         </section>
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
