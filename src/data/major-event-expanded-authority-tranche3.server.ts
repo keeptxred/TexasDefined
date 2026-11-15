@@ -25,7 +25,7 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "bandera-round-up-cattle-drive",
     whyItMatters: "Bandera's Round-Up centers a real Main Street longhorn cattle drive and parade inside a broader Cowboy Capital heritage weekend, making it a strong Hill Country cultural stop.",
     planningSections: [
-      { title: "Be in place before the cattle drive", body: "The official parade is scheduled for 11 a.m. on September 5, so arrive early enough to park and reach Main Street before the procession begins." },
+      { title: "September 5, 2026 parade has ended; 2027 unannounced", body: "The Bandera Chamber of Commerce's last dedicated event listing confirms a free Saturday September 5, 2026 cattle drive and parade from the Bandera County Courthouse at 500 Main Street, beginning 11 a.m. and scheduled until noon. No year-specific 2027 event announcement appears on that page. Do not use a Labor Day recurrence to invent a 2027 parade, route or road closure." },
       { title: "Treat the parade as the anchor", body: "The cattle drive itself is compact. Use it as the fixed point for a longer Bandera visit with dining, museums, music or other western-heritage stops." },
       { title: "Check day-of access", body: "Main Street activity can affect traffic and parking. Recheck local event guidance before driving into the center of town." },
     ],
@@ -58,12 +58,12 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "mckinney-oktoberfest",
     whyItMatters: "McKinney Oktoberfest turns the historic downtown square into a three-day festival, making the event easy to combine with a broader walkable downtown visit.",
     planningSections: [
-      { title: "Choose Friday, Saturday or Sunday", body: "The city's calendar lists different hours each day: Friday evening, a long Saturday, and a shorter Sunday. Match the visit to the schedule you want." },
+      { title: "McKinney Main Street confirms September 24–26, 2027", body: "The city's official downtown Main Street vendor-opportunities calendar lists September 24–26, 2027, with food and Marktplatz applications expected to open in June 2027. Its older Parks Guide still shows September 25–27, 2026 and is not a current 2027 schedule. The city has not yet posted complete Friday-to-Sunday public gate, street-closure or entertainment hours; don't copy 2026 operating times." },
       { title: "Treat downtown as part of the event", body: "Historic Downtown McKinney is both the venue and a destination. Allow time for walking, dining and local shops around festival activities." },
       { title: "Recheck city event guidance", body: "Use the city's current calendar and event information before departure for any changes to hours, street access or festival operations." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-collin", label: "Explore Collin County", description: "Build more of a North Texas weekend." }, { href: "/events", label: "Texas events calendar", description: "Compare other Oktoberfest events." }],
-    sources: [{ label: "City of McKinney September 2026 events calendar", url: "https://www.mckinneytexas.org/calendar.aspx?CID=34%2C40%2C44%2C30&month=9&view=list&year=2026" }],
+    sources: [{ label: "McKinney Main Street confirmed 2027 dates and vendor application schedule", url: "https://downtownmckinney.com/events/event-opportunities" }],
   },
   {
     slug: "fort-worth-oktoberfest",

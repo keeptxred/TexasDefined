@@ -70,10 +70,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The 36th annual festival is scheduled for Sunday, August 30, 2026 from 3-9 p.m. at Radio/East. The organizer says the event benefits the Central Texas Food Bank.",
     venue: "Radio/East",
     officialUrl: "https://www.austinchronicle.com/hot-sauce/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Austin Chronicle Hot Sauce Festival combines one of Austin's long-running food traditions with a major tasting competition, live music and a charitable mission supporting the Central Texas Food Bank.",
     planningSections: [
-      { title: "Plan around the confirmed six-hour window", body: "The organizer lists the 2026 festival for Sunday, August 30 from 3-9 p.m. at Radio/East. Arrive early if broad tasting access and People's Choice voting are priorities, then use the published stage and awards times to shape the rest of the visit." },
+      { title: "The last posted Austin festival is the completed 36th event", body: "The Central Texas Food Bank's current official beneficiary listing confirms Sunday August 30, 2026 at Radio/East, 3504 Montopolis Drive, Austin, 3–9 p.m. The $20 presale/$25 walkup prices, cashless entry, 36th annual hot-sauce tasting and People's Choice judging all belong to that 2026 edition. A 2027 date, venue and admission offer have not been confirmed; do not recycle this year's details." },
       { title: "Know the entry rules before going", body: "The organizer identifies the event as cashless and says dogs, coolers and walk-up hot-sauce entries are not permitted. Check the festival FAQ again before departure for any operational changes." },
       { title: "Make it an East Austin stop", body: "The festival can anchor an afternoon and evening in Austin rather than consuming an entire weekend. Pair it with nearby food, music or other Travis County stops while leaving enough time for lines and tasting." },
     ],
@@ -84,6 +84,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Austin Chronicle Hot Sauce Festival official page", url: "https://www.austinchronicle.com/hot-sauce/" },
       { label: "Austin Chronicle 2026 festival event listing", url: "https://calendar.austinchronicle.com/event/austin-chronicle-hot-sauce-festival-14037057" },
+      { label: "Central Texas Food Bank — official 2026 fundraiser, venue and ticketing", url: "https://www.centraltexasfoodbank.org/events/austin-chronicle-hot-sauce-festival" },
     ],
   },
 ];

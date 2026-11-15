@@ -14,10 +14,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "Rockport Center for the Arts confirmed the 58th Annual Rockport Art Festival for July 4-5, 2026 at the Rockport Festival Grounds. The supplied discovery inventory projected July 3-4, 2027, but the organizer has not yet published a dedicated 2027 festival schedule, so Texas Defined uses the latest confirmed occurrence rather than presenting the projection as verified.",
     venue: "Rockport Festival Grounds",
     officialUrl: "https://www.rockportartcenter.com/artfest",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Rockport Art Festival is a long-running juried coastal arts event that brings more than 100 artists, collectors, music, food and family programming to Rockport Harbor over Independence Day weekend while supporting Rockport Center for the Arts programs.",
     planningSections: [
-      { title: "Use the organizer's confirmed festival weekend", body: "The 2026 festival ran Saturday, July 4 from 10 a.m. to 6 p.m. and Sunday, July 5 from 10 a.m. to 5 p.m. Future-year travelers should wait for the organizer's next published dates instead of assuming the supplied 2027 projection will hold." },
+      { title: "Only July 4–5, 2026 is confirmed; 2027 art-fest calendar pending", body: "Rockport Center for the Arts' live Art Fest and artist-info pages still describe the 58th annual July 4–5, 2026 fair. Its online shop and exhibitor documents reflect that past year, not a confirmed July 3–4, 2027 program. The center does separately list a February–March 2027 Rising Eyes exhibition, which is NOT the outdoor Rockport Art Festival; do not conflate them." },
       { title: "Plan around a juried-art festival, not a generic fair", body: "The event centers on original work from juried artists, with music, food and children's programming around the art marketplace. Allow enough time to browse artist booths and speak with artists rather than treating the grounds as a quick entertainment stop." },
       { title: "Make Rockport-Fulton part of the trip", body: "The festival grounds sit on the Rockport waterfront, making the event a natural anchor for an Aransas County coast weekend. Build in time for the harbor, local galleries and nearby Fulton while checking the organizer's current parking and shuttle information." },
     ],
