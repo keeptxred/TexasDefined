@@ -21,7 +21,7 @@ contains(head, [
   'canonicalPath = "/explore/tierra-blanca-creek"',
   'dateModified: lastSubstantiveRevision',
   '"@type": "Article"', 'documentedRefugeImage', 'creditText: "Christena Stephens / U.S. Fish and Wildlife Service"',
-  '"@type": "BreadcrumbList"',
+  '"@type": "BreadcrumbList"', 'headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo"',
   "buildMeta(",
   "canonicalLink(",
 ], "Head metadata and canonical");
