@@ -11,8 +11,8 @@ test("watcher accepts 2026 organizer windows, rejects stale and missing dates", 
   assert(johnson && southPole, "Existing original organizers must remain watched after insertions");
   assert(verifySource("<h1>November 27, 2026 - January 3, 2027</h1>", johnson));
   assert(!verifySource("<p>November 28, 2026 - January 4, 2027</p>", johnson));
-  assert(verifySource("<p>November 28 - December 28</p><p>2026 schedule</p>", southPole));
-  assert(!verifySource("<p>November 27 - November 29, 2026</p>", southPole));
+  assert(verifySource("<p>November 27 - December 27</p><p>2026 schedule</p>", southPole));
+  assert(!verifySource("<p>November 28 - December 28, 2026</p>", southPole));
   const shiner = targets.find((target) => target.name === "Shiner Beer Run 2026 registration");
   assert(shiner);
   assert(verifySource("<p>November 21, 2026</p><p>Marathon Half Marathon 10K 5K</p>", shiner));
@@ -115,8 +115,8 @@ test("canonical event seasons and title deduplication remain correct", () => {
   assert(j.includes('endDate: "2027-01-03"'));
   const south = read("../../src/data/major-event-expanded-authority-tranche47.server.ts");
   const s = south.slice(south.indexOf('slug: "south-pole-illuminated-festival"'), south.indexOf('slug: "bill-pickett-rodeo-fort-worth"'));
-  assert(s.includes('startDate: "2026-11-28"'));
-  assert(s.includes('endDate: "2026-12-28"'));
+  assert(s.includes('startDate: "2026-11-27"'));
+  assert(s.includes('endDate: "2026-12-27"'));
   const page = read("../../src/data/major-event-page.server.ts");
   assert(page.includes('yearQualifiedEventName'));
   const picks = read("../../src/data/events/november-official-picks-2026.ts");
