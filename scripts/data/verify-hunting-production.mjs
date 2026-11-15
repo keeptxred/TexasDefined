@@ -241,7 +241,7 @@ async function verify() {
   for (const marker of requiredDeerMarkers) {
     requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
   }
-  const canonicalHero = canonicalDeerHtml.match(/<img\\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  const canonicalHero = canonicalDeerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
   if (!canonicalHero || /loading="lazy"/i.test(canonicalHero) ||
     !/loading="eager"/i.test(canonicalHero) || !/fetchpriority="high"/i.test(canonicalHero)) {
     throw new Error('Exact canonical deer visitor hero lacks eager/high-priority LCP treatment');
