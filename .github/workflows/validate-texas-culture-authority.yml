@@ -1,4 +1,4 @@
-name: Texas culture eleven-page authority validation
+name: Texas culture and food authority validation
 
 on:
   pull_request:
@@ -11,6 +11,13 @@ on:
       - 'src/routes/things-unique-to-texas*.tsx'
       - 'src/data/texas-capital-designations-official.ts'
       - 'src/data/texas-icon-chapter-evidence.ts'
+      - 'src/data/texas-evergreen-guides.ts'
+      - 'src/routes/texas-food-history.tsx'
+      - 'src/routes/texas-food-trail*.tsx'
+      - 'src/routes/texas-roadside-oddities*.tsx'
+      - 'src/routes/texas-slang-explained*.tsx'
+      - 'src/routes/what-does-chud-mean.tsx'
+      - 'src/components/editorial/TexasEvergreenGuide.tsx'
       - 'src/data/things-unique-to-texas*.ts'
       - 'src/data/priority-search-pages-public-services.ts'
       - 'src/data/texas-music-city-guides.ts'
@@ -40,7 +47,7 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-      - name: Validate 11-page authority invariants
+      - name: Validate Texas culture and food authority invariants
         run: |
           node scripts/data/validate-texas-culture-authority.mjs
           node scripts/data/validate-things-unique-to-texas.mjs
@@ -49,7 +56,7 @@ jobs:
         run: npm ci
       - name: Build SSR route output and check client imports
         run: npm run build
-      - name: Verify the eleven published authority URLs on quarterly review
+      - name: Verify published culture, food, road trip and slang authority URLs quarterly
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
@@ -84,6 +91,23 @@ jobs:
           check '/things-unique-to-texas/texas-brands' 'What makes a company a Texas brand?'
           check '/things-unique-to-texas/natural-wonders' 'Four very different ways Texas landscapes were made'
           check '/things-unique-to-texas/landmarks' 'How to evaluate a Texas landmark beyond a photo'
+          check '/things-unique-to-texas/roadside-small-towns' 'How to tell a roadside landmark from a useful small-town stop'
+          check '/things-unique-to-texas/culture-music' 'Why Texas has several musical histories, not one signature sound'
+          check '/things-unique-to-texas/wildlife-landscape' 'Match Texas wildlife to its habitat instead of treating the state as one ecosystem'
+          check '/things-unique-to-texas/slang-folklore' 'Four kinds of Texas shorthand: speech, slogans, symbols and stories'
+          check '/texas-food-history' 'Five turning points behind the Texas table'
+          check '/texas-food-trail' 'Plan two food-focused days without crossing the state'
+          check '/texas-roadside-oddities' 'Which stops require a plan before arriving?'
+          check '/texas-slang-explained' 'What the research can—and cannot—show'
+          archive_file="$(mktemp)"
+          curl --fail --silent --show-error --location --max-time 40 "${origin}/what-does-chud-mean?authority_check=${GITHUB_RUN_ID}" -o "$archive_file"
+          grep -Eqi '<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27]noindex' "$archive_file" || { echo '::error::Off-topic slang archive lost noindex'; exit 1; }
+          grep -Fqi 'Dictionary and trend-report sources' "$archive_file" || { echo '::error::Off-topic slang archive lost its customized source explanation'; exit 1; }
+          if grep -Fqi 'Current fees, eligibility, deadlines, appointments' "$archive_file"; then
+            echo '::error::Unrelated government-services disclaimer leaked onto slang article'
+            exit 1
+          fi
+          rm -f "$archive_file"
 
       - name: Report validated content
         if: success()
@@ -92,7 +116,7 @@ jobs:
             echo '### Texas culture authority validation passed'
             echo '- 94 official capital place designations: source, legal status and searchable registry'
             echo '- 250 editorial records: unique IDs and accurate category reassignment'
-            echo '- Original evidence sections for food, brands, natural wonders and landmarks'
+            echo '- Original evidence sections for all eight culture chapters; food timeline, itineraries and linguistic sources'
             echo '- Dallas–Fort Worth sourced history, Texas facts and symbols additions'
             echo '- Exact internal links, category data, source-level guards and SSR build'
             echo '- Google Search ranking and actual indexation are not guaranteed by passing this gate'

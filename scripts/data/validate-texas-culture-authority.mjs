@@ -40,7 +40,7 @@ for (const id of [52,55]) check(food.includes(`item(${id},`), `Beverage/food ID 
 
 const chapter = read("src/data/texas-icon-chapter-evidence.ts");
 const categoryRoute = read("src/routes/things-unique-to-texas_.$category.lazy.tsx");
-for (const slug of ["food-drink","texas-brands","natural-wonders","landmarks"]) check(chapter.includes(`"${slug}": {`), `Missing substantive evidence chapter ${slug}`);
+for (const slug of ["food-drink","texas-brands","natural-wonders","landmarks","roadside-small-towns","culture-music","wildlife-landscape","slang-folklore"]) check(chapter.includes(`"${slug}": {`), `Missing substantive evidence chapter ${slug}`);
 check(categoryRoute.includes("chapterEvidence.findings.map"), "Culture chapter narrative not rendered.");
 const hub = read("src/routes/things-unique-to-texas.lazy.tsx");
 for (const target of ["/destination/big-bend-national-park", "/destination/palo-duro-canyon-state-park", "/article/caddo-lake-cypress-morning", "/article/bucees-texas-road-trip-history", "/article/heb-texas-grocery-history-culture", "/article/kolache-or-klobasnek-texas-story", "/explore/painted-churches"]) check(hub.includes(target), `Texas culture hub missing exact topical link: ${target}`);
@@ -70,4 +70,4 @@ if (failures.length) {
   for (const issue of failures) console.error(`- ${issue}`);
   process.exit(1);
 }
-console.log("PASS Texas culture authority: 94 unique official capital titles, 250 unique culture entries, 4 researched chapters, accurate categorization, sourced music and fact comparisons, symbol metadata and exact hub links.");
+console.log("PASS Texas culture authority: 94 unique official capital titles, 250 unique culture entries, 8 researched chapters, accurate categorization, sourced music and fact comparisons, symbol metadata and exact hub links.");

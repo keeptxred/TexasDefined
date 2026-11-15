@@ -20,6 +20,44 @@ const guides = [
   { href: "/barbacoa-big-red-san-antonio", title: "Barbacoa & Big Red", eyebrow: "Sunday in San Antonio", copy: "An older weekend barbacoa tradition, a Waco-born red soda and the later pairing that became San Antonio cultural shorthand." },
 ] as const;
 
+const historicalTurningPoints = [
+  {
+    era: "Before Texas statehood",
+    title: "Place and ingredients came before a Texas label",
+    detail: "Indigenous foodways, the arrival of Spanish colonial settlements and Mexican and Tejano cooking created the conditions for later regional cuisines. Corn, chiles, beans and locally available plants belonged to these histories well before any modern restaurant called a dish 'Tex-Mex'.",
+    source: "https://www.nps.gov/saan/learn/historyculture/world-heritage-site.htm",
+    sourceLabel: "NPS: San Antonio mission communities",
+  },
+  {
+    era: "Nineteenth century",
+    title: "Public food culture grew around San Antonio plazas",
+    detail: "San Antonio's Chili Queens sold food in public plazas, connecting visitors with the city's Mexican and Tejano food culture. Their work cannot be reduced to a colorful origin legend; it was part of the economic life of working women in the city.",
+    source: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company",
+    sourceLabel: "TSHA: chili commercialization and the Chili Queens",
+  },
+  {
+    era: "1885",
+    title: "Dr Pepper began at a Waco soda fountain",
+    detail: "The Dr Pepper Museum dates the drink to 1885 at Morrison's Old Corner Drug Store. This is a specific, documented Texas product origin. It is not evidence that every food Texans embrace was invented in the state.",
+    source: "https://drpeppermuseum.com/history/",
+    sourceLabel: "Dr Pepper Museum: drink history",
+  },
+  {
+    era: "1896–1908",
+    title: "A local chili tradition reached mass markets",
+    detail: "William Gebhardt launched Eagle Brand chili powder in 1896 and his company issued Mexican Cooking in 1908. The new packaged product and cookbook carried San Antonio-associated flavors to customers far beyond the city's chili stands; marketing broadened the audience without creating the food from nothing.",
+    source: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company",
+    sourceLabel: "TSHA: Gebhardt Mexican Foods Company",
+  },
+  {
+    era: "Twentieth century onward",
+    title: "Food became a map of towns, highways and migration",
+    detail: "Czech and German baking traditions, Central Texas meat markets, Gulf seafood businesses and neighborhood breakfast counters developed in distinct places. Their modern popularity does not erase earlier Mexican, Indigenous, Southern and immigrant histories. Compare documented dates with family stories rather than inventing one statewide birthplace.",
+    source: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak",
+    sourceLabel: "TSHA: caution about disputed dish origins",
+  },
+] as const;
+
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
@@ -73,6 +111,32 @@ function TexasFoodHistoryPage() {
           <p>Texas food developed where cattle country, Indigenous ingredients, Mexican and Tejano cooking, Southern traditions, German and Czech immigration, Gulf seafood and modern highway culture overlapped. That is why brisket, breakfast tacos and kolaches can all feel unmistakably Texan without sharing the same origin.</p>
           <p>The useful question is not which food is “most Texas.” It is where a tradition came from, which communities carried it forward, and how geography turned a local habit into a statewide identity.</p>
         </div>
+      </section>
+
+      <section className="border-b border-border py-14" aria-labelledby="texas-food-timeline">
+        <p className="eyebrow text-primary">Historical evidence</p>
+        <h2 id="texas-food-timeline" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">Five turning points behind the Texas table</h2>
+        <p className="mt-5 max-w-3xl leading-8 text-muted-foreground">A food tradition can be older than Texas, rooted in a Texas city, or commercially popularized here. These are different claims. The dates below anchor specific parts of the story without pretending that one person invented a cuisine.</p>
+        <ol className="mt-9 grid gap-5 lg:grid-cols-2">
+          {historicalTurningPoints.map((turningPoint) => (
+            <li key={turningPoint.era} className="border border-border p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">{turningPoint.era}</p>
+              <h3 className="mt-3 font-display text-2xl">{turningPoint.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{turningPoint.detail}</p>
+              <a href={turningPoint.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{turningPoint.sourceLabel} (source)</a>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="border-b border-border py-12" aria-labelledby="texas-food-differences">
+        <h2 id="texas-food-differences" className="font-display text-4xl">Three origin claims that should not be confused</h2>
+        <div className="mt-7 grid gap-6 md:grid-cols-3">
+          <article><h3 className="font-display text-2xl">Made here</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Dr Pepper is a documented Waco invention. A product with an identified place and date supports a birthplace claim.</p></article>
+          <article><h3 className="font-display text-2xl">Developed across borders</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Chili con carne, barbacoa and Tex-Mex cookery reflect older Mexican and Tejano traditions and changing practices in Texas. A single inventor story is misleading.</p></article>
+          <article><h3 className="font-display text-2xl">Adopted and adapted</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Kolaches, sausage, chicken-fried steak and other familiar foods reveal migration, regional tastes and disputed histories. Texas importance is not always Texas invention.</p></article>
+        </div>
+        <p className="mt-7 max-w-4xl text-sm leading-7 text-muted-foreground">Sources are linked with the timeline above and in the nine topic guides below. Restaurant hours, menus and current ownership are not historical constants: use the <Link to="/texas-food-trail" className="font-semibold text-primary underline">food travel guide</Link> for named places and confirm present-day visitor information directly.</p>
       </section>
 
       <section className="py-14">
