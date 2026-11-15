@@ -20,6 +20,42 @@ function evidence({ runId = 43440830866, jobId = 131937683043,
     conclusion: 'failure', steps }] };
 }
 
+test('exact Nov15 published McKinney Worker handoff requires source-correct 2027 dates and no invented admission', () => {
+  const good = qualifyPriorDeployJob(evidence({
+    runId: 43734261983,
+    jobId: 132873261043,
+    failure: 'Verify Event structured-data production',
+  }));
+  assert.equal(good.eligible, true);
+  assert.equal(good.mode, 'exact-nov15-mckinney-2027-original-assets-only');
+  assert.equal(good.exactRun, 43734261983);
+  assert.equal(good.requiredSourceSha, 'b6a73701a69e5efeee3ed5ec605cdc420c7386df');
+  assert.equal(good.requiredWorkerVersion, 'ea33ec3d-842c-4c1b-9ff3-bb4bd292d7cb');
+  assert.equal(good.criticalChecks, 5);
+  assert.deepEqual(good.permittedFailures, ['Verify Event structured-data production']);
+});
+
+test('failed Nov15 McKinney original-byte exception never widens to other runs, jobs, failures, or failed Worker safety', () => {
+  const baseline = {
+    runId: 43734261983,
+    jobId: 132873261043,
+    failure: 'Verify Event structured-data production',
+  };
+  for (const mutation of [
+    { runId: 43734261984 },
+    { jobId: 132873261044 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    { additional: ['Verify current and previous release JS/CSS on both public origins'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(
+      () => qualifyPriorDeployJob(evidence({ ...baseline, ...mutation })),
+      /Required published-Worker safety gate not successful|Nov15 McKinney Worker original assets reject alternate run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/,
+    );
+  }
+});
+
 test('exact Nov15 active Worker may supply its original-byte asset history only after the visible recurrence assertion is source-repaired', () => {
   const qualified = qualifyPriorDeployJob(evidence({
     runId: 43730208415,
