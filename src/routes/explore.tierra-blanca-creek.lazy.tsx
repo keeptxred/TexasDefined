@@ -1,10 +1,16 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { TierraBlancaVisitorEvidence } from "@/components/explore/TierraBlancaVisitorEvidence";
 
 type Source = { name: string; url: string; supports: string };
 const sources: Source[] = [
   { name: "Texas State Historical Association — Tierra Blanca Creek", url: "https://www.tshaonline.org/handbook/entries/tierra-blanca-creek", supports: "Course, confluence, settlements, reservoirs and the creek's High Plains setting" },
   { name: "U.S. Fish & Wildlife Service — Buffalo Lake NWR visitor information", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us", supports: "Public access, trails, seasonal hours, fees and directions near Umbarger" },
+  { name: "U.S. Fish & Wildlife Service — Buffalo Lake detailed trail descriptions", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/trails", supports: "Trail names, descriptive lengths, summary-card discrepancies, natural surfaces and mobility notes" },
+  { name: "U.S. Fish & Wildlife Service — Buffalo Lake activities", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/activities", supports: "Primitive camping, toilets and wildlife activities" },
+  { name: "U.S. Fish & Wildlife Service — Buffalo Lake winter photograph and license", url: "https://www.fws.gov/media/buffalo-lake-winter", supports: "Actual winter refuge scenery, Christena Stephens; media record explicitly marked public domain" },
+  { name: "U.S. Fish & Wildlife Service — Buffalo Lake turkeys photograph and license", url: "https://www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge", supports: "Documented refuge wildlife photo credited Robert Burton/USFWS, public domain" },
+  { name: "UNT Portal to Texas History — Tierra Blanca flood in 1965", url: "https://texashistory.unt.edu/ark:/67531/metapth13553/", supports: "Named primary-source creek flood photo; linked rather than republished without reuse permission" },
   { name: "U.S. Fish & Wildlife Service — Buffalo Lake refuge history", url: "https://www.fws.gov/refuge/buffalo-lake/about-us", supports: "1937 water-conservation project, 1938 dam, 1970s creek drying, typically dry modern refuge" },
   { name: "U.S. Fish & Wildlife Service — Refuge rules", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/rules-policies", supports: "No collecting, access boundaries, wildlife and trail protections" },
   { name: "Texas Parks & Wildlife — Palo Duro Canyon State Park", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", supports: "Park access, activities, warnings and reservations" },
@@ -67,7 +73,7 @@ function TierraBlancaCreekGuide() {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
               The High Plains appear almost level until a drainage cuts into them. Tierra Blanca Creek helps explain that surprise. It flows toward Canyon, meets Palo Duro Creek, and contributes to the river system that carved the Panhandle's best-known canyon.
             </p>
-            <p className="mt-4 text-sm text-muted-foreground">Original TexasDefined field-independent research and source synthesis · Substantively reviewed November 15, 2026</p>
+            <p className="mt-4 text-sm text-muted-foreground">By TexasDefined's Travel &amp; Outdoors Desk · Sources and geographic evidence checked November 15, 2026 · <a href="#sources" className="text-primary underline underline-offset-4">Research method</a></p>
           </header>
 
           <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-2" aria-labelledby="first-answer">
@@ -93,6 +99,8 @@ function TierraBlancaCreekGuide() {
             <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-lg object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
             <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Palo Duro Canyon State Park shows the dramatic downstream landscape. This is a photo of the state park, not a claimed photograph of Tierra Blanca Creek or a public creek access point. Existing TexasDefined image credit: Larry D. Moore, CC BY 4.0, Wikimedia Commons.</figcaption>
           </figure>
+
+          <TierraBlancaVisitorEvidence />
 
           <section className="border-b border-border py-10" aria-labelledby="landscape">
             <p className="eyebrow text-primary">How the terrain works</p>
@@ -185,6 +193,9 @@ function TierraBlancaCreekGuide() {
               <div><dt className="font-display text-xl">Is Buffalo Lake full of water?</dt><dd className="mt-2 leading-7 text-muted-foreground">Usually not. FWS says the once-impounded lake is typically dry and receives water during major flood events. The refuge emphasizes birding, habitat, auto touring, hiking and established facilities; swimming and wading are prohibited. Do not plan a boating or swimming trip from the name.</dd></div>
               <div><dt className="font-display text-xl">Is Tierra Blanca the same as the Canadian River Breaks?</dt><dd className="mt-2 leading-7 text-muted-foreground">No. The Canadian River valley toward Canadian and Lake Meredith is a different drainage system farther north. Both help explain why the Texas Panhandle is not uniformly flat, but one cannot be used as directions to the other.</dd></div>
               <div><dt className="font-display text-xl">Where should I go if I want the red cliff photographs?</dt><dd className="mt-2 leading-7 text-muted-foreground">Choose Palo Duro Canyon State Park, using TPWD's current park map and access guidance. Buffalo Lake refuge shows another face of the High Plains; it is not a guaranteed substitute for Palo Duro's monumental rock formations.</dd></div>
+              <div><dt className="font-display text-xl">Where is the easiest short walk along the upper drainage?</dt><dd className="mt-2 leading-7 text-muted-foreground">Start with Buffalo Lake refuge's Prairie Dog Trail near FM 168, which USFWS describes as an easy crushed-caliche walk. Ask about current surface accessibility before leaving; the Cottonwood and Grassland trails are longer and more uneven.</dd></div>
+              <div><dt className="font-display text-xl">Are there restrooms, campsites or safe places to swim?</dt><dd className="mt-2 leading-7 text-muted-foreground">The refuge lists vault toilets and designated primitive camping, without water, sewer or electricity hookups. Swimming and wading are prohibited. The refuge and the state park have different rules, access hours and fees.</dd></div>
+              <div><dt className="font-display text-xl">Can I collect arrowheads or artifacts found beside the creek?</dt><dd className="mt-2 leading-7 text-muted-foreground">Do not collect or disturb cultural features in a national refuge or a state park. Additional creek banks are privately owned. Report suspected archaeological discoveries to the relevant land manager or Texas Historical Commission without publishing precise site locations.</dd></div>
             </dl>
           </section>
 
@@ -201,7 +212,8 @@ function TierraBlancaCreekGuide() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Editorial verification</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Primary sources and what each supports</h2>
-            <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Sources reviewed November 15, 2026. Geographic facts, recreation rules and art-history attributions are kept separate; none establishes public access to a privately owned creek bank. Public agency hours, fees and restrictions should be checked again on departure day.</p>
+            <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> TexasDefined's Travel &amp; Outdoors Desk compared TSHA watercourse records with federal wildlife refuge access and trail documents, TPWD state-park information, archaeological research, museum catalogs and identified historic photography. We noted discrepancies in FWS trail descriptive lengths versus its summary-card measurements instead of silently selecting a single value. This is desk research, not a claim of first-hand travel, field photography or an archaeological survey. Historical creek imagery is linked rather than republished without rights review. The FWS images reproduced here have official public-domain records.</p>
+            <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Research and substantive content reviewed November 15, 2026. Short-lived visitor details receive an additional monthly source-check workflow; longer-lived heritage material receives quarterly checks. An unchanged HTTP response never automatically advances an editorial review date. Confirm fees, closures, weather and access directly with the land manager before departing.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {sources.map((s) => <li key={s.url} className="py-4">
                 <a href={s.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{s.name}</a>
