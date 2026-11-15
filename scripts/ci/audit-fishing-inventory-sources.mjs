@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { runBoundedSourceChecks } from "./run-bounded-source-checks.mjs";
-import { sourceForFishingGuideReview } from "./fishing-operator-source-witnesses.mjs";
+import { sourceForFishingGuideReview, isSameOperatorOrigin } from "./fishing-operator-source-witnesses.mjs";
 
 const access = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
@@ -16,7 +16,7 @@ const normalize = (value) => value
   .replace(/&nbsp;/gi, " ")
   .replace(/<[^>]*>/g, " ")
   .normalize("NFKD").toLowerCase().replace(/[^a-z0-9]/g, "");
-async function check(url, names = [], textHints = [], requiredEvidence = []) {
+async function check(url, names = [], textHints = [], requiredEvidence = [], enforceOperatorOrigin = false) {
   try {
     // TPWD intermittently resets groups of automated connections. Preserve the
     // source-integrity gate while using a bounded two-attempt backoff: a failed
@@ -34,6 +34,10 @@ async function check(url, names = [], textHints = [], requiredEvidence = []) {
           await response.body?.cancel();
           if (status === 429 || status >= 500) throw new Error("Retryable HTTP " + status);
           throw Object.assign(new Error("HTTP " + status), { nonRetryable: true });
+        }
+        if (enforceOperatorOrigin && !isSameOperatorOrigin(url, response.url)) {
+          await response.body?.cancel();
+          throw Object.assign(new Error("Operator source redirected outside reviewed first-party origin"), { nonRetryable: true });
         }
         break;
       } catch (failure) {
@@ -127,7 +131,7 @@ for (const guide of guides) {
   // where the general homepage is flaky or shows a generic/challenge document.
   // This is still the official operator website, not a copied or paid listing.
   const witness = sourceForFishingGuideReview(guide);
-  sourceTasks.push(() => check(witness.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"], witness.identity));
+  sourceTasks.push(() => check(witness.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"], witness.identity, witness.identity.length > 0));
 }
 sourceTasks.push(() => check("https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml", [], ["Weekly Fishing Reports"]));
 
