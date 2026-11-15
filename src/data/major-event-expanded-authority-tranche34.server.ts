@@ -72,11 +72,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-05-02",
     venue: "Texas Motor Speedway",
     officialUrl: "https://www.texasmotorspeedway.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Texas Motor Speedway's 2027 NASCAR weekend delivers three consecutive days of national-series racing, beginning with the Craftsman Truck Series, continuing with the O'Reilly Auto Parts Series and ending with Sunday's Cup Series WÜRTH 400 presented by LIQUI MOLY.",
     planningSections: [
       { title: "Plan for three consecutive race days", body: "Texas Motor Speedway confirms a race every day from Friday, April 30 through Sunday, May 2, 2027. The Truck Series opens Friday, the O'Reilly Auto Parts Series races Saturday and the Cup Series WÜRTH 400 headlines Sunday." },
-      { title: "Use the speedway's current fan guidance", body: "The track publishes policies, ticket packages, camping options and mobile-app information for race weekends. Recheck those first-party resources before arrival because start times and detailed on-track schedules are still to be announced." },
+      { title: "Use the May 2 Cup race product and check youth-ticket conditions", body: "Texas Motor Speedway confirms the NASCAR Cup Series WÜRTH 400 on Sunday, May 2, 2027 and the Friday–Sunday tripleheader. The track currently advertises free youth admission Friday and Saturday and $10 on Sunday, subject to its stated age and accompanying-adult rules. Check exact seating and camping products and any updated race-session times before purchase." },
       { title: "Remember the speedway is in Denton County", body: "Although the venue uses a Fort Worth postal address, Texas Motor Speedway is in Denton County. The guide uses Denton County for local context rather than assuming the Fort Worth postal name determines the county." },
     ],
     relatedLinks: [

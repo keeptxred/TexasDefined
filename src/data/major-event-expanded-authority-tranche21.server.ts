@@ -107,16 +107,16 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Gregg County",
     region: "piney-woods",
     category: "seasonal",
-    startDate: "2026-06-12",
-    endDate: "2026-06-14",
-    dateNote: "The Great Texas Balloon Race confirmed its 49th annual event for June 12-14, 2026 in Longview. The organizer now says it is looking ahead to its 50th celebration next year but has not published the 2027 dates, so the supplied discovery inventory's June 11-13, 2027 projection is not treated as verified.",
+    startDate: "2027-07-22",
+    endDate: "2027-07-25",
+    dateNote: "The Great Texas Balloon Race organizer has now confirmed July 22–25, 2027 for the 50th anniversary. A July 21 morning practice flight is published separately, ahead of the four-day official race window. Weather can cancel balloon flights and public viewing time varies by session.",
     venue: "Longview Convention Complex",
     officialUrl: "https://gtbr.net/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Great Texas Balloon Race is one of East Texas' signature summer events, pairing competitive hot-air balloon flying with balloon glows, special-shape balloons, drone shows and evening concerts in Longview.",
     planningSections: [
-      { title: "Use the latest organizer-confirmed race weekend", body: "The 2026 event ran June 12-14. The organizer has announced that the next race will be its 50th celebration but has not yet posted dates, so future travelers should wait for the official 2027 announcement." },
-      { title: "Separate morning balloon activity from evening grounds events", body: "Balloon competition and special-shape activity can occur early in the morning, while glows, drone shows and concerts are evening attractions. Check the official schedule and weather updates before choosing which parts of the weekend to attend." },
+      { title: "The 50th anniversary is July 22–25, 2027, not the old projected June weekend", body: "The organizer now publishes the 2027 race for July 22–25; a practice flight occurs Wednesday, July 21 at 6:30 a.m. Competition launches are listed Friday, Saturday and Sunday, with morning activity over Longview. The July 24 Mass Ascension requires a $10 admission or Saturday evening festival ticket. Flight operations are weather-dependent; check the same-day festival status." },
+      { title: "Select morning balloons or evening glows", body: "The Friday and Saturday evening grounds at Longview Convention Complex open 5 p.m. with special-shape balloons, the Bill Bussey Balloon Glow, drone shows and live music; July 23–24 headliners are not yet confirmed. Morning tethered rides are listed at $25 and walkabout balloons at $5, cash; verify availability and weather onsite." },
       { title: "Plan for weather-dependent flying", body: "Balloon operations depend heavily on wind and weather. Keep the itinerary flexible, monitor organizer updates and avoid building the entire Longview trip around one expected launch window." },
     ],
     relatedLinks: [
@@ -125,7 +125,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Great Texas Balloon Race official site", url: "https://gtbr.net/" },
-      { label: "Great Texas Balloon Race official race information", url: "https://gtbr.net/race-information/" },
+      { label: "Great Texas Balloon Race official 2027 schedule and separate practice flight", url: "https://www.greattexasballoonrace.com/schedule-of-events/" },
     ],
   },
 ];
