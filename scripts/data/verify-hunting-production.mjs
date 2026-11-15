@@ -6,6 +6,8 @@ const quarterlyCheckedAt = JSON.parse(fs.readFileSync('src/data/hunting/turkey-q
 const freshnessFile = fs.readFileSync('src/data/hunting/freshness.ts', 'utf8');
 const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+const deerEditorialReviewed = /reviewedOn:\s*"([^"]+)"/.exec(fs.readFileSync('src/data/hunting/authority-deer.ts', 'utf8'))?.[1];
+if (!/^20\d\d-\d\d-\d\d$/.test(deerEditorialReviewed ?? '')) throw new Error('Missing trustworthy deer editorial modified date');
 if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
@@ -121,7 +123,7 @@ function extractVisibleText(html) {
   return decodeHtmlEntities(withoutNonVisibleContent).replace(/\s+/g, ' ').trim();
 }
 
-async function fetchDocument(pathname, cacheBust = true) {
+async function fetchDocument(pathname, cacheBust = true, rawHtml = false) {
   let lastError;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
@@ -152,7 +154,7 @@ async function fetchDocument(pathname, cacheBust = true) {
 
       const nulCount = assertNulsOnlyInsideScripts(text, pathname);
       if (nulCount) console.log(`${pathname}: accepted ${nulCount} framework serialization NUL delimiter(s), all confined to script blocks.`);
-      return extractVisibleText(text);
+      return rawHtml ? text : extractVisibleText(text);
     } catch (error) {
       lastError = error;
       if (attempt < 2) await sleep(1_500);
@@ -212,6 +214,29 @@ async function verify() {
   for (const marker of turkeyContract.needles) requireText(turkeyVisitorText, marker, 'Canonical turkey visitor page');
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
+
+  // This URL is updated on a separate editorial clock from the TPWD data snapshot.
+  // Assert the single exact live sitemap entry rather than mere URL presence.
+  const deerEntry = '<url><loc>https://texasdefined.com/hunting/texas-deer-hunting</loc><lastmod>' + deerEditorialReviewed + '</lastmod></url>';
+  const deerLocation = '<loc>https://texasdefined.com/hunting/texas-deer-hunting</loc>';
+  if (sitemap.split(deerLocation).length !== 2) throw new Error('Deer sitemap canonical must appear exactly once');
+  requireText(sitemap, deerEntry, 'Exact deer editorial sitemap lastmod');
+
+  // Read only the target page's server HTML to enforce eager-loading above-the-fold photo.
+  const deerHtml = await fetchDocument('/hunting/texas-deer-hunting', true, true);
+  const hero = deerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  if (!hero) throw new Error('Source-attributed deer hero is missing from server-rendered HTML');
+  requireText(hero.toLowerCase(), 'loading="eager"', 'Deer LCP image priority');
+  requireText(hero.toLowerCase(), 'fetchpriority="high"', 'Deer LCP image high priority');
+  if (/loading="lazy"/i.test(hero)) throw new Error('Near-top deer photo cannot be lazy-loaded');
+  const deerVisible = extractVisibleText(deerHtml);
+  for (const marker of ['Same November weekend, three different county rulebooks',
+    'Grayson County', 'Washington County', 'Gillespie County',
+    'Read the claim-by-claim source record', 'within 48 hours',
+    'Guide reviewed November 15, 2026']) {
+    requireText(deerVisible, marker, 'Revised deer authority source comparison');
+  }
+
 
   console.log(`Hunting production verified: live HTML document envelopes, framework NUL delimiters confined to script serialization, exact rendered visible text for the hub and ${representativeTopics.length} representative topic pages including v2 coverage, TPWD 2026–27 freshness, and ${sitemapPaths.length} hunting sitemap URLs.`);
 }

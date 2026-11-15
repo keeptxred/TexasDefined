@@ -32,6 +32,7 @@ const accessFacts = read('src/data/hunting/public-access-facts.json');
 const allAuthority = `${authority}\n${authorityV2}`;
 const freshness = read('src/data/hunting/freshness.ts');
 const sitemap = read('src/data/hunting/sitemap.ts');
+const sitemapRoute = read('src/routes/sitemap[.]xml.ts');
 const huntingRoute = read('src/routes/hunting.$slug.tsx');
 const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
 const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
@@ -164,6 +165,25 @@ requireText(turkeyDateTests, 'protected finisher fails closed when TPWD is unava
 if (!/reviewedOn:\s*"20\d{2}-\d{2}-\d{2}"/.test(deer)) throw new Error("Hunting authority validation failed: deer-specific review metadata missing");
 requireText(deer, "New World screwworm", "new wildlife health advisory missing");
 requireText(huntingHub, "DeerRegionPlanningMatrix", "distinctive deer region planning comparison missing");
+
+const deerSourceRecord = read('docs/editorial/deer-hunting-2026-11-15-source-check.md');
+for (const expected of [
+  'Grayson', 'Washington', 'Gillespie', 'County',
+  'texasdefined.com/hunting/texas-deer-hunting', '2026-11-15',
+  'after-killing-a-deer', 'annual_public_hunting/search.phtml',
+  'an independent professional reviewer', 'county'
+]) requireText(deerSourceRecord.toLowerCase(), expected.toLowerCase(), 'deer claim-level primary-source record missing ' + expected);
+requireText(deer, 'reviewedOn: "2026-11-15"', 'new deer editorial changes must have genuine updated date');
+requireText(deer, 'reviewedLabel: "November 15, 2026"', 'deer editorial visible date out of sync');
+requireText(huntingHub, 'function DeerCountyWorkedExample()', 'source-checked county planning example missing');
+requireText(huntingHub, 'texasDeerSeason.startYear !== 2026', 'worked county cases must fail closed on annual rollover');
+for (const expected of ['Grayson', 'Washington', 'Gillespie', 'CWD', '24 hours', '48 hours', 'Legal Game', 'id="deer-source-record"', 'href="#deer-source-record"']) {
+  requireText(huntingHub, expected, 'deer worked-example credibility guard missing ' + expected);
+}
+requireText(huntingHub, '<DeerCountyWorkedExample />', 'worked county comparison not mounted');
+requireText(huntingHub, 'loading="eager" fetchPriority="high"', 'above-the-fold deer hero must not be lazy-loaded');
+if (/White-tailed%20deer\.jpg[^>]*loading="lazy"/.test(huntingHub)) throw new Error('Deer hero must not lazy-load');
+
 requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
 requireText(deerSeasonDates, '"generalNorth"', 'deer date dataset must include North Zone');
 requireText(deerSeasonSync, 'parseDeerPage', 'official deer date synchronizer missing');
@@ -188,6 +208,7 @@ requireText(freshness, 'editorialUpdatedLabel:', 'editorial update date marker m
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
 requireText(sitemap, 'HUNTING_AUTHORITY_PATHS', 'hunting sitemap paths missing');
 requireText(sitemap, 'TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn', 'sitemap deer lastmod must match real editorial revision rather than unrelated source checks');
+requireText(sitemapRoute, 'cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn)', 'sitemap edge cache must follow real editorial revision to prevent stale old XML');
 requireText(huntingRoute, 'getHuntingAuthorityTopicV2', 'v2 route lookup missing');
 requireText(huntingHub, 'HUNTING_V2_HUB_GROUPS', 'v2 hub grouping missing');
 requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry missing');

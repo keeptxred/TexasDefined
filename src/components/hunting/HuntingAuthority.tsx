@@ -112,6 +112,84 @@ function DeerCountyRegulationsFinder() {
   </section>;
 }
 
+/**
+ * Worked county-rule comparison researched against TPWD's 2026–27 county pages
+ * and after-harvest/CWD/public-access rules on 2026-11-15. This illustrates
+ * different regulatory decisions; it never claims any specific land is open.
+ */
+function DeerCountyWorkedExample() {
+  // Fail closed after the 2026–27 season rolls over; county examples need new verification.
+  if (texasDeerSeason.startYear !== 2026) return null;
+  const examples = [
+    {
+      county: "Grayson",
+      bag: "4 deer total: at most 2 bucks and 2 antlerless. Only one buck may have an inside spread of 13 inches or more.",
+      method: "Even during its Nov. 7–Jan. 3 general season, lawful deer methods are archery equipment and crossbows only; additional restrictions apply to crossbows during archery-only season.",
+      reporting: "Both bucks and antlerless deer taken under license tags must be reported to TPWD within 24 hours.",
+      access: "Secure written private-land permission or verify an exact public-hunt unit and its methods; a general-season date does not permit rifle hunting here.",
+      href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/grayson",
+    },
+    {
+      county: "Washington",
+      bag: "4 deer total: at most 2 bucks and 2 antlerless; its 13-inch antler-restriction framework limits qualifying bucks.",
+      method: "During Nov. 14–29, 2026, its expanded general-season antlerless period allows license-tag antlerless harvest, subject to the county and property rules. It is not an all-season doe permit.",
+      reporting: "License-tag antlerless harvest must be reported within 24 hours; TPWD does not list Washington among its four mandatory buck-reporting counties.",
+      access: "Verify landowner or lease permission and whether MLDP tags replace license tags on the chosen property.",
+      href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/washington",
+    },
+    {
+      county: "Gillespie",
+      bag: "5 deer total, no more than 2 bucks, all seasons combined under the county's ordinary license-tag rule.",
+      method: "Its Nov. 7–Jan. 3 general season differs from the Jan. 4–17 special-late season, when only antlerless deer and unbranched-antlered bucks are eligible.",
+      reporting: "Gillespie is not on TPWD's current statewide list of counties requiring 24-hour license-tag white-tailed-deer harvest reporting; separate MLDP and property rules still matter.",
+      access: "Confirm access and individual property tags; do not infer that a nearby park or public parcel allows hunting.",
+      href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/gillespie",
+    },
+  ] as const;
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-county-worked-example"><Container>
+    <div className="max-w-5xl">
+      <p className="eyebrow text-primary">A worked 2026–27 trip decision</p>
+      <h2 id="deer-county-worked-example" className="mt-2 font-display text-3xl md:text-4xl">Same November weekend, three different county rulebooks</h2>
+      <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">Suppose you are considering a November 21, 2026 deer hunt. These are examples of county-wide TPWD rules for a regular license-tag hunter, not booked hunts or permission to enter a property. Grayson changes the legal weapon; Washington changes which days a license-tag doe is eligible; Gillespie has a different county bag limit and late-season structure.</p>
+      <div className="mt-6 grid gap-4 lg:grid-cols-3">
+        {examples.map((item) => <article key={item.county} className="border border-border p-5">
+          <h3 className="font-display text-2xl">{item.county} County</h3>
+          <dl className="mt-4 space-y-4 text-sm leading-6">
+            <div><dt className="font-semibold text-foreground">Bag and buck rules</dt><dd className="mt-1 text-muted-foreground">{item.bag}</dd></div>
+            <div><dt className="font-semibold text-foreground">Legal deer / means</dt><dd className="mt-1 text-muted-foreground">{item.method}</dd></div>
+            <div><dt className="font-semibold text-foreground">Reporting</dt><dd className="mt-1 text-muted-foreground">{item.reporting}</dd></div>
+            <div><dt className="font-semibold text-foreground">Access check</dt><dd className="mt-1 text-muted-foreground">{item.access}</dd></div>
+          </dl>
+          <div className="mt-5"><ResourceLink link={{label: "Read official " + item.county + " county rules", href: item.href, external: true }} /></div>
+        </article>)}
+      </div>
+      <div className="mt-6 border-l-2 border-primary bg-muted/20 p-5">
+        <h3 className="font-display text-xl">Do the CWD and land check separately for every property</h3>
+        <p className="mt-2 text-sm leading-7 text-muted-foreground">A county name does not resolve a CWD zone boundary. Check the exact hunting location against TPWD's live zones and check stations before travel. Where mandatory CWD testing applies, TPWD requires the intact, unfrozen head at a designated station within 48 hours; statewide carcass-disposal rules also apply outside those zones. For public access, use the TPWD area's current Legal Game box and permits rather than relying on the county calendar.</p>
+        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          <ResourceLink link={{label: "TPWD CWD requirements and check stations", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd", external: true }} />
+          <ResourceLink link={{label: "TPWD after-harvest rules", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/after-killing-a-deer", external: true }} />
+          <ResourceLink link={{label: "TPWD public hunting area / legal-game search", href: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml", external: true }} />
+        </div>
+      </div>
+      <p className="mt-4 text-sm leading-6 text-muted-foreground">Source comparison checked November 15, 2026 against TPWD's Grayson, Washington and Gillespie county pages, statewide reporting list, CWD/after-harvest regulations and public-access instructions. These are independently assembled planning examples—not firsthand hunting reports, a professional wildlife-biologist review or legal advice. <a href="#deer-source-record" className="font-semibold text-primary underline">Read the claim-by-claim source record</a>.</p>
+
+      <div id="deer-source-record" className="mt-7 border-t border-border pt-6">
+        <h3 className="font-display text-2xl">Claim-by-claim TPWD source record</h3>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">TexasDefined's November 15, 2026 desk comparison uses the current 2026–27 TPWD county rules and statewide documents. Each row connects a consequential planning claim to its official source and identifies what the source does not establish.</p>
+        <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+          <p><strong className="text-foreground">Grayson — legal means and reporting.</strong> The <a href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/grayson" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">county white-tailed-deer rules</a> control the archery/crossbow restriction, buck and antlerless bag ceiling and 24-hour reporting. They do not grant access to a particular property.</p>
+          <p><strong className="text-foreground">Washington — 2026 antlerless days and reporting.</strong> The <a href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/washington" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">official county page</a> identifies eligible general-season antlerless days, county bag limits and antlerless reporting; it does not convert a license tag into an MLDP permit.</p>
+          <p><strong className="text-foreground">Gillespie — general versus special-late harvest.</strong> The <a href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/gillespie" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">official county page</a> distinguishes its five-deer limit and special-late deer eligibility; check the entire current entry before taking a buck.</p>
+          <p><strong className="text-foreground">CWD and transport.</strong> The <a href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">TPWD zone and testing instructions</a> and <a href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/after-killing-a-deer" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">after-harvest rules</a> control mandatory testing, transport and carcass disposal. County identity alone cannot prove a property's zone.</p>
+          <p><strong className="text-foreground">Access and permits.</strong> TPWD's <a href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">public hunting area / Legal Game finder</a> controls specific public-property permissions; this comparison does not assert any publicly available hunt, landowner consent or actual field visit.</p>
+        </div>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">Method: desk-based primary-source comparison; independently synthesized planning implications. No firsthand hunt, professional wildlife-biologist assessment or outside expert reviewer is claimed. TPWD may revise any rule, so follow the live pages before hunting. The underlying editorial source ledger is retained with the guide's repository revision history.</p>
+      </div>
+    </div>
+  </Container></section>;
+}
+
 /** Independent reader-facing regional planning comparison; qualitative, not county legal advice. */
 function DeerRegionPlanningMatrix() {
   const regions = [
@@ -238,13 +316,14 @@ export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTo
   const officialSources = [...new Map(topic.sections.flatMap((section) => section.links ?? []).filter((link) => link.external).map((link) => [link.href, link] as const)).values()];
   return <div>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">{topic.title}</span></nav><p className="eyebrow text-primary">{topic.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{topic.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{topic.description}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">TPWD season sources {topic.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear} · {topic.slug === "texas-deer-hunting" ? "official data snapshot " + deerSourceCheckLabel() : "source review " + (topic.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel)}</p>{topic.slug === "texas-deer-hunting" ? <div className="mt-5 max-w-4xl border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Editorial responsibility: TexasDefined.</strong> Guide reviewed {topic.reviewedLabel ?? topic.reviewedOn}; official-date data snapshot {deerSourceCheckLabel()}. These dates track different checks. The independent publication is not a government regulator or a substitute for checking the exact TPWD county rules.</div> : null}{topic.slug === "texas-deer-hunting" ? <figure className="mt-8 max-w-4xl">
-  <img src="https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt" alt="Close view of a white-tailed buck standing in tall grass" width={1000} height={664} loading="lazy" decoding="async" className="aspect-[3/2] w-full object-cover" />
+  <img src="https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt" alt="Close view of a white-tailed buck standing in tall grass" width={1000} height={664} loading="eager" fetchPriority="high" decoding="async" className="aspect-[3/2] w-full object-cover" />
   <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">White-tailed deer (representative species photograph). Tom Koerner / U.S. Fish &amp; Wildlife Service, public domain. <a className="text-primary underline underline-offset-2" href="https://www.fws.gov/media/white-tailed-deer-buck-0" target="_blank" rel="noreferrer noopener">Photo source and rights</a>.</figcaption>
 </figure> : null}</Container></section>
     <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{topic.quickAnswer}</p></div></Container></section>
     <SpeciesSeasonSnapshot slug={topic.slug} />
     {topic.slug === "texas-deer-hunting" ? <DeerSeasonTable /> : null}
     {topic.slug === "texas-deer-hunting" ? <DeerCountyRegulationsFinder /> : null}
+    {topic.slug === "texas-deer-hunting" ? <DeerCountyWorkedExample /> : null}
     {topic.slug === "texas-deer-hunting" ? <DeerRegionPlanningMatrix /> : null}
     {topic.slug === "turkey-hunting" ? <TurkeySeasonGuide /> : null}
     <FreshnessPanel topic={topic} />

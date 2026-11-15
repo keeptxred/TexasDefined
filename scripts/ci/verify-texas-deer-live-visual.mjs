@@ -132,8 +132,22 @@ try {
       const tarrantShown = await confirmCountyRoute('tarrant',
         'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/');
       verify('TPWD county rules link responds to selection', tarrantShown);
+      verify('county-by-county primary-source comparison is published',
+        await page.locator('#deer-county-worked-example').count() === 1 &&
+        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/grayson"]').count() > 0 &&
+        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/washington"]').count() > 0 &&
+        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/gillespie"]').count() > 0);
+      verify('source-check provenance is publicly linked',
+        await page.locator('a[href="#deer-source-record"]').count() > 0);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
+      if (await photo.count()) {
+        const imagePriority = await photo.evaluate(img => ({ loading: img.loading,
+          fetchPriority: img.getAttribute('fetchpriority') }));
+        verify('deer hero is eager and high-priority (LCP candidate)',
+          imagePriority.loading === 'eager' && imagePriority.fetchPriority === 'high',
+          JSON.stringify(imagePriority));
+      }
       if (await photo.count()) {
         await photo.scrollIntoViewIfNeeded();
         await photo.evaluate(async img => {
