@@ -65,9 +65,22 @@ for (const required of [
   if (!entityIndex.includes(required)) failures.push(`Stable entity freshness contract missing: ${required}`);
 }
 
-if (!primarySitemap.includes('lastmod: toDate(entity.sourceCheckedAt)')) {
-  failures.push('Primary sitemap entity lastmod must remain tied to the governed sourceCheckedAt field.');
+const countyHistorySource = fs.readFileSync('src/data/fixtures/dallas-county-dallas-trinity-old-red.ts', 'utf8');
+const dallasHistoryUpdatedAt = countyHistorySource.match(/updatedAt:\\s*"([^"]+)"/)?.[1];
+const dallasSitemapLastmod = primarySitemap.match(/"\\/county\\/dallas":\\s*"([^"]+)"/)?.[1];
+if (dallasHistoryUpdatedAt !== '2026-11-15' || dallasSitemapLastmod !== dallasHistoryUpdatedAt
+    || !countyHistorySource.includes('November 9, 1936')
+    || !countyHistorySource.includes('https://texasinstituteofletters.org/til-council-1936-1939/')) {
+  failures.push('Dallas county canonical sitemap lastmod must represent the actually verified Nov 15 Institute of Letters editorial history update.');
 }
+for (const snippet of [
+  'const editorialDate = STATIC_LASTMOD_BY_PATH[path];',
+  'editorialDate > (entity.sourceCheckedAt ?? "")',
+  'lastmod: toDate(lastmod)',
+]) {
+  if (!primarySitemap.includes(snippet)) failures.push('County sitemap must use only genuinely updated or original source-checked dates: '+snippet);
+}
+
 // Edited attraction guides use dated, author-asserted content updates;
 // ordinary destinations retain their last official source check. Never generate
 // lastmod from request/deployment time, which would mislead crawlers.
