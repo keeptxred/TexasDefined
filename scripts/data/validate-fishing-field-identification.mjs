@@ -45,11 +45,12 @@ for (const slug of expected) {
 }
 for (const slug of newSpecies) {
   assert(catalog.includes(`id: "${slug}"`), `Missing new published species record ${slug}`);
+  assert(Array.isArray(data[slug].naturalHistory) && data[slug].naturalHistory.length >= 2 && data[slug].naturalHistory.every((paragraph) => paragraph.length > 70), `New ${slug} guide requires TPWD-grounded ecological context, not a thin identifying paragraph`);
   assert(catalog.includes(`"tpwd-${slug}"`), `Missing species-specific TPWD source record ${slug}`);
 }
 for (const token of [
   "FishIdentificationSection", "How to Identify", "markings", "similarSpecies", "texasHabitat",
-  "fieldSize", "approach", "caution", "Official TPWD species identification", "target=\"_blank\"",
+  "fieldSize", "approach", "caution", "Official TPWD species identification", "Diet, Spawning and Natural History", "target=\"_blank\"",
 ]) assert(ui.includes(token), `Public identification UI missing ${token}`);
 for (const token of ["fishIdentification[species.slug]", "identification,", "FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT"]) {
   assert(server.includes(token), `Dynamic species source/metadata integration missing ${token}`);
