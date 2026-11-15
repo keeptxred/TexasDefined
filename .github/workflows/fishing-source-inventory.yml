@@ -61,6 +61,26 @@ jobs:
         id: audit
         continue-on-error: true
         run: node --experimental-strip-types scripts/ci/audit-fishing-inventory-sources.mjs
+      - name: Diagnose first-party operator HTTP transport without overriding source failures
+        if: github.event_name == 'pull_request' && steps.audit.outcome == 'failure'
+        run: |
+          for url in \
+            https://txfishingguide.com/trips-and-charters/lake-texoma-striper-trips/ \
+            https://www.rayburncountry.com/prices/; do
+            echo "::group::Official operator IPv4 diagnostic: $url"
+            body="$(mktemp)"
+            curl --ipv4 --http1.1 --location --max-redirs 2 \
+              --proto '=https' --proto-redir '=https' \
+              --connect-timeout 6 --max-time 16 \
+              --user-agent 'TexasDefinedSourceIntegrity/1.0 (+https://texasdefined.com/fishing)' \
+              --silent --show-error --output "$body" \
+              --write-out 'http=%{http_code} effective=%{url_effective} bytes=%{size_download} remote_ip=%{remote_ip} ssl_verify=%{ssl_verify_result}\\n' \
+              "$url" || echo 'Official-operator IPv4 request failed; source remains unverified'
+            echo 'Response preview (never treated as verified):'
+            head -c 400 "$body" | tr '\\n' ' ' || true
+            rm -f "$body"
+            echo "::endgroup::"
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
