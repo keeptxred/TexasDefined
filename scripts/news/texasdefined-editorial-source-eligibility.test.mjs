@@ -65,6 +65,9 @@ test('retains substantive original Texas visitor science and culture reporting',
 test('public SpaceX parkland transactions are KTR public affairs, not TD visitor news', () => {
   for (const title of [
     'SpaceX confirms it’s eyeing public parkland, but says it won’t buy Boca Chica Beach',
+    'SpaceX reveals details on its proposal to buy Boca Chica State Park',
+    'Texas Parks and Wildlife weighs the sale of Boca Chica State Park to SpaceX',
+    'Boca Chica State Park sold to Starbase for expansion',
     'Hinojosa asks for pause on state park land sale to SpaceX',
     'Texas considers leasing public land near Starbase',
     'Boca Chica public parkland transfer to SpaceX draws questions',
@@ -72,6 +75,8 @@ test('public SpaceX parkland transactions are KTR public affairs, not TD visitor
   for (const title of [
     'Starship launch targeted for November 13 at Starbase',
     'Boca Chica Beach reopens with updated public access hours',
+    'Starship launch planned near Boca Chica State Park',
+    'Boca Chica State Park updates access hours for winter visitors',
     'Texas state park expands public wildlife viewing land',
   ]) assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title }), true, title);
 });
