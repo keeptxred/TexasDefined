@@ -5,6 +5,7 @@ import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
 import { getFishingFishImage } from "./image-library";
 import { fishSpeciesFamilies } from "./species-catalog";
+import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
 import {
   fishingFoundationAnchor,
   isCompleteFishingLakeSlug,
@@ -54,7 +55,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         url,
         name: `${species.commonName} Fishing in Texas`,
         description,
-        dateModified: FISHING_SPECIES_VERIFIED_AT,
+        dateModified: fishIdentification[species.slug] ? FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT : FISHING_SPECIES_VERIFIED_AT,
         isPartOf: { "@id": `${origin}/#website` },
         mainEntity: { "@id": `${url}#species` },
         citation: sources.map((source) => source.url),
@@ -179,8 +180,10 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
     .map((candidate) => ({ species: candidate!, href: fishingFoundationAnchor("species", candidate!.slug) }));
 
+  const identification = fishIdentification[species.slug] ?? null;
   const sources = uniqueByUrl([
     ...species.sources,
+    ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT, sourceType: "state" as const }] : []),
     ...lakes.flatMap((row) => row.relation.sources),
     ...techniqueApplications.flatMap((row) => [...row.profile.sources, ...row.technique.sources]),
   ]);
@@ -188,6 +191,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
   const canonicalPath = fishingSpeciesCanonicalPath(slug);
   return {
     species,
+    identification,
     canonicalPath,
     lakes,
     seasonalPatterns,
