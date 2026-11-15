@@ -1,4 +1,5 @@
 import { HUNTING_REGULATION_FRESHNESS } from "./freshness";
+import { TEXAS_DEER_AUTHORITY_TOPIC } from "./authority-deer";
 
 // Production contract: these canonical hunting routes must render the current
 // TPWD freshness and official-source signals. The post-deploy hunting verifier
@@ -39,5 +40,9 @@ export const HUNTING_AUTHORITY_PATHS = [
 
 export const HUNTING_SITEMAP_ENTRIES = HUNTING_AUTHORITY_PATHS.map((path) => ({
   path,
-  lastmod: HUNTING_REGULATION_FRESHNESS.lastVerified,
+  // Sitemap <lastmod> tracks meaningful edits, not source-reachability checks.
+  // Keep the deer guide tied directly to the actual editorial reviewedOn.
+  lastmod: path === "/hunting/texas-deer-hunting"
+    ? TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn
+    : HUNTING_REGULATION_FRESHNESS.lastVerified,
 }));
