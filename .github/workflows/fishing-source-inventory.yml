@@ -17,6 +17,8 @@ on:
       - 'scripts/data/fishing-access-kind.test.mjs'
       - 'scripts/data/validate-fishing-inventory-expansion.mjs'
       - 'scripts/ci/audit-fishing-inventory-sources.mjs'
+      - 'scripts/ci/fishing-operator-source-witnesses.mjs'
+      - 'scripts/ci/fishing-operator-source-witnesses.test.mjs'
       - 'scripts/ci/fishing-access-source-witnesses.json'
       - 'scripts/ci/run-bounded-source-checks.mjs'
       - 'scripts/ci/test-run-bounded-source-checks.mjs'
@@ -44,6 +46,8 @@ jobs:
         run: node --experimental-strip-types --test scripts/data/fishing-access-kind.test.mjs
       - name: Verify source-review concurrency, coverage and fail-closed behavior
         run: node scripts/ci/test-run-bounded-source-checks.mjs
+      - name: Require exact first-party fishing guide identity witnesses
+        run: node --test scripts/ci/fishing-operator-source-witnesses.test.mjs
 
   source-review:
     runs-on: ubuntu-latest
