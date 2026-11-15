@@ -20,7 +20,7 @@ function contains(text, required, where) {
 contains(head, [
   'canonicalPath = "/explore/tierra-blanca-creek"',
   'dateModified: lastSubstantiveRevision',
-  '"@type": "Article"',
+  '"@type": "Article"', 'documentedRefugeImage', 'creditText: "Christena Stephens / U.S. Fish and Wildlife Service"',
   '"@type": "BreadcrumbList"',
   "buildMeta(",
   "canonicalLink(",
