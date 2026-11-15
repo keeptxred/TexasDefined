@@ -9,6 +9,8 @@ const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
 const amarillo = read("src/routes/explore.near.$metro.$collection.lazy.tsx");
 const randall = read("src/data/fixtures/randall-county-canyon-palo-duro.ts");
 const existingRoadTrip = read("src/data/top-attraction-road-trips.ts");
+const park = read("src/routes/destination.$slug.tsx");
+const county = read("src/components/content/CountyIdentitySection.tsx");
 
 function contains(text, required, where) {
   for (const needle of required) assert.ok(text.includes(needle), `${where}: missing ${needle}`);
@@ -44,6 +46,8 @@ contains(amarillo, [
 ], "Amarillo trip planning links");
 contains(randall, ['href: "/explore/tierra-blanca-creek"'], "Randall County links");
 contains(existingRoadTrip, ['The separate Tierra Blanca Creek guide'], "Panhandle top-attraction context");
+contains(park, ['destination.slug === "palo-duro-canyon-state-park"', 'href="/explore/tierra-blanca-creek"'], "Public Palo Duro state park related guide");
+contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], "Canonical Randall County related guide");
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
