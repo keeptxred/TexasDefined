@@ -149,7 +149,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer publishes the overall 2027 celebration as January 29-February 9 and describes seven days of revelry. Scheduled programming is concentrated on January 29-31, February 5-7 and Fat Tuesday, February 9; do not interpret the date span as continuous daily programming.",
     venue: "Historic Downtown Galveston and island parade routes",
     officialUrl: "https://www.mardigrasgalveston.com/",
-    sourceCheckedAt: "2026-10-26",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Mardi Gras! Galveston is the island's long-running pre-Lenten celebration, with the organizer advertising more than 20 parades, more than 20 concerts and seven programmed days across two weekends and Fat Tuesday in 2027.",
     quickFacts: [
       {
@@ -191,8 +191,8 @@ const records: MajorEventAuthorityRecord[] = [
         body: "The organizer confirms January 29–February 9, 2027, but scheduled festivities concentrate on January 29–31, February 5–7 and Fat Tuesday, February 9. The overall range does not mean twelve uninterrupted days of parades. Start from the official date-by-date parade program."
       },
       {
-        title: "Strand admission is different from watching a parade",
-        body: "According to the official 2027 FAQ, historic downtown Entertainment District tickets are required January 29–31 and February 5–6. The organizer advertises free public district admission for Family Gras on Sunday, February 7 and for Fat Tuesday, February 9. Other parades can also pass along the Seawall or outside gates. General admission and optional paid balcony parties have different rules; check the latest policy before choosing your viewing spot."
+        title: "Seawall parades are free; Strand tickets apply to specific dates",
+        body: "The organizer's current 2027 FAQ says ticketed admission is required inside the downtown Entertainment District on January 29–31 and February 5–6; February 7 Family Gras and February 9 Fat Tuesday allow free district access. Seawall Boulevard parades and festivities are free to watch, and ages 12 and under enter the ticketed district free with a parent or guardian. Balcony parties require separate tickets. Check the specific parade route and changing ticket options rather than treating the entire island as a gated festival."
       },
       {
         title: "Select Family Gras or another suitable experience",
