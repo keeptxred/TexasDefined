@@ -32,6 +32,7 @@ const accessFacts = read('src/data/hunting/public-access-facts.json');
 const allAuthority = `${authority}\n${authorityV2}`;
 const freshness = read('src/data/hunting/freshness.ts');
 const sitemap = read('src/data/hunting/sitemap.ts');
+const sitemapRoute = read('src/routes/sitemap[.]xml.ts');
 const huntingRoute = read('src/routes/hunting.$slug.tsx');
 const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
 const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
@@ -207,6 +208,7 @@ requireText(freshness, 'editorialUpdatedLabel:', 'editorial update date marker m
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
 requireText(sitemap, 'HUNTING_AUTHORITY_PATHS', 'hunting sitemap paths missing');
 requireText(sitemap, 'TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn', 'sitemap deer lastmod must match real editorial revision rather than unrelated source checks');
+requireText(sitemapRoute, 'cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn)', 'sitemap edge cache must follow real editorial revision to prevent stale old XML');
 requireText(huntingRoute, 'getHuntingAuthorityTopicV2', 'v2 route lookup missing');
 requireText(huntingHub, 'HUNTING_V2_HUB_GROUPS', 'v2 hub grouping missing');
 requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry missing');
