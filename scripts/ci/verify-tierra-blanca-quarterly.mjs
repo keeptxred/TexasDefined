@@ -16,6 +16,21 @@ const sources = [
     required: ["Buffalo Lake", "Umbarger", "Cottonwood Canyon", "Grassland Loop", "per vehicle"],
   },
   {
+    key: "FWS specific public trails",
+    url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/trails",
+    required: ["Cottonwood Canyon Birding Trail", "Cottonwood Hiking Trail", "Grassland Loop", "Prairie Dog Trail"],
+  },
+  {
+    key: "USFWS winter refuge photo provenance",
+    url: "https://www.fws.gov/media/buffalo-lake-winter",
+    required: ["Public Domain", "Stephens"],
+  },
+  {
+    key: "USFWS refuge turkeys photo provenance",
+    url: "https://www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge",
+    required: ["Public Domain", "Robert Burton"],
+  },
+  {
     key: "FWS water history",
     url: "https://www.fws.gov/refuge/buffalo-lake/about-us",
     required: ["Tierra Blanca Creek", "typically dry", "1970"],
@@ -64,6 +79,7 @@ const page = await getHtml(articleUrl);
 for (const marker of [
   "Tierra Blanca Creek", "Prairie Dog Town Fork", "Tierra Blanca archaeological complex",
   "Buffalo Lake", "Georgia O", "Palo Duro Canyon State Park",
+  "Cottonwood Canyon Birding Trail", "Prairie Dog Trail", "openstreetmap.org/export/embed.html", "buffalo-lake-snowscape.jpg", "rio_grande_wild_turkey_pair", "Travel &",
 ]) assert.ok(page.toLowerCase().includes(marker.toLowerCase()), `Live guide missing editorial content: ${marker}`);
 assert.ok(page.includes(articleUrl), "Live guide lacks canonical URL");
 assert.ok(!/content=["']noindex/i.test(page), "Live guide unexpectedly noindexed");
