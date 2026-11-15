@@ -50,7 +50,7 @@ export async function loadFishSpeciesDirectoryDataServer() {
 
   const sources = [...new Map(species.flatMap((row) => row.sources).map((row) => [row.url, row])).values()];
   return {
-    verifiedAt: FISH_SPECIES_CATALOG_VERIFIED_AT,
+    verifiedAt: species.map((row) => row.verifiedAt ?? FISH_SPECIES_CATALOG_VERIFIED_AT).sort().at(-1) ?? FISH_SPECIES_CATALOG_VERIFIED_AT,
     totalSpecies: species.length,
     completeSpeciesGuides: species.filter((row) => isCompleteFishingSpeciesSlug(row.slug)).length,
     completeLakeGuides: completeLakes.length,
