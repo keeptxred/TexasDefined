@@ -27,8 +27,12 @@ function reviewedAttractionImageRights(src: string) {
     catch { return null; }
     if (parsed.hostname === "commons.wikimedia.org") {
       const prefix = "/wiki/Special:Redirect/file/";
-      const name = decodeURIComponent(parsed.pathname).startsWith(prefix)
-        ? decodeURIComponent(parsed.pathname).slice(prefix.length) : "";
+      // Malformed unrelated Commons URLs must not crash SSR or receive photo rights.
+      let decodedPath: string;
+      try { decodedPath = decodeURIComponent(parsed.pathname); }
+      catch { return null; }
+      const name = decodedPath.startsWith(prefix)
+        ? decodedPath.slice(prefix.length) : "";
       const verified = REVIEWED_ATTRACTION_IMAGE_RIGHTS.find((image) => image.file === name);
       return verified ? {
         license: verified.license,
