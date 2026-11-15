@@ -26,7 +26,7 @@ export const Route = createFileRoute("/what-does-chud-mean")({
     });
     // Internet/political slang is not distinctive Texas travel or cultural
     // authority. Keep the factual reference accessible without indexing it.
-    return { ...head, meta: [...head.meta, { name: "robots", content: "noindex, follow" }] };
+    return { ...head, meta: [...head.meta.filter((entry) => entry.name !== "robots"), { name: "robots", content: "noindex, follow" }] };
   },
   component: Page,
 });
