@@ -107,12 +107,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-09-27",
     venue: "Comal County Fairgrounds",
     officialUrl: "https://comalcountyfair.org/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Comal County Fair & Rodeo is a five-day New Braunfels tradition combining livestock shows, rodeo, a major county parade, carnival rides, exhibits, music and community programming at the Comal County Fairgrounds.",
     planningSections: [
-      { title: "Use September 23-27 as the confirmed 2026 fair window", body: "The Comal County Fair Association publishes the 2026 fair for September 23 through 27 and provides daily operating hours and admission details. The livestock division uses the same five-day window." },
+      { title: "The September 23–27, 2026 fair is completed; 2027 unannounced", body: "The fair association's current FAQ and Times & Tickets page still label September 23–27, 2026. Its BBQ cook-off page invites applications again in July 2027 but does not announce the next fair dates. Do not use the annual September pattern as a verified 2027 event listing or reuse 2026 rodeo sessions as next year's program." },
       { title: "Plan Friday morning if the parade matters", body: "The organizer schedules the 2026 fair parade for Friday, September 25 at 9 a.m. and describes it as one of Central Texas's largest county-fair parades. Arrive early and account for downtown street activity if the parade is a priority." },
-      { title: "Use the day-by-day schedule for rodeo and carnival timing", body: "Fairgrounds, carnival and rodeo programs operate on different schedules. Recheck the official times, ticket pages and rodeo program before travel rather than assuming the full event runs continuously from morning to night." },
+      { title: "2026 pricing and special hours are historical, not next year's tickets", body: "The organizer's 2026 schedule had free fair admission Wednesday and Sunday, $10 adult entry Thursday and Friday, and a Saturday adult increase to $15 after 2:30 p.m.; most children 6–11 were $5. Carnival wristbands were separately priced by the ride operator, and the Friday 9 a.m. parade disrupted downtown traffic. Treat every amount and hour as 2026-only until fresh 2027 prices and entry conditions appear." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-comal", label: "Explore Comal County", description: "Build more New Braunfels and Comal County stops around the fair." },
