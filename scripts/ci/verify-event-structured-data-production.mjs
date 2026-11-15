@@ -350,44 +350,55 @@ async function verifyHidalgoBorderFestLeaf() {
   console.log('[hidalgo-borderfest] expanded guide, licensed hero and expired-offer suppression verified');
 }
 
-async function verifyFreeOfferLeaf() {
+/** Current official McKinney Main Street event, not an expired 2026 occurrence. */
+async function verifyConfirmedMcKinney2027Leaf() {
   const path = '/event/mckinney-oktoberfest';
-  const startDate = '2026-09-25';
-  const endDate = '2026-09-27';
+  const startDate = '2027-09-24';
+  const endDate = '2027-09-26';
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
   assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
-  assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
-
+  assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified city organizer');
+  assert(html.includes('McKinney Main Street confirms September 24–26, 2027'),
+    'McKinney Oktoberfest must visibly identify the officially announced 2027 dates');
+  assert(html.includes('Event facts last source-checked 2026-11-15'),
+    'McKinney Oktoberfest must show its actual 2027 source review date');
+  // The municipality has published 2027 dates and vendor applications, but
+  // not an edition-specific admission, VIP, stages or vendor-hour schedule.
+  assert(!html.includes('Tickets and admission'),
+    'McKinney Oktoberfest must not recycle an unconfirmed 2026 free admission as a 2027 offer');
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'McKinney Oktoberfest leaf must expose JSON-LD');
   const nodes = blocks.flatMap((block) => collectTypedNodes(block));
   const today = currentEventDateKey();
 
   if (today <= endDate) {
-    assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission while the occurrence is current');
     const events = nodes.filter((node) => hasType(node, 'Event'));
-    assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming or active');
+    assert(events.length >= 1, 'Officially confirmed 2027 McKinney dates require an actual scheduled Event');
     const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
-    assert(event.startDate === startDate, `McKinney Oktoberfest Event schema startDate must be ${startDate}`);
-    assert(event.endDate === endDate, `McKinney Oktoberfest Event schema endDate must be ${endDate}`);
-    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
-    const offers = asArray(event.offers);
-    assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
-    const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
-    assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
-    verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
-    console.log('[mckinney-oktoberfest] upcoming/active organizer and free Offer verified');
+    assert(event.startDate === startDate,
+      `McKinney Oktoberfest Event schema startDate must be ${startDate}`);
+    assert(event.endDate === endDate,
+      `McKinney Oktoberfest Event schema endDate must be ${endDate}`);
+    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must identify its organizer');
+    assert(asArray(event.offers).length === 0,
+      'McKinney Oktoberfest must not attach 2026 free/VIP ticket claims to the confirmed 2027 event');
+    assert(asArray(event.performer).length === 0,
+      'McKinney Oktoberfest must not invent performers for the 2027 event');
+    console.log('[mckinney-oktoberfest] official 2027 dates and no invented current offers verified');
     return;
   }
 
-  assert(html.includes('Latest confirmed occurrence has ended.'), 'McKinney Oktoberfest expired page must expose the expired-occurrence warning');
-  assert(!html.includes('Tickets and admission'), 'McKinney Oktoberfest expired page must suppress stale admission pricing');
-  assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney Oktoberfest expired leaf must expose WebPage schema');
-  assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney Oktoberfest expired leaf must remain described as a Thing');
-  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale scheduled Event markup');
-  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'McKinney Oktoberfest expired leaf must suppress EventScheduled markup');
-  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'McKinney Oktoberfest expired JSON-LD must not publish stale occurrence dates');
-  console.log(`[mckinney-oktoberfest] expired confirmed occurrence schema suppression verified for ${today}`);
+  assert(html.includes('Latest confirmed occurrence has ended.'),
+    'McKinney Oktoberfest must show its expired-occurrence warning only AFTER September 26, 2027');
+  assert(nodes.some((node) => hasType(node, 'WebPage')),
+    'McKinney Oktoberfest expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')),
+    'McKinney Oktoberfest expired leaf must expose Thing schema');
+  assert(!nodes.some((node) => hasType(node, 'Event')),
+    'McKinney Oktoberfest expired leaf must suppress expired Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')),
+    'McKinney Oktoberfest expired leaf must suppress scheduled Event status');
+  console.log(`[mckinney-oktoberfest] expired verified 2027 occurrence correctly suppressed for ${today}`);
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
@@ -500,7 +511,7 @@ try {
   await verifyFiestaLeaf();
   await verifyExpiredConfirmedLeaf();
   await verifyHidalgoBorderFestLeaf();
-  await verifyFreeOfferLeaf();
+  await verifyConfirmedMcKinney2027Leaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyCrossroadsFestivalLeaf();
   await verifyRecurringLeaf();
