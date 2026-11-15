@@ -908,3 +908,34 @@ test('known published network-error incident requires exact GitHub failure, heal
   assert.match(wf,/recertify-transient-asset-handoff\.mjs --verify-job/);
   assert.match(wf,/recertify-transient-asset-handoff\.mjs --repair/);
 });
+
+
+test('only exact Nov15 published Polka Worker can contribute proven original bytes after repaired strict recurrence warning', () => {
+  const goodSteps = [
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Verify current and previous release JS/CSS on both public origins',
+  ].map(name => ({ name, conclusion: 'success' }));
+  const failedStep = 'Verify Event structured-data production';
+  const item = { jobs: [{ name: 'deploy', run_id: 43730208415, id: 132860785220,
+    conclusion: 'failure', steps: [...goodSteps, { name: failedStep, conclusion: 'failure' }] }] };
+  const result = qualifyPriorDeployJob(item);
+  assert.equal(result.mode, 'exact-nov15-polka-original-assets-only');
+  assert.equal(result.exactRun, 43730208415);
+  assert.equal(result.requiredSourceSha, '5508828580552fdca812f1527428b3ad5b609fd5');
+  assert.equal(result.requiredWorkerVersion, 'f45399ba-e9e8-4052-8450-bf858841b9ba');
+  assert.deepEqual(result.permittedFailures, [failedStep]);
+  for (const transform of [
+    j => { j.id += 1; },
+    j => { j.run_id += 1; },
+    j => { j.steps.push({name:'Other page failure',conclusion:'failure'}); },
+    j => { j.steps.find(x => x.name === 'Verify direct Worker health').conclusion='failure'; },
+    j => { j.steps.find(x => x.name === failedStep).name='Verify base production surfaces'; },
+  ]) {
+    const altered = structuredClone(item);
+    transform(altered.jobs[0]);
+    assert.throws(() => qualifyPriorDeployJob(altered), /Polka|Required published|unapproved|unexpected/);
+  }
+});
