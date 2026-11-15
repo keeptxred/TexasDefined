@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Research-only: compare TexasDefined's 57 place-to-county rows with Census ACS 2025 TIGERweb polygons.
+"""Research-only: compare TexasDefined's 58 place-to-county rows with Census ACS 2025 TIGERweb polygons.
 
 No geography is automatically accepted, altered, or certified by this script:
 geometric slivers, limited-purpose annexations, 2025 vintage, and official current
@@ -34,7 +34,7 @@ def load_directory():
     content = (ROOT / "src" / "data" / "texas-places.ts").read_text()
     section = content.split("export const TEXAS_CITIES", 1)[1].split("].map(", 1)[0]
     entries = re.findall(r"\['([^']+)','([^']+)','([^']+)'\]", section)
-    if len(entries) != 57 or len({x[0] for x in entries}) != len(entries):
+    if len(entries) != 58 or len({x[0] for x in entries}) != len(entries):
         raise ValueError("Unexpected city-registry size/duplicates; inspect before geography audit")
     relationships = (ROOT / "src" / "data" / "city-county-relationships.ts").read_text()
     mapping = relationships.split("const ADDITIONAL_COUNTIES_BY_CITY", 1)[1].split("\n};", 1)[0]
