@@ -20,6 +20,37 @@ function evidence({ runId = 43440830866, jobId = 131937683043,
     conclusion: 'failure', steps }] };
 }
 
+test('exact Nov15 published deer Worker may seed original assets only after repaired strict full-alt live matcher', () => {
+  const verified = qualifyPriorDeployJob(evidence({
+    runId: 43744754206, jobId: 132905483302,
+    failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  }));
+  assert.equal(verified.eligible, true);
+  assert.equal(verified.mode, 'exact-nov15-deer-hero-alt-original-assets-only');
+  assert.equal(verified.exactRun, 43744754206);
+  assert.equal(verified.requiredSourceSha, '172e2a38415fb3a64fa81f48d1732e660510d76f');
+  assert.equal(verified.requiredWorkerVersion, '7f0231fa-6b09-4457-9c27-855392484141');
+  assert.equal(verified.criticalChecks, required.length);
+  assert.deepEqual(verified.permittedFailures, ['Verify hunting hub and turkey guide in desktop/mobile Chrome']);
+});
+
+test('deer-only immutable handoff refuses any altered failure/run/job or missing health/asset gate', () => {
+  const exact = {
+    runId: 43744754206, jobId: 132905483302,
+    failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  };
+  for (const mutated of [
+    { runId: 43744754207 }, { jobId: 132905483303 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify Event structured-data production'] },
+    { additional: ['Verify direct Worker health'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({ ...exact, ...mutated })),
+      /Required published-Worker safety gate not successful|Published deer Worker asset handoff rejects alternate run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
+
 test('exact Nov15 published McKinney Worker handoff requires source-correct 2027 dates and no invented admission', () => {
   const good = qualifyPriorDeployJob(evidence({
     runId: 43734261983,
