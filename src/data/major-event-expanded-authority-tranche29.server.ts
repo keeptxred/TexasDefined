@@ -109,10 +109,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-09-26",
     venue: "Downtown Austin venues",
     officialUrl: "https://festival.texastribune.org/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Texas Tribune Festival is a three-day downtown Austin gathering centered on Texas and national civic life, public policy, journalism, technology, education and culture, with more than 100 programs spread across multiple venues in 2026.",
     planningSections: [
-      { title: "Hold September 24-26 for downtown Austin", body: "The Texas Tribune confirms the 2026 festival for September 24-26. Use the official program to identify must-see sessions before choosing lodging or a daily arrival plan." },
+      { title: "2026 TribFest ended September 26; 2027 program pending", body: "The festival home page says the September 24–26, 2026 edition has finished, offering recordings of more than 100 sessions and events. It says See You Next Year but does not give confirmed 2027 dates, presenters, locations or admission options. The older program and tickets remain historical until updated by Texas Tribune organizers." },
       { title: "Treat the festival as a multi-venue event", body: "Sessions are distributed across downtown venues rather than one convention hall. Leave walking time between programs and avoid scheduling consecutive sessions that are unrealistic to reach." },
       { title: "Match the ticket to the access you need", body: "The organizer offers several ticket types with different benefits. Review the current ticket page for session access, priority-entry rules and special-event inclusions before purchasing." },
     ],
