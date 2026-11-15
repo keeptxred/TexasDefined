@@ -1,22 +1,19 @@
 {
-  "fetchedAt": "2026-11-14T17:11:18.384Z",
+  "fetchedAt": "2026-11-15T15:24:02.197Z",
   "candidates": [
     {
       "name": "Austin Championship",
       "city": "Austin",
       "dates": [
-        "2026-11-14",
         "2026-11-15"
       ],
       "venues": [
         "Omni Barton Creek Resort & Spa Fazio Canyons Golf Course"
       ],
       "ticketmasterIds": [
-        "G5dIZ_kRZQHmN",
         "G5dIZ_kRZhHmi"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
         "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC"
       ],
       "status": "requires-organizer-verification",
@@ -42,30 +39,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAZNAU"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Breakaway Music Festival",
-      "city": "Houston",
-      "dates": [
-        "2026-11-14"
-      ],
-      "venues": [
-        "Shell Energy Stadium"
-      ],
-      "ticketmasterIds": [
-        "Z7r9jZ1A70-09"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70-09"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -263,28 +236,6 @@
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvtZE"
       ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "iScream Fest",
-      "city": "Dallas",
-      "dates": [
-        "2026-11-14"
-      ],
-      "venues": [
-        "Three Links Deep Ellum"
-      ],
-      "ticketmasterIds": [
-        "rZ7HnEZ1AfGAq0"
-      ],
-      "officialTicketUrls": [],
       "status": "requires-organizer-verification",
       "evidence": {
         "organizerUrl": null,
@@ -521,6 +472,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed By Riley Green",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-12"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnenmy"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-12-2027/event/3A006507AA0AABB9"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Friday Qualifier",
       "city": "Uvalde",
       "dates": [
@@ -661,7 +636,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-14",
         "2026-11-20",
         "2026-11-21",
         "2026-11-27",
@@ -691,7 +665,8 @@
         "2027-01-30",
         "2027-01-31",
         "2027-02-05",
-        "2027-02-06"
+        "2027-02-06",
+        "2027-02-12"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -699,7 +674,6 @@
       "ticketmasterIds": [
         "Z7r9jZ1A7OY4M",
         "Z7r9jZ1A7OY4U",
-        "Z7r9jZ1A7OY4V",
         "Z7r9jZ1A7OY4z",
         "Z7r9jZ1A7OYp6",
         "Z7r9jZ1A7OYp7",
@@ -708,7 +682,6 @@
         "Z7r9jZ1A7OYpZ",
         "Z7r9jZ1A7OYpa",
         "Z7r9jZ1A7OYpv",
-        "Z7r9jZ1A7OpP0",
         "Z7r9jZ1A7OpPE",
         "Z7r9jZ1A7OpPI",
         "Z7r9jZ1A7OpPJ",
@@ -730,6 +703,7 @@
         "Z7r9jZ1AA74Pw",
         "Z7r9jZ1AA7KQ4",
         "Z7r9jZ1AA7KQ9",
+        "Z7r9jZ1AA7KQK",
         "Z7r9jZ1AA7KQ_",
         "Z7r9jZ1AA7KQb",
         "Z7r9jZ1AA7Kj6",
@@ -742,7 +716,6 @@
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4V",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
@@ -751,7 +724,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpZ",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpv",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP0",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPE",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPJ",
@@ -773,6 +745,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74Pw",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ4",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ9",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQK",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ_",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQb",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kj6",
