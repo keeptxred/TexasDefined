@@ -83,11 +83,8 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     if (!ticketmasterIsPrimaryAdmissionTitle(event.name) || !region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
       || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
     const matchedAuthorityGuide = ticketmasterAuthorityGuidePath(event.name, event.city);
-    // The organizer confirms this 2026 festival begins November 28.
-    // The provider's conflicting November 27 session is not approved as a
-    // live festival ticket/calendar listing. Do not suppress 2027 editions.
-    if (matchedAuthorityGuide === '/event/south-pole-illuminated-festival'
-        && event.startDate === '2026-11-27') return [];
+    // The organizer's currently posted season includes November 27;
+    // do not hide a legitimate exact-session provider listing.
     // Keep the former venue name for stable old-provider venue-slug lookup,
     // while presenting the official Ariat Arena naming-rights change from
     // October 26, 2026. Only change the exact Fort Worth arena identity.
