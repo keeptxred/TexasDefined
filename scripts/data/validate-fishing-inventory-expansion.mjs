@@ -160,8 +160,21 @@ const reportSitemap = read("src/data/fishing/report-sitemap.server.ts");
 assert.ok(reportRoute.includes('fishingReportFreshness(entry.report) === "current"'), "Archive directory noindex missing");
 assert.ok(reportSitemap.includes('fishingReportFreshness(report) === "current"'), "Historical report sitemap exclusion missing");
 assert.ok(read("src/components/fishing/FishingReportDirectory.tsx").includes("weekly fishing reports are currently paused"));
+const officialWitnesses = JSON.parse(read("scripts/ci/fishing-access-source-witnesses.json"));
+assert.ok(Object.keys(officialWitnesses).length >= 15, "Previously detected name-only false positives need exact primary-source witnesses");
+for (const [lakeId, sites] of Object.entries(officialWitnesses)) {
+  assert.ok(statewide.includes(`slug: "${lakeId}"`), lakeId + ": reviewed lake missing from source registry");
+  for (const [editorialName, proof] of Object.entries(sites)) {
+    assert.ok(statewide.includes(`name:"${editorialName}"`) || statewide.includes(`name: "${editorialName}"`), lakeId + ": obsolete source identity " + editorialName);
+    assert.ok(typeof proof.name === "string" && proof.name.length >= 3, lakeId + ": missing agency's official facility name");
+    assert.ok(!proof.requires || proof.requires.every((text) => typeof text === "string" && text.length >= 4), lakeId + ": invalid source fact witness");
+    if (proof.url) assert.ok(["https://tpwd.texas.gov", "https://www.sweetwatertx.gov"].includes(new URL(proof.url).origin), lakeId + ": alternate witness must be an approved official source");
+  }
+}
 const inventoryMonitor = read("scripts/ci/audit-fishing-inventory-sources.mjs");
 const inventoryMonitorWorkflow = read(".github/workflows/fishing-source-inventory.yml");
+assert.ok(inventoryMonitor.includes("officialWitnesses") && inventoryMonitor.includes("missingOfficialFacts") && inventoryMonitor.includes("approvedAlternateOrigins"), "Official witness audit must fail closed on renamed facilities and unsupported alternate domains");
+assert.ok(inventoryMonitorWorkflow.includes("fishing-access-source-witnesses.json"), "Reviewed official witnesses must trigger source-review CI");
 for (const marker of [
   'statewideNetworkShowcaseLakePrototypes',
   'lake.accessReviewedAt',

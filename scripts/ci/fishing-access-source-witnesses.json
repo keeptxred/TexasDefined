@@ -1,0 +1,223 @@
+{
+  "aquilla-lake": {
+    "Tailrace public fishing pier": {
+      "name": "Tailrace Area",
+      "requires": [
+        "Fishing pier, no boat ramp"
+      ]
+    }
+  },
+  "lake-arlington": {
+    "Richard Simpson Park boat ramp": {
+      "name": "Richard Simpson Park"
+    },
+    "Bowman Springs Park boat ramp": {
+      "name": "Bowman Springs Park"
+    },
+    "Eugene McCray Park boat ramp": {
+      "name": "Eugene McCray Park"
+    }
+  },
+  "lake-austin": {
+    "Loop 360 / Pennybacker Bridge Ramp": {
+      "name": "Loop 360 Ramp",
+      "requires": [
+        "Pennybacker Bridge"
+      ]
+    },
+    "Emma Long Metropolitan Park": {
+      "name": "Emma Long Park"
+    },
+    "Selma Hughes Park (bank access only)": {
+      "name": "Selma Hughes Park",
+      "requires": [
+        "Bank fishing access; no boat ramp"
+      ]
+    },
+    "Fritz Hughes Park (bank access only)": {
+      "name": "Fritz Hughes Park"
+    }
+  },
+  "bardwell-lake": {
+    "Little Mustang Creek Park": {
+      "name": "Little Mustang Creek"
+    },
+    "Waxahachie Creek Park": {
+      "name": "Waxahachie Creek"
+    }
+  },
+  "lake-bob-sandlin": {
+    "Public Ramp 1 / Titus County Supply District": {
+      "name": "Public Ramp 1",
+      "requires": [
+        "Titus County Freshwater Supply District"
+      ]
+    }
+  },
+  "lake-brownwood": {
+    "Dam public ramp": {
+      "name": "Dam",
+      "requires": [
+        "Lighted, multiple-lane public boat ramp"
+      ]
+    }
+  },
+  "cedar-lake-cleburne-state-park": {
+    "Cleburne State Park paved boat ramp": {
+      "name": "Cleburne State Park",
+      "requires": [
+        "Paved single-lane boat ramp"
+      ]
+    },
+    "Cedar Lake ADA-accessible covered fishing pier": {
+      "name": "ADA-accessible, covered fishing pier",
+      "url": "https://tpwd.texas.gov/state-parks/cleburne"
+    },
+    "Cedar Lodge kayak and swimming day-use area": {
+      "name": "Cedar Lodge day-use area",
+      "url": "https://tpwd.texas.gov/state-parks/cleburne",
+      "requires": [
+        "kayak"
+      ]
+    }
+  },
+  "lake-cypress-springs": {
+    "Guthrie Park boat ramp": {
+      "name": "Guthrie Park"
+    },
+    "Dogwood Park boat ramp": {
+      "name": "Dogwood Park"
+    },
+    "Mary King Park boat ramp": {
+      "name": "Mary King Park"
+    },
+    "Overlook Park boat ramp": {
+      "name": "Overlook Park"
+    },
+    "Walleye Park boat ramp": {
+      "name": "Walleye Park"
+    }
+  },
+  "fort-parker-state-park-lake": {
+    "Fort Parker State Park lake boat ramp and dock": {
+      "name": "Fort Parker State Park",
+      "requires": [
+        "Boat ramp and dock available"
+      ]
+    },
+    "Navasota River ramp — different water access": {
+      "name": "Navasota River boat ramp",
+      "url": "https://tpwd.texas.gov/state-parks/fort-parker/alert",
+      "requires": [
+        "closed from Oct. 19, 2026 to Jan. 10, 2027"
+      ]
+    },
+    "Park lake shoreline / campground bank fishing": {
+      "name": "fish from shore on our lakes",
+      "url": "https://tpwd.texas.gov/state-parks/fort-parker"
+    }
+  },
+  "joe-pool-lake": {
+    "Cedar Hill State Park north ramp": {
+      "name": "Cedar Hill State Park",
+      "requires": [
+        "North ramp has 6 lanes"
+      ]
+    },
+    "Cedar Hill State Park south ramp": {
+      "name": "Cedar Hill State Park",
+      "requires": [
+        "South ramp has 2 lanes"
+      ]
+    }
+  },
+  "lake-nasworthy": {
+    "Middle Concho Park ramp": {
+      "name": "Middle Concho Park"
+    },
+    "Spring Creek Marina / park ramp": {
+      "name": "Spring Creek Marina"
+    },
+    "Red Bluff Road ramp": {
+      "name": "Red Bluff Ramp"
+    },
+    "Hot Water Slough Park bank access": {
+      "name": "Hot Water Slough Park"
+    },
+    "Knickerbocker Park ramp — construction closure": {
+      "name": "Knickerbocker Park"
+    },
+    "Beaty Road Park ramp — planned replacement": {
+      "name": "Beaty Road Park"
+    },
+    "Fisherman's Road ramp": {
+      "name": "Fisherman's Road"
+    },
+    "Mary Lee Park ramp": {
+      "name": "Mary Lee Park"
+    },
+    "Lake Nasworthy Marina city ramp": {
+      "name": "Lake Nasworthy Marina"
+    },
+    "South Concho Drive ramp — construction sequence": {
+      "name": "South Concho Drive"
+    },
+    "Pecan Creek Park ramp": {
+      "name": "Pecan Creek Park"
+    }
+  },
+  "proctor-lake": {
+    "Dam Park": {
+      "name": "Park at Dam",
+      "requires": [
+        "Single-lane concrete boat ramp"
+      ]
+    }
+  },
+  "lake-somerville": {
+    "Nails Creek State Park Unit": {
+      "name": "State Park, Nails Creek Unit"
+    },
+    "Birch Creek State Park Unit": {
+      "name": "State Park, Birch Creek Unit"
+    },
+    "Overlook Park and Lake Somerville Marina": {
+      "name": "Overlook Park & Lake Somerville Marina"
+    }
+  },
+  "lake-sweetwater": {
+    "Lake Sweetwater city-operated ramp": {
+      "name": "Boat Ramp",
+      "requires": [
+        "operated by City of Sweetwater"
+      ]
+    },
+    "Lake Sweetwater Recreation Area": {
+      "name": "Lake Sweetwater Recreation Area",
+      "url": "https://www.sweetwatertx.gov/206/Parks-Recreation",
+      "requires": [
+        "Boat Ramp"
+      ]
+    }
+  },
+  "lake-worth": {
+    "Arrow 'S' Park launch": {
+      "name": "Arrow 'S' Park"
+    },
+    "Fort Worth Nature Center canoe and kayak launch": {
+      "name": "Fort Worth Nature Center",
+      "requires": [
+        "Kayaks and canoe launch only"
+      ]
+    },
+    "Casino Beach Park boat ramp": {
+      "name": "Casino Beach Park"
+    },
+    "Sunset Park small-craft ramp": {
+      "name": "Sunset Park",
+      "requires": [
+        "Small craft only"
+      ]
+    }
+  }
+}
