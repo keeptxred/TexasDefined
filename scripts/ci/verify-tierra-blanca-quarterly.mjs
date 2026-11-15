@@ -18,7 +18,7 @@ const sources = [
   {
     key: "FWS specific public trails",
     url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/trails",
-    required: ["Cottonwood Canyon Birding Trail", "Cottonwood Hiking Trail", "Grassland Loop", "Prairie Dog Trail"],
+    required: ["Cottonwood Canyon Birding Trail", "Cottonwood Hiking Trail", "Grassland Loop", "Prairie Dog Trail", "1.25 miles", "2 miles"],
   },
   {
     key: "USFWS winter refuge photo provenance",
@@ -74,6 +74,17 @@ for (const source of sources) {
   findings.push({source:source.key,sourceUrl:source.url,sourceReached:true,materialFactsStillDisplayed:true});
 }
 
+const licensedPhotoAssets = [
+  "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/images/2024-07/buffalo-lake-snowscape.jpg?itok=HkeBOb3Z",
+  "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg?itok=QaosMrLg",
+];
+for (const photoUrl of licensedPhotoAssets) {
+  const response = await fetch(photoUrl, { headers, redirect: "follow", signal: AbortSignal.timeout(25000) });
+  assert.equal(response.status, 200, "Remote refuge photo missing: " + photoUrl);
+  assert.match(response.headers.get("content-type") ?? "", /^image\/(jpeg|jpg|png|webp)/i, "Media endpoint no longer serves a photo: " + photoUrl);
+  const bytes = (await response.arrayBuffer()).byteLength;
+  assert.ok(bytes > 25000, "Remote refuge photo too small, corrupt or replaced: " + photoUrl);
+}
 const articleUrl = `${BASE}/explore/tierra-blanca-creek`;
 const page = await getHtml(articleUrl);
 for (const marker of [
