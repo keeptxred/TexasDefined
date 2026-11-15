@@ -222,19 +222,29 @@ async function verify() {
   if (sitemap.split(deerLocation).length !== 2) throw new Error('Deer sitemap canonical must appear exactly once');
   requireText(sitemap, deerEntry, 'Exact deer editorial sitemap lastmod');
 
-  // Read only the target page's server HTML to enforce eager-loading above-the-fold photo.
+  // Require both the cache-bypassed Worker and the exact visitor URL. Cloudflare
+  // HTML cache can otherwise hide a stale canonical page behind a fresh query.
   const deerHtml = await fetchDocument('/hunting/texas-deer-hunting', true, true);
   const hero = deerHtml.match(/<img\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
   if (!hero) throw new Error('Source-attributed deer hero is missing from server-rendered HTML');
   requireText(hero.toLowerCase(), 'loading="eager"', 'Deer LCP image priority');
   requireText(hero.toLowerCase(), 'fetchpriority="high"', 'Deer LCP image high priority');
   if (/loading="lazy"/i.test(hero)) throw new Error('Near-top deer photo cannot be lazy-loaded');
-  const deerVisible = extractVisibleText(deerHtml);
-  for (const marker of ['Same November weekend, three different county rulebooks',
+  const requiredDeerMarkers = ['Same November weekend, three different county rulebooks',
     'Grayson County', 'Washington County', 'Gillespie County',
     'Read the claim-by-claim source record', 'within 48 hours',
-    'Guide reviewed November 15, 2026']) {
-    requireText(deerVisible, marker, 'Revised deer authority source comparison');
+    'Guide reviewed November 15, 2026'];
+  for (const marker of requiredDeerMarkers) {
+    requireText(extractVisibleText(deerHtml), marker, 'Revised deer authority source comparison');
+  }
+  const canonicalDeerHtml = await fetchDocument('/hunting/texas-deer-hunting', false, true);
+  for (const marker of requiredDeerMarkers) {
+    requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
+  }
+  const canonicalHero = canonicalDeerHtml.match(/<img\\b(?=[^>]*alt="Close view of a white-tailed buck")[^>]*>/i)?.[0];
+  if (!canonicalHero || /loading="lazy"/i.test(canonicalHero) ||
+    !/loading="eager"/i.test(canonicalHero) || !/fetchpriority="high"/i.test(canonicalHero)) {
+    throw new Error('Exact canonical deer visitor hero lacks eager/high-priority LCP treatment');
   }
 
 
