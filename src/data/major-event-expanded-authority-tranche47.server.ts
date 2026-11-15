@@ -111,16 +111,16 @@ const records: MajorEventAuthorityRecord[] = [
     category: "sport",
     startDate: "2026-12-04",
     endDate: "2026-12-04",
-    dateNote: "The Big 12 Conference schedules the 2026 championship for Friday, December 4 at 7 p.m. CT at AT&T Stadium in Arlington, with national television coverage on ABC.",
+    dateNote: "The conference confirms Friday December 4, 2026 at 7 p.m. CT on ABC at AT&T Stadium and announced November 9 that this 25th championship game will be the final edition; do not project a 2027 recurrence.",
     venue: "AT&T Stadium",
     officialUrl: "https://big12sports.com/news/2026/8/13/big-12-football-championship-tickets-go-on-sale-friday-aug-14.aspx",
-    sourceCheckedAt: "2026-09-21",
-    whyItMatters: "The Big 12 Football Championship is the conference's annual title game and one of the largest neutral-site college football weekends in North Texas, concentrating fan travel, lodging demand and game-day traffic around AT&T Stadium.",
+    sourceCheckedAt: "2026-11-15",
+    whyItMatters: "The Big 12 Conference announced on November 9, 2026 that its Friday, December 4 championship at AT&T Stadium will be the final Big 12 Football Championship Game. The 25th and last edition marks a major change in conference postseason structure following announced College Football Playoff expansion; a 2027 championship must not be advertised as an annual recurrence.",
     planningSections: [
       { title: "Anchor the trip on the Friday night kickoff", body: "The 2026 championship is scheduled for Friday, December 4 at 7 p.m. CT. That Friday placement changes the normal college-football weekend rhythm, so allow for weekday traffic and earlier hotel demand." },
       { title: "Use the Big 12 ticket source", body: "The conference says general public tickets are sold through its designated SeatGeek path rather than the AT&T Stadium box office. Use the current conference ticket page and avoid assuming venue-box-office inventory exists." },
       { title: "Treat AT&T Stadium as a destination zone", body: "Arlington's stadium district can be busy during major events. Build parking, rideshare and pregame timing around official stadium and conference instructions rather than normal local travel time." },
-      { title: "Wait for the matchup before finalizing team-specific plans", body: "The event date and venue are fixed well before the participating teams are known. Once qualification is settled, recheck fan events, team sections and any school-specific ticket or alumni information." },
+      { title: "This is the final championship game, not a recurring 2027 listing", body: "The conference announced November 9, 2026 that the 2026 title game ends the championship event after 25 editions, with its regular-season champion receiving the league's automatic CFP qualifier under the newly approved 2027–28 format. Keep this page for the historical finale; do not sell or announce next-year championship tickets without a new official reversal." },
     ],
     relatedLinks: [
       { href: "/sports-venue/att-stadium", label: "AT&T Stadium guide", description: "Plan parking, entry and Arlington context around the championship." },
@@ -131,6 +131,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Big 12 Conference — 2026 football championship ticket announcement", url: "https://big12sports.com/news/2026/8/13/big-12-football-championship-tickets-go-on-sale-friday-aug-14.aspx" },
       { label: "Big 12 Conference — 2026 tournament calendar", url: "https://big12sports.com/tournaments/" },
       { label: "Big 12 Conference — 2026 football schedule", url: "https://big12sports.com/news/2026/1/21/big-12-conference-announces-2026-football-schedule.aspx" },
+      { label: "Big 12 — November 9 announcement naming 2026 the final football championship", url: "https://big12sports.com/news/2026/11/9/2026-edward-jones-big-12-football-championship-to-mark-final-chapter-of-marquee-conference-event.aspx" },
     ],
   },
   {
