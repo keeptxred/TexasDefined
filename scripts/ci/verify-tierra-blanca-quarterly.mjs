@@ -52,7 +52,7 @@ async function getHtml(url) {
 
 const findings = [];
 for (const source of sources) {
-  const body = (await getHtml(source.url)).replace(/\s+/g, " ").toLowerCase();
+  const body = (await getHtml(source.url)).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ").replace(/\s+/g, " ").toLowerCase();
   for (const needle of source.required) {
     assert.ok(body.includes(needle.toLowerCase()), `${source.key}: source no longer verifies "${needle}"; editorial review required`);
   }
@@ -73,7 +73,7 @@ const canon = `<loc>${articleUrl}</loc>`;
 assert.ok(sitemap.includes(canon), "Canonical Tierra Blanca guide absent from Explore sitemap");
 assert.equal(sitemap.split(canon).length - 1, 1, "Guide appears more than once in Explore sitemap");
 
-console.log("TIERrA_BLANCA_AUTHORITY_READONLY_REVIEW " + JSON.stringify({
+console.log("TIERRA_BLANCA_AUTHORITY_READONLY_REVIEW " + JSON.stringify({
   checkedAt: new Date().toISOString(),
   editorialReviewDateAdvanced: false,
   officialSources: findings,
