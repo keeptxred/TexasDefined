@@ -20,6 +20,41 @@ function evidence({ runId = 43440830866, jobId = 131937683043,
     conclusion: 'failure', steps }] };
 }
 
+test('exact Nov15 active Worker may supply its original-byte asset history only after the visible recurrence assertion is source-repaired', () => {
+  const qualified = qualifyPriorDeployJob(evidence({
+    runId: 43730208415,
+    jobId: 132860785220,
+    failure: 'Verify Event structured-data production',
+  }));
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov15-event-recurrence-original-assets-only');
+  assert.equal(qualified.exactRun, 43730208415);
+  assert.equal(qualified.requiredSourceSha, '5508828580552fdca812f1527428b3ad5b609fd5');
+  assert.equal(qualified.requiredWorkerVersion, 'f45399ba-e9e8-4052-8450-bf858841b9ba');
+  assert.equal(qualified.criticalChecks, 5);
+  assert.deepEqual(qualified.permittedFailures, ['Verify Event structured-data production']);
+});
+
+test('Nov15 original-asset exception rejects altered job/run, extra page failures and missing safety gates', () => {
+  const baseline = {
+    runId: 43730208415,
+    jobId: 132860785220,
+    failure: 'Verify Event structured-data production',
+  };
+  for (const changed of [
+    { runId: 43730208416 },
+    { jobId: 132860785221 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(
+      () => qualifyPriorDeployJob(evidence({ ...baseline, ...changed })),
+      /Required published-Worker safety gate not successful|Nov15 original assets reject alternate run\/job\/failure evidence/,
+    );
+  }
+});
+
 test('exact Nov 13 published Worker can supply immutable original assets but not release certification', () => {
   const qualified = qualifyPriorDeployJob(evidence());
   assert.equal(qualified.eligible, true);

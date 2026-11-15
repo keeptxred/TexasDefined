@@ -243,6 +243,24 @@ const NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE = Object.freeze({
   failedStep: 'Verify Moody Gardens production authority',
 });
 
+// Nov 15 #43730208415 actually published the active 100%-traffic Worker
+// f45399ba... from source 55088285..., then passed deployed-version capture,
+// both production origins' health, and original-byte JS/CSS checks on both
+// origins. The ONLY later failure was National Polka Festival's independent
+// projected-date display assertion. PR #7242 repairs that visible wording in
+// SSR without relaxing the Event/schema verification. Reuse its immutable
+// ORIGINAL asset handoff only after matching this exact job/run, proving the
+// repair is in source, and independently matching active Worker/source SHA
+// and every asset SHA on BOTH origins. This DOES NOT certify the failed
+// release or suppress the festival verifier on the next deployment.
+const NOV15_PUBLISHED_EVENT_RECURRENCE_ASSERTION = Object.freeze({
+  runId: 43730208415,
+  jobId: 132860785220,
+  sourceSha: '5508828580552fdca812f1527428b3ad5b609fd5',
+  workerVersion: 'f45399ba-e9e8-4052-8450-bf858841b9ba',
+  failedStep: 'Verify Event structured-data production',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -259,6 +277,32 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const recurrence = NOV15_PUBLISHED_EVENT_RECURRENCE_ASSERTION;
+  if (job.run_id === recurrence.runId && job.id === recurrence.jobId &&
+      failures.length === 1 && failures[0] === recurrence.failedStep) {
+    const route = readFileSync('src/data/major-event-page.server.ts', 'utf8');
+    const verifier = readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
+    const protectedPlanningNeedles = [
+      "Treat Memorial Day Weekend as the stable planning window",
+      "Do not turn the Memorial Day recurrence into a confirmed 2027 ticket",
+    ];
+    const liveContractStillStrict = protectedPlanningNeedles.some(needle =>
+      verifier.includes("planningNeedle: '" + needle + "'") && route.includes(needle));
+    if (!liveContractStillStrict ||
+        !route.includes('recheck the organizer for the confirmed schedule') ||
+        !route.includes('esc(recurrencePlanningNotice)') ||
+        !verifier.includes("assert(!nodes.some((node) => hasType(node, 'Event'))") ||
+        !verifier.includes("assert(nodes.every((node) => !Object.hasOwn(node, 'startDate')")) {
+      throw Error('The exact published Nov15 asset handoff is blocked until the recurrence date notice is repaired without weakening the scheduled Event schema exclusions');
+    }
+    return { eligible: true, mode: 'exact-nov15-event-recurrence-original-assets-only',
+      exactRun: recurrence.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: recurrence.sourceSha,
+      requiredWorkerVersion: recurrence.workerVersion };
+  }
+  if (job.run_id === recurrence.runId || job.id === recurrence.jobId) {
+    throw Error('Nov15 original assets reject alternate run/job/failure evidence: ' + failures.join(', '));
   }
   const moodyEntity = NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE;
   if (job.run_id === moodyEntity.runId && job.id === moodyEntity.jobId &&
