@@ -57,6 +57,12 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+const visualQA = read(".github/workflows/tierra-blanca-visual-qa.yml");
+const visualScript = read("scripts/ci/verify-tierra-blanca-visual.mjs");
+contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence'], 'Real two-viewport production browser acceptance');
+contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'report.failures.length'], 'Browser check includes real photo decode, map and responsive layout');
+execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
+execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
 contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
 for (const script of ["scripts/ci/verify-tierra-blanca-quarterly.mjs", "scripts/ci/report-tierra-blanca-authority-failure.mjs"]) {
