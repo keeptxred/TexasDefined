@@ -177,7 +177,7 @@ requireText(deer, 'reviewedOn: "2026-11-15"', 'new deer editorial changes must h
 requireText(deer, 'reviewedLabel: "November 15, 2026"', 'deer editorial visible date out of sync');
 requireText(huntingHub, 'function DeerCountyWorkedExample()', 'source-checked county planning example missing');
 requireText(huntingHub, 'texasDeerSeason.startYear !== 2026', 'worked county cases must fail closed on annual rollover');
-for (const expected of ['Grayson', 'Washington', 'Gillespie', 'CWD', '24 hours', '48 hours', 'Legal Game', 'deer-hunting-2026-11-15-source-check.md']) {
+for (const expected of ['Grayson', 'Washington', 'Gillespie', 'CWD', '24 hours', '48 hours', 'Legal Game', 'id="deer-source-record"', 'href="#deer-source-record"']) {
   requireText(huntingHub, expected, 'deer worked-example credibility guard missing ' + expected);
 }
 requireText(huntingHub, '<DeerCountyWorkedExample />', 'worked county comparison not mounted');
