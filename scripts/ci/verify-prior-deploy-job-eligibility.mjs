@@ -308,7 +308,7 @@ export function qualifyPriorDeployJob(payload) {
     // the index or another festival with no offers cannot qualify this handoff.
     const indexStart = eventIndex.indexOf('slug: "mckinney-oktoberfest"');
     const schemaStart = schema.indexOf('slug: "mckinney-oktoberfest"');
-    const indexRecord = indexStart >= 0 ? eventIndex.slice(indexStart, eventIndex.indexOf('\n  },', indexStart)) : '';
+    const indexRecord = indexStart >= 0 ? eventIndex.slice(indexStart, eventIndex.indexOf('\n', indexStart)) : '';
     const schemaRecord = schemaStart >= 0 ? schema.slice(schemaStart, schema.indexOf('\n  },', schemaStart)) : '';
     if (!indexRecord.includes('startDate: "2027-09-24"') ||
         !indexRecord.includes('endDate: "2027-09-26"') ||
