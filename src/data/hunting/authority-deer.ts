@@ -3,7 +3,8 @@ import { deerSeasonRange, deerSeasonYear, texasDeerSeason } from "./deer-season-
 
 /**
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
- * Editorial review of TPWD primary rules and screwworm advisories updated 2026-11-13.
+ * Editorial research update 2026-11-15: claim-level TPWD county comparison, CWD and access sourcing.
+ * No independent wildlife professional or firsthand field review is asserted.
  *
  * Annual season dates, official calendar and structured legal facts are synchronized
  * only after dual-source TPWD verification, protected CI and production deployment.
@@ -14,8 +15,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   eyebrow: `${deerSeasonYear} Texas white-tailed deer guide`,
   title: "Texas White-Tailed Deer Hunting Guide",
   description: `${deerSeasonYear} Texas deer season dates, county limits, antler rules, licenses, tagging, CWD and screwworm precautions, public hunts and regional planning, with links to TPWD.`,
-  reviewedOn: "2026-11-13",
-  reviewedLabel: "November 13, 2026",
+  reviewedOn: "2026-11-15",
+  reviewedLabel: "November 15, 2026",
   quickAnswer: `Texas\'s ${deerSeasonYear} white-tailed deer archery-only season runs ${deerSeasonRange("archery")}. General season runs ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. Those are statewide zone frameworks, not permission to hunt every county or property: check the exact county\'s season, legal deer, bag and antler limits, access, and harvest requirements with TPWD before you go.`,
   about: [
     `${deerSeasonYear} Texas white-tailed deer season`,
