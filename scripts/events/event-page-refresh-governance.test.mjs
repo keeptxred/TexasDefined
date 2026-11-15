@@ -434,3 +434,45 @@ test('second organizer-review tranche preserves current 2027 dates and historica
   const acl = record('src/data/major-event-expanded-authority-tranche31.server.ts', 'austin-city-limits-music-festival');
   assert.match(acl, /organizer has not announced 2027/i);
 });
+
+
+test('third official-source review cohort preserves dated 2027 announcements and historical-only events', () => {
+  const source = (file, slug) => {
+    const content = fs.readFileSync(path.join(process.cwd(), file), 'utf8');
+    const index = content.indexOf('slug: "' + slug + '"');
+    assert.ok(index >= 0, 'Missing event: ' + slug);
+    let end = content.indexOf('\n  },', index);
+    if (end < 0) end = content.length;
+    return content.slice(index, end);
+  };
+  const expected = [
+    ['37', 'cottonwood-art-festival'],
+    ['37', 'grapevine-main-street-fest'],
+    ['37', 'plano-balloon-festival'],
+    ['38', 'fort-worth-food-wine-festival'],
+    ['38', 'east-texas-yamboree'],
+    ['38', 'houston-cinema-arts-festival'],
+    ['38', 'rio-grande-valley-livestock-show-rodeo'],
+    ['39', 'comal-county-fair-rodeo'],
+    ['40', 'cuero-turkeyfest'],
+    ['40', 'seguin-pecan-fest'],
+    ['40', 'texas-mushroom-festival'],
+    ['40', 'hopkins-county-stew-contest'],
+  ];
+  for (const [tranche, slug] of expected) {
+    const record = source('src/data/major-event-expanded-authority-tranche'
+      + tranche + '.server.ts', slug);
+    assert.match(record, /sourceCheckedAt: "2026-11-15"/,
+      'No real editorial review for: ' + slug);
+  }
+  assert.match(source('src/data/major-event-expanded-authority-tranche37.server.ts',
+    'cottonwood-art-festival'), /startDate: "2027-05-01"/);
+  assert.match(source('src/data/major-event-expanded-authority-tranche37.server.ts',
+    'plano-balloon-festival'), /startDate: "2027-09-16"/);
+  assert.match(source('src/data/major-event-expanded-authority-tranche38.server.ts',
+    'fort-worth-food-wine-festival'), /all guests under 21/);
+  assert.match(source('src/data/major-event-expanded-authority-tranche39.server.ts',
+    'comal-county-fair-rodeo'), /2027 unannounced/);
+  assert.match(source('src/data/major-event-expanded-authority-tranche40.server.ts',
+    'hopkins-county-stew-contest'), /chamber has not published a verified 2027/);
+});
