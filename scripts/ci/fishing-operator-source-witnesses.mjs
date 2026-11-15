@@ -34,3 +34,15 @@ export function sourceForFishingGuideReview(guide) {
 }
 
 export const PINNED_FISHING_OPERATOR_SOURCE_SLUGS = Object.freeze(Object.keys(reviewed));
+
+/** A followed URL must remain the exact operator origin, never a third-party page. */
+export function isSameOperatorOrigin(requestUrl, responseUrl) {
+  try {
+    const requested = new URL(requestUrl);
+    const received = new URL(responseUrl);
+    return requested.protocol === "https:" && received.protocol === "https:"
+      && requested.origin === received.origin;
+  } catch {
+    return false;
+  }
+}
