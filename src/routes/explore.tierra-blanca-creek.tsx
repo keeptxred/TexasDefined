@@ -37,7 +37,7 @@ export const Route = createFileRoute(canonicalPath)({
             description: "A source-checked geographic and cultural history of Tierra Blanca Creek in the Texas Panhandle, with lawful visitor alternatives and an Amarillo/Canyon road-trip plan.",
             datePublished: lastSubstantiveRevision,
             dateModified: lastSubstantiveRevision,
-            image: { "@type": "ImageObject", url: documentedRefugeImage, width: 1300, height: 975, creditText: "Christena Stephens / U.S. Fish and Wildlife Service", acquireLicensePage: "https://www.fws.gov/media/buffalo-lake-winter" },
+            image: { "@type": "ImageObject", url: documentedRefugeImage, width: 1300, height: 975, creditText: "Christena Stephens / U.S. Fish and Wildlife Service" },
             author: { "@type": "Organization", name: "TexasDefined", url: baseUrl },
             publisher: { "@type": "Organization", name: "TexasDefined", url: baseUrl },
             about: [
