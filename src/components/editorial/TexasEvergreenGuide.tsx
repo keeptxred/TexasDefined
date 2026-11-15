@@ -126,6 +126,11 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Visit Amarillo — Cadillac Ranch", href: "https://www.visitamarillo.com/blog/post/cadillac-ranch/", note: "Documents Ant Farm's 1974 installation, later relocation and the present Amarillo I-40 frontage-road location." },
     { label: "Visit Paris Texas — Eiffel Tower", href: "https://visitparistexas.com/eiffel-tower/", note: "Lists the cowboy-hat Eiffel Tower beside Love Civic Center at 2025 South Collegiate Drive." },
     { label: "Texas Time Travel — Roadside Heritage", href: "https://texastimetravel.com/plan/trip-ideas/trip-ideas-roadside-heritage/", note: "State-supported roadside history resources identify Route 66 stops including Shamrock, Adrian and Amarillo." },
+    { label: "North Star Mall — Giant Justins sculpture", href: "https://www.northstarmall.com/en/events/39974/", note: "Operator confirms Bob Wade's 1979 sculpture, 1980 San Antonio installation, scale and address." },
+    { label: "Billy Bob's Texas — official directions and visitor policies", href: "https://www.billybobstexas.com/directions/", note: "Venue confirms 2520 Rodeo Plaza address and variable admission, event and hour rules." },
+    { label: "Texas Historical Commission — Ellis County Courthouse marker", href: "https://atlas.thc.texas.gov/Details?atlasnumber=5139007092&fn=print", note: "Primary record dates the 1895 cornerstone and 1897 completion and describes the architect and materials." },
+    { label: "National Park Service — Tower Station and U-Drop Inn Cafe", href: "https://www.nps.gov/places/tower-station-and-u-drop-inn-cafe.htm", note: "National Register resource records the 1936 Shamrock roadside building and architectural history." },
+    { label: "Orange Show Center for Visionary Art — visitor information", href: "https://www.orangeshow.org/visit", note: "Operator distinguishes its temporarily closed-for-restoration monument from Smither Park and the Beer Can House." },
   ],
   "texas-slang-explained": [
     { label: "University of Texas at Austin — Spanish in Texas Corpus", href: "https://coerll.utexas.edu/coerll/project/spanishtx/", note: "Documents research with real bilingual speech samples and language variation among Texas speakers." },

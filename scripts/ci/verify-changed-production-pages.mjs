@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { assertTexasCulturePublication, TEXAS_CULTURE_PUBLICATION_MARKERS } from './verify-texas-culture-publication.mjs';
 const turkeyQuarterlyCheckedAt = JSON.parse(readFileSync('src/data/hunting/turkey-quarterly-facts.json', 'utf8')).checkedAt;
 
 // Derive strict release markers from the reviewed event sources, rather than
@@ -569,6 +570,20 @@ for (const path of plan.selectedPaths) {
       if (finalPage.origin !== origin) throw new Error('Redirect left the production origin');
       const expectedCanonical = finalPage.origin + finalPage.pathname;
       if (links.length !== 1 || actual !== expectedCanonical) throw new Error(`Unexpected canonical: ${actual || 'missing'}`);
+      if (Object.hasOwn(TEXAS_CULTURE_PUBLICATION_MARKERS, path)) {
+        assertTexasCulturePublication(path, html, 'cache-busted release');
+        // A query-param URL may bypass a stale CDN object. Check the URL an
+        // ordinary reader and search crawler actually request as well.
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Culture-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Texas culture ordinary visitor URL failed: ' + path + ' HTTP ' + visitor.status);
+        }
+        assertTexasCulturePublication(path, await visitor.text(), 'ordinary visitor URL');
+      }
       // Magnolia Waco: ensure current Google-facing metadata and source-verified
       // free-parking details actually appear in production SSR, not only source.
       if (path === '/destination/magnolia-market-at-the-silos') {
