@@ -378,3 +378,59 @@ test('November 15 editorial corrections agree across guide, provider and organiz
   ]) assert.match(event(file, slug), /sourceCheckedAt: "2026-11-15"/,
     'Reverified organizer facts need a per-record editorial evidence date: ' + slug);
 });
+
+
+test('second organizer-review tranche preserves current 2027 dates and historical 2026 boundaries', () => {
+  const source = (file) => fs.readFileSync(path.join(process.cwd(), file), 'utf8');
+  const record = (file, slug) => {
+    const body = source(file);
+    const a = body.indexOf('slug: "' + slug + '"');
+    assert.ok(a >= 0, 'Missing event record: ' + slug);
+    let b = body.indexOf('\n  },', a);
+    if (b < 0) b = body.length;
+    return body.slice(a, b);
+  };
+  const cases = [
+    ['src/data/major-event-expanded-authority-tranche21.server.ts', 'great-texas-balloon-race'],
+    ['src/data/major-event-index.ts', 'houston-livestock-show-rodeo'],
+    ['src/data/major-event-index.ts', 'main-st-fort-worth-arts-festival'],
+    ['src/data/major-event-expanded-authority-tranche33.server.ts', 'atx-open'],
+    ['src/data/major-event-expanded-authority-tranche32.server.ts', 'austin-marathon'],
+    ['src/data/major-event-expanded-authority-tranche32.server.ts', 'cowtown-marathon'],
+    ['src/data/major-event-expanded-authority-tranche35.server.ts', 'autumn-at-the-arboretum'],
+    ['src/data/major-event-expanded-authority-tranche31.server.ts', 'austin-city-limits-music-festival'],
+    ['src/data/major-event-expanded-authority-tranche26.server.ts', 'bayou-city-art-festival-memorial-park'],
+    ['src/data/major-event-expanded-authority-tranche28.server.ts', 'austin-food-wine-festival'],
+    ['src/data/major-event-expanded-authority-tranche29.server.ts', 'texas-tribune-festival'],
+    ['src/data/major-event-expanded-authority-tranche34.server.ts', 'texas-motor-speedway-nascar-weekend'],
+    ['src/data/major-event-expanded-authority-tranche25.server.ts', 'fredericksburg-oktoberfest'],
+    ['src/data/major-event-expanded-authority-tranche25.server.ts', 'houston-art-car-parade'],
+    ['src/data/major-event-expanded-authority-tranche26.server.ts', 'bob-wills-day'],
+    ['src/data/major-event-expanded-authority-tranche27.server.ts', 'lone-star-cowboy-poetry-gathering-alpine'],
+    ['src/data/major-event-expanded-authority-tranche27.server.ts', 'lone-star-cowboy-poetry-gathering-bastrop'],
+    ['src/data/major-event-expanded-authority-tranche27.server.ts', 'red-steagall-cowboy-gathering'],
+    ['src/data/major-event-expanded-authority-tranche28.server.ts', 'original-greek-festival-houston'],
+    ['src/data/major-event-expanded-authority-tranche29.server.ts', 'texas-clay-festival'],
+    ['src/data/major-event-expanded-authority-tranche30.server.ts', 'rodeo-austin'],
+    ['src/data/major-event-expanded-authority-tranche30.server.ts', 'san-antonio-book-festival'],
+    ['src/data/major-event-expanded-authority-tranche26.server.ts', 'western-heritage-classic'],
+    ['src/data/major-event-expanded-authority-tranche29.server.ts', 'gruene-music-wine-festival'],
+  ];
+  for (const [file, slug] of cases) {
+    assert.match(record(file, slug), /sourceCheckedAt: "2026-11-15"/,
+      'Actual editorial source review missing from ' + slug);
+  }
+  const balloon = record(cases[0][0], 'great-texas-balloon-race');
+  assert.match(balloon, /startDate: "2027-07-22"/);
+  assert.match(balloon, /endDate: "2027-07-25"/);
+  assert.doesNotMatch(balloon, /startDate: "2026-06-12"/);
+  const fredericksburg = record('src/data/major-event-expanded-authority-tranche25.server.ts', 'fredericksburg-oktoberfest');
+  assert.match(fredericksburg, /startDate: "2027-10-01"/);
+  const greek = record('src/data/major-event-expanded-authority-tranche28.server.ts', 'original-greek-festival-houston');
+  assert.match(greek, /startDate: "2027-10-07"/);
+  const red = record('src/data/major-event-expanded-authority-tranche27.server.ts', 'red-steagall-cowboy-gathering');
+  assert.match(red, /startDate: "2027-10-22"/);
+  assert.match(red, /2027 tickets coming soon/i);
+  const acl = record('src/data/major-event-expanded-authority-tranche31.server.ts', 'austin-city-limits-music-festival');
+  assert.match(acl, /organizer has not announced 2027/i);
+});
