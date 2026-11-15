@@ -123,7 +123,7 @@ def main():
         cities = census_query(28, "STATE = '48' AND BASENAME IN (" + names + ")", "BASENAME,NAME,GEOID,STATE,PLACE", 150)
         cdp = census_query(30, "STATE = '48' AND BASENAME = 'The Woodlands'", "BASENAME,NAME,GEOID,STATE,PLACE", 10)
         counties = census_query(82, "STATE = '48'", "BASENAME,NAME,GEOID,STATE,COUNTY", 300)
-        if len(counties) != 254 or len(cities) != 56 or len(cdp) != 1:
+        if len(counties) != 254 or len(cities) != 57 or len(cdp) != 1:
             raise ValueError(f"Unexpected Census polygon count cities={len(cities)} CDPs={len(cdp)} counties={len(counties)}")
         county_names = [f["properties"].get("BASENAME") for f in counties]
         if len(set(county_names)) != 254:
@@ -131,7 +131,7 @@ def main():
         county_geoms = [geometry(c) for c in counties]
         tree = STRtree(county_geoms)
         census_places = {f["properties"]["BASENAME"]: f for f in cities + cdp}
-        if len(census_places) != 57:
+        if len(census_places) != 58:
             raise ValueError("Census place name ambiguity: " + str(Counter(f["properties"]["BASENAME"] for f in cities + cdp)))
         county_lookup = dict(zip(county_names, county_geoms))
         report["officialCityGis"] = []
