@@ -43,7 +43,8 @@ const csvSpecs = [
   {
     path: '/texas-data/city-county-relationships.csv',
     columns: ['city_name', 'city_slug', 'place_type', 'primary_directory_county', 'all_counties', 'county_count', 'region', 'county_registry_match'],
-    rows: 57,
+    // The Del Rio authority rollout extended the checked-in city registry to 58 places.
+    rows: 58,
     uniqueColumn: 'city_slug',
   },
   {
