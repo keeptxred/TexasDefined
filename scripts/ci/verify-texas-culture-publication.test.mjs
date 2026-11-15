@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 import {
   assertTexasCulturePublication,
@@ -44,4 +45,11 @@ test('reintroduced unrelated government disclaimer or the old roadside count fai
     render('/texas-roadside-oddities', undefined, '40 Texas roadside and small-town icons'),
     'visitor'), /count remains stale/);
   assert.doesNotThrow(() => assertTexasCulturePublication('/unrelated-page', 'irrelevant', 'test'));
+});
+
+test('off-topic CHUD source replaces the default index robots declaration instead of emitting conflicting directives', () => {
+  const route = readFileSync('src/routes/what-does-chud-mean.tsx', 'utf8');
+  assert.match(route, /head\.meta\.filter\(\(entry\) => entry\.name !== "robots"\)/);
+  assert.match(route, /name: "robots", content: "noindex, follow"/);
+  assert.doesNotMatch(route, /meta: \[\.\.\.head\.meta, \{ name: "robots", content: "noindex, follow" \}/);
 });
