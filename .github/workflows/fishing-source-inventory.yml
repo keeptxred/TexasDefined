@@ -50,7 +50,9 @@ jobs:
         run: node --test scripts/ci/fishing-operator-source-witnesses.test.mjs
 
   source-review:
-    runs-on: ubuntu-latest
+    # Alternate no-cost public GitHub network vantage for operator sites that
+    # time out from x64 runners; keep full 58-source identity checks intact.
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
