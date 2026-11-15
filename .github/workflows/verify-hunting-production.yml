@@ -6,12 +6,6 @@ on:
       - '.github/workflows/verify-hunting-production.yml'
       - 'scripts/data/verify-hunting-production.mjs'
   workflow_dispatch:
-  # Live content assertions must run AFTER the actual deployed Worker is healthy;
-  # validating production during a premerge PR would compare against old content.
-  workflow_run:
-    workflows: ["Deploy TexasDefined production"]
-    types: [completed]
-    branches: [main]
 
 permissions:
   contents: read
