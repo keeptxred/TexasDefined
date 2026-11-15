@@ -216,6 +216,7 @@ const prebuildChecks = [
   ['CI/DEPLOYMENT', 'Validate provenance-scoped Discover build cache', 'node', ['scripts/data/validate-discover-build-cache.mjs']],
   ['CI/DEPLOYMENT', 'Validate production rollback safety', 'node', ['scripts/data/validate-production-deployment-safety.mjs']],
   ['CI/DEPLOYMENT', 'Reject unsafe prior-Worker asset handoff and allow only exact published Nov13 artifact', 'node', ['--test', 'scripts/ci/verify-prior-deploy-job-eligibility.test.mjs']],
+  ['CI/DEPLOYMENT', 'Cover all ten culture authority pages in bounded deploy smoke', 'node', ['--test', 'scripts/ci/production-change-scope-culture.test.mjs']],
   ['CI/DEPLOYMENT', 'Validate live verification contract', 'node', ['scripts/ci/validate-live-verification-contract.mjs']],
   ['CI/DEPLOYMENT', 'Validate post-deploy verifier safety', 'node', ['scripts/ci/validate-post-deploy-verifier-safety.mjs']],
   ['CI/DEPLOYMENT', 'Validate browser and destination post-deploy ordering', 'node', ['scripts/ci/validate-production-browser-deploy-order.mjs']],

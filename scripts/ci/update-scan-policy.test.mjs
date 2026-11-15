@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
+import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET, TEXAS_CULTURE_AUTHORITY_PAGES } from './production-change-scope.mjs';
 import { verifyChangedPages, assertKatyFootballContents, assertLoneStarFootballContents, assertPortArthurFestivalGateFacts, assertCompleted2026EventFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
@@ -406,6 +406,7 @@ test('Moody Gardens proxied Commons hero emits exact verified rights on release 
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
+    ...TEXAS_CULTURE_AUTHORITY_PAGES,
     '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
     '/destination/moody-gardens', '/destination/davis-hill-state-park',
     '/texas-data', '/texas-data/texas-homeowners-premium-history',
