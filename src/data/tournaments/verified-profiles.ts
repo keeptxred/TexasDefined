@@ -209,12 +209,12 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     whyItMatters: "San Antonio’s annual rodeo is both a major professional competition and a broad agricultural showcase with livestock, youth contests, entertainment and fair activity.",
     planningNotes: [
       "A rodeo ticket includes a reserved seat in Frost Bank Center and fairgrounds admission, while standalone fairgrounds admission is a separate product.",
-      "Competitive-event schedules are released separately and can remain tentative well ahead of the show; verify the contest you care about before traveling.",
-      "Use San Antonio and Bexar County guides for lodging, food and transportation planning around the fairgrounds.",
+      "The organizer lists 19 PRCA rodeo performances for 2027 and opens arena doors 90 minutes before each performance. Choose the exact competition date and confirm a current show schedule before traveling.",
+      "Official rodeo admission includes the carnival, rodeo competition and entertainment following that rodeo; fairgrounds-only admission is a different product. Check the authorized ticket seller and San Antonio arrival guidance.",
     ],
     officialUrl: "https://www.sarodeo.com/p/fair",
     officialSourceLabel: "San Antonio Stock Show & Rodeo official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-15",
   },
   {
     slug: "rodeo-austin",
