@@ -47,7 +47,7 @@ jobs:
           import urllib.request
           official = [
             ("Tierra Blanca stream geography", "https://www.tshaonline.org/handbook/entries/tierra-blanca-creek", ("Palo Duro Creek", "Prairie Dog Town Fork")),
-            ("Buffalo Lake public access", "https://www.fws.gov/refuge/buffalo-lake/visit-us", ("Cottonwood Canyon", "FM 168")),
+            ("Buffalo Lake public access", "https://www.fws.gov/refuge/buffalo-lake/visit-us", ("Cottonwood Canyon", "Umbarger")),
             ("Palo Duro state-park visitor rules", "https://tpwd.texas.gov/state-parks/palo-duro-canyon", ("Entrance Fees", "Park Road 5")),
           ]
           for label, url, requirements in official:
