@@ -164,7 +164,7 @@ test("Big Tex, Magoffin Home and Fredericksburg Marktplatz use exact source-veri
     ]) assert.equal(imageRightsFor(candidate), null, candidate);
   }
   const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
-  for (const marker of ["State_Fair_of_Texas_September_2019_13", "Magoffin_home_2009", "Fredericksburg(?:%20| )July"]) {
+  for (const marker of ["State_Fair_of_Texas_September_2019_13", "Magoffin_home_2009", "Fredericksburg(?:%2520|%20| )July"]) {
     assert.ok(route.includes(marker), marker);
   }
 });
