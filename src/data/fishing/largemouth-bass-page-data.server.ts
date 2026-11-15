@@ -5,6 +5,7 @@ import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingFoundationAnchor } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
+import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
 
 const qualityScore = { excellent: 40, good: 30, fair: 20, poor: 10, unknown: 0 } as const;
@@ -12,7 +13,7 @@ const prominenceScore = { primary: 6, secondary: 3, present: 1 } as const;
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 // Actual bass editorial/operating-closure revision, not underlying source verification.
-const BASS_GUIDE_EDITORIAL_UPDATED_AT = "2026-11-11";
+const BASS_GUIDE_EDITORIAL_UPDATED_AT = FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT;
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
@@ -73,6 +74,7 @@ async function buildLargemouthBassPageData() {
   return {
     species,
     profile: largemouthBassEditorialProfile,
+    identification: fishIdentification["largemouth-bass"],
     rankedLakes,
     recommendedTechniques,
     relatedSpecies,
