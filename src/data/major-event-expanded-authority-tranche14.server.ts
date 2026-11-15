@@ -43,12 +43,12 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer confirms the 2027 Buc Days festival window for April 29 through May 9. Individual attractions, rodeo performances, parades and concerts have their own schedules within that period, so use the official daily calendar before traveling.",
     venue: "Buc Days Festival Grounds and Hilliard Center",
     officialUrl: "https://bucdays.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Buc Days is a Corpus Christi spring tradition that combines the waterfront city's rodeo heritage with a carnival, parades, concerts, professional bull riding and youth programming, making the festival useful as both an event destination and a Gulf Coast trip anchor.",
     planningSections: [
       { title: "Choose the attraction before choosing the day", body: "The overall 2027 festival runs April 29 through May 9, but the rodeo, PBR, concerts, parades, carnival and other programs do not all operate on identical schedules. Start with the official event calendar for the attraction that matters most." },
       { title: "Rodeo visitors should target May 4-8", body: "The organizer lists Rodeo Corpus Christi for May 4-8, 2027 at 7 p.m. at Hilliard Center Arena. Treat those performances as fixed appointments and leave time for festival-ground activities before the arena event." },
-      { title: "Use the festival as a Corpus Christi anchor", body: "Buc Days can support more than a single-event visit. Build waterfront, food and other Nueces County stops around the scheduled festival attraction instead of treating each component as a separate trip." },
+      { title: "Use actual festival gates and the waterfront address", body: "Buc Days publishes April 29–May 9, 2027, with general festival gates opening at 4 p.m. on weekdays and noon on weekends. The Stripes Carnival is outside the Hilliard Center at 1901 N. Shoreline Boulevard. Arena concerts and rodeo sessions require separately verified times and ticket products; do not assume everything is open throughout the festival's multi-day range." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Build a broader Corpus Christi and Gulf Coast itinerary." },
@@ -58,6 +58,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Buc Days official site", url: "https://bucdays.com/" },
       { label: "Buc Days Stripes Carnival 2027", url: "https://bucdays.com/attractions/stripes-carnival/" },
       { label: "Rodeo Corpus Christi official page", url: "https://bucdays.com/rodeo-pbr/rodeo-corpus-christi/" },
+      { label: "Buc Days 2027 visitor FAQs and carnival location", url: "https://bucdays.com/faqs/" },
     ],
   },
   {
