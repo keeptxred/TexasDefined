@@ -57,12 +57,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-01-17",
     venue: "Austin, Texas",
     officialUrl: "https://downhilltodowntown.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Spurs Austin International Half, formerly the 3M Half Marathon, carries a long-running Austin road-racing tradition into a newly branded 2027 event built around a fast downhill 13.1-mile course and a downtown finish.",
     planningSections: [
       { title: "Race day is Sunday, January 17", body: "The organizer publishes January 17, 2027 as race day with a 7:30 a.m. start. Friday and Saturday are expo and packet-pickup days, so the Event date remains the actual Sunday race rather than the full administrative weekend." },
       { title: "Plan for a point-to-point race day", body: "The event markets a downhill-to-downtown course and publishes shuttle and gear-check timing. Review the current course, start-area and return-shuttle instructions before deciding where to park or stay." },
-      { title: "Use the official weekend schedule", body: "Packet pickup is scheduled at the expo Friday and Saturday, followed by the Sunday race and finish festival. Confirm the final schedule before arrival because operational times remain subject to change." },
+      { title: "Race weekend and the elite-entry deadline are different dates", body: "The organizer reconfirms race day Sunday, January 17, 2027 and describes a point-to-point, net-downhill USATF-certified half-marathon. Its November 10 update sets a December 31, 2026 deadline for elite-field applications; that deadline is not the public race registration deadline. Check the current race-weekend schedule for packet pickup, transportation and start corrals." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Pair the race with more Austin and Travis County stops." },
@@ -71,6 +71,7 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     sources: [
       { label: "Spurs Austin International Half official site", url: "https://downhilltodowntown.com/" },
       { label: "Spurs Austin International Half official race-weekend schedule", url: "https://downhilltodowntown.com/race-weekend-schedule/" },
+      { label: "Organizer — November 10 elite-entry announcement", url: "https://downhilltodowntown.com/final-call-for-elite-athletes-spurs-austin-international-half-applications-close-december-31/" },
     ],
   },
   {
