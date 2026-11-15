@@ -6,11 +6,20 @@ const canonicalPath = "/explore/tierra-blanca-creek";
 const baseUrl = `https://${texasDefinedBrand.identity.domain}`;
 const url = `${baseUrl}${canonicalPath}`;
 const lastSubstantiveRevision = "2026-11-15";
+const documentedRefugeImage = "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/images/2024-07/buffalo-lake-snowscape.jpg?itok=HkeBOb3Z";
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
+      image: documentedRefugeImage,
+      imageAlt: "Winter grasslands and shallow eroded drainage at Buffalo Lake National Wildlife Refuge in the Tierra Blanca Creek watershed",
+      imageWidth: 1300,
+      imageHeight: 975,
+      imageType: "image/jpeg",
+      type: "article",
+      publishedTime: lastSubstantiveRevision,
+      modifiedTime: lastSubstantiveRevision,
       title: "Tierra Blanca Creek: Canyon Country, History & Visiting Near Amarillo",
       description: "Follow Tierra Blanca Creek from the High Plains toward Palo Duro Canyon. Learn the watershed, archaeology and verified public access near Canyon and Amarillo, Texas.",
     }),
@@ -24,10 +33,11 @@ export const Route = createFileRoute(canonicalPath)({
             "@type": "Article",
             "@id": `${url}#article`,
             mainEntityOfPage: url,
-            headline: "Tierra Blanca Creek: the waterway behind the Canyon landscape",
+            headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo",
             description: "A source-checked geographic and cultural history of Tierra Blanca Creek in the Texas Panhandle, with lawful visitor alternatives and an Amarillo/Canyon road-trip plan.",
             datePublished: lastSubstantiveRevision,
             dateModified: lastSubstantiveRevision,
+            image: { "@type": "ImageObject", url: documentedRefugeImage, width: 1300, height: 975, creditText: "Christena Stephens / U.S. Fish and Wildlife Service" },
             author: { "@type": "Organization", name: "TexasDefined", url: baseUrl },
             publisher: { "@type": "Organization", name: "TexasDefined", url: baseUrl },
             about: [

@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 const read = (path) => fs.readFileSync(path, "utf8");
 const head = read("src/routes/explore.tierra-blanca-creek.tsx");
 const article = read("src/routes/explore.tierra-blanca-creek.lazy.tsx");
+const visitorEvidence = read("src/components/explore/TierraBlancaVisitorEvidence.tsx");
 const publicRoutes = read("src/lib/public-routes.ts");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
 const amarillo = read("src/routes/explore.near.$metro.$collection.lazy.tsx");
@@ -19,8 +20,8 @@ function contains(text, required, where) {
 contains(head, [
   'canonicalPath = "/explore/tierra-blanca-creek"',
   'dateModified: lastSubstantiveRevision',
-  '"@type": "Article"',
-  '"@type": "BreadcrumbList"',
+  '"@type": "Article"', 'documentedRefugeImage', 'creditText: "Christena Stephens / U.S. Fish and Wildlife Service"',
+  '"@type": "BreadcrumbList"', 'headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo"',
   "buildMeta(",
   "canonicalLink(",
 ], "Head metadata and canonical");
@@ -42,6 +43,9 @@ contains(article, [
   '/explore/near/amarillo/road-trips', '/explore/near/amarillo/day-trips',
   '/destination/palo-duro-canyon-state-park',
 ], "Main guide / editorial sourcing");
+contains(article, ['TierraBlancaVisitorEvidence', 'Travel &amp; Outdoors Desk', 'Research method', 'How this guide was researched', 'Can I collect arrowheads or artifacts found beside the creek?', '/editorial-policy', '/sourcing-methodology', '/about'], 'Human-authored visitor and research disclosures');
+assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at least seven substantive visitor FAQs');
+contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
 contains(amarillo, [
   'metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips")',
   'href="/explore/tierra-blanca-creek"',
@@ -53,6 +57,12 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+const visualQA = read(".github/workflows/tierra-blanca-visual-qa.yml");
+const visualScript = read("scripts/ci/verify-tierra-blanca-visual.mjs");
+contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence'], 'Real two-viewport production browser acceptance');
+contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'report.failures.length'], 'Browser check includes real photo decode, map and responsive layout');
+execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
+execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
 contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
 for (const script of ["scripts/ci/verify-tierra-blanca-quarterly.mjs", "scripts/ci/report-tierra-blanca-authority-failure.mjs"]) {
@@ -63,7 +73,7 @@ const sourceAudit = read("scripts/ci/verify-tierra-blanca-quarterly.mjs");
 const failureReporter = read("scripts/ci/report-tierra-blanca-authority-failure.mjs");
 assert.ok(!fs.existsSync(".github/workflows/verify-tierra-blanca-authority.yml"), "Remove zero-job failing legacy quarterly workflow");
 contains(auditSchedule, [
-  "schedule:", "17 14 10 1,4,7,10 *", "workflow_dispatch:",
+  "schedule:", "17 14 10 1,4,7,10 *", "31 14 12 * *", "workflow_dispatch:",
   "node scripts/data/validate-tierra-blanca-authority.mjs",
   "node scripts/ci/verify-tierra-blanca-quarterly.mjs",
   "node scripts/ci/report-tierra-blanca-authority-failure.mjs",

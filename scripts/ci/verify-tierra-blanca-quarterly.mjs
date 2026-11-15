@@ -16,6 +16,21 @@ const sources = [
     required: ["Buffalo Lake", "Umbarger", "Cottonwood Canyon", "Grassland Loop", "per vehicle"],
   },
   {
+    key: "FWS specific public trails",
+    url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/trails",
+    required: ["Cottonwood Canyon Birding Trail", "Cottonwood Hiking Trail", "Grassland Loop", "Prairie Dog Trail", "1.25 miles", "2 miles"],
+  },
+  {
+    key: "USFWS winter refuge photo provenance",
+    url: "https://www.fws.gov/media/buffalo-lake-winter",
+    required: ["Public Domain", "Stephens"],
+  },
+  {
+    key: "USFWS refuge turkeys photo provenance",
+    url: "https://www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge",
+    required: ["Public Domain", "Robert Burton"],
+  },
+  {
     key: "FWS water history",
     url: "https://www.fws.gov/refuge/buffalo-lake/about-us",
     required: ["Tierra Blanca Creek", "typically dry", "1970"],
@@ -59,11 +74,23 @@ for (const source of sources) {
   findings.push({source:source.key,sourceUrl:source.url,sourceReached:true,materialFactsStillDisplayed:true});
 }
 
+const licensedPhotoAssets = [
+  "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/images/2024-07/buffalo-lake-snowscape.jpg?itok=HkeBOb3Z",
+  "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg?itok=QaosMrLg",
+];
+for (const photoUrl of licensedPhotoAssets) {
+  const response = await fetch(photoUrl, { headers, redirect: "follow", signal: AbortSignal.timeout(25000) });
+  assert.equal(response.status, 200, "Remote refuge photo missing: " + photoUrl);
+  assert.match(response.headers.get("content-type") ?? "", /^image\/(jpeg|jpg|png|webp)/i, "Media endpoint no longer serves a photo: " + photoUrl);
+  const bytes = (await response.arrayBuffer()).byteLength;
+  assert.ok(bytes > 25000, "Remote refuge photo too small, corrupt or replaced: " + photoUrl);
+}
 const articleUrl = `${BASE}/explore/tierra-blanca-creek`;
 const page = await getHtml(articleUrl);
 for (const marker of [
   "Tierra Blanca Creek", "Prairie Dog Town Fork", "Tierra Blanca archaeological complex",
   "Buffalo Lake", "Georgia O", "Palo Duro Canyon State Park",
+  "Cottonwood Canyon Birding Trail", "Prairie Dog Trail", "openstreetmap.org/export/embed.html", "buffalo-lake-snowscape.jpg", "rio_grande_wild_turkey_pair", "Travel &",
 ]) assert.ok(page.toLowerCase().includes(marker.toLowerCase()), `Live guide missing editorial content: ${marker}`);
 assert.ok(page.includes(articleUrl), "Live guide lacks canonical URL");
 assert.ok(!/content=["']noindex/i.test(page), "Live guide unexpectedly noindexed");

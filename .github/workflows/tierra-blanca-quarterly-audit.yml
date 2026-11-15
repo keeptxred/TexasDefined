@@ -1,4 +1,4 @@
-name: Tierra Blanca Creek quarterly factual verification
+name: Tierra Blanca Creek visitor and quarterly factual verification
 
 on:
   push:
@@ -8,8 +8,12 @@ on:
       - 'scripts/ci/verify-tierra-blanca-quarterly.mjs'
       - 'scripts/ci/report-tierra-blanca-authority-failure.mjs'
       - 'scripts/data/validate-tierra-blanca-authority.mjs'
+      - 'src/components/explore/TierraBlancaVisitorEvidence.tsx'
+      - 'src/routes/explore.tierra-blanca-creek.lazy.tsx'
   schedule:
     - cron: '17 14 10 1,4,7,10 *'
+    # Monthly check of volatile public fees, trail access and conditions.
+    - cron: '31 14 12 * *'
   workflow_dispatch:
 
 permissions:
@@ -32,6 +36,9 @@ jobs:
       - name: Protect editorial claims, canonical URL and discovery links
         run: node scripts/data/validate-tierra-blanca-authority.mjs
       - name: Confirm source facts, live HTML and unique sitemap entry
+        # On a main push, the new Worker may not have deployed yet. Never fail a valid
+        # source change against an older live page; postdeploy runs separately.
+        if: github.event_name != 'push'
         run: node scripts/ci/verify-tierra-blanca-quarterly.mjs
       - name: Open an issue for any factual or publishing regression
         if: failure()
