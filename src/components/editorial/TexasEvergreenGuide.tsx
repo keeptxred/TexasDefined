@@ -118,6 +118,19 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 };
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-food-trail": [
+    { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "San Antonio food history and the commercialization of chili powder, showing why the food trail spans traditions rather than one invention story." },
+    { label: "Dr Pepper Museum — Waco history", href: "https://drpeppermuseum.com/history/", note: "Documents Waco's historic soda-fountain origin, supporting the food-history context for a Central Texas stop." },
+  ],
+  "texas-roadside-oddities": [
+    { label: "Visit Amarillo — Cadillac Ranch", href: "https://www.visitamarillo.com/blog/post/cadillac-ranch/", note: "Documents Ant Farm's 1974 installation, later relocation and the present Amarillo I-40 frontage-road location." },
+    { label: "Visit Paris Texas — Eiffel Tower", href: "https://visitparistexas.com/eiffel-tower/", note: "Lists the cowboy-hat Eiffel Tower beside Love Civic Center at 2025 South Collegiate Drive." },
+    { label: "Texas Time Travel — Roadside Heritage", href: "https://texastimetravel.com/plan/trip-ideas/trip-ideas-roadside-heritage/", note: "State-supported roadside history resources identify Route 66 stops including Shamrock, Adrian and Amarillo." },
+  ],
+  "texas-slang-explained": [
+    { label: "University of Texas at Austin — Spanish in Texas Corpus", href: "https://coerll.utexas.edu/coerll/project/spanishtx/", note: "Documents research with real bilingual speech samples and language variation among Texas speakers." },
+    { label: "Texas Department of Transportation — Don't mess with Texas", href: "https://www.txdot.gov/about/campaigns-outreach/dont-mess-with-texas.html", note: "Documents that the familiar Texas phrase originated as an anti-litter campaign, not an official legal motto." },
+  ],
   "texas-chili-con-carne-history": [
     { label: "Handbook of Texas — San Antonio", href: "https://www.tshaonline.org/handbook/entries/san-antonio-tx", note: "Documents the downtown Chili Queens and San Antonio's open-air chili-stand tradition." },
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },
@@ -395,7 +408,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
                 {section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
               </ul> : null}
               {section.links?.length ? <div className="flex flex-wrap gap-x-6 gap-y-3 pt-1 text-sm font-semibold">
-                {section.links.map((link) => <Link key={link.href} to={link.href} className="border-b border-primary text-primary">{link.label}</Link>)}
+                {section.links.map((link) => link.href.startsWith("https://") ? <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">{link.label} ↗</a> : <Link key={link.href} to={link.href} className="border-b border-primary text-primary">{link.label}</Link>)}
               </div> : null}
             </div>
           </section>)}
