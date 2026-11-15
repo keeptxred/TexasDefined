@@ -75,7 +75,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Test exhaustive event page coverage and source safety
-        run: node --test scripts/events/event-page-refresh-governance.test.mjs
+        run: node --test scripts/events/event-page-refresh-governance.test.mjs scripts/events/event-editorial-review-wave4.test.mjs
 
       - name: Refuse uncovered permanent or static event routes
         run: node scripts/events/event-page-refresh-governance.mjs
