@@ -33,7 +33,7 @@ export const Route = createFileRoute(canonicalPath)({
             "@type": "Article",
             "@id": `${url}#article`,
             mainEntityOfPage: url,
-            headline: "Tierra Blanca Creek: the waterway behind the Canyon landscape",
+            headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo",
             description: "A source-checked geographic and cultural history of Tierra Blanca Creek in the Texas Panhandle, with lawful visitor alternatives and an Amarillo/Canyon road-trip plan.",
             datePublished: lastSubstantiveRevision,
             dateModified: lastSubstantiveRevision,
