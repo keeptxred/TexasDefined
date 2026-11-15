@@ -340,7 +340,7 @@ test('November 15 editorial corrections agree across guide, provider and organiz
   assert.match(south, /sourceCheckedAt: "2026-11-15"/);
   assert.match(south, /mcallenholidayparade\.com\/tree-lighting-ceremony/);
   const sourceMonitor = source('scripts/events/check-november-event-sources.mjs');
-  assert.ok(sourceMonitor.includes('November\s+27\s*[-–]\s*December\s+27'), 'November source monitor must require current dates');
+  assert.ok(sourceMonitor.includes('November\\s+27\\s*[-–]\\s*December\\s+27'), 'November source monitor must require current dates');
   const partner = source('src/data/events/ticketmaster-events.server.ts');
   assert.doesNotMatch(partner, /event\.startDate === '2026-11-27'\) return \[\]/);
   const prairie = event('src/data/major-event-expanded-authority-tranche59.server.ts', 'grand-prairie-prairie-lights');
