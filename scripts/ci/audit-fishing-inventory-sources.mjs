@@ -20,9 +20,13 @@ async function check(url, names = [], textHints = []) {
     // source-integrity gate while using a bounded two-attempt backoff: a failed
     // provider is still an issue, never silently treated as verified.
     let response;
-    for (let attempt = 1; attempt <= 2; attempt++) {
+    // Operator sites can occasionally exceed the normal network timeout on
+    // GitHub-hosted runners. Only connection/429/5xx failures get a bounded
+    // third attempt; a missing/changed official source still fails closed.
+    const maximumAttempts = url.startsWith("https://tpwd.texas.gov/") ? 2 : 3;
+    for (let attempt = 1; attempt <= maximumAttempts; attempt++) {
       try {
-        response = await fetch(url, { headers: { "User-Agent": "TexasDefinedSourceIntegrity/1.0 (+https://texasdefined.com/fishing)", Accept: "text/html" }, redirect: "follow", signal: AbortSignal.timeout(16000) });
+        response = await fetch(url, { headers: { "User-Agent": "TexasDefinedSourceIntegrity/1.0 (+https://texasdefined.com/fishing)", Accept: "text/html" }, redirect: "follow", signal: AbortSignal.timeout(url.startsWith("https://tpwd.texas.gov/") ? 16000 : 20000) });
         if (!response.ok) {
           const status = response.status;
           await response.body?.cancel();
@@ -31,7 +35,7 @@ async function check(url, names = [], textHints = []) {
         }
         break;
       } catch (failure) {
-        if (attempt >= 2 || failure?.nonRetryable) {
+        if (attempt >= maximumAttempts || failure?.nonRetryable) {
           const rootCause = failure?.cause?.code || failure?.cause?.message || "";
           throw new Error(String(failure?.message ?? failure) + (rootCause ? " (" + rootCause + ")" : ""));
         }
