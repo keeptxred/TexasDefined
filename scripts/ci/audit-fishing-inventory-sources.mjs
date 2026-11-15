@@ -33,12 +33,12 @@ async function verifyOperatorWithCurl(url, names, textHints, requiredEvidence) {
       "--proto", "=https", "--proto-redir", "=https", "--max-redirs", "3",
       "--max-time", "15", "--connect-timeout", "7",
       "--user-agent", "Mozilla/5.0 (compatible; TexasDefinedSourceIntegrity/1.0; +https://texasdefined.com/fishing)",
-      "--write-out", "\\nTD_SOURCE_FINAL_URL:%{url_effective}",
+      "--write-out", "\nTD_SOURCE_FINAL_URL:%{url_effective}",
       url,
     ], { timeout: 17000, maxBuffer: 1200000 });
-    const marker = stdout.lastIndexOf("\\nTD_SOURCE_FINAL_URL:");
+    const marker = stdout.lastIndexOf("\nTD_SOURCE_FINAL_URL:");
     if (marker < 0) throw Error("curl did not record the final origin");
-    const actual = new URL(stdout.slice(marker + "\\nTD_SOURCE_FINAL_URL:".length).trim());
+    const actual = new URL(stdout.slice(marker + "\nTD_SOURCE_FINAL_URL:".length).trim());
     const original = new URL(url);
     if (actual.origin !== original.origin) throw Error("operator redirected away from the recorded first-party origin");
     const content = stdout.slice(0, marker).slice(0, 600000);
