@@ -9,6 +9,7 @@ const activation = readFileSync('.github/workflows/texasdefined-auto-publication
 test('source-only scheduled workflow cannot accidentally publish or generate AI', () => {
   assert.match(workflow, /schedule:\s*\n\s*- cron:/);
   assert.match(workflow, /--hydrate-top=8/);
+  assert.match(workflow, /texasdefined-institutional-evidence-hydration\.test\.mjs/);
   assert.doesNotMatch(workflow, /--publish|PUBLISH_TEXASDEFINED|TEXASDEFINED_AUTO_PUBLISH_ENABLED|CLOUDFLARE_API_TOKEN|CLOUDFLARE_ACCOUNT_ID/);
   assert.match(workflow, /--limit=3/);
   assert.doesNotMatch(workflow, /--feed-id|create issue|gh api|p_publish_/);
@@ -30,4 +31,15 @@ test('hydratable source selection still requires owner, source, freshness and cu
   assert.match(publisher, /if \(payload\?\.ok !== true \|\| payload\?\.aiCalls !== 0/);
   assert.match(publisher, /--hydrate-top/);
   assert.doesNotMatch(activation, /^\s*-\s*cron:/m);
+});
+
+
+test('official research lane hydrates only original first-party evidence; it never certifies a source to publish', () => {
+  assert.match(publisher, /isOriginalInstitutionalEvidenceLead\(item\)/);
+  assert.match(publisher, /officialParams\.set\('target_site', 'eq\.texasdefined'\)/);
+  assert.match(publisher, /officialParams\.set\('source_reputation_score', 'gte\.85'\)/);
+  assert.match(publisher, /officialParams\.set\('or', '\(link\.ilike\.\*\.gov\/\*,link\.ilike\.\*\.edu\/\*\)'\)/);
+  assert.match(publisher, /officialCandidates:\s*officialCandidates\.length/);
+  assert.match(publisher, /originalSelected/);
+  assert.doesNotMatch(workflow, /--publish|PUBLISH_TEXASDEFINED|CLOUDFLARE_API_TOKEN/);
 });
