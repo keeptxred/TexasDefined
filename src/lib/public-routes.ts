@@ -5,6 +5,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore/big-bend-scenic-drives",
   "/explore",
+  "/explore/tierra-blanca-creek",
   "/waco-attractions",
   "/waco-ghost-tours",
   "/dallas-to-waco-magnolia-tours",
