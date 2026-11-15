@@ -29,7 +29,17 @@ export function isTexasDefinedDirectEditorialSource(item) {
     || /\b(?:sentenced|indicted|charged|pleads? guilty|arrested|fbi raid|fbi searches|wire fraud|ponzi scheme|investor fraud)\b/i.test(normalizedTitle)
     || /\b(?:city council|county commissioners?|texas legislature|school board|\bmetro\b)\s+(?:approv|vote|adopt|propos|reject|pass|authoriz|consider)/i.test(normalizedTitle)
     || /\b(?:houston|dallas|austin|san antonio|el paso|fort worth|arlington|lubbock)\s+(?:considers?|approves?|adopts?|passes?|proposes?)\s+(?:new\s+)?(?:restrictions?|ordinance|zoning|ban|budget|tax|regulation)/i.test(normalizedTitle);
-  if (publicAffairsTitle) return false;
+  // Land disposition involving a private launch operator is public-policy
+  // reporting, not a park/visitor article—even if a shared-feed classifier
+  // placed it in the TexasDefined Explore category. Match either headline
+  // order and leave launches, public beach access and parks guides alone.
+  const operator = /\b(?:spacex|starbase|boca chica)\b/;
+  const landDeal = /\b(?:public parkland|public park land|public land|state park land|parkland sale|park land sale|parkland purchase)\b/;
+  const landTransactionVerb = /\b(?:sale|sell|selling|buy|buying|bought|purchase|purchas\w*|lease|leas\w*|acquir\w*|eyeing|eyes|consider\w*|pause|deal|trade|transfer\w*)\b/;
+  const spaceLandDisposition = operator.test(normalizedTitle)
+    && landDeal.test(normalizedTitle)
+    && landTransactionVerb.test(normalizedTitle);
+  if (publicAffairsTitle || spaceLandDisposition) return false;
   // Such items should not be expanded into 750-word "original reporting".
   if (/\b(?:privacy policy|cookie policy|terms of (?:use|service)|accessibility statement|user agreement)\b/.test(normalizedTitle)) return false;
   if (/\b(?:live (?:updates?|scores?|blog)|scores? and schedule|scoreboard|up[- ]to[- ]the[- ]minute scores?|week\s*\d+ live scores?)\b/.test(normalizedTitle)) return false;
