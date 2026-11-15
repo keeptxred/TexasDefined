@@ -57,3 +57,20 @@ test('historical-only festivals never advertise fabricated 2027 admission', () =
   assert.doesNotMatch(luling, /startDate: "2027-06-24"/);
   assert.match(record(20,'rockport-art-festival'), /2027 art-fest calendar pending/);
 });
+
+
+test('confirmed McKinney 2027 dates do not inherit unconfirmed 2026 free admission', () => {
+  const current = eventRecord('src/data/major-event-index.ts', 'mckinney-oktoberfest');
+  const evidence = eventRecord('src/data/major-event-schema-enrichment-batch2.server.ts', 'mckinney-oktoberfest');
+  const productionVerifier = fs.readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
+  assert.match(current, /startDate: "2027-09-24"/);
+  assert.match(current, /endDate: "2027-09-26"/);
+  assert.match(current, /current public admissions and special-event times are not yet confirmed/);
+  assert.match(evidence, /https:\/\/downtownmckinney\.com\/events\/event-opportunities/);
+  assert.match(evidence, /offers: \[\]/);
+  assert.doesNotMatch(evidence, /usdOffer\(/, 'Prior-year zero-price Offer must not roll into 2027');
+  assert.match(productionVerifier, /const startDate = '2027-09-24'/);
+  assert.match(productionVerifier, /asArray\(event\.offers\)\.length === 0/);
+  assert.match(productionVerifier, /Latest confirmed occurrence has ended\./);
+  assert.doesNotMatch(productionVerifier, /McKinney Oktoberfest must expose a verified free Offer/);
+});
