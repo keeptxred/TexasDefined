@@ -52,4 +52,22 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+const auditSchedule = read(".github/workflows/tierra-blanca-quarterly-audit.yml");
+const sourceAudit = read("scripts/ci/verify-tierra-blanca-quarterly.mjs");
+const failureReporter = read("scripts/ci/report-tierra-blanca-authority-failure.mjs");
+assert.ok(!fs.existsSync(".github/workflows/verify-tierra-blanca-authority.yml"), "Remove zero-job failing legacy quarterly workflow");
+contains(auditSchedule, [
+  "schedule:", "17 14 10 1,4,7,10 *", "workflow_dispatch:",
+  "node scripts/data/validate-tierra-blanca-authority.mjs",
+  "node scripts/ci/verify-tierra-blanca-quarterly.mjs",
+  "node scripts/ci/report-tierra-blanca-authority-failure.mjs",
+], "Bounded GitHub source refresh schedule");
+contains(sourceAudit, [
+  "tshaonline.org/handbook/entries/tierra-blanca-creek",
+  "fws.gov/refuge/buffalo-lake/visit-us", "fws.gov/refuge/buffalo-lake/about-us",
+  "tpwd.texas.gov/state-parks/palo-duro-canyon",
+  "sitemap-explore.xml", "editorialReviewDateAdvanced: false",
+], "Quarterly live and factual contract");
+contains(failureReporter, ["gh", "issue", "Tierra Blanca Creek quarterly authority source review failed"], "Scheduled editorial failure escalation");
+
 console.log("PASS Tierra Blanca authority: research, trip links, canonical, normal/fallback sitemaps, safety, freshness.");
