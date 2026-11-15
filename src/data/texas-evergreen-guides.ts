@@ -43,7 +43,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "2. San Antonio and South Texas: Tex-Mex, puffy tacos and barbacoa",
         body: [
           "San Antonio works best as a food city when the traditions are kept distinct. Mi Tierra Cafe y Panaderia ties Market Square to Tex-Mex, Mexican baking and family restaurant culture, while Ray's Drive Inn gives the puffy taco a specific West Side address and history.",
-          "Carry the route south and the story changes again. Vera's Backyard Bar-B-Que in Brownsville preserves a barbacoa de cabeza tradition tied to underground-pit cooking. That is why a useful South Texas food itinerary should connect neighborhoods and communities instead of flattening everything into one Tex-Mex label."
+          "Carry the route farther south and the story changes: Vera's Backyard Bar-B-Que in Brownsville preserves a barbacoa de cabeza tradition tied to underground-pit cooking. Brownsville is a substantial drive beyond San Antonio, so put that meal on a South Texas overnight extension rather than treating the puffy-taco stop and barbacoa visit as adjacent neighborhoods."
         ],
         links: [
           { href: "/food/mi-tierra-cafe-san-antonio", label: "Mi Tierra Cafe y Panaderia" },
@@ -57,7 +57,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "3. Breakfast tacos and Austin's everyday food institutions",
         body: [
           "Breakfast tacos matter because they are ordinary. The format belongs to bakeries, taquerias, neighborhood counters and drive-throughs as much as destination dining rooms, which makes the tradition more revealing than a single 'best taco' list.",
-          "Joe's Bakery & Coffee Shop anchors the TexasDefined profile set with East Austin family history, while Matt's El Rancho shows how a long-running Austin Tex-Mex institution can belong to the same day without serving the same purpose. Use the dedicated breakfast-taco guide for the broader regional story."
+          "Joe's Bakery & Coffee Shop carries East Austin family restaurant history, while Matt's El Rancho is a South Lamar institution. The first is suited to a breakfast stop; the second belongs to a separate lunch or dinner. They also show how neighborhood roots and family businesses matter as much as the particular taco or enchilada ordered."
         ],
         links: [
           { href: "/food/joes-bakery-austin", label: "Joe's Bakery & Coffee Shop" },
@@ -107,7 +107,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "7. Texas steakhouse tradition: Stockyards to ranch country",
         body: [
           "Cattlemen's Steakhouse in the Fort Worth Stockyards and Perini Ranch Steakhouse in Buffalo Gap tell two different versions of the Texas beef story. One sits inside a historic cattle-trade district; the other turns ranch hospitality and cowboy cooking into a destination experience in West Texas.",
-          "The value is in the contrast. A Texas steakhouse guide should connect beef to cattle history, ranching and place rather than treating every steak dinner as interchangeable upscale dining."
+          "The Stockyards put Cattlemen's inside a historic cattle-trading district where a visitor can walk among surviving Western buildings. Perini Ranch, near Abilene in Buffalo Gap, shifts the scene to ranch-country hospitality. The former fits a Fort Worth heritage day; the latter is a destination meal planned around a West Texas drive."
         ],
         links: [
           { href: "/food/cattlemens-steakhouse-fort-worth", label: "Cattlemen's Steakhouse" },
@@ -119,7 +119,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "8. Historic cafes, chili parlors and comfort-food Texas",
         body: [
           "Blue Bonnet Cafe in Marble Falls and Tolbert's Restaurant & Chili Parlor in Grapevine show why Texas food history is not limited to barbecue and tacos. One represents the long-running cafe tradition of breakfast, chicken-fried steak and pie; the other carries forward the public memory of Texas red chili and the Terlingua cook-off story.",
-          "These are useful anchors for a broader comfort-food route because they connect everyday dishes to specific businesses and towns instead of relying on generic lists of state foods."
+          "The Blue Bonnet Cafe belongs to a Marble Falls and Highland Lakes outing, while Tolbert's is in Grapevine in North Texas. Treat them as separate regional meals rather than a single short drive; the comparison is between a long-running cafe-and-pie tradition and a restaurant carrying the Terlingua chili-cookoff story."
         ],
         links: [
           { href: "/food/blue-bonnet-cafe-marble-falls", label: "Blue Bonnet Cafe" },
@@ -132,7 +132,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "9. Dallas and Austin legacy restaurants",
         body: [
           "El Fenix in Dallas and Matt's El Rancho in Austin show how long-running Mexican-American and Tex-Mex restaurants became part of city identity. Scholz Garten adds a different Austin lineage through German-Texan social culture, while Joe's Bakery keeps the East Austin breakfast tradition grounded in a neighborhood institution.",
-          "Use these profiles as entry points, not exhaustive city rankings. The useful focus is on durable institutions and how they connect to the larger city, county and cultural story."
+          "El Fenix fits a downtown Dallas stop. In Austin, Matt's El Rancho on South Lamar, Scholz Garten near the Capitol and Joe's Bakery in East Austin belong to different neighborhoods and different meals, not a realistic one-hour tasting circuit. Their histories connect food to Mexican-American, German-Texan and East Austin community life."
         ],
         links: [
           { href: "/food/el-fenix-downtown-dallas", label: "El Fenix" },
