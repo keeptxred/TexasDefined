@@ -450,13 +450,22 @@ export function loadMajorEventPageServer(slug: string) {
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
+  // Recurrence patterns are planning context, not organizer-confirmed annual dates.
+  // Render the event-specific advice even if an upstream editorial dateNote changes.
+  const recurrencePlanningCopy: Record<string, string> = {
+    "luling-watermelon-thump": "Use the recurrence rule as the planning window for Luling Watermelon Thump; recheck the organizer for the year-specific schedule.",
+    "national-polka-festival": "Treat Memorial Day Weekend as the stable planning window for the National Polka Festival in Ennis; recheck the organizer for the confirmed schedule before booking.",
+    westfest: "Use the Labor Day Weekend recurrence as the planning window for Westfest; recheck the organizer for the dedicated year's schedule.",
+  };
+  const recurrencePlanningNotice = recurrencePlanningCopy[event.slug]
+    ?? "Dates are projected from a recurring pattern. Recheck the organizer for the official year-specific schedule.";
   const expiredConfirmedOccurrence = hasExpiredConfirmedEventOccurrence(event);
   const dateConfidenceMarkup = awaitingNewSeason
     ? '<div data-polar-express-season-pending="true" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>2027 departure dates are not yet announced.</strong> Do not book travel around an assumed date. The prior 2026 season has ended.</div>'
     : verifiedNext
       ? '<div data-polar-express-season-verified="2027" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Railroad-published 2027 schedule.</strong> Published times are not a claim that tickets or seats remain available; check the official checkout.</div>'
       : recurrenceDerived
-    ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
+    ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. ${esc(recurrencePlanningNotice)} Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
     : expiredConfirmedOccurrence
       ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
       : "";
