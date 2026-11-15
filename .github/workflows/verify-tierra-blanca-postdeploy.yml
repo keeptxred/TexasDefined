@@ -30,6 +30,11 @@ jobs:
               "Tierra Blanca Creek", "Prairie Dog Town Fork", "Buffalo Lake",
               "Georgia O", "Tierra Blanca archaeological complex",
               "https://texasdefined.com/explore/tierra-blanca-creek",
+              "Cottonwood Canyon Birding Trail", "Prairie Dog Trail",
+              "openstreetmap.org/export/embed.html",
+              "buffalo-lake-snowscape.jpg",
+              "rio_grande_wild_turkey_pair",
+              "Travel &amp; Outdoors Desk",
           ):
               assert needle.lower() in page.lower(), f"Live article missing {needle}"
           for reciprocal_path in (
