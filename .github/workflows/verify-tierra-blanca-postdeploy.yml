@@ -1,0 +1,38 @@
+name: Verify Tierra Blanca Creek after TexasDefined production deploy
+
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify real deployed page and sitemap
+        run: |
+          python3 - <<'PY'
+          import urllib.request
+          base = "https://texasdefined.com"
+          headers = {"User-Agent": "TexasDefined-Authority-PostDeploy/1.0", "Cache-Control": "no-cache"}
+          def get(path):
+              request = urllib.request.Request(base + path, headers=headers)
+              with urllib.request.urlopen(request, timeout=25) as response:
+                  assert response.status == 200, (path, response.status)
+                  return response.read().decode("utf-8", "replace")
+          page = get("/explore/tierra-blanca-creek")
+          for needle in (
+              "Tierra Blanca Creek", "Prairie Dog Town Fork", "Buffalo Lake",
+              "Georgia O", "Tierra Blanca archaeological complex",
+              "https://texasdefined.com/explore/tierra-blanca-creek",
+          ):
+              assert needle.lower() in page.lower(), f"Live article missing {needle}"
+          sitemap = get("/sitemap-explore.xml")
+          assert "<loc>https://texasdefined.com/explore/tierra-blanca-creek</loc>" in sitemap, "Canonical missing in Explore sitemap"
+          print("PASS Tierra Blanca guide, source-grounded content, canonical and sitemap on deployed site")
+          PY
