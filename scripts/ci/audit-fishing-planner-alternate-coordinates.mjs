@@ -5,11 +5,13 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import {gnisQueryForSummary,inspectGnisPoint} from "./fishing-gnis-coordinate-source.mjs";
 
 const file = "src/data/fishing/planner-official-coordinate-fallbacks.json";
 const registry = JSON.parse(fs.readFileSync(file, "utf8"));
 const records = Object.entries(registry);
 const plan = process.argv.includes("--plan");
+const smoke=process.argv.includes("--smoke");
 const errors = [];
 const checks = [];
 const allowedSources = /^https:\/\/(?:waterdata\.usgs\.gov\/monitoring-location\/|www\.waterqualitydata\.us\/provider\/STORET\/TCEQMAIN\/|tpwd\.texas\.gov\/|edits\.nationalmap\.gov\/apps\/gaz-domestic\/public\/summary\/)/;
@@ -30,38 +32,46 @@ const clean = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
   .replace(/&(?:nbsp|amp|quot|#39);/gi, " ")
   .replace(/\s+/g, " ").trim();
 
-async function review([slug, record]) {
-  try {
-    const response = await fetch(record.sourceUrl, {
-      headers: { "User-Agent": "TexasDefinedFishingMapSources/1.0 (+https://texasdefined.com/fishing/plan)" },
-      signal: AbortSignal.timeout(20_000),
-      redirect: "follow",
-    });
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    const text = clean((await response.text()).slice(0, 1_000_000)).toLowerCase();
-    const nameMatched = text.includes(record.sourceNeedle.toLowerCase());
-    const latMatched = text.includes(String(record.lat));
-    const lngMatched = text.includes(String(record.lng));
-    checks.push({ slug, url: record.sourceUrl, status: response.status, nameMatched, latMatched, lngMatched });
-    if (!nameMatched || !latMatched || !lngMatched) {
-      errors.push(slug + ": official source name or published coordinate has drifted; inspect before changing a map pin");
-    }
-  } catch (error) {
-    checks.push({ slug, url: record.sourceUrl, error: String(error?.message ?? error) });
-    errors.push(slug + ": primary-source fetch failed; preserve existing reviewed point until investigated");
+async function fetchVerified(url){
+ let last;for(let attempt=1;attempt<=2;attempt++){
+  try{const r=await fetch(url,{headers:{"User-Agent":"TexasDefinedFishingMapSources/1.0 (+https://texasdefined.com/fishing/plan)"},signal:AbortSignal.timeout(14000),redirect:"follow"});
+   if(!r.ok){const retryable=r.status===429||r.status>=500;await r.body?.cancel();const err=new Error("HTTP "+r.status);if(!retryable)throw Object.assign(err,{noRetry:true});throw err;}return r;
+  }catch(err){last=err;if(attempt===2||err?.noRetry)break;await new Promise(resolve=>setTimeout(resolve,350));}
+ }throw last;
+}
+async function review([slug,record]){
+ const gnis=gnisQueryForSummary(record.sourceUrl);
+ try{
+  const response=await fetchVerified(gnis?.queryUrl||record.sourceUrl);
+  if(gnis){
+   const result=inspectGnisPoint(await response.json(),gnis.sourceId,record);
+   checks.push({slug,url:record.sourceUrl,verificationUrl:gnis.queryUrl,status:response.status,...result});
+   if(result.issue)errors.push(slug+": "+result.issue+"; inspect source before changing a lake pin");
+   return;
   }
+  const text=clean((await response.text()).slice(0,1_000_000)).toLowerCase();
+  const nameMatched=text.includes(record.sourceNeedle.toLowerCase());
+  const latMatched=text.includes(String(record.lat)),lngMatched=text.includes(String(record.lng));
+  checks.push({slug,url:record.sourceUrl,status:response.status,nameMatched,latMatched,lngMatched});
+  if(!nameMatched||!latMatched||!lngMatched)errors.push(slug+": official source name or published coordinate has drifted; inspect before changing a map pin");
+ }catch(error){
+  checks.push({slug,url:record.sourceUrl,verificationUrl:gnis?.queryUrl,error:String(error?.message??error)});
+  errors.push(slug+": primary-source fetch failed; preserve existing reviewed point until investigated");
+ }
 }
 
 if (!plan && errors.length === 0) {
+  const scoped=smoke?records.filter(([,r])=>Boolean(gnisQueryForSummary(r.sourceUrl))):records;
   const concurrency = 3;
-  for (let i = 0; i < records.length; i += concurrency) {
-    await Promise.all(records.slice(i, i + concurrency).map(review));
+  for (let i = 0; i < scoped.length; i += concurrency) {
+    await Promise.all(scoped.slice(i, i + concurrency).map(review));
   }
 }
 
 const report = {
   checkedAt: new Date().toISOString(),
   plan,
+  smoke,
   records: records.length,
   checked: checks.length,
   errors,
