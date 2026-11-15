@@ -4,6 +4,7 @@ import fs from "node:fs";
 import {
   sourceForFishingGuideReview,
   PINNED_FISHING_OPERATOR_SOURCE_SLUGS,
+  isSameOperatorOrigin,
 } from "./fishing-operator-source-witnesses.mjs";
 
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
@@ -39,4 +40,13 @@ test("other operator sites retain exact independent homepage verification", () =
   for (const guide of guides.filter((g) => !PINNED_FISHING_OPERATOR_SOURCE_SLUGS.includes(g.slug))) {
     assert.deepEqual(sourceForFishingGuideReview(guide), { url: guide.url, identity: [] });
   }
+});
+
+test("reject any HTTP downgrade, untrusted redirect or malformed operator verification URL", () => {
+  const origin = "https://txfishingguide.com/trips-and-charters/lake-texoma-striper-trips/";
+  assert.equal(isSameOperatorOrigin(origin, origin + "?campaign=editorial"), true);
+  assert.equal(isSameOperatorOrigin(origin, "http://txfishingguide.com/trips-and-charters/"), false);
+  assert.equal(isSameOperatorOrigin(origin, "https://txfishingguide.com.evil.test/"), false);
+  assert.equal(isSameOperatorOrigin(origin, "not-a-url"), false);
+  assert.equal(isSameOperatorOrigin("not-a-url", origin), false);
 });
