@@ -13,6 +13,8 @@ export function shouldRunHuntingBrowser(plan) {
     || plan.changedFiles.some(path => [
       "scripts/ci/verify-turkey-hunting-browser.mjs",
       "scripts/ci/verify-hunting-hub-responsive-browser.mjs",
+      "scripts/data/verify-hunting-production.mjs",
+      "scripts/ci/hunting-browser-release-scope.mjs",
     ].includes(path));
 }
 
