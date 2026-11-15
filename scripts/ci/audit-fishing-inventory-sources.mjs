@@ -122,8 +122,17 @@ for (const lake of batch) {
   }
 }
 for (const guide of guides) {
-  // Independent first-party URLs, no reviews/pricing/availability are inferred.
-  sourceTasks.push(() => check(guide.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"]));
+  // Two operator homepages intermittently return timeouts or unhelpful
+  // responses to a GitHub runner. Use the operator's actual trip-detail pages,
+  // and prove both the operator AND reservoir are still present. A CDN error,
+  // site takeover or generic fishing page must remain a monitored failure.
+  const directGuideEvidence = {
+    "captain-steve-barnes-texoma": ["Lake Texoma", "Capt. Steve"],
+    "reel-um-n-sam-rayburn-guide": ["Lake Sam Rayburn", "Reel um N"],
+  };
+  sourceTasks.push(() => check(guide.url, [],
+    ["fishing", "guide", "charter", "striper", "crappie", "bass"],
+    directGuideEvidence[guide.slug] ?? []));
 }
 sourceTasks.push(() => check("https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml", [], ["Weekly Fishing Reports"]));
 
