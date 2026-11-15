@@ -1,5 +1,5 @@
 /**
- * Distinctive, source-checked editorial framing for the four public culture
+ * Distinctive, source-checked editorial framing for the public culture
  * chapters. These are interpretive explanations, not duplicated entry blurbs.
  * Reviewed 2026-11-13. Do not claim personal visits or original interviews.
  */
@@ -96,6 +96,230 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
           "Caddo Mounds is primarily a Caddo archaeological and historical site, not a natural wonder; San Antonio's River Walk is an engineered urban cultural landscape. Those entries appear in the landmarks chapter so the categories do not suggest that an archaeological site or a built river corridor is an untouched natural formation."
         ],
         sources: [{ label: "NPS: Padre Island National Seashore", url: "https://www.nps.gov/pais/index.htm" }, { label: "TexasDefined: Caddo Mounds", url: "/destination/caddo-mounds-state-historic-site" }]
+      }
+    ]
+  },
+  "roadside-small-towns": {
+    "title": "How to tell a roadside landmark from a useful small-town stop",
+    "introduction": "These entries mix permanent public art, commercial attractions, towns and broad craft traditions. A cowboy-hat Eiffel Tower has a precise address; leatherwork and state-shaped souvenirs do not. The visitor information below concerns named places, while the chapter cards preserve the broader culture index.",
+    "findings": [
+      {
+        "heading": "The Panhandle is a real, manageable roadside corridor",
+        "paragraphs": [
+          "Cadillac Ranch is an Ant Farm installation created in 1974 outside Amarillo. Its cars were relocated after the work was created; calling its present position the original Route 66 alignment would misstate the history. The Amarillo visitor bureau locates the installation off the I-40 frontage road west of the city.",
+          "For a coherent Panhandle day, pair the Amarillo installation with the city's historic Sixth Street Route 66 district. A separate Panhandle trip can follow the Texas Route 66 corridor through Shamrock's U-Drop Inn, Adrian's MidPoint Café and other towns. Check each attraction's current access separately rather than assuming every roadside object has staff or facilities."
+        ],
+        "sources": [
+          {
+            "label": "Visit Amarillo: Cadillac Ranch history and access",
+            "url": "https://www.visitamarillo.com/blog/post/cadillac-ranch/"
+          },
+          {
+            "label": "Texas Time Travel: Route 66 roadside heritage",
+            "url": "https://texastimetravel.com/plan/trip-ideas/trip-ideas-roadside-heritage/"
+          }
+        ]
+      },
+      {
+        "heading": "Paris, Texas offers more than a novelty photograph",
+        "paragraphs": [
+          "Paris's 65-foot Eiffel Tower with a cowboy hat stands outside the Love Civic Center at 2025 South Collegiate Drive. The local visitor organization also identifies the adjacent Red River Valley Veterans Memorial and Trail de Paris. Those nearby places make this a more useful town stop than treating the sculpture as a destination requiring an entire day.",
+          "This is a Texas adaptation of a famous foreign landmark, not an original nineteenth-century Paris monument. The entry belongs with roadside art rather than being presented as a designated historic property."
+        ],
+        "sources": [
+          {
+            "label": "Visit Paris Texas: Eiffel Tower",
+            "url": "https://visitparistexas.com/eiffel-tower/"
+          },
+          {
+            "label": "Visit Paris Texas: Love Civic Center surroundings",
+            "url": "https://visitparistexas.com/love-civic-center/"
+          }
+        ]
+      },
+      {
+        "heading": "Treat living towns and commercial attractions differently",
+        "paragraphs": [
+          "A town such as Marfa or Terlingua has residents, institutions and changing local conditions; it is not an unattended amusement site. Small-town entries should emphasize a precise destination and nearby museums, parks or local businesses where confirmed, with respect for private property.",
+          "Artworks, businesses and spontaneous roadside displays have different access rules. This directory identifies cultural touchstones; the separate Texas Roadside Oddities guide organizes practical visit sequences. Neither list should imply that every entry is open, free, staffed or accessible at all hours."
+        ],
+        "sources": [
+          {
+            "label": "TexasDefined: Texas Roadside Oddities itinerary guide",
+            "url": "/texas-roadside-oddities"
+          },
+          {
+            "label": "TexasDefined: collection methodology",
+            "url": "/things-unique-to-texas/methodology"
+          }
+        ]
+      }
+    ]
+  },
+  "culture-music": {
+    "title": "Why Texas has several musical histories, not one signature sound",
+    "introduction": "Texas dance halls, border communities, Black urban neighborhoods and rural touring circuits shaped overlapping but distinct musical traditions. A cultural index cannot collapse them into a single country-music narrative.",
+    "findings": [
+      {
+        "heading": "Conjunto, Tejano and Western swing crossed different musical borders",
+        "paragraphs": [
+          "Conjunto is associated with accordion-led dance music along the Texas–Mexico border; Tejano music covers a wider set of Mexican-American styles and audiences. Western swing instead grew through country and string-band ensembles drawing on jazz, blues and popular dance music. Similar dance-floor use does not mean these are the same genre.",
+          "The Handbook of Texas music project traces the interactions among European immigrant polkas, music from northern Mexico, African-American blues and gospel, and Anglo country musicians. Specific artists, recordings, dates and communities belong in the dedicated music-history guides, while this chapter makes the relationships legible."
+        ],
+        "sources": [
+          {
+            "label": "Texas State Historical Association: Handbook of Texas Music",
+            "url": "https://www.tshaonline.org/handbook/projects/texas-music"
+          },
+          {
+            "label": "TexasDefined: Texas music",
+            "url": "/texas-music"
+          }
+        ]
+      },
+      {
+        "heading": "Black Texas music is foundational, not a footnote",
+        "paragraphs": [
+          "Texas blues developed through African-American musicians working across house parties, dances, churches, migration routes and later the recording industry. The TSHA's blues history describes its encounters with Gulf Coast, rural Anglo, Hispanic, Cajun, Creole and Central European musical traditions.",
+          "Treat Houston, East Texas and Dallas as distinct music scenes, not a generic box labeled Texas blues. Readers researching musicians should move to named histories and venues; this category does not invent interviews or claim first-hand performance reviews."
+        ],
+        "sources": [
+          {
+            "label": "Handbook of Texas: Blues",
+            "url": "https://www.tshaonline.org/handbook/entries/blues"
+          },
+          {
+            "label": "TexasDefined: Texas music history",
+            "url": "/dallas-fort-worth-music-history"
+          }
+        ]
+      },
+      {
+        "heading": "Cultural events are made by communities, not simply by tourism",
+        "paragraphs": [
+          "A dance hall, Juneteenth commemoration, homecoming mum or rodeo tradition is a living community practice with participants and local meanings. The appropriate question is who organized or sustained it, whose story might be left out and how it differs by region.",
+          "For event attendance, use the organizer's schedule and venue accessibility information. Historical guides explain origins and cultural impact but should not be substituted for current admission, age restrictions, program times or cancellations."
+        ],
+        "sources": [
+          {
+            "label": "TexasDefined: dance halls and honky-tonks",
+            "url": "/texas-dance-halls-honky-tonks"
+          },
+          {
+            "label": "TexasDefined: homecoming mums history",
+            "url": "/texas-homecoming-mums"
+          }
+        ]
+      }
+    ]
+  },
+  "wildlife-landscape": {
+    "title": "Match Texas wildlife to its habitat instead of treating the state as one ecosystem",
+    "introduction": "An animal sighting means something different on a coastal marsh, Edwards Plateau hillside, Trans-Pecos desert or pine woodland. The ecological setting and season matter as much as the species name.",
+    "findings": [
+      {
+        "heading": "Ten ecoregions explain the state's striking differences",
+        "paragraphs": [
+          "Texas Parks and Wildlife recognizes ten broad ecoregions, from the Piney Woods and Gulf Prairies to the High Plains and Trans-Pecos. Rainfall ranges dramatically between the humid east and desert west. That helps explain why cypress swamps, shortgrass plains, limestone juniper woodlands and arid canyons occur within the same state.",
+          "This index includes both plants and animals; it is not a complete field guide. Use the ecoregion first, then confirm seasonal range, protected status and species identification through TPWD rather than inferring an animal is present year-round everywhere in Texas."
+        ],
+        "sources": [
+          {
+            "label": "Texas Parks and Wildlife: ten Texas ecoregions",
+            "url": "https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/texas-ecoregions"
+          }
+        ]
+      },
+      {
+        "heading": "Bat flights change with migration and public access",
+        "paragraphs": [
+          "Mexican free-tailed bats form seasonal maternity colonies in Texas. The Congress Avenue Bridge colony in Austin is an urban spectacle, while Bracken Cave near San Antonio is a conservation site where access is managed separately. Texas Parks and Wildlife lists specific bat-watching locations rather than treating every cave or bridge as a public viewing area.",
+          "Watching a flight is not guaranteed on a particular evening: weather, time of year and roost conditions affect the spectacle. Avoid entering caves or disturbing wildlife; check the responsible operator's visitor instructions before traveling."
+        ],
+        "sources": [
+          {
+            "label": "TPWD: Texas bat-watching locations and biology",
+            "url": "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/"
+          },
+          {
+            "label": "TPWD: Devil's Sinkhole guided-access rules",
+            "url": "https://tpwd.texas.gov/state-parks/devils-sinkhole/"
+          }
+        ]
+      },
+      {
+        "heading": "Coastal cranes are a conservation story",
+        "paragraphs": [
+          "The endangered whooping crane breeds in northern Canada and winters on the Texas Gulf Coast near Aransas National Wildlife Refuge. It is not a resident coastal bird available for viewing in every season. Migration timing matters, and disturbance can affect the birds' feeding and roosting.",
+          "By contrast, the Texas bluebonnet is a spring wildflower icon with a very different public-land and roadside-safety context. Observe plants from legal pullouts, leave roadside habitat undamaged and follow refuge or park rules for protected species."
+        ],
+        "sources": [
+          {
+            "label": "TPWD: Whooping crane status and migration",
+            "url": "https://tpwd.texas.gov/huntwild/wild/species/whooper/"
+          },
+          {
+            "label": "TPWD: state park information",
+            "url": "https://tpwd.texas.gov/state-parks/"
+          }
+        ]
+      }
+    ]
+  },
+  "slang-folklore": {
+    "title": "Four kinds of Texas shorthand: speech, slogans, symbols and stories",
+    "introduction": "A regional expression, a state-designated symbol, an advertising campaign and a folkloric tale are not the same kind of evidence. Keeping those distinctions visible makes the collection more reliable.",
+    "findings": [
+      {
+        "heading": "A campaign slogan has a documented origin",
+        "paragraphs": [
+          "Don't mess with Texas began as a Texas Department of Transportation anti-litter campaign. TxDOT dates the public campaign to 1986, when Stevie Ray Vaughan helped launch the early advertising. The phrase later spread into broader identity language, but that broader reading should never replace its original meaning: don't litter.",
+          "An official flower or flag is documented in state law and records; a widely used motto or folk expression is a matter of social history. Do not present them as having the same status."
+        ],
+        "sources": [
+          {
+            "label": "TxDOT: Don't mess with Texas campaign history",
+            "url": "https://www.txdot.gov/about/campaigns-outreach/dont-mess-with-texas.html"
+          },
+          {
+            "label": "TexasDefined: officially designated symbols",
+            "url": "/texas-symbols"
+          }
+        ]
+      },
+      {
+        "heading": "Texas speech includes Spanish and regional varieties of English",
+        "paragraphs": [
+          "Y'all, fixin' to and bless your heart occur outside Texas too. Their meaning depends on context, age and community; attaching them exclusively to Texas is a cultural shortcut rather than a linguistic fact.",
+          "The University of Texas at Austin's Spanish in Texas Corpus documents actual bilingual Spanish–English speech. It provides better evidence of how people speak than a fabricated list of supposed statewide catchphrases. Language across the Rio Grande Valley, El Paso, the Gulf Coast and the Panhandle does not form one fixed dialect."
+        ],
+        "sources": [
+          {
+            "label": "UT Austin: Spanish in Texas Corpus",
+            "url": "https://coerll.utexas.edu/coerll/project/spanishtx/"
+          },
+          {
+            "label": "TexasDefined: full Texas slang explanations",
+            "url": "/texas-slang-explained"
+          }
+        ]
+      },
+      {
+        "heading": "Distinguish folklore from documented local history",
+        "paragraphs": [
+          "Tall tales about enormous jackalopes, ghost lights and exaggerated ranch feats can be enjoyable without being recorded as scientific or historical fact. Explain who tells a story, where it circulates and whether a dependable primary record exists.",
+          "This chapter collects familiar identity markers. The Texas Slang Explained guide gives usage and meaning; the official-symbols guide treats legal designations; the mythology entries should be labeled as folklore instead of presented as sightings or verifiable events."
+        ],
+        "sources": [
+          {
+            "label": "TexasDefined: editorial sourcing rules",
+            "url": "/things-unique-to-texas/methodology"
+          },
+          {
+            "label": "TexasDefined: Texas slang explained",
+            "url": "/texas-slang-explained"
+          }
+        ]
       }
     ]
   },
