@@ -243,6 +243,22 @@ const NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE = Object.freeze({
   failedStep: 'Verify Moody Gardens production authority',
 });
 
+// Nov 15 deploy #43730208415/job #132860785220 actually published
+// 100%-traffic Worker f45399ba... from exact source 55088285... and passed
+// all five publish/health/dual-origin original JS/CSS gates. The ONLY later
+// failure was an independent National Polka Festival live recurrence-warning
+// assertion. PR #7243 repaired that published-body/strict-verifier mismatch.
+// This allows ONLY the exact failed job's original-byte handoff if the repaired
+// page/strict verifier are present; the failure remains a failed release and
+// the next deployment must reverify the event and every old/new asset hash.
+const NOV15_PUBLISHED_POLKA_RECURRENCE_VERIFIER_FAILURE = Object.freeze({
+  runId: 43730208415,
+  jobId: 132860785220,
+  sourceSha: '5508828580552fdca812f1527428b3ad5b609fd5',
+  workerVersion: 'f45399ba-e9e8-4052-8450-bf858841b9ba',
+  failedStep: 'Verify Event structured-data production',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -259,6 +275,29 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const polka = NOV15_PUBLISHED_POLKA_RECURRENCE_VERIFIER_FAILURE;
+  if (job.run_id === polka.runId && job.id === polka.jobId &&
+      failures.length === 1 && failures[0] === polka.failedStep) {
+    const verifier = readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
+    const source = readFileSync('src/data/major-event-expanded-authority-tranche12.server.ts', 'utf8');
+    const confidence = readFileSync('src/data/major-event-date-confidence.ts', 'utf8');
+    const warning = 'Do not turn the Memorial Day recurrence into a confirmed 2027 ticket';
+    if (!verifier.includes("planningNeedle: '" + warning + "'") ||
+        !verifier.includes('assert(html.includes(leaf.planningNeedle)') ||
+        !verifier.includes('assert(/recheck the organizer/i.test(html)') ||
+        !source.includes('title: "' + warning + '"') ||
+        !source.includes('has not announced the 2027 dates') ||
+        !confidence.includes('"national-polka-festival"')) {
+      throw Error('Exact Polka published-Worker asset handoff requires truthful unconfirmed dates and unchanged live recurrence gates');
+    }
+    return { eligible: true, mode: 'exact-nov15-polka-original-assets-only',
+      exactRun: polka.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: polka.sourceSha,
+      requiredWorkerVersion: polka.workerVersion };
+  }
+  if (job.run_id === polka.runId || job.id === polka.jobId) {
+    throw Error('Polka source-verified published Worker has unexpected run/job/failure evidence: ' + failures.join(', '));
   }
   const moodyEntity = NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE;
   if (job.run_id === moodyEntity.runId && job.id === moodyEntity.jobId &&
