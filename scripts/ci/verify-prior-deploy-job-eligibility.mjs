@@ -280,6 +280,23 @@ const NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE = Object.freeze({
   failedStep: 'Verify Event structured-data production',
 });
 
+// 2026-11-15 #43744754206 genuinely published the 100%-traffic Worker
+// 7f0231fa... from 172e2a..., passing all five immutable deploy/version,
+// direct/canonical health and original-byte JS/CSS two-origin checks.
+// A later independent hunting HTML assertion falsely required the credited
+// USFWS buck ALT to stop after "buck" rather than its complete descriptive
+// "... buck standing in tall grass" value. PR #7263 fixes the matcher and
+// adds an offline strict HTML regression. Recover ORIGINAL ASSET BYTES ONLY,
+// subject to exact live Worker/source SHA + original hash/two-origin proof.
+// Neither the previous failed deer acceptance nor the failed release is waived.
+const NOV15_PUBLISHED_DEER_ALT_VERIFIER_FALSE_NEGATIVE = Object.freeze({
+  runId: 43744754206,
+  jobId: 132905483302,
+  sourceSha: '172e2a38415fb3a64fa81f48d1732e660510d76f',
+  workerVersion: '7f0231fa-6b09-4457-9c27-855392484141',
+  failedStep: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -296,6 +313,38 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const deerAlt = NOV15_PUBLISHED_DEER_ALT_VERIFIER_FALSE_NEGATIVE;
+  if (job.run_id === deerAlt.runId && job.id === deerAlt.jobId &&
+      failures.length === 1 && failures[0] === deerAlt.failedStep) {
+    const verifier = readFileSync('scripts/data/verify-hunting-production.mjs', 'utf8');
+    const production = readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+    const selfTest = readFileSync('.github/workflows/verify-hunting-production.yml', 'utf8');
+    // Exact repair evidence, *not* permission to skip the revised live checks.
+    if (!verifier.includes('function findDeerHeroImageTag(html)') ||
+        !verifier.includes('findDeerHeroImageTag(deerHtml)') ||
+        !verifier.includes('findDeerHeroImageTag(canonicalDeerHtml)') ||
+        !verifier.includes('Close view of a white-tailed buck standing in tall grass') ||
+        !verifier.includes('alt="Close view of a white-tailed buck[^"]*"') ||
+        !verifier.includes('deerEditorialReviewed') ||
+        !verifier.includes("requireText(sitemap, deerEntry, 'Exact deer editorial sitemap lastmod')") ||
+        !verifier.includes('fetchpriority="high"') ||
+        !verifier.includes('loading="eager"') ||
+        !verifier.includes("assert.equal(findDeerHeroImageTag(fullAlt), fullAlt)") ||
+        !selfTest.includes('verify-hunting-production.mjs --self-test') ||
+        !production.includes('node scripts/data/verify-hunting-production.mjs') ||
+        !production.includes('https://texasdefined.com/hunting/texas-deer-hunting') ||
+        !production.includes('node scripts/ci/purge-cloudflare-cache.mjs')) {
+      throw Error('Exact published deer Worker asset handoff blocked until strict canonical/ALT/sitemap verification is repaired and retained');
+    }
+    return { eligible: true, mode: 'exact-nov15-deer-hero-alt-original-assets-only',
+      exactRun: deerAlt.runId, criticalChecks: CRITICAL.length, permittedFailures: failures,
+      requiredSourceSha: deerAlt.sourceSha, requiredWorkerVersion: deerAlt.workerVersion };
+  }
+  // Prevent altered run/job IDs or added failures falling through to generic
+  // visual-only approval. Only the actual original-byte evidence can qualify.
+  if (job.run_id === deerAlt.runId || job.id === deerAlt.jobId) {
+    throw Error('Published deer Worker asset handoff rejects alternate run/job/failure evidence: ' + failures.join(', '));
   }
   const mckinney = NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE;
   if (job.run_id === mckinney.runId && job.id === mckinney.jobId &&
