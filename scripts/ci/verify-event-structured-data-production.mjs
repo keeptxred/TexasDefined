@@ -242,7 +242,7 @@ async function verifyRecurrenceDerivedLeaves() {
     {
       slug: 'national-polka-festival',
       name: 'National Polka Festival',
-      planningNeedle: 'Treat Memorial Day Weekend as the stable planning window',
+      planningNeedle: 'Do not turn the Memorial Day recurrence into a confirmed 2027 ticket',
     },
     {
       slug: 'westfest',
