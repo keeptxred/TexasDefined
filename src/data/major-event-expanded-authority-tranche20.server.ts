@@ -78,10 +78,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The Texas Shakespeare Festival's official Season 42 calendar runs from opening night on June 25 through the final listed performances on July 26, 2026 in Kilgore. The supplied discovery inventory projected a June-July 2027 season, but no dedicated 2027 calendar is currently published, so Texas Defined uses the latest confirmed season rather than guessing future dates.",
     venue: "Van Cliburn Auditorium, Kilgore College",
     officialUrl: "https://www.texasshakespeare.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Texas Shakespeare Festival is East Texas' professional repertory theatre festival, bringing multiple fully staged productions to Kilgore each summer and giving the Piney Woods a distinctive performing-arts destination with enough programming to support a multi-show trip.",
     planningSections: [
-      { title: "Use the repertory calendar, not a single festival date", body: "Season 42 opened June 25, 2026 and continued through July 26 with rotating performances of A Midsummer Night's Dream, Emma, Hamlet, 1776 and additional programming. Choose the plays first, then build the trip around the official calendar." },
+      { title: "2026 repertory is complete; 2027 festival performances unannounced", body: "The organizer's public season page still describes the June 25–July 26, 2026 production calendar and its Van Cliburn Auditorium performances. A separate Summer Student Workshop is now listed for July 11–18, 2027, but that workshop is NOT a confirmed public theater-festival season or public show run. Wait for an actual 2027 repertoire and ticket calendar before presenting new performance dates." },
       { title: "Consider a multi-show stay", body: "The repertory structure lets visitors see different productions on consecutive days. If theatre is the main reason for the trip, compare matinee and evening combinations before booking lodging so you can use the festival format rather than making repeated drives." },
       { title: "Connect the festival to Kilgore", body: "The performance venue is on the Kilgore College campus. Leave time for Kilgore and Gregg County rather than treating the festival as an isolated auditorium visit, especially if you are already traveling into East Texas for more than one production." },
     ],
@@ -93,6 +93,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Texas Shakespeare Festival official site", url: "https://www.texasshakespeare.com/" },
       { label: "Texas Shakespeare Festival 2026 season", url: "https://www.texasshakespeare.com/2026-season" },
       { label: "Texas Shakespeare Festival ticket calendar", url: "https://www.texasshakespeare.com/now-on-sale" },
+      { label: "Texas Shakespeare 2027 Summer Student Workshop (not public season)", url: "https://www.texasshakespeare.com/summer-student-workshop" },
     ],
   },
 ];
