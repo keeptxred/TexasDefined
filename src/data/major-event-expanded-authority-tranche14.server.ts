@@ -14,10 +14,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer confirms the 42nd annual Parker County Peach Festival for Saturday, July 10, 2027 from 8 a.m. to 4 p.m. in Historic Downtown Weatherford and notes that the festival is always held on the second Saturday in July.",
     venue: "Historic Downtown Weatherford",
     officialUrl: "https://www.parkercountypeachfestival.org/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The Parker County Peach Festival turns Weatherford's peach-growing identity into one of North Texas' largest one-day food and community festivals, combining local produce, food, arts and crafts, entertainment, children's activities and long-running traditions downtown.",
     planningSections: [
-      { title: "Treat it as a concentrated one-day trip", body: "The organizer confirms the 2027 festival for 8 a.m. to 4 p.m. on Saturday, July 10. With more than 200 arts, crafts, food and activity booths plus two entertainment stages and two children's areas, an early arrival gives visitors the most useful planning margin." },
+      { title: "Use 2027 event heading rather than stale 2026 body copy", body: "The Weatherford Chamber's live event heading confirms Saturday, July 10, 2027, 8 a.m.–4 p.m. as the 42nd annual Peach Festival, with 200-plus booths, two stages and two children's areas. Lower on the same webpage, older body paragraphs still promote July 11, 2026; those are not the upcoming dates. The chamber discourages bringing pets because summer paving and parking lots can be hot for paws." },
       { title: "Use the transportation plan", body: "The festival takes over Historic Downtown Weatherford. Check the organizer's current map, parking and shuttle information before traveling rather than assuming normal downtown parking will be available." },
       { title: "Build the day around Parker County peaches", body: "The festival's identity is agricultural rather than generic fairground entertainment. Make room for peach food, local growers, the Peach Food Competition and other traditions before filling the schedule with unrelated stops." },
     ],
