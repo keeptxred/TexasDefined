@@ -1,4 +1,4 @@
-name: Tierra Blanca Creek quarterly factual verification
+name: Tierra Blanca Creek visitor and quarterly factual verification
 
 on:
   push:
@@ -8,8 +8,12 @@ on:
       - 'scripts/ci/verify-tierra-blanca-quarterly.mjs'
       - 'scripts/ci/report-tierra-blanca-authority-failure.mjs'
       - 'scripts/data/validate-tierra-blanca-authority.mjs'
+      - 'src/components/explore/TierraBlancaVisitorEvidence.tsx'
+      - 'src/routes/explore.tierra-blanca-creek.lazy.tsx'
   schedule:
     - cron: '17 14 10 1,4,7,10 *'
+    # Monthly check of volatile public fees, trail access and conditions.
+    - cron: '31 14 12 * *'
   workflow_dispatch:
 
 permissions:
