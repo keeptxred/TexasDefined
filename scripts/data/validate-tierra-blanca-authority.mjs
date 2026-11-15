@@ -52,6 +52,8 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
+contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
 const auditSchedule = read(".github/workflows/tierra-blanca-quarterly-audit.yml");
 const sourceAudit = read("scripts/ci/verify-tierra-blanca-quarterly.mjs");
 const failureReporter = read("scripts/ci/report-tierra-blanca-authority-failure.mjs");
