@@ -60,25 +60,25 @@ export const fishIdentification: Record<string, FishIdentification> = {
     ]
   },
   "channel-catfish": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/ccf/",
     "fieldSize": "Often under 24 in in the brochure; adults can be larger.",
     "markings": "Slender scaleless body, whisker-like barbels, deeply forked tail and often scattered small dark spots on younger fish.",
     "texasHabitat": "Texas rivers, ponds and reservoirs, where they use bottom contours and cover.",
-    "similarSpecies": "Blue catfish typically lack the channel catfish's small scattered body spots; tail and anal-fin features are more reliable than color alone.",
+    "similarSpecies": "A channel catfish usually has 24–29 soft rays along its anal fin, versus 30–35 in blue catfish. Both have forked tails, and larger channel catfish may lose the usual dark spotting, so do not use color alone.",
     "approach": "Fish natural or prepared bait along channel edges, current seams and bottom structure; adapt tackle to current and fish size.",
     "caution": "Use official species comparisons when identifying a small blue catfish versus a channel catfish."
   },
   "blue-catfish": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/blc/",
     "fieldSize": "Often under 20 lb in the brochure, but can exceed 100 lb.",
     "markings": "Smooth unscaled bluish-gray body, long barbels and a deeply forked tail; adults often appear less spotted than channel catfish.",
     "texasHabitat": "Larger rivers and reservoirs, frequently using channels, dropoffs and open-water forage.",
-    "similarSpecies": "Blue and channel catfish both have forked tails. Check the anal-fin edge and ray counts from TPWD rather than relying on blue-versus-brown coloration.",
+    "similarSpecies": "Count the anal-fin rays when channel and blue catfish look alike: TPWD gives 30–35 for blue catfish and 24–29 for channel catfish. Both have forked tails; an unspotted body is not conclusive.",
     "approach": "Cut bait and other natural baits can work near forage and channel structure; use stronger tackle for larger fish.",
     "caution": "Large specimens need careful support and current waterbody rules should be checked."
   },
   "flathead-catfish": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/catfish/",
     "fieldSize": "Often under 30 lb in the brochure; exceptionally large fish can exceed 100 lb.",
     "markings": "Broad flat head, projecting lower jaw, mottled olive-brown to yellow body and a tail that is square rather than deeply forked.",
     "texasHabitat": "Texas river channels, reservoirs, submerged logs and cavities with substantial cover.",
@@ -105,11 +105,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "caution": "Protect this Texas state fish and check river-specific regulations and access."
   },
   "bluegill": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/bgl/",
     "fieldSize": "Usually under 1 lb.",
     "markings": "Deep compressed body, dark spot near the rear of the soft dorsal fin, dark opercular flap and small mouth.",
     "texasHabitat": "Common in Texas ponds, creeks and reservoirs around vegetation, docks and shoreline cover.",
-    "similarSpecies": "Redear sunfish have a red or orange border on the gill flap; green sunfish have larger mouths and different body proportions.",
+    "similarSpecies": "The dark patch at the rear of the soft dorsal fin, small mouth and vertical body bars help distinguish bluegill. Redear sunfish show a red/orange gill-flap edge, while green sunfish have a larger mouth.",
     "approach": "Small hooks with worms or small flies are useful for beginner-friendly shoreline fishing.",
     "caution": "Sunfish interbreed; mixed appearance may require several diagnostic traits."
   },
@@ -201,38 +201,38 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "caution": "Confirm identity with multiple features where fish show ambiguous markings."
   },
   "white-crappie": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/wcp/",
     "fieldSize": "Usually under 2 lb.",
     "markings": "Silvery deep body with several upright dark bars or mottled vertical markings.",
     "texasHabitat": "Rivers and reservoirs throughout Texas, including stained-water creek arms and brush.",
-    "similarSpecies": "Black crappie display more irregular black spots and generally have more dorsal spines; hybrids or variation can blur patterns.",
+    "similarSpecies": "White crappie typically show upright side bars and have five or six dorsal spines; black crappie have more scattered spots and usually seven or eight dorsal spines. Color and markings alone may mislead.",
     "approach": "Small jigs or minnows near brush, timber, seasonal shallow cover and dropoffs are practical.",
     "caution": "Do not infer a lake-specific bag limit from statewide norms."
   },
   "striped-bass": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/str/",
     "fieldSize": "Often 5–25 lb; can grow much larger.",
     "markings": "Streamlined silvery body with multiple nearly continuous horizontal dark stripes and two separate dorsal fins.",
     "texasHabitat": "Introduced into select large Texas reservoirs, often occupying open water and feeding on schools of baitfish.",
-    "similarSpecies": "White bass usually show a deeper, more compressed body and fewer, less continuous stripes; hybrid stripers can share features.",
+    "similarSpecies": "Striped bass have two distinct tooth patches near the rear of the tongue, versus one in white bass. Several dark side stripes normally reach the tail, but white-bass hybrids require considering all traits together.",
     "approach": "Look for schooling baitfish, depth breaks and open-water activity; choose legal lures or bait appropriate to the reservoir.",
     "caution": "Check species-specific and waterbody regulations for pure and hybrid striped bass."
   },
   "white-bass": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/wtb/",
     "fieldSize": "Often 0.5–2 lb.",
     "markings": "Silvery compressed body, faint gray horizontal stripes and a dark mark on the gill cover.",
     "texasHabitat": "Texas rivers and reservoirs, especially where spring spawning runs connect river channels with impoundments.",
-    "similarSpecies": "Striped bass are longer-bodied with clearer continuous stripes; hybrids demand careful examination of body proportions and stripes.",
+    "similarSpecies": "White bass have one central tooth patch at the back of the tongue; striped bass have two distinct patches. White bass also have a deeper body and usually only one horizontal stripe reaching the tail; hybrids require multiple clues.",
     "approach": "During spring river runs check flows and public access; in reservoirs follow baitfish schools.",
     "caution": "Consult TPWD for current runs, closures and regulations before leaving."
   },
   "freshwater-drum": {
-    "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/fwd/",
     "fieldSize": "Often under 10 lb.",
     "markings": "Deep silver-gray body, rounded sloping head and a noticeably arched back behind the head.",
     "texasHabitat": "Widespread Texas rivers and reservoirs; feeds around bottom habitat.",
-    "similarSpecies": "Unlike a white bass or striped bass, it lacks the long parallel side stripes and has a different rounded body profile.",
+    "similarSpecies": "Freshwater drum differ from striped and white bass in their shape and lack of long side stripes. They also resemble saltwater red drum, but freshwater drum lack the conspicuous dark spot near a red drum's tail.",
     "approach": "Bottom-oriented baits and small lures can work around hard bottom and current; handle safely near dorsal spines.",
     "caution": "Not the same species as saltwater red drum."
   },
