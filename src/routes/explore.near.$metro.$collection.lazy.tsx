@@ -790,6 +790,18 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
+    {metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips") && <section className="border-y border-border bg-surface" aria-labelledby="amarillo-tierra-blanca-creek-heritage">
+      <Container className="py-10 sm:py-12">
+        <p className="eyebrow text-primary">A different side of the Panhandle</p>
+        <h2 id="amarillo-tierra-blanca-creek-heritage" className="mt-2 max-w-4xl font-display text-3xl">Tierra Blanca Creek: Canyon country before the canyon</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Not every Amarillo-area canyon outing is a hike down the Lighthouse Trail. Tierra Blanca Creek crosses the High Plains near Umbarger and Canyon before joining Palo Duro Creek east of town. Explore its ranching, archaeology and drainage history, then decide between the established public trails at Buffalo Lake National Wildlife Refuge and the separate Palo Duro Canyon State Park. Much of the creek corridor is private; do not assume riverbank access.</p>
+        <div className="mt-5 flex flex-wrap gap-6 text-sm font-semibold">
+          <a href="/explore/tierra-blanca-creek" className="text-primary underline underline-offset-4">Read the researched Tierra Blanca Creek guide</a>
+          <a href="https://www.fws.gov/refuge/buffalo-lake/visit-us" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Check official refuge hours and access</a>
+        </div>
+      </Container>
+    </section>}
+
     {isMcAllenDayTrips && <McAllenDayTripsAuthority results={results} />}
 
     {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
