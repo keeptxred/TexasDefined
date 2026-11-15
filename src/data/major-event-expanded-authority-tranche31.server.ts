@@ -28,10 +28,10 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     dateNote: "ACL Fest runs on two separate three-day weekends in 2026: October 2-4 and October 9-11. There is no festival programming implied for the Monday-through-Thursday gap between the weekends.",
     venue: "Zilker Park",
     officialUrl: "https://www.aclfestival.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "Austin City Limits Music Festival turns Zilker Park into one of Texas' largest music destinations for two separate October weekends, with more than 100 performances across nine stages plus Austin food, drink and festival programming.",
     planningSections: [
-      { title: "Choose Weekend One or Weekend Two first", body: "The organizer confirms two discrete 2026 festival windows: October 2-4 and October 9-11. Pick the weekend before booking lodging or transportation because Texas Defined does not treat the gap between them as festival days." },
+      { title: "Organizer has not announced 2027 festival weekends", body: "ACL's current official home page sells remaining 2026 merchandise and invites signups for future ticket and lineup announcements. The year-specific dates published there are the completed October 2–4 and 9–11, 2026 weekends, not 2027. Do not present calculated 2027 dates or prior-year performers as confirmed." },
       { title: "Build the day from the official schedule", body: "ACL publishes a stage-by-stage schedule for both weekends. Choose priority performers and allow realistic walking time across Zilker Park instead of assuming back-to-back sets on different stages are effortless to reach." },
       { title: "Use the festival's transportation guidance", body: "A major Zilker Park weekend changes normal access patterns around central Austin. Recheck the organizer's current transportation, bag, entry and ticket guidance before arrival and avoid relying on ordinary park-day assumptions." },
     ],
