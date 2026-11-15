@@ -31,11 +31,16 @@ async function checkAdvisory(slug, record) {
     if (!response.ok) throw new Error("HTTP " + response.status);
     const text = plainText((await response.text()).slice(0, 800000));
     const isAbilene = slug === "lake-abilene";
+    const isFortParker = slug === "fort-parker-state-park-lake";
     const matched = isAbilene
       ? /Lake Abilene Closures/i.test(text)
         && /boat ramps are closed/i.test(text)
         && /swimming and fishing are not allowed/i.test(text)
-      : text.length > 400;
+      : isFortParker
+        ? /Navasota River boat ramp/i.test(text)
+          && /closed from Oct\\.?\\s*19,?\\s*2026 to Jan\\.?\\s*10,?\\s*2027/i.test(text)
+          && /both fishing piers are closed/i.test(text)
+        : text.length > 400;
     checks.push({ slug, url: record.sourceUrl, response: response.status, matched });
     if (!matched) errors.push(slug + ": official source no longer supports the published restriction verbatim; review before changing public advice");
   } catch (error) {
