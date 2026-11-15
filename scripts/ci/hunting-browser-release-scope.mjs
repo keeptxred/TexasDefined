@@ -9,7 +9,8 @@ export function shouldRunHuntingBrowser(plan) {
     throw new Error("Missing or malformed verified-baseline production change plan");
   }
   if (plan.selectedPaths.length > 40) throw new Error("Oversized production change plan");
-  return plan.selectedPaths.includes("/hunting/turkey-hunting")
+  return plan.selectedPaths.includes("/hunting/texas-deer-hunting")
+    || plan.selectedPaths.includes("/hunting/turkey-hunting")
     || plan.changedFiles.some(path => [
       "scripts/ci/verify-turkey-hunting-browser.mjs",
       "scripts/ci/verify-hunting-hub-responsive-browser.mjs",
