@@ -75,3 +75,19 @@ test('public SpaceX parkland transactions are KTR public affairs, not TD visitor
     'Texas state park expands public wildlife viewing land',
   ]) assert.equal(isTexasDefinedDirectEditorialSource({ ...article, title }), true, title);
 });
+
+
+test('actual violent robbery and fatal local fire headlines never enter TexasDefined unattended news', () => {
+  for (const title of [
+    'Dallas man shot while being robbed, police say',
+    '2 people killed in early morning house fire in Irving, fire officials say',
+    'Austin police investigate shooting during armed robbery',
+    'Fatal apartment fire in Dallas leaves 2 dead, firefighters say',
+  ]) assert.equal(isTexasDefinedDirectEditorialSource({...article,title}),false,title);
+  for (const title of [
+    'Longhorns shot past the competition in state basketball title game',
+    'No. 12 Texas Tech locks in for shootout vs. No. 25 OK State',
+    'Historic Texas neighborhood launches community fire-safety festival',
+    'Texas high school football team wins state championship',
+  ]) assert.equal(isTexasDefinedDirectEditorialSource({...article,title}),true,title);
+});

@@ -40,6 +40,16 @@ export function isTexasDefinedDirectEditorialSource(item) {
     && landDeal.test(normalizedTitle)
     && landTransactionVerb.test(normalizedTitle);
   if (publicAffairsTitle || spaceLandDisposition) return false;
+  // Crime reports and fatal house-fire investigations are public safety,
+  // not TexasDefined sports, parks or travel editorial. Require actual crime
+  // or fire terms to avoid sports uses of "shot", "shootout" or "killed".
+  const localVictimCrime = /\b(?:shot|shooting|stabbed|stabbing)\b/.test(normalizedTitle)
+    && /\b(?:robbed|robbery|murder|police|suspect)\b/.test(normalizedTitle);
+  const fatalBuildingFire = /\b(?:killed|dead|died|deaths?|fatal)\b/.test(normalizedTitle)
+    && /\b(?:house fire|apartment fire|residential fire)\b/.test(normalizedTitle)
+    && /\b(?:fire officials?|fire department|firefighters?|police|investigation|irving|dallas)\b/.test(normalizedTitle);
+  if (localVictimCrime || fatalBuildingFire) return false;
+
   // Such items should not be expanded into 750-word "original reporting".
   if (/\b(?:privacy policy|cookie policy|terms of (?:use|service)|accessibility statement|user agreement)\b/.test(normalizedTitle)) return false;
   if (/\b(?:live (?:updates?|scores?|blog)|scores? and schedule|scoreboard|up[- ]to[- ]the[- ]minute scores?|week\s*\d+ live scores?)\b/.test(normalizedTitle)) return false;
