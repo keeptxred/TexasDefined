@@ -8,6 +8,8 @@ const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const deerEditorialReviewed = /reviewedOn:\s*"([^"]+)"/.exec(fs.readFileSync('src/data/hunting/authority-deer.ts', 'utf8'))?.[1];
 if (!/^20\d\d-\d\d-\d\d$/.test(deerEditorialReviewed ?? '')) throw new Error('Missing trustworthy deer editorial modified date');
+const deerEditorialDateLabel = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' })
+  .format(new Date(deerEditorialReviewed + 'T12:00:00Z'));
 if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
@@ -230,10 +232,16 @@ async function verify() {
   requireText(hero.toLowerCase(), 'loading="eager"', 'Deer LCP image priority');
   requireText(hero.toLowerCase(), 'fetchpriority="high"', 'Deer LCP image high priority');
   if (/loading="lazy"/i.test(hero)) throw new Error('Near-top deer photo cannot be lazy-loaded');
-  const requiredDeerMarkers = ['Same November weekend, three different county rulebooks',
-    'Grayson County', 'Washington County', 'Gillespie County',
-    'Read the claim-by-claim source record', 'within 48 hours',
-    'Guide reviewed November 15, 2026'];
+  // The editorial date is independently governed. Worked 2026–27 county cases
+  // deliberately disappear at the next calendar rollover until re-researched.
+  const requiredDeerMarkers = [
+    'Guide reviewed ' + deerEditorialDateLabel,
+    ...(deerSeasons.startYear === 2026 ? [
+      'Same November weekend, three different county rulebooks',
+      'Grayson County', 'Washington County', 'Gillespie County',
+      'Read the claim-by-claim source record', 'within 48 hours',
+    ] : []),
+  ];
   for (const marker of requiredDeerMarkers) {
     requireText(extractVisibleText(deerHtml), marker, 'Revised deer authority source comparison');
   }
