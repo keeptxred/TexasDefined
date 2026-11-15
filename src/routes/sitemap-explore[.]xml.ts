@@ -212,6 +212,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
     "/explore",
+    "/explore/tierra-blanca-creek",
     `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
     "/explore/beaches-coast",
     "/explore/trip-planner",
@@ -485,6 +486,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .map((item) => `/explore/landscapes/${item.slug}`);
         const staticPaths = [
           "/explore",
+          "/explore/tierra-blanca-creek",
           "/explore/beaches-coast",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
