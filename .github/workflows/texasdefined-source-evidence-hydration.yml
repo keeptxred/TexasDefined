@@ -11,6 +11,8 @@ on:
     paths:
       - '.github/workflows/texasdefined-source-evidence-hydration.yml'
       - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/news/texasdefined-institutional-evidence-hydration.mjs'
+      - 'scripts/news/texasdefined-institutional-evidence-hydration.test.mjs'
       - 'scripts/news/texasdefined-draft-evidence-gate.mjs'
       - 'scripts/news/texasdefined-draft-evidence-gate.test.mjs'
       - 'scripts/news/texasdefined-editorial-source-eligibility.mjs'
@@ -40,7 +42,7 @@ jobs:
       - name: Verify publication activation remains independent
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
       - name: Verify source-only workflow cannot publish or call AI
-        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs scripts/news/texasdefined-source-hydration-backoff.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs
+        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs scripts/news/texasdefined-source-hydration-backoff.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-institutional-evidence-hydration.test.mjs
       - name: Fetch up to eight eligible original source pages, zero AI
         shell: bash
         run: |
@@ -59,6 +61,8 @@ jobs:
           const report = [
             '# TexasDefined original source evidence hydration',
             'Scanned: '+summary.scanned,
+            'Official original research leads: '+(summary.officialCandidates || 0),
+            'Official original sources selected: '+(summary.originalSelected || 0),
             'Requested direct source pages: '+summary.requested,
             'Hydrated: '+summary.updated,
             'AI calls: '+summary.aiCalls,
