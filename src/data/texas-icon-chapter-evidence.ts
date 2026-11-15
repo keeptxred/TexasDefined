@@ -264,6 +264,23 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
           }
         ]
       }
+      ,{
+        heading: "The rarest plant in this chapter depends on one river",
+        paragraphs: [
+          "Texas wild-rice (Zizania texana) occurs naturally only in the upper San Marcos River in Hays County. The Texas Parks and Wildlife Department calls the species federally and state endangered. It is an aquatic grass rooted underwater in spring-fed flowing habitat, not the same thing as cultivated food rice or a broad Texas prairie grass.",
+          "Spring-flow reductions, riverbed disturbance and invasive aquatic plants can endanger this population. TPWD and the U.S. Fish and Wildlife Service emphasize careful river use and habitat protection. Wildlife watching should not involve wading through or pulling vegetation in protected areas."
+        ],
+        sources: [
+          {
+            "label": "Texas Parks and Wildlife: Texas wild-rice species profile",
+            "url": "https://tpwd.texas.gov/huntwild/wild/wildlife_diversity/nongame/listed-species/plants/texas_wild_rice.phtml?o=twildric"
+          },
+          {
+            "label": "U.S. Fish and Wildlife Service: Texas wild-rice",
+            "url": "https://www.fws.gov/rivers/rivers/species/texas-wild-rice-zizania-texana"
+          }
+        ]
+      }
     ]
   },
   "slang-folklore": {
@@ -350,6 +367,23 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
           "The San Antonio River Walk is a designed urban corridor, not a spontaneous natural river formation. Caddo Mounds is an important Caddo cultural site, not scenery detached from the people who built and used it. Both belong here with that distinction explicit. Before visiting any landmark, use the site steward's current access rules rather than treating a historic fact as an opening-hours promise."
         ],
         sources: [{ label: "Texas Historical Commission Atlas", url: "https://atlas.thc.texas.gov/" }, { label: "TexasDefined: Caddo Mounds historic site", url: "/destination/caddo-mounds-state-historic-site" }, { label: "TexasDefined: River Walk guide", url: "/destination/san-antonio-river-walk" }]
+      }
+      ,{
+        heading: "Spindletop and Beaumont made an industrial landmark",
+        paragraphs: [
+          "On January 10, 1901, the Lucas well at Spindletop, south of Beaumont, blew in and transformed the prospects for American petroleum production. The Texas State Historical Association identifies the discovery as a turning point in the modern petroleum industry, not the first time oil had ever been found in Texas.",
+          "The surviving commemorative site, museum interpretation and wider Beaumont landscape should not be confused with an operating well on the exact 1901 drilling spot. When discussing historic sites, separate the documented event, preserved material fabric, and later memorialization."
+        ],
+        sources: [
+          {
+            "label": "Handbook of Texas: Spindletop Oilfield",
+            "url": "https://www.tshaonline.org/handbook/entries/spindletop-oilfield"
+          },
+          {
+            "label": "Texas State Library: primary-source oil-boom exhibit",
+            "url": "https://www.tsl.texas.gov/lobbyexhibits/extraextra/spindletop"
+          }
+        ]
       }
     ]
   }
