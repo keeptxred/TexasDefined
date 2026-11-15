@@ -261,6 +261,25 @@ const NOV15_PUBLISHED_EVENT_RECURRENCE_ASSERTION = Object.freeze({
   failedStep: 'Verify Event structured-data production',
 });
 
+// Nov15 culture publication / post-deploy source #b6a73701... actually
+// published the 100%-traffic Worker ea33ec3d... then passed deployment,
+// captured version, direct + canonical health, and exact old/new original-byte
+// JS/CSS delivery across both origins. It failed ONLY the independent McKinney
+// Event production verifier, which still expected an expired 2026 event despite
+// official 2027 dates; the same source inadvertently carried a 2026 admission
+// offer into 2027. A later source commit must correct both the visible claim
+// and the strict verifier before this original-byte-only handoff is eligible.
+// The prior production run remains FAILED, and the next deploy re-runs every
+// page and original-asset acceptance. NEVER waive the Worker/SHA/dual-origin
+// original-byte checks in the calling protected deployment pipeline.
+const NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE = Object.freeze({
+  runId: 43734261983,
+  jobId: 132873261043,
+  sourceSha: 'b6a73701a69e5efeee3ed5ec605cdc420c7386df',
+  workerVersion: 'ea33ec3d-842c-4c1b-9ff3-bb4bd292d7cb',
+  failedStep: 'Verify Event structured-data production',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -277,6 +296,43 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const mckinney = NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE;
+  if (job.run_id === mckinney.runId && job.id === mckinney.jobId &&
+      failures.length === 1 && failures[0] === mckinney.failedStep) {
+    const eventIndex = readFileSync('src/data/major-event-index.ts', 'utf8');
+    const schema = readFileSync('src/data/major-event-schema-enrichment-batch2.server.ts', 'utf8');
+    const verifier = readFileSync('scripts/ci/verify-event-structured-data-production.mjs', 'utf8');
+    const sourceRegression = readFileSync('scripts/events/event-editorial-review-wave4.test.mjs', 'utf8');
+    // Look only at the exact McKinney record. A correct 2027 date elsewhere in
+    // the index or another festival with no offers cannot qualify this handoff.
+    const indexStart = eventIndex.indexOf('slug: "mckinney-oktoberfest"');
+    const schemaStart = schema.indexOf('slug: "mckinney-oktoberfest"');
+    const indexRecord = indexStart >= 0 ? eventIndex.slice(indexStart, eventIndex.indexOf('\n', indexStart)) : '';
+    const schemaRecord = schemaStart >= 0 ? schema.slice(schemaStart, schema.indexOf('\n  },', schemaStart)) : '';
+    if (!indexRecord.includes('startDate: "2027-09-24"') ||
+        !indexRecord.includes('endDate: "2027-09-26"') ||
+        !indexRecord.includes('current public admissions and special-event times are not yet confirmed') ||
+        schemaRecord.includes('offers:') ||
+        schemaRecord.includes('usdOffer(') ||
+        !schemaRecord.includes('https://downtownmckinney.com/events/event-opportunities') ||
+        !schemaRecord.includes('verifiedAt: "2026-11-15"') ||
+        !verifier.includes('async function verifyConfirmedMcKinney2027Leaf()') ||
+        !verifier.includes("const startDate = '2027-09-24'") ||
+        !verifier.includes("const endDate = '2027-09-26'") ||
+        !verifier.includes("assert(asArray(event.offers).length === 0") ||
+        !verifier.includes("assert(!html.includes('Tickets and admission')") ||
+        !verifier.includes("await verifyConfirmedMcKinney2027Leaf()") ||
+        !sourceRegression.includes("test('McKinney 2027 Event schema never reuses the 2026 free-admission offer")) {
+      throw Error('The exact published Nov15 McKinney Worker asset handoff is blocked until 2027 source, nonfabricated pricing, strict live Event schema and tests are repaired');
+    }
+    return { eligible: true, mode: 'exact-nov15-mckinney-2027-original-assets-only',
+      exactRun: mckinney.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: mckinney.sourceSha,
+      requiredWorkerVersion: mckinney.workerVersion };
+  }
+  if (job.run_id === mckinney.runId || job.id === mckinney.jobId) {
+    throw Error('Nov15 McKinney Worker original assets reject alternate run/job/failure evidence: ' + failures.join(', '));
   }
   const recurrence = NOV15_PUBLISHED_EVENT_RECURRENCE_ASSERTION;
   if (job.run_id === recurrence.runId && job.id === recurrence.jobId &&
