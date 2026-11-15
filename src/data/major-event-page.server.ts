@@ -454,7 +454,7 @@ export function loadMajorEventPageServer(slug: string) {
   // Render the event-specific advice even if an upstream editorial dateNote changes.
   const recurrencePlanningCopy: Record<string, string> = {
     "luling-watermelon-thump": "Use the recurrence rule as the planning window for Luling Watermelon Thump; recheck the organizer for the year-specific schedule.",
-    "national-polka-festival": "Treat Memorial Day Weekend as the stable planning window for the National Polka Festival in Ennis; recheck the organizer for the confirmed schedule before booking.",
+    "national-polka-festival": "Do not turn the Memorial Day recurrence into a confirmed 2027 ticket date. Treat Memorial Day Weekend as the stable planning window for the National Polka Festival in Ennis; recheck the organizer for the confirmed schedule before booking.",
     westfest: "Use the Labor Day Weekend recurrence as the planning window for Westfest; recheck the organizer for the dedicated year's schedule.",
   };
   const recurrencePlanningNotice = recurrencePlanningCopy[event.slug]
