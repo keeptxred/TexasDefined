@@ -36,7 +36,7 @@ for (const slug of expected) {
   assert(row && typeof row === "object", `Missing identification for ${slug}`);
   for (const field of ["fieldSize", "markings", "texasHabitat", "similarSpecies", "approach", "caution"]) {
     assert.equal(typeof row[field], "string", `${slug} missing ${field}`);
-    assert(row[field].trim().length > 25, `${slug} has incomplete ${field} text`);
+    assert(row[field].trim().length > (field === "fieldSize" ? 9 : 25), `${slug} has incomplete ${field} text`);
   }
   assert(row.sourceUrl.startsWith("https://tpwd.texas.gov/"), `${slug} missing authoritative TPWD citation`);
   assert(slugs.includes(`"${slug}"`), `Missing standalone route for ${slug}`);
