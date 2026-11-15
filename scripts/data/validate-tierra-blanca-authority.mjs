@@ -43,7 +43,7 @@ contains(article, [
   '/explore/near/amarillo/road-trips', '/explore/near/amarillo/day-trips',
   '/destination/palo-duro-canyon-state-park',
 ], "Main guide / editorial sourcing");
-contains(article, ['TierraBlancaVisitorEvidence', 'Travel &amp; Outdoors Desk', 'Research method', 'How this guide was researched', 'Can I collect arrowheads or artifacts found beside the creek?'], 'Human-authored visitor and research disclosures');
+contains(article, ['TierraBlancaVisitorEvidence', 'Travel &amp; Outdoors Desk', 'Research method', 'How this guide was researched', 'Can I collect arrowheads or artifacts found beside the creek?', '/editorial-policy', '/sourcing-methodology', '/about'], 'Human-authored visitor and research disclosures');
 assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at least seven substantive visitor FAQs');
 contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
 contains(amarillo, [
