@@ -350,13 +350,19 @@ async function verifyHidalgoBorderFestLeaf() {
   console.log('[hidalgo-borderfest] expanded guide, licensed hero and expired-offer suppression verified');
 }
 
-async function verifyFreeOfferLeaf() {
+async function verifyMcKinneyOfficialDatesLeaf() {
   const path = '/event/mckinney-oktoberfest';
-  const startDate = '2026-09-25';
-  const endDate = '2026-09-27';
+  // The organizer now explicitly confirms the 2027 date window but has NOT
+  // confirmed 2027 admission/pricing; never extend the old 2026 free Offer.
+  const startDate = '2027-09-24';
+  const endDate = '2027-09-26';
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
   assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
-  assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
+  assert(html.includes('Organizer:'), 'McKinney Oktoberfest must display official McKinney Main Street organizer');
+  assert(html.includes('current public admissions and special-event times are not yet confirmed'),
+    'McKinney Oktoberfest must distinguish official 2027 dates from unannounced 2027 admissions');
+  assert(!html.includes('Tickets and admission'),
+    'McKinney Oktoberfest must not recycle 2026 festival pricing or 2026 admission offers in 2027');
 
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'McKinney Oktoberfest leaf must expose JSON-LD');
@@ -364,30 +370,26 @@ async function verifyFreeOfferLeaf() {
   const today = currentEventDateKey();
 
   if (today <= endDate) {
-    assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission while the occurrence is current');
     const events = nodes.filter((node) => hasType(node, 'Event'));
-    assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming or active');
+    assert(events.length >= 1, 'McKinney Oktoberfest confirmed upcoming 2027 date must expose Event schema');
     const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
-    assert(event.startDate === startDate, `McKinney Oktoberfest Event schema startDate must be ${startDate}`);
-    assert(event.endDate === endDate, `McKinney Oktoberfest Event schema endDate must be ${endDate}`);
-    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
-    const offers = asArray(event.offers);
-    assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
-    const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
-    assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
-    verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
-    console.log('[mckinney-oktoberfest] upcoming/active organizer and free Offer verified');
+    assert(event.startDate === startDate, `McKinney verified organizer start date must be ${startDate}`);
+    assert(event.endDate === endDate, `McKinney verified organizer end date must be ${endDate}`);
+    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose verified organizer');
+    assert(asArray(event.offers).length === 0,
+      'McKinney 2027 admission has not been announced; do not fabricate or carry over a 2026 free Offer');
+    console.log('[mckinney-oktoberfest] source-backed 2027 date/organizer and unconfirmed admission correctly verified');
     return;
   }
 
-  assert(html.includes('Latest confirmed occurrence has ended.'), 'McKinney Oktoberfest expired page must expose the expired-occurrence warning');
-  assert(!html.includes('Tickets and admission'), 'McKinney Oktoberfest expired page must suppress stale admission pricing');
-  assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney Oktoberfest expired leaf must expose WebPage schema');
-  assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney Oktoberfest expired leaf must remain described as a Thing');
-  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale scheduled Event markup');
-  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'McKinney Oktoberfest expired leaf must suppress EventScheduled markup');
-  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'McKinney Oktoberfest expired JSON-LD must not publish stale occurrence dates');
-  console.log(`[mckinney-oktoberfest] expired confirmed occurrence schema suppression verified for ${today}`);
+  assert(html.includes('Latest confirmed occurrence has ended.'), 'McKinney Oktoberfest expired 2027 event must expose expired-occurrence warning');
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney expired leaf must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney expired leaf must suppress scheduled Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'McKinney expired leaf must suppress EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')),
+    'McKinney expired JSON-LD must not publish stale occurrence dates');
+  console.log(`[mckinney-oktoberfest] expired 2027 occurrence schema suppression verified for ${today}`);
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
@@ -500,7 +502,7 @@ try {
   await verifyFiestaLeaf();
   await verifyExpiredConfirmedLeaf();
   await verifyHidalgoBorderFestLeaf();
-  await verifyFreeOfferLeaf();
+  await verifyMcKinneyOfficialDatesLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyCrossroadsFestivalLeaf();
   await verifyRecurringLeaf();
