@@ -370,6 +370,7 @@ import { Route as ExploreWildlifeRouteImport } from './routes/explore.wildlife'
 import { Route as ExploreWaterParksRouteImport } from './routes/explore.water-parks'
 import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
 import { Route as ExploreTopAttractionsRouteImport } from './routes/explore.top-attractions'
+import { Route as ExploreTierraBlancaCreekRouteImport } from './routes/explore.tierra-blanca-creek'
 import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
 import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
 import { Route as ExploreTexasScenicDrivesRouteImport } from './routes/explore.texas-scenic-drives'
@@ -2866,6 +2867,14 @@ const ExploreTopAttractionsRoute = ExploreTopAttractionsRouteImport.update({
   path: '/explore/top-attractions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreTierraBlancaCreekRoute =
+  ExploreTierraBlancaCreekRouteImport.update({
+    id: '/explore/tierra-blanca-creek',
+    path: '/explore/tierra-blanca-creek',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/explore.tierra-blanca-creek.lazy').then((d) => d.Route),
+  )
 const ExploreTexasWildflowerSeasonsRoute =
   ExploreTexasWildflowerSeasonsRouteImport.update({
     id: '/explore/texas-wildflower-seasons',
@@ -4288,6 +4297,7 @@ export interface FileRoutesByFullPath {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/tierra-blanca-creek': typeof ExploreTierraBlancaCreekRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
@@ -4829,6 +4839,7 @@ export interface FileRoutesByTo {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/tierra-blanca-creek': typeof ExploreTierraBlancaCreekRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/wildlife': typeof ExploreWildlifeRoute
@@ -5374,6 +5385,7 @@ export interface FileRoutesById {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/tierra-blanca-creek': typeof ExploreTierraBlancaCreekRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
@@ -5921,6 +5933,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/tierra-blanca-creek'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/water-parks'
@@ -6462,6 +6475,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/tierra-blanca-creek'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/wildlife'
@@ -7006,6 +7020,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/tierra-blanca-creek'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/water-parks'
@@ -7531,6 +7546,7 @@ export interface RootRouteChildren {
   ExploreTexasScenicDrivesRoute: typeof ExploreTexasScenicDrivesRoute
   ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
   ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
+  ExploreTierraBlancaCreekRoute: typeof ExploreTierraBlancaCreekRoute
   ExploreTopAttractionsRoute: typeof ExploreTopAttractionsRouteWithChildren
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
   ExploreWaterParksRoute: typeof ExploreWaterParksRouteWithChildren
@@ -10201,6 +10217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreTopAttractionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/tierra-blanca-creek': {
+      id: '/explore/tierra-blanca-creek'
+      path: '/explore/tierra-blanca-creek'
+      fullPath: '/explore/tierra-blanca-creek'
+      preLoaderRoute: typeof ExploreTierraBlancaCreekRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/texas-wildflower-seasons': {
       id: '/explore/texas-wildflower-seasons'
       path: '/explore/texas-wildflower-seasons'
@@ -12433,6 +12456,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTexasScenicDrivesRoute: ExploreTexasScenicDrivesRoute,
   ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
   ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
+  ExploreTierraBlancaCreekRoute: ExploreTierraBlancaCreekRoute,
   ExploreTopAttractionsRoute: ExploreTopAttractionsRouteWithChildren,
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
   ExploreWaterParksRoute: ExploreWaterParksRouteWithChildren,

@@ -1,0 +1,99 @@
+name: Tierra Blanca Creek authority quarterly verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/routes/explore.tierra-blanca-creek.*'
+      - 'src/routes/explore.near.$metro.$collection.lazy.tsx'
+      - 'src/data/fixtures/randall-county-canyon-palo-duro.ts'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/lib/public-routes.ts'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'scripts/data/validate-tierra-blanca-authority.mjs'
+      - '.github/workflows/verify-tierra-blanca-authority.yml'
+  schedule:
+    # Quarterly editorial/source and live-page check: Jan/Apr/Jul/Oct 10, 14:17 UTC.
+    - cron: "17 14 10 1,4,7,10 *"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: tierra-blanca-creek-authority-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  authority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out TexasDefined
+        uses: actions/checkout@v4
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate code, sources and reciprocal discovery
+        run: node scripts/data/validate-tierra-blanca-authority.mjs
+      - name: Verify primary-source facts independently of live reachability
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request
+          official = [
+            ("Tierra Blanca stream geography", "https://www.tshaonline.org/handbook/entries/tierra-blanca-creek", ("Palo Duro Creek", "Prairie Dog Town Fork")),
+            ("Buffalo Lake public access", "https://www.fws.gov/refuge/buffalo-lake/visit-us", ("Cottonwood Canyon", "Umbarger")),
+            ("Palo Duro state-park visitor rules", "https://tpwd.texas.gov/state-parks/palo-duro-canyon", ("Entrance Fees", "Park Road 5")),
+          ]
+          for label, url, requirements in official:
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; TexasDefinedSourceAudit/1.0)"})
+              with urllib.request.urlopen(req, timeout=25) as r:
+                  assert r.status == 200, f"{label}: HTTP {r.status}"
+                  body = r.read().decode("utf-8", errors="replace").lower()
+              for required in requirements:
+                  assert required.lower() in body, f"{label}: expected source fact missing ({required}); review editorial claims without auto-redating"
+              print("SOURCE_REVIEW_READY", label)
+          PY
+      - name: Verify live canonical, factual details, and explore sitemap
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request, sys, re
+          url = "https://texasdefined.com/explore/tierra-blanca-creek"
+          sitemap = "https://texasdefined.com/sitemap-explore.xml"
+          headers = {"User-Agent": "TexasDefined-Quarterly-Authority/1.0"}
+          def get(url):
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=25) as r:
+                  assert r.status == 200, (url, r.status)
+                  return r.read().decode("utf-8", errors="replace")
+          html = get(url)
+          for token in ("Tierra Blanca Creek", "Buffalo Lake", "Prairie Dog Town Fork", "canonical", "Palo Duro"):
+              assert token.lower() in html.lower(), f"Live page missing {token}"
+          xml = get(sitemap)
+          assert "<loc>https://texasdefined.com/explore/tierra-blanca-creek</loc>" in xml, "Guide missing from live Explore sitemap"
+          print("PASS: live Tierra Blanca guide and Explore sitemap")
+          PY
+      - name: Alert editorial owner if quarterly checks fail
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="${GITHUB_REPOSITORY}"
+          title="Tierra Blanca Creek authority verification failed"
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          issue="$(gh issue list --repo "$repo" --state open --search '"Tierra Blanca Creek authority verification failed" in:title' --json number --jq '.[0].number // empty')"
+          if [[ -n "$issue" ]]; then
+            gh issue comment "$issue" --repo "$repo" --body "Scheduled official-source, live-page, sitemap, or editorial-contract check failed: $run_url. Verify affected claims manually; do not advance the review date based only on a successful fetch."
+          else
+            gh issue create --repo "$repo" --title "$title" --body "Quarterly Tierra Blanca Creek authority check failed: $run_url. Verify source drift and live page, fix discrepancies, and only then update factual review metadata. Do not replace the guide with a thin summary or publish archaeological site coordinates."
+          fi

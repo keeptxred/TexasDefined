@@ -90,6 +90,11 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">{explainers.map((link) => <a key={link.href} href={link.href} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>)}</div>
               <a href="/texas-explained" className="mt-3 inline-block text-sm font-semibold text-primary">Explore Texas Explained →</a>
             </div>
+            {slug === 'randall' && <aside className="border-t border-border pt-6" aria-label="Randall County upstream canyon geography">
+              <h3 className="font-display text-2xl">The creek that feeds the Palo Duro landscape</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Tierra Blanca Creek meets Palo Duro Creek east of Canyon, forming the Prairie Dog Town Fork of the Red River. Its upper course passes near Umbarger, where Buffalo Lake National Wildlife Refuge provides managed public trails and viewing. Creek-bank parcels elsewhere are not automatically public land.</p>
+              <a href="/explore/tierra-blanca-creek" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the Tierra Blanca Creek geography, archaeology and Amarillo travel guide</a>
+            </aside>}
             <CountyHistoricSites countyName={countyName} />
             <Suspense fallback={null}><CountyWildlifeDestinations countyName={countyName} /></Suspense>
             <CountyStatewideContextSection countyName={countyName} countySlug={slug} />
