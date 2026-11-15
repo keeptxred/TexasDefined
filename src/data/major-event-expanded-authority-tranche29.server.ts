@@ -42,10 +42,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-25",
     venue: "Gruene Historical District",
     officialUrl: "https://texasclayfestival.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-15",
     whyItMatters: "The 34th annual Texas Clay Festival brings more than 80 Texas potters and clay artists into the Gruene Historical District for a two-day statewide showcase of functional, traditional and sculptural ceramics.",
     planningSections: [
-      { title: "Hold October 24-25 for Gruene", body: "The organizer confirms Saturday and Sunday, October 24-25, 2026, with separate daily hours. Use that two-day window and recheck the official site for artist or demonstration updates before making the trip." },
+      { title: "The October 24–25, 2026 Clay Festival has ended", body: "The Gruene festival's official website now thanks visitors for the completed 34th annual edition on October 24–25, 2026. Its Saturday 10 a.m.–6 p.m. and Sunday 10 a.m.–5 p.m. hours are from 2026; there is no officially published 2027 event date yet. Do not confuse its remaining 2025 souvenir store with an upcoming event checkout." },
       { title: "Plan to browse rather than rush", body: "More than 80 Texas clay artists are expected. Give yourself time to compare work, talk with artists and move through the historic district instead of treating the festival as a quick retail stop." },
       { title: "Pair the festival with the historic district", body: "The setting is part of the draw. Build in time for Gruene's historic streets, dining and nearby New Braunfels stops so the event anchors a full Hill Country day." },
     ],
