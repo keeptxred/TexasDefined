@@ -7,6 +7,7 @@ export interface FishIdentification {
   similarSpecies: string;
   approach: string;
   caution: string;
+  naturalHistory?: string[];
 }
 export const FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT = "2026-11-15";
 export const fishIdentification: Record<string, FishIdentification> = {
@@ -17,7 +18,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Slow lowland backwaters, sloughs and swampy sections of the Red, San Jacinto and Sabine systems and lower Brazos and Colorado basins.",
     "similarSpecies": "Unlike gar, bowfin lack a long rigid snout and diamond-shaped armor. Unlike invasive snakeheads, bowfin have a short anal fin and an unscaled head.",
     "approach": "Fish natural baits or lures around woody, weedy margins and slow current. They can gulp air; surfacing alone does not indicate distress.",
-    "caution": "Do not mistake this native fish for a prohibited snakehead; TPWD publishes an identification comparison."
+    "caution": "Do not mistake this native fish for a prohibited snakehead; TPWD publishes an identification comparison.",
+    "naturalHistory": [
+      "Bowfin are native predators rather than escaped snakeheads. TPWD describes males preparing shallow, weedy nests in late spring, clearing silt so eggs can adhere to submerged roots, wood and gravel. Males then guard the eggs and newly hatched young.",
+      "Early-life food includes tiny aquatic invertebrates. As bowfin grow they switch increasingly to larger prey in the quiet, vegetation-rich water they occupy. Their ability to breathe air helps explain sightings at the surface."
+    ]
   },
   "common-carp": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/crp/",
@@ -26,7 +31,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Introduced and now widespread in Texas ponds, lakes, reservoirs and rivers, often foraging along soft bottoms.",
     "similarSpecies": "Unlike grass carp, common carp have conspicuous mouth barbels and a much longer dorsal fin.",
     "approach": "Present bait close to the bottom where carp feed; use light, sensitive rigs and handle larger fish with adequate support.",
-    "caution": "Do not assume statewide nongame status overrides site-specific restrictions, including Lady Bird Lake."
+    "caution": "Do not assume statewide nongame status overrides site-specific restrictions, including Lady Bird Lake.",
+    "naturalHistory": [
+      "Common carp are omnivorous bottom feeders. Their protrusible mouths and barbels are useful clues when they root around mud and submerged vegetation for food; feeding often clouds shallow water, particularly near shore.",
+      "TPWD reports spring-to-early-fall spawning opportunities, sometimes more than once in a season. Common carp were introduced from Europe and Asia and occur broadly across Texas waters, but not every water permits the same harvest or treatment."
+    ]
   },
   "alligator-gar": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/alg/",
@@ -44,7 +53,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Slow streams, lakes, swamps and vegetated backwaters, especially in east and coastal-plain Texas.",
     "similarSpecies": "Spots on top of the head and paired fins help distinguish spotted gar from other gar; longnose gar have a relatively longer, narrower snout.",
     "approach": "Watch quiet, shallow edges for surface activity; only use legal gear and avoid careless handling of sharp teeth.",
-    "caution": "Gar eggs are toxic and should never be eaten."
+    "caution": "Gar eggs are toxic and should never be eaten.",
+    "naturalHistory": [
+      "Spotted gar often drift just below the surface in warm, quiet water. TPWD describes sudden sideways strikes at prey, rather than a continuous chase. Smaller gar feed on aquatic insects and crustaceans before fish become a larger share of the diet.",
+      "Reproduction is associated with shallow, slowly flowing, vegetated places in spring. Eggs adhere to submerged plants. A spotted head and spots on the paired fins are more discriminating field marks than body spots alone."
+    ]
   },
   "channel-catfish": {
     "sourceUrl": "https://tpwd.texas.gov/landwater/water/aquaticspecies/inland.phtml",
@@ -107,7 +120,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Warm Texas lakes and ponds, often near bottom vegetation and gentle current; native to much of eastern Texas and introduced elsewhere.",
     "similarSpecies": "Unlike longear and redbreast sunfish, the redear ear flap is not markedly elongated; compare the edge color as well as the shape.",
     "approach": "Present worms or other small natural baits near the bottom; snails are important in its diet.",
-    "caution": "The red/orange flap border varies by sex and appearance alone can be complicated by hybrids."
+    "caution": "The red/orange flap border varies by sex and appearance alone can be complicated by hybrids.",
+    "naturalHistory": [
+      "Redear sunfish are nicknamed shellcrackers because snails are important in their diet. They also consume insect larvae and small crustaceans; bottom habitat in warmer water with vegetation is a good starting point for understanding their location.",
+      "TPWD describes spawning in late spring and early summer, usually in colonies of saucer-shaped nests. Their nests may sit deeper than those of some other sunfish, so do not assume every spawning panfish will be right against the bank."
+    ]
   },
   "green-sunfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/greensunfish/",
@@ -116,7 +133,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Occurs throughout Texas, including small, sometimes variable streams, ponds and reservoirs.",
     "similarSpecies": "Compare with warmouth: warmouth usually have several dark streaks radiating from the eye and brown mottling.",
     "approach": "Small jigs, flies and worms around rocks or shallow cover are practical choices.",
-    "caution": "Green sunfish hybridize readily with other sunfishes, so some fish resist a simple color-based ID."
+    "caution": "Green sunfish hybridize readily with other sunfishes, so some fish resist a simple color-based ID.",
+    "naturalHistory": [
+      "Green sunfish are unusually tolerant of unstable small-stream conditions. TPWD notes their ability to persist in prairie streams where other sunfish have trouble, and they may recolonize waters after difficult conditions.",
+      "Adults eat aquatic insects and small fish. Shallow nests are often constructed in close colonies on gravel or rock in late spring and summer; males guard their young. Hybridization can complicate confident identification."
+    ]
   },
   "warmouth": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/war/",
@@ -125,7 +146,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Sheltered weedy or woody waters, stumps, slack water and vegetated river margins, especially in eastern Texas.",
     "similarSpecies": "Distinguish from green sunfish by the streaked head and mottled flanks; do not confuse either with true rock bass.",
     "approach": "Small natural baits or compact lures near cover can reach warmouth without needing deep-water bass tackle.",
-    "caution": "Warmouth can hybridize with bluegill and green sunfish."
+    "caution": "Warmouth can hybridize with bluegill and green sunfish.",
+    "naturalHistory": [
+      "Warmouth prefer hiding places such as roots, stumps, rocks and vegetation. They sit in cover as sight-feeding predators, taking insects, mollusks and smaller fish rather than swimming constantly through open water.",
+      "TPWD describes spring-to-summer spawning in shallow nests near submerged structure. Males defend eggs and fry. A useful distinguishing check is the anal fin: warmouth have three spines, compared with six in rock bass."
+    ]
   },
   "longear-sunfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/longearsunfish/",
@@ -134,7 +159,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Small Texas streams and creek pools, particularly where vegetation and gentle current provide shelter.",
     "similarSpecies": "Redbreast sunfish can have an even longer and narrower ear flap; compare flap shape and body colors together.",
     "approach": "Try small flies or worms in creek pools and beside current seams; release small fish gently.",
-    "caution": "Spawning colors vary considerably and sunfish hybrids are common."
+    "caution": "Spawning colors vary considerably and sunfish hybrids are common.",
+    "naturalHistory": [
+      "Small creek pools and low-current inlets are important longear sunfish habitat. Spawning males become especially colorful and sweep out nests in gravel during late spring and early summer, defending them after the young hatch.",
+      "Growing longear sunfish feed on insects and occasionally small fish. TPWD notes that they rarely exceed six inches; in the field, prioritize their white-trimmed elongated ear flap and facial markings over a bright breeding color alone."
+    ]
   },
   "redbreast-sunfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/redbreastsunfish/",
@@ -143,7 +172,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Clear streams in eastern and central Texas, notably the San Marcos region; introduced outside its original Atlantic-drainage range.",
     "similarSpecies": "The flap is generally longer and narrower than on longear sunfish, despite the names.",
     "approach": "Light spinning tackle, small bait or flies around gravel-bottom pools and low current are appropriate.",
-    "caution": "Check multiple traits before separating colorful sunfish and hybrids."
+    "caution": "Check multiple traits before separating colorful sunfish and hybrids.",
+    "naturalHistory": [
+      "Redbreast sunfish eat aquatic insects, snails, crayfish and small fish. They are introduced to Texas from Atlantic-drainage streams farther east, and TPWD describes established populations in clear Central Texas streams.",
+      "Spawning takes place in shallow colonies on sand or gravel. Newly hatched fish may remain together in schools for a period before dispersing. The long narrow ear flap—not the orange belly alone—is a useful identification feature."
+    ]
   },
   "rio-grande-cichlid": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/cichlid/",
@@ -152,7 +185,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Originally native to the lower Rio Grande; now established in selected spring-fed and warm central Texas drainages.",
     "similarSpecies": "Not a sunfish: compare its interrupted lateral line and five or six anal-fin spines with most Texas sunfish and many tilapia.",
     "approach": "Small bait, flies and compact lures work around warm river margins; cold temperatures can sharply limit survival.",
-    "caution": "Do not label this native Texas cichlid as invasive tilapia."
+    "caution": "Do not label this native Texas cichlid as invasive tilapia.",
+    "naturalHistory": [
+      "Rio Grande cichlids are strongly limited by cold water. TPWD notes that their survival is poor at temperatures below roughly 49°F; warmer spring-fed and some heated habitats can support populations outside the original lower Rio Grande range.",
+      "They spawn during early spring, and both parents guard the young. Food includes small aquatic animals and fish eggs. The five or six anal-fin spines are a useful check when separating this native cichlid from tilapia and most sunfishes."
+    ]
   },
   "black-crappie": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/crappie/",
