@@ -60,7 +60,7 @@ for (const slug of lakes) {
 species.forEach((s) => add("/fishing/species/" + s, "species"));
 methods.forEach((s) => add("/fishing/techniques/" + s, "technique"));
 
-if (lakes.length !== 72 || species.length !== 19 || methods.length !== 9)
+if (lakes.length !== 72 || species.length !== 28 || methods.length !== 9)
   throw Error("Fishing registry changed; review the complete URL audit coverage before accepting any pages");
 if (new Set(rows.map((r) => r.path)).size !== rows.length)
   throw Error("Duplicate fishing route in authority inventory");
@@ -69,7 +69,7 @@ export function getFishingAuthorityInventory() {
   return {
     schemaVersion: 1, origin: "https://texasdefined.com",
     dynamicFamilies: ["/fishing/access/{slug}","/fishing/services/{slug}","/fishing/guides/{slug}","/fishing/reports/{slug}"],
-    counts: { lakes: 72, lakeRoutes: 648, species: 19, techniques: 9, hubs: hubs.length, registeredUrls: rows.length },
+    counts: { lakes: 72, lakeRoutes: 648, species: 28, techniques: 9, hubs: hubs.length, registeredUrls: rows.length },
     rows,
   };
 }
@@ -84,7 +84,7 @@ if (process.argv[1]?.endsWith("fishing-authority-inventory.mjs")) {
       "",
       "**No registered URL is certified merely by having research text.** The lake dossiers establish source coverage, not SEO/UX/visual/live acceptance. Individual route checks remain pending. Reports and fishing-guide subpages lacking dated verified content are intentionally noindex until sourced; never invent reports or guide businesses.",
       "",
-      "Inventory includes " + report.counts.registeredUrls + " registered routes: 648 lake pages (72 overviews and 576 subpages), 19 species, nine techniques and " + hubs.length + " hubs/utility pages, plus verified published dynamic profiles discovered from the production sitemap.",
+      "Inventory includes " + report.counts.registeredUrls + " registered routes: 648 lake pages (72 overviews and 576 subpages), 28 standalone species/group guides, nine techniques and " + hubs.length + " hubs/utility pages, plus verified published dynamic profiles discovered from the production sitemap.",
       "",
       "| Canonical URL | Family/intent | Individual acceptance |",
       "|---|---|---|",
