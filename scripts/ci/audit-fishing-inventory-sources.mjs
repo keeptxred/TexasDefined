@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { runBoundedSourceChecks } from "./run-bounded-source-checks.mjs";
+import { sourceForFishingGuideReview } from "./fishing-operator-source-witnesses.mjs";
 
 const access = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
@@ -122,8 +123,11 @@ for (const lake of batch) {
   }
 }
 for (const guide of guides) {
-  // Independent first-party URLs, no reviews/pricing/availability are inferred.
-  sourceTasks.push(() => check(guide.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"]));
+  // A source-reviewed same-origin operator detail URL can corroborate identity
+  // where the general homepage is flaky or shows a generic/challenge document.
+  // This is still the official operator website, not a copied or paid listing.
+  const witness = sourceForFishingGuideReview(guide);
+  sourceTasks.push(() => check(witness.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"], witness.identity));
 }
 sourceTasks.push(() => check("https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml", [], ["Weekly Fishing Reports"]));
 
