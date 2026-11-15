@@ -168,7 +168,7 @@ for (const [lakeId, sites] of Object.entries(officialWitnesses)) {
     assert.ok(statewide.includes(`name:"${editorialName}"`) || statewide.includes(`name: "${editorialName}"`), lakeId + ": obsolete source identity " + editorialName);
     assert.ok(typeof proof.name === "string" && proof.name.length >= 3, lakeId + ": missing agency's official facility name");
     assert.ok(!proof.requires || proof.requires.every((text) => typeof text === "string" && text.length >= 4), lakeId + ": invalid source fact witness");
-    if (proof.url) assert.ok(/^https:\\/\\/(?:tpwd\\.texas\\.gov|www\\.sweetwatertx\\.gov)\\//.test(proof.url), lakeId + ": alternate witness must be an approved official source");
+    if (proof.url) assert.ok(["https://tpwd.texas.gov", "https://www.sweetwatertx.gov"].includes(new URL(proof.url).origin), lakeId + ": alternate witness must be an approved official source");
   }
 }
 const inventoryMonitor = read("scripts/ci/audit-fishing-inventory-sources.mjs");
