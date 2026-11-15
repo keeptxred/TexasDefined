@@ -4,11 +4,11 @@ import type { FishSpecies, FishingSource } from "./types";
 const BRAND = "texasdefined" as const;
 export const FISH_SPECIES_CATALOG_VERIFIED_AT = "2026-08-13";
 
-const speciesSource = (id: string, name: string, url: string): FishingSource => ({
+const speciesSource = (id: string, name: string, url: string, checkedAt = FISH_SPECIES_CATALOG_VERIFIED_AT): FishingSource => ({
   id,
   name,
   url,
-  checkedAt: FISH_SPECIES_CATALOG_VERIFIED_AT,
+  checkedAt,
   sourceType: "state",
 });
 
@@ -19,6 +19,69 @@ const tpwdWildlifeIndex = speciesSource(
 );
 
 const supplementalFishSpecies: FishSpecies[] = [
+  {
+    id: "bowfin", brandId: BRAND, slug: "bowfin", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-bowfin", "Texas Parks & Wildlife Department — Bowfin", "https://tpwd.texas.gov/huntwild/wild/species/bowfin/", "2026-11-15")],
+    commonName: "Bowfin", scientificName: "Amia calva", taxonKind: "species", waterClass: "freshwater",
+    summary: "Native air-breathing predator of eastern Texas backwaters, recognized by its long dorsal fin, rounded tail and broad toothy mouth.",
+  },
+  {
+    id: "common-carp", brandId: BRAND, slug: "common-carp", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-common-carp", "Texas Parks & Wildlife Department — Common carp", "https://tpwd.texas.gov/huntwild/wild/species/crp/", "2026-11-15")],
+    commonName: "Common carp", scientificName: "Cyprinus carpio", taxonKind: "species", waterClass: "freshwater",
+    summary: "Widespread introduced bottom-feeding fish with bronze scales, a long dorsal fin and two pairs of mouth barbels.",
+  },
+  {
+    id: "spotted-gar", brandId: BRAND, slug: "spotted-gar", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-spotted-gar", "Texas Parks & Wildlife Department — Spotted gar", "https://tpwd.texas.gov/huntwild/wild/species/spottedgar/", "2026-11-15")],
+    commonName: "Spotted gar", scientificName: "Lepisosteus oculatus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Native armored fish of vegetated backwaters, identifiable by dark spots across the head, body and fins.",
+  },
+  {
+    id: "redear-sunfish", brandId: BRAND, slug: "redear-sunfish", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-redear-sunfish", "Texas Parks & Wildlife Department — Redear sunfish", "https://tpwd.texas.gov/huntwild/wild/species/sunfish/", "2026-11-15")],
+    commonName: "Redear sunfish", scientificName: "Lepomis microlophus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Bottom-feeding sunfish of warm lakes and ponds, with a distinct red or orange margin on its dark gill flap.",
+  },
+  {
+    id: "green-sunfish", brandId: BRAND, slug: "green-sunfish", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-green-sunfish", "Texas Parks & Wildlife Department — Green sunfish", "https://tpwd.texas.gov/huntwild/wild/species/greensunfish/", "2026-11-15")],
+    commonName: "Green sunfish", scientificName: "Lepomis cyanellus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Adaptable small-water sunfish with a proportionally large mouth, stocky body and blue-green cheek marks.",
+  },
+  {
+    id: "warmouth", brandId: BRAND, slug: "warmouth", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-warmouth", "Texas Parks & Wildlife Department — Warmouth", "https://tpwd.texas.gov/huntwild/wild/species/war/", "2026-11-15")],
+    commonName: "Warmouth", scientificName: "Lepomis gulosus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Large-mouthed, mottled sunfish of stump-filled, weedy waters, with dark streaks radiating from the eye.",
+  },
+  {
+    id: "longear-sunfish", brandId: BRAND, slug: "longear-sunfish", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-longear-sunfish", "Texas Parks & Wildlife Department — Longear sunfish", "https://tpwd.texas.gov/huntwild/wild/species/longearsunfish/", "2026-11-15")],
+    commonName: "Longear sunfish", scientificName: "Lepomis megalotis", taxonKind: "species", waterClass: "freshwater",
+    summary: "Colorful creek-dwelling sunfish with blue-green facial marks and a white-edged elongated gill flap.",
+  },
+  {
+    id: "redbreast-sunfish", brandId: BRAND, slug: "redbreast-sunfish", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-redbreast-sunfish", "Texas Parks & Wildlife Department — Redbreast sunfish", "https://tpwd.texas.gov/huntwild/wild/species/redbreastsunfish/", "2026-11-15")],
+    commonName: "Redbreast sunfish", scientificName: "Lepomis auritus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Stream sunfish with a yellow-orange breast and an unusually long, narrow gill-cover flap.",
+  },
+  {
+    id: "rio-grande-cichlid", brandId: BRAND, slug: "rio-grande-cichlid", status: "published",
+    verifiedAt: "2026-11-15",
+    sources: [speciesSource("tpwd-rio-grande-cichlid", "Texas Parks & Wildlife Department — Rio Grande cichlid", "https://tpwd.texas.gov/huntwild/wild/species/cichlid/", "2026-11-15")],
+    commonName: "Rio Grande cichlid", scientificName: "Herichthys cyanoguttatus", taxonKind: "species", waterClass: "freshwater",
+    summary: "Native Texas cichlid with turquoise spots and vertical bars found in the lower Rio Grande and warm Central Texas waters.",
+  },
   {
     id: "guadalupe-bass",
     brandId: BRAND,
@@ -162,8 +225,10 @@ export const fishSpeciesFamilies: FishSpeciesFamilyDefinition[] = [
   { id: "temperate-bass", name: "White, striped & hybrid bass", description: "Schooling and open-water bass fisheries, including spring white-bass runs and reservoir striped-bass fishing.", speciesSlugs: ["white-bass", "striped-bass", "hybrid-striped-bass"] },
   { id: "crappie", name: "Crappie", description: "Black and white crappie plus the statewide crappie fishing group used by lake relationships.", speciesSlugs: ["crappie", "black-crappie", "white-crappie"] },
   { id: "catfish", name: "Catfish", description: "Blue, channel and flathead catfish, plus the statewide catfish group used by lake relationships.", speciesSlugs: ["catfish", "blue-catfish", "channel-catfish", "flathead-catfish"] },
-  { id: "gar-drum", name: "Gar & drum", description: "Distinctive native fisheries ranging from trophy alligator gar to widespread freshwater drum.", speciesSlugs: ["alligator-gar", "freshwater-drum"] },
-  { id: "sunfish", name: "Sunfish & panfish", description: "Accessible shoreline and family fishing built around bluegill and related sunfish.", speciesSlugs: ["sunfish", "bluegill"] },
+  { id: "gar-drum", name: "Gar & drum", description: "Distinctive native fisheries ranging from trophy alligator gar to widespread freshwater drum.", speciesSlugs: ["alligator-gar", "spotted-gar", "freshwater-drum"] },
+  { id: "sunfish", name: "Sunfish & panfish", description: "Accessible shoreline and family fishing built around bluegill and related sunfish.", speciesSlugs: ["sunfish", "bluegill", "redear-sunfish", "green-sunfish", "warmouth", "longear-sunfish", "redbreast-sunfish"] },
+  { id: "backwater-fish", name: "Bowfin & carp", description: "Two very different fish of slow water: native bowfin and introduced common carp.", speciesSlugs: ["bowfin", "common-carp"] },
+  { id: "cichlids", name: "Texas cichlids", description: "The native Rio Grande cichlid and its warm-water habitat.", speciesSlugs: ["rio-grande-cichlid"] },
   { id: "trout", name: "Seasonal trout", description: "Winter rainbow-trout opportunities created by TPWD stocking and cold-water habitat.", speciesSlugs: ["rainbow-trout"] },
 ];
 
