@@ -1,6 +1,13 @@
 name: Tierra Blanca Creek quarterly factual verification
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tierra-blanca-quarterly-audit.yml'
+      - 'scripts/ci/verify-tierra-blanca-quarterly.mjs'
+      - 'scripts/ci/report-tierra-blanca-authority-failure.mjs'
+      - 'scripts/data/validate-tierra-blanca-authority.mjs'
   schedule:
     - cron: '17 14 10 1,4,7,10 *'
   workflow_dispatch:
