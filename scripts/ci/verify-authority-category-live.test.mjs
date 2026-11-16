@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { plannedAuthorityChecks, readCanonical, hasNoindex, extractVisibleText, assertCampingGuideGoogleSignals } from "./verify-authority-category-live.mjs";
+import { plannedAuthorityChecks, readCanonical, hasNoindex, extractVisibleText, assertCampingGuideGoogleSignals, isTransientNetworkFailure, retryOneAuthorityTransport } from "./verify-authority-category-live.mjs";
 
 test("small sitewide ownership sample is fixed, bounded and excludes football", () => {
   assert.equal(plannedAuthorityChecks.length, 7);
@@ -50,4 +50,34 @@ test("camping authority SSR contract checks actual JSON-LD and source-backed edi
   assert.throws(() => assertCampingGuideGoogleSignals(build({
     "@graph": [{ ...document["@graph"][0], author: { name: "Invented Expert" } }, document["@graph"][1]],
   })), /authentic author/);
+});
+
+test("only genuine one-off transport failures are retried, never HTTP responses or arbitrary TypeErrors", async () => {
+  assert.equal(isTransientNetworkFailure(Object.assign(new TypeError("fetch failed"), { cause: { code: "ECONNRESET" } })), true);
+  assert.equal(isTransientNetworkFailure(Object.assign(new TypeError("fetch failed"), { cause: { code: "UND_ERR_CONNECT_TIMEOUT" } })), true);
+  assert.equal(isTransientNetworkFailure({ name: "TimeoutError" }), true);
+  assert.equal(isTransientNetworkFailure(new TypeError("bad URL")), false);
+  assert.equal(isTransientNetworkFailure({ name: "Error", code: "UNEXPECTED" }), false);
+  let attempts = 0, delays = 0;
+  const result = await retryOneAuthorityTransport(async () => {
+    attempts++;
+    if (attempts === 1) throw Object.assign(new TypeError("fetch failed"), { cause: { code: "ECONNRESET" } });
+    return { status: 200 };
+  }, async (ms) => { assert.equal(ms, 1000); delays++; });
+  assert.equal(result.status, 200);
+  assert.equal(attempts, 2);
+  assert.equal(delays, 1);
+  attempts = 0;
+  await assert.rejects(retryOneAuthorityTransport(async () => {
+    attempts++;
+    throw Object.assign(new TypeError("fetch failed"), { cause: { code: "ECONNRESET" } });
+  }, async () => {}), /fetch failed/);
+  assert.equal(attempts, 2, "at most one retry");
+  attempts = 0;
+  const badHttp = await retryOneAuthorityTransport(async () => { attempts++; return { status: 503 }; }, async () => { throw new Error("HTTP must not retry"); });
+  assert.equal(badHttp.status, 503);
+  assert.equal(attempts, 1);
+  attempts = 0;
+  await assert.rejects(retryOneAuthorityTransport(async () => { attempts++; throw new TypeError("bad URL"); }), /bad URL/);
+  assert.equal(attempts, 1);
 });
