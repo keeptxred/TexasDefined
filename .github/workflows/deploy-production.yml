@@ -780,6 +780,41 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+      # Deer authority proof must not be hidden by unrelated fishing/base-page
+      # outages later in this release. Keep it change-scoped inside the existing
+      # single protected deployment lock (no extra workflow_run fan-out).
+      - name: Verify deer authority HTML, claim sources and exact XML lastmod
+        id: live_deer_authority
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        shell: bash
+        env:
+          DEER_VERIFY_OPT_IN: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[verify-deer]') }}
+        run: |
+          set -euo pipefail
+          if [[ "${DEER_VERIFY_OPT_IN}" == 'true' ]]; then
+            echo 'Explicit, one-time targeted deer release verification.'
+          elif node scripts/ci/hunting-browser-release-scope.mjs; then
+            echo 'Hunting source or verifier changed: run exact deer release acceptance.'
+          else
+            decision=$?
+            if [[ "$decision" == '10' ]]; then
+              echo 'No hunting change since verified baseline; skip targeted deer network check.'
+              exit 0
+            fi
+            exit "$decision"
+          fi
+          mkdir -p .artifacts
+          node scripts/data/verify-hunting-production.mjs 2>&1 | tee .artifacts/deer-hunting-postdeploy-proof.log
+
+      - name: Preserve scoped deer authority postdeploy evidence
+        if: ${{ always() && steps.live_deer_authority.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: deer-hunting-postdeploy-${{ github.run_id }}
+          path: .artifacts/deer-hunting-postdeploy-proof.log
+          if-no-files-found: ignore
+          retention-days: 14
+
       # Release acceptance for the source-backed fishing indexability gate:
       # compare real canonical HTML robots with every governed live sitemap feed.
       - name: Verify fishing lake robots and sitemap publication parity
