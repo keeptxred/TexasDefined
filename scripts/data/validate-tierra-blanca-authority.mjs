@@ -45,7 +45,7 @@ contains(article, [
 ], "Main guide / editorial sourcing");
 contains(article, ['TierraBlancaVisitorEvidence', 'Travel &amp; Outdoors Desk', 'Research method', 'How this guide was researched', 'Can I collect arrowheads or artifacts found beside the creek?', '/editorial-policy', '/sourcing-methodology', '/about'], 'Human-authored visitor and research disclosures');
 assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at least seven substantive visitor FAQs');
-assert.ok(article.includes('<ol className="mt-4 list-decimal'), "Watercourse steps need visible semantic ordered-list markers");
+assert.ok(article.includes('style={{ listStyleType: "decimal", paddingLeft: "1.5rem" }}'), "Watercourse steps need visible semantic ordered-list markers without expanding the global CSS bundle");
 assert.ok(!/<li><strong>[1-4]\.\s/.test(article), "Do not manually number items inside an ordered list: screen readers and extractors may read duplicate numbers");
 
 contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
