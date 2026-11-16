@@ -5,7 +5,8 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const canonicalPath = "/explore/tierra-blanca-creek";
 const baseUrl = `https://${texasDefinedBrand.identity.domain}`;
 const url = `${baseUrl}${canonicalPath}`;
-const lastSubstantiveRevision = "2026-11-15";
+const firstPublished = "2026-11-15";
+const lastSubstantiveRevision = "2026-11-16";
 const documentedRefugeImage = "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/images/2024-07/buffalo-lake-snowscape.jpg?itok=HkeBOb3Z";
 
 export const Route = createFileRoute(canonicalPath)({
@@ -18,7 +19,7 @@ export const Route = createFileRoute(canonicalPath)({
       imageHeight: 975,
       imageType: "image/jpeg",
       type: "article",
-      publishedTime: lastSubstantiveRevision,
+      publishedTime: firstPublished,
       modifiedTime: lastSubstantiveRevision,
       title: "Tierra Blanca Creek: Canyon Country, History & Visiting Near Amarillo",
       description: "Follow Tierra Blanca Creek from the High Plains toward Palo Duro Canyon. Learn the watershed, archaeology and verified public access near Canyon and Amarillo, Texas.",
@@ -35,7 +36,7 @@ export const Route = createFileRoute(canonicalPath)({
             mainEntityOfPage: url,
             headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo",
             description: "A source-checked geographic and cultural history of Tierra Blanca Creek in the Texas Panhandle, with lawful visitor alternatives and an Amarillo/Canyon road-trip plan.",
-            datePublished: lastSubstantiveRevision,
+            datePublished: firstPublished,
             dateModified: lastSubstantiveRevision,
             image: { "@type": "ImageObject", url: documentedRefugeImage, width: 1300, height: 975, creditText: "Christena Stephens / U.S. Fish and Wildlife Service" },
             author: { "@type": "Organization", name: "TexasDefined", url: baseUrl },
