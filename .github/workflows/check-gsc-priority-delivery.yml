@@ -5,9 +5,11 @@ on:
   pull_request:
     paths:
       - scripts/seo/verify-gsc-priority-indexability.mjs
+      - scripts/seo/verify-gsc-image-rights-delivery.mjs
+      - scripts/seo/verify-gsc-image-rights-delivery.test.mjs
       - .github/workflows/check-gsc-priority-delivery.yml
   schedule:
-    # Weekly bounded six-page audit. This is not a sitewide crawler.
+    # Weekly bounded six priority pages plus fourteen exact image-rights page owners.
     - cron: "19 15 * * 3"
 
 permissions:
@@ -29,8 +31,14 @@ jobs:
           node-version: "22"
       - name: Syntax validation
         run: node --check scripts/seo/verify-gsc-priority-indexability.mjs
+      - name: Syntax and source-rights contract validation
+        run: |
+          node --check scripts/seo/verify-gsc-image-rights-delivery.mjs
+          node --test scripts/seo/verify-gsc-image-rights-delivery.test.mjs
       - name: Read-only production delivery check
-        run: node scripts/seo/verify-gsc-priority-indexability.mjs
+        run: |
+          node scripts/seo/verify-gsc-priority-indexability.mjs
+          node scripts/seo/verify-gsc-image-rights-delivery.mjs
       - name: Preserve the page-level evidence
         if: always()
         uses: actions/upload-artifact@v4
