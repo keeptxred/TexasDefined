@@ -29,6 +29,30 @@ export function TierraBlancaVisitorEvidence() {
       <h2 id="tierra-blanca-map" className="mt-2 font-display text-3xl">Find the real public entrances—and see where the creek belongs</h2>
       <p className="mt-4 max-w-4xl text-base leading-8">Tierra Blanca Creek rises in New Mexico's Curry County, enters Texas in Deaf Smith County, then crosses Randall County toward the Palo Duro Creek confluence northeast of Canyon. The Texas State Historical Association describes an approximately 75-mile east-northeast reach through Texas. Buffalo Lake refuge is on the upper creek; the red cliffs in the state park are farther downstream along the Prairie Dog Town Fork of the Red River.</p>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">Map shown at regional scale. The single marker identifies the <strong>USFWS-published Buffalo Lake refuge entrance</strong>, not a creek-bank trailhead, archaeological site or continuous public waterway route. OpenStreetMap is a geographic reference, not an authoritative boundary or safe-navigation source. Check agency maps at each entrance.</p>
+      {/* This source-coordinate orientation is always visible. The third-party
+          map below may be unavailable in browsers that block external tiles. */}
+      <div data-tierra-blanca-orientation className="mt-6 border border-border p-4">
+        <p className="text-sm font-semibold">Reliable geographic orientation, even without third-party map tiles</p>
+        <svg data-tierra-blanca-orientation-map role="img" aria-labelledby="tierra-map-title tierra-map-description"
+          className="mt-3 w-full" viewBox="0 0 860 320" style={{ background: "#f5f3ed" }}>
+          <title id="tierra-map-title">North-up location comparison: Buffalo Lake refuge entrance west of Palo Duro Canyon State Park headquarters</title>
+          <desc id="tierra-map-description">Positions plotted proportionally from official agency coordinates: Buffalo Lake refuge entrance 34.919517 north, 102.111118 west; Palo Duro Canyon State Park headquarters 34.984709 north, 101.701867 west. Orientation only. This drawing shows no creek route, road, path, public property boundary or artifact location.</desc>
+          <rect width="860" height="320" fill="#f5f3ed" />
+          <text x="52" y="43" fontSize="22" fontWeight="700" fill="#4a443d">WEST</text>
+          <text x="742" y="43" fontSize="22" fontWeight="700" fill="#4a443d">EAST</text>
+          <text x="422" y="43" fontSize="22" textAnchor="middle" fill="#4a443d">N ↑</text>
+          <line x1="48" y1="85" x2="812" y2="85" stroke="#d4c9bb" strokeWidth="2" />
+          <line x1="48" y1="278" x2="812" y2="278" stroke="#d4c9bb" strokeWidth="2" />
+          <circle cx="194" cy="217" r="14" fill="#256a60" stroke="white" strokeWidth="4" />
+          <text x="217" y="205" fontSize="24" fontWeight="700" fill="#274b45">Buffalo Lake NWR</text>
+          <text x="217" y="234" fontSize="18" fill="#384e49">official public entrance</text>
+          <circle cx="700" cy="132" r="14" fill="#a7552e" stroke="white" strokeWidth="4" />
+          <text x="670" y="120" textAnchor="end" fontSize="24" fontWeight="700" fill="#763b23">Palo Duro Canyon</text>
+          <text x="670" y="149" textAnchor="end" fontSize="18" fill="#763b23">state park headquarters</text>
+          <text x="52" y="303" fontSize="16" fill="#4a443d">North-up coordinate plot • Not a route or access map</text>
+        </svg>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>West:</strong> Buffalo Lake refuge entrance (USFWS: 34.919517, −102.111118). <strong>East:</strong> Palo Duro Canyon park headquarters (TPWD: 34.984709, −101.701867). These are two officially published public facilities, not creek-bank access points. Only their relative positions are drawn; no road, trail or stream course is inferred.</p>
+      </div>
       <div className="mt-6 overflow-hidden border border-border">
         <iframe title="OpenStreetMap regional context showing Canyon, Umbarger, Buffalo Lake refuge and the Palo Duro Canyon region, with a marker at the official refuge entrance" src="https://www.openstreetmap.org/export/embed.html?bbox=-102.34%2C34.80%2C-101.51%2C35.29&amp;layer=mapnik&amp;marker=34.919517%2C-102.111118" loading="lazy" referrerPolicy="no-referrer" className="aspect-video w-full" />
       </div>
