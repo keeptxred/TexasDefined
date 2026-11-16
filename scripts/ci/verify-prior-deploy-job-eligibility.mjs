@@ -280,6 +280,25 @@ const NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE = Object.freeze({
   failedStep: 'Verify Event structured-data production',
 });
 
+// Nov 15 run #43744754206 published the 100%-traffic Worker
+// 7f0231fa... from exact source 172e2a... and passed ALL five deploy,
+// Worker-version, direct/canonical health, and original SHA-256 asset gates.
+// Its sole later failed step was a hunting production check: the hunting hub
+// and turkey browser checks PASSED, but the deer SSR hero matcher expected the
+// alt attribute to close immediately after "buck". The complete actual alt
+// continues with habitat detail, so the old regular expression rejected valid
+// SSR output. The current source fixes the alt matcher, asserts eager/high LCP,
+// and self-tests full-length/reordered ALT strings. Preserve this one immutable
+// Worker release's source-proven original bytes ONLY; do not certify the old
+// failed deer test or loosen ANY next-release verification.
+const NOV15_PUBLISHED_DEER_HERO_ALT_MATCHER = Object.freeze({
+  runId: 43744754206,
+  jobId: 132905483302,
+  sourceSha: '172e2a38415fb3a64fa81f48d1732e660510d76f',
+  workerVersion: '7f0231fa-6b09-4457-9c27-855392484141',
+  failedStep: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -296,6 +315,38 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const deerHero = NOV15_PUBLISHED_DEER_HERO_ALT_MATCHER;
+  if (job.run_id === deerHero.runId && job.id === deerHero.jobId &&
+      failures.length === 1 && failures[0] === deerHero.failedStep) {
+    const repaired = readFileSync('scripts/data/verify-hunting-production.mjs', 'utf8');
+    const proof = [
+      'function findDeerHeroImageTag(html)',
+      '.matchAll(/<img\\b[^>]*>/gi)',
+      'Close view of a white-tailed buck[^"]*',
+      'assert.equal(findDeerHeroImageTag(fullAlt), fullAlt)',
+      'assert.equal(findDeerHeroImageTag(reordered), reordered)',
+      'findDeerHeroImageTag(deerHtml)',
+      'findDeerHeroImageTag(canonicalDeerHtml)',
+      'loading="eager"',
+      'fetchpriority="high"',
+    ];
+    if (!proof.every((needle) => repaired.includes(needle)) ||
+        repaired.includes('(?=[^>]*alt="Close view of a white-tailed buck")')) {
+      throw Error('Deer SSR full-alt source correction and strict eager/high image checks must remain present before accepting Nov15 original asset handoff');
+    }
+    return {
+      eligible: true,
+      mode: 'exact-nov15-deer-full-alt-original-assets-only',
+      exactRun: deerHero.runId,
+      requiredSourceSha: deerHero.sourceSha,
+      requiredWorkerVersion: deerHero.workerVersion,
+      criticalChecks: CRITICAL.length,
+      permittedFailures: failures,
+    };
+  }
+  if (job.run_id === deerHero.runId || job.id === deerHero.jobId) {
+    throw Error('Nov15 deer original asset handoff rejects altered run/job/failed-step evidence: ' + failures.join(', '));
   }
   const mckinney = NOV15_PUBLISHED_MCKINNEY_2027_VALIDATION_FAILURE;
   if (job.run_id === mckinney.runId && job.id === mckinney.jobId &&
