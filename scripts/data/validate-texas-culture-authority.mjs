@@ -1,5 +1,7 @@
 import fs from "node:fs";
 
+import "./validate-texas-icon-evidence.mjs";
+
 const failures = [];
 const read = (path) => fs.readFileSync(path, "utf8");
 const check = (ok, message) => { if (!ok) failures.push(message); };
