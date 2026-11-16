@@ -33,11 +33,11 @@ export function FishingPhoto({
         />
       </div>
       {showCredit ? (
-        <figcaption className={`mt-2 text-[0.68rem] leading-5 ${onDark ? "text-ink-foreground/80" : "text-muted-foreground"}`}>
+        <figcaption className={`mt-2 text-[0.68rem] leading-5 ${onDark ? "text-ink-foreground" : "text-muted-foreground"}`}>
           <span className="font-medium">{/\b(?:bathymetric|topographic|topographical|cartographic|map of)\b/i.test(governedImage.alt) ? "Map credit: " : governedImage.kind === "fish" ? "Fish image credit: " : "Photo credit: "}</span>{governedImage.credit}
-          {governedImage.sourceUrl ? <> · <a href={governedImage.sourceUrl} target="_blank" rel="noreferrer noopener" className={`underline underline-offset-2 ${onDark ? "decoration-ink-foreground/50 hover:text-ink-foreground" : "decoration-border hover:text-foreground"}`}>source</a></> : null}
+          {governedImage.sourceUrl ? <> · <a href={governedImage.sourceUrl} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">source</a></> : null}
           {" · "}
-          <a href={governedImage.licenseUrl} target="_blank" rel="noreferrer noopener" className={`underline underline-offset-2 ${onDark ? "decoration-ink-foreground/50 hover:text-ink-foreground" : "decoration-border hover:text-foreground"}`}>{governedImage.licenseName}</a>
+          <a href={governedImage.licenseUrl} target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">{governedImage.licenseName}</a>
         </figcaption>
       ) : null}
     </figure>
