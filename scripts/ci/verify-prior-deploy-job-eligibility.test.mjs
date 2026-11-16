@@ -394,3 +394,32 @@ test('Nov16 Conroe old-asset handoff fails closed for wrong job/run, added failu
       /Required published-Worker safety gate not successful|Nov16 Conroe original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+
+test('Nov16 published category Worker original bytes qualify only after strict one-reset source repair', () => {
+  const answer = qualifyPriorDeployJob(evidence({
+    runId: 43948840401, jobId: 133585600321,
+    failure: 'Verify base production surfaces',
+  }));
+  assert.equal(answer.eligible, true);
+  assert.equal(answer.mode, 'exact-nov16-category-transport-original-assets-only');
+  assert.equal(answer.exactRun, 43948840401);
+  assert.equal(answer.requiredSourceSha, 'ac29989a09dcf04317b386283f3019947138bf13');
+  assert.equal(answer.requiredWorkerVersion, 'cb71c303-a15d-4873-a2a4-8f02f787a6f6');
+  assert.equal(answer.criticalChecks, 5);
+  assert.deepEqual(answer.permittedFailures, ['Verify base production surfaces']);
+});
+
+test('Nov16 category Worker original bytes reject altered run/job/failed steps and missing asset or runtime proof', () => {
+  const original = { runId: 43948840401, jobId: 133585600321, failure: 'Verify base production surfaces' };
+  for (const mutation of [
+    {runId: 43948840402}, {jobId: 133585600322},
+    {failure: 'Verify fishing lake robots and sitemap publication parity'},
+    {additional: ['Verify sports venue editorial production']},
+    {additional: ['Verify current and previous release JS/CSS on both public origins']},
+    ...required.map(omit => ({omit})),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({...original, ...mutation})),
+      /Required published-Worker safety gate not successful|Nov16 category transport original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
