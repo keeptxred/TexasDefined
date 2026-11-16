@@ -1,4 +1,5 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Container } from "@/components/layout/Container";
 import { TierraBlancaVisitorEvidence } from "@/components/explore/TierraBlancaVisitorEvidence";
 
@@ -61,6 +62,14 @@ const itineraries = [
 export const Route = createLazyFileRoute("/explore/tierra-blanca-creek")({ component: TierraBlancaCreekGuide });
 
 function TierraBlancaCreekGuide() {
+  // RootShell hydration can finish before this lazy route's own React tree.
+  // Both first-party lodging scripts must wait for this commitment before
+  // replacing children in the explicit commercial slot.
+  useEffect(() => {
+    document.documentElement.dataset.tdTierraBlancaHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:tierra-blanca-hydrated"));
+    return () => { delete document.documentElement.dataset.tdTierraBlancaHydrated; };
+  }, []);
   return (
     <main className="pb-20">
       <Container className="pt-8">

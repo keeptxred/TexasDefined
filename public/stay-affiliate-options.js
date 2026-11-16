@@ -811,6 +811,10 @@
     // All county and city authority routes have a React hydration readiness
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
+    // The RootShell signal alone does not protect this lazy article from
+    // React #418 if booking DOM is inserted before its own hydration.
+    if (path === "/explore/tierra-blanca-creek" &&
+        document.documentElement.dataset.tdTierraBlancaHydrated !== "1") return true;
     if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
     // Do not mutate the first curated article or stay slot before the lazy
     // metro outlet has hydrated. A root-level ready event alone is too early.
@@ -860,6 +864,7 @@
     window.addEventListener("texasdefined:dallas-road-guide-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:tierra-blanca-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
