@@ -50,5 +50,8 @@ jobs:
               assert 'href="/explore/tierra-blanca-creek"' in linked, f"Missing live reciprocal guide link: {reciprocal_path}"
           sitemap = get("/sitemap-explore.xml")
           assert "<loc>https://texasdefined.com/explore/tierra-blanca-creek</loc>" in sitemap, "Canonical missing in Explore sitemap"
+          guide_start = sitemap.index("<loc>https://texasdefined.com/explore/tierra-blanca-creek</loc>")
+          guide_end = sitemap.index("</url>", guide_start)
+          assert "<lastmod>2026-11-16</lastmod>" in sitemap[guide_start:guide_end], "Tierra Blanca XML lastmod must match substantive editorial revision"
           print("PASS Tierra Blanca guide, source-grounded content, canonical and sitemap on deployed site")
           PY
