@@ -105,6 +105,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const texasCultureAuthorityPages = new Set();
   if (changedFiles.some(path => [
     'src/data/texas-icon-chapter-evidence.ts',
+    'src/data/texas-icon-field-notes.ts',
     'src/data/things-unique-to-texas.ts',
     'src/data/texas-evergreen-guides.ts',
     'src/routes/things-unique-to-texas_.$category.tsx',

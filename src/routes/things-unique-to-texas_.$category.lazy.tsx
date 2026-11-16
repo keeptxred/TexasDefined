@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { TEXAS_BRAND_DIRECTORY_COUNT, TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { TEXAS_CHAPTER_EVIDENCE } from "@/data/texas-icon-chapter-evidence";
+import { TEXAS_ICON_FIELD_NOTES } from "@/data/texas-icon-field-notes";
 
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
   "food-drink": [
@@ -70,6 +71,7 @@ export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({ 
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
   const chapterEvidence = TEXAS_CHAPTER_EVIDENCE[category.slug];
+  const sourceBackedEntries = category.items.filter((entry) => TEXAS_ICON_FIELD_NOTES[entry.id]);
   const isTexasBrands = category.slug === "texas-brands";
   const isLandmarks = category.slug === "landmarks";
   const tripPlanningCategory = ["natural-wonders", "landmarks", "roadside-small-towns", "food-drink"].includes(category.slug);
@@ -137,34 +139,66 @@ function TexasIconCategoryPage() {
                       </article>
                     ))}
                   </div>
-                  <p className="mt-8 max-w-3xl text-sm leading-7 text-muted-foreground">This analysis compares historical and institutional sources. It does not represent first-hand site visits, consumer testing, or current operating-hour verification.</p>
+
                 </section>
               )}
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {category.items.map((entry, chapterIndex) => {
-                  const href = isTexasBrands && entry.id === 38
-                    ? "/article/heb-texas-grocery-history-culture"
-                    : isTexasBrands && entry.id === 36
-                      ? "/article/bucees-texas-road-trip-history"
-                      : texasIconCanonicalHref(entry);
-                  const content = (
-                    <div className="flex items-start gap-4">
-                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{chapterIndex + 1}</span>
-                      <div>
-                        <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
-                        <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                        {href && <p className="mt-4 text-sm font-semibold text-primary">Read the related TexasDefined coverage →</p>}
-                      </div>
-                    </div>
-                  );
-                  return href ? (
-                    <Link key={entry.id} to={href} className="group border border-border bg-card p-6 transition-colors hover:border-primary/50 hover:bg-muted/30">{content}</Link>
-                  ) : (
-                    <article key={entry.id} className="border border-border bg-card p-6">{content}</article>
-                  );
-                })}
-              </div>
+              {sourceBackedEntries.length > 0 && (
+              <section aria-labelledby="source-backed-entries-heading" className="mb-10">
+                <h2 id="source-backed-entries-heading" className="font-display text-3xl">Entry-specific research you can use</h2>
+                <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+                  These selected entries include direct documentary evidence, distinctions that prevent misleading claims, and practical next steps. Links go to the source operator, public agency, historical record or a longer TexasDefined guide. The remaining entries are concise reference pointers, not promises of verified public access.
+                </p>
+                <nav aria-label="Jump to a researched entry" className="mt-5 flex flex-wrap gap-2">
+                  {sourceBackedEntries.map((entry) => (
+                    <a key={entry.id} href={`#texas-icon-${entry.id}`} className="rounded-full border border-border px-3 py-2 text-sm font-medium hover:border-primary/50 hover:text-primary">{entry.name}</a>
+                  ))}
+                </nav>
+              </section>
+              )}
+
+              <section aria-labelledby="chapter-entry-register">
+                <h2 id="chapter-entry-register" className="mb-6 font-display text-3xl">Places, traditions and reference notes</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {category.items.map((entry, chapterIndex) => {
+                    const href = isTexasBrands && entry.id === 38
+                      ? "/article/heb-texas-grocery-history-culture"
+                      : isTexasBrands && entry.id === 36
+                        ? "/article/bucees-texas-road-trip-history"
+                        : texasIconCanonicalHref(entry);
+                    const fieldNote = TEXAS_ICON_FIELD_NOTES[entry.id];
+                    return (
+                      <article id={`texas-icon-${entry.id}`} key={entry.id} className="scroll-mt-28 border border-border bg-card p-6">
+                        <div className="flex items-start gap-4">
+                          <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{chapterIndex + 1}</span>
+                          <div className="min-w-0">
+                            <h3 className="font-display text-2xl leading-tight">
+                              {href ? <Link to={href} className="hover:text-primary hover:underline">{entry.name}</Link> : entry.name}
+                            </h3>
+                            <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
+                            {fieldNote && (
+                              <div className="mt-5 border-t border-border pt-4">
+                                <h4 className="text-sm font-bold text-foreground">{fieldNote.topic}</h4>
+                                <p className="mt-2 text-sm leading-7 text-muted-foreground">{fieldNote.fact}</p>
+                                <p className="mt-3 text-sm leading-7"><span className="font-semibold">Use this information:</span> {fieldNote.usefulFor}</p>
+                                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Supporting records</p>
+                                <ul className="mt-2 space-y-1 text-sm">
+                                  {fieldNote.sources.map((source) => (
+                                    <li key={source.url}>
+                                      <a href={source.url} className="font-medium text-primary underline decoration-primary/40 underline-offset-4" {...(source.url.startsWith("https://") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{source.label}</a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {href && <p className="mt-4 text-sm font-semibold"><Link to={href} className="text-primary underline-offset-4 hover:underline">Read the related TexasDefined guide →</Link></p>}
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
 
               {isTexasBrands && (
                 <section className="mt-12">
