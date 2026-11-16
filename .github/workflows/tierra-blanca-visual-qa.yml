@@ -103,12 +103,13 @@ jobs:
           path: .artifacts/tierra-blanca-chrome-validated.txt
           key: tierra-blanca-real-chrome-v2-${{ hashFiles('src/routes/explore.tierra-blanca-creek.lazy.tsx', 'src/components/explore/TierraBlancaVisitorEvidence.tsx', 'scripts/ci/verify-tierra-blanca-visual.mjs', '.github/workflows/tierra-blanca-visual-qa.yml') }}
       - name: Preserve real mobile and desktop visual evidence
+        id: visual_artifact
         if: always() && steps.scope.outputs.changed == 'yes'
         uses: actions/upload-artifact@v4
         with:
           name: tierra-blanca-authority-visual-${{ github.run_id }}
           path: artifacts/tierra-blanca-authority-visual/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
       # Publish independently inspectable proof of a real Chrome run, not a
       # green pre-merge specification or cached HEAD-only acceptance.
@@ -118,10 +119,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           CHROME_RESULT: ${{ steps.live_chrome.outcome }}
+          VISUAL_ARTIFACT_RESULT: ${{ steps.visual_artifact.outcome }}
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$CHROME_RESULT" == "success" ]]; then
+          if [[ "$CHROME_RESULT" == "success" && "$VISUAL_ARTIFACT_RESULT" == "success" ]]; then
             state=success
             description="Real desktop and mobile Chrome map, FWS photo and layout acceptance passed"
           else
