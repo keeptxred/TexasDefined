@@ -35,7 +35,9 @@ jobs:
       - name: Read existing account's stored post-release memory-exception logs
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_OBSERVABILITY_API_TOKEN: ${{ secrets.CLOUDFLARE_OBSERVABILITY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+          CLOUDFLARE_OBSERVABILITY_API_TOKEN: ${{ secrets.CLOUDFLARE_OBSERVABILITY_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
           WORKER_MEMORY_START_UTC: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.updated_at || '' }}
         run: node scripts/ci/audit-worker-memory-telemetry.mjs
       - name: Retain source-version, event coverage, and failed-evidence record
