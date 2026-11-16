@@ -60,13 +60,33 @@ jobs:
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: source_scope
+        name: Require external TPWD recheck only when official-source claims change in PR
+        shell: bash
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" != "pull_request" ]]; then
+            echo "review=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --name-only HEAD^1 HEAD > /tmp/fishing-source-changes.txt
+          if grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing\.(regulations|techniques|species)|scripts/ci/check-fishing-(13-source-state|species-tpwd-sources)\.mjs)' /tmp/fishing-source-changes.txt; then
+            echo "review=true" >> "$GITHUB_OUTPUT"
+            echo "Official-source-sensitive fishing changes require live TPWD validation"
+          else
+            echo "review=false" >> "$GITHUB_OUTPUT"
+            echo "Loader/SSR-only PR: no official TPWD claim changed. Scheduled Mon/Thu source verification remains fail-closed."
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - id: tpwd
+        if: ${{ steps.source_scope.outputs.review == 'true' }}
         name: Confirm regulations, lake technique evidence and report state
         run: node scripts/ci/check-fishing-13-source-state.mjs
       - id: tpwd_species
+        if: ${{ steps.source_scope.outputs.review == 'true' }}
         name: Check nine new TPWD fish identity and biology source pages
         run: node scripts/ci/check-fishing-species-tpwd-sources.mjs
       - name: Open deduplicated official source investigation issue

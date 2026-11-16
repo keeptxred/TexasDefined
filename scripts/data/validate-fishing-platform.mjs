@@ -75,7 +75,9 @@ if (!failures.length) {
     if (overviewRoute.includes(helper) || sectionRoute.includes(helper)) failures.push(`Fishing routes must not orchestrate TPWD helper directly: ${helper}`);
   }
   if (!overviewRoute.includes("fishingReportsQuery({ lakeId: lake.id, limit: 10 }, lake)")) failures.push("Generic fishing lakes are not hydrated from the current TPWD source through fishingReportsQuery.");
-  if ((sectionRoute.match(/fishingReportsQuery\(\{ lakeId: lake\.id, limit: 20 \}, params\.section === "reports" \? lake : undefined\)/g) ?? []).length < 2) failures.push("Lake Conroe and showcase report sections must request official TPWD hydration only on the reports tab.");
+  const reportsOnlyLoader = 'params.section === "reports" ? context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake)) : Promise.resolve([])';
+  if (sectionRoute.split(reportsOnlyLoader).length - 1 !== 2) failures.push("Lake Conroe and showcase report sections must request official TPWD hydration only on the reports tab.");
+  if (sectionRoute.includes('fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)')) failures.push("Non-report fishing section pages must not request a stored report inventory.");
 
   if (ui.includes("lake-conroe-prototype")) failures.push("Lake Conroe client UI must not import the prototype catalog.");
   if (!ui.includes("lake-conroe-routing") || !ui.includes("pageData.sections") || !ui.includes("pageData.copy")) failures.push("Lake Conroe client routing/server hydration contract missing.");
