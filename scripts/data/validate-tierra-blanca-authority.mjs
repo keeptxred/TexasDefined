@@ -19,7 +19,8 @@ function contains(text, required, where) {
 }
 contains(head, [
   'canonicalPath = "/explore/tierra-blanca-creek"',
-  'dateModified: lastSubstantiveRevision',
+  'dateModified: lastSubstantiveRevision', 'publishedTime: firstPublished', 'datePublished: firstPublished',
+  'const firstPublished = "2026-11-15"', 'const lastSubstantiveRevision = "2026-11-16"',
   '"@type": "Article"', 'documentedRefugeImage', 'creditText: "Christena Stephens / U.S. Fish and Wildlife Service"',
   '"@type": "BreadcrumbList"', 'headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo"',
   "buildMeta(",
@@ -40,6 +41,8 @@ contains(article, [
   'https://thc.texas.gov/preserve/archeology-texas/archeology-faq',
   'https://access-ok.okeeffemuseum.org/object/615/',
   'https://tpwd.texas.gov/state-parks/palo-duro-canyon',
+  'https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates',
+  'closed to the public since March 2025',
   '/explore/near/amarillo/road-trips', '/explore/near/amarillo/day-trips',
   '/destination/palo-duro-canyon-state-park',
 ], "Main guide / editorial sourcing");
@@ -48,7 +51,7 @@ assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at lea
 assert.ok(article.includes('style={{ listStyleType: "decimal", paddingLeft: "1.5rem" }}'), "Watercourse steps need visible semantic ordered-list markers without expanding the global CSS bundle");
 assert.ok(!/<li><strong>[1-4]\.\s/.test(article), "Do not manually number items inside an ordered list: screen readers and extractors may read duplicate numbers");
 
-contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'data-tierra-blanca-orientation-map', '34.919517', '-102.111118', '34.984709', '-101.701867', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, agency-coordinate no-tiles fallback, credited refuge photography, trails and route planning');
+contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'data-tierra-blanca-orientation-map', '34.919517', '-102.111118', '34.984709', '-101.701867', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', 'pphm-temporary-closure-updates', 'closed to visitors since March 2025', '/explore/near/amarillo/road-trips'], 'Actual map, agency-coordinate no-tiles fallback, credited refuge photography, trails and route planning');
 contains(amarillo, [
   'metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips")',
   'href="/explore/tierra-blanca-creek"',
@@ -69,7 +72,7 @@ contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'na
 execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
 execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
-contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
+contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"', 'closed to the public since March 2025', 'pphm-temporary-closure-updates'], "Live reciprocal links and verified museum closure");
 for (const script of ["scripts/ci/verify-tierra-blanca-quarterly.mjs", "scripts/ci/report-tierra-blanca-authority-failure.mjs"]) {
   execFileSync(process.execPath, ["--check", script], { stdio: "pipe" });
 }
@@ -87,6 +90,8 @@ contains(sourceAudit, [
   "tshaonline.org/handbook/entries/tierra-blanca-creek",
   "fws.gov/refuge/buffalo-lake/visit-us", "fws.gov/refuge/buffalo-lake/about-us",
   "tpwd.texas.gov/state-parks/palo-duro-canyon",
+  "www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+  "temporarily closed",
   "sitemap-explore.xml", "editorialReviewDateAdvanced: false",
 ], "Quarterly live and factual contract");
 contains(failureReporter, ["gh", "issue", "Tierra Blanca Creek quarterly authority source review failed"], "Scheduled editorial failure escalation");
