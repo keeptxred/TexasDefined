@@ -65,6 +65,11 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+contains(article, ['useEffect', 'tdTierraBlancaHydrated = "1"', 'texasdefined:tierra-blanca-hydrated', 'delete document.documentElement.dataset.tdTierraBlancaHydrated'], 'Lazy route must explicitly signal post-hydration readiness');
+for (const path of ["public/expedia-travel.js", "public/stay-affiliate-options.js"]) {
+  const script = read(path);
+  contains(script, ['tdTierraBlancaHydrated !== "1"', 'texasdefined:tierra-blanca-hydrated'], path + ': defer commercial DOM mutations until lazy article hydrates');
+}
 assert.ok(article.indexOf('<figure className="border-b border-border py-10">') < article.indexOf('aria-labelledby="first-answer"'), "Photo hero must introduce the creek story before the dense first-answer panel");
 assert.ok(article.indexOf("data-stay-nearby-slot") > article.indexOf('aria-labelledby="sources"'), "Dedicated affiliate slot must follow the entire researched guide and citation section");
 assert.equal(article.split("data-stay-nearby-slot").length - 1, 1, "Exactly one affiliate slot should own booking choices");
