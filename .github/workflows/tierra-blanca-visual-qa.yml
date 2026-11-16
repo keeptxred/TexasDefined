@@ -8,6 +8,13 @@ on:
       - 'src/components/explore/TierraBlancaVisitorEvidence.tsx'
       - 'scripts/ci/verify-tierra-blanca-visual.mjs'
       - '.github/workflows/tierra-blanca-visual-qa.yml'
+  # A workflow-only maintenance change can verify already-live editorial DOM
+  # immediately, even when a separate site's global postdeploy gate fails.
+  # Push evidence is never certified as proof of an unpublished Worker commit.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tierra-blanca-visual-qa.yml'
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
@@ -45,7 +52,7 @@ jobs:
     # A deployed Worker can be healthy even when an unrelated global publish
     # gate fails (for example a fishing sitemap check). Independently prove
     # that the Worker really published before accepting real-browser evidence.
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' || github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -145,7 +152,7 @@ jobs:
       # Publish independently inspectable proof of a real Chrome run, not a
       # green pre-merge specification or cached HEAD-only acceptance.
       - name: Record verified Chrome outcome on exact deployed commit
-        if: ${{ always() && steps.scope.outputs.changed == 'yes' }}
+        if: ${{ always() && steps.scope.outputs.changed == 'yes' && github.event_name != 'push' }}
         env:
           GH_TOKEN: ${{ github.token }}
           DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
