@@ -13,7 +13,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Continental Club Austin History: South Congress Since 1955",
+      title: "Continental Club Austin History: South Congress Music Landmark",
       description: guide.dek,
       type: "article",
     }),

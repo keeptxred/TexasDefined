@@ -43,6 +43,11 @@ const expectedNov14Additions = {
     "The local radio show predates the national studio breakthrough"
   ]
 };
+const expectedTitles = {
+  "texas-music-cities": "Texas Music Cities: Austin, Houston & Beyond | Texas Defined",
+  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark | Texas Defined",
+  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening | Texas Defined"
+};
 const viewports=[{name:"mobile",width:390,height:844,isMobile:true},{name:"desktop",width:1365,height:900,isMobile:false}];
 const report={checkedAt:new Date().toISOString(),checks:[],failures:[]};
 await mkdir(dir,{recursive:true});
@@ -61,9 +66,9 @@ try{
    const res=await page.goto(base+"/"+slug+"?_music_chrome="+Date.now().toString(36)+"-"+viewport.name,{waitUntil:"domcontentloaded",timeout:45000});
    check("HTTP 200",res?.status()===200,res?.status());
    check("one H1",await page.locator("h1").count()===1);
-   if(slug==="texas-music-cities"){
+   if(expectedTitles[slug]){
     const searchTitle=await page.title();
-    check("complete statewide music cities search title",searchTitle==="Texas Music Cities: Austin, Houston & Beyond | Texas Defined",searchTitle);
+    check(slug==="texas-music-cities"?"complete statewide music cities search title":"historically accurate venue search title",searchTitle===expectedTitles[slug],searchTitle);
    }
    check("one main landmark",await page.locator("main").count()===1);
    const mainText=await page.locator("main").innerText({timeout:12000}).catch(()=>"");
