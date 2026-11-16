@@ -97,7 +97,7 @@ async function verify(slug){
   const canonical=(html.match(/<link\b[^>]*>/gi)??[]).filter(x=>(attrs(x,"rel")??"").toLowerCase()==="canonical").map(x=>attrs(x,"href"));
   if(canonical.length!==1||canonical[0]!==expected)errors.push(kind+" canonical "+JSON.stringify(canonical));
   if(!/<title\b[^>]*>[^<]{14,}<\/title>/i.test(html))errors.push(kind+" title missing");
-  const servedTitle=(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]??"").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
+  const servedTitle=(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]??"").replace(/&amp;/g,"&").replace(/(?:&#x27;|&#39;|&#039;|&apos;)/gi,"\u0027").replace(/\s+/g," ").trim();
   if(expectedTitles[slug] && servedTitle!==expectedTitles[slug])
     errors.push(kind+(slug==="texas-music-cities"?" malformed/stale statewide title: ":" historically misleading venue title: ")+JSON.stringify(servedTitle));
   if(!/<meta\b[^>]+name=["']description["']/i.test(html))errors.push(kind+" description missing");
