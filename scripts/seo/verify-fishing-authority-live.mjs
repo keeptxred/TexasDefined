@@ -13,6 +13,7 @@ const base = (process.env.FISHING_AUDIT_ORIGIN || inventory.origin).replace(/\/$
 const out = process.env.FISHING_AUDIT_OUTPUT || "fishing-live-authority-report.json";
 const size = Math.max(1, Number(process.env.FISHING_AUDIT_BATCH_SIZE || "120"));
 const full = process.env.FISHING_AUDIT_FULL === "1";
+const speciesOnly = process.env.FISHING_AUDIT_SPECIES_ONLY === "1";
 const concurrency = Math.min(3, Math.max(1, Number(process.env.FISHING_AUDIT_CONCURRENCY || "2")));
 const timeoutMs = 12000;
 const getAttr = (tag, name) => {
@@ -82,6 +83,8 @@ function auditHtml(row, fetched) {
   if (row.family.startsWith("lake-") && !html.includes("Connected Texas fishing and travel guides")) critical.push("missing_semantic_lake_crosslinks");
   if (row.family.startsWith("lake-") && contextual.length < 5) critical.push("too_few_contextual_internal_links");
   if (row.family === "lake-overview" && tags(html,"img").length === 0) warnings.push("no_HTML_image_verify_governed_photo_or_map");
+  if (row.family === "species" && tags(html, "img").length === 0) critical.push("species_identification_photo_missing");
+  if (row.family === "species" && !/tpwd\.texas\.gov/.test(html)) critical.push("species_TPWD_reference_missing");
   if (row.family === "lake-section" && row.section === "regulations" && official.length < 1) critical.push("no_direct_official_regulation_source_link");
   if (row.family === "lake-section" && ["camping","nearby"].includes(row.section) && external.length < 1) critical.push("missing_campground_or_attraction_source");
   if (!html.includes("application/ld+json")) { if (expectedIndex) critical.push("missing_schema_JSONLD"); else warnings.push("missing_schema_JSONLD"); }
@@ -113,7 +116,7 @@ const dynamic = sitemap.pages.filter((p) => !seen.has(p)).map((path) => ({
 const fullList = [...inventory.rows, ...dynamic];
 const totalBatches = Math.ceil(fullList.length/size);
 const batch = full ? 0 : Math.max(0, Math.min(totalBatches-1, Number(process.env.FISHING_AUDIT_BATCH_INDEX ?? (Math.floor(Date.now()/86400000)%totalBatches))));
-const selected = full ? fullList : fullList.slice(batch*size,(batch+1)*size);
+const selected = speciesOnly ? fullList.filter((row) => row.family === "species") : full ? fullList : fullList.slice(batch*size,(batch+1)*size);
 let current = 0;
 const results = [];
 async function worker() {
@@ -136,7 +139,7 @@ const report = {
   generatedAt: new Date().toISOString(), commit: process.env.GITHUB_SHA || null,
   registeredTotal: inventory.rows.length, dynamicFromSitemap: dynamic.length,
   sitemapDiscoveryError: sitemap.error, urlCount: fullList.length,
-  batch, totalBatches, scanned: results.length, failures: failed.length,
+  batch, totalBatches, speciesOnly, scanned: results.length, failures: failed.length,
   noindexNotAuthority: noindex.length,
   fullAuthorityAccepted: 0,
   explanation: "Passing HTML screen is not proof of accurate original facts, source freshness, real photography, mobile UX or Google acceptance.",
