@@ -19,6 +19,7 @@ const routes = [
   '/texas-high-school-football-isds/stephenville-isd',
   '/fishing/lakes',
   '/fishing/lakes/o-h-ivie-lake',
+  '/fishing/lakes/lake-conroe/camping',
   '/sports/teams/dallas-mavericks',
   '/sports/teams/san-antonio-spurs',
   '/destination/sam-rayburn-house',
@@ -28,7 +29,7 @@ const routes = [
 ];
 const results = [];
 const run = process.env.GITHUB_RUN_ID || 'local';
-// A transition between Worker versions invalidates a 34-route acceptance even
+// A transition between Worker versions invalidates a full 36-request, dual-origin acceptance even
 // when each individual request happens to return HTTP 200.
 let pinnedWorkerVersion = process.env.MEMORY_EXPECTED_WORKER_VERSION || '';
 
