@@ -71,7 +71,7 @@ jobs:
             exit 0
           fi
           git diff --name-only HEAD^1 HEAD > /tmp/fishing-source-changes.txt
-          if grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing\\.(regulations|techniques|species)|scripts/ci/check-fishing-(13-source-state|species-tpwd-sources)\\.mjs|\\.github/workflows/fishing-thirteen-authority\\.yml)' /tmp/fishing-source-changes.txt; then
+          if grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing\.(regulations|techniques|species)|scripts/ci/check-fishing-(13-source-state|species-tpwd-sources)\.mjs)' /tmp/fishing-source-changes.txt; then
             echo "review=true" >> "$GITHUB_OUTPUT"
             echo "Official-source-sensitive fishing changes require live TPWD validation"
           else
