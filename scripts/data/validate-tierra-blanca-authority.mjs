@@ -28,6 +28,8 @@ contains(head, [
 ], "Head metadata and canonical");
 contains(publicRoutes, ['"/explore/tierra-blanca-creek"'], "Public route registry");
 assert.ok((sitemap.match(/"\/explore\/tierra-blanca-creek"/g) || []).length >= 2, "Normal and fallback XML sitemap must include authority guide");
+contains(sitemap, ['TIERRA_BLANCA_EDITORIAL_LASTMOD = "2026-11-16"', 'path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined'], "Accurate substantive XML lastmod in normal and fallback sitemap");
+assert.equal(sitemap.split('path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined').length - 1, 2, "Tierra Blanca normal/fallback sitemap revisions must stay synchronized");
 contains(article, [
   'createLazyFileRoute("/explore/tierra-blanca-creek")',
   'Tierra Blanca Creek', 'Prairie Dog Town Fork', 'Palo Duro Creek',
