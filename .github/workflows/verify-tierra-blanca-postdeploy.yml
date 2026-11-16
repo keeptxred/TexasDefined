@@ -35,6 +35,9 @@ jobs:
               "buffalo-lake-snowscape.jpg",
               "rio_grande_wild_turkey_pair",
               "Travel &amp; Outdoors Desk",
+              "Panhandle-Plains Historical Museum",
+              "closed to the public since March 2025",
+              "pphm-temporary-closure-updates",
           ):
               assert needle.lower() in page.lower(), f"Live article missing {needle}"
           for reciprocal_path in (
