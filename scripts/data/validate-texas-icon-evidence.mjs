@@ -82,7 +82,7 @@ for (const [id, needle] of [
   [88, "Caddo Nation"], [93, "Mission Control"], [123, "Reconstruction"],
   [130, "Elmgreen"], [146, "never cross flooded"], [185, "General Granger"],
   [201, "540 cranes"], [212, "Laguna Atascosa"], [219, "spring flow"], [238, "1853 blackface"],
-]) check(notes[id]?.fact?.includes(needle) || notes[id]?.usefulFor?.includes(needle), `Core verified distinction missing for entry ${id}: ${needle}`);
+]) check((notes[id]?.fact ?? "").toLowerCase().includes(needle.toLowerCase()) || (notes[id]?.usefulFor ?? "").toLowerCase().includes(needle.toLowerCase()), `Core verified distinction missing for entry ${id}: ${needle}`);
 
 if (failures.length) {
   for (const failure of failures) console.error("FAIL", failure);
