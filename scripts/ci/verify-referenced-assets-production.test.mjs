@@ -930,3 +930,30 @@ test('known published network-error incident requires exact GitHub failure, heal
   assert.match(wf,/recertify-transient-asset-handoff\.mjs --verify-job/);
   assert.match(wf,/recertify-transient-asset-handoff\.mjs --repair/);
 });
+
+// Real Nov 16 Worker published from 0b8a3ba but its cache-busted Conroe
+// camping parity check FAILED: preserve original bytes only, not its release.
+test('exact current published Nov16 500 asset handoff keeps fail-closed worker, source, and dual-origin checks', () => {
+  const mandatory=[
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Verify current and previous release JS/CSS on both public origins',
+  ];
+  const fail='Verify fishing lake robots and sitemap publication parity';
+  const job={name:'deploy',run_id:43957118581,id:133614493520,conclusion:'failure',
+    steps:[...mandatory.map(name=>({name,conclusion:'success'})),{name:fail,conclusion:'failure'}]};
+  const exact=qualifyPriorDeployJob({jobs:[job]});
+  assert.equal(exact.mode,'exact-nov16-conroe-500-original-assets-only');
+  assert.equal(exact.requiredWorkerVersion,'e2e84b7d-cae7-46a1-ace1-3ab7f20de1b3');
+  assert.equal(exact.requiredSourceSha,'0b8a3ba134e5d03bb07b5575b19611d2a90c932b');
+  assert.deepEqual(exact.permittedFailures,[fail]);
+  for (const mutation of [
+    {...job,run_id:job.run_id+1},
+    {...job,id:job.id+1},
+    {...job,steps:[...job.steps,{name:'Verify canonical production health again',conclusion:'failure'}]},
+    {...job,steps:job.steps.filter(step=>step.name!==fail)},
+    {...job,steps:job.steps.map(step=>step.name==='Verify current and previous release JS/CSS on both public origins'?{...step,conclusion:'failure'}:step)},
+  ]) assert.throws(()=>qualifyPriorDeployJob({jobs:[mutation]}),/unapproved|original-byte|Required published/);
+});
