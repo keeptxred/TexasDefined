@@ -81,8 +81,10 @@ if (!failures.length) {
     if (!routeSource.includes('await import("@/data/fishing/queries")')) failures.push("Showcase route must lazy-load fishing repository queries.");
     if (!routeSource.includes("isShowcaseLakeSlug") || !routeSource.includes("getShowcaseLakePageData({ data: { slug: params.slug } })")) failures.push("Showcase route must request only its canonical lake through the shared server data boundary.");
     if (routeSource.includes("getShowcaseLakesPageData()")) failures.push("Showcase route must not hydrate every showcase lake and its live-level source for one page request.");
-    for (const query of ["fishingGuidesQuery", "fishingReportsQuery", "fishingBusinessesQuery", "fishingPlacementsQuery"]) if (!routeSource.includes(query)) failures.push(`Showcase route missing local graph query: ${query}`);
+    for (const query of ["fishingGuidesQuery", "fishingReportsQuery", "fishingPlacementsQuery"]) if (!routeSource.includes(query)) failures.push(`Showcase route missing relevant section query: ${query}`);
   }
+  if (!overviewRoute.includes("fishingBusinessesQuery")) failures.push("Showcase overview must retain verified local business inventory.");
+  if (sectionRoute.includes("fishingBusinessesQuery")) failures.push("Showcase section routes must not fetch unused business inventory.");
   if (!sectionRoute.includes("isShowcaseLakeSection") || !sectionRoute.includes("showcaseLakeCanonicalPath")) failures.push("Showcase section routing/canonical contract missing.");
   for (const schema of ['"@type": "WebPage"', '"@type": "Reservoir"', '"@type": "BreadcrumbList"', '"@type": "FAQPage"']) if (!overviewRoute.includes(schema)) failures.push(`Showcase overview schema missing: ${schema}`);
   if (!sectionRoute.includes('"@type": "WebPage"') || !sectionRoute.includes('"@type": "BreadcrumbList"')) failures.push("Showcase section schema incomplete.");
