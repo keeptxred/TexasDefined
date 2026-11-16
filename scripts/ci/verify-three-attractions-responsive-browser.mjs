@@ -66,20 +66,36 @@ try {
         assert.ok(currentReview?.sourceCheckedAt && currentReview.authorityGuide?.sources?.length,
           guide.slug + " must have actual operator sources and a dated review in the canonical catalog");
         const expectedEvidence = {
+          slug: guide.slug,
           reviewDate: currentReview.sourceCheckedAt,
+          displayedDate: new Date(currentReview.sourceCheckedAt + "T12:00:00Z").toLocaleDateString(
+            "en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }),
           sourceUrls: currentReview.authorityGuide.sources.map((source) => source.url),
         };
-        // React.lazy and streaming can attach the heading before all links
-        // render. Require the actual source links and review date, not a shell.
-        await page.waitForFunction(({ reviewDate, sourceUrls }) => {
-          return [...document.querySelectorAll('section[aria-labelledby="destination-authority-sources"]')]
-            .some((section) => {
-              const actualDate = section.querySelector("time[datetime]")?.getAttribute("datetime");
-              const links = [...section.querySelectorAll('a[href^="https://"]')].map((link) => link.href);
-              return actualDate === reviewDate && sourceUrls.every((url) => links.includes(url));
-            });
+        // Two legitimate source owners exist. Historic-site guides render the
+        // COMPLETE DestinationAuthorityGuide with a separate review-log section;
+        // other destinations render the COMPACT DestinationAuthoritySections
+        // with an ISO <time>. Never assume the compact block exists everywhere.
+        // Require one real labelled section, every exact source URL and the
+        // corresponding dated review (in either truthful display structure).
+        await page.waitForFunction(({ slug, reviewDate, displayedDate, sourceUrls }) => {
+          const sections = [
+            ...document.querySelectorAll('section[aria-labelledby="destination-authority-sources"]'),
+            ...document.querySelectorAll('section[aria-labelledby="' + slug + '-sources"]'),
+          ];
+          if (sections.length !== 1) return false;
+          const section = sections[0];
+          const compact = section.getAttribute("aria-labelledby") === "destination-authority-sources";
+          const expectedHeading = compact ? "Primary sources and fact checks" : "Sources used for this guide";
+          if (section.querySelector("h2")?.textContent?.trim() !== expectedHeading) return false;
+          const links = [...section.querySelectorAll('a[href^="https://"]')].map((link) => link.href);
+          if (!sourceUrls.every((url) => links.includes(url))) return false;
+          if (compact) return section.querySelector("time[datetime]")?.getAttribute("datetime") === reviewDate;
+          const reviewLog = document.querySelector('section[aria-labelledby="' + slug + '-review-log"]');
+          return Boolean(reviewLog && reviewLog.querySelector("h2")?.textContent?.trim() === "Latest review"
+            && reviewLog.textContent?.includes("Last recorded source review: " + displayedDate));
         }, expectedEvidence, { timeout: 25000 });
-        const facts = await page.evaluate((alt) => {
+        const facts = await page.evaluate(({ alt, slug }) => {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           const imageBox = image?.getBoundingClientRect();
           const canonical = document.querySelector('link[rel="canonical"]')?.href ?? "";
@@ -101,9 +117,19 @@ try {
             redundantOneQuestionPanel: [...document.querySelectorAll("h2")].some((h) => h.textContent?.trim() === "Common visitor questions"),
             duplicateResearchPanel: Boolean(document.querySelector("#destination-research-sources")),
             primarySourceEvidence: (() => {
-              const section = document.querySelector('section[aria-labelledby="destination-authority-sources"]');
+              const sections = [
+                ...document.querySelectorAll('section[aria-labelledby="destination-authority-sources"]'),
+                ...document.querySelectorAll('section[aria-labelledby="' + slug + '-sources"]'),
+              ];
+              const section = sections[0];
+              const compact = section?.getAttribute("aria-labelledby") === "destination-authority-sources";
+              const reviewLog = document.querySelector('section[aria-labelledby="' + slug + '-review-log"]');
               return {
+                count: sections.length,
+                compact,
                 date: section?.querySelector("time[datetime]")?.getAttribute("datetime") ?? null,
+                reviewLogText: reviewLog?.textContent?.trim() ?? null,
+                reviewLogHeading: reviewLog?.querySelector("h2")?.textContent?.trim() ?? null,
                 links: [...(section?.querySelectorAll('a[href^="https://"]') ?? [])].map((a) => a.href),
                 headings: [...(section?.querySelectorAll("h2") ?? [])].map((heading) => heading.textContent?.trim()),
               };
@@ -124,7 +150,7 @@ try {
             officialSources: [...document.querySelectorAll('a[href^="https://"]')].filter((a) =>
               /official|source|visitor/i.test(a.textContent || "")).length,
           };
-        }, guide.alt);
+        }, { alt: guide.alt, slug: guide.slug });
         assert.ok(facts.title.includes(guide.name), guide.slug + " " + viewport.label + " title");
         assert.equal(facts.canonical, origin + path, guide.slug + " " + viewport.label + " canonical");
         assert.equal(facts.h1Count, 1, guide.slug + " " + viewport.label + " H1 count");
@@ -141,13 +167,25 @@ try {
           assert.ok(!facts.redundantOneQuestionPanel, "Tea Garden must not repeat its 30–60 minute trip answer as a separate one-question panel");
         }
         assert.ok(!facts.duplicateResearchPanel, guide.slug + " must not duplicate source lists");
-        assert.equal(facts.primarySourceEvidence.date, expectedEvidence.reviewDate,
-          guide.slug + " actual review date must agree with the canonical catalog");
+        assert.equal(facts.primarySourceEvidence.count, 1,
+          guide.slug + " must display exactly one complete source section without duplicate panels");
         assert.ok(expectedEvidence.sourceUrls.every((url) => facts.primarySourceEvidence.links.includes(url)),
           guide.slug + " must visibly link every approved primary source; missing: " +
           expectedEvidence.sourceUrls.filter((url) => !facts.primarySourceEvidence.links.includes(url)).join(", "));
-        assert.deepEqual(facts.primarySourceEvidence.headings, ["Primary sources and fact checks"],
-          guide.slug + " source section must retain its accessible heading");
+        if (facts.primarySourceEvidence.compact) {
+          assert.equal(facts.primarySourceEvidence.date, expectedEvidence.reviewDate,
+            guide.slug + " compact review date must match approved canonical source record");
+          assert.deepEqual(facts.primarySourceEvidence.headings, ["Primary sources and fact checks"],
+            guide.slug + " compact source heading must remain accessible");
+        } else {
+          assert.deepEqual(facts.primarySourceEvidence.headings, ["Sources used for this guide"],
+            guide.slug + " full authority source heading must remain accessible");
+          assert.equal(facts.primarySourceEvidence.reviewLogHeading, "Latest review",
+            guide.slug + " full authority review history must have its own labelled section");
+          assert.ok(facts.primarySourceEvidence.reviewLogText?.includes(
+            "Last recorded source review: " + expectedEvidence.displayedDate),
+            guide.slug + " full guide's dated source-review record must match canonical source");
+        }
         assert.ok(!facts.editorialMetaLanguage, guide.slug + " must not show editorial instructions");
         assert.ok(facts.photoCredit.visible && !facts.photoCredit.clipped, guide.slug + " photo credit legibility at " + viewport.width + "px");
         assert.equal(facts.photoCredit.links.length, 2, guide.slug + " exact photograph source and license link");
