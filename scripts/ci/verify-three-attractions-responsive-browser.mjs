@@ -5,11 +5,19 @@
  */
 import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || "/tmp/texasdefined-wp-qa/node_modules/playwright-core");
 
 const origin = "https://texasdefined.com";
+// Consume canonical source records instead of hard-coding review dates or
+// interpreting a partially streamed section as an absent citation.
+const catalogMarker = "export const reviewedAttractionDestinations: Destination[] = ";
+const catalogText = readFileSync("src/data/reviewed-attraction-authorities.ts", "utf8");
+assert.ok(catalogText.includes(catalogMarker), "Canonical attraction records missing");
+const reviewedRecords = JSON.parse(catalogText.split(catalogMarker)[1].trim().replace(/;\s*$/, ""));
+
 const guides = [
   { slug: "san-antonio-japanese-tea-garden", name: "San Antonio Japanese Tea Garden",
     alt: "Stone paths, ponds and garden landscape at the San Antonio Japanese Tea Garden" },
@@ -54,8 +62,23 @@ try {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           return Boolean(image && image.complete && image.naturalWidth > 400 && image.naturalHeight > 300);
         }, guide.alt, { timeout: 25000 });
-        await page.locator('section[aria-labelledby="destination-authority-sources"], section[aria-labelledby="' + guide.slug + '-sources"]').first().waitFor({ state: "attached", timeout: 20000 });
-        await page.waitForTimeout(300);
+        const currentReview = reviewedRecords.find((item) => item.slug === guide.slug);
+        assert.ok(currentReview?.sourceCheckedAt && currentReview.authorityGuide?.sources?.length,
+          guide.slug + " must have actual operator sources and a dated review in the canonical catalog");
+        const expectedEvidence = {
+          reviewDate: currentReview.sourceCheckedAt,
+          sourceUrls: currentReview.authorityGuide.sources.map((source) => source.url),
+        };
+        // React.lazy and streaming can attach the heading before all links
+        // render. Require the actual source links and review date, not a shell.
+        await page.waitForFunction(({ reviewDate, sourceUrls }) => {
+          return [...document.querySelectorAll('section[aria-labelledby="destination-authority-sources"]')]
+            .some((section) => {
+              const actualDate = section.querySelector("time[datetime]")?.getAttribute("datetime");
+              const links = [...section.querySelectorAll('a[href^="https://"]')].map((link) => link.href);
+              return actualDate === reviewDate && sourceUrls.every((url) => links.includes(url));
+            });
+        }, expectedEvidence, { timeout: 25000 });
         const facts = await page.evaluate((alt) => {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           const imageBox = image?.getBoundingClientRect();
@@ -77,7 +100,14 @@ try {
             genericAtGlance: [...document.querySelectorAll("h2")].some((h) => h.textContent?.includes("at a glance")),
             redundantOneQuestionPanel: [...document.querySelectorAll("h2")].some((h) => h.textContent?.trim() === "Common visitor questions"),
             duplicateResearchPanel: Boolean(document.querySelector("#destination-research-sources")),
-            datedPrimarySources: (document.querySelector("#destination-authority-sources")?.closest("section") ?? document.getElementById(alt.includes("San Antonio Japanese Tea Garden") ? "san-antonio-japanese-tea-garden-sources" : alt.includes("Fort Worth Water Gardens") ? "fort-worth-water-gardens-sources" : "houston-botanic-garden-sources")?.closest("section"))?.querySelectorAll("a[href^='https://']")?.length ?? 0,
+            primarySourceEvidence: (() => {
+              const section = document.querySelector('section[aria-labelledby="destination-authority-sources"]');
+              return {
+                date: section?.querySelector("time[datetime]")?.getAttribute("datetime") ?? null,
+                links: [...(section?.querySelectorAll('a[href^="https://"]') ?? [])].map((a) => a.href),
+                headings: [...(section?.querySelectorAll("h2") ?? [])].map((heading) => heading.textContent?.trim()),
+              };
+            })(),
             editorialMetaLanguage: /Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(document.body.innerText),
             photoCredit: (() => {
               const el = document.querySelector("[data-attraction-photo-credit]");
@@ -111,7 +141,13 @@ try {
           assert.ok(!facts.redundantOneQuestionPanel, "Tea Garden must not repeat its 30–60 minute trip answer as a separate one-question panel");
         }
         assert.ok(!facts.duplicateResearchPanel, guide.slug + " must not duplicate source lists");
-        assert.ok(facts.datedPrimarySources >= 1, guide.slug + " must preserve original primary links and source check date");
+        assert.equal(facts.primarySourceEvidence.date, expectedEvidence.reviewDate,
+          guide.slug + " actual review date must agree with the canonical catalog");
+        assert.ok(expectedEvidence.sourceUrls.every((url) => facts.primarySourceEvidence.links.includes(url)),
+          guide.slug + " must visibly link every approved primary source; missing: " +
+          expectedEvidence.sourceUrls.filter((url) => !facts.primarySourceEvidence.links.includes(url)).join(", "));
+        assert.deepEqual(facts.primarySourceEvidence.headings, ["Primary sources and fact checks"],
+          guide.slug + " source section must retain its accessible heading");
         assert.ok(!facts.editorialMetaLanguage, guide.slug + " must not show editorial instructions");
         assert.ok(facts.photoCredit.visible && !facts.photoCredit.clipped, guide.slug + " photo credit legibility at " + viewport.width + "px");
         assert.equal(facts.photoCredit.links.length, 2, guide.slug + " exact photograph source and license link");
