@@ -196,8 +196,37 @@ for (const guide of attractionCertification) {
     if (!new RegExp("<h1\\b[^>]*>\\s*" + guide.name + "\\s*</h1>", "i").test(body)) {
       throw Error("missing original named SSR H1");
     }
-    if (!body.includes("Research sources") || !body.includes("Planning your visit")) {
-      throw Error("visitor guidance or official research missing in server HTML");
+    // These three reviewed attraction routes lead with genuinely distinct
+    // first-screen "visitor essentials", and each has ONE source owner:
+    // full historic-site guides print "Sources used for this guide" + a dated
+    // review log; compact outdoor guides print "Primary sources and fact
+    // checks" + a dated <time>. The 2026-10 template no longer contains
+    // "Research sources" / "Planning your visit". Verify LIVE SSR against
+    // approved source records instead of obsolete heading strings.
+    const approved = reviewedRecords.find((row) => guide.path.endsWith("/" + row.slug));
+    if (!approved?.authorityGuide?.sources?.length || !approved.sourceCheckedAt) {
+      throw Error("missing approved attraction source catalog or review date");
+    }
+    const hasPlan = body.includes(guide.name + ": visitor essentials") && body.includes("Before you go");
+    const sourceHeadings = ["Sources used for this guide", "Primary sources and fact checks"]
+      .filter((heading) => body.includes(heading));
+    if (!hasPlan || sourceHeadings.length !== 1) {
+      throw Error("named visitor guidance or one original operator-source section missing in actual SSR");
+    }
+    const missingSources = approved.authorityGuide.sources
+      .map((item) => item.url)
+      .filter((url) => !body.includes('href="' + url + '"'));
+    if (missingSources.length > 0) {
+      throw Error("source-approved original citations absent from server HTML: " + missingSources.join(", "));
+    }
+    const readableReview = new Date(approved.sourceCheckedAt + "T12:00:00Z")
+      .toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+    const hasDatedReview = body.includes('dateTime="' + approved.sourceCheckedAt + '"')
+      || body.includes('dateTime=\\"' + approved.sourceCheckedAt + '\\"')
+      || body.includes("Last recorded source review: " + readableReview)
+      || body.includes("Last source review: " + approved.sourceCheckedAt);
+    if (!hasDatedReview) {
+      throw Error("reviewed attraction source date missing from public server HTML: " + approved.sourceCheckedAt);
     }
     const graph = structuredGraph(body);
     const canonical = origin + guide.path;
