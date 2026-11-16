@@ -97,6 +97,7 @@ const prebuildChecks = [
   ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
   ['SEO/IMAGE-RIGHTS/PRODUCTION', 'Validate six-URL image licensing production contract and bounded smoke', 'node', ['--test', 'scripts/ci/gsc-image-rights-production.test.mjs']],
+  ['SEO/IMAGE-RIGHTS/PRODUCTION', 'Verify bounded fourteen-image live audit contract', 'node', ['--test', 'scripts/seo/verify-gsc-image-rights-delivery.test.mjs']],
   ['CONTENT/IMAGES', 'Verify source-verified hero image rights, proxy identity and ImageObject bindings', 'node', ['--experimental-strip-types', '--test', 'src/data/image-rights.test.ts']],
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
   ['COMMERCE/PRIVACY', 'Verify receipt Google Customer Reviews payload boundaries', 'node', ['--experimental-strip-types', '--test', 'scripts/data/google-customer-reviews.test.mjs']],
