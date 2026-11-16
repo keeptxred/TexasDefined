@@ -11,6 +11,8 @@ on:
       - 'src/routes/things-unique-to-texas*.tsx'
       - 'src/data/texas-capital-designations-official.ts'
       - 'src/data/texas-icon-chapter-evidence.ts'
+      - 'src/data/texas-icon-field-notes.ts'
+      - 'scripts/data/validate-texas-icon-evidence.mjs'
       - 'src/data/texas-evergreen-guides.ts'
       - 'src/routes/texas-food-history.tsx'
       - 'src/routes/texas-food-trail*.tsx'
@@ -50,6 +52,7 @@ jobs:
       - name: Validate Texas culture and food authority invariants
         run: |
           node scripts/data/validate-texas-culture-authority.mjs
+          node scripts/data/validate-texas-icon-evidence.mjs
           node scripts/data/validate-things-unique-to-texas.mjs
           node scripts/data/validate-texas-icon-link-depth.mjs
       - name: Install dependencies
