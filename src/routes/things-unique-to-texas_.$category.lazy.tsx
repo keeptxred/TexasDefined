@@ -143,6 +143,7 @@ function TexasIconCategoryPage() {
                 </section>
               )}
 
+              {sourceBackedEntries.length > 0 && (
               <section aria-labelledby="source-backed-entries-heading" className="mb-10">
                 <h2 id="source-backed-entries-heading" className="font-display text-3xl">Entry-specific research you can use</h2>
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -154,6 +155,7 @@ function TexasIconCategoryPage() {
                   ))}
                 </nav>
               </section>
+              )}
 
               <section aria-labelledby="chapter-entry-register">
                 <h2 id="chapter-entry-register" className="mb-6 font-display text-3xl">Places, traditions and reference notes</h2>
