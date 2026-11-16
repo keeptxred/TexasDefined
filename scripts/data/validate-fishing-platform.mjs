@@ -76,7 +76,8 @@ if (!failures.length) {
   }
   if (!overviewRoute.includes("fishingReportsQuery({ lakeId: lake.id, limit: 10 }, lake)")) failures.push("Generic fishing lakes are not hydrated from the current TPWD source through fishingReportsQuery.");
   const reportsOnlyLoader = 'params.section === "reports" ? context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake)) : Promise.resolve([])';
-  if (sectionRoute.split(reportsOnlyLoader).length - 1 !== 2) failures.push("Lake Conroe and showcase report sections must request official TPWD hydration only on the reports tab.");
+  if (sectionRoute.split(reportsOnlyLoader).length - 1 !== 1) failures.push("Showcase report sections must request official TPWD hydration only on the reports tab.");
+  if (!sectionRoute.includes('if (params.section === "reports" || params.section === "guides")') || !sectionRoute.includes('reports = await context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake))')) failures.push("Lake Conroe reports and guides must lazy-load the repository only when needed.");
   if (sectionRoute.includes('fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)')) failures.push("Non-report fishing section pages must not request a stored report inventory.");
 
   if (ui.includes("lake-conroe-prototype")) failures.push("Lake Conroe client UI must not import the prototype catalog.");
