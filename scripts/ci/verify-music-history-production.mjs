@@ -55,8 +55,10 @@ const expectedNov14Additions = {
 };
 const expectedTitles = {
   "texas-music-cities": "Texas Music Cities: Austin, Houston & Beyond | Texas Defined",
-  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark | Texas Defined",
-  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening | Texas Defined"
+  // buildMeta keeps complete page titles <= 68 characters without appending the brand suffix
+  // when reserving "| Texas Defined" would truncate the core subject.
+  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark",
+  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening"
 };
 const nonce=Date.now().toString(36);
 const results=[];
@@ -75,10 +77,21 @@ async function get(slug,kind){
    "TexasDefined-MusicAuthority-ReadOnly/1.0"};
  if(!clean){headers["Cache-Control"]="no-store,no-cache";headers.Pragma="no-cache"}
  const start=Date.now();
- const resp=await fetch(url,{headers,redirect:"manual",signal:AbortSignal.timeout(25000)});
- return {resp,html:await resp.text(),elapsedMs:Date.now()-start,
-  edgeCache:resp.headers.get("cf-cache-status"),edgeAge:resp.headers.get("age"),
-  finalUrl:resp.url};
+ // Retry one transient transport timeout ONLY. A real HTTP 4xx/5xx, bad
+ // canonical, robots noindex or missing historical research still fails.
+ for(let attempt=1;attempt<=2;attempt++){
+  try{
+   const resp=await fetch(url,{headers,redirect:"manual",signal:AbortSignal.timeout(25000)});
+   const html=await resp.text();
+   return {resp,html,elapsedMs:Date.now()-start,
+    edgeCache:resp.headers.get("cf-cache-status"),edgeAge:resp.headers.get("age"),
+    finalUrl:resp.url};
+  }catch(error){
+   if(attempt===2 || !/TimeoutError|AbortError/i.test(String(error))) throw error;
+   console.warn("[music-live] bounded retry after transient transport timeout",slug,kind);
+  }
+ }
+ throw Error("Unreachable music fetch retry state");
 }
 async function verify(slug){
  const errors=[],crawlerWarnings=[];let desktop,mobile,visitor,crawler;
