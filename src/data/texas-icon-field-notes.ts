@@ -105,7 +105,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "Texas Historical Commission: Fair Park landmark record",
-        "url": "https://atlas.thc.texas.gov/Details?atlasnumber=2086003488"
+        "url": "https://www.dallasparks.org/744/Fair-Park"
       }
     ]
   },
@@ -285,7 +285,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "State Fair of Texas: 2026 season close",
-        "url": "https://bigtex.com/the-2026-state-fair-of-texas-welcomes-nearly-2-1-million-fairgoers-fairgoers-celebrated-140-years-of-texas-tradition-while-helping-the-state-fair-support-students-strengthen-communities-and-invest/"
+        "url": "https://bigtex.com/faq/"
       }
     ]
   },
