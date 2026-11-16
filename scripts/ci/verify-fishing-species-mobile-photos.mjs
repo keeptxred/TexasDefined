@@ -71,7 +71,32 @@ try {
             naturalWidth: im.naturalWidth,
             complete: im.complete,
           }));
+          const heroPhotoPresent = Boolean(document.querySelector("header.bg-ink figure img"));
+          const heroCredit = document.querySelector("header.bg-ink figcaption");
+          const heroBackground = heroCredit?.closest("header");
+          const channels = css => {
+            const canvas = document.createElement("canvas");
+            canvas.width = 1; canvas.height = 1;
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            ctx.fillStyle = css;
+            ctx.fillRect(0, 0, 1, 1);
+            return [...ctx.getImageData(0, 0, 1, 1).data];
+          };
+          const luminance = values => values.slice(0, 3).map(v => {
+            const x = v / 255;
+            return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+          }).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
+          const contrast = heroCredit && heroBackground ? (() => {
+            const background = channels(getComputedStyle(heroBackground).backgroundColor);
+            const foreground = channels(getComputedStyle(heroCredit).color);
+            const opacity = foreground[3] / 255;
+            const compositedText = foreground.slice(0, 3).map((value, index) =>
+              value * opacity + background[index] * (1 - opacity));
+            return [luminance(compositedText), luminance(background)];
+          })() : [];
+          const heroCreditContrast = contrast.length ? (Math.max(...contrast) + 0.05) / (Math.min(...contrast) + 0.05) : 0;
           return {
+            heroPhotoPresent, heroCreditContrast,
             h1Count: h1.length, h1: h1[0]?.innerText || "",
             horizontalOverflow: document.documentElement.scrollWidth - innerWidth,
             hasViewportMeta: /width\s*=\s*device-width/i.test(document.querySelector('meta[name="viewport"]')?.content || ""),
@@ -83,6 +108,11 @@ try {
         row.h1 = content.h1;
         row.words = content.renderedBodyWords;
         row.overflowPx = content.horizontalOverflow;
+        row.heroCreditContrast = content.heroPhotoPresent ? Number(content.heroCreditContrast.toFixed(2)) : null;
+        // The specialized largemouth guide has no fish photo in its dark hero.
+        // All headers with a fish photo must show its source/license legibly.
+        if (content.heroPhotoPresent && row.heroCreditContrast < 4.5)
+          row.failures.push("inaccessible_dark_hero_image_credit_contrast_" + row.heroCreditContrast);
         if (content.h1Count !== 1) row.failures.push("visible_H1_count_" + content.h1Count);
         if (!content.hasViewportMeta) row.failures.push("viewport_meta_missing");
         if (content.horizontalOverflow > 12) row.failures.push("horizontal_overflow_" + content.horizontalOverflow);
