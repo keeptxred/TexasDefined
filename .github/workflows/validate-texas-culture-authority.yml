@@ -68,6 +68,7 @@ jobs:
           check() {
             local path="$1"
             local marker="$2"
+            local edition_marker="${3:-}"
             local file
             file="$(mktemp)"
             if ! curl --fail --silent --show-error --location --retry 1 --max-time 40 "${origin}${path}?authority_check=${GITHUB_RUN_ID}" -o "$file"; then
@@ -77,6 +78,11 @@ jobs:
             fi
             if ! grep -Fqi "$marker" "$file" || grep -Eqi '<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27][^"\x27]*noindex' "$file"; then
               echo "::error title=Public authority page stale or noindex::${path} must contain ${marker}"
+              rm -f "$file"
+              exit 1
+            fi
+            if [[ -n "$edition_marker" ]] && ! grep -Fqi "$edition_marker" "$file"; then
+              echo "::error title=Missing recent authority entry research::${path} must contain ${edition_marker}"
               rm -f "$file"
               exit 1
             fi
@@ -93,11 +99,11 @@ jobs:
           check '/things-unique-to-texas/food-drink' 'How geography and migration shaped the Texas table'
           check '/things-unique-to-texas/texas-brands' 'What makes a company a Texas brand?'
           check '/things-unique-to-texas/natural-wonders' 'Four very different ways Texas landscapes were made'
-          check '/things-unique-to-texas/landmarks' 'How to evaluate a Texas landmark beyond a photo'
-          check '/things-unique-to-texas/roadside-small-towns' 'How to tell a roadside landmark from a useful small-town stop'
-          check '/things-unique-to-texas/culture-music' 'Why Texas has several musical histories, not one signature sound'
-          check '/things-unique-to-texas/wildlife-landscape' 'Match Texas wildlife to its habitat instead of treating the state as one ecosystem'
-          check '/things-unique-to-texas/slang-folklore' 'Four kinds of Texas shorthand: speech, slogans, symbols and stories'
+          check '/things-unique-to-texas/landmarks' 'How to evaluate a Texas landmark beyond a photo' 'Historic buildings temporarily closed'
+          check '/things-unique-to-texas/roadside-small-towns' 'How to tell a roadside landmark from a useful small-town stop' 'Closed for preservation'
+          check '/things-unique-to-texas/culture-music' 'Why Texas has several musical histories, not one signature sound' 'Red Wassenich'
+          check '/things-unique-to-texas/wildlife-landscape' 'Match Texas wildlife to its habitat instead of treating the state as one ecosystem' '540 cranes'
+          check '/things-unique-to-texas/slang-folklore' 'Four kinds of Texas shorthand: speech, slogans, symbols and stories' '1853 blackface'
           check '/texas-food-history' 'Five turning points behind the Texas table'
           check '/texas-food-trail' 'Plan two food-focused days without crossing the state'
           check '/texas-roadside-oddities' 'Which stops require a plan before arriving?'
