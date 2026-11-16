@@ -84,14 +84,33 @@ export function assertCampingGuideGoogleSignals(html) {
   }
 }
 
-async function fetchPage(url, ordinaryVisitor = false) {
-  for (let attempt=1; attempt<=2; attempt++){
-    try { return await fetch(url,{headers: ordinaryVisitor ? { "user-agent": "Mozilla/5.0 (compatible; TexasDefined-Camping-Visitor-Acceptance/1.0)", accept: "text/html" } : headers,redirect:"error",cache:"no-store",signal:AbortSignal.timeout(30000)}); }
-    catch(err){
-      if(attempt===2 || !["AbortError","TimeoutError"].includes(err?.name)) throw err;
-      await new Promise((resolve)=>setTimeout(resolve, 1000));
-    }
+// A single transport-level read/reset is not evidence of a bad page. Keep
+// the strict HTTP/HTML/canonical/robots/source checks unchanged: 4xx/5xx,
+// challenge responses or missing content are never retried or excused.
+export function isTransientNetworkFailure(err) {
+  const code = String(err?.cause?.code || err?.code || "");
+  return ["AbortError", "TimeoutError"].includes(err?.name)
+    || (err?.name === "TypeError"
+      && ["ECONNRESET", "ETIMEDOUT", "EAI_AGAIN", "UND_ERR_CONNECT_TIMEOUT",
+          "UND_ERR_HEADERS_TIMEOUT", "UND_ERR_BODY_TIMEOUT", "UND_ERR_SOCKET"].includes(code));
+}
+export async function retryOneAuthorityTransport(action, pause = ms => new Promise(done => setTimeout(done, ms))) {
+  try { return await action(); }
+  catch (err) {
+    if (!isTransientNetworkFailure(err)) throw err;
+    await pause(1000);
+    return await action();
   }
+}
+async function fetchPage(url, ordinaryVisitor = false) {
+  return retryOneAuthorityTransport(() => fetch(url, {
+    headers: ordinaryVisitor
+      ? { "user-agent": "Mozilla/5.0 (compatible; TexasDefined-Camping-Visitor-Acceptance/1.0)", accept: "text/html" }
+      : headers,
+    redirect: "error",
+    cache: "no-store",
+    signal: AbortSignal.timeout(30000),
+  }));
 }
 async function check(path, markers, origin, expectedNoindex=false, ordinaryVisitor=false) {
   const url = new URL(path, origin);
