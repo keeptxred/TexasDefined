@@ -340,7 +340,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "THC marker record: Leon County and Leona",
-        "url": "https://atlas.thc.texas.gov/Details/5289009628"
+        "url": "https://atlas.thc.texas.gov/Details/5289009622"
       }
     ]
   },
