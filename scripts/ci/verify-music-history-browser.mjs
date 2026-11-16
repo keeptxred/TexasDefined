@@ -61,6 +61,10 @@ try{
    const res=await page.goto(base+"/"+slug+"?_music_chrome="+Date.now().toString(36)+"-"+viewport.name,{waitUntil:"domcontentloaded",timeout:45000});
    check("HTTP 200",res?.status()===200,res?.status());
    check("one H1",await page.locator("h1").count()===1);
+   if(slug==="texas-music-cities"){
+    const searchTitle=await page.title();
+    check("complete statewide music cities search title",searchTitle==="Texas Music Cities: Austin, Houston & Beyond | Texas Defined",searchTitle);
+   }
    check("one main landmark",await page.locator("main").count()===1);
    const mainText=await page.locator("main").innerText({timeout:12000}).catch(()=>"");
    check("historical content visible",mainText.length>1300,mainText.length);
