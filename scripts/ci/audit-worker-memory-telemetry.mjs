@@ -61,10 +61,13 @@ async function activeVersion() {
   return expected;
 }
 
-async function queryTelemetry(account, token, timeframe, needle) {
+async function queryTelemetry(account, token, timeframe, needle, version) {
   const parameters = {
     datasets: ['cloudflare-workers'],
-    filters: [{ key: '$workers.scriptName', operation: 'eq', type: 'string', value: SITE }],
+    filters: [
+      { key: '$workers.scriptName', operation: 'eq', type: 'string', value: SITE },
+      { key: '$workers.scriptVersion.id', operation: 'eq', type: 'string', value: version },
+    ],
   };
   if (needle) parameters.needle = { value: needle, matchCase: false, isRegex: false };
   const response = await fetch(
@@ -105,22 +108,38 @@ export async function run() {
   };
   try {
     const account = (process.env.CLOUDFLARE_ACCOUNT_ID || '').trim();
-    const token = (process.env.CLOUDFLARE_OBSERVABILITY_API_TOKEN || '').trim();
-    if (!account || !token) throw new Error('Existing GitHub Actions Cloudflare observability credentials are unavailable');
+    const tokens = [...new Set([
+      process.env.CLOUDFLARE_OBSERVABILITY_API_TOKEN,
+      process.env.CLOUDFLARE_API_TOKEN,
+      process.env.CLOUDFLARE_DEPLOY_API_TOKEN,
+    ].map(x => (x || '').trim()).filter(Boolean))];
+    if (!account || !tokens.length) throw new Error('Existing GitHub Actions Cloudflare observability credentials are unavailable');
     const to = Date.now();
     const startArg = (process.env.WORKER_MEMORY_START_UTC || '').trim();
     const from = startArg ? Date.parse(startArg) : to - 6 * 60 * 60 * 1000;
     if (!Number.isFinite(from) || from >= to || to - from < 10_000 || to - from > 7 * 86_400_000) {
-      throw new Error('Log window missing or outside supported 1-minute to 7-day retention range');
+      throw new Error('Log window missing or outside supported 10-second to 7-day retention range');
     }
     report.window = { from: new Date(from).toISOString(), to: new Date(to).toISOString() };
     report.pinnedLiveWorkerVersion = await activeVersion();
     const timeframe = { from, to };
     // Ask the stored log dataset twice: a positive observed-event baseline
     // and the independently searched memory-exception stream.
-    const baseline = await queryTelemetry(account, token, timeframe);
-    const errors = await queryTelemetry(account, token, timeframe, MESSAGE);
-    Object.assign(report, assessMemoryEvidence(baseline, errors));
+    let observed = null;
+    for (const token of tokens) {
+      try {
+        const baseline = await queryTelemetry(account, token, timeframe, null, report.pinnedLiveWorkerVersion);
+        const errors = await queryTelemetry(account, token, timeframe, MESSAGE, report.pinnedLiveWorkerVersion);
+        observed = assessMemoryEvidence(baseline, errors);
+        break;
+      } catch (error) {
+        // Bounded fallback across *already installed* GitHub Secrets, never OAuth.
+        // Data/schema failures are not permission failures and must not be hidden.
+        if (!/Workers Observability Write permission \(HTTP 40[13]\)/.test(String(error?.message || error))) throw error;
+      }
+    }
+    if (!observed) throw new Error('All existing Cloudflare credentials lack Workers Observability Write permission (HTTP 401/403); no stored-log conclusion is possible');
+    Object.assign(report, observed);
     report.status = 'PASS';
     console.log('Worker memory telemetry: observable invocation evidence, zero matching memory-exhaustion log events, same Worker UUID on both public origins.');
   } catch (error) {
