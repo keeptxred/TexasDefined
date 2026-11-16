@@ -40,6 +40,28 @@ test('GitHub production restores only current active Worker dual-origin SHA-veri
   assert.doesNotMatch(wf,/if \[\[ "\$deploy_conclusion" != "success" \]\]/);
 });
 
+test('one-time observed Worker bridge cannot impersonate a successful active release or disable byte safety', () => {
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  const begin=wf.indexOf("if [[ \"$restored\" != 1 && \"$EXPECTED_ACTIVE_WORKER_VERSION\" == '0f9a146d-7b91-45d2-b1df-9813c80326e8' ]]");
+  const end=wf.indexOf('          if [[ "$restored" != 1 ]]; then',begin);
+  assert.ok(begin>0&&end>begin,'exact original 0f9 Worker is the only bridged version');
+  const step=wf.slice(begin,end);
+  assert.match(step,/2026-11-19T14:32:31Z/,'72-hour recovery limit');
+  assert.match(step,/prior_run=43884259995/);
+  assert.match(step,/prior_sha=3bb9a544e38e65d8b80ddf375ea58ddd5964b8bc/);
+  assert.match(step,/source_worker=64e9e06f-f80e-424c-8f85-dc6e210463ac/);
+  assert.match(step,/verify-prior-asset-handoff\.mjs/);
+  assert.match(step,/verify-prior-deploy-job-eligibility\.mjs/);
+  assert.match(step,/asset-handoff-snapshot\.json/);
+  assert.doesNotMatch(step,/"\$EXPECTED_ACTIVE_WORKER_VERSION" "\$prior_sha"/,
+    'prior report must be verified against original source Worker, never impersonate 0f9');
+  assert.ok(step.indexOf('verify-prior-asset-handoff.mjs') < step.indexOf('cp "$candidate/asset-handoff-snapshot.json"'),
+    'old immutable asset archive must pass its own original-byte gate before historical seed');
+  assert.match(wf,/Capture old HTML JS\/CSS hashes before Worker replacement/);
+  assert.match(wf,/Verify current and previous release JS\/CSS on both public origins/);
+  assert.match(wf,/No source-verified published asset handoff matches/,'unknown future workers fail closed');
+});
+
 test('only one known post-deploy browser failure can qualify an otherwise fully verified active Worker for asset reuse', () => {
   const mandatory=[
     'Deploy TexasDefined Worker',
