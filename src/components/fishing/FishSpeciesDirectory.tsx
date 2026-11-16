@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
@@ -11,37 +10,6 @@ type DirectoryData = Awaited<ReturnType<typeof loadFishSpeciesDirectoryDataServe
 export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) {
   return (
     <>
-      <Container className="pt-8 sm:pt-10">
-        <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
-            <li aria-hidden>·</li>
-            <li><Link to="/fishing" className="hover:text-foreground">Fishing</Link></li>
-            <li aria-hidden>·</li>
-            <li aria-current="page">Fish species</li>
-          </ol>
-        </nav>
-      </Container>
-
-      <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
-        <Container className="py-16 sm:py-24">
-          <p className="eyebrow text-ink-foreground/70">Texas fish species</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Fish Species</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to Texas lakes where TexasDefined has a verified lake-to-species relationship. Some records have standalone guides; other records remain sourced directory entries until they qualify for a complete guide.</p>
-          <div className="mt-8 flex flex-wrap gap-5 text-sm">
-            <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open largemouth bass guide →</Link>
-            <Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare complete fishing lakes →</Link>
-            <Link to="/fishing" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Back to all Texas fishing →</Link>
-          </div>
-          <dl className="mt-10 grid gap-5 border-t border-ink-foreground/20 pt-6 sm:grid-cols-2 lg:grid-cols-4">
-            <Stat label="Published records" value={pageData.totalSpecies} />
-            <Stat label="Standalone guides" value={pageData.completeSpeciesGuides} />
-            <Stat label="Complete lake guides" value={pageData.completeLakeGuides} />
-            <Stat label="Directory categories" value={pageData.groups.length} />
-          </dl>
-        </Container>
-      </section>
-
       <Container className="py-14 sm:py-20">
         <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="species-directory-policy">
           <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Directory records versus standalone guides</h2></div>
@@ -104,7 +72,6 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) { return <div><dt className="eyebrow text-ink-foreground/55">{label}</dt><dd className="mt-2 font-display text-3xl">{value}</dd></div>; }
 function Answer({ question, answer }: { question: string; answer: string }) { return <article className="border-t border-border py-5"><h3 className="font-display text-2xl leading-tight">{question}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</p></article>; }
 function titleCase(value: string) { return value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase()); }
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date); }
