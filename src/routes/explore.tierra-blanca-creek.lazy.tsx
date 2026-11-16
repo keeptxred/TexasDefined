@@ -77,6 +77,11 @@ function TierraBlancaCreekGuide() {
             <p className="mt-4 text-sm text-muted-foreground">By TexasDefined's Travel &amp; Outdoors Desk · Geography, access and museum closure sources checked November 16, 2026 · <a href="#sources" className="text-primary underline underline-offset-4">Research method</a></p>
           </header>
 
+          <figure className="border-b border-border py-10">
+            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-lg object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
+            <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Palo Duro Canyon State Park shows the dramatic downstream landscape. This is a photo of the state park, not a claimed photograph of Tierra Blanca Creek or a public creek access point. Existing TexasDefined image credit: Larry D. Moore, CC BY 4.0, Wikimedia Commons.</figcaption>
+          </figure>
+
           <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-2" aria-labelledby="first-answer">
             <div>
               <p className="eyebrow text-primary">Start here</p>
@@ -95,11 +100,6 @@ function TierraBlancaCreekGuide() {
               <a className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://www.tshaonline.org/handbook/entries/tierra-blanca-creek" target="_blank" rel="noopener noreferrer">Read the TSHA creek entry</a>
             </aside>
           </section>
-
-          <figure className="border-b border-border py-10">
-            <img src="/images/state-parks/palo-duro-canyon-state-park.jpg" width={1600} height={900} loading="eager" fetchPriority="high" decoding="async" className="aspect-video w-full rounded-lg object-cover" alt="Red and orange canyon cliffs at Palo Duro Canyon State Park, downstream from the Tierra Blanca and Palo Duro Creek confluence" />
-            <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Palo Duro Canyon State Park shows the dramatic downstream landscape. This is a photo of the state park, not a claimed photograph of Tierra Blanca Creek or a public creek access point. Existing TexasDefined image credit: Larry D. Moore, CC BY 4.0, Wikimedia Commons.</figcaption>
-          </figure>
 
           <TierraBlancaVisitorEvidence />
 
@@ -225,6 +225,11 @@ function TierraBlancaCreekGuide() {
               </li>)}
             </ul>
           </section>
+
+          {/* Expedia and CJ own this optional booking slot after the complete
+              factual guide and citations. Never let generic placement inject
+              lodging promotions ahead of geography, photos or access advice. */}
+          <div data-stay-nearby-slot aria-label="Optional Amarillo and Canyon lodging comparisons" className="pt-8" />
         </article>
       </Container>
     </main>
