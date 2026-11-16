@@ -47,6 +47,18 @@ assert.ok(
 );
 const attractionRoute = read("src/routes/destination.$slug.tsx");
 const galleryBrowser = read("scripts/ci/verify-three-attractions-responsive-browser.mjs");
+const attractionProductionVerifier = read("scripts/ci/verify-editorial-sitemap-parity-production.mjs");
+for (const required of [
+  'reviewedRecords.find((row) => guide.path.endsWith("/" + row.slug))',
+  'guide.name + ": visitor essentials"',
+  '"Sources used for this guide", "Primary sources and fact checks"',
+  'missingSources.join(", ")',
+  'approved.sourceCheckedAt',
+]) assert.ok(attractionProductionVerifier.includes(required),
+  "Postdeploy SSR checks must require actual visitor essentials, each original operator source URL and a real review date: " + required);
+assert.ok(!attractionProductionVerifier.includes('!body.includes("Research sources") || !body.includes("Planning your visit")'),
+  "Never regress to obsolete generic headings that all three researched attraction pages have intentionally replaced");
+
 assert.ok(attractionRoute.includes('<section aria-labelledby="destination-photo-archive"'), "Destination gallery must retain a labelled section landmark");
 assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-photo-archive"] figure img'), "Real Chrome must locate actual labelled gallery SECTION, not the heading ID");
 assert.ok(!galleryBrowser.includes('#destination-photo-archive figure img'), "Do not regress to searching photos inside an h2 heading; this silently selects zero images");
