@@ -32,7 +32,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
           </div>
         </div>
-        {speciesImage ? <FishingPhoto image={speciesImage} eager className="max-w-sm" imageClassName="aspect-[4/3] w-full object-contain bg-background p-3" /> : null}
+        {speciesImage ? <FishingPhoto image={speciesImage} eager onDark className="max-w-sm" imageClassName="aspect-[4/3] w-full object-contain bg-background p-3" /> : null}
       </Container>
     </header>
 
