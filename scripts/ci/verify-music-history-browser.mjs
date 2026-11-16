@@ -45,8 +45,10 @@ const expectedNov14Additions = {
 };
 const expectedTitles = {
   "texas-music-cities": "Texas Music Cities: Austin, Houston & Beyond | Texas Defined",
-  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark | Texas Defined",
-  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening | Texas Defined"
+  // buildMeta keeps complete page titles <= 68 characters without appending the brand suffix
+  // when reserving "| Texas Defined" would truncate the core subject.
+  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark",
+  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening"
 };
 const viewports=[{name:"mobile",width:390,height:844,isMobile:true},{name:"desktop",width:1365,height:900,isMobile:false}];
 const report={checkedAt:new Date().toISOString(),checks:[],failures:[]};
