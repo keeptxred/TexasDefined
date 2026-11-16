@@ -269,6 +269,24 @@ async function verify() {
   for (const marker of requiredDeerMarkers) {
     requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
   }
+  // Verify the reader-facing claim ledger points to original TPWD witnesses,
+  // not merely that the three county names appear in generic page text.
+  // Check both the uncached Worker view and the exact canonical visitor URL.
+  for (const [county, url] of [
+    ['Grayson', 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/grayson'],
+    ['Washington', 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/washington'],
+    ['Gillespie', 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/gillespie'],
+  ]) {
+    for (const [label, document] of [['cache-bypassed', deerHtml], ['canonical', canonicalDeerHtml]]) {
+      requireText(document, 'href="' + url + '"', label + ' TPWD ' + county + ' source link');
+    }
+  }
+  for (const [label, document] of [['cache-bypassed', deerHtml], ['canonical', canonicalDeerHtml]]) {
+    requireText(document, 'id="deer-source-record"', label + ' visible claim-level source ledger');
+    requireText(document, 'href="#deer-source-record"', label + ' claim-level source navigation');
+    requireText(document, 'href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd"', label + ' official CWD source');
+  }
+
   const canonicalHero = findDeerHeroImageTag(canonicalDeerHtml);
   if (!canonicalHero || /loading="lazy"/i.test(canonicalHero) ||
     !/loading="eager"/i.test(canonicalHero) || !/fetchpriority="high"/i.test(canonicalHero)) {
