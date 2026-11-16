@@ -175,7 +175,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "Texas State Historical Association: Western swing",
-        "url": "https://www.tshaonline.org/handbook/entries/western-swing"
+        "url": "https://www.tshaonline.org/handbook/entries/country-music"
       }
     ]
   },
@@ -186,7 +186,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "Handbook of Texas: conjunto",
-        "url": "https://www.tshaonline.org/handbook/entries/conjunto"
+        "url": "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto"
       }
     ]
   },
@@ -308,7 +308,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "sources": [
       {
         "label": "Don't Mess with Texas: official campaign",
-        "url": "https://www.dontmesswithtexas.org/"
+        "url": "https://www.txdot.gov/about/campaigns-outreach/dont-mess-with-texas.html"
       }
     ]
   },
@@ -358,7 +358,7 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
   },
   "238": {
     "topic": "Separate song and folklore",
-    "fact": "The Yellow Rose of Texas is a historical song with changing lyrics and interpretations; claims that its heroine has a single verified identity need documentary evidence, not repetition of legend.",
+    "fact": "The earliest documented version of The Yellow Rose of Texas appeared in an 1853 blackface-minstrel collection. Later Texas Revolution links and accounts identifying a single historical heroine are not established by those early song documents; explaining that racial and performance history is essential.",
     "usefulFor": "Use the documented song history before retelling the Emily D. West story as fact.",
     "sources": [
       {
