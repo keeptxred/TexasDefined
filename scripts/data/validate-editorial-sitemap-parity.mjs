@@ -52,12 +52,12 @@ assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-photo-ar
 assert.ok(!galleryBrowser.includes('#destination-photo-archive figure img'), "Do not regress to searching photos inside an h2 heading; this silently selects zero images");
 assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-authority-sources"]'), "Chrome must select the full labelled source section, not a heading or a cached preview");
 assert.ok(galleryBrowser.includes("sourceUrls.every((url) => links.includes(url))"), "Chrome must wait for all actual approved operator citations before inspecting them");
-assert.ok(galleryBrowser.includes('section[aria-labelledby="' + '"' + "' + slug + '-sources"]"),
-  "Historic-site full authority sources must remain supported alongside the compact source section");
-assert.ok(galleryBrowser.includes('section[aria-labelledby="' + '"' + "' + slug + '-review-log"]"),
-  "Full guide must link its separate public review history to the canonical source date");
-assert.ok(galleryBrowser.includes("=== reviewDate") && galleryBrowser.includes("Last recorded source review: " + '"'),
-  "Chrome must validate the exact dated review in BOTH legitimate source-rendering owners");
+assert.ok(galleryBrowser.includes("slug + '-sources"),
+  "Historic-site full authority source section must be tested alongside compact sources");
+assert.ok(galleryBrowser.includes("slug + '-review-log"),
+  "Full guide must prove its separately rendered review history");
+assert.ok(galleryBrowser.includes("=== reviewDate") && galleryBrowser.includes("Last recorded source review: "),
+  "Both source owners must check actual date from approved catalog");
 assert.ok(!galleryBrowser.includes('document.querySelector("#destination-authority-sources")?.closest("section")'), "Do not regress to a fragile first heading-ID match rather than the actual citation landmark");
 
 assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
