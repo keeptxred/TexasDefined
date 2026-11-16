@@ -51,7 +51,7 @@ export function TierraBlancaVisitorEvidence() {
           <text x="670" y="149" textAnchor="end" fontSize="18" fill="#763b23">state park headquarters</text>
           <text x="52" y="303" fontSize="16" fill="#4a443d">North-up coordinate plot • Not a route or access map</text>
         </svg>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>West:</strong> Buffalo Lake refuge entrance (USFWS: 34.919517, −102.111118). <strong>East:</strong> Palo Duro Canyon park headquarters (TPWD: 34.984709, −101.701867). These are two officially published public facilities, not creek-bank access points. Only their relative positions are drawn; no road, trail or stream course is inferred.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>West:</strong> Buffalo Lake refuge entrance (USFWS: 34.919517, -102.111118). <strong>East:</strong> Palo Duro Canyon park headquarters (TPWD: 34.984709, -101.701867). These are two officially published public facilities, not creek-bank access points. Only their relative positions are drawn; no road, trail or stream course is inferred.</p>
       </div>
       <div className="mt-6 overflow-hidden border border-border">
         <iframe title="OpenStreetMap regional context showing Canyon, Umbarger, Buffalo Lake refuge and the Palo Duro Canyon region, with a marker at the official refuge entrance" src="https://www.openstreetmap.org/export/embed.html?bbox=-102.34%2C34.80%2C-101.51%2C35.29&amp;layer=mapnik&amp;marker=34.919517%2C-102.111118" loading="lazy" referrerPolicy="no-referrer" className="aspect-video w-full" />
