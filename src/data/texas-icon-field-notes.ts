@@ -355,6 +355,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "144": {
+    "topic": "An actual heritage-tour tradition",
+    "fact": "Waxahachie's gingerbread identity reflects elaborate Victorian-era trim and cotton-era architecture, not a single house that is open every day. Ellis County sponsors a limited-date Gingerbread Home Tour, with private houses opened only for the event.",
+    "usefulFor": "Choose a public courthouse-square architecture walk on ordinary dates or buy the separate annual tour ticket if you want interiors. Historic homes on residential streets are private property outside the scheduled tour.",
+    "sources": [
+      {
+        "label": "Ellis County: Gingerbread Home Tour and historic buildings",
+        "url": "https://www.elliscountytx.gov/280/Gingerbread-Home-Tour"
+      }
+    ]
+  },
+  "145": {
+    "topic": "Peanuts are one chapter of an agricultural town",
+    "fact": "Poth's earliest economic history was rail traffic, cotton and local commerce. After cotton troubles, its agricultural economy diversified into peanuts, onions, black-eyed peas, corn and other crops; peanuts alone do not explain its entire heritage.",
+    "usefulFor": "Use the town's documented railroad and farming history to make this a meaningful community stop rather than treating a peanut-themed sign as proof that a museum or agricultural attraction is open.",
+    "sources": [
+      {
+        "label": "Wilson County Historical Society: Poth railroad, cotton and crop changes",
+        "url": "https://www.wilsoncountyhistory.org/talk-poth"
+      }
+    ]
+  },
   "146": {
     "topic": "Seasonal road caution",
     "fact": "Fischer Store Road offers Hill Country scenery, but low-water crossings are travel hazards rather than attractions. A shallow-looking flood can hide damaged pavement and fast currents.",
@@ -374,6 +396,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Luck Texas visitor bureau: private access and ticket process",
         "url": "https://www.visitlucktexas.com/plan-your-visit"
+      }
+    ]
+  },
+  "148": {
+    "topic": "Working hall, not a walk-in museum",
+    "fact": "Anhalt Hall began as a German-Texan dance and community space in the nineteenth century, with major construction stages in 1879, 1898 and 1908. The long-standing site reflects migration, social gatherings and architecture more precisely than a generic Western dance-hall stereotype.",
+    "usefulFor": "Check an actual dance, music event or historical program before visiting the building. Do not assume privately managed dance-hall interiors are always accessible for drop-in sightseeing.",
+    "sources": [
+      {
+        "label": "Handbook of Texas: Anhalt Hall history and construction",
+        "url": "https://www.tshaonline.org/handbook/entries/anhalt-hall"
       }
     ]
   },
@@ -407,6 +440,47 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Orange Show Center: Beer Can House and closure information",
         "url": "https://www.orangeshow.org/visit"
+      }
+    ]
+  },
+  "155": {
+    "topic": "A famous local claim needs attribution",
+    "fact": "Pecos traces its world-first rodeo claim to July 4, 1883, when ranch hands held a competition, and the annual West of the Pecos Rodeo continues that heritage. The global 'first' claim is a local historical designation, not a complete settled list of all early rodeos.",
+    "usefulFor": "Choose a current West of the Pecos Rodeo date through the operator, or explore documented regional history independently. Do not promise a rodeo performance is running on an ordinary day.",
+    "sources": [
+      {
+        "label": "City of Pecos: July 1883 rodeo tradition",
+        "url": "https://www.pecostx.gov/206/Community-Profile"
+      },
+      {
+        "label": "Pecos Rodeo organizer: claimed first event and program history",
+        "url": "https://pecosrodeo.com/pages/history"
+      }
+    ]
+  },
+  "158": {
+    "topic": "Verified public-art history, not bee biology",
+    "fact": "Hidalgo's giant bee sculpture commemorates the arrival of Africanized honey bees in the Rio Grande Valley in 1990, a local event documented in Library of Congress photographs and Texas travel reporting. The oversized bee is public art, not a living wildlife exhibit.",
+    "usefulFor": "Use the city's civic setting for the sculpture rather than chasing insects. A 2014 Library of Congress record verifies the historical statue but does not itself guarantee that the display has not moved since.",
+    "sources": [
+      {
+        "label": "Library of Congress: documented Hidalgo killer-bee statue",
+        "url": "https://www.loc.gov/item/2014630439/"
+      },
+      {
+        "label": "Federal Advisory Council on Historic Preservation: Hidalgo heritage context",
+        "url": "https://www.achp.gov/preserve-america/community/hidalgo-texas"
+      }
+    ]
+  },
+  "164": {
+    "topic": "Old railroad town, not an empty theme park",
+    "fact": "Toyah rose along railroad and trade routes in the late nineteenth century and later declined. A 2025 Texas Highways on-location report discusses surviving buildings and revival efforts, but the modern community is not a publicly managed ghost-town exhibit.",
+    "usefulFor": "Drive only on public roads, respect residences and closed structures, and use contemporary reporting to understand history without entering unsafe abandoned buildings or assuming private vacant-looking properties are open.",
+    "sources": [
+      {
+        "label": "Texas Highways: reported history and current Toyah conditions",
+        "url": "https://texashighways.com/culture/the-quest-to-resurrect-a-ghost-town/"
       }
     ]
   },
@@ -933,4 +1007,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [50,51,88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,133,134,136,139,141,142,143,146,147,149,150,151,166,167,168,169,170,171,176,177,178,179,182,183,185,188,190,192,194,195,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,228,229,232,236,237,238,239,240,243,244,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [50,51,88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,133,134,136,139,141,142,143,144,145,146,147,148,149,150,151,155,158,164,166,167,168,169,170,171,176,177,178,179,182,183,185,188,190,192,194,195,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,228,229,232,236,237,238,239,240,243,244,249] as const;
