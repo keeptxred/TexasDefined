@@ -18,6 +18,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   statuses: write
 
@@ -41,7 +42,10 @@ jobs:
           node scripts/ci/verify-tierra-blanca-visual.mjs --self-test
 
   production-chrome:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success'
+    # A deployed Worker can be healthy even when an unrelated global publish
+    # gate fails (for example a fishing sitemap check). Independently prove
+    # that the Worker really published before accepting real-browser evidence.
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -50,16 +54,43 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 2
+      - name: Verify source deployment really published to both live origins
+        id: published
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_RUN_ID: ${{ github.event.workflow_run.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_run" ]]; then
+            echo "yes" > /tmp/tierra-published.txt
+          else
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_RUN_ID/jobs?per_page=100" > /tmp/tierra-deploy-jobs.json
+            node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const jobs = JSON.parse(fs.readFileSync('/tmp/tierra-deploy-jobs.json', 'utf8')).jobs || [];
+          const deployed = jobs.find(job => job.name === 'deploy');
+          const names = ['Deploy TexasDefined Worker', 'Verify direct Worker health', 'Verify canonical production health'];
+          const proof = names.map(name => ({ name, conclusion: deployed?.steps?.find(step => step.name === name)?.conclusion || 'missing' }));
+          const published = proof.every(step => step.conclusion === 'success');
+          fs.writeFileSync('/tmp/tierra-published.txt', published ? 'yes' : 'no');
+          console.log(JSON.stringify({ published, originRun: process.env.DEPLOY_RUN_ID, proof }));
+          NODE
+          fi
+          echo "yes" >/dev/null
+          echo "published=$(cat /tmp/tierra-published.txt)" >> "$GITHUB_OUTPUT"
       # A deployment can fail on the article merge, then succeed on an unrelated
       # later commit. Checking only HEAD^ misses that unverified article revision.
       # Cache ONLY a completed real browser pass for the current acceptance inputs.
       - name: Restore evidence of prior successful real Chrome acceptance
+        if: steps.published.outputs.published == 'yes'
         id: proven
         uses: actions/cache/restore@v4
         with:
           path: .artifacts/tierra-blanca-chrome-validated.txt
           key: tierra-blanca-real-chrome-v2-${{ hashFiles('src/routes/explore.tierra-blanca-creek.lazy.tsx', 'src/components/explore/TierraBlancaVisitorEvidence.tsx', 'scripts/ci/verify-tierra-blanca-visual.mjs', '.github/workflows/tierra-blanca-visual-qa.yml') }}
       - name: Require unproven revisions to receive real Chrome acceptance
+        if: steps.published.outputs.published == 'yes'
         id: scope
         shell: bash
         run: |
