@@ -6,6 +6,28 @@
  */
 export type TexasIconFieldNote = { topic: string; fact: string; usefulFor: string; sources: ReadonlyArray<{ label: string; url: string }> };
 export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>> = {
+  "50": {
+    "topic": "Craft traditions require a named maker",
+    "fact": "Saddlery, hand-tooling and leatherwork connect Texas ranching labor to a continuing craft economy. A display of stamped belts in a roadside shop, however, does not establish that the goods were made locally or by a named artisan.",
+    "usefulFor": "For an actual craft visit, find a specific workshop or maker and confirm whether visits are offered. Use a clear maker attribution, location of production and type of work, not a vague claim that every souvenir is authentic Texas craft.",
+    "sources": [
+      {
+        "label": "Texas State Historical Association: saddles and saddle makers",
+        "url": "https://www.tshaonline.org/handbook/entries/saddles-and-saddle-makers"
+      }
+    ]
+  },
+  "51": {
+    "topic": "Texas-shaped is not Texas-made",
+    "fact": "Texas-shaped magnets, metal signs and housewares are visual identity products. They might be made in Texas or imported; the outline alone does not establish manufacturing origin, artistry or local cultural significance.",
+    "usefulFor": "When sourcing a handmade travel souvenir, check the individual maker's location and provenance. Avoid marketing the product category as a separate public tourist destination.",
+    "sources": [
+      {
+        "label": "TexasDefined: how this collection checks sourcing and origin",
+        "url": "/things-unique-to-texas/methodology"
+      }
+    ]
+  },
   "88": {
     "topic": "Indigenous history",
     "fact": "The three earthen mounds are a Caddo civic and ceremonial landscape. The Caddo Nation helped reopen the site in 2024 after the 2019 tornado; it is not a generic natural mound or an abandoned culture.",
@@ -256,6 +278,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "133": {
+    "topic": "Silos are modern development, not an industrial museum",
+    "fact": "Magnolia Market at the Silos in Waco is a landscaped retail and food destination developed around reused historic agricultural buildings. The modern shopping campus should not be presented as a public tour of working grain-processing equipment.",
+    "usefulFor": "Use Magnolia's site map and current events or restaurant pages to decide how long to stay. Combine with a separately planned Dr Pepper Museum or Waco historic site rather than assuming they are on the same admission.",
+    "sources": [
+      {
+        "label": "Magnolia: visitor and campus guide",
+        "url": "https://magnolia.com/visit/"
+      }
+    ]
+  },
+  "134": {
+    "topic": "Seasonal antique fields are not year-round storefronts",
+    "fact": "Round Top's spring and fall antiques shows bring temporary vendors and seasonal stalls to Fayette County. The town also has individually operating shops, but a show-only venue may be entirely closed outside event dates.",
+    "usefulFor": "Before taking a weekday detour to an antiques barn, use the Round Top shopping directory to filter 'open only during the show' versus 'open year round'. The current main show ended in early November 2026.",
+    "sources": [
+      {
+        "label": "Round Top visitor directory: show-only versus year-round stores",
+        "url": "https://roundtop.com/shops-shopping/"
+      }
+    ]
+  },
   "136": {
     "topic": "Sunday houses were functional town lodging",
     "fact": "Fredericksburg Sunday houses let rural families stay in town for church, shopping or other weekend activities. They are not a type of bakery, and not all surviving houses are publicly tourable. German-Texan bakeries reflect a separate strand of heritage.",
@@ -267,6 +311,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "139": {
+    "topic": "A real market with a published calendar",
+    "fact": "The Wimberley Lions Club runs Market Day on the first Saturday of the month from March through December, with roughly 490 stalls. It is a scheduled outdoor antiques and crafts market, not a daily shopping district.",
+    "usefulFor": "Use the operator's searchable vendor map at 601 FM 2325, verify the first-Saturday calendar and weather plan, and budget time to walk a large open-air site rather than assuming a short roadside photo stop.",
+    "sources": [
+      {
+        "label": "Wimberley Lions Club: official calendar and vendor map",
+        "url": "https://wimberleymarketday.com/market-map/"
+      }
+    ]
+  },
+  "141": {
+    "topic": "A generic statue is not a verified visitor site",
+    "fact": "The term 'Bigfoot roadside statues' refers to a shifting variety of privately operated souvenir displays rather than one established public attraction. Unverified figures may be removed, moved or unavailable to the public.",
+    "usefulFor": "Only add an individual statue to a route once its operator confirms an exact address, legal public access and current existence. Do not route visitors to guessed pins or cross private property for a photograph.",
+    "sources": [
+      {
+        "label": "TexasDefined: roadside-oddities guide with named stops",
+        "url": "/texas-roadside-oddities"
+      }
+    ]
+  },
   "142": {
     "topic": "A researched reason to stop",
     "fact": "Leona was Leon County’s first county seat from 1846 until Centerville replaced it in 1850. That administrative history is a more useful reason to identify the town than a vague claim that small towns feel 'authentic'.",
@@ -275,6 +341,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "THC marker record: Leon County and Leona",
         "url": "https://atlas.thc.texas.gov/Details/5289009628"
+      }
+    ]
+  },
+  "143": {
+    "topic": "Two destinations at one Luckenbach address",
+    "fact": "Luckenbach's general store operates in the historic settlement alongside an active dance hall and outdoor music areas. Daytime browsing and a ticketed or scheduled evening show are different visitor experiences.",
+    "usefulFor": "Check the current Luckenbach events calendar and venue instructions before assuming a concert is included with a store visit; it is a living entertainment business, not an abandoned ghost-town exhibit.",
+    "sources": [
+      {
+        "label": "Luckenbach Texas: official calendar and visitor details",
+        "url": "https://www.luckenbachtexas.com/"
       }
     ]
   },
@@ -432,6 +509,39 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "179": {
+    "topic": "Trail rides are organized, not open-access processions",
+    "fact": "Rodeo trail rides are coordinated community groups traveling with horses, wagons and support crews into rodeo celebrations. Routes and roadside stopping points depend on permits, local traffic arrangements and weather.",
+    "usefulFor": "View from legal designated public areas and use organizer information; do not join or overtake a mounted procession without permission. Look up a specific trail ride before promising a viewing opportunity.",
+    "sources": [
+      {
+        "label": "Houston Livestock Show and Rodeo: trail rides",
+        "url": "https://www.rodeohouston.com/trail-rides/"
+      }
+    ]
+  },
+  "182": {
+    "topic": "Zydeco crosses the state line",
+    "fact": "Zydeco is tied particularly to Louisiana Creole traditions, and its reception in Beaumont, Port Arthur and Houston reflects migration and community connections across the Gulf Coast rather than its invention in Texas.",
+    "usefulFor": "Look for events that explicitly identify zydeco musicians and dance music instead of labeling all Southeast Texas Cajun, Creole and blues performances as the same genre.",
+    "sources": [
+      {
+        "label": "Handbook of Texas: Texas music history",
+        "url": "https://www.tshaonline.org/handbook/projects/texas-music"
+      }
+    ]
+  },
+  "183": {
+    "topic": "Youth livestock auctions are educational institutions",
+    "fact": "Junior livestock auctions reward young agricultural exhibitors and raise funds through sale events, scholarships or premiums; each show sets its own judging and donation rules. They are more than entertainment for visiting rodeo audiences.",
+    "usefulFor": "Choose whether you want to watch judging, purchase an animal at auction or support educational fundraising. The relevant event's official schedule and eligibility rules govern each option.",
+    "sources": [
+      {
+        "label": "Houston Livestock Show and Rodeo: scholarships and grants",
+        "url": "https://www.rodeohouston.com/scholarships-and-grants/"
+      }
+    ]
+  },
   "185": {
     "topic": "What June 19 records",
     "fact": "On June 19, 1865, General Granger’s order in Galveston announced federal enforcement of emancipation in Texas. Freedom was a longer struggle; the date did not mean no one had resisted slavery or gained freedom earlier.",
@@ -484,6 +594,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Texas Historical Commission: Leadbelly in Deep Ellum",
         "url": "https://atlas.thc.texas.gov/Details/5507016121/print"
+      }
+    ]
+  },
+  "195": {
+    "topic": "The slogan has a commercial history",
+    "fact": "Keep Austin Weird emerged from a local independent-business campaign and became a widely reused urban identity slogan. It is an example of modern branding, not evidence that every Austin resident shares a single countercultural identity.",
+    "usefulFor": "Compare the original small-business support context with commercial reuse, and use it as a lens for independent shopping rather than a literal visitor promise that a neighborhood will be unusual.",
+    "sources": [
+      {
+        "label": "Austin Independent Business Alliance: local business mission",
+        "url": "https://ibuyaustin.com/"
       }
     ]
   },
@@ -690,6 +811,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "228": {
+    "topic": "Separate ranch labor from branding",
+    "fact": "The King Ranch is an operating South Texas ranching enterprise, not a free public heritage park. Its history includes large-scale livestock breeding, workers and vaquero traditions that are broader than the brand's famous name.",
+    "usefulFor": "If interested in touring, consult the ranch's own published visitor experiences; do not enter private ranch gates or treat a branded retail store as a historic cattle ranch tour.",
+    "sources": [
+      {
+        "label": "King Ranch: official visitor and history information",
+        "url": "https://king-ranch.com/"
+      }
+    ]
+  },
+  "229": {
+    "topic": "Law enforcement and borderlands require balance",
+    "fact": "The Texas Rangers became an enduring law-enforcement institution through changing political and legal periods, with both celebrated detective work and documented violence against Mexican American communities in the borderlands.",
+    "usefulFor": "Compare Texas Ranger institutional histories with the Texas Historical Commission's borderlands interpretation rather than letting movies and folklore stand in for the record.",
+    "sources": [
+      {
+        "label": "Texas Historical Commission: 1919 Ranger investigations and border history",
+        "url": "https://thc.texas.gov/"
+      }
+    ]
+  },
   "232": {
     "topic": "Not everyone orders drinks alike",
     "fact": "Calling any soft drink a Coke is a regional colloquial habit, not an official Texas vocabulary rule and not uniform across age groups or cities.",
@@ -756,6 +899,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "243": {
+    "topic": "A cattle trail was a working corridor",
+    "fact": "Post-Civil War cattle drives moved Longhorns to railheads and markets across multiple routes, often passing through Indigenous lands and changing settlements. Trail names on a map do not mean a modern uninterrupted road follows the original hoofprints.",
+    "usefulFor": "For a real driving itinerary use marked heritage sites, museums and legal public roads. Don't assume old routes cross only public land or that a historical marker designates a safe place to park.",
+    "sources": [
+      {
+        "label": "Texas State Historical Association: Chisholm Trail",
+        "url": "https://www.tshaonline.org/handbook/entries/chisholm-trail"
+      }
+    ]
+  },
   "244": {
     "topic": "A Gulf Coast borrowing, not an invented Texan word",
     "fact": "Lagniappe is widely associated with Louisiana and Gulf Coast usage, where it means a little extra. Its presence in Southeast Texas reflects cultural exchange across the Sabine rather than a unique Texas etymology.",
@@ -779,4 +933,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,136,142,146,147,149,150,151,166,167,168,169,170,171,176,177,178,185,188,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [50,51,88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,133,134,136,139,141,142,143,146,147,149,150,151,166,167,168,169,170,171,176,177,178,179,182,183,185,188,190,192,194,195,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,228,229,232,236,237,238,239,240,243,244,249] as const;
