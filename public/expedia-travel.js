@@ -597,6 +597,11 @@
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
+  function tierraBlancaHydrationPending() {
+    return normalizePath() === "/explore/tierra-blanca-creek" &&
+      document.documentElement.dataset.tdTierraBlancaHydrated !== "1";
+  }
+
   function battleshipHistoryHydrationPending() {
     // RootShell may hydrate before the lazy BB-35 article. Wait for the
     // actual article component effect before inserting the lodging surface.
@@ -638,6 +643,7 @@
     if (dallasRoadGuideHydrationPending()) return;
     if (metroDayTripsHydrationPending()) return;
     if (battleshipHistoryHydrationPending()) return;
+    if (tierraBlancaHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
@@ -738,6 +744,7 @@
     window.addEventListener("texasdefined:dallas-road-guide-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:tierra-blanca-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {
