@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
@@ -25,6 +25,8 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
   const [selectedLakes, setSelectedLakes] = useState<string[]>([]);
   // Render one manageable cohort of illustrated cards; the complete A–Z list remains visible and crawlable.
   const [visibleCount, setVisibleCount] = useState(12);
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
   const regions = useMemo(() => [...new Set(rows.map(({ lake }) => lake.region))].sort(), [rows]);
   const speciesNames = useMemo(() => [...new Set(rows.flatMap(({ targets }) => targets.map(({ name }) => name)))].sort(), [rows]);
   const filteredRows = useMemo(() => rows.filter(({ lake, targets, documentedAccess }) => {
@@ -46,7 +48,7 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
   const resetFilters = () => { setSearchText(""); setRegion(""); setSpecies(""); setAccess("all"); setAccessType("all"); setSeason("all"); setSortOrder("name"); setVisibleCount(12); };
   return <>
     <Container className="py-12 sm:py-16">
-      <section className="py-12" aria-labelledby="lake-directory-heading"><div className="flex flex-wrap items-end justify-between gap-5 border-b border-border pb-5"><div><p className="eyebrow text-primary">Complete lake guides</p><h2 id="lake-directory-heading" className="mt-2 font-display text-4xl">Compare Texas Fishing Lakes</h2></div>{latestReview ? <p className="text-xs leading-5 text-muted-foreground">Most recent lake-record verification: {formatDate(latestReview)}. Individual lake facts have different review dates.</p> : null}</div>
+      <section data-fishing-lakes-directory-hydrated={hydrated ? "true" : undefined} className="py-12" aria-labelledby="lake-directory-heading"><div className="flex flex-wrap items-end justify-between gap-5 border-b border-border pb-5"><div><p className="eyebrow text-primary">Complete lake guides</p><h2 id="lake-directory-heading" className="mt-2 font-display text-4xl">Compare Texas Fishing Lakes</h2></div>{latestReview ? <p className="text-xs leading-5 text-muted-foreground">Most recent lake-record verification: {formatDate(latestReview)}. Individual lake facts have different review dates.</p> : null}</div>
         <div className="mt-6 rounded-lg border border-border bg-muted/20 p-5" aria-label="Find and compare fishing lakes">
           <div className="flex flex-wrap items-start justify-between gap-4"><div><h3 className="font-display text-2xl">Find a lake for your trip</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">Search these completed guides, or use the <Link to="/fishing/plan" className="underline underline-offset-2">full fishing finder</Link> for broader trip planning.</p></div><button type="button" onClick={resetFilters} className="text-sm font-semibold text-primary underline underline-offset-2">Clear filters</button></div>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
