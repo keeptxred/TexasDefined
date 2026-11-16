@@ -69,6 +69,7 @@ for (const [id, slug] of movedTo) {
 for (const marker of [
   "TEXAS_ICON_FIELD_NOTES[entry.id]",
   "sourceBackedEntries.map",
+  "sourceBackedEntries.length > 0",
   "fieldNote.sources.map",
   'href={source.url}',
   "fieldNote.usefulFor",
