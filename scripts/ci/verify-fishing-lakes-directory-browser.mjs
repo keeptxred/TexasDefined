@@ -107,6 +107,8 @@ for (const { name, viewport, mobile } of [
           visible, viewport: window.innerWidth, docWidth: document.documentElement.scrollWidth,
           status: document.querySelector('p[role="status"][aria-live="polite"]')?.textContent || "",
           initialCards: document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length,
+          azLinks: document.querySelectorAll('nav[aria-label="All matching fishing lake guides"] a[href^="/fishing/lakes/"]').length,
+          hydrated: document.querySelector('section[data-fishing-lakes-directory-hydrated="true"]') != null,
         };
       };
       const ready = snapshot =>
@@ -116,7 +118,7 @@ for (const { name, viewport, mobile } of [
         snapshot.canonical === expectedCanonical &&
         /Texas Fishing Lakes/i.test(snapshot.title) &&
         snapshot.status.includes("Showing 72 of 72 lake guides") &&
-        snapshot.initialCards === 12 &&
+        snapshot.initialCards === 12 && snapshot.azLinks === 72 && snapshot.hydrated &&
         snapshot.visible.length === 4 &&
         snapshot.visible.every(item => item.name && item.text) &&
         snapshot.itemCount === 72 && snapshot.linkCount === 72;
@@ -129,7 +131,8 @@ for (const { name, viewport, mobile } of [
       const signature = JSON.stringify({ title: snapshot.title, h1: snapshot.h1,
         canonical: snapshot.canonical, robots: snapshot.robots,
         itemCount: snapshot.itemCount, linkCount: snapshot.linkCount,
-        visible: snapshot.visible, status: snapshot.status, initialCards: snapshot.initialCards });
+        visible: snapshot.visible, status: snapshot.status, initialCards: snapshot.initialCards,
+        azLinks: snapshot.azLinks, hydrated: snapshot.hydrated });
       const prior = window[stableMarker];
       if (!prior || prior.signature !== signature) {
         window[stableMarker] = { signature, at: performance.now() };
@@ -148,6 +151,8 @@ for (const { name, viewport, mobile } of [
     assert.doesNotMatch(initial.robots, /noindex/i, name + ": valid collection page incorrectly noindexed");
     assert.equal(initial.itemCount, 72, name + ": directory ItemList count incorrect");
     assert.equal(initial.linkCount, 72, name + ": directory ItemList URLs incomplete");
+    assert.equal(initial.azLinks, 72, name + ": live A–Z directory link index incomplete");
+    assert.equal(initial.hydrated, true, name + ": interactive directory had not hydrated");
     assert.equal(initial.deprecatedFaqSchemaPresent, false, name + ": deprecated FAQPage rich-result markup must be absent");
     assert.equal(initial.visible.length, 4, name + ": useful visible quick answers were removed");
     assert.ok(initial.visible.every((item) => item.name && item.text), name + ": reader answers incomplete");
