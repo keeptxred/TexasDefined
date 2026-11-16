@@ -85,7 +85,7 @@ function TierraBlancaCreekGuide() {
             </div>
             <aside className="border border-primary bg-background p-6" aria-label="The watercourse in order">
               <h3 className="font-display text-xl">Read the watercourse</h3>
-              <ol className="mt-4 space-y-4 text-sm leading-6">
+              <ol className="mt-4 list-decimal space-y-4 pl-6 text-sm leading-6 marker:font-semibold">
                 <li><strong>Tierra Blanca Creek</strong> — flows through Deaf Smith and Randall counties</li>
                 <li><strong>Palo Duro Creek</strong> — joins it east of Canyon</li>
                 <li><strong>Prairie Dog Town Fork</strong> — formed at their confluence</li>
