@@ -73,11 +73,26 @@ try {
           }));
           const heroCredit = document.querySelector("header.bg-ink figcaption");
           const heroBackground = heroCredit?.closest("header");
-          const rgb = text => (text.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
-          const luminance = channels => channels.map(v => { const x = v / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
-          const contrast = heroCredit && heroBackground
-            ? [luminance(rgb(getComputedStyle(heroCredit).color)), luminance(rgb(getComputedStyle(heroBackground).backgroundColor))]
-            : [];
+          const channels = css => {
+            const canvas = document.createElement("canvas");
+            canvas.width = 1; canvas.height = 1;
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            ctx.fillStyle = css;
+            ctx.fillRect(0, 0, 1, 1);
+            return [...ctx.getImageData(0, 0, 1, 1).data];
+          };
+          const luminance = values => values.slice(0, 3).map(v => {
+            const x = v / 255;
+            return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+          }).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
+          const contrast = heroCredit && heroBackground ? (() => {
+            const background = channels(getComputedStyle(heroBackground).backgroundColor);
+            const foreground = channels(getComputedStyle(heroCredit).color);
+            const opacity = foreground[3] / 255;
+            const compositedText = foreground.slice(0, 3).map((value, index) =>
+              value * opacity + background[index] * (1 - opacity));
+            return [luminance(compositedText), luminance(background)];
+          })() : [];
           const heroCreditContrast = contrast.length ? (Math.max(...contrast) + 0.05) / (Math.min(...contrast) + 0.05) : 0;
           return {
             heroCreditContrast,
