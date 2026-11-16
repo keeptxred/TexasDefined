@@ -12,24 +12,37 @@ import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data
 import { isShowcaseLakeSectionIndexReady } from "@/data/fishing/showcase-section-index-readiness";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+import type { FishingGuide, FishingReport } from "@/data/fishing/types";
 
 type LakeConroeSources = Awaited<ReturnType<typeof getLakeConroePageData>>["sources"];
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   loader: async ({ context, params }) => {
-    const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
-    const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
-    if (!lake) throw notFound();
+    // Canonical Lake Conroe editorial sections already have fully reviewed
+    // server page data. They do not use the statewide fishing repository.
+    // Importing fishingLakeQuery here would eagerly assemble every fishing lake,
+    // fish profile, technique, access facility and prototype even on /camping.
     if (params.slug === LAKE_CONROE_SLUG) {
       if (!isLakeConroeSection(params.section)) throw notFound();
       const pageData = await getLakeConroePageData();
-      const [reports, guides] = await Promise.all([
-        params.section === "reports" ? context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake)) : Promise.resolve([]),
-        params.section === "guides" ? context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })) : Promise.resolve([]),
-      ]);
-      return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
+      let reports: FishingReport[] = [];
+      let guides: FishingGuide[] = [];
+      if (params.section === "reports" || params.section === "guides") {
+        const { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
+        const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
+        if (!lake) throw notFound();
+        if (params.section === "reports") {
+          reports = await context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake));
+        } else {
+          guides = await context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 }));
+        }
+      }
+      return { kind: "conroe" as const, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
     }
+    const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
+    const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
+    if (!lake) throw notFound();
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
