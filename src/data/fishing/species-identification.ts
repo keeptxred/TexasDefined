@@ -44,7 +44,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Large Texas rivers, reservoirs and connected floodplains, especially in eastern and southern basins.",
     "similarSpecies": "Compare snout proportions with spotted gar and longnose gar; a fish's size alone is not reliable identification.",
     "approach": "Work deep channels and backwaters where legal; use heavy, fish-safe tackle and minimize handling stress.",
-    "caution": "Alligator gar have special area-specific harvest and reporting restrictions; consult TPWD before targeting or keeping one."
+    "caution": "Alligator gar have special area-specific harvest and reporting restrictions; consult TPWD before targeting or keeping one.",
+    "naturalHistory": [
+      "Alligator gar are long-lived fish that mature slowly. Spring floods over vegetated floodplains create important spawning conditions; in Texas spawning is associated with warm April and May water, but favorable flooding does not occur every year. A missing flood season can therefore mean little or no successful reproduction that year. The largest fish represent decades of survival, which is why harvest pressure on mature animals is a different conservation question from taking a fast-growing panfish.",
+      "Juvenile alligator gar eat small fish and aquatic insects; adults are capable predators that mainly consume fish. The broad, flattened snout and two rows of prominent teeth along each side of the upper jaw are stronger identification clues than size alone. Their ability to use air helps explain surface sightings in sluggish water. Harvest, reporting, seasonal closures and allowable methods require checking current TPWD rules for the specific waterbody."
+    ]
   },
   "spotted-gar": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/spottedgar/",
@@ -66,7 +70,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Texas rivers, ponds and reservoirs, where they use bottom contours and cover.",
     "similarSpecies": "A channel catfish usually has 24–29 soft rays along its anal fin, versus 30–35 in blue catfish. Both have forked tails, and larger channel catfish may lose the usual dark spotting, so do not use color alone.",
     "approach": "Fish natural or prepared bait along channel edges, current seams and bottom structure; adapt tackle to current and fish size.",
-    "caution": "Use official species comparisons when identifying a small blue catfish versus a channel catfish."
+    "caution": "Use official species comparisons when identifying a small blue catfish versus a channel catfish.",
+    "naturalHistory": [
+      "Channel catfish use sheltered cavities for spawning in late spring or early summer as water warms. Males select protected sites among rocks, logs, debris or undercut banks, guard the egg mass, and continue guarding the young after hatching. This nesting behavior explains why a productive catfish stretch can include both open bottom for feeding and tucked-away cavities that are less obvious from shore. Eggs and young fish are particularly vulnerable if cover is disturbed.",
+      "Young channel catfish feed mostly on small insects; adults eat a wide mix of insects, mollusks, crustaceans, fish and occasional plant material. The common dark spots on smaller fish can fade with age, making a large unspotted channel catfish harder to separate from a blue catfish. Count anal-fin rays and examine the fin edge and jaw if rules or records require exact identification; body color or a forked tail alone cannot settle the species."
+    ]
   },
   "blue-catfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/blc/",
@@ -75,7 +83,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Larger rivers and reservoirs, frequently using channels, dropoffs and open-water forage.",
     "similarSpecies": "Count the anal-fin rays when channel and blue catfish look alike: TPWD gives 30–35 for blue catfish and 24–29 for channel catfish. Both have forked tails; an unspotted body is not conclusive.",
     "approach": "Cut bait and other natural baits can work near forage and channel structure; use stronger tackle for larger fish.",
-    "caution": "Large specimens need careful support and current waterbody rules should be checked."
+    "caution": "Large specimens need careful support and current waterbody rules should be checked.",
+    "naturalHistory": [
+      "Blue catfish are strongly associated with main-river channels, major tributaries and large impoundments. TPWD describes a seasonal tendency to move upstream in warmer months toward cooler water and downstream as winter approaches. These movements are not an hourly bite forecast, but they help explain why fish may use different channel stretches through the year. Mature blue catfish may not reproduce until they are substantially larger than spawning channel catfish.",
+      "Although invertebrates remain important in the diet, blue catfish begin eating other fish while relatively small. Larger individuals consume fish as well as substantial aquatic invertebrates, connecting their feeding movements to concentrations of available forage. Some blue cats in the Rio Grande drainage have body spots, so a spotted catfish is not automatically a channel catfish. The anal fin usually has 30–35 rays, compared with 24–29 in channel catfish."
+    ]
   },
   "flathead-catfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/catfish/",
@@ -84,7 +96,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Texas river channels, reservoirs, submerged logs and cavities with substantial cover.",
     "similarSpecies": "Separate flatheads from channel and blue catfish by the flattened head and unforked tail rather than body color.",
     "approach": "Fish substantial cover and slower channel edges with legal natural baits, especially when larger fish feed.",
-    "caution": "Current TPWD gear, bait and waterbody-specific rules take precedence over general fishing advice."
+    "caution": "Current TPWD gear, bait and waterbody-specific rules take precedence over general fishing advice.",
+    "naturalHistory": [
+      "Flathead catfish are solitary, cover-oriented predators. Young fish eat worms, insects and crayfish, but adults predominantly pursue live fish; this differs from the broader scavenging and omnivorous habits often associated with channel catfish. Logs, undercut banks, slow deep holes and protected river cavities offer ambush places. Large fish may leave deeper cover after dark to feed in shallower water, so river structure and low-light behavior matter more than a generic bait prescription.",
+      "Flatheads generally reproduce in the warmer late-spring-to-summer period. Males defend cavity nests in logs, banks or other protected places, fan eggs to keep them oxygenated, and guard newly hatched fry before the young disperse to cover. TPWD notes that environmental stress and poor condition can reduce successful spawning. A broad head, projecting lower jaw and only shallowly notched tail remain the principal differences from fork-tailed channel and blue catfish."
+    ]
   },
   "largemouth-bass": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/lmb/",
@@ -93,7 +109,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Common in Texas impoundments, ponds and slow rivers, using timber, vegetation, docks, points and ledges.",
     "similarSpecies": "Guadalupe and spotted bass may show different jaw proportions and broken side markings; rely on several traits, not a single stripe.",
     "approach": "Use cover-oriented soft plastics, crankbaits and other presentations matched to water clarity, season and structure.",
-    "caution": "Special black-bass limits may apply on individual waters."
+    "caution": "Special black-bass limits may apply on individual waters.",
+    "naturalHistory": [
+      "Largemouth bass begin life feeding mainly on plankton and insect larvae, then switch toward larger prey as they grow. Adults chiefly eat fish and substantial invertebrates such as crayfish. They typically strike from cover rather than cruising open water continuously; timber, aquatic plants, submerged branches and rock edges offer both ambush sites and protection. This food-web role explains why forage availability and habitat quality are essential when interpreting a reservoir's fishery.",
+      "Texas largemouth nesting begins with spring warming, which can arrive much earlier in southern waters than farther north. Males prepare nests in protected water, including vegetation or firm bottom, and guard eggs and fry after spawning. The broad jaw extending past the eye remains a key field mark, but bass genetics, hybridization and individual appearance can complicate identification. Seasonal fishing strategies elsewhere on this page are lake-planning advice, not a guarantee of spawning at any given shoreline."
+    ]
   },
   "guadalupe-bass": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/gdb/",
@@ -102,7 +122,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Texas-native black bass especially associated with flowing Hill Country streams and the Edwards Plateau.",
     "similarSpecies": "Guadalupe bass can hybridize with smallmouth bass; do not rely on mottling alone where species overlap.",
     "approach": "Fish current breaks, shaded rocks, riffle-to-pool transitions and undercut stream edges with appropriately light tackle.",
-    "caution": "Protect this Texas state fish and check river-specific regulations and access."
+    "caution": "Protect this Texas state fish and check river-specific regulations and access.",
+    "naturalHistory": [
+      "Guadalupe bass are adapted to the rocky, flowing headwaters of the Edwards Plateau and adjoining Texas streams. Unlike largemouth bass, they typically use moving water, including gravelly areas where current brings oxygen to nests. Spawning can begin in spring, with males defending nest sites after females deposit eggs. Young fish start with aquatic invertebrates before more fish enter the diet as they mature, but insect prey remains important in this stream-centered species.",
+      "Because this species is endemic to Texas, distinguishing it from introduced smallmouth bass and their hybrids has conservation significance as well as fishing value. Guadalupe bass lack the tall vertical bars of smallmouth bass and the large jaw reach typical of largemouth bass; their side markings often extend farther downward than in spotted bass. Color alone is insufficient in mixed populations. Avoid presenting all black bass in a Hill Country stream as interchangeable."
+    ]
   },
   "bluegill": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/bgl/",
@@ -111,7 +135,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Common in Texas ponds, creeks and reservoirs around vegetation, docks and shoreline cover.",
     "similarSpecies": "The dark patch at the rear of the soft dorsal fin, small mouth and vertical body bars help distinguish bluegill. Redear sunfish show a red/orange gill-flap edge, while green sunfish have a larger mouth.",
     "approach": "Small hooks with worms or small flies are useful for beginner-friendly shoreline fishing.",
-    "caution": "Sunfish interbreed; mixed appearance may require several diagnostic traits."
+    "caution": "Sunfish interbreed; mixed appearance may require several diagnostic traits.",
+    "naturalHistory": [
+      "Bluegill are colony nesters. When shallow water warms, males fan saucer-shaped depressions in gravel or another suitable firm bottom; dozens of nests can appear close together. Males remain to guard the eggs and young. In Texas the spawning period can continue through much of the warm season, so nests should not be treated as a single statewide calendar event. Dense populations can produce small adults when food and predator balance are unfavorable.",
+      "Bluegill fry eat plankton, while larger fish focus on aquatic insects and larvae. Their small mouth fits fine prey and small hooks, though large adults can take a range of foods. For identification, look for the dark patch at the rear of the soft dorsal fin, body bars, short black gill flap and compact mouth. Breeding colors vary widely, and hybrids can blur the appearance of these characters; compare multiple features before applying a species-specific rule."
+    ]
   },
   "redear-sunfish": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/sunfish/",
@@ -198,7 +226,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Texas reservoirs and slow waters; may favor clearer water and brush or timber.",
     "similarSpecies": "White crappie more commonly show vertical bars and have a different dorsal-spine count; patterns alone may overlap.",
     "approach": "Small jigs and minnows presented beside timber, brush and spawning cover are common tactics.",
-    "caution": "Confirm identity with multiple features where fish show ambiguous markings."
+    "caution": "Confirm identity with multiple features where fish show ambiguous markings.",
+    "naturalHistory": [
+      "Black crappie build spring nests as water warms, with TPWD citing spawning around 60°F. Their diet overlaps with white crappie but usually contains more insects and crustaceans and relatively fewer fish. In Texas, black crappie are especially abundant in clear East Texas waters, although they are found more widely. The association with clear water is a tendency rather than an absolute requirement for an individual fish.",
+      "Black crappie have a deeper, more robust body and typically seven or eight dorsal spines. Their dark markings form irregular patches rather than the regular upright bars often seen on white crappie. A single side photograph may not show fin-spine counts, and both species may occupy the same reservoir. If exact identification matters, raise the dorsal fin carefully and check the spine count rather than relying on the shade of the fish."
+    ]
   },
   "white-crappie": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/wcp/",
@@ -207,7 +239,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Rivers and reservoirs throughout Texas, including stained-water creek arms and brush.",
     "similarSpecies": "White crappie typically show upright side bars and have five or six dorsal spines; black crappie have more scattered spots and usually seven or eight dorsal spines. Color and markings alone may mislead.",
     "approach": "Small jigs or minnows near brush, timber, seasonal shallow cover and dropoffs are practical.",
-    "caution": "Do not infer a lake-specific bag limit from statewide norms."
+    "caution": "Do not infer a lake-specific bag limit from statewide norms.",
+    "naturalHistory": [
+      "White crappie build shallow nests in spring, often gathering in dense colonies. TPWD describes spawning commonly beginning around 65–70°F, though it can occur in cooler water. Their high reproductive potential can lead to crowded, slow-growing populations in small impoundments. Young fish initially consume tiny aquatic animals, then grow into schooling juveniles; adults feed on insects and small fish, frequently following available forage.",
+      "White crappie show dark vertical bars on a silvery compressed body and typically no more than six dorsal spines. Black crappie instead have a more irregular spot pattern and usually seven or eight spines. Identifying the species by appearance alone is not always secure, particularly with unusual markings. Brush, submerged timber and creek channels are practical fishing contexts, but published lake associations should remain limited to individually sourced waters."
+    ]
   },
   "striped-bass": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/str/",
@@ -216,7 +252,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Introduced into select large Texas reservoirs, often occupying open water and feeding on schools of baitfish.",
     "similarSpecies": "Striped bass have two distinct tooth patches near the rear of the tongue, versus one in white bass. Several dark side stripes normally reach the tail, but white-bass hybrids require considering all traits together.",
     "approach": "Look for schooling baitfish, depth breaks and open-water activity; choose legal lures or bait appropriate to the reservoir.",
-    "caution": "Check species-specific and waterbody regulations for pure and hybrid striped bass."
+    "caution": "Check species-specific and waterbody regulations for pure and hybrid striped bass.",
+    "naturalHistory": [
+      "Striped bass can complete their life cycle in freshwater only where the spawning conditions are suitable. In spring they move into flowing tributaries; their eggs must remain suspended in current while developing. Many Texas reservoir populations cannot maintain natural recruitment and depend on management stockings, whereas Lake Texoma is a prominent exception with successful natural reproduction. A large open-water striper fishery is not by itself evidence of a self-sustaining population.",
+      "Adults pursue baitfish such as gizzard and threadfin shad, often feeding over open-water depth changes. This is why locating forage and suitable temperatures matters more than naming one universally best lure. Striped bass have two separate tooth patches on the rear of the tongue, while white bass have one; body stripes and mouth shape also help, but hybrids complicate the distinction. Current size and bag limits may vary by reservoir."
+    ]
   },
   "white-bass": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/wtb/",
@@ -225,7 +265,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Texas rivers and reservoirs, especially where spring spawning runs connect river channels with impoundments.",
     "similarSpecies": "White bass have one central tooth patch at the back of the tongue; striped bass have two distinct patches. White bass also have a deeper body and usually only one horizontal stripe reaching the tail; hybrids require multiple clues.",
     "approach": "During spring river runs check flows and public access; in reservoirs follow baitfish schools.",
-    "caution": "Consult TPWD for current runs, closures and regulations before leaving."
+    "caution": "Consult TPWD for current runs, closures and regulations before leaving.",
+    "naturalHistory": [
+      "White bass stage a pronounced spring spawning run. Males often reach upstream spawning areas before females, and spawning takes place in flowing water rather than a prepared nest. Adhesive eggs settle onto gravel and rocks; newly hatched fish begin with tiny aquatic prey. The run's timing depends on flow, temperature and access, so a particular week on the calendar should not be promoted as the current peak without new evidence.",
+      "Outside the run, white bass are schooling predators that follow shad and other forage through rivers and reservoirs. Feeding schools sometimes break the surface, but they can also remain deep. Identification matters because young striped bass and hybrids can look similar; a single tooth patch toward the back of the tongue is a useful white-bass clue, in contrast to the two distinct patches typical of striped bass."
+    ]
   },
   "freshwater-drum": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/fwd/",
@@ -234,7 +278,11 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "Widespread Texas rivers and reservoirs; feeds around bottom habitat.",
     "similarSpecies": "Freshwater drum differ from striped and white bass in their shape and lack of long side stripes. They also resemble saltwater red drum, but freshwater drum lack the conspicuous dark spot near a red drum's tail.",
     "approach": "Bottom-oriented baits and small lures can work around hard bottom and current; handle safely near dorsal spines.",
-    "caution": "Not the same species as saltwater red drum."
+    "caution": "Not the same species as saltwater red drum.",
+    "naturalHistory": [
+      "Freshwater drum are bottom-oriented fish that feed on aquatic insects, crayfish, small fish and mollusks. Heavy teeth deeper in the throat help them crush hard-shelled prey. Their common grunting or drumming noises are another field clue, although sound alone is not a reliable species test. Freshwater drum lack the dark spot near the tail that often identifies their saltwater relative, the red drum.",
+      "Unlike nest-building sunfish, freshwater drum may spawn over open water in Texas during spring, with buoyant eggs suspended in the water until hatching. This difference is useful when comparing the species' life history with crappie or bass. Drum range through many Texas freshwater systems but TPWD describes them as uncommon or absent from the Panhandle. Records from one region should not be turned into a claim of identical fishing everywhere in the state."
+    ]
   },
   "rainbow-trout": {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/rbt/",
@@ -243,6 +291,10 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "texasHabitat": "In Texas primarily seasonal cool-weather stockings and a few suitable cool-water habitats rather than a statewide permanent warm-water fishery.",
     "similarSpecies": "Unlike most Texas native panfish, rainbow trout have an adipose fin and a spotted tail; do not confuse stocked trout with other cold-water salmonids.",
     "approach": "Use small flies, spinners or legal baits at current stocked waters; verify the latest TPWD stocking report.",
-    "caution": "Do not represent last winter's stocking schedule as a current stocking announcement."
+    "caution": "Do not represent last winter's stocking schedule as a current stocking announcement.",
+    "naturalHistory": [
+      "Rainbow trout are cool- to cold-water fish rather than a naturally widespread Texas warm-water species. They perform best in cooler water and require oxygenated gravel riffles for successful reproduction. Much of Texas gets too warm for sustained populations through summer, though suitable tailwater below dams can provide exceptions. Consequently, Texas' winter trout program is primarily a seasonal stocking opportunity, not a promise of wild trout reproduction in each stocked pond.",
+      "The pink lateral stripe and spotted tail are useful field marks; the small adipose fin behind the dorsal fin further separates trout from common Texas sunfish. Trout feed on aquatic insects, crustaceans, mollusks and fish rather than consuming only artificial hatchery feed after stocking. Always use a current TPWD stocking schedule and the waterbody's regulations; last winter's release date or a general bag-limit summary should not be represented as this week's conditions."
+    ]
   }
 };
