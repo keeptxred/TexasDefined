@@ -63,6 +63,11 @@ try {
           documentHorizontalOverflow: document.documentElement.scrollWidth - innerWidth,
           mapSrc: map?.getAttribute("src") || "",
           mapTitle: map?.getAttribute("title") || "",
+          orientationMap: (() => {
+            const svg = article?.querySelector('svg[data-tierra-blanca-orientation-map]');
+            const bounds = svg?.getBoundingClientRect();
+            return { width: bounds?.width || 0, height: bounds?.height || 0, text: svg?.textContent || "" };
+          })(),
           faqCount: article?.querySelectorAll("dt").length || 0,
           imageCount: figures.length,
           imageAlts: figures.map(f => f.querySelector("img")?.getAttribute("alt") || ""),
@@ -75,6 +80,7 @@ try {
       check("descriptive unique title", evidence.h1.includes("Tierra Blanca Creek") && evidence.headingCount === 1);
       check("canonical", evidence.canonical === BASE + PATH, evidence.canonical);
       check("real geographical map", evidence.mapSrc.startsWith("https://www.openstreetmap.org/export/embed.html?bbox=") && evidence.mapTitle.includes("official refuge"));
+      check("agency-source orientation works without map tiles", evidence.orientationMap.width >= 260 && evidence.orientationMap.height >= 100 && evidence.orientationMap.text.includes("Buffalo Lake NWR") && evidence.orientationMap.text.includes("Palo Duro Canyon"), JSON.stringify(evidence.orientationMap).slice(0, 220));
       check("seven distinct substantive questions", evidence.faqCount >= 7, evidence.faqCount);
       check("transparent editorial methodology", evidence.hasByline && evidence.hasSourceNote);
       check("trail comparison rendered", evidence.hasTrailComparison);
