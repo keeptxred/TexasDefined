@@ -65,12 +65,15 @@ contains(county, ["slug === 'randall'", 'href="/explore/tierra-blanca-creek"'], 
 assert.ok(!article.includes("GPS coordinates for arrowheads") && !article.includes("artifact hunting locations"), "Do not reveal archaeological site coordinates");
 assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoid FAQ rich-result promises");
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
+assert.ok(article.indexOf('<figure className="border-b border-border py-10">') < article.indexOf('aria-labelledby="first-answer"'), "Photo hero must introduce the creek story before the dense first-answer panel");
+assert.ok(article.indexOf("data-stay-nearby-slot") > article.indexOf('aria-labelledby="sources"'), "Dedicated affiliate slot must follow the entire researched guide and citation section");
+assert.equal(article.split("data-stay-nearby-slot").length - 1, 1, "Exactly one affiliate slot should own booking choices");
 const visualQA = read(".github/workflows/tierra-blanca-visual-qa.yml");
 const visualScript = read("scripts/ci/verify-tierra-blanca-visual.mjs");
 contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence', 'actions/cache/restore@v4', 'actions/cache/save@v4', 'hashFiles(', 'schedule:', 'steps.proven.outputs.cache-hit', 'statuses: write', 'id: live_chrome', 'steps.live_chrome.outcome', 'id: visual_artifact', 'steps.visual_artifact.outcome', 'if-no-files-found: error', 'gh api -X POST', 'texasdefined-tierra-blanca-chrome'], 'Fail-closed real Chrome acceptance and auditable per-commit status after deployment');
 assert.ok(!visualQA.includes('git diff --name-only HEAD^ HEAD'), 'Never treat an unrelated later deployment as proof that a failed earlier authority upgrade was browser-tested');
 assert.ok(visualQA.includes("47 14 16 * *"), 'Real Chrome rechecks must retain monthly scheduling');
-contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'agency-source orientation works without map tiles', 'data-tierra-blanca-orientation-map', 'report.failures.length'], 'Browser check includes real photo decode, usable no-tiles map and responsive layout');
+contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'agency-source orientation works without map tiles', 'data-tierra-blanca-orientation-map', 'lodging after editorial sources, not before the creek story', 'report.failures.length'], 'Browser check includes real photo decode, usable no-tiles map and responsive layout');
 execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
 execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");

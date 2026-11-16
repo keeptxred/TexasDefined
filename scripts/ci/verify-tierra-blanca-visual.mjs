@@ -51,6 +51,9 @@ try {
       });
       check("HTTP success", response?.status() === 200, response?.status());
       await page.locator("h2#tierra-blanca-map").waitFor({ state: "visible", timeout: 20000 });
+      // The previously green Chrome run still showed two hotel panels before
+      // any creek geography on mobile. Wait for the actual affiliate placement.
+      await page.locator('[data-stay-nearby-slot] #expedia-travel-surface').waitFor({ state: "attached", timeout: 15000 });
       await page.evaluate(() => document.fonts?.ready);
       const evidence = await page.evaluate(() => {
         const article = document.querySelector("article");
@@ -75,6 +78,23 @@ try {
           hasSourceNote: article?.textContent?.includes("How this guide was researched") || false,
           hasTrailComparison: !!document.querySelector('section[aria-labelledby="tierra-blanca-visit-decision"] table'),
           headingCount: article?.querySelectorAll("h1").length || 0,
+          editorialFirst: (() => {
+            const hero = article?.querySelector('figure img[src*="palo-duro-canyon-state-park.jpg"]');
+            const geography = article?.querySelector('section[aria-labelledby="first-answer"]');
+            const citations = article?.querySelector('section[aria-labelledby="sources"]');
+            const slot = article?.querySelector('[data-stay-nearby-slot]');
+            const hotel = document.querySelector('#expedia-travel-surface');
+            const follows = (earlier, later) => Boolean(earlier && later && earlier.compareDocumentPosition(later) & Node.DOCUMENT_POSITION_FOLLOWING);
+            return {
+              heroBeforeGeography: follows(hero?.closest("figure"), geography),
+              geographyBeforeCommercial: follows(geography, slot),
+              sourcesBeforeCommercial: follows(citations, slot),
+              commercialInsideSlot: Boolean(slot && hotel && slot.contains(hotel)),
+              noOtherCommercialBeforeSources: Boolean(citations && ![...article.querySelectorAll('#expedia-travel-surface, #td-stay-affiliate-options')].some(n => !slot?.contains(n))),
+              heroLoaded: Boolean(hero && hero.complete && hero.naturalWidth > 500),
+              heroFetchPriority: hero?.getAttribute("fetchpriority") || "",
+            };
+          })(),
         };
       });
       check("descriptive unique title", evidence.h1.includes("Tierra Blanca Creek") && evidence.headingCount === 1);
@@ -84,6 +104,8 @@ try {
       check("seven distinct substantive questions", evidence.faqCount >= 7, evidence.faqCount);
       check("transparent editorial methodology", evidence.hasByline && evidence.hasSourceNote);
       check("trail comparison rendered", evidence.hasTrailComparison);
+      check("editorial-first hero before map and geography", evidence.editorialFirst.heroBeforeGeography && evidence.editorialFirst.heroLoaded && evidence.editorialFirst.heroFetchPriority === "high", JSON.stringify(evidence.editorialFirst));
+      check("lodging after editorial sources, not before the creek story", evidence.editorialFirst.geographyBeforeCommercial && evidence.editorialFirst.sourcesBeforeCommercial && evidence.editorialFirst.commercialInsideSlot && evidence.editorialFirst.noOtherCommercialBeforeSources, JSON.stringify(evidence.editorialFirst));
       check("photo alt text and credits", evidence.imageCount >= 3 && evidence.imageAlts.every(a => a.length > 35), JSON.stringify({ figures: evidence.imageCount, alts: evidence.imageAlts }));
       check("article has no horizontal overflow", evidence.articleHorizontalOverflow <= 4, evidence.articleHorizontalOverflow);
       check("viewport has no horizontal overflow", evidence.documentHorizontalOverflow <= 6, evidence.documentHorizontalOverflow);
