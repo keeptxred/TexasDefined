@@ -50,6 +50,10 @@ const galleryBrowser = read("scripts/ci/verify-three-attractions-responsive-brow
 assert.ok(attractionRoute.includes('<section aria-labelledby="destination-photo-archive"'), "Destination gallery must retain a labelled section landmark");
 assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-photo-archive"] figure img'), "Real Chrome must locate actual labelled gallery SECTION, not the heading ID");
 assert.ok(!galleryBrowser.includes('#destination-photo-archive figure img'), "Do not regress to searching photos inside an h2 heading; this silently selects zero images");
+assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-authority-sources"]'), "Chrome must select the full labelled source section, not a heading or a cached preview");
+assert.ok(galleryBrowser.includes("sourceUrls.every((url) => links.includes(url))"), "Chrome must wait for all actual approved operator citations before inspecting them");
+assert.ok(galleryBrowser.includes("actualDate === reviewDate"), "Chrome must verify on-page official source check date against the canonical record");
+assert.ok(!galleryBrowser.includes('document.querySelector("#destination-authority-sources")?.closest("section")'), "Do not regress to a fragile first heading-ID match rather than the actual citation landmark");
 
 assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
 assert.ok(attractionRoute.includes("isHoustonBotanicRecyclingOfferActive()"), "Timed Houston Recycles notice must be time gated");
