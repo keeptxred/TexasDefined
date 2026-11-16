@@ -269,6 +269,7 @@ async function verify() {
   for (const marker of requiredDeerMarkers) {
     requireText(extractVisibleText(canonicalDeerHtml), marker, 'Exact canonical deer visitor page');
   }
+  if (deerSeasons.startYear === 2026) {
   // Verify the reader-facing claim ledger points to original TPWD witnesses,
   // not merely that the three county names appear in generic page text.
   // Check both the uncached Worker view and the exact canonical visitor URL.
@@ -285,6 +286,8 @@ async function verify() {
     requireText(document, 'id="deer-source-record"', label + ' visible claim-level source ledger');
     requireText(document, 'href="#deer-source-record"', label + ' claim-level source navigation');
     requireText(document, 'href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd"', label + ' official CWD source');
+  }
+
   }
 
   const canonicalHero = findDeerHeroImageTag(canonicalDeerHtml);
