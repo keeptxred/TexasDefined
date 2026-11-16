@@ -12,8 +12,8 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     "usefulFor": "For an actual craft visit, find a specific workshop or maker and confirm whether visits are offered. Use a clear maker attribution, location of production and type of work, not a vague claim that every souvenir is authentic Texas craft.",
     "sources": [
       {
-        "label": "Texas State Historical Association: saddles and saddle makers",
-        "url": "https://www.tshaonline.org/handbook/entries/saddles-and-saddle-makers"
+        "label": "UNT Libraries and Texas A&M–Kingsville: Tejano saddlemakers research",
+        "url": "https://texashistory.unt.edu/ark:/67531/metapth1010945/"
       }
     ]
   },
@@ -598,13 +598,13 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   },
   "195": {
-    "topic": "The slogan has a commercial history",
-    "fact": "Keep Austin Weird emerged from a local independent-business campaign and became a widely reused urban identity slogan. It is an example of modern branding, not evidence that every Austin resident shares a single countercultural identity.",
-    "usefulFor": "Compare the original small-business support context with commercial reuse, and use it as a lens for independent shopping rather than a literal visitor promise that a neighborhood will be unusual.",
+    "topic": "A slogan with a traceable origin",
+    "fact": "Austin librarian Red Wassenich recalled saying 'keep Austin weird' during a donation call to KOOP Radio in 2000. BookPeople and Waterloo Records later amplified the phrase in 2002 to oppose a proposed retailer incentive and encourage support for local businesses; it was not invented by a government tourism bureau.",
+    "usefulFor": "Compare the original civic business campaign with the modern commercial use of 'weird' in slogans, retail and tourism. Avoid falsely claiming that everyone in Austin shares a particular aesthetic or that the phrase began as a city decree.",
     "sources": [
       {
-        "label": "Austin Independent Business Alliance: local business mission",
-        "url": "https://ibuyaustin.com/"
+        "label": "KUT Austin public radio: interview with slogan creator and 2000 origins",
+        "url": "https://www.kut.org/austin/2016-07-28/is-austin-really-still-keeping-it-weird"
       }
     ]
   },
