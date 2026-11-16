@@ -44,6 +44,17 @@ describe("GSC sitemap indexability regressions", () => {
     expect(workflow).toContain("cron: '17 10 * * *'");
   });
 
+  it("guards the exported GSC 5xx tax URLs and old partner duplicate query in weekly live verification", () => {
+    const source = read("scripts/seo/verify-gsc-priority-indexability.mjs");
+    expect(source).toContain('path: "/property-tax/taxing-unit/edna"');
+    expect(source).toContain('path: "/property-tax/taxing-unit/jackson-county-esd-1"');
+    expect(source).toContain("partnershipType=sports-travel&sourcePath=%2Fsports-venues");
+    expect(source).toContain('canonicalPath: "/partner-with-us"');
+    expect(source).toContain("target.canonicalPath ?? target.path.split");
+    expect(source).toContain("meta.canonicalCount !== 1");
+    expect(source).toContain("target.requiredText");
+  });
+
   it("does not serialize empty event filters onto the canonical events URL", () => {
     const source = read("src/routes/events.index.tsx");
 
