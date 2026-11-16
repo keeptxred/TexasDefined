@@ -83,8 +83,11 @@ jobs:
           FISHING_AUDIT_CONCURRENCY: "2"
           FISHING_AUDIT_OUTPUT: fishing-live-authority-report.json
         run: node scripts/seo/verify-fishing-authority-live.mjs
-      - name: Verify every published fish species page after a fishing release
-        if: ${{ always() && steps.scope.outputs.run == 'true' && github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' }}
+      - name: Verify all published fish species in live SSR on each fishing authority audit
+        # Also run on the scheduled/manual audit and on workflow changes.
+        # Deployment scope intentionally skips unrelated releases; a verified
+        # recovery deployment must not be the only way to trigger a fish check.
+        if: ${{ always() && steps.scope.outputs.run == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
         env:
           FISHING_AUDIT_SPECIES_ONLY: "1"
           FISHING_AUDIT_CONCURRENCY: "2"
