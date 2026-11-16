@@ -1,0 +1,62 @@
+name: Verify all TPWD fish guides in real mobile Chrome
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-fishing-species-mobile-photos.mjs'
+      - '.github/workflows/fishing-species-mobile-qa.yml'
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-fishing-species-mobile-photos.mjs'
+      - '.github/workflows/fishing-species-mobile-qa.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  schedule:
+    - cron: '49 13 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fishing-species-mobile-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  script-syntax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-fishing-species-mobile-photos.mjs
+
+  live-mobile:
+    needs: [script-syntax]
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-fish-species-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check 28 guides at mobile width and nine new fish at 320 pixels
+        run: node scripts/ci/verify-fishing-species-mobile-photos.mjs
+      - name: Preserve mobile report and real screenshots on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-species-mobile-${{ github.run_id }}
+          path: artifacts/fishing-species-browser/
+          retention-days: 21
+          if-no-files-found: warn
