@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
@@ -40,6 +40,8 @@ function FishingTripPlannerPage() {
   const navigate = useNavigate({ from: "/fishing/plan" });
   const [locating, setLocating] = useState(false);
   const [visibleCount, setVisibleCount] = useState(12);
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
   const [locationError, setLocationError] = useState("");
   const selectedSpecies = (search.species ?? [])
     .map((slug) => data.species.find((fish) => fish.slug === slug))
@@ -141,7 +143,7 @@ function FishingTripPlannerPage() {
 
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><a href="/">Front page</a> · <a href="/fishing">Fishing</a> · Lake finder</nav></Container>
-    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Find a Texas Fishing Lake</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Search by lake, city, ZIP code, county or Texas region, then select one or several fish species. Results use verified lake-to-species relationships rather than popularity or paid placement.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><a href={FISHING_LAKE_COMPARE_PATH} className="border-b border-ink-foreground pb-1 font-semibold">Compare lakes side by side →</a><a href="/fishing/species" className="border-b border-ink-foreground/50 pb-1">Browse Texas fish →</a></div></Container></header>
+    <header data-fishing-planner-hydrated={hydrated ? "true" : undefined} className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Find a Texas Fishing Lake</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Search by lake, city, ZIP code, county or Texas region, then select one or several fish species. Results use verified lake-to-species relationships rather than popularity or paid placement.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><a href={FISHING_LAKE_COMPARE_PATH} className="border-b border-ink-foreground pb-1 font-semibold">Compare lakes side by side →</a><a href="/fishing/species" className="border-b border-ink-foreground/50 pb-1">Browse Texas fish →</a></div></Container></header>
 
     <Container className="py-12 sm:py-16">
       <form method="get" action={FISHING_TRIP_PLANNER_PATH} className="border-b border-border pb-10" aria-label="Texas fishing lake finder">
