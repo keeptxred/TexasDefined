@@ -327,3 +327,38 @@ test('Moody asset handoff rejects wrong job, run, extra failure or a failed crit
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Moody source-verified published Worker has unexpected failure/);
   }
 });
+
+test('Nov15 7f0231fa Worker passes all five original-byte safety gates but only the repaired deer ALT-only failure can seed retained assets', () => {
+  const observed = evidence({
+    runId: 43744754206,
+    jobId: 132905483302,
+    failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  });
+  const accepted = qualifyPriorDeployJob(observed);
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.mode, 'exact-nov15-deer-full-alt-original-assets-only');
+  assert.equal(accepted.exactRun, 43744754206);
+  assert.equal(accepted.criticalChecks, 5);
+  assert.equal(accepted.requiredSourceSha, '172e2a38415fb3a64fa81f48d1732e660510d76f');
+  assert.equal(accepted.requiredWorkerVersion, '7f0231fa-6b09-4457-9c27-855392484141');
+  assert.deepEqual(accepted.permittedFailures, ['Verify hunting hub and turkey guide in desktop/mobile Chrome']);
+});
+
+test('the 7f0231fa original-byte exception rejects wrong publication, substituted failure and every missing critical check', () => {
+  const exact = {
+    runId: 43744754206, jobId: 132905483302,
+    failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  };
+  for (const mutation of [
+    {runId: 43744754207}, {jobId: 132905483303},
+    {failure: 'Verify base production surfaces'},
+    {additional: ['Verify base production surfaces']},
+    {additional: ['Verify current and previous release JS/CSS on both public origins']},
+    ...required.map(omit => ({omit})),
+  ]) {
+    assert.throws(
+      () => qualifyPriorDeployJob(evidence({...exact, ...mutation})),
+      /Required published-Worker safety gate not successful|Nov15 deer original asset handoff rejects altered run\/job\/failed-step evidence|Failed deploy job includes unapproved or missing failure evidence/,
+    );
+  }
+});
