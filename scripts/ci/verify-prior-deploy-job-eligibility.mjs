@@ -333,6 +333,24 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
   failedStep: 'Verify base production surfaces',
 });
 
+// Nov 16 published run #43957118581 is the exact 100%-traffic Worker
+// e2e84b7d-cae7-46a1-ace1-3ab7f20de1b3 from 0b8a3ba. GitHub confirms
+// Worker publish, version capture, direct/canonical health and every original
+// JS/CSS byte on BOTH public origins succeeded. The deployment's only failed
+// post-publish check was a genuine /fishing/lakes/lake-conroe/camping HTTP 500
+// on the cache-busted production probe. This grants absolutely NO exemption
+// from that failed content verifier, nor certifies the Worker as healthy on
+// every route; next release still must pass the full Conroe parity gate.
+// Only its immutable asset handoff can be reused, and ONLY after the caller's
+// exact-current Worker UUID/source SHA/dual-origin original-byte verification.
+const NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF = Object.freeze({
+  runId: 43957118581,
+  jobId: 133614493520,
+  sourceSha: '0b8a3ba134e5d03bb07b5575b19611d2a90c932b',
+  workerVersion: 'e2e84b7d-cae7-46a1-ace1-3ab7f20de1b3',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -349,6 +367,19 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const conroe500 = NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF;
+  if (job.run_id === conroe500.runId && job.id === conroe500.jobId &&
+      failures.length === 1 && failures[0] === conroe500.failedStep) {
+    // Only the immutable *asset* proof may be restored. This is not a
+    // 200/HTML/robots/canonical waiver for Conroe or any other route.
+    return {eligible:true,mode:'exact-nov16-conroe-500-original-assets-only',
+      exactRun:conroe500.runId,requiredSourceSha:conroe500.sourceSha,
+      requiredWorkerVersion:conroe500.workerVersion,
+      criticalChecks:CRITICAL.length,permittedFailures:failures};
+  }
+  if (job.run_id === conroe500.runId || job.id === conroe500.jobId) {
+    throw Error('Nov16 Conroe HTTP 500 original-byte handoff rejects altered run/job/failure proof: '+failures.join(', '));
   }
   const categoryReset = NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET;
   if (job.run_id === categoryReset.runId && job.id === categoryReset.jobId &&
