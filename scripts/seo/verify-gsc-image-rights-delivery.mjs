@@ -6,7 +6,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { buildChangePlan } from '../ci/production-change-scope.mjs';
 import { assertGscImageRights } from '../ci/verify-changed-production-pages.mjs';
 
 const ORIGIN = 'https://texasdefined.com';
@@ -20,17 +19,27 @@ const DIRECT_CANARIES = Object.freeze([
   '/article/texas-german-belt',
 ]);
 
+const EXACT_RIGHTS_PATHS = Object.freeze([
+  '/article/blue-bell-ice-cream-brenham-texas-history',
+  '/article/state-fair-texas-2026-new-foods-guide',
+  '/article/texas-borderlands-historic-sites-guide',
+  '/article/texas-before-united-states-how-texas-began',
+  '/article/texas-german-belt',
+  '/article/texas-restaurants-for-out-of-town-visitors',
+  '/article/unusual-texas-businesses-services',
+  '/article/texas-high-school-football-playoffs-explained',
+  '/article/texas-six-man-football-rules-explained',
+  '/article/texas-cultural-regions-explained',
+  '/article/texas-major-cities-regional-differences',
+  '/article/texas-lakes-reservoirs-explained',
+  '/destination/south-padre-island',
+  '/destination/big-bend-ranch-state-park',
+]);
+
 export function imageRightsReviewPaths() {
-  const plan = buildChangePlan({
-    baseline: 'a'.repeat(40),
-    head: 'b'.repeat(40),
-    changedFiles: [
-      'src/data/image-rights.ts',
-      'src/data/verified-local-state-park-photo-credits.ts',
-    ],
-  });
-  const paths = [...new Set(plan.imageRightsPages)].sort();
+  const paths = [...EXACT_RIGHTS_PATHS].sort();
   if (paths.length !== 14 ||
+      new Set(paths).size !== 14 ||
       !paths.includes('/destination/big-bend-ranch-state-park') ||
       !paths.includes('/article/blue-bell-ice-cream-brenham-texas-history') ||
       DIRECT_CANARIES.some(p => !paths.includes(p))) {
