@@ -299,6 +299,24 @@ const NOV15_PUBLISHED_DEER_HERO_ALT_MATCHER = Object.freeze({
   failedStep: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
 });
 
+// Nov16 #43940147723 actually published the 100%-traffic Worker from
+// 347ab475 and passed deploy, captured version, canonical/direct 200, and
+// 9,728 original-byte dual-origin JS/CSS proofs with zero asset errors.
+// Its one failure was the strictly independent Lake Conroe camping HTTP 500
+// discovered by sitemap/robots parity; the published Worker remains BROKEN.
+// #7288 repairs the actual unneeded statewide fishing-catalog import path.
+// This exception qualifies ONLY that published Worker's immutable original
+// bytes, never the failed fishing page or failed release. The calling release
+// still pins current Worker UUID, exact source SHA and ALL original hashes on
+// BOTH public origins and reruns the same strict parity after the fix.
+const NOV16_PUBLISHED_CONROE_SSR_FAILURE = Object.freeze({
+  runId: 43940147723,
+  jobId: 133555201659,
+  sourceSha: '347ab475a0566b52cfaa4fa8d7d918978466aa0a',
+  workerVersion: '49b9c790-d1e6-41f6-bf69-0c47cc9a9871',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -315,6 +333,30 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const conroe = NOV16_PUBLISHED_CONROE_SSR_FAILURE;
+  if (job.run_id === conroe.runId && job.id === conroe.jobId &&
+      failures.length === 1 && failures[0] === conroe.failedStep) {
+    const route = readFileSync('src/routes/fishing.lakes.$slug.$section.tsx', 'utf8');
+    const loader = route.slice(route.indexOf('  loader: async'), route.indexOf('  head:'));
+    const firstBranch = loader.indexOf('if (params.slug === LAKE_CONROE_SLUG)');
+    const unconditionalCatalog = loader.indexOf('const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery }');
+    const conditionalCatalog = loader.indexOf('if (params.section === "reports" || params.section === "guides")');
+    const pageDataBeforeGlobal = loader.indexOf('const pageData = await getLakeConroePageData()');
+    const canonicalPageGuard = loader.indexOf('if (!isLakeConroeSection(params.section)) throw notFound()');
+    if (firstBranch < 0 || canonicalPageGuard < firstBranch ||
+        pageDataBeforeGlobal < canonicalPageGuard || conditionalCatalog < pageDataBeforeGlobal ||
+        unconditionalCatalog < conditionalCatalog || !loader.includes('const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug))') ||
+        !loader.includes('reports = await context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake))')) {
+      throw Error('Nov16 Conroe asset handoff is rejected until #7288 repairs unconditional statewide fishing catalog import');
+    }
+    return { eligible: true, mode: 'exact-nov16-conroe-failed-parity-original-assets-only',
+      exactRun: conroe.runId, requiredSourceSha: conroe.sourceSha,
+      requiredWorkerVersion: conroe.workerVersion, criticalChecks: CRITICAL.length,
+      permittedFailures: failures };
+  }
+  if (job.run_id === conroe.runId || job.id === conroe.jobId) {
+    throw Error('Nov16 Conroe original-byte handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
   }
   const deerHero = NOV15_PUBLISHED_DEER_HERO_ALT_MATCHER;
   if (job.run_id === deerHero.runId && job.id === deerHero.jobId &&

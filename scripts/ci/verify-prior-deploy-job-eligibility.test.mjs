@@ -362,3 +362,35 @@ test('the 7f0231fa original-byte exception rejects wrong publication, substitute
     );
   }
 });
+
+test('Nov16 published Conroe Worker may seed exactly its verified original assets after #7288 source repair, not false-green camping', () => {
+  const accepted = qualifyPriorDeployJob(evidence({
+    runId: 43940147723, jobId: 133555201659,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  }));
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.mode, 'exact-nov16-conroe-failed-parity-original-assets-only');
+  assert.equal(accepted.exactRun, 43940147723);
+  assert.equal(accepted.criticalChecks, 5);
+  assert.equal(accepted.requiredSourceSha, '347ab475a0566b52cfaa4fa8d7d918978466aa0a');
+  assert.equal(accepted.requiredWorkerVersion, '49b9c790-d1e6-41f6-bf69-0c47cc9a9871');
+  assert.deepEqual(accepted.permittedFailures, ['Verify fishing lake robots and sitemap publication parity']);
+});
+
+test('Nov16 Conroe old-asset handoff fails closed for wrong job/run, added failure or any unhealthy hash gate', () => {
+  const exact = {
+    runId: 43940147723, jobId: 133555201659,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  for (const mutation of [
+    {runId:43940147724}, {jobId:133555201660},
+    {failure:'Verify current and previous release JS/CSS on both public origins'},
+    {failure:'Verify base production surfaces'},
+    {additional:['Verify base production surfaces']},
+    {additional:['Verify current and previous release JS/CSS on both public origins']},
+    ...required.map(omit=>({omit})),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({...exact,...mutation})),
+      /Required published-Worker safety gate not successful|Nov16 Conroe original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
