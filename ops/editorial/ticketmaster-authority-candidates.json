@@ -1,30 +1,6 @@
 {
-  "fetchedAt": "2026-11-15T17:47:38.061Z",
+  "fetchedAt": "2026-11-16T21:05:22.808Z",
   "candidates": [
-    {
-      "name": "Austin Championship",
-      "city": "Austin",
-      "dates": [
-        "2026-11-15"
-      ],
-      "venues": [
-        "Omni Barton Creek Resort & Spa Fazio Canyons Golf Course"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_kRZhHmi"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
     {
       "name": "Big 12 Football Championship",
       "city": "Arlington",
@@ -111,6 +87,28 @@
       ],
       "ticketmasterIds": [
         "rZ7HnEZ1Af78uV"
+      ],
+      "officialTicketUrls": [],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Fresh Faces Fest",
+      "city": "Addison",
+      "dates": [
+        "2026-12-23"
+      ],
+      "venues": [
+        "Addison Improv"
+      ],
+      "ticketmasterIds": [
+        "rZ7HnEZ1Afo8ZV"
       ],
       "officialTicketUrls": [],
       "status": "requires-organizer-verification",
@@ -448,6 +446,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed By Gary P Nunn",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-14"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnFQRO"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-14-2027/event/3A006507AA21ABE0"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed By Riley Green",
       "city": "San Antonio",
       "dates": [
@@ -461,6 +483,54 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-12-2027/event/3A006507AA0AABB9"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo followed by TBA",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-13"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnAnR4"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-13-2027/event/3A006507AA16ABD5"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo followed by Turnpike Troubadours",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-13"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn71RA"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-13-2027/event/3A006507AA10ABC5"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -535,7 +605,12 @@
         "2026-12-10",
         "2026-12-11",
         "2026-12-12",
-        "2026-12-13"
+        "2026-12-13",
+        "2026-12-16",
+        "2026-12-17",
+        "2026-12-18",
+        "2026-12-19",
+        "2026-12-20"
       ],
       "venues": [
         "McAllen Convention Center"
@@ -553,7 +628,12 @@
         "G5dIZ_pR6YCVp",
         "G5dIZ_pR6mXVA",
         "G5dIZ_pR6srVh",
-        "G5dIZ_pR6wrVO"
+        "G5dIZ_pR6wrVO",
+        "G5dIZ_piaSFZT",
+        "G5dIZ_piaUIvX",
+        "G5dIZ_piaVFvq",
+        "G5dIZ_piagbvc",
+        "G5dIZ_piaszZi"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-27-2026/event/3A0064FBEC2319F3",
@@ -568,7 +648,12 @@
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-10-2026/event/3A00656BC7C0ED16",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-11-2026/event/3A00656BC7C5ED1B",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-12-2026/event/3A00656BC7C9ED20",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-13-2026/event/3A00656BC7CEED2C"
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-13-2026/event/3A00656BC7CEED2C",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-16-2026/event/3A00656B09C7802C",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-17-2026/event/3A00656B09CC803F",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-18-2026/event/3A00656B09D0805D",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-19-2026/event/3A00656B09D5806D",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-20-2026/event/3A00656B09DA807E"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -583,20 +668,15 @@
       "name": "Spirit of Mexico Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-15",
         "2027-02-07"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A7OZ_A",
-        "Z7r9jZ1A7OZ_k",
         "Z7r9jZ1AA7-1e"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_A",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_k",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-1e"
       ],
       "status": "requires-organizer-verification",
@@ -642,7 +722,8 @@
         "2027-01-31",
         "2027-02-05",
         "2027-02-06",
-        "2027-02-12"
+        "2027-02-12",
+        "2027-02-14"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -665,6 +746,7 @@
         "Z7r9jZ1A7OpPY",
         "Z7r9jZ1A7OpPs",
         "Z7r9jZ1A7OpPt",
+        "Z7r9jZ1AA7-F-",
         "Z7r9jZ1AA7-F4",
         "Z7r9jZ1AA7-F6",
         "Z7r9jZ1AA7-F9",
@@ -707,6 +789,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPt",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F-",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F4",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F6",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F9",
