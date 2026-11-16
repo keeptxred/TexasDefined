@@ -4,6 +4,7 @@ import { buildChangePlan, TEXAS_CULTURE_AUTHORITY_PAGES } from './production-cha
 
 const editorialOwnerChanges = [
   'src/data/texas-icon-chapter-evidence.ts',
+  'src/data/texas-icon-field-notes.ts',
   'src/data/things-unique-to-texas.ts',
   'src/data/texas-evergreen-guides.ts',
   'src/routes/texas-food-history.tsx',
