@@ -128,8 +128,4 @@ jobs:
             state=failure
             description="Real desktop/mobile Chrome acceptance failed or did not execute"
           fi
-          gh api -X POST "repos/$GITHUB_REPOSITORY/statuses/$DEPLOYED_SHA" \\
-            -f state="$state" \\
-            -f context="texasdefined-tierra-blanca-chrome" \\
-            -f description="$description" \\
-            -f target_url="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh api -X POST "repos/$GITHUB_REPOSITORY/statuses/$DEPLOYED_SHA" -f state="$state" -f context="texasdefined-tierra-blanca-chrome" -f description="$description" -f target_url="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
