@@ -105,6 +105,8 @@ const sitemap = await getHtml(`${BASE}/sitemap-explore.xml`);
 const canon = `<loc>${articleUrl}</loc>`;
 assert.ok(sitemap.includes(canon), "Canonical Tierra Blanca guide absent from Explore sitemap");
 assert.equal(sitemap.split(canon).length - 1, 1, "Guide appears more than once in Explore sitemap");
+const guideXml = sitemap.slice(sitemap.indexOf(canon), sitemap.indexOf("</url>", sitemap.indexOf(canon)));
+assert.ok(guideXml.includes("<lastmod>2026-11-16</lastmod>"), "Guide's sitemap lastmod must match substantive Nov 16 update rather than an older or automatically fabricated date");
 
 console.log("TIERRA_BLANCA_AUTHORITY_READONLY_REVIEW " + JSON.stringify({
   checkedAt: new Date().toISOString(),
