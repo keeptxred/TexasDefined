@@ -1,6 +1,6 @@
 # Texas freshwater fish identification — TPWD 22-species cohort
 
-Status: **Implementation in review, not yet deployed**. Date: 2026-11-15.
+Status (2026-11-15): **Merged in PR #7266 (9ef38b2ab62f40158adb56a5cceffdf2f3eac5b1)**; a later main deploy of `2f84d03a93c1d3d1d3438215bb3335e4997a1357` succeeded (GitHub Actions run #43779518662). Implementation is deployed, but **dedicated 28-guide live SSR verification was skipped by the single-commit workflow scope and is not yet certified**.
 
 ## User request
 Take the uploaded Texas Parks and Wildlife Department *Texas Common Freshwater Fishes* foldout, retain TexasDefined's existing fishing guides, add reliable identification, similar-species comparison, typical sizes, habitat and fishing context to every one of the 22 pictured fish, and create authoritative pages for the nine missing species. Every image must be individually sourced and licensed. Keep indexable pages substantive, with real citations and no invented lake records. Complete publication and live QA.
@@ -20,8 +20,9 @@ Take the uploaded Texas Parks and Wildlife Department *Texas Common Freshwater F
 - Source-review dates do not silently update old records to today's date.
 - This change preserves existing canonical paths and live fishing-content workflows.
 
-## Release checkpoint
-1. Open PR from branch `feat/tpwd-freshwater-22-species-identification-20261115` to `main`.
-2. Examine PR CI/typecheck/build failures; fix and rerun by new commit.
-3. Merge after all required checks pass and monitor the main-triggered `deploy-production.yml`.
-4. Live-verify all 22 URLs, indexability, correct fish images, source links, sitemap dates, and no Cloudflare errors. If blocked, append exact error and state to this checkpoint before interrupting.
+## Release / verification checkpoint (2026-11-15)
+1. Completed: PR [#7266](https://github.com/keeptxred/TexasDefined/pull/7266) merged with the 22-fish field-identification feature and nine standalone guides.
+2. Completed: production deploy [#43779518662](https://github.com/keeptxred/TexasDefined/actions/runs/43779518662) succeeded at main SHA `2f84d03a93c1d3d1d3438215bb3335e4997a1357`; it incorporated the fish feature from its ancestry.
+3. **Not yet certified**: the [fishing URL authority acceptance run #43781160852](https://github.com/keeptxred/TexasDefined/actions/runs/43781160852) concluded success only because its species steps were skipped. Scope keyed only to the current deployment commit and missed the preceding fish feature commit.
+4. Follow-up in `feat/tpwd-fish-identification-22-20261115-v2`: allow a dedicated 28-species live SSR audit on scheduled and on workflow-update push runs, rather than only on fishing-scoped production deployments. Verify canonical, indexability, image rendering/rights, TPWD sources, and every 22-fish pocket-guide page from the generated artifact.
+5. After the audit, investigate any failed URLs and amend the next checkpoint accurately. Do not mark full 95+ editorial/mobile acceptance on the basis of mechanical HTML checks alone.
