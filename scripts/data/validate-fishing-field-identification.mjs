@@ -38,6 +38,9 @@ for (const slug of expected) {
     assert.equal(typeof row[field], "string", `${slug} missing ${field}`);
     assert(row[field].trim().length > (field === "fieldSize" ? 9 : 25), `${slug} has incomplete ${field} text`);
   }
+  assert(Array.isArray(row.naturalHistory) && row.naturalHistory.length >= 2 &&
+    row.naturalHistory.every((paragraph) => typeof paragraph === "string" && paragraph.length >= 180),
+    `${slug} requires two researched TPWD-grounded diet, spawning and ecology paragraphs`);
   assert(row.sourceUrl.startsWith("https://tpwd.texas.gov/"), `${slug} missing authoritative TPWD citation`);
   assert(slugs.includes(`"${slug}"`), `Missing standalone route for ${slug}`);
   assert(images.includes(`"${slug}": `) || images.includes(`  ${slug}:`), `Missing individually licensed image for ${slug}`);
