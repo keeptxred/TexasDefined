@@ -29,6 +29,30 @@ export function TierraBlancaVisitorEvidence() {
       <h2 id="tierra-blanca-map" className="mt-2 font-display text-3xl">Find the real public entrances—and see where the creek belongs</h2>
       <p className="mt-4 max-w-4xl text-base leading-8">Tierra Blanca Creek rises in New Mexico's Curry County, enters Texas in Deaf Smith County, then crosses Randall County toward the Palo Duro Creek confluence northeast of Canyon. The Texas State Historical Association describes an approximately 75-mile east-northeast reach through Texas. Buffalo Lake refuge is on the upper creek; the red cliffs in the state park are farther downstream along the Prairie Dog Town Fork of the Red River.</p>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">Map shown at regional scale. The single marker identifies the <strong>USFWS-published Buffalo Lake refuge entrance</strong>, not a creek-bank trailhead, archaeological site or continuous public waterway route. OpenStreetMap is a geographic reference, not an authoritative boundary or safe-navigation source. Check agency maps at each entrance.</p>
+      {/* This source-coordinate orientation is always visible. The third-party
+          map below may be unavailable in browsers that block external tiles. */}
+      <div data-tierra-blanca-orientation className="mt-6 border border-border p-4">
+        <p className="text-sm font-semibold">Reliable geographic orientation, even without third-party map tiles</p>
+        <svg data-tierra-blanca-orientation-map role="img" aria-labelledby="tierra-map-title tierra-map-description"
+          className="mt-3 w-full" viewBox="0 0 860 320" style={{ background: "#f5f3ed" }}>
+          <title id="tierra-map-title">North-up location comparison: Buffalo Lake refuge entrance west of Palo Duro Canyon State Park headquarters</title>
+          <desc id="tierra-map-description">Positions plotted proportionally from official agency coordinates: Buffalo Lake refuge entrance 34.919517 north, 102.111118 west; Palo Duro Canyon State Park headquarters 34.984709 north, 101.701867 west. Orientation only. This drawing shows no creek route, road, path, public property boundary or artifact location.</desc>
+          <rect width="860" height="320" fill="#f5f3ed" />
+          <text x="52" y="43" fontSize="22" fontWeight="700" fill="#4a443d">WEST</text>
+          <text x="742" y="43" fontSize="22" fontWeight="700" fill="#4a443d">EAST</text>
+          <text x="422" y="43" fontSize="22" textAnchor="middle" fill="#4a443d">N ↑</text>
+          <line x1="48" y1="85" x2="812" y2="85" stroke="#d4c9bb" strokeWidth="2" />
+          <line x1="48" y1="278" x2="812" y2="278" stroke="#d4c9bb" strokeWidth="2" />
+          <circle cx="194" cy="217" r="14" fill="#256a60" stroke="white" strokeWidth="4" />
+          <text x="217" y="205" fontSize="24" fontWeight="700" fill="#274b45">Buffalo Lake NWR</text>
+          <text x="217" y="234" fontSize="18" fill="#384e49">official public entrance</text>
+          <circle cx="700" cy="132" r="14" fill="#a7552e" stroke="white" strokeWidth="4" />
+          <text x="670" y="120" textAnchor="end" fontSize="24" fontWeight="700" fill="#763b23">Palo Duro Canyon</text>
+          <text x="670" y="149" textAnchor="end" fontSize="18" fill="#763b23">state park headquarters</text>
+          <text x="52" y="303" fontSize="16" fill="#4a443d">North-up coordinate plot • Not a route or access map</text>
+        </svg>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>West:</strong> Buffalo Lake refuge entrance (USFWS: 34.919517, -102.111118). <strong>East:</strong> Palo Duro Canyon park headquarters (TPWD: 34.984709, -101.701867). These are two officially published public facilities, not creek-bank access points. Only their relative positions are drawn; no road, trail or stream course is inferred.</p>
+      </div>
       <div className="mt-6 overflow-hidden border border-border">
         <iframe title="OpenStreetMap regional context showing Canyon, Umbarger, Buffalo Lake refuge and the Palo Duro Canyon region, with a marker at the official refuge entrance" src="https://www.openstreetmap.org/export/embed.html?bbox=-102.34%2C34.80%2C-101.51%2C35.29&amp;layer=mapnik&amp;marker=34.919517%2C-102.111118" loading="lazy" referrerPolicy="no-referrer" className="aspect-video w-full" />
       </div>
@@ -78,7 +102,7 @@ export function TierraBlancaVisitorEvidence() {
       <h2 id="tierra-blanca-road-plan" className="mt-2 font-display text-3xl">Build the Amarillo–Umbarger–Canyon outing around what is open</h2>
       <div className="mt-6 grid gap-5 md:grid-cols-3">
         <div className="border border-border p-5"><h3 className="font-display text-xl">From Amarillo</h3><p className="mt-3 text-sm leading-7">USFWS places Umbarger roughly 30 miles southwest of Amarillo. Approach via the U.S. 60 corridor and check current road conditions. The refuge entrance road is 1.5 miles south of Umbarger on FM 168; its administrative address is listed 3 miles south, so use the published entrance coordinates rather than guessing from the address alone.</p></div>
-        <div className="border border-border p-5"><h3 className="font-display text-xl">From Canyon</h3><p className="mt-3 text-sm leading-7">Umbarger is about 10 miles west of Canyon along U.S. 60, per USFWS. Pair the refuge with Canyon's Panhandle-Plains Historical Museum for regional context; the museum visit is optional and has separate schedules and admission.</p></div>
+        <div className="border border-border p-5"><h3 className="font-display text-xl">From Canyon</h3><p className="mt-3 text-sm leading-7">Umbarger is about 10 miles west of Canyon along U.S. 60, per USFWS. The Panhandle-Plains Historical Museum building in Canyon has been closed to visitors since March 2025 for fire/life-safety repairs; do not plan it as a walk-in attraction. Check the museum's <SourceLink href="https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates">official closure and traveling-exhibition updates</SourceLink> for current off-site programs. Public historical markers in Canyon are an alternative.</p></div>
         <div className="border border-border p-5"><h3 className="font-display text-xl">Palo Duro on a separate leg</h3><p className="mt-3 text-sm leading-7">Use TPWD's signed state-park approach east of Canyon, rather than treating the refuge as a connecting trail. Reserve a separate morning for major canyon hikes and check park alerts, daytime heat and weather closures.</p></div>
       </div>
       <p className="mt-5 text-sm leading-7 text-muted-foreground">For the refuge, FWS lists $2 per vehicle per day for entry and $2 per vehicle per day for designated primitive camping. Campground vault restrooms are available, but primitive camping has no water, sewer or electricity. Refuge trails and the auto-tour road are listed as open 8 a.m.–8 p.m. April–September and 8 a.m.–6 p.m. October–March. These are agency-posted details, not TexasDefined guarantees; verify on the day of travel.</p>

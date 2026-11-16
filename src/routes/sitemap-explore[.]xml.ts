@@ -13,6 +13,8 @@ import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
+// Update only after a substantive Tierra Blanca guide revision; keep XML and Article dateModified in sync.
+const TIERRA_BLANCA_EDITORIAL_LASTMOD = "2026-11-16";
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const EXPLORE_CATEGORY_SLUGS = new Set([
   "lakes-rivers", "major-springs", SWIMMING_HOLES_RIVER_TUBING_SLUG, "state-parks", "national-parks", "caverns",
@@ -244,7 +246,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
   const entries = dedupeUrlEntries([
-    ...[...new Set(fallbackPaths)].map((path) => entry(path)),
+    ...[...new Set(fallbackPaths)].map((path) => entry(path, path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined)),
     await auditedFredericksburgSitemapEntry(),
     await auditedMagoffinSitemapEntry(),
   ].filter((item): item is string => Boolean(item))).join("\n");
@@ -562,7 +564,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
+        const staticEntries = [...new Set(staticPaths)].map((path) => entry(path, path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined)).filter((item): item is string => Boolean(item));
         const entries = dedupeUrlEntries([
           ...staticEntries,
           ...destinationEntries,

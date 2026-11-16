@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: tierra-blanca-chrome-${{ github.event.workflow_run.head_sha || github.sha }}
@@ -83,6 +84,7 @@ jobs:
         if: steps.scope.outputs.changed == 'yes'
         run: node scripts/ci/verify-tierra-blanca-visual.mjs --self-test
       - name: Verify actual production map, imagery, article and layout
+        id: live_chrome
         if: steps.scope.outputs.changed == 'yes'
         env:
           TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
@@ -101,10 +103,31 @@ jobs:
           path: .artifacts/tierra-blanca-chrome-validated.txt
           key: tierra-blanca-real-chrome-v2-${{ hashFiles('src/routes/explore.tierra-blanca-creek.lazy.tsx', 'src/components/explore/TierraBlancaVisitorEvidence.tsx', 'scripts/ci/verify-tierra-blanca-visual.mjs', '.github/workflows/tierra-blanca-visual-qa.yml') }}
       - name: Preserve real mobile and desktop visual evidence
+        id: visual_artifact
         if: always() && steps.scope.outputs.changed == 'yes'
         uses: actions/upload-artifact@v4
         with:
           name: tierra-blanca-authority-visual-${{ github.run_id }}
           path: artifacts/tierra-blanca-authority-visual/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
+      # Publish independently inspectable proof of a real Chrome run, not a
+      # green pre-merge specification or cached HEAD-only acceptance.
+      - name: Record verified Chrome outcome on exact deployed commit
+        if: ${{ always() && steps.scope.outputs.changed == 'yes' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          CHROME_RESULT: ${{ steps.live_chrome.outcome }}
+          VISUAL_ARTIFACT_RESULT: ${{ steps.visual_artifact.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$CHROME_RESULT" == "success" && "$VISUAL_ARTIFACT_RESULT" == "success" ]]; then
+            state=success
+            description="Real desktop and mobile Chrome map, FWS photo and layout acceptance passed"
+          else
+            state=failure
+            description="Real desktop/mobile Chrome acceptance failed or did not execute"
+          fi
+          gh api -X POST "repos/$GITHUB_REPOSITORY/statuses/$DEPLOYED_SHA" -f state="$state" -f context="texasdefined-tierra-blanca-chrome" -f description="$description" -f target_url="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"

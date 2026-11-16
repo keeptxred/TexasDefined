@@ -19,7 +19,8 @@ function contains(text, required, where) {
 }
 contains(head, [
   'canonicalPath = "/explore/tierra-blanca-creek"',
-  'dateModified: lastSubstantiveRevision',
+  'dateModified: lastSubstantiveRevision', 'publishedTime: firstPublished', 'datePublished: firstPublished',
+  'const firstPublished = "2026-11-15"', 'const lastSubstantiveRevision = "2026-11-16"',
   '"@type": "Article"', 'documentedRefugeImage', 'creditText: "Christena Stephens / U.S. Fish and Wildlife Service"',
   '"@type": "BreadcrumbList"', 'headline: "Tierra Blanca Creek: the waterway behind the canyon country near Amarillo"',
   "buildMeta(",
@@ -27,6 +28,8 @@ contains(head, [
 ], "Head metadata and canonical");
 contains(publicRoutes, ['"/explore/tierra-blanca-creek"'], "Public route registry");
 assert.ok((sitemap.match(/"\/explore\/tierra-blanca-creek"/g) || []).length >= 2, "Normal and fallback XML sitemap must include authority guide");
+contains(sitemap, ['TIERRA_BLANCA_EDITORIAL_LASTMOD = "2026-11-16"', 'path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined'], "Accurate substantive XML lastmod in normal and fallback sitemap");
+assert.equal(sitemap.split('path === "/explore/tierra-blanca-creek" ? TIERRA_BLANCA_EDITORIAL_LASTMOD : undefined').length - 1, 2, "Tierra Blanca normal/fallback sitemap revisions must stay synchronized");
 contains(article, [
   'createLazyFileRoute("/explore/tierra-blanca-creek")',
   'Tierra Blanca Creek', 'Prairie Dog Town Fork', 'Palo Duro Creek',
@@ -40,6 +43,8 @@ contains(article, [
   'https://thc.texas.gov/preserve/archeology-texas/archeology-faq',
   'https://access-ok.okeeffemuseum.org/object/615/',
   'https://tpwd.texas.gov/state-parks/palo-duro-canyon',
+  'https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates',
+  'closed to the public since March 2025',
   '/explore/near/amarillo/road-trips', '/explore/near/amarillo/day-trips',
   '/destination/palo-duro-canyon-state-park',
 ], "Main guide / editorial sourcing");
@@ -48,7 +53,7 @@ assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at lea
 assert.ok(article.includes('style={{ listStyleType: "decimal", paddingLeft: "1.5rem" }}'), "Watercourse steps need visible semantic ordered-list markers without expanding the global CSS bundle");
 assert.ok(!/<li><strong>[1-4]\.\s/.test(article), "Do not manually number items inside an ordered list: screen readers and extractors may read duplicate numbers");
 
-contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
+contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'data-tierra-blanca-orientation-map', '34.919517', '-102.111118', '34.984709', '-101.701867', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', 'pphm-temporary-closure-updates', 'closed to visitors since March 2025', '/explore/near/amarillo/road-trips'], 'Actual map, agency-coordinate no-tiles fallback, credited refuge photography, trails and route planning');
 contains(amarillo, [
   'metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips")',
   'href="/explore/tierra-blanca-creek"',
@@ -62,14 +67,14 @@ assert.ok(!article.includes("JSON.stringify({ \"@type\": \"FAQPage\" })"), "Avoi
 assert.ok(article.length > 15000, "Guide must not regress into a thin page");
 const visualQA = read(".github/workflows/tierra-blanca-visual-qa.yml");
 const visualScript = read("scripts/ci/verify-tierra-blanca-visual.mjs");
-contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence', 'actions/cache/restore@v4', 'actions/cache/save@v4', 'hashFiles(', 'schedule:', 'steps.proven.outputs.cache-hit'], 'Fail-closed real two-viewport Chrome acceptance after a failed first deployment');
+contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence', 'actions/cache/restore@v4', 'actions/cache/save@v4', 'hashFiles(', 'schedule:', 'steps.proven.outputs.cache-hit', 'statuses: write', 'id: live_chrome', 'steps.live_chrome.outcome', 'id: visual_artifact', 'steps.visual_artifact.outcome', 'if-no-files-found: error', 'gh api -X POST', 'texasdefined-tierra-blanca-chrome'], 'Fail-closed real Chrome acceptance and auditable per-commit status after deployment');
 assert.ok(!visualQA.includes('git diff --name-only HEAD^ HEAD'), 'Never treat an unrelated later deployment as proof that a failed earlier authority upgrade was browser-tested');
 assert.ok(visualQA.includes("47 14 16 * *"), 'Real Chrome rechecks must retain monthly scheduling');
-contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'report.failures.length'], 'Browser check includes real photo decode, map and responsive layout');
+contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'agency-source orientation works without map tiles', 'data-tierra-blanca-orientation-map', 'report.failures.length'], 'Browser check includes real photo decode, usable no-tiles map and responsive layout');
 execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
 execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
-contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"'], "Live reciprocal source verification");
+contains(liveHandoff, ['"/explore/near/amarillo/road-trips"', '"/explore/near/amarillo/day-trips"', '"/county/randall"', '"/destination/palo-duro-canyon-state-park"', 'closed to the public since March 2025', 'pphm-temporary-closure-updates'], "Live reciprocal links and verified museum closure");
 for (const script of ["scripts/ci/verify-tierra-blanca-quarterly.mjs", "scripts/ci/report-tierra-blanca-authority-failure.mjs"]) {
   execFileSync(process.execPath, ["--check", script], { stdio: "pipe" });
 }
@@ -87,6 +92,8 @@ contains(sourceAudit, [
   "tshaonline.org/handbook/entries/tierra-blanca-creek",
   "fws.gov/refuge/buffalo-lake/visit-us", "fws.gov/refuge/buffalo-lake/about-us",
   "tpwd.texas.gov/state-parks/palo-duro-canyon",
+  "www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+  "temporarily closed",
   "sitemap-explore.xml", "editorialReviewDateAdvanced: false",
 ], "Quarterly live and factual contract");
 contains(failureReporter, ["gh", "issue", "Tierra Blanca Creek quarterly authority source review failed"], "Scheduled editorial failure escalation");

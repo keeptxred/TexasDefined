@@ -13,6 +13,7 @@ const sources: Source[] = [
   { name: "UNT Portal to Texas History — Tierra Blanca flood in 1965", url: "https://texashistory.unt.edu/ark:/67531/metapth13553/", supports: "Named primary-source creek flood photo; linked rather than republished without reuse permission" },
   { name: "U.S. Fish & Wildlife Service — Buffalo Lake refuge history", url: "https://www.fws.gov/refuge/buffalo-lake/about-us", supports: "1937 water-conservation project, 1938 dam, 1970s creek drying, typically dry modern refuge" },
   { name: "U.S. Fish & Wildlife Service — Refuge rules", url: "https://www.fws.gov/refuge/buffalo-lake/visit-us/rules-policies", supports: "No collecting, access boundaries, wildlife and trail protections" },
+  { name: "Panhandle-Plains Historical Museum — temporary closure and outreach", url: "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates", supports: "Closed building, current visitor restrictions and alternatives through traveling exhibitions and off-site programs" },
   { name: "Texas Parks & Wildlife — Palo Duro Canyon State Park", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", supports: "Park access, activities, warnings and reservations" },
   { name: "Texas Parks & Wildlife — Palo Duro Canyon maps and directions", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map", supports: "Public park entrance, road approach and boundaries" },
   { name: "Texas Historical Commission — Archeology FAQ", url: "https://thc.texas.gov/preserve/archeology-texas/archeology-faq", supports: "Artifact protections, private land and reporting finds" },
@@ -51,7 +52,7 @@ const itineraries = [
   {
     time: "Weekend",
     heading: "Amarillo, Canyon and the creek's two very different faces",
-    body: "Give the first day to the Amarillo/Canyon area's museums and western High Plains setting, with Buffalo Lake refuge as the public-access creek stop. Keep a separate morning for Palo Duro Canyon so heat, daylight and trail choice do not get squeezed by road time. Route 66 sights can fill a flexible final afternoon; they are not physically on Tierra Blanca Creek.",
+    body: "Give the first day to Canyon's public historical markers and western High Plains setting, with Buffalo Lake refuge as the public-access creek stop. The Panhandle-Plains Historical Museum building remains closed to walk-in visitors; check its official updates for off-site programs. Keep a separate morning for Palo Duro Canyon so heat, daylight and trail choice do not get squeezed by road time. Route 66 sights can fill a flexible final afternoon; they are not physically on Tierra Blanca Creek.",
     action: "Compare Amarillo road-trip choices",
     url: "/explore/near/amarillo/road-trips",
   },
@@ -73,7 +74,7 @@ function TierraBlancaCreekGuide() {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
               The High Plains appear almost level until a drainage cuts into them. Tierra Blanca Creek helps explain that surprise. It flows toward Canyon, meets Palo Duro Creek, and contributes to the river system that carved the Panhandle's best-known canyon.
             </p>
-            <p className="mt-4 text-sm text-muted-foreground">By TexasDefined's Travel &amp; Outdoors Desk · Sources and geographic evidence checked November 15, 2026 · <a href="#sources" className="text-primary underline underline-offset-4">Research method</a></p>
+            <p className="mt-4 text-sm text-muted-foreground">By TexasDefined's Travel &amp; Outdoors Desk · Geography, access and museum closure sources checked November 16, 2026 · <a href="#sources" className="text-primary underline underline-offset-4">Research method</a></p>
           </header>
 
           <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-2" aria-labelledby="first-answer">
@@ -156,8 +157,9 @@ function TierraBlancaCreekGuide() {
               <article className="border border-border p-5">
                 <p className="eyebrow text-primary">Museum and town context</p>
                 <h3 className="mt-2 font-display text-xl">Canyon, Texas</h3>
-                <p className="mt-3 text-sm leading-7">Explore local and regional history in Canyon, including the Panhandle-Plains Historical Museum at West Texas A&amp;M. This provides context for ranching, geography and Indigenous heritage, but it does not grant access to adjacent private creek properties.</p>
+                <p className="mt-3 text-sm leading-7">Visit Canyon's outdoor historic markers and other public sites for local ranching and community history. <strong>Do not plan a walk-in museum visit:</strong> Panhandle-Plains Historical Museum at West Texas A&amp;M has been closed to the public since March 2025 due to fire and life-safety concerns. The museum continues some off-site educational programs. Public landmarks do not grant access to adjacent private creek properties.</p>
                 <a href="/county/randall" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Randall County and Canyon guide</a>
+                <a href="https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates" target="_blank" rel="noopener noreferrer" className="mt-3 block text-sm font-semibold text-primary underline underline-offset-4">Official museum closure and off-site program updates</a>
               </article>
               <article className="border border-border p-5">
                 <p className="eyebrow text-primary">Downstream rock scenery</p>
@@ -215,7 +217,7 @@ function TierraBlancaCreekGuide() {
             <p className="eyebrow text-primary">Editorial verification</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Primary sources and what each supports</h2>
             <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> TexasDefined's Travel &amp; Outdoors Desk compared TSHA watercourse records with federal wildlife refuge access and trail documents, TPWD state-park information, archaeological research, museum catalogs and identified historic photography. We noted discrepancies in FWS trail descriptive lengths versus its summary-card measurements instead of silently selecting a single value. This is desk research, not a claim of first-hand travel, field photography or an archaeological survey. Historical creek imagery is linked rather than republished without rights review. The FWS images reproduced here have official public-domain records.</p>
-            <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Research and substantive content reviewed November 15, 2026. Short-lived visitor details receive an additional monthly source-check workflow; longer-lived heritage material receives quarterly checks. An unchanged HTTP response never automatically advances an editorial review date. Confirm fees, closures, weather and access directly with the land manager before departing.</p>
+            <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Research, access and substantive content reviewed November 16, 2026. Short-lived visitor details receive an additional monthly source-check workflow; longer-lived heritage material receives quarterly checks. An unchanged HTTP response never automatically advances an editorial review date. Confirm fees, closures, weather and access directly with the land manager before departing.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {sources.map((s) => <li key={s.url} className="py-4">
                 <a href={s.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{s.name}</a>
