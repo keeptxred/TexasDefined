@@ -39,6 +39,20 @@ if (!continentalRoute.includes('title: "Continental Club Austin History: South C
 if (!billyRoute.includes('title: "Billy Bob\'s Texas History: 1981 Opening & 1988 Reopening"')) fail("Billy Bob\'s search title must acknowledge the documented 1988 interruption");
 if(!liveAcceptance.includes("historically misleading venue title") || !browserAcceptance.includes("historically accurate venue search title"))
   fail("Venue chronology title corrections require both SSR production and real Chrome regression coverage");
+// The SEO helper omits the redundant publisher suffix rather than truncate a
+// 53–68-character intact search title. Preserve exact live SSR/Chrome outputs.
+const expectedCompleteVenueTitleLines = [
+  `"continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark"`,
+  `"billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening"`
+];
+for(const expectedTitleLine of expectedCompleteVenueTitleLines){
+  if(!liveAcceptance.includes(expectedTitleLine) || !browserAcceptance.includes(expectedTitleLine))
+    fail("Real production and Chrome music titles must preserve the complete venue subject, without an extra forced brand suffix: "+expectedTitleLine);
+}
+if(!liveAcceptance.includes("attempt<=2") ||
+   !liveAcceptance.includes("!/TimeoutError|AbortError/i.test(String(error))") ||
+   !liveAcceptance.includes("if(attempt===2"))
+  fail("Music live acceptance must retry at most once for transient transport errors without forgiving HTTP/content failures");
 if(!liveAcceptance.includes("malformed/stale statewide title")||!browserAcceptance.includes("complete statewide music cities search title"))
   fail("The clean and nonce-busted live title and real Chrome title must both reject stale punctuation");
 const pushPaths = read(".github/workflows/verify-music-history-authority.yml").split('  push:')[1]?.split('  workflow_dispatch:')[0] ?? "";
