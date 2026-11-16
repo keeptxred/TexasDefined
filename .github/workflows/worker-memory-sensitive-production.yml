@@ -31,7 +31,16 @@ jobs:
           node-version: '22'
       - name: Confirm single-version memory probe safety contract
         run: node --test scripts/ci/worker-memory-identity.test.mjs scripts/ci/verify-fishing-section-loader-fanout.test.mjs
+      # Premerge tests validate the proposed fix. The current deployed Worker may
+      # still fail on the exact route this PR is repairing; testing the old
+      # version cannot certify the candidate source or block its deployment.
+      # Keep the full uncached 36/36 live check mandatory after a successful
+      # protected deployment, on schedules and manual runs.
+      - name: Explain premerge versus deployed-Worker acceptance
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "PR source-contract tests passed; production 36/36 is NOT certified until deployment."
       - name: Verify incident routes on both live origins without CDN cache masking
+        if: ${{ github.event_name != 'pull_request' }}
         run: node scripts/ci/verify-worker-memory-sensitive-production.mjs
       - name: Preserve route-by-route HTTP and latency evidence
         if: always()
