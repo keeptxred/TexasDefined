@@ -317,6 +317,22 @@ const NOV16_PUBLISHED_CONROE_SSR_FAILURE = Object.freeze({
   failedStep: 'Verify fishing lake robots and sitemap publication parity',
 });
 
+// Nov16 deployment #43948840401 published 100%-traffic Worker cb71c303
+// from ac29989a and passed ALL five deployment, runtime, and two-origin
+// original-byte JS/CSS gates. A subsequent, unrelated category-page probe
+// failed solely on a genuine TCP read ECONNRESET after earlier pages passed.
+// PR #7294 introduced exactly one transport-only retry, preserving the
+// HTTP/HTML/canonical/robots/content assertions. Recover its ORIGINAL bytes
+// only if source repair and the separate active-Worker/source-SHA/hash proof
+// pass. The failed overall deployment remains failed.
+const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
+  runId: 43948840401,
+  jobId: 133585600321,
+  sourceSha: 'ac29989a09dcf04317b386283f3019947138bf13',
+  workerVersion: 'cb71c303-a15d-4873-a2a4-8f02f787a6f6',
+  failedStep: 'Verify base production surfaces',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -333,6 +349,36 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const categoryReset = NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET;
+  if (job.run_id === categoryReset.runId && job.id === categoryReset.jobId &&
+      failures.length === 1 && failures[0] === categoryReset.failedStep) {
+    const verifier = readFileSync('scripts/ci/verify-authority-category-live.mjs', 'utf8');
+    const tests = readFileSync('scripts/ci/verify-authority-category-live.test.mjs', 'utf8');
+    const sourceProof = [
+      'export function isTransientNetworkFailure(err)',
+      'export async function retryOneAuthorityTransport(action',
+      'if (!isTransientNetworkFailure(err)) throw err;',
+      'await pause(1000);',
+      'return await action();',
+      'return retryOneAuthorityTransport(() => fetch(url,',
+      '"ECONNRESET"',
+      'if(response.status!==200',
+      'hasNoindex(html,response.headers.get("x-robots-tag"))',
+      'readCanonical(html)',
+    ];
+    if (!sourceProof.every(needle => verifier.includes(needle)) ||
+        !tests.includes('retryOneAuthorityTransport') ||
+        !tests.includes('ECONNRESET')) {
+      throw Error('Nov16 original asset handoff rejected until #7294 one-reset retry preserves strict HTTP/canonical/robots and source assertions');
+    }
+    return { eligible: true, mode: 'exact-nov16-category-transport-original-assets-only',
+      exactRun: categoryReset.runId, requiredSourceSha: categoryReset.sourceSha,
+      requiredWorkerVersion: categoryReset.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures };
+  }
+  if (job.run_id === categoryReset.runId || job.id === categoryReset.jobId) {
+    throw Error('Nov16 category transport original-byte handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
   }
   const conroe = NOV16_PUBLISHED_CONROE_SSR_FAILURE;
   if (job.run_id === conroe.runId && job.id === conroe.jobId &&
