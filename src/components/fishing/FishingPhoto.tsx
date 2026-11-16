@@ -7,12 +7,14 @@ export function FishingPhoto({
   imageClassName = "",
   eager = false,
   showCredit = true,
+  onDark = false,
 }: {
   image: FishingVisualAsset;
   className?: string;
   imageClassName?: string;
   eager?: boolean;
   showCredit?: boolean;
+  onDark?: boolean;
 }) {
   const governedImage = applyLakePhotoGovernance(image);
   return (
@@ -31,11 +33,11 @@ export function FishingPhoto({
         />
       </div>
       {showCredit ? (
-        <figcaption className="mt-2 text-[0.68rem] leading-5 text-muted-foreground">
+        <figcaption className={`mt-2 text-[0.68rem] leading-5 ${onDark ? "text-ink-foreground/80" : "text-muted-foreground"}`}>
           <span className="font-medium">{/\b(?:bathymetric|topographic|topographical|cartographic|map of)\b/i.test(governedImage.alt) ? "Map credit: " : "Photo credit: "}</span>{governedImage.credit}
-          {governedImage.sourceUrl ? <> · <a href={governedImage.sourceUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2 hover:text-foreground">source</a></> : null}
+          {governedImage.sourceUrl ? <> · <a href={governedImage.sourceUrl} target="_blank" rel="noreferrer noopener" className={`underline underline-offset-2 ${onDark ? "decoration-ink-foreground/50 hover:text-ink-foreground" : "decoration-border hover:text-foreground"}`}>source</a></> : null}
           {" · "}
-          <a href={governedImage.licenseUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2 hover:text-foreground">{governedImage.licenseName}</a>
+          <a href={governedImage.licenseUrl} target="_blank" rel="noreferrer noopener" className={`underline underline-offset-2 ${onDark ? "decoration-ink-foreground/50 hover:text-ink-foreground" : "decoration-border hover:text-foreground"}`}>{governedImage.licenseName}</a>
         </figcaption>
       ) : null}
     </figure>
