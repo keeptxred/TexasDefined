@@ -6,6 +6,12 @@ on:
       - '.github/workflows/verify-hunting-production.yml'
       - 'scripts/data/verify-hunting-production.mjs'
   workflow_dispatch:
+  # The strict live deer/sitemap assertions must run only after the actual Worker
+  # release succeeds, never against undeployed PR content.
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: read
