@@ -78,6 +78,7 @@ try {
           hasSourceNote: article?.textContent?.includes("How this guide was researched") || false,
           hasTrailComparison: !!document.querySelector('section[aria-labelledby="tierra-blanca-visit-decision"] table'),
           headingCount: article?.querySelectorAll("h1").length || 0,
+          lazyArticleHydrated: document.documentElement.dataset.tdTierraBlancaHydrated === "1",
           editorialFirst: (() => {
             const hero = article?.querySelector('figure img[src*="palo-duro-canyon-state-park.jpg"]');
             const geography = article?.querySelector('section[aria-labelledby="first-answer"]');
@@ -104,6 +105,7 @@ try {
       check("seven distinct substantive questions", evidence.faqCount >= 7, evidence.faqCount);
       check("transparent editorial methodology", evidence.hasByline && evidence.hasSourceNote);
       check("trail comparison rendered", evidence.hasTrailComparison);
+      check("lazy article hydrated before commercial DOM injection", evidence.lazyArticleHydrated);
       check("editorial-first hero before map and geography", evidence.editorialFirst.heroBeforeGeography && evidence.editorialFirst.heroLoaded && evidence.editorialFirst.heroFetchPriority === "high", JSON.stringify(evidence.editorialFirst));
       check("lodging after editorial sources, not before the creek story", evidence.editorialFirst.geographyBeforeCommercial && evidence.editorialFirst.sourcesBeforeCommercial && evidence.editorialFirst.commercialInsideSlot && evidence.editorialFirst.noOtherCommercialBeforeSources, JSON.stringify(evidence.editorialFirst));
       check("photo alt text and credits", evidence.imageCount >= 3 && evidence.imageAlts.every(a => a.length > 35), JSON.stringify({ figures: evidence.imageCount, alts: evidence.imageAlts }));
