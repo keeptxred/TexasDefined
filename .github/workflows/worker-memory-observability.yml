@@ -1,0 +1,48 @@
+name: Worker memory exception telemetry evidence
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-worker-memory-telemetry.mjs'
+      - 'scripts/ci/audit-worker-memory-telemetry.test.mjs'
+      - '.github/workflows/worker-memory-observability.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+  schedule:
+    - cron: '47 11,23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: worker-memory-telemetry-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  stored-memory-telemetry:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test that missing or failed logs cannot count as a clean Worker
+        run: node --test scripts/ci/audit-worker-memory-telemetry.test.mjs
+      - name: Read existing account's stored post-release memory-exception logs
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_OBSERVABILITY_API_TOKEN: ${{ secrets.CLOUDFLARE_OBSERVABILITY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+          WORKER_MEMORY_START_UTC: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.updated_at || '' }}
+        run: node scripts/ci/audit-worker-memory-telemetry.mjs
+      - name: Retain source-version, event coverage, and failed-evidence record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker-memory-telemetry-${{ github.run_id }}
+          path: artifacts/worker-memory/telemetry.json
+          if-no-files-found: warn
+          retention-days: 14
