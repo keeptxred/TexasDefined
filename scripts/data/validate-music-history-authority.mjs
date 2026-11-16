@@ -33,6 +33,8 @@ const publicRoutes = read("src/lib/public-routes.ts");
 const citiesRoute = read("src/routes/texas-music-cities.tsx");
 
 if (!citiesRoute.includes('title: "Texas Music Cities: Austin, Houston & Beyond"')) fail("Statewide six-city title must not be cut off at a dangling comma");
+if(!liveAcceptance.includes("malformed/stale statewide title")||!browserAcceptance.includes("complete statewide music cities search title"))
+  fail("The clean and nonce-busted live title and real Chrome title must both reject stale punctuation");
 const pushPaths = read(".github/workflows/verify-music-history-authority.yml").split('  push:')[1]?.split('  workflow_dispatch:')[0] ?? "";
 for (const path of ["src/data/texas-music-city-guides.ts","src/data/texas-music-cities-hub.ts","src/routes/texas-music-cities.tsx"]) {
   if(!pushPaths.includes("'"+path+"'")) fail("Push-time music quality gate missing "+path);
