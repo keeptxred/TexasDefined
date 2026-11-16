@@ -13,7 +13,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Billy Bob's Texas History: Fort Worth Honky-Tonk Since 1981",
+      title: "Billy Bob's Texas History: 1981 Opening & 1988 Reopening",
       description: guide.dek,
       type: "article",
     }),

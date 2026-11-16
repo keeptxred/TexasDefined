@@ -53,6 +53,11 @@ const expectedNov14Additions = {
     "The local radio show predates the national studio breakthrough"
   ]
 };
+const expectedTitles = {
+  "texas-music-cities": "Texas Music Cities: Austin, Houston & Beyond | Texas Defined",
+  "continental-club-austin-history": "Continental Club Austin History: South Congress Music Landmark | Texas Defined",
+  "billy-bobs-texas-history": "Billy Bob's Texas History: 1981 Opening & 1988 Reopening | Texas Defined"
+};
 const nonce=Date.now().toString(36);
 const results=[];
 function attrs(tag,name){return tag.match(new RegExp("\\b"+name+"\\s*=\\s*[\"']([^\"']+)[\"']","i"))?.[1]??null}
@@ -92,9 +97,9 @@ async function verify(slug){
   const canonical=(html.match(/<link\b[^>]*>/gi)??[]).filter(x=>(attrs(x,"rel")??"").toLowerCase()==="canonical").map(x=>attrs(x,"href"));
   if(canonical.length!==1||canonical[0]!==expected)errors.push(kind+" canonical "+JSON.stringify(canonical));
   if(!/<title\b[^>]*>[^<]{14,}<\/title>/i.test(html))errors.push(kind+" title missing");
-  const servedTitle=(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]??"").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
-  if(slug==="texas-music-cities"&&servedTitle!=="Texas Music Cities: Austin, Houston & Beyond | Texas Defined")
-    errors.push(kind+" malformed/stale statewide title: "+JSON.stringify(servedTitle));
+  const servedTitle=(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]??"").replace(/&amp;/g,"&").replace(/(?:&#x27;|&#39;|&#039;|&apos;)/gi,"\u0027").replace(/\s+/g," ").trim();
+  if(expectedTitles[slug] && servedTitle!==expectedTitles[slug])
+    errors.push(kind+(slug==="texas-music-cities"?" malformed/stale statewide title: ":" historically misleading venue title: ")+JSON.stringify(servedTitle));
   if(!/<meta\b[^>]+name=["']description["']/i.test(html))errors.push(kind+" description missing");
   if(!/<main(?:\s|>)/i.test(html))errors.push(kind+" main missing");
   if(!/<h1\b[^>]*>[\s\S]{6,}?<\/h1>/i.test(html))errors.push(kind+" H1 missing");

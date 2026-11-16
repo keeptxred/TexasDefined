@@ -31,12 +31,18 @@ const deskProfile = read("src/routes/authors.$author.tsx");
 const browserAcceptance = read("scripts/ci/verify-music-history-browser.mjs");
 const publicRoutes = read("src/lib/public-routes.ts");
 const citiesRoute = read("src/routes/texas-music-cities.tsx");
+const continentalRoute = read("src/routes/continental-club-austin-history.tsx");
+const billyRoute = read("src/routes/billy-bobs-texas-history.tsx");
 
 if (!citiesRoute.includes('title: "Texas Music Cities: Austin, Houston & Beyond"')) fail("Statewide six-city title must not be cut off at a dangling comma");
+if (!continentalRoute.includes('title: "Continental Club Austin History: South Congress Music Landmark"')) fail("Continental search title must not assert disputed 1955/1957 opening year");
+if (!billyRoute.includes('title: "Billy Bob\'s Texas History: 1981 Opening & 1988 Reopening"')) fail("Billy Bob\'s search title must acknowledge the documented 1988 interruption");
+if(!liveAcceptance.includes("historically misleading venue title") || !browserAcceptance.includes("historically accurate venue search title"))
+  fail("Venue chronology title corrections require both SSR production and real Chrome regression coverage");
 if(!liveAcceptance.includes("malformed/stale statewide title")||!browserAcceptance.includes("complete statewide music cities search title"))
   fail("The clean and nonce-busted live title and real Chrome title must both reject stale punctuation");
 const pushPaths = read(".github/workflows/verify-music-history-authority.yml").split('  push:')[1]?.split('  workflow_dispatch:')[0] ?? "";
-for (const path of ["src/data/texas-music-city-guides.ts","src/data/texas-music-cities-hub.ts","src/routes/texas-music-cities.tsx"]) {
+for (const path of ["src/data/texas-music-city-guides.ts","src/data/texas-music-cities-hub.ts","src/routes/texas-music-cities.tsx","src/routes/*music-history*.tsx","src/routes/*austin-history*.tsx","src/routes/billy-bobs-texas-history*.tsx"]) {
   if(!pushPaths.includes("'"+path+"'")) fail("Push-time music quality gate missing "+path);
 }
 const boilerplate = /(?:in today's fast.paced world|delve into|unlock the secrets|ultimate guide to everything|comprehensive tapestry|lorem ipsum)/i;
