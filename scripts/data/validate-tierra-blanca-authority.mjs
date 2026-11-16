@@ -48,7 +48,7 @@ assert.ok((article.match(/<dt className=/g) || []).length >= 7, 'Requires at lea
 assert.ok(article.includes('style={{ listStyleType: "decimal", paddingLeft: "1.5rem" }}'), "Watercourse steps need visible semantic ordered-list markers without expanding the global CSS bundle");
 assert.ok(!/<li><strong>[1-4]\.\s/.test(article), "Do not manually number items inside an ordered list: screen readers and extractors may read duplicate numbers");
 
-contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, credited refuge photography, trails and route planning');
+contains(visitorEvidence, ['openstreetmap.org/export/embed.html', 'USFWS-published Buffalo Lake refuge entrance', 'data-tierra-blanca-orientation-map', '34.919517', '-102.111118', '34.984709', '-101.701867', 'www.fws.gov/media/buffalo-lake-winter', 'www.fws.gov/media/rio-grande-turkeys-buffalo-lake-refuge', 'Cottonwood Canyon Birding Trail', 'Prairie Dog Trail', 'Grassland Loop', '/explore/near/amarillo/road-trips'], 'Actual map, agency-coordinate no-tiles fallback, credited refuge photography, trails and route planning');
 contains(amarillo, [
   'metro.slug === "amarillo" && (collection.slug === "road-trips" || collection.slug === "day-trips")',
   'href="/explore/tierra-blanca-creek"',
@@ -65,7 +65,7 @@ const visualScript = read("scripts/ci/verify-tierra-blanca-visual.mjs");
 contains(visualQA, ['workflow_run:', 'tierra-blanca-visual', 'Verify actual production map, imagery, article and layout', 'Preserve real mobile and desktop visual evidence', 'actions/cache/restore@v4', 'actions/cache/save@v4', 'hashFiles(', 'schedule:', 'steps.proven.outputs.cache-hit'], 'Fail-closed real two-viewport Chrome acceptance after a failed first deployment');
 assert.ok(!visualQA.includes('git diff --name-only HEAD^ HEAD'), 'Never treat an unrelated later deployment as proof that a failed earlier authority upgrade was browser-tested');
 assert.ok(visualQA.includes("47 14 16 * *"), 'Real Chrome rechecks must retain monthly scheduling');
-contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'report.failures.length'], 'Browser check includes real photo decode, map and responsive layout');
+contains(visualScript, ['SCENARIOS.length, 2', 'documentHorizontalOverflow', 'naturalWidth', 'openstreetmap.org/export/embed.html', 'agency-source orientation works without map tiles', 'data-tierra-blanca-orientation-map', 'report.failures.length'], 'Browser check includes real photo decode, usable no-tiles map and responsive layout');
 execFileSync(process.execPath, ["--check", "scripts/ci/verify-tierra-blanca-visual.mjs"], { stdio: "pipe" });
 execFileSync(process.execPath, ["scripts/ci/verify-tierra-blanca-visual.mjs", "--self-test"], { stdio: "pipe" });
 const liveHandoff = read(".github/workflows/verify-tierra-blanca-postdeploy.yml");
