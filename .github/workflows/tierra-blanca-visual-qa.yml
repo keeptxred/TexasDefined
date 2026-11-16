@@ -12,6 +12,9 @@ on:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
     branches: [main]
+  # A monthly real-browser recheck catches shared layout/CSS drift.
+  schedule:
+    - cron: '47 14 16 * *'
   workflow_dispatch:
 
 permissions:
@@ -37,7 +40,7 @@ jobs:
           node scripts/ci/verify-tierra-blanca-visual.mjs --self-test
 
   production-chrome:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -46,17 +49,26 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 2
-      - name: Skip only unrelated deployments
+      # A deployment can fail on the article merge, then succeed on an unrelated
+      # later commit. Checking only HEAD^ misses that unverified article revision.
+      # Cache ONLY a completed real browser pass for the current acceptance inputs.
+      - name: Restore evidence of prior successful real Chrome acceptance
+        id: proven
+        uses: actions/cache/restore@v4
+        with:
+          path: .artifacts/tierra-blanca-chrome-validated.txt
+          key: tierra-blanca-real-chrome-v2-${{ hashFiles('src/routes/explore.tierra-blanca-creek.lazy.tsx', 'src/components/explore/TierraBlancaVisitorEvidence.tsx', 'scripts/ci/verify-tierra-blanca-visual.mjs', '.github/workflows/tierra-blanca-visual-qa.yml') }}
+      - name: Require unproven revisions to receive real Chrome acceptance
         id: scope
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] ||
-            git diff --name-only HEAD^ HEAD -- 'src/routes/explore.tierra-blanca-creek.lazy.tsx' 'src/components/explore/TierraBlancaVisitorEvidence.tsx' '.github/workflows/tierra-blanca-visual-qa.yml' 'scripts/ci/verify-tierra-blanca-visual.mjs' | grep -q .; then
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" || "$GITHUB_EVENT_NAME" == "schedule" || "${{ steps.proven.outputs.cache-hit }}" != "true" || ! -s .artifacts/tierra-blanca-chrome-validated.txt ]]; then
             echo "changed=yes" >> "$GITHUB_OUTPUT"
+            echo "Run Chrome: current source revision has no verified evidence, or this is a forced/monthly recheck."
           else
             echo "changed=no" >> "$GITHUB_OUTPUT"
-            echo "Not a Tierra Blanca production revision: no browser run needed."
+            echo "Reusing saved successful Chrome acceptance for the exact article, evidence module, workflow and QA script."
           fi
       - name: Set up browser without project-wide dependency changes
         if: steps.scope.outputs.changed == 'yes'
@@ -75,6 +87,19 @@ jobs:
         env:
           TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/verify-tierra-blanca-visual.mjs
+      - name: Mark current source contract verified only after Chrome passed
+        if: steps.scope.outputs.changed == 'yes' && steps.proven.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          printf 'VERIFIED %s %s\\n' "${{ github.event.workflow_run.head_sha || github.sha }}" "$(date -u +%FT%TZ)" > .artifacts/tierra-blanca-chrome-validated.txt
+      - name: Cache verified Chrome acceptance for this exact source contract
+        if: steps.scope.outputs.changed == 'yes' && steps.proven.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .artifacts/tierra-blanca-chrome-validated.txt
+          key: tierra-blanca-real-chrome-v2-${{ hashFiles('src/routes/explore.tierra-blanca-creek.lazy.tsx', 'src/components/explore/TierraBlancaVisitorEvidence.tsx', 'scripts/ci/verify-tierra-blanca-visual.mjs', '.github/workflows/tierra-blanca-visual-qa.yml') }}
       - name: Preserve real mobile and desktop visual evidence
         if: always() && steps.scope.outputs.changed == 'yes'
         uses: actions/upload-artifact@v4
