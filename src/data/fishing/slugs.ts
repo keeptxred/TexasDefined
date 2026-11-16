@@ -117,6 +117,15 @@ export const COMPLETE_FISHING_SPECIES_SLUGS = [
   "sunfish",
   "bluegill",
   "rainbow-trout",
+  "bowfin",
+  "common-carp",
+  "spotted-gar",
+  "redear-sunfish",
+  "green-sunfish",
+  "warmouth",
+  "longear-sunfish",
+  "redbreast-sunfish",
+  "rio-grande-cichlid",
 ] as const;
 export type CompleteFishingSpeciesSlug = (typeof COMPLETE_FISHING_SPECIES_SLUGS)[number];
 

@@ -89,6 +89,15 @@ const cc0Fish = (
 });
 
 export const fishingFishImages: Record<string, FishingVisualAsset> = {
+  "bowfin": { ...fish("fish-bowfin", "Amia calva (white background).jpg", "Bowfin viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "common-carp": { ...fish("fish-common-carp", "Common carp (white background).jpg", "Common carp viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "spotted-gar": { ...fish("fish-spotted-gar", "Lepisosteus oculatus.jpg", "Spotted gar viewed from the side", "Brian Montague, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "redear-sunfish": { ...fish("fish-redear-sunfish", "Redearsunfishnctc (white background).jpg", "Redear sunfish viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "green-sunfish": { ...fish("fish-green-sunfish", "Lepomis cyanellus Raver (white background).jpg", "Green sunfish viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "warmouth": { ...fish("fish-warmouth", "Chaenobryttus gulosus (white background).jpg", "Warmouth sunfish viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "longear-sunfish": { ...fish("fish-longear-sunfish", "Lepomis megalotis2 (white background).jpg", "Longear sunfish viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "redbreast-sunfish": { ...fish("fish-redbreast-sunfish", "Lepomis auritus (white background).jpg", "Redbreast sunfish viewed from the side", "Duane Raver, U.S. Fish and Wildlife Service"), verifiedAt: "2026-11-15" },
+  "rio-grande-cichlid": { ...cc0Fish("fish-rio-grande-cichlid", "Herichthys cyanoguttatus 184228237.jpg", "Rio Grande cichlid with turquoise spotting in side view", "Nick Loveland"), verifiedAt: "2026-11-15" },
   "largemouth-bass": fish("fish-largemouth-bass", "Largemouth Bass (Micropterus salmoides) (53118577249).jpg", "Largemouth bass in side view", "USFWS Mountain-Prairie / Sam Stukel"),
   "smallmouth-bass": fish("fish-smallmouth-bass", "Smallmouth bass.jpg", "Smallmouth bass", "Duane Raver, U.S. Fish and Wildlife Service"),
   "spotted-bass": fish("fish-spotted-bass", "Micropterus punctulatus 1.jpg", "Spotted bass", "Dick Biggins, U.S. Fish and Wildlife Service"),

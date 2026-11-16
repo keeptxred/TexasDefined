@@ -6,6 +6,8 @@ on:
       - 'src/data/fishing/**'
       - 'src/routes/fishing.**'
       - 'scripts/data/validate-fishing-species-depth.mjs'
+      - 'scripts/data/validate-fishing-field-identification.mjs'
+      - 'scripts/ci/check-fishing-species-tpwd-sources.mjs'
       - 'scripts/ci/validate-fishing-thirteen-authority.mjs'
       - '.github/workflows/fishing-thirteen-authority.yml'
   push:
@@ -36,6 +38,8 @@ jobs:
           node-version: '22'
       - name: Check all new machine-verifier syntax
         run: |
+          node --check scripts/data/validate-fishing-field-identification.mjs
+          node --check scripts/ci/check-fishing-species-tpwd-sources.mjs
           node --check scripts/ci/validate-fishing-thirteen-authority.mjs
           node --check scripts/ci/check-fishing-13-source-state.mjs
           node --check scripts/ci/verify-fishing-thirteen-production.mjs
@@ -46,6 +50,8 @@ jobs:
         run: node scripts/data/validate-fishing-techniques.mjs
       - name: Existing fishing species depth validation
         run: node scripts/data/validate-fishing-species-depth.mjs
+      - name: Validate all 22 TPWD freshwater fish guides and image provenance
+        run: node scripts/data/validate-fishing-field-identification.mjs
       - name: Existing fishing regulations validation
         run: node scripts/data/validate-fishing-regulations.mjs
   check-tpwd-official-sources:
@@ -60,8 +66,11 @@ jobs:
       - id: tpwd
         name: Confirm regulations, lake technique evidence and report state
         run: node scripts/ci/check-fishing-13-source-state.mjs
+      - id: tpwd_species
+        name: Check nine new TPWD fish identity and biology source pages
+        run: node scripts/ci/check-fishing-species-tpwd-sources.mjs
       - name: Open deduplicated official source investigation issue
-        if: ${{ failure() && steps.tpwd.conclusion == 'failure' }}
+        if: ${{ failure() && (steps.tpwd.conclusion == 'failure' || steps.tpwd_species.conclusion == 'failure') }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -71,5 +80,5 @@ jobs:
           count="$(gh issue list --repo "$GH_REPO" --state open --search 'Fishing authority official TPWD source review' --json number --jq 'length')"
           if [[ "$count" == "0" ]]; then
             gh issue create --repo "$GH_REPO" --title 'Fishing authority official TPWD source review required' \
-              --body 'Scheduled source verification could not confirm one or more official TPWD regulations, reservoir technique examples, lake alerts or paused report availability signatures. Investigate the failed run, confirm the affected reservoir evidence, report publication state, active fishing rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
+              --body 'Scheduled source verification could not confirm one or more official TPWD regulations, reservoir technique examples, lake alerts, paused report availability signatures or one of the nine newly added freshwater fish fact sheets. Investigate the failed run, confirm the affected reservoir evidence, report publication state, active fishing rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
           fi

@@ -8,7 +8,8 @@ import { FISHING_REGULATIONS_PATH, FISHING_REGULATIONS_VERIFIED_AT } from "./reg
 import { FISHING_SEASONS_PATH, FISHING_SEASONS_PAGE_REVIEWED_AT } from "./season-routing";
 import { EXPANDED_SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_SECTION_SLUGS, SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_VERIFIED_AT, STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS, STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT, WAVE2_SHOWCASE_LAKE_SLUGS, WAVE2_SHOWCASE_LAKE_VERIFIED_AT, showcaseLakeCanonicalPath } from "./showcase-lake-routing";
 import { COMPLETE_FISHING_SPECIES_SLUGS } from "./slugs";
-import { FISHING_SPECIES_DIRECTORY_PATH, FISHING_SPECIES_VERIFIED_AT, fishingSpeciesCanonicalPath } from "./species-routing";
+import { FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT, fishIdentification } from "./species-identification";
+import { FISHING_SPECIES_DIRECTORY_PATH, FISHING_SPECIES_VERIFIED_AT, FISHING_SPECIES_DIRECTORY_EDITORIAL_UPDATED_AT, fishingSpeciesCanonicalPath } from "./species-routing";
 import { isFishingTechniqueHeroReady } from "./technique-images";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH, FISHING_TECHNIQUES_VERIFIED_AT, PUBLISHED_FISHING_TECHNIQUE_SLUGS, fishingTechniqueCanonicalPath } from "./technique-routing";
 
@@ -53,6 +54,6 @@ export const FISHING_SITEMAP_ENTRIES = [
       .filter((section) => isShowcaseLakeSectionIndexReady(SHOWCASE_LAKE_AUTHORITY_DATA[slug], section))
       .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: (section === "regulations" || section === "camping" || section === "nearby") ? LAKE_AUTHORITY_RESEARCH_WAVE1[slug]?.reviewedAt ?? lakeSitemapDate(slug) : lakeSitemapDate(slug) })),
   ]),
-  { path: FISHING_SPECIES_DIRECTORY_PATH, lastmod: FISHING_SPECIES_VERIFIED_AT },
-  ...COMPLETE_FISHING_SPECIES_SLUGS.map((slug) => ({ path: fishingSpeciesCanonicalPath(slug), lastmod: FISHING_SPECIES_VERIFIED_AT })),
+  { path: FISHING_SPECIES_DIRECTORY_PATH, lastmod: FISHING_SPECIES_DIRECTORY_EDITORIAL_UPDATED_AT },
+  ...COMPLETE_FISHING_SPECIES_SLUGS.map((slug) => ({ path: fishingSpeciesCanonicalPath(slug), lastmod: fishIdentification[slug] ? FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT : FISHING_SPECIES_VERIFIED_AT })),
 ] as const;

@@ -83,6 +83,13 @@ jobs:
           FISHING_AUDIT_CONCURRENCY: "2"
           FISHING_AUDIT_OUTPUT: fishing-live-authority-report.json
         run: node scripts/seo/verify-fishing-authority-live.mjs
+      - name: Verify every published fish species page after a fishing release
+        if: ${{ always() && steps.scope.outputs.run == 'true' && github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' }}
+        env:
+          FISHING_AUDIT_SPECIES_ONLY: "1"
+          FISHING_AUDIT_CONCURRENCY: "2"
+          FISHING_AUDIT_OUTPUT: fishing-species-live-report.json
+        run: node scripts/seo/verify-fishing-authority-live.mjs
       - name: Preserve all URL results even when verification fails
         if: ${{ always() && steps.scope.outputs.run == 'true' }}
         uses: actions/upload-artifact@v4
@@ -95,3 +102,5 @@ jobs:
             fishing-authority-registered-urls.md
             fishing-live-authority-report.json
             fishing-live-authority-report.md
+            fishing-species-live-report.json
+            fishing-species-live-report.md

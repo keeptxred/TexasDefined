@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishIdentificationSection } from "@/components/fishing/FishIdentificationSection";
 import { getFishingFishImage } from "@/data/fishing/image-library";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import type { FishingSpeciesProfileData } from "@/data/fishing/species-guide-data.server";
@@ -21,7 +22,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <Container className={speciesImage ? "grid gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:items-center" : "py-14 sm:py-20"}>
         <div>
           <p className="eyebrow text-ink-foreground/65">{species.taxonKind === "group" ? "Texas fishing group" : "Texas fish species"}</p>
-          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{species.commonName} fishing in Texas</h1>
+          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{data.identification && data.lakes.length === 0 ? `${species.commonName} in Texas: Identification and Habitat` : `${species.commonName} fishing in Texas`}</h1>
           {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
@@ -36,16 +37,20 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
     </header>
 
     <Container className="py-12 sm:py-16">
+      {(data.lakes.length > 0 || data.seasonalPatterns.length > 0 || data.relatedTechniques.length > 0) && (
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4" aria-label="Species coverage">
         <Stat label="Linked lake profiles" value={data.lakes.length} />
         <Stat label="Season patterns" value={data.seasonalPatterns.length} />
         <Stat label="Techniques listed" value={data.relatedTechniques.length} />
         <Stat label="Source pages" value={data.sources.length} />
       </section>
+      )}
+
+      <FishIdentificationSection speciesName={species.commonName} identification={data.identification} />
 
       <FishingMerchSpotlight speciesName={species.commonName} />
 
-      <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
+      {(data.regions.length > 0 || data.habitats.length > 0) && <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
         <div>
           <p className="eyebrow text-primary">Texas range & habitat</p>
           <h2 id="species-range-habitat" className="mt-3 font-display text-4xl">Texas Range and Habitat for {species.commonName}</h2>
@@ -56,14 +61,14 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           <p className="eyebrow text-muted-foreground">Habitat signals in the lake data</p>
           {data.habitats.length ? <div className="mt-3 flex flex-wrap gap-2">{data.habitats.map((habitat) => <span key={habitat} className="border border-border px-3 py-1.5 text-xs">{habitat}</span>)}</div> : <p className="mt-3 text-sm leading-7 text-muted-foreground">No habitat labels are published in the verified lake relationships yet. TexasDefined leaves that gap visible instead of generalizing from unrelated waters.</p>}
         </div>
-      </section>
+      </section>}
 
-      <section className="border-b border-border py-12" aria-labelledby="species-seasonal">
+      {data.seasonalPatterns.length > 0 && <section className="border-b border-border py-12" aria-labelledby="species-seasonal">
         <p className="eyebrow text-primary">Seasonal behavior in the lake records</p>
         <h2 id="species-seasonal" className="mt-3 font-display text-4xl">Season-by-Season Patterns</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are durable seasonal observations attached to specific lakes. They are not a live bite forecast.</p>
         {data.seasonalPatterns.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">{data.seasonalPatterns.slice(0, 12).map((pattern, index) => <article key={`${pattern.lake.id}-${pattern.season}-${index}`} className="border-t border-border py-6"><div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl">{titleCase(pattern.season)}</h3><a href={pattern.href} className="text-xs text-primary hover:underline">{pattern.lake.name}</a></div><p className="mt-3 text-sm leading-7 text-muted-foreground">{pattern.summary}</p>{pattern.habitats?.length ? <p className="mt-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Habitat:</strong> {pattern.habitats.join(" · ")}</p> : null}{pattern.methods?.length ? <p className="mt-2 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Methods:</strong> {pattern.methods.join(" · ")}</p> : null}</article>)}</div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified seasonal pattern is attached to this species yet.</p>}
-      </section>
+      </section>}
 
       <section className="py-12" aria-labelledby="where-to-fish">
         <div className="max-w-3xl">
@@ -95,7 +100,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         </div>}
       </section>
 
-      <section className="border-y border-border py-12" aria-labelledby="species-techniques">
+      {data.techniqueApplications.length > 0 && <section className="border-y border-border py-12" aria-labelledby="species-techniques">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">How to fish for them</p>
           <h2 id="species-techniques" className="mt-3 font-display text-4xl">Fishing Techniques for {species.commonName}</h2>
@@ -111,14 +116,14 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             <p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">{row.profile.seasons.map(titleCase).join(" · ")}</p>
           </article>)}
         </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified lake-technique relationship currently targets this species record. TexasDefined leaves that gap visible rather than inventing a generic recommendation.</p>}
-      </section>
+      </section>}
 
-      <section className="border-b border-border py-12" aria-labelledby="species-methods">
+      {data.methods.length > 0 && <section className="border-b border-border py-12" aria-labelledby="species-methods">
         <p className="eyebrow text-primary">Tackle & approach</p>
         <h2 id="species-methods" className="mt-3 font-display text-4xl">Fishing Methods in Our Lake Guides</h2>
         {data.methods.length ? <div className="mt-6 flex flex-wrap gap-2">{data.methods.map((method) => <span key={method} className="border border-border px-3 py-1.5 text-sm">{method}</span>)}</div> : <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">No method labels are published in the verified seasonal relationships yet. Use the technique applications above where available.</p>}
         <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not turn these method labels into universal rod, line or lure prescriptions. Cover, water clarity, depth, weather and the individual lake should drive tackle choices.</p>
-      </section>
+      </section>}
 
       <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-regulations">
         <div>

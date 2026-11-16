@@ -5,6 +5,7 @@ import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
 import { getFishingFishImage } from "./image-library";
 import { fishSpeciesFamilies } from "./species-catalog";
+import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
 import {
   fishingFoundationAnchor,
   isCompleteFishingLakeSlug,
@@ -39,12 +40,18 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
   const url = `${origin}${canonicalPath}`;
   const speciesImage = getFishingFishImage(species.slug);
   const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
+  const hasLinkedLakes = lakes.length > 0;
+  const hasFieldGuide = Boolean(fishIdentification[species.slug]);
   const title = isBlueCatfish
     ? "Blue Catfish in Texas: Fishing Guide"
-    : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
+    : !hasLinkedLakes && hasFieldGuide
+      ? `${species.commonName} in Texas — Fish Identification & Habitat`
+      : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
   const description = isBlueCatfish
     ? "Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."
-    : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
+    : !hasLinkedLakes && hasFieldGuide
+      ? `Identify ${species.commonName} in Texas: TPWD-backed markings, size, similar fish, habitats, seasonal biology, fishing context and current regulation sources.`
+      : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -54,7 +61,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         url,
         name: `${species.commonName} Fishing in Texas`,
         description,
-        dateModified: FISHING_SPECIES_VERIFIED_AT,
+        dateModified: fishIdentification[species.slug] ? FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT : FISHING_SPECIES_VERIFIED_AT,
         isPartOf: { "@id": `${origin}/#website` },
         mainEntity: { "@id": `${url}#species` },
         citation: sources.map((source) => source.url),
@@ -179,8 +186,10 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
     .map((candidate) => ({ species: candidate!, href: fishingFoundationAnchor("species", candidate!.slug) }));
 
+  const identification = fishIdentification[species.slug] ?? null;
   const sources = uniqueByUrl([
     ...species.sources,
+    ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT, sourceType: "state" as const }] : []),
     ...lakes.flatMap((row) => row.relation.sources),
     ...techniqueApplications.flatMap((row) => [...row.profile.sources, ...row.technique.sources]),
   ]);
@@ -188,6 +197,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
   const canonicalPath = fishingSpeciesCanonicalPath(slug);
   return {
     species,
+    identification,
     canonicalPath,
     lakes,
     seasonalPatterns,

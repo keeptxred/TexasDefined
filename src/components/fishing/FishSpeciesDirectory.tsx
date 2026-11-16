@@ -97,7 +97,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
           <p className="eyebrow text-primary">Lake coverage</p>
           <h2 className="mt-3 font-display text-3xl">How Lake Coverage Expands</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish has a sourced directory entry; only complete records receive a standalone species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
-          <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
+          <p className="mt-6 text-xs leading-6 text-muted-foreground">Latest species-record source review {formatDate(pageData.verifiedAt)}; older records may have earlier review dates. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
       </Container>
     </>

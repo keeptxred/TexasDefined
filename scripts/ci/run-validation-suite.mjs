@@ -84,6 +84,7 @@ const checks = [
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['dataset-schema-descriptions', 'SEO/STRUCTURED-DATA', 'Reject incomplete Dataset JSON-LD', 'node', ['scripts/data/validate-dataset-schema-descriptions.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
+  ['fishing-species-tpwd-identification', 'FISHING/AUTHORITY', 'Validate 22 TPWD field-guide fish species, images, references and site routing', 'node', ['scripts/data/validate-fishing-field-identification.mjs']],
   ['fishing-authority', 'SEO/AUTHORITY', 'Validate fishing citation and retrieval authority', 'node', ['scripts/data/validate-fishing-authority.mjs']],
   ['all-lake-authority-inventory', 'SEO/AUTHORITY', 'Audit complete fishing-lake guide/source/photo/county inventory', 'node', ['scripts/data/audit-texas-lake-authority.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
@@ -127,7 +128,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority', 'event-visitor-copy',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness', 'texas-life-housing-photo-relevance',
-  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'viator-live-feed', 'unified-discovery-governance', 'unified-discovery-contracts', 'viator-new-page-owner-approval', 'governed-seo-duplicates',
+  'fishing-species-tpwd-identification', 'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'viator-live-feed', 'unified-discovery-governance', 'unified-discovery-contracts', 'viator-new-page-owner-approval', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
