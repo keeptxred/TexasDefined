@@ -191,13 +191,13 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   },
   "147": {
-    "topic": "Access is not guaranteed",
-    "fact": "Luck, Texas is associated with Willie Nelson and a Western movie set, but it is not an ordinary public main street to enter whenever you like.",
-    "usefulFor": "Only plan access for a specifically announced and ticketed event; do not treat private land as a drop-in roadside town.",
+    "topic": "Private set, limited event admission",
+    "fact": "Luck, Texas is a preserved Western movie-set town on Willie Nelson's private ranch, not a public shopping street. Its own visitor bureau says it is closed to everyday visitors and opens for special events such as the annual Luck Reunion.",
+    "usefulFor": "Use the organizer's published postcard lottery and ticket instructions before booking travel. Mailing an application does not guarantee purchase eligibility or admission; never attempt to enter the private ranch uninvited.",
     "sources": [
       {
-        "label": "Texas music context and destinations",
-        "url": "/texas-dance-halls-honky-tonks"
+        "label": "Luck Texas visitor bureau: private access and ticket process",
+        "url": "https://www.visitlucktexas.com/plan-your-visit"
       }
     ]
   },
@@ -212,14 +212,25 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
-  "151": {
-    "topic": "Houston folk art",
-    "fact": "The Beer Can House is a transformed residential building, not a working brewery. Its decoration is a material record of one Houston maker’s sustained creative project.",
-    "usefulFor": "Before travel, check the operator for viewing access and current visitor arrangements instead of assuming an ordinary open house.",
+  "150": {
+    "topic": "Closed for preservation",
+    "fact": "The Orange Show Monument at 2401 Munger Street is a distinctive Houston folk-art environment. The operator explicitly lists the monument as closed for ongoing preservation and restoration; it is not currently open for ordinary interior visits.",
+    "usefulFor": "Do not send visitors to the Orange Show for a walk-in tour. Check the operator's restoration updates and consider its separately managed Beer Can House or outdoor Smither Park, each with its own access arrangements.",
     "sources": [
       {
-        "label": "Houston folk-art history",
-        "url": "/texas-roadside-oddities"
+        "label": "Orange Show Center: official current monument closure and other sites",
+        "url": "https://www.orangeshow.org/visit"
+      }
+    ]
+  },
+  "151": {
+    "topic": "A separately visitable Houston folk-art site",
+    "fact": "The Beer Can House at 222 Malone Street is maintained by the Orange Show Center and decorated with an estimated 50,000 aluminum cans. It is a separate visitor site from the Orange Show Monument, which is closed for restoration.",
+    "usefulFor": "Check the Orange Show operator's latest notice before a special drive: its visit page currently displays inconsistent visiting hours in the page banner and body. Do not assume the closed Orange Show Monument and the Beer Can House share admission or hours.",
+    "sources": [
+      {
+        "label": "Orange Show Center: Beer Can House and closure information",
+        "url": "https://www.orangeshow.org/visit"
       }
     ]
   },
@@ -636,4 +647,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,104,108,123,126,128,130,131,142,146,147,149,151,166,167,168,170,171,176,177,185,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,104,108,123,126,128,130,131,142,146,147,149,150,151,166,167,168,170,171,176,177,185,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
