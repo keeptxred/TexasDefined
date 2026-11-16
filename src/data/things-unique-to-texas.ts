@@ -244,7 +244,7 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(147, "Luck, Texas", "Willie Nelson's Luck, Texas is an old-West movie set associated with scheduled music events, not a public town with daily drop-in access. Verify an announced event and entry arrangements before driving there."),
       item(148, "Anhalt Hall", "The historic German dance hall north of San Antonio keeps community dancing and Texas-German heritage under one roof."),
       item(149, "Gruene Hall", "The New Braunfels dance hall remains one of the state's essential live-music rooms and anchors the Gruene historic district."),
-      item(150, "The Orange Show", "Houston's handmade folk-art environment turns one man's vision into a maze of mosaics, found objects and concrete."),
+      item(150, "The Orange Show", "Houston's folk-art monument is currently closed for preservation and restoration, according to the site operator. Do not plan a walk-in interior visit; the separately managed Beer Can House and Smither Park have different access arrangements."),
       item(151, "Beer Can House", "Flattened cans, pull tabs and aluminum siding transform a Houston bungalow into a folk-art landmark."),
       item(152, "Austin street-art alleys and murals", "Changing walls, murals and informal art spaces help sustain the visual side of Austin's 'weird' reputation."),
       item(153, "Old independent grocery signs", "Faded grocery signage can signal the historical retail geography of a town, but signs alone do not establish an active store or public access. Compare archival photographs or historical markers before making a claim about any particular business."),
