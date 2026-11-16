@@ -110,7 +110,7 @@ export async function run() {
     const to = Date.now();
     const startArg = (process.env.WORKER_MEMORY_START_UTC || '').trim();
     const from = startArg ? Date.parse(startArg) : to - 6 * 60 * 60 * 1000;
-    if (!Number.isFinite(from) || from >= to || to - from < 60_000 || to - from > 7 * 86_400_000) {
+    if (!Number.isFinite(from) || from >= to || to - from < 10_000 || to - from > 7 * 86_400_000) {
       throw new Error('Log window missing or outside supported 1-minute to 7-day retention range');
     }
     report.window = { from: new Date(from).toISOString(), to: new Date(to).toISOString() };
