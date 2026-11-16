@@ -87,6 +87,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "101": {
+    "topic": "Choose the kind of house tour",
+    "fact": "The Moody Mansion was completed in 1895 and bought by W. L. Moody Jr. after the 1900 storm. It now interprets the family's business, preservation and domestic history, with a self-guided visitor route distinct from small-group all-access tours.",
+    "usefulFor": "If you want normally closed rooms or a guided tour, use the museum's separately scheduled All-Access option. For an ordinary visit, the operator offers self-guided access with mobile interpretation; check accessibility and current admission.",
+    "sources": [
+      {
+        "label": "Moody Mansion: house history and self-guided versus all-access tours",
+        "url": "https://www.moodymansion.org/about"
+      }
+    ]
+  },
   "104": {
     "topic": "Independence and access",
     "fact": "Washington-on-the-Brazos is tied to the March 2, 1836 Texas Declaration of Independence. It is a reconstructed and interpreted historic townsite rather than a surviving intact 1836 town.",
@@ -98,6 +109,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "107": {
+    "topic": "A preserved atmospheric movie palace",
+    "fact": "The Majestic Theatre's Spanish-themed interior reflects the twentieth-century theatre era in San Antonio. The historic façade is a streetscape sight; interior access depends on a scheduled performance or approved tour, not a presumed open-door heritage visit.",
+    "usefulFor": "If you want interior ornament and lighting rather than an exterior photograph, plan around an actual event; compare tickets, accessibility and restrictions with the current theatre operator.",
+    "sources": [
+      {
+        "label": "San Antonio Majestic Theatre: official venue",
+        "url": "https://www.majesticempire.com/"
+      }
+    ]
+  },
   "108": {
     "topic": "A nationally designated architectural district",
     "fact": "Fair Park’s 1936–37 Texas Centennial Exposition buildings form a National Historic Landmark district known for Art Deco architecture and public art. The campus is more than the State Fair's temporary autumn attractions.",
@@ -106,6 +128,39 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Texas Historical Commission: Fair Park landmark record",
         "url": "https://www.dallasparks.org/744/Fair-Park"
+      }
+    ]
+  },
+  "118": {
+    "topic": "Historic buildings temporarily closed",
+    "fact": "TxDOT's Langtry Travel Information Center interprets Judge Roy Bean and the Jersey Lilly Saloon, but its current site bulletin states that the saloon, opera house and gardens are temporarily closed for construction.",
+    "usefulFor": "If driving U.S. 90 specifically to see the restored Judge Roy Bean buildings, check construction status first. TxDOT says the travel center lobby and restrooms remain open, but that is not the same as access to the historic interiors.",
+    "sources": [
+      {
+        "label": "TxDOT: Langtry restoration closure and open services",
+        "url": "https://www.txdot.gov/discover/rest-areas-travel-information-centers/travel-information-centers/langtry.html"
+      }
+    ]
+  },
+  "121": {
+    "topic": "Military history and modern art share a site",
+    "fact": "Fort D. A. Russell's former military grounds are now a principal campus of the Chinati Foundation, including permanent large-scale artworks. The military history and the modern art collection are different periods of use, not a continuously operating fort.",
+    "usefulFor": "Chinati reports that most collection spaces and grounds require advance-booked guided tours; a major artillery-shed restoration began in October 2026, so confirm which installations remain accessible.",
+    "sources": [
+      {
+        "label": "Chinati Foundation: access, tours and artillery-shed restoration",
+        "url": "https://chinati.org/hours-locations/"
+      }
+    ]
+  },
+  "122": {
+    "topic": "Free tours but important access limitations",
+    "fact": "Beaumont's 1906 McFaddin-Ward House preserves a wealthy oil-era household and its grounds. As of the museum's 2026 program update, both the historic-house tour and the carriage-house-and-garden tour are free but have different routes and eligibility.",
+    "usefulFor": "For families with children younger than eight or visitors avoiding historic stairs, choose the separate carriage-house-and-garden experience. The main house is restricted to ages eight and up; the operator recommends advance reservation and notes limited wheelchair access.",
+    "sources": [
+      {
+        "label": "McFaddin-Ward House: official tour types, ages and accessibility",
+        "url": "https://mcfaddin-ward.org/tours/"
       }
     ]
   },
@@ -124,6 +179,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "124": {
+    "topic": "Working theatre with a documented preservation story",
+    "fact": "Austin's Paramount Theatre opened in 1915 as a vaudeville house designed by John Eberson. A 1970s rescue and restoration kept it in use; its restored blade sign and performance history are part of the landmark's significance.",
+    "usefulFor": "A ticket to a current performance is not automatically a backstage or historic-building tour. Verify the theatre's own events and tour arrangements and enjoy the historic Congress Avenue exterior from public sidewalks.",
+    "sources": [
+      {
+        "label": "Paramount Theatre: official chronology and restoration",
+        "url": "https://www.austintheatre.org/about/history/"
+      }
+    ]
+  },
+  "125": {
+    "topic": "Adaptive reuse is the architectural story",
+    "fact": "The Dallas World Aquarium opened in October 1992 in a former 1924 warehouse at 1801 North Griffin Street. Later exhibits expanded into an adjacent converted building; preservation of the original structures is different from a legally designated historic landmark.",
+    "usefulFor": "This is an operating aquarium with admission and animal habitats, not a free public architectural museum. Use its official visitor pages for tickets, exhibits and access and interpret the old warehouse as reuse rather than a claim of special legal landmark status.",
+    "sources": [
+      {
+        "label": "Dallas World Aquarium: documented warehouse reuse and expansion",
+        "url": "https://dwazoo.com/about-dwa/"
+      }
+    ]
+  },
   "126": {
     "topic": "A specific photo stop",
     "fact": "The Paris tower is a modern Texas roadside reinterpretation of a French landmark, with a red cowboy hat added to its silhouette. It stands near the city civic center rather than at the town square.",
@@ -132,6 +209,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Paris tourism: Eiffel Tower",
         "url": "https://visitparistexas.com/eiffel-tower/"
+      }
+    ]
+  },
+  "127": {
+    "topic": "Free sculpture on private arts-campus grounds",
+    "fact": "Stonehenge II is a contemporary Texas limestone-replica art installation created by Al Shepperd and Doug Hill. It was moved from Hunt to the Hill Country Arts Foundation property in Ingram, where two Easter Island-style head replicas stand nearby.",
+    "usefulFor": "The arts foundation normally allows free daily visits but asks visitors to confirm access, leash pets and obtain permission for special events or commercial photography. Use 120 Point Theatre Road in Ingram, not the original Hunt location.",
+    "sources": [
+      {
+        "label": "Hill Country Arts Foundation: Stonehenge II ownership and site rules",
+        "url": "https://www.hcaf.com/stonehenge-ii/"
       }
     ]
   },
@@ -165,6 +253,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Visit Marfa: mystery lights and designated location",
         "url": "https://visitmarfa.com/mystery"
+      }
+    ]
+  },
+  "136": {
+    "topic": "Sunday houses were functional town lodging",
+    "fact": "Fredericksburg Sunday houses let rural families stay in town for church, shopping or other weekend activities. They are not a type of bakery, and not all surviving houses are publicly tourable. German-Texan bakeries reflect a separate strand of heritage.",
+    "usefulFor": "Plan an actual heritage walk or reserve an identified historic lodging property rather than wandering onto a private porch. Use the Fredericksburg visitor bureau's Sunday-house descriptions and check which examples are private residences.",
+    "sources": [
+      {
+        "label": "Visit Fredericksburg: documented Sunday-house tradition",
+        "url": "https://www.visitfredericksburgtx.com/things-to-do/museums-history/german-heritage/"
       }
     ]
   },
@@ -267,6 +366,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "169": {
+    "topic": "A conference, not one outdoor music festival",
+    "fact": "South by Southwest began in Austin as a music-focused gathering in 1987 and has expanded to conferences, film, television, music and other programming with distinct badge, event and venue rules. It should not be confused with the fall ACL music festival.",
+    "usefulFor": "Find the actual program track, credential or public event for the year you're attending; do not assume a single concert ticket includes SXSW conferences or film screenings.",
+    "sources": [
+      {
+        "label": "SXSW: official history and event programs",
+        "url": "https://www.sxsw.com/about/"
+      }
+    ]
+  },
   "170": {
     "topic": "Television institution, not the festival",
     "fact": "Austin City Limits is a PBS performance series, whose Willie Nelson pilot was taped in October 1974 and whose national broadcasts began in 1975. It is distinct from the Austin City Limits Music Festival.",
@@ -311,6 +421,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "178": {
+    "topic": "Agricultural show versus arena show",
+    "fact": "The Fort Worth Stock Show & Rodeo combines livestock competition, youth agriculture, community exhibits and organized rodeo events. It takes place on a seasonal calendar rather than operating as a daily year-round ranch attraction.",
+    "usefulFor": "Choose whether your visit is for a particular livestock judging, rodeo performance, cattle exhibit or grounds event, and confirm the associated ticket and scheduled day with the organizer.",
+    "sources": [
+      {
+        "label": "Fort Worth Stock Show and Rodeo: event information",
+        "url": "https://www.fwssr.com/"
+      }
+    ]
+  },
   "185": {
     "topic": "What June 19 records",
     "fact": "On June 19, 1865, General Granger’s order in Galveston announced federal enforcement of emancipation in Texas. Freedom was a longer struggle; the date did not mean no one had resisted slavery or gained freedom earlier.",
@@ -319,6 +440,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Library of Congress: June 19 and General Orders No. 3",
         "url": "https://www.loc.gov/item/today-in-history/june-19/"
+      }
+    ]
+  },
+  "188": {
+    "topic": "Ceremonial titles are distinct",
+    "fact": "Fiesta San Antonio's official royalty has multiple roles and organizations, including King Antonio, Rey Feo, the Charro Queen and Queen of Soul. Those aren't interchangeable and should not all be described as one historical royal court.",
+    "usefulFor": "If you wish to attend or photograph appearances, check each official Fiesta schedule; the Fiesta organizing body publishes a current list and explains the roles and community service aspects.",
+    "sources": [
+      {
+        "label": "Fiesta San Antonio: official royalty and participating organizations",
+        "url": "https://fiestasanantonio.org/official-fiesta-royalty/"
       }
     ]
   },
@@ -647,4 +779,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,104,108,123,126,128,130,131,142,146,147,149,150,151,166,167,168,170,171,176,177,185,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,136,142,146,147,149,150,151,166,167,168,169,170,171,176,177,178,185,188,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
