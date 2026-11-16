@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import {
   assertTexasCulturePublication,
   TEXAS_CULTURE_PUBLICATION_MARKERS,
+  TEXAS_ICON_PUBLICATION_EVIDENCE,
 } from './verify-texas-culture-publication.mjs';
 import { TEXAS_CULTURE_AUTHORITY_PAGES } from './production-change-scope.mjs';
 
@@ -12,7 +13,7 @@ const archive = '/what-does-chud-mean';
 const render = (path, text = TEXAS_CULTURE_PUBLICATION_MARKERS[path], extra = '') =>
   '<html><head>' +
   (path === archive ? '<meta content="noindex, follow" name="robots">' : '') +
-  '</head><body>' + text + extra + '</body></html>';
+  '</head><body>' + text + (TEXAS_ICON_PUBLICATION_EVIDENCE[path] ?? []).join(' | ') + extra + '</body></html>';
 
 test('the publication checker covers every revised Texas culture URL without unrelated crawl expansion', () => {
   assert.deepEqual(Object.keys(TEXAS_CULTURE_PUBLICATION_MARKERS), [...TEXAS_CULTURE_AUTHORITY_PAGES]);
@@ -23,6 +24,22 @@ test('the publication checker covers every revised Texas culture URL without unr
       /missing or stale/,
       path + ' must fail if the edge serves old article content',
     );
+  }
+});
+
+test('every 2026-11-16 chapter evidence canary fails closed on stale visitor and bypass responses', () => {
+  assert.equal(Object.keys(TEXAS_ICON_PUBLICATION_EVIDENCE).length, 5);
+  for (const [path, evidence] of Object.entries(TEXAS_ICON_PUBLICATION_EVIDENCE)) {
+    assert.equal(evidence.length, 3, path + ' needs three independently identifying canaries');
+    assert.doesNotThrow(() => assertTexasCulturePublication(path, render(path), 'visitor'));
+    for (const missing of evidence) {
+      const stale = render(path).replace(missing, '[previous-revision]');
+      assert.throws(
+        () => assertTexasCulturePublication(path, stale, 'bypass'),
+        /entry evidence missing or stale/,
+        path + ' should reject missing ' + missing,
+      );
+    }
   }
 });
 
