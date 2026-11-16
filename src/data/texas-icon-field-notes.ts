@@ -21,6 +21,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "91": {
+    "topic": "Interpretation beyond the battle",
+    "fact": "The Alamo was a mission long before the 1836 siege. Its interpretation intersects Spanish colonial history, Indigenous communities, the Texas Revolution and later reconstruction, not just the final battle.",
+    "usefulFor": "Consult the current Alamo visitor plan for access and guided interpretation; pair it with the other San Antonio missions without treating all five as the same managed site.",
+    "sources": [
+      {
+        "label": "The Alamo: visitor and historical interpretation",
+        "url": "https://www.thealamo.org/"
+      }
+    ]
+  },
+  "92": {
+    "topic": "A free civic-history visit",
+    "fact": "The Texas Capitol is a functioning legislative building as well as an 1888 architectural landmark. The State Preservation Board offers free guided tours and self-guided access, subject to official schedules and building closures.",
+    "usefulFor": "Choose between a free guided interior tour and a grounds walk; check the State Preservation Board's schedule and accessibility notes rather than trusting a static third-party hour listing.",
+    "sources": [
+      {
+        "label": "State Preservation Board: official Capitol tours",
+        "url": "https://tspb.texas.gov/plan/tours/tours.html"
+      }
+    ]
+  },
   "93": {
     "topic": "Tour eligibility",
     "fact": "Space Center Houston is the public visitor attraction; NASA Johnson Space Center is an operating federal facility, not a museum with unrestricted access. The popular Mission Control tram experience is a separate reserved option.",
@@ -43,6 +65,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "96": {
+    "topic": "Ceremonial drive versus historic commerce",
+    "fact": "The Fort Worth Stockyards preserve a historic cattle-market district, while today’s Fort Worth Herd cattle drives are staged heritage presentations. The daily march is not a continuation of a nineteenth-century trail shipment.",
+    "usefulFor": "Check the official Fort Worth Herd page for the current drive schedule and weather cancellations. Choose safe viewing locations instead of stepping into the cattle path.",
+    "sources": [
+      {
+        "label": "Fort Worth Herd: official schedule and viewing",
+        "url": "https://www.fortworthstockyards.org/events/fort-worth-herd-twice-daily-cattle-drive"
+      }
+    ]
+  },
   "100": {
     "topic": "What the oil strike changed",
     "fact": "The 1901 Lucas gusher at Spindletop transformed oil production, investment and Beaumont’s economy. A museum interpreting the boom is not necessarily the same physical location as the original drilling site.",
@@ -62,6 +95,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "THC: Washington-on-the-Brazos",
         "url": "https://thc.texas.gov/historic-sites/washington-brazos"
+      }
+    ]
+  },
+  "108": {
+    "topic": "A nationally designated architectural district",
+    "fact": "Fair Park’s 1936–37 Texas Centennial Exposition buildings form a National Historic Landmark district known for Art Deco architecture and public art. The campus is more than the State Fair's temporary autumn attractions.",
+    "usefulFor": "Plan an architecture visit separately from a paid State Fair event, and check which museums, buildings and grounds are actually open on your date.",
+    "sources": [
+      {
+        "label": "Texas Historical Commission: Fair Park landmark record",
+        "url": "https://atlas.thc.texas.gov/Details?atlasnumber=2086003488"
       }
     ]
   },
@@ -113,6 +157,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "131": {
+    "topic": "A designated viewing area, not a guaranteed light show",
+    "fact": "Marfa tourism directs visitors to a viewing area nine miles east of town on U.S. 90. Reported lights have many possible explanations; the attraction is the landscape and long-running mystery, not a verified paranormal event.",
+    "usefulFor": "Use the official viewing area rather than wandering across private ranchland. Bring appropriate lighting and travel plans without promising any lights will appear.",
+    "sources": [
+      {
+        "label": "Visit Marfa: mystery lights and designated location",
+        "url": "https://visitmarfa.com/mystery"
+      }
+    ]
+  },
   "142": {
     "topic": "A researched reason to stop",
     "fact": "Leona was Leon County’s first county seat from 1846 until Centerville replaced it in 1850. That administrative history is a more useful reason to identify the town than a vague claim that small towns feel 'authentic'.",
@@ -143,6 +198,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Texas music context and destinations",
         "url": "/texas-dance-halls-honky-tonks"
+      }
+    ]
+  },
+  "149": {
+    "topic": "Historic room, active concert calendar",
+    "fact": "Built in 1878, Gruene Hall remains a working music venue with an original-style open-air dance-hall layout. Its age and setting are historical facts; individual shows, ticket requirements and capacity change.",
+    "usefulFor": "Choose a performance from the hall's current calendar and check ticket rules; the surrounding Gruene historic district can be visited on a different schedule.",
+    "sources": [
+      {
+        "label": "Gruene Hall: official site and events",
+        "url": "https://gruenehall.com/"
       }
     ]
   },
@@ -190,6 +256,50 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "170": {
+    "topic": "Television institution, not the festival",
+    "fact": "Austin City Limits is a PBS performance series, whose Willie Nelson pilot was taped in October 1974 and whose national broadcasts began in 1975. It is distinct from the Austin City Limits Music Festival.",
+    "usefulFor": "Use the TV show's performance and audience guidance for tapings; do not use a festival ticket schedule as the television program's calendar.",
+    "sources": [
+      {
+        "label": "Austin City Limits: official program FAQ",
+        "url": "https://acltv.com/faq/"
+      }
+    ]
+  },
+  "171": {
+    "topic": "Seasonal fair versus year-round park",
+    "fact": "The State Fair of Texas is a seasonal event at Fair Park; Big Tex is its prominent greeter, not a permanent year-round fair attraction. The 2026 fair closed in October, and future dates require a fresh calendar.",
+    "usefulFor": "Plan Fair Park architectural visits separately from admission to the next State Fair. Verify the upcoming year's dates, gates and events with the official organizer.",
+    "sources": [
+      {
+        "label": "State Fair of Texas: 2026 season close",
+        "url": "https://bigtex.com/the-2026-state-fair-of-texas-welcomes-nearly-2-1-million-fairgoers-fairgoers-celebrated-140-years-of-texas-tradition-while-helping-the-state-fair-support-students-strengthen-communities-and-invest/"
+      }
+    ]
+  },
+  "176": {
+    "topic": "Fiesta is many organizations and histories",
+    "fact": "Fiesta San Antonio grew from the 1891 Battle of Flowers Parade and now includes river events, neighborhood celebrations and royal-court traditions whose dates and organizations differ.",
+    "usefulFor": "Use the official Fiesta event list to select specific events and tickets rather than treating a multi-day civic festival as one venue with universal hours.",
+    "sources": [
+      {
+        "label": "Fiesta San Antonio: historical event timeline",
+        "url": "https://fiestasanantonio.org/fiesta-history/"
+      }
+    ]
+  },
+  "177": {
+    "topic": "The concert is only one part of the rodeo",
+    "fact": "Houston’s livestock show includes youth agriculture, auctions and education funding alongside rodeo competition and stadium concerts. The nonprofit's 2026 published commitment included separate scholarship and junior exhibitor allocations.",
+    "usefulFor": "Compare a livestock-show visit with a rodeo-and-concert ticket; check the organizer for individual admission, schedule and scholarship information rather than assuming one ticket covers everything.",
+    "sources": [
+      {
+        "label": "Houston Livestock Show and Rodeo: education programs",
+        "url": "https://www.rodeohouston.com/scholarships-and-grants/"
+      }
+    ]
+  },
   "185": {
     "topic": "What June 19 records",
     "fact": "On June 19, 1865, General Granger’s order in Galveston announced federal enforcement of emancipation in Texas. Freedom was a longer struggle; the date did not mean no one had resisted slavery or gained freedom earlier.",
@@ -198,6 +308,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Library of Congress: June 19 and General Orders No. 3",
         "url": "https://www.loc.gov/item/today-in-history/june-19/"
+      }
+    ]
+  },
+  "190": {
+    "topic": "School-specific custom, not an official statewide rule",
+    "fact": "Homecoming mums are evolving school and community-made displays, with size, colors, costs and expectations varying widely. The wearable decorations are distinct from a school's official uniform or an organized contest.",
+    "usefulFor": "Check each school's traditions and dress guidance before making or buying a mum; the history is better explained through Texas homecoming culture than through a generic product gallery.",
+    "sources": [
+      {
+        "label": "Texas homecoming mums historical guide",
+        "url": "/texas-homecoming-mums"
       }
     ]
   },
@@ -271,6 +392,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "203": {
+    "topic": "Feral hogs are not javelinas",
+    "fact": "Feral hogs are introduced true pigs that damage habitats and agriculture. Collared peccaries look pig-like but belong to a different mammalian family; combining them as one invasive species is a biological error.",
+    "usefulFor": "For identification and land-management issues, use TPWD guidance. Do not treat hog sightings as an invitation to approach wildlife or assume hunting permissions.",
+    "sources": [
+      {
+        "label": "TPWD: exotic species and javelina distinction",
+        "url": "https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/exotic-species"
+      }
+    ]
+  },
+  "210": {
+    "topic": "A state fish with conservation work behind it",
+    "fact": "The native Guadalupe bass is more than a state symbol: TPWD documents restoration and conservation efforts across central Texas watersheds, including stocking and habitat work since 1991.",
+    "usefulFor": "Consult TPWD's public-access and current fishing guidance to find legitimate places to fish, and confirm identification and regulations before keeping any catch.",
+    "sources": [
+      {
+        "label": "TPWD: Guadalupe bass restoration and public access",
+        "url": "https://tpwd.texas.gov/fishboat/fish/management/guadalupe-bass/"
+      }
+    ]
+  },
   "212": {
     "topic": "Protect habitat rather than chase a sighting",
     "fact": "Texas ocelots survive in fragmented South Texas thornscrub, with a key refuge population near Laguna Atascosa. Habitat connectivity and vehicle strikes are central conservation issues.",
@@ -283,6 +426,39 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "FWS: wildlife underpass documented",
         "url": "https://www.fws.gov/story/2020-02/its-first-ocelot-crosses-under-road"
+      }
+    ]
+  },
+  "215": {
+    "topic": "Peccaries, not wild pigs",
+    "fact": "Javelinas are collared peccaries native to the Southwest, commonly seen in South Texas thornscrub, the Trans-Pecos and nearby habitats. They are not domestic hogs or an imported feral-swine population.",
+    "usefulFor": "Identify the distinctive light shoulder collar and pig-like shape from a distance. Never approach or feed family groups near roads or camps.",
+    "sources": [
+      {
+        "label": "TPWD: javelina range and behavior",
+        "url": "https://tpwd.texas.gov/landwater/land/habitats/trans_pecos/big_game/javelina/"
+      }
+    ]
+  },
+  "217": {
+    "topic": "A state shell with a left-handed spiral",
+    "fact": "The lightning whelk is a marine mollusk whose shell winds counterclockwise, unlike many familiar coiled shells. Texas designated it the official state shell in 1987; living whelks remain part of the coastal ecosystem.",
+    "usefulFor": "Compare shells without removing live animals from their habitat. Check local beach and park collecting rules rather than assuming anything washed ashore can be taken.",
+    "sources": [
+      {
+        "label": "TPWD: lightning whelk identification and state symbol",
+        "url": "https://tpwd.texas.gov/fishboat/fish/didyouknow/coastal/whelk.phtml"
+      }
+    ]
+  },
+  "218": {
+    "topic": "Why mature cedar-oak woodland matters",
+    "fact": "Ashe juniper is sometimes casually dismissed as 'cedar', but mature Ashe juniper and oak woodland provides nesting habitat for endangered golden-cheeked warblers, which breed only in central Texas.",
+    "usefulFor": "When evaluating land-clearing or trail advice, distinguish young invasive woody growth from intact mature woodland and observe nesting habitat without disturbance.",
+    "sources": [
+      {
+        "label": "TPWD: golden-cheeked warbler habitat",
+        "url": "https://tpwd.texas.gov/huntwild/wild/species/gcw/"
       }
     ]
   },
@@ -345,6 +521,32 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "225": {
+    "topic": "Flag-display rules are ordinary, not an exception",
+    "fact": "Texas's Lone Star Flag was adopted by the Republic in 1839. State law describes display with the U.S. flag on equal-height poles of approximately equal-size flags, with the U.S. flag given the prescribed position; this is not a special Texas entitlement.",
+    "usefulFor": "Check the Texas Government Code and federal Flag Code rather than repeating the myth that Texas can fly its state flag higher than the national flag.",
+    "sources": [
+      {
+        "label": "Texas Government Code: Chapter 3100",
+        "url": "https://statutes.capitol.texas.gov/?artSec=3100.065&chapter=GV.3100&code=GV&tab=1"
+      },
+      {
+        "label": "Texas State Law Library: flag-height myth",
+        "url": "https://www.sll.texas.gov/faqs/texas-flag-height/"
+      }
+    ]
+  },
+  "226": {
+    "topic": "Six different sovereignties, not six identical eras",
+    "fact": "The six-flags shorthand brings together Spain, France, Mexico, the Republic, the Confederacy and the United States, but the duration and geographic reach of control differed substantially. The Confederate period must be placed in the history of secession and slavery.",
+    "usefulFor": "Use an actual historical timeline rather than reading each flag as evidence of an equal, peaceful or modern statewide government.",
+    "sources": [
+      {
+        "label": "Texas State Historical Association: flags of Texas",
+        "url": "https://www.tshaonline.org/handbook/entries/flags-of-texas"
+      }
+    ]
+  },
   "232": {
     "topic": "Not everyone orders drinks alike",
     "fact": "Calling any soft drink a Coke is a regional colloquial habit, not an official Texas vocabulary rule and not uniform across age groups or cities.",
@@ -353,6 +555,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Texas slang research guide",
         "url": "/texas-slang-explained"
+      }
+    ]
+  },
+  "236": {
+    "topic": "A Southwestern tall tale, not a biological species",
+    "fact": "The jackalope is a fictional antlered rabbit in Western souvenir and storytelling traditions. A figure found in a Texas gift shop is evidence of playful folklore, not that the creature originated in Texas or exists in the wild.",
+    "usefulFor": "Class it as humor or tourist imagery. Do not recommend a supposed wildlife-viewing area or present souvenir claims as zoological evidence.",
+    "sources": [
+      {
+        "label": "Texas slang and folklore context",
+        "url": "/texas-slang-explained"
+      }
+    ]
+  },
+  "237": {
+    "topic": "Hyperbole is the historical subject",
+    "fact": "Pecos Bill is a mythical cowboy whose impossible feats were retold in range-hand stories and later printed versions. The Handbook of Texas does not establish a single documented real-life person behind him.",
+    "usefulFor": "Compare versions as storytelling and literary history, not as an itinerary for finding an actual historical Pecos Bill homesite.",
+    "sources": [
+      {
+        "label": "Texas State Historical Association: Pecos Bill",
+        "url": "https://www.tshaonline.org/handbook/entries/pecos-bill"
       }
     ]
   },
@@ -378,6 +602,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "240": {
+    "topic": "Dialect pronunciation is not a statewide census",
+    "fact": "Pronunciations such as 'right cheer' are examples of informal, localized speech, not reliable markers of Texas residence or ethnicity. No single written spelling captures how all rural Texans pronounce a phrase.",
+    "usefulFor": "Use a contextual recorded speaker or a documented linguistic study before assigning a phrase to a whole region, age group or community.",
+    "sources": [
+      {
+        "label": "Texas slang guide: regional limitations",
+        "url": "/texas-slang-explained"
+      }
+    ]
+  },
+  "244": {
+    "topic": "A Gulf Coast borrowing, not an invented Texan word",
+    "fact": "Lagniappe is widely associated with Louisiana and Gulf Coast usage, where it means a little extra. Its presence in Southeast Texas reflects cultural exchange across the Sabine rather than a unique Texas etymology.",
+    "usefulFor": "Explain the Louisiana connection and use a real merchant or conversational example instead of claiming the term was coined in Texas.",
+    "sources": [
+      {
+        "label": "Texas cultural regions and cross-border influences",
+        "url": "/article/texas-cultural-regions-explained"
+      }
+    ]
+  },
   "249": {
     "topic": "A remembered battle cry",
     "fact": "Remember the Alamo became a Texas Revolution slogan. Historical interpretation requires the full 1836 campaign context, including Tejano participation and the contested legacies of the revolution.",
@@ -390,4 +636,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,93,95,104,123,100,126,128,130,142,146,147,151,166,167,168,185,194,192,196,197,200,201,212,219,221,222,223,224,232,238,239,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [88,91,92,93,95,96,100,104,108,123,126,128,130,131,142,146,147,149,151,166,167,168,170,171,176,177,185,190,192,194,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,232,236,237,238,239,240,244,249] as const;
