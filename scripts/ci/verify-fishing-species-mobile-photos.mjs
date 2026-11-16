@@ -73,7 +73,7 @@ try {
           }));
           const heroCredit = document.querySelector("header.bg-ink figcaption");
           const heroBackground = heroCredit?.closest("header");
-          const rgb = text => (text.match(/[\\d.]+/g) || []).slice(0, 3).map(Number);
+          const rgb = text => (text.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
           const luminance = channels => channels.map(v => { const x = v / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
           const contrast = heroCredit && heroBackground
             ? [luminance(rgb(getComputedStyle(heroCredit).color)), luminance(rgb(getComputedStyle(heroBackground).backgroundColor))]
