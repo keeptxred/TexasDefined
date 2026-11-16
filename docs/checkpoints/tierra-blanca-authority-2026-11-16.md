@@ -25,3 +25,9 @@
 - WTAMU 2026 closure update: https://www.wtamu.edu/news/2026/02/wt-president-wendler-offers-update-on-panhandle-plains-historical-museum.html
 
 Mark COMPLETE only with live deploy and two-viewport Chrome artifact proof. If blocked, update this checkpoint with exact failing job and next action.
+
+## November 16 production-release blocker and scoped repair (#7284)
+- #7279 merged successfully at `5698b16e116a2a28fe31ad40cb21c4627a3369d2`, but deployment run #43891806292 failed **before** publishing at the original-byte predecessor guard. #43891225902 and #43893403845 independently failed the same guard. This is NOT an Echo Canyon article-validation failure or a reason to suppress the asset-retention safety gate.
+- The active 100%-traffic Worker at the failure was `0f9a146d-7b91-45d2-b1df-9813c80326e8`, whereas the preceding successful immutable original-byte handoff (run #43884259995, source `3bb9a544e38e65d8b80ddf375ea58ddd5964b8bc`) belongs to DIFFERENT Worker `64e9e06f-f80e-424c-8f85-dc6e210463ac`. Never fake a Worker match.
+- #7284 adds a one-time exact-worker bridge with a hard expiry `2026-11-19T14:32:31Z`. It verifies the archived release against its actual source/version and successful GitHub deploy job; only historical file *paths* flow to the next predeploy capture. The genuinely current Worker is probed for those old paths, original bytes are retained if available, and the entire postdeploy original-byte asset set is revalidated against **both** origins. Unknown active versions and all future deployments still require ordinary exact prior-release proof.
+- Current next action: merge #7284 after Required merge gate, then inspect its production run. If it fails at any postdeploy article, sitemap or browser gate, fix the actual cause, rerun and record artifact links. Do not claim a 95+ live grade before real Chrome has completed.
