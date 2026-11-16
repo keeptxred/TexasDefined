@@ -80,6 +80,10 @@ for (const { device, viewport, mobile } of [
     assert.match(initial.title, /Texas Fishing Lake Finder/);
     check(initial.contentWidth <= initial.viewportWidth + 1, "horizontal overflow on list view");
     await page.screenshot({ path: outputDir + "/" + device + "-list.png", fullPage: false });
+    // SSR renders clickable controls before the React event handlers attach.
+    // A live interaction must start only after the actual client useEffect fires;
+    // the source-backed 72-link, H1 and metadata readiness checks above remain.
+    await page.locator('[data-fishing-planner-hydrated="true"]').waitFor({ state: "attached", timeout: 30000 });
     const more = page.getByRole("button", { name: /Show 12 more lake cards/ });
     phase = "show-more-cards";
     await more.click({ timeout: 15000 });
