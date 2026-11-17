@@ -9,6 +9,7 @@ on:
       - 'src/data/museum-authority-heroes.ts'
       - 'public/museum-verification-manifest.json'
       - 'scripts/data/validate-approved-attraction-drafts.mjs'
+      - 'scripts/data/verify-approved-attraction-sources.mjs'
       - '.github/workflows/validate-approved-attraction-drafts.yml'
   workflow_dispatch:
 jobs:
@@ -22,4 +23,6 @@ jobs:
         with:
           node-version: '22'
       - name: Verify canonical uniqueness, sources, photos and verification schedule
-        run: node scripts/data/validate-approved-attraction-drafts.mjs
+        run: |
+          node --check scripts/data/verify-approved-attraction-sources.mjs
+          node scripts/data/validate-approved-attraction-drafts.mjs
