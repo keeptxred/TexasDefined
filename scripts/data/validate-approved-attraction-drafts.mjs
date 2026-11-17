@@ -36,6 +36,11 @@ assert.doesNotMatch(newGuides, /File:Cichlid_Texas_Freshwater_Fisheries_Center_2
 assert.match(forestry, /sensory backpacks/i);
 assert.match(forestry, /train table/i);
 assert.match(forestry, /guided history tour/i);
+assert.match(forestry, /\$3 per person/);
+assert.match(forestry, /Angelina County/);
+assert.match(newGuides, /any group larger than 20/);
+assert.match(newGuides, /\$50 for the group/);
+assert.match(newGuides, /Christmas Eve and Day/);
 assert.match(forestry, /address: "1905 Atkinson Dr, Lufkin, TX 75901"/);
 assert.match(forestry, /50th anniversary in 2026/);
 assert.match(forestry, /conflicting ZIP codes/);
