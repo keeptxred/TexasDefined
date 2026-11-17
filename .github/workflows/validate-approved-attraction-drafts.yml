@@ -1,0 +1,25 @@
+name: Validate approved attraction authority drafts
+on:
+  pull_request:
+    paths:
+      - 'src/data/approved-attraction-authority-drafts.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/museum-expansion-statewide-wave3.ts'
+      - 'src/data/museum-expansion-statewide-wave54.ts'
+      - 'src/data/museum-authority-heroes.ts'
+      - 'public/museum-verification-manifest.json'
+      - 'scripts/data/validate-approved-attraction-drafts.mjs'
+      - '.github/workflows/validate-approved-attraction-drafts.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify canonical uniqueness, sources, photos and verification schedule
+        run: node scripts/data/validate-approved-attraction-drafts.mjs
