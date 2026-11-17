@@ -325,7 +325,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     ].find((photo) => destination.slug === photo.slug
       && commonsHeroAttribution(destination.hero.src, destination.hero.credit)?.sourceUrl.endsWith(photo.file)
       && destination.hero.credit?.includes(photo.author)
-      && destination.hero.credit.includes(photo.license));
+      && commonsHeroAttribution(destination.hero.src, destination.hero.credit)?.licenseUrl === photo.license);
     const verifiedAttractionPhotoRights = verifiedAttractionPhoto ? {
       creator: { "@type": "Person", name: verifiedAttractionPhoto.author },
       license: verifiedAttractionPhoto.license,
