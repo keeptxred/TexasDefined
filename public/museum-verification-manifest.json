@@ -2082,29 +2082,6 @@
       ]
     },
     {
-      "path": "/destination/national-ranching-heritage-center-lubbock",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 3,
-      "sources": [
-        {
-          "sourceUrl": "https://ranchingheritage.org/about-us/visit/",
-          "fetchUrl": "https://ranchingheritage.org/about-us/visit/",
-          "label": "Operator hours, admission, park, accessibility and family attractions"
-        },
-        {
-          "sourceUrl": "https://ranchingheritage.org/learn/adult-group-visits/",
-          "fetchUrl": "https://ranchingheritage.org/learn/adult-group-visits/",
-          "label": "Operator group visit rules and guided-tour fees"
-        },
-        {
-          "sourceUrl": "https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf",
-          "fetchUrl": "https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf",
-          "label": "Operator commercial photography permission restrictions"
-        }
-      ]
-    },
-    {
       "path": "/destination/panhandle-plains-historical-museum-canyon",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -2414,29 +2391,6 @@
           "sourceUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
           "fetchUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
           "label": "Museum: tours and education"
-        }
-      ]
-    },
-    {
-      "path": "/destination/texas-freshwater-fisheries-center",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 3,
-      "sources": [
-        {
-          "sourceUrl": "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/",
-          "fetchUrl": "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/",
-          "label": "TPWD seasonal hours, admission and closure schedule"
-        },
-        {
-          "sourceUrl": "https://tpwd.texas.gov/fishing/tffc/exhibits/",
-          "fetchUrl": "https://tpwd.texas.gov/fishing/tffc/exhibits/",
-          "label": "TPWD hatchery status, angling rules and wetlands interpretation"
-        },
-        {
-          "sourceUrl": "https://tpwd.texas.gov/fishing/tffc/",
-          "fetchUrl": "https://tpwd.texas.gov/fishing/tffc/",
-          "label": "TPWD official visitor overview and location"
         }
       ]
     },
