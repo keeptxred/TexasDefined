@@ -17,7 +17,7 @@ The Texas Freshwater Fisheries Center (TFFC) in Athens is an unusually practical
 ## Plan a useful visit
 Begin indoors to check which interpretive programs are actually operating, then choose between the wetland trail and fishing pavilion based on weather, mobility and children's interests. The hatchery-tram suspension changes how to allocate time: visitors expecting a ride should verify the current alternative before traveling. The trail is an outdoor activity, so heat, rain and surface conditions should inform the plan.
 
-TPWD's current visitor overview lists **Wednesday–Saturday 9 a.m.–4 p.m. and Sunday 1–4 p.m.**, at **5550 FM 2495, Athens, TX 75752**. Check admission categories, holidays, programs and accessibility before traveling; no unverified price is asserted. The annual fireworks program is not a guaranteed date-specific event; consult TPWD's calendar before promoting a specific year.
+TPWD's detailed hours page specifies **March–August: Tuesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m.; September–February: Wednesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m.** The center's shorter overview currently shows only the fall/winter schedule., at **5550 FM 2495, Athens, TX 75752**. TPWD currently lists regular admission as **$5.50 ages 17–64, $4.50 seniors 65+, $3.50 ages 4–16, and free ages 3 and younger**. It also lists specific holiday and maintenance closures; check those dates, programs and accessibility before traveling. Pets are not permitted. The annual fireworks program is not a guaranteed date-specific event; consult TPWD's calendar before promoting a specific year.
 
 ## Editorial FAQs
 **Can visitors fish without bringing equipment?** TPWD says it supplies rods, reels and bait for visitors at the Angler's Pavilion; follow on-site instructions.
@@ -30,7 +30,8 @@ TPWD's current visitor overview lists **Wednesday–Saturday 9 a.m.–4 p.m. and
 
 ## Sources and verification
 - TPWD activities, hatchery suspension, fishing rules, wetlands trail: https://tpwd.texas.gov/fishing/tffc/exhibits/
-- TPWD center overview, address and current visitor hours: https://tpwd.texas.gov/fishing/tffc/
+- TPWD seasonal schedule, admission and closures: https://tpwd.texas.gov/fishing/tffc/hours-and-fees/
+- TPWD center overview and address: https://tpwd.texas.gov/fishing/tffc/
 - TPWD hatchery science and stocking interpretation: https://tpwd.texas.gov/fishing/tffc/hatchery/
 - Recheck hatchery reopening status at least monthly until construction is finished.
 
