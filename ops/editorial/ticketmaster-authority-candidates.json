@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-16T21:05:22.808Z",
+  "fetchedAt": "2026-11-17T19:54:19.250Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -422,6 +422,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed by BlackHawk",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-14"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn61Rj"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-14-2027/event/3A006507AA1CABDC"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed by Flatland Cavalry",
       "city": "San Antonio",
       "dates": [
@@ -697,8 +721,10 @@
         "2026-11-27",
         "2026-11-28",
         "2026-11-29",
+        "2026-12-04",
         "2026-12-05",
         "2026-12-06",
+        "2026-12-11",
         "2026-12-12",
         "2026-12-13",
         "2026-12-18",
@@ -768,6 +794,10 @@
         "Z7r9jZ1AA7KjA",
         "Z7r9jZ1AA7KjF",
         "Z7r9jZ1AA7Kje",
+        "Z7r9jZ1AAAfbK",
+        "Z7r9jZ1AAAfbY",
+        "Z7r9jZ1AAAfbt",
+        "Z7r9jZ1AAAfbx",
         "Z7r9jZ1AAvPq3",
         "Z7r9jZ1AAvPqK"
       ],
@@ -811,6 +841,10 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjA",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbK",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbY",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbt",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbx",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvPq3",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvPqK"
       ],
