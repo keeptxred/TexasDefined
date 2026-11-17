@@ -17,7 +17,7 @@ export const approvedAttractionDraftDestinations: Destination[] = [
     nearestTown: "Athens",
     county: "Henderson County",
     coordinates: { lat: 32.2186, lng: -95.7643 },
-    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg?width=1600", alt: "Lake Zebco fishing pond at the Texas Freshwater Fisheries Center in Athens, photographed in July 2025", width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg · https://creativecommons.org/licenses/by/4.0/" },
+    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg?width=1600", alt: "Lake Zebco fishing pond at the Texas Freshwater Fisheries Center in Athens, photographed in July 2025", width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
     bestSeason: "March through August offers an extra Tuesday opening day; fall and winter use a shorter weekly schedule. Check holiday closures and outdoor conditions.",
     entryNote: "March–August: Tuesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m. September–February: Wednesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m. Admission: ages 17–64 $5.50, 65+ $4.50, ages 4–16 $3.50, ages 3 and under free. Verify closures before travel; pets are not allowed.",
     highlights: [
@@ -58,7 +58,7 @@ export const approvedAttractionDraftDestinations: Destination[] = [
     nearestTown: "Lubbock",
     county: "Lubbock County",
     coordinates: { lat: 33.59006, lng: -101.88297 },
-    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG?width=1600", alt: "Historic Dogtrot House at the National Ranching Heritage Center in Lubbock, photographed in April 2011", width: 1600, height: 1200, credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Dogtrot_House,_NRHC,_Lubbock,_TX_IMG_1603.JPG · https://creativecommons.org/licenses/by/3.0/" },
+    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG?width=1600", alt: "Historic Dogtrot House at the National Ranching Heritage Center in Lubbock, photographed in April 2011", width: 1600, height: 1200, credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons" },
     bestSeason: "Spring and fall are comfortable for exploring the outdoor historical park; indoor galleries are useful year-round.",
     entryNote: "General admission is free; donations are appreciated. Monday–Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m.; closed on Texas Tech University holidays. Confirm events and outdoor access before travel.",
     highlights: [
