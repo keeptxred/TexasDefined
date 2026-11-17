@@ -23,6 +23,8 @@ assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
 assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Commercial photo clearance/);
 assert.match(availability, /"texas-freshwater-fisheries-center", \/\/ New guide awaiting separate final owner publication approval/);
 assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
+assert.match(destinationRoute, /verifiedAttractionPhotoRights/);
+assert.match(destinationRoute, /acquireLicensePage: "https:\/\/commons.wikimedia.org\/wiki\/File:"/);
 assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // all three have exact-site Commons photos on draft branch
 assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
 assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
