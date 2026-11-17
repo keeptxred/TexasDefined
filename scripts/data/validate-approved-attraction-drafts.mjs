@@ -40,6 +40,8 @@ assert.match(forestry, /\$3 per person/);
 assert.match(forestry, /Angelina County/);
 assert.match(newGuides, /any group larger than 20/);
 assert.match(newGuides, /\$50 for the group/);
+assert.match(newGuides, /contact form not found/i);
+assert.match(newGuides, /ranchhc@ttu\.edu/);
 assert.match(newGuides, /Christmas Eve and Day/);
 assert.equal((newGuides.match(/authorityGuide: \{/g) || []).length, 2, "both new guides need full editorial authority assessments");
 assert.match(forestry, /authorityGuide: \{/);

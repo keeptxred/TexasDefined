@@ -45,3 +45,7 @@ The center publishes a commercial photography policy. A Commons photo of a barn 
 
 ## Canonical and release gates
 Proposed `/destination/national-ranching-heritage-center-lubbock`. Exact-slug code search on main returned no match; full runtime duplicate/alias review still required. Before publication, obtain written operator image approval, then confirm accessible media and attribution, source freshness, internal links, truthful structured data and monthly refresh scheduling. **Separate owner approval of finished page required before creating an indexable route.**
+
+## Current group-booking form problem (November 17, 2026)
+
+The operator's group-visits page currently prints `Error: Contact form not found.` directly below `Reserve your group visit`. To avoid sending users into an unusable process, the staged page provides direct operator contact: (806) 742-0498, ranchhc@ttu.edu, https://ranchingheritage.org/contact-us/. Do not represent an attempted web form submission as a confirmed group reservation.

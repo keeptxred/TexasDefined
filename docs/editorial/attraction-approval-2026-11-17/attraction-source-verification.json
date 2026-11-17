@@ -22,6 +22,11 @@
           "sourceUrl": "https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf",
           "fetchUrl": "https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf",
           "label": "Operator commercial photography permission restrictions"
+        },
+        {
+          "sourceUrl": "https://ranchingheritage.org/contact-us/",
+          "fetchUrl": "https://ranchingheritage.org/contact-us/",
+          "label": "Direct operator phone and email for group booking when online form is broken"
         }
       ]
     },
