@@ -12,12 +12,15 @@ The Texas Freshwater Fisheries Center (TFFC) in Athens is an unusually practical
 
 **Try fishing.** At the Angler's Pavilion, staff help beginners and provide rods, reels and bait at no charge. Visitors bringing their own equipment must check it in. TPWD specifies single hooks, no treble hooks, and barbless or flattened-barb hooks. Outside live or dead freshwater organisms are prohibited; approved baits are subject to staff inspection. These rules matter more to families than a generic recommendation to bring tackle.
 
-**Seasonal trout.** Trout harvest, when offered, requires an additional harvest tag and has specific limits. Treat it as a seasonal activity, not an everyday admission entitlement.
+**Seasonal trout.** TPWD lists seasonal trout harvest from **Thanksgiving through the end of February**, requiring an additional harvest tag purchased before fishing or harvesting, with a limit of **five trout per tag**. All fish must be checked at the Angler's Pavilion before departure. Treat it as a seasonal activity, not an everyday admission entitlement.
 
 ## Plan a useful visit
 Begin indoors to check which interpretive programs are actually operating, then choose between the wetland trail and fishing pavilion based on weather, mobility and children's interests. The hatchery-tram suspension changes how to allocate time: visitors expecting a ride should verify the current alternative before traveling. The trail is an outdoor activity, so heat, rain and surface conditions should inform the plan.
 
 TPWD's detailed hours page specifies **March–August: Tuesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m.; September–February: Wednesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m.** The center's shorter overview currently shows only the fall/winter schedule., at **5550 FM 2495, Athens, TX 75752**. TPWD currently lists regular admission as **$5.50 ages 17–64, $4.50 seniors 65+, $3.50 ages 4–16, and free ages 3 and younger**. It also lists specific holiday and maintenance closures; check those dates, programs and accessibility before traveling. Pets are not permitted. The annual fireworks program is not a guaranteed date-specific event; consult TPWD's calendar before promoting a specific year.
+
+## Additional visitor planning
+TPWD's visitor information says groups of **10 or more** can reserve dedicated activity times. Its annual **Fireworks at the Fishery** is generally held in early July, but do not promise a specific date or access without consulting the current calendar. The center also interprets the Toyota ShareLunker program and maintains a fishing hall of fame, making the visit useful to anglers beyond the children's fishing pond.
 
 ## Editorial FAQs
 **Can visitors fish without bringing equipment?** TPWD says it supplies rods, reels and bait for visitors at the Angler's Pavilion; follow on-site instructions.
