@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 import offers from "../../../src/data/authority/experience-offers.json" with { type: "json" };
 import operators from "../../../src/data/authority/independent-operators.json" with { type: "json" };
 
-const MAX_SOURCES = 24;
+const MAX_SOURCES = 36;
 const MAX_BYTES = 850_000;
 const TIMEOUT_MS = 12_000;
 
@@ -53,6 +53,24 @@ export function reviewedAttractionMonitorRows(sourceText) {
     }));
   });
 }
+
+/** Operator-controlled sources for three independently published history guides.
+ * Their checkedAt dates mean actual editorial fact review; a weekly HTTP probe
+ * is only a change alert and must never increment these dates automatically.
+ * A failed source remains a research flag rather than silently passing.
+ */
+export const heritageDestinationMonitorRows = [
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-17" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-17" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/hours/hours.html", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/visit", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/exhibitions", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://lbjlibrary.org/visit/accessibility", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/sanjose.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/guided-programs.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/hours.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/accessibility.htm", checkedAt: "2026-11-17" },
+];
 
 export function normalizedSourceFingerprint(html) {
   const text = html.replace(/<!--[\s\S]*?-->/g, " ")
@@ -112,7 +130,7 @@ async function main() {
     throw new Error("Unsupported operator source monitor baseline version");
   const asOf = new Date().toISOString().slice(0, 10);
   const reviewed = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
-  const sources = sourceIndex(offers, [...operators, ...reviewedAttractionMonitorRows(reviewed)]);
+  const sources = sourceIndex(offers, [...operators, ...reviewedAttractionMonitorRows(reviewed), ...heritageDestinationMonitorRows]);
   const state = { version: 1, asOf, sources: {} };
   let alerts = 0;
   for (let i = 0; i < sources.length; i += 3) {
