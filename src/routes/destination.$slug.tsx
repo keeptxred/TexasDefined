@@ -320,7 +320,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
       { slug: "texas-forestry-museum-lufkin", file: "Texas_Forestry_Museum%2C_Lufkin%2C_TX_IMG_8594.JPG", author: "Billy Hathorn", license: "https://creativecommons.org/licenses/by-sa/3.0/" },
       { slug: "national-ranching-heritage-center-lubbock", file: "Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG", author: "Billy Hathorn", license: "https://creativecommons.org/licenses/by/3.0/" },
     ].find((photo) => destination.slug === photo.slug
-      && destination.hero.src.includes(photo.file)
+      && commonsHeroAttribution(destination.hero.src, destination.hero.credit)?.sourceUrl.endsWith(photo.file)
       && destination.hero.credit?.includes(photo.author)
       && destination.hero.credit.includes(photo.license));
     const verifiedAttractionPhotoRights = verifiedAttractionPhoto ? {
