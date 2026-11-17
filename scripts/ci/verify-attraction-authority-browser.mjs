@@ -13,9 +13,9 @@ worker.stderr.on("data", d => { output += d.toString(); process.stderr.write(d);
 const sleep = ms => new Promise(resolve => setTimeout(resolve,ms));
 let browser;
 const targets = [
-  {slug:"texas-freshwater-fisheries-center",title:"Texas Freshwater Fisheries Center",credit:"Larry D. Moore",noindex:true},
-  {slug:"texas-forestry-museum-lufkin",title:"Texas Forestry Museum",credit:"Billy Hathorn",noindex:false},
-  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"Billy Hathorn",noindex:true},
+  {slug:"texas-freshwater-fisheries-center",title:"Texas Freshwater Fisheries Center",credit:"Larry D. Moore",noindex:true,mustSee:["$5.50","pets are not allowed","summer 2027"]},
+  {slug:"texas-forestry-museum-lufkin",title:"Texas Forestry Museum",credit:"Billy Hathorn",noindex:false,mustSee:["$3 per person","Angelina County"]},
+  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"Billy Hathorn",noindex:true,mustSee:["$50 for the group","larger than 20","service animals"]},
 ];
 const results = [];
 try {
@@ -43,6 +43,10 @@ try {
         const canonical=await page.locator('link[rel="canonical"]').getAttribute("href");
         assert.ok(canonical?.endsWith("/destination/"+target.slug),name+" canonical");
         assert.ok((await page.locator("body").innerText()).toLowerCase().includes(target.credit.toLowerCase()),name+" visible photo credit");
+        await page.getByRole("heading",{name:"Frequently asked questions about "+target.title}).waitFor({state:"visible",timeout:20000});
+        for (const marker of target.mustSee) {
+          await page.waitForFunction((text)=>document.body.innerText.toLowerCase().includes(text.toLowerCase()),marker,{timeout:20000});
+        }
         const hero=page.locator("section img").first();
         await hero.waitFor({state:"attached",timeout:15000});
         await page.waitForFunction(()=>{const img=document.querySelector("section img");return !!img && img.complete;},null,{timeout:20000}).catch(()=>{});
