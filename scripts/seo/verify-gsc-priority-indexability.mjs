@@ -10,6 +10,14 @@ const MANIFEST = "src/data/high-school-football/google-index-eligibility.generat
 const manifest = JSON.parse(await fs.readFile(MANIFEST, "utf8"));
 const eligible = new Set(manifest.teamIndexableSlugs);
 const TARGETS = [
+  // Exact October 6 GSC 5xx samples: the Nov 16 independent tax-production
+  // verifier proved both public origins now return 200. Retain a weekly
+  // ordinary-visitor / Googlebot-style HTML regression guard for Google recrawl.
+  { path: "/property-tax/taxing-unit/edna", expected: "indexable", reason: "GSC failed 5xx validation: historical Oct 6 mobile fetch; Nov 16 production 200", requiredText: "Annual tax rates, with source distinctions" },
+  { path: "/property-tax/taxing-unit/jackson-county-esd-1", expected: "indexable", reason: "GSC failed 5xx validation: historical Oct 6 mobile fetch; Nov 16 production 200", requiredText: "Annual tax rates, with source distinctions" },
+  // The legacy query string must not produce a separate canonical, noindex
+  // response or 5xx; retain the preselected visitor form without rewriting it.
+  { path: "/partner-with-us?type=sports-travel&source=%2Fsports-venues&partnershipType=sports-travel&sourcePath=%2Fsports-venues", canonicalPath: "/partner-with-us", expected: "indexable", reason: "GSC duplicate without user-selected canonical; old query variant", requiredText: "Sports-travel partnership is preselected" },
   { path: "/destination/martin-creek-lake-state-park-rv-area", expected: "indexable", reason: "Nov 10 GSC: 25 impressions / avg position 16.08" },
   { path: "/destination/moody-gardens", expected: "indexable", reason: "Nov 10 GSC: 16 impressions / avg position 75.38" },
   { path: "/fishing", expected: "indexable", reason: "Nov 10 GSC: 3 impressions / avg position 37.33" },
@@ -46,12 +54,14 @@ function parseHtml(html, responseHeader) {
   const metas = findTags(html, "meta");
   const robots = metas.filter((tag) => attr(tag, "name").toLowerCase() === "robots").map((tag) => attr(tag, "content").toLowerCase()).join(",");
   const googlebot = metas.filter((tag) => attr(tag, "name").toLowerCase() === "googlebot").map((tag) => attr(tag, "content").toLowerCase()).join(",");
-  const canonical = findTags(html, "link").find((tag) => attr(tag, "rel").toLowerCase().split(/\s+/).includes("canonical"));
+  const canonicalTags = findTags(html, "link").filter((tag) => attr(tag, "rel").toLowerCase().split(/\s+/).includes("canonical"));
+  const canonical = canonicalTags[0];
   const header = responseHeader.toLowerCase();
   const googleHeaderNoindex = /googlebot:\s*[^,]*\bnoindex\b/.test(header);
   const genericHeaderNoindex = header.split(",").some((s) => !s.trim().startsWith("googlebot:") && /\bnoindex\b/.test(s));
   return {
     canonical: canonical ? attr(canonical, "href") : "",
+    canonicalCount: canonicalTags.length,
     genericNoindex: /\bnoindex\b/.test(robots) || genericHeaderNoindex,
     googleNoindex: /\bnoindex\b/.test(googlebot) || /\bnoindex\b/.test(robots) || googleHeaderNoindex || genericHeaderNoindex,
   };
@@ -69,7 +79,10 @@ for (const target of TARGETS) {
       if (!/text\/html/i.test(response.contentType)) errors.push(prefix + ": not HTML");
       if (challenge.test(response.body.slice(0, 6000))) errors.push(prefix + ": challenge or access-denied content");
       if (response.body.length < 500) errors.push(prefix + ": unexpectedly short HTML");
-      if (!meta.canonical || new URL(meta.canonical, ORIGIN).href !== url) errors.push(prefix + ": missing/mismatched self canonical (" + meta.canonical + ")");
+      const expectedCanonical = ORIGIN + (target.canonicalPath ?? target.path.split("?")[0]);
+      if (!meta.canonical || new URL(meta.canonical, ORIGIN).href !== expectedCanonical) errors.push(prefix + ": missing/mismatched canonical (" + meta.canonical + "; expected " + expectedCanonical + ")");
+      if (target.canonicalPath && meta.canonicalCount !== 1) errors.push(prefix + ": query variant has " + meta.canonicalCount + " canonical tags, expected exactly one");
+      if (target.requiredText && !response.body.includes(target.requiredText)) errors.push(prefix + ": missing expected SSR text: " + target.requiredText);
       if (meta.genericNoindex) errors.push(prefix + ": generic robots noindex would hide page from Bing");
       if (target.expected === "indexable" && meta.googleNoindex) errors.push(prefix + ": protected indexable page has Google noindex");
       if (target.expected === "google-noindex" && !meta.googleNoindex) errors.push(prefix + ": staged football page lost Google-only noindex");
