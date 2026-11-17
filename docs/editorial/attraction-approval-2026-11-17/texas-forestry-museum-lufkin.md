@@ -13,7 +13,7 @@ East Texas timber history is more than a display of old tools. Logging connected
 **Outdoor interpretation.** The accessible paved trail offers a complementary look at the living forest; weather and trail conditions still matter. The museum's educational emphasis can connect historical timber extraction with contemporary stewardship without claiming that every exhibit presents the same viewpoint.
 
 ## Plan the visit
-This is a sensible indoor anchor for a Lufkin or Angelina County itinerary, especially during heat or rain, with an outdoor segment when conditions permit. The operator's visitor information has described free admission, donations welcomed and advance arrangements for group history tours. The operator's current visitor page lists **Monday–Saturday 10 a.m.–5 p.m., closed major holidays**, with **free admission** and donations welcome. The visitor-page address is **1905 Atkinson Dr, Lufkin, TX 75904**, while its home page shows ZIP **75901**: this discrepancy must be resolved before publishing postal details. Confirm group booking, parking and individual accommodations directly before travel.
+This is a sensible indoor anchor for a Lufkin or Angelina County itinerary, especially during heat or rain, with an outdoor segment when conditions permit. The operator's visitor information has described free admission, donations welcomed and advance arrangements for group history tours. The operator's current visitor page lists **Monday–Saturday 10 a.m.–5 p.m., closed major holidays**, with **free admission** and donations welcome. The visitor-page address is **1905 Atkinson Dr, Lufkin, TX 75904**, while its home page shows ZIP **75901**: this discrepancy must be resolved before publishing postal details. The museum confirms accessible restrooms, paved trail, ramps to the locomotive and Children's Wing, and sensory backpacks. The adult group-tour request form lists **free tours for Angelina County groups and $3 per person for groups from outside the county**; distinguish that tour charge from free general admission. Confirm group booking, parking and individual accommodations directly before travel.
 
 ## Useful questions
 **Is this only a logging-equipment collection?** No. The museum interprets forest industries, history and educational themes, including exhibits suitable for families.
@@ -24,6 +24,7 @@ This is a sensible indoor anchor for a Lufkin or Angelina County itinerary, espe
 
 ## Sources and existing-main reconciliation
 - Operator visitor page: https://www.treetexas.com/visit-us
+- Adult tour request and charges: https://www.treetexas.com/blank-6
 - Operator home: https://www.treetexas.com/
 - Existing primary destination record: `src/data/museum-expansion-statewide-wave54.ts`.
 - An older record with the **same slug** exists in `src/data/museum-expansion-statewide-wave3.ts`; reconcile which record wins in the runtime, rather than appending another duplicate.
