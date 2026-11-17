@@ -7,7 +7,9 @@ Owner approved **development** of three guides on 2026-11-17. This is not approv
 - `src/data/museum-expansion-statewide-wave54.ts`: expanded existing Texas Forestry Museum canonical.
 - `src/data/museum-expansion-statewide-wave3.ts`: removed duplicate legacy Forestry Museum record.
 - `src/data/museum-authority-heroes.ts`: preserved Commons exterior photograph with attribution, file and license URLs.
-- `public/museum-verification-manifest.json`: each of the three destinations has one 30-day source verification entry.
+- `public/museum-verification-manifest.json`: Forestry Museum retains its existing 30-day verification entry; new attraction entries are kept out to preserve exact museum dossier parity.
+- `docs/editorial/attraction-approval-2026-11-17/attraction-source-verification.json`: two new guides have independent 30-day source entries.
+- `.github/workflows/verify-approved-attraction-sources.yml`: monthly operator URL checks after merge (not yet active on main).
 - `scripts/data/validate-approved-attraction-drafts.mjs`: checks canonical uniqueness, imagery and source schedule.
 - `.github/workflows/validate-approved-attraction-drafts.yml`: PR-triggered validation.
 
