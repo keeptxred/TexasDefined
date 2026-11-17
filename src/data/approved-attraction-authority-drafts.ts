@@ -58,7 +58,7 @@ export const approvedAttractionDraftDestinations: Destination[] = [
     nearestTown: "Lubbock",
     county: "Lubbock County",
     coordinates: { lat: 33.59006, lng: -101.88297 },
-    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "National Ranching Heritage Center — site photography requires written commercial-use permission", width: 1600, height: 1067 },
+    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG?width=1600", alt: "Historic Dogtrot House at the National Ranching Heritage Center in Lubbock, photographed in April 2011", width: 1600, height: 1200, credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Dogtrot_House,_NRHC,_Lubbock,_TX_IMG_1603.JPG · https://creativecommons.org/licenses/by/3.0/" },
     bestSeason: "Spring and fall are comfortable for exploring the outdoor historical park; indoor galleries are useful year-round.",
     entryNote: "General admission is free; donations are appreciated. Monday–Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m.; closed on Texas Tech University holidays. Confirm events and outdoor access before travel.",
     highlights: [
