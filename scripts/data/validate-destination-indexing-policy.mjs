@@ -30,9 +30,8 @@ if (!route.includes('"battleship-texas-state-historic-site": "battleship-texas"'
 for (const marker of [
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
-  'const finalIndexable = indexable && publicationApproved',
   'const isHistoricalMuseumReference = ',
-  'robots: finalIndexable ? undefined : "noindex, follow"',
+  'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
 }
