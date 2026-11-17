@@ -343,6 +343,24 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // every route; next release still must pass the full Conroe parity gate.
 // Only its immutable asset handoff can be reused, and ONLY after the caller's
 // exact-current Worker UUID/source SHA/dual-origin original-byte verification.
+// Nov 17, 2026 run #43985214547/job #133711496581 really published the
+// CURRENT 100%-traffic Worker f7213d8b from exact source SHA 6124fed0.
+// Its five critical deploy/version/health/original-byte gates passed: 139
+// emitted assets and 8,108 individual original-byte checks across BOTH
+// public origins. A later independent Lake Conroe camping HTTP request
+// returned 500 on all three bounded tries. This is NOT proof of the site's
+// successful release or a waiver of that live error. Preserve ONLY original
+// asset bytes from this exact published version; the next deployment must
+// independently pass every strict fishing HTTP/robots/canonical/sitemap gate.
+// The workflow rechecks actual active version, source SHA and every asset hash.
+const NOV17_PUBLISHED_CONROE_CAMPING_ASSET_HANDOFF = Object.freeze({
+  runId: 43985214547,
+  jobId: 133711496581,
+  sourceSha: '6124fed0ab5f1b2e0478f180058394b423f7f4c3',
+  workerVersion: 'f7213d8b-d327-4a3a-9112-c3cc02b1bdab',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 const NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF = Object.freeze({
   runId: 43957118581,
   jobId: 133614493520,
@@ -367,6 +385,30 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const nov17Conroe = NOV17_PUBLISHED_CONROE_CAMPING_ASSET_HANDOFF;
+  if (job.run_id === nov17Conroe.runId && job.id === nov17Conroe.jobId &&
+      failures.length === 1 && failures[0] === nov17Conroe.failedStep) {
+    // No waiver of the Conroe page's genuine HTTP 500. A later release has to
+    // pass the SAME complete fishing verifier; only cryptographic asset proof
+    // from the actually published old Worker is eligible for preservation.
+    const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    for (const guard of [
+      'fetchLiveHtmlWithRetry', 'attempts: 3', 'if (!response.ok) throw new Error',
+      '"/fishing/lakes/lake-conroe/camping"', 'canonicalMatches',
+      'inSitemap', 'noindex',
+    ]) {
+      if (!verifier.includes(guard)) {
+        throw Error('Nov17 Conroe asset restoration requires the unchanged strict live fishing parity verifier: ' + guard);
+      }
+    }
+    return { eligible: true, mode: 'exact-nov17-conroe-camping-original-assets-only',
+      exactRun: nov17Conroe.runId, requiredSourceSha: nov17Conroe.sourceSha,
+      requiredWorkerVersion: nov17Conroe.workerVersion, criticalChecks: CRITICAL.length,
+      permittedFailures: failures };
+  }
+  if (job.run_id === nov17Conroe.runId || job.id === nov17Conroe.jobId) {
+    throw Error('Nov17 Conroe original-byte handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
   }
   const conroe500 = NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF;
   if (job.run_id === conroe500.runId && job.id === conroe500.jobId &&
