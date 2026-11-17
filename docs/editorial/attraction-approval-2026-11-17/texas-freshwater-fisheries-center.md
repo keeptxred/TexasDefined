@@ -17,7 +17,7 @@ The Texas Freshwater Fisheries Center (TFFC) in Athens is an unusually practical
 ## Plan a useful visit
 Begin indoors to check which interpretive programs are actually operating, then choose between the wetland trail and fishing pavilion based on weather, mobility and children's interests. The hatchery-tram suspension changes how to allocate time: visitors expecting a ride should verify the current alternative before traveling. The trail is an outdoor activity, so heat, rain and surface conditions should inform the plan.
 
-Check **current hours, admission categories, holidays, program times and accessibility** on the official TPWD visitor pages immediately before a trip; no unverified admission price or operating schedule is asserted in this draft. The annual fireworks program is not a guaranteed date-specific event; consult TPWD's calendar before promoting a specific year.
+TPWD's current visitor overview lists **Wednesday–Saturday 9 a.m.–4 p.m. and Sunday 1–4 p.m.**, at **5550 FM 2495, Athens, TX 75752**. Check admission categories, holidays, programs and accessibility before traveling; no unverified price is asserted. The annual fireworks program is not a guaranteed date-specific event; consult TPWD's calendar before promoting a specific year.
 
 ## Editorial FAQs
 **Can visitors fish without bringing equipment?** TPWD says it supplies rods, reels and bait for visitors at the Angler's Pavilion; follow on-site instructions.
@@ -30,7 +30,8 @@ Check **current hours, admission categories, holidays, program times and accessi
 
 ## Sources and verification
 - TPWD activities, hatchery suspension, fishing rules, wetlands trail: https://tpwd.texas.gov/fishing/tffc/exhibits/
-- TPWD center overview and current visitor planning: https://tpwd.texas.gov/fishing/tffc/
+- TPWD center overview, address and current visitor hours: https://tpwd.texas.gov/fishing/tffc/
+- TPWD hatchery science and stocking interpretation: https://tpwd.texas.gov/fishing/tffc/hatchery/
 - Recheck hatchery reopening status at least monthly until construction is finished.
 
 ## Photography and rights
