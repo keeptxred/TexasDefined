@@ -24,6 +24,10 @@ function primarySitemapCacheRequest(request: Request): Request {
   // date change automatically moves to a new key; monitoring checks do not.
   cacheUrl.search = "";
   cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn);
+  // One-time key bump for two newly sitemap-submitted GSC tax recovery URLs:
+  // do not serve obsolete cached XML after the protected release.
+  // This is not a fabricated editorial <lastmod> date.
+  cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1");
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -262,6 +266,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           ...proTeams.map((team) => ({ path: `/sports/teams/${team.slug}`, lastmod: "2026-10-21" })),
           { path: "/destination/davis-hill-state-park", lastmod: "2026-10-20" },
+          // Precisely two GSC Oct 6 5xx examples are now independently verified
+          // as 200, self-canonical and indexable with 2021–2025 source history.
+          // Submit their clean URLs for recrawl; do not bulk-index every
+          // unreviewed taxing unit or invent a content-modification date.
+          { path: "/property-tax/taxing-unit/edna" },
+          { path: "/property-tax/taxing-unit/jackson-county-esd-1" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
