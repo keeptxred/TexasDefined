@@ -377,6 +377,23 @@ test('Nov16 published Conroe Worker may seed exactly its verified original asset
   assert.deepEqual(accepted.permittedFailures, ['Verify fishing lake robots and sitemap publication parity']);
 });
 
+test('new no-network Conroe camping SSR tightens, never bypasses, the immutable predecessor asset guard', () => {
+  const source = readFileSync('scripts/ci/verify-prior-deploy-job-eligibility.mjs', 'utf8');
+  assert.ok(source.includes('const campingPathSafe = staticCampingPageData < 0 || ('));
+  assert.ok(source.includes("loader.includes('await getLakeConroeCampingPageData()')"));
+  assert.ok(source.includes("loader.includes(': await getLakeConroePageData()')"));
+  assert.ok(source.includes("campingServer.includes('...loadLakeConroePageDataServer()')"));
+  assert.ok(source.includes("campingServer.includes('liveLakeLevel: null')"));
+  assert.ok(source.includes("campingServer.includes('await import(\"./live-lake-level-fetch.server\")')"));
+  assert.ok(source.includes('unconditionalCatalog < conditionalCatalog || !campingPathSafe'));
+  // The old failed release cannot obtain a general success or a 200 waiver.
+  const accepted = qualifyPriorDeployJob(evidence({
+    runId: 43940147723, jobId: 133555201659,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  }));
+  assert.equal(accepted.mode, 'exact-nov16-conroe-failed-parity-original-assets-only');
+});
+
 test('Nov16 Conroe old-asset handoff fails closed for wrong job/run, added failure or any unhealthy hash gate', () => {
   const exact = {
     runId: 43940147723, jobId: 133555201659,
