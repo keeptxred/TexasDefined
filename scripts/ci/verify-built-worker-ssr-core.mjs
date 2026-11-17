@@ -34,6 +34,7 @@ const smokeTargets = [
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'Texas Freshwater Fisheries Center', label: 'Athens fisheries authority guide renders on built Worker' },
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'hatchery tram', label: 'Fisheries visitor guidance on suspended tram reaches SSR' },
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'Larry D. Moore', label: 'Fisheries Commons photographer credit visible in server HTML' },
+  { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'noindex, follow', label: 'New TFFC guide remains unindexed until owner publication approval' },
   { path: '/destination/texas-forestry-museum-lufkin', requiredText: 'Texas Forestry Museum', label: 'Lufkin forestry authority guide renders on built Worker' },
   { path: '/destination/texas-forestry-museum-lufkin', requiredText: 'sensory backpacks', label: 'Forestry visitor accommodations reach SSR' },
   { path: '/destination/texas-forestry-museum-lufkin', requiredText: 'Billy Hathorn', label: 'Forestry Commons photographer credit visible in server HTML' },
