@@ -72,6 +72,32 @@ export const heritageDestinationMonitorRows = [
   { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/accessibility.htm", checkedAt: "2026-11-17" },
 ];
 
+/** Alert before the museum's published temporary exhibitions become stale,
+ * even when its exhibition page hasn't changed since last week's fingerprint.
+ * Remove/revise the dated dossier facts only after direct operator verification.
+ */
+export function heritageExhibitionDeadlineAlerts(museumSource, asOf) {
+  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(asOf)) throw new Error("Invalid audit date");
+  const start = museumSource.indexOf('  "lbj-presidential-library-austin": {');
+  const end = museumSource.indexOf('\\n  "blanton-museum-of-art-austin":', start);
+  if (start < 0 || end < 0) throw new Error("LBJ museum authority dossier not found");
+  const lbj = museumSource.slice(start, end);
+  const now = Date.parse(asOf + "T00:00:00Z");
+  const exhibits = [
+    { title: "Austin Past & Present", endDate: "2027-01-03" },
+    { title: "The American Experiment", endDate: "2027-01-10" },
+  ];
+  return exhibits.filter(({ title, endDate }) => {
+    const dateLabel = new Date(endDate + "T00:00:00Z").toLocaleDateString("en-US",
+      { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const daysLeft = Math.ceil((Date.parse(endDate + "T00:00:00Z") - now) / 86_400_000);
+    return lbj.includes(title) && lbj.includes(dateLabel) && daysLeft <= 21;
+  }).map(({ title, endDate }) => ({
+    sourceUrl: "https://www.lbjlibrary.org/exhibitions",
+    title, endDate,
+  }));
+}
+
 export function normalizedSourceFingerprint(html) {
   const text = html.replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<(script|style|noscript|svg)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, " ")
@@ -152,6 +178,13 @@ async function main() {
         (item.reason ? " (" + item.reason + ")" : "") +
         (item.value?.pendingReviewSince ? " pending since " + item.value.pendingReviewSince : ""));
     }
+  }
+  // Date-triggered refresh is necessary when an event ends without any HTML change.
+  const museum = await readFile(new URL("../../../src/data/museum-authority-network.ts", import.meta.url), "utf8");
+  for (const item of heritageExhibitionDeadlineAlerts(museum, asOf)) {
+    alerts += 1;
+    console.log("SOURCE_REVIEW " + item.sourceUrl + " (LBJ exhibition " +
+      item.title + " closes " + item.endDate + "; research and update dated museum guide)");
   }
   await writeFile(args.output, JSON.stringify(state, null, 2) + "\n");
   console.log("Operator source monitor: " + sources.length + " distinct source URLs, " + alerts +
