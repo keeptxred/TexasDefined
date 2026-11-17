@@ -275,7 +275,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     bestSeason:
       "Year-round; spring and fall are especially comfortable for combining the interior with the Capitol grounds and nearby museums on foot",
     entryNote:
-      "The Capitol is open to the public subject to security procedures, and free guided tours are offered on a regular daily schedule. Large groups should arrange tours in advance. Legislative sessions, ceremonies and security needs can affect access, so confirm current visitor information before arrival.",
+      "Admission and guided tours are free. Guided Capitol tours depart from the South Foyer about every 15–30 minutes and last approximately 40 minutes. As of November 17, 2026, departures run Monday–Saturday 9 a.m.–4:15 p.m. and Sunday noon–4:15 p.m.; 4:15 p.m. is the last departure. Groups larger than 10 should reserve in advance at (512) 305-8402. All visitors undergo security screening; legislative business, closures and events can alter access. Confirm the State Preservation Board schedule before traveling.",
     highlights: [
       "Texas Senate and House chambers",
       "Rotunda, dome and historic portraits",
@@ -288,18 +288,18 @@ const curated: Record<string, TopAttractionExpansion> = {
       "A free guided tour is the best introduction for most first-time visitors because guides can explain the architecture, legislative chambers, major artworks and practical workings of the building in a compact visit. Self-guided exploration is also possible during public hours, but access to specific rooms can change when the Legislature, official events or security operations are using them.",
       "The House and Senate chambers make the Capitol more than a monument. Seeing the desks, galleries and floor layouts gives context to how Texas law is debated and passed, while exhibits and portraits connect present-day institutions with the Republic, statehood, Reconstruction and later political eras. Visitors interested in current politics should remember that this remains an active government workplace rather than a museum set.",
       "The grounds deserve time of their own. Monuments, mature trees and long views down Congress Avenue help place the Capitol within Austin's street plan, while the Capitol Visitors Center occupies a historic building nearby and provides additional orientation. The grounds also make an easy link between Downtown and the museum corridor immediately north.",
-      "Accessibility and visitor support are stronger than the building's nineteenth-century appearance might suggest. The State Preservation Board publishes accessible visitor guidance, including large-print and Braille materials and advance arrangements for sign-language tours. Visitors with specific needs should confirm the best entrance and tour arrangements before arrival.",
+      "The accessible entrance to the Capitol is its North Entrance, and everyone passes through security screening. Large-print and Braille publications are available from visitor services. The State Preservation Board can arrange guided tours with American Sign Language interpretation with one week's advance notice; contact tour services for individual accommodations.",
       "The Capitol is one of TexasDefined's easiest attractions to turn into a full urban itinerary. The Bullock Texas State History Museum and Blanton Museum are within walking distance toward the University of Texas, while Downtown restaurants, Waterloo Park and the Congress Avenue corridor extend south. A separate half day can reach the LBJ Presidential Library, Barton Springs or the Lady Bird Johnson Wildflower Center.",
     ],
     managingAuthority: "Texas State Preservation Board",
     officialUrl: "https://tspb.texas.gov/plan/tours/tours.html",
-    sourceCheckedAt: "2026-08-17",
+    sourceCheckedAt: "2026-11-17",
     county: "Travis",
     address: "1100 Congress Avenue, Austin, TX 78701",
     directions:
-      "The Capitol occupies the north end of Congress Avenue in central Austin. A public visitor parking garage is available east of the complex, and the site is walkable from much of Downtown; allow time for security screening before a tour.",
+      "The Capitol is at the north end of Congress Avenue in central Austin. A public visitor garage sits east of the complex. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
     accessibilityNotes:
-      "The State Preservation Board provides accessible routes and visitor assistance, including large-print and Braille publications. American Sign Language tours can be arranged with advance notice; visitors with specific mobility or communication needs should review the current accessibility guidance before arrival.",
+      "Use the accessible North Entrance; all visitors pass through security screening. Large-print and Braille guides are available, and ASL-interpreted tours require one week's advance notice. Confirm any other needs through the State Preservation Board's Capitol Accessibility Services.",
     areaGuide: {
       intro:
         "The Capitol sits between Downtown Austin and the University of Texas museum corridor, making it one of the easiest major Texas attractions to build into a car-light day. History museums are immediately north, while restaurants, parks and entertainment districts spread south and east.",
