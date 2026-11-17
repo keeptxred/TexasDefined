@@ -21,6 +21,7 @@ assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
 assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Commercial photo clearance/);
+assert.match(availability, /"texas-freshwater-fisheries-center", \/\/ New guide awaiting separate final owner publication approval/);
 assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
 assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // all three have exact-site Commons photos on draft branch
 assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
