@@ -19,7 +19,7 @@ assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
 assert.match(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // NRHC intentionally withheld until permission
-assert.match(newGuides, /Cichlid_Texas_Freshwater_Fisheries_Center_2025.jpg/);
+assert.match(newGuides, /Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
 for (const slug of ["texas-freshwater-fisheries-center", "texas-forestry-museum-lufkin", "national-ranching-heritage-center-lubbock"]) {
   const entries = [...museumManifest.museums, ...attractionManifest.attractions].filter((entry) => entry.path === "/destination/" + slug);
