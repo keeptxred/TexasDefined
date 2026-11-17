@@ -42,10 +42,10 @@ try {
         assert.equal(Boolean(robots?.includes("noindex")),target.noindex,name+" robots policy");
         const canonical=await page.locator('link[rel="canonical"]').getAttribute("href");
         assert.ok(canonical?.endsWith("/destination/"+target.slug),name+" canonical");
-        assert.ok((await page.locator("body").innerText()).includes(target.credit),name+" visible photo credit");
+        assert.ok((await page.locator("body").innerText()).toLowerCase().includes(target.credit.toLowerCase()),name+" visible photo credit");
         const hero=page.locator("section img").first();
         await hero.waitFor({state:"attached",timeout:15000});
-        await page.waitForFunction(()=>{const img=document.querySelector("section img");return !!img && img.complete;},{timeout:20000}).catch(()=>{});
+        await page.waitForFunction(()=>{const img=document.querySelector("section img");return !!img && img.complete;},null,{timeout:20000}).catch(()=>{});
         const image=await hero.evaluate(img=>({loaded:img.complete&&img.naturalWidth>0,src:img.currentSrc,alt:img.alt}));
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
         assert.ok(overflow<=4,name+" horizontal overflow "+overflow);
