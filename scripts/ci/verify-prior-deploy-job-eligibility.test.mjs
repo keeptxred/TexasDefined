@@ -413,6 +413,40 @@ test('Nov16 Conroe old-asset handoff fails closed for wrong job/run, added failu
 });
 
 
+test('exact Nov16 GSC recovery published Worker can seed only source-proven original bytes with strict Conroe parity still failing', () => {
+  const accepted = qualifyPriorDeployJob(evidence({
+    runId: 43985214547,
+    jobId: 133711496581,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  }));
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.mode, 'exact-nov16-gsc-conroe-original-assets-only');
+  assert.equal(accepted.exactRun, 43985214547);
+  assert.equal(accepted.requiredSourceSha, '6124fed0ab5f1b2e0478f180058394b423f7f4c3');
+  assert.equal(accepted.requiredWorkerVersion, 'f7213d8b-d327-4a3a-9112-c3cc02b1bdab');
+  assert.equal(accepted.criticalChecks, 5);
+  assert.deepEqual(accepted.permittedFailures, ['Verify fishing lake robots and sitemap publication parity']);
+});
+
+test('GSC Conroe prior Worker handoff rejects any changed failure, identity, or missing original asset or health gate', () => {
+  const exact = {
+    runId: 43985214547,
+    jobId: 133711496581,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  for (const mutation of [
+    { runId: 43985214548 }, { jobId: 133711496582 },
+    { failure: 'Verify direct Worker health' },
+    { failure: 'Verify current and previous release JS/CSS on both public origins' },
+    { additional: ['Verify canonical production health'] },
+    { additional: ['Verify base production surfaces'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({...exact, ...mutation})),
+      /Required published-Worker safety gate not successful|Nov16 GSC Conroe original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
+
 test('Nov16 published category Worker original bytes qualify only after strict one-reset source repair', () => {
   const answer = qualifyPriorDeployJob(evidence({
     runId: 43948840401, jobId: 133585600321,
