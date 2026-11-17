@@ -11,6 +11,7 @@ const availability = read("src/data/destination-availability.ts");
 const destinationRoute = read("src/routes/destination.$slug.tsx");
 const museumManifest = JSON.parse(read("public/museum-verification-manifest.json"));
 const attractionManifest = JSON.parse(read("docs/editorial/attraction-approval-2026-11-17/attraction-source-verification.json"));
+const releaseGate = read("docs/editorial/attraction-approval-2026-11-17/RELEASE-GATE.md");
 
 assert.match(catalog, /import \{ approvedAttractionDraftDestinations \}/);
 assert.match(catalog, /\n  approvedAttractionDraftDestinations,/);
@@ -30,7 +31,7 @@ assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
 assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
 assert.match(newGuides, /Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
-assert.match(newGuides, /File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
+assert.match(releaseGate, /File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
 assert.doesNotMatch(newGuides, /File:Cichlid_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
 assert.match(forestry, /sensory backpacks/i);
 assert.match(forestry, /train table/i);
