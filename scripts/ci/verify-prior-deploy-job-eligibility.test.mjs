@@ -363,6 +363,39 @@ test('the 7f0231fa original-byte exception rejects wrong publication, substitute
   }
 });
 
+test('Nov17 active Conroe published Worker may seed its exact immutable original assets, never certify camping', () => {
+  const qualified = qualifyPriorDeployJob(evidence({
+    runId: 43985214547, jobId: 133711496581,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  }));
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov17-conroe-camping-original-assets-only');
+  assert.equal(qualified.exactRun, 43985214547);
+  assert.equal(qualified.requiredSourceSha, '6124fed0ab5f1b2e0478f180058394b423f7f4c3');
+  assert.equal(qualified.requiredWorkerVersion, 'f7213d8b-d327-4a3a-9112-c3cc02b1bdab');
+  assert.equal(qualified.criticalChecks, 5);
+  assert.deepEqual(qualified.permittedFailures,
+    ['Verify fishing lake robots and sitemap publication parity']);
+});
+
+test('Nov17 exact old-asset handoff rejects other job, other run, another failed step, or failed critical gate', () => {
+  const exact = {
+    runId: 43985214547, jobId: 133711496581,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  for (const mutation of [
+    { runId: 43985214548 }, { jobId: 133711496582 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    { additional: ['Verify fishing lake robots and sitemap publication parity'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({ ...exact, ...mutation })),
+      /Required published-Worker safety gate not successful|Nov17 Conroe original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/,
+      'No other failed or forged deploy may inherit source-verified original client assets');
+  }
+});
+
 test('Nov16 published Conroe Worker may seed exactly its verified original assets after #7288 source repair, not false-green camping', () => {
   const accepted = qualifyPriorDeployJob(evidence({
     runId: 43940147723, jobId: 133555201659,
