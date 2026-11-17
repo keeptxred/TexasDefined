@@ -20,6 +20,12 @@ export const approvedAttractionDraftDestinations: Destination[] = [
     hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg?width=1600", alt: "Lake Zebco fishing pond at the Texas Freshwater Fisheries Center in Athens, photographed in July 2025", width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
     bestSeason: "March through August offers an extra Tuesday opening day; fall and winter use a shorter weekly schedule. Check holiday closures and outdoor conditions.",
     entryNote: "March–August: Tuesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m. September–February: Wednesday–Saturday 9 a.m.–4 p.m., Sunday 1–4 p.m. Admission: ages 17–64 $5.50, 65+ $4.50, ages 4–16 $3.50, ages 3 and under free. TPWD lists holiday closures for Thanksgiving, Christmas Eve and Day, New Year's Day and Easter Sunday, plus additional date-only closures; confirm which dates apply before travel. Pets are not allowed.",
+    visitorFacts: [
+      { topic: "hours", label: "Seasonal public hours", detail: "March–August: Tuesday–Saturday 9 a.m.–4 p.m. and Sunday 1–4 p.m.; September–February: Wednesday–Saturday 9 a.m.–4 p.m. and Sunday 1–4 p.m. Holiday exceptions apply.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/", checkedAt: "2026-11-17" },
+      { topic: "admission", label: "Regular admission", detail: "Ages 17–64 $5.50; seniors 65+ $4.50; children 4–16 $3.50; children 3 and under free. Seasonal programs can have separate charges.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/", checkedAt: "2026-11-17" },
+      { topic: "pets", label: "Pet restrictions", detail: "Texas Parks and Wildlife says pets are not permitted on Texas Freshwater Fisheries Center grounds. Ask the operator about service-animal needs.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/", checkedAt: "2026-11-17" },
+      { topic: "access", label: "Closures and hatchery work", detail: "Closed on Thanksgiving, Christmas Eve/Day, New Year's Day and Easter Sunday; extra closures appear on the operator's calendar without explicit years. Hatchery tram rides are suspended until summer 2027.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/", checkedAt: "2026-11-17" },
+    ],
     highlights: [
       "Texas freshwater fish aquariums and conservation interpretation",
       "Beginner fishing with rods, reels and bait provided",
@@ -35,6 +41,27 @@ export const approvedAttractionDraftDestinations: Destination[] = [
       "Before leaving for Athens, consult TPWD's detailed hours-and-fees page rather than relying on the shorter overview, which may display the fall/winter schedule. TPWD lists Thanksgiving, Christmas Eve and Day, New Year's Day and Easter Sunday as closures and publishes additional date ranges without year labels; avoid assuming an undated range is current, and confirm the calendar before travel. Bring weather-appropriate walking gear, and verify the calendar for special events rather than assuming an annual event is occurring on a specific date.",
       "Suggested planning allowance, not an operator-promised duration: reserve roughly two hours for exhibits and a short fishing stop; add time if you intend to walk the full 1.2-mile wetlands trail or have young anglers. For a hot summer afternoon, prioritize indoor aquariums and check whether the outdoor pavilion is comfortable. The center is in Athens, not in the Dallas–Fort Worth urban core, so account for the return drive before choosing a late Sunday visit.",
     ],
+    authorityGuide: {
+      whyItMatters: "This is a rare place to connect freshwater-fish aquariums, Texas stocking science and beginner fishing on the same visit. The important distinction is between seeing fish in tanks and understanding the hatchery work that supports public waters. The hatchery tram's temporary suspension makes a current visitor plan different from an older travel article's itinerary.",
+      assessment: {
+        recommendedVisit: "About 90 minutes for the exhibits and a brief pavilion visit; budget more time for actual fishing or the full 1.2-mile trail. These are editorial planning estimates, not scheduled program lengths.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for school-age children and first-time anglers; confirm which staffed fishing activities are running and plan outdoor heat protection.",
+        firstTimeValue: "Understand the fish in Texas waters before trying a rod, with clear limits on gear, hatchery access and seasonal trout harvest.",
+      },
+      itineraries: [
+        { label: "A shorter learning stop", duration: "60–90 minutes, estimated", steps: ["Begin at the indoor native-fish exhibits and conservation interpretation.", "Ask staff about the stationary hatchery talk; do not expect the tram during construction.", "Use the pavilion only if time and its activity schedule allow."] },
+        { label: "Fishing and a wetlands walk", duration: "2–3 hours or more, estimated", steps: ["Check rods, bait, hook rules and whether fishing instruction is running.", "Give beginning anglers time at the pavilion; staff supply rods, reels and bait.", "Add the 1.2-mile round-trip wetlands trail if weather and mobility permit."] },
+        { label: "For hatchery-minded visitors", duration: "Flexible educational visit", steps: ["Focus on the exhibits about fish culture, stocking and the Toyota ShareLunker program.", "Ask about the stationary hatchery presentation replacing the tram until summer 2027.", "Read the operator's current exhibits page before planning any seasonal program or trout harvest."] },
+      ],
+      sources: [
+        { label: "TPWD hours and fees", url: "https://tpwd.texas.gov/fishing/tffc/hours-and-fees/", scope: "Seasonal public schedules, admission, holiday closures and no-pets rule" },
+        { label: "TPWD things to do", url: "https://tpwd.texas.gov/fishing/tffc/exhibits/", scope: "Hatchery suspension, fishing rules, wetlands trail and seasonal fishing" },
+        { label: "TPWD center information", url: "https://tpwd.texas.gov/fishing/tffc/", scope: "Street address, operator and facilities overview" },
+      ],
+    },
     visitorFaqs: [
       { question: "Is the hatchery tram operating?", answer: "No. TPWD says tram tours are suspended until summer 2027; a stationary hatchery program is offered instead.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/exhibits/" },
       { question: "Can beginners fish without bringing equipment?", answer: "Yes. TPWD supplies rods, reels and bait at the Angler's Pavilion. Visitors must follow the center's gear and hook rules.", sourceUrl: "https://tpwd.texas.gov/fishing/tffc/exhibits/" },
@@ -61,6 +88,12 @@ export const approvedAttractionDraftDestinations: Destination[] = [
     hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG?width=1600", alt: "Historic Dogtrot House at the National Ranching Heritage Center in Lubbock, photographed in April 2011", width: 1600, height: 1200, credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons" },
     bestSeason: "Spring and fall are comfortable for exploring the outdoor historical park; indoor galleries are useful year-round.",
     entryNote: "General admission is free; donations are appreciated. Monday–Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m.; closed on Texas Tech University holidays. Confirm events and outdoor access before travel.",
+    visitorFacts: [
+      { topic: "hours", label: "General museum hours", detail: "Monday–Saturday 10 a.m.–5 p.m.; Sunday 1–5 p.m. Closed on Texas Tech University holidays. A separate older listing gives 4 p.m. as the outdoor-park closing; confirm before a late outdoor visit.", sourceUrl: "https://ranchingheritage.org/about-us/visit/", checkedAt: "2026-11-17" },
+      { topic: "admission", label: "Admission and tours", detail: "General admission is free, with donations welcomed. A scheduled guided group tour is $50 for groups of 25–50, separate from general admission.", sourceUrl: "https://ranchingheritage.org/learn/adult-group-visits/", checkedAt: "2026-11-17" },
+      { topic: "reservations", label: "Group visit reservations", detail: "Groups larger than 20 need to reserve at least two weeks ahead even for self-guided visits; guided 25–50-person tours depend on staff availability and are only confirmed when the fee is paid.", sourceUrl: "https://ranchingheritage.org/learn/adult-group-visits/", checkedAt: "2026-11-17" },
+      { topic: "pets", label: "Service animals only", detail: "The operator permits service animals only. It describes paved wheelchair and stroller paths, but access inside individual historic buildings should be checked with staff.", sourceUrl: "https://ranchingheritage.org/about-us/visit/", checkedAt: "2026-11-17" },
+    ],
     highlights: [
       "19-acre Foy Proctor Historical Park and historic ranch buildings",
       "Indoor exhibits explaining North American ranching history",
@@ -77,6 +110,28 @@ export const approvedAttractionDraftDestinations: Destination[] = [
       "Photography requires unusual care: the center's policy restricts commercial use of images of its structures without prior written executive-director permission. An image's Creative Commons photographer license alone is not sufficient evidence that this separate restriction has been cleared. A photographer's Creative Commons license and a venue's visitor photography rules address different questions. Confirm whether the center's policy applies to the reuse of independently licensed historic photographs before public commercial use; the selected photograph is currently staged only on the unpublished branch.",
       "For a self-guided visit, allow roughly 90 minutes to two hours as an editorial planning estimate, longer if you want to examine the historical buildings carefully or attend a scheduled program. Begin indoors to understand the ranching timeline, then use the paved outdoor paths to compare the buildings. In summer, the outdoor portion is best planned around heat and wind; check for weather-related park restrictions. A short indoor-only visit is still useful when the outdoor park cannot be explored.",
     ],
+    authorityGuide: {
+      whyItMatters: "The center makes the history of ranching visible through buildings relocated from different periods rather than portraying a single romanticized ranch. Comparing their construction and uses helps visitors see how labor, resources and technology changed, while the indoor museum gives context to the outdoor chronology.",
+      assessment: {
+        recommendedVisit: "Allow about 90 minutes to two hours for indoor context and a selective historic-park walk; a complete structure-by-structure visit takes longer. This is editorial timing advice, not an operator guarantee.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Indoor galleries and the Cash Family Ranch Life Learning Center can anchor a shorter family visit; outdoor routes require wind and heat planning.",
+        firstTimeValue: "A coherent overview of historic ranch architecture and work, with clear differentiation between free admission, reserved groups and paid guided tours.",
+      },
+      itineraries: [
+        { label: "Weather-limited museum visit", duration: "45–75 minutes, estimated", steps: ["Begin inside to orient yourself to periods and tools in ranching history.", "Spend additional time in the Ranch Life Learning Center with children.", "Ask staff which nearby outdoor structures are open if time and weather allow."] },
+        { label: "Historic-buildings comparison", duration: "90–150 minutes, estimated", steps: ["Use the indoor exhibits to understand chronology before entering the park.", "Walk a manageable portion of the paved historical-park paths and read the bilingual interpretive signs.", "Compare a working structure and a domestic structure, then return indoors before closing."] },
+        { label: "Organized group visit", duration: "Reserve at least two weeks ahead", steps: ["For more than 20 visitors, request a group booking even when self-guided.", "For a guided tour, confirm a 25–50-person group, staff availability and the $50 fee before treating the reservation as complete.", "Check current Texas Tech holiday closures and outdoor park conditions with staff."] },
+      ],
+      sources: [
+        { label: "Official visitor page", url: "https://ranchingheritage.org/about-us/visit/", scope: "Current general hours, free admission, access, family exhibits and closures" },
+        { label: "Official group-visits policy", url: "https://ranchingheritage.org/learn/adult-group-visits/", scope: "Over-20 reservations, guided 25–50-person groups, $50 fee, and older conflicting hours" },
+        { label: "Texas Historical Commission listing", url: "https://atlas.thc.texas.gov/Details/4200000514", scope: "Historic 2021 claim of a 4 p.m. outdoor-park closing, flagged for reconfirmation" },
+        { label: "Operator photography policy", url: "https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf", scope: "Written permission required for publication of site images" },
+      ],
+    },
     visitorFaqs: [
       { question: "Does the National Ranching Heritage Center charge admission?", answer: "The operator lists free general admission and welcomes donations. Guided group tours may carry a separate fee.", sourceUrl: "https://ranchingheritage.org/about-us/visit/" },
       { question: "Is the museum entirely indoors?", answer: "No. The 19-acre Foy Proctor Historical Park is an important outdoor part of the visit.", sourceUrl: "https://ranchingheritage.org/about-us/visit/" },
