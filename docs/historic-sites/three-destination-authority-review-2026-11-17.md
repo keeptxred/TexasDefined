@@ -41,6 +41,6 @@ The short aliases are **redirects**, not additional destination records. Existin
 
 ## Refresh ownership
 
-Operational-source drift: weekly GitHub monitor, with human research for any change. Museum temporary exhibitions: recheck before **January 3 and January 10, 2027**, in addition to weekly source monitoring. Stable historical interpretation and licensing: quarterly editorial review or upon documented institutional corrections. Alter `sourceCheckedAt` / `reviewed` only after direct fact verification; do not fabricate freshness.
+Operational-source drift: weekly GitHub monitor, with human research for any change. Museum temporary exhibitions: the weekly monitor additionally emits explicit review alerts **21 days before January 3 and January 10, 2027** while those named end dates remain published in the LBJ dossier, even when the operator HTML fingerprint does not change. Resolve alerts by verifying and correcting the cited exhibition information, never by blindly advancing a date. Stable historical interpretation and licensing: quarterly editorial review or upon documented institutional corrections. Alter `sourceCheckedAt` / `reviewed` only after direct fact verification; do not fabricate freshness.
 
 Checkpoint: https://github.com/keeptxred/TexasDefined/issues/7313.
