@@ -265,7 +265,7 @@ export const Route = createFileRoute("/destination/$slug")({
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
-const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
+const indexable = destination.slug !== "national-ranching-heritage-center-lubbock" && audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
