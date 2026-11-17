@@ -34,6 +34,7 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
  * to recommend as an ordinary visitable public-beach destination.
  */
 const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
+  "national-ranching-heritage-center-lubbock", // Commercial photo clearance and owner publication hold; preserve direct guide but exclude index/discovery
   "barton-warnock-environmental-educational-center-state-park",
   "caprock-canyons-trailway-estelline-terminal-state-park",
   "choke-canyon-calliham-unit-state-park",
