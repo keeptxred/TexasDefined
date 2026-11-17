@@ -8,6 +8,7 @@ const forestry = read("src/data/museum-expansion-statewide-wave54.ts");
 const legacy = read("src/data/museum-expansion-statewide-wave3.ts");
 const heroes = read("src/data/museum-authority-heroes.ts");
 const museumFaqs = read("src/data/museum-visitor-faqs.ts");
+const museumDossiers = read("src/data/museum-authority-network.ts");
 const authorityPresentation = read("src/components/editorial/DestinationAuthoritySections.tsx");
 const availability = read("src/data/destination-availability.ts");
 const destinationRoute = read("src/routes/destination.$slug.tsx");
@@ -46,7 +47,9 @@ assert.match(newGuides, /contact form not found/i);
 assert.match(newGuides, /ranchhc@ttu\.edu/);
 assert.match(newGuides, /Christmas Eve and Day/);
 assert.equal((newGuides.match(/authorityGuide: \{/g) || []).length, 2, "both new guides need full editorial authority assessments");
-assert.match(forestry, /authorityGuide: \{/);
+assert.doesNotMatch(forestry, /authorityGuide: \{/); // full museum-specific dossier avoids duplicate trip plans
+assert.match(museumDossiers, /"texas-forestry-museum-lufkin": \{/);
+assert.match(museumDossiers, /Angelina County adult groups tour free/);
 assert.match(newGuides, /visitorFacts:/);
 assert.match(forestry, /visitorFacts:/);
 assert.match(newGuides, /groups larger than 20|larger than 20/i);

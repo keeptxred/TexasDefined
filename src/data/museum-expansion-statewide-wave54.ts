@@ -93,28 +93,6 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     managingAuthority: "Texas Forestry Museum",
     address: "1905 Atkinson Dr, Lufkin, TX 75901",
     accessibilityNotes: "Accessible restrooms, a paved trail, ramps to the locomotive and Children’s Wing, and sensory backpacks are described by the operator; call for individual needs.",
-    authorityGuide: {
-      whyItMatters: "The museum reveals how timber extraction, rail transport, sawmills and paper production reshaped East Texas communities and forest landscapes. Its value is in following that connected production chain, then comparing industrial history with the stewardship of today's Piney Woods.",
-      assessment: {
-        recommendedVisit: "Allow 75–120 minutes for the museum, children's exhibits and outdoor railroad displays; add time for the paved trail. This is an editorial estimate, not a ticketed tour duration.",
-        physicalEffort: "Low to moderate",
-        weatherExposure: "Mixed indoor/outdoor",
-        planningLevel: "Low",
-        familyFit: "Strong for multi-age family visits, with a train table, interactive Children's Wing, nature playscape and scavenger activities; individual programs can vary.",
-        firstTimeValue: "A logical introduction to the 50-year-old museum's forest-industry collections, with accessible routes and clear booked-tour costs.",
-      },
-      itineraries: [
-        { label: "Industrial heritage overview", duration: "45–75 minutes, estimated", steps: ["Start in the logging and sawmill history exhibits.", "Move to the paper-mill interpretation to understand the next stage of production.", "Finish by comparing the outdoor locomotive and caboose with the transport story indoors."] },
-        { label: "With children", duration: "90–120 minutes, estimated", steps: ["Choose hands-on exhibits in the Children's Wing, including the train table.", "Pick up an available scavenger hunt and check the current nature-playscape access.", "Add a short portion of the paved trail when weather and mobility allow."] },
-        { label: "Forests and community history", duration: "2 hours or more, estimated", steps: ["Connect the sawmill and railroad exhibits to Lufkin and Angelina County industry.", "Ask about collections and changing education programs rather than assuming a staffed tour is always available.", "Follow the accessible outdoor trail, comparing managed forests today with the industrial history inside."] },
-      ],
-      sources: [
-        { label: "Museum visitor information", url: "https://www.treetexas.com/visit-us", scope: "Hours, admission, family features, sensory access and outdoor facilities" },
-        { label: "Museum adult tour request", url: "https://www.treetexas.com/blank-6", scope: "Advance booking and different adult-group rates inside/outside Angelina County" },
-        { label: "Texas Highways 50th-anniversary feature", url: "https://texashighways.com/culture/history/a-forestry-museum-grows-in-east-texas/", scope: "1976 opening and museum history" },
-        { label: "Texas Historical Commission listing", url: "https://atlas.thc.texas.gov/Details/4200000265", scope: "1905 Atkinson Drive and the 75901 ZIP-code record" },
-      ],
-    },
     visitorFaqs: [
       { question: "When did the Texas Forestry Museum open?", answer: "The museum opened in 1976 and marked its 50th anniversary in 2026. Its collections connect East Texas timber-industry history to continuing forestry education.", sourceUrl: "https://texashighways.com/culture/history/a-forestry-museum-grows-in-east-texas/" },
       { question: "Which ZIP code should I use for directions?", answer: "Use 1905 Atkinson Drive in Lufkin. The museum’s contact page and Texas Historical Commission record list ZIP 75901, while an older visit page lists 75904.", sourceUrl: "https://www.treetexas.com/blank-5" },
