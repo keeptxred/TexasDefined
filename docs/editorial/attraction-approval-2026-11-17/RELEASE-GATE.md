@@ -29,3 +29,11 @@ Owner approved **development** of three guides on 2026-11-17. This is not approv
 6. Obtain **separate owner approval** before merging/publishing new indexable pages.
 
 No proprietary Viator descriptions or candidate-feed data are present in this repository note.
+
+
+## 2026-11-17 continued verification checkpoint
+
+- Commons source pages checked directly: Lake Zebco (Larry D. Moore, CC BY 4.0; 3000×2000), Dogtrot House (Billy Hathorn, CC BY 3.0; 4320×3240). Photographer licensing is verified; NRHC's independent commercial-photography policy still requires review before public use.
+- Three destination records now have actual-location photographs, official-source visitor guidance and monthly official-source verification enrollment. Forestry Museum guide includes family, accessibility and interpretive visit sequence.
+- GitHub required merge gate on commit `3056ec9e636946059108be099d5996aa50396af8` failed because a route indexing guard modified a literal string expected by `validate-destination-data-integrity.mjs`; it was a source-contract regression, not a content-grade finding. Repaired by retaining the exact original indexability expression and applying NRHC's publication hold in a separate `finalIndexable` variable; updated `validate-destination-indexing-policy.mjs` accordingly in commits `b880018` and `d53c976`.
+- Await current branch-head merge gate and route-level review. Do not infer a 95+ score solely from structural checks. Do not merge without final owner publication approval.
