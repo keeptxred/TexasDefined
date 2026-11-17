@@ -1,10 +1,9 @@
 import type { Destination } from "./types";
-import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 
 /**
  * Owner-approved development records only (2026-11-17).
  * Keep on unmerged editorial branch until finished-page publication approval.
- * Image placeholders are intentional: do not claim rights to operator photos.
+ * Images are attributed Commons photos; NRHC operator commercial-use approval remains a publication gate.
  */
 export const approvedAttractionDraftDestinations: Destination[] = [
   {
