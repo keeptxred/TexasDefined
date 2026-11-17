@@ -92,7 +92,7 @@ test("all three historic destination canonical guides have bounded, verified ope
   assert.equal(new Set(heritageDestinationMonitorRows.map((r) => r.sourceUrl)).size, 10);
   for (const row of heritageDestinationMonitorRows) {
     assert.equal(row.checkedAt, "2026-11-17", "Source timestamps must record verified editorial reviews, never job dates");
-    assert.match(row.sourceUrl, /^https:\\/\\//);
+    assert.match(row.sourceUrl, /^https:\/\//);
   }
   const all = sourceIndex([], heritageDestinationMonitorRows);
   assert.equal(all.length, 10);
