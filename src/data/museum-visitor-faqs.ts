@@ -6571,7 +6571,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Is the LBJ Presidential Library free on Tuesdays or certain holidays?",
@@ -6580,7 +6580,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Where should visitors park for the LBJ Library in Austin?",
@@ -6589,16 +6589,16 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "How long should a family spend at the LBJ Presidential Library?",
-      "answer": "The library recommends 90 minutes to two hours for a normal visit, adding roughly half an hour for special exhibitions. Its official quick-visit route takes about 30–45 minutes and includes the Oval Office, Lady Bird's office and animatronic LBJ.",
+      "answer": "The library recommends allowing 2–4 hours to explore the galleries. A more focused highlights visit can take roughly 90 minutes to two hours; its official quick-visit route takes about 30–45 minutes and focuses on the Oval Office, Lady Bird Johnson's office and animatronic LBJ. Factor in temporary exhibitions if time permits.",
       "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Can visitors see the actual Oval Office at the LBJ Library?",
@@ -6607,7 +6607,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/exhibitions",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Is the LBJ Presidential Library wheelchair accessible?",
@@ -6616,7 +6616,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://lbjlibrary.org/visit/accessibility",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Can a school or family group walk into the library with more than fourteen people?",
@@ -6625,7 +6625,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Does the LBJ Library have a cafeteria or a restaurant inside?",
@@ -6634,7 +6634,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-17"
     }
   ],
   "blanton-museum-of-art-austin": [

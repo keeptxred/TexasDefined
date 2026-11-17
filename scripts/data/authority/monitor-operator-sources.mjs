@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 import offers from "../../../src/data/authority/experience-offers.json" with { type: "json" };
 import operators from "../../../src/data/authority/independent-operators.json" with { type: "json" };
 
-const MAX_SOURCES = 24;
+const MAX_SOURCES = 36;
 const MAX_BYTES = 850_000;
 const TIMEOUT_MS = 12_000;
 
@@ -52,6 +52,50 @@ export function reviewedAttractionMonitorRows(sourceText) {
       id: item.slug, sourceUrl, checkedAt: item.sourceCheckedAt,
     }));
   });
+}
+
+/** Operator-controlled sources for three independently published history guides.
+ * Their checkedAt dates mean actual editorial fact review; a weekly HTTP probe
+ * is only a change alert and must never increment these dates automatically.
+ * A failed source remains a research flag rather than silently passing.
+ */
+export const heritageDestinationMonitorRows = [
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-17" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-17" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/hours/hours.html", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/visit", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/exhibitions", checkedAt: "2026-11-17" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://lbjlibrary.org/visit/accessibility", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/sanjose.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/guided-programs.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/hours.htm", checkedAt: "2026-11-17" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/accessibility.htm", checkedAt: "2026-11-17" },
+];
+
+/** Alert before the museum's published temporary exhibitions become stale,
+ * even when its exhibition page hasn't changed since last week's fingerprint.
+ * Remove/revise the dated dossier facts only after direct operator verification.
+ */
+export function heritageExhibitionDeadlineAlerts(museumSource, asOf) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(asOf)) throw new Error("Invalid audit date");
+  const start = museumSource.indexOf('  "lbj-presidential-library-austin": {');
+  const end = museumSource.indexOf('\n  "blanton-museum-of-art-austin":', start);
+  if (start < 0 || end < 0) throw new Error("LBJ museum authority dossier not found");
+  const lbj = museumSource.slice(start, end);
+  const now = Date.parse(asOf + "T00:00:00Z");
+  const exhibits = [
+    { title: "Austin Past & Present", endDate: "2027-01-03" },
+    { title: "The American Experiment", endDate: "2027-01-10" },
+  ];
+  return exhibits.filter(({ title, endDate }) => {
+    const dateLabel = new Date(endDate + "T00:00:00Z").toLocaleDateString("en-US",
+      { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const daysLeft = Math.ceil((Date.parse(endDate + "T00:00:00Z") - now) / 86_400_000);
+    return lbj.includes(title) && lbj.includes(dateLabel) && daysLeft <= 21;
+  }).map(({ title, endDate }) => ({
+    sourceUrl: "https://www.lbjlibrary.org/exhibitions",
+    title, endDate,
+  }));
 }
 
 export function normalizedSourceFingerprint(html) {
@@ -112,7 +156,7 @@ async function main() {
     throw new Error("Unsupported operator source monitor baseline version");
   const asOf = new Date().toISOString().slice(0, 10);
   const reviewed = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
-  const sources = sourceIndex(offers, [...operators, ...reviewedAttractionMonitorRows(reviewed)]);
+  const sources = sourceIndex(offers, [...operators, ...reviewedAttractionMonitorRows(reviewed), ...heritageDestinationMonitorRows]);
   const state = { version: 1, asOf, sources: {} };
   let alerts = 0;
   for (let i = 0; i < sources.length; i += 3) {
@@ -134,6 +178,13 @@ async function main() {
         (item.reason ? " (" + item.reason + ")" : "") +
         (item.value?.pendingReviewSince ? " pending since " + item.value.pendingReviewSince : ""));
     }
+  }
+  // Date-triggered refresh is necessary when an event ends without any HTML change.
+  const museum = await readFile(new URL("../../../src/data/museum-authority-network.ts", import.meta.url), "utf8");
+  for (const item of heritageExhibitionDeadlineAlerts(museum, asOf)) {
+    alerts += 1;
+    console.log("SOURCE_REVIEW " + item.sourceUrl + " (LBJ exhibition " +
+      item.title + " closes " + item.endDate + "; research and update dated museum guide)");
   }
   await writeFile(args.output, JSON.stringify(state, null, 2) + "\n");
   console.log("Operator source monitor: " + sources.length + " distinct source URLs, " + alerts +

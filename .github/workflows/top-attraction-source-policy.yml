@@ -31,10 +31,21 @@ permissions:
 jobs:
   policy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
-      - name: Check out repository
+      - name: Check out only Top 25 source-policy inputs
         uses: actions/checkout@v4
+        with:
+          # Do not fetch the site's large public/media tree for three no-dependency Node validators.
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            src/data/top-texas-attractions.ts
+            src/data/top-attraction-authority-sources.ts
+            src/data/destination-curation-top-attractions*.ts
+            scripts/data/validate-top-attraction-source-policy.mjs
+            scripts/data/validate-top-attraction-review-freshness.mjs
+            scripts/data/check-top-attraction-source-health.mjs
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

@@ -7,6 +7,12 @@ on:
     paths:
       - 'src/data/destination-curation*.ts'
       - 'src/data/reviewed-attraction-authorities.ts'
+      - 'src/data/museum-expansion-austin.ts'
+      - 'src/data/museum-authority-network.ts'
+      - 'src/data/museum-visitor-faqs.ts'
+      - 'src/data/san-antonio-heritage-destinations.ts'
+      - 'scripts/data/authority/monitor-operator-sources.mjs'
+      - 'scripts/data/authority/monitor-operator-sources.test.mjs'
       - 'scripts/data/validate-destination-visitor-fact-catalog.mjs'
       - 'src/data/authority/**'
       - 'scripts/data/authority/**'

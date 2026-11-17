@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows,
+  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows, heritageDestinationMonitorRows, heritageExhibitionDeadlineAlerts,
 } from "./monitor-operator-sources.mjs";
 
 const html = (text) => "<html><body><main><h1>Operator experience</h1><p>" +
@@ -81,4 +81,39 @@ test("three approved attraction sources are monitored from real canonical record
   }
   assert.throws(() => reviewedAttractionMonitorRows("export const other = [];"), /missing/);
   assert.throws(() => reviewedAttractionMonitorRows(source.replace('"slug": "houston-botanic-garden"', '"slug": "other"')), /inventory changed/);
+});
+
+
+test("all three historic destination canonical guides have bounded, verified operator-source watch", () => {
+  assert.equal(heritageDestinationMonitorRows.length, 10);
+  assert.deepEqual([...new Set(heritageDestinationMonitorRows.map((r) => r.id))].sort(), [
+    "lbj-presidential-library-austin", "mission-san-jose-san-antonio", "texas-state-capitol",
+  ]);
+  assert.equal(new Set(heritageDestinationMonitorRows.map((r) => r.sourceUrl)).size, 10);
+  for (const row of heritageDestinationMonitorRows) {
+    assert.equal(row.checkedAt, "2026-11-17", "Source timestamps must record verified editorial reviews, never job dates");
+    assert.match(row.sourceUrl, /^https:\/\//);
+  }
+  const all = sourceIndex([], heritageDestinationMonitorRows);
+  assert.equal(all.length, 10);
+  for (const url of [
+    "https://tspb.texas.gov/plan/tours/tours.html",
+    "https://www.lbjlibrary.org/exhibitions",
+    "https://www.nps.gov/saan/planyourvisit/guided-programs.htm",
+  ]) assert.ok(all.some((item) => item.url === url), "Critical operator changes require weekly alerts: " + url);
+});
+
+
+test("expiring LBJ exhibitions prompt human review without relying on page-fingerprint changes", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const dossier = await readFile(new URL("../../../src/data/museum-authority-network.ts", import.meta.url), "utf8");
+  assert.equal(heritageExhibitionDeadlineAlerts(dossier, "2026-12-10").length, 0);
+  assert.deepEqual(heritageExhibitionDeadlineAlerts(dossier, "2026-12-14").map((r) => r.title),
+    ["Austin Past & Present"]);
+  assert.equal(heritageExhibitionDeadlineAlerts(dossier, "2027-01-02").length, 2,
+    "Both January exhibition closures require a research issue before either date passes");
+  const updated = dossier.replaceAll("January 3, 2027", "the new operator-verified exhibition end date");
+  assert.deepEqual(heritageExhibitionDeadlineAlerts(updated, "2027-01-02").map((r) => r.title),
+    ["The American Experiment"], "A factual correction resolves the matching exhibition alert");
+  assert.throws(() => heritageExhibitionDeadlineAlerts(dossier, "tomorrow"), /Invalid audit date/);
 });
