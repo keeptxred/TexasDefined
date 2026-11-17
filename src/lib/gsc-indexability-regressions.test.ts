@@ -64,6 +64,14 @@ describe("GSC sitemap indexability regressions", () => {
     expect(source).not.toContain('{ path: "/property-tax/taxing-unit/jackson-county-esd-1", lastmod:');
   });
 
+  it("fails the daily postdeploy tax verifier if either corrected 5xx page is missing from live XML", () => {
+    const source = read("scripts/ci/verify-local-financial-production.mjs");
+    expect(source).toContain("const gscRecoveryPaths = gscFiveHundredTaxingUnits.map");
+    expect(source).toContain("if (TAX_ONLY)");
+    expect(source).toContain("'<loc>' + origin + path + '</loc>'");
+    expect(source).toContain("fail('gsc-5xx-sitemap',");
+  });
+
   it("does not serialize empty event filters onto the canonical events URL", () => {
     const source = read("src/routes/events.index.tsx");
 
