@@ -29,7 +29,7 @@ if (!route.includes('"battleship-texas-state-historic-site": "battleship-texas"'
 
 for (const marker of [
   'const audit = auditDestination(destination)',
-  'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
+  'const indexable = destination.slug !== "national-ranching-heritage-center-lubbock" && audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
   'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
