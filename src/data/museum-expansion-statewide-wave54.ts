@@ -88,6 +88,8 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     address: "1905 Atkinson Dr, Lufkin, TX 75901",
     accessibilityNotes: "Accessible restrooms, a paved trail, ramps to the locomotive and Children’s Wing, and sensory backpacks are described by the operator; call for individual needs.",
     visitorFaqs: [
+      { question: "When did the Texas Forestry Museum open?", answer: "The museum opened in 1976 and marked its 50th anniversary in 2026. Its collections connect East Texas timber-industry history to continuing forestry education.", sourceUrl: "https://texashighways.com/culture/history/a-forestry-museum-grows-in-east-texas/" },
+      { question: "Which ZIP code should I use for directions?", answer: "Use 1905 Atkinson Drive in Lufkin. The museum’s contact page and Texas Historical Commission record list ZIP 75901, while an older visit page lists 75904.", sourceUrl: "https://www.treetexas.com/blank-5" },
       { question: "Is admission free?", answer: "Yes. General admission is free and donations are welcome; advance group tours may have separate fees.", sourceUrl: "https://www.treetexas.com/visit-us" },
       { question: "What can children do?", answer: "The Children’s Wing includes a train table, sawmill-town playhouse and fire tower; scavenger hunts, outdoor games and a nature playscape are also listed.", sourceUrl: "https://www.treetexas.com/visit-us" },
       { question: "Are sensory accommodations available?", answer: "Yes. The museum offers sensory backpacks and a downloadable social story; ask staff for current availability.", sourceUrl: "https://www.treetexas.com/visit-us" },
