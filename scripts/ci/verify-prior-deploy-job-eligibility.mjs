@@ -351,6 +351,21 @@ const NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF = Object.freeze({
   failedStep: 'Verify fishing lake robots and sitemap publication parity',
 });
 
+// Nov16 exact GSC tax/canonical recovery release #43985214547 published the
+// source SHA 6124fed Worker as version f7213d8b. All five critical deployment,
+// direct/canonical health and dual-origin original hashed JS/CSS gates passed.
+// Its only failed step was an INDEPENDENT genuine Conroe camping HTTP 500
+// after three attempts. The original asset bytes may seed the next attempt
+// only while the caller independently pins that source SHA, live Worker UUID
+// and exact asset hashes; this must never waive the broken camping page.
+const NOV16_PUBLISHED_GSC_CONROE_500_ASSET_HANDOFF = Object.freeze({
+  runId: 43985214547,
+  jobId: 133711496581,
+  sourceSha: '6124fed0ab5f1b2e0478f180058394b423f7f4c3',
+  workerVersion: 'f7213d8b-d327-4a3a-9112-c3cc02b1bdab',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -380,6 +395,17 @@ export function qualifyPriorDeployJob(payload) {
   }
   if (job.run_id === conroe500.runId || job.id === conroe500.jobId) {
     throw Error('Nov16 Conroe HTTP 500 original-byte handoff rejects altered run/job/failure proof: '+failures.join(', '));
+  }
+  const gscConroe = NOV16_PUBLISHED_GSC_CONROE_500_ASSET_HANDOFF;
+  if (job.run_id === gscConroe.runId && job.id === gscConroe.jobId &&
+      failures.length === 1 && failures[0] === gscConroe.failedStep) {
+    return { eligible: true, mode: 'exact-nov16-gsc-conroe-original-assets-only',
+      exactRun: gscConroe.runId, requiredSourceSha: gscConroe.sourceSha,
+      requiredWorkerVersion: gscConroe.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures };
+  }
+  if (job.run_id === gscConroe.runId || job.id === gscConroe.jobId) {
+    throw Error('Nov16 GSC Conroe original-byte handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
   }
   const categoryReset = NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET;
   if (job.run_id === categoryReset.runId && job.id === categoryReset.jobId &&
