@@ -6,9 +6,9 @@
 The National Ranching Heritage Center in Lubbock makes ranching history tangible by combining an indoor museum with the outdoor Foy Proctor Historical Park. Visitors can compare structures, landscapes and interpretation across more than two centuries of ranching history rather than treating ranch life as a single period or a single architectural style.
 
 ## Explore the center
-**Foy Proctor Historical Park.** The operator describes a **19-acre** outdoor historical park. Plan this part of the visit around heat, wind and mobility: it is not equivalent to walking through a climate-controlled museum. Take time to examine how historic structures illustrate work, settlement and the material demands of ranching.
+**Foy Proctor Historical Park.** The operator describes a **19-acre** outdoor historical park with **55 historic structures** arranged chronologically to illustrate ranch life from the late 1700s through the mid-1900s. The operator says **30 structures are between 100 and 177 years old**, with **1.5 miles of paved pathways**, bilingual interpretive signs and an optional phone app with audio, text and photographs. These concrete features should anchor the eventual route-by-route guide. Plan this part of the visit around heat, wind and mobility: it is not equivalent to walking through a climate-controlled museum. Take time to examine how historic structures illustrate work, settlement and the material demands of ranching.
 
-**Indoor exhibits.** Use the galleries to connect the buildings outside to broader questions of livestock, ranch labor, technology and regional change. Temporary exhibit availability can vary, so check the operator's current exhibit listings rather than promising a named installation.
+**Indoor exhibits.** The operator describes a **44,000-square-foot museum with seven galleries** and 42 life-size bronze outdoor artworks. Use the galleries to connect the buildings outside to broader questions of livestock, ranch labor, technology and regional change. Temporary exhibit availability can vary, so check the operator's current exhibit listings rather than promising a named installation.
 
 **Families.** The Cash Family Ranch Life Learning Center includes Hank the Cowdog's M-Cross Ranch. Verify children's program dates and age suitability through the operator; not every special event runs daily.
 
@@ -34,6 +34,8 @@ The operator's group-tour page says groups of **25–50** should request a sched
 
 ## Official sources
 - Operator visitor information: https://ranchingheritage.org/about-us/visit/
+- Operator press and site-history facts: https://ranchingheritage.org/press/
+- Permission contact: NRHC main office (806) 742-0498; ranchhc@ttu.edu. The photo policy directs commercial-image requests to its designated contact and requires executive-director written approval. Press photos are offered in a ZIP on the press page, but **availability is not a reuse license**; request written permission before publication.
 - Operator photographic rules: https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf
 - Operator events: https://ranchingheritage.org/events/
 - Group tour policy and fee: https://ranchingheritage.org/learn/adult-group-visits/
