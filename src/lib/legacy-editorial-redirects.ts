@@ -38,6 +38,9 @@ LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
 // El Paso's researched city authority lives at /city/el-paso, not a second
 // destination slug. Preserve old destination referrals without duplicate SEO.
 LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";
+// Short name aliases preserve one canonical destination guide per location.
+LEGACY_EDITORIAL_REDIRECTS["/destination/lbj-presidential-library"] = "/destination/lbj-presidential-library-austin";
+LEGACY_EDITORIAL_REDIRECTS["/destination/mission-san-jose"] = "/destination/mission-san-jose-san-antonio";
 // County feature was published with a -texas suffix; retain old inbound links.
 LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas";
 
