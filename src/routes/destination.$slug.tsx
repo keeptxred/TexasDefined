@@ -265,7 +265,9 @@ export const Route = createFileRoute("/destination/$slug")({
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
-const indexable = destination.slug !== "national-ranching-heritage-center-lubbock" && audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
+const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
+    const publicationApproved = destination.slug !== "national-ranching-heritage-center-lubbock";
+    const finalIndexable = indexable && publicationApproved;
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
@@ -350,7 +352,7 @@ const indexable = destination.slug !== "national-ranching-heritage-center-lubboc
           ? "Explore Fort McKavett State Historic Site in Menard County: Buffalo Soldier history, restored barracks, admission, accessibility and tour tips."
           : destination.summary,
         canonicalPath,
-        robots: indexable ? undefined : "noindex, follow",
+        robots: finalIndexable ? undefined : "noindex, follow",
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
