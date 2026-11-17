@@ -23,6 +23,12 @@ assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
 assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
 assert.match(newGuides, /Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
+assert.match(newGuides, /File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
+assert.doesNotMatch(newGuides, /File:Cichlid_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
+assert.match(forestry, /sensory backpacks/i);
+assert.match(forestry, /train table/i);
+assert.match(forestry, /guided history tour/i);
+assert.match(newGuides, /paved pathways/i);
 for (const slug of ["texas-freshwater-fisheries-center", "texas-forestry-museum-lufkin", "national-ranching-heritage-center-lubbock"]) {
   const entries = [...museumManifest.museums, ...attractionManifest.attractions].filter((entry) => entry.path === "/destination/" + slug);
   assert.equal(entries.length, 1, slug + " must have exactly one scheduled official-source review");
