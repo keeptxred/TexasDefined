@@ -77,9 +77,9 @@ export const heritageDestinationMonitorRows = [
  * Remove/revise the dated dossier facts only after direct operator verification.
  */
 export function heritageExhibitionDeadlineAlerts(museumSource, asOf) {
-  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(asOf)) throw new Error("Invalid audit date");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(asOf)) throw new Error("Invalid audit date");
   const start = museumSource.indexOf('  "lbj-presidential-library-austin": {');
-  const end = museumSource.indexOf('\\n  "blanton-museum-of-art-austin":', start);
+  const end = museumSource.indexOf('\n  "blanton-museum-of-art-austin":', start);
   if (start < 0 || end < 0) throw new Error("LBJ museum authority dossier not found");
   const lbj = museumSource.slice(start, end);
   const now = Date.parse(asOf + "T00:00:00Z");
