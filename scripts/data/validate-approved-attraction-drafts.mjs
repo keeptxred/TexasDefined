@@ -18,7 +18,9 @@ for (const slug of ["texas-freshwater-fisheries-center", "national-ranching-heri
 assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 1);
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
-assert.match(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // NRHC intentionally withheld until permission
+assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // all three have exact-site Commons photos on draft branch
+assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
+assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
 assert.match(newGuides, /Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
 for (const slug of ["texas-freshwater-fisheries-center", "texas-forestry-museum-lufkin", "national-ranching-heritage-center-lubbock"]) {
