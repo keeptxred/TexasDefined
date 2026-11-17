@@ -1,3 +1,4 @@
+import { approvedAttractionDraftDestinations } from "./approved-attraction-authority-drafts";
 import { bigThicketNationalPreserveAuthority } from "./big-thicket-national-preserve-authority";
 import { blackwellSchoolNationalHistoricSite } from "./blackwell-school-national-historic-site";
 import { fortLeatonHistoricSiteAuthority } from "./fort-leaton-historic-site-authority";
@@ -352,6 +353,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave52Destinations,
   statewideMuseumExpansionWave53Destinations,
   statewideMuseumExpansionWave54Destinations,
+  approvedAttractionDraftDestinations,
   nationalWildlifeRefugeDestinations,
   wildlifeManagementAreaWave1Destinations,
   wildlifeManagementAreaWave2Destinations,
