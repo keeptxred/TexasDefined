@@ -7,7 +7,8 @@ const newGuides = read("src/data/approved-attraction-authority-drafts.ts");
 const forestry = read("src/data/museum-expansion-statewide-wave54.ts");
 const legacy = read("src/data/museum-expansion-statewide-wave3.ts");
 const heroes = read("src/data/museum-authority-heroes.ts");
-const manifest = JSON.parse(read("public/museum-verification-manifest.json"));
+const museumManifest = JSON.parse(read("public/museum-verification-manifest.json"));
+const attractionManifest = JSON.parse(read("docs/editorial/attraction-approval-2026-11-17/attraction-source-verification.json"));
 
 assert.match(catalog, /import \{ approvedAttractionDraftDestinations \}/);
 assert.match(catalog, /\n  approvedAttractionDraftDestinations,/);
@@ -21,7 +22,7 @@ assert.match(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // NRHC intentionally 
 assert.match(newGuides, /Cichlid_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
 for (const slug of ["texas-freshwater-fisheries-center", "texas-forestry-museum-lufkin", "national-ranching-heritage-center-lubbock"]) {
-  const entries = manifest.museums.filter((entry) => entry.path === "/destination/" + slug);
+  const entries = [...museumManifest.museums, ...attractionManifest.attractions].filter((entry) => entry.path === "/destination/" + slug);
   assert.equal(entries.length, 1, slug + " must have exactly one scheduled official-source review");
   assert.equal(entries[0].cadenceDays, 30, slug + " should refresh monthly");
   assert.ok(entries[0].sources.some((source) => /^https:\/\//.test(source.sourceUrl)), slug + " needs an official source");
