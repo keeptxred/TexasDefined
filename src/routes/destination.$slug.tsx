@@ -152,6 +152,9 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // exceeded the internal 90-character live audit limit after brand suffixing.
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "texas-freshwater-fisheries-center": "Texas Freshwater Fisheries Center: Hours, Fishing & Exhibits",
+  "texas-forestry-museum-lufkin": "Texas Forestry Museum Lufkin: Free Admission & Exhibits",
+  "national-ranching-heritage-center-lubbock": "National Ranching Heritage Center: Lubbock Visitor Guide",
   "galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
   "moody-gardens": "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
   "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
