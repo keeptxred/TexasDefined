@@ -57,3 +57,5 @@ No proprietary Viator descriptions or candidate-feed data are present in this re
 
 - Operator group-booking page currently renders `Error: Contact form not found.` (verified 2026-11-17). The draft now directs readers to the operator-confirmed telephone `(806) 742-0498` and `ranchhc@ttu.edu`, with link to `https://ranchingheritage.org/contact-us/`. This is the operator's failure, not a TexasDefined broken form; recheck until fixed.
 - Individually sourced `visitorFacts` cards now separate the TFFC closure page from the hatchery construction page. All three guides have independent assessments, three practical visit plans and primary-source reference links.
+
+- Browser QA found an actual duplicate Forestry Museum FAQ: generic destination FAQ plus the existing museum-dossier FAQ. The generic repeat is now suppressed for canonical museum authority slugs, preserving the museum's eight source-backed questions. The museum's booked-adult-tour FAQ now states the exact $3 out-of-county/free in-county split, reviewed November 17, 2026. Regression checks require exactly one FAQ heading per targeted page.

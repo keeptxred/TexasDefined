@@ -43,7 +43,9 @@ try {
         const canonical=await page.locator('link[rel="canonical"]').getAttribute("href");
         assert.ok(canonical?.endsWith("/destination/"+target.slug),name+" canonical");
         assert.ok((await page.locator("body").innerText()).toLowerCase().includes(target.credit.toLowerCase()),name+" visible photo credit");
-        await page.getByRole("heading",{name:"Frequently asked questions about "+target.title}).waitFor({state:"visible",timeout:20000});
+        const faqHeading = page.getByRole("heading",{name:"Frequently asked questions about "+target.title,exact:true});
+        await faqHeading.first().waitFor({state:"visible",timeout:20000});
+        assert.equal(await faqHeading.count(),1,name+" must not duplicate the FAQ section");
         for (const marker of target.mustSee) {
           await page.waitForFunction((text)=>document.body.innerText.toLowerCase().includes(text.toLowerCase()),marker,{timeout:20000});
         }
