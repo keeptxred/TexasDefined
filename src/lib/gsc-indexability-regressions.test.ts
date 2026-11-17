@@ -55,6 +55,15 @@ describe("GSC sitemap indexability regressions", () => {
     expect(source).toContain("target.requiredText");
   });
 
+  it("submits only the two source-verified recovered tax unit URLs for Google recrawl without false lastmod", () => {
+    const source = read("src/routes/sitemap[.]xml.ts");
+    expect(source).toContain('{ path: "/property-tax/taxing-unit/edna" }');
+    expect(source).toContain('{ path: "/property-tax/taxing-unit/jackson-county-esd-1" }');
+    expect(source).toContain('cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1")');
+    expect(source).not.toContain('{ path: "/property-tax/taxing-unit/edna", lastmod:');
+    expect(source).not.toContain('{ path: "/property-tax/taxing-unit/jackson-county-esd-1", lastmod:');
+  });
+
   it("does not serialize empty event filters onto the canonical events URL", () => {
     const source = read("src/routes/events.index.tsx");
 
