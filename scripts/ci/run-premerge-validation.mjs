@@ -93,6 +93,7 @@ const prebuildChecks = [
   ['CONTENT/VISITOR-FACTS', 'Scan curated visitor answers for malformed provenance, duplicate labels and expiration', 'node', ['scripts/data/validate-destination-visitor-fact-catalog.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Verify source-dated practical visitor facts, conditional rendering and stale-claim suppression', 'node', ['--experimental-strip-types', '--test', 'src/data/destination-visitor-facts.test.ts']],
   ['CONTENT/VISITOR-FACTS', 'Verify operator source-monitor coverage for all three reviewed attraction guides', 'node', ['--test', 'scripts/data/authority/monitor-operator-sources.test.mjs']],
+  ['HISTORY/THREE-AUTHORITY', 'Validate Capitol LBJ and San Jose source and canonical authority contracts', 'node', ['scripts/data/validate-three-heritage-destination-authority.mjs']],
   ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],
   ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
