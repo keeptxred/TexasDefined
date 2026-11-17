@@ -456,6 +456,31 @@ await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
 await verifyWoodlandsClassification();
 await runWithConcurrency(gscFiveHundredTaxingUnits, verifyGscFiveHundredTaxingUnit);
 
+// Google last observed HTTP 5xx on these two tax pages Oct 6. Their
+// independently verified, indexable five-year records are now explicitly
+// submitted to the primary sitemap. Ensure the post-deploy live XML has both
+// clean URLs; a stale sitemap response must not silently stall recrawl again.
+if (TAX_ONLY) {
+  const gscRecoveryPaths = gscFiveHundredTaxingUnits.map(({ slug }) =>
+    '/property-tax/taxing-unit/' + slug
+  );
+  try {
+    const { response, body } = await fetchProduction('/sitemap.xml');
+    const missing = gscRecoveryPaths.filter((path) =>
+      !body.includes('<loc>' + origin + path + '</loc>')
+    );
+    if (!response.ok) fail('gsc-5xx-sitemap', 'HTTP ' + response.status);
+    else if (!/application\/xml|text\/xml/i.test(response.headers.get('content-type') || '')) fail('gsc-5xx-sitemap', 'unexpected non-XML content type');
+    else if (missing.length) fail('gsc-5xx-sitemap', 'missing canonical tax recovery URLs: ' + missing.join(', '));
+    else {
+      console.log('[gsc-5xx-sitemap] both verified five-year tax records present in current public sitemap XML');
+      appendSummary('| ✅ pass | gsc-5xx-sitemap | both recovered canonical tax URLs in live primary sitemap |\n');
+    }
+  } catch (error) {
+    fail('gsc-5xx-sitemap', error instanceof Error ? error.message : String(error));
+  }
+}
+
 if (!TAX_ONLY) {
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');
