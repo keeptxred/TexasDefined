@@ -7,6 +7,8 @@ const newGuides = read("src/data/approved-attraction-authority-drafts.ts");
 const forestry = read("src/data/museum-expansion-statewide-wave54.ts");
 const legacy = read("src/data/museum-expansion-statewide-wave3.ts");
 const heroes = read("src/data/museum-authority-heroes.ts");
+const availability = read("src/data/destination-availability.ts");
+const destinationRoute = read("src/routes/destination.$slug.tsx");
 const museumManifest = JSON.parse(read("public/museum-verification-manifest.json"));
 const attractionManifest = JSON.parse(read("docs/editorial/attraction-approval-2026-11-17/attraction-source-verification.json"));
 
@@ -18,6 +20,8 @@ for (const slug of ["texas-freshwater-fisheries-center", "national-ranching-heri
 assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 1);
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
+assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Commercial photo clearance/);
+assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
 assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // all three have exact-site Commons photos on draft branch
 assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
 assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
@@ -29,6 +33,8 @@ assert.match(forestry, /sensory backpacks/i);
 assert.match(forestry, /train table/i);
 assert.match(forestry, /guided history tour/i);
 assert.match(newGuides, /paved pathways/i);
+assert.match(newGuides, /editorial planning estimate/i);
+assert.match(newGuides, /not an operator-promised duration/i);
 for (const slug of ["texas-freshwater-fisheries-center", "texas-forestry-museum-lufkin", "national-ranching-heritage-center-lubbock"]) {
   const entries = [...museumManifest.museums, ...attractionManifest.attractions].filter((entry) => entry.path === "/destination/" + slug);
   assert.equal(entries.length, 1, slug + " must have exactly one scheduled official-source review");
