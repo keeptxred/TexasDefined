@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows, heritageDestinationMonitorRows,
+  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows, heritageDestinationMonitorRows, heritageExhibitionDeadlineAlerts,
 } from "./monitor-operator-sources.mjs";
 
 const html = (text) => "<html><body><main><h1>Operator experience</h1><p>" +
@@ -101,4 +101,19 @@ test("all three historic destination canonical guides have bounded, verified ope
     "https://www.lbjlibrary.org/exhibitions",
     "https://www.nps.gov/saan/planyourvisit/guided-programs.htm",
   ]) assert.ok(all.some((item) => item.url === url), "Critical operator changes require weekly alerts: " + url);
+});
+
+
+test("expiring LBJ exhibitions prompt human review without relying on page-fingerprint changes", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const dossier = await readFile(new URL("../../../src/data/museum-authority-network.ts", import.meta.url), "utf8");
+  assert.equal(heritageExhibitionDeadlineAlerts(dossier, "2026-12-10").length, 0);
+  assert.deepEqual(heritageExhibitionDeadlineAlerts(dossier, "2026-12-14").map((r) => r.title),
+    ["Austin Past & Present"]);
+  assert.equal(heritageExhibitionDeadlineAlerts(dossier, "2027-01-02").length, 2,
+    "Both January exhibition closures require a research issue before either date passes");
+  const updated = dossier.replaceAll("January 3, 2027", "the new operator-verified exhibition end date");
+  assert.deepEqual(heritageExhibitionDeadlineAlerts(updated, "2027-01-02").map((r) => r.title),
+    ["The American Experiment"], "A factual correction resolves the matching exhibition alert");
+  assert.throws(() => heritageExhibitionDeadlineAlerts(dossier, "tomorrow"), /Invalid audit date/);
 });
