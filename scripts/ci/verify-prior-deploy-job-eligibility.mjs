@@ -419,13 +419,29 @@ export function qualifyPriorDeployJob(payload) {
     const firstBranch = loader.indexOf('if (params.slug === LAKE_CONROE_SLUG)');
     const unconditionalCatalog = loader.indexOf('const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery }');
     const conditionalCatalog = loader.indexOf('if (params.section === "reports" || params.section === "guides")');
-    const pageDataBeforeGlobal = loader.indexOf('const pageData = await getLakeConroePageData()');
+    // The initial #7288 fix returned getLakeConroePageData() directly. Its
+    // more conservative successor moves *only* camping to a no-network
+    // source-backed function. Accept either precise first-branch shape while
+    // preserving every earlier catalog-fanout and immutable-asset safeguard.
+    const originalPageData = loader.indexOf('const pageData = await getLakeConroePageData()');
+    const staticCampingPageData = loader.indexOf('const pageData = params.section === "camping"');
+    const pageDataBeforeGlobal = originalPageData >= 0 ? originalPageData : staticCampingPageData;
+    const campingServer = readFileSync('src/data/fishing/lake-conroe-page-data.functions.ts', 'utf8');
+    const campingPathSafe = staticCampingPageData < 0 || (
+      loader.includes('await getLakeConroeCampingPageData()') &&
+      loader.includes(': await getLakeConroePageData()') &&
+      campingServer.includes('export const getLakeConroeCampingPageData') &&
+      campingServer.includes('...loadLakeConroePageDataServer()') &&
+      campingServer.includes('liveLakeLevel: null') &&
+      campingServer.includes('await import("./live-lake-level-fetch.server")')
+    );
     const canonicalPageGuard = loader.indexOf('if (!isLakeConroeSection(params.section)) throw notFound()');
     if (firstBranch < 0 || canonicalPageGuard < firstBranch ||
         pageDataBeforeGlobal < canonicalPageGuard || conditionalCatalog < pageDataBeforeGlobal ||
-        unconditionalCatalog < conditionalCatalog || !loader.includes('const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug))') ||
+        unconditionalCatalog < conditionalCatalog || !campingPathSafe ||
+        !loader.includes('const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug))') ||
         !loader.includes('reports = await context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake))')) {
-      throw Error('Nov16 Conroe asset handoff is rejected until #7288 repairs unconditional statewide fishing catalog import');
+      throw Error('Nov16 Conroe original-asset handoff rejected: first-branch #7288 catalog isolation or verified lightweight camping SSR is missing');
     }
     return { eligible: true, mode: 'exact-nov16-conroe-failed-parity-original-assets-only',
       exactRun: conroe.runId, requiredSourceSha: conroe.sourceSha,
