@@ -149,7 +149,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "credit": "Steven B Yount · CC BY-SA 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Fall through spring for walking the extensive compound; summer visits are most pleasant in the morning.",
-    "entryNote": "NPS lists mission grounds from sunrise to sunset and interpretive facilities 9 a.m.–5 p.m., except major holiday closures. At Mission San José, free ranger-led walks currently start at 10 and 11 a.m. daily, weather permitting, from the visitor center; they last about 45 minutes and have a 50-person, first-come limit. Recheck on the day of your visit.",
+    "entryNote": "Admission is free. The visitor center normally opens 9 a.m.–5 p.m.; outdoor grounds are open sunrise to sunset, with park closures on Thanksgiving, Christmas and New Year's Day. Free ranger walks begin at 10 and 11 a.m. daily if weather permits, each lasting about 45 minutes and limited to 50 first-come participants. The paved walking route is wheelchair accessible. Confirm park alerts and active church access before traveling.",
     "highlights": [
       "Park visitor center",
       "Rose Window",
@@ -157,16 +157,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "Church and living mission community"
     ],
     "body": [
-      "Founded in 1720 as Mission San José y San Miguel de Aguayo, San José became the largest of the San Antonio mission communities. Its surviving and reconstructed spaces reveal a complex settlement encompassing farms, trades, homes, defense and worship—not merely an isolated church.",
-      "The church's Rose Window and ornate masonry attract photographers, but interpretation should continue into the granary, gristmill and rooms once associated with Indigenous residents. Those structures tell a fuller story of food production, craft skills, construction and the changing social relationships imposed by Spanish colonial society.",
-      "The NPS visitor center is located here, making the compound the best place to begin an interpretive itinerary. Guided programs currently include morning walks, but visitors should verify the park's actual daily program rather than treating listed offerings as guaranteed. The historic church remains a religious space.",
+      "Founded on February 23, 1720, Mission San José y San Miguel de Aguayo became San Antonio's largest mission settlement. Visitors see surviving eighteenth-century stonework alongside extensive 1930s Works Progress Administration restoration of residential and compound structures. That distinction is vital: the reconstructed courtyard walls are evidence of how the settlement was organized, not all untouched colonial buildings. The mission encompassed farming, labor, defense and worship rather than just a church.",
+      "After looking at the Rose Window, trace the granary, gristmill and Indigenous family quarters to understand the labor and food systems behind the carved church. The National Park Service explains that the broad label “Coahuiltecan” encompasses many distinct Indigenous bands, not one homogeneous nation. Forced cultural change, conversion and Indigenous efforts to survive shaped the mission's history; the rebuilt spaces and original fabric require different interpretations.",
+      "Begin at the NPS visitor center with the introductory 20-minute film and museum before choosing a paved ranger-guided walk at 10 or 11 a.m. when available. Outdoor surfaces and historic interiors may have different accessibility conditions. The church remains an active parish, so ranger programming does not guarantee church entry during services.",
       "An informed visit contrasts the building's high architectural craftsmanship with the unequal power relations of mission life. Continue to Concepción for original fabric, San Juan for agricultural systems and Espada for the aqueduct and textile trade."
     ],
-    "officialUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm",
+    "officialUrl": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
     "managingAuthority": "National Park Service / active local parish",
     "address": "6701 San Jose Dr, San Antonio, TX 78214",
-    "sourceCheckedAt": "2026-10-12",
-    "accessibilityNotes": "Accessibility of the historic interior or outdoor surfaces can vary; consult the listed primary operator",
+    "sourceCheckedAt": "2026-11-17",
+    "accessibilityNotes": "The NPS ranger walk departs from the visitor center and follows a paved, wheelchair-accessible route for roughly 45 minutes. Historic interiors and other outside surfaces may differ; use the park’s disability-specific accessibility pages for individual planning.",
     "visitorFaqs": [
       {
         "question": "Where is the park visitor center?",
@@ -180,12 +180,12 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       },
       {
         "question": "What is the Rose Window?",
-        "answer": "A notable carved stone window in the mission church facade.",
+        "answer": "The ornate carved Rose Window on the church facade is a noted example of Spanish colonial Baroque decoration. A visitor-center stop provides the broader history of the Indigenous mission community and construction.",
         "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
       },
       {
         "question": "How long should I allow?",
-        "answer": "Approximately 1–2 hours for exhibits, grounds and a ranger walk.",
+        "answer": "Plan roughly 90–120 minutes for the visitor-center film, historical compound and, when offered, a 45-minute ranger walk; allow for heat and service restrictions.",
         "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
       }
     ],
@@ -230,8 +230,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       ],
       "sources": [
         {
-          "label": "National Park Service San José",
-          "url": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm",
+          "label": "National Park Service San José history and visitor center",
+          "url": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
         },
         {
