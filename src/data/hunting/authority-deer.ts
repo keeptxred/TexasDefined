@@ -3,7 +3,7 @@ import { deerSeasonRange, deerSeasonYear, texasDeerSeason } from "./deer-season-
 
 /**
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
- * Editorial research update 2026-11-15: claim-level TPWD county comparison, CWD and access sourcing.
+ * Editorial research update 2026-11-17: county comparison, real Alabama Creek WMA permit analysis and editorial accountability.
  * No independent wildlife professional or firsthand field review is asserted.
  *
  * Annual season dates, official calendar and structured legal facts are synchronized
@@ -15,8 +15,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   eyebrow: `${deerSeasonYear} Texas white-tailed deer guide`,
   title: "Texas White-Tailed Deer Hunting Guide",
   description: `${deerSeasonYear} Texas deer season dates, county limits, antler rules, licenses, tagging, CWD and screwworm precautions, public hunts and regional planning, with links to TPWD.`,
-  reviewedOn: "2026-11-15",
-  reviewedLabel: "November 15, 2026",
+  reviewedOn: "2026-11-17",
+  reviewedLabel: "November 17, 2026",
   quickAnswer: `Texas\'s ${deerSeasonYear} white-tailed deer archery-only season runs ${deerSeasonRange("archery")}. General season runs ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. Those are statewide zone frameworks, not permission to hunt every county or property: check the exact county\'s season, legal deer, bag and antler limits, access, and harvest requirements with TPWD before you go.`,
   about: [
     `${deerSeasonYear} Texas white-tailed deer season`,
@@ -30,7 +30,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: `${deerSeasonYear} Texas white-tailed deer season dates`,
       paragraphs: [
-        "Use the season table above for the eight statewide white-tailed deer date ranges. It includes both general-season zones and archery-only dates. This table is a planning reference—not a license to hunt in every county, or a mule-deer calendar.",
+        "The eight-date table above covers Texas white-tailed deer, not mule deer; use the county rules for local eligibility.",
         `The early youth-only season is ${deerSeasonRange("earlyYouth")}. The North Zone also has a late youth-only season ${deerSeasonRange("lateYouthNorth")}. Muzzleloader season is ${deerSeasonRange("muzzleloader")} only in designated counties. Special late season runs ${deerSeasonRange("specialNorth")} (North) and ${deerSeasonRange("specialSouth")} (South) where offered; TPWD currently restricts eligible harvest to ${texasDeerSeason.regulations.specialLateRestriction}; confirm the county.`,
         `TPWD lists white-tailed deer seasons in ${texasDeerSeason.regulations.openCountyCount} of Texas\'s 254 counties for ${deerSeasonYear}, but county exceptions, land-management permits and restrictions on methods or sex of deer matter. Use the official county selector rather than assuming a North/South date applies automatically. MLDP properties can have different authorized frameworks.`,
       ],
@@ -43,7 +43,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Start with the county, not just the season zone",
       paragraphs: [
-        "The North/South zone tells you which general-season framework may apply; it does not tell you whether you may take a buck or antlerless deer on a particular date. Locate the property on a map, establish the county, and read TPWD's county-specific white-tailed deer rules for the type of hunt planned.",
+        "A general-season zone does not determine which deer may be taken. Identify the property county and check TPWD's current restrictions for the intended method and date.",
         "Check whether the county has an open season for your method, whether antlerless harvest is limited to specific days, and whether antler, reporting or CWD restrictions apply. TPWD expanded antlerless doe days to November 14–29, 2026 in 21 designated counties or portions of counties; it is not a statewide antlerless season. Boundary descriptions sometimes use highways, so the property location matters.",
         "Private-property permission, hunting leases, Wildlife Management Area (WMA) hunt notices and other public-land permits are separate from the statewide season. A legal season does not itself authorize entry or hunting on a property.",
       ],
@@ -126,7 +126,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "The regional comparison above identifies useful differences between Texas landscapes, but a region name cannot tell you how deer use a specific property. During a scouting visit, locate legal entry points, likely food sources, water, cover and travel corridors without crossing a boundary you do not have permission to enter.",
         "For a dry fall, prioritize recent signs near dependable water and forage rather than last year's trail patterns; after heavy rain, use fresh tracks and browse to reassess. In timber, look at safe visibility and backstops. In open country, plan distance, wind and approach routes without treating a long sightline as permission to shoot.",
-        "Before deciding on a region, check the current county-specific legal deer, access type and whether the area's public-hunting dates actually overlap the trip. Neither this editorial comparison nor an observed deer track proves a property is open to hunting.",
+        "Compare the intended hunt dates with the actual access window and legal game listed for that property. The Alabama Creek example above shows why a general season does not imply public access.",
       ],
       links: [
         { label: "Texas white-tailed deer species profile", href: "/wildlife-species/white-tailed-deer" },
@@ -148,8 +148,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Public-land deer hunting: walk-in and drawn hunts",
       paragraphs: [
-        "Texas has public hunting opportunities, but an Annual Public Hunting (APH) Permit is not a blanket deer permit for every public parcel. An APH Permit is separate from a valid hunting license and any required endorsements; verify the current TPWD permit price before purchasing. Each property listing specifies legal game, dates, hunting methods, parking, entry procedures and limits.",
-        "Some deer opportunities are drawn hunts, E-Postcard hunts or other permit types with applications, deadlines, fees and designated check-in conditions. State parks, national forests and WMAs cannot be treated as automatically open to general deer hunting. Read the exact area's current legal-game listing before traveling.",
+        "A $48 Annual Public Hunting (APH) Permit for 2026–27 does not grant general-season deer access to every unit. It is separate from the hunting license and required endorsements. For example, Alabama Creek WMA requires additional drawn deer permits, as shown above. Always use the exact legal-game listing.",
+        "Drawn and E-Postcard hunts may have closed application deadlines and specific check-in procedures. State parks, national forests and WMAs differ: review current program conditions before booking travel.",
         "Compare drive time, access requirements, terrain, available public-hunting dates and whether a scouting trip is permitted. On a private lease, obtain the landowner's permission and clarify boundaries, guest rules, harvest reporting and any special land-management tags.",
       ],
       links: [
