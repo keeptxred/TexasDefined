@@ -28,6 +28,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'clarksville', // October 24 dated Big Sandy district final, no invented full-season graphic.
   'cleburne', // Eight first-party 2026 Cleburne game finals through Oct 23.
   'aubrey', // Original reported 2026 results illustration replaces unrelated Colorado stock photo.
+  'comal-canyon-lake', // Original source-attributed Nov. 18 Hawks record and playoff results illustration.
   'celeste',
   'carrollton-turner',
   'carthage',
@@ -640,6 +641,7 @@ function Page() {
               mascot={identity?.mascot}
               accentHex={identityPanelAccent}
               verifiedColors={verifiedIdentityAccent ? identity?.colors : undefined}
+              canyonLake={slug === 'comal-canyon-lake'}
             />
           )}
         </div>
@@ -688,10 +690,11 @@ function Page() {
           schoolWebsite={program?.schoolWebsite}
           hasSeasonSection={!!program}
           summaryAlreadyShown={!!editorial?.season}
+          suppressCommercialOffers={slug === 'comal-canyon-lake'}
         />
       )}
 
-      {!editorial?.notice && slug !== 'frisco-lone-star' && <FootballMonetizationSlot
+      {!editorial?.notice && slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && <FootballMonetizationSlot
         surfacePath={`/texas-high-school-football-teams/${slug}`}
         hasSponsor={!!sponsorPlacement}
       />}
@@ -708,7 +711,7 @@ function Page() {
           {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
 
-      {slug !== 'frisco-lone-star' && sponsorPlacement ? (
+      {slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && sponsorPlacement ? (
         <div className="border-b border-border py-6">
           <SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} />
         </div>
@@ -764,6 +767,33 @@ function Page() {
             <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
             <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
           </div>
+        </div>
+      </section>}
+
+
+      {slug === 'comal-canyon-lake' && <section aria-labelledby="canyon-lake-playoff-guide" className="border-b border-border py-8 sm:py-10">
+        <p className="eyebrow text-primary">Canyon Lake · 2026 playoff trail</p>
+        <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">Area-round game and useful Hawks links</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-foreground">
+          Canyon Lake beat Pleasanton 49–28 in the November 13 bi-district round. The next published game is Friday, November 20 at 7 p.m.
+          against Port Lavaca Calhoun, at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. This is a neutral-site playoff,
+          not a Hawk Stadium home fixture. La Grange High School confirms online-only tickets and clear bags only for the event;
+          follow the host announcement for the specific playoff ticket link. Confirm parking and accessible access directly.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+          <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Canyon Lake home-game tickets ↗</a>
+          <a href="https://clhs.comalisd.org/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School athletics &amp; schedules ↗</a>
+          <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Playoff host notice &amp; ticket link ↗</a>
+          <a href="https://www.lagrangeleopardsathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Leopard Stadium and clear-bag rules ↗</a>
+          <a href="https://txhsfb.net/?p=29640" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">November 20 playoff pairings ↗</a>
+          {districtPath && <Link to={districtPath} className="text-primary underline underline-offset-4">2026 District 13 programs →</Link>}
+          <Link to="/texas-high-school-football-teams/comal-davenport" className="text-primary underline underline-offset-4">Davenport Wolves →</Link>
+          <Link to="/texas-high-school-football-teams/austin-johnson" className="text-primary underline underline-offset-4">Austin LBJ Jaguars →</Link>
+          <Link to="/texas-high-school-football-teams/fredericksburg" className="text-primary underline underline-offset-4">Fredericksburg Battlin’ Billies →</Link>
+          <Link to="/texas-high-school-football-teams/kerrville-tivy" className="text-primary underline underline-offset-4">Kerrville Tivy Antlers →</Link>
+          <Link to="/texas-high-school-football-teams/austin-travis" className="text-primary underline underline-offset-4">Austin Travis Rebels →</Link>
+          <Link to="/texas-high-school-football-teams/austin-northeast" className="text-primary underline underline-offset-4">Austin Northeast Raiders →</Link>
+          <Link to="/county/comal" className="text-primary underline underline-offset-4">Comal County guide →</Link>
         </div>
       </section>}
 
@@ -1136,7 +1166,7 @@ function Page() {
         </div>
       </section>
 
-      {slug === 'frisco-lone-star' && <section aria-label="Independent page sponsors and TexasDefined shop" className="border-b border-border py-8">
+      {(slug === 'frisco-lone-star' || slug === 'comal-canyon-lake') && <section aria-label="Independent page sponsors and TexasDefined shop" className="border-b border-border py-8">
         {!editorial?.notice && <FootballMonetizationSlot
           surfacePath={`/texas-high-school-football-teams/${slug}`}
           hasSponsor={!!sponsorPlacement}
@@ -1320,6 +1350,7 @@ function FootballIdentityPanel({
   mascot,
   accentHex,
   verifiedColors,
+  canyonLake = false,
 }: {
   footballName: string;
   alignment: string;
@@ -1327,13 +1358,21 @@ function FootballIdentityPanel({
   mascot?: string;
   accentHex?: string;
   verifiedColors?: string;
+  canyonLake?: boolean;
 }) {
   return (
     <figure className="min-w-0">
       <div
         className="relative overflow-hidden border border-border bg-foreground text-background"
-        style={accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
+        style={canyonLake ? {
+          minHeight: 240,
+          borderTopWidth: 6,
+          borderTopColor: '#D6B35F',
+          backgroundColor: '#123B2A',
+          backgroundImage: 'linear-gradient(135deg, #123B2A, #246A46 60%, #154631)',
+        } : accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
       >
+        {canyonLake && <><img src="/images/high-school-football/comal-canyon-lake-2026.svg" alt="" aria-hidden="true" width={1600} height={900} loading="eager" decoding="async" className="absolute inset-0 h-full w-full object-cover" /><div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(11,31,24,.95) 0%, rgba(13,37,26,.89) 38%, rgba(9,40,29,.38) 100%)' }} /></>}
         <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
           <div>
@@ -1347,7 +1386,7 @@ function FootballIdentityPanel({
         </div>
       </div>
       <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
-        Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.
+        {canyonLake ? 'Original green-and-gold TexasDefined Hill Country football-field illustration: no school crest, mascot artwork, player likeness or unlicensed school photograph.' : 'Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.'}
         {verifiedColors ? <> The accent uses a restrained TexasDefined palette interpretation of the sourced school colors ({verifiedColors}); it is not an official school brand hex.</> : null}
       </figcaption>
     </figure>
