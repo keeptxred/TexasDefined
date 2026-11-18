@@ -88,7 +88,7 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
             '\n## Current quality-gated TexasDefined publication readiness (read-only)\n'+
             'Ready-view records: '+q.rawEligible+'; safe and current: '+q.eligible+
-            '; held or stale: '+q.held+'; selected: '+q.selected+
+            '; held or stale: '+q.held+'; hold reasons: '+JSON.stringify(q.heldReasons || {})+'; selected: '+q.selected+
             '; published in this workflow: '+q.published+'\n');
           console.log(JSON.stringify(q));
           NODE
