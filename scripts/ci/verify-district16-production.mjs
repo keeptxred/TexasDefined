@@ -1,3 +1,4 @@
+import { retryTransientProduction5xx } from './retry-transient-production-5xx.mjs';
 import assert from 'node:assert/strict';
 // Source-dated SSR acceptance on the direct Worker and the public custom domain.
 // This fails deployment when a healthy HTTP 200 actually serves an old district template.
@@ -6,7 +7,7 @@ const origins=['https://texasdefined-site.freddy-coppola.workers.dev','https://t
 async function verify(origin){
   const url=new URL(pathname,origin);
   url.searchParams.set('district16_live',(process.env.GITHUB_SHA || 'manual').slice(0,16));
-  const response=await fetch(url,{redirect:'follow',cache:'no-store',signal:AbortSignal.timeout(30000),headers:{accept:'text/html','cache-control':'no-cache, no-store, max-age=0',pragma:'no-cache','user-agent':'TexasDefined-D16-Live-Acceptance'}});
+  const response=await retryTransientProduction5xx(() => fetch(url,{redirect:'follow',cache:'no-store',signal:AbortSignal.timeout(30000),headers:{accept:'text/html','cache-control':'no-cache, no-store, max-age=0',pragma:'no-cache','user-agent':'TexasDefined-D16-Live-Acceptance'}}));
   assert.equal(response.status,200,origin+' HTTP status');
   assert.notEqual(response.headers.get('cf-mitigated'),'challenge',origin+' challenged');
   const html=await response.text();

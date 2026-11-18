@@ -4,6 +4,7 @@
  * These are NOT new generated URLs or a sitewide audit. The original article's
  * separate canonical/UTM check lives in verify-el-paso-fredericksburg-release.
  */
+import { retryTransientProduction5xx } from './retry-transient-production-5xx.mjs';
 const canonicalOrigin = "https://texasdefined.com";
 const directWorkerOrigin = "https://texasdefined-site.freddy-coppola.workers.dev";
 const sample = [
@@ -103,14 +104,15 @@ export async function retryOneAuthorityTransport(action, pause = ms => new Promi
   }
 }
 async function fetchPage(url, ordinaryVisitor = false) {
-  return retryOneAuthorityTransport(() => fetch(url, {
+  return retryTransientProduction5xx(() => retryOneAuthorityTransport(() => fetch(url, {
     headers: ordinaryVisitor
       ? { "user-agent": "Mozilla/5.0 (compatible; TexasDefined-Camping-Visitor-Acceptance/1.0)", accept: "text/html" }
       : headers,
     redirect: "error",
     cache: "no-store",
     signal: AbortSignal.timeout(30000),
-  }));
+  })));
+
 }
 async function check(path, markers, origin, expectedNoindex=false, ordinaryVisitor=false) {
   const url = new URL(path, origin);

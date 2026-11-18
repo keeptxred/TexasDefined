@@ -517,8 +517,41 @@ jobs:
             echo "::notice title=Historical paths only::Source $prior_sha/$source_worker verified independently. The exact outgoing Worker is independently probed anew; no publication or byte proof is transferred without verification."
             restored=1
           fi
+          # Nov18 55c0 is a *different*, independently observed active Worker.
+          # Source run 44223004831 deployed successfully and passed direct+canonical
+          # health and both-origin old/new SHA asset probes, but FAILED after publish
+          # because District 16 and Boerne saw unrelated intermittent canonical 500s.
+          # Verify the exact immutable GitHub run/job failures, then use a proven older
+          # source *only as paths*. Reconfirm the outgoing UUID and original bytes
+          # on BOTH origins; do not restate the failed run as successful.
+          if [[ "$restored" != 1 && "$EXPECTED_ACTIVE_WORKER_VERSION" == '55c0e4a9-48ec-4e2b-a787-ef9efd979438' ]]; then
+            if [[ "$(date -u +%s)" -gt "$(date -u -d '2026-11-21T02:29:03Z' +%s)" ]]; then
+              echo '::error title=Expired 55c0 bridge::Original-byte rescue cannot outlive the 72-hour bounded safety period.'
+              exit 1
+            fi
+            observed_run=44223004831
+            mkdir -p .artifacts
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$observed_run" > .artifacts/observed-55c0-run.json
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$observed_run/jobs?per_page=100" > .artifacts/observed-55c0-jobs.json
+            node scripts/ci/verify-55c0-predecessor-proof.mjs .artifacts/observed-55c0-run.json .artifacts/observed-55c0-jobs.json
+            node scripts/ci/verify-active-worker-asset-bridge.mjs live "$EXPECTED_ACTIVE_WORKER_VERSION"
+            prior_run=43884259995
+            prior_sha=3bb9a544e38e65d8b80ddf375ea58ddd5964b8bc
+            source_worker=64e9e06f-f80e-424c-8f85-dc6e210463ac
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$source_worker" "$prior_sha"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
+              | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
+            cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            echo "::notice title=Exact 55c0 bridge::Published-but-failed run verified. Historical asset seed is not active-Worker proof; live capture and both-origin SHA retention still mandatory."
+            restored=1
+          fi
           if [[ "$restored" != 1 ]]; then
-          while IFS=$'\t' read -r prior_run prior_sha; do
+          while read -r prior_run prior_sha; do
             [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
             [[ "$prior_run" != "$GITHUB_RUN_ID" ]] || continue
             candidate=".artifacts/prior-asset-extraction/$prior_run"
