@@ -42,7 +42,7 @@ assert.equal(facts.statewideLevy.prior, 6798734);
 assert.equal(facts.statewideLevy.current - facts.noticeLevy.proposed, 29027);
 near(250000 * facts.adoptedRate2025/100, 580.25, '250k illustration');
 near(250000 * facts.priorRate2024/100, 542.75, '2024 comparison');
-assert.match(facts.sources.districtNotice, /WestWhartonhospitaldistrictpublicnotice9\\.09\\.25\\.pdf$/);
+assert.ok(facts.sources.districtNotice.endsWith('/WestWhartonhospitaldistrictpublicnotice9.09.25.pdf'));
 for (const [name, link] of Object.entries(facts.sources)) assert.match(link, /^https:\/\//, `${name} official source URL`);
 for (const marker of [
   'west of the Colorado River', 'El Campo Memorial Hospital', '2025 adopted total',
