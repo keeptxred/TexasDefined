@@ -434,7 +434,7 @@ export function qualifyPriorDeployJob(payload) {
       'if (!isTransientNetworkFailure(err)) throw err;',
       'await pause(1000);',
       'return await action();',
-      'return retryOneAuthorityTransport(() => fetch(url,',
+      'return retryTransientProduction5xx(() => retryOneAuthorityTransport(() => fetch(url,',
       '"ECONNRESET"',
       'if(response.status!==200',
       'hasNoindex(html,response.headers.get("x-robots-tag"))',
