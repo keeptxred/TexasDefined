@@ -78,7 +78,11 @@ for (const marker of [
   "Read the related TexasDefined guide",
 ]) check(renderer.includes(marker), `Category rendering is missing source/visitor usability feature: ${marker}`);
 check(!renderer.includes('This analysis compares historical and institutional sources. It does not represent first-hand'), "Remove repeated generic disclaimer in favor of record-level sourcing.");
-check(metadata.includes('dateModified: "2026-11-16"'), "Update structured modification date when content materially changes.");
+check(metadata.includes('["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"].includes(category?.slug ?? "") ? "2026-11-17" : "2026-11-16"'), "Material Nov17 research revisions must update only five affected chapter dates.");
+check(Object.keys(notes).length >= 100, "Preserve the expanded 100+ researched entry records rather than silently reverting source work.");
+for (const [id, marker] of [[105, "2026"], [117, "closed"], [102, "parish"], [94, "Dealey Plaza"], [213, "warm season"], [234, "National Weather Service"]]) {
+  check((notes[id]?.fact ?? "").includes(marker) || (notes[id]?.usefulFor ?? "").includes(marker), `Expanded visit/conservation fact missing for entry ${id}: ${marker}`);
+}
 for (const [id, needle] of [
   [88, "Caddo Nation"], [93, "Mission Control"], [123, "Reconstruction"],
   [130, "Elmgreen"], [146, "never cross flooded"], [185, "General Granger"],
