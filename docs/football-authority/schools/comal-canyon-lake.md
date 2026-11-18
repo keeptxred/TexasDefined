@@ -1,41 +1,30 @@
-# Canyon Lake High Hawks Football | 2026 4A Division I District 13 — Batch011 first-five source dossier
+# Canyon Lake Hawks 2026 — source dossier and authority release gate
 
-**Research timestamp:** 2026-10-29. **Stage:** Original school-specific source editorial authored on an unmerged feature branch. NOT YET merged/deployed, not independently Chrome VERIFIED, no live W/L feed authorization or photo/mark rights.
+**Canonical:** https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake  
+**Latest editorial research:** November 18, 2026. **Status:** research-authored and source-linked; deployment and live Chrome certification must be validated separately. Replaces the outdated October 29 generic Batch011 dossier.
 
-## Identity, 2026–28 UIL alignment and exact campus
+## School and program facts
+- **Identity:** Canyon Lake High School Hawks, Comal ISD, Fischer in Comal County. The campus is at 8555 FM 32, but that postal address is not a verified stadium entrance. [Texas School Report Cards](https://txschools.gov/?id=046902003&view=school).
+- **Colors:** Green and Gold. [Canyon Lake school alma mater and fight song](https://clhs.comalisd.org/apps/pages/alma_mater). Original TexasDefined graphic uses a green/gold field motif rather than an unlicensed school seal, mascot or photograph.
+- **Coach:** Sam Parker, reported appointed in January 2024 by [Dave Campbell's Texas Football](https://www.texasfootball.com/article/2024/01/25/parker); 2026 regional reporting identifies him as Hawks head coach. Canyon Lake's own athletics staff page uses the formal name Lawrence Parker and athletic coordinator title; do not conflate coach appointments with the staff page role. [School athletics staff](https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2691168&type=u&uREC_ID=2799055).
+- **UIL alignment:** 2026–28 Class 4A Division I District 13 [UIL official PDF](https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf). Do not merge with New Braunfels Canyon High School's 6A Cougars.
+- **Historical school founding:** Opened August 6, 2007 with freshman and sophomore grades [school history](https://clhs.comalisd.org/apps/pages/clhs_history).
 
-Canyon Lake High Hawks football belongs to Fischer, Comal County and the 2026–28 UIL 4A Division I District 13. Canyon Lake High's Hawks are based in Fischer, and the campus address is 8555 FM 32. The school-run athletics-coordinator profile uses the legal display Lawrence Parker and the name Sam Parker. That distinction matters because abbreviated third-party rosters can obscure which role and season they refer to. The available first-party page validates athletic-coordinator identity but does not by itself confirm a fresh head-football-coach appointment, and this profile does not invent one. Canyon Lake also must not be conflated with New Braunfels Canyon High's Cougars or Davenport's Wolves.
+## Dated 2026 results and playoff schedule
+The November 18 editorial score snapshot is **8–2 overall** including the November 13 playoff win, and **6–1 in district**. Nine regular-season finals (7 wins, 2 losses) plus one November 13 bi-district win **49–28 over Pleasanton** produce the ten listed finals. The source-attributed schedule is [MaxPreps' 2026 Canyon Lake varsity results](https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/). This is factual reporting, not a licensed live score feed or automatic status guarantee.
 
-- **School/county versus stadium:** 8555 FM 32, Fischer, TX 78623 — school address, not a verified stadium gate
-- **Campus source:** [School/TEA official profile](https://txschools.gov/?id=046902003&view=school); no source establishes a specific football spectator gate or ADA entrance.
-- **UIL source:** 2026–28 classification and district are independently determined from the official UIL alignment in the editorial's milestones.
-- **School-specific source:** Canyon Lake High's Hawks are based in Fischer, and the campus address is 8555 FM 32. The school-run athletics-coordinator profile uses the legal display Lawrence Parker and the name Sam Parker. That distinction matters because abbreviated third-party rosters can obscure which role and season they refer to. The available first-party page validates athletic-coordinator identity but does not by itself confirm a fresh head-football-coach appointment, and this profile does not invent one. Canyon Lake also must not be conflated with New Braunfels Canyon High's Cougars or Davenport's Wolves. [Dated primary context](https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2691168&type=u&uREC_ID=2799055).
+The next published game is the **Friday, November 20, 2026, 7 p.m. area round** against **Port Lavaca Calhoun at Leopard Stadium in La Grange**, a neutral site, not a Hawk Stadium campus game. Confirm with host and [regional playoff pairings](https://txhsfb.net/?p=29640).
 
-## Source-grounded program milestones
+The three most recent district games (Fredericksburg 50–32, Tivy 53–50, Austin LBJ 50–40) total **153 Hawks points for, 122 points against**. The source discrepancy for September 11 vs Creek View is disclosed: MaxPreps records **54–18** but another regional capsule lists **55–18**. The published table uses the single dated MaxPreps schedule rather than silently combining providers.
 
-- **Campus athletics — Lawrence Parker (Sam Parker) is listed as athletic coordinator:** Canyon Lake's official school page names Lawrence Parker and displays Sam Parker for the athletics-coordinator profile. The title alone is not proof of every 2026 varsity coaching responsibility. [Source](https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2691168&type=u&uREC_ID=2799055).
-- **School identity — Hawks program based in Fischer:** The Texas school report card identifies Canyon Lake HS at 8555 FM 32 in Fischer; Comal ISD separately lists the Hawks among its varsity athletic programs. [Source](https://txschools.gov/?id=046902003&view=school).
-- **2026–28 — 4A Division I District 13:** The UIL alignment puts Canyon Lake in a different competition group from Canyon High's 6A Cougars. [Source](https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf).
+[Canyon Lake's October 23 school calendar](https://clhs.comalisd.org/apps/events/2026/10/23/59963650/?id=0) identifies **Hawk Stadium** for that dated home game only. Check individual event venues, parking, accessibility and ticket terms; [school game tickets](https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906) and [school athletics schedules](https://clhs.comalisd.org/) remain the official visitor paths.
 
-## Practical visitor and compliance notes
+## Authority and copyright safeguards
+Unique original team reporting, school founding, 2026 schedule and standings interpretation, bi-district and area-round coverage, verified colors, coaching attribution, school-linked sources, related opponent programs, district alignment, Comal County and school game-night links appear before commercial offers. Custom football-field and reported-form graphics avoid third-party image rights conflicts. Do not download/reuse football photographer, school logo or student photo assets solely because the files are publicly viewable. Do not imply TexasDefined has school authorization.
 
-- Canyon Lake High Hawks football belongs to Fischer, Comal County and the 2026–28 UIL 4A Division I District 13. Every present-season classification statement is tied to the UIL's official alignment, not a previous-year bracket.
-- Canyon Lake High's Hawks are based in Fischer, and the campus address is 8555 FM 32. The school-run athletics-coordinator profile uses the legal display Lawrence Parker and the name Sam Parker. That distinction matters because abbreviated third-party rosters can obscure which role and season they refer to. The available first-party page validates athletic-coordinator identity but does not by itself confirm a fresh head-football-coach appointment, and this profile does not invent one. Canyon Lake also must not be conflated with New Braunfels Canyon High's Cougars or Davenport's Wolves.
-- Practical visitor research starts with the Canyon Lake High campus or district athletics site (https://www.comalisd.org/apps/pages/athletics). A published campus address does not identify an exact stadium entrance, spectator ticket gate, accessible seating or game-night parking. Confirm with the event host rather than treating the school address as a stadium.
-- This independent TexasDefined guide does not reproduce official school marks or student photographs, infer full 2026 win-loss records from a fixture calendar, or copy an unlicensed provider's scores. Current staffing and policies may change; the dated references and UIL alignment remain visible so readers can verify them.
+The existing page canonical, WebPage / SportsTeam / FAQ / breadcrumb structured data and roster profile index protections are preserved. Specific game venue/ticket claims are qualified as scheduled and subject to changes. Source checks are not a substitute for exact live page and mobile layout certification.
 
-## Five school-specific reader questions
+## Required refresh and release checks
+The existing scheduled `.github/workflows/check-football-authority-official-sources.yml` includes the single school official-source monitoring entry in `docs/football-authority/official-source-watch.json`, now due **2026-11-21** immediately after the November 20 game. It watches source availability/fingerprints with bounded cohorts, not automatically licensed sports scores. A post-game editorial correction must verify the final, elimination/advancement, new fixture and any venue/ticket changes; never allow a played fixture to remain presented as upcoming without review.
 
-**Are the Canyon Lake Hawks the same as Canyon Cougars?** No. Canyon Lake High is in Fischer and plays in 4A Division I District 13; Canyon High in New Braunfels is a distinct Comal ISD 6A program.
-
-**Who is listed as Canyon Lake's athletic coordinator?** The current official school profile names Lawrence Parker and displays Sam Parker. The page is sourced as an athletics coordinator entry, not an unsupported football-head-coach certification.
-
-**What is the 2026 UIL district?** The UIL places Canyon Lake in 4A Division I District 13 for 2026–28.
-
-**Where is the school?** Texas's school report card lists 8555 FM 32 in Fischer. Check the event host for the actual varsity football location, parking and entrance.
-
-**Are complete 2026 scores or ticket prices included?** No unsourced full 2026 record, license-restricted score feed, event ticket inventory or gate instructions are asserted.
-
-## Release, rights and missing-evidence gates
-
-The page must pass a protected Merge Gate, successful exact-source Cloudflare production release and **three non-skipped Chrome viewport cases at 1366, 390 and 320 pixels**, including title/H1/canonical/schema, usable mobile reflow, all county-to-school reciprocal links, sitemap discovery and screenshot artifacts. Technical evidence and approval to use a school seal, mascot illustration, logo, student/player photograph or third-party live scores are separate. No source page listed here constitutes permission to reuse an official photo or scrape a live game-data feed. No complete 2026 season record, ticket inventory, stadium access instruction or manual WCAG result is asserted by this source dossier.
+`node scripts/ci/validate-comal-canyon-lake-authority.mjs` protects 8–2/6–1 arithmetic, school-specific original image, missing-source regressions, sponsor placement, school colors, route canonical and review date. It is integrated with protected football/data validation. Production completion additionally requires clean merge tests and an exact Worker-version live page verification at desktop, 390px and 320px, with canonical, indexability, source links, FAQ, schema, and no horizontal overflow.
