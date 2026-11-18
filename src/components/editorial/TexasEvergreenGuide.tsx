@@ -51,6 +51,13 @@ type GuideImage = {
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-tall-tales-folklore": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pecos_Bill%2C_The_Century_Magazine%2C_October_1923.jpg?width=900",
+    alt: "Elmer Hader's 1923 illustrated depiction of Pecos Bill from The Century Magazine",
+    caption: "An October 1923 magazine illustration by Elmer Hader accompanies the first known literary appearance of Pecos Bill; it documents publication, not proof of an earlier oral tradition.",
+    credit: "Elmer Hader · 1923 · public domain (United States) · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Pecos_Bill,_The_Century_Magazine,_October_1923.jpg",
+  },
   "texas-dance-halls-honky-tonks": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gruene_hall.jpg?width=1200",
     alt: "Historic white wooden exterior of Gruene Hall in Gruene, New Braunfels, Texas",
@@ -456,6 +463,41 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           </figcaption>
         </figure> : null}
 
+        {hasHomecomingMumSupplies ? <figure className="border-b border-border py-9" aria-labelledby="mum-diagram-heading">
+          <p className="eyebrow text-primary">Construction reference</p>
+          <h2 id="mum-diagram-heading" className="mt-2 font-display text-3xl">Identify the layers before you build</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This original schematic shows the order of parts and balance points; it is an illustration, not a photograph or a universal template. Sizes, hardware and school customs vary.</p>
+          <svg viewBox="0 0 800 490" role="img" aria-label="Illustrated homecoming mum: artificial chrysanthemum above layered ribbons, decorated braids and the two attachment points on the rear backing" className="mx-auto mt-6 block h-auto max-w-full rounded-md border border-border bg-stone-50" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="mum-ribbon-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#b63a3a"/><stop offset="1" stopColor="#7c1717"/></linearGradient></defs>
+            <rect x="0" y="0" width="800" height="490" rx="10" fill="#fcfaf6"/>
+            <path d="M291 205 L320 447 L365 447 L367 203Z" fill="url(#mum-ribbon-bg)"/>
+            <path d="M371 200 L386 447 L420 447 L425 205Z" fill="#c89a48"/>
+            <path d="M425 201 L438 447 L485 447 L508 200Z" fill="#9d2626"/>
+            <path d="M315 211 L350 445" fill="none" stroke="#f7e8c4" strokeWidth="6" strokeDasharray="15 8"/>
+            <path d="M455 215 Q417 257 455 302 T455 395" fill="none" stroke="#f3e2c2" strokeWidth="10"/>
+            <path d="M460 216 Q422 258 460 303 T460 396" fill="none" stroke="#b48529" strokeWidth="3"/>
+            <circle cx="400" cy="168" r="85" fill="#c18a30" opacity=".25"/>
+            {Array.from({length:14}, (_,i) => <ellipse key={i} cx="400" cy="169" rx="28" ry="75" fill={i%2 ? "#f8e4b1" : "#e0b861"} stroke="#a77929" strokeWidth="2" transform={`rotate(${i*360/14} 400 169)`} />)}
+            <circle cx="400" cy="169" r="33" fill="#b88a2b" stroke="#78551e" strokeWidth="4"/>
+            <circle cx="400" cy="169" r="16" fill="#f5db91"/>
+            <rect x="390" y="73" width="23" height="19" rx="6" fill="#483b31"/>
+            <rect x="390" y="243" width="23" height="19" rx="6" fill="#483b31"/>
+            <path d="M250 78 H341 L373 91" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="29" y="69" fontSize="23" fontWeight="bold" fill="#2d2925">1. Flower & backing</text>
+            <text x="29" y="98" fontSize="16" fill="#504943">Center the lightweight flower</text>
+            <path d="M250 280 H294 L315 310" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="29" y="269" fontSize="23" fontWeight="bold" fill="#2d2925">2. Ribbon field</text>
+            <text x="29" y="295" fontSize="16" fill="#504943">Measure the full drop first</text>
+            <path d="M530 280 H590" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="590" y="269" fontSize="23" fontWeight="bold" fill="#2d2925">3. Braids</text>
+            <text x="590" y="295" fontSize="16" fill="#504943">Decorate without twisting</text>
+            <path d="M417 82 H525 L566 86" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="563" y="61" fontSize="21" fontWeight="bold" fill="#2d2925">Attachment</text>
+            <text x="563" y="86" fontSize="16" fill="#504943">Reinforce both points</text>
+            <text x="28" y="464" fontSize="15" fill="#62574b">Not to scale • Test the wearer’s comfort before adding heavy ornaments</text>
+          </svg>
+          <figcaption className="mt-3 text-sm leading-7 text-muted-foreground">The rear attachment points are shown schematically, not as a recommendation for specific pins or adhesives. For actual construction, choose secure hardware appropriate to the finished piece, cover sharp edges and follow campus rules.</figcaption>
+        </figure> : null}
         <div className="relative">
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
