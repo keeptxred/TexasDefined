@@ -40,11 +40,11 @@ test('GitHub production restores only current active Worker dual-origin SHA-veri
   assert.doesNotMatch(wf,/if \[\[ "\$deploy_conclusion" != "success" \]\]/);
 });
 
-test('one-time observed Worker bridge cannot impersonate a successful active release or disable byte safety', () => {
+test('two exact observed Worker bridges cannot impersonate a successful release or disable byte safety', () => {
   const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
-  const begin=wf.indexOf("if [[ \"$restored\" != 1 && \"$EXPECTED_ACTIVE_WORKER_VERSION\" == '0f9a146d-7b91-45d2-b1df-9813c80326e8' ]]");
+  const begin=wf.indexOf("if [[ \"$restored\" != 1 && ( \"$EXPECTED_ACTIVE_WORKER_VERSION\" == '0f9a146d-7b91-45d2-b1df-9813c80326e8' || \"$EXPECTED_ACTIVE_WORKER_VERSION\" == 'c211c0ca-940b-4bf9-84b3-4d363cc5120c' ) ]]");
   const end=wf.indexOf('          if [[ "$restored" != 1 ]]; then',begin);
-  assert.ok(begin>0&&end>begin,'exact original 0f9 Worker is the only bridged version');
+  assert.ok(begin>0&&end>begin,'Only exact original 0f9/c211 Workers have the expiring bounded bridge');
   const step=wf.slice(begin,end);
   assert.match(step,/2026-11-19T14:32:31Z/,'72-hour recovery limit');
   assert.match(step,/prior_run=43884259995/);
@@ -52,6 +52,8 @@ test('one-time observed Worker bridge cannot impersonate a successful active rel
   assert.match(step,/source_worker=64e9e06f-f80e-424c-8f85-dc6e210463ac/);
   assert.match(step,/verify-prior-asset-handoff\.mjs/);
   assert.match(step,/verify-prior-deploy-job-eligibility\.mjs/);
+  assert.match(step,/verify-active-worker-asset-bridge\.mjs live/,'currently live Worker checked on both origins');
+  assert.match(wf,/verify-active-worker-asset-bridge\.mjs snapshot/,'captured outgoing HTML checked again before retention');
   assert.match(step,/asset-handoff-snapshot\.json/);
   assert.doesNotMatch(step,/"\$EXPECTED_ACTIVE_WORKER_VERSION" "\$prior_sha"/,
     'prior report must be verified against original source Worker, never impersonate 0f9');
