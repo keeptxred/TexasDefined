@@ -1368,6 +1368,7 @@ function FootballIdentityPanel({
           backgroundImage: 'linear-gradient(135deg, #123B2A, #246A46 60%, #154631)',
         } : accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
       >
+        {canyonLake && <><img src="/images/high-school-football/comal-canyon-lake-2026.svg" alt="" aria-hidden="true" width={1600} height={900} loading="eager" decoding="async" className="absolute inset-0 h-full w-full object-cover" /><div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(11,31,24,.95) 0%, rgba(13,37,26,.89) 38%, rgba(9,40,29,.38) 100%)' }} /></>}
         <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
           <div>
@@ -1381,7 +1382,7 @@ function FootballIdentityPanel({
         </div>
       </div>
       <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
-        {canyonLake ? 'Original green-and-gold TexasDefined football-field illustration: no school crest, mascot artwork, player likeness or unlicensed school photograph.' : 'Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.'}
+        {canyonLake ? 'Original green-and-gold TexasDefined Hill Country football-field illustration: no school crest, mascot artwork, player likeness or unlicensed school photograph.' : 'Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.'}
         {verifiedColors ? <> The accent uses a restrained TexasDefined palette interpretation of the sourced school colors ({verifiedColors}); it is not an official school brand hex.</> : null}
       </figcaption>
     </figure>
