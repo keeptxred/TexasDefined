@@ -9,6 +9,7 @@ const ui = read("src/components/fishing/ShowcaseLakeGuide.tsx");
 const sitemap = read("src/data/fishing/sitemap.ts");
 const gate = read("src/data/fishing/showcase-section-index-readiness.ts");
 const conroeServer = read("src/data/fishing/lake-conroe-page-data.server.ts");
+const conroeSnapshot = read("src/data/fishing/lake-conroe-source-research.ts");
 const conroeUi = read("src/components/fishing/LakeConroeGuide.tsx");
 
 const match = source.match(/export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch> = (\{[\s\S]*\});\s*$/);
@@ -59,9 +60,18 @@ for (const token of ["LAKE_AUTHORITY_RESEARCH_WAVE1", "camping: researched.campi
 for (const token of ["row.sourceUrl", "pageData.sectionResearch?.reviewedAt", "pageData.sectionResearch.reviewedAt"]) if (!ui.includes(token)) errors.push(`Fishing UI fails to show individual research: ${token}`);
 for (const token of ["LAKE_AUTHORITY_RESEARCH_WAVE1", "section === \"regulations\"", "section === \"camping\"", "section === \"nearby\""]) if (!sitemap.includes(token)) errors.push(`Sitemap missing truthful article-section lastmod: ${token}`);
 if (!gate.includes('lake.sectionResearch?.reviewedAt')) errors.push("Regulations lack researched-source index eligibility.");
-for (const marker of ["LAKE_AUTHORITY_RESEARCH_WAVE1", '["lake-conroe"]', "regulations: research.regulations.map", "camping: research.camping.map", "nearby: [...lakeConroeNearby, ...research.nearby]"]) if (!conroeServer.includes(marker)) errors.push(`Dedicated Lake Conroe loader fails to publish researched sections: ${marker}`);
+for (const marker of ["LAKE_CONROE_RESEARCH", "regulations: research.regulations.map", "camping: research.camping.map", "nearby: [...lakeConroeNearby, ...research.nearby]"]) if (!conroeServer.includes(marker)) errors.push(`Dedicated Lake Conroe loader fails to publish researched sections: ${marker}`);
 for (const marker of ["pageData.sectionResearch.reviewedAt", "row.sourceUrl", "item.href"]) if (!conroeUi.includes(marker)) errors.push(`Lake Conroe page missing direct official source attribution: ${marker}`);
 if (!dossiers["lake-conroe"]) errors.push("Dedicated Lake Conroe research dossier missing.");
+const conroeExtracted = conroeSnapshot.match(/export const LAKE_CONROE_RESEARCH: LakeAuthorityResearch = (\{[\s\S]*\});\s*$/);
+if (!conroeExtracted) errors.push("Conroe cold-SSR snapshot must retain a directly parseable source dossier.");
+else {
+  try {
+    const compact = JSON.parse(conroeExtracted[1]);
+    if (JSON.stringify(compact) !== JSON.stringify(dossiers["lake-conroe"])) errors.push("Lake Conroe cold-SSR source snapshot drifts from canonical 72-lake evidence: update together before publishing.");
+  } catch (error) { errors.push("Conroe cold-SSR research snapshot invalid: " + String(error)); }
+}
+if (conroeServer.includes("lake-authority-research-wave1")) errors.push("Lake Conroe SSR must not import the statewide 290 KB dossier module.");
 
 // Annual Outdoor Annual / fish-harvest research guard. On August 15 each year,
 // require an actual dated source review before the September regulation rollover.
