@@ -7,6 +7,7 @@ on:
       - 'src/components/property/WestWhartonHospitalDistrictAuthority.tsx'
       - 'src/components/property/TaxingUnitRatePage.tsx'
       - 'src/routes/property-tax.taxing-unit.$unit.tsx'
+      - 'src/routes/property-tax.county.$county.tsx'
       - 'scripts/data/validate-west-wharton-hospital-district.mjs'
       - '.github/workflows/verify-west-wharton-hospital-tax.yml'
       - 'package.json'
