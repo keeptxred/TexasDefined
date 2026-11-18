@@ -81,6 +81,26 @@ for (const marker of ['verifiedTrips.map((trip)', 'verifiedTrips[index].official
   if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
 }
 
+// The licensed real-place photograph must be a visible, correctly attributed
+// visitor asset as well as an image-rights assertion in the JSON-LD head.
+for (const marker of [
+  'const editorialHeroImage =',
+  'Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg',
+  'creator: "Oleg Yunakov"',
+  'license: "https://creativecommons.org/licenses/by-sa/4.0/"',
+  'acquireLicensePage: editorialHeroImage.source',
+  'copyrightNotice:',
+  'imageAlt: editorialHeroImage.alt',
+]) if (!route.includes(marker)) errors.push('Missing paddling photo provenance in head: ' + marker);
+for (const marker of [
+  'Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg',
+  'Oleg Yunakov',
+  'CC BY-SA 4.0',
+  'https://creativecommons.org/licenses/by-sa/4.0/',
+  'Display crop only',
+  'fetchPriority="high"',
+]) if (!lazyRoute.includes(marker)) errors.push('Missing paddling photo rights or visible media: ' + marker);
+
 if (errors.length) {
   console.error('Texas paddling authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
