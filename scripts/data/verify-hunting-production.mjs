@@ -11,6 +11,7 @@ const deerEditorialReviewed = /reviewedOn:\s*"([^"]+)"/.exec(fs.readFileSync('sr
 if (!/^20\d\d-\d\d-\d\d$/.test(deerEditorialReviewed ?? '')) throw new Error('Missing trustworthy deer editorial modified date');
 const deerEditorialDateLabel = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' })
   .format(new Date(deerEditorialReviewed + 'T12:00:00Z'));
+const deerEditorialReviewMarker = 'Substantive guide reviewed ' + deerEditorialDateLabel;
 if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
@@ -141,6 +142,12 @@ if (process.argv.includes('--self-test')) {
   assert.equal(findDeerHeroImageTag(reordered), reordered);
   assert.equal(findDeerHeroImageTag('<img alt="White-tail in grass" loading="lazy">'), null);
   assert.equal(findDeerHeroImageTag('<script>alt="Close view of a white-tailed buck"</script>'), null);
+  // The production text matcher must follow the actual visible institutional
+  // byline; do not accept a generic date appearing elsewhere on the page.
+  const authorByline = fs.readFileSync('src/components/hunting/HuntingAuthority.tsx', 'utf8');
+  assert.ok(authorByline.includes('Substantive guide reviewed {topic.reviewedLabel ?? topic.reviewedOn}'));
+  assert.equal(deerEditorialReviewMarker, 'Substantive guide reviewed ' + deerEditorialDateLabel);
+  assert.notEqual(deerEditorialReviewMarker, 'Guide reviewed ' + deerEditorialDateLabel);
   console.log('Deer full descriptive ALT image extraction contract passed offline.');
   process.exit(0);
 }
@@ -255,7 +262,7 @@ async function verify() {
   // The editorial date is independently governed. Worked 2026–27 county cases
   // deliberately disappear at the next calendar rollover until re-researched.
   const requiredDeerMarkers = [
-    'Guide reviewed ' + deerEditorialDateLabel,
+    deerEditorialReviewMarker,
     ...(deerSeasons.startYear === 2026 ? [
       'Same November weekend, three different county rulebooks',
       'Grayson County', 'Washington County', 'Gillespie County',
