@@ -23,7 +23,7 @@ const sources = [
     ["new or restored fire restriction notice", /(?:burn ban|fires? (?:are )?(?:prohibited|banned)|no (?:wood|charcoal) fires)/i],
   ] },
   { label: "Rusk County fire restrictions", url: COUNTY_FIRE, required: [
-    ["latest verified rescission", /November\s*3,?\s*2026\s*-\s*Burn\s*Ban\s*has\s*been\s*lifted/i],
+    ["latest verified rescission", /Rusk County Burn Ban Status\s+November\s*3,?\s*2026\s*-\s*Burn\s*Ban\s*has\s*been\s*lifted/i],
   ] },
   { label: "TPWD accessibility", url: ROOT + "/fees-facilities/martin-creek-lake-accessibility", required: [
     ["accessible fishing pier and island bridge", /fishing pier[\s\S]{0,140}bridge[\s\S]{0,140}wheelchair accessible/i],
