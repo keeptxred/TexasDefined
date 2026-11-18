@@ -1,0 +1,117 @@
+name: First current TPWD authority news publication - bounded live acceptance
+
+# Explicitly scoped first genuine authority-news release, requested Nov 17.
+# Does not relax unattended editorial, source, hero, owner or originality gates.
+# Runs once on this file's protected merge, or via intentional dispatch/retry.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-first-tpwd-news-20261117.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-article-publication
+  cancel-in-progress: false
+
+jobs:
+  first-authority-news:
+    if: ${{ github.repository == 'keeptxred/TexasDefined' && github.ref == 'refs/heads/main' && vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true' }}
+    environment: texasdefined-publication
+    runs-on: ubuntu-latest
+    timeout-minutes: 19
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+      TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
+      NEWSROOM_HYDRATION_URL: https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/hydrate-newsroom-source-pages
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Verify existing independent editorial and release-gating tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/data/validate-texasdefined-auto-publication.mjs
+          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs scripts/news/texasdefined-published-article-proof.test.mjs scripts/news/texasdefined-live-destination-catalog.test.mjs scripts/news/texasdefined-firstparty-evidence.test.mjs
+
+      - name: Verify NEW news/fishing authority renderer and real first-party raster are live
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const site='https://texasdefined.com';
+          const image=site+'/images/editorial/texas-chihuahua-dog-illustration.png';
+          const response=await fetch(image+'?news_renderer_probe='+Date.now(),{
+            redirect:'manual',cache:'no-store',signal:AbortSignal.timeout(25000)});
+          const body=Buffer.from(await response.arrayBuffer());
+          assert.equal(response.status,200,'The first-party raster build must be live before adding news links');
+          assert.match(response.headers.get('content-type')||'',/^image\/png/i);
+          assert.ok(body.length>=10000 && body.subarray(0,8).toString('hex')==='89504e470d0a1a0a',
+            'The published preflight PNG is not a real complete raster image');
+          for(const path of ['/fishing/species/rainbow-trout','/fishing/lakes/canyon-lake']){
+            const res=await fetch(site+path+'?news_renderer_probe='+Date.now(),{
+              redirect:'follow',cache:'no-store',signal:AbortSignal.timeout(25000)});
+            const html=await res.text();
+            assert.equal(res.status,200,'Verified authority route unavailable: '+path);
+            assert.ok(html.includes(site+path),'Authority URL has no exact real canonical: '+path);
+            assert.doesNotMatch(html,/<meta[^>]*name=["']robots["'][^>]*noindex/i);
+            console.log('LIVE_RELEVANT_AUTHORITY_200 '+path);
+          }
+          console.log('NEW_NEWS_RENDERER_RELEASE_PROVEN first_party_raster='+body.length);
+          NODE
+
+      - name: Independently select one currently qualified primary release
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=1 > /tmp/td-first-source-dry-run.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const report=fs.readFileSync('/tmp/td-first-source-dry-run.jsonl','utf8')
+            .split(/\r?\n/).filter(Boolean).map(JSON.parse).find(x=>x.mode==='dry-run');
+          if(!report || report.selected!==1 || report.ids?.[0]!==7019725
+            || report.eligible<1 || report.published!==0
+            || report.rawEligible!==report.held+report.eligible
+            || report.eligible!==report.selected+report.deferred) {
+            throw new Error('Nov 17 original first-party trout release is not independently qualified; no article may publish.');
+          }
+          console.log(JSON.stringify({selectedFeedId:7019725,eligible:report.eligible,
+            held:report.held,original:'https://tpwd.texas.gov/newsmedia/releases/?req=20261117a'}));
+          NODE
+
+      - name: Generate and publish exactly one fully verified original TPWD article
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 --feed-id=7019725 | tee /tmp/td-first-news-published.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows=fs.readFileSync('/tmp/td-first-news-published.jsonl','utf8')
+            .split(/\r?\n/).filter(Boolean).map(JSON.parse);
+          const published=rows.filter(r=>r.published===true);
+          if(published.length!==1
+            || !/^https:\/\/texasdefined\.com\/news\/[a-z0-9-]+$/.test(published[0].liveUrl||'')
+            || published[0].sourceUrl!=='https://tpwd.texas.gov/newsmedia/releases/?req=20261117a') {
+            throw new Error('Original TPWD release did not produce exactly one protected, source-attributed article.');
+          }
+          fs.writeFileSync('/tmp/td-first-published-url',published[0].liveUrl);
+          fs.writeFileSync('/tmp/td-first-published-source',published[0].sourceUrl);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'## First independently certified TexasDefined article\n'+
+            'Exact feed item: 7019725\n'+
+            'Published URL: '+published[0].liveUrl+'\n'+
+            'Original first-party source: '+published[0].sourceUrl+'\n');
+          NODE
+
+      - name: Verify real public article byline, exact source, canonical, JSON-LD, sitemap and listing
+        run: node scripts/ci/verify-texasdefined-newly-published-news.mjs "$(cat /tmp/td-first-published-url)" "$(cat /tmp/td-first-published-source)"
