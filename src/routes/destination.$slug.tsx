@@ -55,6 +55,11 @@ const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinC
 const DestinationVisitPlanner = lazy(() =>
   import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
 );
+// Draft guides remain noindex and outside public discovery, but still need
+// their source-backed FAQs rendered for editorial and browser quality review.
+const DraftAttractionAuthoritySections = lazy(() =>
+  import("@/components/editorial/DestinationAuthoritySections").then((module) => ({ default: module.DestinationAuthoritySections })),
+);
 
 const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
 
@@ -152,6 +157,9 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // exceeded the internal 90-character live audit limit after brand suffixing.
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "texas-freshwater-fisheries-center": "Texas Freshwater Fisheries Center: Hours, Fishing & Exhibits",
+  "texas-forestry-museum-lufkin": "Texas Forestry Museum Lufkin: Free Admission & Exhibits",
+  "national-ranching-heritage-center-lubbock": "National Ranching Heritage Center: Lubbock Visitor Guide",
   "galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
   "moody-gardens": "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
   "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
@@ -313,7 +321,22 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
           acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg",
         }
       : {};
-    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isGainesvilleMedalMuseum ? { telephone: "+1-940-668-3330", sameAs: "https://www.nctc.edu/museum/" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, contentUrl: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}), ...(imageRights ?? {}), ...localParkImageRights, ...magoffinImageRights, ...moodyGardensImageRights }] } : {}), ...(validGeo && !isYoakumMuseum ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
+    // Three independently verified Commons photographs: exact file, author and
+    // license are checked together before ImageObject rights are asserted.
+    const verifiedAttractionPhoto = [
+      { slug: "texas-freshwater-fisheries-center", file: "Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg", author: "Larry D. Moore", license: "https://creativecommons.org/licenses/by/4.0/" },
+      { slug: "texas-forestry-museum-lufkin", file: "Texas_Forestry_Museum%2C_Lufkin%2C_TX_IMG_8594.JPG", author: "Billy Hathorn", license: "https://creativecommons.org/licenses/by-sa/3.0/" },
+      { slug: "national-ranching-heritage-center-lubbock", file: "Longhorn_cattle_grazing._%2825111309555%29.jpg", author: "USDA NRCS Texas", license: "https://creativecommons.org/licenses/by/2.0/" },
+    ].find((photo) => destination.slug === photo.slug
+      && commonsHeroAttribution(destination.hero.src, destination.hero.credit)?.sourceUrl.endsWith(photo.file)
+      && destination.hero.credit?.includes(photo.author)
+      && commonsHeroAttribution(destination.hero.src, destination.hero.credit)?.licenseUrl === photo.license);
+    const verifiedAttractionPhotoRights = verifiedAttractionPhoto ? {
+      creator: { "@type": "Person", name: verifiedAttractionPhoto.author },
+      license: verifiedAttractionPhoto.license,
+      acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + verifiedAttractionPhoto.file,
+    } : {};
+    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isGainesvilleMedalMuseum ? { telephone: "+1-940-668-3330", sameAs: "https://www.nctc.edu/museum/" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, contentUrl: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}), ...(imageRights ?? {}), ...localParkImageRights, ...magoffinImageRights, ...moodyGardensImageRights, ...verifiedAttractionPhotoRights }] } : {}), ...(validGeo && !isYoakumMuseum ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = {
       "@type": "ItemList",
       "@id": `${url}#related-places`,
@@ -478,7 +501,8 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
+        {destination.slug === "national-ranching-heritage-center-lubbock" && <p className="mt-2 max-w-2xl text-xs leading-5 text-ink-foreground/80">Illustrative Texas ranching photograph; not taken at the National Ranching Heritage Center.</p>}
+       {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
       </Container>
 
     </section>
@@ -698,6 +722,8 @@ function DestinationPage() {
           </nav>
         )}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><Suspense fallback={null}><DestinationVisitPlanner destination={destination} /></Suspense></div>}
+        {/* Preserve real source-linked FAQ/attribution in noindex preview without enabling trip discovery. */}
+        {!isPrimaryTripPlannerDestination(destination) && ["texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"].includes(destination.slug) && <div className="mt-10"><Suspense fallback={null}><DraftAttractionAuthoritySections destination={destination} /></Suspense></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

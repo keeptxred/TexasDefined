@@ -230,7 +230,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Forestry_Museum%2C_Lufkin%2C_TX_IMG_8594.JPG?width=1600",
     alt: "The Texas Forestry Museum building in Lufkin, Texas",
     width: 1600, height: 1200,
-    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG",
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons",
   },
 
   "babe-didrikson-zaharias-museum-beaumont": {

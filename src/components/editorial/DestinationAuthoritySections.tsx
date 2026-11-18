@@ -1,4 +1,5 @@
 import type { Destination } from "@/data/types";
+import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
 import { verifiedLocalParkCredit } from "@/data/verified-local-state-park-photo-credits";
 import { shouldRenderFullDestinationAuthorityGuide } from "@/data/destination-authority-presentation";
 
@@ -45,8 +46,11 @@ export function DestinationAuthoritySections({ destination }: Props) {
   // Retain distinct FAQs and licensed photo credits here, but do not print the
   // same editorial significance, three itineraries and citations twice.
   const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination);
-  if ((!guide && !destination.visitorFaqs?.length) ||
-    (hasSeparateAuthorityGuide && !imageCredit && !destination.visitorFaqs?.length)) return null;
+  // MuseumAuthorityNetworkSection already supplies a canonical 8-question
+  // source-reviewed FAQ. Do not print a second FAQ with overlapping questions.
+  const hasUniqueVisitorFaqs = !museumAuthoritySlugs.has(destination.slug) && Boolean(destination.visitorFaqs?.length);
+  if ((!guide && !hasUniqueVisitorFaqs) ||
+    (hasSeparateAuthorityGuide && !imageCredit && !hasUniqueVisitorFaqs)) return null;
 
   return <div data-destination-authority-sections className="mt-12 space-y-12">
     {imageCredit && <section aria-label="Photograph attribution" className="border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
@@ -82,7 +86,7 @@ export function DestinationAuthoritySections({ destination }: Props) {
       </div>
     </section>}
 
-    {destination.visitorFaqs && destination.visitorFaqs.length > 0 && <section aria-labelledby="destination-visitor-faqs" className="border-t border-border pt-8">
+    {hasUniqueVisitorFaqs && destination.visitorFaqs && <section aria-labelledby="destination-visitor-faqs" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Practical questions</p>
       <h2 id="destination-visitor-faqs" className="mt-3 font-display text-3xl">Frequently asked questions about {destination.name}</h2>
       <dl className="mt-6">

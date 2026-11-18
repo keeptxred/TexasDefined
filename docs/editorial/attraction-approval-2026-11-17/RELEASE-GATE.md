@@ -1,0 +1,67 @@
+# Owner-approved attraction authority batch — release gate
+
+Owner approved **development** of three guides on 2026-11-17. This is not approval to publish new indexable routes.
+
+## Implemented on draft PR #7310
+- `src/data/approved-attraction-authority-drafts.ts`: Athens TFFC and Lubbock NRHC destination guides with official operator citations, visitor facts and FAQs.
+- `src/data/museum-expansion-statewide-wave54.ts`: expanded existing Texas Forestry Museum canonical.
+- `src/data/museum-expansion-statewide-wave3.ts`: removed duplicate legacy Forestry Museum record.
+- `src/data/museum-authority-heroes.ts`: preserved Commons exterior photograph with attribution, file and license URLs.
+- `public/museum-verification-manifest.json`: Forestry Museum retains its existing 30-day verification entry; new attraction entries are kept out to preserve exact museum dossier parity.
+- `docs/editorial/attraction-approval-2026-11-17/attraction-source-verification.json`: two new guides have independent 30-day source entries.
+- `.github/workflows/verify-approved-attraction-sources.yml`: monthly operator URL checks after merge (not yet active on main).
+- `scripts/data/validate-approved-attraction-drafts.mjs`: checks canonical uniqueness, imagery and source schedule.
+- `.github/workflows/validate-approved-attraction-drafts.yml`: PR-triggered validation.
+
+## Rights and quality decisions
+- **TFFC:** July 2025 Larry D. Moore photograph of Lake Zebco at the actual facility, CC BY 4.0. File: https://commons.wikimedia.org/wiki/File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg ; license: https://creativecommons.org/licenses/by/4.0/ . Credit includes photographer, file URL and license URL. Verify visible rendering and that any image processing honors attribution.
+- **Forestry:** November 2013 Billy Hathorn exterior photo, CC BY-SA 3.0. File: https://commons.wikimedia.org/wiki/File:Texas_Forestry_Museum,_Lufkin,_TX_IMG_8594.JPG ; license: https://creativecommons.org/licenses/by-sa/3.0/ . Verify image remains unaltered or apply ShareAlike obligations to derivatives. Verify visible credit.
+- **NRHC SAFE REPLACEMENT (2026-11-17):** Removed the Dogtrot House image of the actual NRHC site. Selected a **different-location documentary photograph of Texas Longhorn cattle**, USDA NRCS Texas, 2009, 4,012 × 2,669 original pixels. Commons file: https://commons.wikimedia.org/wiki/File:Longhorn_cattle_grazing._(25111309555).jpg; as a photo made by a U.S. federal employee in official duties it is public domain, and its Commons record also documents CC BY 2.0 (https://creativecommons.org/licenses/by/2.0/). Visible credit/license link and truthful "illustrative, not taken at the center" disclosure are mandatory. This image does **not** depict any NRHC property and is not subject to its venue-photo publication policy. Operator policy still applies to any future image of NRHC structures: https://ranchingheritage.org/wp-content/uploads/2021/07/Photo-Policy-1.pdf . An old Outlook request is an unsent draft; do not send it or revive the old restricted photo. Owner publication approval remains a distinct requirement; both new guides remain noindex/discovery-held.
+- **TFFC hours:** https://tpwd.texas.gov/fishing/tffc/hours-and-fees/ is more detailed than the overview and explicitly lists seasonal schedules and closures.
+- **NRHC group policy:** https://ranchingheritage.org/learn/adult-group-visits/ has an older footer with conflicting hours. Dedicated visitor page controls general public hours.
+
+## Before owner final approval
+1. GitHub Actions regression workflow and repository merge gate must pass, including TypeScript/build and existing destination indexing policy.
+2. Preview each page on mobile and desktop; verify canonical, no duplicate routes, no broken image URLs, source/credit visibility, JSON-LD and accessibility.
+3. Verify map coordinates and address details; reconcile the Forestry Museum ZIP discrepancy across operator pages.
+4. Verify the new off-site USDA NRCS Texas Longhorn image is visible, accurately identified as illustrative, and source/license attributed. Never restore any photograph of NRHC structures without separate written operator approval. The noindex hold is for owner publication approval, not for image-rights uncertainty.
+5. Confirm all three meet the internal 95+ authority rubric with recorded evidence; Google indexing cannot be guaranteed.
+6. Obtain **separate owner approval** before merging/publishing new indexable pages.
+
+No proprietary Viator descriptions or candidate-feed data are present in this repository note.
+
+
+## 2026-11-17 continued verification checkpoint
+
+- Earlier research checked Lake Zebco (Larry D. Moore, CC BY 4.0; 3000×2000) and the NRHC Dogtrot House (Billy Hathorn, CC BY 3.0). The NRHC building photo was subsequently **removed** and replaced with off-site USDA NRCS Texas Longhorn imagery, avoiding the NRHC publication restriction.
+- TFFC and Forestry have actual-location photographs. NRHC deliberately uses a non-venue Texas ranching context image, labeled as illustrative. All guides have official-source visitor guidance and monthly verification enrollment. Forestry includes family and accessibility details.
+- GitHub required merge gate on commit `3056ec9e636946059108be099d5996aa50396af8` failed because a route indexing guard modified a literal string expected by `validate-destination-data-integrity.mjs`; it was a source-contract regression, not a content-grade finding. Initial repair used a separate finalIndexable variable, later superseded by the shared destination-availability hold described below.mjs` accordingly in commits `b880018` and `d53c976`.
+- Await current branch-head merge gate and route-level review. Do not infer a 95+ score solely from structural checks. Do not merge without final owner publication approval.
+
+- Additional CI failure diagnosed: RV authority validator also requires the literal canonical `robots: indexable ? undefined : "noindex, follow"` contract. The route and validator were restored, and the NRHC noindex hold moved into the shared non-primary-destination gate (commits `467a6de`, `345f719`, `dc0415c`). This prevents unrelated quality guards from breaking while keeping NRHC out of indexable discovery.
+- Commons exact-site photos for TFFC and Forestry retain verified attribution. NRHC historic building image is replaced; the selected USDA NRCS Texas public-domain cattle image is off-site and contains no NRHC buildings. NRHC operator photo policy remains relevant only when future site images are contemplated.
+
+- Forestry Museum address reconciliation: official visit page lists 75904, but official contact page and THC museum record list 75901 for 1905 Atkinson Drive. Guide now uses 75901 and explicitly explains the discrepancy, directing visitors to navigate by street address. Sources: https://www.treetexas.com/visit-us ; https://www.treetexas.com/blank-5 ; https://atlas.thc.texas.gov/Details/4200000265 .
+- Forestry museum 50-year context verified against March 2026 Texas Highways feature and operator tourism coverage: https://texashighways.com/culture/history/a-forestry-museum-grows-in-east-texas/ ; https://www.tourtexas.com/attractions/texas-forestry-museum .
+
+- **Fail-closed owner approval:** Both newly authored destinations (TFFC and NRHC) are in `NON_PRIMARY_TRIP_PLANNER_SLUGS` and thus render with `noindex, follow` and remain outside ordinary discovery until explicit final owner approval. The already-existing Forestry Museum canonical remains governed by its normal indexability gate. On final approval, remove the two new slugs from the hold only after completing source/photo/SSR review. Added SSR smoke assertions for both noindex tags and all three photographer credits.
+
+## 2026-11-17 source-accuracy and preview audit amendments
+
+- The existing Forestry Museum canonical now expressly distinguishes free general admission from adult group-tour pricing ($3 per attendee for groups based outside Angelina County; free for local Angelina County groups), sourced to the operator booking form.
+- TFFC explicitly warns of Thanksgiving, Christmas Eve/Day, New Year’s Day and Easter Sunday closures, and identifies that operator-listed supplemental closure ranges omit years. Do not present those ranges as current-year dates without verification.
+- NRHC group visits: reservations for all groups over 20 require at least two weeks' notice; separately, a 25–50-person guided tour needs advance booking and a $50 group fee. The operator's group-page footer conflicts with its dedicated visiting page, and the Texas Historical Commission 4 p.m. outdoor closing notice dates to 2021; maintain the qualified call-ahead language.
+- Both new noindex draft routes now display the previously suppressed source-linked FAQs and photo-credit section while remaining excluded from search/discovery. Browser tests assert visible FAQs and the high-impact fee, closure and access facts.
+- Monthly official-source verification now checks core textual markers rather than HTTP 200 alone, including the Forestry booked-tour rate. A site redesign or changed admission rule causes a review-needed failure; it does not auto-edit published facts.
+- **Publication remains on hold for separate owner approval.** The new NRHC photo does not depict NRHC buildings, so its venue publication policy is not triggered by this selected image. The operator still requires written permission for any later photo of the actual center. No permission request is sent; no merge/indexing approval follows from these changes.
+
+- Operator group-booking page currently renders `Error: Contact form not found.` (verified 2026-11-17). The draft now directs readers to the operator-confirmed telephone `(806) 742-0498` and `ranchhc@ttu.edu`, with link to `https://ranchingheritage.org/contact-us/`. This is the operator's failure, not a TexasDefined broken form; recheck until fixed.
+- Individually sourced `visitorFacts` cards now separate the TFFC closure page from the hatchery construction page. All three guides have independent assessments, three practical visit plans and primary-source reference links.
+
+- Browser QA found an actual duplicate Forestry Museum FAQ: generic destination FAQ plus the existing museum-dossier FAQ. The generic repeat is now suppressed for canonical museum authority slugs, preserving the museum's eight source-backed questions. The museum's booked-adult-tour FAQ now states the exact $3 out-of-county/free in-county split, reviewed November 17, 2026. Regression checks require exactly one FAQ heading per targeted page.
+
+- Forestry Museum already has a full registered museum dossier (research, historical exhibits, visitor strategy, two native itineraries, eight source-checked FAQs, accessibility and cross-links). We updated its canonical dossier with the exact paid booked-tour fee, ZIP reconciliation, 1976/50th-anniversary context and operator sources; removed a redundant second generic authority-guide trip-plan set so the page does not repeat essentially the same itinerary twice. The standalone source-checked visitor-facts panel remains.
+
+## Image replacement — 2026-11-17
+
+The former Dogtrot House image, which depicted an NRHC structure, is no longer used anywhere in this PR's NRHC destination hero, attribution registry or screenshot/SSR checks. Its replacement is the 2009 USDA NRCS Texas Longhorn herd image (https://commons.wikimedia.org/wiki/File:Longhorn_cattle_grazing._(25111309555).jpg), original 4,012 × 2,669. This is **illustrative Texas ranching imagery, not the Heritage Center or any exhibit**. The Commons description states U.S. federal government public domain and alternatively CC BY 2.0; the guide credits USDA NRCS Texas and links to the file/license. No commercial building or NRHC-specific image permission is needed for this off-site photo. Recheck full image-load, truthful alt/disclosure and JSON-LD when building, and keep the separate owner release hold pending explicit approval.

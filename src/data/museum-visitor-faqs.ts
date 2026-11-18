@@ -3917,12 +3917,12 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Do Texas Forestry Museum school and adult tours require reservations?",
-      "answer": "Yes. The official tour program asks school and organized adult groups to book ahead. Sawmill, paper-mill and outdoor railway topics can be combined. The separate adult tour form lists a fee for groups from outside Angelina County.",
+      "answer": "Yes. The official tour program asks school and organized adult groups to book ahead. Sawmill, paper-mill and outdoor railway topics can be combined. The separate adult tour form lists free adult tours for Angelina County groups and $3 per person for adult groups from outside Angelina County. General museum admission remains free.",
       "verificationUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.treetexas.com/blank-6",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-11-17"
     },
     {
       "question": "Is there a museum cafeteria, restaurant or somewhere to eat a picnic?",
