@@ -789,6 +789,10 @@ function Page() {
           {districtPath && <Link to={districtPath} className="text-primary underline underline-offset-4">2026 District 13 programs →</Link>}
           <Link to="/texas-high-school-football-teams/comal-davenport" className="text-primary underline underline-offset-4">Davenport Wolves →</Link>
           <Link to="/texas-high-school-football-teams/austin-johnson" className="text-primary underline underline-offset-4">Austin LBJ Jaguars →</Link>
+          <Link to="/texas-high-school-football-teams/fredericksburg" className="text-primary underline underline-offset-4">Fredericksburg Battlin’ Billies →</Link>
+          <Link to="/texas-high-school-football-teams/kerrville-tivy" className="text-primary underline underline-offset-4">Kerrville Tivy Antlers →</Link>
+          <Link to="/texas-high-school-football-teams/austin-travis" className="text-primary underline underline-offset-4">Austin Travis Rebels →</Link>
+          <Link to="/texas-high-school-football-teams/austin-northeast" className="text-primary underline underline-offset-4">Austin Northeast Raiders →</Link>
           <Link to="/county/comal" className="text-primary underline underline-offset-4">Comal County guide →</Link>
         </div>
       </section>}
