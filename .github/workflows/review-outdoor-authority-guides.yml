@@ -10,6 +10,7 @@ on:
       - 'src/routes/texas-stargazing-guide*'
       - 'scripts/data/validate-*-authority.mjs'
       - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
+      - 'scripts/ci/verify-outdoor-photography-live.mjs'
       - '.github/workflows/review-outdoor-authority-guides.yml'
   workflow_dispatch:
   schedule:
@@ -39,12 +40,17 @@ jobs:
       - name: Verify official facts and live canonical pages
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
+      - name: Prove licensed real-location photos and byte-identical delivery on both origins
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/verify-outdoor-photography-live.mjs
       - name: Retain audit evidence
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-artifact@v4
         with:
           name: outdoor-guides-authority-evidence
-          path: outdoor-guides-authority-audit.json
+          path: |
+            outdoor-guides-authority-audit.json
+            .artifacts/outdoor-image-live-authority.json
           if-no-files-found: warn
       - name: Open or update a factual-drift issue
         if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
