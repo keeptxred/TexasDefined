@@ -81,7 +81,7 @@ function TexasClimbingGuidePage() {
             <p className="eyebrow text-primary">Public rock · access · stewardship</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Rock Climbing &amp; Bouldering</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to four public Texas climbing areas: where they are, how their access systems differ, what the managing agencies protect, and where to verify current rules before you go.</p>
-            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline underline-offset-2">TexasDefined Editorial Desk</Link> · November 18, 2026. Check land-manager alerts on the day of travel.</p>
+            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Check land-manager alerts on the day of travel.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -99,7 +99,7 @@ function TexasClimbingGuidePage() {
             <p className="eyebrow text-primary">Choose the right area</p>
             <h2 id="climbing-comparison" className="mt-2 font-display text-3xl">Climbing and bouldering do not share the same rules</h2>
             <div className="mt-6 overflow-x-auto">
-              <table className="min-w-[670px] w-full border-collapse text-left text-sm leading-6">
+              <table style={{ minWidth: 670 }} className="w-full text-sm leading-6">
                 <caption className="sr-only">Public Texas climbing destinations and important access distinctions</caption>
                 <thead><tr className="border-b border-border"><th scope="col" className="p-3">Area</th><th scope="col" className="p-3">Best for</th><th scope="col" className="p-3">Mandatory check</th></tr></thead>
                 <tbody>
