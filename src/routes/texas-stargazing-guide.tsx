@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const canonicalPath = "/texas-stargazing-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -15,6 +16,7 @@ const editorialHeroImage = {
   height: 853,
   alt: "Milky Way above a tent at Copper Breaks State Park, Texas",
 } as const;
+const deliveredEditorialHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(editorialHeroImage.url));
 const darkSkyParks = [
   { name: "Big Bend Ranch State Park", region: "Big Bend / Far West Texas" },
   { name: "Caprock Canyons State Park & Trailway", region: "Panhandle Plains" },
@@ -43,8 +45,8 @@ export const Route = createFileRoute(canonicalPath)({
           image: {
             "@type": "ImageObject",
             "@id": `${pageUrl}#primaryimage`,
-            url: editorialHeroImage.url,
-            contentUrl: editorialHeroImage.url,
+            url: deliveredEditorialHeroUrl,
+            contentUrl: deliveredEditorialHeroUrl,
             width: editorialHeroImage.width,
             height: editorialHeroImage.height,
             caption: editorialHeroImage.alt,
@@ -75,7 +77,7 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas Stargazing: 5 International Dark Sky Parks",
         description: "Plan Texas stargazing trips to Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River with current TPWD guidance.",
-        image: editorialHeroImage.url,
+        image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
         imageHeight: editorialHeroImage.height,
