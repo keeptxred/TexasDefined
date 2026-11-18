@@ -56,7 +56,7 @@ if (process.argv.includes('--self-test')) {
   verify(catalog, access);
   assert.throws(() => verify(catalog.replace('September 15, 2026', 'October 1, 2026'), access), /September 15/);
   assert.throws(() => verify(catalog.replace('One White-tailed Deer; Buck Only; Limit One Buck', ''), access), /Buck Only/);
-  assert.throws(() => verify(catalog, access.replace('Alabama Creek WMA', 'Other WMA')), /Alabama Creek/);
+  assert.throws(() => verify(catalog, access.replace('Alabama Creek WMA', 'Other WMA')), /alabama creek/i);
   assert.throws(() => verify(catalog.replace('2026 - 2027', '2027 - 2028'), access), /2026 - 2027/);
   console.log('Deer public-unit TPWD source assertions and false-positive rejections passed offline.');
   process.exit(0);
