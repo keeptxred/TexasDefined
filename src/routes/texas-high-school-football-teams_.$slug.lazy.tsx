@@ -690,6 +690,7 @@ function Page() {
           schoolWebsite={program?.schoolWebsite}
           hasSeasonSection={!!program}
           summaryAlreadyShown={!!editorial?.season}
+          suppressCommercialOffers={slug === 'comal-canyon-lake'}
         />
       )}
 
