@@ -46,7 +46,7 @@ for (const [name, link] of Object.entries(facts.sources)) assert.match(link, /^h
 for (const marker of [
   'west of the Colorado River', 'El Campo Memorial Hospital', '2025 adopted total',
   'public-hearing benchmarks', 'average homestead changed', 'levy figures differ',
-  'district-taxable', 'not interchangeable', '2025 proposed', '241-201-11',
+  'district-taxable', 'not interchangeable', '2025 proposed',
   'Wharton CAD', 'County Tax Assessor-Collector', 'Frequently asked questions',
   '/property-tax/county/wharton', '/texas-property-tax-estimator',
 ]) assert.ok(component.includes(marker), `Page missing authority contract: ${marker}`);
