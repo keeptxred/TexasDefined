@@ -3,6 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 
 const officialSources = [
+  { label: "Travis County Parks — Hamilton Pool Preserve", href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", note: "Official reservation, water, swimming status and preserve-access guidance; access for viewing and swimming can differ." },
+  { label: "National Park Service — Big Bend river trips", href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", note: "Official guidance on river trips in the Santa Elena and Boquillas canyon landscape, distinct from a scenic canyon viewpoint." },
+  { label: "TPWD — Devils River access permits", href: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/", note: "Differentiates Del Norte and Dan A. Hughes units and the Devils River Access Permit requirements." },
   { label: "National Park Service — Big Bend National Park", href: "https://www.nps.gov/bibe/index.htm", note: "Official park planning, conditions, hiking, camping, river, geology and natural-resource information for Big Bend." },
   { label: "National Park Service — Guadalupe Mountains National Park", href: "https://www.nps.gov/gumo/index.htm", note: "Official planning and natural-resource information for the Guadalupe Mountains, including peaks, canyons, desert and dunes." },
   { label: "National Park Service — Padre Island National Seashore", href: "https://www.nps.gov/pais/index.htm", note: "Official access, safety, beach, barrier-island, wildlife and visitor-planning information for Padre Island National Seashore." },
@@ -13,6 +16,13 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Caprock Canyons State Park", href: "https://tpwd.texas.gov/state-parks/caprock-canyons", note: "Official canyon, trail, camping and Texas State Bison Herd visitor guidance." },
   { label: "Texas Parks & Wildlife — Monahans Sandhills State Park", href: "https://tpwd.texas.gov/state-parks/monahans-sandhills", note: "Official information for the dune landscape, recreation, conditions and park access." },
   { label: "Texas Parks & Wildlife — Devils River State Natural Area", href: "https://tpwd.texas.gov/state-parks/devils-river", note: "Official access, reservation, paddling, camping and conservation guidance for the remote Devils River landscape." },
+] as const;
+
+const geographicPlans = [
+  { title: "Far West Texas", places: "Big Bend, Guadalupe Mountains, Balmorhea and Monahans", advice: "Do not compress this into a one-day loop; these are long-distance stops with very different water, road and hiking conditions." },
+  { title: "Panhandle", places: "Palo Duro and Caprock Canyons", advice: "Make a separate regional trip, with advance state-park entry arrangements and summer heat precautions." },
+  { title: "Hill Country and Central Texas", places: "Enchanted Rock and managed spring sites", advice: "Choose reservations first, then build the scenic drive around the confirmed access window." },
+  { title: "East Texas and Gulf Coast", places: "Caddo Lake and Padre Island National Seashore", advice: "These are separate ecosystems and distant destinations; plan different trips, with paddling and coastal weather checks." },
 ] as const;
 
 const planningPaths = [
@@ -30,6 +40,18 @@ const planningPaths = [
 export function TexasNaturalWondersAuthority() {
   return (
     <Container className="pb-20">
+      <section className="mx-auto max-w-5xl border-t border-border pt-12" aria-labelledby="natural-wonders-regions">
+        <p className="eyebrow text-primary">Build a realistic route</p>
+        <h2 id="natural-wonders-regions" className="mt-2 font-display text-4xl">Four regional trips beat one giant checklist</h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">These are planning clusters, not advertised tour packages or promises of open access. Confirm each park, preserve or waterway separately; statewide drives between them can take hours.</p>
+        <div className="mt-7 grid gap-4 md:grid-cols-2">
+          {geographicPlans.map((plan) => <section key={plan.title} className="border border-border p-6">
+            <h3 className="font-display text-2xl">{plan.title}</h3>
+            <p className="mt-2 font-medium">{plan.places}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{plan.advice}</p>
+          </section>)}
+        </div>
+      </section>
       <section className="mx-auto max-w-5xl border-t border-border pt-12" aria-labelledby="natural-wonders-planning">
         <p className="eyebrow text-primary">Plan beyond the list</p>
         <h2 id="natural-wonders-planning" className="mt-2 font-display text-4xl">Build a Texas landscape trip</h2>
@@ -50,7 +72,7 @@ export function TexasNaturalWondersAuthority() {
         <p className="eyebrow text-primary">Official sources</p>
         <h2 id="natural-wonders-sources" className="mt-2 font-display text-3xl">Check the managing agencies before you go</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Access, reservations, weather, water, fire restrictions, trail conditions and closures can change after this guide is published. These National Park Service and Texas Parks &amp; Wildlife pages are the primary planning references for the major landscapes in this guide. Source review: August 30, 2026.
+          Access, reservations, weather, water, fire restrictions, trail conditions and closures can change after this guide is published. These National Park Service and Texas Parks &amp; Wildlife pages are the primary planning references for the major landscapes in this guide. Source review: November 18, 2026. This is a source review, not a claim that a park is currently open.
         </p>
         <ul className="mt-6 divide-y divide-border border-y border-border">
           {officialSources.map((source) => (
