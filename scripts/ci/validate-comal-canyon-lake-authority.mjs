@@ -24,6 +24,10 @@ assert.ok(server.includes("import { getCanyonLakeFootballEditorial } from './pro
 assert.ok(server.includes("const baseEditorial = loneStarEditorial ?? getCanyonLakeFootballEditorial(canonicalSlug) ??"), 'School overlay must take precedence over Batch011');
 assert.match(ui, /'comal-canyon-lake', \/\/ Original source-attributed/);
 assert.match(ui, /canyonLake=\{slug === 'comal-canyon-lake'\}/);
+assert.ok(ui.includes("suppressCommercialOffers={slug === 'comal-canyon-lake'}"));
+const gameNightGuide = read('src/components/sports/FootballGameNightGuide.tsx');
+assert.ok(gameNightGuide.includes('!suppressCommercialOffers && <FootballFanOffers'));
+assert.ok(gameNightGuide.includes("slug !== 'aubrey' && !suppressCommercialOffers"));
 assert.match(ui, /id="canyon-lake-playoff-guide"/);
 assert.match(ui, /\{districtPath && <Link to=\{districtPath\}/);
 assert.match(ui, /slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && <FootballMonetizationSlot/);
