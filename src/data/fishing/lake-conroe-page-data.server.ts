@@ -9,7 +9,7 @@ import {
   lakeConroeSectionMeta,
   lakeConroeSources,
 } from "./lake-conroe-prototype";
-import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
+import { LAKE_CONROE_RESEARCH } from "./lake-conroe-source-research";
 import { LAKE_CONROE_SECTION_SLUGS, LAKE_CONROE_VERIFIED_AT } from "./lake-conroe-routing";
 
 const lakeConroePageCopy = {
@@ -100,7 +100,7 @@ const lakeConroePageCopy = {
 } as const;
 
 export function loadLakeConroePageDataServer() {
-  const research = LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"];
+  const research = LAKE_CONROE_RESEARCH;
   return {
     sectionResearch: { reviewedAt: research.reviewedAt, sourceUrls: research.sourceUrls },
     verifiedAt: LAKE_CONROE_VERIFIED_AT,
