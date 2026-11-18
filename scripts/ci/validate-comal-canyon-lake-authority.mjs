@@ -24,6 +24,12 @@ assert.ok(server.includes("import { getCanyonLakeFootballEditorial } from './pro
 assert.ok(server.includes("const baseEditorial = loneStarEditorial ?? getCanyonLakeFootballEditorial(canonicalSlug) ??"), 'School overlay must take precedence over Batch011');
 assert.match(ui, /'comal-canyon-lake', \/\/ Original source-attributed/);
 assert.match(ui, /canyonLake=\{slug === 'comal-canyon-lake'\}/);
+const originalHero = read('public/images/high-school-football/comal-canyon-lake-2026.svg');
+assert.match(originalHero, /<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg"/);
+assert.match(originalHero, /<title id="t">Original Hill Country football field illustration<\/title>/);
+assert.ok(ui.includes('src="/images/high-school-football/comal-canyon-lake-2026.svg"'), 'Show original owned Hill Country field artwork, not an unlicensed school photo');
+assert.ok(ui.includes("background: 'linear-gradient(90deg, rgba(11,31,24,.95)"), 'Dark gradient protects text legibility over the field artwork');
+assert.ok(!/<image\b/i.test(originalHero), 'Original art must not hotlink unlicensed external image resources');
 assert.ok(ui.includes("suppressCommercialOffers={slug === 'comal-canyon-lake'}"));
 const gameNightGuide = read('src/components/sports/FootballGameNightGuide.tsx');
 assert.ok(gameNightGuide.includes('!suppressCommercialOffers && <FootballFanOffers'));
