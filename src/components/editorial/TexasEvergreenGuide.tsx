@@ -455,7 +455,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
-        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline underline-offset-2">TexasDefined Editorial Desk</Link> · November 18, 2026. Visitor conditions and event details can change.</p> : null}
+        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
@@ -468,7 +468,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="eyebrow text-primary">Construction reference</p>
           <h2 id="mum-diagram-heading" className="mt-2 font-display text-3xl">Identify the layers before you build</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This original schematic shows the order of parts and balance points; it is an illustration, not a photograph or a universal template. Sizes, hardware and school customs vary.</p>
-          <svg viewBox="0 0 800 490" role="img" aria-label="Illustrated homecoming mum: artificial chrysanthemum above layered ribbons, decorated braids and the two attachment points on the rear backing" className="mx-auto mt-6 block h-auto max-w-full rounded-md border border-border bg-stone-50" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 800 490" role="img" aria-label="Illustrated homecoming mum: artificial chrysanthemum above layered ribbons, decorated braids and the two attachment points on the rear backing" className="mx-auto mt-6 block h-auto max-w-full border border-border" xmlns="http://www.w3.org/2000/svg">
             <defs><linearGradient id="mum-ribbon-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#b63a3a"/><stop offset="1" stopColor="#7c1717"/></linearGradient></defs>
             <rect x="0" y="0" width="800" height="490" rx="10" fill="#fcfaf6"/>
             <path d="M291 205 L320 447 L365 447 L367 203Z" fill="url(#mum-ribbon-bg)"/>
