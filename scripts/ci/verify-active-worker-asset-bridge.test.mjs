@@ -6,7 +6,8 @@ import { validCurrentWorkerPage, assertBridgeCapture } from './verify-active-wor
 const c211='c211c0ca-940b-4bf9-84b3-4d363cc5120c';
 const good={status:200,mime:'text/html; charset=utf-8',workerVersion:c211,
   html:'<html><head><script type="module" src="/assets/main-12345678.js"></script></head><body>'
-    +'TexasDefined production page</body></html>',challenge:false};
+    +'TexasDefined production page with verified editorial and hashed assets. '.repeat(5)
+    +'</body></html>',challenge:false};
 
 test('requires the exact current Worker version plus original HTML and JS on both public origins',()=>{
   assert.equal(validCurrentWorkerPage(good,c211),true);
