@@ -68,6 +68,26 @@ for (const marker of ['skyComparison.map((item)', 'skyComparison[index].official
   if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
 }
 
+// The licensed real-place photograph must be a visible, correctly attributed
+// visitor asset as well as an image-rights assertion in the JSON-LD head.
+for (const marker of [
+  'const editorialHeroImage =',
+  'Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg',
+  'creator: "Matthew T Rader"',
+  'license: "https://creativecommons.org/licenses/by-sa/4.0/"',
+  'acquireLicensePage: editorialHeroImage.source',
+  'copyrightNotice:',
+  'imageAlt: editorialHeroImage.alt',
+]) if (!route.includes(marker)) errors.push('Missing stargazing photo provenance in head: ' + marker);
+for (const marker of [
+  'Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg',
+  'Matthew T Rader',
+  'CC BY-SA 4.0',
+  'https://creativecommons.org/licenses/by-sa/4.0/',
+  'Display crop only',
+  'fetchPriority="high"',
+]) if (!lazyRoute.includes(marker)) errors.push('Missing stargazing photo rights or visible media: ' + marker);
+
 if (errors.length) {
   console.error('Texas stargazing authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
