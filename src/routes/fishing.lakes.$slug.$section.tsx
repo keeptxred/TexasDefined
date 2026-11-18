@@ -5,7 +5,7 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
-import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
+import { getLakeConroeCampingPageData, getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSection, isShowcaseLakeSlug, showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
@@ -25,7 +25,11 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     // fish profile, technique, access facility and prototype even on /camping.
     if (params.slug === LAKE_CONROE_SLUG) {
       if (!isLakeConroeSection(params.section)) throw notFound();
-      const pageData = await getLakeConroePageData();
+      // Avoid hydrating an unrelated live reservoir API and heavy parser when
+      // this independently sourced campground section is requested.
+      const pageData = params.section === "camping"
+        ? await getLakeConroeCampingPageData()
+        : await getLakeConroePageData();
       let reports: FishingReport[] = [];
       let guides: FishingGuide[] = [];
       if (params.section === "reports" || params.section === "guides") {
@@ -102,7 +106,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
 function FishingLakeSectionRoute() {
   const data = Route.useLoaderData();
   if (data.kind === "conroe") return <>
-    <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
+    {data.section !== "camping" && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
     <LakeConroeGuide section={data.section} reports={data.reports} guides={data.guides} pageData={data.pageData} />
   </>;
   return <>
