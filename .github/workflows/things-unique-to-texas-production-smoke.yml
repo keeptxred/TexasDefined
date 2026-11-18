@@ -85,7 +85,7 @@ jobs:
                   if grep -Fqi "$section_marker" "$out" \
                     && grep -Fqi "$entry_marker" "$out" \
                     && grep -Fq "${origin}${path}" "$out" \
-                    && ! grep -Eqi '<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27][^"\x27]*noindex' "$out"; then
+                if grep -Fqi "$needle" "$out" && ! grep -Eqi "<meta[^>]+name=[\"']robots[\"'][^>]+content=[\"'][^\"']*noindex" "$out"; then
                     passed=true
                     break
                   fi
