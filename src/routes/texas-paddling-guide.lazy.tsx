@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const verifiedTrips = [
   {
@@ -136,7 +137,7 @@ function TexasPaddlingGuidePage() {
 
           <figure className="border-b border-border py-8">
             <img
-              src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg/1280px-Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg"
+              src={editorialImageSrc("https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg/1280px-Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg")}
               alt="Two kayakers on the actual Lady Bird Lake paddling trail in Austin"
               width={1280}
               height={856}
