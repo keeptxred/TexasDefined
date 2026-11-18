@@ -446,7 +446,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Big Bend compresses desert, mountains and river canyons into one enormous protected landscape. The Chisos Mountains rise from the Chihuahuan Desert while the Rio Grande cuts deep walls along the international boundary.",
           "It deserves more than a drive-through. Distances inside the park are large, summer heat can be severe and the best experience often comes from giving the region multiple days."
         ],
-        links: [{ href: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm", label: "Official visit details and current access" }, { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm", label: "Official visit details and current access" }, { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
       },
       {
         heading: "Guadalupe Mountains National Park",
@@ -456,7 +456,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Guadalupe Peak gives Texas its highest point, but the range is equally important for its exposed ancient reef geology, desert ecosystems and unexpectedly rugged hiking.",
           "The park feels very different from Big Bend even though both are in West Texas. Seeing both is one of the fastest ways to understand how varied the state's mountain country really is."
         ],
-        links: [{ href: "https://www.nps.gov/gumo/planyourvisit/safety.htm", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/guadalupe-mountains-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/gumo/planyourvisit/safety.htm", label: "Official visit details and current access" }]
       },
       {
         heading: "Palo Duro Canyon",
@@ -466,7 +466,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "The Panhandle's flat horizon suddenly breaks open into layered red and orange canyon walls at Palo Duro. The contrast between plains and canyon is what makes the first overlook so effective.",
           "Hiking, scenic drives and the scale of the canyon make it one of the strongest natural anchors for a Panhandle road trip."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", label: "Official visit details and current access" }, { href: "/explore/top-attractions", label: "Top Texas attractions" }]
+        links: [{ href: "/destination/palo-duro-canyon-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", label: "Official visit details and current access" }, { href: "/explore/top-attractions", label: "Top Texas attractions" }]
       },
       {
         heading: "Caddo Lake",
@@ -476,7 +476,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Bald cypress, Spanish moss, sloughs and bayous make Caddo Lake look unlike the dry or limestone landscapes many visitors associate with Texas. The maze-like wetlands also support exceptional bird and aquatic habitat.",
           "It is one of the best reminders that East Texas belongs ecologically to a very different world from the Hill Country or Trans-Pecos."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/caddo-lake", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/caddo-lake-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/caddo-lake", label: "Official visit details and current access" }]
       },
       {
         heading: "Enchanted Rock",
@@ -486,7 +486,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "The giant pink-granite dome rises above the Hill Country as both a geological landmark and a cultural one. The climb is relatively short but exposed, so heat and timing matter.",
           "Pair it with Fredericksburg, nearby ranch roads and Hill Country towns rather than treating the dome as an isolated stop."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert", label: "Official visit details and current access" }, { href: "/explore/trip-planner", label: "Build a Hill Country trip" }]
+        links: [{ href: "/destination/enchanted-rock-state-natural-area", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert", label: "Official visit details and current access" }, { href: "/explore/trip-planner", label: "Build a Hill Country trip" }]
       },
       {
         heading: "Padre Island National Seashore",
@@ -496,7 +496,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "The long undeveloped barrier island protects beach, dune and coastal habitat on a scale that distinguishes it from more urbanized Gulf destinations. Sea turtles and migratory birds make the ecological story as important as the beach itself.",
           "Visitors should think about wind, tides, driving conditions and distance before treating remote beach access like an ordinary city beach day."
         ],
-        links: [{ href: "https://www.nps.gov/pais/planyourvisit/conditions.htm", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/padre-island-national-seashore", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/pais/planyourvisit/conditions.htm", label: "Official visit details and current access" }]
       },
       {
         heading: "Balmorhea and spring-fed West Texas",
@@ -506,7 +506,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Balmorhea's enormous spring-fed pool is startling because it sits in the Chihuahuan Desert. Clear water, fish and desert mountains make the contrast the attraction.",
           "Spring systems are fragile, so conditions, closures and reservation requirements should always be checked before a long drive."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/balmorhea", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/balmorhea-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/balmorhea", label: "Official visit details and current access" }]
       },
       {
         heading: "Caprock Canyons and the Texas State Bison Herd",
@@ -516,7 +516,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Caprock Canyons combines red-rock terrain with one of the state's most important wildlife stories: the Texas State Bison Herd. The animals are not decorative additions to the landscape; they are central to understanding Plains ecology and conservation.",
           "Keep distance from bison and treat wildlife warnings seriously. The best wildlife encounters are the ones that do not alter animal behavior."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/caprock-canyons", label: "Official visit details and current access" }, { href: "/article/texas-wildlife-guide", label: "Texas wildlife guide" }]
+        links: [{ href: "/destination/caprock-canyons-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/caprock-canyons", label: "Official visit details and current access" }, { href: "/article/texas-wildlife-guide", label: "Texas wildlife guide" }]
       },
       {
         heading: "Monahans Sandhills",
@@ -526,7 +526,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Wind-shaped dunes create a landscape many first-time visitors do not expect to find in Texas. The park is known for walking the dunes and sliding on sand disks, especially when temperatures are manageable.",
           "The visual simplicity is the draw: sand, wind and an enormous West Texas sky."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/monahans-sandhills", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/monahans-sandhills-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/monahans-sandhills", label: "Official visit details and current access" }]
       },
       {
         heading: "Devils River country",
@@ -536,7 +536,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "The Devils River is prized for clear spring-fed water cutting through remote limestone country. Its beauty is inseparable from its remoteness, which means access requires more planning than an ordinary river stop.",
           "Treat this as a conservation landscape first and a recreation site second. Water, access rules, private land boundaries and logistics deserve advance attention."
         ],
-        links: [{ href: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/", label: "Official visit details and current access" }]
+        links: [{ href: "/destination/devils-river-state-natural-area", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/", label: "Official visit details and current access" }]
       },
       {
         heading: "Hill Country springs and limestone water",
@@ -546,7 +546,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Barton Springs, Jacob's Well, Hamilton Pool and other Central Texas water features come from the same broad limestone-and-aquifer story. They look different on the surface but are connected by karst geology and groundwater.",
           "Reservations, drought and water-quality conditions can change access. A durable guide should teach the system rather than promise that every swimming hole is always open."
         ],
-        links: [{ href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", label: "Official visit details and current access" }]
+        links: [{ href: "/explore/major-springs", label: "TexasDefined destination and visitor guide" }, { href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", label: "Official visit details and current access" }]
       },
       {
         heading: "The Rio Grande canyons",
@@ -555,7 +555,8 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Do not assume a river crossing, rafting trip or canyon-foot hike is available on demand. River conditions, permits and international-border requirements differ by activity; use NPS river and crossing guidance before planning.",
           "Santa Elena, Boquillas and other canyons show the Rio Grande doing geological work on a monumental scale. Vertical walls narrow the river and create some of the most memorable scenes in Big Bend country.",
           "The canyons also remind travelers that the river is an international boundary layered over a much older natural corridor."
-        ]
+        ],
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
       }
     ],
     related: [
