@@ -459,6 +459,52 @@ test('Nov16 category Worker original bytes reject altered run/job/failed steps a
 });
 
 
+const sixF9ProvenAssetSteps = [
+  'Capture old HTML JS/CSS hashes before Worker replacement',
+  'Prove captured four-page hash inventory belongs to exact active Worker',
+  'Retain bounded old hashed client assets',
+  'Measure postdeploy hashed-asset continuity',
+  'Preserve old/new asset delivery evidence and next-release handoff',
+];
+function sixF9PublishedProof(change = {}) {
+  const base = evidence({
+    runId: 44242409782,
+    jobId: 134593204841,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+    ...change,
+  });
+  base.jobs[0].steps.push(...sixF9ProvenAssetSteps.map(name => ({ name, conclusion: 'success' })));
+  return base;
+}
+test('published Nov18 6f9 Worker may seed only cryptographically checked original bytes, NOT failed Conroe acceptance', () => {
+  const qualified = qualifyPriorDeployJob(sixF9PublishedProof());
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov18-6f9-failed-camping-original-assets-only');
+  assert.equal(qualified.exactRun, 44242409782);
+  assert.equal(qualified.requiredSourceSha, '873454f756a635b63957b83d479d8979719858ed');
+  assert.equal(qualified.requiredWorkerVersion, '6f9e538a-98d4-45fa-bd0e-6c47f8cbc2a0');
+  assert.equal(qualified.criticalChecks, 5);
+  assert.deepEqual(qualified.permittedFailures, ['Verify fishing lake robots and sitemap publication parity']);
+  assert.equal(qualified.priorReleaseStillFailed, true);
+});
+test('exact 6f9 asset-only safety bridge rejects wrong provenance, changed failure, or any original-byte checkpoint failure', () => {
+  for (const altered of [
+    { runId: 44242409783 },
+    { jobId: 134593204842 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(sixF9PublishedProof(altered)),
+      /Required published-Worker safety gate not successful|Nov18 6f9 original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+  for (const name of sixF9ProvenAssetSteps) {
+    const sample = sixF9PublishedProof();
+    sample.jobs[0].steps = sample.jobs[0].steps.filter(step => step.name !== name);
+    assert.throws(() => qualifyPriorDeployJob(sample), /Nov18 6f9 original-byte source lacks protected asset evidence/);
+  }
+});
+
 test('Nov18 published a92 Worker retains ONLY exact original assets after no-fetch Conroe correction, never certifies failed release', () => {
   const accepted = qualifyPriorDeployJob(evidence({
     runId: 44238364654,
