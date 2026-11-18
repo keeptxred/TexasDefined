@@ -76,3 +76,35 @@ test('rejects thin or unverified downstream snippets instead of inventing the mi
   assert.equal(result.attempted,2);
   assert.equal(result.records.length,0);
 });
+
+test('recovers only live, content-verified TPWD trout guidance when the original release is temporarily unavailable',async()=>{
+  const richSource={...base, extracted_body:('Texas Parks and Wildlife Department rainbow trout stocking details, license limits, and seasonal schedule. ').repeat(36)};
+  const visited=[];
+  const fetcher=async(url,opts)=>{
+    visited.push(url);
+    assert.equal(opts.redirect,'manual');
+    assert.equal(new URL(url).hostname,'tpwd.texas.gov');
+    if(url===original) return new Response('temporarily unavailable',{status:503,headers:{'Content-Type':'text/html'}});
+    return new Response(officialDoc('Published TPWD winter trout visitor regulations and fishing license information'),{status:200,headers:{'Content-Type':'text/html'}});
+  };
+  const result=await collectFirstPartyEvidence(richSource,{fetcher});
+  assert.equal(result.attempted,3);
+  assert.equal(result.records.length,3);
+  assert.equal(visited.length,4); // One official release attempt and three exact agency support pages
+  assert.ok(result.records.every(row=>row.url.startsWith('https://tpwd.texas.gov/') && row.excerpt.length>=400));
+});
+
+test('does not invent fallback pages for insufficient original source text or an agency impersonator',async()=>{
+  const fetcher=async()=>new Response('unavailable',{status:503,headers:{'Content-Type':'text/html'}});
+  const baseSource=('Texas Parks and Wildlife Department rainbow trout stocking. ').repeat(45);
+  for(const item of [
+    {...base,extracted_body:'thin'},
+    {...base,extracted_body:baseSource,source:'Unverified Local Blog'},
+    {...base,extracted_body:baseSource,link:'https://tpwd.texas.gov.evil.example/newsmedia/releases/?req=20261117a'},
+    {...base,extracted_body:baseSource,title:'Unrelated Texas community notice'},
+  ]){
+    const result=await collectFirstPartyEvidence(item,{fetcher});
+    assert.equal(result.records.length,0);
+    assert.equal(result.attempted,0);
+  }
+});
