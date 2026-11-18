@@ -98,7 +98,10 @@ if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) fai
 if (!categoryRoute.includes('await import("@/data/things-unique-to-texas")') || /import\s*\{\s*getTexasIconCategory\s*\}\s*from/.test(categoryRoute)) {
   failures.push('Chapter loader must dynamically import the research catalog without bundling all reference records into the global client entry.');
 }
-for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-11-16"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+for (const token of ['dateModified:', '"2026-11-17"', '"2026-11-16"', '"landmarks"', '"roadside-small-towns"', '"culture-music"', '"wildlife-landscape"', '"slang-folklore"']) {
+  if (!categoryRoute.includes(token)) failures.push(`Category schema must preserve date provenance and exact Nov17 affected chapter selection: ${token}.`);
+}
 if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
 if (!/createFileRoute\(["']\/things-unique-to-texas_?\/methodology["']\)/.test(methodologyRoute)) failures.push('Magazine methodology route must remain canonical.');
