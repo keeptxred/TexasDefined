@@ -5,6 +5,16 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-paddling-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const editorialHeroImage = {
+  url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg/1280px-Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg",
+  source: "https://commons.wikimedia.org/wiki/File:Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg",
+  license: "https://creativecommons.org/licenses/by-sa/4.0/",
+  creator: "Oleg Yunakov",
+  year: 2024,
+  width: 1280,
+  height: 856,
+  alt: "Two kayakers paddle on Lady Bird Lake in Austin, Texas",
+} as const;
 const paddlingTrails = [
   { name: "Lady Bird Lake Paddling Trail", region: "Austin / Hill Country" },
   { name: "Buffalo Bayou Paddling Trail", region: "Houston / Gulf Coast" },
@@ -34,6 +44,20 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas Paddling Guide",
           description: "Plan five official Texas paddling trails around access points, route length, current water and weather conditions, private-property boundaries and land-manager guidance.",
+          image: {
+            "@type": "ImageObject",
+            "@id": `${pageUrl}#primaryimage`,
+            url: editorialHeroImage.url,
+            contentUrl: editorialHeroImage.url,
+            width: editorialHeroImage.width,
+            height: editorialHeroImage.height,
+            caption: editorialHeroImage.alt,
+            creator: { "@type": "Person", name: editorialHeroImage.creator },
+            creditText: `${editorialHeroImage.creator} · CC BY-SA 4.0 · Wikimedia Commons`,
+            copyrightNotice: `© ${editorialHeroImage.year} ${editorialHeroImage.creator}`,
+            license: editorialHeroImage.license,
+            acquireLicensePage: editorialHeroImage.source,
+          },
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: {
             "@type": "ItemList",
@@ -60,6 +84,10 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas Paddling Guide: 5 Official Trails to Plan",
         description: "Plan five official Texas paddling trails from Austin and Houston to Waco, Caddo Lake and Lighthouse Lakes with current TPWD access guidance.",
+        image: editorialHeroImage.url,
+        imageAlt: editorialHeroImage.alt,
+        imageWidth: editorialHeroImage.width,
+        imageHeight: editorialHeroImage.height,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
