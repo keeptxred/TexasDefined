@@ -45,13 +45,13 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Twin Sisters Dance Hall — Blanco County",
         "body": [
-          "Address: 6720 Highway 281 South, Blanco, TX 78606, roughly seven miles south of Blanco. This community-rooted historic hall is not a nightly nightclub; it specifically advertises monthly public dances alongside private bookings and other gatherings.",
+          "Address: 6720 Highway 281 South, Blanco, TX 78606, roughly seven miles south of Blanco. This community-rooted historic hall is not a nightly nightclub; its operator advertises first-Saturday public dances except January, July and September, alongside private bookings and other gatherings.",
           "The best trip plan starts with a confirmed public-dance date and checks admission, age rules and accommodations directly with the hall. A daytime drive-by is not the same thing as attending its dance tradition."
         ],
         "links": [
           {
-            "href": "https://twinsistersdancehall.com/",
-            "label": "Twin Sisters — public dance and event information"
+            "href": "https://twinsistersdancehall.com/calendar/",
+            "label": "Twin Sisters — current public dance calendar"
           },
           {
             "href": "https://texasdancehall.org/the-twin-sisters-dance-hall-by-patrick-cox-ph-d/",
@@ -66,6 +66,10 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Do not assume there is a public dance on the date you visit. Find an operator-announced event or check with Texas Dance Hall Preservation before planning the trip; check accessibility and facilities with organizers."
         ],
         "links": [
+          {
+            "href": "https://anhalthalle.com/events/",
+            "label": "Anhalt Hall — official public event calendar"
+          },
           {
             "href": "https://texasdancehall.org/anhalt-hall-anhalt-halle/",
             "label": "Anhalt Hall — preservation profile"
@@ -134,7 +138,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "SPJST National Hall — Fort Worth",
         "body": [
-          "SPJST Lodge 92 / National Hall in Fort Worth documents the Czech fraternal-hall tradition within an urban setting. Texas Dance Hall Preservation's 2026 grant announcement notes its role in events including Western swing, country-and-western dancing and Tejano music.",
+          "Address: 3316 Roberts Cut Off Road, Fort Worth, TX 76114. SPJST Lodge 92 / National Hall documents the Czech fraternal-hall tradition within an urban setting. Texas Dance Hall Preservation's 2026 grant announcement notes its role in events including Western swing, country-and-western dancing and Tejano music.",
           "This is an event-driven community venue: verify the actual calendar and whether the advertised gathering is public. The hall shows how immigrant associations and modern regional music scenes overlap without being the same kind of business as a commercial honky-tonk."
         ],
         "links": [
