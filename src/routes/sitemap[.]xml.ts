@@ -24,6 +24,8 @@ function primarySitemapCacheRequest(request: Request): Request {
   // date change automatically moves to a new key; monitoring checks do not.
   cacheUrl.search = "";
   cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn);
+  // Substantive source revisions to five chapter pages must not reuse pre-Nov17 edge XML.
+  cacheUrl.searchParams.set("culture-editorial-lastmod", "2026-11-17");
   // One-time key bump for two newly sitemap-submitted GSC tax recovery URLs:
   // do not serve obsolete cached XML after the protected release.
   // This is not a fabricated editorial <lastmod> date.
@@ -47,6 +49,12 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  // Actual November 17 editorial source revision for these five individual culture chapters.
+  "/things-unique-to-texas/landmarks": "2026-11-17",
+  "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
+  "/things-unique-to-texas/culture-music": "2026-11-17",
+  "/things-unique-to-texas/wildlife-landscape": "2026-11-17",
+  "/things-unique-to-texas/slang-folklore": "2026-11-17",
   "/texas-jobs-without-four-year-degree": "2026-11-10",
   "/texas-career-training-options": "2026-11-10",
   "/texas-government-jobs": "2026-11-10",

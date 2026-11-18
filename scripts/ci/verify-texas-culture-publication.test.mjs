@@ -27,10 +27,10 @@ test('the publication checker covers every revised Texas culture URL without unr
   }
 });
 
-test('every 2026-11-16 chapter evidence canary fails closed on stale visitor and bypass responses', () => {
+test('every 2026-11-16 and 2026-11-17 chapter evidence canary fails closed on stale visitor and bypass responses', () => {
   assert.equal(Object.keys(TEXAS_ICON_PUBLICATION_EVIDENCE).length, 5);
   for (const [path, evidence] of Object.entries(TEXAS_ICON_PUBLICATION_EVIDENCE)) {
-    assert.equal(evidence.length, 3, path + ' needs three independently identifying canaries');
+    assert.equal(evidence.length, 4, path + ' needs four independently identifying canaries including the latest revision');
     assert.doesNotThrow(() => assertTexasCulturePublication(path, render(path), 'visitor'));
     for (const missing of evidence) {
       const stale = render(path).replace(missing, '[previous-revision]');
