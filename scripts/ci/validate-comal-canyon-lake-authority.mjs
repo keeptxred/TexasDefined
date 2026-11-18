@@ -64,7 +64,7 @@ assert.equal(next.date, '2026-11-20');
 assert.equal(next.opponent, 'Port Lavaca Calhoun');
 assert.ok(!next.result, 'Future fixture must never be asserted as final');
 assert.equal(next.site, 'Neutral');
-assert.match(team.venue.note, /Leopard Stadium in La Grange/);
+assert.match(team.venue.note, /Leopard Stadium, 805 S\. Vail St\./);
 assert.equal(next.kickoff, '7:00 PM');
 assert.ok(team.season.sourceUrl.startsWith('https://'));
 assert.ok(team.season.latestResultSourceUrl.startsWith('https://'));
