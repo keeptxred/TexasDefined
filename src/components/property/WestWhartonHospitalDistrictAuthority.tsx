@@ -20,6 +20,14 @@ function SourceLink({ href, children }: { href: string; children: ReactNode }) {
 
 export function WestWhartonHospitalDistrictAuthority({ latestWorkbookYear }: { latestWorkbookYear: number }) {
   return <>
+    <nav aria-label="Hospital district tax page sections" className="flex flex-wrap gap-x-5 gap-y-3 border-b border-border py-5 text-sm font-semibold">
+      <a href="#wwchd-rate-decision" className="text-primary underline underline-offset-2">2025 rate decision</a>
+      <a href="#wwchd-homestead" className="text-primary underline underline-offset-2">Homeowner comparison</a>
+      <a href="#wwchd-estimate" className="text-primary underline underline-offset-2">$250,000 example</a>
+      <a href="#wwchd-levy" className="text-primary underline underline-offset-2">Levy discrepancy</a>
+      <a href="#wwchd-parcel" className="text-primary underline underline-offset-2">Check your parcel</a>
+      <a href="#taxing-unit-rate-history" className="text-primary underline underline-offset-2">Annual rate table</a>
+    </nav>
     <section aria-labelledby="wwchd-at-a-glance" className="border-b border-border py-10">
       <p className="eyebrow text-primary">West Wharton County · verified local context</p>
       <h2 id="wwchd-at-a-glance" className="mt-2 font-display text-3xl sm:text-4xl">What this hospital district taxes—and where</h2>
