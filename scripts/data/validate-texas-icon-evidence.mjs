@@ -9,6 +9,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const catalog = read("src/data/things-unique-to-texas.ts");
 const file = read("src/data/texas-icon-field-notes.ts");
 const renderer = read("src/routes/things-unique-to-texas_.$category.lazy.tsx");
+const sitemap = read("src/routes/sitemap[.]xml.ts");
 const metadata = read("src/routes/things-unique-to-texas_.$category.tsx");
 const failures = [];
 const check = (condition, message) => { if (!condition) failures.push(message); };
@@ -80,6 +81,9 @@ for (const marker of [
 check(!renderer.includes('This analysis compares historical and institutional sources. It does not represent first-hand'), "Remove repeated generic disclaimer in favor of record-level sourcing.");
 check(metadata.includes('["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"].includes(category?.slug ?? "") ? "2026-11-17" : "2026-11-16"'), "Material Nov17 research revisions must update only five affected chapter dates.");
 check(Object.keys(notes).length >= 100, "Preserve the expanded 100+ researched entry records rather than silently reverting source work.");
+for (const slug of ["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"]) {
+  check(sitemap.includes(`"/things-unique-to-texas/${slug}": "2026-11-17"`), `The materially changed ${slug} chapter needs an exact November 17 Google sitemap modification date.`);
+}
 for (const [id, marker] of [[105, "2026"], [117, "closed"], [102, "parish"], [94, "Dealey Plaza"], [213, "warm season"], [234, "National Weather Service"]]) {
   check((notes[id]?.fact ?? "").includes(marker) || (notes[id]?.usefulFor ?? "").includes(marker), `Expanded visit/conservation fact missing for entry ${id}: ${marker}`);
 }
