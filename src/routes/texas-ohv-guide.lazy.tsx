@@ -3,6 +3,49 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import bigBend from "@/assets/big-bend.jpg";
 import { Container } from "@/components/layout/Container";
 
+const legalRideComparison = [
+  {
+    "name": "Eisenhower State Park",
+    "vehicles": "ATVs and dirt bikes only on roughly 2.5 miles of designated routes; no general park-wide OHV use",
+    "permission": "Park OHV permit and applicable Texas decal; protective gear and rider requirements apply",
+    "check": "Check current width, permitted rider ages, trail-capacity limits and post-rain status",
+    "operator": "https://tpwd.texas.gov/state-parks/eisenhower/ohvs",
+    "related": "/explore/state-parks"
+  },
+  {
+    "name": "Barnwell Mountain Recreation Area",
+    "vehicles": "TMTC-managed marked trails for motorcycles, ATVs, ROVs/side-by-sides and full-sized OHVs, with trail-specific limits",
+    "permission": "Operator sets admission, waivers, mapped route difficulty and camping prices; check the live calendar for closures",
+    "check": "Match the specific marked trail to the vehicle and read TMTC's current fee and minor waiver rules",
+    "operator": "https://www.barnwellmountainra.com/info_directions",
+    "related": "/explore/road-trips"
+  },
+  {
+    "name": "Sam Houston National Forest",
+    "vehicles": "Designated 85-mile multiple-use motorized trail system for motorcycles and ATVs; not general UTV access",
+    "permission": "Current Forest Service motor vehicle use map and trail status control legal routes",
+    "check": "Check national forest alerts, flood damage and closures; the MVUM and posted signs override older GPX tracks",
+    "operator": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/Sam%20Houston%20MVUM%202025.pdf",
+    "related": "/explore/outdoors"
+  },
+  {
+    "name": "Lake Meredith National Recreation Area",
+    "vehicles": "Riding allowed in the specific Blue Creek and Rosita Flats ORV areas, not across the recreation area",
+    "permission": "No-cost NPS ORV permit plus Texas OHV decal required; contact NPS for vehicle-specific maps",
+    "check": "Get the NPS permit before using the areas, review NPS boundary rules and river/lake conditions",
+    "operator": "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
+    "related": "/explore/road-trips"
+  },
+  {
+    "name": "Escondido Draw Recreation Area",
+    "vehicles": "TMTC site near Ozona supporting motorcycles, ATVs and other permitted OHVs on operator-mapped routes",
+    "permission": "Operator admission and waivers plus applicable Texas OHV decal; current policies govern minors and overnight use",
+    "check": "Confirm vehicle fit, operating dates, camping arrangements and the newest map with the operator",
+    "operator": "https://www.escondidodraw.org/policies_fees.html",
+    "related": "/explore/road-trips"
+  }
+] as const;
+
 const officialSources = [
   {
     label: "Texas Parks & Wildlife — Texas Off-Highway Vehicle Program",
@@ -34,6 +77,10 @@ const officialSources = [
     href: "https://tpwd.texas.gov/state-parks/eisenhower/ohvs",
     note: "Official access, permit, trail, vehicle-width, safety-documentation and weather-closure guidance for the state-park OHV trail system.",
   },
+  { label: "US Forest Service — Sam Houston Motor Vehicle Use Map", href: "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/Sam%20Houston%20MVUM%202025.pdf", note: "Federal designation map; verify later replacements and current closure orders before riding." },
+  { label: "National Park Service — Lake Meredith ORV Permits", href: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", note: "Blue Creek and Rosita Flats authorized areas, NPS permit process and Texas decal requirement." },
+  { label: "TMTC — Barnwell Mountain Recreation Area", href: "https://www.barnwellmountainra.com/info_directions", note: "Operator's trail maps, arrival directions, temporary closure context and local rules." },
+  { label: "TMTC — Escondido Draw Policies & Fees", href: "https://www.escondidodraw.org/policies_fees.html", note: "Operator's event, admission, waiver and riding policies." },
 ] as const;
 
 const ohvAreas = [
@@ -121,6 +168,18 @@ function TexasOhvGuidePage() {
             <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">This image provides general Texas outdoor context and does not depict a specific legal OHV trail. Use current land-manager maps—not landscape appearance—to determine where motorized recreation is allowed.</figcaption>
           </figure>
 
+
+          <section className="border-b border-border py-10" aria-labelledby="ohv-comparison">
+            <p className="eyebrow text-primary">Legal access by vehicle</p>
+            <h2 id="ohv-comparison" className="mt-2 font-display text-3xl">Which venue fits your machine?</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">An OHV decal is not permission to ride wherever you want. Vehicle categories, trail width, mapped zones, operator waivers and separate permits can differ. This table is a screening tool; the current operator or land manager has the final say.</p>
+            <div className="mt-6 overflow-x-auto border border-border">
+              <table className="w-full min-w-[820px] border-collapse text-left text-sm">
+                <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
+                <tbody>{legalRideComparison.map((area) => <tr key={area.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{area.name}</th><td className="border-b border-border p-4 text-muted-foreground">{area.vehicles}</td><td className="border-b border-border p-4 text-muted-foreground">{area.permission}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Legal OHV riding starts with the venue, not the vehicle</h2>
@@ -158,6 +217,16 @@ function TexasOhvGuidePage() {
                 </div>
                 <div className="max-w-3xl space-y-5">
                   {area.details.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}
+                  <aside className="border-l-2 border-primary bg-muted/20 px-5 py-4 text-sm leading-7">
+                    <h3 className="font-display text-xl">Before loading the trailer</h3>
+                    <p className="mt-2"><strong>Vehicle and legal area:</strong> {legalRideComparison[index].vehicles}</p>
+                    <p className="mt-2"><strong>Permits and fees:</strong> {legalRideComparison[index].permission}</p>
+                    <p className="mt-2"><strong>Final check:</strong> {legalRideComparison[index].check}</p>
+                    <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                      <a href={legalRideComparison[index].operator} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Current operator rules and maps ↗</a>
+                      <Link to={legalRideComparison[index].related} className="font-semibold text-primary underline underline-offset-4">Nearby Texas trip planning</Link>
+                    </div>
+                  </aside>
                 </div>
               </section>
             ))}
@@ -179,7 +248,7 @@ function TexasOhvGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify the legal venue, decal and current rules</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. Source review: August 30, 2026.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; official maps and on-site rules still control travel.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
