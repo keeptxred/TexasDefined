@@ -6,11 +6,15 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 
 const origin = 'https://texasdefined.com';
 const route = '/hunting/texas-deer-hunting';
 const directory = 'artifacts/deer-production-visual';
 const ISO_EDITORIAL_DATE = /^20\d{2}-\d{2}-\d{2}$/;
+// The visible permit decision occupies an entire <section>; its ID marks only
+// the inner <h2> used by aria-labelledby. Inspect its full text and links.
+const publicUnitSectionSelector = 'section[aria-labelledby="deer-public-land-example"]';
 const viewports = [
   { name: 'small-mobile', width: 320, height: 720, isMobile: true },
   { name: 'mobile', width: 390, height: 844, isMobile: true },
@@ -22,6 +26,14 @@ if (process.argv.includes('--self-test')) {
   assert.equal(route, '/hunting/texas-deer-hunting');
   assert.equal(ISO_EDITORIAL_DATE.test('2026-11-17'), true);
   assert.equal(ISO_EDITORIAL_DATE.test('2026-11'), false);
+  const jsx = readFileSync('src/components/hunting/HuntingAuthority.tsx', 'utf8');
+  assert.match(jsx, /<section[^>]*aria-labelledby="deer-public-land-example"/);
+  assert.match(jsx, /<h2 id="deer-public-land-example"/);
+  assert.match(jsx, /September 15/);
+  assert.match(jsx, /USFS Buck Deer Permit/);
+  assert.match(jsx, /hunt-area-details\.phtml\?OArea=AL/);
+  assert.equal(publicUnitSectionSelector, 'section[aria-labelledby="deer-public-land-example"]');
+  assert.notEqual(publicUnitSectionSelector, '#deer-public-land-example');
   console.log('Deer 320/mobile/desktop Chrome QA contract passed.');
   process.exit(0);
 }
@@ -103,12 +115,18 @@ try {
         check('nonlazy priority deer hero', (await image.getAttribute('loading')) === 'eager' &&
           (await image.getAttribute('fetchpriority')) === 'high');
       }
-      const unit = page.locator('#deer-public-land-example');
-      check('sourced Alabama Creek worked example', (await unit.count()) === 1 &&
-        (await unit.innerText()).includes('September 15') &&
-        (await unit.innerText()).includes('USFS Buck Deer Permit') &&
-        (await unit.locator('a[href*="hunt-area-details.phtml?OArea=AL"]').count()) === 1);
-      if (await unit.count()) {
+      const unit = page.locator(publicUnitSectionSelector);
+      const unitCount = await unit.count();
+      const unitText = unitCount === 1 ? await unit.innerText() : '';
+      const unitSourceLinks = unitCount === 1
+        ? await unit.locator('a[href*="hunt-area-details.phtml?OArea=AL"]').count()
+        : 0;
+      const hasDeadline = unitText.includes('September 15');
+      const hasPermit = unitText.includes('USFS Buck Deer Permit');
+      check('sourced Alabama Creek worked example', unitCount === 1 &&
+        hasDeadline && hasPermit && unitSourceLinks === 1,
+        `section=${unitCount}; deadline=${hasDeadline}; permit=${hasPermit}; TPWD source links=${unitSourceLinks}`);
+      if (unitCount === 1) {
         record.unitScreenshot = directory + '/deer-public-unit-' + viewport.name + '.png';
         await unit.screenshot({ path: record.unitScreenshot, animations: 'disabled', timeout: 20000 });
       }
