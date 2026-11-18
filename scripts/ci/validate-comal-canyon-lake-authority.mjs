@@ -73,6 +73,9 @@ assert.equal(team.milestones.filter(m=>m.sourceUrl.startsWith('https://')).lengt
 assert.ok(team.overview.length >= 6 && team.faq.length >= 6, 'Substantial original school-specific reporting and useful answers');
 assert.match(team.overview.join(' '), /153 Canyon Lake points against 122 allowed/);
 assert.match(team.overview.join(' '), /513 points and conceded 307/);
+assert.ok(team.overview.join(' ').includes('Jace Wheeler'), 'Individually sourced current postseason reporting');
+assert.ok(team.overview.join(' ').includes('Isaac Torres'));
+assert.equal(team.milestones.find(m => m.date === 'November 13, 2026')?.sourceUrl, 'https://www.maxpreps.com/news/TOkQpDr5-k2iOV6evghkzQ/football-recap-canyon-lake-finds-playoff-glory-versus-pleasanton.htm');
 const scorePairs = done.map((game) => game.result.slice(2).split('–').map(Number));
 assert.ok(scorePairs.every(([forPts, againstPts]) => Number.isFinite(forPts) && Number.isFinite(againstPts)), 'Valid point totals');
 assert.equal(scorePairs.reduce((sum, [forPts]) => sum + forPts, 0), 513, 'Published season scoring analysis must reconcile to all 10 finals');
