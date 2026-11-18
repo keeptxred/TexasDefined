@@ -37,7 +37,7 @@ for (const marker of [
   'Bosque Bluffs & Brazos Bridges Paddling Trails',
   "Hell's Half Acre Paddling Trail",
   'Lighthouse Lakes Paddling Trail',
-  'Official TPWD trail pages cross-checked November 18, 2026;'
+  'Official TPWD trail pages cross-checked November 18, 2026;',
   'https://tpwd.texas.gov/boating/paddling-trails/',
   'https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/',
   'https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/',
