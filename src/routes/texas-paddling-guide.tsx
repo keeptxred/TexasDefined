@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const canonicalPath = "/texas-paddling-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -15,6 +16,7 @@ const editorialHeroImage = {
   height: 856,
   alt: "Two kayakers paddle on Lady Bird Lake in Austin, Texas",
 } as const;
+const deliveredEditorialHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(editorialHeroImage.url));
 const paddlingTrails = [
   { name: "Lady Bird Lake Paddling Trail", region: "Austin / Hill Country" },
   { name: "Buffalo Bayou Paddling Trail", region: "Houston / Gulf Coast" },
@@ -47,8 +49,8 @@ export const Route = createFileRoute(canonicalPath)({
           image: {
             "@type": "ImageObject",
             "@id": `${pageUrl}#primaryimage`,
-            url: editorialHeroImage.url,
-            contentUrl: editorialHeroImage.url,
+            url: deliveredEditorialHeroUrl,
+            contentUrl: deliveredEditorialHeroUrl,
             width: editorialHeroImage.width,
             height: editorialHeroImage.height,
             caption: editorialHeroImage.alt,
@@ -84,7 +86,7 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas Paddling Guide: 5 Official Trails to Plan",
         description: "Plan five official Texas paddling trails from Austin and Houston to Waco, Caddo Lake and Lighthouse Lakes with current TPWD access guidance.",
-        image: editorialHeroImage.url,
+        image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
         imageHeight: editorialHeroImage.height,
