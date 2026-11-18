@@ -62,7 +62,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Anhalt Hall — Spring Branch",
         "body": [
-          "The Germania Farmer Verein's Anhalt Hall, in the Spring Branch area, represents the community-association strand of Hill Country dance-hall history rather than the always-on tourism model. Its value includes the hall as social infrastructure for generations of local gatherings.",
+          "Anhalt Hall is at 2390 Anhalt Road, Spring Branch, Texas, according to Texas Dance Hall Preservation. The Germania Farmer Verein hall represents the community-association strand of Hill Country dance-hall history rather than the always-on tourism model. Its value includes the hall as social infrastructure for generations of local gatherings.",
           "Do not assume there is a public dance on the date you visit. Find an operator-announced event or check with Texas Dance Hall Preservation before planning the trip; check accessibility and facilities with organizers."
         ],
         "links": [
@@ -96,7 +96,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Broken Spoke — Austin",
         "body": [
-          "The Broken Spoke is a useful comparison because it is a well-known Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
+          "The Broken Spoke on South Lamar Boulevard is a useful comparison because it is a well-known Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
           "Check the operator's official schedule, music or dance lesson details, and age policy rather than assuming every evening follows the same format. Pair with Austin music history for the contrast between honky-tonks and older civic halls."
         ],
         "links": [
@@ -113,7 +113,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "John T. Floore Country Store — Helotes",
         "body": [
-          "Floore's in Helotes connects the roadhouse and honky-tonk branch of the story to the San Antonio region. It is known for concert performances and a long history as a country-music gathering place, rather than a preserved rural volunteer hall.",
+          "John T. Floore Country Store is at 14492 Old Bandera Road, Helotes, TX 78023. Floore's connects the roadhouse and honky-tonk branch of the story to the San Antonio region. It is known for concert performances and a long history as a country-music gathering place, rather than a preserved rural volunteer hall.",
           "Concert tickets, outdoor-show arrangements and other venue policies can vary by performance; use the official operator event listing before driving from San Antonio. It makes a natural music-and-history counterpart to the Hill Country halls."
         ],
         "links": [
