@@ -6,7 +6,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const canonicalPath = "/texas-stargazing-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const editorialHeroImage = {
-  url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg/1280px-Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg",
+  url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg/1280px-Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg",
   source: "https://commons.wikimedia.org/wiki/File:Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg",
   license: "https://creativecommons.org/licenses/by-sa/4.0/",
   creator: "Matthew T Rader",
@@ -49,7 +49,7 @@ export const Route = createFileRoute(canonicalPath)({
             height: editorialHeroImage.height,
             caption: editorialHeroImage.alt,
             creator: { "@type": "Person", name: editorialHeroImage.creator },
-            creditText: `${editorialHeroImage.creator} · CC BY-SA 4.0 · Wikimedia Commons`,
+            creditText: `${editorialHeroImage.creator} · MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons`,
             copyrightNotice: `© ${editorialHeroImage.year} ${editorialHeroImage.creator}`,
             license: editorialHeroImage.license,
             acquireLicensePage: editorialHeroImage.source,
