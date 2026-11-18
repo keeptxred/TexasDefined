@@ -280,6 +280,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           // unreviewed taxing unit or invent a content-modification date.
           { path: "/property-tax/taxing-unit/edna" },
           { path: "/property-tax/taxing-unit/jackson-county-esd-1" },
+          // Manually sourced hospital-district authority: unique analysis, verified 2025 source history.
+          { path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-18" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
