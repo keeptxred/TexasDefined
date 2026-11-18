@@ -9,6 +9,39 @@ const bigBendImage = stateParkHeroMap["big-bend-ranch-state-park"];
 const paloDuroImage = stateParkHeroMap["palo-duro-canyon-state-park"];
 const tylerImage = stateParkHeroMap["tyler-state-park"];
 
+const routeDecisions = [
+  {
+    "name": "Franklin Mountains",
+    "startingPoint": "Use the official Franklin Mountains route map to select a Tom Mays or other signed access area; the park's mileage is a network total, not a single ride",
+    "conditions": "El Paso offers a city base, but desert rocky climbs require more water and repair capacity than easy park-road riding",
+    "official": "https://tpwd.texas.gov/state-parks/franklin-mountains/plan-your-visit"
+  },
+  {
+    "name": "Big Bend Ranch",
+    "startingPoint": "Start with the named Contrabando network and its park brochure rather than inventing a loop across 238 miles of backcountry",
+    "conditions": "Road and trailhead access, navigation without reception, drinking water and heat are the controlling constraints",
+    "official": "https://tpwd.texas.gov/state-parks/big-bend-ranch/activities/"
+  },
+  {
+    "name": "Palo Duro Canyon",
+    "startingPoint": "Choose Capitol Peak's 3.5-mile mountain-bike-only loop; its green/blue/black portions are not all the same difficulty",
+    "conditions": "Check canyon-level heat, trail alerts and post-rain closures before entering the canyon",
+    "official": "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info/"
+  },
+  {
+    "name": "Hill Country State Natural Area",
+    "startingPoint": "Test the terrain on Merrick Mile (1 mile, easy–moderate) before adding more of the shared 40-mile system",
+    "conditions": "All trails are shared with horses and hikers; rocky grades and primitive facilities make yielding and route choice important",
+    "official": "https://tpwd.texas.gov/state-parks/hill-country/trails-map"
+  },
+  {
+    "name": "Tyler State Park",
+    "startingPoint": "Choose A Loop (2.6 miles, moderate) or B Loop (3.1 miles, moderate) from the signed TPWD trail map",
+    "conditions": "On multiuse trails cyclists travel clockwise; hikers travel counter-clockwise. Soft forest trails may close after rain",
+    "official": "https://tpwd.texas.gov/state-parks/tyler/trails-info/"
+  }
+] as const;
+
 const officialSources = [
   { label: "TPWD — Biking in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", note: "Statewide biking guidance, trail ratings, multiuse etiquette and current e-bike rules." },
   { label: "TPWD — Franklin Mountains State Park", href: "https://tpwd.texas.gov/state-parks/franklin-mountains", note: "Official park overview with current alerts and the 100-plus-mile trail network." },
@@ -124,6 +157,8 @@ const planningPaths = [
   { to: "/explore/road-trips", label: "Texas road trips", description: "Build the drive around parks, towns and worthwhile stops instead of an out-and-back slog." },
   { to: "/texas-natural-wonders-bucket-list", label: "Texas natural wonders", description: "Connect the rides to the desert, canyon, forest and Hill Country landscapes around them." },
   { to: "/texas-rock-climbing-bouldering-guide", label: "Rock climbing & bouldering", description: "Add another public-land outdoor activity with the same access-first planning approach." },
+  { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Understand horse-and-bike shared use at Hill Country SNA and other public trails." },
+  { to: "/texas-ohv-guide", label: "Legal OHV riding", description: "Compare motorized and non-motorized recreation rules before choosing public lands." },
   { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Sequence destinations, lodging and realistic drive times for a longer trip." },
 ] as const;
 
@@ -219,6 +254,12 @@ function TexasMountainBikingGuidePage() {
                       ))}
                     </div>
 
+                    <aside className="mt-7 border-l-2 border-primary bg-muted/20 px-5 py-4 text-sm leading-7">
+                      <h3 className="font-display text-xl">Choose an actual route</h3>
+                      <p className="mt-2"><strong>Start with:</strong> {routeDecisions[index].startingPoint}</p>
+                      <p className="mt-2"><strong>Access and conditions:</strong> {routeDecisions[index].conditions}</p>
+                      <a href={routeDecisions[index].official} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block font-semibold text-primary underline underline-offset-4">Current park map and planning information ↗</a>
+                    </aside>
                     <h3 className="mt-8 font-display text-2xl">What to know before you ride</h3>
                     <div className="mt-4 max-w-3xl space-y-4 text-base leading-8 text-muted-foreground">
                       {area.rideNotes.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -243,6 +284,13 @@ function TexasMountainBikingGuidePage() {
             ))}
           </div>
 
+
+          <section className="border-b border-border py-10" aria-labelledby="bike-access">
+            <p className="eyebrow text-primary">Bike access rules</p>
+            <h2 id="bike-access" className="mt-2 font-display text-3xl">Check the type of bicycle before the trailhead</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">TPWD's statewide biking guidance currently says <strong>e-bikes may use public park roadways but not state-park trails</strong>. That means an e-bike route cannot be assumed legal just because conventional mountain bikes are permitted. Also confirm any locally posted shared-use direction and trail closure; no park pass or campsite booking overrides a closed trail.</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Source: <a href="https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">TPWD Biking in State Parks ↗</a>. Ask the park about any current exception or change before travel.</p>
+          </section>
           <section className="border-b border-border py-10" aria-labelledby="before-you-roll">
             <p className="eyebrow text-primary">Before you roll</p>
             <h2 id="before-you-roll" className="mt-2 font-display text-3xl">Four checks that matter more than a saved screenshot</h2>
@@ -277,7 +325,7 @@ function TexasMountainBikingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Maps and conditions should come from TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. Source review: September 30, 2026.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; closures and park rules can change.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
