@@ -640,7 +640,7 @@ function Page() {
               footballType={program?.footballType || privateAlignment?.footballType}
               mascot={identity?.mascot}
               accentHex={identityPanelAccent}
-              verifiedColors={identity?.colors}
+              verifiedColors={verifiedIdentityAccent ? identity?.colors : undefined}
               canyonLake={slug === 'comal-canyon-lake'}
             />
           )}
