@@ -10,6 +10,7 @@ on:
       - 'src/data/hunting/authority-deer.ts'
       - 'src/data/hunting/deer-season-dates.json'
       - 'scripts/data/verify-texas-deer-regulations.mjs'
+      - 'scripts/data/verify-texas-deer-public-unit.mjs'
       - 'scripts/data/sync-texas-deer-seasons.mjs'
       - 'scripts/data/verify-texas-deer-production.mjs'
       - 'scripts/data/verify-texas-deer-related-rules.mjs'
@@ -59,6 +60,8 @@ jobs:
           node scripts/data/verify-texas-deer-production.mjs --self-test
           node scripts/data/verify-texas-deer-related-rules.mjs --self-test
           node --check scripts/data/compare-texas-deer-related-sources.mjs
+          node --check scripts/data/verify-texas-deer-public-unit.mjs
+          node scripts/data/verify-texas-deer-public-unit.mjs --self-test
       - name: Verify current live deer page only when PR did not alter published content
         if: github.event_name == 'pull_request'
         shell: bash
@@ -241,3 +244,32 @@ jobs:
           else
             echo "Existing live deer guide review issue #$existing; no duplicate."
           fi
+      - name: Verify real 2026 deer public-hunt Unit 904 permit facts against TPWD
+        id: deer_unit
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && success()
+        run: node scripts/data/verify-texas-deer-public-unit.mjs
+      - name: Preserve source-drift alert if Alabama Creek adult permit details change
+        if: failure() && steps.deer_unit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD Alabama Creek deer drawn-permit rules need editorial review'
+          existing="$(gh issue list --state open --search "$title in:title" --json number,title | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' | head -1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The 2026–27 TPWD Alabama Creek WMA Unit 904 deer draw/access facts no longer match the page's sourced worked example, or an official source is unavailable. Review exact site rules and application dates; do not fabricate availability. https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+      - name: Close past Unit 904 drift issue only after both TPWD sources verify
+        if: success() && steps.deer_unit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD Alabama Creek deer drawn-permit rules need editorial review'
+          gh issue list --state open --search "$title in:title" --json number,title |
+            jq -r --arg t "$title" '.[] | select(.title == $t) | .number' |
+            while read -r number; do
+              gh issue close "$number" --comment "Both official TPWD public-hunt sources now pass bounded Unit 904 permit eligibility assertions: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+            done
