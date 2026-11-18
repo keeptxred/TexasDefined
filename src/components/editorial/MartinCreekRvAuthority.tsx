@@ -146,6 +146,22 @@ export default function MartinCreekRvAuthority() {
               island footbridge, lake access and boat ramp.
             </p>
             <a href={MAP} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Download the official campground map (PDF) ↗</a>
+            <figure className="mt-5 overflow-hidden rounded-md border border-border bg-background">
+              <img
+                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg?width=960"
+                alt="The footbridge to the Island Trails at Martin Creek Lake State Park, photographed in April 2025; this is a park trail, not an RV campsite"
+                loading="lazy"
+                decoding="async"
+                width="960"
+                height="640"
+                className="h-auto w-full"
+              />
+              <figcaption className="px-3 py-2 text-xs leading-5 text-muted-foreground">
+                Real park photograph: Island Trails footbridge, April 2025, not an RV parking pad. Larry D. Moore,
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="ml-1 underline">CC BY 4.0</a>,
+                <a href="https://commons.wikimedia.org/wiki/File:Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg" target="_blank" rel="noopener noreferrer" className="ml-1 underline">Wikimedia Commons source</a>.
+              </figcaption>
+            </figure>
           </div>
           <div>
             <h3 className="font-display text-2xl">What to do while camping</h3>
