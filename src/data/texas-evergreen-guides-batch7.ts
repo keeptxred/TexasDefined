@@ -9,6 +9,67 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH7: Record<string, TexasEvergreenGuide> 
     quickAnswer: "Pecos Bill is a mythical cowboy hero whose tales exaggerate the skills and endurance of the Western range hand. Jackalopes belong to broader Western folklore; the modern taxidermy version was popularized in Douglas, Wyoming, so Texas can adopt the joke without claiming to have invented it. “The Yellow Rose of Texas” is a nineteenth-century song with a complicated minstrel-era history, while the popular claim that it was inspired by Emily West and the Battle of San Jacinto is a twentieth-century myth unsupported by the surviving early lyrics or records. Texas folklore is most useful when the story and the evidence are kept side by side.",
     sections: [
       {
+        "heading": "Pecos Bill: the 1923 publication problem",
+        "body": [
+          "The earliest widely documented literary appearance of Pecos Bill is Edward Synnott (Tex) O'Reilly's October 1923 Century Magazine story. That date matters because accounts presenting Bill as an unbroken nineteenth-century oral character cannot demonstrate that pedigree merely by repeating it.",
+          "Folklorists including J. Frank Dobie questioned whether the character existed in independently collected oral lore before O'Reilly. Scholarship in the University of North Texas's Texas Folklore Society centennial collection reconstructs the dispute; the Encyclopedia of the Great Plains also identifies the 1923 publication as the first known literary appearance.",
+          "This is a disagreement about evidence of the character's origin, not proof that cowboys never told extravagant stories about roping and storms. The distinction is between an established regional storytelling tradition and the documented first appearance of one named hero."
+        ],
+        "links": [
+          {
+            "href": "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
+            "label": "Encyclopedia of the Great Plains — Pecos Bill"
+          },
+          {
+            "href": "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/",
+            "label": "University of North Texas — Pecos Bill and his pedigree"
+          },
+          {
+            "href": "https://www.tshaonline.org/handbook/entries/pecos-bill",
+            "label": "Handbook of Texas — Pecos Bill"
+          }
+        ]
+      },
+      {
+        "heading": "A fact-checkable timeline of three different Texas stories",
+        "body": [
+          "1836: the Battle of San Jacinto enters the historical record, while Emily D. West's actual documented biography should be checked independently of the later romantic legend. 1850s: published versions of The Yellow Rose of Texas circulate within nineteenth-century song culture. The texts do not name Emily West as the inspiration.",
+          "1923: O'Reilly publishes the first known Pecos Bill narrative in The Century Magazine; subsequent publications spread the character. During the 1930s, the Herrick brothers' jackalope mounts become a commercial novelty in Douglas, Wyoming, while horned-hare imagery itself is older. In the twentieth century, later writers connect Emily West with the Yellow Rose song, despite the absence of contemporary supporting evidence.",
+          "The dates separate recorded history from later storytelling. They are not dates when every individual folktale was invented, and gaps in surviving records should be acknowledged rather than replaced by folklore."
+        ],
+        "links": [
+          {
+            "href": "https://www.tshaonline.org/handbook/entries/west-emily-d",
+            "label": "Handbook of Texas — Emily D. West"
+          },
+          {
+            "href": "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas",
+            "label": "Handbook of Texas — Yellow Rose song"
+          },
+          {
+            "href": "https://www.smithsonianmag.com/arts-culture/greetings-from-the-land-of-the-make-believe-species-167869753/",
+            "label": "Smithsonian — modern jackalope tradition"
+          }
+        ]
+      },
+      {
+        "heading": "How to recognize evidence, retelling and modern popularization",
+        "body": [
+          "Evidence of an event means a dated document, an authenticated historical record or a carefully sourced scholarly reconstruction. A printed retelling proves at least that a story circulated in print at that time; it does not independently prove its claimed earlier oral origin. A souvenir, song performance or tourist retelling can be excellent evidence of later cultural popularity without establishing invention.",
+          "For Pecos Bill, use the 1923 story and later scholarly discussion. For jackalopes, distinguish older horned-rabbit imagery from the Douglas novelty. For Emily West, consult her biographical entry separately from the song history. Keep uncertainty in the reader-facing text rather than quietly converting a legend into historical fact."
+        ],
+        "links": [
+          {
+            "href": "/things-unique-to-texas/methodology",
+            "label": "TexasDefined — source methodology"
+          },
+          {
+            "href": "/everything-bigger-in-texas",
+            "label": "How Texas exaggeration became a cultural shorthand"
+          }
+        ]
+      },
+      {
         heading: "Folklore does not have to be false to be worth studying",
         body: [
           "A tall tale can be culturally important even when nobody believes every event literally happened. The exaggeration itself tells us what a community admired, feared, joked about or wanted to remember.",
