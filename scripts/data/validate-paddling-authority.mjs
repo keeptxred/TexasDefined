@@ -97,6 +97,8 @@ for (const marker of [
   'Oleg Yunakov',
   'CC BY-SA 4.0',
   'https://creativecommons.org/licenses/by-sa/4.0/',
+  'editorialImageSrc(',
+  'import { editorialImageSrc } from "@/lib/editorial-image-delivery";',
   'Display crop only',
   'fetchPriority="high"',
 ]) if (!lazyRoute.includes(marker)) errors.push('Missing paddling photo rights or visible media: ' + marker);
