@@ -1,3 +1,29 @@
+import { readFileSync } from 'node:fs';
+
+/**
+ * Fishing links are rendered by the published news article component using
+ * the same COMPLETE_FISHING_* slug lists. Never infer a fishing route merely
+ * from a plausible-looking slug. Only indexable sitemap URLs AND editorially
+ * complete allowlisted routes can be linked from generated articles.
+ */
+const fishingSource = readFileSync(new URL('../../src/data/fishing/slugs.ts', import.meta.url), 'utf8');
+function approvedFishingSlugs(constantNames) {
+  const values = new Set();
+  for (const constantName of constantNames) {
+    const match = fishingSource.match(new RegExp('(?:export\\s+)?const\\s+' + constantName + '\\s*=\\s*\\[([\\s\\S]*?)\\]\\s*as const;'));
+    if (!match) throw new Error('Missing source-of-truth verified fishing inventory: ' + constantName);
+    for (const slug of match[1].matchAll(/"([a-z0-9]+(?:-[a-z0-9]+)*)"/g)) values.add(slug[1]);
+  }
+  if (values.size < constantNames.length) throw new Error('Incomplete fishing route verification inventory.');
+  return values;
+}
+const fishingLakes = approvedFishingSlugs([
+  'BASE_COMPLETE_FISHING_LAKE_SLUGS',
+  'WAVE2_COMPLETE_FISHING_LAKE_SLUGS',
+  'STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS',
+]);
+const fishingSpecies = approvedFishingSlugs(['COMPLETE_FISHING_SPECIES_SLUGS']);
+
 /**
  * The historical Supabase explore_entities table may be empty while the
  * magazine has real, indexable, authority-reviewed /destination routes.
@@ -15,7 +41,12 @@ function pathFromLoc(url, expectedOrigin) {
     const p = new URL(url.replace(/&amp;/g,'&'));
     if (p.origin !== expectedOrigin || p.search || p.hash) return null;
     const match = p.pathname.match(/^\/destination\/([a-z0-9-]+)\/?$/);
-    return match?.[1] || null;
+    if (match) return match[1];
+    const lake = p.pathname.match(/^\/fishing\/lakes\/([a-z0-9-]+)\/?$/);
+    if (lake && fishingLakes.has(lake[1])) return lake[1];
+    const species = p.pathname.match(/^\/fishing\/species\/([a-z0-9-]+)\/?$/);
+    if (species && fishingSpecies.has(species[1])) return species[1];
+    return null;
   } catch { return null; }
 }
 export function publishedDestinationSlugs(sitemap, siteOrigin='https://texasdefined.com') {
