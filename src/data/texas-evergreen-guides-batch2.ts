@@ -105,8 +105,8 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
             "label": "Broken Spoke history"
           },
           {
-            "href": "/texas-two-step",
-            "label": "Texas two-step and dance-floor basics"
+            "href": "/texas-western-swing",
+            "label": "Western swing and Texas dance-floor history"
           }
         ]
       },
