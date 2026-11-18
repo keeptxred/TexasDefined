@@ -39,7 +39,7 @@ for (const marker of [
   'Sam Houston National Forest Motorized Trails',
   'Lake Meredith National Recreation Area OHV Areas',
   'Escondido Draw Recreation Area',
-  'TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026;'
+  'TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026;',
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program',
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas',
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal',
