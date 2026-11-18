@@ -84,7 +84,7 @@ if (process.argv.includes('--remote')) {
       if (response.status === 404 || response.status === 410) { failed.push(`${label}: HTTP ${response.status} ${url}`); continue; }
       if (!response.ok) { inconclusive.push(`${label}: HTTP ${response.status}`); continue; }
       if (expected) {
-        const html = (await response.text()).replace(/\\s+/g, ' ');
+        const html = (await response.text()).replace(/\s+/g, ' ');
         if (!html.toLowerCase().includes(expected.toLowerCase())) failed.push(`${label}: previously reviewed source text is missing from ${url}`);
         if (label === 'tax notice' && /(?:notice|tax rate|public hearing)[^<]{0,150}202[6-9]/i.test(html)) failed.push('District tax page may contain a new-year notice; verify adopted rate and refresh local history.');
       }
