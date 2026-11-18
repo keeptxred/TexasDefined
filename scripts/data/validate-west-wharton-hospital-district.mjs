@@ -20,6 +20,7 @@ const sitemap = read('src/routes/sitemap[.]xml.ts');
 const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const workflow = read('.github/workflows/verify-west-wharton-hospital-tax.yml');
 const scripts = read('package.json');
+const liveAcceptance = read('scripts/ci/verify-west-wharton-hospital-production.mjs');
 const near = (actual, expected, label, tolerance = 0.011) => assert.ok(Math.abs(actual - expected) < tolerance, `${label}: expected ${expected}; got ${actual}`);
 
 assert.equal(facts.slug, 'west-wharton-county-hospital-district');
@@ -65,6 +66,8 @@ assert.ok(countyRoute.includes('county.slug === \'wharton\'') && countyRoute.inc
 
 assert.ok(workflow.includes('cron:') && workflow.includes('workflow_dispatch:') && workflow.includes('issues: write'));
 assert.ok(workflow.includes('--remote'));
+assert.ok(workflow.includes('verify-west-wharton-hospital-production.mjs'));
+for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
 console.log('PASS: 2024–25 district-rate math, original content, citations, canonical/metadata, integration and scheduled review contract');
 
