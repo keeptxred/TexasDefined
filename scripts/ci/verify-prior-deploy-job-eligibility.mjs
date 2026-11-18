@@ -438,6 +438,23 @@ const NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF = Object.freeze({
 // caller matches this exact current Worker, source SHA, successful original
 // delivery artifact and BOTH canonical/direct origin hashes. No blanket
 // exception, skipped production check, or fabricated green deployment.
+// November 18 release 44377712495/job 135061203635 published 100%-traffic
+// Worker d132bb99 from exact source 364733eb. All five strict publish/version,
+// direct/canonical health and 2,438 original SHA-256 JS/CSS checks PASSED.
+// Only the later independent changed-page smoke failed: it directly requested
+// Wikimedia's Davis Hill hero and received HTTP 429, even though page HTML and
+// Martin Creek authority smoke passed. The follow-up uses the site's own
+// exact licensed first-party hero and checks IDENTICAL JPEG bytes on BOTH
+// origins. Do not certify this failed release; recover original bytes ONLY,
+// and independently re-check outgoing UUID, SHA and every asset on both origins.
+const NOV18_PUBLISHED_D132_DAVIS_PHOTO_ASSETS = Object.freeze({
+  runId: 44377712495,
+  jobId: 135061203635,
+  sourceSha: '364733eb09030150e885919a337568b68b0b9119',
+  workerVersion: 'd132bb99-7de2-4293-b465-b4bf5019d1b5',
+  failedStep: 'Verify base production surfaces',
+});
+
 const NOV18_PUBLISHED_23317_FISHING_DEVILS_ASSETS = Object.freeze({
   runId: 44368051009,
   jobId: 135027028666,
@@ -465,6 +482,36 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const d132 = NOV18_PUBLISHED_D132_DAVIS_PHOTO_ASSETS;
+  if (job.run_id === d132.runId && job.id === d132.jobId &&
+      failures.length === 1 && failures[0] === d132.failedStep) {
+    const changed = readFileSync('scripts/ci/verify-changed-production-pages.mjs', 'utf8');
+    const guide = readFileSync('src/components/editorial/DavisHillAuthority.tsx', 'utf8');
+    // Exactly the source-verified first-party photo repair must be present;
+    // no blanket exception for 404s, mismatched origins or bad JPEG data.
+    for (const token of [
+      'if (davisHillPages.includes(path))',
+      "'/media/remote?url=' + encodeURIComponent(heroUrl)",
+      "[origin, 'https://texasdefined-site.freddy-coppola.workers.dev']",
+      'photoBytes.length < 10000',
+      'photoBytes[0] !== 0xff || photoBytes[1] !== 0xd8',
+      '!photoDigests[0].equals(photoDigests[1])',
+      "'CC BY 4.0'",
+      'Davis Hill photographic hero original bytes differ',
+    ]) if (!changed.includes(token)) throw Error('d132 asset history requires strict source-correct Davis Hill two-origin photo acceptance: ' + token);
+    for (const token of [
+      'const DAVIS_HILL_PHOTO_PROXY', 'encodeURIComponent(DAVIS_HILL_PHOTO_ORIGINAL)',
+      'src={DAVIS_HILL_PHOTO_PROXY}', 'William L. Farr', 'CC BY 4.0',
+    ]) if (!guide.includes(token)) throw Error('d132 asset history requires first-party licensed Davis Hill hero: ' + token);
+    return { eligible: true, mode: 'exact-nov18-d132-davis-hill-429-original-assets-only',
+      exactRun: d132.runId, requiredSourceSha: d132.sourceSha,
+      requiredWorkerVersion: d132.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      priorReleaseStillFailed: true };
+  }
+  if (job.run_id === d132.runId || job.id === d132.jobId) {
+    throw Error('d132 Davis Hill asset history rejects altered run/job/failure: ' + failures.join(', '));
   }
   const published23317 = NOV18_PUBLISHED_23317_FISHING_DEVILS_ASSETS;
   if (job.run_id === published23317.runId && job.id === published23317.jobId &&

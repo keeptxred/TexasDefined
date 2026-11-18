@@ -6,6 +6,7 @@ const head = read("src/routes/destination.$slug.tsx");
 const resolver = read("src/data/destination-query-runtime.ts");
 const fallback = read("src/data/davis-hill-authority-fallback.ts");
 const guide = read("src/components/editorial/DavisHillAuthority.tsx");
+const liveVerifier = read("scripts/ci/verify-changed-production-pages.mjs");
 const indexed = read("src/routes/sitemap[.]xml.ts");
 const curation = read("src/data/destination-curation-batch12.ts");
 const map = read("src/data/state-park-hero-map.ts");
@@ -27,13 +28,25 @@ const geology = read("public/images/state-parks/davis-hill-salt-dome-concept.svg
 required(landscape, '<svg xmlns="http://www.w3.org/2000/svg"');
 required(geology, '<svg xmlns="http://www.w3.org/2000/svg"');
 required(guide, '<img');
-required(guide, 'src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"');
+required(guide, 'const DAVIS_HILL_PHOTO_PROXY = "/media/remote?url=" + encodeURIComponent(DAVIS_HILL_PHOTO_ORIGINAL);');
+required(guide, 'src={DAVIS_HILL_PHOTO_PROXY}');
+for (const marker of [
+  "if (davisHillPages.includes(path))",
+  "const heroProxy = '/media/remote?url=' + encodeURIComponent(heroUrl);",
+  "[origin, 'https://texasdefined-site.freddy-coppola.workers.dev']",
+  "photoBytes[0] !== 0xff || photoBytes[1] !== 0xd8",
+  "photoBytes.length < 10000",
+  "!photoDigests[0].equals(photoDigests[1])",
+  "Davis Hill photographic hero original bytes differ",
+]) required(liveVerifier, marker);
+
+required(guide, 'Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg');
 required(guide, "Trinity River National Wildlife Refuge");
 required(guide, "CC BY 4.0");
 required(guide, "not Davis Hill itself");
 required(guide, 'loading="eager"');
 required(guide, 'src="/images/state-parks/davis-hill-salt-dome-concept.svg"');
-assert.ok(guide.indexOf('src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"') >= 0 && guide.indexOf('src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"') < guide.indexOf('src="/images/state-parks/davis-hill-salt-dome-concept.svg"'), "Licensed photographic hero must precede the inline geology image");
+assert.ok(guide.indexOf('src={DAVIS_HILL_PHOTO_PROXY}') >= 0 && guide.indexOf('src={DAVIS_HILL_PHOTO_PROXY}') < guide.indexOf('src="/images/state-parks/davis-hill-salt-dome-concept.svg"'), "Licensed proxied photographic hero must precede the inline geology image");
 assert.ok(!guide.includes('src="/images/state-parks/davis-hill-conservation-landscape.svg"'), "Old illustrated hero must not be rendered");
 required(guide, '/images/state-parks/davis-hill-salt-dome-concept.svg');
 required(head, '"battleship-texas", "davis-hill-state-park"');

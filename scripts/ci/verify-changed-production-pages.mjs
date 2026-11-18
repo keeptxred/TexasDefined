@@ -908,17 +908,33 @@ for (const path of plan.selectedPaths) {
         // The old Davis Hill build had image metadata but no visible hero.
         // Assert the deployed HTML itself exposes TWO distinct article images.
         const heroUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg';
-        if (!html.includes(heroUrl) || !html.includes('Trinity River National Wildlife Refuge') || !html.includes('CC BY 4.0')) {
-          throw new Error('Davis Hill SSR is missing the licensed photographic hero or required location/rights attribution');
+        const heroProxy = '/media/remote?url=' + encodeURIComponent(heroUrl);
+        if (!html.includes(heroProxy) || !html.includes('Trinity River National Wildlife Refuge') ||
+            !html.includes('CC BY 4.0') ||
+            !html.includes('https://commons.wikimedia.org/wiki/File:Trinity_River_National_Wildlife_Refuge')) {
+          throw new Error('Davis Hill SSR is missing the precise first-party photographic hero or source/license attribution');
         }
-        const heroResponse = await fetchImpl(heroUrl, {
-          headers: { accept: 'image/jpeg', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
-          signal: AbortSignal.timeout(30000),
-        });
-        const heroBytes = await heroResponse.arrayBuffer();
-        if (!heroResponse.ok || heroResponse.headers.get('cf-mitigated') === 'challenge'
-          || !(heroResponse.headers.get('content-type') || '').toLowerCase().includes('image/jpeg') || heroBytes.byteLength < 10000) {
-          throw new Error('Davis Hill licensed photographic hero is unavailable: HTTP ' + heroResponse.status);
+        // Do not let a raw Wikimedia HTTP 429 from a GitHub runner fail an
+        // otherwise healthy licensed photo. The actual visitor-facing image
+        // is served by our first-party proxy. Verify its complete original
+        // JPEG bytes independently from the canonical and direct Worker
+        // origins, then require them to agree byte-for-byte.
+        const photoDigests = [];
+        for (const photoOrigin of [origin, 'https://texasdefined-site.freddy-coppola.workers.dev']) {
+          const photoResponse = await fetchImpl(new URL(heroProxy, photoOrigin), {
+            headers: { accept: 'image/jpeg', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
+            signal: AbortSignal.timeout(30000),
+          });
+          const photoBytes = new Uint8Array(await photoResponse.arrayBuffer());
+          if (!photoResponse.ok || photoResponse.headers.get('cf-mitigated') === 'challenge' ||
+              !(photoResponse.headers.get('content-type') || '').toLowerCase().includes('image/jpeg') ||
+              photoBytes.length < 10000 || photoBytes[0] !== 0xff || photoBytes[1] !== 0xd8) {
+            throw new Error('Davis Hill visitor-image proxy is unavailable or not the approved JPEG at ' + photoOrigin + ': HTTP ' + photoResponse.status);
+          }
+          photoDigests.push(Buffer.from(photoBytes));
+        }
+        if (!photoDigests[0].equals(photoDigests[1])) {
+          throw new Error('Davis Hill photographic hero original bytes differ between the direct Worker and canonical domain');
         }
         const inline = '/images/state-parks/davis-hill-salt-dome-concept.svg';
         if (!html.includes(inline)) throw new Error('Davis Hill article is missing the separate geology figure');
@@ -931,12 +947,12 @@ for (const path of plan.selectedPaths) {
           || !inlineBody.includes('<svg ') || inlineBody.length < 500) {
           throw new Error('Davis Hill interior geology image is missing: HTTP ' + inlineResponse.status);
         }
-        if (html.indexOf(heroUrl) >= html.indexOf(inline)) {
+        if (html.indexOf(heroProxy) >= html.indexOf(inline)) {
           throw new Error('Davis Hill photo hero does not precede the inline geology image');
         }
         const ordinary = await fetchImpl(canonical, { headers: { 'user-agent': 'TexasDefined-Davis-Hill-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(20000) });
         const ordinaryHtml = await ordinary.text();
-        if (!ordinary.ok || !ordinaryHtml.includes('https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg')) {
+        if (!ordinary.ok || !ordinaryHtml.includes(heroProxy)) {
           throw new Error('Davis Hill canonical visitor URL still lacks the visible hero');
         }
       }
