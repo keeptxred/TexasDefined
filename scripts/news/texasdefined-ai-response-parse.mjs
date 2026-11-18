@@ -11,7 +11,17 @@ export function parseTexasDefinedModelJson(value) {
   }
   if (typeof value !== 'string') throw new Error('Workers AI returned neither a JSON object nor a JSON string');
   const text = value.trim();
-  const fenced = text.match(/^{3}(?:json)?\s*([\s\S]*?){3}$/i)?.[1] || text;
+  const fenced = text.match(new RegExp('^\\x60{3}(?:json)?\\s*([\\s\\S]*?)\\x60{3}
+  const first = fenced.indexOf('{');
+  const last = fenced.lastIndexOf('}');
+  if (first < 0 || last <= first) throw new Error('Workers AI did not return a JSON object');
+  const parsed = JSON.parse(fenced.slice(first,last+1));
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('Workers AI returned a JSON value that is not a draft object');
+  }
+  return parsed;
+}
+, 'i'))?.[1] || text;
   const first = fenced.indexOf('{');
   const last = fenced.lastIndexOf('}');
   if (first < 0 || last <= first) throw new Error('Workers AI did not return a JSON object');
