@@ -5,7 +5,7 @@ const read = (file) => fs.readFileSync(file, "utf8");
 const required = [
   "src/data/fishing/types.ts", "src/data/fishing/slugs.ts", "src/data/fishing/validation.ts", "src/data/fishing/fixtures.ts",
   "src/data/fishing/repositories.ts", "src/data/fishing/queries.ts", "src/data/fishing/search.ts", "src/data/fishing/internal-links.ts",
-  "src/data/fishing/lake-conroe-prototype.ts", "src/data/fishing/lake-conroe-routing.ts", "src/data/fishing/lake-conroe-page-data.server.ts",
+  "src/data/fishing/lake-conroe-prototype.ts", "src/data/fishing/lake-conroe-routing.ts", "src/data/fishing/lake-conroe-page-data.server.ts", "src/data/fishing/lake-conroe-source-research.ts",
   "src/data/fishing/lake-conroe-page-data.functions.ts", "src/data/fishing/sitemap.ts", "src/components/fishing/LakeConroeGuide.tsx", "src/components/fishing/ShowcaseLakeGuide.tsx",
   "src/data/fishing/tpwd-fishing-report.types.ts", "src/data/fishing/tpwd-fishing-report.server.ts", "src/data/fishing/tpwd-fishing-report.functions.ts", "src/data/fishing/tpwd-fishing-report-adapter.ts",
   "src/routes/fishing.tsx", "src/routes/fishing.lakes.$slug.tsx", "src/routes/fishing.lakes.$slug.$section.tsx",
@@ -57,6 +57,7 @@ if (!failures.length) {
   for (const field of ["verifiedAt", "sections", "overview", "habitat", "boatingNotes", "reportSnapshot", "sources", "fish", "access", "regulations", "camping", "nearby", "copy"]) if (!server.includes(`${field}:`)) failures.push(`Lake Conroe server payload missing: ${field}`);
   for (const copy of ["No recent report is available", "Latest available fishing report", "No Lake Conroe guide has cleared the verified-listing gate yet", "Sponsorship policy", "must be labeled as sponsored"]) if (!server.includes(copy)) failures.push(`Protected Lake Conroe copy missing: ${copy}`);
   for (const badCopy of ["Freshness first", "No TexasDefined current report is published", "manufacture a current bite"]) if (server.includes(badCopy)) failures.push(`Lake Conroe report UI must not expose editorial-policy copy: ${badCopy}`);
+  if (!server.includes("LAKE_CONROE_RESEARCH") || server.includes("LAKE_AUTHORITY_RESEARCH_WAVE1")) failures.push("Lake Conroe SSR must load its independently validated compact source dossier, not the 72-lake research registry.");
   if (!functions.includes("createServerFn") || !functions.includes("loadLakeConroePageDataServer")) failures.push("Lake Conroe server-function boundary missing.");
 
   for (const copy of ["Fishing reports", "Latest Available Fishing Report", "No recent report is available", "Open official TPWD lake page"]) if (!showcaseUi.includes(copy)) failures.push(`Protected showcase fishing-report copy missing: ${copy}`);
