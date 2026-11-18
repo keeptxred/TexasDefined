@@ -6,6 +6,7 @@ const head = read("src/routes/destination.$slug.tsx");
 const resolver = read("src/data/destination-query-runtime.ts");
 const fallback = read("src/data/davis-hill-authority-fallback.ts");
 const guide = read("src/components/editorial/DavisHillAuthority.tsx");
+const liveVerifier = read("scripts/ci/verify-changed-production-pages.mjs");
 const indexed = read("src/routes/sitemap[.]xml.ts");
 const curation = read("src/data/destination-curation-batch12.ts");
 const map = read("src/data/state-park-hero-map.ts");
@@ -29,6 +30,16 @@ required(geology, '<svg xmlns="http://www.w3.org/2000/svg"');
 required(guide, '<img');
 required(guide, 'const DAVIS_HILL_PHOTO_PROXY = "/media/remote?url=" + encodeURIComponent(DAVIS_HILL_PHOTO_ORIGINAL);');
 required(guide, 'src={DAVIS_HILL_PHOTO_PROXY}');
+for (const marker of [
+  "if (davisHillPages.includes(path))",
+  "const heroProxy = '/media/remote?url=' + encodeURIComponent(heroUrl);",
+  "[origin, 'https://texasdefined-site.freddy-coppola.workers.dev']",
+  "photoBytes[0] !== 0xff || photoBytes[1] !== 0xd8",
+  "photoBytes.length < 10000",
+  "!photoDigests[0].equals(photoDigests[1])",
+  "Davis Hill photographic hero original bytes differ",
+]) required(liveVerifier, marker);
+
 required(guide, 'Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg');
 required(guide, "Trinity River National Wildlife Refuge");
 required(guide, "CC BY 4.0");
