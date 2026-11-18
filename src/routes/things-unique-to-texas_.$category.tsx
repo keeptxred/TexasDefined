@@ -50,7 +50,7 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
             about: { "@type": "Place", name: "Texas" },
             isBasedOn: methodologyUrl,
             author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
-            dateModified: "2026-11-16",
+            dateModified: ["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"].includes(category?.slug ?? "") ? "2026-11-17" : "2026-11-16",
             mainEntity: category ? {
               "@type": "ItemList",
               numberOfItems: itemList.length,
