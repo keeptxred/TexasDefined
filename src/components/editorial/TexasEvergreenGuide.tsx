@@ -375,6 +375,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+        author: { "@type": "Organization", name: "TexasDefined Editorial Desk", url: `${siteUrl}/editorial-policy` },
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
@@ -454,7 +455,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
-        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">TexasDefined editorial research and source review: November 18, 2026. Visitor conditions and event details can change.</p> : null}
+        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline underline-offset-2">TexasDefined Editorial Desk</Link> · November 18, 2026. Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
