@@ -1,9 +1,10 @@
 import type { Destination } from "./types";
 
 /**
- * Owner-approved development records only (2026-11-17).
- * Keep on unmerged editorial branch until finished-page publication approval.
- * Images are attributed Commons photos; NRHC operator commercial-use approval remains a publication gate.
+ * Operator-sourced, owner-approved attraction authority guides (November 17, 2026).
+ * Retain the historical export name for existing data imports. Both guides now
+ * use the normal destination indexing quality gate. The NRHC hero is explicitly
+ * off-site documentary ranching imagery, not an image of the venue.
  */
 export const approvedAttractionDraftDestinations: Destination[] = [
   {

@@ -34,8 +34,8 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
  * to recommend as an ordinary visitable public-beach destination.
  */
 const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
-  "texas-freshwater-fisheries-center", // New guide awaiting separate final owner publication approval
-  "national-ranching-heritage-center-lubbock", // Owner publication hold; off-site public-domain cattle hero is explicitly illustrative, not NRHC property
+  // The Athens fisheries and Lubbock ranching guides have cleared owner publication review.
+  // They are now subject to the same quality and visitability gates as other destinations.
   "barton-warnock-environmental-educational-center-state-park",
   "caprock-canyons-trailway-estelline-terminal-state-park",
   "choke-canyon-calliham-unit-state-park",

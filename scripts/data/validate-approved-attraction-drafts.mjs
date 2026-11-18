@@ -24,8 +24,16 @@ for (const slug of ["texas-freshwater-fisheries-center", "national-ranching-heri
 assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 1);
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
-assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Owner publication hold; off-site public-domain cattle hero/);
-assert.match(availability, /"texas-freshwater-fisheries-center", \/\/ New guide awaiting separate final owner publication approval/);
+assert.doesNotMatch(availability, /"national-ranching-heritage-center-lubbock"\s*,/);
+assert.doesNotMatch(availability, /"texas-freshwater-fisheries-center"\s*,/);
+const sitemapParity = read("src/data/destination-sitemap-detail-parity.server.ts");
+for (const slug of ["national-ranching-heritage-center-lubbock", "texas-freshwater-fisheries-center"]) {
+  assert.ok(sitemapParity.includes('"' + slug + '"'), "Approved attraction requires canonical sitemap parity: " + slug);
+}
+assert.match(sitemapParity, /getResolvedDestination\(slug\)/);
+assert.match(sitemapParity, /auditDestination\(destination\)\.readyForIndexing/);
+assert.doesNotMatch(destinationRoute, /DraftAttractionAuthoritySections/);
+assert.match(destinationRoute, /DestinationVisitPlanner destination=\{destination\}/);
 assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
 assert.match(destinationRoute, /verifiedAttractionPhotoRights/);
 assert.match(destinationRoute, /acquireLicensePage: "https:\/\/commons.wikimedia.org\/wiki\/File:"/);
@@ -77,4 +85,4 @@ for (const [label, text] of [["fisheries", newGuides], ["forestry", forestry]]) 
   assert.match(text, /visitorFaqs:/, label + " FAQ required");
   assert.match(text, /sourceCheckedAt:/, label + " source date required");
 }
-console.log("Owner-approved attraction draft source invariants passed; publication remains on hold.");
+console.log("Approved attraction publication contracts passed: no owner hold, licensed media, canonical sitemap parity, source-linked visitor FAQs and monthly verification.");

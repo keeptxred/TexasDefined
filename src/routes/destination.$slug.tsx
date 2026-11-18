@@ -55,12 +55,8 @@ const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinC
 const DestinationVisitPlanner = lazy(() =>
   import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
 );
-// Draft guides remain noindex and outside public discovery, but still need
-// their source-backed FAQs rendered for editorial and browser quality review.
-const DraftAttractionAuthoritySections = lazy(() =>
-  import("@/components/editorial/DestinationAuthoritySections").then((module) => ({ default: module.DestinationAuthoritySections })),
-);
-
+// Source-linked FAQs for approved attractions render through the ordinary
+// DestinationVisitPlanner. Do not duplicate them in a draft-only surface.
 const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
 
 const DestinationViatorBooking = lazy(() =>
@@ -722,8 +718,6 @@ function DestinationPage() {
           </nav>
         )}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><Suspense fallback={null}><DestinationVisitPlanner destination={destination} /></Suspense></div>}
-        {/* Preserve real source-linked FAQ/attribution in noindex preview without enabling trip discovery. */}
-        {!isPrimaryTripPlannerDestination(destination) && ["texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"].includes(destination.slug) && <div className="mt-10"><Suspense fallback={null}><DraftAttractionAuthoritySections destination={destination} /></Suspense></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

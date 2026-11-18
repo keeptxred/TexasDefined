@@ -13,9 +13,9 @@ worker.stderr.on("data", d => { output += d.toString(); process.stderr.write(d);
 const sleep = ms => new Promise(resolve => setTimeout(resolve,ms));
 let browser;
 const targets = [
-  {slug:"texas-freshwater-fisheries-center",title:"Texas Freshwater Fisheries Center",credit:"Larry D. Moore",noindex:true,mustSee:["$5.50","pets are not allowed","summer 2027"]},
+  {slug:"texas-freshwater-fisheries-center",title:"Texas Freshwater Fisheries Center",credit:"Larry D. Moore",noindex:false,mustSee:["$5.50","pets are not allowed","summer 2027"]},
   {slug:"texas-forestry-museum-lufkin",title:"Texas Forestry Museum",credit:"Billy Hathorn",noindex:false,mustSee:["$3 per person","Angelina County"]},
-  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"USDA NRCS Texas",noindex:true,mustSee:["$50 for the group","larger than 20","service animals","Illustrative Texas ranching photograph"]},
+  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"USDA NRCS Texas",noindex:false,mustSee:["$50 for the group","larger than 20","service animals","Illustrative Texas ranching photograph"]},
 ];
 const results = [];
 try {
@@ -42,6 +42,10 @@ try {
         assert.equal(Boolean(robots?.includes("noindex")),target.noindex,name+" robots policy");
         const canonical=await page.locator('link[rel="canonical"]').getAttribute("href");
         assert.ok(canonical?.endsWith("/destination/"+target.slug),name+" canonical");
+        const description=await page.locator('meta[name="description"]').getAttribute("content");
+        assert.ok(description && description.length>=90,name+" substantive search description");
+        const schema=await page.locator('script[type="application/ld+json"]').allTextContents();
+        assert.ok(schema.some(item=>item.includes(target.title) && item.includes("TouristAttraction")),name+" TouristAttraction JSON-LD");
         assert.ok((await page.locator("body").innerText()).toLowerCase().includes(target.credit.toLowerCase()),name+" visible photo credit");
         const faqHeading = page.getByRole("heading",{name:"Frequently asked questions about "+target.title,exact:true});
         await faqHeading.first().waitFor({state:"visible",timeout:20000});
@@ -65,10 +69,19 @@ try {
     }
     await context.close();
   }
+  try {
+    const sitemapResponse=await fetch(origin+"/sitemap-explore.xml",{signal:AbortSignal.timeout(120000)});
+    assert.equal(sitemapResponse.status,200,"Explore sitemap HTTP status");
+    const xml=await sitemapResponse.text();
+    for(const slug of ["texas-freshwater-fisheries-center","national-ranching-heritage-center-lubbock"]){
+      assert.ok(xml.includes("<loc>https://texasdefined.com/destination/"+slug+"</loc>"),slug+" must be listed in the actual public XML");
+    }
+    results.push({name:"canonical-attraction-sitemap",status:"pass"});
+  } catch(error) {results.push({name:"canonical-attraction-sitemap",status:"fail",error:String(error)});}
   await writeFile(root+"/results.json",JSON.stringify(results,null,2));
   const failures=results.filter(x=>x.status!=="pass");
   assert.equal(failures.length,0,JSON.stringify(failures,null,2));
-  console.log("Attraction browser QA passed: 3 guides × 2 viewports, live hero loads, canonical, noindex, credits and overflow.");
+  console.log("Public attraction Chrome QA passed: three guides × two viewports, real images, structured data, no noindex, FAQs and both sitemap URLs.");
 } finally {
   if(browser) await browser.close();
   try{process.kill(-worker.pid,"SIGTERM");}catch{worker.kill("SIGTERM");}
