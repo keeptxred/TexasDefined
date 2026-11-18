@@ -45,13 +45,13 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Twin Sisters Dance Hall — Blanco County",
         "body": [
-          "Address: 6720 Highway 281 South, Blanco, TX 78606, roughly seven miles south of Blanco. This community-rooted historic hall is not a nightly nightclub; it specifically advertises monthly public dances alongside private bookings and other gatherings.",
+          "Address: 6720 Highway 281 South, Blanco, TX 78606, roughly seven miles south of Blanco. This community-rooted historic hall is not a nightly nightclub; its operator advertises first-Saturday public dances except January, July and September, alongside private bookings and other gatherings.",
           "The best trip plan starts with a confirmed public-dance date and checks admission, age rules and accommodations directly with the hall. A daytime drive-by is not the same thing as attending its dance tradition."
         ],
         "links": [
           {
-            "href": "https://twinsistersdancehall.com/",
-            "label": "Twin Sisters — public dance and event information"
+            "href": "https://twinsistersdancehall.com/calendar/",
+            "label": "Twin Sisters — current public dance calendar"
           },
           {
             "href": "https://texasdancehall.org/the-twin-sisters-dance-hall-by-patrick-cox-ph-d/",
@@ -67,6 +67,10 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ],
         "links": [
           {
+            "href": "https://anhalthalle.com/events/",
+            "label": "Anhalt Hall — official public event calendar"
+          },
+          {
             "href": "https://texasdancehall.org/anhalt-hall-anhalt-halle/",
             "label": "Anhalt Hall — preservation profile"
           },
@@ -79,8 +83,8 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Kendalia Halle — Kendalia",
         "body": [
-          "Kendalia Halle belongs to the rural Hill Country hall network documented by Texas Dance Hall Preservation. Unlike an urban live-music bar, it is tied to a small community and a historic building whose schedule can be periodic.",
-          "A reliable outing needs confirmation from the organizer that an event is open to the public, plus directions, capacity and accessibility information. It fits a Blanco–Boerne rural cultural route better than an unplanned late-night bar crawl."
+          "Historic address: 1135 FM 3351, Kendalia, TX 78027. Kendalia Halle is a heritage stop, NOT an operating public dance venue at the latest verified reporting. It suspended public operations in July 2024, and September 2026 reporting described the hall as still closed and offered for sale. This matters if you are planning an actual night of two-stepping.",
+          "Do not buy travel or lodging assuming a Kendalia Halle dance will take place. No reopened public schedule was independently confirmed in this November 2026 review. Check the venue or new operator for a documented reopening before treating it as an active event choice; the historical building remains relevant to Texas dance-hall preservation."
         ],
         "links": [
           {
@@ -96,10 +100,14 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Broken Spoke — Austin",
         "body": [
-          "The Broken Spoke on South Lamar Boulevard is a useful comparison because it is a well-known Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
+          "Address: 3201 South Lamar Boulevard, Austin, TX 78704. The Broken Spoke is a well-known active Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
           "Check the operator's official schedule, music or dance lesson details, and age policy rather than assuming every evening follows the same format. Pair with Austin music history for the contrast between honky-tonks and older civic halls."
         ],
         "links": [
+          {
+            "href": "https://www.brokenspokeaustintx.net/",
+            "label": "Broken Spoke — official schedule and visiting information"
+          },
           {
             "href": "/broken-spoke-austin-history",
             "label": "Broken Spoke history"
@@ -130,7 +138,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "SPJST National Hall — Fort Worth",
         "body": [
-          "SPJST Lodge 92 / National Hall in Fort Worth documents the Czech fraternal-hall tradition within an urban setting. Texas Dance Hall Preservation's 2026 grant announcement notes its role in events including Western swing, country-and-western dancing and Tejano music.",
+          "Address: 3316 Roberts Cut Off Road, Fort Worth, TX 76114. SPJST Lodge 92 / National Hall documents the Czech fraternal-hall tradition within an urban setting. Texas Dance Hall Preservation's 2026 grant announcement notes its role in events including Western swing, country-and-western dancing and Tejano music.",
           "This is an event-driven community venue: verify the actual calendar and whether the advertised gathering is public. The hall shows how immigrant associations and modern regional music scenes overlap without being the same kind of business as a commercial honky-tonk."
         ],
         "links": [
