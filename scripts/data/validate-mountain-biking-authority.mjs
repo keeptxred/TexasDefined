@@ -44,7 +44,7 @@ const visibleMarkers = [
   'Four checks that matter more than a saved screenshot',
   'Official trail map &amp; details',
   'TexasDefined park guide',
-  'TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026;'
+  'TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026;',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks',
   'https://tpwd.texas.gov/state-parks/franklin-mountains/plan-your-visit',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/activities/',
