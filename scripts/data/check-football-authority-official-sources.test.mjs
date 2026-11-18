@@ -109,7 +109,8 @@ test('Batch011 school-owned source watch covers all 25 without exceeding the bou
   for(const slug of current){
     const item=data.sources.find(x=>x.slug===slug);
     assert.ok(item,'Missing original school URL from Batch011 monitor: '+slug);
-    assert.ok(item.reviewAfter>='2027-01-29','Original quarterly review must not regress');
+    assert.ok(item.reviewAfter>='2027-01-29' || (slug==='comal-canyon-lake' && item.reviewAfter==='2026-11-21'),
+      'Original quarterly review must not regress, except Canyon Lake playoff next-day factual verification');
     assert.ok(item.url.startsWith('https://'));
     assert.ok(!/maxpreps|scorestream|sblive|espn/.test(item.url),'Unapproved score feed '+slug);
   }
