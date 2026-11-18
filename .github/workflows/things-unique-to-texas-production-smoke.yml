@@ -2,6 +2,8 @@ name: Things That Define Texas production smoke
 
 on:
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: read
@@ -12,7 +14,14 @@ concurrency:
 
 jobs:
   smoke:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    # Owner-only comment on the already reviewed release PR is an explicit
+    # manual request, not a deploy/schedule trigger or an open-ended site crawl.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.number == 7317 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/verify-texas-icons')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -55,6 +64,51 @@ jobs:
           check_page '/things-unique-to-texas/culture-music' 'Texas Cultural Traditions & Music'
           check_page '/things-unique-to-texas/wildlife-landscape' 'Texas Wildlife, Plants & Geography'
           check_page '/things-unique-to-texas/slang-folklore' 'Texas Slang, Symbols & Folklore'
+
+          # Required editorial revision acceptance: the previous release already had
+          # all five headings, so a title-only smoke can incorrectly certify stale
+          # CDN or Worker content. Prove the new, entry-level research in ordinary
+          # visitor HTML AND a cache-busted URL on explicit verification.
+          check_revised_chapter() {
+            local path="$1"
+            local section_marker="$2"
+            local entry_marker="$3"
+            local surface attempt url out
+            for surface in visitor bypass; do
+              out="$(mktemp)"
+              local passed=false
+              for attempt in 1 2 3 4 5 6; do
+                url="${origin}${path}"
+                if [[ "$surface" == bypass ]]; then
+                  url+="?verify=${cache_key}-evidence-${attempt}"
+                fi
+                if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                  "$url" -o "$out"; then
+                  if grep -Fqi "$section_marker" "$out" \
+                    && grep -Fqi "$entry_marker" "$out" \
+                    && grep -Fq "${origin}${path}" "$out" \
+                    && ! grep -Eqi "<meta[^>]+name=[\"']robots[\"'][^>]+content=[\"'][^\"']*noindex" "$out"; then
+                    passed=true
+                    break
+                  fi
+                fi
+                sleep 5
+              done
+              if [[ "$passed" != true ]]; then
+                echo "::error title=Stale Texas icon chapter::${path} did not serve ${entry_marker} on ${surface}"
+                rm -f "$out"
+                return 1
+              fi
+              echo "PASS updated authority entry ${path} on ${surface}"
+              rm -f "$out"
+            done
+          }
+
+          check_revised_chapter '/things-unique-to-texas/landmarks' 'Entry-specific research you can use' 'Historic buildings temporarily closed'
+          check_revised_chapter '/things-unique-to-texas/roadside-small-towns' 'Entry-specific research you can use' 'Closed for preservation'
+          check_revised_chapter '/things-unique-to-texas/culture-music' 'Entry-specific research you can use' 'Red Wassenich'
+          check_revised_chapter '/things-unique-to-texas/wildlife-landscape' 'Entry-specific research you can use' '540 cranes'
+          check_revised_chapter '/things-unique-to-texas/slang-folklore' 'Entry-specific research you can use' '1853 blackface'
 
           check_page '/texas-food-history' 'Texas food history is migration, geography and everyday ritual'
           check_page '/texas-food-trail' 'The Texas Food Trail'
@@ -122,4 +176,5 @@ jobs:
             echo '- Machine distributions: JSON and CSV packages checked for matching counts'
             echo '- Machine distributions must retain at least 91 deeper-guide relationships.'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
+            echo '- Five updated Texas identity chapters must show new entry-specific evidence on both normal visitor and cache-busted URLs.'
           } >> "$GITHUB_STEP_SUMMARY"
