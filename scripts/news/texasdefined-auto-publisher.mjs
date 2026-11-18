@@ -7,6 +7,7 @@ import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 import { isOriginalInstitutionalEvidenceLead } from './texasdefined-institutional-evidence-hydration.mjs';
 import { collectFirstPartyEvidence } from './texasdefined-firstparty-evidence.mjs';
 import { verifyTexasDefinedIllustrationBytes } from './texasdefined-image-raster-proof.mjs';
+import { parseTexasDefinedModelJson } from './texasdefined-ai-response-parse.mjs';
 import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
 import { liveDestinationSlugs, relevantDestinationRows } from './texasdefined-live-destination-catalog.mjs';
 
@@ -96,14 +97,6 @@ async function workersAi(model, input) {
     throw new Error('Editorial AI bridge did not attest signed GitHub transport');
   }
   return response;
-}
-
-function parseJson(text) {
-  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1] || text;
-  const start = fenced.indexOf('{');
-  const end = fenced.lastIndexOf('}');
-  if (start < 0 || end <= start) throw new Error('Workers AI did not return a JSON object.');
-  return JSON.parse(fenced.slice(start, end + 1));
 }
 
 function slugify(value) {
@@ -351,7 +344,7 @@ async function generateDraft(item, destinationRows, evidence) {
     max_tokens: 5000,
   });
   const envelope = await response.json();
-  const draft = parseJson(envelope?.result?.response || '');
+  const draft = parseTexasDefinedModelJson(envelope?.result?.response);
   validateDraft(draft, new Set(destinationRows.map((row) => row.slug)), item);
   draft.slug = `${new Date(item.pub_date || Date.now()).toISOString().slice(0, 10)}-${slugify(draft.title)}`;
   return draft;
