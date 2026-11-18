@@ -31,6 +31,12 @@ required(guide, 'src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/T
 required(guide, "Trinity River National Wildlife Refuge");
 required(guide, "CC BY 4.0");
 required(guide, "not Davis Hill itself");
+required(fallback, 'width:1280,height:853');
+required(curation, 'width:1280,height:853');
+required(guide, 'width={1280}');
+required(guide, 'height={853}');
+assert.ok(!fallback.includes('https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge'),
+  "Uncompressed full-resolution third-party image must not be reintroduced as the public hero");
 required(guide, 'loading="eager"');
 required(guide, 'src="/images/state-parks/davis-hill-salt-dome-concept.svg"');
 assert.ok(guide.indexOf('src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg/1280px-Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"') >= 0 && guide.indexOf('src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg/1280px-Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"') < guide.indexOf('src="/images/state-parks/davis-hill-salt-dome-concept.svg"'), "Licensed photographic hero must precede the inline geology image");
