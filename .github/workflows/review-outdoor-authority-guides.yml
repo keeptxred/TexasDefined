@@ -49,7 +49,7 @@ jobs:
       - name: Open or update a factual-drift issue
         if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         env:
-          GH_TOKEN: \${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           title='Five outdoor authority guides: scheduled fact or live-page drift'
           issue="$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "Five outdoor authority guides: scheduled fact or live-page drift") | .number' | head -1)"
