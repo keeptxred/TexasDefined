@@ -122,6 +122,26 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     }
   }
   const expectedHrefsByPage = {};
+  // A researched RV campground lives behind the shared destination slug route and
+  // shared curation registry. Changes there must smoke/purge this exact public URL;
+  // otherwise deploy planning can silently omit the only affected visitor page.
+  if (changedFiles.some(path => [
+    "src/components/editorial/MartinCreekRvAuthority.tsx",
+    "src/data/rv-parks/curated-public-wave4.ts",
+    "scripts/data/validate-rv-curated-public-wave4.mjs",
+    "scripts/ci/verify-martin-creek-rv-live.mjs",
+    ".github/workflows/verify-martin-creek-rv-live.yml",
+    "scripts/ci/production-change-scope.mjs",
+  ].includes(path))) {
+    const page = "/destination/martin-creek-lake-state-park-rv-area";
+    candidates.add(page);
+    expectedHrefsByPage[page] = [
+      "/destination/martin-creek-lake-state-park",
+      "/explore/rv-parks",
+      "/explore/state-parks",
+      "/fishing/access",
+    ];
+  }
   // Exact thirteen source-verified GSC ImageObject examples only. Test their *deployed* JSON-LD
   // when the shared rights registry changes; no sitewide image crawl.
   const imageRightsPages = new Set();

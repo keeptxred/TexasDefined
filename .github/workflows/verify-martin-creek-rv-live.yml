@@ -1,0 +1,60 @@
+name: Verify Martin Creek RV live authority
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-martin-creek-rv-live.yml'
+      - 'scripts/ci/verify-martin-creek-rv-live.mjs'
+      - 'src/components/editorial/MartinCreekRvAuthority.tsx'
+      - 'src/data/rv-parks/curated-public-wave4.ts'
+  schedule:
+    - cron: "41 16 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: verify-martin-creek-rv-live
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify live Martin Creek RV page across canonical domain and direct Worker
+        id: verify
+        shell: bash
+        run: |
+          set +e
+          node scripts/ci/verify-martin-creek-rv-live.mjs
+          code=$?
+          if [ "$code" -ne 0 ]; then echo "failed=true" >> "$GITHUB_OUTPUT"; fi
+          exit "$code"
+      - name: Preserve exact-source live verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: martin-creek-rv-authority-${{ github.run_id }}
+          path: .artifacts/martin-creek-rv-live.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Open one actionable page-verification issue on failed acceptance
+        if: always() && steps.verify.outputs.failed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Martin Creek RV: live authority page verification failed"
+          existing=$(gh issue list --state open --search '"Martin Creek RV: live authority page verification failed" in:title' --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "Canonical and/or direct Worker acceptance failed. Inspect workflow run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and the martin-creek-rv-authority artifact for exact failed fields; fix and retest rather than silently weakening checks."
+          else
+            echo "Existing Martin Creek RV acceptance issue #$existing; avoiding duplicate."
+          fi
