@@ -307,8 +307,8 @@ const curated: Record<string, TopAttractionExpansion> = {
         "The Capitol sits between Downtown Austin and the University of Texas museum corridor, making it one of the easiest major Texas attractions to build into a car-light day. History museums are immediately north, while restaurants, parks and entertainment districts spread south and east.",
       nearbyAttractions: items(
         ["Capitol Visitors Center", "On the Capitol grounds", "Exhibits and visitor information in a historic state building add context before or after the main Capitol tour."],
-        ["Bullock Texas State History Museum", "About a 10-minute walk north", "Three floors of Texas history make the Bullock the strongest museum companion to a Capitol visit."],
-        ["Blanton Museum of Art", "About a 10–15-minute walk north", "The University of Texas art museum provides a visual-arts counterpoint beside the state-history corridor."],
+        ["Bullock Texas State History Museum", "About a 10-minute walk north", "Three floors of Texas history make the Bullock the strongest museum companion to a Capitol visit.", "/destination/bullock-texas-state-history-museum"],
+        ["Blanton Museum of Art", "About a 10–15-minute walk north", "The University of Texas art museum provides a visual-arts counterpoint beside the state-history corridor.", "/destination/blanton-museum-of-art-austin"],
         ["Waterloo Park", "About a 10-minute walk east", "Downtown lawns, trails and event space offer an outdoor break close to the Capitol."]
       ),
       foodAndDrink: items(
@@ -335,7 +335,7 @@ const curated: Record<string, TopAttractionExpansion> = {
         ["Barton Springs Pool and Zilker Park", "About 3 miles south-west", "Swimming and park space offer a strong warm-weather contrast to museums and government buildings."]
       ),
       sideTrips: items(
-        ["LBJ Presidential Library", "About 2 miles north-east", "Presidential history and major twentieth-century events make a natural political-history extension."],
+        ["LBJ Presidential Library", "About 2 miles north-east", "Presidential history and major twentieth-century events make a natural political-history extension.", "/destination/lbj-presidential-library-austin"],
         ["Lady Bird Johnson Wildflower Center", "About 12 miles south", "Native Texas landscapes and gardens create an outdoor half-day beyond central Austin."],
         ["Barton Springs and Zilker Park", "About 3 miles south-west", "Pair the city's civic center with its best-known spring-fed pool and major urban park."],
         ["Mount Bonnell", "About 5 miles north-west", "A short climb to a Colorado River overlook adds a classic Austin landscape stop."]
