@@ -1,0 +1,62 @@
+name: Verify West Wharton Hospital District Tax Sources
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/property/west-wharton-hospital-district.ts'
+      - 'src/components/property/WestWhartonHospitalDistrictAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'src/routes/property-tax.taxing-unit.$unit.tsx'
+      - 'src/routes/property-tax.county.$county.tsx'
+      - 'scripts/data/validate-west-wharton-hospital-district.mjs'
+      - '.github/workflows/verify-west-wharton-hospital-tax.yml'
+      - 'package.json'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/property/west-wharton-hospital-district.ts'
+      - 'src/components/property/WestWhartonHospitalDistrictAuthority.tsx'
+      - 'scripts/data/validate-west-wharton-hospital-district.mjs'
+      - '.github/workflows/verify-west-wharton-hospital-tax.yml'
+  # Quarterly source checks plus weekly during Aug–Nov Texas tax-adoption season.
+  schedule:
+    - cron: '17 15 5 1,4,7,10 *'
+    - cron: '37 15 * 8-11 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: west-wharton-hospital-authority-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify local authority content and rates
+        run: node --experimental-strip-types scripts/data/validate-west-wharton-hospital-district.mjs
+      - name: Check official primary sources on scheduled / manual runs
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node --experimental-strip-types scripts/data/validate-west-wharton-hospital-district.mjs --remote
+      - name: Open a single review issue on failed source verification
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="West Wharton hospital tax authority sources require review"
+          existing="$(gh issue list --state open --search "in:title ${title}" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "The scheduled West Wharton County Hospital District authority check failed. Verify the official district rate, source links, rate/levy evidence and whether a new tax year has been adopted before editing the historical publication. Do not replace the finalized Comptroller levy with a proposed levy. See failed run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+          else
+            echo "Open review issue #${existing} already exists; no duplicate created."
+          fi
