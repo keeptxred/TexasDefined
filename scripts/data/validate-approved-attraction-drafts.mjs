@@ -24,7 +24,7 @@ for (const slug of ["texas-freshwater-fisheries-center", "national-ranching-heri
 assert.equal(forestry.split('slug: "texas-forestry-museum-lufkin"').length - 1, 1);
 assert.doesNotMatch(legacy, /slug: "texas-forestry-museum-lufkin"/);
 assert.match(heroes, /"texas-forestry-museum-lufkin": \{/);
-assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Commercial photo clearance/);
+assert.match(availability, /"national-ranching-heritage-center-lubbock", \/\/ Owner publication hold; off-site public-domain cattle hero/);
 assert.match(availability, /"texas-freshwater-fisheries-center", \/\/ New guide awaiting separate final owner publication approval/);
 assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
 assert.match(destinationRoute, /verifiedAttractionPhotoRights/);
