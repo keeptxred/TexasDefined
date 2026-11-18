@@ -567,3 +567,29 @@ test('8d5476 original-byte handoff rejects wrong provenance, changed failure set
     );
   }
 });
+
+
+test('Nov18 23317b8a published Martin Creek Worker contributes only SHA-backed original assets, not a successful release', () => {
+  const exact = {
+    runId: 44368051009, jobId: 135027028666,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+    additional: ['Verify Devils River photograph and exact destination production'],
+  };
+  const accepted = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(accepted.mode, 'exact-nov18-martin-creek-published-original-assets-only');
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.priorReleaseStillFailed, true);
+  assert.equal(accepted.requiredSourceSha, '06ace4c8029d853722a98e8485252247cf1a7551');
+  assert.equal(accepted.requiredWorkerVersion, '23317b8a-2b01-473d-95b4-bbf9c61af2e7');
+  assert.deepEqual(accepted.permittedFailures, [exact.failure, ...exact.additional]);
+  for (const mutation of [
+    { runId: exact.runId + 1 },
+    { jobId: exact.jobId + 1 },
+    { failure: 'Verify base production surfaces' },
+    { additional: [] },
+    { additional: [...exact.additional, 'Verify canonical production health'] },
+    { additional: [...exact.additional, 'Verify current and previous release JS/CSS on both public origins'] },
+    ...required.map(omit => ({ omit })),
+  ]) assert.throws(() => qualifyPriorDeployJob(evidence({ ...exact, ...mutation })),
+    /Required published-Worker safety gate not successful|Martin Creek 23317b8a original-byte bridge rejects altered run\/job\/failed steps|Failed deploy job includes unapproved or missing failure evidence/);
+});
