@@ -246,7 +246,9 @@ jobs:
           fi
       - name: Verify real 2026 deer public-hunt Unit 904 permit facts against TPWD
         id: deer_unit
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && success()
+        # Verify official permit evidence once on main push and weekly thereafter.
+        # PR validation remains fixture-only until the deploy goes live.
+        if: github.event_name != 'pull_request' && success()
         run: node scripts/data/verify-texas-deer-public-unit.mjs
       - name: Preserve source-drift alert if Alabama Creek adult permit details change
         if: failure() && steps.deer_unit.outcome == 'failure'
