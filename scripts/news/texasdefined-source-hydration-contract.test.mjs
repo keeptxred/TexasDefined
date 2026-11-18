@@ -43,3 +43,17 @@ test('official research lane hydrates only original first-party evidence; it nev
   assert.match(publisher, /originalSelected/);
   assert.doesNotMatch(workflow, /--publish|PUBLISH_TEXASDEFINED|CLOUDFLARE_API_TOKEN/);
 });
+
+test('manual publish never reports success without an actual eligible source and preserves hold audit counts', () => {
+  assert.match(publisher, /if \(publishRequested && queue\.length === 0\) \{/);
+  assert.match(publisher, /No article was published\. Hold reasons:/);
+  assert.match(publisher, /heldReasons,/);
+  assert.match(publisher, /totalHeldByReason !== rawEligible - automationEligibleQueue\.length/);
+  for (const reason of [
+    'stale_or_future_source',
+    'editorial_review_or_routing_hold',
+    'insufficient_original_source_body',
+    'insufficient_recorded_sources',
+    'fewer_than_two_relevant_indexable_destinations',
+  ]) assert.match(publisher, new RegExp(reason));
+});
