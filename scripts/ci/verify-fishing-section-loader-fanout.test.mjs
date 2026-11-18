@@ -41,3 +41,42 @@ test('Lake Conroe camping cold SSR avoids the optional live-water fetch without 
   assert.ok(guide.includes('pageData.camping.map'), 'published camping facilities remain in visitor HTML');
   assert.ok(guide.includes('pageData.sectionResearch.sourceUrls.map'), 'official sources remain in page HTML');
 });
+
+
+test('Conroe cold SSR isolates its original source-backed dossier and does not import 291KB statewide research', () => {
+  const server = readFileSync('src/data/fishing/lake-conroe-page-data.server.ts', 'utf8');
+  const local = readFileSync('src/data/fishing/lake-conroe-research.ts', 'utf8');
+  const allLakes = readFileSync('src/data/fishing/lake-authority-research-wave1.ts', 'utf8');
+  assert.ok(allLakes.length > 250_000, 'the heavy cross-lake registry remains, but must not be in the Conroe SSR import graph');
+  assert.ok(server.includes('import { LAKE_CONROE_RESEARCH } from "./lake-conroe-research"'));
+  assert.ok(server.includes('const research = LAKE_CONROE_RESEARCH'));
+  assert.ok(!server.includes('LAKE_AUTHORITY_RESEARCH_WAVE1'));
+  assert.ok(local.includes('import type { LakeAuthorityResearch }'), 'types may be imported without loading large object');
+  assert.ok(!local.includes('import { LAKE_AUTHORITY_RESEARCH_WAVE1 }'));
+  const parseObjectAfter = (text, marker) => {
+    const i = text.indexOf(marker);
+    assert.ok(i >= 0, 'missing static source record: ' + marker);
+    const start = text.indexOf('{', i + marker.length);
+    assert.ok(start >= 0);
+    let depth = 0, quoted = false, escaped = false;
+    for (let x = start; x < text.length; x++) {
+      const ch = text[x];
+      if (quoted) {
+        if (escaped) escaped = false;
+        else if (ch === '\\') escaped = true;
+        else if (ch === '"') quoted = false;
+      } else if (ch === '"') quoted = true;
+      else if (ch === '{') depth++;
+      else if (ch === '}' && --depth === 0) return JSON.parse(text.slice(start, x + 1));
+    }
+    throw new Error('Unterminated source record ' + marker);
+  };
+  const baseline = parseObjectAfter(allLakes, '"lake-conroe": ');
+  const isolated = parseObjectAfter(local, 'export const LAKE_CONROE_RESEARCH: LakeAuthorityResearch = ');
+  assert.deepEqual(isolated, baseline, 'No official campground, rule, attraction, URL or source-reviewed date may change during lazy isolation');
+  assert.equal(isolated.camping.length, 3);
+  assert.equal(isolated.regulations.length, 3);
+  assert.equal(isolated.nearby.length, 3);
+  assert.ok(isolated.camping.some(x => x.href === 'https://www.recreation.gov/camping/campgrounds/234004'));
+  assert.ok(isolated.camping.some(x => x.href === 'https://www.recreation.gov/camping/campgrounds/10158882'));
+});
