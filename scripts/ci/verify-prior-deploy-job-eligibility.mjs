@@ -362,6 +362,23 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // while that correction and the strict unchanged fishing live verifier exist.
 // Callers separately demand exact Worker UUID, source SHA, artifact original
 // byte hashes and both HTTP origins. This never certifies the prior release.
+// Nov 18 #44242409782 published the currently 100%-traffic Worker 6f9e...
+// from SHA 873454f... after exact successful deploy, captured version,
+// direct/canonical health, 1,350 retained asset files, complete original-byte
+// JS/CSS checks on both origins and preserved next-release handoff. Only the
+// independent Lake Conroe /camping sitemap/robots probe failed HTTP 500
+// after three retries. That genuine page failure is NOT certified or waived.
+// Its immutable asset history may seed the NEXT Worker ONLY after the caller
+// matches exact current Worker, source SHA and every original SHA-256 on both
+// origins. The next release must rerun the full fishing publication verifier.
+const NOV18_PUBLISHED_6F9_CONROE_ASSETS_ONLY = Object.freeze({
+  runId: 44242409782,
+  jobId: 134593204841,
+  sourceSha: '873454f756a635b63957b83d479d8979719858ed',
+  workerVersion: '6f9e538a-98d4-45fa-bd0e-6c47f8cbc2a0',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 const NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY = Object.freeze({
   runId: 44238364654,
   jobId: 134579887566,
@@ -403,6 +420,39 @@ export function qualifyPriorDeployJob(payload) {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
   }
+  const nov18SixF9 = NOV18_PUBLISHED_6F9_CONROE_ASSETS_ONLY;
+  if (job.run_id === nov18SixF9.runId && job.id === nov18SixF9.jobId &&
+      failures.length === 1 && failures[0] === nov18SixF9.failedStep) {
+    for (const name of [
+      'Capture old HTML JS/CSS hashes before Worker replacement',
+      'Prove captured four-page hash inventory belongs to exact active Worker',
+      'Retain bounded old hashed client assets',
+      'Measure postdeploy hashed-asset continuity',
+      'Preserve old/new asset delivery evidence and next-release handoff',
+    ]) {
+      if (steps.filter(s => s.name === name && s.conclusion === 'success').length !== 1) {
+        throw Error('Nov18 6f9 original-byte source lacks protected asset evidence: ' + name);
+      }
+    }
+    const parity = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    if (!parity.includes('fetchLiveHtmlWithRetry') || !parity.includes('attempts: 3') ||
+        !parity.includes('"/fishing/lakes/lake-conroe/camping"') ||
+        !parity.includes('inSitemap') || !parity.includes('canonicalMatches') ||
+        !parity.includes('noindex')) {
+      throw Error('Nov18 6f9 failed fishing acceptance must not be suppressed or weakened');
+    }
+    return {
+      eligible: true, mode: 'exact-nov18-6f9-failed-camping-original-assets-only',
+      exactRun: nov18SixF9.runId, requiredSourceSha: nov18SixF9.sourceSha,
+      requiredWorkerVersion: nov18SixF9.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      priorReleaseStillFailed: true,
+    };
+  }
+  if (job.run_id === nov18SixF9.runId || job.id === nov18SixF9.jobId) {
+    throw Error('Nov18 6f9 original-byte handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
+  }
+
   const nov18Conroe = NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY;
   if (job.run_id === nov18Conroe.runId && job.id === nov18Conroe.jobId &&
       failures.length === 1 && failures[0] === nov18Conroe.failedStep) {
