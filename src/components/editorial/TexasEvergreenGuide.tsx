@@ -188,7 +188,12 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     {
       "label": "Twin Sisters Dance Hall — official calendar and details",
       "href": "https://twinsistersdancehall.com/",
-      "note": "Operator describes public monthly dances, community uses and the address south of Blanco."
+      "note": "Operator documents first-Saturday public dances, with January, July and September exceptions, as well as rentals and community gatherings. Confirm dates on the current calendar."
+    },
+    {
+      "label": "Anhalt Hall — official event listings",
+      "href": "https://anhalthalle.com/events/",
+      "note": "Venue operator's calendar for current public dances and seasonal performances; always check individual event details and availability."
     },
     {
       "label": "Texas Dance Hall Preservation — Anhalt Hall",
