@@ -79,8 +79,8 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Kendalia Halle — Kendalia",
         "body": [
-          "Kendalia Halle belongs to the rural Hill Country hall network documented by Texas Dance Hall Preservation. Unlike an urban live-music bar, it is tied to a small community and a historic building whose schedule can be periodic.",
-          "A reliable outing needs confirmation from the organizer that an event is open to the public, plus directions, capacity and accessibility information. It fits a Blanco–Boerne rural cultural route better than an unplanned late-night bar crawl."
+          "Historic address: 1135 FM 3351, Kendalia, TX 78027. Kendalia Halle is a heritage stop, NOT an operating public dance venue at the latest verified reporting. It suspended public operations in July 2024, and September 2026 reporting described the hall as still closed and offered for sale. This matters if you are planning an actual night of two-stepping.",
+          "Do not buy travel or lodging assuming a Kendalia Halle dance will take place. No reopened public schedule was independently confirmed in this November 2026 review. Check the venue or new operator for a documented reopening before treating it as an active event choice; the historical building remains relevant to Texas dance-hall preservation."
         ],
         "links": [
           {
@@ -96,10 +96,14 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         "heading": "Broken Spoke — Austin",
         "body": [
-          "The Broken Spoke on South Lamar Boulevard is a useful comparison because it is a well-known Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
+          "Address: 3201 South Lamar Boulevard, Austin, TX 78704. The Broken Spoke is a well-known active Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
           "Check the operator's official schedule, music or dance lesson details, and age policy rather than assuming every evening follows the same format. Pair with Austin music history for the contrast between honky-tonks and older civic halls."
         ],
         "links": [
+          {
+            "href": "https://www.brokenspokeaustintx.net/",
+            "label": "Broken Spoke — official schedule and visiting information"
+          },
           {
             "href": "/broken-spoke-austin-history",
             "label": "Broken Spoke history"
