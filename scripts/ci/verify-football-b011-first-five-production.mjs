@@ -16,10 +16,10 @@ const schoolTerms = {
  'colorado-city-colorado':['Daniel Mejia','Mitchell County'],
  'columbus':['Matt Schobel','Colorado County'],
  'comal-canyon':['Sean McAuliffe','Nate Leonard'],
- 'comal-canyon-lake':['Lawrence Parker','Fischer'],
+ 'comal-canyon-lake':['Sam Parker','Lawrence Parker','Fischer','Pleasanton','Port Lavaca Calhoun','Leopard Stadium','Green and Gold','8–2','6–1'], 
  'comal-davenport':['Zimmerhanzel','Lone Star Cup'],
 };
-const expectedGraphics = new Set(); // No date-by-date verified 2026 finals have been authored for this cohort.
+const expectedGraphics = new Set(['comal-canyon-lake']); // November 18 source-audited results exist only for Canyon Lake; no score claims for peers.
 const reg = JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
 const editorial = await readFile('src/data/high-school-football/program-editorial-b011.ts','utf8');
 const route = await readFile('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx','utf8');
@@ -114,9 +114,11 @@ try {
       }
       for(const term of schoolTerms[slug])if(!facts.body.includes(term))errors.push('Missing specific authority fact '+term);
       if(facts.images.some(x=>!x.alt||x.broken))errors.push('Missing alt or broken image');
-      if(!facts.body.includes('Original TexasDefined typographic football identity panel'))errors.push('Missing original rights-safe school identity panel');
+      if(!facts.body.includes(slug==='comal-canyon-lake' ? 'Original green-and-gold TexasDefined Hill Country football-field illustration' : 'Original TexasDefined typographic football identity panel'))errors.push('Missing original rights-safe school identity panel');
+      if(slug==='comal-canyon-lake'&&(!facts.links.includes('https://www.lgisd.net/o/lhs/article/3260936')||!facts.links.includes('https://www.lagrangeleopardsathletics.com/facilities')))errors.push('Missing exact first-party La Grange neutral-playoff ticket and venue sources');
+      if(slug==='comal-canyon-lake'&&!facts.images.some(x=>x.alt&&!x.broken))errors.push('Missing original accessible Canyon Lake image');
       if(!facts.body.includes('Milestones that shaped'))errors.push('Missing source-backed school milestones');
-      if(facts.graphic)errors.push('Unexpected 2026 finals graphic without verified scored season data');
+      if(facts.graphic&&!expectedGraphics.has(slug))errors.push('Unexpected 2026 finals graphic without verified scored season data');
       if(expectedGraphics.has(slug)&&(!facts.graphic||facts.graphic.cards<1||facts.graphic.sources<1||
         facts.graphic.width>width+8||!facts.graphic.labels.every(x=>/\b(?:Win|Loss|Tie) against\b/.test(x))))
         errors.push('Missing/invalid 2026 source-backed timeline graphic');
