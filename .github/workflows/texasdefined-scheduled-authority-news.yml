@@ -69,6 +69,7 @@ jobs:
           const summary=['## TexasDefined automatic magazine publishing',
             'Ready queue: '+q.rawEligible, 'Eligible after strict current editorial and evidence gates: '+q.eligible,
             'Held: '+q.held, 'Deferred: '+q.deferred, 'Selected exact ID: '+(target || 'none'),
+            'Hold reasons: '+JSON.stringify(q.heldReasons || {}),
             'Owner activation: '+(process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED==='true'?'enabled':'disabled'),
             'Unattended publications allowed this run: '+(target && process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED==='true'?'1':'0')].join('\n');
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
