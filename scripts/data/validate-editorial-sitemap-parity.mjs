@@ -152,11 +152,14 @@ for (const guard of [
 
 const detailParity = read("src/data/destination-sitemap-detail-parity.server.ts");
 for (const marker of [
-  'const DETAIL_PARITY_SLUGS = ["blanco", "caddo-lake"] as const',
+  'const DETAIL_PARITY_SLUGS = [',
   'await getResolvedDestination(slug)',
   'auditDestination(destination).readyForIndexing',
   'isPrimaryTripPlannerDestination(destination)',
 ]) assert.ok(detailParity.includes(marker), `Shared detail parity must retain canonical resolver and audit gate: ${marker}`);
+for (const slug of ["blanco", "caddo-lake", "texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"]) {
+  assert.ok(detailParity.includes('"' + slug + '"'), "Canonical destination parity must retain the researched guide: " + slug);
+}
 for (const marker of [
   'await import("@/data/destination-sitemap-detail-parity.server")',
   'await loadCanonicalDestinationSitemapParity()',

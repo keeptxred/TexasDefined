@@ -55,12 +55,8 @@ const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinC
 const DestinationVisitPlanner = lazy(() =>
   import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
 );
-// Draft guides remain noindex and outside public discovery, but still need
-// their source-backed FAQs rendered for editorial and browser quality review.
-const DraftAttractionAuthoritySections = lazy(() =>
-  import("@/components/editorial/DestinationAuthoritySections").then((module) => ({ default: module.DestinationAuthoritySections })),
-);
-
+// Source-linked FAQs for approved attractions render through the ordinary
+// DestinationVisitPlanner. Do not duplicate them in a draft-only surface.
 const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
 
 const DestinationViatorBooking = lazy(() =>
@@ -562,6 +558,24 @@ function DestinationPage() {
 
     <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
 
+    {/* Public attraction FAQs must be in the initial server HTML, not only a
+        lazy client-side planner. One canonical visible FAQ per guide. */}
+    {["texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"].includes(destination.slug) && Boolean(destination.visitorFaqs?.length) && (
+      <section className="bg-surface py-10 sm:py-12" aria-label={`${destination.name} visitor questions`}>
+        <Container>
+          <p className="eyebrow text-primary">Official-source visitor answers</p>
+          <h2 className="mt-2 font-display text-3xl">{`Frequently asked questions about ${destination.name}`}</h2>
+          <dl className="mt-6 grid gap-6 md:grid-cols-2">
+            {destination.visitorFaqs?.map((item) => <div key={item.question} className="border-t border-border pt-5">
+              <dt className="font-semibold">{item.question}</dt>
+              <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
+              {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official operator source</a>}
+            </div>)}
+          </dl>
+        </Container>
+      </section>
+    )}
+
     {destination.slug === "martin-creek-lake-state-park-rv-area" && <Suspense fallback={null}><MartinCreekRvAuthority /></Suspense>}
 
 
@@ -722,8 +736,6 @@ function DestinationPage() {
           </nav>
         )}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><Suspense fallback={null}><DestinationVisitPlanner destination={destination} /></Suspense></div>}
-        {/* Preserve real source-linked FAQ/attribution in noindex preview without enabling trip discovery. */}
-        {!isPrimaryTripPlannerDestination(destination) && ["texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"].includes(destination.slug) && <div className="mt-10"><Suspense fallback={null}><DraftAttractionAuthoritySections destination={destination} /></Suspense></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

@@ -9,7 +9,14 @@ import { isPrimaryTripPlannerDestination } from "./destination-availability";
  * proximity pages own their separate, existing shared readiness pipeline;
  * do not load their catalog from this module.
  */
-const DETAIL_PARITY_SLUGS = ["blanco", "caddo-lake"] as const;
+const DETAIL_PARITY_SLUGS = [
+  "blanco",
+  "caddo-lake",
+  // Public authority records must stay discoverable if remote Explore lags.
+  // The canonical detail resolver and audit still determine index eligibility.
+  "texas-freshwater-fisheries-center",
+  "national-ranching-heritage-center-lubbock",
+] as const;
 
 export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ path: string; lastmod?: string }>> {
   const { getResolvedDestination } = await import("./destination-query-runtime");

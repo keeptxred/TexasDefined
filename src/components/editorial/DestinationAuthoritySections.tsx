@@ -48,7 +48,8 @@ export function DestinationAuthoritySections({ destination }: Props) {
   const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination);
   // MuseumAuthorityNetworkSection already supplies a canonical 8-question
   // source-reviewed FAQ. Do not print a second FAQ with overlapping questions.
-  const hasUniqueVisitorFaqs = !museumAuthoritySlugs.has(destination.slug) && Boolean(destination.visitorFaqs?.length);
+  const hasPublicAttractionSsrFaq = destination.slug === "texas-freshwater-fisheries-center" || destination.slug === "national-ranching-heritage-center-lubbock";
+  const hasUniqueVisitorFaqs = !museumAuthoritySlugs.has(destination.slug) && !hasPublicAttractionSsrFaq && Boolean(destination.visitorFaqs?.length);
   if ((!guide && !hasUniqueVisitorFaqs) ||
     (hasSeparateAuthorityGuide && !imageCredit && !hasUniqueVisitorFaqs)) return null;
 
