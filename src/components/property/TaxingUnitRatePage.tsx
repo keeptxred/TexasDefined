@@ -73,7 +73,7 @@ export function TaxingUnitRatePage({ data }: { data: ReturnType<typeof TaxingUni
 
     <section className="border-b border-border py-10"><p className="eyebrow text-primary">Counties associated with this taxing unit</p><h2 className="mt-2 font-display text-3xl">Local county context</h2><div className="mt-5 flex flex-wrap gap-3">{countyLinks.map(({slug,name}) => <a key={slug} href={`/property-tax/county/${slug}`} className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary">{name}</a>)}</div><p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">County association narrows the geography but does not prove that every parcel in the county belongs to this taxing unit. Verify the exact account before combining rates.</p></section>
 
-    <section className="border-b border-border py-10">
+    <section id="taxing-unit-rate-history" className="scroll-mt-24 border-b border-border py-10">
       <p className="eyebrow text-primary">Rate history</p>
       <h2 className="mt-2 font-display text-3xl">Annual tax rates, with source distinctions</h2>
       <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Rates are per $100 of taxable value. Locally verified rates are labeled. Missing M&amp;O or debt components are not zero. Reported levy is not actual tax collection.</p>
