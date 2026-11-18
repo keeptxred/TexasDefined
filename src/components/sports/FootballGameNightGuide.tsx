@@ -54,6 +54,8 @@ export type FootballGameNightGuideProps = {
   // The profile header already shows record, latest result and next listed fixture.
   // Avoid repeating those large panels in the game-night planning box.
   summaryAlreadyShown?: boolean;
+  // Source-rich school profiles may render offers only after all editorial content.
+  suppressCommercialOffers?: boolean;
 };
 
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
@@ -90,6 +92,7 @@ export function FootballGameNightGuide({
   venueLink,
   hasSeasonSection = false,
   summaryAlreadyShown = false,
+  suppressCommercialOffers = false,
 }: FootballGameNightGuideProps) {
   // Keep server and initial client markup identical; the date-sensitive card appears after hydration.
   const [today, setToday] = useState<string | null>(null);
@@ -206,10 +209,10 @@ export function FootballGameNightGuide({
         </p>
       )}
 
-      <FootballFanOffers slug={slug} hasUpcomingAwayTravel={hasUpcomingAwayTravel} />
+      {!suppressCommercialOffers && <FootballFanOffers slug={slug} hasUpcomingAwayTravel={hasUpcomingAwayTravel} />}
 
       <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 text-sm">
-        {slug !== 'aubrey' && <><span className="text-muted-foreground">Looking for Texas gear?</span>
+        {slug !== 'aubrey' && !suppressCommercialOffers && <><span className="text-muted-foreground">Looking for Texas gear?</span>
         <a href="/shop" onClick={() => recordAction(slug, 'texas-gear', '/shop')}
           className="font-semibold text-primary underline underline-offset-4">
           Browse the TexasDefined shop →
