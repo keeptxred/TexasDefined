@@ -4,6 +4,8 @@ import enchantedRock from "@/assets/enchanted-rock.jpg";
 import { Container } from "@/components/layout/Container";
 
 const officialSources = [
+  { label: "TPWD — Lake Mineral Wells live trails and rock-area closure notices", href: "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update", note: "Check the climbing area status before travel: a park-wide open designation does not mean Penitentiary Hollow climbing is open." },
+  { label: "TPWD — Lake Mineral Wells minor parental consent form", href: "https://tpwd.texas.gov/publications/pwdforms/media/pwd_1424d_p4000_parental_consent.pdf", note: "Required parental permission form for minors; contact the park for current submission procedures." },
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
   { label: "Texas Parks & Wildlife — Enchanted Rock Climbing & Bouldering", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb", note: "Official climbing management, protected-resource and climbing-rule guidance for Enchanted Rock." },
   { label: "Texas Parks & Wildlife — Lake Mineral Wells Rock Climbing", href: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing", note: "Official registration, approved-guide and Penitentiary Hollow climbing information." },
@@ -26,7 +28,7 @@ const areas = [
     summary: "Granite domes and boulders with a long climbing tradition inside a protected state natural area.",
     details: [
       "Enchanted Rock is both a major Texas landscape and an active climbing area. TPWD requires climbers to check in at park headquarters and publishes a dedicated climbing-management page and climbing-area map. The natural-area designation matters: plants, vernal pools, rock surfaces and other protected features should be treated as part of the resource, not as obstacles to recreation.",
-      "The official climbing guidance distinguishes traditional climbing, existing fixed protection and bouldering while prohibiting practices that damage protected natural features. Rather than relying on a generalized route description here, use the current TPWD climbing information and maps for the exact rules in effect on the day of your visit.",
+      "The official climbing guidance distinguishes traditional climbing, existing fixed protection and bouldering while prohibiting practices that damage protected natural features. Enchanted Rock has long slab and multi-pitch routes: TPWD warns that protection may be widely spaced and some rappel stations require a rope of at least 70 meters. Never assume a 60-meter rope reaches the ground or that a route is appropriate for beginners. Use the current TPWD map, route information and safe-climbing procedures, with rope-end knots, before committing.",
     ],
   },
   {
@@ -35,7 +37,7 @@ const areas = [
     summary: "Sandstone climbing at Penitentiary Hollow with formal registration requirements at park headquarters.",
     details: [
       "Lake Mineral Wells gives North Texas a public natural-rock option at Penitentiary Hollow. TPWD identifies the area as one of the relatively few natural climbing venues in North Texas and publishes a route map for the rock formations.",
-      "Registration is not optional: TPWD says individuals and groups must register at park headquarters before rock climbing or rappelling. Commercial and instructional group use has additional restrictions, including approved guide-service requirements. Those rules are a good example of why a statewide climbing guide should teach visitors where to verify access rather than assuming every Texas climbing area operates the same way.",
+      "Registration is not optional: TPWD says individuals and groups must register at park headquarters and complete the required waiver before climbing or rappelling. Bouldering, free climbing and soloing are prohibited here, so this is NOT a destination for unroped bouldering. TPWD requires a parent or guardian present, or written parental permission, for participants younger than 17; registered groups require an approved guide. The climbing area closes at sundown and during wet conditions, and climbing north of the creek is forbidden. Use the designated bolted anchors, never the scenic-overlook structures; do not install hardware. The park publishes separate notices about rock-area closures; check those notices and confirm with staff at (940) 328-1171 before travel.",
     ],
   },
   {
@@ -79,6 +81,7 @@ function TexasClimbingGuidePage() {
             <p className="eyebrow text-primary">Public rock · access · stewardship</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Rock Climbing &amp; Bouldering</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to four public Texas climbing areas: where they are, how their access systems differ, what the managing agencies protect, and where to verify current rules before you go.</p>
+            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Check land-manager alerts on the day of travel.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -92,12 +95,29 @@ function TexasClimbingGuidePage() {
             <p className="mt-4 max-w-4xl text-base leading-8">For a public-land climbing trip, start with Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Milton Reimers Ranch. The important distinction is access: Hueco Tanks uses tightly managed guided and self-guided areas; Enchanted Rock requires climber check-in and follows a climbing-management plan; Lake Mineral Wells requires registration before climbing or rappelling; and Reimers Ranch is managed by Travis County rather than TPWD. Always use the managing agency's current instructions for reservations, closures, maps and climbing rules.</p>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="climbing-comparison">
+            <p className="eyebrow text-primary">Choose the right area</p>
+            <h2 id="climbing-comparison" className="mt-2 font-display text-3xl">Climbing and bouldering do not share the same rules</h2>
+            <div className="mt-6 overflow-x-auto">
+              <table style={{ minWidth: 670 }} className="w-full text-sm leading-6">
+                <caption className="sr-only">Public Texas climbing destinations and important access distinctions</caption>
+                <thead><tr className="border-b border-border"><th scope="col" className="p-3">Area</th><th scope="col" className="p-3">Best for</th><th scope="col" className="p-3">Mandatory check</th></tr></thead>
+                <tbody>
+                  <tr className="border-b border-border"><th scope="row" className="p-3">Hueco Tanks</th><td className="p-3">Bouldering with appropriate experience and permits</td><td className="p-3">Advance access, guided areas and orientation</td></tr>
+                  <tr className="border-b border-border"><th scope="row" className="p-3">Enchanted Rock</th><td className="p-3">Granite climbing and designated bouldering</td><td className="p-3">Climber check-in, protection spacing, route length and rappel rope</td></tr>
+                  <tr className="border-b border-border"><th scope="row" className="p-3">Lake Mineral Wells</th><td className="p-3">Roped climbing/rappelling, not bouldering</td><td className="p-3">Rock-area closure status, waiver, registration and minor consent</td></tr>
+                  <tr className="border-b border-border"><th scope="row" className="p-3">Reimers Ranch</th><td className="p-3">Limestone routes in a county park</td><td className="p-3">County hours, access, park rules and closures</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="before-climbing">
             <p className="eyebrow text-primary">Before you climb</p>
             <h2 id="before-climbing" className="mt-2 font-display text-3xl">Check access, weather and site rules before committing to the day</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
               <p>Confirm the reservation, orientation or registration process for the exact area you plan to visit, then check current closures, designated climbing zones and any guide-service or access requirements. Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Reimers Ranch do not use one common access system.</p>
-              <p>Heat, lightning, wet rock, flooding, fire restrictions and park closures can turn a planned climbing day into the wrong day to climb. Check the land manager and current weather before leaving home, and change the plan when access or conditions no longer fit the day you prepared for.</p>
+              <p>Heat, lightning, wet rock, flooding, fire restrictions and park closures can turn a planned climbing day into the wrong day to climb. Wear a helmet where falling rock or equipment may be a hazard; double-check harnesses, belay systems, anchors, knots, partner communication and rope length. New climbers should use qualified instruction rather than relying on this destination overview as a technique guide. Check the land manager and current weather before leaving home, and change the plan when access or conditions no longer fit the day you prepared for.</p>
             </div>
           </section>
 
@@ -141,7 +161,7 @@ function TexasClimbingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access with the land manager</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Rules, reservation systems, closures and operating conditions can change. These are the first-party sources used for this guide and should control current trip decisions. Source review: August 30, 2026.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Rules, reservation systems, closures and operating conditions can change. These are the first-party sources used for this guide and should control current trip decisions. Source review: November 18, 2026. All access and open/closed status must still be rechecked on the day of travel.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

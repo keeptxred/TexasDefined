@@ -20,6 +20,21 @@ const evergreenBatch2 = fs.readFileSync(path.join(root, 'src/data/texas-evergree
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
+// Review-date contracts are owned by the GitHub refresh registry. A genuine
+// researched review must update both the visible page and this registry;
+// permanently hardcoding the original 2026-08-30 date blocks real updates.
+const fiveGuideReviews = JSON.parse(fs.readFileSync(
+  path.join(root, 'ops/editorial/texas-culture-outdoors-review-groups.json'), 'utf8',
+));
+function expectedReviewMarker(canonicalPath) {
+  const entry = fiveGuideReviews.groups.find(group => group.path === canonicalPath);
+  if (!entry) throw new Error('Five-guide review registry is missing ' + canonicalPath);
+  const reviewed = new Date(entry.reviewedAt + 'T00:00:00Z');
+  if (Number.isNaN(reviewed.getTime())) throw new Error('Invalid review date for ' + canonicalPath);
+  return 'Source review: ' + new Intl.DateTimeFormat('en-US', {
+    month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  }).format(reviewed) + '.';
+}
 const authoritySlugs = ['outdoors', 'caverns', 'lakes-rivers', 'beaches-coast', 'small-towns'];
 
 for (const feature of [
@@ -197,7 +212,7 @@ for (const marker of [
   if (!naturalWondersRoute.includes(marker)) errors.push(`Texas Natural Wonders structured authority missing marker: ${marker}.`);
 }
 for (const marker of [
-  'Source review: August 30, 2026.',
+  expectedReviewMarker('/texas-natural-wonders-bucket-list'),
   'https://www.nps.gov/bibe/index.htm',
   'https://www.nps.gov/gumo/index.htm',
   'https://www.nps.gov/pais/index.htm',
@@ -268,7 +283,7 @@ for (const marker of [
   'https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb',
   'https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing',
   'https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf',
-  'Source review: August 30, 2026.',
+  expectedReviewMarker('/texas-rock-climbing-bouldering-guide'),
   'to: "/explore/outdoors"',
   'to: "/texas-natural-wonders-bucket-list"',
   'to: "/explore/state-parks"',

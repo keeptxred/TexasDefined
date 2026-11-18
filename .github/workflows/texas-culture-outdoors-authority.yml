@@ -1,0 +1,97 @@
+name: TexasDefined five cultural and outdoor guide authority reviews
+on:
+  pull_request:
+    paths:
+      - 'src/data/texas-evergreen-guides-batch2.ts'
+      - 'src/data/texas-evergreen-guides-batch7.ts'
+      - 'src/components/editorial/TexasEvergreenGuide.tsx'
+      - 'src/components/editorial/TexasNaturalWondersAuthority.tsx'
+      - 'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx'
+      - 'ops/editorial/texas-culture-outdoors-review-groups.json'
+      - 'scripts/ci/check-five-texas-guide-authority.mjs'
+      - '.github/workflows/texas-culture-outdoors-authority.yml'
+  schedule:
+    - cron: '17 14 5 * *'        # Monthly: climbing and natural-wonders access/safety
+    - cron: '41 14 7 1,4,7,10 *' # Quarterly: folklore, dance halls and homecoming mums
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: five-texas-guide-authority-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'schedule' && github.event.schedule || 'manual' }}
+  cancel-in-progress: false
+jobs:
+  static-authority-check:
+    name: Validate five page source contracts and TSX syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Validate exact canonical pages, facts, sources and review inventory
+        run: node scripts/ci/check-five-texas-guide-authority.mjs --static
+      - name: Install dependencies without repository lifecycle hooks
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Parse modified TypeScript and TSX modules
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import { transformSync } from 'esbuild';
+          const files = [
+            'src/data/texas-evergreen-guides-batch2.ts',
+            'src/data/texas-evergreen-guides-batch7.ts',
+            'src/components/editorial/TexasEvergreenGuide.tsx',
+            'src/components/editorial/TexasNaturalWondersAuthority.tsx',
+            'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx',
+            'src/routes/texas-rock-climbing-bouldering-guide.tsx'
+          ];
+          for (const path of files) {
+            transformSync(fs.readFileSync(path, 'utf8'), { loader: path.endsWith('tsx') ? 'tsx' : 'ts', target: 'es2022' });
+            console.log('TSX_PARSE_PASS ' + path);
+          }
+          JS
+  primary-source-watch:
+    name: Recheck official sources and live page contract
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    needs: static-authority-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      SCOPE: ${{ github.event.schedule == '17 14 5 * *' && 'monthly' || github.event.schedule == '41 14 7 1,4,7,10 *' && 'quarterly' || 'all' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bounded live and source checks; never update dates automatically
+        id: sourcewatch
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/ci/check-five-texas-guide-authority.mjs --watch --scope="$SCOPE" 2>&1 | tee /tmp/texas-five-guide-review.log
+      - name: Record or update one actionable GitHub issue when source review fails
+        if: ${{ steps.sourcewatch.outcome == 'failure' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          issue_title='TexasDefined five-guide authority: source or review needs attention'
+          existing=$(gh issue list --state open --search "$issue_title in:title" --json number,title --jq '.[] | select(.title == "TexasDefined five-guide authority: source or review needs attention") | .number' | head -1)
+          {
+            echo 'Scheduled verification found an overdue review, inaccessible source, or changed public content. Verify the **facts**, correct the pages, and only then update the source review dates in the repository.'
+            echo
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            echo '```'
+            tail -100 /tmp/texas-five-guide-review.log
+            echo '```'
+          } > /tmp/texas-five-guide-review-issue.md
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file /tmp/texas-five-guide-review-issue.md
+          else
+            gh issue create --title "$issue_title" --body-file /tmp/texas-five-guide-review-issue.md
+          fi
+      - name: Fail scheduled assurance on unresolved source changes
+        if: ${{ steps.sourcewatch.outcome == 'failure' }}
+        run: exit 1

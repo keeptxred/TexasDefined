@@ -9,6 +9,164 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
     quickAnswer: "A Texas dance-hall trip works best when you treat the venues as cultural landmarks, not just places to hear a band. Historic halls around Central Texas and the Hill Country connect German and Czech settlement with polka, country, Western swing and the Texas two-step, while honky-tonks add a louder barroom branch of the same live-music tradition.",
     sections: [
       {
+        "heading": "Gruene Hall — New Braunfels",
+        "body": [
+          "Address: 1281 Gruene Road, New Braunfels, TX 78130. Opened in 1878, the hall is a landmark of German-settled Gruene; today the original-style timber room and dance floor continue to host public performances. This is a good first historic-hall stop because the Gruene Historic District supplies walkable food and sightseeing around the show.",
+          "Check Gruene Hall's official event calendar and ticket listings; a building's fame does not guarantee a particular act, free admission or a public dance every night. Check parking and seating or standing-room policies for the specific event."
+        ],
+        "links": [
+          {
+            "href": "https://gruenehall.com/events/month/",
+            "label": "Gruene Hall — live events"
+          },
+          {
+            "href": "/german-czech-texas-towns",
+            "label": "German and Czech Texas towns"
+          }
+        ]
+      },
+      {
+        "heading": "Luckenbach Dance Hall — near Fredericksburg",
+        "body": [
+          "Address: 412 Luckenbach Town Loop, Fredericksburg-area Texas. The celebrated Hill Country gathering place pairs a small historic settlement, live country music and an indoor dance-hall setting. The general store and outdoor picker culture are not interchangeable with a ticketed evening dance inside the hall.",
+          "Read the operator's event details before choosing a date: family access, paid concerts, open outdoor music and private or scheduled hall events can have different admission rules. Pair the visit with a Fredericksburg-area trip rather than assuming continuous nightly dances."
+        ],
+        "links": [
+          {
+            "href": "https://www.luckenbachtexas.com/",
+            "label": "Official Luckenbach events and visitor information"
+          },
+          {
+            "href": "/explore/road-trips",
+            "label": "Texas road trips"
+          }
+        ]
+      },
+      {
+        "heading": "Twin Sisters Dance Hall — Blanco County",
+        "body": [
+          "Address: 6720 Highway 281 South, Blanco, TX 78606, roughly seven miles south of Blanco. This community-rooted historic hall is not a nightly nightclub; it specifically advertises monthly public dances alongside private bookings and other gatherings.",
+          "The best trip plan starts with a confirmed public-dance date and checks admission, age rules and accommodations directly with the hall. A daytime drive-by is not the same thing as attending its dance tradition."
+        ],
+        "links": [
+          {
+            "href": "https://twinsistersdancehall.com/",
+            "label": "Twin Sisters — public dance and event information"
+          },
+          {
+            "href": "https://texasdancehall.org/the-twin-sisters-dance-hall-by-patrick-cox-ph-d/",
+            "label": "Texas Dance Hall Preservation — history"
+          }
+        ]
+      },
+      {
+        "heading": "Anhalt Hall — Spring Branch",
+        "body": [
+          "Anhalt Hall is at 2390 Anhalt Road, Spring Branch, Texas, according to Texas Dance Hall Preservation. The Germania Farmer Verein hall represents the community-association strand of Hill Country dance-hall history rather than the always-on tourism model. Its value includes the hall as social infrastructure for generations of local gatherings.",
+          "Do not assume there is a public dance on the date you visit. Find an operator-announced event or check with Texas Dance Hall Preservation before planning the trip; check accessibility and facilities with organizers."
+        ],
+        "links": [
+          {
+            "href": "https://texasdancehall.org/anhalt-hall-anhalt-halle/",
+            "label": "Anhalt Hall — preservation profile"
+          },
+          {
+            "href": "/explore/small-towns",
+            "label": "Explore Texas small towns"
+          }
+        ]
+      },
+      {
+        "heading": "Kendalia Halle — Kendalia",
+        "body": [
+          "Kendalia Halle belongs to the rural Hill Country hall network documented by Texas Dance Hall Preservation. Unlike an urban live-music bar, it is tied to a small community and a historic building whose schedule can be periodic.",
+          "A reliable outing needs confirmation from the organizer that an event is open to the public, plus directions, capacity and accessibility information. It fits a Blanco–Boerne rural cultural route better than an unplanned late-night bar crawl."
+        ],
+        "links": [
+          {
+            "href": "https://texasdancehall.org/kendalia-halle/",
+            "label": "Kendalia Halle — preservation profile"
+          },
+          {
+            "href": "/german-czech-texas-towns",
+            "label": "German and Czech heritage route"
+          }
+        ]
+      },
+      {
+        "heading": "Broken Spoke — Austin",
+        "body": [
+          "The Broken Spoke on South Lamar Boulevard is a useful comparison because it is a well-known Austin honky-tonk, not a rural immigrant-community hall. Expect a bar and dance-floor atmosphere, performance-specific admissions and a more explicitly urban country-music night.",
+          "Check the operator's official schedule, music or dance lesson details, and age policy rather than assuming every evening follows the same format. Pair with Austin music history for the contrast between honky-tonks and older civic halls."
+        ],
+        "links": [
+          {
+            "href": "/broken-spoke-austin-history",
+            "label": "Broken Spoke history"
+          },
+          {
+            "href": "/texas-western-swing",
+            "label": "Western swing and Texas dance-floor history"
+          }
+        ]
+      },
+      {
+        "heading": "John T. Floore Country Store — Helotes",
+        "body": [
+          "John T. Floore Country Store is at 14492 Old Bandera Road, Helotes, TX 78023. Floore's connects the roadhouse and honky-tonk branch of the story to the San Antonio region. It is known for concert performances and a long history as a country-music gathering place, rather than a preserved rural volunteer hall.",
+          "Concert tickets, outdoor-show arrangements and other venue policies can vary by performance; use the official operator event listing before driving from San Antonio. It makes a natural music-and-history counterpart to the Hill Country halls."
+        ],
+        "links": [
+          {
+            "href": "https://www.liveatfloores.com/",
+            "label": "Floore's — operator event information"
+          },
+          {
+            "href": "/texas-country-outlaw",
+            "label": "Texas country and outlaw music"
+          }
+        ]
+      },
+      {
+        "heading": "SPJST National Hall — Fort Worth",
+        "body": [
+          "SPJST Lodge 92 / National Hall in Fort Worth documents the Czech fraternal-hall tradition within an urban setting. Texas Dance Hall Preservation's 2026 grant announcement notes its role in events including Western swing, country-and-western dancing and Tejano music.",
+          "This is an event-driven community venue: verify the actual calendar and whether the advertised gathering is public. The hall shows how immigrant associations and modern regional music scenes overlap without being the same kind of business as a commercial honky-tonk."
+        ],
+        "links": [
+          {
+            "href": "https://texasdancehall.org/national-hall-spjst-92/",
+            "label": "National Hall — preservation record"
+          },
+          {
+            "href": "/texas-western-swing",
+            "label": "Texas Western swing"
+          }
+        ]
+      },
+      {
+        "heading": "Choosing a venue: historic hall, community dance or honky-tonk",
+        "body": [
+          "For a preserved wood-floor hall and active visitor district, start with Gruene Hall. For a Hill Country country-music outing, consider Luckenbach and check the dance-hall event. For a confirmed traditional monthly community dance, start with Twin Sisters. For an Austin honky-tonk or commercial concert experience, compare Broken Spoke or Floore's. For a quieter heritage study, research Anhalt, Kendalia and the SPJST halls before traveling.",
+          "An event may be private, seasonal, age-restricted, ticketed or sold out; the existence of an address in a preservation directory is not proof of current public access. Verify a specific performance, door policy, step-free access, and payment arrangements with the venue. Source and operator review: November 18, 2026."
+        ],
+        "bullets": [
+          "History-first road trip: Gruene → Blanco/Twin Sisters → Kendalia or Anhalt, only where public access is confirmed.",
+          "Music-first weekend: select one announced show, then add food, lodging and a nearby town rather than trying to cover the entire Hill Country in one evening.",
+          "For all venues: confirm opening/event status, age requirements, tickets, capacity, accessibility and designated drivers before leaving."
+        ],
+        "links": [
+          {
+            "href": "https://texasdancehall.org/about-dance-halls/find-a-hall/",
+            "label": "Texas Dance Hall Preservation directory"
+          },
+          {
+            "href": "/explore/trip-planner",
+            "label": "Build a regional itinerary"
+          }
+        ]
+      },
+      {
         heading: "Why dance halls matter in Texas",
         body: [
           "In many Texas communities, the dance hall served as a gathering place before it became a heritage attraction. Weddings, fundraisers, family dances, touring bands and weekend socials all passed through the same wood-floored rooms.",
@@ -74,6 +232,55 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
     dek: "How a chrysanthemum corsage became a giant wearable scrapbook of school colors, friendships, activities, class year and Texas homecoming culture.",
     quickAnswer: "A Texas homecoming mum is a decorated chrysanthemum-style centerpiece surrounded by ribbons, braids, bells, charms, names and school-spirit details. It grew from a much smaller flower corsage into an elaborate keepsake, usually worn during high-school homecoming week. A related arm-worn version is called a garter. Traditions vary by school, so senior colors, size and exchange customs are conventions rather than statewide rules.",
     sections: [
+      {
+        "heading": "A measured DIY build, from backing to secure wearing",
+        "body": [
+          "Choose a design size and budget first: one flower, a small number of personal accents and school colors often tell a clearer story than a heavy assortment. Assemble a flat backing, a separately reinforced backing cover and two attachment points before attaching the chrysanthemum-style flower.",
+          "Lay out your long streamers on a table and test the finished drop against the student's height. Secure ribbon ends in layers from the rear of the flower outward, alternating colors to keep names readable. Make braids off the backing so they can be measured and attached without dragging the structure out of shape.",
+          "Add any names and year strips before heavy charms, then attach lights, bells and plush objects last. Cover exposed wire and sharp fasteners; keep batteries accessible for removal; reinforce attachment tabs; test the finished piece while standing, walking and sitting. If the backing bends or the wearer feels discomfort, reduce weight before homecoming."
+        ],
+        "bullets": [
+          "Materials: backing and cover, artificial mum flower, school-color ribbon, decorative braid ribbon, lettering, fabric-safe adhesive or secure fasteners, and a wearable attachment that can carry the actual weight.",
+          "Before assembly: confirm the school's allowed size, attachment methods, lights or noise rules and local senior-color custom.",
+          "Final inspection: tug-test attachment points, tape or cover sharp hardware, avoid neck hazards, and arrange for adult assistance when using hot glue or cutting tools."
+        ],
+        "links": [
+          {
+            "href": "/article/mum-queen-spring-texas-homecoming-mums",
+            "label": "Texas maker profile and custom-order guidance"
+          }
+        ]
+      },
+      {
+        "heading": "What the existing photograph can and cannot teach",
+        "body": [
+          "The Goldthwaite homecoming-mum photograph above is a documented example of the finished tradition, not a tutorial showing each assembly stage. Use it to recognize the central chrysanthemum, personalized vertical ribbons and themed ornaments; do not infer the construction method, material price or wearer comfort from a single finished photograph.",
+          "For actual construction, make a flat paper mockup first: mark the flower center, two attachment points, full ribbon drop and the position of each heavy decoration. Photograph the front and back before wearing, especially where the backing and attachment system meet. A labeled parts list and mockup reveal practical problems earlier than decorative shopping does."
+        ],
+        "links": [
+          {
+            "href": "https://texancultures.utsa.edu/exhibits/mumentous",
+            "label": "UTSA Institute of Texan Cultures — MUMENTOUS exhibit"
+          },
+          {
+            "href": "/sports/friday-night-lights",
+            "label": "Homecoming in Texas school life"
+          }
+        ]
+      },
+      {
+        "heading": "Budget and ordering decisions without invented price quotes",
+        "body": [
+          "The cost ranges above are broad examples, not live estimates from individual shops. Compare a basic single mum, a more personalized multi-flower arrangement and a garter by getting actual current itemized quotes from local makers. Labor, custom lettering, batteries, size and shipping matter as much as the flower itself.",
+          "For a fair comparison, give each seller the same school colors, class year, name length, activity list, date and maximum weight or size. Ask about deposit, revisions, pickup deadline and what happens if the event date changes. These details are more decision-useful than publishing a price as if all Texas schools shared one market."
+        ],
+        "links": [
+          {
+            "href": "/county/harris",
+            "label": "Harris County and Spring-area makers"
+          }
+        ]
+      },
       {
         heading: "From flower corsage to wearable scrapbook",
         body: [
@@ -234,90 +441,122 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         heading: "Big Bend National Park",
         body: [
+          "Plan at least two days if possible: Ross Maxwell Scenic Drive and the Chisos Basin are far apart, and Santa Elena Canyon is a separate remote stop. NPS does not require an entry reservation, but many campsites and overnight backcountry trips require advance permits or bookings. Check road and trail status before crossing the park.",
+          "Best general season for lower desert elevations is the cooler part of the year; summers can be dangerous. Choose short accessible scenic stops separately from high-elevation hikes, and do not promise step-free canyon access.",
           "Big Bend compresses desert, mountains and river canyons into one enormous protected landscape. The Chisos Mountains rise from the Chihuahuan Desert while the Rio Grande cuts deep walls along the international boundary.",
           "It deserves more than a drive-through. Distances inside the park are large, summer heat can be severe and the best experience often comes from giving the region multiple days."
         ],
-        links: [{ href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm", label: "Official visit details and current access" }, { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
       },
       {
         heading: "Guadalupe Mountains National Park",
         body: [
+          "Allow a full day for a substantial hike; shorter nature walks and scenic views suit travelers with less time. The park has limited services and can have strong winds and abrupt temperature changes at higher elevations. Carry water before leaving the visitor area and use NPS trail condition guidance.",
+          "The fall foliage season is popular in McKittrick Canyon, but parking and trail access can constrain visits. Different trailheads have different facilities; check NPS information before assuming the summit trail is a casual family outing.",
           "Guadalupe Peak gives Texas its highest point, but the range is equally important for its exposed ancient reef geology, desert ecosystems and unexpectedly rugged hiking.",
           "The park feels very different from Big Bend even though both are in West Texas. Seeing both is one of the fastest ways to understand how varied the state's mountain country really is."
-        ]
+        ],
+        links: [{ href: "/destination/guadalupe-mountains-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/gumo/planyourvisit/safety.htm", label: "Official visit details and current access" }]
       },
       {
         heading: "Palo Duro Canyon",
         body: [
+          "Plan a full day for overlooks and a short walk; overnight stays give more room for heat-safe hiking. Palo Duro has an accessible scenic drive, but rugged trails should be judged independently for grade, exposure and surface.",
+          "Book a state-park day pass ahead when possible, especially on busy weekends. Canyon-floor heat can be much higher than the rim, so begin exposed hikes early and follow TPWD heat advisories.",
           "The Panhandle's flat horizon suddenly breaks open into layered red and orange canyon walls at Palo Duro. The contrast between plains and canyon is what makes the first overlook so effective.",
           "Hiking, scenic drives and the scale of the canyon make it one of the strongest natural anchors for a Panhandle road trip."
         ],
-        links: [{ href: "/explore/top-attractions", label: "Top Texas attractions" }]
+        links: [{ href: "/destination/palo-duro-canyon-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", label: "Official visit details and current access" }, { href: "/explore/top-attractions", label: "Top Texas attractions" }]
       },
       {
         heading: "Caddo Lake",
         body: [
+          "A half-day boardwalk/shore visit and a separate guided or self-guided paddle are different experiences. Launch from designated access only, use a current paddling map and account for confusing bayou channels and weather.",
+          "Alligators inhabit the park; follow TPWD distance and wildlife rules. Cabins and campsites require separate reservations. Fall color and spring greenery make attractive seasons, but water, insects and high-water access vary.",
           "Bald cypress, Spanish moss, sloughs and bayous make Caddo Lake look unlike the dry or limestone landscapes many visitors associate with Texas. The maze-like wetlands also support exceptional bird and aquatic habitat.",
           "It is one of the best reminders that East Texas belongs ecologically to a very different world from the Hill Country or Trans-Pecos."
-        ]
+        ],
+        links: [{ href: "/destination/caddo-lake-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/caddo-lake", label: "Official visit details and current access" }]
       },
       {
         heading: "Enchanted Rock",
         body: [
+          "Reserve day-use entry ahead when TPWD requires it—especially weekends, school breaks and holidays. Allow a half-day for the summit plus nearby trails, but the bare granite is exposed to heat and lightning; choose conditions over a fixed itinerary.",
+          "The summit trail and technical climbing areas are not interchangeable. People planning to climb on ropes need the TPWD climbing-area rules, check-in and protection guidance; do not use a general sightseeing write-up as a climbing route description.",
           "The giant pink-granite dome rises above the Hill Country as both a geological landmark and a cultural one. The climb is relatively short but exposed, so heat and timing matter.",
           "Pair it with Fredericksburg, nearby ranch roads and Hill Country towns rather than treating the dome as an isolated stop."
         ],
-        links: [{ href: "/explore/trip-planner", label: "Build a Hill Country trip" }]
+        links: [{ href: "/destination/enchanted-rock-state-natural-area", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert", label: "Official visit details and current access" }, { href: "/explore/trip-planner", label: "Build a Hill Country trip" }]
       },
       {
         heading: "Padre Island National Seashore",
         body: [
+          "A half-day at Malaquite Beach is not the same undertaking as driving remote beach miles. Before heading south, verify tides, washouts and beach driving conditions, and check whether a high-clearance four-wheel-drive vehicle is needed for the planned stretch.",
+          "Beach swimming is weather-dependent; watch for rip currents, lightning and heat. Turtle and bird protections restrict some activity and access. Visitors with mobility needs should plan around the developed visitor areas rather than assume remote beaches are accessible.",
           "The long undeveloped barrier island protects beach, dune and coastal habitat on a scale that distinguishes it from more urbanized Gulf destinations. Sea turtles and migratory birds make the ecological story as important as the beach itself.",
           "Visitors should think about wind, tides, driving conditions and distance before treating remote beach access like an ordinary city beach day."
-        ]
+        ],
+        links: [{ href: "/destination/padre-island-national-seashore", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/pais/planyourvisit/conditions.htm", label: "Official visit details and current access" }]
       },
       {
         heading: "Balmorhea and spring-fed West Texas",
         body: [
+          "The spring-fed swimming pool is a short-stop experience rather than a full hiking destination: allow several hours if swimming. Swimming access, occupancy limits and any closures depend on TPWD operations, so verify before a long cross-state drive.",
+          "The surrounding desert can be very hot while the water stays spring-fed. Bring sun protection, check pool and lodging reservations, and follow the park's conservation and swim rules.",
           "Balmorhea's enormous spring-fed pool is startling because it sits in the Chihuahuan Desert. Clear water, fish and desert mountains make the contrast the attraction.",
           "Spring systems are fragile, so conditions, closures and reservation requirements should always be checked before a long drive."
-        ]
+        ],
+        links: [{ href: "/destination/balmorhea-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/balmorhea", label: "Official visit details and current access" }]
       },
       {
         heading: "Caprock Canyons and the Texas State Bison Herd",
         body: [
+          "Allow a full day for the scenic drive, viewpoints and a manageable hike; an overnight stay permits less rushed wildlife viewing. Trail exposure and weather matter, and a trail's name alone is not an accessibility assessment.",
+          "The Texas State Bison Herd ranges through the landscape. Never approach, feed or block the animals, especially from a vehicle or on foot. Check TPWD alerts for trail and camping conditions.",
           "Caprock Canyons combines red-rock terrain with one of the state's most important wildlife stories: the Texas State Bison Herd. The animals are not decorative additions to the landscape; they are central to understanding Plains ecology and conservation.",
           "Keep distance from bison and treat wildlife warnings seriously. The best wildlife encounters are the ones that do not alter animal behavior."
         ],
-        links: [{ href: "/article/texas-wildlife-guide", label: "Texas wildlife guide" }]
+        links: [{ href: "/destination/caprock-canyons-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/caprock-canyons", label: "Official visit details and current access" }, { href: "/article/texas-wildlife-guide", label: "Texas wildlife guide" }]
       },
       {
         heading: "Monahans Sandhills",
         body: [
+          "Many visits fit in two or three hours, but climbing dunes can be strenuous even when distances look short. Sand disks are a popular activity; ask the park about current rentals or availability rather than assuming equipment is always stocked.",
+          "There are no fixed summit paths across shifting dunes; wind and summer surface temperatures can make an outing unsafe. Bring water, sun protection and footwear suited to hot sand.",
           "Wind-shaped dunes create a landscape many first-time visitors do not expect to find in Texas. The park is known for walking the dunes and sliding on sand disks, especially when temperatures are manageable.",
           "The visual simplicity is the draw: sand, wind and an enormous West Texas sky."
-        ]
+        ],
+        links: [{ href: "/destination/monahans-sandhills-state-park", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/monahans-sandhills", label: "Official visit details and current access" }]
       },
       {
         heading: "Devils River country",
         body: [
+          "This is not a casual walk-up swimming-hole day trip. Devils River State Natural Area has Del Norte and Dan A. Hughes units separated by a long stretch of river and remote access roads; choose your actual unit before planning a drive.",
+          "River-trip participants using TPWD lands and river-access points need the Devils River Access Permit where required; reservations and logistics must be handled through TPWD. Rapids, private property boundaries, limited services and emergency evacuation difficulty mean paddling requires specialist preparation.",
           "The Devils River is prized for clear spring-fed water cutting through remote limestone country. Its beauty is inseparable from its remoteness, which means access requires more planning than an ordinary river stop.",
           "Treat this as a conservation landscape first and a recreation site second. Water, access rules, private land boundaries and logistics deserve advance attention."
-        ]
+        ],
+        links: [{ href: "/destination/devils-river-state-natural-area", label: "TexasDefined destination and visitor guide" }, { href: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/", label: "Official visit details and current access" }]
       },
       {
         heading: "Hill Country springs and limestone water",
         body: [
+          "Compare distinctly managed sites: Austin's Barton Springs pool, Hamilton Pool Preserve and Jacob's Well Natural Area are not interchangeable. One site may be open for viewing but not swimming, or may require advance reservation; the water-quality decision belongs to each operator.",
+          "A short swim visit may require a half-day once entry windows and travel are included. Never promise swimming at any of these locations without same-day water-quality, closure and reservation checks.",
           "Barton Springs, Jacob's Well, Hamilton Pool and other Central Texas water features come from the same broad limestone-and-aquifer story. They look different on the surface but are connected by karst geology and groundwater.",
           "Reservations, drought and water-quality conditions can change access. A durable guide should teach the system rather than promise that every swimming hole is always open."
-        ]
+        ],
+        links: [{ href: "/explore/major-springs", label: "TexasDefined destination and visitor guide" }, { href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", label: "Official visit details and current access" }]
       },
       {
         heading: "The Rio Grande canyons",
         body: [
+          "Santa Elena and Boquillas canyons are features within the larger Big Bend landscape, not two extra independent park destinations. Visit them as a dedicated canyon-focused day within a Big Bend trip; road access and trail conditions should determine the itinerary.",
+          "Do not assume a river crossing, rafting trip or canyon-foot hike is available on demand. River conditions, permits and international-border requirements differ by activity; use NPS river and crossing guidance before planning.",
           "Santa Elena, Boquillas and other canyons show the Rio Grande doing geological work on a monumental scale. Vertical walls narrow the river and create some of the most memorable scenes in Big Bend country.",
           "The canyons also remind travelers that the river is an international boundary layered over a much older natural corridor."
-        ]
+        ],
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
       }
     ],
     related: [
@@ -339,7 +578,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Fredericksburg is the most visible German-heritage destination in the Hill Country, but the strongest visit goes beyond storefront branding. Historic architecture, family histories, museums, churches, food and the surrounding settlement landscape all help explain why the town developed as it did.",
           "Use Fredericksburg as a hub, then expand outward to smaller communities, ranch roads and historic sites where the regional story becomes less commercial and more intimate."
         ],
-        links: [{ href: "/texas-history", label: "Texas history" }]
+        links: [{ href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official visit details and current access" }, { href: "/texas-history", label: "Texas history" }]
       },
       {
         heading: "New Braunfels and the Guadalupe corridor",

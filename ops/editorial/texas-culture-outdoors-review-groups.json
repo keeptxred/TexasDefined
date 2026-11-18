@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "owner": "TexasDefined editorial",
+  "updatedAt": "2026-11-18",
+  "policy": "GitHub-owned verification. Link checks and HTTP status never advance lastFactReviewAt; re-research material facts and commit reviewedAt only after verifying primary sources.",
+  "groups": [
+    {
+      "id": "culture-folklore",
+      "path": "/texas-tall-tales-folklore",
+      "cadence": "quarterly",
+      "reviewedAt": "2026-11-18",
+      "maxReviewAgeDays": 115,
+      "sourceFiles": [
+        "src/data/texas-evergreen-guides-batch7.ts",
+        "src/components/editorial/TexasEvergreenGuide.tsx"
+      ],
+      "requiredMarkers": [
+        "October 1923",
+        "O'Reilly",
+        "Emily D. West",
+        "Smithsonian"
+      ],
+      "primarySources": [
+        "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
+        "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas"
+      ]
+    },
+    {
+      "id": "culture-dance-halls",
+      "path": "/texas-dance-halls-honky-tonks",
+      "cadence": "quarterly",
+      "reviewedAt": "2026-11-18",
+      "maxReviewAgeDays": 115,
+      "sourceFiles": [
+        "src/data/texas-evergreen-guides-batch2.ts",
+        "src/components/editorial/TexasEvergreenGuide.tsx"
+      ],
+      "requiredMarkers": [
+        "Gruene Hall",
+        "Luckenbach Dance Hall",
+        "Twin Sisters Dance Hall",
+        "Anhalt Hall",
+        "Kendalia Halle",
+        "Broken Spoke",
+        "Floore Country Store"
+      ],
+      "primarySources": [
+        "https://texasdancehall.org/about-dance-halls/find-a-hall/",
+        "https://gruenehall.com/events/month/",
+        "https://twinsistersdancehall.com/"
+      ]
+    },
+    {
+      "id": "culture-homecoming-mums",
+      "path": "/texas-homecoming-mums",
+      "cadence": "quarterly",
+      "reviewedAt": "2026-11-18",
+      "maxReviewAgeDays": 115,
+      "sourceFiles": [
+        "src/data/texas-evergreen-guides-batch2.ts",
+        "src/components/editorial/TexasEvergreenGuide.tsx"
+      ],
+      "requiredMarkers": [
+        "DIY build",
+        "Elizabeth Cleaver",
+        "Test the finished mum",
+        "local school"
+      ],
+      "primarySources": [
+        "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions",
+        "https://texancultures.utsa.edu/exhibits/mumentous"
+      ]
+    },
+    {
+      "id": "outdoors-natural-wonders",
+      "path": "/texas-natural-wonders-bucket-list",
+      "cadence": "monthly",
+      "reviewedAt": "2026-11-18",
+      "maxReviewAgeDays": 40,
+      "sourceFiles": [
+        "src/data/texas-evergreen-guides-batch2.ts",
+        "src/components/editorial/TexasNaturalWondersAuthority.tsx"
+      ],
+      "requiredMarkers": [
+        "Devils River Access Permit",
+        "Del Norte",
+        "Big Bend National Park",
+        "Rio Grande canyons",
+        "Source review: November 18, 2026"
+      ],
+      "primarySources": [
+        "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/",
+        "https://www.nps.gov/pais/planyourvisit/conditions.htm"
+      ]
+    },
+    {
+      "id": "outdoors-rock-climbing",
+      "path": "/texas-rock-climbing-bouldering-guide",
+      "cadence": "monthly",
+      "reviewedAt": "2026-11-18",
+      "maxReviewAgeDays": 40,
+      "sourceFiles": [
+        "src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx"
+      ],
+      "requiredMarkers": [
+        "Bouldering, free climbing and soloing are prohibited",
+        "70 meters",
+        "closure",
+        "parental consent"
+      ],
+      "primarySources": [
+        "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
+        "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update",
+        "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb"
+      ]
+    }
+  ]
+}

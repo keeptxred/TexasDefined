@@ -51,6 +51,20 @@ type GuideImage = {
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-tall-tales-folklore": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pecos_Bill%2C_The_Century_Magazine%2C_October_1923.jpg?width=900",
+    alt: "Elmer Hader's 1923 illustrated depiction of Pecos Bill from The Century Magazine",
+    caption: "An October 1923 magazine illustration by Elmer Hader accompanies the first known literary appearance of Pecos Bill; it documents publication, not proof of an earlier oral tradition.",
+    credit: "Elmer Hader · 1923 · public domain (United States) · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Pecos_Bill,_The_Century_Magazine,_October_1923.jpg",
+  },
+  "texas-dance-halls-honky-tonks": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gruene_hall.jpg?width=1200",
+    alt: "Historic white wooden exterior of Gruene Hall in Gruene, New Braunfels, Texas",
+    caption: "Gruene Hall, photographed in 2006: the preserved building remains a landmark in the state\u2019s dance-hall tradition.",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Gruene_hall.jpg",
+  },
   "texas-homecoming-mums": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
@@ -118,6 +132,80 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 };
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-tall-tales-folklore": [
+    {
+      "label": "Encyclopedia of the Great Plains — Pecos Bill",
+      "href": "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
+      "note": "Identifies the first known October 1923 O'Reilly publication and notes scholarly dispute about claimed older oral origins."
+    },
+    {
+      "label": "UNT Press / Texas Folklore Society — Pecos Bill and His Pedigree",
+      "href": "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/",
+      "note": "Book-length historical analysis of the Pecos Bill origin debate and the century of Texas Folklore Society research."
+    },
+    {
+      "label": "Texas State Historical Association — Pecos Bill",
+      "href": "https://www.tshaonline.org/handbook/entries/pecos-bill",
+      "note": "Covers the folklore hero and associated cowboy tall-tale motifs."
+    },
+    {
+      "label": "Texas State Historical Association — Yellow Rose of Texas",
+      "href": "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas",
+      "note": "Examines the song's nineteenth-century history and rejects the later Emily West linkage as established fact."
+    },
+    {
+      "label": "Texas State Historical Association — Emily D. West",
+      "href": "https://www.tshaonline.org/handbook/entries/west-emily-d",
+      "note": "Biographical record distinguishing the historical free Black woman from later twentieth-century mythmaking."
+    },
+    {
+      "label": "Smithsonian Magazine — make-believe species and the jackalope",
+      "href": "https://www.smithsonianmag.com/arts-culture/greetings-from-the-land-of-the-make-believe-species-167869753/",
+      "note": "Traces modern jackalope taxidermy popularization to Douglas, Wyoming, in the 1930s."
+    }
+  ],
+  "texas-dance-halls-honky-tonks": [
+    {
+      "label": "Texas Dance Hall Preservation — find a hall",
+      "href": "https://texasdancehall.org/about-dance-halls/find-a-hall/",
+      "note": "Statewide historical directory; listings do not guarantee current public operation, tickets or access."
+    },
+    {
+      "label": "Texas Historical Commission — Hill Country heritage guide",
+      "href": "https://www.thc.texas.gov/public/upload/publications/hillcountry.pdf",
+      "note": "State historical reference identifying Gruene, Luckenbach, Twin Sisters, Kendalia, Anhalt and Floore's among historically significant regional music places."
+    },
+    {
+      "label": "Gruene Hall — official event calendar",
+      "href": "https://gruenehall.com/events/month/",
+      "note": "Operator calendar for the 1281 Gruene Road hall and its performances."
+    },
+    {
+      "label": "Luckenbach Texas — official directions",
+      "href": "https://www.luckenbachtexas.com/maps-directions",
+      "note": "Operator confirms the address and provides visitor directions for the dance hall and surrounding venue."
+    },
+    {
+      "label": "Twin Sisters Dance Hall — official calendar and details",
+      "href": "https://twinsistersdancehall.com/",
+      "note": "Operator describes public monthly dances, community uses and the address south of Blanco."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — Anhalt Hall",
+      "href": "https://texasdancehall.org/anhalt-hall-anhalt-halle/",
+      "note": "Heritage background for the Germania Farmer Verein hall."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — Kendalia Halle",
+      "href": "https://texasdancehall.org/kendalia-halle/",
+      "note": "Historical context; confirm event availability with the venue rather than relying on a preservation listing."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — National Hall SPJST 92",
+      "href": "https://texasdancehall.org/national-hall-spjst-92/",
+      "note": "Fort Worth Czech hall and urban Western swing/music connections."
+    }
+  ],
   "texas-food-trail": [
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "San Antonio food history and the commercialization of chili powder, showing why the food trail spans traditions rather than one invention story." },
     { label: "Dr Pepper Museum — Waco history", href: "https://drpeppermuseum.com/history/", note: "Documents Waco's historic soda-fountain origin, supporting the food-history context for a Central Texas stop." },
@@ -262,6 +350,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const isMusicChild = musicGuideSlugs.has(guide.slug);
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
+  const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
   const imageUrl = image
     ? image.src.startsWith("http://") || image.src.startsWith("https://")
       ? image.src
@@ -286,10 +375,11 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+        author: { "@type": "Organization", name: "TexasDefined Editorial Desk", url: `${siteUrl}/editorial-policy` },
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
-        ...(hasHomecomingMumSupplies ? { dateModified: "2026-10-05" } : {}),
+        ...(reviewedNovember2026 ? { dateModified: "2026-11-18" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -365,6 +455,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
+        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
@@ -373,8 +464,42 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           </figcaption>
         </figure> : null}
 
+        {hasHomecomingMumSupplies ? <figure className="border-b border-border py-9" aria-labelledby="mum-diagram-heading">
+          <p className="eyebrow text-primary">Construction reference</p>
+          <h2 id="mum-diagram-heading" className="mt-2 font-display text-3xl">Identify the layers before you build</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This original schematic shows the order of parts and balance points; it is an illustration, not a photograph or a universal template. Sizes, hardware and school customs vary.</p>
+          <svg viewBox="0 0 800 490" role="img" aria-label="Illustrated homecoming mum: artificial chrysanthemum above layered ribbons, decorated braids and the two attachment points on the rear backing" className="mx-auto mt-6 block h-auto max-w-full border border-border" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="mum-ribbon-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#b63a3a"/><stop offset="1" stopColor="#7c1717"/></linearGradient></defs>
+            <rect x="0" y="0" width="800" height="490" rx="10" fill="#fcfaf6"/>
+            <path d="M291 205 L320 447 L365 447 L367 203Z" fill="url(#mum-ribbon-bg)"/>
+            <path d="M371 200 L386 447 L420 447 L425 205Z" fill="#c89a48"/>
+            <path d="M425 201 L438 447 L485 447 L508 200Z" fill="#9d2626"/>
+            <path d="M315 211 L350 445" fill="none" stroke="#f7e8c4" strokeWidth="6" strokeDasharray="15 8"/>
+            <path d="M455 215 Q417 257 455 302 T455 395" fill="none" stroke="#f3e2c2" strokeWidth="10"/>
+            <path d="M460 216 Q422 258 460 303 T460 396" fill="none" stroke="#b48529" strokeWidth="3"/>
+            <circle cx="400" cy="168" r="85" fill="#c18a30" opacity=".25"/>
+            {Array.from({length:14}, (_,i) => <ellipse key={i} cx="400" cy="169" rx="28" ry="75" fill={i%2 ? "#f8e4b1" : "#e0b861"} stroke="#a77929" strokeWidth="2" transform={`rotate(${i*360/14} 400 169)`} />)}
+            <circle cx="400" cy="169" r="33" fill="#b88a2b" stroke="#78551e" strokeWidth="4"/>
+            <circle cx="400" cy="169" r="16" fill="#f5db91"/>
+            <rect x="390" y="73" width="23" height="19" rx="6" fill="#483b31"/>
+            <rect x="390" y="243" width="23" height="19" rx="6" fill="#483b31"/>
+            <path d="M250 78 H341 L373 91" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="29" y="69" fontSize="23" fontWeight="bold" fill="#2d2925">1. Flower & backing</text>
+            <text x="29" y="98" fontSize="16" fill="#504943">Center the lightweight flower</text>
+            <path d="M250 280 H294 L315 310" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="29" y="269" fontSize="23" fontWeight="bold" fill="#2d2925">2. Ribbon field</text>
+            <text x="29" y="295" fontSize="16" fill="#504943">Measure the full drop first</text>
+            <path d="M530 280 H590" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="590" y="269" fontSize="23" fontWeight="bold" fill="#2d2925">3. Braids</text>
+            <text x="590" y="295" fontSize="16" fill="#504943">Decorate without twisting</text>
+            <path d="M417 82 H525 L566 86" stroke="#53453b" strokeWidth="2" fill="none"/>
+            <text x="563" y="61" fontSize="21" fontWeight="bold" fill="#2d2925">Attachment</text>
+            <text x="563" y="86" fontSize="16" fill="#504943">Reinforce both points</text>
+            <text x="28" y="464" fontSize="15" fill="#62574b">Not to scale • Test the wearer’s comfort before adding heavy ornaments</text>
+          </svg>
+          <figcaption className="mt-3 text-sm leading-7 text-muted-foreground">The rear attachment points are shown schematically, not as a recommendation for specific pins or adhesives. For actual construction, choose secure hardware appropriate to the finished piece, cover sharp edges and follow campus rules.</figcaption>
+        </figure> : null}
         <div className="relative">
-          {hasHomecomingMumSupplies ? <><style>{`.homecoming-supply-rail{display:none}@media (min-width:1360px){.homecoming-supply-rail{display:block}.homecoming-supply-bottom{display:none}}`}</style><aside className="homecoming-supply-rail" style={{ left: "calc(100% + 1rem)", position: "absolute", top: "2rem", width: "17rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" context="homecoming" /></div></aside></> : null}
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
@@ -419,7 +544,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           </section>)}
         </div>
         </div>
-        {hasHomecomingMumSupplies ? <SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" /> : null}
+        {hasHomecomingMumSupplies ? <SchoolSupplyPartners context="homecoming" /> : null}
 
         {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="homecoming-mum-faq">
           <p className="eyebrow text-primary">FAQ</p>
@@ -436,7 +561,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
           <p className="eyebrow text-primary">Sources</p>
           <h2 id="source-notes" className="mt-2 font-display text-3xl">Where the historical claims come from</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These sources support the historical framework above. Current visitor operations, menus, ownership and event details can change and should be checked with the relevant official organization.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These references support the historical and practical claims above. {guide.slug === "texas-homecoming-mums" ? "School conventions, maker quotes and event restrictions vary locally; check the school and maker directly." : guide.slug === "texas-dance-halls-honky-tonks" ? "Preservation listings document heritage, not a guaranteed operating event; check each venue for live dates, tickets and accessibility." : "Where sources disagree, this guide distinguishes recorded evidence from later cultural retellings."}</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {sources.map((source) => <li key={source.href} className="py-4">
               <a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>
