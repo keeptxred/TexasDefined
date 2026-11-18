@@ -43,6 +43,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "90": {
+    "topic": "A free river corridor, not a single attraction",
+    "fact": "San Antonio's downtown River Walk is a public pedestrian corridor, while boat cruises, tours and individual restaurants are separate commercial experiences. The Museum Reach and Mission Reach connect different neighborhoods and historic sites; treating every stretch as the same crowded downtown loop misleads trip planning.",
+    "usefulFor": "Choose the river section to fit your purpose: downtown for restaurants and cruises, Mission Reach for the trails linking missions. Check the city's access maps for ramps and the individual tour operators for fares and bookings.",
+    "sources": [
+      {
+        "label": "Visit San Antonio: River Walk neighborhoods and access",
+        "url": "https://www.visitsanantonio.com/blog/post/ultimate-guide-to-river-walk-neighborhoods/"
+      }
+    ]
+  },
   "91": {
     "topic": "Interpretation beyond the battle",
     "fact": "The Alamo was a mission long before the 1836 siege. Its interpretation intersects Spanish colonial history, Indigenous communities, the Texas Revolution and later reconstruction, not just the final battle.",
@@ -73,6 +84,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Space Center Houston: official ticket and tour guide",
         "url": "https://spacecenter.org/visitor-information/guide/"
+      }
+    ]
+  },
+  "94": {
+    "topic": "A historical museum and a civic landscape",
+    "fact": "The Sixth Floor Museum interprets the November 1963 assassination of President John F. Kennedy through exhibitions, archival sources and oral histories in the former Texas School Book Depository. The museum exhibit is distinct from Dealey Plaza's outdoor civic landscape and its separately documented historic designation.",
+    "usefulFor": "Reserve enough time for the museum's permanent exhibit and optional temporary exhibitions, then consider Dealey Plaza separately. Verify admission, opening days and accessibility through the museum rather than relying on a historic account for today's schedule.",
+    "sources": [
+      {
+        "label": "Sixth Floor Museum: official visit information",
+        "url": "https://www.jfk.org/plan-your-visit/"
       }
     ]
   },
@@ -120,6 +142,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "102": {
+    "topic": "Active churches, not unrestricted museum galleries",
+    "fact": "The painted churches preserve German and Czech immigrant-community religious and decorative traditions, but many remain active parish buildings. A historic designation does not guarantee public entry, and artwork claims need individual church records rather than applying one painter's work to every interior.",
+    "usefulFor": "Start with the verified church-by-church guide and arrange Chamber or parish-authorized access before traveling. Respect worship times, photography rules and sacred spaces; cluster the Schulenburg-area churches rather than assuming open-door access at each stop.",
+    "sources": [
+      {
+        "label": "TexasDefined: statewide painted-church operator evidence",
+        "url": "/explore/painted-churches"
+      }
+    ]
+  },
   "104": {
     "topic": "Independence and access",
     "fact": "Washington-on-the-Brazos is tied to the March 2, 1836 Texas Declaration of Independence. It is a reconstructed and interpreted historic townsite rather than a surviving intact 1836 town.",
@@ -128,6 +161,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "THC: Washington-on-the-Brazos",
         "url": "https://thc.texas.gov/historic-sites/washington-brazos"
+      }
+    ]
+  },
+  "105": {
+    "topic": "2026 change of stewardship matters",
+    "fact": "Presidio La Bahía is associated with the 1836 Goliad campaign and massacre, but its history begins under Spanish colonial rule. The Texas Historical Commission completed the transfer of the historic site from the Diocese of Victoria in January 2026; older visitor guides may still describe its previous ownership.",
+    "usefulFor": "For an on-site visit, use the Texas Historical Commission's current state-historic-site page for admissions and access. Explore the barracks and parade grounds with the full colonial, Mexican and Texas Revolution context, and distinguish the presidio from Goliad State Park.",
+    "sources": [
+      {
+        "label": "Texas Historical Commission: Presidio La Bahía visitor guide",
+        "url": "https://thc.texas.gov/state-historic-sites/presidio-la-bahia/plan-your-visit-presidio-la-bahia"
       }
     ]
   },
@@ -150,6 +194,39 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Texas Historical Commission: Fair Park landmark record",
         "url": "https://www.dallasparks.org/744/Fair-Park"
+      }
+    ]
+  },
+  "112": {
+    "topic": "A ship museum with multiple deck routes",
+    "fact": "USS Lexington in Corpus Christi is a preserved aircraft carrier offering self-guided interpretive routes, not an active naval installation. The flight deck, bridge and interior compartments tell different stories, and below-deck passageways are unlike a level-floor conventional museum.",
+    "usefulFor": "Review the official tour routes before visiting and plan for the amount of walking and stair climbing your party can manage. Do not assume every shipboard area is accessible or that weather-exposed deck conditions match indoor museum conditions.",
+    "sources": [
+      {
+        "label": "USS Lexington: self-guided tour and deck routes",
+        "url": "https://usslexington.com/tours/self-guided-tours/"
+      }
+    ]
+  },
+  "113": {
+    "topic": "Three pyramids have different visitor purposes",
+    "fact": "Moody Gardens' three Galveston pyramids should not be treated as a single aquarium ticket. The Aquarium Pyramid, Rainforest Pyramid and Discovery Pyramid hold different experiences, and operating schedules and ticket bundles can differ across the campus.",
+    "usefulFor": "Choose the exhibit you actually intend to see and compare current attraction-specific ticket options. Use the operator's map and hours before traveling; a photograph of all three pyramids does not mean all experiences are included with one admission.",
+    "sources": [
+      {
+        "label": "Moody Gardens: campus map and attraction distinctions",
+        "url": "https://www.moodygardens.com/visitor-info/map-directions"
+      }
+    ]
+  },
+  "117": {
+    "topic": "Ranch driving access versus closed presidential interiors",
+    "fact": "The LBJ Ranch is within Lyndon B. Johnson National Historical Park and is distinct from the park's Johnson City district. As of the November 2026 NPS guidance, visitors need a free driving permit from the adjacent LBJ State Park visitor center, and the Texas White House complex and Hangar Visitor Center remain closed for rehabilitation.",
+    "usefulFor": "Plan a self-guided ranch driving experience using the current National Park Service access instructions; do not promise a Texas White House interior tour. Recheck closures and permit distribution before leaving Johnson City or Stonewall.",
+    "sources": [
+      {
+        "label": "National Park Service: LBJ Ranch hours and access",
+        "url": "https://www.nps.gov/lyjo/planyourvisit/hours.htm"
       }
     ]
   },
@@ -278,6 +355,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "132": {
+    "topic": "A Waco beverage-history museum, not a factory tour",
+    "fact": "The Dr Pepper Museum documents the history of the Waco-born soft drink, soda bottling and marketing through exhibits and a historic soda fountain. It is a museum experience in downtown Waco, not a working Dr Pepper bottling plant or a guaranteed live manufacturing demonstration.",
+    "usefulFor": "Compare the museum's current admission and visit information with other downtown Waco stops. Allow time for the exhibitions and the soda-fountain experience rather than scheduling a production-line tour that the museum does not offer.",
+    "sources": [
+      {
+        "label": "Dr Pepper Museum: official visitor information",
+        "url": "https://drpeppermuseum.com/"
+      }
+    ]
+  },
   "133": {
     "topic": "Silos are modern development, not an industrial museum",
     "fact": "Magnolia Market at the Silos in Waco is a landscaped retail and food destination developed around reused historic agricultural buildings. The modern shopping campus should not be presented as a public tour of working grain-processing equipment.",
@@ -300,6 +388,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "135": {
+    "topic": "A music gathering with an operator-run schedule",
+    "fact": "Luckenbach, Texas is an operating music, dance hall and general-store destination in Gillespie County, not simply an abandoned Old West town. Events and live performances follow the venue's published calendar, while the historical story requires separating the settlement from later commercial music culture.",
+    "usefulFor": "Check the official events calendar for a scheduled dance or performance and distinguish daytime sightseeing from ticketed concerts. Don't confuse publicly visitable Luckenbach with the privately managed 'Luck, Texas' film set.",
+    "sources": [
+      {
+        "label": "Official Luckenbach: music and event calendar",
+        "url": "https://www.luckenbachtexas.com/calendar"
+      }
+    ]
+  },
   "136": {
     "topic": "Sunday houses were functional town lodging",
     "fact": "Fredericksburg Sunday houses let rural families stay in town for church, shopping or other weekend activities. They are not a type of bakery, and not all surviving houses are publicly tourable. German-Texan bakeries reflect a separate strand of heritage.",
@@ -308,6 +407,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "Visit Fredericksburg: documented Sunday-house tradition",
         "url": "https://www.visitfredericksburgtx.com/things-to-do/museums-history/german-heritage/"
+      }
+    ]
+  },
+  "137": {
+    "topic": "A former mining settlement with present-day residents",
+    "fact": "Historic Terlingua's mercury-mining remains coexist with occupied homes, hospitality businesses and Big Bend tourism. A 'ghost town' label does not mean the whole settlement is an abandoned public attraction or that ruins and private parcels can be entered freely.",
+    "usefulFor": "Choose a specific public restaurant, gallery or history stop and respect private property when photographing ruins. Check Big Bend visitor conditions and services separately; this is a living gateway community with limited desert infrastructure.",
+    "sources": [
+      {
+        "label": "Visit Big Bend: Terlingua visitor overview",
+        "url": "https://www.visitbigbend.com/terlingua/"
       }
     ]
   },
@@ -550,6 +660,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "172": {
+    "topic": "Friday-night culture follows actual UIL schedules",
+    "fact": "Texas high-school football brings together school teams, marching bands and local supporters, but not every campus, conference or week follows one statewide Friday-night pattern. UIL rules and playoff brackets govern public-school competition, and postseason venues and start times may change after results are reported.",
+    "usefulFor": "For an actual game, use the school and UIL schedule or bracket, verify the stadium address and local ticket and bag rules, and avoid treating an old district standings table as a current kickoff notice.",
+    "sources": [
+      {
+        "label": "UIL: official 2026–27 football schedule and brackets",
+        "url": "https://www.uiltexas.org/football"
+      }
+    ]
+  },
+  "174": {
+    "topic": "A social dance with hall-by-hall customs",
+    "fact": "The Texas two-step is a living partner-dance practice that survives through dance halls and instruction, rather than a single standardized historical performance. Local halls may also program waltzes, polkas and other dances; a venue called a dance hall is not proof that an instructional session is offered.",
+    "usefulFor": "Choose a hall with an actual public calendar or dance lesson and follow the venue's posted age, admission and floor rules. Beginner visitors may prefer an announced lesson before joining a crowded open dance floor.",
+    "sources": [
+      {
+        "label": "Texas Dance Hall Preservation: learn to dance",
+        "url": "https://texasdancehall.org/about-dance-halls/learn-to-dance/"
+      }
+    ]
+  },
   "176": {
     "topic": "Fiesta is many organizations and histories",
     "fact": "Fiesta San Antonio grew from the 1891 Battle of Flowers Parade and now includes river events, neighborhood celebrations and royal-court traditions whose dates and organizations differ.",
@@ -704,6 +836,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "199": {
+    "topic": "An insect-eating digger, not a shelled rodent",
+    "fact": "The nine-banded armadillo is a mammal that feeds heavily on insects and larvae, leaving characteristic shallow feeding pits. It is a common Texas symbol but not unique to Texas, and its digging is often mistaken for deliberate damage rather than foraging.",
+    "usefulFor": "Watch wildlife from a distance and avoid handling animals or putting hands into burrows. For lawn concerns, identify food-source damage and consult humane local wildlife guidance rather than attempting risky capture.",
+    "sources": [
+      {
+        "label": "TPWD: nine-banded armadillo natural history",
+        "url": "https://tpwd.texas.gov/huntwild/wild/species/dillo/"
+      }
+    ]
+  },
   "200": {
     "topic": "A conservation indicator",
     "fact": "Texas horned lizards depend on suitable open habitat and ant prey. Their decline in many formerly familiar areas makes sightings ecologically meaningful, not proof they have vanished statewide.",
@@ -741,6 +884,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "207": {
+    "topic": "An official state bird that thrives in cities",
+    "fact": "Texas officially recognizes the northern mockingbird as the state bird. The species is resident year-round across much of Texas and is known for varied vocal mimicry and vigorous territorial defense; hearing its songs does not imply a rare migration or a specially protected viewing site.",
+    "usefulFor": "For birdwatching, listen in parks and established neighborhoods without disturbing nests. Use species identification and behavior from TPWD rather than relying on cartoon-like claims that all mockingbird sounds are other birds.",
+    "sources": [
+      {
+        "label": "TPWD: northern mockingbird species profile",
+        "url": "https://tpwd.texas.gov/huntwild/wild/species/mockbird/"
+      }
+    ]
+  },
+  "208": {
+    "topic": "State tree status is legal, but habitat is ecological",
+    "fact": "The pecan is Texas's designated state tree, a legal status documented by the Texas State Library, but it is also a real riparian hardwood species associated with many Texas river valleys. A mature pecan grove and an orchard are different landscapes, with different access and harvesting rules.",
+    "usefulFor": "To see native trees, choose legal public riverside trails or parks; commercial orchards may offer separate tours or sales. Ask permission before entering private groves or gathering nuts, and avoid treating every planted urban pecan as a wild forest remnant.",
+    "sources": [
+      {
+        "label": "Texas State Library: official state tree and symbols",
+        "url": "https://www.tsl.texas.gov/ref/abouttx/symbols"
+      }
+    ]
+  },
   "210": {
     "topic": "A state fish with conservation work behind it",
     "fact": "The native Guadalupe bass is more than a state symbol: TPWD documents restoration and conservation efforts across central Texas watersheds, including stocking and habitat work since 1991.",
@@ -749,6 +914,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "TPWD: Guadalupe bass restoration and public access",
         "url": "https://tpwd.texas.gov/fishboat/fish/management/guadalupe-bass/"
+      }
+    ]
+  },
+  "211": {
+    "topic": "Rattlesnake events are not interchangeable wildlife education",
+    "fact": "Texas rattlesnake roundups differ in purpose and practice: some emphasize collection and commercial handling, while other programs focus on wildlife education. Texas Parks and Wildlife has documented conservation and animal-welfare concerns around wild snake harvest and identified licensing rules that do not disappear because an event is traditional.",
+    "usefulFor": "Before attending, investigate whether the specific organizer displays, handles or harvests wild snakes and how staff address safety and conservation. Do not approach, catch or handle venomous snakes because an event advertises a demonstration.",
+    "sources": [
+      {
+        "label": "TPWD: snake-harvest working group and regulation context",
+        "url": "https://tpwd.texas.gov/faq/huntwild/gassing.phtml"
       }
     ]
   },
@@ -764,6 +940,28 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       {
         "label": "FWS: wildlife underpass documented",
         "url": "https://www.fws.gov/story/2020-02/its-first-ocelot-crosses-under-road"
+      }
+    ]
+  },
+  "213": {
+    "topic": "Seasonal breeding habitat, not year-round color",
+    "fact": "Painted buntings breed in parts of Texas during the warm season and migrate; their brilliant colors are most obvious on adult males. Their occurrence depends on brushy and woodland-edge habitat, and birds can be missed even at well-known seasonal sites.",
+    "usefulFor": "Look for official birding trails during the breeding season, use quiet observation and keep distance from nests. Don't promise a painted bunting sighting at a particular park or assume colorful males represent all birds of the species.",
+    "sources": [
+      {
+        "label": "TPWD: painted bunting seasonal range and habitat",
+        "url": "https://tpwd.texas.gov/huntwild/wild/species/paintedbunting/"
+      }
+    ]
+  },
+  "214": {
+    "topic": "A ground cuckoo found in varied Texas landscapes",
+    "fact": "The greater roadrunner is a ground-dwelling bird that hunts small animals and insects; the familiar desert cartoon understates its presence across brush, grassland and other Texas habitats. A bird darting across a road is not a safe reason to stop on the shoulder.",
+    "usefulFor": "Watch from designated trails, parks or safe pullouts, especially in brushy country, and use TPWD identification guidance. Never chase or feed roadrunners for photographs or assume every roadside sculpture marks a good wildlife-viewing location.",
+    "sources": [
+      {
+        "label": "TPWD: roadrunner ecology across Texas regions",
+        "url": "https://tpwd.texas.gov/publications/nonpwdpubs/introducing_birds/roadrunners/"
       }
     ]
   },
@@ -918,6 +1116,17 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
       }
     ]
   },
+  "234": {
+    "topic": "A named cold-front pattern, not a forecast category",
+    "fact": "A 'blue norther' is a regional expression for a fast-moving cold front with a sharp temperature drop and gusty northerly winds. The National Weather Service describes the term historically, but the phrase itself is not a formal watch, warning or a guaranteed prediction of snow.",
+    "usefulFor": "For travel or outdoor plans, consult an actual National Weather Service forecast and alerts for the destination. Use 'blue norther' to understand Texas weather language, not as a substitute for wind, temperature and precipitation advisories.",
+    "sources": [
+      {
+        "label": "National Weather Service: blue norther history and definition",
+        "url": "https://www.weather.gov/ama/50ranges"
+      }
+    ]
+  },
   "236": {
     "topic": "A Southwestern tall tale, not a biological species",
     "fact": "The jackalope is a fictional antlered rabbit in Western souvenir and storytelling traditions. A figure found in a Texas gift shop is evidence of playful folklore, not that the creature originated in Texas or exists in the wild.",
@@ -1007,4 +1216,4 @@ export const TEXAS_ICON_FIELD_NOTES: Readonly<Record<number, TexasIconFieldNote>
     ]
   }
 };
-export const VERIFIED_TEXAS_ICON_FIELD_IDS = [50,51,88,91,92,93,95,96,100,101,104,107,108,118,121,122,123,124,125,126,127,128,130,131,133,134,136,139,141,142,143,144,145,146,147,148,149,150,151,155,158,164,166,167,168,169,170,171,176,177,178,179,182,183,185,188,190,192,194,195,196,197,200,201,203,210,212,215,217,218,219,221,222,223,224,225,226,228,229,232,236,237,238,239,240,243,244,249] as const;
+export const VERIFIED_TEXAS_ICON_FIELD_IDS = [50,51,88,90,91,92,93,94,95,96,100,101,102,104,105,107,108,112,113,117,118,121,122,123,124,125,126,127,128,130,131,132,133,134,135,136,137,139,141,142,143,144,145,146,147,148,149,150,151,155,158,164,166,167,168,169,170,171,172,174,176,177,178,179,182,183,185,188,190,192,194,195,196,197,199,200,201,203,207,208,210,211,212,213,214,215,217,218,219,221,222,223,224,225,226,228,229,232,234,236,237,238,239,240,243,244,249] as const;
