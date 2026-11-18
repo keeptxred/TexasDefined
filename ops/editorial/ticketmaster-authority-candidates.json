@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-17T19:54:19.250Z",
+  "fetchedAt": "2026-11-18T19:25:39.109Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -579,6 +579,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-friday-uvalde-texas-11-20-2026/event/3A006512FC5A3B38"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Retro Rodeo Followed By Sammy Kershaw",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-15"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnaBRl"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-retro-san-antonio-texas-02-15-2027/event/3A006507AA27ABEB"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
