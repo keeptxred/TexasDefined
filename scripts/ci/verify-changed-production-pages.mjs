@@ -907,7 +907,7 @@ for (const path of plan.selectedPaths) {
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.
         // Assert the deployed HTML itself exposes TWO distinct article images.
-        const heroUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg';
+        const heroUrl = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg/1280px-Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg';
         if (!html.includes(heroUrl) || !html.includes('Trinity River National Wildlife Refuge') || !html.includes('CC BY 4.0')) {
           throw new Error('Davis Hill SSR is missing the licensed photographic hero or required location/rights attribution');
         }
@@ -936,7 +936,7 @@ for (const path of plan.selectedPaths) {
         }
         const ordinary = await fetchImpl(canonical, { headers: { 'user-agent': 'TexasDefined-Davis-Hill-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(20000) });
         const ordinaryHtml = await ordinary.text();
-        if (!ordinary.ok || !ordinaryHtml.includes('https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg')) {
+        if (!ordinary.ok || !ordinaryHtml.includes('https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg/1280px-Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg')) {
           throw new Error('Davis Hill canonical visitor URL still lacks the visible hero');
         }
       }
