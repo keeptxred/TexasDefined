@@ -528,3 +528,42 @@ test('6f9e old-worker asset eligibility must fail closed on changed identity, ad
   ]) assert.throws(() => qualifyPriorDeployJob(evidence({...exact, ...mutation})),
     /Required published-Worker safety gate not successful|6f9e original asset handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
 });
+
+test('exact Nov18 8d5476 published Worker may hand off only original bytes after corrected deer review marker', () => {
+  const exact = {
+    runId: 44324366863, jobId: 134871546550,
+    failure: 'Verify deer authority HTML, claim sources and exact XML lastmod',
+    additional: ['Verify hunting hub and turkey guide in desktop/mobile Chrome'],
+  };
+  const qualified = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov18-8d5476-deer-review-marker-original-assets-only');
+  assert.equal(qualified.exactRun, exact.runId);
+  assert.equal(qualified.requiredSourceSha, 'f09732663ced5b26556a06d34d06bfe87850cadf');
+  assert.equal(qualified.requiredWorkerVersion, '8d5476fc-e55c-48e2-a5d9-355c510ab271');
+  assert.equal(qualified.criticalChecks, required.length);
+  assert.equal(qualified.priorReleaseStillFailed, true);
+  assert.deepEqual(qualified.permittedFailures, [exact.failure, ...exact.additional]);
+});
+
+test('8d5476 original-byte handoff rejects wrong provenance, changed failure set and ANY missing safety gate', () => {
+  const exact = {
+    runId: 44324366863, jobId: 134871546550,
+    failure: 'Verify deer authority HTML, claim sources and exact XML lastmod',
+    additional: ['Verify hunting hub and turkey guide in desktop/mobile Chrome'],
+  };
+  for (const mutation of [
+    { runId: exact.runId + 1 },
+    { jobId: exact.jobId + 1 },
+    { failure: 'Verify base production surfaces' },
+    { additional: [] },
+    { additional: [...exact.additional, 'Verify base production surfaces'] },
+    { additional: ['Verify current and previous release JS/CSS on both public origins'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(
+      () => qualifyPriorDeployJob(evidence({ ...exact, ...mutation })),
+      /Required published-Worker safety gate not successful|8d5476 original asset handoff rejects altered run\/job\/failed steps|Failed deploy job includes unapproved or missing failure evidence/,
+    );
+  }
+});
