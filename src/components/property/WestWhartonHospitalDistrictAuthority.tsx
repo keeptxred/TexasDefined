@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 import { westWhartonHospitalDistrict as facts } from '@/data/property/west-wharton-hospital-district';
 
 const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
@@ -13,11 +14,11 @@ const illustrated2025Tax = fixedTaxableValue * facts.adoptedRate2025 / 100;
 const illustrated2024Tax = fixedTaxableValue * facts.priorRate2024 / 100;
 const reportedLevyDifference = facts.statewideLevy.current - facts.noticeLevy.proposed;
 
-function SourceLink({ href, children }: { href: string; children: React.ReactNode }) {
+function SourceLink({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{children} ↗</a>;
 }
 
-export function WestWhartonHospitalDistrictAuthority() {
+export function WestWhartonHospitalDistrictAuthority({ latestWorkbookYear }: { latestWorkbookYear: number }) {
   return <>
     <section aria-labelledby="wwchd-at-a-glance" className="border-b border-border py-10">
       <p className="eyebrow text-primary">West Wharton County · verified local context</p>
@@ -95,7 +96,7 @@ export function WestWhartonHospitalDistrictAuthority() {
       <div className="mt-5 divide-y divide-border">
         <details className="py-4"><summary className="cursor-pointer font-semibold">Does everyone in Wharton County pay this rate?</summary><p className="mt-3 max-w-4xl text-sm leading-7">No. The district defines its area as the portion of Wharton County west of the Colorado River. Your actual taxing jurisdictions are recorded on your appraisal-district property account.</p></details>
         <details className="py-4"><summary className="cursor-pointer font-semibold">Does the rate include school and county taxes?</summary><p className="mt-3 max-w-4xl text-sm leading-7">No. ${rate(facts.adoptedRate2025)} is just the 2025 hospital-district rate per $100 of district-taxable value. Other taxing units may separately charge a parcel.</p></details>
-        <details className="py-4"><summary className="cursor-pointer font-semibold">Why is 2025 displayed when it is now 2026?</summary><p className="mt-3 max-w-4xl text-sm leading-7">The 2025 statewide Comptroller file is the latest finalized annual dataset used for this history. The district's tax page reviewed on {facts.lastVerified} still links its 2025 notice. A 2026 rate should be added only when a corresponding official adopted-rate record is independently verified; never infer it from a proposed notice or reuse the prior year's rate.</p></details>
+        <details className="py-4"><summary className="cursor-pointer font-semibold">Why is the 2025 hearing notice discussed?</summary><p className="mt-3 max-w-4xl text-sm leading-7">This local analysis documents the 2025 tax-rate decision and its district-provided comparisons. {latestWorkbookYear === 2025 ? 'The latest finalized Comptroller annual dataset used by this page is 2025. ' : `The statewide dataset on this page now extends through ${latestWorkbookYear}; the notice analysis remains specifically about 2025. `}The district's tax page reviewed on {facts.lastVerified} linked its 2025 notice. A newer local rate must be verified from official adopted-rate records; never infer it from a proposal or reuse a prior-year rate.</p></details>
         <details className="py-4"><summary className="cursor-pointer font-semibold">Why is the levy higher than last year's without every homeowner's bill rising by that percentage?</summary><p className="mt-3 max-w-4xl text-sm leading-7">A levy covers the whole district tax base. New property, appraisal changes, exemptions, and rate changes affect the aggregate. Your bill depends on your own district-taxable value, applicable exemptions and the rate for that year.</p></details>
       </div>
       <p className="mt-6 text-xs leading-6 text-muted-foreground">Local primary sources last checked <time dateTime={facts.lastVerified}>November 18, 2026</time>. The district's 2025 proposed-rate notice, the later statewide Comptroller workbook and actual parcel tax bills have distinct evidentiary roles.</p>
