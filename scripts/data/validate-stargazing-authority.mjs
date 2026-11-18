@@ -76,6 +76,9 @@ for (const marker of [
   'creator: "Matthew T Rader"',
   'license: "https://creativecommons.org/licenses/by-sa/4.0/"',
   'acquireLicensePage: editorialHeroImage.source',
+  'const deliveredEditorialHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(editorialHeroImage.url));',
+  'contentUrl: deliveredEditorialHeroUrl',
+  'image: deliveredEditorialHeroUrl',
   'copyrightNotice:',
   'imageAlt: editorialHeroImage.alt',
 ]) if (!route.includes(marker)) errors.push('Missing stargazing photo provenance in head: ' + marker);
