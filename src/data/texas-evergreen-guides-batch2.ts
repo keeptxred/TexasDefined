@@ -233,6 +233,55 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
     quickAnswer: "A Texas homecoming mum is a decorated chrysanthemum-style centerpiece surrounded by ribbons, braids, bells, charms, names and school-spirit details. It grew from a much smaller flower corsage into an elaborate keepsake, usually worn during high-school homecoming week. A related arm-worn version is called a garter. Traditions vary by school, so senior colors, size and exchange customs are conventions rather than statewide rules.",
     sections: [
       {
+        "heading": "A measured DIY build, from backing to secure wearing",
+        "body": [
+          "Choose a design size and budget first: one flower, a small number of personal accents and school colors often tell a clearer story than a heavy assortment. Assemble a flat backing, a separately reinforced backing cover and two attachment points before attaching the chrysanthemum-style flower.",
+          "Lay out your long streamers on a table and test the finished drop against the student's height. Secure ribbon ends in layers from the rear of the flower outward, alternating colors to keep names readable. Make braids off the backing so they can be measured and attached without dragging the structure out of shape.",
+          "Add any names and year strips before heavy charms, then attach lights, bells and plush objects last. Cover exposed wire and sharp fasteners; keep batteries accessible for removal; reinforce attachment tabs; test the finished piece while standing, walking and sitting. If the backing bends or the wearer feels discomfort, reduce weight before homecoming."
+        ],
+        "bullets": [
+          "Materials: backing and cover, artificial mum flower, school-color ribbon, decorative braid ribbon, lettering, fabric-safe adhesive or secure fasteners, and a wearable attachment that can carry the actual weight.",
+          "Before assembly: confirm the school's allowed size, attachment methods, lights or noise rules and local senior-color custom.",
+          "Final inspection: tug-test attachment points, tape or cover sharp hardware, avoid neck hazards, and arrange for adult assistance when using hot glue or cutting tools."
+        ],
+        "links": [
+          {
+            "href": "/article/mum-queen-spring-texas-homecoming-mums",
+            "label": "Texas maker profile and custom-order guidance"
+          }
+        ]
+      },
+      {
+        "heading": "What the existing photograph can and cannot teach",
+        "body": [
+          "The Goldthwaite homecoming-mum photograph above is a documented example of the finished tradition, not a tutorial showing each assembly stage. Use it to recognize the central chrysanthemum, personalized vertical ribbons and themed ornaments; do not infer the construction method, material price or wearer comfort from a single finished photograph.",
+          "For actual construction, make a flat paper mockup first: mark the flower center, two attachment points, full ribbon drop and the position of each heavy decoration. Photograph the front and back before wearing, especially where the backing and attachment system meet. A labeled parts list and mockup reveal practical problems earlier than decorative shopping does."
+        ],
+        "links": [
+          {
+            "href": "https://texancultures.utsa.edu/exhibits/mumentous",
+            "label": "UTSA Institute of Texan Cultures — MUMENTOUS exhibit"
+          },
+          {
+            "href": "/sports/friday-night-lights",
+            "label": "Homecoming in Texas school life"
+          }
+        ]
+      },
+      {
+        "heading": "Budget and ordering decisions without invented price quotes",
+        "body": [
+          "The cost ranges above are broad examples, not live estimates from individual shops. Compare a basic single mum, a more personalized multi-flower arrangement and a garter by getting actual current itemized quotes from local makers. Labor, custom lettering, batteries, size and shipping matter as much as the flower itself.",
+          "For a fair comparison, give each seller the same school colors, class year, name length, activity list, date and maximum weight or size. Ask about deposit, revisions, pickup deadline and what happens if the event date changes. These details are more decision-useful than publishing a price as if all Texas schools shared one market."
+        ],
+        "links": [
+          {
+            "href": "/county/harris",
+            "label": "Harris County and Spring-area makers"
+          }
+        ]
+      },
+      {
         heading: "From flower corsage to wearable scrapbook",
         body: [
           "Homecoming mums began as comparatively simple chrysanthemum corsages. Over time, ribbons, streamers and personalized decorations became as important as the flower, and artificial chrysanthemums made it practical to build larger pieces that could survive a full school day and be kept afterward.",
