@@ -959,3 +959,46 @@ test('exact current published Nov16 500 asset handoff keeps fail-closed worker, 
     {...job,steps:job.steps.map(step=>step.name==='Verify current and previous release JS/CSS on both public origins'?{...step,conclusion:'failure'}:step)},
   ]) assert.throws(()=>qualifyPriorDeployJob({jobs:[mutation]}),/unapproved|original-byte|Required published/);
 });
+
+test('55c0 published-but-failed Worker rescue uses immutable source proof, expires in 72h and cannot downgrade original-byte safety', async () => {
+  const { INCIDENT, assertExactPublished55c0 } = await import('./verify-55c0-predecessor-proof.mjs');
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  const begin=wf.indexOf("if [[ \"$restored\" != 1 && \"$EXPECTED_ACTIVE_WORKER_VERSION\" == '55c0e4a9-48ec-4e2b-a787-ef9efd979438' ]]");
+  const end=wf.indexOf('          if [[ "$restored" != 1 ]]; then',begin);
+  assert.ok(begin>0 && end>begin,'exact 55c0 rescue before generic predecessor loop only');
+  const block=wf.slice(begin,end);
+  for(const mandatory of [
+    '2026-11-21T02:29:03Z',
+    'observed_run=44223004831',
+    'verify-55c0-predecessor-proof.mjs',
+    'verify-active-worker-asset-bridge.mjs live',
+    'prior_run=43884259995',
+    'source_worker=64e9e06f-f80e-424c-8f85-dc6e210463ac',
+    'verify-prior-asset-handoff.mjs',
+    'verify-prior-deploy-job-eligibility.mjs',
+  ]) assert.ok(block.includes(mandatory), 'exact-original safety requirement: '+mandatory);
+  assert.doesNotMatch(block,/"\$EXPECTED_ACTIVE_WORKER_VERSION" "\$prior_sha"/,'old artifact may never masquerade as 55c0 publication');
+  assert.match(wf,/verify-active-worker-asset-bridge\.mjs snapshot/,'fresh outgoing HTML and JS are separately captured');
+  assert.match(wf,/verify-referenced-assets-production\.mjs --verify/,'both-origin bytes must still pass after publish');
+  const goodRun={id:INCIDENT.runId,head_sha:INCIDENT.sourceSha,status:'completed',conclusion:'failure'};
+  const ok=[
+    'Deploy TexasDefined Worker','Capture deployed Worker version','Verify direct Worker health',
+    'Verify canonical production health','Verify current and previous release JS/CSS on both public origins',
+    'Capture old HTML JS/CSS hashes before Worker replacement',
+    'Prove captured four-page hash inventory belongs to exact active Worker',
+    'Retain bounded old hashed client assets','Measure postdeploy hashed-asset continuity',
+    'Preserve old/new asset delivery evidence and next-release handoff',
+  ].map(name=>({name,status:'completed',conclusion:'success'}));
+  const failed=[
+    'Verify District 16 scorecards and official links on direct Worker and canonical domain',
+    'Verify base production surfaces',
+  ].map(name=>({name,status:'completed',conclusion:'failure'}));
+  const goodJobs={jobs:[{id:INCIDENT.jobId,name:'deploy',status:'completed',conclusion:'failure',steps:[...ok,...failed]}]};
+  assert.equal(assertExactPublished55c0(goodRun,goodJobs).priorDeploymentStillFailed,true);
+  assert.equal(assertExactPublished55c0(goodRun,goodJobs).originalBytesProven,false);
+  assert.throws(()=>assertExactPublished55c0({...goodRun,id:1},goodJobs),/unrecognized/);
+  assert.throws(()=>assertExactPublished55c0({...goodRun,head_sha:'0'.repeat(40)},goodJobs),/unrecognized/);
+  assert.throws(()=>assertExactPublished55c0({...goodRun,conclusion:'success'},goodJobs),/unrecognized/);
+  assert.throws(()=>assertExactPublished55c0(goodRun,{jobs:[{...goodJobs.jobs[0],steps:[...ok,...failed,{name:'Verify direct Worker health',conclusion:'failure'}]}]}),/Unexpected failed/);
+  assert.throws(()=>assertExactPublished55c0(goodRun,{jobs:[{...goodJobs.jobs[0],steps:[...ok.filter(s=>s.name!=='Verify direct Worker health'),...failed]}]}),/Missing independently successful/);
+});
