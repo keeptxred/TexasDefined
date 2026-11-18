@@ -237,6 +237,21 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
         },
         {
+          "label": "NPS original church fabric and architectural history",
+          "url": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm",
+          "scope": "NPS assessment of surviving church fabric and mission as an agricultural community"
+        },
+        {
+          "label": "NPS 1794 secularization research",
+          "url": "https://www.nps.gov/articles/000/mission-san-jos%C3%A9-and-the-road-to-secularization-part-1-1794.htm",
+          "scope": "Named residents in 1794 census and colonial property transfer"
+        },
+        {
+          "label": "NPS secularization after 1794",
+          "url": "https://www.nps.gov/articles/000/mission-san-jos%C3%A9-and-the-road-to-secularization-part-2-post-1794.htm",
+          "scope": "1804 population records and community transition"
+        },
+        {
           "label": "NPS guided programs",
           "url": "https://www.nps.gov/saan/planyourvisit/guided-programs.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
