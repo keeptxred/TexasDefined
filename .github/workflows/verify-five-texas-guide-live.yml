@@ -1,6 +1,11 @@
 name: Five Texas guides independent live authority acceptance
 
 on:
+  pull_request:
+    paths:
+      - 'src/components/editorial/TexasEvergreenGuide.tsx'
+      - 'scripts/ci/verify-five-texas-guide-live.mjs'
+      - '.github/workflows/verify-five-texas-guide-live.yml'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -11,14 +16,27 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: five-texas-guides-independent-live
-  cancel-in-progress: true
-
 jobs:
+  static-guide-contract:
+    name: Validate five page source contracts and live verifier syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'main' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live acceptance script parses under Node
+        run: node --check scripts/ci/verify-five-texas-guide-live.mjs
+      - name: Verify five guide editorial source contracts
+        run: node scripts/ci/check-five-texas-guide-authority.mjs --static
+
   verify-live-five-guides:
     name: Check five guides, source links and licensed images on two public origins
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.head_branch == 'main'
+    needs: static-guide-contract
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -28,7 +46,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check canonical guide and primary-source editorial contracts
-        run: node scripts/ci/check-five-texas-guide-authority.mjs --static
       - name: Verify live HTML, factual corrections, indexability and three licensed photos
         run: node scripts/ci/verify-five-texas-guide-live.mjs
