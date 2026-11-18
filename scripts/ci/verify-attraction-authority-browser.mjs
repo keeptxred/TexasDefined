@@ -15,7 +15,7 @@ let browser;
 const targets = [
   {slug:"texas-freshwater-fisheries-center",title:"Texas Freshwater Fisheries Center",credit:"Larry D. Moore",noindex:true,mustSee:["$5.50","pets are not allowed","summer 2027"]},
   {slug:"texas-forestry-museum-lufkin",title:"Texas Forestry Museum",credit:"Billy Hathorn",noindex:false,mustSee:["$3 per person","Angelina County"]},
-  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"Billy Hathorn",noindex:true,mustSee:["$50 for the group","larger than 20","service animals"]},
+  {slug:"national-ranching-heritage-center-lubbock",title:"National Ranching Heritage Center",credit:"USDA NRCS Texas",noindex:true,mustSee:["$50 for the group","larger than 20","service animals","Illustrative Texas ranching photograph"]},
 ];
 const results = [];
 try {

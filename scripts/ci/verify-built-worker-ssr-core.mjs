@@ -40,7 +40,7 @@ const smokeTargets = [
   { path: '/destination/texas-forestry-museum-lufkin', requiredText: 'Billy Hathorn', label: 'Forestry Commons photographer credit visible in server HTML' },
   { path: '/destination/national-ranching-heritage-center-lubbock', requiredText: 'National Ranching Heritage Center', label: 'Lubbock ranching guide renders on built Worker' },
   { path: '/destination/national-ranching-heritage-center-lubbock', requiredText: 'noindex, follow', label: 'Unapproved NRHC image publication is blocked from indexing in SSR' },
-  { path: '/destination/national-ranching-heritage-center-lubbock', requiredText: 'Billy Hathorn', label: 'NRHC staged Commons photographer credit visible in server HTML' },
+  { path: '/destination/national-ranching-heritage-center-lubbock', requiredText: 'USDA NRCS Texas', label: 'NRHC safe off-site public-domain photo credit visible in server HTML' },
   { path: '/article/texas-road-trip-rules', requiredText: 'Texas Road Trip Rules: What to Check Before You Drive', label: 'Texas road-trip driving rules repaired GSC 404 with original authority' },
   { path: '/article/texas-road-trip-rules', requiredText: 'DriveTexas.org', label: 'Official live closure tool in new road trip authority' },
   { path: '/article/texas-road-trip-rules', requiredText: 'Move Over or Slow Down', label: 'Updated protected roadside law present in road trip authority' },

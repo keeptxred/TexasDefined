@@ -29,9 +29,12 @@ assert.match(availability, /"texas-freshwater-fisheries-center", \/\/ New guide 
 assert.match(destinationRoute, /robots: indexable \? undefined : "noindex, follow"/);
 assert.match(destinationRoute, /verifiedAttractionPhotoRights/);
 assert.match(destinationRoute, /acquireLicensePage: "https:\/\/commons.wikimedia.org\/wiki\/File:"/);
-assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // all three have exact-site Commons photos on draft branch
-assert.match(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
-assert.match(newGuides, /Billy Hathorn · CC BY 3\.0/);
+assert.doesNotMatch(newGuides, /DESTINATION_PHOTO_PLACEHOLDER/); // two exact-site photos plus clearly labeled off-site NRHC context photo
+assert.doesNotMatch(newGuides, /Dogtrot_House%2C_NRHC%2C_Lubbock%2C_TX_IMG_1603.JPG/);
+assert.match(newGuides, /Longhorn_cattle_grazing\._%2825111309555%29\.jpg/);
+assert.match(newGuides, /USDA NRCS Texas · CC BY 2\.0/);
+assert.match(newGuides, /not photographed at the National Ranching Heritage Center/);
+assert.match(destinationRoute, /Illustrative Texas ranching photograph; not taken at the National Ranching Heritage Center/);
 assert.match(newGuides, /Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025.jpg/);
 assert.match(newGuides, /Larry D\. Moore · CC BY 4\.0/);
 assert.match(releaseGate, /File:Lake_Zebco_Texas_Freshwater_Fisheries_Center_2025\.jpg/);
