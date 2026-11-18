@@ -353,6 +353,23 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // asset bytes from this exact published version; the next deployment must
 // independently pass every strict fishing HTTP/robots/canonical/sitemap gate.
 // The workflow rechecks actual active version, source SHA and every asset hash.
+// Exact November 18 run 44238364654 published the 100%-traffic Worker
+// a92fd7fa from source 422d1485. GitHub proves successful publish, captured
+// Worker UUID, direct+canonical health and both-origin original JS/CSS checks.
+// The ONLY failed later step was a real three-attempt HTTP 500 on Conroe
+// camping; the failure is NOT erased. #7330 removed the unnecessary live
+// reservoir fetch and parser ONLY from /camping. Qualify original assets ONLY
+// while that correction and the strict unchanged fishing live verifier exist.
+// Callers separately demand exact Worker UUID, source SHA, artifact original
+// byte hashes and both HTTP origins. This never certifies the prior release.
+const NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY = Object.freeze({
+  runId: 44238364654,
+  jobId: 134579887566,
+  sourceSha: '422d1485403af6f365d06016055f5e7c39d036cf',
+  workerVersion: 'a92fd7fa-32a1-4386-bd2e-5ed53767cfb2',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 const NOV17_PUBLISHED_CONROE_CAMPING_ASSET_HANDOFF = Object.freeze({
   runId: 43985214547,
   jobId: 133711496581,
@@ -385,6 +402,47 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const nov18Conroe = NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY;
+  if (job.run_id === nov18Conroe.runId && job.id === nov18Conroe.jobId &&
+      failures.length === 1 && failures[0] === nov18Conroe.failedStep) {
+    const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    const route = readFileSync('src/routes/fishing.lakes.$slug.$section.tsx', 'utf8');
+    const server = readFileSync('src/data/fishing/lake-conroe-page-data.functions.ts', 'utf8');
+    const sourceTest = readFileSync('scripts/ci/verify-fishing-section-loader-fanout.test.mjs', 'utf8');
+    for (const guard of [
+      'fetchLiveHtmlWithRetry', 'attempts: 3', 'if (!response.ok) throw new Error',
+      '"/fishing/lakes/lake-conroe/camping"', 'canonicalMatches', 'inSitemap', 'noindex',
+    ]) if (!verifier.includes(guard)) {
+      throw Error('Nov18 a92 prior original asset restoration must retain strict fishing parity: ' + guard);
+    }
+    for (const guard of [
+      'params.section === "camping"', 'await getLakeConroeCampingPageData()',
+      ': await getLakeConroePageData()', 'data.section !== "camping"',
+    ]) if (!route.includes(guard)) {
+      throw Error('Nov18 a92 asset restoration requires merged no-fetch camping SSR correction: ' + guard);
+    }
+    for (const guard of [
+      'export const getLakeConroeCampingPageData',
+      '...loadLakeConroePageDataServer()',
+      'liveLakeLevel: null',
+      'await import("./live-lake-level-fetch.server")',
+    ]) if (!server.includes(guard)) {
+      throw Error('Nov18 a92 asset restoration requires source-preserving static camping data: ' + guard);
+    }
+    if (!sourceTest.includes("camping cold SSR avoids the optional live-water fetch")) {
+      throw Error('Nov18 a92 asset restoration requires protected camping regression test');
+    }
+    return {
+      eligible: true, mode: 'exact-nov18-a92-failed-camping-original-assets-only',
+      exactRun: nov18Conroe.runId, requiredSourceSha: nov18Conroe.sourceSha,
+      requiredWorkerVersion: nov18Conroe.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      priorReleaseStillFailed: true,
+    };
+  }
+  if (job.run_id === nov18Conroe.runId || job.id === nov18Conroe.jobId) {
+    throw Error('Nov18 a92 original-byte handoff rejects changed run, job, failure evidence: ' + failures.join(', '));
   }
   const nov17Conroe = NOV17_PUBLISHED_CONROE_CAMPING_ASSET_HANDOFF;
   if (job.run_id === nov17Conroe.runId && job.id === nov17Conroe.jobId &&
