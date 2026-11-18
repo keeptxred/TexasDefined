@@ -3143,6 +3143,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
     connections: [
       { label: "Travis County", href: "/county/travis", reason: "Connect Austin's presidential and civic history." },
+      { label: "Texas State Capitol", href: "/destination/texas-state-capitol", reason: "Compare the working Texas legislature with the federal presidency and Johnson's legislative legacy." },
       { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare political and statewide history interpretation." },
       { label: "Harry Ransom Center", href: "/destination/harry-ransom-center-austin", reason: "Discover a separate UT cultural exhibition and research institution." },
     ],
