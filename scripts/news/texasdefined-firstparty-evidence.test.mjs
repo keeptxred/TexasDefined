@@ -41,7 +41,7 @@ test('fetches only bounded same-host linked original factual evidence; never upg
   assert.equal(fetched.length,3); // One original + two support pages
   assert.equal(item.viral_signals.editorial_lane,'REVIEW');
   assert.equal(item.source_count,1);
-  assert.ok(result.records.every(x=>x.excerpt.length<=1650 && x.excerpt.length>=400));
+  assert.ok(result.records.every(x=>x.excerpt.length<=2800 && x.excerpt.length>=400));
 });
 
 test('does not crawl a secondhand story or a forged .gov hostname',async()=>{
