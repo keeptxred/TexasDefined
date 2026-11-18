@@ -372,6 +372,28 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // the exact immutable original-asset handoff; old release stays FAILED.
 // Calling deployment separately pins active Worker UUID, source SHA and
 // proves every preserved JS/CSS hash on BOTH public origins again.
+// Nov 18 run #44324366863/job #134871546550 published the current
+// 100%-traffic Worker 8d5476fc from f0973266 and passed all five
+// independently logged publish/version/health/two-origin original-byte gates.
+// ALL 3,248 original JS/CSS asset responses across both origins passed.
+// Two later, separately failed deer smoke steps shared ONE known obsolete
+// marker: "Guide reviewed November 17" vs the actual truthful visible
+// "Substantive guide reviewed November 17" byline. PR #7347 now tests the
+// exact rendered phrase; preserve every other legal/source/SEO assertion.
+// This failed release stays FAILED. Qualify ONLY original bytes; the next
+// deployment must separately match active Worker UUID, source SHA, every
+// original hash on BOTH origins, and rerun all unchanged live gates.
+const NOV18_PUBLISHED_8D5476_DEER_REVIEW_ASSETS = Object.freeze({
+  runId: 44324366863,
+  jobId: 134871546550,
+  sourceSha: 'f09732663ced5b26556a06d34d06bfe87850cadf',
+  workerVersion: '8d5476fc-e55c-48e2-a5d9-355c510ab271',
+  failedSteps: [
+    'Verify deer authority HTML, claim sources and exact XML lastmod',
+    'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  ],
+});
+
 const NOV18_PUBLISHED_6F9E_CONROE_ORIGINAL_ASSETS = Object.freeze({
   runId: 44242409782,
   jobId: 134593204841,
@@ -420,6 +442,37 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const nov18DeerMarker = NOV18_PUBLISHED_8D5476_DEER_REVIEW_ASSETS;
+  if (job.run_id === nov18DeerMarker.runId && job.id === nov18DeerMarker.jobId &&
+      failures.length === nov18DeerMarker.failedSteps.length &&
+      nov18DeerMarker.failedSteps.every((name) => failures.includes(name))) {
+    // A false-negative editorial phrase is not a bypass for actual hunting,
+    // sitemap, page indexability, or Worker asset regressions.
+    const verifier = readFileSync('scripts/data/verify-hunting-production.mjs', 'utf8');
+    for (const guard of [
+      "const deerEditorialReviewMarker = 'Substantive guide reviewed ' + deerEditorialDateLabel;",
+      "assert.ok(authorByline.includes('Substantive guide reviewed {topic.reviewedLabel ?? topic.reviewedOn}'));",
+      "requireText(extractVisibleText(deerHtml), marker, 'Revised deer authority source comparison');",
+      "article.author?.name !== 'Texas Defined Travel & Outdoors Desk'",
+      "'Exact canonical deer visitor hero lacks eager/high-priority LCP treatment'",
+      "'Deer visitor HTML must not emit noindex'",
+    ]) if (!verifier.includes(guard)) {
+      throw Error('8d5476 original asset handoff requires source-correct strict deer verifier: ' + guard);
+    }
+    return {
+      eligible: true,
+      mode: 'exact-nov18-8d5476-deer-review-marker-original-assets-only',
+      exactRun: nov18DeerMarker.runId,
+      requiredSourceSha: nov18DeerMarker.sourceSha,
+      requiredWorkerVersion: nov18DeerMarker.workerVersion,
+      criticalChecks: CRITICAL.length,
+      permittedFailures: failures,
+      priorReleaseStillFailed: true,
+    };
+  }
+  if (job.run_id === nov18DeerMarker.runId || job.id === nov18DeerMarker.jobId) {
+    throw Error('8d5476 original asset handoff rejects altered run/job/failed steps: ' + failures.join(', '));
   }
   const nov18SixF9e = NOV18_PUBLISHED_6F9E_CONROE_ORIGINAL_ASSETS;
   if (job.run_id === nov18SixF9e.runId && job.id === nov18SixF9e.jobId &&
