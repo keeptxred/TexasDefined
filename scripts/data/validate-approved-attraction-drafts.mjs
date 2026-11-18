@@ -31,6 +31,11 @@ for (const slug of ["national-ranching-heritage-center-lubbock", "texas-freshwat
   assert.ok(sitemapParity.includes('"' + slug + '"'), "Approved attraction requires canonical sitemap parity: " + slug);
 }
 assert.match(sitemapParity, /getResolvedDestination\(slug\)/);
+const detailRuntime = read("src/data/destination-query-runtime.ts");
+for (const slug of ["texas-freshwater-fisheries-center", "national-ranching-heritage-center-lubbock"]) {
+  assert.ok(detailRuntime.includes('slug === "' + slug + '"'), "Public guide should take precedence over remote thin row: " + slug);
+}
+assert.match(detailRuntime, /const readyOriginal = resolveSeoReadyDestination\(original\)/);
 assert.match(sitemapParity, /auditDestination\(destination\)\.readyForIndexing/);
 assert.doesNotMatch(destinationRoute, /DraftAttractionAuthoritySections/);
 assert.match(destinationRoute, /DestinationVisitPlanner destination=\{destination\}/);
