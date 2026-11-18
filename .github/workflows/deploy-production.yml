@@ -551,7 +551,8 @@ jobs:
             restored=1
           fi
           if [[ "$restored" != 1 ]]; then
-          while IFS=            [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
+          while read -r prior_run prior_sha; do
+            [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
             [[ "$prior_run" != "$GITHUB_RUN_ID" ]] || continue
             candidate=".artifacts/prior-asset-extraction/$prior_run"
             mkdir -p "$candidate"
