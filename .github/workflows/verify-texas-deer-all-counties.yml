@@ -85,3 +85,51 @@ jobs:
             while read -r number; do
               gh issue close "$number" --comment "Official TPWD county sources for batch $BATCH now pass. https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             done
+
+  # A code change to the county validator must prove both formerly failing
+  # live source batches, without spending 48 extra HTTP requests each day.
+  exception-regression-batches:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: ['2', '4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate actual official TPWD pages for previous regression batch
+        env:
+          TPWD_COUNTY_BATCH: ${{ matrix.batch }}
+        run: |
+          node scripts/data/verify-texas-deer-all-counties.mjs --self-test
+          node scripts/data/verify-texas-deer-all-counties.mjs
+      - name: Close previous regression alert only after the full batch passes
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH: ${{ matrix.batch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="TPWD deer county rules verification failed (batch $BATCH)"
+          gh issue list --state open --search "$title in:title" --json title,number | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' |
+            while read -r number; do
+              gh issue close "$number" --comment "All official TPWD county sources in previously failing batch $BATCH passed after the monitored El Paso/Hudspeth exception fix. Verified by https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+            done
+      - name: Preserve a regression failure alert
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH: ${{ matrix.batch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="TPWD deer county rules verification failed (batch $BATCH)"
+          existing="$(gh issue list --state open --search "$title in:title" --json title,number | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' | head -1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The full live TPWD deer county regression batch $BATCH failed: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}. Do not override missing rules or source failures."
+          fi
