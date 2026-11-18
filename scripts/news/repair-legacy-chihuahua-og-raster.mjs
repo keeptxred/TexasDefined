@@ -35,6 +35,16 @@ if (image.bytes !== bytes.length || bytes.length < 10000
 async function publicObject() {
   const res=await fetch(url,{cache:'no-store',redirect:'manual',signal:AbortSignal.timeout(20_000)});
   if(res.status===404) return null;
+  // Supabase Storage responds HTTP 400 with JSON {"statusCode":"404",
+  // "error":"not_found","message":"Object not found"} for an absent key.
+  // Only that exact absence is allowed to start an immutable upload; every
+  // other 400, 401, expired key, upstream challenge or malformed JSON fails.
+  if(res.status===400 && String(res.headers.get('content-type')||'').includes('application/json')) {
+    const error=await res.json().catch(()=>null);
+    if (String(error?.statusCode)==='404' && error?.error==='not_found'
+        && error?.message==='Object not found') return null;
+    throw new Error('Supabase public object GET denied (HTTP 400, not a recognized missing-key response).');
+  }
   if(!res.ok || res.status!==200 || res.headers.get('cf-mitigated')==='challenge'
     || !String(res.headers.get('content-type')||'').toLowerCase().startsWith('image/png')) {
     throw new Error('Published image URL does not return verifiable 200 image/png: HTTP '+res.status);
@@ -57,7 +67,13 @@ if (!remote) {
   if(!upload.ok && upload.status!==409) {
     throw new Error('First-party immutable Chihuahua image upload failed: HTTP '+upload.status);
   }
-  remote = await publicObject();
+  // A newly written public object can take a few seconds to appear at edge.
+  // Never patch a published article before original SHA-256 bytes are visible.
+  for (let attempt=1;attempt<=5;attempt++) {
+    remote=await publicObject();
+    if(remote) break;
+    if(attempt<5) await sleep(1500);
+  }
 }
 if(!remote || sha(bytes)!==sha(remote)) {
   throw new Error('Original Chihuahua PNG bytes do not match public Storage bytes. No DB edit.');
