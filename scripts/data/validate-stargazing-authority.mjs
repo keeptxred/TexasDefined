@@ -84,6 +84,9 @@ for (const marker of [
   'Matthew T Rader',
   'CC BY-SA 4.0',
   'https://creativecommons.org/licenses/by-sa/4.0/',
+  'editorialImageSrc(',
+  'import { editorialImageSrc } from "@/lib/editorial-image-delivery";',
+  'MatthewTRader.com',
   'Display crop only',
   'fetchPriority="high"',
 ]) if (!lazyRoute.includes(marker)) errors.push('Missing stargazing photo rights or visible media: ' + marker);
