@@ -24,6 +24,8 @@ function primarySitemapCacheRequest(request: Request): Request {
   // date change automatically moves to a new key; monitoring checks do not.
   cacheUrl.search = "";
   cacheUrl.searchParams.set("deer-editorial-lastmod", TEXAS_DEER_AUTHORITY_TOPIC.reviewedOn);
+  // Substantive source revisions to five chapter pages must not reuse pre-Nov17 edge XML.
+  cacheUrl.searchParams.set("culture-editorial-lastmod", "2026-11-17");
   // One-time key bump for two newly sitemap-submitted GSC tax recovery URLs:
   // do not serve obsolete cached XML after the protected release.
   // This is not a fabricated editorial <lastmod> date.
