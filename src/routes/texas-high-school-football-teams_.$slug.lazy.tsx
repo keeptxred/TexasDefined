@@ -1361,7 +1361,7 @@ function FootballIdentityPanel({
           borderTopWidth: 6,
           borderTopColor: '#D6B35F',
           backgroundColor: '#123B2A',
-          backgroundImage: 'repeating-linear-gradient(90deg, transparent 0px, transparent 37px, rgba(255,255,255,.09) 38px, transparent 39px), linear-gradient(135deg, #123B2A, #246A46 60%, #154631)',
+          backgroundImage: 'linear-gradient(135deg, #123B2A, #246A46 60%, #154631)',
         } : accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
       >
         <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
