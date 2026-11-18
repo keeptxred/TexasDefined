@@ -63,7 +63,7 @@ if (!gate.includes('lake.sectionResearch?.reviewedAt')) errors.push("Regulations
 for (const marker of ["LAKE_CONROE_RESEARCH", "regulations: research.regulations.map", "camping: research.camping.map", "nearby: [...lakeConroeNearby, ...research.nearby]"]) if (!conroeServer.includes(marker)) errors.push(`Dedicated Lake Conroe loader fails to publish researched sections: ${marker}`);
 for (const marker of ["pageData.sectionResearch.reviewedAt", "row.sourceUrl", "item.href"]) if (!conroeUi.includes(marker)) errors.push(`Lake Conroe page missing direct official source attribution: ${marker}`);
 if (!dossiers["lake-conroe"]) errors.push("Dedicated Lake Conroe research dossier missing.");
-const conroeExtracted = conroeSnapshot.match(/export const LAKE_CONROE_RESEARCH: LakeAuthorityResearch = (\\{[\\s\\S]*\\});\\s*$/);
+const conroeExtracted = conroeSnapshot.match(/export const LAKE_CONROE_RESEARCH: LakeAuthorityResearch = (\{[\s\S]*\});\s*$/);
 if (!conroeExtracted) errors.push("Conroe cold-SSR snapshot must retain a directly parseable source dossier.");
 else {
   try {
