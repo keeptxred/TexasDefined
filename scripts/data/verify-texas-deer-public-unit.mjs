@@ -11,12 +11,12 @@ const season = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.js
 const catalogUrl = 'https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=AL';
 const accessUrl = 'https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/need-to-know/';
 const simplify = html => html
-  .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')
-  .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')
+  .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&(?:nbsp|#160);/gi, ' ')
   .replace(/&amp;/gi, '&')
-  .replace(/\\s+/g, ' ').trim();
+  .replace(/\s+/g, ' ').trim();
 const requireSource = (source, text, label) => {
   if (!source.includes(text)) throw new Error(label + ' missing official TPWD assertion: ' + text);
 };
