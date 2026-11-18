@@ -51,6 +51,13 @@ type GuideImage = {
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-dance-halls-honky-tonks": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gruene_hall.jpg?width=1200",
+    alt: "Historic white wooden exterior of Gruene Hall in Gruene, New Braunfels, Texas",
+    caption: "Gruene Hall, photographed in 2006: the preserved building remains a landmark in the state\u2019s dance-hall tradition.",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Gruene_hall.jpg",
+  },
   "texas-homecoming-mums": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
@@ -118,6 +125,80 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 };
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-tall-tales-folklore": [
+    {
+      "label": "Encyclopedia of the Great Plains — Pecos Bill",
+      "href": "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
+      "note": "Identifies the first known October 1923 O'Reilly publication and notes scholarly dispute about claimed older oral origins."
+    },
+    {
+      "label": "UNT Press / Texas Folklore Society — Pecos Bill and His Pedigree",
+      "href": "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/",
+      "note": "Book-length historical analysis of the Pecos Bill origin debate and the century of Texas Folklore Society research."
+    },
+    {
+      "label": "Texas State Historical Association — Pecos Bill",
+      "href": "https://www.tshaonline.org/handbook/entries/pecos-bill",
+      "note": "Covers the folklore hero and associated cowboy tall-tale motifs."
+    },
+    {
+      "label": "Texas State Historical Association — Yellow Rose of Texas",
+      "href": "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas",
+      "note": "Examines the song's nineteenth-century history and rejects the later Emily West linkage as established fact."
+    },
+    {
+      "label": "Texas State Historical Association — Emily D. West",
+      "href": "https://www.tshaonline.org/handbook/entries/west-emily-d",
+      "note": "Biographical record distinguishing the historical free Black woman from later twentieth-century mythmaking."
+    },
+    {
+      "label": "Smithsonian Magazine — make-believe species and the jackalope",
+      "href": "https://www.smithsonianmag.com/arts-culture/greetings-from-the-land-of-the-make-believe-species-167869753/",
+      "note": "Traces modern jackalope taxidermy popularization to Douglas, Wyoming, in the 1930s."
+    }
+  ],
+  "texas-dance-halls-honky-tonks": [
+    {
+      "label": "Texas Dance Hall Preservation — find a hall",
+      "href": "https://texasdancehall.org/about-dance-halls/find-a-hall/",
+      "note": "Statewide historical directory; listings do not guarantee current public operation, tickets or access."
+    },
+    {
+      "label": "Texas Historical Commission — Hill Country heritage guide",
+      "href": "https://www.thc.texas.gov/public/upload/publications/hillcountry.pdf",
+      "note": "State historical reference identifying Gruene, Luckenbach, Twin Sisters, Kendalia, Anhalt and Floore's among historically significant regional music places."
+    },
+    {
+      "label": "Gruene Hall — official event calendar",
+      "href": "https://gruenehall.com/events/month/",
+      "note": "Operator calendar for the 1281 Gruene Road hall and its performances."
+    },
+    {
+      "label": "Luckenbach Texas — official directions",
+      "href": "https://www.luckenbachtexas.com/maps-directions",
+      "note": "Operator confirms the address and provides visitor directions for the dance hall and surrounding venue."
+    },
+    {
+      "label": "Twin Sisters Dance Hall — official calendar and details",
+      "href": "https://twinsistersdancehall.com/",
+      "note": "Operator describes public monthly dances, community uses and the address south of Blanco."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — Anhalt Hall",
+      "href": "https://texasdancehall.org/anhalt-hall-anhalt-halle/",
+      "note": "Heritage background for the Germania Farmer Verein hall."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — Kendalia Halle",
+      "href": "https://texasdancehall.org/kendalia-halle/",
+      "note": "Historical context; confirm event availability with the venue rather than relying on a preservation listing."
+    },
+    {
+      "label": "Texas Dance Hall Preservation — National Hall SPJST 92",
+      "href": "https://texasdancehall.org/national-hall-spjst-92/",
+      "note": "Fort Worth Czech hall and urban Western swing/music connections."
+    }
+  ],
   "texas-food-trail": [
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "San Antonio food history and the commercialization of chili powder, showing why the food trail spans traditions rather than one invention story." },
     { label: "Dr Pepper Museum — Waco history", href: "https://drpeppermuseum.com/history/", note: "Documents Waco's historic soda-fountain origin, supporting the food-history context for a Central Texas stop." },
@@ -262,6 +343,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const isMusicChild = musicGuideSlugs.has(guide.slug);
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
+  const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
   const imageUrl = image
     ? image.src.startsWith("http://") || image.src.startsWith("https://")
       ? image.src
@@ -289,7 +371,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
-        ...(hasHomecomingMumSupplies ? { dateModified: "2026-10-05" } : {}),
+        ...(reviewedNovember2026 ? { dateModified: "2026-11-18" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -365,6 +447,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
+        {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">TexasDefined editorial research and source review: November 18, 2026. Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
@@ -374,7 +457,6 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </figure> : null}
 
         <div className="relative">
-          {hasHomecomingMumSupplies ? <><style>{`.homecoming-supply-rail{display:none}@media (min-width:1360px){.homecoming-supply-rail{display:block}.homecoming-supply-bottom{display:none}}`}</style><aside className="homecoming-supply-rail" style={{ left: "calc(100% + 1rem)", position: "absolute", top: "2rem", width: "17rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" context="homecoming" /></div></aside></> : null}
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
@@ -419,7 +501,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           </section>)}
         </div>
         </div>
-        {hasHomecomingMumSupplies ? <SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" /> : null}
+        {hasHomecomingMumSupplies ? <SchoolSupplyPartners context="homecoming" /> : null}
 
         {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="homecoming-mum-faq">
           <p className="eyebrow text-primary">FAQ</p>
@@ -436,7 +518,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
           <p className="eyebrow text-primary">Sources</p>
           <h2 id="source-notes" className="mt-2 font-display text-3xl">Where the historical claims come from</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These sources support the historical framework above. Current visitor operations, menus, ownership and event details can change and should be checked with the relevant official organization.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These references support the historical and practical claims above. {guide.slug === "texas-homecoming-mums" ? "School conventions, maker quotes and event restrictions vary locally; check the school and maker directly." : guide.slug === "texas-dance-halls-honky-tonks" ? "Preservation listings document heritage, not a guaranteed operating event; check each venue for live dates, tickets and accessibility." : "Where sources disagree, this guide distinguishes recorded evidence from later cultural retellings."}</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {sources.map((source) => <li key={source.href} className="py-4">
               <a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>
