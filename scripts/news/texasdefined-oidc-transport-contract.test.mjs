@@ -20,6 +20,8 @@ test('all owner-activated publishing paths mint short-lived signed GitHub Action
   assert.match(script,/texasdefined-editorial-ai/);
   assert.match(script,/Signed Workers AI editorial bridge unavailable/);
   assert.match(script,/x-texasdefined-ai-transport/);
+  assert.match(script,/@cf\/meta\/llama-3\.3-70b-instruct-fp8-fast/);
+  assert.doesNotMatch(script,/@cf\/meta\/llama-3\.1-8b-instruct-fast/);
   assert.doesNotMatch(script,/api\.cloudflare\.com\/client\/v4\/accounts/);
   assert.match(script,/TEXASDEFINED_AUTO_PUBLISH_ENABLED/);
   assert.match(script,/TEXASDEFINED_PUBLISH_CONFIRMATION/);
