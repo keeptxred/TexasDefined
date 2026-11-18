@@ -22,7 +22,7 @@ const shards=Array.from({length:BATCHES},(_,i)=>counties.slice(i*BATCH_SIZE,(i+1
 const unique=new Set(shards.flat().map(x=>x.slug));
 if(unique.size!==254)throw new Error('The county source coverage map is incomplete or contains duplicates.');
 const season=JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json','utf8'));
-const clean=(s)=>s.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi,' ').replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|#160);/gi,' ').replace(/&amp;/gi,'&').replace(/\\s+/g,' ').trim();
+const clean=(s)=>s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|#160);/gi,' ').replace(/&amp;/gi,'&').replace(/\s+/g,' ').trim();
 function checkCountyContent(county,html){
   const text=clean(html);
   if(text.length<250)throw new Error('Official TPWD county page unexpectedly short');
@@ -32,7 +32,7 @@ function checkCountyContent(county,html){
     // The two exceptions require affirmative, identity-matched evidence, not a
     // generic 200 response. A new deer heading forces review rather than
     // silently accepting changed legal conditions.
-    const heading=clean(html.match(/<h1\\b[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1]??'');
+    const heading=clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]??'');
     const expected=county.name+' '+season.startYear+'-'+(season.startYear+1)+' Hunting Seasons';
     if(!heading.startsWith(expected)||!/Mule Deer/i.test(text)||!/Bag Limit/i.test(text)||/White-tailed Deer/i.test(text))
       throw new Error('TPWD exceptional county deer season or identity changed; review official rules');
