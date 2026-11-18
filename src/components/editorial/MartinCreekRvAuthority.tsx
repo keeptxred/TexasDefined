@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 /**
  * Operator-sourced campground decision guide for one specific RV destination.
  * Keep changing alerts, campsite prices and individual pad fit tied to TPWD.
- * Campground snapshot checked October 31; park alerts rechecked November 10, 2026.
+ * Campground pricing, policies and official links reviewed November 18, 2026.
  */
 const CAMPSITES = [
   { name: "Lakefront electric", loop: "Bee Tree", power: "30 amp + water", sites: 13, nightly: "$20", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/premium-lake-front-access-campsites" },
@@ -15,23 +15,26 @@ const ALERTS = PARK + "/alert";
 const SITES = PARK + "/fees-facilities/campsites";
 const MAP = "https://tpwd.texas.gov/publications/pwdpubs/media/park_maps/pwd_mp_p4508_111e.pdf";
 const RESERVE = "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121";
+const COUNTY_FIRE = "https://www.ruskcountytxfire.gov/rusk-county-burn-ban-status";
+const ACCESS = PARK + "/fees-facilities/martin-creek-lake-accessibility";
 
 export default function MartinCreekRvAuthority() {
   return (
     <section id="martin-creek-rv-guide" aria-labelledby="martin-creek-rv-title" className="border-b border-border bg-surface py-12">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <p className="eyebrow text-primary">Researched RV campground guide · TPWD campsites checked October 31, 2026 · alerts checked November 10, 2026</p>
+        <p className="eyebrow text-primary">Researched RV campground guide · TPWD campsites, rules and alerts reviewed November 18, 2026</p>
         <h2 id="martin-creek-rv-title" className="mt-3 font-display text-3xl sm:text-4xl">Choose the right campsite at Martin Creek Lake</h2>
         <p className="mt-5 max-w-4xl leading-7">
           The RV campground is <strong>inside Martin Creek Lake State Park</strong>, not a separate resort.
           Its 56 water-and-electric sites have three different service and pricing classes. Compare Bee Tree and
           Broken Bowl before reserving; a lakeside view, 50-amp service and a sewer connection are not interchangeable.
-          The park also lists six walk-in primitive island sites, which are not RV sites.
+          The park also lists six walk-in primitive island sites, which are not RV sites. The electric campsites
+          have water and power but no individual sewer connection; visitors use the shared dump station.
         </p>
 
-        <div className="mt-7 overflow-x-auto rounded-md border border-border">
+        <div role="region" aria-label="RV campsite comparison table; scroll horizontally on small screens" tabIndex={0} className="mt-7 overflow-x-auto rounded-md border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
           <table className="w-full min-w-[640px] text-left text-sm">
-            <caption className="sr-only">Official Martin Creek Lake State Park RV site types and nightly rates, checked October 31, 2026</caption>
+            <caption className="sr-only">Official Martin Creek Lake State Park RV site types and nightly rates, checked November 18, 2026</caption>
             <thead className="bg-background">
               <tr className="border-b border-border">
                 <th scope="col" className="p-3">RV campsite class</th>
@@ -57,6 +60,24 @@ export default function MartinCreekRvAuthority() {
           Each electric site class lists up to eight people. Prices and actual availability can change; confirm the selected
           campsite in the <a href={RESERVE} target="_blank" rel="noopener noreferrer" className="underline">official booking system</a>.
         </p>
+
+        <div className="mt-7 grid gap-3 md:grid-cols-3" aria-label="Choose a campsite by what matters most">
+          <div className="rounded-md border border-border bg-background p-4">
+            <h3 className="font-semibold">Want a lakefront site?</h3>
+            <p className="mt-2 text-sm leading-6">Choose one of 13 lakefront 30-amp Bee Tree sites; these are not 50-amp sites. Check the numbered pad and shoreline view before booking.</p>
+            <a href={CAMPSITES[0].href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline">See lakefront site photos and details</a>
+          </div>
+          <div className="rounded-md border border-border bg-background p-4">
+            <h3 className="font-semibold">Need 50-amp electric service?</h3>
+            <p className="mt-2 text-sm leading-6">Reserve one of six Bee Tree sites listed with 50-amp power. Confirm your RV's electrical requirements and the actual pad size.</p>
+            <a href={CAMPSITES[1].href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline">See 50-amp site photos and details</a>
+          </div>
+          <div className="rounded-md border border-border bg-background p-4">
+            <h3 className="font-semibold">Prioritizing price?</h3>
+            <p className="mt-2 text-sm leading-6">The 37 standard 30-amp sites cost $17 nightly, compared with $20 for the other electric classes. These span Bee Tree and Broken Bowl.</p>
+            <a href={CAMPSITES[2].href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline">See standard site photos and details</a>
+          </div>
+        </div>
 
         <div className="mt-8 grid gap-7 md:grid-cols-2">
           <div className="border-t border-border pt-5">
@@ -90,34 +111,38 @@ export default function MartinCreekRvAuthority() {
         <div className="mt-8 border-y border-border py-6" aria-labelledby="martin-creek-alerts">
           <h3 id="martin-creek-alerts" className="font-display text-2xl">Check current park alerts and fire rules</h3>
           <p className="mt-3 text-sm leading-7">
-            <strong>Argentine ants (TPWD alert checked November 10, 2026):</strong> The park reports
+            <strong>Argentine ants (TPWD alert checked November 18, 2026):</strong> The park reports
             invasive ants in some campsites. Inspect your RV, tow vehicle and camping gear before
             departing; notify park staff if you find any ants.
           </p>
           <p className="mt-3 text-sm leading-7">
-            <strong>Campfires and charcoal:</strong> An August 2026 burn-ban notice appeared in an earlier
-            source review, but was <strong>not listed on TPWD's park alert page on November 10</strong>.
-            This does not establish that fires are permitted during your visit. Always check the
-            latest official alerts and posted fire restrictions, and ask park staff if uncertain.
+            <strong>Fire restrictions (verified November 18, 2026):</strong> Rusk County rescinded
+            its countywide burn ban on November 3, 2026; <a href={COUNTY_FIRE} target="_blank" rel="noopener noreferrer" className="underline">the county fire authority confirms the rescission</a>.
+            TPWD's <a href={ALERTS} target="_blank" rel="noopener noreferrer" className="underline">Martin Creek Lake alert page</a> lists Argentine ants but no park fire ban in the reviewed notice.
+            <strong> This is not permission to light a fire.</strong> Park-specific and weather-related restrictions can change without notice.
+            Check posted rules and ask staff about charcoal, wood and fuel restrictions before your visit.
           </p>
           <p className="mt-3 text-sm leading-7">
             Rusk County's emerald ash borer quarantine restricts moving firewood.
             Buy firewood where you burn it and follow current park rules.
           </p>
           <p className="mt-3 text-sm leading-6">
-            These are a <strong>dated snapshot, not a live alert feed</strong>.
+            This is a <strong>November 18, 2026 snapshot, not a live alert feed</strong>.
             Check <a href={ALERTS} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">TPWD's current park alerts</a> before travel.
           </p>
         </div>
 
         <div className="mt-8 grid gap-7 md:grid-cols-2">
           <div>
-            <h3 className="font-display text-2xl">See the real sites and campground map</h3>
+            <h3 className="font-display text-2xl">See actual numbered campsite photos and the map</h3>
             <p className="mt-3 text-sm leading-7">
               The lead photograph on this page shows the park's lake and fishing pier, <strong>not an RV site</strong>.
-              For verified photos of actual Bee Tree and Broken Bowl camping pads, open TPWD's
-              <a href={SITES} target="_blank" rel="noopener noreferrer" className="underline"> campground photos by site class</a>.
-              The official park map identifies the two loops, 50-amp locations, dump station, showers,
+              For verified photographs of the actual campground, examine TPWD's numbered-site galleries:
+              <a href={CAMPSITES[0].href} target="_blank" rel="noopener noreferrer" className="underline"> lakefront sites (including #54)</a>,
+              <a href={CAMPSITES[1].href} target="_blank" rel="noopener noreferrer" className="underline"> 50-amp sites (including #38)</a> and
+              <a href={CAMPSITES[2].href} target="_blank" rel="noopener noreferrer" className="underline"> standard 30-amp sites (including #57)</a>.
+              These are agency photographs linked at the source, not copied or misrepresented as our own images.
+              The official park map identifies both loops, 50-amp locations, the dump station, showers,
               island footbridge, lake access and boat ramp.
             </p>
             <a href={MAP} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Download the official campground map (PDF) ↗</a>
@@ -131,9 +156,22 @@ export default function MartinCreekRvAuthority() {
               year-round, making it popular for winter fishing. Fishing from the park shore or pier does not require a
               Texas fishing license; confirm other regulations for boat fishing.
             </p>
-            <p className="mt-3 text-sm leading-7">For swimming, boating, park history and trails rather than RV site comparisons, use our <Link to="/destination/$slug" params={{ slug: "martin-creek-lake-state-park" }} className="font-semibold underline underline-offset-4">Martin Creek Lake State Park guide</Link>. For the broader local area, see <Link to="/$kind/$slug" params={{ kind: "county", slug: "rusk" }} className="font-semibold underline underline-offset-4">Rusk County</Link>.</p>
+            <p className="mt-3 text-sm leading-7">For swimming, boating, park history and trails rather than RV site comparisons, use our <Link to="/destination/$slug" params={{ slug: "martin-creek-lake-state-park" }} className="font-semibold underline underline-offset-4">Martin Creek Lake State Park guide</Link>. Compare other destinations in <Link to="/explore/rv-parks" className="underline">Texas RV parks</Link> and <Link to="/explore/state-parks" className="underline">state parks</Link>; anglers can consult our <Link to="/fishing/access" className="underline">fishing-access directory</Link> and <Link to="/fishing/regulations" className="underline">fishing regulations guide</Link>. For local context, see <Link to="/$kind/$slug" params={{ kind: "county", slug: "rusk" }} className="font-semibold underline underline-offset-4">Rusk County</Link>.</p>
           </div>
         </div>
+        <div className="mt-8 grid gap-7 md:grid-cols-2" aria-label="Park rules and accessible facilities">
+          <div className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Park rules RV campers should know</h3>
+            <p className="mt-3 text-sm leading-7">The <a href={MAP} target="_blank" rel="noopener noreferrer" className="underline">2026 TPWD park map</a> specifies a <strong>noon campsite checkout</strong>, <strong>10 p.m.–6 a.m. quiet hours</strong>, a maximum of <strong>eight people per campsite</strong> and a requirement for guests to leave by 10 p.m. Gate hours are 6 a.m.–10 p.m.; overnight campers need the park's gate code if entering after closing. Each vehicle needs a valid permit displayed on its windshield, and vehicles must stay on pavement. Campsites must be cleaned before departure.</p>
+            <p className="mt-3 text-sm leading-7"><strong>Pets:</strong> keep them on a leash no longer than six feet, clean up after them, and do not bring them into swimming areas, cabins or restricted buildings. Use the shared RV dump station for gray and black water; never discharge at the site. Confirm any restrictions with the <a href="https://tpwd.texas.gov/state-parks/park-information/rules/" target="_blank" rel="noopener noreferrer" className="underline">state-park rules</a>.</p>
+          </div>
+          <div className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Accessibility and individual RV pad fit</h3>
+            <p className="mt-3 text-sm leading-7">TPWD specifically identifies the park headquarters, fishing pier and footbridge leading to the primitive island area as having wheelchair-accessible features. This <strong>does not establish that every electric RV site is accessible</strong>. The official map shows accessible shared facilities, but site grades, pad approach, restroom routes and space around hookups can differ.</p>
+            <p className="mt-3 text-sm leading-7">Before booking an accessible site or towing a long rig, call <a href="tel:+19038364336" className="underline">(903) 836-4336</a> and confirm <strong>the numbered pad's usable length, backing angle, clearance, accessible route and available hookups</strong>. See TPWD's <a href={ACCESS} target="_blank" rel="noopener noreferrer" className="underline">park accessibility information</a>; do not assume the biggest RV that fits elsewhere in the park fits your reservation.</p>
+          </div>
+        </div>
+
         <nav aria-label="Official camping planning links" className="mt-8 flex flex-wrap gap-5 border-t border-border pt-6 text-sm font-semibold">
           <a href={RESERVE} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Reserve a Martin Creek Lake campsite ↗</a>
           <a href={SITES} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Compare TPWD campsite photos and rates ↗</a>
