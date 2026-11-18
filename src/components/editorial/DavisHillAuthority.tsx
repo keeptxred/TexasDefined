@@ -135,9 +135,9 @@ export default function DavisHillAuthorityPage() {
           </div>
           <figure className="mt-8 max-w-5xl border border-border">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"
-              width={1800}
-              height={1200}
+              src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg/1280px-Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"
+              width={1280}
+              height={853}
               loading="eager"
               decoding="async"
               fetchPriority="high"
