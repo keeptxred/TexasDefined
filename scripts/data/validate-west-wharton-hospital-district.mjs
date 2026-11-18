@@ -52,7 +52,7 @@ for (const marker of [
   'Wharton CAD', 'County Tax Assessor-Collector', 'Frequently asked questions',
   '/property-tax/county/wharton', '/texas-property-tax-estimator',
 ]) assert.ok(component.includes(marker), `Page missing authority contract: ${marker}`);
-assert.ok(parent.includes("latest.slug === 'west-wharton-county-hospital-district'"));
+assert.ok(parent.includes('latest.slug === whartonEvidence.slug'));
 assert.ok(parent.includes('<WestWhartonHospitalDistrictAuthority latestWorkbookYear={latest.year}/>'));
 assert.ok(parent.includes('westWhartonAuthorityReconciled') && parent.includes('Local historical analysis is under source review.'));
 assert.ok(route.includes('wharton2025?.levy === westWhartonHospitalDistrict.statewideLevy.current'));
