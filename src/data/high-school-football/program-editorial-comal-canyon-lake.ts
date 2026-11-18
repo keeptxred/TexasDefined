@@ -108,13 +108,13 @@ const CANYON_LAKE: FootballProgramEditorial = {
       {
         "date": "2026-11-13",
         "opponent": "Pleasanton",
-        "site": "Neutral (bi-district)",
+        "site": "Neutral",
         "result": "W 49–28"
       },
       {
         "date": "2026-11-20",
         "opponent": "Port Lavaca Calhoun",
-        "site": "Neutral · Leopard Stadium, La Grange",
+        "site": "Neutral",
         "kickoff": "7:00 PM"
       }
     ]
