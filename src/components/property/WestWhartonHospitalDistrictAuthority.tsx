@@ -58,7 +58,7 @@ export function WestWhartonHospitalDistrictAuthority({ latestWorkbookYear }: { l
       <p className="eyebrow text-primary">Original comparison · district-reported figures</p>
       <h2 id="wwchd-homestead" className="mt-2 font-display text-3xl sm:text-4xl">How the notice's average homestead changed</h2>
       <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The district's public notice compares the average residence homestead used for the 2024 levy with the average homestead in its <strong>2025 proposed</strong> calculation. This is a district-wide illustration, not a same-property tax-bill comparison or a guarantee of what any household paid.</p>
-      <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[34rem] text-left text-sm">
+      <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[42rem] text-left text-sm">
         <thead><tr className="border-b border-border text-muted-foreground"><th className="py-3">District notice measure</th><th className="py-3">2024</th><th className="py-3">2025 proposal</th><th className="py-3">Change</th></tr></thead>
         <tbody>
           <tr className="border-b border-border"><th className="py-4 font-medium">Adopted/proposed rate per $100</th><td className="tabular-nums">${rate(facts.priorRate2024)}</td><td className="tabular-nums">${rate(facts.adoptedRate2025)}</td><td className="tabular-nums">+{noticeRateChangePct.toFixed(2)}%</td></tr>
