@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const skyComparison = [
   {
@@ -138,7 +139,7 @@ function TexasStargazingGuidePage() {
 
           <figure className="border-b border-border py-8">
             <img
-              src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg/1280px-Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg"
+              src={editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg/1280px-Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg")}
               alt="Milky Way above a glowing tent at Copper Breaks State Park, Texas"
               width={1280}
               height={853}
@@ -150,7 +151,7 @@ function TexasStargazingGuidePage() {
             <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
               The Milky Way and a camping tent at Copper Breaks State Park, one of the five officially designated Texas dark-sky parks profiled below. Photo:{" "}
               <a href="https://commons.wikimedia.org/wiki/File:Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Matthew T Rader</a>
-              {" "}(2020) · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">CC BY-SA 4.0</a>.
+              {" "}(2020) · <a href="https://matthewtrader.com" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">MatthewTRader.com</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">CC BY-SA 4.0</a>.
               Display crop only; the original and its license are available at the linked Commons file page.
             </figcaption>
           </figure>
