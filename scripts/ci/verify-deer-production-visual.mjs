@@ -47,6 +47,18 @@ try {
     await context.route(/(googletagmanager|google-analytics|doubleclick\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i,
       route => route.abort());
     const page = await context.newPage();
+    // Lab-only Chromium evidence; not a substitute for field CrUX Core Web Vitals.
+    await page.addInitScript(() => {
+      window.__deerLab = { lcpMs: null, cls: 0 };
+      try { new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) window.__deerLab.lcpMs = Math.round(entry.startTime);
+      }).observe({ type: 'largest-contentful-paint', buffered: true }); } catch {}
+      try { new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) {
+          if (!entry.hadRecentInput) window.__deerLab.cls += entry.value;
+        }
+      }).observe({ type: 'layout-shift', buffered: true }); } catch {}
+    });
     const browserErrors = [];
     page.on('pageerror', e => browserErrors.push(e.message.slice(0, 250)));
     try {
@@ -55,6 +67,27 @@ try {
         { waitUntil: 'domcontentloaded', timeout: 45000 });
       record.workerVersion = response?.headers()['x-texasdefined-worker-version'] || null;
       check('HTTP 200', response?.status() === 200, response?.status());
+      check('no X-Robots-Tag noindex', !/noindex/i.test(response?.headers()['x-robots-tag'] || ''),
+        response?.headers()['x-robots-tag'] || '');
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+      check('self canonical', canonical === origin + route, canonical);
+      const robots = await page.locator('meta[name="robots"]').getAttribute('content').catch(() => null);
+      check('no meta robots noindex', !/noindex/i.test(robots || ''), robots || '');
+      const article = await page.locator('script[type="application/ld+json"]').evaluateAll(
+        nodes => nodes.flatMap(node => {
+          try { const data = JSON.parse(node.textContent || '{}'); return data['@graph'] || [data]; }
+          catch { return []; }
+        }).find(item => item['@type'] === 'Article' && item.mainEntityOfPage?.['@id'] ===
+          'https://texasdefined.com/hunting/texas-deer-hunting#page') || null);
+      check('attributed Article JSON-LD', article?.author?.name ===
+        'Texas Defined Travel & Outdoors Desk' &&
+        article?.author?.url === origin + '/authors/a-dell', article?.author?.name || 'missing');
+      check('Article last substantive revision', !!article?.dateModified &&
+        /^20\\d\\d-\\d\\d-\\d\\d$/.test(article.dateModified), article?.dateModified || 'missing');
+      check('official public-unit source in Article schema', (article?.citation || []).includes(
+        'https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=AL'));
+      check('real editorial desk profile link', (await page.locator('a[href="/authors/a-dell"]').count()) > 0);
+      check('reader corrections link', (await page.locator('a[href="/corrections-policy"]').count()) > 0);
       await page.locator('h1').first().waitFor({ state: 'visible', timeout: 15000 });
       const title = await page.locator('h1').first().innerText();
       check('deer authority H1', /Texas White-Tailed Deer Hunting Guide/i.test(title), title);
@@ -63,6 +96,19 @@ try {
         (await page.locator('table').first().locator('tbody tr').count()) >= 8);
       const image = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       check('deer hero image exists', (await image.count()) === 1);
+      if (await image.count()) {
+        check('nonlazy priority deer hero', (await image.getAttribute('loading')) === 'eager' &&
+          (await image.getAttribute('fetchpriority')) === 'high');
+      }
+      const unit = page.locator('#deer-public-land-example');
+      check('sourced Alabama Creek worked example', (await unit.count()) === 1 &&
+        (await unit.innerText()).includes('September 15') &&
+        (await unit.innerText()).includes('USFS Buck Deer Permit') &&
+        (await unit.locator('a[href*="hunt-area-details.phtml?OArea=AL"]').count()) === 1);
+      if (await unit.count()) {
+        record.unitScreenshot = directory + '/deer-public-unit-' + viewport.name + '.png';
+        await unit.screenshot({ path: record.unitScreenshot, animations: 'disabled', timeout: 20000 });
+      }
       if (await image.count()) {
         await image.scrollIntoViewIfNeeded();
         await page.waitForFunction(() => {
@@ -95,6 +141,16 @@ try {
       check('responsive viewport meta', !!viewportMeta && viewportMeta.includes('width=device-width'),
         viewportMeta);
       check('no runtime JS errors', browserErrors.length === 0, browserErrors.join(' | '));
+      record.lab = await page.evaluate(() => {
+        const nav = performance.getEntriesByType('navigation')[0];
+        const fcp = performance.getEntriesByName('first-contentful-paint')[0];
+        return { lcpMs: window.__deerLab?.lcpMs ?? null,
+          cls: Number((window.__deerLab?.cls ?? 0).toFixed(4)),
+          fcpMs: fcp ? Math.round(fcp.startTime) : null,
+          ttfbMs: nav ? Math.round(nav.responseStart) : null };
+      });
+      check('Chromium lab LCP observed', record.lab.lcpMs !== null, JSON.stringify(record.lab));
+      check('no major lab layout instability', record.lab.cls <= 0.25, JSON.stringify(record.lab));
       await image.scrollIntoViewIfNeeded().catch(() => {});
       await page.screenshot({ path: record.screenshot, animations: 'disabled', fullPage: false });
     } catch (error) {
