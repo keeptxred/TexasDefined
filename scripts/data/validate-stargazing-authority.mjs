@@ -38,7 +38,7 @@ for (const marker of [
   'Copper Breaks State Park',
   'Enchanted Rock State Natural Area',
   'South Llano River State Park',
-  'TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026.'
+  'TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026.',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing-in-state-parks',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies',
   'https://tpwd.texas.gov/state-parks/copper-breaks/stargazing',
