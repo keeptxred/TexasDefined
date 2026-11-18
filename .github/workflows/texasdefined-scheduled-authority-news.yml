@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: texasdefined-article-publication
@@ -37,8 +38,7 @@ jobs:
       KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       NEWSROOM_HYDRATION_URL: https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/hydrate-newsroom-source-pages
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
       TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
     steps:
@@ -50,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/data/validate-texasdefined-auto-publication.mjs
-          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs scripts/news/texasdefined-published-article-proof.test.mjs scripts/news/texasdefined-live-destination-catalog.test.mjs scripts/news/texasdefined-firstparty-evidence.test.mjs
+          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs scripts/news/texasdefined-published-article-proof.test.mjs scripts/news/texasdefined-live-destination-catalog.test.mjs scripts/news/texasdefined-firstparty-evidence.test.mjs scripts/news/texasdefined-oidc-transport-contract.test.mjs scripts/news/texasdefined-image-raster-proof.test.mjs
       - name: Inspect full queue with no AI and no writes
         id: queue
         shell: bash

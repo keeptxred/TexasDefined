@@ -6,17 +6,18 @@ import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evide
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 import { isOriginalInstitutionalEvidenceLead } from './texasdefined-institutional-evidence-hydration.mjs';
 import { collectFirstPartyEvidence } from './texasdefined-firstparty-evidence.mjs';
+import { verifyTexasDefinedIllustrationBytes } from './texasdefined-image-raster-proof.mjs';
 import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
 import { liveDestinationSlugs, relevantDestinationRows } from './texasdefined-live-destination-catalog.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
-const CF_ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID || '';
-const CF_TOKEN = process.env.CLOUDFLARE_API_TOKEN || '';
+const TD_AI_PROXY_URL = 'https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/texasdefined-editorial-ai';
+const TD_AI_OIDC_AUDIENCE = 'texasdefined-editorial-ai';
 const SITE_URL = String(process.env.TEXASDEFINED_SITE_URL || 'https://texasdefined.com').replace(/\/$/, '');
 const NEWSROOM_HYDRATION_URL = String(process.env.NEWSROOM_HYDRATION_URL || 'https://keeptxred.com/api/public/hooks/hydrate-newsroom-source-pages');
 const TEXT_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
-const IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell';
+const IMAGE_MODEL = '@cf/black-forest-labs/flux-2-klein-4b';
 const publishRequested = process.argv.includes('--publish');
 const hydrateTopArg = process.argv.find((arg) => arg.startsWith('--hydrate-top='));
 const hydrateTop = hydrateTopArg ? Number(hydrateTopArg.split('=')[1]) : null;
@@ -51,13 +52,49 @@ async function supabase(path, init = {}) {
   return response;
 }
 
-async function workersAi(model, input) {
-  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}/ai/run/${model}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${CF_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
+/**
+ * TD's former Cloudflare REST token has no Workers AI authorization (401).
+ * Instead mint a short-lived GitHub Actions OIDC JWT for the exact protected
+ * workflow. KTR's existing Workers AI account handles only strictly validated
+ * signed first-party inference. No secrets are transferred between repos.
+ */
+async function githubEditorialOidcToken() {
+  const requestUrl = process.env.ACTIONS_ID_TOKEN_REQUEST_URL || '';
+  const requestToken = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN || '';
+  if (!requestUrl || !requestToken) throw new Error('Protected GitHub Actions id-token:write permission is required');
+  const url = new URL(requestUrl);
+  url.searchParams.set('audience', TD_AI_OIDC_AUDIENCE);
+  const response = await fetch(url, {
+    headers: { Authorization: 'bearer ' + requestToken, Accept: 'application/json' },
+    signal: AbortSignal.timeout(15_000),
   });
-  if (!response.ok) throw new Error(`Workers AI ${model} failed: ${response.status} ${await response.text()}`);
+  if (!response.ok) throw new Error('GitHub Actions failed to mint a signed editorial inference identity (' + response.status + ')');
+  const body = await response.json();
+  if (typeof body?.value !== 'string' || body.value.length < 100) throw new Error('GitHub Actions returned no usable signed identity');
+  return body.value;
+}
+
+async function workersAi(model, input) {
+  if (model !== TEXT_MODEL && model !== IMAGE_MODEL) throw new Error('Unapproved editorial AI model');
+  const identity = await githubEditorialOidcToken();
+  const response = await fetch(TD_AI_PROXY_URL, {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + identity, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model, input }),
+    signal: AbortSignal.timeout(150_000),
+  });
+  if (!response.ok) {
+    // Do not log signed JWTs, model prompts, secrets or third-party responses.
+    let reason = '';
+    try {
+      const detail = await response.json();
+      reason = typeof detail?.status === 'number' ? ' upstream=' + detail.status : '';
+    } catch {}
+    throw new Error('Signed Workers AI editorial bridge unavailable (' + response.status + reason + ')');
+  }
+  if (response.headers.get('x-texasdefined-ai-transport') !== 'signed-github-oidc') {
+    throw new Error('Editorial AI bridge did not attest signed GitHub transport');
+  }
   return response;
 }
 
@@ -322,36 +359,37 @@ async function generateDraft(item, destinationRows, evidence) {
 
 async function generateAndStoreImage(draft) {
   const response = await workersAi(IMAGE_MODEL, {
-    prompt: `${draft.heroPrompt}. Clearly illustrated, non-photographic editorial artwork, wide 16:9 composition. Never depict a purported real event, identifiable venue entrance, specific individual, official map, logo, or real photograph. No text or watermark.`,
+    prompt: draft.heroPrompt + '. Clearly illustrated, non-photographic editorial artwork, wide 16:9 composition. Never depict a purported real event, identifiable venue entrance, specific individual, official map, logo, or real photograph. No text or watermark.',
     steps: 4,
   });
-  const type = response.headers.get('content-type') || '';
+  const type = String(response.headers.get('content-type') || '').toLowerCase();
   let bytes;
   if (type.includes('application/json')) {
     const envelope = await response.json();
-    const encoded = envelope?.result?.image || envelope?.result;
-    if (typeof encoded !== 'string') throw new Error('Workers AI image response did not contain image bytes.');
+    if (envelope?.success === false) throw new Error('Editorial illustration provider rejected the request');
+    const encoded = envelope?.result?.image || envelope?.result || envelope?.image;
+    if (typeof encoded !== 'string') throw new Error('Editorial illustration provider did not return image bytes');
     bytes = Uint8Array.from(Buffer.from(encoded, 'base64'));
   } else {
     bytes = new Uint8Array(await response.arrayBuffer());
   }
-  if (bytes.length < 10_000) throw new Error(`Generated hero is unexpectedly small (${bytes.length} bytes).`);
-  const pngMagic = [137,80,78,71,13,10,26,10];
-  if (!pngMagic.every((byte,i) => bytes[i] === byte)) {
-    throw new Error('Workers AI returned non-PNG bytes for a PNG article hero; publication blocked.');
-  }
-  const path = `${draft.slug}.png`;
-  await supabase(`/storage/v1/object/texasdefined-article-images/${encodeURIComponent(path)}`, {
+  // Cloudflare FLUX.2 Klein can return JPEG, PNG or WebP. Never label
+  // non-PNG bytes as PNG or accept SVG, HTML, JSON errors or tiny files.
+  const media = verifyTexasDefinedIllustrationBytes(bytes, type.includes('application/json') ? '' : type);
+  const path = draft.slug + '.' + media.extension;
+  await supabase('/storage/v1/object/texasdefined-article-images/' + encodeURIComponent(path), {
     method: 'POST',
-    headers: { 'Content-Type': 'image/png', 'x-upsert': 'false' },
+    headers: { 'Content-Type': media.mime, 'x-upsert': 'false' },
     body: bytes,
   });
-  const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/texasdefined-article-images/${encodeURIComponent(path)}`;
+  const publicUrl = SUPABASE_URL + '/storage/v1/object/public/texasdefined-article-images/' + encodeURIComponent(path);
   const proof = await fetch(publicUrl, { signal: AbortSignal.timeout(20_000) });
+  if (!proof.ok) throw new Error('Uploaded editorial image failed public retrieval');
   const verifiedType = String(proof.headers.get('content-type') || '').toLowerCase();
   const verifiedBytes = new Uint8Array(await proof.arrayBuffer());
-  if (!proof.ok || !verifiedType.includes('image/png') || !pngMagic.every((byte,i) => verifiedBytes[i] === byte)) {
-    throw new Error('Uploaded editorial illustration was not retrievable as a valid PNG; publication blocked.');
+  const verified = verifyTexasDefinedIllustrationBytes(verifiedBytes, verifiedType);
+  if (verified.mime !== media.mime || Buffer.compare(Buffer.from(bytes), Buffer.from(verifiedBytes)) !== 0) {
+    throw new Error('Published editorial hero does not match the image generated and stored');
   }
   return publicUrl;
 }
@@ -395,8 +433,8 @@ requireEnv('KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY', SUPABASE_KEY);
 if (publishRequested) {
   if (process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED !== 'true') throw new Error('Publishing is disabled. Set TEXASDEFINED_AUTO_PUBLISH_ENABLED=true only when activation is approved.');
   if (process.env.TEXASDEFINED_PUBLISH_CONFIRMATION !== 'PUBLISH_TEXASDEFINED') throw new Error('Exact publication confirmation is missing.');
-  requireEnv('CLOUDFLARE_ACCOUNT_ID', CF_ACCOUNT);
-  requireEnv('CLOUDFLARE_API_TOKEN', CF_TOKEN);
+  requireEnv('ACTIONS_ID_TOKEN_REQUEST_URL', process.env.ACTIONS_ID_TOKEN_REQUEST_URL);
+  requireEnv('ACTIONS_ID_TOKEN_REQUEST_TOKEN', process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN);
 }
 
 if (hydrateTop) {
