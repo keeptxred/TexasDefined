@@ -16,6 +16,7 @@ const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), '
 const component = read('src/components/property/WestWhartonHospitalDistrictAuthority.tsx');
 const parent = read('src/components/property/TaxingUnitRatePage.tsx');
 const route = read('src/routes/property-tax.taxing-unit.$unit.tsx');
+const sitemap = read('src/routes/sitemap[.]xml.ts');
 const workflow = read('.github/workflows/verify-west-wharton-hospital-tax.yml');
 const scripts = read('package.json');
 const near = (actual, expected, label, tolerance = 0.011) => assert.ok(Math.abs(actual - expected) < tolerance, `${label}: expected ${expected}; got ${actual}`);
@@ -54,6 +55,8 @@ assert.ok(parent.includes("latest.slug === 'west-wharton-county-hospital-distric
 assert.ok(parent.includes('<WestWhartonHospitalDistrictAuthority latestWorkbookYear={latest.year}/>'));
 assert.ok(route.includes('hasWestWhartonAuthority') && route.includes('westWhartonHospitalDistrict.sources.districtNotice'));
 assert.ok(route.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
+assert.ok(sitemap.includes('{ path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-18" }'));
+
 assert.ok(workflow.includes('cron:') && workflow.includes('workflow_dispatch:') && workflow.includes('issues: write'));
 assert.ok(workflow.includes('--remote'));
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
