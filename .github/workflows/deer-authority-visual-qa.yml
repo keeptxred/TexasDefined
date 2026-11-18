@@ -45,7 +45,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "${{ github.event_name }}" != 'workflow_run' ]]; then
+          # Production-only content assertions cannot pass on a PR before
+          # the new HTML is actually deployed. Offline self-tests still run.
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            echo 'run=no' >> "$GITHUB_OUTPUT"
+            echo 'PR checks contract syntax; live content QA follows successful production deploy.'
+          elif [[ "${{ github.event_name }}" != 'workflow_run' ]]; then
             echo 'run=yes' >> "$GITHUB_OUTPUT"
           elif git rev-parse HEAD~20 >/dev/null 2>&1 && \
             git diff --name-only HEAD~20 HEAD -- \
