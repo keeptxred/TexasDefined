@@ -1,0 +1,60 @@
+name: Review five outdoor authority guides
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/texas-mountain-biking-guide*'
+      - 'src/routes/texas-horseback-riding-guide*'
+      - 'src/routes/texas-ohv-guide*'
+      - 'src/routes/texas-paddling-guide*'
+      - 'src/routes/texas-stargazing-guide*'
+      - 'scripts/data/validate-*-authority.mjs'
+      - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
+      - '.github/workflows/review-outdoor-authority-guides.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '37 15 10 * *'
+    - cron: '41 15 12 1,4,7,10 *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect five guides and structured metadata
+        run: |
+          node scripts/data/validate-mountain-biking-authority.mjs
+          node scripts/data/validate-horseback-riding-authority.mjs
+          node scripts/data/validate-ohv-authority.mjs
+          node scripts/data/validate-paddling-authority.mjs
+          node scripts/data/validate-stargazing-authority.mjs
+      - name: Verify official facts and live canonical pages
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
+      - name: Retain audit evidence
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: outdoor-guides-authority-evidence
+          path: outdoor-guides-authority-audit.json
+          if-no-files-found: warn
+      - name: Open or update a factual-drift issue
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Five outdoor authority guides: scheduled fact or live-page drift'
+          issue="$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "Five outdoor authority guides: scheduled fact or live-page drift") | .number' | head -1)"
+          if [ -z "$issue" ]; then
+            gh issue create --title "$title" --body "The latest scheduled outdoor authority source/canonical audit failed. Review workflow evidence, correct the original sources against TPWD, NPS, Forest Service and venue operators, and rerun. Never bump the source-review date without verification."
+          else
+            gh issue comment "$issue" --body "Scheduled outdoor guide audit failed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Check evidence and correct source drift."
+          fi

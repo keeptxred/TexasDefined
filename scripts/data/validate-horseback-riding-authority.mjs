@@ -39,7 +39,7 @@ for (const marker of [
   'Palo Duro Canyon State Park',
   'Caprock Canyons State Park & Trailway',
   'Dinosaur Valley State Park',
-  'Source review: August 30, 2026.',
+  'Official TPWD riding and campsite information checked November 18, 2026;',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding',
   'https://tpwd.texas.gov/state-parks/hill-country',
@@ -75,6 +75,10 @@ const outdoorsStart = topicPaths.indexOf('outdoors: [');
 const outdoorsEnd = outdoorsStart >= 0 ? topicPaths.indexOf('\n  ],', outdoorsStart) : -1;
 const outdoorsSlice = outdoorsStart >= 0 ? topicPaths.slice(outdoorsStart, outdoorsEnd > outdoorsStart ? outdoorsEnd : undefined) : '';
 if (!outdoorsSlice.includes('to: "/texas-horseback-riding-guide"')) errors.push('Outdoors authority must retain direct discovery to the Texas horseback riding guide.');
+
+for (const marker of ['equestrianPlanning.map((park)', 'equestrianPlanning[index].official']) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
 
 if (errors.length) {
   console.error('Texas horseback riding authority validation failed:');

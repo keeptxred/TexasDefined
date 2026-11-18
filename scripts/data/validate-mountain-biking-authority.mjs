@@ -44,7 +44,7 @@ const visibleMarkers = [
   'Four checks that matter more than a saved screenshot',
   'Official trail map &amp; details',
   'TexasDefined park guide',
-  'Source review: September 30, 2026.',
+  'TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026;',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks',
   'https://tpwd.texas.gov/state-parks/franklin-mountains/plan-your-visit',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/activities/',
@@ -103,6 +103,10 @@ const outdoorsStart = topicPaths.indexOf('outdoors: [');
 const outdoorsEnd = outdoorsStart >= 0 ? topicPaths.indexOf('\n  ],', outdoorsStart) : -1;
 const outdoorsSlice = outdoorsStart >= 0 ? topicPaths.slice(outdoorsStart, outdoorsEnd > outdoorsStart ? outdoorsEnd : undefined) : '';
 if (!outdoorsSlice.includes('to: "/texas-mountain-biking-guide"')) errors.push('Outdoors authority must retain direct discovery to the Texas mountain biking guide.');
+
+for (const marker of ['routeDecisions[index].startingPoint', 'e-bikes may use public park roadways but not state-park trails']) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
 
 if (errors.length) {
   console.error('Texas mountain biking authority validation failed:');

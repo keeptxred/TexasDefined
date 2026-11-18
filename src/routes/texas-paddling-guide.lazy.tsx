@@ -2,6 +2,49 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 
+const verifiedTrips = [
+  {
+    "name": "Lady Bird Lake",
+    "route": "3.15-mile Tom Miller Dam, 3.25-mile Barton Springs, or 4.8-mile Festival Beach loop",
+    "access": "Multiple access points, including Redbud Trail and Festival Beach; 1–6 hours depending on selected loop",
+    "check": "Choose a named TPWD loop and exact put-in; check wind and current water level",
+    "official": "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/",
+    "related": "/explore/lakes-rivers"
+  },
+  {
+    "name": "Buffalo Bayou",
+    "route": "26-mile trail in manageable one-way segments; TPWD estimates roughly 1–4.5 hours per segment",
+    "access": "Launch options run from Highway 6 to Allen's Landing; arrange a legitimate downstream takeout and shuttle",
+    "check": "Check flow, possible strainers, recent rainfall and water-quality advisories; do not plan all 26 miles as a casual day",
+    "official": "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/",
+    "related": "/fishing"
+  },
+  {
+    "name": "Bosque Bluffs & Brazos Bridges",
+    "route": "2.2-mile Bosque Bluffs loop or 4.8-mile Brazos Bridges loop; roughly 1–3 hours",
+    "access": "MCC Boat Ramp or Brazos Park East launch; both are designed as loops with no shuttle required",
+    "check": "Pick the matching ramp and loop; recheck high water and runoff before bringing beginners",
+    "official": "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/",
+    "related": "/explore/lakes-rivers"
+  },
+  {
+    "name": "Hell's Half Acre",
+    "route": "8.8-mile marked Caddo Lake loop; TPWD estimates 3–4 hours",
+    "access": "Mill Pond canoe/kayak launch inside Caddo Lake State Park; follow red reflective trail arrows",
+    "check": "Download the route and watch changing lake levels, motorboat traffic and WMA boundaries",
+    "official": "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/hells-half-acre/",
+    "related": "/explore/state-parks"
+  },
+  {
+    "name": "Lighthouse Lakes",
+    "route": "Four coastal loops, 1.25–6.8 miles; TPWD estimates 45 minutes–3 hours",
+    "access": "Access from Hwy 361 at Lighthouse Lakes Trail Park or the listed loop put-ins",
+    "check": "Strong southeasterly wind, tidal conditions and crossing the busy Aransas Channel make this a different proposition from a lake loop; TPWD discourages canoes",
+    "official": "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/",
+    "related": "/explore/beaches-coast"
+  }
+] as const;
+
 const officialSources = [
   { label: "Texas Parks & Wildlife — Texas Paddling Trails", href: "https://tpwd.texas.gov/boating/paddling-trails/", note: "Statewide official trail system, trail finder and regional planning entry point." },
   { label: "Texas Parks & Wildlife — Lady Bird Lake Paddling Trail", href: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", note: "Official access points, route lengths, float-time context, wind and water-level guidance for Austin." },
@@ -91,10 +134,23 @@ function TexasPaddlingGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five official paddling trails, with the launch, takeout, water-level, wind, private-property and current-condition questions to resolve before getting on the water.</p>
           </header>
 
+
+          <section className="border-b border-border py-10" aria-labelledby="trail-comparison">
+            <p className="eyebrow text-primary">Compare real outings</p>
+            <h2 id="trail-comparison" className="mt-2 font-display text-3xl">Five different paddles, five different launch plans</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Distances and durations below come from the named TPWD trail pages, not a guessed statewide average. Times are approximate and change with wind, current, stops and ability. Match the put-in to the exact route before leaving.</p>
+            <div className="mt-6 overflow-x-auto border border-border">
+              <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "760px" }}>
+                <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Paddling trail</th><th scope="col" className="border-b border-border p-4">Route choice / scale</th><th scope="col" className="border-b border-border p-4">Launch and shuttle</th></tr></thead>
+                <tbody>{verifiedTrips.map((trip) => <tr key={trip.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{trip.name}</th><td className="border-b border-border p-4 text-muted-foreground">{trip.route}</td><td className="border-b border-border p-4 text-muted-foreground">{trip.access}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </section>
+
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Choose the waterbody first, then verify today's conditions</h2>
-            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains more than 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
+            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
@@ -116,6 +172,16 @@ function TexasPaddlingGuidePage() {
                 </div>
                 <div className="max-w-3xl space-y-5">
                   {trail.details.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}
+                  <aside className="border-l-2 border-primary bg-muted/20 px-5 py-4 text-sm leading-7">
+                    <h3 className="font-display text-xl">Plan this exact route</h3>
+                    <p className="mt-2"><strong>Route:</strong> {verifiedTrips[index].route}</p>
+                    <p className="mt-1"><strong>Access:</strong> {verifiedTrips[index].access}</p>
+                    <p className="mt-1"><strong>Decision point:</strong> {verifiedTrips[index].check}</p>
+                    <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                      <a href={verifiedTrips[index].official} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">TPWD map, access and route details ↗</a>
+                      <Link to={verifiedTrips[index].related} className="font-semibold text-primary underline underline-offset-4">Explore related TexasDefined destinations</Link>
+                    </div>
+                  </aside>
                 </div>
               </section>
             ))}
@@ -137,7 +203,7 @@ function TexasPaddlingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access and conditions with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Source review: August 30, 2026.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; check current access and conditions for travel.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

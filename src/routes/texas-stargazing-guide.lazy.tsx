@@ -2,6 +2,49 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 
+const skyComparison = [
+  {
+    "name": "Big Bend Ranch",
+    "bortle": "1 in the darkest areas",
+    "viewing": "River Road, West Contrabando Trailhead, Big Hill and Hoodoos are TPWD-listed viewing locations",
+    "access": "Check the selected access road and any backcountry permit before leaving reliable cell service",
+    "official": "https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies",
+    "related": "/destination/big-bend-ranch-state-park"
+  },
+  {
+    "name": "Caprock Canyons",
+    "bortle": "2",
+    "viewing": "Plan a viewing night or official park program around the Panhandle canyon setting; do not infer unrestricted trailway access at night",
+    "access": "Check park operating rules, campsite/entry reservations and event calendar; January 2026 dark-sky designation",
+    "official": "https://tpwd.texas.gov/state-parks/caprock-canyons",
+    "related": "/explore/state-parks"
+  },
+  {
+    "name": "Copper Breaks",
+    "bortle": "2",
+    "viewing": "Park star parties are an option, but independent viewing still depends on permitted after-hours access",
+    "access": "Consult the current TPWD event calendar for a scheduled program rather than last year's dates",
+    "official": "https://tpwd.texas.gov/state-parks/copper-breaks/stargazing",
+    "related": "/best-places-to-go-camping-in-texas"
+  },
+  {
+    "name": "Enchanted Rock",
+    "bortle": "3",
+    "viewing": "TPWD identifies its Scenic Overlook for night-sky viewing and publishes a sky-quality monitor",
+    "access": "The park is busy and access-restricted; verify timed entry, night activity and approved viewing areas before arriving",
+    "official": "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/dark-skies/",
+    "related": "/explore/region/hill-country"
+  },
+  {
+    "name": "South Llano River",
+    "bortle": "3",
+    "viewing": "Park stargazing and astronomy events complement camping; TPWD publishes local night-sky observations",
+    "access": "Ask the park about the current night-activity fee and how non-campers may remain past regular hours",
+    "official": "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies",
+    "related": "/best-places-to-go-camping-in-texas"
+  }
+] as const;
+
 const officialSources = [
   { label: "Texas Parks & Wildlife — Stargazing in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing-in-state-parks", note: "Statewide International Dark Sky Park list, very-dark-sky parks, observatory links and stargazing planning resources." },
   { label: "Texas Parks & Wildlife — Big Bend Ranch Stargazing", href: "https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies", note: "Official Bortle ratings, accessible viewing locations, moon/weather resources and exceptionally dark-sky measurements." },
@@ -9,6 +52,8 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Enchanted Rock Stargazing", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/dark-skies/", note: "Official Dark Sky Park guidance and real-time sky-quality monitoring for the Hill Country site." },
   { label: "Texas Parks & Wildlife — South Llano River Stargazing", href: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies", note: "Official Bortle rating, after-hours night-activity guidance and real-time dark-sky monitoring." },
   { label: "Texas Parks & Wildlife — Caprock Canyons Dark Sky designation", href: "https://tpwd.texas.gov/newsmedia/releases/?req=20260107a", note: "Official January 2026 designation notice confirming Caprock Canyons as Texas's fifth International Dark Sky Park." },
+  { label: "TPWD — Official state park Bortle ratings", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", note: "Park-by-park baseline sky darkness values; a rating is not the forecast for the night." },
+  { label: "TPWD — Stargazing events calendar", href: "https://tpwd.texas.gov/calendar/stargazing", note: "Current park program dates and scheduled guided observing." },
 ] as const;
 
 const parks = [
@@ -91,6 +136,18 @@ function TexasStargazingGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to Texas's five International Dark Sky Parks, with the moon, weather, Bortle rating, park-hours and access questions to resolve before making a night-sky trip.</p>
           </header>
 
+
+          <section className="border-b border-border py-10" aria-labelledby="sky-comparison">
+            <p className="eyebrow text-primary">Pick a viewing night</p>
+            <h2 id="sky-comparison" className="mt-2 font-display text-3xl">Compare actual sky darkness and visitor access</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">TPWD's Bortle ratings are baseline sky-quality classifications, not tonight's conditions. Lower is darker. Even a Class 1 location can be unsuitable under a bright moon or clouds; driving to a remote site does not grant unrestricted after-hours access.</p>
+            <div className="mt-6 overflow-x-auto border border-border">
+              <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "780px" }}>
+                <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">International Dark Sky Park</th><th scope="col" className="border-b border-border p-4">TPWD Bortle class</th><th scope="col" className="border-b border-border p-4">Best planning starting point</th></tr></thead>
+                <tbody>{skyComparison.map((item) => <tr key={item.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{item.name}</th><td className="border-b border-border p-4">{item.bortle}</td><td className="border-b border-border p-4 text-muted-foreground">{item.viewing}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">A Dark Sky designation is the starting point, not the forecast</h2>
@@ -102,7 +159,7 @@ function TexasStargazingGuidePage() {
             <h2 id="stewardship" className="mt-2 font-display text-3xl">Protect the darkness you came to see</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
               <p>Dark-sky designations are tied to lighting practices and long-term stewardship. Follow park rules on lighting, parking, quiet hours and nighttime access, and avoid unnecessary bright light that disrupts other visitors and wildlife.</p>
-              <p>This guide is trip planning, not astronomy or astrophotography instruction. It does not teach telescope alignment, solar viewing, optical equipment use, celestial navigation or night photography settings. Never look directly at the sun through binoculars, a telescope or other optical equipment without purpose-built solar safety equipment and competent guidance.</p>
+              <p>For an enjoyable first night, arrive while it is still light, confirm where parking and walking are permitted, and allow your eyes time to adapt. A dim red light is less disruptive than an unshielded white flashlight. Compare moonrise, moonset and cloud forecasts before committing to a long drive, then use TPWD's <a href="https://tpwd.texas.gov/calendar/stargazing" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">current astronomy event calendar</a> if a guided program is more suitable than an independent visit.</p>
             </div>
           </section>
 
@@ -116,6 +173,16 @@ function TexasStargazingGuidePage() {
                 </div>
                 <div className="max-w-3xl space-y-5">
                   {park.details.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}
+                  <aside className="border-l-2 border-primary bg-muted/20 px-5 py-4 text-sm leading-7">
+                    <h3 className="font-display text-xl">Plan the observing window</h3>
+                    <p className="mt-2"><strong>Sky darkness:</strong> TPWD Bortle {skyComparison[index].bortle} (baseline, not a weather prediction).</p>
+                    <p className="mt-2"><strong>Where to start:</strong> {skyComparison[index].viewing}</p>
+                    <p className="mt-2"><strong>Night access:</strong> {skyComparison[index].access}</p>
+                    <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                      <a href={skyComparison[index].official} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official park night-sky information ↗</a>
+                      <Link to={skyComparison[index].related} className="font-semibold text-primary underline underline-offset-4">Pair with a Texas trip</Link>
+                    </div>
+                  </aside>
                 </div>
               </section>
             ))}
@@ -137,7 +204,7 @@ function TexasStargazingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify darkness, access and events with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. Source review: August 30, 2026.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Always verify current park access and forecast.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

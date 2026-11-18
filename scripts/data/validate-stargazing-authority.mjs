@@ -30,15 +30,14 @@ for (const marker of [
   'Texas Stargazing Guide',
   'A Dark Sky designation is the starting point, not the forecast',
   'Protect the darkness you came to see',
-  'This guide is trip planning, not astronomy or astrophotography instruction.',
-  'Never look directly at the sun',
+  'current astronomy event calendar',
   'Bortle Class 1',
   'Big Bend Ranch State Park',
   'Caprock Canyons State Park & Trailway',
   'Copper Breaks State Park',
   'Enchanted Rock State Natural Area',
   'South Llano River State Park',
-  'Source review: August 30, 2026.',
+  'TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026.',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing-in-state-parks',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies',
   'https://tpwd.texas.gov/state-parks/copper-breaks/stargazing',
@@ -64,6 +63,10 @@ const outdoorsStart = topicPaths.indexOf('outdoors: [');
 const outdoorsEnd = outdoorsStart >= 0 ? topicPaths.indexOf('\n  ],', outdoorsStart) : -1;
 const outdoorsSlice = outdoorsStart >= 0 ? topicPaths.slice(outdoorsStart, outdoorsEnd > outdoorsStart ? outdoorsEnd : undefined) : '';
 if (!outdoorsSlice.includes('to: "/texas-stargazing-guide"')) errors.push('Outdoors authority must retain direct discovery to the Texas stargazing guide.');
+
+for (const marker of ['skyComparison.map((item)', 'skyComparison[index].official']) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
 
 if (errors.length) {
   console.error('Texas stargazing authority validation failed:');

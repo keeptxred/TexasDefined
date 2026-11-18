@@ -31,13 +31,13 @@ for (const marker of [
   'Check the route, weather and exit plan before launching',
   'Confirm the legal put-in and takeout, shuttle plan',
   'thunderstorms, flood flows, strong wind, tides, water quality, heat, poor visibility or access conditions',
-  'more than 100 certified paddling trails',
+  '100 certified paddling trails',
   'Lady Bird Lake Paddling Trail',
   'Buffalo Bayou Paddling Trail',
   'Bosque Bluffs & Brazos Bridges Paddling Trails',
   "Hell's Half Acre Paddling Trail",
   'Lighthouse Lakes Paddling Trail',
-  'Source review: August 30, 2026.',
+  'Official TPWD trail pages cross-checked November 18, 2026;',
   'https://tpwd.texas.gov/boating/paddling-trails/',
   'https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/',
   'https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/',
@@ -76,6 +76,10 @@ const outdoorsStart = topicPaths.indexOf('outdoors: [');
 const outdoorsEnd = outdoorsStart >= 0 ? topicPaths.indexOf('\n  ],', outdoorsStart) : -1;
 const outdoorsSlice = outdoorsStart >= 0 ? topicPaths.slice(outdoorsStart, outdoorsEnd > outdoorsStart ? outdoorsEnd : undefined) : '';
 if (!outdoorsSlice.includes('to: "/texas-paddling-guide"')) errors.push('Outdoors authority must retain direct discovery to the Texas paddling guide.');
+
+for (const marker of ['verifiedTrips.map((trip)', 'verifiedTrips[index].official']) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
 
 if (errors.length) {
   console.error('Texas paddling authority validation failed:');
