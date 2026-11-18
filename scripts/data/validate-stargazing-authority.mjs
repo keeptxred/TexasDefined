@@ -30,7 +30,7 @@ for (const marker of [
   'Texas Stargazing Guide',
   'A Dark Sky designation is the starting point, not the forecast',
   'Protect the darkness you came to see',
-  'official astronomy event calendar',
+  'current astronomy event calendar',
   'Never look directly at the sun',
   'Bortle Class 1',
   'Big Bend Ranch State Park',
