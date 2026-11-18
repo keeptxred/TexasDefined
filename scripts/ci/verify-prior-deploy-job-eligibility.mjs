@@ -461,11 +461,24 @@ export function qualifyPriorDeployJob(payload) {
     const firstBranch = loader.indexOf('if (params.slug === LAKE_CONROE_SLUG)');
     const unconditionalCatalog = loader.indexOf('const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery }');
     const conditionalCatalog = loader.indexOf('if (params.section === "reports" || params.section === "guides")');
-    const pageDataBeforeGlobal = loader.indexOf('const pageData = await getLakeConroePageData()');
+    // A previous published Worker had no Conroe fishing catalog fanout. The
+    // current, narrower repair makes /camping independent of live-water fetch.
+    // Keep previous verified asset eligibility tied to that exact safe path.
+    const pageDataBeforeGlobal = loader.indexOf('const pageData = params.section === "camping"');
+    const conroeServer = readFileSync('src/data/fishing/lake-conroe-page-data.functions.ts', 'utf8');
+    const campingPathSafe = (
+      loader.includes('await getLakeConroeCampingPageData()') &&
+      loader.includes(': await getLakeConroePageData()') &&
+      conroeServer.includes('export const getLakeConroeCampingPageData') &&
+      conroeServer.includes('...loadLakeConroePageDataServer()') &&
+      conroeServer.includes('liveLakeLevel: null') &&
+      conroeServer.includes('await import("./live-lake-level-fetch.server")')
+    );
     const canonicalPageGuard = loader.indexOf('if (!isLakeConroeSection(params.section)) throw notFound()');
     if (firstBranch < 0 || canonicalPageGuard < firstBranch ||
         pageDataBeforeGlobal < canonicalPageGuard || conditionalCatalog < pageDataBeforeGlobal ||
-        unconditionalCatalog < conditionalCatalog || !loader.includes('const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug))') ||
+        unconditionalCatalog < conditionalCatalog || !campingPathSafe ||
+        !loader.includes('const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug))') ||
         !loader.includes('reports = await context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake))')) {
       throw Error('Nov16 Conroe asset handoff is rejected until #7288 repairs unconditional statewide fishing catalog import');
     }
