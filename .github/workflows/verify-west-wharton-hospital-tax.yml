@@ -9,6 +9,7 @@ on:
       - 'src/routes/property-tax.taxing-unit.$unit.tsx'
       - 'src/routes/property-tax.county.$county.tsx'
       - 'scripts/data/validate-west-wharton-hospital-district.mjs'
+      - 'scripts/ci/verify-west-wharton-hospital-production.mjs'
       - '.github/workflows/verify-west-wharton-hospital-tax.yml'
       - 'package.json'
   push:
@@ -60,3 +61,16 @@ jobs:
           else
             echo "Open review issue #${existing} already exists; no duplicate created."
           fi
+
+  live:
+    name: Verify live hospital tax authority on both public origins
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify full server-rendered page, reciprocal county link, canonical and source integrity
+        run: node --experimental-strip-types scripts/ci/verify-west-wharton-hospital-production.mjs
