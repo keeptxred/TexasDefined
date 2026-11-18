@@ -496,3 +496,35 @@ test('Nov18 a92 asset eligibility rejects altered GitHub evidence, extra product
   ]) assert.throws(()=>qualifyPriorDeployJob(evidence({...exact,...mutation})),
     /Required published-Worker safety gate not successful|Nov18 a92 original-byte handoff rejects changed run, job, failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
 });
+
+test('Nov18 published 6f9e Worker may hand off ONLY the original assets after independently verified failed Conroe parity', () => {
+  const exact = {
+    runId: 44242409782, jobId: 134593204841,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  const qualified = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov18-6f9e-failed-camping-original-assets-only');
+  assert.equal(qualified.exactRun, exact.runId);
+  assert.equal(qualified.requiredSourceSha, '873454f756a635b63957b83d479d8979719858ed');
+  assert.equal(qualified.requiredWorkerVersion, '6f9e538a-98d4-45fa-bd0e-6c47f8cbc2a0');
+  assert.equal(qualified.criticalChecks, required.length);
+  assert.equal(qualified.priorReleaseStillFailed, true);
+  assert.deepEqual(qualified.permittedFailures, [exact.failure]);
+});
+
+test('6f9e old-worker asset eligibility must fail closed on changed identity, additional failure, or weakened asset gates', () => {
+  const exact = {
+    runId: 44242409782, jobId: 134593204841,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  for (const mutation of [
+    {runId: exact.runId+1},
+    {jobId: exact.jobId+1},
+    {failure: 'Verify base production surfaces'},
+    {additional: ['Verify base production surfaces']},
+    {additional: ['Verify current and previous release JS/CSS on both public origins']},
+    ...required.map(omit => ({omit})),
+  ]) assert.throws(() => qualifyPriorDeployJob(evidence({...exact, ...mutation})),
+    /Required published-Worker safety gate not successful|6f9e original asset handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+});
