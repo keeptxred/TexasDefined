@@ -4,6 +4,10 @@ import { Container } from "@/components/layout/Container";
 
 /** Detailed editorial body is split from the shared router bundle. */
 const verified = "October 20, 2026";
+// Exact licensed Commons original; serve its approved first-party image proxy
+// to avoid making browsers depend on Wikimedia's intermittent 429 responses.
+const DAVIS_HILL_PHOTO_ORIGINAL = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg";
+const DAVIS_HILL_PHOTO_PROXY = "/media/remote?url=" + encodeURIComponent(DAVIS_HILL_PHOTO_ORIGINAL);
 const sources = [
   {
     label: "TPWD — Future Parks (current development roster)",
@@ -135,7 +139,7 @@ export default function DavisHillAuthorityPage() {
           </div>
           <figure className="mt-8 max-w-5xl border border-border">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"
+              src={DAVIS_HILL_PHOTO_PROXY}
               width={1800}
               height={1200}
               loading="eager"
