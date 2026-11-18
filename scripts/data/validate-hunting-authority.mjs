@@ -174,14 +174,27 @@ for (const expected of [
   'after-killing-a-deer', 'annual_public_hunting/search.phtml',
   'an independent professional reviewer', 'county'
 ]) requireText(deerSourceRecord.toLowerCase(), expected.toLowerCase(), 'deer claim-level primary-source record missing ' + expected);
-requireText(deer, 'reviewedOn: "2026-11-15"', 'new deer editorial changes must have genuine updated date');
-requireText(deer, 'reviewedLabel: "November 15, 2026"', 'deer editorial visible date out of sync');
+requireText(deer, 'reviewedOn: "2026-11-17"', 'latest deer substantive editorial review date must match current source ledger');
+requireText(deer, 'reviewedLabel: "November 17, 2026"', 'deer editorial visible date out of sync');
 requireText(huntingHub, 'function DeerCountyWorkedExample()', 'source-checked county planning example missing');
 requireText(huntingHub, 'texasDeerSeason.startYear !== 2026', 'worked county cases must fail closed on annual rollover');
 for (const expected of ['Grayson', 'Washington', 'Gillespie', 'CWD', '24 hours', '48 hours', 'Legal Game', 'id="deer-source-record"', 'href="#deer-source-record"']) {
   requireText(huntingHub, expected, 'deer worked-example credibility guard missing ' + expected);
 }
 requireText(huntingHub, '<DeerCountyWorkedExample />', 'worked county comparison not mounted');
+const deerNov17 = read('docs/editorial/deer-hunting-2026-11-17-source-check.md');
+for (const expected of ['2026-11-17', 'Alabama Creek WMA', 'Unit 904',
+  'USFS Buck Deer Permit', 'USFS Antlerless Deer Permit', 'September 15',
+  'https://texasdefined.com/authors/a-dell', 'hunt-area-details.phtml?OArea=AL',
+  'need-to-know/', 'CWD', 'November 15', 'an independent professional reviewer']) {
+  requireText(deerNov17.toLowerCase(), expected.toLowerCase(), 'new documented unit/desk source evidence missing ' + expected);
+}
+for (const marker of ['function DeerPublicLandWorkedExample()', '<DeerPublicLandWorkedExample />',
+  'Alabama Creek WMA', 'September 15', 'USFS Buck Deer Permit', 'eOSR',
+  'hunt-area-details.phtml?OArea=AL', 'authors/a-dell', 'corrections-policy']) {
+  requireText(huntingHub, marker, 'public-land primary-source/real-desk guard missing ' + marker);
+}
+
 requireText(huntingHub, 'loading="eager" fetchPriority="high"', 'above-the-fold deer hero must not be lazy-loaded');
 if (/White-tailed%20deer\.jpg[^>]*loading="lazy"/.test(huntingHub)) throw new Error('Deer hero must not lazy-load');
 
