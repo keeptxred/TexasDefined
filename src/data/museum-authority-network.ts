@@ -3126,7 +3126,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     exhibits: [
       { heading: "Oval Office and Lady Bird Johnson's office", detail: "Recreated working spaces introduce presidential decision-making; neither is an original Washington Oval Office." },
       { heading: "Great Hall and presidential recordings", detail: "Selected objects and recorded calls convey the scale of Johnson's decisions while the underlying archives remain a separate research resource." },
-      { heading: "Civil rights, Great Society and Vietnam", detail: "Interpret domestic legislative change alongside the human and diplomatic costs of war." },
+      { heading: "Civil rights, Great Society and Vietnam", detail: "Interpret domestic legislative change alongside the human and diplomatic costs of war; the permanent galleries underwent a major renovation reopening in March 2026, so distinguish the redesigned permanent exhibition from dated special displays." },
       { heading: "The American Experiment: Pursuing Our Promise", detail: "The current temporary exhibition runs through January 10, 2027 and draws on significant national historical documents." },
       { heading: "Austin Past & Present and What We Bring to the Table", detail: "Dated temporary displays, currently scheduled through January 3, 2027, extend the historical context." },
     ],
