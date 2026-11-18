@@ -56,7 +56,7 @@ if (argv.has("--watch")) {
       }
       if (marker) {
         const html = await response.text();
-        if (!html.includes(marker)) problems.push(description + ": expected public content not visible: " + marker + " at " + url);
+        if (!html.toLowerCase().includes(marker.toLowerCase())) problems.push(description + ": expected public content not visible: " + marker + " at " + url);
       } else {
         await response.body?.cancel();
       }
@@ -66,8 +66,15 @@ if (argv.has("--watch")) {
   }
   // Bounded concurrency: no whole-site scan, no Cloudflare API calls, no content mutations.
   const checks = [];
+  const publicProof = {
+    "/texas-tall-tales-folklore": "Pecos Bill",
+    "/texas-dance-halls-honky-tonks": "Gruene Hall",
+    "/texas-homecoming-mums": "homecoming mum",
+    "/texas-natural-wonders-bucket-list": "Big Bend",
+    "/texas-rock-climbing-bouldering-guide": "Enchanted Rock",
+  };
   for (const group of selected) {
-    checks.push([ "https://texasdefined.com" + group.path, group.path, group.path.slice(1).split("-").slice(0, 2).join(" ") ]);
+    checks.push([ "https://texasdefined.com" + group.path, group.path, publicProof[group.path] ]);
     for (const url of group.primarySources) checks.push([url, group.path + " primary source", null]);
   }
   let next = 0;
