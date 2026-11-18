@@ -295,14 +295,14 @@ async function verify() {
   // Verify that current visitor HTML is indexable and describes the same
   // attributable editorial record that the sitemap advertises.
   const canonicalUrl = origin + '/hunting/texas-deer-hunting';
-  if (!/<link\\b(?=[^>]*\\brel=["']canonical["'])(?=[^>]*\\bhref=["']https:\\/\\/texasdefined\\.com\\/hunting\\/texas-deer-hunting["'])[^>]*>/i.test(canonicalDeerHtml)) {
+  if (!/<link\b(?=[^>]*\brel=["']canonical["'])(?=[^>]*\bhref=["']https:\/\/texasdefined\.com\/hunting\/texas-deer-hunting["'])[^>]*>/i.test(canonicalDeerHtml)) {
     throw new Error('Deer canonical HTML does not include the exact self-canonical URL');
   }
-  if (/<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(canonicalDeerHtml) ||
-      /<meta\\b[^>]*content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots["']/i.test(canonicalDeerHtml)) {
+  if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(canonicalDeerHtml) ||
+      /<meta\b[^>]*content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots["']/i.test(canonicalDeerHtml)) {
     throw new Error('Deer visitor HTML must not emit noindex');
   }
-  const jsonLdScripts = [...canonicalDeerHtml.matchAll(/<script\\b(?=[^>]*type=["']application\\/ld\\+json["'])[^>]*>([\\s\\S]*?)<\\/script>/gi)];
+  const jsonLdScripts = [...canonicalDeerHtml.matchAll(/<script\b(?=[^>]*type=["']application\/ld\+json["'])[^>]*>([\s\S]*?)<\/script>/gi)];
   const graphs = jsonLdScripts.flatMap((match) => {
     try { const parsed = JSON.parse(match[1]); return parsed['@graph'] || [parsed]; }
     catch { return []; }
