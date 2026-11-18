@@ -17,11 +17,11 @@ export const TEXAS_CULTURE_PUBLICATION_MARKERS = Object.freeze({
 });
 
 export const TEXAS_ICON_PUBLICATION_EVIDENCE = Object.freeze({
-  '/things-unique-to-texas/landmarks': ['Entry-specific research you can use', 'Historic buildings temporarily closed', 'Caddo Nation'],
-  '/things-unique-to-texas/roadside-small-towns': ['Entry-specific research you can use', 'Closed for preservation', 'Wimberley Lions Club'],
-  '/things-unique-to-texas/culture-music': ['Entry-specific research you can use', 'South by Southwest', 'Red Wassenich'],
-  '/things-unique-to-texas/wildlife-landscape': ['Entry-specific research you can use', '540 cranes', 'Texas wild-rice'],
-  '/things-unique-to-texas/slang-folklore': ['Entry-specific research you can use', '1853 blackface', 'Texas Government Code'],
+  '/things-unique-to-texas/landmarks': ['Entry-specific research you can use', 'Historic buildings temporarily closed', 'Caddo Nation', '2026 change of stewardship matters'],
+  '/things-unique-to-texas/roadside-small-towns': ['Entry-specific research you can use', 'Closed for preservation', 'Wimberley Lions Club', 'A music gathering with an operator-run schedule'],
+  '/things-unique-to-texas/culture-music': ['Entry-specific research you can use', 'South by Southwest', 'Red Wassenich', 'Friday-night culture follows actual UIL schedules'],
+  '/things-unique-to-texas/wildlife-landscape': ['Entry-specific research you can use', '540 cranes', 'Texas wild-rice', 'Seasonal breeding habitat, not year-round color'],
+  '/things-unique-to-texas/slang-folklore': ['Entry-specific research you can use', '1853 blackface', 'Texas Government Code', 'A named cold-front pattern, not a forecast category'],
 });
 
 const archivalPath = '/what-does-chud-mean';
@@ -34,7 +34,7 @@ export function assertTexasCulturePublication(path, html, surface) {
   if (typeof html !== 'string' || !html.includes(marker)) {
     throw new Error('Texas culture authority content missing or stale on ' + path + ' (' + surface + '): ' + marker);
   }
-  // The 2026-11-16 evidence revision must be present on both a cache-busted
+  // The 2026-11-16 and 2026-11-17 evidence revisions must be present on both a cache-busted
   // Worker URL and the ordinary visitor edge URL. Checking the unchanged
   // chapter heading would let stale prior releases incorrectly pass.
   for (const evidence of TEXAS_ICON_PUBLICATION_EVIDENCE[path] ?? []) {
