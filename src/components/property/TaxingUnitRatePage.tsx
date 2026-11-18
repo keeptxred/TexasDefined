@@ -3,6 +3,7 @@ import { Container } from '@/components/layout/Container';
 import { lazy, Suspense } from 'react';
 import type { Route as TaxingUnitRoute } from '@/routes/property-tax.taxing-unit.$unit';
 import austinEsd3Sources from '@/data/property/austin-county-esd3-adopted.json';
+import { westWhartonHospitalDistrict as whartonEvidence } from '@/data/property/west-wharton-hospital-district';
 
 const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 const AustinCountyEsd3Authority = lazy(() => import('@/components/property/AustinCountyEsd3Authority').then((m) => ({ default: m.AustinCountyEsd3Authority })));
@@ -34,6 +35,17 @@ export function TaxingUnitRatePage({ data }: { data: ReturnType<typeof TaxingUni
   const latestLocal = latest.localVerification?.mode === 'supplement' ? latest.localVerification : null;
   const latestConflict = latest.localVerification?.mode === 'conflict' ? latest.localVerification : null;
   const rateCount = displayHistory.filter((record) => record.displayTotalRate != null).length;
+  const westWharton2025 = history.find((record) => record.year === 2025);
+  const westWharton2024 = history.find((record) => record.year === 2024);
+  // Never keep rendering historical locally verified levy analysis if a later
+  // statewide import materially revises either referenced official row.
+  const westWhartonAuthorityReconciled = latest.slug === whartonEvidence.slug
+    && westWharton2025?.rateUnavailable === false
+    && westWharton2024?.rateUnavailable === false
+    && Math.abs((westWharton2025?.totalRate ?? -1) - whartonEvidence.adoptedRate2025) < 0.0000001
+    && Math.abs((westWharton2024?.totalRate ?? -1) - whartonEvidence.priorRate2024) < 0.0000001
+    && westWharton2025?.levy === whartonEvidence.statewideLevy.current
+    && westWharton2024?.levy === whartonEvidence.statewideLevy.prior;
   const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
   const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
   const showSchoolAdoption = !!verifiedSchoolAdoption && isdEvidence!.officialYear >= latest.year;
@@ -48,7 +60,8 @@ export function TaxingUnitRatePage({ data }: { data: ReturnType<typeof TaxingUni
     <nav className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Property tax</Link><span className="mx-2">/</span>{latest.name}</nav>
     <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/>{latest.type === 'school-district' && latest.importedAt && Number.isFinite(Date.parse(latest.importedAt)) ? <Fact label="Statewide source row ingested (not a human verification date)" value={new Date(latest.importedAt).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}/> : null}<Fact label={latest.type === 'city' ? 'Latest municipal rate' : latest.type === 'school-district' ? `Comptroller ${latest.year} school rate (state workbook)` : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{showSchoolAdoption ? <><Fact label={`${isdEvidence!.officialYear} locally adopted school rate (separate official source)`} value={`${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}/><dt className="text-muted-foreground">Latest locally verified source</dt><dd><a href={isdEvidence!.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Hood CAD adopted-rate table ↗</a></dd></> : null}{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
 
-    {latest.slug === 'west-wharton-county-hospital-district' ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading verified local hospital-district tax research…</p>}><WestWhartonHospitalDistrictAuthority latestWorkbookYear={latest.year}/></Suspense> : null}
+    {westWhartonAuthorityReconciled ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading verified local hospital-district tax research…</p>}><WestWhartonHospitalDistrictAuthority latestWorkbookYear={latest.year}/></Suspense> : null}
+    {latest.slug === whartonEvidence.slug && !westWhartonAuthorityReconciled ? <section className="border-b border-border py-6 text-sm leading-7"><strong>Local historical analysis is under source review.</strong> The imported 2024 or 2025 Comptroller rate/levy now differs from the previously verified official record. To prevent an outdated comparison, the historical district narrative has been withheld until the sources are reconciled. <a href={whartonEvidence.sources.comptrollerRates} target="_blank" rel="noopener noreferrer" className="text-primary underline">Check current statewide data ↗</a>.</section> : null}
     {hasEsd3Adoption ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading official ESD #3 records…</p>}><AustinCountyEsd3Authority history={history}/></Suspense> : null}
     {latest.type === 'school-district' ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading school district homeowner guidance…</p>}><IsdTaxAuthority history={history} peers={peers}/></Suspense> : null}
 
