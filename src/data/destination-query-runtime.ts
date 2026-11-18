@@ -365,6 +365,15 @@ async function getResolvedDestinationBase(slug: Slug) {
     const readyReviewed = resolveSeoReadyDestination(reviewed);
     if (readyReviewed) return readyReviewed;
   }
+  // Keep owner-approved 2026 attraction authority content as the canonical
+  // detail source. A new remote Explore row may be valid enough to pass the
+  // generic score while losing the operator-checked fees, group policy and
+  // correctly attributed hero. Never let that replace the complete public guide.
+  if (slug === "texas-freshwater-fisheries-center" || slug === "national-ranching-heritage-center-lubbock") {
+    const original = preservedExploreDestinations.find((destination) => destination.slug === slug);
+    const readyOriginal = resolveSeoReadyDestination(original);
+    if (readyOriginal) return readyOriginal;
+  }
   // The separately researched Yoakum Heritage Museum authority record includes
   // rights-owned, explicitly illustrative museum artwork. A thin remote Explore
   // row may share this slug but carry a generic no-photo placeholder. Select
