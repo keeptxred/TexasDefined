@@ -74,10 +74,18 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         image: topic.slug === "texas-deer-hunting" ? { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" } : topic.slug === "youth-hunting" ? { "@type": "ImageObject", url: YOUTH_HUNTING_IMAGE.src, width: YOUTH_HUNTING_IMAGE.width, height: YOUTH_HUNTING_IMAGE.height, creditText: YOUTH_HUNTING_IMAGE.credit, license: YOUTH_HUNTING_IMAGE.source } : { "@type": "ImageObject", url: "https://www.fws.gov/carp/carp/sites/default/files/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg", width: 900, height: 650, creditText: "Robert Burton / U.S. Fish & Wildlife Service" },
         dateModified: topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified,
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
-        author: { "@type": "Organization", name: "TexasDefined", url: homeUrl },
+        author: topic.slug === "texas-deer-hunting"
+          ? { "@type": "Organization", name: "Texas Defined Travel & Outdoors Desk", url: absoluteUrl(texasDefinedBrand, "/authors/a-dell") }
+          : { "@type": "Organization", name: "TexasDefined", url: homeUrl },
         publisher: { "@type": "Organization", name: "TexasDefined", url: homeUrl },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
-        citation: topic.slug === "youth-hunting" ? [...new Set(Object.values(YOUTH_HUNTING_SOURCES))] : [...new Set(topic.sections.flatMap((section) => (section.links ?? []).filter((link) => link.external).map((link) => link.href)))],
+        citation: topic.slug === "youth-hunting" ? [...new Set(Object.values(YOUTH_HUNTING_SOURCES))] : [...new Set([
+          ...topic.sections.flatMap((section) => (section.links ?? []).filter((link) => link.external).map((link) => link.href)),
+          ...(topic.slug === "texas-deer-hunting" && /^2026/.test(topic.eyebrow) ? [
+            "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=AL",
+            "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/need-to-know/",
+          ] : []),
+        ])],
       }] : []),
       {
         "@type": "ItemList",

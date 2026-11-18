@@ -260,6 +260,8 @@ async function verify() {
       'Same November weekend, three different county rulebooks',
       'Grayson County', 'Washington County', 'Gillespie County',
       'Read the claim-by-claim source record', 'within 48 hours',
+      'Alabama Creek WMA: when a license and APH permit are not enough',
+      'USFS Buck Deer Permit', 'September 15', 'Texas Defined Travel & Outdoors Desk',
     ] : []),
   ];
   for (const marker of requiredDeerMarkers) {
@@ -288,6 +290,37 @@ async function verify() {
     requireText(document, 'href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd"', label + ' official CWD source');
   }
 
+  }
+
+  // Verify that current visitor HTML is indexable and describes the same
+  // attributable editorial record that the sitemap advertises.
+  const canonicalUrl = origin + '/hunting/texas-deer-hunting';
+  if (!/<link\b(?=[^>]*\brel=["']canonical["'])(?=[^>]*\bhref=["']https:\/\/texasdefined\.com\/hunting\/texas-deer-hunting["'])[^>]*>/i.test(canonicalDeerHtml)) {
+    throw new Error('Deer canonical HTML does not include the exact self-canonical URL');
+  }
+  if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(canonicalDeerHtml) ||
+      /<meta\b[^>]*content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots["']/i.test(canonicalDeerHtml)) {
+    throw new Error('Deer visitor HTML must not emit noindex');
+  }
+  const jsonLdScripts = [...canonicalDeerHtml.matchAll(/<script\b(?=[^>]*type=["']application\/ld\+json["'])[^>]*>([\s\S]*?)<\/script>/gi)];
+  const graphs = jsonLdScripts.flatMap((match) => {
+    try { const parsed = JSON.parse(match[1]); return parsed['@graph'] || [parsed]; }
+    catch { return []; }
+  });
+  const article = graphs.find((item) => item['@type'] === 'Article' &&
+    item.mainEntityOfPage?.['@id'] === canonicalUrl + '#page');
+  if (!article) throw new Error('Deer page is missing parseable Article JSON-LD');
+  if (article.dateModified !== deerEditorialReviewed) throw new Error('Article dateModified differs from genuine deer editorial date');
+  if (article.author?.name !== 'Texas Defined Travel & Outdoors Desk' ||
+      article.author?.url !== origin + '/authors/a-dell') throw new Error('Article author does not match visible real editorial desk');
+  if (!Array.isArray(article.citation) ||
+      !article.citation.includes('https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=AL')) {
+    throw new Error('Article official permit-decision citation missing');
+  }
+  for (const [label, html] of [['uncached', deerHtml], ['visitor', canonicalDeerHtml]]) {
+    for (const path of ['/authors/a-dell', '/corrections-policy']) {
+      if (!html.includes('href="' + path + '"')) throw new Error(label + ' deer desk/corrections link missing: ' + path);
+    }
   }
 
   const canonicalHero = findDeerHeroImageTag(canonicalDeerHtml);
