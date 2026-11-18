@@ -53,6 +53,8 @@ test('exact five distinct researched Texas programs, not unsupported UIL or gene
 });
 test('source-only SSR precedence, exact Worker Chrome controls and no false acceptance',()=>{
  assert.ok(server.includes('loadBatch011FootballProgramEditorial(canonicalSlug)'));
+ assert.ok(server.includes('getCanyonLakeFootballEditorial(canonicalSlug)'), 'Newer sourced Canyon Lake 2026 scores must take precedence over historic source-only Batch011 fallback');
+ assert.ok(verifier.includes("const expectedGraphics = new Set(['comal-canyon-lake'])"), 'Only Canyon Lake has verified current 2026 results in this first cohort');
  assert.ok(loader.includes("import('./program-editorial-b011')"));
  assert.ok(verifier.includes("reg.batch.number,11"));
  assert.ok(verifier.includes("status==='VERIFIED'"));
