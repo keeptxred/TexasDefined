@@ -37,7 +37,7 @@ const areas = [
     summary: "Sandstone climbing at Penitentiary Hollow with formal registration requirements at park headquarters.",
     details: [
       "Lake Mineral Wells gives North Texas a public natural-rock option at Penitentiary Hollow. TPWD identifies the area as one of the relatively few natural climbing venues in North Texas and publishes a route map for the rock formations.",
-      "Registration is not optional: TPWD says individuals and groups must register at park headquarters and complete the required waiver before climbing or rappelling. Bouldering, free climbing and soloing are prohibited here, so this is NOT a destination for unroped bouldering. Minors require appropriate parental consent; group instruction requires an approved guide. The park publishes separate notices about rock-area closures, including closures around rain; check those notices and confirm with park staff before travel.",
+      "Registration is not optional: TPWD says individuals and groups must register at park headquarters and complete the required waiver before climbing or rappelling. Bouldering, free climbing and soloing are prohibited here, so this is NOT a destination for unroped bouldering. TPWD requires a parent or guardian present, or written parental permission, for participants younger than 17; registered groups require an approved guide. The climbing area closes at sundown and during wet conditions, and climbing north of the creek is forbidden. Use the designated bolted anchors, never the scenic-overlook structures; do not install hardware. The park publishes separate notices about rock-area closures; check those notices and confirm with staff at (940) 328-1171 before travel.",
     ],
   },
   {
