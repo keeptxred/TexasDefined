@@ -121,14 +121,14 @@ const CANYON_LAKE: FootballProgramEditorial = {
   },
   "venue": {
     "name": "Hawk Stadium",
-    "note": "Canyon Lake High's official October 23, 2026 football event identified Hawk Stadium as the host. That dated home-game evidence does not mean every Hawks game is played there. The November 20 area playoff against Port Lavaca Calhoun is instead listed for Leopard Stadium in La Grange at 7 p.m.; check the host for actual entrances, tickets, parking and accessible seating.",
+    "note": "Canyon Lake High's official October 23 home event identifies Hawk Stadium in Fischer. Do not use that campus address for the November 20 neutral-site area playoff. The host La Grange High School's November 17 announcement specifically confirms Canyon Lake versus Calhoun, Friday November 20 at 7 p.m. at Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. La Grange ISD requires online-only tickets and clear bags for this matchup. The host announcement contains the event-specific ticket link; home-school tickets are not a substitute. Recheck the event host for parking and accessible entrance.",
     "sourceUrl": "https://clhs.comalisd.org/apps/events/2026/10/23/59963650/?id=0",
     "sourceLabel": "Canyon Lake High October 23 game calendar (Hawk Stadium); separate Nov. 20 playoff site from regional pairings",
     "verifiedAt": "2026-11-18"
   },
   "development": {
     "title": "2026 Canyon Lake: high-scoring District 13 run and playoff path",
-    "body": "The Hawks started 1–2 in reported completed games but closed the regular season with six straight district victories: Taylor, Austin Travis, Austin Northeast, Fredericksburg, Kerrville Tivy and Austin LBJ. The 53–50 win over Tivy and 50–40 finale against LBJ show how close several late-season games were despite the Hawks' 6–1 district mark. Canyon Lake then beat Pleasanton 49–28 in the bi-district round for a seventh consecutive win. The November 20 area matchup with Port Lavaca Calhoun is a neutral-site game at Leopard Stadium in La Grange, not a campus home date. An outside results service differs on the Creek View score (54–18 on MaxPreps versus 55–18 in one regional capsule); this dated table uses MaxPreps and flags the disagreement rather than silently mixing score providers.",
+    "body": "The Hawks started 1–2 in reported completed games but closed the regular season with six straight district victories: Taylor, Austin Travis, Austin Northeast, Fredericksburg, Kerrville Tivy and Austin LBJ. The 53–50 win over Tivy and 50–40 finale against LBJ show how close several late-season games were despite the Hawks' 6–1 district mark. Canyon Lake then beat Pleasanton 49–28 in the bi-district round for a seventh consecutive win. The November 20 area matchup with Port Lavaca Calhoun is a neutral-site game at Leopard Stadium in La Grange, not a campus home date. An outside results service differs on the Creek View score (54–18 on MaxPreps versus 55–18 in one regional capsule); this dated table uses MaxPreps and flags the disagreement rather than silently mixing score providers. For spectators, La Grange High's November 17 host announcement directly confirms the Friday 7 p.m. game at 805 S. Vail Street and specifies online ticketing and clear bags.",
     "sourceUrl": "https://txhsfb.net/?p=29640",
     "sourceLabel": "Texas High School Football area-round 4A Division I preview, Nov. 16, cross-checked with MaxPreps schedule",
     "verifiedAt": "2026-11-18"
@@ -138,7 +138,8 @@ const CANYON_LAKE: FootballProgramEditorial = {
     "Canyon Lake's November 18 season snapshot is 8–2 overall and 6–1 in district play. That overall record includes the November 13 bi-district victory over Pleasanton, 49–28; the regular-season results listed here account for seven wins and two losses. The one district defeat was to Davenport, 56–41 on September 24.",
     "The most dramatic stretch came in late October and early November. The Hawks beat Fredericksburg 50–32, escaped Kerrville Tivy 53–50, and defeated Austin LBJ 50–40 before starting the postseason. Those three games generated 153 Canyon Lake points against 122 allowed, a useful measure of both offensive output and defensive vulnerability rather than a generic 'strong program' claim.",
     "Comal ISD appointed Sam Parker as head football coach in January 2024. The school's current athletics directory lists his formal name Lawrence Parker in its athletic-director role; 2026 football previews separately continue to identify Sam Parker as the Hawks' head coach. Do not confuse that Comal Canyon Lake role with Canyon High or Canyon ISD in the Panhandle.",
-    "The 2026 area-round opponent is Port Lavaca Calhoun on Friday, November 20 at 7 p.m. at Leopard Stadium in La Grange, a neutral-site trip. The football schedule and venue can change; consult Canyon Lake High's Athletic Schedules and Canyon Lake Game Tickets pages before traveling. School office address 8555 FM 32 is not a substitute for the actual game's venue or entrance.",
+    "The host La Grange High School explicitly confirms Canyon Lake versus Port Lavaca Calhoun on Friday, November 20 at 7 p.m., Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. This is a neutral-site area playoff, not a home game at Hawk Stadium. According to the host's November 17 notice, entry uses online tickets only and clear bags only. Use the host's event-specific ticket announcement and stadium facilities page before traveling; Canyon Lake's normal home-game ticket link does not establish access to the La Grange playoff.",
+    "Across ten reported 2026 finals through the first playoff round, Canyon Lake scored 513 points and conceded 307 — 51.3 scored and 30.7 conceded per game, for a +206 season scoring margin. Those figures are original arithmetic using the dated MaxPreps game-by-game results, not invented advanced player statistics. The November 16 area-round matchup preview independently lists Calhoun at 7–4 and allowing 17.4 points per game, indicating that Canyon Lake's high-scoring season is facing an opponent with a markedly lower published scoring-allowance rate; this is context, not a result prediction.",
     "Canyon Lake High opened August 6, 2007, originally serving freshmen and sophomores. Its official alma mater identifies its green-and-gold colors. Those first-party identity details help distinguish a young Hill Country campus from similarly named Canyon schools; they do not imply affiliation between TexasDefined and the school."
   ],
   "milestones": [
@@ -180,9 +181,9 @@ const CANYON_LAKE: FootballProgramEditorial = {
     {
       "date": "November 20, 2026 (scheduled)",
       "title": "Area round versus Port Lavaca Calhoun in La Grange",
-      "body": "The published area-round matchup lists Friday, 7 p.m. at Leopard Stadium, La Grange. This is a scheduled event, not a completed result; verify day-of host details.",
-      "sourceUrl": "https://txhsfb.net/?p=29640",
-      "sourceLabel": "Texas HS Football 4A Division I area-round pairings, published Nov. 16"
+      "body": "Host La Grange High confirmed Canyon Lake vs Calhoun on Friday at 7 p.m., Leopard Stadium, 805 S. Vail St., La Grange, with online-only tickets and clear-bag-only entry. The host's announcement contains the event-specific ticket link. The game is scheduled, not a completed result.",
+      "sourceUrl": "https://www.lgisd.net/o/lhs/article/3260936",
+      "sourceLabel": "La Grange High School, first-party November 17, 2026 playoff host announcement"
     }
   ],
   "faq": [
@@ -196,7 +197,7 @@ const CANYON_LAKE: FootballProgramEditorial = {
     },
     {
       "question": "When and where is Canyon Lake's next playoff game?",
-      "answer": "The area-round game against Port Lavaca Calhoun is scheduled for Friday, November 20, 2026, at 7 p.m. at Leopard Stadium in La Grange. This is a neutral site, not Canyon Lake's home stadium; check current host and ticket notices."
+      "answer": "The area-round game against Port Lavaca Calhoun is scheduled for Friday, November 20, 2026, at 7 p.m. at Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. The host La Grange High School says tickets are online-only and clear bags are required; use its event notice to reach the appropriate ticket link. This is a neutral-site game, not a Canyon Lake home fixture."
     },
     {
       "question": "What happened in Canyon Lake's first playoff game?",
