@@ -10,6 +10,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 const origin = 'https://texasdefined.com';
 const route = '/hunting/texas-deer-hunting';
 const directory = 'artifacts/deer-production-visual';
+const ISO_EDITORIAL_DATE = /^20\d{2}-\d{2}-\d{2}$/;
 const viewports = [
   { name: 'small-mobile', width: 320, height: 720, isMobile: true },
   { name: 'mobile', width: 390, height: 844, isMobile: true },
@@ -19,6 +20,8 @@ if (process.argv.includes('--self-test')) {
   assert.equal(viewports.length, 3);
   assert.deepEqual(viewports.map(v => v.width), [320, 390, 1440]);
   assert.equal(route, '/hunting/texas-deer-hunting');
+  assert.equal(ISO_EDITORIAL_DATE.test('2026-11-17'), true);
+  assert.equal(ISO_EDITORIAL_DATE.test('2026-11'), false);
   console.log('Deer 320/mobile/desktop Chrome QA contract passed.');
   process.exit(0);
 }
@@ -83,7 +86,7 @@ try {
         'Texas Defined Travel & Outdoors Desk' &&
         article?.author?.url === origin + '/authors/a-dell', article?.author?.name || 'missing');
       check('Article last substantive revision', !!article?.dateModified &&
-        /^20\\d\\d-\\d\\d-\\d\\d$/.test(article.dateModified), article?.dateModified || 'missing');
+        ISO_EDITORIAL_DATE.test(article.dateModified), article?.dateModified || 'missing');
       check('official public-unit source in Article schema', (article?.citation || []).includes(
         'https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=AL'));
       check('real editorial desk profile link', (await page.locator('a[href="/authors/a-dell"]').count()) > 0);

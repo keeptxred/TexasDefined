@@ -362,6 +362,24 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // while that correction and the strict unchanged fishing live verifier exist.
 // Callers separately demand exact Worker UUID, source SHA, artifact original
 // byte hashes and both HTTP origins. This never certifies the prior release.
+// Nov 18 deployment 44242409782/job 134593204841 genuinely published
+// 100%-traffic Worker 6f9e538a from source 873454f7 and passed all five
+// protected publish, version, direct/canonical health, and dual-origin
+// original JS/CSS byte gates (139 emitted assets). Its ONLY later failed
+// step was a REAL three-attempt 500 on Lake Conroe camping, not an asset
+// failure. The subsequently merged #7330 static camping SSR route must
+// remain intact, alongside the strict live parity verifier. Permit ONLY
+// the exact immutable original-asset handoff; old release stays FAILED.
+// Calling deployment separately pins active Worker UUID, source SHA and
+// proves every preserved JS/CSS hash on BOTH public origins again.
+const NOV18_PUBLISHED_6F9E_CONROE_ORIGINAL_ASSETS = Object.freeze({
+  runId: 44242409782,
+  jobId: 134593204841,
+  sourceSha: '873454f756a635b63957b83d479d8979719858ed',
+  workerVersion: '6f9e538a-98d4-45fa-bd0e-6c47f8cbc2a0',
+  failedStep: 'Verify fishing lake robots and sitemap publication parity',
+});
+
 const NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY = Object.freeze({
   runId: 44238364654,
   jobId: 134579887566,
@@ -402,6 +420,49 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const nov18SixF9e = NOV18_PUBLISHED_6F9E_CONROE_ORIGINAL_ASSETS;
+  if (job.run_id === nov18SixF9e.runId && job.id === nov18SixF9e.jobId &&
+      failures.length === 1 && failures[0] === nov18SixF9e.failedStep) {
+    // A genuine failed Conroe 500 is not waived or relabeled. Only reuse
+    // original assets after verifying the source correction and the same
+    // complete fishing content/indexing acceptance on the NEXT deployment.
+    const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    const route = readFileSync('src/routes/fishing.lakes.$slug.$section.tsx', 'utf8');
+    const server = readFileSync('src/data/fishing/lake-conroe-page-data.functions.ts', 'utf8');
+    const regression = readFileSync('scripts/ci/verify-fishing-section-loader-fanout.test.mjs', 'utf8');
+    for (const guard of [
+      'fetchLiveHtmlWithRetry', 'attempts: 3', 'if (!response.ok) throw new Error',
+      '"/fishing/lakes/lake-conroe/camping"', 'canonicalMatches', 'inSitemap', 'noindex',
+    ]) if (!verifier.includes(guard)) {
+      throw Error('6f9e original asset recovery requires unchanged strict fishing live parity: ' + guard);
+    }
+    for (const guard of [
+      'params.section === "camping"', 'await getLakeConroeCampingPageData()',
+      ': await getLakeConroePageData()', 'data.section !== "camping"',
+    ]) if (!route.includes(guard)) {
+      throw Error('6f9e original asset recovery requires corrected static Conroe camping route: ' + guard);
+    }
+    for (const guard of [
+      'export const getLakeConroeCampingPageData',
+      '...loadLakeConroePageDataServer()', 'liveLakeLevel: null',
+      'await import("./live-lake-level-fetch.server")',
+    ]) if (!server.includes(guard)) {
+      throw Error('6f9e original asset recovery requires a non-network camping data path: ' + guard);
+    }
+    if (!regression.includes("camping cold SSR avoids the optional live-water fetch")) {
+      throw Error('6f9e original asset recovery requires protected regression evidence');
+    }
+    return {
+      eligible: true, mode: 'exact-nov18-6f9e-failed-camping-original-assets-only',
+      exactRun: nov18SixF9e.runId, requiredSourceSha: nov18SixF9e.sourceSha,
+      requiredWorkerVersion: nov18SixF9e.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      priorReleaseStillFailed: true,
+    };
+  }
+  if (job.run_id === nov18SixF9e.runId || job.id === nov18SixF9e.jobId) {
+    throw Error('6f9e original asset handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
   }
   const nov18Conroe = NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY;
   if (job.run_id === nov18Conroe.runId && job.id === nov18Conroe.jobId &&
