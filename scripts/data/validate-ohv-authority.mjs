@@ -39,7 +39,7 @@ for (const marker of [
   'Sam Houston National Forest Motorized Trails',
   'Lake Meredith National Recreation Area OHV Areas',
   'Escondido Draw Recreation Area',
-  'Source review: August 30, 2026.',
+  'TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026;'
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program',
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas',
   'https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal',
@@ -75,6 +75,10 @@ const outdoorsStart = topicPaths.indexOf('outdoors: [');
 const outdoorsEnd = outdoorsStart >= 0 ? topicPaths.indexOf('\n  ],', outdoorsStart) : -1;
 const outdoorsSlice = outdoorsStart >= 0 ? topicPaths.slice(outdoorsStart, outdoorsEnd > outdoorsStart ? outdoorsEnd : undefined) : '';
 if (!outdoorsSlice.includes('to: "/texas-ohv-guide"')) errors.push('Outdoors authority must retain direct discovery to the Texas OHV guide.');
+
+for (const marker of ['legalRideComparison.map((area)', 'legalRideComparison[index].operator']) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
 
 if (errors.length) {
   console.error('Texas OHV authority validation failed:');
