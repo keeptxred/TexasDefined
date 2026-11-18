@@ -299,7 +299,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     county: "Travis",
     address: "1100 Congress Avenue, Austin, TX 78701",
     directions:
-      "The Capitol is at the north end of Congress Avenue in central Austin. A public visitor garage sits east of the complex. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
+      "The Capitol is at the north end of Congress Avenue in central Austin. The Capitol Visitors Parking Garage is at 1201 San Jacinto Boulevard east of the complex; consult the State Preservation Board parking page for current rates and one-way entry instructions. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
     accessibilityNotes:
       "Use the accessible North Entrance; all visitors pass through security screening. Large-print and Braille guides are available, and ASL-interpreted tours require one week's advance notice. Confirm any other needs through the State Preservation Board's Capitol Accessibility Services.",
     areaGuide: {
