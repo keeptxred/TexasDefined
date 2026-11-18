@@ -137,6 +137,12 @@ function CountyPropertyTaxPage() {
             <a href="/texas-property-tax-rate-history" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Tax-rate history</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Look up finalized local taxing-unit rates across available years.</span></a>
           </div>
         </section>
+        {county.slug === 'wharton' ? <section className="border-b border-border py-8" aria-labelledby="wharton-hospital-tax-connection">
+          <p className="eyebrow text-primary">Wharton County · hospital district tax</p>
+          <h2 id="wharton-hospital-tax-connection" className="mt-2 font-display text-3xl">West Wharton County Hospital District rate explained</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">One of the special taxing units in Wharton County is West Wharton County Hospital District (Comptroller ID 241-201-11). The district describes its boundaries as west of the Colorado River; not every Wharton County parcel is necessarily within it. Our dedicated guide compares the official 2024 and 2025 rates, the district's public-hearing benchmarks and the tax impact on the average homestead, with direct local sources.</p>
+          <a href="/property-tax/taxing-unit/west-wharton-county-hospital-district" className="mt-4 inline-block font-semibold text-primary underline underline-offset-2">West Wharton County Hospital District rate and history →</a>
+        </section> : null}
         <CountyTaxRateSection countySlug={county.slug} countyName={county.name} />
         <CitationTrustPanel
           sources={sources}
