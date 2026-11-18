@@ -89,6 +89,9 @@ for (const marker of [
   'creator: "Oleg Yunakov"',
   'license: "https://creativecommons.org/licenses/by-sa/4.0/"',
   'acquireLicensePage: editorialHeroImage.source',
+  'const deliveredEditorialHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(editorialHeroImage.url));',
+  'contentUrl: deliveredEditorialHeroUrl',
+  'image: deliveredEditorialHeroUrl',
   'copyrightNotice:',
   'imageAlt: editorialHeroImage.alt',
 ]) if (!route.includes(marker)) errors.push('Missing paddling photo provenance in head: ' + marker);
