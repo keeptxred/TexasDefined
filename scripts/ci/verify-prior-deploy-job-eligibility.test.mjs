@@ -567,3 +567,41 @@ test('8d5476 original-byte handoff rejects wrong provenance, changed failure set
     );
   }
 });
+
+test('exact Nov18 23317 published Worker only preserves original bytes, not its two failed live pages', () => {
+  const exact = {
+    runId: 44368051009, jobId: 135027028666,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+    additional: ['Verify Devils River photograph and exact destination production'],
+  };
+  const result = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(result.eligible, true);
+  assert.equal(result.mode, 'exact-nov18-23317-original-assets-only');
+  assert.equal(result.exactRun, exact.runId);
+  assert.equal(result.requiredSourceSha, '06ace4c8029d853722a98e8485252247cf1a7551');
+  assert.equal(result.requiredWorkerVersion, '23317b8a-2b01-473d-95b4-bbf9c61af2e7');
+  assert.equal(result.priorReleaseStillFailed, true);
+  assert.equal(result.criticalChecks, required.length);
+  assert.deepEqual(result.permittedFailures, [exact.failure, ...exact.additional]);
+});
+
+test('23317 original asset exception fails closed on alternate run, job, failed step or missing hash/health checkpoint', () => {
+  const exact = {
+    runId: 44368051009, jobId: 135027028666,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+    additional: ['Verify Devils River photograph and exact destination production'],
+  };
+  for (const mutation of [
+    {runId: exact.runId + 1}, {jobId: exact.jobId + 1},
+    {failure: 'Verify canonical production health'},
+    {additional: []},
+    {additional: ['Verify base production surfaces']},
+    {additional: ['Verify Devils River photograph and exact destination production', 'Verify base production surfaces']},
+    ...required.map(omit => ({omit})),
+  ]) {
+    assert.throws(
+      () => qualifyPriorDeployJob(evidence({...exact, ...mutation})),
+      /Required published-Worker safety gate not successful|23317 published asset handoff rejects changed run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/,
+    );
+  }
+});
