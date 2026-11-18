@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {inspectDevilsRiverHtml} from "../verify-devils-river-hero.mjs";
+import {inspectDevilsRiverHtml, isVerifiedProxyFallbackForCommons429} from "../verify-devils-river-hero.mjs";
 
 function page(override=""){
  return '<html><head><link rel="canonical" href="https://texasdefined.com/destination/devils-river-state-natural-area"/></head>'+
@@ -23,3 +23,23 @@ test("legacy millipede hero cannot pass exact-site photo gate",()=>assert.throws
 test("lost source attribution fails",()=>assert.throws(()=>inspectDevilsRiverHtml(page().replace("Clinton &amp; Charles Robertson","Other photographer"))));
 test("missing CC BY-SA license link fails",()=>assert.throws(()=>inspectDevilsRiverHtml(page().replace("https://creativecommons.org/licenses/by-sa/2.0/","https://example.org/no-license"))));
 test("falls photo cannot imply open public trailhead",()=>assert.throws(()=>inspectDevilsRiverHtml(page().replace("not an advertised public trailhead","public unreserved walk-in trailhead"))));
+
+test("Wikimedia 429 is advisory only with two identical properly attributed on-site JPEG deliveries", () => {
+ const official="https://upload.wikimedia.org/wikipedia/commons/b/b1/Devils_River_-_Dolan_Falls_%28174119624%29.jpg";
+ const proxy="/media/remote?url="+encodeURIComponent(official);
+ const digest="a".repeat(64);
+ const origins=["https://texasdefined-site.freddy-coppola.workers.dev","https://texasdefined.com"];
+ const good=origins.map(origin=>({
+   origin,heroSrc:proxy,photoCredit:true,proxiedImageStatus:200,proxiedMime:"image/jpeg",
+   proxiedBytes:98330,width:800,height:415,proxiedSha256:digest,
+ }));
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),good),true);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 404"),good),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 500"),good),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),good.slice(0,1)),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),[...good.slice(0,1),{...good[1],proxiedSha256:"b".repeat(64)}]),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),[...good.slice(0,1),{...good[1],proxiedImageStatus:429}]),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),[...good.slice(0,1),{...good[1],heroSrc:"/media/remote?url=https%3A%2F%2Fexample.com"}]),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),[...good.slice(0,1),{...good[1],photoCredit:false}]),false);
+ assert.equal(isVerifiedProxyFallbackForCommons429(new Error("Photo URL HTTP 429"),[...good.slice(0,1),{...good[1],width:801}]),false);
+});
