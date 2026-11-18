@@ -13,11 +13,35 @@ if (!names || names.length !== 254 || new Set(names).size !== 254) {
 }
 const slug=(name)=>name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const counties=names.map(name=>({name,slug:slug(name),tpwdSlug:name==='La Salle'?'lasalle':slug(name)}));
+// TPWD's 2026–27 county pages for El Paso and Hudspeth list mule deer,
+// but do not list a white-tailed deer season. Fail closed if that changes.
+const WITHOUT_WHITETAIL_SEASON = new Set(['El Paso', 'Hudspeth']);
 const BATCH_SIZE=24, BATCHES=Math.ceil(counties.length/BATCH_SIZE);
 if(BATCHES!==11)throw new Error('Expected eleven balanced TPWD county batches');
 const shards=Array.from({length:BATCHES},(_,i)=>counties.slice(i*BATCH_SIZE,(i+1)*BATCH_SIZE));
 const unique=new Set(shards.flat().map(x=>x.slug));
 if(unique.size!==254)throw new Error('The county source coverage map is incomplete or contains duplicates.');
+const season=JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json','utf8'));
+const clean=(s)=>s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|#160);/gi,' ').replace(/&amp;/gi,'&').replace(/\s+/g,' ').trim();
+function checkCountyContent(county,html){
+  const text=clean(html);
+  if(text.length<250)throw new Error('Official TPWD county page unexpectedly short');
+  if(!text.includes(String(season.startYear))&&!text.includes(String(season.startYear+1)))
+    throw new Error('TPWD county page did not identify the governed hunting season');
+  if(WITHOUT_WHITETAIL_SEASON.has(county.name)){
+    // The two exceptions require affirmative, identity-matched evidence, not a
+    // generic 200 response. A new deer heading forces review rather than
+    // silently accepting changed legal conditions.
+    const heading=clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]??'');
+    const expected=county.name+' '+season.startYear+'-'+(season.startYear+1)+' Hunting Seasons';
+    if(!heading.startsWith(expected)||!/Mule Deer/i.test(text)||!/Bag Limit/i.test(text)||/White-tailed Deer/i.test(text))
+      throw new Error('TPWD exceptional county deer season or identity changed; review official rules');
+    return 'official county page verified: no white-tailed deer section';
+  }
+  if(!/White-tailed Deer/i.test(text)||!/Bag Limit/i.test(text))
+    throw new Error('TPWD county deer/bag regulation headings were missing');
+  return 'white-tailed deer heading verified';
+}
 if(process.argv.includes('--self-test')){
   assert.equal(shards.length,11);
   assert.equal(shards.flat().length,254);
@@ -26,6 +50,15 @@ if(process.argv.includes('--self-test')){
   assert.equal(counties.find(x=>x.name==='La Salle').tpwdSlug,'lasalle');
   assert.equal(counties.find(x=>x.name==='DeWitt').tpwdSlug,'dewitt');
   assert.ok(shards.every(group=>group.every(x=>x.tpwdSlug)));
+  assert.equal(WITHOUT_WHITETAIL_SEASON.size,2);
+  const fixture=(name,species)=>'<html><h1>'+name+' '+season.startYear+'-'+(season.startYear+1)+' Hunting Seasons</h1><h2>'+species+'</h2><p>General Season Bag Limit 1 buck all seasons combined. '+('Official TPWD published rules. '.repeat(15))+'</p></html>';
+  assert.match(checkCountyContent({name:'El Paso'},fixture('El Paso','Mule Deer')),/no white-tailed deer/);
+  assert.match(checkCountyContent({name:'Hudspeth'},fixture('Hudspeth','Mule Deer')),/no white-tailed deer/);
+  assert.match(checkCountyContent({name:'Tarrant'},fixture('Tarrant','White-tailed Deer')),/white-tailed deer heading/);
+  assert.throws(()=>checkCountyContent({name:'El Paso'},fixture('El Paso','White-tailed Deer')));
+  assert.throws(()=>checkCountyContent({name:'Hudspeth'},fixture('Hudspeth','Quail')));
+  assert.throws(()=>checkCountyContent({name:'Tarrant'},fixture('Tarrant','Mule Deer')));
+  assert.throws(()=>checkCountyContent({name:'El Paso'},fixture('Wrong County','Mule Deer')));
   console.log('TPWD deer 254-county/11-batch coverage and official route contracts passed.');
   process.exit(0);
 }
@@ -35,8 +68,6 @@ const batch=process.env.TPWD_COUNTY_BATCH==='all'?-1:
   Math.floor(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate())/86400000)%BATCHES;
 if(batch!==-1&&(!Number.isInteger(batch)||batch<0||batch>=BATCHES))throw new Error('Invalid county batch');
 const selected=batch===-1?counties:shards[batch];
-const season=JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json','utf8'));
-const clean=(s)=>s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|#160);/gi,' ').replace(/&amp;/gi,'&').replace(/\s+/g,' ').trim();
 async function validateCounty(county){
   const url='https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/'+county.tpwdSlug+'/';
   let error;
@@ -49,14 +80,8 @@ async function validateCounty(county){
       });
       if(!response.ok)throw new Error('HTTP '+response.status);
       if(new URL(response.url).hostname!=='tpwd.texas.gov')throw new Error('Official county page redirected off TPWD');
-      const text=clean(await response.text());
-      if(text.length<250||!/White-tailed Deer/i.test(text)||!/Bag Limit/i.test(text)){
-        throw new Error('TPWD county deer/bag regulation headings were missing');
-      }
-      if(!text.includes(String(season.startYear))&&!text.includes(String(season.startYear+1))){
-        throw new Error('TPWD county page did not identify the governed hunting season');
-      }
-      return;
+      const verdict=checkCountyContent(county,await response.text());
+      return verdict;
     }catch(e){error=e;}
   }
   throw new Error(county.name+': '+String(error).slice(0,200));
@@ -68,7 +93,7 @@ async function boundedWorker(){
     const index=cursor++;
     if(index>=selected.length)return;
     const county=selected[index];
-    try{await validateCounty(county);console.log('TPWD county verified: '+county.name);}
+    try{const verdict=await validateCounty(county);console.log('TPWD county verified: '+county.name+' ('+verdict+')');}
     catch(error){failures.push(String(error));console.error(String(error));}
   }
 }
