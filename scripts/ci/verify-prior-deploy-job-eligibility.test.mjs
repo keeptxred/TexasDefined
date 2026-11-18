@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
 
 const required = [
