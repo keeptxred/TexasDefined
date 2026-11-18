@@ -456,3 +456,42 @@ test('Nov16 category Worker original bytes reject altered run/job/failed steps a
       /Required published-Worker safety gate not successful|Nov16 category transport original-byte handoff rejects altered run\/job\/failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+
+test('Nov18 published a92 Worker retains ONLY exact original assets after no-fetch Conroe correction, never certifies failed release', () => {
+  const accepted = qualifyPriorDeployJob(evidence({
+    runId: 44238364654,
+    jobId: 134579887566,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  }));
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.mode, 'exact-nov18-a92-failed-camping-original-assets-only');
+  assert.equal(accepted.exactRun, 44238364654);
+  assert.equal(accepted.requiredSourceSha, '422d1485403af6f365d06016055f5e7c39d036cf');
+  assert.equal(accepted.requiredWorkerVersion, 'a92fd7fa-32a1-4386-bd2e-5ed53767cfb2');
+  assert.equal(accepted.criticalChecks, required.length);
+  assert.equal(accepted.priorReleaseStillFailed, true);
+  assert.deepEqual(accepted.permittedFailures, ['Verify fishing lake robots and sitemap publication parity']);
+  const source=readFileSync('scripts/ci/verify-prior-deploy-job-eligibility.mjs','utf8');
+  assert.match(source,/const NOV18_PUBLISHED_A92_CONROE_ASSETS_ONLY/);
+  assert.match(source,/verify-fishing-live-publication-parity\.mjs/);
+  assert.match(source,/getLakeConroeCampingPageData\(\)/);
+  assert.match(source,/liveLakeLevel: null/);
+});
+
+test('Nov18 a92 asset eligibility rejects altered GitHub evidence, extra production failure, or missing critical hash/health checks', () => {
+  const exact = {
+    runId: 44238364654,
+    jobId: 134579887566,
+    failure: 'Verify fishing lake robots and sitemap publication parity',
+  };
+  for (const mutation of [
+    {runId:exact.runId+1},
+    {jobId:exact.jobId+1},
+    {failure:'Verify base production surfaces'},
+    {additional:['Verify base production surfaces']},
+    {additional:['Verify current and previous release JS/CSS on both public origins']},
+    ...required.map(omit => ({omit})),
+  ]) assert.throws(()=>qualifyPriorDeployJob(evidence({...exact,...mutation})),
+    /Required published-Worker safety gate not successful|Nov18 a92 original-byte handoff rejects changed run, job, failure evidence|Failed deploy job includes unapproved or missing failure evidence/);
+});
