@@ -23,7 +23,14 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const { latest, history, isdEvidence } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
     const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
-    const hasWestWhartonAuthority = latest.slug === westWhartonHospitalDistrict.slug;
+    const wharton2025 = history.find((row) => row.year === 2025);
+    const wharton2024 = history.find((row) => row.year === 2024);
+    const hasWestWhartonAuthority = latest.slug === westWhartonHospitalDistrict.slug
+      && wharton2025?.rateUnavailable === false && wharton2024?.rateUnavailable === false
+      && Math.abs((wharton2025?.totalRate ?? -1) - westWhartonHospitalDistrict.adoptedRate2025) < 0.0000001
+      && Math.abs((wharton2024?.totalRate ?? -1) - westWhartonHospitalDistrict.priorRate2024) < 0.0000001
+      && wharton2025?.levy === westWhartonHospitalDistrict.statewideLevy.current
+      && wharton2024?.levy === westWhartonHospitalDistrict.statewideLevy.prior;
     const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
     const showSchoolAdoption = verifiedSchoolAdoption != null && isdEvidence!.officialYear >= latest.year;
     const description = hasWestWhartonAuthority
