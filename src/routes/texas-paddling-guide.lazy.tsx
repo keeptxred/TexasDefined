@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const verifiedTrips = [
   {
@@ -134,6 +135,24 @@ function TexasPaddlingGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five official paddling trails, with the launch, takeout, water-level, wind, private-property and current-condition questions to resolve before getting on the water.</p>
           </header>
 
+          <figure className="border-b border-border py-8">
+            <img
+              src={editorialImageSrc("https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg/1280px-Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg")}
+              alt="Two kayakers on the actual Lady Bird Lake paddling trail in Austin"
+              width={1280}
+              height={856}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="aspect-[3/2] w-full object-cover"
+            />
+            <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+              Actual kayakers paddling on Lady Bird Lake in Austin. A real photograph of the first official trail profiled here. Photo:{" "}
+              <a href="https://commons.wikimedia.org/wiki/File:Recreational_kayakers_paddling_on_the_surface_of_Lady_Bird_Lake.jpg" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Oleg Yunakov</a>
+              {" "}(2024) · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">CC BY-SA 4.0</a>.
+              Display crop only; the original and its license are available at the linked Commons file page.
+            </figcaption>
+          </figure>
 
           <section className="border-b border-border py-10" aria-labelledby="trail-comparison">
             <p className="eyebrow text-primary">Compare real outings</p>

@@ -1,10 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const canonicalPath = "/texas-stargazing-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const editorialHeroImage = {
+  url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg/1280px-Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg",
+  source: "https://commons.wikimedia.org/wiki/File:Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg",
+  license: "https://creativecommons.org/licenses/by-sa/4.0/",
+  creator: "Matthew T Rader",
+  year: 2020,
+  width: 1280,
+  height: 853,
+  alt: "Milky Way above a tent at Copper Breaks State Park, Texas",
+} as const;
+const deliveredEditorialHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(editorialHeroImage.url));
 const darkSkyParks = [
   { name: "Big Bend Ranch State Park", region: "Big Bend / Far West Texas" },
   { name: "Caprock Canyons State Park & Trailway", region: "Panhandle Plains" },
@@ -30,6 +42,20 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas Stargazing Guide",
           description: "Plan stargazing trips to Texas's five International Dark Sky Parks around Bortle ratings, moon phase, weather, park hours, access and night-sky stewardship.",
+          image: {
+            "@type": "ImageObject",
+            "@id": `${pageUrl}#primaryimage`,
+            url: deliveredEditorialHeroUrl,
+            contentUrl: deliveredEditorialHeroUrl,
+            width: editorialHeroImage.width,
+            height: editorialHeroImage.height,
+            caption: editorialHeroImage.alt,
+            creator: { "@type": "Person", name: editorialHeroImage.creator },
+            creditText: `${editorialHeroImage.creator} · MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons`,
+            copyrightNotice: `© ${editorialHeroImage.year} ${editorialHeroImage.creator}`,
+            license: editorialHeroImage.license,
+            acquireLicensePage: editorialHeroImage.source,
+          },
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: { "@type": "ItemList", "@id": `${pageUrl}#dark-sky-parks`, numberOfItems: itemListElement.length, itemListElement },
         },
@@ -51,6 +77,10 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas Stargazing: 5 International Dark Sky Parks",
         description: "Plan Texas stargazing trips to Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River with current TPWD guidance.",
+        image: deliveredEditorialHeroUrl,
+        imageAlt: editorialHeroImage.alt,
+        imageWidth: editorialHeroImage.width,
+        imageHeight: editorialHeroImage.height,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
