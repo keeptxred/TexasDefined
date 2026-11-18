@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 // from scraped markup. Raise actionable drift for human source verification.
 const ROOT = "https://tpwd.texas.gov/state-parks/martin-creek-lake";
 const BOOK = "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121";
+const COUNTY_FIRE = "https://www.ruskcountytxfire.gov/rusk-county-burn-ban-status";
 const sources = [
   { label: "TPWD campsite classes", url: ROOT + "/fees-facilities/campsites", required: [
     ["13 lakefront sites", /Number of Sites:\s*13/i],
@@ -20,6 +21,12 @@ const sources = [
     ["Argentine ant alert", /Argentine ants/i],
   ], forbidden: [
     ["new or restored fire restriction notice", /(?:burn ban|fires? (?:are )?(?:prohibited|banned)|no (?:wood|charcoal) fires)/i],
+  ] },
+  { label: "Rusk County fire restrictions", url: COUNTY_FIRE, required: [
+    ["latest verified rescission", /Rusk County Burn Ban Status\s+November\s*3,?\s*2026\s*-\s*Burn\s*Ban\s*has\s*been\s*lifted/i],
+  ] },
+  { label: "TPWD accessibility", url: ROOT + "/fees-facilities/martin-creek-lake-accessibility", required: [
+    ["accessible fishing pier and island bridge", /fishing pier[\s\S]{0,140}bridge[\s\S]{0,140}wheelchair accessible/i],
   ] },
   { label: "TPWD reservations", url: BOOK, required: [
     ["dump station", /Dump Station/i],
@@ -62,7 +69,7 @@ for (const source of sources) {
 }
 if (drifts.length) {
   const message = [
-    "TPWD or the reservation service no longer matches the source-checked Martin Creek RV reference facts.",
+    "Official park, county fire or reservation sources no longer match the source-checked Martin Creek RV reference facts.",
     "This is source drift, not proof of a changed policy. Verify source content before editing.",
     "",
     ...drifts.map((line) => "- " + line),
@@ -74,5 +81,5 @@ if (drifts.length) {
   console.error(message);
   process.exitCode = 2;
 } else if (!process.exitCode) {
-  console.log("Martin Creek RV campsite rates, operating details and critical notices still match the documented operator sources.");
+  console.log("Martin Creek RV campground, accessible facilities, county fire status and operating details still match the documented official sources.");
 }
