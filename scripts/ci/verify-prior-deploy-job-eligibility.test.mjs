@@ -605,3 +605,27 @@ test('23317 original asset exception fails closed on alternate run, job, failed 
     );
   }
 });
+
+
+test('Nov18 d132 published Worker supplies only source-proven original assets after strict first-party Davis Hill JPEG repair', () => {
+  const exact = { runId: 44377712495, jobId: 135061203635,
+    failure: 'Verify base production surfaces' };
+  const passed = qualifyPriorDeployJob(evidence(exact));
+  assert.equal(passed.mode, 'exact-nov18-d132-davis-hill-429-original-assets-only');
+  assert.equal(passed.eligible, true);
+  assert.equal(passed.priorReleaseStillFailed, true);
+  assert.equal(passed.requiredSourceSha, '364733eb09030150e885919a337568b68b0b9119');
+  assert.equal(passed.requiredWorkerVersion, 'd132bb99-7de2-4293-b465-b4bf5019d1b5');
+  assert.equal(passed.criticalChecks, required.length);
+  assert.deepEqual(passed.permittedFailures, [exact.failure]);
+  for (const mutation of [
+    { runId: exact.runId + 1 }, { jobId: exact.jobId + 1 },
+    { failure: 'Verify Devils River photograph and exact destination production' },
+    { additional: ['Verify fishing lake robots and sitemap publication parity'] },
+    { additional: ['Verify current and previous release JS/CSS on both public origins'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({ ...exact, ...mutation })),
+      /Required published-Worker safety gate not successful|d132 Davis Hill asset history rejects altered run\/job\/failure|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
