@@ -1,0 +1,38 @@
+name: Repair historical Chihuahua NewsArticle raster hero
+
+# An expressly scoped, one-time data repair: exact published article ID 40,
+# no new publication, no Cloudflare access, no disabled quality gates.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/td-legacy-chihuahua-hero-repair.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-legacy-chihuahua-hero-repair
+  cancel-in-progress: false
+
+jobs:
+  repair-original-owned-image:
+    if: github.repository == 'keeptxred/TexasDefined' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    timeout-minutes: 14
+    env:
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install approved repository image renderer
+        run: npm ci --no-audit --no-fund
+      - name: Verify first-party Chihuahua illustration renders a real PNG
+        run: node --test scripts/assets/materialize-newsroom-chihuahua-hero.test.mjs
+      - name: Upload immutable original raster and repair exact historical metadata
+        run: node scripts/news/repair-legacy-chihuahua-og-raster.mjs
