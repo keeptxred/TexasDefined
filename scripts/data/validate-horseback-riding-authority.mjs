@@ -39,7 +39,7 @@ for (const marker of [
   'Palo Duro Canyon State Park',
   'Caprock Canyons State Park & Trailway',
   'Dinosaur Valley State Park',
-  'Official TPWD riding and campsite information checked November 18, 2026;'
+  'Official TPWD riding and campsite information checked November 18, 2026;',
   'https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian',
   'https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding',
   'https://tpwd.texas.gov/state-parks/hill-country',
