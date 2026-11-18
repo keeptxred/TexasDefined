@@ -1002,3 +1002,40 @@ test('55c0 published-but-failed Worker rescue uses immutable source proof, expir
   assert.throws(()=>assertExactPublished55c0(goodRun,{jobs:[{...goodJobs.jobs[0],steps:[...ok,...failed,{name:'Verify direct Worker health',conclusion:'failure'}]}]}),/Unexpected failed/);
   assert.throws(()=>assertExactPublished55c0(goodRun,{jobs:[{...goodJobs.jobs[0],steps:[...ok.filter(s=>s.name!=='Verify direct Worker health'),...failed]}]}),/Missing independently successful/);
 });
+
+test('transient HTTP 5xx retry is bounded and never accepts challenge, 4xx, persistent 500, or missing authority content', async()=>{
+  const {retryTransientProduction5xx}=await import('./retry-transient-production-5xx.mjs');
+  const delays=[];let calls=0;
+  const recovered=await retryTransientProduction5xx(async()=>{
+    calls++;
+    return new Response(calls===1?'Temporary origin failure':'<html>New rendered authority content</html>',{
+      status:calls===1?500:200,headers:{'content-type':'text/html'}});
+  },{pause:async ms=>delays.push(ms)});
+  assert.equal(recovered.status,200);
+  assert.equal(calls,2);
+  assert.deepEqual(delays,[800]);
+  calls=0;
+  const broken=await retryTransientProduction5xx(async()=>{
+    calls++;return new Response('Persistent server failure',{status:500});
+  },{pause:async()=>{}});
+  assert.equal(broken.status,500,'persistent bad page MUST fail caller HTTP 200 assertion');
+  assert.equal(calls,3,'three attempts maximum');
+  calls=0;
+  const missing=await retryTransientProduction5xx(async()=>{
+    calls++;return new Response('Not found',{status:404});
+  },{pause:async()=>{}});
+  assert.equal(missing.status,404);assert.equal(calls,1);
+  calls=0;
+  const challenged=await retryTransientProduction5xx(async()=>{
+    calls++;return new Response('Access challenge',{status:503,headers:{'cf-mitigated':'challenge'}});
+  },{pause:async()=>{}});
+  assert.equal(challenged.status,503);assert.equal(calls,1);
+  await assert.rejects(()=>retryTransientProduction5xx(async()=>new Response('ok'),{attempts:4}),/Unbounded/);
+  const district=readFileSync(new URL('./verify-district16-production.mjs',import.meta.url),'utf8');
+  const category=readFileSync(new URL('./verify-authority-category-live.mjs',import.meta.url),'utf8');
+  assert.match(district,/retryTransientProduction5xx/);
+  assert.match(category,/retryTransientProduction5xx/);
+  assert.match(district,/assert\.equal\(response\.status,200/,'cannot accept a non-200 district');
+  assert.match(category,/response\.status!==200/,'cannot accept a non-200 authority page');
+  assert.match(category,/hasNoindex\(html/,'metadata validation retained');
+});
