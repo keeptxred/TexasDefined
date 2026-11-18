@@ -2,6 +2,8 @@ name: Things That Define Texas production smoke
 
 on:
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: read
@@ -12,7 +14,14 @@ concurrency:
 
 jobs:
   smoke:
-    if: github.event_name == 'workflow_dispatch'
+    # Owner-only comment on the already reviewed release PR is an explicit
+    # manual request, not a deploy/schedule trigger or an open-ended site crawl.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.number == 7317 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/verify-texas-icons')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
