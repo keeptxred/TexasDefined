@@ -488,16 +488,20 @@ jobs:
             echo "Recovered exact-active-Worker source-verified original bytes from run $prior_run; independent failed page checks remain failed."
             restored=1
           fi
-          # Only the named 0f9 Worker may use this one-time historical bridge.
+          # Only the named 0f9 or c211 currently active Worker may use this
+          # time-limited original-byte bridge; no other Worker is eligible.
           # A successful older worker artifact provides candidate file paths,
           # NEVER a fabricated publication record for the active 0f9 version.
           # The immediately following --capture probes current originals and
           # --retain copies only verified bytes; --verify enforces BOTH origins.
-          if [[ "$restored" != 1 && "$EXPECTED_ACTIVE_WORKER_VERSION" == '0f9a146d-7b91-45d2-b1df-9813c80326e8' ]]; then
+          if [[ "$restored" != 1 && ( "$EXPECTED_ACTIVE_WORKER_VERSION" == '0f9a146d-7b91-45d2-b1df-9813c80326e8' || "$EXPECTED_ACTIVE_WORKER_VERSION" == 'c211c0ca-940b-4bf9-84b3-4d363cc5120c' ) ]]; then
             if [[ "$(date -u +%s)" -gt "$(date -u -d '2026-11-19T14:32:31Z' +%s)" ]]; then
               echo '::error title=Expired historical bridge::Do not relabel unknown Worker versions or use stale asset history.'
               exit 1
             fi
+            # Prove both *currently live* public origins serve the precise
+            # outgoing Worker, not a similarly named failed candidate build.
+            node scripts/ci/verify-active-worker-asset-bridge.mjs live "$EXPECTED_ACTIVE_WORKER_VERSION"
             prior_run=43884259995
             prior_sha=3bb9a544e38e65d8b80ddf375ea58ddd5964b8bc
             source_worker=64e9e06f-f80e-424c-8f85-dc6e210463ac
@@ -510,7 +514,7 @@ jobs:
             gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
               | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
             cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
-            echo "::notice title=Historical paths only::Source $prior_sha/$source_worker verified independently. Current 0f9 Worker is probed anew; no publication or byte proof is transferred without verification."
+            echo "::notice title=Historical paths only::Source $prior_sha/$source_worker verified independently. The exact outgoing Worker is independently probed anew; no publication or byte proof is transferred without verification."
             restored=1
           fi
           if [[ "$restored" != 1 ]]; then
@@ -553,6 +557,12 @@ jobs:
         id: capture_asset_handoff
         if: success()
         run: node scripts/ci/verify-referenced-assets-production.mjs --capture
+
+      - name: Prove captured four-page hash inventory belongs to exact active Worker
+        if: success()
+        env:
+          EXPECTED_ACTIVE_WORKER_VERSION: ${{ steps.rollback_target.outputs.version_id }}
+        run: node scripts/ci/verify-active-worker-asset-bridge.mjs snapshot "$EXPECTED_ACTIVE_WORKER_VERSION" .artifacts/asset-handoff-snapshot.json
 
       # Exact old client JS/CSS filenames were observed returning 404 to
       # Googlebot after full Worker replacements. Before replacing the still-
