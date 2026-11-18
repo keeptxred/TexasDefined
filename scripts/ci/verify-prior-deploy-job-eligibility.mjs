@@ -426,6 +426,29 @@ const NOV16_PUBLISHED_CONROE_500_HISTORIC_ASSET_HANDOFF = Object.freeze({
   failedStep: 'Verify fishing lake robots and sitemap publication parity',
 });
 
+// Nov18 run #44368051009 actually published the 100%-traffic Worker
+// 23317b8a from source 06ace4c8 after the five outdoor guide authority
+// upgrades (#7350) were merged. Immutable GitHub job #135027028666 reports
+// SUCCESS for publish, deployed-version capture, both-origin health, and
+// EVERY current/prior JS/CSS original-byte check. It then failed two
+// independent, real live-page checks: Lake Conroe camping returned HTTP 500
+// after three attempts; the separate Devils River hero verifier failed.
+// Both page regressions remain failures and MUST pass on the next release.
+// ONLY original client asset bytes may be inherited, and ONLY after the
+// caller matches this exact current Worker, source SHA, successful original
+// delivery artifact and BOTH canonical/direct origin hashes. No blanket
+// exception, skipped production check, or fabricated green deployment.
+const NOV18_PUBLISHED_23317_FISHING_DEVILS_ASSETS = Object.freeze({
+  runId: 44368051009,
+  jobId: 135027028666,
+  sourceSha: '06ace4c8029d853722a98e8485252247cf1a7551',
+  workerVersion: '23317b8a-2b01-473d-95b4-bbf9c61af2e7',
+  failedSteps: [
+    'Verify fishing lake robots and sitemap publication parity',
+    'Verify Devils River photograph and exact destination production',
+  ],
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -442,6 +465,30 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const published23317 = NOV18_PUBLISHED_23317_FISHING_DEVILS_ASSETS;
+  if (job.run_id === published23317.runId && job.id === published23317.jobId &&
+      failures.length === published23317.failedSteps.length &&
+      published23317.failedSteps.every(name => failures.includes(name))) {
+    // Do not weaken or skip either failed production check on the next release.
+    // This qualification is asset-handoff-only; the caller independently proves
+    // active Worker UUID, exact source SHA, every emitted original hash and
+    // successful delivery to BOTH direct and canonical origins.
+    const fishing = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    for (const guard of [
+      'fetchLiveHtmlWithRetry', 'attempts: 3', 'if (!response.ok) throw new Error',
+      '"/fishing/lakes/lake-conroe/camping"', 'canonicalMatches', 'inSitemap', 'noindex',
+    ]) if (!fishing.includes(guard)) {
+      throw Error('23317 original asset handoff refuses weakened Lake Conroe acceptance: ' + guard);
+    }
+    return { eligible: true, mode: 'exact-nov18-23317-original-assets-only',
+      exactRun: published23317.runId, requiredSourceSha: published23317.sourceSha,
+      requiredWorkerVersion: published23317.workerVersion,
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      priorReleaseStillFailed: true };
+  }
+  if (job.run_id === published23317.runId || job.id === published23317.jobId) {
+    throw Error('23317 published asset handoff rejects changed run/job/failure evidence: ' + failures.join(', '));
   }
   const nov18DeerMarker = NOV18_PUBLISHED_8D5476_DEER_REVIEW_ASSETS;
   if (job.run_id === nov18DeerMarker.runId && job.id === nov18DeerMarker.jobId &&
