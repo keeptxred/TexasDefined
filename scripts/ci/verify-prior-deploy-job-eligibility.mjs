@@ -383,6 +383,26 @@ const NOV16_PUBLISHED_CATEGORY_TRANSPORT_RESET = Object.freeze({
 // This failed release stays FAILED. Qualify ONLY original bytes; the next
 // deployment must separately match active Worker UUID, source SHA, every
 // original hash on BOTH origins, and rerun all unchanged live gates.
+// November 18 PR #7352 published Worker 23317b8a at 100% from exact
+// source 06ace4c. GitHub run 44368051009/job 135027028666 passed deploy,
+// version capture, both origin health checks and original-byte JS/CSS delivery
+// across both origins. TWO later, independent verifiers failed: a genuine
+// intermittently 500 Lake Conroe camping SSR request and an external Wikimedia
+// source HTTP 429, although the licensed first-party image passed on both
+// origins. The release remains FAILED. This exact job can contribute only
+// immutable original client assets; NEVER suppress either page test and never
+// bypass active Worker version, source SHA or SHA-256 checks on both origins.
+const NOV18_MARTIN_CREEK_PUBLISHED_ASSET_BRIDGE = Object.freeze({
+  runId: 44368051009,
+  jobId: 135027028666,
+  sourceSha: '06ace4c8029d853722a98e8485252247cf1a7551',
+  workerVersion: '23317b8a-2b01-473d-95b4-bbf9c61af2e7',
+  failedSteps: [
+    'Verify fishing lake robots and sitemap publication parity',
+    'Verify Devils River photograph and exact destination production',
+  ],
+});
+
 const NOV18_PUBLISHED_8D5476_DEER_REVIEW_ASSETS = Object.freeze({
   runId: 44324366863,
   jobId: 134871546550,
@@ -442,6 +462,41 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const martinBridge = NOV18_MARTIN_CREEK_PUBLISHED_ASSET_BRIDGE;
+  if (job.run_id === martinBridge.runId && job.id === martinBridge.jobId &&
+      failures.length === martinBridge.failedSteps.length &&
+      martinBridge.failedSteps.every((name) => failures.includes(name))) {
+    // The verified failure is NOT a sitewide QA pass. Original JS/CSS bytes
+    // are eligible only after the caller matches active UUID + source SHA
+    // and separately verifies every original hash from both live origins.
+    const parity = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs', 'utf8');
+    const photo = readFileSync('scripts/production/verify-devils-river-hero.mjs', 'utf8');
+    for (const guard of [
+      '"/fishing/lakes/lake-conroe/camping"',
+      'if (!response.ok) throw new Error',
+      'noindex page listed in sitemap',
+      'indexable page omitted from sitemap',
+    ]) if (!parity.includes(guard)) throw Error('Martin Creek bridge requires unchanged strict Lake Conroe 200/indexing verifier: ' + guard);
+    for (const guard of [
+      'inspectDevilsRiverHtml(html)',
+      'Site-owned Devils River image proxy HTTP',
+      'Proxied image dimensions differ from Commons original',
+      'Clinton',
+    ]) if (!photo.includes(guard)) throw Error('Martin Creek bridge requires source-aware Devils River image verification: ' + guard);
+    return {
+      eligible: true,
+      mode: 'exact-nov18-martin-creek-published-original-assets-only',
+      exactRun: martinBridge.runId,
+      requiredSourceSha: martinBridge.sourceSha,
+      requiredWorkerVersion: martinBridge.workerVersion,
+      criticalChecks: CRITICAL.length,
+      permittedFailures: failures,
+      priorReleaseStillFailed: true,
+    };
+  }
+  if (job.run_id === martinBridge.runId || job.id === martinBridge.jobId) {
+    throw Error('Martin Creek 23317b8a original-byte bridge rejects altered run/job/failed steps: ' + failures.join(', '));
   }
   const nov18DeerMarker = NOV18_PUBLISHED_8D5476_DEER_REVIEW_ASSETS;
   if (job.run_id === nov18DeerMarker.runId && job.id === nov18DeerMarker.jobId &&
