@@ -72,7 +72,7 @@ assert.match(newGuides, /groups larger than 20|larger than 20/i);
 assert.match(forestry, /out-of-county rate/);
 assert.match(museumFaqs, /\$3 per person for adult groups from outside Angelina County/);
 assert.match(authorityPresentation, /!museumAuthoritySlugs\.has\(destination\.slug\)/);
-assert.match(destinationRoute, /Frequently asked questions about \{destination\.name\}/);
+assert.match(destinationRoute, /\{`Frequently asked questions about \$\{destination\.name\}`\}/); // React SSR must render a contiguous FAQ heading, not split it by <!-- --> comments
 assert.match(destinationRoute, /destination\.visitorFaqs\?\.map/);
 assert.match(authorityPresentation, /!hasPublicAttractionSsrFaq/);
 assert.match(forestry, /address: "1905 Atkinson Dr, Lufkin, TX 75901"/);

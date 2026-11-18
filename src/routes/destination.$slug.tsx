@@ -564,7 +564,7 @@ function DestinationPage() {
       <section className="bg-surface py-10 sm:py-12" aria-label={`${destination.name} visitor questions`}>
         <Container>
           <p className="eyebrow text-primary">Official-source visitor answers</p>
-          <h2 className="mt-2 font-display text-3xl">Frequently asked questions about {destination.name}</h2>
+          <h2 className="mt-2 font-display text-3xl">{`Frequently asked questions about ${destination.name}`}</h2>
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
             {destination.visitorFaqs?.map((item) => <div key={item.question} className="border-t border-border pt-5">
               <dt className="font-semibold">{item.question}</dt>
