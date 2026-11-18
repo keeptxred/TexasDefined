@@ -1,4 +1,4 @@
-name: Monitor Martin Creek RV primary sources
+name: Monitor Martin Creek RV primary sources and fire status
 
 on:
   # Bootstrap the first source check when its monitor is released. Routine
@@ -9,7 +9,7 @@ on:
       - '.github/workflows/monitor-martin-creek-rv.yml'
       - 'scripts/data/check-martin-creek-rv-source-drift.mjs'
   schedule:
-    - cron: "33 14 * * 1"
+    - cron: "33 14 * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Check campsite rates, active alerts and late arrival requirements
+      - name: Check campground, county fire status, alerts and arrival rules
         id: verify
         shell: bash
         run: |
