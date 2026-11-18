@@ -81,6 +81,7 @@ for (const marker of [
 check(!renderer.includes('This analysis compares historical and institutional sources. It does not represent first-hand'), "Remove repeated generic disclaimer in favor of record-level sourcing.");
 check(metadata.includes('["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"].includes(category?.slug ?? "") ? "2026-11-17" : "2026-11-16"'), "Material Nov17 research revisions must update only five affected chapter dates.");
 check(Object.keys(notes).length >= 100, "Preserve the expanded 100+ researched entry records rather than silently reverting source work.");
+check(sitemap.includes('cacheUrl.searchParams.set("culture-editorial-lastmod", "2026-11-17")'), "Sitemap edge cache must be invalidated for the Nov17 culture source revision.");
 for (const slug of ["landmarks", "roadside-small-towns", "culture-music", "wildlife-landscape", "slang-folklore"]) {
   check(sitemap.includes(`"/things-unique-to-texas/${slug}": "2026-11-17"`), `The materially changed ${slug} chapter needs an exact November 17 Google sitemap modification date.`);
 }
