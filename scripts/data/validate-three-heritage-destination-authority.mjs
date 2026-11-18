@@ -21,7 +21,7 @@ const capitol = section(read("src/data/destination-curation-top-attractions-batc
   '  "texas-state-capitol": {', '\n  "guadalupe-mountains-national-park": {', "Capitol");
 includes(capitol, [
   'sourceCheckedAt: "2026-11-17"', 'South Foyer', 'North Entrance', 'free',
-  '4:15 p.m.', 'every 15–30 minutes', 'one week',
+  '4:15 p.m.', 'every 15–30 minutes', 'one week', '1201 San Jacinto Boulevard', '1993',
   'https://tspb.texas.gov/plan/tours/tours.html',
 ], "Capitol operator-backed guide");
 
@@ -30,7 +30,7 @@ const lbj = section(lbjSource, '    slug: "lbj-presidential-library-austin",',
   '  {\n    id: "museum-expansion-blanton"', "LBJ");
 includes(lbj, [
   'sourceCheckedAt: "2026-11-17"', '2–4 hours', 'lot 38', 'last admission at 4 p.m.',
-  'Great Hall', 'Vietnam', 'https://www.lbjlibrary.org/visit',
+  'Great Hall', 'Vietnam', 'March 2026', 'https://www.lbjlibrary.org/visit',
 ], "LBJ visitor profile");
 const museum = section(read("src/data/museum-authority-network.ts"),
   '  "lbj-presidential-library-austin": {', '\n  "blanton-museum-of-art-austin":', "LBJ dossier");
@@ -51,7 +51,7 @@ const mission = section(read("src/data/san-antonio-heritage-destinations.ts"),
   "Mission San José");
 includes(mission, [
   '"sourceCheckedAt": "2026-11-17"', 'https://www.nps.gov/saan/planyourvisit/sanjose.htm',
-  '1930s Works Progress Administration', 'Indigenous', 'free', 'wheelchair',
+  '1930s Works Progress Administration', 'Indigenous', '1794', '1804', '80 percent', 'free', 'wheelchair',
   '10 and 11 a.m.', '50 first-come',
 ], "Mission San José site-specific authority guide");
 

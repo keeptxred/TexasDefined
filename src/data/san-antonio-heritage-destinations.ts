@@ -160,6 +160,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "Founded on February 23, 1720, Mission San José y San Miguel de Aguayo became San Antonio's largest mission settlement. Visitors see surviving eighteenth-century stonework alongside extensive 1930s Works Progress Administration restoration of residential and compound structures. That distinction is vital: the reconstructed courtyard walls are evidence of how the settlement was organized, not all untouched colonial buildings. The mission encompassed farming, labor, defense and worship rather than just a church.",
       "After looking at the Rose Window, trace the granary, gristmill and Indigenous family quarters to understand the labor and food systems behind the carved church. The National Park Service explains that the broad label “Coahuiltecan” encompasses many distinct Indigenous bands, not one homogeneous nation. Forced cultural change, conversion and Indigenous efforts to survive shaped the mission's history; the rebuilt spaces and original fabric require different interpretations.",
       "Begin at the NPS visitor center with the introductory 20-minute film and museum before choosing a paved ranger-guided walk at 10 or 11 a.m. when available. Outdoor surfaces and historic interiors may have different accessibility conditions. The church remains an active parish, so ranger programming does not guarantee church entry during services.",
+      "The surviving church and the perimeter quarters should not be described as equally original. NPS historical interpretation estimates that roughly 80 percent of the church is original, while significant portions of the compound were reconstructed in the twentieth century. Visitors can compare the carved church doorway and Rose Window with the reconstructed residential layout, then ask what physical evidence can and cannot reveal about Indigenous daily life.",
+      "Mission San José's decline was gradual rather than a single closing date. NPS research documents a 1794 census of named Indigenous residents as the Spanish authorities began distributing mission property, and a further population decline recorded in 1804. The process of secularization shifted land, cattle, political authority and religious institutions in ways that changed the community; the active parish and subsequent preservation efforts are part of that longer history. These details are important because the church's visual grandeur alone cannot explain the lives of the people who built and maintained it.",
       "An informed visit contrasts the building's high architectural craftsmanship with the unequal power relations of mission life. Continue to Concepción for original fabric, San Juan for agricultural systems and Espada for the aqueduct and textile trade."
     ],
     "officialUrl": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
@@ -233,6 +235,21 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "National Park Service San José history and visitor center",
           "url": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "NPS original church fabric and architectural history",
+          "url": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm",
+          "scope": "NPS assessment of surviving church fabric and mission as an agricultural community"
+        },
+        {
+          "label": "NPS 1794 secularization research",
+          "url": "https://www.nps.gov/articles/000/mission-san-jos%C3%A9-and-the-road-to-secularization-part-1-1794.htm",
+          "scope": "Named residents in 1794 census and colonial property transfer"
+        },
+        {
+          "label": "NPS secularization after 1794",
+          "url": "https://www.nps.gov/articles/000/mission-san-jos%C3%A9-and-the-road-to-secularization-part-2-post-1794.htm",
+          "scope": "1804 population records and community transition"
         },
         {
           "label": "NPS guided programs",

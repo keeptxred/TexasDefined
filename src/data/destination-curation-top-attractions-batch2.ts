@@ -289,6 +289,8 @@ const curated: Record<string, TopAttractionExpansion> = {
       "The House and Senate chambers make the Capitol more than a monument. Seeing the desks, galleries and floor layouts gives context to how Texas law is debated and passed, while exhibits and portraits connect present-day institutions with the Republic, statehood, Reconstruction and later political eras. Visitors interested in current politics should remember that this remains an active government workplace rather than a museum set.",
       "The grounds deserve time of their own. Monuments, mature trees and long views down Congress Avenue help place the Capitol within Austin's street plan, while the Capitol Visitors Center occupies a historic building nearby and provides additional orientation. The grounds also make an easy link between Downtown and the museum corridor immediately north.",
       "The accessible entrance to the Capitol is its North Entrance, and everyone passes through security screening. Large-print and Braille publications are available from visitor services. The State Preservation Board can arrange guided tours with American Sign Language interpretation with one week's advance notice; contact tour services for individual accommodations.",
+      "The 1888 Capitol building is not the entirety of the civic complex visitors see today. The underground Capitol Extension, completed in 1993, added legislative and public space while protecting much of the historic grounds above. It changes how to read the site: the nineteenth-century rotunda expresses the state's public identity, whereas the later extension accommodated the demands of a growing government without replacing the landmark building. The State Preservation Board's Capitol Visitors Center and grounds maps are useful companions when interpreting the two eras.",
+      "Parking deserves its own plan. The State Preservation Board's Capitol Visitors Parking Garage is at 1201 San Jacinto Boulevard on the east side of the complex; the visitor entry and exit routes differ because surrounding streets are one-way. Check the operator's posted parking prices and availability rather than assuming free parking. Guests using a disability placard should consult the State Preservation Board's accessibility route markers and garage guidance before arriving.",
       "The Capitol is one of TexasDefined's easiest attractions to turn into a full urban itinerary. The Bullock Texas State History Museum and Blanton Museum are within walking distance toward the University of Texas, while Downtown restaurants, Waterloo Park and the Congress Avenue corridor extend south. A separate half day can reach the LBJ Presidential Library, Barton Springs or the Lady Bird Johnson Wildflower Center.",
     ],
     managingAuthority: "Texas State Preservation Board",
@@ -297,7 +299,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     county: "Travis",
     address: "1100 Congress Avenue, Austin, TX 78701",
     directions:
-      "The Capitol is at the north end of Congress Avenue in central Austin. A public visitor garage sits east of the complex. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
+      "The Capitol is at the north end of Congress Avenue in central Austin. The Capitol Visitors Parking Garage is at 1201 San Jacinto Boulevard east of the complex; consult the State Preservation Board parking page for current rates and one-way entry instructions. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
     accessibilityNotes:
       "Use the accessible North Entrance; all visitors pass through security screening. Large-print and Braille guides are available, and ASL-interpreted tours require one week's advance notice. Confirm any other needs through the State Preservation Board's Capitol Accessibility Services.",
     areaGuide: {
@@ -305,8 +307,8 @@ const curated: Record<string, TopAttractionExpansion> = {
         "The Capitol sits between Downtown Austin and the University of Texas museum corridor, making it one of the easiest major Texas attractions to build into a car-light day. History museums are immediately north, while restaurants, parks and entertainment districts spread south and east.",
       nearbyAttractions: items(
         ["Capitol Visitors Center", "On the Capitol grounds", "Exhibits and visitor information in a historic state building add context before or after the main Capitol tour."],
-        ["Bullock Texas State History Museum", "About a 10-minute walk north", "Three floors of Texas history make the Bullock the strongest museum companion to a Capitol visit."],
-        ["Blanton Museum of Art", "About a 10–15-minute walk north", "The University of Texas art museum provides a visual-arts counterpoint beside the state-history corridor."],
+        ["Bullock Texas State History Museum", "About a 10-minute walk north", "Three floors of Texas history make the Bullock the strongest museum companion to a Capitol visit.", "/destination/bullock-texas-state-history-museum"],
+        ["Blanton Museum of Art", "About a 10–15-minute walk north", "The University of Texas art museum provides a visual-arts counterpoint beside the state-history corridor.", "/destination/blanton-museum-of-art-austin"],
         ["Waterloo Park", "About a 10-minute walk east", "Downtown lawns, trails and event space offer an outdoor break close to the Capitol."]
       ),
       foodAndDrink: items(
@@ -333,7 +335,7 @@ const curated: Record<string, TopAttractionExpansion> = {
         ["Barton Springs Pool and Zilker Park", "About 3 miles south-west", "Swimming and park space offer a strong warm-weather contrast to museums and government buildings."]
       ),
       sideTrips: items(
-        ["LBJ Presidential Library", "About 2 miles north-east", "Presidential history and major twentieth-century events make a natural political-history extension."],
+        ["LBJ Presidential Library", "About 2 miles north-east", "Presidential history and major twentieth-century events make a natural political-history extension.", "/destination/lbj-presidential-library-austin"],
         ["Lady Bird Johnson Wildflower Center", "About 12 miles south", "Native Texas landscapes and gardens create an outdoor half-day beyond central Austin."],
         ["Barton Springs and Zilker Park", "About 3 miles south-west", "Pair the city's civic center with its best-known spring-fed pool and major urban park."],
         ["Mount Bonnell", "About 5 miles north-west", "A short climb to a Colorado River overlook adds a classic Austin landscape stop."]
