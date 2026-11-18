@@ -140,6 +140,7 @@ const CANYON_LAKE: FootballProgramEditorial = {
     "Comal ISD appointed Sam Parker as head football coach in January 2024. The school's current athletics directory lists his formal name Lawrence Parker in its athletic-director role; 2026 football previews separately continue to identify Sam Parker as the Hawks' head coach. Do not confuse that Comal Canyon Lake role with Canyon High or Canyon ISD in the Panhandle.",
     "The host La Grange High School explicitly confirms Canyon Lake versus Port Lavaca Calhoun on Friday, November 20 at 7 p.m., Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. This is a neutral-site area playoff, not a home game at Hawk Stadium. According to the host's November 17 notice, entry uses online tickets only and clear bags only. Use the host's event-specific ticket announcement and stadium facilities page before traveling; Canyon Lake's normal home-game ticket link does not establish access to the La Grange playoff.",
     "Across ten reported 2026 finals through the first playoff round, Canyon Lake scored 513 points and conceded 307 — 51.3 scored and 30.7 conceded per game, for a +206 season scoring margin. Those figures are original arithmetic using the dated MaxPreps game-by-game results, not invented advanced player statistics. The November 16 area-round matchup preview independently lists Calhoun at 7–4 and allowing 17.4 points per game, indicating that Canyon Lake's high-scoring season is facing an opponent with a markedly lower published scoring-allowance rate; this is context, not a result prediction.",
+    "The opening playoff win also has identifiable game-level contributors: in MaxPreps' November 16 recap of the November 13 Pleasanton game, senior quarterback Jace Wheeler was credited with 266 passing yards and four touchdown passes on 20 attempts, plus 79 rushing yards on six carries. The same report credits Isaac Torres with 191 rushing yards and two touchdowns. These figures are attributed single-game reports rather than TexasDefined's independently maintained season-long player totals, so they should not be presented as a live statistical feed.",
     "Canyon Lake High opened August 6, 2007, originally serving freshmen and sophomores. Its official alma mater identifies its green-and-gold colors. Those first-party identity details help distinguish a young Hill Country campus from similarly named Canyon schools; they do not imply affiliation between TexasDefined and the school."
   ],
   "milestones": [
@@ -174,9 +175,9 @@ const CANYON_LAKE: FootballProgramEditorial = {
     {
       "date": "November 13, 2026",
       "title": "Bi-district: Canyon Lake 49, Pleasanton 28",
-      "body": "The Hawks advanced out of the opening 4A Division I playoff round, setting up a scheduled November 20 area-round matchup with Port Lavaca Calhoun.",
-      "sourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
-      "sourceLabel": "MaxPreps Nov. 16 reported result corroborated by San Antonio-area playoff scoreboard"
+      "body": "The Hawks beat Pleasanton 49–28 in the bi-district round. MaxPreps' Nov. 16 game recap credits quarterback Jace Wheeler with 266 yards and four passing touchdowns plus 79 rushing yards, and Isaac Torres with 191 rushing yards and two touchdowns. Reported one-game player statistics, not a licensed live feed.",
+      "sourceUrl": "https://www.maxpreps.com/news/TOkQpDr5-k2iOV6evghkzQ/football-recap-canyon-lake-finds-playoff-glory-versus-pleasanton.htm",
+      "sourceLabel": "MaxPreps November 16, 2026 report of Nov. 13 playoff game (automated recap based on supplied game statistics; secondary reported data)"
     },
     {
       "date": "November 20, 2026 (scheduled)",
