@@ -1,6 +1,6 @@
 /**
  * Source-checked, entry-specific interpretation and trip-use evidence.
- * Reviewed 2026-11-16 against primary operator, government and institutional sources.
+ * Original entries researched 2026-11-16; 19 additional entries researched 2026-11-17 against primary operator, government and institutional sources.
  * Keep reference IDs stable. No unverified claims of personal visits, live opening hours,
  * guaranteed sightings, unrestricted entry or current admission prices.
  */
