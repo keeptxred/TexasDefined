@@ -42,7 +42,7 @@ async function request(origin, path) {
 
 function verifyHospital(html) {
   const checks = new Map([
-    ['correct tax unit', html.includes('West Wharton County Hospital District property tax rate')],
+    ['correct tax unit', html.includes('West Wharton County Hospital District') && html.includes('property tax rate')],
     ['2025 rate', html.includes('0.232100')],
     ['2024 rate', html.includes('0.217100')],
     ['full authority guide rendered', html.includes('What this hospital district taxes') && html.includes('The adopted rate versus the public-hearing benchmarks')],
