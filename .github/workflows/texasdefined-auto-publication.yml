@@ -37,6 +37,8 @@ jobs:
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
       - name: Validate bounded primary-publisher evidence handling
         run: node --test scripts/news/texasdefined-firstparty-evidence.test.mjs
+      - name: Validate signed AI identity and raster proofs
+        run: node --test scripts/news/texasdefined-oidc-transport-contract.test.mjs scripts/news/texasdefined-image-raster-proof.test.mjs
       - name: Report activation state safely
         env:
           TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
