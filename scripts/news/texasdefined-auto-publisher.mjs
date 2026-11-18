@@ -410,6 +410,48 @@ const sourceEligibleQueue = dedupeAutomationQueue(rawQueue.filter((item) => isAu
 const indexableDestinationSlugs = sourceEligibleQueue.length ? await liveDestinationSlugs(SITE_URL) : [];
 const automationEligibleQueue = sourceEligibleQueue.filter((item) => relevantDestinationRows(item, indexableDestinationSlugs).length >= 2);
 const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
+const heldReasons = {
+  stale_or_future_source: 0,
+  invalid_or_disallowed_source: 0,
+  editorial_review_or_routing_hold: 0,
+  insufficient_original_source_body: 0,
+  insufficient_recorded_sources: 0,
+  unsupported_story_format: 0,
+  duplicate_source_story: 0,
+  fewer_than_two_relevant_indexable_destinations: 0,
+};
+const seenEligibleKeys = new Set();
+for (const item of rawQueue) {
+  let reason = null;
+  if (!isCurrentTexasDefinedAutoNewsSource(item?.pub_date)) reason = 'stale_or_future_source';
+  else if (!isTexasDefinedDirectEditorialSource(item)) reason = 'invalid_or_disallowed_source';
+  else if (!isAutomationSafeQueueItem(item)) reason = 'editorial_review_or_routing_hold';
+  else if (!isSubstantiveTexasDefinedDraftSource(item)) {
+    const body = String(item?.extracted_body ?? '').replace(/\s+/g, ' ').trim();
+    if (body.length < 2200 || body.split(/\s+/).filter(Boolean).length < 320) {
+      reason = 'insufficient_original_source_body';
+    } else {
+      let institutional = false;
+      try { institutional = /(?:^|\.)(?:gov|edu)$/.test(new URL(item.link).hostname.toLowerCase()); } catch { /* held */ }
+      if (!institutional && Number(item?.source_count) < 2) reason = 'insufficient_recorded_sources';
+      else reason = 'unsupported_story_format';
+    }
+  } else {
+    const dedupeKey = automationQueueKey(item);
+    if (seenEligibleKeys.has(dedupeKey)) reason = 'duplicate_source_story';
+    else {
+      seenEligibleKeys.add(dedupeKey);
+      if (relevantDestinationRows(item, indexableDestinationSlugs).length < 2) {
+        reason = 'fewer_than_two_relevant_indexable_destinations';
+      }
+    }
+  }
+  if (reason) heldReasons[reason] += 1;
+}
+const totalHeldByReason = Object.values(heldReasons).reduce((a, b) => a + b, 0);
+if (totalHeldByReason !== rawEligible - automationEligibleQueue.length) {
+  throw new Error('Queue hold-reason accounting disagrees with source eligibility; refuse publication.');
+}
 if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
 }
@@ -425,9 +467,13 @@ const queueSummary = {
   selected: queue.length,
   deferred: Math.max(automationEligibleQueue.length - queue.length, 0),
   ids: queue.map((item) => item.id),
+  heldReasons,
 };
 if (!publishRequested) Object.assign(queueSummary, { published: 0, skipped: 0, failed: 0 });
 console.log(JSON.stringify(queueSummary));
+if (publishRequested && queue.length === 0) {
+  throw new Error('No independently qualified TexasDefined story is eligible for publication. No article was published. Hold reasons: ' + JSON.stringify(heldReasons));
+}
 if (publishRequested && queue.length > 0) {
   for (const item of queue) {
     const destinationRows = relevantDestinationRows(item, indexableDestinationSlugs);
