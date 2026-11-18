@@ -196,6 +196,11 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
       "note": "Heritage background for the Germania Farmer Verein hall."
     },
     {
+      "label": "MySA — Kendalia Halle closure and September 2026 for-sale update",
+      "href": "https://www.mysanantonio.com/realestate/article/kendalia-halle-sale-22421747.php",
+      "note": "September 8, 2026 reporting confirms Kendalia Halle has remained closed since July 2024 and was still being offered for sale. Do not present it as a current live dance venue."
+    },
+    {
       "label": "Texas Dance Hall Preservation — Kendalia Halle",
       "href": "https://texasdancehall.org/kendalia-halle/",
       "note": "Historical context; confirm event availability with the venue rather than relying on a preservation listing."
