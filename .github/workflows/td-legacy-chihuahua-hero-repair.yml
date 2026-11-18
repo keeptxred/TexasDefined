@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/td-legacy-chihuahua-hero-repair.yml'
+      - 'scripts/news/repair-legacy-chihuahua-og-raster.mjs'
   workflow_dispatch:
 
 permissions:

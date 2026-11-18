@@ -12,7 +12,7 @@ import { renderChihuahuaHero, rasterPath } from '../assets/materialize-newsroom-
 
 const urlBase = 'https://ftkznprjljkhymknvhye.supabase.co';
 const key = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
-if (key.length < 48) throw new Error('Missing authorized Supabase service role; no image or news edits made.');
+if (!key.trim()) throw new Error('Missing authorized Supabase service role; no image or news edits made.');
 
 const slug = 'most-popular-dog-breeds-in-texas-chihuahua-data';
 const oldUrl = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Chihuahua%20dog.jpg';
