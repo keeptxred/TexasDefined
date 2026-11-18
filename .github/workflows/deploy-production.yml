@@ -581,6 +581,32 @@ jobs:
             fi
           done <<< "$previous_runs"
           fi
+          # A Cloudflare Git build can publish the 100%-traffic Worker outside
+          # this Actions workflow. Never label a different Worker's archive as
+          # proof that this active version was published by Actions. Instead,
+          # retrieve a separately validated SUCCESSFUL historical artifact as
+          # an exact-path seed only. Immediately prove the ACTUAL outgoing Worker
+          # identity on both origins, then --capture re-probes every reachable
+          # old JS/CSS hash from that seed and all current HTML before the
+          # protected original-byte retention and post-deploy SHA gates.
+          # This is a bounded Nov18 recovery, not a general fail-open switch.
+          if [[ "$restored" != 1 ]]; then
+            seed_run=44339126466
+            seed_sha=d30e9b2cbb19884102d9b5db692d207fbe296dd6
+            seed_worker=d18f351a-7176-417a-9fc5-0f17046a6dba
+            seed_dir=".artifacts/prior-asset-extraction/$seed_run"
+            mkdir -p "$seed_dir"
+            gh run download "$seed_run" -n "asset-handoff-$seed_run" -D "$seed_dir"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$seed_dir/asset-handoff-snapshot.json" "$seed_dir/asset-delivery-report.json" \
+              "$seed_worker" "$seed_sha"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$seed_run/jobs?per_page=100" \
+              | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
+            node scripts/ci/verify-active-worker-asset-bridge.mjs live "$EXPECTED_ACTIVE_WORKER_VERSION"
+            cp "$seed_dir/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            echo "::notice title=Independently verified active Worker::Historic successful release supplied only candidate old asset paths, not identity or current-byte proof. Fresh current-worker capture and full dual-origin original-byte verification remain mandatory."
+            restored=1
+          fi
           if [[ "$restored" != 1 ]]; then
             echo "::error title=Wrong prior asset handoff::No source-verified published asset handoff matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
             exit 1
@@ -765,6 +791,11 @@ jobs:
             https://texasdefined.com/property-tax/taxing-unit/escobares
             https://texasdefined.com/article/corporate-relocation-to-texas
             https://texasdefined.com/article/employee-relocation-guide-to-texas
+            https://texasdefined.com/texas-tall-tales-folklore
+            https://texasdefined.com/texas-dance-halls-honky-tonks
+            https://texasdefined.com/texas-homecoming-mums
+            https://texasdefined.com/texas-natural-wonders-bucket-list
+            https://texasdefined.com/texas-rock-climbing-bouldering-guide
             https://texasdefined.com/sitemap.xml
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
