@@ -61,7 +61,7 @@ jobs:
       - name: Validate TexasDefined publication guardrails
         run: |
           node scripts/data/validate-texasdefined-auto-publication.mjs
-          node --test scripts/news/texasdefined-oidc-transport-contract.test.mjs scripts/news/texasdefined-image-raster-proof.test.mjs
+          node --test scripts/news/texasdefined-oidc-transport-contract.test.mjs scripts/news/texasdefined-image-raster-proof.test.mjs scripts/news/texasdefined-ai-response-parse.test.mjs
 
       - name: Publish one quality-gated TexasDefined queue item
         shell: bash
