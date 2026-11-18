@@ -47,6 +47,12 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  // Actual November 17 editorial source revision for these five individual culture chapters.
+  "/things-unique-to-texas/landmarks": "2026-11-17",
+  "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
+  "/things-unique-to-texas/culture-music": "2026-11-17",
+  "/things-unique-to-texas/wildlife-landscape": "2026-11-17",
+  "/things-unique-to-texas/slang-folklore": "2026-11-17",
   "/texas-jobs-without-four-year-degree": "2026-11-10",
   "/texas-career-training-options": "2026-11-10",
   "/texas-government-jobs": "2026-11-10",
