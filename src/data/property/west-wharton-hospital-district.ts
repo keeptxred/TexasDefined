@@ -1,7 +1,7 @@
 /**
  * Independently verified LOCAL context, not a replacement for the Comptroller
  * import. Proposed-rate notice figures must not be treated as final levies.
- * Last editorial document review: November 18, 2026.
+ * Last editorial document review: November 18, 2026, including the county 2026 table.
  */
 export const westWhartonHospitalDistrict = {
   slug: 'west-wharton-county-hospital-district',
@@ -9,6 +9,14 @@ export const westWhartonHospitalDistrict = {
   lastVerified: '2026-11-18',
   currentWorkbookYear: 2025,
   priorYear: 2024,
+  // Wharton County Tax Assessor-Collector's October 2026 adopted entity-rate table.
+  // Independent local observation; do not inject into the 2025 Comptroller workbook.
+  localAdopted2026: {
+    year: 2026,
+    totalRate: 0.23210,
+    maintenanceOperationsRate: 0.23210,
+    debtServiceRate: 0,
+  },
   adoptedRate2025: 0.23210, // Independently corroborated by the published statewide final rate.
   priorRate2024: 0.21710,
   noNewRevenueProposed2025: 0.21512,
@@ -33,5 +41,7 @@ export const westWhartonHospitalDistrict = {
     appraisal: 'https://www.whartoncad.net/',
     countyTaxOffice: 'https://www.co.wharton.tx.us/page/wharton.county.assessor.collector',
     countyEstimator: 'https://www.whartoncountytaxoffice.com/TaxEstimator',
+    countyRateIndex: 'https://www.co.wharton.tx.us/page/wharton.tax.rate',
+    county2026AdoptedTable: 'https://www.co.wharton.tx.us/upload/page/7029/docs/Tax%20Office/2026%20Tax%20Rates.pdf',
   },
 } as const;
