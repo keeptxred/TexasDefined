@@ -168,11 +168,11 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     managingAgency: NPS,
     styles: ["tent", "rv", "primitive", "backcountry", "group"],
     amenities: ["dump-station", "restrooms", "river-access", "hiking"],
-    reservationPolicy: "Reservations are required for Big Bend's NPS campgrounds; backcountry overnight use requires a permit. The separately operated Rio Grande Village RV Campground is the park's full-hookup option.",
+    reservationPolicy: "Reservations are required at the Chisos Basin and Rio Grande Village NPS campgrounds; backcountry overnight use requires a permit, and NPS currently directs visitors to obtain backcountry campsite permits in person at Panther Junction due to rain-related road closures until further notice. The separately operated Rio Grande Village RV Park offers full-hookup sites and its own reservations. Check the park's current camping page before travel.",
     whyCampHere: "Best for campers who want a remote national-park trip with multiple developed campgrounds, backcountry options and a separately operated full-hookup RV choice.",
     reservationUrl: "https://www.nps.gov/bibe/planyourvisit/camping.htm",
     searchTerms: ["Big Bend camping", "national park camping", "RV camping", "backcountry camping", "primitive camping", "dark sky camping"],
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: "2026-11-19",
     sources: [
       { label: "NPS camping", url: "https://www.nps.gov/bibe/planyourvisit/camping.htm" },
       { label: "NPS permits", url: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm" },
