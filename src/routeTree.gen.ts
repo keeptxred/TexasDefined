@@ -3929,7 +3929,9 @@ const FishingLakesLakeConroeCampingRoute =
     path: '/fishing/lakes/lake-conroe/camping',
     getParentRoute: () => rootRouteImport,
   } as any).lazy(() =>
-    import('./routes/fishing_.lakes.lake-conroe.camping.lazy').then((d) => d.Route),
+    import('./routes/fishing_.lakes.lake-conroe.camping.lazy').then(
+      (d) => d.Route,
+    ),
   )
 const FishingLakesSlugSectionRoute = FishingLakesSlugSectionRouteImport.update({
   id: '/$section',
@@ -7310,7 +7312,6 @@ export interface RootRouteChildren {
   FindMySchoolDistrictRoute: typeof FindMySchoolDistrictRoute
   FindMyUtilitiesRoute: typeof FindMyUtilitiesRoute
   FindMyVoterRegistrationRoute: typeof FindMyVoterRegistrationRoute
-  FishingLakesLakeConroeCampingRoute: typeof FishingLakesLakeConroeCampingRoute
   FishingRoute: typeof FishingRouteWithChildren
   GamingRoute: typeof GamingRoute
   GermanCzechTexasTownsRoute: typeof GermanCzechTexasTownsRoute
@@ -7702,6 +7703,7 @@ export interface RootRouteChildren {
   PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
   PropertyTaxTaxingUnitUnitRoute: typeof PropertyTaxTaxingUnitUnitRoute
   ExplorePaintedChurchesGuidesSlugRoute: typeof ExplorePaintedChurchesGuidesSlugRoute
+  FishingLakesLakeConroeCampingRoute: typeof FishingLakesLakeConroeCampingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -12198,7 +12200,6 @@ const rootRouteChildren: RootRouteChildren = {
   FindMySchoolDistrictRoute: FindMySchoolDistrictRoute,
   FindMyUtilitiesRoute: FindMyUtilitiesRoute,
   FindMyVoterRegistrationRoute: FindMyVoterRegistrationRoute,
-  FishingLakesLakeConroeCampingRoute: FishingLakesLakeConroeCampingRoute,
   FishingRoute: FishingRouteWithChildren,
   GamingRoute: GamingRoute,
   GermanCzechTexasTownsRoute: GermanCzechTexasTownsRoute,
@@ -12662,6 +12663,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyTaxCountyCountyRoute: PropertyTaxCountyCountyRoute,
   PropertyTaxTaxingUnitUnitRoute: PropertyTaxTaxingUnitUnitRoute,
   ExplorePaintedChurchesGuidesSlugRoute: ExplorePaintedChurchesGuidesSlugRoute,
+  FishingLakesLakeConroeCampingRoute: FishingLakesLakeConroeCampingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
