@@ -34,7 +34,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
     const showSchoolAdoption = verifiedSchoolAdoption != null && isdEvidence!.officialYear >= latest.year;
     const description = hasWestWhartonAuthority
-      ? `${latest.name}: locally adopted 2026 hospital-district tax rate (Wharton County), finalized 2025 Comptroller history, 2024–25 homestead and levy comparisons, and parcel verification.`
+      ? `${latest.name}: locally adopted 2026 hospital-district tax rate (Wharton County), 2026 no-new-revenue/voter-approval benchmarks, a disclosed 2023 county/Comptroller rate conflict, 2024–25 levy analysis and parcel verification.`
       : hasEsd3Adoption
       ? `${latest.name}: locally adopted ${latestAustinEsd3Adopted.year} rate ${latestAustinEsd3Adopted.totalRate.toFixed(6)} per $100, signed district resolution, parcel-verification steps, and separately labeled Comptroller history through ${latest.year}.`
       : showSchoolAdoption
@@ -79,7 +79,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
         ...(isdEvidence?.historicalComponents.flatMap((entry) => entry.components ? [entry.components.sourceUrl] : []) ?? []),
         ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : []),
-        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex] : [])],
+        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex, westWhartonHospitalDistrict.sources.countyFiveYearSummary] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
