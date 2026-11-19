@@ -45,6 +45,8 @@ function verifyHospital(html) {
     ['correct tax unit', html.includes('West Wharton County Hospital District') && html.includes('property tax rate')],
     ['2025 rate', html.includes('0.232100')],
     ['2026 county-adopted rate identified', html.includes('2026 hospital district rate') && html.includes('Wharton County') && html.includes('0.23210')],
+    ['2026 rate visible in initial page body', html.includes('id="wwchd-current-rate"') && html.includes('West Wharton hospital district — 2026 tax rate') && html.includes('Verify parcel jurisdictions with Wharton CAD')],
+    ['original source-check method', html.includes('How this page was checked:') && html.includes('2026 adopted-rate table')],
     ['2026 original primary evidence', html.includes(facts.sources.county2026AdoptedTable)],
     ['2026 locally adopted history row', html.includes('Not a 2026 Comptroller statewide workbook record.')],
     ['2024 rate', html.includes('0.217100')],
@@ -59,7 +61,7 @@ function verifyHospital(html) {
     ['district official agency references', html.includes(facts.sources.districtHome) && html.includes(facts.sources.comptrollerCounty) && html.includes(facts.sources.appraisal)],
     ['county cross-link', html.includes('/property-tax/county/wharton')],
     ['rate-history accessible anchor', html.includes('taxing-unit-rate-history')],
-    ['canonical', html.includes('https://texasdefined.com' + pagePath)],
+    ['canonical', /<link\\b[^>]*rel=["']canonical["'][^>]*>/i.test(html) && (html.match(/<link\\b[^>]*rel=["']canonical["'][^>]*>/gi) || []).some((tag) => tag.includes('https://texasdefined.com' + pagePath))],
     ['not noindexed', !/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)],
     ['Dataset structured metadata', html.includes('schema.org') && html.includes('Dataset') && html.includes('dateModified')],
     ['source-review date', html.includes(facts.lastVerified) || html.includes('November 18, 2026')],
@@ -71,6 +73,7 @@ for (const origin of origins) {
   try {
     const { response, body } = await request(origin, pagePath);
     const missing = verifyHospital(body);
+    if (/\\bnoindex\\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
     results.push({ origin, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
     if (missing.length) failures.push(origin + ': missing ' + missing.join(', '));
   } catch (error) {
