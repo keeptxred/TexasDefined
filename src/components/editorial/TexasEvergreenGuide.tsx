@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { hideFailedImageContainer } from "@/lib/image-fallback";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
@@ -355,16 +356,28 @@ const homecomingMumFaqs = [
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
+  // Keep the original Commons URLs and licenses in this source registry,
+  // but serve the three verified culture-guide photos through the existing
+  // first-party, width-bounded image broker instead of third-party hotlinks.
+  // This avoids a blank article hero when Wikimedia rate-limits browsers.
+  const licensedCulturePhotoSlugs = new Set([
+    "texas-tall-tales-folklore",
+    "texas-dance-halls-honky-tonks",
+    "texas-homecoming-mums",
+  ]);
+  const deliveredImageSrc = image && licensedCulturePhotoSlugs.has(guide.slug)
+    ? editorialImageSrc(image.src)
+    : image?.src;
   const sources = guideSources[guide.slug] ?? [];
   const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const isMusicChild = musicGuideSlugs.has(guide.slug);
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
   const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
-  const imageUrl = image
-    ? image.src.startsWith("http://") || image.src.startsWith("https://")
-      ? image.src
-      : `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}`
+  const imageUrl = deliveredImageSrc
+    ? deliveredImageSrc.startsWith("http://") || deliveredImageSrc.startsWith("https://")
+      ? deliveredImageSrc
+      : `${siteUrl}${deliveredImageSrc.startsWith("/") ? deliveredImageSrc : `/${deliveredImageSrc}`}`
     : undefined;
   const breadcrumbItems = [
     { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
@@ -467,7 +480,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
 
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
-          <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
+          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}

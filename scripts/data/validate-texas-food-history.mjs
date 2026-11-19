@@ -109,7 +109,7 @@ for (const token of [
   'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
   'BanjoZebra · CC BY 4.0 · Wikimedia Commons',
   'y6y6y6 · CC BY 2.0 · Wikimedia Commons',
-  'image.src.startsWith("http://") || image.src.startsWith("https://")',
+  'deliveredImageSrc.startsWith("http://") || deliveredImageSrc.startsWith("https://")',
   'sourceHref',
 ]) {
   if (!evergreenComponent.includes(token)) failures.push(`Food-history image layer missing licensing/URL token: ${token}.`);
