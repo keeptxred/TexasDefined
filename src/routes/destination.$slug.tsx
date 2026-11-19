@@ -284,8 +284,8 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
       license: verifiedParkPhoto.licenseUrl,
       acquireLicensePage: verifiedParkPhoto.fileUrl,
     } : {};
-    const categoryName = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "Texas State Parks" : destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
-    const categoryPath = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "/explore/state-parks" : destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
+    const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
+    const categoryPath = destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     // Source-review date and substantive page modification are distinct events.
@@ -408,7 +408,7 @@ function DestinationPage() {
   if (destination.slug === "yoakum-heritage-museum") return <Suspense fallback={null}><YoakumHeritageMuseumAuthority destination={destination} /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
-  const categoryName = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "Texas State Parks" : destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
+  const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
   const surfacePolicy = INTERNAL_LINK_POLICIES.destination;
   const destinationPolicy = policyForSurface("destination", { excludedEntityIds, region: destination.region });
@@ -503,7 +503,7 @@ function DestinationPage() {
     : undefined;
 
   return <>
-    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.slug === "albert-bessie-kronkosky-state-natural-area" ? <Link to="/explore/state-parks" className="hover:text-foreground">{categoryName}</Link> : destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : destination.category === "guides" ? <Link to="/guides" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
+    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : destination.category === "guides" ? <Link to="/guides" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" />
