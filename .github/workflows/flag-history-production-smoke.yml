@@ -2,6 +2,9 @@ name: Texas flag history production smoke
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
 permissions:
   contents: read
   statuses: write
@@ -94,6 +97,33 @@ jobs:
             echo "::error title=${label} markup check failed::Missing raw marker: ${needle}"
             return 1
           }
+
+          # Make the primary flag hub a first-class, independently verified
+          # post-deployment surface. Cache-busted requests must show the new
+          # illustrated history, accessible source details and real links.
+          post_status texas-flag-main-page pending 'Checking illustrated 1836/1839 flag authority hub'
+          if fetch_page '/texas-flag' "$workdir/flag-main.html" \
+            && html_to_text "$workdir/flag-main.html" "$workdir/flag-main.txt" \
+            && require_text main-flag 'Texas Flag: History, Meaning, Design and Display Rules' "$workdir/flag-main.txt" \
+            && require_text main-flag 'December 10, 1836' "$workdir/flag-main.txt" \
+            && require_text main-flag 'January 25, 1839' "$workdir/flag-main.txt" \
+            && require_text main-flag 'Burnet flag' "$workdir/flag-main.txt" \
+            && require_text main-flag 'Lone Star flag' "$workdir/flag-main.txt" \
+            && require_text main-flag 'Before red, white and blue' "$workdir/flag-main.txt" \
+            && require_raw main-flag 'burnet-flag-title' "$workdir/flag-main.html" \
+            && require_raw main-flag 'lone-star-flag-title' "$workdir/flag-main.html" \
+            && require_raw main-flag 'texas-flag-timeline' "$workdir/flag-main.html" \
+            && require_raw main-flag 'https://texasdefined.com/texas-flag' "$workdir/flag-main.html" \
+            && require_raw main-flag '/article/history-of-the-texas-flag' "$workdir/flag-main.html" \
+            && require_raw main-flag '/article/texas-flag-etiquette-display-guide' "$workdir/flag-main.html" \
+            && require_raw main-flag 'https://www.tshaonline.org/handbook/entries/flags-of-texas' "$workdir/flag-main.html" \
+            && require_raw main-flag 'https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html' "$workdir/flag-main.html" \
+            && ! grep -Eiq '<meta[^>]+name=["'\'' ]*(robots|googlebot)["'\'' ]*[^>]+content=["'\'' ][^"'\''>]*noindex' "$workdir/flag-main.html"; then
+            post_status texas-flag-main-page success 'Live Burnet/Lone Star comparison, official sources, accessibility and canonicals verified'
+          else
+            post_status texas-flag-main-page failure 'Main illustrated Texas flag authority page failed live acceptance'
+            failed=1
+          fi
 
           post_status texas-flag-history-page pending 'Checking live Texas flag history article'
           history_ok=1
@@ -202,6 +232,7 @@ jobs:
             echo '::error title=Flag indexing check failed::sitemap.xml could not be fetched'
             indexing_ok=0
           else
+            grep -Fq "<loc>${origin}/texas-flag</loc><lastmod>2026-11-18</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::main Texas flag sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}${history}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::history article sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}${etiquette}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::etiquette article sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}/texas-history</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::Texas History hub sitemap lastmod marker missing'; indexing_ok=0; }
