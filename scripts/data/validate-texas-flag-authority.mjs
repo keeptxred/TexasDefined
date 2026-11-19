@@ -8,6 +8,9 @@ const readRouteSurface = (path) => {
 };
 
 const files = {
+  flagHubEager: read("src/routes/texas-flag.tsx"),
+  flagHubLazy: read("src/routes/texas-flag.lazy.tsx"),
+  priorityPages: read("src/data/priority-search-pages.ts"),
   history: read("src/data/fixtures/texas-flag-history.ts"),
   etiquette: read("src/data/fixtures/texas-flag-etiquette.ts"),
   newest: read("src/data/fixtures/newest-evergreen.ts"),
@@ -44,6 +47,33 @@ function requireCount(label, text, needle, minimum) {
     throw new Error(`${label} expected at least ${minimum} occurrences of ${needle}, found ${count}`);
   }
 }
+
+// The primary hub must carry a verifiable, accessible comparison rather than
+// merely sending readers to the two detailed companion articles.
+requireContains("Texas flag hub", files.flagHubLazy, "HistoricalFlagComparison");
+requireContains("Texas flag hub", files.flagHubLazy, "HistoricalTimeline");
+requireContains("Texas flag hub", files.flagHubLazy, "LoneStarProportions");
+requireContains("Texas flag hub", files.flagHubLazy, "burnet-flag-description");
+requireContains("Texas flag hub", files.flagHubLazy, "lone-star-flag-description");
+requireContains("Texas flag hub", files.flagHubLazy, "December 10, 1836");
+requireContains("Texas flag hub", files.flagHubLazy, "January 25, 1839");
+requireContains("Texas flag hub", files.flagHubLazy, "1879–1933");
+requireContains("Texas flag hub", files.flagHubLazy, "not photographs of original flags");
+requireContains("Texas flag hub", files.flagHubLazy, "https://www.tshaonline.org/handbook/entries/flags-of-texas");
+requireContains("Texas flag hub", files.flagHubLazy, "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html");
+requireContains("Texas flag hub", files.flagHubLazy, 'to="/article/history-of-the-texas-flag"');
+requireContains("Texas flag hub", files.flagHubLazy, 'to="/article/six-flags-over-texas-meaning"');
+requireContains("Texas flag hub data", files.priorityPages, '"texas-flag": {');
+requireContains("Texas flag hub data", files.priorityPages, 'updated: "November 18, 2026"');
+requireContains("Texas flag hub data", files.priorityPages, "Pantone 281");
+requireContains("Texas flag hub data", files.priorityPages, "/article/texas-flag-etiquette-display-guide");
+requireContains("Texas flag hub data", files.priorityPages, "/texas-symbols");
+requireContains("Texas flag SEO", files.flagHubEager, 'const canonicalPath: "/texas-flag"');
+requireContains("Texas flag SEO", files.flagHubEager, 'buildPrioritySearchHead({');
+requireContains("Texas flag SEO", files.flagHubEager, 'When was the current Texas flag adopted?');
+requireContains("Primary sitemap", files.sitemap, '"/texas-flag": "2026-11-18"');
+requireContains("Texas flag history", files.history, 'href: "/texas-flag"');
+requireContains("Texas flag etiquette", files.etiquette, 'href: "/texas-flag"');
 
 requireContains("Texas flag history", files.history, 'slug: "history-of-the-texas-flag"');
 requireContains("Texas flag history", files.history, 'sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html"');

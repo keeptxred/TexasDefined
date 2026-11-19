@@ -30,6 +30,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   // do not serve obsolete cached XML after the protected release.
   // This is not a fabricated editorial <lastmod> date.
   cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1");
+  cacheUrl.searchParams.set("texas-flag-20261118", "burnet-and-lone-star-authority-v1");
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -66,7 +67,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-drivers-license": PRIORITY_SEO_LASTMOD,
   "/texas-dmv": PRIORITY_SEO_LASTMOD,
   "/texas-vehicle-registration": PRIORITY_SEO_LASTMOD,
-  "/texas-flag": PRIORITY_SEO_LASTMOD,
+  "/texas-flag": "2026-11-18",
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",

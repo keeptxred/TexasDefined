@@ -35,6 +35,11 @@ export const texasFlagHistoryArticle: Article = {
   sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html",
   internalLinks: [
     {
+      href: "/texas-flag",
+      label: "Texas flag: illustrated comparison and official guide",
+      description: "Compare the blue-and-gold Burnet flag with the 1839 Lone Star, view the dated timeline and consult current flag design law.",
+    },
+    {
       href: "/article/texas-flag-etiquette-display-guide",
       label: "Texas flag display & etiquette",
       description: "Use the Texas Flag Code for position with the U.S. flag, vertical display, half-staff, folding, the pledge and retirement.",

@@ -35,6 +35,11 @@ export const texasFlagEtiquetteArticle: Article = {
   sourceUrl: "https://www.tsl.texas.gov/ref/abouttx/flagcode.html",
   internalLinks: [
     {
+      href: "/texas-flag",
+      label: "Texas flag: illustrated comparison and official guide",
+      description: "Compare the blue-and-gold Burnet flag with the 1839 Lone Star, view the dated timeline and consult current flag design law.",
+    },
+    {
       href: "/article/history-of-the-texas-flag",
       label: "Read the history of the Texas flag",
       description: "Follow the Lone Star from revolution-era proposals and the Burnet flag through the Republic's 1839 design and modern law.",

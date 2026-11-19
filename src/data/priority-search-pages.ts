@@ -474,104 +474,120 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     related: [{ label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
   "texas-flag": {
-    eyebrow: "Texas symbols",
-    title: "Texas Flag: History, Meaning, Rules and the Lone Star",
-    intro: "A complete starting point for the Texas flag: where the Lone Star design came from, what its colors represent, how Texas law describes the flag and how to display it respectfully.",
-    updated: "November 12, 2026",
-    quickAnswer: "The modern Texas flag uses one vertical blue stripe with a single white five-pointed star and two horizontal stripes, white over red. It was adopted by the Republic of Texas in 1839 and remains the state flag today.",
+    eyebrow: "Texas history & symbols",
+    title: "Texas Flag: History, Meaning, Design and Display Rules",
+    intro: "Compare the blue-and-gold Burnet flag of 1836 with the Lone Star flag adopted in 1839. Explore the Republic-era timeline, the original documents, the modern design specifications and practical flag etiquette.",
+    updated: "November 18, 2026",
+    quickAnswer: "Texas adopted its blue flag with a gold star (the Burnet national standard) on December 10, 1836, then the familiar blue, white and red Lone Star flag on January 25, 1839. Both came after earlier revolution-era flags; a separate red, white and blue naval ensign was also used in 1836.",
     sections: [
       {
-        "heading": "What the flag looks like — and what the law specifies",
-        "paragraphs": [
-          "The state flag has a blue vertical field at the hoist containing one white five-pointed star. The remaining fly is split horizontally: white above red. Texas Government Code Chapter 3100 specifies the flag's overall length-to-width ratio as 3:2; the blue stripe spans one-third of the flag's length and the white and red stripes each fill half of the remaining field's height.",
-          "A common illustration error is treating the flag as three equal vertical panels, moving the star into the center of the full flag or reversing the white and red horizontal stripes. The historical design file at the Texas State Library offers a reliable visual reference."
+        heading: "Why Texas had a blue-and-gold flag before the modern Lone Star",
+        paragraphs: [
+          "After independence in March 1836, Texas still had no single national flag of the design used today. David G. Burnet proposed an azure field with one large gold star, and the First Congress of the Republic approved it on December 10, 1836. President Sam Houston signed the measure. This Burnet flag served as the national standard until the 1839 redesign, then continued as a war flag through the end of the Republic in 1845.",
+          "The phrase 'Texas flew blue and gold first' is useful shorthand for the Republic's first clearly documented national standard, but it is not the full story of every flag flown in Texas. Before December 1836, revolutionary units carried other banners. The Republic also adopted a distinct naval ensign in 1836 with thirteen red and white stripes and a single white star on blue, showing that red, white and blue existed in Texas flag history before the modern design."
         ],
-        "links": [
-          {
-            "label": "Texas Government Code, Chapter 3100",
-            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
-            "external": true
-          },
-          {
-            "label": "State Library flag description",
-            "href": "https://www.tsl.texas.gov/ref/abouttx/flagdes",
-            "external": true
-          }
+        links: [
+          { label: "Handbook of Texas: Flags of Texas", href: "https://www.tshaonline.org/handbook/entries/flags-of-texas", external: true },
+          { label: "Texas House: official flag history", href: "https://house.texas.gov/index.php/about", external: true },
+          { label: "Full history of the Texas flag", href: "/article/history-of-the-texas-flag" }
         ]
       },
       {
-        "heading": "How the Lone Star flag became the state flag",
-        "paragraphs": [
-          "The familiar Lone Star design was adopted by the Republic of Texas in 1839, years before Texas joined the United States. The design survived annexation and became central to state symbolism. Texas flags from the revolution and early republic period were not all identical, so the 1839 design should not be projected onto every earlier historic flag.",
-          "For primary documents, compare the Republic-era design held by the Texas State Library and Archives Commission with later statutory language. Questions about who drew the earliest version deserve careful sourcing rather than a single unsourced designer attribution."
+        heading: "January 25, 1839: what changed and who designed the flag?",
+        paragraphs: [
+          "Senator William H. Wharton introduced the basic design on December 28, 1838. A Senate committee led by Oliver Jones advanced a substitute bill, and President Mirabeau B. Lamar approved the flag on January 25, 1839. The new design used a blue vertical hoist with one white five-pointed star and horizontal white-over-red stripes. It was adopted as the national flag of an independent republic, not originally as a U.S. state flag.",
+          "Austin artist Peter Krag drew the surviving official 1839 design preserved by the Texas State Library and Archives Commission. Krag's role as the artist is documented; the identity of the person who first conceived the design is not conclusively established. Claims crediting a single inventor should be distinguished from the surviving legislative and archival record."
         ],
-        "links": [
-          {
-            "label": "Texas State Library 1839 design",
-            "href": "https://www.tsl.texas.gov/exhibits/texas175/flag.html",
-            "external": true
-          },
-          {
-            "label": "Flag history and chronology",
-            "href": "/article/history-of-the-texas-flag",
-            "external": false
-          }
+        links: [
+          { label: "State Library: Peter Krag's 1839 design", href: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html", external: true },
+          { label: "State Library: original 1839 flag design and approval", href: "https://www.tsl.texas.gov/exhibits/texas175/flag.html", external: true },
+          { label: "Texas State Library: signed 1839 original", href: "https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html", external: true },
+          { label: "The Republic of Texas", href: "/texas-history" }
         ]
       },
       {
-        "heading": "Blue, white, red and the Lone Star",
-        "paragraphs": [
-          "Texas law associates blue with loyalty, white with purity and red with bravery. These are statutory meanings, not scientific claims about color psychology. The single white star is the identifying feature of the Lone Star flag and a symbol used across many Texas institutions.",
-          "Use the official state description for exact terminology. Historical stories about what particular individuals intended each element to mean may require separate documentary evidence."
+        heading: "What the flag looks like — and what Texas law requires",
+        paragraphs: [
+          "Texas Government Code Chapter 3100, particularly § 3100.002, requires a rectangle with a 2:3 height-to-length ratio, a blue hoist one-third of the total length, two equal horizontal stripes covering the other two-thirds (white above red), and a regular white five-pointed star pointing up in the center of the blue field. The star's circumscribed diameter must equal three-quarters of the blue stripe's width.",
+          "The state specifies its dark blue and red as Pantone 281 and 193. The on-screen diagrams in this guide demonstrate geometry and history; rendered screen colors are not definitive textile specifications. Check the current law if you are producing flags for an official display."
         ],
-        "links": [
-          {
-            "label": "Official law for the state flag",
-            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
-            "external": true
-          }
+        table: {
+          caption: "Current statutory elements of the Texas flag (Texas Government Code § 3100.002)",
+          columns: ["Element", "Legal design"],
+          rows: [
+            ["Flag proportions", "Width to length: 2:3"],
+            ["Blue hoist", "One-third of the total flag length"],
+            ["White and red fields", "Two equal horizontal stripes; white above red; each two-thirds of the total length"],
+            ["Lone Star", "White, regular five-pointed, one point up, centered; diameter three-quarters of the blue stripe width"],
+            ["Colors", "Pantone 281 (dark blue) and 193 (red), with white"]
+          ]
+        },
+        links: [
+          { label: "Texas Government Code, Chapter 3100", href: "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm", external: true },
+          { label: "Download Texas flag law (official PDF)", href: "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf", external: true },
+          { label: "State Library flag description", href: "https://www.tsl.texas.gov/ref/abouttx/flagdes", external: true }
         ]
       },
       {
-        "heading": "Displaying the Texas and United States flags",
-        "paragraphs": [
-          "Flag order, height, placement, orientation and half-staff decisions depend on the setting. In ordinary joint displays, do not treat Texas as a nation entitled to outrank the United States flag. The dedicated flag etiquette guide walks through separate poles, vertical hanging, folding and half-staff examples.",
-          "For schools, businesses and public events, check Texas Government Code requirements as well as the U.S. Flag Code where applicable. Images found through search can mistakenly reverse the flag when viewed from different sides."
+        heading: "What the colors mean, and what the history does not prove",
+        paragraphs: [
+          "The current Texas Flag Code associates blue with loyalty, white with purity and red with bravery. Those are the meanings established in state law; they should not be confused with a verified claim that every person involved in the original 1839 legislation intended exactly the same symbolism.",
+          "An 1839 committee recommended different associations—white for peace, red for war and blue for friendship—but that recommendation was not adopted as part of the flag law. Historical interpretation and current statutory symbolism are related but distinct questions."
         ],
-        "links": [
-          {
-            "label": "Texas flag etiquette guide",
-            "href": "/article/texas-flag-etiquette-display-guide",
-            "external": false
-          },
-          {
-            "label": "Texas flag statutes",
-            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
-            "external": true
-          }
+        links: [
+          { label: "State flag code", href: "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm", external: true },
+          { label: "Texas House flag history and historical color meanings", href: "https://house.texas.gov/index.php/about", external: true },
+          { label: "More Texas state symbols", href: "/texas-symbols" }
         ]
       },
       {
-        "heading": "See related Texas symbols and their legal sources",
-        "paragraphs": [
-          "The Texas flag belongs in a larger set of designated state symbols. Many such emblems have their own legislation or historical records, and a popular nickname is not automatically an official designation.",
-          "For the complete history of the flag and its changing design, use the historical article; for practical displays, use the etiquette guide. Those topics are maintained separately rather than repeating the same account on each page."
+        heading: "Three common Texas flag history misconceptions",
+        paragraphs: [
+          "The blue-and-gold Burnet flag was not the only flag used in 1836. It was a national standard, while a separate naval flag also had official status. The familiar modern Lone Star flag was adopted in 1839, not immediately on Texas Independence Day in March 1836.",
+          "The familiar 'de Zavala flag' illustration with TEXAS arranged around a star is not established as an officially adopted design by the surviving 1836 convention journals. The actual designer of the 1839 Lone Star flag also remains uncertain, even though Peter Krag's official artwork survives.",
+          "Texas did not abandon its Lone Star flag between 1879 and 1933. The original law fell out of the revised statutes in 1879, but the flag continued in customary use and the Legislature adopted new provisions in 1933. This was a gap in statutory authorization, not a period when Texans flew no state flag."
         ],
-        "links": [
-          {
-            "label": "Texas state symbols",
-            "href": "/texas-symbols",
-            "external": false
-          },
-          {
-            "label": "Texas history",
-            "href": "/texas-history",
-            "external": false
-          }
+        links: [
+          { label: "Handbook of Texas: flag history and misconceptions", href: "https://www.tshaonline.org/handbook/entries/flags-of-texas", external: true },
+          { label: "The Texas Flag: A History of the Lone Star", href: "/article/history-of-the-texas-flag" },
+          { label: "What the Six Flags Over Texas mean", href: "/article/six-flags-over-texas-meaning" }
+        ]
+      },
+      {
+        heading: "How to fly the Texas flag with the United States flag",
+        paragraphs: [
+          "The claim that Texas may fly its flag higher than the U.S. flag because it was once independent is incorrect. Texas flag law regulates relative position and size, and U.S. flag protocol applies when the national flag is displayed with state flags. The rules differ for flags on the same halyard, separate poles, on walls or at half-staff.",
+          "Use the dedicated flag etiquette guide for diagrams and practical situations, including flag placement, vertical orientation, half-staff, the pledge and respectful retirement. Do not use an attractive social-media graphic as a substitute for current law or the event organizer's flag protocol."
+        ],
+        links: [
+          { label: "Texas flag etiquette and display guide", href: "/article/texas-flag-etiquette-display-guide" },
+          { label: "Texas Flag Code: position and display", href: "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm", external: true }
+        ]
+      },
+      {
+        heading: "Trace the Lone Star through Texas history",
+        paragraphs: [
+          "The 1839 design continued through Texas's admission to the United States on December 29, 1845. Its original national status gives it a distinct place among state symbols, but this page focuses on identification, timeline and law rather than reproducing the full research article.",
+          "For a deeper historical account and the original 1839 drawing, continue to our documented flag history. For the broader story of the governments that governed Texas, see Six Flags Over Texas. To visit places connected with the Revolution, use the historic-sites road trip."
+        ],
+        links: [
+          { label: "Detailed flag history", href: "/article/history-of-the-texas-flag" },
+          { label: "Six Flags Over Texas", href: "/article/six-flags-over-texas-meaning" },
+          { label: "Texas Revolution sites road trip", href: "/article/texas-revolution-historic-sites-road-trip" },
+          { label: "Texas symbols", href: "/texas-symbols" },
+          { label: "Texas history", href: "/texas-history" },
+          { label: "Explore historic places", href: "/explore/historic-sites" }
         ]
       }
     ],
-    related: [{ label: "Texas symbols", href: "/texas-symbols" }, { label: "Texas history", href: "/texas-history" }, { label: "Texas facts", href: "/texas-facts" }, { label: "Things unique to Texas", href: "/things-unique-to-texas" }],
+    related: [
+      { label: "Full Texas flag history", href: "/article/history-of-the-texas-flag" },
+      { label: "Flag etiquette", href: "/article/texas-flag-etiquette-display-guide" },
+      { label: "Six Flags Over Texas", href: "/article/six-flags-over-texas-meaning" },
+      { label: "Texas state symbols", href: "/texas-symbols" },
+      { label: "Texas history", href: "/texas-history" },
+      { label: "Texas Revolution road trip", href: "/article/texas-revolution-historic-sites-road-trip" }
+    ],
   },
   "texas-state-fair": {
     eyebrow: "Texas events",
