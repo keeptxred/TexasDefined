@@ -164,7 +164,7 @@ const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
   "hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History & Stay Guide",
   "franklin-mountains-state-park": "Franklin Mountains State Park: Trails, Fees & Camping",
-  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Opening, Trails & Camping",
+  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Trails, Camping & Fees",
 };
 
 function destinationSeoTitle(name: string, categoryName: string) {
@@ -284,8 +284,8 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
       license: verifiedParkPhoto.licenseUrl,
       acquireLicensePage: verifiedParkPhoto.fileUrl,
     } : {};
-    const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
-    const categoryPath = destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
+    const categoryName = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "Texas State Parks" : destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
+    const categoryPath = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "/explore/state-parks" : destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     // Source-review date and substantive page modification are distinct events.
@@ -369,7 +369,9 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.slug === "martin-creek-lake-state-park-rv-area" ? "Martin Creek Lake State Park RV Camping: Sites, Hookups & Rules" : isGainesvilleMedalMuseum ? "Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide" : isOldSocorro ? "Old Socorro Mission, Texas: Archaeology, History & Closure" : destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.slug === "martin-creek-lake-state-park-rv-area"
+        description: destination.slug === "albert-bessie-kronkosky-state-natural-area"
+          ? "Plan Kronkosky State Natural Area: opening dates, 26 miles of trails, cabin and camping choices, $6 day use, accessible exhibits and TPWD alerts."
+          : destination.slug === "martin-creek-lake-state-park-rv-area"
           ? "Compare 56 Martin Creek Lake State Park RV sites, 30/50-amp hookups, $17–$20 rates, park rules, campsite photos and reservations."
           : isGainesvilleMedalMuseum
           ? "Plan a free visit to Gainesville’s Medal of Honor Host City Museum at NCTC: current hours, campus closures, exhibit context, school trips, parking and sources."
@@ -406,7 +408,7 @@ function DestinationPage() {
   if (destination.slug === "yoakum-heritage-museum") return <Suspense fallback={null}><YoakumHeritageMuseumAuthority destination={destination} /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
-  const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
+  const categoryName = destination.slug === "albert-bessie-kronkosky-state-natural-area" ? "Texas State Parks" : destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
   const surfacePolicy = INTERNAL_LINK_POLICIES.destination;
   const destinationPolicy = policyForSurface("destination", { excludedEntityIds, region: destination.region });
@@ -501,7 +503,7 @@ function DestinationPage() {
     : undefined;
 
   return <>
-    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : destination.category === "guides" ? <Link to="/guides" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
+    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.slug === "albert-bessie-kronkosky-state-natural-area" ? <Link to="/explore/state-parks" className="hover:text-foreground">{categoryName}</Link> : destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : destination.category === "guides" ? <Link to="/guides" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" />
