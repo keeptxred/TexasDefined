@@ -165,7 +165,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "Population figures make the later changes visible. NPS research reports 73 residents in 1804 and, by 1815, 49 Indigenous residents alongside 60 people identified as citizens of New Spain. Legal secularization progressed in 1823, and NPS marks February 29, 1824 as the end of the mission institution. Later inventories and land claims complicate the idea of a simple grant of ownership. This matters to a visitor: the perimeter rooms were homes and workplaces in a colonial system, not neutral decorative scenery.",
       "The gristmill and acequia illustrate how water, grain and labor sustained the settlement. The park identifies the mill as a water-powered operation supplied by the irrigation system, while the granary and former dwellings reveal how food production and distribution organized everyday life. Compare those working structures to the church's elaborate stone carving, and ask which kinds of activity were represented in surviving original stone and which are interpreted through reconstruction. An NPS ranger can help distinguish them.",
       "Access is unusually specific here. The general park-hours page describes outdoor parklands as open sunrise to sunset, but the park superintendent's 2026 rules close the walled San José compound at 5 p.m. The Mission Reach trail outside the compound has a different daylight schedule. Visitors seeking the Rose Window, rooms and granary should therefore arrive during the 9 a.m.–5 p.m. compound window rather than counting on evening entry."
-      "For accessibility, the main paved route is easier than the narrow rebuilt room entrances. The visitor-center path is about 160 feet and mostly level, but some historic exhibit thresholds are only around 25–30 inches wide; the NPS notes a missing grab bar in one larger restroom stall near the mill. A loaner wheelchair is available. This is the kind of detailed planning that matters more than a blanket statement that an entire centuries-old compound is wheelchair accessible.",
+      "For accessibility, the main paved route is easier than the narrow rebuilt room entrances. The visitor-center path is about 160 feet and mostly level, but some historic exhibit thresholds are only around 26–30 inches wide; the NPS notes a missing grab bar in one larger restroom stall near the mill. A loaner wheelchair is available. This is the kind of detailed planning that matters more than a blanket statement that an entire centuries-old compound is wheelchair accessible.",
       "An informed visit contrasts the building's high architectural craftsmanship with the unequal power relations of mission life. Continue to Concepción for original fabric, San Juan for agricultural systems and Espada for the aqueduct and textile trade."
     ],
     "officialUrl": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
@@ -173,7 +173,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "address": "6701 San Jose Dr, San Antonio, TX 78214",
     "sourceCheckedAt": "2026-11-18",
     "updatedAt": "2026-11-18",
-    "accessibilityNotes": "Six marked accessible spaces serve the visitor-center lot. The approximately 160-foot approach to the center is paved and mostly level, and the principal compound route is generally flat; however, some restored dwelling doorways are only about 25–30 inches wide. A wheelchair can be borrowed from the information desk. The NPS identifies a missing grab bar in the accessible stall near the gristmill, so use the visitor-center restroom if that is important to your visit. Compare the park mobility page before traveling.",
+    "accessibilityNotes": "Six marked accessible spaces serve the visitor-center lot. The approximately 160-foot approach to the center is paved and mostly level, and the principal compound route is generally flat; however, some restored dwelling doorways are only about 26–30 inches wide. A wheelchair can be borrowed from the information desk. The NPS identifies a missing grab bar in the accessible stall near the gristmill, so use the visitor-center restroom if that is important to your visit. Compare the park mobility page before traveling.",
 
     "gallery": [
       {
@@ -190,7 +190,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "visitorFacts": [
       { "topic": "hours", "label": "The compound is not open until sunset", "detail": "The NPS compendium states that the Mission San José walled compound and visitor center are normally accessible 9 a.m.–5 p.m.; compound gates close at 5. Nearby Mission Reach trail areas have a separate sunrise-to-sunset schedule.", "sourceUrl": "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm", "checkedAt": "2026-11-18" },
       { "topic": "admission", "label": "Free entry", "detail": "The park and ranger walks are free; church services and any special events operate under their own arrangements. NPS visitor facilities close on Thanksgiving, Christmas and New Year's Day.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/hours.htm", "checkedAt": "2026-11-18" },
-      { "topic": "accessibility", "label": "Accessible paths versus narrow doorways", "detail": "The visitor-center approach is about 160 feet and paved, and the compound walkway is generally flat. Some dwelling exhibition doorways are only 25–30 inches wide, and a wheelchair can be loaned at the visitor desk.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", "checkedAt": "2026-11-18" },
+      { "topic": "accessibility", "label": "Accessible paths versus narrow doorways", "detail": "The visitor-center approach is about 160 feet and paved, and the compound walkway is generally flat. Some dwelling exhibition doorways are only 26–30 inches wide, and a wheelchair can be loaned at the visitor desk.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", "checkedAt": "2026-11-18" },
       { "topic": "parking", "label": "Visitor-center parking", "detail": "The main lot has six marked accessible spaces, an EV-charging space and ordinary vehicle and RV/bus parking; follow signs for the visitor center at 6701 San José Drive.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", "checkedAt": "2026-11-18" }
     ],
     "visitorFaqs": [
@@ -216,7 +216,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       },
       {
         "question": "Can I take a wheelchair into every mission exhibit room?",
-        "answer": "The main visitor-center and compound paths are generally paved, but the NPS lists some narrow historic doorways around 25–30 inches. Loaner wheelchairs are available from staff; accessibility may differ room by room.",
+        "answer": "The main visitor-center and compound paths are generally paved, but the NPS lists some narrow historic doorways around 26–30 inches. Loaner wheelchairs are available from staff; accessibility may differ room by room.",
         "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm"
       },
       {
