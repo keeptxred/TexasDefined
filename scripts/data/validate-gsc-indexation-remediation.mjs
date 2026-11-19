@@ -15,6 +15,7 @@ const corporateEvents = fs.readFileSync('src/routes/corporate-events.tsx', 'utf8
 const taxEstimator = fs.readFileSync('src/routes/texas-property-tax-estimator.tsx', 'utf8');
 const relocationDocs = fs.readFileSync('docs/relocation-tools.md', 'utf8');
 const gscProductionProbe = fs.readFileSync('scripts/ci/verify-gsc-alternates-production.mjs', 'utf8');
+const gscVerifyWorkflow = fs.readFileSync('.github/workflows/verify-event-system-completion.yml', 'utf8');
 const failures = [];
 
 function requireText(source, marker, message) {
@@ -100,6 +101,9 @@ for (const url of [
 }
 requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
 requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
+requireText(gscVerifyWorkflow, 'workflow_run:\n    workflows:\n      - "Deploy TexasDefined production"', 'GSC production check must run after each successful deployment');
+requireText(gscVerifyWorkflow, "github.event.workflow_run.head_branch == 'main'", 'Post-deployment verification must be restricted to main branch');
+requireText(gscVerifyWorkflow, 'run: node scripts/ci/verify-gsc-alternates-production.mjs', 'GSC production probe must remain in GitHub acceptance job');
 
 // GSC 'Alternate page with proper canonical tag' samples are intentional filter
 // and planner prefill URLs, not 500 missing articles. Keep the clean landing
