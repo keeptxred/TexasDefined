@@ -58,6 +58,7 @@ requireContains("Texas flag hub", files.flagHubLazy, "lone-star-flag-description
 requireContains("Texas flag hub", files.flagHubLazy, "December 10, 1836");
 requireContains("Texas flag hub", files.flagHubLazy, "January 25, 1839");
 requireContains("Texas flag hub", files.flagHubLazy, "1879–1933");
+requireContains("Texas flag hub", files.flagHubLazy, "2001–present");
 requireContains("Texas flag hub", files.flagHubLazy, "not photographs of original flags");
 requireContains("Texas flag hub", files.flagHubLazy, "https://www.tshaonline.org/handbook/entries/flags-of-texas");
 requireContains("Texas flag hub", files.flagHubLazy, "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html");
