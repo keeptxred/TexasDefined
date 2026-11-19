@@ -84,6 +84,7 @@ assert.ok(parent.includes('Verify parcel jurisdictions with Wharton CAD'), 'Firs
 assert.ok(component.includes('How this page was checked:'), 'Primary-source research method must be transparently documented');
 assert.ok(component.includes('the sources do not prove') || component.includes('The sources do not prove'), 'Do not guess a cause for proposed-vs-reported levy differences');
 assert.ok(parent.includes('Not a 2026 Comptroller statewide workbook record.'));
+assert.ok(parent.includes('Unresolved county/state source difference:') && parent.includes('whartonEvidence.sources.countyFiveYearSummary') && parent.includes('whartonEvidence.county2023Reconciliation.year'), '2023 source conflict must be visible in the imported-rate table, not hidden in prose');
 assert.ok(route.includes('wharton2025?.levy === westWhartonHospitalDistrict.statewideLevy.current'));
 
 assert.ok(route.includes('hasWestWhartonAuthority') && route.includes('westWhartonHospitalDistrict.sources.districtNotice'));
