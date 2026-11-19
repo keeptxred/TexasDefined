@@ -24,7 +24,7 @@ import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
-import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { isPrimaryTripPlannerDestination, isEditoriallyIndexablePreopeningDestination } from "@/data/destination-availability";
 import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
@@ -164,6 +164,7 @@ const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
   "hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History & Stay Guide",
   "franklin-mountains-state-park": "Franklin Mountains State Park: Trails, Fees & Camping",
+  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Opening, Trails & Camping",
 };
 
 function destinationSeoTitle(name: string, categoryName: string) {
@@ -269,7 +270,7 @@ export const Route = createFileRoute("/destination/$slug")({
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
-const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
+const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference || isEditoriallyIndexablePreopeningDestination(destination));
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
@@ -317,6 +318,17 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
           acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg",
         }
       : {};
+    // Kronkosky entrance image rights require the same delivered-URL, photographer
+    // and license match used for other verified destination photographs.
+    const kronkoskyImageRights = destination.slug === "albert-bessie-kronkosky-state-natural-area"
+      && destination.hero.src === editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/ABK_SNA_Entrance_2026.jpg?width=1600")
+      && destination.hero.credit === "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+      ? {
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          copyrightNotice: "© 2026 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:ABK_SNA_Entrance_2026.jpg",
+        } : {};
     // Three independently verified Commons photographs: exact file, author and
     // license are checked together before ImageObject rights are asserted.
     const verifiedAttractionPhoto = [
@@ -332,7 +344,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
       license: verifiedAttractionPhoto.license,
       acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + verifiedAttractionPhoto.file,
     } : {};
-    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isGainesvilleMedalMuseum ? { telephone: "+1-940-668-3330", sameAs: "https://www.nctc.edu/museum/" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, contentUrl: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}), ...(imageRights ?? {}), ...localParkImageRights, ...magoffinImageRights, ...moodyGardensImageRights, ...verifiedAttractionPhotoRights }] } : {}), ...(validGeo && !isYoakumMuseum ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
+    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isGainesvilleMedalMuseum ? { telephone: "+1-940-668-3330", sameAs: "https://www.nctc.edu/museum/" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, contentUrl: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}), ...(imageRights ?? {}), ...localParkImageRights, ...magoffinImageRights, ...moodyGardensImageRights, ...kronkoskyImageRights, ...verifiedAttractionPhotoRights }] } : {}), ...(validGeo && !isYoakumMuseum ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = {
       "@type": "ItemList",
       "@id": `${url}#related-places`,

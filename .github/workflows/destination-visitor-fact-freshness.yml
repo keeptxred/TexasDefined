@@ -6,6 +6,8 @@ on:
   pull_request:
     paths:
       - 'src/data/destination-curation*.ts'
+      - 'src/data/kronkosky-state-natural-area-authority.ts'
+      - 'scripts/data/validate-kronkosky-authority.mjs'
       - 'src/data/reviewed-attraction-authorities.ts'
       - 'src/data/museum-expansion-austin.ts'
       - 'src/data/museum-authority-network.ts'
@@ -37,6 +39,8 @@ jobs:
           node-version: '22'
       - name: Detect unsupported, duplicate and stale visitor answers
         run: node scripts/data/validate-destination-visitor-fact-catalog.mjs
+      - name: Validate Kronkosky opening source, policy and sitemap contract
+        run: node --experimental-strip-types scripts/data/validate-kronkosky-authority.mjs
       - name: Validate shared canonical ownership, verified offerings and review dates
         run: node scripts/data/validate-authority-experiences.mjs
       - name: Verify read-only freshness audit and scheduled follow-up policy

@@ -3,11 +3,12 @@ import path from "node:path";
 
 // Static curation gate: no backend, AI, external fetches, new database, or paid monitoring.
 // Runtime reviewDestinationVisitorFacts independently hides stale/bad visitor claims.
-// This scans every literal visitorFacts array in destination-curation*.ts including
-// newly added batch files. Dynamically computed records require individual tests.
+// This scans every literal visitorFacts array in destination-curation*.ts plus
+// the researched Kronkosky opening overlay. Supports checked local const literals;
+// dynamically computed records need independent tests.
 const dir = path.join(process.cwd(), "src/data");
 const files = fs.readdirSync(dir)
-  .filter((name) => /^destination-curation(?:-.*)?\.ts$/.test(name)).sort();
+  .filter((name) => /^destination-curation(?:-.*)?\.ts$/.test(name) || name === "kronkosky-state-natural-area-authority.ts").sort();
 const issues = [];
 const stale = [];
 let inspected = 0;
@@ -15,11 +16,29 @@ let blocks = 0;
 const asOf = Date.parse(new Date().toISOString().slice(0, 10) + "T00:00:00Z");
 const shortLife = new Set(["admission", "hours", "reservations", "access", "swimming"]);
 const topics = new Set([...shortLife, "parking", "accessibility", "pets", "camping", "transit"]);
-function pick(value, field) {
-  return value.match(new RegExp("\\b" + field + '\\s*:\\s*"([^"]*)"'))?.[1];
+function pick(value, field, constants) {
+  const direct = value.match(new RegExp("\\b" + field + '\\s*:\\s*"([^"]*)"'))?.[1];
+  if (direct !== undefined) return direct;
+  const constant = value.match(new RegExp("\\b" + field + "\\s*:\\s*([A-Z_]+)(?:\\s*[,}]|\\s*$)"))?.[1];
+  return constant ? constants.get(constant) : undefined;
 }
 for (const name of files) {
   const source = fs.readFileSync(path.join(dir, name), "utf8");
+  const constants = new Map([...source.matchAll(/^const\s+([A-Z_]+)\s*=\s*"([^"]+)";/gm)]
+    .map((match) => [match[1], match[2]]));
+  // Opening-day milestones need an operator check even if a 120-day fact is not
+  // technically expired. Keep follow-up in the existing weekly editorial issue.
+  if (name === "kronkosky-state-natural-area-authority.ts") {
+    const checkedAt = constants.get("CHECKED") ?? "";
+    for (const milestone of [
+      { date: "2026-12-01", label: "day-use gate and reservation launch" },
+      { date: "2026-12-15", label: "overnight camping launch and site availability" },
+    ]) {
+      if (asOf >= Date.parse(milestone.date + "T00:00:00Z") && checkedAt < milestone.date) {
+        stale.push("Kronkosky " + milestone.label + ": TPWD operator verification after " + milestone.date + " required");
+      }
+    }
+  }
   for (const match of source.matchAll(/visitorFacts\s*:\s*\[([\s\S]*?)\]\s*,/g)) {
     blocks += 1;
     const prelude = source.slice(0, match.index);
@@ -30,11 +49,11 @@ for (const name of files) {
     for (const record of records) {
       inspected += 1;
       const detail = record[1];
-      const topic = pick(detail, "topic");
-      const label = pick(detail, "label");
-      const answer = pick(detail, "detail");
-      const sourceUrl = pick(detail, "sourceUrl");
-      const checkedAt = pick(detail, "checkedAt");
+      const topic = pick(detail, "topic", constants);
+      const label = pick(detail, "label", constants);
+      const answer = pick(detail, "detail", constants);
+      const sourceUrl = pick(detail, "sourceUrl", constants);
+      const checkedAt = pick(detail, "checkedAt", constants);
       const prefix = name + " " + slug + " " + (topic ?? "?") + " " + (label ?? "?");
       if (!topic || !topics.has(topic)) issues.push(prefix + ": unknown visitor topic");
       if (!label?.trim() || !answer || answer.trim().length < 16) issues.push(prefix + ": missing meaningful answer or label");

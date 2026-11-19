@@ -1,5 +1,6 @@
 import type { Destination } from "@/data/types";
 import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 import { verifiedLocalParkCredit } from "@/data/verified-local-state-park-photo-credits";
 import { shouldRenderFullDestinationAuthorityGuide } from "@/data/destination-authority-presentation";
 
@@ -7,6 +8,19 @@ type Props = { destination: Destination };
 
 function commonsPhotoCredit(destination: Destination) {
   const { src, credit } = destination.hero;
+  // The exact Kronkosky entrance photo is proxied for delivery, but still
+  // needs a visible creator, original file page and license link.
+  if (destination.slug === "albert-bessie-kronkosky-state-natural-area"
+    && src === editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/ABK_SNA_Entrance_2026.jpg?width=1600")
+    && credit === "Larry D. Moore · CC BY 4.0 · Wikimedia Commons") {
+    return {
+      fileUrl: "https://commons.wikimedia.org/wiki/File:ABK_SNA_Entrance_2026.jpg",
+      licenseCode: "CC BY 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+      credit,
+      note: null,
+    };
+  }
   // The Chamizal hero is a licensed local copy, not a Commons redirect URL.
   if (destination.slug === "chamizal-national-memorial" &&
       src === "/images/explore/historic-sites/chamizal-national-memorial.jpg" &&

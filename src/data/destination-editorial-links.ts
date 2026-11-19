@@ -9,6 +9,13 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "albert-bessie-kronkosky-state-natural-area": [
+    { href: "/destination/boerne", label: "Boerne weekend base", description: "Use Boerne for dining and lodging while the protected natural area remains a separate reservation." },
+    { href: "/destination/guadalupe-river-state-park", label: "Guadalupe River State Park", description: "Compare a river-focused state park with Kronkosky’s new hiking and nature-center experience." },
+    { href: "/destination/government-canyon-state-natural-area", label: "Government Canyon State Natural Area", description: "A different trail-centered nature area closer to San Antonio; check its own capacity and seasonal access." },
+    { href: "/county/bandera", label: "Bandera County guide", description: "Understand the county’s Hill Country ranching landscape and other nearby places." },
+    { href: "/explore/state-parks", label: "Texas state parks guide", description: "Compare public-access parks and natural areas across Texas before selecting a trip." },
+  ],
   "san-antonio-japanese-tea-garden": [
     { href: "/destination/san-antonio-zoo", label: "Nearby San Antonio Zoo", description: "Plan a separate ticketed zoo visit beside Brackenridge Park; its admission and hours differ from the free garden." },
     { href: "/city/san-antonio", label: "San Antonio city guide", description: "Connect the garden to the Broadway, Brackenridge Park and Museum Reach visitor districts." },

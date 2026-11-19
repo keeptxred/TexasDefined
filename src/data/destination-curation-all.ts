@@ -1,4 +1,5 @@
 import { applyFranklinMountainsVisitorAuthority } from "./franklin-mountains-visitor-authority";
+import { applyKronkoskyOpeningAuthority } from "./kronkosky-state-natural-area-authority";
 import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
 import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
 import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
@@ -199,6 +200,8 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyDevilsSinkholeVisitorAuthority,
   applyFranklinMountainsVisitorAuthority,
   applyAttractionVisitorDepth,
+  // Latest dated TPWD opening release overrides older not-yet-open evergreen curation.
+  applyKronkoskyOpeningAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {
