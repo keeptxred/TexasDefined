@@ -1,12 +1,12 @@
 import type { FootballProgramEditorial } from './program-editorial';
 
-/** Individually researched Canyon Lake Hawks snapshot, reviewed Nov. 18, 2026.
+/** Individually researched Canyon Lake Hawks snapshot, reviewed Nov. 19, 2026.
  * Scores are source-attributed factual results, not a licensed or live feed.
  * All photo/logo rights remain ungranted; use the original school-colored artwork.
  * Next playoff fixture must be manually reviewed after Nov. 20, 2026. */
 const CANYON_LAKE: FootballProgramEditorial = {
   "slug": "comal-canyon-lake",
-  "intro": "Canyon Lake High School's Hawks enter the second round of the 2026 UIL Class 4A Division I playoffs after a 49–28 bi-district win over Pleasanton. At the November 18 review, the Fischer program was 8–2 overall, including that playoff win, and 6–1 in District 13. Coach Sam Parker's Hawks face Port Lavaca Calhoun on Friday, November 20, at a neutral site in La Grange. See the sourced results, venue details and school ticket links below.",
+  "intro": "Canyon Lake High School's Hawks (8–2 overall, 6–1 in District 13 through November 13) beat Pleasanton 49–28 in the 2026 UIL Class 4A Division I bi-district round. Next is Port Lavaca Calhoun at 7 p.m. Friday, November 20, at neutral-site Leopard Stadium in La Grange, as confirmed by the host school. Explore the reported results, original analysis and host-specific playoff ticket information below.",
   "theme": {
     "accentHex": "#246A46",
     "label": "Green-and-gold-inspired original TexasDefined design based on Canyon Lake High's published school colors; not an official Hawks emblem or licensed team photo."
@@ -32,16 +32,16 @@ const CANYON_LAKE: FootballProgramEditorial = {
     "label": "Canyon Lake High athletics schedule (Rank One link from school)",
     "officialScheduleUrl": "https://www.rankonesport.com/Schedules/View_Schedule_All_Web.aspx?D=9A2BC5C8-0EE5-45D9-8A26-0970995E25C8&P=0&S=656",
     "sourceUrl": "https://clhs.comalisd.org/",
-    "sourceLabel": "Canyon Lake High official Athletic Schedules navigation; third-party reported finals separately cited",
+    "sourceLabel": "Canyon Lake High official athletics page links to its Rank One schedule (which may redirect to Rank One's app)",
     "verifiedAt": "2026-11-18",
     "ticketUrl": "https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906"
   },
   "season": {
     "record": "8–2 overall · 6–1 district (through Nov. 13; includes one playoff win)",
-    "recordLabel": "2026 reported W–L at Nov. 18 review",
-    "verifiedAt": "2026-11-18",
+    "recordLabel": "2026 reported W–L at Nov. 19 review",
+    "verifiedAt": "2026-11-19",
     "sourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
-    "sourceLabel": "MaxPreps 2026 game-by-game reported scores (Nov. 16 update); UIL partnership listing, independently checked against regional results; not a live licensed feed",
+    "sourceLabel": "MaxPreps 2026 game-by-game reported scores (checked Nov. 19); UIL partnership listing, independently cross-checked with regional results; not a live licensed feed",
     "latestResultSourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
     "games": [
       {
@@ -124,24 +124,23 @@ const CANYON_LAKE: FootballProgramEditorial = {
     "note": "Canyon Lake High's official October 23 home event identifies Hawk Stadium in Fischer. Do not use that campus address for the November 20 neutral-site area playoff. The host La Grange High School's November 17 announcement specifically confirms Canyon Lake versus Calhoun, Friday November 20 at 7 p.m. at Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. La Grange ISD requires online-only tickets and clear bags for this matchup. The host announcement contains the event-specific ticket link; home-school tickets are not a substitute. Recheck the event host for parking and accessible entrance.",
     "sourceUrl": "https://clhs.comalisd.org/apps/events/2026/10/23/59963650/?id=0",
     "sourceLabel": "Canyon Lake High October 23 game calendar (Hawk Stadium); separate Nov. 20 playoff site from regional pairings",
-    "verifiedAt": "2026-11-18"
+    "verifiedAt": "2026-11-19"
   },
   "development": {
     "title": "2026 Canyon Lake: high-scoring District 13 run and playoff path",
-    "body": "The Hawks started 1–2 in reported completed games but closed the regular season with six straight district victories: Taylor, Austin Travis, Austin Northeast, Fredericksburg, Kerrville Tivy and Austin LBJ. The 53–50 win over Tivy and 50–40 finale against LBJ show how close several late-season games were despite the Hawks' 6–1 district mark. Canyon Lake then beat Pleasanton 49–28 in the bi-district round for a seventh consecutive win. The November 20 area matchup with Port Lavaca Calhoun is a neutral-site game at Leopard Stadium in La Grange, not a campus home date. An outside results service differs on the Creek View score (54–18 on MaxPreps versus 55–18 in one regional capsule); this dated table uses MaxPreps and flags the disagreement rather than silently mixing score providers.",
+    "body": "After a 1–2 start, Canyon Lake closed the regular season with six straight district victories over Taylor, Austin Travis, Austin Northeast, Fredericksburg, Kerrville Tivy and Austin LBJ. Close wins over Tivy (53–50) and LBJ (50–40) illustrate that the offense's late-season surge often came with high scores allowed. The first playoff round extended the winning streak to seven. The September 11 Creek View final is reported as 54–18 by MaxPreps and 55–18 by one regional capsule; this page consistently uses the dated MaxPreps game log rather than blending conflicting providers.",
     "sourceUrl": "https://txhsfb.net/?p=29640",
     "sourceLabel": "Texas High School Football area-round 4A Division I preview, Nov. 16, cross-checked with MaxPreps schedule",
     "verifiedAt": "2026-11-18"
   },
   "overview": [
-    "The Hawks are a distinct Comal ISD program based at Canyon Lake High School in Fischer. UIL's 2026–28 alignment lists Comal Canyon Lake in Class 4A Division I, District 13, alongside Austin Johnson (LBJ), Austin Northeast, Austin Travis, Comal Davenport, Fredericksburg, Kerrville Tivy and Taylor. This is not New Braunfels Canyon High's 6A Cougars team.",
-    "Canyon Lake's November 18 season snapshot is 8–2 overall and 6–1 in district play. That overall record includes the November 13 bi-district victory over Pleasanton, 49–28; the regular-season results listed here account for seven wins and two losses. The one district defeat was to Davenport, 56–41 on September 24.",
-    "The most dramatic stretch came in late October and early November. The Hawks beat Fredericksburg 50–32, escaped Kerrville Tivy 53–50, and defeated Austin LBJ 50–40 before starting the postseason. Those three games generated 153 Canyon Lake points against 122 allowed, a useful measure of both offensive output and defensive vulnerability rather than a generic 'strong program' claim.",
-    "Comal ISD appointed Sam Parker as head football coach in January 2024. The school's current athletics directory lists his formal name Lawrence Parker in its athletic-director role; 2026 football previews separately continue to identify Sam Parker as the Hawks' head coach. Do not confuse that Comal Canyon Lake role with Canyon High or Canyon ISD in the Panhandle. The results trajectory is documented rather than assumed: Dave Campbell's Texas Football tracked a change from 2–8 in 2023 to 8–4 in Parker's first 2024 season.",
-    "Canyon Lake's own calendar identifies Hawk Stadium for a dated regular-season home fixture, but postseason sites are assigned separately. The November 20 area playoff is a neutral-site game in La Grange. Home-game ticket links do not automatically apply to that event; use the host's dated notice and facilities guidance for event-specific admission, baggage restrictions, entrances and accessible access.",
-    "Across ten reported 2026 finals through the first playoff round, Canyon Lake scored 513 points and conceded 307 — 51.3 scored and 30.7 conceded per game, for a +206 season scoring margin. Those figures are original arithmetic using the dated MaxPreps game-by-game results, not invented advanced player statistics. The November 16 area-round matchup preview independently lists Calhoun at 7–4 and allowing 17.4 points per game, indicating that Canyon Lake's high-scoring season is facing an opponent with a markedly lower published scoring-allowance rate; this is context, not a result prediction.",
-    "The opening playoff win also has identifiable game-level contributors: in MaxPreps' November 16 recap of the November 13 Pleasanton game, senior quarterback Jace Wheeler was credited with 266 passing yards and four touchdown passes, plus 79 rushing yards on six carries. The same report credits Isaac Torres with 191 rushing yards and two touchdowns. These figures are attributed single-game reports rather than TexasDefined's independently maintained season-long player totals, so they should not be presented as a live statistical feed.",
-    "Canyon Lake High opened August 6, 2007, originally serving freshmen and sophomores. Its official alma mater identifies its green-and-gold colors. Those first-party identity details help distinguish a young Hill Country campus from similarly named Canyon schools; they do not imply affiliation between TexasDefined and the school."
+    "The Hawks represent Canyon Lake High School in Fischer, Comal County, not New Braunfels Canyon High's 6A Cougars. UIL's 2026–28 alignment assigns Comal Canyon Lake to 4A Division I District 13 with Austin Johnson (LBJ), Austin Northeast, Austin Travis, Comal Davenport, Fredericksburg, Kerrville Tivy and Taylor.",
+    "Canyon Lake finished the reported regular season 7–2 and 6–1 against district opponents. The only district loss came against Davenport (56–41 on September 24). The November 13 bi-district win over Pleasanton, 49–28, brought the overall record to 8–2.",
+    "Three high-scoring wins from October 23 through November 6—50–32 over Fredericksburg, 53–50 over Tivy and 50–40 over Austin LBJ—added up to 153 Canyon Lake points and 122 allowed. That spread is more informative about the team's offensive strength and defensive exposure than an unsupported ranking.",
+    "Comal ISD appointed Sam Parker head football coach in January 2024. The school's athletics directory uses his formal name Lawrence Parker in its athletic-director role. Dave Campbell's Texas Football recorded an improvement from 2–8 in 2023 to 8–4 in Parker's first 2024 season.",
+    "Across the ten reported 2026 finals through bi-district, Canyon Lake totaled 513 points for and 307 against, or 51.3 scored and 30.7 allowed per game (+206). These are TexasDefined calculations from the cited game log, not a third-party season statistics feed. A November 16 matchup preview listed Calhoun at 7–4 and allowing 17.4 points per game, useful opponent context rather than a prediction.",
+    "The MaxPreps recap published November 19 for the November 13 Pleasanton game credits Jace Wheeler with 266 passing yards, four passing touchdowns and 79 rushing yards, and Isaac Torres with 191 rushing yards and two touchdowns. These are reported single-game statistics from an automated recap using submitted data, not independently verified season totals.",
+    "Canyon Lake High opened August 6, 2007, initially serving freshmen and sophomores. The school publishes green and gold as its colors. TexasDefined's football-field artwork uses those colors without copying school marks or suggesting affiliation."
   ],
   "milestones": [
     {
@@ -182,9 +181,9 @@ const CANYON_LAKE: FootballProgramEditorial = {
     {
       "date": "November 13, 2026",
       "title": "Bi-district: Canyon Lake 49, Pleasanton 28",
-      "body": "The Hawks beat Pleasanton 49–28 in the bi-district round. MaxPreps' Nov. 16 game recap credits quarterback Jace Wheeler with 266 yards and four passing touchdowns plus 79 rushing yards, and Isaac Torres with 191 rushing yards and two touchdowns. Reported one-game player statistics, not a licensed live feed.",
-      "sourceUrl": "https://www.maxpreps.com/news/TOkQpDr5-k2iOV6evghkzQ/football-recap-canyon-lake-finds-playoff-glory-versus-pleasanton.htm",
-      "sourceLabel": "MaxPreps November 16, 2026 report of Nov. 13 playoff game (automated recap based on supplied game statistics; secondary reported data)"
+      "body": "The Hawks defeated Pleasanton 49–28 in the bi-district round. The MaxPreps recap published November 19 credits Jace Wheeler with 266 passing yards, four passing touchdowns and 79 rushing yards, and Isaac Torres with 191 rushing yards and two touchdowns. Those are secondary one-game statistics from an automated recap, not a live feed.",
+      "sourceUrl": "https://www.maxpreps.com/news/TOkQpDr5-k2iOV6evghkzQ/football-recap-canyon-lakes-victory-on-friday-extends-winning-streak-to-seven.htm",
+      "sourceLabel": "MaxPreps November 19, 2026 recap of the November 13 playoff game (automated from submitted stats)"
     },
     {
       "date": "November 20, 2026 (scheduled)",
@@ -197,7 +196,7 @@ const CANYON_LAKE: FootballProgramEditorial = {
   "faq": [
     {
       "question": "What is Canyon Lake's 2026 football record?",
-      "answer": "At the November 18 review, Canyon Lake was 8–2 overall, including its November 13 playoff win over Pleasanton, and 6–1 against District 13 opponents. These are dated reported results, not a live score feed."
+      "answer": "At the November 19 source review, the Hawks were 8–2 overall, including the November 13 victory over Pleasanton, and 6–1 in District 13 play. These are dated results, not a live score feed."
     },
     {
       "question": "Who is the Canyon Lake Hawks head football coach?",
