@@ -59,7 +59,7 @@ for (const target of targets) {
   assert.ok(html.includes(target.credit), target.slug + " visible rights attribution");
   // React SSR can split a museum heading into text/element/comment nodes.
   // Inspect actual heading text, not a brittle literal HTML substring.
-  const headings = [...html.matchAll(/<h[2-4]\\b[^>]*>([\\s\\S]*?)<\\/h[2-4]>/gi)]
+  const headings = [...html.matchAll(/<h[2-4]\b[^>]*>([\s\S]*?)<\/h[2-4]>/gi)]
     .map(match => match[1].replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").trim().toLowerCase());
   const faqHeadings = headings.filter(heading => heading.includes("frequently asked questions about") && heading.includes(target.name.toLowerCase()));
   assert.equal(faqHeadings.length, 1, target.slug + " exactly one primary FAQ heading");
