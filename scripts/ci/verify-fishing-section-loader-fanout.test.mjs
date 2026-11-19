@@ -42,22 +42,33 @@ test('Lake Conroe camping cold SSR avoids the optional live-water fetch without 
   assert.ok(guide.includes('pageData.sectionResearch.sourceUrls.map'), 'official sources remain in page HTML');
 });
 
-test('the dedicated Lake Conroe campground route bypasses dynamic lake SSR and reuses published source research', () => {
+test('dedicated Lake Conroe camping has a tiny metadata route and independently sourced lazy content', () => {
   const dedicated = readFileSync('src/routes/fishing.lakes.lake-conroe.camping.tsx','utf8');
+  const lazy = readFileSync('src/routes/fishing.lakes.lake-conroe.camping.lazy.tsx','utf8');
+  const publication = readFileSync('src/data/fishing/lake-conroe-camping-publication.ts','utf8');
   const research = readFileSync('src/data/fishing/lake-conroe-source-research.ts','utf8');
+  const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs','utf8');
   assert.ok(dedicated.includes('createFileRoute("/fishing/lakes/lake-conroe/camping")'));
-  assert.ok(dedicated.includes('data-conroe-camping-isolated="true"'));
-  assert.ok(dedicated.includes('LAKE_CONROE_RESEARCH'));
-  assert.ok(dedicated.includes('sourceResearch.camping.map'));
-  assert.ok(dedicated.includes('sourceResearch.sourceUrls.map'));
-  assert.ok(dedicated.includes('dateModified:LAKE_CONROE_RESEARCH.reviewedAt'));
+  assert.ok(lazy.includes('createLazyFileRoute("/fishing/lakes/lake-conroe/camping")'));
+  assert.ok(lazy.includes('data-conroe-camping-isolated="true"'));
+  assert.ok(lazy.includes('LAKE_CONROE_RESEARCH'));
+  assert.ok(lazy.includes('sourceResearch.camping.map'));
+  assert.ok(lazy.includes('sourceResearch.sourceUrls.map'));
+  assert.ok(dedicated.includes('dateModified: reviewedAt'));
   assert.ok(dedicated.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
-  assert.ok(dedicated.includes('"@type":"WebPage"') && dedicated.includes('"@type":"BreadcrumbList"'));
-  const imports = dedicated.split("\n").filter(line=>line.trimStart().startsWith("import ")).join("\n");
+  assert.ok(dedicated.includes('"@type": "WebPage"') && dedicated.includes('"@type": "BreadcrumbList"'));
+  assert.ok(verifier.includes('data-conroe-camping-isolated="true"'));
+  const imports = [dedicated,lazy].join("\n").split("\n").filter(line => line.trimStart().startsWith("import ")).join("\n");
   for (const forbidden of ['ShowcaseLakeGuide','LakeConroeGuide','fishingLakeQuery','getLakeConroePageData','live-lake-level-fetch.server','lake-authority-research-wave1']) {
-    assert.ok(!imports.includes(forbidden), 'dedicated route must not import '+forbidden);
+    assert.ok(!imports.includes(forbidden), 'camping route cannot import '+forbidden);
   }
   for (const proof of ['Cagle Recreation Area','Stubblefield Lake',"Scott's Ridge",'www.recreation.gov/camping/campgrounds/234004']) {
-    assert.ok(research.includes(proof),'published operator source retained: '+proof);
+    assert.ok(research.includes(proof), 'published operator source retained: '+proof);
+  }
+  const actualReviewedAt = research.match(/"reviewedAt": "(\\d{4}-\\d{2}-\\d{2})"/)?.[1];
+  assert.ok(actualReviewedAt,'canonical research date present');
+  assert.ok(publication.includes('LAKE_CONROE_CAMPING_REVIEWED_AT = "'+actualReviewedAt+'"'),'metadata date must match real research review');
+  for(const link of ['https://www.recreation.gov/camping/campgrounds/234004','https://www.recreation.gov/camping/campgrounds/10158882','https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/access.phtml']) {
+    assert.ok(publication.includes(link) && research.includes(link), 'publication source must match researched operator URL: '+link);
   }
 });
