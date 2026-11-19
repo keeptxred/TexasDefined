@@ -5,7 +5,9 @@ import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 // PrioritySearchPage UI is intentionally delivered from texas-flag.lazy.tsx.
 const canonicalPath: "/texas-flag" = "/texas-flag";
 const faq = [
-  { question: "When was the current Texas flag adopted?", answer: "The familiar Lone Star design was adopted by the Republic of Texas in 1839 and remains the state flag today." },
+  { question: "Which Texas flag came first?", answer: "The Burnet national standard, a blue field with one large gold star, was approved December 10, 1836. The present red, white and blue Lone Star design was approved January 25, 1839. A separate naval ensign and other revolutionary flags also existed in 1836." },
+  { question: "When was the current Texas flag adopted?", answer: "The familiar Lone Star design was approved by the Republic of Texas on January 25, 1839. It later became the state flag." },
+  { question: "Who designed the Texas flag?", answer: "Peter Krag drew the surviving official 1839 artwork, but the original creator of the design is not conclusively known. William H. Wharton and Oliver Jones were involved in the legislation." },
   { question: "What do the Texas flag colors mean?", answer: "Texas law assigns blue to loyalty, white to purity and red to bravery. The single white five-pointed Lone Star is the flag's defining symbol." },
   { question: "Where can I learn the rules for displaying the Texas flag?", answer: "Use the Texas flag etiquette and display guide linked on this page for practical guidance on placement, respect, half-staff, folding and display with other flags." },
 ];
@@ -18,9 +20,9 @@ export const Route = createFileRoute("/texas-flag")({
   },
   head: ({ loaderData }) => loaderData ? buildPrioritySearchHead({
     canonicalPath,
-    title: "Texas Flag: History, Meaning, Rules & Lone Star Guide",
+    title: "Texas Flag: 1836 Burnet Flag, 1839 Lone Star, Meaning and Rules",
     description: loaderData.intro,
     data: loaderData,
-    about: ["Texas flag", "Lone Star flag", "Texas history", "Texas Flag Code", "Texas symbols"],
+    about: ["Texas flag", "Burnet flag of 1836", "Lone Star flag of 1839", "Republic of Texas", "Texas Flag Code", "Texas history"],
   }) : {},
 });
