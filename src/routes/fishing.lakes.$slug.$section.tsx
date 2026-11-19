@@ -12,7 +12,7 @@ import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data
 import { isShowcaseLakeSectionIndexReady } from "@/data/fishing/showcase-section-index-readiness";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
-import type { FishingGuide, FishingReport } from "@/data/fishing/types";
+import type { FishingGuide, FishingPlacement, FishingReport } from "@/data/fishing/types";
 
 type LakeConroeSources = Awaited<ReturnType<typeof getLakeConroePageData>>["sources"];
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
