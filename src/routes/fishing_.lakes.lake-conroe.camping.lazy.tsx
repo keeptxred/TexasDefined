@@ -5,6 +5,8 @@ import {
   LAKE_CONROE_CAMPING_CANONICAL_PATH as canonicalPath,
   LAKE_CONROE_CAMPING_TITLE as title,
   LAKE_CONROE_CAMPING_DESCRIPTION as description,
+  LAKE_CONROE_CAMPING_REVIEWED_AT as reviewedAt,
+  LAKE_CONROE_CAMPING_CITATIONS as citations,
 } from "@/data/fishing/lake-conroe-camping-publication";
 
 const neighboring = [
@@ -32,6 +34,29 @@ export const Route = createLazyFileRoute("/fishing/lakes/lake-conroe/camping")({
 function LakeConroeCamping() {
   const sourceResearch = LAKE_CONROE_RESEARCH;
   return <div data-conroe-camping-isolated="true">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage", "@id": "https://texasdefined.com" + canonicalPath,
+          url: "https://texasdefined.com" + canonicalPath, name: title, description,
+          isPartOf: { "@id": "https://texasdefined.com/#website" },
+          about: { "@id": "https://texasdefined.com/fishing/lakes/lake-conroe#reservoir" },
+          breadcrumb: { "@id": "https://texasdefined.com" + canonicalPath + "#breadcrumbs" },
+          dateModified: reviewedAt,
+          citation: [...citations],
+        },
+        {
+          "@type": "BreadcrumbList", "@id": "https://texasdefined.com" + canonicalPath + "#breadcrumbs",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://texasdefined.com" },
+            { "@type": "ListItem", position: 2, name: "Fishing", item: "https://texasdefined.com/fishing" },
+            { "@type": "ListItem", position: 3, name: "Lake Conroe", item: "https://texasdefined.com/fishing/lakes/lake-conroe" },
+            { "@type": "ListItem", position: 4, name: "Camping", item: "https://texasdefined.com" + canonicalPath },
+          ],
+        },
+      ],
+    })}} />
     <div className="mx-auto max-w-7xl px-5 pt-9 sm:px-8">
       <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-widest text-muted-foreground">
         <ol className="flex flex-wrap gap-2"><li><a href="/">Front page</a></li><li aria-hidden="true">·</li>
