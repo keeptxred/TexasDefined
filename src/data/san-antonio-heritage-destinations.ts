@@ -295,6 +295,11 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "scope": "NPS assessment of surviving church fabric and mission as an agricultural community"
         },
         {
+          "label": "NPS Rose Window folklore and church chronology",
+          "url": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
+          "scope": "1768 church construction, attribution caution and Pedro Huizar folklore"
+        },
+        {
           "label": "NPS 1794 secularization research",
           "url": "https://www.nps.gov/articles/000/mission-san-jos%C3%A9-and-the-road-to-secularization-part-1-1794.htm",
           "scope": "Named residents in 1794 census and colonial property transfer"
