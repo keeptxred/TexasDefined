@@ -38,6 +38,24 @@ const SITE = 'texasdefined-site';
 const ORIGINS = ['https://texasdefined.com', 'https://texasdefined-site.freddy-coppola.workers.dev'];
 const ENDPOINT_PATH = '/workers/observability/telemetry/query';
 const MESSAGE = 'Dynamic import exceeded memory limits';
+export const MIN_CERTIFICATION_WINDOW_MS = 6 * 60 * 60 * 1000;
+
+// A brief clean log sample is a valid observation, not sustained incident clearance.
+export function classifyMemoryObservation(from, to, evidence) {
+  if (!Number.isFinite(from) || !Number.isFinite(to) || to <= from) {
+    throw new Error('Invalid memory telemetry observation window');
+  }
+  if (!evidence || evidence.observedInvocations < 1 || evidence.memoryExhaustionEvents !== 0) {
+    throw new Error('Memory telemetry must have positive observations and zero exceptions');
+  }
+  const durationMs = to - from;
+  return {
+    observationDurationMs: durationMs,
+    sixHourWindowSatisfied: durationMs >= MIN_CERTIFICATION_WINDOW_MS,
+    certificationStatus: durationMs >= MIN_CERTIFICATION_WINDOW_MS ? 'SIX_HOUR_WINDOW_OBSERVED' : 'SHORT_WINDOW_ONLY',
+  };
+}
+
 
 async function activeVersion() {
   let expected = '';
@@ -139,9 +157,9 @@ export async function run() {
       }
     }
     if (!observed) throw new Error('All existing Cloudflare credentials lack Workers Observability Write permission (HTTP 401/403); no stored-log conclusion is possible');
-    Object.assign(report, observed);
+    Object.assign(report, observed, classifyMemoryObservation(from, to, observed));
     report.status = 'PASS';
-    console.log('Worker memory telemetry: observable invocation evidence, zero matching memory-exhaustion log events, same Worker UUID on both public origins.');
+    console.log('Worker memory telemetry: ' + report.certificationStatus + '; observed ' + report.observedInvocations + ' invocations and zero matching exceptions on the same Worker UUID.');
   } catch (error) {
     report.status = 'INCOMPLETE';
     report.failure = String(error?.message || error).slice(0, 400);
