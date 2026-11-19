@@ -14,7 +14,8 @@ import { isFishingTechniqueHeroReady } from "./technique-images";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH, FISHING_TECHNIQUES_VERIFIED_AT, PUBLISHED_FISHING_TECHNIQUE_SLUGS, fishingTechniqueCanonicalPath } from "./technique-routing";
 
 export const FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes";
-export const FISHING_LAKES_DIRECTORY_VERIFIED_AT = "2026-10-12";
+// Last substantial directory editorial update; individual lake-record review dates remain independent.
+export const FISHING_LAKES_DIRECTORY_VERIFIED_AT = "2026-11-19";
 const ALL_SHOWCASE_LAKE_SLUGS = [...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS, ...WAVE2_SHOWCASE_LAKE_SLUGS, ...STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS] as const;
 // Derived from the same evidence records used by the rendered page and robots tag.
 // Pure in-memory source lookup; no remote calls or on-request full-site crawling.
