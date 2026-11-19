@@ -101,8 +101,8 @@ requireContains("Texas flag history", files.history, "What the signed 1839 origi
 requireContains("Texas flag history", files.history, "Texas Flag Day is March 2");
 requireContains("Texas flag history", files.history, "1974/066-001");
 requireContains("Texas flag history", files.history, "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html");
-requireContains("Flag main authority", files.priorityPages, "The signed 1839 flag drawing: a primary-source research guide");
-requireContains("Flag main authority", files.priorityPages, "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm");
+requireContains("Flag main authority", files.flagHubLazy, "The signed 1839 flag drawing: a primary-source research guide");
+requireContains("Flag main authority", files.flagHubLazy, "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm");
 requireContains("Flag main authority", files.priorityPages, "/article/republic-of-texas-navy-history");
 requireContains("Flag history ImageObject rights", files.articleRoute, 'article.slug === "history-of-the-texas-flag"');
 requireContains("Flag history ImageObject rights", files.articleRoute, "Paul B. Joiner");
