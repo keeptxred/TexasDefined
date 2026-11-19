@@ -1,5 +1,5 @@
 import { auditDestination } from "./destination-audit";
-import { isPrimaryTripPlannerDestination } from "./destination-availability";
+import { isPrimaryTripPlannerDestination, isEditoriallyIndexablePreopeningDestination } from "./destination-availability";
 
 /**
  * Targeted parity for publicly indexable destination pages whose detail
@@ -16,6 +16,7 @@ const DETAIL_PARITY_SLUGS = [
   // The canonical detail resolver and audit still determine index eligibility.
   "texas-freshwater-fisheries-center",
   "national-ranching-heritage-center-lubbock",
+  "albert-bessie-kronkosky-state-natural-area",
 ] as const;
 
 export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ path: string; lastmod?: string }>> {
@@ -25,7 +26,8 @@ export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ p
       const destination = await getResolvedDestination(slug);
       // This is the same indexability gate as the live destination detail
       // route. No URL can enter the sitemap merely because its slug was named.
-      if (!destination || destination.slug !== slug || !isPrimaryTripPlannerDestination(destination) ||
+      if (!destination || destination.slug !== slug ||
+          !(isPrimaryTripPlannerDestination(destination) || isEditoriallyIndexablePreopeningDestination(destination)) ||
           !auditDestination(destination).readyForIndexing) return null;
       return { path: `/destination/${destination.slug}`, lastmod: destination.sourceCheckedAt };
     } catch (error) {
