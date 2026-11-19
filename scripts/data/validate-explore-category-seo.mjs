@@ -278,8 +278,12 @@ for (const category of migratedCategories) {
 }
 
 function validateMegaMenuImages(label, expectedCount) {
-  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
-  const items = [...block.matchAll(/^\s*\{ label: "([^"]+)"[^\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
+  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: (?:illustratedNavLinks\\\\\\()?\\\\[([\\s\\S]*?)\\n      \\](?:\\))?,'))?.[1] ?? '';
+  const sourceIsCompact = brand.includes('const illustratedNavLinks =') && block.includes('[');
+  const items = sourceIsCompact
+    ? [...block.matchAll(/^\\s*\\["([^"]+)",\\s*"[^"]+",\\s*(?:"[^"]+"|undefined),\\s*([^,]+),\\s*"[^"]+"\\],?$/gm)]
+      .map((match) => ({ label: match[1], source: 'image: { src: ' + match[2] + ' }' }))
+    : [...block.matchAll(/^\\s*\\{ label: "([^"]+)"[^\\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
   if (items.length !== expectedCount) {
     errors.push(label + ' mega-menu image guard found ' + items.length + ' children; expected ' + expectedCount + '.');
     return;
