@@ -141,10 +141,10 @@ export const CAMPING_PROFILES_WAVE10: CampingProfile[] = [
     campingNotes: [
       "A tent-only public camping option on San Antonio's northwest edge, pairing short walk-in access with more than 40 miles of protected Hill Country trails.",
       "TPWD lists 23 walk-in tent campsites and two walk-in group camps; water is nearby and restrooms with showers serve the area. Sites 1, 14, 16 and 18 have accessibility features and hard-packed gravel access, though the 20–60-yard walk still matters.",
-      "There are no campsite water or electric hookups, and the natural area's conservation rules and weather-related trail closures make it a very different choice from an RV-oriented state park.",
+      "There are no campsite water or electric hookups. TPWD currently lists daily gates, Friday–Monday 7 a.m.–10 p.m. and Tuesday–Thursday 7 a.m.–8 p.m.; weather, hunting management and capacity can still close access. Protected Habitat Area trails are seasonally open September–February, while other trails have separate rules. Check the live official park page and trail status before booking.",
     ],
     searchTerms: ["Government Canyon camping", "camping in San Antonio", "camping near San Antonio", "Bexar County camping", "tent camping San Antonio", "Government Canyon trails"],
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: "2026-11-19",
     sources: [
       { label: "TPWD Government Canyon campsites", url: "https://tpwd.texas.gov/state-parks/government-canyon/fees-facilities/campsites", fields: ["site counts", "walk-in distance", "water", "restrooms", "showers", "group camping"] },
       { label: "TPWD Government Canyon State Natural Area", url: "https://tpwd.texas.gov/state-parks/government-canyon", fields: ["San Antonio proximity", "trail mileage", "capacity", "trail closures", "tent camping"] },
