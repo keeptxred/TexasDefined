@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -13,7 +13,9 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const description = "Compare Texas fishing lakes by species, region, documented access and season. Explore sourced guides, trip-planning trade-offs and official alerts.";
 
 export const Route = createFileRoute("/fishing/lakes")({
-  loader: async ({ context }) => {
+  loader: async ({ context, location }) => {
+    // Do not materialize the full 72-lake directory for individual lake URLs.
+    if (location.pathname !== "/fishing/lakes" && location.pathname !== "/fishing/lakes/") return { nested: true as const };
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery, fishingAccessPointsQuery } = await import("@/data/fishing/queries");
     const [allLakes, species, lakeSpecies, accessPoints] = await Promise.all([
       context.queryClient.ensureQueryData(fishingLakesQuery({ limit: 100 })),
@@ -58,6 +60,7 @@ export const Route = createFileRoute("/fishing/lakes")({
     return { rows, latestReview };
   },
   head: ({ loaderData }) => {
+    if (loaderData && "nested" in loaderData) return { meta: [] };
     const rows = loaderData?.rows ?? [];
     const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length;
     const jsonLd = {
@@ -78,7 +81,9 @@ export const Route = createFileRoute("/fishing/lakes")({
 });
 
 function FishingLakesPage() {
-  const { rows, latestReview } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  if ("nested" in data) return <Outlet />;
+  const { rows, latestReview } = data;
   return (
     <>
       {/* Keep the canonical H1 and visitor introduction outside the lazy directory.
