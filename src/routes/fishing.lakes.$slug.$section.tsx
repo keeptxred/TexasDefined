@@ -49,8 +49,8 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     if (!pageData) throw notFound();
     // Editorial showcase sections are fully sourced by pageData. Loading
     // fishingLakeQuery on every visitor request imports the entire statewide
-    // repository (lakes, species, facilities and placements), which increases
-    // cold-SSR memory pressure and caused intermittent 500s on Stamford /nearby.
+    // repository (lakes, species, facilities and placements), adding avoidable
+    // cold-SSR memory pressure. Stamford /nearby has shown an HTTP 500 in production.
     // Fetch the catalog only for report and guide inventory sections.
     let reports: FishingReport[] = [];
     let guides: FishingGuide[] = [];
