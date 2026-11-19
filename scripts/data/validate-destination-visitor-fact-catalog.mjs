@@ -19,7 +19,7 @@ const topics = new Set([...shortLife, "parking", "accessibility", "pets", "campi
 function pick(value, field, constants) {
   const direct = value.match(new RegExp("\\b" + field + '\\s*:\\s*"([^"]*)"'))?.[1];
   if (direct !== undefined) return direct;
-  const constant = value.match(new RegExp("\\b" + field + "\\s*:\\s*([A-Z_]+)(?:\\s*[,}])"))?.[1];
+  const constant = value.match(new RegExp("\\b" + field + "\\s*:\\s*([A-Z_]+)(?:\\s*[,}]|\\s*$)"))?.[1];
   return constant ? constants.get(constant) : undefined;
 }
 for (const name of files) {
