@@ -68,6 +68,16 @@ export const texasFlagHistoryArticle: Article = {
       description: "Visit the places where independence was organized, declared, fought for and secured.",
     },
     {
+      href: "/article/republic-of-texas-navy-history",
+      label: "Why the Republic flew a separate naval flag",
+      description: "The blue-and-gold national standard and striped naval ensign had different purposes.",
+    },
+    {
+      href: "/article/republic-of-texas-government-trail",
+      label: "Follow the Republic government trail",
+      description: "See the historical places associated with the Republic and its laws.",
+    },
+    {
       href: "/explore/historic-sites",
       label: "Explore Texas historic sites",
       description: "Find missions, forts, battlegrounds, homes and museums connected to the state's past.",
@@ -103,6 +113,10 @@ export const texasFlagHistoryArticle: Article = {
     },
     p("The Republic also adopted a separate national flag for naval service. That flag looked much closer to the United States flag, with thirteen alternating stripes and a blue canton containing one white star. The coexistence of a national standard and a naval flag helps explain why accounts of early Texas flags can seem contradictory: more than one official design was in use for different purposes."),
 
+    h("Three official flags: the 1836 standard, naval ensign and 1839 national flag"),
+    p("Texas had three official national or state flag designs in its early history, according to the Handbook of Texas: the blue-and-gold national standard approved in December 1836, the separate red-white-and-blue 1836 naval flag, and the 1839 Lone Star national flag. The naval ensign was not a replacement for the Burnet national standard. It was designated for a different service, which explains why the same Republic used different designs."),
+    p("A military banner carried during the Revolution, a proposed design described in a convention journal, an official congressional statute and a later reproduction are not equivalent types of evidence. To compare historical images responsibly, identify the role and date of each flag and distinguish documented contemporary sources from reconstructions of uncertain designs."),
+
     h("1838–1839: the modern Lone Star design takes shape"),
     p("By late 1838, the Republic's leaders wanted a national flag that more clearly represented an independent Texas. Senator William H. Wharton introduced a bill on December 28, 1838, containing the basic design that survives today. The measure went to a Senate committee chaired by Oliver Jones, and a substitute bill carrying the same flag design advanced through the Third Congress of the Republic."),
     p("The Congress passed the measure in January 1839, and President Mirabeau B. Lamar approved it on January 25, 1839. The law described a blue perpendicular stripe taking up one-third of the flag's length, a white five-pointed star centered on that blue field, and two equal horizontal stripes covering the remaining two-thirds: white above and red below."),
@@ -118,6 +132,10 @@ export const texasFlagHistoryArticle: Article = {
       },
       caption: "A public-domain rendering based on Peter Krag's 1839 artwork. The structure of the Lone Star flag has endured into the present state flag.",
     },
+
+    h("What the signed 1839 original actually shows"),
+    p("The State Library's surviving color flag-and-seal drawing is cataloged as archival item 1974/066-001. The paper depicts a Lone Star flag mounted on a pole alongside the Republic's seal. Close views of the original document in the State Library's exhibit show the signatures of President Mirabeau B. Lamar, House Speaker John M. Hansford and Senate President David G. Burnet."),
+    p("This is direct evidence of the design approved on January 25, 1839, not a photograph of surviving 1839 flag fabric. The signatures document governmental approval, not who first conceived the design. To examine the evidence rather than a souvenir reconstruction, open the State Library's signed flag and seal exhibit from the source list below, then compare its history with the Handbook of Texas."),
 
     h("Who designed the Texas flag?"),
     p("The surviving official color drawing of the 1839 flag was made by Austin artist Peter Krag. The original artwork is preserved by the Texas State Library and Archives Commission and bears the approval date of January 25, 1839, along with the signatures of President Mirabeau Lamar, House Speaker John M. Hansford and Senate President David G. Burnet."),
@@ -147,6 +165,10 @@ export const texasFlagHistoryArticle: Article = {
     h("Can the Texas flag fly at the same height as the U.S. flag?"),
     p("Yes, when the Texas and United States flags are displayed together on separate flagpoles, Texas guidance calls for flagpoles of the same height and flags of approximately equal size. But this is not a special privilege Texas received because it was once an independent republic. Federal flag rules do not give Texas a unique exemption, and the Texas flag may not be displayed above the United States flag."),
     p("When the two flags are flown from the same halyard, the United States flag belongs above the Texas flag. On adjacent poles, the United States flag takes the position of honor. The popular claim that Texas is the only state allowed to fly its flag at the same height as the U.S. flag is a myth."),
+
+    h("Texas Flag Day is March 2, not the 1839 adoption anniversary"),
+    p("The current Texas Flag Day observance is March 2 under Texas Government Code § 662.048, on the anniversary of independence in 1836. That date differs from January 25, 1839, when the familiar Lone Star design was approved. The Legislature also recognized March 2 as Flag Day in 1915; the present statutory citation is § 662.048."),
+    p("The distinction matters for schools and civic commemorations. Independence came before the present flag, while the pledge and display rules developed later. The current Texas Flag Code and the dedicated flag etiquette guide, rather than a historical flag illustration, are the right resources for instructions on how to fly or honor the flag today."),
 
     h("The Texas flag pledge changed, too"),
     p("Texas adopted a formal flag pledge in 1933, but the original wording contained a historical mistake: it referred to the 'Texas Flag of 1836.' The Lone Star flag being pledged to was adopted in 1839, not 1836. The erroneous date survived for decades before the Legislature removed the words 'of 1836' in 1965."),
