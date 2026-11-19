@@ -15,6 +15,7 @@ on:
       - .github/workflows/verify-active-shop-sitemap.yml
       - scripts/ci/verify-active-shop-sitemap-production.mjs
       - scripts/ci/verify-editorial-sitemap-parity-production.mjs
+      - scripts/ci/verify-approved-attraction-production.mjs
       - scripts/ci/verify-three-attractions-responsive-browser.mjs
 
 permissions:
@@ -47,6 +48,10 @@ jobs:
         run: node --check scripts/ci/verify-editorial-sitemap-parity-production.mjs
       - name: Syntax-check bounded attraction browser verifier
         run: node --check scripts/ci/verify-three-attractions-responsive-browser.mjs
+      - name: Syntax-check approved attraction live verifier
+        run: node --check scripts/ci/verify-approved-attraction-production.mjs
+      - name: Independently verify three approved attraction guides on production
+        run: node scripts/ci/verify-approved-attraction-production.mjs
       - name: Prepare existing Chrome for three reviewed attraction guides
         id: reviewed_attraction_chrome
         if: ${{ always() && github.event_name != 'pull_request' }}
