@@ -13,7 +13,7 @@ on:
 
 permissions:
   contents: read
-  statuses: read
+  statuses: write
 
 concurrency:
   group: texas-flag-nov19-release-acceptance
@@ -32,7 +32,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Publish exact-release acceptance pending
+        run: node scripts/ci/publish-github-status.mjs texas-flag-nov19-release pending "Checking uncached flag authority and lake release"
       - name: Wait for this exact commit to publish to Cloudflare
+        id: cloudflare
         shell: bash
         run: |
           node --input-type=module <<'NODE'
@@ -90,3 +93,8 @@ jobs:
             .artifacts/fishing-live-publication-parity.json
           if-no-files-found: warn
           retention-days: 30
+      - name: Publish exact-source acceptance result
+        if: always()
+        env:
+          ACCEPTANCE_OUTCOME: ${{ steps.cloudflare.outcome == 'success' && steps.flags.outcome == 'success' && steps.fishing.outcome == 'success' && 'success' || 'failure' }}
+        run: node scripts/ci/publish-github-status.mjs texas-flag-nov19-release "$ACCEPTANCE_OUTCOME" "Flag and Stamford live authority verified" "Exact-commit flag or fishing live verification failed"
