@@ -53,8 +53,9 @@ test('the dedicated Lake Conroe campground route bypasses dynamic lake SSR and r
   assert.ok(dedicated.includes('dateModified:LAKE_CONROE_RESEARCH.reviewedAt'));
   assert.ok(dedicated.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
   assert.ok(dedicated.includes('"@type":"WebPage"') && dedicated.includes('"@type":"BreadcrumbList"'));
+  const imports = dedicated.split("\n").filter(line=>line.trimStart().startsWith("import ")).join("\n");
   for (const forbidden of ['ShowcaseLakeGuide','LakeConroeGuide','fishingLakeQuery','getLakeConroePageData','live-lake-level-fetch.server','lake-authority-research-wave1']) {
-    assert.ok(!new RegExp('^import\\\\b[^\\\\n]*'+forbidden,'m').test(dedicated), 'dedicated route must not import '+forbidden);
+    assert.ok(!imports.includes(forbidden), 'dedicated route must not import '+forbidden);
   }
   for (const proof of ['Cagle Recreation Area','Stubblefield Lake',"Scott's Ridge",'www.recreation.gov/camping/campgrounds/234004']) {
     assert.ok(research.includes(proof),'published operator source retained: '+proof);
