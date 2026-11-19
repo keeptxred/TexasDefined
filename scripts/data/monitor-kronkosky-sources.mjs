@@ -80,6 +80,8 @@ for (const [label, html] of [["CLEAN", page], ["NONCE", nonce]]) {
   if (!html.includes("December 1, 2026") || !html.includes("December 15")) add("PUBLIC_STALE", label + " opening dates missing");
   if (!html.includes("ABK_SNA_Entrance_2026.jpg")) add("PUBLIC_STALE", label + " exact-location hero missing");
   if (!html.includes("7754 State Highway 46")) add("PUBLIC_STALE", label + " corrected address missing");
+  if (Date.now() >= Date.parse("2026-12-01T06:00:00Z") && html.includes("NOT YET OPEN:")) add("PUBLIC_STALE", label + " still claims pre-opening after Dec 1");
+  if (Date.now() >= Date.parse("2026-12-15T06:00:00Z") && html.includes("DAY-USE DATE REACHED:")) add("PUBLIC_STALE", label + " remains in day-only phase after Dec 15");
   if (html.includes("no opening date has been announced") || html.includes("currently under development and not yet open for ordinary public visitation")) {
     add("PUBLIC_STALE", label + " still serves obsolete closed-park story");
   }
