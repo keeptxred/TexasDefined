@@ -2,6 +2,10 @@ name: Quarterly Texas flag authority source and live-page review
 
 on:
   workflow_dispatch:
+  # Verify new production releases only after deployment has finished.
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
   schedule:
     # Quarterly review of historic source claims and the published authority hub.
     - cron: "21 14 15 2,5,8,11 *"
@@ -12,6 +16,7 @@ permissions:
 
 jobs:
   audit:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -23,7 +28,10 @@ jobs:
           node-version: "22"
       - name: Validate flag authority content and internal links
         run: node scripts/data/validate-texas-flag-authority.mjs
-      - name: Verify public flags, legal sources, canonicals and sitemap
+      - name: Verify live flag content, canonical, articles and sitemap
+        run: node scripts/ci/verify-texas-flag-live.mjs
+      - name: Verify primary historical sources quarterly or manually
+        if: github.event_name != 'workflow_run'
         run: node scripts/ci/verify-texas-flag-live.mjs --sources
       - name: Flag discrepancies for editorial correction without changing review dates
         if: failure()
@@ -32,8 +40,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          title="Texas flag quarterly source review: verification failed"
-          summary="The quarterly Texas flag content, legal-source or public deployment check failed. Examine the run logs, verify the 1836 and 1839 original sources, correct code or editorial statements as needed, and retest before closing. Do not advance review dates without substantive fact checking."
+          title="Texas flag authority review: verification failed"
+          summary="The Texas flag source or live-page deployment check failed. Examine the run logs, verify the 1836 and 1839 original sources, correct code or editorial statements as needed, and retest before closing. Do not advance review dates without substantive fact checking."
           issue_number="$(gh issue list --state open --search '"Texas flag quarterly source review" in:title' --json number --jq '.[0].number // empty' || true)"
           if [[ -n "$issue_number" ]]; then
             gh issue comment "$issue_number" --body "$summary Review run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
