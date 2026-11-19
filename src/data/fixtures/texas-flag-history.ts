@@ -20,6 +20,7 @@ export const texasFlagHistoryArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-19",
+  updatedAt: "2026-11-19",
   readingMinutes: 11,
   tags: [
     "texas flag history",
@@ -33,6 +34,13 @@ export const texasFlagHistoryArticle: Article = {
   featured: true,
   sourceName: "Texas State Library and Archives Commission",
   sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html",
+  sources: [
+    { label: "Original signed 1839 Texas flag and seal, State Library", url: "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html" },
+    { label: "Handbook of Texas: Flags of Texas", url: "https://www.tshaonline.org/handbook/entries/flags-of-texas" },
+    { label: "Current Texas Flag Code", url: "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm" },
+    { label: "Texas Flag Day law, Government Code § 662.048", url: "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm" },
+    { label: "Wikimedia Commons public-domain image source and attribution", url: "https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg" },
+  ],
   internalLinks: [
     {
       href: "/texas-flag",
