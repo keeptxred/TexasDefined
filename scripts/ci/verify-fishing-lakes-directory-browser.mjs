@@ -6,6 +6,7 @@
  */
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 
 const { chromium } = createRequire(import.meta.url)(
@@ -23,6 +24,16 @@ const browser = await chromium.launch({
 });
 const failures = [];
 const results = [];
+// The published restriction registry is the only reviewed list. A second
+// operator-backed closure was added after the initial single-lake browser test.
+// Assert all of its entries, not a stale hard-coded count of one.
+const advisories = JSON.parse(readFileSync(new URL("../../src/data/fishing/lake-directory-advisories.json", import.meta.url), "utf8"));
+const flaggedLakeSlugs = Object.keys(advisories).sort();
+const publishedLakeCount = 72;
+assert.ok(flaggedLakeSlugs.includes("lake-abilene") && flaggedLakeSlugs.includes("fort-parker-state-park-lake"),
+  "Both TPWD-confirmed Lake Abilene and Fort Parker notices must remain flagged");
+assert.ok(flaggedLakeSlugs.every(slug => typeof advisories[slug].sourceUrl === "string" && /^https:\/\/tpwd\.texas\.gov\//.test(advisories[slug].sourceUrl)),
+  "Flagged lake alerts must have reviewed official TPWD source links");
 
 async function count(page) {
   const raw = await page.locator('p[role="status"][aria-live="polite"]').textContent();
@@ -32,17 +43,32 @@ async function count(page) {
 }
 
 async function awaitFiltered(page, test) {
-  await page.waitForFunction(
-    ({ expected }) => {
-      const status = document.querySelector('p[role="status"][aria-live="polite"]')?.textContent || "";
-      const match = status.match(/Showing\s+(\d+)\s+of\s+(\d+)\s+lake guides/i);
-      return Boolean(match && match[2] === "72" && ((expected === "some" && +match[1] > 0 && +match[1] < 72)
-        || (expected === "all" && +match[1] === 72)
-        || (expected === "restricted" && +match[1] === 1)
-        || (expected === "exclude" && +match[1] === 71)));
-    },
-    { expected: test }, { timeout: 16000 },
-  );
+  const selectedCount = test === "restricted" ? flaggedLakeSlugs.length
+    : test === "exclude" ? publishedLakeCount - flaggedLakeSlugs.length : null;
+  try {
+    await page.waitForFunction(
+      ({ expected, total, filtered }) => {
+        const status = document.querySelector('p[role="status"][aria-live="polite"]')?.textContent || "";
+        const match = status.match(/Showing\s+(\d+)\s+of\s+(\d+)\s+lake guides/i);
+        if (!match || +match[2] !== total) return false;
+        const shown = +match[1];
+        return (expected === "some" && shown > 0 && shown < total)
+          || (expected === "all" && shown === total)
+          || ((expected === "restricted" || expected === "exclude") && shown === filtered);
+      },
+      { expected: test, total: publishedLakeCount, filtered: selectedCount },
+      { timeout: 16000 },
+    );
+  } catch (error) {
+    const snapshot = await page.evaluate(() => ({
+      status: document.querySelector('p[role="status"][aria-live="polite"]')?.textContent?.trim(),
+      accessFilter: document.querySelector('select[aria-label="Documented access restrictions"]')?.value,
+      lakeSlugs: [...document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] h3 a[href^="/fishing/lakes/"]')]
+        .map(anchor => anchor.getAttribute("href")?.split("/").pop()),
+    }));
+    throw new Error("Filter " + test + " expected " + (selectedCount ?? "matching count") +
+      " of " + publishedLakeCount + "; observed " + JSON.stringify(snapshot) + "; " + String(error));
+  }
 }
 
 function lakeCard(page, slug) {
@@ -245,15 +271,25 @@ for (const { name, viewport, mobile } of [
     const access = page.getByLabel("Documented access restrictions", { exact: true });
     await access.selectOption("restricted");
     await awaitFiltered(page, "restricted");
-    assert.equal(await lakeCard(page, "lake-abilene").count(), 1);
-    const restricted = lakeCard(page, "lake-abilene");
-    assert.match(await restricted.textContent(), /Official access restriction.*check before travel/);
-    assert.equal(await restricted.getByRole("link", { name: "View official park alert" }).getAttribute("href"),
-      "https://tpwd.texas.gov/state-parks/abilene/alert/");
+    const filteredRestricted = await count(page);
+    assert.equal(filteredRestricted.shown, flaggedLakeSlugs.length, name + ": flagged lake count disagrees with TPWD-backed advisory registry");
+    for (const slug of flaggedLakeSlugs) {
+      const card = lakeCard(page, slug);
+      assert.equal(await card.count(), 1, name + ": flagged lake omitted: " + slug);
+      assert.match(await card.textContent(), /Official access restriction.*check before travel/,
+        name + ": missing visible operator warning for " + slug);
+      assert.equal(await card.getByRole("link", { name: "View official park alert" }).getAttribute("href"),
+        advisories[slug].sourceUrl, name + ": wrong official TPWD notice for " + slug);
+    }
     await page.screenshot({ path: output + "/" + name + "-restricted.png", fullPage: false, animations: "disabled" });
     await access.selectOption("exclude-restricted");
     await awaitFiltered(page, "exclude");
-    assert.equal(await lakeCard(page, "lake-abilene").count(), 0, name + ": restricted lake not excluded");
+    const filteredExcluded = await count(page);
+    assert.equal(filteredExcluded.shown, publishedLakeCount - flaggedLakeSlugs.length,
+      name + ": excluding flagged advisories returned wrong number of guides");
+    for (const slug of flaggedLakeSlugs) {
+      assert.equal(await lakeCard(page, slug).count(), 0, name + ": flagged lake not excluded: " + slug);
+    }
     await page.getByRole("button", { name: "Clear filters" }).click();
     await awaitFiltered(page, "all");
 
@@ -327,7 +363,7 @@ for (const { name, viewport, mobile } of [
     if (mobile) assert.ok(widthAfter.scrollableWidth > widthAfter.scrollableClient,
       name + ": three-lake table must scroll *inside its region* rather than widen the document");
     results.push({ name, canonical: initial.canonical, guides: initial.itemCount, initialCards: 12, progressiveCardsVerified: 36, allGuideLinks: 72, retiredFaqSchemaAbsent: true, visibleQuickAnswers: 4, sourceVerifiedTripFilters: true,
-      search: true, region: true, species: true, restriction: true, sorting: { largest, smallest },
+      search: true, region: true, species: true, restriction: { sourceReviewed: flaggedLakeSlugs, included: filteredRestricted.shown, excluded: filteredExcluded.shown }, sorting: { largest, smallest },
       compare: true, noDocumentOverflow: true, errors: pageErrors });
     console.log("PASS fishing-lakes " + name + ": 72 crawlable lake guide links, 12-card progressive rendering, FAQ parity, filters/sort/restrictions, cross-filter comparison and layout");
   } catch (error) {
