@@ -44,21 +44,28 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       }
       return { kind: "conroe" as const, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
     }
-    const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
-    const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
-    if (!lake) throw notFound();
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
-    // Section URLs render only their own data. The overview (a different route)
-    // owns business inventory; camping/fish/access pages must not fetch guides,
-    // reports, or placements that their markup does not use.
-    const [reports, guides, placements] = await Promise.all([
-      params.section === "reports" ? context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake)) : Promise.resolve([]),
-      params.section === "guides" ? context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })) : Promise.resolve([]),
-      params.section === "guides" ? context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })) : Promise.resolve([]),
-    ]);
-    return { kind: "showcase" as const, lake, reports, guides, businesses: [], placements, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
+    // Editorial showcase sections are fully sourced by pageData. Loading
+    // fishingLakeQuery on every visitor request imports the entire statewide
+    // repository (lakes, species, facilities and placements), adding avoidable
+    // cold-SSR memory pressure. Stamford /nearby has shown an HTTP 500 in production.
+    // Fetch the catalog only for report and guide inventory sections.
+    let reports: FishingReport[] = [];
+    let guides: FishingGuide[] = [];
+    let placements: FishingPlacement[] = [];
+    if (params.section === "reports" || params.section === "guides") {
+      const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
+      const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
+      if (!lake) throw notFound();
+      [reports, guides, placements] = await Promise.all([
+        params.section === "reports" ? context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, lake)) : Promise.resolve([]),
+        params.section === "guides" ? context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })) : Promise.resolve([]),
+        params.section === "guides" ? context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })) : Promise.resolve([]),
+      ]);
+    }
+    return { kind: "showcase" as const, reports, guides, businesses: [], placements, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing guide unavailable" }, { name: "robots", content: "noindex, nofollow" }] };

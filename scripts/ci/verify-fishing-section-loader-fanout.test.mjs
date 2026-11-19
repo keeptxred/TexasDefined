@@ -23,6 +23,19 @@ test('camping/fish/access routes skip unrelated guide, report, business, or plac
   assert.ok(source.includes('businesses: [], placements, pageData'));
 });
 
+test('showcase non-inventory tabs avoid the expensive statewide fishing repository on cold SSR', () => {
+  const start = source.indexOf('if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section))');
+  const gate = source.indexOf('if (params.section === "reports" || params.section === "guides")', start);
+  const repoImport = source.indexOf('const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery }', gate);
+  assert.ok(start > 0 && gate > start && repoImport > gate, 'showcase section allowlist and source data must come before optional repository import');
+  const preGate = source.slice(start, gate);
+  assert.ok(preGate.includes('getShowcaseLakePageData({ data: { slug: params.slug } })'), "named lake\'s source-reviewed section must be loaded");
+  for (const forbidden of ['fishingLakeQuery(params.slug)', 'fishingPlacementsQuery(', 'fishingReportsQuery(', 'fishingGuidesQuery(']) {
+    assert.ok(!preGate.includes(forbidden), 'editorial sections cannot eagerly load ' + forbidden);
+  }
+  assert.ok(source.includes('return { kind: "showcase" as const, reports, guides, businesses: [], placements, pageData'), 'showcase section SSR return must preserve authoritative editorial content');
+});
+
 test('the exact HTTP 500 route is monitored on both uncached Worker origins', () => {
   assert.ok(monitor.includes("'/fishing/lakes/lake-conroe/camping'"));
   assert.ok(monitor.includes('for (const origin of origins)'));
