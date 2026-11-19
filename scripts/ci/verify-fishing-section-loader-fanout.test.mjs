@@ -61,9 +61,10 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
   assert.ok(lazy.includes('LAKE_CONROE_RESEARCH'));
   assert.ok(lazy.includes('sourceResearch.camping.map'));
   assert.ok(lazy.includes('sourceResearch.sourceUrls.map'));
-  assert.ok(dedicated.includes('dateModified: reviewedAt'));
+  assert.ok(lazy.includes('dateModified: reviewedAt'));
   assert.ok(dedicated.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
-  assert.ok(dedicated.includes('"@type": "WebPage"') && dedicated.includes('"@type": "BreadcrumbList"'));
+  assert.ok(lazy.includes('"@type": "WebPage"') && lazy.includes('"@type": "BreadcrumbList"'));
+  assert.ok(lazy.includes('type="application/ld+json"'),'full JSON-LD stays in server-rendered body while SEO head remains compact');
   assert.ok(verifier.includes('data-conroe-camping-isolated="true"'));
   const imports = [dedicated,lazy].join("\n").split("\n").filter(line => line.trimStart().startsWith("import ")).join("\n");
   for (const forbidden of ['ShowcaseLakeGuide','LakeConroeGuide','fishingLakeQuery','getLakeConroePageData','live-lake-level-fetch.server','lake-authority-research-wave1']) {
