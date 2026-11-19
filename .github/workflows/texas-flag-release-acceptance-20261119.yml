@@ -1,0 +1,92 @@
+# One-time live acceptance for the November 19 Texas flag history release.
+# The quarterly source-check schedule remains unchanged. This runs only
+# when this workflow is introduced/edited or manually dispatched.
+name: Texas flag Nov19 exact-release acceptance
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/texas-flag-release-acceptance-20261119.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: read
+
+concurrency:
+  group: texas-flag-nov19-release-acceptance
+  cancel-in-progress: false
+
+jobs:
+  live-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out exact release source
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for this exact commit to publish to Cloudflare
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const repo = process.env.GITHUB_REPOSITORY;
+          const sha = process.env.GITHUB_SHA;
+          const token = process.env.GH_TOKEN;
+          if (!/^[0-9a-f]{40}$/.test(sha || '') || !token || !repo) process.exit(2);
+          const api = 'https://api.github.com/repos/' + repo + '/commits/' + sha + '/status';
+          let last = 'missing';
+          for (let attempt = 1; attempt <= 84; attempt++) {
+            const result = await fetch(api, {
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+              },
+              signal: AbortSignal.timeout(20000),
+            });
+            if (!result.ok) throw Error('GitHub exact-commit status HTTP ' + result.status);
+            const body = await result.json();
+            last = body.statuses?.find(s => s.context === 'texasdefined-cloudflare')?.state || 'missing';
+            if (last === 'success') {
+              console.log('Cloudflare deployed the exact source commit ' + sha);
+              process.exit(0);
+            }
+            if (last === 'failure' || last === 'error') throw Error('Cloudflare deployment failed for exact commit: ' + sha);
+            if (attempt % 6 === 0) console.log('Waiting for exact release ' + sha + ': ' + last + ', attempt ' + attempt);
+            if (attempt < 84) await new Promise(resolve => setTimeout(resolve, 10000));
+          }
+          throw Error('Cloudflare exact-commit deploy not verified; final status ' + last);
+          NODE
+      - name: Verify uncached Texas flag history, metadata, archive citations and sitemap
+        id: flags
+        shell: bash
+        run: |
+          mkdir -p .artifacts
+          set -o pipefail
+          PRODUCTION_RELEASE_PROBE="flag-acceptance-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" node scripts/ci/verify-texas-flag-live.mjs --sources 2>&1 | tee .artifacts/texas-flag-nov19-live.log
+      - name: Verify uncached Stamford and Conroe lake page/index publication parity
+        id: fishing
+        if: ${{ always() && steps.flags.outcome != 'skipped' }}
+        shell: bash
+        run: |
+          mkdir -p .artifacts
+          set -o pipefail
+          node scripts/ci/verify-fishing-live-publication-parity.mjs 2>&1 | tee .artifacts/flag-release-fishing-parity.log
+      - name: Preserve uncached release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-flag-nov19-exact-release-${{ github.run_id }}
+          path: |
+            .artifacts/texas-flag-nov19-live.log
+            .artifacts/flag-release-fishing-parity.log
+            .artifacts/fishing-live-publication-parity.json
+          if-no-files-found: warn
+          retention-days: 30
