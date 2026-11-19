@@ -43,8 +43,8 @@ test('Lake Conroe camping cold SSR avoids the optional live-water fetch without 
 });
 
 test('dedicated Lake Conroe camping has a tiny metadata route and independently sourced lazy content', () => {
-  const dedicated = readFileSync('src/routes/fishing.lakes.lake-conroe.camping.tsx','utf8');
-  const lazy = readFileSync('src/routes/fishing.lakes.lake-conroe.camping.lazy.tsx','utf8');
+  const dedicated = readFileSync('src/routes/fishing_.lakes.lake-conroe.camping.tsx','utf8');
+  const lazy = readFileSync('src/routes/fishing_.lakes.lake-conroe.camping.lazy.tsx','utf8');
   const publication = readFileSync('src/data/fishing/lake-conroe-camping-publication.ts','utf8');
   const research = readFileSync('src/data/fishing/lake-conroe-source-research.ts','utf8');
   const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs','utf8');
