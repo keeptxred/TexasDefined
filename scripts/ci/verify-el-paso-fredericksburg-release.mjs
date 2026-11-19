@@ -19,10 +19,23 @@ async function request(url, redirect = "manual") {
     try {
       return await fetch(url, { redirect, cache: "no-store", headers, signal: AbortSignal.timeout(30000) });
     } catch (error) {
-      if (attempt === MAX_TRANSPORT_ATTEMPTS || !["AbortError", "TimeoutError"].includes(error?.name)) {
+      // Node's undici fetch reports connection resets as TypeError with an
+      // ECONNRESET cause, not AbortError. Retrying only these transport
+      // failures avoids blocking an otherwise verified release on one broken
+      // keep-alive socket; a non-2xx response or a failed content assertion
+      // is still a hard failure.
+      const causeCode = error?.cause?.code;
+      const transient = ["AbortError", "TimeoutError"].includes(error?.name)
+        || ["ECONNRESET", "ETIMEDOUT", "EPIPE", "UND_ERR_CONNECT_TIMEOUT", "UND_ERR_SOCKET"].includes(causeCode);
+      if (attempt === MAX_TRANSPORT_ATTEMPTS || !transient) {
         throw error;
       }
-      console.warn(JSON.stringify({ kind: "temporary-live-request-timeout", origin: new URL(url).origin, attempt }));
+      console.warn(JSON.stringify({
+        kind: "temporary-live-transport-error",
+        origin: new URL(url).origin,
+        attempt,
+        cause: causeCode || error?.name,
+      }));
       await new Promise(resolve => setTimeout(resolve, attempt * 1000));
     }
   }
