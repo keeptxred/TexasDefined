@@ -672,7 +672,7 @@ function Page() {
           {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
             <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={nextListedFixture.date}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}; verify kickoff</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={nextListedFixture.date}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}{nextListedFixture.kickoff ? ` · ${nextListedFixture.kickoff} (${slug === 'comal-canyon-lake' ? 'host-confirmed' : 'listed'}; recheck before travel)` : ' · verify kickoff'}{slug === 'comal-canyon-lake' ? ' · Leopard Stadium, La Grange' : ''}</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
           <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
@@ -691,6 +691,7 @@ function Page() {
           hasSeasonSection={!!program}
           summaryAlreadyShown={!!editorial?.season}
           suppressCommercialOffers={slug === 'comal-canyon-lake'}
+          eventTicketNoticeUrl={slug === 'comal-canyon-lake' && nextListedFixture?.date === '2026-11-20' ? 'https://www.lgisd.net/o/lhs/article/3260936' : undefined}
         />
       )}
 
@@ -773,17 +774,17 @@ function Page() {
 
       {slug === 'comal-canyon-lake' && <section aria-labelledby="canyon-lake-playoff-guide" className="border-b border-border py-8 sm:py-10">
         <p className="eyebrow text-primary">Canyon Lake · 2026 playoff trail</p>
-        <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">Area-round game and useful Hawks links</h2>
+        <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">November 20 area-round game and Hawks links</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-foreground">
-          Canyon Lake beat Pleasanton 49–28 in the November 13 bi-district round. The next published game is Friday, November 20 at 7 p.m.
-          against Port Lavaca Calhoun, at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. This is a neutral-site playoff,
-          not a Hawk Stadium home fixture. La Grange High School confirms online-only tickets and clear bags only for the event;
-          follow the host announcement for the specific playoff ticket link. Confirm parking and accessible access directly.
+          After a 49–28 bi-district win over Pleasanton, Canyon Lake was scheduled to meet Port Lavaca Calhoun on Friday, November 20 at 7 p.m.
+          at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. La Grange High School confirmed the neutral-site assignment,
+          online-only ticketing and a clear-bag policy. The host notice below has the event-specific ticket link; school home-game tickets do not apply.
+          Recheck the host for entrance, accessible access, parking and changes. Results after this dated preview require a fresh source check.
         </p>
         <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
-          <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Canyon Lake home-game tickets ↗</a>
+          <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary font-semibold underline underline-offset-4">Nov. 20 playoff host notice &amp; ticket link ↗</a>
           <a href="https://clhs.comalisd.org/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School athletics &amp; schedules ↗</a>
-          <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Playoff host notice &amp; ticket link ↗</a>
+          <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Other Canyon Lake home-game tickets ↗</a>
           <a href="https://www.lagrangeleopardsathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Leopard Stadium and clear-bag rules ↗</a>
           <a href="https://txhsfb.net/?p=29640" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">November 20 playoff pairings ↗</a>
           {districtPath && <Link to={districtPath} className="text-primary underline underline-offset-4">2026 District 13 programs →</Link>}
