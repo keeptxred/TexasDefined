@@ -21,6 +21,7 @@ const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const workflow = read('.github/workflows/verify-west-wharton-hospital-tax.yml');
 const scripts = read('package.json');
 const liveAcceptance = read('scripts/ci/verify-west-wharton-hospital-production.mjs');
+const production = read('.github/workflows/deploy-production.yml');
 const near = (actual, expected, label, tolerance = 0.011) => assert.ok(Math.abs(actual - expected) < tolerance, `${label}: expected ${expected}; got ${actual}`);
 
 assert.equal(facts.slug, 'west-wharton-county-hospital-district');
@@ -80,6 +81,8 @@ assert.ok(countyRoute.includes('county.slug === \'wharton\'') && countyRoute.inc
 assert.ok(workflow.includes('cron:') && workflow.includes('workflow_dispatch:') && workflow.includes('issues: write'));
 assert.ok(workflow.includes('--remote'));
 assert.ok(workflow.includes('verify-west-wharton-hospital-production.mjs'));
+assert.ok(workflow.includes("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"), 'Live verification before publication must not block PR merge');
+assert.ok(production.includes('live_wharton_hospital_tax') && production.includes('Verify West Wharton 2026 adopted hospital district authority on both origins'), 'The production release must enforce district live acceptance after deploy');
 for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', '2026 hospital district rate', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
 console.log('PASS: independently sourced adopted 2026 county rate, 2024–25 state history and levy math, canonical/metadata, integration and scheduled review contract');
