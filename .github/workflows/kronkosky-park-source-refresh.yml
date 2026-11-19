@@ -1,0 +1,93 @@
+name: Kronkosky natural area operator-data refresh
+on:
+  # Daily during Nov/Dec opening season; weekly the rest of the year.
+  schedule:
+    - cron: '17 14 * 11,12 *'
+    - cron: '23 14 * 1-10 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/data/kronkosky-state-natural-area-authority.ts'
+      - 'scripts/data/monitor-kronkosky-sources.mjs'
+      - 'scripts/data/validate-kronkosky-authority.mjs'
+      - 'scripts/ci/verify-kronkosky-production.mjs'
+      - '.github/workflows/kronkosky-park-source-refresh.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kronkosky-operator-source-watch
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Check out production editorial source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify opening phases and source citation contract
+        run: node --experimental-strip-types scripts/data/validate-kronkosky-authority.mjs
+      - name: Inspect TPWD notices and ordinary public page
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          node scripts/data/monitor-kronkosky-sources.mjs | tee .artifacts/kronkosky-source-watch.log
+      - name: Preserve source-review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kronkosky-operator-source-review
+          path: |
+            .artifacts/kronkosky-source-review.json
+            .artifacts/kronkosky-source-watch.log
+          if-no-files-found: warn
+          retention-days: 45
+      - name: Reconcile the single editorial follow-up issue
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          issue_title='Kronkosky SNA: source or opening review required'
+          issue_number="$(gh issue list --state all --search '"Kronkosky SNA: source or opening review required" in:title' --limit 100 --json number,title --jq '.[] | select(.title == "Kronkosky SNA: source or opening review required") | .number' | head -n 1)"
+          if ! grep -Eq '^(SOURCE_CHANGED|SOURCE_UNAVAILABLE|SOURCE_REVIEW|PUBLIC_STALE) ' .artifacts/kronkosky-source-watch.log; then
+            if [[ -n "$issue_number" && "$(gh issue view "$issue_number" --json state --jq '.state')" == "OPEN" ]]; then
+              gh issue close "$issue_number" --comment 'Source monitoring now finds no unresolved source or clean-URL issue. The published research date has not been changed automatically.'
+            fi
+            echo 'No changed source, stale public page or overdue checkpoint.'
+            exit 0
+          fi
+          {
+            echo '# Kronkosky State Natural Area — editorial verification required'
+            echo ''
+            echo "Detected on $(date -u +%Y-%m-%d); see the GitHub Actions source-review artifact."
+            echo ''
+            echo 'The monitor checks TPWD opening and alert sources, current entrance and fee, canonical clean HTML, nonce HTML and the Explore sitemap. Changed/unreachable sources must be researched, never blindly restamped.'
+            echo ''
+            echo '~~~text'
+            grep -E '^(SOURCE_CHANGED|SOURCE_UNAVAILABLE|SOURCE_REVIEW|PUBLIC_STALE) ' .artifacts/kronkosky-source-watch.log
+            echo '~~~'
+            echo ''
+            echo 'Recheck the latest TPWD park alert, admission, gate hours, trails and camping. Verify the actual first public-use and overnight operating dates. Correct the researched guide, update checkedAt only after checking official sources, run CI, merge/deploy, purge clean-URL cache and verify live HTML/sitemap.'
+          } > .artifacts/kronkosky-review-issue.md
+          if [[ -n "$issue_number" ]]; then
+            gh issue edit "$issue_number" --body-file .artifacts/kronkosky-review-issue.md
+            if [[ "$(gh issue view "$issue_number" --json state --jq '.state')" == 'CLOSED' ]]; then
+              gh issue reopen "$issue_number"
+            fi
+            echo "Updated Kronkosky issue #$issue_number"
+          else
+            gh issue create --title "$issue_title" --body-file .artifacts/kronkosky-review-issue.md
+          fi
