@@ -28,6 +28,7 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
 ]);
 
 const liveChromeVerifier = await read("scripts/ci/verify-fishing-lakes-directory-browser.mjs");
+const decisionGuide = await read("src/components/fishing/FishingLakeDecisionGuide.tsx");
 const errors = [];
 // Capture the SAME coherent source-backed browser DOM snapshot that satisfied
 // readiness, not a second page.evaluate that can race TanStack stream remounts.
@@ -72,6 +73,29 @@ if (liveChromeVerifier.includes('expected === "restricted" && +match[1] === 1') 
 // Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
 if (!component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Keep original reader-facing quick answers.");
 if (route.includes('"@type": "FAQPage"')) errors.push("Retired Google FAQPage rich-result markup must not be published.");
+// Protect useful source-led editorial against future boilerplate regressions.
+const descriptionMatch = route.match(/const description = "([^"]+)";/);
+if (!descriptionMatch || descriptionMatch[1].length > 155 || descriptionMatch[1].length < 105) {
+  errors.push("Fishing lakes source meta description should stay meaningful and under 156 characters.");
+}
+for (const marker of [
+  'FishingLakeDecisionGuide',
+  'Lake record source review: {formatDate(lake.verifiedAt)}',
+]) if (!component.includes(marker)) errors.push("Lake directory must show individual verification and editorial comparison: " + marker);
+for (const marker of [
+  "Three lakes, three different fishing decisions",
+  "Why 72 guides, not every Texas lake?",
+  "Editorial comparison sources checked November 19, 2026",
+  "not a forecast",
+  "not a statewide inventory",
+  "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/",
+  "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/",
+  "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/",
+  "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/canyon/",
+  "/fishing/lakes/lake-fork",
+  "/fishing/lakes/lake-conroe",
+  "/fishing/lakes/canyon-lake",
+]) if (!decisionGuide.includes(marker)) errors.push("Original source-led lake decisions or collection scope missing: " + marker);
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
