@@ -51,6 +51,7 @@ function verifyHospital(html) {
     ['county five-year truth in taxation summary linked', html.includes(facts.sources.countyFiveYearSummary)],
     ['2026 tax benchmarks and careful distinction', html.includes('2026 no-new-revenue benchmark') && html.includes('2026 voter-approval benchmark') && html.includes('0.23633') && html.includes('0.25913') && html.includes('not additional taxes charged')],
     ['2023 official-source disagreement', html.includes('Why official sources disagree about the 2023 hospital district rate') && html.includes('0.20550') && html.includes('0.21897') && html.includes('published documents do not explain the discrepancy')],
+    ['2023 table warning', html.includes('Unresolved county/state source difference:') && html.includes('Read the comparison')],
     ['2026 locally adopted history row', html.includes('Not a 2026 Comptroller statewide workbook record.')],
     ['2024 rate', html.includes('0.217100')],
     ['full authority guide rendered', html.includes('What this hospital district taxes') && html.includes('The adopted rate versus the public-hearing benchmarks')],
