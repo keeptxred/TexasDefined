@@ -51,7 +51,7 @@ const mission = section(read("src/data/san-antonio-heritage-destinations.ts"),
   "Mission San José");
 includes(mission, [
   '"sourceCheckedAt": "2026-11-18"', 'https://www.nps.gov/saan/planyourvisit/sanjose.htm',
-  '1930s Works Progress Administration', 'Indigenous', '1794', '1804', '80 percent', '5 p.m.', '25–30 inches', 'free', 'wheelchair',
+  '1930s Works Progress Administration', 'Indigenous', '1794', '1804', '80 percent', '5 p.m.', '26–30 inches', 'free', 'wheelchair',
   '10 and 11 a.m.', '50 first-come',
 ], "Mission San José site-specific authority guide");
 
