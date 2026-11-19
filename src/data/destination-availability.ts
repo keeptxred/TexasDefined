@@ -4,6 +4,10 @@ import type { Destination } from "./types";
  * Records we preserve for direct historical/future reference but should not
  * recommend as ordinary visitable Trip Planner stops today.
  */
+const KRONKOSKY_SLUG = "albert-bessie-kronkosky-state-natural-area";
+// TPWD announcement: December 1, 2026 at local midnight (CST = UTC-6).
+const KRONKOSKY_DAY_USE_OPEN_AT = Date.parse("2026-12-01T06:00:00Z");
+
 const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "wyler-aerial-tramway-state-park", // TPWD site is closed to regular visitation
   "albert-bessie-kronkosky-state-natural-area",
@@ -89,7 +93,17 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
 ]);
 
 export function isCurrentlyVisitableDestination(destination: Destination): boolean {
+  // An announced future opening is not an already-open Trip Planner stop.
+  // The public day-use gate switches automatically on the official opening day.
+  if (destination.slug === KRONKOSKY_SLUG) return Date.now() >= KRONKOSKY_DAY_USE_OPEN_AT;
   return !UNAVAILABLE_DESTINATION_SLUGS.has(destination.slug);
+}
+
+/** A confirmed, substantive pre-opening visitor guide can be indexed without
+ * misrepresenting an unopened park as a currently visitable destination. */
+export function isEditoriallyIndexablePreopeningDestination(destination: Destination): boolean {
+  return destination.slug === KRONKOSKY_SLUG &&
+    Boolean(destination.sourceCheckedAt && destination.sourceCheckedAt >= "2026-11-18");
 }
 
 export function isPrimaryTripPlannerDestination(destination: Destination): boolean {
@@ -101,7 +115,9 @@ export function filterCurrentlyVisitableDestinations(destinations: Destination[]
 }
 
 export function unavailableDestinationSlugs(): string[] {
-  return [...UNAVAILABLE_DESTINATION_SLUGS];
+  return [...UNAVAILABLE_DESTINATION_SLUGS].filter((slug) =>
+    slug !== KRONKOSKY_SLUG || Date.now() < KRONKOSKY_DAY_USE_OPEN_AT);
+
 }
 
 export function nonPrimaryTripPlannerSlugs(): string[] {
