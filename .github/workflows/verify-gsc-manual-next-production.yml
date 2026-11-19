@@ -27,3 +27,7 @@ jobs:
           node-version: 22
       - name: Verify live GSC manual-next cohort
         run: node scripts/ci/verify-gsc-manual-next-production.mjs
+      - name: Verify exact Google legacy canonical query variants
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-gsc-alternates-production.mjs

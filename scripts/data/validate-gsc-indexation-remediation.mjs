@@ -15,6 +15,7 @@ const corporateEvents = fs.readFileSync('src/routes/corporate-events.tsx', 'utf8
 const taxEstimator = fs.readFileSync('src/routes/texas-property-tax-estimator.tsx', 'utf8');
 const relocationDocs = fs.readFileSync('docs/relocation-tools.md', 'utf8');
 const gscProductionProbe = fs.readFileSync('scripts/ci/verify-gsc-alternates-production.mjs', 'utf8');
+const postDeployGscWorkflow = fs.readFileSync('.github/workflows/verify-gsc-manual-next-production.yml', 'utf8');
 const failures = [];
 
 function requireText(source, marker, message) {
@@ -100,6 +101,8 @@ for (const url of [
 }
 requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
 requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
+requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-manual-next-production.mjs', 'Protected postdeploy GSC acceptance must retain the ten priority authority URLs and sitemap');
+requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-alternates-production.mjs', 'Protected postdeploy GSC acceptance must run the nine-case legacy canonical verification');
 // GSC 'Alternate page with proper canonical tag' samples are intentional filter
 // and planner prefill URLs, not 500 missing articles. Keep the clean landing
 // canonical and prevent the events calendar from publishing thousands of
