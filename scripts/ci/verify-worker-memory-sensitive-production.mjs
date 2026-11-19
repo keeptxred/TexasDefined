@@ -20,6 +20,7 @@ const routes = [
   '/fishing/lakes',
   '/fishing/lakes/o-h-ivie-lake',
   '/fishing/lakes/lake-conroe/camping',
+  '/fishing/lakes/lake-stamford/nearby',
   '/sports/teams/dallas-mavericks',
   '/sports/teams/san-antonio-spurs',
   '/destination/sam-rayburn-house',
