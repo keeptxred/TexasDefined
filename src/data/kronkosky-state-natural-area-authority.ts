@@ -91,20 +91,20 @@ export function applyKronkoskyOpeningAuthority(destination: Destination, now = D
     ],
     accessibilityNotes: "Nature Center: braille, tactile exhibits, narrated audio and ASL-interpreted content on borrowable tablets; TPWD announces an Extreme Motus all-terrain wheelchair and an adult changing table. Request specific route and equipment details from park staff at 830-535-4896. These features do not establish accessibility of every trail or campsite.",
     visitorFacts: [
-      { topic: "access", label: "Opening dates", detail: "Not open for ordinary public use before December 1, 2026. Day use begins December 1, 2026; overnight stays begin December 15, 2026.", sourceUrl: PRESS, checkedAt: CHECKED },
+      { topic: "access", label: "Opening dates", detail: beforeDayUse ? "TPWD scheduled day use for December 1, 2026 and overnight stays for December 15; no general visitation before then." : beforeCamping ? "TPWD’s December 1 day-use date has arrived. Overnight stays are scheduled for December 15; check current access alerts." : "TPWD announced day-use opening December 1 and overnight opening December 15, 2026. Both dates have passed; check the live park alert for actual access.", sourceUrl: PRESS, checkedAt: CHECKED },
       { topic: "admission", label: "Day-use admission", detail: "$6 daily for ages 13 and older. Children 12 and younger enter free; camping or other facility charges are additional.", sourceUrl: PARK, checkedAt: CHECKED },
       { topic: "hours", label: "Gate and office hours", detail: "Public-use hours: 7 a.m.–10 p.m. daily from the opening date. The reservation listing reports usual office staffing of 8:30 a.m.–4:30 p.m.; staff hours may vary.", sourceUrl: BOOKING, checkedAt: CHECKED },
-      { topic: "reservations", label: "When reservations open", detail: "TPWD schedules online day-use and camping reservations to begin December 1, 2026. Day capacity may fill, so reserve ahead. Booking a stay does not permit arrival before December 15.", sourceUrl: PRESS, checkedAt: CHECKED },
+      { topic: "reservations", label: "When reservations open", detail: beforeDayUse ? "Reservations are scheduled to begin December 1, 2026. Day capacity may fill. First overnight arrival is December 15." : beforeCamping ? "TPWD scheduled reservations from December 1, but first overnight stays are December 15. Check actual booking availability." : "TPWD scheduled reservations from December 1 and overnight arrivals from December 15. Verify current available dates directly.", sourceUrl: PRESS, checkedAt: CHECKED },
       { topic: "camping", label: "Stay types and weather", detail: "TPWD identifies mini cabins, developed campsites and primitive backcountry sites. Choose the exact site for hookups and access. Red Bluff and trails may close in adverse weather.", sourceUrl: BOOKING, checkedAt: CHECKED },
       { topic: "accessibility", label: "Nature Center and assisted access", detail: "Braille, tactile displays, audio and ASL tablet interpretation are planned. TPWD announces an Extreme Motus wheelchair and adult changing table; call ahead about availability and suitable paths.", sourceUrl: PRESS, checkedAt: CHECKED },
       { topic: "parking", label: "Official entrance", detail: "Navigate to the park entrance at 7754 State Highway 46, Pipe Creek, TX 78063. Ask the park which parking area and trailhead suit your visit.", sourceUrl: MAP, checkedAt: CHECKED }
     ],
     visitorFaqs: [
-      { question: "When does Albert and Bessie Kronkosky State Natural Area open?", answer: "TPWD announced day use for December 1, 2026 and overnight stays for December 15, 2026. These are the November 18 agency-announced opening dates; check current alerts for changes.", sourceUrl: PRESS },
-      { question: "When can I reserve a day pass or campsite?", answer: "Online reservations are scheduled to open December 1, 2026 for both day visits and overnight stays. The first overnight stays begin December 15. Reserve ahead because day-use capacity may fill.", sourceUrl: PRESS },
+      { question: "When does Albert and Bessie Kronkosky State Natural Area open?", answer: beforeDayUse ? "TPWD announced day use for December 1, 2026 and overnight stays for December 15. These are scheduled dates; check the park alert." : beforeCamping ? "TPWD’s December 1 day-use date has arrived; overnight stays are scheduled from December 15. Check alerts for changes." : "TPWD announced December 1 day use and December 15 overnight stays. Those dates have passed; confirm the current operational status with TPWD.", sourceUrl: PRESS },
+      { question: "When can I reserve a day pass or campsite?", answer: beforeDayUse ? "Reservations are scheduled from December 1 for day use and camping. First overnight stays begin December 15; capacity may fill." : beforeCamping ? "Bookings were scheduled from December 1; overnight stays start December 15. Verify actual availability." : "Reservations were scheduled to start December 1, 2026. Check the booking system for current passes and campsite inventory.", sourceUrl: PRESS },
       { question: "How much does a day visit cost?", answer: "TPWD lists $6 daily per person ages 13 and up; children 12 and under enter free. Camping, cabins and group facilities have separate charges.", sourceUrl: PARK },
-      { question: "How many miles of hiking trails are there?", answer: "The November 2026 agency release lists 26 miles of trails with different surfaces, widths and difficulties. Select an actual route using current park maps and conditions; not all trails will suit every visitor.", sourceUrl: PRESS },
-      { question: "Can I camp in a cabin or primitive tent site?", answer: "The planned options include mini cabins and primitive camping as well as developed sites. Compare the specific reservable site description for water, hookups, restroom distance and access; overnight stays begin December 15.", sourceUrl: BOOKING },
+      { question: "How many miles of hiking trails are there?", answer: "TPWD lists 26 miles of trails with different surfaces and difficulties. Park staff describe smoother front-country paths and a roughly four-mile hike-in to Red Bluff. A verified individual-trail distance chart is not yet published; ask staff for a route.", sourceUrl: PRESS },
+      { question: "Can I camp in a cabin or primitive tent site?", answer: "Options include Rancher’s Rest mini cabins, screened cabins, developed tent sites and Red Bluff hike-in primitive camping. Verify the exact site’s services; overnight stays were scheduled from December 15, 2026.", sourceUrl: BOOKING },
       { question: "Where is the park entrance?", answer: "7754 State Highway 46, Pipe Creek, Texas 78063, roughly seven miles west of Interstate 10 along Highway 46 from Boerne. Use the signed entrance and current TPWD directions.", sourceUrl: MAP },
       { question: "What are the opening hours?", answer: "TPWD announces site hours of 7 a.m. to 10 p.m., seven days a week, once public day use begins. Office staffing hours are more limited and can vary.", sourceUrl: PRESS },
       { question: "Is the nature area wheelchair accessible?", answer: "The Nature Center has planned accessible interpretive features. TPWD also announces an all-terrain wheelchair and adult changing table. That does not mean every backcountry trail is step-free; contact park staff about the exact experience.", sourceUrl: PRESS },
@@ -114,7 +114,7 @@ export function applyKronkoskyOpeningAuthority(destination: Destination, now = D
       { question: "Why do some sources give different acreage?", answer: "TPWD's November 18, 2026 release says about 3,800 acres, while its older park detail uses 3,794 acres; some past accounts use 3,852. We use the agency's current rounded acreage instead of pretending the sources agree.", sourceUrl: PRESS }
     ],
     authorityGuide: {
-      whyItMatters: "This is a rare transition from a decades-protected private Hill Country ranch to a state-managed natural area designed for public enjoyment without erasing the reasons it was protected. Steep limestone country, spring-fed niches, sensitive species and 11,000 years of archaeology shape the experience. Its December 2026 opening offers genuinely different ways to visit, but those options require choices about trail difficulty, reservation dates and conservation rules.",
+      whyItMatters: "This is a rare transition from a protected private Hill Country ranch to a state-managed natural area, with trails and modest camping designed around conservation. Steep limestone country, spring-fed niches, sensitive species and roughly 11,000 years of archaeology make it significant beyond a scenic hike. Plan around current alerts, terrain and the precise campsite type.",
       assessment: {
         recommendedVisit: "Start with a Nature Center visit and one trail chosen for your group's abilities; plan a half day or longer rather than rushing a complete 26-mile trail system.",
         physicalEffort: "Moderate to high",
@@ -124,19 +124,19 @@ export function applyKronkoskyOpeningAuthority(destination: Destination, now = D
         firstTimeValue: "New access to an unusually well-preserved ranch and its rare-species habitat; reserve the date before choosing the trail."
       },
       itineraries: [
-        { label: "First visit with the family", duration: "2–3 hours, from Dec. 1", steps: [
-          "Reserve a day pass after online bookings open December 1 and check same-day weather or capacity notices.",
+        { label: "First visit with the family", duration: "2–3 hours after day-use opening", steps: [
+          "Check the current TPWD booking calendar, park alert and weather before leaving; an announced date does not guarantee entry.",
           "Start at the Nature Center to understand the preserve's wildlife, geology and accessible interpretation.",
           "Ask staff for a trail appropriate to the group's fitness, mobility and daylight; return before heat or fatigue becomes an issue."
         ] },
-        { label: "Trail-focused day", duration: "Half to full day, from Dec. 1", steps: [
+        { label: "Trail-focused day", duration: "Half to full day after day-use opening", steps: [
           "Review the official map and current trail conditions; do not substitute the total 26-mile network for a single route.",
           "Choose a route matched to available time, grade and surface. Bring water and arrange an earlier start when temperatures rise.",
           "Leave protected plants, habitats and archaeological features undisturbed; finish at the public entrance before the gate closes."
         ] },
-        { label: "Overnight in the Hill Country", duration: "One night, from Dec. 15", steps: [
-          "When bookings open December 1, compare mini cabins, developed sites and primitive locations; verify each site's services.",
-          "Check overnight arrival instructions. Red Bluff primitive campers should reach the area at least two hours before dark.",
+        { label: "Overnight in the Hill Country", duration: "One night after overnight opening", steps: [
+          "Compare climate-controlled Rancher’s Rest mini cabins, screened cabins, tent sites and Red Bluff’s four-mile hike-in option; check current inventory and amenities.",
+          "Check arrival instructions. Red Bluff primitive campers should reach the trailhead well before dark and plan for approximately four miles carrying gear.",
           "After a night at the preserve, consider Boerne or a separate Guadalupe River State Park visit, with its own reservation and entry rules."
         ] }
       ],
@@ -145,7 +145,10 @@ export function applyKronkoskyOpeningAuthority(destination: Destination, now = D
         { label: "TPWD park page and headquarters", url: PARK, scope: "Official entrance, contact number, park background, admission and conservation." },
         { label: "TPWD official visitor map", url: MAP, scope: "Verified highway address and park entrance coordinates; obtain current trail information before travel." },
         { label: "Texas State Parks reservations", url: BOOKING, scope: "Site types, overnight policies, hours, weather closures and site-by-site amenities; check calendar for actual bookability." },
-        { label: "TPWD history of the natural area", url: HISTORY, scope: "Archaeology, ranching land use, the Kronkosky family and the 2011 state donation." }
+        { label: "TPWD history of the natural area", url: HISTORY, scope: "Archaeology, ranching land use, the Kronkosky family and the 2011 state donation." },
+        { label: "Current TPWD park alert", url: ALERT, scope: "Changes to access, opening dates and operational restrictions; check immediately before a visit." },
+        { label: "TPWD ranger notes and facility photography", url: RANGER, scope: "Official facilities and park progress photographs; view at source, without reusing rights-restricted media." },
+        { label: "TPR superintendent interview, Nov. 17, 2026", url: INTERVIEW, scope: "Original on-record descriptions of the four overnight choices, four-mile Red Bluff access and easier front-country trails." }
       ]
     }
   };
