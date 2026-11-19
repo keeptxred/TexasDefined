@@ -23,6 +23,30 @@ test('camping/fish/access routes skip unrelated guide, report, business, or plac
   assert.ok(source.includes('businesses: [], placements, pageData'));
 });
 
+test('nested fishing routes skip heavyweight parent overview loaders and pass through children', () => {
+  const hub = readFileSync('src/routes/fishing.tsx','utf8');
+  const directory = readFileSync('src/routes/fishing.lakes.tsx','utf8');
+  const overview = readFileSync('src/routes/fishing.lakes.$slug.tsx','utf8');
+  for (const [name, file, routePath, returnMarker] of [
+    ['fishing hub', hub, '"/fishing"', 'return { nested: true as const }'],
+    ['lake directory', directory, '"/fishing/lakes"', 'return { nested: true as const }'],
+    ['lake overview', overview, 'overviewPath', 'return { kind: "nested" as const }'],
+  ]) {
+    const index = file.indexOf(returnMarker);
+    const firstQuery = file.indexOf('await import("@/data/fishing/queries")');
+    assert.ok(index > 0 && index < firstQuery, name + ': child pass-through must precede repository import');
+    assert.ok(file.includes('location.pathname !== ' + routePath), name + ': explicit own-path comparison missing');
+    assert.ok(file.includes('<Outlet />'), name + ': must render matching child section instead of redundant overview');
+  }
+  assert.ok(hub.includes('if (loaderData && "nested" in loaderData) return { meta: [] }'));
+  assert.ok(directory.includes('if (loaderData && "nested" in loaderData) return { meta: [] }'));
+  assert.ok(overview.includes('if (loaderData.kind === "nested") return { meta: [] }'));
+  assert.ok(overview.includes('const overviewPath = canonicalFishingPath("lake", params.slug)'));
+  assert.ok(hub.includes('<FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies} resourceAvailability={resourceAvailability} />'));
+  assert.ok(directory.includes('<FishingLakesDirectory rows={rows} latestReview={latestReview} />'));
+  assert.ok(overview.includes('<ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />'));
+});
+
 test('showcase non-inventory tabs avoid the expensive statewide fishing repository on cold SSR', () => {
   const start = source.indexOf('if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section))');
   const gate = source.indexOf('if (params.section === "reports" || params.section === "guides")', start);
