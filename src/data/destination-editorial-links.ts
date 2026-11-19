@@ -947,6 +947,11 @@ const HISTORIC_SITE_CROSS_LINKS: Record<string, DestinationEditorialLink[]> = {
   ],
   "the-alamo": [
     {
+      "href": "/destination/mission-san-jose-san-antonio",
+      "label": "Mission San José visitor center and Rose Window",
+      "description": "Compare the downtown Alamo (Mission Valero) with the separate NPS-run Mission San José compound, 6701 San Jose Drive. San José offers free ranger walks and a historic church, but its walled gates close at 5 p.m.; check NPS access before traveling."
+    },
+    {
       "href": "/destination/san-antonio-missions-national-historical-park",
       "label": "San Antonio Missions",
       "description": "Understand how the earlier mission landscape shapes the Alamo's 1718-to-1836 history."
