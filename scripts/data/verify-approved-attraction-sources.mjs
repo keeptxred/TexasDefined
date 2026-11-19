@@ -23,7 +23,7 @@ const checks = new Map([
 let failed = 0;
 let museumAlternativeVerified = 0;
 const blockedMuseumSourceUrls = [];
-const legacyMuseumUrl = (url) => url.startsWith("https://www.treetexas.com/");
+const legacyMuseumUrl = (url) => url.startsWith("https://www.treetexas.com/") || url === "https://treetexas.com/";
 for (const url of [...new Set(sources)]) {
   try {
     const response = await fetch(url, { signal: AbortSignal.timeout(18000), headers: { "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "accept-language": "en-US,en;q=0.9" } });
@@ -45,7 +45,7 @@ for (const url of [...new Set(sources)]) {
     const expected = checks.get(url) ?? [];
     if (expected.length) {
       const html = await response.text();
-      const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ").replace(/<[^>]*>/g, " ").replace(/&(?:nbsp|amp);/gi, " ").replace(/\s+/g, " ").toLowerCase();
+      const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ").replace(/<[^>]*>/g, " ").replace(/&(?:nbsp|amp);/gi, " ").replace(/\u00ad/g, "").replace(/[\u200b-\u200d]/g, "").replace(/\s+/g, " ").toLowerCase();
       const missing = expected.filter((item) => !text.includes(item));
       if (missing.length) {
         console.error("REVIEW NEEDED: operator facts changed or site markup changed", url, "missing:", missing.join(", "));
