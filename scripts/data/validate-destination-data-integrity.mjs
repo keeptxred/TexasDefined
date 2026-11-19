@@ -67,7 +67,7 @@ for (const feature of [
   '"@id": `${url}#primaryimage`',
   'categories.find((category) => category.slug === destination.category)?.name',
   'const audit = auditDestination(destination)',
-  'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
+  'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference || isEditoriallyIndexablePreopeningDestination(destination))',
   'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
