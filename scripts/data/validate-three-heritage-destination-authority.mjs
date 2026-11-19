@@ -71,4 +71,23 @@ includes(workflow, [
   "cron: '31 13 * * 1'", "src/data/museum-expansion-austin.ts",
   "src/data/san-antonio-heritage-destinations.ts", "monitor-operator-sources.test.mjs",
 ], "Scheduled verification workflow");
+const liveVerifier = read("scripts/ci/verify-three-heritage-destinations-production.mjs");
+includes(liveVerifier, [
+  '"/destination/texas-state-capitol"',
+  '"/destination/lbj-presidential-library-austin"',
+  '"/destination/mission-san-jose-san-antonio"',
+  '"/destination/lbj-presidential-library"',
+  '"/destination/mission-san-jose"',
+  '"https://texasdefined.com"',
+  '"https://texasdefined-site.freddy-coppola.workers.dev"',
+  '"Goddess of Liberty"', '"45 million pages"', '"281 Indigenous"',
+  "sitemap-explore.xml", "heritage-three-production.json",
+], "Exact-deploy heritage authority verifier");
+const deploy = read(".github/workflows/deploy-production.yml");
+includes(deploy, [
+  "Verify Capitol LBJ Library and Mission San José on production",
+  "node scripts/ci/verify-three-heritage-destinations-production.mjs",
+  "Preserve exact three-heritage live acceptance evidence",
+  "heritage-three-production.json",
+], "Protected live authority release gate");
 console.log("Three researched heritage guides: canonical consolidation, source-backed content, LBJ dossier and FAQ, source drift monitoring validated.");
