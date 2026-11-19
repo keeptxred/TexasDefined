@@ -51,8 +51,11 @@ await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-disp
   assertContains("Etiquette hub backlink", html, "/texas-flag");
 });
 await check("Primary sitemap", `${root}/sitemap.xml`, xml => {
-  const pattern = /<loc>https:\\/\\/texasdefined\\.com\\/texas-flag<\\/loc>\\s*<lastmod>2026-11-18<\\/lastmod>/;
-  assertRegex("Texas flag sitemap freshness", xml, pattern);
+  const marker = "<loc>https://texasdefined.com/texas-flag</loc>";
+  const entry = xml.split(marker)[1]?.split("</url>")[0] ?? "";
+  if (!entry.includes("<lastmod>2026-11-18</lastmod>")) {
+    errors.push("Texas flag sitemap is missing its November 18, 2026 lastmod");
+  }
 });
 
 if (sourceCheck) {
