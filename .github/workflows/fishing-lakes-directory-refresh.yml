@@ -12,6 +12,7 @@ on:
   pull_request:
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/components/fishing/FishingLakeDecisionGuide.tsx'
       - 'src/components/fishing/FishingSeasonDirectory.tsx'
       - 'src/routes/fishing.seasons.tsx'
       - 'src/data/fishing/monthly-editorial.ts'

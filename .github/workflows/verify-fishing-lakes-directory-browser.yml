@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - 'src/components/fishing/FishingLakeDecisionGuide.tsx'
       - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
       - 'scripts/ci/fishing-access-deployment-source.mjs'
       - 'scripts/ci/fishing-access-deployment-source.test.mjs'
@@ -12,6 +13,7 @@ on:
     branches: [main]
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/components/fishing/FishingLakeDecisionGuide.tsx'
       - 'src/routes/fishing.lakes.tsx'
       - 'src/lazy/fishing-compare.tsx'
       - 'src/data/fishing/lake-directory-advisories.json'
