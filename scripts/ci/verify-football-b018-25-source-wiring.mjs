@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 import { readFileSync } from 'node:fs';
 const read = path => readFileSync(new URL('../../' + path, import.meta.url), 'utf8');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const expected = ["fabens","fairfield","falfurrias","falls-city","farmersville","farwell","ferris","first-baptist-dallas","flatonia","florence","floresville","floydada","follett","forestburg","forney","forsan","fort-bend-austin","fort-bend-bush","fort-bend-christian","fort-bend-clements","fort-bend-crawford","fort-bend-dulles","fort-bend-elkins","fort-bend-hightower","fort-bend-kempner"];
 assert.equal(registry.batch.number, 18, 'Batch018 registry active');
 assert.deepEqual(registry.batch.slugs, expected, 'one stable 25-school Batch018 roster');
-assert.equal(registry.schoolRecords.filter(record => record.status === 'VERIFIED').length, 405, 'do not alter prior signed 405 VERIFIED');
+const graduatedB018 = certifiedBatch018(registry);
+assert.equal(registry.schoolRecords.filter(record => record.status === 'VERIFIED').length, graduatedB018 ? 430 : 405, 'protect 405 historical signed profiles and permit 25 only with Batch018 signed Chrome');
 const identities = read('src/data/high-school-football/school-identities.ts');
 const identitySlugs = [...identities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map(match => match[1]);
 assert.equal(new Set(identitySlugs).size, identitySlugs.length,
@@ -19,10 +21,10 @@ for (const slug of expected) {
 const states = expected.map(slug => {
   const record = registry.schoolRecords.find(item => item.slug === slug);
   assert.equal(record?.batch, 18, 'missing assigned school ' + slug);
-  assert.ok(['NOT_REVIEWED', 'IMPLEMENTED'].includes(record.status), 'no unproved VERIFIED status ' + slug);
+  assert.ok(graduatedB018 ? record.status === 'VERIFIED' : ['NOT_REVIEWED', 'IMPLEMENTED'].includes(record.status), 'no unproved VERIFIED status ' + slug);
   return record.status;
 });
-assert.ok(states.every(state => state === 'NOT_REVIEWED') || states.every(state => state === 'IMPLEMENTED'),
+assert.ok((graduatedB018 && states.every(state => state === 'VERIFIED')) || states.every(state => state === 'NOT_REVIEWED') || states.every(state => state === 'IMPLEMENTED'),
   'no partial source-status promotion: all 25 school statuses must advance together');
 const filenames = ['batch018-county-edges.ts','batch018-second-five-county-edges.ts','batch018-third-five-county-edges.ts','batch018-fourth-five-county-edges.ts','batch018-fifth-five-county-edges.ts'];
 const edges = filenames.flatMap(name => [...read('src/data/high-school-football/' + name).matchAll(/[{] slug: '([a-z0-9-]+)', name: '[^']+', county: '([a-z0-9-]+)'/g)].map(([,slug,county]) => ({slug,county})));
@@ -64,4 +66,4 @@ for (const slug of expected) {
       'Robotic stock editorial wording in source: '+slug);
   }
 }
-console.log('PASS 25 Batch018 official-source school/campus edge integration, SSR, private fallback, and preserved signed 405; production 75/25 Chrome still required.');
+console.log('PASS 25 Batch018 official-source school/campus edge integration, SSR, private fallback, and preserved 405 historical signed certificates; Batch018 verified only on its own immutable 75/25+16/9 real Chrome evidence.');
