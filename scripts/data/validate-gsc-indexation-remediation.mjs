@@ -99,6 +99,20 @@ for (const url of [
 ]) {
   requireText(gscProductionProbe, '["' + url + '",', 'Missing exact Google-selected legacy URL production acceptance: ' + url);
 }
+// Owner canonical audit: all five clean parents and the five historical query views
+// must retain bounded live HTTP, meta/header, schema and sitemap acceptance.
+for (const parent of ['/events', '/texas-property-tax-estimator', '/corporate-events', '/moving-to-texas', '/partner-with-us']) {
+  requireText(publicRoutes, '"' + parent + '"', 'Clean canonical must remain in indexable public route registry: ' + parent);
+  requireText(gscProductionProbe, '["' + parent + '",', 'Clean canonical omitted from production probe: ' + parent);
+}
+requireText(gscProductionProbe, 'redirect: "manual"', 'Live canonical probe must not silently follow redirects.');
+requireText(gscProductionProbe, 'response.status === 200', 'Live canonical probe must require HTTP 200.');
+requireText(gscProductionProbe, 'httpCanonicalLinks(response.headers.get("link")', 'Live canonical probe must inspect HTTP Link canonical headers.');
+requireText(gscProductionProbe, 'response.headers.get("x-robots-tag")', 'Live canonical probe must inspect X-Robots-Tag directives.');
+requireText(gscProductionProbe, 'ogCanonicalUrls(html)', 'Live canonical probe must inspect social canonical URL metadata.');
+requireText(gscProductionProbe, 'queryBearingPageSchemaUrls(html, preferred)', 'Live canonical probe must inspect page JSON-LD URLs.');
+requireText(gscProductionProbe, 'await verifyPrimarySitemap()', 'Live canonical probe must verify five parent sitemap entries and absence of query URLs.');
+requireText(sitemap, 'normalizePublicPath(entry.path)', 'Primary sitemap must reject query parameters and malformed canonical paths.');
 requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
 requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
 requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-manual-next-production.mjs', 'Protected postdeploy GSC acceptance must retain the ten priority authority URLs and sitemap');
