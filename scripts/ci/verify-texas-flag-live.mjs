@@ -5,10 +5,21 @@
 const root = (process.env.TEXAS_FLAG_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
 const errors = [];
 const sourceCheck = process.argv.includes("--sources");
+// Every same-origin check bypasses stale CDN HTML using a unique query string;
+// off-site archives and statutes are checked at their published source URLs.
+const rootOrigin = new URL(root).origin;
+const releaseProbe = process.env.PRODUCTION_RELEASE_PROBE || `flag-authority-${Date.now()}-${process.pid}`;
 
 async function fetchText(url) {
-  const response = await fetch(url, { redirect: "follow", signal: AbortSignal.timeout(25000), headers: { "user-agent": "TexasDefined-Authority-Source-Review/1.0 (+https://texasdefined.com/editorial-policy)" } });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+  const target = new URL(url);
+  const sameOrigin = target.origin === rootOrigin;
+  if (sameOrigin) target.searchParams.set("release_probe", releaseProbe);
+  const headers = {
+    "user-agent": "TexasDefined-Authority-Source-Review/1.0 (+https://texasdefined.com/editorial-policy)",
+    ...(sameOrigin ? { "cache-control": "no-cache" } : {}),
+  };
+  const response = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(25000), headers });
+  if (!response.ok) throw new Error(`${target}: HTTP ${response.status}`);
   return await response.text();
 }
 function assertContains(label, content, fragment) {
@@ -16,6 +27,20 @@ function assertContains(label, content, fragment) {
 }
 function assertRegex(label, content, pattern) {
   if (!pattern.test(content)) errors.push(`${label}: expected ${pattern}`);
+}
+function assertSelfCanonical(label, html, path) {
+  const tags = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => /\brel\s*=\s*["']canonical["']/i.test(tag));
+  const href = tags[0]?.match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
+  if (tags.length !== 1 || href !== `${root}${path}`) {
+    errors.push(`${label}: expected exactly one self-referential canonical at ${root}${path}; got ${href || "(none)"}`);
+  }
+}
+function assertIndexable(label, html) {
+  const robots = [...html.matchAll(/<meta\b[^>]*>/gi)].map((match) => match[0])
+    .filter((tag) => /\bname\s*=\s*["'](?:robots|googlebot)["']/i.test(tag));
+  if (robots.some((tag) => /noindex/i.test(tag))) errors.push(`${label}: contains noindex in robots metadata`);
 }
 async function check(label, url, fn) {
   try { const html = await fetchText(url); fn(html); console.log(`OK: ${label} (${url})`); }
@@ -35,20 +60,21 @@ await check("Flag authority page", `${root}/texas-flag`, html => {
   ]) assertContains("Flag page links", html, target);
   for (const mark of ["burnet-flag-title", "lone-star-flag-title", "texas-flag-timeline", "texas-flag-proportions"])
     assertContains("Flag image and timeline accessibility", html, mark);
-  assertContains("Canonical URL", html, `${root}/texas-flag`);
-  assertRegex("Canonical link", html, /rel=["']canonical["']/i);
+  assertSelfCanonical("Flag hub", html, "/texas-flag");
+  assertIndexable("Flag hub", html);
   assertRegex("WebPage structured data", html, /"@type"\s*:\s*"WebPage"/);
-  if (/<meta[^>]+name=["'](?:robots|googlebot)["'][^>]+content=["'][^"']*noindex/i.test(html)
-    || /<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["'](?:robots|googlebot)["']/i.test(html)) {
-    errors.push("Flag page has noindex metadata");
-  }
+  assertContains("Flag hub official archival evidence", html, "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html");
+  assertContains("Flag hub statutory source", html, "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm");
 });
 await check("Flag history article", `${root}/article/history-of-the-texas-flag`, html => {
   assertContains("History article", html, "December 10, 1836");
   assertContains("History article", html, "January 25, 1839");
+  assertSelfCanonical("History article", html, "/article/history-of-the-texas-flag");
+  assertIndexable("History article", html);
   assertContains("History hub backlink", html, "/texas-flag");
   for (const phrase of ["What the signed 1839 original actually shows", "Texas Flag Day is March 2", "1974/066-001", "Paul B. Joiner"]) assertContains("History research and image rights", html, phrase);
   for (const property of ["copyrightNotice", "acquireLicensePage", "creator"]) assertContains("History ImageObject metadata", html, property);
+  assertContains("History image provenance", html, "https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg");
 });
 await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-display-guide`, html => {
   assertContains("Etiquette hub backlink", html, "/texas-flag");
