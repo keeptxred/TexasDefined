@@ -25,8 +25,7 @@ async function check(label, url, fn) {
 await check("Flag authority page", `${root}/texas-flag`, html => {
   for (const text of [
     "December 10, 1836", "January 25, 1839", "Burnet flag", "Lone Star flag",
-    "HistoricalFlagComparison", // Component name does not need to appear in public HTML; checked separately below.
-  ]) if (text !== "HistoricalFlagComparison") assertContains("Flag page", html, text);
+  ]) assertContains("Flag page", html, text);
   for (const target of [
     "/article/history-of-the-texas-flag",
     "/article/texas-flag-etiquette-display-guide",
@@ -52,7 +51,7 @@ await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-disp
   assertContains("Etiquette hub backlink", html, "/texas-flag");
 });
 await check("Primary sitemap", `${root}/sitemap.xml`, xml => {
-  const pattern = new RegExp(`<loc>\\s*${root.replace(/[.*+?^\u0024{}()|[\]\\]/g, "\\$&")}\\/texas-flag<\\/loc>\\s*<lastmod>2026-11-18<\\/lastmod>`);
+  const pattern = /<loc>https:\\/\\/texasdefined\\.com\\/texas-flag<\\/loc>\\s*<lastmod>2026-11-18<\\/lastmod>/;
   assertRegex("Texas flag sitemap freshness", xml, pattern);
 });
 
