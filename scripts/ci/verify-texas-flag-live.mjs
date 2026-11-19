@@ -36,7 +36,7 @@ await check("Flag authority page", `${root}/texas-flag`, html => {
     assertContains("Flag image and timeline accessibility", html, mark);
   assertContains("Canonical URL", html, `${root}/texas-flag`);
   assertRegex("Canonical link", html, /rel=["']canonical["']/i);
-  assertRegex("WebPage structured data", html, /\\"@type\\":\\"WebPage\\"|\\"@type\\":\s*\\"WebPage\\"/);
+  assertRegex("WebPage structured data", html, /"@type"\s*:\s*"WebPage"/);
   if (/<meta[^>]+name=["'](?:robots|googlebot)["'][^>]+content=["'][^"']*noindex/i.test(html)
     || /<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["'](?:robots|googlebot)["']/i.test(html)) {
     errors.push("Flag page has noindex metadata");
