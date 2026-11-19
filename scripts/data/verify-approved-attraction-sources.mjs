@@ -19,7 +19,7 @@ const checks = new Map([
 let failed = 0;
 for (const url of [...new Set(sources)]) {
   try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(18000), headers: { "user-agent": "TexasDefinedEditorialSourceCheck/1.0 (+https://texasdefined.com)" } });
+    const response = await fetch(url, { signal: AbortSignal.timeout(18000), headers: { "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36", "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "accept-language": "en-US,en;q=0.9" } });
     if (!response.ok) {
       console.error("REVIEW NEEDED: HTTP", response.status, url);
       failed++;
