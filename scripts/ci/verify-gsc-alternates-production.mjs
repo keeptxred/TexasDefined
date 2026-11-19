@@ -6,6 +6,10 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
 const checks = [
   ["/events", "/events", false, true],
+  ["/texas-property-tax-estimator", "/texas-property-tax-estimator", false, false],
+  ["/corporate-events", "/corporate-events", false, false],
+  ["/moving-to-texas", "/moving-to-texas", false, false],
+  ["/partner-with-us", "/partner-with-us", false, false],
   ["/events?venue=sports-venue%3Aeagle-stadium-allen&start=2027-04-15&end=2027-04-15", "/events", true, true],
   ["/texas-property-tax-estimator?county=bailey", "/texas-property-tax-estimator", false, false],
   ["/corporate-events?city=Texas&guests=45&type=meetings", "/corporate-events", false, false],
@@ -43,16 +47,100 @@ async function fetchPage(path) {
       const response = await fetch(url, {
         signal: AbortSignal.timeout(20_000),
         cache: "no-store",
+        redirect: "manual", // Never hide an accidental 301/302/307/308 or a redirect loop.
         headers: { "user-agent": "TexasDefined-GSC-Canonical-Acceptance/1.0" },
       });
       const html = await response.text();
-      if (response.ok && response.headers.get("cf-mitigated") !== "challenge") return html;
-      last = "HTTP " + response.status;
+      if (response.status === 200 && response.headers.get("cf-mitigated") !== "challenge" &&
+          (response.headers.get("content-type") || "").toLowerCase().includes("text/html")) {
+        return { html, response };
+      }
+      last = "HTTP " + response.status + "; content-type=" + (response.headers.get("content-type") || "missing") +
+        "; location=" + (response.headers.get("location") || "none");
     } catch (e) { last = String(e); }
     if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 1500));
   }
   throw new Error("Production fetch failed for " + path + ": " + last);
 }
+
+// HTTP Link canonical headers are optional. If present, they may not contradict
+// the one explicit server-rendered HTML canonical.
+function httpCanonicalLinks(value) {
+  return value.split(/,(?=\s*<)/).flatMap(part => {
+    const link = part.match(/<([^>]+)>/);
+    const rel = part.match(/(?:^|;)\s*rel\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s;,]+))/i);
+    if (!link || !rel) return [];
+    const tokens = (rel[1] || rel[2] || rel[3]).toLowerCase().split(/\s+/);
+    return tokens.includes("canonical") ? [link[1]] : [];
+  });
+}
+function ogCanonicalUrls(html) {
+  return (html.match(/<meta\b[^>]*>/gi) || [])
+    .filter(tag => attr(tag, "property").toLowerCase() === "og:url")
+    .map(tag => attr(tag, "content"));
+}
+function queryBearingPageSchemaUrls(html, preferred) {
+  const bad = [];
+  for (const script of html.match(/<script\b[^>]*>[\s\S]*?<\/script>/gi) || []) {
+    const openTag = script.slice(0, script.indexOf(">") + 1);
+    if (!/type\s*=\s*(["'])application\/ld\+json\1/i.test(openTag)) continue;
+    let data;
+    try { data = JSON.parse(script.slice(openTag.length).replace(/<\/script>$/i, "")); }
+    catch (error) { throw new Error("Unparseable SSR JSON-LD: " + String(error)); }
+    function walk(node) {
+      if (!node || typeof node !== "object") return;
+      if (Array.isArray(node)) { for (const item of node) walk(item); return; }
+      for (const [key, value] of Object.entries(node)) {
+        if ((key === "url" || key === "@id") && typeof value === "string") {
+          try {
+            const ref = new URL(value);
+            if (ref.origin === origin && ref.pathname === preferred && ref.search) bad.push(value);
+          } catch { /* IDs and relative schema references need not be URLs. */ }
+        } else if (value && typeof value === "object") walk(value);
+      }
+    }
+    walk(data);
+  }
+  return bad;
+}
+function anyNoindex(value) {
+  return /(?:^|[,\s:])noindex(?:$|[,\s;])/i.test(value);
+}
+async function verifyPrimarySitemap() {
+  let last = "";
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const url = new URL("/sitemap.xml", origin);
+    url.searchParams.set("_gsc_proof", String(process.env.GITHUB_SHA || "local").slice(0, 9) + "-" + attempt);
+    try {
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(25_000),
+        cache: "no-store",
+        redirect: "manual",
+        headers: { "user-agent": "TexasDefined-GSC-Canonical-Acceptance/1.0" },
+      });
+      const xml = await response.text();
+      if (response.status === 200 && /<urlset\b/i.test(xml)) {
+        const sitemapUrls = [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+          .map(match => match[1].replace(/&amp;/gi, "&").trim());
+        for (const parent of ["/events", "/texas-property-tax-estimator", "/corporate-events", "/moving-to-texas", "/partner-with-us"]) {
+          const count = sitemapUrls.filter(url => url === origin + parent).length;
+          assert(count === 1, "Primary sitemap must list clean " + parent + " exactly once; found " + count);
+        }
+        assert(!sitemapUrls.some(item => {
+          try { return new URL(item).search.length > 0; }
+          catch { return true; }
+        }), "Primary sitemap contains a parameterized or invalid <loc>");
+        console.log("[GSC alternate] OK primary sitemap: five clean parents, zero query URLs");
+        return;
+      }
+      last = "HTTP " + response.status + "; location=" + (response.headers.get("location") || "none") +
+        "; XML bytes=" + xml.length;
+    } catch (error) { last = String(error); }
+    if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 1500));
+  }
+  throw new Error("Primary canonical sitemap unavailable: " + last);
+}
+
 function assertCalendarButtons(html, path) {
   const grid = html.match(/class=["']ev-days["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
   const nav = html.match(/class=["']ev-cal-nav["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
@@ -64,14 +152,29 @@ function assertCalendarButtons(html, path) {
   assert(grid.includes("aria-label="), path + ": calendar day buttons need accessible names");
 }
 for (const [path, preferred, filtered, calendar] of checks) {
-  const html = await fetchPage(path);
+  const { html, response } = await fetchPage(path);
   const links = canonicalLinks(html);
   assert(links.length === 1, path + ": must render exactly one canonical, found " + links.length);
   assert(links[0] === origin + preferred, path + ": canonical mismatch " + links[0]);
-  const robot = robots(html);
-  if (filtered) assert(/(?:^|[,\s])noindex(?:$|[,\s])/.test(robot), path + ": filtered calendar must noindex");
-  else assert(!/(?:^|[,\s])noindex(?:$|[,\s])/.test(robot), path + ": clean canonical landing must not noindex");
+  const headerLinks = httpCanonicalLinks(response.headers.get("link") || "");
+  assert(headerLinks.length <= 1 && headerLinks.every(url => url === origin + preferred),
+    path + ": conflicting HTTP Link canonical headers: " + JSON.stringify(headerLinks));
+  const ogUrls = ogCanonicalUrls(html);
+  assert(ogUrls.every(url => url === origin + preferred),
+    path + ": conflicting Open Graph URL(s): " + JSON.stringify(ogUrls));
+  const schemaConflicts = queryBearingPageSchemaUrls(html, preferred);
+  assert(schemaConflicts.length === 0,
+    path + ": JSON-LD references a query-bearing canonical page: " + JSON.stringify(schemaConflicts));
+  const metaRobots = robots(html);
+  const headerRobots = response.headers.get("x-robots-tag") || "";
+  if (filtered) assert(anyNoindex(metaRobots), path + ": filtered calendar must noindex");
+  else assert(!anyNoindex(metaRobots) && !anyNoindex(headerRobots),
+    path + ": clean canonical landing must not noindex in meta/header; meta=" + metaRobots + "; header=" + headerRobots);
   if (calendar) assertCalendarButtons(html, path);
-  console.log("[GSC alternate] OK " + path + " -> " + preferred + "; robots=" + (robot || "default"));
+  console.log("[GSC alternate] OK " + path + " -> " + preferred +
+    "; HTTP=200 direct; robots=" + (metaRobots || "default") +
+    "; X-Robots-Tag=" + (headerRobots || "absent") +
+    "; HTTP canonical=" + (headerLinks[0] || "absent"));
 }
-console.log("PASS: GSC alternate canonical destinations, calendar crawl space, and shareable functional query views.");
+await verifyPrimarySitemap();
+console.log("PASS: 14 GSC parent/alternate canonical responses, HTTP headers, JSON-LD, primary sitemap, calendar crawl space, and functional queries.");
