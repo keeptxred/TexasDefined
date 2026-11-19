@@ -3140,6 +3140,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Full civic-history visit", steps: ["Allow 2–4 hours and use the fifth-floor and special exhibitions if open", "Consider how archival telephone recordings differ from reconstructed rooms and later curatorial interpretation", "Pair with the Texas Capitol for a state-versus-federal government comparison, checking independent hours and admission"] },
     ],
     sources: [
+      { label: "LBJ library collections and telephone tapes", url: "https://www.lbjlibrary.org/", use: "Archive scale and curated public materials versus the research collection" },
       { label: "LBJ 2026 permanent exhibition renewal", url: "https://www.lbjlibrary.org/refresh26", use: "Five named fourth-floor permanent gallery chapters and March 2026 reopening" },
       { label: "LBJ visitor preparation, bag and family rules", url: "https://www.lbjlibrary.org/visit/know-before-you-go", use: "Third-floor bag check, typical visit duration and stroller policy" },
       { label: "LBJ prohibited items", url: "https://www.lbjlibrary.org/prohibited-items", use: "Restrictions on flash, tripods, professional photography equipment and other belongings" },
