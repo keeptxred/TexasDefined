@@ -15,19 +15,27 @@ const HISTORY = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/hist
 const MAP = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/map";
 const BOOKING = "https://texasstateparks.reserveamerica.com/camping/albert-and-bessie-kronkosky-abk-sna/r/campgroundDetails.do?contractCode=TX&parkId=1200051";
 const CHECKED = "2026-11-18";
+const DAY_USE_START = Date.parse("2026-12-01T06:00:00Z");
+const OVERNIGHT_START = Date.parse("2026-12-15T06:00:00Z");
 
 export function applyKronkoskyOpeningAuthority(destination: Destination): Destination {
   if (destination.slug !== "albert-bessie-kronkosky-state-natural-area") return destination;
+  const now = Date.now();
+  const openingStatus = now < DAY_USE_START
+    ? "NOT YET OPEN: public day use starts December 1, 2026 and overnight stays December 15."
+    : now < OVERNIGHT_START
+      ? "OPEN FOR DAY USE: overnight stays start December 15, 2026."
+      : "OPEN FOR DAY USE AND OVERNIGHT STAYS; verify current TPWD closures before travel.";
   return {
     ...destination,
-    summary: "Opening December 1, 2026 for day use and December 15 for overnight stays, this roughly 3,800-acre Hill Country preserve near Pipe Creek offers 26 miles of trails, varied camping, a nature center and rare-species habitat. Reservations begin December 1.",
+    summary: "Day use begins December 1, 2026 and overnight stays December 15 at this roughly 3,800-acre Hill Country preserve near Pipe Creek offers 26 miles of trails, varied camping, a nature center and rare-species habitat. Reservations begin December 1.",
     nearestTown: "Pipe Creek",
     county: "Bandera",
     coordinates: { lat: 29.74032304, lng: -98.83809256 },
     address: "7754 State Highway 46, Pipe Creek, TX 78063",
     directions: "From Boerne, take State Highway 46 west across I-10 and continue about seven miles to the state natural area entrance on the right. From Bandera, take Highway 16 south to Highway 46, then turn east; the entrance will be on the left. Use the official entrance rather than navigating to an internal trailhead or an approximate ranch centroid.",
     bestSeason: "Day use begins December 1, 2026; overnight stays begin December 15. Cooler months are a practical first choice for strenuous Hill Country trails. In summer, start early and plan for heat.",
-    entryNote: "NOT YET OPEN as of November 18, 2026. TPWD announces public day use beginning December 1, camping beginning December 15 and online reservations opening December 1. Day-use entry is $6 per person aged 13 or older; children 12 and under enter free. Gates: 7 a.m.–10 p.m. daily. Reserve ahead: capacity closures are possible. Check official alerts, weather and the booking system before leaving.",
+    entryNote: `${openingStatus} TPWD announced online reservations beginning December 1, 2026. Day-use entry is $6 per person aged 13 or older; children 12 and under enter free. Gates: 7 a.m.–10 p.m. daily. Reserve ahead: capacity closures are possible. Check official alerts, weather and the booking system before leaving.`,
     managingAuthority: "Texas Parks and Wildlife Department",
     officialUrl: PARK,
     reservationUrl: BOOKING,
@@ -75,7 +83,7 @@ export function applyKronkoskyOpeningAuthority(destination: Destination): Destin
       { topic: "parking", label: "Official entrance", detail: "Navigate to the park entrance at 7754 State Highway 46, Pipe Creek, TX 78063. Ask the park which parking area and trailhead suit your visit.", sourceUrl: MAP, checkedAt: CHECKED }
     ],
     visitorFaqs: [
-      { question: "When does Albert and Bessie Kronkosky State Natural Area open?", answer: "TPWD announced day use for December 1, 2026 and overnight stays for December 15, 2026. These are future opening dates as of November 18, not permission to visit early.", sourceUrl: PRESS },
+      { question: "When does Albert and Bessie Kronkosky State Natural Area open?", answer: "TPWD announced day use for December 1, 2026 and overnight stays for December 15, 2026. These are the November 18 agency-announced opening dates; check current alerts for changes.", sourceUrl: PRESS },
       { question: "When can I reserve a day pass or campsite?", answer: "Online reservations are scheduled to open December 1, 2026 for both day visits and overnight stays. The first overnight stays begin December 15. Reserve ahead because day-use capacity may fill.", sourceUrl: PRESS },
       { question: "How much does a day visit cost?", answer: "TPWD lists $6 daily per person ages 13 and up; children 12 and under enter free. Camping, cabins and group facilities have separate charges.", sourceUrl: PARK },
       { question: "How many miles of hiking trails are there?", answer: "The November 2026 agency release lists 26 miles of trails with different surfaces, widths and difficulties. Select an actual route using current park maps and conditions; not all trails will suit every visitor.", sourceUrl: PRESS },
