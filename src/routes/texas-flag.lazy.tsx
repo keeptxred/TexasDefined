@@ -115,6 +115,38 @@ function LoneStarProportions() {
   </section>;
 }
 
+
+function FlagArchiveAndFlagDay() {
+  return <section aria-labelledby="flag-archive-heading" className="border-b border-border py-10 sm:py-14">
+    <Container>
+      <div className="grid gap-12 lg:grid-cols-2">
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Read the original record</p>
+          <h2 id="flag-archive-heading" className="mt-3 font-display text-3xl md:text-4xl">The signed 1839 flag drawing: a primary-source research guide</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">The Texas State Library and Archives Commission preserves the original color flag-and-seal design as archival item 1974/066-001. The sheet depicts the Lone Star national flag beside the Republic's seal. The archive shows closeups of President Mirabeau B. Lamar's signature and the signatures of House Speaker John M. Hansford and Senate President David G. Burnet.</p>
+          <p className="mt-4 leading-8 text-muted-foreground">The signatures and the accompanying law show official approval of the design on January 25, 1839. They do not establish who first invented it. Peter Krag produced the surviving official drawing; William H. Wharton's bill and the Senate committee led by Oliver Jones document the legislative path. A modern flag rendering is not a photograph of the original artifact, nor proof of the appearance of surviving cloth.</p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href="https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">State Library: original signed flag drawing and seal</a>
+            <a href="https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">State Library: archival accession record</a>
+            <Link to="/article/history-of-the-texas-flag" className="font-semibold text-primary underline underline-offset-4">Full primary-source history</Link>
+          </div>
+        </div>
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Two dates, two milestones</p>
+          <h2 className="mt-3 font-display text-3xl md:text-4xl">When Texas Flag Day happens and why the date matters</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">Texas Flag Day is March 2 under Texas Government Code § 662.048. It falls on the anniversary of Texas independence in 1836, not the anniversary of the familiar Lone Star flag's January 25, 1839 adoption. Schools and civic groups should distinguish these milestones when labeling historical flags or planning commemorations.</p>
+          <p className="mt-4 leading-8 text-muted-foreground">The original state flag pledge was adopted in 1933 and later corrected and amended. Today's wording and display requirements come from the current Texas Flag Code. The 1839 archive and the modern law answer different questions: the former documents how the design was approved; the latter governs the flag's present design and respectful display.</p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href="https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Texas Government Code § 662.048</a>
+            <a href="https://www.tsl.texas.gov/ref/abouttx/flagpledge" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">State Library: flag pledge</a>
+            <Link to="/article/texas-flag-etiquette-display-guide" className="font-semibold text-primary underline underline-offset-4">Flag etiquette and pledge guide</Link>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>;
+}
+
 function TexasFlagPage() {
   return <PrioritySearchPage
     data={Route.useLoaderData()}
@@ -123,6 +155,7 @@ function TexasFlagPage() {
     afterQuickAnswer={<>
       <HistoricalFlagComparison />
       <HistoricalTimeline />
+      <FlagArchiveAndFlagDay />
       <LoneStarProportions />
     </>}
   />;

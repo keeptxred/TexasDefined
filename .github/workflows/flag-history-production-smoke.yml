@@ -107,6 +107,8 @@ jobs:
             && require_text main-flag 'Burnet flag' "$workdir/flag-main.txt" \
             && require_text main-flag 'Lone Star flag' "$workdir/flag-main.txt" \
             && require_text main-flag 'Before red, white and blue' "$workdir/flag-main.txt" \
+            && require_text main-flag 'The signed 1839 flag drawing' "$workdir/flag-main.txt" \
+            && require_text main-flag 'Texas Flag Day' "$workdir/flag-main.txt" \
             && require_raw main-flag 'burnet-flag-title' "$workdir/flag-main.html" \
             && require_raw main-flag 'lone-star-flag-title' "$workdir/flag-main.html" \
             && require_raw main-flag 'texas-flag-timeline' "$workdir/flag-main.html" \
@@ -133,6 +135,8 @@ jobs:
             post_status texas-flag-history-visible-text pending 'Checking required history headings and title'
             if require_text history 'The Texas Flag: A History of the Lone Star' "$workdir/history.txt" \
               && require_text history 'Who designed the Texas flag?' "$workdir/history.txt" \
+              && require_text history 'What the signed 1839 original actually shows' "$workdir/history.txt" \
+              && require_text history 'Texas Flag Day is March 2' "$workdir/history.txt" \
               && require_text history 'The strange legal gap from 1879 to 1933' "$workdir/history.txt" \
               && require_text history 'Can the Texas flag fly at the same height as the U.S. flag?' "$workdir/history.txt"; then
               post_status texas-flag-history-visible-text success 'Required live history text verified'
@@ -151,7 +155,10 @@ jobs:
             fi
 
             post_status texas-flag-history-schema pending 'Checking live FAQ schema'
-            if require_raw history 'FAQPage' "$workdir/history.html"; then
+            if require_raw history 'FAQPage' "$workdir/history.html" \
+              && require_raw history 'copyrightNotice' "$workdir/history.html" \
+              && require_raw history 'acquireLicensePage' "$workdir/history.html" \
+              && require_raw history 'Paul B. Joiner' "$workdir/history.html"; then
               post_status texas-flag-history-schema success 'FAQ schema verified on live history article'
             else
               post_status texas-flag-history-schema failure 'FAQ schema missing from live history article'
@@ -231,8 +238,8 @@ jobs:
             echo '::error title=Flag indexing check failed::sitemap.xml could not be fetched'
             indexing_ok=0
           else
-            grep -Fq "<loc>${origin}/texas-flag</loc><lastmod>2026-11-18</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::main Texas flag sitemap lastmod marker missing'; indexing_ok=0; }
-            grep -Fq "<loc>${origin}${history}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::history article sitemap lastmod marker missing'; indexing_ok=0; }
+            grep -Fq "<loc>${origin}/texas-flag</loc><lastmod>2026-11-19</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::main Texas flag sitemap lastmod marker missing'; indexing_ok=0; }
+            grep -Fq "<loc>${origin}${history}</loc><lastmod>2026-11-19</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::history article sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}${etiquette}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::etiquette article sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}/texas-history</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::Texas History hub sitemap lastmod marker missing'; indexing_ok=0; }
             grep -Fq "<loc>${origin}/texas-symbols</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || { echo '::error title=Flag indexing check failed::Texas Symbols sitemap lastmod marker missing'; indexing_ok=0; }

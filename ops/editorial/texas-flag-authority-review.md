@@ -3,7 +3,7 @@
 **Primary authority hub:** `/texas-flag`  
 **Companion research:** `/article/history-of-the-texas-flag`  
 **Display guide:** `/article/texas-flag-etiquette-display-guide`  
-**Last substantive page revision:** 2026-11-18  
+**Last substantive page revision:** 2026-11-19  
 **Review cadence:** Quarterly — February, May, August and November 15 (GitHub workflow `texas-flag-quarterly.yml`).
 **Release verification:** Use the existing manual-only `.github/workflows/flag-history-production-smoke.yml` after publication to verify the live flag authority hub, historical companion pages, sources, accessibility hooks, indexing and sitemap. This is deliberately not a blanket deployment-triggered fanout; quarterly source reviews remain scheduled separately.
 
@@ -13,15 +13,27 @@
 - Red, white and blue Lone Star flag: approved **January 25, 1839** by President Lamar; the [Texas State Library](https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html) preserves the signed artwork. Peter Krag drew the surviving original; the initiating designer remains unproven.
 - Modern geometry, color definitions, meanings and protocol: Texas Government Code [Chapter 3100](https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm), including § 3100.002. The diagrams are original vector illustrations, not archival artifact photos or definitive 1836 color samples.
 - Legal gap 1879–1933: legislation did not carry forward the former state flag statute, but Texans continued using the design. Confirm from the [Handbook](https://www.tshaonline.org/handbook/entries/flags-of-texas).
+- Signed original: [TSLAC 1974/066-001](https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html) shows the flag *and* seal and detail views of the government signatures; it does not settle first inventor attribution. Never silently substitute a drawing for a photo of cloth.
+- Three official designs: the Handbook distinguishes the 1836 national standard, the separate 1836 naval flag, and the 1839 national design; do not confuse the maritime ensign with the Burnet standard.
+- Texas Flag Day: March 2 under [Government Code § 662.048](https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm); this is different from the January 25, 1839 adoption anniversary.
+- Hero image rights: the modern flag SVG on Commons is labeled public domain for insufficient originality and credits Paul B. Joiner. The article's ImageObject supplies source, public-domain designation, creator and copyright notice accurately; original archival reproduction rights are a separate matter.
 
 ## Acceptance tests
 
 - Run `node scripts/data/validate-texas-flag-authority.mjs` after every relevant code change.
-- Following a production deployment, run `node scripts/ci/verify-texas-flag-live.mjs --sources` to verify visible, accessible flag drawings, sources, canonical, Article companion backlinks and sitemap lastmod.
+- Following a production deployment, run `node scripts/ci/verify-texas-flag-live.mjs --sources` to verify visible, accessible flag drawings, archive provenance, creator/license/copyright metadata, statutory Flag Day, canonicals, reciprocal links and both November 19 sitemap lastmod values.
 - Check the page with mobile viewport, keyboard and screen-reader navigation. Vector flags must preserve meaningful titles/descriptions and layout without external image dependencies.
 - Cite primary and specialist sources near assertions; do not claim unsupported designer attribution, first-ever flag or color mythology.
 - Re-check the page's indexability, loading and speed against Google Search Essentials and the people-first guidance: https://developers.google.com/search/docs/essentials and https://developers.google.com/search/docs/fundamentals/creating-helpful-content .
 - Content changes require actual review; do not update a date solely because a recurring workflow ran. Schedule failures raise a deduplicated GitHub issue, never automatically change historical claims.
+
+## Release checkpoint — November 19, 2026
+
+- Source work and SEO/rights changes are on branch `editorial/texas-flag-archive-seo-20261119`.
+- Must validate `node scripts/data/validate-texas-flag-authority.mjs` and type/build checks before merge.
+- Must merge, confirm production deployment succeeded, and run the *live* checks from `scripts/ci/verify-texas-flag-live.mjs --sources` and `.github/workflows/flag-history-production-smoke.yml`.
+- Do not claim final Google Search indexing or Search policy approval from tests; URL Inspection and actual search performance lag publication.
+- If deployment or test fails, record issue/PR, exact failing job, pending files and next step. Never advance an editorial date without a verified content change.
 
 ## Content architecture
 

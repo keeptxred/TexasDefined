@@ -477,7 +477,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas history & symbols",
     title: "Texas Flag: History, Meaning, Design and Display Rules",
     intro: "Compare the blue-and-gold Burnet flag of 1836 with the Lone Star flag adopted in 1839. Explore the Republic-era timeline, the original documents, the modern design specifications and practical flag etiquette.",
-    updated: "November 18, 2026",
+    updated: "November 19, 2026",
     quickAnswer: "Texas adopted its blue flag with a gold star (the Burnet national standard) on December 10, 1836, then the familiar blue, white and red Lone Star flag on January 25, 1839. Both came after earlier revolution-era flags; a separate red, white and blue naval ensign was also used in 1836.",
     sections: [
       {
@@ -576,7 +576,10 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
           { label: "Texas Revolution sites road trip", href: "/article/texas-revolution-historic-sites-road-trip" },
           { label: "Texas symbols", href: "/texas-symbols" },
           { label: "Texas history", href: "/texas-history" },
-          { label: "Explore historic places", href: "/explore/historic-sites" }
+          { label: "Explore historic places", href: "/explore/historic-sites" },
+          { label: "Republic of Texas Navy flags", href: "/article/republic-of-texas-navy-history" },
+          { label: "Republic of Texas government trail", href: "/article/republic-of-texas-government-trail" },
+          { label: "Washington-on-the-Brazos historic site", href: "/destination/washington-on-the-brazos" }
         ]
       }
     ],

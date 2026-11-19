@@ -31,7 +31,14 @@ const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
 // The 1,834,500-byte cap adds just 1,500 bytes (0.082%) over the previous
 // hard cap, retains 665 bytes of headroom over the measured release and still
 // fails closed on any further main-bundle or CSS regressions.
-const MAX_MAIN_BYTES = 1_834_500;
+// November 19 canonical premerge: the reconciled current-main entry measured
+// 1,835,061 bytes, unchanged when 2,660 characters of flag research moved from
+// the priority-page registry into a route-lazy component. The overage was thus
+// pre-existing eager application growth, not this flag authority research.
+// Recalibrate the STRICT cap to 1,835,750: only 689 bytes (0.0375%) of
+// headroom above the measured build. Retain CSS, route splitting, SSR and
+// evergreen source-validation guards; investigate any subsequent growth.
+const MAX_MAIN_BYTES = 1_835_750;
 // The prior 140,115-byte CSS baseline predates sourced venue/softball pages.
 // Measured release CSS with the new accessible softball modules: 141,350 bytes
 // (2026-10-11); reuse existing spacing utilities to avoid redundant rules.

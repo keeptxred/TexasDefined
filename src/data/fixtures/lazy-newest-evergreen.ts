@@ -34,6 +34,7 @@ const texasFlagHistoryStub: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-19",
+  updatedAt: "2026-11-19",
   readingMinutes: 11,
   tags: ["texas flag history", "lone star flag", "republic of texas", "burnet flag", "peter krag", "texas state symbols", "texas history"],
   featured: true,
