@@ -28,7 +28,7 @@ export function applyKronkoskyOpeningAuthority(destination: Destination): Destin
       : "OPEN FOR DAY USE AND OVERNIGHT STAYS; verify current TPWD closures before travel.";
   return {
     ...destination,
-    summary: "Day use begins December 1, 2026 and overnight stays December 15 at this roughly 3,800-acre Hill Country preserve near Pipe Creek offers 26 miles of trails, varied camping, a nature center and rare-species habitat. Reservations begin December 1.",
+    summary: "The roughly 3,800-acre Kronkosky State Natural Area near Pipe Creek opens for day use on December 1, 2026 and overnight stays on December 15. Explore 26 miles of trails, varied camping, a nature center and rare-species habitat. Reservations open December 1.",
     nearestTown: "Pipe Creek",
     county: "Bandera",
     coordinates: { lat: 29.74032304, lng: -98.83809256 },
