@@ -346,6 +346,7 @@ const curated: Record<string, TopAttractionExpansion> = {
         { label: "Austin's civic and museum corridor", duration: "Half to full day", steps: ["Begin at the Capitol while tour departures are running", "Walk north to the Bullock Museum and then the Blanton Museum, checking each museum's independent admission schedule", "Add the LBJ Presidential Library by separate transit or vehicle if the day and available time permit"] },
       ],
       sources: [
+        { label: "State Preservation Board: Goddess of Liberty original and replica", url: "https://www.tspb.texas.gov/prop/tc/tc-history/goddess/index.html", scope: "Distinguish 1888 rooftop original from conservation replacement" },
         { label: "State Preservation Board: Capitol building history", url: "https://tspb.texas.gov/prop/tc/tc-history/history/index.html", scope: "XIT land financing, granite, construction and dedication" },
         { label: "State Preservation Board: Restoration and Expansion", url: "https://www.tspb.texas.gov/prop/tc/tc-history/restoration/", scope: "1993 underground extension and restoration chronology" },
         { label: "State Preservation Board: Guided and self-guided tours", url: "https://tspb.texas.gov/plan/tours/tours.html", scope: "Schedules, closures, tour assembly and photography policy" },
