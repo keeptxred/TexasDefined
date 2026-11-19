@@ -25,6 +25,7 @@ async function check(label, url, fn) {
 await check("Flag authority page", `${root}/texas-flag`, html => {
   for (const text of [
     "December 10, 1836", "January 25, 1839", "Burnet flag", "Lone Star flag",
+    "The signed 1839 flag drawing: a primary-source research guide", "When Texas Flag Day happens and why the date matters",
   ]) assertContains("Flag page", html, text);
   for (const target of [
     "/article/history-of-the-texas-flag",
@@ -46,6 +47,8 @@ await check("Flag history article", `${root}/article/history-of-the-texas-flag`,
   assertContains("History article", html, "December 10, 1836");
   assertContains("History article", html, "January 25, 1839");
   assertContains("History hub backlink", html, "/texas-flag");
+  for (const phrase of ["What the signed 1839 original actually shows", "Texas Flag Day is March 2", "1974/066-001", "Paul B. Joiner"]) assertContains("History research and image rights", html, phrase);
+  for (const property of ["copyrightNotice", "acquireLicensePage", "creator"]) assertContains("History ImageObject metadata", html, property);
 });
 await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-display-guide`, html => {
   assertContains("Etiquette hub backlink", html, "/texas-flag");
@@ -53,9 +56,11 @@ await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-disp
 await check("Primary sitemap", `${root}/sitemap.xml`, xml => {
   const marker = "<loc>https://texasdefined.com/texas-flag</loc>";
   const entry = xml.split(marker)[1]?.split("</url>")[0] ?? "";
-  if (!entry.includes("<lastmod>2026-11-18</lastmod>")) {
-    errors.push("Texas flag sitemap is missing its November 18, 2026 lastmod");
+  if (!entry.includes("<lastmod>2026-11-19</lastmod>")) {
+    errors.push("Texas flag sitemap is missing its November 19, 2026 lastmod");
   }
+  const historyEntry = xml.split("<loc>https://texasdefined.com/article/history-of-the-texas-flag</loc>")[1]?.split("</url>")[0] ?? "";
+  if (!historyEntry.includes("<lastmod>2026-11-19</lastmod>")) errors.push("Flag history article sitemap is missing its November 19, 2026 lastmod");
 });
 
 if (sourceCheck) {
@@ -65,6 +70,9 @@ if (sourceCheck) {
   });
   await check("Texas State Library archival flag", "https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html", html => {
     assertContains("State Library", html, "January 25, 1839");
+  });
+  await check("Texas Flag Day statute", "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm", html => {
+    assertContains("Texas Flag Day law", html, "662.048");
   });
   await check("Official flag code", "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm", html => {
     assertContains("Flag law", html, "3100.002");
