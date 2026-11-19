@@ -2,7 +2,7 @@ import type { Destination } from "./types";
 
 /**
  * Albert & Bessie Kronkosky State Natural Area: opening visitor authority.
- * Primary-source check: November 18, 2026, following TPWD's dated opening release.
+ * Primary-source check: November 19, 2026, following TPWD's dated opening release.
  * The old evergreen TPWD park landing-page prose still says "no opening date"
  * as of this check; the newer dated release controls the announced opening.
  * Admission and reservations are not usable before the stated opening dates.
@@ -11,31 +11,44 @@ import type { Destination } from "./types";
  */
 const PRESS = "https://tpwd.texas.gov/newsmedia/releases/?req=20261118a";
 const PARK = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky";
+const ALERT = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/park-alert";
+const RANGER = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/ranger-notes";
+const INTERVIEW = "https://www.tpr.org/arts-culture/2026-11-17/a-nearly-4-000-acre-park-in-the-hill-country-is-almost-ready-to-greet-visitors";
 const HISTORY = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/history";
 const MAP = "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky/map";
 const BOOKING = "https://texasstateparks.reserveamerica.com/camping/albert-and-bessie-kronkosky-abk-sna/r/campgroundDetails.do?contractCode=TX&parkId=1200051";
-const CHECKED = "2026-11-18";
+const CHECKED = "2026-11-19";
 const DAY_USE_START = Date.parse("2026-12-01T06:00:00Z");
 const OVERNIGHT_START = Date.parse("2026-12-15T06:00:00Z");
 
-export function applyKronkoskyOpeningAuthority(destination: Destination): Destination {
+export function applyKronkoskyOpeningAuthority(destination: Destination, now = Date.now()): Destination {
   if (destination.slug !== "albert-bessie-kronkosky-state-natural-area") return destination;
-  const now = Date.now();
-  const openingStatus = now < DAY_USE_START
-    ? "NOT YET OPEN: public day use starts December 1, 2026 and overnight stays December 15."
-    : now < OVERNIGHT_START
-      ? "OPEN FOR DAY USE: overnight stays start December 15, 2026."
-      : "OPEN FOR DAY USE AND OVERNIGHT STAYS; verify current TPWD closures before travel.";
+  // A scheduled opening is not a guarantee of an open gate; always consult the park alert.
+  const beforeDayUse = now < DAY_USE_START;
+  const beforeCamping = now < OVERNIGHT_START;
+  const openingStatus = beforeDayUse
+    ? "NOT YET OPEN: TPWD schedules day use for December 1, 2026 and overnight stays for December 15."
+    : beforeCamping
+      ? "DAY-USE DATE REACHED: TPWD scheduled day use from December 1. Overnight stays start December 15; confirm live access."
+      : "ANNOUNCED OPENING DATES HAVE PASSED: TPWD scheduled day use from December 1 and overnight stays from December 15; check alerts for actual access.";
+  const bookingTime = beforeDayUse
+    ? "Reservations are scheduled to open December 1"
+    : "TPWD scheduled reservations from December 1; check the live booking system";
+  const entranceSummary = beforeDayUse
+    ? "Kronkosky State Natural Area near Pipe Creek opens for day use December 1, 2026 and overnight stays December 15."
+    : beforeCamping
+      ? "TPWD's December 1 day-use opening date has arrived at Kronkosky State Natural Area; overnight stays start December 15."
+      : "Kronkosky State Natural Area's announced December 1 day-use and December 15 overnight opening dates have passed.";
   return {
     ...destination,
-    summary: "The roughly 3,800-acre Kronkosky State Natural Area near Pipe Creek opens for day use on December 1, 2026 and overnight stays on December 15. Explore 26 miles of trails, varied camping, a nature center and rare-species habitat. Reservations open December 1.",
+    summary: `${entranceSummary} Explore about 3,800 acres, 26 miles of trails, camping and a nature center; check current TPWD park alerts.`,
     nearestTown: "Pipe Creek",
     county: "Bandera",
     coordinates: { lat: 29.74032304, lng: -98.83809256 },
     address: "7754 State Highway 46, Pipe Creek, TX 78063",
     directions: "From Boerne, take State Highway 46 west across I-10 and continue about seven miles to the state natural area entrance on the right. From Bandera, take Highway 16 south to Highway 46, then turn east; the entrance will be on the left. Use the official entrance rather than navigating to an internal trailhead or an approximate ranch centroid.",
     bestSeason: "Day use begins December 1, 2026; overnight stays begin December 15. Cooler months are a practical first choice for strenuous Hill Country trails. In summer, start early and plan for heat.",
-    entryNote: `${openingStatus} TPWD announced online reservations beginning December 1, 2026. Day-use entry is $6 per person aged 13 or older; children 12 and under enter free. Gates: 7 a.m.–10 p.m. daily. Reserve ahead: capacity closures are possible. Check official alerts, weather and the booking system before leaving.`,
+    entryNote: `${openingStatus} ${bookingTime}. TPWD lists $6 for day use per person aged 13 or older; children 12 and under enter free. Announced public hours: 7 a.m.–10 p.m. daily. Check current park alerts, weather and actual reservation prices before leaving.`,
     managingAuthority: "Texas Parks and Wildlife Department",
     officialUrl: PARK,
     reservationUrl: BOOKING,
@@ -49,12 +62,12 @@ export function applyKronkoskyOpeningAuthority(destination: Destination): Destin
       credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
     },
     highlights: [
-      "Opens for day use December 1; camping December 15, 2026",
+      beforeDayUse ? "Day use scheduled December 1; camping December 15, 2026" : beforeCamping ? "Day-use date reached; camping scheduled December 15, 2026" : "Opening dates passed; check official access and booking alerts",
       "26-mile network of trails with differing surfaces and difficulty",
       "Tent campsites, primitive backcountry stays and mini cabins",
       "Nature Center with tactile, braille and interpreted exhibits",
       "Golden-cheeked warbler woodland and rare Hill Country plants",
-      "Reservations open December 1; day-use capacity may be reached"
+      "TPWD scheduled reservations from December 1; day-use capacity may fill"
     ],
     body: [
       "There is an important difference between an opening announcement and an open gate. On November 18, 2026, Texas Parks and Wildlife Department announced that Albert and Bessie Kronkosky State Natural Area would admit day visitors starting December 1, with overnight stays starting December 15. The reservation system is scheduled to begin taking both types of bookings on December 1. Until then, the property is not an ordinary public-access hiking destination. This is the opening schedule, not a claim that a campsite or day pass is available today.",
