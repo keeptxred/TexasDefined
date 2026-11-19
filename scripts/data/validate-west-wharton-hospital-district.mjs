@@ -28,6 +28,15 @@ assert.equal(facts.slug, 'west-wharton-county-hospital-district');
 assert.equal(facts.officialTaxingUnitId, '241-201-11');
 assert.equal(facts.currentWorkbookYear, 2025);
 assert.equal(facts.priorYear, 2024);
+assert.equal(facts.localAdopted2026.noNewRevenueRate, 0.23633);
+assert.equal(facts.localAdopted2026.voterApprovalRate, 0.25913);
+assert.equal(facts.county2023Reconciliation.year, 2023);
+assert.equal(facts.county2023Reconciliation.countyFiveYearSummaryRate, 0.20550);
+assert.equal(facts.county2023Reconciliation.comptrollerImportedTotalRate, 0.21897);
+near(facts.localAdopted2026.noNewRevenueRate - facts.localAdopted2026.totalRate, 0.00423, '2026 below no-new-revenue rate', 0.0000001);
+near(facts.county2023Reconciliation.comptrollerImportedTotalRate - facts.county2023Reconciliation.countyFiveYearSummaryRate, 0.01347, '2023 source conflict', 0.0000001);
+assert.ok(facts.localAdopted2026.totalRate < facts.localAdopted2026.noNewRevenueRate && facts.localAdopted2026.noNewRevenueRate < facts.localAdopted2026.voterApprovalRate);
+assert.ok(facts.sources.countyFiveYearSummary.endsWith('/2026%205%20Year%20Summary.pdf'));
 assert.equal(facts.localAdopted2026.year, 2026);
 near(facts.localAdopted2026.totalRate, 0.23210, '2026 county adopted total', 0.0000001);
 near(facts.localAdopted2026.maintenanceOperationsRate, 0.23210, '2026 county adopted M&O', 0.0000001);
@@ -36,7 +45,7 @@ near(facts.localAdopted2026.totalRate, facts.localAdopted2026.maintenanceOperati
 near(facts.localAdopted2026.totalRate, facts.adoptedRate2025, '2025 to 2026 adopted rate unchanged', 0.0000001);
 assert.match(facts.sources.county2026AdoptedTable, /\/2026%20Tax%20Rates\.pdf$/);
 assert.match(facts.sources.countyRateIndex, /wharton\.tax\.rate$/);
-assert.equal(facts.lastVerified, '2026-11-18');
+assert.equal(facts.lastVerified, '2026-11-19');
 near(facts.adoptedRate2025, 0.23210, 'Official 2025 statewide rate', 0.0000001);
 near(facts.priorRate2024, 0.21710, 'Official 2024 statewide rate', 0.0000001);
 near((facts.adoptedRate2025/facts.priorRate2024-1)*100, 6.91, 'Rate percent difference');
@@ -61,6 +70,7 @@ for (const marker of [
   'district-taxable', 'not interchangeable', '2025 proposed',
   'Wharton CAD', 'County Tax Assessor-Collector', 'Frequently asked questions',
   '2026 hospital district rate: $0.23210 per $100', 'county2026AdoptedTable', 'October 2026',
+  'countyFiveYearSummary', 'county2023Reconciliation', '2026 no-new-revenue benchmark', '2023 hospital district rate',
   '/property-tax/county/wharton', '/texas-property-tax-estimator',
 ]) assert.ok(component.includes(marker), `Page missing authority contract: ${marker}`);
 assert.ok(parent.includes('latest.slug === whartonEvidence.slug'));
@@ -78,9 +88,11 @@ assert.ok(route.includes('wharton2025?.levy === westWhartonHospitalDistrict.stat
 
 assert.ok(route.includes('hasWestWhartonAuthority') && route.includes('westWhartonHospitalDistrict.sources.districtNotice'));
 assert.ok(route.includes('westWhartonHospitalDistrict.sources.county2026AdoptedTable'));
+assert.ok(route.includes('westWhartonHospitalDistrict.sources.countyFiveYearSummary'));
+assert.ok(route.includes('a disclosed 2023 county/Comptroller rate conflict'));
 assert.ok(route.includes('Math.max(latest.year, westWhartonHospitalDistrict.localAdopted2026.year)'));
 assert.ok(route.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
-assert.ok(sitemap.includes('{ path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-18" }'));
+assert.ok(sitemap.includes('{ path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-19" }'));
 assert.ok(countyRoute.includes('county.slug === \'wharton\'') && countyRoute.includes('/property-tax/taxing-unit/west-wharton-county-hospital-district'));
 
 
@@ -93,9 +105,9 @@ const westWhartonReleaseBlock = production.slice(production.indexOf('id: live_wh
 assert.ok(westWhartonReleaseBlock.includes("steps.cloudflare.outcome == 'success'"), 'West Wharton canary must require a new successful Worker');
 assert.ok(!westWhartonReleaseBlock.includes('steps.change_scope.outputs.financial'), 'Superseded tax changes cannot bypass live district acceptance under an unrelated release');
 assert.ok(westWhartonReleaseBlock.includes('verify-west-wharton-hospital-production.mjs'), 'The unconditional test must verify the page on both public origins');
-for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', '2026 hospital district rate', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
+for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', 'facts.sources.countyFiveYearSummary', '2026 hospital district rate', '2023 official-source disagreement', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
-console.log('PASS: independently sourced adopted 2026 county rate, 2024–25 state history and levy math, canonical/metadata, integration and scheduled review contract');
+console.log('PASS: 2026 county benchmarks, 2023 official rate discrepancy provenance, 2024–25 state history and levy math, publication metadata and scheduled source checks');
 
 if (process.argv.includes('--remote')) {
   // Use bounded requests, tolerate anti-bot and temporary network errors. A
@@ -108,6 +120,7 @@ if (process.argv.includes('--remote')) {
     [facts.sources.comptrollerCounty, facts.officialTaxingUnitId, 'Comptroller district identity'],
     [facts.sources.districtNotice, null, '2025 notice PDF'],
     [facts.sources.county2026AdoptedTable, null, '2026 adopted-rate table PDF'],
+    [facts.sources.countyFiveYearSummary, null, '2026 county five-year summary PDF'],
     [facts.sources.countyRateIndex, '2026 Tax Rate', 'county tax-rate index'], 
     [facts.sources.countyTaxOffice, null, 'Wharton County tax office'],
     [facts.sources.countyEstimator, null, 'official estimator'],
