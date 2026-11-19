@@ -9,6 +9,8 @@ import type { Destination } from "./types";
  * gives state parks and adjacent attractions a reverse link back to the cavern.
  */
 const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
+  // December 2026 park opening: realistic town base and complementary public lands.
+  "albert-bessie-kronkosky-state-natural-area": ["boerne", "guadalupe-river-state-park", "government-canyon-state-natural-area", "hill-country-state-natural-area"],
   // Waco editorial visitor routes: deliberate reciprocal pairings, not arbitrary proximity.
   "dr-pepper-museum-waco": ["waco-suspension-bridge", "cottonland-castle", "texas-ranger-hall-of-fame-museum-waco", "magnolia-market-at-the-silos"],
   "cottonland-castle": ["magnolia-market-at-the-silos", "dr-pepper-museum-waco"],
