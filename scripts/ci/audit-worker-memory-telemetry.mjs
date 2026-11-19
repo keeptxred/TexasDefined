@@ -39,9 +39,19 @@ const ORIGINS = ['https://texasdefined.com', 'https://texasdefined-site.freddy-c
 const ENDPOINT_PATH = '/workers/observability/telemetry/query';
 const MESSAGE = 'Dynamic import exceeded memory limits';
 export const MIN_CERTIFICATION_WINDOW_MS = 6 * 60 * 60 * 1000;
+export const EDGE_COVERAGE_WINDOW_MS = 15 * 60 * 1000;
+
+// Count actual same-version invocation evidence near BOTH boundaries of the
+// requested six-hour window; a single late event cannot prove sustained use.
+export function assessWindowEdgeCoverage(startBody, endBody) {
+  const beginning = unpackTelemetryResponse(startBody);
+  const ending = unpackTelemetryResponse(endBody);
+  return { beginningInvocations: beginning.count, endingInvocations: ending.count };
+}
+
 
 // A brief clean log sample is a valid observation, not sustained incident clearance.
-export function classifyMemoryObservation(from, to, evidence) {
+export function classifyMemoryObservation(from, to, evidence, edgeCoverage = null) {
   if (!Number.isFinite(from) || !Number.isFinite(to) || to <= from) {
     throw new Error('Invalid memory telemetry observation window');
   }
@@ -49,10 +59,14 @@ export function classifyMemoryObservation(from, to, evidence) {
     throw new Error('Memory telemetry must have positive observations and zero exceptions');
   }
   const durationMs = to - from;
+  const sixHourWindowSatisfied = durationMs >= MIN_CERTIFICATION_WINDOW_MS
+    && Number.isSafeInteger(edgeCoverage?.beginningInvocations) && edgeCoverage.beginningInvocations > 0
+    && Number.isSafeInteger(edgeCoverage?.endingInvocations) && edgeCoverage.endingInvocations > 0;
   return {
     observationDurationMs: durationMs,
-    sixHourWindowSatisfied: durationMs >= MIN_CERTIFICATION_WINDOW_MS,
-    certificationStatus: durationMs >= MIN_CERTIFICATION_WINDOW_MS ? 'SIX_HOUR_WINDOW_OBSERVED' : 'SHORT_WINDOW_ONLY',
+    sixHourWindowSatisfied,
+    certificationStatus: sixHourWindowSatisfied ? 'SIX_HOUR_WINDOW_OBSERVED'
+      : durationMs >= MIN_CERTIFICATION_WINDOW_MS ? 'SIX_HOUR_COVERAGE_INCOMPLETE' : 'SHORT_WINDOW_ONLY',
   };
 }
 
@@ -149,6 +163,13 @@ export async function run() {
         const baseline = await queryTelemetry(account, token, timeframe, null, report.pinnedLiveWorkerVersion);
         const errors = await queryTelemetry(account, token, timeframe, MESSAGE, report.pinnedLiveWorkerVersion);
         observed = assessMemoryEvidence(baseline, errors);
+        if (to - from >= MIN_CERTIFICATION_WINDOW_MS) {
+          const beginning = await queryTelemetry(account, token,
+            { from, to: from + EDGE_COVERAGE_WINDOW_MS }, null, report.pinnedLiveWorkerVersion);
+          const ending = await queryTelemetry(account, token,
+            { from: to - EDGE_COVERAGE_WINDOW_MS, to }, null, report.pinnedLiveWorkerVersion);
+          observed.edgeCoverage = assessWindowEdgeCoverage(beginning, ending);
+        }
         break;
       } catch (error) {
         // Bounded fallback across *already installed* GitHub Secrets, never OAuth.
@@ -157,7 +178,7 @@ export async function run() {
       }
     }
     if (!observed) throw new Error('All existing Cloudflare credentials lack Workers Observability Write permission (HTTP 401/403); no stored-log conclusion is possible');
-    Object.assign(report, observed, classifyMemoryObservation(from, to, observed));
+    Object.assign(report, observed, classifyMemoryObservation(from, to, observed, observed.edgeCoverage));
     report.status = 'PASS';
     console.log('Worker memory telemetry: ' + report.certificationStatus + '; observed ' + report.observedInvocations + ' invocations and zero matching exceptions on the same Worker UUID.');
   } catch (error) {

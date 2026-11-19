@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { assessMemoryEvidence, classifyMemoryObservation, unpackTelemetryResponse } from './audit-worker-memory-telemetry.mjs';
+import { assessMemoryEvidence, assessWindowEdgeCoverage, classifyMemoryObservation, unpackTelemetryResponse } from './audit-worker-memory-telemetry.mjs';
 
 function result(count, events = []) {
   return { success: true, result: { run: { status: 'COMPLETED' }, events: { count, events } } };
@@ -47,16 +47,27 @@ test('short clean postdeploy samples never count as six-hour incident clearance'
 
 test('a six-hour positive, zero-error window is distinguished from brief checks', () => {
   const evidence = { observedInvocations: 63, memoryExhaustionEvents: 0 };
-  assert.deepEqual(classifyMemoryObservation(0, 6 * 60 * 60 * 1000, evidence), {
+  assert.deepEqual(classifyMemoryObservation(0, 6 * 60 * 60 * 1000, evidence, { beginningInvocations: 2, endingInvocations: 3 }), {
     observationDurationMs: 6 * 60 * 60 * 1000,
     sixHourWindowSatisfied: true,
     certificationStatus: 'SIX_HOUR_WINDOW_OBSERVED',
   });
-  assert.equal(classifyMemoryObservation(0, 6 * 60 * 60 * 1000 - 1, evidence).sixHourWindowSatisfied, false);
+  assert.equal(classifyMemoryObservation(0, 6 * 60 * 60 * 1000 - 1, evidence, { beginningInvocations: 2, endingInvocations: 3 }).sixHourWindowSatisfied, false);
 });
 
 test('a six-hour status cannot be generated from missing or failed evidence', () => {
   assert.throws(() => classifyMemoryObservation(0, 6 * 60 * 60 * 1000, { observedInvocations: 0, memoryExhaustionEvents: 0 }), /positive observations/);
   assert.throws(() => classifyMemoryObservation(0, 6 * 60 * 60 * 1000, { observedInvocations: 3, memoryExhaustionEvents: 1 }), /zero exceptions/);
   assert.throws(() => classifyMemoryObservation(1, 0, { observedInvocations: 3, memoryExhaustionEvents: 0 }), /Invalid .* window/);
+});
+
+test('six-hour query without positive same-version invocation logs at both edges remains unverified', () => {
+  const good = { observedInvocations: 2, memoryExhaustionEvents: 0 };
+  const fullWindow = 6 * 60 * 60 * 1000;
+  assert.equal(classifyMemoryObservation(0, fullWindow, good).certificationStatus, 'SIX_HOUR_COVERAGE_INCOMPLETE');
+  assert.equal(classifyMemoryObservation(0, fullWindow, good, { beginningInvocations: 0, endingInvocations: 2 }).sixHourWindowSatisfied, false);
+  assert.equal(classifyMemoryObservation(0, fullWindow, good, { beginningInvocations: 2, endingInvocations: 0 }).sixHourWindowSatisfied, false);
+  assert.equal(classifyMemoryObservation(0, fullWindow, good, { beginningInvocations: 2, endingInvocations: 2 }).sixHourWindowSatisfied, true);
+  assert.deepEqual(assessWindowEdgeCoverage(result(4, [{}]), result(5, [{}])), { beginningInvocations: 4, endingInvocations: 5 });
+  assert.throws(() => assessWindowEdgeCoverage(result(1), { success: true, result: { run: { status: 'STARTED' } } }), /not completed/);
 });
