@@ -66,8 +66,8 @@ for (const required of [
 }
 
 const countyHistorySource = fs.readFileSync('src/data/fixtures/dallas-county-dallas-trinity-old-red.ts', 'utf8');
-const dallasHistoryUpdatedAt = countyHistorySource.match(/updatedAt:\\s*"([^"]+)"/)?.[1];
-const dallasSitemapLastmod = primarySitemap.match(/"\\/county\\/dallas":\\s*"([^"]+)"/)?.[1];
+const dallasHistoryUpdatedAt = countyHistorySource.match(/updatedAt:\s*"([^"]+)"/)?.[1];
+const dallasSitemapLastmod = primarySitemap.match(/"\/county\/dallas":\s*"([^"]+)"/)?.[1];
 if (dallasHistoryUpdatedAt !== '2026-11-15' || dallasSitemapLastmod !== dallasHistoryUpdatedAt
     || !countyHistorySource.includes('November 9, 1936')
     || !countyHistorySource.includes('https://texasinstituteofletters.org/til-council-1936-1939/')) {
