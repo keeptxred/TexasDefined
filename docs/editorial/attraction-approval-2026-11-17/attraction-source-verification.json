@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "Owner-approved unpublished attraction guides; review operator facts monthly before final release.",
+  "description": "Published owner-approved attraction authority guides; recheck operating hours, fees, access, tours and image rights every 30 days.",
   "attractions": [
     {
       "path": "/destination/national-ranching-heritage-center-lubbock",
@@ -27,6 +27,26 @@
           "sourceUrl": "https://ranchingheritage.org/contact-us/",
           "fetchUrl": "https://ranchingheritage.org/contact-us/",
           "label": "Direct operator phone and email for group booking when online form is broken"
+        },
+        {
+          "sourceUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/",
+          "fetchUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/",
+          "label": "Curator's published historic-structure inventory"
+        },
+        {
+          "sourceUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/matador-half-dugout/",
+          "fetchUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/matador-half-dugout/",
+          "label": "1888 Matador Half-Dugout provenance and ranch-worker interpretation"
+        },
+        {
+          "sourceUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/6666-barn/",
+          "fetchUrl": "https://ranchingheritage.org/explore/outdoor-historical-park/6666-barn/",
+          "label": "1908 Four Sixes barn provenance and history"
+        },
+        {
+          "sourceUrl": "https://ranchingheritage.org/explore/museum-exhibits/",
+          "fetchUrl": "https://ranchingheritage.org/explore/museum-exhibits/",
+          "label": "Changing named exhibitions and scheduled exhibit-end dates"
         }
       ]
     },
