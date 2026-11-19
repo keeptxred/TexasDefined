@@ -54,7 +54,7 @@ export const CAMPING_PROFILES_WAVE10: CampingProfile[] = [
     sources: [
       { label: "TPWD Atlanta State Park campsites", url: "https://tpwd.texas.gov/state-parks/atlanta/fees-facilities/campsites", fields: ["full hookups", "electric service", "water", "sewer", "site inventory"] },
       { label: "TPWD Atlanta State Park", url: "https://tpwd.texas.gov/state-parks/atlanta", fields: ["Wright Patman Lake", "swimming", "fishing", "hiking", "camping inventory"] },
-      { label: "TPWD Atlanta State Park alerts", url: "https://tpwd.texas.gov/state-parks/atlanta/alert", fields: ["wood and charcoal burn restrictions", "permitted-hunt whole-park closure dates"] },
+      { label: "TPWD Atlanta State Park alerts", url: "https://tpwd.texas.gov/state-parks/atlanta/alert", fields: ["current park alert status", "permitted-hunt whole-park closure dates"] },
     ],
   },
   {
