@@ -118,6 +118,7 @@ function LoneStarProportions() {
 function TexasFlagPage() {
   return <PrioritySearchPage
     data={Route.useLoaderData()}
+    officialSourcesHeading="Sources, archival documents and current law"
     officialSourcesIntro="Historical dates are checked against the Handbook of Texas, the Texas House's official history and the State Library's original 1839 drawing. The current design and display rules are governed by Texas Government Code Chapter 3100."
     afterQuickAnswer={<>
       <HistoricalFlagComparison />
