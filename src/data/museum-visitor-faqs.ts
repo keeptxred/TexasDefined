@@ -6648,7 +6648,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     {
       "question": "Can I bring a backpack or stroller into the LBJ Library?",
       "answer": "Strollers are normally allowed unless a special exhibition states otherwise. All bags are inspected, with large bags and backpacks checked on the third floor and reclaimed by 4:45 p.m. Service animals are permitted, but pets are not; see the operator's prohibited-items list before bringing photography equipment.",
-      "verificationUrl": "https://www.lbjlibrary.org/visit/know-before-you-go",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/prohibited-items",
       "reviewCycle": "monthly",
