@@ -11,6 +11,31 @@ function section(content, start, end, subject) {
 function includes(source, tokens, subject) {
   for (const token of tokens) assert.ok(source.includes(token), subject + " missing protected factual detail: " + token);
 }
+const heroRights = read("src/data/three-heritage-hero-image-rights.ts");
+includes(heroRights, [
+  "verifiedHeritageHeroImageRights", "commonsHeroAttribution(hero.src, hero.credit)",
+  "comparableCommonsFile(published.sourceUrl) !== comparableCommonsFile(verified.fileUrl)",
+  "Daderot — CC0 1.0 public domain dedication",
+  "© ajay_suresh", "© Steven B Yount",
+  "https://creativecommons.org/publicdomain/zero/1.0/",
+  "https://creativecommons.org/licenses/by/4.0/",
+  "https://creativecommons.org/licenses/by-sa/4.0/",
+  "File:Texas_State_Capitol_-_Austin,_Texas_-_DSC08253.jpg",
+  "File:LBJ_Presidential_LIbrary_-_UT_Austin_(54984753236).jpg",
+  "File:Mission_San_Jose_San_Antonio_01.jpg",
+], "Exact-file verified three heritage hero licensing");
+const destinationRoute = read("src/routes/destination.$slug.tsx");
+includes(destinationRoute, [
+  "verifiedHeritageHeroImageRights(destination.slug, destination.hero)",
+  'await import("@/data/three-heritage-hero-image-rights")',
+  "...(rights ?? {})",
+  "...verifiedAttractionPhotoRights",
+], "Google ImageObject provenance wiring");
+const editorialLinks = read("src/data/destination-editorial-links.ts");
+includes(editorialLinks, [
+  '"the-alamo": [', '"href": "/destination/mission-san-jose-san-antonio"',
+  "Mission San José visitor center and Rose Window",
+], "Mission San José Alamo comparison discovery link");
 const redirects = read("src/lib/legacy-editorial-redirects.ts");
 includes(redirects, [
   'LEGACY_EDITORIAL_REDIRECTS["/destination/lbj-presidential-library"] = "/destination/lbj-presidential-library-austin"',
