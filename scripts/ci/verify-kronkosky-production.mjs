@@ -71,6 +71,8 @@ function validatePage(html, label) {
   check(html.includes("creativecommons.org/licenses/by/4.0/"), label + ": image license");
   check(html.includes("tpwd.texas.gov/newsmedia/releases"), label + ": primary source");
   check(html.includes("https://texasdefined.com" + route), label + ": canonical link");
+  check(Date.now() < Date.parse("2026-12-01T06:00:00Z") || !html.includes("NOT YET OPEN:"), label + ": old opening phase after Dec 1");
+  check(Date.now() < Date.parse("2026-12-15T06:00:00Z") || !html.includes("DAY-USE DATE REACHED:"), label + ": day-only phase after Dec 15");
   check(!hasNoindex(html), label + ": unexpected noindex");
   check(!html.includes("no opening date has been announced"), label + ": stale no-date content");
   check(!html.includes("currently under development and not yet open for ordinary public visitation"), label + ": legacy summary");
