@@ -10,6 +10,7 @@ on:
       - 'scripts/ci/worker-memory-identity.test.mjs'
       - 'scripts/ci/verify-fishing-section-loader-fanout.test.mjs'
       - 'src/routes/fishing.lakes.$slug.$section.tsx'
+      - 'src/routes/fishing.lakes.lake-conroe.camping.tsx'
       - '.github/workflows/worker-memory-sensitive-production.yml'
   schedule:
     - cron: '23 11,23 * * *'
