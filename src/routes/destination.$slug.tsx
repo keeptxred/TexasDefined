@@ -24,7 +24,7 @@ import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
-import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { isPrimaryTripPlannerDestination, isEditoriallyIndexablePreopeningDestination } from "@/data/destination-availability";
 import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
@@ -164,6 +164,7 @@ const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
   "hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History & Stay Guide",
   "franklin-mountains-state-park": "Franklin Mountains State Park: Trails, Fees & Camping",
+  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Opening, Trails & Camping",
 };
 
 function destinationSeoTitle(name: string, categoryName: string) {
@@ -269,7 +270,7 @@ export const Route = createFileRoute("/destination/$slug")({
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
-const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
+const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference || isEditoriallyIndexablePreopeningDestination(destination));
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
