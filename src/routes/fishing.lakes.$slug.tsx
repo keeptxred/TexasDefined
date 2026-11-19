@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, Outlet } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
@@ -18,7 +18,11 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug")({
-  loader: async ({ context, params }) => {
+  loader: async ({ context, params, location }) => {
+    // Section routes resolve their own lake-specific data; an overview loader
+    // must not request the statewide fishing catalog when visiting a child tab.
+    const overviewPath = canonicalFishingPath("lake", params.slug);
+    if (location.pathname !== overviewPath && location.pathname !== `${overviewPath}/`) return { kind: "nested" as const };
     const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
@@ -63,6 +67,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
+    if (loaderData.kind === "nested") return { meta: [] };
     const imageMeta = loaderData.m ?? {};
     if (loaderData.kind === "conroe") {
       const { overview, sources, verifiedAt, sectionResearch } = loaderData.pageData;
@@ -98,6 +103,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
 
 function FishingLakeOverviewRoute() {
   const data = Route.useLoaderData();
+  if (data.kind === "nested") return <Outlet />;
   if (data.kind === "generic") return <GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} guides={data.guides} access={data.access} businesses={data.businesses} />;
   if (data.kind === "conroe") return <>
     <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
