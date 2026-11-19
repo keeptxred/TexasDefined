@@ -84,7 +84,7 @@ for (const marker of [
 ]) if (!component.includes(marker)) errors.push("Lake directory must show individual verification and editorial comparison: " + marker);
 for (const marker of [
   "Three lakes, three different fishing decisions",
-  "Why 72 guides, not every Texas lake?",
+  "Why {guideCount} guides, not every Texas lake?",
   "Editorial comparison sources checked November 19, 2026",
   "not a forecast",
   "not a statewide inventory",
