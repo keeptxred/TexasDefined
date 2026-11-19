@@ -31,6 +31,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   // This is not a fabricated editorial <lastmod> date.
   cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1");
   cacheUrl.searchParams.set("texas-flag-20261118", "burnet-and-lone-star-authority-v1");
+  cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-15");
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -50,6 +51,7 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/county/dallas": "2026-11-15", // Source-backed November 15 Dallas Institute of Letters history revision.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",
   "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
@@ -314,7 +316,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
-          ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
+          ...entityPages.map((entity) => {
+            const path = canonicalEntityPath(entity);
+            const editorialDate = STATIC_LASTMOD_BY_PATH[path];
+            // Use only a verified source or editorial revision, never deploy/request time.
+            const lastmod = editorialDate && editorialDate > (entity.sourceCheckedAt ?? "")
+              ? editorialDate : entity.sourceCheckedAt;
+            return { path, lastmod: toDate(lastmod) };
+          }),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
