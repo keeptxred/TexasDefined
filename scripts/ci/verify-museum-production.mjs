@@ -4,10 +4,11 @@
  *
  * Distinguish page transport and search-index readiness from a full independent
  * editorial certification. Normally one HTTP request per URL, with one
- * bounded retry for transient transport timeouts only; do not poll CI or
+ * bounded retry for transient transport failures only; do not poll CI or
  * accept unrelated stock photography to make an unverified guide indexable.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { isTransientMuseumTransportError } from "./verify-changed-museum-production.mjs";
 import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const origin = (process.env.TD_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/+$/, "");
@@ -55,9 +56,9 @@ async function get(path) {
       });
       return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
     } catch (error) {
-      // Only transient transport timeouts merit one retry; never HTTP,
+      // Only transient transport errors merit one retry; never HTTP,
       // image, licensing, canonical or indexability failures.
-      if (attempt === 2 || !["TimeoutError", "AbortError"].includes(error?.name)) throw error;
+      if (attempt === 2 || !isTransientMuseumTransportError(error)) throw error;
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
