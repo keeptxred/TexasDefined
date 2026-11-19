@@ -15,6 +15,8 @@ const source = [
     title: "Texas State Capitol",
     markers: ["Goddess of Liberty", "1936 Texas Centennial", "XIT Ranch", "North Entrance", "1201 San Jacinto"],
     operator: "tspb.texas.gov",
+    imageCreator: "Daderot",
+    imageLicense: "https://creativecommons.org/publicdomain/zero/1.0/",
     companions: ["/destination/lbj-presidential-library-austin"],
   },
   {
@@ -23,6 +25,8 @@ const source = [
     title: "LBJ Presidential Library",
     markers: ["Origins of Ambition", "Poverty", "45 million pages", "March 2026", "January 10, 2027"],
     operator: "lbjlibrary.org",
+    imageCreator: "ajay_suresh",
+    imageLicense: "https://creativecommons.org/licenses/by/4.0/",
     companions: ["/destination/texas-state-capitol"],
   },
   {
@@ -31,6 +35,8 @@ const source = [
     title: "Mission San José",
     markers: ["1758", "281 Indigenous", "28 plots", "Pedro Huizar", "5 p.m.", "26–30 inches"],
     operator: "nps.gov",
+    imageCreator: "Steven B Yount",
+    imageLicense: "https://creativecommons.org/licenses/by-sa/4.0/",
     companions: ["/destination/mission-concepcion-san-antonio"],
   },
 ];
@@ -72,6 +78,34 @@ function rejectsIndexing(html) {
     /\bname=["']robots["']/i.test(tag) && /noindex/i.test(tag)
   );
 }
+/**
+ * Parse actual shipped JSON-LD rather than matching a license string anywhere
+ * in the HTML. Require the exact primaryimage node's verified creator/rights.
+ */
+function imageLicenseMetadataValid(html, item, canonicalUrl) {
+  const scriptRx = /<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  for (const script of html.matchAll(scriptRx)) {
+    let parsed;
+    try { parsed = JSON.parse(script[1]); } catch { continue; }
+    const nodes = Array.isArray(parsed["@graph"]) ? parsed["@graph"] : [parsed];
+    for (const node of nodes) {
+      const images = Array.isArray(node.image) ? node.image : node.image ? [node.image] : [];
+      for (const img of images) {
+        if (img?.["@id"] !== canonicalUrl + "#primaryimage") continue;
+        if (img?.license !== item.imageLicense ||
+          img?.creator?.name !== item.imageCreator ||
+          !img?.copyrightNotice || !img?.acquireLicensePage ||
+          !img?.creditText || !img?.contentUrl ||
+          img?.contentUrl !== img?.url) return false;
+        const source = new URL(img.acquireLicensePage);
+        if (source.hostname !== "commons.wikimedia.org" ||
+          !source.pathname.startsWith("/wiki/File:")) return false;
+        return true;
+      }
+    }
+  }
+  return false;
+}
 function htmlHasUsefulImage(html, title) {
   const images = html.match(/<img\b[^>]*>/gi) || [];
   return images.some((tag) =>
@@ -98,11 +132,12 @@ for (const origin of origins) {
       result.companionsLinked = item.companions.every((path) => html.includes(path));
       result.documentaryImage = htmlHasUsefulImage(html, item.title) && /commons.wikimedia.org|creativecommon|public domain/i.test(html);
       result.jsonLd = html.includes("application/ld+json");
+      result.imageLicenseMetadata = imageLicenseMetadataValid(html, item, result.expectedCanonical);
       result.h1 = /<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(html);
       if (!result.canonical || !result.indexable || !result.operatorLinked ||
           !result.companionsLinked || !result.documentaryImage || !result.jsonLd ||
-          !result.h1 || result.markers.length !== item.markers.length) {
-        throw Error("Production HTML missing required facts, source, linked companions, licensed image, or SEO metadata");
+          !result.h1 || !result.imageLicenseMetadata || result.markers.length !== item.markers.length) {
+        throw Error("Production HTML missing required facts, source, linked companions, exact-file image licensing JSON-LD, or SEO metadata");
       }
       result.ok = true;
     } catch (error) {
@@ -128,6 +163,18 @@ for (const origin of origins) {
       results.push(aliasResult);
     }
   }
+}
+// A meaningful incoming link from the published, established Alamo attraction
+// strengthens discoverability without misleading users or creating duplicate URLs.
+try {
+  const inbound = await get(canonicalOrigin, "/destination/the-alamo");
+  if (inbound.status !== 200) throw Error("Alamo authority page did not serve HTTP 200");
+  const html = await inbound.text();
+  const linked = html.includes('href="/destination/mission-san-jose-san-antonio"');
+  results.push({ path: "/destination/the-alamo", target: "/destination/mission-san-jose-san-antonio", missionSanJoseLinked: linked });
+  if (!linked) failures.push("Alamo authority page lacks contextual inbound link to canonical Mission San José");
+} catch (error) {
+  failures.push("Mission San José crosslink discovery verification: " + String(error));
 }
 try {
   const sitemapResponse = await get(canonicalOrigin, "/sitemap-explore.xml");
