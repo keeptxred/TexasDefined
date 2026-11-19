@@ -1,14 +1,23 @@
 #!/usr/bin/env node
 // Bounded, daily production acceptance for Google's alternate-canonical sample.
-// These query URLs are functional filtered/prefilled views, not indexable articles.
+// These query URLs are functional filtered/prefilled views, not independent
+// authority pages. Exact historical GSC exceptions are covered separately from
+// the original six representative probes so no false recrawl claim is made.
 const origin = String(process.env.PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
 const checks = [
   ["/events", "/events", false, true],
   ["/events?venue=sports-venue%3Aeagle-stadium-allen&start=2027-04-15&end=2027-04-15", "/events", true, true],
   ["/texas-property-tax-estimator?county=bailey", "/texas-property-tax-estimator", false, false],
   ["/corporate-events?city=Texas&guests=45&type=meetings", "/corporate-events", false, false],
+  // Owner-GSC URL Inspection still saw these two parameterized URLs indexed as
+  // their own canonicals on Nov 18. They must declare the clean parent in live HTML.
+  ["/corporate-events?city=Dallas&guests=45&type=company-parties", "/corporate-events", false, false],
+  ["/corporate-events?city=Abilene&guests=45&type=company-parties", "/corporate-events", false, false],
   ["/moving-to-texas?originState=Oregon", "/moving-to-texas", false, false],
   ["/partner-with-us?type=sports-travel&source=%2Fsports-venues&partnershipType=sports-travel&sourcePath=%2Fsports-venues", "/partner-with-us", false, false],
+  // Its two-key historical Google-selected URL must also remain a prefilled
+  // functional form with a single clean parent canonical after PR #7095.
+  ["/partner-with-us?type=sports-travel&source=%2Fsports-venues", "/partner-with-us", false, false],
 ];
 function assert(ok, message) { if (!ok) throw new Error(message); }
 function attr(tag, name) {
