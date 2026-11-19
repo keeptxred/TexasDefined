@@ -78,7 +78,7 @@ try {
         // with an ISO <time>. Never assume the compact block exists everywhere.
         // Require one real labelled section, every exact source URL and the
         // corresponding dated review (in either truthful display structure).
-        await page.waitForFunction(({ slug, reviewDate, displayedDate, sourceUrls }) => {
+        const approvedSourceSectionVisible = ({ slug, reviewDate, displayedDate, sourceUrls }) => {
           const sections = [
             ...document.querySelectorAll('section[aria-labelledby="destination-authority-sources"]'),
             ...document.querySelectorAll('section[aria-labelledby="' + slug + '-sources"]'),
@@ -94,8 +94,14 @@ try {
           const reviewLog = document.querySelector('section[aria-labelledby="' + slug + '-review-log"]');
           return Boolean(reviewLog && reviewLog.querySelector("h2")?.textContent?.trim() === "Latest review"
             && reviewLog.textContent?.includes("Last recorded source review: " + displayedDate));
-        }, expectedEvidence, { timeout: 25000 });
-        const facts = await page.evaluate(({ alt, slug }) => {
+        };
+        // Initial SSR and client hydration can remount the source section between
+        // a successful readiness check and the audit snapshot. Demand the SAME
+        // full evidence contract and capture a stable snapshot; never waive it.
+        let facts;
+        for (let sourceSnapshotAttempt = 1; sourceSnapshotAttempt <= 3; sourceSnapshotAttempt++) {
+          await page.waitForFunction(approvedSourceSectionVisible, expectedEvidence, { timeout: 25000 });
+          facts = await page.evaluate(({ alt, slug }) => {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           const imageBox = image?.getBoundingClientRect();
           const canonical = document.querySelector('link[rel="canonical"]')?.href ?? "";
@@ -150,7 +156,10 @@ try {
             officialSources: [...document.querySelectorAll('a[href^="https://"]')].filter((a) =>
               /official|source|visitor/i.test(a.textContent || "")).length,
           };
-        }, { alt: guide.alt, slug: guide.slug });
+          }, { alt: guide.alt, slug: guide.slug });
+          if (facts.primarySourceEvidence.count === 1) break;
+          console.warn("Source section remounted during hydration: " + guide.slug + " " + viewport.label + " (snapshot " + sourceSnapshotAttempt + ")");
+        }
         assert.ok(facts.title.includes(guide.name), guide.slug + " " + viewport.label + " title");
         assert.equal(facts.canonical, origin + path, guide.slug + " " + viewport.label + " canonical");
         assert.equal(facts.h1Count, 1, guide.slug + " " + viewport.label + " H1 count");
