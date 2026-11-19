@@ -1,3 +1,5 @@
+import { commonsHeroAttribution } from "@/lib/commons-hero-attribution";
+
 /**
  * Verified per-image provenance for specific TexasDefined editorial pages.
  * Originally covering the Fredericksburg–Johnson City corridor, now also museum photos.
@@ -147,7 +149,6 @@ export function heritagePhotoRightsForPath(path: string): HeritagePhotoRights | 
  * never assign a photograph's copyright or license to an unrelated image.
  * File-level author/licensing independently checked on Wikimedia Commons.
  */
-import { commonsHeroAttribution } from "@/lib/commons-hero-attribution";
 
 type DestinationHeroForRights = { src: string; credit?: string | null };
 const threeHeritageHeroRights: Record<string, {
