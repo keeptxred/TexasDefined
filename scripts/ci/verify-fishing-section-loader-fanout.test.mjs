@@ -29,7 +29,7 @@ test('showcase non-inventory tabs avoid the expensive statewide fishing reposito
   const repoImport = source.indexOf('const { fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery }', gate);
   assert.ok(start > 0 && gate > start && repoImport > gate, 'showcase section allowlist and source data must come before optional repository import');
   const preGate = source.slice(start, gate);
-  assert.ok(preGate.includes('getShowcaseLakePageData({ data: { slug: params.slug } })'), 'named lake's source-reviewed section must be loaded');
+  assert.ok(preGate.includes('getShowcaseLakePageData({ data: { slug: params.slug } })'), "named lake\'s source-reviewed section must be loaded");
   for (const forbidden of ['fishingLakeQuery(params.slug)', 'fishingPlacementsQuery(', 'fishingReportsQuery(', 'fishingGuidesQuery(']) {
     assert.ok(!preGate.includes(forbidden), 'editorial sections cannot eagerly load ' + forbidden);
   }
