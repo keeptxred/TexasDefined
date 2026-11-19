@@ -23,7 +23,7 @@ export const getEventsPageHead = createServerFn({ method: "POST" })
       ...presentation,
       head: {
         ...presentation.head,
-        meta: [...presentation.head.meta.filter((item) => item.name !== "robots"), { name: "robots", content: "noindex, follow" }],
+        meta: [...presentation.head.meta.filter((item) => item.name !== "robots" && item.name !== "googlebot"), { name: "robots", content: "noindex, follow" }],
       },
     };
   });

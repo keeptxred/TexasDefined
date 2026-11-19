@@ -167,7 +167,13 @@ for (const [path, preferred, filtered, calendar] of checks) {
     path + ": JSON-LD references a query-bearing canonical page: " + JSON.stringify(schemaConflicts));
   const metaRobots = robots(html);
   const headerRobots = response.headers.get("x-robots-tag") || "";
-  if (filtered) assert(anyNoindex(metaRobots), path + ": filtered calendar must noindex");
+  if (filtered) {
+    assert(anyNoindex(metaRobots), path + ": filtered calendar must noindex");
+    // A specific Googlebot `index` meta left behind after replacing the
+    // general robots tag is contradictory and may prevent consolidation.
+    assert(!/(?:^|[,\s])index(?:$|[,\s;])/i.test(metaRobots + "," + headerRobots),
+      path + ": filtered calendar has a contradictory index directive: " + metaRobots + "; header=" + headerRobots);
+  }
   else assert(!anyNoindex(metaRobots) && !anyNoindex(headerRobots),
     path + ": clean canonical landing must not noindex in meta/header; meta=" + metaRobots + "; header=" + headerRobots);
   if (calendar) assertCalendarButtons(html, path);

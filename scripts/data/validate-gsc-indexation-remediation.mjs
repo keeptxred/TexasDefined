@@ -112,6 +112,7 @@ requireText(gscProductionProbe, 'response.headers.get("x-robots-tag")', 'Live ca
 requireText(gscProductionProbe, 'ogCanonicalUrls(html)', 'Live canonical probe must inspect social canonical URL metadata.');
 requireText(gscProductionProbe, 'queryBearingPageSchemaUrls(html, preferred)', 'Live canonical probe must inspect page JSON-LD URLs.');
 requireText(gscProductionProbe, 'await verifyPrimarySitemap()', 'Live canonical probe must verify five parent sitemap entries and absence of query URLs.');
+requireText(gscProductionProbe, 'filtered calendar has a contradictory index directive', 'Filtered event production probe must reject simultaneous index and noindex directives.');
 requireText(sitemap, 'normalizePublicPath(entry.path)', 'Primary sitemap must reject query parameters and malformed canonical paths.');
 requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
 requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
@@ -124,6 +125,7 @@ requireText(postDeployGscWorkflow, 'run: node scripts/ci/verify-gsc-alternates-p
 for (const [source, token, label] of [
   [eventsRoute, 'filtered: hasEventSearch(normalizedSearch)', 'Event filter detection'],
   [eventsHead, 'content: "noindex, follow"', 'Filtered events indexability'],
+  [eventsHead, 'item.name !== "robots" && item.name !== "googlebot"', 'Remove contradictory Googlebot index directive from filtered Events SSR head'],
   [eventsServerHead, 'links: [canonicalLink(texasDefinedBrand, canonicalPath)]', 'Events canonical'],
   [corporateEvents, "const canonicalPath = '/corporate-events'", 'Corporate-events canonical'],
   [taxEstimator, "const canonicalPath='/texas-property-tax-estimator'", 'Tax-estimator canonical'],
