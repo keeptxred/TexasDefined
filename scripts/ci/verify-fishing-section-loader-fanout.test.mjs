@@ -41,3 +41,45 @@ test('Lake Conroe camping cold SSR avoids the optional live-water fetch without 
   assert.ok(guide.includes('pageData.camping.map'), 'published camping facilities remain in visitor HTML');
   assert.ok(guide.includes('pageData.sectionResearch.sourceUrls.map'), 'official sources remain in page HTML');
 });
+
+test('dedicated Lake Conroe camping has a tiny metadata route and independently sourced lazy content', () => {
+  const dedicated = readFileSync('src/routes/fishing_.lakes.lake-conroe.camping.tsx','utf8');
+  const lazy = readFileSync('src/routes/fishing_.lakes.lake-conroe.camping.lazy.tsx','utf8');
+  const publication = readFileSync('src/data/fishing/lake-conroe-camping-publication.ts','utf8');
+  const research = readFileSync('src/data/fishing/lake-conroe-source-research.ts','utf8');
+  const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs','utf8');
+  const tree = readFileSync('src/routeTree.gen.ts','utf8');
+  assert.ok(tree.includes("from './routes/fishing_.lakes.lake-conroe.camping'"),'detached route registered');
+  assert.ok(tree.includes("import('./routes/fishing_.lakes.lake-conroe.camping.lazy')"),'lazy content must not enter main bundle');
+  const treeEntry = tree.slice(tree.indexOf('const FishingLakesLakeConroeCampingRoute ='),tree.indexOf('const FishingLakesSlugSectionRoute'));
+  assert.ok(treeEntry.includes('getParentRoute: () => rootRouteImport'),'camping must not run heavy /fishing or /fishing/lakes parent loaders');
+  assert.ok(!treeEntry.includes('getParentRoute: () => FishingLakesRoute'),'camping route must be root-detached');
+
+  assert.ok(dedicated.includes('createFileRoute("/fishing/lakes/lake-conroe/camping")'));
+  assert.ok(lazy.includes('createLazyFileRoute("/fishing/lakes/lake-conroe/camping")'));
+  assert.ok(lazy.includes('data-conroe-camping-isolated="true"'));
+  assert.ok(lazy.includes('LAKE_CONROE_RESEARCH'));
+  assert.ok(lazy.includes('sourceResearch.camping.map'));
+  assert.ok(lazy.includes('sourceResearch.sourceUrls.map'));
+  assert.ok(lazy.includes('dateModified: reviewedAt'));
+  const head = readFileSync('src/data/fishing/lake-conroe-camping-head.ts', 'utf8');
+  assert.ok(dedicated.includes('loader: async () =>'), 'SEO head is resolved through the isolated lazy loader');
+  assert.ok(dedicated.includes('head: ({ loaderData })'), 'TanStack router emits the resolved SEO head on the server');
+  assert.ok(head.includes('buildMeta(texasDefinedBrand') && head.includes('canonicalLink(texasDefinedBrand, canonicalPath)'), 'full branded robots, social metadata and canonical retained in lazy head');
+  assert.ok(lazy.includes('"@type": "WebPage"') && lazy.includes('"@type": "BreadcrumbList"'));
+  assert.ok(lazy.includes('type="application/ld+json"'),'full JSON-LD stays in server-rendered body while SEO head remains compact');
+  assert.ok(verifier.includes('data-conroe-camping-isolated="true"'));
+  const imports = [dedicated,lazy].join("\n").split("\n").filter(line => line.trimStart().startsWith("import ")).join("\n");
+  for (const forbidden of ['ShowcaseLakeGuide','LakeConroeGuide','fishingLakeQuery','getLakeConroePageData','live-lake-level-fetch.server','lake-authority-research-wave1']) {
+    assert.ok(!imports.includes(forbidden), 'camping route cannot import '+forbidden);
+  }
+  for (const proof of ['Cagle Recreation Area','Stubblefield Lake',"Scott's Ridge",'www.recreation.gov/camping/campgrounds/234004']) {
+    assert.ok(research.includes(proof), 'published operator source retained: '+proof);
+  }
+  const actualReviewedAt = research.match(/"reviewedAt": "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  assert.ok(actualReviewedAt,'canonical research date present');
+  assert.ok(publication.includes('LAKE_CONROE_CAMPING_REVIEWED_AT = "'+actualReviewedAt+'"'),'metadata date must match real research review');
+  for(const link of ['https://www.recreation.gov/camping/campgrounds/234004','https://www.recreation.gov/camping/campgrounds/10158882','https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/access.phtml']) {
+    assert.ok(publication.includes(link) && research.includes(link), 'publication source must match researched operator URL: '+link);
+  }
+});

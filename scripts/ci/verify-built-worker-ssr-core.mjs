@@ -31,6 +31,9 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/fishing/lakes/lake-conroe/camping', requiredText: 'data-conroe-camping-isolated="true"', label: 'Root-detached Lake Conroe campground SSR bypasses heavyweight fishing parent loaders' },
+  { path: '/fishing/lakes/lake-conroe/camping', requiredText: 'Stubblefield', label: 'Lake Conroe source-backed primitive campground text survives isolated SSR' },
+  { path: '/fishing/lakes/lake-conroe/camping', requiredText: 'https://texasdefined.com/fishing/lakes/lake-conroe/camping', label: 'Root-detached camping SSR retains self canonical and structured URL' },
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'Texas Freshwater Fisheries Center', label: 'Athens fisheries authority guide renders on built Worker' },
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'hatchery tram', label: 'Fisheries visitor guidance on suspended tram reaches SSR' },
   { path: '/destination/texas-freshwater-fisheries-center', requiredText: 'Larry D. Moore', label: 'Fisheries Commons photographer credit visible in server HTML' },

@@ -248,9 +248,23 @@ for (const routePath of [...indexable, ...conditional]) {
     && wacoHeadSource.includes('export function wacoPageHead(path: keyof typeof WACO_PAGES)');
   const verifiedWacoHead = ['/waco-attractions', '/waco-ghost-tours', '/dallas-to-waco-magnolia-tours'].includes(routePath)
     && wacoFactoryHasMetadata && (wacoLegacyHead || wacoLazyHead);
-  if (!routeSource.includes('canonicalPath') && !verifiedWacoHead) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
-  if (!/\btitle\s*:/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
-  if (!/\bdescription\b/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
+  // The root-detached Conroe campground keeps full branded metadata in a
+  // route-specific dynamically imported head. Verify the actual wired source,
+  // canonical destination and explicit metadata, never accept a generic skip.
+  const conroeHead = sourceByFile.get('src/data/fishing/lake-conroe-camping-head.ts') ?? '';
+  const conroeMetadata = sourceByFile.get('src/data/fishing/lake-conroe-camping-metadata.ts') ?? '';
+  const verifiedConroeHead = routePath === '/fishing/lakes/lake-conroe/camping'
+    && routeFile === 'src/routes/fishing_.lakes.lake-conroe.camping.tsx'
+    && routeSource.includes('loader: async () => (await import("@/data/fishing/lake-conroe-camping-head")).lakeConroeCampingHead()')
+    && routeSource.includes('head: ({ loaderData }) => loaderData')
+    && conroeHead.includes('meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath })')
+    && conroeHead.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')
+    && conroeMetadata.includes('LAKE_CONROE_CAMPING_CANONICAL_PATH = "/fishing/lakes/lake-conroe/camping"')
+    && conroeMetadata.includes('LAKE_CONROE_CAMPING_TITLE = "Camping Near Lake Conroe"')
+    && conroeMetadata.includes('LAKE_CONROE_CAMPING_DESCRIPTION = "Compare verified U.S. Forest Service camping');
+  if (!routeSource.includes('canonicalPath') && !verifiedWacoHead && !verifiedConroeHead) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
+  if (!/\btitle\s*:/.test(routeSource) && !verifiedWacoHead && !verifiedConroeHead) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
+  if (!/\bdescription\b/.test(routeSource) && !verifiedWacoHead && !verifiedConroeHead) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
   if (indexable.includes(routePath) && (/robots\s*:\s*["']noindex/i.test(routeSource) || /content=["'][^"']*noindex/i.test(routeSource))) failures.push(`Always-indexable route contains a noindex directive: ${routePath} (${routeFile}).`);
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }

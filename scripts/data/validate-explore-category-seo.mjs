@@ -278,8 +278,12 @@ for (const category of migratedCategories) {
 }
 
 function validateMegaMenuImages(label, expectedCount) {
-  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
-  const items = [...block.matchAll(/^\s*\{ label: "([^"]+)"[^\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
+  // The positional representation must construct a unique, real image object
+  // for each item; never silently accept an absent or duplicate image.
+  if (!brand.includes('const illustratedNavLinks =')) errors.push('Illustrated nav factory missing.');
+  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: illustratedNavLinks\\(\\[([\\s\\S]*?)\\n      \\]\\),'))?.[1] ?? '';
+  const items = [...block.matchAll(/^\s*\["([^"]+)",\s*"[^"]+",\s*(?:"[^"]+"|undefined),\s*([^,]+),\s*"[^"]+"\],?$/gm)]
+    .map((match) => ({ label: match[1], source: 'image: { src: ' + match[2] + ' }' }));
   if (items.length !== expectedCount) {
     errors.push(label + ' mega-menu image guard found ' + items.length + ' children; expected ' + expectedCount + '.');
     return;

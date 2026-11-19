@@ -64,6 +64,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/best-places-to-go-camping-in-texas",
   "/fishing",
   "/fishing/lakes",
+  "/fishing/lakes/lake-conroe/camping",
   "/fishing/plan",
   "/fishing/compare",
   "/fishing/seasons",
