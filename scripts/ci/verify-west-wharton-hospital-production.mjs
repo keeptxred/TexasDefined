@@ -44,6 +44,9 @@ function verifyHospital(html) {
   const checks = new Map([
     ['correct tax unit', html.includes('West Wharton County Hospital District') && html.includes('property tax rate')],
     ['2025 rate', html.includes('0.232100')],
+    ['2026 county-adopted rate identified', html.includes('2026 hospital district rate') && html.includes('Wharton County') && html.includes('0.23210')],
+    ['2026 original primary evidence', html.includes(facts.sources.county2026AdoptedTable)],
+    ['2026 locally adopted history row', html.includes('Not a 2026 Comptroller statewide workbook record.')],
     ['2024 rate', html.includes('0.217100')],
     ['full authority guide rendered', html.includes('What this hospital district taxes') && html.includes('The adopted rate versus the public-hearing benchmarks')],
     ['local history explanation', html.includes('How the notice') && html.includes('average homestead changed')],

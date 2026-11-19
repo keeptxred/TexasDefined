@@ -34,7 +34,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
     const showSchoolAdoption = verifiedSchoolAdoption != null && isdEvidence!.officialYear >= latest.year;
     const description = hasWestWhartonAuthority
-      ? `${latest.name}: verified ${latest.year} tax rate, 2024–25 hospital-district rate and homestead comparisons, official levy differences, district boundary, and parcel verification.`
+      ? `${latest.name}: locally adopted 2026 hospital-district tax rate (Wharton County), finalized 2025 Comptroller history, 2024–25 homestead and levy comparisons, and parcel verification.`
       : hasEsd3Adoption
       ? `${latest.name}: locally adopted ${latestAustinEsd3Adopted.year} rate ${latestAustinEsd3Adopted.totalRate.toFixed(6)} per $100, signed district resolution, parcel-verification steps, and separately labeled Comptroller history through ${latest.year}.`
       : showSchoolAdoption
@@ -64,7 +64,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         name: `${latest.name} property-tax rate history`,
         description,
         url: pageUrl,
-        temporalCoverage: `${history[0]?.year}/${hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, isdEvidence!.officialYear) : history.at(-1)?.year}`,
+        temporalCoverage: `${history[0]?.year}/${hasWestWhartonAuthority ? Math.max(latest.year, westWhartonHospitalDistrict.localAdopted2026.year) : hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, isdEvidence!.officialYear) : history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
         ...(hasWestWhartonAuthority ? { dateModified: westWhartonHospitalDistrict.lastVerified, identifier: westWhartonHospitalDistrict.officialTaxingUnitId, spatialCoverage: { '@type': 'Place', name: 'West Wharton County, Texas' } } : {}),
         // Cite every yearly Comptroller workbook as well as any separately
@@ -79,7 +79,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
         ...(isdEvidence?.historicalComponents.flatMap((entry) => entry.components ? [entry.components.sourceUrl] : []) ?? []),
         ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : []),
-        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty] : [])],
+        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
