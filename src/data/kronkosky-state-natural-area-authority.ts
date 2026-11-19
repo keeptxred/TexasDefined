@@ -41,6 +41,7 @@ export function applyKronkoskyOpeningAuthority(destination: Destination, now = D
       : "Kronkosky State Natural Area's announced December 1 day-use and December 15 overnight opening dates have passed.";
   return {
     ...destination,
+    category: "state-parks",
     summary: `${entranceSummary} Explore about 3,800 acres, 26 miles of trails, camping and a nature center; check current TPWD park alerts.`,
     nearestTown: "Pipe Creek",
     county: "Bandera",
