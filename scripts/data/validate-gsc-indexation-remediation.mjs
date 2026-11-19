@@ -14,6 +14,7 @@ const eventsStyles = fs.readFileSync('src/components/events/events-landing.css',
 const corporateEvents = fs.readFileSync('src/routes/corporate-events.tsx', 'utf8');
 const taxEstimator = fs.readFileSync('src/routes/texas-property-tax-estimator.tsx', 'utf8');
 const relocationDocs = fs.readFileSync('docs/relocation-tools.md', 'utf8');
+const gscProductionProbe = fs.readFileSync('scripts/ci/verify-gsc-alternates-production.mjs', 'utf8');
 const failures = [];
 
 function requireText(source, marker, message) {
@@ -84,6 +85,21 @@ const partnerQueryTests = spawnSync(
 if (partnerQueryTests.status !== 0) {
   failures.push('Partner query normalization regression tests failed: ' + (partnerQueryTests.stderr || partnerQueryTests.stdout || partnerQueryTests.error?.message || 'unknown failure').slice(-1800));
 }
+
+// Google can select historical query URLs as standalone indexed pages even while
+// the live response has already been fixed. Guard these exact owner-inspected
+// examples in a scheduled production probe, not just in a generic parent check.
+for (const url of [
+  '/texas-property-tax-estimator?county=bailey',
+  '/corporate-events?city=Dallas&guests=45&type=company-parties',
+  '/corporate-events?city=Abilene&guests=45&type=company-parties',
+  '/partner-with-us?type=sports-travel&source=%2Fsports-venues',
+  '/partner-with-us?type=sports-travel&source=%2Fsports-venues&partnershipType=sports-travel&sourcePath=%2Fsports-venues',
+]) {
+  requireText(gscProductionProbe, '["' + url + '",', 'Missing exact Google-selected legacy URL production acceptance: ' + url);
+}
+requireText(gscProductionProbe, 'links.length === 1', 'Production acceptance must assert exactly one canonical');
+requireText(gscProductionProbe, 'links[0] === origin + preferred', 'Production acceptance must verify clean parent canonical');
 
 // GSC 'Alternate page with proper canonical tag' samples are intentional filter
 // and planner prefill URLs, not 500 missing articles. Keep the clean landing
