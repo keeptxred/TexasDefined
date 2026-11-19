@@ -67,6 +67,12 @@ assert.ok(parent.includes('latest.slug === whartonEvidence.slug'));
 assert.ok(parent.includes('<WestWhartonHospitalDistrictAuthority latestWorkbookYear={latest.year}/>'));
 assert.ok(parent.includes('westWhartonAuthorityReconciled') && parent.includes('Local historical analysis is under source review.'));
 assert.ok(parent.includes('showWestWharton2026Adoption') && parent.includes('whartonEvidence.sources.county2026AdoptedTable'));
+assert.ok(parent.includes('id="wwchd-current-rate"'), 'The 2026 tax answer must be in the primary route body, not solely a streamed lazy detail');
+assert.ok(parent.includes('Wharton County\'s official 2026 tax-rate table'), 'First-render source must be visible');
+assert.ok(parent.indexOf('id="wwchd-current-rate"') < parent.indexOf('<WestWhartonHospitalDistrictAuthority'), 'Above-the-fold 2026 answer precedes lazy long-form research');
+assert.ok(parent.includes('Verify parcel jurisdictions with Wharton CAD'), 'First-render rate must carry parcel-specific jurisdiction warning');
+assert.ok(component.includes('How this page was checked:'), 'Primary-source research method must be transparently documented');
+assert.ok(component.includes('the sources do not prove') || component.includes('The sources do not prove'), 'Do not guess a cause for proposed-vs-reported levy differences');
 assert.ok(parent.includes('Not a 2026 Comptroller statewide workbook record.'));
 assert.ok(route.includes('wharton2025?.levy === westWhartonHospitalDistrict.statewideLevy.current'));
 
@@ -83,7 +89,7 @@ assert.ok(workflow.includes('--remote'));
 assert.ok(workflow.includes('verify-west-wharton-hospital-production.mjs'));
 assert.ok(workflow.includes("github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'"), 'Live verification before publication must not block PR merge');
 assert.ok(production.includes('live_wharton_hospital_tax') && production.includes('Verify West Wharton 2026 adopted hospital district authority on both origins'), 'The production release must enforce district live acceptance after deploy');
-for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', '2026 hospital district rate', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
+for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', '2026 hospital district rate', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
 console.log('PASS: independently sourced adopted 2026 county rate, 2024–25 state history and levy math, canonical/metadata, integration and scheduled review contract');
 
