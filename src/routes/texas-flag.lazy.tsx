@@ -68,7 +68,7 @@ function HistoricalTimeline() {
     { date: "January 25, 1839", event: "Lone Star design approved", text: "The Third Congress's blue, white and red national flag was approved by President Mirabeau B. Lamar." },
     { date: "December 29, 1845", event: "Texas becomes a U.S. state", text: "The 1839 design continued as the state flag after annexation." },
     { date: "1879–1933", event: "A legal gap, not a new flag", text: "The earlier flag statute was omitted from the 1879 revision; the design remained in customary use until the 1933 act." },
-    { date: "1993–present", event: "Modern statutory description", text: "The current law specifies precise proportions, star orientation and color standards." },
+    { date: "2001–present", event: "Current statutory flag code", text: "Chapter 3100 of the Texas Government Code codifies the flag design, precise proportions, star orientation, color standards and display guidance." },
   ];
   return <section aria-labelledby="texas-flag-timeline" className="border-b border-border bg-muted/20 py-10 sm:py-14">
     <Container>
