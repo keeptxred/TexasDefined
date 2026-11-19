@@ -9,6 +9,8 @@ const faq = [
   { question: "When was the current Texas flag adopted?", answer: "The familiar Lone Star design was approved by the Republic of Texas on January 25, 1839. It later became the state flag." },
   { question: "Who designed the Texas flag?", answer: "Peter Krag drew the surviving official 1839 artwork, but the original creator of the design is not conclusively known. William H. Wharton and Oliver Jones were involved in the legislation." },
   { question: "What do the Texas flag colors mean?", answer: "Texas law assigns blue to loyalty, white to purity and red to bravery. The single white five-pointed Lone Star is the flag's defining symbol." },
+  { question: "Where is the original 1839 Texas flag drawing?", answer: "The Texas State Library and Archives Commission preserves Peter Krag's signed flag-and-seal design as archival item 1974/066-001. Its exhibit includes views of the artwork, the seal and the official signatures." },
+  { question: "When is Texas Flag Day?", answer: "Texas Flag Day is March 2 under Texas Government Code § 662.048. It falls on Texas Independence Day, not January 25, when the current Lone Star flag was approved in 1839." },
   { question: "Where can I learn the rules for displaying the Texas flag?", answer: "Use the Texas flag etiquette and display guide linked on this page for practical guidance on placement, respect, half-staff, folding and display with other flags." },
 ];
 
