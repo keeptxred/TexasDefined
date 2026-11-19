@@ -56,6 +56,8 @@ export type FootballGameNightGuideProps = {
   summaryAlreadyShown?: boolean;
   // Source-rich school profiles may render offers only after all editorial content.
   suppressCommercialOffers?: boolean;
+  // Optional event-host ticket notice for a specifically verified upcoming neutral-site game.
+  eventTicketNoticeUrl?: string;
 };
 
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
@@ -93,6 +95,7 @@ export function FootballGameNightGuide({
   hasSeasonSection = false,
   summaryAlreadyShown = false,
   suppressCommercialOffers = false,
+  eventTicketNoticeUrl,
 }: FootballGameNightGuideProps) {
   // Keep server and initial client markup identical; the date-sensitive card appears after hydration.
   const [today, setToday] = useState<string | null>(null);
@@ -107,6 +110,7 @@ export function FootballGameNightGuide({
     : season?.sourceUrl?.startsWith('https://') ? season.sourceUrl : null;
   const venueUrl = slug === 'katy' ? '#katy-stadiums' : venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
   const ticketUrl = schedule?.ticketUrl?.startsWith('https://') ? schedule.ticketUrl : null;
+  const hostTicketUrl = eventTicketNoticeUrl?.startsWith('https://') ? eventTicketNoticeUrl : null;
   const schoolScheduleUrl = schedule?.officialScheduleUrl?.startsWith('https://') ? schedule.officialScheduleUrl : null;
   const stadiumRulesUrl = venue?.policyUrl?.startsWith('https://') ? venue.policyUrl : null;
 
@@ -115,8 +119,10 @@ export function FootballGameNightGuide({
       <p className="eyebrow text-primary">Plan your Friday night</p>
       <h2 className="mt-2 font-display text-2xl leading-tight sm:text-4xl">Game-night essentials</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        {footballName}: confirm the current schedule, actual game venue and admission directly before you travel.
-        TexasDefined is an independent guide, not a school or ticket seller.
+        {hostTicketUrl
+          ? 'November 20 area playoff: Calhoun versus Canyon Lake at 7 p.m., Leopard Stadium in La Grange. The host confirms online-only tickets and clear bags; recheck with La Grange ISD before leaving.'
+          : `${footballName}: confirm the current schedule, actual game venue and admission directly before you travel.`}
+        {' '}TexasDefined is an independent guide, not a school or ticket seller.
       </p>
 
       {!summaryAlreadyShown && season?.record && (
@@ -140,21 +146,28 @@ export function FootballGameNightGuide({
       )}
 
       <div className="mt-6 flex flex-wrap gap-3">
+        {hostTicketUrl && (
+          <a href={hostTicketUrl} target="_blank" rel="noopener noreferrer"
+            onClick={() => recordAction(slug, 'neutral-playoff-tickets', hostTicketUrl)}
+            className="inline-flex min-h-11 items-center justify-center border border-primary bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
+            Nov. 20 playoff tickets · host notice ↗
+          </a>
+        )}
         {scheduleUrl && (
           <a href={scheduleUrl} target="_blank" rel="noopener noreferrer"
             onClick={() => recordAction(slug, 'schedule', scheduleUrl)}
-            className="inline-flex min-h-11 items-center justify-center border border-primary bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
-            Verify schedule and results ↗
+            className={`inline-flex min-h-11 items-center justify-center border px-4 py-3 text-sm font-semibold hover:opacity-90 ${hostTicketUrl ? 'border-border bg-background hover:border-primary hover:text-primary' : 'border-primary bg-primary text-primary-foreground'}`}>
+            {slug === 'comal-canyon-lake' ? 'School athletics & schedules ↗' : 'Verify schedule and results ↗'}
           </a>
         )}
-        {ticketUrl && (
+        {ticketUrl && !hostTicketUrl && (
           <a href={ticketUrl} target="_blank" rel="noopener noreferrer"
             onClick={() => recordAction(slug, 'official-home-tickets', ticketUrl)}
             className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
             Official home tickets ↗
           </a>
         )}
-        {schoolScheduleUrl && (
+        {schoolScheduleUrl && slug !== 'comal-canyon-lake' && (
           <a href={schoolScheduleUrl} target="_blank" rel="noopener noreferrer"
             onClick={() => recordAction(slug, 'official-school-schedule', schoolScheduleUrl)}
             className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
@@ -189,7 +202,8 @@ export function FootballGameNightGuide({
           </a>
         )}
       </div>
-      {venue && (
+      {hostTicketUrl && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Next-game venue:</strong> Leopard Stadium, 805 S. Vail St., La Grange, TX 78945 — a neutral site, not Hawk Stadium. <a href={hostTicketUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Host's event notice and ticket link ↗</a></p>}
+      {venue && !hostTicketUrl && (
         <p className="mt-5 text-sm leading-7 text-muted-foreground">
           <strong className="text-foreground">Sourced venue relationship:</strong> {venue.name}{venue.address ? <> — {venue.address}</> : null}.
           Confirm the actual game's host, entrance and parking before leaving.
