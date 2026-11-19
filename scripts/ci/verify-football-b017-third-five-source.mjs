@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 // A graduated cohort remains immutable after the next batch is assigned.
@@ -15,8 +16,9 @@ const slugs=['el-paso-riverside','el-paso-socorro','el-paso-ysleta','eldorado','
 assert.equal(historicalBatch017.number,17);
 assert.deepEqual(historicalBatch017.slugs.slice(10,15),slugs);
 const graduatedB017=certifiedBatch017(reg);
+const graduatedB018=certifiedBatch018(reg);
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 earlier signed certificates');
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB018?430:graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
 assert.ok(graduatedB017||reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=15);
 assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=897);
 for(const slug of slugs){
