@@ -28,7 +28,7 @@ const destinationRoute = read("src/routes/destination.$slug.tsx");
 includes(destinationRoute, [
   "verifiedHeritageHeroImageRights(destination.slug, destination.hero)",
   'await import("@/data/three-heritage-hero-image-rights")',
-  "...(heritageImageRights ?? {})",
+  "...(rights ?? {})",
   "...verifiedAttractionPhotoRights",
 ], "Google ImageObject provenance wiring");
 const editorialLinks = read("src/data/destination-editorial-links.ts");
