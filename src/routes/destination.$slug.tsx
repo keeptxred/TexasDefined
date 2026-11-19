@@ -164,7 +164,7 @@ const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
   "hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History & Stay Guide",
   "franklin-mountains-state-park": "Franklin Mountains State Park: Trails, Fees & Camping",
-  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Opening, Trails & Camping",
+  "albert-bessie-kronkosky-state-natural-area": "Kronkosky State Natural Area: Trails, Camping & Fees",
 };
 
 function destinationSeoTitle(name: string, categoryName: string) {
@@ -369,7 +369,9 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.slug === "martin-creek-lake-state-park-rv-area" ? "Martin Creek Lake State Park RV Camping: Sites, Hookups & Rules" : isGainesvilleMedalMuseum ? "Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide" : isOldSocorro ? "Old Socorro Mission, Texas: Archaeology, History & Closure" : destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.slug === "martin-creek-lake-state-park-rv-area"
+        description: destination.slug === "albert-bessie-kronkosky-state-natural-area"
+          ? "Plan Kronkosky State Natural Area: opening dates, 26 miles of trails, cabin and camping choices, $6 day use, accessible exhibits and TPWD alerts."
+          : destination.slug === "martin-creek-lake-state-park-rv-area"
           ? "Compare 56 Martin Creek Lake State Park RV sites, 30/50-amp hookups, $17–$20 rates, park rules, campsite photos and reservations."
           : isGainesvilleMedalMuseum
           ? "Plan a free visit to Gainesville’s Medal of Honor Host City Museum at NCTC: current hours, campus closures, exhibit context, school trips, parking and sources."
