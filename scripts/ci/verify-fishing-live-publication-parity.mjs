@@ -42,6 +42,9 @@ try {
   for (const path of paths) {
     const url = `${origin}${path}`;
     const html = await fetchText(`${url}?release_probe=${encodeURIComponent(process.env.GITHUB_RUN_ID || "manual")}`);
+    if (path === "/fishing/lakes/lake-conroe/camping" && !html.includes('data-conroe-camping-isolated="true"')) {
+      errors.push(path + ": dedicated no-fetch route not rendered; possible heavy dynamic fallback");
+    }
     const robots = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]).filter((tag) => /name\s*=\s*["']robots["']/i.test(tag));
     const noindex = robots.some((tag) => /noindex/i.test(tag));
     const canonical = [...html.matchAll(/<link\b[^>]*>/gi)].map((m) => m[0]).find((tag) => /rel\s*=\s*["']canonical["']/i.test(tag)) || "";
