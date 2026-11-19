@@ -48,6 +48,13 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
   const publication = readFileSync('src/data/fishing/lake-conroe-camping-publication.ts','utf8');
   const research = readFileSync('src/data/fishing/lake-conroe-source-research.ts','utf8');
   const verifier = readFileSync('scripts/ci/verify-fishing-live-publication-parity.mjs','utf8');
+  const tree = readFileSync('src/routeTree.gen.ts','utf8');
+  assert.ok(tree.includes("from './routes/fishing_.lakes.lake-conroe.camping'"),'detached route registered');
+  assert.ok(tree.includes("import('./routes/fishing_.lakes.lake-conroe.camping.lazy')"),'lazy content must not enter main bundle');
+  const treeEntry = tree.slice(tree.indexOf('const FishingLakesLakeConroeCampingRoute ='),tree.indexOf('const FishingLakesSlugSectionRoute'));
+  assert.ok(treeEntry.includes('getParentRoute: () => rootRouteImport'),'camping must not run heavy /fishing or /fishing/lakes parent loaders');
+  assert.ok(!treeEntry.includes('getParentRoute: () => FishingLakesRoute'),'camping route must be root-detached');
+
   assert.ok(dedicated.includes('createFileRoute("/fishing/lakes/lake-conroe/camping")'));
   assert.ok(lazy.includes('createLazyFileRoute("/fishing/lakes/lake-conroe/camping")'));
   assert.ok(lazy.includes('data-conroe-camping-isolated="true"'));
