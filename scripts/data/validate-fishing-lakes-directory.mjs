@@ -52,6 +52,23 @@ for (const marker of ['await page.waitForLoadState("load"', 'await page.waitForF
 }
 
 const advisories = JSON.parse(advisoriesText);
+// Regression: the live browser must test every TPWD-backed restriction in
+// this registry. Previously it hard-coded one lake, while the published
+// directory correctly surfaced Abilene AND Fort Parker and timed out.
+for (const marker of [
+  'readFileSync(new URL("../../src/data/fishing/lake-directory-advisories.json", import.meta.url)',
+  'const flaggedLakeSlugs = Object.keys(advisories).sort()',
+  'publishedLakeCount - flaggedLakeSlugs.length',
+  'for (const slug of flaggedLakeSlugs)',
+  'advisories[slug].sourceUrl',
+  'Filter " + test + " expected ',
+]) {
+  if (!liveChromeVerifier.includes(marker)) errors.push("Fishing Chrome must verify source-backed restriction count and diagnosis: " + marker);
+}
+if (liveChromeVerifier.includes('expected === "restricted" && +match[1] === 1') ||
+    liveChromeVerifier.includes('expected === "exclude" && +match[1] === 71')) {
+  errors.push("Fishing Chrome still assumes only one official restriction; derive counts from reviewed advisory data.");
+}
 // Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
 if (!component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Keep original reader-facing quick answers.");
 if (route.includes('"@type": "FAQPage"')) errors.push("Retired Google FAQPage rich-result markup must not be published.");
