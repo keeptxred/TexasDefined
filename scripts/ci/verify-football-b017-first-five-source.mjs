@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 // A graduated cohort remains immutable after the next batch is assigned.
@@ -15,8 +16,9 @@ const expected=['el-paso-eastlake','el-paso-eastwood','el-paso-el-dorado','el-pa
 assert.equal(historicalBatch017.number,17);
 assert.deepEqual(historicalBatch017.slugs.slice(0,5),expected);
 const graduatedB017=certifiedBatch017(registry);
+const graduatedB018=certifiedBatch018(registry);
 assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 signed earlier school records');
-assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only signed Batch017 evidence permits 25 more certified schools');
+assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB018?430:graduatedB017?405:380,'Only signed Batch017 evidence permits 25 more certified schools');
 assert.ok(graduatedB017||!registry.schoolRecords.some(r=>r.batch===17&&r.status==='VERIFIED'),'Batch017 may be VERIFIED only by signed Chrome witness');
 for(const slug of expected){
   const row=registry.schoolRecords.find(r=>r.slug===slug);
