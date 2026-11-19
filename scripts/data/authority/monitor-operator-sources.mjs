@@ -60,16 +60,20 @@ export function reviewedAttractionMonitorRows(sourceText) {
  * A failed source remains a research flag rather than silently passing.
  */
 export const heritageDestinationMonitorRows = [
-  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-17" },
-  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-17" },
-  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/hours/hours.html", checkedAt: "2026-11-17" },
-  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/visit", checkedAt: "2026-11-17" },
-  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/exhibitions", checkedAt: "2026-11-17" },
-  { id: "lbj-presidential-library-austin", sourceUrl: "https://lbjlibrary.org/visit/accessibility", checkedAt: "2026-11-17" },
-  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/sanjose.htm", checkedAt: "2026-11-17" },
-  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/guided-programs.htm", checkedAt: "2026-11-17" },
-  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/hours.htm", checkedAt: "2026-11-17" },
-  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/accessibility.htm", checkedAt: "2026-11-17" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-18" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-18" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/hours/hours.html", checkedAt: "2026-11-18" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/visit", checkedAt: "2026-11-18" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/exhibitions", checkedAt: "2026-11-18" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://lbjlibrary.org/visit/accessibility", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/sanjose.htm", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/guided-programs.htm", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/hours.htm", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/accessibility.htm", checkedAt: "2026-11-18" },
+  { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/parking/parking.html", checkedAt: "2026-11-18" },
+  { id: "lbj-presidential-library-austin", sourceUrl: "https://www.lbjlibrary.org/refresh26", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm", checkedAt: "2026-11-18" },
+  { id: "mission-san-jose-san-antonio", sourceUrl: "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", checkedAt: "2026-11-18" },
 ];
 
 /** Alert before the museum's published temporary exhibitions become stale,
