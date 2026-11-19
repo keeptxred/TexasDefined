@@ -17,11 +17,20 @@ const original = {
   body: ["Old page claims no opening date"],
   sourceCheckedAt: "2026-10-17",
 };
-const destination = applyKronkoskyOpeningAuthority(original);
+const destination = applyKronkoskyOpeningAuthority(original, Date.parse("2026-11-19T12:00:00Z"));
+const dayUsePhase = applyKronkoskyOpeningAuthority(original, Date.parse("2026-12-02T12:00:00Z"));
+const overnightPhase = applyKronkoskyOpeningAuthority(original, Date.parse("2026-12-16T12:00:00Z"));
+assert.match(destination.entryNote, /NOT YET OPEN/);
+assert.match(dayUsePhase.entryNote, /DAY-USE DATE REACHED/);
+assert.match(overnightPhase.entryNote, /ANNOUNCED OPENING DATES HAVE PASSED/);
+assert.match(dayUsePhase.body[0], /overnight stays are not scheduled until December 15/);
+assert.match(overnightPhase.body[0], /historical agency announcements/);
+assert.ok(!overnightPhase.summary.includes("opens for day use"), "Opening must not remain a future event");
+assert.ok(!overnightPhase.visitorFaqs[1].answer.includes("scheduled to open"), "FAQ must age with opening");
 assert.equal(applyKronkoskyOpeningAuthority({ slug: "unrelated-park" }).slug, "unrelated-park");
 assert.equal(destination.slug, slug);
-assert.equal(destination.sourceCheckedAt, "2026-11-18");
-assert.equal(destination.updatedAt, "2026-11-18");
+assert.equal(destination.sourceCheckedAt, "2026-11-19");
+assert.equal(destination.updatedAt, "2026-11-19");
 assert.match(destination.summary, /December 1, 2026/);
 assert.match(destination.summary, /December 15/);
 assert.match(destination.entryNote, /\$6/);
@@ -39,7 +48,10 @@ assert.match(destination.hero.src, /ABK_SNA_Entrance_2026\.jpg/);
 assert.match(destination.hero.credit, /Larry D\. Moore · CC BY 4\.0/);
 assert.ok(destination.hero.alt.length >= 40);
 assert.equal(destination.authorityGuide.itineraries.length, 3);
-assert.ok(destination.authorityGuide.sources.length >= 5);
+assert.ok(destination.authorityGuide.sources.length >= 8);
+assert.ok(destination.authorityGuide.sources.some(x => x.url.endsWith("/park-alert")));
+assert.ok(destination.authorityGuide.sources.some(x => x.url.includes("tpr.org")));
+assert.match(destination.body.join(" "), /four-mile hike one way/);
 const faq = destination.visitorFaqs;
 assert.ok(faq.length >= 10);
 assert.equal(new Set(faq.map(x => x.question)).size, faq.length, "FAQs cannot repeat");
@@ -47,7 +59,7 @@ assert.ok(faq.every(x => x.sourceUrl?.startsWith("https://")), "FAQs require off
 const facts = destination.visitorFacts;
 assert.equal(facts.length, 7);
 assert.equal(new Set(facts.map(x => x.topic + ":" + x.label)).size, facts.length);
-assert.ok(facts.every(x => x.sourceUrl?.startsWith("https://") && x.checkedAt === "2026-11-18"));
+assert.ok(facts.every(x => x.sourceUrl?.startsWith("https://") && x.checkedAt === "2026-11-19"));
 assert.ok(facts.some(x => x.topic === "accessibility"));
 assert.ok(facts.some(x => x.topic === "camping"));
 assert.match(destination.accessibilityNotes, /Extreme Motus/);
@@ -82,3 +94,10 @@ const credits = read("src/components/editorial/DestinationAuthoritySections.tsx"
 assert.ok(credits.includes("ABK_SNA_Entrance_2026.jpg"));
 assert.ok(credits.includes("https://creativecommons.org/licenses/by/4.0/"));
 console.log("Kronkosky opening authority: researched copy, dates, media, visitor facts, indexing, sitemap, links and refresh contract PASS");
+
+const prod = read("scripts/ci/verify-kronkosky-production.mjs");
+assert.match(prod, /for \(const bust of \[false, true\]\)/, "Must test ordinary clean and nonce cache keys");
+const deploy = read(".github/workflows/deploy-production.yml");
+assert.ok(deploy.includes("https://texasdefined.com/destination/albert-bessie-kronkosky-state-natural-area"), "Canonical destination must be purged");
+const refreshWorkflow = read(".github/workflows/kronkosky-park-source-refresh.yml");
+assert.ok(refreshWorkflow.includes("cron:") && refreshWorkflow.includes("monitor-kronkosky-sources.mjs"), "Dedicated GitHub schedule and source watch required");
