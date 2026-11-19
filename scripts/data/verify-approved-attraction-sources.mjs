@@ -10,6 +10,10 @@ const checks = new Map([
   ["https://tpwd.texas.gov/fishing/tffc/exhibits/", ["tram tour", "summer 2027"]],
   ["https://ranchingheritage.org/about-us/visit/", ["free admission", "only service animals allowed"]],
   ["https://ranchingheritage.org/learn/adult-group-visits/", ["more than 20", "two weeks", "$50 fee"]],
+  ["https://ranchingheritage.org/explore/outdoor-historical-park/", ["matador half dugout", "6666 barn"]],
+  ["https://ranchingheritage.org/explore/outdoor-historical-park/matador-half-dugout/", ["c. 1888", "bunkhouse", "matador"]],
+  ["https://ranchingheritage.org/explore/outdoor-historical-park/6666-barn/", ["c. 1908", "burk burnett", "6666"]],
+  ["https://ranchingheritage.org/explore/museum-exhibits/", ["60 years of vision, 50 years of impact", "march 2027", "from cow trails to highways", "september 2027", "the last chief, the first statesman", "september 2028"]],
   ["https://www.treetexas.com/blank-6", ["inside angelina county", "outside of angelina county", "$3 per person"]],
 ]);
 let failed = 0;
