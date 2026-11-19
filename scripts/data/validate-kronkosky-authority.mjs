@@ -29,6 +29,7 @@ assert.ok(!overnightPhase.summary.includes("opens for day use"), "Opening must n
 assert.ok(!overnightPhase.visitorFaqs[1].answer.includes("scheduled to open"), "FAQ must age with opening");
 assert.equal(applyKronkoskyOpeningAuthority({ slug: "unrelated-park" }).slug, "unrelated-park");
 assert.equal(destination.slug, slug);
+assert.equal(destination.category, "state-parks", "Official natural area belongs in Texas State Parks discovery");
 assert.equal(destination.sourceCheckedAt, "2026-11-19");
 assert.equal(destination.updatedAt, "2026-11-19");
 assert.match(destination.summary, /December 1, 2026/);
