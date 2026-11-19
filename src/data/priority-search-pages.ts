@@ -477,7 +477,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas history & symbols",
     title: "Texas Flag: History, Meaning, Design and Display Rules",
     intro: "Compare the blue-and-gold Burnet flag of 1836 with the Lone Star flag adopted in 1839. Explore the Republic-era timeline, the original documents, the modern design specifications and practical flag etiquette.",
-    updated: "November 18, 2026",
+    updated: "November 19, 2026",
     quickAnswer: "Texas adopted its blue flag with a gold star (the Burnet national standard) on December 10, 1836, then the familiar blue, white and red Lone Star flag on January 25, 1839. Both came after earlier revolution-era flags; a separate red, white and blue naval ensign was also used in 1836.",
     sections: [
       {
@@ -554,6 +554,30 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
         ]
       },
       {
+        heading: "The signed 1839 flag drawing: a primary-source research guide",
+        paragraphs: [
+          "The Texas State Library and Archives Commission preserves the original color flag-and-seal drawing as item 1974/066-001. The sheet shows a Lone Star flag and the Republic's seal. The State Library's exhibit offers enlarged views of three signatures: President Mirabeau B. Lamar, House Speaker John M. Hansford and Senate President David G. Burnet.",
+          "These signatures and the accompanying 1839 law establish government approval of the design. They do not resolve who first invented it. Peter Krag prepared the surviving official artwork; Wharton's bill and the Senate committee led by Oliver Jones explain the legislative history. Compare the archival object, law and scholarly chronology before repeating a designer claim or treating a newly drawn 1836 reconstruction as an original."
+        ],
+        links: [
+          { label: "View the 1839 original and signatures at the State Library", href: "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html", external: true },
+          { label: "State Library archival accession record", href: "https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html", external: true },
+          { label: "Deep dive: the primary sources and flag design history", href: "/article/history-of-the-texas-flag" }
+        ]
+      },
+      {
+        heading: "When Texas Flag Day happens and why the date matters",
+        paragraphs: [
+          "Texas Flag Day is March 2 under Texas Government Code § 662.048. That date commemorates Texas independence in 1836; it is not the anniversary of the approval of the red, white and blue Lone Star flag on January 25, 1839. Schools and museums should distinguish these historical milestones when labeling flags or preparing commemorative activities.",
+          "The Texas flag pledge was first enacted in 1933 and was later corrected and amended. For current pledge wording and display instructions, use the statutory Texas Flag Code or the State Library's official guide instead of reproducing the original 1933 version as though it were current law."
+        ],
+        links: [
+          { label: "Texas Flag Day law: Government Code § 662.048", href: "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm", external: true },
+          { label: "State Library: current flag pledge and historical changes", href: "https://www.tsl.texas.gov/ref/abouttx/flagpledge", external: true },
+          { label: "Texas flag etiquette and pledge guide", href: "/article/texas-flag-etiquette-display-guide" }
+        ]
+      },
+      {
         heading: "How to fly the Texas flag with the United States flag",
         paragraphs: [
           "The claim that Texas may fly its flag higher than the U.S. flag because it was once independent is incorrect. Texas flag law regulates relative position and size, and U.S. flag protocol applies when the national flag is displayed with state flags. The rules differ for flags on the same halyard, separate poles, on walls or at half-staff.",
@@ -576,7 +600,10 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
           { label: "Texas Revolution sites road trip", href: "/article/texas-revolution-historic-sites-road-trip" },
           { label: "Texas symbols", href: "/texas-symbols" },
           { label: "Texas history", href: "/texas-history" },
-          { label: "Explore historic places", href: "/explore/historic-sites" }
+          { label: "Explore historic places", href: "/explore/historic-sites" },
+          { label: "Republic of Texas Navy flags", href: "/article/republic-of-texas-navy-history" },
+          { label: "Republic of Texas government trail", href: "/article/republic-of-texas-government-trail" },
+          { label: "Washington-on-the-Brazos historic site", href: "/destination/washington-on-the-brazos" }
         ]
       }
     ],
