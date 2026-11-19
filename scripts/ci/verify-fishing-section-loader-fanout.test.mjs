@@ -23,6 +23,13 @@ test('camping/fish/access routes skip unrelated guide, report, business, or plac
   assert.ok(source.includes('businesses: [], placements, pageData'));
 });
 
+test('showcase inventory branch references only declared fishing model types', () => {
+  assert.ok(source.includes('import type { FishingGuide, FishingPlacement, FishingReport } from "@/data/fishing/types";'),
+    'reports, guides, and placement inventory must all resolve their declared models');
+  assert.ok(source.includes('let placements: FishingPlacement[] = []'),
+    'optional inventory uses the explicit placement type');
+});
+
 test('showcase non-inventory tabs avoid the expensive statewide fishing repository on cold SSR', () => {
   const start = source.indexOf('if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section))');
   const gate = source.indexOf('if (params.section === "reports" || params.section === "guides")', start);
