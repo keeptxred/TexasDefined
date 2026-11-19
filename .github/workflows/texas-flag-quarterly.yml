@@ -42,7 +42,7 @@ jobs:
           set -euo pipefail
           title="Texas flag authority review: verification failed"
           summary="The Texas flag source or live-page deployment check failed. Examine the run logs, verify the 1836 and 1839 original sources, correct code or editorial statements as needed, and retest before closing. Do not advance review dates without substantive fact checking."
-          issue_number="$(gh issue list --state open --search '"Texas flag quarterly source review" in:title' --json number --jq '.[0].number // empty' || true)"
+          issue_number="$(gh issue list --state open --search '"Texas flag authority review" in:title' --json number --jq '.[0].number // empty' || true)"
           if [[ -n "$issue_number" ]]; then
             gh issue comment "$issue_number" --body "$summary Review run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           else
