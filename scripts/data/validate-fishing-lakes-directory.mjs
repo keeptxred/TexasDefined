@@ -87,7 +87,6 @@ for (const marker of [
   "Why {guideCount} guides, not every Texas lake?",
   "Editorial comparison sources checked November 19, 2026",
   "not a forecast",
-  "not a statewide inventory",
   "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/",
   "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/",
   "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/",
@@ -96,6 +95,7 @@ for (const marker of [
   "/fishing/lakes/lake-conroe",
   "/fishing/lakes/canyon-lake",
 ]) if (!decisionGuide.includes(marker)) errors.push("Original source-led lake decisions or collection scope missing: " + marker);
+if (!/not a\s+statewide inventory/.test(decisionGuide)) errors.push("Collection scope must disclose this is not a statewide lake inventory.");
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
