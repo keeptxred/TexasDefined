@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -23,7 +23,9 @@ export const Route = createFileRoute("/fishing")({
     const redirectOptions = getFishingTechniquePathNormalizationRedirect(location.pathname, location.searchStr);
     if (redirectOptions) throw redirect(redirectOptions);
   },
-  loader: async ({ context }) => {
+  loader: async ({ context, location }) => {
+    // The fishing hub is an overview, not a data dependency of its child guides.
+    if (location.pathname !== "/fishing" && location.pathname !== "/fishing/") return { nested: true as const };
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const { getFishingResourceAvailability } = await import("@/data/fishing/resource-availability.functions");
     const [lakes, species, lakeSpecies, resourceAvailability] = await Promise.all([
@@ -35,6 +37,7 @@ export const Route = createFileRoute("/fishing")({
     return { lakes, species, lakeSpecies, resourceAvailability };
   },
   head: ({ loaderData }) => {
+    if (loaderData && "nested" in loaderData) return { meta: [] };
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const url = `${origin}/fishing`;
     const title = "Texas Fishing Guide — Lakes, Fish Species & Local Fishing";
@@ -72,7 +75,9 @@ export const Route = createFileRoute("/fishing")({
 });
 
 function FishingPage() {
-  const { lakes, species, lakeSpecies, resourceAvailability } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  if ("nested" in data) return <Outlet />;
+  const { lakes, species, lakeSpecies, resourceAvailability } = data;
   return (
     <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fishing guide…</div>}>
       <FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies} resourceAvailability={resourceAvailability} />
