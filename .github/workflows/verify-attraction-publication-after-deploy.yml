@@ -1,0 +1,39 @@
+name: Verify approved attraction indexability after production deploy
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-attraction-publication-production.mjs'
+      - '.github/workflows/verify-attraction-publication-after-deploy.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check live verifier syntax
+        run: node --check scripts/ci/verify-attraction-publication-production.mjs
+      - name: Verify both live indexable authority guides
+        run: node scripts/ci/verify-attraction-publication-production.mjs
+      - name: Save independent production proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: attraction-publication-live-${{ github.run_id }}
+          path: .artifacts/attraction-publication-live.json
+          retention-days: 14
+          if-no-files-found: warn
