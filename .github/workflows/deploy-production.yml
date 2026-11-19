@@ -757,6 +757,8 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/destination/albert-bessie-kronkosky-state-natural-area
+            https://texasdefined.com/sitemap-explore.xml
             https://texasdefined.com/hunting/texas-deer-hunting
             https://texasdefined.com/hunting/youth-hunting
             https://texasdefined.com/best-places-to-go-camping-in-texas
