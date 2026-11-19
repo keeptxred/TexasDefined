@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isMuseumProductionChange } from "./verify-changed-museum-production.mjs";
+import { isMuseumProductionChange, isTransientMuseumTransportError } from "./verify-changed-museum-production.mjs";
 
 test("museum destination/catalog/template/photo sources trigger complete postdeploy acceptance", () => {
   for (const path of [
@@ -25,4 +25,19 @@ test("unrelated pages and the editorial-only museum execution ledger do not crea
 test("the change plan must contain a real path list", () => {
   assert.throws(() => isMuseumProductionChange(undefined));
   assert.throws(() => isMuseumProductionChange({}));
+});
+
+test("only bounded museum transport failures qualify for retry, not content or HTTP failures", () => {
+  for (const error of [
+    Object.assign(new Error("The operation was aborted"), { name: "AbortError" }),
+    Object.assign(new Error("Timed out"), { name: "TimeoutError" }),
+    new TypeError("fetch failed"),
+  ]) assert.equal(isTransientMuseumTransportError(error), true, error.name);
+  for (const error of [
+    new Error("HTTP 500"),
+    new TypeError("Invalid URL"),
+    new Error("Image license mismatch"),
+    new Error("Wrong canonical"),
+    null,
+  ]) assert.equal(isTransientMuseumTransportError(error), false);
 });
