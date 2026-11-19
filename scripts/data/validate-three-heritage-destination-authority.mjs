@@ -102,4 +102,9 @@ includes(deploy, [
   "node scripts/ci/verify-three-heritage-responsive-browser.mjs",
   "Preserve three heritage mobile and desktop proof",
 ], "Postdeploy Chrome acceptance on same site release");
+assert.ok(
+  deploy.indexOf("Verify Capitol LBJ Library and Mission San José on production") <
+  deploy.indexOf("Verify three heritage destinations in mobile and desktop Chrome"),
+  "Do not skip Chrome: required live heritage HTTP gate must execute first"
+);
 console.log("Three researched heritage guides: canonical consolidation, source-backed content, LBJ dossier and FAQ, source drift monitoring validated.");
