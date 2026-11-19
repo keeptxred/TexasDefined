@@ -11,7 +11,7 @@ function section(content, start, end, subject) {
 function includes(source, tokens, subject) {
   for (const token of tokens) assert.ok(source.includes(token), subject + " missing protected factual detail: " + token);
 }
-const heroRights = read("src/data/heritage-photo-license-links.ts");
+const heroRights = read("src/data/three-heritage-hero-image-rights.ts");
 includes(heroRights, [
   "verifiedHeritageHeroImageRights", "commonsHeroAttribution(hero.src, hero.credit)",
   "comparableCommonsFile(published.sourceUrl) !== comparableCommonsFile(verified.fileUrl)",
@@ -27,6 +27,8 @@ includes(heroRights, [
 const destinationRoute = read("src/routes/destination.$slug.tsx");
 includes(destinationRoute, [
   "verifiedHeritageHeroImageRights(destination.slug, destination.hero)",
+  'await import("@/data/three-heritage-hero-image-rights")',
+  "...(heritageImageRights ?? {})",
   "...verifiedAttractionPhotoRights",
 ], "Google ImageObject provenance wiring");
 const editorialLinks = read("src/data/destination-editorial-links.ts");
