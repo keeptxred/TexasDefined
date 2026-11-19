@@ -38,11 +38,20 @@ test('football sponsor package preselection context survives the query normaliza
   assert.equal(result.focus, 'contact');
 });
 
+test('horse-racing sports inquiry retains the internal originating page without aliases', () => {
+  const url = new URL(canonical + '?type=sports-travel&source=%2Fhorse-racing');
+  const result = parsePartnerSearch(Object.fromEntries(url.searchParams));
+  assert.equal(result.type, 'sports-travel');
+  assert.equal(result.source, '/horse-racing');
+  assert.equal(Object.hasOwn(result, 'partnershipType'), false);
+  assert.equal(Object.hasOwn(result, 'sourcePath'), false);
+});
+
 test('disallowed external and path-injection sources are never retained', () => {
   for (const source of ['https://example.com', '//evil.test', '/sports-venues/../../admin', '/?redirect=external']) {
     assert.equal(parsePartnerSearch({ source }).source, '/partner-with-us');
   }
-  assert.equal(parsePartnerSearch({ source: '/horse-racing' }).source, '/partner-with-us');
+
 });
 
 test('invalid prefill values do not enter partner form state', () => {
