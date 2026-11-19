@@ -41,3 +41,22 @@ test('Lake Conroe camping cold SSR avoids the optional live-water fetch without 
   assert.ok(guide.includes('pageData.camping.map'), 'published camping facilities remain in visitor HTML');
   assert.ok(guide.includes('pageData.sectionResearch.sourceUrls.map'), 'official sources remain in page HTML');
 });
+
+test('the dedicated Lake Conroe campground route bypasses dynamic lake SSR and reuses published source research', () => {
+  const dedicated = readFileSync('src/routes/fishing.lakes.lake-conroe.camping.tsx','utf8');
+  const research = readFileSync('src/data/fishing/lake-conroe-source-research.ts','utf8');
+  assert.ok(dedicated.includes('createFileRoute("/fishing/lakes/lake-conroe/camping")'));
+  assert.ok(dedicated.includes('data-conroe-camping-isolated="true"'));
+  assert.ok(dedicated.includes('LAKE_CONROE_RESEARCH'));
+  assert.ok(dedicated.includes('sourceResearch.camping.map'));
+  assert.ok(dedicated.includes('sourceResearch.sourceUrls.map'));
+  assert.ok(dedicated.includes('dateModified:LAKE_CONROE_RESEARCH.reviewedAt'));
+  assert.ok(dedicated.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
+  assert.ok(dedicated.includes('"@type":"WebPage"') && dedicated.includes('"@type":"BreadcrumbList"'));
+  for (const forbidden of ['ShowcaseLakeGuide','LakeConroeGuide','fishingLakeQuery','getLakeConroePageData','live-lake-level-fetch.server','lake-authority-research-wave1']) {
+    assert.ok(!new RegExp('^import\\\\b[^\\\\n]*'+forbidden,'m').test(dedicated), 'dedicated route must not import '+forbidden);
+  }
+  for (const proof of ['Cagle Recreation Area','Stubblefield Lake',"Scott's Ridge",'www.recreation.gov/camping/campgrounds/234004']) {
+    assert.ok(research.includes(proof),'published operator source retained: '+proof);
+  }
+});
