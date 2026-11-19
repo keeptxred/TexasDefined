@@ -30,7 +30,7 @@ const examples = [
   },
 ] as const;
 
-export function FishingLakeDecisionGuide() {
+export function FishingLakeDecisionGuide({ guideCount }: { guideCount: number }) {
   return (
     <section className="border-t border-border py-12" aria-labelledby="lake-decision-heading">
       <p className="eyebrow text-primary">Original lake-by-lake analysis</p>
@@ -61,11 +61,11 @@ export function FishingLakeDecisionGuide() {
         regulations, public access and management notices before travelling.
       </p>
       <div className="mt-8 border-t border-border pt-6">
-        <h3 className="font-display text-2xl">Why 72 guides, not every Texas lake?</h3>
+        <h3 className="font-display text-2xl">Why {guideCount} guides, not every Texas lake?</h3>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
           This is an editorial collection of completed, individually source-reviewed TexasDefined lake guides, not a
           statewide inventory or a ranking. We include a guide once its lake identity, species relationships and practical
-          planning sources have been researched and the page is ready for public use. More Texas lakes exist than the 72
+          planning sources have been researched and the page is ready for public use. More Texas lakes exist than the {guideCount}
           displayed here; the <a href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">TPWD Texas Lake Finder</a>
           covers additional destinations. Selection means a completed guide, not that these lakes are better than others.
         </p>
