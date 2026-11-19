@@ -20,6 +20,7 @@ const neighboring = [
   {name: "Fish species", href: "/fishing/lakes/lake-conroe/fish"},
   {name: "Verified ramps and access", href: "/fishing/lakes/lake-conroe/access"},
   {name: "Boating", href: "/fishing/lakes/lake-conroe/boating"},
+  {name: "Camping", href: canonicalPath},
   {name: "Fishing regulations", href: "/fishing/lakes/lake-conroe/regulations"},
   {name: "Nearby forest recreation", href: "/fishing/lakes/lake-conroe/nearby"},
   {name: "All Texas fishing lakes", href: "/fishing/lakes"},
@@ -27,7 +28,7 @@ const neighboring = [
 const regionLinks = [
   {name: "Montgomery County", href: "/county/montgomery"},
   {name: "Walker County", href: "/county/walker"},
-  {name: "Texas fishing license and rules", href: "/fishing/license"},
+  {name: "Texas fishing home", href: "/fishing"},
 ];
 const formatDate = (d: string) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", {year:"numeric",month:"long",day:"numeric",timeZone:"UTC"});
 
