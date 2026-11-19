@@ -3,6 +3,7 @@ import path from 'node:path';
 import { certifiedBatch015 } from '../ci/verified-football-b015-certificate.mjs';
 import { certifiedBatch016 } from '../ci/verified-football-b016-certificate.mjs';
 import { certifiedBatch017 } from '../ci/verified-football-b017-certificate.mjs';
+import { certifiedBatch018 } from '../ci/verified-football-b018-certificate.mjs';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -3161,6 +3162,11 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       // must accompany the protected evidence-only registry transition.
       if(!certifiedBatch017(r) || !certifiedBatch016(r))
         errors.push('Batch017 graduation must retain 380 signed historical certificates and 25 exact Worker-pinned Chrome/county passes');
+    } else if(r.batch.number===18 && r.batch.state==='VERIFIED_BATCH_018_COMPLETE'){
+      // Never let a generic green CI job, skipped Chrome run, source-only
+      // authored profile or an outdated Worker certify 25 new schools.
+      if(!certifiedBatch018(r) || !certifiedBatch017(r) || !certifiedBatch016(r))
+        errors.push('Batch018 graduation requires its own exact signed 75 viewport + 25 county + closing Worker identity, preserving all 405 historical certificates');
     } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
        r.batch.slugs.some(slug=>{

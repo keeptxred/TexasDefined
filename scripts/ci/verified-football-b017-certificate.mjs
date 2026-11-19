@@ -1,3 +1,4 @@
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 // Immutable source/Worker-pinned Batch017 technical graduation witness.
 // Do not infer Google indexing, licensed school photos, scores or human signoff.
 export const B017_SLUGS=Object.freeze([
@@ -47,6 +48,7 @@ export function certifiedBatch017(registry) {
   // non-verified, photo-rights-unclaimed Batch018 guides to be implemented.
   // A partial, invented, or falsely VERIFIED Batch018 never passes this guard.
   const b018=registry.batch?.number===18?registry.batch:null;
+  const nextCertified018=certifiedBatch018(registry);
   const sourceImplemented018=Boolean(
     b018?.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_PROOF' &&
     b018.slugs?.length===25 && new Set(b018.slugs).size===25 &&
@@ -65,6 +67,7 @@ export function certifiedBatch017(registry) {
     })
   );
   if(b018?.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_PROOF' && !sourceImplemented018)return false;
+  if(b018?.state==='VERIFIED_BATCH_018_COMPLETE' && !nextCertified018)return false;
   if(cert?.state!=='VERIFIED_BATCH_017_COMPLETE' || cert?.individuallyVerified!==25 ||
      cert?.remainingAssigned!==0 || cert?.remainingToImplement!==0 ||
      cert?.remainingToVerify!==0 || cert?.noNextBatchAssigned!==true ||
@@ -85,10 +88,10 @@ export function certifiedBatch017(registry) {
      e?.schoolPhotoReuseRightsAccepted!==false || e?.editorialHumanSignoffsClaimed!==0 ||
      rows?.length!==1292 || rows.filter(x=>x.batch===17).length!==25 ||
      rows.filter(x=>x.status==='VERIFIED'&&x.batch<17).length!==380 ||
-     rows.filter(x=>x.status==='VERIFIED').length!==405 ||
-     rows.filter(x=>x.status==='IMPLEMENTED').length!==(sourceImplemented018?25:0) ||
-     rows.filter(x=>x.status==='NOT_REVIEWED').length!==(sourceImplemented018?862:887) ||
-     rows.some(x=>x.status==='VERIFIED'&&x.batch>17))return false;
+     rows.filter(x=>x.status==='VERIFIED').length!==(nextCertified018?430:405) ||
+     rows.filter(x=>x.status==='IMPLEMENTED').length!==(nextCertified018?0:sourceImplemented018?25:0) ||
+     rows.filter(x=>x.status==='NOT_REVIEWED').length!==(nextCertified018?862:sourceImplemented018?862:887) ||
+     rows.some(x=>x.status==='VERIFIED'&&x.batch>17&&!nextCertified018))return false;
   return B017_SLUGS.every(slug=>{
     const x=rows.find(y=>y.slug===slug);
     return x?.batch===17 && x.status==='VERIFIED' && x.actualProductionVerified===true &&

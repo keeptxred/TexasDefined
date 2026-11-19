@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
 import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 import {readFileSync} from 'node:fs';
 const read=(p)=>readFileSync(p,'utf8');
 const expected=[
@@ -16,7 +17,7 @@ const records=new Map(registry.schoolRecords.map(row=>[row.slug,row]));
 const graduated=certifiedBatch016(registry);
 for(const slug of expected)assert.equal(records.get(slug)?.status,graduated?'VERIFIED':'NOT_REVIEWED',slug+' must not be prematurely certified');
 const verifiedCount=registry.schoolRecords.filter(x=>x.status==='VERIFIED').length;
-const expectedVerified=certifiedBatch017(registry)?405:(graduated?380:355);
+const expectedVerified=certifiedBatch018(registry)?430:certifiedBatch017(registry)?405:(graduated?380:355);
 assert.equal(verifiedCount,expectedVerified,'Historical certified batches must remain VERIFIED; Batch017 requires signed 75/25 Chrome evidence');
 const files=[
 ['program-editorial-b016-early.ts',['early']],

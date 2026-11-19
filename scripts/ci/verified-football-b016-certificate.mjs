@@ -1,4 +1,5 @@
 import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
+import { certifiedBatch018 } from './verified-football-b018-certificate.mjs';
 // Fail-closed Batch016 graduation contract. Fill immutable identities ONLY
 // after a successful source/Worker-pinned 75-view + 25-county real Chrome run.
 import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
@@ -38,12 +39,13 @@ export function certifiedBatch016(registry) {
      e?.editorialHumanSignoffsClaimed!==0) return false;
   const rows=registry.schoolRecords;
   const nextCertified017=certifiedBatch017(registry);
+  const nextCertified018=certifiedBatch018(registry);
   if(rows.length!==1292 || rows.filter(x=>x.batch===16).length!==25 ||
-     rows.filter(x=>x.status==='VERIFIED'&&x.batch!==16).length!==(nextCertified017?380:355) ||
-     rows.filter(x=>x.status==='VERIFIED').length!==(nextCertified017?405:380) ||
-     rows.filter(x=>x.status==='NOT_REVIEWED'||x.status==='IMPLEMENTED').length!==(nextCertified017?887:912) ||
+     rows.filter(x=>x.status==='VERIFIED'&&x.batch!==16).length!==(nextCertified018?405:nextCertified017?380:355) ||
+     rows.filter(x=>x.status==='VERIFIED').length!==(nextCertified018?430:nextCertified017?405:380) ||
+     rows.filter(x=>x.status==='NOT_REVIEWED'||x.status==='IMPLEMENTED').length!==(nextCertified018?862:nextCertified017?887:912) ||
      rows.some(x=>x.status==='IMPLEMENTED' && !(x.batch>16 && x.actualProductionVerified!==true)) ||
-     rows.some(x=>x.status==='VERIFIED' && x.batch>17))return false;
+     rows.some(x=>x.status==='VERIFIED' && x.batch>17 && !nextCertified018))return false;
   return B016_SLUGS.every(slug=>{
     const x=rows.find(row=>row.slug===slug);
     return x?.batch===16 && x.status==='VERIFIED' && x.actualProductionVerified===true &&
