@@ -7,6 +7,14 @@ import { readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
+/** Only retry actual transport failures; never retry HTTP, licensing, canonical, or indexability failures. */
+export function isTransientMuseumTransportError(error) {
+  if (error?.name === "TimeoutError" || error?.name === "AbortError") return true;
+  // Node/Undici reports DNS/socket/reset failures as TypeError: fetch failed,
+  // not TimeoutError. They were preventing all 91 real checks from completing.
+  return error?.name === "TypeError" && error?.message === "fetch failed";
+}
+
 export function isMuseumProductionChange(changedFiles) {
   if (!Array.isArray(changedFiles)) throw Error("Production change plan must include changedFiles array");
   return changedFiles.some(path => (
