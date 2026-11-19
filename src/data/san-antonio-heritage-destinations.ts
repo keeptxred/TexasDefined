@@ -149,7 +149,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "credit": "Steven B Yount · CC BY-SA 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Fall through spring for walking the extensive compound; summer visits are most pleasant in the morning.",
-    "entryNote": "Admission is free. The visitor center normally opens 9 a.m.–5 p.m.; outdoor grounds are open sunrise to sunset, with park closures on Thanksgiving, Christmas and New Year's Day. Free ranger walks begin at 10 and 11 a.m. daily if weather permits, each lasting about 45 minutes and limited to 50 first-come participants. The paved walking route is wheelchair accessible. Confirm park alerts and active church access before traveling.",
+    "entryNote": "Admission is free. The Mission San José visitor center and enclosed historic compound are normally open 9 a.m.–5 p.m.; the compound gates CLOSE at 5 p.m., even though the surrounding Mission Reach trail is generally open sunrise to sunset. The park closes visitor facilities on Thanksgiving, Christmas and New Year's Day. Free ranger walks typically begin at 10 and 11 a.m., weather and staffing permitting, and use a paved route. This is an active parish church with separate service access. Check NPS alerts rather than assuming the whole complex remains accessible until sunset.",
     "highlights": [
       "Park visitor center",
       "Rose Window",
@@ -161,14 +161,38 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "After looking at the Rose Window, trace the granary, gristmill and Indigenous family quarters to understand the labor and food systems behind the carved church. The National Park Service explains that the broad label “Coahuiltecan” encompasses many distinct Indigenous bands, not one homogeneous nation. Forced cultural change, conversion and Indigenous efforts to survive shaped the mission's history; the rebuilt spaces and original fabric require different interpretations.",
       "Begin at the NPS visitor center with the introductory 20-minute film and museum before choosing a paved ranger-guided walk at 10 or 11 a.m. when available. Outdoor surfaces and historic interiors may have different accessibility conditions. The church remains an active parish, so ranger programming does not guarantee church entry during services.",
       "The surviving church and the perimeter quarters should not be described as equally original. NPS historical interpretation estimates that roughly 80 percent of the church is original, while significant portions of the compound were reconstructed in the twentieth century. Visitors can compare the carved church doorway and Rose Window with the reconstructed residential layout, then ask what physical evidence can and cannot reveal about Indigenous daily life.",
-      "Mission San José's decline was gradual rather than a single closing date. NPS research documents a 1794 census of named Indigenous residents as the Spanish authorities began distributing mission property, and a further population decline recorded in 1804. The process of secularization shifted land, cattle, political authority and religious institutions in ways that changed the community; the active parish and subsequent preservation efforts are part of that longer history. These details are important because the church's visual grandeur alone cannot explain the lives of the people who built and maintained it.",
+      "Mission San José's transition was documented in the names and property of its residents, not just a change in official administration. When the 1794 secularization decree was read to the community, the first detailed named census counted 95 Indigenous people. According to NPS research, the distribution involved 28 agricultural plots, livestock, farm tools and 54 dwellings; those figures make the mission's economy more concrete than an architectural photograph can. Ownership on paper did not mean that people immediately controlled all decisions about their lives, and the missionaries remained on site.",
+      "Population figures make the later changes visible. NPS research reports 73 residents in 1804 and, by 1815, 49 Indigenous residents alongside 60 people identified as citizens of New Spain. Legal secularization progressed in 1823, and NPS marks February 29, 1824 as the end of the mission institution. Later inventories and land claims complicate the idea of a simple grant of ownership. This matters to a visitor: the perimeter rooms were homes and workplaces in a colonial system, not neutral decorative scenery.",
+      "The gristmill and acequia illustrate how water, grain and labor sustained the settlement. The park identifies the mill as a water-powered operation supplied by the irrigation system, while the granary and former dwellings reveal how food production and distribution organized everyday life. Compare those working structures to the church's elaborate stone carving, and ask which kinds of activity were represented in surviving original stone and which are interpreted through reconstruction. An NPS ranger can help distinguish them.",
+      "Access is unusually specific here. The general park-hours page describes outdoor parklands as open sunrise to sunset, but the park superintendent's 2026 rules close the walled San José compound at 5 p.m. The Mission Reach trail outside the compound has a different daylight schedule. Visitors seeking the Rose Window, rooms and granary should therefore arrive during the 9 a.m.–5 p.m. compound window rather than counting on evening entry.",
+      "For accessibility, the main paved route is easier than the narrow rebuilt room entrances. The visitor-center path is about 160 feet and mostly level, but some historic exhibit thresholds are only around 26–30 inches wide; the NPS notes a missing grab bar in one larger restroom stall near the mill. A loaner wheelchair is available. This is the kind of detailed planning that matters more than a blanket statement that an entire centuries-old compound is wheelchair accessible.",
       "An informed visit contrasts the building's high architectural craftsmanship with the unequal power relations of mission life. Continue to Concepción for original fabric, San Juan for agricultural systems and Espada for the aqueduct and textile trade."
     ],
     "officialUrl": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",
     "managingAuthority": "National Park Service / active local parish",
     "address": "6701 San Jose Dr, San Antonio, TX 78214",
-    "sourceCheckedAt": "2026-11-17",
-    "accessibilityNotes": "The NPS ranger walk departs from the visitor center and follows a paved, wheelchair-accessible route for roughly 45 minutes. Historic interiors and other outside surfaces may differ; use the park’s disability-specific accessibility pages for individual planning.",
+    "sourceCheckedAt": "2026-11-18",
+    "updatedAt": "2026-11-18",
+    "accessibilityNotes": "Six marked accessible spaces serve the visitor-center lot. The approximately 160-foot approach to the center is paved and mostly level, and the principal compound route is generally flat; however, some restored dwelling doorways are only about 26–30 inches wide. A wheelchair can be borrowed from the information desk. The NPS identifies a missing grab bar in the accessible stall near the gristmill, so use the visitor-center restroom if that is important to your visit. Compare the park mobility page before traveling.",
+
+    "gallery": [
+      {
+        "image": { "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission_San_Jos%C3%A9_San_Antonio_Rose_Window.JPG?width=1200", "alt": "Carved Baroque Rose Window in the limestone wall of the Mission San José church in San Antonio", "width": 1944, "height": 2592, "credit": "Travis Witt (Liveon001) · CC BY-SA 3.0 · 2010 · Wikimedia Commons" },
+        "caption": "The Rose Window records the stonemasons' ornamental work. This 2010 close view is distinct from the wider architecture and reconstructed perimeter walls.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mission_San_Jos%C3%A9_San_Antonio_Rose_Window.JPG"
+      },
+      {
+        "image": { "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission_San_Jos%C3%A9_y_San_Miguel_de_Aguayo%2C_San_Antonio%2C_Texas_arches.jpg?width=1200", "alt": "Repeated masonry arches of the convento at Mission San José y San Miguel de Aguayo", "width": 5016, "height": 3344, "credit": "Ashland Thomas · CC BY-SA 4.0 · 2015 · Wikimedia Commons" },
+        "caption": "Convento arches and the surrounding compound show the mission's architectural spaces; preserved and reconstructed elements should not be described as uniformly original.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mission_San_Jos%C3%A9_y_San_Miguel_de_Aguayo,_San_Antonio,_Texas_arches.jpg"
+      }
+    ],
+    "visitorFacts": [
+      { "topic": "hours", "label": "The compound is not open until sunset", "detail": "The NPS compendium states that the Mission San José walled compound and visitor center are normally accessible 9 a.m.–5 p.m.; compound gates close at 5. Nearby Mission Reach trail areas have a separate sunrise-to-sunset schedule.", "sourceUrl": "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm", "checkedAt": "2026-11-18" },
+      { "topic": "admission", "label": "Free entry", "detail": "The park and ranger walks are free; church services and any special events operate under their own arrangements. NPS visitor facilities close on Thanksgiving, Christmas and New Year's Day.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/hours.htm", "checkedAt": "2026-11-18" },
+      { "topic": "accessibility", "label": "Accessible paths versus narrow doorways", "detail": "The visitor-center approach is about 160 feet and paved, and the compound walkway is generally flat. Some dwelling exhibition doorways are only 26–30 inches wide, and a wheelchair can be loaned at the visitor desk.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", "checkedAt": "2026-11-18" },
+      { "topic": "parking", "label": "Visitor-center parking", "detail": "The main lot has six marked accessible spaces, an EV-charging space and ordinary vehicle and RV/bus parking; follow signs for the visitor center at 6701 San José Drive.", "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm", "checkedAt": "2026-11-18" }
+    ],
     "visitorFaqs": [
       {
         "question": "Where is the park visitor center?",
@@ -186,13 +210,28 @@ export const sanAntonioHeritageDestinations: Destination[] = [
         "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
       },
       {
+        "question": "Are the San José grounds open until sunset?",
+        "answer": "Not the walled mission compound. Park policy closes the compound gates at 5 p.m.; the adjacent Mission Reach trail can be open sunrise to sunset. Plan church, mill and quarter visits before the gates close.",
+        "sourceUrl": "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm"
+      },
+      {
+        "question": "Can I take a wheelchair into every mission exhibit room?",
+        "answer": "The main visitor-center and compound paths are generally paved, but the NPS lists some narrow historic doorways around 26–30 inches. Loaner wheelchairs are available from staff; accessibility may differ room by room.",
+        "sourceUrl": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm"
+      },
+      {
+        "question": "Which historic buildings are original?",
+        "answer": "The NPS estimates about 80% of the church remains original, while mission perimeter walls and Indigenous quarters were extensively reconstructed above historic foundations during 1930s work.",
+        "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
+      },
+      {
         "question": "How long should I allow?",
         "answer": "Plan roughly 90–120 minutes for the visitor-center film, historical compound and, when offered, a 45-minute ranger walk; allow for heat and service restrictions.",
         "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
       }
     ],
     "authorityGuide": {
-      "whyItMatters": "San José, the largest Spanish colonial mission complex in San Antonio, is the National Park Service orientation hub, with a church, granary, former residential quarters, gristmill and Rose Window.",
+      "whyItMatters": "San José is the best place in San Antonio to see both the material remains of an active mission community and the effects of later preservation. The carved church survives substantially intact, while reconstructed rooms, a granary, a water-powered mill and the park museum explain the Indigenous settlement, economy, and 1794–1824 transition.",
       "assessment": {
         "recommendedVisit": "90–120 minutes",
         "physicalEffort": "Low to moderate",
@@ -231,6 +270,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
         }
       ],
       "sources": [
+        {
+          "label": "NPS 2026 Superintendent's compendium: San José gates and trail distinction",
+          "url": "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm",
+          "scope": "Compound gates 5 p.m., grounds and Mission Reach trail access periods"
+        },
+        {
+          "label": "NPS mobility guidance for Mission San José",
+          "url": "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm",
+          "scope": "Parking, 160-foot visitor-center approach and 25–30-inch historic exhibit doorways"
+        },
         {
           "label": "National Park Service San José history and visitor center",
           "url": "https://www.nps.gov/saan/planyourvisit/sanjose.htm",

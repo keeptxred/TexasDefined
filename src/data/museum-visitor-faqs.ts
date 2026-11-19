@@ -6568,28 +6568,28 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "question": "How much does it cost to visit the LBJ Presidential Library?",
       "answer": "Regular admission is currently $16 for adults, $12 seniors aged 62 or older, $6 students and youth aged 13–18, and free for children under twelve. Tuesdays are half price, and the museum posts selected free-admission days. Check the current price chart before booking.",
       "verificationUrl": "https://www.lbjlibrary.org/visit",
-      "questionOrigin": "museum-faq",
+      "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Is the LBJ Presidential Library free on Tuesdays or certain holidays?",
       "answer": "The library advertises half-price admission every Tuesday and specific free-admission dates, including President Johnson's birthday and several designated holidays. Not every public holiday is free, and access can vary around university events, so verify the posted calendar.",
       "verificationUrl": "https://www.lbjlibrary.org/visit",
-      "questionOrigin": "museum-faq",
+      "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Where should visitors park for the LBJ Library in Austin?",
       "answer": "Use the visitor lot number 38 off Red River Street at 2313 Red River Street; ordinary car parking is free. On UT football days, Red River traffic and drop-off points can be disrupted, and the operator recommends checking local conditions before departure.",
       "verificationUrl": "https://www.lbjlibrary.org/visit",
-      "questionOrigin": "museum-faq",
+      "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "How long should a family spend at the LBJ Presidential Library?",
@@ -6598,7 +6598,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Can visitors see the actual Oval Office at the LBJ Library?",
@@ -6607,16 +6607,16 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/exhibitions",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Is the LBJ Presidential Library wheelchair accessible?",
       "answer": "The visitor lot 38 has accessible parking and a ramped route across the plaza. Public exhibits are reached by elevators, with wheelchairs available free, accessible restrooms, captioned videos and printed transcripts. Staff need advance notice for ASL or a vision-impairment escort.",
       "verificationUrl": "https://lbjlibrary.org/visit/accessibility",
-      "questionOrigin": "museum-faq",
+      "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://lbjlibrary.org/visit/accessibility",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Can a school or family group walk into the library with more than fourteen people?",
@@ -6625,7 +6625,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
     },
     {
       "question": "Does the LBJ Library have a cafeteria or a restaurant inside?",
@@ -6634,7 +6634,25 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
       "reviewCycle": "monthly",
-      "reviewed": "2026-11-17"
+      "reviewed": "2026-11-18"
+    },
+    {
+      "question": "What changed in the 2026 LBJ Library galleries?",
+      "answer": "The library reopened a redesigned permanent exhibition on its fourth floor in March 2026. The five themes are Origins of Ambition, Making of a President, Poverty & Racial Injustice, Space Race, and 1968. This permanent exhibition is distinct from special shows that have separate closing dates.",
+      "verificationUrl": "https://www.lbjlibrary.org/refresh26",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/refresh26",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-18"
+    },
+    {
+      "question": "Can I bring a backpack or stroller into the LBJ Library?",
+      "answer": "Strollers are normally allowed unless a special exhibition states otherwise. All bags are inspected, with large bags and backpacks checked on the third floor and reclaimed by 4:45 p.m. Service animals are permitted, but pets are not; see the operator's prohibited-items list before bringing photography equipment.",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/prohibited-items",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-18"
     }
   ],
   "blanton-museum-of-art-austin": [

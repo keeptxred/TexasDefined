@@ -1575,7 +1575,7 @@
       "path": "/destination/lbj-presidential-library-austin",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 8,
+      "faqCount": 10,
       "sources": [
         {
           "sourceUrl": "https://www.lbjlibrary.org/visit",
@@ -1601,6 +1601,16 @@
           "sourceUrl": "https://www.lbjlibrary.org/exhibitions",
           "fetchUrl": "https://www.lbjlibrary.org/exhibitions",
           "label": "LBJ active exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.lbjlibrary.org/refresh26",
+          "fetchUrl": "https://www.lbjlibrary.org/refresh26",
+          "label": "LBJ 2026 five-gallery permanent-exhibition operator information"
+        },
+        {
+          "sourceUrl": "https://www.lbjlibrary.org/prohibited-items",
+          "fetchUrl": "https://www.lbjlibrary.org/prohibited-items",
+          "label": "LBJ current visitor safety and prohibited-items instructions"
         }
       ]
     },

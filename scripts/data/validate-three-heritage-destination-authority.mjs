@@ -20,8 +20,8 @@ includes(redirects, [
 const capitol = section(read("src/data/destination-curation-top-attractions-batch2.ts"),
   '  "texas-state-capitol": {', '\n  "guadalupe-mountains-national-park": {', "Capitol");
 includes(capitol, [
-  'sourceCheckedAt: "2026-11-17"', 'South Foyer', 'North Entrance', 'free',
-  '4:15 p.m.', 'every 15–30 minutes', 'one week', '1201 San Jacinto Boulevard', '1993',
+  'sourceCheckedAt: "2026-11-18"', 'South Foyer', 'North Entrance', 'free',
+  '4:15 p.m.', 'every 15–30 minutes', 'one week', '1201 San Jacinto Boulevard', '1993', 'garage', 'XIT Ranch', 'gallery:',
   'https://tspb.texas.gov/plan/tours/tours.html',
 ], "Capitol operator-backed guide");
 
@@ -29,19 +29,19 @@ const lbjSource = read("src/data/museum-expansion-austin.ts");
 const lbj = section(lbjSource, '    slug: "lbj-presidential-library-austin",',
   '  {\n    id: "museum-expansion-blanton"', "LBJ");
 includes(lbj, [
-  'sourceCheckedAt: "2026-11-17"', '2–4 hours', 'lot 38', 'last admission at 4 p.m.',
-  'Great Hall', 'Vietnam', 'March 2026', 'https://www.lbjlibrary.org/visit',
+  'sourceCheckedAt: "2026-11-18"', '2–4 hours', 'lot 38', 'last admission at 4 p.m.',
+  'Great Hall', 'Vietnam', 'March 2026', 'https://www.lbjlibrary.org/visit', 'third-floor checkroom',
 ], "LBJ visitor profile");
 const museum = section(read("src/data/museum-authority-network.ts"),
   '  "lbj-presidential-library-austin": {', '\n  "blanton-museum-of-art-austin":', "LBJ dossier");
 includes(museum, [
-  'reviewed: "2026-11-17"', '2–4 hours', 'January 10, 2027',
+  'reviewed: "2026-11-18"', '2–4 hours', 'January 10, 2027',
   'January 3, 2027', 'National Archives',
 ], "LBJ museum dossier");
 const faqs = section(read("src/data/museum-visitor-faqs.ts"),
   '  "lbj-presidential-library-austin": [', '\n  "blanton-museum-of-art-austin":', "LBJ FAQs");
-assert.equal(faqs.split('"reviewed": "2026-11-17"').length - 1, 8,
-  "All eight source-checked LBJ FAQs must retain factual review dates");
+assert.equal(faqs.split('"reviewed": "2026-11-18"').length - 1, 10,
+  "All ten source-checked LBJ FAQs must retain factual review dates");
 includes(faqs, ['2–4 hours', '30–45 minutes', 'https://www.lbjlibrary.org/visit'],
   "LBJ museum FAQs");
 
@@ -50,11 +50,15 @@ const mission = section(read("src/data/san-antonio-heritage-destinations.ts"),
   '\n  {\n    "id": "san-antonio-heritage-mission-san-juan-capistrano-san-antonio"',
   "Mission San José");
 includes(mission, [
-  '"sourceCheckedAt": "2026-11-17"', 'https://www.nps.gov/saan/planyourvisit/sanjose.htm',
-  '1930s Works Progress Administration', 'Indigenous', '1794', '1804', '80 percent', 'free', 'wheelchair',
-  '10 and 11 a.m.', '50 first-come',
+  '"sourceCheckedAt": "2026-11-18"', 'https://www.nps.gov/saan/planyourvisit/sanjose.htm',
+  '1930s Works Progress Administration', 'Indigenous', '1794', '1804', '80 percent', '5 p.m.', '26–30 inches', 'free', 'wheelchair',
+  '10 and 11 a.m.', 'limited to 50 people first-come',
 ], "Mission San José site-specific authority guide");
 
+const detailedTimeline = read("src/data/historic-site-authority-timelines.ts");
+includes(detailedTimeline, ['"mission-san-jose-san-antonio": [', 'July 16, 1794', '1804–1815', '1930s'], "Mission San José primary-source chronology");
+const capitolTimeline = read("src/data/destination-timelines-top-attractions.ts");
+includes(capitolTimeline, ['"texas-state-capitol": [', '1993', 'XIT Ranch'], "Capitol historical chronology");
 const monitor = read("scripts/data/authority/monitor-operator-sources.mjs");
 includes(monitor, [
   'heritageDestinationMonitorRows', 'https://tspb.texas.gov/plan/tours/tours.html',

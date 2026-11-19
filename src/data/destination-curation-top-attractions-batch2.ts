@@ -11,6 +11,10 @@ type TopAttractionExpansion = {
   officialUrl: string;
   sourceCheckedAt: string;
   areaGuide: DestinationAreaGuide;
+  authorityGuide?: Destination["authorityGuide"];
+  gallery?: Destination["gallery"];
+  visitorFacts?: Destination["visitorFacts"];
+  updatedAt?: string;
   managingAuthority?: string;
   reservationUrl?: string;
   county?: string;
@@ -291,17 +295,62 @@ const curated: Record<string, TopAttractionExpansion> = {
       "The accessible entrance to the Capitol is its North Entrance, and everyone passes through security screening. Large-print and Braille publications are available from visitor services. The State Preservation Board can arrange guided tours with American Sign Language interpretation with one week's advance notice; contact tour services for individual accommodations.",
       "The 1888 Capitol building is not the entirety of the civic complex visitors see today. The underground Capitol Extension, completed in 1993, added legislative and public space while protecting much of the historic grounds above. It changes how to read the site: the nineteenth-century rotunda expresses the state's public identity, whereas the later extension accommodated the demands of a growing government without replacing the landmark building. The State Preservation Board's Capitol Visitors Center and grounds maps are useful companions when interpreting the two eras.",
       "Parking deserves its own plan. The State Preservation Board's Capitol Visitors Parking Garage is at 1201 San Jacinto Boulevard on the east side of the complex; the visitor entry and exit routes differ because surrounding streets are one-way. Check the operator's posted parking prices and availability rather than assuming free parking. Guests using a disability placard should consult the State Preservation Board's accessibility route markers and garage guidance before arriving.",
+      "Few visitors realize that the Capitol's public image was financed with a vast land transaction rather than a conventional cash appropriation. Texas allocated three million acres in the Panhandle to pay for construction, and that land became the XIT Ranch. Detroit architect Elijah E. Myers designed the building; native granite from Granite Mountain in Burnet County replaced an early limestone plan. Reading the rotunda alongside that history links the building to the state's public-land policy, railroads, quarries, construction labor and the cattle industry, not just its decorative style.",
+      "Plan interior time according to how you want to learn. The Preservation Board lists self-guided building hours Monday–Friday 7 a.m.–8 p.m. and weekends 9 a.m.–8 p.m., but tours operate on a narrower schedule and areas can close for legislative business. Guided tours leave the South Foyer, whereas the North Entrance is the accessible arrival point. The operator lists closure on Easter Sunday, Thanksgiving Day, Christmas Eve, Christmas Day and New Year's Day; check its calendar before making a special trip.",
+      "The public garage's entrances are on East 12th and East 13th Streets, with the vehicle exit onto one-way southbound San Jacinto. The Preservation Board currently lists the first two weekday hours free and then a paid rate; weekend and special-event pricing differs, and overnight parking is prohibited. For a two-hour civic-history visit, take the Capitol tour first and add the grounds after; for a longer museum day, plan your parking budget and the northward walk to the Bullock and Blanton.",
       "The Capitol is one of TexasDefined's easiest attractions to turn into a full urban itinerary. The Bullock Texas State History Museum and Blanton Museum are within walking distance toward the University of Texas, while Downtown restaurants, Waterloo Park and the Congress Avenue corridor extend south. A separate half day can reach the LBJ Presidential Library, Barton Springs or the Lady Bird Johnson Wildflower Center.",
     ],
     managingAuthority: "Texas State Preservation Board",
     officialUrl: "https://tspb.texas.gov/plan/tours/tours.html",
-    sourceCheckedAt: "2026-11-17",
+    sourceCheckedAt: "2026-11-18",
+    updatedAt: "2026-11-18",
     county: "Travis",
     address: "1100 Congress Avenue, Austin, TX 78701",
     directions:
       "The Capitol is at the north end of Congress Avenue in central Austin. The Capitol Visitors Parking Garage is at 1201 San Jacinto Boulevard east of the complex; consult the State Preservation Board parking page for current rates and one-way entry instructions. Guided tours assemble in the South Foyer, while visitors needing the accessible entrance should use the North Entrance. Allow extra time for security screening.",
     accessibilityNotes:
       "Use the accessible North Entrance; all visitors pass through security screening. Large-print and Braille guides are available, and ASL-interpreted tours require one week's advance notice. Confirm any other needs through the State Preservation Board's Capitol Accessibility Services.",
+    gallery: [
+      {
+        image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Capitol_Rotunda_Dome_Interior.jpg?width=1200", alt: "Concentric decorated panels and the TEXAS star inside the rotunda dome, photographed looking straight upward", width: 3008, height: 2000, credit: "Ed Uthman · CC BY 3.0 · Wikimedia Commons · 2003" },
+        caption: "Rotunda ceiling: the star and concentric rings are best examined from the central floor. This 2003 photograph documents the architecture, not present-day room access.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Texas_Capitol_Rotunda_Dome_Interior.jpg",
+      },
+      {
+        image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_State_Capitol%2C_House_chamber.jpg?width=1200", alt: "Desks, galleries and ceremonial furnishings in the Texas House of Representatives chamber", width: 4888, height: 3200, credit: "Niagara · CC BY-SA 3.0 · Wikimedia Commons · 2013" },
+        caption: "Texas House chamber: unlike the rotunda, this room is a working legislative space and public access depends on government operations. Photographed in 2013.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Texas_State_Capitol,_House_chamber.jpg",
+      },
+    ],
+    visitorFacts: [
+      { topic: "hours", label: "Guided versus self-guided", detail: "Guided tours typically begin Monday–Saturday at 9 a.m. and Sunday at noon, with a 4:15 p.m. last departure. Self-guided building hours are normally 7 a.m.–8 p.m. weekdays and 9 a.m.–8 p.m. weekends. The operator can change access during legislative business.", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-18" },
+      { topic: "parking", label: "Garage address and rates", detail: "Use 1201 San Jacinto Blvd, entering from East 12th or 13th. The first two weekday hours are currently free; paid parking follows. Event and weekend rates vary, and no overnight parking is permitted.", sourceUrl: "https://tspb.texas.gov/plan/parking/parking.html", checkedAt: "2026-11-18" },
+      { topic: "accessibility", label: "North Entrance and accessible tours", detail: "The accessible building entrance is on the north side, not the South Foyer tour meeting point. Ask the State Preservation Board in advance about accessible tours and ASL.", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-18" },
+    ],
+    authorityGuide: {
+      whyItMatters: "Read the Capitol in three layers: the working Texas Legislature, the 1880s monument financed by three million acres of public land, and the 1990s restoration and subterranean extension that kept government working in a historic building.",
+      assessment: {
+        recommendedVisit: "90 minutes for the building and grounds; 2–3 hours with the Visitors Center",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for school-age visitors who can pair the rotunda with a short explanation of how laws are made; room access depends on business",
+        firstTimeValue: "A free civic-history introduction and practical beginning of the Bullock/Blanton museum corridor",
+      },
+      itineraries: [
+        { label: "90-minute first Capitol visit", duration: "90 minutes", steps: ["Enter through the appropriate screened entrance and meet the 40-minute guided tour at the South Foyer if offered", "Study the rotunda and House/Senate chambers only where visitor access is allowed", "Use the grounds to compare the historic façade and the modern complex"] },
+        { label: "Capitol history beyond the dome", duration: "2–3 hours", steps: ["Tour the main building with special attention to public rooms, marble and pink granite", "Explore the underground Capitol Extension and 1990s preservation story where open", "Visit the Capitol Visitors Center and examine the grounds' public monuments and landscaping"] },
+        { label: "Austin's civic and museum corridor", duration: "Half to full day", steps: ["Begin at the Capitol while tour departures are running", "Walk north to the Bullock Museum and then the Blanton Museum, checking each museum's independent admission schedule", "Add the LBJ Presidential Library by separate transit or vehicle if the day and available time permit"] },
+      ],
+      sources: [
+        { label: "State Preservation Board: Capitol building history", url: "https://tspb.texas.gov/prop/tc/tc-history/history/index.html", scope: "XIT land financing, granite, construction and dedication" },
+        { label: "State Preservation Board: Restoration and Expansion", url: "https://www.tspb.texas.gov/prop/tc/tc-history/restoration/", scope: "1993 underground extension and restoration chronology" },
+        { label: "State Preservation Board: Guided and self-guided tours", url: "https://tspb.texas.gov/plan/tours/tours.html", scope: "Schedules, closures, tour assembly and photography policy" },
+        { label: "State Preservation Board: Visitor parking", url: "https://tspb.texas.gov/plan/parking/parking.html", scope: "Parking entrances, rates, exits and accessible meters" },
+        { label: "State Preservation Board: Accessibility Services", url: "https://tspb.texas.gov/plan/access/access.html", scope: "North entrance and accommodation arrangements" },
+        { label: "Texas State Library: original Capitol financing documents", url: "https://www.tsl.texas.gov/governors/west/ireland-capitol-1.html", scope: "Primary-source gubernatorial history of granite and the land exchange" },
+      ],
+    },
     areaGuide: {
       intro:
         "The Capitol sits between Downtown Austin and the University of Texas museum corridor, making it one of the easiest major Texas attractions to build into a car-light day. History museums are immediately north, while restaurants, parks and entertainment districts spread south and east.",

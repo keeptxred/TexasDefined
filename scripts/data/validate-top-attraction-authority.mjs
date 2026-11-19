@@ -87,7 +87,7 @@ for (const slug of timelineSlugs) {
   if (!timelineSource.includes(`"${slug}": [`)) failures.push(`Missing sourced history timeline for ${slug}.`);
 }
 const timelineEvents = (timelineSource.match(/sourceUrl:/g) ?? []).length;
-if (timelineEvents !== 25) failures.push(`Top attraction history timelines have ${timelineEvents} sourced events; expected 25.`);
+if (timelineEvents !== 28) failures.push(`Top attraction history timelines have ${timelineEvents} sourced events; expected 28 after adding the Capitol financing and preservation chronology.`);
 for (const feature of ['topAttractionTimeline', 'sourceLabel', 'sourceUrl']) {
   if (!timelineSource.includes(feature)) failures.push(`Timeline data contract missing ${feature}.`);
 }

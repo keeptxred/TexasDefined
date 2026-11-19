@@ -1044,10 +1044,18 @@
       ],
       "openGaps": [
         "Browser proof of live accessibility and accurate canonical link paths",
-        "Full independent side-by-side comparison before superiority certification"
+        "Production browser, canonical/redirect and image delivery checks still required before final certification"
       ],
       "decision": "not-certified",
-      "dimensionEvidence": {},
+      "dimensionEvidence": {
+        "operatorAdmissionAndHours": "Matched the operator visit calendar: 9 a.m.–5 p.m., last admission 4 p.m., three major holiday closures and current pricing/discount exceptions.",
+        "operatorParkingAndSecurity": "Matched operator instructions for lot 38, UT football disruptions, federal screening, bag-check retrieval deadline and permitted strollers.",
+        "operatorAccessibility": "Compared lot 38 accessible approach, elevators, transcripts, loaner wheelchairs and lead times for assistance against the operator accessibility page.",
+        "operatorExhibitions": "Compared all five redesigned fourth-floor permanent themes against the March 2026 operator guide; clearly separated exhibitions with January 2027 closing dates.",
+        "independentValue": "Original balanced reading plan for civil rights, Johnson-era social legislation and Vietnam, short and long routes, Capitol/Bullock/Harry Ransom cross-links and ten source-backed visitor FAQs.",
+        "imageLicensing": "Distinct site-specific 2017 federal public-domain Oval Office replica and historical LBJ interior, each tied to a separate Commons file page and honestly dated.",
+        "remainingVerification": "Inspect exact production page render, accessible headings, image fallback, 301 aliases, canonical JSON-LD, mobile performance and current indexability after release. No first-hand visit is claimed."
+      },
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
@@ -1055,7 +1063,9 @@
         "https://lbjlibrary.org/visit/know-before-you-go",
         "https://lbjlibrary.org/visit/accessibility",
         "https://www.lbjlibrary.org/visit/group-visits",
-        "https://www.lbjlibrary.org/exhibitions"
+        "https://www.lbjlibrary.org/exhibitions",
+        "https://www.lbjlibrary.org/refresh26",
+        "https://www.lbjlibrary.org/prohibited-items"
       ]
     },
     "blanton-museum-of-art-austin": {
