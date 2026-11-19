@@ -6635,7 +6635,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
       "reviewCycle": "monthly",
       "reviewed": "2026-11-18"
-    }
+    },
     {
       "question": "What changed in the 2026 LBJ Library galleries?",
       "answer": "The library reopened a redesigned permanent exhibition on its fourth floor in March 2026. The five themes are Origins of Ambition, Making of a President, Poverty & Racial Injustice, Space Race, and 1968. This permanent exhibition is distinct from special shows that have separate closing dates.",
