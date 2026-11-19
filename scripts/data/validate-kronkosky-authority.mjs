@@ -82,7 +82,7 @@ assert.ok(detail.includes("isEditoriallyIndexablePreopeningDestination(destinati
   "Announced, quality-verified page must be indexable without claiming the park is open");
 assert.ok(detail.includes("kronkoskyImageRights"), "Image license must be linked in ImageObject schema");
 assert.ok(detail.includes("Kronkosky State Natural Area: Trails, Camping & Fees"));
-assert.ok(detail.includes("Texas State Parks"));
+assert.ok(detail.includes("`/explore/${destination.category}`"), "Category-based breadcrumb must resolve to State Parks for this curated park");
 assert.ok(detail.includes("Plan Kronkosky State Natural Area: opening dates"));
 const sitemap = read("src/data/destination-sitemap-detail-parity.server.ts");
 assert.ok(sitemap.includes('"albert-bessie-kronkosky-state-natural-area"'));
