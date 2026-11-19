@@ -61,7 +61,7 @@ function verifyHospital(html) {
     ['district official agency references', html.includes(facts.sources.districtHome) && html.includes(facts.sources.comptrollerCounty) && html.includes(facts.sources.appraisal)],
     ['county cross-link', html.includes('/property-tax/county/wharton')],
     ['rate-history accessible anchor', html.includes('taxing-unit-rate-history')],
-    ['canonical', /<link\\b[^>]*rel=["']canonical["'][^>]*>/i.test(html) && (html.match(/<link\\b[^>]*rel=["']canonical["'][^>]*>/gi) || []).some((tag) => tag.includes('https://texasdefined.com' + pagePath))],
+    ['canonical', /<link\b[^>]*rel=["']canonical["'][^>]*>/i.test(html) && (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi) || []).some((tag) => tag.includes('https://texasdefined.com' + pagePath))],
     ['not noindexed', !/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)],
     ['Dataset structured metadata', html.includes('schema.org') && html.includes('Dataset') && html.includes('dateModified')],
     ['source-review date', html.includes(facts.lastVerified) || html.includes('November 18, 2026')],
@@ -73,7 +73,7 @@ for (const origin of origins) {
   try {
     const { response, body } = await request(origin, pagePath);
     const missing = verifyHospital(body);
-    if (/\\bnoindex\\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
+    if (/\bnoindex\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
     results.push({ origin, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
     if (missing.length) failures.push(origin + ': missing ' + missing.join(', '));
   } catch (error) {
