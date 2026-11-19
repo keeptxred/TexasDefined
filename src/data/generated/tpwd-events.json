@@ -1,67 +1,7 @@
 {
-  "generatedAt": "2026-11-16T21:05:22.772Z",
+  "generatedAt": "2026-11-19T19:31:13.553Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Armadillo Antics",
-      "startDate": "2026-11-18",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-11-18"
-    },
-    {
-      "title": "Basic Fishing",
-      "startDate": "2026-11-18",
-      "parkKey": "galveston-island",
-      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-18"
-    },
-    {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-18",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-11-18"
-    },
-    {
-      "title": "Coffee with a Ranger",
-      "startDate": "2026-11-18",
-      "parkKey": "lyndon-b-johnson",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lyndon-b-johnson/coffee-with-a-ranger/2026-11-18"
-    },
-    {
-      "title": "Homeschool Classes at the Park",
-      "startDate": "2026-11-18",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/homeschool-classes-at-the-park/2026-11-18"
-    },
-    {
-      "title": "Morning Nature Walk",
-      "startDate": "2026-11-18",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-18"
-    },
-    {
-      "title": "Reading Ranger",
-      "startDate": "2026-11-18",
-      "parkKey": "buescher",
-      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2026-11-18"
-    },
-    {
-      "title": "Senior Stroll",
-      "startDate": "2026-11-18",
-      "parkKey": "lake-somerville-birch-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/senior-stroll-3/2026-11-18"
-    },
-    {
-      "title": "Sky Island Yoga",
-      "startDate": "2026-11-18",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mountain-yoga/2026-11-18"
-    },
-    {
-      "title": "World Birding Center Birding Tours",
-      "startDate": "2026-11-18",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-18"
-    },
     {
       "title": "Awesome Opossums",
       "startDate": "2026-11-19",
@@ -73,30 +13,6 @@
       "startDate": "2026-11-19",
       "parkKey": "estero-llano-grande",
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-19"
-    },
-    {
-      "title": "Hike With Homeless Dogs",
-      "startDate": "2026-11-19",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-11-19"
-    },
-    {
-      "title": "Homeschool Classes at the Park",
-      "startDate": "2026-11-19",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/homeschool-classes-at-the-park/2026-11-19"
-    },
-    {
-      "title": "Scenic Overlook Nature Walk",
-      "startDate": "2026-11-19",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/scenic-overlook-nature-hike/2026-11-19"
-    },
-    {
-      "title": "Tiny Trailblazers",
-      "startDate": "2026-11-19",
-      "parkKey": "lake-somerville-birch-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-2/2026-11-19"
     },
     {
       "title": "Arts & Crafts",
@@ -987,6 +903,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-19"
     },
     {
+      "title": "Ornament Decorating and Hot Chocolate at the Sandhills Section House",
+      "startDate": "2026-12-19",
+      "parkKey": "monahans-sandhills",
+      "officialUrl": "https://tpwd.texas.gov/calendar/monahans-sandhills/ornament-decorating-and-hot-chocolate-at-the-sandhills-section-house-2/2026-12-19"
+    },
+    {
       "title": "Saturday Honey Creek Guided Walk--Registration Required",
       "startDate": "2026-12-19",
       "parkKey": "guadalupe-river",
@@ -1323,6 +1245,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-01-23"
     },
     {
+      "title": "Birding 101",
+      "startDate": "2027-01-23",
+      "parkKey": "palmetto",
+      "officialUrl": "https://tpwd.texas.gov/calendar/palmetto/birding-101-2/2027-01-23"
+    },
+    {
       "title": "Invasive vs. Native Species",
       "startDate": "2027-01-23",
       "parkKey": "davis-mountains",
@@ -1441,6 +1369,12 @@
       "startDate": "2027-02-14",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-14"
+    },
+    {
+      "title": "Reading Ranger",
+      "startDate": "2027-02-17",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2027-02-17"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-17T19:54:19.250Z",
+  "fetchedAt": "2026-11-19T19:31:13.608Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -66,6 +66,126 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/carousel-club-burlesque-presents-rhinestone-rodeo-fort-worth-texas-11-21-2026/event/0C00652EEEA6E7FC"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Concacaf W Championship All Semifinals",
+      "city": "Mansfield",
+      "dates": [
+        "2026-12-01"
+      ],
+      "venues": [
+        "Texas Health Mansfield Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAva1Z"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAva1Z"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Concacaf W Championship Final and Third Place",
+      "city": "Houston",
+      "dates": [
+        "2026-12-05"
+      ],
+      "venues": [
+        "Shell Energy Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAva1e"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAva1e"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Concacaf W Championship Play-In Rounds",
+      "city": "Mansfield",
+      "dates": [
+        "2026-12-02"
+      ],
+      "venues": [
+        "Texas Health Mansfield Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAva1v"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAva1v"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Concacaf W Championship Quarterfinals 1 & 4: USA vs SLV and JAM vs CRC",
+      "city": "Mansfield",
+      "dates": [
+        "2026-11-27"
+      ],
+      "venues": [
+        "Texas Health Mansfield Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvaaz"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvaaz"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Concacaf W Championship Quarterfinals 2 & 3: CAN vs PAN and MEX vs HAI",
+      "city": "Mansfield",
+      "dates": [
+        "2026-11-28"
+      ],
+      "venues": [
+        "Texas Health Mansfield Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvaay"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvaay"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -494,6 +614,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed By Kaitlin Butts",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-13"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnAnR4"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-13-2027/event/3A006507AA16ABD5"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed By Riley Green",
       "city": "San Antonio",
       "dates": [
@@ -518,19 +662,19 @@
       "publicationAllowed": false
     },
     {
-      "name": "San Antonio Stock Show & Rodeo followed by TBA",
+      "name": "San Antonio Stock Show & Rodeo Followed By The Marshall Tucker Band",
       "city": "San Antonio",
       "dates": [
-        "2027-02-13"
+        "2027-02-16"
       ],
       "venues": [
         "Frost Bank Center"
       ],
       "ticketmasterIds": [
-        "G5dIZ_8rnAnR4"
+        "G5dIZ_8rn51Rz"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-13-2027/event/3A006507AA16ABD5"
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-16-2027/event/3A006507AA2CABF8"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -579,6 +723,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-friday-uvalde-texas-11-20-2026/event/3A006512FC5A3B38"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Retro Rodeo Followed By Sammy Kershaw",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-15"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnaBRl"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-retro-san-antonio-texas-02-15-2027/event/3A006507AA27ABEB"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
