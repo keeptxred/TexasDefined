@@ -64,6 +64,9 @@ jobs:
 
   live:
     name: Verify live hospital tax authority on both public origins
+    # Never require future page content to exist on old production before a PR merges.
+    # Run the post-deploy gate in deploy-production.yml; this job audits ongoing live drift.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 8
