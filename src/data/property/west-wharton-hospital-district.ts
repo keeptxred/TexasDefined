@@ -1,12 +1,13 @@
 /**
  * Independently verified LOCAL context, not a replacement for the Comptroller
  * import. Proposed-rate notice figures must not be treated as final levies.
- * Last editorial document review: November 18, 2026, including the county 2026 table.
+ * Last editorial document review: November 19, 2026, including Wharton County's
+ * four-page Tax Code 26.16 five-year summary and the 2026 adopted-rate table.
  */
 export const westWhartonHospitalDistrict = {
   slug: 'west-wharton-county-hospital-district',
   officialTaxingUnitId: '241-201-11',
-  lastVerified: '2026-11-18',
+  lastVerified: '2026-11-19',
   currentWorkbookYear: 2025,
   priorYear: 2024,
   // Wharton County Tax Assessor-Collector's October 2026 adopted entity-rate table.
@@ -16,6 +17,14 @@ export const westWhartonHospitalDistrict = {
     totalRate: 0.23210,
     maintenanceOperationsRate: 0.23210,
     debtServiceRate: 0,
+    // Wharton County's 2026 Tax Code 26.16 five-year summary, page 3.
+    noNewRevenueRate: 0.23633,
+    voterApprovalRate: 0.25913,
+  },
+  county2023Reconciliation: {
+    year: 2023,
+    countyFiveYearSummaryRate: 0.20550,
+    comptrollerImportedTotalRate: 0.21897,
   },
   adoptedRate2025: 0.23210, // Independently corroborated by the published statewide final rate.
   priorRate2024: 0.21710,
@@ -43,5 +52,6 @@ export const westWhartonHospitalDistrict = {
     countyEstimator: 'https://www.whartoncountytaxoffice.com/TaxEstimator',
     countyRateIndex: 'https://www.co.wharton.tx.us/page/wharton.tax.rate',
     county2026AdoptedTable: 'https://www.co.wharton.tx.us/upload/page/7029/docs/Tax%20Office/2026%20Tax%20Rates.pdf',
+    countyFiveYearSummary: 'https://www.co.wharton.tx.us/upload/page/7029/docs/Tax%20Office/2026%205%20Year%20Summary.pdf',
   },
 } as const;
