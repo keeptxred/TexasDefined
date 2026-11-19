@@ -46,7 +46,7 @@ export const CAMPING_PROFILES_WAVE10: CampingProfile[] = [
     campingNotes: [
       "A shaded Northeast Texas reservoir campground on Wright Patman Lake with swimming, fishing, hiking and a developed camping mix that includes full-hookup sites.",
       "TPWD lists 58 campsites with water and electricity, including 14 sites with sewer hookups; verify the selected site because hookup configurations differ.",
-      "This is a developed public campground option in far Northeast Texas. TPWD's November 2026 alert lists whole-park permitted-hunt closures from noon Nov. 30 to 8 a.m. Dec. 4, noon Dec. 27 to 8 a.m. Dec. 31, and noon Jan. 15 to 8 a.m. Jan. 19. The alert does not currently list a wood/charcoal fire ban; check current fire rules and park alerts before arrival.",
+      "This is a developed public campground option in far Northeast Texas. TPWD's November 2026 alert lists whole-park permitted-hunt closures from noon Nov. 30 to 8 a.m. Dec. 4, noon Dec. 27 to 8 a.m. Dec. 31, and noon Jan. 15, 2027 to 8 a.m. Jan. 19, 2027. The alert does not currently list a wood/charcoal fire ban; check current fire rules and park alerts before arrival.",
     ],
     // Official alert reviewed 2026-11-19; retain historical wave dates elsewhere.
     verifiedAt: "2026-11-19",
