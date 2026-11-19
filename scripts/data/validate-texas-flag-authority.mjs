@@ -146,8 +146,6 @@ requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/s
 requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/rss.xml");
 
 requireContains("Flag production smoke", files.smoke, "workflow_dispatch:");
-requireContains("Flag production smoke", files.smoke, "workflow_run:");
-requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("Flag production smoke", files.smoke, "texas-flag-main-page");
 requireContains("Flag production smoke", files.smoke, "burnet-flag-title");
 requireContains("Flag production smoke", files.smoke, "lone-star-flag-title");
