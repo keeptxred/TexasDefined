@@ -26,6 +26,19 @@ for (const name of files) {
   const source = fs.readFileSync(path.join(dir, name), "utf8");
   const constants = new Map([...source.matchAll(/^const\s+([A-Z_]+)\s*=\s*"([^"]+)";/gm)]
     .map((match) => [match[1], match[2]]));
+  // Opening-day milestones need an operator check even if a 120-day fact is not
+  // technically expired. Keep follow-up in the existing weekly editorial issue.
+  if (name === "kronkosky-state-natural-area-authority.ts") {
+    const checkedAt = constants.get("CHECKED") ?? "";
+    for (const milestone of [
+      { date: "2026-12-01", label: "day-use gate and reservation launch" },
+      { date: "2026-12-15", label: "overnight camping launch and site availability" },
+    ]) {
+      if (asOf >= Date.parse(milestone.date + "T00:00:00Z") && checkedAt < milestone.date) {
+        stale.push("Kronkosky " + milestone.label + ": TPWD operator verification after " + milestone.date + " required");
+      }
+    }
+  }
   for (const match of source.matchAll(/visitorFacts\s*:\s*\[([\s\S]*?)\]\s*,/g)) {
     blocks += 1;
     const prelude = source.slice(0, match.index);
