@@ -6653,7 +6653,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.lbjlibrary.org/prohibited-items",
       "reviewCycle": "monthly",
       "reviewed": "2026-11-18"
-    },
+    }
   ],
   "blanton-museum-of-art-austin": [
     {
