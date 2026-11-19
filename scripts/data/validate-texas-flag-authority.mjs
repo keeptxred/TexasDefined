@@ -70,14 +70,14 @@ requireContains("Texas flag hub", files.flagHubLazy, "https://www.tsl.texas.gov/
 requireContains("Texas flag hub", files.flagHubLazy, 'to="/article/history-of-the-texas-flag"');
 requireContains("Texas flag hub", files.flagHubLazy, 'to="/article/six-flags-over-texas-meaning"');
 requireContains("Texas flag hub data", files.priorityPages, '"texas-flag": {');
-requireContains("Texas flag hub data", files.priorityPages, 'updated: "November 18, 2026"');
+requireContains("Texas flag hub data", files.priorityPages, 'updated: "November 19, 2026"');
 requireContains("Texas flag hub data", files.priorityPages, "Pantone 281");
 requireContains("Texas flag hub data", files.priorityPages, "/article/texas-flag-etiquette-display-guide");
 requireContains("Texas flag hub data", files.priorityPages, "/texas-symbols");
 requireContains("Texas flag SEO", files.flagHubEager, 'const canonicalPath: "/texas-flag"');
 requireContains("Texas flag SEO", files.flagHubEager, 'buildPrioritySearchHead({');
 requireContains("Texas flag SEO", files.flagHubEager, 'When was the current Texas flag adopted?');
-requireContains("Primary sitemap", files.sitemap, '"/texas-flag": "2026-11-18"');
+requireContains("Primary sitemap", files.sitemap, '"/texas-flag": "2026-11-19"');
 requireContains("Texas flag history", files.history, 'href: "/texas-flag"');
 requireContains("Texas flag etiquette", files.etiquette, 'href: "/texas-flag"');
 
@@ -96,6 +96,17 @@ requireCount("Texas flag history", files.history, 'type: "image"', 2);
 requireCount("Texas flag history", files.history, "https://upload.wikimedia.org/", 3);
 requireNotContains("Texas flag history", files.history, "commons.wikimedia.org/wiki/Special:Redirect");
 requireContains("Texas flag history", files.history, "width: 1280");
+requireContains("Texas flag history", files.history, 'updatedAt: "2026-11-19"');
+requireContains("Texas flag history", files.history, "What the signed 1839 original actually shows");
+requireContains("Texas flag history", files.history, "Texas Flag Day is March 2");
+requireContains("Texas flag history", files.history, "1974/066-001");
+requireContains("Texas flag history", files.history, "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html");
+requireContains("Flag main authority", files.priorityPages, "The signed 1839 flag drawing: a primary-source research guide");
+requireContains("Flag main authority", files.priorityPages, "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm");
+requireContains("Flag main authority", files.priorityPages, "/article/republic-of-texas-navy-history");
+requireContains("Flag history ImageObject rights", files.articleRoute, 'article.slug === "history-of-the-texas-flag"');
+requireContains("Flag history ImageObject rights", files.articleRoute, "Paul B. Joiner");
+requireContains("Flag history ImageObject rights", files.articleRoute, "copyrightNotice");
 
 requireContains("Texas flag etiquette", files.etiquette, 'slug: "texas-flag-etiquette-display-guide"');
 requireContains("Texas flag etiquette", files.etiquette, 'sourceUrl: "https://www.tsl.texas.gov/ref/abouttx/flagcode.html"');
@@ -144,7 +155,7 @@ requireContains("RSS feed", files.rss, "Math.max(0, RSS_LIMIT - pinnedArticles.l
 
 requireContains("Primary sitemap", files.sitemap, '"/texas-history": "2026-08-20"');
 requireContains("Primary sitemap", files.sitemap, '"/texas-symbols": "2026-08-20"');
-requireContains("Primary sitemap", files.sitemap, '"history-of-the-texas-flag": "2026-08-20"');
+requireContains("Primary sitemap", files.sitemap, '"history-of-the-texas-flag": "2026-11-19"');
 requireContains("Primary sitemap", files.sitemap, '"texas-flag-etiquette-display-guide": "2026-08-20"');
 
 requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/sitemap.xml");
@@ -155,7 +166,7 @@ requireContains("Flag production smoke", files.smoke, "workflow_dispatch:");
 requireContains("Flag production smoke", files.smoke, "texas-flag-main-page");
 requireContains("Flag production smoke", files.smoke, "burnet-flag-title");
 requireContains("Flag production smoke", files.smoke, "lone-star-flag-title");
-requireContains("Flag production smoke", files.smoke, "2026-11-18");
+requireContains("Flag production smoke", files.smoke, "2026-11-19");
 
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-page");
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-reciprocity");
