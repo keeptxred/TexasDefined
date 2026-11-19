@@ -38,7 +38,15 @@ const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
 // Recalibrate the STRICT cap to 1,835,750: only 689 bytes (0.0375%) of
 // headroom above the measured build. Retain CSS, route splitting, SSR and
 // evergreen source-validation guards; investigate any subsequent growth.
-const MAX_MAIN_BYTES = 1_835_750;
+// November 19 protected CI run 44630679529 measured 1,836,124 bytes after
+// adding the three parent-route Outlet/early-return guards that prevent
+// heavyweight statewide repository hydration on every nested lake section.
+// The additional 374 bytes prevent recurrent cold Worker HTTP 500s in live
+// fishing routes, without adding a client-side data payload. Recalibrate this
+// STRICT bound to 1,836,750 B: 626 B (0.034%) headroom above that measured
+// reproducible build; CSS, SSR, image and route budget checks remain enabled.
+// This exception is tied to measured live SSR stability, not a blanket waiver.
+const MAX_MAIN_BYTES = 1_836_750;
 // The prior 140,115-byte CSS baseline predates sourced venue/softball pages.
 // Measured release CSS with the new accessible softball modules: 141,350 bytes
 // (2026-10-11); reuse existing spacing utilities to avoid redundant rules.
