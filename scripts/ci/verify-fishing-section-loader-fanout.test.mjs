@@ -65,7 +65,7 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
   for (const proof of ['Cagle Recreation Area','Stubblefield Lake',"Scott's Ridge",'www.recreation.gov/camping/campgrounds/234004']) {
     assert.ok(research.includes(proof), 'published operator source retained: '+proof);
   }
-  const actualReviewedAt = research.match(/"reviewedAt": "(\\d{4}-\\d{2}-\\d{2})"/)?.[1];
+  const actualReviewedAt = research.match(/"reviewedAt": "(\d{4}-\d{2}-\d{2})"/)?.[1];
   assert.ok(actualReviewedAt,'canonical research date present');
   assert.ok(publication.includes('LAKE_CONROE_CAMPING_REVIEWED_AT = "'+actualReviewedAt+'"'),'metadata date must match real research review');
   for(const link of ['https://www.recreation.gov/camping/campgrounds/234004','https://www.recreation.gov/camping/campgrounds/10158882','https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/access.phtml']) {
