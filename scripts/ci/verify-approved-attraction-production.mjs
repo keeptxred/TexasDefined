@@ -57,8 +57,12 @@ for (const target of targets) {
   assert.ok(/<h1\b/i.test(html) && html.includes(target.name), target.slug + " correct title and H1");
   assert.ok(html.includes("TouristAttraction"), target.slug + " TouristAttraction JSON-LD");
   assert.ok(html.includes(target.credit), target.slug + " visible rights attribution");
-  const faq = "Frequently asked questions about " + target.name;
-  assert.equal(html.split(faq).length - 1, 1, target.slug + " exactly one primary FAQ heading");
+  // React SSR can split a museum heading into text/element/comment nodes.
+  // Inspect actual heading text, not a brittle literal HTML substring.
+  const headings = [...html.matchAll(/<h[2-4]\\b[^>]*>([\\s\\S]*?)<\\/h[2-4]>/gi)]
+    .map(match => match[1].replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").trim().toLowerCase());
+  const faqHeadings = headings.filter(heading => heading.includes("frequently asked questions about") && heading.includes(target.name.toLowerCase()));
+  assert.equal(faqHeadings.length, 1, target.slug + " exactly one primary FAQ heading");
   const lower = html.toLowerCase();
   for (const fact of target.facts) {
     assert.ok(lower.includes(fact.toLowerCase()), target.slug + " missing visitor fact " + fact);
