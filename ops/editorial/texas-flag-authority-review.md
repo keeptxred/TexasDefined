@@ -5,6 +5,7 @@
 **Display guide:** `/article/texas-flag-etiquette-display-guide`  
 **Last substantive page revision:** 2026-11-18  
 **Review cadence:** Quarterly — February, May, August and November 15 (GitHub workflow `texas-flag-quarterly.yml`).
+**Post-deployment check:** The same workflow verifies the live authority hub after each successful production deployment; failures create or update one editorial issue rather than silently advancing dates.
 
 ## Historical facts and controlling sources
 
