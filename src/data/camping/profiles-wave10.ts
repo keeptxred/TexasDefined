@@ -21,10 +21,11 @@ export const CAMPING_PROFILES_WAVE10: CampingProfile[] = [
     campingNotes: [
       "A high-value west-of-DFW lake campground for swimming, fishing and boating, with electric, water-only and primitive walk-in options plus cabins.",
       "TPWD lists 21 Spanish Oaks electric sites, 40 Shady Grove electric sites, 53 water sites and 10 primitive walk-in sites; the electric loops have nearby restrooms with showers.",
-      "Possum Kingdom's clear-water reservoir setting is the differentiator, but wind, weather and seasonal loop closures can change the trip quickly. TPWD's active alert lists separate December hunting closures and winter cabin renovations; review it before booking.",
+      "TPWD's November 2026 alert lists December 2026–February 2027 closures of cabins 3, 4 and 6, primitive camping, Lakeview and Longhorn Trails, and the boat ramp and parking area for work. The park also closes to general visitors from 10 p.m. Dec. 4 to 6 a.m. Dec. 7 and from 10 p.m. Dec. 11 to 6 a.m. Dec. 14 for permitted hunts. The ADA kayak launch remains listed as closed for repairs. Confirm current availability directly before booking.",
     ],
+    // Official alert reviewed 2026-11-19; this per-profile date does not refresh other wave records.
+    verifiedAt: "2026-11-19",
     searchTerms: ["Possum Kingdom camping", "camping near Fort Worth", "DFW lake camping", "Possum Kingdom Lake camping", "primitive camping west of DFW", "North Texas camping"],
-    verifiedAt: VERIFIED_AT,
     sources: [
       { label: "TPWD Possum Kingdom campsites", url: "https://tpwd.texas.gov/state-parks/possum-kingdom/fees-facilities/campsites", fields: ["site counts", "electric service", "water sites", "primitive sites", "showers", "RV length", "seasonal loop closures"] },
       { label: "TPWD Possum Kingdom State Park", url: "https://tpwd.texas.gov/state-parks/possum-kingdom", fields: ["swimming", "fishing", "boating", "hiking", "cabins", "DFW proximity"] },
@@ -45,14 +46,15 @@ export const CAMPING_PROFILES_WAVE10: CampingProfile[] = [
     campingNotes: [
       "A shaded Northeast Texas reservoir campground on Wright Patman Lake with swimming, fishing, hiking and a developed camping mix that includes full-hookup sites.",
       "TPWD lists 58 campsites with water and electricity, including 14 sites with sewer hookups; verify the selected site because hookup configurations differ.",
-      "This fills a meaningful far-Northeast-Texas gap for travelers who want a developed public campground rather than a private RV park. TPWD currently restricts wood and charcoal fires and lists whole-park permitted-hunt closures; check the official alert before booking.",
+      "This is a developed public campground option in far Northeast Texas. TPWD's November 2026 alert lists whole-park permitted-hunt closures from noon Nov. 30 to 8 a.m. Dec. 4, noon Dec. 27 to 8 a.m. Dec. 31, and noon Jan. 15, 2027 to 8 a.m. Jan. 19, 2027. The alert does not currently list a wood/charcoal fire ban; check current fire rules and park alerts before arrival.",
     ],
+    // Official alert reviewed 2026-11-19; retain historical wave dates elsewhere.
+    verifiedAt: "2026-11-19",
     searchTerms: ["Atlanta State Park camping", "Wright Patman Lake camping", "Northeast Texas camping", "full hookup state park East Texas", "camping near Texarkana", "Piney Woods camping"],
-    verifiedAt: VERIFIED_AT,
     sources: [
       { label: "TPWD Atlanta State Park campsites", url: "https://tpwd.texas.gov/state-parks/atlanta/fees-facilities/campsites", fields: ["full hookups", "electric service", "water", "sewer", "site inventory"] },
       { label: "TPWD Atlanta State Park", url: "https://tpwd.texas.gov/state-parks/atlanta", fields: ["Wright Patman Lake", "swimming", "fishing", "hiking", "camping inventory"] },
-      { label: "TPWD Atlanta State Park alerts", url: "https://tpwd.texas.gov/state-parks/atlanta/alert", fields: ["wood and charcoal burn restrictions", "permitted-hunt whole-park closure dates"] },
+      { label: "TPWD Atlanta State Park alerts", url: "https://tpwd.texas.gov/state-parks/atlanta/alert", fields: ["current park alert status", "permitted-hunt whole-park closure dates"] },
     ],
   },
   {

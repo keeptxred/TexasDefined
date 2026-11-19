@@ -42,11 +42,15 @@ const section = (slug, next) => {
   return wave10.slice(start, end);
 };
 const possum = section(expected[0], expected[1]);
-assert.ok(possum.includes("winter cabin renovations") && possum.includes("/possum-kingdom/alert"),
-  "winter amenity and hunting closure warnings must link official alert");
+assert.ok(possum.includes("December 2026–February 2027") && possum.includes("cabins 3, 4 and 6")
+  && possum.includes("primitive camping") && possum.includes("boat ramp")
+  && possum.includes("permitted hunts") && possum.includes("/possum-kingdom/alert"),
+  "current winter amenity and permit-hunt closures must link official alert");
 const atlanta = section(expected[1], expected[2]);
-assert.ok(atlanta.includes("wood and charcoal fires") && atlanta.includes("/atlanta/alert"),
-  "current fire restriction and hunting closures must be explicit");
+assert.ok(atlanta.includes("whole-park permitted-hunt closures")
+  && atlanta.includes("Jan. 15, 2027") && atlanta.includes("/atlanta/alert")
+  && atlanta.includes("does not currently list a wood/charcoal fire ban"),
+  "updated operator alert must retain hunt closures without inventing an active fire ban");
 const devils = section(expected[4], expected[5]);
 assert.ok(devils.includes("two Del Norte hike-in") && devils.includes("no entry after 4 p.m."),
   "Devils River unit counts and hard arrival cutoff must match TPWD");
