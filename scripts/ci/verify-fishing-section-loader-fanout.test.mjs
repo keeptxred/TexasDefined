@@ -62,7 +62,10 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
   assert.ok(lazy.includes('sourceResearch.camping.map'));
   assert.ok(lazy.includes('sourceResearch.sourceUrls.map'));
   assert.ok(lazy.includes('dateModified: reviewedAt'));
-  assert.ok(dedicated.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
+  const head = readFileSync('src/data/fishing/lake-conroe-camping-head.ts', 'utf8');
+  assert.ok(dedicated.includes('loader: async () =>'), 'SEO head is resolved through the isolated lazy loader');
+  assert.ok(dedicated.includes('head: ({ loaderData })'), 'TanStack router emits the resolved SEO head on the server');
+  assert.ok(head.includes('buildMeta(texasDefinedBrand') && head.includes('canonicalLink(texasDefinedBrand, canonicalPath)'), 'full branded robots, social metadata and canonical retained in lazy head');
   assert.ok(lazy.includes('"@type": "WebPage"') && lazy.includes('"@type": "BreadcrumbList"'));
   assert.ok(lazy.includes('type="application/ld+json"'),'full JSON-LD stays in server-rendered body while SEO head remains compact');
   assert.ok(verifier.includes('data-conroe-camping-isolated="true"'));
