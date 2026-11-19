@@ -51,6 +51,9 @@ concurrency:
 
 jobs:
   static-contracts:
+    # Post-deployment runs only need a bounded live probe. The full contract
+    # suite already runs on PRs and the daily schedule.
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -92,6 +95,9 @@ jobs:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-gsc-alternates-production.mjs
       - name: Verify expanded Events production surfaces
+        # Keep the broad multi-page acceptance daily, not after every unrelated
+        # Worker publish; minimize edge requests and GitHub compute.
+        if: github.event_name != 'workflow_run'
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-event-expansion-production.mjs
