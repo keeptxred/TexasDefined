@@ -30,7 +30,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   // do not serve obsolete cached XML after the protected release.
   // This is not a fabricated editorial <lastmod> date.
   cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1");
-  cacheUrl.searchParams.set("texas-flag-20261118", "burnet-and-lone-star-authority-v1");
+  cacheUrl.searchParams.set("texas-flag-20261119", "archive-and-flag-day-authority-v2");
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-15");
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
@@ -69,7 +69,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-drivers-license": PRIORITY_SEO_LASTMOD,
   "/texas-dmv": PRIORITY_SEO_LASTMOD,
   "/texas-vehicle-registration": PRIORITY_SEO_LASTMOD,
-  "/texas-flag": "2026-11-18",
+  "/texas-flag": "2026-11-19",
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",
@@ -83,7 +83,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "texas-high-school-football-playoffs-explained": "2026-10-25",
-  "history-of-the-texas-flag": "2026-08-20",
+  "history-of-the-texas-flag": "2026-11-19",
   "texas-flag-etiquette-display-guide": "2026-08-20",
   "texas-rivers-explained": "2026-10-18",
 };
