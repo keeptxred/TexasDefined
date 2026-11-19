@@ -500,6 +500,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
         ],
         links: [
           { label: "State Library: Peter Krag's 1839 design", href: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html", external: true },
+          { label: "State Library: original 1839 flag design and approval", href: "https://www.tsl.texas.gov/exhibits/texas175/flag.html", external: true },
           { label: "Texas State Library: signed 1839 original", href: "https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html", external: true },
           { label: "The Republic of Texas", href: "/texas-history" }
         ]
@@ -507,7 +508,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       {
         heading: "What the flag looks like — and what Texas law requires",
         paragraphs: [
-          "Texas Government Code § 3100.002 requires a rectangle with a 2:3 height-to-length ratio, a blue hoist one-third of the total length, two equal horizontal stripes covering the other two-thirds (white above red), and a regular white five-pointed star pointing up in the center of the blue field. The star's circumscribed diameter must equal three-quarters of the blue stripe's width.",
+          "Texas Government Code Chapter 3100, particularly § 3100.002, requires a rectangle with a 2:3 height-to-length ratio, a blue hoist one-third of the total length, two equal horizontal stripes covering the other two-thirds (white above red), and a regular white five-pointed star pointing up in the center of the blue field. The star's circumscribed diameter must equal three-quarters of the blue stripe's width.",
           "The state specifies its dark blue and red as Pantone 281 and 193. The on-screen diagrams in this guide demonstrate geometry and history; rendered screen colors are not definitive textile specifications. Check the current law if you are producing flags for an official display."
         ],
         table: {
@@ -523,6 +524,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
         },
         links: [
           { label: "Texas Government Code, Chapter 3100", href: "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm", external: true },
+          { label: "Download Texas flag law (official PDF)", href: "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf", external: true },
           { label: "State Library flag description", href: "https://www.tsl.texas.gov/ref/abouttx/flagdes", external: true }
         ]
       },
