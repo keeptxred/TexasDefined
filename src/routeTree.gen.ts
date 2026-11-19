@@ -543,6 +543,7 @@ import { Route as ApiAdminSocialCalendarPreviewRouteImport } from './routes/api.
 import { Route as AdminTexasTalentRelationshipsRouteImport } from './routes/admin.texas-talent.relationships'
 import { Route as AdminTexasTalentPreviewRouteImport } from './routes/admin.texas-talent.preview'
 import { Route as AdminTexasTalentSlugRouteImport } from './routes/admin.texas-talent.$slug'
+import { Route as FishingLakesLakeConroeCampingRouteImport } from './routes/fishing.lakes.lake-conroe.camping'
 import { Route as FishingLakesSlugSectionRouteImport } from './routes/fishing.lakes.$slug.$section'
 import { Route as ExplorePaintedChurchesGuidesSlugRouteImport } from './routes/explore.painted-churches_.guides_.$slug'
 import { Route as ExplorePaintedChurchesTechniquesSlugRouteImport } from './routes/explore.painted-churches.techniques.$slug'
@@ -3922,6 +3923,14 @@ const AdminTexasTalentSlugRoute = AdminTexasTalentSlugRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.texas-talent.$slug.lazy').then((d) => d.Route),
 )
+const FishingLakesLakeConroeCampingRoute =
+  FishingLakesLakeConroeCampingRouteImport.update({
+    id: '/lake-conroe/camping',
+    path: '/lake-conroe/camping',
+    getParentRoute: () => FishingLakesRoute,
+  } as any).lazy(() =>
+    import('./routes/fishing.lakes.lake-conroe.camping.lazy').then((d) => d.Route),
+  )
 const FishingLakesSlugSectionRoute = FishingLakesSlugSectionRouteImport.update({
   id: '/$section',
   path: '/$section',
@@ -4535,6 +4544,7 @@ export interface FileRoutesByFullPath {
   '/explore/painted-churches/techniques/$slug': typeof ExplorePaintedChurchesTechniquesSlugRoute
   '/explore/painted-churches/guides/$slug': typeof ExplorePaintedChurchesGuidesSlugRoute
   '/fishing/lakes/$slug/$section': typeof FishingLakesSlugSectionRoute
+  '/fishing/lakes/lake-conroe/camping': typeof FishingLakesLakeConroeCampingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -5076,6 +5086,7 @@ export interface FileRoutesByTo {
   '/explore/painted-churches/techniques/$slug': typeof ExplorePaintedChurchesTechniquesSlugRoute
   '/explore/painted-churches/guides/$slug': typeof ExplorePaintedChurchesGuidesSlugRoute
   '/fishing/lakes/$slug/$section': typeof FishingLakesSlugSectionRoute
+  '/fishing/lakes/lake-conroe/camping': typeof FishingLakesLakeConroeCampingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -5623,6 +5634,7 @@ export interface FileRoutesById {
   '/explore/painted-churches/techniques/$slug': typeof ExplorePaintedChurchesTechniquesSlugRoute
   '/explore/painted-churches_/guides_/$slug': typeof ExplorePaintedChurchesGuidesSlugRoute
   '/fishing/lakes/$slug/$section': typeof FishingLakesSlugSectionRoute
+  '/fishing/lakes/lake-conroe/camping': typeof FishingLakesLakeConroeCampingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -6171,6 +6183,7 @@ export interface FileRouteTypes {
     | '/explore/painted-churches/techniques/$slug'
     | '/explore/painted-churches/guides/$slug'
     | '/fishing/lakes/$slug/$section'
+    | '/fishing/lakes/lake-conroe/camping'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -6712,6 +6725,7 @@ export interface FileRouteTypes {
     | '/explore/painted-churches/techniques/$slug'
     | '/explore/painted-churches/guides/$slug'
     | '/fishing/lakes/$slug/$section'
+    | '/fishing/lakes/lake-conroe/camping'
   id:
     | '__root__'
     | '/'
@@ -7258,6 +7272,7 @@ export interface FileRouteTypes {
     | '/explore/painted-churches/techniques/$slug'
     | '/explore/painted-churches_/guides_/$slug'
     | '/fishing/lakes/$slug/$section'
+    | '/fishing/lakes/lake-conroe/camping'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -11428,6 +11443,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTexasTalentSlugRouteImport
       parentRoute: typeof AdminTexasTalentRoute
     }
+    '/fishing/lakes/lake-conroe/camping': {
+      id: '/fishing/lakes/lake-conroe/camping'
+      path: '/lake-conroe/camping'
+      fullPath: '/fishing/lakes/lake-conroe/camping'
+      preLoaderRoute: typeof FishingLakesLakeConroeCampingRouteImport
+      parentRoute: typeof FishingLakesRoute
+    }
     '/fishing/lakes/$slug/$section': {
       id: '/fishing/lakes/$slug/$section'
       path: '/$section'
@@ -11616,10 +11638,12 @@ const FishingLakesSlugRouteWithChildren =
 
 interface FishingLakesRouteChildren {
   FishingLakesSlugRoute: typeof FishingLakesSlugRouteWithChildren
+  FishingLakesLakeConroeCampingRoute: typeof FishingLakesLakeConroeCampingRoute
 }
 
 const FishingLakesRouteChildren: FishingLakesRouteChildren = {
   FishingLakesSlugRoute: FishingLakesSlugRouteWithChildren,
+  FishingLakesLakeConroeCampingRoute: FishingLakesLakeConroeCampingRoute,
 }
 
 const FishingLakesRouteWithChildren = FishingLakesRoute._addFileChildren(
