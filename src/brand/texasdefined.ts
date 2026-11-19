@@ -181,10 +181,10 @@ export const texasDefinedBrand: BrandConfig = {
       ],
     },
   ],
-  legal: compactTextLinks([
-    ["Privacy & Site Terms", "/about#privacy-terms"],
-    ["Returns & Refunds", "/return-refund-policy"],
-    ["Network Membership Terms", "/network/terms"],
-    ["Search", "/search"],
-  ]),
+  legal: [
+    { label: "Privacy & Site Terms", to: "/about#privacy-terms" },
+    { label: "Returns & Refunds", to: "/return-refund-policy" },
+    { label: "Network Membership Terms", to: "/network/terms" },
+    { label: "Search", to: "/search" },
+  ],
 };
