@@ -71,11 +71,11 @@ export const CAMPING_PROFILES_WAVE4: CampingProfile[] = [
     reservationUrl: LCRA_RESERVATIONS,
     campingNotes: [
       "South Shore currently lists 24 RV sites with water and 30/50-amp electricity plus 12 distinct full-hookup RV sites.",
-      "The lodging inventory includes standard and deluxe cabins. A separate premium glass-house stay is also promoted from the park page.",
+      "LCRA currently advertises 12 standard cabins and 6 deluxe cabins, alongside 24 water-electric RV sites and 12 full-hookup RV sites; two separate premium glass-house stays are marketed through another operator. Verify category availability and operator-specific booking terms before reserving.",
       "The park supports swimming, fishing and hiking around Lake Bastrop; verify any temporary facility construction notices before travel.",
     ],
     searchTerms: ["Lake Bastrop South Shore camping", "Lake Bastrop RV camping", "full hookup Lake Bastrop", "cabins Lake Bastrop", "LCRA camping Bastrop"],
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: "2026-11-19",
     sources: [{ label: "LCRA Lake Bastrop South Shore Park", url: "https://lcraparks.com/parks/lake-bastrop-south-shore-park", fields: ["24 water-electric RV sites", "12 full-hookup RV sites", "30/50 amp", "cabins", "outdoor lodging", "swimming", "fishing", "hiking"] }],
   },
   {
