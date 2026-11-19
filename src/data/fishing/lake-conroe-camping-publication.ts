@@ -1,7 +1,8 @@
 /**
  * Compact, client-safe SEO metadata for the lightweight Conroe camping route.
- * The primary research record imports the review date from here so timestamps
- * cannot diverge when an editor rechecks USFS/TPWD campground source records.
+ * The full research dossier must stay machine-readable JSON for its separate
+ * 72-lake parity validator. A source-contract test pins this duplicated
+ * review date and citation list to that canonical researched dossier.
  */
 export const LAKE_CONROE_CAMPING_CANONICAL_PATH = "/fishing/lakes/lake-conroe/camping";
 export const LAKE_CONROE_CAMPING_TITLE = "Camping Near Lake Conroe";
