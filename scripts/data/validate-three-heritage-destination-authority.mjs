@@ -90,4 +90,16 @@ includes(deploy, [
   "Preserve exact three-heritage live acceptance evidence",
   "heritage-three-production.json",
 ], "Protected live authority release gate");
+const chrome = read("scripts/ci/verify-three-heritage-responsive-browser.mjs");
+includes(chrome, [
+  '"/tmp/texasdefined-wp-qa/node_modules/playwright-core"',
+  '"mobile-320"', '"mobile-390"', '"desktop-1280"',
+  '"document language set"', '"no horizontal overflow"', '"first location photo delivered"',
+  'heritage-three-mobile', '"no JavaScript errors"',
+], "Nine-view heritage accessibility and mobile browser acceptance");
+includes(deploy, [
+  "Verify three heritage destinations in mobile and desktop Chrome",
+  "node scripts/ci/verify-three-heritage-responsive-browser.mjs",
+  "Preserve three heritage mobile and desktop proof",
+], "Postdeploy Chrome acceptance on same site release");
 console.log("Three researched heritage guides: canonical consolidation, source-backed content, LBJ dossier and FAQ, source drift monitoring validated.");

@@ -1317,6 +1317,22 @@ jobs:
         if: ${{ always() && steps.live_district6.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
         run: node scripts/ci/verify-district6-responsive-browser.mjs
 
+      # Heritage mobile proof is mandatory for the exact release that changed these guides.
+      # Reuse District 5's already-installed Chrome and Playwright, with 320/390/1280 evidence.
+      - name: Verify three heritage destinations in mobile and desktop Chrome
+        id: live_three_heritage_browser
+        if: ${{ always() && steps.live_three_heritage.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-three-heritage-responsive-browser.mjs
+
+      - name: Preserve three heritage mobile and desktop proof
+        if: ${{ always() && steps.live_three_heritage_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: three-heritage-browser-${{ github.run_id }}
+          path: artifacts/heritage-three-mobile/
+          if-no-files-found: error
+          retention-days: 30
+
       # One Moody Gardens URL at 320/390/768/1280px; reuse the Chrome and
       # Playwright package already installed for District 5, not a new crawler.
       - name: Verify Moody Gardens four-viewport browser authority and layout
