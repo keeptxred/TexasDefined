@@ -85,21 +85,25 @@ test("three approved attraction sources are monitored from real canonical record
 
 
 test("all three historic destination canonical guides have bounded, verified operator-source watch", () => {
-  assert.equal(heritageDestinationMonitorRows.length, 10);
+  assert.equal(heritageDestinationMonitorRows.length, 14);
   assert.deepEqual([...new Set(heritageDestinationMonitorRows.map((r) => r.id))].sort(), [
     "lbj-presidential-library-austin", "mission-san-jose-san-antonio", "texas-state-capitol",
   ]);
-  assert.equal(new Set(heritageDestinationMonitorRows.map((r) => r.sourceUrl)).size, 10);
+  assert.equal(new Set(heritageDestinationMonitorRows.map((r) => r.sourceUrl)).size, 14);
   for (const row of heritageDestinationMonitorRows) {
-    assert.equal(row.checkedAt, "2026-11-17", "Source timestamps must record verified editorial reviews, never job dates");
+    assert.equal(row.checkedAt, "2026-11-18", "Source timestamps must record verified editorial reviews, never job dates");
     assert.match(row.sourceUrl, /^https:\/\//);
   }
   const all = sourceIndex([], heritageDestinationMonitorRows);
-  assert.equal(all.length, 10);
+  assert.equal(all.length, 14);
   for (const url of [
     "https://tspb.texas.gov/plan/tours/tours.html",
     "https://www.lbjlibrary.org/exhibitions",
     "https://www.nps.gov/saan/planyourvisit/guided-programs.htm",
+    "https://www.nps.gov/saan/learn/management/superintendent-s-compendium.htm",
+    "https://www.nps.gov/saan/planyourvisit/physical-mobility.htm",
+    "https://tspb.texas.gov/plan/parking/parking.html",
+    "https://www.lbjlibrary.org/refresh26",
   ]) assert.ok(all.some((item) => item.url === url), "Critical operator changes require weekly alerts: " + url);
 });
 
