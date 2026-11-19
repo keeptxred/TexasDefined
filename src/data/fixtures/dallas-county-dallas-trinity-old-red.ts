@@ -20,6 +20,7 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-14",
+  updatedAt: "2026-11-15", // Verified original Texas Institute of Letters history revision; not a source-check restamp.
   readingMinutes: 12,
   tags: ["Dallas County", "Dallas", "Trinity River", "Old Red Courthouse", "Blackland Prairie", "Irving", "Garland", "Mesquite", "Cedar Hill", "North Texas"],
   featured: false,
