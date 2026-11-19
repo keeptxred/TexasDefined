@@ -178,6 +178,21 @@ for (const { name, viewport, mobile } of [
     assert.equal(initial.itemCount, 72, name + ": directory ItemList count incorrect");
     assert.equal(initial.linkCount, 72, name + ": directory ItemList URLs incomplete");
     assert.equal(initial.azLinks, 72, name + ": live A–Z directory link index incomplete");
+    const decisions = page.locator('section[aria-labelledby="lake-decision-heading"]');
+    await decisions.getByRole("heading", { name: "Three lakes, three different fishing decisions" }).waitFor({ state: "visible", timeout: 25000 });
+    assert.equal(await decisions.locator("article").count(), 3, name + ": original lake research must include three distinct primary-sourced decisions");
+    for (const [slug, officialPath] of [
+      ["lake-fork", "fork"],
+      ["lake-conroe", "conroe"],
+      ["canyon-lake", "canyon"],
+    ]) {
+      assert.equal(await decisions.locator('a[href="/fishing/lakes/' + slug + '"]').count(), 1,
+        name + ": missing relevant complete guide for " + slug);
+      assert.equal(await decisions.locator('a[href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/' + officialPath + '/"]').count(), 1,
+        name + ": missing official TPWD decision citation for " + slug);
+    }
+    assert.match(await decisions.textContent(), /Why 72 guides, not every Texas lake\?/,
+      name + ": editorial scope and selection methodology must be visible");
     assert.equal(initial.hydrated, true, name + ": interactive directory had not hydrated");
     assert.equal(initial.deprecatedFaqSchemaPresent, false, name + ": deprecated FAQPage rich-result markup must be absent");
     assert.equal(initial.visible.length, 4, name + ": useful visible quick answers were removed");
