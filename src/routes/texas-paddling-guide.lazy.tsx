@@ -81,8 +81,8 @@ const paddlingAccessMap = [
   {
     name: "Bosque Bluffs & Brazos Bridges — Waco",
     putIn: "MCC Boat Ramp (31.5929, -97.1693) for Bosque Bluffs; Brazos Park East (31.5879, -97.1534) for Brazos Bridges",
-    takeOut: "Return to the SAME route's named put-in; these are distinct loops, not opposite ends of one water trail",
-    shuttle: "Two loops: no vehicle shuttle; do not use the other trail's ramp as a substitute without consulting TPWD",
+    takeOut: "Bosque Bluffs turns at Brazos Park East (31.5879, -97.1534), then returns to MCC; Brazos Bridges turns at Bledsoe-Miller Community Center Dock (31.5628, -97.1293), then returns to Brazos Park East",
+    shuttle: "Both TPWD loops return to their own launch, so no vehicle shuttle is needed. Brazos Park East is the Bosque turnaround but the Brazos Bridges start; Bledsoe-Miller dock is the Brazos Bridges turnaround.",
     launchCoordinates: "31.5929,-97.1693",
     exitCoordinates: "31.5879,-97.1534",
     official: "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/",
