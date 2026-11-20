@@ -11,7 +11,8 @@ import {readFileSync,readdirSync,mkdirSync,writeFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {UIL_FOOTBALL_PROGRAMS_2026} from '../../src/data/high-school-football/uil-football-alignments-2026.server.ts';
 import {footballProgramSlug} from '../../src/data/high-school-football/program-slugs.ts';
-import {texasToday,parseRss,isSafePublicUrl} from './research-canyon-lake-weekly.mjs';
+import {texasToday} from './refresh-canyon-lake-results.mjs';
+import {isSafePublicUrl,decodeXml} from './research-canyon-lake-weekly.mjs';
 
 export const OUT='artifacts/football-statewide-research';
 export const EDITORIAL_DIR='src/data/high-school-football';
@@ -178,6 +179,31 @@ export function queryFor(row,today){
   const district=row.classification+' '+(row.division?'division '+row.division+' ':'')+'district '+row.slug.match(/district-(\d+)$/)?.[1];
   return '"'+district+'" Texas football final scores 2026 '+(latest?.date||today);
 }
+export function parsePublicFootballRss(xml,{row,now=new Date()}){
+  if(!/^<\?xml|<rss\b|<feed\b/i.test(String(xml).trim().slice(0,80)))throw Error('Not an RSS/XML response');
+  const out=[];
+  const textOf=(block,tag)=>{const m=block.match(new RegExp('<'+tag+'(?:\\s[^>]*)?>([\\s\\S]*?)<\\/'+tag+'>','i'));
+    return m?decodeXml(m[1].replace(/^<!\[CDATA\[|\]\]>$/g,'').replace(/<[^>]+>/g,'')).trim():'';};
+  const aliases=row.type==='team'
+    ?[row.name.toLowerCase(),row.name.toLowerCase().split(/\s+/).slice(-2).join(' '),row.slug.replace(/-/g,' ')]
+    :[row.classification.toLowerCase()+' district '+row.slug.match(/district-(\d+)$/)?.[1],
+      'district '+row.slug.match(/district-(\d+)$/)?.[1]];
+  const cutoff=now.getTime()-45*86400000;
+  for(const match of String(xml).matchAll(/<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi)){
+    const title=textOf(match[1],'title').replace(/\s+/g,' ').slice(0,200);
+    const link=textOf(match[1],'link'),stamp=Date.parse(textOf(match[1],'pubDate'));
+    const source=textOf(match[1],'source').replace(/\s+/g,' ').slice(0,90)||'Public news reporting';
+    if(!title||!isSafePublicUrl(link)||!Number.isFinite(stamp)||stamp<cutoff||stamp>now.getTime()+86400000)continue;
+    const normalized=title.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+    if(!/\b(?:football|scores?|playoffs?|standings|hawks|tigers|district|final)\b/i.test(title))continue;
+    // An exact named school or district reference must appear in each story;
+    // never accept generic unrelated headlines as verification.
+    if(!aliases.some(a=>a&&a.length>=5&&normalized.includes(a.replace(/[^a-z0-9]+/g,' ').trim())))continue;
+    out.push({title,link,source,publishedAt:new Date(stamp).toISOString()});
+    if(out.length>=MAX_ITEMS)break;
+  }
+  return out;
+}
 function feedUrl(provider,q){
   const u=new URL(provider==='google'?'https://news.google.com/rss/search':'https://www.bing.com/news/search');
   u.searchParams.set('q',q);
@@ -207,8 +233,7 @@ export async function researchCohort(inv,{today=inv.today,fetcher=fetchFeed,limi
       for(const provider of ['google','bing']){
         try{
           const xml=await fetcher(feedUrl(provider,query));
-          feeds.push({provider,items:parseRss(xml,{topic:row.type==='district'?'standings':'score',
-            origin:provider,now:new Date(today+'T23:00:00Z')}).slice(0,MAX_ITEMS)});
+          feeds.push({provider,items:parsePublicFootballRss(xml,{row,now:new Date(today+'T23:00:00Z')})});
         }catch(e){feeds.push({provider,error:String(e.message||e).slice(0,160),items:[]});}
       }
       const articles=[...new Map(feeds.flatMap(f=>f.items||[]).map(a=>[a.link,a])).values()].slice(0,MAX_ITEMS);
