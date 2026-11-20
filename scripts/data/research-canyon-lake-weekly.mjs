@@ -5,8 +5,8 @@
  * Search discovery reads news RSS feeds intended for syndication. It records
  * ONLY headline/link/date metadata and never downloads news articles, scrapes
  * scoreboards, or interprets headlines as verified match results. Official and
- * standings pages are checked by HEAD only. Publication of a new score still
- * requires the separately licensed independent JSON feeds and protected PRs.
+ * standings pages are checked by HEAD only. Results are researched the day
+ * after each game. This workflow NEVER publishes any scores or page edits.
  */
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
@@ -32,6 +32,37 @@ export const SEARCH_QUERIES=[
   {topic:'standings',query:'"District 13-4A" football standings Canyon Lake 2026'},
   {topic:'standings',query:'"Canyon Lake" "Davenport" district football standings 2026'},
 ];
+export function postGameSearchQueries(team,today){
+  const overdue=team.season.games.filter(g=>!g.result&&g.date<today).slice(-3);
+  const extra=overdue.flatMap(game=>[
+    {topic:'score',query:'"Canyon Lake" "'+game.opponent+'" football final score '+game.date},
+    {topic:'score',query:'"Canyon Lake Hawks" "'+game.opponent+'" result '+game.date}
+  ]);
+  return [...SEARCH_QUERIES,...extra];
+}
+// Score hints are extracted only from explicit team/point/opponent/point headline
+// sequences. A headline is a lookup lead, NEVER a verified game result.
+export function reportedScoreHints(articles,due){
+  const hints=[];
+  const clean=value=>value.replace(/[^A-Za-z0-9]+/g,'\\s+');
+  for(const fixture of due){
+    const names=[fixture.opponent];
+    if(fixture.opponent.startsWith('Port Lavaca '))names.push(fixture.opponent.slice('Port Lavaca '.length));
+    const other='(?:'+names.map(clean).join('|')+')(?:\\s+Sandcrabs)?';
+    const hawks='Canyon\\s+Lake(?:\\s+Hawks)?';
+    const sep='\\s*[,;:–-]\\s*';
+    const forward=new RegExp(hawks+'\\s+(\\d{1,3})'+sep+other+'\\s+(\\d{1,3})','i');
+    const reverse=new RegExp(other+'\\s+(\\d{1,3})'+sep+hawks+'\\s+(\\d{1,3})','i');
+    for(const item of articles.filter(a=>a.topic==='score'&&a.publishedAt.slice(0,10)>=fixture.date)){
+      const a=forward.exec(item.title),b=a?null:reverse.exec(item.title);
+      const hawksPoints=Number(a?.[1]??b?.[2]),opponentPoints=Number(a?.[2]??b?.[1]);
+      if(!a&&!b||hawksPoints===opponentPoints||hawksPoints>99||opponentPoints>99)continue;
+      hints.push({date:fixture.date,opponent:fixture.opponent,hawksPoints,opponentPoints,
+        title:item.title,source:item.source,url:item.link,verification:'unverified-headline-only'});
+    }
+  }
+  return hints.slice(0,12);
+}
 export function isSafePublicUrl(value){
   if(typeof value!=='string'||value.length>1800)return false;
   try{
@@ -138,16 +169,17 @@ export function compileResearch({team,today,headResults,feeds,checkedAt=new Date
   }
   const articles=[...deduped.values()].sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)).slice(0,NEWS_LIMIT);
   const searchFailures=feeds.filter(x=>x.error).map(x=>({topic:x.topic,provider:x.provider,error:x.error}));
-  return {schemaVersion:1,checkedAt,today,teamSlug:'comal-canyon-lake',
+  const reportedScores=reportedScoreHints(articles,season.due);
+  return {schemaVersion:2,checkedAt,today,teamSlug:'comal-canyon-lake',
     discoveryOnly:true,publishingAllowedFromResearch:false,
     researchMethod:'Recent RSS headline/link/date discovery and HEAD-only source availability. Not a licensed score feed; headlines are leads, not final-score evidence.',
-    season,reviewPages:headResults,articles,searchFailures,
+    season,reviewPages:headResults,articles,reportedScores,searchFailures,
     feedAttempts:feeds.map(x=>({provider:x.provider,topic:x.topic,count:x.items?.length||0,error:x.error||null})),
     needsEditorialReview:season.due.length>0||!season.recordMatchesAuthor||searchFailures.length===feeds.length,
     findings:{scores:articles.filter(x=>x.topic==='score').length,
       standings:articles.filter(x=>x.topic==='standings').length},
     nextAction:season.due.length
-      ?'Verify overdue finals against independent full sources, reconcile records and postseason status, and publish only via protected PR with authorized data.'
+      ?'Look up yesterday’s final from cited public game reporting, verify any score against another credible source, and prepare the normal reviewed site update. No live feed needed.'
       :'Review newly discovered reports and official standing links; no score change is automatically inferred.',
     safeguards:'No publisher article bodies, automated scraping of game-score sites, alleged official rank, or unsourced fixture are imported.'};
 }
@@ -158,7 +190,7 @@ export function markdownReport(r){
     '**Current authored record:** '+r.season.record+' overall, '+r.season.districtRecord+' district.',
     '**Points:** '+r.season.pointsFor+' for / '+r.season.pointsAgainst+' against · '+r.season.completed+' completed games.',
     '**Latest recorded final:** '+(r.season.latestFinal?escapeMd(r.season.latestFinal.date+' '+r.season.latestFinal.opponent+' '+r.season.latestFinal.result):'none'),
-    '**Unconfirmed past fixtures:** '+(r.season.due.length?r.season.due.map(x=>escapeMd(x.date+' '+x.opponent)).join('; '):'none'),
+    '**Unconfirmed past fixtures needing day-after lookup:** '+(r.season.due.length?r.season.due.map(x=>escapeMd(x.date+' '+x.opponent)).join('; '):'none'),
     '**Official district standing or tiebreak rank:** NOT VERIFIED. Only the team’s source-attributed district W–L is calculated.','',
     '## Source references for independent review',''];
   for(const item of r.reviewPages)lines.push('- '+escapeMd(item.label)+' — '+item.url+' (HEAD '+(item.status??'unavailable')+')');
@@ -166,6 +198,9 @@ export function markdownReport(r){
   const news=r.articles.filter(x=>x.topic==='score');
   if(!news.length)lines.push('No relevant recent RSS headlines available; this is not evidence that no game occurred.');
   for(const a of news)lines.push('- '+escapeMd(a.publishedAt.slice(0,10)+' · '+a.source+' · '+a.title)+' — '+a.link);
+  lines.push('','## Final-score hints found in public headlines (NOT independently verified)');
+  if(!r.reportedScores.length)lines.push('No unambiguous team/score/opponent/score headline found yet. Check the linked current schedule and local sports reports before entering a final.');
+  for(const h of r.reportedScores)lines.push('- '+escapeMd(h.date+' '+h.opponent+': Canyon Lake '+h.hawksPoints+'–'+h.opponentPoints+' (headline only; verify) · '+h.source+' · '+h.title)+' — '+h.url);
   lines.push('','## District 13 standings reporting leads');
   const stands=r.articles.filter(x=>x.topic==='standings');
   if(!stands.length)lines.push('No recent standings headlines found; check linked source pages and the official UIL alignment.');
@@ -175,13 +210,13 @@ export function markdownReport(r){
   lines.push('','## Editorial and publication boundary',
     'RSS headlines and the site’s authored game ledger are **not independent proof of an unreported final or complete district standings**.',
     'Verify primary school/UIL and independent reports, compare conflicting records and tie-breakers, and retain dated evidence.',
-    'Automatic score PRs still require TWO independent licensed JSON feed hosts; the existing protected score-update finisher performs exact-SHA validation and merge.',
+    'The scheduled job looks up public reporting the day after a game and leaves scores for source-backed editorial review. It never auto-publishes.',
     'This research job creates a weekly report and review issue. It does not secretly rewrite a score or claim a certified district ranking.',
     '','**Next action:** '+r.nextAction,'');
   return lines.join('\n');
 }
 export async function research({team,today,clock=new Date(),fetchFeed=limitedText,head=sourceHead}){
-  const jobs=SEARCH_QUERIES.flatMap(q=>['google','bing'].map(provider=>({provider,topic:q.topic,url:newsFeedUrl(provider,q.query)})));
+  const jobs=postGameSearchQueries(team,today).flatMap(q=>['google','bing'].map(provider=>({provider,topic:q.topic,url:newsFeedUrl(provider,q.query)})));
   const feeds=[];
   for(const job of jobs){
     try{
@@ -209,6 +244,7 @@ async function main(){
   console.log('Canyon Lake weekly score/standings research: '+JSON.stringify({
     checkedAt:report.checkedAt,headlines:report.articles.length,searchFailures:report.searchFailures.length,
     scoreLeads:report.findings.scores,standingsLeads:report.findings.standings,
+    reportedScoreHints:report.reportedScores.length,
     unverifiedGames:report.season.due.length,districtRecord:report.season.districtRecord}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await main();
