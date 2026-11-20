@@ -100,7 +100,7 @@ await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-disp
 await check("Flag authority page — ordinary public URL", `${root}/texas-flag`, html => {
   assertSelfCanonical("Ordinary public flag hub", html, "/texas-flag");
   assertIndexable("Ordinary public flag hub", html);
-  assertRegex("Ordinary public flag revision", html, /Updated(?:\\s|<!--.*?-->)*November 19, 2026/);
+  assertRegex("Ordinary public flag revision", html, /Updated(?:\s|<!--.*?-->)*November 19, 2026/);
   assertContains("Ordinary public flag structured revision", html, '"dateModified":"2026-11-19"');
   assertContains("Ordinary public flag signed archive section", html, "The signed 1839 flag drawing: a primary-source research guide");
   assertContains("Ordinary public flag Flag Day section", html, "When Texas Flag Day happens and why the date matters");
@@ -109,7 +109,7 @@ await check("Flag authority page — ordinary public URL", `${root}/texas-flag`,
 await check("Flag history article — ordinary public URL", `${root}/article/history-of-the-texas-flag`, html => {
   assertSelfCanonical("Ordinary public flag history", html, "/article/history-of-the-texas-flag");
   assertIndexable("Ordinary public flag history", html);
-  assertRegex("Ordinary public history revision", html, /Updated(?:\\s|<!--.*?-->)*November 19, 2026/);
+  assertRegex("Ordinary public history revision", html, /Updated(?:\s|<!--.*?-->)*November 19, 2026/);
   assertContains("Ordinary public history signed archive research", html, "What the signed 1839 original actually shows");
   assertContains("Ordinary public history Flag Day research", html, "Texas Flag Day is March 2");
 }, { bypassCache: false });
