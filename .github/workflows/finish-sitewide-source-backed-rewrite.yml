@@ -168,3 +168,34 @@ jobs:
             echo '::error::Main kept changing during six full protected validation attempts; preserve PR for later retry.'
             exit 1
           }
+
+          # GITHUB_TOKEN-authored PR merges do not generate a new push-triggered
+          # production run. Wait for GitHub's REAL protected auto-merge instead
+          # of treating a successful 'enable auto-merge' call as publication.
+          merged=false
+          for wait_index in $(seq 1 24); do
+            pr_state="$(gh api "repos/$REPO/pulls/$pr")"
+            current_pr_head="$(jq -r .head.sha <<< "$pr_state")"
+            [[ "$current_pr_head" == "$validated_sha" ]] || {
+              echo '::error::Generated editorial PR head moved after source validation'; exit 1;
+            }
+            if [[ "$(jq -r .merged <<< "$pr_state")" == true ]]; then
+              merged=true
+              break
+            fi
+            echo "Protected editorial auto-merge still pending ($wait_index/24)."
+            sleep 5
+          done
+          [[ "$merged" == true ]] || {
+            echo '::error::Protected editorial auto-merge did not complete; leaving PR for recovery.'
+            exit 1
+          }
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$validated_sha" origin/main || {
+            echo '::error::Validated editorial revision is not in current main; refuse deployment dispatch.'
+            exit 1
+          }
+          # Dispatch the EXISTING serialized production publisher, never
+          # deploy directly from the finisher or skip source/asset/Chrome gates.
+          gh workflow run deploy-production.yml --ref main --repo "$REPO"
+          echo "Triggered protected production deployment after verified editorial merge $validated_sha." >> "$GITHUB_STEP_SUMMARY"
