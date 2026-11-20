@@ -43,26 +43,26 @@ export function indexPrograms(programs=UIL_FOOTBALL_PROGRAMS_2026){
 }
 export function staleRows(source,filename,today){
   const rows=[],seen=new Set();
-  const add=(date,away,home,kind='fixture')=>{
+  const add=(date,away,home,kind='fixture',position=-1)=>{
     if(!date||date>=today||!/^2026-\d{2}-\d{2}$/.test(date))return;
     const id=[filename,date,kind,away||'',home||''].join('|');
     if(seen.has(id))return;
-    seen.add(id);rows.push({file:filename,date,kind,away:away||null,home:home||null});
+    seen.add(id);rows.push({file:filename,date,kind,away:away||null,home:home||null,position});
   };
   // Published function-call calendars: match arguments only, never final().
   const calls=/\b(scheduled|upcoming)\(\s*['"](2026-\d{2}-\d{2})['"]\s*,\s*['"]([^'"]{2,100})['"]\s*,\s*['"]([^'"]{2,100})['"](?:\s*,\s*['"]([^'"]{2,100})['"])?/g;
   for(const m of source.matchAll(calls)){
     const hasKickoff=filename==='football-district-game-week.ts';
-    add(m[2],hasKickoff?m[4]:m[3],hasKickoff?m[5]:m[4]);
+    add(m[2],hasKickoff?m[4]:m[3],hasKickoff?m[5]:m[4],'fixture',m.index);
   }
   // Static calendar and per-team season.games records, including JSON rows.
-  const objects=/\{[^{}]{0,1500}?\b["']?date["']?\s*:\s*['"](2026-\d{2}-\d{2})['"][^{}]{0,1500}?\}/g;
+  const objects=/\{[^{}]{0,1500}?["']?date["']?\s*:\s*['"](2026-\d{2}-\d{2})['"][^{}]{0,1500}?\}/g;
   for(const m of source.matchAll(objects)){
     const body=m[0];
     if(/\b["']?(?:result|status)["']?\s*:\s*['"](?:W |L |T |final)/.test(body))continue;
     if(!/\b(?:opponent|away|home|kickoff|matchupPath|districtGame)\b/.test(body))continue;
     const val=(k)=>{const x=body.match(new RegExp('["\\\']?'+k+'["\\\']?\\s*:\\s*["\\\']([^"\\\']{2,110})["\\\']'));return x?.[1]||null;};
-    add(m[1],val('opponent')||val('away'),val('home'));
+    add(m[1],val('opponent')||val('away'),val('home'),'fixture',m.index);
   }
   return rows;
 }
@@ -76,8 +76,16 @@ function sourceDistrict(filename){
 }
 function unique(arr){return [...new Set(arr.filter(Boolean))];}
 function sourceSlugs(content,index){
-  const found=unique([...content.matchAll(/\bslug\s*:\s*['"]([a-z0-9-]+)['"]/g)].map(x=>x[1]));
+  const found=unique([...content.matchAll(/["']?slug["']?\s*:\s*['"]([a-z0-9-]+)['"]/g)].map(x=>x[1]));
   return found.filter(x=>index.teams.has(x));
+}
+function nearestAuthoredTeam(source,position,index){
+  if(position<0)return null;
+  const prefix=source.slice(0,position);
+  const matcher=/["']?slug["']?\s*:\s*['"]([a-z0-9-]+)['"]/g;
+  let latest=null;
+  for(const m of prefix.matchAll(matcher))if(index.teams.has(m[1]))latest=m[1];
+  return latest;
 }
 function findMatchedSlug(name,index){
   return index.nameToSlug.get((name||'').toLowerCase())||null;
@@ -95,9 +103,10 @@ export function audit({today=texasDate(),dir=DATA,programs=UIL_FOOTBALL_PROGRAMS
     // Multiple programs in a single authoring file must not be misattributed.
     const fileTeam=(isTeamFile&&slugs.length===1)?slugs[0]:null;
     for(const row of rows){
-      const teams=unique([findMatchedSlug(row.away,index),findMatchedSlug(row.home,index),fileTeam]);
+      const owner=isTeamFile ? nearestAuthoredTeam(source,row.position,index) : null;
+      const teams=unique([findMatchedSlug(row.away,index),findMatchedSlug(row.home,index),owner,fileTeam]);
       const districts=unique([dist,...teams.map(x=>index.teams.get(x)?.districtSlug)]);
-      stale.push({...row,teams,districts,sourceAmbiguous:isTeamFile&&slugs.length!==1,
+      stale.push({...row,teams,districts,sourceAmbiguous:isTeamFile&&slugs.length!==1&&!owner,
         urls:unique([...teams.map(x=>index.teams.get(x)?.url),...districts.map(x=>index.districts.get(x)?.url)])});
     }
     if(file.includes('district')){
