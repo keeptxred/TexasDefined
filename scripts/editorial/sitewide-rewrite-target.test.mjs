@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,sourceReviewEligible,scheduledWorkflowInventory}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -85,4 +85,21 @@ test('legacy and page-specific evidence avoid rewriting same first event repeate
   assert.ok(reviewed.has('7233\t/event/a-christmas-affair'));
   assert.ok(reviewed.has('7233\t/event/dallas-zoo-lights'));
   assert.ok(!reviewed.has('7233\t/event/texas-renaissance-festival'));
+});
+
+test('open validated content PR blocks a duplicate issue draft but never closes the editorial backlog',()=>{
+  const existing={title:'Source-verified editorial refresh for issue #7233',state:'open',
+    head:{ref:'automation/sitewide-editorial-44761731798'}};
+  const selected=pendingSourceIssueIds([existing,
+    {...existing,state:'closed'},
+    {...existing,title:'Another unrelated PR',head:{ref:'main'}},
+  ]);
+  assert.deepEqual([...selected],[7233]);
+  assert.ok(!selected.has(7000));
+});
+test('attacker-like PR title without trusted bot branch does not suppress issue source monitoring',()=>{
+  assert.deepEqual([...pendingSourceIssueIds([
+    {title:'Source-verified editorial refresh for issue #7233',state:'open',head:{ref:'untrusted/branch'}},
+    {title:'Source-verified editorial refresh for issue #7233',state:'open',head:{ref:'automation/sitewide-editorial-fake'}},
+  ])],[]);
 });
