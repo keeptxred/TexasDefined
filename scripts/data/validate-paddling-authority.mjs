@@ -13,7 +13,13 @@ const additional95PlusEvidence = [
   "Terry Hershey Park access",
   "USGS-08096500",
   "8775083",
-  "TPWD access-point map"
+  "TPWD access-point map",
+  "30.2911,-97.7879",
+  "29.7694,-95.6434",
+  "31.5628, -97.1293",
+  "32.6942,-94.1758",
+  "27.8691,-97.0834",
+  "about five miles"
 ];
 for (const marker of additional95PlusEvidence) {
   if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
