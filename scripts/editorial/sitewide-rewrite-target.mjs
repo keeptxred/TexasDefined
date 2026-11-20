@@ -26,6 +26,37 @@ export function findPagePaths(value) {
     .map(m => (m[1] || m[2]).replace(/[.,;:]+$/, ''))
     .filter(p => p.length > 6 && p.length < 125))];
 }
+/**
+ * Some mature source monitors list official URL drift but not the public route.
+ * Recover only identities already represented in trusted, curated catalogs;
+ * never infer a destination from a third-party issue's arbitrary domain name.
+ */
+export function findScheduledOperatorPages(value, root = ROOT) {
+  const input = String(value || '');
+  const mapped = [];
+  const monitor = fs.readFileSync(path.join(root, 'scripts/data/authority/monitor-operator-sources.mjs'), 'utf8');
+  const section = monitor.split('export const heritageDestinationMonitorRows = [')[1]?.split('];')[0] || '';
+  for (const match of section.matchAll(/\\{ id: "([a-z0-9-]+)", sourceUrl: "(https:[^"]+)"/g)) {
+    if (input.includes(match[2])) mapped.push('/destination/' + match[1]);
+  }
+  const reviewed = fs.readFileSync(path.join(root,'src/data/reviewed-attraction-authorities.ts'),'utf8');
+  const marker='export const reviewedAttractionDestinations: Destination[] = ';
+  const pos=reviewed.indexOf(marker);
+  if (pos >= 0) {
+    const records=JSON.parse(reviewed.slice(pos+marker.length).trim().replace(/;\\s*$/, ''));
+    for (const record of records) {
+      const urls=[record.officialUrl, ...(record.authorityGuide?.sources || []).map(x=>x.url),
+        ...(record.visitorFaqs || []).map(x=>x.sourceUrl),
+        ...(record.visitorFacts || []).map(x=>x.sourceUrl)].filter(Boolean);
+      if (urls.some(url => input.includes(url))) mapped.push('/destination/'+record.slug);
+    }
+  }
+  return [...new Set(mapped)];
+}
+export function findIssuePages(value) {
+  const declared = findPagePaths(value);
+  return declared.length ? declared : findScheduledOperatorPages(value);
+}
 export function findOfficialSourceUrls(value) {
   return [...new Set([...String(value || '').matchAll(URL_PATTERN)]
     .map(m => m[0].replace(/[.,;:]+$/, ''))
@@ -43,7 +74,7 @@ export function sourceReviewEligible(issue) {
   if (!issue || issue.pull_request || issue.state !== 'open' ||
     (issue.labels || []).some(l => l.name === 'autonomous-rewrite-in-progress')) return false;
   if (!/source|freshness|visitor.fact|editorial|authority|review|fact drift|update needed/i.test(issue.title || '')) return false;
-  return findPagePaths(issue.body).length > 0 && findOfficialSourceUrls(issue.body).length > 0;
+  return findIssuePages(issue.body).length > 0 && findOfficialSourceUrls(issue.body).length > 0;
 }
 export function scheduledWorkflowInventory(root = ROOT) {
   const dir = path.join(root, '.github/workflows');
@@ -99,7 +130,7 @@ async function main() {
   const issues = (await loadIssues()).filter(sourceReviewEligible);
   let selected = null;
   for (const issue of issues.slice(0, 35)) {
-    const paths = findPagePaths(issue.body);
+    const paths = findIssuePages(issue.body);
     const official = findOfficialSourceUrls(issue.body);
     const sources = (await Promise.all(official.map(async url => {
       try { return await officialExcerpt(url); }
