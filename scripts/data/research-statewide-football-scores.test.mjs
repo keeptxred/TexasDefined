@@ -69,11 +69,12 @@ test('all currently eligible statewide overdue fixtures receive lookup coverage 
   assert.equal(publicProviders({date:'2026-10-23'},'2026-11-20').length,1);
 });
 
-test('all five dated standings pages receive public source lookups with current published references',()=>{
+test('only archived district standings still needing review receive public source lookups',()=>{
   const state=inventory({today:'2026-11-20'});
   const targets=additionalResearchTargets(state);
   const districts=targets.filter(t=>t.kind==='standings');
-  assert.equal(districts.length,5);
+  assert.equal(districts.length,2);
+  assert.deepEqual(districts.map(t=>t.page.split('/').at(-1)).sort(),['6a-district-16','6a-district-21']);
   for(const t of districts){
     assert.ok(t.sourceUrl.startsWith('https://'));
     assert.equal(t.providers.length,2);
