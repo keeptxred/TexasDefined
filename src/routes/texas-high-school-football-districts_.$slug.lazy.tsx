@@ -40,7 +40,11 @@ function Page() {
   const district9Pilot = district.slug === '6a-district-9';
   // District 6 intentionally excludes the shared results feed while standings / W-L automation is paused.
   const games = district6Pilot ? [] : getDistrictFootballGames(district.slug, district.classification, district.district);
-  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
+  // Fully sourced 2026 district ledgers must actually be visible on the hub,
+  // not silently clipped to an October-era 16-game teaser. Generic districts
+  // retain the compact recent-results preview until their full ledger exists.
+  const fullVerifiedLedger = katyPilot || district5Pilot || district21Pilot || district11Pilot;
+  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, fullVerifiedLedger ? games.length : 8);
   const todayParts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
   }).formatToParts(new Date());
