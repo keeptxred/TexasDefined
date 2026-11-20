@@ -88,6 +88,7 @@ assert.ok(parent.includes('id="wwchd-current-rate"'), 'The 2026 tax answer must 
 assert.ok(parent.includes('Wharton County\'s official 2026 tax-rate table'), 'First-render source must be visible');
 assert.ok(parent.indexOf('id="wwchd-current-rate"') < parent.indexOf('<WestWhartonHospitalDistrictAuthority'), 'Above-the-fold 2026 answer precedes lazy long-form research');
 assert.ok(parent.includes('Verify parcel jurisdictions with Wharton CAD'), 'First-render rate must carry parcel-specific jurisdiction warning');
+assert.ok(parent.includes('Texas Defined Homes &amp; Property Desk') && parent.includes('params={{ author: \'a-homes-land\' }}') && parent.includes('whartonEvidence.lastVerified'), 'First-render YMYL tax page must link real editorial desk and actual review date');
 assert.ok(component.includes('How this page was checked:'), 'Primary-source research method must be transparently documented');
 assert.ok(component.includes('the sources do not prove') || component.includes('The sources do not prove'), 'Do not guess a cause for proposed-vs-reported levy differences');
 assert.ok(parent.includes('Not a 2026 Comptroller statewide workbook record.'));
@@ -98,6 +99,7 @@ assert.ok(route.includes('hasWestWhartonAuthority') && route.includes('westWhart
 assert.ok(route.includes('westWhartonHospitalDistrict.sources.county2026AdoptedTable'));
 assert.ok(route.includes('westWhartonHospitalDistrict.sources.countyFiveYearSummary'));
 assert.ok(route.includes('westWhartonHospitalDistrict.sources.county2024UnitWorksheet') && route.includes('westWhartonHospitalDistrict.sources.county2023UnitWorksheet'));
+assert.ok(route.includes("name: 'Texas Defined Homes & Property Desk'") && route.includes("https://texasdefined.com/authors/a-homes-land"), 'Dataset needs actual institutional source reviewer');
 assert.ok(route.includes('a disclosed 2023 county/Comptroller rate conflict'));
 assert.ok(route.includes('Math.max(latest.year, westWhartonHospitalDistrict.localAdopted2026.year)'));
 assert.ok(route.includes('canonicalLink(texasDefinedBrand, canonicalPath)'));
