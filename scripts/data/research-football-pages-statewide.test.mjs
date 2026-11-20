@@ -37,7 +37,7 @@ test('statewide inventory covers 1268 UIL teams and 192 unique districts',()=>{
   assert.ok(rows.districts.some(x=>x.slug==='6a-district-21'&&x.overdue.length===0), 'District 21 final ledger is now fully resolved');
   assert.ok(rows.districts.some(x=>x.slug==='4a-division-i-district-11'&&x.overdue.length===0), 'District 11 final ledger is now fully resolved');
   assert.ok(rows.districts.some(x=>x.slug==='6a-district-16'&&x.overdue.length===0), 'District 16 late fixtures now have corroborated finals');
-  assert.equal(rows.counts.matchupSnapshotVerifiedAt,'2026-10-16');
+  assert.equal(rows.counts.matchupSnapshotVerifiedAt,'2026-11-20');
   assert.ok(rows.counts.teamSeasonSnapshots>0);
 });
 test('cohort selects overdue results then rotates all flagged pages without exceeding cap',()=>{
