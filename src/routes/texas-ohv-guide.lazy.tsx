@@ -60,7 +60,12 @@ const officialSources = [
   {
     label: "Texas Parks & Wildlife — Where to Buy a Texas OHV Decal",
     href: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal",
-    note: "Official decal requirements, current decal period and purchasing information for applicable legal venues.",
+    note: "Official $16 decal, September 1–August 31 validity period and current purchase options. Recheck the amount each new season.",
+  },
+  {
+    label: "Texas Parks & Wildlife — OHV Program FAQ",
+    href: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/faqs-about-the-texas-ohv-program",
+    note: "Clarifies decals on public OHV lands and grant-funded private venues, including Barnwell Mountain, versus ordinary private property.",
   },
   {
     label: "Texas Parks & Wildlife — Responsible Use of OHVs",
@@ -186,6 +191,16 @@ function TexasOhvGuidePage() {
             <div className="mt-4 max-w-4xl space-y-4 text-base leading-8">
               <p>Texas does not treat ordinary public land as an unrestricted OHV playground. Start with TPWD's current Ride Texas legal-venue directory, verify that your vehicle class is allowed, then check the venue or land manager's current map, permits, operating rules and closures.</p>
               <p>Texas law also requires a current OHV decal at applicable legal venues on public lands or venues that receive Texas OHV Program grant funding. Decal requirements do not create access where riding is otherwise prohibited; they are one part of legal use at an eligible venue.</p>
+            </div>
+          </section>
+
+          <section className="border-b border-border py-10" aria-labelledby="decal-eligibility">
+            <p className="eyebrow text-primary">Know the decal boundary</p>
+            <h2 id="decal-eligibility" className="mt-2 font-display text-3xl">When does a Texas OHV decal apply?</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
+              <p>Do not confuse a Texas OHV decal with universal registration for every privately owned riding area. TPWD requires the decal at legal OHV venues on public land and at private OHV venues developed or improved with qualifying TPWD-administered grants. TPWD specifically names <strong>Barnwell Mountain Recreation Area</strong> as a private-venue example. Riding on ordinary private property that has not received the applicable OHV grant funding generally does not create that decal requirement; you still need the landowner's permission and must follow other applicable laws.</p>
+              <p>TPWD currently lists a <strong>$16 decal valid September 1 through August 31</strong> of the following year. The decal does not cover the operator's admission charge, an NPS permit, a state-park trail permit, insurance, or other venue-specific requirements. A prior season's sticker should never be assumed valid for a fall trip.</p>
+              <p>Before paying, verify both the <a href="https://tpwd.texas.gov/state-parks/texas-off-highway-program/faqs-about-the-texas-ohv-program" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">official TPWD OHV FAQ</a> and the <a href="https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">current price and purchasing page</a>. These details were checked November 20, 2026; current published rules govern the trip.</p>
             </div>
           </section>
 
