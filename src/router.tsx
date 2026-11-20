@@ -13,6 +13,11 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    // Keep fresh SSR route data intact through the first client hydration pass.
+    // Unconditionally stale loaders re-fetch immediately and can briefly
+    // empty <Outlet> on slower mobile connections; this bounded window does
+    // not affect per-request SSR freshness or explicit route invalidation.
+    defaultStaleTime: 30_000,
   });
 
   return router;
