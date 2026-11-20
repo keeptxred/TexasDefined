@@ -7,13 +7,15 @@ on:
       - 'src/components/editorial/TexasEvergreenGuide.tsx'
       - 'src/components/editorial/TexasNaturalWondersAuthority.tsx'
       - 'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx'
+      - 'src/routes/texas-rock-climbing-bouldering-guide.tsx'
       - 'ops/editorial/texas-culture-outdoors-review-groups.json'
       - 'scripts/ci/check-five-texas-guide-authority.mjs'
       - 'scripts/ci/verify-five-texas-culture-browser.mjs'
       - '.github/workflows/texas-culture-outdoors-authority.yml'
   schedule:
-    - cron: '17 14 5 * *'        # Monthly: climbing and natural-wonders access/safety
-    - cron: '41 14 7 1,4,7,10 *' # Quarterly: folklore, dance halls and homecoming mums
+    - cron: '23 14 * * 3'       # Weekly: rock-climbing safety, access and official alerts
+    - cron: '17 14 5 * *'      # Monthly: dance-hall operations and natural wonders access
+    - cron: '41 14 7 1,4,7,10 *' # Quarterly: stable folklore and homecoming traditions
   workflow_dispatch:
   issue_comment:
     types: [created]
@@ -66,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      SCOPE: ${{ github.event.schedule == '17 14 5 * *' && 'monthly' || github.event.schedule == '41 14 7 1,4,7,10 *' && 'quarterly' || 'all' }}
+      SCOPE: ${{ github.event.schedule == '23 14 * * 3' && 'weekly' || github.event.schedule == '17 14 5 * *' && 'monthly' || github.event.schedule == '41 14 7 1,4,7,10 *' && 'quarterly' || 'all' }}
     steps:
       - uses: actions/checkout@v4
       - name: Bounded live and source checks; never update dates automatically
@@ -85,7 +87,7 @@ jobs:
           issue_title='TexasDefined five-guide authority: source or review needs attention'
           existing=$(gh issue list --state open --search "$issue_title in:title" --json number,title --jq '.[] | select(.title == "TexasDefined five-guide authority: source or review needs attention") | .number' | head -1)
           {
-            echo 'Scheduled verification found an overdue review, inaccessible source, or changed public content. Verify the **facts**, correct the pages, and only then update the source review dates in the repository.'
+            echo 'Scheduled verification found an overdue factual review, inaccessible official primary source or changed public copy. This issue is actionable by the existing sitewide-source-backed-rewrite.yml source-researched PR pipeline, but MUST NOT be treated as authorization for a speculative rewrite. Verify the facts, correct pages and only then update source review dates.'
             echo
             echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
             echo
