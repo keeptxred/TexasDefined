@@ -600,11 +600,11 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Reserve an exact operating date",
-        body: "Space Center Houston announces Galaxy Lights from November 14, 2026 through January 3, 2027 on SELECT dates with official 6–10 p.m. event hours. Use the ticket calendar to confirm the particular night, evening admission, and availability; the published range does not mean every date is open."
+        body: "Space Center Houston announces Galaxy Lights from November 14, 2026 through January 3, 2027 on SELECT dates with official 6–10 p.m. event hours. Use the ticket calendar to confirm the particular night, evening admission, and availability; the published range does not mean every date is open. Last entry is at 9 p.m."
       },
       {
         title: "Understand Galaxy Lights versus daytime admission",
-        body: "Space Center Houston's daytime exhibitions and evening Galaxy Lights products have different admission terms. Confirm whether the specific ticket or package includes anything beyond the holiday installation before relying on it for daytime visits."
+        body: "Galaxy Lights admission includes access to Space Center Houston exhibitions. NASA Tram Tours and Starship Gallery are closed during the event."
       },
       {
         title: "Look for space-specific seasonal highlights",
