@@ -1191,7 +1191,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
 
   for (const marker of [
     "import { footballMatchups } from './football-matchups';",
-    "import { applyFootballMatchupSnapshot } from './football-team-season-overlay';",
+    "import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';",
     'applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)',
   ]) requireText(programProfileServer, marker, 'Statewide football matchup overlay wiring');
 
@@ -1418,7 +1418,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
-    'Live scores & schedule links',
+    'Official schedule and result links',
     'TexasDefined does not publish an unverified team-specific schedule.',
     'UIL Texas Scoreboard gateway ↗',
     'it is not an official district-standings table',
