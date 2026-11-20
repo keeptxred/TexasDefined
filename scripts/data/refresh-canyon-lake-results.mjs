@@ -92,7 +92,7 @@ export function reconcile({editorial,primary,secondary,primaryHost,secondaryHost
       const old=/^[WL] (\d{1,3})–(\d{1,3})$/.exec(game.result);
       if(!old)throw Error('Malformed historical final');
       for(const row of [x,y].filter(Boolean))
-        if(row.hawksScore!==Number(old[1])||row.opponentScore!==Number(old[2]))
+        if(row.hawksScore!==Number(old[2])||row.opponentScore!==Number(old[3]))
           throw Error('Authorized feed contradicts a locked Canyon Lake score: '+game.date);
       continue;
     }
