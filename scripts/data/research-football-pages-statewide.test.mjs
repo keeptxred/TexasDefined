@@ -34,8 +34,9 @@ test('statewide inventory covers 1268 UIL teams and 192 unique districts',()=>{
   assert.equal(new Set(rows.districts.map(x=>x.slug)).size,192);
   assert.ok(rows.teams.every(x=>x.url===pathForTeam(x.slug)));
   assert.equal(districtSlug(UIL_FOOTBALL_PROGRAMS_2026.find(x=>x.schoolName==='Comal Canyon Lake')),'4a-division-i-district-13');
-  assert.ok(rows.districts.some(x=>x.slug==='6a-district-21'&&x.overdue.length>0));
-  assert.ok(rows.districts.some(x=>x.slug==='4a-division-i-district-11'&&x.overdue.length>0));
+  assert.ok(rows.districts.some(x=>x.slug==='6a-district-21'&&x.overdue.length===0), 'District 21 final ledger is now fully resolved');
+  assert.ok(rows.districts.some(x=>x.slug==='4a-division-i-district-11'&&x.overdue.length===0), 'District 11 final ledger is now fully resolved');
+  assert.ok(rows.districts.some(x=>x.slug==='6a-district-16'&&x.overdue.length>0), 'District 16 individual score list remains historical for separate research');
   assert.equal(rows.counts.matchupSnapshotVerifiedAt,'2026-10-16');
   assert.ok(rows.counts.teamSeasonSnapshots>0);
 });
