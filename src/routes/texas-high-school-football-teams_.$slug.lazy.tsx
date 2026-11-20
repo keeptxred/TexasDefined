@@ -183,6 +183,7 @@ function Page() {
   const texasDatePart = (type: 'year' | 'month' | 'day') => todayTexasParts.find((part) => part.type === type)?.value ?? '';
   const todayTexas = `${texasDatePart('year')}-${texasDatePart('month')}-${texasDatePart('day')}`;
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= todayTexas);
+  const overdueUnverifiedGames = editorial?.season?.games.filter((game) => !game.result && game.date < todayTexas) ?? [];
   const canyonLakeAreaGame = slug === 'comal-canyon-lake' ? editorial?.season?.games.find((game) => game.date === '2026-11-20') : undefined;
   const canyonLakeFinalPending = canyonLakeAreaGame && !canyonLakeAreaGame.result && canyonLakeAreaGame.date < todayTexas;
   // UIL team names are stable while optional TEA directory joins can fail in production.
@@ -752,13 +753,18 @@ function Page() {
                     <td className="px-3 py-3 font-semibold"><time dateTime={game.date}>{formatFootballDate(game.date)}</time></td>
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
-                    <td className="px-3 py-3">{game.matchupPath
-                      ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
-                      : game.result || (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
+                    <td className="px-3 py-3">{game.result
+                      ? (game.matchupPath
+                        ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
+                        : game.result)
+                      : game.date < todayTexas
+                        ? <span className="text-amber-700 dark:text-amber-300">Final not yet verified — check the reporting source</span>
+                        : (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
                   </tr>)}
                 </tbody>
               </table>
             </div>
+            {overdueUnverifiedGames.length > 0 && <p role="status" className="mt-3 text-sm leading-6 text-muted-foreground">{overdueUnverifiedGames.length} listed 2026 game{overdueUnverifiedGames.length === 1 ? '' : 's'} ha{overdueUnverifiedGames.length === 1 ? 's' : 've'} passed without a source-verified final in this snapshot. These are not upcoming games; the schedule and record may be incomplete.</p>}
             {editorial.season.games.some((game) => game.district) && <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>}
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
