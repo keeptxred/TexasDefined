@@ -56,7 +56,20 @@ if (argv.has("--watch")) {
       }
       if (marker) {
         const html = await response.text();
-        if (!html.toLowerCase().includes(marker.toLowerCase())) problems.push(description + ": expected public content not visible: " + marker + " at " + url);
+        if (!html.toLowerCase().includes(marker.toLowerCase())) problems.push(description + ": expected source-specific public content not visible: " + marker + " at " + url);
+        if (description.startsWith("/")) {
+          const expectedCanonical = "https://texasdefined.com" + description;
+          const canonicalTags = [...html.matchAll(/<link\b[^>]*>/gi)].map(match => match[0])
+            .filter(tag => /\brel\s*=\s*["']canonical["']/i.test(tag));
+          if (!canonicalTags.some(tag => /\bhref\s*=\s*["'][^"']+["']/i.test(tag) && tag.includes(expectedCanonical))) {
+            problems.push(description + ": public self-canonical missing or different from " + expectedCanonical);
+          }
+          const robotTags = [...html.matchAll(/<meta\b[^>]*>/gi)].map(match => match[0])
+            .filter(tag => /\bname\s*=\s*["']robots["']/i.test(tag));
+          if (robotTags.some(tag => /\bnoindex\b/i.test(tag)) || /\bnoindex\b/i.test(response.headers.get("x-robots-tag") || "")) {
+            problems.push(description + ": public robots directive unexpectedly prohibits indexing");
+          }
+        }
       } else {
         await response.body?.cancel();
       }
@@ -67,11 +80,11 @@ if (argv.has("--watch")) {
   // Bounded concurrency: no whole-site scan, no Cloudflare API calls, no content mutations.
   const checks = [];
   const publicProof = {
-    "/texas-tall-tales-folklore": "Pecos Bill",
+    "/texas-tall-tales-folklore": "October 1923",
     "/texas-dance-halls-honky-tonks": "Gruene Hall",
-    "/texas-homecoming-mums": "homecoming mum",
-    "/texas-natural-wonders-bucket-list": "Big Bend",
-    "/texas-rock-climbing-bouldering-guide": "Enchanted Rock",
+    "/texas-homecoming-mums": "DIY build",
+    "/texas-natural-wonders-bucket-list": "Del Norte",
+    "/texas-rock-climbing-bouldering-guide": "Bouldering, free climbing and soloing are prohibited",
   };
   for (const group of selected) {
     checks.push([ "https://texasdefined.com" + group.path, group.path, publicProof[group.path] ]);
