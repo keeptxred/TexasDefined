@@ -27,6 +27,34 @@ Unique original team reporting, school founding, 2026 schedule and standings int
 
 The existing page canonical, WebPage / SportsTeam / FAQ / breadcrumb structured data and roster profile index protections are preserved. Specific game venue/ticket claims are qualified as scheduled and subject to changes. Source checks are not a substitute for exact live page and mobile layout certification.
 
+## Scheduled GitHub data refresh (2026)
+The independent workflow [`.github/workflows/refresh-canyon-lake-football.yml`](../../../.github/workflows/refresh-canyon-lake-football.yml) runs **Saturday and Tuesday at 13:37 UTC, August through December**, and the first of each month January–July. It also supports GitHub Actions **Run workflow**. The existing 25-source rotational first-party monitor is preserved, not duplicated.
+
+Each run validates the canonical Canyon Lake roster, reports last source-review date and any past unconfirmed games, and saves a bounded audit artifact. When the November 20 game is past but unverified, it creates/updates **one GitHub issue** requesting an independently corroborated editorial update. Public UIL/MaxPreps page viewing is not a licensed automated score feed.
+
+**Automatic score updates require two separately hosted, explicitly licensed JSON endpoints**, configured in GitHub repository Actions variables `CANYON_LAKE_SCORE_PRIMARY_URL` and `CANYON_LAKE_SCORE_SECONDARY_URL`, plus optional secrets `CANYON_LAKE_SCORE_PRIMARY_TOKEN` and `CANYON_LAKE_SCORE_SECONDARY_TOKEN`. The expected JSON on each provider is:
+
+```json
+{
+  "season": "2026",
+  "teamSlug": "comal-canyon-lake",
+  "games": [
+    {
+      "date": "2026-11-20",
+      "opponent": "Port Lavaca Calhoun",
+      "status": "final",
+      "hawksScore": 28,
+      "opponentScore": 21,
+      "sourceUrl": "https://YOUR-LICENSED-SCORE-PROVIDER.example/verified-final"
+    }
+  ]
+}
+```
+
+The numbers in this schema example are **illustrative only, not a reported game score**. Never copy them into the production team ledger. Sources must be independent, HTTPS, outside local/private networks, and agree exactly. The importer will not infer a win from a bracket or publish a same-day/future or previously unknown fixture. Conflicts halt without publication and open a blocker issue. When both sources corroborate a final, the workflow generates a protected source PR with the new result, derived overall/district record, points totals, source labels, introductory summary, dated postseason recap, FAQ and description. GitHub's Required Merge Gate, source tests, live score-source parity check, Cloudflare production deploy, targeted HTML cache purge and three-viewport acceptance must still succeed before claiming publication. A new playoff fixture (date/opponent/venue) remains an editorial task until separately verified.
+
+Without both licensed sources, the scheduled job **does not auto-publish any new score**; the Saturday review issue remains actionable. This is a deliberate correctness and licensing boundary, not a stopped GitHub schedule.
+
 ## Required refresh and release checks
 The existing scheduled `.github/workflows/check-football-authority-official-sources.yml` includes the single school official-source monitoring entry in `docs/football-authority/official-source-watch.json`, now due **2026-11-21** immediately after the November 20 game. It watches source availability/fingerprints with bounded cohorts, not automatically licensed sports scores. A post-game editorial correction must verify the final, elimination/advancement, new fixture and any venue/ticket changes; never allow a played fixture to remain presented as upcoming without review.
 
