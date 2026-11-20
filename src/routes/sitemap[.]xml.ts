@@ -284,7 +284,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/property-tax/taxing-unit/edna" },
           { path: "/property-tax/taxing-unit/jackson-county-esd-1" },
           // Manually sourced hospital-district authority: unique analysis, verified 2025 source history.
-          { path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-19" },
+          { path: "/property-tax/taxing-unit/west-wharton-county-hospital-district", lastmod: "2026-11-20" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
