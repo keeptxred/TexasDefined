@@ -16,10 +16,16 @@ async function fetchText(url) {
   if (sameOrigin) target.searchParams.set("release_probe", releaseProbe);
   const headers = {
     "user-agent": "TexasDefined-Authority-Source-Review/1.0 (+https://texasdefined.com/editorial-policy)",
-    ...(sameOrigin ? { "cache-control": "no-cache" } : {}),
+    ...(sameOrigin ? { "cache-control": "no-cache, no-store, max-age=0", pragma: "no-cache" } : {}),
   };
   const response = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(25000), headers });
   if (!response.ok) throw new Error(`${target}: HTTP ${response.status}`);
+  if (sameOrigin) {
+    const status = (response.headers.get("cf-cache-status") || "").toUpperCase();
+    const age = response.headers.get("age");
+    if (["HIT", "STALE", "UPDATING"].includes(status) || (age !== null && Number(age) > 0))
+      throw new Error(`${target}: stale CDN response (CF-Cache-Status=${status}, Age=${age})`);
+  }
   return await response.text();
 }
 function assertContains(label, content, fragment) {
@@ -63,6 +69,9 @@ await check("Flag authority page", `${root}/texas-flag`, html => {
   assertSelfCanonical("Flag hub", html, "/texas-flag");
   assertIndexable("Flag hub", html);
   assertRegex("WebPage structured data", html, /"@type"\s*:\s*"WebPage"/);
+  assertRegex("Flag editorial revision display", html, /Updated(?:\s|<!--.*?-->)*November 19, 2026/);
+  assertContains("Flag structured-data editorial date", html, '"dateModified":"2026-11-19"');
+  if (html.includes('"@type":"FAQPage"')) errors.push("Flag hub still emits retired FAQ rich-result schema");
   assertContains("Flag hub official archival evidence", html, "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html");
   assertContains("Flag hub statutory source", html, "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm");
 });

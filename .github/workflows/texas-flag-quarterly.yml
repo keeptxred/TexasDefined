@@ -1,42 +1,144 @@
-name: Quarterly Texas flag authority source and live-page review
+name: Texas flag automatic source refresh, SEO and vitals
 
 on:
   workflow_dispatch:
   schedule:
-    # Quarterly review of historic source claims and the published authority hub.
+    # Fresh uncached publication, official evidence and CWV every Monday.
+    - cron: "17 13 * * 1"
+    # A deeper quarterly research checkpoint remains February/May/August/November 15.
     - cron: "21 14 15 2,5,8,11 *"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/texas-flag-quarterly.yml"
+      - "scripts/editorial/refresh-texas-flag-sources.mjs"
+      - "scripts/editorial/refresh-texas-flag-sources.test.mjs"
+      - "scripts/ci/audit-texas-flag-vitals.mjs"
+      - "scripts/ci/audit-texas-flag-vitals.test.mjs"
+      - "scripts/ci/verify-texas-flag-live.mjs"
+      - "src/routes/texas-flag.tsx"
+      - "src/routes/texas-flag.lazy.tsx"
+      - "src/data/fixtures/texas-flag-history.ts"
+      - "src/data/priority-search-pages.ts"
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   issues: write
+
+concurrency:
+  group: texas-flag-source-review
+  cancel-in-progress: false
 
 jobs:
   audit:
+    name: Verify source facts, visible SEO, mobile CWV and refresh proposals
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 16
     steps:
-      - name: Check out latest source
+      - name: Check out protected source
         uses: actions/checkout@v4
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate flag authority content and internal links
-        run: node scripts/data/validate-texas-flag-authority.mjs
-      - name: Verify public flags, legal sources, canonicals and sitemap
-        run: node scripts/ci/verify-texas-flag-live.mjs --sources
-      - name: Flag discrepancies for editorial correction without changing review dates
-        if: failure()
+
+      - name: Test source monitor and page-level Core Web Vitals interpretation
+        run: |
+          node --test scripts/editorial/refresh-texas-flag-sources.test.mjs
+          node --test scripts/ci/audit-texas-flag-vitals.test.mjs
+          node scripts/data/validate-texas-flag-authority.mjs
+
+      - name: Wait for exact protected source commit to finish publishing before asserting live page freshness
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+
+      - name: Independently recheck archived flag facts and generate scoped rewrite proposal on source drift
+        id: source_watch
+        continue-on-error: true
+        run: node scripts/editorial/refresh-texas-flag-sources.mjs
+
+      - name: Verify fresh public flag pages, legal sources, canonicals and both sitemap dates
+        id: flag_live
+        continue-on-error: true
+        env:
+          PRODUCTION_RELEASE_PROBE: weekly-flag-${{ github.run_id }}-${{ github.run_attempt }}
+        run: node scripts/ci/verify-texas-flag-live.mjs --sources
+
+      - name: Measure exact Texas flag mobile and desktop URL in Google PageSpeed Insights
+        id: flag_vitals
+        continue-on-error: true
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: node scripts/ci/audit-texas-flag-vitals.mjs
+
+      - name: Check whether official-source changes require an editorial rewrite
+        id: changes
+        if: steps.source_watch.outcome == 'success'
+        shell: bash
+        run: |
+          if git diff --quiet -- ops/editorial/texas-flag-source-state.json; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "All official-source contexts unchanged. No historical page rewrite or artificial updated date." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            echo "Official-source evidence changed. Proposing scoped research and rewrite; no unchecked public-content publication." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Open isolated automatic source-review and rewriting PR
+        if: steps.source_watch.outcome == 'success' && steps.changes.outputs.changed == 'yes'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: automation/texas-flag-official-source-refresh
+          delete-branch: true
+          add-paths: |
+            ops/editorial/texas-flag-source-state.json
+            ops/editorial/texas-flag-scheduled-refresh-proposal.md
+          commit-message: "chore(flag): propose official-source researched content refresh"
+          title: "Review verified Texas flag official-source changes and rewrite affected sections"
+          body: |
+            Generated automatically by the scheduled Texas flag source review.
+            A primary source's watched historical or legal passage differs from its saved baseline, or a baseline is being established.
+            The PR contains the exact source URL, the affected authority URLs and an evidence fingerprint, not an invented factual rewrite.
+            **Required:** Research the changed official text, write/update sourced page paragraphs and cross-links when warranted,
+            then pass protected CI and actual uncached post-deployment verification.
+            Never advance the public editorial/sitemap dates merely because this job ran.
+
+      - name: Preserve independent audit evidence even when a dependency fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-flag-source-seo-vitals-${{ github.run_id }}
+          path: |
+            .artifacts/texas-flag-source-review.json
+            .artifacts/texas-flag-vitals-evidence.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Open or update a deduplicated source/SEO/performance issue on real failures
+        if: always() && (failure() || steps.source_watch.outcome == 'failure' || steps.flag_live.outcome == 'failure' || steps.flag_vitals.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_OUTCOME: ${{ steps.source_watch.outcome }}
+          LIVE_OUTCOME: ${{ steps.flag_live.outcome }}
+          VITALS_OUTCOME: ${{ steps.flag_vitals.outcome }}
         shell: bash
         run: |
           set -euo pipefail
-          title="Texas flag quarterly source review: verification failed"
-          summary="The quarterly Texas flag content, legal-source or public deployment check failed. Examine the run logs, verify the 1836 and 1839 original sources, correct code or editorial statements as needed, and retest before closing. Do not advance review dates without substantive fact checking."
-          issue_number="$(gh issue list --state open --search '"Texas flag quarterly source review" in:title' --json number --jq '.[0].number // empty' || true)"
+          title="Texas flag recurring authority refresh: source, SEO or mobile performance needs correction"
+          summary="The recurring Texas flag audit found a real verification failure. Source: $SOURCE_OUTCOME; uncached live page: $LIVE_OUTCOME; PageSpeed: $VITALS_OUTCOME. Check exact failed workflow steps and evidence artifacts; fix researched content or performance, retest, and preserve original historical facts. A missing CrUX sample is UNKNOWN, not a Google pass."
+          issue_number="$(gh issue list --state open --search '"Texas flag recurring authority refresh" in:title' --json number --jq '.[0].number // empty' || true)"
           if [[ -n "$issue_number" ]]; then
-            gh issue comment "$issue_number" --body "$summary Review run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            gh issue comment "$issue_number" --body "$summary Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           else
-            gh issue create --title "$title" --body "$summary Review run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            gh issue create --title "$title" --body "$summary Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           fi
+
+      - name: Fail closed after preserving evidence and actionable issue
+        if: always() && (failure() || steps.source_watch.outcome == 'failure' || steps.flag_live.outcome == 'failure' || steps.flag_vitals.outcome == 'failure')
+        run: |
+          echo "::error title=Flag authority automatic refresh::One or more official-source, uncached-page or performance checks failed; see evidence and issue."
+          exit 1
