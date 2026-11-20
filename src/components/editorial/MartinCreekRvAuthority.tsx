@@ -18,6 +18,13 @@ const RESERVE = "https://texasstateparks.reserveamerica.com/martin-creek-lake-st
 const COUNTY_FIRE = "https://www.ruskcountytxfire.gov/rusk-county-burn-ban-status";
 const ACCESS = PARK + "/fees-facilities/martin-creek-lake-accessibility";
 
+// Free-to-reuse, real park photograph (Larry D. Moore, CC BY 4.0).
+// The image is park context, NOT evidence of a numbered RV campsite.
+// Route through the existing same-origin Wikimedia image broker.
+const DOCKS_PHOTO_ORIGINAL = "https://upload.wikimedia.org/wikipedia/commons/e/e2/Docks_at_Martin_Creek_Lake_State_Park_2019.jpg";
+const DOCKS_PHOTO_PROXY = "/media/remote?url=" + encodeURIComponent(DOCKS_PHOTO_ORIGINAL);
+const DOCKS_PHOTO_SOURCE = "https://commons.wikimedia.org/wiki/File:Docks_at_Martin_Creek_Lake_State_Park_2019.jpg";
+
 export default function MartinCreekRvAuthority() {
   return (
     <section id="martin-creek-rv-guide" aria-labelledby="martin-creek-rv-title" className="border-b border-border bg-surface py-12">
@@ -136,7 +143,7 @@ export default function MartinCreekRvAuthority() {
           <div>
             <h3 className="font-display text-2xl">See actual numbered campsite photos and the map</h3>
             <p className="mt-3 text-sm leading-7">
-              The lead photograph on this page shows the park's lake and fishing pier, <strong>not an RV site</strong>.
+              The lead photograph shows the park's fishing pier; the footbridge and dock photographs below also document the actual park, <strong>not an RV site</strong>.
               For verified photographs of the actual campground, examine TPWD's numbered-site galleries:
               <a href={CAMPSITES[0].href} target="_blank" rel="noopener noreferrer" className="underline"> lakefront sites (including #54)</a>,
               <a href={CAMPSITES[1].href} target="_blank" rel="noopener noreferrer" className="underline"> 50-amp sites (including #38)</a> and
@@ -173,6 +180,23 @@ export default function MartinCreekRvAuthority() {
               Texas fishing license; confirm other regulations for boat fishing.
             </p>
             <p className="mt-3 text-sm leading-7">For swimming, boating, park history and trails rather than RV site comparisons, use our <Link to="/destination/$slug" params={{ slug: "martin-creek-lake-state-park" }} className="font-semibold underline underline-offset-4">Martin Creek Lake State Park guide</Link>. Compare other destinations in <Link to="/explore/rv-parks" className="underline">Texas RV parks</Link> and <Link to="/explore/state-parks" className="underline">state parks</Link>; anglers can consult our <Link to="/fishing/access" className="underline">fishing-access directory</Link> and <Link to="/fishing/regulations" className="underline">fishing regulations guide</Link>. For local context, see <Link to="/$kind/$slug" params={{ kind: "county", slug: "rusk" }} className="font-semibold underline underline-offset-4">Rusk County</Link>.</p>
+            <figure className="mt-5 overflow-hidden rounded-md border border-border bg-background">
+              <img
+                src={DOCKS_PHOTO_PROXY}
+                alt="Wooded shoreline and docks at Martin Creek Lake State Park, photographed in June 2019; not an RV campsite"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="675"
+                className="h-auto w-full"
+              />
+              <figcaption className="px-3 py-2 text-xs leading-5 text-muted-foreground">
+                Real park photograph: docks and wooded shoreline, June 2019 — not an RV campsite. Photograph by Larry D. Moore; resized for web.{" "}
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="underline">CC BY 4.0 license</a>
+                {" · "}
+                <a href={DOCKS_PHOTO_SOURCE} target="_blank" rel="noopener noreferrer" className="underline">Wikimedia Commons source</a>.
+              </figcaption>
+            </figure>
           </div>
         </div>
         <div className="mt-8 grid gap-7 md:grid-cols-2" aria-label="Park rules and accessible facilities">
