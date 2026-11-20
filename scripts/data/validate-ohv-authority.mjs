@@ -7,6 +7,25 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-ohv-guide.la
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "Sam Houston Multiple-Use Trail Pass",
+  "50 inches",
+  "936-344-6205",
+  "three separate",
+  "no-cost",
+  "Rosita Flats"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+for (const marker of [
+  "ImageObject",
+  "National Park Service",
+  "ohvHeroUrl"
+]) {
+  if (!route.includes(marker)) errors.push('Missing governed photo SEO and rights metadata: ' + marker);
+}
+
 
 for (const marker of [
   'const canonicalPath = "/texas-ohv-guide";',
