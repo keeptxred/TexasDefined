@@ -41,7 +41,7 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Texas Stargazing Guide",
-          description: "Plan stargazing trips to Texas's five International Dark Sky Parks around Bortle ratings, moon phase, weather, park hours, access and night-sky stewardship.",
+          description: "Plan trips to five Texas state parks certified as International Dark Sky Parks, with Bortle ratings, moon phase, weather, access and night-sky stewardship.",
           image: {
             "@type": "ImageObject",
             "@id": `${pageUrl}#primaryimage`,
