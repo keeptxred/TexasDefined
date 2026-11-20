@@ -63,6 +63,7 @@ export function TaxingUnitRatePage({ data }: { data: ReturnType<typeof TaxingUni
 
 
     {showWestWharton2026Adoption ? <section id="wwchd-current-rate" aria-labelledby="wwchd-current-rate-heading" className="border-b border-border py-8">
+      <p className="mb-4 text-sm leading-6 text-muted-foreground">Source research and editorial review: <Link to="/authors/$author" params={{ author: 'a-homes-land' }} className="font-semibold text-primary underline underline-offset-2">Texas Defined Homes &amp; Property Desk</Link>. Official government tax records last checked <time dateTime={whartonEvidence.lastVerified}>November 20, 2026</time>. Independent reporting; not the district tax assessor or a substitute for an official parcel record.</p>
       <p className="eyebrow text-primary">Current adopted tax rate · official Wharton County record</p>
       <h2 id="wwchd-current-rate-heading" className="mt-2 font-display text-3xl sm:text-4xl">West Wharton hospital district — 2026 tax rate</h2>
       <p className="mt-4 max-w-4xl text-lg leading-8">
