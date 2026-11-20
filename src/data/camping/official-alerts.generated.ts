@@ -36,8 +36,8 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "brazos-bend-state-park",
     "parkName": "Brazos Bend State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
-    "notice": "TPWD lists park closures November 17–19, 2026 and December 15–17, 2026; only permitted hunters may enter during these closures. The December 5–6, 2026 Brazos Bend 100 Trail Race may limit parking, and day-use passes will not be reservable on December 5. Check current alerts before visiting.",
-    "checkedAt": "2026-11-14",
+    "notice": "TPWD lists park closures December 15–17, 2026; only permitted hunters may enter during these closures. The December 5–6, 2026 Brazos Bend 100 Trail Race may limit parking, and day-use passes will not be reservable on December 5. Check current alerts before visiting.",
+    "checkedAt": "2026-11-20",
     "status": "confirmed"
   }
 ] as const;
