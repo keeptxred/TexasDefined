@@ -46,6 +46,54 @@ const equestrianPlanning = [
   }
 ] as const;
 
+const horseBookingDesk = [
+  {
+    name: "Big Bend Ranch — own horse or rental",
+    access: "Private-horse riders need a day/overnight backcountry permit and Coggins proof. Agua Adentro Pens is on the two-wheel-drive main road; Escondido Pens requires high-clearance access; call before towing to Jackson Pens.",
+    overnight: "TPWD lists four equestrian-oriented campsites, but stock-water availability is not guaranteed. Confirm the specific site, trailer suitability and campsite reservation with the park.",
+    guidance: "For provided horses, TPWD identifies Lajitas Stables as an outfitter; this is a separately arranged guided service, not an included state-park rental.",
+    siteUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding",
+    campUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/fees-facilities/horse-sites/equestrian-campsites/",
+    serviceUrl: "https://lajitasstables.com/",
+  },
+  {
+    name: "Hill Country — trailhead vs group camp",
+    access: "Follow the current park map to the equestrian trailhead near headquarters. Trail riding shares the 40-mile network with hikers and mountain bikers; check wet-weather route closures.",
+    overnight: "Choose the primitive equestrian trailhead sites or separate equestrian group-camping product; a group area and an individual trailhead site are different reservations.",
+    guidance: "TPWD lists Bandera Historical Rides and other guides, but providers may offer different horse-supply and trail-access arrangements. Confirm those details before booking.",
+    siteUrl: "https://tpwd.texas.gov/state-parks/hill-country/map",
+    campUrl: "https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/horse-sites",
+    serviceUrl: "https://tpwd.texas.gov/state-parks/hill-country/guide-service",
+  },
+  {
+    name: "Palo Duro — dedicated horse acreage",
+    access: "The park directs trailers to the equestrian campground; its 1,500-acre dedicated riding area differs from the two shared-use trails. Check route and canyon-floor heat.",
+    overnight: "TPWD separately lists equestrian campsites with water. Four joined horse pens are first come, first served, so an overnight site reservation does not reserve an individual pen.",
+    guidance: "Plan this option as bring-your-own-horse riding unless a confirmed third-party guided booking exists. Check the park's current trail-closure alerts.",
+    siteUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon",
+    campUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/fees-facilities/horse-sites/equestrian-campsites/",
+    serviceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info/",
+  },
+  {
+    name: "Caprock Canyons — park or Trailway",
+    access: "Pick either rugged park horseback trails or a specific, comparatively level Trailway segment. The Trailway's access points and facilities are not interchangeable with canyon trailheads.",
+    overnight: "TPWD lists primitive equestrian sites at the Wild Horse campground. Select the exact horse-site inventory rather than reserving a non-equestrian campsite.",
+    guidance: "Bring a horse and current Coggins paperwork, and give the park's free-ranging bison room. Ask about trailer access and water before arrival.",
+    siteUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/map",
+    campUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/horse-sites/campsites-equestrian",
+    serviceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons",
+  },
+  {
+    name: "Dinosaur Valley — BYO horse or guided appointment",
+    access: "TPWD permits privately brought horses in its 100-acre South Primitive Area. The Paluxy River crossing and available horse-trailer space depend on conditions.",
+    overnight: "Do not assume the South Primitive riding area is a reservable equestrian overnight campsite. Check current camping products and horse accommodations directly with park staff.",
+    guidance: "TPWD identifies Eagle Eye Ranch Carriage Company for separate guided riding and other equestrian experiences. Contact the operator about a supplied horse and exact ride location.",
+    siteUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley",
+    campUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley/fees-facilities",
+    serviceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian",
+  },
+] as const;
+
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
   { label: "Texas Parks & Wildlife — Big Bend Ranch Horseback Riding", href: "https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding", note: "Official backcountry permit, feed, water, campsite and equestrian-access guidance for Big Bend Ranch." },
@@ -167,6 +215,27 @@ function TexasHorsebackRidingGuidePage() {
               <div className="border border-border p-5"><h3 className="font-display text-xl">Dinosaur Valley</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Bring your own horse to the 100-acre South Primitive Area, or arrange a separate service from TPWD-listed Eagle Eye Ranch Carriage Company. Neither trail access nor a rental ride is automatically included with park admission.</p><a href="https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian" className="mt-3 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">TPWD horse and outfitter list</a></div>
             </div>
             <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The featured Palo Duro and Caprock Canyons public trails are not evidence of walk-up rental availability. Contact the relevant park or licensed operator before traveling without a horse.</p>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="horse-trailhead-bookings">
+            <p className="eyebrow text-primary">Exactly what to reserve</p>
+            <h2 id="horse-trailhead-bookings" className="mt-2 font-display text-3xl">Trailhead, equestrian campsite and guided service are three separate decisions</h2>
+            <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">A campsite with horse facilities does not supply a horse or guided ride. A guided outfitter booking does not automatically include a park entry reservation or a permit for independent backcountry riding. These TPWD-backed choices help avoid that confusion.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {horseBookingDesk.map((item) => (
+                <div key={item.name} className="min-w-0 border border-border p-5">
+                  <h3 className="font-display text-xl">{item.name}</h3>
+                  <p className="mt-3 text-sm leading-7"><strong>Riding access:</strong> {item.access}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Overnight reservation:</strong> {item.overnight}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Provided horse or guide:</strong> {item.guidance}</p>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+                    <a href={item.siteUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Trail access</a>
+                    <a href={item.campUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Horse campsites</a>
+                    <a href={item.serviceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Guides / operator</a>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">To check actual vacancies, use the <a href="https://tpwd.texas.gov/state-parks/reservations/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">TPWD state-park reservation system</a> for the selected campsite type and date; confirmation must come from the park or guide operator.</p>
           </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
