@@ -7,6 +7,20 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-mountain-bik
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// The five guides received substantive editorial revisions on November 20, 2026.
+// Guard the truthful sitemap lastmod and content-versioned cache key; do not
+// restamp those dates merely because an automated source audit succeeds.
+const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
+if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-20";') ||
+    !primarySitemap.includes('cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);')) {
+  errors.push('Five outdoor guides need truthful Nov 20 editorial sitemap freshness and a versioned cache key.');
+}
+for (const slug of ['texas-mountain-biking-guide', 'texas-horseback-riding-guide', 'texas-ohv-guide', 'texas-paddling-guide', 'texas-stargazing-guide']) {
+  if (!primarySitemap.includes('"/' + slug + '": OUTDOOR_GUIDES_LASTMOD,')) {
+    errors.push('Sitemap must preserve the actual content-change lastmod for /' + slug);
+  }
+}
+
 // Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
 if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table"')) {
   errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');
