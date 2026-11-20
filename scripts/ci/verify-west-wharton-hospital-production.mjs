@@ -83,7 +83,7 @@ for (const origin of origins) {
     try {
       const { response, body } = await request(origin, pagePath, cacheBust);
       const missing = verifyHospital(body);
-      if (/\\bnoindex\\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
+      if (/\bnoindex\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
       results.push({ origin, variant, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
       if (missing.length) failures.push(origin + ' (' + variant + '): missing ' + missing.join(', '));
     } catch (error) {
