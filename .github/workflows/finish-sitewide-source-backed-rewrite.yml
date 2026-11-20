@@ -92,7 +92,7 @@ jobs:
             echo '::error::Branch still lacks current main'; exit 1;
           }
           node --check scripts/editorial/validate-sitewide-rewrite.mjs
-          node --test scripts/editorial/sitewide-rewrite-target.test.mjs
+          node --test scripts/editorial/sitewide-rewrite-target.test.mjs scripts/editorial/validate-sitewide-rewrite.test.mjs
           node scripts/editorial/validate-sitewide-rewrite.mjs --base=origin/main --live-sources
 
           # The bot's GITHUB_TOKEN-created PR does not trigger ordinary
