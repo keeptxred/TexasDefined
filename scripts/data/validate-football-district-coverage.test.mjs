@@ -14,8 +14,8 @@ const fixtures = [...source.matchAll(/scheduled\('(2026-\d{2}-\d{2})', '([^']+)'
 const games = [...results, ...fixtures];
 
 test('district 22 has independent source-backed reported results and a complete dated run-in', () => {
-  assert.equal(results.length, 24);
-  assert.equal(fixtures.length, 12);
+  assert.equal(results.length, 36);
+  assert.equal(fixtures.length, 0);
   assert.equal(dates.length, 36);
   for (const date of dates) assert.ok(Number.isFinite(Date.parse(date + 'T00:00:00Z')), date);
   assert.equal(new Set(games.map((game) => [game.date, ...[game.away, game.home].sort()].join('|'))).size, 36);
@@ -49,15 +49,15 @@ test('source-derived district W–L matches all reported games without inventing
     else assert.fail('No tied completed contests were included in the 2026 Katy source snapshot');
   }
   assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
-    Katy: [6, 0],
-    'Katy Cinco Ranch': [3, 3],
-    'Katy Jordan': [3, 2],
-    'Katy Mayde Creek': [1, 4],
-    'Katy Morton Ranch': [1, 4],
-    'Katy Paetow': [2, 3],
-    'Katy Seven Lakes': [0, 5],
-    'Katy Taylor': [4, 2],
-    'Katy Tompkins': [4, 1],
+    Katy: [8, 0],
+    'Katy Cinco Ranch': [4, 4],
+    'Katy Jordan': [6, 2],
+    'Katy Mayde Creek': [2, 6],
+    'Katy Morton Ranch': [1, 7],
+    'Katy Paetow': [4, 4],
+    'Katy Seven Lakes': [0, 8],
+    'Katy Taylor': [4, 4],
+    'Katy Tompkins': [7, 1],
   });
   assert.ok(source.includes('getSourcedDistrictRecords'));
   assert.ok(template.includes('data-football-district-records="source-derived"'));
