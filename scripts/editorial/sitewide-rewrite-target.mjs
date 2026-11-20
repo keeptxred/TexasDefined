@@ -163,6 +163,25 @@ async function loadIssues(fetcher = fetch) {
   return [...unique.values()].sort((a,b) =>
     String(b.updated_at).localeCompare(String(a.updated_at)));
 }
+/** Do not pay for a second rewrite while the first is undergoing protected
+ * source checks, CI, auto-merge or a fail-closed source-conflict review. */
+export function pendingSourceIssueIds(pulls) {
+  const issues = new Set();
+  for (const pr of pulls || []) {
+    const match = /^Source-verified editorial refresh for issue #(\d+)$/.exec(pr.title || '');
+    if (pr.state !== 'open' || !match ||
+        !/^automation\/sitewide-editorial-\d+$/.test(pr.head?.ref || '')) continue;
+    issues.add(Number(match[1]));
+  }
+  return issues;
+}
+async function loadPendingSourceIssues(fetcher = fetch) {
+  const resp = await fetcher(API + '/repos/' + REPO + '/pulls?state=open&per_page=100', {
+    headers: githubHeaders(), signal: AbortSignal.timeout(16000),
+  });
+  if (!resp.ok) throw Error('Open source-verified PR discovery HTTP ' + resp.status);
+  return pendingSourceIssueIds(await resp.json());
+}
 function sourceText(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
@@ -186,7 +205,8 @@ async function officialExcerpt(url, fetcher = fetch) {
 async function main() {
   const workflows = scheduledWorkflowInventory();
   if (workflows.length < 20) throw Error('Scheduled workflow inventory truncated; refuse false sitewide coverage');
-  const issues = (await loadIssues()).filter(sourceReviewEligible);
+  const [openIssues, pending] = await Promise.all([loadIssues(), loadPendingSourceIssues()]);
+  const issues = openIssues.filter(issue => sourceReviewEligible(issue) && !pending.has(issue.number));
   const reviewed = priorEditorialRewrites();
   const unseen = [], previouslyReviewed = [];
   for (const issue of issues.slice(0, 45)) {
@@ -225,7 +245,7 @@ async function main() {
   }
   fs.mkdirSync('.artifacts', {recursive: true});
   fs.writeFileSync('.artifacts/sitewide-rewrite-target.json', JSON.stringify({selected, scope: 'one-source-backed-page',
-    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length,
+    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, pendingProtectedIssueCount: pending.size,
     unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
     attempted, runLimit: RUN_LIMIT}, null, 2) + '\n');
   if (process.env.GITHUB_OUTPUT)

@@ -51,6 +51,7 @@ const risky = [
   /(?:process\.env|eval\s*\(|new\s+Function|child_process|execSync|require\s*\(|import\s*\()/i,
   /(?:dangerouslySetInnerHTML|<script|robots.*noindex|noindex.*robots|sitemap.*lastmod)/i,
   /(?:cloudflare.*token|supabase.*key|github.*token|api[_-]?key)/i,
+  /(?:sourceCheckedAt|sourceReviewedAt|lastVerifiedAt|lastFactReviewAt|reviewedAt|publishedAt|dateModified|lastReviewedAt|verifiedAt)\s*[:=]/i,
 ];
 for (const line of patch.split('\n')) {
   if (!line.startsWith('+') || line.startsWith('+++')) continue;

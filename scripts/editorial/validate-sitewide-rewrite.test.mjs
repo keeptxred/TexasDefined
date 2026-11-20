@@ -66,3 +66,13 @@ test('changes to workflow or executable configuration are rejected',t=>{
   fs.writeFileSync(path.join(repo.root,'.github/workflows/CI.yml'),'name: bypassed\n');
   assert.notEqual(run(repo.root).status,0);
 });
+
+test('automatic prose rewriting cannot silently restamp source-review provenance',t=>{
+  const repo=makeRepo();
+  t.after(()=>fs.rmSync(repo.root,{recursive:true,force:true}));
+  fs.appendFileSync(path.join(repo.root,'src/data/authority.ts'),
+    'export const sourceCheckedAt = "2026-11-20";\n');
+  const result=run(repo.root);
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/prohibited code\/security\/indexing surface/);
+});
