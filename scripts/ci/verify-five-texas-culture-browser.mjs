@@ -59,6 +59,7 @@ try {
       check("same route, no redirect",new URL(response.url()).pathname===spec.path,response.url());
       await page.locator("main h1").first().waitFor({state:"visible",timeout:20000});
       check("one H1",await page.locator("h1").count()===1);
+      check("one main landmark",await page.locator("main").count()===1,await page.locator("main").count());
       const heading=await page.locator("main h1").first().innerText();
       check("specific H1",spec.heading.test(heading),heading);
       const copy=await page.locator("main").innerText();
