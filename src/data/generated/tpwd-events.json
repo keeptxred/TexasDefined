@@ -1,19 +1,7 @@
 {
-  "generatedAt": "2026-11-19T19:31:13.553Z",
+  "generatedAt": "2026-11-20T19:08:51.593Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Awesome Opossums",
-      "startDate": "2026-11-19",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-11-19"
-    },
-    {
-      "title": "Electric Tram Tour",
-      "startDate": "2026-11-19",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-19"
-    },
     {
       "title": "Arts & Crafts",
       "startDate": "2026-11-20",
@@ -21,28 +9,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-20"
     },
     {
-      "title": "Birding 101 Hike",
-      "startDate": "2026-11-20",
-      "parkKey": "lake-brownwood",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/birding-101/2026-11-20"
-    },
-    {
       "title": "Butterfly and Dragonfly Tours",
       "startDate": "2026-11-20",
       "parkKey": "estero-llano-grande",
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-20"
-    },
-    {
-      "title": "Homeschool Classes at the Park",
-      "startDate": "2026-11-20",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/homeschool-classes-at-the-park/2026-11-20"
-    },
-    {
-      "title": "Master Naturalist Hike",
-      "startDate": "2026-11-20",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-11-20"
     },
     {
       "title": "Meet The Longhorns",
@@ -633,6 +603,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/abilene/star-party-3/2026-12-05"
     },
     {
+      "title": "Winter Birding",
+      "startDate": "2026-12-05",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-12-05"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-12-06",
       "parkKey": "brazos-bend",
@@ -651,6 +627,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-12-06"
     },
     {
+      "title": "Rise of the Wild Prairie Guided Hike",
+      "startDate": "2026-12-06",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/copy2_of_prairie-adventure-hike/2026-12-06"
+    },
+    {
       "title": "Sunday Honey Creek Guided Walk--Registration Required",
       "startDate": "2026-12-06",
       "parkKey": "guadalupe-river",
@@ -667,6 +649,12 @@
       "startDate": "2026-12-08",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2026-12-08"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-12-09",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-12-09"
     },
     {
       "title": "Homeschool Classes at the Park",
@@ -739,6 +727,12 @@
       "startDate": "2026-12-12",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-12"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-12-12",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-12-12"
     },
     {
       "title": "Bird Outing",
@@ -1039,6 +1033,12 @@
       "startDate": "2026-12-27",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-27"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-12-27",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-12-27"
     },
     {
       "title": "Learn to Bird",

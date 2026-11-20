@@ -41,5 +41,25 @@ export const generatedTexasEvents = [
     "editorialScore": 96,
     "status": "published",
     "autoPublish": true
+  },
+  {
+    "id": "official:wurstfest:2027-11-05",
+    "brandId": "texasdefined",
+    "slug": "wurstfest-2027-11-05",
+    "name": "Wurstfest",
+    "blurb": "Wurstfest is the kind of Texas gathering built around food, local tradition and a reason to make the drive to New Braunfels.",
+    "city": "New Braunfels",
+    "region": "hill-country",
+    "startDate": "2027-11-05",
+    "endDate": "2027-11-14",
+    "category": "food",
+    "venue": "New Braunfels",
+    "officialUrl": "https://wurstfest.com/",
+    "sourceName": "Wurstfest",
+    "sourceCheckedAt": "2026-11-20T19:08:49.212Z",
+    "confidenceScore": 94,
+    "editorialScore": 94,
+    "status": "published",
+    "autoPublish": true
   }
 ] as const;
