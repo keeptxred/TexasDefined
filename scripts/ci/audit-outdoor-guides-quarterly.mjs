@@ -16,7 +16,7 @@ const livePages = [
   { slug: "texas-horseback-riding-guide", must: ["Compare trailer logistics", "Trailer and rider checklist"] },
   { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer"] },
   { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes"] },
-  { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window"] },
+  { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park"] },
 ];
 const failures = [], evidence = [];
 async function get(url) {
