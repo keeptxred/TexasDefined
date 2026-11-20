@@ -47,12 +47,29 @@ try {
       const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded', timeout: 55000 });
       rec.workerVersion = response?.headers()['x-texasdefined-worker-version'] || null;
       check('clean canonical HTTP 200', response?.status() === 200, response?.status());
-      await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25000 });
-      // Wait for lazy/hydrated original authority content, not just the generic
-      // tax-rate SSR shell or a briefly visible Suspense fallback.
-      await page.locator('#wwchd-2023-sources').waitFor({ state: 'attached', timeout: 30000 });
-      await page.locator('#wwchd-parcel').waitFor({ state: 'attached', timeout: 30000 });
       await page.evaluate(() => document.fonts?.ready);
+      // Playwright locator.waitFor() can accept the pre-hydration SSR content,
+      // then React replaces it with the temporary "Loading the property-tax
+      // record..." shell while the route chunk initializes. In production
+      // 2026-11-20, 320px was captured during that transition (two <main>s,
+      // no topic H1), while 390px and desktop passed. Require a *stable*
+      // hydrated page, not a single momentary selector hit; still fail closed
+      // after a bounded 45 seconds when the actual guide never becomes ready.
+      await page.waitForFunction(() => {
+        const heading = [...document.querySelectorAll('h1')].filter(el =>
+          /West Wharton County Hospital District property tax rate/i.test(el.textContent || ''));
+        const ids = ['wwchd-current-rate','wwchd-2026','wwchd-2023-sources','wwchd-rate-decision','wwchd-parcel','taxing-unit-rate-history'];
+        const isReady = document.querySelectorAll('main').length === 1 &&
+          heading.length === 1 &&
+          ids.every(id => document.getElementById(id)) &&
+          !(document.body?.innerText || '').includes('Loading the property-tax record');
+        if (!isReady) {
+          delete window.__wwchdHydratedReadyAt;
+          return false;
+        }
+        window.__wwchdHydratedReadyAt ??= performance.now();
+        return performance.now() - window.__wwchdHydratedReadyAt >= 1200;
+      }, null, { polling: 150, timeout: 45000 });
       const data = await page.evaluate(() => ({
         width: window.innerWidth,
         scrollWidth: document.documentElement.scrollWidth,
@@ -96,6 +113,13 @@ try {
       rec.screenshot = screenshot;
     } catch (error) {
       rec.failures.push({ name: 'browser inspection exception', evidence: String(error?.message || error).slice(0, 600) });
+      // Preserve the actual unresolved shell when readiness never stabilizes.
+      // A timeout remains a failure; it is never converted to an SEO pass.
+      const screenshot = outDir + '/' + viewport.label + '.png';
+      try {
+        await page.screenshot({ path: screenshot, fullPage: false, animations: 'disabled', timeout: 10000 });
+        rec.screenshot = screenshot;
+      } catch { /* the original failure is already preserved in evidence */ }
     }
     report.viewports.push(rec);
     report.failures.push(...rec.failures.map(failure => ({ viewport: viewport.label, ...failure })));
