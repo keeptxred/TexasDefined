@@ -183,6 +183,8 @@ function Page() {
   const texasDatePart = (type: 'year' | 'month' | 'day') => todayTexasParts.find((part) => part.type === type)?.value ?? '';
   const todayTexas = `${texasDatePart('year')}-${texasDatePart('month')}-${texasDatePart('day')}`;
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= todayTexas);
+  const canyonLakeAreaGame = slug === 'comal-canyon-lake' ? editorial?.season?.games.find((game) => game.date === '2026-11-20') : undefined;
+  const canyonLakeFinalPending = canyonLakeAreaGame && !canyonLakeAreaGame.result && canyonLakeAreaGame.date < todayTexas;
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
@@ -625,7 +627,9 @@ function Page() {
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
               {slug === 'aubrey'
                 ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
-                : editorial?.intro ?? profileSummary}
+                : canyonLakeFinalPending
+                  ? 'Canyon Lake Hawks football: ten source-reported completed results through November 13, including the 49–28 Pleasanton playoff win. The November 20 Calhoun area-round final is awaiting independent confirmation; the published 8–2 record is dated, not a live score.'
+                  : editorial?.intro ?? profileSummary}
             </p>
           </div>
           {editorial?.photo ? (
@@ -776,15 +780,16 @@ function Page() {
         <p className="eyebrow text-primary">Canyon Lake · 2026 playoff trail</p>
         <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">November 20 area-round game and Hawks links</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-foreground">
-          After a 49–28 bi-district win over Pleasanton, Canyon Lake was scheduled to meet Port Lavaca Calhoun on Friday, November 20 at 7 p.m.
-          at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. La Grange High School confirmed the neutral-site assignment,
-          online-only ticketing and a clear-bag policy. The host notice below has the event-specific ticket link; school home-game tickets do not apply.
-          Recheck the host for entrance, accessible access, parking and changes. Results after this dated preview require a fresh source check.
+          {canyonLakeAreaGame?.result
+            ? <>The November 20 area-round game against Port Lavaca Calhoun concluded <strong>{canyonLakeAreaGame.result}</strong> for Canyon Lake at neutral-site Leopard Stadium in La Grange. This result was verified in the dated season ledger using separately authorized sources. No next-round opponent or ticket offer is asserted until individually confirmed.</>
+            : canyonLakeFinalPending
+              ? <>The November 20 area-round game against Port Lavaca Calhoun at <strong>Leopard Stadium in La Grange</strong> has passed, but its final score has not yet been independently verified here. The latest confirmed final remains the November 13 win over Pleasanton. Check the dated source trail; no victory, advancement or next opponent is assumed.</>
+              : <>After a 49–28 bi-district win over Pleasanton, Canyon Lake was scheduled to meet Port Lavaca Calhoun on Friday, November 20 at 7 p.m. at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. The host confirmed neutral-site play, online tickets and a clear-bag policy. Recheck the announcement for changes before travel.</>}
         </p>
         <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
-          <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary font-semibold underline underline-offset-4">Nov. 20 playoff host notice &amp; ticket link ↗</a>
+          <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary font-semibold underline underline-offset-4">{canyonLakeAreaGame?.result || canyonLakeFinalPending ? 'Nov. 20 host announcement (archive)' : 'Nov. 20 playoff host notice & ticket link'} ↗</a>
           <a href="https://clhs.comalisd.org/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School athletics &amp; schedules ↗</a>
-          <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Other Canyon Lake home-game tickets ↗</a>
+          {!canyonLakeFinalPending && !canyonLakeAreaGame?.result && <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Other Canyon Lake home-game tickets ↗</a>}
           <a href="https://www.lagrangeleopardsathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Leopard Stadium and clear-bag rules ↗</a>
           <a href="https://txhsfb.net/?p=29640" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">November 20 playoff pairings ↗</a>
           {districtPath && <Link to={districtPath} className="text-primary underline underline-offset-4">2026 District 13 programs →</Link>}
