@@ -17,7 +17,7 @@ const ROOT=fileURLToPath(new URL('../../',import.meta.url));
 const DATA=join(ROOT,'src/data/high-school-football');
 const OUT=join(ROOT,'artifacts/football-next-day-research');
 const YEAR='2026';
-const FEED_LIMIT=140000, RSS_ITEMS=8, PER_SHARD=20;
+const FEED_LIMIT=140000, RSS_ITEMS=8, PER_SHARD=32;
 export const texasDate=(now=new Date())=>new Intl.DateTimeFormat('en-CA',{
   timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'
 }).format(now);
