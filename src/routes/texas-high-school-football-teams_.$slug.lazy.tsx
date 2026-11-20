@@ -753,8 +753,8 @@ function Page() {
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.matchupPath
-                      ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
-                      : game.result || (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
+                      ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result || (game.date < todayTexas ? 'Result awaiting verification' : 'Scheduled')} · matchup →</Link>
+                      : game.result || (game.date < todayTexas ? 'Result awaiting verification' : game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
                   </tr>)}
                 </tbody>
               </table>
