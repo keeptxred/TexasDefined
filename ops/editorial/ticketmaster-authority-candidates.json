@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-19T19:31:13.608Z",
+  "fetchedAt": "2026-11-20T19:08:51.933Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -662,6 +662,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo followed by TBA",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-17"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnGnY2"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-17-2027/event/3A006507AA32AC0F"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed By The Marshall Tucker Band",
       "city": "San Antonio",
       "dates": [
@@ -771,6 +795,36 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-saturday-uvalde-texas-11-21-2026/event/3A006512FC603B4D"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "South Pole Illuminated Festival",
+      "city": "McAllen",
+      "dates": [
+        "2026-12-25",
+        "2026-12-26",
+        "2026-12-27"
+      ],
+      "venues": [
+        "McAllen Convention Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_9ChSyyZ",
+        "G5dIZ_9Chsaz9",
+        "G5dIZ_9Chw_zi"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-25-2026/event/3A0065739BC49E17",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-26-2026/event/3A0065739BC99E2C",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-27-2026/event/3A0065739BCF9E40"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
