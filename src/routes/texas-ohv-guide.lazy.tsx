@@ -170,6 +170,18 @@ function TexasOhvGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five legal off-highway vehicle destinations, with the Texas decal, vehicle-class, permit, map and closure questions to resolve before loading a trailer.</p>
           </header>
 
+          {/* NPS photo provenance is shipped in the route-lazy HTML, not the eager app bundle. */}
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            "@id": "https://texasdefined.com/texas-ohv-guide#nps-photo",
+            contentUrl: rositaTrailPhoto,
+            creator: { "@type": "Organization", name: "National Park Service" },
+            creditText: "National Park Service photo, Rosita Flats, Lake Meredith",
+            license: "https://creativecommons.org/publicdomain/mark/1.0/",
+            acquireLicensePage: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
+            copyrightNotice: "Public domain NPS photo",
+          })}</script>
           <figure className="border-b border-border py-8">
             <img src={rositaTrailPhoto} alt="Designated red-earth off-road route at Rosita Flats, Lake Meredith National Recreation Area, Texas" width={1300} height={900} className="aspect-[16/9] w-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
             <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">A real designated off-road route at Rosita Flats, one of the featured riding areas. <a href="https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">National Park Service photo</a> (U.S. public domain). Always verify current NPS route boundaries and restrictions.</figcaption>
