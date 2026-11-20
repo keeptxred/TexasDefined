@@ -12,7 +12,7 @@ for (const marker of [
   "Sam Houston Multiple-Use Trail Pass",
   "50 inches",
   "936-344-6205",
-  "three separate",
+  "Three separate permits",
   "no-cost",
   "Rosita Flats"
 ]) {
