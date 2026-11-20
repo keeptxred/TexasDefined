@@ -7,7 +7,7 @@ const fixtureLoader = readFileSync(new URL('../../src/data/high-school-football/
 const page = readFileSync(new URL('../../src/routes/texas-high-school-football-districts_.$slug.lazy.tsx', import.meta.url), 'utf8');
 const head = readFileSync(new URL('../../src/routes/texas-high-school-football-districts_.$slug.tsx', import.meta.url), 'utf8');
 
-const results = [...snapshot.matchAll(/^\s*final\('(2026-\d\d-\d\d)', '([^']+)', '([^']+)', (\d+), (\d+)/gm)]
+const results = [...snapshot.matchAll(/^\s*(?:final|checkedFinal)\('(2026-\d\d-\d\d)', '([^']+)', '([^']+)', (\d+), (\d+)/gm)]
   .map(([, date, away, home, awayScore, homeScore]) => ({ date, away, home, awayScore: Number(awayScore), homeScore: Number(homeScore) }));
 const fixtures = [...snapshot.matchAll(/^\s*scheduled\('(2026-\d\d-\d\d)', '([^']+)', '([^']+)'\)/gm)]
   .map(([, date, away, home]) => ({ date, away, home }));
@@ -24,8 +24,8 @@ const schools = [
 ];
 
 test('District 5 has a complete seven-game league slate for all eight UIL members', () => {
-  assert.equal(results.length, 16, 'four fully reported rounds through October 16');
-  assert.equal(fixtures.length, 12, 'three remaining rounds');
+  assert.equal(results.length, 28, 'all seven district rounds have independently reported finals');
+  assert.equal(fixtures.length, 0, 'no past regular-season game is falsely presented as upcoming');
   assert.equal(all.length, 28, 'eight-team round-robin has 28 games');
   const seen = new Set();
   const counts = Object.fromEntries(schools.map((school) => [school, 0]));
@@ -42,10 +42,10 @@ test('District 5 has a complete seven-game league slate for all eight UIL member
   }
   assert.ok(schools.every((school) => counts[school] === 7), JSON.stringify(counts));
   assert.equal(new Set(all.map((game) => game.date)).size, 8, 'eight distinct dates including Sept 24 and 25');
-  assert.equal(fixtures.filter((game) => game.date > '2026-10-17').length, 12);
+  assert.equal(fixtures.filter((game) => game.date > '2026-10-17').length, 0);
 });
 
-test('District 5 game-derived records match source-dated October 16 results', () => {
+test('District 5 game-derived records match complete sourced November 5 results', () => {
   const records = Object.fromEntries(schools.map((school) => [school, [0, 0]]));
   for (const { away, home, awayScore, homeScore } of results) {
     assert.notEqual(homeScore, awayScore, 'score cannot be a tied final');
@@ -55,16 +55,17 @@ test('District 5 game-derived records match source-dated October 16 results', ()
     records[loser][1] += 1;
   }
   assert.deepEqual(records, {
-    'Denton Braswell': [3, 1],
-    'Denton Guyer': [3, 1],
-    'Frisco Wakeland': [0, 4],
-    'Lewisville': [4, 0],
-    'Lewisville Flower Mound': [3, 1],
-    'Lewisville Hebron': [3, 1],
-    'Lewisville Marcus': [0, 4],
-    'Little Elm': [0, 4],
+    'Denton Braswell': [4, 3],
+    'Denton Guyer': [6, 1],
+    'Frisco Wakeland': [2, 5],
+    'Lewisville': [7, 0],
+    'Lewisville Flower Mound': [3, 4],
+    'Lewisville Hebron': [4, 3],
+    'Lewisville Marcus': [1, 6],
+    'Little Elm': [1, 6],
   });
   assert.equal(results.filter((game) => game.date === '2026-10-16').length, 4);
+  assert.equal(results.filter((game) => game.date === '2026-11-05').length, 4);
 });
 
 test('coverage is source-linked, localized and explicitly not UIL-certified standings', () => {
