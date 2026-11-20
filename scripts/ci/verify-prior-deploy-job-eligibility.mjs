@@ -977,8 +977,13 @@ export function qualifyPriorDeployJob(payload) {
         !browserSource.includes("if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error") ||
         !browserSource.includes("assert.equal(response?.status(),200") ||
         !browserSource.includes("assert.equal(facts.rows,8)") ||
-        !browserSource.includes("assert.equal(facts.finals,4)") ||
-        !browserSource.includes("assert.equal(facts.fixtures,12)") ||
+        // Preserve the tightly scoped historical timeout exception only if
+        // complete data checks remain paired: old 4/12 snapshot OR a stricter
+        // source-verified 16/0 final-season publication, never mixed counts.
+        !(browserSource.includes("assert.equal(facts.finals,4)") &&
+          browserSource.includes("assert.equal(facts.fixtures,12)") ||
+          browserSource.includes("assert.equal(facts.finals,16)") &&
+          browserSource.includes("assert.equal(facts.fixtures,0)")) ||
         !browserSource.includes("assert.deepEqual(errors,[]")) {
       throw Error('Exact District 16 timeout retry not repaired without weakening full browser assertions');
     }
