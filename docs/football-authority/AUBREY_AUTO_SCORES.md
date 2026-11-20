@@ -46,6 +46,17 @@ The independent postseason ledger is `src/data/high-school-football/aubrey-posts
 
 **Activation remains blocked:** these two publicly researched press citations are *editorial references*, not machine-readable redistribution licenses. Issue [#5537](https://github.com/keeptxred/TexasDefined/issues/5537) remains the authoritative blocker until both authorized feeds are connected and a real protected auto-publish run succeeds. Do not represent this one-time playoff score correction as proof that unattended publication is live.
 
+## November 20, 2026 — area-round final verified without a paid feed
+
+The **Thursday, November 19 area-round playoff** is now a reported final: **Canyon Eagles 39, Aubrey Chaparrals 36**, played at Bulldog Stadium in Burkburnett. Two independent regional reports corroborate the score and identify the matchup:
+
+- [Press Pass Sports, November 20 — detailed fourth-quarter and final-score coverage](https://www.presspass.news/2026/11/20/canyon-eagles-survives-second-half-charge-by-aubrey-to-squeak-by-in-uil-class-4a-division-i-area-round/)
+- [KFDA NewsChannel 10, November 19–20 — Panhandle area-round results](https://www.newschannel10.com/2026/11/20/texas-panhandle-high-school-football-thursday-area-round-scores/)
+
+Independent [MaxPreps game recap](https://www.maxpreps.com/tx/football/game/aubrey-vs-canyon/11-19-2026/?c=1bd2bea1-32e4-4b09-befc-909a6e7613b6&tab=Recap) and [Sports Illustrated statewide scoreboard](https://www.si.com/high-school/stats/texas/football/scores?date=2026-11-19) also report **39–36**. **Source conflict disclosed:** a Houston Chronicle statewide roundup and VarsityVue list **39–37**. The local narrative describes Aubrey's last touchdown bringing the score to 39–36; along with the two local score reports and two independent scoreboards, that supports the published 39–36 rather than an unverified correction to 39–37. Reopen verification if an authoritative school or UIL correction emerges.
+
+This was a protected **manual editorial score verification**, not licensed machine-feed publication. Added only to `aubrey-auto-results.snapshot.json`, with `verificationMethod: "manual-editorial-review"` and the two direct local sources. The loader displays the playoff loss, updates Aubrey's overall total to **8–4** while preserving its **7–0 district** record, and leaves the separate immutable fixture list intact. No further 2026 Aubrey fixture is published without a documented matchup. This supersedes only the *previously upcoming* November 19 fixture reference in the historical November 14 section above.
+
 ## Required provider response
 
 Each feed responds to one bounded HTTPS GET with JSON and a maximum of 16 Aubrey results for the 2026 season. The schema is:
