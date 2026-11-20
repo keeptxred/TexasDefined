@@ -59,14 +59,14 @@ if (argv.has("--watch")) {
         if (!html.toLowerCase().includes(marker.toLowerCase())) problems.push(description + ": expected source-specific public content not visible: " + marker + " at " + url);
         if (description.startsWith("/")) {
           const expectedCanonical = "https://texasdefined.com" + description;
-          const canonicalTags = [...html.matchAll(/<link\\b[^>]*>/gi)].map(match => match[0])
-            .filter(tag => /\\brel\\s*=\\s*["']canonical["']/i.test(tag));
-          if (!canonicalTags.some(tag => /\\bhref\\s*=\\s*["'][^"']+["']/i.test(tag) && tag.includes(expectedCanonical))) {
+          const canonicalTags = [...html.matchAll(/<link\b[^>]*>/gi)].map(match => match[0])
+            .filter(tag => /\brel\s*=\s*["']canonical["']/i.test(tag));
+          if (!canonicalTags.some(tag => /\bhref\s*=\s*["'][^"']+["']/i.test(tag) && tag.includes(expectedCanonical))) {
             problems.push(description + ": public self-canonical missing or different from " + expectedCanonical);
           }
-          const robotTags = [...html.matchAll(/<meta\\b[^>]*>/gi)].map(match => match[0])
-            .filter(tag => /\\bname\\s*=\\s*["']robots["']/i.test(tag));
-          if (robotTags.some(tag => /\\bnoindex\\b/i.test(tag)) || /\\bnoindex\\b/i.test(response.headers.get("x-robots-tag") || "")) {
+          const robotTags = [...html.matchAll(/<meta\b[^>]*>/gi)].map(match => match[0])
+            .filter(tag => /\bname\s*=\s*["']robots["']/i.test(tag));
+          if (robotTags.some(tag => /\bnoindex\b/i.test(tag)) || /\bnoindex\b/i.test(response.headers.get("x-robots-tag") || "")) {
             problems.push(description + ": public robots directive unexpectedly prohibits indexing");
           }
         }
