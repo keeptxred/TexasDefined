@@ -1,12 +1,12 @@
 import type { DistrictFootballGame } from './football-district-game-week';
 
-// Editorial snapshot verified October 19, 2026. These are reported results,
+// Editorial snapshot researched through November 6, 2026, verified November 20. Results sourced to dated Pigskin Prep ledgers, regional score roundups and independent local reporting. These are reported results,
 // NOT a live feed, an official UIL tie-break table, or a prediction.
 export const DISTRICT_21_SCHEDULE_URL = 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026';
 export const DISTRICT_21_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/6a-region-iii-district-21/?leagueid=3daf50ec-b7b2-4bd1-a010-7588e5cc9310';
 export const DISTRICT_21_FBISD_CALENDAR_URL = 'https://thebend.fortbendisd.gov/athletics-home/schedules';
 export const DISTRICT_21_STRAKE_SCHEDULE_URL = 'https://www.strakejesuit.org/team-detail?Team=247354&fromId=238083';
-export const DISTRICT_21_VERIFIED_AT = '2026-10-19';
+export const DISTRICT_21_VERIFIED_AT = '2026-11-20';
 export const DISTRICT_21_STANDINGS_AS_OF = '2026-10-14';
 
 // Overall 2026 W-L is a MaxPreps published snapshot, not calculated from the
@@ -59,16 +59,16 @@ export const DISTRICT_21_2026_GAMES: readonly DistrictFootballGame[] = [
   final('2026-10-09', 'Fort Bend Travis', 'Fort Bend Bush', 35, 14),
   final('2026-10-09', 'Fort Bend Clements', 'Fort Bend Hightower', 3, 42),
   final('2026-10-10', 'Fort Bend Ridge Point', 'Fort Bend Elkins', 61, 7),
-  scheduled('2026-10-22', 'Fort Bend Hightower', 'Fort Bend Travis', 'Mercer Stadium', true),
-  scheduled('2026-10-23', 'Fort Bend Austin', 'Fort Bend Clements', 'Mercer Stadium', true),
-  scheduled('2026-10-23', 'Fort Bend Bush', 'Fort Bend Ridge Point', 'Hall Stadium', true),
-  scheduled('2026-10-23', 'Fort Bend Elkins', 'Houston Strake Jesuit', 'Clay Stadium', true),
-  scheduled('2026-10-29', 'Fort Bend Clements', 'Fort Bend Elkins', 'Hall Stadium', true),
-  scheduled('2026-10-29', 'Houston Strake Jesuit', 'Fort Bend Bush', 'Mercer Stadium', true),
-  scheduled('2026-10-30', 'Fort Bend Ridge Point', 'Fort Bend Travis', 'Mercer Stadium', true),
-  scheduled('2026-10-30', 'Fort Bend Austin', 'Fort Bend Hightower', 'Hall Stadium', true),
-  scheduled('2026-11-05', 'Fort Bend Elkins', 'Fort Bend Austin'),
-  scheduled('2026-11-06', 'Fort Bend Hightower', 'Fort Bend Ridge Point'),
-  scheduled('2026-11-06', 'Fort Bend Travis', 'Houston Strake Jesuit', 'Clay Stadium', true),
-  scheduled('2026-11-06', 'Fort Bend Bush', 'Fort Bend Clements'),
+  final('2026-10-22', 'Fort Bend Hightower', 'Fort Bend Travis', 28, 26, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-23', 'Fort Bend Austin', 'Fort Bend Clements', 28, 37, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-23', 'Fort Bend Bush', 'Fort Bend Ridge Point', 6, 52, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-23', 'Fort Bend Elkins', 'Houston Strake Jesuit', 20, 31, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-29', 'Fort Bend Clements', 'Fort Bend Elkins', 22, 24, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-29', 'Houston Strake Jesuit', 'Fort Bend Bush', 20, 21, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-30', 'Fort Bend Ridge Point', 'Fort Bend Travis', 56, 0, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-10-30', 'Fort Bend Austin', 'Fort Bend Hightower', 9, 55, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-11-05', 'Fort Bend Elkins', 'Fort Bend Austin', 37, 7, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-11-06', 'Fort Bend Hightower', 'Fort Bend Ridge Point', 14, 26, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-11-06', 'Fort Bend Travis', 'Houston Strake Jesuit', 13, 14, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
+  final('2026-11-06', 'Fort Bend Bush', 'Fort Bend Clements', 42, 28, 'https://www.pigskinprep.com/showfreeschedules.asp?distID=282&yr=2026'),
 ];
