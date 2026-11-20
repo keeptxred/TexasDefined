@@ -17,6 +17,14 @@ assert.ok(sourceMatch,'Canyon Lake source contract is unavailable');
 const currentEditorial=JSON.parse(sourceMatch[1]);
 const EXPECTED_SCORE_SOURCE=currentEditorial.season.sourceLabel;
 const EXPECTED_RECORD=currentEditorial.season.record;
+const EXPECTED_RECORD_SUMMARY=EXPECTED_RECORD.match(/\d+–\d+ overall · \d+–\d+ district/);
+assert.ok(EXPECTED_RECORD_SUMMARY,'Expected sourced W–L totals');
+const currentScorePairs=currentEditorial.season.games.filter(g=>g.result)
+  .map(g=>g.result.slice(2).split('–').map(Number));
+const EXPECTED_FOR=String(currentScorePairs.reduce((sum,row)=>sum+row[0],0));
+const EXPECTED_AGAINST=String(currentScorePairs.reduce((sum,row)=>sum+row[1],0));
+const LATEST_RESULT=currentEditorial.season.games.filter(g=>g.result).at(-1);
+assert.ok(LATEST_RESULT,'Canyon Lake must preserve verified score history');
 const ARTIFACT='artifacts/comal-canyon-lake-live';
 const ORIGINS=[
   'https://texasdefined-site.freddy-coppola.workers.dev',
@@ -26,11 +34,11 @@ const EXPECTED_CANONICAL='https://texasdefined.com'+PAGE;
 const HERO='/images/high-school-football/comal-canyon-lake-2026.svg';
 const VERSION=/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i;
 const REQUIRED=[
-  'Canyon Lake High School', 'Hawks', '8–2', '6–1',
+  'Canyon Lake High School', 'Hawks', EXPECTED_RECORD_SUMMARY[0],
   '49–28', 'Pleasanton', 'Port Lavaca Calhoun',
   'November 20', 'Sam Parker', 'Green and Gold',
   'Hawk Stadium', 'Leopard Stadium', 'Jace Wheeler',
-  'Isaac Torres', '513', '307',
+  'Isaac Torres', EXPECTED_FOR, EXPECTED_AGAINST, LATEST_RESULT.result,
 ];
 const FORBIDDEN=[
   'Not listed by the verified source',
@@ -139,7 +147,7 @@ async function auditChrome(){
       const h1=(await page.locator('h1').first().innerText()).trim();
       assert.ok(h1.includes('Hawks Football'),width+'px missing true team H1');
       const body=await page.locator('body').innerText();
-      for(const term of ['8–2','6–1','Pleasanton','Port Lavaca Calhoun','Sam Parker'])
+      for(const term of [EXPECTED_RECORD_SUMMARY[0],LATEST_RESULT.result,'Pleasanton','Port Lavaca Calhoun','Sam Parker'])
         assert.ok(body.includes(term),width+'px browser missing '+term);
       const metrics=await page.evaluate(()=>{
         const badImages=[...document.images].filter(img=>img.complete&&img.naturalWidth===0)

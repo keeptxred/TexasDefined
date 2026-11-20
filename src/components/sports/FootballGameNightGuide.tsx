@@ -109,7 +109,7 @@ export function FootballGameNightGuide({
     ? schedule.sourceUrl
     : season?.sourceUrl?.startsWith('https://') ? season.sourceUrl : null;
   const venueUrl = slug === 'katy' ? '#katy-stadiums' : venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
-  const ticketUrl = schedule?.ticketUrl?.startsWith('https://') ? schedule.ticketUrl : null;
+  const ticketUrl = slug !== 'comal-canyon-lake' && schedule?.ticketUrl?.startsWith('https://') ? schedule.ticketUrl : null;
   const hostTicketUrl = eventTicketNoticeUrl?.startsWith('https://') ? eventTicketNoticeUrl : null;
   const schoolScheduleUrl = schedule?.officialScheduleUrl?.startsWith('https://') ? schedule.officialScheduleUrl : null;
   const stadiumRulesUrl = venue?.policyUrl?.startsWith('https://') ? venue.policyUrl : null;
