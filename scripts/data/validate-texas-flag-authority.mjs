@@ -101,6 +101,7 @@ requireContains("Texas flag scheduled field vitals", files.flagQuarterly, "node 
 requireContains("Texas flag scheduled live uncached SEO", files.flagQuarterly, "node scripts/ci/verify-texas-flag-live.mjs --sources");
 requireContains("Texas flag actual successful protected deploy hook", files.flagQuarterly, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("Texas flag exact deployed status provenance", files.flagQuarterly, 'STATUS_TARGET_SHA:');
+requireContains("Texas flag checkout exact deployed source", files.flagQuarterly, 'ref: ${{ github.event.workflow_run.head_sha }}');
 requireContains("Texas flag postdeploy verification", files.flagQuarterly, "node scripts/ci/verify-texas-flag-live.mjs 2>&1");
 requireContains("Texas flag source registry", files.flagSourceState, '"schemaVersion": 1');
 requireContains("Primary sitemap", files.sitemap, '"/texas-flag": "2026-11-19"');
