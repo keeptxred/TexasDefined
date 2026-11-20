@@ -329,7 +329,7 @@ function TexasStargazingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify darkness, access and events with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Always verify current park access and forecast.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026; exact viewing-area locations and after-hours access rechecked November 20, 2026. Always verify current park access and forecast.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

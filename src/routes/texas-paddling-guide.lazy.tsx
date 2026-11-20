@@ -332,7 +332,7 @@ function TexasPaddlingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access and conditions with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; check current access and conditions for travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 20, 2026. Recheck current access and conditions for travel.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

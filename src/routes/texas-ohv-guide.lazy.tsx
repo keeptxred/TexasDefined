@@ -344,7 +344,7 @@ function TexasOhvGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify the legal venue, decal and current rules</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; official maps and on-site rules still control travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

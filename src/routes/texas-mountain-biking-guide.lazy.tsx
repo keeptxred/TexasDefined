@@ -397,7 +397,7 @@ function TexasMountainBikingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Maps and conditions should come from TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; closures and park rules can change.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

@@ -301,7 +301,7 @@ function TexasHorsebackRidingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify documentation and access with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Documentation requirements, permits, trail closures, water, facilities and operating conditions can change. These first-party sources support this guide and should control current trip decisions. Official TPWD riding and campsite information checked November 18, 2026; call the park for current route, water and facility status.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Documentation requirements, permits, trail closures, water, facilities and operating conditions can change. These first-party sources support this guide and should control current trip decisions. Official TPWD riding and campsite information checked November 18, 2026; expanded horse-site and guide-service options checked November 20, 2026. Call for current routes, water and facilities.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
