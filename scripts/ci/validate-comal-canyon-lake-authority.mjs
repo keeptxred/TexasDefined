@@ -55,11 +55,26 @@ assert.equal(districtGames.filter(g => g.result.startsWith('W ')).length, 6);
 assert.equal(districtGames.filter(g => g.result.startsWith('L ')).length, 1);
 assert.match(team.season.record, /8–2 overall · 6–1 district/);
 assert.equal(team.season.verifiedAt, '2026-11-19');
+assert.match(team.season.recordLabel, /completed varsity results through Nov\. 13/);
+assert.match(team.season.sourceLabel, /schedule updated Nov\. 19, 2026 at 15:58 UTC/);
+assert.match(team.season.sourceLabel, /Nov\. 20 Calhoun is scheduled, not final/);
 assert.match(team.season.sourceLabel, /checked Nov\. 19/);
 assert.ok(games.every((g,i) => i === 0 || g.date > games[i-1].date), 'Games must be in strict ascending date order');
 assert.ok(games.every((g) => /^2026-\d\d-\d\d$/.test(g.date)));
 assert.ok(done.every(g => /^(W|L) \d+–\d+$/.test(g.result)));
 assert.equal(games.find(g=>g.date === '2026-11-13')?.result, 'W 49–28');
+assert.deepEqual(done.map(g => [g.date, g.result]), [
+  ['2026-09-04', 'L 21–35'],
+  ['2026-09-11', 'W 54–18'],
+  ['2026-09-24', 'L 41–56'],
+  ['2026-10-02', 'W 70–35'],
+  ['2026-10-09', 'W 55–7'],
+  ['2026-10-15', 'W 70–6'],
+  ['2026-10-23', 'W 50–32'],
+  ['2026-10-30', 'W 53–50'],
+  ['2026-11-06', 'W 50–40'],
+  ['2026-11-13', 'W 49–28'],
+], 'Every score must match the November 19 MaxPreps schedule, not just aggregate W–L totals');
 const next = games.at(-1);
 assert.equal(next.date, '2026-11-20');
 assert.equal(next.opponent, 'Port Lavaca Calhoun');
