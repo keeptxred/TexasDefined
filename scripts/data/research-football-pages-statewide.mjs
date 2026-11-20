@@ -16,7 +16,7 @@ import {isSafePublicUrl,decodeXml} from './research-canyon-lake-weekly.mjs';
 
 export const OUT='artifacts/football-statewide-research';
 export const EDITORIAL_DIR='src/data/high-school-football';
-export const MAX_SEARCHES=48; // each query is sent to at most two RSS sources
+export const MAX_SEARCHES=180; // full current stale-score cohort; bounded for future growth
 const MAX_ITEMS=5,MAX_BYTES=300000,TIMEOUT_MS=9000;
 const DATE=/^\d{4}-\d{2}-\d{2}$/;
 const isoDay=(d)=>new Date(d).toISOString().slice(0,10);
