@@ -10,7 +10,7 @@ const errors = [];
 
 for (const marker of [
   'const canonicalPath = "/texas-stargazing-guide";',
-  'Texas Stargazing: 5 International Dark Sky Parks',
+  'Texas Stargazing: 5 Certified Dark Sky State Parks',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "Place"',
