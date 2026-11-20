@@ -62,7 +62,7 @@ test('source-derived district W–L matches all reported games without inventing
   assert.ok(source.includes('getSourcedDistrictRecords'));
   assert.ok(template.includes('data-football-district-records="source-derived"'));
   assert.ok(template.includes('not UIL-certified standings'));
-  assert.ok(template.includes('Do not use these partial data for official UIL seeds'));
+  assert.ok(template.includes('These source-derived results are not official UIL playoff seeds'));
 });
 
 test('team-level district record helper remains source-derived and fail-closed', () => {
