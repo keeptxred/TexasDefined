@@ -124,7 +124,7 @@ assert.ok(production.includes('id: wharton_browser_deps') && production.includes
 assert.ok(production.includes('scripts/ci/verify-west-wharton-hospital-browser.mjs'), 'Production must invoke dedicated hydrated Chrome acceptance');
 
 
-for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', 'facts.sources.countyFiveYearSummary', '2026 hospital district rate', '2023 official-source disagreement', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
+for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', 'facts.sources.countyFiveYearSummary', 'facts.sources.county2024UnitWorksheet', 'facts.sources.county2023UnitWorksheet', '2026 hospital district rate', '2023 official-source disagreement', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
 console.log('PASS: 2026 county benchmarks, 2023 official rate discrepancy provenance, 2024–25 state history and levy math, publication metadata and scheduled source checks');
 
