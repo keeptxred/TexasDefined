@@ -127,8 +127,8 @@ export function District16Coverage({ schools }: Props) {
         <h3 className="font-display text-2xl text-foreground">Four playoff spots; no clinched seed assumed</h3>
         <p className="mt-2">
           On the October 18 reporting snapshot, Langham Creek leads at 4–0, followed by
-          Cypress Woods, Cypress Falls and Cypress Lakes at 3–1. Those records
-          make the October 24 Langham Creek–Cypress Falls game worth watching, but do not
+          Cypress Woods, Cypress Falls and Cypress Lakes at 3–1. At that time, those records
+          made the October 24 Langham Creek–Cypress Falls matchup significant, but they did not
           establish a champion or playoff tiebreak. At the October 18 snapshot, all eight teams still had district games remaining; that is not a statement of their current November results.
         </p>
         <p className="mt-2">
