@@ -758,7 +758,7 @@ function Page() {
                         ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
                         : game.result)
                       : game.date < todayTexas
-                        ? <span className="text-amber-700 dark:text-amber-300">Final not yet verified — check the reporting source</span>
+                        ? <span className="text-primary">Final not yet verified — check the reporting source</span>
                         : (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
                   </tr>)}
                 </tbody>
