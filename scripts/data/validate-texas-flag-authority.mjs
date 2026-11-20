@@ -91,7 +91,7 @@ requireContains("Texas flag SEO", files.prioritySeo, "if (includeFaqSchema && da
 requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), 'Updated November 19, 2026');
 requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), "cf-cache-status");
 requireContains("Texas flag performance audit", files.flagVitals, "https://texasdefined.com/texas-flag");
-requireContains("Texas flag performance audit", files.flagVitals, "origin-only");
+requireContains("Texas flag performance audit", files.flagVitals, "url-field-data-unavailable");
 requireContains("Texas flag source monitor", files.flagSourceMonitor, "historicalSourceChanged");
 requireContains("Texas flag source monitor", files.flagSourceMonitor, "No researched public page text was changed");
 requireContains("Texas flag scheduled weekly review", files.flagQuarterly, 'cron: "17 13 * * 1"');
