@@ -191,9 +191,44 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     page:SITE+'/texas-high-school-football-matchups/'+g.slug,reason:'overdue-fixture',
     sourceFile:'football-matchups.snapshot.json',overdue:[{date:g.date,away:g.away.name,home:g.home.name}]});
   const aubrey=JSON.parse(read(join(dir,'aubrey-postseason-fixtures.snapshot.json')));
-  const verified=new Set(JSON.parse(read(join(dir,'aubrey-auto-results.snapshot.json'))).verifiedResults.map(r=>r.date+'|'+r.opponent));
-  const due=(aubrey.games||[]).filter(g=>g.date<today&&!verified.has(g.date+'|'+g.opponent));
+  const aubreyResults=JSON.parse(read(join(dir,'aubrey-auto-results.snapshot.json')));
+  if(aubreyResults.season!=='2026'||aubreyResults.teamSlug!=='aubrey'||!Array.isArray(aubreyResults.verifiedResults))
+    throw Error('Invalid Aubrey published final-score identity');
+  // The live Aubrey route overlays this verified snapshot on the older authored
+  // October editorial. Research must inspect the *rendered effective result*;
+  // otherwise October 23, October 30 and November 6 wrongly enter the queue
+  // even though the team page visibly publishes their independently checked finals.
+  const verified=new Set(),latestVerified=[];
+  for(const final of aubreyResults.verifiedResults){
+    if(!isoDate(final.date)||!final.date.startsWith('2026-')||!final.opponent
+      ||!Number.isInteger(final.aubreyScore)||!Number.isInteger(final.opponentScore)
+      ||final.aubreyScore<0||final.opponentScore<0||final.aubreyScore===final.opponentScore
+      ||!['manual-editorial-review','dual-authorized-feed'].includes(final.verificationMethod)
+      ||!['primarySourceUrl','secondarySourceUrl'].every(key=>{
+        try{const u=new URL(final[key]);return u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password;}catch{return false;}
+      }))throw Error('Invalid source-verified Aubrey result '+String(final.date));
+    const key=final.date+'|'+final.opponent;
+    if(verified.has(key))throw Error('Duplicate Aubrey source-backed final '+key);
+    verified.add(key);
+    if(isoDate(final.verifiedAt))latestVerified.push(final.verifiedAt);
+  }
   const aubreyUrl=SITE+'/texas-high-school-football-teams/aubrey';
+  const knownFixture=new Map([...(aubrey.games||[]).map(g=>[g.date+'|'+g.opponent,g])]);
+  // Match regular-season pending cards only by date + actual opponent.
+  // Preserve unresolved dates, including opponent changes and new fixtures.
+  for(const page of pages.filter(p=>p.page===aubreyUrl)){
+    page.overdue=page.overdue.filter(g=>{
+      const opponent=(g.away.toLowerCase()==='aubrey'?g.home:g.home.toLowerCase()==='aubrey'?g.away:null);
+      return !opponent||!verified.has(g.date+'|'+opponent);
+    });
+    if(!page.overdue.length){
+      const latest=latestVerified.sort().at(-1);
+      const stillAging=latest&&((Date.parse(today)-Date.parse(latest))/DAY)>=14;
+      if(stillAging)page.reason='dated-score-review';
+      else page.reason=null;
+    }
+  }
+  const due=(aubrey.games||[]).filter(g=>g.date<today&&!verified.has(g.date+'|'+g.opponent));
   if(due.length){
     const postseason=due.map(g=>({date:g.date,away:'Aubrey',home:g.opponent}));
     const present=pages.find(p=>p.page===aubreyUrl);
@@ -203,7 +238,8 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   }
   const unique=new Map();
   for(const p of pages){const old=unique.get(p.page);if(old){old.overdue.push(...p.overdue);}else unique.set(p.page,p);}
-  const selected=[...unique.values()].sort((a,b)=>a.page.localeCompare(b.page));
+  const selected=[...unique.values()].filter(p=>p.overdue.length||p.reason==='dated-score-review'||p.reason==='dated-standings-review')
+    .sort((a,b)=>a.page.localeCompare(b.page));
   for(const page of selected){
     const distinct=new Map();
     for(const game of page.overdue)distinct.set(game.date+'|'+game.away+'|'+game.home,game);
