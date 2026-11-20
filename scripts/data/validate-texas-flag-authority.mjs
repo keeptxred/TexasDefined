@@ -8,6 +8,7 @@ execFileSync(process.execPath, ["--test",
   "scripts/editorial/refresh-texas-flag-sources.test.mjs",
   "scripts/ci/audit-texas-flag-vitals.test.mjs",
   "scripts/ci/verify-texas-flag-cdn-cache.test.mjs",
+  "scripts/data/texas-flag-edge-cache-policy.test.mjs",
 ], { stdio: "inherit" });
 
 const read = (path) => readFileSync(path, "utf8");
@@ -91,6 +92,9 @@ requireContains("Texas flag SEO", files.flagHubEager, "includeFaqSchema: false")
 requireContains("Texas flag SEO", files.prioritySeo, "if (includeFaqSchema && data.faq?.length)");
 requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), 'November 19, 2026/');
 requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), "cf-cache-status");
+requireContains("Texas flag live public cache parity", read("scripts/ci/verify-texas-flag-live.mjs"), "ordinary public URL");
+requireContains("Texas flag Worker edge policy", read("src/server.ts"), "applyTexasFlagEdgeCachePolicy");
+requireContains("Texas flag edge cache policy", read("src/lib/texas-flag-edge-cache-policy.ts"), "Cloudflare-CDN-Cache-Control");
 requireContains("Texas flag performance audit", files.flagVitals, "https://texasdefined.com/texas-flag");
 requireContains("Texas flag performance audit", files.flagVitals, "url-field-data-unavailable");
 requireContains("Texas flag source monitor", files.flagSourceMonitor, "historicalSourceChanged");
