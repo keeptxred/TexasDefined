@@ -1,6 +1,6 @@
 name: Sitewide source-backed automatic content refresh
 
-# One bounded editorial repair daily, derived from open source/freshness issues
+# Four bounded source-backed editorial review windows daily, derived from open source/freshness issues
 # emitted by ANY existing GitHub refresh schedule. Existing deterministic source
 # syncs remain authoritative and continue to run unchanged.
 on:
@@ -11,6 +11,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/sitewide-source-backed-rewrite.yml'
+      - 'scripts/editorial/sitewide-rewrite-target.mjs'
   workflow_dispatch:
 
 permissions:
