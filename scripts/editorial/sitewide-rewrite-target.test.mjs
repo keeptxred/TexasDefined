@@ -147,3 +147,12 @@ test('incomplete GitHub issue list fails closed instead of claiming complete sit
   await assert.rejects(loadIssues(endless,{Authorization:'Bearer fixture'}),/refuse truncated sitewide source refresh/);
   assert.equal(pages,25);
 });
+
+test('automated source-backed PR merge requests real protected production deployment',()=>{
+  const finisher=fs.readFileSync(new URL('../../.github/workflows/finish-sitewide-source-backed-rewrite.yml',import.meta.url),'utf8');
+  const sourceValidation=finisher.indexOf('git merge-base --is-ancestor "$validated_sha" origin/main');
+  const deploy=finisher.indexOf('gh workflow run deploy-production.yml --ref main --repo "$REPO"');
+  assert.ok(sourceValidation>=0,'must prove the validated source head is in current main');
+  assert.ok(deploy>sourceValidation,'deploy dispatch must run ONLY after confirmed protected merge');
+  assert.match(finisher,/\[\[ "\$merged" == true \]\] \|\|/,'must fail if auto-merge has not completed');
+});
