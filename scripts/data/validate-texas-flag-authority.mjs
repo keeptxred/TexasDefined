@@ -88,7 +88,7 @@ requireContains("Texas flag SEO", files.flagHubEager, 'buildPrioritySearchHead({
 requireContains("Texas flag SEO", files.flagHubEager, 'When was the current Texas flag adopted?');
 requireContains("Texas flag SEO", files.flagHubEager, "includeFaqSchema: false");
 requireContains("Texas flag SEO", files.prioritySeo, "if (includeFaqSchema && data.faq?.length)");
-requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), 'Updated November 19, 2026');
+requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), 'November 19, 2026/');
 requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), "cf-cache-status");
 requireContains("Texas flag performance audit", files.flagVitals, "https://texasdefined.com/texas-flag");
 requireContains("Texas flag performance audit", files.flagVitals, "url-field-data-unavailable");
