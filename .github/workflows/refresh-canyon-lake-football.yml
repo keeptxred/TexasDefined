@@ -1,17 +1,25 @@
 name: Refresh Canyon Lake Hawks football data
 on:
   workflow_dispatch:
+  # Run the newly installed research once after merge, then use weekly cron.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-canyon-lake-football.yml'
+      - 'scripts/data/research-canyon-lake-weekly.mjs'
+      - 'scripts/data/research-canyon-lake-weekly.test.mjs'
   schedule:
-    # UTC: Saturday following Friday games, Tuesday correction review;
-    # monthly in the off-season. GitHub cron is UTC.
-    - cron: '37 13 * 8-12 6'
+    # UTC: Saturday research every week year-round; Tuesday correction pass
+    # in the August–December season. GitHub cron always uses UTC.
+    - cron: '37 13 * * 6'
     - cron: '37 13 * 8-12 2'
-    - cron: '37 13 1 1-7 *'
   pull_request:
     paths:
       - '.github/workflows/refresh-canyon-lake-football.yml'
       - 'scripts/data/refresh-canyon-lake-results.mjs'
       - 'scripts/data/refresh-canyon-lake-results.test.mjs'
+      - 'scripts/data/research-canyon-lake-weekly.mjs'
+      - 'scripts/data/research-canyon-lake-weekly.test.mjs'
       - 'scripts/ci/validate-comal-canyon-lake-authority.mjs'
       - 'src/data/high-school-football/program-editorial-comal-canyon-lake.ts'
 permissions:
@@ -35,9 +43,39 @@ jobs:
           node --check scripts/data/refresh-canyon-lake-results.mjs
           node scripts/data/refresh-canyon-lake-results.mjs --validate
           node --test scripts/data/refresh-canyon-lake-results.test.mjs
+          node --check scripts/data/research-canyon-lake-weekly.mjs
+          node scripts/data/research-canyon-lake-weekly.mjs --validate
+          node --test scripts/data/research-canyon-lake-weekly.test.mjs
           node scripts/ci/validate-comal-canyon-lake-authority.mjs
-      - name: Refresh from two separately authorized JSON score providers
+      - name: Research football results and District 13 standings from RSS and official source references
         if: github.event_name != 'pull_request'
+        id: research
+        continue-on-error: true
+        run: node scripts/data/research-canyon-lake-weekly.mjs --research
+      - name: Maintain one weekly score and standings research issue
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Canyon Lake football: weekly scores and District 13 standings research'
+          bodyfile='artifacts/canyon-lake-refresh/research.md'
+          if [[ ! -s "$bodyfile" ]]; then
+            mkdir -p artifacts/canyon-lake-refresh
+            bodyfile='/tmp/canyon-lake-research-error.md'
+            printf 'Weekly research failed before writing evidence. Inspect the job logs: https://github.com/%s/actions/runs/%s\nNo score or official standings were inferred from this failure.\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$bodyfile"
+          fi
+          printf '\nGitHub research run: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> "$bodyfile"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="Canyon Lake football: weekly scores and District 13 standings research") | .number' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file "$bodyfile"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file "$bodyfile"
+          fi
+      - name: Refresh from two separately authorized JSON score providers
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         id: refresh
         env:
           CANYON_LAKE_SCORE_PRIMARY_URL: ${{ vars.CANYON_LAKE_SCORE_PRIMARY_URL }}
@@ -54,7 +92,7 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
       - name: Create or update overdue-game editorial review
-        if: github.event_name != 'pull_request' && steps.refresh.outputs.review_needed == 'true'
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outputs.review_needed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -81,7 +119,7 @@ jobs:
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file /tmp/canyon-lake-review.md
           fi
       - name: Record rejected or contradictory licensed provider data
-        if: failure() && steps.refresh.outcome == 'failure'
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outcome == 'failure'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -92,7 +130,7 @@ jobs:
           issue="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="BLOCKED: Canyon Lake authorized football score sources disagree or failed") | .number' | head -n 1)"
           if [[ -n "$issue" ]]; then gh issue edit "$issue" --repo "$GITHUB_REPOSITORY" --body "$body"; else gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"; fi
       - name: Create protected PR for a jointly verified final
-        if: github.event_name != 'pull_request' && steps.refresh.outputs.changed == 'true'
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
