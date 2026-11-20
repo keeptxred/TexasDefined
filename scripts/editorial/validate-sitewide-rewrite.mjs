@@ -21,14 +21,19 @@ const ledger = readJson(evidenceFile);
 if (ledger.issue !== target.issue || ledger.page !== target.page ||
     !Array.isArray(ledger.facts) || ledger.facts.length < 1 || ledger.facts.length > 8)
   throw Error('Evidence must cover exactly the selected page and issue');
-const paths = git('diff','--name-only','--diff-filter=ACMR','HEAD').split('\n').filter(Boolean);
+const base = process.argv.find(arg => arg.startsWith('--base='))?.slice('--base='.length) || 'HEAD';
+const paths = git('diff','--name-only','--diff-filter=ACMR',base).split('\n').filter(Boolean);
 const allowed = p => /^src\/(?:data|routes|components)\/[a-zA-Z0-9/_.$-]+\.(?:json|ts|tsx|md)$/.test(p);
 const pageFiles = paths.filter(p => p !== evidenceFile);
 if (!paths.includes(evidenceFile) || pageFiles.length < 1 || pageFiles.length > 5 ||
     pageFiles.some(p => !allowed(p)))
   throw Error('Unexpected file modification: ' + paths.join(', '));
-git('diff','--check','HEAD');
-const stat = git('diff','--numstat','HEAD').split('\n');
+git('diff','--check',base);
+// Untracked page files must not bypass the audited Git patch by being staged later.
+const untracked = git('ls-files','--others','--exclude-standard').split('\n').filter(Boolean);
+if (untracked.some(p => p !== evidenceFile && !p.startsWith('.artifacts/')))
+  throw Error('Unreviewed untracked file in editorial workspace: ' + untracked.join(', '));
+const stat = git('diff','--numstat',base).split('\n');
 let added = 0, removed = 0;
 for (const line of stat) {
   const [a,b] = line.split('\t');
@@ -36,7 +41,7 @@ for (const line of stat) {
   added += Number(a); removed += Number(b);
 }
 if (added > 350 || removed > 200) throw Error('Unbounded automated rewrite; split into smaller verified batches');
-const patch = git('diff','--unified=0','HEAD');
+const patch = git('diff','--unified=0',base);
 const risky = [
   /(?:process\.env|eval\s*\(|new\s+Function|child_process|execSync|require\s*\(|import\s*\()/i,
   /(?:dangerouslySetInnerHTML|<script|robots.*noindex|noindex.*robots|sitemap.*lastmod)/i,
