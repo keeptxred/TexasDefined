@@ -41,7 +41,13 @@ function Page() {
   // District 6 intentionally excludes the shared results feed while standings / W-L automation is paused.
   const games = district6Pilot ? [] : getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
-  const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
+  const todayParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const todayPart = (type: 'year' | 'month' | 'day') => todayParts.find((part) => part.type === type)?.value ?? '';
+  const todayTexas = `${todayPart('year')}-${todayPart('month')}-${todayPart('day')}`;
+  const pastUnverifiedGames = games.filter((game) => game.status === 'scheduled' && game.date < todayTexas);
+  const pendingGames = games.filter((game) => game.status === 'scheduled' && game.date >= todayTexas).slice(0, 16);
   const reportedDistrictRecords = (katyPilot || district5Pilot || district21Pilot || district11Pilot) ? getSourcedDistrictRecords(games, district.programs) : [];
   if (district21Pilot) reportedDistrictRecords.sort((a, b) => b.won - a.won || a.lost - b.lost || a.schoolName.localeCompare(b.schoolName));
   const lastReportedFinal = games.filter((game) => game.status === 'final').at(-1)?.date;
@@ -171,12 +177,18 @@ function Page() {
           </div>
           <div>
             <div className="flex items-baseline justify-between gap-3 border-b border-border pb-3">
-              <h3 className="font-display text-2xl">Scheduled / result awaiting verification</h3>
+              <h3 className="font-display text-2xl">Upcoming fixtures from the verified schedule</h3>
               <span className="text-xs text-muted-foreground">{pendingGames.length} listed</span>
             </div>
             {pendingGames.length ? <div className="divide-y divide-border">
               {pendingGames.map((game) => <DistrictGameCard key={game.date + game.home + game.away} game={game} schools={district.programs} />)}
             </div> : <p className="py-5 text-sm leading-6 text-muted-foreground">No independently sourced remaining fixtures in this snapshot. Consult the school or UIL scoreboard for the full schedule.</p>}
+            {pastUnverifiedGames.length > 0 && <div className="mt-5 border-l-2 border-amber-600 pl-4" role="status" data-football-district-overdue-results>
+              <h4 className="font-semibold">Past games awaiting final-score verification</h4>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{pastUnverifiedGames.length} dated fixture{pastUnverifiedGames.length === 1 ? '' : 's'} ha{pastUnverifiedGames.length === 1 ? 's' : 've'} passed. The listed matchups are no longer upcoming, and district W–L counts may be incomplete until published sources confirm the finals.</p>
+              <ul className="mt-2 space-y-1 text-sm">{pastUnverifiedGames.slice(0, 12).map(game => <li key={game.date + game.home + game.away}><time dateTime={game.date}>{game.date}</time> — {game.away} at {game.home}: result not yet verified</li>)}</ul>
+              {pastUnverifiedGames.length > 12 && <p className="mt-2 text-xs text-muted-foreground">Additional overdue games appear in the source audit.</p>}
+            </div>}
           </div>
         </div>
         <aside className="mt-8 border-l-2 border-primary bg-surface px-5 py-4 text-sm leading-7">
