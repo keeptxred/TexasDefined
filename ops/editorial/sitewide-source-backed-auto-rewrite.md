@@ -3,12 +3,12 @@
 ## Coverage and execution
 
 The new GitHub workflow \`.github/workflows/sitewide-source-backed-rewrite.yml\`
-runs daily at 14:47 UTC and can also be dispatched manually. Its deterministic
+runs four times daily at 04:47, 10:47, 16:47 and 22:47 UTC and can also be dispatched manually. Its deterministic
 selector enumerates scheduled workflows directly from \`.github/workflows/\`
 instead of a fixed three-page list. It reads **open, actionable official-source
 refresh issues** produced by the existing page-specific schedules, identifies
 actual canonical TexasDefined paths and official HTTPS source documents, and
-selects **at most one page per run** for source-backed rewriting.
+selects **at most one page per run** for source-backed rewriting. Multi-page editorial issues are processed as canonical/source pairs, rather than closed after just one page. Committed per-page evidence is used to prioritize previously unhandled pages and avoid endlessly reprocessing the first row of a shared issue.
 
 The normal source/data refresh schedules continue unchanged, including county
 tax facts, event feeds, fishing, football, heritage sites, museums and outdoor
@@ -63,3 +63,11 @@ page received an editorial rewrite merely because GitHub Actions passed.
 rewrite for freshness theater, silently restamp source-checked dates,
 copy a third-party narrative, invent admissions or dates, dilute researched
 material, or promise search-engine approval.
+
+## Shared-source backlog safety
+
+- Never use a source URL from another event/page's row, even when the issue has 150+ overdue pages.
+- Preserve the multi-page source-monitor issue across generated PRs; the owning source monitor alone decides when all event pages are current.
+- Use one evidence ledger per issue and canonical page; read legacy single-issue ledgers to prevent reworking already completed pages.
+- A scheduled run with no substantive verified new copy is a successful no-op, not an invented edit or failed publication.
+- The cadence is four bounded selection windows each day, each attempting at most one approved content change under existing protected CI.
