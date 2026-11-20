@@ -1616,6 +1616,35 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      # Static HTML acceptance does not prove the lazy authority section
+      # hydrates or stays readable at narrow mobile widths. Use bounded
+      # real-browser checks, not claimed Lighthouse/Core Web Vitals scores.
+      - name: Prepare West Wharton responsive authority Chrome
+        id: wharton_browser_deps
+        if: ${{ always() && steps.live_wharton_hospital_tax.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wharton-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify West Wharton authority on 320/390/1440px hydrated Chrome
+        id: live_wharton_browser
+        if: ${{ always() && steps.wharton_browser_deps.outcome == 'success' }}
+        shell: bash
+        run: node scripts/ci/verify-west-wharton-hospital-browser.mjs
+
+      - name: Save West Wharton hydrated browser screenshots and failures
+        if: ${{ always() && steps.wharton_browser_deps.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: west-wharton-hospital-browser-${{ github.run_id }}
+          path: artifacts/west-wharton-hospital-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Verify statewide financial discovery
         id: live_statewide_financial
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.financial == 'true' }}

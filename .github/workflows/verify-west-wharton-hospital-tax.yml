@@ -10,6 +10,7 @@ on:
       - 'src/routes/property-tax.county.$county.tsx'
       - 'scripts/data/validate-west-wharton-hospital-district.mjs'
       - 'scripts/ci/verify-west-wharton-hospital-production.mjs'
+      - 'scripts/ci/verify-west-wharton-hospital-browser.mjs'
       - '.github/workflows/verify-west-wharton-hospital-tax.yml'
       - 'package.json'
   push:
@@ -43,7 +44,10 @@ jobs:
         with:
           node-version: '22'
       - name: Verify local authority content and rates
-        run: node --experimental-strip-types scripts/data/validate-west-wharton-hospital-district.mjs
+        run: |
+          node --check scripts/ci/verify-west-wharton-hospital-browser.mjs
+          node --check scripts/ci/verify-west-wharton-hospital-production.mjs
+          node --experimental-strip-types scripts/data/validate-west-wharton-hospital-district.mjs
       - name: Check official primary sources on scheduled / manual runs
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: node --experimental-strip-types scripts/data/validate-west-wharton-hospital-district.mjs --remote

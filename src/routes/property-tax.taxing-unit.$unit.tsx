@@ -2,7 +2,8 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { lazy, Suspense } from 'react';
 import austinEsd3Sources from '@/data/property/austin-county-esd3-adopted.json';
-import { westWhartonHospitalDistrict } from '@/data/property/west-wharton-hospital-district';
+// Load district-specific primary evidence only on its own route. The generic
+// taxing-unit head must not ship a full district source dossier in main.js.
 
 const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 // The main client entry loads only routing and metadata; all detail HTML is
@@ -16,16 +17,21 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const { history, peers, isdEvidence } = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
     if (!history.length) throw notFound();
     const latest = history.at(-1)!;
-    return { history, latest, peers, isdEvidence };
+    // This single audited district requires source-specific metadata. Keep the
+    // full 2023/2024 worksheets and source table out of the eager route bundle.
+    const westWhartonHospitalDistrict = latest.slug === 'west-wharton-county-hospital-district'
+      ? (await import('@/data/property/west-wharton-hospital-district')).westWhartonHospitalDistrict
+      : null;
+    return { history, latest, peers, isdEvidence, westWhartonHospitalDistrict };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { latest, history, isdEvidence } = loaderData;
+    const { latest, history, isdEvidence, westWhartonHospitalDistrict } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
     const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
     const wharton2025 = history.find((row) => row.year === 2025);
     const wharton2024 = history.find((row) => row.year === 2024);
-    const hasWestWhartonAuthority = latest.slug === westWhartonHospitalDistrict.slug
+    const hasWestWhartonAuthority = westWhartonHospitalDistrict != null && latest.slug === westWhartonHospitalDistrict.slug
       && wharton2025?.rateUnavailable === false && wharton2024?.rateUnavailable === false
       && Math.abs((wharton2025?.totalRate ?? -1) - westWhartonHospitalDistrict.adoptedRate2025) < 0.0000001
       && Math.abs((wharton2024?.totalRate ?? -1) - westWhartonHospitalDistrict.priorRate2024) < 0.0000001
@@ -66,6 +72,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         url: pageUrl,
         temporalCoverage: `${history[0]?.year}/${hasWestWhartonAuthority ? Math.max(latest.year, westWhartonHospitalDistrict.localAdopted2026.year) : hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, isdEvidence!.officialYear) : history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
+        ...(hasWestWhartonAuthority ? { author: { '@type': 'Organization', name: 'Texas Defined Homes & Property Desk', url: 'https://texasdefined.com/authors/a-homes-land' } } : {}),
         ...(hasWestWhartonAuthority ? { dateModified: westWhartonHospitalDistrict.lastVerified, identifier: westWhartonHospitalDistrict.officialTaxingUnitId, spatialCoverage: { '@type': 'Place', name: 'West Wharton County, Texas' } } : {}),
         // Cite every yearly Comptroller workbook as well as any separately
         // sourced local-rate evidence; do not imply the latest source covers
@@ -79,7 +86,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
         ...(isdEvidence?.historicalComponents.flatMap((entry) => entry.components ? [entry.components.sourceUrl] : []) ?? []),
         ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : []),
-        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex, westWhartonHospitalDistrict.sources.countyFiveYearSummary] : [])],
+        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex, westWhartonHospitalDistrict.sources.countyFiveYearSummary, westWhartonHospitalDistrict.sources.county2024UnitWorksheet, westWhartonHospitalDistrict.sources.county2023UnitWorksheet] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],

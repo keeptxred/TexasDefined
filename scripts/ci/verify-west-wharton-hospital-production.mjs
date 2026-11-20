@@ -17,14 +17,18 @@ const nonce = Date.now();
 const failures = [];
 const results = [];
 
-async function request(origin, path) {
+async function request(origin, path, cacheBust = true) {
   let last;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const response = await fetch(origin + path + (path.includes('?') ? '&' : '?') + 'hospital_acceptance=' + nonce + '-' + attempt, {
-        cache: 'no-store',
+      // Compare exactly what a visitor or search crawler requests with a
+      // cache-bypassed response. A healthy query URL must not hide stale HTML
+      // still served from the ordinary canonical path.
+      const url = origin + path + (cacheBust ? (path.includes('?') ? '&' : '?') + 'hospital_acceptance=' + nonce + '-' + attempt : '');
+      const response = await fetch(url, {
+        cache: cacheBust ? 'no-store' : 'default',
         redirect: 'follow',
-        headers: { 'accept': 'text/html', 'cache-control': 'no-cache' },
+        headers: cacheBust ? { 'accept': 'text/html', 'cache-control': 'no-cache' } : { 'accept': 'text/html' },
         signal: AbortSignal.timeout(22000),
       });
       const body = await response.text();
@@ -47,8 +51,10 @@ function verifyHospital(html) {
     ['2026 county-adopted rate identified', html.includes('2026 hospital district rate') && html.includes('Wharton County') && html.includes('0.23210')],
     ['2026 rate visible in initial page body', html.includes('id="wwchd-current-rate"') && html.includes('West Wharton hospital district — 2026 tax rate') && html.includes('Verify parcel jurisdictions with Wharton CAD')],
     ['original source-check method', html.includes('How this page was checked:') && html.includes('2026 adopted-rate table')],
+    ['visible desk and review date', html.includes('/authors/a-homes-land') && (html.includes('Texas Defined Homes') && html.includes('November 20, 2026'))],
     ['2026 original primary evidence', html.includes(facts.sources.county2026AdoptedTable)],
     ['county five-year truth in taxation summary linked', html.includes(facts.sources.countyFiveYearSummary)],
+    ['independent historic district worksheets linked', html.includes(facts.sources.county2024UnitWorksheet) && html.includes(facts.sources.county2023UnitWorksheet) && html.includes('A second county document corroborates the 2023 figure')],
     ['2026 tax benchmarks and careful distinction', html.includes('2026 no-new-revenue benchmark') && html.includes('2026 voter-approval benchmark') && html.includes('0.23633') && html.includes('0.25913') && html.includes('not additional taxes charged')],
     ['2023 official-source disagreement', html.includes('Why official sources disagree about the 2023 hospital district rate') && html.includes('0.20550') && html.includes('0.21897') && html.includes('published documents do not explain the discrepancy')],
     ['2023 table warning', html.includes('Unresolved county/state source difference:') && html.includes('Read the comparison')],
@@ -68,26 +74,33 @@ function verifyHospital(html) {
     ['canonical', /<link\b[^>]*rel=["']canonical["'][^>]*>/i.test(html) && (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi) || []).some((tag) => tag.includes('https://texasdefined.com' + pagePath))],
     ['not noindexed', !/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)],
     ['Dataset structured metadata', html.includes('schema.org') && html.includes('Dataset') && html.includes('dateModified')],
-    ['source-review date', html.includes(facts.lastVerified) || html.includes('November 18, 2026')],
+    ['source-review date', html.includes(facts.lastVerified) || html.includes('November 20, 2026')],
   ]);
   return Array.from(checks).filter((entry) => !entry[1]).map((entry) => entry[0]);
 }
 
 for (const origin of origins) {
-  try {
-    const { response, body } = await request(origin, pagePath);
-    const missing = verifyHospital(body);
-    if (/\bnoindex\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
-    results.push({ origin, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
-    if (missing.length) failures.push(origin + ': missing ' + missing.join(', '));
-  } catch (error) {
-    failures.push(origin + ': ' + String(error instanceof Error ? error.message : error));
+  for (const variant of ['clean-canonical', 'cache-bypassed']) {
+    const cacheBust = variant === 'cache-bypassed';
+    try {
+      const { response, body } = await request(origin, pagePath, cacheBust);
+      const missing = verifyHospital(body);
+      if (/\bnoindex\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
+      results.push({ origin, variant, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
+      if (missing.length) failures.push(origin + ' (' + variant + '): missing ' + missing.join(', '));
+    } catch (error) {
+      failures.push(origin + ' (' + variant + '): ' + String(error instanceof Error ? error.message : error));
+    }
   }
-  try {
-    const { body } = await request(origin, '/property-tax/county/wharton');
-    if (!body.includes(pagePath)) failures.push(origin + ': Wharton County guide missing reciprocal hospital district link');
-  } catch (error) {
-    failures.push(origin + ': county crosslink fetch failed: ' + String(error instanceof Error ? error.message : error));
+  // Reciprocal links must also work without a query parameter. A stale
+  // county page cannot be disguised by a fresh cache-busted-only link.
+  for (const variant of ['clean-canonical', 'cache-bypassed']) {
+    try {
+      const { body } = await request(origin, '/property-tax/county/wharton', variant === 'cache-bypassed');
+      if (!body.includes(pagePath)) failures.push(origin + ' (' + variant + '): Wharton County guide missing reciprocal hospital district link');
+    } catch (error) {
+      failures.push(origin + ' (' + variant + '): county crosslink fetch failed: ' + String(error instanceof Error ? error.message : error));
+    }
   }
 }
 
@@ -95,9 +108,9 @@ for (const result of results) console.log(JSON.stringify(result));
 const summary = [
   '## West Wharton County Hospital District live authority acceptance',
   '',
-  'Dual-origin rendered HTML, official references, calculator, reciprocal county link, canonical, indexability, structured metadata.',
+  'Clean and cache-bypassed HTML on both origins, official references, calculator, reciprocal county link, canonical, indexability, structured metadata.',
   '',
-  ...results.map((r) => '- ' + r.origin + ': HTTP ' + r.status + ', Worker ' + (r.worker || '(header unavailable)') + ', missing ' + (r.missing.length ? r.missing.join(', ') : 'none')),
+  ...results.map((r) => '- ' + r.origin + ' (' + r.variant + '): HTTP ' + r.status + ', Worker ' + (r.worker || '(header unavailable)') + ', missing ' + (r.missing.length ? r.missing.join(', ') : 'none')),
   ...failures.map((failure) => '- FAIL: ' + failure),
   failures.length ? '**INCOMPLETE — live acceptance failed.**' : '**PASS — live authority content verified on both origins.**',
   '',
