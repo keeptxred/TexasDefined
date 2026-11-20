@@ -12,6 +12,15 @@ const aubrey=read('.github/workflows/aubrey-verified-score-sync.yml');
 test('statewide schedule searches published game sources the next day for all eligible pages',()=>{
   assert.ok(workflow.includes("cron: '37 17 * * 6'"));
   assert.ok(workflow.includes("cron: '37 17 * 8-12 0-5'"));
+  for(const path of [
+    "src/data/high-school-football/football-matchups.snapshot.json",
+    "src/data/high-school-football/football-district*.ts",
+    "src/data/high-school-football/program-editorial*.ts",
+    "src/data/high-school-football/aubrey-*.snapshot.json",
+  ]) {
+    const push=workflow.slice(workflow.indexOf('  push:'),workflow.indexOf('  schedule:'));
+    assert.ok(push.includes(path),'A protected editorial result merge must trigger a fresh statewide inventory: '+path);
+  }
   assert.ok(workflow.includes('workflow_dispatch:'));
   assert.ok(workflow.includes('node scripts/data/inventory-statewide-football-scores.mjs --inventory'));
   assert.ok(workflow.includes('node scripts/data/research-statewide-football-scores.mjs --research'));

@@ -77,6 +77,23 @@ test('verified Houston and Aubrey finals clear their due flags; todays Canyon La
   assert.ok(report.fixtures.every(g=>g.date<'2026-11-20'));
   assert.equal(new Set(report.pages.map(p=>p.page)).size,report.pages.length);
 });
+test('Aubrey verified overlay clears only matching published finals, not a different school\'s unresolved coverage',()=>{
+  const report=inventory({today:'2026-11-20'});
+  const aubrey=report.pages.find(p=>p.page.endsWith('/aubrey'));
+  for(const date of ['2026-10-23','2026-10-30','2026-11-06','2026-11-12','2026-11-19'])
+    assert.ok(!aubrey?.overdue.some(g=>g.date===date),'Already verified on Aubrey page: '+date);
+  assert.ok(!report.fixtures.some(g=>g.date==='2026-11-19' &&
+    [g.away,g.home].includes('Aubrey') && [g.away,g.home].includes('Canyon')),
+    'Canyon 39–Aubrey 36 must not remain on the missing-final queue');
+  // An independent school profile with an unsourced score is NOT cleared
+  // merely because Aubrey's page is corrected.
+  const alvarado=report.pages.find(p=>p.page.endsWith('/alvarado'));
+  assert.ok(alvarado?.overdue.some(g=>g.date==='2026-10-30'),
+    'Alvarado still needs its own independently source-checked scorecard');
+  const published=JSON.parse(readFileSync(join(ROOT,'src/data/high-school-football/aubrey-auto-results.snapshot.json'),'utf8'));
+  assert.ok(published.verifiedResults.some(g=>g.date==='2026-11-19'&&g.aubreyScore===36&&g.opponentScore===39));
+});
+
 test('real inventory retains only source-dated record candidates and identifies result coverage',()=>{
   const r=inventory({today:'2026-11-21'});
   assert.ok(r.summary.affectedPages>10,r.summary.affectedPages);
