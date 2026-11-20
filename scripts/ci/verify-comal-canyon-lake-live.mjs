@@ -5,11 +5,18 @@
  * unrelated production release, waive any deploy gate, or scrape sports results.
  */
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
 
 const PAGE='/texas-high-school-football-teams/comal-canyon-lake';
+const sourceFile=readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8');
+const sourceMatch=sourceFile.match(/const CANYON_LAKE: FootballProgramEditorial = ([\s\S]*?);\s*export function getCanyonLakeFootballEditorial/);
+assert.ok(sourceMatch,'Canyon Lake source contract is unavailable');
+const currentEditorial=JSON.parse(sourceMatch[1]);
+const EXPECTED_SCORE_SOURCE=currentEditorial.season.sourceLabel;
+const EXPECTED_RECORD=currentEditorial.season.record;
 const ARTIFACT='artifacts/comal-canyon-lake-live';
 const ORIGINS=[
   'https://texasdefined-site.freddy-coppola.workers.dev',
@@ -48,6 +55,12 @@ function checkHtml(html,location){
   const text=plain(html);
   const missing=REQUIRED.filter(s=>!text.includes(s));
   assert.deepEqual(missing,[],location+' missing visible sourced football facts');
+  // Reject stale CDN markup: basic W–L figures can remain unchanged after an
+  // editorial source refresh, so compare rendered source attribution to main.
+  assert.ok(text.includes(EXPECTED_SCORE_SOURCE),
+    location+' is serving an older score source label than the merged editorial release');
+  assert.ok(text.includes(EXPECTED_RECORD),
+    location+' does not match the merged score record');
   assert.deepEqual(FORBIDDEN.filter(s=>text.includes(s)),[],location+' serves retired boilerplate');
   assert.ok(html.includes(HERO),location+' missing original rights-safe artwork');
   assert.ok(html.includes(EXPECTED_CANONICAL),location+' missing canonical URL');
@@ -61,7 +74,8 @@ function checkHtml(html,location){
   assert.ok(sponsors<0 || sponsors>football,location+' promotes sponsorship ahead of football');
   assert.ok(html.includes('https://www.lgisd.net/o/lhs/article/3260936'),
     location+' missing first-party playoff-host notice');
-  return {required:REQUIRED.length,footballBeforeCommercial:sponsors<0||sponsors>football};
+  return {required:REQUIRED.length,sourceFreshness:true,recordMatched:true,
+    footballBeforeCommercial:sponsors<0||sponsors>football};
 }
 async function request(url){
   const r=await fetch(url,{redirect:'manual',headers:{
