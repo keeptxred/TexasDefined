@@ -1,6 +1,10 @@
 name: Finish sitewide source-backed editorial rewrite
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finish-sitewide-source-backed-rewrite.yml'
   workflow_run:
     workflows: [Sitewide source-backed automatic content refresh]
     types: [completed]
@@ -24,7 +28,7 @@ concurrency:
 
 jobs:
   finish:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
@@ -45,7 +49,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$EVENT_NAME" = workflow_run ]]; then run="$EVENT_RUN"; else run="$MANUAL_RUN"; fi
+          if [[ "$EVENT_NAME" = workflow_run ]]; then
+            run="$EVENT_RUN"
+          elif [[ "$EVENT_NAME" = workflow_dispatch ]]; then
+            run="$MANUAL_RUN"
+          elif [[ "$EVENT_NAME" = push ]]; then
+            # One-time bootstrap pending first source-backed PR after this
+            # trusted finisher version reaches main. Subsequent clean runs
+            # without a matching open PR safely no-op.
+            run="$(gh run list --workflow sitewide-source-backed-rewrite.yml \
+              --branch main --status completed --limit 20 \
+              --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId // empty')"
+          else
+            echo '::error::Unexpected editorial finisher trigger'; exit 1
+          fi
           [[ "$run" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run'; exit 1; }
           run_json="$(gh api "repos/$REPO/actions/runs/$run")"
           [[ "$(jq -r .name <<< "$run_json")" == 'Sitewide source-backed automatic content refresh' &&
