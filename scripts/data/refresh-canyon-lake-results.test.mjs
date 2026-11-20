@@ -5,6 +5,9 @@ import { readEditorial, validatedFeed, reconcile, applyUpdate, texasToday } from
 
 const source=readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8');
 const original=readEditorial(source);
+const pending=structuredClone(original);
+delete pending.season.games.at(-1).result;
+pending.season.record='8–2 overall · 6–1 district (through Nov. 13; includes one playoff win)';
 const TODAY='2026-11-21';
 const primaryHost='licensed-score-one.example.org',secondaryHost='licensed-score-two.example.net';
 const makeReport=(host,patch={})=>({
@@ -13,19 +16,21 @@ const makeReport=(host,patch={})=>({
     hawksScore:28,opponentScore:21,sourceUrl:'https://'+host+'/2026/hawks/calhoun',...patch}]
 });
 const pair=(a=makeReport(primaryHost),b=makeReport(secondaryHost))=>({
-  editorial:original,primary:a,secondary:b,primaryHost,secondaryHost,today:TODAY,
+  editorial:pending,primary:a,secondary:b,primaryHost,secondaryHost,today:TODAY,
 });
-test('retains the ten published finals and future fixture without an authorized import',()=>{
+test('retains ten locked finals and the independent area-round fixture',()=>{
   assert.equal(original.season.games.length,11);
-  assert.equal(original.season.games.filter(g=>g.result).length,10);
-  assert.equal(original.season.games.at(-1).result,undefined);
-  assert.equal(original.season.record.startsWith('8–2'),true);
+  assert.equal(original.season.games.slice(0,10).filter(g=>g.result).length,10);
+  assert.equal(original.season.games.at(-1).date,'2026-11-20');
+  assert.equal(pending.season.games.filter(g=>g.result).length,10);
+  assert.equal(pending.season.games.at(-1).result,undefined);
+  assert.equal(pending.season.record.startsWith('8–2'),true);
 });
 test('both independent authorized provider finals produce exactly one update',()=>{
   const r=reconcile(pair());
   assert.equal(r.added.length,1);
   assert.deepEqual(r.missing,[]);
-  const amended=applyUpdate(original,r.added[0],TODAY);
+  const amended=applyUpdate(pending,r.added[0],TODAY);
   assert.equal(amended.season.games.at(-1).result,'W 28–21');
   assert.match(amended.season.record,/9–2 overall · 6–1 district/);
   assert.match(amended.overview[4],/541 points for and 328 against/);
@@ -33,13 +38,13 @@ test('both independent authorized provider finals produce exactly one update',()
   assert.equal(amended.milestones.at(-1).date,'November 20, 2026');
   assert.equal(amended.milestones.at(-1).sourceUrl,'https://'+primaryHost+'/2026/hawks/calhoun');
   assert.match(amended.season.sourceLabel,/licensed-score-two\.example\.net/);
-  assert.equal(original.season.games.at(-1).result,undefined,'Never mutate the authored source until committed');
+  assert.equal(pending.season.games.at(-1).result,undefined,'Never mutate the authored source until committed');
 });
 test('a loss updates the record without implying a next opponent',()=>{
   const a=makeReport(primaryHost,{hawksScore:14,opponentScore:21});
   const b=makeReport(secondaryHost,{hawksScore:14,opponentScore:21});
   const r=reconcile(pair(a,b));
-  const amended=applyUpdate(original,r.added[0],TODAY);
+  const amended=applyUpdate(pending,r.added[0],TODAY);
   assert.match(amended.season.record,/8–3 overall · 6–1 district/);
   assert.equal(amended.season.games.at(-1).result,'L 14–21');
   assert.match(amended.intro,/later postseason fixtures require separate source verification/);
