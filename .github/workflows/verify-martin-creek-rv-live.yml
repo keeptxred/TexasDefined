@@ -1,13 +1,13 @@
 name: Verify Martin Creek RV live authority
 
+# Checking production on the same push races the queued Worker publish and
+# raises a false alert for the old live version. Verify only after a completed
+# successful deployment, or through the weekly/manual independent checks.
 on:
-  push:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
     branches: [main]
-    paths:
-      - '.github/workflows/verify-martin-creek-rv-live.yml'
-      - 'scripts/ci/verify-martin-creek-rv-live.mjs'
-      - 'src/components/editorial/MartinCreekRvAuthority.tsx'
-      - 'src/data/rv-parks/curated-public-wave4.ts'
   schedule:
     - cron: "41 16 * * 3"
   workflow_dispatch:
@@ -22,10 +22,15 @@ concurrency:
 
 jobs:
   verify:
+    # Never compare newly merged source expectations to an older Worker.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Match the published commit, even if main advances during the deploy.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || 'main' }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
