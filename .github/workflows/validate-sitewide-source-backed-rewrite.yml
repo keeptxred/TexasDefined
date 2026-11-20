@@ -1,0 +1,32 @@
+name: Validate source-backed automatic editorial rewriting
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/sitewide-source-backed-rewrite.yml'
+      - '.github/workflows/finish-sitewide-source-backed-rewrite.yml'
+      - '.github/workflows/validate-sitewide-source-backed-rewrite.yml'
+      - 'scripts/editorial/sitewide-rewrite-target.mjs'
+      - 'scripts/editorial/sitewide-rewrite-target.test.mjs'
+      - 'scripts/editorial/validate-sitewide-rewrite.mjs'
+      - 'ops/editorial/sitewide-source-backed-auto-rewrite.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test dynamic all-schedule discovery and source safety
+        run: |
+          set -euo pipefail
+          node --check scripts/editorial/sitewide-rewrite-target.mjs
+          node --check scripts/editorial/validate-sitewide-rewrite.mjs
+          node --test scripts/editorial/sitewide-rewrite-target.test.mjs
