@@ -78,6 +78,7 @@ try {
       check('2023 conflicting official evidence disclosed', data.body.includes('0.20550') && data.body.includes('0.21897') && data.body.includes('2023'));
       check('independent 2023 adopted rate corroboration', data.sourceLinks.some(url => url.includes('2024%20WWHD.pdf')) && data.sourceLinks.some(url => url.includes('2023%20WWHD.pdf')) && data.body.includes('A second county document corroborates the 2023 figure'));
       check('source verification date corresponds to latest editorial review', data.body.includes('November 20, 2026'));
+      check('accountable Homes & Property editor profile linked', data.body.includes('Texas Defined Homes & Property Desk') && data.sourceLinks.some(url => url.includes('/authors/a-homes-land')));
       check('original historical research, calculator and official parcel guidance', data.body.includes('2025') && data.body.includes('2024') && data.body.includes('Wharton CAD') && data.tableCount >= 1, data.tableCount);
       check('all six authority anchors present', data.anchors.every(([,present]) => present), JSON.stringify(data.anchors));
       check('reciprocal contextual Wharton County link', data.sourceLinks.some(url => url.startsWith('/property-tax/county/wharton')));
