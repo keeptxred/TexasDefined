@@ -21,6 +21,7 @@ const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const workflow = read('.github/workflows/verify-west-wharton-hospital-tax.yml');
 const scripts = read('package.json');
 const liveAcceptance = read('scripts/ci/verify-west-wharton-hospital-production.mjs');
+const browserAcceptance = read('scripts/ci/verify-west-wharton-hospital-browser.mjs');
 const production = read('.github/workflows/deploy-production.yml');
 const near = (actual, expected, label, tolerance = 0.011) => assert.ok(Math.abs(actual - expected) < tolerance, `${label}: expected ${expected}; got ${actual}`);
 
@@ -109,6 +110,12 @@ assert.ok(westWhartonReleaseBlock.includes('verify-west-wharton-hospital-product
 assert.ok(liveAcceptance.includes("['clean-canonical', 'cache-bypassed']"), 'Both normal canonical and forced-fresh URLs must be checked');
 assert.ok(liveAcceptance.includes("request(origin, pagePath, cacheBust)") && liveAcceptance.includes("request(origin, '/property-tax/county/wharton', variant === 'cache-bypassed')"), 'Clean/uncached validation must include page AND reciprocal county link');
 assert.ok(liveAcceptance.includes("cache: cacheBust ? 'no-store' : 'default'"), 'Canonical probe must not force request-cache bypass');
+assert.ok(browserAcceptance.includes("'mobile-320'") && browserAcceptance.includes("'mobile-390'") && browserAcceptance.includes("'desktop-1440'"), 'Real responsive QA must cover two phone widths and desktop');
+assert.ok(browserAcceptance.includes("page.locator('#wwchd-2023-sources')") && browserAcceptance.includes("document.documentElement.scrollWidth"), 'Chrome must wait for hydrated authority and fail on horizontal overflow');
+assert.ok(browserAcceptance.includes("window.innerWidth") && browserAcceptance.includes("no uncaught page exceptions"), 'Chrome must measure real viewport and page errors');
+assert.ok(production.includes('id: wharton_browser_deps') && production.includes('id: live_wharton_browser'), 'Production must run bounded West Wharton Chrome after successful SSR verification');
+assert.ok(production.includes('scripts/ci/verify-west-wharton-hospital-browser.mjs'), 'Production must invoke dedicated hydrated Chrome acceptance');
+
 
 for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', 'facts.sources.countyFiveYearSummary', '2026 hospital district rate', '2023 official-source disagreement', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
