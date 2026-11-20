@@ -15,7 +15,12 @@ if (!target || !Number.isSafeInteger(target.issue) || target.issue < 1 ||
     !/^\/[a-z][a-z0-9/-]+$/.test(target.page) ||
     !Array.isArray(target.sources) || !target.sources.length)
   throw Error('Missing selected source-backed page');
-const evidenceFile = 'ops/editorial/auto-rewrite-evidence/issue-' + target.issue + '.json';
+const expectedEvidence = 'ops/editorial/auto-rewrite-evidence/issue-' + target.issue +
+  '--' + target.page.slice(1).replaceAll('/', '--') + '.json';
+const evidenceFile = target.evidencePath || 'ops/editorial/auto-rewrite-evidence/issue-' + target.issue + '.json';
+if (evidenceFile !== expectedEvidence &&
+    evidenceFile !== 'ops/editorial/auto-rewrite-evidence/issue-' + target.issue + '.json')
+  throw Error('Evidence file does not match selected canonical page and issue');
 if (!fs.existsSync(evidenceFile)) throw Error('No independently reviewable claim/evidence ledger');
 const ledger = readJson(evidenceFile);
 if (ledger.issue !== target.issue || ledger.page !== target.page ||
