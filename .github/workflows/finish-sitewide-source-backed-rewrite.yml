@@ -1,0 +1,114 @@
+name: Finish sitewide source-backed editorial rewrite
+
+on:
+  workflow_run:
+    workflows: [Sitewide source-backed automatic content refresh]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful source-backed editorial rewrite Actions run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+  statuses: write
+  actions: write
+
+concurrency:
+  group: texasdefined-finish-sitewide-editorial-rewrite
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Finish verified content-only PR using actual source, strict CI and protected merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_RUN: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" = workflow_run ]]; then run="$EVENT_RUN"; else run="$MANUAL_RUN"; fi
+          [[ "$run" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run'; exit 1; }
+          run_json="$(gh api "repos/$REPO/actions/runs/$run")"
+          [[ "$(jq -r .name <<< "$run_json")" == 'Sitewide source-backed automatic content refresh' &&
+             "$(jq -r .conclusion <<< "$run_json")" == success &&
+             "$(jq -r .head_branch <<< "$run_json")" == main &&
+             "$(jq -r .head_repository.full_name <<< "$run_json")" == "$REPO" ]] || {
+            echo '::error::Untrusted source workflow run'; exit 1;
+          }
+          branch="automation/sitewide-editorial-$run"
+          pr_json="$(gh pr list --repo "$REPO" --base main --state open --head "$branch" --limit 2 \
+            --json number,url,title,headRefName,headRefOid)"
+          count="$(jq length <<< "$pr_json")"
+          if [[ "$count" == 0 ]]; then
+            echo 'No source-backed editorial rewrite PR from this run.'
+            exit 0
+          fi
+          [[ "$count" == 1 ]] || { echo '::error::Ambiguous generated PR'; exit 1; }
+          pr="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          author="$(gh api "repos/$REPO/pulls/$pr" --jq '.user.login')"
+          [[ "$title" =~ ^Source-verified\ editorial\ refresh\ for\ issue\ \#[0-9]+$ &&
+             "$author" == 'github-actions[bot]' ]] || { echo '::error::Unexpected PR identity'; exit 1; }
+          mkdir -p .artifacts
+          gh run download "$run" --name sitewide-rewrite-reviewed-patch --dir .artifacts
+          issue="$(node -p "require('./.artifacts/sitewide-rewrite-target.json').selected.issue")"
+          [[ "$title" == "Source-verified editorial refresh for issue #$issue" ]] || {
+            echo '::error::PR and verified issue differ'; exit 1;
+          }
+          git fetch --no-tags origin main "$branch"
+          git checkout -B "$branch" "origin/$branch"
+          git config user.name 'TexasDefined Verified Editorial Finisher'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          previous_sha="$(git rev-parse HEAD)"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Editorial content conflict with current main; do not overwrite.'; exit 1
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          validated_sha="$(git rev-parse HEAD)"
+          git merge-base --is-ancestor origin/main HEAD || {
+            echo '::error::Branch still lacks current main'; exit 1;
+          }
+          node --check scripts/editorial/validate-sitewide-rewrite.mjs
+          node --test scripts/editorial/sitewide-rewrite-target.test.mjs scripts/editorial/validate-sitewide-rewrite.test.mjs
+          node scripts/editorial/validate-sitewide-rewrite.mjs --base=origin/main --live-sources
+
+          # The bot's GITHUB_TOKEN-created PR does not trigger ordinary
+          # pull_request checks. Dispatch and await the actual protected suites.
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::Generated rewrite PR moved during verification'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced after validation; needs another protected pass'; exit 1;
+          }
+          gh api --method POST "repos/$REPO/statuses/$validated_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Source quote, exact branch and canonical protected CI passed' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated_sha"
+          echo "Enabled protected auto merge after source-backed editorial certification: $url" >> "$GITHUB_STEP_SUMMARY"

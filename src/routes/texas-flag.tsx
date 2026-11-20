@@ -22,6 +22,7 @@ export const Route = createFileRoute("/texas-flag")({
   },
   head: ({ loaderData }) => loaderData ? buildPrioritySearchHead({
     canonicalPath,
+    includeFaqSchema: false,
     title: "Texas Flag: 1836 Burnet Flag, 1839 Lone Star, Meaning and Rules",
     description: loaderData.intro,
     data: loaderData,
