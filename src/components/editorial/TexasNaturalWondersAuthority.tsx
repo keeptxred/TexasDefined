@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import caddoLake from "@/assets/caddo-lake.jpg";
+import paloDuro from "@/assets/palo-duro.jpg";
+import enchantedRock from "@/assets/enchanted-rock.jpg";
 
 const officialSources = [
   { label: "Travis County Parks — Hamilton Pool Preserve", href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", note: "Official reservation, water, swimming status and preserve-access guidance; access for viewing and swimming can differ." },
@@ -16,6 +19,22 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Caprock Canyons State Park", href: "https://tpwd.texas.gov/state-parks/caprock-canyons", note: "Official canyon, trail, camping and Texas State Bison Herd visitor guidance." },
   { label: "Texas Parks & Wildlife — Monahans Sandhills State Park", href: "https://tpwd.texas.gov/state-parks/monahans-sandhills", note: "Official information for the dune landscape, recreation, conditions and park access." },
   { label: "Texas Parks & Wildlife — Devils River State Natural Area", href: "https://tpwd.texas.gov/state-parks/devils-river", note: "Official access, reservation, paddling, camping and conservation guidance for the remote Devils River landscape." },
+] as const;
+
+const chooseALandscape = [
+  { place: "Big Bend", fit: "A multi-day remote desert and canyon trip", first: "Check NPS roads and accommodation/permit rules", href: "https://www.nps.gov/bibe/planyourvisit/conditions.htm", caution: "Santa Elena overlooks and river trips are different commitments" },
+  { place: "Guadalupe Mountains", fit: "Mountain hiking with sustained elevation and exposed terrain", first: "Check NPS trail notices and weather before setting a summit goal", href: "https://www.nps.gov/gumo/planyourvisit/conditions.htm", caution: "Not a casual scenic roadside peak visit" },
+  { place: "Palo Duro / Caprock Canyons", fit: "Panhandle canyon trails and distinct park ecosystems", first: "Review both TPWD parks, heat and day-entry availability", href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", caution: "These are separate parks, not one canyon entrance" },
+  { place: "Caddo Lake", fit: "Cypress wetlands, paddling and wildlife observation", first: "Check TPWD paddling access and current lake conditions", href: "https://tpwd.texas.gov/state-parks/caddo-lake", caution: "Wetland navigation and weather need a separate plan from hiking" },
+  { place: "Enchanted Rock / Hill Country springs", fit: "Granite and water-shaped landscapes near Central Texas", first: "Secure park/preserve access first; check actual swimming policy", href: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve", caution: "Hamilton Pool reservation never guarantees swimming" },
+  { place: "Padre Island National Seashore", fit: "Barrier island, shoreline and remote beach ecology", first: "Check NPS beach-road, tide and current park alerts", href: "https://www.nps.gov/pais/planyourvisit/conditions.htm", caution: "Beach driving and remote access require distinct vehicle planning" },
+  { place: "Devils River", fit: "Remote river and designated natural-area units", first: "Check TPWD Del Norte access versus separate permitted paddling", href: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/", caution: "A park reservation is not automatically a river-trip access permit" }
+] as const;
+
+const landscapePhotos = [
+  { src: paloDuro, name: "Palo Duro Canyon", alt: "Layered rock cliffs at Palo Duro Canyon in the Texas Panhandle", note: "Panhandle canyon terrain" },
+  { src: caddoLake, name: "Caddo Lake", alt: "Bald cypress trees and water at Caddo Lake in East Texas", note: "East Texas wetland landscape" },
+  { src: enchantedRock, name: "Enchanted Rock", alt: "Exposed pink-granite dome at Enchanted Rock in Central Texas", note: "Hill Country granite dome" }
 ] as const;
 
 const geographicPlans = [
@@ -40,6 +59,33 @@ const planningPaths = [
 export function TexasNaturalWondersAuthority() {
   return (
     <Container className="pb-20">
+      <section className="mx-auto max-w-5xl pb-10" aria-labelledby="natural-wonders-which">
+        <p className="eyebrow text-primary">Choose by actual visitor needs</p>
+        <h2 id="natural-wonders-which" className="mt-2 font-display text-4xl">Which natural wonder fits this trip?</h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">The twelve landmarks are not interchangeable. Match terrain, access system and travel effort first. This comparison is editorial planning, not a live access guarantee; the linked land manager controls today's conditions.</p>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[720px] text-left text-sm leading-6">
+            <caption className="sr-only">Texas natural landscapes compared by visitor fit, official action and important limitations</caption>
+            <thead><tr className="border-b border-border"><th scope="col" className="p-3">Landscape</th><th scope="col" className="p-3">Good fit</th><th scope="col" className="p-3">Before you travel</th><th scope="col" className="p-3">Easy mistake</th></tr></thead>
+            <tbody>{chooseALandscape.map((landscape) => <tr key={landscape.place} className="border-b border-border align-top">
+              <th scope="row" className="p-3 font-semibold">{landscape.place}</th>
+              <td className="p-3">{landscape.fit}</td>
+              <td className="p-3"><a href={landscape.href} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-2">{landscape.first} ↗</a></td>
+              <td className="p-3">{landscape.caution}</td>
+            </tr>)}</tbody>
+          </table>
+        </div>
+      </section>
+      <section className="mx-auto max-w-5xl border-t border-border py-10" aria-labelledby="natural-wonders-landscapes">
+        <p className="eyebrow text-primary">Three different terrains</p>
+        <h2 id="natural-wonders-landscapes" className="mt-2 font-display text-3xl">The state changes dramatically across regions</h2>
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          {landscapePhotos.map((photo) => <figure key={photo.name} className="min-w-0">
+            <img src={photo.src} alt={photo.alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            <figcaption className="mt-2 text-sm text-muted-foreground"><strong className="text-foreground">{photo.name}.</strong> {photo.note}. TexasDefined's existing place-image library; confirm site rules separately.</figcaption>
+          </figure>)}
+        </div>
+      </section>
       <section className="mx-auto max-w-5xl border-t border-border pt-12" aria-labelledby="natural-wonders-regions">
         <p className="eyebrow text-primary">Build a realistic route</p>
         <h2 id="natural-wonders-regions" className="mt-2 font-display text-4xl">Four regional trips beat one giant checklist</h2>
