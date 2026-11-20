@@ -41,6 +41,12 @@ for (const group of registry.groups) {
     problems.push(group.path + ": factual source review is overdue by " + (ageDays - group.maxReviewAgeDays) + " days. Review primary facts, then commit a new verified review date; HTTP 200 does not count.");
   }
 }
+// The application shell already owns <main id="main">; a route-level main
+// creates nested landmarks on all three Chrome viewports and breaks screen-reader
+// navigation. Keep this regression guard even if public sources pass.
+const climbingRoute = await readFile("src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx", "utf8");
+assert.ok(!/<\\/?main(?:\\s|>)/i.test(climbingRoute),
+  "Climbing authority page must not nest a second main inside the app shell");
 console.log("FIVE_GUIDE_STATIC_PASS " + JSON.stringify(rows));
 if (argv.has("--watch")) {
   async function probe(url, description, marker) {
