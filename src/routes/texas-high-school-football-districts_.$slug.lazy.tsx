@@ -138,7 +138,7 @@ function Page() {
               : district11Pilot ? <>Calculated from {games.filter((game) => game.status === 'final').length} source-linked 2026 District 11 finals through November 6; see the date-specific game sources below and the <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps UIL-partner district scoreboard</a>. Latest included source verification: {latestDistrict11SourceCheck}. Records are not certified playoff rankings.</>
               : <>Calculated solely from completed matchups documented below and earlier published results from
               {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.</>}
-            {' '}Do not use these partial data for official UIL seeds or district tie-breakers.
+            {' '}These source-derived results are not official UIL playoff seeds or district tie-breakers.
           </p>
         </div>}
         {district21Pilot && <aside data-football-district-section="district-21-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
