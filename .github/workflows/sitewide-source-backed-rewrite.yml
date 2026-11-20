@@ -163,9 +163,11 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --no-tags origin main
+          # Main is very active. Retry the *same* bounded patch on latest
+          # main only if every original context still matches byte-for-byte.
+          # On overlap, fail closed; never accept a loose 3-way AI merge.
           if [[ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]]; then
-            echo 'Main moved during source research; refuse stale automated edits.'
-            exit 1
+            git reset --hard origin/main
           fi
           git apply --check .artifacts/sitewide-rewrite.patch
           git apply .artifacts/sitewide-rewrite.patch
