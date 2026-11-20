@@ -7,6 +7,7 @@ execFileSync(process.execPath, ["--check", "scripts/ci/verify-texas-flag-live.mj
 execFileSync(process.execPath, ["--test",
   "scripts/editorial/refresh-texas-flag-sources.test.mjs",
   "scripts/ci/audit-texas-flag-vitals.test.mjs",
+  "scripts/ci/verify-texas-flag-cdn-cache.test.mjs",
 ], { stdio: "inherit" });
 
 const read = (path) => readFileSync(path, "utf8");
