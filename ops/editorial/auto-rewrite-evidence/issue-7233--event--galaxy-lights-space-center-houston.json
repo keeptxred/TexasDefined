@@ -1,0 +1,22 @@
+{
+  "issue": 7233,
+  "page": "/event/galaxy-lights-space-center-houston",
+  "updatedAt": "2026-11-20T22:51:13.393Z",
+  "facts": [
+    {
+      "sourceUrl": "https://spacecenter.org/galaxy-lights/",
+      "sourceQuote": "Tickets are only available for purchase until 9 p.m., our last admittance time.",
+      "newCopy": "Last entry is at 9 p.m."
+    },
+    {
+      "sourceUrl": "https://spacecenter.org/galaxy-lights/",
+      "sourceQuote": "Galaxy Lights admission includes access to Space Center Houston’s exhibitions.",
+      "newCopy": "Galaxy Lights admission includes access to Space Center Houston exhibitions."
+    },
+    {
+      "sourceUrl": "https://spacecenter.org/galaxy-lights/",
+      "sourceQuote": "Our NASA Tram Tours and Starship Gallery exhibit will be closed during Galaxy Lights.",
+      "newCopy": "NASA Tram Tours and Starship Gallery are closed during the event."
+    }
+  ]
+}
