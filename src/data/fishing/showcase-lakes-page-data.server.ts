@@ -1,7 +1,7 @@
 import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { SHOWCASE_LAKE_SECTION_SLUGS } from "./showcase-lake-routing";
-import { showcaseLakePrototypes } from "./showcase-lakes-prototype";
+import { showcaseLakePrototypes, type ShowcaseLakePrototype } from "./showcase-lakes-prototype";
 import { statewideNetworkShowcaseLakePrototypes } from "./statewide-lake-network";
 import { wave2ShowcaseLakePrototypes } from "./wave2-showcase-lakes-prototype";
 
@@ -16,8 +16,25 @@ const sectionLabel = {
   guides: "Guides",
 } as const;
 
-export function loadShowcaseLakesPageDataServer() {
-  const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes, ...statewideNetworkShowcaseLakePrototypes };
+/**
+ * Public lake detail requests must resolve their one lake directly. Building
+ * editorial sections for the full statewide catalog on every nested /fish,
+ * /nearby or /camping SSR request increases cold Worker CPU/memory pressure.
+ * The directory's no-argument call retains the exact complete inventory.
+ */
+export function loadShowcaseLakesPageDataServer(onlySlug?: string) {
+  const sources: Record<string, ShowcaseLakePrototype>[] = [
+    statewideNetworkShowcaseLakePrototypes,
+    wave2ShowcaseLakePrototypes,
+    expandedShowcaseLakePrototypes,
+    showcaseLakePrototypes,
+  ];
+  const selected = onlySlug
+    ? sources.map((source) => source[onlySlug]).find((lake): lake is ShowcaseLakePrototype => Boolean(lake))
+    : undefined;
+  const prototypes: Record<string, ShowcaseLakePrototype> = onlySlug
+    ? selected ? { [onlySlug]: selected } : {}
+    : { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes, ...statewideNetworkShowcaseLakePrototypes };
   return Object.fromEntries(Object.entries(prototypes).map(([slug, baseLake]) => {
     // A completed research dossier updates only the sections backed by its
     // individual operator sources. The main fishery verifiedAt is unchanged.
