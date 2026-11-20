@@ -12,7 +12,7 @@ import { resolve } from 'node:path';
 
 const PAGE='/texas-high-school-football-teams/comal-canyon-lake';
 const sourceFile=readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8');
-const sourceMatch=sourceFile.match(/const CANYON_LAKE: FootballProgramEditorial = ([\\s\\S]*?);\\s*export function getCanyonLakeFootballEditorial/);
+const sourceMatch=sourceFile.match(/const CANYON_LAKE: FootballProgramEditorial = ([\s\S]*?);\s*export function getCanyonLakeFootballEditorial/);
 assert.ok(sourceMatch,'Canyon Lake source contract is unavailable');
 const currentEditorial=JSON.parse(sourceMatch[1]);
 const EXPECTED_SCORE_SOURCE=currentEditorial.season.sourceLabel;
