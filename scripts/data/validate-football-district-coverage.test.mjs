@@ -126,7 +126,7 @@ test('District 16 next-round schedule and four Week 8 finals remain separate fro
     'data-football-district-records="reported-standings-snapshot"',
     'not a continuously updated scoreboard',
     'not every game played',
-    'All twelve remaining district fixtures',
+    'These twelve games were still listed as upcoming in the October 20 source snapshot',
     'DISTRICT_16_CFISD_TICKETS_URL',
     'DISTRICT_16_CFISD_SCHEDULE_URL',
     'teamHref',
