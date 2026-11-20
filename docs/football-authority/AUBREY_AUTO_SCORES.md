@@ -1,5 +1,8 @@
 # Aubrey football: verified automatic score updates (2026)
 
+> **Current policy — November 20, 2026:** The separate paid-provider nightly Aubrey importer and automatic score-PR finisher are retired. GitHub's statewide next-day public-score research job now includes overdue football result evidence and dated district standings, while the Aubrey focused freshness monitor remains active. Human/source-reviewed corrections still use protected editorial PRs; no paid feeds, continuous scores or unattended publication. The sections below describe the historical importer safeguards, not an enabled auto-score service.
+
+
 ## Activation status and rights
 
 The Aubrey site can accept automatically verified final scores through two independently authorized machine-readable JSON feeds. **Until both source URLs are configured and legitimately licensed, the workflow fails visibly and opens a GitHub setup issue. It does not auto-publish scores.** Public MaxPreps/UIL pages and widgets are *not* machine-data licenses and must not be scraped for these feeds.
