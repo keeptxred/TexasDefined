@@ -256,7 +256,7 @@ function TexasStargazingGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 border-l-2 border-primary bg-muted/20 p-5 text-sm leading-7">
+            <div className="mt-6 border-l-2 border-primary bg-muted/50 p-5 text-sm leading-7">
               <h3 className="font-display text-xl">Choose the target before choosing the Moon</h3>
               <p className="mt-2"><strong>Milky Way or faint deep-sky objects:</strong> plan near new Moon or choose a moon-below-horizon window after astronomical twilight; check when the seasonal target is actually above the horizon.</p>
               <p className="mt-2"><strong>Moon and planets:</strong> a bright night is not automatically a failed trip. A waxing or waning half-Moon gives strong shadow detail along the lunar terminator.</p>

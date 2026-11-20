@@ -245,9 +245,9 @@ function TexasPaddlingGuidePage() {
               {paddlingAccessMap.map((place) => (
                 <div key={place.name} className="min-w-0 border border-border p-5">
                   <h3 className="font-display text-xl">{place.name}</h3>
-                  <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] gap-3 text-sm leading-7">
-                    <p className="min-w-0"><strong>Put-in:</strong> {place.putIn}</p><span aria-hidden="true" className="font-semibold text-primary">1</span>
-                    <p className="min-w-0"><strong>Takeout:</strong> {place.takeOut}</p><span aria-hidden="true" className="font-semibold text-primary">2</span>
+                  <div className="mt-4 space-y-2 text-sm leading-7">
+                    <p><strong>Put-in:</strong> {place.putIn}</p>
+                    <p><strong>Takeout:</strong> {place.takeOut}</p>
                   </div>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Shuttle / route:</strong> {place.shuttle}</p>
                   <nav aria-label={place.name + " access and conditions"} className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">

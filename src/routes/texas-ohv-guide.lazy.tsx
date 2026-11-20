@@ -262,7 +262,7 @@ function TexasOhvGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 border-l-2 border-primary bg-muted/20 p-5 text-sm leading-7">
+            <div className="mt-6 border-l-2 border-primary bg-muted/50 p-5 text-sm leading-7">
               <strong>Sam Houston departure checklist:</strong> <a href="https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Purchase the individual trail pass</a>; measure your vehicle's width (50 inches maximum); get the <a href="https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">current Texas decal</a>; and call <a href="tel:+19363446205" className="font-semibold text-primary underline">936-344-6205</a>, option 2, for the current trail recording. An old status message remains in place until trail status changes; check it for the trip date.
             </div>
           </section>
