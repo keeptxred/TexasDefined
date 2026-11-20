@@ -10,13 +10,13 @@ const sourceCheck = process.argv.includes("--sources");
 const rootOrigin = new URL(root).origin;
 const releaseProbe = process.env.PRODUCTION_RELEASE_PROBE || `flag-authority-${Date.now()}-${process.pid}`;
 
-async function fetchText(url) {
+async function fetchText(url, { bypassCache = true } = {}) {
   const target = new URL(url);
   const sameOrigin = target.origin === rootOrigin;
-  if (sameOrigin) target.searchParams.set("release_probe", releaseProbe);
+  if (sameOrigin && bypassCache) target.searchParams.set("release_probe", releaseProbe);
   const headers = {
     "user-agent": "TexasDefined-Authority-Source-Review/1.0 (+https://texasdefined.com/editorial-policy)",
-    ...(sameOrigin ? { "cache-control": "no-cache, no-store, max-age=0", pragma: "no-cache" } : {}),
+    ...(sameOrigin && bypassCache ? { "cache-control": "no-cache, no-store, max-age=0", pragma: "no-cache" } : {}),
   };
   const response = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(25000), headers });
   if (!response.ok) throw new Error(`${target}: HTTP ${response.status}`);
@@ -25,7 +25,7 @@ async function fetchText(url) {
   // imply stale publication; verify its two exact Nov 19 <lastmod> values below.
   // Do not waive XML response status or expected canonical publication dates.
   const isSitemap = target.pathname === "/sitemap.xml";
-  if (sameOrigin && !isSitemap) {
+  if (sameOrigin && bypassCache && !isSitemap) {
     const status = (response.headers.get("cf-cache-status") || "").toUpperCase();
     const age = response.headers.get("age");
     if (["HIT", "STALE", "UPDATING"].includes(status) || (age !== null && Number(age) > 0))
@@ -53,8 +53,8 @@ function assertIndexable(label, html) {
     .filter((tag) => /\bname\s*=\s*["'](?:robots|googlebot)["']/i.test(tag));
   if (robots.some((tag) => /noindex/i.test(tag))) errors.push(`${label}: contains noindex in robots metadata`);
 }
-async function check(label, url, fn) {
-  try { const html = await fetchText(url); fn(html); console.log(`OK: ${label} (${url})`); }
+async function check(label, url, fn, { bypassCache = true } = {}) {
+  try { const html = await fetchText(url, { bypassCache }); fn(html); console.log(`OK: ${label} (${url})`); }
   catch (error) { errors.push(`${label}: ${String(error?.message || error)}`); }
 }
 
@@ -93,6 +93,27 @@ await check("Flag history article", `${root}/article/history-of-the-texas-flag`,
 await check("Flag etiquette article", `${root}/article/texas-flag-etiquette-display-guide`, html => {
   assertContains("Etiquette hub backlink", html, "/texas-flag");
 });
+// Public search and extraction services usually request the ordinary canonical
+// URL, not our cache-busting release probe. Both variants must expose the same
+// researched release. Cached canonical HTML is acceptable only when the exact
+// published content is current; stale canonical responses fail the deployment.
+await check("Flag authority page — ordinary public URL", `${root}/texas-flag`, html => {
+  assertSelfCanonical("Ordinary public flag hub", html, "/texas-flag");
+  assertIndexable("Ordinary public flag hub", html);
+  assertRegex("Ordinary public flag revision", html, /Updated(?:\\s|<!--.*?-->)*November 19, 2026/);
+  assertContains("Ordinary public flag structured revision", html, '"dateModified":"2026-11-19"');
+  assertContains("Ordinary public flag signed archive section", html, "The signed 1839 flag drawing: a primary-source research guide");
+  assertContains("Ordinary public flag Flag Day section", html, "When Texas Flag Day happens and why the date matters");
+  if (html.includes('"@type":"FAQPage"')) errors.push("Ordinary public flag hub still emits retired FAQ rich-result schema");
+}, { bypassCache: false });
+await check("Flag history article — ordinary public URL", `${root}/article/history-of-the-texas-flag`, html => {
+  assertSelfCanonical("Ordinary public flag history", html, "/article/history-of-the-texas-flag");
+  assertIndexable("Ordinary public flag history", html);
+  assertRegex("Ordinary public history revision", html, /Updated(?:\\s|<!--.*?-->)*November 19, 2026/);
+  assertContains("Ordinary public history signed archive research", html, "What the signed 1839 original actually shows");
+  assertContains("Ordinary public history Flag Day research", html, "Texas Flag Day is March 2");
+}, { bypassCache: false });
+
 await check("Primary sitemap", `${root}/sitemap.xml`, xml => {
   const marker = "<loc>https://texasdefined.com/texas-flag</loc>";
   const entry = xml.split(marker)[1]?.split("</url>")[0] ?? "";
