@@ -38,10 +38,10 @@ const CANYON_LAKE: FootballProgramEditorial = {
   },
   "season": {
     "record": "8–2 overall · 6–1 district (through Nov. 13; includes one playoff win)",
-    "recordLabel": "2026 reported W–L at Nov. 19 review",
+    "recordLabel": "2026 completed varsity results through Nov. 13 · checked Nov. 19",
     "verifiedAt": "2026-11-19",
     "sourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
-    "sourceLabel": "MaxPreps 2026 game-by-game reported scores (checked Nov. 19); UIL partnership listing, independently cross-checked with regional results; not a live licensed feed",
+    "sourceLabel": "MaxPreps 2026 varsity game-by-game results (schedule updated Nov. 19, 2026 at 15:58 UTC; checked that evening). Ten completed scores through Nov. 13 are confirmed; Nov. 20 Calhoun is scheduled, not final. UIL partner scoreboard; not a live licensed feed.",
     "latestResultSourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
     "games": [
       {
