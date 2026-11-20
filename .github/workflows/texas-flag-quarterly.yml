@@ -100,7 +100,6 @@ jobs:
             **Required:** Research the changed official text, write/update sourced page paragraphs and cross-links when warranted,
             then pass protected CI and actual uncached post-deployment verification.
             Never advance the public editorial/sitemap dates merely because this job ran.
-          labels: automated-source-review
 
       - name: Preserve independent audit evidence even when a dependency fails
         if: always()
