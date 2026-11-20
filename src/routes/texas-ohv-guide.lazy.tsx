@@ -7,7 +7,7 @@ const rositaTrailPhoto = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-1
 const legalRideComparison = [
   {
     "name": "Eisenhower State Park",
-    "vehicles": "ATVs and dirt bikes only on roughly 2.5 miles of designated routes; no general park-wide OHV use",
+    "vehicles": "ATVs, dirt bikes and UTVs no wider than 50 inches on roughly 2.5 miles of designated routes; no general park-wide OHV use",
     "permission": "Park OHV permit and applicable Texas decal; protective gear and rider requirements apply",
     "check": "Check current width, permitted rider ages, trail-capacity limits and post-rain status",
     "operator": "https://tpwd.texas.gov/state-parks/eisenhower/ohvs",
@@ -45,6 +45,44 @@ const legalRideComparison = [
     "operator": "https://www.escondidodraw.org/policies_fees.html",
     "related": "/explore/road-trips"
   }
+] as const;
+
+const namedOHVAccess = [
+  {
+    name: "Eisenhower — Ironweed (Denison)",
+    arrival: "Use the park's designated Ironweed OHV trailhead, which TPWD says has a first-come pavilion, water spigot and composting restroom. Trails open 8 a.m. to sunset when conditions allow.",
+    segments: "Pee Wee Practice Area: 0.5 mile easy; Blackland Ramble: 0.6 mile moderate; Big Woods Canyon and Timber Rattler Run: 0.7 mile each, moderate to challenging.",
+    verify: "Maximum machine width is 50 inches. ATVs, UTVs and dirt bikes still require a valid trail permit, state OHV decal, protective equipment and applicable safety certification.",
+    url: "https://tpwd.texas.gov/state-parks/eisenhower/ohvs",
+  },
+  {
+    name: "Barnwell Mountain — mapped TMTC routes (Gilmer)",
+    arrival: "Operator directions: 6284 N. State Highway 155, Gilmer. The entrance is about five miles east of Gilmer on SH 155, near a hill crest; check the calendar for member events and closed weekends.",
+    segments: "The operator describes a 27-plus-mile motorcycle loop with easy/hard splits, plus a more open 16-mile Adventure Trail marked by blue arrows; these do not authorize larger machines on motorcycle-only segments.",
+    verify: "Ask for the up-to-date vehicle-class map, sign the required waiver, and confirm gate times and whether cabin/RV camping is available. The operator says it does not rent ATVs or dirt bikes.",
+    url: "https://www.barnwellmountainra.com/info_directions",
+  },
+  {
+    name: "Sam Houston — federal multiple-use system",
+    arrival: "Download the current USFS Motor Vehicle Use Map before loading. Enter only at a signed, legal multiple-use trailhead; forest roads are not open to unregistered non-street-legal OHVs.",
+    segments: "The 85-mile multiple-use network is not an unrestricted 85-mile motor route. The federal pass page sets a 50-inch maximum motorized width; a full-width side-by-side does not fit simply because it has an OHV decal.",
+    verify: "Buy one Recreation.gov Multiple-Use Trail Pass per person and attach the Texas OHV decal. Call 936-344-6205, option 2, on departure day for the recorded wet-soil closure status.",
+    url: "https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645",
+  },
+  {
+    name: "Lake Meredith — Blue Creek vs Rosita Flats",
+    arrival: "Blue Creek OHV area is off FM 1913, with riding only in the creek bed/cutbanks. Rosita Flats is reached via US 87/287 and has primitive camping; neither has drinking water.",
+    segments: "NPS confines Rosita motorized riding below 3,000 feet elevation. It requires DOT helmets, eye protection, and whip-and-flag equipment on ATVs, not riding anywhere in the recreation area.",
+    verify: "Apply for the free NPS ORV permit for every listed machine and retain the valid Texas OHV decal. The NPS permit expires December 31, not one year after issue; call 806-857-3151 for permit or access questions.",
+    url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
+  },
+  {
+    name: "Escondido Draw — TMTC venue (Ozona area)",
+    arrival: "Use TMTC's current General Info & Directions, gate schedule and posted trails rather than treating nearby ranch roads as permitted access.",
+    segments: "Vehicle classes and trail difficulty are decided on-site by the operator. All riders sign in/out; TMTC requires waivers, adult supervision for minors and no riding after 10 p.m.",
+    verify: "The operator's older page still quotes a $20 state OHV sticker, while TPWD's current decal program says $16. Use TPWD's current price and purchase link; verify gate/waiver terms directly with TMTC.",
+    url: "https://www.escondidodraw.org/policies_fees.html",
+  },
 ] as const;
 
 const officialSources = [
@@ -207,6 +245,25 @@ function TexasOhvGuidePage() {
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
                 <tbody>{legalRideComparison.map((area) => <tr key={area.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{area.name}</th><td className="border-b border-border p-4 text-muted-foreground">{area.vehicles}</td><td className="border-b border-border p-4 text-muted-foreground">{area.permission}</td></tr>)}</tbody>
               </table>
+            </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="ohv-named-access">
+            <p className="eyebrow text-primary">Riding access by actual venue</p>
+            <h2 id="ohv-named-access" className="mt-2 font-display text-3xl">Trail names, entrance approaches and closure checks</h2>
+            <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">These are five different legal arrangements: state-park OHV trails, TMTC recreation areas, a Forest Service motor-vehicle network and National Park Service ORV zones. A decal is never permission to ignore an operator's designated trail, separate pass or closure.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {namedOHVAccess.map((item) => (
+                <div key={item.name} className="min-w-0 border border-border p-5">
+                  <h3 className="font-display text-xl">{item.name}</h3>
+                  <p className="mt-3 text-sm leading-7"><strong>Entry / facilities:</strong> {item.arrival}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Marked riding:</strong> {item.segments}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Permit and status:</strong> {item.verify}</p>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official map, rules or pass</a>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 border-l-2 border-primary bg-muted/20 p-5 text-sm leading-7">
+              <strong>Sam Houston departure checklist:</strong> <a href="https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Purchase the individual trail pass</a>; measure your vehicle's width (50 inches maximum); get the <a href="https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">current Texas decal</a>; and call <a href="tel:+19363446205" className="font-semibold text-primary underline">936-344-6205</a>, option 2, for the current trail recording. An old status message remains in place until trail status changes; check it for the trip date.
             </div>
           </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
