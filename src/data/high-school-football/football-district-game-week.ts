@@ -37,7 +37,7 @@ const final = (
   resultSourceUrl: string, sourceLabel: string,
 ): DistrictFootballGame => ({
   date, kickoff: '', away, home, status: 'final', awayScore, homeScore,
-  sourceUrl: KATY_2026_SCHEDULE_SOURCE, resultSourceUrl, sourceLabel, verifiedAt: '2026-10-16',
+  sourceUrl: KATY_2026_SCHEDULE_SOURCE, resultSourceUrl, sourceLabel, verifiedAt: date >= '2026-10-22' ? '2026-11-20' : '2026-10-16',
 });
 
 // School names match the UIL district's display names; no records or rankings are inferred.
@@ -66,18 +66,18 @@ const KATY_2026_DISTRICT_GAMES: DistrictFootballGame[] = [
   final('2026-10-15', 'Katy Seven Lakes', 'Katy Mayde Creek', 16, 25, SEVEN_LAKES_OCT_15, 'Seven Lakes athletics reported final'),
   final('2026-10-16', 'Katy Cinco Ranch', 'Katy Tompkins', 12, 49, 'https://www.maxpreps.com/news/uUt6e3uFg0yiXrZZdl2uXA/football-recap-tompkins-piles-up-the-points-against-cinco-ranch--how-to-watch.htm', 'MaxPreps reported final'),
   final('2026-10-16', 'Katy Morton Ranch', 'Katy Taylor', 19, 38, 'https://www.maxpreps.com/news/2azgVLQFJEO03tR8v8LZeg/football-recap-katy-taylor-beats-morton-ranch-for-their-third-straight-win--how-to-watch.htm', 'MaxPreps reported final'),
-  scheduled('2026-10-22', '6:30 p.m. CDT', 'Katy Mayde Creek', 'Katy Morton Ranch', 'Legacy Stadium'),
-  scheduled('2026-10-22', '7:00 p.m. CDT', 'Katy Jordan', 'Katy Cinco Ranch', 'Rhodes Stadium'),
-  scheduled('2026-10-23', '6:30 p.m. CDT', 'Katy Tompkins', 'Katy Seven Lakes', 'Legacy Stadium'),
-  scheduled('2026-10-24', '6:30 p.m. CDT', 'Katy Taylor', 'Katy Paetow', 'Legacy Stadium'),
-  scheduled('2026-10-29', '7:00 p.m. CDT', 'Katy Seven Lakes', 'Katy Jordan', 'Rhodes Stadium'),
-  scheduled('2026-10-29', '6:30 p.m. CDT', 'Katy Morton Ranch', 'Katy Tompkins', 'Legacy Stadium'),
-  scheduled('2026-10-30', '7:00 p.m. CDT', 'Katy Paetow', 'Katy Mayde Creek', 'Rhodes Stadium'),
-  scheduled('2026-10-30', '6:30 p.m. CDT', 'Katy', 'Katy Taylor', 'Legacy Stadium'),
-  scheduled('2026-11-05', '7:00 p.m. CST', 'Katy Cinco Ranch', 'Katy Seven Lakes', 'Rhodes Stadium'),
-  scheduled('2026-11-05', '6:30 p.m. CST', 'Katy Tompkins', 'Katy Paetow', 'Legacy Stadium'),
-  scheduled('2026-11-06', '7:00 p.m. CST', 'Katy Jordan', 'Katy Morton Ranch', 'Rhodes Stadium'),
-  scheduled('2026-11-06', '6:30 p.m. CST', 'Katy Mayde Creek', 'Katy', 'Legacy Stadium'),
+  final('2026-10-22', 'Katy Mayde Creek', 'Katy Morton Ranch', 40, 26, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F22%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-22', 'Katy Jordan', 'Katy Cinco Ranch', 28, 21, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F22%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-23', 'Katy Tompkins', 'Katy Seven Lakes', 56, 7, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F23%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-24', 'Katy Taylor', 'Katy Paetow', 29, 43, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F24%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-29', 'Katy Seven Lakes', 'Katy Jordan', 14, 76, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F29%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-29', 'Katy Morton Ranch', 'Katy Tompkins', 14, 45, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F29%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-30', 'Katy Paetow', 'Katy Mayde Creek', 34, 27, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F30%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-10-30', 'Katy', 'Katy Taylor', 66, 0, 'https://www.maxpreps.com/tx/football/scores/?date=10%2F30%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-11-05', 'Katy Cinco Ranch', 'Katy Seven Lakes', 62, 17, 'https://www.maxpreps.com/tx/football/scores/?date=11%2F05%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-11-05', 'Katy Tompkins', 'Katy Paetow', 35, 21, 'https://www.maxpreps.com/tx/football/scores/?date=11%2F05%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-11-06', 'Katy Jordan', 'Katy Morton Ranch', 37, 14, 'https://www.maxpreps.com/tx/football/scores/?date=11%2F06%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
+  final('2026-11-06', 'Katy Mayde Creek', 'Katy', 14, 56, 'https://www.maxpreps.com/tx/football/scores/?date=11%2F06%2F2026', 'UIL partner MaxPreps date scoreboard; independent regional score confirmation'),
 ];
 
 const gameKey = (game: Pick<DistrictFootballGame, 'date' | 'away' | 'home'>) =>
