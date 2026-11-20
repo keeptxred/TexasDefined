@@ -37,11 +37,11 @@ jobs:
           node-version: 22
       - name: Finish verified content-only PR using actual source, strict CI and protected merge
         env:
-          GH_TOKEN: ${{ github.token }
-          REPO: ${{ github.repository }
-          EVENT_NAME: ${{ github.event_name }
-          EVENT_RUN: ${{ github.event.workflow_run.id }
-          MANUAL_RUN: ${{ inputs.source_run_id }
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_RUN: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN: ${{ inputs.source_run_id }}
         shell: bash
         run: |
           set -euo pipefail
