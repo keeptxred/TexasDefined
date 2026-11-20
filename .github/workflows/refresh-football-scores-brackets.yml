@@ -1,6 +1,13 @@
 name: Research statewide Texas football finals and standings
 on:
   workflow_dispatch:
+  # Bootstrap actual public research immediately on merge; ongoing lookups use cron.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-football-scores-brackets.yml'
+      - 'scripts/data/inventory-statewide-football-scores.mjs'
+      - 'scripts/data/research-statewide-football-scores.mjs'
   schedule:
     # 17:37 UTC is midday Central; check the day AFTER a game, not live.
     # Saturday year-round + Sunday-Friday August through December.
