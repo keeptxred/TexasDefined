@@ -272,7 +272,7 @@ export function markdownReport(inv,report){
   lines.push('','## Required editorial correction',
     'Check the dated school schedule, UIL partner scoreboard and independent local reporting for each flagged game, confirm the final, and prepare a normal reviewed PR. Update results, overall/district W–L, as-of dates, opponent and playoff context together. Do not publish a headline alone as a final.',
     'This one scheduled workflow covers the whole UIL program/district inventory; it rotates bounded public queries rather than creating 1,460 individual cron workflows. Full page registry is in the uploaded JSON artifact.',
-    '','## Parse errors'];
+    '','## Parse errors');
   for(const e of inv.counts.parseErrors||[])lines.push('- '+safe(e.file+': '+e.error));
   if(!(inv.counts.parseErrors||[]).length)lines.push('None.');
   return lines.join('\n')+'\n';
