@@ -11,9 +11,9 @@ import { pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../..');
 const API = 'https://api.github.com';
 const REPO = process.env.GITHUB_REPOSITORY || 'keeptxred/TexasDefined';
-const ISSUE_TERMS = ['source', 'freshness', 'editorial', 'authority'];
 const RUN_LIMIT = 1;
 const ISSUE_LIMIT = 100;
+const MAX_OPEN_ISSUE_PAGES = 25; // Fail closed rather than quietly exclude older refresh alerts.
 const SOURCE_LIMIT = 3;
 const MAX_HTML = 850_000;
 const PAGE_PATTERN = /https:\/\/texasdefined\.com(\/[a-z0-9][a-z0-9\/-]{4,125})|(?:^|[\s\u0060(])(\/[a-z][a-z0-9-]{2,}(?:\/[a-z0-9-]+)*)/g;
@@ -164,19 +164,32 @@ function githubHeaders() {
   return {Authorization: 'Bearer ' + (process.env.GH_TOKEN || process.env.GITHUB_TOKEN),
     Accept: 'application/vnd.github+json', 'User-Agent': 'TexasDefined-Source-Backed-Refresh'};
 }
-async function loadIssues(fetcher = fetch) {
-  const groups = await Promise.all(ISSUE_TERMS.map(async term => {
-    const query = encodeURIComponent('repo:' + REPO + ' is:issue is:open in:title,body ' + term);
-    const response = await fetcher(API + '/search/issues?q=' + query +
-      '&sort=updated&order=desc&per_page=' + ISSUE_LIMIT, {
-      headers: githubHeaders(), signal: AbortSignal.timeout(16000),
+/**
+ * Review the COMPLETE open GitHub issue backlog rather than searching four
+ * keywords and silently ignoring anything beyond the latest 45 matches.
+ * Individual monitors own their issues; the editorial eligibility filter
+ * below still rejects unrelated tickets, PRs, and missing official evidence.
+ * GitHub's issue list includes PRs, so those are explicitly excluded.
+ */
+export async function loadIssues(fetcher = fetch, headers = githubHeaders()) {
+  const unique = new Map();
+  for (let page = 1; page <= MAX_OPEN_ISSUE_PAGES; page++) {
+    const response = await fetcher(API + '/repos/' + REPO +
+      '/issues?state=open&per_page=' + ISSUE_LIMIT + '&page=' + page, {
+      headers, signal: AbortSignal.timeout(16000),
     });
-    if (!response.ok) throw Error('GitHub issue search (' + term + ') HTTP ' + response.status);
-    return (await response.json()).items || [];
-  }));
-  const unique = new Map(groups.flat().map(issue => [issue.number, issue]));
-  return [...unique.values()].sort((a,b) =>
-    String(b.updated_at).localeCompare(String(a.updated_at)));
+    if (!response.ok) throw Error('GitHub open issue backlog page ' + page +
+      ' HTTP ' + response.status);
+    const items = await response.json();
+    if (!Array.isArray(items)) throw Error('Invalid GitHub open issue response at page ' + page);
+    for (const issue of items) if (!issue.pull_request) unique.set(issue.number, issue);
+    if (items.length < ISSUE_LIMIT)
+      return [...unique.values()].sort((a,b) =>
+        String(b.updated_at).localeCompare(String(a.updated_at)) ||
+        Number(b.number) - Number(a.number));
+  }
+  throw Error('Open issue backlog exceeds ' + (MAX_OPEN_ISSUE_PAGES * ISSUE_LIMIT) +
+    ' records; refuse truncated sitewide source refresh');
 }
 /** Do not pay for a second rewrite while the first is undergoing protected
  * source checks, CI, auto-merge or a fail-closed source-conflict review. */
@@ -224,7 +237,7 @@ async function main() {
   const issues = openIssues.filter(issue => sourceReviewEligible(issue) && !pending.has(issue.number));
   const reviewed = priorEditorialRewrites();
   const unseen = [], previouslyReviewed = [];
-  for (const issue of issues.slice(0, 45)) {
+  for (const issue of issues) {
     for (const pair of issuePageSourcePairs(issue.body)) {
       const row = {...pair, issue: issue.number, issueUrl: issue.html_url,
         title: issue.title, issueUpdatedAt: issue.updated_at};

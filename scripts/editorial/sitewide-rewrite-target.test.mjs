@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates,loadIssues}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -118,4 +118,32 @@ test('scheduled successive runs rotate all source-page candidates including no-o
   assert.deepEqual(rotateCandidates(pending,5),pending);
   assert.deepEqual(rotateCandidates([],1),[]);
   assert.throws(()=>rotateCandidates(pending,0),/run number/);
+});
+
+test('complete open source backlog discovery includes old issues beyond page 1 and old top-45 cap',async()=>{
+  const issue = number => ({number,state:'open',title:'Official source refresh needed',
+    body:'https://texasdefined.com/event/a-christmas-affair https://www.jlaustin.org/a-christmas-affair/',
+    updated_at:'2026-11-20T00:00:00Z'});
+  const first=Array.from({length:100},(_,i)=>issue(1000+i));
+  first[0]={...first[0],pull_request:{url:'https://api.github.com/repos/owner/repo/pulls/1'}};
+  const second=[issue(2000),issue(2001)];
+  const calls=[];
+  const fetcher=async url=>{
+    const page=Number(new URL(url).searchParams.get('page'));
+    calls.push(page);
+    return {ok:true,json:async()=>page===1?first:second};
+  };
+  const found=await loadIssues(fetcher,{Authorization:'Bearer fixture'});
+  assert.deepEqual(calls,[1,2]);
+  assert.equal(found.length,101);
+  assert.ok(found.some(v=>v.number===2001),'older issue beyond first 100 not lost');
+  assert.ok(!found.some(v=>v.number===1000),'pull requests are not eligible issues');
+  assert.ok(found.every(sourceReviewEligible));
+});
+test('incomplete GitHub issue list fails closed instead of claiming complete sitewide coverage',async()=>{
+  let pages=0;
+  const endless=async()=>{pages++;return {ok:true,json:async()=>
+    Array.from({length:100},(_,i)=>({number:pages*100+i,updated_at:'2026-11-20'}))};};
+  await assert.rejects(loadIssues(endless,{Authorization:'Bearer fixture'}),/refuse truncated sitewide source refresh/);
+  assert.equal(pages,25);
 });

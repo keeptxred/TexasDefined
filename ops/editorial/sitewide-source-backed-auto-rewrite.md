@@ -8,6 +8,10 @@ selector enumerates scheduled workflows directly from \`.github/workflows/\`
 instead of a fixed three-page list. It reads **open, actionable official-source
 refresh issues** produced by the existing page-specific schedules, identifies
 actual canonical TexasDefined paths and official HTTPS source documents, and
+paginates the complete open GitHub issue backlog before applying strict
+page/source eligibility. It never silently cuts off older alerts after a
+45-issue or search-keyword threshold; unusually large incomplete GitHub
+responses fail closed instead of claiming all-schedule coverage.
 selects **at most one page per run** for source-backed rewriting. Multi-page editorial issues are processed as canonical/source pairs, rather than closed after just one page. Committed per-page evidence is used to prioritize previously unhandled pages and avoid endlessly reprocessing the first row of a shared issue.
 
 The normal source/data refresh schedules continue unchanged, including county
