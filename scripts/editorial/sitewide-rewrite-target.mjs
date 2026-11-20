@@ -50,7 +50,8 @@ export function scheduledWorkflowInventory(root = ROOT) {
   return fs.readdirSync(dir).filter(file => /\.ya?ml$/.test(file))
     .filter(file => {
       const src = fs.readFileSync(path.join(dir, file), 'utf8');
-      return /(?:^|\n)on:\s*\n[\s\S]*?\n\s+schedule:\s*\n/.test(src);
+      const onBlock = src.match(/(?:^|\n)on:[^\n]*\n([\s\S]*?)(?=\n[^\s#][^\n]*:|$)/)?.[1] || '';
+      return /^  schedule:\s*$/m.test(onBlock);
     }).sort();
 }
 function githubHeaders() {
