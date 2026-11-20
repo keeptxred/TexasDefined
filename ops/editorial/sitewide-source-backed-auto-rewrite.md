@@ -35,8 +35,7 @@ only a successful first-party source run and the exact bot-created PR. It
 checks the GitHub issue identity, revalidates **current** official-source
 quotes, rejects concurrent branch changes, runs all standard canonical
 validation plus protected Merge Gate on the exact branch and enables
-GitHub auto-merge. Production's existing deployment safety gates continue
-to apply. Failure at any stage leaves a reviewable PR/issue; it does not
+GitHub auto-merge. After an actual protected bot PR merge, the finisher explicitly dispatches the\nexisting serialized production workflow: GitHub does not start a push-triggered\ndeployment for merges made with its own GITHUB_TOKEN. It verifies the exact\nvalidated source commit is on main before dispatch; all existing production\nsource/asset/authority safety gates continue to apply. Failure at any stage leaves a reviewable PR/issue; it does not
 bypass source verification, noindex rules or production controls.
 
 ## What this does not claim
