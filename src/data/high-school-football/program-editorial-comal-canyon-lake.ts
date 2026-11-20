@@ -135,7 +135,7 @@ const CANYON_LAKE: FootballProgramEditorial = {
   },
   "overview": [
     "The Hawks represent Canyon Lake High School in Fischer, Comal County, not New Braunfels Canyon High's 6A Cougars. UIL's 2026–28 alignment assigns Comal Canyon Lake to 4A Division I District 13 with Austin Johnson (LBJ), Austin Northeast, Austin Travis, Comal Davenport, Fredericksburg, Kerrville Tivy and Taylor.",
-    "Canyon Lake finished the reported regular season 7–2 and 6–1 against district opponents. The only district loss came against Davenport (56–41 on September 24). The November 13 bi-district win over Pleasanton, 49–28, brought the overall record to 8–2.",
+    "Canyon Lake finished the reported regular season 7–2 and 6–1 in District 13. San Antonio Express-News reporting on November 9 identifies the Hawks as 2026 district champions for the first time since 2022, while also calling Kerrville Tivy a share-holder of that championship; a published district results table lists both schools at 6–1. Thus the Hawks share the best district record, but an outright first-place tiebreak or playoff seed should not be inferred from wins alone. Canyon Lake's only district loss came against Davenport (56–41 on September 24). The November 13 bi-district win over Pleasanton, 49–28, brought the overall record to 8–2.",
     "Three high-scoring wins from October 23 through November 6—50–32 over Fredericksburg, 53–50 over Tivy and 50–40 over Austin LBJ—added up to 153 Canyon Lake points and 122 allowed. That spread is more informative about the team's offensive strength and defensive exposure than an unsupported ranking.",
     "Comal ISD appointed Sam Parker head football coach in January 2024. The school's athletics directory uses his formal name Lawrence Parker in its athletic-director role. Dave Campbell's Texas Football recorded an improvement from 2–8 in 2023 to 8–4 in Parker's first 2024 season.",
     "Across the ten reported 2026 finals through bi-district, Canyon Lake totaled 513 points for and 307 against, or 51.3 scored and 30.7 allowed per game (+206). These are TexasDefined calculations from the cited game log, not a third-party season statistics feed. A November 16 matchup preview listed Calhoun at 7–4 and allowing 17.4 points per game, useful opponent context rather than a prediction.",
@@ -177,6 +177,13 @@ const CANYON_LAKE: FootballProgramEditorial = {
       "body": "A three-point District 13 win extended Canyon Lake's late-season run; the next week the Hawks beat Austin LBJ 50–40.",
       "sourceUrl": "https://www.maxpreps.com/tx/fischer/canyon-lake-hawks/football/schedule/",
       "sourceLabel": "MaxPreps dated 2026 varsity game results"
+    },
+    {
+      "date": "November 9, 2026",
+      "title": "Canyon Lake shares the 2026 District 13-4A-I title",
+      "body": "San Antonio Express-News reported Canyon Lake as a District 13 champion for the first time since 2022 and separately described Kerrville Tivy as winning a share of that title. Both finished 6–1 in district play. The account establishes shared championship recognition but does not independently establish final UIL tiebreak seeding.",
+      "sourceUrl": "https://www.expressnews.com/sports/high-school/article/johnson-finishes-no-1-express-news-football-22519633.php",
+      "sourceLabel": "San Antonio Express-News, November 9, 2026 final power rankings and district-title notes"
     },
     {
       "date": "November 13, 2026",
