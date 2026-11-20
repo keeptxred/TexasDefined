@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
+const ohvHeroUrl = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.jpg?autorotate=false&maxwidth=1300";
 const canonicalPath = "/texas-ohv-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const ohvAreas = [
@@ -35,7 +35,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas OHV Guide",
           description: "Plan legal off-highway vehicle trips at five Texas riding areas with current decal, vehicle-class, land-manager and closure guidance.",
-          image: absoluteUrl(texasDefinedBrand, bigBend),
+          image: ohvHeroUrl,
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: {
             "@type": "ItemList",
@@ -43,6 +43,16 @@ export const Route = createFileRoute(canonicalPath)({
             numberOfItems: itemListElement.length,
             itemListElement,
           },
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `${pageUrl}#nps-photo`,
+          contentUrl: ohvHeroUrl,
+          creator: { "@type": "Organization", name: "National Park Service" },
+          creditText: "National Park Service photo, Rosita Flats, Lake Meredith",
+          license: "https://www.nps.gov/media/photo/gallery-item.htm?gid=69761879-1DD8-B71B-0B77-C7FFBAD5853B&id=6a0a25fd-1dd8-b71b-0b1c-f2c140fbba6a",
+          acquireLicensePage: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
+          copyrightNotice: "Public domain NPS photo",
         },
         {
           "@type": "BreadcrumbList",
@@ -62,8 +72,8 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas OHV Guide: 5 Legal Riding Areas & Decal Rules",
         description: "Find five legal Texas OHV riding areas and plan around decals, allowed vehicle classes, land-manager maps, permits, closures and current rules.",
-        image: bigBend,
-        imageAlt: "Rugged Texas public-land landscape used as a general outdoor travel image",
+        image: ohvHeroUrl,
+        imageAlt: "Real designated off-road route at Rosita Flats, Lake Meredith, Texas",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
