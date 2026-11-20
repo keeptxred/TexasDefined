@@ -7,6 +7,19 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-horseback-ri
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Retain the research-backed 95+ remediation, not just prior general place names.
+const additional95PlusEvidence = [
+  "const horseBookingDesk = [",
+  "horse-trailhead-bookings",
+  "Agua Adentro Pens",
+  "Wild Horse campground",
+  "first come, first served",
+  "lajitasstables.com"
+];
+for (const marker of additional95PlusEvidence) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
+}
+
 // Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
 if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five Texas horseback riding destinations comparison table"')) {
   errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');

@@ -53,6 +53,49 @@ const afterDarkDesk = [
  { site: "TPWD identifies the Scenic Overlook and a live sky-quality monitor, but verify which areas visitors may use after normal hours.", caution: "Reservations can reach capacity; day-use entry does not necessarily authorize nighttime access to the granite dome.", source: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/dark-skies/" },
  { site: "South Llano River offers a night-activity option; ask park staff which viewing area and parking arrangement it covers.", caution: "TPWD says the fee allows stargazing beyond 10 p.m.; confirm it when paying admission and compare the park sky monitor with that night's forecast.", source: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies" },
 ] as const;
+const nightAccessFieldGuide = [
+  {
+    park: "Big Bend Ranch",
+    viewing: "River Road, West Contrabando Trailhead, Big Hill and the Hoodoos are TPWD's named starting points. Pick the actual road approach and return drive in daylight.",
+    permission: "This is remote desert country: access roads, vehicle clearance and backcountry permits are location-specific. A Bortle 1 park-wide claim is not a promise of Bortle 1 at a developed parking area.",
+    liveCheck: "Use the destination-specific NWS forecast and lunar rise/set times; wind, storms, dust, moonlight and desert heat can erase the expected advantage.",
+    map: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map",
+    conditions: "https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies",
+  },
+  {
+    park: "Caprock Canyons",
+    viewing: "Before arriving after sunset, ask park staff which parking or campground location is authorized for independent nighttime viewing; do not assume the 64-mile Trailway is open overnight.",
+    permission: "The January 2026 International Dark Sky Park designation is not an all-hours access permit. Review current park alerts, day-use reservation limits and scheduled astronomy events.",
+    liveCheck: "Panhandle cloud cover, wind and possible thunderstorms matter more for a particular night than the baseline Bortle 2 classification.",
+    map: "https://tpwd.texas.gov/state-parks/caprock-canyons/map",
+    conditions: "https://tpwd.texas.gov/state-parks/caprock-canyons",
+  },
+  {
+    park: "Copper Breaks",
+    viewing: "TPWD's signed Dark Sky Viewing Area is at 34.1183, -99.7549, near the equestrian trailhead. Distinguish that location from the lake, scenic overlooks and campsite viewing.",
+    permission: "Star Walk programs and independent viewing have different arrival arrangements. TPWD says campsite skies can also be viewed without a telescope; confirm gate rules and any after-hours check-in.",
+    liveCheck: "Look at the park's astronomy events and clear-sky tools; a scheduled April–November star party is not evidence of clear weather on that night.",
+    map: "https://www.openstreetmap.org/?mlat=34.1183&mlon=-99.7549#map=16/34.1183/-99.7549",
+    conditions: "https://tpwd.texas.gov/state-parks/copper-breaks/trails-info",
+  },
+  {
+    park: "Enchanted Rock",
+    viewing: "Use the official Scenic Overlook and its mapped approach. Ranger astronomy programs have used Parking Lot 1, but that does not make the granite summit or every trail legal after hours.",
+    permission: "This is a capacity-controlled natural area. Confirm reservations, a permitted nighttime program or approved entry window and late-arrival instructions before relying on a night hike.",
+    liveCheck: "The park's sky-quality monitor shows relative darkness; combine it with an hourly cloud/wind forecast and the destination's moonrise/moonset.",
+    map: "https://tpwd.texas.gov/state-parks/enchanted-rock/trails-info",
+    conditions: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/dark-skies/",
+  },
+  {
+    park: "South Llano River",
+    viewing: "Use a park-approved viewing area or campsite, not an unsupervised shortcut into the backcountry. Verify the specific parking option at park headquarters.",
+    permission: "TPWD explicitly offers a night-activity fee when paying admission for stargazing past 10 p.m. Confirm the fee/access arrangement for non-campers and your intended exit time.",
+    liveCheck: "TPWD links a nighttime sky-darkness monitor updating about every 15 minutes. An extremely high darkness-meter reading can indicate cloud cover, not perfect transparency.",
+    map: "https://tpwd.texas.gov/state-parks/south-llano-river/map",
+    conditions: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies",
+  },
+] as const;
+
 const officialSources = [
   { label: "US Naval Observatory — Moonrise, Moonset and Twilight", href: "https://aa.usno.navy.mil/data/RS_OneYear", note: "Location-specific time calculations for planning a moonless observing window." },
   { label: "NASA — Moon Phases", href: "https://science.nasa.gov/moon/moon-phases/", note: "Astronomy source for the waxing, waning and illumination cycle." },
@@ -195,6 +238,32 @@ function TexasStargazingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="night-observation-decisions">
+            <p className="eyebrow text-primary">A site-specific observing plan</p>
+            <h2 id="night-observation-decisions" className="mt-2 font-display text-3xl">Where to set up, how to gain access, and what to check that night</h2>
+            <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">Bortle class describes typical light pollution, not the view through clouds or a bright Moon. The named spots and park maps below are planning starting points; only the land manager can confirm whether a site or gate is available for the time you intend to observe.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {nightAccessFieldGuide.map((item) => (
+                <div key={item.park} className="min-w-0 border border-border p-5">
+                  <h3 className="font-display text-xl">{item.park}</h3>
+                  <p className="mt-3 text-sm leading-7"><strong>Viewing area:</strong> {item.viewing}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>After-hours access:</strong> {item.permission}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Observing conditions:</strong> {item.liveCheck}</p>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+                    <a href={item.map} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official site map / verified GPS</a>
+                    <a href={item.conditions} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">TPWD night-sky and access details</a>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 border-l-2 border-primary bg-muted/50 p-5 text-sm leading-7">
+              <h3 className="font-display text-xl">Choose the target before choosing the Moon</h3>
+              <p className="mt-2"><strong>Milky Way or faint deep-sky objects:</strong> plan near new Moon or choose a moon-below-horizon window after astronomical twilight; check when the seasonal target is actually above the horizon.</p>
+              <p className="mt-2"><strong>Moon and planets:</strong> a bright night is not automatically a failed trip. A waxing or waning half-Moon gives strong shadow detail along the lunar terminator.</p>
+              <p className="mt-2"><strong>Meteor observing:</strong> select an extended dark window with the radiant appropriately placed and without a bright Moon; a predawn window can be useful, but storms and gate restrictions take priority.</p>
+              <p className="mt-3">Run the <a href="https://aa.usno.navy.mil/data/RS_OneYear" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">US Naval Observatory moonrise, moonset and twilight calculator</a> for the exact date and park, then the <a href="https://www.weather.gov/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">National Weather Service hourly forecast</a> for cloud cover and wind. NASA's <a href="https://science.nasa.gov/moon/moon-phases/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">moon phases</a> explain illumination but not local rise/set times.</p>
+            </div>
+          </section>
           <section className="border-b border-border py-10" aria-labelledby="night-planning">
             <p className="eyebrow text-primary">Pick the night, not just the park</p>
             <h2 id="night-planning" className="mt-2 font-display text-3xl">Compare moonrise, twilight and legal after-hours access</h2>
@@ -260,7 +329,7 @@ function TexasStargazingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify darkness, access and events with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Always verify current park access and forecast.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Exact viewing-area locations and after-hours access rechecked November 20, 2026. Always verify current park access and forecast.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

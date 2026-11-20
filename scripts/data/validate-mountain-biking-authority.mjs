@@ -7,6 +7,19 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-mountain-bik
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Retain the research-backed 95+ remediation, not just prior general place names.
+const additional95PlusEvidence = [
+  "const approachComparisons = [",
+  "trailhead-grade-planning",
+  "North Franklin Mountain 7,192 ft",
+  "Trans-Mountain Highway 5,120 ft",
+  "Puerta Chilicote",
+  "Merrick Mile"
+];
+for (const marker of additional95PlusEvidence) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
+}
+
 // The five guides received substantive editorial revisions on November 20, 2026.
 // Guard the truthful sitemap lastmod and content-versioned cache key; do not
 // restamp those dates merely because an automated source audit succeeds.
