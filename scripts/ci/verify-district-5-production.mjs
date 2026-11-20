@@ -42,7 +42,8 @@ async function check(origin) {
   const reportedFinals = games.filter(([tag]) => tag.includes('data-status="reported-final"'));
   const pending = games.filter(([tag]) => tag.includes('data-status="schedule-only"'));
   assert.equal(games.length, 28, `${origin}: expected 28 dated district game cards; got ${games.length}`);
-  assert.ok(reportedFinals.length >= 16, `${origin}: at least 16 already reported finals must remain; got ${reportedFinals.length}`);
+  assert.equal(reportedFinals.length, 28, `${origin}: all 28 source-verified 2026 district finals must render, not a 16-game teaser`);
+  assert.equal(pending.length, 0, `${origin}: no concluded 2026 regular-season fixture remains listed as pending`);
   assert.equal(pending.length + reportedFinals.length, 28, `${origin}: every district game needs a verified final or scheduled status`);
   console.log(`PASS District 5 production acceptance ${origin}: ${reportedFinals.length} finals, ${pending.length} fixtures, records, official game-day links`);
 }
