@@ -41,34 +41,34 @@ test('real inventory excludes 2026 alignment and visitor pages without published
   assert.ok(report.pages.every(p=>p.page.startsWith('https://texasdefined.com/texas-high-school-football-')));
   assert.ok(report.pages.every(p=>['team','district','matchup'].includes(p.kind)));
 });
-test('all five dated and stale district hubs are enrolled, no scoreless district hubs',()=>{
+test('completed district finals are not falsely enrolled while historical standings still get review',()=>{
   const report=inventory({today:'2026-11-20'});
-  for(const slug of ['6a-district-5','4a-division-i-district-11','6a-district-16','6a-district-21','6a-district-22']){
-    const row=report.pages.find(p=>p.page.endsWith('/'+slug));
-    assert.ok(row,slug);
-    assert.ok(row.overdue.length>0,slug);
+  for(const slug of ['6a-district-5','4a-division-i-district-11','6a-district-22']){
+    assert.ok(!report.pages.some(p=>p.page.endsWith('/'+slug)),slug+' was fully source-verified and should not be overdue');
+  }
+  for(const slug of ['6a-district-16','6a-district-21']){
+    const p=report.pages.find(p=>p.page.endsWith('/'+slug));
+    assert.ok(p,slug+' retains an explicitly dated archived standings review');
+    assert.equal(p.overdue.length,0,slug+' published late finals must not be treated as unverified');
+    assert.equal(p.reason,'dated-standings-review');
   }
   assert.ok(!report.pages.some(p=>p.page.endsWith('/6a-district-9')));
-  const katy=report.pages.find(p=>p.page.endsWith('/6a-district-22'));
-  assert.ok(katy.overdue.some(p=>p.away==='Katy Mayde Creek'&&p.home==='Katy Morton Ranch'));
-  const d16=report.pages.find(p=>p.page.endsWith('/6a-district-16'));
-  assert.equal(d16.standingsAsOf,'October 18, 2026');
 });
-test('all eight source-backed District 21 team scorecards inherit district results and overdue fixtures',()=>{
+test('sourced District 21 finals no longer appear as overdue district fixtures',()=>{
   const report=inventory({today:'2026-11-20'});
+  const district=report.pages.find(p=>p.page.endsWith('/6a-district-21'));
+  assert.ok(district);
+  assert.equal(district.overdue.length,0);
   for(const slug of ['fort-bend-austin','fort-bend-bush','fort-bend-clements','fort-bend-elkins',
     'fort-bend-hightower','fort-bend-ridge-point','fort-bend-travis','houston-strake-jesuit']){
     const page=report.pages.find(p=>p.page.endsWith('/'+slug));
-    assert.ok(page,'District 21 team scorecard omitted: '+slug);
-    assert.ok(page.overdue.length>=2,slug+' has no unsourced past district games');
+    assert.ok(!page?.overdue.some(g=>g.sourceFile==='football-district21-2026.ts'),slug);
   }
-  const memorial=report.pages.find(p=>p.page.endsWith('/houston-memorial'));
-  assert.ok(memorial,'Team with a published 2026 matchup final must receive review coverage');
-  assert.ok(memorial.overdue.some(g=>g.date==='2026-10-23'));
+  assert.ok(!report.pages.some(p=>p.page.endsWith('/houston-lamar-at-houston-memorial')));
 });
 test('matchup overdue and Aubrey postseason are covered; todays Canyon Lake kickoff is not overdue',()=>{
   const report=inventory({today:'2026-11-20'});
-  assert.ok(report.pages.some(p=>p.page.endsWith('/2026-10-23-houston-lamar-at-houston-memorial')));
+  assert.ok(!report.pages.some(p=>p.page.endsWith('/2026-10-23-houston-lamar-at-houston-memorial')));
   assert.ok(report.pages.some(p=>p.page.endsWith('/aubrey')&&p.overdue.some(g=>g.date==='2026-11-19')));
   const canyon=report.pages.find(p=>p.page.endsWith('/comal-canyon-lake'));
   assert.ok(!canyon?.overdue?.some(g=>g.date==='2026-11-20'));
