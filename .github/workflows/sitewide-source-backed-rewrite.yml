@@ -151,6 +151,10 @@ jobs:
         with:
           name: sitewide-rewrite-reviewed-patch
           path: .artifacts
+      - uses: actions/download-artifact@v4
+        with:
+          name: sitewide-rewrite-source-target
+          path: .artifacts/selector-original
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -162,6 +166,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # The writer can edit its sandbox artifact. Never trust its target
+          # selection over the immutable separate selector-job artifact.
+          cmp -s .artifacts/selector-original/sitewide-rewrite-target.json \
+            .artifacts/sitewide-rewrite-target.json || {
+            echo '::error::Model altered the selected page or source evidence'; exit 1;
+          }
           git fetch --no-tags origin main
           # Main is very active. Retry the *same* bounded patch on latest
           # main only if every original context still matches byte-for-byte.
