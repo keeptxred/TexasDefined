@@ -123,7 +123,13 @@ assert.ok(liveAcceptance.includes("['clean-canonical', 'cache-bypassed']"), 'Bot
 assert.ok(liveAcceptance.includes("request(origin, pagePath, cacheBust)") && liveAcceptance.includes("request(origin, '/property-tax/county/wharton', variant === 'cache-bypassed')"), 'Clean/uncached validation must include page AND reciprocal county link');
 assert.ok(liveAcceptance.includes("cache: cacheBust ? 'no-store' : 'default'"), 'Canonical probe must not force request-cache bypass');
 assert.ok(browserAcceptance.includes("'mobile-320'") && browserAcceptance.includes("'mobile-390'") && browserAcceptance.includes("'desktop-1440'"), 'Real responsive QA must cover two phone widths and desktop');
-assert.ok(browserAcceptance.includes("page.locator('#wwchd-2023-sources')") && browserAcceptance.includes("document.documentElement.scrollWidth"), 'Chrome must wait for hydrated authority and fail on horizontal overflow');
+assert.ok(browserAcceptance.includes('page.waitForFunction') &&
+  browserAcceptance.includes('ids.every(id => document.getElementById(id))') &&
+  browserAcceptance.includes("document.querySelectorAll('main').length === 1") &&
+  browserAcceptance.includes('performance.now() - window.__wwchdHydratedReadyAt >= 1200') &&
+  browserAcceptance.includes('timeout: 45000') &&
+  browserAcceptance.includes('document.documentElement.scrollWidth'),
+  'Chrome must wait for sustained hydrated authority, fail on missing content, and reject horizontal overflow');
 assert.ok(browserAcceptance.includes("window.innerWidth") && browserAcceptance.includes("no uncaught page exceptions"), 'Chrome must measure real viewport and page errors');
 assert.ok(production.includes('id: wharton_browser_deps') && production.includes('id: live_wharton_browser'), 'Production must run bounded West Wharton Chrome after successful SSR verification');
 assert.ok(production.includes('scripts/ci/verify-west-wharton-hospital-browser.mjs'), 'Production must invoke dedicated hydrated Chrome acceptance');
