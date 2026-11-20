@@ -147,7 +147,39 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   if(old21&&!pages.some(p=>p.page.endsWith('/6a-district-21')))pages.push({kind:'district',
     page:SITE+'/texas-high-school-football-districts/6a-district-21',
     reason:'dated-standings-review',sourceFile:'football-district21-2026.ts',standingsAsOf:asOf21,overdue:[]});
+  // District 21's shared scorecard is also visibly published on all eight
+  // individual team routes, even if those teams have no authored season field.
+  const d21Scorecard=read(join(ROOT,'src/components/sports/District21TeamSeason.tsx'));
+  const teamSlugBlock=/{[\s\S]*?}/.exec(d21Scorecard.slice(d21Scorecard.indexOf('const DISTRICT_21_PROFILE_SLUGS')))?.[0]||'';
+  const district21Teams=new Map([...teamSlugBlock.matchAll(/'([^']+)': '([^']+)'/g)].map(m=>[m[1],m[2]]));
+  const due21=districtScheduled(d21,['scheduled'],today,'football-district21-2026.ts');
+  if(!d21.includes('DISTRICT_21_2026_GAMES')||!d21Scorecard.includes('district scores and remaining games'))throw Error('District 21 team scorecard contract changed');
+  for(const [name,slug] of district21Teams){
+    const due=due21.filter(g=>g.home===name||g.away===name);
+    if(!due.length)continue;
+    const page=SITE+'/texas-high-school-football-teams/'+slug;
+    const existing=pages.find(p=>p.page===page);
+    if(existing){existing.reason='overdue-fixture';existing.overdue.push(...due);}
+    else pages.push({kind:'team',page,slug,reason:'overdue-fixture',
+      sourceFile:'District21TeamSeason.tsx + football-district21-2026.ts',
+      sourceUrl:'https://www.maxpreps.com/tx/football/',overdue:due});
+  }
   const matchups=JSON.parse(read(join(dir,'football-matchups.snapshot.json')));
+  // Both team profiles receive a shared matchup overlay, but only a team with
+  // at least one actually published final gets an outdated score-card review.
+  for(const game of matchups.games||[]){
+    if(game.status!=='scheduled'||game.date>=today)continue;
+    for(const team of [game.home,game.away]){
+      const hasFinal=(matchups.games||[]).some(g=>g.status==='final'&&(g.home.slug===team.slug||g.away.slug===team.slug));
+      if(!hasFinal)continue;
+      const page=SITE+'/texas-high-school-football-teams/'+team.slug;
+      const due=[{date:game.date,away:game.away.name,home:game.home.name}];
+      const present=pages.find(p=>p.page===page);
+      if(present){present.reason='overdue-fixture';present.overdue.push(...due);}
+      else pages.push({kind:'team',page,slug:team.slug,reason:'overdue-fixture',
+        sourceFile:'football-matchups.snapshot.json (published team score overlay)',overdue:due});
+    }
+  }
   for(const g of matchups.games||[])if(g.status==='scheduled'&&g.date<today)pages.push({kind:'matchup',
     page:SITE+'/texas-high-school-football-matchups/'+g.slug,reason:'overdue-fixture',
     sourceFile:'football-matchups.snapshot.json',overdue:[{date:g.date,away:g.away.name,home:g.home.name}]});
@@ -165,6 +197,11 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   const unique=new Map();
   for(const p of pages){const old=unique.get(p.page);if(old){old.overdue.push(...p.overdue);}else unique.set(p.page,p);}
   const selected=[...unique.values()].sort((a,b)=>a.page.localeCompare(b.page));
+  for(const page of selected){
+    const distinct=new Map();
+    for(const game of page.overdue)distinct.set(game.date+'|'+game.away+'|'+game.home,game);
+    page.overdue=[...distinct.values()];
+  }
   const games=new Map();
   const normalize=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   for(const p of selected)for(const game of p.overdue){
