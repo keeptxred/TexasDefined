@@ -1,4 +1,13 @@
-# TexasDefined 2026 football matchups and brackets
+# TexasDefined football scoreboard — current statewide policy (November 20, 2026)
+
+The paid/machine-readable score-feed importer has been retired from the scheduled GitHub job. The statewide [public-source research workflow](../../.github/workflows/refresh-football-scores-brackets.yml) runs midday Central daily during the August–December season and Saturdays year-round. It scans **only pages that actually publish dated 2026 score/record/standings data**. Generic team/district guides without their own scores or standings are excluded.
+
+The [inventory script](../../scripts/data/inventory-statewide-football-scores.mjs) tracks dated team score ledgers, Districts 5/11/16/21/22, the curated matchup snapshot and Aubrey postseason fixtures, while honoring newer authored team guides that replace older records. The [research script](../../scripts/data/research-statewide-football-scores.mjs) looks up overdue game finals using bounded public Google News/Bing News RSS **headline/link/date metadata** and saves all source leads as review evidence. It uploads a complete artifact and keeps a single GitHub issue current. It never scrapes scoreboards, infers results, treats a search snippet as a verified score, or generates/merges a publishing PR.
+
+The owner requested **next-day final-score research, not live-score monitoring or automatic score publication**. Correcting a score, standings row, W–L arithmetic, postseason entry or game date still requires independent source checking and the normal protected editorial PR/release. If reporting is unavailable or inconsistent, preserve the dated published snapshot and flag the unverified fixture. No licensed-provider URL/token is required or expected for this research job.
+
+## Archived previous licensed-ingestion design (inactive)
+
 
 **Initial rollout: 2026-10-16.** This feature is not an official or live MaxPreps feed.
 
