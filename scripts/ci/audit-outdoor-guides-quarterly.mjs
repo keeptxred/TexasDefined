@@ -83,6 +83,23 @@ for (const item of livePages) {
     }
   }
 }
+// Confirm Google-discoverable primary sitemap lists the five substantially revised
+// guides with their genuine editorial lastmod (not a synthetic scan timestamp).
+for (const origin of ["https://texasdefined.com", "https://texasdefined-site.freddy-coppola.workers.dev"]) {
+  for (const cacheBust of [false, true]) {
+    const url = origin + "/sitemap.xml" + (cacheBust ? "?outdoor_sitemap_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual") : "");
+    try {
+      const xml = await get(url);
+      const missing = Object.keys(comparisonLabels).filter((slug) =>
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-20</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov20 editorial lastmod for " + missing.join(", "));
+      evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
+    } catch (error) {
+      failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));
+      evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: false, error: String(error.message) });
+    }
+  }
+}
 const report = { checkedAt: new Date().toISOString(), officialSourceCount: official.length, livePageCount: livePages.length, evidence, failures };
 fs.writeFileSync("outdoor-guides-authority-audit.json", JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify(report, null, 2));
