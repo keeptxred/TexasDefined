@@ -164,7 +164,7 @@ for (const token of [
   "loadLiveLakeLevelResilient",
   "getShowcaseLakePageData",
   ".inputValidator((data: { slug: string }) => data)",
-  "loadShowcaseLakesPageDataServer()[data.slug]",
+  "loadShowcaseLakesPageDataServer(data.slug)[data.slug]",
   "lake.sources.liveLevel.url",
   "liveLakeLevel:",
   "getShowcaseLakesPageData",
@@ -189,7 +189,9 @@ for (const token of [
 for (const token of [
   "expandedShowcaseLakePrototypes",
   "wave2ShowcaseLakePrototypes",
-  "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes,",
+  "const prototypes: Record<string, ShowcaseLakePrototype> = onlySlug",
+  "? selected ? { [onlySlug]: selected } : {}",
+  ": { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes,",
   "SHOWCASE_LAKE_SECTION_SLUGS",
 ]) requireText(files.server, token, `expanded server page-data integration missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);
