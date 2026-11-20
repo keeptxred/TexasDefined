@@ -214,21 +214,21 @@ function TexasMountainBikingGuidePage() {
             <h2 id="compare-rides" className="mt-2 font-display text-4xl">Five Texas trail systems at a glance</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">If you only need the decision-making version of this guide, start here. Trail status can change, so the official map linked inside each section should still be your final check.</p>
             <p className="mt-3 text-sm text-muted-foreground md:hidden">Swipe the comparison horizontally for all route columns.</p>
-            <div className="mt-7 overflow-x-auto border border-border">
+            <div className="mt-7 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "900px" }}>
                 <thead className="bg-muted/50">
                   <tr>
-                    <th className="border-b border-border p-4 font-semibold">Trail system</th>
-                    <th className="border-b border-border p-4 font-semibold">Best for</th>
-                    <th className="border-b border-border p-4 font-semibold">Trail scale</th>
-                    <th className="border-b border-border p-4 font-semibold">Terrain</th>
-                    <th className="border-b border-border p-4 font-semibold">Start here</th>
+                    <th scope="col" className="border-b border-border p-4 font-semibold">Trail system</th>
+                    <th scope="col" className="border-b border-border p-4 font-semibold">Best for</th>
+                    <th scope="col" className="border-b border-border p-4 font-semibold">Trail scale</th>
+                    <th scope="col" className="border-b border-border p-4 font-semibold">Terrain</th>
+                    <th scope="col" className="border-b border-border p-4 font-semibold">Start here</th>
                   </tr>
                 </thead>
                 <tbody>
                   {trailSystems.map((area) => (
                     <tr key={area.name} className="align-top">
-                      <td className="border-b border-border p-4 font-semibold text-foreground">{area.name}</td>
+                      <th scope="row" className="border-b border-border p-4 font-semibold text-foreground">{area.name}</th>
                       <td className="border-b border-border p-4 text-muted-foreground">{area.bestFor}</td>
                       <td className="border-b border-border p-4 text-muted-foreground">{area.trailScale}</td>
                       <td className="border-b border-border p-4 text-muted-foreground">{area.terrain}</td>
