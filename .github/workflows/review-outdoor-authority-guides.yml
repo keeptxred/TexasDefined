@@ -13,6 +13,8 @@ on:
       - 'scripts/ci/verify-outdoor-photography-live.mjs'
       - '.github/workflows/review-outdoor-authority-guides.yml'
   workflow_dispatch:
+  issue_comment:
+    types: [created]
   schedule:
     - cron: '37 15 10 * *'
     - cron: '41 15 12 1,4,7,10 *'
@@ -23,6 +25,11 @@ permissions:
 
 jobs:
   validate:
+    if: >-
+      github.event_name != 'issue_comment' ||
+      (github.event.issue.number == 7436 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/verify-outdoor-guides-live')
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -38,13 +45,13 @@ jobs:
           node scripts/data/validate-paddling-authority.mjs
           node scripts/data/validate-stargazing-authority.mjs
       - name: Verify official facts and live canonical pages
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
       - name: Prove licensed real-location photos and byte-identical delivery on both origins
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-outdoor-photography-live.mjs
       - name: Retain audit evidence
-        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         uses: actions/upload-artifact@v4
         with:
           name: outdoor-guides-authority-evidence
@@ -52,8 +59,25 @@ jobs:
             outdoor-guides-authority-audit.json
             .artifacts/outdoor-image-live-authority.json
           if-no-files-found: warn
+      - name: Record genuinely successful official-source, photo and public guide audit
+        if: ${{ success() && github.event_name == 'issue_comment' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          test -s outdoor-guides-authority-audit.json
+          test -s .artifacts/outdoor-image-live-authority.json
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const facts=JSON.parse(fs.readFileSync('outdoor-guides-authority-audit.json','utf8'));
+          const photos=JSON.parse(fs.readFileSync('.artifacts/outdoor-image-live-authority.json','utf8'));
+          if(facts.livePageCount!==5 || facts.officialSourceCount<16 || facts.failures.length || photos.errors.length ||
+             facts.evidence.some(record=>!record.verified)) throw Error('Production/source/photo evidence incomplete');
+          JS
+          gh issue comment 7436 --body "Five outdoor authority guides: official sources, four live HTML variants per guide (both origins/ordinary and cache-busted), scoped editorial markers, canonicals/indexability and independent licensed image byte checks **PASS** in [live workflow]($RUN_URL), exact workflow source \`${{ github.sha }}\`. This is source-backed technical proof, not guaranteed Google ranking or future operator access."
       - name: Open or update a factual-drift issue
-        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
