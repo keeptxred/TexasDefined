@@ -90,9 +90,64 @@ export function chooseSearches(rows,{today,max=MAX_QUERIES}={}){
   }
   return {selected,deferred,queryBudgetUsed:used};
 }
+export const STANDINGS_SOURCE_URLS={
+  '6a-district-5':'https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-5/?leagueid=20c93622-4d8b-48f7-8dc8-a3983405b170',
+  '4a-division-i-district-11':'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/?leagueid=e544a32d-42ab-43c2-befa-ee65e25baf62',
+  '6a-district-16':'https://www.maxpreps.com/tx/football/26-27/district/6a-region-ii-district-16/?leagueid=30542350-2954-4f15-a3f8-1944386a4e88',
+  '6a-district-21':'https://www.maxpreps.com/tx/football/26-27/district/6a-region-iii-district-21/?leagueid=3daf50ec-b7b2-4bd1-a010-7588e5cc9310',
+  '6a-district-22':'https://www.texastng.com/districts/d22-6a'
+};
+export function additionalResearchTargets(inventory){
+  const extras=[];
+  for(const p of inventory.pages){
+    if(p.kind==='district'){
+      const slug=p.page.split('/').at(-1);
+      if(!STANDINGS_SOURCE_URLS[slug])continue;
+      extras.push({kind:'standings',page:p.page,
+        label:slug.replaceAll('-',' '),sourceUrl:STANDINGS_SOURCE_URLS[slug],
+        query:slug.replaceAll('-',' ')+' Texas high school football 2026 final district standings',
+        providers:['google','bing']});
+    } else if(p.kind==='team'&&!p.overdue.length&&p.reason==='dated-score-review'){
+      const school=p.slug.replaceAll('-',' ');
+      extras.push({kind:'team-record',page:p.page,label:school,sourceUrl:p.sourceUrl,
+        query:'"'+school+'" 2026 Texas high school football final record scores November',
+        providers:['google']});
+    }
+  }
+  return extras;
+}
+function extraRssUrl(provider,query){
+  const u=new URL(provider==='google'?'https://news.google.com/rss/search':'https://www.bing.com/news/search');
+  u.searchParams.set('q',query);
+  if(provider==='google'){u.searchParams.set('hl','en-US');u.searchParams.set('gl','US');u.searchParams.set('ceid','US:en');}
+  else u.searchParams.set('format','rss');
+  return u.toString();
+}
+export function parseExtraNews(xml,target,provider,today){
+  if(!/<rss\b|<feed\b/i.test(String(xml).slice(0,300)))throw Error('Not RSS');
+  const articles=[],maxLookback=45*86400000;
+  const now=Date.parse(today+'T23:59:59Z');
+  const words=target.label.toLowerCase().split(/\W+/).filter(x=>x.length>=3);
+  for(const m of String(xml).matchAll(/<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi)){
+    if(articles.length>=10)break;
+    const title=tagText(m[1],'title').slice(0,220),link=tagText(m[1],'link');
+    const published=Date.parse(tagText(m[1],'pubDate'));
+    if(!title||!safeLink(link)||!Number.isFinite(published)||published<now-maxLookback||published>now)continue;
+    const lower=title.toLowerCase();
+    const valid=target.kind==='standings'
+      ?lower.includes('district')&&lower.includes('football')
+      :words.filter(w=>lower.includes(w)).length>=Math.min(2,words.length);
+    if(!valid)continue;
+    articles.push({title,url:link,source:tagText(m[1],'source').slice(0,90)||provider,
+      publishedAt:new Date(published).toISOString(),provider,verification:'unverified-public-report-lead'});
+  }
+  return articles;
+}
 export async function conductResearch(state,{getText=download,max=MAX_QUERIES}={}){
   const {selected,deferred}=chooseSearches(state.fixtures,{today:state.today,max});
+  const targets=additionalResearchTargets(state);
   const tasks=selected.flatMap(f=>publicProviders(f,state.today).map(provider=>({f,provider,url:rssUrl(provider,f)})));
+  const extraTasks=targets.flatMap(target=>target.providers.map(provider=>({target,provider,url:extraRssUrl(provider,target.query)})));
   const results=tasks.map(t=>({...t,articles:[],error:null}));let at=0;
   const worker=async()=>{
     for(;;){
@@ -103,6 +158,22 @@ export async function conductResearch(state,{getText=download,max=MAX_QUERIES}={
     }
   };
   await Promise.all(Array.from({length:Math.min(WORKERS,tasks.length)},worker));
+  const extraResults=extraTasks.map(t=>({...t,articles:[],error:null}));let extraAt=0;
+  const extraWorker=async()=>{
+    for(;;){
+      const i=extraAt++;if(i>=extraTasks.length)return;
+      const t=extraTasks[i];
+      try{extraResults[i].articles=parseExtraNews(await getText(t.url),t.target,t.provider,state.today);}
+      catch(e){extraResults[i].error=String(e?.message||e).slice(0,180);}
+    }
+  };
+  await Promise.all(Array.from({length:Math.min(WORKERS,extraTasks.length)},extraWorker));
+  const additionalResearch=targets.map(target=>({
+    target:{kind:target.kind,page:target.page,label:target.label,sourceUrl:target.sourceUrl},
+    articles:extraResults.filter(x=>x.target.page===target.page).flatMap(x=>x.articles)
+      .filter((item,i,all)=>all.findIndex(a=>a.title.toLowerCase()===item.title.toLowerCase())===i).slice(0,10),
+    failures:extraResults.filter(x=>x.target.page===target.page&&x.error).map(x=>({provider:x.provider,error:x.error}))
+  }));
   const byGame=new Map();
   for(const x of results){
     const key=x.f.date+'|'+x.f.away+'|'+x.f.home;
@@ -115,7 +186,9 @@ export async function conductResearch(state,{getText=download,max=MAX_QUERIES}={
   const games=[...byGame.values()].map(g=>({...g,articles:g.articles.slice(0,12)}));
   const errors=results.filter(r=>r.error).length,leads=games.filter(g=>g.articles.length).length;
   return {schemaVersion:1,checkedAt:new Date().toISOString(),today:state.today,inventory:state,
-    researchedGames:games,queryAttempts:tasks.length,queryFailures:errors,
+    researchedGames:games,additionalResearch,
+    queryAttempts:tasks.length+extraTasks.length,
+    queryFailures:errors+extraResults.filter(x=>x.error).length,
     gamesWithPublicReportingLeads:leads,deferredFixtures:deferred,
     publication:false,policy:'Public RSS metadata and linked publisher reports need editorial verification before any site score or W-L update. No live scores, paid feeds, scraped score tables or unattended publication.'};
 }
@@ -127,12 +200,22 @@ export function reportMarkdown(r){
     '**Affected pages with published score, dated record or standings:** '+s.affectedPages,
     '**Overdue-fixture pages:** '+s.overduePages+' · **Dated score/standings review:** '+s.datedScoreReviewPages,
     '**Distinct past fixtures awaiting final-score verification:** '+s.unverifiedFixtures,
-    '**Game queries attempted:** '+r.queryAttempts+' · **Failures:** '+r.queryFailures,
+    '**Public research queries attempted (games + standings + dated records):** '+r.queryAttempts+' · **Failures:** '+r.queryFailures,
     '**Fixtures with RSS reporting leads:** '+r.gamesWithPublicReportingLeads+' · **Deferred by budget:** '+r.deferredFixtures.length,'',
     '## Pages enrolled in the shared GitHub research job',''];
   for(const p of r.inventory.pages){
     lines.push('- ['+flat(p.page.replace(SITE_PREFIX,''))+']('+p.page+') — '+p.reason+
       ' · '+p.overdue.length+' fixture(s) · source: '+flat(p.sourceFile));
+  }
+  lines.push('','## Current standings and dated-record research (not official UIL seeding)','');
+  for(const row of r.additionalResearch){
+    lines.push('### '+flat(row.target.label)+' — '+row.target.kind);
+    lines.push('Affected: '+row.target.page);
+    if(row.target.sourceUrl&&safeLink(row.target.sourceUrl))lines.push('Published results/standings reference: '+row.target.sourceUrl);
+    if(!row.articles.length)lines.push('No relevant recent RSS headline; inspect the cited current source directly before updating.');
+    for(const a of row.articles)lines.push('- '+flat(a.publishedAt.slice(0,10)+' · '+a.source+' · '+a.title)+' — '+a.url+' (unverified source lead)');
+    if(row.failures.length)lines.push('RSS errors: '+row.failures.map(e=>flat(e.provider+': '+e.error)).join('; '));
+    lines.push('');
   }
   lines.push('','## Public reporting leads for overdue fixtures','');
   for(const g of r.researchedGames){
@@ -170,6 +253,12 @@ async function main(){
   for(const g of r.researchedGames.filter(x=>x.articles.length).slice(0,15)){
     condensed.push('- '+flat(g.fixture.date+' '+g.fixture.away+' vs '+g.fixture.home)+': '+
       g.articles.slice(0,2).map(a=>a.url).join(' ; '));
+  }
+  condensed.push('','## Five published district standings references and recent sourced leads');
+  for(const row of r.additionalResearch){
+    if(row.target.kind!=='standings')continue;
+    condensed.push('- '+row.target.page+' · '+row.target.sourceUrl);
+    for(const lead of row.articles.slice(0,2))condensed.push('  - '+lead.url);
   }
   writeFileSync(join(OUT,'issue.md'),condensed.join('\n')+'\n');
   console.log(JSON.stringify({pages:state.summary.affectedPages,fixtures:state.summary.unverifiedFixtures,
