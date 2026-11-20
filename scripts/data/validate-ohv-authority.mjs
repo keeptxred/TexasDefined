@@ -25,7 +25,7 @@ for (const marker of [
   "National Park Service",
   "ohvHeroUrl"
 ]) {
-  if (!route.includes(marker)) errors.push('Missing governed photo SEO and rights metadata: ' + marker);
+  if (!lazyRoute.includes(marker)) errors.push('Missing governed photo SEO and rights metadata: ' + marker);
 }
 
 
