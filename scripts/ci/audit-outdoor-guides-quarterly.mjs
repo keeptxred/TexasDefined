@@ -2,6 +2,12 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "TPWD Austin Redbud and Festival Beach verified GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", patterns: [/30\.2911/i, /30\.2483/i] },
+  { name: "TPWD Buffalo Bayou Highway 6 and Terry Hershy GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/29\.7694/i, /29\.7733/i] },
+  { name: "TPWD Waco two loops and Bledsoe dock GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/", patterns: [/31\.5929/i, /31\.5879/i, /31\.5628/i] },
+  { name: "TPWD Caddo Lake Mill Pond GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/hells-half-acre/", patterns: [/32\.6942/i, /Mill Pond Canoe\/Kayak Launch/i] },
+  { name: "TPWD Lighthouse Lakes Cutters and South Bay launches", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/", patterns: [/27\.8691/i, /27\.8753/i] },
+
   { name: "TPWD specific Eisenhower trail segments and 50-inch limit", url: "https://tpwd.texas.gov/state-parks/eisenhower/ohvs", patterns: [/Pee Wee Practice Area/i, /50 inches/i, /Big Woods Canyon/i] },
   { name: "TPWD Copper Breaks Dark Sky Viewing Area coordinates", url: "https://tpwd.texas.gov/state-parks/copper-breaks/trails-info", patterns: [/Dark Sky Viewing Area/i, /34\.1183/i] },
   { name: "TPWD Franklin elevations for contextual comparison", url: "https://tpwd.texas.gov/state-parks/franklin-mountains", patterns: [/7,192/i, /5,120/i] },
