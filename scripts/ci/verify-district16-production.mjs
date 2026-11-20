@@ -12,7 +12,7 @@ async function verify(origin){
   assert.notEqual(response.headers.get('cf-mitigated'),'challenge',origin+' challenged');
   const html=await response.text();
   assert.ok(html.length>6000,origin+' response unexpectedly short '+html.length);
-  const markers=['District 16 scores, standings and next games','2026 reported district standings','Remaining district games','CFISD tickets, stadiums and game-day logistics','October 18, 2026','Kickoff unconfirmed','not a continuously updated scoreboard','Official CFISD tickets','Langham Creek','Cypress Woods','Cypress Falls','Cypress Lakes','Cy-Fair','Jersey Village','Cypress Ridge','Cypress Creek'];
+  const markers=['District 16 dated scores, standings and schedule','2026 reported district standings','October 20 schedule snapshot','CFISD tickets, stadiums and game-day logistics','October 18, 2026','Kickoff unconfirmed','not a continuously updated scoreboard','Official CFISD tickets','Langham Creek','Cypress Woods','Cypress Falls','Cypress Lakes','Cy-Fair','Jersey Village','Cypress Ridge','Cypress Creek'];
   for(const marker of markers) assert.ok(html.includes(marker),origin+' missing '+marker);
   const title=html.match(/<title>([^<]+)<\/title>/i)?.[1]||'';
   assert.ok(title.includes('District 16-6A Football: 2026 Standings, Scores'),origin+' stale title '+title);
@@ -28,9 +28,9 @@ async function verify(origin){
   const schoolPaths=[...new Set((html.match(/href=["']\/texas-high-school-football-teams\/[^"'#?]+/g)||[]).map(x=>x.split('/texas-high-school-football-teams/')[1]))];
   assert.ok(schoolPaths.length>=8,origin+' incomplete school links '+schoolPaths.join(','));
   const content=html.slice(html.indexOf('data-football-district-hub="v2"'));
-  assert.ok(content.indexOf('District 16 scores, standings and next games')>=0,origin+' no key section');
+  assert.ok(content.indexOf('District 16 dated scores, standings and schedule')>=0,origin+' no key section');
   const affiliateIndex=content.indexOf('anrdoezrs.net');
-  assert.ok(affiliateIndex<0||content.indexOf('District 16 scores, standings and next games')<affiliateIndex,origin+' premature affiliates');
+  assert.ok(affiliateIndex<0||content.indexOf('District 16 dated scores, standings and schedule')<affiliateIndex,origin+' premature affiliates');
   console.log('PASS District16 production',origin,'HTTP',response.status,'rows 8, finals 4, fixtures 12, school links',schoolPaths.length,'title',title,'cf-cache-status',response.headers.get('cf-cache-status'));
 }
 const outcomes=await Promise.allSettled(origins.map(verify));
