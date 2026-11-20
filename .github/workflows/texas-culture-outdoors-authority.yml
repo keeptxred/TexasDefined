@@ -14,6 +14,8 @@ on:
     - cron: '17 14 5 * *'        # Monthly: climbing and natural-wonders access/safety
     - cron: '41 14 7 1,4,7,10 *' # Quarterly: folklore, dance halls and homecoming mums
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 permissions:
   contents: read
   issues: write
@@ -23,6 +25,7 @@ concurrency:
 jobs:
   static-authority-check:
     name: Validate five page source contracts and TSX syntax
+    if: ${{ github.event_name != 'issue_comment' || (github.event.issue.number == 7368 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-five-culture-live') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -55,7 +58,7 @@ jobs:
           JS
   primary-source-watch:
     name: Recheck official sources and live page contract
-    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7368 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-five-culture-live') }}
     needs: static-authority-check
     runs-on: ubuntu-latest
     timeout-minutes: 12
@@ -92,6 +95,13 @@ jobs:
           else
             gh issue create --title "$issue_title" --body-file /tmp/texas-five-guide-review-issue.md
           fi
+      - name: Record non-skipped source-specific live acceptance in authority checkpoint
+        if: ${{ github.event_name == 'issue_comment' && steps.sourcewatch.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh issue comment 7368 --body "Five-guide source-specific public acceptance passed (exact editorial markers, indexable self-canonical HTML, and primary-source reachability) in [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}), checked from commit \`${{ github.sha }}\`. This validates the bounded public checks, not independent image rights, manual accessibility or Google indexing."
       - name: Fail scheduled assurance on unresolved source changes
         if: ${{ steps.sourcewatch.outcome == 'failure' }}
         run: exit 1
