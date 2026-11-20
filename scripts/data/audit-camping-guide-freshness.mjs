@@ -52,6 +52,27 @@ const hasNewResearch = files => previousReviewDates.length > 0 && files.every(fi
   return oldDates.length && freshDates.length && freshDates.every(date => date > oldDates.sort().at(-1));
 });
 
+// URL-granular, source-review-backed baseline approvals. File-wide timestamps
+// cannot prove a specific official URL was checked when a file has many records.
+const approvedSourceEvidence = JSON.parse(fs.readFileSync(
+  "ops/editorial/camping-reviewed-source-fingerprints.json", "utf8"
+));
+assert.equal(approvedSourceEvidence.schemaVersion, 1);
+assert.equal(approvedSourceEvidence.approvals.length, 11);
+assert.equal(approvedSourceEvidence.proof.artifactId, 14581180742);
+const reviewedSources = new Map();
+for (const row of approvedSourceEvidence.approvals) {
+  assert.ok(row.url.startsWith("https://") && /^[a-f0-9]{64}$/.test(row.sha256),
+    "Invalid URL or normalized source digest in reviewed camping evidence");
+  assert.ok(/^2026-11-19$/.test(row.reviewedAt) && [7415, 7416, 7417, 7418].includes(row.researchPr),
+    "Camping source approval must cite its verified review date and protected research PR");
+  assert.ok(!reviewedSources.has(row.url), "Duplicate approved official camping URL");
+  reviewedSources.set(row.url, row);
+}
+const hasExactReviewedSource = (url, digest) =>
+  Boolean(digest && reviewedSources.get(url)?.sha256 === digest &&
+    reviewedSources.get(url).reviewedAt <= new Date().toISOString().slice(0, 10));
+
 if (process.argv.includes("--self-test")) {
   for (const status of [200, 201, 206]) assert.equal(label(status), "healthy");
   for (const status of [404, 410]) assert.equal(label(status), "missing");
@@ -65,6 +86,13 @@ if (process.argv.includes("--self-test")) {
   assert.equal(relevantSourceDigest(sample), relevantSourceDigest("<script>var updated=Date.now()</script>" + sample), "analytics timestamps do not change campground fingerprint");
   assert.notEqual(relevantSourceDigest(sample), relevantSourceDigest(sample.replace("require advance booking", "are first come first served")), "reservation policy changes must be detected");
   assert.equal(relevantSourceDigest("<html><script>no campsites</script></html>"), null, "no evidence must not be treated as a verified fingerprint");
+  const [reviewedUrl, reviewedWitness] = reviewedSources.entries().next().value;
+  assert.equal(hasExactReviewedSource(reviewedUrl, reviewedWitness.sha256), true,
+    "Only the explicitly researched digest can promote a camping source baseline");
+  assert.equal(hasExactReviewedSource(reviewedUrl, "0".repeat(64)), false,
+    "A newer changed official source must still fail closed");
+  assert.equal(hasExactReviewedSource("https://example.com/no-research", reviewedWitness.sha256), false,
+    "A digest cannot authorize a different official URL");
   const editorialFixture = 'const EDITORIAL_UPDATED_AT = "2026-11-04";';
   assert.equal(/const EDITORIAL_UPDATED_AT = "(\d{4}-\d{2}-\d{2})";/.exec(editorialFixture)?.[1], "2026-11-04");
   assert.equal((Date.parse("2027-02-03T00:00:00Z")-Date.parse("2026-11-04T00:00:00Z"))/86400000 > 90, true,
@@ -145,10 +173,15 @@ if (process.argv.includes("--offline")) {
         let fingerprint = null;
         if (category === "healthy" && /(?:text\/html|application\/xhtml\+xml)/i.test(response.headers.get("content-type") || "")) {
           fingerprint = relevantSourceDigest((await response.text()).slice(0, 2_000_000));
-          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint && !hasNewResearch(refs.get(url)))
+          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint &&
+              !hasNewResearch(refs.get(url)) && !hasExactReviewedSource(url, fingerprint))
             category = "source-content-changed";
         }
-        const baselineFingerprint = fingerprint && (hasNewResearch(refs.get(url)) || !previous.has(url))
+        // Only source-specific approval from a protected researched PR, an
+        // actually newer complete profile review, or an absent first baseline
+        // may advance it; changed current HTML alone never does.
+        const baselineFingerprint = fingerprint &&
+            (hasExactReviewedSource(url, fingerprint) || hasNewResearch(refs.get(url)) || !previous.has(url))
           ? fingerprint : previous.get(url) || fingerprint;
         const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url), fingerprint, baselineFingerprint };
         report.checked.push(check);
