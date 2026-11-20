@@ -64,6 +64,14 @@ for (const origin of origins) {
     verify(origin.label, "campground-specific quiet hours and checkout", visible.includes("noon campsite checkout") && visible.includes("quiet hours"));
     verify(origin.label, "site-specific accessibility", visible.includes("accessibility and individual rv pad fit") && visible.includes("does not establish that every electric rv site is accessible"));
     verify(origin.label, "licensed genuine park footbridge photo", html.includes("Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg") && visible.includes("larry d. moore"));
+    verify(origin.label, "approved licensed docks photo with accurate park-only context",
+      html.includes("Docks_at_Martin_Creek_Lake_State_Park_2019.jpg") &&
+      html.includes("/media/remote?url=") &&
+      visible.includes("docks and wooded shoreline, june 2019") &&
+      visible.includes("not an rv campsite") &&
+      visible.includes("resized for web") &&
+      html.includes("https://commons.wikimedia.org/wiki/File:Docks_at_Martin_Creek_Lake_State_Park_2019.jpg") &&
+      html.includes("https://creativecommons.org/licenses/by/4.0/"));
     verify(origin.label, "official photos of real numbered campsites", visible.includes("actual numbered campsite photos") && html.includes("tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites"));
     verify(origin.label, "internal RV, state parks and fishing access links", html.includes("/explore/rv-parks") && html.includes("/explore/state-parks") && html.includes("/fishing/access"));
     verify(origin.label, "county, TPWD and reservations external source links", html.includes("ruskcountytxfire.gov/rusk-county-burn-ban-status") && html.includes("tpwd.texas.gov/state-parks/martin-creek-lake/alert") && html.includes("texasstateparks.reserveamerica.com"));
