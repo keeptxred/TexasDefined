@@ -30,7 +30,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas Rock Climbing & Bouldering Guide",
           description: "Plan Texas rock-climbing and bouldering trips around four public climbing areas, with official access, check-in, reservation, conservation and visitor-safety guidance.",
-          dateModified: "2026-11-18",
+          dateModified: "2026-11-20",
           author: { "@type": "Organization", name: "TexasDefined Editorial Desk", url: `${siteUrl}/editorial-policy` },
           image: absoluteUrl(texasDefinedBrand, enchantedRock),
           isPartOf: { "@id": `${siteUrl}/#website` },
