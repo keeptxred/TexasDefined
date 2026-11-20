@@ -90,9 +90,13 @@ function gamesFromDistrictSource(text,slug,today) {
     overdue.push({date,away,home,source:'district-fixture'});
   }
   if(slug==='6a-district-16'){
+    // A past October fixture is NOT overdue when its actual source-backed
+    // November-reviewed outcome is already in this same district file.
+    const sourceFinals=new Set([...text.matchAll(/\{\s*date:\s*['"](\d{4}-\d\d-\d\d)['"],\s*away:\s*['"]([^'"]+)['"],\s*home:\s*['"]([^'"]+)['"],\s*awayScore:\s*\d+,\s*homeScore:\s*\d+/g)]
+      .map(m=>[m[1],m[2],m[3]].join('|')));
     for(const m of text.matchAll(/\{\s*date:\s*['"](\d{4}-\d\d-\d\d)['"],\s*kickoff:[^,\n]+,\s*away:\s*['"]([^'"]+)['"],\s*home:\s*['"]([^'"]+)['"]/g)){
       if(m[1]>=today)continue;
-      const key=[m[1],m[2],m[3]].join('|');if(!covered.has(key)){covered.add(key);overdue.push({date:m[1],away:m[2],home:m[3],source:'district-16-calendar'});}
+      const key=[m[1],m[2],m[3]].join('|');if(!covered.has(key)&&!sourceFinals.has(key)){covered.add(key);overdue.push({date:m[1],away:m[2],home:m[3],source:'district-16-calendar'});}
     }
   }
   return overdue.sort((a,b)=>b.date.localeCompare(a.date));
