@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {
  indexPrograms,staleRows,audit,shardSelection,searchText,parseRss,lookup,combinedSummary,
- texasDate
+ texasDate,explicitScoreHints
 } from './audit-football-sitewide-public-scores.mjs';
 
 test('complete 2026 UIL index covers 1,268 teams and 192 districts without invented scores',()=>{
@@ -63,6 +63,22 @@ test('RSS publication headlines remain unverified evidence, never scores',async(
  assert.equal(out.leads.length,2);
  assert.ok(out.leads.every(x=>x.verification==='unverified-research-lead'));
  assert.equal(out.errors.length,0);
+});
+test('two-team numeric headline contains a source-linked score lead without implying a verified result',()=>{
+ const task={date:'2026-11-20',away:'Port Lavaca Calhoun',home:null,subjectName:'Comal Canyon Lake'};
+ const leads=[
+   {title:'Canyon Lake 34, Calhoun 21 football final',url:'https://example.com/one',source:'Local Sports',date:'2026-11-21'},
+   {title:'Calhoun 21, Canyon Lake 34 football score',url:'https://example.com/two',source:'Regional News',date:'2026-11-21'},
+   {title:'Canyon Lake and Calhoun will play tonight',url:'https://example.com/preview',source:'Preview',date:'2026-11-20'}
+ ];
+ const found=explicitScoreHints(task,leads);
+ // The owning UIL program name begins with Comal; the exact full name must
+ // be present in a headline to avoid mistaking New Braunfels Canyon.
+ assert.equal(found.length,0);
+ const full=explicitScoreHints({...task,subjectName:'Canyon Lake'},leads);
+ assert.equal(full.length,2);
+ assert.ok(full.every(h=>h.verification==='unverified-headline-only'));
+ assert.deepEqual(full.map(h=>[h.firstScore,h.secondScore]),[[21,34],[21,34]]);
 });
 test('partial shard inventory never becomes a falsely complete review',()=>{
  const x=audit({today:'2026-11-20'});
