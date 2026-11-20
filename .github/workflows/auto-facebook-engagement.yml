@@ -342,7 +342,10 @@ jobs:
         if: steps.slot.outputs.should_run == 'true'
         uses: actions/download-artifact@v8
         with:
-          name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
+          # upload-artifact@v7 stores archive names with a .zip suffix. The
+          # artifact ID is stable and exact; relying on the unsuffixed name
+          # caused a real "Artifact not found" failure after upload succeeded.
+          artifact-ids: ${{ steps.store.outputs.artifact-id }}
           path: /tmp/tdfb-stored
 
       - name: Verify stored Facebook artifact round trip
