@@ -115,7 +115,7 @@ test('District 16 standings snapshot is internally consistent and strictly sourc
 
 test('District 16 next-round schedule and four Week 8 finals remain separate from its standings snapshot', () => {
   assert.equal([...district16Data.matchAll(/date: '2026-10-(?:15|16|17)'/g)].length, 4);
-  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 8, 'four source-verified finals plus four historical schedule dates');
   assert.equal([...district16Data.matchAll(/\{ date: '2026-(?:10|11)-\d\d', kickoff:/g)].length, 12, 'full 12-match run-in');
   assert.ok(district16Data.includes("kickoff: 'Kickoff unconfirmed'"), 'do not invent uncertain November 7 kickoff');
   for (const key of ['Cypress Woods', 'Cypress Falls', 'Cypress Lakes', 'Langham Creek', 'Jersey Village', 'Cy-Fair', 'Cypress Creek', 'Cypress Ridge']) {
@@ -126,7 +126,7 @@ test('District 16 next-round schedule and four Week 8 finals remain separate fro
     'data-football-district-records="reported-standings-snapshot"',
     'not a continuously updated scoreboard',
     'not every game played',
-    'All twelve remaining district fixtures',
+    'all twelve outcomes have now been checked',
     'DISTRICT_16_CFISD_TICKETS_URL',
     'DISTRICT_16_CFISD_SCHEDULE_URL',
     'teamHref',
