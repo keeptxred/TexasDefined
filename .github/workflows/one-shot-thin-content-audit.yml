@@ -1,0 +1,88 @@
+name: One-time TexasDefined full content depth scan (owner requested 2026-10-30)
+
+# Isolated one-time PR branch; no recurring trigger, no production-wide fetch.
+on:
+  push:
+    branches:
+      - audit/one-time-thin-content-20261030
+    paths:
+      - .github/workflows/one-shot-thin-content-audit.yml
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: td-one-time-thin-content-20261030
+  cancel-in-progress: true
+
+jobs:
+  local-site-content-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      LOCAL_AUDIT_REPORT_DIR: /tmp/td-one-time-thin-content
+      REPORT_DIR: ops/seo/audits/2026-10-30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verify local-only audit transport
+        run: node --test scripts/ci/local-audit-fetch.test.mjs
+      - name: Install governed image build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then exit 0; fi
+          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
+          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      - name: Build isolated Worker exactly once
+        run: |
+          npm run prebuild
+          node scripts/assets/materialize-discover-overrides.mjs
+          npm run build
+          git diff --exit-code -- src/routeTree.gen.ts
+      - name: Audit complete sitemap inventory on localhost
+        id: audit
+        continue-on-error: true
+        run: node scripts/ci/run-local-quality-audits.mjs whole
+      - name: Generate URL-by-URL thin risk list
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          audit="$LOCAL_AUDIT_REPORT_DIR/texasdefined-page-audit.json"
+          test -s "$audit" || { echo "::error::Full audit did not produce report; incomplete scan."; exit 1; }
+          mkdir -p "$REPORT_DIR"
+          node scripts/ci/report-thin-content-candidates.mjs "$audit" "$REPORT_DIR"
+          test -s "$REPORT_DIR/full-url-content-audit.csv"
+          test -s "$REPORT_DIR/SUMMARY.md"
+      - name: Save public-page content report on isolated audit branch
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -s "$REPORT_DIR/full-url-content-audit.csv" ]]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$REPORT_DIR"
+          if ! git diff --cached --quiet; then
+            git commit -m "Store owner-requested full URL content audit [skip ci]"
+            git push origin HEAD:audit/one-time-thin-content-20261030
+          fi
+      - name: Preserve original audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-owner-requested-thin-content-audit
+          path: |
+            /tmp/td-one-time-thin-content
+            ops/seo/audits/2026-10-30
+          if-no-files-found: warn
+          retention-days: 30
