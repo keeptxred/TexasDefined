@@ -106,6 +106,10 @@ const westWhartonReleaseBlock = production.slice(production.indexOf('id: live_wh
 assert.ok(westWhartonReleaseBlock.includes("steps.cloudflare.outcome == 'success'"), 'West Wharton canary must require a new successful Worker');
 assert.ok(!westWhartonReleaseBlock.includes('steps.change_scope.outputs.financial'), 'Superseded tax changes cannot bypass live district acceptance under an unrelated release');
 assert.ok(westWhartonReleaseBlock.includes('verify-west-wharton-hospital-production.mjs'), 'The unconditional test must verify the page on both public origins');
+assert.ok(liveAcceptance.includes("['clean-canonical', 'cache-bypassed']"), 'Both normal canonical and forced-fresh URLs must be checked');
+assert.ok(liveAcceptance.includes("request(origin, pagePath, cacheBust)") && liveAcceptance.includes("request(origin, '/property-tax/county/wharton', variant === 'cache-bypassed')"), 'Clean/uncached validation must include page AND reciprocal county link');
+assert.ok(liveAcceptance.includes("cache: cacheBust ? 'no-store' : 'default'"), 'Canonical probe must not force request-cache bypass');
+
 for (const marker of ['What this hospital district taxes', '0.21512', '0.23328', 'dateModified', 'facts.sources.districtNotice', 'facts.sources.county2026AdoptedTable', 'facts.sources.countyFiveYearSummary', '2026 hospital district rate', '2023 official-source disagreement', '2026 rate visible in initial page body', 'Wharton County guide missing reciprocal hospital district link']) assert.ok(liveAcceptance.includes(marker), 'Live acceptance missing: ' + marker);
 assert.ok(scripts.includes('validate-west-wharton-hospital-district.mjs'));
 console.log('PASS: 2026 county benchmarks, 2023 official rate discrepancy provenance, 2024–25 state history and levy math, publication metadata and scheduled source checks');
