@@ -70,6 +70,21 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH7: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
+        heading: "Evidence ledger: what each famous Texas story actually establishes",
+        body: [
+          "Pecos Bill — documented: Edward O'Reilly's October 1923 Century Magazine article. Not established: an independently collected nineteenth-century oral biography of this named character. Distinction: Western cowboys did tell tall tales, but that does not date Pecos Bill himself before the surviving publication.",
+          "Yellow Rose — documented: nineteenth-century printed song lyrics and an independent Republic of Texas paper trail for Emily D. West. Not established: that West inspired the song or helped decide San Jacinto. Distinction: the much later romantic identification is a historically influential legend, not a contemporary battle account.",
+          "Jackalope — documented: earlier horned-rabbit imagery and the Herrick brothers' Douglas, Wyoming novelty-mount popularization in the 1930s. Not established: that a real antlered species originated in Texas. Distinction: roadside popularity can make an imported story part of Texas culture without changing its documented origin.",
+          "Reading rule: the oldest *surviving* source dates an attested telling, not necessarily the first human telling. For an alleged historical event, ask for independent contemporary evidence; for cultural influence, later souvenirs and performances are appropriate evidence of reception."
+        ],
+        links: [
+          { href: "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html", label: "Encyclopedia of the Great Plains — Pecos Bill scholarship" },
+          { href: "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas", label: "Handbook of Texas — song and Emily West evidence" },
+          { href: "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html", label: "Texas State Library — Emily West passport record" },
+          { href: "https://www.smithsonianmag.com/arts-culture/greetings-from-the-land-of-the-make-believe-species-167869753/", label: "Smithsonian — jackalope popularization" }
+        ]
+      },
+      {
         heading: "Folklore does not have to be false to be worth studying",
         body: [
           "A tall tale can be culturally important even when nobody believes every event literally happened. The exaggeration itself tells us what a community admired, feared, joked about or wanted to remember.",
@@ -135,7 +150,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH7: Record<string, TexasEvergreenGuide> 
         body: [
           "When a story is unusually perfect—one person invented a beloved tradition, one hidden romance changed a battle, one town created a creature known across the West—look for contemporary evidence before repeating it as fact.",
           "Primary records, institutional histories and well-sourced historical references should control factual claims. Later newspaper features, tourism copy and family stories can still be valuable evidence of how a legend spread, but they answer a different question.",
-          "The best Texas folklore page should tell readers both versions: the memorable story people repeat and what the surviving evidence actually supports."
+          "When sharing a legend, say what the primary evidence establishes, what remains disputed and how the retelling became culturally important."
         ],
         bullets: [
           "Ask whether the claim concerns origin, later popularization or present-day identity.",
