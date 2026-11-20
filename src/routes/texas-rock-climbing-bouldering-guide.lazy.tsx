@@ -85,7 +85,7 @@ function TexasClimbingGuidePage() {
             <p className="eyebrow text-primary">Public rock · access · stewardship</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Rock Climbing &amp; Bouldering</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to four public Texas climbing areas: where they are, how their access systems differ, what the managing agencies protect, and where to verify current rules before you go.</p>
-            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Check land-manager alerts on the day of travel.</p>
+            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · updated November 20, 2026 from official land-manager guidance. Check alerts on the day of travel.</p>
           </header>
 
           <figure className="border-b border-border py-8">
