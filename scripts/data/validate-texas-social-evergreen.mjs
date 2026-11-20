@@ -154,6 +154,7 @@ for (const marker of [
   "actions/checkout@v7",
   "actions/upload-artifact@v7",
   "actions/download-artifact@v8",
+  'artifact-ids: ${{ steps.store.outputs.artifact-id }}',
   "/tmp/tdfb/post.txt",
   "/tmp/tdfb/prompt.txt",
   "if-no-files-found: error",
