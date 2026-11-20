@@ -18,7 +18,7 @@ const TD_AI_PROXY_URL = 'https://keeptxred-site.freddy-coppola.workers.dev/api/p
 const TD_AI_OIDC_AUDIENCE = 'texasdefined-editorial-ai';
 const SITE_URL = String(process.env.TEXASDEFINED_SITE_URL || 'https://texasdefined.com').replace(/\/$/, '');
 const NEWSROOM_HYDRATION_URL = String(process.env.NEWSROOM_HYDRATION_URL || 'https://keeptxred.com/api/public/hooks/hydrate-newsroom-source-pages');
-const TEXT_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
+const TEXT_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const IMAGE_MODEL = '@cf/black-forest-labs/flux-2-klein-4b';
 const publishRequested = process.argv.includes('--publish');
 const hydrateTopArg = process.argv.find((arg) => arg.startsWith('--hydrate-top='));

@@ -41,7 +41,7 @@ test('fetches only bounded same-host linked original factual evidence; never upg
   assert.equal(fetched.length,3); // One original + two support pages
   assert.equal(item.viral_signals.editorial_lane,'REVIEW');
   assert.equal(item.source_count,1);
-  assert.ok(result.records.every(x=>x.excerpt.length<=1650 && x.excerpt.length>=400));
+  assert.ok(result.records.every(x=>x.excerpt.length<=2800 && x.excerpt.length>=400));
 });
 
 test('does not crawl a secondhand story or a forged .gov hostname',async()=>{
@@ -107,4 +107,16 @@ test('does not invent fallback pages for insufficient original source text or an
     assert.equal(result.records.length,0);
     assert.equal(result.attempted,0);
   }
+});
+
+test('retains up to 2800 characters of real publisher fact material without inventing continuation',async()=>{
+  const extra='<p>'+('Texas trout fishing access, bag limits, stocking dates and licenses are explained by the state agency. ').repeat(90)+'</p>';
+  const originalPage=originalHtml.replace('</main>','<a href="/fishboat/fish/management/stocking/trout_stocking.phtml">Rainbow trout stocking schedule</a></main>');
+  const fetcher=async(url)=>new Response(url===original?originalPage:'<main><h1>TPWD Rainbow Trout Stocking Guidance</h1>'+extra+'</main>',{
+    headers:{'Content-Type':'text/html'}
+  });
+  const result=await collectFirstPartyEvidence(base,{fetcher});
+  assert.ok(result.records.length>=1);
+  assert.equal(result.records[0].excerpt.length,2800);
+  assert.ok(result.records[0].excerpt.startsWith('TPWD Rainbow Trout Stocking Guidance'));
 });
