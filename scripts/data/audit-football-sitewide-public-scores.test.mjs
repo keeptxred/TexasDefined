@@ -21,11 +21,13 @@ test('static calendar recognizes only played-date missing finals, not existing f
   "{date:'2026-10-22',away:'Team C',home:'Team D',status:'final',awayScore:28,homeScore:14},",
   "{ date: '2026-11-20', opponent: 'Port Lavaca Calhoun', site: 'Neutral' },",
   "{ date: '2026-11-21', opponent: 'Future Opponent', site: 'Home' },",
+  '{"date":"2026-10-18","opponent":"Other School","site":"Away"},',
  ].join('\n');
  const rows=staleRows(source,'fixture.ts','2026-11-20');
- assert.equal(rows.length,2);
+ assert.equal(rows.length,3);
  assert.ok(rows.some(x=>x.away==='Frisco Wakeland'&&x.home==='Denton Braswell'));
  assert.ok(rows.some(x=>x.away==='Team A'&&x.home==='Team B'));
+ assert.ok(rows.some(x=>x.away==='Other School'&&x.date==='2026-10-18'));
  assert.ok(!rows.some(x=>x.date==='2026-11-20'));
 });
 test('October and November district snapshot gaps are identified with their affected URLs',()=>{
@@ -34,6 +36,7 @@ test('October and November district snapshot gaps are identified with their affe
  assert.equal(x.districtPages,192);
  assert.ok(x.stale.some(t=>t.file==='football-district5-2026.ts'&&t.date==='2026-10-23'));
  assert.ok(x.stale.some(t=>t.file==='football-district-game-week.ts'&&t.date==='2026-10-22'));
+ assert.ok(x.stale.some(t=>t.file==='program-editorial-comal-canyon-lake.ts'&&t.teams.includes('comal-canyon-lake')&&t.date==='2026-11-13')===false,'Completed Canyon Lake score must remain finished');
  assert.ok(x.outdatedStandings.some(t=>t.file==='football-district16-2026.ts'));
  assert.ok(x.stale.some(t=>t.urls.some(u=>u.endsWith('/6a-district-5'))));
  assert.ok(x.stale.every(t=>t.date<'2026-11-20'));
