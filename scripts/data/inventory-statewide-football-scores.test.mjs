@@ -29,6 +29,7 @@ test('published 2026 score schedule is a review candidate; source-only guide is 
   const a=inspectEditorial(fake,'program-editorial-b008.ts','2026-11-20');
   assert.equal(a.find(p=>p.slug==='sample-school').reason,'overdue-fixture');
   assert.equal(a.find(p=>p.slug==='sample-school').overdue[0].date,'2026-11-06');
+  assert.equal(a.find(p=>p.slug==='sample-school').overdue[0].home,'sample school');
   assert.equal(a.find(p=>p.slug==='no-score-guide').published,false);
 });
 test('real inventory excludes 2026 alignment and visitor pages without published scores',()=>{
