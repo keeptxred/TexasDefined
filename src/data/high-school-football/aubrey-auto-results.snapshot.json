@@ -45,6 +45,17 @@
       "secondarySourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
       "verifiedAt": "2026-11-14",
       "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "date": "2026-11-19",
+      "opponent": "Canyon",
+      "aubreyScore": 36,
+      "opponentScore": 39,
+      "district": false,
+      "primarySourceUrl": "https://www.presspass.news/2026/11/20/canyon-eagles-survives-second-half-charge-by-aubrey-to-squeak-by-in-uil-class-4a-division-i-area-round/",
+      "secondarySourceUrl": "https://www.newschannel10.com/2026/11/20/texas-panhandle-high-school-football-thursday-area-round-scores/",
+      "verifiedAt": "2026-11-20",
+      "verificationMethod": "manual-editorial-review"
     }
   ]
 }
