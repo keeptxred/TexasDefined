@@ -63,6 +63,13 @@ try{
       report.versions.push(rec.workerVersion);
       report.urls.push(response?.url());
       verify("HTTP 200",response?.status()===200,response?.status());
+      // The shared header's mobile toggle is disabled during SSR and becomes
+      // enabled only after React hydrates. Don't certify an SSR-only pre-hydration
+      // snapshot that is about to be replaced by a route Suspense boundary.
+      await page.waitForFunction(()=>{
+        const toggle=document.querySelector('button[aria-controls="mobile-main-menu"]');
+        return toggle instanceof HTMLButtonElement && !toggle.disabled;
+      },null,{timeout:25000});
       await page.locator("main h1").first().waitFor({state:"visible",timeout:25000});
       // A streamed/suspense-rendered category H1 may become visible before its
       // source-backed route sections hydrate, particularly on a 320px phone.
@@ -130,24 +137,29 @@ try{
         const img=page.locator('main img[alt^="'+spec.imageAlt+'"]').first();
         verify("subject-correct labeled illustration",await img.count()===1,spec.imageAlt);
         if(await img.count()){
-          // CSS/layout hydration can detach a lazy image while Playwright waits
-          // for scrollIntoViewIfNeeded() stability. Re-locate by verified alt on
-          // every animation frame and demand actual decoded source pixels.
-          await page.waitForFunction(expectedAlt=>{
+          // A React.lazy dog route may briefly re-enter its Suspense fallback
+          // after the server-rendered image decodes. Require the *same actual
+          // decoded DOM image* to survive 600ms across real browser frames,
+          // then capture dimensions atomically; a missing/broken image still
+          // times out and fails closed. Avoid a second, racy locator snapshot.
+          const stableImage=await page.waitForFunction(expectedAlt=>{
             const el=[...document.querySelectorAll("main img")]
               .find(candidate=>candidate.alt.startsWith(expectedAlt));
-            if(!el)return false;
-            if(!el.complete||el.naturalWidth===0)
-              el.scrollIntoView({block:"center",behavior:"instant"});
-            return el.complete&&el.naturalWidth>200&&el.naturalHeight>100;
-          },spec.imageAlt,{timeout:15000});
-          const evidence=await page.evaluate(expectedAlt=>{
-            const el=[...document.querySelectorAll("main img")]
-              .find(candidate=>candidate.alt.startsWith(expectedAlt));
-            if(!el)return {complete:false,naturalWidth:0,naturalHeight:0,width:Infinity};
+            if(!el||!el.complete||el.naturalWidth<201||el.naturalHeight<101){
+              window.__tdFiveHubImageStable=null;
+              if(el)el.scrollIntoView({block:"center",behavior:"instant"});
+              return false;
+            }
+            const last=window.__tdFiveHubImageStable;
+            if(!last||last.element!==el){
+              window.__tdFiveHubImageStable={element:el,since:performance.now()};
+              return false;
+            }
+            if(performance.now()-last.since<600)return false;
             return {complete:el.complete,naturalWidth:el.naturalWidth,
               naturalHeight:el.naturalHeight,width:el.getBoundingClientRect().width};
-          },spec.imageAlt);
+          },spec.imageAlt,{polling:100,timeout:25000});
+          const evidence=await stableImage.jsonValue();
           verify("real image decodes",evidence.complete&&evidence.naturalWidth>200&&evidence.naturalHeight>100,
             JSON.stringify(evidence));
           verify("illustration fits viewport",evidence.width<=viewport.width+3,JSON.stringify(evidence));
