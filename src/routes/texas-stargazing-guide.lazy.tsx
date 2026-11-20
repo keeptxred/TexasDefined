@@ -18,7 +18,7 @@ const skyComparison = [
     "viewing": "Plan a viewing night or official park program around the Panhandle canyon setting; do not infer unrestricted trailway access at night",
     "access": "Check park operating rules, campsite/entry reservations and event calendar; January 2026 dark-sky designation",
     "official": "https://tpwd.texas.gov/state-parks/caprock-canyons",
-    "related": "/explore/state-parks"
+    "related": "/destination/caprock-canyons-state-park"
   },
   {
     "name": "Copper Breaks",
@@ -26,7 +26,7 @@ const skyComparison = [
     "viewing": "Park star parties are an option, but independent viewing still depends on permitted after-hours access",
     "access": "Consult the current TPWD event calendar for a scheduled program rather than last year's dates",
     "official": "https://tpwd.texas.gov/state-parks/copper-breaks/stargazing",
-    "related": "/best-places-to-go-camping-in-texas"
+    "related": "/destination/copper-breaks-state-park"
   },
   {
     "name": "Enchanted Rock",
