@@ -1,85 +1,87 @@
-name: Refresh Texas football scores and brackets
-
+name: Research statewide Texas football finals and standings
 on:
   workflow_dispatch:
   schedule:
-    # During the season, run after Friday nights and again the next morning.
-    # UTC; fall daylight transitions do not affect date-only final verification.
-    - cron: '13 11 * 8-12 *'
-    - cron: '17 5 * 8-12 *'
+    # 17:37 UTC is midday Central; check the day AFTER a game, not live.
+    # Saturday year-round + Sunday-Friday August through December.
+    - cron: '37 17 * * 6'
+    - cron: '37 17 * 8-12 0-5'
   pull_request:
     paths:
-      - 'scripts/data/refresh-football-matchups.mjs'
-      - 'src/data/high-school-football/football-matchups*'
-      - 'src/data/high-school-football/football-district11-2026.ts'
-      - 'src/data/high-school-football/football-district-game-week.ts'
-      - 'scripts/data/validate-football-district-coverage.test.mjs'
+      - 'scripts/data/inventory-statewide-football-scores.mjs'
+      - 'scripts/data/inventory-statewide-football-scores.test.mjs'
+      - 'scripts/data/research-statewide-football-scores.mjs'
+      - 'scripts/data/research-statewide-football-scores.test.mjs'
+      - 'scripts/ci/validate-football-refresh-scheduling.test.mjs'
+      - 'src/data/high-school-football/football-matchups.snapshot.json'
+      - 'src/data/high-school-football/football-district*.ts'
+      - 'src/data/high-school-football/program-editorial*.ts'
+      - 'src/data/high-school-football/aubrey-*.snapshot.json'
       - '.github/workflows/refresh-football-scores-brackets.yml'
-
+      - '.github/workflows/aubrey-verified-score-sync.yml'
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
   issues: write
-
 concurrency:
-  group: football-scores-${{ github.ref }}
+  group: statewide-football-public-results-${{ github.ref }}
   cancel-in-progress: false
-
 jobs:
-  refresh:
-    # Do not silently skip when no authorized feed is configured: report the
-    # deployment blocker to the owner and fail visibly instead.
+  research:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
-      - name: Syntax-check limited score adapter
-        run: node --check scripts/data/refresh-football-matchups.mjs
-      - name: Validate all 21 District 11 matchups and safe district/Division I feed matching
-        run: node --test scripts/data/validate-football-district-coverage.test.mjs
-      - name: Require an authorized football score feed and record setup blocker
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL == '' }}
+          node-version: '24'
+      - name: Validate statewide inventory and bounded public-source research
+        run: |
+          set -euo pipefail
+          node --check scripts/data/inventory-statewide-football-scores.mjs
+          node --check scripts/data/research-statewide-football-scores.mjs
+          node --test scripts/data/inventory-statewide-football-scores.test.mjs
+          node --test scripts/data/research-statewide-football-scores.test.mjs
+          node --test scripts/ci/validate-football-refresh-scheduling.test.mjs
+          node scripts/data/research-statewide-football-scores.mjs --validate
+      - name: Inventory all materially stale results and district standings
+        if: github.event_name != 'pull_request'
+        run: node scripts/data/inventory-statewide-football-scores.mjs --inventory
+      - name: Search public reporting for unconfirmed completed games
+        id: lookup
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/data/research-statewide-football-scores.mjs --research
+      - name: Save evidence including every enrolled football page
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-football-public-score-research-${{ github.run_id }}
+          path: artifacts/football-score-research/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Update one source-backed statewide football review issue
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          title='BLOCKED: TexasDefined football scores are not automatically updating'
-          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'The season score-refresh workflow is running, but FOOTBALL_RESULTS_FEED_URL is not set. District hubs (including 4A-DI-11 and 6A-5, 6A-21 and 6A-22) will remain on dated editorial scores until a permitted machine-readable source is configured. Set the repository variable FOOTBALL_RESULTS_FEED_URL and optional secret FOOTBALL_RESULTS_FEED_TOKEN with an explicitly authorized provider. This failure must remain visible; do not scrape an unlicensed source or invent finals. See docs/football-authority/MATCHUPS_BRACKETS_FEED.md.'
+          issue_title='TexasDefined statewide football: day-after-game score research'
+          body='artifacts/football-score-research/issue.md'
+          if [[ ! -s "$body" ]]; then
+            body='/tmp/football-research-failed.md'
+            printf '# Statewide public football research could not finish\n\nInspect the job failure. No game result is inferred or published.\n' > "$body"
           fi
-          echo "::error::Football updates are NOT automatic: FOOTBALL_RESULTS_FEED_URL is missing; blocker issue recorded."
-          exit 1
-      - name: Fetch only authorized verified score feed
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
-        env:
-          FOOTBALL_RESULTS_FEED_URL: ${{ vars.FOOTBALL_RESULTS_FEED_URL }}
-          FOOTBALL_RESULTS_FEED_TOKEN: ${{ secrets.FOOTBALL_RESULTS_FEED_TOKEN }}
-        run: node scripts/data/refresh-football-matchups.mjs
-      - name: Propose and auto-merge validated score updates after required checks
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+          printf '\n[Source workflow run](https://github.com/%s/actions/runs/%s) — full dated research JSON/Markdown artifact, including every eligible page.\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> "$body"
+          prior="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$issue_title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="TexasDefined statewide football: day-after-game score research") | .number' | head -n 1)"
+          if [[ -n "$prior" ]]; then
+            gh issue edit "$prior" --repo "$GITHUB_REPOSITORY" --body-file "$body"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$issue_title" --body-file "$body"
+          fi
+      - name: Surface genuine lookup failure after saving diagnostics
+        if: github.event_name != 'pull_request' && steps.lookup.outcome == 'failure'
         run: |
-          if git diff --quiet -- src/data/high-school-football/football-matchups.snapshot.json; then
-            echo 'No source-backed score changes.'
-            exit 0
-          fi
-          if gh pr list --base main --state open --json title --jq '.[].title' | grep -Fxq 'Update verified 2026 Texas football scores and brackets'; then
-            echo 'An earlier score update PR awaits review; no duplicate.'
-            exit 0
-          fi
-          branch="data/football-scores-${GITHUB_RUN_ID}"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add src/data/high-school-football/football-matchups.snapshot.json
-          git commit -m 'Refresh sourced 2026 football scores and brackets'
-          git push origin "$branch"
-          gh pr create --base main --head "$branch" --title 'Update verified 2026 Texas football scores and brackets' --body 'Bounded, source-attributed authorized football snapshot change. Protected CI and automated merge approval required; no bypass of branch protection or direct production changes.'
-          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
+          echo '::error::Public-source research failed; inspect the artifact and GitHub issue.'
+          exit 1
