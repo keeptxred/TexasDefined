@@ -15,7 +15,8 @@ import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollmen
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
 import { footballMatchups } from './football-matchups';
-import { applyFootballMatchupSnapshot } from './football-team-season-overlay';
+import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';
+import { getDistrictFootballGames } from './football-district-game-week';
 import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
 import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-loader.server';
 import { loadBatch010FootballProgramEditorial } from './program-editorial-b010-loader.server';
@@ -311,7 +312,17 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
-  const editorial = applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups);
+  // Latest individually researched district finals are reused on member
+  // school pages. This never fetches live scores and never changes the
+  // underlying source ledger; independent district reports are PR-reviewed.
+  const verifiedDistrictGames = getDistrictFootballGames(
+    footballDistrictProfilePath(seed.classification, seed.division, seed.district).split('/').at(-1)!,
+    seed.classification,seed.district,
+  );
+  const editorial = applyVerifiedDistrictFinalsToTeam(
+    applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups),
+    canonicalSlug,seed.schoolName,verifiedDistrictGames,
+  );
   const profileContent = {
     displayName,
     program,
