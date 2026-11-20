@@ -85,10 +85,55 @@ export function findOfficialSourceUrls(value) {
     }))].slice(0, SOURCE_LIMIT);
 }
 export function sourceReviewEligible(issue) {
-  if (!issue || issue.pull_request || issue.state !== 'open' ||
-    (issue.labels || []).some(l => l.name === 'autonomous-rewrite-in-progress')) return false;
+  if (!issue || issue.pull_request || issue.state !== 'open') return false;
   if (!/source|freshness|visitor.fact|editorial|authority|review|fact drift|update needed/i.test(issue.title || '')) return false;
-  return findIssuePages(issue.body).length > 0 && findOfficialSourceUrls(issue.body).length > 0;
+  return issuePageSourcePairs(issue.body).length > 0;
+}
+
+/** Match the canonical URL to the SAME source-bearing row, not a different
+ * event's organizer from an umbrella issue containing hundreds of pages. */
+export function issuePageSourcePairs(body) {
+  const rows = [], seen = new Set();
+  for (const line of String(body || '').split(/\r?\n/)) {
+    const pages = findIssuePages(line);
+    const sources = findOfficialSourceUrls(line);
+    for (const page of pages) for (const sourceUrl of sources) {
+      const key = page + '\t' + sourceUrl;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push({page, sourceUrl, context: line.trim().slice(0, 900)});
+    }
+  }
+  // Single-page prose sometimes describes official links in a different
+  // paragraph from the canonical. Multiple-page issues must be line-matched.
+  if (rows.length === 0) {
+    const pages = findIssuePages(body), sources = findOfficialSourceUrls(body);
+    if (pages.length === 1 && sources.length === 1)
+      rows.push({page: pages[0], sourceUrl: sources[0],
+        context: String(body).slice(0, 800)});
+  }
+  return rows;
+}
+export function evidencePathFor(issueNumber, page) {
+  if (!Number.isSafeInteger(issueNumber) || issueNumber < 1 ||
+      !/^\/[a-z0-9][a-z0-9/-]*$/.test(page)) throw Error('Invalid issue/page identity');
+  return 'ops/editorial/auto-rewrite-evidence/issue-' + issueNumber +
+    '--' + page.slice(1).replaceAll('/', '--') + '.json';
+}
+export function priorEditorialRewrites(root = ROOT) {
+  const dir = path.join(root, 'ops/editorial/auto-rewrite-evidence');
+  const reviewed = new Set();
+  if (!fs.existsSync(dir)) return reviewed;
+  for (const name of fs.readdirSync(dir)) {
+    if (!/^issue-\d+(?:--[a-z0-9-]+)?\.json$/.test(name)) continue;
+    try {
+      const ledger = JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
+      if (Number.isSafeInteger(ledger.issue) && /^\/[a-z0-9/-]+$/.test(ledger.page) &&
+          Array.isArray(ledger.facts) && ledger.facts.length)
+        reviewed.add(ledger.issue + '\t' + ledger.page);
+    } catch { throw Error('Malformed committed rewrite evidence: ' + name); }
+  }
+  return reviewed;
 }
 export function scheduledWorkflowInventory(root = ROOT) {
   const dir = path.join(root, '.github/workflows');
@@ -142,28 +187,53 @@ async function main() {
   const workflows = scheduledWorkflowInventory();
   if (workflows.length < 20) throw Error('Scheduled workflow inventory truncated; refuse false sitewide coverage');
   const issues = (await loadIssues()).filter(sourceReviewEligible);
-  let selected = null;
-  for (const issue of issues.slice(0, 35)) {
-    const paths = findIssuePages(issue.body);
-    const official = findOfficialSourceUrls(issue.body);
-    const sources = (await Promise.all(official.map(async url => {
-      try { return await officialExcerpt(url); }
-      catch { return null; /* blocked source never counts as verified evidence */ }
-    }))).filter(Boolean);
-    if (!sources.length) continue;
-    selected = {issue: issue.number, issueUrl: issue.html_url, title: issue.title,
-      page: paths[0], pagesInIssue: paths.length, sources,
-      issueContext: String(issue.body).slice(0, 6500),
-      sourceRunAt: new Date().toISOString(), scheduledWorkflows: workflows.length};
+  const reviewed = priorEditorialRewrites();
+  const unseen = [], previouslyReviewed = [];
+  for (const issue of issues.slice(0, 45)) {
+    for (const pair of issuePageSourcePairs(issue.body)) {
+      const row = {...pair, issue: issue.number, issueUrl: issue.html_url,
+        title: issue.title, issueUpdatedAt: issue.updated_at};
+      if (reviewed.has(row.issue + '\t' + row.page)) previouslyReviewed.push(row);
+      else unseen.push(row);
+    }
+  }
+  // Always give fresh, unhandled pages priority. A global source-monitor issue
+  // MUST remain open after the first page is repaired. Avoid repeating the
+  // first event from a 151-page overdue list every day.
+  const candidates = unseen.length ? unseen : [];
+  let selected = null, attempted = 0;
+  for (let i = 0; i < Math.min(candidates.length, 60); i += 5) {
+    const batch = candidates.slice(i, i + 5);
+    const possible = await Promise.all(batch.map(async row => {
+      try { return {...row, evidence: await officialExcerpt(row.sourceUrl)}; }
+      catch { return {...row, evidence: null}; }
+    }));
+    attempted += batch.length;
+    const viable = possible.find(item => item.evidence);
+    if (!viable) continue;
+    selected = {
+      issue: viable.issue, issueUrl: viable.issueUrl, title: viable.title,
+      page: viable.page, pagesInIssue: issuePageSourcePairs(
+        issues.find(issue => issue.number === viable.issue)?.body || '').length,
+      sources: [viable.evidence],
+      evidencePath: evidencePathFor(viable.issue,viable.page),
+      issueContext: viable.context,
+      sourceRunAt: new Date().toISOString(),
+      scheduledWorkflows: workflows.length,
+    };
     break;
   }
   fs.mkdirSync('.artifacts', {recursive: true});
   fs.writeFileSync('.artifacts/sitewide-rewrite-target.json', JSON.stringify({selected, scope: 'one-source-backed-page',
-    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, runLimit: RUN_LIMIT}, null, 2) + '\n');
+    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length,
+    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
+    attempted, runLimit: RUN_LIMIT}, null, 2) + '\n');
   if (process.env.GITHUB_OUTPUT)
     fs.appendFileSync(process.env.GITHUB_OUTPUT, 'selected=' + Boolean(selected) + '\n');
   console.log(JSON.stringify({scheduledWorkflows: workflows.length, candidates: issues.length,
-    selected: selected ? {issue: selected.issue, page: selected.page, sources: selected.sources.map(s => s.url)} : null}));
+    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
+    attempted, selected: selected ?
+      {issue:selected.issue, page:selected.page, sources:selected.sources.map(s=>s.url)} : null}));
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch(error => {
   console.error(error); process.exitCode = 1;
