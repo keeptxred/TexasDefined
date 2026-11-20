@@ -58,7 +58,7 @@ assert.equal(team.season.verifiedAt, '2026-11-19');
 assert.match(team.season.recordLabel, /completed varsity results through Nov\. 13/);
 assert.match(team.season.sourceLabel, /schedule updated Nov\. 19, 2026 at 15:58 UTC/);
 assert.match(team.season.sourceLabel, /Nov\. 20 Calhoun is scheduled, not final/);
-assert.match(team.season.sourceLabel, /checked Nov\. 19/);
+assert.match(team.season.sourceLabel, /schedule updated Nov\. 19, 2026 at 15:58 UTC/);
 assert.ok(games.every((g,i) => i === 0 || g.date > games[i-1].date), 'Games must be in strict ascending date order');
 assert.ok(games.every((g) => /^2026-\d\d-\d\d$/.test(g.date)));
 assert.ok(done.every(g => /^(W|L) \d+–\d+$/.test(g.result)));
