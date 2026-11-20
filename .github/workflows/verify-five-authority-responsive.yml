@@ -63,6 +63,31 @@ jobs:
           path: artifacts/five-hub-responsive/
           if-no-files-found: warn
           retention-days: 14
+      - name: Record non-skipped twelve-scenario live Chrome success on issue
+        if: success() && github.event_name == 'issue_comment'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          report="artifacts/five-hub-responsive/report.json"
+          test -f "$report"
+          evidence="$(node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const report=JSON.parse(fs.readFileSync('artifacts/five-hub-responsive/report.json','utf8'));
+          if(report.checks.length!==12 || report.failures.length) throw new Error('Live Chrome report incomplete or failed');
+          const versions=[...new Set(report.versions.filter(Boolean))];
+          if(report.versions.length!==12 || versions.length!==1) throw new Error('Worker identity incomplete or mixed');
+          for(const c of report.checks){
+            if(!c.screenshot || !fs.existsSync(c.screenshot) || c.checks.length<10 ||
+               c.checks.some(check=>!check.pass)) throw new Error('Missing genuine screenshot or failed browser assertion: '+c.path);
+          }
+          console.log('12/12 desktop/mobile pages, '+report.checks.reduce((n,c)=>n+c.checks.length,0)+' passed assertions, 12 real screenshots, one Worker '+versions[0]);
+          JS
+          )"
+          gh issue comment 7170 --repo "$REPOSITORY" --body "Real Chrome production acceptance **PASS** on a non-skipped, same-Worker 12-scenario run: $evidence. [Run]($RUN_URL). Exact workflow source: \`${{ github.sha }}\`. Technical browser verification only; not Google indexing, rights or manual accessibility signoff."
       - name: Surface real mobile/desktop failures in the open quality checkpoint
         if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
