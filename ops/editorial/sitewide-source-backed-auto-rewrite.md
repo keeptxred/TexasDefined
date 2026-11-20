@@ -70,4 +70,5 @@ material, or promise search-engine approval.
 - Preserve the multi-page source-monitor issue across generated PRs; the owning source monitor alone decides when all event pages are current.
 - Use one evidence ledger per issue and canonical page; read legacy single-issue ledgers to prevent reworking already completed pages.
 - A scheduled run with no substantive verified new copy is a successful no-op, not an invented edit or failed publication.
+- Successive GitHub workflow run numbers rotate the full unreviewed source/page candidate queue. A no-change decision therefore does not stall remaining pages behind the same first source row; the next run still independently verifies the next candidate. This is queue fairness, not permission to rewrite unchanged facts.
 - The cadence is four bounded selection windows each day, each attempting at most one approved content change under existing protected CI.
