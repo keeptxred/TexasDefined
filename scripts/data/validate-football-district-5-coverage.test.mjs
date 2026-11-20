@@ -80,7 +80,7 @@ test('coverage is source-linked, localized and explicitly not UIL-certified stan
     'district5Pilot',
     'data-football-district-records="source-derived"',
     'not UIL-certified standings',
-    'Do not use these partial data for official UIL seeds',
+    'These source-derived results are not official UIL playoff seeds',
     'This is dated research, not a live feed.',
   ]) assert.ok(page.includes(marker), marker);
   assert.ok(head.includes('District 5-6A Football: 2026 Scores, Records & Schedule'));
