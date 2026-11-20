@@ -185,7 +185,7 @@ export function parsePublicFootballRss(xml,{row,now=new Date()}){
   const textOf=(block,tag)=>{const m=block.match(new RegExp('<'+tag+'(?:\\s[^>]*)?>([\\s\\S]*?)<\\/'+tag+'>','i'));
     return m?decodeXml(m[1].replace(/^<!\[CDATA\[|\]\]>$/g,'').replace(/<[^>]+>/g,'')).trim():'';};
   const aliases=row.type==='team'
-    ?[row.name.toLowerCase(),row.name.toLowerCase().split(/\s+/).slice(-2).join(' '),row.slug.replace(/-/g,' ')]
+    ?[row.name.toLowerCase(),row.slug.replace(/-/g,' ')]
     :[row.classification.toLowerCase()+' district '+row.slug.match(/district-(\d+)$/)?.[1],
       'district '+row.slug.match(/district-(\d+)$/)?.[1]];
   const cutoff=now.getTime()-45*86400000;
