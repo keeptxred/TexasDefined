@@ -10,7 +10,7 @@ const errors = [];
 const additional95PlusEvidence = [
   "const paddlingAccessMap = [",
   "paddle-access-map",
-  "Terry Hershey Park access",
+  "Terry Hershy Park access",
   "USGS-08096500",
   "8775083",
   "TPWD access-point map",
