@@ -110,4 +110,7 @@ jobs:
           git commit -m 'Refresh Canyon Lake final from two independently authorized reports'
           git push origin "$branch"
           gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title "$title" --body 'Two separate authorized JSON score feeds agreed on opponent, date and final. Record, scoring arithmetic, original analysis, postseason FAQ, milestones and SEO updated. No unknown future opponent or ticket was invented. Protected CI and live verification required.'
-          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
+          # workflow_run finisher audits the exact bot-only diff, explicitly dispatches
+          # canonical validation and Merge Gate, then submits protected merge.
+          # Do not attempt to merge a GITHUB_TOKEN-created PR before those checks.
+          echo 'Created source-only PR; protected Canyon Lake finisher will validate it.'
