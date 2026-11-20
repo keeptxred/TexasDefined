@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,sourceReviewEligible,scheduledWorkflowInventory}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,sourceReviewEligible,scheduledWorkflowInventory}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -31,4 +31,15 @@ test('only real open source-review issues with page and official sources are eli
   assert.equal(sourceReviewEligible({...issue,state:'closed'}),false);
   assert.equal(sourceReviewEligible({...issue,title:'Worker asset incident'}),false);
   assert.equal(sourceReviewEligible({...issue,body:'Official source HTTP 200 but no canonical page'}),false);
+});
+
+test('heritage source-change issue without a canonical path maps to curated destination identity',()=>{
+  const issue={title:'Destination visitor facts source refresh needed',state:'open',labels:[],
+    body:'SOURCE_CHANGED https://www.nps.gov/saan/planyourvisit/sanjose.htm'};
+  assert.deepEqual(findIssuePages(issue.body),['/destination/mission-san-jose-san-antonio']);
+  assert.equal(sourceReviewEligible(issue),true);
+});
+test('the reviewed attraction operator list also resolves source-only tickets',()=>{
+  assert.ok(findIssuePages('SOURCE_UNAVAILABLE https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/')
+    .includes('/destination/fort-worth-water-gardens'));
 });
