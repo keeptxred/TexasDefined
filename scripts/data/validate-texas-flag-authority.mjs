@@ -4,6 +4,10 @@ import { execFileSync } from "node:child_process";
 // A source-string assertion cannot catch a malformed one-off live verification
 // script. Parse it on every flag authority and protected predeploy run.
 execFileSync(process.execPath, ["--check", "scripts/ci/verify-texas-flag-live.mjs"], { stdio: "inherit" });
+execFileSync(process.execPath, ["--test",
+  "scripts/editorial/refresh-texas-flag-sources.test.mjs",
+  "scripts/ci/audit-texas-flag-vitals.test.mjs",
+], { stdio: "inherit" });
 
 const read = (path) => readFileSync(path, "utf8");
 const readRouteSurface = (path) => {
