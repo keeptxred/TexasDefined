@@ -23,7 +23,7 @@ export const getShowcaseLakePageData = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
     try {
-      const lake = loadShowcaseLakesPageDataServer()[data.slug];
+      const lake = loadShowcaseLakesPageDataServer(data.slug)[data.slug];
       if (!lake) return null;
       return {
         ...lake,
