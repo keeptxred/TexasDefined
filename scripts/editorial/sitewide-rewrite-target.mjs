@@ -15,7 +15,7 @@ const ISSUE_TERMS = ['source', 'freshness', 'editorial', 'authority'];
 const RUN_LIMIT = 1;
 const ISSUE_LIMIT = 100;
 const SOURCE_LIMIT = 3;
-const MAX_HTML = 160_000;
+const MAX_HTML = 850_000;
 const PAGE_PATTERN = /https:\/\/texasdefined\.com(\/[a-z0-9][a-z0-9\/-]{4,125})|(?:^|[\s\u0060(])(\/[a-z][a-z0-9-]{2,}(?:\/[a-z0-9-]+)*)/g;
 const URL_PATTERN = /https:\/\/[a-zA-Z0-9.-]+(?:\/[^\s<>"'\u0060)\\]*)?/g;
 const TRUSTED_HOST = /(?:\.gov|\.edu|\.org|\.com)$/i;
@@ -101,11 +101,10 @@ async function main() {
   for (const issue of issues.slice(0, 35)) {
     const paths = findPagePaths(issue.body);
     const official = findOfficialSourceUrls(issue.body);
-    const sources = [];
-    for (const url of official) {
-      try { const snippet = await officialExcerpt(url); if (snippet) sources.push(snippet); }
-      catch { /* blocked source does not count as confirmed evidence */ }
-    }
+    const sources = (await Promise.all(official.map(async url => {
+      try { return await officialExcerpt(url); }
+      catch { return null; /* blocked source never counts as verified evidence */ }
+    }))).filter(Boolean);
     if (!sources.length) continue;
     selected = {issue: issue.number, issueUrl: issue.html_url, title: issue.title,
       page: paths[0], pagesInIssue: paths.length, sources,
