@@ -25,10 +25,10 @@ test('overdue fixtures are detected but missing finals are not invented',()=>{
 test('statewide inventory covers 1268 UIL teams and 192 unique districts',()=>{
   const rows=inventory(DAY);
   assert.equal(rows.counts.uilTeamPages,1268);
-  assert.ok(rows.counts.additionalFeaturedTeamPages>=1,'Legacy independent football guide aliases must be audited');
+  assert.equal(rows.counts.additionalFeaturedTeamPages,24,'Only 24 distinct featured/private-school canonical team routes');
   assert.equal(rows.teams.length,1268+rows.counts.additionalFeaturedTeamPages);
   assert.equal(rows.districts.length,192);
-  assert.equal(rows.counts.coveredPages,1460+rows.counts.additionalFeaturedTeamPages);
+  assert.equal(rows.counts.coveredPages,1484);
   assert.equal(rows.counts.parseErrors.length,0);
   assert.equal(new Set(rows.teams.map(x=>x.slug)).size,rows.teams.length);
   assert.equal(new Set(rows.districts.map(x=>x.slug)).size,192);
