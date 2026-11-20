@@ -54,6 +54,18 @@ test('all five dated and stale district hubs are enrolled, no scoreless district
   const d16=report.pages.find(p=>p.page.endsWith('/6a-district-16'));
   assert.equal(d16.standingsAsOf,'October 18, 2026');
 });
+test('all eight source-backed District 21 team scorecards inherit district results and overdue fixtures',()=>{
+  const report=inventory({today:'2026-11-20'});
+  for(const slug of ['fort-bend-austin','fort-bend-bush','fort-bend-clements','fort-bend-elkins',
+    'fort-bend-hightower','fort-bend-ridge-point','fort-bend-travis','houston-strake-jesuit']){
+    const page=report.pages.find(p=>p.page.endsWith('/'+slug));
+    assert.ok(page,'District 21 team scorecard omitted: '+slug);
+    assert.ok(page.overdue.length>=2,slug+' has no unsourced past district games');
+  }
+  const memorial=report.pages.find(p=>p.page.endsWith('/houston-memorial'));
+  assert.ok(memorial,'Team with a published 2026 matchup final must receive review coverage');
+  assert.ok(memorial.overdue.some(g=>g.date==='2026-10-23'));
+});
 test('matchup overdue and Aubrey postseason are covered; todays Canyon Lake kickoff is not overdue',()=>{
   const report=inventory({today:'2026-11-20'});
   assert.ok(report.pages.some(p=>p.page.endsWith('/2026-10-23-houston-lamar-at-houston-memorial')));
