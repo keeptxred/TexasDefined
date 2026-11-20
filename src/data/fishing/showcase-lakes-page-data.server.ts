@@ -23,14 +23,15 @@ const sectionLabel = {
  * The directory's no-argument call retains the exact complete inventory.
  */
 export function loadShowcaseLakesPageDataServer(onlySlug?: string) {
-  const sources: Record<string, ShowcaseLakePrototype>[] = [
+  const sources = [
     statewideNetworkShowcaseLakePrototypes,
     wave2ShowcaseLakePrototypes,
     expandedShowcaseLakePrototypes,
     showcaseLakePrototypes,
   ];
   const selected = onlySlug
-    ? sources.map((source) => source[onlySlug]).find((lake): lake is ShowcaseLakePrototype => Boolean(lake))
+    ? sources.map((source) => (source as Record<string, ShowcaseLakePrototype | undefined>)[onlySlug])
+        .find((lake): lake is ShowcaseLakePrototype => Boolean(lake))
     : undefined;
   const prototypes: Record<string, ShowcaseLakePrototype> = onlySlug
     ? selected ? { [onlySlug]: selected } : {}
