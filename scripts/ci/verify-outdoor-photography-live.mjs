@@ -1,4 +1,4 @@
-// Two-page, two-origin production proof for the licensed real-place photography.
+// Three-page, two-origin production proof for the licensed real-place photography.
 // This runs on the existing GitHub-owned monthly and quarterly outdoor review.
 // Do not mark sources reviewed merely because HTTP requests succeed.
 import { createHash } from "node:crypto";
@@ -9,6 +9,15 @@ const origins = [
   "https://texasdefined-site.freddy-coppola.workers.dev",
 ];
 const photos = [
+  {
+    path: "/texas-horseback-riding-guide",
+    creator: "Preston Keres",
+    name: "20231023-FS_PJK_0003_(53298857455).jpg",
+    fileUrl: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/20231023-FS_PJK_0003_%2853298857455%29.jpg/1280px-20231023-FS_PJK_0003_%2853298857455%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:20231023-FS_PJK_0003_(53298857455).jpg",
+    licenseLabel: "U.S. public domain",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
   {
     path: "/texas-paddling-guide",
     creator: "Oleg Yunakov",
@@ -48,8 +57,8 @@ for (const photo of photos) {
       const html = await (await get(target.href + suffix, "text/html")).text();
       const visible = html.replace(/&amp;/g, "&");
       if (!visible.includes(imagePath) || !visible.includes(photo.creator) ||
-          !visible.includes(photo.source) || !visible.includes("CC BY-SA 4.0") ||
-          !visible.includes("https://creativecommons.org/licenses/by-sa/4.0/") ||
+          !visible.includes(photo.source) || !visible.includes(photo.licenseLabel || "CC BY-SA 4.0") ||
+          !visible.includes(photo.licenseUrl || "https://creativecommons.org/licenses/by-sa/4.0/") ||
           !visible.includes("application/ld+json") ||
           !visible.includes("ImageObject") ||
           !visible.includes("copyrightNotice") ||

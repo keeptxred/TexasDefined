@@ -1,7 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
 import { Container } from "@/components/layout/Container";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const equestrianPlanning = [
   {
@@ -136,8 +136,10 @@ function TexasHorsebackRidingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={bigBend} alt="Rugged West Texas public-land landscape associated with horseback riding trips" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Texas public-land riding ranges from remote Chihuahuan Desert backcountry to shared Hill Country trails and compact primitive areas; current land-manager rules should control every trip plan.</figcaption>
+            <img src={editorialImageSrc("https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/20231023-FS_PJK_0003_%2853298857455%29.jpg/1280px-20231023-FS_PJK_0003_%2853298857455%29.jpg")} alt="Riders on a Sam Houston National Forest trail, Texas" width={1280} height={720} className="aspect-[16/9] w-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+              Riders on a multiuse trail in Sam Houston National Forest, Texas. This federal forest illustrates the activity; the five trip-planning destinations below are separate Texas state parks and natural areas. Photo: <a href="https://commons.wikimedia.org/wiki/File:20231023-FS_PJK_0003_(53298857455).jpg" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">USDA Forest Service / Preston Keres</a> (2023) · <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">U.S. public domain</a> · Wikimedia Commons. The delivered image is rendered without alteration.
+            </figcaption>
           </figure>
 
 
