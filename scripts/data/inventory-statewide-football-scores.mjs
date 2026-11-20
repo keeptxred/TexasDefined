@@ -213,7 +213,6 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     if(isoDate(final.verifiedAt))latestVerified.push(final.verifiedAt);
   }
   const aubreyUrl=SITE+'/texas-high-school-football-teams/aubrey';
-  const knownFixture=new Map([...(aubrey.games||[]).map(g=>[g.date+'|'+g.opponent,g])]);
   // Match regular-season pending cards only by date + actual opponent.
   // Preserve unresolved dates, including opponent changes and new fixtures.
   for(const page of pages.filter(p=>p.page===aubreyUrl)){
