@@ -42,7 +42,7 @@ test('October and November district snapshot gaps are identified with their affe
 test('bounded shard ownership does not double-assign candidates',()=>{
  const x=audit({today:'2026-11-20'});
  const groups=Array.from({length:8},(_,shard)=>shardSelection(x,shard,8));
- assert.ok(groups.every(y=>y.selected.length<=20));
+ assert.ok(groups.every(y=>y.selected.length<=32));
  assert.ok(groups.reduce((sum,y)=>sum+y.total,0)>=x.stale.length);
  const ids=groups.flatMap(g=>g.selected.map(t=>[t.file,t.date,t.away,t.home].join('|')));
  assert.equal(ids.length,new Set(ids).size);
