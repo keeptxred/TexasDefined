@@ -43,6 +43,7 @@ jobs:
           node --test scripts/data/research-statewide-football-scores.test.mjs
           node --test scripts/ci/validate-football-refresh-scheduling.test.mjs
           node scripts/data/research-statewide-football-scores.mjs --validate
+          node scripts/data/inventory-statewide-football-scores.mjs --inventory
       - name: Inventory all materially stale results and district standings
         if: github.event_name != 'pull_request'
         run: node scripts/data/inventory-statewide-football-scores.mjs --inventory
