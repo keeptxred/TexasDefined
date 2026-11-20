@@ -53,6 +53,7 @@ function verifyHospital(html) {
     ['original source-check method', html.includes('How this page was checked:') && html.includes('2026 adopted-rate table')],
     ['2026 original primary evidence', html.includes(facts.sources.county2026AdoptedTable)],
     ['county five-year truth in taxation summary linked', html.includes(facts.sources.countyFiveYearSummary)],
+    ['independent historic district worksheets linked', html.includes(facts.sources.county2024UnitWorksheet) && html.includes(facts.sources.county2023UnitWorksheet) && html.includes('A second county document corroborates the 2023 figure')],
     ['2026 tax benchmarks and careful distinction', html.includes('2026 no-new-revenue benchmark') && html.includes('2026 voter-approval benchmark') && html.includes('0.23633') && html.includes('0.25913') && html.includes('not additional taxes charged')],
     ['2023 official-source disagreement', html.includes('Why official sources disagree about the 2023 hospital district rate') && html.includes('0.20550') && html.includes('0.21897') && html.includes('published documents do not explain the discrepancy')],
     ['2023 table warning', html.includes('Unresolved county/state source difference:') && html.includes('Read the comparison')],
@@ -72,7 +73,7 @@ function verifyHospital(html) {
     ['canonical', /<link\b[^>]*rel=["']canonical["'][^>]*>/i.test(html) && (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi) || []).some((tag) => tag.includes('https://texasdefined.com' + pagePath))],
     ['not noindexed', !/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)],
     ['Dataset structured metadata', html.includes('schema.org') && html.includes('Dataset') && html.includes('dateModified')],
-    ['source-review date', html.includes(facts.lastVerified) || html.includes('November 18, 2026')],
+    ['source-review date', html.includes(facts.lastVerified) || html.includes('November 20, 2026')],
   ]);
   return Array.from(checks).filter((entry) => !entry[1]).map((entry) => entry[0]);
 }
