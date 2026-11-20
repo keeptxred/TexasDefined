@@ -7,11 +7,11 @@ const ohvHeroUrl = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.j
 const canonicalPath = "/texas-ohv-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const ohvAreas = [
-  { name: "Eisenhower State Park OHV Trails", region: "North Texas / Lake Texoma" },
-  { name: "Barnwell Mountain Recreation Area", region: "East Texas / Gilmer" },
-  { name: "Sam Houston National Forest Motorized Trails", region: "Piney Woods / Houston region" },
-  { name: "Lake Meredith National Recreation Area OHV Areas", region: "Texas Panhandle" },
-  { name: "Escondido Draw Recreation Area", region: "West Texas / Ozona" },
+  { name: "Eisenhower State Park OHV Trails" },
+  { name: "Barnwell Mountain Recreation Area" },
+  { name: "Sam Houston National Forest Motorized Trails" },
+  { name: "Lake Meredith National Recreation Area OHV Areas" },
+  { name: "Escondido Draw Recreation Area" },
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
@@ -23,7 +23,7 @@ export const Route = createFileRoute(canonicalPath)({
       item: {
         "@type": "Place",
         name: area.name,
-        containedInPlace: { "@type": "AdministrativeArea", name: area.region },
+
       },
     }));
     const schema = {
