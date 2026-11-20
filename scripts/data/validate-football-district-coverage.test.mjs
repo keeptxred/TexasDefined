@@ -153,7 +153,7 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
  assert.ok(prod.includes('no-cache, no-store'));
  assert.ok(prod.includes('CFISD tickets, stadiums and game-day logistics'));
  assert.ok(district16Component.includes('data-district16-result="final"'));
- assert.ok(district16Component.includes('data-district16-result="scheduled"'));
+ assert.ok(district16Component.includes("data-district16-result={reported ? 'final' : 'scheduled'}"));
 });
 
 const teamTemplate = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
