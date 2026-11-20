@@ -169,7 +169,7 @@ function TexasPaddlingGuidePage() {
             <h2 id="trail-comparison" className="mt-2 font-display text-3xl">Five different paddles, five different launch plans</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Distances and durations below come from the named TPWD trail pages, not a guessed statewide average. Times are approximate and change with wind, current, stops and ability. Match the put-in to the exact route before leaving.</p>
             <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare route distances and put-in choices.</p>
-            <div className="mt-6 overflow-x-auto border border-border">
+            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "760px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Paddling trail</th><th scope="col" className="border-b border-border p-4">Route choice / scale</th><th scope="col" className="border-b border-border p-4">Launch and shuttle</th></tr></thead>
                 <tbody>{verifiedTrips.map((trip) => <tr key={trip.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{trip.name}</th><td className="border-b border-border p-4 text-muted-foreground">{trip.route}</td><td className="border-b border-border p-4 text-muted-foreground">{trip.access}</td></tr>)}</tbody>

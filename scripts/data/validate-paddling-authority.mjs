@@ -6,6 +6,11 @@ const route = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.t
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.lazy.tsx'), 'utf8');
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const errors = [];
+// Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
+if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table"')) {
+  errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');
+}
+
 // Guard additional place-specific access, source and visitor-planning improvements.
 for (const marker of [
   "waterConditionDesk",

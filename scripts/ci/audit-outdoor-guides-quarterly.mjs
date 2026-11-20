@@ -26,6 +26,14 @@ const livePages = [
   { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
   { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
 ];
+// Protect keyboard access to each guide's intact, responsive comparison table.
+const comparisonLabels = {
+  "texas-mountain-biking-guide": "Five Texas mountain biking trail systems comparison table",
+  "texas-horseback-riding-guide": "Five Texas horseback riding destinations comparison table",
+  "texas-ohv-guide": "Five legal Texas OHV riding areas comparison table",
+  "texas-paddling-guide": "Five official Texas paddling trails comparison table",
+  "texas-stargazing-guide": "Five certified Texas dark sky state parks comparison table",
+};
 const failures = [], evidence = [];
 async function get(url) {
   let last;
@@ -63,12 +71,32 @@ for (const item of livePages) {
         const noindex = /<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body);
         const canonicalMatch = body.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
         const wrongCanonical = canonicalMatch !== canonical;
-        if (missing.length || noindex || wrongCanonical) failures.push(item.slug + " [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing " + missing.join(", ") + (noindex ? "; noindex" : "") + (wrongCanonical ? "; canonical=" + canonicalMatch : ""));
-        evidence.push({ name: item.slug, url, verified: !missing.length && !noindex && !wrongCanonical, missing, noindex, canonicalMatch });
+        const comparisonLabel = comparisonLabels[item.slug];
+        const accessibleComparison = [...visible.matchAll(/<div\b[^>]*>/gi)].some(([tag]) =>
+          tag.includes('aria-label="' + comparisonLabel + '"') && /\brole="region"/i.test(tag) && /\btabindex="0"/i.test(tag));
+        if (missing.length || noindex || wrongCanonical || !accessibleComparison) failures.push(item.slug + " [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing " + missing.join(", ") + (noindex ? "; noindex" : "") + (wrongCanonical ? "; canonical=" + canonicalMatch : "") + (!accessibleComparison ? "; comparison region not keyboard accessible" : ""));
+        evidence.push({ name: item.slug, url, verified: !missing.length && !noindex && !wrongCanonical && accessibleComparison, missing, noindex, canonicalMatch, accessibleComparison });
       } catch (error) {
         failures.push(item.slug + " [" + origin + "]: inaccessible " + String(error.message));
         evidence.push({ name: item.slug, url, verified: false, error: String(error.message) });
       }
+    }
+  }
+}
+// Confirm Google-discoverable primary sitemap lists the five substantially revised
+// guides with their genuine editorial lastmod (not a synthetic scan timestamp).
+for (const origin of ["https://texasdefined.com", "https://texasdefined-site.freddy-coppola.workers.dev"]) {
+  for (const cacheBust of [false, true]) {
+    const url = origin + "/sitemap.xml" + (cacheBust ? "?outdoor_sitemap_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual") : "");
+    try {
+      const xml = await get(url);
+      const missing = Object.keys(comparisonLabels).filter((slug) =>
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-20</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov20 editorial lastmod for " + missing.join(", "));
+      evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
+    } catch (error) {
+      failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));
+      evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: false, error: String(error.message) });
     }
   }
 }

@@ -202,7 +202,7 @@ function TexasOhvGuidePage() {
             <h2 id="ohv-comparison" className="mt-2 font-display text-3xl">Which venue fits your machine?</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">An OHV decal is not permission to ride wherever you want. Vehicle categories, trail width, mapped zones, operator waivers and separate permits can differ. This table is a screening tool; the current operator or land manager has the final say.</p>
             <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to see all vehicle and permit columns.</p>
-            <div className="mt-6 overflow-x-auto border border-border">
+            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five legal Texas OHV riding areas comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "820px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
                 <tbody>{legalRideComparison.map((area) => <tr key={area.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{area.name}</th><td className="border-b border-border p-4 text-muted-foreground">{area.vehicles}</td><td className="border-b border-border p-4 text-muted-foreground">{area.permission}</td></tr>)}</tbody>

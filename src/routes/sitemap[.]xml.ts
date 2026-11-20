@@ -5,6 +5,9 @@ import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.gener
 import { TEXAS_DEER_AUTHORITY_TOPIC } from "@/data/hunting/authority-deer";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
+// Five guides underwent substantive source-backed editorial revisions on Nov 20.
+// This date must not advance for automated source checks or non-editorial deploys.
+const OUTDOOR_GUIDES_LASTMOD = "2026-11-20";
 type SitemapEntry = { path: string; lastmod?: string };
 
 type EdgeCache = {
@@ -32,6 +35,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("gsc-tax-5xx-recovery", "two-source-verified-tax-units-v1");
   cacheUrl.searchParams.set("texas-flag-20261119", "archive-and-flag-day-authority-v2");
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-15");
+  cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -51,6 +55,12 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  // Source-backed changes to all five guides merged Nov 20: route/permit/access updates, media rights, original comparisons and internal links.
+  "/texas-mountain-biking-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-horseback-riding-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-ohv-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-paddling-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-stargazing-guide": OUTDOOR_GUIDES_LASTMOD,
   "/county/dallas": "2026-11-15", // Source-backed November 15 Dallas Institute of Letters history revision.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",

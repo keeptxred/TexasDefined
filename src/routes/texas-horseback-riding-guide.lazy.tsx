@@ -151,7 +151,7 @@ function TexasHorsebackRidingGuidePage() {
             <h2 id="horse-comparison" className="mt-2 font-display text-3xl">Compare trailer logistics, facilities and guided-ride options</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">These five destinations are not interchangeable. Most public horseback trails are for visitors bringing a horse, not walk-up rental rides. A park's equestrian campsite, water trough or designated acreage does not prove a specific route is open today.</p>
             <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare rider type and facilities.</p>
-            <div className="mt-6 overflow-x-auto border border-border">
+            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five Texas horseback riding destinations comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "780px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Destination</th><th scope="col" className="border-b border-border p-4">Rider type</th><th scope="col" className="border-b border-border p-4">Facilities / permissions</th></tr></thead>
                 <tbody>{equestrianPlanning.map((park) => <tr key={park.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{park.name}</th><td className="border-b border-border p-4 text-muted-foreground">{park.type}</td><td className="border-b border-border p-4 text-muted-foreground">{park.facilities}</td></tr>)}</tbody>
