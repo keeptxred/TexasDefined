@@ -103,6 +103,8 @@ await checkSafely(districtPath, 'District 21 hub', (html) => {
   ]) {
     requireContent(html, needle, 'District 21 hub');
   }
+  const datedCards = [...html.matchAll(/data-football-district-game="2026-[^"]+"/g)];
+  if (datedCards.length !== 28) throw new Error('District 21 hub: expected all 28 source-verified 2026 regular-season final cards, got ' + datedCards.length);
   for (const team of teams) requireContent(html, '/texas-high-school-football-teams/' + team.slug, 'District 21 member links');
 });
 

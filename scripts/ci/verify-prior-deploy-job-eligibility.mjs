@@ -930,7 +930,7 @@ export function qualifyPriorDeployJob(payload) {
   const district5 = NOV13_PUBLISHED_DISTRICT5_DIRECT_TIMEOUT;
   if (job.run_id === district5.runId && job.id === district5.jobId &&
       failures.length === 1 && failures[0] === district5.failedStep) {
-    // Do not weaken the 28-card, 16-result, direct/canonical checks.
+    // Do not weaken 28-card, full-season result, or direct/canonical gates.
     const source = readFileSync('scripts/ci/verify-district-5-production.mjs', 'utf8');
     // The production verifier originally retried only initial request timeouts.
     // A newer strict helper also retries aborted response bodies, without retrying
@@ -951,12 +951,18 @@ export function qualifyPriorDeployJob(payload) {
       helperSource.includes('return await response.text()') &&
       helperSource.includes('if (attempt === attempts)') &&
       helperSource.includes('await sleep(750 * attempt)');
+    // The 2026 full-season release strengthens the original 16-of-28 partial
+    // snapshot gate to 28-of-28 final games and zero pending; retain the exact
+    // old historical Worker provenance without depending on weaker assertions.
+    const originalPartialGate = source.includes("assert.ok(reportedFinals.length >= 16") &&
+      source.includes("assert.equal(pending.length + reportedFinals.length, 28");
+    const fullFinalGate = source.includes("assert.equal(reportedFinals.length, 28") &&
+      source.includes("assert.equal(pending.length, 0");
     if (!(originalInlineRetry || strictBodyRetry) ||
+        !(originalPartialGate || fullFinalGate) ||
         !source.includes("'https://texasdefined-site.freddy-coppola.workers.dev'") ||
         !source.includes("'https://texasdefined.com'") ||
         !source.includes("assert.equal(games.length, 28") ||
-        !source.includes("assert.ok(reportedFinals.length >= 16") ||
-        !source.includes("assert.equal(pending.length + reportedFinals.length, 28") ||
         !source.includes('await Promise.all(origins.map(check));')) {
       throw Error('Exact District5 original asset handoff blocked until bounded transport retry preserves both-origin data assertions');
     }
