@@ -1,6 +1,7 @@
+import {inventory} from './inventory-statewide-football-scores.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {safeLink,decode,parseNews,chooseSearches,conductResearch,reportMarkdown} from './research-statewide-football-scores.mjs';
+import {safeLink,decode,parseNews,publicProviders,chooseSearches,conductResearch,reportMarkdown} from './research-statewide-football-scores.mjs';
 
 const fixture={date:'2026-11-19',away:'Aubrey',home:'Canyon',pages:['https://texasdefined.com/texas-high-school-football-teams/aubrey']};
 const xml='<?xml version="1.0"?><rss><channel>'+
@@ -56,4 +57,14 @@ test('public RSS outage is clearly reported but never authorizes a score update'
   assert.equal(r.gamesWithPublicReportingLeads,0);
   assert.equal(r.publication,false);
   assert.equal(r.researchedGames[0].failures.length,2);
+});
+
+test('all currently eligible statewide overdue fixtures receive lookup coverage in one daily run',()=>{
+  const report=inventory({today:'2026-11-20'});
+  const selected=chooseSearches(report.fixtures,{today:report.today,max:800});
+  assert.equal(selected.deferred.length,0, 'every real dated score page must be researched');
+  assert.equal(selected.selected.length,report.fixtures.length);
+  assert.ok(selected.queryBudgetUsed<=800);
+  assert.deepEqual(publicProviders({date:'2026-11-19'},'2026-11-20'),['google','bing']);
+  assert.equal(publicProviders({date:'2026-10-23'},'2026-11-20').length,1);
 });
