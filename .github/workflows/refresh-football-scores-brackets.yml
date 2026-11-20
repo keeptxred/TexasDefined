@@ -8,6 +8,7 @@ on:
       - '.github/workflows/refresh-football-scores-brackets.yml'
       - 'scripts/data/research-football-pages-statewide.mjs'
       - 'scripts/data/research-football-pages-statewide.test.mjs'
+      - 'scripts/data/validate-football-research-publication.test.mjs'
   schedule:
     # Daily next-day public score lookups during the Aug-Dec season.
     # UTC 17:37 = 11:37 a.m. CST / 12:37 p.m. CDT. Saturday year-round.
@@ -46,6 +47,7 @@ jobs:
         run: |
           node --check scripts/data/research-football-pages-statewide.mjs
           node --test scripts/data/research-football-pages-statewide.test.mjs
+          node --test scripts/data/validate-football-research-publication.test.mjs
           node scripts/data/research-football-pages-statewide.mjs --validate
           node --test scripts/data/validate-football-district-coverage.test.mjs
       - name: Look up next-day finals and standings via public reporting
