@@ -13,7 +13,7 @@ const equestrianHero = {
   creator: "Preston Keres",
   width: 1280,
   height: 720,
-  alt: "Horseback riders on a Sam Houston National Forest trail, Texas",
+  alt: "Riders on a Sam Houston National Forest trail, Texas",
 } as const;
 const deliveredHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(equestrianHero.url));
 const ridingAreas = [
@@ -40,7 +40,7 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Texas Horseback Riding Guide",
-          description: "Compare five Texas horseback riding destinations, trail access, permits, facilities and horse health documents.",
+          description: "Five Texas state-park horse trails, access, permits and facilities.",
           image: {
             "@type": "ImageObject",
             url: deliveredHeroUrl,
@@ -49,8 +49,8 @@ export const Route = createFileRoute(canonicalPath)({
             height: equestrianHero.height,
             caption: equestrianHero.alt,
             creator: { "@type": "Person", name: equestrianHero.creator },
-            creditText: "Preston Keres / USDA Forest Service · public domain",
-            copyrightNotice: "USDA Forest Service · U.S. public domain",
+            creditText: "USFS / Preston Keres",
+            copyrightNotice: "U.S. public domain",
             license: equestrianHero.license,
             acquireLicensePage: equestrianHero.source,
           },
@@ -73,7 +73,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Horseback Riding: 5 Public-Land Destinations",
-        description: "Ride Texas state-park trails at Big Bend Ranch, Hill Country SNA, Palo Duro, Caprock Canyons and Dinosaur Valley.",
+        description: "Plan five Texas state-park riding trips, Coggins rules, horse camps and trail access.",
         image: deliveredHeroUrl,
         imageAlt: equestrianHero.alt,
         imageWidth: equestrianHero.width,
