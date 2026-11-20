@@ -51,6 +51,7 @@ for (const line of patch.split('\n')) {
   if (!line.startsWith('+') || line.startsWith('+++')) continue;
   if (risky.some(regex => regex.test(line))) throw Error('Automated patch touches prohibited code/security/indexing surface');
 }
+const additions = patch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
 const sourceMap = new Map(target.sources.map(x => [x.url, String(x.excerpt || '')]));
 let copy = '';
 for (const file of pageFiles) copy += fs.readFileSync(file, 'utf8') + '\n';
@@ -60,7 +61,7 @@ for (const [index, fact] of ledger.facts.entries()) {
       typeof fact.sourceQuote !== 'string' || fact.sourceQuote.length < 35 ||
       fact.sourceQuote.length > 200 || !sourceMap.get(fact.sourceUrl).includes(fact.sourceQuote) ||
       typeof fact.newCopy !== 'string' || fact.newCopy.length < 18 ||
-      fact.newCopy.length > 200 || !copy.includes(fact.newCopy))
+      fact.newCopy.length > 200 || !copy.includes(fact.newCopy) || !additions.includes(fact.newCopy))
     throw Error('Fact #' + (index + 1) + ' is not directly grounded in captured official source and actual changed page copy');
 }
 if (ledger.updatedAt && (Number.isNaN(Date.parse(ledger.updatedAt)) ||
