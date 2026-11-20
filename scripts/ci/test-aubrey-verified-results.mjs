@@ -104,7 +104,7 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
   assert.ok(playoff.games.length >= 2 && playoff.games.length <= 6, 'Retain two verified playoff fixtures while permitting later rounds');
   assert.equal(playoff.games[0].opponent,'Andrews');
   assert.equal(playoff.games[1].opponent,'Canyon');
-  assert.equal(playoff.games[1].result,undefined,'Upcoming Canyon fixture must not have invented final');
+  assert.equal(playoff.games[1].result,undefined,'The immutable fixture registry must not duplicate results from the separate reviewed-score snapshot');
   const result=reconcileAubreyResults({editorial,snapshot,primary,secondary,primaryHost,secondaryHost,today:'2026-11-14',playoffFixtures:playoff.games});
   assert.equal(result.added,0);
   assert.deepEqual(result.pending,[],'Historical verified scores cannot be flagged missing due to sparse feeds');
@@ -125,6 +125,25 @@ test('manually double-cited 2026 Aubrey finals survive later sparse authorized f
     }]},
     primaryHost,secondaryHost,today:'2026-11-14',playoffFixtures:playoff.games,
   }),/published Aubrey final was contradicted/);
+});
+
+test('Nov 19 playoff final is individually corroborated, protected, and never counted as a district game',()=>{
+  const snapshot=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
+  const postseason=JSON.parse(readFileSync('src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json','utf8'));
+  const rows=snapshot.verifiedResults.filter(row=>row.date==='2026-11-19');
+  assert.equal(rows.length,1,'one independently checked area-round game');
+  const row=rows[0];
+  assert.deepEqual([row.opponent,row.aubreyScore,row.opponentScore,row.district],['Canyon',36,39,false]);
+  assert.equal(row.verificationMethod,'manual-editorial-review');
+  assert.equal(row.verifiedAt,'2026-11-20');
+  assert.equal(new URL(row.primarySourceUrl).hostname,'www.presspass.news');
+  assert.equal(new URL(row.secondarySourceUrl).hostname,'www.newschannel10.com');
+  assert.equal(postseason.games.find(g=>g.date===row.date)?.opponent,'Canyon');
+  assert.equal(postseason.games.find(g=>g.date===row.date)?.round,'area');
+  assert.ok(!postseason.games.some(g=>g.date>row.date),'No assumed later playoff fixture after Canyon result');
+  const source=readFileSync('src/data/high-school-football/aubrey-auto-results.ts','utf8');
+  assert.ok(source.includes("const districtWins = completed.filter((game) => game.district"));
+  assert.ok(source.includes("const districtLosses = completed.filter((game) => game.district"));
 });
 
 test('new licensed playoff finals can update the existing verified upcoming Canyon fixture but cannot invent opponents',()=>{
