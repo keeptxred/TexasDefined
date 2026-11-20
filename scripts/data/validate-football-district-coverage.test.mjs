@@ -168,8 +168,8 @@ test('2026 District 11 has complete, distinct and traceable seven-school round r
     .map((m) => ({ date: m[1], away: m[2], home: m[3], awayScore: +m[4], homeScore: +m[5] }));
   const future = [...district11.matchAll(/upcoming\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)"\)/g)]
     .map((m) => ({ date: m[1], away: m[2], home: m[3] }));
-  assert.equal(finals.length, 15, '15 reported finals through October 23');
-  assert.equal(future.length, 6, 'six published remaining fixtures');
+  assert.equal(finals.length, 21, '21 sourced finals through November 6');
+  assert.equal(future.length, 0, 'no already-played regular-season game remains mislabeled future');
   const schools = ['Bay City', 'El Campo', 'Navasota', 'Needville', 'Royal', 'Sealy', 'West Columbia Columbia'];
   const seen = new Set();
   for (const game of [...finals, ...future]) {
@@ -185,7 +185,7 @@ test('2026 District 11 has complete, distinct and traceable seven-school round r
     assert.equal([...finals, ...future].filter((g) => g.away === school || g.home === school).length, 6, school);
     assert.ok(district11.includes('"' + school + '": "https://www.maxpreps.com/'), 'named score source for ' + school);
   }
-  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-10-29'"));
+  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-11-20'"));
   assert.ok(district11.includes('www.uiltexas.org/football/playoff-brackets/4AD1'));
 });
 
@@ -204,9 +204,9 @@ test('District 11 score-derived records do not invent official standings', () =>
     else { records.get(home)[0]++; records.get(away)[1]++; }
   }
   assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
-    'Bay City': [5, 0], 'El Campo': [3, 1], 'Navasota': [2, 2],
-    'Needville': [1, 3], 'Royal': [0, 4], 'Sealy': [4, 1],
-    'West Columbia Columbia': [0, 4],
+    'Bay City': [6, 0], 'El Campo': [4, 2], 'Navasota': [3, 3],
+    'Needville': [2, 4], 'Royal': [0, 6], 'Sealy': [5, 1],
+    'West Columbia Columbia': [1, 5],
   });
   assert.ok(source.includes("slug === '4a-division-i-district-11'"));
   assert.ok(source.includes('DISTRICT_11_2026_GAMES'));
