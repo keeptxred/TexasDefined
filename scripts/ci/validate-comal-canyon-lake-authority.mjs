@@ -131,7 +131,7 @@ assert.ok(team.venue.note.includes('online-only tickets and clear bags'), 'Host-
 assert.ok(ui.includes('href="https://www.lgisd.net/o/lhs/article/3260936"'), 'Link exact official playoff event ticket notice');
 assert.ok(ui.includes("nextListedFixture.kickoff ?"), 'Show verified upcoming kickoff in the primary summary card');
 assert.ok(ui.includes("eventTicketNoticeUrl={slug === 'comal-canyon-lake' && nextListedFixture?.date === '2026-11-20'"), 'Show ticket action only while the November 20 fixture is still upcoming');
-assert.ok(ui.indexOf('Nov. 20 playoff host notice &amp; ticket link') < ui.indexOf('Other Canyon Lake home-game tickets'), 'Playoff host ticket notice must appear before unrelated home tickets');
+assert.ok(ui.indexOf('Nov. 20 playoff host notice & ticket link') < ui.indexOf('Other Canyon Lake home-game tickets'), 'Playoff host ticket notice must appear before unrelated home tickets');
 const gameGuide = read('src/components/sports/FootballGameNightGuide.tsx');
 assert.ok(gameGuide.includes('Nov. 20 playoff tickets · host notice'), 'Game-night primary action must link to the host, not home game tickets');
 assert.ok(gameGuide.includes('ticketUrl && !hostTicketUrl'), 'Suppress home-ticket button while the playoff host ticket link is active');
