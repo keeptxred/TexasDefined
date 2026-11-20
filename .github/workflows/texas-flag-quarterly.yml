@@ -49,6 +49,12 @@ jobs:
           node --test scripts/ci/audit-texas-flag-vitals.test.mjs
           node scripts/data/validate-texas-flag-authority.mjs
 
+      - name: Wait for exact protected source commit to finish publishing before asserting live page freshness
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+
       - name: Independently recheck archived flag facts and generate scoped rewrite proposal on source drift
         id: source_watch
         continue-on-error: true
