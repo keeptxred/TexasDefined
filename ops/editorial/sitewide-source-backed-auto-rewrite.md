@@ -1,0 +1,65 @@
+# Sitewide scheduled content rewriting: source-backed, bounded and protected
+
+## Coverage and execution
+
+The new GitHub workflow \`.github/workflows/sitewide-source-backed-rewrite.yml\`
+runs daily at 14:47 UTC and can also be dispatched manually. Its deterministic
+selector enumerates scheduled workflows directly from \`.github/workflows/\`
+instead of a fixed three-page list. It reads **open, actionable official-source
+refresh issues** produced by the existing page-specific schedules, identifies
+actual canonical TexasDefined paths and official HTTPS source documents, and
+selects **at most one page per run** for source-backed rewriting.
+
+The normal source/data refresh schedules continue unchanged, including county
+tax facts, event feeds, fishing, football, heritage sites, museums and outdoor
+guides. Their deterministic source snapshots remain the authoritative data.
+Automatic editorial work happens **only** when a source-monitor has exposed
+a real existing page, a specific source-review issue and reachable primary
+evidence. A clean unchanged page is never rewritten solely because a timer fired.
+
+A read-only GitHub Actions job runs Codex using the existing OPENAI_API_KEY
+GitHub secret **only when eligible research work is present**. The model may
+change up to five existing content files, never workflows, credentials, tests
+or source-of-truth code. It must write a claim-by-claim ledger, with exact
+official source quotes from captured official pages and the exact new page
+copy. The publishing job has separate GitHub write permissions but no AI
+API key. It independently validates that ledger against the actual changed
+copy, limits diff size and rejects unsafe changes, then opens a PR.
+
+The trusted \`finish-sitewide-source-backed-rewrite.yml\` workflow accepts
+only a successful first-party source run and the exact bot-created PR. It
+checks the GitHub issue identity, revalidates **current** official-source
+quotes, rejects concurrent branch changes, runs all standard canonical
+validation plus protected Merge Gate on the exact branch and enables
+GitHub auto-merge. Production's existing deployment safety gates continue
+to apply. Failure at any stage leaves a reviewable PR/issue; it does not
+bypass source verification, noindex rules or production controls.
+
+## What this does not claim
+
+This is **not** unconditional bulk AI rewriting of every indexed page.
+Google discourages scaled content generation without original user value.
+It does not automatically fix issues that only report inaccessible sources
+without enough evidence, and it does not treat successful HTTP 200 as fact
+verification. An editorial source review is not human field reporting.
+
+This is one universal bounded *rewrite path* for the already scheduled
+source-review backlog. It does **not** replace the specialist scheduled
+deterministic updates or establish an independent all-URL review interval
+for pages not already inventoried by a refresh workflow. Do not claim every
+page received an editorial rewrite merely because GitHub Actions passed.
+
+## Validation / acceptance
+
+- \`node --test scripts/editorial/sitewide-rewrite-target.test.mjs\`
+- \`node --check scripts/editorial/sitewide-rewrite-target.mjs\`
+- \`node --check scripts/editorial/validate-sitewide-rewrite.mjs\`
+- The default protected \`validate.yml\` and \`merge-gate.yml\` on the
+  exact content PR head, followed by verified production deployment.
+- Source-audit evidence ledger under
+  \`ops/editorial/auto-rewrite-evidence/issue-<number>.json\`.
+
+**Editorial principle:** factual/source changes are the trigger. Never
+rewrite for freshness theater, silently restamp source-checked dates,
+copy a third-party narrative, invent admissions or dates, dilute researched
+material, or promise search-engine approval.
