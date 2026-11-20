@@ -87,7 +87,7 @@ for (const spec of cases) {
     check(!/noindex/i.test(facts.robots), 'District page unexpectedly noindexed');
     check(facts.documentWidth <= facts.viewportWidth + 8, 'Horizontal overflow ' + facts.documentWidth + ' vs ' + facts.viewportWidth);
     check(facts.records === 8, 'Expected eight source-derived team record rows, got ' + facts.records);
-    check(facts.games === 28 && facts.finals >= 16 && facts.finals + facts.scheduled === 28, 'District fixtures must have 28 pairings and >=16 sourced finals: ' + facts.games + '/' + facts.finals + '/' + facts.scheduled);
+    check(facts.games === 28 && facts.finals === 28 && facts.scheduled === 0, 'All 28 published district games must show sourced finals, with zero pending: ' + facts.games + '/' + facts.finals + '/' + facts.scheduled);
     check(facts.teamPaths.length === 8, 'Expected exactly eight distinct internal UIL school profiles; got ' + facts.teamPaths.length);
     for (const marker of ['official-game-day', 'district-5-context', 'coverage', 'teams', 'official-sources']) check(facts.districtSections.includes(marker), 'Missing section ' + marker);
     for (const label of ['Denton Braswell', 'Denton Guyer', 'Frisco Wakeland', 'Lewisville', 'Flower Mound', 'Hebron', 'Marcus', 'Little Elm', 'Pigskin Prep', 'MaxPreps', 'not UIL-certified standings', 'Affiliate disclosure']) check(facts.text.includes(label), 'Missing on-screen copy: ' + label);
