@@ -20,13 +20,10 @@ for (const marker of [
 ]) {
   if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
 }
-for (const marker of [
-  "ImageObject",
-  "National Park Service",
-  "ohvHeroUrl"
-]) {
-  if (!lazyRoute.includes(marker)) errors.push('Missing governed photo SEO and rights metadata: ' + marker);
+for (const marker of ["ImageObject", "National Park Service", "publicdomain/mark/1.0/"]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing governed image rights metadata: ' + marker);
 }
+if (!route.includes("ohvHeroUrl")) errors.push("Missing SEO hero image in route head");
 
 
 for (const marker of [
