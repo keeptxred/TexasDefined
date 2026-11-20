@@ -17,14 +17,18 @@ const nonce = Date.now();
 const failures = [];
 const results = [];
 
-async function request(origin, path) {
+async function request(origin, path, cacheBust = true) {
   let last;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const response = await fetch(origin + path + (path.includes('?') ? '&' : '?') + 'hospital_acceptance=' + nonce + '-' + attempt, {
-        cache: 'no-store',
+      // Compare exactly what a visitor or search crawler requests with a
+      // cache-bypassed response. A healthy query URL must not hide stale HTML
+      // still served from the ordinary canonical path.
+      const url = origin + path + (cacheBust ? (path.includes('?') ? '&' : '?') + 'hospital_acceptance=' + nonce + '-' + attempt : '');
+      const response = await fetch(url, {
+        cache: cacheBust ? 'no-store' : 'default',
         redirect: 'follow',
-        headers: { 'accept': 'text/html', 'cache-control': 'no-cache' },
+        headers: cacheBust ? { 'accept': 'text/html', 'cache-control': 'no-cache' } : { 'accept': 'text/html' },
         signal: AbortSignal.timeout(22000),
       });
       const body = await response.text();
@@ -74,20 +78,27 @@ function verifyHospital(html) {
 }
 
 for (const origin of origins) {
-  try {
-    const { response, body } = await request(origin, pagePath);
-    const missing = verifyHospital(body);
-    if (/\bnoindex\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
-    results.push({ origin, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
-    if (missing.length) failures.push(origin + ': missing ' + missing.join(', '));
-  } catch (error) {
-    failures.push(origin + ': ' + String(error instanceof Error ? error.message : error));
+  for (const variant of ['clean-canonical', 'cache-bypassed']) {
+    const cacheBust = variant === 'cache-bypassed';
+    try {
+      const { response, body } = await request(origin, pagePath, cacheBust);
+      const missing = verifyHospital(body);
+      if (/\\bnoindex\\b/i.test(response.headers.get('x-robots-tag') || '')) missing.push('X-Robots-Tag unexpectedly noindex');
+      results.push({ origin, variant, status: response.status, worker: response.headers.get('x-texasdefined-worker-version'), missing });
+      if (missing.length) failures.push(origin + ' (' + variant + '): missing ' + missing.join(', '));
+    } catch (error) {
+      failures.push(origin + ' (' + variant + '): ' + String(error instanceof Error ? error.message : error));
+    }
   }
-  try {
-    const { body } = await request(origin, '/property-tax/county/wharton');
-    if (!body.includes(pagePath)) failures.push(origin + ': Wharton County guide missing reciprocal hospital district link');
-  } catch (error) {
-    failures.push(origin + ': county crosslink fetch failed: ' + String(error instanceof Error ? error.message : error));
+  // Reciprocal links must also work without a query parameter. A stale
+  // county page cannot be disguised by a fresh cache-busted-only link.
+  for (const variant of ['clean-canonical', 'cache-bypassed']) {
+    try {
+      const { body } = await request(origin, '/property-tax/county/wharton', variant === 'cache-bypassed');
+      if (!body.includes(pagePath)) failures.push(origin + ' (' + variant + '): Wharton County guide missing reciprocal hospital district link');
+    } catch (error) {
+      failures.push(origin + ' (' + variant + '): county crosslink fetch failed: ' + String(error instanceof Error ? error.message : error));
+    }
   }
 }
 
@@ -95,9 +106,9 @@ for (const result of results) console.log(JSON.stringify(result));
 const summary = [
   '## West Wharton County Hospital District live authority acceptance',
   '',
-  'Dual-origin rendered HTML, official references, calculator, reciprocal county link, canonical, indexability, structured metadata.',
+  'Clean and cache-bypassed HTML on both origins, official references, calculator, reciprocal county link, canonical, indexability, structured metadata.',
   '',
-  ...results.map((r) => '- ' + r.origin + ': HTTP ' + r.status + ', Worker ' + (r.worker || '(header unavailable)') + ', missing ' + (r.missing.length ? r.missing.join(', ') : 'none')),
+  ...results.map((r) => '- ' + r.origin + ' (' + r.variant + '): HTTP ' + r.status + ', Worker ' + (r.worker || '(header unavailable)') + ', missing ' + (r.missing.length ? r.missing.join(', ') : 'none')),
   ...failures.map((failure) => '- FAIL: ' + failure),
   failures.length ? '**INCOMPLETE — live acceptance failed.**' : '**PASS — live authority content verified on both origins.**',
   '',
