@@ -39,7 +39,7 @@ assert.equal(completed.filter((game) => game.district && game.result.startsWith(
 assert.equal(games.find((game) => !game.result)?.date, '2026-10-16', 'the reconciler, not manually entered editorial, clears the last pending result');
 assert.ok(!source.includes("footballMatchups"), 'base editorial registry must not own the runtime matchup overlay');
 assert.ok(profileServer.includes("import { footballMatchups } from './football-matchups';"), 'profile server must load the verified matchup snapshot');
-assert.ok(profileServer.includes("import { applyFootballMatchupSnapshot } from './football-team-season-overlay';"), 'profile server must use the shared matchup overlay');
+assert.ok(profileServer.includes("import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';"), 'profile server must use the shared sourced matchup and district overlays');
 assert.ok(profileServer.includes("applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)"), 'overlay must run after authored shard and Aubrey precedence');
 assert.ok(overlay.includes("editorial ?? { slug: teamSlug, overview: [], faq: [] }"), 'snapshot-only teams must receive a minimal season container');
 assert.ok(overlay.includes("recordLabel: 'Verified snapshot record'"), 'partial snapshot record must be labeled honestly');
@@ -61,7 +61,10 @@ const sourceMatchup = read('src/data/high-school-football/football-matchups.ts')
 const listMatchup = read('src/routes/texas-high-school-football-matchups.tsx');
 const detailMatchup = read('src/routes/texas-high-school-football-matchups_.$slug.tsx');
 const oct23Game = snapshot.games.find((g) => g.slug === '2026-10-23-houston-lamar-at-houston-memorial');
-assert.equal(oct23Game?.status, 'scheduled', 'the example has no verified final; never manufacture one');
+assert.equal(oct23Game?.status, 'final', 'Oct 23 Houston Memorial 35–16 result has been independently verified');
+assert.deepEqual([oct23Game?.homeScore,oct23Game?.awayScore],[35,16]);
+assert.equal(oct23Game?.verifiedAt,'2026-11-20');
+assert.ok(oct23Game?.resultSourceUrl?.includes('maxpreps.com/tx/football/game/lamar-houston-vs-memorial-houston/'));
 assert.ok(Date.parse('2026-10-28T12:00:00Z') >=
   Date.parse(oct23Game.date + 'T00:00:00Z') + 48 * 60 * 60 * 1000,
   'fixture is genuinely past, beyond the Texas/UTC date-change safety buffer');
