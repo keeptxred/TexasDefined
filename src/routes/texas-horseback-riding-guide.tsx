@@ -13,7 +13,7 @@ const equestrianHero = {
   creator: "Preston Keres",
   width: 1280,
   height: 720,
-  alt: "Equestrians riding along a wooded multiuse trail in Sam Houston National Forest, Texas",
+  alt: "Horseback riders on a Sam Houston National Forest trail, Texas",
 } as const;
 const deliveredHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(equestrianHero.url));
 const ridingAreas = [
@@ -40,18 +40,17 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Texas Horseback Riding Guide",
-          description: "Plan horseback-riding trips across five Texas public-land destinations with official Coggins, permit, trail, camping and access guidance.",
+          description: "Compare five Texas horseback riding destinations, trail access, permits, facilities and horse health documents.",
           image: {
             "@type": "ImageObject",
-            "@id": `${pageUrl}#primaryimage`,
             url: deliveredHeroUrl,
             contentUrl: deliveredHeroUrl,
             width: equestrianHero.width,
             height: equestrianHero.height,
             caption: equestrianHero.alt,
             creator: { "@type": "Person", name: equestrianHero.creator },
-            creditText: "USDA Forest Service photo by Preston Keres · U.S. public domain · Wikimedia Commons",
-            copyrightNotice: "U.S. federal government work — public domain in the United States",
+            creditText: "Preston Keres / USDA Forest Service · public domain",
+            copyrightNotice: "USDA Forest Service · U.S. public domain",
             license: equestrianHero.license,
             acquireLicensePage: equestrianHero.source,
           },
@@ -74,7 +73,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Horseback Riding: 5 Public-Land Destinations",
-        description: "Plan Texas horseback-riding trips at Big Bend Ranch, Hill Country SNA, Palo Duro, Caprock Canyons and Dinosaur Valley with official access guidance.",
+        description: "Ride Texas state-park trails at Big Bend Ranch, Hill Country SNA, Palo Duro, Caprock Canyons and Dinosaur Valley.",
         image: deliveredHeroUrl,
         imageAlt: equestrianHero.alt,
         imageWidth: equestrianHero.width,
