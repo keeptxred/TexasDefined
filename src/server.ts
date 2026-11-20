@@ -701,8 +701,8 @@ function applyPlayoffGuideEdgeCachePolicy(request: Request, response: Response):
 }
 
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
-  const cacheSafeResponse = applyTexasFlagEdgeCachePolicy(request,
-    applyMoodyGardensNoticeCachePolicy(request,
+  const cacheSafeResponse = applyMoodyGardensNoticeCachePolicy(request,
+    applyTexasFlagEdgeCachePolicy(request,
       applyHashedModuleDocumentCachePolicy(request,
         applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response)))));
   const url = new URL(request.url);
