@@ -1,7 +1,7 @@
-name: Refresh Canyon Lake Hawks football data
+name: Research Canyon Lake Hawks next-day football finals
 on:
   workflow_dispatch:
-  # Run the newly installed research once after merge, then use weekly cron.
+  # Run updated source research once after merge, plus scheduled next-day checks.
   push:
     branches: [main]
     paths:
@@ -9,10 +9,11 @@ on:
       - 'scripts/data/research-canyon-lake-weekly.mjs'
       - 'scripts/data/research-canyon-lake-weekly.test.mjs'
   schedule:
-    # UTC: Saturday research every week year-round; Tuesday correction pass
-    # in the August–December season. GitHub cron always uses UTC.
-    - cron: '37 13 * * 6'
-    - cron: '37 13 * 8-12 2'
+    # 17:37 UTC = late morning/noon Central. Daily during Aug-Dec for
+    # next-day public final checks, including Saturday after Friday games.
+    # Saturday remains a year-round historical correction pass.
+    - cron: '37 17 * * 6'
+    - cron: '37 17 * 8-12 0-5'
   pull_request:
     paths:
       - '.github/workflows/refresh-canyon-lake-football.yml'
@@ -23,8 +24,7 @@ on:
       - 'scripts/ci/validate-comal-canyon-lake-authority.mjs'
       - 'src/data/high-school-football/program-editorial-comal-canyon-lake.ts'
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
   issues: write
 concurrency:
   group: canyon-lake-football-refresh
@@ -38,21 +38,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Validate source fixture and independent-provider reconciliation
+      - name: Validate published results and public-source research
         run: |
-          node --check scripts/data/refresh-canyon-lake-results.mjs
-          node scripts/data/refresh-canyon-lake-results.mjs --validate
-          node --test scripts/data/refresh-canyon-lake-results.test.mjs
           node --check scripts/data/research-canyon-lake-weekly.mjs
           node scripts/data/research-canyon-lake-weekly.mjs --validate
           node --test scripts/data/research-canyon-lake-weekly.test.mjs
           node scripts/ci/validate-comal-canyon-lake-authority.mjs
-      - name: Research football results and District 13 standings from RSS and official source references
+      - name: Research yesterday's game finals and District 13 from public reporting
         if: github.event_name != 'pull_request'
         id: research
         continue-on-error: true
         run: node scripts/data/research-canyon-lake-weekly.mjs --research
-      - name: Maintain one weekly score and standings research issue
+      - name: Maintain one postgame score and standings research issue
         if: github.event_name != 'pull_request'
         continue-on-error: true
         env:
@@ -65,7 +62,7 @@ jobs:
           if [[ ! -s "$bodyfile" ]]; then
             mkdir -p artifacts/canyon-lake-refresh
             bodyfile='/tmp/canyon-lake-research-error.md'
-            printf 'Weekly research failed before writing evidence. Inspect the job logs: https://github.com/%s/actions/runs/%s\nNo score or official standings were inferred from this failure.\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$bodyfile"
+            printf 'Postgame research failed before writing evidence. Inspect the job logs: https://github.com/%s/actions/runs/%s\nNo score or official standings were inferred from this failure.\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$bodyfile"
           fi
           printf '\nGitHub research run: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> "$bodyfile"
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="Canyon Lake football: weekly scores and District 13 standings research") | .number' | head -n 1)"
@@ -74,81 +71,11 @@ jobs:
           else
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file "$bodyfile"
           fi
-      - name: Refresh from two separately authorized JSON score providers
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        id: refresh
-        env:
-          CANYON_LAKE_SCORE_PRIMARY_URL: ${{ vars.CANYON_LAKE_SCORE_PRIMARY_URL }}
-          CANYON_LAKE_SCORE_SECONDARY_URL: ${{ vars.CANYON_LAKE_SCORE_SECONDARY_URL }}
-          CANYON_LAKE_SCORE_PRIMARY_TOKEN: ${{ secrets.CANYON_LAKE_SCORE_PRIMARY_TOKEN }}
-          CANYON_LAKE_SCORE_SECONDARY_TOKEN: ${{ secrets.CANYON_LAKE_SCORE_SECONDARY_TOKEN }}
-        run: node scripts/data/refresh-canyon-lake-results.mjs --refresh
-      - name: Save the bounded source and freshness report
+      - name: Save public score and standings research evidence
         if: always() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: canyon-lake-refresh-${{ github.run_id }}
+          name: canyon-lake-research-${{ github.run_id }}
           path: artifacts/canyon-lake-refresh/
           retention-days: 30
           if-no-files-found: warn
-      - name: Create or update overdue-game editorial review
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outputs.review_needed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='Canyon Lake Hawks football: verified score and page-data refresh needed'
-          node --input-type=module <<'NODE' > /tmp/canyon-lake-review.md
-          import {readFileSync} from 'node:fs';
-          const r=JSON.parse(readFileSync('artifacts/canyon-lake-refresh/report.json','utf8'));
-          console.log('## Canyon Lake Hawks scheduled data review');
-          console.log('Texas check date: '+r.checkedAt+'. Last published verification: '+r.latestVerifiedAt+'.');
-          console.log('Canonical: https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake');
-          console.log('Published record: '+r.record);
-          console.log('Overdue fixture(s): '+(r.due.length?r.due.join('; '):'none'));
-          console.log('Missing independent confirmations: '+(r.missing?.length?r.missing.join('; '):'authorization pending'));
-          console.log(r.blocker||'Provider inputs need a reviewed official-source and license audit.');
-          console.log('Verify any final from independent trusted sources and update the game ledger, season arithmetic, dated original analysis, postgame FAQ, next game, venue, tickets and source provenance through a protected PR. No invented scores or unauthorized scraping.');
-          console.log('Run: https://github.com/'+process.env.GITHUB_REPOSITORY+'/actions/runs/'+process.env.GITHUB_RUN_ID);
-          NODE
-          issue="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="Canyon Lake Hawks football: verified score and page-data refresh needed") | .number' | head -n 1)"
-          if [[ -n "$issue" ]]; then
-            gh issue edit "$issue" --repo "$GITHUB_REPOSITORY" --body-file /tmp/canyon-lake-review.md
-          else
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file /tmp/canyon-lake-review.md
-          fi
-      - name: Record rejected or contradictory licensed provider data
-        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outcome == 'failure'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='BLOCKED: Canyon Lake authorized football score sources disagree or failed'
-          body="The independently authorized score importer failed. No unverified final was published. Inspect source identity, provider host independence, result conflicts and the log: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          issue="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="BLOCKED: Canyon Lake authorized football score sources disagree or failed") | .number' | head -n 1)"
-          if [[ -n "$issue" ]]; then gh issue edit "$issue" --repo "$GITHUB_REPOSITORY" --body "$body"; else gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"; fi
-      - name: Create protected PR for a jointly verified final
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.refresh.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='Refresh independently verified Canyon Lake Hawks final'
-          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --search "$title in:title" --json title,url --limit 100 --jq '.[] | select(.title=="Refresh independently verified Canyon Lake Hawks final") | .url' | head -n 1)"
-          if [[ -n "$existing" ]]; then echo "::error::An unmerged score update already exists: $existing"; exit 1; fi
-          branch="automation/canyon-lake-scores-$GITHUB_RUN_ID"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add src/data/high-school-football/program-editorial-comal-canyon-lake.ts
-          git diff --cached --quiet && { echo "::error::No editorial change despite changed result"; exit 1; }
-          git commit -m 'Refresh Canyon Lake final from two independently authorized reports'
-          git push origin "$branch"
-          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title "$title" --body 'Two separate authorized JSON score feeds agreed on opponent, date and final. Record, scoring arithmetic, original analysis, postseason FAQ, milestones and SEO updated. No unknown future opponent or ticket was invented. Protected CI and live verification required.'
-          # workflow_run finisher audits the exact bot-only diff, explicitly dispatches
-          # canonical validation and Merge Gate, then submits protected merge.
-          # Do not attempt to merge a GITHUB_TOKEN-created PR before those checks.
-          echo 'Created source-only PR; protected Canyon Lake finisher will validate it.'
