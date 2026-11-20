@@ -288,12 +288,15 @@ export function markdownReport(inv,report){
     '','## Pages with new public reporting to verify'];
   const hits=report.results.filter(x=>x.articles.length);
   if(!hits.length)lines.push('No relevant public headlines in this cohort.');
-  for(const r of hits){
+  // GitHub Issue bodies have a 65,536-character limit. All 180 searches
+  // remain in research.json; this human triage view stays safely bounded.
+  for(const r of hits.slice(0,45)){
     lines.push('','### '+safe(r.type+' '+r.slug)+' — '+r.url);
     for(const a of r.articles)if(isSafePublicUrl(a.link))lines.push('- '+safe(a.publishedAt.slice(0,10)+' · '+a.source+' · '+a.title)+' — '+a.link);
   }
+  if(hits.length>45)lines.push('','+String(hits.length-45)+' further reporting-positive pages are in the uploaded full research.json artifact.');
   lines.push('','## Reviewed pages with no matching public headlines / source errors');
-  for(const r of report.results.filter(x=>!x.articles.length))
+  for(const r of report.results.filter(x=>!x.articles.length).slice(0,70))
     lines.push('- '+safe(r.type+' '+r.slug)+' — '+r.url+(r.feedErrors.length?' — '+safe(r.feedErrors.join('; ')):''));
   lines.push('','## Required editorial correction',
     'Check the dated school schedule, UIL partner scoreboard and independent local reporting for each flagged game, confirm the final, and prepare a normal reviewed PR. Update results, overall/district W–L, as-of dates, opponent and playoff context together. Do not publish a headline alone as a final.',
@@ -301,7 +304,10 @@ export function markdownReport(inv,report){
     '','## Parse errors');
   for(const e of inv.counts.parseErrors||[])lines.push('- '+safe(e.file+': '+e.error));
   if(!(inv.counts.parseErrors||[]).length)lines.push('None.');
-  return lines.join('\n')+'\n';
+  const rendered=lines.join('\n')+'\n';
+  return rendered.length>59000
+    ? rendered.slice(0,58000)+'\n\nReport abbreviated for GitHub Issue body limits; inspect research.json for full source evidence.\n'
+    : rendered;
 }
 async function main(){
   const mode=process.argv[2];
