@@ -7,6 +7,17 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-horseback-ri
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "Lajitas Stables",
+  "Bandera Historical Rides",
+  "Eagle Eye Ranch Carriage Company",
+  "horse-guide-or-byo",
+  "texas-stargazing-guide"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+
 
 for (const marker of [
   'const canonicalPath = "/texas-horseback-riding-guide";',

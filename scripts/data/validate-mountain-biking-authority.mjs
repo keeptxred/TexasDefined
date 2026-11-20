@@ -7,6 +7,17 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-mountain-bik
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "trailheadDesk",
+  "Tom Mays Unit",
+  "trailheadDesk[index].entry",
+  "Palo Duro",
+  "texas-stargazing-guide"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+
 
 const routeMarkers = [
   'const canonicalPath = "/texas-mountain-biking-guide";',

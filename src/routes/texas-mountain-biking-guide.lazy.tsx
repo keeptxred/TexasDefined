@@ -42,7 +42,16 @@ const routeDecisions = [
   }
 ] as const;
 
+const trailheadDesk = [
+  { entry: "Tom Mays Unit: from I-10, take the Canutillo/Trans Mountain Road exit and travel toward the mountains; the unit entrance is roughly 3.5 miles from the interstate.", choice: "Start with a signed Tom Mays trailhead and the current TPWD map. The more remote Smugglers Pass parking area is a distinct starting point, not an alternate name for every mountain-bike route.", source: "https://tpwd.texas.gov/state-parks/franklin-mountains/map" },
+  { entry: "Identify the specific Contrabando, Encino or other park route before choosing the roadside access and a vehicle suitable for the approach.", choice: "The 238-mile figure covers the park-wide multiuse system, not one contiguous serviced cycling trail. Ask the park about surface conditions, required permissions, water and the exit drive.", source: "https://tpwd.texas.gov/state-parks/big-bend-ranch/activities/" },
+  { entry: "Use the signed Capitol Peak mountain-bike trail access shown on the current Palo Duro trail map; the road descending into the canyon can expose riders and vehicles to heat.", choice: "Capitol Peak is one 3.5-mile loop with green, blue and black difficulty segments. Check official closures after wet weather and do not treat canyon-rim weather as canyon-floor weather.", source: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info/" },
+  { entry: "Choose the trailhead and route from the Hill Country State Natural Area trail map rather than using a generic Bandera map pin.", choice: "Merrick Mile is an easier opening comparison than committing immediately to steeper shared-use grades. Yield to horses and hikers and carry water: facilities are primitive.", source: "https://tpwd.texas.gov/state-parks/hill-country/trails-map" },
+  { entry: "Start with the Tyler State Park signed trail loops and confirm the park entrance and day-use space before arrival.", choice: "A Loop and B Loop are each moderate, not beginner-flat just because they are short. Cyclists move clockwise on shared-use routes, hikers the opposite direction; closures after rain can remove the planned loop.", source: "https://tpwd.texas.gov/state-parks/tyler/trails-info/" },
+] as const;
 const officialSources = [
+  { label: "TPWD — Franklin Mountains Map and Access", href: "https://tpwd.texas.gov/state-parks/franklin-mountains/map", note: "Official Tom Mays entry approach, signed trailheads and parking choices." },
+  { label: "TPWD — Texas State Park Reservations", href: "https://tpwd.texas.gov/state-parks/reservations/", note: "Book date-specific day use or camping where required; current reservations and capacities vary by park." },
   { label: "TPWD — Biking in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", note: "Statewide biking guidance, trail ratings, multiuse etiquette and current e-bike rules." },
   { label: "TPWD — Franklin Mountains State Park", href: "https://tpwd.texas.gov/state-parks/franklin-mountains", note: "Official park overview with current alerts and the 100-plus-mile trail network." },
   { label: "TPWD — Franklin Mountains Plan Your Visit", href: "https://tpwd.texas.gov/state-parks/franklin-mountains/plan-your-visit", note: "Current route-planning links, interactive map and trail recommendations." },
@@ -159,6 +168,7 @@ const planningPaths = [
   { to: "/texas-rock-climbing-bouldering-guide", label: "Rock climbing & bouldering", description: "Add another public-land outdoor activity with the same access-first planning approach." },
   { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Understand horse-and-bike shared use at Hill Country SNA and other public trails." },
   { to: "/texas-ohv-guide", label: "Legal OHV riding", description: "Compare motorized and non-motorized recreation rules before choosing public lands." },
+  { to: "/texas-stargazing-guide", label: "After-dark park access", description: "Compare official dark-sky viewing rules for Big Bend Ranch and other parks before extending a mountain-bike trip into the evening." },
   { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Sequence destinations, lodging and realistic drive times for a longer trip." },
 ] as const;
 
@@ -203,6 +213,7 @@ function TexasMountainBikingGuidePage() {
             <p className="eyebrow text-primary">Choose your ride</p>
             <h2 id="compare-rides" className="mt-2 font-display text-4xl">Five Texas trail systems at a glance</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">If you only need the decision-making version of this guide, start here. Trail status can change, so the official map linked inside each section should still be your final check.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Swipe the comparison horizontally for all route columns.</p>
             <div className="mt-7 overflow-x-auto border border-border">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "900px" }}>
                 <thead className="bg-muted/50">
@@ -260,6 +271,12 @@ function TexasMountainBikingGuidePage() {
                       <p className="mt-2"><strong>Access and conditions:</strong> {routeDecisions[index].conditions}</p>
                       <a href={routeDecisions[index].official} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block font-semibold text-primary underline underline-offset-4">Current park map and planning information ↗</a>
                     </aside>
+                    <div className="mt-6 border border-border p-5">
+                      <h3 className="font-display text-xl">Trailhead and parking decision</h3>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong>Where to approach:</strong> {trailheadDesk[index].entry}</p>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong>Before choosing the route:</strong> {trailheadDesk[index].choice}</p>
+                      <a href={trailheadDesk[index].source} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline">Verify park approach and official trail map</a>
+                    </div>
                     <h3 className="mt-8 font-display text-2xl">What to know before you ride</h3>
                     <div className="mt-4 max-w-3xl space-y-4 text-base leading-8 text-muted-foreground">
                       {area.rideNotes.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

@@ -6,7 +6,7 @@ import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 const equestrianPlanning = [
   {
     "name": "Big Bend Ranch State Park",
-    "type": "Bring your own horse; remote expedition riding",
+    "type": "Bring your own horse or arrange guided riding with TPWD-listed outfitter",
     "facilities": "Day or overnight backcountry permit; equestrian campsites; current negative Coggins and weed-free feed",
     "check": "Call ahead for stock water and trailer-road suitability. Do not interpret the 238-mile shared network as a short, serviced trail.",
     "official": "https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding",
@@ -14,7 +14,7 @@ const equestrianPlanning = [
   },
   {
     "name": "Hill Country State Natural Area",
-    "type": "Bring your own horse; mixed-use trails",
+    "type": "Bring your own horse or ask TPWD-listed guide services about assisted riding",
     "facilities": "Equestrian trailhead with trough and hitching; reservable equestrian and group camping",
     "check": "Choose a route suitable for your horse, confirm campsite inventory and yielding etiquette before hauling.",
     "official": "https://tpwd.texas.gov/state-parks/hill-country/",
@@ -34,7 +34,7 @@ const equestrianPlanning = [
     "facilities": "Wild Horse equestrian camping area; shared-use trails and distinct trailway access",
     "check": "Review the facility map and equestrian campsite availability; do not assume all trailway segments have the same amenities.",
     "official": "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/horse-sites",
-    "related": "/explore/state-parks"
+    "related": "/destination/caprock-canyons-state-park"
   },
   {
     "name": "Dinosaur Valley State Park",
@@ -42,13 +42,15 @@ const equestrianPlanning = [
     "facilities": "100-acre South Primitive Area for privately brought horses; TPWD lists a separate commercial guided-ride provider",
     "check": "Confirm river conditions and horse-trailer access; book a guided ride with its operator rather than assuming park admission includes one.",
     "official": "https://tpwd.texas.gov/state-parks/dinosaur-valley",
-    "related": "/explore/state-parks"
+    "related": "/destination/dinosaur-valley-state-park"
   }
 ] as const;
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
   { label: "Texas Parks & Wildlife — Big Bend Ranch Horseback Riding", href: "https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding", note: "Official backcountry permit, feed, water, campsite and equestrian-access guidance for Big Bend Ranch." },
+  { label: "TPWD — Big Bend Ranch Official Outfitters", href: "https://tpwd.texas.gov/state-parks/big-bend-ranch/outfitters", note: "TPWD-listed riding providers; confirm rental horses and booking terms with outfitter." },
+  { label: "TPWD — Hill Country Guide Service Providers", href: "https://tpwd.texas.gov/state-parks/hill-country/guide-service", note: "Official Bandera guide-service directory; availability and supplied horses vary." },
   { label: "Texas Parks & Wildlife — Hill Country State Natural Area", href: "https://tpwd.texas.gov/state-parks/hill-country", note: "Official multiuse trail, equestrian day-use, campsite, arena and current-access information." },
   { label: "Texas Parks & Wildlife — Palo Duro Canyon State Park", href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", note: "Official horseback-riding acreage, shared-trail, trailer parking, Coggins and trail-status guidance." },
   { label: "Texas Parks & Wildlife — Caprock Canyons State Park & Trailway", href: "https://tpwd.texas.gov/state-parks/caprock-canyons", note: "Official park and trailway access information for the Panhandle riding landscape." },
@@ -61,7 +63,7 @@ const ridingAreas = [
     region: "Far West Texas · Presidio / Lajitas country",
     summary: "Texas's largest and most remote state park, with roughly 238 miles of multiuse trails and a permit-driven backcountry riding system.",
     details: [
-      "Big Bend Ranch is the expedition end of Texas public-land horseback riding. TPWD allows horses in most areas of the park and maintains equestrian campsites, but both day and overnight backcountry use require a permit. The park also requires current Coggins documentation and weed-free feed.",
+      "Big Bend Ranch is the expedition end of Texas public-land horseback riding. TPWD allows horses in most areas of the park and maintains equestrian campsites, but both day and overnight backcountry use require a permit. The park also requires current Coggins documentation and weed-free feed. TPWD separately identifies Lajitas Stables for guided tours and rental horses; confirm availability and permitted routes with the outfitter rather than confusing it with a bring-your-own-horse backcountry permit.",
       "Water and access deserve advance planning rather than assumptions. TPWD tells riders to call ahead about water availability and notes that some equestrian sites are reached by rugged roads where trailer suitability matters. Heat can also become the controlling condition in this Chihuahuan Desert landscape, so current park alerts and weather should decide whether the planned ride still makes sense.",
     ],
   },
@@ -71,7 +73,7 @@ const ridingAreas = [
     summary: "A former ranch with about 40 miles of shared trails, equestrian day-use facilities and overnight options in a protected natural area.",
     details: [
       "Hill Country State Natural Area is one of the clearest places to understand Texas equestrian recreation as shared public-land use. Hikers, mountain bikers and horseback riders use the same rugged network through creek bottoms, grasslands and rocky hills.",
-      "TPWD provides a day-use equestrian area near headquarters with a water trough and hitching posts, plus equestrian camping options. Current Coggins documentation is required. Because this is a State Natural Area rather than a purpose-built horse park, posted closures, conservation rules and shared-trail etiquette are part of the trip plan.",
+      "TPWD provides a day-use equestrian area near headquarters with a water trough and hitching posts, plus equestrian camping options. Current Coggins documentation is required. TPWD also publishes a separate guide-service directory for visitors arranging a supervised outing; ask any provider whether horses are supplied, where the ride operates and what must be reserved. Because this is a State Natural Area rather than a purpose-built horse park, posted closures, conservation rules and shared-trail etiquette are part of the trip plan.",
     ],
   },
   {
@@ -109,6 +111,7 @@ const planningPaths = [
   { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare another shared-trail activity across Texas public lands and regions." },
   { to: "/texas-natural-wonders-bucket-list", label: "Texas natural wonders", description: "Connect canyon, desert and Hill Country rides to the landscapes that define Texas." },
   { to: "/best-places-to-go-camping-in-texas", label: "Texas camping", description: "Plan an overnight base while checking which parks provide equestrian-specific campsites or facilities." },
+  { to: "/texas-stargazing-guide", label: "Stargazing after the ride", description: "Check night-sky access at Big Bend Ranch and Caprock Canyons before extending a horse trip overnight." },
   { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Sequence trail access, lodging, trailer logistics and nearby stops around realistic drive times." },
 ] as const;
 
@@ -147,12 +150,23 @@ function TexasHorsebackRidingGuidePage() {
             <p className="eyebrow text-primary">Choose the right riding option</p>
             <h2 id="horse-comparison" className="mt-2 font-display text-3xl">Compare trailer logistics, facilities and guided-ride options</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">These five destinations are not interchangeable. Most public horseback trails are for visitors bringing a horse, not walk-up rental rides. A park's equestrian campsite, water trough or designated acreage does not prove a specific route is open today.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare rider type and facilities.</p>
             <div className="mt-6 overflow-x-auto border border-border">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "780px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Destination</th><th scope="col" className="border-b border-border p-4">Rider type</th><th scope="col" className="border-b border-border p-4">Facilities / permissions</th></tr></thead>
                 <tbody>{equestrianPlanning.map((park) => <tr key={park.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{park.name}</th><td className="border-b border-border p-4 text-muted-foreground">{park.type}</td><td className="border-b border-border p-4 text-muted-foreground">{park.facilities}</td></tr>)}</tbody>
               </table>
             </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="horse-guide-or-byo">
+            <p className="eyebrow text-primary">Guided ride or your own horse?</p>
+            <h2 id="horse-guide-or-byo" className="mt-2 font-display text-3xl">Three different ways to book a Texas horse trip</h2>
+            <div className="mt-5 grid gap-5 md:grid-cols-3">
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Big Bend Ranch</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD lists Lajitas Stables for guided trips and rental horses. Contact the operator about the route, provided horses, ages, fees and dates; independently bringing a horse to the backcountry requires a separate park permit.</p><a href="https://tpwd.texas.gov/state-parks/big-bend-ranch/horseback-riding" className="mt-3 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">TPWD outfitter and access guidance</a></div>
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Hill Country State Natural Area</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD lists Bandera Historical Rides, Hill Country Equestrian Lodge and Outlaw Outfitters as guide services. Verify which tours or rental horses are currently offered, and whether a specific itinerary uses public natural-area trails.</p><a href="https://tpwd.texas.gov/state-parks/hill-country/guide-service" className="mt-3 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">Official guide-service directory</a></div>
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Dinosaur Valley</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Bring your own horse to the 100-acre South Primitive Area, or arrange a separate service from TPWD-listed Eagle Eye Ranch Carriage Company. Neither trail access nor a rental ride is automatically included with park admission.</p><a href="https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian" className="mt-3 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">TPWD horse and outfitter list</a></div>
+            </div>
+            <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The featured Palo Duro and Caprock Canyons public trails are not evidence of walk-up rental availability. Contact the relevant park or licensed operator before traveling without a horse.</p>
           </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>

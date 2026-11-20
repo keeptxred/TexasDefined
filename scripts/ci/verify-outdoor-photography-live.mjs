@@ -85,6 +85,33 @@ for (const photo of photos) {
     errors.push(photo.path + ": direct Worker and canonical domain did not deliver byte-identical approved photo");
   }
 }
+// Federal agency photo of an actual featured OHV site is delivered by NPS, not
+// the Wikimedia-only first-party image broker above. Verify SEO provenance and
+// live image references without rewriting its licensing context.
+const ohvPhoto = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.jpg?autorotate=false&maxwidth=1300";
+for (const origin of origins) {
+  for (const suffix of ["", "?outdoor_photo_probe=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual")]) {
+    try {
+      const html = await (await get(origin + "/texas-ohv-guide" + suffix, "text/html")).text();
+      const visible = html.replace(/&amp;/g, "&");
+      for (const marker of [
+        ohvPhoto,
+        "Rosita Flats",
+        "National Park Service photo",
+        "ImageObject",
+        "publicdomain/mark/1.0/",
+      ]) {
+        if (!visible.includes(marker)) errors.push("OHV NPS photo marker missing [" + origin + suffix + "]: " + marker);
+      }
+      if (!html.includes('https://texasdefined.com/texas-ohv-guide') ||
+          /<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html)) {
+        errors.push("OHV NPS hero canonical or indexability regression [" + origin + suffix + "]");
+      }
+    } catch (error) {
+      errors.push("OHV NPS photo HTML unavailable [" + origin + suffix + "]: " + String(error.message));
+    }
+  }
+}
 fs.mkdirSync(".artifacts", { recursive: true });
 fs.writeFileSync(".artifacts/outdoor-image-live-authority.json", JSON.stringify({
   checkedAt: new Date().toISOString(), runId: process.env.GITHUB_RUN_ID || null,

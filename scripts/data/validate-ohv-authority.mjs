@@ -7,6 +7,24 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-ohv-guide.la
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "Sam Houston Multiple-Use Trail Pass",
+  "50 inches",
+  "936-344-6205",
+  "Three separate permits",
+  "no-cost",
+  "Rosita Flats",
+  "spark arrestor",
+  "whip and flag"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+for (const marker of ["ImageObject", "National Park Service", "publicdomain/mark/1.0/"]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing governed image rights metadata: ' + marker);
+}
+if (!route.includes("ohvHeroUrl")) errors.push("Missing SEO hero image in route head");
+
 
 for (const marker of [
   'const canonicalPath = "/texas-ohv-guide";',
