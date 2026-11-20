@@ -87,7 +87,7 @@ test('all source research is bounded and testable without fetching restricted sc
     head:async ref=>{heads.push(ref.url);return {...ref,status:200,available:true};}});
   assert.equal(seen.length,postGameSearchQueries(team,'2026-11-21').length*2);
   assert.ok(seen.filter(u=>u.startsWith('https://news.google.com/rss/search')).length===postGameSearchQueries(team,'2026-11-21').length);
-  assert.ok(seen.filter(u=>u.startsWith('https://www.bing.com/news/search')).length===SEARCH_QUERIES.length);
+  assert.ok(seen.filter(u=>u.startsWith('https://www.bing.com/news/search')).length===postGameSearchQueries(team,'2026-11-21').length);
   assert.equal(heads.length,REVIEW_PAGES.length);
   assert.ok(heads.every(isSafePublicUrl));
   assert.equal(summary.articles.length,2);
