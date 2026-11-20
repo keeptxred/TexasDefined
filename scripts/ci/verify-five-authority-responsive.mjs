@@ -95,31 +95,53 @@ try{
         verify("meaningful comparison table",count>0,count);
         if(count>0){
           const table=tables.first();
-          verify("table caption",await table.locator("caption").count()>0,
-            JSON.stringify({selector:tableSelector,html:(await table.evaluate(el=>el.outerHTML)).slice(0,800)}));
-          verify("column scopes",await table.locator("th[scope=col]").count()>=2,
-            JSON.stringify({selector:tableSelector,html:(await table.evaluate(el=>el.outerHTML)).slice(0,800)}));
-          const display=await table.evaluate(el=>{
+          // Capture all structural checks in one DOM evaluation. Live hydration can
+          // replace the table between separate locator counts, causing false
+          // column-scope failures even when the same table has three scoped th.
+          const tableEvidence=await table.evaluate(el=>{
             let p=el.parentElement,scrollable=false;
             while(p&&p.tagName!=="BODY"){
               if(["auto","scroll"].includes(getComputedStyle(p).overflowX)){scrollable=true;break;}
               p=p.parentElement;
             }
-            return {tableWidth:el.scrollWidth,pageWidth:document.documentElement.clientWidth,
-              scrollable};
+            return {
+              caption:el.querySelectorAll("caption").length,
+              columnScopes:el.querySelectorAll('th[scope="col"]').length,
+              tableWidth:el.scrollWidth,
+              pageWidth:document.documentElement.clientWidth,
+              scrollable,
+              html:el.outerHTML.slice(0,800),
+            };
           });
+          verify("table caption",tableEvidence.caption>0,JSON.stringify(tableEvidence));
+          verify("column scopes",tableEvidence.columnScopes>=2,JSON.stringify(tableEvidence));
           verify("wide tables independently scroll on mobile",
-            !viewport.isMobile||display.tableWidth<=display.pageWidth+3||display.scrollable,
-            JSON.stringify(display));
+            !viewport.isMobile||tableEvidence.tableWidth<=tableEvidence.pageWidth+3||
+            tableEvidence.scrollable,JSON.stringify(tableEvidence));
         }
       }
       if(spec.imageAlt){
         const img=page.locator('main img[alt^="'+spec.imageAlt+'"]').first();
         verify("subject-correct labeled illustration",await img.count()===1,spec.imageAlt);
         if(await img.count()){
-          await img.scrollIntoViewIfNeeded();
-          const evidence=await img.evaluate(el=>({complete:el.complete,naturalWidth:el.naturalWidth,
-            naturalHeight:el.naturalHeight,width:el.getBoundingClientRect().width}));
+          // CSS/layout hydration can detach a lazy image while Playwright waits
+          // for scrollIntoViewIfNeeded() stability. Re-locate by verified alt on
+          // every animation frame and demand actual decoded source pixels.
+          await page.waitForFunction(expectedAlt=>{
+            const el=[...document.querySelectorAll("main img")]
+              .find(candidate=>candidate.alt.startsWith(expectedAlt));
+            if(!el)return false;
+            if(!el.complete||el.naturalWidth===0)
+              el.scrollIntoView({block:"center",behavior:"instant"});
+            return el.complete&&el.naturalWidth>200&&el.naturalHeight>100;
+          },spec.imageAlt,{timeout:15000});
+          const evidence=await page.evaluate(expectedAlt=>{
+            const el=[...document.querySelectorAll("main img")]
+              .find(candidate=>candidate.alt.startsWith(expectedAlt));
+            if(!el)return {complete:false,naturalWidth:0,naturalHeight:0,width:Infinity};
+            return {complete:el.complete,naturalWidth:el.naturalWidth,
+              naturalHeight:el.naturalHeight,width:el.getBoundingClientRect().width};
+          },spec.imageAlt);
           verify("real image decodes",evidence.complete&&evidence.naturalWidth>200&&evidence.naturalHeight>100,
             JSON.stringify(evidence));
           verify("illustration fits viewport",evidence.width<=viewport.width+3,JSON.stringify(evidence));
