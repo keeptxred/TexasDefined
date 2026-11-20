@@ -196,16 +196,15 @@ test('contradictions of already authored game finals cannot silently pass',()=>{
   })).added,0,'Matching provider report must preserve authored final without republishing');
 });
 
-test('reject racing score publishes while the prior generated PR is waiting',()=>{
+test('legacy Aubrey paid-score job never runs or publishes on a schedule',()=>{
   const workflow=readFileSync('.github/workflows/aubrey-verified-score-sync.yml','utf8');
-  assert.ok(workflow.includes('group: aubrey-verified-score-sync'), 'Serialized nightly/manual refresh');
-  assert.ok(workflow.includes('cancel-in-progress: false'), 'No cancellation of publishing attempts');
-  assert.ok(workflow.includes('Existing Aubrey score PR awaits protected merge'),
-    'No second score PR while prior protected merge is unresolved');
-  assert.ok(workflow.includes('gh pr list --repo "$GITHUB_REPOSITORY"'),
-    'Guard must inspect repository-scoped open PRs');
-  assert.ok(workflow.includes("steps.import.outcome == 'failure'"),
-    'A rejected licensed provider result must trigger a review issue');
-  assert.ok(workflow.includes('BLOCKED: Aubrey authorized score feed failed validation'),
-    'Do not silently fail when a source changes or contradicts an existing score');
+  const statewide=readFileSync('.github/workflows/refresh-football-scores-brackets.yml','utf8');
+  assert.ok(workflow.includes('pull_request:'));
+  assert.ok(!workflow.includes('schedule:'),'Aubrey no longer requires a redundant paid-feed cron');
+  assert.ok(!workflow.includes('workflow_dispatch:'));
+  assert.ok(!workflow.includes('gh pr create'));
+  assert.ok(!workflow.includes('AUBREY_SCORE_FEED_PRIMARY_URL'));
+  assert.ok(!workflow.includes('pull-requests: write'));
+  assert.ok(statewide.includes('node scripts/data/research-football-pages-statewide.mjs --research'),
+    'Aubrey is researched through the one statewide next-day public lookup');
 });
