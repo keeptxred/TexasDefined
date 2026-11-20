@@ -54,12 +54,17 @@ jobs:
           elif [[ "$EVENT_NAME" = workflow_dispatch ]]; then
             run="$MANUAL_RUN"
           elif [[ "$EVENT_NAME" = push ]]; then
-            # One-time bootstrap pending first source-backed PR after this
-            # trusted finisher version reaches main. Subsequent clean runs
-            # without a matching open PR safely no-op.
-            run="$(gh run list --workflow sitewide-source-backed-rewrite.yml \
-              --branch main --status completed --limit 20 \
-              --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId // empty')"
+            # Recover an older OPEN bot PR even if newer successful source
+            # runs reviewed sources and safely generated no content change.
+            pr_candidates="$(gh pr list --repo "$REPO" --base main --state open --limit 100 \
+              --json title,headRefName,createdAt,number \
+              --jq '[.[] | select((.headRefName | test("^automation/sitewide-editorial-[0-9]+$")) and (.title | test("^Source-verified editorial refresh for issue #[0-9]+$")))] | sort_by(.createdAt)')"
+            first="$(jq -r '.[0].headRefName // empty' <<< "$pr_candidates")"
+            if [[ -z "$first" ]]; then
+              echo 'No pending source-backed editorial PR to recover.'
+              exit 0
+            fi
+            run="${first#automation/sitewide-editorial-}"
           else
             echo '::error::Unexpected editorial finisher trigger'; exit 1
           fi
