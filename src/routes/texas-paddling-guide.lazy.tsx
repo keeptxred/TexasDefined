@@ -53,6 +53,66 @@ const waterConditionDesk = [
   { decision: "Use the Mill Pond canoe/kayak launch within Caddo Lake State Park for the named 8.8-mile loop. The red markers and adjacent boat roads matter more than a phone's shortest route.", second: "Before entering swamp channels, verify water levels, wildlife management boundaries, park opening/closing access and the condition of the return passage.", conditionsUrl: "https://tpwd.texas.gov/state-parks/caddo-lake" },
   { decision: "Start from the correct Highway 361 access for the named Lighthouse Lakes loop; do not mistake the four marked routes for a sheltered inland trail.", second: "Check Corpus Christi-area marine forecast, predicted tides, wind and boat traffic. An Aransas Channel crossing and shallow seagrass flats require a distinct coastal-weather decision.", conditionsUrl: "https://www.weather.gov/crp/marine" },
 ] as const;
+// Names and route relationships come from the individual TPWD paddling trail access maps.
+// Map-search links are a driving aid, never a substitute for TPWD's legal water access map.
+const paddlingAccessMap = [
+  {
+    name: "Lady Bird Lake — Austin",
+    putIn: "Red Bud Island access near Tom Miller Dam (for the upstream loop)",
+    takeOut: "Return to the same launch on the Tom Miller Dam loop; Festival Beach is a DIFFERENT launch for the Festival Beach loop",
+    shuttle: "Loop: no vehicle shuttle; choose one named access point and return to it",
+    launchSearch: "Red Bud Island Austin TX kayak access",
+    exitSearch: "Festival Beach Boat Ramp Austin TX",
+    official: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/",
+    conditionUrl: "https://waterdata.usgs.gov/monitoring-location/USGS-08158000/",
+    conditionLabel: "USGS Colorado River at Austin (downstream flow context; not this lake's level)",
+  },
+  {
+    name: "Buffalo Bayou — Houston",
+    putIn: "Highway 6 access (western start on the TPWD 26-mile map)",
+    takeOut: "Terry Hershey Park access or another specifically mapped downstream access for a shorter segment; the full route ends at Allen's Landing",
+    shuttle: "One-way: first verify both public points and arrange vehicle retrieval; do not attempt all 26 miles as one casual float",
+    launchSearch: "Buffalo Bayou Paddling Trail Highway 6 Houston TX",
+    exitSearch: "Terry Hershey Park Buffalo Bayou paddling access Houston TX",
+    official: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/",
+    conditionUrl: "https://waterdata.usgs.gov/monitoring-location/USGS-08074000/",
+    conditionLabel: "USGS Buffalo Bayou at Houston (downstream reference gauge)",
+  },
+  {
+    name: "Bosque Bluffs & Brazos Bridges — Waco",
+    putIn: "McLennan Community College Boat Ramp for Bosque Bluffs; Brazos Park East kayak/canoe ramp for Brazos Bridges",
+    takeOut: "Return to the SAME route's named put-in; these are distinct loops, not opposite ends of one water trail",
+    shuttle: "Two loops: no vehicle shuttle; do not use the other trail's ramp as a substitute without consulting TPWD",
+    launchSearch: "McLennan Community College Boat Ramp Waco TX",
+    exitSearch: "Brazos Park East Kayak Canoe Ramp Waco TX",
+    official: "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/",
+    conditionUrl: "https://waterdata.usgs.gov/monitoring-location/USGS-08096500/",
+    conditionLabel: "USGS Brazos River at Waco (rain and flow context)",
+  },
+  {
+    name: "Hell's Half Acre — Caddo Lake",
+    putIn: "Mill Pond canoe/kayak launch at Caddo Lake State Park",
+    takeOut: "Return to Mill Pond launch on the signed 8.8-mile loop; follow TPWD's reflective red arrows and marked boat roads",
+    shuttle: "Loop: no vehicle shuttle, but route markers, lake level and return daylight still govern the trip",
+    launchSearch: "Caddo Lake State Park Mill Pond canoe launch Karnack TX",
+    exitSearch: "Caddo Lake State Park Mill Pond canoe launch Karnack TX",
+    official: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/hells-half-acre/",
+    conditionUrl: "https://waterdata.usgs.gov/monitoring-location/USGS-07346000/",
+    conditionLabel: "USGS Big Cypress Bayou near Jefferson (upstream context; not an access clearance)",
+  },
+  {
+    name: "Lighthouse Lakes — Aransas Pass",
+    putIn: "Lighthouse Lakes Trail Park on Highway 361, about four miles from the Aransas Pass H-E-B",
+    takeOut: "Same designated launch for the chosen Lighthouse Lakes loop; crossing Aransas Channel is part of the approach",
+    shuttle: "Coastal loops: no car shuttle; treat tide, headwind, boat traffic and shallow seagrass flats as route decisions",
+    launchSearch: "Lighthouse Lakes Trail Park Texas Highway 361 Aransas Pass TX",
+    exitSearch: "Lighthouse Lakes Trail Park Texas Highway 361 Aransas Pass TX",
+    official: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/",
+    conditionUrl: "https://tidesandcurrents.noaa.gov/stationhome.html?id=8775083",
+    conditionLabel: "NOAA Aransas Pass/Redfish Bay tide predictions (station 8775083)",
+  },
+] as const;
+
 const officialSources = [
   { label: "TPWD — Paddling Trails FAQs and PFD rules", href: "https://tpwd.texas.gov/boating/paddling-trails/faqs/", note: "State paddling trip-planning guidance, launch decisions and child PFD requirements." },
   { label: "USGS — Texas Water Conditions", href: "https://waterdata.usgs.gov/state/texas/", note: "Locate relevant current river-stage and streamflow monitoring; a gauge is not a trail closure notice." },
@@ -177,6 +237,30 @@ function TexasPaddlingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="paddle-access-map">
+            <p className="eyebrow text-primary">Map the launch and exit first</p>
+            <h2 id="paddle-access-map" className="mt-2 font-display text-3xl">Individual put-ins, takeouts and water-condition links</h2>
+            <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">Use each TPWD official access map for the actual water entry and legal takeout. The separate map-search links help locate a named parking approach by road; a search result is not proof of permission to launch, of an open gate, or of safe water. Gauges and tide predictions are context rather than go/no-go thresholds.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {paddlingAccessMap.map((place) => (
+                <div key={place.name} className="min-w-0 border border-border p-5">
+                  <h3 className="font-display text-xl">{place.name}</h3>
+                  <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] gap-3 text-sm leading-7">
+                    <p className="min-w-0"><strong>Put-in:</strong> {place.putIn}</p><span aria-hidden="true" className="font-semibold text-primary">1</span>
+                    <p className="min-w-0"><strong>Takeout:</strong> {place.takeOut}</p><span aria-hidden="true" className="font-semibold text-primary">2</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Shuttle / route:</strong> {place.shuttle}</p>
+                  <nav aria-label={place.name + " access and conditions"} className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+                    <a href={place.official} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">TPWD access-point map</a>
+                    <a href={"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place.launchSearch)} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Put-in map search</a>
+                    <a href={"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place.exitSearch)} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Takeout map search</a>
+                    <a href={place.conditionUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{place.conditionLabel}</a>
+                  </nav>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">For Lighthouse Lakes, also consult the <a href="https://www.weather.gov/crp/marine" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">NWS Corpus Christi marine forecast</a> and the <a href="https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/gps/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">TPWD numbered GPS-point map</a>. Tide predictions at a nearby harbor station do not exactly describe shallow back-lake water levels at every point along the loop.</p>
+          </section>
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Choose the waterbody first, then verify today's conditions</h2>
