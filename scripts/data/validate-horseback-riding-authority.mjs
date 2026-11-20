@@ -80,6 +80,28 @@ for (const marker of ['equestrianPlanning.map((park)', 'equestrianPlanning[index
   if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
 }
 
+for (const marker of [
+  'const equestrianHero =',
+  '20231023-FS_PJK_0003_%2853298857455%29.jpg',
+  'creator: "Preston Keres"',
+  'license: "https://creativecommons.org/publicdomain/mark/1.0/"',
+  'const deliveredHeroUrl = absoluteUrl(texasDefinedBrand, editorialImageSrc(equestrianHero.url));',
+  'contentUrl: deliveredHeroUrl',
+  'image: deliveredHeroUrl',
+  'acquireLicensePage: equestrianHero.source',
+  'copyrightNotice:',
+]) if (!route.includes(marker)) errors.push('Horseback photo provenance missing in head: ' + marker);
+
+for (const marker of [
+  'USDA Forest Service / Preston Keres',
+  'Sam Houston National Forest',
+  'the five trip-planning destinations below are separate Texas state parks',
+  'https://creativecommons.org/publicdomain/mark/1.0/',
+  '20231023-FS_PJK_0003_%2853298857455%29.jpg',
+  'editorialImageSrc(',
+  'fetchPriority="high"',
+]) if (!lazyRoute.includes(marker)) errors.push('Missing horseback public-domain photo rights or visible media: ' + marker);
+
 if (errors.length) {
   console.error('Texas horseback riding authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
