@@ -7,6 +7,14 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-mountain-bik
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
+if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table"')) {
+  errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');
+}
+if ((lazyRoute.match(/<th scope="col"/g) ?? []).length < 5 || !lazyRoute.includes('<th scope="row"')) {
+  errors.push('Mountain biking comparison table must retain explicit column and row headers.');
+}
+
 // Guard additional place-specific access, source and visitor-planning improvements.
 for (const marker of [
   "trailheadDesk",
