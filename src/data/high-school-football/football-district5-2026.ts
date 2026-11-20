@@ -15,16 +15,6 @@ const final = (
   sourceUrl: DISTRICT_5_SCHEDULE_URL, resultSourceUrl, sourceLabel, verifiedAt: VERIFIED_AT,
 });
 
-const scheduled = (
-  date: string, away: string, home: string,
-): DistrictFootballGame => ({
-  date, kickoff: date < '2026-11-01' ? '7:00 p.m. CDT' : '7:00 p.m. CST', away, home, status: 'scheduled',
-  sourceUrl: DISTRICT_5_SCHEDULE_URL,
-  sourceLabel: 'Pigskin Prep 2026 district schedule',
-  verifiedAt: VERIFIED_AT,
-});
-
-
 // Public postgame reporting verified on November 20 against Pigskin Prep's
 // completed 2026 district schedule and dated MaxPreps/SI scoreboards. The
 // earlier historical finals retain their original October 17 review date.
