@@ -32,6 +32,11 @@ const files = {
   deploy: read(".github/workflows/deploy-production.yml"),
   productionVerifier: read("scripts/ci/verify-production-surfaces.mjs"),
   statusPublisher: read("scripts/ci/publish-github-status.mjs"),
+  flagQuarterly: read(".github/workflows/texas-flag-quarterly.yml"),
+  flagSourceMonitor: read("scripts/editorial/refresh-texas-flag-sources.mjs"),
+  flagVitals: read("scripts/ci/audit-texas-flag-vitals.mjs"),
+  prioritySeo: read("src/lib/priority-search-seo.ts"),
+  flagSourceState: read("ops/editorial/texas-flag-source-state.json"),
 };
 
 function requireContains(label, text, needle) {
@@ -77,6 +82,20 @@ requireContains("Texas flag hub data", files.priorityPages, "/texas-symbols");
 requireContains("Texas flag SEO", files.flagHubEager, 'const canonicalPath: "/texas-flag"');
 requireContains("Texas flag SEO", files.flagHubEager, 'buildPrioritySearchHead({');
 requireContains("Texas flag SEO", files.flagHubEager, 'When was the current Texas flag adopted?');
+requireContains("Texas flag SEO", files.flagHubEager, "includeFaqSchema: false");
+requireContains("Texas flag SEO", files.prioritySeo, "if (includeFaqSchema && data.faq?.length)");
+requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), 'Updated November 19, 2026');
+requireContains("Texas flag live uncached smoke", read("scripts/ci/verify-texas-flag-live.mjs"), "cf-cache-status");
+requireContains("Texas flag performance audit", files.flagVitals, "https://texasdefined.com/texas-flag");
+requireContains("Texas flag performance audit", files.flagVitals, "origin-only");
+requireContains("Texas flag source monitor", files.flagSourceMonitor, "historicalSourceChanged");
+requireContains("Texas flag source monitor", files.flagSourceMonitor, "No researched public page text was changed");
+requireContains("Texas flag scheduled weekly review", files.flagQuarterly, 'cron: "17 13 * * 1"');
+requireContains("Texas flag existing quarterly review", files.flagQuarterly, 'cron: "21 14 15 2,5,8,11 *"');
+requireContains("Texas flag scheduled source update PR", files.flagQuarterly, "peter-evans/create-pull-request@v7");
+requireContains("Texas flag scheduled field vitals", files.flagQuarterly, "node scripts/ci/audit-texas-flag-vitals.mjs");
+requireContains("Texas flag scheduled live uncached SEO", files.flagQuarterly, "node scripts/ci/verify-texas-flag-live.mjs --sources");
+requireContains("Texas flag source registry", files.flagSourceState, '"schemaVersion": 1');
 requireContains("Primary sitemap", files.sitemap, '"/texas-flag": "2026-11-19"');
 requireContains("Texas flag history", files.history, 'href: "/texas-flag"');
 requireContains("Texas flag etiquette", files.etiquette, 'href: "/texas-flag"');
