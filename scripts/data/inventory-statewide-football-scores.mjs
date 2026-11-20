@@ -160,7 +160,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   const teamSlugBlock=/{[\s\S]*?}/.exec(d21Scorecard.slice(d21Scorecard.indexOf('const DISTRICT_21_PROFILE_SLUGS')))?.[0]||'';
   const district21Teams=new Map([...teamSlugBlock.matchAll(/'([^']+)': '([^']+)'/g)].map(m=>[m[1],m[2]]));
   const due21=districtScheduled(d21,['scheduled'],today,'football-district21-2026.ts');
-  if(!d21.includes('DISTRICT_21_2026_GAMES')||!d21Scorecard.includes('source-dated district scores and unverified fixtures'))throw Error('District 21 team scorecard contract changed');
+  if(!d21.includes('DISTRICT_21_2026_GAMES')||!d21Scorecard.includes('source-verified 2026 district finals'))throw Error('District 21 team scorecard contract changed');
   for(const [name,slug] of district21Teams){
     const due=due21.filter(g=>g.home===name||g.away===name);
     if(!due.length)continue;
