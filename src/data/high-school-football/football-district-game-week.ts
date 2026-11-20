@@ -2,6 +2,7 @@ import { footballMatchups, footballMatchupPath } from './football-matchups';
 import { DISTRICT_5_2026_GAMES } from './football-district5-2026';
 import { DISTRICT_11_2026_GAMES } from './football-district11-2026';
 import { DISTRICT_21_2026_GAMES } from './football-district21-2026';
+import { DISTRICT_16_RECENT_FINALS, DISTRICT_16_LATE_FINALS, DISTRICT_16_CFISD_SCHEDULE_URL } from './football-district16-2026';
 
 export type DistrictFootballGame = {
   date: string;
@@ -104,6 +105,19 @@ export function getDistrictFootballGames(slug: string, classification: string, d
   }
   if (slug === '6a-district-21') {
     for (const game of DISTRICT_21_2026_GAMES) known.set(gameKey(game), game);
+  }
+  if (slug === '6a-district-16') {
+    const toUilName = (name: string) => name === 'Cy-Fair' ? 'Cypress Fairbanks' : name;
+    for (const game of [...DISTRICT_16_RECENT_FINALS, ...DISTRICT_16_LATE_FINALS]) {
+      const converted: DistrictFootballGame = {
+        date: game.date, away: toUilName(game.away), home: toUilName(game.home),
+        kickoff:'',status:'final',awayScore:game.awayScore,homeScore:game.homeScore,
+        sourceUrl:DISTRICT_16_CFISD_SCHEDULE_URL,resultSourceUrl:game.sourceUrl,
+        sourceLabel:'Dated source-reported CFISD District 16 final; original score reference',
+        verifiedAt:'verifiedAt' in game ? game.verifiedAt : '2026-10-20',
+      };
+      known.set(gameKey(converted),converted);
+    }
   }
   for (const game of footballMatchups) {
     if (game.classification !== classification || game.district !== district || game.phase !== 'regular' || game.districtGame !== true) continue;
