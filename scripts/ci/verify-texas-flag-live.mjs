@@ -69,7 +69,7 @@ await check("Flag authority page", `${root}/texas-flag`, html => {
   assertSelfCanonical("Flag hub", html, "/texas-flag");
   assertIndexable("Flag hub", html);
   assertRegex("WebPage structured data", html, /"@type"\s*:\s*"WebPage"/);
-  assertContains("Flag editorial revision display", html, "Updated November 19, 2026");
+  assertRegex("Flag editorial revision display", html, /Updated(?:\s|<!--.*?-->)*November 19, 2026/);
   assertContains("Flag structured-data editorial date", html, '"dateModified":"2026-11-19"');
   if (html.includes('"@type":"FAQPage"')) errors.push("Flag hub still emits retired FAQ rich-result schema");
   assertContains("Flag hub official archival evidence", html, "https://www.tsl.texas.gov/treasures/flagsandmaps/flags/lone-star-design.html");
