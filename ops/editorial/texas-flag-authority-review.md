@@ -4,7 +4,7 @@
 **Companion research:** `/article/history-of-the-texas-flag`  
 **Display guide:** `/article/texas-flag-etiquette-display-guide`  
 **Last substantive page revision:** 2026-11-19  
-**Review cadence:** Quarterly — February, May, August and November 15 (GitHub workflow `texas-flag-quarterly.yml`).
+**Review cadence:** GitHub Actions weekly Mondays at 13:17 UTC (source drift, uncached SEO, exact-page mobile/desktop PSI/CrUX where available), plus original quarterly in-depth review on February, May, August and November 15 (`texas-flag-quarterly.yml`).
 **Release verification:** Use the existing manual-only `.github/workflows/flag-history-production-smoke.yml` after publication to verify the live flag authority hub, historical companion pages, sources, accessibility hooks, indexing and sitemap. This is deliberately not a blanket deployment-triggered fanout; quarterly source reviews remain scheduled separately.
 
 ## Historical facts and controlling sources
@@ -18,6 +18,15 @@
 - Texas Flag Day: March 2 under [Government Code § 662.048](https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm); this is different from the January 25, 1839 adoption anniversary.
 - Hero image rights: the modern flag SVG on Commons is labeled public domain for insufficient originality and credits Paul B. Joiner. The article's ImageObject supplies source, public-domain designation, creator and copyright notice accurately; original archival reproduction rights are a separate matter.
 
+## Recurring automated research and content updates (November 20, 2026)
+
+- Schedule: `.github/workflows/texas-flag-quarterly.yml` now runs weekly Mondays **and** the existing quarterly dates, with a one-time launch on workflow/source changes to validate this automation.
+- Source watcher: `scripts/editorial/refresh-texas-flag-sources.mjs` reads four official sources, checks historically material anchors, fingerprints the nearby source passages (not volatile website chrome), saves independent evidence and compares `ops/editorial/texas-flag-source-state.json`. It fails closed when a statute or archival page is unavailable or a key passage disappears.
+- Automated rewrite workflow: on material/source baseline drift it opens a source-linked editorial **PR** with the affected flag URLs and concrete paragraphs to research and rewrite. The PR is **not** an automatic publication of unchecked AI-written historical claims; if sources are unchanged no public rewrite or fake edit date occurs. The initial automated baseline PR requires an evidence review.
+- Live publishing: each scheduled run bypasses CDN HTML caches with unique probes, verifies the hub/history/etiquette canonicals, visible November 19 content, accessible SVGs, trusted source links, structured data, indexing signals, and current sitemap lastmod dates. A mismatch is a real failure, not a claim that cached search results reflect production.
+- Field and lab performance: `scripts/ci/audit-texas-flag-vitals.mjs` requests Google PageSpeed mobile **and** desktop for the *exact* hub URL, distinguishes URL-level CrUX from origin fallback and Lighthouse lab, and saves an artifact. Missing/429 PSI data is UNKNOWN; poor verified field or lab measurements raise an actionable issue rather than a fictitious 95+ performance pass.
+- Editorial safeguards: facts must be independently supported before public rewrite, author/date corrections or sitemap `lastmod` advance. Every new public version still requires protected merge-gate validation and new production acceptance, and Google's re-crawl/rank is not within GitHub's control.
+
 ## Acceptance tests
 
 - Run `node scripts/data/validate-texas-flag-authority.mjs` after every relevant code change.
@@ -27,11 +36,11 @@
 - Re-check the page's indexability, loading and speed against Google Search Essentials and the people-first guidance: https://developers.google.com/search/docs/essentials and https://developers.google.com/search/docs/fundamentals/creating-helpful-content .
 - Content changes require actual review; do not update a date solely because a recurring workflow ran. Schedule failures raise a deduplicated GitHub issue, never automatically change historical claims.
 
-## Release checkpoint — November 19, 2026
+## Historical release checkpoint — November 19, 2026 (completed; superseded by the November 20 scheduled-refresh work)
 
-- Source work and SEO/rights changes are on branch `editorial/texas-flag-archive-seo-20261119`.
-- Must validate `node scripts/data/validate-texas-flag-authority.mjs` and type/build checks before merge.
-- Must merge, confirm production deployment succeeded, and run the *live* checks from `scripts/ci/verify-texas-flag-live.mjs --sources` and `.github/workflows/flag-history-production-smoke.yml`.
+- Original source research and SEO/rights changes merged in PR #7406 (commit `599ff71dfb8dae4c214fa707204bb9b80331f866`).
+- Original revision passed the protected premerge content, type/build and strict bundle checks.
+- Exact flag acceptance passed in GitHub Actions run 44632583858, including both flag pages, other companion sources, image metadata and sitemap. The later production release commit `85cbb7a8d5dcfc6533fe9bbaf8bc3bb00bf3c1e2` passed production run 44665992423. This is historical release evidence, not evidence that Google has recrawled the revised content.
 - Do not claim final Google Search indexing or Search policy approval from tests; URL Inspection and actual search performance lag publication.
 - If deployment or test fails, record issue/PR, exact failing job, pending files and next step. Never advance an editorial date without a verified content change.
 
