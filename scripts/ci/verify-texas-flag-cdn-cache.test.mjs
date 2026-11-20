@@ -17,26 +17,33 @@ const mainSignals = [
   '"dateModified":"2026-11-19"',
   '"@type":"WebPage"',
 ];
-const historySignals = ["December 10, 1836", "January 25, 1839", "/texas-flag",
+const historySignals = ["Updated November 19, 2026", "December 10, 1836", "January 25, 1839", "/texas-flag",
   "What the signed 1839 original actually shows", "Texas Flag Day is March 2",
   "1974/066-001", "Paul B. Joiner", "copyrightNotice", "acquireLicensePage", "creator",
   "https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg"];
 const sitemap = date => `<urlset><url><loc>https://texasdefined.com/texas-flag</loc><lastmod>${date}</lastmod></url><url><loc>https://texasdefined.com/article/history-of-the-texas-flag</loc><lastmod>${date}</lastmod></url></urlset>`;
 const page = (origin, path, signals) => `<!doctype html><html><head><link rel="canonical" href="${origin}${path}"></head><body>${signals.join(" ")}</body></html>`;
 
-async function withServer({ date = "2026-11-19", cachedHtml = false } = {}, fn) {
+async function withServer({ date = "2026-11-19", cachedHtml = false, staleCanonicalHtml = false, cachedCanonicalHtml = false } = {}, fn) {
   let origin;
   const server = http.createServer((req, res) => {
-    const path = new URL(req.url, origin).pathname;
+    const url = new URL(req.url, origin);
+    const path = url.pathname;
     const isXml = path === "/sitemap.xml";
-    if (isXml || cachedHtml) {
+    const isOrdinaryHtml = !isXml && !url.searchParams.has("release_probe");
+    if (isXml || cachedHtml || (cachedCanonicalHtml && isOrdinaryHtml)) {
       res.setHeader("CF-Cache-Status", "HIT");
       res.setHeader("Age", "308");
     }
     res.statusCode = 200;
+    // Simulate an edge serving old canonical HTML even while unique release
+    // probes see the new origin, reproducing the original public discrepancy.
+    const maybeStale = html => staleCanonicalHtml && isOrdinaryHtml
+      ? html.replaceAll("November 19, 2026", "November 18, 2026").replaceAll("2026-11-19", "2026-11-18")
+      : html;
     if (isXml) res.end(sitemap(date));
-    else if (path === "/texas-flag") res.end(page(origin, path, mainSignals));
-    else if (path === "/article/history-of-the-texas-flag") res.end(page(origin, path, historySignals));
+    else if (path === "/texas-flag") res.end(maybeStale(page(origin, path, mainSignals)));
+    else if (path === "/article/history-of-the-texas-flag") res.end(maybeStale(page(origin, path, historySignals)));
     else if (path === "/article/texas-flag-etiquette-display-guide") res.end(page(origin, path, ["/texas-flag"]));
     else res.end("No such page");
   });
@@ -74,5 +81,22 @@ test("HTML with a cache HIT and nonzero Age fails even when all content markers 
     const result = await run(origin);
     assert.equal(result.code, 1, result.output);
     assert.match(result.output, /stale CDN response/);
+  });
+});
+
+test("ordinary canonical HTML may be edge-cached when its publication facts are current", async () => {
+  await withServer({ cachedCanonicalHtml: true }, async origin => {
+    const result = await run(origin);
+    assert.equal(result.code, 0, result.output);
+    assert.match(result.output, /Flag authority page — ordinary public URL/);
+    assert.match(result.output, /Flag history article — ordinary public URL/);
+  });
+});
+test("old ordinary public HTML fails even when cache-busted release probes are current", async () => {
+  await withServer({ staleCanonicalHtml: true, cachedCanonicalHtml: true }, async origin => {
+    const result = await run(origin);
+    assert.equal(result.code, 1, result.output);
+    assert.match(result.output, /Ordinary public flag revision/);
+    assert.match(result.output, /Ordinary public history revision/);
   });
 });
