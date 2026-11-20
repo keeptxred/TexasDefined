@@ -115,7 +115,7 @@ const ohvAreas = [
     summary: "Federal public land where motorized recreation is limited to designated routes rather than general forest access.",
     details: [
       "TPWD's Ride Texas directory lists Sam Houston National Forest for motorcycles and ATVs and points riders to the legal trail system. The key planning principle is route designation: being on public forest land does not make every road, trail or open-looking corridor legal for motorized use.",
-      "Recreation.gov specifies a separate Multiple-Use Trail Pass for every person and restricts motorized use to designated trails accommodating OHVs no wider than 50 inches. Motorized riders also need the Texas OHV decal. Carry a valid ID and, if riding an ATV, proof of operator education. Download passes before losing phone service; call 936-344-6205 (option 2) to check closures after rain. A saved GPS track is never permission to use a closed trail.",
+      "Recreation.gov specifies a separate Multiple-Use Trail Pass for every person and restricts motorized use to designated trails accommodating OHVs no wider than 50 inches. Motorized riders also need the Texas OHV decal. Carry a valid ID and, if riding an ATV, proof of operator education. Recreation.gov also specifies approved helmet and eye protection, a spark arrestor and a 96-decibel sound limit. Download passes before losing phone service; call 936-344-6205 (option 2) to check closures after rain. A saved GPS track is never permission to use a closed trail.",
     ],
   },
   {
@@ -124,7 +124,7 @@ const ohvAreas = [
     summary: "National recreation area riding concentrated in specifically designated OHV zones rather than unrestricted travel across the landscape.",
     details: [
       "TPWD's legal-venue directory identifies Lake Meredith's Blue Creek and Rosita Flats areas as OHV destinations. This is another case where the named riding area matters more than the larger public-land boundary: the legal destination is the designated OHV zone, not every shoreline, road or backcountry surface within the recreation area.",
-      "The National Park Service requires its own no-cost ORV permit in addition to a current Texas OHV decal. NPS permits expire December 31, even when issued later in the year. Stay within the Blue Creek cutbanks or below 3,000 feet in the Rosita Flats riding area; neither provides drinking water or flush toilets. For maps and permits, call 806-857-3151.",
+      "The National Park Service requires its own no-cost ORV permit in addition to a current Texas OHV decal. NPS permits expire December 31, even when issued later in the year. Stay within the Blue Creek cutbanks or below 3,000 feet in the Rosita Flats riding area; neither provides drinking water or flush toilets. All riders need a DOT-approved helmet and eye protection; NPS requires a whip and flag on ATVs. For maps and permits, call 806-857-3151.",
     ],
   },
   {
