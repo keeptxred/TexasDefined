@@ -7,19 +7,12 @@ on:
     - cron: "17 13 * * 1"
     # A deeper quarterly research checkpoint remains February/May/August/November 15.
     - cron: "21 14 15 2,5,8,11 *"
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/texas-flag-quarterly.yml"
-      - "scripts/editorial/refresh-texas-flag-sources.mjs"
-      - "scripts/editorial/refresh-texas-flag-sources.test.mjs"
-      - "scripts/ci/audit-texas-flag-vitals.mjs"
-      - "scripts/ci/audit-texas-flag-vitals.test.mjs"
-      - "scripts/ci/verify-texas-flag-live.mjs"
-      - "src/routes/texas-flag.tsx"
-      - "src/routes/texas-flag.lazy.tsx"
-      - "src/data/fixtures/texas-flag-history.ts"
-      - "src/data/priority-search-pages.ts"
+  # Run an independent, lightweight flag acceptance only AFTER a real
+  # protected deploy succeeds; do not race a push against a slow build or
+  # mark an older superseded source SHA as a false page failure.
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -32,6 +25,7 @@ concurrency:
 
 jobs:
   audit:
+    if: github.event_name != 'workflow_run'
     name: Verify source facts, visible SEO, mobile CWV and refresh proposals
     runs-on: ubuntu-latest
     timeout-minutes: 16
@@ -48,12 +42,6 @@ jobs:
           node --test scripts/editorial/refresh-texas-flag-sources.test.mjs
           node --test scripts/ci/audit-texas-flag-vitals.test.mjs
           node scripts/data/validate-texas-flag-authority.mjs
-
-      - name: Wait for exact protected source commit to finish publishing before asserting live page freshness
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: node scripts/ci/wait-for-protected-production.mjs
 
       - name: Independently recheck archived flag facts and generate scoped rewrite proposal on source drift
         id: source_watch
@@ -142,3 +130,49 @@ jobs:
         run: |
           echo "::error title=Flag authority automatic refresh::One or more official-source, uncached-page or performance checks failed; see evidence and issue."
           exit 1
+
+  postdeploy:
+    name: Validate actual published Texas flag content after protected deployment
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      statuses: write
+    steps:
+      - name: Check out the exact protected deployed source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify uncached flag authority, legal sources in page, canonicals, dates and image provenance
+        id: flag_accept
+        continue-on-error: true
+        env:
+          PRODUCTION_RELEASE_PROBE: flag-postdeploy-${{ github.event.workflow_run.id }}-${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-texas-flag-live.mjs 2>&1 | tee .artifacts/texas-flag-postdeploy.log
+      - name: Publish exact deployed SHA independent flag acceptance status
+        if: always() && steps.flag_accept.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha }}
+          FLAG_OUTCOME: ${{ steps.flag_accept.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texas-flag-live "$FLAG_OUTCOME" "Uncached Texas flag authority and SEO confirmed on deployed production" "Texas flag uncached authority/SEO regression found after protected deploy"
+      - name: Preserve exact-commit Texas flag public acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-flag-postdeploy-${{ github.event.workflow_run.id }}
+          path: .artifacts/texas-flag-postdeploy.log
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Fail closed if actual public flag output is wrong
+        if: steps.flag_accept.outcome == 'failure'
+        run: exit 1
