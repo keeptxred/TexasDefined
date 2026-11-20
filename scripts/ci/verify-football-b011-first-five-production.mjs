@@ -16,9 +16,16 @@ const schoolTerms = {
  'colorado-city-colorado':['Daniel Mejia','Mitchell County'],
  'columbus':['Matt Schobel','Colorado County'],
  'comal-canyon':['Sean McAuliffe','Nate Leonard'],
- 'comal-canyon-lake':['Sam Parker','Lawrence Parker','Fischer','Pleasanton','Port Lavaca Calhoun','Leopard Stadium','Green and Gold','8–2','6–1'], 
+ 'comal-canyon-lake':['Sam Parker','Lawrence Parker','Fischer','Pleasanton','Port Lavaca Calhoun','Leopard Stadium','Green and Gold'], 
  'comal-davenport':['Zimmerhanzel','Lone Star Cup'],
 };
+const canyonLakeSource = await readFile('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8');
+const canyonLakeMatch = canyonLakeSource.match(/const CANYON_LAKE: FootballProgramEditorial = ([\s\S]*?);\s*export function getCanyonLakeFootballEditorial/);
+assert.ok(canyonLakeMatch,'Live Batch011 verifier requires current Canyon Lake sourced season');
+const canyonLake = JSON.parse(canyonLakeMatch[1]);
+const scorePart = canyonLake.season.record.match(/^(\d+–\d+) overall · (\d+–\d+) district/);
+assert.ok(scorePart,'Current Canyon Lake editorial record does not reconcile to a real season');
+schoolTerms['comal-canyon-lake'].push(scorePart[1],scorePart[2]);
 const expectedGraphics = new Set(['comal-canyon-lake']); // November 18 source-audited results exist only for Canyon Lake; no score claims for peers.
 const reg = JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
 const editorial = await readFile('src/data/high-school-football/program-editorial-b011.ts','utf8');
