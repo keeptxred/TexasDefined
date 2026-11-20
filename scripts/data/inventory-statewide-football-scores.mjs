@@ -89,6 +89,7 @@ export function inspectEditorial(source,file,today){
     const record=field(season,'record'),checked=field(season,'verifiedAt');
     const published=Boolean((record&&/\d+\s*[–-]\s*\d+/.test(record))||games.some(g=>g.result));
     const overdue=games.filter(g=>g.date<today&&!g.result);
+    const searchName=slug.replaceAll('-',' ');
     const age=isoDate(checked)?(Date.parse(today)-Date.parse(checked))/DAY:0;
     const finished=/\b(?:final (?:2026 )?(?:season|record)|finished (?:the )?2026 season|season complete|season concluded)\b/i.test(record||'');
     const aging=published&&!overdue.length&&!finished&&age>=14&&games.length>0;
@@ -96,8 +97,8 @@ export function inspectEditorial(source,file,today){
       page:SITE+'/texas-high-school-football-teams/'+slug,
       record,sourceUrl:field(season,'sourceUrl'),
       reason:published?(overdue.length?'overdue-fixture':aging?'dated-score-review':null):null,
-      overdue:overdue.map(g=>({date:g.date,away:g.site==='Home'?g.opponent:slug,
-        home:g.site==='Home'?slug:g.opponent})),
+      overdue:overdue.map(g=>({date:g.date,away:g.site==='Home'?g.opponent:searchName,
+        home:g.site==='Home'?searchName:g.opponent})),
       scoresPublished:games.filter(g=>g.result).length});
   }
   return found;
