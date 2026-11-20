@@ -1,4 +1,9 @@
-# Aubrey football: verified automatic score updates (2026)
+# Aubrey football current research policy (November 20, 2026)
+
+Aubrey's publicly reported final scores are checked in the **shared statewide next-day football source-research workflow**, [refresh-football-scores-brackets.yml](../../.github/workflows/refresh-football-scores-brackets.yml), which inventories dated game scores and Aubrey's separately documented 2026 postseason fixtures. The individual Aubrey scheduled paid-feed importer and its unattended publisher have been retired. The Aubrey validation workflow remains available for manual dispatch and code checks, not for fetching paid feeds or publishing scores. A new final is entered after dated independent verification through an ordinary protected editorial PR. No automatic live scores or licensed feed credentials are required.
+
+## Archived feed design and 2026 historical evidence (inactive automatic publication)
+
 
 ## Activation status and rights
 
