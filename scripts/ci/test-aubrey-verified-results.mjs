@@ -196,16 +196,16 @@ test('contradictions of already authored game finals cannot silently pass',()=>{
   })).added,0,'Matching provider report must preserve authored final without republishing');
 });
 
-test('reject racing score publishes while the prior generated PR is waiting',()=>{
+test('no nightly Aubrey paid-score importer or unattended publishing remains active',()=>{
   const workflow=readFileSync('.github/workflows/aubrey-verified-score-sync.yml','utf8');
-  assert.ok(workflow.includes('group: aubrey-verified-score-sync'), 'Serialized nightly/manual refresh');
-  assert.ok(workflow.includes('cancel-in-progress: false'), 'No cancellation of publishing attempts');
-  assert.ok(workflow.includes('Existing Aubrey score PR awaits protected merge'),
-    'No second score PR while prior protected merge is unresolved');
-  assert.ok(workflow.includes('gh pr list --repo "$GITHUB_REPOSITORY"'),
-    'Guard must inspect repository-scoped open PRs');
-  assert.ok(workflow.includes("steps.import.outcome == 'failure'"),
-    'A rejected licensed provider result must trigger a review issue');
-  assert.ok(workflow.includes('BLOCKED: Aubrey authorized score feed failed validation'),
-    'Do not silently fail when a source changes or contradicts an existing score');
+  const statewide=readFileSync('.github/workflows/refresh-football-scores-brackets.yml','utf8');
+  assert.ok(workflow.includes('workflow_dispatch:'),'Retain owner-triggered historical source validation');
+  assert.ok(!workflow.includes('schedule:'),'Do not run the old paid-feed importer nightly');
+  assert.ok(!workflow.includes('AUBREY_SCORE_FEED_PRIMARY_URL'),'No required paid football score providers');
+  assert.ok(!workflow.includes('gh pr create'),'No unattended Aubrey score publishing');
+  assert.ok(statewide.includes('audit-football-sitewide-public-scores.mjs --research'),
+    'Shared statewide daily public-source research replaces Aubrey auto publication');
+  assert.ok(statewide.includes("cron: '37 17 * 8-12 *'"),
+    'Research after a game rather than collecting live scores');
+  assert.ok(!statewide.includes('gh pr merge'),'All score corrections require a normal protected editorial PR');
 });
