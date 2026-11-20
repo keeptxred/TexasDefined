@@ -44,7 +44,7 @@ export function postGameSearchQueries(team,today){
 // sequences. A headline is a lookup lead, NEVER a verified game result.
 export function reportedScoreHints(articles,due){
   const hints=[];
-  const clean=s=>s.replace(/[.*+?^${}()|[\\]\\]/g,'\\export function isSafePublicUrl(value){').replace(/\\s+/g,'\\\\s+');
+  const clean=value=>value.replace(/[^A-Za-z0-9]+/g,'\\s+');
   for(const fixture of due){
     const names=[fixture.opponent];
     if(fixture.opponent.startsWith('Port Lavaca '))names.push(fixture.opponent.slice('Port Lavaca '.length));
