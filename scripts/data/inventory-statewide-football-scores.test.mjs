@@ -66,10 +66,12 @@ test('sourced District 21 finals no longer appear as overdue district fixtures',
   }
   assert.ok(!report.pages.some(p=>p.page.endsWith('/houston-lamar-at-houston-memorial')));
 });
-test('matchup overdue and Aubrey postseason are covered; todays Canyon Lake kickoff is not overdue',()=>{
+test('verified Houston and Aubrey finals clear their due flags; todays Canyon Lake kickoff is not overdue',()=>{
   const report=inventory({today:'2026-11-20'});
   assert.ok(!report.pages.some(p=>p.page.endsWith('/2026-10-23-houston-lamar-at-houston-memorial')));
-  assert.ok(report.pages.some(p=>p.page.endsWith('/aubrey')&&p.overdue.some(g=>g.date==='2026-11-19')));
+  assert.ok(!report.pages.some(p=>p.page.endsWith('/aubrey')&&p.overdue.some(g=>g.date==='2026-11-19')));
+  const aubrey=JSON.parse(readFileSync(join(ROOT,'src/data/high-school-football/aubrey-auto-results.snapshot.json'),'utf8'));
+  assert.deepEqual(aubrey.verifiedResults.filter(g=>g.date==='2026-11-19').map(g=>[g.opponent,g.aubreyScore,g.opponentScore]),[['Canyon',36,39]]);
   const canyon=report.pages.find(p=>p.page.endsWith('/comal-canyon-lake'));
   assert.ok(!canyon?.overdue?.some(g=>g.date==='2026-11-20'));
   assert.ok(report.fixtures.every(g=>g.date<'2026-11-20'));
