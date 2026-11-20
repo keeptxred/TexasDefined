@@ -133,8 +133,15 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   }
   const d16=read(join(dir,'football-district16-2026.ts')),marker='export const DISTRICT_16_NEXT_GAMES = ';
   const begin=d16.indexOf(marker),arr=begin<0?null:balanced(d16,begin+marker.length,'[',']');
+  // The archived October schedule remains on the page for context, but every
+  // matching Nov-verified final must NOT be returned as an outstanding game.
+  const lateMarker='export const DISTRICT_16_LATE_FINALS = ';
+  const lateBegin=d16.indexOf(lateMarker);
+  const lateRows=lateBegin<0?[]:arrayObjects(balanced(d16,lateBegin+lateMarker.length,'[',']'));
+  const sourced16=new Set(lateRows.map(row=>[field(row,'date'),field(row,'away'),field(row,'home')].join('|')));
   const due16=arrayObjects(arr).map(row=>({date:field(row,'date'),away:field(row,'away'),home:field(row,'home'),
-    sourceFile:'football-district16-2026.ts'})).filter(g=>isoDate(g.date)&&g.date<today);
+    sourceFile:'football-district16-2026.ts'}))
+    .filter(g=>isoDate(g.date)&&g.date<today&&!sourced16.has([g.date,g.away,g.home].join('|')));
   const asOf16=/DISTRICT_16_STANDINGS_AS_OF\s*=\s*'([^']+)'/.exec(d16)?.[1];
   const old16=isoDate(asOf16)?(Date.parse(today)-Date.parse(isoDate(asOf16)))/DAY>=14:false;
   if(due16.length||old16)pages.push({kind:'district',
