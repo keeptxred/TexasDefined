@@ -76,6 +76,8 @@ try {
       check('2026 county source answer visible', data.body.includes('2026 tax rate') && data.body.includes('0.23210') && data.sourceLinks.some(url => url.includes('2026%20Tax%20Rates.pdf')));
       check('2026 comparison benchmarks visible', data.body.includes('0.23633') && data.body.includes('0.25913'));
       check('2023 conflicting official evidence disclosed', data.body.includes('0.20550') && data.body.includes('0.21897') && data.body.includes('2023'));
+      check('independent 2023 adopted rate corroboration', data.sourceLinks.some(url => url.includes('2024%20WWHD.pdf')) && data.sourceLinks.some(url => url.includes('2023%20WWHD.pdf')) && data.body.includes('A second county document corroborates the 2023 figure'));
+      check('source verification date corresponds to latest editorial review', data.body.includes('November 20, 2026'));
       check('original historical research, calculator and official parcel guidance', data.body.includes('2025') && data.body.includes('2024') && data.body.includes('Wharton CAD') && data.tableCount >= 1, data.tableCount);
       check('all six authority anchors present', data.anchors.every(([,present]) => present), JSON.stringify(data.anchors));
       check('reciprocal contextual Wharton County link', data.sourceLinks.some(url => url.startsWith('/property-tax/county/wharton')));
