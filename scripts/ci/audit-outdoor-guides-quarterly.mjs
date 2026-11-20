@@ -72,8 +72,8 @@ for (const item of livePages) {
         const canonicalMatch = body.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
         const wrongCanonical = canonicalMatch !== canonical;
         const comparisonLabel = comparisonLabels[item.slug];
-        const accessibleComparison = [...visible.matchAll(/<div\\b[^>]*>/gi)].some(([tag]) =>
-          tag.includes('aria-label="' + comparisonLabel + '"') && /\\brole="region"/i.test(tag) && /\\btabindex="0"/i.test(tag));
+        const accessibleComparison = [...visible.matchAll(/<div\b[^>]*>/gi)].some(([tag]) =>
+          tag.includes('aria-label="' + comparisonLabel + '"') && /\brole="region"/i.test(tag) && /\btabindex="0"/i.test(tag));
         if (missing.length || noindex || wrongCanonical || !accessibleComparison) failures.push(item.slug + " [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing " + missing.join(", ") + (noindex ? "; noindex" : "") + (wrongCanonical ? "; canonical=" + canonicalMatch : "") + (!accessibleComparison ? "; comparison region not keyboard accessible" : ""));
         evidence.push({ name: item.slug, url, verified: !missing.length && !noindex && !wrongCanonical && accessibleComparison, missing, noindex, canonicalMatch, accessibleComparison });
       } catch (error) {
