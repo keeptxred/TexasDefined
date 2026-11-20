@@ -69,7 +69,7 @@ async function verifyPage(pathname, label, check) {
               htmlBytes: html.length, title,
               hasDistrict21Season: html.includes('data-football-d21-team-section='),
               hasSeasonSection: html.includes('id="football-current-season"'),
-              hasReported2026Season: html.includes('source-dated district scores and unverified fixtures'),
+              hasReported2026Season: html.includes('source-verified 2026 district finals'),
               hasFootballPageHeading: html.includes('Football</h1>'),
               hasRenderFailure: /An error occurred|Unexpected Application Error|Internal Server Error/i.test(html),
               cacheControl: response.headers.get('cache-control'),
@@ -111,11 +111,15 @@ for (const team of teams) {
   await checkSafely(path, team.name, (html) => {
     for (const needle of [
       'data-football-d21-team-section="' + team.slug + '"',
-      'source-dated district scores and unverified fixtures',
+      'source-verified 2026 district finals',
       '/texas-high-school-football-districts/6a-district-21#district-21-results',
       'district-21-standings', 'Published games accounted for',
-      'Source verification:', 'Result not verified',
+      'Source verification:', 'district games',
     ]) requireContent(html, needle, team.name);
+    // React SSR may split adjacent number/text nodes with hydration comments.
+    // Verify the actual full seven-game ledger after normalizing only comments.
+    const readable = html.replace(/<!--[\s\S]*?-->/g, '');
+    if (!/7\s+of\s+7 district games/.test(readable)) throw new Error(team.name + ': incomplete seven-game 2026 league ledger');
   });
 }
 

@@ -1,5 +1,6 @@
 import type { FootballMatchup } from './football-matchups';
 import type { FootballProgramEditorial } from './program-editorial';
+import type { DistrictFootballGame } from './football-district-game-week';
 
 type Editorial = FootballProgramEditorial | null;
 type Season = NonNullable<FootballProgramEditorial['season']>;
@@ -136,6 +137,80 @@ export function applyFootballMatchupSnapshot(
       ...(recordChanged ? { recordLabel: 'Record from listed finals' } : {}),
       verifiedAt: latest.verifiedAt > editorial.season.verifiedAt ? latest.verifiedAt : editorial.season.verifiedAt,
       ...(recordChanged && latestFinal?.resultSourceUrl ? { latestResultSourceUrl: latestFinal.resultSourceUrl } : {}),
+    },
+  };
+}
+
+/**
+ * A reviewed district-final ledger is also relevant to its member team pages.
+ * This is a render-time projection of already-published, source-cited finals,
+ * NOT a network score fetch or permission to publish unverified data.
+ * Never override a contradictory authored final or replace non-district games.
+ */
+export function applyVerifiedDistrictFinalsToTeam(
+  editorial: Editorial,
+  teamSlug: string,
+  schoolName: string,
+  districtGames: readonly DistrictFootballGame[],
+): Editorial {
+  const confirmed = districtGames.filter(game =>
+    game.status === 'final'
+    && (game.away === schoolName || game.home === schoolName)
+    && Number.isInteger(game.awayScore)
+    && Number.isInteger(game.homeScore)
+    && game.awayScore !== game.homeScore
+    && /^2026-\d{2}-\d{2}$/.test(game.date)
+    && Boolean(game.resultSourceUrl)
+    && Boolean(game.verifiedAt)
+  ).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!confirmed.length)return editorial;
+  const current = editorial?.season?.games ?? [];
+  const occupiedDates=new Set(current.map(x=>x.date));
+  const byDate=new Map(confirmed.map(x=>[x.date,x]));
+  let changed=false,conflicts=0;
+  const games=current.map(game=>{
+    const found=byDate.get(game.date);
+    if(!found)return game;
+    const opponent=found.home===schoolName?found.away:found.home;
+    if(game.opponent!==opponent)return game;
+    const pointsFor=found.home===schoolName?found.homeScore!:found.awayScore!;
+    const pointsAgainst=found.home===schoolName?found.awayScore!:found.homeScore!;
+    const result=(pointsFor>pointsAgainst?'W ':'L ')+pointsFor+'–'+pointsAgainst;
+    if(game.result&&game.result!==result){conflicts++;return game;}
+    if(game.result)return game;
+    changed=true;
+    return {...game,district:true,result};
+  });
+  for(const found of confirmed){
+    if(occupiedDates.has(found.date))continue;
+    const isHome=found.home===schoolName;
+    const pointsFor=isHome?found.homeScore!:found.awayScore!;
+    const pointsAgainst=isHome?found.awayScore!:found.homeScore!;
+    games.push({date:found.date,opponent:isHome?found.away:found.home,site:isHome?'Home':'Away',
+      district:true,result:(pointsFor>pointsAgainst?'W ':'L ')+pointsFor+'–'+pointsAgainst});
+    changed=true;
+  }
+  if(!changed)return editorial;
+  games.sort((a,b)=>a.date.localeCompare(b.date)||a.opponent.localeCompare(b.opponent));
+  const record=recordFromListedFinals(games);
+  const last=confirmed.at(-1)!;
+  const recordText=editorial?.season
+    ? record.wins+'–'+record.losses+(record.ties?'–'+record.ties:'')+
+      ' from '+record.completed.length+' listed finals · '+record.districtWins+'–'+record.districtLosses+' district'
+    : record.districtWins+'–'+record.districtLosses+' in '+record.completed.length+
+      ' confirmed district finals (full overall record not verified)';
+  return {
+    ...(editorial ?? {slug:teamSlug,overview:[],faq:[]}),
+    season:{
+      ...(editorial?.season??{}),
+      games,record:recordText,
+      recordLabel:editorial?.season?'Record calculated from published source-cited game log':'Partial district-only record; not overall standings',
+      sourceUrl:editorial?.season?.sourceUrl || last.resultSourceUrl!,
+      sourceLabel:editorial?.season?.sourceLabel
+        ? editorial.season.sourceLabel+' · Additional district final results checked against original published score sources.'
+        : 'Published score-by-score district research; incomplete overall season record, not certified UIL standings.',
+      verifiedAt:last.verifiedAt>=(editorial?.season?.verifiedAt??'')?last.verifiedAt:editorial!.season!.verifiedAt,
+      latestResultSourceUrl:last.resultSourceUrl,
     },
   };
 }

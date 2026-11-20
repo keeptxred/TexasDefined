@@ -1,6 +1,6 @@
 {
   "season": "2026",
-  "updatedAt": "2026-10-16",
+  "updatedAt": "2026-11-20",
   "feed": "editorially verified source snapshots",
   "games": [
     {
@@ -49,14 +49,17 @@
         "mascot": "Texans",
         "slug": "houston-lamar"
       },
-      "status": "scheduled",
+      "status": "final",
       "venue": "Tully Stadium",
       "venueSourceUrl": "https://www.houstonmemorialfootball.com/schedule",
       "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
-      "sourceLabel": "Memorial High School football schedule",
-      "verifiedAt": "2026-10-16",
+      "sourceLabel": "MaxPreps dated final; independently corroborated by Houston Chronicle and Oct. 23 local sports reporting",
+      "verifiedAt": "2026-11-20",
       "phase": "regular",
-      "districtGame": true
+      "districtGame": true,
+      "homeScore": 35,
+      "awayScore": 16,
+      "resultSourceUrl": "https://www.maxpreps.com/tx/football/game/lamar-houston-vs-memorial-houston/10-23-2026/?c=dc7c4c0a-a194-46f4-b4e8-4381ff2dcb68"
     }
   ]
 }

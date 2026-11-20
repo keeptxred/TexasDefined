@@ -41,7 +41,13 @@ function Page() {
   // District 6 intentionally excludes the shared results feed while standings / W-L automation is paused.
   const games = district6Pilot ? [] : getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
-  const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
+  const todayParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const todayPart = (type: 'year' | 'month' | 'day') => todayParts.find((part) => part.type === type)?.value ?? '';
+  const todayTexas = `${todayPart('year')}-${todayPart('month')}-${todayPart('day')}`;
+  const pastUnverifiedGames = games.filter((game) => game.status === 'scheduled' && game.date < todayTexas);
+  const pendingGames = games.filter((game) => game.status === 'scheduled' && game.date >= todayTexas).slice(0, 16);
   const reportedDistrictRecords = (katyPilot || district5Pilot || district21Pilot || district11Pilot) ? getSourcedDistrictRecords(games, district.programs) : [];
   if (district21Pilot) reportedDistrictRecords.sort((a, b) => b.won - a.won || a.lost - b.lost || a.schoolName.localeCompare(b.schoolName));
   const lastReportedFinal = games.filter((game) => game.status === 'final').at(-1)?.date;
@@ -122,17 +128,17 @@ function Page() {
             </table>
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            {district21Pilot ? <>District 21 W–L and points scored/allowed are calculated from the 16 independently reported league finals through October 10. Source snapshots:
+            {district21Pilot ? <>District 21 W–L and points scored/allowed are calculated from all 28 published 2026 league finals, independently researched through November 6 and verified November 20. Source references:
               {' '}<a href={DISTRICT_21_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Pigskin Prep</a> and
               {' '}<a href={DISTRICT_21_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps</a>.
               {' '}*Overall records reflect MaxPreps’s published {DISTRICT_21_STANDINGS_AS_OF} snapshot, not a live update. A shared record does not assign a tiebreak ranking.</>
-            : district5Pilot ? <>Calculated from the 16 reported District 5 finals through October 16, using
+            : district5Pilot ? <>Calculated from all 28 sourced 2026 District 5 finals through November 5, verified November 20 using
               {' '}<a href={DISTRICT_5_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Pigskin Prep</a> and
               {' '}<a href={DISTRICT_5_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps</a> source snapshots.</>
-              : district11Pilot ? <>Calculated from {games.filter((game) => game.status === 'final').length} source-linked District 11 finals in the published snapshot, initially researched through October 23, 2026; see the date-specific game sources below and the <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps UIL-partner district scoreboard</a>. Latest included source verification: {latestDistrict11SourceCheck}. Records are not certified playoff rankings.</>
+              : district11Pilot ? <>Calculated from {games.filter((game) => game.status === 'final').length} source-linked 2026 District 11 finals through November 6; see the date-specific game sources below and the <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps UIL-partner district scoreboard</a>. Latest included source verification: {latestDistrict11SourceCheck}. Records are not certified playoff rankings.</>
               : <>Calculated solely from completed matchups documented below and earlier published results from
               {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.</>}
-            {' '}Do not use these partial data for official UIL seeds or district tie-breakers.
+            {' '}These source-derived results are not official UIL playoff seeds or district tie-breakers.
           </p>
         </div>}
         {district21Pilot && <aside data-football-district-section="district-21-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
@@ -148,15 +154,15 @@ function Page() {
         {district11Pilot && <aside data-football-district-section="district-11-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
           <h3 className="font-display text-2xl text-foreground">District 11's 2026 playoff race: 4 spots, 7 schools</h3>
           <p className="mt-2">The initial October 23 research snapshot had Bay City at 5–0, Sealy at 4–1, El Campo at 3–1, Navasota at 2–2, Needville at 1–3, and Royal and Columbia at 0–4. For the latest source-backed record displayed on this page, use the table above; these counts are not UIL-certified seeds or playoff berths.</p>
-          <p className="mt-2">The published October 30 round lists Bay City at Columbia, Navasota at El Campo, and Royal at Needville. November 6 lists El Campo at Sealy, Needville at Navasota, and Columbia at Royal. These are dated schedule listings, not a claim that games remain upcoming after their listed dates. Verify results, kickoff and venue with the schools.</p>
+          <p className="mt-2">The final six league games are now independently reported: Bay City finished 6–0, Sealy 5–1, El Campo 4–2, Navasota 3–3, Needville 2–4, Columbia 1–5 and Royal 0–6, calculated only from the 21 published final scores above. Check the schools and UIL for official playoff seeds and tie-breaks.</p>
           <p className="mt-2">Four teams advance from Class 4A Division I District 11 into the Region III postseason. Unlike 6A, these teams are already placed in Division I. Unpublished district tie-breaks and future results are not projected here.</p>
           <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">MaxPreps district scoreboard and records ↗</a>
         </aside>}
         {district5Pilot && <aside data-football-district-section="district-5-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
           <h3 className="font-display text-2xl text-foreground">District 5: the 2026 race</h3>
           <p className="mt-2">In the 2026–28 realignment, Frisco Wakeland moved up from 5A and joined District 5; Coppell moved to District 7. <a className="text-primary underline underline-offset-4" href="https://www.crosstimbersgazette.com/2026/02/02/uil-district-realignment-gives-argyle-new-opponents-other-local-schools-remain-similar/" target="_blank" rel="noopener noreferrer">See the local alignment report ↗</a>.</p>
-          <p className="mt-2">After the October 16 games, the sourced district results show four wins for Lewisville. Denton Braswell, Denton Guyer, Lewisville Flower Mound and Lewisville Hebron have three wins and one loss each. These are game-derived counts, not UIL-certified rankings.</p>
-          <p className="mt-2">The October 23 round includes Guyer at Hebron, Lewisville at Flower Mound, Wakeland at Braswell and Marcus at Little Elm. All eight schools have seven district games scheduled. Four eventually qualify for the 6A playoffs; the qualifiers are divided into Division I and II by enrollment, not by a preseason district split.</p>
+          <p className="mt-2">The full 28-game published district record finishes with Lewisville 7–0, Denton Guyer 6–1, Denton Braswell and Lewisville Hebron 4–3, Flower Mound 3–4, Wakeland 2–5, and Marcus and Little Elm 1–6. These are source-derived W–L counts, not UIL tie-break rankings.</p>
+          <p className="mt-2">The October 23, October 30 and November 5 rounds now appear as reported finals, not upcoming fixtures. All eight schools have seven sourced league results; any official playoff placements or tie-break order should be checked with the schools and UIL.</p>
           <p className="mt-2">The fixture list below does not establish a game-night stadium gate, ticket vendor or parking policy. Check the host school's current athletics information before traveling.</p>
         </aside>}
         <div className="grid gap-8 lg:grid-cols-2">
@@ -171,22 +177,28 @@ function Page() {
           </div>
           <div>
             <div className="flex items-baseline justify-between gap-3 border-b border-border pb-3">
-              <h3 className="font-display text-2xl">Scheduled / result awaiting verification</h3>
+              <h3 className="font-display text-2xl">Upcoming fixtures from the verified schedule</h3>
               <span className="text-xs text-muted-foreground">{pendingGames.length} listed</span>
             </div>
             {pendingGames.length ? <div className="divide-y divide-border">
               {pendingGames.map((game) => <DistrictGameCard key={game.date + game.home + game.away} game={game} schools={district.programs} />)}
             </div> : <p className="py-5 text-sm leading-6 text-muted-foreground">No independently sourced remaining fixtures in this snapshot. Consult the school or UIL scoreboard for the full schedule.</p>}
+            {pastUnverifiedGames.length > 0 && <div className="mt-5 border-l-2 border-amber-600 pl-4" role="status" data-football-district-overdue-results>
+              <h4 className="font-semibold">Past games awaiting final-score verification</h4>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{pastUnverifiedGames.length} dated fixture{pastUnverifiedGames.length === 1 ? '' : 's'} ha{pastUnverifiedGames.length === 1 ? 's' : 've'} passed. The listed matchups are no longer upcoming, and district W–L counts may be incomplete until published sources confirm the finals.</p>
+              <ul className="mt-2 space-y-1 text-sm">{pastUnverifiedGames.slice(0, 12).map(game => <li key={game.date + game.home + game.away}><time dateTime={game.date}>{game.date}</time> — {game.away} at {game.home}: result not yet verified</li>)}</ul>
+              {pastUnverifiedGames.length > 12 && <p className="mt-2 text-xs text-muted-foreground">Additional overdue games appear in the source audit.</p>}
+            </div>}
           </div>
         </div>
         <aside className="mt-8 border-l-2 border-primary bg-surface px-5 py-4 text-sm leading-7">
           <strong>Standings verification:</strong> The table above calculates win–loss counts from sourced games only. It is not an official UIL standings table; no district rank, tie-break position, playoff berth or Division I/II seed is assigned. Confirm current results and qualification with the schools and UIL. Schedule dates, venues and kickoff times can change.
           <a className="ml-2 font-semibold text-primary underline underline-offset-4" href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noopener noreferrer">UIL scoreboard ↗</a>
         </aside>
-        {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy schedule source last checked October 16, 2026; the published schedule is dated March 27, 2026. Final scores carry their reporting source. Scheduled listings are not refreshed live.</p>}
-        {district21Pilot && <p className="mt-3 text-xs text-muted-foreground">District 21 game and calendar sources checked {DISTRICT_21_VERIFIED_AT}. Last recorded district final: October 10; MaxPreps overall-record snapshot: October 14. This coverage is editorially maintained, not automatically updated. Verify late changes with the host school.</p>}
-        {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 results and fixtures last source-checked October 17, 2026. Scores and scheduled dates are not refreshed automatically. The October 16 finals use MaxPreps; earlier league finals and upcoming kickoff times use Pigskin Prep.</p>}
-        {district11Pilot && <p className="mt-3 text-xs text-muted-foreground">District 11 original editorial baseline source-checked {DISTRICT_11_VERIFIED_AT} using UIL-partner 2026 schedules for all seven schools. Latest included source verification: {latestDistrict11SourceCheck}. This is not a live scoreboard; subsequent results are accepted only with source-backed confirmation.</p>}
+        {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy's original 2026 schedule was published March 27; all 36 district games now carry final scores reported and checked against dated public sources through November 20. Not a live scoreboard; verify any subsequent correction with the school.</p>}
+        {district21Pilot && <p className="mt-3 text-xs text-muted-foreground">District 21 final game results checked {DISTRICT_21_VERIFIED_AT}, including the November 6 round. The separate *overall-record* comparison is explicitly an archived October 14 MaxPreps snapshot. This coverage is an independently researched editorial snapshot, not live scores.</p>}
+        {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 full 2026 league results source-checked November 20, including all twelve October 23–November 5 finals added after the original October snapshot. This is dated research, not a live feed.</p>}
+        {district11Pilot && <p className="mt-3 text-xs text-muted-foreground">District 11 2026 season results were source-checked {DISTRICT_11_VERIFIED_AT} across all seven schools. Latest included final-score verification: {latestDistrict11SourceCheck}. This is not a live scoreboard; subsequent results are accepted only with source-backed confirmation.</p>}
       </section>}
 
       {district5Pilot && <section data-football-district-section="official-game-day" className="border-b border-border py-10">

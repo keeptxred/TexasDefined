@@ -28,7 +28,27 @@ export const DISTRICT_16_RECENT_FINALS = [
   { date: '2026-10-17', away: 'Cypress Ridge', home: 'Langham Creek', awayScore: 13, homeScore: 59, sourceUrl: 'https://www.maxpreps.com/news/DXwR4ZFSUES3X2Vq9QvKSA/football-recap-langham-creek-piles-up-the-points-against-cypress-ridge--how-to-watch.htm' },
 ] as const;
 
-// Published CFISD/Berry Center calendar and current school/team schedules reviewed October 20.
+// November 20 retrospective verification of all remaining 2026 District 16 league dates.
+// Original game dates retained from the CFISD schedule; final-score reporting corroborated
+// by the MaxPreps UIL partner, Pigskin Prep and Houston regional coverage.
+// Each item is an independently published FINAL, not a live-score prediction.
+export const DISTRICT_16_LATE_FINALS = [
+  { date: '2026-10-22', away: 'Jersey Village', home: 'Cy-Fair', awayScore: 34, homeScore: 48, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-22', away: 'Cypress Lakes', home: 'Cypress Creek', awayScore: 32, homeScore: 12, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-23', away: 'Cypress Woods', home: 'Cypress Ridge', awayScore: 58, homeScore: 0, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-24', away: 'Langham Creek', home: 'Cypress Falls', awayScore: 7, homeScore: 45, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-29', away: 'Cypress Falls', home: 'Cypress Ridge', awayScore: 41, homeScore: 0, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-30', away: 'Cypress Creek', home: 'Jersey Village', awayScore: 27, homeScore: 17, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-30', away: 'Cy-Fair', home: 'Langham Creek', awayScore: 51, homeScore: 56, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-10-31', away: 'Cypress Lakes', home: 'Cypress Woods', awayScore: 28, homeScore: 22, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-11-05', away: 'Cypress Ridge', home: 'Cy-Fair', awayScore: 10, homeScore: 56, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-11-06', away: 'Jersey Village', home: 'Cypress Lakes', awayScore: 30, homeScore: 51, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-11-07', away: 'Langham Creek', home: 'Cypress Creek', awayScore: 38, homeScore: 12, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+  { date: '2026-11-07', away: 'Cypress Woods', home: 'Cypress Falls', awayScore: 16, homeScore: 30, verifiedAt: '2026-11-20', sourceUrl: 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/' },
+] as const;
+
+// Historical CFISD/Berry Center fixture schedule reviewed October 20; the outcomes
+// are now supplied independently by DISTRICT_16_LATE_FINALS, not this schedule.
 // Times are local CDT through October and CST in November. One November 7 kickoff is
 // withheld because the third-party display is inconsistent; verify with CFISD.
 // Venue assignments, entrances and dates can change; check the linked host calendar.

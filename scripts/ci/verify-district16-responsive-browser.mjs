@@ -30,7 +30,7 @@ try{
    const facts=await page.evaluate(()=>({title:document.title,canonical:document.querySelector('link[rel="canonical"]')?.href,h1:document.querySelectorAll('h1').length,rows:document.querySelectorAll('#district-16-standings tbody tr').length,finals:document.querySelectorAll('[data-district16-result="final"]').length,fixtures:document.querySelectorAll('[data-district16-result="scheduled"]').length,links:new Set([...document.querySelectorAll('a[href^="/texas-high-school-football-teams/"]')].map(a=>a.getAttribute('href'))).size,overflow:document.documentElement.scrollWidth-innerWidth,sectionHeight:document.querySelector('#district-16-results')?.getBoundingClientRect().height||0}));
    assert.ok(facts.title.includes('District 16-6A Football: 2026 Standings'),spec.name+' stale title');
    assert.equal(facts.canonical,'https://texasdefined.com/texas-high-school-football-districts/6a-district-16');
-   assert.equal(facts.h1,1);assert.equal(facts.rows,8);assert.equal(facts.finals,4);assert.equal(facts.fixtures,12);assert.ok(facts.links>=8);
+   assert.equal(facts.h1,1);assert.equal(facts.rows,8);assert.equal(facts.finals,16);assert.equal(facts.fixtures,0);assert.ok(facts.links>=8);
    assert.ok(facts.sectionHeight>200);assert.ok(facts.overflow<=8,spec.name+' horizontal overflow '+facts.overflow);
    assert.deepEqual(errors,[],spec.name+' client runtime errors');
    console.log('PASS District 16 rendered',spec.name,facts);

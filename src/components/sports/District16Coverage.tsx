@@ -3,6 +3,7 @@ import {
   DISTRICT_16_CFISD_SCHEDULE_URL,
   DISTRICT_16_CFISD_TICKETS_URL,
   DISTRICT_16_NEXT_GAMES,
+  DISTRICT_16_LATE_FINALS,
   DISTRICT_16_RECENT_FINALS,
   DISTRICT_16_STANDINGS,
   DISTRICT_16_STANDINGS_AS_OF,
@@ -18,6 +19,11 @@ const formattedDate = (iso: string) =>
     .format(new Date(iso + 'T12:00:00Z'));
 
 export function District16Coverage({ schools }: Props) {
+  const texasParts = new Intl.DateTimeFormat('en-US', {timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const part = (type: 'year' | 'month' | 'day') => texasParts.find(x=>x.type===type)?.value ?? '';
+  const todayTexas = `${part('year')}-${part('month')}-${part('day')}`;
+  const overdueCount = DISTRICT_16_NEXT_GAMES.filter(game => game.date < todayTexas &&
+    !DISTRICT_16_LATE_FINALS.some(final=>final.date===game.date&&final.away===game.away&&final.home===game.home)).length;
   const teamHref = (match: string) => schools.find((school) =>
     school.schoolName.toLowerCase().includes(match.toLowerCase())
     || (match === 'Cy-Fair' && school.schoolName.toLowerCase().includes('cypress fairbanks'))
@@ -34,19 +40,46 @@ export function District16Coverage({ schools }: Props) {
     <section id="district-16-results" data-football-district-section="district-16-2026"
       className="border-b border-border py-10">
       <p className="eyebrow text-primary">Region II · Cypress-Fairbanks ISD · 2026 varsity</p>
-      <h2 className="mt-2 font-display text-3xl sm:text-4xl">District 16 dated scores, standings and schedule</h2>
+      <h2 className="mt-2 font-display text-3xl sm:text-4xl">District 16 archived scores, dated standings and fixtures</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
         All eight District 16-6A teams are from Cypress-Fairbanks ISD. These are source-dated
-        2026 results and published fixtures, not a continuously updated scoreboard.
+        2026 results and the archived October standings snapshot, not a continuously updated scoreboard.
         The standings snapshot includes the first four district games for each school;
         the finals listed below are the latest independently checked round, not every game played.
       </p>
+
+      <section className="mt-7 border-y border-border py-5" data-football-district16-postseason-verified>
+        <h3 className="font-display text-2xl">Final 2026 district title and playoff qualifiers — verified Nov. 12</h3>
+        <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">
+          Cypress-Fairbanks ISD confirmed the conclusion of District 16 regular-season play and reported
+          Cypress Falls, Cypress Lakes and Langham Creek as shared champions, each with a 6–1 district
+          record. Cypress Woods finished fourth at 4–3 and joined those three programs in the playoff field.
+          This official school-district update supersedes the October 18 table below for title and qualification
+          information, but does not establish an unreported head-to-head seed order.
+        </p>
+        <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+          {[
+            {name:'Cypress Falls',record:'6–1',detail:'Shared district champion'},
+            {name:'Cypress Lakes',record:'6–1',detail:'Shared district champion · first school district title'},
+            {name:'Langham Creek',record:'6–1',detail:'Shared district champion · first playoff berth since 2018'},
+            {name:'Cypress Woods',record:'4–3',detail:'Fourth-place playoff qualifier'},
+          ].map(team=><div key={team.name} className="border border-border p-3">
+            <dt className="font-semibold">{schoolLink(team.name)}</dt>
+            <dd className="mt-1 text-sm">District {team.record} · {team.detail}</dd>
+          </div>)}
+        </dl>
+        <a href="https://www.cfisd.net/cfisd-news-details/~board/2026-2027-cfisd-district-news/post/six-cfisd-football-teams-qualify-for-playoffs"
+          target="_blank" rel="noopener noreferrer"
+          className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+          CFISD official November 12 season and playoff report ↗
+        </a>
+      </section>
 
       <div id="district-16-standings" className="mt-8 border border-border p-4 sm:p-6"
         data-football-district-records="reported-standings-snapshot">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h3 className="font-display text-2xl">2026 reported district standings</h3>
+            <h3 className="font-display text-2xl">Archived 2026 district standings — October 18</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               MaxPreps snapshot: {DISTRICT_16_STANDINGS_AS_OF}. Reported records, not official UIL tie-break rankings.
             </p>
@@ -100,36 +133,39 @@ export function District16Coverage({ schools }: Props) {
             ))}
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            Four individually verified Week 8 finals only. Earlier games contribute to the separately reported standings snapshot,
+            Four individually verified Week 8 finals, with twelve additional separately sourced regular-season finals below. Earlier games contribute to the archived standings snapshot,
             but are not being presented here as individually verified scores.
           </p>
         </div>
         <div>
-          <h3 className="border-b border-border pb-3 font-display text-2xl">October 20 schedule snapshot · finals needing verification</h3>
+          <h3 className="border-b border-border pb-3 font-display text-2xl">Late regular-season finals · Oct. 22–Nov. 7</h3>
           <div className="divide-y divide-border">
-            {DISTRICT_16_NEXT_GAMES.map((game) => (
-              <div key={game.date + game.home} data-district16-result="scheduled" className="py-4 text-sm">
-                <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · originally listed {game.kickoff} · final score not verified here</p>
+            {DISTRICT_16_NEXT_GAMES.map((game) => {
+              const reported = DISTRICT_16_LATE_FINALS.find(item => item.date===game.date && item.away===game.away && item.home===game.home);
+              return <div key={game.date + game.home} data-district16-result={reported ? 'final' : 'scheduled'} className="py-4 text-sm">
+                <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · {reported ? 'Reported final · verified Nov. 20' : game.date < todayTexas ? 'Past fixture — final not yet verified' : game.kickoff}</p>
                 <p>{schoolLink(game.away)} at {schoolLink(game.home)}</p>
-              </div>
-            ))}
+                {reported && <p className="mt-1 font-semibold">Final: {reported.awayScore}–{reported.homeScore} · <a className="text-primary underline underline-offset-4" href={reported.sourceUrl} target="_blank" rel="noopener noreferrer">source ↗</a></p>}
+              </div>;
+            })}
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            These twelve games were still listed as upcoming in the October 20 source snapshot; that does not mean they remain unplayed today.
-            The original November 7 kickoff was unconfirmed; confirm results and any postseason advancement with current reporting. Dates, times and stadium assignments can change.
+            The October 20 schedule supplied the dated pairings; all twelve outcomes have now been checked
+            with public district and UIL-partner reporting. {overdueCount > 0 ? `${overdueCount} games remain unverified.` : 'No remaining unverified league fixture from this dated slate.'}
+            School reports and the official district schedule take priority if a late correction is issued.
             See <a href={DISTRICT_16_CFISD_SCHEDULE_URL} target="_blank" rel="noopener noreferrer"
-              className="text-primary underline underline-offset-4">CFISD's complete official varsity calendar ↗</a> for the rest.
+              className="text-primary underline underline-offset-4">CFISD's official varsity calendar ↗</a> for changes.
           </p>
         </div>
       </div>
 
       <aside className="mt-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
-        <h3 className="font-display text-2xl text-foreground">Four playoff spots; no clinched seed assumed</h3>
+        <h3 className="font-display text-2xl text-foreground">Four playoff qualifiers; no unverified seed order</h3>
         <p className="mt-2">
-          On the October 18 reporting snapshot, Langham Creek leads at 4–0, followed by
-          Cypress Woods, Cypress Falls and Cypress Lakes at 3–1. At that time, those records
-          made the October 24 Langham Creek–Cypress Falls matchup significant, but they did not
-          establish a champion or playoff tiebreak. At the October 18 snapshot, all eight teams still had district games remaining; that is not a statement of their current November results.
+          In the October 18 historical reporting snapshot, Langham Creek led at 4–0, followed by
+          Cypress Woods, Cypress Falls and Cypress Lakes at 3–1. Those records
+          illustrate the October 24 matchup context, but do not
+          establish a final champion or playoff tiebreak. Those remaining-fixture statements are historical, not current.
         </p>
         <p className="mt-2">
           Four Class 6A teams qualify from each district. Of those four,

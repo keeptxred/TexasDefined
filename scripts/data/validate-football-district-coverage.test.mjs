@@ -14,8 +14,8 @@ const fixtures = [...source.matchAll(/scheduled\('(2026-\d{2}-\d{2})', '([^']+)'
 const games = [...results, ...fixtures];
 
 test('district 22 has independent source-backed reported results and a complete dated run-in', () => {
-  assert.equal(results.length, 24);
-  assert.equal(fixtures.length, 12);
+  assert.equal(results.length, 36);
+  assert.equal(fixtures.length, 0);
   assert.equal(dates.length, 36);
   for (const date of dates) assert.ok(Number.isFinite(Date.parse(date + 'T00:00:00Z')), date);
   assert.equal(new Set(games.map((game) => [game.date, ...[game.away, game.home].sort()].join('|'))).size, 36);
@@ -49,20 +49,20 @@ test('source-derived district W–L matches all reported games without inventing
     else assert.fail('No tied completed contests were included in the 2026 Katy source snapshot');
   }
   assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
-    Katy: [6, 0],
-    'Katy Cinco Ranch': [3, 3],
-    'Katy Jordan': [3, 2],
-    'Katy Mayde Creek': [1, 4],
-    'Katy Morton Ranch': [1, 4],
-    'Katy Paetow': [2, 3],
-    'Katy Seven Lakes': [0, 5],
-    'Katy Taylor': [4, 2],
-    'Katy Tompkins': [4, 1],
+    Katy: [8, 0],
+    'Katy Cinco Ranch': [4, 4],
+    'Katy Jordan': [6, 2],
+    'Katy Mayde Creek': [2, 6],
+    'Katy Morton Ranch': [1, 7],
+    'Katy Paetow': [4, 4],
+    'Katy Seven Lakes': [0, 8],
+    'Katy Taylor': [4, 4],
+    'Katy Tompkins': [7, 1],
   });
   assert.ok(source.includes('getSourcedDistrictRecords'));
   assert.ok(template.includes('data-football-district-records="source-derived"'));
   assert.ok(template.includes('not UIL-certified standings'));
-  assert.ok(template.includes('Do not use these partial data for official UIL seeds'));
+  assert.ok(template.includes('These source-derived results are not official UIL playoff seeds'));
 });
 
 test('team-level district record helper remains source-derived and fail-closed', () => {
@@ -115,7 +115,7 @@ test('District 16 standings snapshot is internally consistent and strictly sourc
 
 test('District 16 next-round schedule and four Week 8 finals remain separate from its standings snapshot', () => {
   assert.equal([...district16Data.matchAll(/date: '2026-10-(?:15|16|17)'/g)].length, 4);
-  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 8, 'four source-verified finals plus four historical schedule dates');
   assert.equal([...district16Data.matchAll(/\{ date: '2026-(?:10|11)-\d\d', kickoff:/g)].length, 12, 'full 12-match run-in');
   assert.ok(district16Data.includes("kickoff: 'Kickoff unconfirmed'"), 'do not invent uncertain November 7 kickoff');
   for (const key of ['Cypress Woods', 'Cypress Falls', 'Cypress Lakes', 'Langham Creek', 'Jersey Village', 'Cy-Fair', 'Cypress Creek', 'Cypress Ridge']) {
@@ -126,7 +126,7 @@ test('District 16 next-round schedule and four Week 8 finals remain separate fro
     'data-football-district-records="reported-standings-snapshot"',
     'not a continuously updated scoreboard',
     'not every game played',
-    'These twelve games were still listed as upcoming in the October 20 source snapshot',
+    'all twelve outcomes have now been checked',
     'DISTRICT_16_CFISD_TICKETS_URL',
     'DISTRICT_16_CFISD_SCHEDULE_URL',
     'teamHref',
@@ -153,7 +153,7 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
  assert.ok(prod.includes('no-cache, no-store'));
  assert.ok(prod.includes('CFISD tickets, stadiums and game-day logistics'));
  assert.ok(district16Component.includes('data-district16-result="final"'));
- assert.ok(district16Component.includes('data-district16-result="scheduled"'));
+ assert.ok(district16Component.includes("data-district16-result={reported ? 'final' : 'scheduled'}"));
 });
 
 const teamTemplate = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
@@ -168,8 +168,8 @@ test('2026 District 11 has complete, distinct and traceable seven-school round r
     .map((m) => ({ date: m[1], away: m[2], home: m[3], awayScore: +m[4], homeScore: +m[5] }));
   const future = [...district11.matchAll(/upcoming\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)"\)/g)]
     .map((m) => ({ date: m[1], away: m[2], home: m[3] }));
-  assert.equal(finals.length, 15, '15 reported finals through October 23');
-  assert.equal(future.length, 6, 'six published remaining fixtures');
+  assert.equal(finals.length, 21, '21 sourced finals through November 6');
+  assert.equal(future.length, 0, 'no already-played regular-season game remains mislabeled future');
   const schools = ['Bay City', 'El Campo', 'Navasota', 'Needville', 'Royal', 'Sealy', 'West Columbia Columbia'];
   const seen = new Set();
   for (const game of [...finals, ...future]) {
@@ -185,7 +185,7 @@ test('2026 District 11 has complete, distinct and traceable seven-school round r
     assert.equal([...finals, ...future].filter((g) => g.away === school || g.home === school).length, 6, school);
     assert.ok(district11.includes('"' + school + '": "https://www.maxpreps.com/'), 'named score source for ' + school);
   }
-  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-10-29'"));
+  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-11-20'"));
   assert.ok(district11.includes('www.uiltexas.org/football/playoff-brackets/4AD1'));
 });
 
@@ -204,9 +204,9 @@ test('District 11 score-derived records do not invent official standings', () =>
     else { records.get(home)[0]++; records.get(away)[1]++; }
   }
   assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
-    'Bay City': [5, 0], 'El Campo': [3, 1], 'Navasota': [2, 2],
-    'Needville': [1, 3], 'Royal': [0, 4], 'Sealy': [4, 1],
-    'West Columbia Columbia': [0, 4],
+    'Bay City': [6, 0], 'El Campo': [4, 2], 'Navasota': [3, 3],
+    'Needville': [2, 4], 'Royal': [0, 6], 'Sealy': [5, 1],
+    'West Columbia Columbia': [1, 5],
   });
   assert.ok(source.includes("slug === '4a-division-i-district-11'"));
   assert.ok(source.includes('DISTRICT_11_2026_GAMES'));

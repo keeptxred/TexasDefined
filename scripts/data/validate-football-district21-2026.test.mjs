@@ -13,11 +13,11 @@ const known = new Set([
   'Fort Bend Hightower', 'Fort Bend Ridge Point', 'Fort Bend Travis', 'Houston Strake Jesuit',
 ]);
 
-test('District 21 has 16 verifiable 2026 league finals and a 12-game full run-in', () => {
-  assert.equal(matches.length, 16, '16 district finals before October 19, 2026');
-  assert.equal(fixtures.length, 12, '12 remaining league fixtures');
-  assert.ok(matches.every((m) => m[1] <= '2026-10-10'));
-  assert.ok(fixtures.every((m) => m[1] >= '2026-10-22'));
+test('District 21 has all 28 source-checked 2026 league finals, no past scheduled fixtures', () => {
+  assert.equal(matches.length, 28, 'all 28 completed district games through November 6');
+  assert.equal(fixtures.length, 0, 'no regular-season fixtures should still be labeled scheduled');
+  assert.ok(matches.every((m) => m[1] <= '2026-11-06'));
+  assert.ok(matches.some((m) => m[1] >= '2026-11-05'));
   const keys = [...matches, ...fixtures].map((m) => {
     assert.ok(known.has(m[2]), m[2]);
     assert.ok(known.has(m[3]), m[3]);
@@ -46,14 +46,14 @@ test('No District 21 W-L, point total or standings position is guessed', () => {
     else { hr.won++; ar.lost++; }
   }
   assert.deepEqual(Object.fromEntries([...byTeam.entries()].sort()), {
-    'Fort Bend Austin': { won: 0, lost: 4, pf: 47, pa: 114 },
-    'Fort Bend Bush': { won: 1, lost: 3, pf: 60, pa: 127 },
-    'Fort Bend Clements': { won: 0, lost: 4, pf: 54, pa: 193 },
-    'Fort Bend Elkins': { won: 1, lost: 3, pf: 47, pa: 124 },
-    'Fort Bend Hightower': { won: 4, lost: 0, pf: 163, pa: 37 },
-    'Fort Bend Ridge Point': { won: 4, lost: 0, pf: 180, pa: 22 },
-    'Fort Bend Travis': { won: 4, lost: 0, pf: 130, pa: 71 },
-    'Houston Strake Jesuit': { won: 2, lost: 2, pf: 106, pa: 99 },
+    'Fort Bend Austin': { won: 0, lost: 7, pf: 104, pa: 250 },
+    'Fort Bend Bush': { won: 3, lost: 4, pf: 129, pa: 227 },
+    'Fort Bend Clements': { won: 1, lost: 6, pf: 141, pa: 287 },
+    'Fort Bend Elkins': { won: 3, lost: 4, pf: 135, pa: 197 },
+    'Fort Bend Hightower': { won: 6, lost: 1, pf: 260, pa: 98 },
+    'Fort Bend Ridge Point': { won: 7, lost: 0, pf: 314, pa: 42 },
+    'Fort Bend Travis': { won: 4, lost: 3, pf: 169, pa: 169 },
+    'Houston Strake Jesuit': { won: 4, lost: 3, pf: 171, pa: 153 },
   });
 });
 
