@@ -11,6 +11,8 @@ const server = read('src/data/high-school-football/football-program-profile.serv
 const ui = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const seo = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
 const watch = JSON.parse(read('docs/football-authority/official-source-watch.json'));
+const productionWorkflow = read('.github/workflows/deploy-production.yml');
+assert.ok(productionWorkflow.includes('https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake'), 'Production release must purge Canyon Lake HTML so newly verified scores appear without stale CDN markup');
 
 assert.equal(team.slug, 'comal-canyon-lake');
 assert.match(team.intro, /Pleasanton|2026/);
