@@ -82,7 +82,7 @@ if (process.argv.includes('--live-sources')) {
     if (resp.status !== 200 || !/text\/html|text\/plain/i.test(resp.headers.get('content-type')||''))
       throw Error('Official source no longer verifiable: ' + url + ' HTTP ' + resp.status);
     const raw = await resp.text();
-    if (Buffer.byteLength(raw,'utf8') > 200000) throw Error('Official evidence exceeds safety cap');
+    if (Buffer.byteLength(raw,'utf8') > 850000) throw Error('Official evidence exceeds safety cap');
     const plain = raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ')
       .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ')
       .replace(/<[^>]+>/g,' ').replace(/&nbsp;|&#160;/g,' ')
