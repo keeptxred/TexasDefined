@@ -8,6 +8,12 @@ on:
       - '.github/workflows/refresh-football-scores-brackets.yml'
       - 'scripts/data/inventory-statewide-football-scores.mjs'
       - 'scripts/data/research-statewide-football-scores.mjs'
+      # Merge of reviewed results immediately re-inventories the affected
+      # pages; don't leave issue #7465 stale until tomorrow's cron.
+      - 'src/data/high-school-football/football-matchups.snapshot.json'
+      - 'src/data/high-school-football/football-district*.ts'
+      - 'src/data/high-school-football/program-editorial*.ts'
+      - 'src/data/high-school-football/aubrey-*.snapshot.json'
   schedule:
     # 17:37 UTC is midday Central; check the day AFTER a game, not live.
     # Saturday year-round + Sunday-Friday August through December.
