@@ -106,7 +106,7 @@ export function audit({today=texasDate(),dir=DATA,programs=UIL_FOOTBALL_PROGRAMS
       const owner=isTeamFile ? nearestAuthoredTeam(source,row.position,index) : null;
       const teams=unique([findMatchedSlug(row.away,index),findMatchedSlug(row.home,index),owner,fileTeam]);
       const districts=unique([dist,...teams.map(x=>index.teams.get(x)?.districtSlug)]);
-      stale.push({...row,teams,districts,sourceAmbiguous:isTeamFile&&slugs.length!==1&&!owner,
+      stale.push({...row,teams,districts,subjectName:owner?index.teams.get(owner)?.name||null:null,sourceAmbiguous:isTeamFile&&slugs.length!==1&&!owner,
         urls:unique([...teams.map(x=>index.teams.get(x)?.url),...districts.map(x=>index.districts.get(x)?.url)])});
     }
     if(file.includes('district')){
@@ -157,7 +157,7 @@ export function shardSelection(report,shard,shards,cap=PER_SHARD){
 function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
 export function searchText(task){
   if(task.kind==='standings')return [task.districts?.[0]||'Texas','2026','football','district','standings'].join(' ');
-  const names=[task.away,task.home].filter(Boolean).map(n=>'"'+n+'"');
+  const names=unique([task.away,task.home,task.subjectName]).map(n=>'"'+n+'"');
   if(names.length<2&&task.teams?.length)names.push('"'+task.teams[0].replace(/-/g,' ')+'"');
   return [...names,'Texas high school football final',task.date].join(' ');
 }
@@ -184,6 +184,30 @@ export function parseRss(xml,earliest){
   }
   return out;
 }
+// Only a score printed next to BOTH named teams in a public headline is a hint.
+// Contradictory or duplicate headlines never become source-verified game data.
+export function explicitScoreHints(task,leads){
+  const pair=unique([task.away,task.home,task.subjectName]);
+  if(pair.length<2)return [];
+  const patterns=(name)=>{
+    const opts=[name];
+    if(name.startsWith('Port Lavaca '))opts.push(name.slice('Port Lavaca '.length));
+    return '(?:'+opts.filter(n=>n.length>=5).map(n=>n.replace(/[^A-Za-z0-9]+/g,'\\s+')).join('|')+')';
+  };
+  const a=patterns(pair[0]),b=patterns(pair[1]);
+  const regex=new RegExp('('+a+')\\s+(\\d{1,3})\\s*[,;:–-]\\s*('+b+')\\s+(\\d{1,3})','i');
+  const rev=new RegExp('('+b+')\\s+(\\d{1,3})\\s*[,;:–-]\\s*('+a+')\\s+(\\d{1,3})','i');
+  const result=[];
+  for(const item of leads){
+    const m=regex.exec(item.title),r=m?null:rev.exec(item.title);
+    if(!m&&!r)continue;
+    const first=Number(m?.[2]??r?.[4]),second=Number(m?.[4]??r?.[2]);
+    if(first>200||second>200||first===second)continue;
+    result.push({firstTeam:pair[0],secondTeam:pair[1],firstScore:first,secondScore:second,
+      headline:item.title,url:item.url,source:item.source,date:item.date,verification:'unverified-headline-only'});
+  }
+  return result.slice(0,8);
+}
 export async function lookup(task,{get=fetch,now=texasDate()}={}){
   const query=searchText(task),out={task,query,leads:[],errors:[]};
   const earliest=task.date>now.slice(0,4)+'-01-01'?task.date:now.slice(0,4)+'-01-01';
@@ -197,7 +221,7 @@ export async function lookup(task,{get=fetch,now=texasDate()}={}){
       out.leads.push(...parseRss(body,earliest).map(x=>({...x,discovery:provider})));
     }catch(e){out.errors.push({provider,error:String(e.message||e).slice(0,120)});}
   }
-  return {...out,leads:out.leads.slice(0,10)};
+  return {...out,leads:out.leads.slice(0,10),scoreHints:explicitScoreHints(task,out.leads)};
 }
 async function research(shard,shards,opts={}){
   const auditReport=audit(opts),selected=shardSelection(auditReport,shard,shards);
@@ -235,6 +259,7 @@ export function combinedSummary(reports,auditReport){
     for(const url of (t.urls||[]).slice(0,4))lines.push('  - Affected page: '+url);
     if(!r.leads.length)lines.push('  - No recent public RSS lead. Check official athletics and dated published score references; do not invent a result.');
     for(const x of r.leads.slice(0,3))lines.push('  - Unverified lead ('+md(x.source)+', '+x.date+'): '+md(x.title)+' — '+x.url);
+    for(const h of (r.scoreHints||[]).slice(0,2))lines.push('  - **Candidate final only; NOT verified:** '+md(h.firstTeam)+' '+h.firstScore+' – '+md(h.secondTeam)+' '+h.secondScore+' ('+md(h.source)+') — '+h.url);
     if(r.errors.length)lines.push('  - Source problems: '+r.errors.map(x=>x.provider+' '+md(x.error)).join('; '));
   }
   if(results.length>80)lines.push('','Only first 80 researched candidates are summarized here. Full reports and every affected URL are saved as artifacts.');
