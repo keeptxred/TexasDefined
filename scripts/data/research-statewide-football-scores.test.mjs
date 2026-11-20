@@ -1,7 +1,7 @@
 import {inventory} from './inventory-statewide-football-scores.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {safeLink,decode,parseNews,publicProviders,chooseSearches,conductResearch,reportMarkdown} from './research-statewide-football-scores.mjs';
+import {safeLink,decode,parseNews,parseExtraNews,additionalResearchTargets,publicProviders,chooseSearches,conductResearch,reportMarkdown} from './research-statewide-football-scores.mjs';
 
 const fixture={date:'2026-11-19',away:'Aubrey',home:'Canyon',pages:['https://texasdefined.com/texas-high-school-football-teams/aubrey']};
 const xml='<?xml version="1.0"?><rss><channel>'+
@@ -67,4 +67,33 @@ test('all currently eligible statewide overdue fixtures receive lookup coverage 
   assert.ok(selected.queryBudgetUsed<=800);
   assert.deepEqual(publicProviders({date:'2026-11-19'},'2026-11-20'),['google','bing']);
   assert.equal(publicProviders({date:'2026-10-23'},'2026-11-20').length,1);
+});
+
+test('all five dated standings pages receive public source lookups with current published references',()=>{
+  const state=inventory({today:'2026-11-20'});
+  const targets=additionalResearchTargets(state);
+  const districts=targets.filter(t=>t.kind==='standings');
+  assert.equal(districts.length,5);
+  for(const t of districts){
+    assert.ok(t.sourceUrl.startsWith('https://'));
+    assert.equal(t.providers.length,2);
+    assert.ok(t.query.includes('2026'));
+  }
+  assert.ok(!targets.some(t=>t.page.endsWith('/frisco-lone-star')));
+});
+test('published district standing and aged season research is metadata-only',async()=>{
+  const target={kind:'standings',page:'https://texasdefined.com/texas-high-school-football-districts/6a-district-16',
+    label:'6a district 16',sourceUrl:'https://www.maxpreps.com/tx/football/district/',providers:['google','bing']};
+  const dated='<?xml version="1.0"?><rss><channel><item><title>District 16 football standings updated in Texas</title>'+
+   '<link>https://news.example.org/d16</link><pubDate>Fri, 20 Nov 2026 10:00:00 GMT</pubDate></item></channel></rss>';
+  assert.equal(parseExtraNews(dated,target,'google','2026-11-20').length,1);
+  assert.equal(parseExtraNews(dated,target,'google','2026-09-20').length,0);
+  const state={today:'2026-11-20',summary:{affectedPages:1,overduePages:0,datedScoreReviewPages:1,unverifiedFixtures:0},
+    pages:[{page:target.page,kind:'district',reason:'dated-standings-review',sourceFile:'test',overdue:[]}],fixtures:[]};
+  const r=await conductResearch(state,{getText:async()=>dated});
+  assert.equal(r.additionalResearch.length,1);
+  assert.equal(r.additionalResearch[0].target.kind,'standings');
+  assert.equal(r.additionalResearch[0].articles.length,1);
+  assert.equal(r.publication,false);
+  assert.match(reportMarkdown(r),/Current standings and dated-record research/);
 });
