@@ -77,12 +77,14 @@ function checkHtml(html,location){
   return {required:REQUIRED.length,sourceFreshness:true,recordMatched:true,
     footballBeforeCommercial:sponsors<0||sponsors>football};
 }
-async function request(url){
-  const r=await fetch(url,{redirect:'manual',headers:{
-    'Cache-Control':'no-cache, no-store, max-age=0',
-    'User-Agent':'TexasDefined-CanyonLake-Authority-Acceptance/1.0',
-  },signal:AbortSignal.timeout(25000)});
-  return r;
+async function request(url,{normalCache=false}={}){
+  const headers={
+    'User-Agent':normalCache
+      ? 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+      : 'TexasDefined-CanyonLake-Authority-Acceptance/1.0',
+  };
+  if(!normalCache)headers['Cache-Control']='no-cache, no-store, max-age=0';
+  return fetch(url,{redirect:'manual',headers,signal:AbortSignal.timeout(25000)});
 }
 async function auditOrigin(origin){
   const sep=PAGE.includes('?')?'&':'?';
@@ -95,13 +97,29 @@ async function auditOrigin(origin){
   const worker=response.headers.get('x-texasdefined-worker-version')||'';
   assert.match(worker,VERSION,origin+' published Worker UUID');
   const html=await response.text();
-  const checks=checkHtml(html,origin);
+  const checks=checkHtml(html,origin+' (cache-busted)');
+  // A normal reader/search engine uses the canonical path without a query string.
+  // A passing cache-busted route does not prove that an older CDN edge document
+  // has been evicted. Check both forms on both origins after production deploy.
+  const bare=await request(origin+PAGE,{normalCache:true});
+  assert.equal(bare.status,200,origin+' plain canonical URL HTTP status');
+  assert.ok((bare.headers.get('content-type')||'').includes('text/html'),
+    origin+' plain canonical URL MIME');
+  assert.notEqual(bare.headers.get('cf-mitigated'),'challenge',
+    origin+' plain canonical URL challenged');
+  const bareHtml=await bare.text();
+  checkHtml(bareHtml,origin+' (unbusted reader URL)');
+  const bareWorker=bare.headers.get('x-texasdefined-worker-version')||'';
+  assert.equal(bareWorker,worker,origin+' plain URL is serving a stale Worker revision');
   const graphic=await request(origin+HERO);
   assert.equal(graphic.status,200,origin+' original football artwork HTTP status');
   const svg=await graphic.text();
   assert.ok(svg.includes('<svg ')&&svg.includes('Original Hill Country football field illustration'),
     origin+' original SVG is missing or wrong');
-  return {origin,worker,htmlBytes:html.length,graphicBytes:svg.length,...checks};
+  return {origin,worker,htmlBytes:html.length,
+    unbustedHtmlBytes:bareHtml.length,unbustedCacheStatus:bare.headers.get('cf-cache-status'),
+    unbustedAge:bare.headers.get('age'),unbustedFresh:true,
+    graphicBytes:svg.length,...checks};
 }
 async function auditChrome(){
   const moduleRoot=process.env.PLAYWRIGHT_MODULE_ROOT||'/tmp/td-canyon-lake-chrome/node_modules';
