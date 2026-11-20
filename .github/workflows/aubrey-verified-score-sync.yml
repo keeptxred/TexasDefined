@@ -1,8 +1,6 @@
-name: Aubrey verified scores
+name: Validate Aubrey football score history
+
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '10 9 * 8-12 *'
   pull_request:
     paths:
       - 'scripts/data/update-aubrey-verified-results.mjs'
@@ -11,88 +9,25 @@ on:
       - 'src/data/high-school-football/aubrey-postseason-fixtures.snapshot.json'
       - 'src/data/high-school-football/football-program-profile.server.ts'
       - '.github/workflows/aubrey-verified-score-sync.yml'
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
 
-# Prevent manual dispatch and nightly runs from racing to create duplicate bot PRs.
+# Statewide next-day public-source research is now scheduled in
+# refresh-football-scores-brackets.yml. Retain the historic Aubrey feed
+# reconciler's tests only; never require paid providers or auto-publish.
+permissions:
+  contents: read
+
 concurrency:
-  group: aubrey-verified-score-sync
+  group: aubrey-score-history-validation
   cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: node --test scripts/ci/test-aubrey-verified-results.mjs
-      - name: Record missing independent source licenses
-        if: ${{ github.event_name != 'pull_request' && (vars.AUBREY_SCORE_FEED_PRIMARY_URL == '' || vars.AUBREY_SCORE_FEED_SECONDARY_URL == '') }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='BLOCKED: Aubrey football auto-score source connections'
-          if ! gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --title "$title" --body 'Two separately hosted licensed machine-readable feeds are required. Add repository variables AUBREY_SCORE_FEED_PRIMARY_URL and AUBREY_SCORE_FEED_SECONDARY_URL and optional bearer-token secrets of the same names ending TOKEN. Source schema and safeguards: docs/football-authority/AUBREY_AUTO_SCORES.md. Never scrape MaxPreps or publish an unconfirmed final.'
-          fi
-          echo '::error title=Licensed score feeds unavailable::Aubrey scores cannot update until two authorized providers are configured.'
-          exit 1
-      - name: Import matching licensed scores
-        if: ${{ github.event_name != 'pull_request' && vars.AUBREY_SCORE_FEED_PRIMARY_URL != '' && vars.AUBREY_SCORE_FEED_SECONDARY_URL != '' }}
-        id: import
-        env:
-          AUBREY_SCORE_FEED_PRIMARY_URL: ${{ vars.AUBREY_SCORE_FEED_PRIMARY_URL }}
-          AUBREY_SCORE_FEED_SECONDARY_URL: ${{ vars.AUBREY_SCORE_FEED_SECONDARY_URL }}
-          AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
-          AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
-        run: node scripts/data/update-aubrey-verified-results.mjs
-      - name: Record score-provider errors or conflicting finals for editorial review
-        if: ${{ failure() && steps.import.outcome == 'failure' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='BLOCKED: Aubrey authorized score feed failed validation'
-          url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The licensed Aubrey feed import rejected an unavailable provider, wrong opponent, unknown fixture, contradictory historical score, invalid source, or other failed input. Run: $url. No unverified score was published; inspect the run before changing or republishing any result."
-          fi
-      - name: Flag overdue games that still lack both matching confirmations
-        if: ${{ steps.import.outputs.needs_review == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          title='Aubrey football: independent source confirmation needed'
-          if ! gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --title "$title" --body 'The scheduled two-provider importer found at least one overdue Aubrey fixture without two independently matching final reports. No invented result was published. Check both licensed provider feeds and the game-day source, then rerun the bounded importer.'
-          fi
-      - name: Open a protected score update PR
-        if: ${{ steps.import.outputs.changed == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Do not fork a second score PR while the prior protected auto-merge
-          # is still waiting; an older snapshot would conflict with new data.
-          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --search 'Publish independently verified Aubrey football finals in:title' --limit 100 --json title,headRefName,url             --jq '.[] | select(.title == "Publish independently verified Aubrey football finals" and (.headRefName | startswith("automation/aubrey-results-"))) | .url' | head -n 1)"
-          if [[ -n "$existing" ]]; then
-            echo "::error title=Existing Aubrey score PR awaits protected merge::$existing; do not create a second competing update."
-            exit 1
-          fi
-          branch="automation/aubrey-results-${GITHUB_RUN_ID}"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add src/data/high-school-football/aubrey-auto-results.snapshot.json
-          git commit -m 'Update independently confirmed Aubrey football results'
-          git push origin "$branch"
-          gh pr create --base main --head "$branch" --title 'Publish independently verified Aubrey football finals' --body 'Two independent authorized score feeds agreed on exact game identities and scores. Only the Aubrey generated result snapshot changes. Protected merge gate and automated finisher must verify before publication.'
+          node-version: '24'
+      - name: Validate published scores and source identity
+        run: node --test scripts/ci/test-aubrey-verified-results.mjs
