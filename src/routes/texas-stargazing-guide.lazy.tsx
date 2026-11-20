@@ -52,9 +52,11 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Copper Breaks Stargazing", href: "https://tpwd.texas.gov/state-parks/copper-breaks/stargazing", note: "Official Dark Sky Park status, Bortle rating, star-party information and current sky-planning resources." },
   { label: "Texas Parks & Wildlife — Enchanted Rock Stargazing", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/dark-skies/", note: "Official Dark Sky Park guidance and real-time sky-quality monitoring for the Hill Country site." },
   { label: "Texas Parks & Wildlife — South Llano River Stargazing", href: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies", note: "Official Bortle rating, after-hours night-activity guidance and real-time dark-sky monitoring." },
-  { label: "Texas Parks & Wildlife — Caprock Canyons Dark Sky designation", href: "https://tpwd.texas.gov/newsmedia/releases/?req=20260107a", note: "Official January 2026 designation notice confirming Caprock Canyons as Texas's fifth International Dark Sky Park." },
+  { label: "Texas Parks & Wildlife — Caprock Canyons Dark Sky designation", href: "https://tpwd.texas.gov/newsmedia/releases/?req=20260107a", note: "Official January 2026 designation notice confirming Caprock Canyons as the fifth Texas state park with the designation." },
   { label: "TPWD — Official state park Bortle ratings", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", note: "Park-by-park baseline sky darkness values; a rating is not the forecast for the night." },
   { label: "TPWD — Stargazing events calendar", href: "https://tpwd.texas.gov/calendar/stargazing", note: "Current park program dates and scheduled guided observing." },
+  { label: "National Park Service — Big Bend National Park night skies", href: "https://www.nps.gov/bibe/planyourvisit/stargazing.htm", note: "NPS confirms Big Bend National Park has held International Dark Sky Park status since 2012 and publishes night-sky viewing advice." },
+  { label: "DarkSky International — Big Bend National Park", href: "https://darksky.org/places/big-bend-national-park-dark-sky-park/", note: "The designating organization's record confirms that the certified national park is separate from the five state parks profiled here." },
 ] as const;
 
 const parks = [
@@ -134,7 +136,7 @@ function TexasStargazingGuidePage() {
           <header className="border-b border-border pb-10">
             <p className="eyebrow text-primary">Dark skies · moon phase · park access</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Stargazing Guide</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to Texas's five International Dark Sky Parks, with the moon, weather, Bortle rating, park-hours and access questions to resolve before making a night-sky trip.</p>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five Texas state parks certified as International Dark Sky Parks, with moon phase, weather, Bortle ratings and access details to check before a night-sky trip.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -149,7 +151,7 @@ function TexasStargazingGuidePage() {
               className="aspect-[3/2] w-full object-cover"
             />
             <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
-              The Milky Way and a camping tent at Copper Breaks State Park, one of the five officially designated Texas dark-sky parks profiled below. Photo:{" "}
+              The Milky Way and a camping tent at Copper Breaks State Park, one of the five certified Texas state parks profiled below. Photo:{" "}
               <a href="https://commons.wikimedia.org/wiki/File:Copper_Breaks_State_Park_with_the_Milky_Way_Galaxy.jpg" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Matthew T Rader</a>
               {" "}(2020) · <a href="https://matthewtrader.com" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">MatthewTRader.com</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">CC BY-SA 4.0</a>.
               Display crop only; the original and its license are available at the linked Commons file page.
@@ -170,7 +172,16 @@ function TexasStargazingGuidePage() {
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">A Dark Sky designation is the starting point, not the forecast</h2>
-            <p className="mt-4 max-w-4xl text-base leading-8">TPWD currently lists Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River as International Dark Sky Parks. For the actual night, check moonrise and moonset, cloud cover, transparency, weather, park alerts, operating hours and any after-hours access rules. Lower Bortle numbers indicate darker skies, but even a Bortle Class 1 site can be disappointing under a bright moon or overcast sky.</p>
+            <p className="mt-4 max-w-4xl text-base leading-8">Among Texas state parks, TPWD lists Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River as International Dark Sky Parks. For the actual night, check moonrise and moonset, cloud cover, transparency, weather, park alerts, operating hours and any after-hours access rules. Lower Bortle numbers indicate darker skies, but even a Bortle Class 1 site can be disappointing under a bright moon or overcast sky.</p>
+          </section>
+
+          <section className="border-b border-border py-10" aria-labelledby="state-parks-scope">
+            <p className="eyebrow text-primary">What this list covers</p>
+            <h2 id="state-parks-scope" className="mt-2 font-display text-3xl">Five certified state parks, not every Texas dark-sky destination</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
+              <p>The five locations compared above are the Texas Parks &amp; Wildlife Department's certified International Dark Sky <strong>state parks</strong>. They are not a complete list of every Texas site with an international dark-sky designation.</p>
+              <p>For example, <strong>Big Bend National Park</strong> is a separately managed, certified International Dark Sky Park. The National Park Service confirms its 2012 designation and provides its own viewing and ranger-program guidance. Before comparing a Big Bend National Park visit with Big Bend Ranch State Park, consult the <a href="https://www.nps.gov/bibe/planyourvisit/stargazing.htm" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">NPS stargazing guide</a> and <a href="https://darksky.org/places/big-bend-national-park-dark-sky-park/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">DarkSky's designation record</a>. Both parks have distinct gates, road networks, operating rules and access plans.</p>
+            </div>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="stewardship">
