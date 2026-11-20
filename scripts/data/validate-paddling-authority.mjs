@@ -6,6 +6,17 @@ const route = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.t
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.lazy.tsx'), 'utf8');
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "waterConditionDesk",
+  "waterConditionDesk[index].decision",
+  "waterdata.usgs.gov/state/texas",
+  "www.weather.gov/crp/marine",
+  "under 13"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+
 
 for (const marker of [
   'const canonicalPath = "/texas-paddling-guide";',

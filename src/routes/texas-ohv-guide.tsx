@@ -1,17 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const ohvHeroUrl = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.jpg?autorotate=false&maxwidth=1300";
 const canonicalPath = "/texas-ohv-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const ohvAreas = [
-  { name: "Eisenhower State Park OHV Trails", region: "North Texas / Lake Texoma" },
-  { name: "Barnwell Mountain Recreation Area", region: "East Texas / Gilmer" },
-  { name: "Sam Houston National Forest Motorized Trails", region: "Piney Woods / Houston region" },
-  { name: "Lake Meredith National Recreation Area OHV Areas", region: "Texas Panhandle" },
-  { name: "Escondido Draw Recreation Area", region: "West Texas / Ozona" },
+  { name: "Eisenhower State Park OHV Trails" },
+  { name: "Barnwell Mountain Recreation Area" },
+  { name: "Sam Houston National Forest Motorized Trails" },
+  { name: "Lake Meredith National Recreation Area OHV Areas" },
+  { name: "Escondido Draw Recreation Area" },
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
@@ -23,7 +23,7 @@ export const Route = createFileRoute(canonicalPath)({
       item: {
         "@type": "Place",
         name: area.name,
-        containedInPlace: { "@type": "AdministrativeArea", name: area.region },
+
       },
     }));
     const schema = {
@@ -35,7 +35,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas OHV Guide",
           description: "Plan legal off-highway vehicle trips at five Texas riding areas with current decal, vehicle-class, land-manager and closure guidance.",
-          image: absoluteUrl(texasDefinedBrand, bigBend),
+          image: ohvHeroUrl,
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: {
             "@type": "ItemList",
@@ -62,8 +62,8 @@ export const Route = createFileRoute(canonicalPath)({
         canonicalPath,
         title: "Texas OHV Guide: 5 Legal Riding Areas & Decal Rules",
         description: "Find five legal Texas OHV riding areas and plan around decals, allowed vehicle classes, land-manager maps, permits, closures and current rules.",
-        image: bigBend,
-        imageAlt: "Rugged Texas public-land landscape used as a general outdoor travel image",
+        image: ohvHeroUrl,
+        imageAlt: "Real designated off-road route at Rosita Flats, Lake Meredith, Texas",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],

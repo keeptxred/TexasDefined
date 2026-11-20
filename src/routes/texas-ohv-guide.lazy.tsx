@@ -1,7 +1,8 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
 import { Container } from "@/components/layout/Container";
+
+const rositaTrailPhoto = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.jpg?autorotate=false&maxwidth=1300";
 
 const legalRideComparison = [
   {
@@ -22,9 +23,9 @@ const legalRideComparison = [
   },
   {
     "name": "Sam Houston National Forest",
-    "vehicles": "Designated 85-mile multiple-use motorized trail system for motorcycles and ATVs; not general UTV access",
-    "permission": "Current Forest Service motor vehicle use map and trail status control legal routes",
-    "check": "Check national forest alerts, flood damage and closures; the MVUM and posted signs override older GPX tracks",
+    "vehicles": "85-mile multiple-use system; motorized trails are limited to OHVs 50 inches wide or less, excluding full-width UTVs",
+    "permission": "A separate Sam Houston Multiple-Use Trail Pass per person, Texas OHV decal and current motor vehicle map",
+    "check": "Call 936-344-6205 (option 2) for trail status; carry pass, valid ID and applicable ATV operator-course proof",
     "operator": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/Sam%20Houston%20MVUM%202025.pdf",
     "related": "/explore/outdoors"
   },
@@ -32,7 +33,7 @@ const legalRideComparison = [
     "name": "Lake Meredith National Recreation Area",
     "vehicles": "Riding allowed in the specific Blue Creek and Rosita Flats ORV areas, not across the recreation area",
     "permission": "No-cost NPS ORV permit plus Texas OHV decal required; contact NPS for vehicle-specific maps",
-    "check": "Get the NPS permit before using the areas, review NPS boundary rules and river/lake conditions",
+    "check": "Bring no-cost annual NPS permit and state OHV decal; Blue Creek cutbanks and Rosita 3,000-foot elevation boundary apply",
     "operator": "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
     "related": "/explore/road-trips"
   },
@@ -82,6 +83,7 @@ const officialSources = [
     href: "https://tpwd.texas.gov/state-parks/eisenhower/ohvs",
     note: "Official access, permit, trail, vehicle-width, safety-documentation and weather-closure guidance for the state-park OHV trail system.",
   },
+  { label: "Recreation.gov — Sam Houston Multiple-Use Trail Pass", href: "https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645", note: "Per-person trail pass, 50-inch OHV limit, safety rules, status telephone and printable pass." },
   { label: "US Forest Service — Sam Houston Motor Vehicle Use Map", href: "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/Sam%20Houston%20MVUM%202025.pdf", note: "Federal designation map; verify later replacements and current closure orders before riding." },
   { label: "National Park Service — Lake Meredith ORV Permits", href: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", note: "Blue Creek and Rosita Flats authorized areas, NPS permit process and Texas decal requirement." },
   { label: "TMTC — Barnwell Mountain Recreation Area", href: "https://www.barnwellmountainra.com/info_directions", note: "Operator's trail maps, arrival directions, temporary closure context and local rules." },
@@ -113,7 +115,7 @@ const ohvAreas = [
     summary: "Federal public land where motorized recreation is limited to designated routes rather than general forest access.",
     details: [
       "TPWD's Ride Texas directory lists Sam Houston National Forest for motorcycles and ATVs and points riders to the legal trail system. The key planning principle is route designation: being on public forest land does not make every road, trail or open-looking corridor legal for motorized use.",
-      "Federal land managers use current maps, route designations and temporary closure notices to control access. Confirm the current motor-vehicle map and local forest alerts before departure, especially after heavy rain, storms, wildfire activity or maintenance. A saved track should never override current land-manager restrictions.",
+      "Recreation.gov specifies a separate Multiple-Use Trail Pass for every person and restricts motorized use to designated trails accommodating OHVs no wider than 50 inches. Motorized riders also need the Texas OHV decal. Carry a valid ID and, if riding an ATV, proof of operator education. Recreation.gov also specifies approved helmet and eye protection, a spark arrestor and a 96-decibel sound limit. Download passes before losing phone service; call 936-344-6205 (option 2) to check closures after rain. A saved GPS track is never permission to use a closed trail.",
     ],
   },
   {
@@ -122,7 +124,7 @@ const ohvAreas = [
     summary: "National recreation area riding concentrated in specifically designated OHV zones rather than unrestricted travel across the landscape.",
     details: [
       "TPWD's legal-venue directory identifies Lake Meredith's Blue Creek and Rosita Flats areas as OHV destinations. This is another case where the named riding area matters more than the larger public-land boundary: the legal destination is the designated OHV zone, not every shoreline, road or backcountry surface within the recreation area.",
-      "Vehicle class, route limits, lake conditions, wildfire risk and temporary closures can affect access. Verify the current National Park Service rules and maps for the specific riding area after confirming it through TPWD's Ride Texas directory.",
+      "The National Park Service requires its own no-cost ORV permit in addition to a current Texas OHV decal. NPS permits expire December 31, even when issued later in the year. Stay within the Blue Creek cutbanks or below 3,000 feet in the Rosita Flats riding area; neither provides drinking water or flush toilets. All riders need a DOT-approved helmet and eye protection; NPS requires a whip and flag on ATVs. For maps and permits, call 806-857-3151.",
     ],
   },
   {
@@ -168,16 +170,38 @@ function TexasOhvGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five legal off-highway vehicle destinations, with the Texas decal, vehicle-class, permit, map and closure questions to resolve before loading a trailer.</p>
           </header>
 
+          {/* NPS photo provenance is shipped in the route-lazy HTML, not the eager app bundle. */}
+          <script type="application/ld+json">{JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            "@id": "https://texasdefined.com/texas-ohv-guide#nps-photo",
+            contentUrl: rositaTrailPhoto,
+            creator: { "@type": "Organization", name: "National Park Service" },
+            creditText: "National Park Service photo, Rosita Flats, Lake Meredith",
+            license: "https://creativecommons.org/publicdomain/mark/1.0/",
+            acquireLicensePage: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
+            copyrightNotice: "Public domain NPS photo",
+          })}</script>
           <figure className="border-b border-border py-8">
-            <img src={bigBend} alt="Rugged Texas public-land landscape used as general outdoor travel context" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">This image provides general Texas outdoor context and does not depict a specific legal OHV trail. Use current land-manager maps—not landscape appearance—to determine where motorized recreation is allowed.</figcaption>
+            <img src={rositaTrailPhoto} alt="Designated red-earth off-road route at Rosita Flats, Lake Meredith National Recreation Area, Texas" width={1300} height={900} className="aspect-[16/9] w-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">A real designated off-road route at Rosita Flats, one of the featured riding areas. <a href="https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">National Park Service photo</a> (U.S. public domain). Always verify current NPS route boundaries and restrictions.</figcaption>
           </figure>
 
 
+          <section className="border-b border-border py-10" aria-labelledby="permit-desk">
+            <p className="eyebrow text-primary">Avoid the most common access mistakes</p>
+            <h2 id="permit-desk" className="mt-2 font-display text-3xl">Three separate permits and decals to distinguish</h2>
+            <div className="mt-6 grid gap-5 md:grid-cols-3">
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Sam Houston: individual trail pass</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Every rider needs a Recreation.gov Multiple-Use Trail Pass. OHVs must be at most 50 inches wide, and current Texas OHV decals and applicable ATV education are required. Confirm daily trail status by phone.</p><a href="https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline">Official trail pass and rules</a></div>
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Lake Meredith: NPS permit</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">A separate, no-cost National Park Service ORV permit and Texas OHV decal are required. The NPS permit follows the calendar year, January 1–December 31, not the state decal's season.</p><a href="https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline">Official NPS permit and riding areas</a></div>
+              <div className="border border-border p-5"><h3 className="font-display text-xl">Texas decal: site dependent</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The TPWD OHV decal is $16 and lasts September 1–August 31 under current rules. Applicable designated public roads and trails and qualifying grant-funded private venues have their own requirements.</p><a href="https://tpwd.texas.gov/state-parks/texas-off-highway-program/faqs-about-the-texas-ohv-program" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline">State decal FAQ</a></div>
+            </div>
+          </section>
           <section className="border-b border-border py-10" aria-labelledby="ohv-comparison">
             <p className="eyebrow text-primary">Legal access by vehicle</p>
             <h2 id="ohv-comparison" className="mt-2 font-display text-3xl">Which venue fits your machine?</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">An OHV decal is not permission to ride wherever you want. Vehicle categories, trail width, mapped zones, operator waivers and separate permits can differ. This table is a screening tool; the current operator or land manager has the final say.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to see all vehicle and permit columns.</p>
             <div className="mt-6 overflow-x-auto border border-border">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "820px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
