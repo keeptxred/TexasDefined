@@ -20,7 +20,12 @@ async function fetchText(url) {
   };
   const response = await fetch(target, { redirect: "follow", signal: AbortSignal.timeout(25000), headers });
   if (!response.ok) throw new Error(`${target}: HTTP ${response.status}`);
-  if (sameOrigin) {
+  // HTML authority pages must be fresh and cache-unhit. The canonical sitemap
+  // XML is intentionally edge-cached: a harmless HIT with nonzero Age does NOT
+  // imply stale publication; verify its two exact Nov 19 <lastmod> values below.
+  // Do not waive XML response status or expected canonical publication dates.
+  const isSitemap = target.pathname === "/sitemap.xml";
+  if (sameOrigin && !isSitemap) {
     const status = (response.headers.get("cf-cache-status") || "").toUpperCase();
     const age = response.headers.get("age");
     if (["HIT", "STALE", "UPDATING"].includes(status) || (age !== null && Number(age) > 0))
