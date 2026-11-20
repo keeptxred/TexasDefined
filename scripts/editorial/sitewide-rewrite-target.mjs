@@ -36,14 +36,28 @@ export function findScheduledOperatorPages(value, root = ROOT) {
   const mapped = [];
   const monitor = fs.readFileSync(path.join(root, 'scripts/data/authority/monitor-operator-sources.mjs'), 'utf8');
   const section = monitor.split('export const heritageDestinationMonitorRows = [')[1]?.split('];')[0] || '';
-  for (const match of section.matchAll(/\\{ id: "([a-z0-9-]+)", sourceUrl: "(https:[^"]+)"/g)) {
+  for (const match of section.matchAll(/\{ id: "([a-z0-9-]+)", sourceUrl: "(https:[^"]+)"/g)) {
     if (input.includes(match[2])) mapped.push('/destination/' + match[1]);
   }
   const reviewed = fs.readFileSync(path.join(root,'src/data/reviewed-attraction-authorities.ts'),'utf8');
   const marker='export const reviewedAttractionDestinations: Destination[] = ';
   const pos=reviewed.indexOf(marker);
   if (pos >= 0) {
-    const records=JSON.parse(reviewed.slice(pos+marker.length).trim().replace(/;\\s*$/, ''));
+    const literal = reviewed.slice(pos + marker.length).trimStart();
+    if (!literal.startsWith('[')) throw Error('Reviewed attraction registry is no longer a literal array');
+    let depth = 0, quoted = false, escaped = false, end = -1;
+    for (let i = 0; i < literal.length; i++) {
+      const ch = literal[i];
+      if (quoted) {
+        if (escaped) escaped = false;
+        else if (ch === '\\') escaped = true;
+        else if (ch === '"') quoted = false;
+      } else if (ch === '"') quoted = true;
+      else if (ch === '[') depth++;
+      else if (ch === ']' && --depth === 0) { end = i + 1; break; }
+    }
+    if (end < 1) throw Error('Cannot find closed reviewed attraction literal array');
+    const records = JSON.parse(literal.slice(0,end));
     for (const record of records) {
       const urls=[record.officialUrl, ...(record.authorityGuide?.sources || []).map(x=>x.url),
         ...(record.visitorFaqs || []).map(x=>x.sourceUrl),
