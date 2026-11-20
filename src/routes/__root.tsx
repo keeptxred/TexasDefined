@@ -217,7 +217,7 @@ function RootComponent() {
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
             <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
-            <main id="main" className="flex-1"><Outlet /></main>
+            <main id="main" className="min-h-screen flex-1"><Outlet /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
         </ShopCartProvider>

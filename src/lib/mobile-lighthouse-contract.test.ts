@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const root = readFileSync(new URL("../routes/__root.tsx", import.meta.url), "utf8");
+const routerSource = readFileSync(new URL("../router.tsx", import.meta.url), "utf8");
 const homeRoute = readFileSync(new URL("../routes/index.tsx", import.meta.url), "utf8");
 const homeView = readFileSync(new URL("../routes/index.lazy.tsx", import.meta.url), "utf8");
 const llmsRoute = readFileSync(new URL("../routes/llms[.]txt.ts", import.meta.url), "utf8");
@@ -19,6 +20,12 @@ describe("mobile Lighthouse performance contract", () => {
     expect(root).toContain('h-[4.5rem]');
     expect(root).toContain('lg:h-[7rem]');
     expect(root).toContain('<Suspense fallback={<HeaderFallback />}><Header /></Suspense>');
+  });
+
+  it("preserves SSR content through the initial hydration and protects viewport geometry", () => {
+    expect(routerSource).toContain("defaultStaleTime: 30_000");
+    expect(routerSource).toContain("defaultPreloadStaleTime: 0");
+    expect(root).toContain('min-h-screen flex-1');
   });
 
   it("preloads the homepage hero image used for LCP", () => {
