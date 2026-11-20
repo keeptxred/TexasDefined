@@ -728,7 +728,7 @@ function Page() {
       {program && !district21Team && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : slug === 'frisco-lone-star' ? 'Official 2026 schedule & game-day resources' : 'Live scores & schedule links'}</h2>
+          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : slug === 'frisco-lone-star' ? 'Official 2026 schedule & game-day resources' : 'Official schedule and result links'}</h2>
           {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
         <div className="min-w-0">
