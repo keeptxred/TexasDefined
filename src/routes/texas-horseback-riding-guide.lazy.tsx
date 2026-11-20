@@ -34,7 +34,7 @@ const equestrianPlanning = [
     "facilities": "Wild Horse equestrian camping area; shared-use trails and distinct trailway access",
     "check": "Review the facility map and equestrian campsite availability; do not assume all trailway segments have the same amenities.",
     "official": "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/horse-sites",
-    "related": "/explore/state-parks"
+    "related": "/destination/caprock-canyons-state-park"
   },
   {
     "name": "Dinosaur Valley State Park",
@@ -42,7 +42,7 @@ const equestrianPlanning = [
     "facilities": "100-acre South Primitive Area for privately brought horses; TPWD lists a separate commercial guided-ride provider",
     "check": "Confirm river conditions and horse-trailer access; book a guided ride with its operator rather than assuming park admission includes one.",
     "official": "https://tpwd.texas.gov/state-parks/dinosaur-valley",
-    "related": "/explore/state-parks"
+    "related": "/destination/dinosaur-valley-state-park"
   }
 ] as const;
 
