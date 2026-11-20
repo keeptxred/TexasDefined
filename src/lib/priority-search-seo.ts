@@ -8,12 +8,14 @@ export function buildPrioritySearchHead({
   description,
   data,
   about = [],
+  includeFaqSchema = true,
 }: {
   canonicalPath: string;
   title: string;
   description: string;
   data: PrioritySearchPageData;
   about?: string[];
+  includeFaqSchema?: boolean;
 }) {
   const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
   const sectionItems = data.sections.map((section, index) => ({
@@ -53,7 +55,7 @@ export function buildPrioritySearchHead({
     },
   ];
 
-  if (data.faq?.length) {
+  if (includeFaqSchema && data.faq?.length) {
     graph.push({
       "@type": "FAQPage",
       "@id": `${pageUrl}#faq`,

@@ -64,7 +64,7 @@ export const Route = createLazyFileRoute("/texas-rock-climbing-bouldering-guide"
 
 function TexasClimbingGuidePage() {
   return (
-    <main className="pb-20">
+    <div className="pb-20">
       <Container className="pt-8">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
@@ -173,6 +173,6 @@ function TexasClimbingGuidePage() {
           </section>
         </article>
       </Container>
-    </main>
+    </div>
   );
 }

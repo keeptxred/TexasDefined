@@ -64,6 +64,12 @@ try{
       report.urls.push(response?.url());
       verify("HTTP 200",response?.status()===200,response?.status());
       await page.locator("main h1").first().waitFor({state:"visible",timeout:25000});
+      // A streamed/suspense-rendered category H1 may become visible before its
+      // source-backed route sections hydrate, particularly on a 320px phone.
+      // Wait for the real authority section to attach before checking content,
+      // rather than measuring an incomplete intermediate DOM snapshot. Still
+      // fail closed if it never appears on the live page.
+      if(spec.anchor) await page.locator(spec.anchor).waitFor({state:"attached",timeout:25000});
       verify("one main landmark",await page.locator("main").count()===1);
       verify("one H1",await page.locator("h1").count()===1);
       const h1=await page.locator("main h1").first().innerText();

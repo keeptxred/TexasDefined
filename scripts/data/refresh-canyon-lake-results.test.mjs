@@ -66,6 +66,24 @@ test('same-day final, duplicate game and unverifiable source are rejected',()=>{
   const p=makeReport(primaryHost);p.games.push({...p.games[0]});
   assert.throws(()=>validatedFeed(p,primaryHost,TODAY),/Duplicate final date/);
 });
+test('matching historical finals from both licensed sources preserve the ledger',()=>{
+  const past=(host)=>({date:'2026-11-13',opponent:'Pleasanton',status:'final',
+    hawksScore:49,opponentScore:28,sourceUrl:'https://'+host+'/2026/hawks/pleasanton'});
+  const a=makeReport(primaryHost);a.games.unshift(past(primaryHost));
+  const b=makeReport(secondaryHost);b.games.unshift(past(secondaryHost));
+  const reviewed=reconcile(pair(a,b));
+  assert.equal(reviewed.added.length,1, 'A corroborated past result must not block a newer final');
+  assert.equal(reviewed.added[0].date,'2026-11-20');
+  assert.equal(reviewed.old.wins,8);
+  assert.equal(reviewed.old.losses,2);
+});
+test('a single licensed source can corroborate an unchanged historical final',()=>{
+  const a=makeReport(primaryHost);
+  a.games.unshift({date:'2026-11-13',opponent:'Pleasanton',status:'final',
+    hawksScore:49,opponentScore:28,sourceUrl:'https://'+primaryHost+'/2026/hawks/pleasanton'});
+  const reviewed=reconcile(pair(a,makeReport(secondaryHost)));
+  assert.equal(reviewed.added.length,1, 'Historical row is already locked and must not require an extra publication');
+});
 test('historical finals are locked against later contradictory provider reports',()=>{
   const p=makeReport(primaryHost);p.games.push({date:'2026-11-13',opponent:'Pleasanton',status:'final',
     hawksScore:48,opponentScore:28,sourceUrl:'https://'+primaryHost+'/2026/hawks/pleasanton'});

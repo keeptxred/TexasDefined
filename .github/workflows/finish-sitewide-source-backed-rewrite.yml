@@ -1,6 +1,10 @@
 name: Finish sitewide source-backed editorial rewrite
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finish-sitewide-source-backed-rewrite.yml'
   workflow_run:
     workflows: [Sitewide source-backed automatic content refresh]
     types: [completed]
@@ -24,7 +28,7 @@ concurrency:
 
 jobs:
   finish:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
@@ -45,7 +49,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$EVENT_NAME" = workflow_run ]]; then run="$EVENT_RUN"; else run="$MANUAL_RUN"; fi
+          if [[ "$EVENT_NAME" = workflow_run ]]; then
+            run="$EVENT_RUN"
+          elif [[ "$EVENT_NAME" = workflow_dispatch ]]; then
+            run="$MANUAL_RUN"
+          elif [[ "$EVENT_NAME" = push ]]; then
+            # One-time bootstrap pending first source-backed PR after this
+            # trusted finisher version reaches main. Subsequent clean runs
+            # without a matching open PR safely no-op.
+            run="$(gh run list --workflow sitewide-source-backed-rewrite.yml \
+              --branch main --status completed --limit 20 \
+              --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId // empty')"
+          else
+            echo '::error::Unexpected editorial finisher trigger'; exit 1
+          fi
           [[ "$run" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run'; exit 1; }
           run_json="$(gh api "repos/$REPO/actions/runs/$run")"
           [[ "$(jq -r .name <<< "$run_json")" == 'Sitewide source-backed automatic content refresh' &&
@@ -79,36 +96,51 @@ jobs:
           git checkout -B "$branch" "origin/$branch"
           git config user.name 'TexasDefined Verified Editorial Finisher'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          previous_sha="$(git rev-parse HEAD)"
-          if ! git merge-base --is-ancestor origin/main HEAD; then
-            if ! git merge --no-edit origin/main; then
-              git merge --abort || true
-              echo '::error::Editorial content conflict with current main; do not overwrite.'; exit 1
+          # Reconcile actively changing main and re-run full exact-head
+          # protection. No shortcuts, stale statuses or cross-run approvals.
+          published=false
+          for attempt in 1 2 3; do
+            git fetch --no-tags origin main "$branch"
+            [[ "$(git rev-parse "origin/$branch")" == "$(git rev-parse HEAD)" ]] || {
+              echo '::error::Untrusted branch rewrite during source verification'; exit 1;
+            }
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              if ! git merge --no-edit origin/main; then
+                git merge --abort || true
+                echo '::error::Editorial content conflicts with current main; refuse overwrite.'; exit 1
+              fi
+              git push origin "HEAD:$branch"
             fi
-            git push origin "HEAD:$branch"
-          fi
-          validated_sha="$(git rev-parse HEAD)"
-          git merge-base --is-ancestor origin/main HEAD || {
-            echo '::error::Branch still lacks current main'; exit 1;
-          }
-          node --check scripts/editorial/validate-sitewide-rewrite.mjs
-          node --test scripts/editorial/sitewide-rewrite-target.test.mjs scripts/editorial/validate-sitewide-rewrite.test.mjs
-          node scripts/editorial/validate-sitewide-rewrite.mjs --base=origin/main --live-sources
+            validated_sha="$(git rev-parse HEAD)"
+            git merge-base --is-ancestor origin/main HEAD || {
+              echo '::error::Branch still lacks current main'; exit 1;
+            }
+            node --check scripts/editorial/validate-sitewide-rewrite.mjs
+            node --test scripts/editorial/sitewide-rewrite-target.test.mjs scripts/editorial/validate-sitewide-rewrite.test.mjs
+            node scripts/editorial/validate-sitewide-rewrite.mjs --base=origin/main --live-sources
 
-          # The bot's GITHUB_TOKEN-created PR does not trigger ordinary
-          # pull_request checks. Dispatch and await the actual protected suites.
-          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
-          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
-          git fetch --no-tags origin main "$branch"
-          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
-            echo '::error::Generated rewrite PR moved during verification'; exit 1;
+            # These are the actual canonical protected full-suite checks,
+            # not green statuses invented for a new bot-generated SHA.
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+            git fetch --no-tags origin main "$branch"
+            [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+              echo '::error::Generated rewrite PR moved during validation'; exit 1;
+            }
+            if ! git merge-base --is-ancestor origin/main "origin/$branch"; then
+              echo "Main advanced during protected validation (attempt $attempt); rerun exact source/CI against new main."
+              continue
+            fi
+            gh api --method POST "repos/$REPO/statuses/$validated_sha" \
+              -f state=success -f context='Required merge gate' \
+              -f description='Source quotes, exact source branch and protected CI verified' \
+              -f target_url="$url" >/dev/null
+            gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated_sha"
+            echo "Enabled protected auto merge after source-backed editorial certification: $url" >> "$GITHUB_STEP_SUMMARY"
+            published=true
+            break
+          done
+          [[ "$published" == true ]] || {
+            echo '::error::Main kept changing during three full protected validation attempts; preserve PR for later retry.'
+            exit 1
           }
-          git merge-base --is-ancestor origin/main "origin/$branch" || {
-            echo '::error::Main advanced after validation; needs another protected pass'; exit 1;
-          }
-          gh api --method POST "repos/$REPO/statuses/$validated_sha" \
-            -f state=success -f context='Required merge gate' \
-            -f description='Source quote, exact branch and canonical protected CI passed' \
-            -f target_url="$url" >/dev/null
-          gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated_sha"
-          echo "Enabled protected auto merge after source-backed editorial certification: $url" >> "$GITHUB_STEP_SUMMARY"
