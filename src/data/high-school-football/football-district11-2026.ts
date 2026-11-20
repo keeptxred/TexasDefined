@@ -5,7 +5,8 @@ import type { DistrictFootballGame } from './football-district-game-week';
  * MaxPreps is UIL's partner; these are dated source snapshots, NOT certified
  * district standings and NOT a live scoreboard. Every row was compared against
  * the 2026 varsity school schedule, and opponent names use the UIL roster.
- * 15 finals + 6 unplayed fixtures = 21 unique pairings across 7 schools.
+ * All 21 reported regular-season district finals are source-confirmed; the six
+ * late-October/November scores were checked independently November 20.
  */
 export const DISTRICT_11_VERIFIED_AT = '2026-10-29';
 export const DISTRICT_11_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/?leagueid=e544a32d-42ab-43c2-befa-ee65e25baf62';
@@ -33,6 +34,15 @@ const reportedFinal = (date: string, away: string, home: string, awayScore: numb
   sourceUrl: sourceFor(home), resultSourceUrl: scoresForDate(date),
   sourceLabel: 'MaxPreps / UIL partner district scoreboard', verifiedAt: DISTRICT_11_VERIFIED_AT,
 });
+// Historical results keep their original October 29 verification. These six
+// later finals were checked November 20 with dated MaxPreps scoreboards and
+// Pigskin Prep / first-party school results, without asserting a UIL seed.
+const checkedFinal = (date: string, away: string, home: string, awayScore: number, homeScore: number): DistrictFootballGame => ({
+  date, away, home, awayScore, homeScore, kickoff: '', status: 'final',
+  sourceUrl: sourceFor(home), resultSourceUrl: scoresForDate(date),
+  sourceLabel: 'Dated MaxPreps UIL-partner district final; independently checked with Pigskin Prep and school results',
+  verifiedAt: '2026-11-20',
+});
 const upcoming = (date: string, away: string, home: string): DistrictFootballGame => ({
   date, away, home, kickoff: date.startsWith('2026-11') ? '7:00 p.m. CST' : '7:00 p.m. CDT', status: 'scheduled',
   sourceUrl: sourceFor(home), sourceLabel: 'MaxPreps / UIL partner published schedule',
@@ -55,12 +65,12 @@ export const DISTRICT_11_2026_GAMES: DistrictFootballGame[] = [
   reportedFinal('2026-10-23', "Needville", "Bay City", 7, 45),
   reportedFinal('2026-10-23', "Sealy", "Navasota", 48, 7),
   reportedFinal('2026-10-23', "El Campo", "Royal", 49, 14),
-  upcoming('2026-10-30', "Bay City", "West Columbia Columbia"),
-  upcoming('2026-10-30', "Navasota", "El Campo"),
-  upcoming('2026-10-30', "Royal", "Needville"),
-  upcoming('2026-11-06', "El Campo", "Sealy"),
-  upcoming('2026-11-06', "Needville", "Navasota"),
-  upcoming('2026-11-06', "West Columbia Columbia", "Royal"),
+  checkedFinal('2026-10-30', "Bay City", "West Columbia Columbia", 42, 0),
+  checkedFinal('2026-10-30', "Navasota", "El Campo", 36, 51),
+  checkedFinal('2026-10-30', "Royal", "Needville", 0, 28),
+  checkedFinal('2026-11-06', "El Campo", "Sealy", 21, 49),
+  checkedFinal('2026-11-06', "Needville", "Navasota", 27, 38),
+  checkedFinal('2026-11-06', "West Columbia Columbia", "Royal", 36, 14),
 ];
 
 // The data is deliberately reviewed and non-live; refresh workflows must not
