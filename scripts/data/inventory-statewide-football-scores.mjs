@@ -21,10 +21,10 @@ export function isoDate(v,year=2026){
     const t=new Date(v+'T12:00:00Z');
     return Number.isFinite(t.getTime())&&t.toISOString().slice(0,10)===v?v:null;
   }
-  const m=/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+(\d{1,2})(?:,?\s+(20\d\d))?$/i.exec(v);
+  const m=/^(January|February|March|April|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+(\d{1,2})(?:,?\s+(20\d\d))?$/i.exec(v);
   if(!m)return null;
   const months={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,sept:9,oct:10,nov:11,dec:12};
-  return isoDate([m[3]||year,String(months[m[1].toLowerCase()]).padStart(2,'0'),m[2].padStart(2,'0')].join('-'));
+  return isoDate([m[3]||year,String(months[m[1].toLowerCase().slice(0,3)]).padStart(2,'0'),m[2].padStart(2,'0')].join('-'));
 }
 function fieldRe(k){return new RegExp('(?:^|[\\s,{])["\\x27]?'+k+'["\\x27]?\\s*:','m');}
 function pos(source,k){const m=fieldRe(k).exec(source);return m?m.index+m[0].length:-1;}
@@ -102,9 +102,12 @@ export function inspectEditorial(source,file,today){
   }
   return found;
 }
-function districtScheduled(source,functions,today,file){
+function districtScheduled(source,functions,today,file,kickoffFirst=false){
   const pattern=new RegExp('(?:^|\\s)(?:'+functions.join('|')+')\\(\\s*["\\x27](2026-\\d\\d-\\d\\d)["\\x27]\\s*,\\s*["\\x27]([^"\\x27]+)["\\x27]\\s*,\\s*["\\x27]([^"\\x27]+)["\\x27]','g');
-  return [...source.matchAll(pattern)].filter(x=>x[1]<today).map(m=>({date:m[1],away:m[2],home:m[3],sourceFile:file}));
+  const regular=[...source.matchAll(pattern)].filter(x=>x[1]<today).map(m=>({date:m[1],away:m[2],home:m[3],sourceFile:file}));
+  if(!kickoffFirst)return regular;
+  const kickoffPattern=/scheduled\(\s*['"](2026-\d\d-\d\d)['"]\s*,\s*['"][^'"]+['"]\s*,\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]/g;
+  return [...source.matchAll(kickoffPattern)].filter(x=>x[1]<today).map(m=>({date:m[1],away:m[2],home:m[3],sourceFile:file}));
 }
 export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'utf8')}={}){
   const filenames=readdirSync(dir).filter(n=>n==='program-editorial.ts'||/^program-editorial-.*\.ts$/.test(n))
@@ -123,7 +126,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     ['football-district21-2026.ts','6a-district-21',['scheduled']],
     ['football-district-game-week.ts','6a-district-22',['scheduled']]
   ]){
-    const due=districtScheduled(read(join(dir,file)),fn,today,file);
+    const due=districtScheduled(read(join(dir,file)),fn,today,file,slug==='6a-district-22');
     if(due.length)pages.push({kind:'district',page:SITE+'/texas-high-school-football-districts/'+slug,
       reason:'overdue-fixture',sourceFile:file,overdue:due});
   }
