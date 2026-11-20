@@ -164,12 +164,12 @@ test('team pages cannot label older unconfirmed games as their next fixture', ()
 const district11 = readFileSync(new URL('../../src/data/high-school-football/football-district11-2026.ts', import.meta.url), 'utf8');
 
 test('2026 District 11 has complete, distinct and traceable seven-school round robin fixtures', () => {
-  const finals = [...district11.matchAll(/reportedFinal\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)]
+  const finals = [...district11.matchAll(/(?:reportedFinal|checkedFinal)\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)]
     .map((m) => ({ date: m[1], away: m[2], home: m[3], awayScore: +m[4], homeScore: +m[5] }));
   const future = [...district11.matchAll(/upcoming\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)"\)/g)]
     .map((m) => ({ date: m[1], away: m[2], home: m[3] }));
-  assert.equal(finals.length, 15, '15 reported finals through October 23');
-  assert.equal(future.length, 6, 'six published remaining fixtures');
+  assert.equal(finals.length, 21, 'all 21 district fixtures now have source-backed finals');
+  assert.equal(future.length, 0, 'no dated 2026 district game remains falsely scheduled');
   const schools = ['Bay City', 'El Campo', 'Navasota', 'Needville', 'Royal', 'Sealy', 'West Columbia Columbia'];
   const seen = new Set();
   for (const game of [...finals, ...future]) {
@@ -190,7 +190,7 @@ test('2026 District 11 has complete, distinct and traceable seven-school round r
 });
 
 test('District 11 score-derived records do not invent official standings', () => {
-  const finals = [...district11.matchAll(/reportedFinal\('2026-\d{2}-\d{2}', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)];
+  const finals = [...district11.matchAll(/(?:reportedFinal|checkedFinal)\('2026-\d{2}-\d{2}', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)];
   const records = new Map();
   for (const m of finals) {
     const [, away, home, awayRaw, homeRaw] = m;
@@ -204,9 +204,9 @@ test('District 11 score-derived records do not invent official standings', () =>
     else { records.get(home)[0]++; records.get(away)[1]++; }
   }
   assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
-    'Bay City': [5, 0], 'El Campo': [3, 1], 'Navasota': [2, 2],
-    'Needville': [1, 3], 'Royal': [0, 4], 'Sealy': [4, 1],
-    'West Columbia Columbia': [0, 4],
+    'Bay City': [6, 0], 'El Campo': [4, 2], 'Navasota': [3, 3],
+    'Needville': [2, 4], 'Royal': [0, 6], 'Sealy': [5, 1],
+    'West Columbia Columbia': [1, 5],
   });
   assert.ok(source.includes("slug === '4a-division-i-district-11'"));
   assert.ok(source.includes('DISTRICT_11_2026_GAMES'));
