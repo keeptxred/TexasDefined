@@ -1,85 +1,81 @@
-name: Refresh Texas football scores and brackets
+name: Research Texas football scores and standings
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-football-scores-brackets.yml'
+      - 'scripts/data/research-football-pages-statewide.mjs'
+      - 'scripts/data/research-football-pages-statewide.test.mjs'
   schedule:
-    # During the season, run after Friday nights and again the next morning.
-    # UTC; fall daylight transitions do not affect date-only final verification.
-    - cron: '13 11 * 8-12 *'
-    - cron: '17 5 * 8-12 *'
+    # Daily next-day public score lookups during the Aug-Dec season.
+    # UTC 17:37 = 11:37 a.m. CST / 12:37 p.m. CDT. Saturday year-round.
+    - cron: '37 17 * * 6'
+    - cron: '37 17 * 8-12 0-5'
   pull_request:
     paths:
-      - 'scripts/data/refresh-football-matchups.mjs'
-      - 'src/data/high-school-football/football-matchups*'
-      - 'src/data/high-school-football/football-district11-2026.ts'
-      - 'src/data/high-school-football/football-district-game-week.ts'
-      - 'scripts/data/validate-football-district-coverage.test.mjs'
       - '.github/workflows/refresh-football-scores-brackets.yml'
+      - 'scripts/data/research-football-pages-statewide.mjs'
+      - 'scripts/data/research-football-pages-statewide.test.mjs'
+      - 'src/data/high-school-football/football-matchups.snapshot.json'
+      - 'src/data/high-school-football/football-district*2026.ts'
+      - 'src/data/high-school-football/football-district-game-week.ts'
+      - 'src/data/high-school-football/program-editorial*'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
   issues: write
 
 concurrency:
-  group: football-scores-${{ github.ref }}
+  group: statewide-football-public-research-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  refresh:
-    # Do not silently skip when no authorized feed is configured: report the
-    # deployment blocker to the owner and fail visibly instead.
+  research:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Syntax-check limited score adapter
-        run: node --check scripts/data/refresh-football-matchups.mjs
-      - name: Validate all 21 District 11 matchups and safe district/Division I feed matching
-        run: node --test scripts/data/validate-football-district-coverage.test.mjs
-      - name: Require an authorized football score feed and record setup blocker
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL == '' }}
+      - name: Validate complete UIL football page enrollment and dated source inventories
+        run: |
+          node --check scripts/data/research-football-pages-statewide.mjs
+          node --test scripts/data/research-football-pages-statewide.test.mjs
+          node scripts/data/research-football-pages-statewide.mjs --validate
+          node --test scripts/data/validate-football-district-coverage.test.mjs
+      - name: Look up next-day finals and standings via public reporting
+        if: github.event_name != 'pull_request'
+        run: node scripts/data/research-football-pages-statewide.mjs --research
+      - name: Preserve full page inventory, discovered reporting and source provenance
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-football-public-scores-${{ github.run_id }}
+          path: artifacts/football-statewide-research/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Maintain one prioritized football final and standings research issue
+        if: always() && github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          title='BLOCKED: TexasDefined football scores are not automatically updating'
-          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'The season score-refresh workflow is running, but FOOTBALL_RESULTS_FEED_URL is not set. District hubs (including 4A-DI-11 and 6A-5, 6A-21 and 6A-22) will remain on dated editorial scores until a permitted machine-readable source is configured. Set the repository variable FOOTBALL_RESULTS_FEED_URL and optional secret FOOTBALL_RESULTS_FEED_TOKEN with an explicitly authorized provider. This failure must remain visible; do not scrape an unlicensed source or invent finals. See docs/football-authority/MATCHUPS_BRACKETS_FEED.md.'
+          title='TexasDefined football: statewide next-day finals and district standings review'
+          bodyfile='artifacts/football-statewide-research/research.md'
+          if [[ ! -s "$bodyfile" ]]; then
+            bodyfile='/tmp/statewide-football-research-failure.md'
+            printf 'The statewide football inventory or public-score research failed. Inspect the job at https://github.com/%s/actions/runs/%s. No unverified result was published.\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$bodyfile"
           fi
-          echo "::error::Football updates are NOT automatic: FOOTBALL_RESULTS_FEED_URL is missing; blocker issue recorded."
-          exit 1
-      - name: Fetch only authorized verified score feed
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
-        env:
-          FOOTBALL_RESULTS_FEED_URL: ${{ vars.FOOTBALL_RESULTS_FEED_URL }}
-          FOOTBALL_RESULTS_FEED_TOKEN: ${{ secrets.FOOTBALL_RESULTS_FEED_TOKEN }}
-        run: node scripts/data/refresh-football-matchups.mjs
-      - name: Propose and auto-merge validated score updates after required checks
-        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if git diff --quiet -- src/data/high-school-football/football-matchups.snapshot.json; then
-            echo 'No source-backed score changes.'
-            exit 0
+          printf '\nGitHub source run: https://github.com/%s/actions/runs/%s\n' "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> "$bodyfile"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title=="TexasDefined football: statewide next-day finals and district standings review") | .number' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file "$bodyfile"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file "$bodyfile"
           fi
-          if gh pr list --base main --state open --json title --jq '.[].title' | grep -Fxq 'Update verified 2026 Texas football scores and brackets'; then
-            echo 'An earlier score update PR awaits review; no duplicate.'
-            exit 0
-          fi
-          branch="data/football-scores-${GITHUB_RUN_ID}"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add src/data/high-school-football/football-matchups.snapshot.json
-          git commit -m 'Refresh sourced 2026 football scores and brackets'
-          git push origin "$branch"
-          gh pr create --base main --head "$branch" --title 'Update verified 2026 Texas football scores and brackets' --body 'Bounded, source-attributed authorized football snapshot change. Protected CI and automated merge approval required; no bypass of branch protection or direct production changes.'
-          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
