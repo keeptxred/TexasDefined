@@ -46,7 +46,17 @@ const verifiedTrips = [
   }
 ] as const;
 
+const waterConditionDesk = [
+  { decision: "Redbud Trail and Festival Beach serve different Lady Bird Lake launch choices. Match the selected TPWD loop to its precise takeout and confirm ramp access; an urban waterfront is not one continuous public launch.", second: "Wind can make the return leg much harder on open lake water. Check the local forecast and official TPWD launch information before choosing the 3.15-, 3.25- or 4.8-mile loop.", conditionsUrl: "https://www.weather.gov/ewx/" },
+  { decision: "On Buffalo Bayou, identify two official, legally accessible points before scheduling a shuttle. Highway 6 to Allen's Landing is a 26-mile system, not a suggested single outing.", second: "Use nearby USGS streamflow readings and local flood alerts to interpret recent runoff. Gauge values do not establish that a specific launch, passage or takeout is open.", conditionsUrl: "https://dashboard.waterdata.usgs.gov/" },
+  { decision: "Pick MCC Boat Ramp for the Bosque Bluffs route or Brazos Park East for the Brazos Bridges route, following TPWD's matching map rather than selecting ramps by proximity alone.", second: "Urban loops normally avoid a vehicle shuttle, but high flows and runoff can render the river inappropriate. Review current gauge trends and access notices before launching.", conditionsUrl: "https://waterdata.usgs.gov/state/texas/" },
+  { decision: "Use the Mill Pond canoe/kayak launch within Caddo Lake State Park for the named 8.8-mile loop. The red markers and adjacent boat roads matter more than a phone's shortest route.", second: "Before entering swamp channels, verify water levels, wildlife management boundaries, park opening/closing access and the condition of the return passage.", conditionsUrl: "https://tpwd.texas.gov/state-parks/caddo-lake" },
+  { decision: "Start from the correct Highway 361 access for the named Lighthouse Lakes loop; do not mistake the four marked routes for a sheltered inland trail.", second: "Check Corpus Christi-area marine forecast, predicted tides, wind and boat traffic. An Aransas Channel crossing and shallow seagrass flats require a distinct coastal-weather decision.", conditionsUrl: "https://www.weather.gov/crp/marine" },
+] as const;
 const officialSources = [
+  { label: "TPWD — Paddling Trails FAQs and PFD rules", href: "https://tpwd.texas.gov/boating/paddling-trails/faqs/", note: "State paddling trip-planning guidance, launch decisions and child PFD requirements." },
+  { label: "USGS — Texas Water Conditions", href: "https://waterdata.usgs.gov/state/texas/", note: "Locate relevant current river-stage and streamflow monitoring; a gauge is not a trail closure notice." },
+  { label: "NWS Corpus Christi — Coastal Marine Weather", href: "https://www.weather.gov/crp/marine", note: "Official marine hazards and tide/forecast resources relevant to the Lighthouse Lakes coastal route." },
   { label: "Texas Parks & Wildlife — Texas Paddling Trails", href: "https://tpwd.texas.gov/boating/paddling-trails/", note: "Statewide official trail system, trail finder and regional planning entry point." },
   { label: "Texas Parks & Wildlife — Lady Bird Lake Paddling Trail", href: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", note: "Official access points, route lengths, float-time context, wind and water-level guidance for Austin." },
   { label: "Texas Parks & Wildlife — Buffalo Bayou Paddling Trail", href: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", note: "Official Houston access points, segment timing, water-quality notes and trail map guidance." },
@@ -158,6 +168,7 @@ function TexasPaddlingGuidePage() {
             <p className="eyebrow text-primary">Compare real outings</p>
             <h2 id="trail-comparison" className="mt-2 font-display text-3xl">Five different paddles, five different launch plans</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Distances and durations below come from the named TPWD trail pages, not a guessed statewide average. Times are approximate and change with wind, current, stops and ability. Match the put-in to the exact route before leaving.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare route distances and put-in choices.</p>
             <div className="mt-6 overflow-x-auto border border-border">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "760px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Paddling trail</th><th scope="col" className="border-b border-border p-4">Route choice / scale</th><th scope="col" className="border-b border-border p-4">Launch and shuttle</th></tr></thead>
@@ -172,6 +183,15 @@ function TexasPaddlingGuidePage() {
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="real-time-tools">
+            <p className="eyebrow text-primary">Research the trip, not just the map</p>
+            <h2 id="real-time-tools" className="mt-2 font-display text-3xl">Use three different live sources before the put-in</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
+              <p>First, use <a href="https://tpwd.texas.gov/boating/paddling-trails/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">TPWD's current trail maps and official paddling-trail finder</a> for the legal entry, exits and mapped trail length. A route-marked lake loop does not require the same shuttle as a one-way urban bayou segment.</p>
+              <p>Second, find any relevant current <a href="https://waterdata.usgs.gov/state/texas/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">USGS river gauge</a>, if one exists near your route, and compare its trend with land-manager warnings. A reading at one station does not certify safe flow, water quality or clear passage at another access point.</p>
+              <p>Third, check the <a href="https://www.weather.gov/crp/marine" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">NWS Corpus Christi marine conditions</a> for Lighthouse Lakes and the local forecast for inland routes. TPWD's <a href="https://tpwd.texas.gov/boating/paddling-trails/faqs/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">paddling FAQs</a> also explain current Texas PFD requirements, including mandatory wear for children under 13 when their vessel is underway.</p>
+            </div>
+          </section>
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
             <p className="eyebrow text-primary">Before you launch</p>
             <h2 id="before-launch" className="mt-2 font-display text-3xl">Check the route, weather and exit plan before launching</h2>
@@ -196,6 +216,12 @@ function TexasPaddlingGuidePage() {
                     <p className="mt-2"><strong>Route:</strong> {verifiedTrips[index].route}</p>
                     <p className="mt-1"><strong>Access:</strong> {verifiedTrips[index].access}</p>
                     <p className="mt-1"><strong>Decision point:</strong> {verifiedTrips[index].check}</p>
+                    <div className="mt-5 border-t border-border pt-4">
+                      <h3 className="font-display text-xl">Launch and current-condition decision</h3>
+                      <p className="mt-2"><strong>Access:</strong> {waterConditionDesk[index].decision}</p>
+                      <p className="mt-2"><strong>Same-day check:</strong> {waterConditionDesk[index].second}</p>
+                      <a href={waterConditionDesk[index].conditionsUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-semibold text-primary underline">Check the relevant official forecast or water data</a>
+                    </div>
                     <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
                       <a href={verifiedTrips[index].official} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">TPWD map, access and route details ↗</a>
                       <Link to={verifiedTrips[index].related} className="font-semibold text-primary underline underline-offset-4">Explore related TexasDefined destinations</Link>
