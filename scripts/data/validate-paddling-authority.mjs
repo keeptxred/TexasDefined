@@ -6,6 +6,25 @@ const route = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.t
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-paddling-guide.lazy.tsx'), 'utf8');
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const errors = [];
+// Retain the research-backed 95+ remediation, not just prior general place names.
+const additional95PlusEvidence = [
+  "const paddlingAccessMap = [",
+  "paddle-access-map",
+  "Terry Hershy Park access",
+  "USGS-08096500",
+  "8775083",
+  "TPWD access-point map",
+  "30.2911,-97.7879",
+  "29.7694,-95.6434",
+  "31.5628, -97.1293",
+  "32.6942,-94.1758",
+  "27.8691,-97.0834",
+  "about five miles"
+];
+for (const marker of additional95PlusEvidence) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
+}
+
 // Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
 if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table"')) {
   errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');

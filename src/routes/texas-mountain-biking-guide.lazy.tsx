@@ -49,6 +49,45 @@ const trailheadDesk = [
   { entry: "Choose the trailhead and route from the Hill Country State Natural Area trail map rather than using a generic Bandera map pin.", choice: "Merrick Mile is an easier opening comparison than committing immediately to steeper shared-use grades. Yield to horses and hikers and carry water: facilities are primitive.", source: "https://tpwd.texas.gov/state-parks/hill-country/trails-map" },
   { entry: "Start with the Tyler State Park signed trail loops and confirm the park entrance and day-use space before arrival.", choice: "A Loop and B Loop are each moderate, not beginner-flat just because they are short. Cyclists move clockwise on shared-use routes, hikers the opposite direction; closures after rain can remove the planned loop.", source: "https://tpwd.texas.gov/state-parks/tyler/trails-info/" },
 ] as const;
+// These are TPWD park-level elevations, not fabricated climb totals for a route.
+const approachComparisons = [
+  {
+    name: "Franklin Mountains",
+    elevation: "TPWD: North Franklin Mountain 7,192 ft; Trans-Mountain Highway 5,120 ft. Neither figure is a bike-route elevation gain.",
+    arrival: "Tom Mays Unit: take the Canutillo/Trans Mountain Road exit from I-10, then travel approximately 3.5 miles toward the mountains. Use the designated day-use/trailhead parking shown on the current map.",
+    choice: "Rocky desert terrain and exposed climbing create a higher-consequence day than the shorter woodland loops. The Smugglers Pass/Ron Coleman parking area is a separate hiking approach, not a substitute MTB trailhead.",
+    href: "https://tpwd.texas.gov/state-parks/franklin-mountains/map",
+  },
+  {
+    name: "Big Bend Ranch",
+    elevation: "TPWD: park elevations range from 2,350 ft to over 5,000 ft; this is not the elevation gain of the Contrabando trails.",
+    arrival: "Use the East or West Contrabando trailhead designated on TPWD's official route map for that trail system. Puerta Chilicote serves a different, more remote system in the highlands.",
+    choice: "Choose the Contrabando loop distance and your return point first; carry offline navigation and sufficient water. Remote approach roads and heat outweigh an attractive park-wide mileage figure.",
+    href: "https://tpwd.texas.gov/state-parks/big-bend-ranch/activities",
+  },
+  {
+    name: "Palo Duro Canyon",
+    elevation: "TPWD: the park spans approximately 2,759–3,463 ft; the 704-ft park-wide range is not Capitol Peak's ride ascent.",
+    arrival: "Drive into the canyon using the signed park road and use the Capitol Peak mountain-bike-only loop's mapped parking/entry rather than a generic rim overlook.",
+    choice: "The 3.5-mile Capitol Peak loop changes from green to blue to black sections. Heat in the canyon and rain-related closures can be more significant than nominal ride length.",
+    href: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info/",
+  },
+  {
+    name: "Hill Country SNA",
+    elevation: "TPWD reports elevations up to 2,000 ft; individual shared-use climbs vary considerably by signed trail.",
+    arrival: "From Bandera, follow the TPWD directions via State Highway 173 and Ranch Road 1077 to the park entrance; park at the signed trailhead for your chosen route.",
+    choice: "Merrick Mile is the better short first test than committing to exposed rocky plateau routes. Check current wet-weather restrictions: higher and lower trails may have different status.",
+    href: "https://tpwd.texas.gov/state-parks/hill-country/map",
+  },
+  {
+    name: "Tyler State Park",
+    elevation: "TPWD lists approximately 558 ft park elevation, but the B Loop description specifically warns of repeated elevation changes.",
+    arrival: "Enter Tyler State Park, reserve day-use access if needed, and choose the A or B loop on the park's signed map; do not confuse the lake boat ramp with the bike-loop entry.",
+    choice: "Forest shade and shorter mileage do not make a flat beginner route. A and B are moderate shared-use loops; bicycle traffic travels clockwise.",
+    href: "https://tpwd.texas.gov/state-parks/tyler/trails-info/",
+  },
+] as const;
+
 const officialSources = [
   { label: "TPWD — Franklin Mountains Map and Access", href: "https://tpwd.texas.gov/state-parks/franklin-mountains/map", note: "Official Tom Mays entry approach, signed trailheads and parking choices." },
   { label: "TPWD — Texas State Park Reservations", href: "https://tpwd.texas.gov/state-parks/reservations/", note: "Book date-specific day use or camping where required; current reservations and capacities vary by park." },
@@ -240,6 +279,22 @@ function TexasMountainBikingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="trailhead-grade-planning">
+            <p className="eyebrow text-primary">Park approaches · parking · terrain</p>
+            <h2 id="trailhead-grade-planning" className="mt-2 font-display text-3xl">Five trailhead decisions that change the ride</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Elevation comparisons below use TPWD's published park-wide elevations, not unmeasured climbing totals for individual bike routes. A 3.5-mile technical canyon loop can demand more than a longer shaded forest ride. The signed map and current trail status decide the actual approach.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {approachComparisons.map((place) => (
+                <div key={place.name} className="min-w-0 border border-border p-5">
+                  <h3 className="font-display text-xl">{place.name}</h3>
+                  <p className="mt-3 text-sm leading-7"><strong>Elevation context:</strong> {place.elevation}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Arrive and park:</strong> {place.arrival}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Route judgment:</strong> {place.choice}</p>
+                  <a href={place.href} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">TPWD map and latest access details</a>
+                </div>
+              ))}
+            </div>
+          </section>
           <section className="border-b border-border py-10" aria-labelledby="why-these-five">
             <p className="eyebrow text-primary">Why these five?</p>
             <h2 id="why-these-five" className="mt-2 font-display text-3xl">A statewide sampler, not five interchangeable parks</h2>
