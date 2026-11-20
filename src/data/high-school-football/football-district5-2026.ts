@@ -1,11 +1,12 @@
 import type { DistrictFootballGame } from './football-district-game-week';
 
-// Reviewed source snapshot, NOT a live feed. District fixtures and pre-Oct 16 finals
-// come from Pigskin Prep; Oct 16 finals cross-checked with the UIL's MaxPreps partner.
+// Dated researched finals through Nov. 5, 2026, NOT a live feed.
+// October league results sourced to Pigskin Prep, SI high-school date scoreboards,
+// UIL MaxPreps and independent DFW regional reporting. No unsupported results.
 // Lewisville Flower Mound, Lewisville Hebron and Lewisville Marcus use the UIL page names.
 export const DISTRICT_5_SCHEDULE_URL = 'https://pigskinprep.com/showfreeschedules.asp?distID=266&yr=2026';
 export const DISTRICT_5_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-5/?leagueid=20c93622-4d8b-48f7-8dc8-a3983405b170';
-const VERIFIED_AT = '2026-10-17';
+const VERIFIED_AT = '2026-11-20';
 
 const final = (
   date: string, away: string, home: string, awayScore: number, homeScore: number,
@@ -43,16 +44,16 @@ export const DISTRICT_5_2026_GAMES: readonly DistrictFootballGame[] = [
   final('2026-10-16', 'Denton Braswell', 'Lewisville Marcus', 38, 14, DISTRICT_5_STANDINGS_URL, 'MaxPreps reported final'),
   final('2026-10-16', 'Lewisville Flower Mound', 'Frisco Wakeland', 48, 21, DISTRICT_5_STANDINGS_URL, 'MaxPreps reported final'),
   final('2026-10-16', 'Little Elm', 'Denton Guyer', 0, 41, DISTRICT_5_STANDINGS_URL, 'MaxPreps reported final'),
-  scheduled('2026-10-23', 'Frisco Wakeland', 'Denton Braswell'),
-  scheduled('2026-10-23', 'Denton Guyer', 'Lewisville Hebron'),
-  scheduled('2026-10-23', 'Lewisville', 'Lewisville Flower Mound'),
-  scheduled('2026-10-23', 'Lewisville Marcus', 'Little Elm'),
-  scheduled('2026-10-30', 'Denton Braswell', 'Lewisville'),
-  scheduled('2026-10-30', 'Lewisville Flower Mound', 'Lewisville Hebron'),
-  scheduled('2026-10-30', 'Lewisville Marcus', 'Denton Guyer'),
-  scheduled('2026-10-30', 'Little Elm', 'Frisco Wakeland'),
-  scheduled('2026-11-05', 'Lewisville Hebron', 'Denton Braswell'),
-  scheduled('2026-11-05', 'Denton Guyer', 'Lewisville Flower Mound'),
-  scheduled('2026-11-05', 'Frisco Wakeland', 'Lewisville Marcus'),
-  scheduled('2026-11-05', 'Lewisville', 'Little Elm'),
+  final('2026-10-23', 'Frisco Wakeland', 'Denton Braswell', 31, 28, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-23', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-23', 'Denton Guyer', 'Lewisville Hebron', 48, 6, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-23', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-23', 'Lewisville', 'Lewisville Flower Mound', 28, 18, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-23', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-23', 'Lewisville Marcus', 'Little Elm', 13, 29, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-23', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-30', 'Denton Braswell', 'Lewisville', 14, 58, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-30', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-30', 'Lewisville Flower Mound', 'Lewisville Hebron', 41, 42, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-30', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-30', 'Lewisville Marcus', 'Denton Guyer', 14, 58, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-30', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-10-30', 'Little Elm', 'Frisco Wakeland', 22, 25, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-10-30', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-11-05', 'Lewisville Hebron', 'Denton Braswell', 19, 20, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-11-05', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-11-05', 'Denton Guyer', 'Lewisville Flower Mound', 40, 21, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-11-05', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-11-05', 'Frisco Wakeland', 'Lewisville Marcus', 24, 35, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-11-05', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
+  final('2026-11-05', 'Lewisville', 'Little Elm', 41, 14, 'https://www.si.com/high-school/stats/texas/25085-division-6a-region-1-district-5/football/scores?date=2026-11-05', 'SI high-school dated game results; independently checked against Pigskin Prep / regional coverage'),
 ];
