@@ -6,6 +6,11 @@ name: Sitewide source-backed automatic content refresh
 on:
   schedule:
     - cron: '47 14 * * *'
+  # Prove the selector once when this automation first reaches protected main.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sitewide-source-backed-rewrite.yml'
   workflow_dispatch:
 
 permissions:
