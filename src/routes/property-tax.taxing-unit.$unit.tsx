@@ -66,6 +66,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         url: pageUrl,
         temporalCoverage: `${history[0]?.year}/${hasWestWhartonAuthority ? Math.max(latest.year, westWhartonHospitalDistrict.localAdopted2026.year) : hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, isdEvidence!.officialYear) : history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
+        ...(hasWestWhartonAuthority ? { author: { '@type': 'Organization', name: 'Texas Defined Homes & Property Desk', url: 'https://texasdefined.com/authors/a-homes-land' } } : {}),
         ...(hasWestWhartonAuthority ? { dateModified: westWhartonHospitalDistrict.lastVerified, identifier: westWhartonHospitalDistrict.officialTaxingUnitId, spatialCoverage: { '@type': 'Place', name: 'West Wharton County, Texas' } } : {}),
         // Cite every yearly Comptroller workbook as well as any separately
         // sourced local-rate evidence; do not imply the latest source covers
