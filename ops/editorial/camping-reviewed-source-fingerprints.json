@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-19",
+  "policy": "Exact per-URL approved source fingerprint, independently observed in GitHub Actions artifact after researched protected PRs #7415–#7418 merged. Never treat a changed fingerprint or an HTTP 200 as an automatic factual review.",
+  "proof": {
+    "runId": 44628522509,
+    "artifactId": 14581180742,
+    "capturedAt": "2026-11-19T22:25:55.438Z"
+  },
+  "approvals": [
+    {
+      "url": "https://tpwd.texas.gov/state-parks/sea-rim/fees-facilities/campsites",
+      "sha256": "2f490c67e1e3a708062dd41a42acc32fb7b48b28b62120f9de9db8d2264caea7",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7418
+    },
+    {
+      "url": "https://www.nps.gov/bibe/planyourvisit/camping.htm",
+      "sha256": "dd344666189fc634552d63241e34e82b05eb85af4f2fea8d8b31cf96dbb79956",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7416
+    },
+    {
+      "url": "https://www.recreation.gov/camping/campgrounds/258851",
+      "sha256": "b7eca4943abc7a8187643785b1b713e3133d63a75cd1dd0064a6e455192807c3",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7418
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/possum-kingdom/alert",
+      "sha256": "318afdf52d4a7d5381c1880ee0a2e9b6dd6f2c751b8695733e9ec2a50ad0326b",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7415
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/atlanta/alert",
+      "sha256": "0252ddcd5d6e15ac357505c24f0a50d5317e69e736874becbc94362d539bd75d",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7415
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/government-canyon",
+      "sha256": "62bc449af124d743e5515063aacdae89b02351ebc8c3b885a0cd812cc6347448",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7418
+    },
+    {
+      "url": "https://lcraparks.com/parks/lake-bastrop-south-shore-park",
+      "sha256": "738a16dfd033c40b2b915e54a5956a4730f01ed3d413d5416cd8985fc5cbfb69",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7417
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+      "sha256": "487c1e01e5b62ddce3f019f746a5329e1a1d088598923d598f19a76554d005b8",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7418
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/cedar-hill",
+      "sha256": "0f709ca9af470077c933d3f281a678a4b20aede739ba6488cfea4572255708b0",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7417
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/abilene/alert",
+      "sha256": "343ce5d048d67b1b1e5dad1cb504bb39c0c125b2de099e6877ed11b557d57d03",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7415
+    },
+    {
+      "url": "https://tpwd.texas.gov/state-parks/cooper-lake/alert",
+      "sha256": "03208126ceddbe8b9aef2c9b6361ec5175785812435fd34481e7886041a5a4e0",
+      "reviewedAt": "2026-11-19",
+      "researchPr": 7417
+    }
+  ]
+}
