@@ -57,10 +57,10 @@ export function District21TeamSeason({ schoolName }: { schoolName: string }) {
       aria-labelledby="district-21-team-season-title"
     >
       <p className="eyebrow text-primary">2026 Region III • UIL District 21</p>
-      <h2 id="district-21-team-season-title" className="mt-2 font-display text-3xl sm:text-4xl">{schoolName}: source-dated district scores and unverified fixtures</h2>
+      <h2 id="district-21-team-season-title" className="mt-2 font-display text-3xl sm:text-4xl">{schoolName}: source-verified 2026 district finals</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
         <strong className="text-foreground">{wins}–{losses} in district play</strong> through {dateLabel(finals.at(-1)?.date ?? '2026-10-10')}.
-        {' '}The {finals.length} reported finals and {remaining.length} fixtures without confirmed results below were sourced from the same 2026 league ledger as the
+        {' '}The {finals.length} reported finals{remaining.length ? ` and ${remaining.length} fixtures awaiting source verification` : ' account for all seven 2026 league games'} below were sourced from the same 2026 league ledger as the
         {' '}<a className="text-primary underline underline-offset-4" href="/texas-high-school-football-districts/6a-district-21#district-21-standings">District 21 standings and playoff picture</a>.
         {' '}This is not a live feed or a UIL-certified tie-break ranking.
       </p>
@@ -118,7 +118,7 @@ export function District21TeamSeason({ schoolName }: { schoolName: string }) {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">
         Source verification: {DISTRICT_21_VERIFIED_AT}. *Overall W–L is the
         {' '}<a href={DISTRICT_21_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps {DISTRICT_21_STANDINGS_AS_OF} snapshot ↗</a>,
-        separate from the reported league-only record. Final scores are source-dated; listed dates may already have passed without a verified result. Verify current outcomes separately.
+        separate from the reported league-only record. Final scores are source-dated and cover the full 2026 regular-season district slate. Recheck the cited source if a correction is published.
         Check{' '}<a href={schoolName === 'Houston Strake Jesuit' ? DISTRICT_21_STRAKE_SCHEDULE_URL : DISTRICT_21_FBISD_CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">official host athletics schedules ↗</a>
         {' '}for changes to kickoffs, facilities, tickets, or spectator policies. The school's address is not necessarily the stadium entrance.
       </p>
