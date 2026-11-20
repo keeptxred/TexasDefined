@@ -51,6 +51,7 @@ function verifyHospital(html) {
     ['2026 county-adopted rate identified', html.includes('2026 hospital district rate') && html.includes('Wharton County') && html.includes('0.23210')],
     ['2026 rate visible in initial page body', html.includes('id="wwchd-current-rate"') && html.includes('West Wharton hospital district — 2026 tax rate') && html.includes('Verify parcel jurisdictions with Wharton CAD')],
     ['original source-check method', html.includes('How this page was checked:') && html.includes('2026 adopted-rate table')],
+    ['visible desk and review date', html.includes('/authors/a-homes-land') && (html.includes('Texas Defined Homes') && html.includes('November 20, 2026'))],
     ['2026 original primary evidence', html.includes(facts.sources.county2026AdoptedTable)],
     ['county five-year truth in taxation summary linked', html.includes(facts.sources.countyFiveYearSummary)],
     ['independent historic district worksheets linked', html.includes(facts.sources.county2024UnitWorksheet) && html.includes(facts.sources.county2023UnitWorksheet) && html.includes('A second county document corroborates the 2023 figure')],
