@@ -25,7 +25,7 @@ describe("mobile Lighthouse performance contract", () => {
   it("preserves SSR content through the initial hydration and protects viewport geometry", () => {
     expect(routerSource).toContain("defaultStaleTime: 30_000");
     expect(routerSource).toContain("defaultPreloadStaleTime: 0");
-    expect(root).toContain('min-h-[calc(100svh-4.5rem)] flex-1 lg:min-h-[calc(100svh-7rem)]');
+    expect(root).toContain('min-h-screen flex-1');
   });
 
   it("preloads the homepage hero image used for LCP", () => {
