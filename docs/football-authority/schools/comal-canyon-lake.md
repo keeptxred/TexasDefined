@@ -29,37 +29,14 @@ Unique original team reporting, school founding, 2026 schedule and standings int
 
 The existing page canonical, WebPage / SportsTeam / FAQ / breadcrumb structured data and roster profile index protections are preserved. Specific game venue/ticket claims are qualified as scheduled and subject to changes. Source checks are not a substitute for exact live page and mobile layout certification.
 
-## Scheduled GitHub data refresh (2026)
-The independent workflow [`.github/workflows/refresh-canyon-lake-football.yml`](../../../.github/workflows/refresh-canyon-lake-football.yml) runs **every Saturday at 13:37 UTC year-round**, with an additional **Tuesday 13:37 UTC** correction pass August–December. The existing 25-source rotational school/UIL monitor is preserved, not duplicated. The workflow can also be dispatched manually.
+## Day-after-game GitHub research (no live scores or automatic publication)
+The [Canyon Lake research workflow](../../../.github/workflows/refresh-canyon-lake-football.yml) now checks for final scores **the day after a game** using public reporting and keeps an issue with the sources found. It runs at **17:37 UTC** (late morning/early afternoon Central) **daily August–December**, and every Saturday year-round. A Friday evening game receives its first scheduled check Saturday; a Thursday game on Friday, a Saturday game on Sunday, and so on. Manual GitHub dispatch remains available. A scheduled check is a lookup, not a claim that a final is already available.
 
-Each run validates the canonical Canyon Lake roster, reports last source-review date and any past unconfirmed games, and saves a bounded audit artifact. When the November 20 game is past but unverified, it creates/updates **one GitHub issue** requesting an independently corroborated editorial update. Public UIL/MaxPreps page viewing is not a licensed automated score feed.
+The research script `scripts/data/research-canyon-lake-weekly.mjs` uses Google News and Bing News public RSS search metadata for Canyon Lake and each overdue opponent, links to the public varsity results page and the district standings source, and records the previously documented scores and unreported games. When a headline unambiguously names both teams with points, it may include that score as an **unverified lead**, labeled as such. A published game final is verified from source reports before being entered into the team ledger.
 
-**Actual weekly source discovery:** `scripts/data/research-canyon-lake-weekly.mjs` queries two public news RSS discovery endpoints (Google News RSS and Bing News RSS) using bounded school/game-score and District 13-4A Division I standings queries. It reads only recent headline, source, publication date and link metadata—**never article bodies or an unlicensed scores/standings data feed**. It also checks five direct school, UIL, score-reference and district-standings links by HTTP HEAD. The report derives Canyon Lake's *own* overall and district W–L, points for/against and overdue fixtures from the existing source-attributed game ledger. It records external standings candidates separately, **never invents complete district standings, official seed or tiebreak position**. Every scheduled run writes `artifacts/canyon-lake-refresh/research.json` and `research.md`, uploads them and updates one GitHub issue named **"Canyon Lake football: weekly scores and District 13 standings research"** so a reviewer can independently corroborate source leads. News RSS failures are surfaced, not silently treated as proof of no score.
+**No paid score feed is needed to research a final. No live-score tracking, external provider credentials, automated result import, score PR, or unattended publication is part of this scheduled job.** It updates the single [score and standings research issue](https://github.com/keeptxred/TexasDefined/issues/7456) and keeps a dated JSON/Markdown artifact. If reports are unavailable or disagree, the issue records the missing proof instead of fabricating a score. The site is then corrected through an ordinary source-backed editorial PR and protected deployment, including overall and district math, postseason outcome, FAQ, SEO, next fixture, and any confirmed venue or ticket change. District standings must not be represented as UIL-certified without corroboration.
 
-The research step is **not itself authority to publish**. The already existing licensed two-feed importer can automatically generate a factual score PR and recalculate the team record after independently corroborating a final; the protected exact-SHA finisher validates and merges the PR. Fully automatic import of a complete District 13 standings table requires separately authorized, verified district-wide source data, which is **not yet configured**. Until then, the job links to the UIL *alignment* (membership, not standings) and to the third-party standings reference page for editorial verification without asserting a certified rank.
-
-**Automatic score updates require two separately hosted, explicitly licensed JSON endpoints**, configured in GitHub repository Actions variables `CANYON_LAKE_SCORE_PRIMARY_URL` and `CANYON_LAKE_SCORE_SECONDARY_URL`, plus optional secrets `CANYON_LAKE_SCORE_PRIMARY_TOKEN` and `CANYON_LAKE_SCORE_SECONDARY_TOKEN`. The expected JSON on each provider is:
-
-```json
-{
-  "season": "2026",
-  "teamSlug": "comal-canyon-lake",
-  "games": [
-    {
-      "date": "2026-11-20",
-      "opponent": "Port Lavaca Calhoun",
-      "status": "final",
-      "hawksScore": 28,
-      "opponentScore": 21,
-      "sourceUrl": "https://YOUR-LICENSED-SCORE-PROVIDER.example/verified-final"
-    }
-  ]
-}
-```
-
-The numbers in this schema example are **illustrative only, not a reported game score**. Never copy them into the production team ledger. Sources must be independent, HTTPS, outside local/private networks, and agree exactly. The importer will not infer a win from a bracket or publish a same-day/future or previously unknown fixture. Conflicts halt without publication and open a blocker issue. When both sources corroborate a final, the workflow generates a protected source PR with the new result, derived overall/district record, points totals, source labels, introductory summary, dated postseason recap, FAQ and description. GitHub's dedicated `.github/workflows/finish-canyon-lake-football-refresh.yml` finisher explicitly dispatches exact-branch canonical validation and Merge Gate (because bot-created PR events cannot implicitly launch them), rechecks a one-file bot-owned diff and exact head SHA, and only then enables the protected merge. Required Merge Gate, source tests, live score-source parity check, Cloudflare production deploy, targeted HTML cache purge and three-viewport acceptance must still succeed before claiming publication. A new playoff fixture (date/opponent/venue) remains an editorial task until separately verified.
-
-Without both licensed sources, the scheduled job **does not auto-publish any new score**; the Saturday review issue remains actionable. This is a deliberate correctness and licensing boundary, not a stopped GitHub schedule.
+The older `scripts/data/refresh-canyon-lake-results.mjs` provider importer remains historical code but **is no longer invoked by any Canyon Lake scheduled workflow**. The automated score PR finisher workflow was retired. There is no reason to obtain licensed JSON-feed access for this user's requested next-day lookup.
 
 ## Required refresh and release checks
 The existing scheduled `.github/workflows/check-football-authority-official-sources.yml` includes the single school official-source monitoring entry in `docs/football-authority/official-source-watch.json`, now due **2026-11-21** immediately after the November 20 game. It watches source availability/fingerprints with bounded cohorts, not automatically licensed sports scores. A post-game editorial correction must verify the final, elimination/advancement, new fixture and any venue/ticket changes; never allow a played fixture to remain presented as upcoming without review.
