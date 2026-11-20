@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const ohvHeroUrl = "https://www.nps.gov/lamr/planyourvisit/images/Rosita-16-wp.jpg?autorotate=false&maxwidth=1300";
 const canonicalPath = "/texas-ohv-guide";
@@ -50,7 +50,7 @@ export const Route = createFileRoute(canonicalPath)({
           contentUrl: ohvHeroUrl,
           creator: { "@type": "Organization", name: "National Park Service" },
           creditText: "National Park Service photo, Rosita Flats, Lake Meredith",
-          license: "https://www.nps.gov/media/photo/gallery-item.htm?gid=69761879-1DD8-B71B-0B77-C7FFBAD5853B&id=6a0a25fd-1dd8-b71b-0b1c-f2c140fbba6a",
+          license: "https://creativecommons.org/publicdomain/mark/1.0/",
           acquireLicensePage: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
           copyrightNotice: "Public domain NPS photo",
         },
