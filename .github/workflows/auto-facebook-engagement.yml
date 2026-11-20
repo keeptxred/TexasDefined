@@ -1,8 +1,13 @@
 name: TexasDefined OpenAI Facebook Engagement
 
-# Creative engagement experiments are manual only. Daily Facebook publishing
-# is owned by the editorial article job in keeptxred/texas-heartland-hub.
+# Creative engagement is manual only except for a single protected-main
+# owner-approved JSON post request. Daily editorial Facebook publishing
+# remains owned by keeptxred/texas-heartland-hub.
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/social-approved-facebook-posts/*.json'
   workflow_dispatch:
     inputs:
       slot:
@@ -38,6 +43,8 @@ jobs:
     steps:
       - name: Check out TexasDefined
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 2 # Compare exactly the protected push before/after revisions
 
       - name: Resolve Central-time slot
         id: slot
@@ -57,6 +64,12 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             slot="$MANUAL_SLOT"
             dry_run="$MANUAL_DRY_RUN"
+            should_run=true
+          elif [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            # Path-filtered, protected-main merge of an approved post request.
+            # The publisher retains immutable artifact, duplicate and OIDC checks.
+            slot=morning
+            dry_run=false
             should_run=true
           else
             # GitHub scheduled workflows can start hours after their nominal cron
@@ -100,10 +113,32 @@ jobs:
         env:
           TD_SOCIAL_DATE: ${{ steps.slot.outputs.date_key }}
           TD_SOCIAL_SLOT: ${{ steps.slot.outputs.slot }}
+          TD_PUSH_BEFORE: ${{ github.event.before }}
+          TD_PUSH_AFTER: ${{ github.sha }}
         run: |
           set -euo pipefail
           mkdir -p /tmp/tdfb
-          node scripts/social/select-facebook-engagement.mjs > /tmp/tdfb/candidate.json
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            # A protected merge may authorize one and only one exact post.
+            # Never pick a random evergreen post for a one-time push request.
+            if [[ -z "$TD_PUSH_BEFORE" || ! "$TD_PUSH_BEFORE" =~ ^[a-f0-9]{40}$ || ! "$TD_PUSH_AFTER" =~ ^[a-f0-9]{40}$ ]]; then
+              echo "Invalid approved Facebook push revision" >&2
+              exit 1
+            fi
+            mapfile -t approved_files < <(git diff --name-only --diff-filter=AM "$TD_PUSH_BEFORE" "$TD_PUSH_AFTER" -- 'src/data/social-approved-facebook-posts/*.json')
+            if [[ "${#approved_files[@]}" -ne 1 ]]; then
+              echo "Approved Facebook push must contain exactly one added or modified post JSON" >&2
+              exit 1
+            fi
+            approved_file="${approved_files[0]}"
+            if [[ ! -f "$approved_file" ]]; then
+              echo "Approved Facebook post request file missing" >&2
+              exit 1
+            fi
+            TD_SOCIAL_APPROVED_POST_FILE="$approved_file" node scripts/social/select-facebook-engagement.mjs > /tmp/tdfb/candidate.json
+          else
+            node scripts/social/select-facebook-engagement.mjs > /tmp/tdfb/candidate.json
+          fi
 
           python3 - <<'PY'
           import json

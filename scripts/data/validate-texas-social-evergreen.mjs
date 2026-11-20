@@ -95,8 +95,47 @@ if (selected.some((item) => !item.id || !item.message || !item.category)) {
 }
 if (selected[0].id === selected[1].id) throw new Error("Morning and evening Facebook selectors must not choose the same post");
 
+const approvedFile = "src/data/social-approved-facebook-posts/2026-11-20-barbacoa-big-red.json";
+const approvedManifest = JSON.parse(fs.readFileSync(path.join(root, approvedFile), "utf8"));
+const approvedResult = JSON.parse(execFileSync(
+  process.execPath,
+  [path.join(root, selectorFile)],
+  {
+    cwd: root,
+    env: {
+      ...process.env,
+      TD_SOCIAL_DATE: "2026-11-20",
+      TD_SOCIAL_SLOT: "morning",
+      TD_SOCIAL_APPROVED_POST_FILE: approvedFile,
+    },
+    encoding: "utf8",
+  },
+));
+if (
+  approvedManifest.approved !== true ||
+  approvedManifest.site !== "texasdefined" ||
+  approvedResult.id !== approvedManifest.id ||
+  approvedResult.message !== approvedManifest.message ||
+  approvedResult.category !== "food" ||
+  !approvedResult.message.includes("https://texasdefined.com/barbacoa-big-red-san-antonio")
+) {
+  throw new Error("Approved Facebook post selection altered the exact owner-reviewed message");
+}
+
+
 const automationFile = ".github/workflows/auto-facebook-engagement.yml";
 const automation = fs.readFileSync(path.join(root, automationFile), "utf8");
+for (const marker of [
+  "paths:",
+  "'src/data/social-approved-facebook-posts/*.json'",
+  "fetch-depth: 2",
+  '[[ "$GITHUB_EVENT_NAME" == "push" ]]',
+  "TD_SOCIAL_APPROVED_POST_FILE=",
+  "if [[ \"${#approved_files[@]}\" -ne 1 ]]",
+]) {
+  if (!automation.includes(marker)) throw new Error(`Approved one-post GitHub push marker missing: ${marker}`);
+}
+
 for (const marker of [
   'OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}',
   "prompt = 'Generate an image for this Facebook post.\\n\\n' + post_text",
