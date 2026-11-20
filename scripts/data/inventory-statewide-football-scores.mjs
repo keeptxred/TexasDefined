@@ -154,9 +154,13 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
   const verified=new Set(JSON.parse(read(join(dir,'aubrey-auto-results.snapshot.json'))).verifiedResults.map(r=>r.date+'|'+r.opponent));
   const due=(aubrey.games||[]).filter(g=>g.date<today&&!verified.has(g.date+'|'+g.opponent));
   const aubreyUrl=SITE+'/texas-high-school-football-teams/aubrey';
-  if(due.length&&!pages.some(p=>p.page===aubreyUrl))pages.push({kind:'team',page:aubreyUrl,slug:'aubrey',
-    reason:'overdue-fixture',sourceFile:'aubrey-postseason-fixtures.snapshot.json',
-    overdue:due.map(g=>({date:g.date,away:'Aubrey',home:g.opponent}))});
+  if(due.length){
+    const postseason=due.map(g=>({date:g.date,away:'Aubrey',home:g.opponent}));
+    const present=pages.find(p=>p.page===aubreyUrl);
+    if(present){present.reason='overdue-fixture';present.overdue.push(...postseason);}
+    else pages.push({kind:'team',page:aubreyUrl,slug:'aubrey',reason:'overdue-fixture',
+      sourceFile:'aubrey-postseason-fixtures.snapshot.json',overdue:postseason});
+  }
   const unique=new Map();
   for(const p of pages){const old=unique.get(p.page);if(old){old.overdue.push(...p.overdue);}else unique.set(p.page,p);}
   const selected=[...unique.values()].sort((a,b)=>a.page.localeCompare(b.page));
