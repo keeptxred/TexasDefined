@@ -45,7 +45,7 @@ for (const group of registry.groups) {
 // creates nested landmarks on all three Chrome viewports and breaks screen-reader
 // navigation. Keep this regression guard even if public sources pass.
 const climbingRoute = await readFile("src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx", "utf8");
-assert.ok(!/<\\/?main(?:\\s|>)/i.test(climbingRoute),
+assert.ok(!/<\/?main(?:\s|>)/i.test(climbingRoute),
   "Climbing authority page must not nest a second main inside the app shell");
 console.log("FIVE_GUIDE_STATIC_PASS " + JSON.stringify(rows));
 if (argv.has("--watch")) {
