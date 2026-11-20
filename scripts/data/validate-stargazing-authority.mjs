@@ -7,6 +7,17 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-stargazing-g
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Guard additional place-specific access, source and visitor-planning improvements.
+for (const marker of [
+  "afterDarkDesk",
+  "afterDarkDesk[index].site",
+  "aa.usno.navy.mil/data/RS_OneYear",
+  "science.nasa.gov/moon/moon-phases",
+  "night-planning"
+]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
+}
+
 
 for (const marker of [
   'const canonicalPath = "/texas-stargazing-guide";',
