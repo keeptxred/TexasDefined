@@ -11,19 +11,19 @@ import { pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../..');
 const API = 'https://api.github.com';
 const REPO = process.env.GITHUB_REPOSITORY || 'keeptxred/TexasDefined';
-const ISSUE_QUERY = 'repo:' + REPO + ' is:issue is:open in:title,body source refresh';
+const ISSUE_TERMS = ['source', 'freshness', 'editorial', 'authority'];
 const RUN_LIMIT = 1;
 const ISSUE_LIMIT = 100;
 const SOURCE_LIMIT = 3;
 const MAX_HTML = 160_000;
-const PAGE_PATTERN = /(?:https:\/\/texasdefined\.com)?(\/(?:destination|article|event|events|city|county|property-tax|fishing|hunting|texas-[a-z0-9-]+|moving-to-texas|outdoors|sports|holiday)[a-z0-9\/-]*)/g;
+const PAGE_PATTERN = /https:\/\/texasdefined\.com(\/[a-z0-9][a-z0-9\/-]{4,125})|(?:^|[\s\u0060(])(\/[a-z][a-z0-9-]{2,}(?:\/[a-z0-9-]+)*)/g;
 const URL_PATTERN = /https:\/\/[a-zA-Z0-9.-]+(?:\/[^\s<>"'\u0060)\\]*)?/g;
 const TRUSTED_HOST = /(?:\.gov|\.edu|\.org|\.com)$/i;
 const REJECT_HOST = /(?:^|\.)((?:github|google|texasdefined|cloudflare|openai|localhost)\.(?:com|org|dev)|(?:example|invalid)\.(?:com|org))$/i;
 
 export function findPagePaths(value) {
   return [...new Set([...String(value || '').matchAll(PAGE_PATTERN)]
-    .map(m => m[1].replace(/[.,;:]+$/, ''))
+    .map(m => (m[1] || m[2]).replace(/[.,;:]+$/, ''))
     .filter(p => p.length > 6 && p.length < 125))];
 }
 export function findOfficialSourceUrls(value) {
@@ -60,12 +60,18 @@ function githubHeaders() {
     Accept: 'application/vnd.github+json', 'User-Agent': 'TexasDefined-Source-Backed-Refresh'};
 }
 async function loadIssues(fetcher = fetch) {
-  const query = encodeURIComponent(ISSUE_QUERY);
-  const response = await fetcher(API + '/search/issues?q=' + query + '&sort=updated&order=desc&per_page=' + ISSUE_LIMIT, {
-    headers: githubHeaders(), signal: AbortSignal.timeout(16000),
-  });
-  if (!response.ok) throw Error('GitHub issue search HTTP ' + response.status);
-  return (await response.json()).items || [];
+  const groups = await Promise.all(ISSUE_TERMS.map(async term => {
+    const query = encodeURIComponent('repo:' + REPO + ' is:issue is:open in:title,body ' + term);
+    const response = await fetcher(API + '/search/issues?q=' + query +
+      '&sort=updated&order=desc&per_page=' + ISSUE_LIMIT, {
+      headers: githubHeaders(), signal: AbortSignal.timeout(16000),
+    });
+    if (!response.ok) throw Error('GitHub issue search (' + term + ') HTTP ' + response.status);
+    return (await response.json()).items || [];
+  }));
+  const unique = new Map(groups.flat().map(issue => [issue.number, issue]));
+  return [...unique.values()].sort((a,b) =>
+    String(b.updated_at).localeCompare(String(a.updated_at)));
 }
 function sourceText(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
