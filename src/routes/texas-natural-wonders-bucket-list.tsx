@@ -26,6 +26,7 @@ export const Route = createFileRoute(canonicalPath)({
       url: pageUrl,
       name: guide.title,
       description: guide.dek,
+      dateModified: "2026-11-20",
       isPartOf: { "@id": `${siteUrl}/#website` },
       about: [
         { "@type": "Thing", name: "Texas natural landscapes" },
