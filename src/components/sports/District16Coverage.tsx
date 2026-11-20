@@ -3,6 +3,7 @@ import {
   DISTRICT_16_CFISD_SCHEDULE_URL,
   DISTRICT_16_CFISD_TICKETS_URL,
   DISTRICT_16_NEXT_GAMES,
+  DISTRICT_16_LATE_FINALS,
   DISTRICT_16_RECENT_FINALS,
   DISTRICT_16_STANDINGS,
   DISTRICT_16_STANDINGS_AS_OF,
@@ -21,7 +22,8 @@ export function District16Coverage({ schools }: Props) {
   const texasParts = new Intl.DateTimeFormat('en-US', {timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
   const part = (type: 'year' | 'month' | 'day') => texasParts.find(x=>x.type===type)?.value ?? '';
   const todayTexas = `${part('year')}-${part('month')}-${part('day')}`;
-  const overdueCount = DISTRICT_16_NEXT_GAMES.filter(game => game.date < todayTexas).length;
+  const overdueCount = DISTRICT_16_NEXT_GAMES.filter(game => game.date < todayTexas &&
+    !DISTRICT_16_LATE_FINALS.some(final=>final.date===game.date&&final.away===game.away&&final.home===game.home)).length;
   const teamHref = (match: string) => schools.find((school) =>
     school.schoolName.toLowerCase().includes(match.toLowerCase())
     || (match === 'Cy-Fair' && school.schoolName.toLowerCase().includes('cypress fairbanks'))
@@ -136,26 +138,29 @@ export function District16Coverage({ schools }: Props) {
           </p>
         </div>
         <div>
-          <h3 className="border-b border-border pb-3 font-display text-2xl">October 20 schedule archive · Oct. 22–Nov. 7</h3>
+          <h3 className="border-b border-border pb-3 font-display text-2xl">Late regular-season finals · Oct. 22–Nov. 7</h3>
           <div className="divide-y divide-border">
-            {DISTRICT_16_NEXT_GAMES.map((game) => (
-              <div key={game.date + game.home} data-district16-result="scheduled" className="py-4 text-sm">
-                <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · {game.date < todayTexas ? 'Past fixture — final not verified in this archive' : game.kickoff}</p>
+            {DISTRICT_16_NEXT_GAMES.map((game) => {
+              const reported = DISTRICT_16_LATE_FINALS.find(item => item.date===game.date && item.away===game.away && item.home===game.home);
+              return <div key={game.date + game.home} data-district16-result={reported ? 'final' : 'scheduled'} className="py-4 text-sm">
+                <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · {reported ? 'Reported final · verified Nov. 20' : game.date < todayTexas ? 'Past fixture — final not yet verified' : game.kickoff}</p>
                 <p>{schoolLink(game.away)} at {schoolLink(game.home)}</p>
-              </div>
-            ))}
+                {reported && <p className="mt-1 font-semibold">Final: {reported.awayScore}–{reported.homeScore} · <a className="text-primary underline underline-offset-4" href={reported.sourceUrl} target="_blank" rel="noopener noreferrer">source ↗</a></p>}
+              </div>;
+            })}
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            These were twelve future fixtures when this schedule was published October 20. {overdueCount} now ha{overdueCount === 1 ? 's' : 've'} passed without a verified final in this archive; do not treat them as upcoming or use the October 18 standings as current.
-            One November 7 kickoff is unconfirmed; dates, times and stadium assignments can change.
+            The October 20 schedule supplied the dated pairings; all twelve outcomes have now been checked
+            with public district and UIL-partner reporting. {overdueCount > 0 ? `${overdueCount} games remain unverified.` : 'No remaining unverified league fixture from this dated slate.'}
+            School reports and the official district schedule take priority if a late correction is issued.
             See <a href={DISTRICT_16_CFISD_SCHEDULE_URL} target="_blank" rel="noopener noreferrer"
-              className="text-primary underline underline-offset-4">CFISD's complete official varsity calendar ↗</a> for the rest.
+              className="text-primary underline underline-offset-4">CFISD's official varsity calendar ↗</a> for changes.
           </p>
         </div>
       </div>
 
       <aside className="mt-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
-        <h3 className="font-display text-2xl text-foreground">Four playoff spots; no clinched seed assumed</h3>
+        <h3 className="font-display text-2xl text-foreground">Four playoff qualifiers; no unverified seed order</h3>
         <p className="mt-2">
           In the October 18 historical reporting snapshot, Langham Creek led at 4–0, followed by
           Cypress Woods, Cypress Falls and Cypress Lakes at 3–1. Those records
