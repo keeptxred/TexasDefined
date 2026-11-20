@@ -116,6 +116,25 @@ jobs:
             claim cannot be verified from the supplied excerpt, do not edit that claim.
             Do not claim manual human review; the release remains protected by
             independent source and merge validation. Do not commit or push anything.
+            Do not run full npm builds, npm install, the canonical premerge suite,
+            deployment, or external tests in this read-only drafting job. That
+            work happens after an independent bounded diff check and protected
+            PR creation. Avoid generating untracked reports or build images.
+      - name: Clear only known untracked build-report side effects from drafting
+        shell: bash
+        run: |
+          set -euo pipefail
+          # A writing agent may invoke local validation despite the drafting
+          # instructions. Preserve ALL content files and refuse unknown extras.
+          # Delete only exact premerge-generated reports and intermediary image
+          # outputs when they are *untracked* in the pristine Git checkout.
+          for file in premerge-validation-report.json site-quality-report.json site-quality-report.md \
+            public/images/events/chappell-hill-bluebonnet-festival-20260914.webp \
+            public/images/events/chappell-hill-bluebonnet-festival.webp; do
+            if [[ -f "$file" ]] && ! git ls-files --error-unmatch -- "$file" >/dev/null 2>&1; then
+              rm -f -- "$file"
+            fi
+          done
       - name: Verify bounded factual patch before it gains write credentials
         id: check
         shell: bash
