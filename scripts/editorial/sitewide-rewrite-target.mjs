@@ -135,6 +135,21 @@ export function priorEditorialRewrites(root = ROOT) {
   }
   return reviewed;
 }
+/**
+ * Every scheduled invocation must advance across unreviewed source/page pairs,
+ * including when a source was reachable but no actual correction was justified.
+ * Round-robin reduces no-op paid drafting loops without dropping any source
+ * incident or implying that an HTTP 200 warrants rewriting the page.
+ */
+export function rotateCandidates(rows, runNumber) {
+  if (!Array.isArray(rows)) throw Error('Invalid refresh queue');
+  if (!rows.length) return [];
+  const ordinal = Number(runNumber);
+  if (!Number.isSafeInteger(ordinal) || ordinal < 1)
+    throw Error('Valid monotonically increasing workflow run number required');
+  const offset = (ordinal - 1) % rows.length;
+  return [...rows.slice(offset), ...rows.slice(0, offset)];
+}
 export function scheduledWorkflowInventory(root = ROOT) {
   const dir = path.join(root, '.github/workflows');
   return fs.readdirSync(dir).filter(file => /\.ya?ml$/.test(file))
@@ -220,7 +235,8 @@ async function main() {
   // Always give fresh, unhandled pages priority. A global source-monitor issue
   // MUST remain open after the first page is repaired. Avoid repeating the
   // first event from a 151-page overdue list every day.
-  const candidates = unseen.length ? unseen : [];
+  const runNumber = Number(process.env.GITHUB_RUN_NUMBER || 1);
+  const candidates = rotateCandidates(unseen, runNumber);
   let selected = null, attempted = 0;
   for (let i = 0; i < Math.min(candidates.length, 60); i += 5) {
     const batch = candidates.slice(i, i + 5);
@@ -247,7 +263,8 @@ async function main() {
   fs.writeFileSync('.artifacts/sitewide-rewrite-target.json', JSON.stringify({selected, scope: 'one-source-backed-page',
     scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, pendingProtectedIssueCount: pending.size,
     unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
-    attempted, runLimit: RUN_LIMIT}, null, 2) + '\n');
+    attempted, queueRunNumber: runNumber, rotationOffset: unseen.length ? (runNumber - 1) % unseen.length : 0,
+    runLimit: RUN_LIMIT}, null, 2) + '\n');
   if (process.env.GITHUB_OUTPUT)
     fs.appendFileSync(process.env.GITHUB_OUTPUT, 'selected=' + Boolean(selected) + '\n');
   console.log(JSON.stringify({scheduledWorkflows: workflows.length, candidates: issues.length,

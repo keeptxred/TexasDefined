@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -102,4 +102,20 @@ test('attacker-like PR title without trusted bot branch does not suppress issue 
     {title:'Source-verified editorial refresh for issue #7233',state:'open',head:{ref:'untrusted/branch'}},
     {title:'Source-verified editorial refresh for issue #7233',state:'open',head:{ref:'automation/sitewide-editorial-fake'}},
   ])],[]);
+});
+
+test('scheduled successive runs rotate all source-page candidates including no-op first result',()=>{
+  const pending = [{page:'/destination/a'},{page:'/destination/b'},
+    {page:'/destination/c'},{page:'/destination/d'}];
+  assert.deepEqual(rotateCandidates(pending,1).map(x=>x.page),[
+    '/destination/a','/destination/b','/destination/c','/destination/d']);
+  assert.deepEqual(rotateCandidates(pending,2).map(x=>x.page),[
+    '/destination/b','/destination/c','/destination/d','/destination/a']);
+  assert.deepEqual(rotateCandidates(pending,3).map(x=>x.page),[
+    '/destination/c','/destination/d','/destination/a','/destination/b']);
+  assert.deepEqual(rotateCandidates(pending,4).map(x=>x.page),[
+    '/destination/d','/destination/a','/destination/b','/destination/c']);
+  assert.deepEqual(rotateCandidates(pending,5),pending);
+  assert.deepEqual(rotateCandidates([],1),[]);
+  assert.throws(()=>rotateCandidates(pending,0),/run number/);
 });
