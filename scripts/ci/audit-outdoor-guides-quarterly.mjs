@@ -2,6 +2,12 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "Sam Houston Recreation.gov individual passes and OHV limit", url: "https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645", patterns: [/50 inches/i, /pass is required per person/i, /936-344-6205/i] },
+  { name: "NPS Lake Meredith year and zone boundaries", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/December 31/i, /Blue Creek/i, /Rosita/i] },
+  { name: "TPWD official Big Bend Ranch outfitter listing", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/outfitters", patterns: [/horseback riding/i, /guide service providers/i] },
+  { name: "TPWD Hill Country SNA listed riding services", url: "https://tpwd.texas.gov/state-parks/hill-country/guide-service", patterns: [/Bandera Historical Rides/i, /Guide Service Providers/i] },
+  { name: "TPWD paddling access and river FAQs", url: "https://tpwd.texas.gov/boating/paddling-trails/faqs/", patterns: [/take-out/i, /flow/i, /shuttle/i] },
+  { name: "U.S. Naval Observatory moonrise/moonset tool", url: "https://aa.usno.navy.mil/data/RS_OneYear", patterns: [/Sun/i, /Moon/i] },
   { name: "TPWD certified paddling trails", url: "https://tpwd.texas.gov/boating/paddling-trails/", patterns: [/100 certified trails/i] },
   { name: "TPWD horse requirements", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", patterns: [/Coggins/i, /Dinosaur Valley/i] },
   { name: "TPWD OHV legal venues", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas", patterns: [/Barnwell/i, /Sam Houston/i] },
@@ -14,11 +20,11 @@ const official = [
   { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
 ];
 const livePages = [
-  { slug: "texas-mountain-biking-guide", must: ["Choose an actual route", "e-bikes may use public park roadways"] },
-  { slug: "texas-horseback-riding-guide", must: ["Compare trailer logistics", "Trailer and rider checklist"] },
-  { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property"] },
-  { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes"] },
-  { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park"] },
+  { slug: "texas-mountain-biking-guide", must: ["Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
+  { slug: "texas-horseback-riding-guide", must: ["Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
+  { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
+  { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
+  { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
 ];
 const failures = [], evidence = [];
 async function get(url) {
@@ -46,17 +52,24 @@ for (const item of official) {
   }
 }
 for (const item of livePages) {
-  const url = "https://texasdefined.com/" + item.slug;
-  try {
-    const body = await get(url);
-    const missing = item.must.filter((token) => !body.includes(token));
-    const noindex = /<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body);
-    const wrongCanonical = !body.includes(url);
-    if (missing.length || noindex || wrongCanonical) failures.push(item.slug + ": missing " + missing.join(", ") + (noindex ? "; noindex" : "") + (wrongCanonical ? "; canonical" : ""));
-    evidence.push({ name: item.slug, url, verified: !missing.length && !noindex && !wrongCanonical, missing, noindex, wrongCanonical });
-  } catch (error) {
-    failures.push(item.slug + ": inaccessible " + String(error.message));
-    evidence.push({ name: item.slug, url, verified: false, error: String(error.message) });
+  for (const origin of ["https://texasdefined.com", "https://texasdefined-site.freddy-coppola.workers.dev"]) {
+    for (const cacheBust of [false, true]) {
+      const canonical = "https://texasdefined.com/" + item.slug;
+      const url = origin + "/" + item.slug + (cacheBust ? "?outdoor_authority_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual") : "");
+      try {
+        const body = await get(url);
+        const visible = body.replace(/&amp;/g, "&");
+        const missing = item.must.filter((token) => !visible.includes(token));
+        const noindex = /<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body);
+        const canonicalMatch = body.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
+        const wrongCanonical = canonicalMatch !== canonical;
+        if (missing.length || noindex || wrongCanonical) failures.push(item.slug + " [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing " + missing.join(", ") + (noindex ? "; noindex" : "") + (wrongCanonical ? "; canonical=" + canonicalMatch : ""));
+        evidence.push({ name: item.slug, url, verified: !missing.length && !noindex && !wrongCanonical, missing, noindex, canonicalMatch });
+      } catch (error) {
+        failures.push(item.slug + " [" + origin + "]: inaccessible " + String(error.message));
+        evidence.push({ name: item.slug, url, verified: false, error: String(error.message) });
+      }
+    }
   }
 }
 const report = { checkedAt: new Date().toISOString(), officialSourceCount: official.length, livePageCount: livePages.length, evidence, failures };
