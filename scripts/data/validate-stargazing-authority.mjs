@@ -10,7 +10,7 @@ const errors = [];
 
 for (const marker of [
   'const canonicalPath = "/texas-stargazing-guide";',
-  'Texas Stargazing: 5 International Dark Sky Parks',
+  'Texas Stargazing: 5 Certified Dark Sky State Parks',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "Place"',
@@ -32,6 +32,10 @@ for (const marker of [
   'Protect the darkness you came to see',
   'current astronomy event calendar',
   'Bortle Class 1',
+  'Five certified state parks, not every Texas dark-sky destination',
+  'Big Bend National Park',
+  'https://www.nps.gov/bibe/planyourvisit/stargazing.htm',
+  'https://darksky.org/places/big-bend-national-park-dark-sky-park/',
   'Big Bend Ranch State Park',
   'Caprock Canyons State Park & Trailway',
   'Copper Breaks State Park',

@@ -41,7 +41,7 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Texas Stargazing Guide",
-          description: "Plan stargazing trips to Texas's five International Dark Sky Parks around Bortle ratings, moon phase, weather, park hours, access and night-sky stewardship.",
+          description: "Plan trips to five Texas state parks certified as International Dark Sky Parks, with Bortle ratings, moon phase, weather, access and night-sky stewardship.",
           image: {
             "@type": "ImageObject",
             "@id": `${pageUrl}#primaryimage`,
@@ -75,7 +75,7 @@ export const Route = createFileRoute(canonicalPath)({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: "Texas Stargazing: 5 International Dark Sky Parks",
+        title: "Texas Stargazing: 5 Certified Dark Sky State Parks",
         description: "Plan Texas stargazing trips to Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River with current TPWD guidance.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
