@@ -99,7 +99,7 @@ jobs:
           # Reconcile actively changing main and re-run full exact-head
           # protection. No shortcuts, stale statuses or cross-run approvals.
           published=false
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5 6; do
             git fetch --no-tags origin main "$branch"
             [[ "$(git rev-parse "origin/$branch")" == "$(git rev-parse HEAD)" ]] || {
               echo '::error::Untrusted branch rewrite during source verification'; exit 1;
@@ -121,8 +121,27 @@ jobs:
 
             # These are the actual canonical protected full-suite checks,
             # not green statuses invented for a new bot-generated SHA.
-            bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
-            bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+            # Both canonical workflows validate the same pinned source head.
+            # Execute concurrently to shorten the period in which an unrelated
+            # main branch merge can supersede the revision. Both MUST pass;
+            # neither test nor required branch-protection check is waived.
+            validate_log="$RUNNER_TEMP/sitewide-validate-$attempt.log"
+            merge_log="$RUNNER_TEMP/sitewide-merge-gate-$attempt.log"
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml > "$validate_log" 2>&1 &
+            validate_pid=$!
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml > "$merge_log" 2>&1 &
+            merge_pid=$!
+            validate_ok=true
+            gate_ok=true
+            wait "$validate_pid" || validate_ok=false
+            wait "$merge_pid" || gate_ok=false
+            tail -30 "$validate_log"
+            tail -30 "$merge_log"
+            [[ "$validate_ok" == true && "$gate_ok" == true ]] || {
+              echo '::error::One or both protected canonical validation workflows failed.'
+              echo 'Reconcile the actual failing check; do not publish or fake a status.'
+              exit 1
+            }
             git fetch --no-tags origin main "$branch"
             [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
               echo '::error::Generated rewrite PR moved during validation'; exit 1;
@@ -141,6 +160,6 @@ jobs:
             break
           done
           [[ "$published" == true ]] || {
-            echo '::error::Main kept changing during three full protected validation attempts; preserve PR for later retry.'
+            echo '::error::Main kept changing during six full protected validation attempts; preserve PR for later retry.'
             exit 1
           }
