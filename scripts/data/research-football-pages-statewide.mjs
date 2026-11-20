@@ -10,6 +10,7 @@ import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdirSync,writeFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {UIL_FOOTBALL_PROGRAMS_2026} from '../../src/data/high-school-football/uil-football-alignments-2026.server.ts';
+import {FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS} from '../../src/data/high-school-football/featured-programs.ts';
 import {footballProgramSlug} from '../../src/data/high-school-football/program-slugs.ts';
 import {texasToday} from './refresh-canyon-lake-results.mjs';
 import {isSafePublicUrl,decodeXml} from './research-canyon-lake-weekly.mjs';
@@ -122,6 +123,20 @@ export function inventory(today=texasToday(),options={}){
       classification:p.classification,division:p.division,teams:[],overdue:[],scoreSnapshotFile:null});
     districts.get(ds).teams.push(slug);
   }
+  // The legacy featured registry also resolves public/private-school aliases.
+  // Keep those distinct team paths in the completeness audit; never give a
+  // non-UIL private program an invented UIL class or district assignment.
+  let additionalFeatured=0;
+  for(const p of FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS){
+    if(teams.has(p.slug))continue;
+    const authored=source.found.get(p.slug);
+    const season=classifySeason(authored?.season,today);
+    teams.set(p.slug,{type:'team',slug:p.slug,name:p.displayName,url:pathForTeam(p.slug),
+      districtSlug:null,classification:null,division:null,governingBody:p.governingBodyHint||null,
+      featuredAlias:true,snapshotFile:authored?.file||null,season,
+      review:season.overdue.length>0?'game-overdue':season.hasSnapshot?'snapshot-check':'source-directory-only'});
+    additionalFeatured++;
+  }
   for(const f of districtSourceFiles(options.read)){
     const d=districts.get(f.slug);if(!d)throw Error('Unknown 2026 district source '+f.slug);
     d.overdue=gamesFromDistrictSource(f.body,f.slug,today);
@@ -144,9 +159,11 @@ export function inventory(today=texasToday(),options={}){
   }
   const snapshotAge=matchups.updatedAt;
   const rows=[...teams.values(),...districts.values()];
-  assert.equal(teams.size,1268);assert.equal(districts.size,192);assert.equal(rows.length,1460);
+  assert.equal(teams.size,1268+additionalFeatured);assert.equal(districts.size,192);
+  assert.equal(rows.length,1460+additionalFeatured);
   return {today,teams:[...teams.values()],districts:[...districts.values()],
-    counts:{teamPages:teams.size,districtPages:districts.size,coveredPages:rows.length,
+    counts:{uilTeamPages:1268,additionalFeaturedTeamPages:additionalFeatured,teamPages:teams.size,
+      districtPages:districts.size,coveredPages:rows.length,
       teamSeasonSnapshots:[...teams.values()].filter(x=>x.season.hasSnapshot).length,
       teamOverdue:[...teams.values()].filter(x=>x.season.overdue.length).length,
       districtOverdue:[...districts.values()].filter(x=>x.overdue.length).length,
@@ -253,7 +270,7 @@ function safe(v){return String(v??'').replace(/[\r\n<>|]/g,' ').slice(0,220);}
 export function markdownReport(inv,report){
   const lines=['# Statewide TexasDefined football next-day score and standings research','',
     '**Checked:** '+report.checkedAt+' · **Texas date:** '+report.today,
-    '**All indexed UIL football page families:** '+inv.counts.teamPages+' teams + '+inv.counts.districtPages+' districts = '+inv.counts.coveredPages+'.',
+    '**All football routes in current UIL and featured registries:** '+inv.counts.uilTeamPages+' UIL teams + '+inv.counts.additionalFeaturedTeamPages+' distinct featured aliases/private-school pages + '+inv.counts.districtPages+' districts = '+inv.counts.coveredPages+'.',
     '**Pages with authored 2026 season snapshots:** '+inv.counts.teamSeasonSnapshots+'.',
     '**Known overdue team fixtures:** '+inv.counts.teamOverdue+' affected team pages; **district fixture collections:** '+inv.counts.districtOverdue+'.',
     '**Shared matchup snapshot:** '+inv.counts.matchupSnapshotVerifiedAt+'.',
