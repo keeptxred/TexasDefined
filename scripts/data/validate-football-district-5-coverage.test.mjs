@@ -135,3 +135,13 @@ test('responsive District 5 Chrome acceptance cannot be skipped by broad sports 
   const visualArtifactStep = workflow.slice(workflow.indexOf('      - name: Preserve District 5 responsive acceptance evidence'));
   assert.ok(visualArtifactStep.slice(0, 500).includes('if-no-files-found: error'), 'Fail if District 5 screenshots are absent');
 });
+
+test('published complete 2026 league scorecards are not cut off at October-era 16 or generic 8 card limits', () => {
+  assert.ok(page.includes('const fullVerifiedLedger = katyPilot || district5Pilot || district21Pilot || district11Pilot;'));
+  assert.ok(page.includes('slice(0, fullVerifiedLedger ? games.length : 8)'));
+  const verifier = readFileSync(new URL('../../scripts/ci/verify-district-5-production.mjs', import.meta.url), 'utf8');
+  const mobile = readFileSync(new URL('../../scripts/ci/verify-district-5-responsive-browser.mjs', import.meta.url), 'utf8');
+  assert.ok(verifier.includes('assert.equal(reportedFinals.length, 28'));
+  assert.ok(verifier.includes('assert.equal(pending.length, 0'));
+  assert.ok(mobile.includes('facts.finals === 28 && facts.scheduled === 0'));
+});
