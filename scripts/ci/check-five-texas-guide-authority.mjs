@@ -23,10 +23,11 @@ assert.deepEqual(registry.groups.map(group => group.path), [
 const selected = registry.groups.filter(group => scope === "all" || group.cadence === scope);
 assert.ok(selected.length, "Invalid or empty scope " + scope);
 for (const group of registry.groups) {
-  assert.ok(["monthly", "quarterly"].includes(group.cadence));
+  assert.ok(["weekly", "monthly", "quarterly"].includes(group.cadence));
   assert.ok(group.reviewedAt <= today, "Future review date " + group.path);
-  assert.ok(group.maxReviewAgeDays >= 25 && group.maxReviewAgeDays <= 120);
+  assert.ok(group.maxReviewAgeDays >= 7 && group.maxReviewAgeDays <= 90);
   assert.ok(group.sourceFiles.length && group.primarySources.length);
+  assert.ok(group.primarySources.length >= 2, group.path + " requires multiple independent sources");
   const contents = (await Promise.all(group.sourceFiles.map(file => readFile(file, "utf8")))).join("\n");
   for (const marker of group.requiredMarkers) {
     assert.ok(contents.includes(marker), group.path + " missing editorial/safety fact: " + marker);
@@ -38,7 +39,7 @@ for (const group of registry.groups) {
   const ageDays = Math.floor((Date.parse(today + "T00:00:00Z") - Date.parse(group.reviewedAt + "T00:00:00Z")) / 86400000);
   rows.push({ path: group.path, cadence: group.cadence, lastFactReview: group.reviewedAt, ageDays, maxAgeDays: group.maxReviewAgeDays });
   if (argv.has("--watch") && selected.includes(group) && ageDays > group.maxReviewAgeDays) {
-    problems.push(group.path + ": factual source review is overdue by " + (ageDays - group.maxReviewAgeDays) + " days. Review primary facts, then commit a new verified review date; HTTP 200 does not count.");
+    problems.push(group.path + " " + group.primarySources[0] + ": factual source review is overdue by " + (ageDays - group.maxReviewAgeDays) + " days. Verify the official evidence, then commit a genuinely reviewed date; HTTP 200 does not count.");
   }
 }
 console.log("FIVE_GUIDE_STATIC_PASS " + JSON.stringify(rows));

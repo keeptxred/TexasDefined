@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 const officialSources = [
   { label: "TPWD — Lake Mineral Wells live trails and rock-area closure notices", href: "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update", note: "Check the climbing area status before travel: a park-wide open designation does not mean Penitentiary Hollow climbing is open." },
   { label: "TPWD — Lake Mineral Wells minor parental consent form", href: "https://tpwd.texas.gov/publications/pwdforms/media/pwd_1424d_p4000_parental_consent.pdf", note: "Required parental permission form for minors; contact the park for current submission procedures." },
-  { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
+  { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks/activities", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
   { label: "Texas Parks & Wildlife — Enchanted Rock Climbing & Bouldering", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb", note: "Official climbing management, protected-resource and climbing-rule guidance for Enchanted Rock." },
   { label: "Texas Parks & Wildlife — Lake Mineral Wells Rock Climbing", href: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing", note: "Official registration, approved-guide and Penitentiary Hollow climbing information." },
   { label: "Travis County Parks — Milton Reimers Ranch Park trails map", href: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf", note: "County park map showing North Shore and Climber's Canyon climbing areas and the surrounding trail network." },
@@ -15,6 +15,7 @@ const officialSources = [
 const areas = [
   {
     name: "Hueco Tanks State Park & Historic Site",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/hueco-tanks/activities",
     region: "Far West Texas · El Paso",
     summary: "A desert climbing destination where access is deliberately managed to protect fragile natural and cultural resources.",
     details: [
@@ -24,6 +25,7 @@ const areas = [
   },
   {
     name: "Enchanted Rock State Natural Area",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb",
     region: "Hill Country · Fredericksburg / Llano",
     summary: "Granite domes and boulders with a long climbing tradition inside a protected state natural area.",
     details: [
@@ -33,6 +35,7 @@ const areas = [
   },
   {
     name: "Lake Mineral Wells State Park & Trailway",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
     region: "North Texas · west of Fort Worth",
     summary: "Sandstone climbing at Penitentiary Hollow with formal registration requirements at park headquarters.",
     details: [
@@ -42,6 +45,7 @@ const areas = [
   },
   {
     name: "Milton Reimers Ranch Park",
+    sourceUrl: "https://parks.traviscountytx.gov/parks/reimers-ranch",
     region: "Central Texas · Dripping Springs",
     summary: "A Travis County park whose official trail map marks both North Shore and Climber's Canyon climbing areas along the Pedernales River landscape.",
     details: [
@@ -81,7 +85,7 @@ function TexasClimbingGuidePage() {
             <p className="eyebrow text-primary">Public rock · access · stewardship</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Rock Climbing &amp; Bouldering</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to four public Texas climbing areas: where they are, how their access systems differ, what the managing agencies protect, and where to verify current rules before you go.</p>
-            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · November 18, 2026. Check land-manager alerts on the day of travel.</p>
+            <p className="mt-5 text-xs text-muted-foreground">Source research and safety review by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · updated November 20, 2026 from official land-manager guidance. Check alerts on the day of travel.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -112,6 +116,22 @@ function TexasClimbingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="climbing-choice">
+            <p className="eyebrow text-primary">Choose by experience and restrictions</p>
+            <h2 id="climbing-choice" className="mt-2 font-display text-3xl">The best first stop depends on what you can safely do</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
+              <p>New to outdoor climbing? Do not treat these destinations as beginner instruction. First arrange qualified instruction or an eligible guide, then confirm that the guide is approved for the exact protected area and activity. Lake Mineral Wells requires formal registration and forbids unroped bouldering; a visitor seeking bouldering should not book that park on the assumption every climbing venue allows it.</p>
+              <p>Experienced boulderer considering Hueco Tanks? TPWD limits North Mountain self-guided access to 70 visitors daily, requires orientation and separates guided areas. Check the park's dedicated wet-weather climbing policy: a significant precipitation event triggers a minimum 24-hour climbing/bouldering closure. Arrange access and check alerts before committing to a long drive.</p>
+              <p>Planning Enchanted Rock's longer granite routes? TPWD warns of widely spaced protection and descents that may need at least 70 meters of rope; climbing a scenic granite dome and committing to a technical route are very different decisions. For a Central Texas limestone outing, compare Reimers Ranch's county-managed park access and current road alerts, not a TPWD permit system.</p>
+            </div>
+            <nav aria-label="Official climbing alerts and arrival choices" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              <a href="https://tpwd.texas.gov/state-parks/hueco-tanks/weather-closure-policy" target="_blank" rel="noreferrer noopener" className="text-primary underline">Hueco Tanks wet-weather closure policy ↗</a>
+              <a href="https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update" target="_blank" rel="noreferrer noopener" className="text-primary underline">Lake Mineral Wells rock-area status ↗</a>
+              <a href="https://tpwd.texas.gov/state-parks/enchanted-rock/alert" target="_blank" rel="noreferrer noopener" className="text-primary underline">Enchanted Rock current alerts ↗</a>
+              <a href="https://parks.traviscountytx.gov/parks/reimers-ranch" target="_blank" rel="noreferrer noopener" className="text-primary underline">Reimers Ranch current county notices ↗</a>
+            </nav>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="before-climbing">
             <p className="eyebrow text-primary">Before you climb</p>
             <h2 id="before-climbing" className="mt-2 font-display text-3xl">Check access, weather and site rules before committing to the day</h2>
@@ -128,6 +148,7 @@ function TexasClimbingGuidePage() {
                   <p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")} · {area.region}</p>
                   <h2 className="mt-2 font-display text-3xl leading-tight">{area.name}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{area.summary}</p>
+                  <a href={area.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Check this area's official rules and access ↗</a>
                 </div>
                 <div className="max-w-3xl space-y-5">
                   {area.details.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "owner": "TexasDefined editorial",
-  "updatedAt": "2026-11-18",
-  "policy": "GitHub-owned verification. Link checks and HTTP status never advance lastFactReviewAt; re-research material facts and commit reviewedAt only after verifying primary sources.",
+  "updatedAt": "2026-11-20",
+  "policy": "GitHub's recurring source research triggers protected factual edits through the existing sitewide source-backed rewrite PR pipeline. A successful HTTP probe never establishes a new factual verification date. Supabase source registry must remain enrolled with the same or faster cadence; original historical verification evidence is preserved.",
   "groups": [
     {
       "id": "culture-folklore",
       "path": "/texas-tall-tales-folklore",
       "cadence": "quarterly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 115,
+      "maxReviewAgeDays": 90,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch7.ts",
         "src/components/editorial/TexasEvergreenGuide.tsx"
@@ -18,19 +18,21 @@
         "October 1923",
         "O'Reilly",
         "Emily D. West",
-        "Smithsonian"
+        "Smithsonian",
+        "Evidence ledger: what each famous Texas story actually establishes"
       ],
       "primarySources": [
         "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
-        "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas"
+        "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas",
+        "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html"
       ]
     },
     {
       "id": "culture-dance-halls",
       "path": "/texas-dance-halls-honky-tonks",
-      "cadence": "quarterly",
+      "cadence": "monthly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 115,
+      "maxReviewAgeDays": 40,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
         "src/components/editorial/TexasEvergreenGuide.tsx"
@@ -46,13 +48,16 @@
         "except January, July and September",
         "3316 Roberts Cut Off Road",
         "Broken Spoke",
-        "Floore Country Store"
+        "Floore Country Store",
+        "Compare the actual visit: public music, community dance or heritage research"
       ],
       "primarySources": [
         "https://texasdancehall.org/about-dance-halls/find-a-hall/",
         "https://gruenehall.com/events/month/",
         "https://twinsistersdancehall.com/",
-        "https://anhalthalle.com/events/"
+        "https://anhalthalle.com/events/",
+        "https://twinsistersdancehall.com/calendar/",
+        "https://www.luckenbachtexas.com/"
       ]
     },
     {
@@ -60,7 +65,7 @@
       "path": "/texas-homecoming-mums",
       "cadence": "quarterly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 115,
+      "maxReviewAgeDays": 90,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
         "src/components/editorial/TexasEvergreenGuide.tsx"
@@ -68,8 +73,9 @@
       "requiredMarkers": [
         "DIY build",
         "Elizabeth Cleaver",
-        "Test the finished mum",
-        "local school"
+        "test the finished piece while standing, walking and sitting",
+        "local school",
+        "Compare a DIY supply list with a custom-maker quote"
       ],
       "primarySources": [
         "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions",
@@ -81,7 +87,7 @@
       "path": "/texas-natural-wonders-bucket-list",
       "cadence": "monthly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 40,
+      "maxReviewAgeDays": 35,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
         "src/components/editorial/TexasNaturalWondersAuthority.tsx"
@@ -91,19 +97,24 @@
         "Del Norte",
         "Big Bend National Park",
         "Rio Grande canyons",
-        "Source review: November 18, 2026"
+        "Source review: November 18, 2026",
+        "Which natural wonder fits this trip?",
+        "Hamilton Pool reservation never guarantees swimming"
       ],
       "primarySources": [
         "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/",
-        "https://www.nps.gov/pais/planyourvisit/conditions.htm"
+        "https://www.nps.gov/pais/planyourvisit/conditions.htm",
+        "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve",
+        "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
+        "https://tpwd.texas.gov/state-parks/palo-duro-canyon"
       ]
     },
     {
       "id": "outdoors-rock-climbing",
       "path": "/texas-rock-climbing-bouldering-guide",
-      "cadence": "monthly",
+      "cadence": "weekly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 40,
+      "maxReviewAgeDays": 21,
       "sourceFiles": [
         "src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx"
       ],
@@ -111,12 +122,16 @@
         "Bouldering, free climbing and soloing are prohibited",
         "70 meters",
         "closure",
-        "parental consent"
+        "parental consent",
+        "The best first stop depends on what you can safely do",
+        "minimum 24-hour climbing/bouldering closure"
       ],
       "primarySources": [
         "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
         "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update",
-        "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb"
+        "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb",
+        "https://tpwd.texas.gov/state-parks/hueco-tanks/weather-closure-policy",
+        "https://parks.traviscountytx.gov/parks/reimers-ranch"
       ]
     }
   ]

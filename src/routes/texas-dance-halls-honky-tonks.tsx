@@ -13,8 +13,8 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Dance Halls & Honky-Tonks: Where the Music Still Lives",
-      description: guide.dek,
+      title: "Texas Dance Halls & Honky-Tonks: Venues, Events & History",
+      description: "Compare Gruene Hall, Twin Sisters, Anhalt, Luckenbach, Broken Spoke and other Texas dance halls, with official event calendars and practical trip planning.",
       type: "article",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
