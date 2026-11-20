@@ -2,6 +2,12 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "TPWD specific Eisenhower trail segments and 50-inch limit", url: "https://tpwd.texas.gov/state-parks/eisenhower/ohvs", patterns: [/Pee Wee Practice Area/i, /50 inches/i, /Big Woods Canyon/i] },
+  { name: "TPWD Copper Breaks Dark Sky Viewing Area coordinates", url: "https://tpwd.texas.gov/state-parks/copper-breaks/trails-info", patterns: [/Dark Sky Viewing Area/i, /34\.1183/i] },
+  { name: "TPWD Franklin elevations for contextual comparison", url: "https://tpwd.texas.gov/state-parks/franklin-mountains", patterns: [/7,192/i, /5,120/i] },
+  { name: "TPWD explicit South Llano after-hours fee", url: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies", patterns: [/past 10 p\.m\./i, /night activity fee/i] },
+  { name: "TPWD Lighthouse Lakes named coastal launch and crossing", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/", patterns: [/Hwy 361/i, /Aransas/i] },
+
   { name: "Sam Houston Recreation.gov individual passes and OHV limit", url: "https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645", patterns: [/50 inches/i, /pass is required per person/i, /936-344-6205/i] },
   { name: "NPS Lake Meredith year and zone boundaries", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/December 31/i, /Blue Creek/i, /Rosita/i] },
   { name: "TPWD official Big Bend Ranch outfitter listing", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/outfitters", patterns: [/horseback riding/i, /guide service providers/i] },
@@ -20,11 +26,11 @@ const official = [
   { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
 ];
 const livePages = [
-  { slug: "texas-mountain-biking-guide", must: ["Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
-  { slug: "texas-horseback-riding-guide", must: ["Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
-  { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
-  { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
-  { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
+  { slug: "texas-mountain-biking-guide", must: ["Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
+  { slug: "texas-horseback-riding-guide", must: ["Trailhead, equestrian campsite and guided service are three separate decisions", "Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
+  { slug: "texas-ohv-guide", must: ["Trail names, entrance approaches and closure checks", "Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
+  { slug: "texas-paddling-guide", must: ["Individual put-ins, takeouts and water-condition links", "100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
+  { slug: "texas-stargazing-guide", must: ["Where to set up, how to gain access, and what to check that night", "Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
 ];
 // Protect keyboard access to each guide's intact, responsive comparison table.
 const comparisonLabels = {
