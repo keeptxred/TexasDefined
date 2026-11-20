@@ -17,6 +17,7 @@ on:
     paths:
       - 'scripts/data/inventory-statewide-football-scores.mjs'
       - 'scripts/data/inventory-statewide-football-scores.test.mjs'
+      - 'scripts/data/validate-football-research-publication.test.mjs'
       - 'scripts/data/research-statewide-football-scores.mjs'
       - 'scripts/data/research-statewide-football-scores.test.mjs'
       - 'scripts/ci/validate-football-refresh-scheduling.test.mjs'
@@ -48,6 +49,7 @@ jobs:
           node --check scripts/data/research-statewide-football-scores.mjs
           node --test scripts/data/inventory-statewide-football-scores.test.mjs
           node --test scripts/data/research-statewide-football-scores.test.mjs
+          node --test scripts/data/validate-football-research-publication.test.mjs
           node --test scripts/ci/validate-football-refresh-scheduling.test.mjs
           node scripts/data/research-statewide-football-scores.mjs --validate
           node scripts/data/inventory-statewide-football-scores.mjs --inventory
