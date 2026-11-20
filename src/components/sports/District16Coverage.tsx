@@ -46,6 +46,33 @@ export function District16Coverage({ schools }: Props) {
         the finals listed below are the latest independently checked round, not every game played.
       </p>
 
+      <section className="mt-7 border-y border-border py-5" data-football-district16-postseason-verified>
+        <h3 className="font-display text-2xl">Final 2026 district title and playoff qualifiers — verified Nov. 12</h3>
+        <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">
+          Cypress-Fairbanks ISD confirmed the conclusion of District 16 regular-season play and reported
+          Cypress Falls, Cypress Lakes and Langham Creek as shared champions, each with a 6–1 district
+          record. Cypress Woods finished fourth at 4–3 and joined those three programs in the playoff field.
+          This official school-district update supersedes the October 18 table below for title and qualification
+          information, but does not establish an unreported head-to-head seed order.
+        </p>
+        <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+          {[
+            {name:'Cypress Falls',record:'6–1',detail:'Shared district champion'},
+            {name:'Cypress Lakes',record:'6–1',detail:'Shared district champion · first school district title'},
+            {name:'Langham Creek',record:'6–1',detail:'Shared district champion · first playoff berth since 2018'},
+            {name:'Cypress Woods',record:'4–3',detail:'Fourth-place playoff qualifier'},
+          ].map(team=><div key={team.name} className="border border-border p-3">
+            <dt className="font-semibold">{schoolLink(team.name)}</dt>
+            <dd className="mt-1 text-sm">District {team.record} · {team.detail}</dd>
+          </div>)}
+        </dl>
+        <a href="https://www.cfisd.net/cfisd-news-details/~board/2026-2027-cfisd-district-news/post/six-cfisd-football-teams-qualify-for-playoffs"
+          target="_blank" rel="noopener noreferrer"
+          className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+          CFISD official November 12 season and playoff report ↗
+        </a>
+      </section>
+
       <div id="district-16-standings" className="mt-8 border border-border p-4 sm:p-6"
         data-football-district-records="reported-standings-snapshot">
         <div className="flex flex-wrap items-start justify-between gap-3">
