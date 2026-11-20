@@ -14,7 +14,9 @@ for (const marker of [
   "936-344-6205",
   "Three separate permits",
   "no-cost",
-  "Rosita Flats"
+  "Rosita Flats",
+  "spark arrestor",
+  "whip and flag"
 ]) {
   if (!lazyRoute.includes(marker)) errors.push('Missing verified 2026 authority detail: ' + marker);
 }
