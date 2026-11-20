@@ -68,25 +68,31 @@ export function orderedFixtures(rows){
   // Newest unconfirmed finals first, then older dated scores awaiting correction.
   return [...rows].sort((a,b)=>b.date.localeCompare(a.date)||a.away.localeCompare(b.away));
 }
+export function publicProviders(fixture,today){
+  const age=Math.max(0,Math.floor((Date.parse(today)-Date.parse(fixture.date))/86400000));
+  // Recent games get two metadata discovery searches; dated backlog gets one
+  // provider per run (alternating daily), without starving any page.
+  if(age<=10)return ['google','bing'];
+  const day=Math.floor(Date.parse(today)/86400000);
+  return [day%2===0?'google':'bing'];
+}
 export function chooseSearches(rows,{today,max=MAX_QUERIES}={}){
   const sorted=orderedFixtures(rows);
-  // Search every eligible game when within the bounded public RSS budget.
-  // If the backlog exceeds it, rotate the older queue each day; never
-  // silently omit deferred games from the report.
-  const maxGames=Math.floor(max/2);
-  if(sorted.length<=maxGames)return {selected:sorted,deferred:[]};
-  const recent=sorted.slice(0,Math.min(60,maxGames));
-  const old=sorted.slice(recent.length);
-  const n=maxGames-recent.length;
-  const day=Math.max(0,Math.floor(Date.parse(today)/86400000));
-  const start=(day*n)%old.length;
-  const selected=[...recent,...Array.from({length:n},(_,i)=>old[(start+i)%old.length])];
-  const keys=new Set(selected.map(x=>x.date+'|'+x.away+'|'+x.home));
-  return {selected,deferred:sorted.filter(x=>!keys.has(x.date+'|'+x.away+'|'+x.home))};
+  // Page coverage takes priority: every eligible overdue fixture receives at
+  // least one lookup, not a constant first-N subset that excludes old scores.
+  const newest=sorted.slice(0,60),older=sorted.slice(60);
+  const day=Math.floor(Date.parse(today)/86400000),offset=older.length?day%older.length:0;
+  const rotated=[...newest,...older.slice(offset),...older.slice(0,offset)];
+  let used=0;const selected=[],deferred=[];
+  for(const f of rotated){
+    const cost=publicProviders(f,today).length;
+    if(used+cost<=max){selected.push(f);used+=cost;}else deferred.push(f);
+  }
+  return {selected,deferred,queryBudgetUsed:used};
 }
 export async function conductResearch(state,{getText=download,max=MAX_QUERIES}={}){
   const {selected,deferred}=chooseSearches(state.fixtures,{today:state.today,max});
-  const tasks=selected.flatMap(f=>['google','bing'].map(provider=>({f,provider,url:rssUrl(provider,f)})));
+  const tasks=selected.flatMap(f=>publicProviders(f,state.today).map(provider=>({f,provider,url:rssUrl(provider,f)})));
   const results=tasks.map(t=>({...t,articles:[],error:null}));let at=0;
   const worker=async()=>{
     for(;;){
