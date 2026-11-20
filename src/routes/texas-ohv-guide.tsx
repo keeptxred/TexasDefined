@@ -45,16 +45,6 @@ export const Route = createFileRoute(canonicalPath)({
           },
         },
         {
-          "@type": "ImageObject",
-          "@id": `${pageUrl}#nps-photo`,
-          contentUrl: ohvHeroUrl,
-          creator: { "@type": "Organization", name: "National Park Service" },
-          creditText: "National Park Service photo, Rosita Flats, Lake Meredith",
-          license: "https://creativecommons.org/publicdomain/mark/1.0/",
-          acquireLicensePage: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm",
-          copyrightNotice: "Public domain NPS photo",
-        },
-        {
           "@type": "BreadcrumbList",
           "@id": `${pageUrl}#breadcrumbs`,
           itemListElement: [
