@@ -7,6 +7,19 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/texas-stargazing-g
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const errors = [];
+// Retain the research-backed 95+ remediation, not just prior general place names.
+const additional95PlusEvidence = [
+  "const nightAccessFieldGuide = [",
+  "night-observation-decisions",
+  "34.1183, -99.7549",
+  "night-activity fee",
+  "astronomical twilight",
+  "US Naval Observatory moonrise"
+];
+for (const marker of additional95PlusEvidence) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
+}
+
 // Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
 if (!lazyRoute.includes('role="region" tabIndex={0} aria-label="Five certified Texas dark sky state parks comparison table"')) {
   errors.push('Comparison table must remain a keyboard-focusable, explicitly labelled scroll region.');
