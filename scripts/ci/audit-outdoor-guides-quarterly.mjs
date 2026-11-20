@@ -5,6 +5,8 @@ const official = [
   { name: "TPWD certified paddling trails", url: "https://tpwd.texas.gov/boating/paddling-trails/", patterns: [/100 certified trails/i] },
   { name: "TPWD horse requirements", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", patterns: [/Coggins/i, /Dinosaur Valley/i] },
   { name: "TPWD OHV legal venues", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas", patterns: [/Barnwell/i, /Sam Houston/i] },
+  { name: "TPWD OHV decal FAQ", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/faqs-about-the-texas-ohv-program", patterns: [/Barnwell Mountain/i, /private/i, /grant/i] },
+  { name: "TPWD current decal price and period", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal", patterns: [/\$16/i, /Sept/i, /Aug/i] },
   { name: "NPS Meredith ORV permits", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/Blue Creek/i, /Rosita/i, /permit/i] },
   { name: "TPWD Bortle ratings", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", patterns: [/Caprock Canyons/i, /Copper Breaks/i, /South Llano River/i] },
   { name: "TPWD e-bike policy", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", patterns: [/E-bikes are allowed/i, /not on park trails/i] },
@@ -14,7 +16,7 @@ const official = [
 const livePages = [
   { slug: "texas-mountain-biking-guide", must: ["Choose an actual route", "e-bikes may use public park roadways"] },
   { slug: "texas-horseback-riding-guide", must: ["Compare trailer logistics", "Trailer and rider checklist"] },
-  { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer"] },
+  { slug: "texas-ohv-guide", must: ["Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property"] },
   { slug: "texas-paddling-guide", must: ["100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes"] },
   { slug: "texas-stargazing-guide", must: ["Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park"] },
 ];
