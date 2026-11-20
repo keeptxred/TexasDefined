@@ -5,9 +5,9 @@ import type { DistrictFootballGame } from './football-district-game-week';
  * MaxPreps is UIL's partner; these are dated source snapshots, NOT certified
  * district standings and NOT a live scoreboard. Every row was compared against
  * the 2026 varsity school schedule, and opponent names use the UIL roster.
- * 15 finals + 6 unplayed fixtures = 21 unique pairings across 7 schools.
+ * All 21 regular-season district fixtures now have independently sourced finals.
  */
-export const DISTRICT_11_VERIFIED_AT = '2026-10-29';
+export const DISTRICT_11_VERIFIED_AT = '2026-11-20';
 export const DISTRICT_11_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/?leagueid=e544a32d-42ab-43c2-befa-ee65e25baf62';
 export const DISTRICT_11_SCORES_BASE = 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/scores/';
 const DISTRICT_11_LEAGUE_ID = 'e544a32d-42ab-43c2-befa-ee65e25baf62';
@@ -55,16 +55,18 @@ export const DISTRICT_11_2026_GAMES: DistrictFootballGame[] = [
   reportedFinal('2026-10-23', "Needville", "Bay City", 7, 45),
   reportedFinal('2026-10-23', "Sealy", "Navasota", 48, 7),
   reportedFinal('2026-10-23', "El Campo", "Royal", 49, 14),
-  upcoming('2026-10-30', "Bay City", "West Columbia Columbia"),
-  upcoming('2026-10-30', "Navasota", "El Campo"),
-  upcoming('2026-10-30', "Royal", "Needville"),
-  upcoming('2026-11-06', "El Campo", "Sealy"),
-  upcoming('2026-11-06', "Needville", "Navasota"),
-  upcoming('2026-11-06', "West Columbia Columbia", "Royal"),
+  reportedFinal('2026-10-30', "Bay City", "West Columbia Columbia", 42, 0),
+  reportedFinal('2026-10-30', "Navasota", "El Campo", 36, 51),
+  reportedFinal('2026-10-30', "Royal", "Needville", 0, 28),
+  reportedFinal('2026-11-06', "El Campo", "Sealy", 21, 49),
+  reportedFinal('2026-11-06', "Needville", "Navasota", 27, 38),
+  reportedFinal('2026-11-06', "West Columbia Columbia", "Royal", 36, 14),
 ];
 
 // The data is deliberately reviewed and non-live; refresh workflows must not
-// convert scheduled contests to finals without source-backed confirmation.
+// convert scheduled contests to finals without source-backed confirmation. All six
+// October 30/November 6 finals cross-checked on November 20 with the MaxPreps
+// UIL partner game-by-date scoreboard and dated SI/AP or school schedule reporting.
 
 
 export const DISTRICT_11_PLAYOFF_SOURCE = 'https://www.uiltexas.org/football/playoff-brackets/4AD1';
