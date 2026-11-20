@@ -69,7 +69,7 @@ async function verifyPage(pathname, label, check) {
               htmlBytes: html.length, title,
               hasDistrict21Season: html.includes('data-football-d21-team-section='),
               hasSeasonSection: html.includes('id="football-current-season"'),
-              hasReported2026Season: html.includes('district scores and remaining games'),
+              hasReported2026Season: html.includes('source-dated district scores and unverified fixtures'),
               hasFootballPageHeading: html.includes('Football</h1>'),
               hasRenderFailure: /An error occurred|Unexpected Application Error|Internal Server Error/i.test(html),
               cacheControl: response.headers.get('cache-control'),
@@ -111,7 +111,7 @@ for (const team of teams) {
   await checkSafely(path, team.name, (html) => {
     for (const needle of [
       'data-football-d21-team-section="' + team.slug + '"',
-      'district scores and remaining games',
+      'source-dated district scores and unverified fixtures',
       '/texas-high-school-football-districts/6a-district-21#district-21-results',
       'district-21-standings', 'Published games accounted for',
       'Source verification:', 'Result not verified',
