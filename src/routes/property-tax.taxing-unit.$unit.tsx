@@ -79,7 +79,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
         ...(isdEvidence?.historicalComponents.flatMap((entry) => entry.components ? [entry.components.sourceUrl] : []) ?? []),
         ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : []),
-        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex, westWhartonHospitalDistrict.sources.countyFiveYearSummary] : [])],
+        ...(hasWestWhartonAuthority ? [westWhartonHospitalDistrict.sources.districtNotice, westWhartonHospitalDistrict.sources.districtHome, westWhartonHospitalDistrict.sources.districtAbout, westWhartonHospitalDistrict.sources.comptrollerCounty, westWhartonHospitalDistrict.sources.county2026AdoptedTable, westWhartonHospitalDistrict.sources.countyRateIndex, westWhartonHospitalDistrict.sources.countyFiveYearSummary, westWhartonHospitalDistrict.sources.county2024UnitWorksheet, westWhartonHospitalDistrict.sources.county2023UnitWorksheet] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
