@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdirSync,writeFileSync} from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {UIL_FOOTBALL_PROGRAMS_2026} from '../../src/data/high-school-football/uil-football-alignments-2026.server.ts';
-import {FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS} from '../../src/data/high-school-football/featured-programs.ts';
+import {FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS,normalizeFeaturedFootballName} from '../../src/data/high-school-football/featured-programs.ts';
 import {footballProgramSlug} from '../../src/data/high-school-football/program-slugs.ts';
 import {texasToday} from './refresh-canyon-lake-results.mjs';
 import {isSafePublicUrl,decodeXml} from './research-canyon-lake-weekly.mjs';
@@ -130,8 +130,12 @@ export function inventory(today=texasToday(),options={}){
   // The legacy featured registry also resolves public/private-school aliases.
   // Keep those distinct team paths in the completeness audit; never give a
   // non-UIL private program an invented UIL class or district assignment.
+  const uilNames=new Set(UIL_FOOTBALL_PROGRAMS_2026.map(p=>normalizeFeaturedFootballName(p.schoolName)));
   let additionalFeatured=0;
   for(const p of FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS){
+    // Match the existing canonical sitemap eligibility logic exactly: a
+    // private/featured alias to a UIL school is not a second separate page.
+    if([p.displayName,p.searchName,...p.aliases].some(name=>uilNames.has(normalizeFeaturedFootballName(name))))continue;
     if(teams.has(p.slug))continue;
     const authored=source.found.get(p.slug);
     const season=classifySeason(authored?.season,today);
@@ -163,7 +167,8 @@ export function inventory(today=texasToday(),options={}){
   }
   const snapshotAge=matchups.updatedAt;
   const rows=[...teams.values(),...districts.values()];
-  assert.equal(teams.size,1268+additionalFeatured);assert.equal(districts.size,192);
+  assert.equal(additionalFeatured,24,'Keep non-UIL football inventory exactly aligned with public sitemap');
+  assert.equal(teams.size,1292);assert.equal(districts.size,192);
   assert.equal(rows.length,1460+additionalFeatured);
   return {today,teams:[...teams.values()],districts:[...districts.values()],
     counts:{uilTeamPages:1268,additionalFeaturedTeamPages:additionalFeatured,teamPages:teams.size,
