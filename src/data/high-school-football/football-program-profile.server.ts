@@ -52,6 +52,7 @@ import { loadBatch012Group3FootballProgramEditorial } from './program-editorial-
 import { loadBatch012Group4FootballProgramEditorial } from './program-editorial-b012-group4-loader.server';
 import { loadBatch012Group5FootballProgramEditorial } from './program-editorial-b012-group5-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
+import { applyManuallyVerifiedFootballFinals } from './football-manually-verified-final-overlay';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
@@ -319,10 +320,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     footballDistrictProfilePath(seed.classification, seed.division, seed.district).split('/').at(-1)!,
     seed.classification,seed.district,
   );
-  const editorial = applyVerifiedDistrictFinalsToTeam(
+  const editorial = applyManuallyVerifiedFootballFinals(applyVerifiedDistrictFinalsToTeam(
     applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups),
     canonicalSlug,seed.schoolName,verifiedDistrictGames,
-  );
+  ), canonicalSlug);
   const profileContent = {
     displayName,
     program,
