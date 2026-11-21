@@ -44,13 +44,31 @@ for (const group of registry.groups) {
 }
 console.log("FIVE_GUIDE_STATIC_PASS " + JSON.stringify(rows));
 if (argv.has("--watch")) {
+  // Retry bounded transient DNS/TLS/socket/429/5xx failures. A final
+  // unresolved failure remains actionable; do not turn it into a false pass.
+  async function fetchWithRetry(url) {
+    let lastError;
+    for (let attempt=1; attempt<=3; attempt++) {
+      try {
+        const response=await fetch(url,{
+          redirect:"follow",
+          headers:{"User-Agent":"TexasDefined-Five-Guides-Source-Monitor/1.0"},
+          signal:AbortSignal.timeout(18000),
+        });
+        if (![429,500,502,503,504].includes(response.status) || attempt===3) return response;
+        lastError=new Error("HTTP "+response.status);
+        await response.body?.cancel();
+      } catch(error) {
+        lastError=error;
+        if(attempt===3) throw error;
+      }
+      await new Promise(resolve=>setTimeout(resolve,attempt*1200));
+    }
+    throw lastError;
+  }
   async function probe(url, description, marker) {
     try {
-      const response = await fetch(url, {
-        redirect: "follow",
-        headers: { "User-Agent": "TexasDefined-Five-Guides-Source-Monitor/1.0" },
-        signal: AbortSignal.timeout(14000),
-      });
+      const response = await fetchWithRetry(url);
       if (!response.ok) {
         problems.push(description + ": official/live response HTTP " + response.status + " at " + url);
         return;
