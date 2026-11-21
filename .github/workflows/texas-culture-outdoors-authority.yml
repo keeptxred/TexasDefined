@@ -5,6 +5,7 @@ on:
       - 'src/data/texas-evergreen-guides-batch2.ts'
       - 'src/data/texas-evergreen-guides-batch7.ts'
       - 'src/components/editorial/TexasEvergreenGuide.tsx'
+      - 'src/components/editorial/TexasCultureGuideFieldwork.tsx'
       - 'src/components/editorial/TexasNaturalWondersAuthority.tsx'
       - 'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx'
       - 'src/routes/texas-rock-climbing-bouldering-guide.tsx'
@@ -52,6 +53,7 @@ jobs:
             'src/data/texas-evergreen-guides-batch2.ts',
             'src/data/texas-evergreen-guides-batch7.ts',
             'src/components/editorial/TexasEvergreenGuide.tsx',
+            'src/components/editorial/TexasCultureGuideFieldwork.tsx',
             'src/components/editorial/TexasNaturalWondersAuthority.tsx',
             'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx',
             'src/routes/texas-rock-climbing-bouldering-guide.tsx'
