@@ -153,23 +153,6 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        heading: "Compare the actual visit: public music, community dance or heritage research",
-        body: [
-          "Gruene Hall (New Braunfels): choose for a landmark music room with a frequently published operator calendar; confirm the selected show's ticket, age, parking and seating conditions rather than inferring them from the building's age.",
-          "Luckenbach (Fredericksburg area): choose for an outdoor picker-and-town experience or a specifically announced hall event; daytime gathering and paid evening concerts are different experiences.",
-          "Twin Sisters (Blanco County) and Anhalt (Spring Branch): choose when a traditional community-dance date is confirmed. A historical hall's existence does not mean daily public entry; operator calendars control.",
-          "Broken Spoke (Austin) and Floore's (Helotes): compare an Austin dance-floor outing against a ticketed concert-oriented honky-tonk; verify the actual event format, cover, door and mobility access. SPJST and Kendalia listings warrant special status checks before any travel commitment; Kendalia's public operations were reported suspended in July 2024.",
-          "Regional planning: one confirmed show near New Braunfels can pair with the Gruene Historic District; a Blanco/Spring Branch day belongs to a separate Hill Country dance date; Austin and Helotes should not be advertised as part of a single short hop. Choose a show first and let the rest of the trip follow it."
-        ],
-        links: [
-          { href: "https://texasdancehall.org/about-dance-halls/find-a-hall/", label: "Texas Dance Hall Preservation — venue identities, not live opening guarantees" },
-          { href: "https://gruenehall.com/events/month/", label: "Gruene Hall — calendar" },
-          { href: "https://twinsistersdancehall.com/calendar/", label: "Twin Sisters — public dance dates" },
-          { href: "https://anhalthalle.com/events/", label: "Anhalt — announced events" },
-          { href: "/explore/trip-planner", label: "Build a geographically realistic regional route" }
-        ]
-      },
-      {
         "heading": "Choosing a venue: historic hall, community dance or honky-tonk",
         "body": [
           "For a preserved wood-floor hall and active visitor district, start with Gruene Hall. For a Hill Country country-music outing, consider Luckenbach and check the dance-hall event. For a confirmed traditional monthly community dance, start with Twin Sisters. For an Austin honky-tonk or commercial concert experience, compare Broken Spoke or Floore's. For a quieter heritage study, research Anhalt, Kendalia and the SPJST halls before traveling.",
@@ -294,19 +277,6 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        "heading": "Budget and ordering decisions without invented price quotes",
-        "body": [
-          "There is no current statewide price list: the broad cost discussion later in this guide is illustrative, not a live quote from any maker. Compare a basic single mum, a more personalized multi-flower arrangement and a garter by getting actual current itemized quotes from local makers. Labor, custom lettering, batteries, size and shipping matter as much as the flower itself.",
-          "For a fair comparison, give each seller the same school colors, class year, name length, activity list, date and maximum weight or size. Ask about deposit, revisions, pickup deadline and what happens if the event date changes. These details are more decision-useful than publishing a price as if all Texas schools shared one market."
-        ],
-        "links": [
-          {
-            "href": "/county/harris",
-            "label": "Harris County and Spring-area makers"
-          }
-        ]
-      },
-      {
         heading: "From flower corsage to wearable scrapbook",
         body: [
           "Homecoming mums began as comparatively simple chrysanthemum corsages. Over time, ribbons, streamers and personalized decorations became as important as the flower, and artificial chrysanthemums made it practical to build larger pieces that could survive a full school day and be kept afterward.",
@@ -367,39 +337,10 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        heading: "How much a homecoming mum can cost",
-        body: [
-          "There is no standard price because size, materials and labor vary enormously. A simple do-it-yourself mum can use only tens of dollars in materials, while custom designs commonly move above $100 and highly elaborate pieces can reach several hundred dollars or more.",
-          "Labor is a major part of the price. Experienced makers may spend hours cutting and layering ribbon, building braids, lettering names, balancing weight and assembling a piece that can survive a full day at school."
-        ],
-        bullets: [
-          "For a useful quote, give the maker the school, grade, colors, deadline, wearer’s name, activities, preferred size and budget.",
-          "Do not assume the largest option is the best option; comfort and school rules matter.",
-          "Order early during homecoming season because experienced makers can fill their calendars."
-        ]
-      },
-      {
         heading: "Who gives whom a mum today",
         body: [
           "Older descriptions often reduce the tradition to a boy giving a mum to a girl and receiving a garter in return. That still happens, but it is not a complete description of modern Texas homecoming.",
           "Families order mums, students make their own, friends exchange them, dates exchange them and some students simply choose the format they prefer. Most are worn during homecoming week, especially on the school day tied to the game, pep rally or spirit activities."
-        ]
-      },
-      {
-        heading: "Compare a DIY supply list with a custom-maker quote",
-        body: [
-          "For DIY, separate the essentials (backing, flower, wearable fasteners, base ribbons and lettering) from optional add-ons (multiple blooms, specialty braids, lights, bells and large mascot ornaments). Optional pieces change weight and labor much more than the basic chrysanthemum centerpiece.",
-          "For a commissioned mum, get the maker's full delivered or pickup total for the same written design brief: number of flowers, ribbon drop, name lettering, grade colors, activities, attachment style, batteries and pickup deadline. Ask how the maker handles revisions, deposits and damaged pieces. Avoid comparing a basic supply-only kit with an elaborate finished custom piece as if they were the same product.",
-          "When school colors or class-year customs are uncertain, compare recent actual school examples and ask the campus rather than paying for decorations that may conflict with local guidelines. The single measured build sequence above covers assembly; this section addresses the buy-versus-build decision."
-        ],
-        bullets: [
-          "DIY checklist: structural backing and cover; flower; base ribbon; readable name/year lettering; durable attachment; adult help for cutting or adhesives.",
-          "Optional cost drivers: extra flowers, complex braids, custom motifs, large charms, lights/batteries and rush labor.",
-          "Maker questions: what exactly is included, what is due when, how is weight managed, and can the finished mum be tested before pickup?"
-        ],
-        links: [
-          { href: "https://texancultures.utsa.edu/exhibits/mumentous", label: "UTSA MUMENTOUS — documentary examples of Texas mum styles" },
-          { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "Texas maker profile and custom-order considerations" }
         ]
       },
       {
