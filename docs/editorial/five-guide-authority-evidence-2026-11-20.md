@@ -35,7 +35,7 @@ These are existing site route references verified by repository search, not auto
 
 ## Publication and monitoring evidence
 
-- GitHub scheduled authority workflows: weekly rock-climbing access, monthly dance halls and natural wonders, quarterly folklore and homecoming mums. Conditional source-diff rewrite PRs remain protected by normal source and release gates.
+- GitHub scheduled authority workflows: weekly rock-climbing access, monthly dance halls, homecoming-mum maker pricing and natural wonders, quarterly folklore. Conditional source-diff rewrite PRs remain protected by normal source and release gates.
 - Supabase verification registry: 46 registered source URLs across five pages. On November 20 (local), all 46 received HTTP probes; four material `source_changed` URLs received explicit claim-by-claim comparison against first-party sources and source-scoped `editorial_verified` ledger entries. Their recorded result is `source_reviewed`, **not** falsely `source_unchanged`. Page-wide `last_verified_at` remains NULL because those four source checks do not constitute an exhaustive human field audit.
 - Post-merge live browser acceptance MUST check 15 Chrome cases on the same Worker, 10 raw HTML SSR two-origin source cases, canonical, image decode, keyboard tab navigation and absence of ineligible mum FAQPage markup. Synthetic lab metrics must never be described as real-user Core Web Vitals.
 - Google Search Console previously showed all five indexed, self-canonical; latest Google crawls predated November 20 substantial update. This is historical indexing evidence, not a new live crawl report.
