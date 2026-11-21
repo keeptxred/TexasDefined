@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "owner": "TexasDefined editorial",
   "updatedAt": "2026-11-20",
-  "policy": "GitHub's recurring source research triggers protected factual edits through the existing sitewide source-backed rewrite PR pipeline. A successful HTTP probe never establishes a new factual verification date. Supabase source registry must remain enrolled with the same or faster cadence; original historical verification evidence is preserved.",
+  "policy": "GitHub's recurring source research triggers protected factual edits through the existing sitewide source-backed rewrite PR pipeline. A successful HTTP probe never establishes a new factual verification date. Supabase source registry must remain enrolled with the same or faster cadence; original historical verification evidence is preserved. November 20 second-pass visitor/operator evidence lists real dated seller and dance-event examples; source diffs may not be silently cleared without verified current official facts. New instructional drawings must be identified as drawings, not documentary photographs. Dated seller quotations in homecoming mums are watched monthly (30-day source cadence) separately from historical cultural facts. The optional externally hosted Michaels photographed DIY tutorial is linked for readers but excluded from machine-critical probe sources: Supabase pg_net was HTTP 403 although normal web retrieval was readable. A provider challenge must not be mislabeled a factual mistake.",
   "groups": [
     {
       "id": "culture-folklore",
@@ -12,19 +12,22 @@
       "maxReviewAgeDays": 90,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch7.ts",
-        "src/components/editorial/TexasEvergreenGuide.tsx"
+        "src/components/editorial/TexasEvergreenGuide.tsx",
+        "src/components/editorial/TexasCultureGuideFieldwork.tsx"
       ],
       "requiredMarkers": [
         "October 1923",
         "O'Reilly",
         "Emily D. West",
         "Smithsonian",
-        "Evidence ledger: what each famous Texas story actually establishes"
+        "Three source trails, three different kinds of evidence",
+        "passport request"
       ],
       "primarySources": [
         "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html",
         "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas",
-        "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html"
+        "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html",
+        "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/"
       ]
     },
     {
@@ -35,7 +38,8 @@
       "maxReviewAgeDays": 40,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
-        "src/components/editorial/TexasEvergreenGuide.tsx"
+        "src/components/editorial/TexasEvergreenGuide.tsx",
+        "src/components/editorial/TexasCultureGuideFieldwork.tsx"
       ],
       "requiredMarkers": [
         "Gruene Hall",
@@ -49,7 +53,9 @@
         "3316 Roberts Cut Off Road",
         "Broken Spoke",
         "Floore Country Store",
-        "Compare the actual visit: public music, community dance or heritage research"
+        "Compare the door, the dance floor and the trip",
+        "admission does not guarantee a chair",
+        "December 31, 2026"
       ],
       "primarySources": [
         "https://texasdancehall.org/about-dance-halls/find-a-hall/",
@@ -57,29 +63,39 @@
         "https://twinsistersdancehall.com/",
         "https://anhalthalle.com/events/",
         "https://twinsistersdancehall.com/calendar/",
-        "https://www.luckenbachtexas.com/"
+        "https://www.luckenbachtexas.com/",
+        "https://gruenehall.com/faq/",
+        "https://www.luckenbachtexas.com/calendar"
       ]
     },
     {
       "id": "culture-homecoming-mums",
       "path": "/texas-homecoming-mums",
-      "cadence": "quarterly",
+      "cadence": "monthly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 90,
+      "maxReviewAgeDays": 40,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
-        "src/components/editorial/TexasEvergreenGuide.tsx"
+        "src/components/editorial/TexasEvergreenGuide.tsx",
+        "src/components/editorial/TexasCultureGuideFieldwork.tsx"
       ],
       "requiredMarkers": [
         "DIY build",
         "Elizabeth Cleaver",
         "test the finished piece while standing, walking and sitting",
         "local school",
-        "Compare a DIY supply list with a custom-maker quote"
+        "Four separate stages of a comfortable mum build",
+        "Actual maker and kit listings",
+        "$79.00",
+        "$139.00"
       ],
       "primarySources": [
         "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions",
-        "https://texancultures.utsa.edu/exhibits/mumentous"
+        "https://texancultures.utsa.edu/exhibits/mumentous",
+        "https://www.melzmumz.com/online-store/Melz-Mum-DIY-Kits-c52590977",
+        "https://www.melzmumz.com/deluxe-single-garter",
+        "https://www.melzmumz.com/online-store/Classic-Single-Double-Triple-%26-Quad-Homecoming-Mums-p204726247",
+        "https://www.mumfactoryoutlet.com/"
       ]
     },
     {
@@ -99,14 +115,19 @@
         "Rio Grande canyons",
         "Source review: November 18, 2026",
         "Which natural wonder fits this trip?",
-        "Hamilton Pool reservation never guarantees swimming"
+        "Hamilton Pool reservation never guarantees swimming",
+        "Rio Grande canyons within Big Bend",
+        "Saw Mill Pond",
+        "twelve landmarks"
       ],
       "primarySources": [
         "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview/",
         "https://www.nps.gov/pais/planyourvisit/conditions.htm",
         "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve",
         "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
-        "https://tpwd.texas.gov/state-parks/palo-duro-canyon"
+        "https://tpwd.texas.gov/state-parks/palo-duro-canyon",
+        "https://www.nps.gov/gumo/planyourvisit/trails.htm",
+        "https://www.nps.gov/bibe/planyourvisit/river_hikes.htm"
       ]
     },
     {
@@ -124,14 +145,19 @@
         "closure",
         "parental consent",
         "The best first stop depends on what you can safely do",
-        "minimum 24-hour climbing/bouldering closure"
+        "minimum 24-hour climbing/bouldering closure",
+        "Where to start, and where not to enter",
+        "North Mountain",
+        "Penitentiary Hollow"
       ],
       "primarySources": [
         "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
         "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update",
         "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb",
         "https://tpwd.texas.gov/state-parks/hueco-tanks/weather-closure-policy",
-        "https://parks.traviscountytx.gov/parks/reimers-ranch"
+        "https://parks.traviscountytx.gov/parks/reimers-ranch",
+        "https://tpwd.texas.gov/state-parks/hueco-tanks/climbing-closure-list",
+        "https://tpwd.texas.gov/state-parks/hueco-tanks/activities"
       ]
     }
   ]

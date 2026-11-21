@@ -153,23 +153,6 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        heading: "Compare the actual visit: public music, community dance or heritage research",
-        body: [
-          "Gruene Hall (New Braunfels): choose for a landmark music room with a frequently published operator calendar; confirm the selected show's ticket, age, parking and seating conditions rather than inferring them from the building's age.",
-          "Luckenbach (Fredericksburg area): choose for an outdoor picker-and-town experience or a specifically announced hall event; daytime gathering and paid evening concerts are different experiences.",
-          "Twin Sisters (Blanco County) and Anhalt (Spring Branch): choose when a traditional community-dance date is confirmed. A historical hall's existence does not mean daily public entry; operator calendars control.",
-          "Broken Spoke (Austin) and Floore's (Helotes): compare an Austin dance-floor outing against a ticketed concert-oriented honky-tonk; verify the actual event format, cover, door and mobility access. SPJST and Kendalia listings warrant special status checks before any travel commitment; Kendalia's public operations were reported suspended in July 2024.",
-          "Regional planning: one confirmed show near New Braunfels can pair with the Gruene Historic District; a Blanco/Spring Branch day belongs to a separate Hill Country dance date; Austin and Helotes should not be advertised as part of a single short hop. Choose a show first and let the rest of the trip follow it."
-        ],
-        links: [
-          { href: "https://texasdancehall.org/about-dance-halls/find-a-hall/", label: "Texas Dance Hall Preservation — venue identities, not live opening guarantees" },
-          { href: "https://gruenehall.com/events/month/", label: "Gruene Hall — calendar" },
-          { href: "https://twinsistersdancehall.com/calendar/", label: "Twin Sisters — public dance dates" },
-          { href: "https://anhalthalle.com/events/", label: "Anhalt — announced events" },
-          { href: "/explore/trip-planner", label: "Build a geographically realistic regional route" }
-        ]
-      },
-      {
         "heading": "Choosing a venue: historic hall, community dance or honky-tonk",
         "body": [
           "For a preserved wood-floor hall and active visitor district, start with Gruene Hall. For a Hill Country country-music outing, consider Luckenbach and check the dance-hall event. For a confirmed traditional monthly community dance, start with Twin Sisters. For an Austin honky-tonk or commercial concert experience, compare Broken Spoke or Floore's. For a quieter heritage study, research Anhalt, Kendalia and the SPJST halls before traveling.",
@@ -294,19 +277,6 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        "heading": "Budget and ordering decisions without invented price quotes",
-        "body": [
-          "There is no current statewide price list: the broad cost discussion later in this guide is illustrative, not a live quote from any maker. Compare a basic single mum, a more personalized multi-flower arrangement and a garter by getting actual current itemized quotes from local makers. Labor, custom lettering, batteries, size and shipping matter as much as the flower itself.",
-          "For a fair comparison, give each seller the same school colors, class year, name length, activity list, date and maximum weight or size. Ask about deposit, revisions, pickup deadline and what happens if the event date changes. These details are more decision-useful than publishing a price as if all Texas schools shared one market."
-        ],
-        "links": [
-          {
-            "href": "/county/harris",
-            "label": "Harris County and Spring-area makers"
-          }
-        ]
-      },
-      {
         heading: "From flower corsage to wearable scrapbook",
         body: [
           "Homecoming mums began as comparatively simple chrysanthemum corsages. Over time, ribbons, streamers and personalized decorations became as important as the flower, and artificial chrysanthemums made it practical to build larger pieces that could survive a full school day and be kept afterward.",
@@ -367,39 +337,10 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        heading: "How much a homecoming mum can cost",
-        body: [
-          "There is no standard price because size, materials and labor vary enormously. A simple do-it-yourself mum can use only tens of dollars in materials, while custom designs commonly move above $100 and highly elaborate pieces can reach several hundred dollars or more.",
-          "Labor is a major part of the price. Experienced makers may spend hours cutting and layering ribbon, building braids, lettering names, balancing weight and assembling a piece that can survive a full day at school."
-        ],
-        bullets: [
-          "For a useful quote, give the maker the school, grade, colors, deadline, wearer’s name, activities, preferred size and budget.",
-          "Do not assume the largest option is the best option; comfort and school rules matter.",
-          "Order early during homecoming season because experienced makers can fill their calendars."
-        ]
-      },
-      {
         heading: "Who gives whom a mum today",
         body: [
           "Older descriptions often reduce the tradition to a boy giving a mum to a girl and receiving a garter in return. That still happens, but it is not a complete description of modern Texas homecoming.",
           "Families order mums, students make their own, friends exchange them, dates exchange them and some students simply choose the format they prefer. Most are worn during homecoming week, especially on the school day tied to the game, pep rally or spirit activities."
-        ]
-      },
-      {
-        heading: "Compare a DIY supply list with a custom-maker quote",
-        body: [
-          "For DIY, separate the essentials (backing, flower, wearable fasteners, base ribbons and lettering) from optional add-ons (multiple blooms, specialty braids, lights, bells and large mascot ornaments). Optional pieces change weight and labor much more than the basic chrysanthemum centerpiece.",
-          "For a commissioned mum, get the maker's full delivered or pickup total for the same written design brief: number of flowers, ribbon drop, name lettering, grade colors, activities, attachment style, batteries and pickup deadline. Ask how the maker handles revisions, deposits and damaged pieces. Avoid comparing a basic supply-only kit with an elaborate finished custom piece as if they were the same product.",
-          "When school colors or class-year customs are uncertain, compare recent actual school examples and ask the campus rather than paying for decorations that may conflict with local guidelines. The single measured build sequence above covers assembly; this section addresses the buy-versus-build decision."
-        ],
-        bullets: [
-          "DIY checklist: structural backing and cover; flower; base ribbon; readable name/year lettering; durable attachment; adult help for cutting or adhesives.",
-          "Optional cost drivers: extra flowers, complex braids, custom motifs, large charms, lights/batteries and rush labor.",
-          "Maker questions: what exactly is included, what is due when, how is weight managed, and can the finished mum be tested before pickup?"
-        ],
-        links: [
-          { href: "https://texancultures.utsa.edu/exhibits/mumentous", label: "UTSA MUMENTOUS — documentary examples of Texas mum styles" },
-          { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "Texas maker profile and custom-order considerations" }
         ]
       },
       {
@@ -468,9 +409,9 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         heading: "Big Bend National Park",
         body: [
-          "Plan at least two days if possible: Ross Maxwell Scenic Drive and the Chisos Basin are far apart, and Santa Elena Canyon is a separate remote stop. NPS does not require an entry reservation, but many campsites and overnight backcountry trips require advance permits or bookings. Check road and trail status before crossing the park.",
+          "Start the overall Big Bend national-park trip at Panther Junction and split time between Chisos Basin elevations, low-desert scenic roads and several distinct walks. This park-wide entry is about the desert-to-mountain transition and travel logistics; a separate canyon itinerary below explains exactly how to reach Santa Elena versus Boquillas. NPS generally does not require an advance park-entry reservation, but overnight camping and certain backcountry trips have separate permits or bookings. Check current roads, Chisos access and trail alerts before driving.",
           "Best general season for lower desert elevations is the cooler part of the year; summers can be dangerous. Choose short accessible scenic stops separately from high-elevation hikes, and do not promise step-free canyon access.",
-          "Big Bend compresses desert, mountains and river canyons into one enormous protected landscape. The Chisos Mountains rise from the Chihuahuan Desert while the Rio Grande cuts deep walls along the international boundary.",
+          "Big Bend's distinctive park-wide story is how the Chisos Mountains and Chihuahuan Desert coexist across large elevation changes. Visit the national park as one protected landscape; treat its Rio Grande canyon approaches as distinct routes, not duplicate destinations in a statewide count.",
           "It deserves more than a drive-through. Distances inside the park are large, summer heat can be severe and the best experience often comes from giving the region multiple days."
         ],
         links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm", label: "Official visit details and current access" }, { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
@@ -578,12 +519,12 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         heading: "The Rio Grande canyons",
         body: [
-          "Santa Elena and Boquillas canyons are features within the larger Big Bend landscape, not two extra independent park destinations. Visit them as a dedicated canyon-focused day within a Big Bend trip; road access and trail conditions should determine the itinerary.",
-          "Do not assume a river crossing, rafting trip or canyon-foot hike is available on demand. River conditions, permits and international-border requirements differ by activity; use NPS river and crossing guidance before planning.",
+          "This entry is a SECOND ITINERARY WITHIN Big Bend, not an extra national park or a duplicate of the park-wide landscape above. Santa Elena Canyon Trail is reached on the park's western Ross Maxwell Scenic Drive corridor near Castolon; Boquillas Canyon Trail is reached on the eastern Boquillas Canyon Spur Road. Choose based on current NPS alerts, travel distance and which side of the park you are exploring. They should not be presented as one quick stop.",
+          "Separate the activities precisely: roadside scenery, a signed canyon-foot trail, a permitted river float, and any international crossing require different planning. Boquillas Canyon Trail has its own parking at the end of the spur road; use the NPS trail guide for the approach and terrain. Check river flow, access, alerts, permits and (if crossing the border) the separately applicable official border rules before departure.",
           "Santa Elena, Boquillas and other canyons show the Rio Grande doing geological work on a monumental scale. Vertical walls narrow the river and create some of the most memorable scenes in Big Bend country.",
           "The canyons also remind travelers that the river is an international boundary layered over a much older natural corridor."
         ],
-        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river_hikes.htm", label: "NPS — Santa Elena and Boquillas canyon-foot trail access" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
       }
     ],
     related: [

@@ -58,6 +58,9 @@ if (argv.has("--watch")) {
       if (marker) {
         const html = await response.text();
         if (!html.toLowerCase().includes(marker.toLowerCase())) problems.push(description + ": expected source-specific public content not visible: " + marker + " at " + url);
+        if (description.startsWith("/") && !html.includes("November 20, 2026")) {
+          problems.push(description + ": revised November 20 editorial date not present in raw public HTML at " + url);
+        }
         if (description.startsWith("/")) {
           const expectedCanonical = "https://texasdefined.com" + description;
           const canonicalTags = [...html.matchAll(/<link\b[^>]*>/gi)].map(match => match[0])
@@ -81,14 +84,16 @@ if (argv.has("--watch")) {
   // Bounded concurrency: no whole-site scan, no Cloudflare API calls, no content mutations.
   const checks = [];
   const publicProof = {
-    "/texas-tall-tales-folklore": "October 1923",
-    "/texas-dance-halls-honky-tonks": "Gruene Hall",
-    "/texas-homecoming-mums": "DIY build",
-    "/texas-natural-wonders-bucket-list": "Del Norte",
-    "/texas-rock-climbing-bouldering-guide": "Bouldering, free climbing and soloing are prohibited",
+    "/texas-tall-tales-folklore": "Three source trails, three different kinds of evidence",
+    "/texas-dance-halls-honky-tonks": "Compare the door, the dance floor and the trip",
+    "/texas-homecoming-mums": "Actual maker and kit listings",
+    "/texas-natural-wonders-bucket-list": "Rio Grande canyons within Big Bend",
+    "/texas-rock-climbing-bouldering-guide": "Where to start, and where not to enter",
   };
   for (const group of selected) {
-    checks.push([ "https://texasdefined.com" + group.path, group.path, publicProof[group.path] ]);
+    for (const origin of ["https://texasdefined.com","https://texasdefined-site.freddy-coppola.workers.dev"]) {
+      checks.push([ origin + group.path, group.path, publicProof[group.path] ]);
+    }
     for (const url of group.primarySources) checks.push([url, group.path + " primary source", null]);
   }
   let next = 0;

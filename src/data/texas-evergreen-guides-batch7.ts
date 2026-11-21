@@ -53,38 +53,6 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH7: Record<string, TexasEvergreenGuide> 
         ]
       },
       {
-        "heading": "How to recognize evidence, retelling and modern popularization",
-        "body": [
-          "Evidence of an event means a dated document, an authenticated historical record or a carefully sourced scholarly reconstruction. A printed retelling proves at least that a story circulated in print at that time; it does not independently prove its claimed earlier oral origin. A souvenir, song performance or tourist retelling can be excellent evidence of later cultural popularity without establishing invention.",
-          "For Pecos Bill, use the 1923 story and later scholarly discussion. For jackalopes, distinguish older horned-rabbit imagery from the Douglas novelty. For Emily West, consult her biographical entry separately from the song history. Keep uncertainty in the reader-facing text rather than quietly converting a legend into historical fact."
-        ],
-        "links": [
-          {
-            "href": "/things-unique-to-texas/methodology",
-            "label": "TexasDefined — source methodology"
-          },
-          {
-            "href": "/everything-bigger-in-texas",
-            "label": "How Texas exaggeration became a cultural shorthand"
-          }
-        ]
-      },
-      {
-        heading: "Evidence ledger: what each famous Texas story actually establishes",
-        body: [
-          "Pecos Bill — documented: Edward O'Reilly's October 1923 Century Magazine article. Not established: an independently collected nineteenth-century oral biography of this named character. Distinction: Western cowboys did tell tall tales, but that does not date Pecos Bill himself before the surviving publication.",
-          "Yellow Rose — documented: nineteenth-century printed song lyrics and an independent Republic of Texas paper trail for Emily D. West. Not established: that West inspired the song or helped decide San Jacinto. Distinction: the much later romantic identification is a historically influential legend, not a contemporary battle account.",
-          "Jackalope — documented: earlier horned-rabbit imagery and the Herrick brothers' Douglas, Wyoming novelty-mount popularization in the 1930s. Not established: that a real antlered species originated in Texas. Distinction: roadside popularity can make an imported story part of Texas culture without changing its documented origin.",
-          "Reading rule: the oldest *surviving* source dates an attested telling, not necessarily the first human telling. For an alleged historical event, ask for independent contemporary evidence; for cultural influence, later souvenirs and performances are appropriate evidence of reception."
-        ],
-        links: [
-          { href: "https://plainshumanities.unl.edu/encyclopedia/doc/egp.fol.031.html", label: "Encyclopedia of the Great Plains — Pecos Bill scholarship" },
-          { href: "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas", label: "Handbook of Texas — song and Emily West evidence" },
-          { href: "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html", label: "Texas State Library — Emily West passport record" },
-          { href: "https://www.smithsonianmag.com/arts-culture/greetings-from-the-land-of-the-make-believe-species-167869753/", label: "Smithsonian — jackalope popularization" }
-        ]
-      },
-      {
         heading: "Folklore does not have to be false to be worth studying",
         body: [
           "A tall tale can be culturally important even when nobody believes every event literally happened. The exaggeration itself tells us what a community admired, feared, joked about or wanted to remember.",

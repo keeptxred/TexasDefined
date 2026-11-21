@@ -9,7 +9,7 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks/activities", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
   { label: "Texas Parks & Wildlife — Enchanted Rock Climbing & Bouldering", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb", note: "Official climbing management, protected-resource and climbing-rule guidance for Enchanted Rock." },
   { label: "Texas Parks & Wildlife — Lake Mineral Wells Rock Climbing", href: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing", note: "Official registration, approved-guide and Penitentiary Hollow climbing information." },
-  { label: "Travis County Parks — Milton Reimers Ranch Park trails map", href: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf", note: "County park map showing North Shore and Climber's Canyon climbing areas and the surrounding trail network." },
+  { label: "Travis County Parks — Milton Reimers Ranch official trails map (PDF)", href: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf", note: "County PDF map explicitly marks separate North Shore and Climber's Canyon climbing areas, roads, trails and approximate distances; it is NOT a surveyed route." },
 ] as const;
 
 const areas = [
@@ -20,7 +20,7 @@ const areas = [
     summary: "A desert climbing destination where access is deliberately managed to protect fragile natural and cultural resources.",
     details: [
       "Hueco Tanks combines climbing with an archaeological and cultural landscape that has been important to people for thousands of years. That context changes how a climbing trip should be planned: the park is not simply an open recreation area, and resource protection is part of the visit.",
-      "TPWD divides access between guided and self-guided areas. The North Mountain self-guided area uses a daily permit limit, while guided access must be arranged in advance. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
+      "TPWD divides access between guided and self-guided areas. TPWD's Activities page says North Mountain self-guided access is limited to 70 people at one time, whereas its main park page describes 70 daily permits. These are different descriptions, so reserve the dated self-guided permit by phone (512) 389-8911 (online reservations are unavailable) and confirm capacity with park staff. Guided West Mountain, East Mountain and East Spur access must be arranged in advance. TPWD's main park page explicitly says guided tours must be booked a minimum of one week ahead. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
     ],
   },
   {
@@ -52,6 +52,41 @@ const areas = [
       "Reimers Ranch adds a county-managed climbing destination to the state and national-park mix. Travis County's current park map identifies two climbing areas—North Shore and Climber's Canyon—within a larger network of hiking, river and mountain-bike trails.",
       "County park operations can differ from TPWD rules, and a map is not a substitute for current access instructions. Check Travis County Parks for current hours, fees, closures and any climbing-specific conditions before the trip. The wider park also shares space with river users, hikers and cyclists, so route planning should account for the whole recreation landscape rather than only the cliff line.",
     ],
+  },
+] as const;
+
+const approachCards = [
+  {
+    area: "Hueco Tanks · North Mountain vs guided mountains",
+    arrival: "Park headquarters and mandatory orientation come first; self-guided North Mountain is limited to 70 people at one time, according to TPWD. West Mountain, East Mountain and East Spur require a guide.",
+    action: "Reserve the correct access category ahead of the day. TPWD's park overview says guided tours must be booked at least one week in advance, while its Activities page says request early enough for a guide to be confirmed. Follow the stricter minimum and confirm with staff. A natural-history tour guide is not automatically a technical climbing instructor; verify authorized instruction and equipment separately.",
+    map: "https://tpwd.texas.gov/state-parks/hueco-tanks/trails-info",
+    closed: "https://tpwd.texas.gov/state-parks/hueco-tanks/climbing-closure-list",
+    note: "Read the protected North Mountain sector closures and wet-rock policy BEFORE choosing boulders; a broad park-open alert is not a climbing-zone clearance."
+  },
+  {
+    area: "Enchanted Rock · Echo Canyon and technical granite",
+    arrival: "Use the managed park entrance off Ranch Road 965 and park-designated trailheads. Echo Canyon and Turkey Peak are identified in the TPWD trails and climbing-area references.",
+    action: "Check in at headquarters. For a first outdoor roped climb, use an operator approved by the park instead of choosing a multipitch slab from an online route rating.",
+    map: "https://tpwd.texas.gov/state-parks/enchanted-rock/trails-info",
+    closed: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb",
+    note: "Rappel endpoints and protection are route-specific; the TPWD warning about 70-meter ropes is not a universal instruction that 70 meters is sufficient for every descent."
+  },
+  {
+    area: "Lake Mineral Wells · Penitentiary Hollow",
+    arrival: "Enter Lake Mineral Wells State Park, register at headquarters and use the Penitentiary Hollow designated parking/picnic area. The official rock-area map shows access from the parking lot via the stairway.",
+    action: "Complete the climbing waiver and any applicable minor consent; verify the rock area and approved-group guide requirements before carrying gear downhill.",
+    map: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
+    closed: "https://tpwd.texas.gov/state-parks/park-information/notices/lmw-trails-update",
+    note: "Accessible picnic pads and parking do NOT mean the sandstone climbing routes or stairway descent are wheelchair accessible. Roped climbing only; no bouldering or soloing."
+  },
+  {
+    area: "Milton Reimers Ranch · North Shore / Climber's Canyon",
+    arrival: "Use the Travis County-managed park entrance, then county-signed parking and trails shown on its current park map. Climber's Canyon and North Shore are separate approaches.",
+    action: "Check road access notices, climbing policy and any park closures. Confirm with Travis County Parks that a chosen teaching service is authorized for that site.",
+    map: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf",
+    closed: "https://parks.traviscountytx.gov/news",
+    note: "County management differs from TPWD registrations; beach road access and climber parking are distinct."
   },
 ] as const;
 
@@ -121,7 +156,7 @@ function TexasClimbingGuidePage() {
             <h2 id="climbing-choice" className="mt-2 font-display text-3xl">The best first stop depends on what you can safely do</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
               <p>New to outdoor climbing? Do not treat these destinations as beginner instruction. First arrange qualified instruction or an eligible guide, then confirm that the guide is approved for the exact protected area and activity. Lake Mineral Wells requires formal registration and forbids unroped bouldering; a visitor seeking bouldering should not book that park on the assumption every climbing venue allows it.</p>
-              <p>Experienced boulderer considering Hueco Tanks? TPWD limits North Mountain self-guided access to 70 visitors daily, requires orientation and separates guided areas. Check the park's dedicated wet-weather climbing policy: a significant precipitation event triggers a minimum 24-hour climbing/bouldering closure. Arrange access and check alerts before committing to a long drive.</p>
+              <p>Experienced boulderer considering Hueco Tanks? TPWD limits the self-guided North Mountain area to 70 visitors at a time, requires orientation and separates guided areas. Check the park's dedicated wet-weather climbing policy: a significant precipitation event triggers a minimum 24-hour climbing/bouldering closure. Arrange access and check alerts before committing to a long drive.</p>
               <p>Planning Enchanted Rock's longer granite routes? TPWD warns of widely spaced protection and descents that may need at least 70 meters of rope; climbing a scenic granite dome and committing to a technical route are very different decisions. For a Central Texas limestone outing, compare Reimers Ranch's county-managed park access and current road alerts, not a TPWD permit system.</p>
             </div>
             <nav aria-label="Official climbing alerts and arrival choices" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
@@ -130,6 +165,25 @@ function TexasClimbingGuidePage() {
               <a href="https://tpwd.texas.gov/state-parks/enchanted-rock/alert" target="_blank" rel="noreferrer noopener" className="text-primary underline">Enchanted Rock current alerts ↗</a>
               <a href="https://parks.traviscountytx.gov/parks/reimers-ranch" target="_blank" rel="noreferrer noopener" className="text-primary underline">Reimers Ranch current county notices ↗</a>
             </nav>
+          </section>
+
+          <section className="border-b border-border py-10" aria-labelledby="climbing-approaches">
+            <p className="eyebrow text-primary">On-the-ground access</p>
+            <h2 id="climbing-approaches" className="mt-2 font-display text-3xl">Where to start, and where not to enter</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">These are access decisions drawn from current land-manager guidance, not independently tested route descriptions or climbing instruction. A park entrance and the start of a particular rock route are not the same place. Ask staff for current trail/sector maps and do not follow unofficial geotags through protected areas.</p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {approachCards.map(item=><article key={item.area} className="border border-border p-5">
+                <h3 className="font-display text-xl">{item.area}</h3>
+                <p className="mt-3 text-sm leading-7"><strong>Arrival:</strong> {item.arrival}</p>
+                <p className="mt-2 text-sm leading-7"><strong>Plan:</strong> {item.action}</p>
+                <p className="mt-2 text-sm leading-7"><strong>Don't assume:</strong> {item.note}</p>
+                <div className="mt-4 flex flex-wrap gap-4 text-sm">
+                  <a href={item.map} target="_blank" rel="noreferrer noopener" className="text-primary underline">Land-manager approach guide ↗</a>
+                  <a href={item.closed} target="_blank" rel="noreferrer noopener" className="text-primary underline">Current closure rules ↗</a>
+                </div>
+              </article>)}
+            </div>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">Beginner standard: first get indoor belay and equipment training, then arrange a qualified, site-authorized outdoor instructor. A park tour guide is not necessarily a climbing instructor, and an advertised boulder problem is not necessarily open or safe to attempt. We do not assign technical grades without current land-manager or verified route evidence.</p>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="before-climbing">

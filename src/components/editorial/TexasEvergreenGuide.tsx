@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { editorialImageSrc } from "@/lib/editorial-image-delivery";
+import { TexasCultureGuideFieldwork } from "@/components/editorial/TexasCultureGuideFieldwork";
 
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
@@ -436,15 +437,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         "@id": `${canonicalUrl}#breadcrumb`,
         itemListElement: breadcrumbItems,
       },
-      ...(hasHomecomingMumSupplies ? [{
-        "@type": "FAQPage",
-        "@id": `${canonicalUrl}#faq`,
-        mainEntity: homecomingMumFaqs.map(([question, answer]) => ({
-          "@type": "Question",
-          name: question,
-          acceptedAnswer: { "@type": "Answer", text: answer },
-        })),
-      }] : []),
+
     ],
   };
 
@@ -528,6 +521,8 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
         </section>
+
+        <TexasCultureGuideFieldwork slug={guide.slug} />
 
         {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="mum-grade-guide">
           <p className="eyebrow text-primary">At a glance</p>
