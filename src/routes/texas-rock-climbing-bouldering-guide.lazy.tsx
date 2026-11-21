@@ -58,8 +58,8 @@ const areas = [
 const approachCards = [
   {
     area: "Hueco Tanks · North Mountain vs guided mountains",
-    arrival: "Park headquarters and mandatory orientation come first; self-guided North Mountain is capped at 70 people per day. West Mountain, East Mountain and East Spur require a guide.",
-    action: "Reserve the correct access category ahead of the day. For a guided tour, TPWD says to book at least one week in advance; confirm guide availability, climber skill requirements and exact zone.",
+    arrival: "Park headquarters and mandatory orientation come first; self-guided North Mountain is limited to 70 people at one time, according to TPWD. West Mountain, East Mountain and East Spur require a guide.",
+    action: "Reserve the correct access category ahead of the day. For a guided tour, TPWD advises requesting park tours early enough to confirm a guide; park staff do not provide technical climbing instruction or equipment. Confirm guide availability, climber skill requirements and exact zone.",
     map: "https://tpwd.texas.gov/state-parks/hueco-tanks/trails-info",
     closed: "https://tpwd.texas.gov/state-parks/hueco-tanks/climbing-closure-list",
     note: "Read the protected North Mountain sector closures and wet-rock policy BEFORE choosing boulders; a broad park-open alert is not a climbing-zone clearance."
@@ -156,7 +156,7 @@ function TexasClimbingGuidePage() {
             <h2 id="climbing-choice" className="mt-2 font-display text-3xl">The best first stop depends on what you can safely do</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
               <p>New to outdoor climbing? Do not treat these destinations as beginner instruction. First arrange qualified instruction or an eligible guide, then confirm that the guide is approved for the exact protected area and activity. Lake Mineral Wells requires formal registration and forbids unroped bouldering; a visitor seeking bouldering should not book that park on the assumption every climbing venue allows it.</p>
-              <p>Experienced boulderer considering Hueco Tanks? TPWD limits North Mountain self-guided access to 70 visitors daily, requires orientation and separates guided areas. Check the park's dedicated wet-weather climbing policy: a significant precipitation event triggers a minimum 24-hour climbing/bouldering closure. Arrange access and check alerts before committing to a long drive.</p>
+              <p>Experienced boulderer considering Hueco Tanks? TPWD limits the self-guided North Mountain area to 70 visitors at a time, requires orientation and separates guided areas. Check the park's dedicated wet-weather climbing policy: a significant precipitation event triggers a minimum 24-hour climbing/bouldering closure. Arrange access and check alerts before committing to a long drive.</p>
               <p>Planning Enchanted Rock's longer granite routes? TPWD warns of widely spaced protection and descents that may need at least 70 meters of rope; climbing a scenic granite dome and committing to a technical route are very different decisions. For a Central Texas limestone outing, compare Reimers Ranch's county-managed park access and current road alerts, not a TPWD permit system.</p>
             </div>
             <nav aria-label="Official climbing alerts and arrival choices" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
