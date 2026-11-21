@@ -60,8 +60,11 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
     ' (partial season snapshot'+(districtGames.length?'; '+districtWins+'–'+districtLosses+' among listed district finals':'')+')';
   const mostRecent=updates.reduce((latest,row)=>row.date>latest.date?row:latest);
   const headline=mostRecent.pointsFor>mostRecent.pointsAgainst?'won':'lost';
-  const updateNotice=slug.replaceAll('-',' ')+' '+headline+' '+mostRecent.pointsFor+'–'+mostRecent.pointsAgainst+
-    ' against '+mostRecent.opponent+' on November 6, 2026, independently reviewed November 20.'+
+  const displayedName=slug.split('-').map(part=>part.slice(0,1).toUpperCase()+part.slice(1)).join(' ');
+  const gameDate=new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'UTC'})
+    .format(new Date(mostRecent.date+'T12:00:00Z'));
+  const updateNotice=displayedName+' '+headline+' '+mostRecent.pointsFor+'–'+mostRecent.pointsAgainst+
+    ' against '+mostRecent.opponent+' on '+gameDate+', independently reviewed '+mostRecent.verifiedAt+'.'+
     ' This is a source-dated published result, not live scores. Other fixtures without confirmed finals remain unverified.';
   const original=editorial.season;
   return {
@@ -74,8 +77,8 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
       latestResultSourceUrl:mostRecent.primarySourceUrl,
     },
     seo:editorial.seo?{...editorial.seo,description:
-      slug.replaceAll('-',' ')+' football 2026: '+mostRecent.opponent+' '+mostRecent.pointsFor+'–'+
-      mostRecent.pointsAgainst+' on November 6. '+completed.length+
+      displayedName+' football 2026: '+mostRecent.opponent+' '+mostRecent.pointsFor+'–'+
+      mostRecent.pointsAgainst+' on '+gameDate+'. '+completed.length+
       ' independently checked reported scores; remaining 2026 results await confirmation.'}:editorial.seo,
     faq:editorial.faq?.map(entry=>/(2026.*record|record.*2026)/i.test(entry.question)
       ?{...entry,answer:record+'. Additional dated results require independently published sources.'}
