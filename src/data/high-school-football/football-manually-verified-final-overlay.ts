@@ -11,10 +11,10 @@ type Verified = {
 const registry = snapshot.verifiedFinals as readonly Verified[];
 const normalized = (value: string) => value.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ');
 function fixtureDate(raw: string): string {
-  if (/^2026-\\d{2}-\\d{2}$/.test(raw)) return raw;
+  if (/^2026-\d{2}-\d{2}$/.test(raw)) return raw;
   // Original source-ledger fixture dates are a mix of ISO and "Nov. 6".
   // Only source-verified 2026 schedule dates normalize; no fuzzy matching.
-  const m=/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\\.?\\s+(\\d{1,2})(?:,?\\s+2026)?$/i.exec(raw.trim());
+  const m=/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})(?:,?\s+2026)?$/i.exec(raw.trim());
   if (!m) return '';
   const months: Record<string,string>={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',sept:'09',oct:'10',nov:'11',dec:'12'};
   return '2026-'+months[m[1].toLowerCase()]+'-'+m[2].padStart(2,'0');
