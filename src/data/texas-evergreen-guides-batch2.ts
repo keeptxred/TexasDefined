@@ -468,9 +468,9 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         heading: "Big Bend National Park",
         body: [
-          "Plan at least two days if possible: Ross Maxwell Scenic Drive and the Chisos Basin are far apart, and Santa Elena Canyon is a separate remote stop. NPS does not require an entry reservation, but many campsites and overnight backcountry trips require advance permits or bookings. Check road and trail status before crossing the park.",
+          "Start the overall Big Bend national-park trip at Panther Junction and split time between Chisos Basin elevations, low-desert scenic roads and several distinct walks. This park-wide entry is about the desert-to-mountain transition and travel logistics; a separate canyon itinerary below explains exactly how to reach Santa Elena versus Boquillas. NPS generally does not require an advance park-entry reservation, but overnight camping and certain backcountry trips have separate permits or bookings. Check current roads, Chisos access and trail alerts before driving.",
           "Best general season for lower desert elevations is the cooler part of the year; summers can be dangerous. Choose short accessible scenic stops separately from high-elevation hikes, and do not promise step-free canyon access.",
-          "Big Bend compresses desert, mountains and river canyons into one enormous protected landscape. The Chisos Mountains rise from the Chihuahuan Desert while the Rio Grande cuts deep walls along the international boundary.",
+          "Big Bend's distinctive park-wide story is how the Chisos Mountains and Chihuahuan Desert coexist across large elevation changes. Visit the national park as one protected landscape; treat its Rio Grande canyon approaches as distinct routes, not duplicate destinations in a statewide count.",
           "It deserves more than a drive-through. Distances inside the park are large, summer heat can be severe and the best experience often comes from giving the region multiple days."
         ],
         links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/permitsandreservations.htm", label: "Official visit details and current access" }, { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural-wonders index" }]
@@ -578,12 +578,12 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       {
         heading: "The Rio Grande canyons",
         body: [
-          "Santa Elena and Boquillas canyons are features within the larger Big Bend landscape, not two extra independent park destinations. Visit them as a dedicated canyon-focused day within a Big Bend trip; road access and trail conditions should determine the itinerary.",
-          "Do not assume a river crossing, rafting trip or canyon-foot hike is available on demand. River conditions, permits and international-border requirements differ by activity; use NPS river and crossing guidance before planning.",
+          "This entry is a SECOND ITINERARY WITHIN Big Bend, not an extra national park or a duplicate of the park-wide landscape above. Santa Elena Canyon Trail is reached on the park's western Ross Maxwell Scenic Drive corridor near Castolon; Boquillas Canyon Trail is reached on the eastern Boquillas Canyon Spur Road. Choose based on current NPS alerts, travel distance and which side of the park you are exploring. They should not be presented as one quick stop.",
+          "Separate the activities precisely: roadside scenery, a signed canyon-foot trail, a permitted river float, and any international crossing require different planning. Boquillas Canyon Trail has its own parking at the end of the spur road; use the NPS trail guide for the approach and terrain. Check river flow, access, alerts, permits and (if crossing the border) the separately applicable official border rules before departure.",
           "Santa Elena, Boquillas and other canyons show the Rio Grande doing geological work on a monumental scale. Vertical walls narrow the river and create some of the most memorable scenes in Big Bend country.",
           "The canyons also remind travelers that the river is an international boundary layered over a much older natural corridor."
         ],
-        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
+        links: [{ href: "/destination/big-bend-national-park", label: "TexasDefined destination and visitor guide" }, { href: "https://www.nps.gov/bibe/planyourvisit/river_hikes.htm", label: "NPS — Santa Elena and Boquillas canyon-foot trail access" }, { href: "https://www.nps.gov/bibe/planyourvisit/river-trips.htm", label: "Official NPS river-trip rules" }]
       }
     ],
     related: [
