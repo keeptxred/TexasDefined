@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile, appendFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+const execFileAsync = promisify(execFile);
 
 const registry = JSON.parse(await readFile("ops/editorial/texas-culture-outdoors-review-groups.json", "utf8"));
 const argv = new Set(process.argv.slice(2));
@@ -66,9 +69,37 @@ if (argv.has("--watch")) {
     }
     throw lastError;
   }
+  async function curlSourceFallback(url) {
+    // Node's undici and system curl have independent TLS/proxy stacks.
+    // A second transport only verifies reachability, never factual correctness.
+    // Do not use this for first-party editorial-marker/canonical checks.
+    const { stdout } = await execFileAsync("curl",[
+      "--location","--silent","--show-error","--compressed",
+      "--max-time","30","--retry","2","--retry-all-errors","--retry-delay","1",
+      "--user-agent","TexasDefined-Five-Guides-Source-Monitor/1.0",
+      "--write-out","\\n__TD_HTTP_STATUS__%{http_code}",
+      url
+    ],{timeout:100000,maxBuffer:12*1024*1024});
+    const m=stdout.match(/\\n__TD_HTTP_STATUS__(\\d{3})$/);
+    if(!m)throw new Error("curl response status unavailable");
+    const status=Number(m[1]);
+    return {ok:status>=200&&status<300,status,headers:{get:()=>null},
+      body:{cancel:async()=>{}},text:async()=>stdout.slice(0,m.index)};
+  }
   async function probe(url, description, marker) {
     try {
-      const response = await fetchWithRetry(url);
+      let response;
+      try { response = await fetchWithRetry(url); }
+      catch(primaryError) {
+        if(marker)throw primaryError;
+        try {
+          response=await curlSourceFallback(url);
+          console.log("FIVE_GUIDE_SOURCE_CURL_FALLBACK_OK "+url+" HTTP "+response.status);
+        } catch(fallbackError) {
+          throw new Error("Node fetch: "+String(primaryError).slice(0,75)+
+            "; curl: "+String(fallbackError).slice(0,100));
+        }
+      }
       if (!response.ok) {
         problems.push(description + ": official/live response HTTP " + response.status + " at " + url);
         return;
