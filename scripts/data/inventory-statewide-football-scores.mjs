@@ -235,6 +235,43 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     else pages.push({kind:'team',page:aubreyUrl,slug:'aubrey',reason:'overdue-fixture',
       sourceFile:'aubrey-postseason-fixtures.snapshot.json',overdue:postseason});
   }
+  // A protected editor-approved source ledger is applied to the live team
+  // routes after their older authored editorial. Research the *effective*
+  // published score, not an October placeholder the visitor cannot see.
+  const reviewed=JSON.parse(read(join(dir,'football-manually-verified-finals-2026.snapshot.json')));
+  if(reviewed.schemaVersion!==1||reviewed.season!=='2026'||!Array.isArray(reviewed.verifiedFinals))
+    throw Error('Invalid manually verified football final registry');
+  const normalizeTeam=name=>String(name).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const reviewedBySlug=new Map();
+  for(const result of reviewed.verifiedFinals){
+    const a=new URL(result.primarySourceUrl),b=new URL(result.secondarySourceUrl);
+    if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(result.slug)||!isoDate(result.date)
+       ||!result.date.startsWith('2026-')||!isoDate(result.verifiedAt)
+       ||result.verificationMethod!=='manual-editorial-review'
+       ||!Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)
+       ||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst
+       ||a.protocol!=='https:'||b.protocol!=='https:'||a.hostname===b.hostname)
+      throw Error('Invalid reviewed score research row '+String(result.slug)+' '+String(result.date));
+    if(!reviewedBySlug.has(result.slug))reviewedBySlug.set(result.slug,[]);
+    const rows=reviewedBySlug.get(result.slug);
+    if(rows.some(row=>row.date===result.date))throw Error('Duplicate reviewed 2026 football date for '+result.slug);
+    rows.push(result);
+  }
+  for(const page of pages.filter(p=>p.kind==='team'&&reviewedBySlug.has(p.slug))){
+    const rows=reviewedBySlug.get(page.slug);
+    const teamName=normalizeTeam(page.slug.replaceAll('-',' '));
+    page.overdue=page.overdue.filter(game=>{
+      const visitorOpponent=normalizeTeam(game.away)===teamName?game.home:
+        normalizeTeam(game.home)===teamName?game.away:null;
+      if(!visitorOpponent)return true;
+      return !rows.some(row=>row.date===game.date&&normalizeTeam(row.opponent)===normalizeTeam(visitorOpponent));
+    });
+    const latest=rows.map(row=>row.verifiedAt).sort().at(-1);
+    if(latest>=(page.verifiedAt??''))page.verifiedAt=latest;
+    if(!page.overdue.length){
+      page.reason=(Date.parse(today)-Date.parse(latest))/DAY>=14?'dated-score-review':null;
+    }
+  }
   const unique=new Map();
   for(const p of pages){const old=unique.get(p.page);if(old){old.overdue.push(...p.overdue);}else unique.set(p.page,p);}
   const selected=[...unique.values()].filter(p=>p.overdue.length||p.reason==='dated-score-review'||p.reason==='dated-standings-review')
