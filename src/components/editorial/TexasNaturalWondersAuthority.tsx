@@ -69,7 +69,7 @@ export function TexasNaturalWondersAuthority() {
         <h2 id="natural-wonders-which" className="mt-2 font-display text-4xl">Which natural wonder fits this trip?</h2>
         <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">The twelve landmarks are not interchangeable. Match terrain, access system and travel effort first. This comparison is editorial planning, not a live access guarantee; the linked land manager controls today's conditions.</p>
         <div className="mt-6 overflow-x-auto">
-          <table className="w-full min-w-[980px] text-left text-sm leading-6">
+          <table className="w-full text-left text-sm leading-6" style={{minWidth:980}}>
             <caption className="sr-only">Twelve Texas natural landscapes compared by visitor fit, actual arrival location, official action and important limitations</caption>
             <thead><tr className="border-b border-border"><th scope="col" className="p-3">Landscape</th><th scope="col" className="p-3">Good fit</th><th scope="col" className="p-3">Entrance, trailhead or launch</th><th scope="col" className="p-3">Before you travel</th><th scope="col" className="p-3">Easy mistake</th></tr></thead>
             <tbody>{chooseALandscape.map((landscape) => <tr key={landscape.place} className="border-b border-border align-top">
