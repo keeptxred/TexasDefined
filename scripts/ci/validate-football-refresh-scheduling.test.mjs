@@ -17,6 +17,7 @@ test('statewide schedule searches published game sources the next day for all el
     "src/data/high-school-football/football-district*.ts",
     "src/data/high-school-football/program-editorial*.ts",
     "src/data/high-school-football/aubrey-*.snapshot.json",
+    "src/data/high-school-football/football-manually-verified-finals-2026.snapshot.json",
   ]) {
     const push=workflow.slice(workflow.indexOf('  push:'),workflow.indexOf('  schedule:'));
     assert.ok(push.includes(path),'A protected editorial result merge must trigger a fresh statewide inventory: '+path);
