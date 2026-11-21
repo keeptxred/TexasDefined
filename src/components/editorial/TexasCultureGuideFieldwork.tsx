@@ -34,7 +34,7 @@ const buildSteps = [
 function StepSketch({ kind }: { kind: (typeof buildSteps)[number]["visual"] }) {
   const showRibbon = kind === "ribbon" || kind === "flower" || kind === "final";
   const showFlower = kind === "flower" || kind === "final";
-  return <svg viewBox="0 0 260 170" role="img" aria-label={kind === "backing" ? "Rear circular mum backing with two reinforced attachment points" : kind === "ribbon" ? "Backer with school-color ribbon streamers attached" : kind === "flower" ? "Artificial chrysanthemum layered on the ribbon backing" : "Finished mum assembled with balanced ribbons and flower"} className="h-auto w-full max-w-[260px]">
+  return <svg viewBox="0 0 260 170" role="img" aria-label={kind === "backing" ? "Rear circular mum backing with two reinforced attachment points" : kind === "ribbon" ? "Backer with school-color ribbon streamers attached" : kind === "flower" ? "Artificial chrysanthemum layered on the ribbon backing" : "Finished mum assembled with balanced ribbons and flower"} className="h-auto w-full" style={{maxWidth:260}}>
     <rect x="0" y="0" width="260" height="170" rx="12" fill="#f6f1e8"/>
     {showRibbon && <g>
       <path d="M94 61 L90 157 L111 157 L118 59Z" fill="#bc3336"/><path d="M116 61 L119 157 L138 157 L140 61Z" fill="#f0ce72"/>
@@ -79,9 +79,9 @@ export function TexasCultureGuideFieldwork({ slug }: { slug: string }) {
   if (slug === "texas-dance-halls-honky-tonks") return <GuideSection id="dance-hall-operator-matrix" eyebrow="Practical venue comparison" title="Compare the door, the dance floor and the trip">
     <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">This is not an events calendar or claim that a hall is open now. Published admission examples apply to a named event, and access accommodations need to be confirmed with the venue for the performance you select.</p>
     <div className="mt-6 overflow-x-auto rounded-sm border border-border">
-      <table className="w-full min-w-[750px] text-left text-sm leading-6">
+      <table className="w-full text-left text-sm leading-6" style={{minWidth:750}}>
         <caption className="sr-only">Eight Texas dance halls compared on admission, visitor access and source verification</caption>
-        <thead className="bg-muted/40"><tr><th className="p-3" scope="col">Venue and purpose</th><th className="p-3" scope="col">Entry and parking</th><th className="p-3" scope="col">Ticket or admission</th><th className="p-3" scope="col">Access question to resolve</th></tr></thead>
+        <thead className="bg-muted"><tr><th className="p-3" scope="col">Venue and purpose</th><th className="p-3" scope="col">Entry and parking</th><th className="p-3" scope="col">Ticket or admission</th><th className="p-3" scope="col">Access question to resolve</th></tr></thead>
         <tbody>{danceChoices.map(item=><tr className="border-t border-border align-top" key={item.venue}>
           <th scope="row" className="p-3 font-semibold">{item.venue}<span className="mt-1 block font-normal text-muted-foreground">{item.context}</span><a href={item.source} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block font-normal text-primary underline">Operator/source ↗</a></th>
           <td className="p-3">{item.access}</td><td className="p-3">{item.ticket}</td><td className="p-3">{item.check}</td>
@@ -105,8 +105,8 @@ export function TexasCultureGuideFieldwork({ slug }: { slug: string }) {
     <GuideSection id="mum-real-price-examples" eyebrow="Itemized published examples" title="Actual maker and kit listings, not a made-up statewide average">
       <p className="mt-4 text-base leading-8">The figures below are examples captured from published seller pages on November 20, 2026, in U.S. dollars. They are <strong>not quotes received by TexasDefined</strong>, not checkout totals, and not a promise of ongoing availability. A finished custom mum and a build-it-yourself kit are not interchangeable.</p>
       <div className="mt-5 overflow-x-auto border border-border">
-        <table className="w-full min-w-[620px] text-left text-sm leading-6"><caption className="sr-only">Published maker and homecoming-mum kit asking prices November 20 2026</caption>
-          <thead className="bg-muted/40"><tr><th className="p-3" scope="col">Comparable product</th><th className="p-3" scope="col">Published price</th><th className="p-3" scope="col">What that includes or omits</th></tr></thead>
+        <table className="w-full text-left text-sm leading-6" style={{minWidth:620}}><caption className="sr-only">Published maker and homecoming-mum kit asking prices November 20 2026</caption>
+          <thead className="bg-muted"><tr><th className="p-3" scope="col">Comparable product</th><th className="p-3" scope="col">Published price</th><th className="p-3" scope="col">What that includes or omits</th></tr></thead>
           <tbody>{mumPrices.map(item=><tr key={item.option} className="border-t border-border align-top">
             <th className="p-3 font-semibold" scope="row"><a href={item.source} target="_blank" rel="noopener noreferrer" className="text-primary underline">{item.option} ↗</a></th>
             <td className="p-3 whitespace-nowrap font-semibold">{item.example}</td><td className="p-3">{item.scope}</td>
