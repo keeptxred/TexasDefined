@@ -20,7 +20,7 @@ const areas = [
     summary: "A desert climbing destination where access is deliberately managed to protect fragile natural and cultural resources.",
     details: [
       "Hueco Tanks combines climbing with an archaeological and cultural landscape that has been important to people for thousands of years. That context changes how a climbing trip should be planned: the park is not simply an open recreation area, and resource protection is part of the visit.",
-      "TPWD divides access between guided and self-guided areas. The North Mountain self-guided area allows 70 people at once and requires a day permit reserved by phone (512) 389-8911 (online reservations are unavailable); guided West Mountain, East Mountain and East Spur access must be arranged with the park in advance. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
+      "TPWD divides access between guided and self-guided areas. TPWD's Activities page says North Mountain self-guided access is limited to 70 people at one time, whereas its main park page describes 70 daily permits. These are different descriptions, so reserve the dated self-guided permit by phone (512) 389-8911 (online reservations are unavailable) and confirm capacity with park staff. Guided West Mountain, East Mountain and East Spur access must be arranged in advance. TPWD's main park page explicitly says guided tours must be booked a minimum of one week ahead. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
     ],
   },
   {
@@ -59,7 +59,7 @@ const approachCards = [
   {
     area: "Hueco Tanks · North Mountain vs guided mountains",
     arrival: "Park headquarters and mandatory orientation come first; self-guided North Mountain is limited to 70 people at one time, according to TPWD. West Mountain, East Mountain and East Spur require a guide.",
-    action: "Reserve the correct access category ahead of the day. For a guided tour, TPWD advises requesting park tours early enough to confirm a guide; park staff do not provide technical climbing instruction or equipment. Confirm guide availability, climber skill requirements and exact zone.",
+    action: "Reserve the correct access category ahead of the day. TPWD's park overview says guided tours must be booked at least one week in advance, while its Activities page says request early enough for a guide to be confirmed. Follow the stricter minimum and confirm with staff. A natural-history tour guide is not automatically a technical climbing instructor; verify authorized instruction and equipment separately.",
     map: "https://tpwd.texas.gov/state-parks/hueco-tanks/trails-info",
     closed: "https://tpwd.texas.gov/state-parks/hueco-tanks/climbing-closure-list",
     note: "Read the protected North Mountain sector closures and wet-rock policy BEFORE choosing boulders; a broad park-open alert is not a climbing-zone clearance."
