@@ -15,8 +15,8 @@ on:
       - '.github/workflows/texas-culture-outdoors-authority.yml'
   schedule:
     - cron: '23 14 * * 3'       # Weekly: rock-climbing safety, access and official alerts
-    - cron: '17 14 5 * *'      # Monthly: dance-hall operations and natural wonders access
-    - cron: '41 14 7 1,4,7,10 *' # Quarterly: stable folklore and homecoming traditions
+    - cron: '17 14 5 * *'      # Monthly: dance halls, mum seller prices, natural wonders access
+    - cron: '41 14 7 1,4,7,10 *' # Quarterly: stable folklore
   workflow_dispatch:
   issue_comment:
     types: [created]
