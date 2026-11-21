@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-20T19:08:51.933Z",
+  "fetchedAt": "2026-11-21T18:02:27.090Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -734,19 +734,19 @@
       "publicationAllowed": false
     },
     {
-      "name": "San Antonio Stock Show & Rodeo Friday Qualifier",
-      "city": "Uvalde",
+      "name": "San Antonio Stock Show & Rodeo Ranch Rodeo Followed By Clay Walker",
+      "city": "San Antonio",
       "dates": [
-        "2026-11-20"
+        "2027-02-18"
       ],
       "venues": [
-        "Uvalde County Fairplex"
+        "Frost Bank Center"
       ],
       "ticketmasterIds": [
-        "G5dIZ_o5HpNiz"
+        "G5dIZ_8rnC1Yl"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-friday-uvalde-texas-11-20-2026/event/3A006512FC5A3B38"
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-ranch-san-antonio-texas-02-18-2027/event/3A006507AA38AC2B"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -938,7 +938,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-20",
         "2026-11-21",
         "2026-11-27",
         "2026-11-28",
@@ -978,7 +977,6 @@
       ],
       "ticketmasterIds": [
         "Z7r9jZ1A7OY4M",
-        "Z7r9jZ1A7OY4U",
         "Z7r9jZ1A7OY4z",
         "Z7r9jZ1A7OYp6",
         "Z7r9jZ1A7OYp7",
@@ -1025,7 +1023,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
