@@ -104,9 +104,17 @@ try {
       check("no uncaught JavaScript errors",errors.length===0,errors);
       const tabbable=page.locator('main a[href], main button:not([disabled])').first();
       const canTab=await tabbable.count()===1;
-      if(canTab)await tabbable.focus();
-      const keyboard=await page.evaluate(()=>({tag:document.activeElement?.tagName,focusVisible:document.activeElement?.matches?.(':focus')||false}));
-      check("keyboard-focusable article control",canTab&&["A","BUTTON"].includes(keyboard.tag)&&keyboard.focusVisible,keyboard);
+      if(canTab) {
+        await tabbable.focus();
+        await page.keyboard.press("Tab");
+      }
+      const keyboard=await page.evaluate(()=>({
+        tag:document.activeElement?.tagName,
+        keyboardFocusVisible:document.activeElement?.matches?.(':focus-visible')||false,
+        withinMain:Boolean(document.activeElement?.closest?.("main")),
+        outlineStyle:document.activeElement?getComputedStyle(document.activeElement).outlineStyle:null
+      }));
+      check("real Tab moves focus within the article",canTab&&["A","BUTTON"].includes(keyboard.tag)&&keyboard.keyboardFocusVisible&&keyboard.withinMain,keyboard);
       const lab=await page.evaluate(()=>({
         ...window.__tdVitals,
         navigation:performance.getEntriesByType("navigation").map(entry=>({
