@@ -63,7 +63,7 @@ export function TexasCultureGuideFieldwork({ slug }: { slug: string }) {
     <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">An early record proves what it actually says, not the whole later legend. Comparing original documents and scholarly reconstructions makes the limits visible.</p>
     <div className="mt-6 grid gap-4 md:grid-cols-3">
       {[
-        { name: "Emily D. West, 1837 passport", proof: "Moreland's letter treats West as a free woman who came from New York with James Morgan and sought travel papers. It is independent evidence that she lived in the Republic of Texas.", limit: "It does not identify a song, document an affair with Santa Anna, or prove she decided the battle.", url: "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html" },
+        { name: "Emily D. West, passport request", proof: "Moreland's letter treats West as a free woman who came from New York with James Morgan and sought travel papers. It is independent evidence that she lived in the Republic of Texas.", limit: "It does not identify a song, document an affair with Santa Anna, or prove she decided the battle.", url: "https://www.tsl.texas.gov/exhibits/texas175/emilywest.html" },
         { name: "Yellow Rose, published lyrics", proof: "The 1853 and 1858 song texts are period evidence of nineteenth-century popular-song circulation. TSHA compares the lyrics with West's biographical record.", limit: "Those lyrics do not name West or corroborate the battle-romance story; a later association is not a period attribution.", url: "https://www.tshaonline.org/handbook/entries/yellow-rose-of-texas" },
         { name: "Pecos Bill, October 1923", proof: "O'Reilly's Century Magazine publication establishes a dated literary Pecos Bill. Later folklorists examined his claimed oral pedigree.", limit: "One dated publication cannot prove an identical oral hero circulated among nineteenth-century cowboys; general cowboy tall tales certainly did.", url: "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/" },
       ].map(row=><article className="border border-border p-5" key={row.name}>
@@ -73,7 +73,7 @@ export function TexasCultureGuideFieldwork({ slug }: { slug: string }) {
         <a href={row.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-2">Read the underlying record ↗</a>
       </article>)}
     </div>
-    <p className="mt-5 text-sm leading-7 text-muted-foreground">TexasDefined's synthesis: the passport concerns a real person's identity, the song texts date a cultural work, and the 1923 magazine dates a named literary hero. These are different evidentiary questions; none should be used as proof of another. Source comparison: November 20, 2026.</p>
+    <p className="mt-5 text-sm leading-7 text-muted-foreground">TexasDefined's synthesis: the archival passport request concerns a real person's identity, the song texts date a cultural work, and the 1923 magazine dates a named literary hero. These are different evidentiary questions; none should be used as proof of another. Source comparison: November 20, 2026.</p>
   </GuideSection>;
 
   if (slug === "texas-dance-halls-honky-tonks") return <GuideSection id="dance-hall-operator-matrix" eyebrow="Practical venue comparison" title="Compare the door, the dance floor and the trip">
