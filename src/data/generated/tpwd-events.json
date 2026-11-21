@@ -1,48 +1,12 @@
 {
-  "generatedAt": "2026-11-20T19:08:51.593Z",
+  "generatedAt": "2026-11-21T18:02:27.055Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Arts & Crafts",
-      "startDate": "2026-11-20",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-20"
-    },
-    {
-      "title": "Butterfly and Dragonfly Tours",
-      "startDate": "2026-11-20",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-20"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-20",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-20"
-    },
-    {
-      "title": "Nature Tram Tour (Evening)",
-      "startDate": "2026-11-20",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-20"
-    },
-    {
-      "title": "Wilderness Survival Hike",
-      "startDate": "2026-11-20",
-      "parkKey": "lake-brownwood",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/wilderness-survival-hike/2026-11-20"
-    },
     {
       "title": "All About Snakes",
       "startDate": "2026-11-21",
       "parkKey": "lake-livingston",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-snakes/2026-11-21"
-    },
-    {
-      "title": "All About Us: a Guided Hike",
-      "startDate": "2026-11-21",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-21"
     },
     {
       "title": "Alligators: Predatory Engineers",
@@ -55,12 +19,6 @@
       "startDate": "2026-11-21",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-21"
-    },
-    {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-21",
-      "parkKey": "falcon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/falcon/copy2_of_birding-with-a-ranger/2026-11-21"
     },
     {
       "title": "Fort Davis Tales",
@@ -90,12 +48,6 @@
       "title": "Mission History Tour",
       "startDate": "2026-11-21",
       "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-21"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-21",
-      "parkKey": "goliad",
       "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-21"
     },
     {
@@ -109,18 +61,6 @@
       "startDate": "2026-11-21",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-21"
-    },
-    {
-      "title": "Predators of the Pines - Guided Hike",
-      "startDate": "2026-11-21",
-      "parkKey": "bastrop",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bastrop/predators-of-the-pines-guided-hike/2026-11-21"
-    },
-    {
-      "title": "Skins, Skulls and Gators in the Day Use",
-      "startDate": "2026-11-21",
-      "parkKey": "huntsville",
-      "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/skins-skulls-and-gators-in-the-day-use/2026-11-21"
     },
     {
       "title": "World Birding Center Birding Tours",
@@ -477,6 +417,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-02"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-02",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-02"
+    },
+    {
       "title": "Alligators: Predatory Engineers",
       "startDate": "2026-12-03",
       "parkKey": "martin-dies-jr",
@@ -487,6 +433,12 @@
       "startDate": "2026-12-03",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/coffee-with-the-superintendents/2026-12-03"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-03",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-03"
     },
     {
       "title": "Hike With Homeless Dogs",
@@ -609,10 +561,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-12-05"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-05",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-05"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-12-06",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-06"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-06",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-06"
     },
     {
       "title": "Frog Pond Frolic",
@@ -645,6 +609,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-06"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-06",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-06"
+    },
+    {
       "title": "Nature's Classroom Homeschool Program",
       "startDate": "2026-12-08",
       "parkKey": "davis-mountains",
@@ -667,6 +637,18 @@
       "startDate": "2026-12-09",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-09"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-09",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-09"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-10",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-10"
     },
     {
       "title": "Homeschool Classes at the Park",
@@ -807,10 +789,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/buescher/master-naturalist-guided-hike-1/2026-12-12"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-12",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-12"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-12-13",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-13"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-13",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-13"
     },
     {
       "title": "Paws and Paths: Exploring the Bauer Unit *Registration Required*",
@@ -831,6 +825,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-13"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-13",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-13"
+    },
+    {
       "title": "Morning Nature Walk",
       "startDate": "2026-12-16",
       "parkKey": "davis-mountains",
@@ -841,6 +841,18 @@
       "startDate": "2026-12-16",
       "parkKey": "buescher",
       "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2026-12-16"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-16",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-16"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-17",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-17"
     },
     {
       "title": "Hike With Homeless Dogs",
@@ -921,6 +933,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-mineral-wells/trail-of-lights/2026-12-19"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-19",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-19"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-12-20",
       "parkKey": "brazos-bend",
@@ -931,6 +949,12 @@
       "startDate": "2026-12-20",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/backyard-bass_11-15-26/2026-12-20"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-20",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-20"
     },
     {
       "title": "Fishing with a Ranger",
@@ -957,6 +981,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-20"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-20",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-20"
+    },
+    {
       "title": "Winter Solstice Hike",
       "startDate": "2026-12-21",
       "parkKey": "davis-mountains",
@@ -967,6 +997,18 @@
       "startDate": "2026-12-23",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-23"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-23",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-23"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-24",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-24"
     },
     {
       "title": "Meet The Longhorns",
@@ -1029,6 +1071,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-12-26"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-26",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-26"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-12-27",
       "parkKey": "brazos-bend",
@@ -1039,6 +1087,12 @@
       "startDate": "2026-12-27",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-12-27"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-27",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-27"
     },
     {
       "title": "Learn to Bird",
@@ -1053,6 +1107,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-27"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-27",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-27"
+    },
+    {
       "title": "Morning Nature Walk",
       "startDate": "2026-12-30",
       "parkKey": "davis-mountains",
@@ -1063,6 +1123,18 @@
       "startDate": "2026-12-30",
       "parkKey": "barton-warnock",
       "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-12-30"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-12-30",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-12-30"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-12-31",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-12-31"
     },
     {
       "title": "First Day Hike - Self-Guided",
