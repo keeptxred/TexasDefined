@@ -9,7 +9,7 @@ const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks/activities", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
   { label: "Texas Parks & Wildlife — Enchanted Rock Climbing & Bouldering", href: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb", note: "Official climbing management, protected-resource and climbing-rule guidance for Enchanted Rock." },
   { label: "Texas Parks & Wildlife — Lake Mineral Wells Rock Climbing", href: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing", note: "Official registration, approved-guide and Penitentiary Hollow climbing information." },
-  { label: "Travis County Parks — Milton Reimers Ranch Park trails map", href: "https://parks.traviscountytx.gov/parks/reimers-ranch", note: "County park map showing North Shore and Climber's Canyon climbing areas and the surrounding trail network." },
+  { label: "Travis County Parks — Milton Reimers Ranch official trails map (PDF)", href: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf", note: "County PDF map explicitly marks separate North Shore and Climber's Canyon climbing areas, roads, trails and approximate distances; it is NOT a surveyed route." },
 ] as const;
 
 const areas = [
@@ -84,7 +84,7 @@ const approachCards = [
     area: "Milton Reimers Ranch · North Shore / Climber's Canyon",
     arrival: "Use the Travis County-managed park entrance, then county-signed parking and trails shown on its current park map. Climber's Canyon and North Shore are separate approaches.",
     action: "Check road access notices, climbing policy and any park closures. Confirm with Travis County Parks that a chosen teaching service is authorized for that site.",
-    map: "https://parks.traviscountytx.gov/parks/reimers-ranch",
+    map: "https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf",
     closed: "https://parks.traviscountytx.gov/news",
     note: "County management differs from TPWD registrations; beach road access and climber parking are distinct."
   },
