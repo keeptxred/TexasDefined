@@ -20,7 +20,7 @@ const areas = [
     summary: "A desert climbing destination where access is deliberately managed to protect fragile natural and cultural resources.",
     details: [
       "Hueco Tanks combines climbing with an archaeological and cultural landscape that has been important to people for thousands of years. That context changes how a climbing trip should be planned: the park is not simply an open recreation area, and resource protection is part of the visit.",
-      "TPWD divides access between guided and self-guided areas. The North Mountain self-guided area uses a daily permit limit, while guided access must be arranged in advance. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
+      "TPWD divides access between guided and self-guided areas. The North Mountain self-guided area allows 70 people at once and requires a day permit reserved by phone (512) 389-8911 (online reservations are unavailable); guided West Mountain, East Mountain and East Spur access must be arranged with the park in advance. Visitors to the self-guided area also complete the park orientation requirement. Because capacity, reservation procedures and access restrictions are part of the conservation system, verify the current rules directly with the park before traveling.",
     ],
   },
   {
