@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "owner": "TexasDefined editorial",
   "updatedAt": "2026-11-20",
-  "policy": "GitHub's recurring source research triggers protected factual edits through the existing sitewide source-backed rewrite PR pipeline. A successful HTTP probe never establishes a new factual verification date. Supabase source registry must remain enrolled with the same or faster cadence; original historical verification evidence is preserved. November 20 second-pass visitor/operator evidence lists real dated seller and dance-event examples; source diffs may not be silently cleared without verified current official facts. New instructional drawings must be identified as drawings, not documentary photographs.",
+  "policy": "GitHub's recurring source research triggers protected factual edits through the existing sitewide source-backed rewrite PR pipeline. A successful HTTP probe never establishes a new factual verification date. Supabase source registry must remain enrolled with the same or faster cadence; original historical verification evidence is preserved. November 20 second-pass visitor/operator evidence lists real dated seller and dance-event examples; source diffs may not be silently cleared without verified current official facts. New instructional drawings must be identified as drawings, not documentary photographs. Dated seller quotations in homecoming mums are watched monthly (30-day source cadence) separately from historical cultural facts.",
   "groups": [
     {
       "id": "culture-folklore",
@@ -71,9 +71,9 @@
     {
       "id": "culture-homecoming-mums",
       "path": "/texas-homecoming-mums",
-      "cadence": "quarterly",
+      "cadence": "monthly",
       "reviewedAt": "2026-11-18",
-      "maxReviewAgeDays": 90,
+      "maxReviewAgeDays": 40,
       "sourceFiles": [
         "src/data/texas-evergreen-guides-batch2.ts",
         "src/components/editorial/TexasEvergreenGuide.tsx",
@@ -93,7 +93,10 @@
         "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions",
         "https://texancultures.utsa.edu/exhibits/mumentous",
         "https://www.melzmumz.com/online-store/Melz-Mum-DIY-Kits-c52590977",
-        "https://www.melzmumz.com/deluxe-single-garter"
+        "https://www.melzmumz.com/deluxe-single-garter",
+        "https://www.melzmumz.com/online-store/Classic-Single-Double-Triple-%26-Quad-Homecoming-Mums-p204726247",
+        "https://www.etsy.com/shop/MumFactoryOutlet",
+        "https://www.michaels.com/makerplace/howtos/making-a-homecoming-mum-292832781326106624"
       ]
     },
     {
