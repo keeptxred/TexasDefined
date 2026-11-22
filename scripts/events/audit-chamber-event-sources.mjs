@@ -1,0 +1,208 @@
+#!/usr/bin/env node
+/**
+ * County chamber/event discovery — research inventory only.
+ * Official organizer pages, not a chamber aggregator, control event facts.
+ * No emails, images, descriptions, event schema, publication or backlinks are created here.
+ */
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+
+export const DEFAULT_REGISTRY = "ops/editorial/chamber-event-sources.json";
+export const DEFAULT_REPORT = ".artifacts/chamber-event-source-audit.json";
+const BOT = "TexasDefined-Events-Research/1.0 (+https://texasdefined.com/about)";
+const FESTIVAL_WORDS = /\b(festival|fair|christmas|holiday|parade|rodeo|celebration|jamboree|gusher days|farmers market|community market|homecoming|lights|tree lighting|syrup|blueberry|yamboree)\b/i;
+
+export function loadCountyNames(source) {
+  const after = source.split("const COUNTY_NAMES = ")[1];
+  const literal = after?.split(".split('|');")[0];
+  const tick = String.fromCharCode(96);
+  if (!literal || !literal.startsWith(tick) || !literal.endsWith(tick))
+    throw new Error("Canonical Texas county list could not be read");
+  const names = literal.slice(1, -1).split("|");
+  if (names.length !== 254 || new Set(names).size !== 254)
+    throw new Error("Canonical county list is not exactly 254 unique counties");
+  return names.map(name => ({
+    name: name + " County",
+    slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+    url: "https://texasdefined.com/county/" +
+      name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  }));
+}
+
+function checkedPublicUrl(value) {
+  const url = new URL(value);
+  const host = url.hostname.toLowerCase();
+  if (url.protocol !== "https:" || url.username || url.password ||
+      !host.includes(".") || host === "localhost" ||
+      /^(\d{1,3}\.){3}\d{1,3}$/.test(host) ||
+      host.endsWith(".local") || url.port)
+    throw new Error("Not an approved public HTTPS source URL: " + value);
+  return url;
+}
+
+export function validateRegistry(registry, counties) {
+  const known = new Set(counties.map(county => county.slug));
+  if (registry.version !== 1 || !Array.isArray(registry.sources))
+    throw new Error("Invalid chamber discovery registry version or sources");
+  if (registry.rules?.sender !== "admin@texasdefined.com" ||
+      registry.rules?.mailProvider !== "Microsoft 365 Outlook only" ||
+      registry.rules?.noGmail !== true)
+    throw new Error("O365-only outreach governance was removed");
+  const ids = new Set();
+  for (const source of registry.sources) {
+    if (!source.id || ids.has(source.id)) throw new Error("Duplicate or missing source id");
+    ids.add(source.id);
+    if (!source.organization || !Array.isArray(source.countySlugs) ||
+        !source.countySlugs.length || source.countySlugs.some(s => !known.has(s)))
+      throw new Error("Unmatched county reference: " + source.id);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(source.reviewedAt) ||
+        !Number.isFinite(Date.parse(source.reviewedAt)))
+      throw new Error("Missing verified source-review date: " + source.id);
+    if (source.sourceRole !== "discovery" ||
+        !["html","rss","ics"].includes(source.calendarType))
+      throw new Error("Unsupported source classification: " + source.id);
+    for (const field of ["homeUrl", "calendarUrl", "contactPageUrl"])
+      checkedPublicUrl(source[field]);
+    if ("contactEmail" in source || "recipient" in source || "mediaKit" in source)
+      throw new Error("Do not commit contact records or private media kits");
+  }
+  return true;
+}
+
+export function allowedByRobots(robots, pathname) {
+  // Conservative: any matching Disallow is respected, regardless of user-agent.
+  // This may cause false blocks, never forced crawling of a publisher's restriction.
+  const path = pathname || "/";
+  for (const rawLine of robots.split(/\r?\n/)) {
+    const line = rawLine.replace(/#.*$/, "").trim();
+    const match = /^disallow\s*:\s*(.*)$/i.exec(line);
+    const pattern = match?.[1]?.trim();
+    if (pattern && path.startsWith(pattern.split("*")[0].split("$")[0])) return false;
+  }
+  return true;
+}
+
+export function extractEventLeads(html, pageUrl) {
+  const leads = [];
+  const seen = new Set();
+  const add = (name, url, startDate = null, kind = "calendar-link") => {
+    name = String(name || "").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&")
+      .replace(/\s+/g, " ").trim().slice(0, 150);
+    if (name.length < 5) return;
+    let normalized;
+    try { normalized = checkedPublicUrl(new URL(url, pageUrl).href).href; }
+    catch { return; }
+    const key = name.toLowerCase() + "|" + normalized;
+    if (seen.has(key) || leads.length >= 30) return;
+    seen.add(key);
+    leads.push({ title: name, sourceUrl: normalized,
+      dateShownByDiscoverySource: typeof startDate === "string" ? startDate.slice(0, 32) : null,
+      evidenceType: kind, organizerVerified: false, publishable: false });
+  };
+  for (const match of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const root = JSON.parse(match[1]);
+      const walk = (item, depth = 0) => {
+        if (!item || typeof item !== "object" || depth > 8) return;
+        if (Array.isArray(item)) { for (const node of item) walk(node, depth + 1); return; }
+        const types = [item["@type"]].flat();
+        if (types.some(type => /(^|:)Event$/i.test(String(type))))
+          add(item.name, item.url || pageUrl, item.startDate, "calendar-jsonld");
+        for (const key of ["@graph","mainEntity","itemListElement","events","event"])
+          if (item[key]) walk(item[key], depth + 1);
+      };
+      walk(root);
+    } catch { /* malformed third-party JSON-LD is not evidence */ }
+  }
+  for (const match of html.matchAll(/<a\b[^>]*href\s*=\s*["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    const name = match[2].replace(/<[^>]+>/g, " ").replace(/&[^;]+;/g, " ").trim();
+    if (FESTIVAL_WORDS.test(name)) add(name, match[1]);
+  }
+  return leads;
+}
+
+async function fetchPublicCalendar(source, fetchImpl) {
+  const url = checkedPublicUrl(source.calendarUrl);
+  const options = { headers: { "User-Agent": BOT, Accept: "text/html,application/ld+json,text/calendar,application/rss+xml" },
+    redirect: "follow", signal: AbortSignal.timeout(12000) };
+  try {
+    const robotResponse = await fetchImpl(url.origin + "/robots.txt", options);
+    if (robotResponse.status !== 404) {
+      if (!robotResponse.ok) return { state: "robots-unavailable", http: robotResponse.status, leads: [] };
+      const robots = (await robotResponse.text()).slice(0, 300000);
+      if (!allowedByRobots(robots, url.pathname))
+        return { state: "robots-disallowed", http: null, leads: [] };
+    }
+    const response = await fetchImpl(url.href, options);
+    const final = checkedPublicUrl(response.url || url.href);
+    if (final.origin !== url.origin) return { state: "cross-origin-redirect-review", http: response.status, leads: [] };
+    if (!response.ok) return { state: "http-error", http: response.status, leads: [] };
+    const contentType = response.headers.get("content-type") || "";
+    if (!/html|calendar|rss|xml/i.test(contentType))
+      return { state: "unsupported-content-type", http: response.status, leads: [] };
+    if (Number(response.headers.get("content-length") || 0) > 1200000)
+      return { state: "oversized-response", http: response.status, leads: [] };
+    const text = (await response.text()).slice(0, 1200000);
+    let leads = [];
+    if (source.calendarType === "html") leads = extractEventLeads(text, final.href);
+    // RSS / iCal imports are not auto-published; such sources must receive
+    // their own verified parser and organizer-resolution test before promotion.
+    return { state: "reachable-discovery-only", http: response.status, leads,
+      manualParserNeeded: source.calendarType !== "html" };
+  } catch (error) {
+    return { state: "fetch-failed", http: null, leads: [], error: String(error).slice(0, 200) };
+  }
+}
+
+export async function auditChamberSources({
+  root = process.cwd(), now = new Date(), fetchImpl = fetch, offline = false,
+} = {}) {
+  const counties = loadCountyNames(await readFile(resolve(root, "src/data/texas-places.ts"), "utf8"));
+  const registry = JSON.parse(await readFile(resolve(root, DEFAULT_REGISTRY), "utf8"));
+  validateRegistry(registry, counties);
+  const map = new Map(counties.map(c => [c.slug, { ...c, sourceIds: [] }]));
+  for (const source of registry.sources)
+    for (const slug of source.countySlugs) map.get(slug).sourceIds.push(source.id);
+  const observations = [];
+  for (const source of registry.sources) {
+    // Small verified inventories can all run daily; statewide growth is evenly
+    // sharded across seven days to keep courtesy load bounded per publisher.
+    const hash = [...source.id].reduce((n, ch) => (n * 31 + ch.charCodeAt(0)) >>> 0, 0);
+    const day = now.getUTCDay();
+    const holidayBoost = source.priority === "holiday" && [10,11,0].includes(now.getUTCMonth());
+    const due = registry.sources.length <= 12 || hash % 7 === day ||
+      (holidayBoost && hash % 2 === day % 2);
+    const result = offline || !due ? { state: offline ? "offline-validation" : "not-due", leads: [] }
+      : await fetchPublicCalendar(source, fetchImpl);
+    observations.push({ sourceId: source.id, organization: source.organization,
+      countySlugs: source.countySlugs, officialUrl: source.homeUrl,
+      calendarUrl: source.calendarUrl, sourceRole: source.sourceRole,
+      reviewedAt: source.reviewedAt, ...result });
+  }
+  const rows = [...map.values()];
+  const unservedCounties = rows.filter(c => !c.sourceIds.length);
+  const report = { generatedAt: now.toISOString(), sender: registry.rules.sender,
+    eventPublication: "NO — research candidates only; current first-party event organizer confirmation and editorial rights review required",
+    countiesTotal: rows.length, countiesWithRegisteredSources: rows.length - unservedCounties.length,
+    countiesMissingSources: unservedCounties.length, unservedCounties,
+    sourceCount: registry.sources.length, observations,
+    candidateCount: observations.reduce((sum, row) => sum + row.leads.length, 0),
+    sourceAvailabilityIsNotDateVerification: true,
+    outreachStatus: "Outlook sender and replies are tracked privately, not inferred from this report" };
+  if (report.countiesTotal !== 254) throw new Error("County research coverage is incomplete");
+  return report;
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const output = args.includes("--output") ? args[args.indexOf("--output") + 1] : DEFAULT_REPORT;
+  const report = await auditChamberSources({ offline: args.includes("--offline") });
+  await mkdir(dirname(resolve(output)), { recursive: true });
+  await writeFile(resolve(output), JSON.stringify(report, null, 2) + "\n");
+  console.log("Chamber event discovery: " + report.countiesWithRegisteredSources + "/254 counties have vetted discovery sources; " +
+    report.countiesMissingSources + " need research; " + report.candidateCount + " unverified calendar leads.");
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href)
+  main().catch(error => { console.error(error); process.exitCode = 1; });

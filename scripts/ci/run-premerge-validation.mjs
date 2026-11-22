@@ -205,6 +205,7 @@ const prebuildChecks = [
   ['EVENT/ANNUAL', 'Preserve only recent verified future official occurrences across temporary organizer parser failures', 'node', ['--test', 'scripts/events/retain-verified-official-events.test.mjs']],
   ['EVENT/ALL-PAGES', 'Reject untracked permanent event guides, missing source URLs and uncovered event routes', 'node', ['scripts/events/event-page-refresh-governance.mjs']],
   ['EVENT/REFRESH-CADENCE', 'Prove every event route has GitHub refresh ownership and safe date-sensitive source monitoring', 'node', ['--test', 'scripts/events/event-page-refresh-governance.test.mjs']],
+  ['EVENT/CHAMBER-SOURCES', 'Validate all 254 county chamber discovery, O365-only policy, robot exclusions, and unverified leads', 'node', ['--test', 'scripts/events/audit-chamber-event-sources.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
   ['EVENT/TICKETING', 'Validate canonical official ticket fallback', 'node', ['scripts/data/validate-event-ticket-positive-path.mjs']],
