@@ -77,7 +77,6 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
   const currentResult = latest && byDate.get(latest.date);
   const endDate = latest?.date ?? '';
   const record = wins + '–' + losses + ' overall · ' + districtWins + '–' + districtLosses + ' district (through ' + dateLabel(endDate) + ')';
-  const finalText = latest?.result ?? 'No verified final';
   const recordDescription = 'Aubrey Chaparrals football 2026: ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' District 4 champions. Andrews 63–24; Canyon 36–39. Verified scores, playoffs, tickets and stadium details.';
   const nextFixture = games.find((game) => !game.result);
   const lastReport = latest ? `${latest.result} versus ${latest.opponent} on ${dateLabel(latest.date)}` : 'No verified finals';
