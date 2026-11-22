@@ -1621,6 +1621,244 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "fredericksburg-chamber",
+      "organization": "Fredericksburg Chamber of Commerce",
+      "countySlugs": [
+        "gillespie"
+      ],
+      "homeUrl": "https://fbgtxchamber.org/",
+      "calendarUrl": "https://business.fbgtxchamber.org/chamber-calendar",
+      "contactPageUrl": "https://business.fbgtxchamber.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "greater-waco-chamber",
+      "organization": "Greater Waco Chamber of Commerce",
+      "countySlugs": [
+        "mclennan"
+      ],
+      "homeUrl": "https://wacochamber.com/",
+      "calendarUrl": "https://business.wacochamber.com/events",
+      "contactPageUrl": "https://wacochamber.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "abilene-chamber",
+      "organization": "Abilene Chamber of Commerce",
+      "countySlugs": [
+        "taylor"
+      ],
+      "homeUrl": "https://abilenechamber.com/",
+      "calendarUrl": "https://business.abilenechamber.com/events/calendar",
+      "contactPageUrl": "https://abilenechamber.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "del-rio-chamber",
+      "organization": "Del Rio Chamber of Commerce and Visitors Bureau",
+      "countySlugs": [
+        "val-verde"
+      ],
+      "homeUrl": "https://www.exploredelrio.com/",
+      "calendarUrl": "https://business.exploredelrio.com/event-calendar",
+      "contactPageUrl": "https://www.exploredelrio.com/meet-our-team/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "victoria-chamber",
+      "organization": "Victoria Chamber of Commerce",
+      "countySlugs": [
+        "victoria"
+      ],
+      "homeUrl": "https://www.victoriachamber.org/",
+      "calendarUrl": "https://business.victoriachamber.org/events",
+      "contactPageUrl": "https://www.victoriachamber.org/chamber-staff/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "cleburne-chamber",
+      "organization": "Cleburne Chamber of Commerce",
+      "countySlugs": [
+        "johnson"
+      ],
+      "homeUrl": "https://www.cleburnechamber.com/",
+      "calendarUrl": "https://business.cleburnechamber.com/events/calendar/",
+      "contactPageUrl": "https://www.cleburnechamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "weatherford-chamber",
+      "organization": "Weatherford Chamber of Commerce",
+      "countySlugs": [
+        "parker"
+      ],
+      "homeUrl": "https://www.weatherford-chamber.com/",
+      "calendarUrl": "https://www.weatherford-chamber.com/chamber-events.html",
+      "contactPageUrl": "https://www.weatherford-chamber.com/about-us/staff.html",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "midland-chamber",
+      "organization": "Midland Chamber of Commerce",
+      "countySlugs": [
+        "midland"
+      ],
+      "homeUrl": "https://www.midlandtxchamber.com/",
+      "calendarUrl": "https://business.midlandtxchamber.com/events/calendar",
+      "contactPageUrl": "https://www.midlandtxchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "rockwall-chamber",
+      "organization": "Rockwall Area Chamber of Commerce",
+      "countySlugs": [
+        "rockwall"
+      ],
+      "homeUrl": "https://www.rockwallchamber.org/",
+      "calendarUrl": "https://business.rockwallchamber.org/events/calendar",
+      "contactPageUrl": "https://www.rockwallchamber.org/staff/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "terrell-chamber",
+      "organization": "Terrell Chamber of Commerce & CVB",
+      "countySlugs": [
+        "kaufman"
+      ],
+      "homeUrl": "https://www.terrelltexas.com/",
+      "calendarUrl": "https://business.terrelltexas.com/events/calendar",
+      "contactPageUrl": "https://www.terrelltexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "laredo-chamber",
+      "organization": "Laredo Chamber of Commerce",
+      "countySlugs": [
+        "webb"
+      ],
+      "homeUrl": "https://laredochamber.com/",
+      "calendarUrl": "https://business.laredochamber.com/chamber-events",
+      "contactPageUrl": "https://laredochamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "polk-county-chamber",
+      "organization": "Polk County Chamber of Commerce",
+      "countySlugs": [
+        "polk"
+      ],
+      "homeUrl": "https://www.polkchamber.com/",
+      "calendarUrl": "https://business.polkchamber.com/events/calendar",
+      "contactPageUrl": "https://www.polkchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "portland-san-patricio-chamber",
+      "organization": "Portland Chamber of Commerce",
+      "countySlugs": [
+        "san-patricio"
+      ],
+      "homeUrl": "https://www.portlandtx.org/",
+      "calendarUrl": "https://business.portlandtx.org/events/calendar",
+      "contactPageUrl": "https://www.portlandtx.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-kingsville-kleberg",
+      "organization": "Visit Kingsville / Kingsville Chamber event directory",
+      "countySlugs": [
+        "kleberg"
+      ],
+      "homeUrl": "https://kingsvilletexas.com/",
+      "calendarUrl": "https://kingsvilletexas.com/events/",
+      "contactPageUrl": "https://kingsvilletexas.com/event-organizer/kingsville-chamber-of-commerce/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "decatur-wise-chamber",
+      "organization": "Decatur Chamber of Commerce",
+      "countySlugs": [
+        "wise"
+      ],
+      "homeUrl": "https://www.decaturtx.com/",
+      "calendarUrl": "https://www.decaturtx.com/",
+      "contactPageUrl": "https://www.decaturtx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "wichita-falls-chamber",
+      "organization": "Wichita Falls Chamber of Commerce",
+      "countySlugs": [
+        "wichita"
+      ],
+      "homeUrl": "https://www.wichitafallschamber.com/",
+      "calendarUrl": "https://www.wichitafallschamber.com/events/",
+      "contactPageUrl": "https://www.wichitafallschamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "mcallen-hidalgo-chamber",
+      "organization": "McAllen Chamber of Commerce",
+      "countySlugs": [
+        "hidalgo"
+      ],
+      "homeUrl": "https://mcallenchamber.com/",
+      "calendarUrl": "https://members.mcallenchamber.com/eventcalendar/Search",
+      "contactPageUrl": "https://mcallenchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
