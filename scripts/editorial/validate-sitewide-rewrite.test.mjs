@@ -95,3 +95,13 @@ test('same-page repeat requires newer evidence and retains prior evidence in git
   fs.writeFileSync(path.join(repo.root,repo.evidencePath),JSON.stringify(stale));
   assert.notEqual(run(repo.root).status,0);
 });
+
+
+test('new ledger text alone cannot certify unchanged page copy', t => {
+  const repo=makeRepo(); t.after(()=>fs.rmSync(repo.root,{recursive:true,force:true}));
+  repo.git('add','src/data/authority.ts'); repo.git('commit','-m','already published copy');
+  fs.appendFileSync(path.join(repo.root,'src/data/authority.ts'),'// unrelated edit\n');
+  const result=run(repo.root);
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/not directly grounded in captured official source and actual changed page copy/);
+});
