@@ -130,7 +130,7 @@ export function additionalResearchTargets(inventory){
         sourceUrl:STANDINGS_SOURCE_URLS[p.slug]||p.sourceUrl||'https://www.uiltexas.org/maxpreps/',
         query:p.slug.replaceAll('-',' ')+' Texas high school football '+year+' district final standings',providers:['google']});
     }else if(p.kind==='bracket'||p.kind==='hub'){
-      extras.push({kind:'standings',page:p.page,label:'Texas UIL football '+(p.kind==='bracket'?'playoff brackets':'scoreboard'),
+      extras.push({kind:p.kind,page:p.page,label:'Texas UIL football '+(p.kind==='bracket'?'playoff brackets':'scoreboard'),
         sourceUrl:p.sourceUrl,query:'Texas UIL high school football '+year+' '+(p.kind==='bracket'?'playoff bracket next round final results':'final score results'),providers:['google']});
     }else if(p.kind==='matchup'){
       // The dated final stays enrolled via the snapshot, team sources and
@@ -162,7 +162,9 @@ export function parseExtraNews(xml,target,provider,today){
     const lower=title.toLowerCase();
     const valid=target.kind==='standings'
       ?lower.includes('district')&&lower.includes('football')
-      :words.filter(w=>lower.includes(w)).length>=Math.min(2,words.length);
+      :target.kind==='bracket'||target.kind==='hub'
+        ?lower.includes('football')&&(lower.includes('texas')||lower.includes('uil'))&&(/playoff|score|result|bracket/.test(lower))
+        :words.filter(w=>lower.includes(w)).length>=Math.min(2,words.length);
     if(!valid)continue;
     articles.push({title,url:link,source:tagText(m[1],'source').slice(0,90)||provider,
       publishedAt:new Date(published).toISOString(),provider,verification:'unverified-public-report-lead'});

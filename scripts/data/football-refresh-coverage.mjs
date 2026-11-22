@@ -15,7 +15,7 @@ const hook=registerHooks({resolve(specifier,context,nextResolve){
       return nextResolve(resolved.href+'.ts',context);
     }
     if(resolved.pathname.endsWith('.json')){
-      return nextResolve(resolved.href,{...context,importAttributes:{type:'json'}});
+      return {...nextResolve(resolved.href,{...context,importAttributes:{type:'json'}}),importAttributes:{type:'json'}};
     }
   }
   return nextResolve(specifier,context);
