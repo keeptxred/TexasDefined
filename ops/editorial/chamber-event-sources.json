@@ -1605,7 +1605,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "waxahachie-ellis-chamber",
@@ -3234,12 +3235,13 @@
         "parmer"
       ],
       "homeUrl": "https://www.friona-chamber.com/",
-      "calendarUrl": "https://www.friona-chamber.com/",
+      "calendarUrl": "https://www.friona-chamber.com/new-events-2",
       "contactPageUrl": "https://www.friona-chamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "daingerfield-morris-city-chamber",
@@ -4190,6 +4192,126 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "visit-brownwood-community-calendar",
+      "organization": "Visit Brownwood official visitor and community event calendar",
+      "countySlugs": [
+        "brown"
+      ],
+      "homeUrl": "https://visitbrownwood.com/",
+      "calendarUrl": "https://visitbrownwood.com/events",
+      "contactPageUrl": "https://visitbrownwood.com/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-marshall-current-event-directory",
+      "organization": "Visit Marshall city tourism official community and seasonal event directory",
+      "countySlugs": [
+        "harrison"
+      ],
+      "homeUrl": "https://visitmarshalltexas.com/",
+      "calendarUrl": "https://visitmarshalltexas.com/event-directory/",
+      "contactPageUrl": "https://visitmarshalltexas.com/event-directory/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "go-medina-county-upcoming-community-events",
+      "organization": "GoMedina County local development and community event resource",
+      "countySlugs": [
+        "medina"
+      ],
+      "homeUrl": "https://www.gomedinacounty.com/",
+      "calendarUrl": "https://www.gomedinacounty.com/upcoming-events",
+      "contactPageUrl": "https://www.gomedinacounty.com/upcoming-events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "jacksboro-chamber-community-calendar",
+      "organization": "Jacksboro Chamber of Commerce first-party community calendar",
+      "countySlugs": [
+        "jack"
+      ],
+      "homeUrl": "https://jacksborochamber.com/",
+      "calendarUrl": "https://jacksborochamber.com/community-calendar",
+      "contactPageUrl": "https://jacksborochamber.com/community-calendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "jacksonville-chamber-community-events",
+      "organization": "Jacksonville Chamber of Commerce first-party mixed community and business event calendar",
+      "countySlugs": [
+        "cherokee"
+      ],
+      "homeUrl": "https://www.jacksonvilletexas.com/",
+      "calendarUrl": "https://business.jacksonvilletexas.com/events/",
+      "contactPageUrl": "https://business.jacksonvilletexas.com/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-gonzales-community-venue-calendar",
+      "organization": "City of Gonzales municipal community and venue event calendar",
+      "countySlugs": [
+        "gonzales"
+      ],
+      "homeUrl": "https://www.gonzales.texas.gov/",
+      "calendarUrl": "https://www.gonzales.texas.gov/events",
+      "contactPageUrl": "https://www.gonzales.texas.gov/p/departments/tourgonzales/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "discover-odessa-tourism-calendar",
+      "organization": "Discover Odessa Convention and Visitors Bureau public visitor event calendar",
+      "countySlugs": [
+        "ector"
+      ],
+      "homeUrl": "https://discoverodessa.org/",
+      "calendarUrl": "https://discoverodessa.org/events/month/",
+      "contactPageUrl": "https://discoverodessa.org/our-odessa/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "el-campo-chamber-community-calendar",
+      "organization": "El Campo Chamber of Commerce official community, holiday and business event calendar",
+      "countySlugs": [
+        "wharton"
+      ],
+      "homeUrl": "https://www.elcampochamber.com/",
+      "calendarUrl": "https://www.elcampochamber.com/events",
+      "contactPageUrl": "https://www.elcampochamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
