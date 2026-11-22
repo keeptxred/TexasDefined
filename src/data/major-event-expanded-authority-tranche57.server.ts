@@ -207,9 +207,9 @@ const records: ChristmasAuthorityRecord[] = [
     startDate: "2026-11-13",
     endDate: "2027-01-03",
     venue: "18898 State Highway 6, College Station",
-    dateNote: "Santa’s Wonderland confirms its 2026–27 season November 13, 2026–January 3, 2027 at 18898 Highway 6 in College Station. Admission and premium activities are date-specific; visitors should consult the official ticket and hours calendar for their exact night.",
+    dateNote: "Santa’s Wonderland confirms its 2026–27 season November 13, 2026–January 3, 2027 at 18898 Highway 6 in College Station. The official calendar marks November 16–19 and November 30–December 1 closed. Remaining dates have varying opening hours; check the admission calendar before traveling.",
     officialUrl: "https://www.santas-wonderland.com/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Santa's Wonderland is a destination-scale outdoor Christmas park rather than a roadside light display. Tickets, arrival traffic, activities and potential upgrades shape the experience; a family can devote an entire evening here and extend the trip into a Bryan–College Station weekend.",
     quickFacts: [
       {
@@ -232,19 +232,19 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Check which nights actually operate",
-        body: "The published season spans November 13, 2026 to January 3, 2027; use the operator's ticket calendar for available entry dates and times. A date range does not guarantee identical programs, activity hours or admission every evening."
+        body: "The operating windows are November 13–15, November 20–29 and December 2–January 3. Thanksgiving opens at 6 p.m.; Christmas Eve and Christmas Day open at 4 p.m. Weekend opening times can be earlier. Choose an operating date before buying parking."
       },
       {
         title: "Understand admission versus add-ons",
-        body: "The park offers regular entry and other ticket products including seasonal and carriage options. Some experiences or conveniences may not be covered by basic admission. Compare the checkout inclusions and parking rules for the exact product before paying."
+        body: "General admission includes the hayride, snow playground, tubing and visiting Santa; ice skating and horse-drawn carriage rides are separate paid options. Compare included activities with the add-ons your family actually wants before choosing a ticket."
       },
       {
         title: "Check the attendance forecast",
-        body: "Santa's Wonderland maintains a forecast based on earlier seasons. Treat it as a planning aid, not a guarantee; school breaks, weekends and good weather can still create lines. Earlier arrival and pre-purchased tickets can make the evening easier."
+        body: "Use the operator's date-specific forecast as a planning aid, not a guarantee. Free parking options vary by date; Dasher parking across Highway 6 uses a shuttle, while the closest Rudolph lot requires advance online purchase. Blitzen is free on designated late-season dates. Confirm the lot and arrival rules before driving."
       },
       {
         title: "Plan for outdoor terrain and changing weather",
-        body: "The destination involves moving through outdoor areas after dark. Wear layers and walking shoes, check whether strollers or wheelchairs can use all desired activities, and avoid promising that any particular snow attraction is available on every visit."
+        body: "Wear layers and walking shoes for an outdoor evening. Outside food and drinks are restricted, with exceptions for infant needs and food allergies; only service animals are permitted. Obtain a hand stamp before leaving if you intend to return. Weather can affect operations; check accessibility and weather notices for your chosen visit."
       },
       {
         title: "Build the College Station itinerary realistically",
@@ -252,7 +252,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Avoid outdated historical price claims",
-        body: "Advance discounted and date-restricted products are sold as seasonal promotions. The operator's displayed $35 Super Saver checkout includes its ticket fee but excludes sales tax; do not treat it as the universal 2026 gate price."
+        body: "On November 21, the operator listed gate tickets at $59.95 for adults and $54.95 for children ages 3–12. Its online any-day prices were $51.20 and $41 including ticket fees, before sales tax. A separate Super Saver offer ($40 adult, $35 child) was advertised through November 22 for eligible dates only; do not assume it is still available."
       }
     ],
     relatedLinks: [
@@ -279,7 +279,14 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Santa's Wonderland attendance forecast",
         url: "https://www.santas-wonderland.com/attendance-forecast"
-      }
+      },
+      { label: "Official parking and arrival guidance", url: "https://www.santas-wonderland.com/parking" },
+      { label: "Official visitor FAQ", url: "https://www.santas-wonderland.com/faqs" }
+    ],
+    occurrenceWindows: [
+      { label: "Opening weekend", startDate: "2026-11-13", endDate: "2026-11-15" },
+      { label: "November operating dates", startDate: "2026-11-20", endDate: "2026-11-29" },
+      { label: "December through closing", startDate: "2026-12-02", endDate: "2027-01-03" },
     ],
   },
   {
@@ -295,7 +302,7 @@ const records: ChristmasAuthorityRecord[] = [
     dateNote: "Houston Zoo Lights operates select nights November 19, 2026–January 3, 2027, 5:30–10:30 p.m. (last entry 9:30). Zoo Lights is closed December 9 and 24, OPEN Christmas night December 25 while daytime zoo admission is closed, and closes early at 9:30 p.m. on New Year’s Eve December 31.",
     venue: "Houston Zoo, Hermann Park",
     officialUrl: "https://www.houstonzoo.org/events/zoolights/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Houston Zoo's seasonal light walk makes an accessible-in-city evening outing centered on illuminated animal scenes, themed displays and conservation storytelling. It is a separate nighttime ticket, not simply a continuation of ordinary daytime admission.",
     quickFacts: [
       {
@@ -326,15 +333,15 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Buy the night ticket, not the daytime zoo pass",
-        body: "Zoo Lights is a separate nighttime experience with timed admission. Daytime zoo reservations and animal viewing expectations differ; visitors should not assume nighttime light admission includes the regular daytime animal experience."
+        body: "Purchase a separate evening ticket for guests age three and older; children two and younger enter free. Tickets are tied to the selected date and are nonrefundable and nontransferable. Select the arrival time before booking dinner or other Museum District activities; Zoo Lights is not regular daytime animal viewing."
       },
       {
         title: "Know the 2026 hours and exceptions",
-        body: "Zoo Lights runs on selected nights from November 19 through January 3, generally 5:30–10:30 p.m. with last entry at 9:30 p.m. December 9 and Christmas Eve are closed; CHRISTMAS NIGHT December 25 is open for Zoo Lights although daytime zoo admission is closed. New Year’s Eve December 31 has an earlier 9:30 p.m. closing, so check the date-specific event calendar."
+        body: "Zoo Lights runs on selected nights from November 19 through January 3, generally 5:30–10:30 p.m. with last entry at 9:30 p.m. December 9 and Christmas Eve are closed. On Thanksgiving and Christmas Day, the daytime zoo is closed but Zoo Lights opens at 5:30 p.m. New Year’s Eve December 31 has an earlier 9:30 p.m. closing, so check the date-specific event calendar."
       },
       {
         title: "Choose your sensory experience",
-        body: "November 30 is a designated Sensory Inclusive Night with reduced volume and fewer flashing effects. Visitors who prefer quieter programming should confirm current arrangements and the venue's available quiet spaces."
+        body: "November 30 is a designated Sensory Inclusive Night with reduced volume and fewer flashing effects. Quiet spaces are available during the evening; visitors who prefer lower stimulation can plan around the designated November 30 program."
       },
       {
         title: "Expect thematic changes, not a carbon copy of last year",
@@ -342,11 +349,11 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Parking and timing around Hermann Park",
-        body: "The main Zoo Lights entrance is at 6200 Hermann Park Drive; the Medical Center zoo entrance is closed. Holiday and Museum District traffic can make arriving at an exact entry slot harder than on a daytime visit."
+        body: "The main Zoo Lights entrance is at 6200 Hermann Park Drive; the Medical Center zoo entrance is closed. The zoo does not have dedicated parking; free public Hermann Park lots are shared with other destinations and may fill. Allow time to park and walk, and check evening transit options. Stroller and mobility-device rentals are card-only."
       },
       {
         title: "Pair with Houston without rushing",
-        body: "Museum District and Hermann Park are close by. Use a museum or garden in daylight, have dinner, then take a separate timed Zoo Lights walk. Make hotel reservations only after choosing the actual ticket date."
+        body: "Use a museum or garden in daylight, have dinner, then take the separate evening walk. The zoo lists designated appreciation nights December 14 for seniors age 65+, December 15 for first responders and service members, December 16 for college students and December 17 for educators. Check eligibility, identification and admission terms before choosing a date."
       }
     ],
     relatedLinks: [
@@ -374,7 +381,8 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Houston Zoo October 14 release",
         url: "https://www.houstonzoo.org/about/newsroom/txu-energy-presents-zoo-lights-tickets-now-available/"
-      }
+      },
+      { label: "Houston Zoo operating hours and holiday exceptions", url: "https://www.houstonzoo.org/plan-your-visit/hours/" }
     ],
     // The operator separately calls out Dec 9 and Dec 24 closures; do
     // not count those days as operating nights in the shared calendar.
