@@ -85,7 +85,8 @@ function dedupeUrlEntries(entries: readonly string[]): string[] {
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
   if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
-  const lastmod = validLastModified(lastModified);
+  // A source-only check must not advance these dates; the paired authority guides had substantive edits on November 21.
+  const lastmod = validLastModified(normalized === "/destination/martin-creek-lake-state-park" || normalized === "/destination/martin-creek-lake-state-park-rv-area" ? "2026-11-21" : lastModified);
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 
