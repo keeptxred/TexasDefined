@@ -73,13 +73,37 @@ function arrayObjects(arr){
 }
 function sourceRank(name){if(name==='program-editorial-comal-canyon-lake.ts'||name==='program-editorial-frisco-lone-star.ts')return 100;
   return Number(/^program-editorial-b(\d+)/.exec(name)?.[1]||1);}
+// Track the lexical object enclosing each slug field. A scorecard's season can
+// precede its slug, so slicing from one slug to the next misattributes records.
+function editorialObjects(source){
+  const anchors=[...source.matchAll(/(?:^|[\s,{])(?:"slug"|'slug'|slug)\s*:\s*(?:"([^"\n]{1,110})"|'([^'\n]{1,110})')/gm)]
+    .map(m=>({slug:m[1]||m[2],at:m.index+m[0].indexOf(m[0].trimStart())+(m[0].trimStart().startsWith('{')||m[0].trimStart().startsWith(',')?1:0)}));
+  const objects=[],stack=[];let next=0,quote=null,esc=false,comment='';
+  for(let i=0;i<source.length&&next<anchors.length;i++){
+    while(next<anchors.length&&anchors[next].at<i)next++;
+    const c=source[i],n=source[i+1];
+    if(next<anchors.length&&anchors[next].at===i){
+      const anchor=anchors[next++];
+      if(!quote&&!comment&&stack.at(-1)?.c==='{'){
+        const chunk=balanced(source,stack.at(-1).at,'{','}');
+        if(chunk&&field(chunk,'slug')===anchor.slug)objects.push({slug:anchor.slug,chunk});
+      }
+    }
+    if(comment==='line'){if(c==='\n')comment='';continue;}
+    if(comment==='block'){if(c==='*'&&n==='/'){i++;comment='';}continue;}
+    if(quote){if(esc){esc=false;continue;}if(c==='\\'){esc=true;continue;}if(c===quote)quote=null;continue;}
+    if(c==='/'&&n==='/'){comment='line';i++;continue;}
+    if(c==='/'&&n==='*'){comment='block';i++;continue;}
+    if(c==="'"||c==='"'||c.charCodeAt(0)===96){quote=c;continue;}
+    if(c==='{'||c==='['||c==='(')stack.push({c,at:i});
+    else if(c==='}'||c===']'||c===')')stack.pop();
+  }
+  return objects;
+}
 export function inspectEditorial(source,file,today){
-  const anchors=[...source.matchAll(/(?:^|[\s,{])(?:"slug"|'slug'|slug)\s*:\s*(?:"([^"\n]{1,110})"|'([^'\n]{1,110})')/gm)];
   const found=[];
-  for(let i=0;i<anchors.length;i++){
-    const slug=anchors[i][1]||anchors[i][2];
+  for(const {slug,chunk} of editorialObjects(source)){
     if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))continue;
-    const chunk=source.slice(anchors[i].index,i+1<anchors.length?anchors[i+1].index:source.length);
     const sp=pos(chunk,'season'),season=sp>=0?balanced(chunk,sp,'{','}'):null;
     if(!season){found.push({slug,file,rank:sourceRank(file),published:false});continue;}
     const gp=pos(season,'games');
@@ -249,8 +273,8 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(result.slug)||!isoDate(result.date)
        ||!result.date.startsWith('2026-')||!isoDate(result.verifiedAt)
        ||result.verificationMethod!=='manual-editorial-review'
-       ||!Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)
-       ||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst
+       ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
+       ||(result.playedDate!==undefined&&(!isoDate(result.playedDate)||!result.playedDate.startsWith('2026-')||result.playedDate>result.verifiedAt))
        ||a.protocol!=='https:'||b.protocol!=='https:'||a.hostname===b.hostname)
       throw Error('Invalid reviewed score research row '+String(result.slug)+' '+String(result.date));
     if(!reviewedBySlug.has(result.slug))reviewedBySlug.set(result.slug,[]);
