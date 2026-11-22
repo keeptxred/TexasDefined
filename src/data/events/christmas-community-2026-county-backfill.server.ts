@@ -222,5 +222,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "City of Jacksboro",
   "summary": "The City of Jacksboro's November 2026 public activity reports and City Council agenda independently confirm its Christmas Parade on Thursday, December 3, 2026. The November 9 council agenda specifies the parade begins at 6:30 p.m.; the city website announces the same date. The city has not published a current-year route or street-closure plan on this notice; visitors should check the city or Chamber before traveling.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "hemphill-lions-christmas-parade-2026",
+  "title": "Hemphill Lions Club A Very Merry Christmas Movie Parade",
+  "city": "Hemphill",
+  "countySlug": "sabine",
+  "countyName": "Sabine County",
+  "region": "piney-woods",
+  "startDate": "2026-12-05",
+  "venueName": "Sabine County Courthouse Square and downtown Hemphill",
+  "officialEventUrl": "https://hemphilllionsclub.org/parade/",
+  "sourceName": "Hemphill Lions Club",
+  "summary": "The Hemphill Lions Club confirms its A Very Merry Christmas Movie parade on Saturday, December 5, 2026 at 6 p.m. in downtown Hemphill. Float check-in begins at 4 p.m. in the high-school stadium lot; the club lists the current parade route through town to the Feed Store Cafe. Santa, music and the children's bike drawing take place around the courthouse square. The posted route and staging details are participant instructions, not an admission requirement for spectators.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "hopkins-museum-christmas-in-the-park-nov-2026",
+  "title": "Hopkins County Heritage Park Christmas in the Park · November Evening",
+  "city": "Sulphur Springs",
+  "countySlug": "hopkins",
+  "countyName": "Hopkins County",
+  "region": "prairies-lakes",
+  "startDate": "2026-11-28",
+  "venueName": "Hopkins County Heritage Park · 416 North Jackson Street",
+  "officialEventUrl": "https://hopkinsmuseum.org/",
+  "sourceName": "Hopkins County Museum and Heritage Park",
+  "summary": "The Hopkins County Museum confirms the first 2026 Christmas in the Park evening on Saturday, November 28 from 5:30–8 p.m. Guests walk among illuminated historic buildings, holiday decorations and volunteer displays at Heritage Park in Sulphur Springs. The event has a separately announced second evening on December 5; these independent calendar records avoid suggesting that the heritage park holiday program runs every day between them. Check admission details with the museum.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "hopkins-museum-christmas-in-the-park-dec-2026",
+  "title": "Hopkins County Heritage Park Christmas in the Park · December Evening",
+  "city": "Sulphur Springs",
+  "countySlug": "hopkins",
+  "countyName": "Hopkins County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Hopkins County Heritage Park · 416 North Jackson Street",
+  "officialEventUrl": "https://hopkinsmuseum.org/",
+  "sourceName": "Hopkins County Museum and Heritage Park",
+  "summary": "Hopkins County Museum independently lists Saturday, December 5, 2026 as its second Christmas in the Park event, with lights, decorated historic buildings and costumed volunteer displays. The museum homepage currently lists an inconsistent starting hour for this December session, so check the operator's dedicated event details for opening time rather than relying on a guessed 5:30 p.m. Admission is listed as $5 on the event card; confirm the age policy with the museum.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
