@@ -227,7 +227,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2027-01-02",
     "venue": "Moody Gardens · 1 Hope Boulevard, Galveston",
     "officialUrl": "https://www.moodygardens.com/holiday-season",
-    "sourceCheckedAt": "2026-11-07",
+    "sourceCheckedAt": "2026-11-21",
     "seoTitle": "Moody Gardens Holiday in the Gardens 2026: Lights, ICE LAND & Tickets",
     "seoDescription": "Holiday in the Gardens runs Nov. 21, 2026–Jan. 2, 2027. Compare the Galveston lights trail, ICE LAND, holiday passes, free parking and family attractions.",
     "whyItMatters": "Holiday in the Gardens is the resort-wide Galveston holiday festival that connects the mile-long Holiday Lights Trail (formerly Festival of Lights), the independently featured ICE LAND: Caribbean Christmas, holiday films, skating, slides, dining and shows. Visitors should decide between a light-trail outing and a multi-attraction evening before choosing admissions.",
@@ -238,7 +238,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         "label": "Holiday lights",
-        "value": "A mile-long trail, generally nightly 6–10 p.m.; check live operating calendar"
+        "value": "Mile-long trail, 5:30–10 p.m.; check daily operating calendar"
       },
       {
         "label": "ICE LAND 2026 theme",
@@ -250,13 +250,13 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         "label": "Ticket choice",
-        "value": "Single-attraction or multi-attraction Holiday Pass; not all products cover the same experiences"
+        "value": "Lights Trail from $24; ICE LAND from $29; Holiday Evening Pass from $55"
       }
     ],
     planningSections: [
       {
         title: "Pick a lights-only visit or the Holiday Pass",
-        "body": "Moody Gardens offers individual tickets for its Holiday Lights Trail or ICE LAND and a separate after-4-p.m. Holiday Pass covering several attractions. The Holiday Pass is NOT an all-day pass; skate rentals are sold separately. Compare what a family will actually use before choosing a ticket product."
+        "body": "The Nov. 21 organizer price guide lists the trail from $24, ICE LAND from $29 and the Holiday Evening Pass from $55. The evening pass begins at 4 p.m. and combines ICE LAND, the trail, Aquarium Pyramid, one 3D and one 4D film, four Arctic Slide rides for guests at least 36 inches tall, one Kiddie Train ride for children no taller than 48 inches, and rink admission. Skate rentals cost extra. Choose a single attraction if time or height limits make the bundled activities impractical."
       },
       {
         title: "Know the ICE LAND temperature",
@@ -268,11 +268,11 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Use the official event calendar, not a season-long guess",
-        "body": "Moody Gardens markets the season from November 21 to January 2, with light-trail operating hours published separately. Individual films, dining events and holiday shows can have selected days and showtimes."
+        "body": "The current operating calendar lists ICE LAND, skating and the Arctic Slide from noon to 10 p.m.; the trail opens at 5:30 p.m. Trains operate from 2–4:30 p.m. and 5:30–10 p.m., with Santa photos scheduled from 6–10 p.m. Use the daily calendar for your date, particularly if combining the Aquarium Pyramid, films or separately scheduled shows."
       },
       {
         title: "Compare tickets directly with organizers",
-        "body": "The site publishes 2026 prices and Holiday Pass options, but promotional offers may expire and change. Use the linked operator ticket page for live date pricing, inclusions and refunds rather than relying on stale third-party listings."
+        "body": "For lower-priced tickets, the organizer identifies Value Nights as Sunday through Thursday between November 30 and December 17. Prices depend on the date and age group. Adult tickets cover ages 13–64; child and senior tickets cover ages 4–12 and 65+, respectively. Confirm the actual date-specific price and refund terms at checkout."
       },
       {
         title: "Make a Galveston coastal holiday itinerary",
@@ -315,11 +315,15 @@ const records: ChristmasExtendedRecord[] = [
         "url": "https://www.moodygardens.com/holiday-season/faq"
       },
       {
+        "label": "Moody Gardens daily operating calendar",
+        "url": "https://www.moodygardens.com/visitor-info/hours"
+      },
+      {
         "label": "Moody Gardens 2026 details and Holiday Pass",
         "url": "https://www.moodygardens.com/holiday-season/things-to-do"
       }
     ],
-    "dateNote": "Moody Gardens confirms Holiday in the Gardens November 21, 2026–January 2, 2027. The mile-long Holiday Lights Trail generally opens at dusk around 6 p.m. and closes 10 p.m. A Holiday Pass is valid after 4 p.m., with skate rentals extra; specific shows and attractions may use their own daily schedules."
+    "dateNote": "Moody Gardens confirms Holiday in the Gardens November 21, 2026–January 2, 2027. The current daily calendar lists the mile-long Holiday Lights Trail from 5:30 to 10 p.m. A Holiday Pass is valid after 4 p.m., with skate rentals extra; specific shows and attractions may use their own daily schedules."
   },
   {
     slug: "grapevine-north-pole-express",
