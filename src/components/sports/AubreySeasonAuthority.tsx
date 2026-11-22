@@ -20,7 +20,8 @@ const SOURCES = {
   canyon: 'https://www.myplainview.com/canyon/sports/article/eagles-eliminate-aubrey-39-36-set-showdown-22543265.php',
   canyonScore: 'https://www.maxpreps.com/tx/football/game/aubrey-vs-canyon/11-19-2026/?c=1bd2bea1-32e4-4b09-befc-909a6e7613b6',
   conflict: 'https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-thursday-22540994.php',
-  campus: 'https://www.aubreyisd.net/page/contact-us',
+  campus: 'https://www.aubreyisd.net/o/ahs',
+  stadium: 'https://www.texasfootball.com/article/2022/08/01/stadium-spotlight-presented-by-vcrnow-chaparral-stadium',
   rules: 'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies',
   tickets: 'https://gofan.co/app/school/TX90134',
 };
@@ -117,7 +118,7 @@ export function AubreySeasonAuthority({ games }: { games: readonly Final[] }) {
         <div>
           <h3 className="font-display text-2xl">2026 stadium and ticket guidance</h3>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">Chaparral Stadium is at the Aubrey High School campus, 510 Spring Hill Road. The Andrews and Canyon playoff games used neutral sites in Sweetwater and Burkburnett: the Aubrey home ticket link and home-stadium policies do not establish admission or parking rules at those venues.</p>
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm"><Source href={SOURCES.campus}>Aubrey ISD address</Source><Source href={SOURCES.rules}>Official stadium rules</Source><Source href={SOURCES.tickets}>School's GoFan page</Source></p>
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm"><Source href={SOURCES.campus}>Official high-school address</Source><Source href={SOURCES.stadium}>Chaparral Stadium spotlight</Source><Source href={SOURCES.rules}>Official stadium rules</Source><Source href={SOURCES.tickets}>School's GoFan page</Source></p>
         </div>
       </div>
       <p className="mt-7 border-t border-border pt-4 text-xs leading-6 text-muted-foreground">Research notes: 2026 regular season and postseason, reviewed November 22, 2026. <Source href={SOURCES.season}>Complete game ledger</Source> · <Source href={SOURCES.school}>Aubrey ISD district-title announcement</Source>. The analysis uses published results only; no interviews, field photographs, proprietary statistics or school affiliation are claimed.</p>

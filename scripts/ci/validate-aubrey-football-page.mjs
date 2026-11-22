@@ -91,7 +91,7 @@ assert.ok(route.includes('footballProgramProfilePath(game.opponent)'), 'Aubrey t
 assert.ok(route.includes("slug === 'comal-canyon-lake' || slug === 'aubrey'"), 'Aubrey commercial content should not displace its team analysis');
 const a = readFileSync('src/data/high-school-football/aubrey-auto-results.ts', 'utf8');
 for (const marker of ['Unbeaten district champions', 'Bi-district win over Andrews', 'Area-round comeback against Canyon',
-  'District 4-4A Division I', 'https://www.aubreyisd.net/page/contact-us', '2026-11-22']) {
+  'District 4-4A Division I', 'https://www.aubreyisd.net/o/ahs', '2026-11-22']) {
   assert.ok(a.includes(marker), 'Aubrey source overlay missing authority milestone or venue correction: ' + marker);
 }
 assert.ok(!a.includes("sourceUrl: 'https://www.texasfootball.com/team/aubrey-chaparrals'"), 'Do not restore redirecting Dave Campbell source');

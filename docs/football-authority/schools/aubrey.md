@@ -21,7 +21,7 @@
 3. [Aubrey ISD live feed](https://www.aubreyisd.net/o/ahs/live-feed) — official undefeated district announcement and Andrews playoff notice.
 4. [Midland Reporter-Telegram](https://www.mrt.com/sports/highschool/article/big-spring-permian-forsan-advance-uil-football-22530172.php) — Andrews bi-district final.
 5. [The Canyon News](https://www.myplainview.com/canyon/sports/article/eagles-eliminate-aubrey-39-36-set-showdown-22543265.php) and [MaxPreps Canyon game](https://www.maxpreps.com/tx/football/game/aubrey-vs-canyon/11-19-2026/?c=1bd2bea1-32e4-4b09-befc-909a6e7613b6) — detailed Canyon score and comeback.
-6. [Official Aubrey ISD campus address](https://www.aubreyisd.net/page/contact-us), [stadium policies](https://www.aubreyisd.net/page/aubrey-isd-stadium-policies) and [GoFan](https://gofan.co/app/school/TX90134) — visitor details.
+6. [Official Aubrey ISD campus address](https://www.aubreyisd.net/o/ahs), [stadium policies](https://www.aubreyisd.net/page/aubrey-isd-stadium-policies) and [GoFan](https://gofan.co/app/school/TX90134) — visitor details.
 7. [MaxPreps Aubrey history](https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/history/) and [UIL state-title final appearances](https://www.uiltexas.org/football/all-time-appearances) — historical research and limits of championship claims.
 
 The old Dave Campbell's Texas Football team URL now redirects to the publisher's general homepage in an independent retrieval. Do **not** use that redirect as evidence for historical playoff totals or stadium details. Avoid unlicensed news, stadium and school photography. The new Aubrey-specific 2026 visual is constructed from the attributed result ledger rather than copied school imagery.
