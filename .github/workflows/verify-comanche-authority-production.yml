@@ -1,0 +1,29 @@
+name: Verify published Comanche authority pages
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+  schedule:
+    - cron: '17 13 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-comanche-live:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify city, county and museum on canonical production
+        env:
+          COMANCHE_PUBLIC_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-comanche-authority-production.mjs
