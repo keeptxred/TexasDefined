@@ -51,6 +51,11 @@ test("county official calendars are tracked on the robot-respecting review sched
     camp:"2026-12-05",
     hamilton:"2026-11-28",
     karnes:"2026-12-17",
+    gray:"2026-12-11",
+    erath:"2026-11-28",
+    wichita:"2026-12-05",
+    panola:"2026-12-01",
+    "san-augustine":"2026-12-04",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -82,5 +87,58 @@ test("Hamilton and Kenedy official 2026 holiday editions retain precise county/o
     assert.equal(entry.startDate, date);
     assert.ok(new URL(entry.officialEventUrl).hostname.endsWith(host));
     assert.ok(entry.sourceName && entry.venueName && entry.summary);
+  }
+});
+
+test("Gray County holiday records use distinct first-party exact-date Pampa Chamber occurrences", () => {
+  const cases = [
+    ["pampa-christmas-on-the-bricks-2026", "2026-12-11"],
+    ["pampa-cowboy-christmas-parade-of-lights-2026", "2026-12-12"],
+  ];
+  for (const [slug, date] of cases) {
+    const event = events.find(e => e.slug === slug);
+    assert.ok(event, "No verified Gray County holiday record " + slug);
+    assert.equal(event.startDate, date);
+    assert.equal(event.countySlug, "gray");
+    assert.equal(event.countyName, "Gray County");
+    assert.equal(new URL(event.officialEventUrl).hostname, "business.pampachamber.com");
+    assert.equal(event.sourceVerifiedAt, "2026-11-22");
+  }
+});
+
+test("Erath, Wichita, Panola 2026 holiday additions are first-party date-specific and distinct", () => {
+  const cases = [
+    ["stephenville-christmasville-downtown-festival-2026","erath","2026-11-28","stephenvilletexas.org"],
+    ["stephenville-holly-jolly-christmas-2026","erath","2026-12-07","stephenvilletexas.org"],
+    ["wichita-falls-city-lights-christmas-parade-2026","wichita","2026-12-05","wfcitylights.com"],
+    ["carthage-panola-college-christmas-in-carthage-2026","panola","2026-12-01","panola.edu"],
+  ];
+  for (const [slug, county, date, domain] of cases) {
+    const event = events.find(e => e.slug === slug);
+    assert.ok(event, "Missing 2026 verified original-organizer event " + slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.sourceVerifiedAt,"2026-11-22");
+    assert.ok(new URL(event.officialEventUrl).hostname.endsWith(domain));
+  }
+  assert.notEqual(events.find(e=>e.slug===cases[0][0]).startDate,
+    events.find(e=>e.slug===cases[1][0]).startDate,
+    "Stephenville 2026 holiday festivals have different dates; never join them into an invented window");
+});
+
+test("San Augustine 2026 Christmas market and downtown parade remain separate verified organizer dates", () => {
+  const cases = [
+    ["san-augustine-christmas-market-days-2026","2026-12-04","2026-12-05"],
+    ["san-augustine-main-street-christmas-parade-2026","2026-12-04",undefined],
+  ];
+  for (const [slug, date, end] of cases) {
+    const item = events.find(event => event.slug === slug);
+    assert.ok(item, "Missing main-street holiday occurrence "+slug);
+    assert.equal(item.countySlug,"san-augustine");
+    assert.equal(item.startDate,date);
+    assert.equal(item.endDate,end);
+    assert.equal(item.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(item.officialEventUrl).hostname,"visitsanaugustinetx.org");
+    assert.match(item.sourceName,/San Augustine Main Street/);
   }
 });
