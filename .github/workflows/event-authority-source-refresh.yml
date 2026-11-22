@@ -53,7 +53,9 @@ permissions:
   issues: write
 
 concurrency:
-  group: governed-event-authority-source-refresh
+  # GitHub replaces older pending runs even when cancel-in-progress is false.
+  # PR contract checks must never displace a pending live source-inventory run.
+  group: governed-event-authority-source-refresh-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'live' }}
   cancel-in-progress: false
 
 jobs:
