@@ -28,7 +28,7 @@ test('expired original hashes are excluded only after first-seen 72-hour retenti
   assert.ok(!eligible.has(invalid.path), 'an unverified asset cannot become a deliverability obligation');
   assert.deepEqual([...eligible.keys()].sort(), [current.path, preserved.path].sort());
   assert.equal(eligible.get(current.path).preSha256, current.preSha256);
-  assert.equal(eligible.get(preserved.path).firstSeenAt, withinWindow);
+  assert.equal(eligible.get(preserved.path).firstSeenAt, new Date(withinWindow).toISOString());
   const earlier = eligibleCrossReleaseAssets(ledger, Date.parse('2026-11-20T12:00:00Z'));
   assert.ok(earlier.has(old.path), 'still-in-window older assets remain mandatory on both origins');
   assert.throws(() => eligibleCrossReleaseAssets({snapshots:[
