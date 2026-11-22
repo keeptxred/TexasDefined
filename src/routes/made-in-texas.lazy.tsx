@@ -32,6 +32,14 @@ function MadeInTexasPage() {
   const counties = [...new Set(MADE_IN_TEXAS_ENTRIES.map(e => e.countySlug))].sort();
   const filtered = MADE_IN_TEXAS_ENTRIES.filter(e => (!query.trim() || `${e.name} ${e.city} ${e.countySlug} ${e.note}`.toLowerCase().includes(query.trim().toLowerCase())) && (relationship === 'all' || e.relationship === relationship) && (county === 'all' || e.countySlug === county) && (categoryFilter === 'all' || e.category === categoryFilter) && (!onlySourced || Boolean(evidenceForMadeInTexasEntry(e.name))));
   const sourcedCount = MADE_IN_TEXAS_ENTRIES.filter(e => evidenceForMadeInTexasEntry(e.name)).length;
+  const exportCsv = () => {
+    const quote = (value: string) => '"' + value.replace(/"/g, '""') + '"';
+    const header = ['Name', 'City', 'County', 'Category', 'Relationship', 'Evidence claim', 'Source', 'Source URL', 'Reviewed'];
+    const rows = filtered.map(entry => { const e = evidenceForMadeInTexasEntry(entry.name); return [entry.name, entry.city, entry.countySlug, entry.category, entry.relationship, e?.claim ?? '', e?.sourceLabel ?? '', e?.sourceUrl ?? '', e?.checkedAt ?? '']; });
+    const blob = new Blob([[header, ...rows].map(row => row.map(quote).join(',')).join('\r\n')], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = url; link.download = 'texasdefined-made-in-texas.csv'; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
   return (
     <main>
       <section className="border-b border-border bg-muted/30 py-16 sm:py-24">
@@ -42,6 +50,7 @@ function MadeInTexasPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas industry & homegrown brands</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">Made, Built & Born in Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas products and companies are part of the story of their hometowns. This guide separates things actually made or processed in Texas from brands that were founded here, are headquartered here or maintain major Texas operations.</p>
+          <p className="mt-4 text-xs text-muted-foreground">TexasDefined <a href="/editorial-policy" className="underline">Editorial Desk</a> · Directory updated November 21, 2026. Individual evidence dates reflect the cited record, not a product-origin guarantee.</p>
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
             <Stat value={String(MADE_IN_TEXAS_ENTRIES.length)} label="Entries" />
             <Stat value={String(new Set(MADE_IN_TEXAS_ENTRIES.map((item) => item.countySlug)).size)} label="Counties represented" />
@@ -55,6 +64,7 @@ function MadeInTexasPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
             <div>
+              <section className="mb-8 border border-border p-5" aria-labelledby="directory-method"><h2 id="directory-method" className="font-display text-3xl">Which products are actually made in Texas?</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Start with the {MADE_IN_TEXAS_ENTRIES.filter(e => e.relationship === "made-or-processed").length} production entries. The other records document homegrown businesses, office locations or local operations, which are not interchangeable with product manufacture. A producer can have factories outside Texas; the evidence statement, not the brand name, defines what is supported.</p><div className="mt-4 grid grid-cols-2 gap-px border border-border bg-border">{Object.entries(MADE_IN_TEXAS_RELATIONSHIP_LABELS).map(([key,label]) => <Stat key={key} label={label} value={String(MADE_IN_TEXAS_ENTRIES.filter(e=>e.relationship===key).length)} />)}</div><p className="mt-4 text-xs leading-5 text-muted-foreground">This curated sample is not a census of Texas companies. Counts represent directory records, not employers, factories or sales. County links provide local context rather than exact factory coordinates.</p></section>
               <section className="mb-8 border border-border p-5" aria-label="Directory filters">
                 <h2 className="font-display text-3xl">Find Texas businesses and products</h2>
                 <p className="mt-2 text-sm text-muted-foreground">Search the directory or narrow it by relationship, category and county. A listing without linked evidence remains a research lead, not a verified origin claim.</p>
@@ -67,6 +77,8 @@ function MadeInTexasPage() {
                 </div>
                 <p className="mt-4 text-sm" aria-live="polite">{filtered.length} of {MADE_IN_TEXAS_ENTRIES.length} entries shown.</p>
                 <button type="button" className="mt-3 text-sm font-semibold underline" onClick={() => {setQuery("");setRelationship("all");setCounty("all");setCategoryFilter("all");setOnlySourced(false);}}>Reset filters</button>
+                <button type="button" className="ml-4 mt-3 text-sm font-semibold underline" onClick={exportCsv}>Download filtered directory (CSV)</button>
+                {filtered.length === 0 ? <p className="mt-3 text-sm">No matches. Try a different search or reset the filters.</p> : null}
               </section>
               {categoryOrder.map((category) => {
                 const entries = filtered.filter((item) => item.category === category.slug);
