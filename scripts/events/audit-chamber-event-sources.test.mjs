@@ -168,7 +168,7 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
-  assert.equal(report.eventSpecificSourceCount, 11);
+  assert.equal(report.eventSpecificSourceCount, registry.sources.filter(s => s.sourceKind === "event-specific").length);
   assert.equal(report.annualEventsListSourceCount, registry.sources.filter(s => s.sourceKind === "annual-events-list").length);
   assert.match(report.outreachStatus, /tracked privately/);
 });
