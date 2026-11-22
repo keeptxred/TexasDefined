@@ -106,5 +106,61 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "Texas A&M University",
     "sourceUrl": "https://www.arch.tamu.edu/alumni/arch-aplin-iii/",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Alcon",
+    "claim": "The company lists a Fort Worth U.S. corporate office and a Swiss corporate address.",
+    "sourceLabel": "Alcon",
+    "sourceUrl": "https://www.alcon.com/contact-us/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Hard Eight BBQ",
+    "claim": "The first restaurant opened in Stephenville in 2003.",
+    "sourceLabel": "Hard Eight BBQ",
+    "sourceUrl": "https://www.hardeightbbq.com/about",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "YETI",
+    "claim": "The fiscal 2025 annual report identifies Austin as headquarters; this does not establish product origin.",
+    "sourceLabel": "SEC annual report",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1670592/000167059226000013/yeti-20260103.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Dickey's Barbecue Pit",
+    "claim": "The first restaurant opened in Dallas in 1941.",
+    "sourceLabel": "Dickey's",
+    "sourceUrl": "https://www.dickeys.com/company/our-story",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "James Avery Artisan Jewelry",
+    "claim": "The company's timeline traces the business to a Kerrville garage in 1954.",
+    "sourceLabel": "James Avery",
+    "sourceUrl": "https://www.jamesavery.com/about-us.html",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Chuy's",
+    "claim": "The first restaurant opened on Barton Springs Road in Austin on April 16, 1982.",
+    "sourceLabel": "Chuy's",
+    "sourceUrl": "https://www.chuys.com/our-story",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Whole Foods Market",
+    "claim": "The first Whole Foods Market opened in Austin in 1980.",
+    "sourceLabel": "Whole Foods Market",
+    "sourceUrl": "https://www.wholefoodsmarket.com/company-info/whole-foods-market-history",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Tacodeli",
+    "claim": "The first restaurant opened in Austin in 1999.",
+    "sourceLabel": "Tacodeli",
+    "sourceUrl": "https://www.tacodeli.com/story/",
+    "checkedAt": "2026-11-21"
   }
 ];
