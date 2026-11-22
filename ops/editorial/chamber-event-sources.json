@@ -1033,6 +1033,34 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "mont-belvieu-city-christmas-2026",
+      "organization": "City of Mont Belvieu",
+      "countySlugs": [
+        "chambers"
+      ],
+      "homeUrl": "https://www.montbelvieu.net/",
+      "calendarUrl": "https://www.montbelvieu.net/553/Christmas-On-the-Hill-Parade",
+      "contactPageUrl": "https://www.montbelvieu.net/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "elmendorf-city-holiday-2026",
+      "organization": "City of Elmendorf",
+      "countySlugs": [
+        "bexar"
+      ],
+      "homeUrl": "https://www.elmendorf-tx.com/",
+      "calendarUrl": "https://www.elmendorf-tx.com/237/Christmas-in-the-Park-Registration",
+      "contactPageUrl": "https://www.elmendorf-tx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
