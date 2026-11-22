@@ -13,7 +13,7 @@ const events = JSON.parse(match[1]);
 test("source-verified county holiday additions are unique and present in the global calendar", () => {
   assert.ok(manifest.includes("import { verifiedCountyChristmasEvents2026 } from \"./christmas-community-2026-county-backfill.server\";"));
   assert.ok(manifest.includes("return [...verifiedOccurrences, ...verifiedCountyChristmasEvents2026]"));
-  assert.ok(events.length >= 18, "At least eighteen organizer-verified local holiday occurrences must remain represented");
+  assert.ok(events.length >= 21, "At least twenty-one organizer-verified local holiday occurrences must remain represented");
   assert.equal(new Set(events.map(e => e.slug)).size, events.length, "Duplicate holiday slug");
   const previous = manifest.slice(manifest.indexOf("const verifiedOccurrences"), manifest.indexOf("const publishedGuides"));
   for (const event of events) {
@@ -34,7 +34,7 @@ test("source-verified county holiday additions are unique and present in the glo
 
 test("county official calendars are tracked on the robot-respecting review schedule", () => {
   const sourceMap = new Map(registry.sources.flatMap(s => s.countySlugs.map(c => [c,s])));
-  for (const slug of ["andrews","bandera","austin","cooke","camp","lamar","harrison","nueces","orange","hockley","wharton","waller","jack","sabine","hopkins"]) {
+  for (const slug of ["andrews","bandera","austin","cooke","camp","lamar","harrison","nueces","orange","hockley","wharton","waller","jack","sabine","hopkins","fannin","delta","uvalde"]) {
     assert.ok(sourceMap.has(slug), "No official seasonal source for " + slug);
   }
   for (const [slug,expected] of Object.entries({
