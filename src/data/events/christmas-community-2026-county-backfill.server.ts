@@ -798,5 +798,20 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Sonora, Texas Chamber of Commerce",
     "summary": "The Sonora, Texas Chamber's official 2026 community-events calendar lists Downtown Christmas and the Lighted Christmas Parade for Wednesday, December 2, 2026. The Chamber does not publish a start time, detailed procession route or specific admission information in this calendar entry; visitors should confirm those details directly. This event is in Sutton County, Texas and must not be confused with a different historic Sonora Christmas parade organized in Sonora, California.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "alvin-home-for-the-holidays-city-festival-parade-2026",
+    "title": "Alvin Home for the Holidays · Christmas Festival and Light Parade",
+    "city": "Alvin",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Alvin Historic Depot Centre, National Oak Park and Stanton's Shopping Center parade route",
+    "officialEventUrl": "https://www.alvin.gov/m/newsflash/Home/Detail/193",
+    "sourceName": "City of Alvin Parks and Recreation",
+    "summary": "The City of Alvin Parks and Recreation confirms Home for the Holidays on December 4–5, 2026. On Friday, December 4, the Historic Depot Centre hosts a 6–8 p.m. gingerbread contest (registration already full; waitlist only), while a free 6:30 p.m. performance is scheduled at National Oak Park. On Saturday, December 5, the National Oak Park Christmas Festival runs 10 a.m.–6 p.m., with Santa photographs at 4 p.m.; the light parade runs 6–7 p.m. starting and finishing at Stanton's Shopping Center. Individual vendors and paid activities may have separate costs; the festival and parade are not the same venue.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
