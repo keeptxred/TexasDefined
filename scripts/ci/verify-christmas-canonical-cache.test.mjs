@@ -24,7 +24,7 @@ test("fresh Worker deployment invalidates only relevant canonical holiday HTML",
     "events/christmas-events", "events",
     "event/caldwell-kolache-festival", "county/burleson",
   ]) {
-    assert.ok(purge.includes(`${zoneName}/${url}`) || purge.includes(`/ ${url}`),
+    assert.ok(purge.includes("${zoneName}/" + url),
       `Missing targeted purge for ${url}`);
     assert.ok(deploy.includes(`https://texasdefined.com/${url}`),
       `Missing protected workflow purge of ${url}`);
