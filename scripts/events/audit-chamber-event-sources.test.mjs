@@ -58,8 +58,8 @@ test("offline audit enumerates every uncovered county without network, email or 
   });
   assert.equal(report.countiesTotal, 254);
   assert.equal(report.countiesWithRegisteredSources, new Set(registry.sources.flatMap(source => source.countySlugs)).size);
-  assert.equal(report.countiesWithRegisteredSources, 14);
-  assert.equal(report.countiesMissingSources, 240);
+  assert.equal(report.countiesWithRegisteredSources, 28);
+  assert.equal(report.countiesMissingSources, 226);
   assert.equal(report.sourceCount, registry.sources.length);
   assert.equal(report.candidateCount, 0);
   assert.ok(report.unservedCounties.some(c => c.slug === "borden"));
