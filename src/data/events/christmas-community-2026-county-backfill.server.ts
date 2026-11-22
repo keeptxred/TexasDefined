@@ -264,5 +264,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Hopkins County Museum and Heritage Park",
   "summary": "Hopkins County Museum independently lists Saturday, December 5, 2026 as its second Christmas in the Park event, with lights, decorated historic buildings and costumed volunteer displays. The museum homepage currently lists an inconsistent starting hour for this December session, so check the operator's dedicated event details for opening time rather than relying on a guessed 5:30 p.m. Admission is listed as $5 on the event card; confirm the age policy with the museum.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "bonham-christmas-parade-hot-cocoa-hop-2026",
+  "title": "Christmas in Bonham Parade & Hot Cocoa Hop",
+  "city": "Bonham",
+  "countySlug": "fannin",
+  "countyName": "Fannin County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-04",
+  "venueName": "Fannin County Courthouse Square · 101 E. Sam Rayburn Drive",
+  "officialEventUrl": "https://bonhamchamber.com/event/christmas-in-bonham-parade-hot-cocoa-hop/",
+  "sourceName": "Bonham Area Chamber of Commerce",
+  "summary": "The Bonham Area Chamber's 2026 Christmas in Bonham calendar confirms the Hot Cocoa Hop starts at 5:30 p.m. Friday, December 4, 2026, with the Christmas Parade at 6 p.m. The procession begins on West Fifth Street, circles the courthouse square and continues north along Main Street. Local nonprofits sell hot drinks during the hop to support their work; the Chamber's free registration policy applies to parade participants. Check downtown closures before visiting.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "delta-county-cooper-christmas-parade-2026",
+  "title": "Delta County Christmas Parade of Lights · Cooper",
+  "city": "Cooper",
+  "countySlug": "delta",
+  "countyName": "Delta County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Cooper Square · 60 NW 1st Street",
+  "officialEventUrl": "https://deltacountychamber.com/events/",
+  "sourceName": "Delta County Chamber of Commerce",
+  "summary": "The Delta County Chamber of Commerce's dated event calendar confirms the Christmas Parade of Lights Saturday, December 5, 2026, beginning at 6:30 p.m. at Cooper Square, 60 NW First Street. The Chamber identifies the processional route starting at Three Rusty Nails and traveling along Dallas and Birchwood. Confirm staging restrictions and weather changes with the organizer; the time listed is the 2026 evening parade, not a recurring date guarantee.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "uvalde-christmas-at-crossroads-parade-2026",
+  "title": "Uvalde Christmas at the Crossroads Parade",
+  "city": "Uvalde",
+  "countySlug": "uvalde",
+  "countyName": "Uvalde County",
+  "region": "south-texas",
+  "startDate": "2026-12-04",
+  "venueName": "Getty Street in downtown Uvalde",
+  "officialEventUrl": "https://chamber.uvalde.org/events/details/christmas-at-the-crossroads-10097",
+  "sourceName": "Uvalde Chamber of Commerce",
+  "summary": "The Uvalde Chamber of Commerce confirms Christmas at the Crossroads on Friday, December 4, 2026. The free public Christmas parade follows Getty Street in downtown Uvalde with lighted floats, marching groups, music and local vendors. The Chamber says the parade traditionally begins at 6:30 p.m.; verify the current starting time and traffic arrangements closer to the event rather than treating customary times as guaranteed.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
