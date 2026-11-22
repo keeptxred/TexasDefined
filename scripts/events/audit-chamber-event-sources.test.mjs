@@ -119,7 +119,7 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
   assert.ok(registry.sources.length >= 279, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 87, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 94, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -164,12 +164,12 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
     assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
   }
   const report = await auditChamberSources({ offline: true });
-  assert.ok(report.countiesWithExplicitCalendarSources >= 84);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 91);
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
   assert.equal(report.eventSpecificSourceCount, 11);
-  assert.equal(report.annualEventsListSourceCount, 7);
+  assert.equal(report.annualEventsListSourceCount, registry.sources.filter(s => s.sourceKind === "annual-events-list").length);
   assert.match(report.outreachStatus, /tracked privately/);
 });
 
@@ -200,8 +200,8 @@ test("new official local tourism/municipal fallbacks retain geography and honest
   assert.equal(pampa?.sourceKind, "public-calendar");
   assert.equal(pampa?.calendarUrl, "https://business.pampachamber.com/events");
   const allCalendarCounties = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
-  assert.ok(allCalendarCounties.size >= 84);
-  assert.ok(!allCalendarCounties.has("hidalgo"), "Visit McAllen signature annual list is not a live county community calendar");
+  assert.ok(allCalendarCounties.size >= 91);
+  assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-mcallen-annual-festival-guide"), "Visit McAllen annual list is not a dated full community calendar");
 });
 
 test("dated community calendars are separate from Canadian annual-events brochure", () => {
@@ -215,6 +215,6 @@ test("dated community calendars are separate from Canadian annual-events brochur
   const canadian=registry.sources.find(s=>s.id==="visit-canadian-hemphill");
   assert.equal(canadian?.sourceKind, "annual-events-list");
   const c = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(!c.has("hemphill"), "A date-bearing annual event brochure is not a community calendar");
-  assert.equal(c.size,84, "Current classified public calendar geography should remain stable");
+  assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-canadian-hemphill"), "Annual event brochure does not itself qualify as full community calendar");
+  assert.ok(c.size >= 91, "Do not lose the classified calendar geography when adding new verified counties");
 });
