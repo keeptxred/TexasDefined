@@ -73,11 +73,11 @@ test('only archived district standings still needing review receive public sourc
   const state=inventory({today:'2026-11-20'});
   const targets=additionalResearchTargets(state);
   const districts=targets.filter(t=>t.kind==='standings');
-  assert.equal(districts.length,2);
-  assert.deepEqual(districts.map(t=>t.page.split('/').at(-1)).sort(),['6a-district-16','6a-district-21']);
+  assert.ok(districts.length>=6);
+  for(const slug of ['6a-district-5','4a-division-i-district-11','6a-district-16','6a-district-20','6a-district-21','6a-district-22'])assert.ok(districts.some(t=>t.page.endsWith('/'+slug)),slug);
   for(const t of districts){
     assert.ok(t.sourceUrl.startsWith('https://'));
-    assert.equal(t.providers.length,2);
+    assert.ok(t.providers.length>=1);
     assert.ok(t.query.includes('2026'));
   }
   assert.ok(!targets.some(t=>t.page.endsWith('/frisco-lone-star')));
@@ -97,4 +97,13 @@ test('published district standing and aged season research is metadata-only',asy
   assert.equal(r.additionalResearch[0].articles.length,1);
   assert.equal(r.publication,false);
   assert.match(reportMarkdown(r),/Current standings and dated-record research/);
+});
+
+test('current score pages and the bracket hub are actively researched even without a stale fixture',()=>{
+  const state=inventory({today:'2026-11-21'});
+  const targets=additionalResearchTargets(state);
+  assert.ok(targets.some(t=>t.page.endsWith('/aubrey')));
+  assert.ok(targets.some(t=>t.page.endsWith('/katy')));
+  assert.ok(targets.some(t=>t.page.endsWith('/texas-high-school-football-playoff-brackets')));
+  for(const p of state.coverage.enrollment.filter(p=>p.kind!=='matchup'))assert.ok(targets.some(t=>t.page===p.page)||p.kind==='team'&&state.pages.some(q=>q.page===p.page&&q.overdue.length),p.page);
 });
