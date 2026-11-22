@@ -17,7 +17,7 @@ const canonicalCountyNameBySlug = new Map(countyNames.map(name => [
 ]));
 
 test("source-verified county holiday additions are unique and present in the global calendar", () => {
-  assert.ok(manifest.includes("import { verifiedCountyChristmasEvents2026 } from \"./christmas-community-2026-county-backfill.server\";"));
+  assert.ok(manifest.includes("import { verifiedCountyChristmasEvents2026 } from \"./christmas-community-2026-county-backfill.server.ts\";"));
   assert.ok(manifest.includes("return [...verifiedOccurrences, ...verifiedCountyChristmasEvents2026]"));
   assert.ok(events.length >= 27, "At least twenty-seven organizer-verified local holiday occurrences must remain represented");
   assert.equal(new Set(events.map(e => e.slug)).size, events.length, "Duplicate holiday slug");
