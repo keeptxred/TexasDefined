@@ -348,5 +348,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Hillsboro Chamber of Commerce",
   "summary": "The Hillsboro Chamber of Commerce's official 2026 community-event schedule lists the Lighted Christmas Parade and Tree Lighting for Saturday, December 5, 2026 in downtown Hillsboro. The Chamber also lists Lake Whitney's Grinch Fest and Christmas Parade for the following Saturday, December 12, as a separate event. The December 5 notice does not give a final parade start time; verify the exact schedule, viewing route and road closures with Hillsboro Chamber or city before travel.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "canton-main-street-storybook-christmas-parade-2026",
+  "title": "Canton Once Upon a Christmas · Storybook Festival & Parade",
+  "city": "Canton",
+  "countySlug": "van-zandt",
+  "countyName": "Van Zandt County",
+  "region": "piney-woods",
+  "startDate": "2026-12-12",
+  "venueName": "Buffalo Street and downtown Canton, Texas",
+  "officialEventUrl": "https://www.cantonmainstreet.org/christmas",
+  "sourceName": "Canton Main Street Program / City of Canton",
+  "summary": "Canton Main Street's organizer guide confirms Once Upon a Christmas on Saturday, December 12, 2026. Its Storybook Christmas Festival starts at 3:30 p.m. on Buffalo Street with carnival rides, a Christmas village, snowball games and Santa photos. The lighted parade steps off at 6:30 p.m. from the south gate of First Monday, passes through downtown and ends at Canton Junior High. Displayed entry fees apply to parade participants, not necessarily spectators.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "san-saba-sip-stroll-lighted-christmas-parade-2026",
+  "title": "San Saba 13th Annual Sip N' Stroll & Lighted Christmas Parade",
+  "city": "San Saba",
+  "countySlug": "san-saba",
+  "countyName": "San Saba County",
+  "region": "hill-country",
+  "startDate": "2026-12-12",
+  "venueName": "Historic downtown San Saba and Wallace Street",
+  "officialEventUrl": "https://www.sansabachamber.com/events/13th-annual-sip-n-stroll-lighted-christmas-parade/",
+  "sourceName": "San Saba County Chamber of Commerce",
+  "summary": "The San Saba County Chamber confirms the 13th Annual Sip N' Stroll and Lighted Christmas Parade for Saturday, December 12, 2026. Ticketed wine tastings for adults 21 and older take place from 2–6 p.m. along downtown storefronts, followed by the 6:30 p.m. lighted parade on Wallace Street. Visitors may also see holiday lights at Mill Pond Park afterward. Tickets are for wine tastings, not a documented requirement to watch the public parade.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "athens-250-christmas-america-parade-2026",
+  "title": "Athens Christmas in America Parade",
+  "city": "Athens",
+  "countySlug": "henderson",
+  "countyName": "Henderson County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Downtown Athens, Texas",
+  "officialEventUrl": "https://www.athenstx.gov/m/newsflash/home/detail/242",
+  "sourceName": "City of Athens",
+  "summary": "The City of Athens' August 12, 2026 official notice schedules its annual Christmas Parade for Saturday, December 5, at 6:30 p.m. with the theme '250: Christmas in America.' The city's contingency plan moves the parade to Sunday, December 6 at 6:30 p.m. only if severe weather prevents the scheduled Saturday celebration. The current calendar records December 5 as confirmed; check city updates for any actual postponement before visiting.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
