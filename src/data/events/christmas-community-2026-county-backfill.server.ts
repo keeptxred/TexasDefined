@@ -208,5 +208,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Waller Area Chamber of Commerce / Ridin' with Christ Fellowship",
   "summary": "Waller Area Chamber's current event calendar confirms A Night in Bethlehem Friday and Saturday, December 11–12, 2026, from 6–10 p.m. at Ridin' with Christ Fellowship, 33100 Haley Road, Waller. Each evening features an 8:30 p.m. nativity/worship performance plus a community Christmas market, food and fellowship. This is a church-hosted religious celebration; no public admission price is stated in the organizer listing.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "jacksboro-christmas-parade-2026",
+  "title": "Jacksboro Christmas Parade",
+  "city": "Jacksboro",
+  "countySlug": "jack",
+  "countyName": "Jack County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-03",
+  "venueName": "Downtown Jacksboro, Texas",
+  "officialEventUrl": "https://www.cityofjacksboro.com/m/newsflash?cat=10",
+  "sourceName": "City of Jacksboro",
+  "summary": "The City of Jacksboro's November 2026 public activity reports and City Council agenda independently confirm its Christmas Parade on Thursday, December 3, 2026. The November 9 council agenda specifies the parade begins at 6:30 p.m.; the city website announces the same date. The city has not published a current-year route or street-closure plan on this notice; visitors should check the city or Chamber before traveling.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
