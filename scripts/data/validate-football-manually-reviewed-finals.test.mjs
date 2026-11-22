@@ -595,7 +595,7 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "pointsFor": 50,
     "pointsAgainst": 22,
     "primarySourceUrl": "https://klvtsports.wordpress.com/2026/09/20/klvt-listening-area-week-4-football-scoreboards/",
-    "secondarySourceUrl": "https://www.maxpreps.com/tx/football/game/anton-vs-springlake-earth/9-18-2026/?c=8a39100b-fbd3-474d-aa1a-c6f7af4b54e1",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/anton/anton-bulldogs/football/schedule/",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   },
@@ -616,8 +616,8 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "opponent": "Pasadena Memorial",
     "pointsFor": 59,
     "pointsAgainst": 13,
-    "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/pasadena-memorial-vs-shadow-creek-pearland/10-9-2026/?c=d4eeca1a-4ba5-4d26-ae34-72983e7c1c14",
-    "secondarySourceUrl": "https://www.on3.com/high-school/shadow-creek-pearland-tx-7507/football/scores/",
+    "primarySourceUrl": "https://www.on3.com/high-school/scores/football/texas/game/pasadena-memorial-vs-shadow-creek-2026-10-09-2001013/",
+    "secondarySourceUrl": "https://app.l4mediacompany.com/district/19-6a.html",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   },
@@ -749,7 +749,7 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "pointsFor": 36,
     "pointsAgainst": 13,
     "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/bremond-vs-burton/10-23-2026/?c=f31c8efb-dbbc-407e-8727-67b33b322067",
-    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bremond/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/burton/",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   },
@@ -847,8 +847,8 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "opponent": "Knox City",
     "pointsFor": 12,
     "pointsAgainst": 58,
-    "primarySourceUrl": "https://www.maxpreps.com/tx/knox-city/knox-city-greyhounds/football/",
-    "secondarySourceUrl": "https://www.si.com/high-school/stats/texas/30108-division-1a-sixman-2-region-3-district-9/football/scores?date=2026-10-30",
+    "primarySourceUrl": "https://www.aol.com/articles/see-final-scores-week-10-044806000.html",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/knox-city/knox-city-greyhounds/football/",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   },
@@ -858,7 +858,52 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "opponent": "LASAA",
     "outcome": "forfeit-win",
     "primarySourceUrl": "https://www.expressnews.com/news/article/austin-lasa-football-season-22497100.php",
-    "secondarySourceUrl": "https://www.bastroppassport.com/sports/football?school=bastrop",
+    "secondarySourceUrl": "https://sports.yahoo.com/articles/feel-horrible-lasa-forfeits-3-023104824.html",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "archer-city",
+    "date": "2026-10-30",
+    "opponent": "Haskell",
+    "pointsFor": 12,
+    "pointsAgainst": 72,
+    "primarySourceUrl": "https://www.aol.com/articles/see-final-scores-week-10-044806000.html",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/haskell/haskell-indians/football/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "benjamin",
+    "date": "2026-10-23",
+    "opponent": "Lueders-Avoca",
+    "outcome": "forfeit-win",
+    "primarySourceUrl": "https://www.aol.com/articles/week-9-big-country-high-090149000.html",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/avoca/lueders-avoca-raiders/football/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "blanket",
+    "date": "2026-10-23",
+    "playedDate": "2026-10-22",
+    "opponent": "Mullin",
+    "pointsFor": 62,
+    "pointsAgainst": 16,
+    "primarySourceUrl": "https://www.brownwoodnews.com/2026/10/24/week-9-gridiron-rewind-eight-local-squads-secure-district-victories/",
+    "secondarySourceUrl": "https://www.aol.com/articles/week-9-big-country-high-090149000.html",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bluff-dale",
+    "date": "2026-10-23",
+    "playedDate": "2026-10-22",
+    "opponent": "Milford",
+    "pointsFor": 8,
+    "pointsAgainst": 58,
+    "primarySourceUrl": "https://texashsfootball.com/milford-rolls-past-bluff-dale-58-8-in-six-man-matchup/",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/schedule/",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   }
