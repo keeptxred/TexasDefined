@@ -8,7 +8,7 @@ export const caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle: Ar
   brandId: "texasdefined",
   slug: "caldwell-county-lockhart-luling-plum-creek-san-marcos-river-texas",
   title: "Caldwell County: Lockhart, Luling, Plum Creek and the San Marcos River",
-  dek: "Caldwell County connects Lockhart's courthouse square and barbecue legacy with Luling's railroad and oil history, the San Marcos River, Plum Creek, Blackland Prairie, ranch country and one of Central Texas's fastest-changing rural corridors.",
+  dek: "Lockhart's 1894 courthouse completed by Martin, Byrne and Johnston, the lost earlier courthouse, 1999 archaeological discoveries and the civic history behind Caldwell County's barbecue and railroads.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle: Ar
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Caldwell County",
     "Lockhart Texas",
@@ -55,6 +56,23 @@ export const caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle: Ar
     p("The Caldwell County Courthouse is one of Central Texas's most distinctive courthouse landmarks. Its tower, masonry and late-nineteenth-century design rise above Lockhart's downtown blocks and make the square instantly recognizable. The courthouse and surrounding district were listed on the National Register of Historic Places in 1978, reflecting both architectural importance and the unusual survival of a traditional county-seat commercial core."),
     p("For visitors, the square is more than a photo stop. It is the best place to understand how courthouse towns worked. Government offices, banks, stores, restaurants, churches and professional services accumulated nearby because residents once traveled to the county seat for nearly every major legal and commercial need. Lockhart has modernized, but the old spatial logic still shapes downtown."),
 
+    h("Lockhart's 1894 courthouse replaced earlier public buildings"),
+    p("Caldwell County was organized in 1848, with Lockhart established as the government center beside Plum Creek. The county built successive public buildings as cotton farming, railroads and migration expanded the seat's economy. The courthouse visible now is the third purpose-built structure and has not stood unchanged since the first years of Texas statehood."),
+    p("County officials commissioned noted San Antonio architect Alfred Giles to design a new courthouse with a picturesque Second Empire style, a high clock tower and contrasting red sandstone and limestone. The Masonic Lodge laid its cornerstone, and contractor firm Martin, Byrne and Johnston formally completed the courthouse on March 19, 1894."),
+    p("The design made public access and ventilation important, with broad entrances and courtrooms above county offices. It replaced an earlier two-story courthouse that had become insufficient for a growing county. Some modern local retellings describe a fire involving a previous Lockhart public building, but the THC's marker does not establish that a fire destroyed the existing 1894 structure; such claims should not be repeated without contemporary evidence."),
+    p("In historic photographs, Lockhart's courthouse sits among merchants, church buildings and the celebrated barbecue district. Its masonry and roofline should be identified as the 1894 Giles landmark, not a city hall from the 1880s."),
+
+    h("1999 archaeological work revealed history beneath the courthouse grounds"),
+    p("A rehabilitation of the courthouse required trenches for utilities and drainage. Archaeologists from the University of Texas at San Antonio Center for Archaeological Research monitored excavation in 1999 to document historic material rather than silently disturbing the courthouse square."),
+    p("The UTSA study identifies earlier courthouse construction phases and discusses artifacts found in disturbed soils around the 1894 building. Their work demonstrates that a well-preserved courthouse can hold archaeological evidence of everyday life and prior buildings below its present landscape."),
+    p("This added layer matters in an authority guide: preservation is more than repainting an exterior. Authentic restoration should protect original materials, public records and physical evidence of earlier occupation, while respecting functioning courts."),
+    p("Use official courthouse markers and local historic-tour resources for public interpretation. Court filings and interior access depend on county offices, and the archaeological study is not a public invitation to dig on courthouse grounds."),
+
+    h("Caldwell County courthouse questions"),
+    p("Who designed Lockhart's historic courthouse? Alfred Giles."),
+    p("When was it finished? Contractors completed and the county accepted the building on March 19, 1894."),
+    p("What did archaeologists investigate in 1999? Utility trench work and historical deposits around the courthouse grounds during rehabilitation."),
+    p("Is the ornate courthouse from a post-1900 reconstruction? No. It is a surviving nineteenth-century building, with subsequent repairs and preservation."),
     h("Caldwell County began as part of a much larger frontier"),
     p("The area that became Caldwell County was part of Green DeWitt's Mexican colony in the 1820s and 1830s. Surveying and land grants concentrated early settlement along the San Marcos River, Plum Creek and other dependable water sources. The Republic of Texas placed the area within Gonzales County after independence, but population growth north of Gonzales eventually created pressure for a separate county."),
     p("In 1848 the legislature formed Caldwell County from portions of Gonzales and Bastrop counties. Residents had originally proposed the name Plum Creek County, but lawmakers chose Caldwell, probably in honor of Mathew Caldwell, a veteran of the Texas Revolution and signer of the Texas Declaration of Independence. Lockhart was selected as the county seat."),
@@ -122,5 +140,13 @@ export const caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle: Ar
     h("What Caldwell County is really about"),
     p("Caldwell County is a place where several eras of Texas overlap clearly enough to read from the road. Mexican land grants, the Republic-era frontier, cattle drives, cotton, railroads, oil, barbecue tourism and metropolitan expansion all remain visible in the same compact county."),
     p("The county's future will likely be shaped as much by Austin-region growth as by agriculture or oil, but its historic towns and landscapes still give it a strong identity of its own. Lockhart's courthouse square, Luling's industrial history, the San Marcos River and Plum Creek make Caldwell County more than a commuter fringe. Together they tell a Central Texas story that is still unfolding."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Caldwell County Courthouse 1894 official marker", url: "https://atlas.thc.texas.gov/Details/5055009760" },
+    { label: "Society of Architectural Historians — Giles's 1894 Lockhart design", url: "https://sah-archipedia.org/buildings/TX-01-BT6" },
+    { label: "UTSA Center for Archaeological Research — archaeological monitoring of courthouse rehabilitation", url: "https://scholarworks.sfasu.edu/ita/vol1999/iss1/4/" },
+    { label: "Handbook of Texas — Caldwell County's civic and economic history", url: "https://www.tshaonline.org/handbook/entries/caldwell-county" },
+    { label: "Caldwell County government — historical courthouse and offices", url: "https://www.co.caldwell.tx.us/" },
+    { label: "Texas Historical Commission — historic county courthouse program", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation" },
   ],
 };
