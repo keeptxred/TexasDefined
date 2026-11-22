@@ -8,7 +8,7 @@ export const andrewsCountyOilRanchingHighPlainsWestTexasArticle: Article = {
   brandId: "texasdefined",
   slug: "andrews-county-andrews-oil-ranching-high-plains-west-texas",
   title: "Andrews County: Oil Country on the Western Edge of the Texas High Plains",
-  dek: "Andrews County is a wide-open West Texas county where ranching, petroleum, groundwater, prairie and one remarkably self-contained county seat meet the New Mexico line.",
+  dek: "Andrews County's 1911 first courthouse and 1938 replacement, the rival Shafter Lake settlement, historic county-seat vote and oil boom in the West Texas Permian Basin.",
   category: "texas-history",
   region: "west-texas",
   hero: {
@@ -20,7 +20,8 @@ export const andrewsCountyOilRanchingHighPlainsWestTexasArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 12,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Andrews County",
     "Andrews Texas",
@@ -81,6 +82,21 @@ export const andrewsCountyOilRanchingHighPlainsWestTexasArticle: Article = {
     p("Andrews and Shafter Lake competed to become the county seat when the county organized. Local history preserves a colorful account of both communities giving away lots to prospective voters. Andrews ultimately won the July 1910 election, fixing the future location of the courthouse and concentrating county institutions in the town that still serves as the civic center today."),
     p("A first courthouse followed in 1911. The present Andrews County Courthouse was built in the late 1930s and later renovated. Its streamlined brick form is a fitting civic landmark for a county whose greatest growth came during the petroleum era rather than the nineteenth-century courthouse boom that shaped many older Texas county seats."),
 
+    h("Andrews built its first courthouse in 1911 and the present building in 1938"),
+    p("Andrews County was created in 1876 but remained sparsely settled for decades, requiring services from other counties until a local government was organized. County officials first used rented commercial space and temporary meeting places. The original county-seat election favored Andrews over neighboring Shafter Lake, whose promoters had also sought to attract settlement and trade."),
+    p("The county's first purpose-built, two-story courthouse began construction in 1911, according to the Andrews County government's published history. It stood near the site of today's courthouse and reflected the ranch-era population rather than the large petroleum industry that later defined the county. The region's first major commercial oil discoveries followed in 1929."),
+    p("A new county courthouse was built in 1938 as oil development and civic needs grew. The county government identifies the surviving building as its 1938 courthouse, with additional remodeling in 1955 and 1976. It should not be presented as an intact 1911 courthouse, nor should a decorative improvement be mistaken for evidence of a destructive fire."),
+    p("The building tells a distinct West Texas story: local government did not need an ornate nineteenth-century clock tower in order to shape daily life. Public records, roads and legal services mattered to a county transforming from isolated grazing into one of the nation's important energy-producing areas."),
+
+    h("Shafter Lake's vanished town plans explain the county-seat rivalry"),
+    p("Shafter Lake had been promoted as a townsite while Andrews was still a small ranch service community. Supporters of each settlement competed over land and public-building commitments, and local memories often describe incentives offered to attract votes. The documented election result established Andrews as the lasting seat of government."),
+    p("Shafter Lake remains important because its fading demonstrates that a county seat and access to highways can determine which of two similar frontier settlements survives. Roads, groundwater and the Permian Basin oil economy later reinforced Andrews's position. Do not treat the abandoned townsite as a formal public archaeological park without evidence of authorized visitor access."),
+
+    h("Andrews County courthouse questions"),
+    p("When did Andrews County first build a courthouse? Construction of the first two-story building began in 1911."),
+    p("What year is the courthouse that serves Andrews today? Official county history dates the present building to 1938, with renovations in 1955 and 1976."),
+    p("Did Shafter Lake become the county seat? No. Andrews won the selection and Shafter Lake gradually declined."),
+    
     h("Big ranches dominated the early landscape"),
     p("Ranching developed before farming because cattle could use the broad grasslands without the rainfall reliability that crops required. Large operations controlled enormous tracts. The Chicago Ranch, associated with meatpacker Nelson Morris, acquired hundreds of thousands of acres in the southeastern part of the county in the 1880s. Other major ranching interests followed."),
     p("Water was the central challenge. Drought in the 1880s pushed ranchers toward extensive windmill systems that could pump groundwater for livestock. Those windmills became essential West Texas infrastructure, allowing ranches to spread watering points across country without dependable streams."),
@@ -132,5 +148,12 @@ export const andrewsCountyOilRanchingHighPlainsWestTexasArticle: Article = {
     h("Andrews County today"),
     p("Modern Andrews County remains a place where the old and new West overlap. Ranching patterns laid down in the nineteenth century still shape land use. Petroleum discoveries from the twentieth century still shape employment, tax revenue and infrastructure. The county seat remains the center of civic life, just as it has since the 1910 election settled the courthouse question."),
     p("What makes the county distinctive is not a single attraction but the clarity of its geography and economy. Andrews is a compact civic island in a huge working landscape. Around it, cattle, oil wells, highways, groundwater and prairie tell the story of how people built a durable community on one of the driest and most resource-rich edges of Texas."),
+  ],
+  sources: [
+    { label: "Andrews County government — 1911 first and 1938 present courthouse", url: "https://www.andrews.lib.tx.us/258/History" },
+    { label: "Texas Historical Commission — Andrews County Courthouse architectural inventory", url: "https://atlas.thc.texas.gov/Details/4302000098" },
+    { label: "Handbook of Texas — Andrews County formation, ranching and oil", url: "https://www.tshaonline.org/handbook/entries/andrews-county" },
+    { label: "Handbook of Texas — Shafter Lake early community", url: "https://www.tshaonline.org/handbook/entries/shafter-lake-tx" },
+    { label: "Andrews County government — official departments and current access", url: "https://www.co.andrews.tx.us/" },
   ],
 };
