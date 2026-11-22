@@ -194,6 +194,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/PARTNER-OUTREACH', 'Require genuine private evidence for venue business outreach and follow-ups', 'node', ['scripts/data/validate-corporate-event-partner-outreach.mjs']],
   ['EVENT/CORPORATE/PARTNER-FOLLOWUPS', 'Suppress superseded due venue reminders after real new contact evidence', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-partner-followups.mjs']],
   ['EVENT/CHRISTMAS', 'Validate source-qualified Christmas community calendar and affiliate disclosures', 'node', ['scripts/data/validate-christmas-community-2026.mjs']],
+  ['EVENT/CHRISTMAS/EDGE-CACHE', 'Prevent stale dated Christmas calendar HTML after a protected Worker deployment', 'node', ['--test', 'scripts/ci/verify-christmas-canonical-cache.test.mjs']],
   ['EVENT/COUNTY-HOLIDAYS', 'Validate sourced county Christmas additions, exact annual dates, no fabricated recurrence', 'node', ['--test', 'scripts/events/validate-county-holiday-backfill.test.mjs']],
   ['EVENT/SSR-RESILIENCE', 'Bound transient browser HTTP 5xx retries without waiving content checks', 'node', ['--test', 'scripts/ci/event-navigation-retry.test.mjs']],
   ['EVENT/PROVIDER', 'Validate five source-qualified Choctaw games and exact ticket CTAs', 'node', ['--experimental-strip-types', 'scripts/data/validate-official-venue-ticketing.mjs']],
