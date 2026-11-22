@@ -38,7 +38,12 @@ function matchesCounty(eventSlug: string, primary: string | undefined, countySlu
 export function loadCountyMajorEventsServer(countySlug: string, now = new Date()): CountyMajorEventItem[] {
   const county = countySlug.trim().toLowerCase();
   const today = texasTodayIso(now);
-  const upcoming = loadUpcomingTexasEventRecordsServer({ countySlug: county, limit: 250 });
+  // Include an ongoing multi-day event whose first day was earlier than today.
+  // The generic upcoming query starts by startDate, which otherwise hides a
+  // weekend celebration from its own county page on Saturday or Sunday.
+  const upcoming = loadUpcomingTexasEventRecordsServer({
+    countySlug: county, startsOnOrAfter: "2000-01-01", limit: 250,
+  }).filter((event) => (event.endDate ?? event.startDate) >= today);
   const crossCountyUpcoming = Object.entries(additionalCountySlugsByEvent)
     .filter(([, extra]) => extra.includes(county))
     .flatMap(([slug]) => loadUpcomingTexasEventRecordsServer({ limit: 250 }).filter((event) => event.slug === slug));
