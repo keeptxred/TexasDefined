@@ -78,7 +78,7 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
   const endDate = latest?.date ?? '';
   const record = wins + '–' + losses + ' overall · ' + districtWins + '–' + districtLosses + ' district (through ' + dateLabel(endDate) + ')';
   const finalText = latest?.result ?? 'No verified final';
-  const recordDescription = 'Aubrey Chaparrals football (2026): ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' district through ' + dateLabel(endDate) + '. Latest verified final ' + finalText + ' against ' + latest?.opponent + '. View schedules, tickets and stadium rules.';
+  const recordDescription = 'Aubrey Chaparrals football 2026: ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' District 4 champions. Andrews 63–24; Canyon 36–39. Verified scores, playoffs, tickets and stadium details.';
   const nextFixture = games.find((game) => !game.result);
   const lastReport = latest ? `${latest.result} versus ${latest.opponent} on ${dateLabel(latest.date)}` : 'No verified finals';
   const nextReport = nextFixture
@@ -175,7 +175,10 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
       sourceLabel: 'MaxPreps Aubrey varsity schedule; individually verified finals are reflected in this dated editorial snapshot',
       latestResultSourceUrl: currentResult?.primarySourceUrl ?? editorial.season.latestResultSourceUrl,
     },
-    seo: editorial.seo ? { ...editorial.seo, description: recordDescription } : editorial.seo,
+    seo: editorial.seo ? { ...editorial.seo,
+      title: 'Aubrey Chaparrals Football 2026: 8–4, Scores & Playoffs',
+      description: recordDescription,
+    } : editorial.seo,
     faq,
   };
 }
