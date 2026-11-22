@@ -18,7 +18,7 @@
         "upshur"
       ],
       "homeUrl": "https://gladewaterchamber.org/",
-      "calendarUrl": "https://gladewaterchamber.org/whats-new/",
+      "calendarUrl": "https://gladewaterchamber.org/",
       "contactPageUrl": "https://gladewaterchamber.org/contact-us/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
@@ -32,7 +32,7 @@
         "angelina"
       ],
       "homeUrl": "https://www.lufkintexas.org/",
-      "calendarUrl": "https://www.lufkintexas.org/",
+      "calendarUrl": "https://members.lufkintexas.org/events/",
       "contactPageUrl": "https://members.lufkintexas.org/contact/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
@@ -60,8 +60,8 @@
         "jefferson"
       ],
       "homeUrl": "https://chamber.portarthurtexas.com/",
-      "calendarUrl": "https://chamber.portarthurtexas.com/",
-      "contactPageUrl": "https://chamber.portarthurtexas.com/",
+      "calendarUrl": "https://chamber.portarthurtexas.com/calendar",
+      "contactPageUrl": "https://www.portarthurtexas.com/contact/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
