@@ -29,7 +29,7 @@ export const TEXAS_COUNTY_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.map(cou
 }));
 
 export const TEXAS_CITY_ENTITIES: TexasEntityRecord[] = TEXAS_CITIES.map(city=>({
-  id:`city:${city.slug}`,kind:'city',name:city.name,slug:city.slug,aliases:[],countySlug:slug(city.county),region:slug(city.region),sourceId:'census-places',sourceConfidence:'high',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'located-in-county',targetId:`county:${slug(city.county)}`},{type:'located-in-region',targetId:`region:${slug(city.region)}`}]
+  id:`city:${city.slug}`,kind:'city',name:city.name,slug:city.slug,aliases:[],countySlug:slug(city.county),region:slug(city.region),officialUrl: city.slug==='alvin' ? 'https://www.alvin.gov/' : undefined,description: city.slug==='alvin' ? 'Alvin is a Brazoria County railroad town that began as Morgan, honoring railroad worker Alvin Morgan. After another Texas town was found to use that name, the community adopted Alvin and incorporated in 1893. Its restored 1907 depot, historic post-office museum with a Nolan Ryan exhibit, Froberg’s Farm and Bob Briscoe Park connect local heritage with present-day visits.' : undefined,tags: city.slug==='alvin' ? ['railroad history','Alvin Morgan','Nolan Ryan','Brazoria County','historic depot','Froberg’s Farm'] : undefined,sourceId:'census-places',sourceConfidence:'high',sourceCheckedAt:city.slug==='alvin' ? '2026-11-22' : checkedAt,status:city.slug==='alvin' ? 'active' : 'pending-source-verification',relationships:[{type:'located-in-county',targetId:`county:${slug(city.county)}`},{type:'located-in-region',targetId:`region:${slug(city.region)}`}]
 }));
 
 export const TEXAS_LOCAL_OFFICE_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.flatMap(county=>[
