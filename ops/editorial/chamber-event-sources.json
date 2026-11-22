@@ -3235,12 +3235,13 @@
         "parmer"
       ],
       "homeUrl": "https://www.friona-chamber.com/",
-      "calendarUrl": "https://www.friona-chamber.com/",
+      "calendarUrl": "https://www.friona-chamber.com/new-events-2",
       "contactPageUrl": "https://www.friona-chamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "daingerfield-morris-city-chamber",
@@ -4291,6 +4292,21 @@
       "homeUrl": "https://discoverodessa.org/",
       "calendarUrl": "https://discoverodessa.org/events/month/",
       "contactPageUrl": "https://discoverodessa.org/our-odessa/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "el-campo-chamber-community-calendar",
+      "organization": "El Campo Chamber of Commerce official community, holiday and business event calendar",
+      "countySlugs": [
+        "wharton"
+      ],
+      "homeUrl": "https://www.elcampochamber.com/",
+      "calendarUrl": "https://www.elcampochamber.com/events",
+      "contactPageUrl": "https://www.elcampochamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
