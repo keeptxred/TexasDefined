@@ -657,5 +657,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Pampa Chamber of Commerce (presenting organizer)",
     "summary": "The Pampa Chamber presents the 2026 Cowboy Christmas Parade of Lights on Saturday, December 12, starting at 6 p.m. and listed through 8 p.m. The Chamber describes a downtown route along Somerville Street, across Francis Avenue and down Cuyler Street. Float staging at the M.K. Brown parking lot begins at 4 p.m. for participants, not spectators. Review any road closures and parking details with the Chamber before attending.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "stephenville-christmasville-downtown-festival-2026",
+    "title": "Stephenville ChristmasVille Downtown Festival & Lighted Parade",
+    "city": "Stephenville",
+    "countySlug": "erath",
+    "countyName": "Erath County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Historic downtown Stephenville",
+    "officialEventUrl": "https://www.stephenvilletexas.org/events/details/christmasville-downtown-festivities-santa-music-lighted-parade-shopping-75928",
+    "sourceName": "Stephenville Main Street and Stephenville Chamber of Commerce",
+    "summary": "ChristmasVille brings Stephenville's Main Street holiday celebration downtown on Saturday, November 28, 2026, with the official Chamber calendar listing events from 9 a.m. to 8 p.m. The program includes shopping, food, Santa appearances, a lighted Christmas parade, downtown tree lighting, entertainment and fireworks. Individual attraction times and the parade route should be confirmed with the city or downtown organizer; vendor participation is separate from visitor admission.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "stephenville-holly-jolly-christmas-2026",
+    "title": "Stephenville Holly Jolly Christmas on the Downtown Plaza",
+    "city": "Stephenville",
+    "countySlug": "erath",
+    "countyName": "Erath County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-07",
+    "venueName": "Downtown Square and Plaza, Stephenville",
+    "officialEventUrl": "https://www.stephenvilletexas.org/events/details/holly-jolly-christmas-2026-77044",
+    "sourceName": "Stephenville Chamber of Commerce and City of Stephenville",
+    "summary": "The Stephenville Chamber and city schedule their Holly Jolly Christmas festival for Monday, December 7, 2026, from 6 to 9 p.m. around the downtown plaza. Visitors can expect Santa photographs, choir and caroler performances, carriage rides, holiday shopping, crafts and family activities. The organizers note that some activities are free while others raise money for local nonprofits; do not assume every attraction has free admission. This is a separate date from November's ChristmasVille.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "wichita-falls-city-lights-christmas-parade-2026",
+    "title": "Wichita Falls City Lights Parade · Christmas in Toyland",
+    "city": "Wichita Falls",
+    "countySlug": "wichita",
+    "countyName": "Wichita County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Wichita Falls; parade stage near Eighth and Scott Streets",
+    "officialEventUrl": "https://wfcitylights.com/citylights-floats",
+    "sourceName": "City Lights Parade / Potencia Projects",
+    "summary": "The official Wichita Falls City Lights Parade organizers confirm the 2026 Christmas in Toyland parade for Saturday, December 5, beginning at 7 p.m. Downtown staging for registered participants begins at 4 p.m.; spectators should not mistake that for the parade start. The entry rules identify the stage near Eighth and Scott Streets but do not publish a complete spectator route or event end time. Check organizers for parking, viewing and street closures.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "carthage-panola-college-christmas-in-carthage-2026",
+    "title": "Panola College Christmas in Carthage Holiday Concert",
+    "city": "Carthage",
+    "countySlug": "panola",
+    "countyName": "Panola County",
+    "region": "piney-woods",
+    "startDate": "2026-12-01",
+    "venueName": "Q. M. Martin Auditorium, Panola College, Carthage",
+    "officialEventUrl": "https://www.panola.edu/about/news/2026-panola-college-host-annual-christmas-carthage-event-dec-1",
+    "sourceName": "Panola College (presenting organizer)",
+    "summary": "Panola College's annual Christmas in Carthage concert returns Tuesday, December 1, 2026 at 7 p.m., with doors at 6:30 p.m. in the Q. M. Martin Auditorium. The college's announced lineup includes the Panola Pipers, Concert and Jazz Bands and visiting regional musicians. Tickets are sold at the door for $10 for adults and $5 for students ages 13 and older, with children 12 and younger admitted free. This is a local holiday music program, not the county's separate Christmas parade.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
