@@ -58,7 +58,9 @@ for (const line of patch.split('\n')) {
   if (!line.startsWith('+') || line.startsWith('+++')) continue;
   if (risky.some(regex => regex.test(line))) throw Error('Automated patch touches prohibited code/security/indexing surface');
 }
-const additions = patch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
+// Evidence text itself is not proof that the page copy actually changed.
+const pagePatch = git('diff','--unified=0',base,'--',...pageFiles);
+const additions = pagePatch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
 const sourceMap = new Map(target.sources.map(x => [x.url, String(x.excerpt || '')]));
 let copy = '';
 for (const file of pageFiles) copy += fs.readFileSync(file, 'utf8') + '\n';
