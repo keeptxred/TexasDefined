@@ -10,6 +10,8 @@ on:
       - 'scripts/data/check-martin-creek-rv-source-drift.mjs'
   schedule:
     - cron: "33 14 * * *"
+    # February, May, August and November: slow-changing history, ecology, fisheries and licence checks.
+    - cron: "17 15 15 2,5,8,11 *"
   workflow_dispatch:
 
 permissions:
@@ -29,9 +31,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Check both park guides: trails, lodging, campground, fire status, alerts and arrival rules
+      - name: "Check both park guides: trails, lodging, campground, fire status, alerts and arrival rules"
         id: verify
         shell: bash
+        env:
+          MARTIN_CREEK_QUARTERLY: ${{ github.event.schedule == '17 15 15 2,5,8,11 *' || github.event_name == 'workflow_dispatch' }}
         run: |
           set +e
           node scripts/data/check-martin-creek-rv-source-drift.mjs
@@ -52,5 +56,6 @@ jobs:
           if [ -z "$existing" ]; then
             gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file /tmp/martin-creek-rv-drift.txt
           else
-            echo "Existing source-drift issue #$existing; avoiding duplicate."
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file /tmp/martin-creek-rv-drift.txt
+            echo "Updated existing source-drift issue #$existing with current page/source pairs."
           fi

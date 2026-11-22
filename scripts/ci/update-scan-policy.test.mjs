@@ -412,7 +412,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/texas-data', '/texas-data/texas-homeowners-premium-history',
     '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
-    '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
+    '/destination/martin-creek-lake-state-park', '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
