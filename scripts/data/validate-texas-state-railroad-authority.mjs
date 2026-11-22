@@ -39,6 +39,8 @@ must("guide", 'category: "texas-history"');
 must("guide", 'updatedAt: "2026-11-22"');
 must("guide", 'readingTimeVerified: false');
 must("guide", 'type: "image"');
+for (const asset of ["TSR_300_at_Rusk.jpg", "Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg", "Car_42_Interior_Texas_State_Railroad_2024.jpg", "Texas_State_Railroad%2C_moving_locomotives.jpg", "CC BY-SA 3.0", "CC BY 2.0"]) must("guide", asset);
+if ([...(sources.guide || "").matchAll(/    photo\(/g)].length < 4) failures.push("Four credited context-specific rail photographs required");
 for (const [key, needle] of [
   ["guide", "Rusk Penitentiary"], ["guide", "1883"], ["guide", "528"],
   ["guide", "1894"], ["guide", "300-kilowatt"], ["guide", "1929"],
