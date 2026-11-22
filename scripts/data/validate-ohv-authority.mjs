@@ -122,6 +122,11 @@ for (const marker of ['legalRideComparison.map((area)', 'legalRideComparison[ind
   if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
 }
 
+
+for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflow-x-auto border border-border md:block","aria-labelledby=\"ohv-permit-before-towing\""]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
+}
+
 if (errors.length) {
   console.error('Texas OHV authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
