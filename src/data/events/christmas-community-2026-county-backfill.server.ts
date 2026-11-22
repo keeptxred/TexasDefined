@@ -306,5 +306,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Uvalde Chamber of Commerce",
   "summary": "The Uvalde Chamber of Commerce confirms Christmas at the Crossroads on Friday, December 4, 2026. The free public Christmas parade follows Getty Street in downtown Uvalde with lighted floats, marching groups, music and local vendors. The Chamber says the parade traditionally begins at 6:30 p.m.; verify the current starting time and traffic arrangements closer to the event rather than treating customary times as guaranteed.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "shelby-county-center-santas-christmas-parade-2026",
+  "title": "Santa's Lighted Christmas Parade · Center",
+  "city": "Center",
+  "countySlug": "shelby",
+  "countyName": "Shelby County",
+  "region": "piney-woods",
+  "startDate": "2026-12-05",
+  "venueName": "Historic downtown Center Square, Texas",
+  "officialEventUrl": "https://shelbycountychamber.com/chamber-events/",
+  "sourceName": "Shelby County Chamber of Commerce",
+  "summary": "The Shelby County Chamber confirms Santa's Lighted Christmas Parade for Saturday, December 5, 2026 on the historic Center Square. The nighttime lighted celebration is a long-running community tradition, with the Chamber publishing participant rules and sponsors. The Chamber's current announcement sets the parade for 6 p.m.; local merchants and the courthouse area provide the setting. Confirm participant staging and temporary downtown parking restrictions from the Chamber.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "plantersville-grimes-christmas-parade-2026",
+  "title": "Plantersville Christmas Parade",
+  "city": "Plantersville",
+  "countySlug": "grimes",
+  "countyName": "Grimes County",
+  "region": "piney-woods",
+  "startDate": "2026-12-05",
+  "venueName": "Plantersville Town Hall and FM 1774",
+  "officialEventUrl": "https://cityofplantersville.net/community-calendar-events-1",
+  "sourceName": "City of Plantersville",
+  "summary": "The City of Plantersville's official community event page schedules the Christmas Parade for Saturday, December 5, 2026 at 10 a.m. The route begins near Plantersville Town Hall, follows FM 1774 to Highway 105 and loops back. Float participants are instructed to stage behind Town Hall at 9:30 a.m. Spectators should follow city traffic-control directions rather than assuming that FM 1774 stays open during the parade.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
