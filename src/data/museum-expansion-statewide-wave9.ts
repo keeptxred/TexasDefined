@@ -48,25 +48,71 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "rusk-county-depot-museum-history-center-henderson",
     name: "Rusk County Depot Museum & History Center",
-    summary: "Henderson's Rusk County Depot Museum & History Center combines a county-history museum, a 1901 railroad depot, children's discovery space and a walkable campus of preserved buildings representing East Texas home life, agriculture, timber, oil, railroads and small-town industry.",
+    summary: "A restored 1901 depot, historic buildings and a working-life museum in Henderson, home to the syrup-mill demonstrations at the annual Heritage Syrup Festival and an essential stop in Rusk County, the official Syrup Capital of Texas.",
     category: "historic-sites",
     region: "piney-woods",
     nearestTown: "Henderson",
     county: "Rusk County",
     coordinates: { lat: 32.15875, lng: -94.794817 },
-    hero: museumPlaceholder("Rusk County Depot Museum & History Center"),
-    bestSeason: "Fall through spring for the most comfortable time across the outdoor grounds; the main museum and discovery center add year-round indoor value.",
-    entryNote: "Admission is currently free, with donations welcomed. The museum lists Monday-Friday hours from 10 a.m. to 4 p.m. and Saturday from 9 a.m. to 1 p.m.",
-    highlights: ["1901 railroad depot", "Twelve historic structures", "Operational cotton-gin history", "Children's Discovery Center"],
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Henderson_July_2017_09_%28Depot_Museum%29.jpg?width=1600",
+      alt: "Historic yellow Rusk County Depot Museum building in Henderson, photographed in July 2017",
+      width: 6000,
+      height: 4000,
+      credit: "Michael Barera · Wikimedia Commons · CC BY-SA 4.0 (2017)",
+    },
+    bestSeason: "Open year-round on regular museum days. November's Heritage Syrup Festival makes the outdoor syrup mill a special destination, but confirm future festival dates before travel.",
+    entryNote: "Free admission; donations appreciated. The museum advertises Monday–Friday 10 a.m.–4 p.m. and Saturday 9 a.m.–1 p.m. Call ahead for holiday closures, school groups and special events.",
+    highlights: ["Restored 1901 railroad depot", "Rusk County ribbon-cane syrup mill", "Children's Discovery Center", "Cabins, cotton gin, sawmill and caboose", "37th Heritage Syrup Festival held November 14, 2026"],
     body: [
-      "The Rusk County Depot Museum began with a railroad depot in 1978 and grew into a multi-building history campus. The Arnold Building now serves as the main visitor center while the former depot supports children's discovery programming.",
-      "The grounds preserve structures and equipment tied to the county's rural and industrial past, including cabins, a caboose, cotton gin, country store, doctor's office, sawmill, syrup mill, oilfield display and other working-life artifacts. Inside, interpretation reaches from Caddo and Cherokee history through settlement, ranching, timber, mining and military service.",
-      "This gives Henderson and Rusk County a stronger heritage stop that connects naturally with East Texas industry, rail history, the Heritage Syrup Festival and a wider county itinerary."
+      "The museum began in 1978 with the restoration of Henderson's historic railroad depot. Built in 1901, the depot originally housed local railroad operations and became a local-history museum; the former freight warehouse was adapted for a children's discovery area. In 1994, the principal collections moved into the former Arnold Library building, and the depot remained an important part of the campus.",
+      "A walk across the grounds shows how Rusk County worked before and after oil. The preserved and interpreted structures include a syrup mill, cotton gin, blacksmith shop, country store, sawmill, cabins, doctor's office, oilfield and derrick display, printing shop and Missouri Pacific caboose. These are distinct stops on the property, not one indoor exhibition.",
+      "Rusk County's official designation as the Syrup Capital of Texas in 2025 recognizes its ribbon-cane traditions. Historically, Rusk County's ribbon-cane season ran from late October into December. Mule-powered rollers squeezed the cane while neighbors tended the fire and reduced the juice in boiling pans before jarring it. The museum notes that the Heritage Syrup Festival has demonstrated this locally rooted process on the grounds since 1989, preserving equipment native to the county.",
+      "The Heritage Syrup Festival uses both the depot grounds and historic downtown Henderson. The 37th annual festival was held Saturday, November 14, 2026, from 9 a.m. to 5 p.m.; museum demonstrations were listed separately for 10 a.m.–4 p.m. That 2026 date is historical, not an announcement of a 2027 schedule. The organizers describe an annual second-Saturday-of-November tradition and will publish new-edition details themselves.",
+      "For a regular visit, start with the Arnold Building's Rusk County collections, then walk outside to the original depot and selected heritage structures. Families may prefer the Children's Discovery Center first, while railroad enthusiasts may want the depot and caboose before the agricultural exhibits. Not every historic structure or demonstration operates every day; check with the museum about which areas are accessible.",
+      "The museum is at 514 N. High Street in Henderson, a separate destination from the downtown courthouse square. Admission is free, with donations welcomed. The museum lists weekday hours of 10 a.m.–4 p.m. and Saturday hours of 9 a.m.–1 p.m.; special-event programs and holiday closures can differ. Confirm directly with the museum by calling 903-657-4303.",
+      "For a fuller Rusk County visit, pair the museum with the courthouse square and its historic downtown district, then follow the oil-field history north toward Joinerville, New London and Overton. This sequence shows the transition from agricultural and rail commerce to the boom that changed East Texas in 1930."
     ],
+    visitorFacts: [
+      { topic: "admission", label: "Museum admission", detail: "Free; voluntary donations are welcomed. Festival admissions and any special paid services must be checked separately.", sourceUrl: "https://www.ruskcountyhistory.org/contact", checkedAt: "2026-11-22" },
+      { topic: "hours", label: "Museum hours", detail: "The museum posts Monday–Friday 10 a.m.–4 p.m. and Saturday 9 a.m.–1 p.m. Verify holidays and special-event changes directly.", sourceUrl: "https://www.ruskcountyhistory.org/contact", checkedAt: "2026-11-22" }
+    ],
+    visitorFaqs: [
+      { question: "Where is the Rusk County Depot Museum?", answer: "The museum is at 514 N. High Street, Henderson, Texas 75652, north of the historic downtown courthouse square.", sourceUrl: "https://www.ruskcountyhistory.org/contact" },
+      { question: "Is admission to the Depot Museum free?", answer: "Yes. The museum currently lists free admission and welcomes donations.", sourceUrl: "https://www.ruskcountyhistory.org/contact" },
+      { question: "Does the museum have a syrup mill?", answer: "Yes. The grounds include a syrup mill, and the annual Heritage Syrup Festival demonstrates traditional cane-syrup production.", sourceUrl: "https://www.ruskcountyhistory.org/our-grounds" },
+      { question: "When was the 37th Heritage Syrup Festival?", answer: "It took place November 14, 2026. The date has passed; future festival dates must be checked with the City of Henderson or museum.", sourceUrl: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" }
+    ],
+    authorityGuide: {
+      whyItMatters: "The site connects Rusk County's railroad heritage, ribbon-cane syrup economy and 1930s oil history in one walkable collection of preserved buildings rather than treating them as separate stories.",
+      assessment: {
+        recommendedVisit: "Allow about 60–120 minutes for exhibits and a walk around the grounds; this is a planning suggestion, not an official timed admission.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Low",
+        familyFit: "Children's discovery exhibits and outdoor historic structures can work well for mixed-age groups; check current access before arrival.",
+        firstTimeValue: "Begin with the Arnold Building, then the depot and syrup mill to connect the collection's agricultural and railroad stories."
+      },
+      itineraries: [
+        { label: "Short history stop", duration: "About 45–60 minutes", steps: ["Begin at the main Arnold Building exhibits.", "See the original 1901 depot and caboose.", "Finish at the syrup mill and outdoor heritage structures if accessible."] },
+        { label: "Half-day Henderson history", duration: "About 2–3 hours plus travel", steps: ["Tour the museum's indoor and outdoor history displays.", "Explore the downtown Henderson courthouse district.", "Use the official museum and city visitor resources to check current programs."] },
+        { label: "Annual festival visit", duration: "Plan a flexible day during a confirmed edition", steps: ["Verify the next year's official date, hours and event-specific access.", "Start at the Depot Museum for syrup-making and folk-craft demonstrations.", "Continue to downtown Heritage Square for vendors, music and food; verify current shuttle and parking arrangements."] }
+      ],
+      sources: [
+        { label: "Museum building history", url: "https://www.ruskcountyhistory.org/depot-history", scope: "1901 depot, 1978 restoration and 1994 collection move" },
+        { label: "Syrup mill and annual festival history", url: "https://www.ruskcountyhistory.org/syrup-mill-history", scope: "Original ribbon-cane process and festival demonstrations since 1989" },
+        { label: "Museum grounds and buildings", url: "https://www.ruskcountyhistory.org/our-grounds", scope: "Syrup mill, cabins, country store, industrial and rail displays" },
+        { label: "Museum contact and visitor hours", url: "https://www.ruskcountyhistory.org/contact", scope: "Address, admission, telephone and posted hours" },
+        { label: "City of Henderson festival information", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival", scope: "2026 festival dates, museum and downtown venues" },
+        { label: "Texas State Library official designations", url: "https://www.tsl.texas.gov/ref/abouttx/capitals", scope: "Rusk County's 2025 Syrup Capital designation" },
+        { label: "Historic depot photograph license", url: "https://commons.wikimedia.org/wiki/File:Henderson_July_2017_09_(Depot_Museum).jpg", scope: "Michael Barera, July 2017; CC BY-SA 4.0 attribution and original source" }
+      ]
+    },
     officialUrl: "https://www.ruskcountyhistory.org/",
     managingAuthority: "Rusk County Depot Museum & History Center / Rusk County Historical Commission partners",
     address: "514 N High St, Henderson, TX 75652",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    updatedAt: "2026-11-22",
+    sourceCheckedAt: "2026-11-22",
   },
   {
     id: "museum-statewide-wave9-falfurrias-heritage",
