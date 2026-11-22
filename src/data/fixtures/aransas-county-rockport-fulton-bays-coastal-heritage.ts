@@ -8,7 +8,7 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
   brandId: "texasdefined",
   slug: "aransas-county-rockport-fulton-bays-coastal-heritage-texas",
   title: "Aransas County: Rockport, Fulton, Bays and Coastal Heritage",
-  dek: "Aransas County is a compact stretch of the Texas Coastal Bend where Rockport and Fulton face protected bays, live-oak country meets salt marsh, and ranching, fishing, art, storms and wildlife have shaped one of the state's most distinctive coastal communities.",
+  dek: "Rockport's historic 1889 courthouse, the 1956 building destroyed after Hurricane Harvey, and the new Aransas County Courthouse opened January 2026.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 18,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Aransas County",
     "Rockport",
@@ -120,6 +121,22 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
     p("Tourism began growing after railroad service made the coast easier to reach in the late nineteenth century. Visitors came to fish, hunt, escape inland heat and enjoy bay breezes. Hotels, boarding houses and later motels developed around seasonal travel. Highway construction expanded the market again by making Rockport accessible to families traveling by automobile."),
     p("Modern tourism is broader. Fishing tournaments, birding events, art festivals, historic sites, waterfront parks, boating and nearby beaches all draw visitors. Unlike a barrier-island resort centered on surf, Rockport-Fulton sells the calmer identity of a bay town: live oaks, marinas, seafood, art and access to protected water."),
 
+    h("Three courthouse generations frame the county's hurricane history"),
+    p("Aransas County's government has occupied several generations of courthouses as Rockport grew from a coastal shipping town into an arts and tourism center. Its late-Victorian 1889 courthouse designed by architect James Riely Gordon became a historic landmark, but the old building was intentionally demolished when the county replaced it in 1956."),
+    p("The midcentury 1956 courthouse served the county until Hurricane Harvey struck the Coastal Bend on August 25, 2017. Storm damage compromised its roof and interiors, and the building was ultimately judged beyond economical repair. Officials demolished it in 2018 rather than presenting a damaged government building as safe for permanent occupancy. A historical photograph of the 1889 tower, a 1956 facade and the modern facility depict three different public structures."),
+    p("The Texas Historical Commission's survey explicitly distinguishes the 1889 building, 1956 modernist replacement and its destruction after Harvey. That longer timeline matters to visitors: the courthouse story cannot be reduced to a generic statement that 'Rockport was rebuilt' without explaining the separate government losses."),
+
+    h("The replacement courthouse opened in January 2026 after a long delay"),
+    p("For years after Harvey, county services operated from temporary premises while officials planned a new civic center. Construction was complicated by contracting and financing disputes; Texas Tribune reporting from August 2025 documented serious delays and uncertain costs. These struggles were still affecting residents years after the 2017 storm."),
+    p("County officials and project architects celebrated the opening of the new Aransas County Courthouse and Community Center on January 28, 2026. The new complex is part of a broader Rockport downtown civic recovery initiative alongside a city hall and public community facilities. The project's own architectural team published a dated announcement, distinguishing the opening from earlier projected dates that had repeatedly slipped."),
+    p("The cultural district publishes the public address as 308 North Live Oak Street, but some transition reports describe offices entering from a neighboring Magnolia Street frontage. Check the current Aransas County court and clerk directories before attending an appointment; a ceremonial ribbon cutting does not itself confirm the room location for every department."),
+
+    h("Aransas County courthouse questions"),
+    p("When did Hurricane Harvey damage Rockport's courthouse? Harvey made landfall in the area August 25, 2017, badly damaging the courthouse dating from 1956."),
+    p("Was the old 1889 courthouse destroyed by Harvey? No. The 1889 courthouse had been replaced in 1956; Harvey damaged that later modernist structure."),
+    p("When did Aransas County open its new courthouse? The county and architect documented the opening ceremony January 28, 2026."),
+    p("Where is the new civic center? Its published address is 308 North Live Oak Street in Rockport; verify individual county department access."),
+    
     h("Hurricanes repeatedly test a county built almost at sea level"),
     p("Storm risk is inseparable from life in Aransas County. The 1919 hurricane severely damaged Rockport and contributed to a long period of economic difficulty. Later storms repeatedly flooded, damaged or destroyed homes, docks, businesses and utilities. Each rebuilding cycle forced residents to reconsider construction methods, evacuation routes and the vulnerability of coastal infrastructure."),
     p("Hurricane Harvey made landfall near Rockport on August 25, 2017, as a Category 4 hurricane and caused catastrophic damage across Aransas County. The storm damaged government buildings, homes, schools, businesses, boats and historic properties, including Fulton Mansion. Recovery required years of rebuilding and became a defining modern chapter in the county's history."),
@@ -143,5 +160,13 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
     h("What defines Aransas County"),
     p("Aransas County is defined by adaptation to the coast. Its early ports rose and fell with customs decisions and navigable channels. Rockport and Fulton prospered through cattle processing, then adjusted when railroads and deepwater shipping shifted trade elsewhere. Fishing, shipbuilding, oil, art and tourism each added new economic layers without completely replacing what came before."),
     p("The county is also defined by the natural systems that make those industries possible: Aransas Bay, Copano Bay, live-oak mottes, marshes, fish nurseries and migration habitat. Fulton Mansion, Goose Island, working marinas and the rebuilt streets of Rockport all tell versions of the same story. This is a Texas county where history is easiest to understand from the shoreline, because nearly every important chapter begins with the water."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Aransas County historic resources and courthouse generations", url: "https://thc.texas.gov/sites/default/files/2025-04/Aransas_County_Survey%20Report.pdf" },
+    { label: "Aransas County project architects PGAL — January 2026 courthouse opening", url: "https://www.pgal.com/news/aransas-county-celebrates-opening-of-new-courthouse-and-community-center/" },
+    { label: "Rockport Cultural Arts District — new courthouse address and opening ceremony", url: "https://rockportculturalartsdistrict.com/directory/aransas-county-courthouse-and-community-center/" },
+    { label: "Texas Tribune — August 2025 Harvey courthouse delays and funding", url: "https://www.texastribune.org/2025/08/21/aransas-county-courthouse-hurricane-harvey-problems/" },
+    { label: "Aransas County official District Clerk — current service updates", url: "https://www.aransascountytx.gov/districtclerk/" },
+    { label: "Aransas County Historical Commission — historic markers", url: "https://www.aransascountytx.gov/historiccomm/hminfo.php" },
   ],
 };
