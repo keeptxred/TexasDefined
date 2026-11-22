@@ -3,9 +3,9 @@ import type { Article, ArticleBlock } from "../types";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const photo = (src: string, alt: string, width: number, height: number, caption: string): ArticleBlock => ({
+const photo = (src: string, alt: string, width: number, height: number, caption: string, credit = "Larry D. Moore · Wikimedia Commons · CC BY 4.0"): ArticleBlock => ({
   type: "image",
-  image: { src, alt, width, height, credit: "Larry D. Moore · Wikimedia Commons · CC BY 4.0" },
+  image: { src, alt, width, height, credit },
   caption,
 });
 
@@ -51,6 +51,9 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     { label: "1950 Rusk Cherokeean: hospital walls, 1894 prison building and 1929 powerhouse", url: "https://texashistory.unt.edu/ark:/67531/metapth326227/m1/1/" },
     { label: "Texas Historical Commission: Rusk Penitentiary Building marker", url: "https://atlas.thc.texas.gov/Details/5073006961" },
     { label: "Authentic Texas: Back on Track, historic railcars and film locomotive 316", url: "https://authentictexas.com/back-on-track/" },
+    { label: "Wikimedia Commons: Engine 300 at Rusk in 2010 — CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:TSR_300_at_Rusk.jpg" },
+    { label: "Wikimedia Commons: Palestine Depot platform in 2024 — CC BY 4.0", url: "https://commons.wikimedia.org/wiki/File:Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg" },
+    { label: "Wikimedia Commons: locomotives repositioning in 2011 — CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Texas_State_Railroad,_moving_locomotives.jpg" },
     { label: "Wikimedia Commons: 2024 locomotive photograph and license", url: "https://commons.wikimedia.org/wiki/File:Locomotive_125_Texas_State_Railroad_2024.jpg" },
     { label: "Wikimedia Commons: 2024 Car 42 interior photograph and license", url: "https://commons.wikimedia.org/wiki/File:Car_42_Interior_Texas_State_Railroad_2024.jpg" },
   ],
@@ -110,6 +113,13 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     p("The tourist operation uses heritage steam and diesel locomotives and vintage passenger cars. Equipment rosters and which engine pulls a particular excursion change as maintenance and operating schedules change; a ticket for the train is not automatically a guarantee of steam traction. Some notable preserved locomotives have had multiple identities and decades of service before reaching Rusk."),
     p("Engine No. 300, for example, is a Baldwin-built 1917 steam engine that formerly worked for the U.S. Army and later timber companies; it is not an original 1880s Rusk prison locomotive. Vintage cars, observation spaces and the historic mail/express car interpreted at Rusk reveal a different layer of rail history than the industrial origin of the track."),
     photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/TSR_300_at_Rusk.jpg?width=1280",
+      "Baldwin-built 1917 Texas State Railroad steam locomotive 300 at the Rusk terminal, photographed in 2010",
+      3648, 2736,
+      "Engine 300 at Rusk in 2010. Photo: Rvassar, CC BY-SA 3.0, via Wikimedia Commons. The 1917 locomotive predates the modern excursion operation but not the railroad's prison origin.",
+      "Rvassar · Wikimedia Commons · CC BY-SA 3.0"
+    ),
+    photo(
       "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_42_Interior_Texas_State_Railroad_2024.jpg?width=1280",
       "Interior of historic passenger coach 42 at the Texas State Railroad Rusk Depot, photographed in 2024",
       3001, 2000,
@@ -125,7 +135,20 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
       "At the Rusk layover, use the historic displays, grounds and permitted public areas. The rail yard and maintenance shops are working facilities, not unsupervised sightseeing areas.",
       "If you're visiting historic Rusk on the same day, pair the railroad with the Heritage Center of Cherokee County; in Palestine, add the downtown and railroad heritage district."
     ),
+    photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg?width=1280",
+      "Texas State Railroad passenger boarding platform and water tower at Palestine Depot, photographed in March 2024",
+      3001, 2000,
+      "Palestine Depot's boarding platform and water tower, 2024. Photo: Larry D. Moore, CC BY 4.0, via Wikimedia Commons."
+    ),
     h("Movie trains, filming cars and the 'abandoned' rail yard"),
+    photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_State_Railroad%2C_moving_locomotives.jpg?width=1280",
+      "Historic Texas State Railroad diesel and steam locomotives being repositioned to pull a return passenger train in 2011",
+      4316, 3047,
+      "Railroad crews reposition diesel and steam locomotives for a return trip to Rusk in 2011. Photo: Roy Luck, CC BY 2.0, via Wikimedia Commons. The presence of a preserved locomotive does not make a working rail yard open to visitors.",
+      "Roy Luck · Wikimedia Commons · CC BY 2.0"
+    ),
     p("Texas State Railroad equipment and scenery have appeared in films and television because the route offers an operating historic-looking railroad. The Texas Governor's Film Commission documents appearances in The Long Riders, Rough Riders, Streets of Laredo, Gambler V and American Outlaws. The operator also identifies productions including O Brother, Where Art Thou?, The Great Debaters and 1883, and displays a Wall of Fame at Rusk Depot."),
     p("A historical interview published by Authentic Texas identified steam locomotive No. 316 as a notable movie locomotive. The same reporting described the railroad storing railcars on behalf of other companies. Those are period accounts rather than a current equipment roster: no evidence establishes that any specific stored car was abandoned by a movie production. Engine numbers, identities and present storage status should be checked with railroad staff before publication of a specific artifact claim."),
     p("Railcars and locomotives held in storage or awaiting restoration can look abandoned. An unfamiliar movie prop is not evidence that a particular car was left there by a production, still belongs to a movie company, or is open to visitors. Without identified equipment numbers, owner records and operator permission, it would be irresponsible to publish an 'abandoned movie cars' tour or suggest entry into the yard. Photograph trains from authorized public areas, and ask the operator about tours or specific film equipment."),
