@@ -1,5 +1,5 @@
 import type { TexasEventRecord } from "./texas-event-record";
-import { verifiedCountyChristmasEvents2026 } from "./christmas-community-2026-county-backfill.server";
+import { verifiedCountyChristmasEvents2026 } from "./christmas-community-2026-county-backfill.server.ts";
 
 /**
  * First-party-verified community Christmas occurrences for 2026–27.
