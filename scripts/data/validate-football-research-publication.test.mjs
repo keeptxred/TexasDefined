@@ -70,3 +70,10 @@ test('team and district routes accurately mark past fixtures as unverified, not 
   assert.ok(d16.includes('data-football-district16-postseason-verified')&&d16.includes('shared champions'));
   assert.ok(server.includes('applyVerifiedDistrictFinalsToTeam('));
 });
+
+
+test('written date in authored log does not duplicate or overwrite a differently named district opponent',()=>{
+ const original={slug:'bay-city',overview:[],faq:[],season:{record:'Partial season',verifiedAt:'2026-10-18',sourceUrl:'https://example.org',sourceLabel:'Test',games:[{date:'Oct. 30',opponent:'Columbia',site:'Away'}]}};
+ const out=applyVerifiedDistrictFinalsToTeam(original,'bay-city','Bay City',DISTRICT_11_2026_GAMES);
+ const sameDate=out.season.games.filter(g=>g.date==='Oct. 30'||g.date==='2026-10-30');assert.equal(sameDate.length,1);assert.equal(sameDate[0].opponent,'Columbia');assert.equal(sameDate[0].result,undefined);
+});

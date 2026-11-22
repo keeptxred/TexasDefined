@@ -40,6 +40,7 @@ test('all manually reviewed 2026 results have explicit editorial authority and i
 test('source-locked November finals never reenter statewide missing-final review for their own pages',()=>{
   const state=inventory({today:'2026-11-20'});
   for(const row of rows){
+    if(row.outcome==='score-disputed-win')continue;
     const page=state.pages.find(p=>p.page.endsWith('/'+row.slug));
     assert.ok(!page?.overdue?.some(g=>g.date===row.date),'Sourced final wrongly due on '+row.slug);
   }

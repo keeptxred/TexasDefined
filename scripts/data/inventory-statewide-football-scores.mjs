@@ -274,6 +274,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
        ||!result.date.startsWith('2026-')||!isoDate(result.verifiedAt)
        ||result.verificationMethod!=='manual-editorial-review'
        ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
+       ||(result.outcome==='score-disputed-win' ? !Array.isArray(result.reportedScores)||result.reportedScores.length!==2||new Set(result.reportedScores).size!==2||!result.reportedScores.every(score=>{const m=/^(\d+)–(\d+)$/.exec(score);return !!m&&Number(m[1])>Number(m[2]);}) : result.reportedScores!==undefined)
        ||(result.playedDate!==undefined&&(!isoDate(result.playedDate)||!result.playedDate.startsWith('2026-')||result.playedDate>result.verifiedAt))
        ||(result.playedOpponent!==undefined&&(!result.playedDate||typeof result.playedOpponent!=='string'||!result.playedOpponent.trim()||result.outcome!==undefined||!['Home','Away','Neutral'].includes(result.playedSite)))
        ||(result.playedSite!==undefined&&!result.playedOpponent)
