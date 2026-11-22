@@ -281,12 +281,12 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Official state-park map distinguishes Fairway View campground, Clear Fork Creek loop, CCC recreation hall, golf course and seasonal pool.",
   },
   "martin-creek-lake-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-11-21",
     sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites",
-    restrooms: "Bee Tree's thirteen lakefront 30-amp sites, six 50-amp sites and 37 Bee Tree/Broken Bowl 30-amp sites list shower restrooms nearby. Six island primitive sites provide NO drinking water or restrooms.",
-    parking: "Bee Tree has 13 lakefront water/electric 30-amp sites, 6 water/electric 50-amp and part of 37 30-amp electric sites. Broken Bowl has more 30-amp electric sites. Six primitive ISLAND sites require a 200-yard walk over a wooden footbridge; no drive-up vehicle access.",
+    restrooms: "Bee Tree's thirteen lakefront 30-amp sites, six 50-amp sites and 37 Bee Tree/Broken Bowl 30-amp sites list shower restrooms nearby. Six island primitive sites have neither drinking water nor restrooms.",
+    parking: "Bee Tree has 13 lakefront water/electric 30-amp sites, 6 water/electric 50-amp and part of 37 30-amp electric sites. Broken Bowl has more 30-amp electric sites. Six primitive island sites require a 200-yard walk over a wooden footbridge; no drive-up vehicle access.",
     camping: "13 lakefront 30-amp sites, 6 50-amp sites, 37 other 30-amp sites and 6 island primitive sites without water or toilets. The primitive island sites require crossing the pedestrian bridge and carrying supplies.",
-    access: "Island primitive campsite water/toilets not provided. Nine specified developed camps have shade shelters (site numbers 35, 37, 38, 39, 52, 53, 61, 65 and 72).",
+    access: "Island primitive sites have no water or restrooms. Nine specified developed camps have shade shelters (site numbers 35, 37, 38, 39, 52, 53, 61, 65 and 72).",
     maps: "TPWD campground map distinguishes lakefront Bee Tree, inland Broken Bowl and footbridge-only primitive island.",
   },
   "martin-dies-jr-state-park": {
