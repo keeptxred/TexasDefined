@@ -2314,12 +2314,13 @@
         "gray"
       ],
       "homeUrl": "https://www.pampachamber.com/",
-      "calendarUrl": "https://business.pampachamber.com/community-events",
+      "calendarUrl": "https://business.pampachamber.com/events",
       "contactPageUrl": "https://www.pampachamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "silsbee-hardin-chamber",
@@ -3954,6 +3955,96 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-gainesville-community-events",
+      "organization": "City of Gainesville official community events calendar",
+      "countySlugs": [
+        "cooke"
+      ],
+      "homeUrl": "https://www.gainesville.tx.us/",
+      "calendarUrl": "https://www.gainesville.tx.us/329/Events-in-Gainesville",
+      "contactPageUrl": "https://www.gainesville.tx.us/329/Events-in-Gainesville",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-granbury-official-events",
+      "organization": "Visit Granbury official public tourism event calendar",
+      "countySlugs": [
+        "hood"
+      ],
+      "homeUrl": "https://www.visitgranbury.com/",
+      "calendarUrl": "https://www.visitgranbury.com/events/",
+      "contactPageUrl": "https://www.visitgranbury.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-new-braunfels-tourism-events",
+      "organization": "Visit New Braunfels tourism and community event calendar",
+      "countySlugs": [
+        "comal"
+      ],
+      "homeUrl": "https://www.visitnbtx.com/",
+      "calendarUrl": "https://www.visitnbtx.com/events",
+      "contactPageUrl": "https://www.visitnbtx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "discover-bastrop-tourism-events",
+      "organization": "Discover Bastrop city tourism official event listings",
+      "countySlugs": [
+        "bastrop"
+      ],
+      "homeUrl": "https://www.discoverbastroptx.org/",
+      "calendarUrl": "https://www.discoverbastroptx.org/events/",
+      "contactPageUrl": "https://www.discoverbastroptx.org/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "orange-city-cvb-festival-guide",
+      "organization": "City of Orange Convention and Visitors Bureau official annual events",
+      "countySlugs": [
+        "orange"
+      ],
+      "homeUrl": "https://orangetexas.gov/",
+      "calendarUrl": "https://orangetexas.gov/165/Events",
+      "contactPageUrl": "https://orangetexas.gov/540/Convention-Visitors-Bureau",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "visit-mcallen-annual-festival-guide",
+      "organization": "Visit McAllen destination bureau signature festival guide",
+      "countySlugs": [
+        "hidalgo"
+      ],
+      "homeUrl": "https://visitmcallen.com/",
+      "calendarUrl": "https://visitmcallen.com/events/",
+      "contactPageUrl": "https://visitmcallen.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     }
   ]
 }
