@@ -59,6 +59,8 @@ test("county official calendars are tracked on the robot-respecting review sched
     marion:"2026-11-28",
     lee:"2026-11-28",
     sutton:"2026-12-02",
+    brazoria:"2026-12-04",
+    somervell:"2026-11-28",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -165,4 +167,21 @@ test("Marion, Lee and Sutton 2026 holiday editions remain separately county/orga
   assert.equal(events.find(x=>x.slug===cases[1][0]).venueName.includes("Giddings"),true);
   assert.equal(events.find(x=>x.slug===cases[2][0]).venueName.includes("Simmang"),true);
   assert.match(events.find(x=>x.slug===cases[3][0]).summary,/Sutton County, Texas/);
+});
+
+test("Alvin and Glen Rose 2026 dates and counties remain first-party independently checked",()=>{
+ const checks=[
+ ["alvin-home-for-the-holidays-city-festival-parade-2026","brazoria","2026-12-04","2026-12-05","www.alvin.gov"],
+ ["glen-rose-hometown-christmas-parade-market-2026","somervell","2026-11-28",undefined,"business.glenrosechamber.org"],
+ ["glen-rose-storybook-christmas-tour-of-homes-2026","somervell","2026-12-12",undefined,"business.glenrosechamber.org"],
+ ];
+ for(const [slug,county,date,end,host] of checks){
+   const item=events.find(s=>s.slug===slug);
+   assert.ok(item,"Missing first-party event "+slug);
+   assert.equal(item.countySlug,county);
+   assert.equal(item.startDate,date);
+   assert.equal(item.endDate,end);
+   assert.equal(new URL(item.officialEventUrl).hostname,host);
+   assert.equal(item.sourceVerifiedAt,"2026-11-22");
+ }
 });
