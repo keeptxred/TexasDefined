@@ -51,14 +51,14 @@ assert.match(originalHero, /<title id="t">Original Hill Country football field i
 assert.ok(ui.includes('src="/images/high-school-football/comal-canyon-lake-2026.svg"'), 'Show original owned Hill Country field artwork, not an unlicensed school photo');
 assert.ok(ui.includes("background: 'linear-gradient(90deg, rgba(11,31,24,.95)"), 'Dark gradient protects text legibility over the field artwork');
 assert.ok(!/<image\b/i.test(originalHero), 'Original art must not hotlink unlicensed external image resources');
-assert.ok(ui.includes("suppressCommercialOffers={slug === 'comal-canyon-lake'}"));
+assert.ok(ui.includes("suppressCommercialOffers={slug === 'comal-canyon-lake' || slug === 'aubrey'}"), 'Canyon Lake and Aubrey visitor-first guides suppress in-panel promotions');
 const gameNightGuide = read('src/components/sports/FootballGameNightGuide.tsx');
 assert.ok(gameNightGuide.includes('!suppressCommercialOffers && <FootballFanOffers'));
 assert.ok(gameNightGuide.includes("slug !== 'aubrey' && !suppressCommercialOffers"));
 assert.match(ui, /id="canyon-lake-playoff-guide"/);
 assert.match(ui, /\{districtPath && <Link to=\{districtPath\}/);
-assert.match(ui, /slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && <FootballMonetizationSlot/);
-assert.match(ui, /slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && sponsorPlacement/);
+assert.match(ui, /slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && slug !== 'aubrey' && <FootballMonetizationSlot/);
+assert.match(ui, /slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && slug !== 'aubrey' && sponsorPlacement/);
 assert.match(ui, /\(slug === 'frisco-lone-star' \|\| slug === 'comal-canyon-lake'\)/);
 assert.match(seo, /canonicalLink\(texasDefinedBrand, canonicalPath\)/);
 
