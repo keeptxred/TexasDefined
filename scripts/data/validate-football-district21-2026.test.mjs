@@ -61,7 +61,7 @@ test('The District 21 page does not link its matchup section to District 20 game
   for (const marker of [
     "district21Pilot", "data-football-district-section=\"district-21-context\"",
     "data-football-district-section=\"district-21-game-day\"",
-    'DISTRICT_21_OVERALL_OCT14', 'record.pointsFor', 'record.pointsAgainst',
+    'DISTRICT_21_OVERALL_SNAPSHOT', 'record.pointsFor', 'record.pointsAgainst',
     'href="#district-21-results"', 'district-21-standings',
     'not UIL-certified', 'DISTRICT_21_VERIFIED_AT',
   ]) assert.ok(template.includes(marker), marker);

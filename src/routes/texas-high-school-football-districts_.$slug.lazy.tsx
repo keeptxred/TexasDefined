@@ -11,7 +11,7 @@ import { district9DisplayName } from '@/data/high-school-football/district9-disp
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import { DISTRICT_11_VERIFIED_AT, DISTRICT_11_STANDINGS_URL, DISTRICT_11_PLAYOFF_SOURCE } from '@/data/high-school-football/football-district11-2026';
 import {
-  DISTRICT_21_FBISD_CALENDAR_URL, DISTRICT_21_OVERALL_OCT14,
+  DISTRICT_21_FBISD_CALENDAR_URL, DISTRICT_21_OVERALL_SNAPSHOT,
   DISTRICT_21_SCHEDULE_URL, DISTRICT_21_STANDINGS_URL, DISTRICT_21_STRAKE_SCHEDULE_URL,
   DISTRICT_21_STANDINGS_AS_OF, DISTRICT_21_VERIFIED_AT,
 } from '@/data/high-school-football/football-district21-2026';
@@ -126,7 +126,7 @@ function Page() {
                   <td className="px-3 py-2 text-right tabular-nums">{record.won}</td>
                   <td className="px-3 py-2 text-right tabular-nums">{record.lost}</td>
                   <td className="py-2 text-right tabular-nums">{record.won + record.lost + record.tied}</td>
-                  {district21Pilot && <><td className="px-3 py-2 text-right tabular-nums">{record.pointsFor}</td><td className="px-3 py-2 text-right tabular-nums">{record.pointsAgainst}</td><td className="py-2 text-right tabular-nums">{DISTRICT_21_OVERALL_OCT14[record.schoolName] ?? '—'}</td></>}
+                  {district21Pilot && <><td className="px-3 py-2 text-right tabular-nums">{record.pointsFor}</td><td className="px-3 py-2 text-right tabular-nums">{record.pointsAgainst}</td><td className="py-2 text-right tabular-nums">{DISTRICT_21_OVERALL_SNAPSHOT[record.schoolName] ?? '—'}</td></>}
                 </tr>)}
               </tbody>
             </table>
@@ -147,7 +147,7 @@ function Page() {
         </div>}
         {district21Pilot && <aside data-football-district-section="district-21-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
           <h3 className="font-display text-2xl text-foreground">District 21 playoff race: three unbeaten, four available spots</h3>
-          <p className="mt-2">Through October 10, Ridge Point, Hightower and Travis each own a 4–0 district record. Strake Jesuit is 2–2, while Elkins and Bush sit at 1–3. No team has clinched a UIL playoff berth on this snapshot; this page does not calculate unpublished tie-breaks.</p>
+          <p className="mt-2">Through October 10, Ridge Point, Hightower and Travis each own a 4–0 district record. Strake Jesuit is 2–2, while Elkins and Bush sit at 1–3. That was the October 10 historical snapshot; the completed league ledger is above. This page does not calculate unpublished tie-breaks.</p>
           <p className="mt-2">The decisive head-to-head dates still on the published calendar are <strong>October 22</strong> (Hightower at Travis), <strong>October 30</strong> (Ridge Point at Travis), and <strong>November 6</strong> (Hightower at Ridge Point). Those games help determine the race without making them automatic playoff deciders.</p>
           <p className="mt-2">Four 6A district qualifiers advance; only after qualification are the two larger-enrollment qualifiers placed in Division I and the two smaller in Division II. District records alone do not determine those brackets.</p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 font-semibold">
@@ -200,7 +200,7 @@ function Page() {
           <a className="ml-2 font-semibold text-primary underline underline-offset-4" href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noopener noreferrer">UIL scoreboard ↗</a>
         </aside>
         {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy's original 2026 schedule was published March 27; all 36 district games now carry final scores reported and checked against dated public sources through November 20. Not a live scoreboard; verify any subsequent correction with the school.</p>}
-        {district21Pilot && <p className="mt-3 text-xs text-muted-foreground">District 21 final game results checked {DISTRICT_21_VERIFIED_AT}, including the November 6 round. The separate *overall-record* comparison is explicitly an archived October 14 MaxPreps snapshot. This coverage is an independently researched editorial snapshot, not live scores.</p>}
+        {district21Pilot && <p className="mt-3 text-xs text-muted-foreground">District 21 final game results checked {DISTRICT_21_VERIFIED_AT}, including the November 6 round. The separate *overall-record* comparison is the November 21 MaxPreps snapshot, including reported playoff results. This coverage is an independently researched editorial snapshot, not live scores.</p>}
         {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 full 2026 league results source-checked November 20, including all twelve October 23–November 5 finals added after the original October snapshot. This is dated research, not a live feed.</p>}
         {district11Pilot && <p className="mt-3 text-xs text-muted-foreground">District 11 2026 season results were source-checked {DISTRICT_11_VERIFIED_AT} across all seven schools. Latest included final-score verification: {latestDistrict11SourceCheck}. This is not a live scoreboard; subsequent results are accepted only with source-backed confirmation.</p>}
       </section>}

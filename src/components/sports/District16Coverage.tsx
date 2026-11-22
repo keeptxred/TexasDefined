@@ -6,6 +6,7 @@ import {
   DISTRICT_16_LATE_FINALS,
   DISTRICT_16_RECENT_FINALS,
   DISTRICT_16_STANDINGS,
+  DISTRICT_16_COMPLETE_LEDGER_URL,
   DISTRICT_16_STANDINGS_AS_OF,
   DISTRICT_16_STANDINGS_URL,
   DISTRICT_16_VERIFIED_AT,
@@ -43,9 +44,9 @@ export function District16Coverage({ schools }: Props) {
       <h2 className="mt-2 font-display text-3xl sm:text-4xl">District 16 archived scores, dated standings and fixtures</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
         All eight District 16-6A teams are from Cypress-Fairbanks ISD. These are source-dated
-        2026 results and the archived October standings snapshot, not a continuously updated scoreboard.
-        The standings snapshot includes the first four district games for each school;
-        the finals listed below are the latest independently checked round, not every game played.
+        2026 results and the completed district standings, reviewed November 21, not a continuously updated scoreboard.
+        All seven district games per school are included in the totals;
+        the finals listed below cover selected rounds, not every game played.
       </p>
 
       <section className="mt-7 border-y border-border py-5" data-football-district16-postseason-verified>
@@ -54,8 +55,8 @@ export function District16Coverage({ schools }: Props) {
           Cypress-Fairbanks ISD confirmed the conclusion of District 16 regular-season play and reported
           Cypress Falls, Cypress Lakes and Langham Creek as shared champions, each with a 6–1 district
           record. Cypress Woods finished fourth at 4–3 and joined those three programs in the playoff field.
-          This official school-district update supersedes the October 18 table below for title and qualification
-          information, but does not establish an unreported head-to-head seed order.
+          This official school-district update confirms the title and qualification information,
+          but does not establish an unreported head-to-head seed order.
         </p>
         <dl className="mt-4 grid gap-3 sm:grid-cols-2">
           {[
@@ -79,9 +80,9 @@ export function District16Coverage({ schools }: Props) {
         data-football-district-records="reported-standings-snapshot">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h3 className="font-display text-2xl">Archived 2026 district standings — October 18</h3>
+            <h3 className="font-display text-2xl">Final 2026 district standings — November 21 review</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              MaxPreps snapshot: {DISTRICT_16_STANDINGS_AS_OF}. Reported records, not official UIL tie-break rankings.
+              Review date: {DISTRICT_16_STANDINGS_AS_OF}. Reported records, not official UIL tie-break rankings.
             </p>
           </div>
           <a href={DISTRICT_16_STANDINGS_URL} target="_blank" rel="noopener noreferrer"
@@ -112,9 +113,9 @@ export function District16Coverage({ schools }: Props) {
           </table>
         </div>
         <p className="mt-4 text-xs leading-6 text-muted-foreground">
-          *Overall and district records are third-party reporting as of {DISTRICT_16_STANDINGS_AS_OF}, not live data.
+          *Overall records are MaxPreps reports as of {DISTRICT_16_STANDINGS_AS_OF}, including postseason results where reported. District totals use the complete{' '}<a href={DISTRICT_16_COMPLETE_LEDGER_URL} target="_blank" rel="noopener noreferrer" className="underline">Pressbox district ledger</a>, consistent with the district's shared-champion announcement. MaxPreps omits the November 7 Langham Creek–Cypress Creek fixture from its district totals and differs by one point for Cypress Woods points allowed.
           Tied W–L records are not a published head-to-head tiebreak decision. Verify any later
-          scores and final postseason qualification with the district and UIL.
+          postseason scores with the schools and UIL.
         </p>
       </div>
 
