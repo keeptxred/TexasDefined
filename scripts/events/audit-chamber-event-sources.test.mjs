@@ -119,7 +119,7 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
   assert.ok(registry.sources.length >= 284, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 116, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 127, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -164,7 +164,7 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
     assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
   }
   const report = await auditChamberSources({ offline: true });
-  assert.ok(report.countiesWithExplicitCalendarSources >= 111);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 122);
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
@@ -200,7 +200,7 @@ test("new official local tourism/municipal fallbacks retain geography and honest
   assert.equal(pampa?.sourceKind, "public-calendar");
   assert.equal(pampa?.calendarUrl, "https://business.pampachamber.com/events");
   const allCalendarCounties = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
-  assert.ok(allCalendarCounties.size >= 111);
+  assert.ok(allCalendarCounties.size >= 122);
   assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-mcallen-annual-festival-guide"), "Visit McAllen annual list is not a dated full community calendar");
 });
 
@@ -216,7 +216,7 @@ test("dated community calendars are separate from Canadian annual-events brochur
   assert.equal(canadian?.sourceKind, "annual-events-list");
   const c = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-canadian-hemphill"), "Annual event brochure does not itself qualify as full community calendar");
-  assert.ok(c.size >= 111, "Do not lose the classified calendar geography when adding new verified counties");
+  assert.ok(c.size >= 122, "Do not lose the classified calendar geography when adding new verified counties");
 });
 
 test("ten additional independently reviewed 2026 official community calendars keep correct counties", () => {
@@ -235,7 +235,7 @@ test("ten additional independently reviewed 2026 official community calendars ke
     assert.equal(new URL(record.calendarUrl).protocol,"https:");
   }
   const evidence=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(evidence.size>=111,"Never lose the 101 distinct documented county calendar sources");
+  assert.ok(evidence.size>=122,"Never lose the 101 distinct documented county calendar sources");
 });
 
 test("2026 official community calendar source batch does not confuse annual brochures or contact-only sites",()=>{
@@ -266,4 +266,33 @@ test("2026 official community calendar source batch does not confuse annual broc
  assert.equal(registry.sources.find(s=>s.id==="city-alvin-home-for-holidays-2026")?.sourceKind,"event-specific");
  const all = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  assert.ok(all.size>=111);
+});
+
+test("verified rural event calendars and distinct 2026 single-event source roles",()=>{
+ const sourceIds={
+ "plantersville-official-community-calendar":"grimes",
+ "visit-goliad-christmas":"goliad",
+ "bonham-fannin-chamber":"fannin",
+ "visit-seguin-city":"guadalupe",
+ "hearne-robertson-chamber":"robertson",
+ "goldthwaite-mills-chamber":"mills",
+ "stamford-jones-city-events":"jones",
+ "denver-city-yoakum-chamber":"yoakum",
+ "franklin-county-mount-vernon-chamber":"franklin",
+ "crosbyton-chamber":"crosby",
+ "hereford-deaf-smith-chamber":"deaf-smith"
+ };
+ for(const [id,county] of Object.entries(sourceIds)){
+   const source=registry.sources.find(s=>s.id===id);
+   assert.equal(source?.sourceKind,"public-calendar","Wrong calendar kind: "+id);
+   assert.ok(source.countySlugs.includes(county));
+ }
+ for(const id of ["gainesville-christmas-parade","uvalde-chamber-christmas-2026",
+   "athens-city-2026-christmas","mont-belvieu-city-christmas-2026",
+   "elmendorf-city-holiday-2026","eastland-chamber-2026-parade","bowie-chamber-fantasy-lights-2026"])
+   assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
+ for(const id of ["shelby-chamber-christmas-parade","perryton-ochiltree-chamber","oldham-vega-chamber"])
+   assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"annual-events-list");
+ for(const id of ["claude-armstrong-chamber","poteet-city-christmas-2026"])
+   assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"contact-only");
 });
