@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 47 / 254 counties (46 reviewed public Chamber, tourism and regional source organizations). Remaining: 207 counties requiring source research as of November 22, 2026.**
+**Source-mapped: 63 / 254 counties (62 reviewed public Chamber, tourism and regional source organizations). Remaining: 191 counties requiring source research as of November 22, 2026.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -91,3 +91,7 @@ Running outreach campaign: 20 new confirmed O365 messages total (19 individualiz
 
 The next source cohort adds 18 public Chamber/visitor calendars representing one additional county each: Anderson (Palestine), Aransas (Rockport-Fulton), Brazoria (Northern Brazoria), Fort Bend (Central Fort Bend), Collin (McKinney), Montgomery (Conroe/Lake Conroe), Williamson (Georgetown), Wood (Winnsboro), Hays (San Marcos), Cherokee (Rusk), Henderson (Athens), Bell (Belton), Kerr (Kerrville), Lamar (Paris), Gonzales, Burnet, Bowie (Texarkana) and Orange. Official calendar/contact URLs are stored in the public registry; do not imply these organizations subscribed, replied or linked. Source registration is research inventory only; events require independent organizer verification and image-rights checks.
 
+
+## Third research expansion — 2026-11-22
+
+Additional source-led county coverage includes Andrews, Bandera, Bee, Blanco, Brown, Burleson, Calhoun, Caldwell, Cameron, Camp, Callahan, Baylor, Montague (the city of Bowie, **not** Bowie County), Briscoe, Hemphill and Atascosa. References are to first-party Chambers or official city/county visitor sources; some provide detailed calendars while others are research contacts or incomplete event indexes. Verify a current organizer and specific event date before publishing any page/structured-data update. No mailing-list subscriptions or backlinks are inferred from these sources.
