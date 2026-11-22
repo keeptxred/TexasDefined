@@ -18,7 +18,9 @@ const SOURCE_LIMIT = 3;
 const MAX_HTML = 850_000;
 const PAGE_PATTERN = /https:\/\/texasdefined\.com(\/[a-z0-9][a-z0-9\/-]{4,125})|(?:^|[\s\u0060(])(\/[a-z][a-z0-9-]{2,}(?:\/[a-z0-9-]+)*)/g;
 const URL_PATTERN = /https:\/\/[a-zA-Z0-9.-]+(?:\/[^\s<>"'\u0060)\\]*)?/g;
-const TRUSTED_HOST = /(?:\.gov|\.edu|\.org|\.com)$/i;
+// Public first-party military sites and these curator-registered organizer hosts
+// also appear in the permanent event source inventory.
+const TRUSTED_HOST = /(?:\.gov|\.edu|\.org|\.com|\.mil)$|^(?:www\.)?(?:austinpowwow\.net|texasstaterailroad\.net|sabiff\.tv)$/i;
 const REJECT_HOST = /(?:^|\.)((?:github|google|texasdefined|cloudflare|openai|localhost)\.(?:com|org|dev)|(?:example|invalid)\.(?:com|org))$/i;
 
 export function findPagePaths(value) {
