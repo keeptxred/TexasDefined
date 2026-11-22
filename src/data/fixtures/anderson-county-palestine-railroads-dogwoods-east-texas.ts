@@ -20,10 +20,12 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 15,
   tags: ["Anderson County", "Palestine Texas", "Texas State Railroad", "Dogwood Trails", "Neches River", "Trinity River", "East Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-state-railroad-rusk-palestine-history-guide", label: "Texas State Railroad and the Rusk prison", description: "Why prison ironworks, 1909 track construction and modern freight explain the Palestine heritage railroad." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/cherokee", label: "Explore Cherokee County", description: "Follow the Texas State Railroad east toward Rusk and the Piney Woods." },
     { href: "/county/henderson", label: "Explore Henderson County", description: "Continue north toward Athens and the upper Neches country." },
@@ -64,6 +66,7 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
     p("The decisive change in late-nineteenth-century Anderson County came with railroads. In the 1870s local leaders backed an agreement that brought major International-Great Northern railroad facilities to Palestine. Machine shops, repair work and administrative offices created hundreds of jobs and helped the city grow rapidly."),
     p("Palestine became a rail junction with connections toward Houston, Galveston, Laredo and North Texas. The railroad brought skilled workers, merchants, passengers and capital. It also left a physical legacy of tracks, industrial areas, depots and neighborhoods that still distinguishes Palestine from many East Texas county seats of similar size."),
 
+    p("For deeper context, the present 25-mile visitor railroad began as prison-related industrial track near Rusk in the 1880s. Workers at the East Texas Penitentiary made iron elements for the Texas Capitol before the line reached Palestine in 1909. The former prison later became Rusk State Hospital, while the heritage excursion train and Texas & Eastern's freight interchange with Union Pacific now tell different sides of the same transportation story. See the linked dedicated railroad guide and the Texas State Library's original prison records."),
     h("The Texas State Railroad keeps rail history tangible"),
     p("One of the county's best-known visitor experiences is the Texas State Railroad, whose route links Palestine with Rusk in neighboring Cherokee County. The historic railroad landscape turns a major chapter of East Texas history into something visitors can experience directly rather than only read about."),
     p("The route also makes geographic sense as an Anderson County attraction. It crosses the wooded terrain that made rail construction so important to the region and connects two county seats with deep nineteenth-century histories. For travelers building an East Texas itinerary, Palestine and Rusk form a natural pair."),
