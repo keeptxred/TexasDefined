@@ -260,5 +260,187 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "TCU Special Collections",
     "sourceUrl": "https://exhibits.tcu.edu/s/baird/page/bairdintro",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Circle E Candles",
+    "claim": "The Fredericksburg visitor bureau lists its factory showroom on U.S. 290; the company states U.S. manufacture, not a specific product origin.",
+    "sourceLabel": "Visit Fredericksburg",
+    "sourceUrl": "https://www.visitfredericksburgtx.com/directory/circle-e-candles-factory-showroom/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Saddleback Leather",
+    "claim": "The company lists its showroom and order pickup at 301 Thomas Len Road in Azle, rather than Fort Worth; this does not establish manufacturing origin.",
+    "sourceLabel": "Saddleback Leather",
+    "sourceUrl": "https://saddlebackleather.com/pages/contact-us/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Schaefer Outfitter",
+    "claim": "Its flagship Stockyards store is at 108 W Exchange Avenue in Fort Worth; this is a retail presence, not a production claim.",
+    "sourceLabel": "Schaefer Outfitter",
+    "sourceUrl": "https://schaeferoutfitter.com/pages/store-locator",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Igloo",
+    "claim": "The Katy economic development corporation documents its Katy headquarters, cooler manufacturing, research and distribution; individual product labels still determine origin.",
+    "sourceLabel": "Katy Area Economic Development Council",
+    "sourceUrl": "https://www.katyedc.org/for-site-selectors/target-industries",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Academy Sports + Outdoors",
+    "claim": "Its fiscal 2025 annual report lists headquarters and distribution facilities at Katy, including 1800 North Mason Road.",
+    "sourceLabel": "Academy annual report",
+    "sourceUrl": "https://investors.academy.com/static-files/62169eba-0019-4a9b-88d1-42e713a679f5",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Sysco",
+    "claim": "The Handbook of Texas identifies Houston headquarters and the company's food distribution history.",
+    "sourceLabel": "Handbook of Texas",
+    "sourceUrl": "https://www.tshaonline.org/handbook/entries/sysco",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Pappas Restaurants",
+    "claim": "The company's history identifies Houston as the base of its privately owned restaurant group.",
+    "sourceLabel": "Pappas Restaurants",
+    "sourceUrl": "https://www.m.pappas.com/about/pappas-history/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Shipley Do-Nuts",
+    "claim": "Company history dates its original recipe to 1936 and its first Houston retail shop to the mid-1940s.",
+    "sourceLabel": "Shipley Do-Nuts",
+    "sourceUrl": "https://shipleydonuts.com/about",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Texas Tamale Company",
+    "claim": "The Houston business began selling tamales roadside in 1988 and opened its first restaurant kitchen in Houston in 1993; current product origins require separate evidence.",
+    "sourceLabel": "Texas Tamale Company",
+    "sourceUrl": "https://texastamale.com/pages/our-story",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "NOV",
+    "claim": "The 2025 Form 10-K lists Houston executive offices at 10353 Richmond Avenue, and separate manufacturing facilities.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1021860/000119312526048350/nov-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Baker Hughes",
+    "claim": "The 2025 Form 10-K lists principal executive offices on North Dairy Ashford Road in Houston.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1701605/000170160526000007/bkr-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Halliburton",
+    "claim": "The 2025 Form 10-K identifies principal executive offices on North Sam Houston Parkway East in Houston.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/45012/000004501226000015/hal-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Kinder Morgan",
+    "claim": "The 2025 Form 10-K lists its principal executive offices at 1001 Louisiana Street in Houston.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1506307/000150630726000011/kmi-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Enterprise Products Partners",
+    "claim": "The 2025 Form 10-K lists Houston principal executive offices at 1100 Louisiana Street.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1061219/000106121926000006/epd-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Imperial Sugar heritage",
+    "claim": "The historical Sugar Land refinery closed in 2003; the city acquired the historic district in 2025 for preservation and redevelopment.",
+    "sourceLabel": "City of Sugar Land",
+    "sourceUrl": "https://www.sugarlandtx.gov/2328/Imperial-Historic-District",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Prosperity Bank",
+    "claim": "The holding company's 2025 filing places executive offices in Houston and traces its banking roots to the First National Bank of Edna, chartered in 1949.",
+    "sourceLabel": "SEC 2025 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1068851/000119312526077437/pb-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Meat Church",
+    "claim": "The operator lists its barbecue supply shop at 114 W Main Street in Waxahachie; no manufacturing or headquarters claim is inferred.",
+    "sourceLabel": "Meat Church",
+    "sourceUrl": "https://www.meatchurch.com/pages/about-us",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "King Ranch Saddle Shop",
+    "claim": "The ranch traces the saddlery to the period after the Civil War and identifies the current shop in Kingsville's former Ragland Mercantile Building.",
+    "sourceLabel": "King Ranch",
+    "sourceUrl": "https://king-ranch.com/visit-us/king-ranch-saddle-shop/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Big Tex Trailers",
+    "claim": "The company lists its corporate offices at 950 I-30 East in Mount Pleasant; this does not certify the origin of every trailer.",
+    "sourceLabel": "Big Tex Trailers",
+    "sourceUrl": "https://www.bigtextrailers.com/investor-relations/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Top Hat Trailers",
+    "claim": "The company lists its own locations at Mount Pleasant and Naples; these are documented operating locations.",
+    "sourceLabel": "Top Hat Trailers",
+    "sourceUrl": "https://www.tophattrailers.com/dealer-locator/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Lufkin Industries",
+    "claim": "The Handbook of Texas traces the Lufkin Foundry and Machine Company to 1902 in Angelina County, initially serving sawmills.",
+    "sourceLabel": "Handbook of Texas",
+    "sourceUrl": "https://www.tshaonline.org/handbook/entries/lufkin-industries",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Cavender's",
+    "claim": "The company's history traces the business to James and Pat Cavender in Pittsburg, Texas, in 1965.",
+    "sourceLabel": "Cavender's",
+    "sourceUrl": "https://www.cavenders.com/about-us",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Gandy's Dairy",
+    "claim": "A closed 2025 state building-registration project documents storage construction for an existing dairy manufacturing facility at 201 University Avenue, Lubbock.",
+    "sourceLabel": "Texas Department of Licensing and Regulation",
+    "sourceUrl": "https://www.tdlr.texas.gov/TABS/Projects/TABS2025009731",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Pecos cantaloupe tradition",
+    "claim": "The 1970 state historical marker documents the crop's Pecos origins and commercial growth beginning in 1917; it is not evidence of current acreage.",
+    "sourceLabel": "Texas Historical Commission",
+    "sourceUrl": "https://atlas.thc.texas.gov/Details?atlasnumber=5389005397&fn=print",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "SpaceX Starbase",
+    "claim": "The FAA identifies the Boca Chica launch site in Cameron County as the site of licensed Starship operations; proposed expansions are not approved launches.",
+    "sourceLabel": "FAA",
+    "sourceUrl": "https://www.faa.gov/space/stakeholder_engagement/spacex_starship",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Marfa Brands",
+    "claim": "The company identifies a local soap factory behind its Marfa shop; tours are not currently offered according to its FAQ.",
+    "sourceLabel": "Marfa Brands",
+    "sourceUrl": "https://www.marfabrands.com/faq",
+    "checkedAt": "2026-11-21"
   }
 ];
