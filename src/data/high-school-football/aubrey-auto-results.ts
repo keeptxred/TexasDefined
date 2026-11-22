@@ -86,12 +86,12 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     : '';
   const districtGames = completed.filter((game) => game.district);
   const districtScore = districtGames.reduce((total, game) => {
-    const match = game.result?.match(/^[WL] (\\d+)[–-](\\d+)/);
+    const match = game.result?.match(/^[WL] (\d+)[–-](\d+)/);
     if (!match) throw new Error('Aubrey district result lacks a numerical final: ' + game.date);
     return { scored: total.scored + Number(match[1]), conceded: total.conceded + Number(match[2]) };
   }, { scored: 0, conceded: 0 });
   const closeDistrictWins = districtGames.filter((game) => {
-    const match = game.result?.match(/^W (\\d+)[–-](\\d+)/);
+    const match = game.result?.match(/^W (\d+)[–-](\d+)/);
     return match && Number(match[1]) - Number(match[2]) <= 7;
   }).length;
   const districtSeasonComplete = districtGames.length === 7 && districtWins === 7 && districtLosses === 0;
