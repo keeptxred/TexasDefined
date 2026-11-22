@@ -234,7 +234,7 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "venueName": "Sabine County Courthouse Square and downtown Hemphill",
   "officialEventUrl": "https://hemphilllionsclub.org/parade/",
   "sourceName": "Hemphill Lions Club",
-  "summary": "The Hemphill Lions Club confirms its A Very Merry Christmas Movie parade on Saturday, December 5, 2026 at 6 p.m. in downtown Hemphill. Float check-in begins at 4 p.m. in the high-school stadium lot; the club lists the current parade route through town to the Feed Store Cafe. Santa, music and the children's bike drawing take place around the courthouse square. The posted route and staging details are participant instructions, not an admission requirement for spectators.",
+  "summary": "The Hemphill Lions Club confirms its A Very Merry Christmas Movie parade for Saturday, December 5, 2026 in downtown Hemphill, but says the float lineup time and road closure details are still to be announced. The club identifies the high-school athletic complex as the staging area and describes the downtown route ending by Feed Store Cafe. Santa, music and the children's bike drawing are planned around the courthouse square. Check the organizer for an exact start time before traveling; do not assume last year's parade-hour schedule applies.",
   "sourceVerifiedAt": "2026-11-22"
 },
 {
