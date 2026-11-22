@@ -893,6 +893,48 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "canton-main-street-christmas",
+      "organization": "Canton Main Street Program",
+      "countySlugs": [
+        "van-zandt"
+      ],
+      "homeUrl": "https://www.cantonmainstreet.org/",
+      "calendarUrl": "https://www.cantonmainstreet.org/christmas",
+      "contactPageUrl": "https://www.cantonmainstreet.org/christmas",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "san-saba-chamber-lighted-parade",
+      "organization": "San Saba County Chamber of Commerce",
+      "countySlugs": [
+        "san-saba"
+      ],
+      "homeUrl": "https://www.sansabachamber.com/",
+      "calendarUrl": "https://www.sansabachamber.com/events/13th-annual-sip-n-stroll-lighted-christmas-parade/",
+      "contactPageUrl": "https://www.sansabachamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "athens-city-2026-christmas",
+      "organization": "City of Athens",
+      "countySlugs": [
+        "henderson"
+      ],
+      "homeUrl": "https://www.athenstx.gov/",
+      "calendarUrl": "https://www.athenstx.gov/m/newsflash/home/detail/242",
+      "contactPageUrl": "https://www.athenstx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
