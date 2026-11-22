@@ -23,13 +23,13 @@ concurrency:
 jobs:
   verify-primary-sources:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Check campground, county fire status, alerts and arrival rules
+      - name: Check both park guides: trails, lodging, campground, fire status, alerts and arrival rules
         id: verify
         shell: bash
         run: |
