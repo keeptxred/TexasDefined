@@ -2017,6 +2017,38 @@
         "https://www.mohmuseum.org/plan-your-visit/museum-map",
         "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/"
       ]
+    },
+    "comanche-county-historical-museum": {
+      "name": "Comanche County Historical Museum",
+      "operatorStrengths": [
+        "The operator identifies the actual Comanche 402 Moorman Road address and Thursday–Saturday 10 a.m.–4 p.m. public hours with tours by arrangement.",
+        "The museum's public collections page names the original Jack Wright Saloon mirror and diorama, John Wesley Hardin materials, blacksmith and windmill tools, Indigenous campsite model, veterans, artworks and children's exhibits.",
+        "Museum describes more than fourteen exhibit rooms and a roughly 50,000-square-foot building, allowing a multi-room county history visit."
+      ],
+      "texasDefinedAddedValue": [
+        "Three visitor itineraries linking the museum to Old Cora, Fleming Oak, the Bull Durham mural, the 1909 depot and the county agriculture/rail corridor.",
+        "Clear distinctions between historical reconstruction and original surviving object; caution against glamorizing the Webb killing, lynchings or mistaking a diorama for contemporary Indigenous voices.",
+        "Twelve researched visitor FAQs and direct answers about hours, group tours, missing admission/accessibility disclosures, children, and blacksmith displays versus live demonstrations.",
+        "Reciprocal links to the Comanche town guide and Comanche County history reference, plus Lake Proctor side trip."
+      ],
+      "openGaps": [
+        "Request an explicit current admission/donation and timed-entry policy directly from museum staff; no unsupported free-admission claim.",
+        "Verify step-free route, accessible parking, restroom accessibility, seating, pets and photography policies with operator.",
+        "Confirm whether museum has visitor-owned/reusable exact-location photographs and permission to show one; avoid using courthouse photograph to represent museum.",
+        "Compare production rendering side-by-side with museum operator pages on both mobile and desktop; record independent reviewer approval only after live checks.",
+        "Maintain monthly hours and accessibility checks and quarterly exhibit reviews via existing GitHub monitoring; confirm changes before editorial restamping."
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.comanchecountytxmuseum.com/",
+        "https://www.comanchecountytxmuseum.com/about-us",
+        "https://www.comanchecountytxmuseum.com/collection",
+        "https://www.comanchecountytxmuseum.com/contact",
+        "https://www.comanchechamber.org/explorecomanche"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
