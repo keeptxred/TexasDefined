@@ -113,4 +113,11 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.match(denison.organization, /City of Denison/);
   const bayCity = registry.sources.find(source => source.id === "bay-city-matagorda-events");
   assert.ok(bayCity?.countySlugs.includes("matagorda"));
+  const newton = registry.sources.find(source => source.id === "newton-county-chamber-county");
+  assert.ok(newton, "Use a Texas county-hosted Newton Chamber contact, not the Georgia lookalike");
+  assert.deepEqual(newton.countySlugs, ["newton"]);
+  assert.match(newton.homeUrl, /^https:\/\/www\.co\.newton\.tx\.us\//);
+  assert.ok(!registry.sources.some(source => /newtonchamber\.com/i.test(source.homeUrl)),
+    "An out-of-state Newton Chamber may not be mapped to Texas");
+
 });
