@@ -100,6 +100,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
       ],
       sources: [
         { label: "Museum building history", url: "https://www.ruskcountyhistory.org/depot-history", scope: "1901 depot, 1978 restoration and 1994 collection move" },
+        { label: "Syrup mill and annual festival history", url: "https://www.ruskcountyhistory.org/syrup-mill-history", scope: "Original ribbon-cane process and festival demonstrations since 1989" },
         { label: "Museum grounds and buildings", url: "https://www.ruskcountyhistory.org/our-grounds", scope: "Syrup mill, cabins, country store, industrial and rail displays" },
         { label: "Museum contact and visitor hours", url: "https://www.ruskcountyhistory.org/contact", scope: "Address, admission, telephone and posted hours" },
         { label: "City of Henderson festival information", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival", scope: "2026 festival dates, museum and downtown venues" },
