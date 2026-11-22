@@ -403,6 +403,258 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "palestine-area-chamber",
+      "organization": "Palestine Area Chamber of Commerce",
+      "countySlugs": [
+        "anderson"
+      ],
+      "homeUrl": "https://www.palestinechamber.org/",
+      "calendarUrl": "https://members.palestinechamber.org/events/calendar",
+      "contactPageUrl": "https://members.palestinechamber.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "rockport-fulton-chamber",
+      "organization": "Rockport-Fulton Chamber of Commerce",
+      "countySlugs": [
+        "aransas"
+      ],
+      "homeUrl": "https://www.rockport-fulton.org/",
+      "calendarUrl": "https://members.rockport-fulton.org/events/calendar",
+      "contactPageUrl": "https://members.rockport-fulton.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "northern-brazoria-chamber",
+      "organization": "Northern Brazoria County Chamber of Commerce",
+      "countySlugs": [
+        "brazoria"
+      ],
+      "homeUrl": "https://www.nbcchamber.org/",
+      "calendarUrl": "https://nbcchamber.glueup.com/org/nbcchamber/events/",
+      "contactPageUrl": "https://www.nbcchamber.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "central-fort-bend-chamber",
+      "organization": "Central Fort Bend Chamber",
+      "countySlugs": [
+        "fort-bend"
+      ],
+      "homeUrl": "https://www.cfbca.org/",
+      "calendarUrl": "https://business.cfbca.org/chamber-events",
+      "contactPageUrl": "https://www.cfbca.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "mckinney-chamber",
+      "organization": "McKinney Chamber of Commerce",
+      "countySlugs": [
+        "collin"
+      ],
+      "homeUrl": "https://www.mckinneychamber.com/",
+      "calendarUrl": "https://business.mckinneychamber.com/events",
+      "contactPageUrl": "https://business.mckinneychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "conroe-lake-conroe-chamber",
+      "organization": "Conroe/Lake Conroe Chamber of Commerce",
+      "countySlugs": [
+        "montgomery"
+      ],
+      "homeUrl": "https://www.conroe.org/",
+      "calendarUrl": "https://www.chamber.conroe.org/events/calendar",
+      "contactPageUrl": "https://www.conroe.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "georgetown-chamber",
+      "organization": "Georgetown Chamber of Commerce",
+      "countySlugs": [
+        "williamson"
+      ],
+      "homeUrl": "https://www.georgetownchamber.org/",
+      "calendarUrl": "https://business.georgetownchamber.org/events/calendar",
+      "contactPageUrl": "https://www.georgetownchamber.org/staff/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "winnsboro-chamber",
+      "organization": "Winnsboro Area Chamber of Commerce",
+      "countySlugs": [
+        "wood"
+      ],
+      "homeUrl": "https://www.winnsboro.com/",
+      "calendarUrl": "https://business.winnsboro.com/events/calendar",
+      "contactPageUrl": "https://business.winnsboro.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "san-marcos-chamber",
+      "organization": "San Marcos Area Chamber of Commerce",
+      "countySlugs": [
+        "hays"
+      ],
+      "homeUrl": "https://sanmarcostexas.com/",
+      "calendarUrl": "https://business.sanmarcostexas.com/events/calendar",
+      "contactPageUrl": "https://sanmarcostexas.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "rusk-chamber",
+      "organization": "Rusk Chamber of Commerce",
+      "countySlugs": [
+        "cherokee"
+      ],
+      "homeUrl": "https://ruskchamber.com/",
+      "calendarUrl": "https://ruskchamber.com/",
+      "contactPageUrl": "https://ruskchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "greater-athens-chamber",
+      "organization": "Greater Athens Chamber of Commerce",
+      "countySlugs": [
+        "henderson"
+      ],
+      "homeUrl": "https://athenstxchamber.org/",
+      "calendarUrl": "https://athenstxchamber.org/calendar-of-events",
+      "contactPageUrl": "https://athenstxchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "belton-chamber",
+      "organization": "Belton Area Chamber of Commerce",
+      "countySlugs": [
+        "bell"
+      ],
+      "homeUrl": "https://www.beltonchamber.com/",
+      "calendarUrl": "https://business.beltonchamber.com/events/calendar/",
+      "contactPageUrl": "https://business.beltonchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "kerrville-chamber",
+      "organization": "Kerrville Area Chamber of Commerce",
+      "countySlugs": [
+        "kerr"
+      ],
+      "homeUrl": "https://www.kerrvillechamber.biz/",
+      "calendarUrl": "https://business.kerrvillechamber.biz/events/calendar",
+      "contactPageUrl": "https://business.kerrvillechamber.biz/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "lamar-county-chamber",
+      "organization": "Lamar County Chamber of Commerce",
+      "countySlugs": [
+        "lamar"
+      ],
+      "homeUrl": "https://www.paristexas.com/",
+      "calendarUrl": "https://business.paristexas.com/events/calendar",
+      "contactPageUrl": "https://business.paristexas.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "gonzales-chamber",
+      "organization": "Gonzales Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "gonzales"
+      ],
+      "homeUrl": "https://gonzalestexas.com/",
+      "calendarUrl": "https://gonzalestexas.com/",
+      "contactPageUrl": "https://gonzalestexas.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "burnet-chamber",
+      "organization": "Burnet Chamber of Commerce",
+      "countySlugs": [
+        "burnet"
+      ],
+      "homeUrl": "https://www.burnetchamber.org/",
+      "calendarUrl": "https://www.burnetchamber.org/events-calendar/",
+      "contactPageUrl": "https://www.burnetchamber.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "texarkana-chamber",
+      "organization": "Texarkana USA Regional Chamber of Commerce",
+      "countySlugs": [
+        "bowie"
+      ],
+      "homeUrl": "https://www.texarkana.org/",
+      "calendarUrl": "https://texarkanachamberofcommerce.growthzoneapp.com/eventcalendar",
+      "contactPageUrl": "https://www.texarkana.org/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "greater-orange-chamber",
+      "organization": "Greater Orange Area Chamber of Commerce",
+      "countySlugs": [
+        "orange"
+      ],
+      "homeUrl": "https://orangetexaschamber.org/",
+      "calendarUrl": "https://greaterorangechamber.chambermaster.com/events/calendar/",
+      "contactPageUrl": "https://orangetexaschamber.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
