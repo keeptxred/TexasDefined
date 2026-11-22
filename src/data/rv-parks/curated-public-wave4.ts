@@ -13,7 +13,7 @@ export const RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS = [
 type CuratedUpdate = Pick<Destination,
   "summary" | "bestSeason" | "entryNote" | "highlights" | "body" | "officialUrl" |
   "sourceCheckedAt" | "address" | "managingAuthority" | "coordinates"
-> & Partial<Pick<Destination, "reservationUrl" | "directions" | "visitorFacts">>;
+> & Partial<Pick<Destination, "reservationUrl" | "directions" | "visitorFacts" | "updatedAt">>;
 
 const TPWD = "Texas Parks and Wildlife Department";
 
@@ -95,6 +95,7 @@ const WAVE4: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS)[number], Curated
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
     reservationUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121",
     sourceCheckedAt: "2026-11-18",
+    updatedAt: "2026-11-21",
     address: "9515 County Road 2181D, Tatum, TX 75691-3425",
     directions: "From Tatum, travel southwest on State Highway 43, then turn south on County Road 2183 toward the state park. Use the reserved loop and campsite number for the final approach.",
     managingAuthority: TPWD,
