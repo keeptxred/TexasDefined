@@ -8,9 +8,9 @@ export const erathCountyStephenvilleDublinTarletonCrossTimbersArticle: Article =
   brandId: "texasdefined",
   slug: "erath-county-stephenville-dublin-tarleton-cross-timbers-texas",
   title: "Erath County: Stephenville, Dublin, Tarleton and the Cross Timbers",
-  dek: "Erath County is a North Central Texas crossroads of university life, ranching, dairy country, railroad towns, coal history, the Bosque and Paluxy watersheds and the wooded edge of the Cross Timbers.",
+  dek: "The 1866 Stephenville courthouse fire, Gordon’s 1892 Romanesque landmark, lost original plans and restored interior details, alongside Erath County ranch and Tarleton history.",
   category: "texas-history",
-  region: "north-central-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Erath_County_Courthouse_Stephenville_2024.jpg?width=1600",
     alt: "Erath County Courthouse in Stephenville, Texas",
@@ -20,7 +20,8 @@ export const erathCountyStephenvilleDublinTarletonCrossTimbersArticle: Article =
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: [
     "Erath County",
     "Stephenville Texas",
@@ -32,6 +33,9 @@ export const erathCountyStephenvilleDublinTarletonCrossTimbersArticle: Article =
     "Thurber Texas",
     "Texas ranching",
     "Texas counties",
+    "1866 Erath courthouse fire",
+    "1892 Stephenville courthouse",
+    "James Riely Gordon Erath courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -59,6 +63,22 @@ export const erathCountyStephenvilleDublinTarletonCrossTimbersArticle: Article =
     p("Erath County's first courthouse was a wooden building that burned in 1866, taking important county records with it. A stone courthouse followed in the 1870s, but by the early 1890s county officials wanted a larger and more modern public building. Dublin challenged Stephenville for the county seat during that debate, but Stephenville prevailed."),
     p("The present courthouse was designed by noted Texas architect J. Riely Gordon with D. E. Laub and completed in the early 1890s. Its pale stone, red accents, arched openings and clock tower make it one of the most recognizable historic courthouses in North Central Texas. The building visually connects modern Stephenville with the era when railroad access, cotton wealth and courthouse competition were reshaping the county."),
 
+    h("Stephenville's original courthouse burned in 1866"),
+    p("Erath County's first courthouse was a simple frame building erected in 1856 when Stephenville became the county seat. It was destroyed by fire in 1866, leaving the county to lease temporary space for court business. This fire occurred long before the limestone-and-sandstone courthouse now visible on the square; its history must not be attributed to the 1892 building."),
+    p("A second courthouse built in 1867 served during the next period of growth. By 1890 Erath County's expanding agricultural and commercial economy justified a more monumental civic building. Commissioners selected a design by James Riely Gordon; the third courthouse's cornerstone was laid in December 1891, and the new structure opened in 1892."),
+    p("Gordon designed a Richardsonian Romanesque courthouse with local white limestone, Pecos red sandstone ornament and an imposing square central clock tower. The tower's interior once rose through a series of arched open corridors from the first floor toward the clock platform. The stonework, iron staircases and courtrooms were not merely decorative: they organized public access to the county's courts and clerk offices."),
+
+    h("An old architectural plan was lost—and restoration exposed the evidence"),
+    p("Erath County's official architectural study explains that the original 1892 construction plans have not survived. Preservation architects had to rely on a period newspaper description, commissioners court minutes, photographs, and physical evidence of stones, timber, walls and roof materials. This is a reminder that even very conspicuous landmarks can lack a complete archival design record."),
+    p("The county's research discovered that some advertised 1892 design features were never actually built. For example, an old newspaper engraving suggested colonnades on four entrances, but historic photographs show that three were eliminated. Newspaper descriptions mentioned a red tile roof, yet physical material evidence supported an original gray slate roof. Describing the building's current features as direct proof of what was first planned would therefore be misleading."),
+    p("Later works in 1949 and 1988 changed roofing and other interior details; a large-scale preservation rehabilitation around 2002 restored historically appropriate spaces and materials. The Texas Historic Courthouse Preservation Program's work was guided by what could be independently established rather than by fanciful reconstruction of every lost feature."),
+    p("The courthouse remains an active public building. For a historical visit, compare the original tower and local stonework with surrounding railroad-era commercial buildings; for court or county clerk matters, check current offices and security policies."),
+
+    h("Erath County courthouse questions"),
+    p("When did the first Stephenville courthouse burn? The frame building constructed in 1856 was destroyed by fire in 1866."),
+    p("Who designed the courthouse still standing in Stephenville? James Riely Gordon, and its construction was completed in 1892."),
+    p("Are the original 1892 courthouse plans still available? Erath County's preservation research says the original complete plans have been lost; restoration relied on photographs, county court minutes and building evidence."),
+    p("Was the Romanesque courthouse the building lost in the 1866 fire? No. The surviving stone courthouse was erected roughly 26 years later."),
     h("Dublin grew on a different railroad story"),
     p("Dublin's roots reach to settlement in the 1850s, making it one of the county's oldest communities. Its major growth came after the Texas Central Railroad reached the area around 1880. Businesses and homes shifted toward the new rail line, and Dublin quickly became a significant commercial center in western Erath County."),
     p("The town developed an identity distinct from Stephenville. Agriculture, rail service, peanut processing, livestock, manufacturing and oil-and-gas activity all played roles at different times. Dublin's historic downtown and long-running local traditions make it more than a secondary stop; it is an essential part of understanding how transportation created multiple centers of activity inside one rural county."),
@@ -106,5 +126,13 @@ export const erathCountyStephenvilleDublinTarletonCrossTimbersArticle: Article =
     h("What defines Erath County"),
     p("Erath County is defined by reinvention without complete rupture. Cotton gave way to diversified agriculture; railroads created and strengthened towns; coal built Thurber and then disappeared; a small college grew into a major public university; and ranching persisted through every economic cycle. Each era left something visible behind."),
     p("The courthouse tower, Tarleton campus, Dublin streets, dairy country, horse farms, post-oak ridges and quiet Paluxy headwaters belong to one connected story. Erath County sits at a geographic and cultural hinge in North Central Texas, and its strongest identity comes from the way those different landscapes and institutions continue to meet."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Erath Courthouse 1866 fire and 1892 Gordon landmark", url: "https://atlas.thc.texas.gov/Details/5143001494" },
+    { label: "Erath County government — original plans lost and evidence-led architectural restoration", url: "https://www.co.erath.tx.us/223/Erath-County-Courthouse---Past-Versus-Pr" },
+    { label: "City of Stephenville — current 1892 courthouse construction account", url: "https://www.stephenvilletx.gov/283/Construction-of-the-Erath-County-Courtho" },
+    { label: "Stephenville Chamber — historical-interest map and 1866 fire", url: "https://www.stephenvilletexas.org/historical-interest-maps" },
+    { label: "Society of Architectural Historians — Erath 2002 rehabilitation", url: "https://sah-archipedia.org/buildings/TX-02-WC14" },
+    { label: "Texas Historical Commission — 1892 architectural inventory", url: "https://atlas.thc.texas.gov/Details/4302000167" },
   ],
 };
