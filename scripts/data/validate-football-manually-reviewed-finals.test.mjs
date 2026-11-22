@@ -12,7 +12,7 @@ const byFixture=new Map(rows.map(row=>[row.slug+'|'+row.date,row]));
 test('all manually reviewed 2026 results have explicit editorial authority and independent source hosts',()=>{
   assert.equal(reviewed.schemaVersion,1);
   assert.equal(reviewed.season,'2026');
-  assert.ok(rows.length>=14);
+  assert.ok(rows.length>=26);
   assert.equal(byFixture.size,rows.length);
   for(const row of rows){
     assert.match(row.date,/^2026-\d{2}-\d{2}$/);
@@ -82,4 +82,19 @@ test('written October and November dates cannot be classified as upcoming on Nov
   assert.ok(route.includes("footballFixtureCalendarStatus(game.date, todayTexas) === 'future-or-today'"));
   assert.ok(route.includes("footballFixtureCalendarStatus(game.date, todayTexas) === 'past'"));
   assert.ok(!route.includes('game.date >= todayTexas')&&!route.includes('game.date < todayTexas'));
+});
+
+test('November 21 completed four regular-season scorecards match independently reported October finals',()=>{
+  assert.deepEqual([byFixture.get('alvarado|2026-10-09').pointsFor,byFixture.get('alvarado|2026-10-09').pointsAgainst],[70,24]);
+  assert.deepEqual([byFixture.get('alvarado|2026-10-16').pointsFor,byFixture.get('alvarado|2026-10-16').pointsAgainst],[28,51]);
+  assert.deepEqual([byFixture.get('alvarado|2026-10-23').pointsFor,byFixture.get('alvarado|2026-10-23').pointsAgainst],[31,51]);
+  assert.deepEqual([byFixture.get('arlington-lamar|2026-10-09').pointsFor,byFixture.get('arlington-lamar|2026-10-09').pointsAgainst],[28,35]);
+  assert.deepEqual([byFixture.get('arlington-lamar|2026-10-16').pointsFor,byFixture.get('arlington-lamar|2026-10-16').pointsAgainst],[26,17]);
+  assert.deepEqual([byFixture.get('arlington-lamar|2026-10-23').pointsFor,byFixture.get('arlington-lamar|2026-10-23').pointsAgainst],[29,57]);
+  assert.deepEqual([byFixture.get('baytown-lee|2026-10-15').pointsFor,byFixture.get('baytown-lee|2026-10-15').pointsAgainst],[35,14]);
+  assert.deepEqual([byFixture.get('baytown-lee|2026-10-23').pointsFor,byFixture.get('baytown-lee|2026-10-23').pointsAgainst],[44,35]);
+  assert.deepEqual([byFixture.get('baytown-lee|2026-10-30').pointsFor,byFixture.get('baytown-lee|2026-10-30').pointsAgainst],[6,50]);
+  assert.deepEqual([byFixture.get('beaumont-west-brook|2026-10-16').pointsFor,byFixture.get('beaumont-west-brook|2026-10-16').pointsAgainst],[28,14]);
+  assert.deepEqual([byFixture.get('beaumont-west-brook|2026-10-23').pointsFor,byFixture.get('beaumont-west-brook|2026-10-23').pointsAgainst],[55,7]);
+  assert.deepEqual([byFixture.get('beaumont-west-brook|2026-10-30').pointsFor,byFixture.get('beaumont-west-brook|2026-10-30').pointsAgainst],[14,24]);
 });

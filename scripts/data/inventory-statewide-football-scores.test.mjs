@@ -90,8 +90,8 @@ test('Aubrey verified overlay clears only matching published finals, not a diffe
   const alvarado=report.pages.find(p=>p.page.endsWith('/alvarado'));
   assert.ok(!alvarado?.overdue.some(g=>g.date==='2026-10-30'),
     'Alvarado Oct 30 has its own independently source-checked result');
-  assert.ok(alvarado?.overdue.some(g=>g.date==='2026-10-16'),
-    'Other independently unverified Alvarado results must still be reviewed');
+  assert.ok(!alvarado?.overdue.some(g=>g.date==='2026-10-16'),
+    'Alvarado Oct 16 now has separately corroborated final');
   const published=JSON.parse(readFileSync(join(ROOT,'src/data/high-school-football/aubrey-auto-results.snapshot.json'),'utf8'));
   assert.ok(published.verifiedResults.some(g=>g.date==='2026-11-19'&&g.aubreyScore===36&&g.opponentScore===39));
 });
