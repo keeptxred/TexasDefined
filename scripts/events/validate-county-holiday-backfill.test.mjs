@@ -59,6 +59,8 @@ test("county official calendars are tracked on the robot-respecting review sched
     marion:"2026-11-28",
     lee:"2026-11-28",
     sutton:"2026-12-02",
+    kleberg:"2026-12-05",
+    yoakum:"2026-12-17",
     brazoria:"2026-12-04",
     somervell:"2026-11-28",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
@@ -184,4 +186,22 @@ test("Alvin and Glen Rose 2026 dates and counties remain first-party independent
    assert.equal(new URL(item.officialEventUrl).hostname,host);
    assert.equal(item.sourceVerifiedAt,"2026-11-22");
  }
+});
+
+test("Kingsville and Denver City 2026 community holiday occurrences preserve first-party specifics",()=>{
+ const rows=[
+   ["kingsville-la-posada-parade-of-lights-2026","kleberg","2026-12-05","kingsvilletexas.com"],
+   ["denver-city-christmas-parade-meet-santa-2026","yoakum","2026-12-17","denvercitychamber.com"]
+ ];
+ for(const [slug,county,date,host]of rows){
+   const x=events.find(e=>e.slug===slug);
+   assert.ok(x,"Missing source-qualified local holiday "+slug);
+   assert.equal(x.countySlug,county);
+   assert.equal(x.startDate,date);
+   assert.equal(new URL(x.officialEventUrl).hostname,host);
+   assert.equal(x.sourceVerifiedAt,"2026-11-22");
+   assert.ok(x.summary.length>=110);
+ }
+ assert.match(events.find(e=>e.slug===rows[0][0]).summary,/Kleberg Avenue/);
+ assert.match(events.find(e=>e.slug===rows[1][0]).summary,/not specified a parade start time/);
 });
