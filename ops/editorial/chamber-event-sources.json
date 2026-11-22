@@ -851,6 +851,34 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "shelby-chamber-christmas-parade",
+      "organization": "Shelby County Chamber of Commerce",
+      "countySlugs": [
+        "shelby"
+      ],
+      "homeUrl": "https://shelbycountychamber.com/",
+      "calendarUrl": "https://shelbycountychamber.com/chamber-events/",
+      "contactPageUrl": "https://shelbycountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "plantersville-official-community-calendar",
+      "organization": "City of Plantersville",
+      "countySlugs": [
+        "grimes"
+      ],
+      "homeUrl": "https://cityofplantersville.net/",
+      "calendarUrl": "https://cityofplantersville.net/community-calendar-events-1",
+      "contactPageUrl": "https://cityofplantersville.net/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
