@@ -8,7 +8,7 @@ export const brownCountyBrownwoodPecanBayouLakeBrownwoodCampBowieTexasArticle: A
   brandId: "texasdefined",
   slug: "brown-county-brownwood-pecan-bayou-lake-brownwood-camp-bowie-texas",
   title: "Brown County: Brownwood, Pecan Bayou, Lake Brownwood and Camp Bowie",
-  dek: "Brown County sits near the geographic center of Texas, where Brownwood, Pecan Bayou, ranching, railroads, Lake Brownwood, Camp Bowie and a long frontier history meet.",
+  dek: "Brownwood's devastating March 1880 courthouse fire and lost records, the 1884 vault reused in the 1917–18 courthouse, and Brown County's pioneering fire service.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const brownCountyBrownwoodPecanBayouLakeBrownwoodCampBowieTexasArticle: A
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Brown County",
     "Brownwood Texas",
@@ -64,6 +65,22 @@ export const brownCountyBrownwoodPecanBayouLakeBrownwoodCampBowieTexasArticle: A
     p("Brownwood's own geography changed during its early years. The first townsite stood on the east side of Pecan Bayou, but land-title problems and water concerns led residents to relocate to a site on the west side donated by Greenleaf Fisk. That move placed the town where its historic core would grow."),
     p("The courthouse square became the civic center, while roads radiated toward ranches, farms and neighboring counties. Brownwood's location near the center of the county made it the logical place for government, but its later success depended on something broader: it became a market town for a large west-central Texas hinterland."),
 
+    h("March 29, 1880: the log courthouse and county records burned"),
+    p("Brown County's first courthouse was a one-story log structure erected after local government was organized in the late 1850s. As Brownwood grew beside Pecan Bayou, the building was moved and enlarged to serve a young county with new courts, title records and civic responsibilities."),
+    p("On March 29, 1880, the wooden courthouse burned, taking most of the county's original archive with it. The City of Brownwood's official 'Early Days' history corroborates the date and loss of records. Local history recounts that the fire was deliberately set, but particular motives or suspects should be attributed to historical accounts rather than asserted as established convictions."),
+    p("The county used temporary quarters for courts and official business, then funded a substantial new courthouse. A structure designed by Waco architects Dodson and Dudley was built during 1884–85, with stone walls and a protected record vault intended to reduce the risk of repeating the first catastrophe."),
+
+    h("The 1917–18 courthouse contains walls and the old 1884 vault"),
+    p("By 1915 commissioners judged the 1884 stone courthouse inadequate, and a massive construction campaign began. Although described as a 'remodel', the 1917–18 project demolished so much of the earlier structure that only some inner walls and vaults remained. The Texas Historical Commission's marker explicitly notes that historic masonry was reused in the present Classical Revival courthouse."),
+    p("The old record vault is a rare direct connection between two eras of public safety. Visitors who see the current courthouse in Brownwood should recognize that its imposing exterior largely belongs to the World War I period, while some protected masonry dates to the original post-fire reconstruction."),
+    p("Brownwood organized a volunteer fire department in December 1886, after the devastating courthouse blaze and as the town's commercial buildings became larger. The 1880 loss, 1886 fire service, 1884 vault and 1917 renovation are linked pieces of local institutional development—not interchangeable stories about a single courthouse."),
+    p("The restored commercial core and Brown County Museum of History provide nearby opportunities to see older civic infrastructure and jail history. Check current museum access separately from county court offices."),
+
+    h("Brown County courthouse questions"),
+    p("When did Brownwood's original courthouse burn? March 29, 1880; the fire destroyed many early county records."),
+    p("When was the current courthouse built? The major Classical Revival reconstruction occurred in 1917–18, incorporating masonry and vaults from the 1884–85 predecessor."),
+    p("Did Brownwood have firefighters immediately after the 1880 blaze? A volunteer company was organized in 1886."),
+    p("Why do some historical photographs show another courthouse design? They portray the 1884 stone structure that was largely rebuilt in 1917–18."),
     h("Ranching dominated the nineteenth-century economy"),
     p("Cattle ranching was Brown County's strongest economic force through much of the nineteenth century. Herds expanded rapidly after the Civil War, and ranchers used the region's grasslands and creek bottoms while connecting to trail systems leading north toward railheads. Brown County cattle often moved toward routes that joined larger drives through neighboring Coleman County."),
     p("The shift from open range to fenced property produced conflict. Farmers wanted to protect crops, while stockmen resisted barriers across traditional grazing and travel routes. Fence cutting became part of a broader Texas range conflict during the 1880s, and Brown County experienced the same struggle between older open-range customs and a more settled agricultural landscape."),
@@ -115,5 +132,13 @@ export const brownCountyBrownwoodPecanBayouLakeBrownwoodCampBowieTexasArticle: A
     h("Brown County is more than a midpoint on the map"),
     p("Brown County is easy to describe as being near the center of Texas, but that label understates what makes it interesting. Its identity comes from overlap: plains and plateau, ranching and farming, courthouse government and college life, railroad history and highway travel, flood-control infrastructure and lake recreation, local agriculture and national military mobilization."),
     p("Brownwood remains the county's anchor, but the broader story lives in Pecan Bayou, Lake Brownwood, Camp Bowie, Howard Payne, ranch roads and smaller communities. Together they show how a frontier county grew into a regional center without losing the water, land and working-country character that shaped it in the first place."),
+  ],
+  sources: [
+    { label: "City of Brownwood — March 29, 1880 courthouse fire and records loss", url: "https://www.brownwoodtexas.gov/322/Early-Days-in-Brownwood" },
+    { label: "Texas Historical Commission — four Brown County courthouses and 1917–18 reuse", url: "https://atlas.thc.texas.gov/Details/5507014008" },
+    { label: "Brown County Historical Commission — downtown walking tour and courthouse vault", url: "https://www.browncountyhistory.org/tourbrwn.html" },
+    { label: "Brown County Historical Commission — detailed courthouse chronology", url: "https://www.browncountyhistory.org/courthousesofbrowncty.html" },
+    { label: "Handbook of Texas — Brownwood courthouse and 1890 volunteer firefighters", url: "https://www.tshaonline.org/handbook/entries/brownwood-tx" },
+    { label: "Brown County Museum and archives — historic courthouse photography", url: "https://www.browncountyhistory.org/courthouse-browncty.html" },
   ],
 };
