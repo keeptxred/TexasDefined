@@ -236,3 +236,21 @@ test("Brownwood and Marshall 2026 community Christmas entries are dated by city 
  assert.match(events.find(e=>e.slug===checks[2][0]).summary,/all day/);
  assert.match(events.find(e=>e.slug===checks[3][0]).summary,/not a month-long nonstop parade/);
 });
+
+test("Jacksboro Chamber market and Gonzales Main Street 2026 Winterfest are nonduplicate official editions",()=>{
+ const checks=[
+  ["jacksboro-chamber-christmas-vendor-market-2026","jack","2026-11-28","jacksborochamber.glueup.com"],
+  ["gonzales-main-street-winterfest-celebration-2026","gonzales","2026-12-05","app.seemylegacy.com"]
+ ];
+ for(const [slug,county,date,host]of checks){
+  const event=events.find(e=>e.slug===slug);
+  assert.ok(event,"Missing source-qualified local festival "+slug);
+  assert.equal(event.countySlug,county);
+  assert.equal(event.startDate,date);
+  assert.equal(new URL(event.officialEventUrl).hostname,host);
+  assert.equal(event.sourceVerifiedAt,"2026-11-22");
+  assert.ok(event.summary.length>=110&&event.venueName);
+ }
+ assert.equal(events.filter(e=>e.city==="Jacksboro"&&e.startDate==="2026-11-28"&&/market/i.test(e.title)).length,1);
+ assert.match(events.find(e=>e.slug===checks[1][0]).summary,/not confirmed/);
+});
