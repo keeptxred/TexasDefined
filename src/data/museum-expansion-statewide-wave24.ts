@@ -99,7 +99,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       "nearbyAttractions": [
         {
           "name": "Comanche courthouse square, Old Cora and Fleming Oak",
-          "description": "Compare the surviving 1856 log courthouse and the WPA-era courthouse; Old Cora is currently closed for renovation.",
+          "description": "Compare the surviving log courthouse first used in 1856 and the WPA-era courthouse; Old Cora is currently closed for renovation.",
           "href": "/destination/comanche"
         },
         {
