@@ -163,7 +163,7 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     milestones,
     venue: editorial.venue ? {
       ...editorial.venue,
-      sourceUrl: 'https://www.aubreyisd.net/page/contact-us',
+      sourceUrl: 'https://www.aubreyisd.net/o/ahs',
       sourceLabel: 'Official Aubrey ISD high-school campus address',
       note: 'Chaparral Stadium is on the Aubrey High School campus at 510 Spring Hill Road. The district confirms the campus address; verify game-specific parking, gates and ticket rules directly with Aubrey ISD. The 2026 postseason games at Sweetwater and Burkburnett were neutral-site contests.',
       verifiedAt: '2026-11-22',
