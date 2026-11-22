@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Latest staged source/contact mapping: all 254 Texas counties / 284 first-party public sources (Nov 22, 2026). Classified community-calendar records: 127 sources spanning 122 counties; 132 counties still lack a separately verified current community calendar. Other source types: 19 individual-event pages, 12 annual-event directories, 34 contact-only desks and 92 unclassified older sources. Source contacts do not imply verified event dates, press-list acceptance, image rights or earned backlinks.**
+**Latest staged source/contact mapping: all 254 Texas counties / 284 first-party public sources (Nov 22, 2026). Classified community-calendar records: 132 sources spanning 127 counties; 127 counties still lack a separately verified current community calendar. Other roles: 19 individual-event pages, 13 annual-event directories, 34 contact-only desks and 86 unclassified older sources. No mapped contact implies press-list acceptance, licensed images, verified future festival dates or earned backlinks.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -284,3 +284,19 @@ Four more distinct, organizer-verified 2026 events were appended to the existing
 - Bonham Home for the Holidays Christmas Market, **December 5, 2026, 9 a.m.–4 p.m.** (Fannin), Stay Grounded Coffee Cafe, 604 N Center Street; https://bonhamchamber.com/event/annual-christmas-market/. Separate from December 4 parade and Hot Cocoa Hop.
 
 These four new records have first-party organizer URLs, precise county affiliations, source-reviewed 2026 dates, conservative descriptive summaries and regression tests. They are added to the existing holiday record backfill, not standalone thin articles, and cannot be automatically rolled into the 2027 calendar without an actual official announcement. Statewide registry remains a **research system**, not a licensed photograph ingest, spam contact list or reciprocal-link exchange.
+
+## Five directly confirmed official dated calendar feeds — November 22, 2026 (cohort O)
+
+The source registry still has **284 public first-party organization or event desk sources across all 254 Texas counties**. It now has **132 classified live public calendars spanning 127 counties**, leaving **127 county calendar classification gaps**. The other sources are **19 event-specific**, **13 annual-events-list**, **34 contact-only**, **86 unclassified**. This count is a discovery taxonomy, not a guarantee each county has a complete holiday calendar.
+
+The following five websites were independently re-opened and verified to expose actual current dated public event listings or publicly navigable calendars. Use them for review under publisher terms; verify every event directly against organizer dates before automatic publication:
+
+- **Fayette / La Grange Area Chamber** — https://business.lagrangetx.org/events : dated calendar through 2027, event titles, categories and a public event-submission option.
+- **Val Verde / Del Rio Chamber** — https://business.exploredelrio.com/event-calendar : public dated Chamber/community calendar (small number of future results; a Chamber member event is not proof of all Del Rio festivals). Original footer lists frontdesk@drchamber.com as its public contact.
+- **Johnson / Cleburne Chamber** — https://business.cleburnechamber.com/events/calendar/ : searchable public community events, arts, festivals, and submit-event links.
+- **San Patricio / Portland Chamber** — https://business.portlandtx.org/events/calendar : community dates/categories and event submission, public contact admin@portlandtx.org.
+- **Kleberg / Visit Kingsville** — https://kingsvilletexas.com/events/ : official visitor bureau public calendar with future events, a public submission function and individual organizers.
+
+The existing Odessa Chamber source at https://odessachamber.com/events/ is **annual-events-list**, because it describes annual Chamber programs without a complete dated public events list. Its separately linked GrowthZone live calendar at https://cca.odessachamber.com/EvtListingMainSearch.aspx?class=B returned HTTP 403 in public research. Do not bypass the source owner's access controls or represent a 403-blocked feed as a confirmed live community calendar. For Ector County festival research, independently identify public city/visitor bureau/organizer schedules.
+
+No new event record is released based on a Chamber search result alone; the prior first-party verified 2026 holiday dates remain unchanged in this cohort. Recurring 2027 dates and photo use require affirmative source and rights evidence.
