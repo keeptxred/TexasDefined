@@ -8,9 +8,9 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
   brandId: "texasdefined",
   slug: "hood-county-granbury-lake-brazos-acton-cross-timbers-texas",
   title: "Hood County: Granbury, Lake Granbury, Acton and the Brazos",
-  dek: "Hood County blends a historic courthouse square, the Brazos River and Lake Granbury, Cross Timbers ranch country, Acton's Crockett legacy and fast-growing communities southwest of Fort Worth.",
+  dek: "The 1875 Hood County courthouse fire, the cracked 1890 predecessor, Granbury’s saved clock tower, 2012 restoration and historic public square.",
   category: "texas-history",
-  region: "north-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hood_County_Courthouse%2C_Granbury%2C_Texas_%286833408868%29.jpg?width=1600",
     alt: "Hood County Courthouse in Granbury, Texas",
@@ -20,7 +20,8 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Hood County",
     "Granbury Texas",
@@ -32,6 +33,9 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
     "Texas history",
     "North Texas lakes",
     "Texas counties",
+    "1875 Hood County Courthouse fire",
+    "1968 Granbury courthouse tower storm",
+    "2012 Hood County Courthouse restoration",
   ],
   featured: false,
   internalLinks: [
@@ -61,6 +65,26 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
     p("The Hood County Courthouse was built in 1890–91 in a Second Empire style using limestone. Its tower, mansard roof and location in the middle of the square make it one of the most recognizable civic landmarks in North Texas."),
     p("Historic storefronts surround the building, creating a cohesive public space rather than an isolated monument. The Hood County Courthouse Historic District was listed on the National Register of Historic Places, reflecting the importance of the square's architecture and commercial development."),
 
+    h("The 1875 fire, the cracked courthouse and Granbury's fifth public building"),
+    p("Hood County government began with commissioners meeting in private homes before Granbury's first courthouse square emerged. An early log courthouse burned on March 5, 1875, in a destructive fire that also consumed important county records and privately deposited deeds. Local historical accounts note that land-title disputes and accusations of forgery were already controversial, but suspicions connected to the fire should not be presented as proven findings."),
+    p("County officials moved through several replacement buildings. A later brick and stone courthouse deteriorated so badly that its walls cracked, and it was demolished in 1890. The present limestone courthouse, designed by architect W. C. Dodson, was built in 1890–91 as the county's fifth main courthouse. Its French Second Empire features, ornate dormers and steep tower became the defining image of Granbury's square."),
+    p("The 1875 fire and the 1890 structural failure were separate events. The existing 1891 building was neither constructed immediately after the fire nor the one whose walls collapsed. For people researching nineteenth-century county records, the first event explains archival gaps, while the second explains why the old courthouse was deliberately replaced."),
+    
+    h("Storm damage in 1968 almost cost Granbury its clock tower"),
+    p("In 1968 a storm severely damaged the 1891 courthouse's clock tower. County officials proposed leveling the damaged tower and simplifying the roof as a cheaper repair. Granbury residents, including newspaper publisher Norma Crawford, organized against its removal. Their campaign kept the tower standing and became a formative event in the local preservation movement."),
+    p("The advocacy spread beyond the courthouse. Preservation work on the Granbury Opera House and other Victorian buildings grew from the determination not to erase the town's skyline. A landmark saved from demolition helped turn Granbury's commercial core into a heritage destination, decades before such downtown preservation became commonplace across Texas."),
+    p("A comprehensive Texas Historical Commission-supported restoration recovered structural details, the historic double-height courtroom and the 1890 Seth Thomas clockworks. The courthouse was publicly rededicated October 27, 2012. The clock still requires regular hand-winding by county maintenance staff, a distinctive example of a functioning historic public system."),
+
+    h("Granbury's old jail and 2023 Nutt Building fire matter too"),
+    p("The nineteenth-century Hood County Jail, built in 1885, survives near the square as a historic museum property. It represents a separate public institution from the county courthouse and should be interpreted alongside changing law, punishment and county services. The 1886 Granbury Opera House is another survivor whose restoration reflects the same local preservation movement."),
+    p("On March 2, 2023, firefighters responded to a major fire in the historic Nutt Building on Granbury's square. The City of Granbury documented the response by volunteer departments and regional partners. That fire damaged a historic commercial landmark, not the 1891 county courthouse, and it shows why local fire service and maintenance remain important even in a carefully preserved tourism district."),
+    p("A visitor route can pair the restored courthouse tower, old jail, opera house and Nutt Building history. Do not assume all interiors are open; check each steward's visitor rules and any still-active restoration restrictions."),
+
+    h("Hood County courthouse questions"),
+    p("When did Hood County lose its first courthouse to fire? March 5, 1875, with many local records lost."),
+    p("Why was another old courthouse demolished in 1890? Its construction had deteriorated and its walls cracked; it was not the building destroyed in the 1875 fire."),
+    p("What happened to the courthouse clock tower in 1968? Storm damage nearly led to its removal before a successful citizen preservation campaign saved it."),
+    p("When did the restored courthouse reopen? It was publicly rededicated October 27, 2012, following a major state-supported conservation project."),
     h("The Brazos River predates every town"),
     p("The Brazos River cuts a winding path through Hood County and has shaped settlement from the beginning. Early roads and crossings depended on the river's geography, while bottomlands offered fertile soils and woodlands. Flooding, however, remained a recurring risk."),
     p("The river also connects Hood County to a much larger Texas watershed extending from the High Plains to the Gulf Coast. Modern reservoirs transformed that system, but the Brazos remains the natural spine of the county."),
@@ -124,5 +148,14 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
     h("What defines Hood County"),
     p("Hood County is defined by the way old and new Texas overlap. Granbury's nineteenth-century courthouse square remains the civic and tourism center, while Lake Granbury represents twentieth-century water infrastructure and modern waterfront growth. Acton preserves a direct connection to the Crockett family, and western ranch country keeps the county's agricultural roots visible."),
     p("The county's strongest story is not any single attraction but the relationship between them: courthouse, river, reservoir, historic settlement and suburban expansion. Together they show how a small Cross Timbers county became one of North Texas's most distinctive blends of heritage, recreation and growth."),
+  ],
+  sources: [
+    { label: "Hood County Historical Society — courthouse fire March 1875", url: "https://granburydepot.org/newsite/misc/hood-county-historical-facts/" },
+    { label: "Hood County Historical Society — lost courthouse, collapsed walls and 1891 successor", url: "https://granburydepot.org/newsite/misc/hood-county-history-written-in-1926/" },
+    { label: "Texas Historical Commission — Hood Courthouse 1968 tower rescue and 2012 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/hood-county" },
+    { label: "Texas Time Travel — Norma Crawford tower campaign and historic restoration", url: "https://texastimetravel.com/directory/hood-county-courthouse/" },
+    { label: "Texas Historical Commission — Courthouse marker and 1890–91 construction", url: "https://atlas.thc.texas.gov/Details/5221002552" },
+    { label: "City of Granbury — March 2023 Nutt Building fire response", url: "https://www.granbury.org/CivicSend/ViewMessage/message/195389" },
+    { label: "Texas State Historical Association — Hood County history", url: "https://www.tshaonline.org/handbook/entries/hood-county" },
   ],
 };
