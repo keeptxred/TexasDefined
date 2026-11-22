@@ -183,9 +183,7 @@ export function loadEventCollectionPageServer(slug: string) {
   // permanent planning guide remains useful and discoverable all year.
   const annualHolidayGuides = temporal?.slug === "christmas-events"
     ? directory.filter((event) =>
-        (event.endDate ?? event.startDate) < new Intl.DateTimeFormat("en-CA", {
-          timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
-        }).format(new Date()) &&
+        (event.endDate ?? event.startDate) < texasToday(new Date()) &&
         /christmas|holiday|yule|yuletide|north-pole|winter-lights|tree-lighting|gusherville/i.test(event.slug)
       ).slice(0, 36).map((event) => ({
         slug: event.slug, href: event.href, name: event.name,
