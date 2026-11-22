@@ -3,7 +3,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { footballFixtureCalendarDate, footballFixtureCalendarStatus } from '@/data/high-school-football/football-fixture-calendar';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
-import { AubreySeasonAuthority } from '@/components/sports/AubreySeasonAuthority';
+import { AubreySeasonAuthority, AubreySeasonHero } from '@/components/sports/AubreySeasonAuthority';
 import { footballProgramProfilePath } from '@/data/high-school-football/program-slugs';
 import { KatyStadiumGuide } from '@/components/sports/KatyStadiumGuide';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
@@ -636,7 +636,9 @@ function Page() {
                   : editorial?.intro ?? profileSummary}
             </p>
           </div>
-          {editorial?.photo ? (
+          {slug === 'aubrey' && editorial?.season ? (
+            <AubreySeasonHero games={editorial.season.games} />
+          ) : editorial?.photo ? (
             <FootballSourcedPhoto
               photo={editorial.photo}
               priority={slug === 'aubrey' || slug === 'katy' || slug === 'fort-davis'}
