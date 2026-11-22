@@ -356,7 +356,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         "label": "Check-in",
-        "value": "Begins about 20 minutes before boarding; arrive more than an hour early for parking and activities"
+        "value": "Check-in begins 20 minutes before departure; arrive more than an hour early for parking and activities"
       }
     ],
     planningSections: [
@@ -374,7 +374,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Arrive earlier than the boarding time",
-        "body": "The operator recommends more than an hour early for parking, ticket collection, market activities and photographs. Train check-in begins around 20 minutes before departure and doors close five minutes before it; late guests cannot board."
+        "body": "Times on the official schedule are boarding times. The operator recommends arriving more than an hour early for parking, ticket collection and Christmas Market activities. Check-in begins 20 minutes before departure, and doors close five minutes before departure. Late guests cannot board."
       },
       {
         title: "Compare with The Polar Express before buying",

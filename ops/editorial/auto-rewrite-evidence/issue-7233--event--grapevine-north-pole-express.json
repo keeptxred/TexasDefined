@@ -1,0 +1,22 @@
+{
+  "issue": 7233,
+  "page": "/event/grapevine-north-pole-express",
+  "updatedAt": "2026-11-22T02:41:45.023745Z",
+  "facts": [
+    {
+      "sourceUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
+      "sourceQuote": "Check in will begin 20 minutes before your departure time",
+      "newCopy": "Check-in begins 20 minutes before departure"
+    },
+    {
+      "sourceUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
+      "sourceQuote": "Times listed below are the train boarding times.",
+      "newCopy": "Times on the official schedule are boarding times."
+    },
+    {
+      "sourceUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
+      "sourceQuote": "We recommend arriving more than an hour early to find parking, get your tickets and enjoy the activities and vendors in the Grapevine Christmas Market",
+      "newCopy": "The operator recommends arriving more than an hour early for parking, ticket collection and Christmas Market activities."
+    }
+  ]
+}
