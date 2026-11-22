@@ -8,9 +8,9 @@ export const grimesCountyAndersonNavasotaFanthorpRailroadsArticle: Article = {
   brandId: "texasdefined",
   slug: "grimes-county-anderson-navasota-fanthorp-railroads-texas",
   title: "Grimes County: Anderson, Navasota, Fanthorp Inn and a Crossroads of Texas History",
-  dek: "Grimes County links the Brazos country, East Texas and the Houston region through stage roads, railroads, cotton, ranching, historic Anderson, Navasota and one of Texas's best-preserved nineteenth-century travel landscapes.",
+  dek: "How Anderson’s courthouses burned in 1890 and 1893, why the 1894 building reused masonry, and what Grimes County’s stage roads and railroads reveal.",
   category: "texas-history",
-  region: "east-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Grimes_County_Courthouse%2C_Anderson%2C_Texas_1803091126_%2840711037292%29.jpg?width=1600",
     alt: "Grimes County Courthouse in Anderson, Texas",
@@ -20,7 +20,8 @@ export const grimesCountyAndersonNavasotaFanthorpRailroadsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Grimes County",
     "Anderson Texas",
@@ -30,6 +31,9 @@ export const grimesCountyAndersonNavasotaFanthorpRailroadsArticle: Article = {
     "Texas railroads",
     "Texas history",
     "Texas counties",
+    "Grimes County courthouse fires 1890 and 1893",
+    "1894 Anderson courthouse",
+    "2002 Grimes restoration",
   ],
   featured: false,
   internalLinks: [
@@ -78,6 +82,22 @@ export const grimesCountyAndersonNavasotaFanthorpRailroadsArticle: Article = {
     p("The present Grimes County Courthouse dates from the early 1890s and is one of the most distinctive surviving county courthouses in this part of Texas. Built of hand-molded brick with native stone trim, the building combines Victorian-era design with the practical demands of a rural county government."),
     p("The courthouse has survived fires, renovations and changing public needs. A major restoration completed in the early 2000s returned much of the building's historic appearance. It remains the center of Anderson's civic identity and a strong starting point for visitors exploring the county's older history."),
 
+    h("Anderson's courthouse burned in 1890 and again in 1893"),
+    p("Grimes County's courthouse in Anderson reflects repeated disaster and an unusual rebuilding decision. The county initially held court in modest structures before building a stone courthouse in 1859. That third courthouse burned on May 15, 1890. Officials replaced it with a brick courthouse, but on January 20, 1893, another fire destroyed the new building."),
+    p("Rather than clear the entire site after the second blaze, county officials reused surviving masonry. The present, fifth courthouse was completed in 1894 from designs by architects F. S. Glover and Company. Its eastern wall and portions of its foundation incorporate the earlier fire-damaged structure. A visitor may be seeing bricks from different phases of rebuilding: historic preservation studies distinguish surviving original hand-molded red bricks from the pinker 1894 materials and later repairs."),
+    p("This is a different outcome from a town where fire forced the permanent relocation of the county seat. Anderson remained the governmental center even as Navasota gained rail connections and commercial prominence. The survival of earlier courthouse fabric is also different from the full rebuilding needed in other fire-damaged county seats."),
+    p("The Texas Historical Commission's restoration program returned the courthouse to a documented late-nineteenth-century appearance, including restoration of its central courtroom and exterior. A public rededication was held March 2, 2002. The commission describes the building as completed in 1894 even though a marker elsewhere uses an earlier year; the documented post-1893 rebuilding provides context for the discrepancy."),
+
+    h("The historic town jail and stage inn complete Anderson's civic story"),
+    p("Anderson's courthouse stood within a community supported by stage routes along La Bahía Road, including Fanthorp Inn. The inn's preservation demonstrates the contrast between early travel infrastructure and the more formal public institutions that followed. The county built several jails during the nineteenth century; the town's history lists jail constructions in 1859, 1879 and 1897, with a later twentieth-century facility replacing them."),
+    p("Grimes County's stories should not be reduced to an architectural landmark alone. Cotton production depended heavily on enslaved workers; after emancipation, Black residents established schools, congregations and civic organizations under discriminatory conditions. Navasota's rail and commercial growth provided a different center of activity from Anderson's continuing judicial role."),
+    p("A visitor can connect the historic courthouse square with Fanthorp Inn and, separately, Navasota's surviving downtown. Interior access and hours should be confirmed with the county and state preservation stewards before planning a tour."),
+
+    h("Grimes County courthouse questions"),
+    p("When did the courthouse in Anderson burn? The county's third courthouse burned May 15, 1890, and its fourth courthouse burned January 20, 1893."),
+    p("When was the surviving Grimes courthouse completed? The Glover-designed replacement was completed in 1894."),
+    p("Did any courthouse masonry survive the fires? Yes. The current courthouse incorporates portions of the earlier foundation and the east wall from the fire-damaged building."),
+    p("When was the courthouse restored? Its Texas Historical Commission-supported restoration was rededicated March 2, 2002."),
     h("Navasota followed a different path"),
     p("Navasota developed near a bend in the Navasota River and close to a natural crossroads between Anderson, Washington-on-the-Brazos and routes toward Houston. The community grew from stagecoach activity in the early 1850s and adopted the Navasota name before the arrival of the railroad."),
     p("Unlike Anderson, Navasota embraced the transportation revolution that arrived by rail. When the Houston and Texas Central reached the town in 1859, Navasota became an important shipping and marketing point for cotton, livestock, supplies and passengers. That connection permanently changed the county's economic geography."),
@@ -129,5 +149,12 @@ export const grimesCountyAndersonNavasotaFanthorpRailroadsArticle: Article = {
     h("What defines Grimes County"),
     p("Grimes County is defined by the tension between continuity and movement. Anderson preserves the courthouse, stage-road and civic landscape of nineteenth-century Texas. Navasota represents the transportation-driven town that grew by embracing rail connections and outside markets. Rural communities preserve the agricultural and family networks that linked both places."),
     p("Taken together, those layers make Grimes County more than a stop between Houston and College Station. It is a compact record of how Texas changed from Indigenous travel routes and Spanish roads to stagecoaches, railroads and highways—and how communities adapted each time the state's map of movement was redrawn."),
+  ],
+  sources: [
+    { label: "Town of Anderson — Grimes County Courthouse two fire chronology", url: "https://andersontx.gov/historical-information/brief-history-grimes-county-courthouse/" },
+    { label: "Texas Historical Commission — Grimes Courthouse 1894 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/grimes-county" },
+    { label: "Town of Anderson — jail construction and early town development", url: "https://andersontx.gov/historical-information/brief-history-town-anderson/" },
+    { label: "Texas Historical Commission — 1894 courthouse marker and history", url: "https://atlas.thc.texas.gov/Details/5185008585" },
+    { label: "Texas State Historical Association — Grimes County", url: "https://www.tshaonline.org/handbook/entries/grimes-county" },
   ],
 };

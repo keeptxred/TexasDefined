@@ -8,9 +8,9 @@ export const haysCountySanMarcosBlancoHillCountryArticle: Article = {
   brandId: "texasdefined",
   slug: "hays-county-san-marcos-blanco-hill-country-texas",
   title: "Hays County: San Marcos, the Blanco River and the Hill Country Edge",
-  dek: "Hays County stretches from the spring-fed San Marcos River and a historic courthouse square to the Blanco River, Wimberley, Dripping Springs and one of the fastest-growing stretches of the Austin-San Antonio corridor.",
+  dek: "The 1908 San Marcos courthouse fire, 1909 Hays County replacement, spring-fed river history, Hill Country communities and Texas State University.",
   category: "texas-history",
-  region: "central-texas",
+  region: "hill-country",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hays%20County%20Courthouse%20(2018),%20San%20Marcos,%20TX.jpg?width=1600",
     alt: "Historic Hays County Courthouse in downtown San Marcos, Texas",
@@ -20,7 +20,8 @@ export const haysCountySanMarcosBlancoHillCountryArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: ["Hays County", "San Marcos", "Wimberley", "Kyle", "Buda", "Dripping Springs", "Blanco River", "San Marcos River", "Hill Country", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -49,6 +50,22 @@ export const haysCountySanMarcosBlancoHillCountryArticle: Article = {
     p("The Hays County Historic Courthouse stands in the center of downtown San Marcos and remains one of the clearest symbols of county identity. Hays County continues to use the historic courthouse for Commissioners Court meetings and public events, keeping the building connected to county government rather than treating it only as preserved architecture. The surrounding square links the courthouse to restaurants, shops, offices, festivals and the street grid of the older city."),
     p("For a visitor, the square is a useful place to understand how San Marcos grew. County government, commerce and transportation once concentrated around a compact center where residents could conduct business on foot. Modern San Marcos extends far beyond that original footprint, but the square still provides a visual reference point for the city before the university and interstate transformed its scale."),
 
+    h("The February 28, 1908 courthouse fire changed San Marcos's skyline"),
+    p("Hays County first held court in a log church and schoolhouse after its organization in 1848, before the county acquired a dedicated downtown court square. A $2,000 forfeited criminal bond financed the first purpose-built courthouse in 1861. That early building developed serious structural problems as its foundation shifted, prompting replacement in 1882–83."),
+    p("On February 28, 1908, fire destroyed the top story of the 1882–83 courthouse. The county demolished the damaged building rather than trying to reconstruct its original tower. This was the immediate cause of the surviving courthouse project, not a fire that engulfed the entire present-day building."),
+    p("Architect C. H. Page and Brother designed the new three-story courthouse with Classical Revival and Beaux-Arts details, using limestone and other stone materials. The county formally accepted the completed building on December 13, 1909. It was the fourth courthouse, and its stepped dome, columns and central massing gave San Marcos a replacement skyline after the fire."),
+    p("Later alterations subdivided some interior spaces; a preservation project in 1972 restored portions of the building. The Texas Historical Commission historic marker is explicit about the 1908 fire and 1909 acceptance, and the Texas State University archive preserves historic photographs that distinguish the burned Victorian courthouse from its surviving successor."),
+    p("For visitors, start with the current public square and marker, then compare archival images of the old courthouse from before February 1908. There is no remaining original 1883 courthouse tower to visit; the modern landmark is its replacement."),
+
+    h("The courthouse story connects the springs to civic safety"),
+    p("San Marcos grew beside an abundant spring-fed river. The town's reliable springs, waterways and mills helped its early economy but also required bridges, street drainage and fire protection around increasingly dense downtown blocks. The 1908 courthouse fire demonstrates why water in the surrounding landscape did not mean every public building was protected from fast-moving structural fires."),
+    p("As the square developed, civic buildings, rail facilities, banks and downtown commercial properties changed how the county used its center. Courthouse history thus belongs in the same visitor narrative as the San Marcos River, Texas State University and the Blanco River—not as an isolated piece of ornament."),
+
+    h("Hays County courthouse questions"),
+    p("When did the previous San Marcos courthouse burn? The 1882–83 courthouse lost its upper story to a fire on February 28, 1908."),
+    p("Was the present Hays County Courthouse damaged in that fire? No. It replaced the damaged building and was completed and accepted in December 1909."),
+    p("Why have there been four Hays courthouses? The county began in a shared log church-schoolhouse, then rebuilt in 1861, 1882–83 and 1909 as construction failures, growth and fire changed its needs."),
+    p("What is the best research source for the dates? The Texas Historical Commission's official Courthouses of Hays County historical marker and Texas State University's historical photographs."),
     h("Texas State University changed the county seat"),
     p("Education became one of San Marcos's defining economic and cultural forces after Southwest Texas State Normal School opened in 1903. The institution evolved into today's Texas State University, and its hillside campus now rises directly above downtown and the river. University growth changed housing, employment, transportation and the rhythm of the city, bringing a large student population and a permanent concentration of faculty, research and cultural institutions."),
     p("The relationship between town, campus and river gives San Marcos a character different from many other fast-growing I-35 cities. Downtown businesses serve county residents, students and visitors at the same time. Trails and parks connect civic space with university land. The result is a county seat where public institutions, recreation and commercial life overlap in unusually visible ways."),
@@ -108,5 +125,12 @@ export const haysCountySanMarcosBlancoHillCountryArticle: Article = {
     { label: "U.S. Census Bureau QuickFacts — Hays County, Texas", url: "https://www.census.gov/quickfacts/fact/table/hayscountytexas/POP010220" },
     { label: "Texas Parks and Wildlife — Blanco River waterway analysis", url: "https://tpwd.texas.gov/publications/pwdpubs/pwd_rp_t3200_1047/13_c_tx_blanco_bosque.phtml" },
     { label: "Wikimedia Commons — Hays County Courthouse (2018), San Marcos, TX", url: "https://commons.wikimedia.org/wiki/File:Hays_County_Courthouse_(2018),_San_Marcos,_TX.jpg" },
+  ],
+  sources: [
+    { label: "Texas Historical Commission — The Courthouses of Hays County marker 5209010280", url: "https://atlas.thc.texas.gov/Details/5209010280" },
+    { label: "Texas State University archives — San Marcos's four courthouse buildings", url: "https://exhibits.library.txstate.edu/s/archives/page/des-san-marcos" },
+    { label: "San Marcos visitors bureau — 1908 courthouse fire and 1909 replacement", url: "https://www.visitsanmarcos.com/blog/post/history-lovers-guide-to-san-marcos/" },
+    { label: "Society of Architectural Historians — Hays County Courthouse", url: "https://sah-archipedia.org/buildings/TX-01-BT9" },
+    { label: "Texas Historical Commission — San Marcos historic downtown", url: "https://atlas.thc.texas.gov/Details/2100000271" },
   ],
 };

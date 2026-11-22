@@ -8,9 +8,9 @@ export const bellCountyBeltonTempleFortHoodLakesArticle: Article = {
   brandId: "texasdefined",
   slug: "bell-county-belton-temple-fort-hood-lakes-texas",
   title: "Bell County: Belton, Temple, Fort Hood and the Lakes of Central Texas",
-  dek: "Bell County brings together an 1850 courthouse town, a railroad-and-medical city, one of the Army's largest armored installations, spring-fed Salado and two major reservoirs along the transition from Blackland Prairie to rocky Central Texas uplands.",
+  dek: "Why Belton lost and reconstructed its 125-foot courthouse tower, how the 1889 downtown fire reshaped the square, and Bell County’s Central Texas history.",
   category: "texas-history",
-  region: "central-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bell%20County%20Texas%20Courthouse%20March%202017.jpg?width=1600",
     alt: "Historic Bell County Courthouse in downtown Belton, Texas",
@@ -20,7 +20,8 @@ export const bellCountyBeltonTempleFortHoodLakesArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: ["Bell County", "Belton", "Temple", "Killeen", "Fort Hood", "Salado", "Belton Lake", "Stillhouse Hollow Lake", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -49,6 +50,21 @@ export const bellCountyBeltonTempleFortHoodLakesArticle: Article = {
     p("The present Bell County Courthouse was completed in 1884 at 101 East Central Avenue in Belton. The Texas Historical Commission identifies Jasper N. Preston as the architect and describes the building as Renaissance Revival, constructed of local limestone. Its tall central tower, clock faces and statue of Lady Justice give the building a vertical presence that can be seen above the downtown square."),
     p("The courthouse has changed and been restored over time. Mid-twentieth-century alterations removed portions of the original roofline and tower, while later preservation work reconstructed historic exterior features. Today it remains an active courthouse as well as a Recorded Texas Historic Landmark, State Antiquities Landmark and National Register property. Few buildings explain Belton's identity more efficiently: county government, architecture, preservation and the original town plan all meet at the same square."),
 
+    h("Belton's missing 125-foot courthouse tower was rebuilt in 1999"),
+    p("Belton's limestone Bell County Courthouse is not unchanged since the nineteenth century. The county commissioned the Austin architectural firm Jasper N. Preston & Son to design a Renaissance Revival courthouse in 1884, replacing earlier courthouse buildings. Records vary between an 1884 construction date and an 1885 completion date; the Texas Historical Commission calls it the 1885 courthouse while its architectural inventory uses 1884. The more important fact is that the grand original building included a tower rising approximately 125 feet above the square."),
+    p("The clock tower once carried a twelve-foot statue of the Goddess of Justice, along with decorative metalwork and corner roof cupolas. During mid-twentieth-century modernization, county officials removed the damaged tower, dome and statuary. It was not a courthouse destroyed in an 1889 fire; that fire affected much of Belton's surrounding commercial district, which was rebuilt in brick and stone."),
+    p("A major preservation effort completed in December 1999 reconstructed the roofline, four clock faces, working clock mechanism and a reproduction of the Justice statue using photographic and documentary references. The restored skyline combines historic masonry with new replicas of documented original elements, so a current photograph cannot establish that the 125-foot tower is an entirely original 1880s survivor."),
+    p("The city of Belton's adopted budget and the Texas Historical Commission describe the 1999 restoration independently. From the square, compare the courthouse's reconstructed tower with commercial buildings rebuilt after the 1889 fire: together they show different causes and periods of architectural loss."),
+
+    h("The 1889 Belton downtown fire changed the whole square"),
+    p("The 1889 fire devastated much of Belton's commercial business district. Merchants responded with more fire-resistant buildings and reordered storefronts, giving the surrounding historic district much of its later nineteenth-century appearance. The county courthouse remained standing, so historical photographs must distinguish the downtown business fire from the removal of the courthouse tower decades later."),
+    p("Belton's combined history is a stronger visitor guide than a generic description of a 'historic courthouse': it identifies what burned, what was demolished deliberately, what remained and what was reconstructed. The nearby Bell County Museum in the former Carnegie Library and the town's courthouse markers provide further documentary context; current museum hours should be checked with its operator."),
+
+    h("Quick answers about Belton's courthouse and fires"),
+    p("Did the 1889 fire destroy the Bell County Courthouse? No. The blaze burned much of the surrounding commercial district; the courthouse itself survived."),
+    p("Where did the courthouse's original clock tower go? It was removed during mid-twentieth-century modernization, then reconstructed from historic records in 1999."),
+    p("How tall is the reconstructed central courthouse tower? The Texas Historical Commission documents the original as approximately 125 feet, with a large Justice statue above it."),
+    p("Why do sources give 1884 and 1885 courthouse dates? Construction began in 1884 and THC records use differing completion conventions. The existing building belongs to the 1884–85 construction period."),
     h("Temple exists because the railroad chose a site"),
     p("Temple began in 1881 when the Gulf, Colorado and Santa Fe Railway established a town and operating point northeast of Belton. The community was named for railroad engineer Bernard Moore Temple. A public sale of town lots quickly attracted businesses and residents, and the arrival of the Missouri, Kansas and Texas Railway the next year reinforced Temple's position as a transportation hub. The railroad made Temple one of those Texas cities whose street pattern, economy and early population were created by steel tracks rather than a courthouse square."),
     p("The surviving Santa Fe depot tells that story especially well. The current depot was completed in 1911 after earlier facilities became too small for the railroad's growing passenger and administrative needs. It now houses the Temple Railroad and Heritage Museum, where the city's origin as a division point is preserved in a building that once handled the movement of passengers, workers, mail and freight across the state."),
@@ -112,5 +128,12 @@ export const bellCountyBeltonTempleFortHoodLakesArticle: Article = {
     h("Bell County is a county of transitions"),
     p("Few Texas counties combine so many major transitions in such a compact area. Blackland Prairie becomes limestone upland. A courthouse town gives way to a railroad city. Agricultural communities meet one of the country's largest armored military installations. Rivers become reservoirs. A stage-road village sits only minutes from a modern interstate corridor."),
     p("Those contrasts are not contradictions; they are the reason Bell County matters. Each new transportation system, institution and population wave has added another layer without fully erasing the one before it. The result is a county where Texas history can be read in the courthouse tower, the depot platform, the military gates, the lake shore and the dark prairie soil—all within a single day's drive."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1885 Bell Courthouse and reconstructed tower marker", url: "https://atlas.thc.texas.gov/Details/5027012460" },
+    { label: "Texas Historical Commission — architectural inventory, 125-foot clock tower", url: "https://atlas.thc.texas.gov/Details/4302000214" },
+    { label: "City of Belton — official 1999 courthouse restoration account", url: "https://www.beltontexas.gov/document_center/Finance/annual%20budget/2013%20Budget.pdf" },
+    { label: "Society of Architectural Historians — historic 1884-85 courthouse", url: "https://sah-archipedia.org/buildings/TX-01-NS27" },
+    { label: "Texas Historical Commission — Belton Commercial Historic District", url: "https://atlas.thc.texas.gov/Details/2090001868" },
   ],
 };
