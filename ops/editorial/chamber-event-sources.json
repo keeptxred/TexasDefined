@@ -4235,6 +4235,51 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "jacksboro-chamber-community-calendar",
+      "organization": "Jacksboro Chamber of Commerce first-party community calendar",
+      "countySlugs": [
+        "jack"
+      ],
+      "homeUrl": "https://jacksborochamber.com/",
+      "calendarUrl": "https://jacksborochamber.com/community-calendar",
+      "contactPageUrl": "https://jacksborochamber.com/community-calendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "jacksonville-chamber-community-events",
+      "organization": "Jacksonville Chamber of Commerce first-party mixed community and business event calendar",
+      "countySlugs": [
+        "cherokee"
+      ],
+      "homeUrl": "https://www.jacksonvilletexas.com/",
+      "calendarUrl": "https://business.jacksonvilletexas.com/events/",
+      "contactPageUrl": "https://business.jacksonvilletexas.com/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-gonzales-community-venue-calendar",
+      "organization": "City of Gonzales municipal community and venue event calendar",
+      "countySlugs": [
+        "gonzales"
+      ],
+      "homeUrl": "https://www.gonzales.texas.gov/",
+      "calendarUrl": "https://www.gonzales.texas.gov/events",
+      "contactPageUrl": "https://www.gonzales.texas.gov/p/departments/tourgonzales/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
