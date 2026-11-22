@@ -4190,6 +4190,51 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "visit-brownwood-community-calendar",
+      "organization": "Visit Brownwood official visitor and community event calendar",
+      "countySlugs": [
+        "brown"
+      ],
+      "homeUrl": "https://visitbrownwood.com/",
+      "calendarUrl": "https://visitbrownwood.com/events",
+      "contactPageUrl": "https://visitbrownwood.com/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-marshall-current-event-directory",
+      "organization": "Visit Marshall city tourism official community and seasonal event directory",
+      "countySlugs": [
+        "harrison"
+      ],
+      "homeUrl": "https://visitmarshalltexas.com/",
+      "calendarUrl": "https://visitmarshalltexas.com/event-directory/",
+      "contactPageUrl": "https://visitmarshalltexas.com/event-directory/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "go-medina-county-upcoming-community-events",
+      "organization": "GoMedina County local development and community event resource",
+      "countySlugs": [
+        "medina"
+      ],
+      "homeUrl": "https://www.gomedinacounty.com/",
+      "calendarUrl": "https://www.gomedinacounty.com/upcoming-events",
+      "contactPageUrl": "https://www.gomedinacounty.com/upcoming-events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
