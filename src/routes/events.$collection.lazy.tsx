@@ -569,6 +569,25 @@ function GenericCollectionPage({ page }: { page: any }) {
         </section>
       ) : null}
 
+      {page.path === "/events/christmas-events" && page.annualHolidayGuides?.length ? (
+        <section className="pt-12" aria-labelledby="christmas-annual-traditions">
+          <div className="border-b border-border pb-6">
+            <p className="eyebrow text-primary">Permanent community event guides</p>
+            <h2 id="christmas-annual-traditions" className="mt-2 font-display text-4xl">Annual holiday traditions awaiting their next dates</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These previously documented celebrations remain useful for planning and local history, but their last confirmed dates are past. This is not an upcoming-event calendar. Check the organizer for a newly announced season.</p>
+          </div>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {page.annualHolidayGuides.map((event: any) => (
+              <li key={event.slug} className="border border-border p-5">
+                <a href={event.href} className="font-display text-xl font-semibold hover:text-primary">{event.name}</a>
+                <p className="mt-2 text-sm text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
+                <p className="mt-2 text-xs text-muted-foreground">Last confirmed edition: {event.lastConfirmedYear} · next date unannounced</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {page.path === "/events/christmas-events" && page.christmasCommunityEvents?.length ? (
         <section className="pt-12" aria-labelledby="christmas-community-events">
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
