@@ -42,7 +42,7 @@ must("guide", 'type: "image"');
 for (const [key, needle] of [
   ["guide", "Rusk Penitentiary"], ["guide", "1883"], ["guide", "528"],
   ["guide", "February 1884"], ["guide", "1909"], ["guide", "1910"], ["guide", "1917"], ["guide", "1919"],
-  ["guide", "Texas State Capitol"], ["guide", "prison labor"], ["guide", "power plant"],
+  ["guide", "Texas State Capitol"], ["guide", "Prison labor"], ["guide", "power plant"],
   ["guide", "Rusk State Hospital"], ["guide", "Texas & Eastern"], ["guide", "Union Pacific"],
   ["guide", "International & Great Northern"], ["guide", "film"], ["guide", "working facilities"],
   ["guide", "Palestine Depot"], ["guide", "Rusk Depot"], ["guide", "45 minutes"], ["guide", "FAQ"],
