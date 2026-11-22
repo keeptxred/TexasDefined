@@ -8,7 +8,7 @@ export const jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle: A
   brandId: "texasdefined",
   slug: "jefferson-county-beaumont-port-arthur-spindletop-gulf-coast-texas",
   title: "Jefferson County: Spindletop, Ship Channels and the Texas Gulf Coast",
-  dek: "Jefferson County is where Beaumont, Port Arthur, Spindletop, the Neches River, coastal marshes and one of America's great energy corridors come together on the upper Texas Gulf Coast.",
+  dek: "The 1931 Art Deco Beaumont Courthouse, its Victorian predecessor, the fire-damaged Gilbert landmark, Spindletop and Jefferson County's Gulf Coast industry.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle: A
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: [
     "Jefferson County",
     "Beaumont Texas",
@@ -32,6 +33,10 @@ export const jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle: A
     "Texas Gulf Coast",
     "Texas petrochemicals",
     "Texas counties",
+    "1931 Jefferson County Courthouse",
+    "Art Deco Beaumont landmark",
+    "1901 Gilbert Building fire",
+    "2024 Gilbert Building fire",
   ],
   featured: false,
   internalLinks: [
@@ -80,6 +85,22 @@ export const jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle: A
     p("The Jefferson County Courthouse rises above downtown Beaumont at Pearl and Franklin streets. The Art Deco-era tower is one of the city's clearest civic landmarks and reflects the scale and confidence of a county transformed by oil, shipping and industrial growth. Its height and vertical design make it unusually prominent among Texas courthouses."),
     p("Downtown Beaumont also preserves other pieces of the county's urban history, including theaters, libraries, commercial buildings and cultural institutions. The courthouse is a practical starting point for understanding how the oil boom reshaped government, architecture and public life."),
 
+    h("Beaumont's 1931 Art Deco courthouse replaced three smaller generations"),
+    p("Jefferson County's courthouse site has been occupied by public institutions since 1838, two years after county organization. The earliest county building there was a wooden jail, followed by temporary courtroom meetings and an 1854 courthouse. County leaders later commissioned a more elaborate Victorian courthouse completed in 1893 as Beaumont became a railroad and timber center."),
+    p("Spindletop's 1901 oil discovery and the later refining boom made the 1893 courthouse inadequate. In 1930 county officials moved offices into temporary quarters in the former Beaumont High School while a much larger structure was built. The resulting fourteen-story courthouse at 1149 Pearl Street, designed by Beaumont architects Fred C. Stone and Augustin Babin, was accepted for county use at the end of December 1931, with some architectural histories dating the overall project to 1931–32."),
+    p("The building was one of the first skyscraper-style county courthouses in Texas. Its stepped Art Moderne facade uses contrasting brick and stone, vertical decorative elements and richly finished marble public spaces. The unusual plan stacked jail space above court and administrative floors. A 1981 courthouse annex later increased the amount of public office space, but it is a separate addition rather than a replacement of the 1931 tower."),
+    p("These distinctions matter when identifying period views of downtown Beaumont. A nineteenth-century courthouse with a central tower is the demolished predecessor, not the tall Art Deco building. The 1931 structure has its own historic significance as a direct product of the county's oil-era prosperity; the National Register nomination and county Historical Commission document the succession."),
+
+    h("The fire and rescue story of the 1902 Gilbert Building"),
+    p("Beaumont's downtown heritage also includes buildings that survived repeated disasters. The original Gilbert Building burned during the 1901 boom year and was replaced around 1902 with the historic commercial structure that later became a downtown landmark. A serious 2024 fire damaged the later building and triggered a prolonged dispute over public safety and demolition."),
+    p("In November 2026 local reporting described a change in the building's fate: owners had secured unstable portions and removed dangerous fire-damaged material sufficiently that the city rescinded its imminent-danger demolition order. This does not mean a complete architectural restoration is finished or that the property is safe for public tours. It means a threatened survivor of the oil-era commercial district was spared immediate demolition while longer-term preservation remained to be resolved."),
+    p("The Gilbert story provides a useful comparison with the courthouse. The courthouse was replaced deliberately as the county grew; the 1902 commercial landmark reflects fire, rebuilding and modern preservation conflicts. A responsible guide should label both the historical fire and the current property's restrictions instead of suggesting all surviving buildings operate as museums."),
+    
+    h("Jefferson County courthouse questions"),
+    p("When was Beaumont's present courthouse built? Its fourteen-story Art Deco structure opened for county use in December 1931, with the construction period also described as 1931–32."),
+    p("Who designed the courthouse? Local architects Fred C. Stone and Augustin Babin, whose modern design followed the county's oil boom."),
+    p("Was the present courthouse the first on that block? No. County institutions occupied the site from 1838, and an ornate Victorian courthouse stood there before the 1931 replacement."),
+    p("Did the 1902 Gilbert Building burn recently? It suffered major damage in 2024, and November 2026 reporting said stabilization had halted immediate demolition; interior public access was not confirmed."),
     h("Historic Beaumont has more than one story"),
     p("The McFaddin-Ward House, John Jay French Museum, Texas Energy Museum and Gladys City Boomtown help interpret different eras of Beaumont's development. Together they move the story from nineteenth-century settlement through lumber wealth and into the Spindletop transformation. The Babe Didrikson Zaharias Museum adds another dimension by connecting Beaumont to one of the most accomplished athletes in American history."),
     p("These sites matter because Jefferson County's industrial landscape can otherwise overshadow its residential and cultural history. Oil created enormous change, but families, neighborhoods, schools, churches, music, sports and civic institutions gave that change a human scale."),
@@ -110,5 +131,14 @@ export const jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle: A
 
     h("Keep exploring Southeast Texas"),
     p("Jefferson County is the industrial heart of a much larger Southeast Texas landscape. Cross the Neches into Orange County for the Sabine River, shipbuilding history and Shangri La. Go north through Hardin County for Big Thicket forests and bayous, or west toward Chambers and Liberty counties where the upper Gulf Coast transitions into Trinity Bay, prairie and the lower Trinity River corridor. Together these counties show why Southeast Texas is both East Texas and Gulf Coast Texas at once."),
+  ],
+  sources: [
+    { label: "Jefferson County Historical Commission — documentary courthouse history", url: "https://jeffersoncountytx.gov/Historical_Commission/Jeff_Court.html" },
+    { label: "Texas Historical Commission — 1931 county courthouse official marker", url: "https://atlas.thc.texas.gov/Details/5245010536/print" },
+    { label: "National Register of Historic Places — Jefferson County Courthouse nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/82004509/82004509.pdf" },
+    { label: "Society of Architectural Historians — courthouse and 1981 annex", url: "https://sah-archipedia.org/buildings/TX-01-BM1" },
+    { label: "Jefferson County Commissioners Court — Dec. 28, 1931 acceptance minutes", url: "https://cdm17006.contentdm.oclc.org/digital/api/collection/maresh/id/44/download" },
+    { label: "City of Beaumont — municipal historical timeline", url: "https://www.beaumonttexas.gov/542/Timeline-of-Beaumont-Texas" },
+    { label: "Chron — November 2026 fire-damaged Gilbert Building stabilized", url: "https://www.chron.com/texas/article/beaumont-gilbert-building-saved-demolition-22537623.php" },
   ],
 };
