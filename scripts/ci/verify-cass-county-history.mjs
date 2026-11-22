@@ -65,6 +65,8 @@ for (const item of culturalSections) {
 }
 for (const item of [
   'Sandy Pinkard', 'Pinkard & Bowden', 'Richard Bowden',
+  'The Four Speeds, Felicity and Shiloh', 'Cass County Boys',
+  'Music Friendly Texas Certified Community',
   '108 Legion Street', 'former American Legion',
   'musiccitytexas.org', 'T-Bone Walker Blues Festival',
   'Scott Joplin', 'birthplace is not settled',
@@ -73,6 +75,8 @@ for (const item of [
   'texastimetravel.com/cities/linden/',
   'lindentxchamber.org/aboutus',
   'houstonpress.com/news/strings-attached-6551821/',
+  'capitol.texas.gov/tlodocs/851/billtext/html/HR00122F.htm',
+  'iwesternmusic.org/performer-detail.php?id=2248',
 ]) {
   assert.ok(source.includes(item), `Cass County missing music heritage or source: ${item}`);
 }
