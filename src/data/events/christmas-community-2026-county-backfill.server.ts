@@ -573,5 +573,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "City of Elmendorf",
   "summary": "The City of Elmendorf's official 2026 Christmas in the Park celebrates Saturday, December 5, from 4–8 p.m. at Felix B. Guerra City Park, 16555 Old Corpus Christi Road. The Gingerbread-themed Christmas Parade kicks off at 4 p.m.; tree lighting is at 6 p.m., free Santa photographs run 6–8 p.m., and families can enjoy free carnival rides, treats and activities. Parade staging at 1 p.m. is for registered participants, not general visitors.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "eastland-rips-cowboy-christmas-parade-2026",
+  "title": "Rip's Cowboy Christmas Lighted Parade & One Starry Night",
+  "city": "Eastland",
+  "countySlug": "eastland",
+  "countyName": "Eastland County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Main Street & Grimes Garden, downtown Eastland",
+  "officialEventUrl": "https://business.eastlandchamber.com/eventcalendar/Details/rip-s-a-cowboy-christmas-lighted-christmas-parade-1953253?sourceTypeId=Website",
+  "sourceName": "Eastland Chamber of Commerce and Eastland Community Foundation",
+  "summary": "Eastland Chamber's exact 2026 event listing confirms Rip's Cowboy Christmas Lighted Parade Saturday, December 5, from 6–7 p.m. along Main Street. The surrounding One Starry Night celebration continues at Grimes Garden with Santa visits, cookies, hot chocolate and Christmas performers. The Chamber says attendance, cookies and hot chocolate are free; float line-up at 5 p.m. is specifically for parade participants. Separate neighboring Cisco and Ranger lighted parades take place December 3 and 4.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "bowie-fantasy-of-lights-christmas-festival-2026",
+  "title": "Bowie 35th Annual Fantasy of Lights Christmas Festival & Parade",
+  "city": "Bowie",
+  "countySlug": "montague",
+  "countyName": "Montague County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Downtown Bowie · Mason, Wise and Smythe streets",
+  "officialEventUrl": "https://cityofbowietx.com/143/Fantasy-of-Lights-Christmas-Parade",
+  "sourceName": "City of Bowie Community Development / Bowie Chamber",
+  "summary": "The Bowie Chamber's 2026 events calendar explicitly confirms its 35th Annual Fantasy of Lights Christmas Festival and Lighted Parade for Saturday, December 5. The City's parade organizer page says the downtown parade begins at 7 p.m. and travels Mason, Wise and Smythe streets, with the theme 'Merry & Bright Christmas.' Free Santa photographs are scheduled with the Fire Department during Pancakes with Santa, while downtown Christmas activities take place through the day. Check the city for street closure updates.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
