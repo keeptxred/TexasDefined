@@ -113,7 +113,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2026-12-23",
     venue: "Zilker Metropolitan Park",
     officialUrl: "https://austintrailoflights.org/event-faqs",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Austin's Trail of Lights fills Zilker Park with illuminated displays, family-friendly traditions and a citywide holiday atmosphere. The most important decision is not which decorations to see, but how the selected night changes admission and how visitors reach the car-restricted park.",
     quickFacts: [
       {
@@ -122,7 +122,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         label: "Public hours",
-        value: "7–10 p.m.; ZIP and Platinum early entry at 6 p.m."
+        value: "7–10 p.m.; ZIP, Platinum and qualifying accessibility early entry at 6 p.m."
       },
       {
         label: "Free general admission",
@@ -144,15 +144,15 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Compare GA, shuttle, ZIP and Platinum",
-        body: "The official shuttle ticket includes general admission on participating nights. ZIP provides 6 p.m. entry and lounge benefits, while Platinum has separate premium access and amenities. Select one eligible product rather than buying a redundant general-admission ticket."
+        body: "The shuttle runs December 12 and 18–23 from the Toney Burger Activity Center, with free parking there. Each shuttle pass includes general admission, so do not buy another gate ticket. Buses leave the center 5:30–8:30 p.m.; the last return leaves Zilker at 10:45 p.m. ZIP and Platinum are separate 6 p.m. entry products. On free GA nights no advance GA ticket is required."
       },
       {
         title: "Reserve parking before the drive",
-        body: "Organizers say Zilker Park advance parking is online only and no parking is sold on site. Expect holiday traffic, pedestrian controls and walking distances; the shuttle may be the easier choice for families on peak nights."
+        body: "Buy a Zilker parking pass online before driving; onsite sales are unavailable. Parking opens at 5:30 p.m. and the organizer instructs drivers to follow their pass directions rather than GPS. Neighborhood parking is prohibited; the 2026 street-closure schedule was still pending on November 21. The designated rideshare point is 2107 Veterans Drive, with a footbridge approach toward Stratford Drive. For transit, check CapMetro routes 3, 30 and 803 and the return timetable."
       },
       {
         title: "Know the walk and weather implications",
-        body: "The lights cover a large outdoor trail. Wear comfortable footwear and layers, allow time for the entry queue and confirm mobility-access details before choosing upgraded tickets. The event proceeds in ordinary rain but can close for extreme weather or city-park closures."
+        body: "Plan for roughly one mile of displays plus the distance from parking. The organizer provides an accessible entrance at Lou Neff and Barton Springs roads, accessible toilets and an accessibility center, but not loan wheelchairs or accessible event shuttles. Guests with disabilities and up to three companions can enter from 6 p.m.; required admission still applies on paid nights. Purchase accessible parking in advance and follow the placard instructions. Some trail surfaces may become muddy in rain; check weather and contact the organizer about accommodation needs."
       },
       {
         title: "Pets are restricted",
@@ -160,7 +160,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Pair with Austin without overpacking the night",
-        body: "Use daylight for Barton Springs/Zilker-area sights or downtown Austin, then plan the lights as the fixed evening event. Downtown hotel choice should reflect shuttle access and holiday traffic rather than distance alone."
+        body: "Choose the afternoon around your actual entry and transport plan. A free-night visit avoids admission costs, but it is not one of the scheduled shuttle nights. A south Austin shuttle visit on a paid night can remove the need to reserve Zilker parking. The separate December 4 Night Lights Preview Party is not a regular GA night. The official FAQ also identifies paid wheel and carousel rides and a family privacy tent near Santa's House."
       }
     ],
     relatedLinks: [
