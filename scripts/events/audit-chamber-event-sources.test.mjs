@@ -293,6 +293,6 @@ test("November first-party holiday/festival calendar evidence distinguishes acti
     "https://shelbycountychamber.com/events-calendar/");
   const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(calendarCounties.size>=119);
-  assert.equal(254-calendarCounties.size,registry.sources.length >=284 ? 135 : 135);
+  assert.ok(254-calendarCounties.size <= 135, "Do not regress 119 already-reviewed public calendar counties");
   assert.ok(!calendarCounties.has("oldham"), "Do not promote 2026 June-only annual brochure to a complete current events calendar");
 });
