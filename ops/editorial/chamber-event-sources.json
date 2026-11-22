@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "purpose": "Public, first-party Texas chamber event source discovery. Research leads only; not publishable event facts.",
+  "rules": {
+    "sender": "admin@texasdefined.com",
+    "mailProvider": "Microsoft 365 Outlook only",
+    "noGmail": true,
+    "contactInformation": "Private Outlook and protected outreach command center only; never commit recipient lists",
+    "publication": "Require current organizer confirmation for dates, venue, cancellations and image rights",
+    "backlinks": "Earned, optional citations only; never paid, required or reciprocal"
+  },
+  "sources": [
+    {
+      "id": "gladewater-chamber",
+      "organization": "Gladewater Chamber of Commerce",
+      "countySlugs": [
+        "gregg",
+        "upshur"
+      ],
+      "homeUrl": "https://gladewaterchamber.org/",
+      "calendarUrl": "https://gladewaterchamber.org/whats-new/",
+      "contactPageUrl": "https://gladewaterchamber.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "lufkin-angelina-chamber",
+      "organization": "Lufkin/Angelina County Chamber of Commerce",
+      "countySlugs": [
+        "angelina"
+      ],
+      "homeUrl": "https://www.lufkintexas.org/",
+      "calendarUrl": "https://www.lufkintexas.org/",
+      "contactPageUrl": "https://members.lufkintexas.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "kimble-county-chamber",
+      "organization": "Kimble County Chamber of Commerce",
+      "countySlugs": [
+        "kimble"
+      ],
+      "homeUrl": "https://www.kimblecountychamber.com/",
+      "calendarUrl": "https://www.kimblecountychamber.com/calendar",
+      "contactPageUrl": "https://www.kimblecountychamber.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "port-arthur-chamber",
+      "organization": "Greater Port Arthur Chamber of Commerce",
+      "countySlugs": [
+        "jefferson"
+      ],
+      "homeUrl": "https://chamber.portarthurtexas.com/",
+      "calendarUrl": "https://chamber.portarthurtexas.com/",
+      "contactPageUrl": "https://chamber.portarthurtexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    }
+  ]
+}
