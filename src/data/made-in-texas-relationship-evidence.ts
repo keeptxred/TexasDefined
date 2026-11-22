@@ -39,9 +39,9 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Dell Technologies",
-    "claim": "The company lists its corporate address at One Dell Way in Round Rock.",
-    "sourceLabel": "Dell Technologies",
-    "sourceUrl": "https://www.dell.com/en-us/shop/contact-us/lp/contact-us-premier",
+    "claim": "The fiscal 2026 Form 10-K identifies One Dell Way in Round Rock as its principal executive offices.",
+    "sourceLabel": "SEC fiscal 2026 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1571996/000157199626000008/dell-20260130.htm",
     "checkedAt": "2026-11-21"
   },
   {
@@ -202,7 +202,7 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "entryName": "Siete Foods",
     "claim": "PepsiCo identifies Austin as the 2014 founding location; the Garza family developed its original almond-flour tortilla in Laredo.",
     "sourceLabel": "PepsiCo acquisition announcement",
-    "sourceUrl": "https://www.pepsico.com/en/newsroom/press-releases/2025/pepsico-completes-acquisition-of-siete-foods?trk=article-ssr-frontend-pulse_little-text-block",
+    "sourceUrl": "https://www.pepsico.com/en/newsroom/press-releases/2025/pepsico-completes-acquisition-of-siete-foods",
     "checkedAt": "2026-11-21"
   },
   {
@@ -305,9 +305,9 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Pappas Restaurants",
-    "claim": "The company's history identifies Houston as the base of its privately owned restaurant group.",
+    "claim": "The company's timeline documents its family's first Houston restaurant, Dot Coffee Shop, in 1967 and subsequent Houston restaurant openings.",
     "sourceLabel": "Pappas Restaurants",
-    "sourceUrl": "https://www.m.pappas.com/about/pappas-history/",
+    "sourceUrl": "https://www.pappas.com/about/",
     "checkedAt": "2026-11-21"
   },
   {
