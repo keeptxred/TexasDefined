@@ -18,6 +18,9 @@ const sitemap = read("src/routes/sitemap[.]xml.ts");
 const eventLanding = read("src/components/events/EventsLandingPage.tsx");
 const refresh = read("scripts/events/event-page-refresh-governance.mjs");
 const lifecycle = read("src/data/major-event-authority.ts");
+const reviewedEnrichment = read("src/data/major-event-schema-enrichment-batch33.server.ts");
+const schemaOverrides = read("src/data/major-event-schema-enrichment-overrides.server.ts");
+const countyHead = read("src/routes/$kind.$slug.tsx");
 
 const includesAll = (label, source, snippets) => snippets.forEach((s) => assert.ok(source.includes(s), label + " missing " + s));
 includesAll("Rusk county", county, [
@@ -67,6 +70,18 @@ includesAll("Sitemap live editorial date and edge invalidation", sitemap, [
 includesAll("Museum reverse links", destinationPage, [
   'destination.slug === "rusk-county-depot-museum-history-center-henderson"',
   'href="/event/heritage-syrup-festival"', 'href="/county/rusk"',
+]);
+includesAll("Reviewed core festival schema and legally reusable actual museum venue image", reviewedEnrichment, [
+  'slug: "heritage-syrup-festival"', "Michael Barera",
+  "Henderson_July_2017_09_", "not at the 2026 festival",
+  "approvedForCommercialUse: true", "exactLocation: true",
+  "https://creativecommons.org/licenses/by-sa/4.0/",
+]);
+assert.ok(!schemaOverrides.includes('slug: "heritage-syrup-festival"'), "Core Event must have one reviewed registry entry");
+includesAll("Keep SEO search intent API intact", countyHead, [
+  "title: searchIntentTitle(loaderData.entity)",
+  "entity.slug === 'rusk'",
+  "Rusk County, Texas: Henderson, Syrup Capital & History",
 ]);
 includesAll("Events hub festival discovery", eventLanding, [
   'href="/event/heritage-syrup-festival"', "archived 37th annual festival",
