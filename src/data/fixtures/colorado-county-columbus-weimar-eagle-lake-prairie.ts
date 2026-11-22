@@ -8,7 +8,7 @@ export const coloradoCountyColumbusWeimarEagleLakePrairieArticle: Article = {
   brandId: "texasdefined",
   slug: "colorado-county-columbus-weimar-eagle-lake-prairie-texas",
   title: "Colorado County: Columbus, Weimar, Eagle Lake and the Coastal Prairie",
-  dek: "Colorado County follows the Colorado River through Columbus and stretches south and west across rice country, historic rail towns, German and Czech communities and one of the last great remnants of Texas coastal prairie near Eagle Lake.",
+  dek: "Columbus’s 1891 courthouse lost its clock tower to a 1909 hurricane; discover the copper dome, 2006 courtroom collapse, 2014 restoration and Colorado County history.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const coloradoCountyColumbusWeimarEagleLakePrairieArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Colorado County",
     "Columbus",
@@ -31,6 +32,9 @@ export const coloradoCountyColumbusWeimarEagleLakePrairieArticle: Article = {
     "Texas coastal prairie",
     "Texas history",
     "Texas counties",
+    "Colorado County Courthouse 1909 hurricane",
+    "2006 courthouse courtroom ceiling collapse",
+    "2014 Columbus courthouse restoration",
   ],
   featured: false,
   internalLinks: [
@@ -59,6 +63,23 @@ export const coloradoCountyColumbusWeimarEagleLakePrairieArticle: Article = {
     p("After the county organized, Columbus developed around county government, trade and transportation. The courthouse square provided a durable center where court sessions, records, elections and business brought rural residents into town. Over time, commercial buildings, churches, schools, newspapers and houses filled the surrounding streets. Columbus never became a large city, which helped preserve the scale of its historic core."),
     p("The current Colorado County Courthouse was erected in 1890–1891 and designed by Houston architect Eugene T. Heiner. Its brick and stone walls form a Greek-cross plan, while the building's roofline tells a story of adaptation. A 1909 storm damaged the original tower, leading to a replacement dome. Later alterations changed parts of the courthouse again before a major preservation effort restored important historic features. Today the building remains the visual anchor of downtown Columbus."),
 
+    h("The 1909 hurricane took the courthouse tower—and gave Columbus a different dome"),
+    p("The present Colorado County Courthouse in Columbus was designed by Eugene T. Heiner and completed in 1891 in a Renaissance Revival form. Its original roof featured a tall clock tower rising out of a hipped roof. Historical photographs show a very different skyline from the copper-domed courthouse visitors know today."),
+    p("A 1909 hurricane tore away the tower and damaged much of the roof. Rather than rebuilding the tower exactly, county officials installed a fashionable Italian Renaissance Revival copper dome with alternating windows and ornamental panels. The dome's skylight brought additional daylight into the building; its appearance is a post-storm design decision, not Heiner's untouched 1891 roof."),
+    p("An April 1890 call to build the courthouse led to a cornerstone ceremony on July 7, 1890. Local residents donated metal keepsakes and other mementos for a cornerstone time capsule, as the Texas Historical Commission's marker records. The archive gives an unusual direct view into civic pride at the start of this long-lived courthouse."),
+    p("Several later episodes again exposed the building's vulnerability to Texas weather. Repairs were made to the dome in 1953 and again in 1979. A 1981 storm of tornadic force damaged the red-tile roof. Then, in 2006, a substantial section of plaster ceiling collapsed over the district courtroom; a scheduled trial had fortunately been rescheduled, avoiding injuries. Investigators traced the failure to accumulated water damage and improperly attached plaster lath."),
+    p("The Texas Historical Commission's restoration program restored much of the 1910-era appearance. The courthouse was publicly rededicated May 17, 2014. A careful description therefore needs at least three architectural dates: 1891 original Heiner building, 1909 replacement dome and 2014 rehabilitation."),
+
+    h("Why the courthouse is useful for understanding town safety"),
+    p("The courthouse's roof and courtroom incidents show that infrastructure history includes maintenance, drainage and storm resilience—not only fires. In 1909 the county chose to modernize a damaged tower; in 2006 hidden moisture and an old ceiling assembly almost caused a disaster during a court session. Both events changed how the courthouse was repaired and used."),
+    p("This record also explains a practical point for visiting historic buildings. A preserved courthouse is not proof that all of its original roof elements remain or that an older interior assembly is safe without maintenance. Check current county access and public notices before attending court or requesting entry."),
+    p("Columbus's neighboring Victorian homes and commercial blocks belong to the same nineteenth-century town, but the courthouse's 1910 dome is a twentieth-century adaptation. The original tower appears only in archival photographs and building history."),
+
+    h("Colorado County courthouse questions"),
+    p("When was the Colorado County Courthouse built? The courthouse in Columbus was completed in 1891 from plans by Eugene T. Heiner."),
+    p("What happened to its original clock tower? A hurricane in 1909 destroyed the tower and much of the roof; a copper dome replaced it."),
+    p("What happened in the courtroom in 2006? A large section of plaster ceiling collapsed following moisture and structural deterioration, but the scheduled court trial had been moved."),
+    p("When was the restored courthouse rededicated? The Texas Historical Commission records May 17, 2014."),
     h("Victorian Columbus preserves the prosperity of the late nineteenth century"),
     p("Columbus is notable for the number of nineteenth- and early-twentieth-century houses that survive near the center of town. Their porches, ornamental woodwork, tall windows and landscaped lots reflect a period when merchants, professionals, ranchers and agricultural wealth supported substantial homes. The historic streets help explain why Columbus feels different from a highway service town even though Interstate 10 passes nearby."),
     p("The town's preservation story is also tied to local institutions. The Nesbitt Memorial Library maintains extensive Colorado County historical and genealogical collections, while the county historical commission works with markers, cemeteries and National Register properties. Those archives matter because much of Colorado County's story is distributed among family papers, church records, newspapers, community histories and small places rather than concentrated in a single famous monument."),
@@ -118,5 +139,13 @@ export const coloradoCountyColumbusWeimarEagleLakePrairieArticle: Article = {
     h("Colorado County is a compact lesson in how Texas landscapes change"),
     p("Colorado County's long story is not built around a single event. It is the combination of river crossings, revolution-era movement, slavery and emancipation, railroads, immigration, cotton, cattle, rice, highways, preservation and prairie conservation that gives the county depth. Each era left a different physical trace, from the Columbus courthouse to rail alignments, church cemeteries, irrigated fields and restored grassland."),
     p("The county also demonstrates that Texas regions rarely have clean borders. Colorado County is simultaneously part of the lower Colorado River valley, the Houston–San Antonio corridor, the German and Czech settlement belt and the Gulf Coast prairie. Columbus, Weimar and Eagle Lake each make sense within a different one of those geographies. Taken together, they explain why this county can feel like several versions of Texas compressed into roughly 960 square miles."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Colorado County Courthouse hurricane, dome, 2006 ceiling collapse and 2014 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/colorado-county" },
+    { label: "Texas Historical Commission — courthouse 1890 cornerstone ceremony", url: "https://atlas.thc.texas.gov/Details/5089000026" },
+    { label: "City of Columbus — 1909 storm historic courthouse photograph", url: "https://www.columbustexas.net/page/photo.ch_b_1909" },
+    { label: "Library of Congress — Colorado County Courthouse historical building survey", url: "https://www.loc.gov/resource/hhh.tx0719.photos/?st=image" },
+    { label: "Society of Architectural Historians — Columbus courthouse architectural chronology", url: "https://sah-archipedia.org/buildings/TX-01-PF16" },
+    { label: "Texas State Historical Association — Colorado County", url: "https://www.tshaonline.org/handbook/entries/colorado-county" },
   ],
 };
