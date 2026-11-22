@@ -8,7 +8,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   brandId: "texasdefined",
   slug: "gillespie-county-fredericksburg-stonewall-hill-country-texas",
   title: "Gillespie County: Fredericksburg, Stonewall and a Hill Country Crossroads",
-  dek: "German settlement, granite country, the Pedernales River, presidential history, ranch roads and modern wine country meet in one of the Texas Hill Country's most layered counties.",
+  dek: "Fredericksburg’s 1882 courthouse-turned-library, 1885 jail, 1911 volunteer firehouse, 1939 county seat and German-Texan historical legacy.",
   category: "texas-history",
   region: "hill-country",
   hero: {
@@ -20,7 +20,8 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-11",
-  readingMinutes: 9,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Gillespie County",
     "Fredericksburg",
@@ -123,6 +124,25 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     p("The United States Army established Fort Martin Scott east of Fredericksburg in 1848, the same year the county was organized. The post belonged to the chain of frontier forts created as migration and military activity moved west. Soldiers patrolled routes, escorted travelers and operated in a region where civilian settlements, Indigenous nations and expanding federal power met. The fort also mattered economically: soldiers purchased goods and services in Fredericksburg, giving the young town another market beyond agriculture."),
     p("Fort Martin Scott was active as a U.S. Army post from 1848 to 1853, later served Texas Rangers and briefly came under Confederate control during the Civil War. The surviving and reconstructed site is now operated by the Texas Historical Commission. Its original guardhouse, archeological remains and interpretive buildings make the fort one of the clearest places to understand why Fredericksburg grew where it did and how quickly this immigrant settlement became connected to the wider western frontier."),
 
+    h("Two courthouses—and an 1885 jail—explain Fredericksburg's public square"),
+    p("Fredericksburg's early German settlers organized their civic center around Marktplatz, a two-block market square. The first courthouse, built in 1855 on the square, eventually became too small. Architect Alfred Giles designed a substantial limestone courthouse erected in 1881–82; this historic Second Empire–influenced building continued serving Gillespie County until 1939. It survives today as the Pioneer Memorial Library, rather than as the active county courthouse."),
+    p("When county administration outgrew the 1882 building, the government constructed the present courthouse in 1939 on the separate courthouse square. The former courthouse housed county offices through the 1960s before its adaptation for library use. A visitor reading the town's architecture should distinguish an active 1939 county building from the 1882 historic library: both are real surviving courthouses from different eras, rather than one building whose original roof was removed by fire."),
+    p("Nearby, the 1885 stone Gillespie County Jail served the county until 1939. The Texas Historical Commission's marker identifies it as the fourth county jail and documents its nineteenth-century stone construction. These buildings give Fredericksburg a compact civic walking circuit that connects law, public records, detention and education."),
+    
+    h("The first firehouse occupied a former school on Market Square"),
+    p("Fredericksburg's volunteer fire service is part of the Marktplatz story. An early schoolhouse at the western end of the square was converted in 1911 to serve as headquarters for the volunteer fire department. The square had long been used for community gatherings, livestock and markets; a permanent emergency-service facility changed its civic function again."),
+    p("The old Vereins Kirche stood at the center of Marktplatz until its demolition in 1897. A replica of the octagonal historic structure was erected in 1934–35 to mark Texas Centennial preservation efforts and later served as a museum and public library. The present replica is not the exact original 1847 church, and the 1911 firehouse was in a separate schoolhouse—not in the octagonal museum building."),
+    p("The Texas Historical Commission's Market Square marker documents this sequence. For visitors, it is one of the best examples of a Texas county seat where different stages of civic investment survived in the same walkable area: church and school, fire service, jail, courthouse, library and a rebuilt memorial structure."),
+
+    h("The 1862 Nueces massacre is part of this county's difficult Civil War legacy"),
+    p("The county's German immigrant population included many residents who opposed secession. In August 1862, a group of Unionist Texans attempted to leave Confederate Texas for Mexico, but Confederate cavalry attacked near the Nueces River. Many were killed in the fighting or executed afterward; the tragedy is remembered as the Nueces massacre."),
+    p("Although the attack occurred outside Gillespie County, many participants came from German communities in and around Fredericksburg. The Treue der Union monument in Comfort, in neighboring Kendall County, honors the dead. Its location should not be misrepresented as being in Fredericksburg or Gillespie County. The history helps explain regional opposition to the Confederacy, wartime repression and the lasting importance of German-Texan civic memory."),
+    
+    h("Fredericksburg's courthouse and firehouse questions"),
+    p("Which Fredericksburg courthouse is now a library? Alfred Giles's 1881–82 limestone courthouse, which served the county until 1939, is now Pioneer Memorial Library."),
+    p("When was the current Gillespie County Courthouse constructed? The present active courthouse dates to 1939."),
+    p("Where was Fredericksburg's early volunteer fire station? The volunteer firefighters moved into a former schoolhouse on Marktplatz in 1911."),
+    p("Is the Vereins Kirche the original 1840s building? No. The surviving memorial replica was constructed in 1934–35 after the earlier building was demolished in 1897."),
     h("The Civil War exposed a deep local divide"),
     p("Gillespie County's German population did not move in lockstep with the rest of Confederate Texas. Many residents opposed secession, and wartime coercion fell heavily on Union loyalists in the Hill Country. In 1862 a group attempting to reach Mexico was pursued by Confederate forces and attacked near the Nueces River. The deaths associated with the Battle of the Nueces and the later execution of wounded prisoners became a lasting trauma in German-Texan communities. Fredericksburg's Treue der Union monument commemorates men who died for Union loyalty and preserves a Civil War memory that differs sharply from the narrative found in many other Texas counties."),
     p("That history matters because it shows how ethnicity, migration, local politics and national conflict intersected in the Hill Country. Gillespie County's political identity for much of the late nineteenth and twentieth centuries was unusually Republican for Texas, a pattern historians connect in part to the county's German community and its Civil War experience."),
@@ -151,5 +171,14 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     h("How to read Gillespie County today"),
     p("A useful way to experience Gillespie County is to move outward from Fredericksburg rather than staying only on Main Street. Fort Martin Scott explains why the town mattered on the frontier. Ranch roads north reveal the transition toward granite country and Enchanted Rock. U.S. 290 east passes orchards, vineyards and Stonewall before reaching the LBJ state and national historic sites along the Pedernales. Roads west toward Harper and northwest toward Doss show a quieter ranching landscape where distances widen and the tourism corridor falls away."),
     p("That movement makes the county's defining pattern visible: Gillespie County has repeatedly absorbed new layers without fully erasing the old ones. German farmsteads sit near wineries; a presidential ranch remains a working cattle landscape; a frontier fort survives inside a modern tourism economy; rural schoolhouses stand within reach of one of Texas's busiest small-town destinations. The county's appeal comes from those overlaps. Fredericksburg may be the front door, but the full Gillespie County story is written across the hills, river bottoms, ranch roads and communities beyond it."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — old 1882 Gillespie County Courthouse", url: "https://atlas.thc.texas.gov/Details/4302000028" },
+    { label: "Texas Historical Commission — 1885 stone County Jail", url: "https://atlas.thc.texas.gov/Details/5171010021" },
+    { label: "Texas Historical Commission — Market Square, 1911 firehouse and Vereins Kirche", url: "https://atlas.thc.texas.gov/Details/5171010079" },
+    { label: "Texas Historical Commission — Old Gillespie Courthouse historic marker", url: "https://atlas.thc.texas.gov/Details/5171010045" },
+    { label: "Fredericksburg visitor bureau — 2024 official historic walking-tour sites", url: "https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/fredericksburgtx/WalkingTour_Updated_January_2024_Digital_2_9f7fdde9-52d2-49f6-a480-2ce3d263234f.pdf" },
+    { label: "Handbook of Texas — Nueces Massacre and German Texans", url: "https://www.tshaonline.org/handbook/entries/nueces-battle-of-the" },
+    { label: "Handbook of Texas — Fredericksburg history", url: "https://www.tshaonline.org/handbook/entries/fredericksburg-tx" },
   ],
 };
