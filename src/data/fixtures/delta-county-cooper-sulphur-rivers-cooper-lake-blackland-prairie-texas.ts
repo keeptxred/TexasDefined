@@ -8,7 +8,7 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
   brandId: "texasdefined",
   slug: "delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas",
   title: "Delta County: Cooper, the Sulphur Rivers, Cooper Lake and Blackland Prairie",
-  dek: "Delta County is a compact Northeast Texas county shaped by two branches of the Sulphur River, rich Blackland Prairie soils, Cooper's courthouse square, railroad-era farming and the modern waters of Cooper Lake.",
+  dek: "Cooper's demolished 1900 courthouse, the WPA's 1940 replacement, Charleston's 500-pound meteorite in 1910, and the rivers and lake country of Delta County.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Delta County",
     "Cooper Texas",
@@ -31,6 +32,9 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
     "Northeast Texas",
     "Texas counties",
     "Texas history",
+    "Cooper courthouse 1900 demolition",
+    "1940 WPA Delta County Courthouse",
+    "Charleston Texas 1910 meteorite",
   ],
   featured: false,
   internalLinks: [
@@ -75,6 +79,25 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
     p("Delta County's present courthouse in Cooper dates to the New Deal period. The Work Projects Administration helped construct a new courthouse in 1940 after the county demolished its older nineteenth-century building. The replacement favored the restrained, modern civic architecture common to Depression-era public works rather than the elaborate towers and ornament of many Victorian Texas courthouses."),
     p("The courthouse remains the symbolic center of county government. Around it, Cooper retains the scale of a small Northeast Texas seat where the courthouse square, local businesses and community institutions remain closely connected."),
 
+    h("What happened to Cooper's ornate 1900 courthouse?"),
+    p("A visitor to Cooper's current county offices may miss the courthouse that used to dominate the town's central square. After the city was incorporated in 1897, voters approved a $40,000 bond issue in 1898 for a substantial brick courthouse. The imposing brick-and-stone structure, designed by Marshall R. Sanguinet and completed around 1900, rose three stories with a prominent tower. It belonged to the late nineteenth-century Texas county-building boom and appeared on picture postcards of Cooper."),
+    p("The old courthouse was not destroyed by fire. The Works Progress Administration built a new courthouse at Cooper in 1940–41, and the ornate older building was demolished in 1940 as the county modernized its facilities. Archival copies of the Cooper Review in March 1940 document preparations to remove the original structure; the Handbook of Texas also records the $110,450 WPA project and deliberate demolition. The last surviving cornerstone from the older courthouse is remembered in the downtown public square."),
+    p("Architect Hook Smith designed the WPA-era courthouse, which stands a short distance from where the nineteenth-century courthouse tower once rose. The project marked the Depression-era shift from showpiece towers to durable public office space. Cooper's courthouse is therefore a history of replacement and removal rather than survival after a disastrous blaze, unlike the courthouse fires of nearby Hopkins or Cass counties."),
+
+    h("A 1910 meteorite brought Charleston national curiosity"),
+    p("On May 19, 1910, during the widely watched passage of Halley's Comet, a meteorite weighing about 500 pounds fell near Charleston in Delta County, according to the Texas State Historical Association. The event brought curiosity and publicity to a rural community better known for cotton and farm trade. It is one of the county's most distinctive dateable historical events."),
+    p("The meteorite and the comet should not be confused: the falling rock was a meteorite, not 'a piece of Halley's Comet.' The coincidence of their timing helped generate local attention, but the historical source does not identify the stone as a confirmed fragment of the comet. Nor should an exact crash-site address be given without a mapped, authorized historical location."),
+    p("Charleston's history also reveals the cost of county-seat change. Before Cooper became Delta County's hub, Charleston had been a local trade center; the founding of Cooper redirected merchants and services toward the new county seat and later the railroad. The meteorite incident should be presented in the context of a changing town rather than as an isolated trivia item."),
+
+    h("The WPA left more than a courthouse"),
+    p("Delta County's New Deal investment also improved rural routes. The Handbook of Texas records WPA work on white-rock roads to make school bus transportation more reliable and describes the replacement of older civic buildings. For Blackland Prairie farmers who depended on bridges and roads through wet soils, those improvements mattered as much as the more visible courthouse project."),
+    p("The relationship between the courthouse and highways later changed again when Cooper Lake was built. The South Sulphur River valley became a large reservoir landscape, with Doctors Creek State Park offering a public entry point for recreation. The WPA courthouse, former cotton streets and reservoir tell three different chapters of county investment, not one continuous 'old historic district' frozen in time."),
+
+    h("Quick historical answers for Delta County"),
+    p("Was Cooper's original brick courthouse destroyed by fire? No. The decorative 1900 courthouse was intentionally demolished in 1940 during construction of the WPA replacement."),
+    p("When was the current Delta County Courthouse built? Its WPA-funded construction took place in 1940–41, replacing the towered brick-and-stone courthouse of around 1900."),
+    p("What fell near Charleston, Texas, in 1910? The Texas State Historical Association records a roughly 500-pound meteorite fall on May 19, during the period when Halley's Comet was visible."),
+    p("What does the 1940 courthouse tell visitors? It shows a New Deal public works campaign that also improved Delta County's rural roads and school-bus travel."),
     h("Mechanization changed rural life after World War II"),
     p("Like many agricultural counties, Delta County lost population after World War II. Mechanized equipment allowed fewer people to cultivate larger acreages, while young residents increasingly left for jobs in Dallas and other cities. The number of farms declined, and many small rural schools and businesses consolidated or disappeared."),
     p("Agriculture itself did not vanish. Grain, hay, cattle and diversified livestock became increasingly important as cotton's dominance weakened. The county remained rural, but its economy shifted from a dense landscape of small family farms and tenant operations toward fewer, larger agricultural enterprises and more commuting to jobs outside the county."),
@@ -110,5 +133,14 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
     h("Why Delta County matters"),
     p("Delta County is a compact lesson in how Texas local government grew from geography. Difficult river crossings and long courthouse trips helped create the county. Fertile prairie supported a cotton economy. Railroads connected isolated communities to markets. Mechanization reduced the rural population, and a major federal reservoir later transformed the South Sulphur valley into a water-supply and recreation landscape."),
     p("Its story is easy to overlook because the county is small, but that scale is precisely what makes Delta County useful for understanding Texas. In a few dozen miles, visitors can read the history of county formation, Blackland farming, railroad expansion, rural decline, water development and modern outdoor recreation across one coherent landscape."),
+  ],
+  sources: [
+    { label: "Handbook of Texas — Delta County and $110,450 WPA courthouse", url: "https://www.tshaonline.org/handbook/entries/delta-county" },
+    { label: "Handbook of Texas — Charleston and May 1910 meteorite", url: "https://www.tshaonline.org/handbook/entries/charleston-tx" },
+    { label: "Texas State Historical Association — The History of Meteorite Falls in Texas", url: "https://www.tshaonline.org/texas-day-by-day/entry/895" },
+    { label: "UNT Portal to Texas History — Cooper Review of March 15, 1940, courthouse demolition", url: "https://texashistory.unt.edu/ark:/67531/metapth895583/m1/1/" },
+    { label: "UNT Portal to Texas History — archival Delta County records inventory", url: "https://texashistory.unt.edu/ark:/67531/metapth25223/" },
+    { label: "Texas Escapes — images of Delta County's successive courthouses", url: "https://www.texasescapes.com/CentralTexasTownsNorth/Cooper-Texas-Delta-County-Courthouse.htm" },
+    { label: "VCU Scholars Compass — historic Cooper courthouse postcard", url: "https://scholarscompass.vcu.edu/stu/3576/" },
   ],
 };
