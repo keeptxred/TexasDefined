@@ -8,7 +8,7 @@ export const smithCountyTylerRosesRailroadsPineyWoodsArticle: Article = {
   brandId: "texasdefined",
   slug: "smith-county-tyler-roses-railroads-piney-woods-texas",
   title: "Smith County: Tyler, Roses, Railroads and the Piney Woods",
-  dek: "Smith County is one of East Texas's most influential crossroads, centered on Tyler and shaped by forests, farms, railroads, roses, oil-era growth and a modern regional economy.",
+  dek: "Tyler's lost 1910 courthouse, the 1955 civic building and voter-approved $179 million replacement, plus Smith County's roses, oil and railroad history.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const smithCountyTylerRosesRailroadsPineyWoodsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Smith County",
     "Tyler Texas",
@@ -32,6 +33,9 @@ export const smithCountyTylerRosesRailroadsPineyWoodsArticle: Article = {
     "East Texas oil",
     "Smith County history",
     "Texas counties",
+    "1910 Tyler courthouse demolished",
+    "Smith County 2026 courthouse",
+    "2022 courthouse bond 179 million",
   ],
   featured: false,
   internalLinks: [
@@ -100,6 +104,23 @@ export const smithCountyTylerRosesRailroadsPineyWoodsArticle: Article = {
     p("Smith County has used several courthouses over its history. The courthouse standing for much of the postwar era was completed in the 1950s in downtown Tyler, replacing earlier buildings that reflected different architectural periods and civic ambitions."),
     p("The courthouse square remains important even as county government evolves. Downtown Tyler's public buildings, historic streets and nearby businesses preserve the relationship between county government and the city's original town plan. The square is a useful place to begin understanding how Tyler grew from a small 1846 county seat into a regional city."),
 
+    h("Smith County's sixth courthouse is being replaced in an unusually large project"),
+    p("The downtown Tyler courthouse is entering another period of change. Smith County's own chronology traces early courts to a log cabin on West Erwin Street in 1846, followed by other log buildings on East Ferguson Street and the square. The county's first brick courthouse was built in 1852 and expanded over the next half-century. It was replaced by a landmark downtown courthouse dedicated in 1910, which served until 1955."),
+    p("The present six-story courthouse was dedicated in 1955 as a modern judicial and county-office complex. It brought courtrooms, recordkeeping and detention into a much larger building, replacing the earlier ornate courthouse on the downtown square. The Smith County Courthouse Planning office documents the chronology with period photographs and identifies the original 1910 building as demolished, not an intact structure that can still be visited."),
+    p("In a November 8, 2022 referendum, voters approved a $179 million courthouse and garage bond by 53.73 percent to 46.27 percent. The authorized plan included $160 million for the court building and $19 million for a parking facility. The garage opened in November 2024, and the county held the courthouse topping-out ceremony November 19, 2025. Its February 2026 construction update described completed jail-tunnel connections and ongoing interior work."),
+    p("The county's published schedule targets completion of the new courthouse in fall 2026, followed by phased occupancy and demolition of the old 1955 building in 2027 to create a public plaza. A target date is not proof that the new court building has opened. As of this November 2026 update, we have not independently verified the courthouse's final occupancy or an official opening statement. People visiting for jury duty, filings or hearings should use the county's current office notices."),
+    p("The redevelopment has a historical dimension beyond judicial logistics. Removal of the 1955 block would change a part of downtown that has had successive courthouses since the settlement's earliest years. Documented demolition and completed preservation are different things; a guide should record architectural history now while plans are still evolving."),
+
+    h("The lost 1910 courthouse explains downtown Tyler's changing skyline"),
+    p("The 1910 building stood in the center of downtown, where Broadway Avenue now runs through the public heart of Tyler. Official Smith County historical imagery shows its ornamented facade and tower. Once replaced in 1955, it was demolished rather than restored. The current courthouse and its planned successor are separate buildings at different points in Tyler's civic evolution."),
+    p("The transition from log structures to a brick courthouse, a monumental 1910 landmark and a 1955 office building demonstrates Smith County's growing legal workload. It also reflects a wider Texas pattern: when a county chooses a larger, safer courthouse, older architecture is sometimes lost even without a devastating fire."),
+    p("The original downtown block still matters for understanding historic Tyler. Courthouse siting and changing street patterns helped shape commerce around Broadway and Erwin, while the railroad and later hospital economy pulled new growth outward."),
+
+    h("Quick answers about Tyler courthouses"),
+    p("When was the present Smith County Courthouse built? The six-story courthouse in use during most of 2026 was dedicated in 1955."),
+    p("What happened to the ornate courthouse pictured in old Tyler photographs? The courthouse dedicated in 1910 was demolished when its modern replacement opened in 1955."),
+    p("When will the next courthouse open? The county's published plan targets fall 2026 completion and phased move-in before the 1955 building is removed during 2027, but occupancy must be confirmed with county notices."),
+    p("How much did voters authorize for the project? In 2022, 53.73 percent supported $179 million in courthouse and garage bonds."),
     h("Lindale grew along transportation corridors"),
     p("Lindale in northern Smith County developed as a railroad and agricultural community, later benefiting from its location near U.S. 69 and Interstate 20. Its position between Tyler and the Dallas-Fort Worth area has made it one of the county's fastest-changing communities."),
     p("Growth around Lindale illustrates a broader transformation in Smith County. Areas that were once rural farm and timber land increasingly support subdivisions, schools, retail centers and commuter traffic. Yet the northern county still retains a strong East Texas landscape of woods, pasture and small communities."),
@@ -131,5 +152,13 @@ export const smithCountyTylerRosesRailroadsPineyWoodsArticle: Article = {
     h("Smith County is a regional crossroads"),
     p("Smith County's importance comes from the way many East Texas stories meet here. It has deep agricultural roots but is no longer primarily agricultural. It has strong railroad history, yet highways now dominate transportation. Roses remain part of Tyler's identity even as healthcare, education and services drive much of the modern economy. Forests and pastures survive beside some of the fastest-growing communities in the region."),
     p("That combination makes Smith County more than a stop between Dallas and the Piney Woods. It is one of East Texas's principal centers of population, commerce and culture, and its history shows how a courthouse town founded in 1846 grew into a regional city without completely losing the landscape and traditions around it."),
+  ],
+  sources: [
+    { label: "Smith County government — Courthouse Planning, building chronology and 2026 work", url: "https://www.smith-county.com/362/Courthouse-Planning" },
+    { label: "Smith County government — February 2026 courthouse project update", url: "https://www.smith-county.com/m/newsflash/Archive/Item/27?arcId=53" },
+    { label: "Texas Department of Licensing and Regulation — construction project TABS2024019781", url: "https://www.tdlr.texas.gov/TABS/Projects/TABS2024019781" },
+    { label: "Society of Architectural Historians — 1955 Smith County Courthouse", url: "https://sah-archipedia.org/buildings/TX-02-TK1" },
+    { label: "Texas State Historical Association — Tyler city history", url: "https://www.tshaonline.org/handbook/entries/tyler-tx" },
+    { label: "Smith County government — Courthouse Bond History", url: "https://www.smith-county.com/DocumentCenter/View/3063/Smith-County-Courthouse-Bond-Information-PDF?bidId=" },
   ],
 };
