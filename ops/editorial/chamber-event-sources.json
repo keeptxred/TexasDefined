@@ -740,7 +740,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "pittsburg-official-festivals",
@@ -900,7 +901,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "shelby-chamber-christmas-parade",
@@ -914,7 +916,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "plantersville-official-community-calendar",
@@ -928,7 +931,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hillsboro-chamber-community-calendar",
@@ -986,7 +990,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "clifton-visit-christmas",
@@ -1043,7 +1048,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "archer-city-visitor-center",
@@ -1071,7 +1077,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "visit-mineral-wells-merry-wells-2026",
@@ -1100,7 +1107,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "elmendorf-city-holiday-2026",
@@ -1114,7 +1122,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "eastland-chamber-2026-parade",
@@ -1128,7 +1137,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "bowie-chamber-fantasy-lights-2026",
@@ -1142,7 +1152,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "andrews-chamber",
@@ -1391,7 +1402,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "muleshoe-bailey-chamber",
@@ -1636,7 +1648,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "la-grange-fayette-chamber",
@@ -1664,7 +1677,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "lamesa-dawson-chamber",
@@ -2051,7 +2065,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "linden-cass-chamber",
@@ -2535,7 +2550,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hamilton-main-street",
@@ -2795,7 +2811,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "refugio-county-chamber",
@@ -2954,7 +2971,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "clarksville-red-river-chamber",
@@ -3067,7 +3085,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "franklin-county-mount-vernon-chamber",
@@ -3081,7 +3100,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "goldthwaite-mills-chamber",
@@ -3095,7 +3115,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "throckmorton-chamber",
@@ -3123,7 +3144,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "munday-knox-city-events",
@@ -3277,7 +3299,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "giddings-lee-chamber",
