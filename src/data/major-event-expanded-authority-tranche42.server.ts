@@ -103,7 +103,7 @@ const records: MajorEventAuthorityRecord[] = [
     sourceCheckedAt: "2026-09-05",
     whyItMatters: "The Galveston Island Shrimp Festival turns the Historic Strand into a Gulf Coast food weekend centered on shrimp gumbo, a Friday kick-off party, a Saturday 5K, vendors, live music and the ticketed Gumbo Stroll.",
     planningSections: [
-      { title: "Use September 25-26 as the confirmed 2026 weekend", body: "The organizer schedules the Friday Kick-Off Party for September 25 and the main public festival, 5K and Gumbo Stroll for Saturday, September 26. The two days have different admission rules and experiences." },
+      { title: "Next shrimp gumbo cook-off", body: "The organizer lists the next shrimp gumbo cook-off for Saturday, September 25, 2027, in the Historic Strand District. The 2026 edition was scheduled for September 25–26, with the Friday Kick-Off Party on September 25 and the main public festival, 5K and Gumbo Stroll on September 26. The two days had different admission rules and experiences." },
       { title: "Buy tasting tickets before the stroll sells out", body: "The festival grounds can be visited without a general admission ticket, but the Gumbo Stroll, shrimp dinner plate and Friday party require tickets. The organizer warns that the Gumbo Stroll and Friday party can sell out." },
       { title: "Plan for downtown parking and walking", body: "The main Saturday footprint is around 23rd Street and Strand Street, with paid street and lot parking throughout downtown. The 5K starts separately near the Seawall, so runners should use the organizer's location-specific parking guidance." },
     ],
