@@ -1019,6 +1019,20 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-mineral-wells-merry-wells-2026",
+      "organization": "Visit Mineral Wells Convention & Visitors Bureau",
+      "countySlugs": [
+        "palo-pinto"
+      ],
+      "homeUrl": "https://visitmineralwells.org/",
+      "calendarUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
+      "contactPageUrl": "https://visitmineralwells.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
