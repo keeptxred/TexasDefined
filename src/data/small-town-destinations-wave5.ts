@@ -273,7 +273,7 @@ export const smallTownWave5Destinations: Destination[] = [
     areaGuide: {
       intro: "Plan Palestine around one fixed-time anchor—often the railroad—then use downtown architecture, museums and seasonal outdoor stops to fill the rest of the day without over-scheduling.",
       nearbyAttractions: [
-        { name: "Texas State Railroad", description: "A ticketed heritage railroad experience through the East Texas landscape; reserve current excursions directly with the operator." },
+        { name: "Texas State Railroad", description: "A ticketed heritage railroad excursion with prison-industry history beginning at Rusk, Capitol cast iron and the 1909 Palestine rail connection; confirm departures directly with the operator.", href: "/article/texas-state-railroad-rusk-palestine-history-guide" },
         { name: "Historic Palestine", description: "Downtown and surrounding neighborhoods contain a broad inventory of historic civic, commercial and residential architecture." },
       ],
       foodAndDrink: [
@@ -287,7 +287,7 @@ export const smallTownWave5Destinations: Destination[] = [
         { name: "Historic downtown and courthouse district", description: "The primary walking area for civic landmarks, older commercial buildings, food and visitor services." },
       ],
       familyStops: [
-        { name: "Texas State Railroad", description: "The signature family experience when current excursion schedules and ticket availability fit the trip." },
+        { name: "Texas State Railroad", description: "The signature family experience when current excursion schedules and ticket availability fit the trip.", href: "/article/texas-state-railroad-rusk-palestine-history-guide" },
         { name: "Seasonal dogwood routes", description: "A flexible spring outdoor activity; bloom timing varies with weather, so current visitor updates matter." },
       ],
       sideTrips: [
