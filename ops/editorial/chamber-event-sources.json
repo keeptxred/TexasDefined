@@ -655,6 +655,230 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "andrews-chamber",
+      "organization": "Andrews Chamber of Commerce",
+      "countySlugs": [
+        "andrews"
+      ],
+      "homeUrl": "https://www.andrewstx.com/",
+      "calendarUrl": "https://business.andrewstx.com/events/calendar/",
+      "contactPageUrl": "https://business.andrewstx.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bandera-county-chamber",
+      "organization": "Bandera County Chamber of Commerce",
+      "countySlugs": [
+        "bandera"
+      ],
+      "homeUrl": "https://www.banderachamber.com/",
+      "calendarUrl": "https://www.banderacowboycapital.com/events",
+      "contactPageUrl": "https://www.banderachamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bee-county-chamber",
+      "organization": "Bee County Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "bee"
+      ],
+      "homeUrl": "https://www.experiencebeecounty.org/",
+      "calendarUrl": "https://members.experiencebeecounty.org/events/calendar",
+      "contactPageUrl": "https://members.experiencebeecounty.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "blanco-chamber",
+      "organization": "Blanco Chamber of Commerce",
+      "countySlugs": [
+        "blanco"
+      ],
+      "homeUrl": "https://www.blancochamber.com/",
+      "calendarUrl": "https://www.blancochamber.com/events",
+      "contactPageUrl": "https://www.blancochamber.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "brownwood-area-chamber",
+      "organization": "Brownwood Area Chamber of Commerce",
+      "countySlugs": [
+        "brown"
+      ],
+      "homeUrl": "https://www.brownwoodchamber.org/",
+      "calendarUrl": "https://www.brownwoodchamber.org/events.html",
+      "contactPageUrl": "https://www.brownwoodchamber.org/about-us.html",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "burleson-county-chamber",
+      "organization": "Burleson County Chamber of Commerce",
+      "countySlugs": [
+        "burleson"
+      ],
+      "homeUrl": "https://www.burlesoncountytx.com/",
+      "calendarUrl": "https://business.burlesoncountytx.com/events/calendar",
+      "contactPageUrl": "https://business.burlesoncountytx.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "port-lavaca-chamber",
+      "organization": "Port Lavaca Chamber of Commerce / Calhoun County Events",
+      "countySlugs": [
+        "calhoun"
+      ],
+      "homeUrl": "https://portlavacaevents.com/",
+      "calendarUrl": "https://portlavacaevents.com/events/",
+      "contactPageUrl": "https://portlavacaevents.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "discover-lockhart",
+      "organization": "Discover Lockhart visitor calendar",
+      "countySlugs": [
+        "caldwell"
+      ],
+      "homeUrl": "https://discoverlockharttx.org/",
+      "calendarUrl": "https://discoverlockharttx.org/events",
+      "contactPageUrl": "https://discoverlockharttx.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "brownsville-chamber",
+      "organization": "Brownsville Chamber of Commerce",
+      "countySlugs": [
+        "cameron"
+      ],
+      "homeUrl": "https://brownsvillechamber.com/",
+      "calendarUrl": "https://business.brownsvillechamber.com/events/calendar",
+      "contactPageUrl": "https://brownsvillechamber.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pittsburg-camp-chamber",
+      "organization": "Pittsburg-Camp County Chamber of Commerce",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://pittsburgcampcountychamber.com/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/guides/pittsburgs-festivals",
+      "contactPageUrl": "https://pittsburgcampcountychamber.com/about-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "baird-chamber",
+      "organization": "Baird Chamber of Commerce",
+      "countySlugs": [
+        "callahan"
+      ],
+      "homeUrl": "https://www.bairdchamber.com/",
+      "calendarUrl": "https://www.bairdchamber.com/",
+      "contactPageUrl": "https://www.bairdchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "seymour-chamber",
+      "organization": "Seymour Chamber of Commerce / City of Seymour",
+      "countySlugs": [
+        "baylor"
+      ],
+      "homeUrl": "https://cityofseymour.org/departments/chamber-of-commerce/",
+      "calendarUrl": "https://cityofseymour.org/visit-seymour-texas/",
+      "contactPageUrl": "https://cityofseymour.org/departments/chamber-of-commerce/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bowie-texas-chamber",
+      "organization": "Bowie Texas Chamber of Commerce",
+      "countySlugs": [
+        "montague"
+      ],
+      "homeUrl": "https://bowietxchamber.org/",
+      "calendarUrl": "https://bowietxchamber.org/events/",
+      "contactPageUrl": "https://bowietxchamber.org/submit-an-event/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "city-quitaque",
+      "organization": "City of Quitaque public events",
+      "countySlugs": [
+        "briscoe"
+      ],
+      "homeUrl": "https://cityofquitaque.com/",
+      "calendarUrl": "https://cityofquitaque.com/",
+      "contactPageUrl": "https://cityofquitaque.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-canadian-hemphill",
+      "organization": "Canadian Texas Chamber / Visit Canadian",
+      "countySlugs": [
+        "hemphill"
+      ],
+      "homeUrl": "https://www.canadiantx.com/",
+      "calendarUrl": "https://www.canadiantx.com/events",
+      "contactPageUrl": "https://www.canadiantx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "atascosa-county-holiday-notices",
+      "organization": "Atascosa County official community announcements",
+      "countySlugs": [
+        "atascosa"
+      ],
+      "homeUrl": "https://co.atascosa.tx.us/",
+      "calendarUrl": "https://co.atascosa.tx.us/public-notices/",
+      "contactPageUrl": "https://co.atascosa.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
