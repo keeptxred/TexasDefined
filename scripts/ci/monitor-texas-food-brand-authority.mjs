@@ -27,6 +27,8 @@ const prodUrls = [...production.matchAll(/sourceUrl:\s*['"](https:[^'"]+)['"]/g)
 rows[0].push(...prodUrls,...extra.map(e=>e.sourceUrl));
 const missing = [...entries].filter(([n,r])=>r!=='made-or-processed'&&!names.has(n)).map(([n])=>n);
 console.log('Directory coverage', {total:entries.size,production:prodUrls.length,other:extra.length,missing});
+assert.equal(missing.length, 0, 'Every retained non-production relationship must have its own published evidence');
+assert.equal(entries.size, prodUrls.length + extra.length, 'Every directory record must have one evidence record');
 if (process.argv.includes('--static')) process.exit(0);
 const report=[]; const alerts=[];
 for (const [route,...sources] of rows) {
