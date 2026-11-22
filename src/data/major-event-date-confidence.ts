@@ -1,5 +1,4 @@
 export const recurrenceDerivedMajorEventSlugs = new Set([
-  "dallas-holiday-parade",
   "schulenburg-festival",
   "westfest",
   "luling-watermelon-thump",

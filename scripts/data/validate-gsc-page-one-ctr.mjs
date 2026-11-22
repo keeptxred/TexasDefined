@@ -424,7 +424,7 @@ const experiments = [
 ];
 
 const secondWave = [
-  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Projected Date, Route & Guide', description: 'Dallas Holiday Parade 2026 projected planning date: Dec. 5' },
+  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Date, Tickets & Route', description: 'Dallas Holiday Parade is confirmed Dec. 5, 2026' },
   { path: '/event/houston-thanksgiving-day-parade', title: 'Houston Thanksgiving Parade 2026: Date, Time & Route', description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown" },
   { path: '/event/texas-rose-festival', title: 'Texas Rose Festival Tyler: Parade, Coronation & Guide', description: 'Plan the Texas Rose Festival in Tyler with the Rose Parade' },
   { path: '/event/larry-joe-taylor-texas-music-festival', title: 'Larry Joe Taylor Festival 2027: Dates, Tickets & Camping', description: 'LJT Fest returns to Stephenville April 19-24, 2027' },
