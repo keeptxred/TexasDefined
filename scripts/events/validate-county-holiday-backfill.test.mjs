@@ -254,3 +254,17 @@ test("Jacksboro Chamber market and Gonzales Main Street 2026 Winterfest are nond
  assert.equal(events.filter(e=>e.city==="Jacksboro"&&e.startDate==="2026-11-28"&&/market/i.test(e.title)).length,1);
  assert.match(events.find(e=>e.slug===checks[1][0]).summary,/not confirmed/);
 });
+
+test("El Campo Dec 3 2026 Chamber parade is a separate organizer-confirmed Wharton County event",()=>{
+ const e=events.find(x=>x.slug==="el-campo-chamber-christmas-parade-2026");
+ assert.ok(e);
+ assert.equal(e.city,"El Campo");
+ assert.equal(e.countySlug,"wharton");
+ assert.equal(e.countyName,"Wharton County");
+ assert.equal(e.startDate,"2026-12-03");
+ assert.equal(new URL(e.officialEventUrl).hostname,"www.elcampochamber.com");
+ assert.equal(e.sourceVerifiedAt,"2026-11-22");
+ assert.match(e.summary,/7–9 p.m./);
+ assert.match(e.summary,/route/);
+ assert.ok(!events.some(x=>x.slug!==e.slug&&x.city==="El Campo"&&x.startDate===e.startDate&&/parade/i.test(x.title)));
+});
