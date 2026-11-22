@@ -60,7 +60,14 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 
 **Source-mapped: 14 / 254 counties. Remaining: 240 counties requiring verified source research.**
 
-On November 22, 2026, initial outreach messages were sent from O365 to Gladewater, Lufkin/Angelina, Kimble County and Greater Port Arthur. Subscription success, delivery receipts, media rights and backlinks remain unconfirmed until the organizations respond or a live linking URL is independently observed.
+On November 22, 2026, **nine individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts. A separate **tenth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
+
+### Specific local event source-verification pilots
+
+- Gladewater (Gregg/Upshur): **Christmas in Gusherville**, Chamber/downtown merchant event on November 14, 2026; 2026 coverage documented by the independent Gladewater Mirror: https://www.gladewatermirror.com/event-season-starts-saturday-with-slew-of-local-activities . Organizer must confirm any next season occurrence; do not infer the 2027 date.
+- Henderson (Rusk): **Heritage Syrup Festival**, Saturday November 14, 2026. Current first-party City event announcement: https://www.hendersontx.us/14/Heritage-Syrup-Festival . Watch for verified next-season announcement and link to the Depot Museum; no 2027 date yet.
+- Marshall (Harrison): **Wonderland of Lights**, the 2026 city/Chamber holiday program and related Chamber lighted parade: https://marshalltexas.com/ . Verify individual 2026 sessions and next-season dates with the actual organizers.
+- Other chamber calendar discoveries in the registry are leads only until organizer fact verification; this pilot watch list is not a promise of publication.
 
 ## Source references
 
