@@ -119,7 +119,7 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
   assert.ok(registry.sources.length >= 284, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 129, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 132, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -292,8 +292,8 @@ test("November first-party holiday/festival calendar evidence distinguishes acti
   assert.equal(registry.sources.find(s=>s.id==="shelby-chamber-christmas-parade").calendarUrl,
     "https://shelbycountychamber.com/events-calendar/");
   const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(calendarCounties.size>=124);
-  assert.ok(254-calendarCounties.size <= 130, "Do not regress 119 already-reviewed public calendar counties");
+  assert.ok(calendarCounties.size>=127);
+  assert.ok(254-calendarCounties.size <= 127, "Do not regress 119 already-reviewed public calendar counties");
   assert.ok(!calendarCounties.has("oldham"), "Do not promote 2026 June-only annual brochure to a complete current events calendar");
 });
 
@@ -315,5 +315,21 @@ test("five additional first-party event calendars and two annual lists stay sepa
    assert.equal(new URL(s.calendarUrl).protocol,"https:");
  }
  const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
- assert.ok(counties.size>=124);
+ assert.ok(counties.size>=127);
+});
+
+test("Bonham, Cleburne and Goldthwaite public Chamber event feeds are source-qualified",()=>{
+ const want={
+ "bonham-fannin-chamber":"fannin",
+ "cleburne-chamber":"johnson",
+ "goldthwaite-mills-chamber":"mills"
+ };
+ for(const [id,county]of Object.entries(want)){
+   const source=registry.sources.find(s=>s.id===id);
+   assert.ok(source);
+   assert.equal(source.sourceKind,"public-calendar");
+   assert.deepEqual(source.countySlugs,[county]);
+ }
+ const available=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+ assert.ok(available.size>=127);
 });
