@@ -75,3 +75,17 @@ material, or promise search-engine approval.
 - A scheduled run with no substantive verified new copy is a successful no-op, not an invented edit or failed publication.
 - Successive GitHub workflow run numbers rotate the full unreviewed source/page candidate queue. A no-change decision therefore does not stall remaining pages behind the same first source row; the next run still independently verifies the next candidate. This is queue fairness, not permission to rewrite unchanged facts.
 - The cadence is four bounded selection windows each day, each attempting at most one approved content change under existing protected CI.
+
+
+## Recurring review of previously changed pages
+
+A committed rewrite is not a permanent exemption. The selector defers an already
+rewritten issue/canonical pair only for its reported 1–30 day source-review cadence
+(default seven days when no cadence is stated), then returns it to the actionable
+rotation. Stable issue/page/source ordering limits churn from issue timestamp updates.
+The report distinguishes never-rewritten pairs, prior rewrites due again, and the
+combined actionable count. A missing or future ledger timestamp cannot suppress review.
+For a genuinely new source-supported correction on the same canonical, the exact
+evidence ledger may be updated with a newer timestamp; Git history preserves its
+previous versions. Unchanged pre-existing ledgers are treated as no-op, not as a new
+content patch. Public review dates and substantive source requirements remain protected.
