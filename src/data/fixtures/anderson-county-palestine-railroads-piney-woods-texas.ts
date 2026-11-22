@@ -20,7 +20,8 @@ export const andersonCountyPalestineRailroadsPineyWoodsTexasArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 17,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Anderson County",
     "Palestine Texas",
@@ -35,6 +36,7 @@ export const andersonCountyPalestineRailroadsPineyWoodsTexasArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-state-railroad-rusk-palestine-history-guide", label: "Texas State Railroad history and visitor guide", description: "Follow the 1880s Rusk prison ironworks through the 1909 Palestine rail connection, film trains and current freight operation." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/houston", label: "Explore Houston County", description: "Continue south toward Crockett, Mission Tejas country and the Piney Woods." },
     { href: "/county/cherokee", label: "Explore Cherokee County", description: "Head east toward Rusk, Jacksonville and the wooded heart of East Texas." },
@@ -76,6 +78,10 @@ export const andersonCountyPalestineRailroadsPineyWoodsTexasArticle: Article = {
     p("The railroad era left a physical and cultural imprint that remains visible in Palestine. Historic neighborhoods, commercial buildings, transportation corridors and civic institutions expanded as the city grew. Passenger trains connected Palestine with larger Texas cities, while freight movement tied local farms, timber and businesses to regional and national networks."),
     p("That history helps explain why Palestine still feels different from many similarly sized county seats. It developed both as a courthouse town and as an industrial transportation center. The combination produced a larger historic building stock, more diverse neighborhoods and a stronger association with statewide travel than population alone might suggest."),
 
+    h("Palestine connected a prison railroad to the national rail network"),
+    p("The Rusk–Palestine extension was completed in 1909, connecting the Texas State Railroad to the International & Great Northern in Palestine. The early line originated in timber, ore and iron production at Rusk Penitentiary. The Texas State Capitol's cast iron came from Rusk in the 1880s, before the Palestine extension existed. This is not evidence for a specific unverified shipment route through Houston."),
+    p("The railroad today has two distinct roles: historical passenger excursions marketed as Texas State Railroad and freight handled by Texas & Eastern, which interchanges with Union Pacific in Palestine. Union Pacific lists current freight as construction aggregates, industrial products and chemicals. The 1970s-era Palestine excursion depot is not an original 1880s station building."),
+    p("Sources: Handbook of Texas — Texas State Railroad (https://www.tshaonline.org/handbook/entries/texas-state-railroad); Union Pacific — Texas & Eastern (https://www.up.com/shipping/short-line/lines/tsr); official Texas State Railroad depot FAQ (https://texasstaterailroad.net/faq-2/)."),
     h("The Texas State Railroad preserves part of the rail story"),
     p("Anderson County's rail identity also survives through the heritage railroad operating between Palestine and Rusk. The line has roots in a state railroad built in the late nineteenth and early twentieth centuries to serve the state prison system and move timber and iron-related freight. Over time, the route outlived its original industrial purpose and became one of East Texas's best-known heritage rail experiences."),
     p("For visitors, the railroad provides more than nostalgia. The route crosses the wooded landscape that shaped the county's economy and visually connects transportation history with the Piney Woods environment. It is one of the clearest places in Texas to see how rail technology, state institutions, timber and tourism can occupy the same corridor across different eras."),
