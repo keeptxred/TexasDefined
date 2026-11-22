@@ -404,12 +404,16 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-02",
     venue: "Moody Gardens",
     officialUrl: "https://www.moodygardens.com/holiday-season/ice-land",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "ICE LAND is Galveston's signature indoor ice-sculpture centerpiece within the larger Holiday in the Gardens festival. The 2026 Caribbean Christmas theme uses more than two million pounds of ice in a nine-degree environment, and visitors often combine it with the outdoor Holiday Lights Trail and a Gulf Coast hotel weekend.",
     quickFacts: [
       {
         label: "Season",
         value: "November 21, 2026–January 2, 2027"
+      },
+      {
+        label: "Published daily hours",
+        value: "Noon–10 p.m.; verify the operator’s daily calendar"
       },
       {
         label: "2026 theme",
@@ -431,7 +435,7 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Treat ICE LAND and Holiday Lights as distinct experiences",
-        body: "An ICE LAND timed ticket does not automatically mean admission to every holiday attraction on campus. The Holiday Pass is a different product that bundles a wider set of activities. Compare price and the time you can realistically use."
+        body: "A standalone ICE LAND admission does not cover every attraction. The after-4-p.m. Holiday Evening Pass starts at $55 and includes the ice exhibit, the outdoor trail and the Aquarium Pyramid, among other activities. If ICE LAND is your main reason for visiting, the separate ticket lets you use the published noon–10 p.m. schedule rather than waiting until evening."
       },
       {
         title: "Prepare for nine-degree temperatures",
@@ -451,7 +455,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Check date-specific ticket availability",
-        body: "The official 2026 ICE LAND page lists adult admission at $35 and ages 4–12 or seniors 65+ at $29. The separate Holiday Pass includes ICE LAND, Holiday Lights, films and other attractions after 4 p.m., but skate rentals are extra. ICE LAND opens November 21 through January 2; check dated tickets, hours and availability before buying."
+        body: "The official 2026 ICE LAND page lists adult admission at $35 and ages 4–12 or seniors 65+ at $29. The separate Holiday Pass includes ICE LAND, Holiday Lights, films and other attractions after 4 p.m., but skate rentals are extra. ICE LAND opens November 21 through January 2. The current daily-hours calendar lists noon–10 p.m., so check that calendar for your exact date rather than using the evening trail’s hours. The full festival offers lower-priced Value Nights Sunday–Thursday from November 30 through December 17; check the actual ticket products and price for your visit."
       }
     ],
     relatedLinks: [
@@ -479,6 +483,14 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Moody Gardens 2026 holiday festival",
         url: "https://www.moodygardens.com/holiday-season"
+      },
+      {
+        label: "Moody Gardens daily attraction hours",
+        url: "https://www.moodygardens.com/visitor-info/hours"
+      },
+      {
+        label: "Moody Gardens holiday ticket and access FAQ",
+        url: "https://www.moodygardens.com/holiday-season/faq"
       },
       {
         label: "Moody Gardens October 2026 hotel getaway details",
