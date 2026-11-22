@@ -116,21 +116,31 @@ const curated: Record<string, Partial<Destination>> = {
   },
   "martin-creek-lake-state-park": {
     visitorFacts: [
-      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older pay $4 daily; children 12 and younger enter free.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-10-21" },
-      { topic: "hours", label: "Park and holiday office hours", detail: "The park is open daily 6 a.m.–10 p.m.; the office closes at noon on Thanksgiving Day and all day on December 25.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-10-21" },
+      { topic: "admission", label: "Day-use admission and capacity", detail: "Entry is $4 daily for visitors 13 and older; younger children enter free. Reserve ahead; capacity is limited.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/entrance-fees", checkedAt: "2026-11-21" },
+      { topic: "hours", label: "Park gate and holiday office hours", detail: "Gate: 6 a.m.–10 p.m. daily. Office closes at noon on Thanksgiving and all day December 25.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-11-21" },
+      { topic: "reservations", label: "Reserve day use or overnight lodging", detail: "Book this park directly online or call (512) 389-8900.", sourceUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121", checkedAt: "2026-11-21" },
+      { topic: "access", label: "Wheelchair-accessible features", detail: "Accessible headquarters/restrooms, pier, island bridge and picnic sites. Cabins with bathrooms and pavilion have accessible features but are not fully ADA compliant.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/martin-creek-lake-accessibility", checkedAt: "2026-11-21" },
+      { topic: "access", label: "Invasive ants", detail: "Argentine ants occur at some campsites; inspect gear before leaving and notify park staff.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-11-21" },
+      { topic: "access", label: "Firewood movement restrictions", detail: "Buy local firewood (emerald ash borer quarantine); check current fire rules.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-11-21" },
     ],
-    summary: "An East Texas reservoir park near Longview with pine and hardwood forest, fishing, lakeside camping and a footbridge to an island trail on Martin Creek Lake.",
+    summary: "Martin Creek Lake State Park near Tatum: compare three trails, warm-water fishing, boat access, island camping, cabins, day passes and accessible facilities.",
     nearestTown: "Tatum",
-    bestSeason: "Fall through spring for camping and trails; fishing is a year-round draw",
-    entryNote: "The lake also supports power-generation infrastructure, so follow posted boating zones and check current park and water conditions.",
-    highlights: ["Fishing for bass, catfish and crappie", "Island trail reached by pedestrian bridge", "Lakeside camping beneath East Texas woods", "Boating and paddling access"],
+    address: "9515 County Road 2181D, Tatum, TX 75691-3425",
+    coordinates: { lat: 32.277950, lng: -94.566051 },
+    directions: "From Tatum, take TX-43 southwest 3.5 miles, then turn south on County Road 2183. About 20 miles southeast of Longview.",
+    bestSeason: "Fall and winter for forest walks and fishing; spring and summer are busiest. Plan for heat and thunderstorms.",
+    entryNote: "Reserve day use or lodging. Entry $4 per day ages 13+, under 13 free; overnight fees extra. Park: (903) 836-4336.",
+    highlights: ["Old Henderson Road Loop, Harmony Hill and Island Trails", "Lighted fishing pier and four-lane boat ramp", "Island walk-in tent sites, screened shelters and cabins", "286-acre park opened in 1976", "Accessible pier, bridge and picnic sites"],
     body: [
-      "Martin Creek Lake State Park is built for an easygoing East Texas lake weekend. Forest reaches close to the shoreline, campsites keep visitors near the water and the island trail adds a memorable short walk without demanding a long hike.",
-      "Fishing is a major reason to come, with boating and paddling extending access beyond the bank. On land, the pine-and-hardwood setting provides shade and a quieter counterpoint to larger reservoir parks.",
-      "Check current lake conditions and any boating restrictions before launching. In warm weather, plan around East Texas heat and humidity and keep an eye on thunderstorms that can build quickly."
+      "The 286-acre park sits on a 4,981-acre cooling-water reservoir. It suits short wooded walks and shore fishing rather than long backcountry hikes.",
+      "Pair pier fishing with the 0.9-mile island walk, or explore the 1.4-mile Old Henderson Road and 1.7-mile Harmony Hill loops to discover the area's former trade route and settlement.",
+      "Developed camps suit RV or tent camping; primitive island sites require carrying supplies across a footbridge. Shelters and cottages provide roofs without private bathrooms. Compare specific hookups in the separate RV guide."
     ],
+    sourceCheckedAt: "2026-11-21",
+    updatedAt: "2026-11-21",
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
+    reservationUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121",
   },
   "atlanta-state-park": {
     visitorFacts: [

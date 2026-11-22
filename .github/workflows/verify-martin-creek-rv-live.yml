@@ -25,7 +25,7 @@ jobs:
     # Never compare newly merged source expectations to an older Worker.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Verify live Martin Creek RV page across canonical domain and direct Worker
+      - name: Verify both Martin Creek authority guides and sitemap across both origins
         id: verify
         shell: bash
         run: |
@@ -59,7 +59,7 @@ jobs:
           title="Martin Creek RV: live authority page verification failed"
           existing=$(gh issue list --state open --search '"Martin Creek RV: live authority page verification failed" in:title' --json number --jq '.[0].number // empty')
           if [ -z "$existing" ]; then
-            gh issue create --title "$title" --body "Canonical and/or direct Worker acceptance failed. Inspect workflow run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and the martin-creek-rv-authority artifact for exact failed fields; fix and retest rather than silently weakening checks."
+            gh issue create --title "$title" --body "Paired park/RV or sitemap canonical and/or direct Worker acceptance failed. Inspect workflow run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and the martin-creek-rv-authority artifact for exact failed fields; fix and retest rather than silently weakening checks."
           else
             echo "Existing Martin Creek RV acceptance issue #$existing; avoiding duplicate."
           fi

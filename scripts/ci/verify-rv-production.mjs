@@ -163,7 +163,7 @@ for (const profileSpec of curatedProfiles) {
   requireIncludes(profile.body, [
     profileSpec.name,
     '"@type":"WebPage"',
-    '"@type":"TouristAttraction"',
+    ...(profileSpec.path === '/destination/martin-creek-lake-state-park-rv-area' ? ['"@type":["Campground","TouristAttraction"]'] : ['"@type":"TouristAttraction"']),
   ], `RV profile ${profileSpec.name}`);
   if (canonicalHref(profile.body) !== `${origin}${profileSpec.path}`) {
     throw new Error(`RV profile canonical mismatch for ${profileSpec.name}: ${canonicalHref(profile.body) || 'missing'}`);
