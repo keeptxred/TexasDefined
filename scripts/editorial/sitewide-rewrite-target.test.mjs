@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates,loadIssues}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates,loadIssues,reviewCooldownActive}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -163,4 +163,17 @@ test('curated official event .net/.tv and military source hosts are not silently
     'https://texasstaterailroad.net/the-polar-express/', 'https://www.sabiff.tv/'];
   for (const url of urls) assert.deepEqual(findOfficialSourceUrls(url), [url]);
   assert.deepEqual(findOfficialSourceUrls('https://austinpowwow.net.untrusted.net/ https://random-unregistered.tv/'), []);
+});
+
+
+test('past rewrites become eligible again at the actual source review cadence, never permanently exempt', () => {
+  const checked = Date.parse('2026-11-20T00:00:00Z');
+  const daily = {context:'review cadence: 1 day(s)'};
+  const weekly = {context:'review cadence: 7 day(s)'};
+  assert.equal(reviewCooldownActive(daily, checked, checked + 86399999), true);
+  assert.equal(reviewCooldownActive(daily, checked, checked + 86400000), false);
+  assert.equal(reviewCooldownActive(weekly, checked, checked + 6 * 86400000), true);
+  assert.equal(reviewCooldownActive(weekly, checked, checked + 7 * 86400000), false);
+  assert.equal(reviewCooldownActive({}, NaN, checked), false);
+  assert.equal(reviewCooldownActive({}, checked + 1000, checked), false);
 });

@@ -76,3 +76,32 @@ test('automatic prose rewriting cannot silently restamp source-review provenance
   assert.notEqual(result.status,0);
   assert.match(result.stderr,/prohibited code\/security\/indexing surface/);
 });
+
+
+test('missing editorial evidence timestamp cannot certify a rewrite', t => {
+  const repo=makeRepo(); t.after(()=>fs.rmSync(repo.root,{recursive:true,force:true}));
+  delete repo.evidence.updatedAt;
+  fs.writeFileSync(path.join(repo.root,repo.evidencePath),JSON.stringify(repo.evidence));
+  assert.match(run(repo.root).stderr,/Missing, stale or invented editorial update date/);
+});
+test('same-page repeat requires newer evidence and retains prior evidence in git', t => {
+  const repo=makeRepo(); t.after(()=>fs.rmSync(repo.root,{recursive:true,force:true}));
+  const previous = {...repo.evidence, updatedAt:new Date(Date.now()-86400000).toISOString()};
+  fs.writeFileSync(path.join(repo.root,repo.evidencePath),JSON.stringify(previous));
+  repo.git('add',repo.evidencePath); repo.git('commit','-m','previous verified ledger');
+  fs.writeFileSync(path.join(repo.root,repo.evidencePath),JSON.stringify(repo.evidence));
+  assert.equal(run(repo.root).status,0);
+  const stale={...repo.evidence,updatedAt:previous.updatedAt};
+  fs.writeFileSync(path.join(repo.root,repo.evidencePath),JSON.stringify(stale));
+  assert.notEqual(run(repo.root).status,0);
+});
+
+
+test('new ledger text alone cannot certify unchanged page copy', t => {
+  const repo=makeRepo(); t.after(()=>fs.rmSync(repo.root,{recursive:true,force:true}));
+  repo.git('add','src/data/authority.ts'); repo.git('commit','-m','already published copy');
+  fs.appendFileSync(path.join(repo.root,'src/data/authority.ts'),'// unrelated edit\n');
+  const result=run(repo.root);
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/not directly grounded in captured official source and actual changed page copy/);
+});

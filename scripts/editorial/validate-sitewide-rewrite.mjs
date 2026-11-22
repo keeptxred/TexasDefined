@@ -58,7 +58,9 @@ for (const line of patch.split('\n')) {
   if (!line.startsWith('+') || line.startsWith('+++')) continue;
   if (risky.some(regex => regex.test(line))) throw Error('Automated patch touches prohibited code/security/indexing surface');
 }
-const additions = patch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
+// Evidence text itself is not proof that the page copy actually changed.
+const pagePatch = git('diff','--unified=0',base,'--',...pageFiles);
+const additions = pagePatch.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
 const sourceMap = new Map(target.sources.map(x => [x.url, String(x.excerpt || '')]));
 let copy = '';
 for (const file of pageFiles) copy += fs.readFileSync(file, 'utf8') + '\n';
@@ -71,9 +73,18 @@ for (const [index, fact] of ledger.facts.entries()) {
       fact.newCopy.length > 200 || !copy.includes(fact.newCopy) || !additions.includes(fact.newCopy))
     throw Error('Fact #' + (index + 1) + ' is not directly grounded in captured official source and actual changed page copy');
 }
-if (ledger.updatedAt && (Number.isNaN(Date.parse(ledger.updatedAt)) ||
-    Math.abs(Date.now() - Date.parse(ledger.updatedAt)) > 3 * 86400000))
-  throw Error('Stale or invented editorial update date');
+const updatedAt = Date.parse(ledger.updatedAt || '');
+if (!Number.isFinite(updatedAt) || Math.abs(Date.now() - updatedAt) > 3 * 86400000)
+  throw Error('Missing, stale or invented editorial update date');
+// Repeated changes to the same page must have a strictly newer evidence
+// ledger. The prior version remains auditable in Git history.
+if (git('ls-tree',base,'--',evidenceFile)) {
+  const previous = JSON.parse(git('show',base + ':' + evidenceFile));
+  if (previous.issue !== target.issue || previous.page !== target.page ||
+      (Number.isFinite(Date.parse(previous.updatedAt || '')) &&
+       Date.parse(previous.updatedAt) >= updatedAt))
+    throw Error('Repeated rewrite evidence must be newer and keep the same canonical identity');
+}
 console.log(JSON.stringify({ok:true, page:target.page, issue:target.issue,
   files:pageFiles, added, removed, verifiedFacts:ledger.facts.length,
   sources:[...new Set(ledger.facts.map(x=>x.sourceUrl))]},null,2));

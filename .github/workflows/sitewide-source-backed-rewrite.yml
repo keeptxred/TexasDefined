@@ -103,10 +103,11 @@ jobs:
             If the available primary-source evidence does not prove a precise material
             correction, leave the checkout unchanged and say no change is justified.
             Otherwise, change at most FIVE existing content files in one bounded batch.
-            Create exactly one NEW machine-readable evidence file at
+            Write exactly one machine-readable evidence file at
               selected.evidencePath
-            from the source target JSON. Do NOT reuse an earlier issue's evidence
-            path for a different page. Its issue number N and canonical page must
+            from the source target JSON. If the same page has a previous evidence
+            ledger at that exact path, replace it ONLY for a new material change;
+            Git history retains prior evidence. Do NOT reuse another page's ledger. Its issue number N and canonical page must
             match the source selector. Use valid JSON:
               {"issue":N,"page":"/the-exact-selected-canonical-path",
                "updatedAt":"current real ISO-8601 time",
@@ -144,7 +145,7 @@ jobs:
           set -euo pipefail
           issue="$(node -p "require('./.artifacts/sitewide-rewrite-target.json').selected.issue")"
           evidence="$(node -p "require('./.artifacts/sitewide-rewrite-target.json').selected.evidencePath")"
-          if ! test -f "$evidence"; then
+          if [[ ! -f "$evidence" ]] || { git ls-files --error-unmatch -- "$evidence" >/dev/null 2>&1 && git diff --quiet HEAD -- "$evidence"; }; then
             echo 'No material source-supported change: no PR or fee-generating retry.'
             echo 'changed=false' >> "$GITHUB_OUTPUT"
             exit 0
