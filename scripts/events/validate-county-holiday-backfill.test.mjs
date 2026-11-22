@@ -61,6 +61,8 @@ test("county official calendars are tracked on the robot-respecting review sched
     sutton:"2026-12-02",
     kleberg:"2026-12-05",
     yoakum:"2026-12-17",
+    fannin:"2026-12-04",
+    mills:"2026-12-05",
     brazoria:"2026-12-04",
     somervell:"2026-11-28",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
@@ -204,4 +206,23 @@ test("Kingsville and Denver City 2026 community holiday occurrences preserve fir
  }
  assert.match(events.find(e=>e.slug===rows[0][0]).summary,/Kleberg Avenue/);
  assert.match(events.find(e=>e.slug===rows[1][0]).summary,/not specified a parade start time/);
+});
+
+test("Bonham and Mills County 2026 holiday additions have separate official organizer events and accurate venues",()=>{
+ const records=[
+  ["bonham-christmas-tree-lighting-smores-cookoff-2026","fannin","2026-11-28","bonhamchamber.com"],
+  ["bonham-home-for-holidays-market-2026","fannin","2026-12-05","bonhamchamber.com"],
+  ["goldthwaite-sip-stroll-shop-parade-2026","mills","2026-12-05","goldthwaiteareachamber.com"]
+ ];
+ for(const [slug,county,date,host] of records){
+   const item=events.find(e=>e.slug===slug);
+   assert.ok(item,"Missing 2026 original local holiday "+slug);
+   assert.equal(item.countySlug,county);
+   assert.equal(item.startDate,date);
+   assert.ok(new URL(item.officialEventUrl).hostname.replace(/^www[.]/,"").endsWith(host));
+   assert.equal(item.sourceVerifiedAt,"2026-11-22");
+   assert.ok(item.venueName&&item.summary.length>=110);
+ }
+ assert.match(events.find(e=>e.slug===records[1][0]).sourceName,/Stay Grounded/);
+ assert.match(events.find(e=>e.slug===records[2][0]).summary,/tickets/);
 });
