@@ -459,6 +459,20 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "paris-main-street",
+      "organization": "City of Paris Main Street",
+      "countySlugs": [
+        "lamar"
+      ],
+      "homeUrl": "https://www.paristexas.gov/",
+      "calendarUrl": "https://www.paristexas.gov/321/Events",
+      "contactPageUrl": "https://www.paristexas.gov/321/Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
