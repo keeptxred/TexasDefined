@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
+import { findOfficialSourceUrls } from './sitewide-rewrite-target.mjs';
 
 const readJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const git = (...args) => execFileSync('git', args, {encoding: 'utf8', maxBuffer: 8 * 1024 * 1024}).trim();
@@ -80,8 +81,8 @@ console.log(JSON.stringify({ok:true, page:target.page, issue:target.issue,
 if (process.argv.includes('--live-sources')) {
   const tags = [...new Set(ledger.facts.map(x=>x.sourceUrl))];
   for (const url of tags) {
-    const u = new URL(url);
-    if (u.protocol !== 'https:' || u.username || u.password || !/^[a-z0-9.-]+\.(gov|edu|org|com)$/i.test(u.hostname))
+    // Use the identical fail-closed public-source policy as selection.
+    if (!findOfficialSourceUrls(url).includes(url))
       throw Error('Source host rejected: ' + url);
     const resp = await fetch(url,{redirect:'manual',headers:{Accept:'text/html,text/plain',
       'User-Agent':'TexasDefinedEditorialProvenance/1.0'},signal:AbortSignal.timeout(16000)});
