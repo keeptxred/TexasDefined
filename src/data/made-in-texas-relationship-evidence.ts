@@ -305,9 +305,9 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Pappas Restaurants",
-    "claim": "The company's timeline documents its family's first Houston restaurant, Dot Coffee Shop, in 1967 and subsequent Houston restaurant openings.",
+    "claim": "Pappas Restaurants, Inc. lists its Houston corporate address at 13939 Northwest Freeway.",
     "sourceLabel": "Pappas Restaurants",
-    "sourceUrl": "https://www.pappas.com/about/",
+    "sourceUrl": "https://www.pappas.com/contact/",
     "checkedAt": "2026-11-21"
   },
   {
