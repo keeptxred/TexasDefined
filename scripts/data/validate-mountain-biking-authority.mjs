@@ -20,13 +20,13 @@ for (const marker of additional95PlusEvidence) {
   if (!lazyRoute.includes(marker)) errors.push('Missing detailed trailhead, permit, launch or sky-planning evidence: ' + marker);
 }
 
-// The five guides received substantive editorial revisions on November 20, 2026.
+// The five guides received substantive editorial revisions on November 20 and 21, 2026.
 // Guard the truthful sitemap lastmod and content-versioned cache key; do not
 // restamp those dates merely because an automated source audit succeeds.
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-21";') ||
     !primarySitemap.includes('cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);')) {
-  errors.push('Five outdoor guides need truthful Nov 20 editorial sitemap freshness and a versioned cache key.');
+  errors.push('Five outdoor guides need truthful Nov 21 editorial sitemap freshness and a versioned cache key.');
 }
 for (const slug of ['texas-mountain-biking-guide', 'texas-horseback-riding-guide', 'texas-ohv-guide', 'texas-paddling-guide', 'texas-stargazing-guide']) {
   if (!primarySitemap.includes('"/' + slug + '": OUTDOOR_GUIDES_LASTMOD,')) {
