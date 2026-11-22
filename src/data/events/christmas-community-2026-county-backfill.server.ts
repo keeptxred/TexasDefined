@@ -193,5 +193,20 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Wharton Chamber of Commerce & Agriculture",
   "summary": "The Wharton Chamber of Commerce's official 2026 events listing schedules its Christmas Parade for Tuesday, December 1, at 7 p.m. The Chamber's annual notice also identifies the celebration as the 2026 Christmas Parade. Check the Chamber directly for staging locations, the parade route, road closures, accessible viewing, and any severe-weather changes; the homepage does not establish those details.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "waller-night-in-bethlehem-christmas-market-2026",
+  "title": "A Night in Bethlehem · Christmas Market and Nativity Celebration",
+  "city": "Waller",
+  "countySlug": "waller",
+  "countyName": "Waller County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-11",
+  "endDate": "2026-12-12",
+  "venueName": "Ridin' with Christ Fellowship Church · 33100 Haley Road",
+  "officialEventUrl": "https://www.wallerchamber.com/events/details/a-night-in-bethlehem-3079",
+  "sourceName": "Waller Area Chamber of Commerce / Ridin' with Christ Fellowship",
+  "summary": "Waller Area Chamber's current event calendar confirms A Night in Bethlehem Friday and Saturday, December 11–12, 2026, from 6–10 p.m. at Ridin' with Christ Fellowship, 33100 Haley Road, Waller. Each evening features an 8:30 p.m. nativity/worship performance plus a community Christmas market, food and fellowship. This is a church-hosted religious celebration; no public admission price is stated in the organizer listing.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
