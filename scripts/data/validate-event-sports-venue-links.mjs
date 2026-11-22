@@ -88,19 +88,23 @@ for (const row of dispositionRows) {
 assert(eventDisposition.includes('Canonical guide remains `/texas-state-fair`; do not create a competing event authority page.'), 'State Fair discovery seed must remain assigned to the canonical /texas-state-fair guide instead of a duplicate event authority page.');
 
 assert(countyEventsServer.includes('loadUpcomingTexasEventRecordsServer'), 'County event lookup must consume the canonical source-qualified upcoming event registry.');
-assert(countyEventsServer.includes('countySlug: normalizedCountySlug'), 'County event lookup must filter the canonical event registry by verified county slug.');
-assert(countyEventsServer.includes('event.guidePath.startsWith("/event/")'), 'County major-event cards must stay limited to permanent event authority guides.');
+assert(countyEventsServer.includes('countySlug: county'), 'County event lookup must filter the canonical event registry by verified county slug.');
+assert(countyEventsServer.includes('event.guidePath.startsWith("/event/") || event.guidePath.startsWith("/events/")'), 'County event cards may link to source-verified permanent guides or current calendar-only event anchors.');
 assert(countyEventsServer.includes('buildTexasEventCarouselItemsServer(records)'), 'County event presentation must reuse the canonical calendar presentation model.');
-assert(countyEventsServer.includes('.slice(0, 8)'), 'County event cards must stay bounded to a focused discovery set.');
+assert(countyEventsServer.includes('.slice(0, 16)'), 'County event cards must stay bounded to a focused discovery set.');
 assert(!countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must not rebuild a parallel supplemental authority registry.');
 assert(!countyEventsServer.includes('majorEventIndexRecords'), 'County event lookup must not rebuild a parallel core authority registry.');
+assert(countyEventsServer.includes('additionalCountySlugsByEvent'), 'Known cross-county community events must retain explicit secondary county mapping.');
+assert(countyEventsServer.includes('loadMajorEventGuideDirectoryServer'), 'County pages must retain permanent annual event guides after a past edition ends.');
+assert(countyEventsServer.includes('Last confirmed'), 'Expired local events must be distinguished from upcoming verified occurrences.');
+assert(countyDestinations.includes('event.isUpcoming'), 'County event UI must distinguish future event dates from historical annual traditions.');
 assert(countyEventsBridge.includes('const loadCountyMajorEvents = createServerFn'), 'County major-event lookup must retain its dedicated proven server-function boundary.');
 assert(countyEventsBridge.includes('await import("./county-major-events.server")'), 'County event authority records must remain dynamically imported server-side.');
 assert(!countyEventsBridge.includes('rv-parks/registry.server'), 'County event authority RPC must not absorb RV discovery.');
 assert(countyRoute.includes("import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug))"), 'County route loader must load major-event links by county identity.');
 assert(countyRoute.includes('majorEvents: countyMajorEvents'), 'County route loader must serialize major-event discovery for synchronous rendering.');
 assert(countyDestinations.includes('const majorEvents = county.majorEvents ?? [];'), 'County UI must consume loader-backed major-event links synchronously.');
-assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County major-event cards must link to permanent event authority URLs.');
+assert(countyDestinations.includes('href={event.href}'), 'County event cards must link to canonical verified event guide or calendar URLs.');
 assert(!countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County UI must not suspend on the major-event server function before county discovery sections render.');
 assert(!countyDestinations.includes('major-event-supplemental-registry.server'), 'County UI must not import the server-only supplemental authority registry directly.');
 
