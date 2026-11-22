@@ -8,7 +8,7 @@ export const calhounCountyPortLavacaIndianolaSeadriftBaysArticle: Article = {
   brandId: "texasdefined",
   slug: "calhoun-county-port-lavaca-indianola-seadrift-bays-texas",
   title: "Calhoun County: Port Lavaca, Indianola, Seadrift and the Bays",
-  dek: "Calhoun County occupies one of the most water-shaped corners of the Texas coast, where Port Lavaca, Seadrift, Indianola, Matagorda Bay, Lavaca Bay and the lower Guadalupe all meet a landscape built around ports, fishing, ranching, storms and industry.",
+  dek: "The 1886 hurricane and fire that ended Indianola as Calhoun County seat, the moved courthouse, a 1911 building and its surviving cornerstone beside the 1959 Port Lavaca courthouse.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const calhounCountyPortLavacaIndianolaSeadriftBaysArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Calhoun County",
     "Port Lavaca",
@@ -88,6 +89,23 @@ export const calhounCountyPortLavacaIndianolaSeadriftBaysArticle: Article = {
     p("The current Calhoun County Courthouse in Port Lavaca was built in 1959 and reflects a very different era of Texas civic architecture from the ornate nineteenth-century courthouses found inland. Its limestone, glass and modernist lines place it firmly in the postwar period, when counties were expanding administrative space and embracing contemporary design."),
     p("That architecture fits the county's broader twentieth-century transformation. Calhoun County was becoming more industrial, more connected by highway and causeway, and increasingly tied to chemical manufacturing and energy. The courthouse belongs to that modern phase of county history just as Indianola's lost courthouse belonged to the age of Gulf steamships."),
 
+    h("Indianola's 1886 hurricane and fire moved the county courthouse inland"),
+    p("Calhoun County's first courts followed bay commerce. The county was organized in 1846 with Lavaca as the first government seat, but the rapidly growing port of Indianola became county seat in 1852. A purpose-built courthouse was completed there in 1857, when the deep-water port was a leading entry point for German immigrants and Texas commerce."),
+    p("The devastating 1875 hurricane destroyed much of Indianola, but some residents and businesses rebuilt. On August 22, 1886, another major hurricane and storm surge hit, followed by fires that consumed remaining parts of the settlement. The combined disasters ended Indianola's role as a major port and county seat."),
+    p("Government returned to Port Lavaca in 1887, along with the post office and other public services. Historical accounts describe an early frame courthouse built that year, followed by a more substantial building in 1911. This was not a simple in-place repair of Indianola's courthouse: the county changed its official center as a direct result of repeated coastal disasters."),
+    p("The Indianola site remains a historical coastal landscape with markers and remnants rather than a living courthouse downtown. The former courthouse location should be interpreted respectfully as part of a destroyed community, with regard for tides, weather, roads and present-day private property."),
+
+    h("The 1911 cornerstone survived replacement by the 1959 courthouse"),
+    p("The 1911 courthouse was designed for Port Lavaca as county services expanded after the Indianola years, with local records recording county acceptance on May 10, 1911. A later modernist courthouse-and-jail project replaced it during 1958–59, when county government needed more space for records and judicial functions."),
+    p("The present Calhoun County Courthouse dates to 1959. It is not an intact Victorian building whose roof was blown off in the 1886 Indianola hurricane. A cornerstone from the 1911 courthouse is preserved at or near the Calhoun County Museum, offering a tangible link to the previous county building."),
+    p("This sequence makes public-building history inseparable from evacuation and storm safety. The local government center moved because of real human and economic losses, while later public works responded to growth in seafood harvesting, port industry and highways."),
+    p("The 2023 Texas Historical Commission historic resources survey describes Calhoun's successive courthouse generations and the role of storms in the county's urban geography. Check the county's current directory before traveling for judicial services."),
+
+    h("Calhoun County courthouse questions"),
+    p("Why did the county seat move away from Indianola? The catastrophic 1886 hurricane and following fires destroyed much of the port, causing government to return to Port Lavaca in 1887."),
+    p("When was the courthouse preceding the current one built? The Port Lavaca courthouse was accepted on May 10, 1911."),
+    p("What remains of that building? Its cornerstone is displayed or preserved near the Calhoun County Museum."),
+    p("When was the surviving courthouse completed? The present modernist structure dates to 1959."),
     h("The Lavaca Bay causeway changed daily life"),
     p("A causeway across Lavaca Bay opened in the early 1930s and improved road connections through the county. Later causeways and bridges made movement between Port Lavaca, Point Comfort and the surrounding coast far easier. Hurricane Carla damaged an earlier structure in 1961, reinforcing the vulnerability of infrastructure built directly across open bay water."),
     p("Today the causeway is both transportation and landmark. It ties together communities whose economies depend on industry, fishing and regional travel while providing sweeping views of Lavaca Bay. The structure also demonstrates how engineering has gradually reduced the isolation that once made coastal travel difficult."),
@@ -127,5 +145,13 @@ export const calhounCountyPortLavacaIndianolaSeadriftBaysArticle: Article = {
     h("What defines Calhoun County"),
     p("Calhoun County is defined by adaptation to the Gulf. Ports rose because the bays connected Texas to the world. Indianola disappeared because the same coast that created its wealth could destroy it. Port Lavaca endured by changing roles, while Seadrift and Port O'Connor built identities around fishing and bay access. Industry later added a new economic layer without erasing the older maritime one."),
     p("The result is a county where history, economy and ecology are inseparable. The courthouse in Port Lavaca, the lost streets of Indianola, the industrial shoreline at Point Comfort, the shrimp boats of Seadrift, the fishing fleets of Port O'Connor and the marshes around Matagorda and San Antonio bays all belong to the same place. Calhoun County is one of the clearest examples in Texas of what it means to live with the coast rather than simply beside it."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 2023 Calhoun County historic resources survey and court buildings", url: "https://thc.texas.gov/sites/default/files/2025-04/Calhoun_County_Survey_Report.pdf" },
+    { label: "Handbook of Texas — Calhoun County 1886 hurricane and Port Lavaca county seat", url: "https://www.tshaonline.org/handbook/entries/calhoun-county" },
+    { label: "UNT archival 1941 Calhoun County history — Indianola's 1886 hurricane and fire", url: "https://texashistory.unt.edu/ark:/67531/metapth25253/" },
+    { label: "Texas historical courthouse photography — 1911 cornerstone and 1959 courthouse", url: "https://www.texasescapes.com/TexasGulfCoastTowns/Port-Lavaca-Texas-Calhoun-County-Courthouse.htm" },
+    { label: "Calhoun County Museum — historical records and visitor information", url: "https://www.calhouncountymuseum.org/" },
+    { label: "Calhoun County government — current courthouse services", url: "https://www.calhouncotx.org/" },
   ],
 };
