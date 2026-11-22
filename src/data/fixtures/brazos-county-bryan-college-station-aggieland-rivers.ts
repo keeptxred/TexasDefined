@@ -8,7 +8,7 @@ export const brazosCountyBryanCollegeStationAggielandRiversArticle: Article = {
   brandId: "texasdefined",
   slug: "brazos-county-bryan-college-station-aggieland-rivers-texas",
   title: "Brazos County: Bryan, College Station, Aggieland and the Rivers That Shaped It",
-  dek: "Brazos County is where the Brazos and Navasota rivers frame a landscape transformed by railroads, cotton, Texas A&M, research, military tradition and the paired cities of Bryan and College Station.",
+  dek: "Bryan's five courthouse generations, its red-sandstone 1892 landmark demolished in 1954, the 1957 successor and the historic courthouse cedar alongside Brazos County rail and Texas A&M history.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const brazosCountyBryanCollegeStationAggielandRiversArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: ["Brazos County", "Bryan", "College Station", "Texas A&M University", "Brazos River", "Navasota River", "Aggieland", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -53,6 +54,21 @@ export const brazosCountyBryanCollegeStationAggielandRiversArticle: Article = {
     p("Bryan developed along the Houston and Texas Central line and was named for William Joel Bryan, a nephew of Stephen F. Austin who donated land connected with the townsite. In 1866 voters moved the county seat from Boonville to Bryan as the railroad extended through the area. The shift permanently joined county government to the emerging transportation corridor."),
     p("Bryan grew as a market town for the surrounding agricultural region. Cotton gins, warehouses, banks, merchants and rail facilities supported farmers and ranchers from across the Brazos Valley. The downtown street grid, courthouse area and surviving commercial buildings still reflect this late nineteenth- and early twentieth-century role. Bryan was not created by Texas A&M; it was already the county's principal city before the college opened nearby, and that older civic identity remains distinct from College Station."),
 
+    h("The historic courthouse cedar witnessed five generations of Brazos government"),
+    p("Brazos County was established in 1841 under its original name of Navasota County, before Bryan became its seat. The Texas State Historical Association records an eastern red cedar near the southwest corner of the Bryan courthouse square that had stood since the first county governments of the 1840s. The tree witnessed five generations of county courthouses as official offices moved, larger buildings replaced smaller ones and the railroad changed the local economy."),
+    p("The most memorable predecessor was an ornate red-sandstone courthouse built in 1892, replacing an earlier brick court building declared unsafe. Its clock tower and contrasting masonry became downtown landmarks in a region increasingly linked to cotton trade, the International–Great Northern Railway and the Agricultural and Mechanical College of Texas."),
+    p("A visitor who sees the modern concrete courthouse should not assume the nineteenth-century clock tower burned down. It was intentionally demolished in 1954 as the county sought modern court offices, and the original site was cleared for the replacement. The City of Bryan's published timeline documents both the demolition and the later 1957 opening of the present courthouse."),
+
+    h("The 1957 courthouse opened after three years of rebuilding"),
+    p("Historical building materials from the old courthouse were salvaged, including an original red sandstone block now displayed or preserved as a local-history object. The City of Bryan's 150th-anniversary artifact archive reproduces a photograph of the 1892 courthouse in the 1937 snow and identifies the sandstone fragment."),
+    p("The new courthouse opened in 1957 in a modernist architectural style suited to growing courts and administrative offices. A historic marker in its south courtyard preserves evidence of the demolished structure, and the courthouse cedar offers another connection with the earlier square."),
+    p("The courthouse development is inseparable from Bryan's railroad and Texas A&M history: growth in nearby College Station, new industry and expanding public services made the older facilities inadequate. But a historically honest guide must distinguish deliberate demolition, a salvaged building stone and a standing historic tree from a claim that the entire 1892 courthouse has survived."),
+
+    h("Brazos County courthouse questions"),
+    p("When did Bryan lose its historic red-sandstone courthouse? The 1892 courthouse was demolished in 1954, not destroyed by a documented fire."),
+    p("When did the present courthouse open? The City of Bryan records its completion and opening in 1957."),
+    p("Why is a cedar tree by the courthouse historically important? TSHA says it grew at the site of five successive Brazos County courthouses and was a sapling when the county was established in 1841."),
+    p("Can visitors still see materials from the old building? The City of Bryan's artifact history documents a surviving piece of its red sandstone; check present display access with the city or county."),
     h("Cotton and migration reshaped the county after the Civil War"),
     p("Agriculture drove much of Brazos County's nineteenth-century economy. Cotton expanded rapidly with rail access, while corn, livestock and other crops supported local farms. Plantation agriculture before emancipation depended on enslaved labor, and the postwar system shifted toward tenant farming and sharecropping. African American residents remained a major part of the county's population and civic life even as disfranchisement and segregation narrowed political power at the end of the nineteenth century."),
     p("The county also drew immigrants from Germany, Bohemia and Moravia, Italy and other parts of Europe. Their churches, farms, businesses, cemeteries and social organizations became part of the Brazos Valley's cultural landscape. The result was a rural county more diverse than a simple cotton-economy label suggests. Bryan's commercial center connected these communities to rail markets, while family farms and small settlements maintained distinct traditions beyond town."),
@@ -92,5 +108,13 @@ export const brazosCountyBryanCollegeStationAggielandRiversArticle: Article = {
     h("How to read Brazos County today"),
     p("A useful way to understand Brazos County is to follow the sequence of places that redirected its growth. Start with the rivers that framed settlement. Look for the former Boonville county-seat area and the old Millican rail corridor to see how quickly transportation could create and diminish communities. Walk downtown Bryan to understand the county's railroad-and-market era. Then move toward Texas A&M, where a land-grant college created an entirely new center of population and influence."),
     p("From there, College Station, research campuses, the presidential library, suburban corridors and modern highways show the latest layer of change. None of these eras fully erased the one before it. Bryan still serves as county seat. Rail lines still cross the county. Agriculture still occupies land beyond the urban core. The Brazos and Navasota still define the county's edges. And Texas A&M continues the land-grant mission that began with a 2,416-acre site chosen more than 150 years ago. Brazos County is best understood as a place repeatedly reorganized by connection—first rivers, then rails, then education, research and statewide networks."),
+  ],
+  sources: [
+    { label: "City of Bryan 150 — 1892 courthouse and 1954 demolition", url: "https://150.bryantx.gov/timeline-1871-1900/" },
+    { label: "City of Bryan 150 — 1957 modern courthouse opening", url: "https://150.bryantx.gov/timeline-1931-1960/" },
+    { label: "City of Bryan 150 — sandstone fragment from demolished 1892 courthouse", url: "https://150.bryantx.gov/artifacts/" },
+    { label: "Texas State Historical Association — historic courthouse cedar at five Bryan courthouses", url: "https://www.tshaonline.org/handbook/entries/courthouse-cedar" },
+    { label: "Texas State Historical Association — Brazos County historical overview", url: "https://www.tshaonline.org/handbook/entries/brazos-county" },
+    { label: "City of Bryan — historic preservation and courthouse imagery", url: "https://www.bryantx.gov/departments/development-services/historic-preservation/" },
   ],
 };
