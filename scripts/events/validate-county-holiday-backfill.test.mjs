@@ -56,4 +56,8 @@ test("all-county holiday audit covers newly added source-qualified calendar and 
   const selector=fs.readFileSync("src/data/events/texas-event-record.ts","utf8");
   assert.ok(selector.includes("(event.endDate ?? event.startDate) >= query.startsOnOrAfter"),
     "Ongoing multi-day events must remain visible after first day");
+  const countyUi=fs.readFileSync("src/components/sports/CountySportsDestinations.tsx","utf8");
+  const holidayLinks=countyUi.match(/href="\/events\/christmas-events"/g) ?? [];
+  assert.ok(holidayLinks.length >= 2, "Christmas hub must be linked from every county, including counties with unrelated local events");
+  assert.ok(countyUi.includes('event.isUpcoming'), "Past editions must be labeled, never passed off as current events");
 });
