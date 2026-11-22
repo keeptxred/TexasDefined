@@ -165,7 +165,6 @@ if (eventLeaf.includes('Texas Defined will show reviewed nearby hotel options he
 }
 
 const recurrenceDerivedDateSlugs = [
-  'dallas-holiday-parade',
   'schulenburg-festival',
   'westfest',
   'luling-watermelon-thump',
@@ -182,6 +181,9 @@ for (const feature of [
 ]) {
   if (!dateConfidence.includes(feature)) errors.push(`Shared major-event date confidence registry missing: ${feature}.`);
 }
+// The current organizer explicitly confirms the 2026 Dallas date.
+if (dateConfidence.includes('"dallas-holiday-parade"')) errors.push('Confirmed Dallas Holiday Parade must not be classified as a projected date.');
+
 for (const slug of recurrenceDerivedDateSlugs) {
   if (!dateConfidence.includes(`"${slug}"`)) errors.push(`Recurrence-derived Event slug missing from shared date confidence registry: ${slug}.`);
 }
