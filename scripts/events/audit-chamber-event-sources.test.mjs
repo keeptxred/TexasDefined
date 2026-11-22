@@ -298,7 +298,7 @@ test("reconciled official local calendar classifications preserve geography, pub
     assert.equal(src.sourceKind,kind);
     assert.equal(new URL(src.calendarUrl).protocol,"https:");
   }
-  assert.equal(registry.sources.length,284);
+  assert.ok(registry.sources.length >= 284, "Do not lose the reconciled primary-source baseline when discovering new sources");
   const audit = await auditChamberSources({offline:true});
   assert.equal(audit.countiesWithRegisteredSources,254);
   assert.ok(audit.countiesWithExplicitCalendarSources >= 130);
