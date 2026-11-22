@@ -2924,6 +2924,132 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "spur-dickens-chamber",
+      "organization": "Spur Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "dickens"
+      ],
+      "homeUrl": "https://www.spurchamber.com/",
+      "calendarUrl": "https://www.spurchamber.com/",
+      "contactPageUrl": "https://www.spurchamber.com/contact-10",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "crosbyton-chamber",
+      "organization": "Crosbyton Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "crosby"
+      ],
+      "homeUrl": "https://www.crosbytonchamber.com/",
+      "calendarUrl": "https://visitcrosbycounty.com/events/",
+      "contactPageUrl": "https://www.crosbytonchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "franklin-county-mount-vernon-chamber",
+      "organization": "Franklin County Chamber of Commerce, Mount Vernon",
+      "countySlugs": [
+        "franklin"
+      ],
+      "homeUrl": "https://www.franklincountytx.com/",
+      "calendarUrl": "https://www.franklincountytx.com/events",
+      "contactPageUrl": "https://www.franklincountytx.com/about",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "goldthwaite-mills-chamber",
+      "organization": "Goldthwaite Area Chamber of Commerce",
+      "countySlugs": [
+        "mills"
+      ],
+      "homeUrl": "https://www.goldthwaiteareachamber.com/",
+      "calendarUrl": "https://www.goldthwaiteareachamber.com/events",
+      "contactPageUrl": "https://www.goldthwaiteareachamber.com/communitycalendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "throckmorton-chamber",
+      "organization": "Throckmorton Chamber of Commerce",
+      "countySlugs": [
+        "throckmorton"
+      ],
+      "homeUrl": "https://www.throckmortonchamber.com/",
+      "calendarUrl": "https://www.throckmortonchamber.com/",
+      "contactPageUrl": "https://www.throckmortonchamber.com/businessdirectory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "stamford-jones-city-events",
+      "organization": "City of Stamford public festival and community calendar",
+      "countySlugs": [
+        "jones"
+      ],
+      "homeUrl": "https://www.stamfordtexas.gov/",
+      "calendarUrl": "https://www.stamfordtexas.gov/events-calendar",
+      "contactPageUrl": "https://www.stamfordtexas.gov/events-calendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "munday-knox-city-events",
+      "organization": "City of Munday public holiday and community event notices",
+      "countySlugs": [
+        "knox"
+      ],
+      "homeUrl": "https://www.cityofmunday.com/",
+      "calendarUrl": "https://www.cityofmunday.com/",
+      "contactPageUrl": "https://www.cityofmunday.com/residents/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "albany-shackelford-events",
+      "organization": "Albany Texas visitor and Fandangle community festival calendar",
+      "countySlugs": [
+        "shackelford"
+      ],
+      "homeUrl": "https://albanytex.com/",
+      "calendarUrl": "https://albanytex.com/events",
+      "contactPageUrl": "https://albanytex.com/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "memphis-hall-chamber-city",
+      "organization": "City of Memphis Chamber of Commerce official contact",
+      "countySlugs": [
+        "hall"
+      ],
+      "homeUrl": "https://memphistexas.gov/",
+      "calendarUrl": "https://memphistexas.gov/chamber-of-commerce",
+      "contactPageUrl": "https://memphistexas.gov/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
