@@ -112,7 +112,10 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "zapata", "lamb", "parmer", "morris", "live-oak", "coke", "crane",
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
-  assert.ok(roster.size >= 213, "Source mapping must not silently lose reviewed county coverage");
+  assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
+  assert.equal(registry.sources.length, 270, "Do not silently lose the reconciled source-desk registry");
+  const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
+  assert.ok(directCalendars.length >= 26, "Keep separately reviewed community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
