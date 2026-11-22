@@ -2433,6 +2433,132 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "hamilton-main-street",
+      "organization": "City of Hamilton Main Street official community event calendar",
+      "countySlugs": [
+        "hamilton"
+      ],
+      "homeUrl": "https://www.hamiltontexas.com/",
+      "calendarUrl": "https://www.allthingshamilton.org/events",
+      "contactPageUrl": "https://www.allthingshamilton.org/upcomingeventform",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "madisonville-city-events",
+      "organization": "City of Madisonville tourism and festival events",
+      "countySlugs": [
+        "madison"
+      ],
+      "homeUrl": "https://www.madisonvilletexas.gov/",
+      "calendarUrl": "https://www.madisonvilletexas.gov/events",
+      "contactPageUrl": "https://www.madisonvilletexas.gov/tourism/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "jackson-edna-chamber",
+      "organization": "Jackson County Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "jackson"
+      ],
+      "homeUrl": "https://www.jacksoncountytexas.com/",
+      "calendarUrl": "https://www.jacksoncountytexas.com/events/calendar",
+      "contactPageUrl": "https://www.jacksoncountytexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "liberty-trinity-valley-chamber",
+      "organization": "Trinity Valley Chamber of Commerce (Dayton/Liberty County)",
+      "countySlugs": [
+        "liberty"
+      ],
+      "homeUrl": "https://www.trinityvalleycc.com/",
+      "calendarUrl": "https://business.trinityvalleycc.com/events",
+      "contactPageUrl": "https://business.daytontxchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "kenedy-karnes-chamber",
+      "organization": "Kenedy Chamber of Commerce Tourism and Visitor Center",
+      "countySlugs": [
+        "karnes"
+      ],
+      "homeUrl": "https://www.kenedychamber.org/",
+      "calendarUrl": "https://www.kenedychamber.org/events/",
+      "contactPageUrl": "https://www.kenedychamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pearsall-frio-chamber",
+      "organization": "Pearsall Chamber of Commerce",
+      "countySlugs": [
+        "frio"
+      ],
+      "homeUrl": "https://pearsallchamber.org/",
+      "calendarUrl": "https://pearsallchamber.org/",
+      "contactPageUrl": "https://pearsallchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "centerville-leon-chamber",
+      "organization": "Centerville Chamber of Commerce",
+      "countySlugs": [
+        "leon"
+      ],
+      "homeUrl": "https://centervilletx.org/",
+      "calendarUrl": "https://centervilletx.org/",
+      "contactPageUrl": "https://centervilletx.org/member-directory/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "discover-crockett-houston",
+      "organization": "Discover Crockett visitor and local festival events",
+      "countySlugs": [
+        "houston"
+      ],
+      "homeUrl": "https://www.discovercrocketttx.com/",
+      "calendarUrl": "https://www.discovercrocketttx.com/",
+      "contactPageUrl": "https://www.discovercrocketttx.com/holidaytourofhomes",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "mexia-city-limestone",
+      "organization": "City of Mexia public news and local events",
+      "countySlugs": [
+        "limestone"
+      ],
+      "homeUrl": "https://www.cityofmexia.com/",
+      "calendarUrl": "https://www.cityofmexia.com/",
+      "contactPageUrl": "https://www.mexiaedc.com/171/Mexia-Chamber-of-Commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
