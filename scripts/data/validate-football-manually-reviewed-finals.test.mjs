@@ -561,3 +561,308 @@ test('verified forfeits do not imply played points and rescheduled games keep th
 
 
 test('additional conflict-resolved and rescheduled finals retain exact original fixture keys',()=>{for(const [slug,date,opponent,pf,pa] of [["amarillo-caprock","2026-10-29","Frenship Memorial",21,30],["big-sandy","2026-10-30","Bowie",39,46],["caddo-mills","2026-11-06","Paris",63,64],["burleson-centennial","2026-11-06","Cedar Hill",14,28]]){const r=byFixture.get(slug+'|'+date);assert.deepEqual([r.opponent,r.pointsFor,r.pointsAgainst],[opponent,pf,pa]);}});
+
+
+test('Reconciled remaining dated fixtures retain exact editorial keys and corroborated results',()=>{
+  for(const row of [
+  {
+    "slug": "altair-rice",
+    "date": "2026-10-02",
+    "opponent": "Boling",
+    "pointsFor": 28,
+    "pointsAgainst": 27,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/schedule/",
+    "secondarySourceUrl": "https://txprepfootball.com/schools/rice-consolidated-raiders/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "alvord",
+    "date": "2026-11-07",
+    "playedDate": "2026-11-06",
+    "opponent": "Chico",
+    "pointsFor": 48,
+    "pointsAgainst": 0,
+    "primarySourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=103&yr=2026",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/chico/chico-dragons/football/schedule/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "anton",
+    "date": "2026-09-18",
+    "opponent": "Springlake-Earth",
+    "pointsFor": 50,
+    "pointsAgainst": 22,
+    "primarySourceUrl": "https://klvtsports.wordpress.com/2026/09/20/klvt-listening-area-week-4-football-scoreboards/",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/football/game/anton-vs-springlake-earth/9-18-2026/?c=8a39100b-fbd3-474d-aa1a-c6f7af4b54e1",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "archer-city",
+    "date": "2026-10-02",
+    "opponent": "Petrolia",
+    "pointsFor": 32,
+    "pointsAgainst": 40,
+    "primarySourceUrl": "https://sports.yahoo.com/articles/week-6-wichita-falls-area-045520524.html",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/football/game/archer-city-vs-petrolia/10-2-2026/?c=6b091db7-bf37-46d7-a902-b315b3d75a0d",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "alvin-shadow-creek",
+    "date": "2026-10-09",
+    "opponent": "Pasadena Memorial",
+    "pointsFor": 59,
+    "pointsAgainst": 13,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/pasadena-memorial-vs-shadow-creek-pearland/10-9-2026/?c=d4eeca1a-4ba5-4d26-ae34-72983e7c1c14",
+    "secondarySourceUrl": "https://www.on3.com/high-school/shadow-creek-pearland-tx-7507/football/scores/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "alief-taylor",
+    "date": "2026-10-22",
+    "opponent": "Westside",
+    "pointsFor": 41,
+    "pointsAgainst": 7,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/alief-taylor/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "arlington-martin",
+    "date": "2026-10-16",
+    "opponent": "Arlington Bowie",
+    "pointsFor": 45,
+    "pointsAgainst": 20,
+    "primarySourceUrl": "https://www.martinfbrecruiting.com/varsity-schedule",
+    "secondarySourceUrl": "https://gmsportsmedia.com/2026/10/dfw-football-scores-week-8/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "arlington-seguin",
+    "date": "2026-10-08",
+    "opponent": "Mansfield Timberview",
+    "pointsFor": 14,
+    "pointsAgainst": 56,
+    "primarySourceUrl": "https://www.aol.com/articles/week-7-fort-worth-area-061137000.html",
+    "secondarySourceUrl": "https://gmsportsmedia.com/2026/10/dfw-football-scores-week-7/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "ballinger",
+    "date": "2026-10-16",
+    "opponent": "Colorado",
+    "pointsFor": 34,
+    "pointsAgainst": 14,
+    "primarySourceUrl": "https://sanangelolive.com/news/sports/2026-10-16/ballinger-beats-colorado-city-stay-perfect-district",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/ballinger/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bartlett",
+    "date": "2026-10-23",
+    "opponent": "Somerville",
+    "pointsFor": 48,
+    "pointsAgainst": 42,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/bartlett/bartlett-bulldogs/football/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bartlett/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bishop",
+    "date": "2026-10-30",
+    "opponent": "Progreso",
+    "pointsFor": 48,
+    "pointsAgainst": 0,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/scores/?date=10%2F30%2F2026",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bishop/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bloomington",
+    "date": "2026-10-23",
+    "opponent": "Weimar",
+    "pointsFor": 8,
+    "pointsAgainst": 44,
+    "primarySourceUrl": "https://www.coloradocountycitizen.com/article/9155%2Cwildcats-blowout-bloomington-on-homecoming-night",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bloomington/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bonham",
+    "date": "2026-10-23",
+    "opponent": "Wills Point",
+    "pointsFor": 45,
+    "pointsAgainst": 33,
+    "primarySourceUrl": "https://www.si.com/high-school/stats/texas/25039-division-4a2-region-2-district-7/football/scores?date=2026-10-23",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bonham/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bonham",
+    "date": "2026-11-06",
+    "opponent": "Farmersville",
+    "pointsFor": 18,
+    "pointsAgainst": 44,
+    "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-nov-6-22517995.php",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bonham/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "booker",
+    "date": "2026-11-05",
+    "opponent": "Boys Ranch",
+    "pointsFor": 22,
+    "pointsAgainst": 70,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/schedule/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/booker/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "boys-ranch",
+    "date": "2026-11-05",
+    "opponent": "Booker",
+    "pointsFor": 70,
+    "pointsAgainst": 22,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/schedule/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/boys-ranch/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bremond",
+    "date": "2026-10-23",
+    "opponent": "Burton",
+    "pointsFor": 36,
+    "pointsAgainst": 13,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/bremond-vs-burton/10-23-2026/?c=f31c8efb-dbbc-407e-8727-67b33b322067",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bremond/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "brownsville-hanna",
+    "date": "2026-11-07",
+    "opponent": "Brownsville Rivera (rival BISD campus; game in Brownsville)",
+    "pointsFor": 49,
+    "pointsAgainst": 17,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
+    "secondarySourceUrl": "https://www.si.com/high-school/stats/texas/football/scores?date=2026-11-07",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "brownsville-rivera",
+    "date": "2026-11-07",
+    "opponent": "Brownsville Hanna",
+    "pointsFor": 17,
+    "pointsAgainst": 49,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/brownsville/rivera-raiders/football/schedule/",
+    "secondarySourceUrl": "https://www.si.com/high-school/stats/texas/football/scores?date=2026-11-07",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bryson",
+    "date": "2026-10-30",
+    "opponent": "Vernon Northside",
+    "pointsFor": 78,
+    "pointsAgainst": 116,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/scores/?date=10%2F30%2F2026",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/bryson/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "buda-hays",
+    "date": "2026-10-30",
+    "opponent": "Del Valle",
+    "pointsFor": 68,
+    "pointsAgainst": 14,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/buda/hays-hawks/football/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/buda-hays/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "calvert",
+    "date": "2026-10-30",
+    "opponent": "Apple Springs",
+    "pointsFor": 33,
+    "pointsAgainst": 52,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/scores/?date=10%2F30%2F2026",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/calvert/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "canutillo",
+    "date": "2026-10-30",
+    "opponent": "Burges",
+    "pointsFor": 50,
+    "pointsAgainst": 14,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/canutillo/canutillo-eagles/football/schedule/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/canutillo/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "blum",
+    "date": "2026-11-06",
+    "opponent": "Milford",
+    "pointsFor": 14,
+    "pointsAgainst": 62,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/association/texas-university-interscholastic-league/football/scores/?date=11%2F6%2F2026&mobile=1",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/blum/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "anthony",
+    "date": "2026-11-06",
+    "opponent": "Crane",
+    "pointsFor": 7,
+    "pointsAgainst": 51,
+    "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-nov-6-22517995.php",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/anthony/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "benjamin",
+    "date": "2026-10-30",
+    "opponent": "Knox City",
+    "pointsFor": 12,
+    "pointsAgainst": 58,
+    "primarySourceUrl": "https://www.maxpreps.com/tx/knox-city/knox-city-greyhounds/football/",
+    "secondarySourceUrl": "https://www.si.com/high-school/stats/texas/30108-division-1a-sixman-2-region-3-district-9/football/scores?date=2026-10-30",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bastrop",
+    "date": "2026-11-05",
+    "opponent": "LASAA",
+    "outcome": "forfeit-win",
+    "primarySourceUrl": "https://www.expressnews.com/news/article/austin-lasa-football-season-22497100.php",
+    "secondarySourceUrl": "https://www.bastroppassport.com/sports/football?school=bastrop",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  }
+]){
+    assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);
+  }
+});
