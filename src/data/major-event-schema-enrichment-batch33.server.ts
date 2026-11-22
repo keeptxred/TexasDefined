@@ -50,4 +50,25 @@ export const majorEventSchemaEnrichmentBatch33: MajorEventSchemaEnrichment[] = [
     ],
     verifiedAt: "2026-10-23",
   },
+  {
+    slug: "christmas-in-gusherville",
+    organizer: { type: "Organization", name: "Gladewater Chamber of Commerce", url: "https://gladewaterchamber.org/" },
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:FilePath/Downtown_Gladewater_3_%281_of_1%29.jpg?width=1600",
+      alt: "Historic Gladewater, Texas downtown storefronts photographed in January 2019, not the Christmas in Gusherville holiday event",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Gladewater_3_(1_of_1).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo: Renelibrary, January 2019, CC BY-SA 4.0. Unmodified downtown location photo; not a depiction of the November 2026 holiday celebration.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Gladewater Chamber of Commerce official organizer", url: "https://gladewaterchamber.org/" },
+      { label: "Gladewater Mirror — confirmed November 14, 2026 program", url: "https://www.gladewatermirror.com/event-season-starts-saturday-with-slew-of-local-activities" },
+      { label: "Licensed downtown photograph by Renelibrary (2019)", url: "https://commons.wikimedia.org/wiki/File:Downtown_Gladewater_3_(1_of_1).jpg" },
+    ],
+    verifiedAt: "2026-11-22",
+  },
 ];

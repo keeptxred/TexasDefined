@@ -593,6 +593,52 @@ const records: ChristmasExtendedRecord[] = [
         "endDate": "2027-01-03"
       }
     ]
+  },
+  {
+    slug: "christmas-in-gusherville",
+    name: "Christmas in Gusherville — Gladewater Holiday Open House",
+    city: "Gladewater",
+    countySlug: "gregg",
+    countyName: "Gregg and Upshur counties",
+    region: "piney-woods",
+    category: "seasonal",
+    startDate: "2026-11-14",
+    endDate: "2026-11-14",
+    venue: "Historic Downtown Gladewater, Texas",
+    officialUrl: "https://gladewaterchamber.org/",
+    sourceCheckedAt: "2026-11-22",
+    seoTitle: "Christmas in Gusherville: Gladewater Holiday Open House & Visitor Guide",
+    seoDescription: "Explore Gladewater's annual Christmas in Gusherville downtown holiday open house, 2026 event highlights, tree lighting, and how to check future dates.",
+    whyItMatters: "Christmas in Gusherville is Gladewater's small-town kickoff to the holiday season. The Chamber of Commerce and historic downtown businesses put the oil-boom town's walkable antique district at the center of an evening of carolers, carriage rides, shopping, hot chocolate and a public Christmas tree lighting. Gladewater spans Gregg and Upshur counties, so the celebration belongs in both county itineraries. The November 14, 2026 edition has ended; no 2027 date is yet confirmed.",
+    quickFacts: [
+      { label: "Last confirmed edition", value: "Saturday, November 14, 2026; 4–7:30 p.m." },
+      { label: "2026 tree lighting", value: "6 p.m. (past edition, not a 2027 schedule)" },
+      { label: "Host", value: "Gladewater Chamber of Commerce and downtown merchants" },
+      { label: "Setting", value: "Historic Downtown Gladewater, across Gregg and Upshur counties" },
+      { label: "Next annual edition", value: "Date and program not yet announced; verify with the Chamber" },
+    ],
+    planningSections: [
+      { title: "What happened in 2026 — and what is not yet announced", body: "The Gladewater Mirror's November 11, 2026 local calendar confirmed the Saturday, November 14 evening from 4 to 7:30 p.m., with the community tree lighting scheduled for 6 p.m. That date has passed. The event is annual, but neither the exact 2027 Saturday nor next year's hours, rides or lighting program should be assumed from 2026. Check the Gladewater Chamber of Commerce before setting travel plans." },
+      { title: "Explore downtown instead of arriving only for the tree", body: "Make historic downtown the centerpiece of the visit. Browse Gladewater's antique shops and small businesses, then allow time for the evening decorations, carolers and community gathering. Individual shops may operate different hours, so check the participating merchants and any street-closure map the Chamber publishes for the next edition." },
+      { title: "Carriage rides, carolers and hot chocolate are edition-specific", body: "The 2026 program included carriage rides, Christmas carolers and free hot chocolate. These are features of the verified past edition, not guarantees of identical programming in a future year. Ask the Chamber whether there are ride queues, restrictions, fees, accessibility options or bad-weather changes before a future visit." },
+      { title: "Plan the tree lighting and after-dark family visit", body: "In 2026 the downtown tree lighting was scheduled for 6 p.m. Within the 4–7:30 p.m. evening window, a family could walk the shops before the lighting, then enjoy the decorated streets afterward. Keep children near you along busy downtown streets, use marked crossings and confirm lighting time and any accessible viewing options from the organizer each season." },
+      { title: "Choose a sensible parking plan", body: "The event occupies Gladewater's historic downtown rather than an outlying fairground. Use signed public parking and the current city or Chamber notice for any temporary street closures; do not assume curb parking is available beside the tree or carriage staging area. The specific 2027 parking and closure plan has not yet been released." },
+      { title: "Pair the holiday visit with Gladewater history", body: "Gladewater grew first around the railroad and later with the East Texas oil boom. A daytime stop at the Gladewater Museum, if open, or a downtown walk through its antique district adds local context before the holiday gathering. Museum hours and seasonal opening days should be confirmed independently." },
+      { title: "Remember Gladewater has two county connections", body: "Gladewater crosses the Gregg–Upshur county line. The city and its downtown celebration are relevant to visitors researching Longview and Kilgore to the southeast as well as Gilmer and Upshur County to the north. Use the two county guides for nearby destinations rather than duplicating the same Christmas event under separate names." },
+      { title: "Follow the organizer for the next edition", body: "The Gladewater Chamber of Commerce is the first place to look for a newly announced date, participants, schedules or weather advisories. The 2026 local newspaper preview is retained below as a historical occurrence source. TexasDefined should publish an upcoming calendar record only after a current-year organizer or equally reliable dated announcement verifies it." },
+    ],
+    relatedLinks: [
+      { href: "/county/gregg", label: "Gregg County visitor guide", description: "Explore Gladewater, Longview and Kilgore's oil and railroad heritage" },
+      { href: "/county/upshur", label: "Upshur County visitor guide", description: "Plan Gladewater and Gilmer stops across the county boundary" },
+      { href: "/events/christmas-events", label: "Texas Christmas and holiday events", description: "Browse verified holiday celebrations and current schedules" },
+      { href: "/events/november-events", label: "November events in Texas", description: "Find the season's early holiday markets and festivals" },
+    ],
+    sources: [
+      { label: "Gladewater Chamber of Commerce — official event organizer", url: "https://gladewaterchamber.org/" },
+      { label: "Gladewater Mirror — November 11, 2026 holiday open house program and hours", url: "https://www.gladewatermirror.com/event-season-starts-saturday-with-slew-of-local-activities" },
+      { label: "Gladewater Mirror — 2025 annual Holiday Open House organizer and prior edition", url: "https://www.gladewatermirror.com/holiday-happenings-arrive-downtown-soon-after-octobers-festivities" },
+    ],
+    dateNote: "The November 14, 2026 event has concluded. This is a permanent historical/annual planning guide, not an announcement of a 2027 date.",
   }
 ];
 

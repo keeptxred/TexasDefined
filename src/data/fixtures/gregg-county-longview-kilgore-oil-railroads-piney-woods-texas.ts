@@ -25,6 +25,7 @@ export const greggCountyLongviewKilgoreOilRailroadsPineyWoodsArticle: Article = 
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/event/christmas-in-gusherville", label: "Christmas in Gusherville", description: "Explore Gladewater’s historic downtown holiday open house, its latest confirmed edition, and official organizer updates." },
     { href: "/county/rusk", label: "Explore Rusk County", description: "Follow the East Texas Oil Field south toward Henderson, New London and Overton." },
     { href: "/county/smith", label: "Explore Smith County", description: "Continue west toward Tyler, rose country and the western edge of the Piney Woods." },
     { href: "/county/panola", label: "Explore Panola County", description: "Head southeast toward Carthage, timber country and the Sabine watershed." },
@@ -84,6 +85,7 @@ export const greggCountyLongviewKilgoreOilRailroadsPineyWoodsArticle: Article = 
     h("Gladewater keeps its own oil-and-rail identity"),
     p("Gladewater straddles Gregg and Upshur counties and developed first as a railroad town. Like Kilgore, it was dramatically changed by the East Texas Oil Field. Wells, workers and oil businesses reshaped the community during the 1930s, and petroleum remains central to its historical identity."),
     p("The city also developed a reputation for antiques, downtown shops and community events. Its location illustrates how East Texas cities routinely cross county narratives: Gladewater belongs to both Gregg and Upshur county life, just as Kilgore connects Gregg and Rusk counties."),
+    p("The Christmas in Gusherville annual Holiday Open House brings Gladewater’s historic downtown storefronts into the season with shopping, carolers and a community tree lighting. The Gladewater Chamber of Commerce organizes the tradition; the November 14, 2026 edition is over and the next date must be confirmed independently. As the city reaches across the Gregg–Upshur boundary, visitors can use either county guide to find the same annual event without competing listings."),
     h("White Oak grew with industry and suburban expansion"),
     p("White Oak lies west of Longview in the oil-field side of the county. Its growth reflects both petroleum development and the later expansion of the Longview urban area. Schools, neighborhoods and local businesses give it a strong municipal identity even though commuting and commerce connect it closely to Longview."),
     p("Clarksville City and smaller nearby communities likewise emerged from the energy and industrial geography of western Gregg County. The pattern of towns, plants, wells and highways makes this part of the county feel different from more sparsely settled Piney Woods landscapes farther east and south."),
