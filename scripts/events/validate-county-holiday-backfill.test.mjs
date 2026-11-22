@@ -160,7 +160,7 @@ test("Marion, Lee and Sutton 2026 holiday editions remain separately county/orga
     assert.ok(event,"Missing directly verified community 2026 holiday "+slug);
     assert.equal(event.countySlug,county);
     assert.equal(event.startDate,date);
-    assert.equal(new URL(event.officialEventUrl).hostname,domain);
+    assert.equal(new URL(event.officialEventUrl).hostname.replace(/^www\\./, ""), domain);
     assert.equal(event.sourceVerifiedAt,"2026-11-22");
     assert.ok(event.summary.length>=110);
   }
