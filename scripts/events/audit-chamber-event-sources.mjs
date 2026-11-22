@@ -70,17 +70,54 @@ export function validateRegistry(registry, counties) {
   return true;
 }
 
-export function allowedByRobots(robots, pathname) {
-  // Conservative: any matching Disallow is respected, regardless of user-agent.
-  // This may cause false blocks, never forced crawling of a publisher's restriction.
-  const path = pathname || "/";
-  for (const rawLine of robots.split(/\r?\n/)) {
-    const line = rawLine.replace(/#.*$/, "").trim();
-    const match = /^disallow\s*:\s*(.*)$/i.exec(line);
-    const pattern = match?.[1]?.trim();
-    if (pattern && path.startsWith(pattern.split("*")[0].split("$")[0])) return false;
+export function allowedByRobots(robots, requestPath, userAgent = "TexasDefined-Events-Research") {
+  // Distinguish product-specific robots rules from unrelated crawler bans.
+  // Longest matching path rule wins; Allow wins a tie. Fail-closed on
+  // robots fetch failures is enforced separately by the caller.
+  const groups = [];
+  let agents = [], rules = [], hadRules = false;
+  const flush = () => {
+    if (agents.length) groups.push({ agents, rules });
+    agents = []; rules = []; hadRules = false;
+  };
+  for (const raw of robots.split(/\r?\n/)) {
+    const pair = /^([a-z-]+)\s*:\s*(.*)$/i.exec(raw.replace(/#.*$/, "").trim());
+    if (!pair) continue;
+    const directive = pair[1].toLowerCase(), value = pair[2].trim();
+    if (directive === "user-agent") {
+      if (hadRules) flush();
+      if (value) agents.push(value.toLowerCase());
+    } else if (agents.length && (directive === "allow" || directive === "disallow")) {
+      hadRules = true;
+      if (value) rules.push({ directive, pattern: value });
+    }
   }
-  return true;
+  flush();
+  const token = userAgent.toLowerCase().split("/")[0];
+  const matching = groups.flatMap(group =>
+    group.agents.filter(agent => agent === "*" || token.startsWith(agent))
+      .map(agent => ({ group, rank: agent === "*" ? 0 : agent.length })));
+  if (!matching.length) return true;
+  const rank = Math.max(...matching.map(match => match.rank));
+  const path = requestPath || "/";
+  let winner = null;
+  for (const match of matching.filter(match => match.rank === rank)) {
+    for (const rule of match.group.rules) {
+      const anchored = rule.pattern.endsWith("$");
+      const pattern = anchored ? rule.pattern.slice(0, -1) : rule.pattern;
+      const metachars = "\\^$.*+?()[]{}|";
+      const expression = pattern.split("*")
+        .map(part => [...part].map(ch => metachars.includes(ch) ? "\\" + ch : ch).join(""))
+        .join(".*");
+      const re = new RegExp("^" + expression + (anchored ? "$" : ""));
+      if (!re.test(path)) continue;
+      const weight = pattern.replace(/\*/g, "").length;
+      if (!winner || weight > winner.weight ||
+          (weight === winner.weight && rule.directive === "allow"))
+        winner = { directive: rule.directive, weight };
+    }
+  }
+  return winner?.directive !== "disallow";
 }
 
 export function extractEventLeads(html, pageUrl) {
@@ -131,7 +168,7 @@ async function fetchPublicCalendar(source, fetchImpl) {
     if (robotResponse.status !== 404) {
       if (!robotResponse.ok) return { state: "robots-unavailable", http: robotResponse.status, leads: [] };
       const robots = (await robotResponse.text()).slice(0, 300000);
-      if (!allowedByRobots(robots, url.pathname))
+      if (!allowedByRobots(robots, url.pathname + url.search))
         return { state: "robots-disallowed", http: null, leads: [] };
     }
     const response = await fetchImpl(url.href, options);
