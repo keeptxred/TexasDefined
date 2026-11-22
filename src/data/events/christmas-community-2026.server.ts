@@ -1,4 +1,5 @@
 import type { TexasEventRecord } from "./texas-event-record";
+import { verifiedCountyChristmasEvents2026 } from "./christmas-community-2026-county-backfill.server";
 
 /**
  * First-party-verified community Christmas occurrences for 2026–27.
@@ -3639,7 +3640,7 @@ function texasTodayIso(now = new Date()): string {
 
 export function getVerifiedChristmasCommunityEvents2026(now = new Date()): TexasEventRecord[] {
   const today = texasTodayIso(now);
-  return verifiedOccurrences
+  return [...verifiedOccurrences, ...verifiedCountyChristmasEvents2026]
     .filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)
     .map((occurrence) => ({
       ...occurrence,
