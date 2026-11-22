@@ -709,7 +709,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "bandera-shoppers-jubilee",
@@ -723,7 +724,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "gainesville-christmas-parade",
@@ -751,7 +753,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "paris-main-street",
@@ -780,7 +783,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "levelland-main-street",
@@ -794,7 +798,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "wharton-chamber",
@@ -836,7 +841,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "hopkins-heritage-park-holiday",
@@ -864,7 +870,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "delta-county-chamber-christmas-2026",
@@ -948,7 +955,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "san-saba-chamber-lighted-parade",
@@ -962,7 +970,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "athens-city-2026-christmas",
@@ -1075,7 +1084,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "mont-belvieu-city-christmas-2026",
@@ -1274,7 +1284,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "baird-chamber",
@@ -1484,7 +1495,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "eden-concho-chamber",
@@ -2391,7 +2403,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "borger-hutchinson-chamber",
@@ -2788,7 +2801,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "starr-county-fair-association",
@@ -2816,7 +2830,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "tyler-county-chamber",
