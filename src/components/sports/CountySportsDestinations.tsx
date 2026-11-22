@@ -147,6 +147,10 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
             <span className="mt-3 block text-sm leading-6 text-muted-foreground">{event.detail}</span>
             <span className="mt-3 block text-sm font-semibold text-primary">Plan the event →</span>
           </a>)}
+          <div className="col-span-full mt-2 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5 text-sm font-semibold">
+            <a href="/events/christmas-events" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Christmas & holiday celebrations statewide</a>
+            <a href="/events" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">All Texas events</a>
+          </div>
         </div>
       </div>
     </section> : null}
