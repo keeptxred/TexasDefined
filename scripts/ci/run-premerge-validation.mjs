@@ -138,6 +138,7 @@ const prebuildChecks = [
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
   ['SEO/SITEMAP', 'Syntax-check THC landmark production sitemap verifier', 'node', ['--check', 'scripts/ci/verify-thc-landmark-sitemap-production.mjs']],
   ['MUSEUM/AUTHORITY', 'Validate museum visitor research, references, new museum requirements and reciprocal links', 'node', ['scripts/data/validate-museum-authority.mjs']],
+  ['CONTENT/RUSK-SYRUP', 'Protect Rusk County Syrup Capital, concluded 2026 festival, museum photo rights, sitemap and reciprocal links', 'node', ['scripts/data/validate-rusk-syrup-heritage.mjs']],
   ['SOFTBALL/PUBLISH', 'Reject thin or unapproved UIL softball team pages', 'npm', ['run', 'softball:authority:validate']],
   ['NETWORK/TERMS', 'Validate customer terms, content responsibility and recurring billing acceptance', 'node', ['scripts/data/validate-network-customer-terms.mjs']],
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],
