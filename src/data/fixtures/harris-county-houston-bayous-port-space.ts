@@ -8,7 +8,7 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
   brandId: "texasdefined",
   slug: "harris-county-houston-bayous-port-space-texas",
   title: "Harris County: Houston, Bayous, the Ship Channel and the Road to Space",
-  dek: "Harris County is a Gulf Coast crossroads where bayous became transportation corridors, a deepwater channel built a global port, San Jacinto changed Texas history and human spaceflight found a home near Clear Lake.",
+  dek: "How Houston's five courthouses, the 1929 and 1935 floods, Camp Logan and the port shaped Harris County's civic and cultural history.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-12",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: [
     "Harris County",
     "Houston",
@@ -95,6 +96,27 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
     p("The Allen brothers founded Houston in 1836 near the head of navigation on Buffalo Bayou and promoted the place aggressively as a commercial center. The location was far enough inland to support a town but connected by water to Galveston Bay. Houston's early boosters understood that the bayou was the city's strongest geographic advantage, even though its bends, shallow stretches and seasonal conditions made navigation difficult."),
     p("Railroads expanded Houston's reach in the nineteenth century, tying cotton-producing regions to warehouses and merchants. Yet water remained central to the city's ambitions. Houston wanted a dependable deepwater route that would allow oceangoing commerce to move much farther inland than the natural bayou could permit. That effort eventually transformed the county's eastern landscape."),
 
+    h("Five courthouses occupied Houston's founding civic block"),
+    p("Harris County's historic courthouse at 301 Fannin Street tells a story stretching back to the Allen brothers' 1836 plat of Houston. The founders reserved the square as block 31. The Republic of Texas held district court beneath trees there in March 1837; a two-story pine-log courthouse followed in 1838. Later courthouse buildings were erected in 1851, during the Civil War era in 1860, and in the 1880s as Houston's population grew."),
+    p("The 1851 brick courthouse was formally dedicated on October 15, but county officials soon needed more space. Another courthouse project began in 1860; the Civil War interrupted its completion. The later Victorian building, completed in 1884, proved crowded and was ultimately demolished as the city expanded. Officials rented space in a theater during construction of the present courthouse."),
+    p("The fifth courthouse was designed by Charles Erwin Barglebaugh working with the Dallas firm Lang and Witchell. Construction took place during 1909–10; it opened for business in November 1910 and was ceremonially dedicated on March 2, 1911. Its Classical Revival design used granite, brick and a conspicuous dome to anchor the expanding civic district. Those dates distinguish its business opening from its formal Texas Independence Day dedication."),
+    p("Later modernization had stripped out or covered historic architectural details, enclosed the dome interior and altered the entrances. A major county-and-state preservation project restored the courthouse's public spaces to their 1910 appearance. Harris County formally rededicated it on August 23, 2011. The old courthouse is one of multiple courthouse buildings in modern downtown Houston: its historic square is not the address for every county court, office or filing."),
+    
+    h("The 1929 and 1935 floods led to Harris County's flood-control institution"),
+    p("Houston's frequent flooding is more than a contemporary news theme. Major 1929 and 1935 floods put homes, businesses and critical infrastructure underwater as the metropolitan area expanded onto flood-prone bayou bottoms. The 1935 flood in particular exposed limits of drainage that had been designed for a smaller town. The Harris County Flood Control District says county residents and leaders petitioned for permanent action in response to both disasters."),
+    p("The Texas Legislature established the Harris County Flood Control District on April 23, 1937. The new authority allowed flood planning to be treated as a countywide infrastructure responsibility rather than a series of isolated neighborhood emergencies. In the following decade federal and local engineers worked on Addicks and Barker floodwater reservoirs and extensive channel and bayou projects."),
+    p("These projects changed the landscape but did not eliminate flood risk. Historic floods, subsequent urban paving and modern storms such as Hurricane Harvey in 2017 demonstrate the limits of engineering alone. An authoritative guide must distinguish the historic creation of the institution in 1937 from claims that individual modern subdivisions or homes are now 'flood-proof.'"),
+
+    h("Camp Logan and the 1917 Houston Riot challenge a simplified city history"),
+    p("The city also had an important, difficult military and civil-rights history. Camp Logan, established in 1917 on land that later became part of Memorial Park, housed soldiers preparing for World War I. In August 1917 members of the Black 24th Infantry Regiment faced racial discrimination and harassment by Houston police, including the arrest and mistreatment of people connected with the unit."),
+    p("On August 23 a group of soldiers left the camp armed and marched into Houston. The ensuing violence killed civilians and soldiers. Military courts tried many Black servicemen, and nineteen were ultimately executed. The Texas Historical Commission and U.S. Department of Veterans Affairs record grave procedural injustices in the military response, and the case became a major episode in debates over race and military justice."),
+    p("This incident belongs in the history of Harris County alongside its celebrated port, sports teams and space center. It demonstrates that a county's economic growth and civic grandeur did not translate into equal treatment for all its residents. The site of Camp Logan is historic parkland today, not an extant World War I barracks for a regular public tour."),
+    
+    h("Harris County's civic-history questions"),
+    p("How many courthouses stood on the historic Houston square? Five main courthouses, culminating in the 1910 building at 301 Fannin Street."),
+    p("When was the 1910 Harris County Courthouse restored? It was formally rededicated August 23, 2011, after conservation of its public interiors and other historic details."),
+    p("Why was the Harris County Flood Control District founded? Floods in 1929 and 1935 prompted the legislature to create the district in April 1937."),
+    p("What was Camp Logan? A World War I military training camp on land now associated with Memorial Park and the site of the August 1917 Houston Riot involving Black soldiers and discriminatory policing."),
     h("The Ship Channel remade Harris County"),
     p("Port Houston traces the modern Houston Ship Channel to a public-private political campaign that convinced federal leaders and local voters to share the cost of deepening the waterway. In 1911, Harris County voters approved bonds for the local share of dredging. The completed deepwater channel was ceremonially opened in November 1914 at the Turning Basin."),
     p("The channel ultimately became a 52-mile industrial and navigation corridor linking Houston to the Gulf. Refineries, petrochemical plants, warehouses, rail yards, pipelines, docks and communities developed along its banks. Port Houston now operates eight public facilities along the channel, while the broader complex includes hundreds of public and private facilities. The port's importance is not just a Houston statistic; it is one of the reasons energy, manufacturing, logistics and international trade became so deeply embedded in the county's economy."),
@@ -151,5 +173,15 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
     h("How to read Harris County today"),
     p("Harris County is Texas at metropolitan scale, but its defining features remain physical and historical. Water routes created early settlement. San Jacinto fixed the county in the story of Texas independence. Dredging connected inland Houston to global shipping. Energy and industry expanded along the channel. Highways spread development across prairie and forest. Medicine and aerospace added institutions with worldwide reach. Repeated floods forced residents to confront the landscape beneath the pavement."),
     p("That is why Harris County is more interesting than a list of Houston attractions. It is a place where bayou ecology, global commerce, immigration, spaceflight, suburban growth, flood risk, neighborhood culture and Texas history remain visibly connected. The county works best as a guide to systems: follow the water, follow the transportation corridors, follow the institutions and watch how each layer explains the next."),
+  ],
+  sources: [
+    { label: "Harris County Historical Commission — five courthouses on the original square", url: "https://historicalcommission.harriscountytx.gov/Information-Education/Historic-1910-Courthouse" },
+    { label: "Texas Historical Commission — Harris County Courthouse 1910 and 2011 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/harris-county" },
+    { label: "Harris County Archives — self-guided historic courthouse tour", url: "https://harriscountyarchives.com/Portals/1/Documents/CourtHouse/SelfTourBrochure.pdf" },
+    { label: "Harris County Flood Control District — 1929 and 1935 floods", url: "https://www.hcfcd.org/About/Harris-Countys-Flooding-History/Hurricane-Harvey-FAQs" },
+    { label: "Texas State Historical Association — Houston flood of 1935", url: "https://www.tshaonline.org/handbook/entries/houston-flood-of-1935" },
+    { label: "Texas Historical Commission — Camp Logan and the 1917 Houston Riot", url: "https://thc.texas.gov/blog/camp-logan-mutiny-revisited" },
+    { label: "U.S. Department of Veterans Affairs — Houston Riot military justice legacy", url: "https://www.cem.va.gov/VLM/Remembrance/Houston-Riot-1917.asp" },
+    { label: "Texas State Historical Association — Houston Riot of 1917", url: "https://www.tshaonline.org/handbook/entries/houston-riot-of-1917" },
   ],
 };

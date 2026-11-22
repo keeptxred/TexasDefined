@@ -8,7 +8,7 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
   brandId: "texasdefined",
   slug: "dallas-county-dallas-trinity-old-red-texas",
   title: "Dallas County: Prairie Crossroads, Trinity River and the City That Recast North Texas",
-  dek: "Dallas County is more than its skyline: it is a Blackland Prairie county shaped by the Trinity River, railroads, Old Red Courthouse, suburban cities, migration, commerce, aviation, culture and the long transformation of North Texas into a national metropolitan center.",
+  dek: "Old Red's lost and restored clock tower, the 1910 Allen Brooks lynching, Trinity River floodworks, and the transformation of Dallas County from Blackland Prairie to metropolis.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,8 +20,8 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-14",
-  updatedAt: "2026-11-15", // Verified original Texas Institute of Letters history revision; not a source-check restamp.
-  readingMinutes: 12,
+  updatedAt: "2026-11-22", // Verified original Texas Institute of Letters history revision; not a source-check restamp.
+  readingMinutes: 20,
   tags: ["Dallas County", "Dallas", "Trinity River", "Old Red Courthouse", "Blackland Prairie", "Irving", "Garland", "Mesquite", "Cedar Hill", "North Texas"],
   featured: false,
   internalLinks: [
@@ -34,6 +34,12 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
   relatedCollections: [],
   relatedDestinations: [],
   sources: [
+    { label: "Texas Historical Commission — Old Red Courthouse 2007 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/dallas-county" },
+    { label: "Texas Historical Commission — original clock tower and bell marker", url: "https://atlas.thc.texas.gov/Details/5113006811" },
+    { label: "Society of Architectural Historians — clock tower 1919 removal and 2007 reconstruction", url: "https://sah-archipedia.org/buildings/TX-02-DS1" },
+    { label: "Texas Historical Commission — Allen Brooks lynching marker", url: "https://atlas.thc.texas.gov/Details/5000022824" },
+    { label: "KERA — 2023 courthouse lynching memorial marker", url: "https://www.keranews.org/news/2023-07-27/allen-brooks-lynching-historical-marker-dallas-county" },
+    { label: "Dallas County — Old Red restoration and historical civic records", url: "https://www.dallascounty.org/Assets/uploads/docs/plandev/historical/Chronicle/2011/October2011Chronicle_000.pdf" },
     { label: "Texas Institute of Letters — original council history, November 9, 1936 inaugural officers at Fair Park", url: "https://texasinstituteofletters.org/til-council-1936-1939/" },
     { label: "Texas State Historical Association — independent history of the Texas Institute of Letters and its 1936 organization", url: "https://www.tshaonline.org/handbook/entries/texas-institute-of-letters" },
     { label: "Dallas Historical Society — official Hall of State history, building and visitor information", url: "https://www.dallashistory.org/hall-of-state/" },
@@ -62,6 +68,27 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
     p("Old Red Courthouse stands near Dealey Plaza and the West End, surrounded by some of the county's most concentrated layers of history. The Texas Historical Commission identifies it as a Romanesque Revival courthouse completed in 1892. Its restoration returned important architectural features, including a reconstructed clock tower, while preserving the building as a civic landmark."),
     p("The courthouse is useful as more than a photo stop. It gives physical scale to the county's late-nineteenth-century ambitions. Nearby rail corridors, commercial buildings and public spaces show how government, transportation and business clustered tightly together before automobile-oriented growth pushed development outward."),
 
+    h("Old Red's 4,500-pound bell and the clock tower removed in 1919"),
+    p("The landmark Old Red courthouse was begun in 1890 and completed in 1892, but its familiar tower was not there throughout the twentieth century. The original Romanesque structure was built of contrasting red sandstone and granite; a tall central clock tower carried a bell weighing about 4,500 pounds. The court's tower became structurally unsafe, and county officials removed it in 1919. For most of the twentieth century, Old Red stood without the feature that now dominates its skyline."),
+    p("During the Texas Historic Courthouse Preservation Program, architects reconstructed the clock tower using historical drawings and a steel-supported structure. A compatible historic E. Howard clock mechanism was found, restored and installed. The county rededicated the restored courthouse on May 15, 2007, after years of planning and staged work. The modern tower is a reconstruction of a documented historic feature, not a nineteenth-century tower that has stood intact since 1892."),
+    p("One historical-marker record calls the building Dallas County's fifth courthouse, while a Dallas County Chronicle historical account calls it the sixth. The difference depends on how earlier temporary court spaces and structures are counted. Rather than claim the numbering is universally agreed, the construction date, use as county government, tower removal and 2007 reconstruction are independently documented."),
+    p("Old Red served county government until a newer courthouse opened nearby in the 1960s. Museum and exhibit functions have changed over time, so references to the former Old Red Museum should not guarantee current public opening hours. Official Dallas County announcements are the place to confirm access, rather than relying on a historical preservation listing."),
+
+    h("The 1910 lynching of Allen Brooks began at the county courthouse"),
+    p("Dallas County's courthouse history also includes racial terror. On March 3, 1910, a white mob abducted and lynched Allen Brooks, a Black domestic worker accused of assaulting a young girl. The accusation was not a conviction. Brooks was taken from law enforcement at the Dallas courthouse, and the mob threw him from an upper-floor window before dragging his body through the streets and hanging him."),
+    p("The case demonstrates that a landmark associated with law and justice was also the scene of a grotesque failure to protect a person in custody. It is essential to the history of the courthouse and Dallas's Black community, not an incidental detail. Texas Historical Commission archival research and the historical-marker program preserve eyewitness and newspaper evidence, while modern local accounts document the effort to publicly acknowledge his killing."),
+    p("A historical marker commemorating the lynching was dedicated on the courthouse grounds in July 2023, following earlier remembrance work. An Equal Justice Initiative marker also commemorates Brooks elsewhere in Dallas; the locations should not be confused. Visitors should approach the history respectfully, without treating the location as an entertainment attraction or conflating it with the entirely separate 1930 Sherman lynching in Grayson County."),
+    p("The surviving Old Red architecture, the restored tower and the historical marker can be read together. The building's past contains both an impressive civic investment and evidence of injustice that a courthouse museum or tourism overview must not erase."),
+
+    h("The Trinity River's flood-control works shaped the city's geography"),
+    p("Flooding of the Trinity River repeatedly threatened early Dallas streets and businesses. The catastrophic 1908 flood helped trigger ambitious plans to move and straighten river channels and construct high levees. The Trinity River Corridor became a major public engineering landscape, changing where industrial plants, highways and neighborhoods were built."),
+    p("This was not simply a beautification scheme. Land management and flood control shifted risks and benefits unevenly across communities. The modern floodway is a reminder that early Dallas prospered beside a volatile river, and that infrastructure decisions affected the city as fundamentally as railroads, highways and courthouse construction did."),
+    
+    h("Questions about Old Red and Dallas County's difficult civic past"),
+    p("Was Old Red's clock tower always there? No. The original 1892 tower was removed as unsafe in 1919; a documented replacement was completed for the 2007 rededication."),
+    p("Where did the 1910 lynching of Allen Brooks begin? At the Dallas County courthouse, where a white mob seized him from custody before killing him. A THC marker at the site commemorates the crime."),
+    p("When did Old Red stop serving as the main courthouse? New county government facilities replaced its primary courthouse role in the 1960s; the 1892 building later underwent museum and historic-preservation work."),
+    p("Can the historic courthouse be visited? Check the current Dallas County or building-steward announcements before planning interior access; past museum use does not guarantee operating exhibits today."),
     h("Dealey Plaza carries a national memory"),
     p("Immediately west of the old courthouse, Dealey Plaza occupies a place in American history far larger than its physical size. The National Park Service's National Register documentation recognizes the Dealey Plaza Historic District for politics and government, architecture and landscape architecture, with 1963 as a significant year. The assassination of President John F. Kennedy on November 22, 1963 made the plaza and the former Texas School Book Depository globally recognizable."),
     p("For a county guide, the important point is not to let that event consume every other chapter of Dallas history. The plaza belongs to a broader historic district of streets, rail approaches, civic architecture and commercial buildings. It is one deeply consequential layer in a county whose history also includes migration, segregation, civil-rights struggles, industrialization, suburban expansion and repeated reinvention."),
