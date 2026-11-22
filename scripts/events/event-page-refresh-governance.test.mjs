@@ -497,3 +497,13 @@ test('actionable issue includes every overdue canonical/source including those a
   assert.throws(() => formatEventSourceIssue({...report, editorialBacklogCount: 166,
     editorialBacklog: records.map(row => ({...row, source: 'https://example.org/' + 'x'.repeat(500)}))}, 'run'), /exceeds safe GitHub body size/);
 });
+
+
+test('pull-request source contracts do not share the pending live source review concurrency slot', () => {
+  const workflow = fs.readFileSync(path.join(process.cwd(), '.github/workflows/event-authority-source-refresh.yml'), 'utf8');
+  const concurrency = workflow.match(/\nconcurrency:\n([\s\S]*?)(?=\n[^\s#][^\n]*:)/)?.[1] || '';
+  assert.ok(concurrency.includes("github.event_name == 'pull_request'"));
+  assert.ok(concurrency.includes("format('pr-{0}', github.event.pull_request.number)"));
+  assert.ok(concurrency.includes("|| 'live'"));
+  assert.match(concurrency, /cancel-in-progress: false/);
+});
