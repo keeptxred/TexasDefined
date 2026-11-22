@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 47 / 254 counties (46 reviewed public Chamber, tourism and regional source organizations). Remaining: 207 counties requiring source research as of November 22, 2026.**
+**Source-mapped: 98 / 254 counties (115 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 156 counties requiring verified source research as of November 22, 2026.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -91,3 +91,9 @@ Running outreach campaign: 20 new confirmed O365 messages total (19 individualiz
 
 The next source cohort adds 18 public Chamber/visitor calendars representing one additional county each: Anderson (Palestine), Aransas (Rockport-Fulton), Brazoria (Northern Brazoria), Fort Bend (Central Fort Bend), Collin (McKinney), Montgomery (Conroe/Lake Conroe), Williamson (Georgetown), Wood (Winnsboro), Hays (San Marcos), Cherokee (Rusk), Henderson (Athens), Bell (Belton), Kerr (Kerrville), Lamar (Paris), Gonzales, Burnet, Bowie (Texarkana) and Orange. Official calendar/contact URLs are stored in the public registry; do not imply these organizations subscribed, replied or linked. Source registration is research inventory only; events require independent organizer verification and image-rights checks.
 
+
+## Reconciled Chamber source cohorts — 2026-11-22
+
+After the first 47-county expansion, additional direct Chamber/CVB/city source cohorts were reconciled with other concurrently merged official-organizer research on main. The combined public registry now has 115 source entries covering 98 distinct counties, preserving official city/event-specific sources and broad Chamber calendars without overwriting same-ID entries. The remaining 156 counties are research gaps, and some registered calendars need access/robots or provenance review. Registration or a successful HTTP fetch is **not** proof that a particular organizer date is verified, a press list was subscribed to, a photo may be reused, or a backlink exists. Existing scheduled source audit maintains the authoritative gap issue (#7561); this count is a repository-source map, not a live event coverage score.
+
+The Burleson County Chamber directly confirms the 42nd Caldwell Kolache Festival on September 11, 2027 and Caldwell Christmas on the Square for December 11, 2026. Both are maintained in their canonical permanent guide/calendar and original county links. Retain exact source URLs; do not roll over any other annual dates without a first-party organizer announcement.

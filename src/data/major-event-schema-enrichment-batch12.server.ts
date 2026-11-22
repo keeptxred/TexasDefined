@@ -60,11 +60,11 @@ export const majorEventSchemaEnrichmentBatch12: MajorEventSchemaEnrichment[] = [
     slug: "caldwell-kolache-festival",
     organizer: organization("Burleson County Chamber of Commerce", "https://www.burlesoncountytx.com/"),
     sources: [
-      { label: "Burleson County Chamber official 2026 Kolache Festival notice", url: "https://www.burlesoncountytx.com/" },
-      { label: "Burleson County Chamber official 2026 Kolache Festival vendor application", url: "https://business.burlesoncountytx.com/form/view/37596" },
+      { label: "Burleson County Chamber official 42nd Kolache Festival September 11, 2027 announcement", url: "https://www.burlesoncountytx.com/" },
+      { label: "Burleson County Chamber official annual festival guide", url: "https://www.burlesoncountytx.com/kolache-fest/" },
       { label: "City of Caldwell official Kolache Festival history", url: "https://caldwelltx.gov/history" },
     ],
-    verifiedAt: "2026-09-03",
+    verifiedAt: "2026-11-22",
   },
   {
     slug: "texas-czech-heritage-fest",
