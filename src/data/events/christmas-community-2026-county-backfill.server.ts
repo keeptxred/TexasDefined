@@ -841,5 +841,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Glen Rose Chamber of Commerce",
     "summary": "The Glen Rose Chamber lists the second annual Storybook Christmas Tour of Homes for Saturday, December 12, 2026, 6–9 p.m. This ticketed tour advertises eight stops with decorated homes and establishments, carolers, hot cocoa and seasonal activities. The organizer lists general admission at $35 and says its VIP experience is sold out; ticket availability may change, and individual tour-stop addresses and admission instructions should be confirmed directly with the Chamber. The tour is separate from November's downtown parade.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "kingsville-la-posada-parade-of-lights-2026",
+    "title": "La Posada de Kingsville · Children's Day and Parade of Lights",
+    "city": "Kingsville",
+    "countySlug": "kleberg",
+    "countyName": "Kleberg County",
+    "region": "south-texas",
+    "startDate": "2026-12-05",
+    "venueName": "J.K. Northway Expo Center and downtown Kingsville, Kleberg Avenue",
+    "officialEventUrl": "https://kingsvilletexas.com/la-posada-de-kingsville/",
+    "sourceName": "Visit Kingsville and La Posada de Kingsville Parade Committee",
+    "summary": "Visit Kingsville's official La Posada 2026 program confirms Saturday, December 5, 2026. Children's Day runs from 10 a.m. to 2 p.m. at J.K. Northway Expo Center, and the free downtown Parade of Lights begins at 7 p.m., traveling west along Kleberg Avenue from 11th Street at the courthouse toward Third Street and City Hall. Seasonal Old Train Depot activities are described as weekend programming without individual confirmed times. A fee for entering a parade float is not an admission charge for spectators; review street access with organizers before attending.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "denver-city-christmas-parade-meet-santa-2026",
+    "title": "Denver City Christmas Parade & Meet and Greet with Santa",
+    "city": "Denver City",
+    "countySlug": "yoakum",
+    "countyName": "Yoakum County",
+    "region": "panhandle",
+    "startDate": "2026-12-17",
+    "venueName": "Downtown Main Avenue, Denver City, Texas",
+    "officialEventUrl": "https://denvercitychamber.com/events/",
+    "sourceName": "Denver City Chamber of Commerce",
+    "summary": "The Denver City Chamber's official upcoming-events page lists its Christmas Parade followed by a Meet and Greet with Santa for Thursday, December 17, 2026, on Downtown Main Avenue. The Chamber has not specified a parade start time, duration, participation fee or spectator parking details on this listing, and its event card includes a broken detail-link placeholder; confirm those particulars with the organizer before travel. This is a 2026 Yoakum County community event and not a recurring fixed December 17 date.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
