@@ -71,6 +71,41 @@ if [[ -z "$run_id" ]]; then
 fi
 
 echo "Watching newly dispatched validation run ${run_id} for ${sha}."
-gh run watch "$run_id" --exit-status
+# Poll the authoritative run endpoint instead of gh run watch, which also
+# requests job lists and aborts on transient GitHub API 5xx responses.
+# Never retry a completed failing validation or accept a different SHA.
+deadline=$((SECONDS + 5400))
+poll_failures=0
+while (( SECONDS < deadline )); do
+  if run_json="$(gh api "repos/${GH_REPO:-${GITHUB_REPOSITORY:?repository required}}/actions/runs/$run_id")"; then
+    poll_failures=0
+    if ! jq -e --arg sha "$sha" --arg branch "$branch" \
+      '.head_sha == $sha and .head_branch == $branch and .event == "workflow_dispatch"' \
+      <<< "$run_json" >/dev/null; then
+      echo "::error::Validation run identity mismatch for $run_id."
+      exit 1
+    fi
+    if [[ "$(jq -r .status <<< "$run_json")" == completed ]]; then
+      conclusion="$(jq -r .conclusion <<< "$run_json")"
+      if [[ "$conclusion" != success ]]; then
+        echo "::error::Validation run $run_id completed with $conclusion."
+        exit 1
+      fi
+      break
+    fi
+  else
+    poll_failures=$((poll_failures + 1))
+    echo "::warning::Validation status request failed ($poll_failures/8); retrying the same run."
+    if (( poll_failures >= 8 )); then
+      echo "::error::Unable to verify validation run $run_id after eight attempts."
+      exit 1
+    fi
+  fi
+  sleep 15
+done
+if [[ "${conclusion:-}" != success ]]; then
+  echo "::error::Timed out verifying validation run $run_id."
+  exit 1
+fi
 
 echo "Validation run ${run_id} passed for ${branch} at ${sha}."
