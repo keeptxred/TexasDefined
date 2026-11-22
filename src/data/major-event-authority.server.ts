@@ -27,7 +27,7 @@ export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventA
 const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "heritage-syrup-festival",
-    whyItMatters: "Henderson's annual Heritage Syrup Festival preserves the labor and community life surrounding East Texas ribbon-cane syrup making. The museum demonstrates traditional cane crushing and boiling while the nearby historic downtown hosts local crafts, food, music and family activities. Rusk County was designated the official Syrup Capital of Texas under the Legislature's H.C.R. 83 in 2025. The 37th annual festival took place November 14, 2026; that edition has ended and next-edition details await official confirmation.",
+    whyItMatters: "Henderson's annual Heritage Syrup Festival preserves the labor and community life surrounding East Texas ribbon-cane syrup making. The museum demonstrates traditional cane crushing and boiling while the nearby historic downtown hosts local crafts, food, music and family activities. The museum traces festival demonstrations on its grounds to 1989; Rusk County was designated the official Syrup Capital of Texas under the Legislature's H.C.R. 83 in 2025. The 37th annual festival took place November 14, 2026; that edition has ended and next-edition details await official confirmation.",
     seoTitle: "Heritage Syrup Festival in Henderson: 2026 Recap & Visitor Guide",
     seoDescription: "Learn about Henderson's Heritage Syrup Festival, the 37th annual 2026 edition, ribbon-cane demonstrations, Depot Museum grounds and planning future visits.",
     quickFacts: [
