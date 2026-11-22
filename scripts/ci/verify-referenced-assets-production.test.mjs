@@ -4,7 +4,38 @@ import { INCIDENT, qualifyKnownPublishedNetworkFailure, verifyOriginalIncident, 
 import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, eligibleCrossReleaseAssets, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+
+test('expired original hashes are excluded only after first-seen 72-hour retention while in-window SHA checks survive', () => {
+  const now = Date.parse('2026-11-22T17:12:52Z');
+  const oldAt = '2026-11-18T15:48:23Z';
+  const withinWindow = '2026-11-21T13:00:00Z';
+  const thisRelease = '2026-11-22T17:11:25Z';
+  const original = 'a'.repeat(64);
+  const old = { path: '/assets/main-BhjTKufT.js', kind: 'js', wasAvailable: true, preSha256: original };
+  const preserved = { path: '/assets/styles-InWindow.css', kind: 'css', wasAvailable: true, preSha256: 'b'.repeat(64) };
+  const current = { path: '/assets/main-Current.js', kind: 'js', wasAvailable: true, preSha256: 'c'.repeat(64) };
+  const invalid = { path: '/assets/main-Unproven.js', kind: 'js', wasAvailable: false, preSha256: original };
+  const ledger = { snapshots: [
+    { format: 1, capturedAt: oldAt, pages: [{ assets: [old] }] },
+    { format: 1, capturedAt: thisRelease, pages: [{ assets: [old, current, invalid] }],
+      legacyAssets: [{ ...preserved, firstSeenAt: withinWindow }],
+      retainedAssets: [{ ...old, firstSeenAt: thisRelease }],
+    },
+  ] };
+  const eligible = eligibleCrossReleaseAssets(ledger, now);
+  assert.ok(!eligible.has(old.path), 'a later observation must not re-age an expired original SHA');
+  assert.ok(!eligible.has(invalid.path), 'an unverified asset cannot become a deliverability obligation');
+  assert.deepEqual([...eligible.keys()].sort(), [current.path, preserved.path].sort());
+  assert.equal(eligible.get(current.path).preSha256, current.preSha256);
+  assert.equal(eligible.get(preserved.path).firstSeenAt, withinWindow);
+  const earlier = eligibleCrossReleaseAssets(ledger, Date.parse('2026-11-20T12:00:00Z'));
+  assert.ok(earlier.has(old.path), 'still-in-window older assets remain mandatory on both origins');
+  assert.throws(() => eligibleCrossReleaseAssets({snapshots:[
+    {format:1,capturedAt:oldAt,pages:[{assets:[old]}]},
+    {format:1,capturedAt:withinWindow,pages:[{assets:[{...old,preSha256:'d'.repeat(64)}]}]},
+  ]},now), /different contents/, 'same URL with conflicting SHA may never be silently accepted');
+});
 
 test('only a successful active Worker predecessor with both-origin original SHA proof is accepted', () => {
   const version='953ec55d-c98c-41e8-b59e-613878d2a7c3', sha='a'.repeat(40);
