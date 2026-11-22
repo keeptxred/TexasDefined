@@ -58,6 +58,7 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { label: "City of Henderson — Heritage Syrup Festival dates, parking and visitor areas", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" },
       { label: "Rusk County Depot Museum & History Center — 37th annual festival", url: "https://www.ruskcountyhistory.org/syrup-festival" },
       { label: "Museum grounds — syrup mill and historic structures", url: "https://www.ruskcountyhistory.org/our-grounds" },
+      { label: "Museum historical account of the syrup mill and festival", url: "https://www.ruskcountyhistory.org/syrup-mill-history" },
       { label: "Texas State Library — official Syrup Capital of Texas", url: "https://www.tsl.texas.gov/ref/abouttx/capitals" },
       { label: "Texas Legislature — H.C.R. 83 (2025)", url: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00083F.htm" }
     ]
