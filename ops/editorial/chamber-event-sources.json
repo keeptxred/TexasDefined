@@ -1859,6 +1859,118 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "granbury-chamber",
+      "organization": "Granbury Chamber of Commerce",
+      "countySlugs": [
+        "hood"
+      ],
+      "homeUrl": "https://granburychamber.com/",
+      "calendarUrl": "https://business.granburychamber.com/events/calendar",
+      "contactPageUrl": "https://granburychamber.com/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "greenville-hunt-chamber",
+      "organization": "Greenville Chamber of Commerce",
+      "countySlugs": [
+        "hunt"
+      ],
+      "homeUrl": "https://www.greenvillechamber.com/",
+      "calendarUrl": "https://business.greenvillechamber.com/events/calendar",
+      "contactPageUrl": "https://www.greenvillechamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "huntsville-walker-chamber",
+      "organization": "Huntsville Walker County Chamber of Commerce",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvillewalkerchamber.com/",
+      "calendarUrl": "https://www.huntsvillewalkerchamber.com/",
+      "contactPageUrl": "https://www.huntsvillewalkerchamber.com/chamber-staff/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hallettsville-chamber",
+      "organization": "Hallettsville Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "lavaca"
+      ],
+      "homeUrl": "https://www.hallettsville.com/",
+      "calendarUrl": "https://www.hallettsville.com/chamber-events",
+      "contactPageUrl": "https://www.hallettsville.com/chamber-events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bay-city-matagorda-events",
+      "organization": "Bay City Chamber and municipal annual events",
+      "countySlugs": [
+        "matagorda"
+      ],
+      "homeUrl": "https://visitbaycity.org/",
+      "calendarUrl": "https://www.baycitytx.gov/371/Annual-Events",
+      "contactPageUrl": "https://visitbaycity.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "new-braunfels-chamber",
+      "organization": "Greater New Braunfels Chamber of Commerce",
+      "countySlugs": [
+        "comal"
+      ],
+      "homeUrl": "https://www.nbchamber.com/",
+      "calendarUrl": "https://newbraunfelschamber.growthzoneapp.com/communitycalendar",
+      "contactPageUrl": "https://www.nbchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "denison-city-discover",
+      "organization": "Discover Denison and City of Denison community events",
+      "countySlugs": [
+        "grayson"
+      ],
+      "homeUrl": "https://discoverdenison.com/",
+      "calendarUrl": "https://www.denisontx.gov/243/Special-Events",
+      "contactPageUrl": "https://www.denisontx.gov/549/Downtown-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-seguin-city",
+      "organization": "Visit Seguin and City of Seguin community events",
+      "countySlugs": [
+        "guadalupe"
+      ],
+      "homeUrl": "https://visitseguin.com/",
+      "calendarUrl": "https://visitseguin.com/events/",
+      "contactPageUrl": "https://visitseguin.com/events/annual-events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
