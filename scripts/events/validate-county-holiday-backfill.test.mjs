@@ -214,3 +214,57 @@ test("six new current-edition community holiday records remain source-verified a
  const denverCity=events.find(e=>e.slug==="denver-city-christmas-parade-meet-santa-2026");
  assert.match(denverCity.summary,/not specified a parade start time/, "Never invent parade hours without official source");
 });
+
+test("Brownwood and Marshall 2026 community Christmas entries are dated by city visitor office and not duplicate seasonal guides",()=>{
+ const checks=[
+  ["brownwood-downtown-christmas-tree-lighting-2026","brown","2026-12-01","visitbrownwood.com"],
+  ["brownwood-downtown-lighted-christmas-parade-2026","brown","2026-12-03","visitbrownwood.com"],
+  ["brownwood-christmas-under-the-stars-festival-2026","brown","2026-12-05","visitbrownwood.com"],
+  ["marshall-wonderland-of-lights-christmas-parade-2026","harrison","2026-12-05","visitmarshalltexas.com"]
+ ];
+ for(const [slug,county,date,host]of checks){
+  const record=events.find(e=>e.slug===slug);
+  assert.ok(record,"Missing verified 2026 local event "+slug);
+  assert.equal(record.countySlug,county);
+  assert.equal(record.startDate,date);
+  assert.equal(record.sourceVerifiedAt,"2026-11-22");
+  assert.equal(new URL(record.officialEventUrl).hostname.replace(/^www[.]/,""),host);
+  assert.ok(record.summary.length>=110&&record.venueName);
+ }
+ const uniqueNames=checks.map(x=>x[0]);
+ assert.equal(events.filter(e=>uniqueNames.includes(e.slug)).length,4);
+ assert.match(events.find(e=>e.slug===checks[2][0]).summary,/all day/);
+ assert.match(events.find(e=>e.slug===checks[3][0]).summary,/not a month-long nonstop parade/);
+});
+
+test("Jacksboro Chamber market and Gonzales Main Street 2026 Winterfest are nonduplicate official editions",()=>{
+ const checks=[
+  ["jacksboro-chamber-christmas-vendor-market-2026","jack","2026-11-28","jacksborochamber.glueup.com"],
+  ["gonzales-main-street-winterfest-celebration-2026","gonzales","2026-12-05","app.seemylegacy.com"]
+ ];
+ for(const [slug,county,date,host]of checks){
+  const event=events.find(e=>e.slug===slug);
+  assert.ok(event,"Missing source-qualified local festival "+slug);
+  assert.equal(event.countySlug,county);
+  assert.equal(event.startDate,date);
+  assert.equal(new URL(event.officialEventUrl).hostname,host);
+  assert.equal(event.sourceVerifiedAt,"2026-11-22");
+  assert.ok(event.summary.length>=110&&event.venueName);
+ }
+ assert.equal(events.filter(e=>e.city==="Jacksboro"&&e.startDate==="2026-11-28"&&/market/i.test(e.title)).length,1);
+ assert.match(events.find(e=>e.slug===checks[1][0]).summary,/not confirmed/);
+});
+
+test("El Campo Dec 3 2026 Chamber parade is a separate organizer-confirmed Wharton County event",()=>{
+ const e=events.find(x=>x.slug==="el-campo-chamber-christmas-parade-2026");
+ assert.ok(e);
+ assert.equal(e.city,"El Campo");
+ assert.equal(e.countySlug,"wharton");
+ assert.equal(e.countyName,"Wharton County");
+ assert.equal(e.startDate,"2026-12-03");
+ assert.equal(new URL(e.officialEventUrl).hostname,"www.elcampochamber.com");
+ assert.equal(e.sourceVerifiedAt,"2026-11-22");
+ assert.match(e.summary,/7–9 p.m./);
+ assert.match(e.summary,/route/);
+ assert.ok(!events.some(x=>x.slug!==e.slug&&x.city==="El Campo"&&x.startDate===e.startDate&&/parade/i.test(x.title)));
+});
