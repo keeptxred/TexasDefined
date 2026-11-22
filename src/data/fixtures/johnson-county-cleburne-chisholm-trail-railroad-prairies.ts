@@ -8,9 +8,9 @@ export const johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle: Article 
   brandId: "texasdefined",
   slug: "johnson-county-cleburne-chisholm-trail-railroad-prairies-texas",
   title: "Johnson County: Cleburne, the Chisholm Trail, Railroads and North Texas Prairie",
-  dek: "Johnson County is a North Texas county shaped by prairie and river country, cattle drives, railroad industry, farming towns, courthouse history and the expanding southern edge of the Dallas-Fort Worth region.",
+  dek: "The April 1912 Johnson County courthouse fire killed City Marshal Abe Bledsoe; learn how Cleburne rebuilt in 1913 and grew around the railroad.",
   category: "texas-history",
-  region: "north-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Johnson_county_courthouse_2009.jpg?width=1600",
     alt: "Johnson County Courthouse in downtown Cleburne, Texas",
@@ -20,7 +20,8 @@ export const johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Johnson County",
     "Cleburne Texas",
@@ -32,6 +33,9 @@ export const johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle: Article 
     "Texas courthouses",
     "Texas history",
     "Texas counties",
+    "1912 Johnson courthouse fire",
+    "Cleburne City Marshal Abe Bledsoe",
+    "1913 Johnson County Courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -76,6 +80,22 @@ export const johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle: Article 
     p("Johnson County's current courthouse is the latest in a long sequence of public buildings reflecting county-seat changes, population growth and architectural ambition. Earlier structures in Wardville, Buchanan and Cleburne ranged from simple log and wood buildings to a large 1883 courthouse with a prominent tower."),
     p("The 1883 courthouse burned on April 15, 1912. The county commissioned Dallas architects Lang and Witchell, working with Charles E. Barglebaugh, to design a replacement. The present courthouse was completed in 1913 in a Classical Revival design with Prairie-style influences. Its clock tower, brick walls, stone base and strong horizontal lines remain the defining landmark of downtown Cleburne."),
 
+    h("April 15, 1912: a courthouse fire killed Cleburne's city marshal"),
+    p("The impressive Johnson County Courthouse in Cleburne is a direct consequence of a fatal fire. On April 15, 1912, flames consumed the county's 1883 courthouse. City Marshal Abe Bledsoe was killed while assisting firefighters and responding to the fire, according to Johnson County's historical museum. His death is part of the event, not an incidental detail behind the replacement building."),
+    p("The nineteenth-century courthouse had been the fourth to serve Johnson County, after county government moved among earlier settlements including Wardville and Buchanan. It was a prominent masonry landmark on the square. The 1912 disaster forced the county to find temporary facilities and begin construction of a more fire-resistant courthouse in the same civic center."),
+    p("Architects Lang and Witchell and their collaborator Charles E. Barglebaugh designed the present Beaux-Arts courthouse, begun in 1912 and accepted on November 28, 1913. Its stone exterior, monumental staircases and prominent dome express the public investment that followed the loss of the previous building."),
+    p("The present courthouse later underwent conservation through the Texas Historical Commission's Historic Courthouse Preservation Program. The building was publicly rededicated in the 2000s, after restoration recovered significant interior ornament and court spaces. The preservation story should be dated separately from the 1912 fire and 1913 construction."),
+
+    h("Why the courthouse fire changed local public-safety history"),
+    p("By 1912 Cleburne was a major railroad and industrial center with multiple fire hazards: passenger and freight facilities, workshops, business blocks and crowded housing. The courthouse fire revealed how emergency personnel and city officers could face deadly risks even while protecting a stone-built public landmark."),
+    p("The Johnson County Historical Commission's collection notes other local utility disasters, including an 1892 fire that destroyed an early Cleburne electric power plant. Power-service interruption, courthouse fire and the need for stronger emergency response formed a pattern in the city's modernization. They should not be merged into a single citywide fire in 1912."),
+    p("For a meaningful downtown visit, begin with the present courthouse, then consult the historical commission and museum material to identify the lost 1883 building, City Marshal Bledsoe and the expansion of Cleburne's rail-service economy. No original 1883 courthouse survives as a separate museum attraction."),
+
+    h("Johnson County courthouse and fire questions"),
+    p("When did the Cleburne courthouse burn down? The county's 1883 courthouse burned April 15, 1912."),
+    p("Who died during the courthouse fire? Cleburne City Marshal Abe Bledsoe was killed during the response."),
+    p("When was the current Johnson County Courthouse built? It was constructed during 1912–13 and accepted on November 28, 1913."),
+    p("Did the 1892 electric-plant fire destroy the courthouse? No. These were separate civic events about twenty years apart."),
     h("Prairie, timber and river country meet here"),
     p("Johnson County lies in a transition between Blackland Prairie influences to the east and the Cross Timbers and rolling prairie country to the west. That mix produced varied soils, oak-covered ridges, open grasslands and productive river bottoms. The Nolan River is one of the county's most important waterways, eventually feeding into the Brazos system."),
     p("The county's western and southern edges connect to larger Brazos landscapes that continue into Hood, Somervell and Hill counties. These natural corridors influenced early settlement, agriculture, road routes and recreation. Even in fast-growing northern Johnson County, creek bottoms and remnant prairie still reveal the older geography beneath suburban development."),
@@ -131,5 +151,13 @@ export const johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle: Article 
     h("What defines Johnson County"),
     p("Johnson County is defined by movement. Its county seat moved as boundaries changed. Cattle passed through on the way north. Railroads turned Cleburne into an industrial city. Highways later pulled growth toward Fort Worth. Each transportation era left a visible layer without completely erasing the one before it."),
     p("That makes the county more than a suburban extension of the Metroplex. Courthouse architecture, cattle-trail heritage, railroad history, prairie towns, the Nolan River, state-park woodlands and active ranch country all remain part of the same place. Johnson County's story is the story of North Texas repeatedly adapting its landscape to new routes, new industries and new communities."),
+  ],
+  sources: [
+    { label: "Johnson County Historical Commission — 1912 fatal courthouse fire", url: "https://www.johnsoncountytx.org/departments/historical-commission/did-you-know" },
+    { label: "Texas Historical Commission — Johnson Courthouse architecture and 1912–13 replacement", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/johnson-county" },
+    { label: "Johnson County Museum — city marshal and electric-plant fires", url: "https://www.johnsoncountytx.org/departments/museum/did-you-know" },
+    { label: "UNT Portal to Texas History — historical 1913 courthouse acceptance chronology", url: "https://texashistory.unt.edu/ark:/67531/metapth839912/m1/3/" },
+    { label: "Texas State Historical Association — Johnson County", url: "https://www.tshaonline.org/handbook/entries/johnson-county" },
+    { label: "Johnson County government — county courthouse services", url: "https://www.johnsoncountytx.org/" },
   ],
 };
