@@ -40,7 +40,7 @@ assert.ok(route.includes('editorial?.photo ? (') && route.includes('photo={edito
 for(const token of ['function FootballSourcedPhoto(', 'src={photo.src}', 'alt={photo.alt}', '{photo.caption}', '{photo.credit}', 'href={photo.sourceUrl}', 'href={photo.licenseUrl}', '{photo.license}', "priority={slug === 'aubrey' || slug === 'katy' || slug === 'fort-davis'}"]) assert.ok(route.includes(token), 'Sourced media hero contract missing: '+token);
 assert.ok(!route.includes('src="https://images.unsplash.com/photo-1508209495879'), 'Do not hardcode Aubrey image in JSX');
 assert.ok(!route.includes('{editorial.photo && <figure'), 'Do not repeat governed football photo below hero');
-assert.ok(route.includes('Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'), 'Mobile introduction should remain concise without repeating all score cards');
+assert.ok(route.includes('Verified 2026 scores, season results, home tickets and Chaparral Stadium information.'), 'Mobile introduction should remain concise without repeating all score cards');
 assert.ok(!route.includes('Original TexasDefined football illustration'), 'Never restore the Aubrey clip-art football panel');
 assert.ok(!route.includes('viewBox="0 0 180 110"'), 'Aubrey football clip-art SVG must be removed');
 
@@ -49,4 +49,9 @@ assert.ok(guide.includes('Official home tickets ↗') && guide.includes('Stadium
 assert.ok(route.includes('Scheduled · ' + '$' + '{game.kickoff}'));
 assert.ok(!route.includes('Historical alias metadata may help resolve'));
 assert.ok(!route.includes('Project context reviewed'));
+const scoreOverlay = readFileSync('src/data/high-school-football/aubrey-auto-results.ts', 'utf8');
+assert.ok(scoreOverlay.includes('How did Aubrey finish its 2026 regular-season schedule?'), 'Late-season FAQ must describe results, not already completed fixtures as remaining');
+assert.ok(scoreOverlay.includes("game.result ?? 'result awaiting verification'"), 'Late-season FAQ must use effective scores and explicitly flag unconfirmed results');
+assert.ok(scoreOverlay.includes('const lateRegularSeason = regularSeason.slice(-3);'), 'FAQ must derive the late regular-season schedule separately from postseason');
+assert.ok(scoreOverlay.includes('individually verified finals are reflected in this dated editorial snapshot'), 'Effective source label must not freeze last review on Oct 16');
 console.log('Aubrey editorial, scoreboard snapshot, visitor links and public-copy guards passed.');

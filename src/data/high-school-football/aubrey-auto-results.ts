@@ -86,15 +86,25 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     : '';
   const updatedOverview = `Aubrey Chaparrals are ${wins}–${losses} overall and ${districtWins}–${districtLosses} in UIL District 4 through ${dateLabel(endDate)}, including ${lastReport}.${nextReport} Results are dated, source-linked reports and not a live score feed.`;
   const existingFaq = editorial.faq ?? [];
-  const faq = existingFaq.map((entry) => /(?:2026.*record|record.*2026)/i.test(entry.question)
-    ? { ...entry, answer: "Aubrey's verified 2026 record is " + record + '. Check the dated score table and linked results for changes.' }
-    : entry);
+  const regularSeason = games.filter((game) => !playoffGames.some((playoff) => playoff.date === game.date));
+  const lateRegularSeason = regularSeason.slice(-3);
+  const lateResults = lateRegularSeason.map((game) => `${dateLabel(game.date)}: ${game.opponent} — ${game.result ?? 'result awaiting verification'}`).join('; ');
+  const faq = existingFaq.map((entry) => {
+    if (/(?:2026.*record|record.*2026)/i.test(entry.question)) {
+      return { ...entry, answer: "Aubrey's verified 2026 record is " + record + '. Check the dated score table and linked results for changes.' };
+    }
+    if (entry.question === 'What games are on Aubrey’s late-2026 regular-season schedule?') {
+      return { ...entry, question: 'How did Aubrey finish its 2026 regular-season schedule?', answer: lateResults + '. See the full dated results table for the complete season and source links.' };
+    }
+    return entry;
+  });
   return {
     ...editorial,
     overview: editorial.overview?.length ? [updatedOverview, ...editorial.overview.slice(1)] : editorial.overview,
     season: {
       ...editorial.season, games, record,
       verifiedAt: currentResult?.verifiedAt ?? editorial.season.verifiedAt,
+      sourceLabel: 'MaxPreps Aubrey varsity schedule; individually verified finals are reflected in this dated editorial snapshot',
       latestResultSourceUrl: currentResult?.primarySourceUrl ?? editorial.season.latestResultSourceUrl,
     },
     seo: editorial.seo ? { ...editorial.seo, description: recordDescription } : editorial.seo,

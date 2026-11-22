@@ -627,7 +627,7 @@ function Page() {
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
               {slug === 'aubrey'
-                ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
+                ? 'Verified 2026 scores, season results, home tickets and Chaparral Stadium information.'
                 : canyonLakeFinalPending
                   ? 'Canyon Lake Hawks football: ten source-reported completed results through November 13, including the 49–28 Pleasanton playoff win. The November 20 Calhoun area-round final is awaiting independent confirmation; the published 8–2 record is dated, not a live score.'
                   : editorial?.intro ?? profileSummary}
