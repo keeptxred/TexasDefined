@@ -878,7 +878,7 @@
       "path": "/destination/comanche-county-historical-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 12,
+      "faqCount": 13,
       "sources": [
         {
           "sourceUrl": "https://www.comanchecountytxmuseum.com/about-us",
@@ -899,6 +899,16 @@
           "sourceUrl": "https://www.comanchechamber.org/explorecomanche",
           "fetchUrl": "https://www.comanchechamber.org/explorecomanche",
           "label": "Old Cora courthouse renovation/closure and nearby landmarks"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/",
+          "label": "Museum official free admission, donations and visitor hours"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "label": "Museum official self-guided Comanche Square QR audio tour"
         }
       ]
     },
