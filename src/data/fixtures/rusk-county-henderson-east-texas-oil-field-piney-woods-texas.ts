@@ -7,8 +7,8 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
   id: "county-rusk-henderson-east-texas-oil-field-piney-woods",
   brandId: "texasdefined",
   slug: "rusk-county-henderson-east-texas-oil-field-piney-woods-texas",
-  title: "Rusk County: Henderson, the East Texas Oil Field and Piney Woods History",
-  dek: "Rusk County is an East Texas landscape of pine forests, historic Henderson, railroad towns and the oil field that transformed the region in the 1930s.",
+  title: "Rusk County, Texas: Henderson, Syrup Heritage and Oil History",
+  dek: "Explore the Syrup Capital of Texas: Henderson, the Heritage Syrup Festival, the Depot Museum, railroad towns and the East Texas Oil Field.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 17,
   tags: [
     "Rusk County",
     "Henderson Texas",
@@ -32,9 +33,16 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
     "Texas oil history",
     "East Texas history",
     "Texas counties",
+    "Syrup Capital of Texas",
+    "Heritage Syrup Festival",
+    "Rusk County Depot Museum",
+    "ribbon cane syrup",
   ],
   featured: false,
   internalLinks: [
+    { href: "/event/heritage-syrup-festival", label: "Heritage Syrup Festival in Henderson", description: "Read about the 37th annual 2026 edition, ribbon-cane syrup making and the annual festival tradition." },
+    { href: "/destination/rusk-county-depot-museum-history-center-henderson", label: "Rusk County Depot Museum & History Center", description: "Visit the historic depot, working-life collections and the syrup-mill grounds at 514 N. High Street." },
+    { href: "/texas-capital-designations", label: "Official Texas capital designations", description: "See Rusk County listed as the Legislature-designated Syrup Capital of Texas." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/panola", label: "Explore Panola County", description: "Continue east toward Carthage, the Sabine watershed, timber country and East Texas music history." },
     { href: "/county/nacogdoches", label: "Explore Nacogdoches County", description: "Travel south toward the historic Caddo and Spanish corridor centered on Nacogdoches." },
@@ -43,7 +51,14 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["rusk-county-depot-museum-history-center-henderson"],
+  sources: [
+    { label: "Texas State Library — official Texas capital designations", url: "https://www.tsl.texas.gov/ref/abouttx/capitals" },
+    { label: "Texas Legislature — H.C.R. 83 (2025)", url: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00083F.htm" },
+    { label: "City of Henderson — Heritage Syrup Festival", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" },
+    { label: "Rusk County Depot Museum & History Center — grounds", url: "https://www.ruskcountyhistory.org/our-grounds" },
+    { label: "Rusk County Depot Museum — 2026 festival", url: "https://www.ruskcountyhistory.org/syrup-festival" },
+  ],
   body: [
     p("Rusk County sits in the heart of East Texas, where pine woods, hardwood bottoms, rolling uplands and small-town courthouse life meet one of the most consequential petroleum stories in American history. Henderson, the county seat, was founded in 1843, years before Texas entered the Union. Around it are communities such as Overton, New London, Tatum, Mount Enterprise and smaller settlements whose histories were shaped first by farming and timber, then by railroads, and finally by the giant East Texas Oil Field."),
     p("The county rewards travelers who look beyond the modern highways. Its courthouse square preserves the civic center of Henderson, rural roads cross wooded creeks and former cotton country, and the northern part of the county still carries the physical and cultural imprint of the 1930 oil boom. Rusk County is a place where several major Texas stories overlap: Caddo history, Republic-era settlement, plantation agriculture, Reconstruction, railroad expansion, oil, industrial growth and the persistence of Piney Woods communities."),
@@ -79,6 +94,16 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
     h("Gregg County was carved from northern Rusk County"),
     p("Rusk County once extended farther north. In 1873 and 1874, residents in the northern part of the county pushed for a new county centered closer to Longview. The Texas Legislature created Gregg County in 1873 and finalized its organization the following year, reducing Rusk County's territory and population."),
     p("That boundary change helps explain the close historical ties among Henderson, Kilgore, Longview, Overton and the wider East Texas transportation corridor. Modern county lines separate local governments, but commerce, commuting, oil production and family networks have always crossed them."),
+
+
+    h("Why Rusk County is the official Syrup Capital of Texas"),
+    p("In 2025, the 89th Texas Legislature adopted House Concurrent Resolution 83 designating Rusk County—not Henderson alone—as the official Syrup Capital of Texas for a ten-year period ending in 2035. The designation recognizes the region's long association with making syrup from ribbon cane, a tradition that connected small farms, mills and community gatherings before petroleum became the county's best-known industry."),
+    p("Ribbon cane is a type of sugarcane historically grown in East Texas. Making syrup required cutting the stalks, pressing them to release juice, and boiling down that juice in a pan until it thickened. Neighbors helped with the labor, and the equipment and skills became part of community memory. The county's modern recognition is tied to this specific heritage—not a claim that Henderson is the country's largest producer of commercial table syrup."),
+    p("Henderson's annual Heritage Syrup Festival keeps the process visible. The 37th annual edition took place Saturday, November 14, 2026, across the Rusk County Depot Museum grounds and historic downtown. At the museum, visitors watched old-fashioned cane crushing and syrup cooking, alongside folk trades; downtown brought craft booths, music, cars, food and family activities. The 2026 festival has ended. Organizers describe a recurring second-Saturday-in-November tradition, but future-year details should be confirmed on their official sites."),
+    h("The Rusk County Depot Museum links the syrup mill to rail and farm history"),
+    p("At 514 N. High Street in Henderson, the Rusk County Depot Museum & History Center preserves a 1901 railroad depot and a campus of historical buildings. Its exhibits bring together the farm economy that preceded the oil boom and the rail transport that connected local producers to wider Texas markets. The museum opened in 1978; historical collections shifted to the former Arnold Library building in 1994, while the depot remained central to the educational grounds."),
+    p("The outdoor campus includes a syrup mill, cotton gin, blacksmith shop, sawmill, country store, cabins, oilfield displays and a caboose. These structures tell a connected story: cane and cotton were worked and processed locally; railroads connected agricultural communities; oil then transformed the county's economy. The annual festival is not a separate attraction invented for tourists—it uses the same grounds to demonstrate surviving local skills."),
+    p("The museum currently advertises free admission, with donations welcomed, regular Monday–Friday hours of 10 a.m.–4 p.m. and Saturday hours of 9 a.m.–1 p.m. Special events may operate on different schedules. Check the museum's official site or call 903-657-4303 before traveling. The festival's downtown programming and museum demonstrations use different areas, so plan them as two stops instead of assuming everything happens at the courthouse square."),
 
     h("Then oil changed almost everything"),
     p("On October 3, 1930, the Daisy Bradford No. 3 well drilled by Columbus Marion 'Dad' Joiner came in near what became Joinerville. The discovery confirmed a vast petroleum reserve that experts had largely underestimated. The East Texas Oil Field quickly emerged as one of the largest and most productive oil fields in the United States."),
@@ -120,8 +145,14 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
     p("The early photographs of the East Texas Oil Field show forests of wooden derricks packed close together. Modern production looks different. Wells are less visually dominant, pipelines are more integrated into the landscape, and energy operations use technologies that would have been unfamiliar to the 1930 boom generation."),
     p("Yet petroleum remains a defining part of Rusk County's economic identity. Mineral rights, royalties, service businesses and infrastructure continue to link the county to Texas energy markets. The story is not simply that oil happened here once; it is that oil permanently altered land values, towns, public finance and the region's place in the world economy."),
 
+    h("Quick answers: Rusk County, Henderson and syrup"),
+    p("What county is Henderson in? Henderson is the seat of Rusk County in East Texas; do not confuse it with Henderson County, whose seat is Athens."),
+    p("What is the Syrup Capital of Texas? Rusk County is the official designation under 2025 H.C.R. 83. Henderson hosts its best-known annual celebration of syrup-making heritage."),
+    p("Where does Henderson make syrup at the festival? The traditional demonstration is on the Rusk County Depot Museum grounds at 514 N. High Street, not only on the downtown courthouse square."),
+    p("When was the 37th Heritage Syrup Festival? Saturday, November 14, 2026, 9 a.m.–5 p.m. The edition has concluded; check the organizer for the next confirmed date."),
+
     h("How to explore Rusk County"),
-    p("Begin in Henderson at the courthouse square and downtown streets. The city provides the clearest introduction to the county's Republic-era origins and its continuing civic role. Local museum resources can add context on settlement, agriculture, railroads and the oil boom."),
+    p("Begin in Henderson at the courthouse square and downtown streets, then visit the Rusk County Depot Museum & History Center a short distance north at 514 N. High Street. Together the square and museum explain courthouse government, railroads, cane-syrup making, farming and the oil economy. If planning a November trip, consult the permanent Heritage Syrup Festival guide and verify the next edition with the city before booking."),
     p("From Henderson, drive north and northwest toward Joinerville, New London and Overton to follow the geography of the East Texas Oil Field. A separate route toward Tatum reveals the county's northeastern connection to the Sabine side of East Texas, while a drive south toward Mount Enterprise shows the more rural Piney Woods landscape."),
 
     h("Rusk County belongs to a larger East Texas story"),
