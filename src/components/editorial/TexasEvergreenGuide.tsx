@@ -261,7 +261,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-breakfast-taco-guide": [
     { label: "Texas Legislative Reference Library — HCR 123 history", href: "https://www.lrl.texas.gov/legis/billsearch/billdetails.cfm?billFileID=299334&from=advancedsearch", note: "Confirms the proposed state breakfast designation was left pending in committee." },
     {"label":"Texas Legislature — introduced HCR 123, 2019","href":"https://capitol.texas.gov/tlodocs/86R/billtext/html/HC00123I.HTM","note":"Legislative proposal summarizes early historical references; not an enacted designation or direct archive verification."},
-    {"label":"University of Texas Press — American Tacos","href":"https://utpress.utexas.edu/9781477329368/","note":"José R. Ralat's historical survey includes a chapter on breakfast tacos."},
+    {"label":"University of Texas Press — American Tacos","href":"https://www.jstor.org/stable/10.7560/316528","note":"José R. Ralat's historical survey includes a chapter on breakfast tacos."},
     {"label":"Texas Standard / KUT — José R. Ralat interview","href":"https://www.kut.org/texas/2020-04-16/from-breakfast-to-barbacoa-new-book-dives-into-american-tacos","note":"Explains the borderland context and contested city-origin claims."},
     {"label":"Joe's Bakery — official menu","href":"https://joesbakery.com/menu/","note":"Restaurant's own menu and location information."},
   ],
@@ -272,6 +272,8 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Houston Chronicle — How Texas homecoming mums evolved", href: "https://www.houstonchronicle.com/news/houston-texas/houston/article/history-texas-homecoming-mums-19730689.php", note: "Provides broader Texas history, modern mum and garter conventions, and reporting on how the tradition changed from simpler corsages into highly personalized displays." },
   ],
   "texas-brand-origin-stories": [
+    { label: "Blue Bell — dated production facility fact sheet", href: "https://www.bluebell.com/news/food-safety-fact-sheet/", note: "Identifies the three production sites as of June 2022." },
+    { label: "Texas Historical Commission — Spoetzl Brewery marker", href: "https://atlas.thc.texas.gov/Details/5285005011", note: "Dates the purchase to 1915 and documents Prohibition and family ownership." },
     { label: "Smithsonian — 7-Eleven display rooster", href: "https://www.si.edu/object/7-eleven-display-rooster%3Anmah_1204808", note: "Documents the Dallas Southland Ice Company origins and development of convenience retail." },
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
