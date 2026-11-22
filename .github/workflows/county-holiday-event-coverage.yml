@@ -19,6 +19,7 @@ on:
       - 'src/data/major-event-index.ts'
       - 'src/data/major-event-expanded-authority-tranche*.server.ts'
       - 'src/data/events/christmas-community-2026.server.ts'
+      - 'src/data/events/christmas-community-2026-county-backfill.server.ts'
       - 'src/data/texas-places.ts'
 permissions:
   contents: read
