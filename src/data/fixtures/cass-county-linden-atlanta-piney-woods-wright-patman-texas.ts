@@ -8,9 +8,9 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   brandId: "texasdefined",
   slug: "cass-county-linden-atlanta-piney-woods-wright-patman-texas",
   title: "Cass County: Linden, Atlanta, Piney Woods and Wright Patman Lake",
-  dek: "Cass County brings together one of Texas's oldest active courthouses, the railroad history of Atlanta, deep Piney Woods forests, Caddo country and the lake-and-river landscape of far Northeast Texas.",
+  dek: "Why Linden's 1861 courthouse lost its spire, how the 1933 fire spurred a water tower and firehouse, and where to explore Cass County's broader Piney Woods history.",
   category: "texas-history",
-  region: "north-texas",
+  region: "piney-woods",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cass_County_Courthouse_Linden_Tx.jpg?width=1600",
     alt: "Cass County Courthouse in Linden, Texas",
@@ -20,7 +20,8 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Cass County",
     "Linden Texas",
@@ -32,6 +33,9 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     "Texas railroads",
     "Northeast Texas",
     "Texas counties",
+    "Cass County Courthouse fire",
+    "1939 Linden Firehouse",
+    "1934 Linden water tower",
   ],
   featured: false,
   internalLinks: [
@@ -41,6 +45,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { href: "/county/marion", label: "Explore Marion County", description: "Travel south toward Jefferson, Big Cypress Bayou and Caddo Lake history." },
     { href: "/county/titus", label: "Explore Titus County", description: "Continue west toward Mount Pleasant and Lake Bob Sandlin." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped county boundaries across Texas." },
+    { href: "/destination/atlanta-state-park", label: "Atlanta State Park", description: "Extend your Cass County visit to trails, camping and Wright Patman Lake." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
@@ -68,9 +73,44 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("Linden was established in 1852 after the boundary changes and county-seat disputes that followed Cass County's creation. The town was laid out around the needs of local government, and construction of an early frame courthouse helped create the first civic center. Stores, schools, sawmills and other services followed."),
     p("Unlike many Texas county seats that later became major transportation centers, Linden remained comparatively small. Its importance comes from continuity rather than scale: court records, public offices, elections and county institutions kept the town central to civic life even as Atlanta grew larger and more commercially influential."),
 
-    h("The Cass County Courthouse is an exceptional Texas landmark"),
-    p("The courthouse in Linden is one of the county's most important historic buildings. Construction began around the eve of the Civil War, and the building was completed after the war. Later additions and renovations changed its appearance, including major work in 1900, 1917 and after a 1933 fire."),
-    p("Today the building presents a Classical Revival appearance with a prominent portico and red tile roof. It remains an active courthouse and is listed on the National Register of Historic Places. For visitors, it is the best starting point for understanding why Linden endured as the county's political center even while railroads and highways shifted economic activity elsewhere."),
+    h("Why Linden's courthouse, spire, water tower and firehouse belong to one story"),
+    p("Three landmarks tell the same story across three generations: the Cass County Courthouse at the square, the elevated Horton water tank at Rush and Taylor Streets, and the 1939 fire station below it. The courthouse began as a statement of county government in 1861. A destructive fire in 1933 exposed the town's inadequate firefighting water supply. Linden then built the sanitary waterworks, acquired a pumper, organized volunteer firefighters and eventually constructed a permanent station. The water tower is not the courthouse's lost spire: they are different structures from different periods."),
+
+    h("The 1861 courthouse: locally fired brick and a gold-leafed spire"),
+    p("The present building was erected between 1859 and 1861 on the site of Linden's first, wooden courthouse. Judge Charles Ames drew plans for a brick Greek Revival building inspired by the earlier Harrison County courthouse in Marshall. Local clay was fired into hundreds of thousands of bricks. The building's original specifications called for 12-foot ceilings, fireplaces, a hipped roof and a square cupola about 23 feet high, capped by a zinc-covered dome, spire and gold-leafed wooden ball. Its early red-brown paint and roofline looked dramatically different from the cream-colored Classical Revival courthouse visitors see today."),
+    p("The construction date matters. Although some older markers and accounts describe completion after the Civil War, Cass County court minutes document a final construction payment and acceptance on July 8, 1861, for $9,877. That makes the building an antebellum courthouse, not a postwar replacement. Its construction depended in part on enslaved labor and occurred immediately before the county used its public institutions to support the Confederate war effort. It is widely described as Texas's only surviving antebellum county courthouse still serving its original civic role."),
+    p("The building changed long before the celebrated fire. A wing was added around 1900. A tornado in May 1908 damaged the courthouse's cupola; later rebuilding and the major 1917 redesign reshaped the upper silhouette, entrances and wings. The 1917 work introduced the monumental Classical Revival porticoes associated with the courthouse today. Architectural sources differ on exactly when the later cupola was finally removed, but the original gold-leafed spire was not the water tower built decades later."),
+
+    h("What happened in the 1933 Cass County Courthouse fire?"),
+    p("In 1933, smoke and flames were seen around the judge's chamber and courthouse portico. Residents formed bucket brigades and hand-pumped water from local wells, while help was summoned from towns with better firefighting equipment. Water supplies ran low. The fire devastated the upper courtroom and roof, but the structure was not completely destroyed; reinforced concrete work from an earlier renovation helped prevent a total loss. Local preservation research describes the ordeal as exposing an urgent public-safety failure. Historical sources differ on the precise month of the blaze, so the documented year is used here rather than presenting a disputed date as certain."),
+    p("The fire damaged one of the state's most historic working courthouses, but the county records and the surviving brick structure made reconstruction possible. The rebuilding, supported by New Deal-era public works, added upper-floor space and reshaped the roof. The courthouse's 1930s appearance later guided its extensive preservation work."),
+    p("The courthouse ultimately received a Texas Historical Commission preservation grant of about $4.4 million; work began in 2009 and the building was rededicated in February 2012. The work restored important 1930s interior and exterior details, removed a later addition and modernized essential systems. The courthouse is on the National Register of Historic Places and remains a working public building."),
+    
+    h("The 1934 water tower was a public-health and firefighting turning point"),
+    p("Linden's response to the 1933 disaster was not simply to repair the courthouse. The same period brought dangerous typhoid outbreaks and exposed the problems of shallow wells near privies and barns. City officials pursued sanitary water and sewer infrastructure: a deep well, pumping equipment, an elevated storage tank, distribution mains and fire hydrants. Better water meant both safer drinking water and a dependable supply for fighting fires."),
+    p("Congressman Wright Patman, who had begun his legal and political career in Linden, assisted in securing Public Works Administration financing. The 1934 contract covered a system with a 50,000-gallon elevated tank. The landmark tank was built by Chicago Bridge & Iron Works and carries the manufacturer's identification Horton Tank No. 4816, dated 1934. It stands at Rush and Taylor Streets, near the downtown courthouse square, and should not be mistaken for the nineteenth-century courthouse cupola."),
+    { type: "image", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Linden1.JPG?width=1280", alt: "Downtown Linden, Texas, with historic elevated water tanks visible above the buildings", width: 4272, height: 2848, credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons" }, caption: "Downtown Linden's water-tower skyline, photographed in 2015. The 1934 Horton Tank belongs to the waterworks and fire-protection chapter of the town's history, not to the courthouse's earlier spire." },
+    p("The historic tower's value is also civic: it marks the years when Linden used Depression-era funding to modernize everyday services. Preservation Texas reports that the adjacent historic water tower is decommissioned, and that the tower, the 1939 station and downtown fire hydrants were evaluated together for National Register eligibility in 2016. Eligibility is not the same as a completed National Register listing."),
+
+    h("From bucket brigades to the 1939 Linden Firehouse"),
+    p("By spring 1935, Linden had acquired a Ford V8 fire truck with a reported 500-gallon-per-minute pumping capacity and organized a volunteer fire department. The new water system and trained firefighters addressed the shortcomings made painfully clear in the courthouse fire. Local reporting also linked stronger protection to the prospect of lower fire-insurance premiums."),
+    p("City officials voted in 1937 to construct a permanent home for their truck beside the water tower. Local minutes name architect R. Stanley Brown in connection with previously prepared plans. Work began in January 1939; the truck moved into the new stucco fire station in February. The modest building on West Rush Street included room for equipment and volunteers, making practical use of the pressure and water capacity provided by the neighboring elevated tank."),
+    p("The building was expanded in 1949 to accommodate an additional truck and equipment. Preservation Texas says the station served the community until the early 1960s and was Cass County's only fire station until the 1950s. After relocation, neglect and water damage threatened its survival. It was placed on Preservation Texas's Most Endangered Places list in 2016."),
+    p("Preservation Texas purchased the threatened firehouse from the city in May 2022. The organization reports that the first phase of stabilization was completed in spring 2024 and describes a planned heritage-lodging adaptation with periodic public tours. That is a preservation proposal, not a confirmation that lodging or tours are already operating. The property's published address is 121 West Rush Street; check the preservation organization's current notices before planning an interior visit."),
+
+    h("Five civic buildings show how the New Deal reshaped Linden"),
+    p("The courthouse restoration, the 1934 waterworks, the 1937 federal post office, the 1938 county office building and the 1939 fire station tell a larger story of public investment during the Great Depression. The water and sewer system addressed illness and fire safety; the station made that system useful in emergencies; the post office and county building expanded civic services. The buildings differ in style and purpose but explain why several modest structures near Linden's square deserve to be read together."),
+    p("Linden's post office also preserves a New Deal-era artistic story. The town is associated with a federally commissioned mural often identified as The Last Crop, by Victor Arnautoff, and the area's Black musical history includes electric-blues pioneer T-Bone Walker and the early-life geography connected with ragtime composer Scott Joplin. These are separate histories deserving context, not decorative side notes to the courthouse story."),
+
+    h("How to visit the courthouse, water tower and historic firehouse"),
+    p("Start at Cass County Courthouse, 100 East Houston Street, Linden. View the restored portico and roofline from the public square, remembering that the nineteenth-century spire no longer stands. Walk toward the corner of Rush and Taylor Streets to see the 1934 elevated tank and the exterior of the 1939 firehouse at 121 West Rush Street. These are closely related downtown landmarks, but the firehouse is a preservation property, not an assumed walk-in museum. Avoid entering restricted buildings or grounds; confirm courthouse business access and any announced firehouse tours with the respective custodians."),
+    p("A useful comparison is the surviving 1861 courthouse against the simpler municipal design of the Depression-era station. The contrast shows a county's priorities changing from monumental government architecture to modern water, sanitation and practical emergency services. For the historical image of the 1933 fire and the contemporary preservation campaign, consult the Texas Historical Commission, Linden Heritage Foundation and Preservation Texas sources listed below."),
+
+    h("Quick answers about the Linden courthouse fire and landmarks"),
+    p("Did the Cass County Courthouse burn down? No. A destructive fire in 1933 badly damaged the courtroom and upper roof, but the building survived, was rebuilt and remains in civic use."),
+    p("Where did the courthouse spire go? The original courthouse featured a cupola with a zinc dome and gold-leafed spire. A 1908 tornado and later redesigns changed the roofline; the spire is not the existing downtown water tower."),
+    p("Why was Linden's 1934 water tower built? The waterworks supplied sanitary water and reliable fire protection after the town experienced a devastating courthouse fire and serious public-health problems."),
+    p("When was Linden's old firehouse built? Construction began in 1939, and the fire truck moved into the station that February. The station stands at 121 West Rush Street below the 1934 water tower."),
 
     h("Cotton and slavery shaped the antebellum county"),
     p("Like much of Northeast Texas, early Cass County developed within the agricultural economy of the nineteenth-century South. Cotton became the principal cash crop, while corn and hogs supported local food needs. Farms expanded quickly as settlers arrived from other southern states."),
@@ -129,11 +169,22 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("That position has always influenced commerce and culture. Residents may travel toward Texarkana for regional services, toward Louisiana for work or family ties, or west toward Mount Pleasant and Dallas. The county is unmistakably Texan, but it belongs to a broader Ark-La-Tex cultural and economic region."),
 
     h("How to explore Cass County"),
-    p("Begin in Linden at the Cass County Courthouse. Walk the surrounding civic area and look closely at the building's layered architecture, then drive northeast toward Atlanta to see how the county's commercial center shifted toward the railroad and highway corridor."),
+    p("Begin in Linden at the Cass County Courthouse. After studying the restored roofline, walk to the 1934 water tower and 1939 firehouse near Rush and Taylor Streets to follow the story of the 1933 fire and the town's first modern firefighting infrastructure. Continue northeast toward Atlanta to see how the county's commercial center shifted toward the railroad and highway corridor."),
     p("From Atlanta, continue toward Wright Patman Lake and Atlanta State Park for the county's strongest public-land experience. A separate drive toward Hughes Springs or the smaller communities west of Linden reveals the working forest-and-ranch landscape. Pairing Cass with Marion County to the south or Bowie County to the north makes the region's transportation and river history easier to understand."),
 
     h("Why Cass County matters"),
     p("Cass County is a compact history of far Northeast Texas. Caddo communities established a deep human presence before Texas existed. Statehood created the county, boundary changes moved Jefferson into Marion County, the Civil War briefly changed the county's name, and emancipation remade the agricultural labor system. Railroads created Atlanta and Queen City, lumber turned forests into an export industry, oil diversified the economy, and Wright Patman Lake created a new public recreation landscape."),
     p("What holds those stories together is geography. Forests, creeks, the Sulphur River, transportation corridors and proximity to Arkansas and Louisiana repeatedly determined where people settled and how they made a living. Cass County rewards travelers who look beyond U.S. 59: the courthouse in Linden, railroad towns, pine forests and lake shoreline together explain a corner of Texas shaped as much by East Texas timber and river systems as by the state line itself."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Cass County Courthouse", url: "https://texastimetravel.com/directory/cass-county-courthouse/" },
+    { label: "National Register nomination — Cass County Courthouse (1979)", url: "https://atlas.thc.texas.gov/NR/pdfs/79002924/79002924.pdf" },
+    { label: "Linden Heritage Foundation — 1934 Water Tower and 1939 Firehouse eligibility research (2016)", url: "https://lindenheritage.org/wp-content/uploads/2016/01/Submittal-DeterminationEligibility-4Jan2016.pdf" },
+    { label: "Linden Heritage Foundation — 1939 Firehouse", url: "https://lindenheritage.org/1939-firehouse/" },
+    { label: "Preservation Texas — Linden Fire Station rehabilitation and history", url: "https://www.preservationtexas.org/linden" },
+    { label: "Preservation Texas — Historic fire station and water tower", url: "https://www.preservationtexas.org/mep/linden-fire-station" },
+    { label: "Texas County & District Retirement System — Courthouse restoration", url: "https://www.tcdrs.org/library/admin-updates-cass-county/" },
+    { label: "Texas Escapes — Courthouse building history and 2012 restoration", url: "https://www.texasescapes.com/EastTexasTowns/Linden-Texas-Cass-County-Courthouse.htm" },
+    { label: "Wikimedia Commons — Downtown Linden water towers, image rights", url: "https://commons.wikimedia.org/wiki/File:Linden1.JPG" },
   ],
 };
