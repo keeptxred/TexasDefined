@@ -70,6 +70,7 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
       <EditorialLink href="/texas-dance-halls-honky-tonks" title="Dance halls & honky-tonks" text="Two-step culture, Western swing, historic community halls and how to plan a live-music weekend." />
       <EditorialLink href="/texas-homecoming-mums" title="Texas homecoming mums" text="How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week." />
       <EditorialLink href="/german-czech-texas-towns" title="German & Czech Texas heritage" text="Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history." />
+      <EditorialLink href="/event/heritage-syrup-festival" title="Heritage Syrup Festival · Henderson" text="Explore the ribbon-cane syrup demonstrations, Depot Museum history and archived 37th annual festival while awaiting new organizer-confirmed dates." />
     </div></div></Container></section>
 
     <DiscoverySection eyebrow="Plan by time" title="What’s happening when" description="Explore upcoming weekends, seasonal celebrations and annual favorites—with dates and organizer details to check before you go." links={eventTimingLinks} />
