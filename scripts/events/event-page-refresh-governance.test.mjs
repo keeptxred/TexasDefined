@@ -9,7 +9,7 @@ import {
 } from './event-page-refresh-governance.mjs';
 import {
   evaluateSourceObservation, reviewEventSources, selectSourceReviewTargets,
-  fullEditorialFreshnessBacklog,
+  fullEditorialFreshnessBacklog, formatEventSourceIssue,
 } from './monitor-event-authority-sources.mjs';
 
 function fixture() {
@@ -475,4 +475,25 @@ test('third official-source review cohort preserves dated 2027 announcements and
     'comal-county-fair-rodeo'), /2027 unannounced/);
   assert.match(source('src/data/major-event-expanded-authority-tranche40.server.ts',
     'hopkins-county-stew-contest'), /chamber has not published a verified 2027/);
+});
+
+
+test('actionable issue includes every overdue canonical/source including those after legacy 120-row cap', () => {
+  const records = Array.from({length: 166}, (_, i) => ({
+    path: '/event/test-festival-' + i, source: 'https://festival-' + i + '.org/',
+    concerns: ['editorial-source-check-overdue'], editorialSourceCheckedAt: '2026-09-01', cadenceDays: 7,
+  }));
+  const report = {coverage: {permanent: 272, collectionRoutes: 32, specialRoutes: 3},
+    due: 69, attempted: 69, coverageErrors: [], editorialBacklogCount: records.length,
+    editorialBacklog: records,
+    findings: [{...records[0], concerns: ['organizer-source-unavailable']}],
+  };
+  const issue = formatEventSourceIssue(report, 'https://github.com/owner/repo/actions/runs/1');
+  for (const row of records) assert.ok(issue.includes('`' + row.path + '`'), row.path);
+  assert.match(issue, /unique route\/source pairs: 166/);
+  assert.match(issue, /editorial-source-check-overdue, organizer-source-unavailable/);
+  assert.equal(issue.split('`/event/test-festival-0`').length, 2);
+  assert.throws(() => formatEventSourceIssue({...report, editorialBacklogCount: 167}, 'run'), /Incomplete/);
+  assert.throws(() => formatEventSourceIssue({...report, editorialBacklogCount: 166,
+    editorialBacklog: records.map(row => ({...row, source: 'https://example.org/' + 'x'.repeat(500)}))}, 'run'), /exceeds safe GitHub body size/);
 });
