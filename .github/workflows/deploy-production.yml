@@ -811,6 +811,10 @@ jobs:
             https://texasdefined.com/texas-natural-wonders-bucket-list
             https://texasdefined.com/texas-rock-climbing-bouldering-guide
             https://texasdefined.com/sitemap.xml
+            https://texasdefined.com/events/christmas-events
+            https://texasdefined.com/events
+            https://texasdefined.com/event/caldwell-kolache-festival
+            https://texasdefined.com/county/burleson
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Publish live verification pending
