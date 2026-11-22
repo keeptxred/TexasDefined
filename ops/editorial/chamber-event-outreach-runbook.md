@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 156 / 254 counties (173 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 98 counties requiring verified source research as of November 22, 2026.**
+**Source-mapped: 165 / 254 counties (182 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 89 counties requiring verified source research as of November 22, 2026.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -111,3 +111,7 @@ Nineteen researched and uniquely mapped public official calendars/contact sites 
 ## Rural first-party calendar expansion — November 22, 2026
 
 Fourteen further reviewed first-party source websites cover Gray (Pampa Chamber), Hardin (Silsbee Chamber), Scurry (Snyder Chamber), DeWitt (Cuero Chamber), Runnels (Ballinger Chamber), Young (Graham Chamber), Howard (Big Spring visitor bureau), Hutchinson (Borger Chamber), Wilson (City of Floresville community events), Wilbarger (Vernon Chamber), Sutton (Sonora Chamber), Pecos (Fort Stockton Chamber), Terry (Brownfield Chamber), and Yoakum (Denver City Chamber). These include recurring Christmas and local festival lead calendars and some low-volume Chamber homepages used as research contacts rather than proof of exact event dates. This registry is a discovery map, not published event occurrence verification.
+
+## Local tourism and municipal source desks — November 22, 2026
+
+Additional nine first-party source records are Hamilton (official city Main Street events), Madison (Madisonville City tourism and events), Jackson (Edna-area Chamber), Liberty (active Trinity Valley/Dayton Chamber rather than the dissolved former Liberty County Chamber), Karnes (Kenedy Chamber), Frio (Pearsall Chamber), Leon (Centerville Chamber), Houston (Discover Crockett local visitor information), and Limestone (City of Mexia event/news desk). Several contacts and sparse calendars **do not** establish an upcoming annual event, and the City of Mexia source is not mislabeled a Chamber. When an official countywide Chamber has shut down, avoid resurrecting obsolete organizations. The verified source report stays separate from first-party event-occurence acceptance, photo licensing, press-list opt-in and earned backlink verification.
