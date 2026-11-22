@@ -124,7 +124,7 @@ export function evidencePathFor(issueNumber, page) {
 }
 export function priorEditorialRewrites(root = ROOT) {
   const dir = path.join(root, 'ops/editorial/auto-rewrite-evidence');
-  const reviewed = new Set();
+  const reviewed = new Map();
   if (!fs.existsSync(dir)) return reviewed;
   for (const name of fs.readdirSync(dir)) {
     if (!/^issue-\d+(?:--[a-z0-9-]+)?\.json$/.test(name)) continue;
@@ -132,11 +132,32 @@ export function priorEditorialRewrites(root = ROOT) {
       const ledger = JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
       if (Number.isSafeInteger(ledger.issue) && /^\/[a-z0-9/-]+$/.test(ledger.page) &&
           Array.isArray(ledger.facts) && ledger.facts.length)
-        reviewed.add(ledger.issue + '\t' + ledger.page);
+        {
+          const key = ledger.issue + '\t' + ledger.page;
+          const checkedAt = Date.parse(ledger.updatedAt || '');
+          const previous = reviewed.get(key);
+          // Preserve the newest real evidence if both legacy and per-page
+          // ledgers exist. Missing timestamps cannot suppress future reviews.
+          if (!reviewed.has(key) || (Number.isFinite(checkedAt) &&
+              (!Number.isFinite(previous) || checkedAt > previous)))
+            reviewed.set(key, checkedAt);
+        }
     } catch { throw Error('Malformed committed rewrite evidence: ' + name); }
   }
   return reviewed;
 }
+/** A past content change is not a lifetime exemption from source review.
+ * Respect the monitor's reported cadence (1–30 days), defaulting to weekly.
+ * Missing, invalid or future evidence dates never defer an eligible review.
+ * This is selection cooldown only, not a new public verification timestamp.
+ */
+export function reviewCooldownActive(row, checkedAt, now = Date.now()) {
+  if (!Number.isFinite(checkedAt) || !Number.isFinite(now) || checkedAt > now) return false;
+  const declared = /review cadence:\s*(\d+)\s*day/i.exec(row.context || '');
+  const cadence = declared ? Math.min(30, Math.max(1, Number(declared[1]))) : 7;
+  return now - checkedAt < cadence * 86400000;
+}
+
 /**
  * Every scheduled invocation must advance across unreviewed source/page pairs,
  * including when a source was reachable but no actual correction was justified.
@@ -238,20 +259,26 @@ async function main() {
   const [openIssues, pending] = await Promise.all([loadIssues(), loadPendingSourceIssues()]);
   const issues = openIssues.filter(issue => sourceReviewEligible(issue) && !pending.has(issue.number));
   const reviewed = priorEditorialRewrites();
-  const unseen = [], previouslyReviewed = [];
+  const unseen = [], previouslyReviewed = [], dueRereview = [];
   for (const issue of issues) {
     for (const pair of issuePageSourcePairs(issue.body)) {
       const row = {...pair, issue: issue.number, issueUrl: issue.html_url,
         title: issue.title, issueUpdatedAt: issue.updated_at};
-      if (reviewed.has(row.issue + '\t' + row.page)) previouslyReviewed.push(row);
-      else unseen.push(row);
+      const key = row.issue + '\t' + row.page;
+      if (!reviewed.has(key)) unseen.push(row);
+      else if (reviewCooldownActive(row, reviewed.get(key))) previouslyReviewed.push(row);
+      else dueRereview.push(row);
     }
   }
   // Always give fresh, unhandled pages priority. A global source-monitor issue
   // MUST remain open after the first page is repaired. Avoid repeating the
   // first event from a 151-page overdue list every day.
   const runNumber = Number(process.env.GITHUB_RUN_NUMBER || 1);
-  const candidates = rotateCandidates(unseen, runNumber);
+  // A stable identity ordering prevents routinely updated issue timestamps
+  // from moving a whole issue's rows ahead of the rotation cursor.
+  const eligible = [...unseen, ...dueRereview].sort((a,b) =>
+    a.issue - b.issue || a.page.localeCompare(b.page) || a.sourceUrl.localeCompare(b.sourceUrl));
+  const candidates = rotateCandidates(eligible, runNumber);
   let selected = null, attempted = 0;
   for (let i = 0; i < Math.min(candidates.length, 60); i += 5) {
     const batch = candidates.slice(i, i + 5);
@@ -277,13 +304,16 @@ async function main() {
   fs.mkdirSync('.artifacts', {recursive: true});
   fs.writeFileSync('.artifacts/sitewide-rewrite-target.json', JSON.stringify({selected, scope: 'one-source-backed-page',
     scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, pendingProtectedIssueCount: pending.size,
-    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
-    attempted, queueRunNumber: runNumber, rotationOffset: unseen.length ? (runNumber - 1) % unseen.length : 0,
+    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length + dueRereview.length,
+    duePreviouslyRewrittenPairs: dueRereview.length, recentlyRewrittenPairs: previouslyReviewed.length,
+    actionableSourcePagePairs: eligible.length,
+    attempted, queueRunNumber: runNumber, rotationOffset: eligible.length ? (runNumber - 1) % eligible.length : 0,
     runLimit: RUN_LIMIT}, null, 2) + '\n');
   if (process.env.GITHUB_OUTPUT)
     fs.appendFileSync(process.env.GITHUB_OUTPUT, 'selected=' + Boolean(selected) + '\n');
   console.log(JSON.stringify({scheduledWorkflows: workflows.length, candidates: issues.length,
-    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length,
+    unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length + dueRereview.length,
+    duePreviouslyRewrittenPairs: dueRereview.length, actionableSourcePagePairs: eligible.length,
     attempted, selected: selected ?
       {issue:selected.issue, page:selected.page, sources:selected.sources.map(s=>s.url)} : null}));
 }
