@@ -464,7 +464,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2027-01-03",
     "venue": "Dallas Zoo · 650 South R.L. Thornton Freeway, Dallas",
     "officialUrl": "https://www.dallaszoo.com/event/lights/",
-    "sourceCheckedAt": "2026-11-07",
+    "sourceCheckedAt": "2026-11-21",
     "seoTitle": "Dallas Zoo Lights 2026: Select Dates, Tickets, Parking & Hours",
     "seoDescription": "Plan Dallas Zoo Lights 2026–27 on select nights Nov. 13–Jan. 3, 5:30–9 p.m. Check ticketed nights, Combo Ticket options, parking and Christmas closures.",
     "whyItMatters": "Dallas Zoo Lights is a nighttime walk-through holiday attraction using illuminated themes, lanterns and more than two million lights. It does not operate on every night between November 13 and January 3. The Zoo's official schedule and your exact ticket date are essential because Christmas Eve and Christmas Day are closed.",
@@ -493,11 +493,11 @@ const records: ChristmasExtendedRecord[] = [
     planningSections: [
       {
         title: "Use the dated Zoo Lights calendar, not the continuous range",
-        "body": "The zoo lists exact nights in November, December and January. There are breaks between windows, including November 16–17 and December 24–25, so do not assume the attraction opens simply because the date is between launch and closing."
+        "body": "Use the public-night calendar instead of treating the seasonal range as continuous. December 1 is a separate members-only event, and December 24–25 are closed. The November 17 sensory-friendly event is already past, not a general-public operating night. For a future sensory-friendly visit, ask the Zoo about any additional sessions rather than assuming another date."
       },
       {
         title: "Understand the evening ticket",
-        "body": "Dallas Zoo Lights general evening tickets start at $19, while a daytime-and-evening Combo upgrade costs $10 extra on an eligible evening ticket. Regular daytime admission alone does NOT include Zoo Lights; confirm ticket inclusions and exact operating night before paying."
+        "body": "Evening admission starts at $19. Dual through Passport members receive a 20% discount, and Patron and higher members receive free evening admission. For an extra $10 on an eligible Lights ticket, the Combo allows entry from 2:30 p.m.; visit Wilds of Africa first because that area closes at 5 p.m. A regular daytime ticket is not enough for the evening. Combo guests can use their issued re-entry sticker if they leave and return. Tickets are nonrefundable; contact Guest Services at 469-554-7501 about date exchanges."
       },
       {
         title: "Animals generally are not part of the evening visit",
@@ -505,15 +505,15 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Plan parking or the DART Red Line",
-        "body": "The Zoo advertises public parking for a fee while some membership tiers park free. During popular nights parking may fill; the Zoo specifically suggests considering DART Red Line access. Double-check public transport frequency for your preferred ending time."
+        "body": "Public parking is $15 and separate from admission; Dallas Zoo members park free. A single parking purchase covers both portions of a Combo visit. Reserve parking ahead on high-demand nights or consider the DART Red Line; check the evening return timetable. Arrive near the time printed on your ticket rather than assuming unrestricted entry."
       },
       {
         title: "Compare timed add-on extras separately",
-        "body": "Holiday igloos, packages, souvenirs, photo opportunities and food can be optional purchases. Confirm what's included in the basic ticket rather than assuming featured promotions are automatically bundled."
+        "body": "An igloo is an optional reservation, not an admission ticket: the Zoo lists a basic public rental at $200 for up to six guests, with 90-minute slots from 5:30–7 p.m. or 7:30–9 p.m. Food packages cost extra unless specifically included. Compare the total cost of admission plus the rental before booking, and do not reserve an igloo that overlaps your arrival window."
       },
       {
         title: "Check group mobility and outdoor weather",
-        "body": "Guests will walk through exterior exhibits at night. Allow time for a loop, mobility access, food breaks and cold/rain considerations. Consult the Zoo's official guest guidance for stroller and accessibility policies."
+        "body": "Use the Zoo's digital map to plan a walk within the main entrance, ZooNorth and tunnel areas. The Comfort Station in Guest Services remains open during Lights. The event generally proceeds in rain; severe weather updates go to ticket holders by email. Check current accessibility and stroller guidance separately before traveling."
       },
       {
         title: "Build a Dallas holiday afternoon",
@@ -548,7 +548,7 @@ const records: ChristmasExtendedRecord[] = [
         "url": "https://www.dallaszoo.com/event/lights/"
       },
       {
-        "label": "Dallas Zoo holiday attraction details",
+        "label": "Dallas Zoo holiday attraction details, admission and re-entry FAQ",
         "url": "https://www.dallaszoo.com/zoo-lights/"
       },
       {

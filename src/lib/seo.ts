@@ -275,8 +275,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan a Children's Health Stadium visit in Prosper with parking, arrival, event-day and official venue links for football, soccer and community events.",
   },
   "/event/dallas-holiday-parade": {
-    title: "Dallas Holiday Parade 2026: Projected Date, Route & Guide",
-    description: "Dallas Holiday Parade 2026 projected planning date: Dec. 5, based on the organizer's first-Saturday rule. See route, 9 a.m. start, viewing and DART guidance.",
+    title: "Dallas Holiday Parade 2026: Date, Tickets & Route",
+    description: "Dallas Holiday Parade is confirmed Dec. 5, 2026. Compare the official 8:30 and 9 a.m. times, free viewing, reserved seats, route and DART guidance.",
   },
   "/event/houston-thanksgiving-day-parade": {
     title: "Houston Thanksgiving Parade 2026: Date, Time & Route",
