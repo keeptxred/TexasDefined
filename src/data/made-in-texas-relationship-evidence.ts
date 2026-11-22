@@ -442,5 +442,40 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "Marfa Brands",
     "sourceUrl": "https://www.marfabrands.com/faq",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Rocketbuster Handmade Custom Boots",
+    "claim": "The operator describes custom boot cutting, carving, stitching and assembly at its downtown El Paso workshop.",
+    "sourceLabel": "Rocketbuster",
+    "sourceUrl": "https://www.rocketbuster.com/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Geospace Technologies",
+    "claim": "The fiscal 2026 Form 10-K, filed November 20, identifies the Houston principal executive offices at 7007 Pinemont Drive.",
+    "sourceLabel": "SEC fiscal 2026 Form 10-K",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1001115/000143774926037884/geos20260930_10k.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Ennis Flint",
+    "claim": "A 2026 TCEQ technical review identifies local epoxy resin and granulated thermoplastic production at 1509 S Kaufman Street, Ennis.",
+    "sourceLabel": "TCEQ permit review",
+    "sourceUrl": "https://records.tceq.texas.gov/cs/idcplg?IdcService=TCEQ_EXTERNAL_SEARCH_GET_FILE&Rendition=Web&dID=9523784&searchType=External",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Tyler Candle Company",
+    "claim": "The Tyler chamber lists the candle business at 11733 Highway 155 North under manufacturing and processing.",
+    "sourceLabel": "Tyler Area Chamber of Commerce",
+    "sourceUrl": "https://business.tylertexas.com/list/member/tyler-candle-company-tyler-1614.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Gavel Western Wear",
+    "claim": "The company identifies a McAllen branch, headquarters and distribution in Brownsville, and its boot factory in León, Mexico.",
+    "sourceLabel": "Gavel Western Wear",
+    "sourceUrl": "https://gavelwesternwear.com/pages/about-us",
+    "checkedAt": "2026-11-21"
   }
 ];
