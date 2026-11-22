@@ -52,6 +52,9 @@ test("county official calendars are tracked on the robot-respecting review sched
     hamilton:"2026-11-28",
     karnes:"2026-12-17",
     gray:"2026-12-11",
+    erath:"2026-11-28",
+    wichita:"2026-12-05",
+    panola:"2026-12-01",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -100,4 +103,24 @@ test("Gray County holiday records use distinct first-party exact-date Pampa Cham
     assert.equal(new URL(event.officialEventUrl).hostname, "business.pampachamber.com");
     assert.equal(event.sourceVerifiedAt, "2026-11-22");
   }
+});
+
+test("Erath, Wichita, Panola 2026 holiday additions are first-party date-specific and distinct", () => {
+  const cases = [
+    ["stephenville-christmasville-downtown-festival-2026","erath","2026-11-28","stephenvilletexas.org"],
+    ["stephenville-holly-jolly-christmas-2026","erath","2026-12-07","stephenvilletexas.org"],
+    ["wichita-falls-city-lights-christmas-parade-2026","wichita","2026-12-05","wfcitylights.com"],
+    ["carthage-panola-college-christmas-in-carthage-2026","panola","2026-12-01","panola.edu"],
+  ];
+  for (const [slug, county, date, domain] of cases) {
+    const event = events.find(e => e.slug === slug);
+    assert.ok(event, "Missing 2026 verified original-organizer event " + slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.sourceVerifiedAt,"2026-11-22");
+    assert.ok(new URL(event.officialEventUrl).hostname.endsWith(domain));
+  }
+  assert.notEqual(events.find(e=>e.slug===cases[0][0]).startDate,
+    events.find(e=>e.slug===cases[1][0]).startDate,
+    "Stephenville 2026 holiday festivals have different dates; never join them into an invented window");
 });
