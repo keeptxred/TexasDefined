@@ -4,6 +4,7 @@ import {
   type FeaturedFootballProgram,
 } from './featured-programs';
 import { footballProgramProfilePath } from './program-slugs';
+import footballProfileLastmod from './football-profile-lastmod.json';
 import { isFootballTeamGoogleIndexReady, isFootballDistrictGoogleIndexReady } from './google-index-eligibility';
 import { UIL_FOOTBALL_PROGRAMS_2026 } from './uil-football-alignments-2026.server';
 
@@ -35,7 +36,7 @@ function footballDistrictProfilePath(classification: string, division: 1 | 2 | n
 export function footballProgramSitemapEntries() {
   const entries = UIL_FOOTBALL_PROGRAMS_2026.map((program) => ({
     path: footballProgramProfilePath(program.schoolName),
-    lastmod: '2026-09-19',
+    lastmod: footballProfileLastmod[footballProgramProfilePath(program.schoolName).split('/').at(-1) as keyof typeof footballProfileLastmod] ?? '2026-09-19',
   }));
 
   if (entries.length !== 1268) {

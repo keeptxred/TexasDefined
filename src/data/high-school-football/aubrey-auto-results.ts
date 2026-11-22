@@ -77,14 +77,65 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
   const currentResult = latest && byDate.get(latest.date);
   const endDate = latest?.date ?? '';
   const record = wins + '–' + losses + ' overall · ' + districtWins + '–' + districtLosses + ' district (through ' + dateLabel(endDate) + ')';
-  const finalText = latest?.result ?? 'No verified final';
-  const recordDescription = 'Aubrey Chaparrals football (2026): ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' district through ' + dateLabel(endDate) + '. Latest verified final ' + finalText + ' against ' + latest?.opponent + '. View schedules, tickets and stadium rules.';
+  const recordDescription = 'Aubrey Chaparrals football 2026: ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' District 4 champions. Andrews 63–24; Canyon 36–39. Verified scores, playoffs, tickets and stadium details.';
   const nextFixture = games.find((game) => !game.result);
   const lastReport = latest ? `${latest.result} versus ${latest.opponent} on ${dateLabel(latest.date)}` : 'No verified finals';
   const nextReport = nextFixture
     ? ` The next listed matchup is ${nextFixture.opponent} on ${dateLabel(nextFixture.date)}; confirm kickoff and venue with the host.`
     : '';
-  const updatedOverview = `Aubrey Chaparrals are ${wins}–${losses} overall and ${districtWins}–${districtLosses} in UIL District 4 through ${dateLabel(endDate)}, including ${lastReport}.${nextReport} Results are dated, source-linked reports and not a live score feed.`;
+  const districtGames = completed.filter((game) => game.district);
+  const districtScore = districtGames.reduce((total, game) => {
+    const match = game.result?.match(/^[WL] (\d+)[–-](\d+)/);
+    if (!match) throw new Error('Aubrey district result lacks a numerical final: ' + game.date);
+    return { scored: total.scored + Number(match[1]), conceded: total.conceded + Number(match[2]) };
+  }, { scored: 0, conceded: 0 });
+  const closeDistrictWins = districtGames.filter((game) => {
+    const match = game.result?.match(/^W (\d+)[–-](\d+)/);
+    return match && Number(match[1]) - Number(match[2]) <= 7;
+  }).length;
+  const districtSeasonComplete = districtGames.length === 7 && districtWins === 7 && districtLosses === 0;
+  const titleSummary = districtSeasonComplete
+    ? `Aubrey won all seven District 4-4A Division I games in 2026. Its source-reported district scoring margin was ${districtScore.scored}–${districtScore.conceded} (+${districtScore.scored - districtScore.conceded}); ${closeDistrictWins} of the seven district wins were by seven points or fewer. The district title and undefeated district record were also announced by Aubrey ISD.`
+    : `Aubrey's recorded District 4 results are ${districtWins}–${districtLosses}; check each dated result before treating this as a final district standing.`;
+  const updatedOverview = `Aubrey finished its 2026 season ${wins}–${losses} overall and ${districtWins}–${districtLosses} in UIL District 4. The last source-verified game was ${lastReport}.${nextReport} These are dated researched finals, not a live-score feed.`;
+  const newOverview = [
+    updatedOverview,
+    titleSummary,
+    'The Chaparrals followed their unbeaten seven-game district run with a 63–24 Class 4A Division I bi-district win against Andrews in Sweetwater on November 12. The year ended in the November 19 area round at Burkburnett, where Canyon led 36–7 at halftime before Aubrey scored 29 second-half points in a 39–36 loss. The venue for a playoff fixture is not necessarily Chaparral Stadium.',
+    'Keith Ivy is the 2026 head coach. Aubrey ISD publishes campus and stadium rules, directs home-game admission to GoFan and posts team notices. Fans should check the specific host and organizer for any future event rather than applying Aubrey home-stadium rules to neutral-site postseason games.',
+  ];
+  const milestones = (editorial.milestones ?? []).map((milestone) => {
+    if (milestone.date === '2021') return { ...milestone,
+      sourceUrl: 'https://www.lonestarfootball.net/team.asp?GUID=9124826788&S=2021&T=852&action=schedule',
+      sourceLabel: 'Independent 2021 Aubrey season ledger',
+    };
+    if (milestone.date === '2024') return { ...milestone,
+      sourceUrl: 'https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/24-25/schedule/',
+      sourceLabel: 'Archived 2024 Aubrey season schedule',
+      body: 'Aubrey went 8–5 in 2024 and reached the postseason. The 2024 classification and schedule are archived separately from the 2026 District 4 alignment.',
+    };
+    if (milestone.date === '2026') return { ...milestone,
+      title: 'Unbeaten district champions',
+      body: districtSeasonComplete
+        ? `Aubrey went 7–0 in 4A Division I District 4 and outscored district opponents ${districtScore.scored}–${districtScore.conceded}. Springtown, Decatur and Lake Dallas each lost by seven points; the remaining four wins combined decisive scoring with the Alvarado 70–40 shootout.`
+        : titleSummary,
+      sourceUrl: 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-i-district-4/?leagueid=8d9aee28-3ea5-463b-82c1-c731ae42f8ca',
+      sourceLabel: '2026 District 4 4A Division I verified standings',
+    };
+    return milestone;
+  });
+  if (districtSeasonComplete) milestones.push(
+    { date: 'Nov 12, 2026', title: 'Bi-district win over Andrews',
+      body: 'Aubrey beat Andrews 63–24 at Sweetwater in the opening playoff round, advancing after a 7–0 district regular season. This was a neutral-site postseason game, not a home contest at Chaparral Stadium.',
+      sourceUrl: 'https://www.mrt.com/sports/highschool/article/big-spring-permian-forsan-advance-uil-football-22530172.php',
+      sourceLabel: 'Midland Reporter-Telegram bi-district recap',
+    },
+    { date: 'Nov 19, 2026', title: 'Area-round comeback against Canyon',
+      body: 'Down 36–7 at halftime in Burkburnett, Aubrey scored 29 second-half points but fell 39–36. Canyon finished ahead on a 37-yard field goal; the final ended Aubrey’s 8–4 season.',
+      sourceUrl: 'https://www.myplainview.com/canyon/sports/article/eagles-eliminate-aubrey-39-36-set-showdown-22543265.php',
+      sourceLabel: 'Canyon News detailed November 21 game report',
+    },
+  );
   const existingFaq = editorial.faq ?? [];
   const regularSeason = games.filter((game) => !playoffGames.some((playoff) => playoff.date === game.date));
   const lateRegularSeason = regularSeason.slice(-3);
@@ -96,18 +147,37 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     if (entry.question === 'What games are on Aubrey’s late-2026 regular-season schedule?') {
       return { ...entry, question: 'How did Aubrey finish its 2026 regular-season schedule?', answer: lateResults + '. See the full dated results table for the complete season and source links.' };
     }
+    if (entry.question === 'Has Aubrey won a state football title?') {
+      return { ...entry, answer: 'No state football championship is documented for Aubrey in the UIL all-time title-game appearances archive. That official archive covers appearances in the state final, not every earlier playoff round; verify any new historical claim against the UIL record.' };
+    }
     return entry;
   });
+  if (districtSeasonComplete) faq.push(
+    { question: 'Did Aubrey win District 4 in 2026?', answer: `Yes. Aubrey finished 7–0 in UIL 4A Division I District 4, scoring ${districtScore.scored} points and conceding ${districtScore.conceded} in those seven games; its district scoring margin was +${districtScore.scored - districtScore.conceded}. The record is confirmed by the 2026 district standings and Aubrey ISD's district-championship announcement.` },
+    { question: 'How far did Aubrey advance in the 2026 football playoffs?', answer: 'Aubrey defeated Andrews 63–24 in the November 12 bi-district round at Sweetwater and lost 39–36 to Canyon in the November 19 area round at Burkburnett. The final overall record was 8–4.' },
+    { question: 'What happened in Aubrey’s 39–36 loss to Canyon?', answer: 'Canyon led 36–7 at halftime; Aubrey scored 29 second-half points, but Canyon held on 39–36 after a 37-yard field goal. Multiple detailed reports and the MaxPreps result agree on the three-point final.' },
+  );
   return {
     ...editorial,
-    overview: editorial.overview?.length ? [updatedOverview, ...editorial.overview.slice(1)] : editorial.overview,
+    overview: newOverview,
+    milestones,
+    venue: editorial.venue ? {
+      ...editorial.venue,
+      sourceUrl: 'https://www.aubreyisd.net/page/contact-us',
+      sourceLabel: 'Official Aubrey ISD high-school campus address',
+      note: 'Chaparral Stadium is on the Aubrey High School campus at 510 Spring Hill Road. The district confirms the campus address; verify game-specific parking, gates and ticket rules directly with Aubrey ISD. The 2026 postseason games at Sweetwater and Burkburnett were neutral-site contests.',
+      verifiedAt: '2026-11-22',
+    } : editorial.venue,
     season: {
       ...editorial.season, games, record,
       verifiedAt: currentResult?.verifiedAt ?? editorial.season.verifiedAt,
       sourceLabel: 'MaxPreps Aubrey varsity schedule; individually verified finals are reflected in this dated editorial snapshot',
       latestResultSourceUrl: currentResult?.primarySourceUrl ?? editorial.season.latestResultSourceUrl,
     },
-    seo: editorial.seo ? { ...editorial.seo, description: recordDescription } : editorial.seo,
+    seo: editorial.seo ? { ...editorial.seo,
+      title: 'Aubrey Chaparrals Football 2026: 8–4, Scores & Playoffs',
+      description: recordDescription,
+    } : editorial.seo,
     faq,
   };
 }
