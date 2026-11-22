@@ -61,7 +61,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-ohv-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-paddling-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-stargazing-guide": OUTDOOR_GUIDES_LASTMOD,
-  "/county/dallas": "2026-11-15", // Source-backed November 15 Dallas Institute of Letters history revision.
+  "/county/dallas": "2026-11-22", // Source-backed November 22 Old Red, Allen Brooks and Trinity editorial additions; Nov 15 Institute of Letters retained.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",
   "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
