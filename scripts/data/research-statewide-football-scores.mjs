@@ -114,6 +114,32 @@ export function additionalResearchTargets(inventory){
         providers:['google']});
     }
   }
+  // A finished known schedule is not permanent exemption from research.
+  // Every score-bearing team remains on the next scheduled run so newly
+  // reported games (including postseason pairings) can be discovered.
+  const seen=new Set(extras.map(p=>p.page));
+  const year=String(inventory.today||'2026').slice(0,4);
+  for(const p of inventory.coverage?.enrollment||[]){
+    if(seen.has(p.page))continue;
+    if(p.kind==='team'){
+      const school=p.slug.replaceAll('-',' ');
+      extras.push({kind:'team-record',page:p.page,label:school,sourceUrl:p.sourceUrl,
+        query:'"'+school+'" Texas high school football '+year+' final score results playoff schedule',providers:['google']});
+    }else if(p.kind==='district'){
+      extras.push({kind:'standings',page:p.page,label:p.slug.replaceAll('-',' '),
+        sourceUrl:STANDINGS_SOURCE_URLS[p.slug]||p.sourceUrl||'https://www.uiltexas.org/maxpreps/',
+        query:p.slug.replaceAll('-',' ')+' Texas high school football '+year+' district final standings',providers:['google']});
+    }else if(p.kind==='bracket'||p.kind==='hub'){
+      extras.push({kind:'standings',page:p.page,label:'Texas UIL football '+(p.kind==='bracket'?'playoff brackets':'scoreboard'),
+        sourceUrl:p.sourceUrl,query:'Texas UIL high school football '+year+' '+(p.kind==='bracket'?'playoff bracket next round final results':'final score results'),providers:['google']});
+    }else if(p.kind==='matchup'){
+      // The dated final stays enrolled via the snapshot, team sources and
+      // independent matchup/index research. A known missing final has its
+      // own exact date/opponent query in the ordinary inventory.
+      continue;
+    }
+    seen.add(p.page);
+  }
   return extras;
 }
 function extraRssUrl(provider,query){
@@ -197,16 +223,20 @@ export function reportMarkdown(r){
   const s=r.inventory.summary;
   const lines=['# TexasDefined statewide football day-after-game research','',
     '**Texas research date:** '+r.today+' · **Last check:** '+r.checkedAt,
+    '**Permanently enrolled score/standings/matchup/bracket pages:** '+(r.inventory.coverage?.summary.enrolledPages??s.affectedPages),
+    '**Canonical football routes scanned for enrollment:** '+(r.inventory.coverage?.summary.scannedPages??s.affectedPages),
     '**Affected pages with published score, dated record or standings:** '+s.affectedPages,
     '**Overdue-fixture pages:** '+s.overduePages+' · **Dated score/standings review:** '+s.datedScoreReviewPages,
     '**Distinct past fixtures awaiting final-score verification:** '+s.unverifiedFixtures,
     '**Public research queries attempted (games + standings + dated records):** '+r.queryAttempts+' · **Failures:** '+r.queryFailures,
     '**Fixtures with RSS reporting leads:** '+r.gamesWithPublicReportingLeads+' · **Deferred by budget:** '+r.deferredFixtures.length,'',
-    '## Pages enrolled in the shared GitHub research job',''];
+    '## Pages currently needing specific overdue or dated-record review',''];
   for(const p of r.inventory.pages){
     lines.push('- ['+flat(p.page.replace(SITE_PREFIX,''))+']('+p.page+') — '+p.reason+
       ' · '+p.overdue.length+' fixture(s) · source: '+flat(p.sourceFile));
   }
+  lines.push('','## Permanent scheduled enrollment (including current records)','');
+  for(const p of r.inventory.coverage?.enrollment||[])lines.push('- '+p.page+' · '+flat(p.sources.join('; ')));
   lines.push('','## Current standings and dated-record research (not official UIL seeding)','');
   for(const row of r.additionalResearch){
     lines.push('### '+flat(row.target.label)+' — '+row.target.kind);
@@ -254,7 +284,7 @@ async function main(){
     condensed.push('- '+flat(g.fixture.date+' '+g.fixture.away+' vs '+g.fixture.home)+': '+
       g.articles.slice(0,2).map(a=>a.url).join(' ; '));
   }
-  condensed.push('','## Five published district standings references and recent sourced leads');
+  condensed.push('','## Published district and hub source references and recent sourced leads');
   for(const row of r.additionalResearch){
     if(row.target.kind!=='standings')continue;
     condensed.push('- '+row.target.page+' · '+row.target.sourceUrl);

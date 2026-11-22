@@ -7,6 +7,12 @@ on:
     paths:
       - '.github/workflows/refresh-football-scores-brackets.yml'
       - 'scripts/data/inventory-statewide-football-scores.mjs'
+      - 'scripts/data/football-refresh-coverage.mjs'
+      - 'src/data/high-school-football/uil-football-alignments-*.server.ts'
+      - 'src/data/high-school-football/football-team-season-overlay.ts'
+      - 'src/routes/texas-high-school-football-*.tsx'
+      - 'src/components/sports/District*Coverage.tsx'
+      - 'src/components/sports/District*TeamSeason.tsx'
       - 'scripts/data/research-statewide-football-scores.mjs'
       # Merge of reviewed results immediately re-inventories the affected
       # pages; don't leave issue #7465 stale until tomorrow's cron.
@@ -24,6 +30,12 @@ on:
     paths:
       - 'scripts/data/inventory-statewide-football-scores.mjs'
       - 'scripts/data/inventory-statewide-football-scores.test.mjs'
+      - 'scripts/data/football-refresh-coverage.mjs'
+      - 'src/data/high-school-football/uil-football-alignments-*.server.ts'
+      - 'src/data/high-school-football/football-team-season-overlay.ts'
+      - 'src/routes/texas-high-school-football-*.tsx'
+      - 'src/components/sports/District*Coverage.tsx'
+      - 'src/components/sports/District*TeamSeason.tsx'
       - 'scripts/data/validate-football-research-publication.test.mjs'
       - 'scripts/data/research-statewide-football-scores.mjs'
       - 'scripts/data/research-statewide-football-scores.test.mjs'
@@ -54,6 +66,7 @@ jobs:
       - name: Validate statewide inventory and bounded public-source research
         run: |
           set -euo pipefail
+          node --check scripts/data/football-refresh-coverage.mjs
           node --check scripts/data/inventory-statewide-football-scores.mjs
           node --check scripts/data/research-statewide-football-scores.mjs
           node --test scripts/data/inventory-statewide-football-scores.test.mjs

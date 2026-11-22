@@ -102,3 +102,19 @@ test('real inventory retains only source-dated record candidates and identifies 
   assert.ok(r.summary.overduePages<=r.summary.affectedPages);
   assert.ok(r.pages.every(p=>p.overdue.length||p.reason==='dated-score-review'||p.reason==='dated-standings-review'));
 });
+
+test('permanent scheduled enrollment covers the entire canonical UIL universe and published shared score routes',()=>{
+  const r=inventory({today:'2026-11-21'}),c=r.coverage;
+  assert.equal(c.summary.uilTeams,1268);
+  assert.equal(c.summary.uilDistricts,192);
+  assert.ok(c.summary.scannedPages>=1460);
+  const names=new Set(c.enrollment.map(p=>p.page));
+  assert.equal(names.size,c.enrollment.length);
+  for(const name of ['6a-district-5','4a-division-i-district-11','6a-district-16','6a-district-20','6a-district-21','6a-district-22'])
+    assert.ok(names.has('https://texasdefined.com/texas-high-school-football-districts/'+name),name);
+  for(const name of ['aubrey','comal-canyon-lake','katy','fort-bend-ridge-point','lewisville','bay-city','houston-memorial'])
+    assert.ok(names.has('https://texasdefined.com/texas-high-school-football-teams/'+name),name);
+  assert.ok(names.has('https://texasdefined.com/texas-high-school-football-matchups'));
+  assert.ok(names.has('https://texasdefined.com/texas-high-school-football-playoff-brackets'));
+  for(const p of r.pages)assert.ok(names.has(p.page),'Unenrolled backlog page: '+p.page);
+});

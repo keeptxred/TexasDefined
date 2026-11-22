@@ -4,6 +4,7 @@
 import {readdirSync,readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {resolve,dirname,join} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
+import {footballRefreshCoverage} from './football-refresh-coverage.mjs';
 export const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 export const DIR=join(ROOT,'src/data/high-school-football');
 export const OUT=join(ROOT,'artifacts/football-score-research');
@@ -272,6 +273,13 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
       page.reason=(Date.parse(today)-Date.parse(latest))/DAY>=14?'dated-score-review':null;
     }
   }
+  const coverage=footballRefreshCoverage({editorials:effective,matchups,aubreyResults,reviewed,today});
+  // Include overdue fixtures from every effective shared district, not just the original pilots.
+  for(const row of coverage.sharedDue){
+    const present=pages.find(p=>p.page===row.page);
+    if(present){present.reason='overdue-fixture';present.overdue.push(...row.overdue);}
+    else {const enrolled=coverage.enrollment.find(p=>p.page===row.page);if(enrolled)pages.push({...enrolled,reason:'overdue-fixture',overdue:row.overdue});}
+  }
   const unique=new Map();
   for(const p of pages){const old=unique.get(p.page);if(old){old.overdue.push(...p.overdue);}else unique.set(p.page,p);}
   const selected=[...unique.values()].filter(p=>p.overdue.length||p.reason==='dated-score-review'||p.reason==='dated-standings-review')
@@ -293,7 +301,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     effectiveTeamEditorials:effective.size,affectedPages:selected.length,
     overduePages:selected.filter(p=>p.overdue.length).length,
     datedScoreReviewPages:selected.filter(p=>!p.overdue.length).length,unverifiedFixtures:games.size},
-    pages:selected,fixtures:[...games.values()].sort((a,b)=>b.date.localeCompare(a.date)),
+    coverage, pages:selected,fixtures:[...games.values()].sort((a,b)=>b.date.localeCompare(a.date)),
     policy:'Exclude pages with no published 2026 score, W-L or standings. Unconfirmed past fixtures are research leads, not finals.'};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
