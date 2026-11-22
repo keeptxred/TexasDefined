@@ -787,7 +787,7 @@ function Page() {
         <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">November 20 area-round game and Hawks links</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-foreground">
           {canyonLakeAreaGame?.result
-            ? <>The November 20 area-round game against Port Lavaca Calhoun concluded <strong>{canyonLakeAreaGame.result}</strong> for Canyon Lake at neutral-site Leopard Stadium in La Grange. This result was verified in the dated season ledger using separately authorized sources. No next-round opponent or ticket offer is asserted until individually confirmed.</>
+            ? <>The November 20 area-round game against Port Lavaca Calhoun concluded <strong>{canyonLakeAreaGame.result}</strong> for Canyon Lake at neutral-site Leopard Stadium in La Grange. The final is corroborated by independent public reporting. The regional-semifinal opponent is Comal Davenport; confirm date, venue, kickoff and tickets with school athletics before travel.</>
             : canyonLakeFinalPending
               ? <>The November 20 area-round game against Port Lavaca Calhoun at <strong>Leopard Stadium in La Grange</strong> has passed, but its final score has not yet been independently verified here. The latest confirmed final remains the November 13 win over Pleasanton. Check the dated source trail; no victory, advancement or next opponent is assumed.</>
               : <>After a 49–28 bi-district win over Pleasanton, Canyon Lake was scheduled to meet Port Lavaca Calhoun on Friday, November 20 at 7 p.m. at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. The host confirmed neutral-site play, online tickets and a clear-bag policy. Recheck the announcement for changes before travel.</>}
