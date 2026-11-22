@@ -141,6 +141,11 @@ for (const marker of [
   'fetchPriority="high"',
 ]) if (!lazyRoute.includes(marker)) errors.push('Missing paddling photo rights or visible media: ' + marker);
 
+
+for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflow-x-auto border border-border md:block","aria-labelledby=\"paddle-launch-selection\"","Buffalo Bayou (west to east)","Lady Bird Lake (west to east)","29.7647, -95.3592","30.2483, -97.7278"]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
+}
+
 if (errors.length) {
   console.error('Texas paddling authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
