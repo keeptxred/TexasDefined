@@ -8,9 +8,9 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
   brandId: "texasdefined",
   slug: "parker-county-weatherford-peaches-cross-timbers-north-texas",
   title: "Parker County: Weatherford, Peaches, Railroads and the Cross Timbers",
-  dek: "Parker County blends Weatherford's courthouse square, Cross Timbers ranch country, peach orchards, frontier trails, railroads and fast-growing communities on the western edge of the Fort Worth region.",
+  dek: "Weatherford’s 1874 courthouse fire destroyed early Parker County records, and its surviving 1886 stone courthouse tells the story of the Cross Timbers and peach country.",
   category: "texas-history",
-  region: "north-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Parker_County_Courthouse%2C_Weatherford%2C_Texas_%286974951957%29.jpg?width=1600",
     alt: "Parker County Courthouse in Weatherford, Texas",
@@ -20,7 +20,8 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-22",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: [
     "Parker County",
     "Weatherford Texas",
@@ -32,6 +33,9 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
     "Texas ranching",
     "North Texas",
     "Texas counties",
+    "Parker County courthouse fire 1874",
+    "1886 Weatherford courthouse",
+    "Weatherford courthouse archives",
   ],
   featured: false,
   internalLinks: [
@@ -81,6 +85,22 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
     p("The present Parker County Courthouse was built in the 1880s in Weatherford's central square. Designed by architect W. C. Dodson, the limestone building reflects the ambitious courthouse architecture that became common in rapidly developing Texas counties after the Civil War."),
     p("Its tower, mansard roof and Second Empire influences make the courthouse one of Weatherford's defining landmarks. The building anchors the downtown historic district and remains the visual center of county government."),
 
+    h("The 1874 courthouse fire destroyed years of Parker County records"),
+    p("Weatherford's public square holds the fourth courthouse to serve Parker County, and the change came partly through disaster. Early county commissioners met in modest public buildings after the county was formed in 1855. The second courthouse, built in 1856 with locally fired brick, was destroyed by fire in 1874, along with many county records. Weatherford Chamber of Commerce and local heritage organizations record the damage as a long-lasting obstacle for people researching deeds and legal matters."),
+    p("The county constructed a third courthouse, but within a decade its expanding population and administrative needs required another. The present monumental stone courthouse was erected in 1885–86 and dedicated in 1886 at an often-repeated construction cost of $55,555.55. Its Renaissance Revival massing, broad arches, clock tower and limestone building fabric remain the visual center of Weatherford."),
+    p("The 1886 courthouse is not the structure that burned in 1874. For local history and genealogy, that distinction explains why surviving clerk records may begin after the earlier disaster even though the courthouse visible in present-day photographs has a much later date. Verify the survival of individual record series through the county clerk and state archival catalogs rather than assume everything older than 1874 is missing."),
+    p("The landmark has undergone restoration and adaptation to modern government needs; public tours, court services and museum visits should be confirmed through current county offices instead of relying on a historic postcard's old entrance signage."),
+
+    h("The 1886 courthouse tower and Parker County's reputation for peaches"),
+    p("Weatherford is widely promoted as the Peach Capital of Texas, but the county's identity has always encompassed more than orchard harvests. Ranching, wheat, railroads, stage routes and later Fort Worth suburban growth transformed the same agricultural landscape. A courthouse that survived those shifts provides a consistent place to interpret the county's economic history."),
+    p("The courthouse's tower and clock stand near restored commercial buildings, and an old firehouse and local-history interpretation represent how the town developed public services as it grew. Specific early fire-station construction dates are not consistently supported in the cited county sources, so this page does not invent one simply to parallel Linden's 1939 station. More detailed records can be supplied by the Weatherford Fire Department and historical society."),
+    p("For a visitor route, the square and the Doss Heritage and Culture Center together tell a longer history, from frontier conflict and courthouse fires to the peach industry, railroads and local Black institutions."),
+
+    h("Parker County courthouse questions"),
+    p("When did an earlier Weatherford courthouse burn? In 1874, destroying the 1856 brick courthouse and many county records."),
+    p("When was today's Parker County Courthouse built? The present courthouse was completed and dedicated in 1886."),
+    p("Was its ornate tower damaged in the 1874 fire? No. The present tower belongs to the 1886 replacement, constructed after the fire."),
+    p("Does Parker County have older surviving records? Some series do survive, but the 1874 destruction means researchers should verify individual holdings with the county clerk and state archives."),
     h("Weatherford became a college town early"),
     p("Weatherford College traces its roots to the nineteenth century, giving the city an educational role that extended beyond county government and agriculture. Over time the institution evolved into a public community college serving students across the western side of the Fort Worth region."),
     p("That educational presence adds another layer to Weatherford's economy and identity. A town that began as a frontier county seat became a center for courts, trade, education, health care and regional services."),
@@ -128,5 +148,13 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
     h("What defines Parker County"),
     p("Parker County is defined by transition. It sits between the Trinity and Brazos watersheds, between prairie and Cross Timbers, between Fort Worth suburbia and western ranch country, and between a frontier past and one of the fastest-changing parts of North Texas."),
     p("Weatherford's courthouse, rail history and peach tradition give the county a strong center, while ranches, lakes, trails and smaller communities preserve the wider landscape. That combination makes Parker County more than a bedroom county for Fort Worth: it is a distinct piece of North Texas with its own geography, history and culture."),
+  ],
+  sources: [
+    { label: "Weatherford Chamber — 1874 courthouse fire and 1886 replacement", url: "https://www.weatherford-chamber.com/weatherford/history.html" },
+    { label: "Parker County Heritage Society — courthouse generation history and cost", url: "https://www.parkercountyheritagesociety.com/content.aspx?club_id=62524&module_id=368263&page_id=22" },
+    { label: "Texas Historical Commission — Parker County Courthouse historic marker", url: "https://atlas.thc.texas.gov/Details/5367011767" },
+    { label: "Texas State Historical Association — Parker County", url: "https://www.tshaonline.org/handbook/entries/parker-county" },
+    { label: "Weatherford city government — heritage and downtown information", url: "https://www.weatherfordtx.gov/" },
+    { label: "Texas State Library — official Parker County records and archives", url: "https://www.tsl.texas.gov/arc/local/parker.html" },
   ],
 };
