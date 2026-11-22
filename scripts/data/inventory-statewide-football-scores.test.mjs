@@ -41,24 +41,20 @@ test('real inventory excludes 2026 alignment and visitor pages without published
   assert.ok(report.pages.every(p=>p.page.startsWith('https://texasdefined.com/texas-high-school-football-')));
   assert.ok(report.pages.every(p=>['team','district','matchup'].includes(p.kind)));
 });
-test('completed district finals are not falsely enrolled while historical standings still get review',()=>{
+test('completed district finals and newly reviewed standings are not falsely enrolled',()=>{
   const report=inventory({today:'2026-11-20'});
   for(const slug of ['6a-district-5','4a-division-i-district-11','6a-district-22']){
     assert.ok(!report.pages.some(p=>p.page.endsWith('/'+slug)),slug+' was fully source-verified and should not be overdue');
   }
   for(const slug of ['6a-district-16','6a-district-21']){
-    const p=report.pages.find(p=>p.page.endsWith('/'+slug));
-    assert.ok(p,slug+' retains an explicitly dated archived standings review');
-    assert.equal(p.overdue.length,0,slug+' published late finals must not be treated as unverified');
-    assert.equal(p.reason,'dated-standings-review');
+    assert.ok(!report.pages.some(p=>p.page.endsWith('/'+slug)),slug+' November 21 standings review is current');
   }
   assert.ok(!report.pages.some(p=>p.page.endsWith('/6a-district-9')));
 });
 test('sourced District 21 finals no longer appear as overdue district fixtures',()=>{
   const report=inventory({today:'2026-11-20'});
   const district=report.pages.find(p=>p.page.endsWith('/6a-district-21'));
-  assert.ok(district);
-  assert.equal(district.overdue.length,0);
+  assert.ok(!district || district.overdue.length===0);
   for(const slug of ['fort-bend-austin','fort-bend-bush','fort-bend-clements','fort-bend-elkins',
     'fort-bend-hightower','fort-bend-ridge-point','fort-bend-travis','houston-strake-jesuit']){
     const page=report.pages.find(p=>p.page.endsWith('/'+slug));

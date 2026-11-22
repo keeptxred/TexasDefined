@@ -1,7 +1,7 @@
 import {
   DISTRICT_21_2026_GAMES,
   DISTRICT_21_FBISD_CALENDAR_URL,
-  DISTRICT_21_OVERALL_OCT14,
+  DISTRICT_21_OVERALL_SNAPSHOT,
   DISTRICT_21_STANDINGS_AS_OF,
   DISTRICT_21_STANDINGS_URL,
   DISTRICT_21_STRAKE_SCHEDULE_URL,
@@ -71,7 +71,7 @@ export function District21TeamSeason({ schoolName }: { schoolName: string }) {
         </div>
         <div className="bg-background p-4">
           <dt className="text-xs uppercase tracking-wider text-muted-foreground">Overall record (snapshot*)</dt>
-          <dd className="mt-2 text-2xl font-semibold tabular-nums">{DISTRICT_21_OVERALL_OCT14[schoolName] ?? 'Unverified'}</dd>
+          <dd className="mt-2 text-2xl font-semibold tabular-nums">{DISTRICT_21_OVERALL_SNAPSHOT[schoolName] ?? 'Unverified'}</dd>
         </div>
         <div className="bg-background p-4">
           <dt className="text-xs uppercase tracking-wider text-muted-foreground">Published games accounted for</dt>

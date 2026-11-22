@@ -12,7 +12,7 @@ async function verify(origin){
   assert.notEqual(response.headers.get('cf-mitigated'),'challenge',origin+' challenged');
   const html=await response.text();
   assert.ok(html.length>6000,origin+' response unexpectedly short '+html.length);
-  const markers=['District 16 archived scores, dated standings and fixtures','Final 2026 district title and playoff qualifiers','Shared district champion','Fourth-place playoff qualifier','Archived 2026 district standings','Latest verified district finals','Late regular-season finals','CFISD official November 12 season and playoff report','CFISD tickets, stadiums and game-day logistics','not a continuously updated scoreboard','Official CFISD tickets','Langham Creek','Cypress Woods','Cypress Falls','Cypress Lakes','Cy-Fair','Jersey Village','Cypress Ridge','Cypress Creek'];
+  const markers=['District 16 archived scores, dated standings and fixtures','Final 2026 district title and playoff qualifiers','Shared district champion','Fourth-place playoff qualifier','Final 2026 district standings — November 21 review','Latest verified district finals','Late regular-season finals','CFISD official November 12 season and playoff report','CFISD tickets, stadiums and game-day logistics','not a continuously updated scoreboard','Official CFISD tickets','Langham Creek','Cypress Woods','Cypress Falls','Cypress Lakes','Cy-Fair','Jersey Village','Cypress Ridge','Cypress Creek'];
   for(const marker of markers) assert.ok(html.includes(marker),origin+' missing '+marker);
   const title=html.match(/<title>([^<]+)<\/title>/i)?.[1]||'';
   assert.ok(title.includes('District 16-6A Football: 2026 Standings, Scores'),origin+' stale title '+title);

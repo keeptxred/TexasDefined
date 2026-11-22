@@ -1,22 +1,26 @@
-// Manually checked editorial snapshot, October 20, 2026. NOT a live feed.
-// MaxPreps reported standings updated October 18; these are not UIL-certified seeds.
+// Manually checked editorial snapshot, November 21, 2026. NOT a live feed.
+// Completed district totals from Pressbox, shared champions verified by CFISD;
+// overall records from MaxPreps November 21, including the reported playoffs.
+// The MaxPreps district table omits the Nov. 7 Langham Creek–Cypress Creek final;
+// Pressbox includes it. Cypress Woods district PA differs by one point between sources.
 // Team "match" keys resolve to school profiles from the current UIL alignment at render time.
 export const DISTRICT_16_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/6a-region-ii-district-16/?leagueid=30542350-2954-4f15-a3f8-1944386a4e88';
 export const DISTRICT_16_CFISD_SCHEDULE_URL = 'https://www.cfisd.net/athletics/schedules/high-school-schedules/football-hs';
 export const DISTRICT_16_CFISD_TICKETS_URL = 'https://www.cfisd.net/athletics/tickets';
 export const DISTRICT_16_BERRY_CALENDAR_URL = 'https://berrycenter.cfisd.net/events/calendar';
-export const DISTRICT_16_STANDINGS_AS_OF = 'October 18, 2026';
-export const DISTRICT_16_VERIFIED_AT = 'October 20, 2026';
+export const DISTRICT_16_STANDINGS_AS_OF = 'November 21, 2026';
+export const DISTRICT_16_VERIFIED_AT = 'November 21, 2026';
 
+export const DISTRICT_16_COMPLETE_LEDGER_URL = 'https://texas6a.thepressbox.io/sites/uil-6a-region-2-football/divisions/district-16-6a/';
 export const DISTRICT_16_STANDINGS = [
-  { name: 'Langham Creek', match: 'Langham Creek', won: 4, lost: 0, pf: 153, pa: 64, overall: '6–1' },
-  { name: 'Cypress Woods', match: 'Cypress Woods', won: 3, lost: 1, pf: 110, pa: 78, overall: '5–1' },
-  { name: 'Cypress Falls', match: 'Cypress Falls', won: 3, lost: 1, pf: 173, pa: 80, overall: '6–1' },
-  { name: 'Cypress Lakes', match: 'Cypress Lakes', won: 3, lost: 1, pf: 127, pa: 102, overall: '5–2' },
-  { name: 'Cy-Fair', match: 'Cypress Fairbanks', won: 1, lost: 3, pf: 142, pa: 128, overall: '4–3' },
-  { name: 'Jersey Village', match: 'Jersey Village', won: 1, lost: 3, pf: 99, pa: 129, overall: '1–6' },
-  { name: 'Cypress Ridge', match: 'Cypress Ridge', won: 1, lost: 3, pf: 72, pa: 194, overall: '3–4' },
-  { name: 'Cypress Creek', match: 'Cypress Creek', won: 0, lost: 4, pf: 79, pa: 180, overall: '0–7' },
+  { name: 'Cypress Falls', match: 'Cypress Falls', won: 6, lost: 1, pf: 289, pa: 103, overall: '10–2' },
+  { name: 'Cypress Lakes', match: 'Cypress Lakes', won: 6, lost: 1, pf: 238, pa: 166, overall: '9–3' },
+  { name: 'Langham Creek', match: 'Langham Creek', won: 6, lost: 1, pf: 255, pa: 172, overall: '9–3' },
+  { name: 'Cypress Woods', match: 'Cypress Woods', won: 4, lost: 3, pf: 206, pa: 137, overall: '6–4' },
+  { name: 'Cy-Fair', match: 'Cypress Fairbanks', won: 3, lost: 4, pf: 297, pa: 228, overall: '6–4' },
+  { name: 'Cypress Creek', match: 'Cypress Creek', won: 1, lost: 6, pf: 130, pa: 267, overall: '1–9' },
+  { name: 'Cypress Ridge', match: 'Cypress Ridge', won: 1, lost: 6, pf: 82, pa: 349, overall: '3–7' },
+  { name: 'Jersey Village', match: 'Jersey Village', won: 1, lost: 6, pf: 180, pa: 255, overall: '1–9' },
 ] as const;
 
 // Only independently checked Week 8 finals. This is not a complete historical

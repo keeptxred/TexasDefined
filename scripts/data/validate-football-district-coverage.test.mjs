@@ -105,11 +105,11 @@ test('District 16 standings snapshot is internally consistent and strictly sourc
     .map((m) => ({ name: m[1], won: +m[3], lost: +m[4], pf: +m[5], pa: +m[6] }));
   assert.equal(rows.length, 8, 'all 8 CFISD district schools');
   assert.equal(new Set(rows.map((r) => r.name)).size, 8, 'no duplicate entries');
-  assert.ok(rows.every((r) => r.won + r.lost === 4), 'same four district games per team as of October 18');
-  assert.equal(rows.reduce((sum, r) => sum + r.won, 0), 16);
-  assert.equal(rows.reduce((sum, r) => sum + r.lost, 0), 16);
+  assert.ok(rows.every((r) => r.won + r.lost === 7), 'all seven district games per team');
+  assert.equal(rows.reduce((sum, r) => sum + r.won, 0), 28);
+  assert.equal(rows.reduce((sum, r) => sum + r.lost, 0), 28);
   assert.equal(rows.reduce((sum, r) => sum + r.pf, 0), rows.reduce((sum, r) => sum + r.pa, 0));
-  assert.ok(district16Data.includes("DISTRICT_16_STANDINGS_AS_OF = 'October 18, 2026'"));
+  assert.ok(district16Data.includes("DISTRICT_16_STANDINGS_AS_OF = 'November 21, 2026'"));
   assert.ok(district16Data.includes('NOT a live feed'));
 });
 
