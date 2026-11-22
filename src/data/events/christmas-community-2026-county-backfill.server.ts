@@ -503,5 +503,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Archer City Visitors Center",
   "summary": "The Archer City Visitors Center lists the annual Christmas Festival on the courthouse square on the first Thursday in December. Local KFDX/KJTL reporting dated October 30, 2026 independently confirms this year's festival for Thursday, December 3, from 6–8:30 p.m., with live music, local vendors and opportunities to meet Santa. The official center page is a standing annual guide, so check the festival contact for any later 2026 changes before making travel plans.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "poteet-christmas-parade-tree-lighting-2026",
+  "title": "Poteet Christmas Parade & Tree Lighting",
+  "city": "Poteet",
+  "countySlug": "atascosa",
+  "countyName": "Atascosa County",
+  "region": "south-texas",
+  "startDate": "2026-12-10",
+  "venueName": "Downtown Poteet, including School Drive and Loop 282",
+  "officialEventUrl": "https://www.poteettx.org/AgendaCenter/ViewFile/Agenda/_10202026-281",
+  "sourceName": "City of Poteet 2026 City Council agenda",
+  "summary": "The City of Poteet's October 20, 2026 council agenda identifies its Christmas Parade and Tree Lighting Event as planned for Thursday, December 10, 2026. The city was considering temporary street closures near School Drive, Loop 282, Avenue H, Seventh and Eighth streets for the procession. The public agenda is evidence of the date proposed by city staff, not proof that every street closure or parade hour has been finalized; verify the current city notice before attending.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
