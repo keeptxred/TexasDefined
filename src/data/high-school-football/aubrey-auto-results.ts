@@ -113,6 +113,7 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     if (milestone.date === '2024') return { ...milestone,
       sourceUrl: 'https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/24-25/schedule/',
       sourceLabel: 'Archived 2024 Aubrey season schedule',
+      body: 'Aubrey went 8–5 in 2024 and reached the postseason. The 2024 classification and schedule are archived separately from the 2026 District 4 alignment.',
     };
     if (milestone.date === '2026') return { ...milestone,
       title: 'Unbeaten district champions',
@@ -148,7 +149,7 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
       return { ...entry, question: 'How did Aubrey finish its 2026 regular-season schedule?', answer: lateResults + '. See the full dated results table for the complete season and source links.' };
     }
     if (entry.question === 'Has Aubrey won a state football title?') {
-      return { ...entry, answer: 'The archived state-title source previously linked here now redirects without its Aubrey record. This guide does not assert a title or a definitive all-time playoff total without a retrievable primary source; consult the UIL football championship archives for state-title history.' };
+      return { ...entry, answer: 'No state football championship is documented for Aubrey in the UIL all-time title-game appearances archive. That official archive covers appearances in the state final, not every earlier playoff round; verify any new historical claim against the UIL record.' };
     }
     return entry;
   });
