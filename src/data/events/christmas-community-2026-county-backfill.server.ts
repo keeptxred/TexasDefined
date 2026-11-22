@@ -925,5 +925,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Hearne Chamber of Commerce",
     "summary": "The Hearne Chamber's 2026 community calendar confirms the annual Downtown Christmas Parade for Saturday, December 12, 2026. The organizer lists local organizations, businesses, churches and schools joining the festive procession. The Chamber explicitly labels the parade start time as to be announced, so visitors should check directly for the finalized hour, staging area, traffic restrictions and spectator route before traveling. This is not the separate December 18 Downtown Hearne merchant event.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "brownwood-downtown-christmas-tree-lighting-2026",
+    "title": "Downtown Brownwood Christmas Tree Lighting Ceremony",
+    "city": "Brownwood",
+    "countySlug": "brown",
+    "countyName": "Brown County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-01",
+    "venueName": "Downtown Brownwood, Texas",
+    "officialEventUrl": "https://visitbrownwood.com/events/christmas-tree-lighting-ceremony-2ae8355127",
+    "sourceName": "Visit Brownwood / City of Brownwood tourism",
+    "summary": "Visit Brownwood's 2026 event notice dates the annual downtown Christmas Tree Lighting Ceremony for Tuesday, December 1, at 6 p.m. Downtown Brownwood hosts the community countdown and seasonal tree illumination. Past editions have included music and treats, but the current official notice says additional program details are forthcoming, so entertainment, free giveaways and an exact end time are not promised. This is distinct from the December 3 lighted parade and December 5 Christmas Under the Stars festival.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "brownwood-downtown-lighted-christmas-parade-2026",
+    "title": "Brownwood Downtown Lighted Christmas Parade",
+    "city": "Brownwood",
+    "countySlug": "brown",
+    "countyName": "Brown County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Brownwood, Texas",
+    "officialEventUrl": "https://visitbrownwood.com/events/lighted-christmas-parade-3a6f74fe56",
+    "sourceName": "Visit Brownwood / City of Brownwood tourism",
+    "summary": "Visit Brownwood confirms its downtown Lighted Christmas Parade for Thursday, December 3, 2026, beginning at 6:15 p.m. with illuminated floats, community groups and seasonal music. The official visitor page advertises this community parade as free to attend, but says its final route and participating entries will be announced later. No street closures, viewing zones, parking maps or parade end time are inferred from the listing.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "brownwood-christmas-under-the-stars-festival-2026",
+    "title": "Brownwood Christmas Under the Stars Holiday Festival",
+    "city": "Brownwood",
+    "countySlug": "brown",
+    "countyName": "Brown County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Depot Civic & Cultural Center, Brownwood",
+    "officialEventUrl": "https://visitbrownwood.com/events/christmas-under-the-stars-festival-6f2ee29ffb",
+    "sourceName": "Brownwood Area Chamber of Commerce (organizer), confirmed by Visit Brownwood",
+    "summary": "Visit Brownwood and the Brownwood Area Chamber confirm Christmas Under the Stars on Saturday, December 5, 2026, at the Depot Civic & Cultural Center. The annual holiday gathering features seasonal light displays, local vendors, entertainment and family activities around the historic depot district. The official visitor listing labels the date 'all day' without published gates or individual activity hours, so visitors should verify attendance hours and any admission charges directly rather than assuming a continuous 24-hour festival.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "marshall-wonderland-of-lights-christmas-parade-2026",
+    "title": "Marshall Wonderland of Lights Christmas Parade",
+    "city": "Marshall",
+    "countySlug": "harrison",
+    "countyName": "Harrison County",
+    "region": "piney-woods",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Marshall, Texas",
+    "officialEventUrl": "https://visitmarshalltexas.com/event-directory/",
+    "sourceName": "Visit Marshall city tourism / Marshall Main Street",
+    "summary": "Visit Marshall's official 2026 Wonderland of Lights event directory confirms the Christmas Parade on Saturday, December 5, 2026, beginning at 6 p.m. in downtown Marshall. This one-evening parade occurs within the longer Wonderland of Lights festival season, November 25 through December 30; the general holiday lighting program has different opening windows and is not a month-long nonstop parade. Final spectator route, road closures and any separate festival attraction tickets should be checked with Marshall Main Street.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
