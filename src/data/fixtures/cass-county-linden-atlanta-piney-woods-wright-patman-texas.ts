@@ -8,7 +8,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   brandId: "texasdefined",
   slug: "cass-county-linden-atlanta-piney-woods-wright-patman-texas",
   title: "Cass County: Linden, Atlanta, Piney Woods and Wright Patman Lake",
-  dek: "Why Linden's 1861 courthouse lost its spire, how the 1933 fire spurred a water tower and firehouse, and where to explore Cass County's broader Piney Woods history.",
+  dek: "Explore Linden's 1861 courthouse, 1933 fire, Richard Bowden and Music City Texas Theater, plus Atlanta, Wright Patman Lake and Cass County's Piney Woods heritage.",
   category: "texas-history",
   region: "piney-woods",
   hero: {
@@ -21,7 +21,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
   updatedAt: "2026-11-22",
-  readingMinutes: 21,
+  readingMinutes: 25,
   tags: [
     "Cass County",
     "Linden Texas",
@@ -36,6 +36,11 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     "Cass County Courthouse fire",
     "1939 Linden Firehouse",
     "1934 Linden water tower",
+    "Richard Bowden",
+    "Pinkard and Bowden",
+    "Music City Texas Theater",
+    "Linden music heritage",
+    "T-Bone Walker Blues Festival",
   ],
   featured: false,
   internalLinks: [
@@ -46,6 +51,10 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { href: "/county/titus", label: "Explore Titus County", description: "Continue west toward Mount Pleasant and Lake Bob Sandlin." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped county boundaries across Texas." },
     { href: "/destination/atlanta-state-park", label: "Atlanta State Park", description: "Extend your Cass County visit to trails, camping and Wright Patman Lake." },
+    { href: "/texas-icons/don-henley", label: "Don Henley: Linden roots", description: "Follow Henley's East Texas upbringing and musical career." },
+    { href: "/texas-icons/t-bone-walker", label: "T-Bone Walker: born in Linden", description: "Explore the pioneering blues guitarist's Cass County origins and Dallas career." },
+    { href: "/texas-icons/scott-joplin", label: "Scott Joplin: Northeast Texas beginnings", description: "Read what historians know—and cannot confirm—about the composer's birthplace." },
+    { href: "/texas-music", label: "Texas music history", description: "Put Linden's blues, ragtime and rock stories in statewide context." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
@@ -112,6 +121,34 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("Why was Linden's 1934 water tower built? The waterworks supplied sanitary water and reliable fire protection after the town experienced a devastating courthouse fire and serious public-health problems."),
     p("When was Linden's old firehouse built? Construction began in 1939, and the fire truck moved into the station that February. The station stands at 121 West Rush Street below the 1934 water tower."),
 
+
+    h("How Linden became Music City Texas"),
+    p("Linden is not only Cass County's courthouse town. Its music history connects ragtime, electric blues, touring rock bands, country comedy and a concert venue that helped bring visiting performers to a small Piney Woods community. Those connections involve different people and eras; grouping their names on a tourism sign is only a starting point. The stories of Scott Joplin, Aaron 'T-Bone' Walker, Don Henley and Richard Bowden explain why music belongs in any serious account of Linden."),
+
+    h("Richard Bowden: from Linden bands to Pinkard & Bowden"),
+    p("Richard Bowden grew up in Linden and was a musical contemporary and friend of Don Henley. Bowden worked as a guitarist with nationally known performers, including Henley, and became widely known for the country-comedy duo Pinkard & Bowden, formed with songwriter Sandy Pinkard. Their irreverent parody songs and national touring career made Bowden more than a hometown musician who happened to know a rock star. His career connected Linden's local music-making to the Nashville and national entertainment circuits."),
+    p("After returning to Linden, Bowden put those contacts and performance experience to work locally. Reporting from the theater's early years identifies him as a leader of Music City Texas and describes his role in bringing major touring acts to a small venue. His contributions were not limited to performing on its stage: he helped establish and promote the theater as a way to make Linden's music legacy part of the town's continuing cultural and economic life. Bowden also helped establish the T-Bone Walker Blues Festival, linking modern programming to an older Linden-born blues innovator."),
+    p("Bowden's story is a useful reminder that local music heritage does not end when a performer leaves town. A guitarist who played on national stages returned with working industry relationships; the theater turned some of those connections into live shows close to the courthouse square. The distinction matters: Richard Bowden is a musician and community-builder in his own right, not merely a footnote to the Eagles or Pinkard & Bowden."),
+
+    h("Music City Texas Theater: a concert room with a local mission"),
+    p("Music City Texas Theater operates at 108 Legion Street in Linden. The nonprofit venue developed in the former American Legion Auditorium, which was renovated and reopened for performances in 2003. It deliberately uses a modest room rather than an arena-scale experience: the draw is an intimate concert setting in a town whose musical connections reach much farther than its population might suggest."),
+    p("Music City, Texas, Incorporated describes its mission as honoring regional musical heritage, presenting year-round entertainment and promoting music education, instrument donations and performance opportunities. The venue's work is therefore both cultural and practical. Preservation of an older civic auditorium provided a place to listen to music, while concerts give visitors a reason to spend time in downtown Linden and to learn why the town values its musicians."),
+    p("Historical reports document appearances by well-known artists such as Jackson Browne at the theater. Lineups, concessions, age policies and ticket arrangements vary by show; do not use an older concert listing as evidence that a performer is currently booked. For a planned visit, check the theater's own schedule and ticket links at musiccitytexas.org. The theater lists its address as 108 Legion Street, Linden, TX 75563."),
+
+    h("T-Bone Walker, Don Henley and Scott Joplin: three distinct connections"),
+    p("Aaron 'T-Bone' Walker was born in Linden in 1910. His later development in Dallas and work with amplified guitar helped establish a language that shaped electric blues and, through it, rock music. Don Henley was born in Gilmer and raised in Linden, where early bands and regional performance experience preceded his national career with the Eagles. Their contributions are not interchangeable: Walker's place in Black blues innovation is distinct from Henley's East Texas-to-country-rock trajectory."),
+    p("Scott Joplin is also associated with the Linden and Caves Spring area, but his precise birthplace is not settled. The Texas State Historical Association identifies a possible birth location near Caves Spring; other research emphasizes the broader Northeast Texas border region and his childhood around Texarkana. An accurate county history should discuss that connection without claiming an undisputed Linden birth. Joplin's role in the rise of composed ragtime is a different chapter from Walker's electric guitar or the later Linden concert project."),
+
+    h("The T-Bone Walker Blues Festival and a useful downtown visit"),
+    p("Linden's T-Bone Walker Blues Festival has celebrated the city's blues history, with the theater serving as a host in past years. Texas Historical Commission tourism material describes a June tradition, but that historical description is not a verified schedule for any particular upcoming year. Check the festival organizer and the Music City Texas Theater events calendar for current dates, locations and tickets; do not assume that a previous year's June dates still apply."),
+    p("A practical Linden heritage stop begins with the Cass County Courthouse square, continues to the 1934 water tower and 1939 firehouse near Rush and Taylor Streets, and adds Music City Texas Theater at 108 Legion Street. The courthouse and firehouse tell the town's civic-preservation story, while the theater tells its music story. The historic post office mural adds another perspective on local Black life and labor. Exterior sightseeing and a ticketed performance have different access rules: check each property's current public access before visiting."),
+
+    h("Quick answers about Richard Bowden and Linden's music history"),
+    p("Who is Richard Bowden? He is a Linden-connected guitarist who worked with Don Henley, performed in the national country-comedy duo Pinkard & Bowden with Sandy Pinkard, and helped build the local Music City Texas Theater project."),
+    p("Where is Music City Texas Theater? The nonprofit theater is at 108 Legion Street in Linden, Texas, in a renovated former American Legion auditorium. Visit its official website for current performance dates and tickets."),
+    p("Was Scott Joplin born in Linden? His birthplace is disputed. Some historical research suggests the Caves Spring area near Linden, but the precise site has not been established; Northeast Texas is the safer geographic description."),
+    p("Does the T-Bone Walker Blues Festival happen every June? The June timing appears in historical tourism materials, but upcoming dates must be confirmed with organizers rather than copied from a previous year's schedule."),
+
     h("Cotton and slavery shaped the antebellum county"),
     p("Like much of Northeast Texas, early Cass County developed within the agricultural economy of the nineteenth-century South. Cotton became the principal cash crop, while corn and hogs supported local food needs. Farms expanded quickly as settlers arrived from other southern states."),
     p("That growth depended heavily on enslaved Black labor. By 1860 enslaved people represented a large share of the county's population, and cotton production was deeply tied to slavery. Any account of Cass County's antebellum prosperity has to include the people whose coerced labor created much of that wealth."),
@@ -169,7 +206,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("That position has always influenced commerce and culture. Residents may travel toward Texarkana for regional services, toward Louisiana for work or family ties, or west toward Mount Pleasant and Dallas. The county is unmistakably Texan, but it belongs to a broader Ark-La-Tex cultural and economic region."),
 
     h("How to explore Cass County"),
-    p("Begin in Linden at the Cass County Courthouse. After studying the restored roofline, walk to the 1934 water tower and 1939 firehouse near Rush and Taylor Streets to follow the story of the 1933 fire and the town's first modern firefighting infrastructure. Continue northeast toward Atlanta to see how the county's commercial center shifted toward the railroad and highway corridor."),
+    p("Begin in Linden at the Cass County Courthouse. After studying the restored roofline, walk to the 1934 water tower and 1939 firehouse near Rush and Taylor Streets to follow the story of the 1933 fire and the town's first modern firefighting infrastructure. Add Music City Texas Theater on Legion Street to connect the courthouse town to Richard Bowden, Don Henley and the region's older blues and ragtime heritage. Confirm performance times and access before planning a theater stop. Continue northeast toward Atlanta to see how the county's commercial center shifted toward the railroad and highway corridor."),
     p("From Atlanta, continue toward Wright Patman Lake and Atlanta State Park for the county's strongest public-land experience. A separate drive toward Hughes Springs or the smaller communities west of Linden reveals the working forest-and-ranch landscape. Pairing Cass with Marion County to the south or Bowie County to the north makes the region's transportation and river history easier to understand."),
 
     h("Why Cass County matters"),
@@ -186,5 +223,12 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { label: "Texas County & District Retirement System — Courthouse restoration", url: "https://www.tcdrs.org/library/admin-updates-cass-county/" },
     { label: "Texas Escapes — Courthouse building history and 2012 restoration", url: "https://www.texasescapes.com/EastTexasTowns/Linden-Texas-Cass-County-Courthouse.htm" },
     { label: "Wikimedia Commons — Downtown Linden water towers, image rights", url: "https://commons.wikimedia.org/wiki/File:Linden1.JPG" },
+    { label: "Music City Texas Theater — official mission, location and shows", url: "https://www.musiccitytexas.org/about" },
+    { label: "Linden Area Chamber of Commerce — local musical heritage and 2003 theater renovation", url: "https://www.lindentxchamber.org/aboutus" },
+    { label: "Texas Historical Commission — Linden music history and theater", url: "https://texastimetravel.com/cities/linden/" },
+    { label: "Governor of Texas — Linden Music Friendly Texas certification (2023)", url: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community" },
+    { label: "Houston Press — contemporary reporting on Richard Bowden and Music City Texas", url: "https://www.houstonpress.com/news/strings-attached-6551821/" },
+    { label: "University of North Texas — Music City Texas historical research, Randy Mallory Papers", url: "https://texashistory.unt.edu/ark:/67531/metadc1924027/" },
+    { label: "Texas Defined — Scott Joplin profile with TSHA and Library of Congress research", url: "https://texasdefined.com/texas-icons/scott-joplin" },
   ],
 };
