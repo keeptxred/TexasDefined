@@ -14,7 +14,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-23",
     venue: "Galveston Railroad Museum, 2602 Santa Fe Place",
     officialUrl: "https://galvestonrrmuseum.org/event/the-polar-express/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     seoTitle: "Galveston Polar Express 2026: Tickets, Prices, Seats & Visitor Guide",
     seoDescription: "Plan Galveston's official 2026 Polar Express at the Railroad Museum: November 13–December 23, boarding, seat choices, accessibility, parking and booking.",
     dateNote: "The Galveston Railroad Museum confirms November 13–December 23, 2026, at 1932 Union Depot. The rail ride takes approximately 60 minutes but guests should allow two hours, arrive roughly one hour before departure, and board at least 10 minutes before train time. Tickets and departure times remain date-specific; changes and weather refunds are generally unavailable.",
@@ -38,7 +38,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Arrival",
-        value: "Plan for one hour before departure; last boarding 10 minutes prior"
+        value: "Allow one hour before departure; last boarding 10 minutes prior"
       },
       {
         label: "Seats",
@@ -46,7 +46,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Parking",
-        value: "Special event parking fee; purchase availability varies"
+        value: "Paid special-event parking; online or at the gate subject to availability"
       },
       {
         label: "Contact",
@@ -56,11 +56,11 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       {
         title: "Start with the correct 2026 ticket calendar",
-        body: "The Galveston Railroad Museum lists November 13 through December 23, 2026, with individual departures and prices sold through its linked checkout. Its March 2026 announcement cited approximately $40–$135 depending on car, date and time. Compare your exact train, class, and parking charges before paying. This is not a Ticketmaster performance; use the museum's official event checkout, not a generic train-ticket resale listing."
+        body: "The Galveston Railroad Museum lists November 13 through December 23, 2026, with individual departures and prices sold through its linked checkout. Its March 2026 announcement cited approximately $40–$135 depending on car, date and time. Compare your exact train, class, and parking charges before paying. Ignore the organizer’s November 20 discount for future rides: it was limited to that specific departure and is now past. This is not a Ticketmaster performance; use the museum's official event checkout, not a generic train-ticket resale listing."
       },
       {
         title: "Allow time for the full depot-to-depot event",
-        body: "The museum asks guests to allow approximately two hours for the full experience: arrive roughly one hour early for the depot pre-show, food, letters to Santa and check-in, then enjoy a 60-minute round trip. Final boarding is TEN minutes before departure. Train runs in most weather, and regular ticket purchases are not refunded for weather or a guest's change of plans. Check the ticket confirmation for any special class-specific boarding instructions."
+        body: "Allow about two hours. The current event overview recommends arriving an hour early, while its FAQ says about 30 minutes. Use the earlier one-hour recommendation to leave enough time for food, letters to Santa, the pre-show and check-in before the one-hour round trip. Final boarding is TEN minutes before departure. Train runs in most weather, and regular ticket purchases are not refunded for weather or a guest's change of plans. Check the ticket confirmation for any special class-specific boarding instructions."
       },
       {
         title: "Know the onboard experience—and what the North Pole means",
@@ -136,7 +136,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-28",
     venue: "Texas State Railroad Palestine Depot, 789 Park Road 70",
     officialUrl: "https://texasstaterailroad.net/the-polar-express/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-21",
     seoTitle: "Palestine Polar Express 2026: Dates, Tickets & Train Guide",
     seoDescription: "Plan Palestine Polar Express 2026 train rides with verified Nov. 13–Dec. 28 departures, seating classes, fares, access details and official ticket links.",
     dateNote: "Verified against Texas State Railroad’s own November and December 2026 departure-calendar graphics: scheduled trains begin November 13 and end December 28, with service only on the listed days. November 13 has 5:30 and 7:00 PM departures; December 28 has 3:00, 4:30, 6:00 and 7:30 PM departures. December 18 is also scheduled. These are advertised departure times, not a guarantee seats remain available; check the railroad ticket checkout or call 855-632-7729.",
@@ -178,7 +178,7 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       {
         title: "Pick an actual 2026 departure, not any day in the season",
-        body: "The official Texas State Railroad 2026 departure-calendar graphics show November 13–15, 19–24 and 27–29; December 3–6, 9–13, 15–16, 18–23 and 26–28. Friday, November 13 has trains at 5:30 and 7:00 PM; Monday, December 28 has trains at 3:00, 4:30, 6:00 and 7:30 PM. December 18 also appears on the railroad calendar with four departures. There are no scheduled departures shown for December 24 or 25. The schedule is the railroad’s own, not a secondary approximation; a posted departure does NOT imply that tickets remain unsold. Check available seating classes and live inventory at the operator’s booking page or call 855-632-7729 before committing to travel."
+        body: "The official Texas State Railroad 2026 departure-calendar graphics show November 13–15, 19–24 and 27–29; December 3–6, 9–13, 15–16, 18–23 and 26–28. Friday, November 13 has trains at 5:30 and 7:00 PM; Monday, December 28 has trains at 3:00, 4:30, 6:00 and 7:30 PM. December 18 also appears on the railroad calendar with four departures. There are no scheduled departures shown for December 24 or 25. The live railroad listing also shows four departures at 3, 4:30, 6 and 7:30 p.m. on November 22, 27 and 28, but only three at 4, 5:30 and 7 p.m. on November 23 and 24. This matters for Thanksgiving-week travel: a weekend timetable may not apply to a weekday. The schedule is the railroad’s own, not a secondary approximation; a posted departure does NOT imply that tickets remain unsold. Check available seating classes and live inventory at the operator’s booking page or call 855-632-7729 before committing to travel."
       },
       {
         title: "Know the refund, rescheduling and missed-train rules",
@@ -190,7 +190,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Book the Palestine departure, not Rusk or Grapevine",
-        body: "The organizer explicitly warns that this licensed journey departs from Palestine, Texas and is not the Grapevine Santa North Pole Express or Galveston's separate licensed ride. Enter 789 Park Road 70, Palestine into your route planner and check the exact station printed on your confirmation. Ordinary Texas State Railroad excursions may run between Palestine and Rusk, but this theatrical Polar Express program is a different route and ticket."
+        body: "The organizer explicitly warns that this licensed journey departs from Palestine, Texas and is not the Grapevine Santa North Pole Express or Galveston's separate licensed ride. The railroad explicitly rules out refunds or exchanges for purchases made for the wrong Polar Express location. Enter 789 Park Road 70, Palestine into your route planner and check the exact station printed on your confirmation. Ordinary Texas State Railroad excursions may run between Palestine and Rusk, but this theatrical Polar Express program is a different route and ticket."
       },
       {
         title: "Compare value, standard and premium fare tiers",
@@ -260,6 +260,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Texas State Railroad — official November and December 2026 departure calendars, booking, seating and diesel notice",
         url: "https://texasstaterailroad.net/the-polar-express/"
+      },
+      {
+        label: "Texas State Railroad — current departure and seating inventory",
+        url: "https://texasstaterailroad.net/events/"
       },
       {
         label: "Texas State Railroad — published seating classes, fare tiers and accessible car",
