@@ -8,7 +8,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
   brandId: "texasdefined",
   slug: "blanco-county-johnson-city-blanco-pedernales-hill-country-texas",
   title: "Blanco County: Johnson City, Blanco, the Pedernales and Hill Country Heritage",
-  dek: "Blanco County brings together limestone hills, the Pedernales and Blanco rivers, ranching country, presidential history and two of the Texas Hill Country's most distinctive small towns.",
+  dek: "The 1876 Blanco courthouse fire destroyed records, the surviving 1886 former courthouse lost its seat in 1890, and Johnson City's 1916 replacement shaped Blanco County.",
   category: "texas-history",
   region: "hill-country",
   hero: {
@@ -20,7 +20,8 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 18,
   tags: [
     "Blanco County",
     "Johnson City Texas",
@@ -99,6 +100,20 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     p("The town of Blanco remained an important commercial and cultural center even after county government moved north. Its historic square and old courthouse preserve the period when it was the seat of Blanco County, while the surrounding river valley continued to support ranches, farms, businesses and tourism. The modern visitor cluster now extends beyond the square and river to the Buggy Barn Museum's transportation and film collection, Twin Sisters Dance Hall, where public dances keep nineteenth-century community traditions active south of town, and the Blanco Bowling Club, whose 1947/1948 building preserves community nine-pin bowling with hand-set pins. Blanco has also developed a notable local beverage-production cluster: Real Ale Brewing, Texas Cannon Brewing, Milam & Greene Whiskey and Andalusia Whiskey all operate brewery, distillery, tasting or brewpub facilities in the Blanco area, giving the county a second food-and-drink corridor distinct from the wine-and-bourbon concentration around Hye."),
     p("The old courthouse in Blanco became a landmark in its own right. Its survival gives the county two strong courthouse stories: the original seat with its nineteenth-century civic architecture and Johnson City with the twentieth-century courthouse that represents the final shift in county government."),
 
+    h("The 1876 Blanco courthouse fire destroyed the records"),
+    p("Before Johnson City became the county seat, county government operated in Blanco, then the more developed town along the Blanco River. The Handbook of Texas records a devastating fire in 1876 that destroyed the Masonic lodge, an early courthouse and all the county records stored there. That was a consequential archive disaster, not an episode involving today's 1916 courthouse."),
+    p("The loss helps explain why some early county deeds and proceedings are difficult to locate. Anyone researching property or family history before 1876 needs to check state land records, neighboring county series and surviving secondary transcriptions rather than assume all early transactions never existed."),
+
+    h("The 1886 courthouse became a landmark even after losing county-seat status"),
+    p("Architect F. E. Ruffini designed a limestone courthouse built in 1885–86 in Blanco, accepted January 29, 1886. The county used the impressive structure for only four years before a contentious 1890 election transferred the seat to Johnson City, about fifteen miles away. The old building survived as an exceptional public landmark rather than being destroyed in the move."),
+    p("The former courthouse later held a school, offices and museum functions, becoming associated with the Old Blanco County Courthouse Preservation Society and heritage events. Some historical markers identify its past as a museum, but current operating use and access can change; visitors should confirm with the building's current stewardship group before planning tours."),
+    p("Johnson City did not immediately gain the big stone building it has today. The first permanent courthouse built after the move was completed in 1916 in a Classical Revival style; architect Henry T. Phelps designed it and Scottish-born stonemason James Waterston served as builder. The old Blanco courthouse, 1916 courthouse and early fire represent three separate stages of government."),
+
+    h("Blanco County courthouse questions"),
+    p("What happened in the 1876 Blanco fire? An old courthouse and Masonic lodge burned, with county records destroyed."),
+    p("When was Blanco's surviving old courthouse built? Constructed 1885–86 and accepted in January 1886."),
+    p("Why did the building stop being county seat? Voters moved the seat to Johnson City in 1890."),
+    p("When was Johnson City's present courthouse built? In 1916, with architectural work by Henry T. Phelps and construction by James Waterston."),
     h("Blanco State Park protects the river inside town"),
     p("Blanco State Park hugs about a mile of the spring-fed Blanco River on the south side of town. During the 1930s, Civilian Conservation Corps crews built stone dams, bridges, picnic structures and other park features that still shape the landscape. The result is an unusual state park where swimming, paddling, fishing and camping sit only a few blocks from a historic Hill Country square."),
     p("The park also demonstrates how the Blanco River differs from the broader, rockier Pedernales. Low dams create calm pools, while limestone ledges and riparian vegetation give the river a compact, intimate scale. For visitors who want to understand the county's geography quickly, Blanco State Park is one of the best starting points."),
@@ -141,5 +156,13 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     h("What defines Blanco County"),
     p("Blanco County is defined by the meeting of landscape and memory. Limestone rivers created places to settle, ranch and travel. Boundary changes moved political power from one town to another. The Johnson family connected a small Hill Country county to the presidency, while state and national parks preserved landscapes that make the history tangible."),
     p("The county still feels coherent because its stories remain close together. A courthouse, an old town square, a spring-fed river, a ranch road and a presidential homestead can all fit into a single day. That compact mix of nature, civic history and rural culture is what makes Blanco County one of the clearest expressions of the Texas Hill Country."),
+  ],
+  sources: [
+    { label: "Handbook of Texas — Blanco's 1876 courthouse fire and records loss", url: "https://www.tshaonline.org/handbook/entries/blanco-tx" },
+    { label: "Old Blanco County Courthouse Preservation Society — 1886 courthouse and 1890 move", url: "https://www.historicblanco.org/history" },
+    { label: "Texas Historical Commission — Old Blanco Courthouse marker", url: "https://atlas.thc.texas.gov/Details/5031000428" },
+    { label: "National Park Service — 1916 Johnson City County Courthouse", url: "https://www.nps.gov/places/000/blanco-county-courthouse.htm" },
+    { label: "Texas Historical Commission — 1916 courthouse and Waterston construction", url: "https://atlas.thc.texas.gov/Details/5031000427" },
+    { label: "Society of Architectural Historians — 1916 Blanco County Courthouse", url: "https://sah-archipedia.org/buildings/TX-01-BT16" },
   ],
 };
