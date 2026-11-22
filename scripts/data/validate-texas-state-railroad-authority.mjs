@@ -41,6 +41,8 @@ must("guide", 'readingTimeVerified: false');
 must("guide", 'type: "image"');
 for (const [key, needle] of [
   ["guide", "Rusk Penitentiary"], ["guide", "1883"], ["guide", "528"],
+  ["guide", "1894"], ["guide", "300-kilowatt"], ["guide", "1929"],
+  ["guide", "https://texashistory.unt.edu/ark:/67531/metapth326227/m1/1/"],
   ["guide", "February 1884"], ["guide", "1909"], ["guide", "1910"], ["guide", "1917"], ["guide", "1919"],
   ["guide", "Texas State Capitol"], ["guide", "Prison labor"], ["guide", "power plant"],
   ["guide", "Rusk State Hospital"], ["guide", "Texas & Eastern"], ["guide", "Union Pacific"],
