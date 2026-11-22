@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 const PARK = "https://tpwd.texas.gov/state-parks/martin-creek-lake";
 const RESERVE = "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121";
@@ -33,7 +34,7 @@ const sources = [
   ["Specific park reservations", RESERVE],
 ] as const;
 
-function Official({ href, children }: { href: string; children: React.ReactNode }) {
+function Official({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">{children}</a>;
 }
 
