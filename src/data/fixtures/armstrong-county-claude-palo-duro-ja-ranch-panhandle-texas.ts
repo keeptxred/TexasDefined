@@ -8,7 +8,7 @@ export const armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle: Article 
   brandId: "texasdefined",
   slug: "armstrong-county-claude-palo-duro-ja-ranch-panhandle-texas",
   title: "Armstrong County: Claude, Palo Duro Canyon and the JA Ranch Country",
-  dek: "Armstrong County is where level High Plains ranch country breaks into Palo Duro Canyon, tying Claude, Goodnight, the JA Ranch and Panhandle settlement history into one compact county.",
+  dek: "Claude's first public well and water tanks of 1892, the 1912 Armstrong County Courthouse and 1953 reuse of historic jail stone in Texas Panhandle country.",
   category: "texas-history",
   region: "panhandle",
   hero: {
@@ -20,7 +20,8 @@ export const armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 10,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: ["Armstrong County", "Claude Texas", "Palo Duro Canyon", "JA Ranch", "Goodnight Texas", "Texas Panhandle", "Armstrong County Courthouse", "Charles Goodnight", "High Plains", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -60,6 +61,22 @@ export const armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle: Article 
     p("Claude is still the county's largest community and administrative center. Its courthouse square, local businesses, churches and public facilities give the town a classic Panhandle county-seat pattern. The Armstrong County Courthouse stands at 101 Trice Street and anchors the local government complex described by the county's official website."),
     p("The present courthouse dates to the early twentieth century, replacing an earlier wooden building. Its restrained stone-and-brick civic presence fits Claude's scale: substantial enough to symbolize county government, but still closely integrated into a small-town streetscape where public offices, schools and community institutions remain part of everyday life."),
 
+    h("The courthouse square was a water source before Claude had modern utilities"),
+    p("Claude emerged beside the Fort Worth and Denver City Railway in 1887 and was selected as Armstrong County seat when the county organized in 1890. Earlier court business had to be conducted through outside jurisdictions because population was too sparse for an independent county government. The first courthouse was a wooden building suited to a railroad ranch town."),
+    p("A historical account published by the Armstrong County Historical Association describes a public well and tanks installed on the courthouse square in 1892. The Texas State Historical Association also notes that residents drew water from a community trough shaded by a cottonwood tree before the town had widespread modern water and sewer service. The public square therefore served an everyday utility function as well as a judicial one."),
+    p("The county replaced the wooden courthouse with a stone building designed by Elmer George Withers and completed around 1912, entering regular public service in 1913. The Texas Historical Commission's architectural inventory dates construction to 1912. The courthouse was part of a broader effort to make government permanent as land was broken for farming beside the famous ranch economy."),
+    p("Photographs of the modern courthouse therefore cannot be described as the 1890 original. Nor is the 1892 community water tank the same structure as the courthouse tower; the water facilities were separate public necessities that helped residents manage distance and the dry Panhandle climate."),
+
+    h("The old county jail was rebuilt from its own masonry in 1953"),
+    p("An early stone jail built in 1894 was an important investment in local law enforcement for a county still developing independent institutions. In 1953 the county erected a new jail using stone taken from its predecessor; Texas Historical Commission marker text records this deliberate reuse."),
+    p("The project forms a distinctive example of public material recycling long before modern heritage language became common. Visitors should distinguish the 1953 structure from the original 1894 jail, even when both share the same stone. As elsewhere in West Texas, public buildings evolved through practical repairs and reuse rather than a single catastrophic courthouse fire."),
+    p("Armstrong County's courthouse, old jail stone and water history complement the JA Ranch and Goodnight history. They demonstrate how ranching and public facilities developed together in a part of Texas where public drinking water and transport were central concerns."),
+
+    h("Armstrong County history questions"),
+    p("When was Claude's current courthouse built? The Texas Historical Commission lists construction in 1912, with use from around 1913 onward."),
+    p("Where did early Claude residents get public water? A well and water tanks were installed on the courthouse square in 1892."),
+    p("Is the 1953 jail entirely new masonry? A historical marker records that it was constructed using stone salvaged from an earlier jail of 1894."),
+    
     h("Agriculture broadened the economy without replacing ranching"),
     p("Ranching dominated Armstrong County's nineteenth-century economy, but the breakup and sale of portions of the great ranches brought more farmers after 1900. Wheat became especially important, alongside sorghum, hay and other Plains crops. Agriculture expanded where soils, rainfall and later groundwater development made cultivation practical."),
     p("Even as farming grew, cattle remained fundamental. Modern Armstrong County reflects that mixed Panhandle economy: ranchland, cultivated fields, feed and livestock activity, agricultural services, and residents who often maintain connections to Amarillo while working in a distinctly rural setting."),
@@ -79,5 +96,13 @@ export const armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle: Article 
     h("Armstrong County is a compact version of the Panhandle story"),
     p("Few counties show the central Panhandle transition so clearly. Claude represents the railroad towns and courthouse communities that organized local government; the open plains represent ranching and agriculture; Goodnight represents the cattle frontier; and Palo Duro Canyon carries both much older human history and the physical drama of the region."),
     p("That combination makes Armstrong County more than a drive-through county east of Amarillo. Its landscape explains why ranches became so large, why railroads mattered so much, why road building was difficult, and why Palo Duro Canyon has remained one of the Panhandle's defining places. To understand the region county by county, Armstrong belongs near the center of the story."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1912 Armstrong County Courthouse building inventory", url: "https://atlas.thc.texas.gov/Details?atlasnumber=4302000222&fn=print" },
+    { label: "Texas Historical Commission — Armstrong County historical marker, 1890 organization", url: "https://atlas.thc.texas.gov/Details/5011000202" },
+    { label: "Handbook of Texas — Claude and original courthouse-square water trough", url: "https://www.tshaonline.org/handbook/entries/claude-tx" },
+    { label: "Armstrong County Historical Association — 1892 water well and tanks", url: "https://genealogytrails.com/tex/panhandle/armstrong/hist_vol1_4.html" },
+    { label: "Texas Historical Commission — 1894 jail stone reused in 1953", url: "https://www.forttours.com/pages/hmarmstrong.asp" },
+    { label: "Handbook of Texas — Armstrong County and JA Ranch", url: "https://www.tshaonline.org/handbook/entries/armstrong-county" },
   ],
 };

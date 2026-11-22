@@ -8,7 +8,7 @@ export const bordenCountyGailCaprockRanchingColoradoRiverWestTexasArticle: Artic
   brandId: "texasdefined",
   slug: "borden-county-gail-caprock-ranching-colorado-river-west-texas",
   title: "Borden County: Gail, the Caprock, Ranch Country and the Upper Colorado River",
-  dek: "Borden County is one of Texas's least-populated counties, a high-plains-to-rolling-country landscape shaped by the Caprock, cattle ranching, cotton, oil, wind power, Lake J.B. Thomas and the tiny county seat of Gail.",
+  dek: "Gail's first schoolhouse court in 1891, the historic 1938–39 Borden County Courthouse and its surviving architectural drawings, and West Texas ranch settlement.",
   category: "texas-history",
   region: "panhandle",
   hero: {
@@ -20,7 +20,8 @@ export const bordenCountyGailCaprockRanchingColoradoRiverWestTexasArticle: Artic
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 12,
+  updatedAt: "2026-11-22",
+  readingMinutes: 18,
   tags: [
     "Borden County",
     "Gail Texas",
@@ -83,6 +84,21 @@ export const bordenCountyGailCaprockRanchingColoradoRiverWestTexasArticle: Artic
     p("Borden County was created in 1876 during a legislative reshaping of the vast, lightly populated western part of Texas. It was named for Gail Borden Jr., the Texas surveyor, newspaper publisher, Republic-era civic figure and inventor associated with condensed milk. Borden helped survey and map early Texas and participated in the development of Houston, making his name an unusual bridge between the Republic period and a county that would not organize until decades later."),
     p("The county existed on paper before it had enough residents and institutions to function independently. Ranchers began extending operations into the area in the 1870s, but population remained tiny. Borden County was finally organized in 1891, and Gail was selected as the county seat. The community was named for the same Gail Borden whose surname had already been given to the county, making county and seat a paired memorial."),
 
+    h("The first Borden court met inside a schoolhouse in 1891"),
+    p("Borden County was created in 1876 but was not organized as an independent county government until March 17, 1891. The first commissioners gathered at Gail in a local schoolhouse while public land, courts and recordkeeping were still being organized. The county seat was named for Gail Borden, a prominent Texas pioneer, cartographer and condensed-milk entrepreneur."),
+    p("The first purpose-built courthouse was a modest two-story wooden structure erected in the early 1890s. Historical sources vary between 1890 and 1895 for its exact construction, probably because settlement and organization unfolded across several years. The key architectural distinction is that it was a simple frontier building, not the current concrete-and-brick courthouse."),
+    p("The present building was constructed during 1938–39. Architects and engineers produced extensive drawings for the project, and the University of North Texas's Portal to Texas History preserves original 1938 plans showing details, elevations and the layout of county offices. The Library of Congress labels the standing courthouse as built in 1939. These primary architectural records are unusually helpful for such a small and sparsely populated county."),
+
+    h("The old county jail, farming and the War of Ribbons"),
+    p("The old county jail east of the courthouse and the historic Borden County school are other parts of Gail's tiny public core. Separate buildings carried the functions of detention and education rather than being purely annexes to the 1939 court building. The old jail's survival can be observed in recorded photographic histories, though current public-entry rights should be confirmed."),
+    p("The county's early political development included the War of Ribbons, a dispute over ranchers, settlers and how the new county government would allocate influence. That history matters to understanding what the courthouse represented: a place where a small population negotiated land and public authority amid large ranches and difficult transport."),
+    p("No reliable source consulted here establishes that the old Gail courthouse disappeared in a specific destructive fire. A guide should explain the documented replacement and preserved 1938 plan evidence rather than invent an event to match counties with burned courthouses."),
+
+    h("Borden County courthouse questions"),
+    p("When was Borden County organized? March 17, 1891, with Gail chosen as its county seat."),
+    p("Where was its first meeting held? In a schoolhouse in Gail."),
+    p("When was the standing courthouse completed? Around 1939, with detailed design plans dating to 1938."),
+    p("Can researchers view original design drawings? Yes. The University of North Texas provides digitized 1938 courthouse plans."),
     h("Open-range cattle defined the first economy"),
     p("Cattle ranching came before farming in Borden County because the landscape rewarded operators who could use large areas of grassland with relatively little permanent infrastructure. By 1890, the county still had only a few hundred residents, but tens of thousands of cattle. That imbalance tells the story better than population alone: this was working range country, not a dense farm-settlement district."),
     p("The open-range era gradually gave way to fenced ranches supported by wells, windmills, stock tanks and more permanent headquarters. Those changes were part of a wider West Texas transformation in which barbed wire and controlled water supplies converted huge open ranges into privately managed ranches. Beef cattle remain part of Borden County's identity, and much of the county still reads visually as ranch country even where oil wells or wind turbines share the same land."),
@@ -122,5 +138,14 @@ export const bordenCountyGailCaprockRanchingColoradoRiverWestTexasArticle: Artic
     h("Why Borden County matters"),
     p("Borden County matters because it preserves a form of Texas geography that is easy to overlook when population is used as the main measure of importance. The county shows how the Caprock shaped settlement, how ranchers used enormous spaces before farmers arrived, how public land policy created tension between grazing and cultivation, and how oil and wind power later changed the economics of the same land without producing a large urban center."),
     p("Its story is concentrated in a handful of durable landmarks: Gail's courthouse and school, ranch roads crossing the Caprock, old community sites, oil infrastructure, wind turbines and the waters of Lake J.B. Thomas. Together they make Borden County one of the clearest places in Texas to see how a very small population can occupy a landscape with a very large historical and economic footprint."),
+  ],
+  sources: [
+    { label: "Borden County government — county founding and Gail", url: "https://www.co.borden.tx.us/page/history" },
+    { label: "Texas Historical Commission — official Borden founding marker", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5033000456" },
+    { label: "Library of Congress — standing 1939 Gail courthouse photograph", url: "https://www.loc.gov/pictures/collection/highsm/item/2014631716/" },
+    { label: "University of North Texas — original 1938 courthouse elevation drawings", url: "https://texashistory.unt.edu/ark:/67531/metapth806560/" },
+    { label: "University of North Texas — original 1938 plot and plan", url: "https://texashistory.unt.edu/ark:/67531/metapth806087/" },
+    { label: "Handbook of Texas — Borden County and Gail", url: "https://www.tshaonline.org/handbook/entries/borden-county" },
+    { label: "Texas historical courthouse inventory — successive Gail courthouse buildings", url: "https://www.texasescapes.com/TexasTowns/Gail-Texas-Borden-County-Courthouse.htm" },
   ],
 };

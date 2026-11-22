@@ -8,7 +8,7 @@ export const baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle
   brandId: "texasdefined",
   slug: "baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas",
   title: "Baylor County: Seymour, the Brazos and the Edge of the Rolling Plains",
-  dek: "Baylor County is North Texas ranch-and-farm country shaped by the Brazos River, the Western Trail, railroad-era Seymour, wheat, cattle and the broad transition into the Rolling Plains.",
+  dek: "Seymour's ornate 1884 courthouse was remodeled in 1916–17 and replaced in 1968; discover Baylor County's cattle-trail, railroad and local records history.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Baylor County",
     "Seymour Texas",
@@ -76,6 +77,22 @@ export const baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle
     p("County government gave Seymour a function that no other community in Baylor County could easily duplicate. Courts, deeds, tax records, elections and public meetings brought residents into town. An early courthouse was completed in the 1880s, and successive county buildings reflected changing population and government needs."),
     p("The present Baylor County Courthouse was completed in 1968. Its low, modernist form is very different from the ornate nineteenth-century courthouses found in many Texas county seats, but that difference is part of its historical value. It represents a period when counties across Texas replaced aging public buildings with simpler, more functional government complexes."),
 
+    h("The 1884 courthouse was modernized in 1917 and demolished in the 1960s"),
+    p("Seymour became the county seat when Baylor County organized in 1879. Early court business used temporary rooms while businesses established themselves near the Brazos. A substantial courthouse followed in 1884, designed in an Italianate manner by architect James E. Flanders and topped with a distinctive roofline."),
+    p("The building lasted well into the twentieth century. A contemporary Baylor County Banner article from August 2, 1917 describes a costly remodeling campaign that repaired roofing, altered its dome and upgraded public rooms. The newspaper reports roughly $10,000 in work, important evidence that the 1884 structure was adapted rather than replaced immediately after a destructive fire."),
+    p("During the 1960s county government outgrew the Victorian building. Officials demolished it to construct the present courthouse, completed in 1968, designed by the Midland firm Pierce, Norris and Pace. The Texas Historical Commission identifies the existing building as the Baylor County Courthouse of 1968. It does not have the older landmark's tower."),
+    p("Historical photographs of Seymour thus depict two distinct courthouse generations. The 1884 Italianate public building stood while cattle and rail commerce shaped the local economy; the modern 1968 courthouse belonged to a later time of population change, agricultural mechanization and regional roads."),
+
+    h("The Western Trail, public works and Seymour's lasting institutions"),
+    p("The Great Western Cattle Trail passed through Baylor County from the 1870s, and the trail corridor helped put Seymour on the North Texas ranching map. The later Wichita Valley rail connection drew trade into town from nearby farms and settlements."),
+    p("The county's old courthouse stood while roads, utilities and fire protection changed, but the sources located here do not establish a specific courthouse fire that explains its disappearance. An accurate article should describe the documented 1917 remodeling and 1960s demolition rather than invent one."),
+    p("The Whiteside Museum of Natural History and the 1880s courthouse photographs offer two different ways to interpret the county: the region's deep Permian fossil heritage and the human settlement history of cattle drives and county government."),
+
+    h("Baylor courthouse questions"),
+    p("When was the old Seymour courthouse built? In 1884, during the county's early ranching settlement period."),
+    p("Did the courthouse change before demolition? Yes. The 1916–17 project repaired roofing and remodeled the tower and offices."),
+    p("When was the present courthouse constructed? In 1968, according to the Texas Historical Commission."),
+    p("Was the 1884 courthouse lost to fire? The sources document remodeling and eventual deliberate demolition, not a confirmed destructive fire."),
     h("The railroad transformed Seymour in 1890"),
     p("Seymour's biggest nineteenth-century growth spurt came when local residents raised money to attract the Wichita Valley railroad. The line reached the community in 1890 and changed the town's relationship with the outside world almost immediately."),
     p("Rail access lowered transportation costs for livestock, grain, cotton, building materials and manufactured goods. Nearby residents and businesses shifted toward Seymour, and the county seat became a stronger regional trade point. What had been an isolated frontier town was suddenly connected to larger commercial networks running through Wichita Falls and beyond."),
@@ -115,5 +132,13 @@ export const baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle
     h("Baylor County is a compact lesson in how North Texas changed"),
     p("Baylor County's importance is not measured by population. In a relatively small area, it preserves the major forces that transformed the Texas frontier: Indigenous land use, cattle trails, open-range ranching, county government, railroads, fenced agriculture, oil and modern highway travel."),
     p("Seymour remains the best place to read those layers because the town grew at the exact point where the Brazos crossing, county government and transportation networks converged. Around it, the broad Rolling Plains continue to work much as they have for generations—through cattle, wheat, water, minerals and the constant adaptation required by a demanding landscape."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1968 Baylor County Courthouse building inventory", url: "https://atlas.thc.texas.gov/Details/4302002218" },
+    { label: "Texas Time Travel — 1884 former courthouse and 1968 present building", url: "https://texastimetravel.com/directory/baylor-county-courthouse/" },
+    { label: "Baylor County Banner — 1917 renovations cited by local newspaper research", url: "https://momentsintimeagenealogyblog.blogspot.com/2012/04/family-photos-courthouse-in-seymour.html" },
+    { label: "UNT Portal to Texas History — Baylor County Banner period newspaper holdings", url: "https://texashistory.unt.edu/explore/titles/t00225/" },
+    { label: "Handbook of Texas — Seymour and cattle/rail economy", url: "https://www.tshaonline.org/handbook/entries/seymour-tx" },
+    { label: "Baylor County government — current courthouse services", url: "https://www.co.baylor.tx.us/page/baylor.County.Clerk" },
   ],
 };

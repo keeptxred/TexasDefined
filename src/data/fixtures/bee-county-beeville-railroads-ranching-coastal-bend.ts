@@ -8,7 +8,7 @@ export const beeCountyBeevilleRailroadsRanchingCoastalBendArticle: Article = {
   brandId: "texasdefined",
   slug: "bee-county-beeville-railroads-ranching-coastal-bend-texas",
   title: "Bee County: Beeville, Ranching, Railroads and the Inland Coastal Bend",
-  dek: "Bee County is an inland South Texas crossroads where Irish and Mexican settlement, cattle country, railroad expansion, oil, naval aviation and the civic life of Beeville all meet.",
+  dek: "Beeville's 1888 and January 1911 courthouse fires, the surviving 1912–13 Beaux-Arts replacement and its 2006 restoration alongside Bee County history.",
   category: "texas-history",
   region: "south-texas",
   hero: {
@@ -20,7 +20,8 @@ export const beeCountyBeevilleRailroadsRanchingCoastalBendArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-18",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Bee County",
     "Beeville Texas",
@@ -92,6 +93,21 @@ export const beeCountyBeevilleRailroadsRanchingCoastalBendArticle: Article = {
     p("Beeville's present Bee County Courthouse dates to the early 1910s, after the previous courthouse burned. Its classical design, prominent dome and courthouse-square setting make it one of the city's clearest visual landmarks. The building is listed in the National Register of Historic Places and has also been recognized as a Recorded Texas Historic Landmark."),
     p("The courthouse is more than an architectural stop. It marks the period when Bee County had moved from frontier organization into an era of established municipal services, rail commerce, newspapers and expanding agriculture. For a visitor trying to understand the county quickly, the courthouse square is the logical starting point."),
 
+    h("The first two Beeville courthouses burned before the current building"),
+    p("Bee County's first commissioners met in February 1858 on the banks of Medio Creek. The county seat moved from Beeville-on-the-Medio to a more practical location near Poesta Creek, a change reflecting settlement and transport needs long before the railroad remade the county."),
+    p("An earlier courthouse was destroyed by fire in 1888, and a later wooden two-story structure was built by contractor Viggo Kohler in the late 1870s according to Bee County Historical Commission collections. These local accounts sometimes number the buildings differently, depending on which temporary court quarters are counted. The unambiguous major loss was the fire of January 15, 1911, which destroyed the courthouse standing on the present square."),
+    p("The January 1911 fire forced the county to use temporary court facilities while officials planned a masonry replacement. A monumental Beaux-Arts courthouse designed by local architect W. C. Stephenson was erected around 1912–13. The Texas Historical Commission calls it the 1913 courthouse, while historical postcards preserved at UNT label it the '1912 courthouse,' likely referencing the construction year. These should be treated as stages of one project, not as two separate new buildings."),
+
+    h("The 2006 restoration returned the rooftop balustrade and rotunda"),
+    p("The building's original decorative rooftop balustrade and interior features had been lost or modified as Beeville's county offices grew. A Texas Historic Courthouse Preservation Program campaign restored the roof's tile, dome and ornamental balustrade, rehabilitated wooden windows, recovered the rotunda and district court balcony, and introduced safe fire stairs and an elevator."),
+    p("The THC reports $3.8 million in state restoration support and a public rededication on May 20, 2006. The preserved courthouse thus carries two major dates: the 1912–13 original construction and the 2006 rehabilitation. Visitors should not confuse decorative restoration with a wholly new courthouse or a claim that there is a museum open at all times."),
+    p("Railroads, ranches and the Chase Field naval aviation history offer an essential wider picture of Bee County. The courthouse is one public institution among others that helped give the city its regional importance."),
+
+    h("Bee County courthouse questions"),
+    p("When did Beeville's old courthouse burn? The wooden predecessor on the current square burned January 15, 1911; earlier courthouse fire loss is also documented in 1888."),
+    p("Who designed the surviving Beeville courthouse? Local architect W. C. Stephenson, in a Beaux-Arts style around 1912–13."),
+    p("When was it restored? The historic courthouse was rededicated May 20, 2006."),
+    p("What changed during restoration? The historic roof, dome, balustrade, rotunda and courtroom balcony were conserved or reconstructed while fire safety and accessibility improved."),
     h("Pettus became an energy town"),
     p("Oil and gas discoveries near Pettus in 1929 added a new industry just as the national economy entered the Great Depression. Petroleum work created jobs, leases and service businesses that softened some of the agricultural downturn and gave Bee County a second major twentieth-century economic identity."),
     p("Energy has remained part of the county's story ever since. Conventional oil and gas production was later joined by activity connected to the Eagle Ford Shale region, linking Bee County to the modern South Texas energy corridor. The visible result is a landscape where ranch gates, well sites, service yards and highways often share the same view."),
@@ -139,5 +155,13 @@ export const beeCountyBeevilleRailroadsRanchingCoastalBendArticle: Article = {
     h("What defines Bee County"),
     p("Bee County is defined by its position between regions and eras. It is both brush country and inland Coastal Bend, both courthouse county and transportation corridor, both cattle country and energy country. Beeville gives the county a strong civic center, while Pettus, Skidmore, Papalote and the rural landscape preserve different parts of the same history."),
     p("For travelers, the county offers a grounded way to understand South Texas beyond the coast and the border. Its creeks, courthouse, ranches, rail history, oil fields, Mexican American and Irish heritage, college and aviation legacy show how a place can change repeatedly while still keeping a clear sense of where it came from."),
+  ],
+  sources: [
+    { label: "Bee County Historical Commission via UNT — Jan 15 1911 courthouse fire", url: "https://texashistory.unt.edu/ark:/67531/metapth78870/" },
+    { label: "Texas Historical Commission — 1913 Bee courthouse and 2006 rededication", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/bee-county" },
+    { label: "Texas Historical Commission — Bee Courthouse official marker", url: "https://atlas.thc.texas.gov/Details/5025012317" },
+    { label: "Handbook of Texas — Beeville and earlier courthouse fires", url: "https://www.tshaonline.org/handbook/entries/beeville-tx" },
+    { label: "Society of Architectural Historians — Stephenson architecture and 2006 restoration", url: "https://sah-archipedia.org/buildings/TX-01-GB18" },
+    { label: "Bee County Historical Commission via UNT — 1912 courthouse postcard", url: "https://texashistory.unt.edu/ark:/67531/metapth78874/" },
   ],
 };

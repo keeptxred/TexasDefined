@@ -8,7 +8,7 @@ export const atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle: Articl
   brandId: "texasdefined",
   slug: "atascosa-county-jourdanton-pleasanton-poteet-ranch-country-texas",
   title: "Atascosa County: Jourdanton, Pleasanton, Poteet and South Texas Ranch Country",
-  dek: "Atascosa County marks the transition from San Antonio to the South Texas Plains, where ranching, railroads, strawberries, oil fields and small-town courthouse life share the same brush-country landscape.",
+  dek: "The 1910 Atascosa county-seat election and Supreme Court dispute moved government to Jourdanton, where the 1912 Mission-style courthouse and 1915 jail survive.",
   category: "texas-history",
   region: "south-texas",
   hero: {
@@ -20,7 +20,8 @@ export const atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle: Articl
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-18",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Atascosa County",
     "Jourdanton Texas",
@@ -91,6 +92,23 @@ export const atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle: Articl
     p("Atascosa County voters selected Jourdanton as the new county seat in 1910. The move reflected both geography and transportation: the planned rail town sat closer to the county's center and was positioned for twentieth-century growth."),
     p("The Mission Revival courthouse completed in 1912 gave the new seat a permanent civic landmark. Its arched details and stuccoed mission-style design stand apart from the red-brick and classical courthouses common elsewhere in Texas. More than a century later, the building remains one of the county's most recognizable pieces of architecture."),
 
+    h("Jourdanton's 1912 courthouse followed a disputed 1910 county-seat vote"),
+    p("Atascosa County did not begin in Jourdanton. The first public meetings occurred at Navatasco, on land donated by José Antonio Navarro, and local courtrooms used log and other temporary buildings in the early county era. Pleasanton became the seat in 1858 and served the government for more than five decades while ranching, farms and early roads developed."),
+    p("Railroad promoters and town developers created a competing civic center at Jourdanton. A 1910 county-seat election moved the government there, but the change provoked legal challenges, and a Texas Supreme Court ruling ultimately settled the dispute. For a time offices used rented rooms rather than a permanent courthouse, demonstrating that relocation required much more than changing a map."),
+    p("Architect Henry T. Phelps designed the new 1912 Atascosa County Courthouse in a Mission Revival style, with a red-tile roof and prominent arched public entrances. The rounded courthouse circle remains the center of Jourdanton's plan. Phelps later designed the county jail in 1915, making the two structures parts of the same early-twentieth-century civic program."),
+    p("The courthouse and square have gone through later renovation, including a Texas Historic Courthouse Preservation Program-supported rehabilitation around 2003. The original building is still used, but its restored appearance includes twentieth- and twenty-first-century maintenance; visit schedules should be checked with the county."),
+
+    h("The jail belongs to the same 1910s public-safety project"),
+    p("A historical marker for the old jail records that the county first rented a small house for custody after leaving Pleasanton in 1910–11. Local officials then commissioned a proper jail for the new seat. Construction of the 1915 jail marked the county's transition from improvised services to consolidated justice institutions."),
+    p("The jail and courthouse were deliberately built in Jourdanton after the seat moved. They should not be mistaken for buildings destroyed in a Pleasanton courthouse fire. The broader history includes ranch workers, Mexican American communities, rail labor and small towns such as Poteet and Charlotte, not only the legal contest."),
+    p("A traveler can follow the courthouse circle, compare railroad town planning and explore nearby Pleasanton's older courthouse-era streets. Confirm current jail or court access with county officials; a preserved old jail does not authorize casual entry."),
+
+    h("Atascosa County courthouse questions"),
+    p("When did Jourdanton become Atascosa's county seat? Residents voted in 1910; legal challenges were resolved before offices were established in the new town."),
+    p("Who designed the county's Mission-style courthouse? Henry T. Phelps, with construction completed in 1912."),
+    p("When was the related county jail built? In 1915, after temporary detention space was rented."),
+    p("Did the county begin in Jourdanton? No. The government first centered at Navatasco and then Pleasanton before the 1910 move."),
+    
     h("Pleasanton kept growing after losing the courthouse"),
     p("Losing county-seat status did not end Pleasanton's importance. The town remained a commercial center for agriculture and ranching and later benefited from highways, petroleum activity and proximity to San Antonio. Its larger population and business base eventually made it the county's principal retail and service center even while Jourdanton retained government functions."),
     p("The relationship between the two communities is one of Atascosa County's defining patterns. Jourdanton is the courthouse town; Pleasanton is the larger commercial town. Only a few miles apart, they function almost as paired centers with different historical roles."),
@@ -138,5 +156,13 @@ export const atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle: Articl
     h("What defines Atascosa County"),
     p("Atascosa County is defined by adaptation without complete reinvention. Pleasanton survived losing the courthouse. Jourdanton turned a railroad plan into a lasting county seat. Poteet made a specialty crop into a regional cultural identity. Ranchers added fences, wells, mineral leases and wildlife management while keeping cattle on the land. Oil booms came and went without replacing the underlying rural economy."),
     p("The result is a county where the layers remain unusually visible. A Mission Revival courthouse, railroad towns, strawberry traditions, mesquite ranches, oil-field roads and modern highway growth all occupy the same landscape. Together they show how South Texas communities change when transportation and markets shift, while continuing to be anchored by land, water and local institutions."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Atascosa Courthouse original county seats and 1910 move", url: "https://atlas.thc.texas.gov/Details/5013000224" },
+    { label: "Texas Historical Commission — 1912 Jourdanton courthouse inventory", url: "https://atlas.thc.texas.gov/Details/4302000223" },
+    { label: "Handbook of Texas — Atascosa County and 1912 Mission style courthouse", url: "https://www.tshaonline.org/handbook/entries/atascosa-county" },
+    { label: "Society of Architectural Historians — Henry Phelps courthouse and 2003 renovation", url: "https://sah-archipedia.org/buildings/TX-01-CJ21" },
+    { label: "Texas State historical marker — Old Atascosa County Jail", url: "https://genealogytrails.com/tex/southtexas/atascosa/history_markers.html" },
+    { label: "Texas State Senate 2007 resolution — original Navatasco county seat", url: "https://lrl.texas.gov/scanned/Senatejournals/80/02282007_20_349.PDF" },
   ],
 };

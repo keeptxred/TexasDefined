@@ -8,7 +8,7 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
   brandId: "texasdefined",
   slug: "anderson-county-palestine-railroads-dogwoods-east-texas",
   title: "Anderson County: Palestine, Railroads and the Woods Between Two Rivers",
-  dek: "Anderson County stretches between the Trinity and Neches rivers, combining Palestine's railroad heritage, East Texas timberlands, dogwood country, farms, oil history and small communities with roots reaching to the Republic era.",
+  dek: "Why Palestine's 1886 courthouse burned in January 1913, how its 1914 Classical Revival replacement was built, and Anderson County's rail and East Texas heritage.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: ["Anderson County", "Palestine Texas", "Texas State Railroad", "Dogwood Trails", "Neches River", "Trinity River", "East Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -56,6 +57,22 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
     p("Anderson County's present courthouse is the fourth to serve the county. Earlier structures reflected the growth of local government, and the third courthouse was destroyed by fire in 1913. The current Beaux-Arts courthouse was completed in 1914 from plans by the Austin firm of Charles Page and Brother."),
     p("Its Ionic columns, prominent dome and Justice figure make it one of the most recognizable civic buildings in East Texas. The courthouse remains in active public use, so the square is not simply a preserved historic setting. It is still the governmental center of Anderson County, surrounded by the layered commercial fabric of Palestine."),
 
+    h("January 6, 1913: the Palestine courthouse fire"),
+    p("Palestine's original courtrooms were not in today's Classical Revival structure. The county's first one-story frame courthouse opened in 1847, followed by a brick building and then an ornate 1886 courthouse. The third, Victorian-style building was lost to a fire on the night of January 6, 1913, while county government and the growing railroad city were expanding."),
+    p("Texas Historical Commission accounts confirm destruction in 1913; historic photograph captions supplied by the Palestine Public Library say incendiaries set the fire to destroy evidence against an accused man. The Handbook of Texas calls it arson. These accounts support describing the event as an arson fire, but a claimed motive should be attributed to the local historical caption rather than presented as a proved criminal finding."),
+    p("The fire changed the cityscape rather than moving the county seat. Officials commissioned the Austin architectural firm Charles Page and Brother to create a new courthouse, dedicated December 20, 1914. Its monumental portico, temple-like massing and central position were very different from the roofline of its 1886 predecessor."),
+    p("The current courthouse is therefore not the masonry ruin left by the 1913 fire. A visitor should compare old images in the Palestine Public Library collection with the surviving 1914 courthouse, remembering that railway and cotton prosperity influenced the town's ambitious rebuilding."),
+
+    h("The firehouse, waterworks and railroad city"),
+    p("By the 1890s Palestine already had municipal waterworks and a fire department along with banks, mills, an opera house and rail industry. This is important context: the 1913 courthouse fire occurred in an established city with public utilities, not in a settlement with no emergency institutions."),
+    p("Palestine's rail-centered growth made it a major regional employment and transport hub. Fire protection, water supplies and construction standards grew more important as workshops, commerce and public buildings concentrated near its tracks and courthouse square. The Texas State Railroad's preserved route gives visitors another part of this infrastructure story."),
+    p("For county records or current court business, use current county offices; historical photographs and markers do not establish present-day access to courtrooms or former fire buildings."),
+
+    h("Anderson County courthouse questions"),
+    p("When did the old Palestine courthouse burn? January 6, 1913, destroying the third county courthouse completed in 1886."),
+    p("Was the 1913 courthouse fire intentional? The Handbook of Texas calls it arson; a Palestine Public Library archival caption adds an alleged motive that should be kept attributed to that source."),
+    p("When was the surviving courthouse dedicated? December 20, 1914, following a design by Charles Page and Brother."),
+    
     h("Cotton, slavery and emancipation shaped the nineteenth century"),
     p("Before the Civil War, farms and plantations expanded across Anderson County, and enslaved Black Texans supplied a major share of the labor behind cotton and other agricultural production. The county's antebellum economy therefore cannot be separated from slavery or from the wealth and inequality it created."),
     p("Emancipation transformed legal status but did not erase economic inequality. Freed families built churches, schools, neighborhoods and businesses while many Black farmers worked under tenancy and sharecropping arrangements. By 1870 Black residents made up nearly half of Anderson County's population, a reminder of how central African American history is to the county's story."),
@@ -103,5 +120,13 @@ export const andersonCountyPalestineRailroadsDogwoodsEastTexasArticle: Article =
     h("Why Anderson County matters"),
     p("Anderson County compresses several major Texas stories into one place. Republic-era frontier settlement, Indigenous displacement, slavery and emancipation, cotton agriculture, railroad industrialization, oil development and modern tourism all left visible marks."),
     p("Its strongest defining feature may be connection. Palestine was created at the county's center, then prospered because railroads crossed there. Highways later reinforced the same role. Between the Trinity and Neches, Anderson County has repeatedly become a meeting place—and that crossroads identity remains the clearest way to understand it today."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Anderson Courthouse four-building chronology", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5001008732&fn=print" },
+    { label: "Palestine Public Library via UNT — January 6, 1913 arson-fire photograph", url: "https://texashistory.unt.edu/ark:/67531/metapth26002/" },
+    { label: "Handbook of Texas — Palestine and original 1913 courthouse fire", url: "https://www.tshaonline.org/handbook/entries/palestine-tx-anderson-county" },
+    { label: "Society of Architectural Historians — 1914 Page and Brother courthouse", url: "https://sah-archipedia.org/buildings/TX-02-TK25" },
+    { label: "Palestine Public Library via UNT — 1914 courthouse architectural photograph", url: "https://texashistory.unt.edu/ark:/67531/metapth25998/" },
+    { label: "Anderson County official government directory", url: "https://www.co.anderson.tx.us/" },
   ],
 };

@@ -8,7 +8,7 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
   brandId: "texasdefined",
   slug: "bandera-county-bandera-medina-river-cowboy-hill-country-texas",
   title: "Bandera County: Cowboy Country, the Medina River and the Hill Country Frontier",
-  dek: "Bandera County is a rugged Hill Country landscape of limestone ridges, clear rivers, ranches, Polish settlement, cattle-drive history, dude ranches and small communities shaped by the Medina and Sabinal watersheds.",
+  dek: "Bandera's first courthouse and 1881 jail, the 1890–91 limestone clock-towered replacement, and Polish Texan and Medina River ranching history.",
   category: "texas-history",
   region: "hill-country",
   hero: {
@@ -20,7 +20,8 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-18",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Bandera County",
     "Bandera Texas",
@@ -74,6 +75,21 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
     p("Bandera County's limestone courthouse rose at a moment when the county was becoming more settled and institutionally stable. Built in the Renaissance Revival tradition, the building's pale stone walls and red-roofed clock tower give downtown Bandera a recognizable skyline."),
     p("The courthouse also connects the county's government to the tourism economy that now surrounds it. Visitors drawn by ranches, music, motorcycles, rodeos and the Medina River often pass through the courthouse square, where public life and visitor culture overlap."),
 
+    h("Two courthouses and an old jail survived in Bandera"),
+    p("Bandera County was organized in 1856 but used temporary courtrooms and offices for years. In 1877 officials obtained a two-story cut-stone building above the early cypress mill and used it as courthouse and offices. It remains identifiable as the First Bandera County Courthouse, a separate property one block from the later square."),
+    p("A separate stone jail erected in 1881 served local detention functions and later saw additional public uses. The Texas Historical Commission's National Register documentation lists the courthouse and old jail as a related county landmark complex, but the former jail is not part of the 1890 courthouse itself."),
+    p("A larger three-story limestone courthouse was built during 1890–91 on Main and Pecan streets. Its central clock tower and rusticated stonework made the public square the town's dominant architectural feature. Architect B. F. Trester is associated with the design. The building reflected expansion of county services from makeshift rooms into a durable government center."),
+
+    h("After the new courthouse, the older civic buildings changed function"),
+    p("The county retained ownership of the first courthouse after building the 1890–91 replacement. Historical-marker documentation describes uses for county agricultural offices and later civic functions. The old jail also housed veterans' meetings and governmental offices after a newer jail opened in 1938."),
+    p("That sequence is historically important because a county can preserve two generations of courthouse buildings, unlike towns where the older structure was burned or deliberately demolished. The historic jail's later museum association does not mean the currently active jail is open for a general tour."),
+    p("Bandera's Polish immigrant heritage, nineteenth-century cypress mills and Medina River ranches give context for why the county sought permanent court buildings in the 1870s and 1890s. A walking visit should compare the old courthouse-and-jail site with the active county courthouse while checking each building's current permitted access."),
+
+    h("Bandera courthouse questions"),
+    p("When was Bandera's present historic courthouse built? During 1890–91."),
+    p("Is the first permanent courthouse still identifiable? Yes. The older 1877 stone courthouse survives separately from the current main courthouse."),
+    p("When was the old county jail built? The historic jail dates to 1881, with later adaptive uses."),
+    p("Did fire destroy Bandera's earlier courthouse? The cited THC history documents replacement and continued ownership, not a courthouse-destroying fire."),
     h("Camp Verde tied Bandera to the U.S. military frontier"),
     p("South and east of Bandera, Camp Verde became one of the best-known military posts in the broader region. The U.S. Army established the post in the 1850s, and it is remembered especially for the experimental camel corps associated with Secretary of War Jefferson Davis. Although the camp lies beyond the modern Bandera County line in Kerr County, military traffic through Bandera Pass and the surrounding road network directly affected Bandera's development."),
     p("Soldiers, suppliers, freighters and settlers all used the same corridors. Bandera grew in part because it could serve people moving between San Antonio, frontier posts and ranch country farther west."),
@@ -149,5 +165,13 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
     h("What defines Bandera County"),
     p("Bandera County is defined by the interaction of landscape and culture. Limestone ridges channeled travelers through Bandera Pass. The Medina River drew mill builders and town founders. Polish immigrants added a distinctive cultural layer. Ranching produced working cowboy traditions, and the cattle-drive era gave Bandera a reputation that later guest ranches carried into tourism."),
     p("Today the county is still changing. San Antonio's growth presses toward its eastern communities, drought tests the rivers and lake, and tourism brings new audiences to old traditions. Yet the essential geography remains visible: courthouse town, cypress river, ranch road, steep pass and open Hill Country. That continuity is what makes Bandera County more than a cowboy brand—it is a living Texas landscape with deep roots and a strong sense of place."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — first Bandera courthouse and later public uses", url: "https://atlas.thc.texas.gov/Details/5019001599" },
+    { label: "Texas Historical Commission — 1890–91 current courthouse historic marker", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5019000291&fn=print" },
+    { label: "Texas Historical Commission — courthouse and jail historic complex", url: "https://atlas.thc.texas.gov/Details/2079002911" },
+    { label: "National Park Service — Bandera Courthouse and Jail nomination", url: "https://npgallery.nps.gov/AssetDetail/NRIS/79002911" },
+    { label: "Bandera County Clerk — historic commissioners minutes from 1874 to 1911", url: "https://www.banderacounty.gov/page/county.clerk.historical.docs" },
+    { label: "Texas State Library — Bandera nineteenth-century county records", url: "https://www.tsl.texas.gov/arc/local/bandera.html" },
   ],
 };

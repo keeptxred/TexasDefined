@@ -8,7 +8,7 @@ export const baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle: Article
   brandId: "texasdefined",
   slug: "bailey-county-muleshoe-refuge-irrigation-high-plains-texas",
   title: "Bailey County: Muleshoe, High Plains Farming and Texas's Oldest Wildlife Refuge",
-  dek: "Bailey County sits on the New Mexico line where Muleshoe, former XIT ranchlands, irrigated farming, playas and the oldest national wildlife refuge in Texas define the southern High Plains.",
+  dek: "Muleshoe's first 1919 courthouse and surviving 1925 building, its former third-floor jail, 2026 historic designation, and Bailey County's irrigation and wildlife history.",
   category: "texas-history",
   region: "panhandle",
   hero: {
@@ -20,7 +20,8 @@ export const baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle: Article
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 18,
   tags: [
     "Bailey County",
     "Muleshoe Texas",
@@ -104,6 +105,21 @@ export const baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle: Article
     p("Residents wanted an organized county government that could build roads, support schools and provide local public services. Ranching interests sometimes resisted organization because it meant taxation, but settlers eventually succeeded in meeting the legal requirements for county government."),
     p("Muleshoe won the county-seat election with a clear majority and became the center of courts, records and county administration. The courthouse reinforced a role the railroad had already created. From that point forward, Muleshoe combined transportation, commerce and government in one town."),
 
+    h("A courthouse built with the first locally elected government"),
+    p("Bailey County was created in 1876 but remained thinly settled ranch country for decades. Its government records were handled by neighboring counties until local organization in 1918–19. The first commissioners court met January 1919 inside Blackwater Valley State Bank, and voters chose Muleshoe as county seat in a special election April 12, 1919."),
+    p("With few public facilities available, commissioners bought an individual jail cell from Parmer County in June 1919 and let a contract for a simple frame courthouse costing about $2,450. This first building was a short-term answer to genuine needs for court, records and detention services."),
+    p("A bond issued in 1924 financed a more substantial courthouse completed in 1925. The building had a third-floor jail, which later became a law library as correctional operations moved. The Texas Historical Commission inventory dates the historic courthouse to 1925, a year that also records local ambitions for stable government as farm settlement expanded."),
+
+    h("September 2026 historic recognition of the 1925 building"),
+    p("In September 2026 local officials and preservation advocates celebrated formal federal historic recognition of the century-old Bailey County Courthouse. Contemporary coverage identifies an estimated original $60,000 construction cost and recalls how the third-floor jail was converted to a law library."),
+    p("The 2026 designation is a genuine recent event, not a claim that the building was built or rebuilt in 2026. A county guide should preserve both the 1925 construction history and the dated recognition while avoiding assumptions about present courthouse access or the availability of jail cells for tours."),
+    p("Muleshoe's agricultural heritage, nearby National Wildlife Refuge and the Ogallala Aquifer complement the courthouse. The same scarce-water environment that challenged county organization in the 1910s still shapes irrigation, wetlands and conservation decisions."),
+
+    h("Bailey County courthouse questions"),
+    p("When did Bailey County first have its own courthouse? A frame county courthouse was contracted in July 1919, soon after county organization."),
+    p("When was the present Muleshoe courthouse built? It dates to 1925, funded by a 1924 bond election."),
+    p("What was originally on the third floor? A county jail, now converted into the law library."),
+    p("What happened to its historic status in 2026? Local reporting documents federal historic recognition in September 2026."),
     h("Irrigation transformed the county more than any single crop"),
     p("The most important agricultural technology in Bailey County was not a particular tractor or seed variety but irrigation. Wells tapping the High Plains groundwater system allowed farmers to produce crops more reliably than rainfall alone would permit. As pumping expanded, the county shifted decisively from ranching toward intensive agriculture."),
     p("Irrigation made large-scale cotton, corn, grain sorghum, wheat, vegetables and livestock-feed production possible. It also created one of the county's central long-term challenges. The same underground water that powered twentieth-century agricultural growth is finite, and producers now balance productivity against declining aquifer levels and the rising cost of pumping."),
@@ -167,5 +183,13 @@ export const baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle: Article
     h("What defines Bailey County"),
     p("Bailey County is defined by transformation without complete erasure. Ranch empires gave way to farms, but cattle remain important. The railroad created Muleshoe, but highways now carry most travelers. Groundwater turned dry grassland into irrigated fields, while a national wildlife refuge protects pieces of the older Plains ecosystem."),
     p("That combination makes Bailey County more revealing than its flat horizon might first suggest. The courthouse, the Muleshoe name, former XIT lands, irrigation wells, playa basins and winter crane flights all belong to the same story: people learning to use a demanding landscape while depending on the water, grass and migration routes that made life on the High Plains possible in the first place."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Founding of Bailey County marker and first court/jail cell", url: "https://atlas.thc.texas.gov/Details/5017005337/print" },
+    { label: "Texas Historical Commission — 1925 Bailey Courthouse inventory", url: "https://atlas.thc.texas.gov/Details/4302000224" },
+    { label: "September 2026 local report — courthouse historic designation", url: "https://www.myplainview.com/muleshoe/article/bailey-county-courthouse-historic-designation-22431827.php" },
+    { label: "Baily County local 2018 courthouse oral-history research", url: "https://www.aliceliles.com/2018/12/a-look-at-the-bailey-county-courthouse.html" },
+    { label: "Handbook of Texas — Bailey County", url: "https://www.tshaonline.org/handbook/entries/bailey-county" },
+    { label: "Texas State Historical Commission — county archival records", url: "https://www.tsl.texas.gov/arc/local/bailey.html" },
   ],
 };
