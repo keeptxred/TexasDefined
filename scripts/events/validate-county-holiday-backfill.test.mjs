@@ -56,6 +56,9 @@ test("county official calendars are tracked on the robot-respecting review sched
     wichita:"2026-12-05",
     panola:"2026-12-01",
     "san-augustine":"2026-12-04",
+    marion:"2026-11-28",
+    lee:"2026-11-28",
+    sutton:"2026-12-02",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -141,4 +144,25 @@ test("San Augustine 2026 Christmas market and downtown parade remain separate ve
     assert.equal(new URL(item.officialEventUrl).hostname,"visitsanaugustinetx.org");
     assert.match(item.sourceName,/San Augustine Main Street/);
   }
+});
+
+test("Marion, Lee and Sutton 2026 holiday editions remain separately county/organizer verified", () => {
+  const cases=[
+    ["jefferson-marion-christmas-parade-enchanted-forest-2026","marion","2026-11-28","jeffersontxchamber.org"],
+    ["giddings-downtown-holiday-festival-christmas-market-2026","lee","2026-11-28","business.giddingstx.com"],
+    ["giddings-bright-lights-christmas-delights-parade-2026","lee","2026-11-28","business.giddingstx.com"],
+    ["sonora-texas-downtown-christmas-lighted-parade-2026","sutton","2026-12-02","sonoratexas.org"],
+  ];
+  for(const [slug,county,date,domain] of cases){
+    const event=events.find(x=>x.slug===slug);
+    assert.ok(event,"Missing directly verified community 2026 holiday "+slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(new URL(event.officialEventUrl).hostname,domain);
+    assert.equal(event.sourceVerifiedAt,"2026-11-22");
+    assert.ok(event.summary.length>=110);
+  }
+  assert.equal(events.find(x=>x.slug===cases[1][0]).venueName.includes("Giddings"),true);
+  assert.equal(events.find(x=>x.slug===cases[2][0]).venueName.includes("Simmang"),true);
+  assert.match(events.find(x=>x.slug===cases[3][0]).summary,/Sutton County, Texas/);
 });
