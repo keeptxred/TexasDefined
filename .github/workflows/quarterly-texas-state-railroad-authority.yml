@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/quarterly-texas-state-railroad-authority.yml'
       - 'scripts/data/validate-texas-state-railroad-authority.mjs'
+      - 'scripts/ci/verify-texas-state-railroad-production.mjs'
       - 'src/data/fixtures/texas-state-railroad-rusk-palestine-history-guide.ts'
       - 'src/data/fixtures/lazy-historic-supporting.ts'
       - 'src/data/fixtures/anderson-county-palestine-railroads-piney-woods-texas.ts'
@@ -39,6 +40,10 @@ jobs:
         run: |
           node --check scripts/data/validate-texas-state-railroad-authority.mjs
           node scripts/data/validate-texas-state-railroad-authority.mjs
+      - name: Verify railroad article production canonical and direct Worker
+        run: |
+          node --check scripts/ci/verify-texas-state-railroad-production.mjs
+          node scripts/ci/verify-texas-state-railroad-production.mjs
       - name: Open one quarterly editorial source-review ticket
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
