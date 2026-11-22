@@ -8,7 +8,7 @@ export const wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle: Article 
   brandId: "texasdefined",
   slug: "waller-county-hempstead-prairie-view-brazos-prairie-texas",
   title: "Waller County: Hempstead, Prairie View, the Brazos and Houston's Prairie Edge",
-  dek: "Waller County links Hempstead's railroad and courthouse history with Prairie View A&M, the Brazos River, old plantation landscapes, Black political history, farm country and the fast-changing western edge of metropolitan Houston.",
+  dek: "The 1893 Hempstead courthouse fire, the 1905 fatal prohibition gunfight, the lost 1894 bell tower and Waller County’s new courthouse plans.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-22",
-  readingMinutes: 17,
+  updatedAt: "2026-11-22",
+  readingMinutes: 24,
   tags: [
     "Waller County",
     "Hempstead Texas",
@@ -32,6 +33,10 @@ export const wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle: Article 
     "Texas Black history",
     "Gulf Coast prairie",
     "Texas counties",
+    "1893 Waller courthouse fire",
+    "1905 Hempstead courthouse gunfight",
+    "1894 Waller courthouse bell",
+    "2026 Waller courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -56,6 +61,22 @@ export const wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle: Article 
     p("The Waller County Courthouse in Hempstead is a mid-twentieth-century building rather than the ornate Victorian courthouse many people associate with older Texas county seats. Its clean brick-and-stone lines reflect the era in which counties modernized offices, courtrooms and public facilities for automobile-age government. The courthouse still anchors Hempstead's identity as the seat of county government."),
     p("Its architecture also tells a useful preservation story. Texas courthouse landscapes are not all frozen in the nineteenth century. Fires, growth, new administrative demands and changing architectural tastes repeatedly altered county seats. Hempstead's courthouse is part of that later chapter, and the city around it still preserves the street pattern and civic concentration created by its railroad-era rise."),
 
+    h("The 1893 fire, the 1905 gunfight and the courthouse that disappeared"),
+    p("Hempstead's courthouse story is not just an architectural footnote. Waller County was created in 1873 and initially rented the Texas House for public court sessions. In 1877 records moved into a brick courthouse, which was destroyed by fire in 1893. County government responded by hiring Galveston builder M. Clark for an elaborate Victorian replacement completed in 1894, with a tower, large windows and ornamental roofline."),
+    p("The 1894 courthouse became the scene of one of Waller County's most notorious moments on April 24, 1905. A heated local dispute over prohibition escalated into a gunfight at or near the courthouse. Four people died, including U.S. Representative John M. Pinckney, who tried to intervene. Contemporary accounts differ in assigning individual responsibility for all the shots; it would be misleading to describe the episode as a legally settled battle between only two men. The courthouse walls were reportedly marked by dozens of bullets, and the episode contributed to Hempstead's nickname 'Six Shooter Junction.'"),
+    p("Rather than preserving the damaged Victorian courthouse indefinitely, officials demolished it in 1954–55 to build a modern county courthouse. The midcentury brick-and-limestone building designed by Herbert Voelcker and Associates opened in 1955 at a reported cost of $545,802. A metal bell and a historical marker near the square remain physical reminders of the older civic architecture."),
+    p("In the early 2020s Waller County approved a replacement designed by Brinkley Sargent Wiginton and built by SEDALCO. County officials' last Commissioners Court meeting in the 1955 courthouse occurred November 1, 2023, and the building was demolished to make way for a new four-story civic complex, budgeted at about $43 million. Published early schedules projected a 2025 opening, but a subsequent state construction filing documents additional courthouse finish-out work into 2026. Without current county occupancy records, a guide must not call the new building fully operational simply because the target date passed."),
+    p("The new design deliberately recalls features of the 1894 structure, with a pitched roof and elongated windows. It is a modern reconstruction of civic identity, not a literal reconstruction of the building lost to demolition in the 1950s. The historic bell was preserved. For jury duty, deeds or court visits, check the county's current official department and temporary-service addresses before traveling."),
+
+    h("What the 1894 courthouse bell tells visitors"),
+    p("The courthouse bell is a rare surviving object across a century of architectural changes. Many Texas counties lost original bells or tower clocks when courthouse towers were removed, as in McKinney and Belton. In Hempstead the bell's preservation alongside new government facilities offers a more direct link to the 1894 courthouse than an old postcard alone."),
+    p("A walking comparison can begin with the present county complex and the old bell memorial, then continue to Hempstead's railroad-era streets. The town's 1905 gunfight is part of its civic story, but the incident should not obscure Prairie View A&M, founded in 1876 for the education of Black Texans, or the county's ongoing voting-rights and Black institutional history."),
+
+    h("Waller County courthouse questions"),
+    p("When did Waller County's brick courthouse burn? The second courthouse burned in 1893 and was replaced by a Victorian-style building completed in 1894."),
+    p("What happened at the Hempstead courthouse in 1905? A dispute over prohibition escalated into a deadly April 24 gunfight in which U.S. Representative John M. Pinckney was killed."),
+    p("What happened to the 1894 clock tower and courthouse? The Victorian courthouse was demolished in 1954–55 for a modern replacement; its historical bell was preserved."),
+    p("Is the new Waller County Courthouse open? The county was building a new complex after 2023, and state construction filings extend work into 2026. Verify current occupancy with Waller County rather than assuming a projected opening is final."),
     h("The Brazos River defines the county's western boundary"),
     p("The Brazos is Waller County's most important natural boundary. It separates the county from Austin County for much of the western edge and drains a broad floodplain of rich alluvial soils. The river helped attract early settlement because it offered water, transportation possibilities and productive bottomland, even though flooding and unreliable navigation limited its usefulness as a permanent transportation system."),
     p("The river corridor also connects Waller County to a much larger Texas story. Stephen F. Austin's colony spread across the lower Brazos region, and plantations, farms, ferries and early roads followed the river. Today the Brazos remains central to agriculture, drainage, wildlife habitat and flood risk. Crossing it toward Austin County is also a geographic transition from the Houston-facing prairie into the older core of Anglo-American settlement in Mexican Texas."),
@@ -135,5 +156,14 @@ export const wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle: Article 
     h("Waller County is a bridge between two Texases"),
     p("Waller County makes sense when viewed as a bridge. To the west lie the Brazos communities tied to Austin's colony and the nineteenth-century plantation economy. To the east lies metropolitan Houston, pushing outward through highways, subdivisions and industrial development. Inside the county sit Hempstead's railroad history, Prairie View's educational and civil-rights legacy, Brookshire's prairie economy and the rural land that still connects them."),
     p("That combination gives the county unusual historical depth. Waller County is not merely a suburban fringe and not merely an agricultural relic. It is a place where early colonization, slavery, emancipation, Reconstruction, Black institution-building, railroads, farming and metropolitan growth all remain visible in the same landscape. Few counties this close to Houston show so many layers so clearly."),
+  ],
+  sources: [
+    { label: "Texas County Progress — courthouse generations, 1893 fire, 1905 gunfight and 2023 rebuild", url: "https://countyprogress.com/waller-county-courthouse-vision/" },
+    { label: "Texas County Progress — 2025 construction status and record chronology", url: "https://countyprogress.com/waller-county-countdown/" },
+    { label: "Texas Department of Licensing — Waller courthouse finish-out project TABS2026002187", url: "https://www.tdlr.texas.gov/TABS/Projects/TABS2026002187" },
+    { label: "Waller County — courthouse capital projects and public documents", url: "https://www.co.waller.tx.us/page/County_Courthouse" },
+    { label: "Texas State Historical Association — Waller County", url: "https://www.tshaonline.org/handbook/entries/waller-county" },
+    { label: "Texas Escapes — historic Hempstead courthouses and former bell", url: "https://www.texasescapes.com/CentralTexasTownsSouth/Hempstead-TX-Waller-County-Courthouse.htm" },
+    { label: "Texas County Progress — historic courthouse design reuse and preservation", url: "https://countyprogress.com/waller-county-courthouse-vision/" },
   ],
 };

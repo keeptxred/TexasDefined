@@ -8,7 +8,7 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
   brandId: "texasdefined",
   slug: "austin-county-bellville-san-felipe-sealy-brazos-texas",
   title: "Austin County: Bellville, San Felipe, Sealy and the Brazos River",
-  dek: "Austin County joins the headquarters of Stephen F. Austin's colony with Bellville's courthouse square, Sealy's railroad history, German and Czech communities, Brazos River bottomlands, ranch country and a modern I-10 corridor west of Houston.",
+  dek: "Bellville’s April 1960 Victorian courthouse fire, surviving courthouse bell, 1915 firefighting history and San Felipe’s role in early Texas.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Austin County",
     "Bellville",
@@ -32,6 +33,9 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
     "German Texans",
     "Texas history",
     "Texas counties",
+    "Austin County Courthouse fire 1960",
+    "Bellville historic courthouse bell",
+    "Bellville Volunteer Fire Company 1915",
   ],
   featured: false,
   internalLinks: [
@@ -71,6 +75,22 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
     p("Austin County's current courthouse is a modernist building on the Bellville square rather than the ornate nineteenth-century courthouse many visitors expect in an old Texas county seat. Earlier courthouses occupied the same civic landscape, but a 1960 fire destroyed the late-nineteenth-century structure. The replacement reflects a period when Texas counties embraced modern architecture, air conditioning and new administrative needs rather than trying to reproduce Victorian designs."),
     p("That contrast is part of Bellville's appeal. The square and surrounding streets preserve older commercial scale while the courthouse itself documents a different architectural era. Nearby historic homes, churches, business buildings and the restored Bellville Turnverein pavilion show how the community layered new institutions onto an older town plan instead of becoming a museum piece frozen at a single date."),
 
+    h("April 5, 1960: fire destroyed Bellville's Victorian courthouse"),
+    p("The stark contrast between Bellville's midcentury courthouse and its older commercial square has a precise cause. Shortly after 2:30 a.m. on April 5, 1960, a night watchman noticed a fire in the Victorian courthouse. Fire companies from Bellville, Sealy, Wallis, Industry, Brenham and Rosenberg responded, but the structure was unsalvageable. The official Austin County history dates the fire to April 5; a recent Texas Historical Commission National Register study confirms that much of the courthouse record collection was rescued."),
+    p("The ornate courthouse lost in the blaze was built in 1887–88 by a county that had already used several previous structures. It was designed by prominent Houston architect Eugene T. Heiner. Its tower and clock bell had become defining downtown landmarks. Historical sources sometimes refer to the 1854 brick courthouse as the building that burned in 1960, but surviving 1880s construction records and the Bellville Historical Society distinguish the 1887–88 building from the earlier brick courthouse it replaced."),
+    p("County leaders decided to replace the ruined courthouse with a modern building rather than reproduce the elaborate tower. Architect Wyatt C. Hedrick's flat-roofed modernist courthouse was completed around 1960–61. Its geometric form is therefore documentary evidence of a real twentieth-century civic decision, not proof that Bellville never possessed an ornate nineteenth-century courthouse."),
+    p("The Bellville Historical Society's first preservation project was a monument on the courthouse lawn made with the old bell, cornerstone and salvaged bricks. The bell offers an unusually direct material connection to the fire-destroyed building. It was saved, but the 1880s courthouse itself no longer exists and must not be presented as a historic museum open for tours."),
+
+    h("The 1915 fire service also depended on the courthouse bell"),
+    p("Bellville organized the Hook and Ladder Company No. 1 in the late nineteenth century. The volunteer company's own surviving minutes describe a September 16, 1915 meeting at the courthouse when the roof bell used as an alarm was out of order. Firefighters discussed the need for a new bell and more usable equipment, and the company reorganized as the Bellville Volunteer Fire Company."),
+    p("The firefighting story runs through older civic infrastructure. A truck house erected in 1886 was moved in 1907, and by the mid-1910s it was dilapidated. Volunteers still depended on a common alarm system, hose, ladders and reliable equipment. The courthouse bell thus mattered for emergency response long before becoming a preservation monument after the 1960 fire."),
+    p("This is precisely why the fire department, courthouse and water infrastructure should be considered together in a county guide. Bellville's bell appears in both the 1915 firefighting minutes and the 1960 architectural loss, showing how a single civic object served different generations."),
+
+    h("Questions about Bellville's courthouse and fire service"),
+    p("When did the Austin County Courthouse burn? The Victorian courthouse in Bellville was destroyed in a fire on April 5, 1960."),
+    p("Is the courthouse on Bellville's square the nineteenth-century building? No. Wyatt C. Hedrick designed the midcentury replacement after the fire destroyed the ornate 1887–88 structure."),
+    p("What survived the old courthouse? The bell, cornerstone and some recovered bricks are displayed together in a memorial on the courthouse lawn."),
+    p("How did Bellville's first volunteer firefighters sound the alarm? The early company used a courthouse bell, and meeting minutes from 1915 record the bell being out of order when the company reorganized."),
     h("German immigration reshaped the countryside"),
     p("German-speaking immigrants arrived in significant numbers during the nineteenth century, especially after the first waves of Anglo-American settlement. They established farms, churches, schools, cemeteries, social clubs and businesses across the county. Bellville and smaller communities developed strong German cultural identities that remained visible in family names, religious life, food traditions, music and community organizations."),
     p("The Bellville Turnverein is one of the most distinctive surviving examples. Turnvereins combined physical culture, social activity and community gathering, and dance halls became important institutions across German Texas. Austin County's historic halls, churches and rural cemeteries connect it to the broader German-settlement belt that stretches through Washington, Fayette, Lee, Colorado and other nearby counties."),
@@ -122,5 +142,14 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
     h("What defines Austin County today"),
     p("Austin County is defined by continuity under pressure. The Brazos still shapes the eastern landscape. Bellville still organizes county government. Sealy still benefits from transportation. German and Czech institutions remain visible in churches, halls, cemeteries and family traditions. Farms and ranches continue to occupy large areas even as Houston's western growth approaches."),
     p("Its most important historical place, San Felipe, is also a reminder that prominence is never guaranteed. A town that once functioned as the center of Austin's colony was eclipsed by war, county-seat politics and railroads. Bellville and Sealy rose because they matched later transportation and administrative needs. Austin County's story is therefore not simply about preserving the past; it is about understanding how geography, movement and community choices repeatedly redefine what matters on the Texas map."),
+  ],
+  sources: [
+    { label: "Austin County government — 1848 county-seat move and April 5, 1960 courthouse fire", url: "https://www.austincounty.com/page/austin.History" },
+    { label: "Bellville Historical Society — recovered courthouse bell, cornerstone and brick monument", url: "https://bellvillehistoricalsociety.org/36-2/" },
+    { label: "Bellville Volunteer Fire Company — 1915 meeting, alarm bell and truck house", url: "https://bellvillefire.com/index.php/history/" },
+    { label: "Texas Historical Commission — 1960 modernist Austin County Courthouse", url: "https://atlas.thc.texas.gov/Details/4302002209" },
+    { label: "Texas State Historical Association — Bellville history and 1887 courthouse", url: "https://www.tshaonline.org/handbook/entries/bellville-tx" },
+    { label: "Society of Architectural Historians — Bellville Victorian and modernist courthouse lineage", url: "https://sah-archipedia.org/essays/TX-01-0001-0002-0018" },
+    { label: "Texas Escapes — 1960 courthouse fire and historical eyewitnesses", url: "https://www.texasescapes.com/TOWNS/Bellville/1888-Austin-County-Courthouse-Bellville-Texas.htm" },
   ],
 };

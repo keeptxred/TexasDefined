@@ -8,7 +8,7 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
   brandId: "texasdefined",
   slug: "fort-bend-county-brazos-richmond-sugar-land-texas",
   title: "Fort Bend County: The Brazos, Richmond, Sugar Land and a Fast-Changing Texas Crossroads",
-  dek: "Fort Bend County grew from an early settlement at a bend in the Brazos into a landscape of courthouse history, sugar and cotton country, rail towns, ranches, wetlands and some of Greater Houston's most prominent modern communities.",
+  dek: "Richmond’s 1908 Fort Bend courthouse, the 1889 Jaybird-Woodpecker conflict, the plantation economy and the Brazos River communities that reshaped Texas.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-13",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Fort Bend County",
     "Richmond",
@@ -78,6 +79,22 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
     p("Richmond was incorporated by the Republic of Texas in 1837 and chosen as the county seat soon afterward. Its location on the Brazos gave the young town access to river commerce, while its political role concentrated courts, records, businesses and institutions there. The county's historic courthouse district still gives Richmond a visual connection to that civic past."),
     p("The present historic courthouse, completed in the early twentieth century, is one of the county's most recognizable public buildings. Its dome, classical columns and prominent position in Richmond make it a useful symbol for Fort Bend because the surrounding county has changed so dramatically. The building represents a period when the courthouse square and rail depot were central markers of county life, long before freeway interchanges and master-planned town centers became equally important landmarks."),
 
+    h("The 1908 Richmond courthouse—and the county history it did not erase"),
+    p("The familiar domed Fort Bend County Courthouse in Richmond is the county's fourth courthouse, a Classical Revival building designed by C. H. Page and Brother and completed in 1908. Its monumental dome and columned porticoes replaced a succession of smaller structures. This is an architectural sequence rather than a story of an 1908 courthouse fire: the county chose a more substantial building as Richmond's legal and commercial functions increased."),
+    p("The original county government was centered in Richmond after its establishment in 1837, and local officials used a succession of courthouse buildings before the present one. The Texas Historical Commission's historical marker records the site and its relation to the county's early public institutions. The courthouse underwent later remodeling and has been recognized for architectural preservation. Court business has also migrated to newer county facilities, so historical identity and current service address should not be confused."),
+    p("The historic courthouse and square are a useful starting point for exploring the difference between Richmond's early river town and modern Fort Bend's sprawling population centers. The county's economy was deeply rooted in sugar and cotton plantations and enslaved labor, subjects that must be interpreted alongside the classical symbols of justice on its public buildings."),
+
+    h("The 1888 Jaybird-Woodpecker feud culminated in the 1889 Battle of Richmond"),
+    p("A courthouse history in Fort Bend County is incomplete without the political violence of Reconstruction's aftermath. During the late 1880s, two rival factions divided local politics. The Woodpeckers included Black voters and white allies in a local Republican coalition, while the Jaybirds were principally white Democrats who sought to remove the coalition from county government. Their confrontation culminated in armed violence in Richmond on August 16, 1889."),
+    p("Several men died during the Battle of Richmond, and the Jaybird faction forcibly overturned the existing political order. Black residents were subsequently excluded from meaningful participation in county politics for decades. The Texas State Historical Association documents this as a struggle over race and power, not merely a picturesque 'Old West gunfight.'"),
+    p("The feud's events took place before the 1908 courthouse was built. An accurate historical walking guide must therefore avoid placing the combat inside the surviving building. It should instead connect the earlier courthouse square, nearby Richmond streets and the region's later civil-rights history without assigning every act of violence to one modern address."),
+    p("The Jaybird-Woodpecker story shows how formal court buildings could coexist with systemic exclusion from government. The surviving courthouse is important, but historic context requires attention to who could access political power and who was deprived of it."),
+
+    h("Fort Bend courthouse and political history questions"),
+    p("When was the historic Richmond courthouse built? The surviving domed Fort Bend County Courthouse was completed in 1908 and designed by C. H. Page and Brother."),
+    p("What was the Jaybird-Woodpecker War? A struggle over race and political power in late-1880s Fort Bend County, culminating in deadly fighting in Richmond in August 1889."),
+    p("Did the Battle of Richmond happen inside today's courthouse? No. The surviving courthouse was built in 1908, almost two decades after the 1889 fighting."),
+    p("Is every county court still located in the historic courthouse? No. Fort Bend has expanded into multiple modern judicial and administrative facilities; check official county directories for current services."),
     h("The Old Three Hundred left a deep imprint"),
     p("Fort Bend County sits inside one of the central landscapes of Stephen F. Austin's first colony. County and state historical sources connect dozens of early land grants to the Fort Bend area. Those settlements were part of a broader agricultural experiment built around access to land, water and Gulf markets. They also brought the institution of slavery into the region on a large scale, a fact that became inseparable from the county's nineteenth-century cotton and sugar economy."),
     p("The Runaway Scrape during the Texas Revolution passed through this landscape as families fled eastward from the advancing Mexican army. After independence, settlers returned to damaged farms and scattered livestock. Richmond and the surrounding county then expanded as agricultural production recovered and commercial ties strengthened along the Brazos and toward Galveston."),
@@ -157,5 +174,13 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
     h("Fort Bend County keeps reinventing itself"),
     p("Fort Bend County's defining quality is not simply growth but reinvention. The river settlement became a county. Plantation and farm country became rail towns and a sugar company town. Ranch land became master-planned communities. Suburban neighborhoods became international population centers with their own employment districts, institutions and culture. Through every stage, the Brazos, the old towns and the surviving landmarks kept earlier eras visible."),
     p("That layered identity is what makes the county worth reading closely. Richmond explains the civic history. Sugar Land explains industry and suburban transformation. Rosenberg explains railroads. George Ranch explains the agricultural landscape. Brazos Bend explains the river and wetlands. The fast-growing western edge shows the next chapter being written in real time. Fort Bend County is not one version of Texas; it is several versions occupying the same ground."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Fort Bend County Courthouse historic marker", url: "https://atlas.thc.texas.gov/Details/5157011496" },
+    { label: "Texas Historical Commission — Fort Bend Courthouse architectural inventory", url: "https://atlas.thc.texas.gov/Details/4302000212" },
+    { label: "Texas State Historical Association — Jaybird-Woodpecker War", url: "https://www.tshaonline.org/handbook/entries/jaybird-woodpecker-war" },
+    { label: "Texas State Historical Association — Fort Bend County", url: "https://www.tshaonline.org/handbook/entries/fort-bend-county" },
+    { label: "Fort Bend County — official courts and administration directory", url: "https://www.fortbendcountytx.gov/government" },
+    { label: "Fort Bend Museum — Richmond's courthouse and 1889 political violence", url: "https://fortbendmuseum.org/" },
   ],
 };
