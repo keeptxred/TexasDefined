@@ -8,7 +8,7 @@ export const archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle: Art
   brandId: "texasdefined",
   slug: "archer-county-archer-city-ranching-oil-cross-timbers-north-texas",
   title: "Archer County: Archer City, Ranch Country, Oil and the Cross Timbers Edge",
-  dek: "Archer County sits between Wichita Falls and the Brazos country, where cattle ranches, wheat fields, early oil, German Catholic communities and the western edge of the Cross Timbers meet around historic Archer City.",
+  dek: "Archer City's 1891 courthouse lost its monumental clock tower in 1926 and was restored to that later design in 2005; explore the jail and ranch-literary heritage.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle: Art
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Archer County",
     "Archer City Texas",
@@ -76,6 +77,23 @@ export const archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle: Art
     p("Archer County replaced its early courthouse with an ambitious stone building in the 1890s. Fort Worth architect Alonzo N. Dawson designed the Romanesque courthouse from locally quarried stone. The original building featured a tall central tower, reflecting the elaborate courthouse architecture popular across Texas in the late nineteenth century."),
     p("A major 1920s remodeling removed the tower and added a third floor. Later twentieth-century alterations covered or removed many historic features, but a Texas Historic Courthouse Preservation Program project restored the building to its 1920s-era configuration. The courthouse was rededicated in 2005 and remains the visual and civic anchor of Archer City."),
 
+    h("The courthouse tower vanished in the 1926 remodeling"),
+    p("Archer County's 1891 courthouse was designed by Fort Worth architect Alonzo Dawson and constructed in stone after the county organized in 1880. Its original Romanesque-style facade included a high central tower, clock and elaborate roofline. A separate jail formed part of the county's early government complex."),
+    p("In 1926 county officials undertook major modernization. They removed the central clock tower and corner pavilion roofs, adding a third floor and a very different roofline. This was not the consequence of an established destructive courthouse fire; the deliberate architectural change left the underlying 1891 masonry as a working courthouse."),
+    p("When preservation began in the early 2000s, restoring every vanished 1891 detail would have required reconstruction with limited original evidence. The Texas Historical Commission and county therefore chose to restore the historically important 1926 appearance, including interior courthouse functions and materials. The courthouse was rededicated May 12, 2005."),
+    p("The result offers an important lesson in heritage preservation: a true historic restoration need not make every building look exactly as it appeared on the first day. Here a meaningful twentieth-century building phase was itself preserved rather than erased."),
+
+    h("The old jail and the Royal Theater belong to the same civic landscape"),
+    p("The courthouse and county jail were listed together on the National Register of Historic Places in 1977. The old jail's architecture provides a less ornate but important counterpart to the county's judiciary and record offices; its use and visitor access must be checked separately from the active courthouse."),
+    p("Archer City's surviving downtown is internationally familiar through novelist Larry McMurtry, whose childhood experience informed The Last Picture Show. The old Royal Theater and retail blocks give cultural meaning to the courthouse square, but the film's setting and historical buildings should not be treated as identical in every detail."),
+    p("The county's historic heritage is thus both monumental and literary: public institutions grew alongside ranching and rail commerce, while later local culture became the basis for widely read Texas fiction."),
+
+    h("Archer County courthouse questions"),
+    p("When was Archer City's courthouse built? The courthouse was erected in 1891 and originally featured a tall clock tower."),
+    p("What happened to its old tower? A major 1926 remodel removed the clock tower and changed the roof, not a documented fire."),
+    p("Why does the restored building look like 1926 rather than 1891? Preservation architects elected to restore the documented later period instead of speculatively recreating lost early features."),
+    p("When was the courthouse rededicated? May 12, 2005."),
+    
     h("Railroads arrived in stages"),
     p("Railroads did not immediately reach the county seat, but they steadily changed Archer County's settlement pattern. The Wichita Valley Railway crossed the northern part of the county in 1890, encouraging the development of Holliday, Mankins and Dundee. Other lines later served Scotland, Archer City and Megargel."),
     p("Rail access made it easier to ship cattle, wheat, cotton and supplies and connected rural communities to Wichita Falls and national markets. Towns near rail lines gained stores, grain buyers, banks and other businesses, while places bypassed by the tracks often remained smaller."),
@@ -143,5 +161,13 @@ export const archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle: Art
     h("What defines Archer County"),
     p("Archer County is defined by layers rather than a single attraction. Indigenous conflict, cattle ranching, fenced pasture, wheat and cotton, railroad towns, oil wells, immigrant farming communities, courthouse architecture and literature all occupy the same landscape. The county's small population makes those layers easier to see because later development has not erased the older pattern."),
     p("Archer City remains the best symbol of that continuity. The restored courthouse still performs the work for which the county was organized in 1880, while ranches stretch beyond town, old oil equipment marks another era, and McMurtry's literary legacy gives the streets a cultural importance far larger than their physical scale. Archer County is a compact North Texas lesson in how land, transportation, resources and memory shape a place over time."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Archer Courthouse 1891 and 2005 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/archer-county" },
+    { label: "Texas Historical Commission — 1891 courthouse official historical marker", url: "https://atlas.thc.texas.gov/Details/5009000191" },
+    { label: "National Park Service — Archer County Courthouse and Jail National Register record", url: "https://npgallery.nps.gov/AssetDetail/NRIS/77001424" },
+    { label: "Archer City visitor bureau — downtown and courthouse heritage", url: "https://visitarchercity.com/history/" },
+    { label: "Handbook of Texas — Archer City and McMurtry's place history", url: "https://www.tshaonline.org/handbook/entries/archer-city-tx" },
+    { label: "Texas State Library — Archer County archive inventory", url: "https://www.tsl.texas.gov/arc/local/archer.html" },
   ],
 };
