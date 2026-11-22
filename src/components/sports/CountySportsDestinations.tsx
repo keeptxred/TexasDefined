@@ -151,6 +151,16 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
       </div>
     </section> : null}
 
+    {!majorEvents.length ? <section className="border-b border-border py-9" aria-labelledby="county-local-events-heading">
+      <p className="eyebrow text-primary">Local events & seasonal traditions</p>
+      <h2 id="county-local-events-heading" className="mt-2 font-display text-3xl">Find holiday and community events in {county.name}</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">No county-specific event with a source-verified date or permanent event guide is listed yet. Texas Defined reviews local chamber, city and tourism calendars throughout the year; it does not guess next season's dates from last year's schedule.</p>
+      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+        <a href="/events/christmas-events" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Texas Christmas & holiday events</a>
+        <a href="/events" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Statewide events calendar</a>
+      </div>
+    </section> : null}
+
     <section className="border-b border-border py-12" aria-labelledby="county-tournaments-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
