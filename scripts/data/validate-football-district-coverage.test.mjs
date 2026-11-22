@@ -158,7 +158,9 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
 
 const teamTemplate = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
 test('team pages cannot label older unconfirmed games as their next fixture', () => {
-  assert.ok(teamTemplate.includes('game.date >= todayTexas'));
+  assert.ok(teamTemplate.includes("footballFixtureCalendarStatus(game.date, todayTexas) === 'future-or-today'"));
+  assert.ok(teamTemplate.includes("footballFixtureCalendarStatus(game.date, todayTexas) === 'past'"));
+  assert.ok(!teamTemplate.includes('game.date >= todayTexas'));
   assert.ok(!teamTemplate.includes('game.date >= editorial.season.verifiedAt'));
 });
 const district11 = readFileSync(new URL('../../src/data/high-school-football/football-district11-2026.ts', import.meta.url), 'utf8');

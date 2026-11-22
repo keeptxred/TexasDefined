@@ -85,11 +85,13 @@ test('Aubrey verified overlay clears only matching published finals, not a diffe
   assert.ok(!report.fixtures.some(g=>g.date==='2026-11-19' &&
     [g.away,g.home].includes('Aubrey') && [g.away,g.home].includes('Canyon')),
     'Canyon 39–Aubrey 36 must not remain on the missing-final queue');
-  // An independent school profile with an unsourced score is NOT cleared
-  // merely because Aubrey's page is corrected.
+  // Alvarado's Oct 30 result now has a separate double-source editorial
+  // registry row; other unresolved games must remain in the inventory.
   const alvarado=report.pages.find(p=>p.page.endsWith('/alvarado'));
-  assert.ok(alvarado?.overdue.some(g=>g.date==='2026-10-30'),
-    'Alvarado still needs its own independently source-checked scorecard');
+  assert.ok(!alvarado?.overdue.some(g=>g.date==='2026-10-30'),
+    'Alvarado Oct 30 has its own independently source-checked result');
+  assert.ok(!alvarado?.overdue.some(g=>g.date==='2026-10-16'),
+    'Alvarado Oct 16 now has separately corroborated final');
   const published=JSON.parse(readFileSync(join(ROOT,'src/data/high-school-football/aubrey-auto-results.snapshot.json'),'utf8'));
   assert.ok(published.verifiedResults.some(g=>g.date==='2026-11-19'&&g.aubreyScore===36&&g.opponentScore===39));
 });

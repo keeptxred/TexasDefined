@@ -101,6 +101,193 @@
       "primarySourceUrl": "https://ozonastockman.com/articles/1643/view/high-school-football-roundup-ozona-to-compete-in-post-season",
       "secondarySourceUrl": "https://www.maxpreps.com/tx/ozona/ozona-lions/football/",
       "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvarado",
+      "date": "2026-10-30",
+      "opponent": "Aubrey",
+      "pointsFor": 40,
+      "pointsAgainst": 70,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-22503759.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/football/game/alvarado-vs-aubrey/10-30-2026/?c=90afab36-dc46-44fc-8df8-bd3c9ea0f8b9",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "arlington-lamar",
+      "date": "2026-10-30",
+      "opponent": "Granbury",
+      "pointsFor": 28,
+      "pointsAgainst": 7,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-22503759.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/arlington/lamar-vikings/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "arlington-lamar",
+      "date": "2026-11-06",
+      "opponent": "Aledo",
+      "pointsFor": 3,
+      "pointsAgainst": 28,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.northchannelstar.com/2026/11/friday-night-lights-live-updates-from-area-football-games-nov-6/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/arlington/lamar-vikings/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "baytown-lee",
+      "date": "2026-11-06",
+      "opponent": "Texas City",
+      "pointsFor": 7,
+      "pointsAgainst": 28,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-high-school-football-scores-friday-22517637.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "beaumont-west-brook",
+      "date": "2026-11-06",
+      "opponent": "Ball",
+      "pointsFor": 62,
+      "pointsAgainst": 21,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-high-school-football-scores-friday-22517637.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/beaumont/west-brook-bruins/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvarado",
+      "date": "2026-10-09",
+      "opponent": "River Oaks Castleberry",
+      "pointsFor": 70,
+      "pointsAgainst": 24,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-9-22471107.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvarado",
+      "date": "2026-10-16",
+      "opponent": "Lake Dallas",
+      "pointsFor": 28,
+      "pointsAgainst": 51,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.aol.com/articles/week-8-fort-worth-area-024319000.html",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvarado",
+      "date": "2026-10-23",
+      "opponent": "Springtown",
+      "pointsFor": 31,
+      "pointsAgainst": 51,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://gmsportsmedia.com/2026/10/dfw-football-scores-week-9-2/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "arlington-lamar",
+      "date": "2026-10-09",
+      "opponent": "Weatherford",
+      "pointsFor": 28,
+      "pointsAgainst": 35,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-9-22471107.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/arlington/lamar-vikings/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "arlington-lamar",
+      "date": "2026-10-16",
+      "opponent": "Arlington Sam Houston",
+      "pointsFor": 26,
+      "pointsAgainst": 17,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.aol.com/articles/week-8-fort-worth-area-024319000.html",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/arlington/lamar-vikings/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "arlington-lamar",
+      "date": "2026-10-23",
+      "opponent": "Arlington Martin",
+      "pointsFor": 29,
+      "pointsAgainst": 57,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://gmsportsmedia.com/2026/10/dfw-football-scores-week-9-2/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/arlington/lamar-vikings/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "baytown-lee",
+      "date": "2026-10-15",
+      "opponent": "Galena Park",
+      "pointsFor": 35,
+      "pointsAgainst": 14,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.myplainview.com/sports/article/thursday-s-scores-22479560.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "baytown-lee",
+      "date": "2026-10-23",
+      "opponent": "Santa Fe",
+      "pointsFor": 44,
+      "pointsAgainst": 35,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "baytown-lee",
+      "date": "2026-10-30",
+      "opponent": "Port Neches-Groves",
+      "pointsFor": 6,
+      "pointsAgainst": 50,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.beaumontenterprise.com/sports/high-school/article/see-week-10-high-school-football-scores-southeast-22503694.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "beaumont-west-brook",
+      "date": "2026-10-16",
+      "opponent": "Beaumont United",
+      "pointsFor": 28,
+      "pointsAgainst": 14,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/beaumont/west-brook-bruins/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "beaumont-west-brook",
+      "date": "2026-10-23",
+      "opponent": "New Caney",
+      "pointsFor": 55,
+      "pointsAgainst": 7,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/article/see-week-9-high-school-football-scores-southeast-22492061.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/beaumont/west-brook-bruins/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "beaumont-west-brook",
+      "date": "2026-10-30",
+      "opponent": "Lufkin",
+      "pointsFor": 14,
+      "pointsAgainst": 24,
+      "verifiedAt": "2026-11-21",
+      "primarySourceUrl": "https://www.beaumontenterprise.com/sports/high-school/article/see-week-10-high-school-football-scores-southeast-22503694.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/beaumont/west-brook-bruins/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
     }
   ]
 }

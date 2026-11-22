@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
+import { footballFixtureCalendarDate, footballFixtureCalendarStatus } from '@/data/high-school-football/football-fixture-calendar';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
 import { KatyStadiumGuide } from '@/components/sports/KatyStadiumGuide';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
@@ -182,8 +183,8 @@ function Page() {
   }).formatToParts(new Date());
   const texasDatePart = (type: 'year' | 'month' | 'day') => todayTexasParts.find((part) => part.type === type)?.value ?? '';
   const todayTexas = `${texasDatePart('year')}-${texasDatePart('month')}-${texasDatePart('day')}`;
-  const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= todayTexas);
-  const overdueUnverifiedGames = editorial?.season?.games.filter((game) => !game.result && game.date < todayTexas) ?? [];
+  const nextListedFixture = editorial?.season?.games.find((game) => !game.result && footballFixtureCalendarStatus(game.date, todayTexas) === 'future-or-today');
+  const overdueUnverifiedGames = editorial?.season?.games.filter((game) => !game.result && footballFixtureCalendarStatus(game.date, todayTexas) === 'past') ?? [];
   const canyonLakeAreaGame = slug === 'comal-canyon-lake' ? editorial?.season?.games.find((game) => game.date === '2026-11-20') : undefined;
   const canyonLakeFinalPending = canyonLakeAreaGame && !canyonLakeAreaGame.result && canyonLakeAreaGame.date < todayTexas;
   // UIL team names are stable while optional TEA directory joins can fail in production.
@@ -671,13 +672,13 @@ function Page() {
           {latestResult && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most recent reported result</p>
             <p className="mt-2 font-semibold">{latestResult.result} · {latestResult.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={latestResult.date}>{formatFootballDate(latestResult.date)}</time></p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={footballFixtureCalendarDate(latestResult.date) ?? undefined}>{formatFootballDate(latestResult.date)}</time></p>
             {latestResult.matchupPath && <Link to={latestResult.matchupPath} className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Game details →</Link>}
           </div>}
           {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
             <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={nextListedFixture.date}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}{nextListedFixture.kickoff ? ` · ${nextListedFixture.kickoff} (${slug === 'comal-canyon-lake' ? 'host-confirmed' : 'listed'}; recheck before travel)` : ' · verify kickoff'}{slug === 'comal-canyon-lake' ? ' · Leopard Stadium, La Grange' : ''}</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={footballFixtureCalendarDate(nextListedFixture.date) ?? undefined}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}{nextListedFixture.kickoff ? ` · ${nextListedFixture.kickoff} (${slug === 'comal-canyon-lake' ? 'host-confirmed' : 'listed'}; recheck before travel)` : ' · verify kickoff'}{slug === 'comal-canyon-lake' ? ' · Leopard Stadium, La Grange' : ''}</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
           <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
@@ -750,16 +751,18 @@ function Page() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
-                    <td className="px-3 py-3 font-semibold"><time dateTime={game.date}>{formatFootballDate(game.date)}</time></td>
+                    <td className="px-3 py-3 font-semibold"><time dateTime={footballFixtureCalendarDate(game.date) ?? undefined}>{formatFootballDate(game.date)}</time></td>
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.result
                       ? (game.matchupPath
                         ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
                         : game.result)
-                      : game.date < todayTexas
+                      : footballFixtureCalendarStatus(game.date, todayTexas) === 'past'
                         ? <span className="text-primary">Final not yet verified — check the reporting source</span>
-                        : (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
+                        : footballFixtureCalendarStatus(game.date, todayTexas) === 'unknown'
+                          ? <span className="text-primary">Fixture date not confirmed — check the reporting source</span>
+                          : (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
                   </tr>)}
                 </tbody>
               </table>

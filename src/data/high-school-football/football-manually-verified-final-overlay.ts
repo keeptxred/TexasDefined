@@ -74,7 +74,7 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
     .format(new Date(mostRecent.date+'T12:00:00Z'));
   const updateNotice=displayedName+' '+headline+' '+mostRecent.pointsFor+'–'+mostRecent.pointsAgainst+
     ' against '+mostRecent.opponent+' on '+gameDate+', independently reviewed '+mostRecent.verifiedAt+'.'+
-    ' This is a source-dated published result, not live scores. Other fixtures without confirmed finals remain unverified.';
+    ' This is a source-dated published result, not live scores.'+(games.some(game=>!game.result)?' Other fixtures without confirmed finals remain unverified.':' All listed fixtures now have reported finals.');
   const original=editorial.season;
   return {
     ...editorial,
@@ -86,9 +86,9 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
       latestResultSourceUrl:mostRecent.primarySourceUrl,
     },
     seo:editorial.seo?{...editorial.seo,description:
-      displayedName+' football 2026: '+mostRecent.opponent+' '+mostRecent.pointsFor+'–'+
-      mostRecent.pointsAgainst+' on '+gameDate+'. '+completed.length+
-      ' independently checked reported scores; remaining 2026 results await confirmation.'}:editorial.seo,
+      displayedName+' football 2026: '+headline+' '+mostRecent.pointsFor+'–'+
+      mostRecent.pointsAgainst+' against '+mostRecent.opponent+' on '+gameDate+'. '+completed.length+
+      ' independently checked reported scores.'}:editorial.seo,
     faq:editorial.faq?.map(entry=>/(2026.*record|record.*2026)/i.test(entry.question)
       ?{...entry,answer:record+'. Additional dated results require independently published sources.'}
       :entry)??[],
