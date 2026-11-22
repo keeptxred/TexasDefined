@@ -6,10 +6,29 @@ const paths = [
   ['/texas-brand-origin-stories', 'https://drpeppermuseum.com/history/', 'https://stories.whataburger.com/our-history/'],
   ['/texas-chili-con-carne-history', 'https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company', 'https://www.tsl.texas.gov/ref/abouttx/symbols'],
   ['/texas-chicken-fried-steak-guide', 'https://www.tshaonline.org/handbook/entries/chicken-fried-steak', 'https://capitol.texas.gov/tlodocs/82R/billtext/pdf/SC00034I.pdf'],
-  ['/texas-breakfast-taco-guide', 'https://utpress.utexas.edu/9781477329368/', 'https://joesbakery.com/menu/'],
+  ['/texas-breakfast-taco-guide', 'https://www.jstor.org/stable/10.7560/316528', 'https://joesbakery.com/menu/'],
 ];
 const rows = [['/made-in-texas', 'https://www.ftc.gov/business-guidance/resources/complying-made-usa-standard']];
 if (process.argv.includes('--all') || [1,4,7,10].includes(new Date().getUTCMonth()+1)) rows.push(...paths);
+// Collect every guide-level citation and section source, scoped to this cluster.
+const batch3 = await fs.readFile('src/data/texas-evergreen-guides-batch3.ts','utf8');
+const batch4 = await fs.readFile('src/data/texas-evergreen-guides-batch4.ts','utf8');
+const component = await fs.readFile('src/components/editorial/TexasEvergreenGuide.tsx','utf8');
+const urlsFrom = value => [...value.matchAll(/https:\/\/[^"'\s<>]+/g)].map(m => m[0]);
+for (const row of rows.slice(1)) {
+  const slug = row[0].slice(1);
+  const dataStart = slug === 'texas-brand-origin-stories' ? batch3.indexOf('slug: "'+slug+'"') : batch4.indexOf('  "'+slug+'": {');
+  const dataSource = slug === 'texas-brand-origin-stories' ? batch3 : batch4;
+  assert.ok(dataStart >= 0, 'Missing article source: '+slug);
+  const dataEnd = slug === 'texas-brand-origin-stories' ? dataSource.length : dataSource.indexOf('\n  "',dataStart+1);
+  row.push(...urlsFrom(dataSource.slice(dataStart,dataEnd<0?undefined:dataEnd)));
+  const registry = component.slice(component.indexOf('const guideSources:'));
+  const start = registry.indexOf('  "'+slug+'": [');
+  if(start>=0){
+    const end = registry.indexOf('\n  ],',start);
+    if(end>start) row.push(...urlsFrom(registry.slice(start,end)));
+  }
+}
 const data = await fs.readFile('src/data/made-in-texas.ts','utf8');
 const production = await fs.readFile('src/data/made-in-texas-evidence.ts','utf8');
 const relationships = await fs.readFile('src/data/made-in-texas-relationship-evidence.ts','utf8');
