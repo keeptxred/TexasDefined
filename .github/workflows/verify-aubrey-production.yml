@@ -25,8 +25,19 @@ jobs:
         with:
           node-version: '24'
       - run: node scripts/ci/verify-aubrey-production.mjs --self-test
+      - name: Verify already-deployed corrected Aubrey page from read-only PR runner
+        run: |
+          set -euo pipefail
+          node scripts/ci/verify-aubrey-production.mjs | tee aubrey-production-evidence.jsonl
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aubrey-pr-live-evidence-${{ github.run_id }}
+          path: aubrey-production-evidence.jsonl
+          if-no-files-found: error
+          retention-days: 30
   live:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
+    if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 8
     permissions:
@@ -36,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -87,4 +98,4 @@ jobs:
           DEPLOY_ID: ${{ steps.prerequisite.outputs.deploy_id }}
           DEPLOY_SHA: ${{ steps.prerequisite.outputs.deploy_sha }}
         run: |
-          gh issue close 7523 --repo "$GITHUB_REPOSITORY" --reason completed --comment "Verified production acceptance: deploy [#$DEPLOY_ID](https://github.com/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_ID), deployed source SHA `$DEPLOY_SHA`. [Acceptance run and artifact](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID) passed all four public/direct Worker ordinary/cache-bypassed SSR checks: correct FAQ, intro, source caption, canonical, all 12 finals (8–4 overall, 7–0 district), exactly one head-coach FAQ. No paid feeds or automatic score publishing."
+          gh issue close 7523 --repo "$GITHUB_REPOSITORY" --reason completed --comment "Verified production acceptance: deploy [#$DEPLOY_ID](https://github.com/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_ID), deployed source SHA $DEPLOY_SHA. [Acceptance run and artifact](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID) passed all four public/direct Worker ordinary/cache-bypassed SSR checks: correct FAQ, intro, source caption, canonical, all 12 finals (8–4 overall, 7–0 district), exactly one head-coach FAQ. No paid feeds or automatic score publishing."
