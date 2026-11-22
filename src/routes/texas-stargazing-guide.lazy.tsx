@@ -216,7 +216,7 @@ function TexasStargazingGuidePage() {
             <p className="eyebrow text-primary">Pick a viewing night</p>
             <h2 id="sky-comparison" className="mt-2 font-display text-3xl">Compare actual sky darkness and visitor access</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">TPWD's Bortle ratings are baseline sky-quality classifications, not tonight's conditions. Lower is darker. Even a Class 1 location can be unsuitable under a bright moon or clouds; driving to a remote site does not grant unrestricted after-hours access.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare darkness and observing areas.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
             <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
               {skyComparison.map((row) => (
                 <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
@@ -228,7 +228,7 @@ function TexasStargazingGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five certified Texas dark sky state parks comparison table">
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five certified Texas dark sky state parks comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "780px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">International Dark Sky Park</th><th scope="col" className="border-b border-border p-4">TPWD Bortle class</th><th scope="col" className="border-b border-border p-4">Best planning starting point</th></tr></thead>
                 <tbody>{skyComparison.map((item) => <tr key={item.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{item.name}</th><td className="border-b border-border p-4">{item.bortle}</td><td className="border-b border-border p-4 text-muted-foreground">{item.viewing}</td></tr>)}</tbody>
@@ -351,7 +351,7 @@ function TexasStargazingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify darkness, access and events with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Exact viewing-area locations and after-hours access rechecked November 20, 2026. Always verify current park access and forecast.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Exact viewing-area locations and after-hours access rechecked November 20, 2026. Always verify current park access and forecast. TPWD sky-monitor interpretation and independent viewing versus program access checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
