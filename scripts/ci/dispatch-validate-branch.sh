@@ -77,7 +77,7 @@ echo "Watching newly dispatched validation run ${run_id} for ${sha}."
 deadline=$((SECONDS + 5400))
 poll_failures=0
 while (( SECONDS < deadline )); do
-  if run_json="$(gh api "repos/${GH_REPO:-${GITHUB_REPOSITORY:?repository required}}/actions/runs/$run_id")"; then
+  if run_json="$(gh api "repos/{owner}/{repo}/actions/runs/$run_id")"; then
     poll_failures=0
     if ! jq -e --arg sha "$sha" --arg branch "$branch" \
       '.head_sha == $sha and .head_branch == $branch and .event == "workflow_dispatch"' \
