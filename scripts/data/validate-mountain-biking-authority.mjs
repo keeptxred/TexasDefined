@@ -24,7 +24,7 @@ for (const marker of additional95PlusEvidence) {
 // Guard the truthful sitemap lastmod and content-versioned cache key; do not
 // restamp those dates merely because an automated source audit succeeds.
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
-if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-20";') ||
+if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-21";') ||
     !primarySitemap.includes('cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);')) {
   errors.push('Five outdoor guides need truthful Nov 20 editorial sitemap freshness and a versioned cache key.');
 }
@@ -152,6 +152,11 @@ if (!outdoorsSlice.includes('to: "/texas-mountain-biking-guide"')) errors.push('
 
 for (const marker of ['routeDecisions[index].startingPoint', 'e-bikes may use public park roadways but not state-park trails']) {
   if (!lazyRoute.includes(marker)) errors.push('Missing 2026 visitor-planning upgrade: ' + marker);
+}
+
+
+for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflow-x-auto border border-border md:block","aria-labelledby=\"mtb-route-progression\""]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
 }
 
 if (errors.length) {
