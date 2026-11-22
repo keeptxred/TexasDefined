@@ -255,8 +255,8 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-chicken-fried-steak-guide": [
     { label: "Texas Legislature — S.C.R. 34 (2011), introduced text", href: "https://capitol.texas.gov/tlodocs/82R/billtext/pdf/SC00034I.pdf", note: "Identifies the 1911 Lamesa invention story as a fictional 1976 newspaper account; celebrates the festival rather than documenting an invention." },
     { label: "Handbook of Texas — Chicken-Fried Steak", href: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak", note: "Explains the disputed origin story and the Southern, German and regional Texas influences associated with the dish." },
-    {"label":"Eater Austin — chicken-fried steak in Austin","href":"https://austin.eater.com/2015/1/30/7951273/the-state-of-chicken-fried-steak-in-austin","note":"Independent reporting on restaurant variation and the regional framework."},
-    {"label":"Washington Post — Deep in the Heart of Texas, We Bread Steak","href":"https://www.washingtonpost.com/archive/lifestyle/2008/06/25/deep-in-the-heart-of-texas-we-bread-steak/0432c28d-8dd4-42f1-b072-1166f634a306/","note":"Independent recipe reporting illustrates exceptions to regional classifications."},
+    { label: "Blue Bonnet Cafe — official menu", href: "https://www.bluebonnetcafe.net/limited-menu", note: "Documents breakfast and dinner portions and restaurant preparation." },
+    { label: "KUT — Austin chicken-fried steak, June 2026", href: "https://www.kut.org/austin/2026-06-18/ausitn-tx-atxplained-chicken-fried-steak-restaurants-food", note: "Independent reporting on local restaurant history and Hoover’s dining-room closure." },
   ],
   "texas-breakfast-taco-guide": [
     { label: "Texas Legislative Reference Library — HCR 123 history", href: "https://www.lrl.texas.gov/legis/billsearch/billdetails.cfm?billFileID=299334&from=advancedsearch", note: "Confirms the proposed state breakfast designation was left pending in committee." },
@@ -264,6 +264,9 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     {"label":"University of Texas Press — American Tacos","href":"https://www.jstor.org/stable/10.7560/316528","note":"José R. Ralat's historical survey includes a chapter on breakfast tacos."},
     {"label":"Texas Standard / KUT — José R. Ralat interview","href":"https://www.kut.org/texas/2020-04-16/from-breakfast-to-barbacoa-new-book-dives-into-american-tacos","note":"Explains the borderland context and contested city-origin claims."},
     {"label":"Joe's Bakery — official menu","href":"https://joesbakery.com/menu/","note":"Restaurant's own menu and location information."},
+    { label: "Don Pepe’s — McAllen menu", href: "https://ilovedonpepes.com/our-menu/", note: "Documents machacado with eggs as a breakfast plate." },
+    { label: "Kiko’s — Corpus Christi menu", href: "https://kikosmexicanfood.com/menu/", note: "Documents several regional breakfast fillings as taquitos." },
+    { label: "Joe’s Bakery — breakfast menu details", href: "https://joesbakery.com/our-menu-3/", note: "Documents migas, barbacoa, pork carne guisada and chicharrón breakfast plates." },
   ],
   "texas-homecoming-mums": [
     { label: "UTSA Institute of Texan Cultures — Keeping Texas Traditions", href: "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions", note: "Documents the evolution from chrysanthemum corsage to elaborate Texas mum and the women-led craft, family and community networks sustaining the tradition." },
