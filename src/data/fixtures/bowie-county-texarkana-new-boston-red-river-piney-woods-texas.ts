@@ -20,6 +20,7 @@ export const bowieCountyTexarkanaNewBostonRedRiverPineyWoodsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
+  updatedAt: "2026-11-22",
   readingMinutes: 21,
   tags: [
     "Bowie County",
