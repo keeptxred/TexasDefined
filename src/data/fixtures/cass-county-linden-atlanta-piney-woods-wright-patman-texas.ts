@@ -21,7 +21,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
   updatedAt: "2026-11-22",
-  readingMinutes: 25,
+  readingMinutes: 27,
   tags: [
     "Cass County",
     "Linden Texas",
@@ -41,6 +41,9 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     "Music City Texas Theater",
     "Linden music heritage",
     "T-Bone Walker Blues Festival",
+    "Cass County Boys",
+    "Shiloh band",
+    "Music Friendly Texas 2023",
   ],
   featured: false,
   internalLinks: [
@@ -130,9 +133,18 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("After returning to Linden, Bowden put those contacts and performance experience to work locally. Reporting from the theater's early years identifies him as a leader of Music City Texas and describes his role in bringing major touring acts to a small venue. His contributions were not limited to performing on its stage: he helped establish and promote the theater as a way to make Linden's music legacy part of the town's continuing cultural and economic life. Bowden also helped establish the T-Bone Walker Blues Festival, linking modern programming to an older Linden-born blues innovator."),
     p("Bowden's story is a useful reminder that local music heritage does not end when a performer leaves town. A guitarist who played on national stages returned with working industry relationships; the theater turned some of those connections into live shows close to the courthouse square. The distinction matters: Richard Bowden is a musician and community-builder in his own right, not merely a footnote to the Eagles or Pinkard & Bowden."),
 
+    h("The Four Speeds, Felicity and Shiloh: Richard Bowden and Don Henley before the Eagles"),
+    p("Bowden and Henley's collaboration began before either had a national reputation. They played in a Linden-area school-age group called the Four Speeds, which later evolved through Felicity into Shiloh. A Texas legislative resolution honoring Henley names Richard Bowden among his early bandmates. Shiloh later recorded in Los Angeles, and Bowden continued as a working guitarist in major touring circles. This is a more precise local connection than merely saying Henley and Bowden were from the same town: they helped develop each other's early music through the same regional bands."),
+    p("Bowden later performed with musicians including Linda Ronstadt, Roger McGuinn and Dan Fogelberg before working with Sandy Pinkard in Nashville. His subsequent return to Linden brought decades of practical touring and recording experience back to East Texas. The surviving accounts document several phases of Bowden's career, from bands with Henley to the country-comedy partnership Pinkard & Bowden, rather than treating it as one uninterrupted act."),
+
+    h("The Cass County Boys carried an East Texas name to Gene Autry's stage"),
+    p("Linden has another national music connection that predates the Eagles. Accordionist and singer Fred Martin, born in Cass County, was part of the Western trio the Cass County Boys with Bert Dodson and Jerry Scoggins. The group became closely associated with Gene Autry's Melody Ranch radio program and appeared in Autry's films and television work. The International Western Music Association identifies the trio's long-running original lineup and its national Western-entertainment career."),
+    p("The Cass County Boys do not represent the same scene as Joplin, Walker, Henley or Bowden. Their story instead shows an earlier path from Northeast Texas roots to Hollywood's cowboy entertainment circuit. Together these different careers explain why Linden's music history belongs to several genres and generations, not to a single celebrity or concert theater."),
+
     h("Music City Texas Theater: a concert room with a local mission"),
     p("Music City Texas Theater operates at 108 Legion Street in Linden. The nonprofit venue developed in the former American Legion Auditorium, which was renovated and reopened for performances in 2003. It deliberately uses a modest room rather than an arena-scale experience: the draw is an intimate concert setting in a town whose musical connections reach much farther than its population might suggest."),
     p("Music City, Texas, Incorporated describes its mission as honoring regional musical heritage, presenting year-round entertainment and promoting music education, instrument donations and performance opportunities. The venue's work is therefore both cultural and practical. Preservation of an older civic auditorium provided a place to listen to music, while concerts give visitors a reason to spend time in downtown Linden and to learn why the town values its musicians."),
+    p("In August 2023 Linden received the state\'s Music Friendly Texas Certified Community designation, formal recognition of a local music ecosystem that also depends on promotion, performance space and community partners. The Governor of Texas announcement specifically named Richard Bowden alongside Joplin, Walker and Henley as part of the town\'s heritage."),
     p("Historical reports document appearances by well-known artists such as Jackson Browne at the theater. Lineups, concessions, age policies and ticket arrangements vary by show; do not use an older concert listing as evidence that a performer is currently booked. For a planned visit, check the theater's own schedule and ticket links at musiccitytexas.org. The theater lists its address as 108 Legion Street, Linden, TX 75563."),
 
     h("T-Bone Walker, Don Henley and Scott Joplin: three distinct connections"),
@@ -230,5 +242,8 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { label: "Houston Press — contemporary reporting on Richard Bowden and Music City Texas", url: "https://www.houstonpress.com/news/strings-attached-6551821/" },
     { label: "University of North Texas — Music City Texas historical research, Randy Mallory Papers", url: "https://texashistory.unt.edu/ark:/67531/metadc1924027/" },
     { label: "Texas Defined — Scott Joplin profile with TSHA and Library of Congress research", url: "https://texasdefined.com/texas-icons/scott-joplin" },
+    { label: "Texas Legislature — resolution documenting the Four Speeds, Richard Bowden and Shiloh", url: "https://capitol.texas.gov/tlodocs/851/billtext/html/HR00122F.htm" },
+    { label: "International Western Music Association — Cass County Boys and Gene Autry career", url: "https://iwesternmusic.org/performer-detail.php?id=2248" },
+    { label: "Boogie Woogie Marshall — historical vignettes on Richard Bowden, Pinkard & Bowden and festival founding", url: "https://boogiewoogiemarshall.com/wp-content/uploads/2014/01/Historical-Vignettes.pdf" },
   ],
 };
