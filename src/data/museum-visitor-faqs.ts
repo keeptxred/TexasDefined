@@ -16,6 +16,15 @@ export interface MuseumVisitorFaq {
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
   "comanche-county-historical-museum": [
     {
+      "question": "Does the museum offer a self-guided audio tour of Comanche's historic square?",
+      "answer": "Yes. The museum publishes a Comanche Square Walking Tour with QR-linked audio stops including Old Cora, Fleming Oak and John Wesley Hardin history. The online guide explains its map, but visitors should verify onsite QR-code access.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
       "question": "Where is the Comanche County Historical Museum and how do I get there?",
       "answer": "The museum's official contact information places it at 402 Moorman Road in Comanche, Texas 76442, separate from the courthouse square. Confirm your travel directions and any group parking arrangements directly with its staff before making the trip.",
       "verificationUrl": "https://www.comanchecountytxmuseum.com/contact",
@@ -44,10 +53,10 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Does the museum charge admission or require advance tickets?",
-      "answer": "A reliable current universal admission price and timed-ticket policy are not clearly specified on the museum's available visitor pages. Do not assume free admission, a fixed donation or a reservation requirement; call before your visit to ask what applies.",
-      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "answer": "Yes. The museum's official homepage explicitly states general admission is free; donations support its work. No ordinary timed-ticket requirement is described. Contact volunteers for school/group tour arrangements or any special programs.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/",
       "reviewCycle": "monthly",
       "reviewed": "2026-11-22"
     },
