@@ -184,3 +184,13 @@ Verified individual first-party community or Chamber event listings and classifi
 - **Webb County:** Visit Laredo's city convention and visitors bureau has a dated public community calendar at https://visitlaredo.com/events/ with separate annual festival and submission resources; contact via https://visitlaredo.com/cvb-staff/.
 
 These are three **new** first-party organizations with independent calendars, not aliases for Chambers and not proof any Chamber joined the media list. Total registered first-party sources now **273 / 254 counties** (multiple organizations may serve one county). Directly reviewed classified calendars: **74 sources covering 73 counties**. The **181** other counties need direct calendar review, though many already have event-specific evidence, municipal source contacts or published event records elsewhere. Keep 2026/27 edition dates and media permission subject to organizer confirmation.
+
+### November 22, 2026 — verified additions to the live calendar source catalog
+
+Two organizer-dated, current-edition occurrences were added to the existing governed `src/data/events/christmas-community-2026-county-backfill.server.ts` rather than creating thin event doorway articles:
+
+- **Hamilton County / Hamilton Christmas on the Square — A Gingerbread Christmas:** Saturday **November 28, 2026, 3–8 p.m.**, historic downtown Hamilton. Official event page: https://www.allthingshamilton.org/events/christmas-on-the-square-1 . Organizer Hamilton Chamber of Commerce; Hamilton Main Street supports the children's section. Shopping, gingerbread house contest, tree lighting and Santa photos are described as current 2026 programming, not annual guaranteed features.
+- **Karnes County / Kenedy Holiday Tour of Homes (11th):** Thursday **December 17, 2026, 6–9:30 p.m.** Official Chamber source: https://www.kenedychamber.org/event/11th-annual-holiday-tour-of-homes/ . The Kenedy Chamber at 205 S 2nd St is the page's listed venue; individual private-home addresses, entry fees, tickets and routes are **unconfirmed** and must not be inferred from the Chamber venue listing.
+
+Both records carry individual `sourceVerifiedAt: 2026-11-22`, canonical county attribution, source hyperlinks and 2026-only occurrence dates; new regression tests enforce dates, organizer domains, source safety and existing county-calendar crosslinks. No 2027 dates or image rights are presumed. Verify publication on a post-merge production deployment and confirm the county/Christmas hub links resolve, not just that the release gate passes.
+
