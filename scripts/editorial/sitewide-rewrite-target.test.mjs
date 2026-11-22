@@ -156,3 +156,11 @@ test('automated source-backed PR merge requests real protected production deploy
   assert.ok(deploy>sourceValidation,'deploy dispatch must run ONLY after confirmed protected merge');
   assert.match(finisher,/\[\[ "\$merged" == true \]\] \|\|/,'must fail if auto-merge has not completed');
 });
+
+
+test('curated official event .net/.tv and military source hosts are not silently excluded', () => {
+  const urls = ['https://austinpowwow.net/', 'https://www.jbsa.mil/GreatTexasAirshow/',
+    'https://texasstaterailroad.net/the-polar-express/', 'https://www.sabiff.tv/'];
+  for (const url of urls) assert.deepEqual(findOfficialSourceUrls(url), [url]);
+  assert.deepEqual(findOfficialSourceUrls('https://austinpowwow.net.untrusted.net/ https://random-unregistered.tv/'), []);
+});
