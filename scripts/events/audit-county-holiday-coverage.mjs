@@ -82,11 +82,10 @@ function extractHolidayRows(root, source) {
       const slug = field(node, "slug", constants);
       const countySlug = field(node, "countySlug", constants);
       const date = field(node, "startDate", constants);
-      const category = field(node, "category", constants);
       const name = field(node, "name", constants) || field(node, "title", constants) || slug;
       const url = field(node, "officialUrl", constants) || field(node, "officialEventUrl", constants);
       if (slug && countySlug && date && url && /^\d{4}-\d{2}-\d{2}$/.test(date)
-        && (christmasCalendar || category === "seasonal" || HOLIDAY_RE.test(slug + " " + name))) {
+        && (christmasCalendar || HOLIDAY_RE.test(slug + " " + name))) {
         rows.push({
           slug, name, countySlug, startDate: date,
           endDate: field(node, "endDate", constants) || date,
