@@ -8,7 +8,7 @@ export const graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle: Ar
   brandId: "texasdefined",
   slug: "grayson-county-sherman-denison-lake-texoma-railroads-north-texas",
   title: "Grayson County: Sherman, Denison, Lake Texoma and the Red River Gateway",
-  dek: "Grayson County is a North Texas border county where Blackland Prairie, Cross Timbers, the Red River, railroads, Lake Texoma, presidential history and fast-growing Sherman-Denison communities meet.",
+  dek: "The 1930 Sherman courthouse arson and lynching of George Hughes, the destroyed Black business district, the 1936 rebuild and broader Grayson County history.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle: Ar
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 23,
   tags: [
     "Grayson County",
     "Sherman Texas",
@@ -32,6 +33,10 @@ export const graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle: Ar
     "Blackland Prairie",
     "North Texas",
     "Texas counties",
+    "Sherman Riot of 1930",
+    "George Hughes lynching May 1930",
+    "Grayson County Courthouse fire",
+    "Grayson County 1936 courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -63,6 +68,27 @@ export const graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle: Ar
     p("Sherman grew around county government and the road network converging on the courthouse. During the nineteenth century, schools and colleges gave the town a reputation strong enough that it was sometimes called the 'Athens of Texas.' Churches, newspapers, professional offices and an opera house reinforced Sherman's role as the civic and cultural center of the county."),
     p("The courthouse square still marks the traditional heart of Sherman. Grayson County has had a succession of courthouses, reflecting fire, growth, changing architectural tastes and the expanding responsibilities of local government. The present courthouse, completed during the 1930s, occupies the same civic landscape that has organized downtown life for generations."),
 
+    h("May 9, 1930: a white mob burned the courthouse and lynched George Hughes"),
+    p("Grayson County's most consequential courthouse fire was not accidental. On May 9, 1930, a white mob attacked the county courthouse during the trial of George Hughes, a Black farm laborer accused of assaulting a white woman after a wage dispute. The Texas Historical Commission's official Sherman Riot of 1930 marker identifies the accusation as an allegation, not a proven criminal conviction; Hughes never received a lawful final verdict."),
+    p("Authorities had requested state help as threats mounted. Texas Rangers and National Guard troops arrived, but a crowd estimated at five thousand demanded Hughes. When the mob set the 1876 courthouse on fire, officers moved him into a two-story document vault. The mob prevented firefighters from putting out the blaze. Hughes suffocated inside the burning structure, and the magnificent nineteenth-century courthouse was destroyed."),
+    p("Hours later the mob broke into the surviving vault, dragged Hughes's body through Sherman, desecrated and burned his remains, and attacked Black-owned businesses along Mulberry Street, including the office of Black civil-rights lawyer William J. Durham. This violence devastated a commercial and social community, not just one government building. It is essential local history and must be described as racist mob violence rather than an anonymous 'court fire.'"),
+    p("Governor Dan Moody declared martial law on May 10; it continued until May 24. The official THC marker states that sixty-six citizens were detained, fourteen were indicted and one man was convicted of courthouse arson and inciting a riot. No one was charged with Hughes's lynching or murder. A review of the case must also distinguish the facts documented by public records from the racialized allegations and claims made by contemporary mob supporters."),
+    p("The Sherman Riot historic marker was installed and publicly unveiled on March 29, 2025, on the courthouse grounds after years of local advocacy. The marker offers a direct public place to learn the story, but does not by itself restore the Black businesses, livelihoods and lives damaged by the violence. The Texas State Library holds Governor Moody's May 10, 1930 martial-law proclamation and the May 13 report by Texas Ranger Frank Hamer."),
+
+    h("A 1936 courthouse rose on the site of the destroyed 1876 landmark"),
+    p("The courthouse that burned in 1930 was a Victorian limestone building dating to 1876, with a clock-and-bell tower that had been visible across Sherman. The preserved document vaults survived the fire; many county offices moved temporarily into rented spaces while officials decided how to fund reconstruction. A temporary court facility incorporated surviving vaults before a new design was approved."),
+    p("Federal New Deal public-works funding made a permanent replacement possible. County records describe the start of the new courthouse-and-jail project on May 10, 1935, and its completion in May 1936. The 1936 courthouse uses a restrained Moderne design, not the towering stone Victorian style of its predecessor."),
+    p("This architectural distinction matters for visitors. The working courthouse now standing in Sherman is a 1930s successor to the building intentionally burned during racial terror. A photograph of the modern courthouse must not be presented as a photograph of the site in May 1930, and a generic caption that the courthouse 'was damaged by fire' would erase the cause and victims of the event."),
+    
+    h("Reading the courthouse and Black Sherman together"),
+    p("The courthouse grounds and the historic Black commercial area near Mulberry Street should be understood as parts of the same history. One site represents government institutions that failed to prevent mob violence; the other records the destruction of Black-owned businesses and professional offices. Recovering the lives of George Hughes and the people whose businesses were targeted helps correct an architectural history focused only on which building occupied the square."),
+    p("Visiting the historical marker is different from treating sites associated with lynching as entertainment. Approach them respectfully, follow posted public access rules and avoid assuming nearby properties are open for tours. For a deeper archival account consult the Texas Historical Commission, the Texas State Library's original gubernatorial papers and the TSHA's research on the Sherman riot."),
+
+    h("Grayson County's most important courthouse questions"),
+    p("Why was the Grayson County Courthouse burned in 1930? A white mob deliberately set it on fire during the trial of Black farm laborer George Hughes, leading to his death and subsequent lynching and destruction of Black businesses."),
+    p("Did George Hughes receive a criminal conviction? No. The mob violence prevented a lawful final judgment. The accusations against him should not be presented as established criminal guilt."),
+    p("When was the present Sherman courthouse completed? Grayson County's replacement courthouse and jail project was completed in May 1936 after construction began in 1935."),
+    p("Where is the Sherman Riot of 1930 explained on site? A Texas Historical Commission marker on the courthouse grounds was unveiled in March 2025."),
     h("Denison was born from the railroad"),
     p("Denison developed differently. The town was established in the early 1870s as the Missouri, Kansas and Texas Railway pushed south from Indian Territory into Texas. Its location near the Red River turned it into a railroad gateway almost immediately. Tracks, yards, shops, warehouses and hotels attracted workers and businesses to a new city that did not depend on courthouse status for its growth."),
     p("Railroad geography made Denison unusually connected to national markets. Passenger and freight traffic linked the city north through Oklahoma and south toward Sherman, Dallas and the rest of Texas. Even after automobiles and trucking eclipsed passenger rail, the street grid, industrial districts and surviving railroad sites preserved the imprint of the era that created the city."),
@@ -126,5 +152,15 @@ export const graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle: Ar
     h("What defines Grayson County"),
     p("Grayson County is defined by movement and transition. Preston Road carried immigrants toward the Republic of Texas. Cattle trails moved herds north. The Butterfield stage connected the county to a continental mail route. Railroads created Denison and industrialized Sherman. Highways now connect the county to metropolitan North Texas, while Lake Texoma transformed the Red River border into one of the state's major recreation landscapes."),
     p("Yet those transportation stories sit on an older physical foundation of prairie, Cross Timbers, creeks and river crossings. Courthouse square, railroad yards, farm towns, the Eisenhower birthplace, lake bluffs and rapidly growing highway corridors all belong to the same county. That combination makes Grayson County one of the clearest places to see how the historic gateway into North Texas has become a modern growth center without losing the geography that made it important in the first place."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Sherman Riot of 1930 marker, Atlas 5000023479", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023479" },
+    { label: "Texas Historical Commission — official historical marker text and review", url: "https://www.thc.texas.gov/public/upload/pdf/meetings/History_Programs_Committee_Oct2023.pdf" },
+    { label: "Texas State Historical Association — Sherman Riot of 1930", url: "https://www.tshaonline.org/handbook/entries/sherman-riot-of-1930" },
+    { label: "Texas State Library — May 10, 1930 martial-law proclamation", url: "https://www.tsl.texas.gov/governors/personality/moody-sherman-1.html" },
+    { label: "Texas State Library — May 13, 1930 Frank Hamer report", url: "https://www.tsl.texas.gov/governors/personality/moody-hamer-1.html" },
+    { label: "Texas State Historical Association — Sherman, Texas, civic history", url: "https://www.tshaonline.org/handbook/entries/sherman-tx" },
+    { label: "Grayson County archival chronology — 1935–36 replacement courthouse", url: "https://usgenwebsites.org/TXGrayson/ANewLand/History/courthouse/1935_Courthouse.html" },
+    { label: "KXII — March 2025 unveiling of Sherman Riot historical marker", url: "https://www.kxii.com/2025/03/29/they-were-scared-death-recognize-history-marker-1930-sherman-riot-unveiled-after-years-long-battle/" },
   ],
 };
