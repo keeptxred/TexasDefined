@@ -45,14 +45,22 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 
 ## Verified launch cohort and honest gap
 
-- Gregg and Upshur counties: Gladewater Chamber of Commerce — https://gladewaterchamber.org/
-- Angelina County: Lufkin/Angelina County Chamber — https://www.lufkintexas.org/
-- Kimble County: Kimble County Chamber — https://www.kimblecountychamber.com/
-- Jefferson County: Greater Port Arthur Chamber — https://chamber.portarthurtexas.com/
+- Gregg and Upshur: Gladewater Chamber of Commerce — https://gladewaterchamber.org/
+- Angelina: Lufkin/Angelina County Chamber — https://www.lufkintexas.org/
+- Kimble: Kimble County Chamber — https://www.kimblecountychamber.com/
+- Jefferson: Greater Port Arthur Chamber — https://www.portarthurtexas.com/
+- Rusk: City of Henderson Tourism — https://www.hendersontx.us/1280/Events
+- Harrison: Greater Marshall Chamber — https://marshalltexas.com/
+- Smith: Tyler Area Chamber — https://calendar.visittyler.com/events/calendar
+- Nacogdoches: Visit Nacogdoches — https://www.visitnacogdoches.org/events
+- Potter and Randall: Visit Amarillo — https://www.visitamarillo.com/events/
+- Lubbock: Lubbock Chamber — https://business.lubbockchamber.com/events/calendar
+- Presidio: Visit Marfa — https://visitmarfa.com/events
+- Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 5 / 254 counties. Remaining: 249 counties requiring verified source research.**
+**Source-mapped: 14 / 254 counties. Remaining: 240 counties requiring verified source research.**
 
-On November 22, 2026, initial outreach messages were sent from O365 to Gladewater and Lufkin/Angelina. Subscription success, delivery receipts, media rights and backlinks remain unconfirmed until the organizations respond or a live linking URL is independently observed.
+On November 22, 2026, initial outreach messages were sent from O365 to Gladewater, Lufkin/Angelina, Kimble County and Greater Port Arthur. Subscription success, delivery receipts, media rights and backlinks remain unconfirmed until the organizations respond or a live linking URL is independently observed.
 
 ## Source references
 
