@@ -57,13 +57,14 @@ for (const origin of origins) {
     verify(origin.label, "specific RV camping SEO title", /Martin Creek Lake State Park RV Camping: Sites, Hookups/i.test(title));
     verify(origin.label, "unchanged canonical URL", canonicalHref === canonical);
     verify(origin.label, "indexable robots directive", !/noindex/i.test(robots));
-    verify(origin.label, "WebPage and TouristAttraction schema", html.includes('"@type":"WebPage"') && html.includes('"@type":"TouristAttraction"'));
+    verify(origin.label, "WebPage and TouristAttraction schema", html.includes('"@type":"WebPage"') && html.includes('"@type":["Campground","TouristAttraction"]'));
     verify(origin.label, "reviewed November 18, 2026", visible.includes("november 18, 2026"));
     verify(origin.label, "fire ban rescission qualified by current alerts", visible.includes("rusk county rescinded") && visible.includes("this is not permission to light a fire"));
     verify(origin.label, "three campsite-class selection tools", visible.includes("want a lakefront site?") && visible.includes("need 50-amp electric service?") && visible.includes("prioritizing price?"));
     verify(origin.label, "campground-specific quiet hours and checkout", visible.includes("noon campsite checkout") && visible.includes("quiet hours"));
     verify(origin.label, "site-specific accessibility", visible.includes("accessibility and individual rv pad fit") && visible.includes("does not establish that every electric rv site is accessible"));
-    verify(origin.label, "licensed genuine park footbridge photo", html.includes("Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg") && visible.includes("larry d. moore"));
+    verify(origin.label, "licensed genuine park footbridge photo via first-party broker", /<img[^>]+src="\/media\/remote\?url=[^"]*Bridge_Martin_Creek_Lake_State_Park_Texas_2025\.jpg/i.test(html) && visible.includes("larry d. moore"));
+    verify(origin.label, "RV substantive modification date", html.includes('"dateModified":"2026-11-21"'));
     verify(origin.label, "approved licensed docks photo with accurate park-only context",
       html.includes("Docks_at_Martin_Creek_Lake_State_Park_2019.jpg") &&
       html.includes("/media/remote?url=") &&
@@ -79,6 +80,27 @@ for (const origin of origins) {
   } catch (error) {
     failures.push(origin.label + ": fetch failed: " + String(error));
   }
+}
+
+for (const origin of origins) {
+  try {
+    const parkPath = "/destination/martin-creek-lake-state-park";
+    const { html, status } = await fetchPage(origin.base + parkPath);
+    const visible = visibleText(html);
+    const canon = html.match(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*\bhref=["']([^"']+)["']/i)?.[1];
+    const robots = [...html.matchAll(/<meta\b[^>]*\bname=["']robots["'][^>]*>/gi)].map(([tag]) => tag).join(" ");
+    verify(origin.label, "park HTTP 200 canonical indexable", status === 200 && canon === "https://texasdefined.com" + parkPath && !/noindex/i.test(robots));
+    verify(origin.label, "park title and updated schema", html.includes("Martin Creek Lake State Park: Trails, Fishing") && html.includes('"dateModified":"2026-11-21"'));
+    verify(origin.label, "park-specific decision guide and accurate trail mileage", visible.includes("plan the right day at martin creek lake") && visible.includes("old henderson road loop") && visible.includes("1.4 miles") && visible.includes("harmony hill loop") && visible.includes("1.7 miles") && visible.includes("island trails") && visible.includes("0.9 mile"));
+    verify(origin.label, "park fishing, accessibility and lodging", visible.includes("four-lane boat ramp") && visible.includes("not fully ada compliant") && visible.includes("19 screened shelters") && visible.includes("two simpler cottages") && visible.includes("argentine ant"));
+    verify(origin.label, "park reciprocal RV guide and specific reservation link", html.includes('href="' + route + '"') && html.includes("parkId=1200121"));
+    verify(origin.label, "park source links and licensed images", html.includes("Fishing_Pier_Martin_Creek_Lake_State_Park_2019.jpg") && html.includes("Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg") && html.includes("Docks_at_Martin_Creek_Lake_State_Park_2019.jpg") && html.includes("creativecommons.org/licenses/by/4.0/") && html.includes("/trails-info") && html.includes("martin_creek/access.phtml"));
+    const sitemap = await fetchPage(origin.base + "/sitemap-explore.xml");
+    for (const path of [route, parkPath]) {
+      const rows = [...sitemap.html.matchAll(/<url>[\s\S]*?<\/url>/gi)].map(m => m[0]).filter(row => row.includes("<loc>https://texasdefined.com" + path + "</loc>"));
+      verify(origin.label, path + " unique fresh sitemap lastmod", rows.length === 1 && rows[0].includes("<lastmod>2026-11-21</lastmod>"));
+    }
+  } catch (error) { failures.push(origin.label + ": park or sitemap fetch failed: " + String(error)); }
 }
 
 mkdirSync(".artifacts", { recursive: true });
