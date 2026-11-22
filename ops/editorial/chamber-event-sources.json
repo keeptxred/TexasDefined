@@ -879,6 +879,20 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "hillsboro-chamber-community-calendar",
+      "organization": "Hillsboro Chamber of Commerce",
+      "countySlugs": [
+        "hill"
+      ],
+      "homeUrl": "https://hillsborochamber.org/",
+      "calendarUrl": "https://hillsborochamber.org/2026/04/06/events-on-the-hillsboro-calendar-for-the-week-of-april-6th-2026/",
+      "contactPageUrl": "https://hillsborochamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
