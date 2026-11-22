@@ -2501,6 +2501,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceVerifiedAt": "2026-10-27"
   },
   {
+    "slug": "caldwell-christmas-on-the-square-2026",
+    "title": "Caldwell Christmas on the Square · Lighted Christmas Parade",
+    "city": "Caldwell",
+    "countySlug": "burleson",
+    "countyName": "Burleson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "venueName": "Downtown Caldwell · parade lineup on Buck Street",
+    "officialEventUrl": "https://www.burlesoncountytx.com/",
+    "sourceName": "Burleson County Chamber of Commerce",
+    "summary": "The Burleson County Chamber's current Christmas on the Square announcement confirms Friday, December 11, 2026, with holiday music, dance performances and a lighted Christmas parade at approximately 7 p.m. Participant lineup begins around 6:40 p.m. on Buck Street behind the Caldwell Fire Truck; that lineup is not a visitor arrival or parade start time. Confirm the public parade route, parking and remaining evening schedule with the Chamber before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
     "slug": "tpwd-lake-bob-sandlin-christmas-2026",
     "title": "14th Annual Christmas in the Park · Lake Bob Sandlin",
     "city": "Pittsburg",
