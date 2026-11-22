@@ -8,7 +8,7 @@ export const nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle: Article
   brandId: "texasdefined",
   slug: "nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas",
   title: "Nacogdoches County: Caddo Country, El Camino Real and the Piney Woods",
-  dek: "Nacogdoches County layers Caddo history, Spanish settlement, Texas revolutionary crossroads, university life, timber country and East Texas lakes around one of the state’s most historic communities.",
+  dek: "Why the Old Stone Fort is a 1936 reconstruction, what happened to Nacogdoches' 1910 fire station, and why its courthouse dates to 1958.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle: Article
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Nacogdoches County",
     "Nacogdoches Texas",
@@ -32,6 +33,10 @@ export const nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle: Article
     "East Texas",
     "Texas history",
     "Texas counties",
+    "Old Stone Fort demolition 1902",
+    "1936 SFA Stone Fort replica",
+    "Nacogdoches 1910 fire station",
+    "1958 county courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -96,6 +101,26 @@ export const nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle: Article
     p("The Stone Fort Museum on the SFA campus is a reconstruction of Ibarvo’s late-eighteenth-century trading house. The building represents a remarkable sequence of uses associated with the original structure, including trade, private residence, civic activity and revolutionary-era events."),
     p("For visitors, the museum is useful because it connects the Spanish-colonial story to the university rather than isolating local history in a distant site. Nacogdoches grew around overlapping eras, and the campus itself sits on land tied to several of them."),
 
+    h("The Old Stone Fort on the SFA campus is a 1936 reconstruction"),
+    p("The building called the Old Stone Fort looks like an eighteenth-century stone house, but its present location and surviving structure date to a much later preservation campaign. Antonio Gil Y'Barbo established Nacogdoches in 1779. The city's early stone trading house—La Casa Piedra—was built sometime in the years following that founding. The current Stone Fort Museum at Stephen F. Austin State University dates its original construction to about 1788–91, while older state and national summaries sometimes use 1779. The exact building date is therefore not fully settled."),
+    p("The original occupied a site near today's Main and Fredonia Streets on the old road. It functioned as a store and residence and at times as a place for local government, military activity and commerce; its later use included a saloon. In 1902 owners dismantled it to make space for a more modern commercial building. The old stonework did not vanish entirely: the Cum Concilio Club, a women's civic organization, saved much of it for a memorial."),
+    p("In 1936 the Texas Centennial Commission and preservation supporters reconstructed a close replica of the early stone house on the SFA campus, incorporating recovered material and documentary photographs. The present museum is consequently a significant work of early Texas historic preservation, not the original house intact on its eighteenth-century foundation. A guide must give visitors that distinction clearly, particularly when identifying period photographs."),
+    p("The history also connects local activism to statewide preservation. Women's civic groups argued against demolishing the original 1902 building and later worked to conserve and interpret what remained. SFA's museum preserves those efforts, but visitors should use its current operating notices to confirm tours and accessibility."),
+
+    h("The lost 1910 city hall and fire station were civic milestones"),
+    p("After Nacogdoches organized a municipal fire department in 1907, city officials needed a permanent place for new equipment. The downtown National Register history describes the city purchasing land on the south side of the square and commissioning architect Dietrich Rulfs to design a combined city hall and fire station in 1910. The mixed-use civic building stood through the first half of the twentieth century."),
+    p("The city hall and fire station was demolished around 1952–53, according to the downtown preservation nomination. Its absence helps explain why historic photographs may show a substantial building near the square that does not appear on the modern walking route. This was a distinct municipal structure, not an extension of the county courthouse."),
+
+    h("The 1911 courthouse was replaced—not restored—in 1958"),
+    p("Nacogdoches County's courthouse sequence stretches from early public use of the stone trading house through a nineteenth-century courthouse near the old square. In 1911 architects Lang and Witchell designed a larger courthouse one block west of the earlier courthouse location. As the county grew, officials later chose to demolish that building and erect a modern replacement in 1958."),
+    p("The 1958 courthouse stands at the former 1911 site and was set back behind a landscaped forecourt. Architectural surveys describe the replacement as a midcentury civic building, not a repaired version of the 1911 courthouse. The distinction is particularly important for a county known for its unusually long colonial history: the age of the settlement is not the construction date of the present courthouse."),
+    p("For a historical walk, the museum on the SFA campus, the original Stone Fort site near Main and Fredonia, the downtown square and the current courthouse each represent a different layer. They cannot be compressed into a claim that a single surviving 'old courthouse' has continuously stood since Spanish Texas."),
+
+    h("Nacogdoches history questions"),
+    p("Is the Old Stone Fort the original eighteenth-century building? No. The original was demolished in 1902; the SFA museum is a 1936 replica incorporating saved stone."),
+    p("Why do Stone Fort dates differ? Nacogdoches was founded in 1779, but SFA's museum research dates Y'Barbo's stone house to about 1788–91. Older markers sometimes combine the two."),
+    p("What happened to the historic Nacogdoches city hall and fire station? The combined municipal building designed by Dietrich Rulfs in 1910 was demolished around 1952–53."),
+    p("When was the current Nacogdoches County Courthouse built? 1958. It replaced the 1911 Lang and Witchell courthouse rather than preserving that building's original fabric."),
     h("Downtown Nacogdoches rewards walking"),
     p("Historic downtown is one of the best places in East Texas to see layers of settlement within a few blocks. Main Street follows the old travel corridor, while brick storefronts, public buildings, churches, historic houses and interpretive markers show how the city evolved from frontier trading center to regional county seat."),
     p("The Charles Bright Visitor Center stands directly on the El Camino Real route and provides a practical orientation point. From there, visitors can explore the downtown grid, nearby historic districts and local museums without needing to treat the county’s history as a sequence of isolated roadside stops."),
@@ -127,5 +152,14 @@ export const nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle: Article
     h("What defines Nacogdoches County"),
     p("Nacogdoches County is defined by continuity across radically different eras. Caddo settlement, Spanish missions, colonial trade, Mexican rule, revolution, the Republic of Texas, cotton, emancipation, railroads, timber and higher education all occupy the same landscape rather than separate chapters with clean boundaries."),
     p("That density makes the county one of Texas’s best places for understanding how the state developed before the familiar cattle-drive and oil-boom stories took over the popular imagination. Nacogdoches is old, but it is not frozen in the past: a university, working forests, lakes, farms and regional commerce keep adding new layers to a place that has been a crossroads for centuries."),
+  ],
+  sources: [
+    { label: "Stephen F. Austin State University — Stone Fort Museum original 1788–91 and 1936 reconstruction", url: "https://www.sfasu.edu/history/historical-resources/stone-fort-museum" },
+    { label: "Texas Historical Commission — Old Stone Fort demolition and reconstruction marker", url: "https://atlas.thc.texas.gov/Details/5347009393" },
+    { label: "Texas State Library — archives of 1936 historical reconstruction", url: "https://txarchives.org/tslac/finding_aids/90027.xml" },
+    { label: "Handbook of Texas — Old Stone Fort", url: "https://www.tshaonline.org/handbook/entries/old-stone-fort" },
+    { label: "National Register — Downtown Nacogdoches historic district and 1910 fire station", url: "https://downtowntx.org/documents/final/Community/59/1525275550Nacogdoches-HD-NR-final.pdf" },
+    { label: "Society of Architectural Historians — 1911 and 1958 Nacogdoches courthouses", url: "https://sah-archipedia.org/buildings/TX-02-LC27" },
+    { label: "Texas Historical Commission — present Nacogdoches Courthouse 1958 inventory", url: "https://atlas.thc.texas.gov/Details/4302002499" },
   ],
 };
