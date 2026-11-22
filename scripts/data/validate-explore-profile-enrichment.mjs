@@ -44,8 +44,10 @@ for (const feature of [
   'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
 if (!route.includes('const substantiveModifiedAt = destination.slug === "moody-gardens"')
-    || !route.includes('moodyGardensEditorialDates.lastSubstantiveEdit : destination.sourceCheckedAt')) {
-  errors.push("Destination dateModified must preserve source review dates for other destinations and use the real Moody Gardens substantive edit date.");
+    || !route.includes('moodyGardensEditorialDates.lastSubstantiveEdit :')
+    || !route.includes('destination.updatedAt ?? "2026-11-21" : destination.sourceCheckedAt')
+    || !route.includes('["martin-creek-lake-state-park", "martin-creek-lake-state-park-rv-area"].includes(destination.slug)')) {
+  errors.push("Destination dateModified must preserve the existing source-review fallback and use actual Moody Gardens and paired Martin Creek substantive edit dates.");
 }
 
 for (const feature of [

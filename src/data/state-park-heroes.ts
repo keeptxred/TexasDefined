@@ -88,6 +88,7 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
     }
 
     if (hasApprovedFranklinHero(destination)) return destination;
+    if (destination.slug === "martin-creek-lake-state-park" && destination.hero.src === stateParkHeroMap[destination.slug].src) return { ...destination, hero: stateParkHeroMap[destination.slug] };
     const mapped = mappedHero(destination.slug);
     if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
       return { ...destination, hero: mapped };
@@ -118,6 +119,7 @@ export function applyStateParkHeroAsset(destination: Destination): Destination {
   }
   if (!isTexasStateParkDestination(destination)) return destination;
   if (hasApprovedFranklinHero(destination)) return destination;
+  if (destination.slug === "martin-creek-lake-state-park" && destination.hero.src === stateParkHeroMap[destination.slug].src) return { ...destination, hero: stateParkHeroMap[destination.slug] };
   const mapped = mappedHero(destination.slug);
   if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
     return { ...destination, hero: mapped };

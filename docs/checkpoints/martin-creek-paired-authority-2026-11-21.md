@@ -1,0 +1,20 @@
+# Martin Creek paired authority release and refresh checkpoint
+
+PR #7519: both exact canonical URLs, /destination/martin-creek-lake-state-park and /destination/martin-creek-lake-state-park-rv-area.
+
+- Nov 21 substantive revision: source-led visitor decisions, trails (1.4/1.7/0.9 mi), fishing and access, Harmony Hill history, overnight options, accessibility, dated alerts, distinct SEO intent, reciprocal links, three genuine licensed photographs and specific visitor resources. Original comparison: TPWD general park overview explains activities but not comparative itineraries; dedicated trails listing supplies accurate distances (use 1.7 mi rather than general page's rounded/conflicting Harmony Hill figure); fisheries page supplies lake/season/access data but not day-trip choices; official campsite and booking pages supply fees and pad-level evidence. Texas Defined combines these without claiming an on-site visit.
+- Prior revision release #7473/#7477 remains the verified baseline, not proof of this revision.
+- First protected merge gate #44990246557 failed on four specific contracts: dated visitor fact fixture, smoke-scope fixture, unquoted colon in YAML, and dateModified validator. Corrected each contract without removing factual, scope, YAML or date validation.
+- Daily 14:33 UTC source checks of current operating information, fees, lodging, trails, accessibility, reservations, Argentine ants and county fire restrictions.
+- Quarterly 15:17 UTC on the 15th of February, May, August and November: additionally review history, ecology and lake facts. Manual dispatch runs all sources.
+- Each drift finding names its exact affected canonical page and official source on one row for existing sitewide protected source-backed rewrite selector. No stamp-only edits; source failures fail closed; publish genuine editorial edits only.
+- Weekly Wednesday 16:41 UTC and every successful production deployment: verify both canonical pages, structured data, reciprocal links, media attribution and unique sitemap modification dates on canonical and direct Worker. Retain the existing independent whole-site audit.
+- Pending: pass corrected protected merge gate, confirm auto-merge and exact successful production deploy, daily and full quarterly manual source monitor, both-host post-deploy acceptance, independent uncached mobile/desktop image and link checks, actual XML, then inspect both URLs in Search Console. Read-only URL Inspection cannot request indexing; no unsupported Google indexing API use. Never report full completion until actual production checks pass.
+
+## Second merge gate — Nov 21 local time
+
+Run #44990641014 passed 243 of 244 checks, including production build, compiled Worker SSR, factual/source contracts and the four corrected gates. Sole failure was the client main bundle: 1,837,138 bytes vs 1,836,750 budget (388 over). Diagnostic artifact #14742255568. Do **not** raise the budget. Commit b002b5d653dc155af7e93062184ba7022e43f11c removes 1,339 redundant source characters from the small catalog/quick-facts record while preserving its three substantive paragraphs and all visitor details in the lazy full guide. Follow-up deduplicates actual primary citation strings and shared verified image-rights metadata in the client route; both pages retain exact license proof and visible primary references. Rerun protected gate, then release and live acceptance as above.
+
+## Third merge gate — Nov 21 local
+
+Run #44991177232 (head 82218b486e0525cc77686cb15863e4aa148bfea3) passed production build, built-Worker SSR, all factual/SEO/source/schedule contracts and **main client JS budget**, 243/244 overall. Sole failure: primary stylesheet 142,782 bytes vs 142,750 (32 bytes). Artifact #14742575205. Replace unique 620px and 640px Tailwind minimum-width selectors with established site utility min-w-[40rem] (640px, already used by three statewide guides). Both comparison tables remain keyboard-scrollable; add the existing 2px focus outline for main park. Do not raise CSS budget. Re-run actual protected gate and live checks; source refresh enrollment remains unchanged.

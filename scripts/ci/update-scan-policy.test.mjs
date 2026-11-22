@@ -412,7 +412,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/texas-data', '/texas-data/texas-homeowners-premium-history',
     '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
-    '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
+    '/destination/martin-creek-lake-state-park', '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
@@ -428,7 +428,8 @@ test('planner corrections retest previously missed editorial SSR links, not enti
 test('Martin Creek RV edits select exact canonical page for live smoke and cache purge', () => {
   for (const source of ['src/components/editorial/MartinCreekRvAuthority.tsx', 'src/data/rv-parks/curated-public-wave4.ts', 'scripts/ci/verify-martin-creek-rv-live.mjs']) {
     const plan = buildChangePlan({ baseline, head, changedFiles: [source] });
-    assert.deepEqual(plan.selectedPaths, ['/destination/martin-creek-lake-state-park-rv-area']);
+    assert.deepEqual([...plan.selectedPaths].sort(), ['/destination/martin-creek-lake-state-park', '/destination/martin-creek-lake-state-park-rv-area']);
+    assert.deepEqual(plan.expectedHrefsByPage['/destination/martin-creek-lake-state-park'], ['/destination/martin-creek-lake-state-park-rv-area', '/fishing/access', '/fishing/regulations']);
     assert.deepEqual(plan.expectedHrefsByPage['/destination/martin-creek-lake-state-park-rv-area'], [
       '/destination/martin-creek-lake-state-park', '/explore/rv-parks', '/explore/state-parks', '/fishing/access',
     ]);
