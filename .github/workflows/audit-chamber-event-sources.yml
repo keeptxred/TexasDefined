@@ -1,0 +1,126 @@
+name: Audit Texas Chamber Event Sources
+
+on:
+  schedule:
+    - cron: '23 13 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/audit-chamber-event-sources.yml'
+      - 'ops/editorial/chamber-event-sources.json'
+      - 'scripts/events/audit-chamber-event-sources.mjs'
+      - 'scripts/events/audit-chamber-event-sources.test.mjs'
+      - 'src/data/texas-places.ts'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-chamber-event-sources.yml'
+      - 'ops/editorial/chamber-event-sources.json'
+      - 'scripts/events/audit-chamber-event-sources.mjs'
+      - 'scripts/events/audit-chamber-event-sources.test.mjs'
+      - 'src/data/texas-places.ts'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: chamber-event-source-audit
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 254 counties and private/outreach safety
+        run: node --test scripts/events/audit-chamber-event-sources.test.mjs
+      - name: Prove complete county research roster without network
+        run: node scripts/events/audit-chamber-event-sources.mjs --offline --output .artifacts/chamber-event-source-offline.json
+      - name: Check public chamber calendars, respecting robots exclusions
+        id: monitor
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/events/audit-chamber-event-sources.mjs
+      - name: Preserve complete source audit and county-gap roster
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chamber-event-source-audit
+          path: |
+            .artifacts/chamber-event-source-offline.json
+            .artifacts/chamber-event-source-audit.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Maintain 254-county source-gap issue
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const file = '.artifacts/chamber-event-source-audit.json';
+            if (!fs.existsSync(file)) {
+              core.setFailed('Missing chamber calendar audit');
+              return;
+            }
+            const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+            if (report.countiesTotal !== 254 ||
+                report.countiesMissingSources !== report.unservedCounties.length ||
+                report.countiesWithRegisteredSources + report.countiesMissingSources !== 254) {
+              core.setFailed('Incomplete 254-county chamber roster');
+              return;
+            }
+            const title = '[Events] 254-county chamber calendar discovery gaps';
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const run = context.serverUrl + '/' + owner + '/' + repo +
+              '/actions/runs/' + context.runId;
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const previous = issues.find(issue => !issue.pull_request && issue.title === title);
+            const failures = report.observations.filter(row =>
+              !['reachable-discovery-only', 'not-due', 'offline-validation'].includes(row.state));
+            const body = [
+              'Chamber source coverage is an editorial discovery roster, not evidence of confirmed event occurrences or backlinks.',
+              '',
+              'Latest run: ' + run,
+              'Counties with vetted chamber sources: **' +
+                report.countiesWithRegisteredSources + '/254**.',
+              'Counties needing verified source discovery: **' +
+                report.countiesMissingSources + '**.',
+              'Calendar-source fetches requiring review: **' + failures.length + '**.',
+              '',
+              '### Counties missing vetted local sources',
+              ...report.unservedCounties.map(row => '- ' + row.name + ' — ' + row.url),
+              '',
+              '### Official source access requiring review',
+              ...failures.map(row => '- ' + row.organization + ': ' + row.state +
+                ' — ' + row.calendarUrl),
+              '',
+              '### Editorial gates',
+              '- Deduplicate by organization and domain; use O365 admin@texasdefined.com only, never Gmail.',
+              '- Respect robots and publisher terms; do not copy images or descriptive prose.',
+              '- Chambers supply research leads. Current first-party organizer verification is mandatory before any county or event page update.',
+              '- Never infer next-year dates, auto-publish candidates or exchange ranking backlinks.',
+              '- Media kits and recipients remain private, not in this GitHub issue.',
+              '',
+              'Parent checkpoint: #7548.',
+            ].join('\n');
+            if (report.countiesMissingSources || failures.length) {
+              if (previous) await github.rest.issues.update({
+                owner, repo, issue_number: previous.number, body,
+              });
+              else await github.rest.issues.create({ owner, repo, title, body });
+            } else if (previous) {
+              await github.rest.issues.update({
+                owner, repo, issue_number: previous.number, state: 'closed',
+                body: body + '\n\nAll counties now have vetted sources. This does not certify event completeness.',
+              });
+            }
+      - name: Fail on source-audit infrastructure errors
+        if: github.event_name != 'pull_request' && steps.monitor.outcome == 'failure'
+        run: exit 1
