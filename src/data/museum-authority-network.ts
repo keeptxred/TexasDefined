@@ -28,6 +28,52 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "comanche-county-historical-museum": {
+    name: "Comanche County Historical Museum",
+    slug: "comanche-county-historical-museum",
+    county: "Comanche",
+    city: "Comanche",
+    reviewed: "2026-11-22",
+    whyVisit: "The Comanche County Historical Museum turns a visitor's courthouse-square walk into an understanding of how Comanche County actually worked: exhibits preserve the original mirror from the former Jack Wright Saloon, a recreated saloon interior, memorabilia related to John Wesley Hardin, a blacksmith's windmill and hand tools, and community-specific collections of farms, wartime service, childhood and art. The mirror's later use in a Gustine barber shop before donation is particularly revealing: objects moved with the people and businesses they served. Unlike a narrowly themed Wild West attraction, the rooms cover county life from Indigenous history to modern rural occupations.",
+    visitorStrategy: "Plan to arrive at 402 Moorman Road in Comanche during the operator's published Thursday–Saturday public hours, 10 a.m.–4 p.m. Reserve around one to two hours for a selective, unhurried visit, but treat that as TexasDefined's suggested visit time, not an official guided-tour duration. School, private and group tours are offered by arrangement. The operator's homepage explicitly confirms that general admission is free and donations are welcome. No universal timed-ticket requirement is published; call (325) 356-5115 for group arrangements and any special program conditions. A typical Comanche history day also takes in the museum, then the Old Cora log courthouse (used for county business in 1856) exterior, historic Fleming Oak and 1892–93 Bull Durham mural near Grand Street. The local Chamber says Old Cora is closed for renovation, not open for an indoor tour. Bring local directions and be mindful that the mural is privately located behind storefront glass.",
+    accessibility: "Because individual exhibit rooms, entrances and the museum's parking surfaces have not been independently audited for step-free wheelchair or stroller travel, contact museum volunteers about exact accessible parking, entrance thresholds, seating, wheelchair routes and restrooms before visiting. The published operator pages also do not establish a consistent pet or photography policy. Historical objects, smaller displays and any group tour may have differing supervision or circulation requirements. Do not infer that a roughly 50,000-square-foot museum is fully accessible or that public admission always operates like a staffed city museum.",
+    familiesAndGroups: "The museum describes a children's area and varied history rooms, so a family can compare playthings, blacksmith equipment, veterans' clothing, Indigenous settlement interpretation and the town's transportation story. Some exhibits concern real killings, lynchings and frontier violence; adults should decide how much of the John Wesley Hardin material is suitable for their children. For classrooms, a planned route from farm and windmill tools to saloon and courthouse history can connect social studies to the physical places students can visit downtown. Schools and large groups should arrange their own visit directly with museum staff rather than arriving on a presumed open-tour slot.",
+    researchValue: "A visitor can use the museum's original saloon mirror to trace local reuse and preservation; the blacksmith's windmill head to discuss water access and agricultural technology; the campsite diorama to examine the limits of historical reconstructions; and the veterans' and family displays to ask whose ordinary stories survive in county archives. The institution also publishes a QR-based Comanche Square Walking Tour with audio for Old Cora, Fleming Oak and other downtown history stops, a useful comparison between reconstructed exhibits and buildings that remain. The institution is an important community history steward, not a complete or neutral interpretation of every Indigenous or racial-history question. Cross-reference the Texas State Historical Association's county overview and Texas Historical Commission markers; send deep genealogical or collections inquiries to museum staff instead of presenting this guide as a substitute for curatorial records.",
+    topics: ["county-heritage", "frontier-history", "ranching-agriculture", "texas-museums", "texas-railroads", "living-history"],
+    exhibits: [
+      { heading: "Jack Wright Saloon reconstruction", detail: "A period saloon diorama connects the building blocks around Comanche's courthouse square to the 1870s commercial and outlaw era; it is an interpretive exhibit, not an operating bar." },
+      { heading: "Original Jack Wright Saloon mirror", detail: "The museum reports that its surviving mirror moved from the saloon to a Gustine barbershop and eventually into the collection, illustrating how commercial artifacts were reused across the county." },
+      { heading: "John Wesley Hardin material", detail: "Historical photographs and memorabilia document Hardin and the violent 1874 killing of deputy Charles Webb; distinguish this real harm from modern entertainment reenactments." },
+      { heading: "Blacksmith tools and windmill head", detail: "Metalworking and water-system objects explain everyday repair skills vital to ranch operations, farms and community infrastructure; live blacksmith demonstrations are not promised." },
+      { heading: "Comanche Indigenous campsite diorama", detail: "A historical model provides a starting point for discussing the Comanche people's earlier presence; the model is not a comprehensive representation of the living Comanche Nation." },
+      { heading: "Veterans and military collections", detail: "Clothing, personal records and military items preserve Comanche County residents' experiences across twentieth-century conflicts, giving attention to local service and families." },
+      { heading: "Children's area", detail: "A dedicated room about childhood and play can provide a gentler introduction to local history for families and school groups." },
+      { heading: "Regional arts and Bernice Jones work", detail: "Artworks featuring subjects such as Quanah Parker invite comparison of historical memory, visual representation and regional heritage." },
+    ],
+    routes: [
+      { label: "Essential museum visit", steps: ["Begin with the saloon reconstruction and original mirror to place the square's commercial history", "Compare Hardin material with broader community and veterans displays rather than treating outlaw stories as the whole county", "Finish with the blacksmith and rural-technology tools"] },
+      { label: "Family and school route", steps: ["Start with children's play and farm technology displays", "Use the campsite diorama to discuss reconstruction and the importance of Indigenous perspectives", "Let older students consider the differences between historical sources and legends in the saloon and Hardin materials"] },
+      { label: "Museum and downtown half day", steps: ["Visit museum during verified staffed window at 402 Moorman Road", "Continue to the courthouse square to see Old Cora exterior (closed for renovations) and Fleming Oak", "Look for the 1890s tobacco mural through storefront glass at 109 W. Grand, respecting private property"] },
+      { label: "Agriculture and railroad day", steps: ["Study farming, windmill and community displays in the museum", "Visit the 1909 Comanche-Frisco depot if open", "Continue to De Leon or Proctor Lake for separate rail, crop and water-system context"] },
+    ],
+    sources: [
+      { label: "Museum operator: Admission", url: "https://www.comanchecountytxmuseum.com/", use: "Free general admission, donation support and visitor hours" },
+      { label: "Museum operator: Square audio walking tour", url: "https://www.comanchecountytxmuseum.com/about-1-1", use: "QR-linked audio guide and landmark map" },
+      { label: "Museum operator: About Us", url: "https://www.comanchecountytxmuseum.com/about-us", use: "Published visiting days and hours, school/group tours, site description" },
+      { label: "Museum operator: Collection", url: "https://www.comanchecountytxmuseum.com/collection", use: "Actual saloon mirror, blacksmith, Hardin, campsite, arts, veterans and children's displays" },
+      { label: "Museum operator: Contact", url: "https://www.comanchecountytxmuseum.com/contact", use: "Official visitor address, telephone and visit-arrangement contact" },
+      { label: "Comanche Chamber: Explore", url: "https://www.comanchechamber.org/explorecomanche", use: "Square landmarks, current Old Cora closure and contemporary tourism context" },
+      { label: "Texas State Historical Association: Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county", use: "Historical chronology, violence, agriculture and railroads" },
+      { label: "Authentic Texas: It's a Lot of Bull!", url: "https://authentictexas.com/its-a-lot-of-bull/", use: "Tunnells' rediscovery of tobacco mural and old downtown commercial block" },
+      { label: "Texas Historical Commission: Old Cora", url: "https://atlas.thc.texas.gov/Details/5093003711", use: "Original 1856 log courthouse material and county-seat evolution" },
+    ],
+    connections: [
+      { label: "Comanche County", href: "/county/comanche", reason: "Cora and Comanche courthouses, railroad and farming history, region-wide historic sites" },
+      { label: "Comanche travel guide", href: "/destination/comanche", reason: "Courthouse walking itinerary, Fleming Oak, mural, wine businesses and nearby stops" },
+      { label: "Proctor Lake", href: "/fishing/lakes/proctor-lake", reason: "Leon River county water and land-use story beyond the museum" },
+      { label: "All Texas counties", href: "/browse/counties", reason: "Follow other county heritage contexts, not manufactured museum peers" },
+    ],
+  },
   "austin-county-jail-museum-bellville": {
     name: "Austin County Jail Museum", slug: "austin-county-jail-museum-bellville", county: "Austin", city: "Bellville", reviewed: "2026-10-25",
     topics: ["county-jails", "romaneseque-revival-architecture", "austin-county-history", "texas-law-enforcement"],

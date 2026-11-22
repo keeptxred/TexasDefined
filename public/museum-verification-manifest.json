@@ -875,6 +875,44 @@
       ]
     },
     {
+      "path": "/destination/comanche-county-historical-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 13,
+      "sources": [
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/about-us",
+          "label": "Museum official hours, group visits and institutional status"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/collection",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/collection",
+          "label": "Museum specific original saloon mirror, Hardin, blacksmith and family exhibits"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/contact",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/contact",
+          "label": "Museum official address and visitor contact"
+        },
+        {
+          "sourceUrl": "https://www.comanchechamber.org/explorecomanche",
+          "fetchUrl": "https://www.comanchechamber.org/explorecomanche",
+          "label": "Old Cora courthouse renovation/closure and nearby landmarks"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/",
+          "label": "Museum official free admission, donations and visitor hours"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "label": "Museum official self-guided Comanche Square QR audio tour"
+        }
+      ]
+    },
+    {
       "path": "/destination/corpus-christi-museum-science-history",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
