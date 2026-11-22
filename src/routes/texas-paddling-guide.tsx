@@ -85,7 +85,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Paddling Guide: 5 Official Trails to Plan",
-        description: "Plan five official Texas paddling trails from Austin and Houston to Waco, Caddo Lake and Lighthouse Lakes with current TPWD access guidance.",
+        description: "Compare five Texas paddling trails with mapped put-ins and takeouts, shuttle plans, current stream gauges, NOAA tides and coastal conditions.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
