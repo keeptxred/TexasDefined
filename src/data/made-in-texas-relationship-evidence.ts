@@ -232,5 +232,33 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "Wingstop",
     "sourceUrl": "https://www.wingstop.com/about-us",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Tecovas",
+    "claim": "The company documents its Austin design base and dress-boot production in León, Mexico; Austin headquarters is documented in 2024 reporting.",
+    "sourceLabel": "Tecovas company history",
+    "sourceUrl": "https://www.tecovas.com/blog/our-story",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Chisos Boots",
+    "claim": "The brand identifies Austin as its headquarters; its founder describes working with a workshop in Mexico.",
+    "sourceLabel": "Chisos company history",
+    "sourceUrl": "https://chisos.com/pages/the-chisos-story",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "National Instruments / NI",
+    "claim": "NI identifies its Austin corporate address and status as an Emerson subsidiary.",
+    "sourceLabel": "NI legal imprint",
+    "sourceUrl": "https://www.ni.com/en/about-ni/legal/imprint.html",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Mrs. Baird's",
+    "claim": "TCU's archive documents the family bakery's 1908 founding in Fort Worth.",
+    "sourceLabel": "TCU Special Collections",
+    "sourceUrl": "https://exhibits.tcu.edu/s/baird/page/bairdintro",
+    "checkedAt": "2026-11-21"
   }
 ];
