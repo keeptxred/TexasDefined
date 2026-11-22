@@ -27,7 +27,7 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
   authorId: "a-hollis",
   publishedAt: "2026-11-22",
   updatedAt: "2026-11-22",
-  readingMinutes: 15,
+  readingMinutes: 18,
   readingTimeVerified: false,
   tags: [
     "Texas State Railroad", "Rusk Texas", "Palestine Texas", "Cherokee County", "Anderson County",
