@@ -1605,7 +1605,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "waxahachie-ellis-chamber",
@@ -4275,6 +4276,21 @@
       "homeUrl": "https://www.gonzales.texas.gov/",
       "calendarUrl": "https://www.gonzales.texas.gov/events",
       "contactPageUrl": "https://www.gonzales.texas.gov/p/departments/tourgonzales/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "discover-odessa-tourism-calendar",
+      "organization": "Discover Odessa Convention and Visitors Bureau public visitor event calendar",
+      "countySlugs": [
+        "ector"
+      ],
+      "homeUrl": "https://discoverodessa.org/",
+      "calendarUrl": "https://discoverodessa.org/events/month/",
+      "contactPageUrl": "https://discoverodessa.org/our-odessa/contact-us/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
