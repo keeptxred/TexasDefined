@@ -165,9 +165,9 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Kendra Scott",
-    "claim": "The University of Texas at Austin identifies the jewelry company as headquartered in Austin.",
-    "sourceLabel": "UT Austin entrepreneurship institute",
-    "sourceUrl": "https://kswelinstitute.utexas.edu/about-kendra-scott/",
+    "claim": "The Council of Fashion Designers of America identifies the company's Austin corporate office and describes its design and distribution operations there.",
+    "sourceLabel": "Council of Fashion Designers of America",
+    "sourceUrl": "https://cfda.com/member/kendra-scott/",
     "checkedAt": "2026-11-21"
   },
   {
