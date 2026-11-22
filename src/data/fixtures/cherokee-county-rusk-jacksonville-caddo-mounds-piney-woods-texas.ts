@@ -21,7 +21,7 @@ export const cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   updatedAt: "2026-11-22",
-  readingMinutes: 22,
+  readingMinutes: 24,
   tags: [
     "Cherokee County",
     "Rusk Texas",
@@ -39,6 +39,7 @@ export const cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle: Article
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-state-railroad-rusk-palestine-history-guide", label: "Texas State Railroad: Rusk to Palestine", description: "Read how prison labor, the Rusk ironworks, Capitol cast iron, film history and working freight shaped the route." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/rusk", label: "Explore Rusk County", description: "Continue northeast toward Henderson and the East Texas Oil Field." },
     { href: "/county/nacogdoches", label: "Explore Nacogdoches County", description: "Travel southeast along the older Caddo and Spanish corridor toward Nacogdoches." },
@@ -114,6 +115,10 @@ export const cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle: Article
     p("East Texas iron ore deposits encouraged state-backed iron production near Rusk during the late nineteenth century. The operation used timber for fuel and prison labor for mining and industrial work. Although the ironworks never achieved the durable profitability its supporters hoped for, it left an important mark on local infrastructure."),
     p("The decline of the iron enterprise did not erase the investment it created. Roads, labor camps and rail lines continued to shape the county, and the prison-industrial connection directly influenced the development of one of East Texas's best-known heritage attractions."),
 
+    h("What happened to the East Texas Penitentiary buildings"),
+    p("The East Texas Penitentiary at Rusk opened in 1883 with 528 double-occupancy cells, according to the Texas State Library. The Old Alcalde blast furnace began work in February 1884. Prisoners mined iron ore, cut timber and prepared furnace fuel as well as constructing early railway track. The distinction matters: 1894 is not the opening date of the prison, and the earliest short rail spur is older than the finished Palestine extension."),
+    p("Rusk prison workers manufactured cast-iron elements for the new Texas State Capitol in the 1880s, including dome and interior features. These were produced before the railroad reached Palestine in 1909, so the line's full extension should not be described as a route built specifically to transport the Capitol iron. The unprofitable ironworks closed in 1910. The prison closed in 1917, and the repurposed campus opened as Rusk State Hospital in 1919; active hospital property is not a public prison museum."),
+    p("Research: Texas State Library and Archives Commission, Rusk Penitentiary (https://www.tsl.texas.gov/exhibits/prisons/lease/rusk.html); Convict Labor and the Texas State Capitol (https://www.tsl.texas.gov/exhibits/prisons/convictlease/capitol.html); Texas State Historical Association, Rusk Penitentiary (https://www.tshaonline.org/handbook/entries/rusk-penitentiary)."),
     h("The Texas State Railroad began as an industrial line"),
     p("The Texas State Railroad originated as a state-owned industrial railway serving the Rusk prison and ironworks. Track was extended westward from Rusk to haul timber, fuel and ore, eventually reaching Maydelle and then Palestine. Regular common-carrier service began in the early twentieth century."),
     p("The line later survived several financial crises and changes in management. In the 1970s it was revived as a heritage railroad, with historic passenger operations between Rusk and Palestine. Today the route remains one of the clearest ways to experience the wooded terrain of the county while also seeing how industrial infrastructure can become cultural heritage."),
