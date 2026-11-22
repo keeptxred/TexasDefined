@@ -248,8 +248,9 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },
     {"label":"Texas State Library and Archives Commission — state symbols","href":"https://www.tsl.texas.gov/ref/abouttx/symbols","note":"Identifies the 1977 chili designation and HCR 18."},
     {"label":"Original Terlingua International Championship — history","href":"https://abowlofred.com/about/","note":"Organizer's account of the 1967 tied contest and its own competition."},
-    {"label":"CASI — history of chili","href":"https://www.casichili.net/history-of-chili.html","note":"Separate organizer's historical account and competition tradition."},
-    {"label":"Portal to Texas History — Military Plaza chili stands","href":"https://texashistory.unt.edu/ark:/67531/metapth459988/","note":"Archival image record of plaza vendors; linked for research, not reproduced without rights clearance."},
+    {"label":"CASI — history of chili","href":"https://www.casichili.net/about-casi1.html","note":"Separate organizer's historical account and competition tradition."},
+    { label: "University of the Incarnate Word — Popular Chili Queens Graced San Antonio Plazas", href: "https://www.uiw.edu/sanantonio/jenningschiliqueens.html", note: "Documents plaza vendors, municipal sanitation disputes and the final closures in the early 1940s." },
+    { label: "Texas Highways — A Look at Terlingua’s Chili Origins", href: "https://texashighways.com/culture/history/a-look-at-terlinguas-chili-origins/", note: "Independent account of the October 1967 contest and the two competitions since 1983." },
   ],
   "texas-chicken-fried-steak-guide": [
     { label: "Texas Legislature — S.C.R. 34 (2011), introduced text", href: "https://capitol.texas.gov/tlodocs/82R/billtext/pdf/SC00034I.pdf", note: "Identifies the 1911 Lamesa invention story as a fictional 1976 newspaper account; celebrates the festival rather than documenting an invention." },
@@ -258,6 +259,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     {"label":"Washington Post — Deep in the Heart of Texas, We Bread Steak","href":"https://www.washingtonpost.com/archive/lifestyle/2008/06/25/deep-in-the-heart-of-texas-we-bread-steak/0432c28d-8dd4-42f1-b072-1166f634a306/","note":"Independent recipe reporting illustrates exceptions to regional classifications."},
   ],
   "texas-breakfast-taco-guide": [
+    { label: "Texas Legislative Reference Library — HCR 123 history", href: "https://www.lrl.texas.gov/legis/billsearch/billdetails.cfm?billFileID=299334&from=advancedsearch", note: "Confirms the proposed state breakfast designation was left pending in committee." },
     {"label":"Texas Legislature — introduced HCR 123, 2019","href":"https://capitol.texas.gov/tlodocs/86R/billtext/html/HC00123I.HTM","note":"Legislative proposal summarizes early historical references; not an enacted designation or direct archive verification."},
     {"label":"University of Texas Press — American Tacos","href":"https://utpress.utexas.edu/9781477329368/","note":"José R. Ralat's historical survey includes a chapter on breakfast tacos."},
     {"label":"Texas Standard / KUT — José R. Ralat interview","href":"https://www.kut.org/texas/2020-04-16/from-breakfast-to-barbacoa-new-book-dives-into-american-tacos","note":"Explains the borderland context and contested city-origin claims."},
@@ -383,9 +385,162 @@ const homecomingMumFaqs = [
   ["Do colleges use homecoming mums?", "The oversized tradition is most strongly associated with Texas high schools. College communities may reference it, but it is less standardized and widespread."],
 ] as const;
 
+const foodBrandComparisons: Partial<Record<string, { heading: string; columns: string[]; rows: string[][]; note: string }>> = {
+  "texas-brand-origin-stories": {
+    "heading": "Texas brand founding dates at a glance",
+    "columns": [
+      "Brand",
+      "Origin",
+      "Founding milestone"
+    ],
+    "rows": [
+      [
+        "Dr Pepper",
+        "Waco · 1885",
+        "Drugstore soda fountain"
+      ],
+      [
+        "H-E-B",
+        "Kerrville · 1905",
+        "Family grocery"
+      ],
+      [
+        "Blue Bell",
+        "Brenham · 1907",
+        "Butter-making creamery"
+      ],
+      [
+        "Shiner",
+        "Shiner · 1909",
+        "Local brewery"
+      ],
+      [
+        "Dickies",
+        "Fort Worth · 1922",
+        "Williamson-Dickie workwear"
+      ],
+      [
+        "7-Eleven",
+        "Dallas · 1927",
+        "Southland Ice convenience retail"
+      ],
+      [
+        "Whataburger",
+        "Corpus Christi · 1950",
+        "First burger stand"
+      ],
+      [
+        "Buc-ee’s",
+        "Lake Jackson area · 1982",
+        "First convenience store"
+      ]
+    ],
+    "note": "Founding dates describe the historical business or product, not present ownership or factory location."
+  },
+  "texas-chili-con-carne-history": {
+    "heading": "Three ways to understand a Texas bowl of red",
+    "columns": [
+      "Setting",
+      "What matters",
+      "Beans"
+    ],
+    "rows": [
+      [
+        "San Antonio plaza tradition",
+        "Mexican and Tejano street-food history; varied historical preparations",
+        "Historical recipes varied"
+      ],
+      [
+        "Sanctioned competition",
+        "Organizer’s rules and blind judging",
+        "Check the specific rules before entering"
+      ],
+      [
+        "Home and restaurant",
+        "Beef texture, chile flavor and local preferences",
+        "Depends on the cook and menu"
+      ]
+    ],
+    "note": "The state-dish designation does not establish a mandatory recipe. A competition rule applies to that contest, not all Texans."
+  },
+  "texas-chicken-fried-steak-guide": {
+    "heading": "Chicken-fried steak styles compared",
+    "columns": [
+      "Style",
+      "Typical coating",
+      "What to expect"
+    ],
+    "rows": [
+      [
+        "East Texas tradition",
+        "Egg and flour",
+        "Southern fried-chicken-style crust"
+      ],
+      [
+        "Central Texas tradition",
+        "Breadcrumbs or schnitzel-influenced coating",
+        "Different texture from flour dredge"
+      ],
+      [
+        "West Texas tradition",
+        "Flour dredge and pan frying",
+        "A simpler skillet crust"
+      ],
+      [
+        "Wiener schnitzel",
+        "Breadcrumb coating",
+        "Traditionally veal rather than beef"
+      ]
+    ],
+    "note": "Regional framework attributed to food writer Robb Walsh via the Handbook of Texas; actual restaurants vary."
+  },
+  "texas-breakfast-taco-guide": {
+    "heading": "Breakfast taco ordering glossary",
+    "columns": [
+      "Menu term",
+      "Meaning",
+      "Ordering note"
+    ],
+    "rows": [
+      [
+        "Huevo con papas",
+        "Egg with potatoes",
+        "Ask whether potatoes are fried or stewed"
+      ],
+      [
+        "Machacado con huevo",
+        "Shredded dried beef with egg",
+        "Often saltier than egg alone"
+      ],
+      [
+        "Migas",
+        "Eggs with tortilla pieces",
+        "Ask whether cheese and peppers are included"
+      ],
+      [
+        "Carne guisada",
+        "Stewed meat",
+        "Ask which meat and whether gravy is included"
+      ],
+      [
+        "Barbacoa",
+        "Slow-cooked meat",
+        "Ask about the cut and availability"
+      ],
+      [
+        "Nopales",
+        "Edible cactus pads",
+        "Often served in egg combinations"
+      ]
+    ],
+    "note": "These translations help interpret menus; ingredients, availability and regional associations are not uniform."
+  }
+};
+
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
+  const comparison = foodBrandComparisons[guide.slug];
   // Keep the original Commons URLs and licenses in this source registry,
   // but serve the three verified culture-guide photos through the existing
   // first-party, width-bounded image broker instead of third-party hotlinks.
@@ -508,9 +663,9 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review November 21, 2026. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Substantive guide update November 20, 2026 (primary-source review November 18). Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
-          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
+          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={foodBrandReviewed ? 1280 : undefined} height={foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
-            {image.caption}
+            {image.caption}{foodBrandReviewed ? " Display crop for page layout." : ""}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}{foodBrandReviewed && image.credit.includes("CC BY 4.0") ? <> · <a href="https://creativecommons.org/licenses/by/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC BY-SA 4.0") ? <> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC0") ? <> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" className="underline">CC0 terms</a></> : null}</> : null}
           </figcaption>
         </figure> : null}
@@ -557,6 +712,14 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
         </section>
 
+        {comparison ? <section className="border-b border-border py-8" aria-labelledby="quick-comparison">
+          <h2 id="quick-comparison" className="font-display text-3xl">{comparison.heading}</h2>
+          <div className="mt-5 overflow-x-auto"><table className="w-full border-collapse text-left text-sm">
+            <thead><tr>{comparison.columns.map(column => <th key={column} scope="col" className="border border-border bg-muted p-3">{column}</th>)}</tr></thead>
+            <tbody>{comparison.rows.map(row => <tr key={row[0]}>{row.map((cell,index) => index === 0 ? <th key={index} scope="row" className="border border-border p-3">{cell}</th> : <td key={index} className="border border-border p-3">{cell}</td>)}</tr>)}</tbody>
+          </table></div><p className="mt-3 text-xs leading-5 text-muted-foreground">{comparison.note}</p>
+          <nav aria-label="Article contents" className="mt-6"><h3 className="font-semibold">Explore this guide</h3><ul className="mt-3 grid gap-2 sm:grid-cols-2">{guide.sections.map((s,index) => <li key={s.heading}><a className="text-sm text-primary underline underline-offset-2" href={`#${guide.slug}-section-${index+1}`}>{s.heading}</a></li>)}</ul></nav>
+        </section> : null}
         <TexasCultureGuideFieldwork slug={guide.slug} />
 
         {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="mum-grade-guide">
