@@ -8,7 +8,7 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
   brandId: "texasdefined",
   slug: "newton-county-newton-sabine-river-piney-woods-texas",
   title: "Newton County: Deep East Texas Forests, the Sabine River and a Restored Courthouse",
-  dek: "Newton County is Texas at its eastern edge: pine forest, Sabine River bottoms, old lumber country, Burkeville and Deweyville communities, and a courthouse town rebuilt around one of East Texas's most distinctive civic landmarks.",
+  dek: "The 2000 Newton County courthouse fire, preservation of its 1902 walls, 2009 replacement clock tower, 2012 restoration and Sabine River history.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Newton County",
     "Newton Texas",
@@ -32,6 +33,9 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
     "East Texas timber",
     "Texas courthouses",
     "Texas counties",
+    "2000 Newton courthouse fire",
+    "2012 Newton county restoration",
+    "Newton 2009 replacement clock tower",
   ],
   featured: false,
   internalLinks: [
@@ -77,6 +81,22 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
     p("The courthouse fire mattered because the building was more than an office complex. Generations of residents had attended trials, elections, celebrations, departures for military service and public gatherings around the square. Losing the tower and interior created a sense that a piece of the county's shared memory had been damaged along with the physical structure."),
     p("The restoration therefore became a county-wide preservation project rather than simply a construction job. Today the rebuilt courthouse is one of the clearest examples in Texas of a community choosing to reconstruct a historic civic landmark after disaster instead of replacing it with a generic modern building."),
 
+    h("What the August 4, 2000 courthouse fire destroyed—and what survived"),
+    p("The Newton County Courthouse fire was a near loss of a 1902 civic landmark, not a routine exterior renovation. The Texas Historical Commission attributes the August 4, 2000 blaze to faulty electrical wiring in the attic near the bell tower. Flames spread through the timber roof and interior; the upper tower collapsed down through the building. The long-serving courthouse's brick exterior walls largely remained, but its central rooms, stairs, roofing and historic furnishings were severely damaged."),
+    p("Remarkably, the county had finished a preservation master plan in July 2000, just weeks before the disaster. That documentary record gave architects and preservationists a design basis for restoring historic features instead of replacing the building with a generic new office block. The Texas Historic Courthouse Preservation Program made a $415,000 planning award in 2002, followed by $3 million in construction funding in 2006 and another $1.038 million award."),
+    p("Restoration brought back the mansard slate roof, dormers, sash windows, longleaf pine floors and elaborate courtroom. Specialists used salvaged timber and documentary evidence, recreating the interior to an approximately 1925 appearance while returning the exterior toward its 1936 state. The new bell and clock tower was built in Utah from steel and aluminum and lifted into place in May 2009. The historic-looking tower is therefore a carefully engineered replacement, not an original one that somehow survived the 2000 fire."),
+    p("The reconstructed courthouse was publicly rededicated December 8, 2012. This is an unusually clear example of preserving continuity through structural reconstruction: historic brick walls and site survived, while much of the roof, tower and interior required new work. Calling it either a 'new courthouse built in 2012' or an 'untouched 1902 building' would misrepresent the preservation history."),
+
+    h("The 1932 jail break that killed a sheriff is part of courthouse history"),
+    p("The Texas Historical Commission's courthouse account preserves another sobering event from February 15, 1932. A prisoner who had killed his wife the previous evening attempted to break out of the local jail. The county sheriff and a civilian attempting to assist him were killed in the gunfire. Another resident shot the fleeing prisoner, ending the confrontation."),
+    p("This violent episode belongs to the same institutional history as the courthouse: the jail and judicial functions shaped the town's core. It should be reported with care, without turning the deaths into a tourist spectacle or inventing the identities and motives of people not established in the official account."),
+    p("The courthouse also stood near the former S. H. Ford Male and Female College, an educational institution operating in the late nineteenth and early twentieth centuries, and near historic hotels and theater buildings. A walk around Newton's square can reveal these layers without treating the courthouse as the only local historical subject."),
+
+    h("Courthouse questions answered for Newton County"),
+    p("When did the Newton County Courthouse burn? August 4, 2000, when an attic electrical fire caused the bell tower to collapse through the interior."),
+    p("Was the original Newton County Courthouse completely lost? No. The 1902 brick exterior largely survived; major timber and interior features were rebuilt from documented historical references."),
+    p("When was the courthouse rededicated? December 8, 2012, after extensive THC-supported restoration."),
+    p("Is today's Newton courthouse clock tower original? No. The replacement steel-and-aluminum tower was installed in May 2009 during reconstruction."),
     h("The Sabine was Newton County's first major transportation corridor"),
     p("Before dependable roads and railroads, timber and agricultural products moved toward the Sabine River whenever water conditions allowed. Logs could be hauled or floated into creeks and then downstream toward Orange, where Gulf Coast markets and sawmills created demand. River transport was difficult and seasonal, but it provided one of the few practical ways to move bulky material from isolated forest country."),
     p("Communities such as Deweyville and Bon Wier developed in close relationship with river crossings, mills and later rail lines. The Louisiana border was never a cultural wall; families, churches, labor markets and businesses often extended across the river even as the Sabine marked the legal boundary of Texas."),
@@ -120,5 +140,11 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
     h("Why Newton County matters to the Texas story"),
     p("Newton County captures a version of Texas that broad stereotypes often miss. It is humid rather than dry, densely forested rather than open, historically tied to river transport and lumber rather than cattle trails alone, and culturally connected to Louisiana as much as to distant parts of Texas. Its landscape shows that the state's eastern boundary is not a margin but a distinct region with its own environmental and economic history."),
     p("The restored courthouse provides an ideal symbol for that story. Newton County has repeatedly adapted—from river travel to railroads, from old-growth logging to managed forestry, from small farms to regional labor markets, and from courthouse destruction to reconstruction. The county's identity comes from those layers: Sabine River water, Piney Woods timber, small communities, borderland connections and a civic center that residents chose to rebuild rather than abandon."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Newton County Courthouse 2000 fire and 2012 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/newton-county" },
+    { label: "Handbook of Texas — Newton County history", url: "https://www.tshaonline.org/handbook/entries/newton-county" },
+    { label: "Beaumont Enterprise — December 2012 courthouse rededication", url: "https://www.beaumontenterprise.com/jasper/news/article/Newton-County-heralds-opening-of-courthouse-years-4108110.php" },
+    { label: "Texas Historical Commission — Newton County historic preservation resources", url: "https://atlas.thc.texas.gov/Details?atlasnumber=4302000217" },
   ],
 };

@@ -8,7 +8,7 @@ export const angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle: Article = {
   brandId: "texasdefined",
   slug: "angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas",
   title: "Angelina County: Lufkin, Diboll, Sam Rayburn and the Working Piney Woods",
-  dek: "Angelina County is an East Texas center of timber, railroads, manufacturing, river country and lake recreation, anchored by Lufkin and the forest-industry history of Diboll.",
+  dek: "The mysterious 1891 Homer courthouse fire, Lufkin's 1892 county-seat victory, the lost opera house, timber railroads and Angelina County's Piney Woods.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Angelina County",
     "Lufkin Texas",
@@ -32,6 +33,9 @@ export const angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle: Article = {
     "Neches River",
     "Angelina River",
     "Texas counties",
+    "1891 Homer courthouse fire",
+    "1892 Lufkin county seat election",
+    "1920 Lufkin Opera House fire",
   ],
   featured: false,
   internalLinks: [
@@ -72,6 +76,22 @@ export const angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle: Article = {
     p("Marion developed near the Angelina River and served as the county's first seat. A post office opened there in 1847, and the community benefited from river traffic during a period when steamboats could connect inland settlements to larger markets."),
     p("The town's decline illustrates how quickly transportation technology could reorder East Texas. Once the railroad reached the county in the 1880s, steamboat traffic faded. Marion had already lost the courthouse, and without its old transportation advantage the community eventually disappeared."),
 
+    h("The mysterious 1891 Homer courthouse fire moved the county seat to Lufkin"),
+    p("Angelina County's largest civic change grew out of a fire in a town that has nearly disappeared. In the nineteenth century the county seat was at Homer, an inland village established before the railroad arrived. A two-story frame courthouse completed in 1873 kept county government there even after the Houston, East and West Texas Railway developed a new town at Lufkin. County-seat elections in 1885 retained Homer despite arguments that Lufkin offered better transport and commerce."),
+    p("On November 18, 1891, Homer's courthouse burned under circumstances that contemporary residents described as mysterious. The Texas State Historical Association records that only the next day citizens of Lufkin petitioned county commissioners for another county-seat election. The timing quickly became part of local suspicions and folklore, but the cause of the fire was never conclusively established. It would be historically irresponsible to state that Lufkin residents deliberately burned the building without evidence."),
+    p("Voters chose Lufkin in 1892, and Homer declined rapidly as businesses and government offices moved toward the rail junction. The county first used a simple two-story Lufkin courthouse and later completed a 1903 Classical Revival courthouse designed by James Riely Gordon. The present courthouse is a mid-twentieth-century replacement constructed in 1955; it is not the old Homer structure or the 1903 Gordon landmark."),
+    p("Homer, sometimes remembered in county history but not always well marked for visitors, explains why Lufkin's prominence resulted from railroads, political votes and the loss of an older seat. The spectacular courthouse fire created an opportunity for a choice residents had already debated for years. The old village's story deserves recognition rather than reducing the transition to a generic claim that 'Lufkin grew with the railroad'."),
+
+    h("Lufkin's commercial square also endured repeated wooden-building fires"),
+    p("The downtown district around Calder Square suffered multiple late-nineteenth-century commercial fires as frame shops and warehouses crowded around the rail junction. Preservation surveys describe successive fires and a shift toward fire-resistant brick construction, as well as movement of businesses toward Lufkin Avenue and First Street. These fires were distinct from the November 1891 Homer courthouse blaze."),
+    p("The Lufkin Opera House, opened in 1909, was later destroyed by fire in 1920, a loss recorded in the Angelina County historical survey and local history resources. The changing architecture of downtown is therefore partly a response to fire hazards and reconstruction, not only growth in the forest-products industry."),
+    p("For a local history route, compare current Lufkin courthouse and old downtown district with the historical source record for Homer. Do not imply an extant original Homer courthouse or opera house is open for visits, and confirm specific historic marker sites through the Texas Historical Commission map."),
+
+    h("Angelina County history questions"),
+    p("Where was Angelina County's seat before Lufkin? Homer served as county seat until a new vote after the November 1891 courthouse fire brought government to Lufkin in 1892."),
+    p("Who burned the Homer courthouse? The blaze's cause was never conclusively resolved. Its timing fed local suspicions but does not prove deliberate arson by residents of either town."),
+    p("Is the current Lufkin courthouse the one built after the fire? No. A temporary 1892 building and a 1903 Gordon-designed courthouse preceded the present 1955 structure."),
+    p("Did other historic Lufkin buildings burn? Yes. Fires reshaped Calder Square's commercial district, and local historical surveys record the 1920 destruction of the 1909 opera house."),
     h("Angelina County rejected secession in 1861"),
     p("One of the county's most unusual political moments came at the beginning of the Civil War. Angelina County voted against secession in 1861, making it the only East Texas county to reject leaving the Union and one of only a small number of Texas counties to do so."),
     p("The vote reflected the county's social structure. Although slavery existed and some plantations operated, many residents were small farmers or livestock raisers who did not share the same economic interests as the large plantation districts elsewhere in East Texas. The county still sent men into Confederate service, but the secession vote remains a distinctive part of its history."),
@@ -143,5 +163,14 @@ export const angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle: Article = {
     h("What defines Angelina County"),
     p("Angelina County is defined by adaptation. River settlements gave way to railroad towns. Virgin pine forests gave way to managed timberland and national forest. Sawmills grew into diversified forest-products companies. Lufkin expanded from a rail stop into a regional center, while Diboll transformed from a company town into a community with its own institutions."),
     p("The county's history is still visible in the landscape. A modernist courthouse, railroad corridors, timber tracts, old mill towns, national forest and the broad water of Sam Rayburn all belong to the same story. Together they make Angelina County one of the clearest places to understand how the Piney Woods became both a working industrial region and one of Texas's major outdoor landscapes."),
+  ],
+  sources: [
+    { label: "Handbook of Texas — Lufkin and November 1891 Homer Courthouse fire", url: "https://www.tshaonline.org/handbook/entries/lufkin-tx" },
+    { label: "Handbook of Texas — Homer county seat and fire", url: "https://www.tshaonline.org/handbook/entries/homer-tx" },
+    { label: "City of Lufkin — comprehensive history and 1891 county-seat chronology", url: "https://cms7files.revize.com/lufkintx/COL_Main/Engineering-Department/Planning-and-Zoning/Comprehensive%20Plan%20Final.pdf" },
+    { label: "Society of Architectural Historians — present Angelina County courthouse", url: "https://sah-archipedia.org/buildings/TX-02-LC15" },
+    { label: "Texas State Historical Association — Angelina County", url: "https://www.tshaonline.org/handbook/entries/angelina-county" },
+    { label: "Angelina County — Land of the Little Angel research and opera house loss", url: "https://easttexaslegacy.org/county-history.html" },
+    { label: "Texas historical courthouse collection — Angelina successive courthouses", url: "https://www.historictexas.net/city/angelina-county-courthouses" },
   ],
 };

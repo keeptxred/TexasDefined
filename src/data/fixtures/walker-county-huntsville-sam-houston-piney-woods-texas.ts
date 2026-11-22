@@ -8,7 +8,7 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
   brandId: "texasdefined",
   slug: "walker-county-huntsville-sam-houston-piney-woods-texas",
   title: "Walker County: Huntsville, Sam Houston, Piney Woods and a Crossroads of Texas History",
-  dek: "Walker County is an East Texas landscape of pine forests, river corridors, Sam Houston history, higher education, public institutions and small communities centered on Huntsville.",
+  dek: "Huntsville's 1888 and 1968 courthouse fires, the 1970 replacement, Walker County's two namesakes, Sam Houston and the Piney Woods civic history.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Walker County",
     "Huntsville Texas",
@@ -32,6 +33,9 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
     "Trinity River",
     "Texas history",
     "Texas counties",
+    "1888 Walker County courthouse fire",
+    "Christmas Eve 1968 Huntsville courthouse fire",
+    "1970 Huntsville courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -81,6 +85,22 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
     p("The presence of major correctional facilities has made Huntsville nationally recognizable, but it should not overshadow the rest of the county. Corrections exists alongside higher education, forestry, healthcare, government, retail, tourism and transportation. Many residents work in fields with no direct connection to the prison system."),
     p("At the same time, the institution is too important to ignore. It influenced population patterns, public employment and the county's relationship with the state government. Understanding Walker County means recognizing both the visibility of the prison system and the ways local identity extends well beyond it."),
 
+    h("Huntsville lost one courthouse in 1888 and another on Christmas Eve 1968"),
+    p("Walker County has had five courthouses on its Huntsville square. The Texas Historical Commission's Five Courthouses of Walker County marker describes the first courthouse, ready for commissioners' meetings by July 1848 and finished in 1850. Construction of the second major courthouse was interrupted during the Civil War and completed in 1869; it required repairs soon afterward. This history illustrates how county government struggled to maintain buildings amid wartime disruption."),
+    p("A courthouse fire in 1888 destroyed the earlier building and sent officials back into the grand-jury room while a replacement was arranged. That fourth courthouse was finished in 1889, designed by Eugene T. Heiner and featuring a dramatic red-brick Victorian silhouette. Its towers, courtroom and stone ornament were familiar features of Huntsville's public square for decades."),
+    p("On December 24, 1968, a major fire devastated the top floor and courtroom of the 1889 courthouse. Although a surviving cornerstone and contemporary photographs preserve its appearance, the county elected to replace the damaged building rather than reconstruct the original. Temporary 'County Village' offices at Seventh Street and Avenue M housed county personnel beginning in 1969."),
+    p("The present fifth courthouse, a modern brick-and-steel complex, was completed in September 1970. A historical marker incorporating the old courthouse cornerstone explains the connection between the vanished Victorian building and the functioning new offices. It is misleading to describe the current structure as an 1889 landmark repaired after a 1968 fire."),
+    p("The 1968 fire also points to a recurring issue across Texas: when a county loses its courthouse, public services must continue. Relocating courtrooms, records and staff changes a town's daily life even if permanent records can be salvaged. For historic photographs, identify the Victorian courthouse and its later replacement separately."),
+
+    h("A county named for a different Walker than many visitors assume"),
+    p("Walker County was formed from Montgomery County in 1846 and originally named for Robert J. Walker, a federal official associated with Texas annexation. In 1863, amid Confederate politics, county leaders passed a renaming measure to honor Samuel H. Walker, a Texas Ranger and Mexican War soldier, instead. Both names and their historical contexts matter; being called 'Walker County' does not mean the original naming figure stayed the same throughout."),
+    p("This civic identity sits alongside the large Sam Houston memorials, university and prison history. The story of the 1968 courthouse fire is a missing part of a county that is often reduced to Sam Houston's personal biography. The county's institutional history is broader, including Black education and emancipation, prison labor, public safety and later urban growth."),
+
+    h("Quick answers about Huntsville's lost courthouse"),
+    p("How many Walker County courthouses were built in Huntsville? The Texas Historical Commission identifies five successive main courthouse buildings."),
+    p("When did the old Huntsville courthouse burn? The 1889 Victorian courthouse was badly damaged by fire on Christmas Eve, December 24, 1968. A previous courthouse also burned in 1888."),
+    p("When was the present Walker County Courthouse completed? September 1970, after county offices used temporary buildings at a nearby 'County Village' site."),
+    p("Was Walker County originally named for Samuel H. Walker? No. The 1846 county originally honored Robert J. Walker; the 1863 renaming honored Samuel H. Walker."),
     h("Slavery and cotton shaped antebellum Walker County"),
     p("Before the Civil War, cotton agriculture expanded rapidly in Walker County. Enslaved labor supported plantations and smaller slaveholding farms, while river landings and roads connected agricultural production to markets. By 1860 slavery was deeply embedded in the county's social and economic structure."),
     p("The Civil War and emancipation transformed that world. Formerly enslaved residents created new families, churches, schools, farms and businesses under extremely difficult conditions. Their communities became central to Walker County's postwar development even as white resistance and political violence made Reconstruction dangerous."),
@@ -140,5 +160,13 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
     h("What defines Walker County"),
     p("Walker County is defined by institutions rooted in place. Sam Houston's home and grave connect the county to the Republic and early statehood. The Huntsville Unit ties it to the history of Texas corrections. Sam Houston State University made education and research central to the modern economy. State park and national forest lands preserve the Piney Woods landscape that existed before any of those institutions."),
     p("Together those layers make Walker County one of the most historically dense places along Interstate 45. Travelers may know Huntsville from a university sign, a prison wall or the giant Sam Houston image along the highway, but the county's deeper story lies in the forests, waterways, preserved homes, old rail routes, Black communities and public institutions that grew around a nineteenth-century trading post and kept evolving with Texas itself."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Five Courthouses of Walker County marker 12278", url: "https://atlas.thc.texas.gov/Details/5471012278" },
+    { label: "University of North Texas — 1975 Inventory of Records of Walker County Courthouse", url: "https://texashistory.unt.edu/ark:/67531/metapth1589241/m1/13/" },
+    { label: "Society of Architectural Historians — five Huntsville courthouses, 1970 building", url: "https://sah-archipedia.org/buildings/TX-02-HL1" },
+    { label: "Texas Historical Commission — Fourth Courthouse cornerstone marker", url: "https://atlas.thc.texas.gov/Details/5471008083" },
+    { label: "Texas State Historical Association — Walker County and namesake", url: "https://www.tshaonline.org/handbook/entries/walker-county" },
+    { label: "Texas State Historical Association — Huntsville city history", url: "https://www.tshaonline.org/handbook/entries/huntsville-tx" },
   ],
 };

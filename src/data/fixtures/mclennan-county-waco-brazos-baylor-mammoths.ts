@@ -8,7 +8,7 @@ export const mclennanCountyWacoBrazosBaylorMammothsArticle: Article = {
   brandId: "texasdefined",
   slug: "mclennan-county-waco-brazos-baylor-mammoths-texas",
   title: "McLennan County: Waco, the Brazos, Baylor and a Crossroads of Central Texas",
-  dek: "McLennan County is where the Brazos River, Blackland Prairie, college life, railroad history, Czech communities and one of Texas's most recognizable nineteenth-century bridges meet at the center of the state.",
+  dek: "The 1916 Jesse Washington lynching at Waco's courthouse, the 1902 Gordon landmark, the 1953 tornado and the Brazos cultural history of McLennan County.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const mclennanCountyWacoBrazosBaylorMammothsArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: ["McLennan County", "Waco", "Brazos River", "Baylor University", "Waco Suspension Bridge", "Waco Mammoth National Monument", "West", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -78,6 +79,25 @@ export const mclennanCountyWacoBrazosBaylorMammothsArticle: Article = {
     p("On May 11, 1953, a violent tornado struck downtown Waco and surrounding neighborhoods. The disaster killed 114 people in Waco and caused extensive destruction across the central business district. Buildings collapsed, streets filled with debris and rescue crews worked through unstable structures. The tornado became one of the defining disasters in the city's history and influenced later approaches to weather awareness, emergency response and downtown redevelopment."),
     p("Rebuilding occurred alongside broader mid-twentieth-century changes. Urban renewal altered parts of the central city, highway construction changed traffic patterns, and suburban communities grew around Waco. The tornado therefore marks more than a single catastrophic day; it sits at the boundary between the older commercial city of streetcars, railroads and downtown department stores and the automobile-oriented metropolitan area that followed."),
 
+    h("The 1916 lynching of Jesse Washington is part of courthouse history"),
+    p("McLennan County's dignified Beaux-Arts courthouse was the setting for one of the most notorious racial atrocities in Texas history. On May 15, 1916, seventeen-year-old Black farmworker Jesse Washington was tried in Waco for the killing of Lucy Fryer. After a hurried trial and four minutes of jury deliberation, he was convicted and sentenced to death. A white crowd seized him outside the courthouse, tortured and killed him in a public lynching."),
+    p("The crime was witnessed by a large crowd and photographed, with images widely circulated. The NAACP sent investigator Elisabeth Freeman to Waco; her documentation helped W. E. B. Du Bois publish a nationally influential account in the July 1916 issue of The Crisis. The case provoked condemnation and played a significant role in later campaigns against lynching and the racial injustice of courts and law enforcement."),
+    p("The historical record should distinguish the jury verdict, the allegations made during the trial, and Washington's killing by the mob. A conviction obtained in those conditions did not authorize vigilante punishment or remove the state's duty to protect him. The Texas Historical Commission recognizes the event through an official marker, publicly dedicated near Waco City Hall in February 2023. The marker also documents broader county lynching history; Washington was not the region's only victim."),
+    p("This history belongs within a county guide that otherwise emphasizes Baylor, the suspension bridge and historic downtown. The impressive courthouse architecture is real, but so is the failure of public justice that occurred on its grounds. A respectful visit can include the THC marker and archival research rather than reducing the crime to spectacle."),
+
+    h("The 1901–02 courthouse followed three earlier county buildings"),
+    p("McLennan County's present courthouse was designed by prolific Texas architect James Riely Gordon in a Renaissance Revival and Beaux-Arts idiom, using limestone, steel and Texas red granite. Construction began in 1901 and its completion and dedication are often dated to 1902. Three earlier purpose-built county courthouses had served Waco, beginning with a two-story log structure completed in 1851."),
+    p("The current building's rooftop dome and sculptural figures—Justice, Liberty and related civic allegories—advertise an ideal of equal law. The 1916 lynching makes that symbolism historically poignant, not irrelevant. The building sits on Washington Avenue near Sixth Street rather than simply occupying the center of Waco's principal commercial square. The Texas Historical Commission's 2002 centennial marker distinguishes its architecture from the legal and social history surrounding it."),
+
+    h("The 1953 tornado forced a new approach to warning"),
+    p("On the afternoon of May 11, 1953, a violent tornado crossed McLennan County and struck downtown Waco near the end of the workday. The National Weather Service documents 114 deaths and roughly 600 injuries in the storm, with 30 people killed in the collapse of a six-story furniture store. The buildings destroyed and survivors' accounts reveal the danger of a major tornado wrapped in heavy rain in a crowded downtown."),
+    p("The disaster changed more than local architecture. Texas A&M and the United States Weather Bureau convened a Texas Tornado Warning Conference in June 1953 to investigate warning procedures and weather radar. This forms a direct link between Waco's recovery and modern storm-warning practice. It is important not to claim that present-day technology guarantees safety or that every downtown structure near the historical route was destroyed."),
+    
+    h("Questions about Waco courthouse, racial history and the tornado"),
+    p("What happened outside the McLennan County Courthouse in 1916? A white mob seized seventeen-year-old Jesse Washington after a rushed trial on May 15 and lynched him; the Texas Historical Commission memorializes the atrocity."),
+    p("When was the current McLennan County Courthouse built? The Gordon-designed structure was erected in 1901–02 and is the county's fourth purpose-built courthouse."),
+    p("How many people died in the May 1953 Waco tornado? The National Weather Service reports 114 deaths."),
+    p("Did the 1953 tornado affect national forecasting? It helped prompt a June 1953 Texas Tornado Warning Conference that reviewed how radar and public alerts could save lives."),
     h("World War II and aviation reshaped parts of the county"),
     p("McLennan County played a substantial role in military aviation during the twentieth century. Airfields and training facilities expanded during the world wars, and James Connally Air Force Base became an important Cold War-era installation before closing in the 1960s. The former base later became the foundation for Texas State Technical College's Waco campus, turning military infrastructure into a long-term education and workforce asset."),
     p("The county also honors Doris Miller, the Waco-born sailor who received the Navy Cross for his actions during the attack on Pearl Harbor. Miller's story connects local history to a national history of military service and racial barriers. His legacy has become increasingly visible in Waco through memorial efforts and public interpretation, reminding visitors that McLennan County's twentieth-century history extended far beyond Central Texas."),
@@ -97,5 +117,14 @@ export const mclennanCountyWacoBrazosBaylorMammothsArticle: Article = {
     h("How to read McLennan County today"),
     p("The best way to understand McLennan County is to move through its layers rather than treat Waco as the whole story. Start at the Brazos, where the Suspension Bridge explains why crossings mattered. Walk through Baylor to see how higher education reshaped the riverfront. Travel north to Waco Mammoth National Monument for a landscape older than human settlement. Drive toward West for the agricultural and immigrant history of the northern county, toward McGregor for the western rail corridor, or east toward Mart for another version of prairie Texas."),
     p("Those routes reveal why McLennan County has remained important for more than 175 years. Water, roads, rails, schools and markets repeatedly concentrated movement here. Each transportation era changed the county without completely erasing the one before it. The Brazos still flows under the old bridge, trains still cross the county, Interstate 35 carries another generation of travelers, and the courthouse and university remain in the places where nineteenth-century residents built them. McLennan County is a Texas crossroads not because one attraction made it famous, but because geography has kept bringing people through the same central landscape."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Jesse Washington lynching marker 5000018585", url: "https://atlas.thc.texas.gov/Details/5000018585" },
+    { label: "Texas State Historical Association — Jesse Washington lynching research", url: "https://www.tshaonline.org/handbook/entries/jesse-washington-lynching" },
+    { label: "Texas Historical Commission — four Courthouses of McLennan County marker", url: "https://atlas.thc.texas.gov/Details/5309013099" },
+    { label: "Baylor University Texas Collection — courthouse history and construction", url: "https://blogs.baylor.edu/texascollection/2019/09/19/texas-over-time-the-mclennan-county-courthouse-waco-texas/" },
+    { label: "National Weather Service — May 11 1953 Waco Tornado and warning reforms", url: "https://www.weather.gov/fwd/wacotormay1953" },
+    { label: "City of Waco — 175th anniversary 1953 tornado remembrance", url: "https://www.waco-texas.com/About-Waco/175th/175-Tornado" },
+    { label: "McLennan County — historic county timeline", url: "https://www.mclennan.gov/DocumentCenter/View/17465/The-Historic-Timeline-of-McLennan-County-pdf" },
   ],
 };
