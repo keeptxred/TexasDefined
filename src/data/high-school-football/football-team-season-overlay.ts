@@ -1,3 +1,4 @@
+import { footballFixtureCalendarDate } from './football-fixture-calendar';
 import type { FootballMatchup } from './football-matchups';
 import type { FootballProgramEditorial } from './program-editorial';
 import type { DistrictFootballGame } from './football-district-game-week';
@@ -165,11 +166,11 @@ export function applyVerifiedDistrictFinalsToTeam(
   ).sort((a,b)=>a.date.localeCompare(b.date));
   if(!confirmed.length)return editorial;
   const current = editorial?.season?.games ?? [];
-  const occupiedDates=new Set(current.map(x=>x.date));
+  const occupiedDates=new Set(current.map(x=>footballFixtureCalendarDate(x.date)??x.date));
   const byDate=new Map(confirmed.map(x=>[x.date,x]));
   let changed=false,conflicts=0;
   const games=current.map(game=>{
-    const found=byDate.get(game.date);
+    const found=byDate.get(footballFixtureCalendarDate(game.date)??game.date);
     if(!found)return game;
     const opponent=found.home===schoolName?found.away:found.home;
     if(game.opponent!==opponent)return game;

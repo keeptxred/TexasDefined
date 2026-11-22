@@ -174,7 +174,7 @@ function Page() {
   const verifiedIdentityAccent = editorial?.theme?.accentHex ? undefined : footballIdentityAccentFromColors(identity?.colors);
   const identityPanelAccent = editorial?.theme?.accentHex ?? verifiedIdentityAccent;
   // Summarize the verified editorial ledger before the deeper school reference sections.
-  const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
+  const latestResult = editorial?.season?.games.filter((game) => /^[WLT] /.test(game.result??'')).at(-1);
   // A past, unreported game is NOT the team's "next game", even when the
   // last editorial snapshot predates it. Use today's Texas calendar date
   // (not a stale verifiedAt watermark), without manufacturing a final score.
