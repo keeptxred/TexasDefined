@@ -3380,6 +3380,456 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "contact-only"
+    },
+    {
+      "id": "duval-county-desk",
+      "organization": "Duval County, Texas official civic information",
+      "countySlugs": [
+        "duval"
+      ],
+      "homeUrl": "https://www.co.duval.tx.us/",
+      "calendarUrl": "https://www.co.duval.tx.us/",
+      "contactPageUrl": "https://www.co.duval.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "edwards-county-desk",
+      "organization": "Edwards County (Rocksprings) official community desk",
+      "countySlugs": [
+        "edwards"
+      ],
+      "homeUrl": "https://www.co.edwards.tx.us/",
+      "calendarUrl": "https://www.co.edwards.tx.us/page/Contact",
+      "contactPageUrl": "https://www.co.edwards.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "falls-marlin-chamber",
+      "organization": "Marlin Chamber of Commerce, Falls County",
+      "countySlugs": [
+        "falls"
+      ],
+      "homeUrl": "https://marlintexas.com/",
+      "calendarUrl": "https://marlintexas.com/",
+      "contactPageUrl": "https://marlintexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "fisher-county-gov",
+      "organization": "Fisher County official county and Extension events desk",
+      "countySlugs": [
+        "fisher"
+      ],
+      "homeUrl": "https://www.fishercounty.org/",
+      "calendarUrl": "https://www.fishercounty.org/page/fisher.ExtensionOffice",
+      "contactPageUrl": "https://www.fishercounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "foard-county-gov",
+      "organization": "Foard County (Crowell) official local community contact",
+      "countySlugs": [
+        "foard"
+      ],
+      "homeUrl": "https://www.foardcounty.texas.gov/",
+      "calendarUrl": "https://www.foardcounty.texas.gov/",
+      "contactPageUrl": "https://www.foardcounty.texas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "jim-hogg-county-gov",
+      "organization": "Jim Hogg County official Hebbronville community source",
+      "countySlugs": [
+        "jim-hogg"
+      ],
+      "homeUrl": "https://www.co.jim-hogg.tx.us/",
+      "calendarUrl": "https://www.co.jim-hogg.tx.us/",
+      "contactPageUrl": "https://www.co.jim-hogg.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kenedy-county-gov",
+      "organization": "Kenedy County (Sarita) official civic events contact",
+      "countySlugs": [
+        "kenedy"
+      ],
+      "homeUrl": "https://www.kenedycountytx.gov/",
+      "calendarUrl": "https://www.kenedycountytx.gov/",
+      "contactPageUrl": "https://www.kenedycountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kent-county-gov",
+      "organization": "Kent County (Jayton) official civic contact",
+      "countySlugs": [
+        "kent"
+      ],
+      "homeUrl": "https://www.co.kent.tx.us/",
+      "calendarUrl": "https://www.co.kent.tx.us/page/kent.home",
+      "contactPageUrl": "https://www.co.kent.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "king-county-gov",
+      "organization": "King County (Guthrie) official civic contact",
+      "countySlugs": [
+        "king"
+      ],
+      "homeUrl": "https://www.co.king.tx.us/",
+      "calendarUrl": "https://www.kingcountytexas.us/County_Officials/officials.htm",
+      "contactPageUrl": "https://www.co.king.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kinney-county-chamber",
+      "organization": "Kinney County Chamber of Commerce event producer and calendar",
+      "countySlugs": [
+        "kinney"
+      ],
+      "homeUrl": "https://www.kinneycounty.org/",
+      "calendarUrl": "https://www.kinneycounty.org/",
+      "contactPageUrl": "https://www.kinneycounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "la-salle-county-gov",
+      "organization": "La Salle County (Cotulla) official local events and notices",
+      "countySlugs": [
+        "la-salle"
+      ],
+      "homeUrl": "https://www.co.la-salle.tx.us/",
+      "calendarUrl": "https://www.co.la-salle.tx.us/",
+      "contactPageUrl": "https://www.co.la-salle.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "lipscomb-county-gov",
+      "organization": "Lipscomb County official civic information",
+      "countySlugs": [
+        "lipscomb"
+      ],
+      "homeUrl": "https://www.co.lipscomb.tx.us/",
+      "calendarUrl": "https://www.co.lipscomb.tx.us/",
+      "contactPageUrl": "https://www.co.lipscomb.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "lynn-county-gov",
+      "organization": "Lynn County (Tahoka) official news and community desk",
+      "countySlugs": [
+        "lynn"
+      ],
+      "homeUrl": "https://www.co.lynn.tx.us/",
+      "calendarUrl": "https://www.co.lynn.tx.us/",
+      "contactPageUrl": "https://www.co.lynn.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "martin-county-chamber",
+      "organization": "Martin County Chamber of Commerce, Stanton",
+      "countySlugs": [
+        "martin"
+      ],
+      "homeUrl": "https://martincountychamber.com/",
+      "calendarUrl": "https://martincountychamber.com/home",
+      "contactPageUrl": "https://martincountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "mcmullen-county-gov",
+      "organization": "McMullen County (Tilden) official community desk",
+      "countySlugs": [
+        "mcmullen"
+      ],
+      "homeUrl": "https://mcmullencounty.org/",
+      "calendarUrl": "https://mcmullencounty.org/contact-us/",
+      "contactPageUrl": "https://mcmullencounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "menard-county-chamber",
+      "organization": "Menard County Chamber of Commerce official event calendar",
+      "countySlugs": [
+        "menard"
+      ],
+      "homeUrl": "https://menardchamber.com/",
+      "calendarUrl": "https://menardchamber.com/event/",
+      "contactPageUrl": "https://menardchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "mitchell-county-gov",
+      "organization": "Mitchell County (Colorado City) official community source",
+      "countySlugs": [
+        "mitchell"
+      ],
+      "homeUrl": "https://www.co.mitchell.tx.us/",
+      "calendarUrl": "https://www.co.mitchell.tx.us/",
+      "contactPageUrl": "https://www.co.mitchell.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "motley-county-gov",
+      "organization": "Motley County (Matador) official community source",
+      "countySlugs": [
+        "motley"
+      ],
+      "homeUrl": "https://www.co.motley.tx.us/",
+      "calendarUrl": "https://www.co.motley.tx.us/",
+      "contactPageUrl": "https://www.co.motley.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "reagan-big-lake-chamber",
+      "organization": "Big Lake Chamber of Commerce annual events, Reagan County",
+      "countySlugs": [
+        "reagan"
+      ],
+      "homeUrl": "https://www.biglakecoc.com/",
+      "calendarUrl": "https://www.biglakecoc.com/annual-events",
+      "contactPageUrl": "https://www.biglakecoc.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "real-county-tourism",
+      "organization": "Visit Real County official community event guide",
+      "countySlugs": [
+        "real"
+      ],
+      "homeUrl": "https://visitrealcounty.com/",
+      "calendarUrl": "https://visitrealcounty.com/events.html",
+      "contactPageUrl": "https://visitrealcounty.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "roberts-county-gov",
+      "organization": "Roberts County (Miami) official civic contact",
+      "countySlugs": [
+        "roberts"
+      ],
+      "homeUrl": "https://www.co.roberts.tx.us/",
+      "calendarUrl": "https://www.co.roberts.tx.us/page/roberts.home",
+      "contactPageUrl": "https://www.co.roberts.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "san-jacinto-coldspring-chamber",
+      "organization": "Coldspring Chamber of Commerce community calendar",
+      "countySlugs": [
+        "san-jacinto"
+      ],
+      "homeUrl": "https://coldspringtexas.org/",
+      "calendarUrl": "https://coldspringtexas.org/community-calendar",
+      "contactPageUrl": "https://coldspringtexas.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "schleicher-county-gov",
+      "organization": "Schleicher County (Eldorado) official community source",
+      "countySlugs": [
+        "schleicher"
+      ],
+      "homeUrl": "https://www.schleichercounty.gov/",
+      "calendarUrl": "https://www.schleichercounty.gov/page/homepage",
+      "contactPageUrl": "https://www.schleichercounty.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "sherman-county-gov",
+      "organization": "Sherman County (Stratford) official municipal contact",
+      "countySlugs": [
+        "sherman"
+      ],
+      "homeUrl": "https://www.shermancountytx.gov/",
+      "calendarUrl": "https://www.shermancountytx.gov/page/contact",
+      "contactPageUrl": "https://www.shermancountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "sterling-county-gov",
+      "organization": "Sterling County official community contact",
+      "countySlugs": [
+        "sterling"
+      ],
+      "homeUrl": "https://www.sterlingcotx.gov/",
+      "calendarUrl": "https://www.sterlingcotx.gov/",
+      "contactPageUrl": "https://www.sterlingcotx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "stonewall-county-gov",
+      "organization": "Stonewall County (Aspermont) official county contact",
+      "countySlugs": [
+        "stonewall"
+      ],
+      "homeUrl": "https://www.stonewallcounty.org/",
+      "calendarUrl": "https://www.stonewallcounty.org/",
+      "contactPageUrl": "https://www.stonewallcounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "terrell-county-gov",
+      "organization": "Terrell County (Sanderson) official local Chamber directory",
+      "countySlugs": [
+        "terrell"
+      ],
+      "homeUrl": "https://www.co.terrell.tx.us/",
+      "calendarUrl": "https://www.co.terrell.tx.us/page/terrell.org",
+      "contactPageUrl": "https://www.co.terrell.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "trinity-county-gov",
+      "organization": "Trinity County official public holiday and community events",
+      "countySlugs": [
+        "trinity"
+      ],
+      "homeUrl": "https://www.co.trinity.tx.us/",
+      "calendarUrl": "https://www.co.trinity.tx.us/",
+      "contactPageUrl": "https://www.co.trinity.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "upton-county-gov",
+      "organization": "Upton County (Rankin and McCamey) official civic news",
+      "countySlugs": [
+        "upton"
+      ],
+      "homeUrl": "https://www.co.upton.tx.us/",
+      "calendarUrl": "https://www.co.upton.tx.us/page/upton.County.News",
+      "contactPageUrl": "https://www.co.upton.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "winkler-county-gov",
+      "organization": "Winkler County (Kermit and Wink) official community contact",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://www.co.winkler.tx.us/",
+      "calendarUrl": "https://www.co.winkler.tx.us/",
+      "contactPageUrl": "https://www.co.winkler.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     }
   ]
 }
