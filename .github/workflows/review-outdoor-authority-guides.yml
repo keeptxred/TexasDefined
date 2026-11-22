@@ -11,6 +11,7 @@ on:
       - 'scripts/data/validate-*-authority.mjs'
       - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
       - 'scripts/ci/verify-outdoor-photography-live.mjs'
+      - 'scripts/ci/verify-outdoor-guides-responsive.mjs'
       - '.github/workflows/review-outdoor-authority-guides.yml'
   workflow_dispatch:
   issue_comment:
@@ -31,7 +32,7 @@ jobs:
        github.event.comment.user.login == 'keeptxred' &&
        github.event.comment.body == '/verify-outdoor-guides-live')
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,12 +45,23 @@ jobs:
           node scripts/data/validate-ohv-authority.mjs
           node scripts/data/validate-paddling-authority.mjs
           node scripts/data/validate-stargazing-authority.mjs
+          node --check scripts/ci/verify-outdoor-guides-responsive.mjs
+          node scripts/ci/verify-outdoor-guides-responsive.mjs --self-test
       - name: Verify official facts and live canonical pages
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
       - name: Prove licensed real-location photos and byte-identical delivery on both origins
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-outdoor-photography-live.mjs
+      - name: Verify responsive layout, complete cards, maps and image decoding in Chrome
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          export CHROME_BIN
+          npm install --prefix /tmp/texasdefined-outdoor-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          node scripts/ci/verify-outdoor-guides-responsive.mjs
       - name: Retain audit evidence
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         uses: actions/upload-artifact@v4
@@ -58,6 +70,7 @@ jobs:
           path: |
             outdoor-guides-authority-audit.json
             .artifacts/outdoor-image-live-authority.json
+            .artifacts/outdoor-browser/
           if-no-files-found: warn
       - name: Record genuinely successful official-source, photo and public guide audit
         if: ${{ success() && github.event_name == 'issue_comment' }}
@@ -72,10 +85,12 @@ jobs:
           import fs from 'node:fs';
           const facts=JSON.parse(fs.readFileSync('outdoor-guides-authority-audit.json','utf8'));
           const photos=JSON.parse(fs.readFileSync('.artifacts/outdoor-image-live-authority.json','utf8'));
+          const browser=JSON.parse(fs.readFileSync('.artifacts/outdoor-browser/report.json','utf8'));
+          if(browser.results.length!==15 || browser.errors.length) throw Error('Browser evidence incomplete');
           if(facts.livePageCount!==5 || facts.officialSourceCount<16 || facts.failures.length || photos.errors.length ||
              facts.evidence.some(record=>!record.verified)) throw Error('Production/source/photo evidence incomplete');
           JS
-          gh issue comment 7436 --body "Five outdoor authority guides: official sources, four live HTML variants per guide (both origins/ordinary and cache-busted), scoped editorial markers, canonicals/indexability and independent licensed image byte checks **PASS** in [live workflow]($RUN_URL), exact workflow source \`${{ github.sha }}\`. This is source-backed technical proof, not guaranteed Google ranking or future operator access."
+          gh issue comment 7436 --body "Five outdoor authority guides: official sources, four live HTML variants per guide (both origins/ordinary and cache-busted), scoped editorial markers, canonicals/indexability and independent licensed image byte checks and 15 real Chrome layout/image/map checks **PASS** in [live workflow]($RUN_URL), exact workflow source \`${{ github.sha }}\`. This is source-backed technical proof, not guaranteed Google ranking or future operator access."
       - name: Open or update a factual-drift issue
         if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
