@@ -3,6 +3,8 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { footballFixtureCalendarDate, footballFixtureCalendarStatus } from '@/data/high-school-football/football-fixture-calendar';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { AubreySeasonAuthority } from '@/components/sports/AubreySeasonAuthority';
+import { footballProgramProfilePath } from '@/data/high-school-football/program-slugs';
 import { KatyStadiumGuide } from '@/components/sports/KatyStadiumGuide';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { District21TeamSeason, hasDistrict21TeamScorecard } from '@/components/sports/District21TeamSeason';
@@ -696,12 +698,12 @@ function Page() {
           schoolWebsite={program?.schoolWebsite}
           hasSeasonSection={!!program}
           summaryAlreadyShown={!!editorial?.season}
-          suppressCommercialOffers={slug === 'comal-canyon-lake'}
+          suppressCommercialOffers={slug === 'comal-canyon-lake' || slug === 'aubrey'}
           eventTicketNoticeUrl={slug === 'comal-canyon-lake' && nextListedFixture?.date === '2026-11-20' ? 'https://www.lgisd.net/o/lhs/article/3260936' : undefined}
         />
       )}
 
-      {!editorial?.notice && slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && <FootballMonetizationSlot
+      {!editorial?.notice && slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && slug !== 'aubrey' && <FootballMonetizationSlot
         surfacePath={`/texas-high-school-football-teams/${slug}`}
         hasSponsor={!!sponsorPlacement}
       />}
@@ -718,7 +720,7 @@ function Page() {
           {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
 
-      {slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && sponsorPlacement ? (
+      {slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && slug !== 'aubrey' && sponsorPlacement ? (
         <div className="border-b border-border py-6">
           <SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} />
         </div>
@@ -752,7 +754,7 @@ function Page() {
                 <tbody className="divide-y divide-border">
                   {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
                     <td className="px-3 py-3 font-semibold"><time dateTime={footballFixtureCalendarDate(game.date) ?? undefined}>{formatFootballDate(game.date)}</time></td>
-                    <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
+                    <td className="px-3 py-3">{slug === 'aubrey' ? <a href={footballProgramProfilePath(game.opponent)} className="font-semibold text-primary underline underline-offset-4" aria-label={`${game.opponent} football program profile`}>{game.opponent}</a> : game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.result
                       ? (game.matchupPath
@@ -784,6 +786,10 @@ function Page() {
         </div>
       </section>}
 
+
+      {slug === 'aubrey' && editorial?.season && <AubreySeasonAuthority games={editorial.season.games} />}
+      {slug === 'aubrey' && !editorial?.notice && <FootballMonetizationSlot surfacePath="/texas-high-school-football-teams/aubrey" hasSponsor={!!sponsorPlacement} />}
+      {slug === 'aubrey' && sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} /></div>}
 
       {slug === 'comal-canyon-lake' && <section aria-labelledby="canyon-lake-playoff-guide" className="border-b border-border py-8 sm:py-10">
         <p className="eyebrow text-primary">Canyon Lake · 2026 playoff trail</p>
