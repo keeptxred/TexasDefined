@@ -230,7 +230,7 @@ function TexasPaddlingGuidePage() {
             <p className="eyebrow text-primary">Compare real outings</p>
             <h2 id="trail-comparison" className="mt-2 font-display text-3xl">Five different paddles, five different launch plans</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Distances and durations below come from the named TPWD trail pages, not a guessed statewide average. Times are approximate and change with wind, current, stops and ability. Match the put-in to the exact route before leaving.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare route distances and put-in choices.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
             <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
               {verifiedTrips.map((row) => (
                 <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
@@ -242,7 +242,7 @@ function TexasPaddlingGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table">
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "760px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Paddling trail</th><th scope="col" className="border-b border-border p-4">Route choice / scale</th><th scope="col" className="border-b border-border p-4">Launch and shuttle</th></tr></thead>
                 <tbody>{verifiedTrips.map((trip) => <tr key={trip.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{trip.name}</th><td className="border-b border-border p-4 text-muted-foreground">{trip.route}</td><td className="border-b border-border p-4 text-muted-foreground">{trip.access}</td></tr>)}</tbody>
@@ -356,7 +356,7 @@ function TexasPaddlingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access and conditions with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 21, 2026. Recheck current access and conditions for travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 20, 2026. Recheck current access and conditions for travel. Additional Houston and Austin access-point coordinates and segment estimates checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
