@@ -813,5 +813,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Alvin Parks and Recreation",
     "summary": "The City of Alvin Parks and Recreation confirms Home for the Holidays on December 4–5, 2026. On Friday, December 4, the Historic Depot Centre hosts a 6–8 p.m. gingerbread contest (registration already full; waitlist only), while a free 6:30 p.m. performance is scheduled at National Oak Park. On Saturday, December 5, the National Oak Park Christmas Festival runs 10 a.m.–6 p.m., with Santa photographs at 4 p.m.; the light parade runs 6–7 p.m. starting and finishing at Stanton's Shopping Center. Individual vendors and paid activities may have separate costs; the festival and parade are not the same venue.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "glen-rose-hometown-christmas-parade-market-2026",
+    "title": "Glen Rose Hometown Christmas Parade & Market",
+    "city": "Glen Rose",
+    "countySlug": "somervell",
+    "countyName": "Somervell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Glen Rose Downtown Square, 101 NE Barnard Street",
+    "officialEventUrl": "https://business.glenrosechamber.org/calendar/Details/hometown-christmas-parade-market-2006043?sourceTypeId=Hub",
+    "sourceName": "Glen Rose Chamber of Commerce",
+    "summary": "The Glen Rose Chamber confirms Hometown Christmas Parade and Market on Saturday, November 28, 2026, from 3–9 p.m. on the downtown square at 101 NE Barnard Street. The outdoor market opens at 3 p.m., the Christmas parade starts at 5:30 p.m., and the town tree lighting follows the parade. Seasonal photo stops and Mr. and Mrs. Claus are also planned. The market, parade, and lighting have different start times; check the organizer for weather-related updates and parking information.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "glen-rose-storybook-christmas-tour-of-homes-2026",
+    "title": "Glen Rose Storybook Christmas Tour of Homes",
+    "city": "Glen Rose",
+    "countySlug": "somervell",
+    "countyName": "Somervell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Tour stops throughout Glen Rose; Barnard's Mill, 307 SW Barnard Street",
+    "officialEventUrl": "https://business.glenrosechamber.org/calendar/Details/storybook-christmas-tour-of-homes-1922816?sourceTypeId=Website",
+    "sourceName": "Glen Rose Chamber of Commerce",
+    "summary": "The Glen Rose Chamber lists the second annual Storybook Christmas Tour of Homes for Saturday, December 12, 2026, 6–9 p.m. This ticketed tour advertises eight stops with decorated homes and establishments, carolers, hot cocoa and seasonal activities. The organizer lists general admission at $35 and says its VIP experience is sold out; ticket availability may change, and individual tour-stop addresses and admission instructions should be confirmed directly with the Chamber. The tour is separate from November's downtown parade.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
