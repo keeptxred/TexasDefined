@@ -62,6 +62,7 @@ export function CuratedTourismPage({
                   <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Before you go: </strong>{item.plan}</p>
                   <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
                     {guide ? <Link to="/destination/$slug" params={{ slug: guide.slug }} className="text-primary underline underline-offset-4">Read our destination guide</Link> : null}
+                    {"editorialGuideUrl" in item && typeof item.editorialGuideUrl === "string" ? <a href={item.editorialGuideUrl} className="text-primary underline underline-offset-4">History & visitor authority guide</a> : null}
                     <a href={item.officialUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official visitor information ↗</a>
                     <a href={`/county/${item.countySlug}`} className="underline underline-offset-4">Explore the county</a>
                   </div>
