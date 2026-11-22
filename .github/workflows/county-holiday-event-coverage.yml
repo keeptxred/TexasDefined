@@ -42,7 +42,7 @@ jobs:
       - name: Install locked parser and test county/annual-date safety
         run: npm ci --ignore-scripts
       - name: Test cross-county and no-guessed-date rules
-        run: node --test scripts/events/audit-county-holiday-coverage.test.mjs
+        run: node --test scripts/events/audit-county-holiday-coverage.test.mjs scripts/events/validate-county-holiday-backfill.test.mjs
       - name: Generate all-254 county holiday coverage and official-source research queue
         run: node scripts/events/audit-county-holiday-coverage.mjs
       - name: Preserve the full auditable county inventory
