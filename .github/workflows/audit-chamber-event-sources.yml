@@ -25,7 +25,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: chamber-event-source-audit
+  group: chamber-event-source-audit-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
   cancel-in-progress: false
 
 jobs:
@@ -70,7 +70,8 @@ jobs:
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));
             if (report.countiesTotal !== 254 ||
                 report.countiesMissingSources !== report.unservedCounties.length ||
-                report.countiesWithRegisteredSources + report.countiesMissingSources !== 254) {
+                report.countiesWithRegisteredSources + report.countiesMissingSources !== 254 ||
+                report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence !== 254) {
               core.setFailed('Incomplete 254-county chamber roster');
               return;
             }
@@ -83,19 +84,28 @@ jobs:
             });
             const previous = issues.find(issue => !issue.pull_request && issue.title === title);
             const failures = report.observations.filter(row =>
-              !['reachable-discovery-only', 'not-due', 'offline-validation'].includes(row.state));
+              !['reachable-discovery-only', 'not-due', 'offline-validation', 'contact-only-research'].includes(row.state));
             const body = [
               'Chamber source coverage is an editorial discovery roster, not evidence of confirmed event occurrences or backlinks.',
               '',
               'Latest run: ' + run,
-              'Counties with vetted chamber sources: **' +
-                report.countiesWithRegisteredSources + '/254**.',
-              'Counties needing verified source discovery: **' +
+              'Counties with at least one registered public Chamber, organizer, tourism or government contact: **' +
+                report.countiesWithRegisteredSources + '/254**. This is NOT 254 current event calendars.',
+              'Counties still lacking any registered public source contact: **' +
                 report.countiesMissingSources + '**.',
+              'Counties with an explicitly classified public community event calendar: **' +
+                report.countiesWithExplicitCalendarSources + '/254**. These are leads, NOT date-verified events.',
+              'Counties still needing explicit first-party calendar/organizer evidence: **' +
+                report.countiesNeedingCalendarEvidence + '**.',
+              'Registered contact-only sources, not calendars: **' + report.contactOnlySourceCount + '**.',
+              'Registered older sources awaiting source-type classification: **' + report.unclassifiedSourceCount + '**.',
               'Calendar-source fetches requiring review: **' + failures.length + '**.',
               '',
               '### Counties missing vetted local sources',
               ...report.unservedCounties.map(row => '- ' + row.name + ' — ' + row.url),
+              '',
+              '### Counties with no explicitly classified community calendar / organizer source',
+              ...report.countiesNeedingCalendarEvidenceDetails.map(row => '- ' + row.name + ' — ' + row.url),
               '',
               '### Official source access requiring review',
               ...failures.map(row => '- ' + row.organization + ': ' + row.state +
@@ -110,7 +120,7 @@ jobs:
               '',
               'Parent checkpoint: #7548.',
             ].join('\n');
-            if (report.countiesMissingSources || failures.length) {
+            if (report.countiesMissingSources || report.countiesNeedingCalendarEvidence || report.unclassifiedSourceCount || failures.length) {
               if (previous) await github.rest.issues.update({
                 owner, repo, issue_number: previous.number, body,
               });
@@ -118,7 +128,7 @@ jobs:
             } else if (previous) {
               await github.rest.issues.update({
                 owner, repo, issue_number: previous.number, state: 'closed',
-                body: body + '\n\nAll counties now have vetted sources. This does not certify event completeness.',
+                body: body + '\n\nAll counties now have explicitly reviewed public calendar/organizer sources, but this does not certify date-specific events or press opt-ins.',
               });
             }
       - name: Fail on source-audit infrastructure errors
