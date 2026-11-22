@@ -88,8 +88,8 @@ const guideImages: Partial<Record<string, GuideImage>> = {
   },
   "texas-chili-con-carne-history": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pot_of_Chili_Con_Carne.jpg?width=1600",
-    alt: "Pot of chili con carne representing the Texas bowl-of-red tradition",
-    caption: "Chili con carne became a Texas identity marker through San Antonio street-food history, commercial chili products and later cookoff culture.",
+    alt: "Pot of chili con carne illustrating the bowl-of-red tradition",
+    caption: "Representative photograph of chili con carne from 2018, not a historical San Antonio food stand. The dish became a Texas identity marker through street-food history, commercial chili products and cookoffs.",
     credit: "Punkgobliner · CC BY-SA 4.0 · Wikimedia Commons",
     sourceHref: "https://commons.wikimedia.org/wiki/File:Pot_of_Chili_Con_Carne.jpg",
   },
@@ -101,11 +101,11 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     sourceHref: "https://commons.wikimedia.org/wiki/File:Chicken_fried_steak.jpg",
   },
   "texas-breakfast-taco-guide": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BreakfastTaco.jpg?width=1200",
-    alt: "Egg and sausage breakfast taco with salsa on a flour tortilla",
-    caption: "Breakfast tacos are everyday Texas food built around tortillas, fillings and the salsa habits of the local shop.",
-    credit: "Paxsimius · CC BY-SA 4.0 · Wikimedia Commons",
-    sourceHref: "https://commons.wikimedia.org/wiki/File:BreakfastTaco.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2009-265-56-_Two_Soft_Tacos_and_a_Microphone_(3310171849).jpg?width=1600",
+    alt: "Two chorizo breakfast tacos on flour tortillas in San Antonio",
+    caption: "A photographed San Antonio breakfast in February 2009: two chorizo tacos. This historical menu photograph is not a claim about the restaurant’s current operation.",
+    credit: "Alan Levine (cogdogblog) · CC0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:2009-265-56-_Two_Soft_Tacos_and_a_Microphone_(3310171849).jpg",
   },
   "texas-ranch-water-guide": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ranch_water.jpg?width=1600",
