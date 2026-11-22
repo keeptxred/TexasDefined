@@ -1009,7 +1009,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "celeste": {
     "slug": "celeste",
-    "intro": "Celeste ISD's Blue Devils compete in UIL Class 2A Division II District 9 in 2026–28 and publish their own varsity and junior varsity schedule resources. District September 2026 home-game coverage specifically names Coach Rector; the 2026 UIL-partner roster identifies Demetrius Rector as head football coach after a different named coach in the 2025 history. Because older score feeds still lack late-October results and disagree about game dates, those uncertain finals are not invented.",
+    "intro": "Celeste ISD's Blue Devils compete in UIL Class 2A Division II District 9 in 2026–28 and publish their own varsity and junior varsity schedule resources. District September 2026 home-game coverage specifically names Coach Rector; the 2026 UIL-partner roster identifies Demetrius Rector as head football coach after a different named coach in the 2025 history. The final season record is reported in the November review below; the Boles game date remains disputed.",
     "theme": {
       "accentHex": "#2C4B80",
       "label": "Original TexasDefined indigo editorial panel; not a Celeste mascot image or official uniform scheme."
@@ -1046,10 +1046,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-26"
     },
     "season": {
-      "record": "0-7 in independently named games through October 16, 2026; Oct. 23 Boles final not certified by this source",
-      "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/",
-      "sourceLabel": "UIL partner 2026 result cards through October 16, school calendar for later fixtures",
-      "verifiedAt": "2026-10-26",
+      "record": "0-10 overall; 0-5 district (final 2026 regular-season record, November 6). The Boles result is reported, but sources disagree on the played date.",
+      "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -1094,6 +1094,20 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true,
           "result": "L 0-70"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Cumby",
+          "site": "Away",
+          "district": true,
+          "result": "L 0-16"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Lindsay",
+          "site": "Home",
+          "district": true,
+          "result": "L 0-49"
         }
       ]
     },
@@ -1121,10 +1135,11 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "0-10 overall; 0-5 district (final 2026 regular-season record, November 6). The Boles result is reported, but sources disagree on the played date. The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Celeste is the Blue Devils program in Hunt County; current UIL placement is 2A Division II District 9.",
       "The high school posts official 2026 varsity schedules for checking kickoffs and opponent changes.",
       "2026 roster sources list Demetrius Rector as head coach, while 2025 history lists Lee Valdez; year boundaries are respected.",
-      "Current results are labeled by verified game dates and avoid claiming an unconfirmed October 23 Boles final."
+      "The October Boles score is omitted from the dated game list until the played date is reconciled."
     ],
     "faq": [
       {
@@ -1277,10 +1292,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "note": "The district stadium is separate from Turner High's Josey Lane campus; game venue, bags, tickets and accessibility are event-specific."
     },
     "season": {
-      "record": "1-5 in the October 15 schedule snapshot; later October results not certified by this source",
+      "record": "1-9 overall; 0-6 district (final 2026 regular-season record, November 6)",
       "sourceUrl": "https://www.maxpreps.com/tx/carrollton/turner-lions/football/schedule/",
-      "sourceLabel": "MaxPreps 2026 dated schedule and final-score snapshot",
-      "verifiedAt": "2026-10-26",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -1307,6 +1322,34 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true,
           "result": "L 7-62"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Birdville",
+          "site": "Home",
+          "district": true,
+          "result": "L 7-45"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Newman Smith",
+          "site": "Away",
+          "district": true,
+          "result": "L 6-40"
+        },
+        {
+          "date": "2026-10-29",
+          "opponent": "Naaman Forest",
+          "site": "Home",
+          "district": true,
+          "result": "L 0-48"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Richland",
+          "site": "Away",
+          "district": true,
+          "result": "L 12-51"
         }
       ]
     },
@@ -1341,6 +1384,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "1-9 overall; 0-6 district (final 2026 regular-season record, November 6). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Turner's mascot is the Lions and its head coach is Michael Farda, independently named by the official school staff directory.",
       "UIL 2026–28 assigns Turner to 5A Division I District 6, also containing Creekview and Newman Smith.",
       "Ranchview is in the same CFBISD system but a different 4A district; the varsity programs should not be combined.",
@@ -1400,10 +1444,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "note": "Official ticket site controls sales and gate information; do not interpret the school's address as one certified entrance."
     },
     "season": {
-      "record": "7-0 through October 23, 2026, from seven listed varsity finals",
-      "sourceUrl": "https://www.carthagebulldogs.org/",
-      "sourceLabel": "Carthage official 2026 final score card and current calendar",
-      "verifiedAt": "2026-10-26",
+      "record": "10-1 overall; 4-1 district through November 19, 2026 (area playoff win)",
+      "sourceUrl": "https://www.maxpreps.com/tx/carthage/carthage-bulldogs/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -1449,6 +1493,32 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true,
           "result": "W 37-13"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Gilmer",
+          "site": "Away",
+          "district": true,
+          "result": "L 42-49"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Center",
+          "site": "Home",
+          "district": true,
+          "result": "W 42-0"
+        },
+        {
+          "date": "2026-11-12",
+          "opponent": "Ford",
+          "site": "Home",
+          "result": "W 56-15"
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "Glen Rose",
+          "site": "Neutral",
+          "result": "W 35-7"
         }
       ]
     },
@@ -1483,6 +1553,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "10-1 overall; 4-1 district through November 19, 2026 (area playoff win). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Carthage's first-party athletic site names Scott Surratt head football coach and athletics director.",
       "The Bulldogs are the defending 2025 Class 4A Division II state champions, with 11 program football championships entering 2026.",
       "The source-backed record through October 23 is 7-0, a dated regular-season standing—not a 2026 title or playoff guarantee.",
@@ -1632,10 +1703,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "note": "The published stadium name is not a confirmed 2026 spectator gate or ADA path; check district game-day information."
     },
     "season": {
-      "record": "8-0 overall and 5-0 District 14-5A Division I through October 23, 2026",
-      "sourceUrl": "https://www.expressnews.com/sports/high-school/article/medina-valley-rushing-duo-powers-panthers-22492130.php",
-      "sourceLabel": "October 24 San Antonio Express-News district standings and 63-10 final",
-      "verifiedAt": "2026-10-26",
+      "record": "12-0 overall; 7-0 district through November 19, 2026 (area playoff win)",
+      "sourceUrl": "https://www.maxpreps.com/tx/castroville/medina-valley-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-29",
@@ -1689,6 +1760,32 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true,
           "result": "W 63-10"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Jay",
+          "site": "Home",
+          "district": true,
+          "result": "W 49-0"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "South San Antonio",
+          "site": "Away",
+          "district": true,
+          "result": "W 42-0"
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Manor",
+          "site": "Home",
+          "result": "W 63-16"
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "Corpus Christi Carroll",
+          "site": "Neutral",
+          "result": "W 56-14"
         }
       ]
     },
@@ -1723,6 +1820,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "12-0 overall; 7-0 district through November 19, 2026 (area playoff win). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Medina Valley is the Panthers program in Castroville, with UIL 2026–28 5A Division I District 14 alignment.",
       "Andrew Britt is the current head coach; the 2026 offense uses a flexbone/triple-option scheme rather than an assumed generic spread system.",
       "The 2026 Panthers were 8-0 through October 23 after beating MacArthur; remaining games and postseason qualification were not yet settled.",
@@ -1739,7 +1837,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Did Medina Valley complete an undefeated 2026 season?",
-        "answer": "Not yet. The team was 8-0 through October 23, but its remaining games and postseason were still ahead."
+        "answer": "Not yet. The Panthers were 12-0 through the November 19 area-round victory over Corpus Christi Carroll. The remaining playoffs determine whether the season ends undefeated."
       }
     ]
   },
@@ -1828,10 +1926,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
   "canyon-west-plains": {
     "slug": "canyon-west-plains",
     "campus": {
-        "address": "10576 Arden Road, Amarillo, TX 79119 (West Plains High campus; not football entrance)",
-        "sourceUrl": "https://wphs.canyonisd.net/our-campus",
-        "sourceLabel": "West Plains High official school campus information",
-        "verifiedAt": "2026-10-26"
+      "address": "10576 Arden Road, Amarillo, TX 79119 (West Plains High campus; not football entrance)",
+      "sourceUrl": "https://wphs.canyonisd.net/our-campus",
+      "sourceLabel": "West Plains High official school campus information",
+      "verifiedAt": "2026-10-26"
     },
     "intro": "The West Plains Wolves opened in 2022 as Canyon ISD's newer varsity football program. They are distinct from Canyon High's Eagles, compete in UIL 4A Division I District 2 in 2026 and reached the 2024 state semifinals. After founding coach Adam Cummings moved into district administration, the school promoted Jeff Lofton in May 2026.",
     "theme": {
@@ -1871,10 +1969,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-26"
     },
     "season": {
-      "record": "4-3 after October 16, 2026 Canyon game; later results not certified",
-      "sourceUrl": "https://www.maxpreps.com/tx/football/game/canyon-vs-west-plains-amarillo/10-16-2026/?c=28a1b81a-20dd-443b-8042-050efaa42125&tab=Recap",
-      "sourceLabel": "MaxPreps October 16 result",
-      "verifiedAt": "2026-10-26",
+      "record": "7-5 overall; 4-1 district (season ended November 19, 2026)",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/west-plains-wolves/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-10-16",
@@ -1882,6 +1980,39 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true,
           "result": "W 18-16"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Hereford",
+          "site": "Away",
+          "district": true,
+          "result": "W 59-12"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Randall",
+          "site": "Away",
+          "district": true,
+          "result": "L 21-39"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Pampa",
+          "site": "Home",
+          "district": true,
+          "result": "W 49-17"
+        },
+        {
+          "date": "2026-11-12",
+          "opponent": "Ysleta",
+          "site": "Home",
+          "result": "W 86-0"
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "Springtown",
+          "site": "Away",
+          "result": "L 23-41"
         }
       ]
     },
@@ -1909,6 +2040,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "7-5 overall; 4-1 district (season ended November 19, 2026). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "West Plains is the Canyon ISD Wolves program founded in 2022, separate from Canyon High's Eagles.",
       "Its current 2026–28 UIL 4A Division I District 2 pairing includes Canyon and Randall.",
       "The Wolves reached a 2024 state semifinal, not a state championship; 2026 scores remain dated snapshots."
@@ -1927,10 +2059,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
   "carrizo-springs": {
     "slug": "carrizo-springs",
     "campus": {
-        "address": "335 FM Road 1917, Carrizo Springs, TX 78834 (high school campus, not a stadium gate)",
-        "sourceUrl": "https://cshs.cscisd.net/",
-        "sourceLabel": "Carrizo Springs High official school campus home",
-        "verifiedAt": "2026-10-26"
+      "address": "335 FM Road 1917, Carrizo Springs, TX 78834 (high school campus, not a stadium gate)",
+      "sourceUrl": "https://cshs.cscisd.net/",
+      "sourceLabel": "Carrizo Springs High official school campus home",
+      "verifiedAt": "2026-10-26"
     },
     "intro": "The Carrizo Springs Wildcats represent a Dimmit County UIL 3A Division I District 14 program. Carrizo Springs CISD publishes varsity schedules and district-controlled home-game tickets at Frank Carter Stadium; the page separates official athletic director information from uncertain head-coach attribution.",
     "theme": {
@@ -1963,10 +2095,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-26"
     },
     "season": {
-      "record": "3-4 through October 16, 2026; subsequent scores unconfirmed",
+      "record": "5-6 overall; 4-3 district (season ended November 13, 2026). Selected scores shown; October 16 Devine score remains disputed.",
       "sourceUrl": "https://www.maxpreps.com/tx/carrizo-springs/carrizo-springs-wildcats/football/schedule/",
-      "sourceLabel": "MaxPreps 2026 season schedule",
-      "verifiedAt": "2026-10-26",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-09-18",
@@ -1981,6 +2113,33 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true,
           "result": "W 52-13"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Jourdanton",
+          "site": "Home",
+          "district": true,
+          "result": "L 0-33"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Crystal City",
+          "site": "Away",
+          "district": true,
+          "result": "W 36-14"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Natalia",
+          "site": "Home",
+          "district": true,
+          "result": "W 32-26"
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Yoakum",
+          "site": "Away",
+          "result": "L 14-62"
         }
       ]
     },
@@ -2001,6 +2160,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "5-6 overall; 4-3 district (season ended November 13, 2026). Selected scores shown; October 16 Devine score remains disputed. The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Carrizo Springs is a Dimmit County Wildcats program; its current district is 3A Division I District 14.",
       "The district operates its own athletics schedules and external Hometown Ticketing portal.",
       "The publicly abbreviated football coach listing is not enough to assert a complete name or conflate duties.",
@@ -2064,10 +2224,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-26"
     },
     "season": {
-      "record": "1-7 through October 23, 2026",
-      "sourceUrl": "https://www.dentoncountyfb.com/team/carrollton-creekview-mustangs/",
-      "sourceLabel": "Denton County Football 2026 results",
-      "verifiedAt": "2026-10-26",
+      "record": "2-8 overall; 2-4 district (final 2026 regular-season record, November 6)",
+      "sourceUrl": "https://www.maxpreps.com/tx/carrollton/creekview-mustangs/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-10-02",
@@ -2082,6 +2242,20 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true,
           "result": "L 20-56"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Newman Smith",
+          "site": "Home",
+          "district": true,
+          "result": "W 10-8"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Naaman Forest",
+          "site": "Away",
+          "district": true,
+          "result": "L 7-55"
         }
       ]
     },
@@ -2102,6 +2276,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "2-8 overall; 2-4 district (final 2026 regular-season record, November 6). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Creekview Mustangs compete in 5A Division I District 6 for 2026–28.",
       "Dusty Ortiz appears as head coach in the current varsity staff listing.",
       "CFBISD's stadium address is separate from the campus location and is not a universal game assignment."
@@ -2164,10 +2339,10 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-26"
     },
     "season": {
-      "record": "2-5 through October 16, 2026; later results await confirmation",
-      "sourceUrl": "https://www.maxpreps.com/tx/irving/ranchview-wolves/football/",
-      "sourceLabel": "MaxPreps dated 2026 scores",
-      "verifiedAt": "2026-10-26",
+      "record": "4-6 overall; 2-5 district (final 2026 regular-season record, November 6)",
+      "sourceUrl": "https://www.maxpreps.com/tx/irving/ranchview-wolves/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -2181,6 +2356,27 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true,
           "result": "L 14-66"
+        },
+        {
+          "date": "2026-10-22",
+          "opponent": "Godley",
+          "site": "Home",
+          "district": true,
+          "result": "W 49-48"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Castleberry",
+          "site": "Away",
+          "district": true,
+          "result": "W 38-16"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Springtown",
+          "site": "Home",
+          "district": true,
+          "result": "L 14-67"
         }
       ]
     },
@@ -2201,6 +2397,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "4-6 overall; 2-5 district (final 2026 regular-season record, November 6). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Ranchview High is in Irving although the team appears as Carrollton Ranchview in UIL listings.",
       "Richard Leonard is the first-party listed head football coach and athletics coordinator.",
       "The 2026–28 alignment is 4A Division I District 4, not Creekview's 5A district.",
