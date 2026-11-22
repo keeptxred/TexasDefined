@@ -57,6 +57,7 @@ export const ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle: Article = {
     { label: "Texas Legislature — H.C.R. 83 (2025)", url: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00083F.htm" },
     { label: "City of Henderson — Heritage Syrup Festival", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" },
     { label: "Rusk County Depot Museum & History Center — grounds", url: "https://www.ruskcountyhistory.org/our-grounds" },
+    { label: "Museum — original syrup mill history and festival since 1989", url: "https://www.ruskcountyhistory.org/syrup-mill-history" },
     { label: "Rusk County Depot Museum — 2026 festival", url: "https://www.ruskcountyhistory.org/syrup-festival" },
   ],
   body: [
