@@ -83,8 +83,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       "For agricultural and trade history, look for the museum's blacksmith area, including a windmill head and metalworking tools. Such equipment points to essential rural skills: shoeing and repairing farm gear, maintaining machinery and keeping windmills working when homes and ranches depended on well water. These objects give visitors a concrete way to understand the larger county story of livestock, cotton, peanuts, dairying and the railroads that connected producers to distant markets.",
       "A diorama portraying a Comanche Indigenous family campsite introduces a much older history than the county's formal creation in 1856. It should be interpreted as the museum's historical reconstruction, not a living cultural representation or complete account of the Comanche Nation. The museum also displays original art by Bernice Jones, including depictions of Quanah Parker. Travelers seeking a fuller picture can consult tribal and historical scholarship beyond the exhibit itself.",
       "Veterans collections include clothing, photographs, equipment and service-related objects from the First World War through Vietnam. A children's area focuses on play and everyday life. Those galleries broaden a visit beyond outlaws and landmark architecture: they show how ordinary residents learned, worked, served, raised families and built institutions through several generations.",
-      "The museum's Thursday–Saturday public hours, currently published as 10 a.m.–4 p.m., suit a half-day Comanche itinerary. Private, school and group tours are offered by arrangement; the organization welcomes donations, memberships, volunteers and appropriate artifact contributions. It does not publish enough accessibility or admission detail to promise specific accommodations or a fixed ticket price, so contact the museum before a special trip.",
-      "Combine the museum with the current Art Moderne Comanche County Courthouse, the Old Cora log courthouse and Fleming Oak on the town square. Old Cora was first used in Cora in 1856 and is presently listed by the Chamber as closed for renovation, so plan for an exterior history stop only when grounds are accessible. The restored 1909 Comanche-Frisco depot at 304 South Austin Street is another nearby heritage stop with its own visitor-center opening arrangements.",
+      "The museum's homepage confirms free general admission, supported by donations. Its Thursday–Saturday public hours, currently published as 10 a.m.–4 p.m., suit a half-day Comanche itinerary. Private, school and group tours are offered by arrangement; the organization welcomes donations, memberships, volunteers and appropriate artifact contributions. The museum does not publish a complete accessibility inventory, so call before a special visit; free general admission does not guarantee all privately arranged group programs have the same terms.",
+      "The museum also publishes a Comanche Square Walking Tour with QR-triggered audio commentary on Old Cora, Fleming Oak and other landmarks. Check its online map and onsite QR access; this is a self-guided audio resource, not an advertised staffed guided tour. Combine the museum with the current Art Moderne Comanche County Courthouse, the Old Cora log courthouse and Fleming Oak on the town square. Old Cora was first used in Cora in 1856 and is presently listed by the Chamber as closed for renovation, so plan for an exterior history stop only when grounds are accessible. The restored 1909 Comanche-Frisco depot at 304 South Austin Street is another nearby heritage stop with its own visitor-center opening arrangements.",
       "For a longer county day, use the museum first to interpret De Leon's peanut history, the rail era, Cora's original county-seat role, and the Leon River landscape before driving to Proctor Lake. Alternatively, explore Comanche's present-day wine businesses. Brennan Vineyards and JW Hardin Wine Co. both maintain official local presences, but tasting hours and reservations should be verified independently; this museum itinerary does not imply a guided wine-tour service."
     ],
     officialUrl: "https://www.comanchecountytxmuseum.com/",
@@ -212,6 +212,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
         }
       ],
       sources: [
+        { label: "Museum operator — Free admission", url: "https://www.comanchecountytxmuseum.com/", scope: "Museum confirms free entry and voluntary donation support" },
+        { label: "Museum operator — Comanche square audio tour", url: "https://www.comanchecountytxmuseum.com/about-1-1", scope: "QR-triggered audio stops and walking map" },
         {
           label: "Comanche County Historical Museum — About",
           url: "https://www.comanchecountytxmuseum.com/about-us",
@@ -245,6 +247,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       ]
     },
     visitorFacts: [
+      { topic: "price", label: "General admission", detail: "Free general admission according to the museum, supported by donations; verify group arrangements.", sourceUrl: "https://www.comanchecountytxmuseum.com/", checkedAt: "2026-11-22" },
       {
         topic: "hours",
         label: "Published public hours",
@@ -268,6 +271,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       }
     ],
     visitorFaqs: [
+      { question: "Does the museum charge admission?", answer: "No. Its official homepage states general admission is free; donations support the museum. Confirm separate group arrangements with museum volunteers.", sourceUrl: "https://www.comanchecountytxmuseum.com/" },
+      { question: "Is there an audio walking tour of Comanche square?", answer: "Yes. The museum publishes a QR-linked Comanche Square Walking Tour with audio interpretation of Old Cora, Fleming Oak and other historic landmarks. Check the site and onsite QR availability.", sourceUrl: "https://www.comanchecountytxmuseum.com/about-1-1" },
       {
         question: "Where is the Comanche County Historical Museum?",
         answer: "It is at 402 Moorman Road in Comanche, Texas. The museum lists telephone (325) 356-5115.",
