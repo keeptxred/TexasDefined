@@ -841,5 +841,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Glen Rose Chamber of Commerce",
     "summary": "The Glen Rose Chamber lists the second annual Storybook Christmas Tour of Homes for Saturday, December 12, 2026, 6–9 p.m. This ticketed tour advertises eight stops with decorated homes and establishments, carolers, hot cocoa and seasonal activities. The organizer lists general admission at $35 and says its VIP experience is sold out; ticket availability may change, and individual tour-stop addresses and admission instructions should be confirmed directly with the Chamber. The tour is separate from November's downtown parade.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "goldthwaite-sip-stroll-shop-christmas-2026",
+    "title": "Goldthwaite Sip, Stroll & Shop Christmas Celebration",
+    "city": "Goldthwaite",
+    "countySlug": "mills",
+    "countyName": "Mills County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Goldthwaite, 1011 4th Street",
+    "officialEventUrl": "https://www.goldthwaiteareachamber.com/events/goldthwaite-sip-stroll-and-shop",
+    "sourceName": "Goldthwaite Area Chamber of Commerce",
+    "summary": "The Goldthwaite Area Chamber confirms Sip, Stroll & Shop for Saturday, December 5, 2026, from 2–6 p.m. at downtown Goldthwaite, with Santa, children's activities, seasonal shopping, arts and crafts, food trucks, carolers and Dickens-themed characters. A separate Parade of Lights is advertised for 6 p.m., followed by a Christmas dance at the Pavilion. The event page links to ticket information but does not establish that every attraction is free; verify any individual admissions and parade route with the Chamber.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "hearne-downtown-christmas-parade-2026",
+    "title": "Hearne Annual Downtown Christmas Parade",
+    "city": "Hearne",
+    "countySlug": "robertson",
+    "countyName": "Robertson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Hearne",
+    "officialEventUrl": "https://hearnechamber.com/community-calendar/",
+    "sourceName": "Hearne Chamber of Commerce",
+    "summary": "The Hearne Chamber's 2026 community calendar confirms the annual Downtown Christmas Parade for Saturday, December 12, 2026. The organizer lists local organizations, businesses, churches and schools joining the festive procession. The Chamber explicitly labels the parade start time as to be announced, so visitors should check directly for the finalized hour, staging area, traffic restrictions and spectator route before traveling. This is not the separate December 18 Downtown Hearne merchant event.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "plantersville-christmas-parade-2026",
+    "title": "Plantersville Annual Community Christmas Parade",
+    "city": "Plantersville",
+    "countySlug": "grimes",
+    "countyName": "Grimes County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "From Plantersville Town Hall via FM 1774 and Highway 105",
+    "officialEventUrl": "https://cityofplantersville.net/community-calendar-events-1",
+    "sourceName": "City of Plantersville official community calendar",
+    "summary": "The City of Plantersville confirms its annual Christmas Parade for Saturday, December 5, 2026, beginning at 10 a.m. The route starts near Town Hall, follows FM 1774 to Highway 105 and loops back. Participants line up behind Town Hall at 9:30 a.m., which is not a spectator starting time. The municipal calendar does not list a confirmed end time, seating details or street closure plan. This is separate from the city's November 22 Cookies with Santa and December 13 volunteer fire department party.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "bonham-home-for-holidays-christmas-market-2026",
+    "title": "Bonham Home for the Holidays Christmas Market",
+    "city": "Bonham",
+    "countySlug": "fannin",
+    "countyName": "Fannin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Stay Grounded Coffee Cafe, 604 North Center Street, Bonham",
+    "officialEventUrl": "https://bonhamchamber.com/event/annual-christmas-market/",
+    "sourceName": "Stay Grounded Coffee Cafe event organizer / Bonham Area Chamber event calendar",
+    "summary": "The Bonham Area Chamber's official community event listing confirms Home for the Holidays Christmas Market on Saturday, December 5, 2026, from 9 a.m. to 4 p.m. at Stay Grounded Coffee Cafe, 604 North Center Street. It features local vendors, holiday shopping and family activities. The listing names the coffee shop as event organizer and venue; it does not establish vendor pricing, parking or blanket free admission. This market is separate from the Chamber's December 4 Christmas Parade and Hot Cocoa Hop.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
