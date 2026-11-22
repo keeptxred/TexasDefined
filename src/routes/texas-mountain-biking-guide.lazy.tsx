@@ -253,7 +253,7 @@ function TexasMountainBikingGuidePage() {
             <p className="eyebrow text-primary">Choose your ride</p>
             <h2 id="compare-rides" className="mt-2 font-display text-4xl">Five Texas trail systems at a glance</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">If you only need the decision-making version of this guide, start here. Trail status can change, so the official map linked inside each section should still be your final check.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Swipe the comparison horizontally for all route columns.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
             <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
               {trailSystems.map((row) => (
                 <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
@@ -267,7 +267,7 @@ function TexasMountainBikingGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-7 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table">
+            <div className="mt-7 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "900px" }}>
                 <thead className="bg-muted/50">
                   <tr>
@@ -421,7 +421,7 @@ function TexasMountainBikingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Maps and conditions should come from TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules. Tyler loop progression, Bandera approach, and Palo Duro CCC descent checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
