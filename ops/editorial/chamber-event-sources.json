@@ -3148,6 +3148,76 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "oldham-vega-chamber",
+      "organization": "Oldham County Chamber of Commerce",
+      "countySlugs": [
+        "oldham"
+      ],
+      "homeUrl": "https://oldhamcofc.org/",
+      "calendarUrl": "https://oldhamcofc.org/events/",
+      "contactPageUrl": "https://oldhamcofc.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "giddings-lee-chamber",
+      "organization": "Giddings Area Chamber of Commerce",
+      "countySlugs": [
+        "lee"
+      ],
+      "homeUrl": "https://giddingstx.com/",
+      "calendarUrl": "https://business.giddingstx.com/event-calendar",
+      "contactPageUrl": "https://giddingstx.com/events-list/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "clarendon-donley-chamber",
+      "organization": "Clarendon Texas Economic Development and Chamber of Commerce",
+      "countySlugs": [
+        "donley"
+      ],
+      "homeUrl": "https://clarendontx.com/",
+      "calendarUrl": "https://clarendontx.com/blog/",
+      "contactPageUrl": "https://clarendontx.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "post-garza-chamber",
+      "organization": "Post Chamber of Commerce",
+      "countySlugs": [
+        "garza"
+      ],
+      "homeUrl": "https://postcitytexas.com/",
+      "calendarUrl": "https://postcitytexas.com/news/",
+      "contactPageUrl": "https://postcitytexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "fort-davis-jeff-davis-chamber",
+      "organization": "Fort Davis Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "jeff-davis"
+      ],
+      "homeUrl": "https://www.fortdavis.com/",
+      "calendarUrl": "https://www.fortdavis.com/Chamber",
+      "contactPageUrl": "https://www.fortdavis.com/Community",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
