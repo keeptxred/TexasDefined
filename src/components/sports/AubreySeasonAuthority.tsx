@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 /**
  * Aubrey-only, source-backed 2026 retrospective. All scoring statistics are
  * computed from the same final-score ledger used by the public team table.
@@ -30,7 +32,7 @@ function numericFinal(game: Final) {
   if ((match[1] === 'W') !== (scored > conceded)) return null;
   return { scored, conceded, won: match[1] === 'W' };
 }
-function Source({ href, children }: { href: string; children: React.ReactNode }) {
+function Source({ href, children }: { href: string; children: ReactNode }) {
   return <a className="font-semibold text-primary underline underline-offset-4 hover:text-foreground" href={href} target="_blank" rel="noreferrer noopener">{children} ↗</a>;
 }
 export function AubreySeasonAuthority({ games }: { games: readonly Final[] }) {
