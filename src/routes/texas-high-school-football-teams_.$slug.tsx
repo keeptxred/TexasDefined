@@ -67,6 +67,8 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             url,
             name: `${teamName} Football Profile`,
             description,
+            // Only significant editorial revisions receive a truthful WebPage dateModified.
+            dateModified: slug === 'aubrey' ? '2026-11-22' : undefined,
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
               '@type': 'HighSchool',
