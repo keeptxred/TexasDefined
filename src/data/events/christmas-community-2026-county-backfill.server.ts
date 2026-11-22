@@ -545,5 +545,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Visit Mineral Wells Convention & Visitors Bureau",
   "summary": "Visit Mineral Wells confirms the Merry Wells Christmas Festival on Saturday, November 28, 2026 from 11 a.m.–5 p.m., with the separate lighted Christmas parade downtown at 6 p.m. The festival features artisan vendors, a food truck park, family activities and holiday entertainment; Santa and Mrs. Claus welcome photos after the parade at the city's Giant Rocking Chair. The official 2026 guide also lists a Friday, November 27 tree lighting, published as a separate calendar item.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "mont-belvieu-christmas-on-the-hill-parade-2026",
+  "title": "Mont Belvieu Christmas on the Hill Parade",
+  "city": "Mont Belvieu",
+  "countySlug": "chambers",
+  "countyName": "Chambers County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-06",
+  "venueName": "Eagle Drive near Barbers Hill ISD, Mont Belvieu",
+  "officialEventUrl": "https://www.montbelvieu.net/553/Christmas-On-the-Hill-Parade",
+  "sourceName": "City of Mont Belvieu Parks and Recreation",
+  "summary": "Mont Belvieu's official 2026 Christmas on the Hill Parade takes place Sunday, December 6 at 6 p.m. on Eagle Drive, with the theme 'Home for the Holidays.' The City advises spectators to use the Barbers Hill ISD side of Eagle Drive to receive candy and handouts; Eagle Drive closes at 5:40 p.m. During the event, exiting traffic is directed to Lakes of Champions Boulevard and campus roads have restricted access. The city's parade entry fees support the West Chambers County Food Pantry, not a spectator-admission charge.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "elmendorf-christmas-in-the-park-2026",
+  "title": "Elmendorf Christmas in the Park · Gingerbread Christmas Parade",
+  "city": "Elmendorf",
+  "countySlug": "bexar",
+  "countyName": "Bexar County",
+  "region": "south-texas",
+  "startDate": "2026-12-05",
+  "venueName": "Felix B. Guerra City Park · 16555 Old Corpus Christi Road",
+  "officialEventUrl": "https://www.elmendorf-tx.com/237/Christmas-in-the-Park-Registration",
+  "sourceName": "City of Elmendorf",
+  "summary": "The City of Elmendorf's official 2026 Christmas in the Park celebrates Saturday, December 5, from 4–8 p.m. at Felix B. Guerra City Park, 16555 Old Corpus Christi Road. The Gingerbread-themed Christmas Parade kicks off at 4 p.m.; tree lighting is at 6 p.m., free Santa photographs run 6–8 p.m., and families can enjoy free carnival rides, treats and activities. Parade staging at 1 p.m. is for registered participants, not general visitors.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
