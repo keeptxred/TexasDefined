@@ -132,7 +132,7 @@ const texasStateRailroadRuskPalestineHistoryGuideStub: Article = {
   sourceUrl: "https://www.tshaonline.org/handbook/entries/texas-state-railroad",
   body: [],
   relatedCollections: [],
-  relatedDestinations: ["palestine", "heritage-center-of-cherokee-county"],
+  relatedDestinations: ["palestine", "heritage-center-cherokee-county-rusk"],
 };
 
 const texasBeforeUnitedStatesLink = {
