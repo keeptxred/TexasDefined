@@ -281,15 +281,16 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  const improved = historicEnriched
-    .map(applyMagoffinHomeAuthority)
-    // Override only after ALL shared historic, town and corridor enrichments;
-    // leave their order and existing county/state-park contracts unchanged.
-    .map((destination) => reviewedComancheCanonical(destination.slug) ?? destination);
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
+  // Keep the long-established Magoffin and historic-site source-validation contract
+  // intact; the two reviewed Comanche records supersede older remote rows after
+  // all generic destination enrichments are finished.
+  const improvedComanche = improved.map((destination) =>
+    reviewedComancheCanonical(destination.slug) ?? destination);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
-    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+    improvedComanche.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
   ));
 }
 
