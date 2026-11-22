@@ -742,5 +742,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "San Augustine Main Street / Visit San Augustine",
     "summary": "San Augustine Main Street's official tourism calendar dates the downtown Christmas Parade for Friday, December 4, 2026, at 6 p.m. around the historic downtown square. Free face painting and other family activities are listed, but the organizer has not published a confirmed parade end time or full closure map on this listing. Parade-entry deadlines and registration instructions apply to participants rather than spectators. The parade is distinct from the December 4–5 Christmas Market Days.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "jefferson-marion-christmas-parade-enchanted-forest-2026",
+    "title": "Jefferson Christmas Parade & Enchanted Forest Tree Lighting",
+    "city": "Jefferson",
+    "countySlug": "marion",
+    "countyName": "Marion County",
+    "region": "piney-woods",
+    "startDate": "2026-11-28",
+    "venueName": "Historic downtown Jefferson and Lions Club Park",
+    "officialEventUrl": "https://www.jeffersontxchamber.org/christmas",
+    "sourceName": "Marion County Chamber of Commerce",
+    "summary": "The Marion County Chamber confirms Jefferson's Christmas Parade and Enchanted Forest on Saturday, November 28, 2026, with the parade beginning at 6 p.m. in historic downtown Jefferson. The procession proceeds through downtown to the Lions Club Park seasonal tree-lighting celebration; the participating Lions Club manages the Enchanted Forest display. The Chamber page does not give a definite parade end time or guarantee every attraction or merchant will operate all evening. Check official traffic notices and parking guidance before arrival.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "giddings-downtown-holiday-festival-christmas-market-2026",
+    "title": "Downtown Giddings Holiday Festival & Christmas Market",
+    "city": "Giddings",
+    "countySlug": "lee",
+    "countyName": "Lee County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Downtown Giddings and Lee County courthouse area",
+    "officialEventUrl": "https://business.giddingstx.com/event-calendar/Details/downtown-giddings-holiday-festival-and-christmas-market-1905829?sourceTypeId=Website",
+    "sourceName": "Giddings Area Chamber of Commerce",
+    "summary": "The official Giddings Area Chamber calendar lists its downtown Holiday Festival and Christmas Market for Saturday, November 28, 2026, from 11 a.m. to 8 p.m. The event is an opportunity for seasonal shopping and local community festivities. The first-party listing does not establish individual vendor inventory, parking rules or blanket free admission to activities. This record is distinct from the Chamber's separate evening Bright Lights Christmas parade on the same date.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "giddings-bright-lights-christmas-delights-parade-2026",
+    "title": "Giddings Bright Lights & Christmas Delights Parade",
+    "city": "Giddings",
+    "countySlug": "lee",
+    "countyName": "Lee County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Downtown Giddings Plaza, Houston Street, Simmang Park and Burleson Street",
+    "officialEventUrl": "https://business.giddingstx.com/event-calendar/Details/bright-lights-and-christmas-delights-1675336?sourceTypeId=Website",
+    "sourceName": "Giddings Area Chamber of Commerce",
+    "summary": "The Giddings Chamber confirms its Bright Lights and Christmas Delights illuminated parade on Saturday, November 28, 2026, in the 6–9 p.m. scheduled event window. The parade begins at Downtown Plaza, travels along Houston Street to Simmang Park, and returns via Burleson Street toward the plaza. This is a different event record from the daytime downtown Christmas Market on November 28; the official source does not guarantee the moving parade itself lasts for the full three-hour activity window.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "sonora-texas-downtown-christmas-lighted-parade-2026",
+    "title": "Sonora Texas Downtown Christmas & Lighted Christmas Parade",
+    "city": "Sonora",
+    "countySlug": "sutton",
+    "countyName": "Sutton County",
+    "region": "hill-country",
+    "startDate": "2026-12-02",
+    "venueName": "Downtown Sonora, Sutton County",
+    "officialEventUrl": "https://sonoratexas.org/events/",
+    "sourceName": "Sonora, Texas Chamber of Commerce",
+    "summary": "The Sonora, Texas Chamber's official 2026 community-events calendar lists Downtown Christmas and the Lighted Christmas Parade for Wednesday, December 2, 2026. The Chamber does not publish a start time, detailed procession route or specific admission information in this calendar entry; visitors should confirm those details directly. This event is in Sutton County, Texas and must not be confused with a different historic Sonora Christmas parade organized in Sonora, California.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
