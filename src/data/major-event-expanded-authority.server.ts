@@ -177,6 +177,7 @@ const expandedDetails: ExpandedDetails[] = [
     planningSections: [
       { title: "Do not drive directly to airport parking", body: "The Commemorative Air Force Highland Lakes Squadron states that general-public parking is not available at the airport. Read its current parking/shuttle guidance and plan the drop-off or departure arrangement before starting your trip to Burnet." },
       { title: "Check advance tickets and age categories", body: "The official 2027 site is already offering advance tickets with adult, youth, senior, military and young-child categories. Prices and availability can change. Use the show's official sales links rather than assuming there is an approved Ticketmaster listing." },
+      { title: "Weather and refunds", body: "The organizer says tickets are nonrefundable if weather prevents or interrupts the airshow." },
       { title: "Keep the flying lineup current", body: "The official website prominently recaps the 2026 aircraft and performers. Those are historical highlights, not a verified 2027 lineup. Check for a current-year flying roster as the March event approaches." },
       { title: "Plan the rest of Burnet County", body: "Tie the show to Burnet, local museums and Highland Lakes drives. If booking a hotel, compare Burnet-area availability first without claiming that any unverified property is within walking distance." },
     ],
