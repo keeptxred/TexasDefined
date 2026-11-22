@@ -3218,6 +3218,48 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "van-horn-culberson-visitors",
+      "organization": "Town of Van Horn official visitor and festivals guide",
+      "countySlugs": [
+        "culberson"
+      ],
+      "homeUrl": "https://www.vanhorntexas.org/",
+      "calendarUrl": "https://www.vanhorntexas.org/DocumentCenter/View/1317/Van-Horn-Brochure",
+      "contactPageUrl": "https://www.vanhorntexas.org/2159/Things-to-Do",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "carrizo-springs-dimmit-city",
+      "organization": "City of Carrizo Springs municipal visitors and local Chamber desk",
+      "countySlugs": [
+        "dimmit"
+      ],
+      "homeUrl": "https://www.cityofcarrizo.org/",
+      "calendarUrl": "https://www.cityofcarrizo.org/community/page/visitors-and-information-center",
+      "contactPageUrl": "https://www.cityofcarrizo.org/community/page/visitors-and-information-center",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "falfurrias-brooks-city",
+      "organization": "City of Falfurrias local events and visitor information",
+      "countySlugs": [
+        "brooks"
+      ],
+      "homeUrl": "https://www.falfurrias.us/",
+      "calendarUrl": "https://www.falfurrias.us/sitemap",
+      "contactPageUrl": "https://www.falfurrias.us/sitemap",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
