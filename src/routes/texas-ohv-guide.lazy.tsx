@@ -240,7 +240,7 @@ function TexasOhvGuidePage() {
             <p className="eyebrow text-primary">Legal access by vehicle</p>
             <h2 id="ohv-comparison" className="mt-2 font-display text-3xl">Which venue fits your machine?</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">An OHV decal is not permission to ride wherever you want. Vehicle categories, trail width, mapped zones, operator waivers and separate permits can differ. This table is a screening tool; the current operator or land manager has the final say.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to see all vehicle and permit columns.</p>
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
             <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
               {legalRideComparison.map((row) => (
                 <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
@@ -252,7 +252,7 @@ function TexasOhvGuidePage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five legal Texas OHV riding areas comparison table">
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five legal Texas OHV riding areas comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "820px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
                 <tbody>{legalRideComparison.map((area) => <tr key={area.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{area.name}</th><td className="border-b border-border p-4 text-muted-foreground">{area.vehicles}</td><td className="border-b border-border p-4 text-muted-foreground">{area.permission}</td></tr>)}</tbody>
@@ -366,7 +366,7 @@ function TexasOhvGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify the legal venue, decal and current rules</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel. Lake Meredith access roads, NPS permit applications and camping distinctions checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
