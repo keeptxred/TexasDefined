@@ -36,6 +36,7 @@ export const upshurCountyGilmerYamboreePineyWoodsArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/event/christmas-in-gusherville", label: "Christmas in Gusherville", description: "Explore Gladewater’s historic downtown holiday open house, its latest confirmed edition, and official organizer updates." },
     { href: "/county/gregg", label: "Explore Gregg County", description: "Continue southeast toward Longview, Kilgore and the East Texas Oil Field." },
     { href: "/county/smith", label: "Explore Smith County", description: "Head southwest toward Tyler, rose country and the broader Piney Woods." },
     { href: "/county/camp", label: "Explore Camp County", description: "Travel north toward Pittsburg and the Big Cypress Creek country." },
@@ -108,6 +109,8 @@ export const upshurCountyGilmerYamboreePineyWoodsArticle: Article = {
     p("More than a century after the major logging boom, forests again cover a large share of Upshur County. Pine management, wood products and hunting all depend on that restored tree cover. White-tailed deer, squirrels, turkey, dove and other East Texas wildlife are common across private timberland and mixed farm country."),
     p("Most rural land is privately owned, so visitors should not treat forest roads, fields or creek access as public simply because they look undeveloped. Public roads, town centers, designated parks and permitted access points are the best ways to explore the county responsibly."),
 
+    h("Gladewater’s holiday tradition belongs to both counties"),
+    p("Gladewater crosses the Gregg–Upshur county line, and its annual Christmas in Gusherville downtown Holiday Open House is part of both counties’ seasonal visitor picture. The last confirmed event took place November 14, 2026 with downtown shopping, carolers and a Christmas tree lighting. The Gladewater Chamber of Commerce organizes the tradition; do not assume the same date next year. See the permanent Christmas in Gusherville guide for seasonal announcements and practical visitor planning."),
     h("How to explore Upshur County"),
     p("Begin in Gilmer at the courthouse square to understand the county's civic geography. From there, follow U.S. 271 toward Big Sandy for the railroad story, or travel north and northeast toward Ore City and the Cypress Creek country. The drives between towns reveal the pine forests, pasture, small churches and rural communities that define the county more clearly than any single attraction."),
     p("If visiting during the East Texas Yamboree, allow extra time for downtown events and crowds. At other times of year, Gilmer offers a quieter county-seat experience that pairs well with a broader Piney Woods road trip through neighboring Gregg, Smith, Camp and Harrison counties."),
