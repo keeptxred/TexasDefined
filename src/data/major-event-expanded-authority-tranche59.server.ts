@@ -333,7 +333,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2026-12-30",
     "venue": "Grapevine Vintage Railroad · Grapevine / December 3 Fort Worth Stockyards",
     "officialUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
-    "sourceCheckedAt": "2026-11-10",
+    "sourceCheckedAt": "2026-11-21",
     "seoTitle": "Grapevine North Pole Express 2026: Train Dates, Tickets & Boarding",
     "seoDescription": "Find 2026 Grapevine North Pole Express boarding dates Nov. 27–Dec. 30, special Fort Worth Dec. 3 departures, holiday closures, official tickets and arrival tips.",
     "whyItMatters": "The North Pole Express is a timed, ticketed Grapevine Vintage Railroad holiday excursion, not the same attraction as the licensed Polar Express rail events elsewhere in Texas. Most departures board in Grapevine, but the organizer publishes a special December 3, 2026 Fort Worth Stockyards departure series. December 24 and 25 do not operate.",
@@ -370,7 +370,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Do not book for Christmas Eve or Christmas Day",
-        "body": "The 2026 schedule skips December 24–25; the final departures are on December 26–30. Date-specific sessions and space can sell out independently even when the broader Christmas Capital celebration continues."
+        "body": "The 2026 schedule skips December 24–25, with final departures December 26–30. December 6 has no 6:30 p.m. boarding, December 8 lists daytime sessions only through 2:30 p.m., December 10 and 17 have a final 4 p.m. boarding, and December 26 starts at 2 p.m. Confirm the exact date and time in official checkout."
       },
       {
         title: "Arrive earlier than the boarding time",
@@ -386,7 +386,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Know inclusions and extras",
-        "body": "The organizer lists songs, elves, treats and Santa-related experiences with varying ticket products. Check the exact 2026 ticket detail for photo or souvenir inclusions and do not infer that every market purchase is included."
+        "body": "The organizer describes singalongs, Santa and Mrs. Claus, a cookie and chocolate snow milk served in a souvenir mug. It also lists one 4-by-6-inch Santa photo per family at the Grapevine Christmas Market General Store, before or after the ride; extra photos cost separately. Confirm the inclusions for your selected station and ticket."
       }
     ],
     relatedLinks: [
