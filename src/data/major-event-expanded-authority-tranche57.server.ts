@@ -496,10 +496,10 @@ const records: ChristmasAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-11",
     endDate: "2027-01-03",
-    dateNote: "Official Holiday at the Arboretum runs November 11, 2026–January 3, 2027. Daytime admission is 9 a.m.–4 p.m.; separately ticketed Holiday at Night is 5–10 p.m. On Thanksgiving, Christmas Day and New Year’s Day the gardens close for DAYTIME admission but offer special holiday night access. November 20 has a private evening event, so check the date-specific booking calendar.",
+    dateNote: "Official Holiday at the Arboretum runs November 11, 2026–January 3, 2027. Daytime admission is 9 a.m.–5 p.m.; separately ticketed Holiday at Night is 5–10 p.m. On Thanksgiving, Christmas Day and New Year’s Day the gardens close for DAYTIME admission but offer special holiday night access. November 20 has a private evening event, so check the date-specific booking calendar.",
     venue: "Dallas Arboretum and Botanical Garden",
     officialUrl: "https://www.dallasarboretum.org/events-activities/holiday-at-the-arboretum/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Holiday at the Arboretum layers holiday-lit garden landscapes, the European-inspired Christmas Village and decorated DeGolyer House around its distinctive 12 Days of Christmas gazebo exhibition. The 2026–27 season is especially significant: the garden says it is the FINAL season for the 12 Days gazebos, making the date choice timely.",
     quickFacts: [
       {
@@ -512,7 +512,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         label: "Daytime hours",
-        value: "9 a.m.–4 p.m."
+        value: "9 a.m.–5 p.m."
       },
       {
         label: "Holiday at Night",
@@ -530,19 +530,19 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Select daytime or nighttime access",
-        body: "Daytime admission is normally 9 a.m.–4 p.m. and separately ticketed Holiday at Night is 5–10 p.m.; the garden closes between sessions to prepare. Daytime access is unavailable Thanksgiving, Christmas Day and New Year’s Day even though the venue offers special evening Holiday Cheer admissions on those dates. The organizer also reserves November 20 for a private nighttime event. Choose the precise dated official ticket, not only the headline season."
+        body: "The holiday admission and regular-hours pages now list daytime admission from 9 a.m. to 5 p.m., with separately ticketed Holiday at Night from 5 to 10 p.m. A daytime ticket is not an evening ticket. Daytime access is unavailable Thanksgiving, Christmas Day and New Year’s Day even though the venue offers special evening Holiday Cheer admissions on those dates. The organizer also reserves November 20 for a private nighttime event. Choose the precise dated official ticket, not only the headline season."
       },
       {
         title: "Understand date-variable tickets",
-        body: "The official seasonal page lists adult daytime admission roughly $21.95–$25.95 and nighttime general admission $35–$40, with an online-only Night Owl option at $15. The final checkout price can vary, and member/Museums for All access follows different rules."
+        body: "On November 21, the garden listed adult daytime admission at $21.95–$25.95, child ages 3–12 at $17.95–$21.95, and evening general admission at $35–$40 online for ages three and up; under-three admission is free. Evening gate prices are $4 higher. Night Owl entry is $15 from 8:30 to 10 p.m. The $12 online Holiday Cheer evenings are November 26, December 24, 25 and 31, and January 1. Compare admission and available times in official checkout."
       },
       {
         title: "Do not miss the Christmas Village and DeGolyer House",
-        body: "The holiday experience extends beyond the gazebos, including a Christmas Village and interior seasonal décor. Families who want photos and leisurely strolling should budget more than a quick pass-through and check house access schedules."
+        body: "The Christmas Village and decorated DeGolyer House complement the gazebos. Santa visits run on selected days November 14–December 24 during noon–3 p.m. and 6–9 p.m. sessions; check the separate Santa and house schedules before choosing a ticket."
       },
       {
         title: "Plan parking and accessibility",
-        body: "The grounds are extensive; assess stroller and mobility needs, garden paths and transport from parking before visiting after dark. Check weather policies and which seasonal features are in operation on the purchased date."
+        body: "The 66-acre grounds allow wheelchairs and strollers; complimentary wheelchairs are first-come, first-served. Parking is listed at $15 per vehicle (member and eligible Museums for All exceptions); advance online purchase supports license-plate entry. Main parking is at 8525 Garland Road and the garage at 8720 Garland Road. Check which entrances operate for evening events."
       },
       {
         title: "Combine with a Dallas holiday itinerary",
@@ -569,7 +569,9 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Dallas Arboretum main events calendar",
         url: "https://www.dallasarboretum.org/events-activities/"
-      }
+      },
+      { label: "Official admission hours and parking rates", url: "https://www.dallasarboretum.org/visitor-information/hours-and-admission/" },
+      { label: "Visitor accessibility and parking FAQ", url: "https://www.dallasarboretum.org/visitor-information/planning-your-visit/visitor-faqs/" }
     ]
   },
   {
@@ -585,7 +587,7 @@ const records: ChristmasAuthorityRecord[] = [
     dateNote: "Official 2026–27 Galaxy Lights runs on select dates November 14, 2026–January 3, 2027, with a published 6–10 p.m. event window. The site posts weather-related operating status each event day by 4 p.m.; the season-long range does not imply every night is operating.",
     venue: "Space Center Houston",
     officialUrl: "https://spacecenter.org/galaxy-lights/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Galaxy Lights transforms the Space Center Houston visitor campus into a space-themed nighttime holiday experience, with glowing cosmic installations and interactive areas that distinguish it from a conventional Christmas trail. It is a good anchor for a Clear Lake or NASA-area overnight trip.",
     quickFacts: [
       {
@@ -608,11 +610,11 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Reserve an exact operating date",
-        body: "Space Center Houston announces Galaxy Lights from November 14, 2026 through January 3, 2027 on SELECT dates with official 6–10 p.m. event hours. Use the ticket calendar to confirm the particular night, evening admission, and availability; the published range does not mean every date is open. Last entry is at 9 p.m."
+        body: "Space Center Houston announces Galaxy Lights from November 14, 2026 through January 3, 2027 on SELECT dates with official 6–10 p.m. event hours. Allow approximately 90 minutes for the experience. Last admission is at 9 p.m.; use the individual date's ticket calendar rather than assuming every night in the season is open."
       },
       {
         title: "Understand Galaxy Lights versus daytime admission",
-        body: "Galaxy Lights admission includes access to Space Center Houston exhibitions. NASA Tram Tours and Starship Gallery are closed during the event."
+        body: "Galaxy Lights admission includes access to Space Center Houston exhibitions, but NASA Tram Tours and Starship Gallery are closed during the evening event. On November 21, the operator listed admission for ages four and older at $19.95–$27.95 depending on date, with children three and younger free. Groups of at least 20 can ask about discounted admission."
       },
       {
         title: "Look for space-specific seasonal highlights",
@@ -620,15 +622,15 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Plan for outdoor weather and status changes",
-        body: "The operator says most light displays are outdoors and publishes the evening's weather-related status by 4 p.m. Wear appropriate footwear and layers and check the current status rather than assuming a rain forecast always closes the event."
+        body: "The operator says most light displays are outdoors and publishes the evening's weather-related status by 4 p.m. Wear appropriate footwear and layers and check the current status rather than assuming rain always closes the event. The FAQ says tickets for evenings canceled by severe weather can be redeemed on another operating night through January 3, 2027. Select sensory-friendly nights offer reduced sensory effects and discounted admission."
       },
       {
         title: "Make the NASA-area weekend cohesive",
         body: "Use daytime NASA-site attractions, the Clear Lake waterfront or Kemah on a separate portion of the day, then return for the light show. Stay in the Clear Lake/Webster area if the following morning involves another attraction."
       },
       {
-        title: "Do not invent Ticketmaster inventory",
-        body: "The operator's own ticket checkout is the reliable admissions path unless a properly matched live affiliate listing exists. A generic Ticketmaster search is not a Galaxy Lights admission ticket."
+        title: "Choose a date and buy directly",
+        body: "Use the Space Center Houston ticket link to confirm the date and current admission price. The organizer also lists musical performances on selected evenings, including the Space Center Intermediate Band on December 8."
       }
     ],
     relatedLinks: [
@@ -668,7 +670,7 @@ const records: ChristmasAuthorityRecord[] = [
     dateNote: "Concho Christmas Celebration confirms the San Angelo drive-through Tour of Lights December 5–31, 2026, daily 6–10 p.m. Sunday–Thursday and 6 p.m.–midnight Friday–Saturday. The 2.5-mile route enters at Bryant Boulevard and First Street (598 W. First Street). There is no mandatory entry ticket, and any voluntary donation must not be presented as a required fee.",
     venue: "Concho River / 598 W. First Street",
     officialUrl: "https://www.conchochristmascelebration.com/tour-of-lights",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Concho Christmas is a long-running San Angelo community tradition built around a 2.5-mile drive of roughly three million lights along the Concho River. Unlike timed walk-through ticket destinations, the Tour of Lights is vehicle-based with no required admission charge and a suggested donation.",
     quickFacts: [
       {
@@ -711,15 +713,15 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Do the opening-night festivities separately",
-        body: "The annual Community Christmas Tree Lighting begins at 5:15 p.m. December 5 and a downtown parade begins at 6 p.m. Those have a different footprint than the vehicle route, so plan parking and timing separately rather than trying to drive both events simultaneously."
+        body: "The December 5 tree lighting begins at 5:15 p.m. at Concho Avenue and Chadbourne Street; the downtown parade follows at 6 p.m. Arrive on foot for these downtown events, then plan the vehicle light-tour route separately."
       },
       {
         title: "Add downtown San Angelo",
-        body: "Concho Avenue, historic downtown and the riverfront can be explored before dusk. Visitors traveling from farther away may want one overnight rather than driving home after a late-night light tour."
+        body: "Explore Concho Avenue and the riverfront before sunset. On the tour, look for community-sponsored oversized Christmas cards, animated Twelve Days of Christmas and the illuminated poinsettia hillside by the Convention and Visitors Bureau. An overnight stay makes it easier to combine the light tour with downtown San Angelo."
       },
       {
         title: "Respect local traffic controls",
-        body: "Use the posted entrance address and follow staff or municipal signage. Do not stop the vehicle for photos where prohibited or block access for local residents."
+        body: "Navigate to 598 W. First Street, then use posted tour directions rather than GPS once inside. The organizer warns of limited overhead clearance on the regular route; buses, RVs and other tall vehicles should use its separately mapped alternate route."
       }
     ],
     relatedLinks: [
@@ -742,7 +744,10 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Concho Christmas 2026 schedule and history",
         url: "https://www.conchochristmascelebration.com/"
-      }
+      },
+      { label: "Official driving and tall-vehicle routes", url: "https://www.conchochristmascelebration.com/concho-christmas-celebration-driving-route" },
+      { label: "Community tree lighting", url: "https://www.conchochristmascelebration.com/tree-lighting-ceremony" },
+      { label: "Downtown parade", url: "https://www.conchochristmascelebration.com/parade" }
     ]
   },
   {

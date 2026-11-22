@@ -226,12 +226,65 @@ export function pendingSourceIssueIds(pulls) {
   }
   return issues;
 }
+/** Legacy or unreadable PR evidence locks the entire issue fail-closed.
+ * Exact per-page evidence filenames allow unrelated pages of an umbrella
+ * issue to keep receiving review while the protected PR is pending. */
+export function pendingSourceLocks(pulls) {
+  const locks = new Map();
+  for (const pr of pulls || []) {
+    const issues = pendingSourceIssueIds([pr]);
+    if (!issues.size) continue;
+    const issue = [...issues][0];
+    if (locks.has(issue) && locks.get(issue) === null) continue;
+    const prefix = 'ops/editorial/auto-rewrite-evidence/issue-' + issue + '--';
+    const files = Array.isArray(pr.files) ? pr.files : [];
+    const evidence = files.filter(file => typeof file.filename === 'string' &&
+      file.filename.startsWith('ops/editorial/auto-rewrite-evidence/'));
+    if (evidence.length !== 1 || !evidence[0].filename.startsWith(prefix) ||
+        !/^[-a-z0-9]+\.json$/.test(evidence[0].filename.slice(prefix.length)) ||
+        !['added','modified'].includes(evidence[0].status)) {
+      locks.set(issue, null);
+      continue;
+    }
+    const paths = locks.get(issue) || new Set();
+    paths.add(evidence[0].filename);
+    locks.set(issue, paths);
+  }
+  return locks;
+}
+export function sourcePairLocked(locks, issue, page) {
+  if (!locks.has(issue)) return false;
+  const paths = locks.get(issue);
+  return paths === null || paths.has(evidencePathFor(issue,page));
+}
 async function loadPendingSourceIssues(fetcher = fetch) {
-  const resp = await fetcher(API + '/repos/' + REPO + '/pulls?state=open&per_page=100', {
-    headers: githubHeaders(), signal: AbortSignal.timeout(16000),
-  });
-  if (!resp.ok) throw Error('Open source-verified PR discovery HTTP ' + resp.status);
-  return pendingSourceIssueIds(await resp.json());
+  const headers = githubHeaders(), pulls = [];
+  let complete = false;
+  for (let page = 1; page <= MAX_OPEN_ISSUE_PAGES; page++) {
+    const resp = await fetcher(API + '/repos/' + REPO + '/pulls?state=open&per_page=100&page=' + page, {
+      headers, signal: AbortSignal.timeout(16000),
+    });
+    if (!resp.ok) throw Error('Open source-verified PR discovery HTTP ' + resp.status);
+    const items = await resp.json();
+    if (!Array.isArray(items)) throw Error('Invalid open pull response');
+    pulls.push(...items);
+    if (items.length < 100) { complete = true; break; }
+  }
+  if (!complete) throw Error('Open PR inventory exceeds bounded pagination; refuse truncated locks');
+  const relevant = pulls.filter(pr => pendingSourceIssueIds([pr]).size);
+  for (const pr of relevant) {
+    if (!Number.isSafeInteger(pr.number)) continue;
+    try {
+      const resp = await fetcher(API + '/repos/' + REPO + '/pulls/' + pr.number + '/files?per_page=100', {
+        headers, signal: AbortSignal.timeout(16000),
+      });
+      if (resp.ok) {
+        const files = await resp.json();
+        if (Array.isArray(files) && files.length < 100) pr.files = files;
+      }
+    } catch { /* Preserve whole-issue lock when its exact page is unproven. */ }
+  }
+  return pendingSourceLocks(relevant);
 }
 function sourceText(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -257,14 +310,15 @@ async function main() {
   const workflows = scheduledWorkflowInventory();
   if (workflows.length < 20) throw Error('Scheduled workflow inventory truncated; refuse false sitewide coverage');
   const [openIssues, pending] = await Promise.all([loadIssues(), loadPendingSourceIssues()]);
-  const issues = openIssues.filter(issue => sourceReviewEligible(issue) && !pending.has(issue.number));
+  const issues = openIssues.filter(sourceReviewEligible);
   const reviewed = priorEditorialRewrites();
-  const unseen = [], previouslyReviewed = [], dueRereview = [];
+  const unseen = [], previouslyReviewed = [], dueRereview = [], pendingPairs = [];
   for (const issue of issues) {
     for (const pair of issuePageSourcePairs(issue.body)) {
       const row = {...pair, issue: issue.number, issueUrl: issue.html_url,
         title: issue.title, issueUpdatedAt: issue.updated_at};
       const key = row.issue + '\t' + row.page;
+      if (sourcePairLocked(pending,row.issue,row.page)) pendingPairs.push(row);
       if (!reviewed.has(key)) unseen.push(row);
       else if (reviewCooldownActive(row, reviewed.get(key))) previouslyReviewed.push(row);
       else dueRereview.push(row);
@@ -276,7 +330,7 @@ async function main() {
   const runNumber = Number(process.env.GITHUB_RUN_NUMBER || 1);
   // A stable identity ordering prevents routinely updated issue timestamps
   // from moving a whole issue's rows ahead of the rotation cursor.
-  const eligible = [...unseen, ...dueRereview].sort((a,b) =>
+  const eligible = [...unseen, ...dueRereview].filter(row => !sourcePairLocked(pending,row.issue,row.page)).sort((a,b) =>
     a.issue - b.issue || a.page.localeCompare(b.page) || a.sourceUrl.localeCompare(b.sourceUrl));
   const candidates = rotateCandidates(eligible, runNumber);
   let selected = null, attempted = 0;
@@ -303,7 +357,7 @@ async function main() {
   }
   fs.mkdirSync('.artifacts', {recursive: true});
   fs.writeFileSync('.artifacts/sitewide-rewrite-target.json', JSON.stringify({selected, scope: 'one-source-backed-page',
-    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, pendingProtectedIssueCount: pending.size,
+    scheduledWorkflows: workflows.length, totalOpenSourceReviewCandidates: issues.length, pendingProtectedIssueCount: pending.size, pendingProtectedPagePairs: pendingPairs.length,
     unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length + dueRereview.length,
     duePreviouslyRewrittenPairs: dueRereview.length, recentlyRewrittenPairs: previouslyReviewed.length,
     actionableSourcePagePairs: eligible.length,
@@ -313,7 +367,7 @@ async function main() {
     fs.appendFileSync(process.env.GITHUB_OUTPUT, 'selected=' + Boolean(selected) + '\n');
   console.log(JSON.stringify({scheduledWorkflows: workflows.length, candidates: issues.length,
     unreviewedSourcePagePairs: unseen.length, previouslyRewrittenPairs: previouslyReviewed.length + dueRereview.length,
-    duePreviouslyRewrittenPairs: dueRereview.length, actionableSourcePagePairs: eligible.length,
+    duePreviouslyRewrittenPairs: dueRereview.length, pendingProtectedPagePairs: pendingPairs.length, actionableSourcePagePairs: eligible.length,
     attempted, selected: selected ?
       {issue:selected.issue, page:selected.page, sources:selected.sources.map(s=>s.url)} : null}));
 }
