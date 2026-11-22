@@ -66,6 +66,119 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "henderson-city-tourism",
+      "organization": "City of Henderson Tourism and Main Street",
+      "countySlugs": [
+        "rusk"
+      ],
+      "homeUrl": "https://www.hendersontx.us/",
+      "calendarUrl": "https://www.hendersontx.us/1280/Events",
+      "contactPageUrl": "https://www.hendersontx.us/1376/Press-and-Media",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "marshall-chamber",
+      "organization": "Greater Marshall Chamber of Commerce",
+      "countySlugs": [
+        "harrison"
+      ],
+      "homeUrl": "https://marshalltexas.com/",
+      "calendarUrl": "https://marshalltexas.com/",
+      "contactPageUrl": "https://marshalltexas.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "tyler-chamber",
+      "organization": "Tyler Area Chamber of Commerce",
+      "countySlugs": [
+        "smith"
+      ],
+      "homeUrl": "https://www.tylertexas.com/",
+      "calendarUrl": "https://calendar.visittyler.com/events/calendar",
+      "contactPageUrl": "https://business.tylertexas.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-nacogdoches",
+      "organization": "Visit Nacogdoches destination marketing",
+      "countySlugs": [
+        "nacogdoches"
+      ],
+      "homeUrl": "https://www.visitnacogdoches.org/",
+      "calendarUrl": "https://www.visitnacogdoches.org/events",
+      "contactPageUrl": "https://www.visitnacogdoches.org/staff-and-contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-amarillo",
+      "organization": "Visit Amarillo convention and visitors bureau",
+      "countySlugs": [
+        "potter",
+        "randall"
+      ],
+      "homeUrl": "https://www.visitamarillo.com/",
+      "calendarUrl": "https://www.visitamarillo.com/events/",
+      "contactPageUrl": "https://www.visitamarillo.com/events/submit/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "lubbock-chamber",
+      "organization": "Lubbock Chamber of Commerce",
+      "countySlugs": [
+        "lubbock"
+      ],
+      "homeUrl": "https://www.lubbockchamber.com/",
+      "calendarUrl": "https://business.lubbockchamber.com/events/calendar",
+      "contactPageUrl": "https://business.lubbockchamber.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-marfa",
+      "organization": "Visit Marfa visitor information",
+      "countySlugs": [
+        "presidio"
+      ],
+      "homeUrl": "https://visitmarfa.com/",
+      "calendarUrl": "https://visitmarfa.com/events",
+      "contactPageUrl": "https://visitmarfa.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-alpine",
+      "organization": "Visit Alpine visitor information",
+      "countySlugs": [
+        "brewster"
+      ],
+      "homeUrl": "https://visitalpinetx.com/",
+      "calendarUrl": "https://visitalpinetx.com/events-calendar/",
+      "contactPageUrl": "https://visitalpinetx.com/places/alpine-visitor-center/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
