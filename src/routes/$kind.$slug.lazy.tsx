@@ -612,10 +612,25 @@ function EntityPage() {
             {entity.kind === 'county' && countyProfile?.countySeat && <Fact label="County seat" value={countyProfile.countySeat} />}
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
             <Fact label="Source check" value={sourceStatus(entity)} />
-            {entity.sourceCheckedAt && <Fact label={entity.slug === 'van-zandt' && entity.kind === 'county' ? 'County registry checked' : 'Last reviewed'} value={formatCheckedDate(entity.sourceCheckedAt)} />}
-            {entity.kind === 'county' && entity.slug === 'van-zandt' && countySeriesArticle?.updatedAt && <Fact label="Guide updated" value={formatCheckedDate(countySeriesArticle.updatedAt)} />}
+            {entity.sourceCheckedAt && <Fact label={entity.kind === 'county' && ['van-zandt', 'rusk'].includes(entity.slug) ? 'County registry checked' : 'Last reviewed'} value={formatCheckedDate(entity.sourceCheckedAt)} />}
+            {entity.kind === 'county' && ['van-zandt', 'rusk'].includes(entity.slug) && countySeriesArticle?.updatedAt && <Fact label="Guide updated" value={formatCheckedDate(countySeriesArticle.updatedAt)} />}
           </dl>
         </header>
+
+        {entity.kind === 'county' && entity.slug === 'rusk' && (
+          <section aria-labelledby="rusk-syrup-heritage" className="border-b border-border py-8">
+            <p className="eyebrow text-primary">Official Texas heritage designation · 2025</p>
+            <h2 id="rusk-syrup-heritage" className="mt-3 font-display text-3xl">Rusk County is the Syrup Capital of Texas</h2>
+            <p className="mt-4 max-w-4xl text-base leading-7 text-muted-foreground">Texas House Concurrent Resolution 83 designated Rusk County the Syrup Capital of Texas in 2025. Henderson, the county seat, celebrates the area's ribbon-cane tradition at the annual Heritage Syrup Festival. The 37th edition was held November 14, 2026, and has concluded. The date of the next edition needs confirmation from organizers.</p>
+            <p className="mt-3 max-w-4xl text-base leading-7 text-muted-foreground">Visit the Rusk County Depot Museum &amp; History Center at 514 N. High Street to learn about the original syrup mill, railroad depot, local farms and the East Texas Oil Field.</p>
+            <nav aria-label="Rusk County syrup history and museum resources" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <a className="underline underline-offset-4 text-primary" href="/event/heritage-syrup-festival">Heritage Syrup Festival guide</a>
+              <a className="underline underline-offset-4 text-primary" href="/destination/rusk-county-depot-museum-history-center-henderson">Depot Museum visitor guide</a>
+              <a className="underline underline-offset-4 text-primary" href="/texas-capital-designations">Texas capital designations</a>
+              <a className="underline underline-offset-4 text-primary" href="https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00083F.htm" target="_blank" rel="noopener noreferrer">Official H.C.R. 83 resolution</a>
+            </nav>
+          </section>
+        )}
 
         {incomplete ? <section className="grid gap-6 border-b border-border py-8 lg:grid-cols-[14rem_1fr]">
           <div>

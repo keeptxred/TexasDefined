@@ -663,6 +663,15 @@ function DestinationPage() {
           <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Inside the pyramids" : "The experience"}</p>
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destination.slug === "moody-gardens" ? "Aquarium, Rainforest or Discovery: how to choose" : destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
+          {destination.slug === "rusk-county-depot-museum-history-center-henderson" && <aside aria-label="Henderson syrup festival and county history" className="mt-8 rounded-xl border border-border bg-surface p-6">
+            <h3 className="font-display text-2xl">Henderson's syrup heritage starts here</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The museum's historic syrup mill is central to the annual Heritage Syrup Festival. The 37th edition took place November 14, 2026, and has ended. Rusk County, not Henderson County, is the officially designated Syrup Capital of Texas. Consult the organizers for the next confirmed festival dates.</p>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              <a href="/event/heritage-syrup-festival" className="font-semibold text-primary underline">Heritage Syrup Festival history and visitor guide</a>
+              <a href="/county/rusk" className="font-semibold text-primary underline">Rusk County history and itinerary</a>
+              <a href="/texas-capital-designations" className="font-semibold text-primary underline">Official Syrup Capital designation</a>
+            </div>
+          </aside>}
           {destination.slug === "palo-duro-canyon-state-park" && <aside className="mt-7 border-l-4 border-primary bg-surface p-6" aria-label="Palo Duro Canyon upstream watershed">
             <h3 className="font-display text-2xl">Where does Palo Duro's river begin?</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Tierra Blanca Creek and Palo Duro Creek meet east of Canyon to form the Prairie Dog Town Fork of the Red River. Their upstream history and refuge access are separate from this state park's managed entrances. The new guide explains the watercourse, Indigenous archaeology, ranching and Georgia O'Keeffe's documented Canyon-area art without presenting private creek banks as park trails.</p>
