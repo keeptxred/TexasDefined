@@ -30,7 +30,7 @@ const festivalGuideExtras: readonly Extras[] = [
     "planningSections": [
       {
         "title": "Choosing the right 2026 weekend",
-        "body": "Unlike a one-day fair, the Texas Renaissance Festival changes atmosphere by themed weekend. Choose the costume theme, entertainment and crowd experience you actually want before you choose lodging or tickets; consult the current organizer calendar rather than assuming the same lineup operates every Saturday."
+        "body": "The final two 2026 themes are Highland Fling on November 21–22 and Celtic Christmas over Thanksgiving Friday November 27 through Sunday November 29. The organizer designates Highland Fling as a Deaf Awareness weekend with interpreted shows; use the accessibility and entertainment schedules for the specific acts."
       },
       {
         "title": "A practical route through the grounds",
@@ -42,7 +42,11 @@ const festivalGuideExtras: readonly Extras[] = [
       },
       {
         "title": "Buying admissions without a bad surprise",
-        "body": "Use the festival's official ticket categories and date-specific inventory. Camping, parking upgrades and admission may be separate purchases; a weekend pass is not the same thing as an individual single-day ticket. TexasDefined does not present Viator city tours as festival tickets."
+        "body": "Children four and younger enter free every operating day; ages 5–12 enter free on Sundays and pay half price on Saturdays and Thanksgiving Friday under the organizer’s published rules. Tickets are date-specific and ordinarily nonrefundable. Optional $5 exchange insurance permits one date change subject to any price difference, not a refund. For the final holiday weekend, Sunday can be a better family value than Friday or Saturday; confirm current admission before purchase."
+      },
+      {
+        "title": "Separate the holiday camping dates from gate dates",
+        "body": "The organizer lists the Celtic Christmas camping window November 25–30; festival admission covers November 27–29 only. A Thanksgiving Day campground reservation therefore does not mean the festival gates are open on Thursday. Compare the camping pass and any separately required admission before booking."
       },
       {
         "title": "Important 2026 on-site change",
@@ -65,6 +69,14 @@ const festivalGuideExtras: readonly Extras[] = [
       {
         "label": "Texas Renaissance Festival hours and official 2026 season",
         "url": "https://www.texrenfest.com/"
+      },
+      {
+        "label": "Texas Renaissance Festival official accessibility and themed dates",
+        "url": "https://www.texrenfest.com/p/the-kingdom/accessibility"
+      },
+      {
+        "label": "Texas Renaissance Festival camping calendar",
+        "url": "https://www.texrenfest.com/p/camping-and-more/camping-reservation"
       },
       {
         "label": "Texas Renaissance Festival official ticket information",
