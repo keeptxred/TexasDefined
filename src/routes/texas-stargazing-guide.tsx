@@ -76,7 +76,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Stargazing: 5 Certified Dark Sky State Parks",
-        description: "Plan Texas stargazing trips to Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River with current TPWD guidance.",
+        description: "Compare five Texas dark-sky state parks by Bortle class, viewing areas, moonrise and twilight, official sky monitors and after-hours access.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
