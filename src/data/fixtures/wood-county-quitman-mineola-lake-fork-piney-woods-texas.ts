@@ -8,7 +8,7 @@ export const woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle: Article = {
   brandId: "texasdefined",
   slug: "wood-county-quitman-mineola-lake-fork-piney-woods-texas",
   title: "Wood County: Quitman, Mineola, Lake Fork and the Edge of the Piney Woods",
-  dek: "Wood County sits where Post Oak Savannah, Piney Woods, railroad history and lake country meet, with Quitman, Mineola and Lake Fork anchoring one of Northeast Texas's most varied small-county landscapes.",
+  dek: "Why Quitman lost two courthouses to the 1878 and 1924 fires, who built the surviving 1925 landmark, and how Mineola's railroads shaped Wood County.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Wood County",
     "Quitman Texas",
@@ -32,6 +33,9 @@ export const woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle: Article = {
     "Piney Woods",
     "Post Oak Savannah",
     "Texas counties",
+    "1878 Quitman courthouse fire",
+    "1924 Wood County Courthouse fire",
+    "1925 Wood County Courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -61,6 +65,26 @@ export const woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle: Article = {
     p("Today's Wood County Courthouse stands at the center of Quitman's civic landscape. The 1925 red-brick building uses Classical Revival forms, including a columned entrance and prominent pediment, and was later designated a Recorded Texas Historic Landmark."),
     p("The courthouse is more than an architectural marker. It represents the institution that gave Quitman its original purpose and kept the town relevant even when railroad commerce shifted toward Mineola. County offices, legal business and public events continue to reinforce Quitman's identity as the governmental center of Wood County."),
 
+    h("Quitman lost two courthouses to fires in 1878 and 1924"),
+    p("Wood County's courthouse history is a sequence of rebuilding, not one unchanging building at the center of Quitman. After the legislature created the county in 1850, commissioners used a log courthouse on the south side of the square. The county replaced it with a two-story frame structure, but fire destroyed that building in 1878. Officials then hired the noted Texas architect F. E. Ruffini to design a more substantial courthouse completed in 1884."),
+    p("The Ruffini-designed 1884 courthouse became a local landmark until a second major fire destroyed it in 1924. The Texas Historical Commission's official historical marker explicitly records both fire dates. These were distinct courthouse disasters nearly half a century apart, not successive stories about the same surviving structure."),
+    p("After the 1924 loss, Wood County selected Dallas architect C. H. Leinbach and Rice Construction Company to erect the courthouse that stands today. The red-brick Classical Revival building was completed in 1925. Its prominent four-column temple-front entrance, staircase and pediment belonged to a more streamlined era of public architecture than Ruffini's earlier Victorian courthouse."),
+    p("County officials added an annex in 1950. Although altered, the 1925 courthouse remains the active civic center and was designated a Recorded Texas Historic Landmark in 2003. The building's exact construction period and decorative details are therefore supported by the Texas Historical Commission rather than inferred from a modern photograph."),
+
+    h("Why the courthouse fires matter to Wood County's records and communities"),
+    p("The Wood County Courthouse burned twice during periods of changing settlement and trade. Quitman retained the seat of government even as Mineola's railroad junction and Winnsboro's later growth pulled commerce in different directions. Rebuilding the courthouse in the same civic core demonstrates the political importance of keeping the county seat in Quitman."),
+    p("A lost courthouse is not proof that every original deed, marriage record or court proceeding also burned. Before claiming specific archive gaps caused by the 1878 or 1924 fires, researchers must check the Wood County Clerk's series-level records and the Texas State Library's county microfilm inventory. This distinction matters to family historians trying to trace people through the transition from farm settlement to railroad economy."),
+    p("Photographs of today's four-column 1925 building cannot be used as illustrations of the 1884 Ruffini structure. The difference is not cosmetic: the current building reflects the county's response to a 1924 disaster, and the former courthouse belonged to a different architectural generation."),
+    
+    h("How to experience Wood County's courthouse and rail heritage"),
+    p("Begin in Quitman with the courthouse and the historic marker explaining its predecessors. Then continue to Mineola, where the historic train depot and preserved downtown demonstrate how rail lines created an economic center without taking the county-seat designation from Quitman. The contrast makes a more informative visit than treating either town as interchangeable with the other."),
+    p("The courthouse remains a working government facility. Exterior viewing of the marker and public square generally requires no museum ticket, but business hours and interior access depend on the county's current rules. Historical marker status does not turn adjoining private downtown storefronts into public property."),
+
+    h("Questions about the Wood County Courthouse"),
+    p("How many courthouse fires happened in Quitman? Two buildings were destroyed by fire: a two-story frame courthouse in 1878 and the F. E. Ruffini-designed courthouse in 1924."),
+    p("Who designed the surviving Wood County Courthouse? Dallas architect C. H. Leinbach designed the replacement constructed by Rice Construction Company after the 1924 fire."),
+    p("When was the present Wood County Courthouse completed? The Classical Revival courthouse in Quitman dates to 1925, and an annex was added in 1950."),
+    p("Did those fires destroy all county records? The historical marker establishes the buildings' destruction, not the total loss of records; the Wood County Clerk and state records catalogs must be checked for missing series."),
     h("Mineola was built by railroads"),
     p("Mineola's story is almost the reverse of Quitman's. The town emerged in the 1870s where competing railroad systems crossed southwestern Wood County. The Texas and Pacific and the International-Great Northern both pushed lines into the area, and the rail junction quickly attracted merchants, hotels, warehouses, shops and workers."),
     p("By the late nineteenth century Mineola had become a major commercial gateway for surrounding farms and timber country. Cotton, produce, livestock and lumber could move efficiently to larger markets, while manufactured goods and travelers came into the county by rail. The historic depot and downtown district still make that transportation history visible."),
@@ -116,5 +140,12 @@ export const woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle: Article = {
     h("What defines Wood County"),
     p("Wood County is best understood as a county of overlapping systems. Quitman represents courthouse Texas. Mineola represents railroad Texas. Lake Fork represents the modern water-and-recreation economy. The Sabine River and Mineola Nature Preserve reveal the older natural landscape beneath all of them."),
     p("Agriculture, timber, oil, railroads, reservoirs and tourism each changed the county without erasing what came before. That layered history gives Wood County unusual variety: a visitor can move from a 1920s courthouse to a historic rail depot, from trophy-bass water to Sabine River wetlands, and from open Post Oak country into pine forest in a single day. It is a compact but revealing slice of Northeast Texas."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Wood County Courthouse marker, 1878 and 1924 fires", url: "https://atlas.thc.texas.gov/Details/5507013752" },
+    { label: "Wood County Historical Commission — county courthouse marker and civic history", url: "https://woodcountyhistoricalcommission.com/markers/marker-list.html" },
+    { label: "UNT Portal to Texas History — Wood County 1850–1900 history", url: "https://texashistory.unt.edu/ark:/67531/metapth91051/m1/12/" },
+    { label: "Texas State Historical Association — Wood County", url: "https://www.tshaonline.org/handbook/entries/wood-county" },
+    { label: "Texas State Library — Wood County local archival microfilm", url: "https://www.tsl.texas.gov/arc/local/wood.html" },
   ],
 };

@@ -227,6 +227,7 @@ export const supplementalMajorEventSlugs = [
   "legends-of-texas-whiskey-festival",
   "polar-express-galveston",
   "polar-express-palestine",
+  "christmas-in-gusherville",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
