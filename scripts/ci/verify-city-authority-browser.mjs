@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-city-qa/node_modules/playwright-core');
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const slugs = ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock','del-rio'];
+const slugs = ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock','del-rio','alvin'];
 const viewports = [['mobile',390,844],['tablet',768,1024],['desktop',1440,900]];
 const output = 'artifacts/city-authority-browser';
 await mkdir(output,{recursive:true});
@@ -37,6 +37,24 @@ for (const [viewport,width,height] of viewports) {
         return {imgs,links,headings,canonical,robots,description,og,overflow,focusable:focusable.length};
       });
       row.checks.h1=data.headings.length===1 && data.headings[0].toLowerCase()===slug.replaceAll('-',' ')?'PASS':'FAIL';
+      if (slug === 'alvin') {
+        // Check actual rendered content, not only an index entry or bundled JSON.
+        const visible = await page.locator('main').innerText();
+        for (const [check, term] of Object.entries({
+          alvinMorgan: 'Alvin Morgan',
+          incorporated1893: '1893',
+          railroadDepot: 'Alvin Train Depot',
+          historicalMuseum: 'Alvin Historical Museum',
+          nolanRyan: 'Nolan Ryan',
+          frobergsFarm: 'Froberg',
+          bobBriscoePark: 'Bob Briscoe Park',
+          bridgeLocationClarification: 'Brazoria Bridge',
+        })) {
+          row.checks[check] = visible.includes(term) ? 'PASS' : 'FAIL';
+        }
+        row.checks.brazoriaCountyCrosslink =
+          data.links.some(link => link.href === origin+'/county/brazoria') ? 'PASS' : 'FAIL';
+      }
       row.checks.canonical=data.canonical===origin+'/city/'+slug?'PASS':'FAIL';
       row.checks.description=data.description.length>=70?'PASS':'FAIL';
       row.checks.indexable=!/noindex/i.test(data.robots)?'PASS':'FAIL';
@@ -161,7 +179,38 @@ for (const [viewport,width,height] of viewports) {
   }
   await browser.close();browser=null;
 }
-await writeFile(output+'/results.json',JSON.stringify({capturedAt:new Date().toISOString(),origin,results},null,2)+'\n');
+// City and county have distinct public routes. Verify the actual released
+// Brazoria editorial text on BOTH Cloudflare entrypoints, not only the city's
+// source data and Chrome screenshots. Cache-bust HTML; never accept stale pages.
+const countyAuthority = [];
+const requiredCountyFacts = ['Alvin Morgan','1893','Alvin Historical Museum','Nolan Ryan',
+  'Froberg','Bob Briscoe Park','Brazoria Bridge','1907'];
+for (const publicOrigin of ['https://texasdefined.com',
+  'https://texasdefined-site.freddy-coppola.workers.dev']) {
+  const row={origin:publicOrigin,route:'/county/brazoria',status:null,version:null,missingFacts:[],error:null};
+  countyAuthority.push(row);
+  try {
+    const url=publicOrigin+'/county/brazoria?alvin_brazoria_release_check='+Date.now();
+    const response=await fetch(url,{
+      cache:'no-store',
+      headers:{'Cache-Control':'no-cache, no-store, max-age=0','User-Agent':'TexasDefined-Alvin-Authority-Verification/1.0'},
+      signal:AbortSignal.timeout(30000),
+    });
+    row.status=response.status;
+    row.version=response.headers.get('x-texasdefined-worker-version');
+    const html=await response.text();
+    // Remove nonvisible scripts/styles before evaluating editorial text.
+    const visible=html.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi,' ')
+      .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi,' ')
+      .replace(/<[^>]+>/g,' ').replace(/&(?:amp|nbsp|#39|quot);/g,' ')
+      .replace(/\\s+/g,' ');
+    row.missingFacts=requiredCountyFacts.filter(term=>!visible.includes(term));
+    row.indexable=!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html);
+    row.pass=row.status===200 && row.indexable && row.missingFacts.length===0;
+  }catch(error){row.error=String(error);row.pass=false;}
+  console.log('BRAZORIA LIVE',JSON.stringify(row));
+}
+await writeFile(output+'/results.json',JSON.stringify({capturedAt:new Date().toISOString(),origin,results,countyAuthority},null,2)+'\n');
 const failures=results.filter(r=>Object.values(r.checks).includes('FAIL')||r.errors.length);
 console.log('CITY QA: '+(results.length-failures.length)+'/'+results.length+' viewport runs without failures. Full manual accessibility and factual QA NOT TESTED.');
-if(failures.length)process.exitCode=1;
+if(failures.length || countyAuthority.some(row=>!row.pass))process.exitCode=1;
