@@ -33,6 +33,7 @@ test("all counties receive holiday research status and past events do not become
       '    officialEventUrl: "https://example.org/upshur" }',
       "];",
     ].join("\n"));
+    put("src/data/events/christmas-community-2026-county-backfill.server.ts", "export const records = [];");
     const report = auditCountyHolidayCoverage(root, new Date("2026-11-22T12:00:00Z"), 3);
     assert.equal(report.summary.counties, 3);
     const gregg = report.counties.find(c => c.slug === "gregg");
