@@ -78,7 +78,10 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.equal(report.countiesWithRegisteredSources + report.countiesMissingSources, 254);
   assert.equal(report.sourceCount, registry.sources.length);
   assert.equal(report.candidateCount, 0);
-  assert.ok(report.unservedCounties.some(c => c.slug === "borden"));
+  assert.equal(report.unservedCounties.length, report.countiesMissingSources);
+  const mapped = new Set(registry.sources.flatMap(source => source.countySlugs));
+  assert.ok(report.unservedCounties.every(county => !mapped.has(county.slug)));
+  assert.ok(!report.unservedCounties.some(county => county.slug === "borden"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "gregg"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "comanche"));
   assert.ok(report.observations.every(x => x.state === "offline-validation"));
@@ -102,8 +105,17 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "mason", "moore", "hale", "gaines", "hansford", "stephens", "reeves", "rains",
     "robertson", "refugio", "willacy", "wheeler", "starr", "zavala",
     "tyler", "newton",
+    "crockett", "dallam", "hartley", "hardeman", "ochiltree", "red-river",
+    "jim-wells", "haskell", "castro", "swisher", "floyd",
+    "dickens", "crosby", "franklin", "mills", "throckmorton",
+    "jones", "knox", "shackelford", "hall",
+    "zapata", "lamb", "parmer", "morris", "live-oak", "coke", "crane",
+    "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
-  assert.ok(roster.size >= 181, "Source mapping must not silently lose reviewed county coverage");
+  assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
+  assert.ok(registry.sources.length >= 270, "Do not silently lose the reconciled source-desk registry");
+  const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
+  assert.ok(directCalendars.length >= 26, "Keep separately reviewed community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 

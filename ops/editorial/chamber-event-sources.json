@@ -37,7 +37,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "kimble-county-chamber",
@@ -51,7 +52,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "port-arthur-chamber",
@@ -65,7 +67,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "henderson-city-tourism",
@@ -79,7 +82,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "marshall-chamber",
@@ -107,7 +111,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-nacogdoches",
@@ -121,7 +126,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-amarillo",
@@ -136,7 +142,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "lubbock-chamber",
@@ -150,7 +157,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-marfa",
@@ -164,7 +172,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-alpine",
@@ -178,7 +187,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "waller-area-chamber",
@@ -192,7 +202,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bellville-chamber",
@@ -206,7 +217,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "sealy-chamber",
@@ -220,7 +232,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "washington-county-chamber",
@@ -234,7 +247,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bastrop-regional-chamber",
@@ -248,7 +262,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-corpus-christi",
@@ -262,7 +277,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-san-antonio",
@@ -276,7 +292,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-houston",
@@ -290,7 +307,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-austin",
@@ -304,7 +322,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-galveston",
@@ -318,7 +337,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-dallas",
@@ -332,7 +352,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-fort-worth",
@@ -346,7 +367,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "discover-denton",
@@ -360,7 +382,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "destination-bryan",
@@ -374,7 +397,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-el-paso",
@@ -388,7 +412,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "comanche-chamber",
@@ -402,7 +427,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "palestine-area-chamber",
@@ -416,7 +442,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "rockport-fulton-chamber",
@@ -430,7 +457,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "northern-brazoria-chamber",
@@ -444,7 +472,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "central-fort-bend-chamber",
@@ -458,7 +487,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "mckinney-chamber",
@@ -472,7 +502,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "conroe-lake-conroe-chamber",
@@ -486,7 +517,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "georgetown-chamber",
@@ -500,7 +532,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "winnsboro-chamber",
@@ -514,7 +547,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "san-marcos-chamber",
@@ -528,7 +562,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "rusk-chamber",
@@ -570,7 +605,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "kerrville-chamber",
@@ -584,7 +620,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "lamar-county-chamber",
@@ -598,7 +635,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "gonzales-chamber",
@@ -640,7 +678,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "greater-orange-chamber",
@@ -654,7 +693,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "andrews-holly-jolly",
@@ -724,7 +764,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "orange-cvb-gumdrop-shop",
@@ -948,7 +989,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "main-street-texarkana-2026",
@@ -1116,7 +1158,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bee-county-chamber",
@@ -1144,7 +1187,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "brownwood-area-chamber",
@@ -1172,7 +1216,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "port-lavaca-chamber",
@@ -1662,7 +1707,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "del-rio-chamber",
@@ -2783,6 +2829,1054 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "ozona-crockett-chamber",
+      "organization": "Ozona Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "crockett"
+      ],
+      "homeUrl": "https://www.ozona.com/",
+      "calendarUrl": "https://business.ozona.com/events/calendar",
+      "contactPageUrl": "https://www.ozona.com/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "dalhart-dallam-hartley-chamber",
+      "organization": "Dalhart Area Chamber of Commerce",
+      "countySlugs": [
+        "dallam",
+        "hartley"
+      ],
+      "homeUrl": "https://dalhart.org/",
+      "calendarUrl": "https://dalhart.org/",
+      "contactPageUrl": "https://dalhart.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "quanah-hardeman-chamber",
+      "organization": "Quanah Chamber of Commerce",
+      "countySlugs": [
+        "hardeman"
+      ],
+      "homeUrl": "https://quanahchamber.com/",
+      "calendarUrl": "https://quanahchamber.com/community-events/",
+      "contactPageUrl": "https://quanahchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "perryton-ochiltree-chamber",
+      "organization": "Perryton-Ochiltree Chamber of Commerce",
+      "countySlugs": [
+        "ochiltree"
+      ],
+      "homeUrl": "https://www.perryton.org/",
+      "calendarUrl": "https://www.perryton.org/events",
+      "contactPageUrl": "https://www.perryton.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "clarksville-red-river-chamber",
+      "organization": "Red River County Chamber of Commerce",
+      "countySlugs": [
+        "red-river"
+      ],
+      "homeUrl": "https://www.redrivercoc.com/",
+      "calendarUrl": "https://www.redrivercoc.com/annual-list-of-events",
+      "contactPageUrl": "https://www.redrivercoc.com/annual-events3050bfee",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "alice-jim-wells-chamber",
+      "organization": "Alice Hub City Chamber of Commerce",
+      "countySlugs": [
+        "jim-wells"
+      ],
+      "homeUrl": "https://www.alicehubcity.com/",
+      "calendarUrl": "https://business.alicehubcity.com/eventcalendar",
+      "contactPageUrl": "https://www.alicehubcity.com/about-our-chamber/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "haskell-city-calendar",
+      "organization": "City of Haskell events and Chamber contact desk",
+      "countySlugs": [
+        "haskell"
+      ],
+      "homeUrl": "https://www.haskelltexasusa.com/",
+      "calendarUrl": "https://www.haskelltexasusa.com/events/",
+      "contactPageUrl": "https://www.haskelltexasusa.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "dimmitt-castro-chamber",
+      "organization": "Dimmitt Chamber of Commerce",
+      "countySlugs": [
+        "castro"
+      ],
+      "homeUrl": "https://www.dimmittchamber.com/",
+      "calendarUrl": "https://www.dimmittchamber.com/",
+      "contactPageUrl": "https://www.dimmittchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "tulia-swisher-city",
+      "organization": "City of Tulia Chamber contact and community information",
+      "countySlugs": [
+        "swisher"
+      ],
+      "homeUrl": "https://www.tuliatexas.org/",
+      "calendarUrl": "https://www.tuliatexas.org/page/tulia-area-chamber-of-commerce",
+      "contactPageUrl": "https://www.tuliatexas.org/page/tulia-area-chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "floydada-floyd-city",
+      "organization": "City of Floydada public news and local event contact",
+      "countySlugs": [
+        "floyd"
+      ],
+      "homeUrl": "https://www.cityoffloydada.com/",
+      "calendarUrl": "https://www.cityoffloydada.com/",
+      "contactPageUrl": "https://www.cityoffloydada.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "spur-dickens-chamber",
+      "organization": "Spur Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "dickens"
+      ],
+      "homeUrl": "https://www.spurchamber.com/",
+      "calendarUrl": "https://www.spurchamber.com/",
+      "contactPageUrl": "https://www.spurchamber.com/contact-10",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "crosbyton-chamber",
+      "organization": "Crosbyton Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "crosby"
+      ],
+      "homeUrl": "https://www.crosbytonchamber.com/",
+      "calendarUrl": "https://visitcrosbycounty.com/events/",
+      "contactPageUrl": "https://www.crosbytonchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "franklin-county-mount-vernon-chamber",
+      "organization": "Franklin County Chamber of Commerce, Mount Vernon",
+      "countySlugs": [
+        "franklin"
+      ],
+      "homeUrl": "https://www.franklincountytx.com/",
+      "calendarUrl": "https://www.franklincountytx.com/events",
+      "contactPageUrl": "https://www.franklincountytx.com/about",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "goldthwaite-mills-chamber",
+      "organization": "Goldthwaite Area Chamber of Commerce",
+      "countySlugs": [
+        "mills"
+      ],
+      "homeUrl": "https://www.goldthwaiteareachamber.com/",
+      "calendarUrl": "https://www.goldthwaiteareachamber.com/events",
+      "contactPageUrl": "https://www.goldthwaiteareachamber.com/communitycalendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "throckmorton-chamber",
+      "organization": "Throckmorton Chamber of Commerce",
+      "countySlugs": [
+        "throckmorton"
+      ],
+      "homeUrl": "https://www.throckmortonchamber.com/",
+      "calendarUrl": "https://www.throckmortonchamber.com/",
+      "contactPageUrl": "https://www.throckmortonchamber.com/businessdirectory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "stamford-jones-city-events",
+      "organization": "City of Stamford public festival and community calendar",
+      "countySlugs": [
+        "jones"
+      ],
+      "homeUrl": "https://www.stamfordtexas.gov/",
+      "calendarUrl": "https://www.stamfordtexas.gov/events-calendar",
+      "contactPageUrl": "https://www.stamfordtexas.gov/events-calendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "munday-knox-city-events",
+      "organization": "City of Munday public holiday and community event notices",
+      "countySlugs": [
+        "knox"
+      ],
+      "homeUrl": "https://www.cityofmunday.com/",
+      "calendarUrl": "https://www.cityofmunday.com/",
+      "contactPageUrl": "https://www.cityofmunday.com/residents/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "albany-shackelford-events",
+      "organization": "Albany Texas visitor and Fandangle community festival calendar",
+      "countySlugs": [
+        "shackelford"
+      ],
+      "homeUrl": "https://albanytex.com/",
+      "calendarUrl": "https://albanytex.com/events",
+      "contactPageUrl": "https://albanytex.com/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "memphis-hall-chamber-city",
+      "organization": "City of Memphis Chamber of Commerce official contact",
+      "countySlugs": [
+        "hall"
+      ],
+      "homeUrl": "https://memphistexas.gov/",
+      "calendarUrl": "https://memphistexas.gov/chamber-of-commerce",
+      "contactPageUrl": "https://memphistexas.gov/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "zapata-community-events",
+      "organization": "Zapata community events calendar",
+      "countySlugs": [
+        "zapata"
+      ],
+      "homeUrl": "https://www.myzapata.com/",
+      "calendarUrl": "https://www.myzapata.com/events-calendar/",
+      "contactPageUrl": "https://www.myzapata.com/events-calendar/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "littlefield-lamb-city-events",
+      "organization": "City of Littlefield public Chamber and city events",
+      "countySlugs": [
+        "lamb"
+      ],
+      "homeUrl": "https://littlefieldtexas.net/",
+      "calendarUrl": "https://littlefieldtexas.net/Calendar.aspx",
+      "contactPageUrl": "https://littlefieldtexas.net/list.aspx",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "friona-parmer-chamber",
+      "organization": "Friona Chamber of Commerce",
+      "countySlugs": [
+        "parmer"
+      ],
+      "homeUrl": "https://www.friona-chamber.com/",
+      "calendarUrl": "https://www.friona-chamber.com/",
+      "contactPageUrl": "https://www.friona-chamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "daingerfield-morris-city-chamber",
+      "organization": "City of Daingerfield official Chamber contact",
+      "countySlugs": [
+        "morris"
+      ],
+      "homeUrl": "https://cityofdaingerfield.com/",
+      "calendarUrl": "https://cityofdaingerfield.com/chamber-of-commerce",
+      "contactPageUrl": "https://cityofdaingerfield.com/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "live-oak-county-community-calendar",
+      "organization": "Live Oak County official community event calendar",
+      "countySlugs": [
+        "live-oak"
+      ],
+      "homeUrl": "https://www.co.live-oak.tx.us/",
+      "calendarUrl": "https://www.co.live-oak.tx.us/",
+      "contactPageUrl": "https://www.co.live-oak.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bronte-coke-city",
+      "organization": "City of Bronte community and visitor information",
+      "countySlugs": [
+        "coke"
+      ],
+      "homeUrl": "https://www.brontetexas.org/",
+      "calendarUrl": "https://www.brontetexas.org/",
+      "contactPageUrl": "https://www.brontetexas.org/clubs-organizations",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "city-crane-texas",
+      "organization": "City of Crane official community activities contact",
+      "countySlugs": [
+        "crane"
+      ],
+      "homeUrl": "https://crane.texas.gov/",
+      "calendarUrl": "https://crane.texas.gov/",
+      "contactPageUrl": "https://crane.texas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "oldham-vega-chamber",
+      "organization": "Oldham County Chamber of Commerce",
+      "countySlugs": [
+        "oldham"
+      ],
+      "homeUrl": "https://oldhamcofc.org/",
+      "calendarUrl": "https://oldhamcofc.org/events/",
+      "contactPageUrl": "https://oldhamcofc.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "giddings-lee-chamber",
+      "organization": "Giddings Area Chamber of Commerce",
+      "countySlugs": [
+        "lee"
+      ],
+      "homeUrl": "https://giddingstx.com/",
+      "calendarUrl": "https://business.giddingstx.com/event-calendar",
+      "contactPageUrl": "https://giddingstx.com/events-list/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "clarendon-donley-chamber",
+      "organization": "Clarendon Texas Economic Development and Chamber of Commerce",
+      "countySlugs": [
+        "donley"
+      ],
+      "homeUrl": "https://clarendontx.com/",
+      "calendarUrl": "https://clarendontx.com/blog/",
+      "contactPageUrl": "https://clarendontx.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "post-garza-chamber",
+      "organization": "Post Chamber of Commerce",
+      "countySlugs": [
+        "garza"
+      ],
+      "homeUrl": "https://postcitytexas.com/",
+      "calendarUrl": "https://postcitytexas.com/news/",
+      "contactPageUrl": "https://postcitytexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "fort-davis-jeff-davis-chamber",
+      "organization": "Fort Davis Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "jeff-davis"
+      ],
+      "homeUrl": "https://www.fortdavis.com/",
+      "calendarUrl": "https://www.fortdavis.com/Chamber",
+      "contactPageUrl": "https://www.fortdavis.com/Community",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "van-horn-culberson-visitors",
+      "organization": "Town of Van Horn official visitor and festivals guide",
+      "countySlugs": [
+        "culberson"
+      ],
+      "homeUrl": "https://www.vanhorntexas.org/",
+      "calendarUrl": "https://www.vanhorntexas.org/DocumentCenter/View/1317/Van-Horn-Brochure",
+      "contactPageUrl": "https://www.vanhorntexas.org/2159/Things-to-Do",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "carrizo-springs-dimmit-city",
+      "organization": "City of Carrizo Springs municipal visitors and local Chamber desk",
+      "countySlugs": [
+        "dimmit"
+      ],
+      "homeUrl": "https://www.cityofcarrizo.org/",
+      "calendarUrl": "https://www.cityofcarrizo.org/community/page/visitors-and-information-center",
+      "contactPageUrl": "https://www.cityofcarrizo.org/community/page/visitors-and-information-center",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "falfurrias-brooks-city",
+      "organization": "City of Falfurrias local events and visitor information",
+      "countySlugs": [
+        "brooks"
+      ],
+      "homeUrl": "https://www.falfurrias.us/",
+      "calendarUrl": "https://www.falfurrias.us/sitemap",
+      "contactPageUrl": "https://www.falfurrias.us/sitemap",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "borden-county-public-calendar",
+      "organization": "Borden County government official calendar and event-center information",
+      "countySlugs": [
+        "borden"
+      ],
+      "homeUrl": "https://www.co.borden.tx.us/",
+      "calendarUrl": "https://www.co.borden.tx.us/page/calendar",
+      "contactPageUrl": "https://www.co.borden.tx.us/page/Event.Center",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "carson-county-city-news",
+      "organization": "Carson County government public notices and community research desk",
+      "countySlugs": [
+        "carson"
+      ],
+      "homeUrl": "https://www.co.carson.tx.us/",
+      "calendarUrl": "https://www.co.carson.tx.us/",
+      "contactPageUrl": "https://www.co.carson.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "cochran-county-events",
+      "organization": "Cochran County government public notices and historic-community contact",
+      "countySlugs": [
+        "cochran"
+      ],
+      "homeUrl": "https://www.co.cochran.tx.us/",
+      "calendarUrl": "https://www.co.cochran.tx.us/page/cochran.PublicNotices",
+      "contactPageUrl": "https://www.co.cochran.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "cottle-county-government",
+      "organization": "Cottle County official community and public notices",
+      "countySlugs": [
+        "cottle"
+      ],
+      "homeUrl": "https://www.cottlecountytx.gov/",
+      "calendarUrl": "https://www.cottlecountytx.gov/",
+      "contactPageUrl": "https://www.cottlecountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "glasscock-county-agrilife",
+      "organization": "Glasscock County Texas A&M AgriLife Extension local community events",
+      "countySlugs": [
+        "glasscock"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/glasscock-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/glasscock-county/",
+      "contactPageUrl": "https://www.co.glasscock.tx.us/page/CommCenter",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "hudspeth-county-government",
+      "organization": "Hudspeth County official event permits and civic notice contact",
+      "countySlugs": [
+        "hudspeth"
+      ],
+      "homeUrl": "https://www.co.hudspeth.tx.us/",
+      "calendarUrl": "https://www.co.hudspeth.tx.us/",
+      "contactPageUrl": "https://www.co.hudspeth.tx.us/page/CountyDirectory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "irion-county-mertzon",
+      "organization": "City of Mertzon public visitor/community office",
+      "countySlugs": [
+        "irion"
+      ],
+      "homeUrl": "https://www.mertzontexas.com/",
+      "calendarUrl": "https://www.mertzontexas.com/",
+      "contactPageUrl": "https://www.mertzontexas.com/buisness-directory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "loving-county-government",
+      "organization": "Loving County official county civic notices and local contact",
+      "countySlugs": [
+        "loving"
+      ],
+      "homeUrl": "https://www.co.loving.tx.us/",
+      "calendarUrl": "https://www.co.loving.tx.us/page/loving.Home",
+      "contactPageUrl": "https://www.co.loving.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "duval-county-desk",
+      "organization": "Duval County, Texas official civic information",
+      "countySlugs": [
+        "duval"
+      ],
+      "homeUrl": "https://www.co.duval.tx.us/",
+      "calendarUrl": "https://www.co.duval.tx.us/",
+      "contactPageUrl": "https://www.co.duval.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "edwards-county-desk",
+      "organization": "Edwards County (Rocksprings) official community desk",
+      "countySlugs": [
+        "edwards"
+      ],
+      "homeUrl": "https://www.co.edwards.tx.us/",
+      "calendarUrl": "https://www.co.edwards.tx.us/page/Contact",
+      "contactPageUrl": "https://www.co.edwards.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "falls-marlin-chamber",
+      "organization": "Marlin Chamber of Commerce, Falls County",
+      "countySlugs": [
+        "falls"
+      ],
+      "homeUrl": "https://marlintexas.com/",
+      "calendarUrl": "https://marlintexas.com/",
+      "contactPageUrl": "https://marlintexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "fisher-county-gov",
+      "organization": "Fisher County official county and Extension events desk",
+      "countySlugs": [
+        "fisher"
+      ],
+      "homeUrl": "https://www.fishercounty.org/",
+      "calendarUrl": "https://www.fishercounty.org/page/fisher.ExtensionOffice",
+      "contactPageUrl": "https://www.fishercounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "foard-county-gov",
+      "organization": "Foard County (Crowell) official local community contact",
+      "countySlugs": [
+        "foard"
+      ],
+      "homeUrl": "https://www.foardcounty.texas.gov/",
+      "calendarUrl": "https://www.foardcounty.texas.gov/",
+      "contactPageUrl": "https://www.foardcounty.texas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "jim-hogg-county-gov",
+      "organization": "Jim Hogg County official Hebbronville community source",
+      "countySlugs": [
+        "jim-hogg"
+      ],
+      "homeUrl": "https://www.co.jim-hogg.tx.us/",
+      "calendarUrl": "https://www.co.jim-hogg.tx.us/",
+      "contactPageUrl": "https://www.co.jim-hogg.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kenedy-county-gov",
+      "organization": "Kenedy County (Sarita) official civic events contact",
+      "countySlugs": [
+        "kenedy"
+      ],
+      "homeUrl": "https://www.kenedycountytx.gov/",
+      "calendarUrl": "https://www.kenedycountytx.gov/",
+      "contactPageUrl": "https://www.kenedycountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kent-county-gov",
+      "organization": "Kent County (Jayton) official civic contact",
+      "countySlugs": [
+        "kent"
+      ],
+      "homeUrl": "https://www.co.kent.tx.us/",
+      "calendarUrl": "https://www.co.kent.tx.us/page/kent.home",
+      "contactPageUrl": "https://www.co.kent.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "king-county-gov",
+      "organization": "King County (Guthrie) official civic contact",
+      "countySlugs": [
+        "king"
+      ],
+      "homeUrl": "https://www.co.king.tx.us/",
+      "calendarUrl": "https://www.kingcountytexas.us/County_Officials/officials.htm",
+      "contactPageUrl": "https://www.co.king.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "kinney-county-chamber",
+      "organization": "Kinney County Chamber of Commerce event producer and calendar",
+      "countySlugs": [
+        "kinney"
+      ],
+      "homeUrl": "https://www.kinneycounty.org/",
+      "calendarUrl": "https://www.kinneycounty.org/",
+      "contactPageUrl": "https://www.kinneycounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "la-salle-county-gov",
+      "organization": "La Salle County (Cotulla) official local events and notices",
+      "countySlugs": [
+        "la-salle"
+      ],
+      "homeUrl": "https://www.co.la-salle.tx.us/",
+      "calendarUrl": "https://www.co.la-salle.tx.us/",
+      "contactPageUrl": "https://www.co.la-salle.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "lipscomb-county-gov",
+      "organization": "Lipscomb County official civic information",
+      "countySlugs": [
+        "lipscomb"
+      ],
+      "homeUrl": "https://www.co.lipscomb.tx.us/",
+      "calendarUrl": "https://www.co.lipscomb.tx.us/",
+      "contactPageUrl": "https://www.co.lipscomb.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "lynn-county-gov",
+      "organization": "Lynn County (Tahoka) official news and community desk",
+      "countySlugs": [
+        "lynn"
+      ],
+      "homeUrl": "https://www.co.lynn.tx.us/",
+      "calendarUrl": "https://www.co.lynn.tx.us/",
+      "contactPageUrl": "https://www.co.lynn.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "martin-county-chamber",
+      "organization": "Martin County Chamber of Commerce, Stanton",
+      "countySlugs": [
+        "martin"
+      ],
+      "homeUrl": "https://martincountychamber.com/",
+      "calendarUrl": "https://martincountychamber.com/home",
+      "contactPageUrl": "https://martincountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "mcmullen-county-gov",
+      "organization": "McMullen County (Tilden) official community desk",
+      "countySlugs": [
+        "mcmullen"
+      ],
+      "homeUrl": "https://mcmullencounty.org/",
+      "calendarUrl": "https://mcmullencounty.org/contact-us/",
+      "contactPageUrl": "https://mcmullencounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "menard-county-chamber",
+      "organization": "Menard County Chamber of Commerce official event calendar",
+      "countySlugs": [
+        "menard"
+      ],
+      "homeUrl": "https://menardchamber.com/",
+      "calendarUrl": "https://menardchamber.com/event/",
+      "contactPageUrl": "https://menardchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "mitchell-county-gov",
+      "organization": "Mitchell County (Colorado City) official community source",
+      "countySlugs": [
+        "mitchell"
+      ],
+      "homeUrl": "https://www.co.mitchell.tx.us/",
+      "calendarUrl": "https://www.co.mitchell.tx.us/",
+      "contactPageUrl": "https://www.co.mitchell.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "motley-county-gov",
+      "organization": "Motley County (Matador) official community source",
+      "countySlugs": [
+        "motley"
+      ],
+      "homeUrl": "https://www.co.motley.tx.us/",
+      "calendarUrl": "https://www.co.motley.tx.us/",
+      "contactPageUrl": "https://www.co.motley.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "reagan-big-lake-chamber",
+      "organization": "Big Lake Chamber of Commerce annual events, Reagan County",
+      "countySlugs": [
+        "reagan"
+      ],
+      "homeUrl": "https://www.biglakecoc.com/",
+      "calendarUrl": "https://www.biglakecoc.com/annual-events",
+      "contactPageUrl": "https://www.biglakecoc.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "real-county-tourism",
+      "organization": "Visit Real County official community event guide",
+      "countySlugs": [
+        "real"
+      ],
+      "homeUrl": "https://visitrealcounty.com/",
+      "calendarUrl": "https://visitrealcounty.com/events.html",
+      "contactPageUrl": "https://visitrealcounty.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "roberts-county-gov",
+      "organization": "Roberts County (Miami) official civic contact",
+      "countySlugs": [
+        "roberts"
+      ],
+      "homeUrl": "https://www.co.roberts.tx.us/",
+      "calendarUrl": "https://www.co.roberts.tx.us/page/roberts.home",
+      "contactPageUrl": "https://www.co.roberts.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "san-jacinto-coldspring-chamber",
+      "organization": "Coldspring Chamber of Commerce community calendar",
+      "countySlugs": [
+        "san-jacinto"
+      ],
+      "homeUrl": "https://coldspringtexas.org/",
+      "calendarUrl": "https://coldspringtexas.org/community-calendar",
+      "contactPageUrl": "https://coldspringtexas.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "schleicher-county-gov",
+      "organization": "Schleicher County (Eldorado) official community source",
+      "countySlugs": [
+        "schleicher"
+      ],
+      "homeUrl": "https://www.schleichercounty.gov/",
+      "calendarUrl": "https://www.schleichercounty.gov/page/homepage",
+      "contactPageUrl": "https://www.schleichercounty.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "sherman-county-gov",
+      "organization": "Sherman County (Stratford) official municipal contact",
+      "countySlugs": [
+        "sherman"
+      ],
+      "homeUrl": "https://www.shermancountytx.gov/",
+      "calendarUrl": "https://www.shermancountytx.gov/page/contact",
+      "contactPageUrl": "https://www.shermancountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "sterling-county-gov",
+      "organization": "Sterling County official community contact",
+      "countySlugs": [
+        "sterling"
+      ],
+      "homeUrl": "https://www.sterlingcotx.gov/",
+      "calendarUrl": "https://www.sterlingcotx.gov/",
+      "contactPageUrl": "https://www.sterlingcotx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "stonewall-county-gov",
+      "organization": "Stonewall County (Aspermont) official county contact",
+      "countySlugs": [
+        "stonewall"
+      ],
+      "homeUrl": "https://www.stonewallcounty.org/",
+      "calendarUrl": "https://www.stonewallcounty.org/",
+      "contactPageUrl": "https://www.stonewallcounty.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "terrell-county-gov",
+      "organization": "Terrell County (Sanderson) official local Chamber directory",
+      "countySlugs": [
+        "terrell"
+      ],
+      "homeUrl": "https://www.co.terrell.tx.us/",
+      "calendarUrl": "https://www.co.terrell.tx.us/page/terrell.org",
+      "contactPageUrl": "https://www.co.terrell.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "trinity-county-gov",
+      "organization": "Trinity County official public holiday and community events",
+      "countySlugs": [
+        "trinity"
+      ],
+      "homeUrl": "https://www.co.trinity.tx.us/",
+      "calendarUrl": "https://www.co.trinity.tx.us/",
+      "contactPageUrl": "https://www.co.trinity.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "upton-county-gov",
+      "organization": "Upton County (Rankin and McCamey) official civic news",
+      "countySlugs": [
+        "upton"
+      ],
+      "homeUrl": "https://www.co.upton.tx.us/",
+      "calendarUrl": "https://www.co.upton.tx.us/page/upton.County.News",
+      "contactPageUrl": "https://www.co.upton.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "winkler-county-gov",
+      "organization": "Winkler County (Kermit and Wink) official community contact",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://www.co.winkler.tx.us/",
+      "calendarUrl": "https://www.co.winkler.tx.us/",
+      "contactPageUrl": "https://www.co.winkler.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     }
   ]
 }
