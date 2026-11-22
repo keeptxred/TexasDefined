@@ -1,0 +1,119 @@
+name: Verify Aubrey 2026 authority production release
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-aubrey-authority-production.mjs'
+      - '.github/workflows/verify-aubrey-authority-production.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: aubrey-authority-release-qa
+  cancel-in-progress: false
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate focused one-school Chrome verifier syntax
+        run: node --check scripts/ci/verify-aubrey-authority-production.mjs
+  production:
+    if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+    steps:
+      - name: Gate on open Aubrey checkpoint and successful protected release
+        id: prereq
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+          DEPLOY_ID: ${{ github.event.workflow_run.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(gh issue view 7558 --repo "$GITHUB_REPOSITORY" --json state --jq .state)"
+          if [[ "$state" == "CLOSED" ]]; then
+            echo 'eligible=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ -z "$DEPLOY_ID" || -z "$DEPLOY_SHA" ]]; then
+            read -r DEPLOY_ID DEPLOY_SHA <<< "$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy-production.yml --branch main --status success --limit 1 --json databaseId,headSha --jq '.[0] | [.databaseId,.headSha] | @tsv')"
+          fi
+          [[ "$DEPLOY_ID" =~ ^[0-9]+$ && "$DEPLOY_SHA" =~ ^[0-9a-f]{40}$ ]]
+          relation="$(gh api "repos/$GITHUB_REPOSITORY/compare/51b03162b5c3902657d2ddb486edcc677c180d78...${DEPLOY_SHA}" --jq .status)"
+          if [[ "$relation" != ahead && "$relation" != identical ]]; then
+            echo 'eligible=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo 'eligible=true' >> "$GITHUB_OUTPUT"
+          echo "deploy_id=$DEPLOY_ID" >> "$GITHUB_OUTPUT"
+          echo "deploy_sha=$DEPLOY_SHA" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.prereq.outputs.eligible == 'true'
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        if: steps.prereq.outputs.eligible == 'true'
+        with:
+          node-version: '22'
+      - name: Install isolated Chrome and axe runners
+        if: steps.prereq.outputs.eligible == 'true'
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-aubrey-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Check public and direct Worker HTML plus 390px and 1366px Chrome
+        if: steps.prereq.outputs.eligible == 'true'
+        env:
+          ACCEPTANCE_SHA: ${{ steps.prereq.outputs.deploy_sha }}
+        run: node scripts/ci/verify-aubrey-authority-production.mjs
+      - name: Verify public sitemap records truthful Aubrey revision
+        if: steps.prereq.outputs.eligible == 'true'
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import {mkdir,writeFile} from 'node:fs/promises';
+          const url='https://texasdefined.com/sitemap.xml?aubrey_sitemap_release='+process.env.GITHUB_RUN_ID;
+          const response=await fetch(url,{signal:AbortSignal.timeout(35000),headers:{'cache-control':'no-store',accept:'application/xml'}});
+          assert.equal(response.status,200,'Public sitemap HTTP response');
+          const xml=await response.text();
+          const loc='<loc>https://texasdefined.com/texas-high-school-football-teams/aubrey</loc>';
+          const pos=xml.indexOf(loc);
+          assert.ok(pos>=0,'Aubrey Google-indexable canonical absent from main sitemap');
+          const entry=xml.slice(pos,pos+400);
+          assert.match(entry,/<lastmod>2026-11-22<\/lastmod>/,'Aubrey substantive revision missing correct lastmod');
+          await mkdir('artifacts/aubrey-authority-production',{recursive:true});
+          await writeFile('artifacts/aubrey-authority-production/sitemap-acceptance.txt',JSON.stringify({url,canonical:loc,lastmod:'2026-11-22',checkedAt:new Date().toISOString()})+'\n');
+          console.log('Aubrey production sitemap lastmod PASS');
+          NODE
+      - name: Preserve Chrome screenshots and live acceptance report
+        if: always() && steps.prereq.outputs.eligible == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: aubrey-authority-production-${{ github.run_id }}
+          path: artifacts/aubrey-authority-production/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Close Aubrey release checkpoint only after all live checks pass
+        if: success() && steps.prereq.outputs.eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_ID: ${{ steps.prereq.outputs.deploy_id }}
+          DEPLOY_SHA: ${{ steps.prereq.outputs.deploy_sha }}
+        run: |
+          gh issue close 7558 --repo "$GITHUB_REPOSITORY" --reason completed --comment "Full Aubrey authority verification PASS: protected deployed source $DEPLOY_SHA, [deployment run](https://github.com/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_ID), [four HTTP responses + mobile/desktop browser screenshots, contrast, no overflow, factual/SEO checks, sitemap artifact](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID). The page is source-backed and indexable; this does not claim new Google crawl, human accessibility certification or real-user Core Web Vitals."
