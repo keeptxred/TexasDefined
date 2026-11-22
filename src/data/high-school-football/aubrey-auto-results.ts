@@ -104,6 +104,7 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
     season: {
       ...editorial.season, games, record,
       verifiedAt: currentResult?.verifiedAt ?? editorial.season.verifiedAt,
+      sourceLabel: 'MaxPreps Aubrey varsity schedule; individually verified finals are reflected in this dated editorial snapshot',
       latestResultSourceUrl: currentResult?.primarySourceUrl ?? editorial.season.latestResultSourceUrl,
     },
     seo: editorial.seo ? { ...editorial.seo, description: recordDescription } : editorial.seo,
