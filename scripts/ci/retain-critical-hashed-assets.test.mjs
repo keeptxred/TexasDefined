@@ -176,7 +176,10 @@ test('outgoing-Worker retention precedes Wrangler deploy and is covered by postd
   assert.match(workflow, /node scripts\/ci\/retain-critical-hashed-assets\.mjs --retain/);
   assert.match(workflow, /retained-critical-assets-report\.json/);
   const verifier = readFileSync('scripts/ci/verify-referenced-assets-production.mjs', 'utf8');
-  assert.match(verifier, /latest\.retainedAssets/);
+  assert.match(verifier, /eligibleCrossReleaseAssets\(saved, verificationTime\)/);
+  assert.match(verifier, /retentionCandidates\(history, now\)/);
+  assert.doesNotMatch(verifier, /for \(const asset of latest\.retainedAssets/,
+    'postdeploy must reuse the same first-seen expiry policy, not blindly demand expired old hashes');
   assert.match(verifier, /record\.sha256 === a\.preSha256/);
 });
 
