@@ -51,6 +51,9 @@ test("all-county holiday audit covers newly added source-qualified calendar and 
   const county=fs.readFileSync("src/data/county-major-events.server.ts","utf8");
   assert.ok(audit.includes('"src/data/events/christmas-community-2026-county-backfill.server.ts"'));
   assert.ok(audit.includes('source.includes("christmas-community-2026")'));
-  assert.ok(county.includes('startsOnOrAfter: "2000-01-01"'));
-  assert.ok(county.includes('(event.endDate ?? event.startDate) >= today'));
+  assert.ok(county.includes("loadUpcomingTexasEventRecordsServer({ countySlug: county, limit: 250 })"),
+    "County server must use the canonical ongoing-aware event selector");
+  const selector=fs.readFileSync("src/data/events/texas-event-record.ts","utf8");
+  assert.ok(selector.includes("(event.endDate ?? event.startDate) >= query.startsOnOrAfter"),
+    "Ongoing multi-day events must remain visible after first day");
 });
