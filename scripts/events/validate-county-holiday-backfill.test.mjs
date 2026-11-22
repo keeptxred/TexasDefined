@@ -6,7 +6,7 @@ const file = "src/data/events/christmas-community-2026-county-backfill.server.ts
 const source = fs.readFileSync(file, "utf8");
 const manifest = fs.readFileSync("src/data/events/christmas-community-2026.server.ts", "utf8");
 const registry = JSON.parse(fs.readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
-const match = source.match(/= (\\[[\\s\\S]*?\\]);/);
+const match = source.match(/= (\[[\s\S]*?\]);/);
 if (!match) throw new Error("County Christmas backfill must be a source-auditable JSON literal");
 const events = JSON.parse(match[1]);
 
@@ -20,13 +20,13 @@ test("source-verified county holiday additions are unique and present in the glo
     assert.ok(!previous.includes('\"slug\": \"' + event.slug + '\"'), "Event already exists in original catalog: " + event.slug);
     assert.match(event.slug, /^[a-z0-9-]+$/);
     assert.ok(event.title.length >= 12 && event.summary.length >= 110);
-    assert.match(event.startDate, /^2026-1[12]-\\d{2}$/);
+    assert.match(event.startDate, /^2026-1[12]-\d{2}$/);
     if (event.endDate) assert.ok(event.endDate >= event.startDate);
     assert.equal(event.sourceVerifiedAt, "2026-11-22");
     assert.ok(["panhandle","prairies-lakes","hill-country","piney-woods","south-texas","gulf-coast","big-bend"].includes(event.region));
     const sourceUrl = new URL(event.officialEventUrl);
     assert.equal(sourceUrl.protocol, "https:");
-    assert.ok(!/facebook\\.com|eventbrite\\.com|ticketmaster\\.com/.test(sourceUrl.hostname));
+    assert.ok(!/facebook\.com|eventbrite\.com|ticketmaster\.com/.test(sourceUrl.hostname));
     assert.ok(event.sourceName && event.venueName && event.countyName === event.countySlug[0].toUpperCase() + event.countySlug.slice(1) + " County");
     assert.ok(!event.summary.includes("2027 dates"), "Cannot imply an unannounced next season");
   }
