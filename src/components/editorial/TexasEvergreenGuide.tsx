@@ -252,6 +252,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     {"label":"Portal to Texas History — Military Plaza chili stands","href":"https://texashistory.unt.edu/ark:/67531/metapth459988/","note":"Archival image record of plaza vendors; linked for research, not reproduced without rights clearance."},
   ],
   "texas-chicken-fried-steak-guide": [
+    { label: "Texas Legislature — S.C.R. 34 (2011), introduced text", href: "https://capitol.texas.gov/tlodocs/82R/billtext/pdf/SC00034I.pdf", note: "Identifies the 1911 Lamesa invention story as a fictional 1976 newspaper account; celebrates the festival rather than documenting an invention." },
     { label: "Handbook of Texas — Chicken-Fried Steak", href: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak", note: "Explains the disputed origin story and the Southern, German and regional Texas influences associated with the dish." },
     {"label":"Eater Austin — chicken-fried steak in Austin","href":"https://austin.eater.com/2015/1/30/7951273/the-state-of-chicken-fried-steak-in-austin","note":"Independent reporting on restaurant variation and the regional framework."},
     {"label":"Washington Post — Deep in the Heart of Texas, We Bread Steak","href":"https://www.washingtonpost.com/archive/lifestyle/2008/06/25/deep-in-the-heart-of-texas-we-bread-steak/0432c28d-8dd4-42f1-b072-1166f634a306/","note":"Independent recipe reporting illustrates exceptions to regional classifications."},
@@ -269,6 +270,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Houston Chronicle — How Texas homecoming mums evolved", href: "https://www.houstonchronicle.com/news/houston-texas/houston/article/history-texas-homecoming-mums-19730689.php", note: "Provides broader Texas history, modern mum and garter conventions, and reporting on how the tradition changed from simpler corsages into highly personalized displays." },
   ],
   "texas-brand-origin-stories": [
+    { label: "Smithsonian — 7-Eleven display rooster", href: "https://www.si.edu/object/7-eleven-display-rooster%3Anmah_1204808", note: "Documents the Dallas Southland Ice Company origins and development of convenience retail." },
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
     { label: "Shiner — Brewery history", href: "https://shiner.com/brewery/", note: "The brewery's timeline documents brewing in Shiner since 1909 and its German and Czech community roots." },
