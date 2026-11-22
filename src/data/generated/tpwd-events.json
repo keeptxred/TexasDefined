@@ -1,84 +1,12 @@
 {
-  "generatedAt": "2026-11-21T18:02:27.055Z",
+  "generatedAt": "2026-11-22T18:33:46.118Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "All About Snakes",
-      "startDate": "2026-11-21",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-snakes/2026-11-21"
-    },
-    {
-      "title": "Alligators: Predatory Engineers",
-      "startDate": "2026-11-21",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-11-21"
-    },
-    {
-      "title": "Archery 101",
-      "startDate": "2026-11-21",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-21"
-    },
-    {
-      "title": "Fort Davis Tales",
-      "startDate": "2026-11-21",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/fort-davis-tales-1/2026-11-21"
-    },
-    {
-      "title": "Guided Nature Walk",
-      "startDate": "2026-11-21",
-      "parkKey": "mother-neff",
-      "officialUrl": "https://tpwd.texas.gov/calendar/mother-neff/guided-nature-walk/2026-11-21"
-    },
-    {
-      "title": "Guided Paddle",
-      "startDate": "2026-11-21",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-21"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-21",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-21"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-21",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-21"
-    },
-    {
-      "title": "Nature Tram Tour (Evening)",
-      "startDate": "2026-11-21",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-21"
-    },
-    {
-      "title": "Pelts and Tracks",
-      "startDate": "2026-11-21",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-21"
-    },
-    {
-      "title": "World Birding Center Birding Tours",
-      "startDate": "2026-11-21",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-21"
-    },
     {
       "title": "All About Nature",
       "startDate": "2026-11-22",
       "parkKey": "lake-livingston",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-nature-1/2026-11-22"
-    },
-    {
-      "title": "All About Us: a Guided Hike",
-      "startDate": "2026-11-22",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-22"
     },
     {
       "title": "Alligator Talk",
@@ -93,28 +21,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-22"
     },
     {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-22",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-11-22"
-    },
-    {
-      "title": "Discovery Walk Sundays",
-      "startDate": "2026-11-22",
-      "parkKey": "stephen-f-austin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-22"
-    },
-    {
       "title": "Electric Tram Tour",
       "startDate": "2026-11-22",
       "parkKey": "estero-llano-grande",
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-22"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-22",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-22"
     },
     {
       "title": "Mission History Tour",
@@ -483,6 +393,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-12-04"
     },
     {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-12-04",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-12-04"
+    },
+    {
       "title": "Homeschool Hour at Pedernales Falls!",
       "startDate": "2026-12-04",
       "parkKey": "pedernales-falls",
@@ -667,6 +583,12 @@
       "startDate": "2026-12-11",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-11"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-12-11",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-12-11"
     },
     {
       "title": "Homeschool Classes at the Park",
@@ -865,6 +787,12 @@
       "startDate": "2026-12-18",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-18"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-12-18",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-12-18"
     },
     {
       "title": "Invasive vs. Native Species",
@@ -1447,6 +1375,24 @@
       "startDate": "2027-02-17",
       "parkKey": "buescher",
       "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2027-02-17"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2027-02-20",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-20"
+    },
+    {
+      "title": "Guided Paddle",
+      "startDate": "2027-02-20",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2027-02-20"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2027-02-20",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2027-02-20"
     }
   ]
 }
