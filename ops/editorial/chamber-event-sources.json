@@ -2671,6 +2671,118 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "hearne-robertson-chamber",
+      "organization": "Hearne Chamber of Commerce",
+      "countySlugs": [
+        "robertson"
+      ],
+      "homeUrl": "https://hearnechamber.com/",
+      "calendarUrl": "https://hearnechamber.com/community-calendar/",
+      "contactPageUrl": "https://hearnechamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "refugio-county-chamber",
+      "organization": "Refugio County Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "refugio"
+      ],
+      "homeUrl": "https://refugiocountytx.org/",
+      "calendarUrl": "https://refugiocountytx.org/events",
+      "contactPageUrl": "https://refugiocountytx.org/the-chamber",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "raymondville-willacy-chamber",
+      "organization": "Raymondville Chamber of Commerce",
+      "countySlugs": [
+        "willacy"
+      ],
+      "homeUrl": "https://raymondvillechamberofcommerce.weebly.com/",
+      "calendarUrl": "https://raymondvillechamberofcommerce.weebly.com/",
+      "contactPageUrl": "https://raymondvillechamberofcommerce.weebly.com/about.html",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "shamrock-wheeler-st-patricks",
+      "organization": "Shamrock St. Patrick's Celebration Association",
+      "countySlugs": [
+        "wheeler"
+      ],
+      "homeUrl": "https://www.shamrockstpatricks.com/",
+      "calendarUrl": "https://www.shamrockstpatricks.com/",
+      "contactPageUrl": "https://www.shamrockstpatricks.com/saturday",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "starr-county-fair-association",
+      "organization": "Starr County Fair Association",
+      "countySlugs": [
+        "starr"
+      ],
+      "homeUrl": "https://starrcountyfair.com/",
+      "calendarUrl": "https://starrcountyfair.com/events-home",
+      "contactPageUrl": "https://starrcountyfair.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "crystal-city-zavala-spinach",
+      "organization": "Crystal City Spinach Festival organizer",
+      "countySlugs": [
+        "zavala"
+      ],
+      "homeUrl": "https://www.spinachfestival.org/",
+      "calendarUrl": "https://www.spinachfestival.org/faq",
+      "contactPageUrl": "https://www.spinachfestival.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "tyler-county-chamber",
+      "organization": "Tyler County Chamber of Commerce",
+      "countySlugs": [
+        "tyler"
+      ],
+      "homeUrl": "https://www.tylercountycoc.com/",
+      "calendarUrl": "https://www.tylercountycoc.com/",
+      "contactPageUrl": "https://www.tylercountycoc.com/jointhechamber",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "newton-county-chamber-county",
+      "organization": "Newton County Chamber official county-office contact",
+      "countySlugs": [
+        "newton"
+      ],
+      "homeUrl": "https://www.co.newton.tx.us/",
+      "calendarUrl": "https://www.co.newton.tx.us/page/newton.chamberofcommerce",
+      "contactPageUrl": "https://www.co.newton.tx.us/page/newton.chamberofcommerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
