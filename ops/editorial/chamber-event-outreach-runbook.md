@@ -194,3 +194,30 @@ Two organizer-dated, current-edition occurrences were added to the existing gove
 
 Both records carry individual `sourceVerifiedAt: 2026-11-22`, canonical county attribution, source hyperlinks and 2026-only occurrence dates; new regression tests enforce dates, organizer domains, source safety and existing county-calendar crosslinks. No 2027 dates or image rights are presumed. Verify publication on a post-merge production deployment and confirm the county/Christmas hub links resolve, not just that the release gate passes.
 
+
+### 2026-11-22 continuation — resilient municipal/tourism fallback cohort and Gray County event publication
+
+After the initial 273-source, 73-county live-calendar cohort, add these independent source URLs (first-party public sources, **not** guaranteed current festival editions or media consents): City of Gainesville municipal community calendar https://www.gainesville.tx.us/329/Events-in-Gainesville (Cooke); Visit Granbury https://www.visitgranbury.com/events/ (Hood); Visit New Braunfels https://www.visitnbtx.com/events (Comal); Discover Bastrop https://www.discoverbastroptx.org/events/ (Bastrop). The existing Pampa Chamber community-events source is classified as a real public community calendar and pointed at https://business.pampachamber.com/events, which directly lists dated holiday entries and is a public alternative to the original HTTP-error monitoring URL.
+
+City of Orange CVB https://orangetexas.gov/165/Events and Visit McAllen https://visitmcallen.com/events/ are **annual-events-list** sources, rather than full dated community calendars; they offer festival/holiday organizer discovery but must not inflate full live-calendar coverage. The original Chamber source records remain present; no robots disallow is bypassed.
+
+The Pampa Chamber, acting as organizer for the downtown parade, confirms two **separate** events: **Christmas on the Bricks** Friday December 11, 2026, 5–9 p.m., 100 block North Cuyler Street (https://business.pampachamber.com/events/Details/christmas-on-the-bricks-1927768?sourceTypeId=Website) and **Cowboy Christmas Parade of Lights** Saturday December 12, 2026, 6–8 p.m., downtown Somerville/Francis/Cuyler route (https://business.pampachamber.com/events/Details/cowboy-christmas-parade-1712334?sourceTypeId=Website). Both use dated first-party sources and separate 2026 canonical county-calendar records, with no guessed ticket fees, unrelated float staging presented as spectator guidance, copied photographs or 2027 rollover. This adds Gray County to the verified Christmas event roster. Compare with any other December events; don't collapse into one fabricated multi-day festival.
+
+Current staged registry: **279** reviewed public source/contact records across 254 Texas counties: **79** first-party public calendar records across **77** counties; **11** specific-event pages; **6** annual-festival directory sources; **31** contact-only sources; **152** older unclassified sources. **177** counties still lack an explicitly reviewed active public calendar, and that number is distinct from missing 2026 holiday events or missing opt-in media relationships. The daily source-audit must check access honestly and leave robot-blocked records for manual review.
+
+### November 22, 2026 — eight additional primary calendars, one annual festival list
+
+The next official-source verification cohort checked actual public event listings instead of equating a homepage or event-title with a full calendar. Eight existing first-party sources were promoted to `public-calendar` after current 2026/2027 entries were visible:
+
+- Andrews Chamber community calendar https://business.andrewstx.com/events/calendar/ — Andrews County; includes 2026 Jamaica Family Fest and Safe Spot
+- Bee County Chamber https://members.experiencebeecounty.org/events/calendar — Bee County; dated 2026 community market events
+- Calhoun County/Port Lavaca public events calendar https://portlavacaevents.com/events/ — Calhoun; 2026 and 2027 entries and submit-event workflow
+- Discover Lockhart https://discoverlockharttx.org/events — Caldwell; dated 2026 event feed and first-party submit-event workflow
+- Brownsville Chamber https://business.brownsvillechamber.com/events/calendar — Cameron; holiday marketplace and local business calendar
+- Bowie Chamber https://bowietxchamber.org/events/ — Montague; December 2026 Merry Christmas Sip & Stroll and Second Monday market listings
+- Clifton Chamber https://cliftontexas.org/community-calendar/ — Bosque; active 2026 community-calendar entries and December Norwegian Country Christmas
+- Columbus Chamber https://business.columbustexas.org/events/calendar — Colorado; current community and civic events
+
+**Hemphill/Canadian:** https://www.canadiantx.com/events was categorized as `annual-events-list`, not a current full county calendar. It gives specific 2026 dates for the Canadian River Music Festival and Fall Foliage Festival but combines them with stale 2025 TBD entries and December seasonal descriptions without exact daily dates. It is useful first-party original-research evidence but must not be presented as full verified festival/calendar coverage or relied on for future dates.
+
+The full staged registry is 279 public source records across 254 counties. Dated public calendar-source classification is now **87 records covering 84 counties**; annual festival directories 7, single-event pages 11, contact-only records 31, and unclassified records 143. **170 counties** remain without an explicitly reviewed current public community-calendar source (these are not necessarily counties without any currently indexed upcoming event). Annual brochures, library programming-only feeds and Chamber homepages are treated separately. Event dates, image rights, opted-in media lists and earned backlinks remain subject to their own evidence.
