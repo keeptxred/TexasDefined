@@ -517,5 +517,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "City of Poteet 2026 City Council agenda",
   "summary": "The City of Poteet's October 20, 2026 council agenda identifies its Christmas Parade and Tree Lighting Event as planned for Thursday, December 10, 2026. The city was considering temporary street closures near School Drive, Loop 282, Avenue H, Seventh and Eighth streets for the procession. The public agenda is evidence of the date proposed by city staff, not proof that every street closure or parade hour has been finalized; verify the current city notice before attending.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "mineral-wells-merry-wells-tree-lighting-2026",
+  "title": "Merry Wells Christmas Tree Lighting · Mineral Wells",
+  "city": "Mineral Wells",
+  "countySlug": "palo-pinto",
+  "countyName": "Palo Pinto County",
+  "region": "prairies-lakes",
+  "startDate": "2026-11-27",
+  "venueName": "Historic Downtown Mineral Wells, Texas",
+  "officialEventUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
+  "sourceName": "Visit Mineral Wells Convention & Visitors Bureau",
+  "summary": "Visit Mineral Wells' official 2026 Merry Wells program announces the downtown holiday tree lighting on Friday, November 27, 2026, the evening before the main Saturday festival. It launches the city's seasonal displays and decorated streets. The official guide confirms the day but does not specify the exact ceremony hour, so confirm lighting time, parking and possible road closures with the organizer before arrival.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "mineral-wells-merry-wells-festival-parade-2026",
+  "title": "Merry Wells Christmas Festival & Lighted Christmas Parade",
+  "city": "Mineral Wells",
+  "countySlug": "palo-pinto",
+  "countyName": "Palo Pinto County",
+  "region": "prairies-lakes",
+  "startDate": "2026-11-28",
+  "venueName": "Downtown Mineral Wells · Northeast First Avenue and city center",
+  "officialEventUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
+  "sourceName": "Visit Mineral Wells Convention & Visitors Bureau",
+  "summary": "Visit Mineral Wells confirms the Merry Wells Christmas Festival on Saturday, November 28, 2026 from 11 a.m.–5 p.m., with the separate lighted Christmas parade downtown at 6 p.m. The festival features artisan vendors, a food truck park, family activities and holiday entertainment; Santa and Mrs. Claus welcome photos after the parade at the city's Giant Rocking Chair. The official 2026 guide also lists a Friday, November 27 tree lighting, published as a separate calendar item.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
