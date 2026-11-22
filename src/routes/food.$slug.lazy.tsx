@@ -4,8 +4,15 @@ import { Container } from "@/components/layout/Container";
 
 export const Route = createLazyFileRoute("/food/$slug")({ component: FoodDestinationPage });
 
+const relatedFoodGuides: Record<string, { href: string; label: string; description: string }> = {
+  "tolberts-chili-parlor-grapevine": { href: "/texas-chili-con-carne-history", label: "Texas chili history", description: "Trace the Chili Queens, Gebhardt’s chili powder and the two Terlingua cookoffs." },
+  "blue-bonnet-cafe-marble-falls": { href: "/texas-chicken-fried-steak-guide", label: "Texas chicken-fried steak guide", description: "Compare preparation styles, disputed origins and cream-gravy traditions." },
+  "joes-bakery-austin": { href: "/texas-breakfast-taco-guide", label: "Texas breakfast taco guide", description: "Compare actual regional menus, learn the filling names and explore the borderland history." },
+};
+
 function FoodDestinationPage() {
   const { destination, authorityHtml } = Route.useLoaderData();
+  const related = relatedFoodGuides[destination.slug];
   const address = `${destination.streetAddress}, ${destination.city}, TX ${destination.postalCode}`;
   return <main><Container className="py-10 sm:py-14 lg:py-16">
     <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><Link to="/">Home</Link> / <Link to="/explore/$category" params={{ category: "food-bbq" }}>Food &amp; BBQ</Link> / <span>{destination.name}</span></nav>
@@ -16,6 +23,7 @@ function FoodDestinationPage() {
       <div className="mt-8 grid gap-4 border-y border-border py-6 text-sm sm:grid-cols-3"><div><p className="eyebrow text-muted-foreground">City</p><p className="mt-1 font-semibold">{destination.city}</p></div><div><p className="eyebrow text-muted-foreground">County</p><p className="mt-1 font-semibold">{destination.county} County</p></div><div><p className="eyebrow text-muted-foreground">Source checked</p><p className="mt-1 font-semibold">{destination.verifiedAt}</p></div></div>
       {authorityHtml ? <div className="mt-10 space-y-6 text-base leading-8 text-muted-foreground" dangerouslySetInnerHTML={{ __html: authorityHtml }} /> : null}
       <section className="mt-10 border-t border-border pt-8"><h2 className="font-display text-3xl">Plan the stop</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">{address}. Hours, menus, prices and service details can change; confirm current operating information with the business before making a special trip.</p><a href={destination.officialUrl} target="_blank" rel="noreferrer" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Official website →</a></section>
+      {related ? <section className="mt-10 border-t border-border pt-8"><h2 className="font-display text-2xl">The food tradition behind this stop</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{related.description}</p><a href={related.href} className="mt-4 inline-block font-semibold text-primary underline">{related.label} →</a></section> : null}
     </article>
   </Container></main>;
 }
