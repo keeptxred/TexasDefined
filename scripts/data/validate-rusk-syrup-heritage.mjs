@@ -13,6 +13,8 @@ const museums = read("src/data/museum-expansion-statewide-wave9.ts");
 const index = read("src/data/major-event-index.ts");
 const guides = read("src/data/major-event-authority.server.ts");
 const destinationPage = read("src/routes/destination.$slug.tsx");
+const countyPage = read("src/routes/$kind.$slug.lazy.tsx");
+const sitemap = read("src/routes/sitemap[.]xml.ts");
 const eventLanding = read("src/components/events/EventsLandingPage.tsx");
 const refresh = read("scripts/events/event-page-refresh-governance.mjs");
 const lifecycle = read("src/data/major-event-authority.ts");
@@ -51,6 +53,16 @@ includesAll("Festival guide", guide, [
   "37th annual", "2026", "historical", "not an advertisement",
   "/county/rusk", "/destination/rusk-county-depot-museum-history-center-henderson",
   "/texas-capital-designations", "https://www.ruskcountyhistory.org/syrup-festival",
+]);
+includesAll("Prominent county fact block and accurately distinguished revision date", countyPage, [
+  'id="rusk-syrup-heritage"', "Rusk County is the Syrup Capital of Texas",
+  "37th edition was held November 14, 2026", "Guide updated",
+  'href="/event/heritage-syrup-festival"',
+  'href="/destination/rusk-county-depot-museum-history-center-henderson"',
+]);
+includesAll("Sitemap live editorial date and edge invalidation", sitemap, [
+  '"/county/rusk": "2026-11-22"', "rusk-syrup-20261122",
+  "hasCompliantMajorEventImageServer(event.slug)",
 ]);
 includesAll("Museum reverse links", destinationPage, [
   'destination.slug === "rusk-county-depot-museum-history-center-henderson"',
