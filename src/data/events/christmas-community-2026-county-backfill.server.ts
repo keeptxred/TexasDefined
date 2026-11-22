@@ -713,5 +713,34 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Panola College (presenting organizer)",
     "summary": "Panola College's annual Christmas in Carthage concert returns Tuesday, December 1, 2026 at 7 p.m., with doors at 6:30 p.m. in the Q. M. Martin Auditorium. The college's announced lineup includes the Panola Pipers, Concert and Jazz Bands and visiting regional musicians. Tickets are sold at the door for $10 for adults and $5 for students ages 13 and older, with children 12 and younger admitted free. This is a local holiday music program, not the county's separate Christmas parade.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "san-augustine-christmas-market-days-2026",
+    "title": "San Augustine Christmas Market Days 2026",
+    "city": "San Augustine",
+    "countySlug": "san-augustine",
+    "countyName": "San Augustine County",
+    "region": "piney-woods",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Historic downtown San Augustine, 100 West Columbia Street",
+    "officialEventUrl": "https://visitsanaugustinetx.org/event/christmas-market-days-2026/",
+    "sourceName": "San Augustine Main Street / Visit San Augustine",
+    "summary": "San Augustine Main Street's official visitor calendar lists Christmas Market Days for December 4–5, 2026, with a 10 a.m.–5 p.m. window at the historic downtown square, 100 West Columbia Street. Local vendors and seasonal shopping are the advertised attraction. Food, purchases, parking, and any ticketed activities should be checked with the Main Street organizer; the event page does not establish that all purchases or services are free.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "san-augustine-main-street-christmas-parade-2026",
+    "title": "2026 San Augustine Downtown Christmas Parade",
+    "city": "San Augustine",
+    "countySlug": "san-augustine",
+    "countyName": "San Augustine County",
+    "region": "piney-woods",
+    "startDate": "2026-12-04",
+    "venueName": "Historic downtown San Augustine, 100 West Columbia Street",
+    "officialEventUrl": "https://visitsanaugustinetx.org/event/2026-christmas-parade/",
+    "sourceName": "San Augustine Main Street / Visit San Augustine",
+    "summary": "San Augustine Main Street's official tourism calendar dates the downtown Christmas Parade for Friday, December 4, 2026, at 6 p.m. around the historic downtown square. Free face painting and other family activities are listed, but the organizer has not published a confirmed parade end time or full closure map on this listing. Parade-entry deadlines and registration instructions apply to participants rather than spectators. The parade is distinct from the December 4–5 Christmas Market Days.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
