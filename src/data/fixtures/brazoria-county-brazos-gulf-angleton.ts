@@ -152,6 +152,6 @@ export const brazoriaCountyBrazosGulfAngletonArticle: Article = {
     { label: "Alvin Convention & Visitors Bureau — historic train depot", url: "https://www.visitalvin.com/business/alvin-train-depot" },
     { label: "Froberg's Farm — official location and seasonal events", url: "https://frobergsfarm.com/about_us/" },
     { label: "City of Alvin — Bob Briscoe Park facilities", url: "https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3" },
-    { label: "National Register — historic Brazoria Bridge (not in Alvin)", url: "https://www.nps.gov/subjects/nationalregister/database-research.htm" },
+    { label: "National Register — historic Brazoria Bridge (not in Alvin)", url: "https://atlas.thc.texas.gov/NR/pdfs/91000783/91000783.pdf" },
   ],
 };
