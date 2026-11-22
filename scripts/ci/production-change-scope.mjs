@@ -127,6 +127,10 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // otherwise deploy planning can silently omit the only affected visitor page.
   if (changedFiles.some(path => [
     "src/components/editorial/MartinCreekRvAuthority.tsx",
+    "src/components/editorial/MartinCreekParkAuthority.tsx",
+    "src/data/destination-curation-batch5.ts",
+    "src/data/state-park-authority.ts",
+    "src/routes/sitemap-explore[.]xml.ts",
     "src/data/rv-parks/curated-public-wave4.ts",
     "scripts/data/validate-rv-curated-public-wave4.mjs",
     "scripts/ci/verify-martin-creek-rv-live.mjs",
@@ -141,6 +145,9 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       "/explore/state-parks",
       "/fishing/access",
     ];
+    const parkPage = "/destination/martin-creek-lake-state-park";
+    candidates.add(parkPage);
+    expectedHrefsByPage[parkPage] = [page, "/fishing/access", "/fishing/regulations"];
   }
   // Exact thirteen source-verified GSC ImageObject examples only. Test their *deployed* JSON-LD
   // when the shared rights registry changes; no sitewide image crawl.
