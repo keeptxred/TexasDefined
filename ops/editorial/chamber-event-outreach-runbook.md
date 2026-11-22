@@ -160,7 +160,7 @@ Verified individual first-party community or Chamber event listings and classifi
 | Hockley | https://www.levelland.com/events/calendar | Levelland Chamber events calendar, currently sparse; separate city Main Street festivals |
 | Erath | https://www.stephenvilletexas.org/events/calendar/ | Public local/Chamber entries, including seasonal community events |
 | Panola | https://www.carthagetexasmainstreet.us/calendar | Carthage Main Street dated community events and November holiday activity |
-| Navarro | https://www.corsicana.org/events/calendar | Corsicana/N­avarro Chamber mixed business/community entries |
+| Navarro | https://www.corsicana.org/events/calendar | Corsicana/Navarro Chamber mixed business/community entries |
 | Karnes | https://www.kenedychamber.org/events/ | Chamber listings with December 2026 open house and holiday tour |
 | Wichita | https://www.wichitafallschamber.com/events/ | Chamber programming calendar, not comprehensive local festival coverage |
 | Hutchinson | https://www.borgerchamber.com/events/ | Borger Chamber year selector/calendar; verify current entries |
