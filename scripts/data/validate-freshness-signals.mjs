@@ -68,16 +68,16 @@ for (const required of [
 const countyHistorySource = fs.readFileSync('src/data/fixtures/dallas-county-dallas-trinity-old-red.ts', 'utf8');
 const dallasHistoryUpdatedAt = countyHistorySource.match(/updatedAt:\s*"([^"]+)"/)?.[1];
 const dallasSitemapLastmod = primarySitemap.match(/"\/county\/dallas":\s*"([^"]+)"/)?.[1];
-if (dallasHistoryUpdatedAt !== '2026-11-15' || dallasSitemapLastmod !== dallasHistoryUpdatedAt
+if (!dallasHistoryUpdatedAt || dallasHistoryUpdatedAt < '2026-11-15' || dallasSitemapLastmod !== dallasHistoryUpdatedAt
     || !countyHistorySource.includes('November 9, 1936')
     || !countyHistorySource.includes('https://texasinstituteofletters.org/til-council-1936-1939/')) {
-  failures.push('Dallas county canonical sitemap lastmod must represent the verified November 15 Institute of Letters editorial update.');
+  failures.push('Dallas county sitemap lastmod must match the newest source-backed Dallas county update while retaining the November 15 Institute of Letters article.');
 }
 for (const snippet of [
   'const editorialDate = STATIC_LASTMOD_BY_PATH[path];',
   'editorialDate > (entity.sourceCheckedAt ?? "")',
   'lastmod: toDate(lastmod)',
-  'cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-15")',
+  'cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-22")',
 ]) {
   if (!primarySitemap.includes(snippet)) failures.push('County sitemap must use only verified editorial or original source-checked dates: ' + snippet);
 }
