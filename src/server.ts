@@ -700,11 +700,31 @@ function applyPlayoffGuideEdgeCachePolicy(request: Request, response: Response):
   });
 }
 
+// Community Christmas entries expire at midnight in Texas, so cached SSR HTML
+// can show past dates even without any deploy. Suppress edge/browser caching
+// specifically for the time-dependent holiday calendar, not other pages.
+function applyChristmasHolidayEdgeCachePolicy(request: Request, response: Response): Response {
+  const url = new URL(request.url);
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (url.pathname !== "/events/christmas-events") return response;
+  if (!(response.headers.get("content-type") ?? "").includes("text/html")) return response;
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
   const cacheSafeResponse = applyMoodyGardensNoticeCachePolicy(request,
     applyTexasFlagEdgeCachePolicy(request,
       applyHashedModuleDocumentCachePolicy(request,
-        applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response)))));
+        applyPlayoffGuideEdgeCachePolicy(request, applyChristmasHolidayEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response))))));
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
   const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
