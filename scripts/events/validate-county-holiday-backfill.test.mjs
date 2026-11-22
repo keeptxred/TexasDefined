@@ -61,6 +61,8 @@ test("county official calendars are tracked on the robot-respecting review sched
     sutton:"2026-12-02",
     brazoria:"2026-12-04",
     somervell:"2026-11-28",
+    mills:"2026-12-05",
+    robertson:"2026-12-12",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -184,4 +186,24 @@ test("Alvin and Glen Rose 2026 dates and counties remain first-party independent
    assert.equal(new URL(item.officialEventUrl).hostname,host);
    assert.equal(item.sourceVerifiedAt,"2026-11-22");
  }
+});
+
+test("Goldthwaite, Hearne, Plantersville and Bonham 2026 holidays retain organizer-dated evidence",()=>{
+ const cases=[
+ ["goldthwaite-sip-stroll-shop-christmas-2026","mills","2026-12-05","www.goldthwaiteareachamber.com"],
+ ["hearne-downtown-christmas-parade-2026","robertson","2026-12-12","hearnechamber.com"],
+ ["plantersville-christmas-parade-2026","grimes","2026-12-05","cityofplantersville.net"],
+ ["bonham-home-for-holidays-christmas-market-2026","fannin","2026-12-05","bonhamchamber.com"],
+ ];
+ for(const [slug,county,date,host] of cases){
+   const item=events.find(s=>s.slug===slug);
+   assert.ok(item,"Missing organizer-verified 2026 holiday "+slug);
+   assert.equal(item.countySlug,county);
+   assert.equal(item.startDate,date);
+   assert.equal(item.sourceVerifiedAt,"2026-11-22");
+   assert.equal(new URL(item.officialEventUrl).hostname,host);
+   assert.ok(item.summary.length>=110);
+ }
+ assert.match(events.find(s=>s.slug===cases[1][0]).summary,/to be announced/);
+ assert.match(events.find(s=>s.slug===cases[2][0]).summary,/9:30 a.m./);
 });
