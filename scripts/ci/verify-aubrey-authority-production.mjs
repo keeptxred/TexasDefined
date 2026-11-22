@@ -37,7 +37,7 @@ function assertSsr(html,label) {
     'Bi-district · November 12','Area round · November 19',
     'Canyon led 36–7','Keith Ivy',
   ]) assert.ok(text.includes(marker),label+' missing '+marker);
-  for(const attr of ['data-aubrey-authority="2026"','Aubrey Chaparrals 2026 sourced season visual summary','/texas-high-school-football-teams/andrews','/texas-high-school-football-teams/canyon','https://www.aubreyisd.net/page/contact-us']) assert.ok(html.includes(attr),label+' missing '+attr);
+  for(const attr of ['data-aubrey-authority="2026"','Aubrey Chaparrals 2026 sourced season visual summary','/texas-high-school-football-teams/andrews','/texas-high-school-football-teams/canyon','https://www.aubreyisd.net/o/ahs']) assert.ok(html.includes(attr),label+' missing '+attr);
   assert.ok(!html.includes('https://www.texasfootball.com/team/aubrey-chaparrals'),label+' dead DCTF source remains');
   const title=html.match(/<title>([^<]+)<\/title>/i)?.[1]||'';
   assert.ok(title.includes('Aubrey Chaparrals Football 2026: 8–4'),label+' old title '+title);
