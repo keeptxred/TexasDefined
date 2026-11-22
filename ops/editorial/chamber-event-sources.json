@@ -655,6 +655,286 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "andrews-holly-jolly",
+      "organization": "Andrews Chamber of Commerce",
+      "countySlugs": [
+        "andrews"
+      ],
+      "homeUrl": "https://www.andrewstx.com/",
+      "calendarUrl": "https://www.andrewstx.com/holly-jolly-weekend/",
+      "contactPageUrl": "https://www.andrewstx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bandera-shoppers-jubilee",
+      "organization": "Bandera County Convention & Visitors Bureau",
+      "countySlugs": [
+        "bandera"
+      ],
+      "homeUrl": "https://www.banderacowboycapital.com/",
+      "calendarUrl": "https://www.banderacowboycapital.com/events/2026/shoppers-jubilee-weekend-in-bandera",
+      "contactPageUrl": "https://www.banderacowboycapital.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "gainesville-christmas-parade",
+      "organization": "Gainesville Area Chamber of Commerce",
+      "countySlugs": [
+        "cooke"
+      ],
+      "homeUrl": "https://gainesvillecofc.com/",
+      "calendarUrl": "https://gainesvillecofc.com/christmas-parade/",
+      "contactPageUrl": "https://gainesvillecofc.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pittsburg-official-festivals",
+      "organization": "City of Pittsburg Tourism",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://visit.pittsburgtx.gov/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/guides/pittsburgs-festivals",
+      "contactPageUrl": "https://visit.pittsburgtx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "paris-main-street",
+      "organization": "City of Paris Main Street",
+      "countySlugs": [
+        "lamar"
+      ],
+      "homeUrl": "https://www.paristexas.gov/",
+      "calendarUrl": "https://www.paristexas.gov/321/Events",
+      "contactPageUrl": "https://www.paristexas.gov/321/Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "orange-cvb-gumdrop-shop",
+      "organization": "City of Orange Convention & Visitors Bureau",
+      "countySlugs": [
+        "orange"
+      ],
+      "homeUrl": "https://orangetexas.gov/",
+      "calendarUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "contactPageUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "levelland-main-street",
+      "organization": "Levelland Main Street",
+      "countySlugs": [
+        "hockley"
+      ],
+      "homeUrl": "https://www.levellandtexas.org/",
+      "calendarUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "contactPageUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "wharton-chamber",
+      "organization": "Wharton Chamber of Commerce & Agriculture",
+      "countySlugs": [
+        "wharton"
+      ],
+      "homeUrl": "https://www.whartonchamber.com/",
+      "calendarUrl": "https://www.whartonchamber.com/",
+      "contactPageUrl": "https://www.whartonchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "jacksboro-city-christmas-parade",
+      "organization": "City of Jacksboro",
+      "countySlugs": [
+        "jack"
+      ],
+      "homeUrl": "https://www.cityofjacksboro.com/",
+      "calendarUrl": "https://www.cityofjacksboro.com/m/newsflash?cat=10",
+      "contactPageUrl": "https://www.cityofjacksboro.com/426/Community-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hemphill-lions-holiday",
+      "organization": "Hemphill Lions Club",
+      "countySlugs": [
+        "sabine"
+      ],
+      "homeUrl": "https://hemphilllionsclub.org/",
+      "calendarUrl": "https://hemphilllionsclub.org/parade/",
+      "contactPageUrl": "https://hemphilllionsclub.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hopkins-heritage-park-holiday",
+      "organization": "Hopkins County Museum and Heritage Park",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://hopkinsmuseum.org/",
+      "calendarUrl": "https://hopkinsmuseum.org/",
+      "contactPageUrl": "https://hopkinsmuseum.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bonham-chamber-christmas-2026",
+      "organization": "Bonham Area Chamber of Commerce",
+      "countySlugs": [
+        "fannin"
+      ],
+      "homeUrl": "https://bonhamchamber.com/",
+      "calendarUrl": "https://bonhamchamber.com/event/christmas-in-bonham-parade-hot-cocoa-hop/",
+      "contactPageUrl": "https://bonhamchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "delta-county-chamber-christmas-2026",
+      "organization": "Delta County Chamber of Commerce",
+      "countySlugs": [
+        "delta"
+      ],
+      "homeUrl": "https://deltacountychamber.com/",
+      "calendarUrl": "https://deltacountychamber.com/events/",
+      "contactPageUrl": "https://deltacountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "uvalde-chamber-christmas-2026",
+      "organization": "Uvalde Chamber of Commerce",
+      "countySlugs": [
+        "uvalde"
+      ],
+      "homeUrl": "https://chamber.uvalde.org/",
+      "calendarUrl": "https://chamber.uvalde.org/events/details/christmas-at-the-crossroads-10097",
+      "contactPageUrl": "https://www.uvalde.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "shelby-chamber-christmas-parade",
+      "organization": "Shelby County Chamber of Commerce",
+      "countySlugs": [
+        "shelby"
+      ],
+      "homeUrl": "https://shelbycountychamber.com/",
+      "calendarUrl": "https://shelbycountychamber.com/chamber-events/",
+      "contactPageUrl": "https://shelbycountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "plantersville-official-community-calendar",
+      "organization": "City of Plantersville",
+      "countySlugs": [
+        "grimes"
+      ],
+      "homeUrl": "https://cityofplantersville.net/",
+      "calendarUrl": "https://cityofplantersville.net/community-calendar-events-1",
+      "contactPageUrl": "https://cityofplantersville.net/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hillsboro-chamber-community-calendar",
+      "organization": "Hillsboro Chamber of Commerce",
+      "countySlugs": [
+        "hill"
+      ],
+      "homeUrl": "https://hillsborochamber.org/",
+      "calendarUrl": "https://hillsborochamber.org/2026/04/06/events-on-the-hillsboro-calendar-for-the-week-of-april-6th-2026/",
+      "contactPageUrl": "https://hillsborochamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "canton-main-street-christmas",
+      "organization": "Canton Main Street Program",
+      "countySlugs": [
+        "van-zandt"
+      ],
+      "homeUrl": "https://www.cantonmainstreet.org/",
+      "calendarUrl": "https://www.cantonmainstreet.org/christmas",
+      "contactPageUrl": "https://www.cantonmainstreet.org/christmas",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "san-saba-chamber-lighted-parade",
+      "organization": "San Saba County Chamber of Commerce",
+      "countySlugs": [
+        "san-saba"
+      ],
+      "homeUrl": "https://www.sansabachamber.com/",
+      "calendarUrl": "https://www.sansabachamber.com/events/13th-annual-sip-n-stroll-lighted-christmas-parade/",
+      "contactPageUrl": "https://www.sansabachamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "athens-city-2026-christmas",
+      "organization": "City of Athens",
+      "countySlugs": [
+        "henderson"
+      ],
+      "homeUrl": "https://www.athenstx.gov/",
+      "calendarUrl": "https://www.athenstx.gov/m/newsflash/home/detail/242",
+      "contactPageUrl": "https://www.athenstx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
