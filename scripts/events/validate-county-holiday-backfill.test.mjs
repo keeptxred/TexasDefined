@@ -9,6 +9,12 @@ const registry = JSON.parse(fs.readFileSync("ops/editorial/chamber-event-sources
 const match = source.match(/= (\[[\s\S]*?\]);/);
 if (!match) throw new Error("County Christmas backfill must be a source-auditable JSON literal");
 const events = JSON.parse(match[1]);
+const countiesFile = fs.readFileSync("src/data/texas-places.ts", "utf8");
+const countyNames = countiesFile.match(/const COUNTY_NAMES = `([^`]+)`\.split\('\|'\)/)?.[1]?.split("|");
+if (!countyNames || countyNames.length !== 254) throw new Error("Canonical 254 Texas county names missing");
+const canonicalCountyNameBySlug = new Map(countyNames.map(name => [
+  name.toLowerCase().replace(/[^a-z0-9]+/g, "-"), name + " County",
+]));
 
 test("source-verified county holiday additions are unique and present in the global calendar", () => {
   assert.ok(manifest.includes("import { verifiedCountyChristmasEvents2026 } from \"./christmas-community-2026-county-backfill.server\";"));
@@ -27,7 +33,7 @@ test("source-verified county holiday additions are unique and present in the glo
     const sourceUrl = new URL(event.officialEventUrl);
     assert.equal(sourceUrl.protocol, "https:");
     assert.ok(!/facebook\.com|eventbrite\.com|ticketmaster\.com/.test(sourceUrl.hostname));
-    assert.ok(event.sourceName && event.venueName && event.countyName === event.countySlug[0].toUpperCase() + event.countySlug.slice(1) + " County");
+    assert.ok(event.sourceName && event.venueName && canonicalCountyNameBySlug.get(event.countySlug) === event.countyName, `${event.slug}: county display name must match canonical multiword Texas county`);
     assert.ok(!event.summary.includes("2027 dates"), "Cannot imply an unannounced next season");
   }
 });
