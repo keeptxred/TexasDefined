@@ -146,6 +146,21 @@ for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflo
   if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
 }
 
+// The published coordinate index is the source of every plotted marker and map link.
+const rawAccess = lazyRoute.match(/const plottedPaddlingAccess = (\[[\s\S]*?\n\]) as const;/);
+try {
+  if (!rawAccess) throw new Error("No access-point records");
+  const groups = JSON.parse(rawAccess[1]);
+  const expectedCounts = [10, 8, 3, 1, 4];
+  if (groups.length !== 5 || groups.some((group, index) => group.points.length !== expectedCounts[index])) throw new Error("Missing TPWD access-point group or entries");
+  const points = groups.flatMap(group => group.points);
+  if (new Set(points.map(point => point.coordinate)).size !== 26 ||
+      points.some(point => !/^\d{2}\.\d{4}, -\d{2}\.\d{4}$/.test(point.coordinate))) throw new Error("Missing or malformed decimal access coordinates");
+  if (!lazyRoute.includes('plottedPaddlingAccess.map((group)') || !lazyRoute.includes('numbered access point locations') || !lazyRoute.includes('labelX:') || !lazyRoute.includes('labelY:')) throw new Error("The responsive map must render every group with separated marker callouts");
+} catch (error) {
+  errors.push('Paddling access diagram: ' + error.message);
+}
+
 if (errors.length) {
   console.error('Texas paddling authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
