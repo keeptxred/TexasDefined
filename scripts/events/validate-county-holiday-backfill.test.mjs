@@ -55,6 +55,7 @@ test("county official calendars are tracked on the robot-respecting review sched
     erath:"2026-11-28",
     wichita:"2026-12-05",
     panola:"2026-12-01",
+    "san-augustine":"2026-12-04",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -123,4 +124,21 @@ test("Erath, Wichita, Panola 2026 holiday additions are first-party date-specifi
   assert.notEqual(events.find(e=>e.slug===cases[0][0]).startDate,
     events.find(e=>e.slug===cases[1][0]).startDate,
     "Stephenville 2026 holiday festivals have different dates; never join them into an invented window");
+});
+
+test("San Augustine 2026 Christmas market and downtown parade remain separate verified organizer dates", () => {
+  const cases = [
+    ["san-augustine-christmas-market-days-2026","2026-12-04","2026-12-05"],
+    ["san-augustine-main-street-christmas-parade-2026","2026-12-04",undefined],
+  ];
+  for (const [slug, date, end] of cases) {
+    const item = events.find(event => event.slug === slug);
+    assert.ok(item, "Missing main-street holiday occurrence "+slug);
+    assert.equal(item.countySlug,"san-augustine");
+    assert.equal(item.startDate,date);
+    assert.equal(item.endDate,end);
+    assert.equal(item.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(item.officialEventUrl).hostname,"visitsanaugustinetx.org");
+    assert.match(item.sourceName,/San Augustine Main Street/);
+  }
 });
