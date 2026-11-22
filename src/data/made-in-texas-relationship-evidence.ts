@@ -162,5 +162,33 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "Tacodeli",
     "sourceUrl": "https://www.tacodeli.com/story/",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Kendra Scott",
+    "claim": "The University of Texas at Austin identifies the jewelry company as headquartered in Austin.",
+    "sourceLabel": "UT Austin entrepreneurship institute",
+    "sourceUrl": "https://kswelinstitute.utexas.edu/about-kendra-scott/",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Franklin Barbecue",
+    "claim": "Aaron and Stacy Franklin opened their original Austin barbecue trailer in 2009.",
+    "sourceLabel": "Franklin Barbecue",
+    "sourceUrl": "https://franklinbbq.com/about",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "American Airlines",
+    "claim": "American Airlines lists its corporate headquarters at 1 Skyview Drive, Fort Worth.",
+    "sourceLabel": "American Airlines",
+    "sourceUrl": "https://www.aa.com/web/i18n/customer-service/about-us/corporate-structure.html",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Bell Textron",
+    "claim": "Bell lists Fort Worth as its global headquarters, with engineering and test laboratories among the campus functions.",
+    "sourceLabel": "Bell",
+    "sourceUrl": "https://www.bellflight.com/visitors/hq",
+    "checkedAt": "2026-11-21"
   }
 ];
