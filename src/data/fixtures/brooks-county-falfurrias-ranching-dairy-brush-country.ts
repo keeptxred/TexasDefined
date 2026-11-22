@@ -8,7 +8,7 @@ export const brooksCountyFalfurriasRanchingDairyBrushCountryArticle: Article = {
   brandId: "texasdefined",
   slug: "brooks-county-falfurrias-ranching-dairy-brush-country-texas",
   title: "Brooks County: Falfurrias, Ranching, Dairy Country and the South Texas Brush",
-  dek: "Brooks County is a South Texas crossroads where Falfurrias, historic ranches, Jersey dairy traditions, oil and gas, thornscrub and the long U.S. 281 corridor tell a story shaped by water, cattle and distance.",
+  dek: "How Falfurrias' 1914 Alfred Giles courthouse survived, why south Brooks County became Jim Hogg County in 1913, and how its 2010 restoration preserved public history.",
   category: "texas-history",
   region: "south-texas",
   hero: {
@@ -20,7 +20,8 @@ export const brooksCountyFalfurriasRanchingDairyBrushCountryArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-18",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Brooks County",
     "Falfurrias",
@@ -77,6 +78,21 @@ export const brooksCountyFalfurriasRanchingDairyBrushCountryArticle: Article = {
     p("County offices initially operated from rented quarters. In 1914 Brooks County completed the brick courthouse that still anchors Falfurrias. The Texas Historical Commission identifies San Antonio architect Alfred Giles as the designer. Its Classical Revival composition, arched windows and formal portico gave the young county a civic landmark intended to convey permanence and public authority."),
     p("The courthouse later underwent a major restoration through the Texas Historic Courthouse Preservation Program. Today it remains one of Falfurrias's clearest visual landmarks and a useful starting point for understanding the town. It also stands on land Edward C. Lasater deeded for county use, tying the building directly to the era when Falfurrias and Brooks County were being created."),
 
+    h("The 1914 courthouse is the first and only purpose-built Brooks County Courthouse"),
+    p("Brooks County did not exist before 1911. The Texas Legislature separated it from Starr County and named it for state legislator James Abijah Brooks, who became its first county judge. Edward C. Lasater, the rancher and dairy entrepreneur who developed Falfurrias, donated land for the courthouse square, but county offices initially occupied rented rooms while the new government organized."),
+    p("In 1914 Brooks County commissioned San Antonio architect Alfred Giles to design a Classical Revival brick courthouse. Its two-story portico and formal public entrances gave the newly formed county a permanent identity; it is the only courthouse building constructed expressly for Brooks County, unlike counties with several courthouse fires and replacements."),
+    p("The Texas Historical Commission's historical marker identifies Lasater's land donation, the original leased offices and Giles's 1914 design. The building eventually received extensive preservation work through the Texas Historic Courthouse Preservation Program, with a public rededication February 26, 2010. This is a restoration of the 1914 building, not the creation of a new courthouse in 2010."),
+
+    h("Jim Hogg County's 1913 separation was a political challenge to Lasater"),
+    p("The courthouse project cannot be separated from local political history. Before the Falfurrias courthouse was completed, residents in the southern part of the county petitioned to form Jim Hogg County in 1913. Architectural historians describe resistance to the influence of Lasater's ranch and town interests as part of that movement."),
+    p("The division changed the geography of land, county services and representation in South Texas. It also affected the region's Tejano and ranching communities, whose local identity preceded the new counties. A guide that simply celebrates Lasater as the town's founder risks omitting the politics behind the boundaries and public building."),
+    p("For visitors, the courthouse and Brooks County Historical Museum are complementary institutions. The courthouse remains associated with legal service; local museums may show older ranch and dairy artifacts, but current hours must come from their stewards."),
+
+    h("Brooks County courthouse questions"),
+    p("Who designed the courthouse in Falfurrias? Alfred Giles, in 1914."),
+    p("Was the courthouse built after a fire? No. Brooks County was newly established in 1911 and had not previously had a permanent county courthouse."),
+    p("When was its preservation restoration rededicated? February 26, 2010."),
+    p("Why did Jim Hogg County separate in 1913? South county residents sought their own government amid conflicts over regional political and economic influence."),
     h("Jersey cattle made Falfurrias famous far beyond South Texas"),
     p("Lasater's most distinctive agricultural experiment was not beef cattle but dairy cattle. He developed a major herd of registered Jerseys, valued for milk with high butterfat content, and established a creamery in Falfurrias. The operation helped give the town a reputation unusual for a hot, semi-arid ranching region."),
     p("Falfurrias butter became a widely recognized regional product, and the dairy story remains one of the county's strongest cultural signatures. It shows how ranchers could adapt the South Texas cattle economy rather than simply repeat the open-range beef model. The Jersey enterprise also connected breeding, marketing, rail transport and local processing in a way that brought more value into the community."),
@@ -132,5 +148,13 @@ export const brooksCountyFalfurriasRanchingDairyBrushCountryArticle: Article = {
     h("What defines Brooks County"),
     p("Brooks County is defined by adaptation to South Texas conditions. Tejano ranchers worked the land before county lines existed. Lasater used railroads and cattle breeding to build a town and dairy industry. Farmers experimented with irrigation, petroleum producers tapped resources beneath ranches, and highways replaced railroads as the main transportation system. Through every change, water, brush, heat and distance continued to set the terms."),
     p("Falfurrias gives that story a center: a restored courthouse, a famous dairy legacy, a railroad origin and a highway role that links the Coastal Bend with the Rio Grande Valley. Beyond town, the ranch country remains the county's defining landscape. Together they make Brooks County one of the clearest places to understand how modern South Texas grew from older ranching traditions without ever completely leaving them behind."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Brooks County Courthouse official marker", url: "https://atlas.thc.texas.gov/Details/5047000523" },
+    { label: "City of Falfurrias — courthouse history and architect Alfred Giles", url: "https://www.falfurrias.us/172/Brooks-County-Court-House" },
+    { label: "Society of Architectural Historians — 1913 Jim Hogg separation and courthouse restoration", url: "https://sah-archipedia.org/buildings/TX-01-KA16" },
+    { label: "National Park Service — Brooks County Courthouse NRHP listing", url: "https://npgallery.nps.gov/AssetDetail/NRIS/12000193" },
+    { label: "Texas Historical Commission — courthouse preservation program", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/brooks-county" },
+    { label: "Handbook of Texas — Brooks County ranching and county formation", url: "https://www.tshaonline.org/handbook/entries/brooks-county" },
   ],
 };
