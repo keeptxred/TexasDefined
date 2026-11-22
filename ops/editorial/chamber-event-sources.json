@@ -3260,6 +3260,126 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "borden-county-public-calendar",
+      "organization": "Borden County government official calendar and event-center information",
+      "countySlugs": [
+        "borden"
+      ],
+      "homeUrl": "https://www.co.borden.tx.us/",
+      "calendarUrl": "https://www.co.borden.tx.us/page/calendar",
+      "contactPageUrl": "https://www.co.borden.tx.us/page/Event.Center",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "carson-county-city-news",
+      "organization": "Carson County government public notices and community research desk",
+      "countySlugs": [
+        "carson"
+      ],
+      "homeUrl": "https://www.co.carson.tx.us/",
+      "calendarUrl": "https://www.co.carson.tx.us/",
+      "contactPageUrl": "https://www.co.carson.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "cochran-county-events",
+      "organization": "Cochran County government public notices and historic-community contact",
+      "countySlugs": [
+        "cochran"
+      ],
+      "homeUrl": "https://www.co.cochran.tx.us/",
+      "calendarUrl": "https://www.co.cochran.tx.us/page/cochran.PublicNotices",
+      "contactPageUrl": "https://www.co.cochran.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "cottle-county-government",
+      "organization": "Cottle County official community and public notices",
+      "countySlugs": [
+        "cottle"
+      ],
+      "homeUrl": "https://www.cottlecountytx.gov/",
+      "calendarUrl": "https://www.cottlecountytx.gov/",
+      "contactPageUrl": "https://www.cottlecountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "glasscock-county-agrilife",
+      "organization": "Glasscock County Texas A&M AgriLife Extension local community events",
+      "countySlugs": [
+        "glasscock"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/glasscock-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/glasscock-county/",
+      "contactPageUrl": "https://www.co.glasscock.tx.us/page/CommCenter",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "hudspeth-county-government",
+      "organization": "Hudspeth County official event permits and civic notice contact",
+      "countySlugs": [
+        "hudspeth"
+      ],
+      "homeUrl": "https://www.co.hudspeth.tx.us/",
+      "calendarUrl": "https://www.co.hudspeth.tx.us/",
+      "contactPageUrl": "https://www.co.hudspeth.tx.us/page/CountyDirectory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "irion-county-mertzon",
+      "organization": "City of Mertzon public visitor/community office",
+      "countySlugs": [
+        "irion"
+      ],
+      "homeUrl": "https://www.mertzontexas.com/",
+      "calendarUrl": "https://www.mertzontexas.com/",
+      "contactPageUrl": "https://www.mertzontexas.com/buisness-directory",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
+    },
+    {
+      "id": "loving-county-government",
+      "organization": "Loving County official county civic notices and local contact",
+      "countySlugs": [
+        "loving"
+      ],
+      "homeUrl": "https://www.co.loving.tx.us/",
+      "calendarUrl": "https://www.co.loving.tx.us/page/loving.Home",
+      "contactPageUrl": "https://www.co.loving.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     }
   ]
 }
