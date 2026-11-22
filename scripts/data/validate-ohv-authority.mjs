@@ -127,6 +127,10 @@ for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflo
   if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
 }
 
+for (const marker of ["888-361-6908", "nonrefundable Recreation.gov pass", "East Side Trailhead via Forest Road 233", "West Side via Forest Road 208", "Forest Road 234 equestrian trailhead is not an OHV entrance", "register the trailhead vehicle plate"]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing specific federal rider, payment or staging guidance: ' + marker);
+}
+
 if (errors.length) {
   console.error('Texas OHV authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
