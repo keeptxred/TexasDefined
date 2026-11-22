@@ -655,6 +655,118 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "andrews-holly-jolly",
+      "organization": "Andrews Chamber of Commerce",
+      "countySlugs": [
+        "andrews"
+      ],
+      "homeUrl": "https://www.andrewstx.com/",
+      "calendarUrl": "https://www.andrewstx.com/holly-jolly-weekend/",
+      "contactPageUrl": "https://www.andrewstx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bandera-shoppers-jubilee",
+      "organization": "Bandera County Convention & Visitors Bureau",
+      "countySlugs": [
+        "bandera"
+      ],
+      "homeUrl": "https://www.banderacowboycapital.com/",
+      "calendarUrl": "https://www.banderacowboycapital.com/events/2026/shoppers-jubilee-weekend-in-bandera",
+      "contactPageUrl": "https://www.banderacowboycapital.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "gainesville-christmas-parade",
+      "organization": "Gainesville Area Chamber of Commerce",
+      "countySlugs": [
+        "cooke"
+      ],
+      "homeUrl": "https://gainesvillecofc.com/",
+      "calendarUrl": "https://gainesvillecofc.com/christmas-parade/",
+      "contactPageUrl": "https://gainesvillecofc.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pittsburg-official-festivals",
+      "organization": "City of Pittsburg Tourism",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://visit.pittsburgtx.gov/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/guides/pittsburgs-festivals",
+      "contactPageUrl": "https://visit.pittsburgtx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "paris-main-street",
+      "organization": "City of Paris Main Street",
+      "countySlugs": [
+        "lamar"
+      ],
+      "homeUrl": "https://www.paristexas.gov/",
+      "calendarUrl": "https://www.paristexas.gov/321/Events",
+      "contactPageUrl": "https://www.paristexas.gov/321/Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "orange-cvb-gumdrop-shop",
+      "organization": "City of Orange Convention & Visitors Bureau",
+      "countySlugs": [
+        "orange"
+      ],
+      "homeUrl": "https://orangetexas.gov/",
+      "calendarUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "contactPageUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "levelland-main-street",
+      "organization": "Levelland Main Street",
+      "countySlugs": [
+        "hockley"
+      ],
+      "homeUrl": "https://www.levellandtexas.org/",
+      "calendarUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "contactPageUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "wharton-chamber",
+      "organization": "Wharton Chamber of Commerce & Agriculture",
+      "countySlugs": [
+        "wharton"
+      ],
+      "homeUrl": "https://www.whartonchamber.com/",
+      "calendarUrl": "https://www.whartonchamber.com/",
+      "contactPageUrl": "https://www.whartonchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
