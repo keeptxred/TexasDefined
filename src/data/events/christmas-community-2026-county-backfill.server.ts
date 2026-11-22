@@ -334,5 +334,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "City of Plantersville",
   "summary": "The City of Plantersville's official community event page schedules the Christmas Parade for Saturday, December 5, 2026 at 10 a.m. The route begins near Plantersville Town Hall, follows FM 1774 to Highway 105 and loops back. Float participants are instructed to stage behind Town Hall at 9:30 a.m. Spectators should follow city traffic-control directions rather than assuming that FM 1774 stays open during the parade.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "hillsboro-lighted-christmas-parade-tree-lighting-2026",
+  "title": "Hillsboro Lighted Christmas Parade & Tree Lighting",
+  "city": "Hillsboro",
+  "countySlug": "hill",
+  "countyName": "Hill County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Historic downtown Hillsboro, Texas",
+  "officialEventUrl": "https://hillsborochamber.org/2026/04/06/events-on-the-hillsboro-calendar-for-the-week-of-april-6th-2026/",
+  "sourceName": "Hillsboro Chamber of Commerce",
+  "summary": "The Hillsboro Chamber of Commerce's official 2026 community-event schedule lists the Lighted Christmas Parade and Tree Lighting for Saturday, December 5, 2026 in downtown Hillsboro. The Chamber also lists Lake Whitney's Grinch Fest and Christmas Parade for the following Saturday, December 12, as a separate event. The December 5 notice does not give a final parade start time; verify the exact schedule, viewing route and road closures with Hillsboro Chamber or city before travel.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
