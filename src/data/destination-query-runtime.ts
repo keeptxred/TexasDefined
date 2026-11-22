@@ -280,11 +280,12 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     // preserving their existing precedence and historic-site protections.
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
-    .map(enforceFredericksburgJohnsonCityHeritageAuthority)
-    // A remote Comanche row must not outrank its source-verified editorial guide
-    // in listings while the canonical destination page shows the reviewed copy.
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  const improved = historicEnriched
+    .map(applyMagoffinHomeAuthority)
+    // Override only after ALL shared historic, town and corridor enrichments;
+    // leave their order and existing county/state-park contracts unchanged.
     .map((destination) => reviewedComancheCanonical(destination.slug) ?? destination);
-  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
