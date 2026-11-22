@@ -1,0 +1,17 @@
+{
+  "issue": 7233,
+  "page": "/event/boo-at-the-austin-zoo",
+  "updatedAt": "2026-11-22T22:09:39.511742Z",
+  "facts": [
+    {
+      "sourceUrl": "https://austinzoo.org/events-calendar/",
+      "sourceQuote": "October 2, 3, 9, 10, 16, 17, 23, 24 – Boo at the Zoo Nights",
+      "newCopy": "Austin Zoo listed eight nights for the 2026 edition. Check the official calendar for the next edition before making plans."
+    },
+    {
+      "sourceUrl": "https://austinzoo.org/events-calendar/",
+      "sourceQuote": "Location: 10808 Rawhide Trail, Austin, TX 78736",
+      "newCopy": "Austin Zoo is at 10808 Rawhide Trail, Austin, TX 78736."
+    }
+  ]
+}
