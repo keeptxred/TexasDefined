@@ -104,24 +104,24 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer confirms free Johnson City Lights Spectacular nightly from November 27, 2026 through January 3, 2027; lighting is from dusk (about 5:45 p.m.) until midnight. Courthouse and PEC lights run throughout the season, while Santa, rides and weekend programs have separately announced dates and weather limits.",
     venue: "Downtown Johnson City",
     officialUrl: "https://lightsspectacular.com/faqs",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "Christmas Lights Spectacular transforms Johnson City's compact downtown into a multi-week Hill Country holiday destination, combining nightly light displays with Santa visits, live entertainment, markets, hay rides, movies, church programs, Science Mill activities and year-end events.",
     planningSections: [
       {
         title: "The lights are the nightly constant",
-        body: "The organizer confirms November 27, 2026–January 3, 2027. Courthouse and PEC lights are the nightly attraction, while rides, Santa visits and special events operate on selected dates. Confirm opening hours directly with the organizer.",
+        body: "The free nightly display runs November 27–January 3, with lights around 5:45 p.m. until midnight. See the illuminated Blanco County Courthouse and the Pedernales Electric Cooperative oak trees. Allow roughly two to three hours for the main displays; rides and entertainment can extend the outing.",
       },
       {
         title: "Opening weekend has the biggest kickoff programming",
-        body: "Opening festivities are listed for November 27–28, 2026. Use the official events calendar for any parade, fireworks, Santa appearances or market dates instead of relying on a past edition.",
+        body: "Opening weekend festivities are scheduled November 27–28, 1–10 p.m. The nightly lights continue beyond the opening program. Check the current event calendar for the specific parade, market and Santa activities you want to attend.",
       },
       {
         title: "Choose a weekend by the special happenings",
-        body: "The official event calendar lists separate schedules for hayrides, carriage rides, Santa visits and local celebrations. Book special activities only against the current listing; the light-display season dates do not guarantee those attractions operate nightly.",
+        body: "Hayrides, carriage rides, ice skating and Santa visits follow separate schedules. The organizer suggests allowing four to six hours for a visit with food, rides and entertainment. Check the individual listing before committing to an activity; the lights season alone does not establish its operating hours.",
       },
       {
         title: "An overnight stay changes the experience",
-        body: "Because the main light experience begins after dark and the town's museums, shops and restaurants are daytime attractions, an overnight Johnson City stay lets visitors use both halves of the day without turning the trip into a late drive home.",
+        body: "For a quieter visit, choose a weeknight rather than opening weekend. Use the nonresidential street parking near the PEC display at 101 E. Pecan Drive and allow time to walk between that display and the courthouse. An overnight stay lets you combine daytime museums and shops with the evening lights without a late drive home.",
       },
     ],
     relatedLinks: [
