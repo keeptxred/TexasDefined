@@ -8,6 +8,9 @@ import {
 import {readEditorial} from './refresh-canyon-lake-results.mjs';
 
 const team=readEditorial(readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8'));
+const pending=structuredClone(team);
+delete pending.season.games.at(-1).result;
+pending.season.record='8–2 overall · 6–1 district (through Nov. 13)';
 const NOW=new Date('2026-11-21T15:00:00.000Z');
 const xml='<?xml version="1.0" encoding="UTF-8"?><rss><channel>'+
  '<item><title>Canyon Lake Hawks &amp; Calhoun football final - City News</title>'+
@@ -36,7 +39,7 @@ test('public URL restrictions and XML decoding protect metadata links',()=>{
   assert.equal(decodeXml('Hawks &#x2013; Calhoun &amp; Friends'),'Hawks – Calhoun & Friends');
 });
 test('district W-L and scores reconcile from actual completed games; no invented official ranking',()=>{
-  const result=scoreSnapshot(team,'2026-11-21');
+  const result=scoreSnapshot(pending,'2026-11-21');
   assert.equal(result.record,'8–2');
   assert.equal(result.districtRecord,'6–1');
   assert.equal(result.pointsFor,513);
@@ -45,11 +48,11 @@ test('district W-L and scores reconcile from actual completed games; no invented
   assert.deepEqual(result.due,[{date:'2026-11-20',opponent:'Port Lavaca Calhoun'}]);
   assert.equal(result.districtOfficialRank,null);
   assert.ok(result.recordMatchesAuthor);
-  const before=scoreSnapshot(team,'2026-11-20');
+  const before=scoreSnapshot(pending,'2026-11-20');
   assert.deepEqual(before.due,[]);
 });
 test('one independently confirmed final recalculates overall totals, not regular-season district standings',()=>{
-  const revised=structuredClone(team);
+  const revised=structuredClone(pending);
   revised.season.games.at(-1).result='W 28–21'; // TEST FIXTURE ONLY, not reported as a real score.
   const s=scoreSnapshot(revised,'2026-11-21');
   assert.equal(s.record,'9–2');
@@ -64,7 +67,7 @@ test('one independently confirmed final recalculates overall totals, not regular
 test('research report visibly separates discovery headlines, official links and authored records',()=>{
   const item={topic:'score',source:'News Reporter',title:'Canyon Lake & Calhoun football score',
     link:'https://news.example.com/canyon',publishedAt:'2026-11-21T08:00:00.000Z',origin:'google'};
-  const result=compileResearch({team,today:'2026-11-21',checkedAt:NOW.toISOString(),
+  const result=compileResearch({team:pending,today:'2026-11-21',checkedAt:NOW.toISOString(),
     headResults:REVIEW_PAGES.map(x=>({...x,status:200,available:true})),
     feeds:[{provider:'google',topic:'score',items:[item,item]},
       {provider:'bing',topic:'standings',items:[],error:'HTTP 403'}]});
@@ -82,12 +85,12 @@ test('research report visibly separates discovery headlines, official links and 
 });
 test('all source research is bounded and testable without fetching restricted score sites',async()=>{
   const seen=[],heads=[];
-  const summary=await research({team,today:'2026-11-21',clock:NOW,
+  const summary=await research({team:pending,today:'2026-11-21',clock:NOW,
     fetchFeed:async url=>{seen.push(url);return xml;},
     head:async ref=>{heads.push(ref.url);return {...ref,status:200,available:true};}});
-  assert.equal(seen.length,postGameSearchQueries(team,'2026-11-21').length*2);
-  assert.ok(seen.filter(u=>u.startsWith('https://news.google.com/rss/search')).length===postGameSearchQueries(team,'2026-11-21').length);
-  assert.ok(seen.filter(u=>u.startsWith('https://www.bing.com/news/search')).length===postGameSearchQueries(team,'2026-11-21').length);
+  assert.equal(seen.length,postGameSearchQueries(pending,'2026-11-21').length*2);
+  assert.ok(seen.filter(u=>u.startsWith('https://news.google.com/rss/search')).length===postGameSearchQueries(pending,'2026-11-21').length);
+  assert.ok(seen.filter(u=>u.startsWith('https://www.bing.com/news/search')).length===postGameSearchQueries(pending,'2026-11-21').length);
   assert.equal(heads.length,REVIEW_PAGES.length);
   assert.ok(heads.every(isSafePublicUrl));
   assert.equal(summary.articles.length,2);
@@ -96,7 +99,7 @@ test('all source research is bounded and testable without fetching restricted sc
   assert.equal(summary.searchFailures.length,0);
 });
 test('research outages are explicitly shown and never authorize an unverified final',async()=>{
-  const summary=await research({team,today:'2026-11-21',clock:NOW,
+  const summary=await research({team:pending,today:'2026-11-21',clock:NOW,
     fetchFeed:async()=>{throw Error('RSS unavailable');},
     head:async ref=>({...ref,status:null,available:false,error:'blocked'})});
   assert.equal(summary.articles.length,0);
@@ -107,8 +110,8 @@ test('research outages are explicitly shown and never authorize an unverified fi
 });
 
 test('the day after a game adds opponent-specific public final-score searches',()=>{
-  assert.equal(postGameSearchQueries(team,'2026-11-20').length,4);
-  const queries=postGameSearchQueries(team,'2026-11-21');
+  assert.equal(postGameSearchQueries(pending,'2026-11-20').length,4);
+  const queries=postGameSearchQueries(pending,'2026-11-21');
   assert.equal(queries.length,6);
   assert.ok(queries.some(q=>q.query.includes('Port Lavaca Calhoun')&&q.query.includes('2026-11-20')));
   assert.ok(queries.every(q=>q.topic==='score'||q.topic==='standings'));
@@ -125,4 +128,15 @@ test('headline score hints are clearly unverified and cannot publish results',()
   assert.equal(hints.length,2);
   assert.deepEqual(hints.map(h=>[h.hawksPoints,h.opponentPoints]),[[28,21],[28,21]]);
   assert.ok(hints.every(h=>h.verification==='unverified-headline-only'));
+});
+
+test('November 20 published final reconciles and is no longer overdue',()=>{
+  const result=scoreSnapshot(team,'2026-11-21');
+  assert.equal(result.record,'9–2');
+  assert.equal(result.districtRecord,'6–1');
+  assert.equal(result.pointsFor,546);
+  assert.equal(result.pointsAgainst,333);
+  assert.equal(result.completed,11);
+  assert.deepEqual(result.due,[]);
+  assert.ok(result.recordMatchesAuthor);
 });

@@ -98,7 +98,7 @@ test('real inventory retains only source-dated record candidates and identifies 
   const r=inventory({today:'2026-11-21'});
   assert.ok(r.summary.affectedPages>10,r.summary.affectedPages);
   assert.ok(r.summary.unverifiedFixtures>20,r.summary.unverifiedFixtures);
-  assert.ok(r.pages.some(p=>p.page.endsWith('/comal-canyon-lake')&&p.overdue.some(g=>g.date==='2026-11-20')));
+  assert.ok(!r.pages.some(p=>p.page.endsWith('/comal-canyon-lake')&&p.overdue.some(g=>g.date==='2026-11-20')), 'Independently sourced Canyon Lake final no longer overdue');
   assert.ok(r.summary.overduePages<=r.summary.affectedPages);
   assert.ok(r.pages.every(p=>p.overdue.length||p.reason==='dated-score-review'||p.reason==='dated-standings-review'));
 });

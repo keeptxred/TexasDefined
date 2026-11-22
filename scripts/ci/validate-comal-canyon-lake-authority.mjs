@@ -80,10 +80,13 @@ assert.match(team.season.record, new RegExp(wins.length+'–'+losses.length+' ov
 assert.match(team.season.recordLabel, hasAreaFinal ? /through November 20, 2026/ : /through Nov\. 13/);
 assert.ok(team.season.verifiedAt >= '2026-11-19');
 if(hasAreaFinal){
-  assert.match(team.season.sourceLabel,/two independent authorized JSON feeds/);
+  assert.match(team.season.sourceLabel,/San Antonio Express-News and Dave Campbell's Texas Football/);
+  assert.equal(areaFinal.result,'W 33–26');
+  assert.equal(team.season.verifiedAt,'2026-11-21');
   assert.match(team.season.sourceLabel,/Port Lavaca Calhoun/);
   assert.match(team.intro,/independently corroborated final/);
-  assert.match(team.faq[2].answer,/Both authorized result providers agreed/);
+  assert.match(team.faq[2].answer,/Comal Davenport/);
+  assert.match(team.faq[2].answer,/verify date, kickoff, venue and tickets/);
 }else{
   assert.equal(team.season.verifiedAt,'2026-11-19');
   assert.match(team.season.sourceLabel,/schedule updated Nov\. 19, 2026 at 15:58 UTC/);

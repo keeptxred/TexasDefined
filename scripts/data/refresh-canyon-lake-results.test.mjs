@@ -35,8 +35,8 @@ test('both independent authorized provider finals produce exactly one update',()
   assert.match(amended.season.record,/9–2 overall · 6–1 district/);
   assert.match(amended.overview[4],/541 points for and 328 against/);
   assert.match(amended.faq[2].answer,/independently confirmed|Both authorized result providers agreed/);
-  assert.equal(amended.milestones.at(-1).date,'November 20, 2026');
-  assert.equal(amended.milestones.at(-1).sourceUrl,'https://'+primaryHost+'/2026/hawks/calhoun');
+  assert.equal(amended.milestones.find(m=>m.date==='November 20, 2026').date,'November 20, 2026');
+  assert.equal(amended.milestones.find(m=>m.date==='November 20, 2026').sourceUrl,'https://'+primaryHost+'/2026/hawks/calhoun');
   assert.match(amended.season.sourceLabel,/licensed-score-two\.example\.net/);
   assert.equal(pending.season.games.at(-1).result,undefined,'Never mutate the authored source until committed');
 });

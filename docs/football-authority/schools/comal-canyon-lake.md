@@ -1,7 +1,10 @@
 # Canyon Lake Hawks 2026 — source dossier and authority release gate
 
 **Canonical:** https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake  
-**Latest editorial research:** November 19, 2026. **Status:** research-authored and source-linked; deployment and live Chrome certification must be validated separately. Replaces the outdated October 29 generic Batch011 dossier.
+**Latest editorial research:** November 21, 2026. **Status:** research-authored and source-linked; deployment and live Chrome certification must be validated separately. Replaces the outdated October 29 generic Batch011 dossier.
+
+## November 21 postgame correction (supersedes the dated November 19/20 preview below)
+Canyon Lake defeated Port Lavaca Calhoun 33–26 on November 20, independently confirmed by [San Antonio Express-News](https://www.expressnews.com/sports/high-school/article/football-playoff-scores-area-round-san-antonio-22541077.php), [MaxPreps game report](https://www.maxpreps.com/tx/football/game/calhoun-port-lavaca-vs-canyon-lake-fischer/11-20-2026/?c=4da41579-fe21-4a92-bcf5-8f7b64d0ccce) and [Dave Campbell's Texas Football](https://www.davecampbells.com/articles/2026/11/07/txhsfb-playoffs-game-times-and-locations). The record is 9–2 overall, 6–1 district, eleven finals, 546 points for and 333 against (+213), eight consecutive wins. Davenport is the confirmed regional-semifinal opponent. Dave Campbell's lists Friday at 3 p.m. at Warrior Coliseum; school confirmation of date, kickoff, venue and tickets remains outstanding. Do not present the November 20 host ticket notice as active. The next-day research schedule remains intact; no automatic publication.
 
 ## School and program facts
 - **Identity:** Canyon Lake High School Hawks, Comal ISD, Fischer in Comal County. The campus is at 8555 FM 32, but that postal address is not a verified stadium entrance. [Texas School Report Cards](https://txschools.gov/?id=046902003&view=school).
