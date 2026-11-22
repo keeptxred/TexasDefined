@@ -935,6 +935,76 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "clifton-visit-christmas",
+      "organization": "Clifton Chamber and Economic Development (Visit Clifton)",
+      "countySlugs": [
+        "bosque"
+      ],
+      "homeUrl": "https://visitclifton.org/",
+      "calendarUrl": "https://visitclifton.org/events/",
+      "contactPageUrl": "https://visitclifton.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "main-street-texarkana-2026",
+      "organization": "Main Street Texarkana",
+      "countySlugs": [
+        "bowie"
+      ],
+      "homeUrl": "https://www.mainstreettexarkana.org/",
+      "calendarUrl": "https://www.mainstreettexarkana.org/main-street-events",
+      "contactPageUrl": "https://www.mainstreettexarkana.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-alpine-christmas-program",
+      "organization": "Visit Alpine / City of Alpine",
+      "countySlugs": [
+        "brewster"
+      ],
+      "homeUrl": "https://visitalpinetx.com/",
+      "calendarUrl": "https://visitalpinetx.com/christmas/",
+      "contactPageUrl": "https://visitalpinetx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-goliad-christmas",
+      "organization": "Visit Goliad Tourism",
+      "countySlugs": [
+        "goliad"
+      ],
+      "homeUrl": "https://www.visitgoliad.com/",
+      "calendarUrl": "https://www.visitgoliad.com/event-list",
+      "contactPageUrl": "https://www.visitgoliad.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "archer-city-visitor-center",
+      "organization": "Archer City Visitor Center",
+      "countySlugs": [
+        "archer"
+      ],
+      "homeUrl": "https://visitarchercity.com/",
+      "calendarUrl": "https://visitarchercity.com/attractions-list/",
+      "contactPageUrl": "https://visitarchercity.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
