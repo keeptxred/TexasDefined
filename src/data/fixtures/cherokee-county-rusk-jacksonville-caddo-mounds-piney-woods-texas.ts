@@ -21,7 +21,7 @@ export const cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   updatedAt: "2026-11-22",
-  readingMinutes: 24,
+  readingMinutes: 25,
   tags: [
     "Cherokee County",
     "Rusk Texas",
