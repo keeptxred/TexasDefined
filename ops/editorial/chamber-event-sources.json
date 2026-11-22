@@ -1971,6 +1971,594 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "linden-cass-chamber",
+      "organization": "Linden Area Chamber of Commerce",
+      "countySlugs": [
+        "cass"
+      ],
+      "homeUrl": "https://www.lindentxchamber.org/",
+      "calendarUrl": "https://www.lindentxchamber.org/",
+      "contactPageUrl": "https://www.lindentxchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "marion-jefferson-chamber",
+      "organization": "Marion County Chamber of Commerce / Visit Jefferson",
+      "countySlugs": [
+        "marion"
+      ],
+      "homeUrl": "https://www.jeffersontxchamber.org/",
+      "calendarUrl": "https://www.jeffersontxchamber.org/events",
+      "contactPageUrl": "https://www.jeffersontxchamber.org/submit",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "boerne-kendall-chamber",
+      "organization": "Greater Boerne Chamber of Commerce",
+      "countySlugs": [
+        "kendall"
+      ],
+      "homeUrl": "https://www.boerne.org/",
+      "calendarUrl": "https://business.boerne.org/events/calendar/",
+      "contactPageUrl": "https://www.boerne.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "corsicana-navarro-chamber",
+      "organization": "Corsicana and Navarro County Chamber of Commerce",
+      "countySlugs": [
+        "navarro"
+      ],
+      "homeUrl": "https://www.corsicana.org/",
+      "calendarUrl": "https://www.corsicana.org/events/calendar",
+      "contactPageUrl": "https://www.corsicana.org/events/public-submission",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "san-angelo-chamber",
+      "organization": "San Angelo Chamber of Commerce",
+      "countySlugs": [
+        "tom-green"
+      ],
+      "homeUrl": "https://www.sanangelo.org/",
+      "calendarUrl": "https://members.sanangelo.org/communitycalendar",
+      "contactPageUrl": "https://www.sanangelo.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "sweetwater-nolan-chamber",
+      "organization": "Sweetwater & Nolan County Chamber of Commerce",
+      "countySlugs": [
+        "nolan"
+      ],
+      "homeUrl": "https://sweetwatertexas.org/",
+      "calendarUrl": "https://sweetwatertexas.org/events/",
+      "contactPageUrl": "https://sweetwatertexas.org/chamberinfo/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "eagle-pass-chamber",
+      "organization": "Eagle Pass Chamber of Commerce",
+      "countySlugs": [
+        "maverick"
+      ],
+      "homeUrl": "https://www.eaglepasschamber.com/",
+      "calendarUrl": "https://www.eaglepasschamber.com/community-events/",
+      "contactPageUrl": "https://www.eaglepasschamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "mt-pleasant-titus-chamber",
+      "organization": "Mount Pleasant/Titus County Chamber of Commerce",
+      "countySlugs": [
+        "titus"
+      ],
+      "homeUrl": "https://www.mtpleasanttx.com/",
+      "calendarUrl": "https://business.mtpleasanttx.com/events/calendar/",
+      "contactPageUrl": "https://www.mtpleasanttx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "monahans-ward-chamber",
+      "organization": "Monahans Chamber of Commerce",
+      "countySlugs": [
+        "ward"
+      ],
+      "homeUrl": "https://www.monahans.org/",
+      "calendarUrl": "https://www.monahans.org/events",
+      "contactPageUrl": "https://www.monahans.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "brady-mcculloch-chamber",
+      "organization": "Brady/McCulloch County Chamber of Commerce",
+      "countySlugs": [
+        "mcculloch"
+      ],
+      "homeUrl": "https://www.bradytx.com/",
+      "calendarUrl": "https://www.bradytx.com/",
+      "contactPageUrl": "https://www.bradytx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "lampasas-county-chamber",
+      "organization": "Lampasas County Chamber of Commerce",
+      "countySlugs": [
+        "lampasas"
+      ],
+      "homeUrl": "https://www.lampasaschamber.org/",
+      "calendarUrl": "https://business.lampasaschamber.org/events/calendar/",
+      "contactPageUrl": "https://www.lampasaschamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "llano-chamber",
+      "organization": "Llano Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "llano"
+      ],
+      "homeUrl": "https://www.llanochamber.org/",
+      "calendarUrl": "https://www.llanochamber.org/-calendar",
+      "contactPageUrl": "https://www.llanochamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hondo-medina-chamber",
+      "organization": "Hondo Area Chamber of Commerce",
+      "countySlugs": [
+        "medina"
+      ],
+      "homeUrl": "https://www.hondochamber.org/",
+      "calendarUrl": "https://www.hondochamber.org/calendar",
+      "contactPageUrl": "https://www.hondochamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "jasper-lake-sam-rayburn-chamber",
+      "organization": "Jasper Lake Sam Rayburn Chamber of Commerce",
+      "countySlugs": [
+        "jasper"
+      ],
+      "homeUrl": "https://jaspercoc.org/",
+      "calendarUrl": "https://jaspercoc.org/",
+      "contactPageUrl": "https://jaspercoc.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "glen-rose-somervell-chamber",
+      "organization": "Glen Rose/Somervell County Chamber of Commerce",
+      "countySlugs": [
+        "somervell"
+      ],
+      "homeUrl": "https://glenrosechamber.org/",
+      "calendarUrl": "https://business.glenrosechamber.org/events",
+      "contactPageUrl": "https://glenrosechamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "fairfield-freestone-chamber",
+      "organization": "Fairfield Chamber of Commerce",
+      "countySlugs": [
+        "freestone"
+      ],
+      "homeUrl": "https://www.fairfieldtexaschamber.com/",
+      "calendarUrl": "https://www.fairfieldtexaschamber.com/events",
+      "contactPageUrl": "https://www.fairfieldtexaschamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-san-augustine",
+      "organization": "Visit San Augustine and Main Street community tourism",
+      "countySlugs": [
+        "san-augustine"
+      ],
+      "homeUrl": "https://visitsanaugustinetx.org/",
+      "calendarUrl": "https://visitsanaugustinetx.org/event/",
+      "contactPageUrl": "https://www.cityofsanaugustinetx.gov/mainst",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "rockdale-milam-chamber",
+      "organization": "Rockdale Chamber of Commerce",
+      "countySlugs": [
+        "milam"
+      ],
+      "homeUrl": "https://www.rockdalechamber.org/",
+      "calendarUrl": "https://www.rockdalechamber.org/",
+      "contactPageUrl": "https://www.rockdalechamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "carthage-panola-main-street",
+      "organization": "Carthage Main Street program",
+      "countySlugs": [
+        "panola"
+      ],
+      "homeUrl": "https://www.carthagetexasmainstreet.us/",
+      "calendarUrl": "https://www.carthagetexasmainstreet.us/calendar",
+      "contactPageUrl": "https://www.carthagetexasmainstreet.us/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pampa-gray-chamber",
+      "organization": "Pampa Chamber of Commerce",
+      "countySlugs": [
+        "gray"
+      ],
+      "homeUrl": "https://www.pampachamber.com/",
+      "calendarUrl": "https://business.pampachamber.com/community-events",
+      "contactPageUrl": "https://www.pampachamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "silsbee-hardin-chamber",
+      "organization": "Silsbee Chamber of Commerce",
+      "countySlugs": [
+        "hardin"
+      ],
+      "homeUrl": "https://www.silsbeecoc.com/",
+      "calendarUrl": "https://www.silsbeecoc.com/annual-community-events",
+      "contactPageUrl": "https://www.silsbeecoc.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "snyder-scurry-chamber",
+      "organization": "Snyder Chamber of Commerce",
+      "countySlugs": [
+        "scurry"
+      ],
+      "homeUrl": "https://www.snyderchamber.org/",
+      "calendarUrl": "https://www.snyderchamber.org/event-list",
+      "contactPageUrl": "https://www.snyderchamber.org/about-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "cuero-dewitt-chamber",
+      "organization": "Cuero Chamber of Commerce",
+      "countySlugs": [
+        "dewitt"
+      ],
+      "homeUrl": "https://www.cuero.org/",
+      "calendarUrl": "https://member.cuero.org/calendar",
+      "contactPageUrl": "https://www.cuero.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "ballinger-runnels-chamber",
+      "organization": "Ballinger Area Chamber of Commerce and Visitors Center",
+      "countySlugs": [
+        "runnels"
+      ],
+      "homeUrl": "https://ballingerchamber.org/",
+      "calendarUrl": "https://ballingerchamber.org/",
+      "contactPageUrl": "https://ballingerchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "graham-young-chamber",
+      "organization": "Graham Chamber of Commerce and Visitor Information",
+      "countySlugs": [
+        "young"
+      ],
+      "homeUrl": "https://www.grahamtexas.net/",
+      "calendarUrl": "https://chamber.grahamtexas.net/events/calendar",
+      "contactPageUrl": "https://visitgrahamtexas.com/submit-your-event/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "big-spring-howard-tourism",
+      "organization": "Big Spring Convention and Visitors Bureau",
+      "countySlugs": [
+        "howard"
+      ],
+      "homeUrl": "https://visitbigspring.com/",
+      "calendarUrl": "https://visitbigspring.com/167/Annual-Events",
+      "contactPageUrl": "https://visitbigspring.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "borger-hutchinson-chamber",
+      "organization": "Borger Chamber of Commerce",
+      "countySlugs": [
+        "hutchinson"
+      ],
+      "homeUrl": "https://www.borgerchamber.com/",
+      "calendarUrl": "https://www.borgerchamber.com/events/",
+      "contactPageUrl": "https://www.borgerchamber.com/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "floresville-wilson-city",
+      "organization": "City of Floresville community events",
+      "countySlugs": [
+        "wilson"
+      ],
+      "homeUrl": "https://www.floresvilletx.gov/",
+      "calendarUrl": "https://www.floresvilletx.gov/calendar-events/category/community-events/",
+      "contactPageUrl": "https://www.floresvilletx.gov/calendar-events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "vernon-wilbarger-chamber",
+      "organization": "Vernon Chamber of Commerce",
+      "countySlugs": [
+        "wilbarger"
+      ],
+      "homeUrl": "https://www.vernontexas.info/",
+      "calendarUrl": "https://business.vernonchamber.org/events/calendar/",
+      "contactPageUrl": "https://www.vernontexas.info/about/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "sonora-sutton-chamber",
+      "organization": "Sonora Chamber of Commerce",
+      "countySlugs": [
+        "sutton"
+      ],
+      "homeUrl": "https://sonoratexas.org/",
+      "calendarUrl": "https://sonoratexas.org/events/",
+      "contactPageUrl": "https://sonoratexas.org/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "fort-stockton-pecos-chamber",
+      "organization": "Fort Stockton Chamber of Commerce",
+      "countySlugs": [
+        "pecos"
+      ],
+      "homeUrl": "https://fortstockton.org/",
+      "calendarUrl": "https://fortstockton.org/community-calendar/",
+      "contactPageUrl": "https://fortstockton.org/news/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "brownfield-terry-chamber",
+      "organization": "Brownfield Chamber of Commerce and Visitor Information Center",
+      "countySlugs": [
+        "terry"
+      ],
+      "homeUrl": "https://brownfieldchamber.com/",
+      "calendarUrl": "https://brownfieldchamber.com/",
+      "contactPageUrl": "https://brownfieldchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "denver-city-yoakum-chamber",
+      "organization": "Denver City Chamber of Commerce",
+      "countySlugs": [
+        "yoakum"
+      ],
+      "homeUrl": "https://denvercitychamber.com/",
+      "calendarUrl": "https://denvercitychamber.com/events/",
+      "contactPageUrl": "https://denvercitychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hamilton-main-street",
+      "organization": "City of Hamilton Main Street official community event calendar",
+      "countySlugs": [
+        "hamilton"
+      ],
+      "homeUrl": "https://www.hamiltontexas.com/",
+      "calendarUrl": "https://www.allthingshamilton.org/events",
+      "contactPageUrl": "https://www.allthingshamilton.org/upcomingeventform",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "madisonville-city-events",
+      "organization": "City of Madisonville tourism and festival events",
+      "countySlugs": [
+        "madison"
+      ],
+      "homeUrl": "https://www.madisonvilletexas.gov/",
+      "calendarUrl": "https://www.madisonvilletexas.gov/events",
+      "contactPageUrl": "https://www.madisonvilletexas.gov/tourism/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "jackson-edna-chamber",
+      "organization": "Jackson County Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "jackson"
+      ],
+      "homeUrl": "https://www.jacksoncountytexas.com/",
+      "calendarUrl": "https://www.jacksoncountytexas.com/events/calendar",
+      "contactPageUrl": "https://www.jacksoncountytexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "liberty-trinity-valley-chamber",
+      "organization": "Trinity Valley Chamber of Commerce (Dayton/Liberty County)",
+      "countySlugs": [
+        "liberty"
+      ],
+      "homeUrl": "https://www.trinityvalleycc.com/",
+      "calendarUrl": "https://business.trinityvalleycc.com/events",
+      "contactPageUrl": "https://business.daytontxchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "kenedy-karnes-chamber",
+      "organization": "Kenedy Chamber of Commerce Tourism and Visitor Center",
+      "countySlugs": [
+        "karnes"
+      ],
+      "homeUrl": "https://www.kenedychamber.org/",
+      "calendarUrl": "https://www.kenedychamber.org/events/",
+      "contactPageUrl": "https://www.kenedychamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pearsall-frio-chamber",
+      "organization": "Pearsall Chamber of Commerce",
+      "countySlugs": [
+        "frio"
+      ],
+      "homeUrl": "https://pearsallchamber.org/",
+      "calendarUrl": "https://pearsallchamber.org/",
+      "contactPageUrl": "https://pearsallchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "centerville-leon-chamber",
+      "organization": "Centerville Chamber of Commerce",
+      "countySlugs": [
+        "leon"
+      ],
+      "homeUrl": "https://centervilletx.org/",
+      "calendarUrl": "https://centervilletx.org/",
+      "contactPageUrl": "https://centervilletx.org/member-directory/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "discover-crockett-houston",
+      "organization": "Discover Crockett visitor and local festival events",
+      "countySlugs": [
+        "houston"
+      ],
+      "homeUrl": "https://www.discovercrocketttx.com/",
+      "calendarUrl": "https://www.discovercrocketttx.com/",
+      "contactPageUrl": "https://www.discovercrocketttx.com/holidaytourofhomes",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "mexia-city-limestone",
+      "organization": "City of Mexia public news and local events",
+      "countySlugs": [
+        "limestone"
+      ],
+      "homeUrl": "https://www.cityofmexia.com/",
+      "calendarUrl": "https://www.cityofmexia.com/",
+      "contactPageUrl": "https://www.mexiaedc.com/171/Mexia-Chamber-of-Commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
