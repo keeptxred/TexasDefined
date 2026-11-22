@@ -1,3 +1,9 @@
+const martinCreekPier = {
+  author: "Larry D. Moore", license: "CC BY 4.0",
+  fileUrl: "https://commons.wikimedia.org/wiki/File:Fishing_Pier_Martin_Creek_Lake_State_Park_2019.jpg",
+  licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+};
+
 /** Fully source-matched local state-park photo reuses. Do not guess a Commons
  * filename from an artist credit; new entries require the original file page,
  * matching subject, license and dimensions to be individually checked.
@@ -8,13 +14,9 @@ export const verifiedStateParkPhotoCredits: Readonly<Record<string, {
   fileUrl: string;
   licenseUrl: string;
 }>> = {
-  // Exact local assets matched against the 2019 fishing-pier original, not a generic park credit.
-  "/images/state-parks/martin-creek-lake-state-park.jpg": {
-    author: "Larry D. Moore", license: "CC BY 4.0", fileUrl: "https://commons.wikimedia.org/wiki/File:Fishing_Pier_Martin_Creek_Lake_State_Park_2019.jpg", licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-  },
-  "/images/rv-parks/martin-creek-lake-state-park-rv-area.jpg": {
-    author: "Larry D. Moore", license: "CC BY 4.0", fileUrl: "https://commons.wikimedia.org/wiki/File:Fishing_Pier_Martin_Creek_Lake_State_Park_2019.jpg", licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-  },
+  // Both local assets match the verified 2019 fishing-pier original.
+  "/images/state-parks/martin-creek-lake-state-park.jpg": martinCreekPier,
+  "/images/rv-parks/martin-creek-lake-state-park-rv-area.jpg": martinCreekPier,
   // Wikimedia Commons original: Harvest moon in Big Bend Ranch State Park.JPG,
   // Jcllorca's own work, CC BY-SA 3.0. The locally resized JPEG is 1600x960.
   "/images/state-parks/big-bend-ranch-state-park.jpg": {
