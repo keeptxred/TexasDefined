@@ -59,10 +59,11 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       lng: -98.618822
     },
     hero: {
-      src: DESTINATION_PHOTO_PLACEHOLDER,
-      alt: "Comanche County Historical Museum — destination-specific photograph not yet available",
+      src: "/images/comanche-county-historical-museum-editorial.svg",
+      alt: "Original editorial graphic using an antique saloon mirror and blacksmith tools to represent Comanche County Historical Museum exhibits; not a photograph of the museum building",
       width: 1600,
-      height: 1067
+      height: 1000,
+      credit: "TexasDefined · Original editorial artwork · not a photograph of the museum building"
     },
     bestSeason: "Year-round during the museum's published Thursday–Saturday visiting window; spring and autumn are comfortable for a companion courthouse-square walk.",
     entryNote: "The museum lists Thursday–Saturday, 10 a.m.–4 p.m., at 402 Moorman Road in Comanche; school and group tours may be arranged. Check for holiday changes. This visitor guide does not claim a published admission price, accessible building layout or an open-air blacksmith demonstration.",
