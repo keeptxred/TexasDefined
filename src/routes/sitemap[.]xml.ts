@@ -8,6 +8,7 @@ const origin = `https://${texasDefinedBrand.identity.domain}`;
 // Five guides underwent substantive source-backed editorial revisions on Nov 20.
 // This date must not advance for automated source checks or non-editorial deploys.
 const OUTDOOR_GUIDES_LASTMOD = "2026-11-20";
+const FOOD_BRAND_LASTMOD = "2026-11-21";
 type SitemapEntry = { path: string; lastmod?: string };
 
 type EdgeCache = {
@@ -36,6 +37,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("texas-flag-20261119", "archive-and-flag-day-authority-v2");
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-15");
   cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
+  cacheUrl.searchParams.set("food-brand-editorial-lastmod", FOOD_BRAND_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -55,6 +57,11 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/texas-brand-origin-stories": FOOD_BRAND_LASTMOD,
+  "/made-in-texas": FOOD_BRAND_LASTMOD,
+  "/texas-chili-con-carne-history": FOOD_BRAND_LASTMOD,
+  "/texas-chicken-fried-steak-guide": FOOD_BRAND_LASTMOD,
+  "/texas-breakfast-taco-guide": FOOD_BRAND_LASTMOD,
   // Source-backed changes to all five guides merged Nov 20: route/permit/access updates, media rights, original comparisons and internal links.
   "/texas-mountain-biking-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-horseback-riding-guide": OUTDOOR_GUIDES_LASTMOD,
