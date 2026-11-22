@@ -53,11 +53,11 @@ export const smallTownWave14Destinations: Destination[] = [
       "Why visit Comanche? The historic county seat brings several layers of Texas history into a compact downtown: a surviving one-room log courthouse from 1856, the living Fleming Oak, a New Deal-era stone courthouse, a 1909 railroad depot, and a remarkable tobacco advertisement hidden behind stucco for more than a century. The Comanche County Historical Museum then tells the wider county story. Nearby Proctor Lake and small wineries broaden a history-focused stop into a full-day visit.",
       "Begin on the courthouse square. The modern Comanche County Courthouse, designed by Wyatt Hedrick and built with WPA labor and local limestone, uses stepped Art Moderne forms with Art Deco details and carved eagles above its entrances. Restoration work may limit access; appreciate its exterior and historic square without assuming tours of the interior. The courthouse stands amid monuments and markers documenting more than one era of county government.",
       "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Chamber currently marks the building closed for renovation; there is no reason to promise interior entry.",
-      "The museum also hosts an online Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and verify that physical QR codes remain accessible. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
+      "The museum also hosts a Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and confirm active QR access on arrival. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
       "One of Comanche's most unusual downtown artifacts was discovered by Clint and Jami Tunnell in October 2019. Removing stucco from their building exposed an approximately 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco wall advertisement. Reporting dates the painting to about 1892–1893, when the wall faced an open passage. The mural is at 109 West Grand Street and has been described as visible through the storefront glass. Because this is a privately used building, view it respectfully from permitted public space and confirm visibility before a special trip.",
       "The mural's story intersects with another downtown chapter: Jack Wright's Saloon occupied the property area during the 1870s, a period associated with outlaw John Wesley Hardin. In 1874 Hardin shot and killed Brown County deputy Charles Webb in Comanche; the ensuing violence included the lynching of three people connected to Hardin. The Comanche County Historical Museum has exhibits about this history, including a recreated Jack Wright Saloon and its original mirror. These are historical events, not a staged gunfight or operating saloon attraction.",
       "The Comanche-Frisco Train Depot at 304 South Austin Street anchors the railroad chapter. The brick Prairie School-style depot was built in 1909, replacing an earlier structure, and today serves as a local tourism and community venue. Earlier railway lines transformed county cotton and livestock shipping; the preserved Frisco depot shows how rail travel later shaped Comanche's commercial center. Check Chamber visitor-center hours rather than assuming the depot is always open.",
-      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans more than fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and the operator advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
+      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans more than fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
       "Wine adds a contemporary agricultural chapter. Brennan Vineyards at 802 South Austin Street makes Texas wine from a historic 1879 homestead. JW Hardin Wine Co. lists a tasting room in downtown Comanche at 107 West Grand Street. A self-guided wine-and-history afternoon can combine the downtown landmarks with a prearranged tasting; check availability, whether reservations are needed, and who will drive before setting out. Tribe Vineyards grows wine grapes in Comanche County but says its vineyard tasting room is coming in 2027, so it should NOT be listed as an open public tasting stop in 2026.",
       "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak, then stroll Grand Street for the Bull Durham mural, shops and restaurants. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
       "Comanche also works as a living town, not simply a preserved frontier set. Agricultural businesses, schools, churches, independent shops, annual festivals and long-standing gathering places keep the square tied to everyday local life. The Chamber lists an annual rodeo and parade, the Comanche County Pow Wow (usually the fourth September weekend), a pre-deer-season chili supper and Explore Comanche Christmas. Dates change each year: use the organizer's event pages rather than recycling 2026 dates into future calendars.",
@@ -194,6 +194,16 @@ export const smallTownWave14Destinations: Destination[] = [
       ],
       sources: [
         {
+          label: "Museum — Comanche Square Walking Tour",
+          url: "https://www.comanchecountytxmuseum.com/about-1-1",
+          scope: "Self-guided QR audio historic square and Old Cora stops"
+        },
+        {
+          label: "Museum — Admission",
+          url: "https://www.comanchecountytxmuseum.com/",
+          scope: "Free general admission, voluntary donations and museum public hours"
+        },
+        {
           label: "Comanche Chamber — Explore",
           url: "https://www.comanchechamber.org/explorecomanche",
           scope: "Current Old Cora renovation status, Fleming Oak, museum and Proctor Lake"
@@ -252,22 +262,19 @@ export const smallTownWave14Destinations: Destination[] = [
     },
     visitorFacts: [
       {
+        topic: "price",
+        label: "Comanche County Historical Museum",
+        detail: "Operator lists free general admission (donations welcome); check group appointments with the museum.",
+        sourceUrl: "https://www.comanchecountytxmuseum.com/",
+        checkedAt: "2026-11-22"
+      },
+      {
         topic: "access",
         label: "Old Cora Courthouse",
         detail: "Chamber lists CLOSED FOR RENOVATION; exterior viewing only where publicly accessible.",
         sourceUrl: "https://www.comanchechamber.org/explorecomanche",
         checkedAt: "2026-11-22"
-      },,
-      {
-        label: "Museum — Comanche Square Walking Tour",
-        url: "https://www.comanchecountytxmuseum.com/about-1-1",
-        scope: "QR-linked audio historic square and Old Cora stops"
       },
-      {
-        label: "Museum — Admission",
-        url: "https://www.comanchecountytxmuseum.com/",
-        scope: "Free general admission and donations"
-      }
       {
         topic: "hours",
         label: "Comanche County Historical Museum",
@@ -285,17 +292,17 @@ export const smallTownWave14Destinations: Destination[] = [
     ],
     visitorFaqs: [
       {
+        question: "Can I take a self-guided historic Comanche walking tour?",
+        answer: "Yes. The museum publishes a QR-based Comanche Square Walking Tour with audio about Old Cora, Fleming Oak, local mercantile sites and John Wesley Hardin. Verify onsite QR marker access.",
+        sourceUrl: "https://www.comanchecountytxmuseum.com/about-1-1"
+      },
+      {
         question: "Is the 1856 Old Cora Courthouse open for tours?",
         answer: "No interior visit should be assumed. The Chamber currently labels Old Cora closed for renovation. You can plan an exterior/history-marker visit when the grounds are accessible.",
         sourceUrl: "https://www.comanchechamber.org/explorecomanche"
       },
       {
-{
-        question: "Can I take a self-guided historic Comanche walking tour?",
-        answer: "Yes. The museum publishes a QR-based Comanche Square Walking Tour with audio about Old Cora, Fleming Oak, local mercantile sites and John Wesley Hardin. Check the museum route page and whether QR markers are available onsite.",
-        sourceUrl: "https://www.comanchecountytxmuseum.com/about-1-1"
-      },
-              question: "Where can I see the 1890s Comanche Bull Durham mural?",
+        question: "Where can I see the 1890s Comanche Bull Durham mural?",
         answer: "The surviving advertisement is reported inside a building at 109 West Grand Street and has been visible through the storefront glass. It was exposed by Clint and Jami Tunnell in 2019; confirm current visibility and respect private property.",
         sourceUrl: "https://authentictexas.com/its-a-lot-of-bull/"
       },
