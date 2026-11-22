@@ -23,10 +23,26 @@ const report={schema:'b004-focused-contrast-and-image-v1',testedCommit:process.e
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 async function hydrate(page,url){
- const resp=await page.goto(root+url,{waitUntil:'domcontentloaded',timeout:50000});
- if(resp?.status()!==200)throw Error('Non-200 '+resp?.status()+' '+url);
- await page.locator('main h1').first().waitFor({state:'visible',timeout:30000});
- await page.waitForTimeout(850);
+ // A single transient 500 on /county/mclennan interrupted an otherwise fully
+ // passing focused mobile audit: 239/239 original contrast cells passed after
+ // scrolling. Retest actual 200 responses after a bounded backoff, never
+ // classify a persistent 5xx as success or skip the county from the roster.
+ const transient = new Set([429,500,502,503,504]);
+ let lastStatus=null;
+ for(let attempt=1;attempt<=3;attempt++){
+  const resp=await page.goto(root+url,{waitUntil:'domcontentloaded',timeout:50000});
+  const status=resp?.status()??null;
+  if(status===200){
+   await page.locator('main h1').first().waitFor({state:'visible',timeout:30000});
+   await page.waitForTimeout(850);
+   return;
+  }
+  lastStatus=status;
+  if(!transient.has(status)||attempt===3)break;
+  console.warn('B004 transient HTTP '+status+' on '+url+'; retry '+(attempt+1)+'/3 after backoff');
+  await page.waitForTimeout(attempt*1500);
+ }
+ throw Error('Non-200 '+lastStatus+' after bounded browser retries '+url);
 }
 try{
  for(const slug of [...schools,...counties.map(x=>'county-'+x)]){
