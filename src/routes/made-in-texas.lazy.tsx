@@ -27,9 +27,10 @@ function MadeInTexasPage() {
   const [query, setQuery] = useState('');
   const [relationship, setRelationship] = useState('all');
   const [county, setCounty] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
   const [onlySourced, setOnlySourced] = useState(false);
   const counties = [...new Set(MADE_IN_TEXAS_ENTRIES.map(e => e.countySlug))].sort();
-  const filtered = MADE_IN_TEXAS_ENTRIES.filter(e => (!query.trim() || `${e.name} ${e.city} ${e.countySlug} ${e.note}`.toLowerCase().includes(query.trim().toLowerCase())) && (relationship === 'all' || e.relationship === relationship) && (county === 'all' || e.countySlug === county) && (!onlySourced || Boolean(evidenceForMadeInTexasEntry(e.name))));
+  const filtered = MADE_IN_TEXAS_ENTRIES.filter(e => (!query.trim() || `${e.name} ${e.city} ${e.countySlug} ${e.note}`.toLowerCase().includes(query.trim().toLowerCase())) && (relationship === 'all' || e.relationship === relationship) && (county === 'all' || e.countySlug === county) && (categoryFilter === 'all' || e.category === categoryFilter) && (!onlySourced || Boolean(evidenceForMadeInTexasEntry(e.name))));
   const sourcedCount = MADE_IN_TEXAS_ENTRIES.filter(e => evidenceForMadeInTexasEntry(e.name)).length;
   return (
     <main>
@@ -56,15 +57,16 @@ function MadeInTexasPage() {
             <div>
               <section className="mb-8 border border-border p-5" aria-label="Directory filters">
                 <h2 className="font-display text-3xl">Find Texas businesses and products</h2>
-                <p className="mt-2 text-sm text-muted-foreground">Search the directory or narrow it by relationship and county. A listing without linked evidence remains a research lead, not a verified origin claim.</p>
+                <p className="mt-2 text-sm text-muted-foreground">Search the directory or narrow it by relationship, category and county. A listing without linked evidence remains a research lead, not a verified origin claim.</p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <label className="text-sm font-semibold">Name, city or product<input type="search" value={query} onChange={e => setQuery(e.target.value)} className="mt-2 block w-full rounded border border-border bg-background p-2" placeholder="e.g. boots, Brenham" /></label>
                   <label className="text-sm font-semibold">Texas relationship<select value={relationship} onChange={e => setRelationship(e.target.value)} className="mt-2 block w-full rounded border border-border bg-background p-2"><option value="all">All relationships</option>{Object.entries(MADE_IN_TEXAS_RELATIONSHIP_LABELS).map(([key,label]) => <option key={key} value={key}>{label} ({MADE_IN_TEXAS_ENTRIES.filter(e => e.relationship === key).length})</option>)}</select></label>
                   <label className="text-sm font-semibold">County<select value={county} onChange={e => setCounty(e.target.value)} className="mt-2 block w-full rounded border border-border bg-background p-2"><option value="all">All counties</option>{counties.map(c => <option key={c} value={c}>{c.replace(/-/g, " ")}</option>)}</select></label>
+                  <label className="text-sm font-semibold">Category<select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)} className="mt-2 block w-full rounded border border-border bg-background p-2"><option value="all">All categories</option>{categoryOrder.map(c => <option key={c.slug} value={c.slug}>{c.label}</option>)}</select></label>
                   <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={onlySourced} onChange={e => setOnlySourced(e.target.checked)} /> Only entries with published evidence</label>
                 </div>
                 <p className="mt-4 text-sm" aria-live="polite">{filtered.length} of {MADE_IN_TEXAS_ENTRIES.length} entries shown.</p>
-                <button type="button" className="mt-3 text-sm font-semibold underline" onClick={() => {setQuery("");setRelationship("all");setCounty("all");setOnlySourced(false);}}>Reset filters</button>
+                <button type="button" className="mt-3 text-sm font-semibold underline" onClick={() => {setQuery("");setRelationship("all");setCounty("all");setCategoryFilter("all");setOnlySourced(false);}}>Reset filters</button>
               </section>
               {categoryOrder.map((category) => {
                 const entries = filtered.filter((item) => item.category === category.slug);
@@ -106,6 +108,7 @@ function MadeInTexasPage() {
                   <Definition term="Major Texas operations" text="The company maintains a significant facility or operating presence in the community." />
                 </dl>
                 <p className="mt-5 text-xs leading-5 text-muted-foreground">Entries with a verified citation have been checked against a first-party producer or authoritative public source. The broader directory remains deliberately labeled by relationship so a Texas origin or headquarters is never presented as proof that every product is made here.</p>
+                <p className="mt-4 text-xs leading-5 text-muted-foreground">The <a className="underline" href="https://www.ftc.gov/business-guidance/resources/complying-made-usa-standard">FTC’s U.S.-origin guidance</a> distinguishes qualified and unqualified manufacturing claims. It does not establish a Texas-specific certification; check the origin label for the individual product.</p>
                 <div className="mt-6 space-y-3 text-sm font-semibold">
                   <a href="/texas-brand-origin-stories" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Texas brand origin stories →</a>
                   <a href="/texas-industries" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore Texas industries →</a>
