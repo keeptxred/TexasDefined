@@ -473,6 +473,48 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "orange-cvb-gumdrop-shop",
+      "organization": "City of Orange Convention & Visitors Bureau",
+      "countySlugs": [
+        "orange"
+      ],
+      "homeUrl": "https://orangetexas.gov/",
+      "calendarUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "contactPageUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "levelland-main-street",
+      "organization": "Levelland Main Street",
+      "countySlugs": [
+        "hockley"
+      ],
+      "homeUrl": "https://www.levellandtexas.org/",
+      "calendarUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "contactPageUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "wharton-chamber",
+      "organization": "Wharton Chamber of Commerce & Agriculture",
+      "countySlugs": [
+        "wharton"
+      ],
+      "homeUrl": "https://www.whartonchamber.com/",
+      "calendarUrl": "https://www.whartonchamber.com/",
+      "contactPageUrl": "https://www.whartonchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
