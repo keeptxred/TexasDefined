@@ -2237,6 +2237,202 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "pampa-gray-chamber",
+      "organization": "Pampa Chamber of Commerce",
+      "countySlugs": [
+        "gray"
+      ],
+      "homeUrl": "https://www.pampachamber.com/",
+      "calendarUrl": "https://business.pampachamber.com/community-events",
+      "contactPageUrl": "https://www.pampachamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "silsbee-hardin-chamber",
+      "organization": "Silsbee Chamber of Commerce",
+      "countySlugs": [
+        "hardin"
+      ],
+      "homeUrl": "https://www.silsbeecoc.com/",
+      "calendarUrl": "https://www.silsbeecoc.com/annual-community-events",
+      "contactPageUrl": "https://www.silsbeecoc.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "snyder-scurry-chamber",
+      "organization": "Snyder Chamber of Commerce",
+      "countySlugs": [
+        "scurry"
+      ],
+      "homeUrl": "https://www.snyderchamber.org/",
+      "calendarUrl": "https://www.snyderchamber.org/event-list",
+      "contactPageUrl": "https://www.snyderchamber.org/about-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "cuero-dewitt-chamber",
+      "organization": "Cuero Chamber of Commerce",
+      "countySlugs": [
+        "dewitt"
+      ],
+      "homeUrl": "https://www.cuero.org/",
+      "calendarUrl": "https://member.cuero.org/calendar",
+      "contactPageUrl": "https://www.cuero.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "ballinger-runnels-chamber",
+      "organization": "Ballinger Area Chamber of Commerce and Visitors Center",
+      "countySlugs": [
+        "runnels"
+      ],
+      "homeUrl": "https://ballingerchamber.org/",
+      "calendarUrl": "https://ballingerchamber.org/",
+      "contactPageUrl": "https://ballingerchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "graham-young-chamber",
+      "organization": "Graham Chamber of Commerce and Visitor Information",
+      "countySlugs": [
+        "young"
+      ],
+      "homeUrl": "https://www.grahamtexas.net/",
+      "calendarUrl": "https://chamber.grahamtexas.net/events/calendar",
+      "contactPageUrl": "https://visitgrahamtexas.com/submit-your-event/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "big-spring-howard-tourism",
+      "organization": "Big Spring Convention and Visitors Bureau",
+      "countySlugs": [
+        "howard"
+      ],
+      "homeUrl": "https://visitbigspring.com/",
+      "calendarUrl": "https://visitbigspring.com/167/Annual-Events",
+      "contactPageUrl": "https://visitbigspring.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "borger-hutchinson-chamber",
+      "organization": "Borger Chamber of Commerce",
+      "countySlugs": [
+        "hutchinson"
+      ],
+      "homeUrl": "https://www.borgerchamber.com/",
+      "calendarUrl": "https://www.borgerchamber.com/events/",
+      "contactPageUrl": "https://www.borgerchamber.com/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "floresville-wilson-city",
+      "organization": "City of Floresville community events",
+      "countySlugs": [
+        "wilson"
+      ],
+      "homeUrl": "https://www.floresvilletx.gov/",
+      "calendarUrl": "https://www.floresvilletx.gov/calendar-events/category/community-events/",
+      "contactPageUrl": "https://www.floresvilletx.gov/calendar-events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "vernon-wilbarger-chamber",
+      "organization": "Vernon Chamber of Commerce",
+      "countySlugs": [
+        "wilbarger"
+      ],
+      "homeUrl": "https://www.vernontexas.info/",
+      "calendarUrl": "https://business.vernonchamber.org/events/calendar/",
+      "contactPageUrl": "https://www.vernontexas.info/about/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "sonora-sutton-chamber",
+      "organization": "Sonora Chamber of Commerce",
+      "countySlugs": [
+        "sutton"
+      ],
+      "homeUrl": "https://sonoratexas.org/",
+      "calendarUrl": "https://sonoratexas.org/events/",
+      "contactPageUrl": "https://sonoratexas.org/events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "fort-stockton-pecos-chamber",
+      "organization": "Fort Stockton Chamber of Commerce",
+      "countySlugs": [
+        "pecos"
+      ],
+      "homeUrl": "https://fortstockton.org/",
+      "calendarUrl": "https://fortstockton.org/community-calendar/",
+      "contactPageUrl": "https://fortstockton.org/news/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "brownfield-terry-chamber",
+      "organization": "Brownfield Chamber of Commerce and Visitor Information Center",
+      "countySlugs": [
+        "terry"
+      ],
+      "homeUrl": "https://brownfieldchamber.com/",
+      "calendarUrl": "https://brownfieldchamber.com/",
+      "contactPageUrl": "https://brownfieldchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "denver-city-yoakum-chamber",
+      "organization": "Denver City Chamber of Commerce",
+      "countySlugs": [
+        "yoakum"
+      ],
+      "homeUrl": "https://denvercitychamber.com/",
+      "calendarUrl": "https://denvercitychamber.com/events/",
+      "contactPageUrl": "https://denvercitychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
