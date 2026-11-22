@@ -6,6 +6,29 @@ const ROOT = "https://tpwd.texas.gov/state-parks/martin-creek-lake";
 const BOOK = "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121";
 const COUNTY_FIRE = "https://www.ruskcountytxfire.gov/rusk-county-burn-ban-status";
 const sources = [
+  { label: "TPWD park operations and firewood quarantine", url: ROOT, required: [
+    ["gate closing at 10 p.m.", /6\s*a\.m\.\s*[–-]\s*10\s*p\.m\./i],
+    ["firewood quarantine", /emerald ash borer/i],
+    ["no lifeguards", /do not have lifeguards/i],
+    ["rent canoes", /rent canoes/i],
+  ] },
+  { label: "TPWD official trail distances", url: ROOT + "/trails-info", required: [
+    ["Old Henderson Road 1.4 miles", /Old Henderson Road Loop\s+1\.4\s*mi/i],
+    ["Harmony Hill 1.7 miles", /Harmony Hill Loop\s+1\.7\s*mi/i],
+    ["Island Trails 0.9 miles", /Island Trails\s+0\.9\s*mi/i],
+  ] },
+  { label: "TPWD screened shelters", url: ROOT + "/fees-facilities/screened-shelters", required: [
+    ["19 shelters", /Number of Sites:\s*19/i],
+    ["$30 shelter rate", /\$\s*30\b/],
+  ] },
+  { label: "TPWD lodging", url: ROOT + "/fees-facilities/martin-creek-lodging/", required: [
+    ["$85 cabin rate", /\$\s*85\b/],
+    ["$55 cottage rate", /\$\s*55\b/],
+    ["$75 deposit", /\$\s*75\b/],
+  ] },
+  { label: "TPWD lake access", url: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/martin_creek/access.phtml", required: [
+    ["four-lane ramp", /Four-lane ramp/i],
+  ] },
   { label: "TPWD campsite classes", url: ROOT + "/fees-facilities/campsites", required: [
     ["13 lakefront sites", /Number of Sites:\s*13/i],
     ["6 fifty-amp sites", /Number of Sites:\s*6/i],
@@ -74,8 +97,8 @@ if (drifts.length) {
     "",
     ...drifts.map((line) => "- " + line),
     "",
-    "Page: https://texasdefined.com/destination/martin-creek-lake-state-park-rv-area",
-    "Source files: src/data/rv-parks/curated-public-wave4.ts and src/components/editorial/MartinCreekRvAuthority.tsx",
+    "Pages: https://texasdefined.com/destination/martin-creek-lake-state-park-rv-area and https://texasdefined.com/destination/martin-creek-lake-state-park",
+    "Source files: src/data/rv-parks/curated-public-wave4.ts, src/components/editorial/MartinCreekRvAuthority.tsx, src/data/destination-curation-batch5.ts, and src/components/editorial/MartinCreekParkAuthority.tsx",
   ].join("\n");
   await fs.writeFile("/tmp/martin-creek-rv-drift.txt", message + "\n");
   console.error(message);
