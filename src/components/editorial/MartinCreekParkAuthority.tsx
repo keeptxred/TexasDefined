@@ -52,8 +52,8 @@ export default function MartinCreekParkAuthority() {
         </div>
         <h3 className="mt-9 font-display text-2xl">Compare the three hiking and biking routes</h3>
         <p className="mt-3 text-sm leading-7">TPWD's detailed trail listing and trail map are the basis for these distances. The three published routes total 4.0 miles; the park's general overview describes nearly four miles and gives a different Harmony Hill figure. Use the dedicated map's 1.7-mile distance for planning and allow extra time for connections.</p>
-        <div role="region" aria-label="Trail comparison" tabIndex={0} className="mt-4 overflow-x-auto rounded-md border border-border focus-visible:outline focus-visible:outline-primary">
-          <table className="w-full min-w-[620px] text-left text-sm">
+        <div role="region" aria-label="Trail comparison" tabIndex={0} className="mt-4 overflow-x-auto rounded-md border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+          <table className="w-full min-w-[40rem] text-left text-sm">
             <caption className="sr-only">Martin Creek Lake State Park official trail distances, difficulty and route-selection advice</caption>
             <thead className="bg-background"><tr><th scope="col" className="p-3">Route</th><th scope="col" className="p-3">Distance</th><th scope="col" className="p-3">Difficulty</th><th scope="col" className="p-3">Which to choose</th></tr></thead>
             <tbody>{trails.map(t => <tr key={t.name} className="border-t border-border"><th scope="row" className="p-3">{t.name}</th><td className="p-3">{t.distance}</td><td className="p-3">{t.difficulty}</td><td className="p-3 leading-6">{t.use}</td></tr>)}</tbody>

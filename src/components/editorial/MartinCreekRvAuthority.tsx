@@ -40,7 +40,7 @@ export default function MartinCreekRvAuthority() {
         </p>
 
         <div role="region" aria-label="RV campsite comparison table; scroll horizontally on small screens" tabIndex={0} className="mt-7 overflow-x-auto rounded-md border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
-          <table className="w-full min-w-[640px] text-left text-sm">
+          <table className="w-full min-w-[40rem] text-left text-sm">
             <caption className="sr-only">Official Martin Creek Lake State Park RV site types and nightly rates, checked November 18, 2026</caption>
             <thead className="bg-background">
               <tr className="border-b border-border">
