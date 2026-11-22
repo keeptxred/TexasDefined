@@ -186,3 +186,31 @@ test("Alvin and Glen Rose 2026 dates and counties remain first-party independent
    assert.equal(item.sourceVerifiedAt,"2026-11-22");
  }
 });
+
+test("six new current-edition community holiday records remain source-verified and county-qualified", () => {
+ const cases=[
+  ["kingsville-la-posada-parade-of-lights-2026","kleberg","2026-12-05","kingsvilletexas.com"],
+  ["denver-city-christmas-parade-meet-santa-2026","yoakum","2026-12-17","denvercitychamber.com"],
+  ["bonham-christmas-tree-lighting-smores-cookoff-2026","fannin","2026-11-28","bonhamchamber.com"],
+  ["bonham-home-for-holidays-market-2026","fannin","2026-12-05","bonhamchamber.com"],
+  ["goldthwaite-sip-stroll-shop-parade-2026","mills","2026-12-05","goldthwaiteareachamber.com"],
+  ["hearne-downtown-christmas-parade-2026","robertson","2026-12-12","hearnechamber.com"]
+ ];
+ for (const [slug,county,date,hostname] of cases){
+  const e=events.find(x=>x.slug===slug);
+  assert.ok(e, "Missing verified 2026 festival "+slug);
+  assert.equal(e.countySlug,county);
+  assert.equal(e.startDate,date);
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.ok(new URL(e.officialEventUrl).hostname.endsWith(hostname));
+  assert.ok(e.summary.length >= 110 && e.venueName);
+ }
+ const goldthwaite=events.filter(e=>e.countySlug==="mills"&&e.startDate==="2026-12-05"&&/stroll|shop/i.test(e.title));
+ const bonhamMarket=events.filter(e=>e.city==="Bonham"&&e.startDate==="2026-12-05"&&/market/i.test(e.title));
+ const plantersville=events.filter(e=>e.city==="Plantersville"&&e.startDate==="2026-12-05"&&/parade/i.test(e.title));
+ assert.equal(goldthwaite.length,1,"Do not double-publish Goldthwaite under alternative event slugs");
+ assert.equal(bonhamMarket.length,1,"Do not double-publish the same Bonham cafe holiday market");
+ assert.equal(plantersville.length,1,"Previously verified Plantersville parade already exists; do not duplicate");
+ const denverCity=events.find(e=>e.slug==="denver-city-christmas-parade-meet-santa-2026");
+ assert.match(denverCity.summary,/not specified a parade start time/, "Never invent parade hours without official source");
+});
