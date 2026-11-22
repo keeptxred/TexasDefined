@@ -58,9 +58,9 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 14 / 254 counties. Remaining: 240 counties requiring verified source research.**
+**Source-mapped: 28 / 254 counties (27 reviewed public source organizations). Remaining: 226 counties requiring source research.**
 
-On November 22, 2026, **nine individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts. A separate **tenth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
+On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
 ### Specific local event source-verification pilots
 
@@ -78,3 +78,10 @@ On November 22, 2026, **nine individualized O365 outreach messages** were sent t
 - docs/seo/backlink-command-center.md
 
 Keep checkpoint #7548 open until statewide source discovery is complete, current event coverage reaches county and event pages with source verification, scheduled refresh evidence exists, and the external relationship outcomes are truthfully documented. Never promise third-party links or media-kit delivery.
+
+
+### 2026-11-22 second source cohort (15 verified first-party sources)
+
+County source-mapping additions: Waller (Waller Area Chamber); Austin (Bellville Chamber and Sealy Chamber); Washington (Washington County Chamber); Bastrop (Bastrop Regional Chamber); Nueces (Visit Corpus Christi); Bexar (Visit San Antonio); Harris (Visit Houston); Travis (Visit Austin); Galveston (Visit Galveston); Dallas (Visit Dallas); Tarrant (Visit Fort Worth); Denton (Discover Denton); Brazos (Destination Bryan); and El Paso (Visit El Paso). City-specific CVB calendars are discovery leads, not statewide or complete county event attestations. Five additional city tourism sources (Dallas, Fort Worth, Denton, Bryan and El Paso) were registered as source-only, with **no** email outreach presumed; the other ten new sources were individually contacted via O365.
+
+Running outreach campaign: 20 new confirmed O365 messages total (19 individualized local or CVB contacts plus one statewide TCCE association request), privately tracked as contacted with no subscriptions/backlinks assumed. The existing Visit Marfa, Visit Alpine and Visit Nacogdoches outreach records were not re-sent. Website consent/rights are not established by public calendar access alone.

@@ -37,6 +37,22 @@ test("robot restriction takes precedence over calendar discoverability", () => {
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /", "/"), false);
 });
 
+test("robots rules select the research agent, not unrelated Google or GPT bans", () => {
+  const text = "User-agent: Googlebot\nDisallow: /\nUser-agent: GPTBot\nDisallow: /\nUser-agent: *\nDisallow: /private\nAllow: /";
+  assert.equal(allowedByRobots(text, "/events"), true);
+  assert.equal(allowedByRobots(text, "/private"), false);
+  const own = "User-agent: *\nDisallow: /\nUser-agent: TexasDefined-Events-Research\nDisallow: /internal\nAllow: /events";
+  assert.equal(allowedByRobots(own, "/events"), true);
+  assert.equal(allowedByRobots(own, "/internal"), false);
+  const specific = "User-agent: *\nDisallow: /events\nAllow: /events/public\nDisallow: /private/*";
+  assert.equal(allowedByRobots(specific, "/events/private"), false);
+  assert.equal(allowedByRobots(specific, "/events/public/festival"), true);
+  assert.equal(allowedByRobots(specific, "/private/press"), false);
+  const suffix = "User-agent: *\nDisallow: /feed$";
+  assert.equal(allowedByRobots(suffix, "/feed"), false);
+  assert.equal(allowedByRobots(suffix, "/feed/events"), true);
+});
+
 test("event calendar leads are unverified and never publishable", () => {
   const html = '<script type="application/ld+json">' +
     '{"@graph":[{"@type":"Event","name":"Downtown Holiday Festival","startDate":"2027-11-14","url":"https://example.org/events/festival"}]}' +
@@ -58,8 +74,8 @@ test("offline audit enumerates every uncovered county without network, email or 
   });
   assert.equal(report.countiesTotal, 254);
   assert.equal(report.countiesWithRegisteredSources, new Set(registry.sources.flatMap(source => source.countySlugs)).size);
-  assert.equal(report.countiesWithRegisteredSources, 14);
-  assert.equal(report.countiesMissingSources, 240);
+  assert.equal(report.countiesWithRegisteredSources, 28);
+  assert.equal(report.countiesMissingSources, 226);
   assert.equal(report.sourceCount, registry.sources.length);
   assert.equal(report.candidateCount, 0);
   assert.ok(report.unservedCounties.some(c => c.slug === "borden"));

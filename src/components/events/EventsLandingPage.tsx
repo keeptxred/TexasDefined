@@ -65,6 +65,15 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
 
     <Suspense fallback={null}><CalendarBookingDiscovery city={search.location?.startsWith("city:") ? search.location.slice(5) : undefined} christmas={search.start?.startsWith("2026-12") || search.end?.startsWith("2026-12")} /></Suspense>
 
+    <section className="ev-section"><Container><div className="ev-split"><div>
+      <p className="eyebrow ev-e">For Chambers and festival organizers</p>
+      <h2 className="ev-title">Keep your town's events on the Texas calendar</h2>
+    </div><div>
+      <p>Have an annual festival, holiday parade, county fair or community celebration that deserves statewide visibility? Chambers of Commerce, visitor bureaus and event organizers can send official schedules and updates to TexasDefined's editorial desk.</p>
+      <p>Please include the event name, county, exact confirmed dates, venue, organizer website and a correction contact. Press releases, public calendar feeds and media kits are welcome; include explicit image-use and credit terms if you provide photographs. We verify details and link readers to the event organizer. Sending information does not guarantee publication or a link exchange.</p>
+      <p><a href="mailto:admin@texasdefined.com?subject=TexasDefined%20community%20event%20announcement">Email community event announcements to TexasDefined</a></p>
+    </div></div></Container></section>
+
     <section className="ev-section ev-surface"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Understand the tradition</p><h2 className="ev-title">The culture behind the calendar</h2></div><div className="ev-grid4">
       <EditorialLink href="/texas-state-fair" title="State Fair of Texas" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
       <EditorialLink href="/texas-dance-halls-honky-tonks" title="Dance halls & honky-tonks" text="Two-step culture, Western swing, historic community halls and how to plan a live-music weekend." />

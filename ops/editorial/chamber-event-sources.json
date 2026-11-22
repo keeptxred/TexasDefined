@@ -179,6 +179,216 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "waller-area-chamber",
+      "organization": "Waller Area Chamber of Commerce",
+      "countySlugs": [
+        "waller"
+      ],
+      "homeUrl": "https://www.wallerchamber.com/",
+      "calendarUrl": "https://www.wallerchamber.com/events/calendar",
+      "contactPageUrl": "https://www.wallerchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bellville-chamber",
+      "organization": "Bellville Chamber of Commerce",
+      "countySlugs": [
+        "austin"
+      ],
+      "homeUrl": "https://bellville.com/",
+      "calendarUrl": "https://business.bellville.com/events/calendar",
+      "contactPageUrl": "https://business.bellville.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "sealy-chamber",
+      "organization": "Greater Sealy Area Chamber of Commerce",
+      "countySlugs": [
+        "austin"
+      ],
+      "homeUrl": "https://www.sealychamber.com/",
+      "calendarUrl": "https://business.sealychamber.com/eventcalendar",
+      "contactPageUrl": "https://www.sealychamber.com/about/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "washington-county-chamber",
+      "organization": "Washington County Chamber of Commerce",
+      "countySlugs": [
+        "washington"
+      ],
+      "homeUrl": "https://www.brenhamtexas.com/",
+      "calendarUrl": "https://chamber.brenhamtexas.com/events/calendar",
+      "contactPageUrl": "https://chamber.brenhamtexas.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bastrop-regional-chamber",
+      "organization": "Bastrop Regional Chamber of Commerce",
+      "countySlugs": [
+        "bastrop"
+      ],
+      "homeUrl": "https://www.bastropchamber.com/",
+      "calendarUrl": "https://business.bastropchamber.com/eventcalendar",
+      "contactPageUrl": "https://business.bastropchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-corpus-christi",
+      "organization": "Visit Corpus Christi tourism bureau",
+      "countySlugs": [
+        "nueces"
+      ],
+      "homeUrl": "https://www.visitcorpuschristi.com/",
+      "calendarUrl": "https://www.visitcorpuschristi.com/events/",
+      "contactPageUrl": "https://www.visitcorpuschristi.com/media/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-san-antonio",
+      "organization": "Visit San Antonio tourism bureau",
+      "countySlugs": [
+        "bexar"
+      ],
+      "homeUrl": "https://www.visitsanantonio.com/",
+      "calendarUrl": "https://www.visitsanantonio.com/events/",
+      "contactPageUrl": "https://www.visitsanantonio.com/media/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-houston",
+      "organization": "Visit Houston tourism bureau",
+      "countySlugs": [
+        "harris"
+      ],
+      "homeUrl": "https://www.visithoustontexas.com/",
+      "calendarUrl": "https://www.visithoustontexas.com/events/",
+      "contactPageUrl": "https://www.visithoustontexas.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-austin",
+      "organization": "Visit Austin tourism bureau",
+      "countySlugs": [
+        "travis"
+      ],
+      "homeUrl": "https://www.austintexas.org/",
+      "calendarUrl": "https://www.austintexas.org/events/",
+      "contactPageUrl": "https://www.austintexas.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-galveston",
+      "organization": "Visit Galveston tourism bureau",
+      "countySlugs": [
+        "galveston"
+      ],
+      "homeUrl": "https://www.visitgalveston.com/",
+      "calendarUrl": "https://www.visitgalveston.com/events/",
+      "contactPageUrl": "https://www.visitgalveston.com/partners/submit-event/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-dallas",
+      "organization": "Visit Dallas tourism bureau",
+      "countySlugs": [
+        "dallas"
+      ],
+      "homeUrl": "https://www.visitdallas.com/",
+      "calendarUrl": "https://www.visitdallas.com/events/",
+      "contactPageUrl": "https://www.visitdallas.com/about/press/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-fort-worth",
+      "organization": "Visit Fort Worth tourism bureau",
+      "countySlugs": [
+        "tarrant"
+      ],
+      "homeUrl": "https://www.fortworth.com/",
+      "calendarUrl": "https://www.fortworth.com/events/",
+      "contactPageUrl": "https://www.fortworth.com/media/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "discover-denton",
+      "organization": "Discover Denton tourism bureau",
+      "countySlugs": [
+        "denton"
+      ],
+      "homeUrl": "https://www.discoverdenton.com/",
+      "calendarUrl": "https://www.discoverdenton.com/events/calendar/",
+      "contactPageUrl": "https://www.discoverdenton.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "destination-bryan",
+      "organization": "Destination Bryan tourism bureau",
+      "countySlugs": [
+        "brazos"
+      ],
+      "homeUrl": "https://www.destinationbryan.com/",
+      "calendarUrl": "https://www.destinationbryan.com/events/",
+      "contactPageUrl": "https://www.destinationbryan.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "visit-el-paso",
+      "organization": "Visit El Paso tourism bureau",
+      "countySlugs": [
+        "el-paso"
+      ],
+      "homeUrl": "https://visitelpaso.com/",
+      "calendarUrl": "https://visitelpaso.com/events/",
+      "contactPageUrl": "https://visitelpaso.com/media/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
