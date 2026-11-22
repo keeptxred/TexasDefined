@@ -389,6 +389,20 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "comanche-chamber",
+      "organization": "Comanche Chamber of Commerce and Agriculture",
+      "countySlugs": [
+        "comanche"
+      ],
+      "homeUrl": "https://www.comanchechamber.org/",
+      "calendarUrl": "https://www.comanchechamber.org/comancheevents",
+      "contactPageUrl": "https://www.comanchechamber.org/comancheevents",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
