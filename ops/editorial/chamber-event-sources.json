@@ -3050,6 +3050,104 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "zapata-community-events",
+      "organization": "Zapata community events calendar",
+      "countySlugs": [
+        "zapata"
+      ],
+      "homeUrl": "https://www.myzapata.com/",
+      "calendarUrl": "https://www.myzapata.com/events-calendar/",
+      "contactPageUrl": "https://www.myzapata.com/events-calendar/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "littlefield-lamb-city-events",
+      "organization": "City of Littlefield public Chamber and city events",
+      "countySlugs": [
+        "lamb"
+      ],
+      "homeUrl": "https://littlefieldtexas.net/",
+      "calendarUrl": "https://littlefieldtexas.net/Calendar.aspx",
+      "contactPageUrl": "https://littlefieldtexas.net/list.aspx",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "friona-parmer-chamber",
+      "organization": "Friona Chamber of Commerce",
+      "countySlugs": [
+        "parmer"
+      ],
+      "homeUrl": "https://www.friona-chamber.com/",
+      "calendarUrl": "https://www.friona-chamber.com/",
+      "contactPageUrl": "https://www.friona-chamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "daingerfield-morris-city-chamber",
+      "organization": "City of Daingerfield official Chamber contact",
+      "countySlugs": [
+        "morris"
+      ],
+      "homeUrl": "https://cityofdaingerfield.com/",
+      "calendarUrl": "https://cityofdaingerfield.com/chamber-of-commerce",
+      "contactPageUrl": "https://cityofdaingerfield.com/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "live-oak-county-community-calendar",
+      "organization": "Live Oak County official community event calendar",
+      "countySlugs": [
+        "live-oak"
+      ],
+      "homeUrl": "https://www.co.live-oak.tx.us/",
+      "calendarUrl": "https://www.co.live-oak.tx.us/",
+      "contactPageUrl": "https://www.co.live-oak.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bronte-coke-city",
+      "organization": "City of Bronte community and visitor information",
+      "countySlugs": [
+        "coke"
+      ],
+      "homeUrl": "https://www.brontetexas.org/",
+      "calendarUrl": "https://www.brontetexas.org/",
+      "contactPageUrl": "https://www.brontetexas.org/clubs-organizations",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "city-crane-texas",
+      "organization": "City of Crane official community activities contact",
+      "countySlugs": [
+        "crane"
+      ],
+      "homeUrl": "https://crane.texas.gov/",
+      "calendarUrl": "https://crane.texas.gov/",
+      "contactPageUrl": "https://crane.texas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
