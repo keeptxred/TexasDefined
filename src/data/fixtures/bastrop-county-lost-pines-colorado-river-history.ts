@@ -8,7 +8,7 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
   brandId: "texasdefined",
   slug: "bastrop-county-lost-pines-colorado-river-history-texas",
   title: "Bastrop County: Lost Pines, the Colorado River and a Texas Crossroads",
-  dek: "East of Austin, Bastrop County brings together one of Texas's oldest towns, an isolated pine forest, El Camino Real, the Colorado River, CCC park architecture, small communities and some of Central Texas's most visible modern growth.",
+  dek: "Bastrop's lost 1883 courthouse tower, 1892 jail, planned restoration, and the 2011 wildfire that reshaped the Lost Pines, Colorado River and parkland.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Bastrop County",
     "Bastrop",
@@ -32,6 +33,9 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
     "El Camino Real de los Tejas",
     "Central Texas",
     "Texas counties",
+    "1883 Bastrop County Courthouse tower",
+    "1923 Bastrop courthouse modernization",
+    "2026 courthouse restoration",
   ],
   featured: false,
   internalLinks: [
@@ -85,6 +89,22 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
     p("The Bastrop County Courthouse in downtown Bastrop dates to 1883, replacing an earlier courthouse. The courthouse and nearby historic jail form a civic complex recognized by the Texas Historical Commission and listed on the National Register of Historic Places. The building has been altered over time, including changes to its tower and exterior, but it remains the county government's most visible architectural landmark."),
     p("Its importance is larger than its style. Courthouses were the practical center of nineteenth-century county life: deeds, court cases, elections, taxes and public business all converged there. Bastrop's courthouse still performs that symbolic role even as county offices spread into additional facilities. The lawn, surrounding streets and nearby historic buildings make the courthouse a useful starting point for understanding how the city organized itself around government, commerce and the river."),
 
+    h("The old courthouse tower was deliberately removed in the 1920s"),
+    p("Bastrop's courthouse story includes a lost tower, not a courthouse destroyed by fire. Architect Jasper N. Preston, with F. E. Ruffini associated with the design, produced an ornate brick-and-stone Renaissance Revival courthouse erected in 1883–84. The original building featured gabled entrance bays, decorative parapets and a high multi-tiered central clock tower. Historic surveys and photographs document a more elaborate skyline than visitors see today."),
+    p("In 1923–24 county officials chose to modernize rather than replace the structure. Remodeling removed the original clock tower, roof gables and ornamental cornice and covered the brick with stucco. The appearance was transformed toward a Mission-inspired style. These changes did not mean the original courthouse building disappeared; its structural core remained while much of its exterior architectural identity was lost."),
+    p("The nearby Old Bastrop County Jail, completed in 1891–92, is a separate Victorian institutional landmark. Its stone-and-brick massing, original ironwork and historic jail-cell arrangement tell a different story of county government. The courthouse and jail are listed together as a historic complex on the National Register; their dates and purposes should not be merged into a single '1883 courthouse and jail' construction claim."),
+    p("In 2026 the Texas Historical Commission's active courthouse grant-project information outlines a planned full exterior restoration intended to recover the 1883 tower, gabled entries and original brick-and-stone details, replace failing systems and improve accessibility. This is an active project and design/implementation goal, not proof that the historic tower has already been reinstalled. Local June 2026 reporting documents efforts to secure restoration funding."),
+    p("This distinction matters to visitors. The building's exterior may look different after the preservation program is completed. Historical images show the proposed restoration's reference architecture; they should not be miscaptioned as the present-day appearance. Confirm county offices and construction access on the county's current website before a trip."),
+
+    h("Water, timber and court records have always connected this square"),
+    p("Bastrop County court records preserve decisions on utilities and fire safety through the nineteenth century. A local archival courthouse chronology identifies an 1894 water contract with the Bastrop Water and Light Company, followed by an 1897 lighting contract, an early twentieth-century telephone installation and a 1909 agreement to supply jail utilities and fountains. The sequence shows a civic complex modernizing its water and communications alongside changes to its architecture."),
+    p("The county courthouse is a strong counterpart to Linden in Cass County. Linden's 1933 fire spurred a 1934 water tower and 1939 firehouse; Bastrop's water infrastructure and courthouse modifications reflect earlier municipal growth, and the major modern fire event occurred in surrounding Lost Pines habitat in 2011 rather than as a courthouse blaze."),
+    
+    h("Bastrop's courthouse and wildfire questions"),
+    p("Was Bastrop County's historic courthouse destroyed by fire? No. The surviving 1883–84 structure lost its decorative clock tower and roof features in a deliberate 1923–24 modernization."),
+    p("When was the Old Bastrop County Jail built? The jail beside the courthouse was erected around 1891–92, several years after the courthouse."),
+    p("Is the original courthouse tower back in place? THC preservation documents describe reconstruction as a restoration goal, not as confirmed completed work as of the 2026 source review."),
+    p("What happened in the Bastrop County Complex Fire in 2011? It burned across the Lost Pines and affected roughly 96 percent of Bastrop State Park; the courthouse complex in downtown Bastrop was not the source of that wildfire."),
     h("Bastrop State Park turned conservation into architecture"),
     p("During the Great Depression, the Civilian Conservation Corps helped create Bastrop State Park from land acquired by the state between 1933 and 1935. The park opened in 1937. CCC workers built roads, cabins, a refectory, bridges, culverts and other facilities using stone, timber and design principles intended to blend into the pine landscape. Texas Parks and Wildlife notes that the park later received National Historic Landmark recognition in large part because of this enduring CCC work."),
     p("The result is one of Texas's strongest examples of New Deal park design. The buildings are not merely old shelters placed in a forest; they were conceived as part of the landscape. Native stone, heavy timbers and careful siting make the structures feel connected to the terrain. That relationship between architecture and nature has become central to the identity of both the park and the county."),
@@ -124,5 +144,15 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
     h("How to read Bastrop County today"),
     p("The best way to understand Bastrop County is to follow its connections. Start at the Colorado River in Bastrop and imagine why an old road needed a dependable crossing. Walk downtown to see the courthouse and the street pattern of a nineteenth-century county seat. Then move into Bastrop State Park, where the Lost Pines, El Camino Real and CCC architecture compress natural history, Spanish-era travel and New Deal conservation into one landscape."),
     p("Continue toward Smithville to see how the railroad and river created a second strong town, or north toward Elgin to see how rail, brick, agriculture and modern Austin-area growth produced a different one. Along the way, wildfire scars, young pine forest, military land, farms, subdivisions and industrial sites reveal a county still changing quickly. Bastrop County's defining story is continuity through movement: travelers crossed here before there was a Texas republic, timber moved west to build a capital, trains reorganized towns, soldiers arrived for training, and commuters now follow highways into a new era. The routes keep changing, but geography continues to decide where they go."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1883 Bastrop courthouse architecture and 1923 tower removal", url: "https://atlas.thc.texas.gov/Details/4302000226" },
+    { label: "Texas Historical Commission — Bastrop courthouse current grant-restoration plans", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
+    { label: "Society of Architectural Historians — Bastrop Courthouse and 1891 jail", url: "https://sah-archipedia.org/buildings/TX-01-BT1" },
+    { label: "National Register of Historic Places — courthouse and jail complex", url: "https://atlas.thc.texas.gov/NR/pdfs/75001947/75001947.pdf" },
+    { label: "Bastrop Courthouse Historical Commission — original courthouse records", url: "https://www.usgenwebsites.org/TXBastrop/court/chhistory.htm" },
+    { label: "Texas Parks and Wildlife — Bastrop State Park wildfire and recovery", url: "https://tpwd.texas.gov/state-parks/bastrop/life-after-wildfire" },
+    { label: "Texas Parks and Wildlife — current prescribed-fire conservation", url: "https://tpwd.texas.gov/state-parks/bastrop/protecting-forest" },
+    { label: "Bastrop County tourism — courthouse and 1892 jail heritage tour", url: "https://explorebastropcounty.com/listings/tour-of-bastrop-county-museums/" },
   ],
 };
