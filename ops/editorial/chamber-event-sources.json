@@ -2559,6 +2559,118 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "mason-county-chamber",
+      "organization": "Mason County Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "mason"
+      ],
+      "homeUrl": "https://masontx.org/",
+      "calendarUrl": "https://business.masontx.org/community-calendar",
+      "contactPageUrl": "https://masontx.org/annual-events/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "dumas-moore-chamber",
+      "organization": "Dumas/Moore County Chamber of Commerce",
+      "countySlugs": [
+        "moore"
+      ],
+      "homeUrl": "https://dumaschamber.org/",
+      "calendarUrl": "https://dumaschamber.org/events/",
+      "contactPageUrl": "https://dumaschamber.org/community/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "plainview-hale-chamber",
+      "organization": "Plainview Texas Chamber of Commerce",
+      "countySlugs": [
+        "hale"
+      ],
+      "homeUrl": "https://www.plainviewtexaschamber.com/",
+      "calendarUrl": "https://www.plainviewtexaschamber.com/events/",
+      "contactPageUrl": "https://www.plainviewtexaschamber.com/community/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "seminole-gaines-chamber",
+      "organization": "Seminole Chamber of Commerce",
+      "countySlugs": [
+        "gaines"
+      ],
+      "homeUrl": "https://seminoletxchamber.org/",
+      "calendarUrl": "https://seminoletxchamber.org/calendar/list/",
+      "contactPageUrl": "https://seminoletxchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "spearman-hansford-city",
+      "organization": "City of Spearman current public events",
+      "countySlugs": [
+        "hansford"
+      ],
+      "homeUrl": "https://www.spearmantx.gov/",
+      "calendarUrl": "https://www.spearmantx.gov/events",
+      "contactPageUrl": "https://www.spearmantx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "breckenridge-stephens-chamber",
+      "organization": "Breckenridge Chamber of Commerce",
+      "countySlugs": [
+        "stephens"
+      ],
+      "homeUrl": "https://www.breckenridgetexas.com/",
+      "calendarUrl": "https://www.breckenridgetexas.com/",
+      "contactPageUrl": "https://www.breckenridgetexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "reeves-county-visitor-events",
+      "organization": "Reeves County visitor and event announcements",
+      "countySlugs": [
+        "reeves"
+      ],
+      "homeUrl": "https://www.reevescounty.org/",
+      "calendarUrl": "https://www.reevescounty.org/visitors/advanced-components/custom-news-calendar/-sortn-EDate/-sortd-asc",
+      "contactPageUrl": "https://www.reevescounty.org/visitors",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "rains-county-fair",
+      "organization": "Rains County Fair Association",
+      "countySlugs": [
+        "rains"
+      ],
+      "homeUrl": "https://rainscountyfair.com/",
+      "calendarUrl": "https://rainscountyfair.com/",
+      "contactPageUrl": "https://rainscountyfair.com/about-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
