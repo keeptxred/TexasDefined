@@ -8,7 +8,7 @@ export const brazoriaCountyBrazosGulfAngletonArticle: Article = {
   brandId: "texasdefined",
   slug: "brazoria-county-brazos-gulf-angleton-texas",
   title: "Brazoria County: Where the Brazos Meets the Gulf and Early Texas Took Root",
-  dek: "Brazoria County ties together Stephen F. Austin's colony, the lower Brazos River, Angleton, West Columbia, Lake Jackson, Freeport, Surfside Beach, coastal wildlife refuges and an industrial Gulf Coast economy.",
+  dek: "How Angleton’s 1897 courthouse became a museum, the 1932 storm and 1978 preservation campaign, its 1940 successor, and Brazoria County’s storm and Brazos history.",
   category: "texas-history",
   region: "gulf-coast",
   hero: {
@@ -20,7 +20,8 @@ export const brazoriaCountyBrazosGulfAngletonArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-13",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: ["Brazoria County", "Angleton", "Brazos River", "West Columbia", "Lake Jackson", "Freeport", "Surfside Beach", "Brazoria National Wildlife Refuge", "Texas Gulf Coast", "Texas history"],
   featured: false,
   internalLinks: [
@@ -47,6 +48,26 @@ export const brazoriaCountyBrazosGulfAngletonArticle: Article = {
     p("When Brazoria County was organized in 1836, the town of Brazoria became the county seat. It remained the center of county government for most of the nineteenth century, reflecting the importance of river travel and early settlement in the southern and western parts of the county."),
     p("In 1896 voters selected Angleton as county seat. The shift reflected changing transportation patterns and the rise of a more centrally located community. The historic courthouse still gives downtown Angleton a strong civic anchor, while the city now sits between the suburban growth of the north, the older Brazos communities to the west and the industrial coast to the south."),
 
+    h("The 1897 courthouse became a museum after surviving storms and a demolition proposal"),
+    p("The old Brazoria County Courthouse at 100 East Cedar Street in Angleton is a landmark that nearly disappeared. Voters moved the county seat from Brazoria to Angleton in 1896, and the new courthouse was built in 1897 from plans by architect James Riely Gordon. The large Romanesque Revival building originally displayed red-brick walls and an ornamental tower; later alterations changed much of its appearance."),
+    p("The 1900 Galveston hurricane devastated parts of the surrounding Gulf Coast, while a 1932 storm caused structural damage to the old courthouse. In the 1920s its red-brick walls were coated with stucco, and its dramatic upper tower had been removed by the time it ceased serving as the primary court building. County leaders built a separate courthouse in 1940 rather than restoring the 1897 building as their main administrative center."),
+    p("The 1897 building continued housing some county offices until the 1970s. In 1978 county commissioners considered demolishing it to provide parking, but residents and historical advocates campaigned to preserve it. The former courthouse became the Brazoria County Historical Museum, protecting an architectural survivor and its documentary collections rather than turning it into another parking lot."),
+    p("The Texas Historical Commission's marker and National Register records describe the original construction, 1932 storm damage and adaptive reuse. They also distinguish the older museum from the current county courthouse nearby. Museum access must be checked with the current operator rather than assuming a historic marker means every room is publicly accessible."),
+
+    h("The 1940 courthouse preserves an Art Deco–era public investment"),
+    p("Angleton's 1940 Brazoria County Courthouse is a different building with a different purpose and architectural style. It was developed during the years when New Deal public-works programs supported county infrastructure. The Texas Historical Commission catalogs it as a 1940 courthouse; the Society of Architectural Historians identifies architect Lamar Q. Cato and describes the change from Gordon's nineteenth-century landmark to a streamlined modern civic complex."),
+    p("The courthouse chronology makes a useful historical walking route: start with the former 1897 courthouse-turned-museum on East Cedar, then compare the newer twentieth-century government offices. The two structures tell the story of the county-seat election, hurricane damage, public building modernization and a successful late-twentieth-century preservation campaign."),
+    p("The 1940 courthouse and the historic museum should not be conflated in photo captions, wayfinding or structured data. Their construction dates, access functions and architectural histories are distinct."),
+    
+    h("Angleton's schools were also rebuilt after hurricanes"),
+    p("Angleton's historic schools suffered major damage during Gulf storms. The Handbook of Texas records that an early two-story brick school was destroyed by the 1900 hurricane; a successor was damaged in the 1909 hurricane and rebuilt. The short-lived University of South Texas had buildings demolished by the 1900 storm. These losses show that the county's storm history reached classrooms and civic institutions well inland from the most famous Galveston Island sites."),
+    p("For visitors, hurricanes are not simply beach stories. County archives, early photographs and surviving museum buildings preserve the record of repeated reconstruction as families and businesses adapted to coastal weather."),
+    
+    h("Brazoria County courthouse questions"),
+    p("What is the old 1897 courthouse used for today? The original Gordon-designed courthouse in Angleton was preserved as the Brazoria County Historical Museum after a 1978 demolition proposal."),
+    p("Did the 1897 courthouse burn down? No. Its record of damage and alteration includes hurricanes, a 1932 storm and changes to its tower and exterior; the building survived."),
+    p("When was Angleton chosen county seat? Voters moved county government from Brazoria to Angleton in 1896, a year before construction of the 1897 courthouse."),
+    p("How old is the present government courthouse? The principal twentieth-century courthouse structure was built in 1940, separate from the historic 1897 museum."),
     h("The plantation economy shaped the lower Brazos"),
     p("The fertile bottomlands along the Brazos supported cotton, sugarcane, livestock and other agriculture. That prosperity was built in significant part through enslaved labor. Plantation sites in Brazoria County therefore preserve both the wealth generated by the river economy and the human cost behind it. Understanding the county's early growth requires keeping those two realities together."),
     p("Varner-Hogg Plantation State Historic Site near West Columbia is one of the clearest places to encounter that history. The property began with Martin Varner, one of Austin's colonists, and later became a large sugar operation under Columbus Patton. The Texas Historical Commission interprets the lives of the families who owned the property as well as the enslaved people whose labor built and sustained it. Later cattle ranching and oil development added still more layers to the site."),
@@ -102,5 +123,15 @@ export const brazoriaCountyBrazosGulfAngletonArticle: Article = {
     h("Why Brazoria County matters to the Texas story"),
     p("Brazoria County matters because it connects beginnings with consequences. The first colonization era helped set political events in motion that eventually produced the Republic and state of Texas. River agriculture generated wealth while depending on slavery. Railroads and roads reordered communities. Industry created new cities and global economic connections. Houston's expansion transformed the northern prairie. Conservation protected pieces of marsh, estuary and bottomland forest that development might otherwise have erased."),
     p("The county's defining image may be the Brazos itself: entering from inland Texas, passing through settlement country and industry, and finally reaching the Gulf. Following that river through Brazoria County means following a large part of the Texas story without ever leaving one county."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1897 Old Brazoria Courthouse marker and 1932 storm", url: "https://atlas.thc.texas.gov/Details/5039009533" },
+    { label: "Texas Historical Commission — Old Brazoria Courthouse National Register nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/79002922/79002922.pdf" },
+    { label: "Texas Historical Commission — Brazoria Courthouse (1940) inventory", url: "https://atlas.thc.texas.gov/Details/4302000219/print" },
+    { label: "Brazoria County government — official county-seat history", url: "https://www.brazoriacountytx.gov/about-us/history" },
+    { label: "Texas State Historical Association — Angleton 1900 and 1909 storm school losses", url: "https://www.tshaonline.org/handbook/entries/angleton-tx" },
+    { label: "Texas historical archives — 1978 preservation fight for courthouse museum", url: "https://www.txhas.org/PDF/journals/1982/HAS%20Journal%20No%2073.pdf" },
+    { label: "Society of Architectural Historians — 1897 courthouse-turned-museum and 1940 replacement", url: "https://sah-archipedia.org/buildings/TX-01-AS2" },
+    { label: "Brazoria County — historical museum and visitor contact", url: "https://www.brazoriacountytx.gov/departments/museum" },
   ],
 };
