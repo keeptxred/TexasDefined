@@ -665,7 +665,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "texarkana-chamber",
@@ -1864,7 +1865,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "portland-san-patricio-chamber",
@@ -2077,7 +2079,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "boerne-kendall-chamber",
@@ -2091,7 +2094,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "corsicana-navarro-chamber",
@@ -2148,7 +2152,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "mt-pleasant-titus-chamber",
@@ -2162,7 +2167,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "monahans-ward-chamber",
@@ -2263,7 +2269,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "fairfield-freestone-chamber",
@@ -2350,7 +2357,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "snyder-scurry-chamber",
@@ -2364,7 +2372,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "cuero-dewitt-chamber",
@@ -2378,7 +2387,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "ballinger-runnels-chamber",
@@ -2406,7 +2416,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "big-spring-howard-tourism",
@@ -2465,7 +2476,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "sonora-sutton-chamber",
@@ -2494,7 +2506,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "brownfield-terry-chamber",
@@ -2566,7 +2579,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "liberty-trinity-valley-chamber",
@@ -2580,7 +2594,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "kenedy-karnes-chamber",
@@ -2665,7 +2680,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "dumas-moore-chamber",
@@ -2693,7 +2709,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "seminole-gaines-chamber",
@@ -2707,7 +2724,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "spearman-hansford-city",
@@ -2805,7 +2823,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "shamrock-wheeler-st-patricks",
@@ -3272,7 +3291,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "clarendon-donley-chamber",
@@ -4062,6 +4082,81 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "visit-sugar-land-calendar",
+      "organization": "Visit Sugar Land official tourism community and festival event calendar",
+      "countySlugs": [
+        "fort-bend"
+      ],
+      "homeUrl": "https://visitsugarlandtx.com/",
+      "calendarUrl": "https://visitsugarlandtx.com/events/calendar",
+      "contactPageUrl": "https://visitsugarlandtx.com/events/submit-an-event",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "discover-denison-tourism-calendar",
+      "organization": "Discover Denison city tourism public event calendar",
+      "countySlugs": [
+        "grayson"
+      ],
+      "homeUrl": "https://discoverdenison.com/",
+      "calendarUrl": "https://discoverdenison.com/events/",
+      "contactPageUrl": "https://discoverdenison.com/events/submit-event/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "gotxk-leadership-texarkana-community-calendar",
+      "organization": "GoTXK public community calendar operated by Leadership Texarkana",
+      "countySlugs": [
+        "bowie"
+      ],
+      "homeUrl": "https://gotxk.org/",
+      "calendarUrl": "https://gotxk.org/calendar/",
+      "contactPageUrl": "https://gotxk.org/calendar/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "pecos-city-community-calendar",
+      "organization": "Town of Pecos City public municipal and community events calendar",
+      "countySlugs": [
+        "reeves"
+      ],
+      "homeUrl": "https://www.pecostx.gov/",
+      "calendarUrl": "https://www.pecostx.gov/Calendar.aspx",
+      "contactPageUrl": "https://www.pecostx.gov/293/Upcoming-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-alvin-home-for-holidays-2026",
+      "organization": "City of Alvin Parks and Recreation — Home for the Holidays 2026 event announcement",
+      "countySlugs": [
+        "brazoria"
+      ],
+      "homeUrl": "https://www.alvin.gov/",
+      "calendarUrl": "https://www.alvin.gov/m/newsflash/Home/Detail/193",
+      "contactPageUrl": "https://www.alvin.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
