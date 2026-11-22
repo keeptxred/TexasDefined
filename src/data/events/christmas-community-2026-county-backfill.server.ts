@@ -80,5 +80,62 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Pittsburg Tourism / Pittsburg–Camp County Chamber",
     "summary": "The City of Pittsburg tourism office confirms A Storybook Christmas on Saturday, December 5, 2026, with a downtown Christmas market from 8 a.m.–1 p.m., holiday shopping, Santa, food, festive entertainment and a Christmas parade. The city describes a free children's event, but does not establish that every market purchase or activity is free. This is separate from the November 19 city tree lighting at Pilgrim's Plaza.",
     "sourceVerifiedAt": "2026-11-22"
-  }
+  },
+{
+  "slug": "paris-14th-christmas-parade-of-lights-2026",
+  "title": "Paris 14th Annual Christmas Parade of Lights",
+  "city": "Paris",
+  "countySlug": "lamar",
+  "countyName": "Lamar County",
+  "region": "prairies-lakes",
+  "startDate": "2026-12-05",
+  "venueName": "Downtown Paris, Texas",
+  "officialEventUrl": "https://www.paristexas.gov/321/Events",
+  "sourceName": "City of Paris Main Street / Paris Downtown Association",
+  "summary": "The City of Paris' 2026 Main Street calendar confirms the 14th Annual Downtown Christmas Parade of Lights on Saturday, December 5 at 6 p.m. Paris Downtown Association coordinates parade information. A separate November 21 tree lighting at the J.J. Culbertson fountain has ended; check the current parade route, traffic changes and staging guidance with the association.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "corpus-christi-holidays-on-harbor-2026",
+  "title": "Holidays on the Harbor · Christmas Tree Lighting & Boat Parade",
+  "city": "Corpus Christi",
+  "countySlug": "nueces",
+  "countyName": "Nueces County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-05",
+  "venueName": "Water's Edge Park, Corpus Christi Marina & downtown seawall",
+  "officialEventUrl": "https://www.visitcorpuschristi.com/merrydays/",
+  "sourceName": "Visit Corpus Christi",
+  "summary": "Visit Corpus Christi confirms Holidays on the Harbor on Saturday, December 5, 2026. Water's Edge Park hosts family festivities and the 66-foot H-E-B holiday tree lighting from 4–8 p.m., with the ceremony at 6 p.m.; the Port of Corpus Christi Illuminated Boat Parade follows along the marina and downtown seawall from 7–9 p.m. Viewers should confirm waterfront viewing restrictions and weather updates.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "corpus-la-posada-lighted-boat-parade-2026",
+  "title": "La Posada Lighted Boat Parade · North Padre Island",
+  "city": "Corpus Christi",
+  "countySlug": "nueces",
+  "countyName": "Nueces County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-11",
+  "endDate": "2026-12-12",
+  "venueName": "North Padre Island canals and Caravel Boat Ramp",
+  "officialEventUrl": "https://www.visitcorpuschristi.com/merrydays/",
+  "sourceName": "Visit Corpus Christi / La Posada Foundation",
+  "summary": "Visit Corpus Christi confirms the La Posada Foundation's two-night holiday boat parade December 11–12, 2026 on North Padre Island. The Friday December 11 boat parade is listed for 7 p.m.; the Saturday December 12 parade is listed for 6 p.m. The route starts at Caravel Boat Ramp and travels island canals. A separate December 4 fundraising kickoff party is not included in these parade dates.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "marshall-wonderland-wassail-walk-2026",
+  "title": "Marshall Wonderland of Lights · Wassail Walk",
+  "city": "Marshall",
+  "countySlug": "harrison",
+  "countyName": "Harrison County",
+  "region": "piney-woods",
+  "startDate": "2026-11-28",
+  "venueName": "Historic downtown Marshall",
+  "officialEventUrl": "https://marshalltexas.com/",
+  "sourceName": "Greater Marshall Chamber of Commerce",
+  "summary": "The Greater Marshall Chamber of Commerce official event list confirms its Wonderland of Lights Wassail Walk for Saturday, November 28, 2026 from 1–5 p.m. The Chamber also describes a broader Wonderland of Lights festival from November 25 through December 30, but this calendar entry covers only the verified Wassail Walk day and does not assume every attraction operates on every night.",
+  "sourceVerifiedAt": "2026-11-22"
+}
 ];
