@@ -76,7 +76,10 @@ for (const item of [
 ]) {
   assert.ok(source.includes(item), `Cass County missing music heritage or source: ${item}`);
 }
-assert.match(visitor, /"county": "cass",[\\s\\S]*?"name": "Music City Texas Theater in Linden",[\\s\\S]*?108 Legion Street/);
+const theaterEntry = visitor.indexOf('"name": "Music City Texas Theater in Linden"');
+assert.ok(theaterEntry > 0, 'Cass County theater visitor listing is absent');
+assert.ok(visitor.slice(theaterEntry - 90, theaterEntry).includes('"county": "cass"'), 'Theater county assignment must stay Cass');
+assert.ok(visitor.slice(theaterEntry, theaterEntry + 520).includes('108 Legion Street'), 'Theater listing must include usable address');
 assert.ok(visitor.includes("Richard Bowden helped build"), 'Theater short listing must mention Richard Bowden');
 assert.ok(!source.includes('Joplin was born in Linden.'), 'Do not flatten Scott Joplin birthplace uncertainty');
 
