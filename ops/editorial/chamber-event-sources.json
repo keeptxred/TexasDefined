@@ -1061,6 +1061,34 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "eastland-chamber-2026-parade",
+      "organization": "Eastland Chamber of Commerce",
+      "countySlugs": [
+        "eastland"
+      ],
+      "homeUrl": "https://www.eastlandchamber.com/",
+      "calendarUrl": "https://business.eastlandchamber.com/eventcalendar/Details/rip-s-a-cowboy-christmas-lighted-christmas-parade-1953253?sourceTypeId=Website",
+      "contactPageUrl": "https://www.eastlandchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bowie-chamber-fantasy-lights-2026",
+      "organization": "Bowie Chamber and City of Bowie",
+      "countySlugs": [
+        "montague"
+      ],
+      "homeUrl": "https://bowietxchamber.org/",
+      "calendarUrl": "https://cityofbowietx.com/143/Fantasy-of-Lights-Christmas-Parade",
+      "contactPageUrl": "https://bowietxchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
