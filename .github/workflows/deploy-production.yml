@@ -1429,6 +1429,13 @@ jobs:
           node scripts/ci/verify-el-paso-fredericksburg-release.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
           node scripts/ci/verify-authority-category-live.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
 
+      # Dedicated rail authority acceptance: this route must be a real,
+      # indexable 200-page on both public origins, beyond just compiling a bundle.
+      - name: Verify Texas State Railroad authority on both production origins
+        id: live_railroad
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: node scripts/ci/verify-texas-state-railroad-production.mjs
+
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
       - name: Verify hunting hub and turkey guide in desktop/mobile Chrome

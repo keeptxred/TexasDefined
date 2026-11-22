@@ -39,9 +39,12 @@ must("guide", 'category: "texas-history"');
 must("guide", 'updatedAt: "2026-11-22"');
 must("guide", 'readingTimeVerified: false');
 must("guide", 'type: "image"');
+for (const asset of ["TSR_300_at_Rusk.jpg", "Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg", "Car_42_Interior_Texas_State_Railroad_2024.jpg", "Texas_State_Railroad%2C_moving_locomotives.jpg", "CC BY-SA 3.0", "CC BY 2.0"]) must("guide", asset);
+if ([...(sources.guide || "").matchAll(/    photo\(/g)].length < 4) failures.push("Four credited context-specific rail photographs required");
 for (const [key, needle] of [
   ["guide", "Rusk Penitentiary"], ["guide", "1883"], ["guide", "528"],
   ["guide", "1894"], ["guide", "300-kilowatt"], ["guide", "1929"],
+  ["guide", "Alto–Lufkin"], ["guide", "approximately 22 miles"], ["guide", "https://texashistory.unt.edu/ark:/67531/metapth657280/m1/5/"],
   ["guide", "https://texashistory.unt.edu/ark:/67531/metapth326227/m1/1/"],
   ["guide", "February 1884"], ["guide", "1909"], ["guide", "1910"], ["guide", "1917"], ["guide", "1919"],
   ["guide", "Texas State Capitol"], ["guide", "Prison labor"], ["guide", "power plant"],

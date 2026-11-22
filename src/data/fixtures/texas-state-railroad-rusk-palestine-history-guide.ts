@@ -3,9 +3,9 @@ import type { Article, ArticleBlock } from "../types";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const photo = (src: string, alt: string, width: number, height: number, caption: string): ArticleBlock => ({
+const photo = (src: string, alt: string, width: number, height: number, caption: string, credit = "Larry D. Moore · Wikimedia Commons · CC BY 4.0"): ArticleBlock => ({
   type: "image",
-  image: { src, alt, width, height, credit: "Larry D. Moore · Wikimedia Commons · CC BY 4.0" },
+  image: { src, alt, width, height, credit },
   caption,
 });
 
@@ -27,7 +27,7 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
   authorId: "a-hollis",
   publishedAt: "2026-11-22",
   updatedAt: "2026-11-22",
-  readingMinutes: 18,
+  readingMinutes: 19,
   readingTimeVerified: false,
   tags: [
     "Texas State Railroad", "Rusk Texas", "Palestine Texas", "Cherokee County", "Anderson County",
@@ -42,6 +42,7 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     { label: "Handbook of Texas: Texas State Railroad", url: "https://www.tshaonline.org/handbook/entries/texas-state-railroad" },
     { label: "Texas State Library: Rusk Penitentiary, 1883–1917", url: "https://www.tsl.texas.gov/exhibits/prisons/lease/rusk.html" },
     { label: "Texas State Library: Convict Labor and the Texas State Capitol", url: "https://www.tsl.texas.gov/exhibits/prisons/convictlease/capitol.html" },
+    { label: "2012 Polk County Enterprise / Bob Bowman: 1974 historical thesis on Rusk Capitol shipments through Alto and Lufkin", url: "https://texashistory.unt.edu/ark:/67531/metapth657280/m1/5/" },
     { label: "Handbook of Texas: Rusk Penitentiary", url: "https://www.tshaonline.org/handbook/entries/rusk-penitentiary" },
     { label: "The History Center: Texas State Railroad archival history and photographs", url: "https://www.thehistorycenteronline.com/exhibits/east-texas-railroad-photograph-selections" },
     { label: "Texas State Railroad: depot and historic film exhibits", url: "https://texasstaterailroad.net/at-the-depot/" },
@@ -51,6 +52,9 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     { label: "1950 Rusk Cherokeean: hospital walls, 1894 prison building and 1929 powerhouse", url: "https://texashistory.unt.edu/ark:/67531/metapth326227/m1/1/" },
     { label: "Texas Historical Commission: Rusk Penitentiary Building marker", url: "https://atlas.thc.texas.gov/Details/5073006961" },
     { label: "Authentic Texas: Back on Track, historic railcars and film locomotive 316", url: "https://authentictexas.com/back-on-track/" },
+    { label: "Wikimedia Commons: Engine 300 at Rusk in 2010 — CC BY-SA 3.0", url: "https://commons.wikimedia.org/wiki/File:TSR_300_at_Rusk.jpg" },
+    { label: "Wikimedia Commons: Palestine Depot platform in 2024 — CC BY 4.0", url: "https://commons.wikimedia.org/wiki/File:Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg" },
+    { label: "Wikimedia Commons: locomotives repositioning in 2011 — CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Texas_State_Railroad,_moving_locomotives.jpg" },
     { label: "Wikimedia Commons: 2024 locomotive photograph and license", url: "https://commons.wikimedia.org/wiki/File:Locomotive_125_Texas_State_Railroad_2024.jpg" },
     { label: "Wikimedia Commons: 2024 Car 42 interior photograph and license", url: "https://commons.wikimedia.org/wiki/File:Car_42_Interior_Texas_State_Railroad_2024.jpg" },
   ],
@@ -92,7 +96,9 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     p("These archival references establish the histories of the walls, power plant and powerhouse, but they do not establish that either power building, its machinery or any wall segment survives as a publicly accessible attraction in 2026. Verify physical condition and access independently with Rusk State Hospital and local historic preservation authorities before directing a visitor there."),
     h("Rusk prison iron became part of the Texas Capitol in Austin"),
     p("The Rusk foundry helped furnish the new Texas State Capitol. The Texas State Library specifically attributes the Capitol's dome, columns, gates and interior decorative iron elements to the Rusk prison ironworks. The Handbook of Texas places substantial interior cast-iron work between 1885 and 1887, during construction of the present Capitol."),
-    p("This connection matters because the Capitol ironwork predates completion of the Rusk–Palestine railroad extension in 1909. It is therefore inaccurate to say the Palestine extension was originally built specifically to move the Capitol's iron to Austin. The railroad's role was broader: prison materials, market access and more competitive rail connections. The exact routing of individual Capitol iron shipments, including any proposed passage through Houston, requires documentary shipment records and should not be asserted without them."),
+    p("The Rusk foundry's Capitol output predates completion of the Rusk–Palestine extension in 1909. The Palestine extension therefore cannot have been built to move those 1880s Capitol castings. Prison industrial supply, local freight and access to broader markets did motivate the later railway expansion."),
+    p("There is a separate, earlier railroad-transportation story tied specifically to the Capitol iron. In a January 26, 2012 Polk County Enterprise historical column, East Texas historian Bob Bowman cited Sandra Fuller Allen's 1974 Stephen F. Austin State University thesis and reported that Rusk's rail links to Austin had a gap between Alto and Lufkin. Convict workers constructed approximately 22 miles of narrow-gauge line to connect the Kansas and Gulf Short Line to the Houston, East and West Texas Railroad at Lufkin. Even that connection did not create a seamless shipment: freight had to be unloaded and reloaded between different rail gauges on its way to Austin."),
+    p("This is a documented secondary historical account of earlier Capitol-related rail connections, not a primary shipping manifest for each shipment. In particular, the reference to a railroad named Houston, East and West Texas does not prove that every load traveled via the city of Houston. The 22-mile Alto–Lufkin connection and the later Rusk–Palestine extension were distinct routes built at different times. This distinction also explains why a 2006 public reminiscence attributing Capitol iron shipments to the later Palestine extension conflicts with the line's 1909 completion date."),
     h("Why the prison needed its own railway"),
     p("An iron furnace requires heavy raw materials and a dependable fuel supply. The first prison rail tracks moved timber, charcoal materials, ore and manufactured goods and connected the penitentiary with other railroads near Rusk. The earliest timeline varies depending on whether a historian means the initial short prison spur or the later western branch: The History Center describes a roughly 1.3-mile connection in 1882, while the Handbook of Texas dates a five-mile westward extension to 1896."),
     p("Governor James Stephen Hogg's administration promoted the western extension in the 1890s. Construction continued in phases and followed an altered alignment after 1903. By 1904 the railroad had reached Maydelle. Under Governor Thomas M. Campbell, crews finally pushed through to Palestine in 1909. Prisoners were essential to construction of the route, while later regular common-carrier train crews included civilian railroad workers."),
@@ -110,6 +116,13 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     p("The tourist operation uses heritage steam and diesel locomotives and vintage passenger cars. Equipment rosters and which engine pulls a particular excursion change as maintenance and operating schedules change; a ticket for the train is not automatically a guarantee of steam traction. Some notable preserved locomotives have had multiple identities and decades of service before reaching Rusk."),
     p("Engine No. 300, for example, is a Baldwin-built 1917 steam engine that formerly worked for the U.S. Army and later timber companies; it is not an original 1880s Rusk prison locomotive. Vintage cars, observation spaces and the historic mail/express car interpreted at Rusk reveal a different layer of rail history than the industrial origin of the track."),
     photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/TSR_300_at_Rusk.jpg?width=1280",
+      "Baldwin-built 1917 Texas State Railroad steam locomotive 300 at the Rusk terminal, photographed in 2010",
+      3648, 2736,
+      "Engine 300 at Rusk in 2010. Photo: Rvassar, CC BY-SA 3.0, via Wikimedia Commons. The 1917 locomotive predates the modern excursion operation but not the railroad's prison origin.",
+      "Rvassar · Wikimedia Commons · CC BY-SA 3.0"
+    ),
+    photo(
       "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_42_Interior_Texas_State_Railroad_2024.jpg?width=1280",
       "Interior of historic passenger coach 42 at the Texas State Railroad Rusk Depot, photographed in 2024",
       3001, 2000,
@@ -125,7 +138,20 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
       "At the Rusk layover, use the historic displays, grounds and permitted public areas. The rail yard and maintenance shops are working facilities, not unsupervised sightseeing areas.",
       "If you're visiting historic Rusk on the same day, pair the railroad with the Heritage Center of Cherokee County; in Palestine, add the downtown and railroad heritage district."
     ),
+    photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg?width=1280",
+      "Texas State Railroad passenger boarding platform and water tower at Palestine Depot, photographed in March 2024",
+      3001, 2000,
+      "Palestine Depot's boarding platform and water tower, 2024. Photo: Larry D. Moore, CC BY 4.0, via Wikimedia Commons."
+    ),
     h("Movie trains, filming cars and the 'abandoned' rail yard"),
+    photo(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_State_Railroad%2C_moving_locomotives.jpg?width=1280",
+      "Historic Texas State Railroad diesel and steam locomotives being repositioned to pull a return passenger train in 2011",
+      4316, 3047,
+      "Railroad crews reposition diesel and steam locomotives for a return trip to Rusk in 2011. Photo: Roy Luck, CC BY 2.0, via Wikimedia Commons. The presence of a preserved locomotive does not make a working rail yard open to visitors.",
+      "Roy Luck · Wikimedia Commons · CC BY 2.0"
+    ),
     p("Texas State Railroad equipment and scenery have appeared in films and television because the route offers an operating historic-looking railroad. The Texas Governor's Film Commission documents appearances in The Long Riders, Rough Riders, Streets of Laredo, Gambler V and American Outlaws. The operator also identifies productions including O Brother, Where Art Thou?, The Great Debaters and 1883, and displays a Wall of Fame at Rusk Depot."),
     p("A historical interview published by Authentic Texas identified steam locomotive No. 316 as a notable movie locomotive. The same reporting described the railroad storing railcars on behalf of other companies. Those are period accounts rather than a current equipment roster: no evidence establishes that any specific stored car was abandoned by a movie production. Engine numbers, identities and present storage status should be checked with railroad staff before publication of a specific artifact claim."),
     p("Railcars and locomotives held in storage or awaiting restoration can look abandoned. An unfamiliar movie prop is not evidence that a particular car was left there by a production, still belongs to a movie company, or is open to visitors. Without identified equipment numbers, owner records and operator permission, it would be irresponsible to publish an 'abandoned movie cars' tour or suggest entry into the yard. Photograph trains from authorized public areas, and ask the operator about tours or specific film equipment."),
@@ -140,7 +166,7 @@ export const texasStateRailroadRuskPalestineHistoryGuideArticle: Article = {
     h("Questions travelers and Texas history readers ask"),
     p("Was the Texas State Railroad built by prisoners? Yes. Prison labor built important early parts of the line serving the Rusk ironworks and helped extend it; later regular railroad crews also included civilian employees."),
     p("Was Rusk Penitentiary built in 1894? No. The East Texas Penitentiary at Rusk opened in 1883; the 1890s refer to later railroad construction phases."),
-    p("Did prison workers make metal for the Texas Capitol? Yes. State archival sources confirm Rusk prison ironwork in the Capitol's dome, columns, gates and interior. The shipments should not be assigned an unverified Houston routing."),
+    p("Did prison workers make metal for the Texas Capitol? Yes. Archival sources confirm Rusk ironwork in the Capitol. A 2012 newspaper history based on a 1974 university thesis describes an earlier 22-mile Alto–Lufkin narrow-gauge connection and repeated freight transfers; it does not establish that each shipment traveled through the city of Houston."),
     p("Was the railroad built specifically for the Capitol? No. The ironwork for the Capitol was manufactured before the full line reached Palestine. The prison ironworks, fuel supply, local freight and competition among connections motivated the railroad's expansion."),
     p("Did the penitentiary become Rusk State Hospital? The state authorized conversion in 1917, and the hospital opened on former prison property in 1919. The prison and the hospital are different institutions even where structures were reused."),
     p("Does Union Pacific run the tourist train? No. Union Pacific interchanges freight with Texas & Eastern at Palestine. The heritage excursion operation is separately marketed as the Texas State Railroad."),
