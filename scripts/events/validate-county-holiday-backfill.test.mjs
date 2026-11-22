@@ -214,3 +214,25 @@ test("six new current-edition community holiday records remain source-verified a
  const denverCity=events.find(e=>e.slug==="denver-city-christmas-parade-meet-santa-2026");
  assert.match(denverCity.summary,/not specified a parade start time/, "Never invent parade hours without official source");
 });
+
+test("Brownwood and Marshall 2026 community Christmas entries are dated by city visitor office and not duplicate seasonal guides",()=>{
+ const checks=[
+  ["brownwood-downtown-christmas-tree-lighting-2026","brown","2026-12-01","visitbrownwood.com"],
+  ["brownwood-downtown-lighted-christmas-parade-2026","brown","2026-12-03","visitbrownwood.com"],
+  ["brownwood-christmas-under-the-stars-festival-2026","brown","2026-12-05","visitbrownwood.com"],
+  ["marshall-wonderland-of-lights-christmas-parade-2026","harrison","2026-12-05","visitmarshalltexas.com"]
+ ];
+ for(const [slug,county,date,host]of checks){
+  const record=events.find(e=>e.slug===slug);
+  assert.ok(record,"Missing verified 2026 local event "+slug);
+  assert.equal(record.countySlug,county);
+  assert.equal(record.startDate,date);
+  assert.equal(record.sourceVerifiedAt,"2026-11-22");
+  assert.equal(new URL(record.officialEventUrl).hostname.replace(/^www[.]/,""),host);
+  assert.ok(record.summary.length>=110&&record.venueName);
+ }
+ const uniqueNames=checks.map(x=>x[0]);
+ assert.equal(events.filter(e=>uniqueNames.includes(e.slug)).length,4);
+ assert.match(events.find(e=>e.slug===checks[2][0]).summary,/all day/);
+ assert.match(events.find(e=>e.slug===checks[3][0]).summary,/not a month-long nonstop parade/);
+});
