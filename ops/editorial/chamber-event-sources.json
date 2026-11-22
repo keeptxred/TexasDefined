@@ -1155,7 +1155,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bandera-county-chamber",
@@ -1184,7 +1185,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "blanco-chamber",
@@ -1242,7 +1244,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "discover-lockhart",
@@ -1256,7 +1259,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "brownsville-chamber",
@@ -1270,7 +1274,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "pittsburg-camp-chamber",
@@ -1327,7 +1332,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "city-quitaque",
@@ -1355,7 +1361,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "atascosa-county-holiday-notices",
@@ -1411,7 +1418,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "chambers-library-community",
@@ -1481,7 +1489,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "collingsworth-chamber",
