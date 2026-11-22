@@ -403,6 +403,62 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "andrews-holly-jolly",
+      "organization": "Andrews Chamber of Commerce",
+      "countySlugs": [
+        "andrews"
+      ],
+      "homeUrl": "https://www.andrewstx.com/",
+      "calendarUrl": "https://www.andrewstx.com/holly-jolly-weekend/",
+      "contactPageUrl": "https://www.andrewstx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "bandera-shoppers-jubilee",
+      "organization": "Bandera County Convention & Visitors Bureau",
+      "countySlugs": [
+        "bandera"
+      ],
+      "homeUrl": "https://www.banderacowboycapital.com/",
+      "calendarUrl": "https://www.banderacowboycapital.com/events/2026/shoppers-jubilee-weekend-in-bandera",
+      "contactPageUrl": "https://www.banderacowboycapital.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "gainesville-christmas-parade",
+      "organization": "Gainesville Area Chamber of Commerce",
+      "countySlugs": [
+        "cooke"
+      ],
+      "homeUrl": "https://gainesvillecofc.com/",
+      "calendarUrl": "https://gainesvillecofc.com/christmas-parade/",
+      "contactPageUrl": "https://gainesvillecofc.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "pittsburg-official-festivals",
+      "organization": "City of Pittsburg Tourism",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://visit.pittsburgtx.gov/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/guides/pittsburgs-festivals",
+      "contactPageUrl": "https://visit.pittsburgtx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
