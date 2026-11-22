@@ -1009,5 +1009,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Gonzales Main Street Program (official event and vendor campaign)",
     "summary": "The City of Gonzales Main Street Program's official public campaign directory dates its Winterfest Celebration and Santa's Market vendor program for Saturday, December 5, 2026, in downtown Gonzales. The same producer lists separate lighted-parade participation details, but a specific parade start time, procession route, general festival operating hours and any optional admission fees are not confirmed on the published campaign page. Visitors should consult the city Main Street office for the final program rather than assuming the sponsorship or vendor-registration windows are visitor hours.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "el-campo-chamber-christmas-parade-2026",
+    "title": "El Campo Chamber Christmas Parade",
+    "city": "El Campo",
+    "countySlug": "wharton",
+    "countyName": "Wharton County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "El Campo, Texas — parade route and spectator staging to be confirmed",
+    "officialEventUrl": "https://www.elcampochamber.com/events/details/chamber-christmas-parade-8620",
+    "sourceName": "El Campo Chamber of Commerce & Agriculture",
+    "summary": "The El Campo Chamber of Commerce's exact 2026 event page confirms its Chamber Christmas Parade for Thursday, December 3, from 7–9 p.m. Central. The community holiday parade is listed separately from the Chamber's December 1 Hometown Holiday Shop Hop and December 5–6 Christmas Mall. The official event entry does not publish a detailed procession route, road closures, confirmed spectator parking or admission charge. Confirm those visitor details directly with the Chamber; this is not the Wharton city Christmas Parade held on December 1.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
