@@ -85,7 +85,7 @@ export const Route = createFileRoute('/$kind/$slug')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: loaderData.entity.kind === 'county' && loaderData.entity.slug === 'rusk' ? 'Rusk County, Texas: Henderson, Syrup Capital & History' : searchIntentTitle(loaderData.entity),
+        title: searchIntentTitle(loaderData.entity),
         description,
         image: countyHeroImage?.src ?? countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
         imageAlt: countyHeroImage?.alt ?? countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
@@ -113,6 +113,7 @@ function sportsVenuePriority(entity: TexasEntityRecord) {
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'county' && entity.slug === 'rusk') return 'Rusk County, Texas: Henderson, Syrup Capital & History';
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
