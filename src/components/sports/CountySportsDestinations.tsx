@@ -21,7 +21,7 @@ const horseRacingCountyDestinations = [
   { countySlug: 'bastrop', name: "Texas Horsemen's Partnership", city: 'Elgin', category: 'organization', href: '/horse-racing/texas-horsemens-partnership' },
 ] as const;
 
-type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
+type CountyMajorEvent = { slug: string; href: string; name: string; detail: string; startDate: string; endDate?: string; isUpcoming: boolean };
 type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;
 type CountyWithPreloadedDiscovery = TexasEntityRecord & { rvParks?: Destination[]; majorEvents?: CountyMajorEvent[] };
 
@@ -136,13 +136,13 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
     {majorEvents.length ? <section className="border-b border-border py-12" aria-labelledby="county-major-events-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Major annual events</p>
+          <p className="eyebrow text-primary">Local festivals & annual traditions</p>
           <h2 id="county-major-events-heading" className="mt-2 font-display text-4xl">Events worth planning around in {county.name}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">Texas Defined links only to event guides backed by organizer or equivalent first-party evidence. Future recurrence-derived dates are labeled on the event guide.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Upcoming dates come from verified event records. Annual traditions remain linked after their last confirmed edition; an old date is never presented as a new-year schedule.</p>
         </div>
         <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-          {majorEvents.map((event) => <a key={event.slug} href={`/event/${event.slug}`} className="group border-t border-border py-5">
-            <span className="eyebrow text-primary">Texas event guide</span>
+          {majorEvents.map((event) => <a key={event.slug} href={event.href} className="group border-t border-border py-5">
+            <span className="eyebrow text-primary">{event.isUpcoming ? "Verified upcoming event" : "Annual tradition · next date pending"}</span>
             <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{event.name}</strong>
             <span className="mt-3 block text-sm leading-6 text-muted-foreground">{event.detail}</span>
             <span className="mt-3 block text-sm font-semibold text-primary">Plan the event →</span>
