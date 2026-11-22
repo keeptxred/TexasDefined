@@ -78,7 +78,10 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.equal(report.countiesWithRegisteredSources + report.countiesMissingSources, 254);
   assert.equal(report.sourceCount, registry.sources.length);
   assert.equal(report.candidateCount, 0);
-  assert.ok(report.unservedCounties.some(c => c.slug === "borden"));
+  assert.equal(report.unservedCounties.length, report.countiesMissingSources);
+  const mapped = new Set(registry.sources.flatMap(source => source.countySlugs));
+  assert.ok(report.unservedCounties.every(county => !mapped.has(county.slug)));
+  assert.ok(!report.unservedCounties.some(county => county.slug === "borden"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "gregg"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "comanche"));
   assert.ok(report.observations.every(x => x.state === "offline-validation"));
