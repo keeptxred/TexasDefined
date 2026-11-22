@@ -77,6 +77,10 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.equal(report.countiesMissingSources, 254 - report.countiesWithRegisteredSources);
   assert.equal(report.countiesWithRegisteredSources + report.countiesMissingSources, 254);
   assert.equal(report.sourceCount, registry.sources.length);
+  assert.equal(report.eventSpecificSourceCount, registry.sources.filter(s => s.sourceKind === "event-specific").length);
+  assert.equal(report.annualEventsListSourceCount, registry.sources.filter(s => s.sourceKind === "annual-events-list").length);
+  assert.equal(report.countiesWithExplicitCalendarSources, new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs)).size);
+  assert.equal(report.countiesNeedingCalendarEvidence, 254 - report.countiesWithExplicitCalendarSources);
   assert.equal(report.candidateCount, 0);
   assert.equal(report.unservedCounties.length, report.countiesMissingSources);
   const mapped = new Set(registry.sources.flatMap(source => source.countySlugs));
@@ -132,4 +136,15 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.ok(!registry.sources.some(source => /newtonchamber\.com/i.test(source.homeUrl)),
     "An out-of-state Newton Chamber may not be mapped to Texas");
 
+});
+
+
+test("festival-specific pages and annual guides are real leads, not complete county calendars", () => {
+  const annual = registry.sources.find(s => s.id === "pittsburg-official-festivals");
+  const parade = registry.sources.find(s => s.id === "san-saba-chamber-lighted-parade");
+  assert.equal(annual?.sourceKind, "annual-events-list");
+  assert.equal(parade?.sourceKind, "event-specific");
+  const calendar = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  assert.ok(!calendar.has("camp"), "Annual guides alone must not certify a current county calendar");
+  assert.ok(!calendar.has("san-saba"), "One event page alone must not certify full county calendar coverage");
 });
