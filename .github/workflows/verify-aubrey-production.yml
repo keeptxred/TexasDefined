@@ -1,0 +1,90 @@
+name: Verify Aubrey corrected production page
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-aubrey-production.mjs'
+      - '.github/workflows/verify-aubrey-production.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: aubrey-production-acceptance-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: false
+jobs:
+  contract:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/ci/verify-aubrey-production.mjs --self-test
+  live:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Establish genuine successful deployment containing Aubrey correction
+        id: prerequisite
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+          DEPLOY_ID: ${{ github.event.workflow_run.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(gh issue view 7523 --repo "$GITHUB_REPOSITORY" --json state --jq .state)"
+          if [[ "$state" == "CLOSED" ]]; then
+            echo 'verify=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ -z "$DEPLOY_ID" || -z "$DEPLOY_SHA" ]]; then
+            read -r DEPLOY_ID DEPLOY_SHA <<< "$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy-production.yml --branch main --status success --limit 1 --json databaseId,headSha --jq '.[0] | [.databaseId,.headSha] | @tsv')"
+          fi
+          [[ "$DEPLOY_ID" =~ ^[0-9]+$ && "$DEPLOY_SHA" =~ ^[0-9a-f]{40}$ ]]
+          relation="$(gh api "repos/$GITHUB_REPOSITORY/compare/1e8e50fede868ac4400fdac527151489aa80bcf0...${DEPLOY_SHA}" --jq .status)"
+          if [[ "$relation" != ahead && "$relation" != identical ]]; then
+            echo 'Successful deployment predates the Aubrey correction; leave checkpoint open.'
+            echo 'verify=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "verify=true" >> "$GITHUB_OUTPUT"
+          echo "deploy_id=$DEPLOY_ID" >> "$GITHUB_OUTPUT"
+          echo "deploy_sha=$DEPLOY_SHA" >> "$GITHUB_OUTPUT"
+      - name: Check ordinary and cache-bypassed public and direct Worker SSR
+        if: steps.prerequisite.outputs.verify == 'true'
+        run: |
+          set -euo pipefail
+          node scripts/ci/verify-aubrey-production.mjs | tee aubrey-production-evidence.jsonl
+      - name: Preserve exact acceptance evidence
+        if: always() && steps.prerequisite.outputs.verify == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: aubrey-production-acceptance-${{ github.run_id }}
+          path: aubrey-production-evidence.jsonl
+          if-no-files-found: error
+          retention-days: 30
+      - name: Close Aubrey checkpoint only after actual live acceptance
+        if: success() && steps.prerequisite.outputs.verify == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_ID: ${{ steps.prerequisite.outputs.deploy_id }}
+          DEPLOY_SHA: ${{ steps.prerequisite.outputs.deploy_sha }}
+        run: |
+          gh issue close 7523 --repo "$GITHUB_REPOSITORY" --reason completed --comment "Verified production acceptance: deploy [#$DEPLOY_ID](https://github.com/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_ID), deployed source SHA `$DEPLOY_SHA`. [Acceptance run and artifact](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID) passed all four public/direct Worker ordinary/cache-bypassed SSR checks: correct FAQ, intro, source caption, canonical, all 12 finals (8–4 overall, 7–0 district), exactly one head-coach FAQ. No paid feeds or automatic score publishing."
