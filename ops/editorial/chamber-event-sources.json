@@ -809,6 +809,48 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "bonham-chamber-christmas-2026",
+      "organization": "Bonham Area Chamber of Commerce",
+      "countySlugs": [
+        "fannin"
+      ],
+      "homeUrl": "https://bonhamchamber.com/",
+      "calendarUrl": "https://bonhamchamber.com/event/christmas-in-bonham-parade-hot-cocoa-hop/",
+      "contactPageUrl": "https://bonhamchamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "delta-county-chamber-christmas-2026",
+      "organization": "Delta County Chamber of Commerce",
+      "countySlugs": [
+        "delta"
+      ],
+      "homeUrl": "https://deltacountychamber.com/",
+      "calendarUrl": "https://deltacountychamber.com/events/",
+      "contactPageUrl": "https://deltacountychamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "uvalde-chamber-christmas-2026",
+      "organization": "Uvalde Chamber of Commerce",
+      "countySlugs": [
+        "uvalde"
+      ],
+      "homeUrl": "https://chamber.uvalde.org/",
+      "calendarUrl": "https://chamber.uvalde.org/events/details/christmas-at-the-crossroads-10097",
+      "contactPageUrl": "https://www.uvalde.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
