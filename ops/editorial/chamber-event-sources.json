@@ -1475,7 +1475,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "columbus-chamber",
@@ -1761,7 +1762,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "cleburne-chamber",
@@ -1818,7 +1820,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "terrell-chamber",
@@ -1832,7 +1835,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "laredo-chamber",
@@ -1959,7 +1963,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "huntsville-walker-chamber",
@@ -2171,7 +2176,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "brady-mcculloch-chamber",
@@ -2285,7 +2291,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "rockdale-milam-chamber",
@@ -2472,7 +2479,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "fort-stockton-pecos-chamber",
