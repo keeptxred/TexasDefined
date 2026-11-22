@@ -1,0 +1,48 @@
+name: Quarterly 254 county civic and historical authority triage
+on:
+  schedule:
+    - cron: '17 13 1 1,4,7,10 *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/quarterly-county-civic-history.yml'
+      - 'scripts/data/audit-county-civic-history.mjs'
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: county-historical-quarterly-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  research-triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate 254 effective county authority inventory
+        run: |
+          node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+          test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
+      - name: Generate dateable county history and public-safety research triage
+        run: |
+          node --check scripts/data/audit-county-civic-history.mjs
+          node scripts/data/audit-county-civic-history.mjs /tmp/county-profiles.json /tmp
+          test "$(tail -n +2 /tmp/county-civic-history-triage.tsv | wc -l)" -eq 254
+      - name: Upload all county research flags and source gaps
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-254-county-civic-history-triage
+          path: |
+            /tmp/county-civic-history-triage.json
+            /tmp/county-civic-history-triage.tsv
+            /tmp/county-civic-history-issue-comment.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Add research triage to outstanding 254 county implementation issue
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment 7540 --repo ${{ github.repository }} --body-file /tmp/county-civic-history-issue-comment.md
