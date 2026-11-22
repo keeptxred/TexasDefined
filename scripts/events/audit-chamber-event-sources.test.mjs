@@ -117,9 +117,9 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
-  assert.ok(registry.sources.length >= 273, "Do not lose the verified original 270 sources plus three official tourism calendars");
+  assert.ok(registry.sources.length >= 279, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 74, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 94, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -164,12 +164,12 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
     assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
   }
   const report = await auditChamberSources({ offline: true });
-  assert.ok(report.countiesWithExplicitCalendarSources >= 73);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 91);
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
   assert.equal(report.eventSpecificSourceCount, 11);
-  assert.equal(report.annualEventsListSourceCount, 4);
+  assert.equal(report.annualEventsListSourceCount, registry.sources.filter(s => s.sourceKind === "annual-events-list").length);
   assert.match(report.outreachStatus, /tracked privately/);
 });
 
@@ -179,4 +179,42 @@ test("reject invented source-kind classifications rather than silently counting 
     { ...registry.sources.find(s => s.id === "shamrock-wheeler-st-patricks"), sourceKind: "confirmed-press-opt-in" },
   ] };
   assert.throws(() => validateRegistry(altered, counties), /Unsupported source classification/);
+});
+
+test("new official local tourism/municipal fallbacks retain geography and honest annual-vs-calendar classification", () => {
+  const expected = [
+    ["city-gainesville-community-events", "cooke", "public-calendar"],
+    ["visit-granbury-official-events", "hood", "public-calendar"],
+    ["visit-new-braunfels-tourism-events", "comal", "public-calendar"],
+    ["discover-bastrop-tourism-events", "bastrop", "public-calendar"],
+    ["orange-city-cvb-festival-guide", "orange", "annual-events-list"],
+    ["visit-mcallen-annual-festival-guide", "hidalgo", "annual-events-list"],
+  ];
+  for (const [id, county, kind] of expected) {
+    const source = registry.sources.find(s => s.id === id);
+    assert.ok(source, "Missing first-party research source " + id);
+    assert.equal(source.sourceKind, kind);
+    assert.deepEqual(source.countySlugs, [county]);
+  }
+  const pampa = registry.sources.find(s => s.id === "pampa-gray-chamber");
+  assert.equal(pampa?.sourceKind, "public-calendar");
+  assert.equal(pampa?.calendarUrl, "https://business.pampachamber.com/events");
+  const allCalendarCounties = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  assert.ok(allCalendarCounties.size >= 91);
+  assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-mcallen-annual-festival-guide"), "Visit McAllen annual list is not a dated full community calendar");
+});
+
+test("dated community calendars are separate from Canadian annual-events brochure", () => {
+  const calendarIDs = ["andrews-chamber","bee-county-chamber","port-lavaca-chamber",
+    "discover-lockhart","brownsville-chamber","bowie-texas-chamber","clifton-chamber","columbus-chamber"];
+  for (const id of calendarIDs) {
+    const record = registry.sources.find(s=>s.id===id);
+    assert.ok(record, "Missing public calendar " + id);
+    assert.equal(record.sourceKind,"public-calendar");
+  }
+  const canadian=registry.sources.find(s=>s.id==="visit-canadian-hemphill");
+  assert.equal(canadian?.sourceKind, "annual-events-list");
+  const c = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(!registry.sources.filter(s=>s.sourceKind==="public-calendar").some(s=>s.id==="visit-canadian-hemphill"), "Annual event brochure does not itself qualify as full community calendar");
+  assert.ok(c.size >= 91, "Do not lose the classified calendar geography when adding new verified counties");
 });
