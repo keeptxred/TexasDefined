@@ -19,7 +19,7 @@ test('all manually reviewed 2026 results have explicit editorial authority and i
     assert.match(row.verifiedAt,/^2026-\d{2}-\d{2}$/);
     assert.ok(row.verifiedAt>=row.date);
     assert.equal(row.verificationMethod,'manual-editorial-review');
-    if(row.outcome!==undefined){assert.ok(['forfeit-win','forfeit-loss','not-played'].includes(row.outcome));assert.equal(row.pointsFor,undefined);assert.equal(row.pointsAgainst,undefined);}else{assert.ok(Number.isInteger(row.pointsFor)&&Number.isInteger(row.pointsAgainst));assert.ok(row.pointsFor>=0&&row.pointsAgainst>=0&&row.pointsFor!==row.pointsAgainst);}
+    if(row.outcome!==undefined){assert.ok(['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(row.outcome));assert.equal(row.pointsFor,undefined);assert.equal(row.pointsAgainst,undefined);}else{assert.ok(Number.isInteger(row.pointsFor)&&Number.isInteger(row.pointsAgainst));assert.ok(row.pointsFor>=0&&row.pointsAgainst>=0&&row.pointsFor!==row.pointsAgainst);}
     if(row.playedDate){assert.match(row.playedDate,/^2026-\d{2}-\d{2}$/);assert.ok(row.playedDate<=row.verifiedAt);}
     const first=new URL(row.primarySourceUrl),second=new URL(row.secondarySourceUrl);
     assert.equal(first.protocol,'https:');
@@ -976,3 +976,41 @@ test('remaining confirmed results preserve fixture keys, corrected opponents and
  const state=inventory({today:'2026-11-22'});
  assert.ok(!state.pages.some(p=>p.slug==='alpine'&&p.reason==='dated-score-review'));
 });
+
+
+test('final reviewed six-man outcomes and a disclosed numeric disagreement retain evidence',()=>{for(const row of [
+  {
+    "slug": "anton",
+    "date": "2026-10-16",
+    "opponent": "Amherst",
+    "outcome": "forfeit-win",
+    "primarySourceUrl": "https://sixmanfootball.com/scores/2026/week-8/",
+    "secondarySourceUrl": "https://txhsfb.net/?p=29395",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "benavides",
+    "date": "2026-10-23",
+    "opponent": "Pawnee",
+    "outcome": "not-played",
+    "primarySourceUrl": "https://sixmanfootball.com/teams/benavides-eagles.19121/schedule/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/benavides/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "alvin-iowa-colony",
+    "date": "2026-10-23",
+    "opponent": "Fort Bend Dulles",
+    "outcome": "score-disputed-win",
+    "reportedScores": [
+      "48–8",
+      "42–8"
+    ],
+    "primarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+    "secondarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  }
+])assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);const state=inventory({today:'2026-11-22'});assert.ok(state.pages.some(p=>p.slug==='alvin-iowa-colony'&&p.overdue.some(g=>g.date==='2026-10-23')),'A confirmed winner with conflicting score reports remains on the numerical-score research queue');});

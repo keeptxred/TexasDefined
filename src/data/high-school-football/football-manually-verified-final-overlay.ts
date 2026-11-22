@@ -4,18 +4,19 @@ import type { FootballProgramEditorial } from './program-editorial';
 type Editorial = FootballProgramEditorial | null;
 type Game = NonNullable<FootballProgramEditorial['season']>['games'][number];
 type Verified = {
-  slug: string; date: string; opponent: string; playedDate?: string; playedOpponent?: string; playedSite?: 'Home' | 'Away' | 'Neutral';
+  slug: string; date: string; opponent: string; playedDate?: string; reportedScores?: readonly string[]; playedOpponent?: string; playedSite?: 'Home' | 'Away' | 'Neutral';
   verifiedAt: string; primarySourceUrl: string; secondarySourceUrl: string;
   verificationMethod: 'manual-editorial-review';
 } & ({pointsFor: number; pointsAgainst: number; outcome?: never} |
-  {outcome: 'forfeit-win' | 'forfeit-loss' | 'not-played'; pointsFor?: never; pointsAgainst?: never});
+  {outcome: 'forfeit-win' | 'forfeit-loss' | 'not-played' | 'score-disputed-win'; pointsFor?: never; pointsAgainst?: never});
 const registry = snapshot.verifiedFinals as readonly Verified[];
 function validOutcome(row: Verified): boolean {
   return row.outcome !== undefined ?
-    ['forfeit-win','forfeit-loss','not-played'].includes(row.outcome) && row.pointsFor === undefined && row.pointsAgainst === undefined :
+    ['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(row.outcome) && row.pointsFor === undefined && row.pointsAgainst === undefined && (row.outcome==='score-disputed-win'?row.reportedScores?.length===2&&new Set(row.reportedScores).size===2&&row.reportedScores.every(s=>{const m=/^(\d+)–(\d+)$/.exec(s);return !!m&&Number(m[1])>Number(m[2]);}):row.reportedScores===undefined) :
     Number.isInteger(row.pointsFor) && Number.isInteger(row.pointsAgainst) && Math.min(row.pointsFor,row.pointsAgainst)>=0 && row.pointsFor!==row.pointsAgainst;
 }
 function resultText(row: Verified): string {
+  if(row.outcome==='score-disputed-win') return 'W reported scores differ ('+row.reportedScores!.join(' / ')+')';
   if(row.outcome==='not-played') return 'Not played — bye week';
   if(row.outcome) return row.outcome==='forfeit-win'?'W by forfeit':'L by forfeit';
   return (row.pointsFor>row.pointsAgainst?'W ':'L ')+row.pointsFor+'–'+row.pointsAgainst;
@@ -62,7 +63,7 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
     if (game.result && game.result.replace(/[–—]/g,'-') !== result.replace(/[–—]/g,'-')) throw Error(
       'Football source result conflicts with previously published final: '+slug+' '+row.date);
     found.add(row.date);
-    if (!game.result) corrections.add(row.date);
+    if (!game.result||row.playedDate||row.playedOpponent) corrections.add(row.date);
     return {...game,...(row.playedDate?{date:row.playedDate}:{}),...(row.playedOpponent?{opponent:row.playedOpponent,site:row.playedSite!,kickoff:undefined,matchupPath:undefined,district:false}:{}),result};
   });
   for (const row of updates) if (!found.has(row.date)) throw Error(
@@ -84,13 +85,14 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
   const displayedName=slug.split('-').map(part=>part.slice(0,1).toUpperCase()+part.slice(1)).join(' ');
   const gameDate=new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'UTC'})
     .format(new Date((mostRecent.playedDate??mostRecent.date)+'T12:00:00Z'));
+  const conflictNotices=updates.filter(row=>row.outcome==='score-disputed-win').map(row=>row.date+' vs '+row.opponent+': victory confirmed, but MaxPreps reports '+row.reportedScores![0]+' and North Channel Star reports '+row.reportedScores![1]+'. The exact numerical score remains under review.');
   const updateNotice=displayedName+' '+headline+
     ' against '+(mostRecent.playedOpponent??mostRecent.opponent)+' on '+gameDate+', independently reviewed '+mostRecent.verifiedAt+'.'+
-    ' This is a source-dated published result, not live scores.'+(games.some(game=>!game.result)?' Other fixtures without confirmed finals remain unverified.':' All listed fixtures now have reported outcomes.');
+    ' This is a source-dated published result, not live scores.'+(games.some(game=>!game.result)?' Other fixtures without confirmed finals remain unverified.':' All listed fixtures now have reported outcomes; any disputed score is identified separately.');
   const original=editorial.season;
   return {
     ...editorial,
-    overview:[updateNotice,...(editorial.overview??[])],
+    overview:[updateNotice,...conflictNotices,...(editorial.overview??[])],
     season:{
       ...original,games:games.sort((a,b)=>fixtureDate(a.date).localeCompare(fixtureDate(b.date))),record,
       recordLabel:'Partial 2026 scorecard from independently verified final results, NOT full-season standings',

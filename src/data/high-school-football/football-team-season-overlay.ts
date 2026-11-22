@@ -1,4 +1,4 @@
-import { footballFixtureCalendarDate } from './football-fixture-calendar';
+import { footballFixtureCalendarDate } from './football-fixture-calendar.ts';
 import type { FootballMatchup } from './football-matchups';
 import type { FootballProgramEditorial } from './program-editorial';
 import type { DistrictFootballGame } from './football-district-game-week';

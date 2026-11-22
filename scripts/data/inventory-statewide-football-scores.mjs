@@ -273,7 +273,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(result.slug)||!isoDate(result.date)
        ||!result.date.startsWith('2026-')||!isoDate(result.verifiedAt)
        ||result.verificationMethod!=='manual-editorial-review'
-       ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss','not-played'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
+       ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
        ||(result.playedDate!==undefined&&(!isoDate(result.playedDate)||!result.playedDate.startsWith('2026-')||result.playedDate>result.verifiedAt))
        ||(result.playedOpponent!==undefined&&(!result.playedDate||typeof result.playedOpponent!=='string'||!result.playedOpponent.trim()||result.outcome!==undefined||!['Home','Away','Neutral'].includes(result.playedSite)))
        ||(result.playedSite!==undefined&&!result.playedOpponent)
@@ -291,7 +291,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
       const visitorOpponent=normalizeTeam(game.away)===teamName?game.home:
         normalizeTeam(game.home)===teamName?game.away:null;
       if(!visitorOpponent)return true;
-      return !rows.some(row=>row.date===game.date&&normalizeTeam(row.opponent)===normalizeTeam(visitorOpponent));
+      return !rows.some(row=>row.outcome!=='score-disputed-win'&&row.date===game.date&&normalizeTeam(row.opponent)===normalizeTeam(visitorOpponent));
     });
     const latest=rows.map(row=>row.verifiedAt).sort().at(-1);
     if(latest>=(page.verifiedAt??''))page.verifiedAt=latest;

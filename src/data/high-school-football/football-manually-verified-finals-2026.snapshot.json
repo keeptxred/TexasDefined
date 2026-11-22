@@ -4700,6 +4700,40 @@
       "primarySourceUrl": "https://klvtsports.wordpress.com/2026/10/11/football-district-updates-for-levelland-ropes-smyer-sundown-whiteface-whitharral-from-friday-oct-9th/",
       "secondarySourceUrl": "https://www.pigskinprep.com/showscores.asp?cid=5&wk=7&yr=2026",
       "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "anton",
+      "date": "2026-10-16",
+      "opponent": "Amherst",
+      "outcome": "forfeit-win",
+      "primarySourceUrl": "https://sixmanfootball.com/scores/2026/week-8/",
+      "secondarySourceUrl": "https://txhsfb.net/?p=29395",
+      "verifiedAt": "2026-11-21",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "benavides",
+      "date": "2026-10-23",
+      "opponent": "Pawnee",
+      "outcome": "not-played",
+      "primarySourceUrl": "https://sixmanfootball.com/teams/benavides-eagles.19121/schedule/",
+      "secondarySourceUrl": "https://texasfootballroundup.com/teams/benavides/",
+      "verifiedAt": "2026-11-21",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvin-iowa-colony",
+      "date": "2026-10-23",
+      "opponent": "Fort Bend Dulles",
+      "outcome": "score-disputed-win",
+      "reportedScores": [
+        "48–8",
+        "42–8"
+      ],
+      "primarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+      "secondarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
+      "verifiedAt": "2026-11-21",
+      "verificationMethod": "manual-editorial-review"
     }
   ]
 }
