@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 208 / 254 counties (224 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 46 counties requiring verified source research as of November 22, 2026.**
+**Source-mapped: 213 / 254 counties (229 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 41 counties requiring verified source research as of November 22, 2026.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -135,3 +135,7 @@ Registered Spur Chamber (Dickens County); Crosbyton Chamber and Visit Crosby Cou
 ## Seven more rural Texas civic/event source desks — 2026-11-22
 
 Added Zapata community event submission calendar, City of Littlefield Chamber and public city-event notices (Lamb), Friona Chamber (Parmer), Daingerfield City official Chamber contact (Morris), Live Oak County official community calendar, City of Bronte community services (Coke), and City of Crane official contact and activity notices. The City of Crane, City of Bronte, and Daingerfield Chamber contact pages are **research desks**, not authoritative dated festival listings. The **Cotulla/La Salle Brush Country Chamber closed in April 2026** and was deliberately not registered as an active entity; select a current municipal tourism office or event-producing association for La Salle instead. The county count shows source mapping only, not verified future events.
+
+## New locally operated first-party Chambers and holiday news — November 22, 2026
+
+Added Oldham County Chamber (Vega Route 66, annual events); Giddings Area Chamber calendar (Lee County, Christmas Market/Lee County festivals); Clarendon Chamber EDC local festival and community news (Donley); Post Chamber (Garza, local holiday events); and Fort Davis Chamber/Visitor Center (Jeff Davis County). The Giddings calendar includes specific 2027 event listings but no next-year claim is promoted without confirming the underlying organizer; Fort Davis Chamber contact is not a guarantee that every upcoming date is confirmed. The source list excludes same-name Chambers for neighboring non-Texas counties. The remaining 41 low-population counties need primary city, county-fair or local event producers rather than fabricated one-per-county Chambers.
