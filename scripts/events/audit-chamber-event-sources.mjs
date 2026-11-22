@@ -60,7 +60,8 @@ export function validateRegistry(registry, counties) {
         !Number.isFinite(Date.parse(source.reviewedAt)))
       throw new Error("Missing verified source-review date: " + source.id);
     if (source.sourceRole !== "discovery" ||
-        !["html","rss","ics"].includes(source.calendarType))
+        !["html","rss","ics"].includes(source.calendarType) ||
+        (source.sourceKind !== undefined && !["public-calendar","contact-only","unclassified"].includes(source.sourceKind)))
       throw new Error("Unsupported source classification: " + source.id);
     for (const field of ["homeUrl", "calendarUrl", "contactPageUrl"])
       checkedPublicUrl(source[field]);
@@ -210,19 +211,35 @@ export async function auditChamberSources({
     const holidayBoost = source.priority === "holiday" && [10,11,0].includes(now.getUTCMonth());
     const due = registry.sources.length <= 12 || hash % 7 === day ||
       (holidayBoost && hash % 2 === day % 2);
-    const result = offline || !due ? { state: offline ? "offline-validation" : "not-due", leads: [] }
+    const result = offline ? { state: "offline-validation", leads: [] }
+      : source.sourceKind === "contact-only" ? { state: "contact-only-research", leads: [] }
+      : !due ? { state: "not-due", leads: [] }
       : await fetchPublicCalendar(source, fetchImpl);
     observations.push({ sourceId: source.id, organization: source.organization,
       countySlugs: source.countySlugs, officialUrl: source.homeUrl,
       calendarUrl: source.calendarUrl, sourceRole: source.sourceRole,
+      sourceKind: source.sourceKind ?? "unclassified",
       reviewedAt: source.reviewedAt, ...result });
   }
   const rows = [...map.values()];
   const unservedCounties = rows.filter(c => !c.sourceIds.length);
+  // A government contact page is valuable for outreach but is NOT a reviewed
+  // public event calendar. Unclassified preexisting records remain a research
+  // backlog instead of being silently counted as organizer-date evidence.
+  const calendarSourceCountySlugs = new Set(registry.sources
+    .filter(s => s.sourceKind === "public-calendar")
+    .flatMap(s => s.countySlugs));
+  const countiesNeedingCalendarEvidence = rows.filter(c => !calendarSourceCountySlugs.has(c.slug));
+  const contactOnlySourceCount = registry.sources.filter(s => s.sourceKind === "contact-only").length;
+  const unclassifiedSourceCount = registry.sources.filter(s => !s.sourceKind || s.sourceKind === "unclassified").length;
   const report = { generatedAt: now.toISOString(), sender: registry.rules.sender,
     eventPublication: "NO — research candidates only; current first-party event organizer confirmation and editorial rights review required",
     countiesTotal: rows.length, countiesWithRegisteredSources: rows.length - unservedCounties.length,
     countiesMissingSources: unservedCounties.length, unservedCounties,
+    countiesWithExplicitCalendarSources: calendarSourceCountySlugs.size,
+    countiesNeedingCalendarEvidence: countiesNeedingCalendarEvidence.length,
+    countiesNeedingCalendarEvidenceDetails: countiesNeedingCalendarEvidence,
+    contactOnlySourceCount, unclassifiedSourceCount,
     sourceCount: registry.sources.length, observations,
     candidateCount: observations.reduce((sum, row) => sum + row.leads.length, 0),
     sourceAvailabilityIsNotDateVerification: true,
@@ -237,8 +254,10 @@ async function main() {
   const report = await auditChamberSources({ offline: args.includes("--offline") });
   await mkdir(dirname(resolve(output)), { recursive: true });
   await writeFile(resolve(output), JSON.stringify(report, null, 2) + "\n");
-  console.log("Chamber event discovery: " + report.countiesWithRegisteredSources + "/254 counties have vetted discovery sources; " +
-    report.countiesMissingSources + " need research; " + report.candidateCount + " unverified calendar leads.");
+  console.log("Chamber and civic source registration: " + report.countiesWithRegisteredSources + "/254 counties have a public source/contact; " +
+    report.countiesMissingSources + " still lack even a contact; " + report.countiesNeedingCalendarEvidence +
+    " counties still need an explicitly reviewed public calendar source; " + report.unclassifiedSourceCount +
+    " existing source classifications are unreviewed; " + report.candidateCount + " unverified event leads.");
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href)
