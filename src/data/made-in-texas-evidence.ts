@@ -1,3 +1,5 @@
+import { MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE } from './made-in-texas-relationship-evidence';
+
 export interface MadeInTexasEvidence {
   entryName: string;
   claim: string;
@@ -263,5 +265,5 @@ export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
 ];
 
 export function evidenceForMadeInTexasEntry(entryName: string) {
-  return MADE_IN_TEXAS_EVIDENCE.find((item) => item.entryName === entryName);
+  return MADE_IN_TEXAS_EVIDENCE.find((item) => item.entryName === entryName) ?? MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE.find((item) => item.entryName === entryName);
 }
