@@ -190,5 +190,47 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
     "sourceLabel": "Bell",
     "sourceUrl": "https://www.bellflight.com/visitors/hq",
     "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Yellowbird",
+    "claim": "The founders began developing and selling the sauce in Austin in 2012–13.",
+    "sourceLabel": "Houston Chronicle / Chron",
+    "sourceUrl": "https://www.chron.com/food/article/hot-sauce-Yellowbird-austin-texas-hot-ones-17061936.php",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Siete Foods",
+    "claim": "PepsiCo identifies Austin as the 2014 founding location; the Garza family developed its original almond-flour tortilla in Laredo.",
+    "sourceLabel": "PepsiCo acquisition announcement",
+    "sourceUrl": "https://www.pepsico.com/en/newsroom/press-releases/2025/pepsico-completes-acquisition-of-siete-foods?trk=article-ssr-frontend-pulse_little-text-block",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Howler Brothers",
+    "claim": "The company identifies Austin as its apparel design base and lists two Austin stores; this is not a local manufacturing claim.",
+    "sourceLabel": "Howler Brothers",
+    "sourceUrl": "https://howlerbros.com/pages/about-howler-brothers",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Criquet Shirts",
+    "claim": "The company identifies Austin as its founding location in 2010.",
+    "sourceLabel": "Criquet Shirts",
+    "sourceUrl": "https://criquetshirts.com/pages/about-us",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Southwest Airlines",
+    "claim": "The 2025 annual filing identifies Dallas as the location of principal executive offices.",
+    "sourceLabel": "SEC annual filing",
+    "sourceUrl": "https://www.sec.gov/Archives/edgar/data/92380/000009238026000004/luv-20251231.htm",
+    "checkedAt": "2026-11-21"
+  },
+  {
+    "entryName": "Wingstop",
+    "claim": "The company traces its first restaurant to Garland in 1994.",
+    "sourceLabel": "Wingstop",
+    "sourceUrl": "https://www.wingstop.com/about-us",
+    "checkedAt": "2026-11-21"
   }
 ];
