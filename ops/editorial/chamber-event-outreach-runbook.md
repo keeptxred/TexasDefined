@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Source-mapped: 115 / 254 counties (132 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 139 counties requiring verified source research as of November 22, 2026.**
+**Source-mapped: 123 / 254 counties (140 registered official Chamber, tourism and first-party event organizations or public sources). Remaining: 131 counties requiring verified source research as of November 22, 2026.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -101,3 +101,5 @@ The Burleson County Chamber directly confirms the 42nd Caldwell Kolache Festival
 ## Official Chamber calendar cohort — November 22, 2026
 
 Seventeen additional counties now have named first-party Chamber/CVB/city visitor public calendars and contact pages: Gillespie (Fredericksburg), McLennan (Waco), Taylor (Abilene), Val Verde (Del Rio), Victoria, Johnson (Cleburne), Parker (Weatherford), Midland, Rockwall, Kaufman (Terrell), Webb (Laredo), Polk (Livingston), San Patricio (Portland), Kleberg (Kingsville), Wise (Decatur), Wichita (Wichita Falls), and Hidalgo (McAllen). Some calendar operators primarily publish business events, so do not infer that their feeds constitute complete community or holiday coverage. Original organizer dates and actual usage rights still govern all event publication; public contacts are not recorded here. See #7548 for outreach status.
+
+A further eight source-led counties are now in the roster: Hood (Granbury), Hunt (Greenville), Walker (Huntsville), Lavaca (Hallettsville), Matagorda (Bay City), Comal (New Braunfels), Grayson (Denison city/visitor events), and Guadalupe (Seguin city/visitor calendar). Municipal listings are labeled as municipal sources; do not incorrectly identify them as Chambers. Reachable listings are candidate leads; festival date acceptance remains with the actual organizer.
