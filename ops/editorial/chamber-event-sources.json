@@ -781,6 +781,34 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "hemphill-lions-holiday",
+      "organization": "Hemphill Lions Club",
+      "countySlugs": [
+        "sabine"
+      ],
+      "homeUrl": "https://hemphilllionsclub.org/",
+      "calendarUrl": "https://hemphilllionsclub.org/parade/",
+      "contactPageUrl": "https://hemphilllionsclub.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "hopkins-heritage-park-holiday",
+      "organization": "Hopkins County Museum and Heritage Park",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://hopkinsmuseum.org/",
+      "calendarUrl": "https://hopkinsmuseum.org/",
+      "contactPageUrl": "https://hopkinsmuseum.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
