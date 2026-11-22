@@ -37,6 +37,22 @@ test("robot restriction takes precedence over calendar discoverability", () => {
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /", "/"), false);
 });
 
+test("robots rules select the research agent, not unrelated Google or GPT bans", () => {
+  const text = "User-agent: Googlebot\nDisallow: /\nUser-agent: GPTBot\nDisallow: /\nUser-agent: *\nDisallow: /private\nAllow: /";
+  assert.equal(allowedByRobots(text, "/events"), true);
+  assert.equal(allowedByRobots(text, "/private"), false);
+  const own = "User-agent: *\nDisallow: /\nUser-agent: TexasDefined-Events-Research\nDisallow: /internal\nAllow: /events";
+  assert.equal(allowedByRobots(own, "/events"), true);
+  assert.equal(allowedByRobots(own, "/internal"), false);
+  const specific = "User-agent: *\nDisallow: /events\nAllow: /events/public\nDisallow: /private/*";
+  assert.equal(allowedByRobots(specific, "/events/private"), false);
+  assert.equal(allowedByRobots(specific, "/events/public/festival"), true);
+  assert.equal(allowedByRobots(specific, "/private/press"), false);
+  const suffix = "User-agent: *\nDisallow: /feed$";
+  assert.equal(allowedByRobots(suffix, "/feed"), false);
+  assert.equal(allowedByRobots(suffix, "/feed/events"), true);
+});
+
 test("event calendar leads are unverified and never publishable", () => {
   const html = '<script type="application/ld+json">' +
     '{"@graph":[{"@type":"Event","name":"Downtown Holiday Festival","startDate":"2027-11-14","url":"https://example.org/events/festival"}]}' +
