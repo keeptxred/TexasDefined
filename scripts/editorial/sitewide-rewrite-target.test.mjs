@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates,loadIssues,reviewCooldownActive}
+import {findPagePaths,findOfficialSourceUrls,findIssuePages,issuePageSourcePairs,evidencePathFor,priorEditorialRewrites,pendingSourceIssueIds,pendingSourceLocks,sourcePairLocked,sourceReviewEligible,scheduledWorkflowInventory,rotateCandidates,loadIssues,reviewCooldownActive}
   from './sitewide-rewrite-target.mjs';
 
 test('all scheduled GitHub refresh workflows are discovered rather than hardcoded to three guides',()=>{
@@ -176,4 +176,23 @@ test('past rewrites become eligible again at the actual source review cadence, n
   assert.equal(reviewCooldownActive(weekly, checked, checked + 7 * 86400000), false);
   assert.equal(reviewCooldownActive({}, NaN, checked), false);
   assert.equal(reviewCooldownActive({}, checked + 1000, checked), false);
+});
+
+
+test('pending protected edit locks only its exact page, not the entire umbrella issue',()=>{
+  const p={number:7512,title:'Source-verified editorial refresh for issue #7233',state:'open',
+    head:{ref:'automation/sitewide-editorial-44989525871'},
+    files:[{filename:evidencePathFor(7233,'/event/galveston-island-shrimp-festival'),status:'added'},
+      {filename:'src/data/major-event-expanded-authority-tranche57.server.ts',status:'modified'}]};
+  const locks=pendingSourceLocks([p]);
+  assert.ok(sourcePairLocked(locks,7233,'/event/galveston-island-shrimp-festival'));
+  assert.ok(!sourcePairLocked(locks,7233,'/event/dallas-zoo-lights'));
+  assert.ok(!sourcePairLocked(locks,7212,'/event/galveston-island-shrimp-festival'));
+  const fallback=pendingSourceLocks([{...p,files:undefined}]);
+  assert.ok(sourcePairLocked(fallback,7233,'/event/dallas-zoo-lights'));
+  const legacy=pendingSourceLocks([{...p,files:[{filename:'ops/editorial/auto-rewrite-evidence/issue-7233.json',status:'modified'}]}]);
+  assert.ok(sourcePairLocked(legacy,7233,'/event/dallas-zoo-lights'));
+  const mixed=pendingSourceLocks([p,{...p,files:undefined}]);
+  assert.ok(sourcePairLocked(mixed,7233,'/event/dallas-zoo-lights'));
+  assert.equal(pendingSourceLocks([{...p,head:{ref:'untrusted/branch'}}]).size,0);
 });
