@@ -77,6 +77,10 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.equal(report.countiesMissingSources, 254 - report.countiesWithRegisteredSources);
   assert.equal(report.countiesWithRegisteredSources + report.countiesMissingSources, 254);
   assert.equal(report.sourceCount, registry.sources.length);
+  assert.equal(report.eventSpecificSourceCount, registry.sources.filter(s => s.sourceKind === "event-specific").length);
+  assert.equal(report.annualEventsListSourceCount, registry.sources.filter(s => s.sourceKind === "annual-events-list").length);
+  assert.equal(report.countiesWithExplicitCalendarSources, new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs)).size);
+  assert.equal(report.countiesNeedingCalendarEvidence, 254 - report.countiesWithExplicitCalendarSources);
   assert.equal(report.candidateCount, 0);
   assert.equal(report.unservedCounties.length, report.countiesMissingSources);
   const mapped = new Set(registry.sources.flatMap(source => source.countySlugs));
@@ -113,9 +117,9 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
-  assert.ok(registry.sources.length >= 270, "Do not silently lose the reconciled source-desk registry");
+  assert.ok(registry.sources.length >= 273, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 26, "Keep separately reviewed community calendar sources");
+  assert.ok(directCalendars.length >= 74, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -132,4 +136,47 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.ok(!registry.sources.some(source => /newtonchamber\.com/i.test(source.homeUrl)),
     "An out-of-state Newton Chamber may not be mapped to Texas");
 
+});
+
+
+test("festival-specific pages and annual guides are real leads, not complete county calendars", () => {
+  const annual = registry.sources.find(s => s.id === "pittsburg-official-festivals");
+  const parade = registry.sources.find(s => s.id === "san-saba-chamber-lighted-parade");
+  assert.equal(annual?.sourceKind, "annual-events-list");
+  assert.equal(parade?.sourceKind, "event-specific");
+  const calendar = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  assert.ok(!calendar.has("camp"), "Annual guides alone must not certify a current county calendar");
+  assert.ok(!calendar.has("san-saba"), "One event page alone must not certify full county calendar coverage");
+});
+
+
+test("independent first-party tourism calendars supplement blocked Chamber sources without claiming press opt-ins", async () => {
+  const expected = [
+    ["destination-waco-community-calendar", "mclennan", "destinationwaco.org"],
+    ["visit-fredericksburg-events", "gillespie", "visitfredericksburgtx.com"],
+    ["visit-laredo-cvb-calendar", "webb", "visitlaredo.com"],
+  ];
+  for (const [id, county, domain] of expected) {
+    const source = registry.sources.find(s => s.id === id);
+    assert.ok(source, "Missing independent tourism organization source " + id);
+    assert.equal(source.sourceKind, "public-calendar");
+    assert.deepEqual(source.countySlugs, [county]);
+    assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
+  }
+  const report = await auditChamberSources({ offline: true });
+  assert.ok(report.countiesWithExplicitCalendarSources >= 73);
+  assert.equal(report.countiesMissingSources, 0);
+  assert.equal(report.countiesWithRegisteredSources, 254);
+  assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
+  assert.equal(report.eventSpecificSourceCount, 11);
+  assert.equal(report.annualEventsListSourceCount, 4);
+  assert.match(report.outreachStatus, /tracked privately/);
+});
+
+test("reject invented source-kind classifications rather than silently counting an event page as a calendar", () => {
+  const altered = { ...registry, sources: [
+    ...registry.sources.filter(s => s.id !== "shamrock-wheeler-st-patricks"),
+    { ...registry.sources.find(s => s.id === "shamrock-wheeler-st-patricks"), sourceKind: "confirmed-press-opt-in" },
+  ] };
+  assert.throws(() => validateRegistry(altered, counties), /Unsupported source classification/);
 });

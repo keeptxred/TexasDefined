@@ -98,6 +98,8 @@ jobs:
               'Counties still needing explicit first-party calendar/organizer evidence: **' +
                 report.countiesNeedingCalendarEvidence + '**.',
               'Registered contact-only sources, not calendars: **' + report.contactOnlySourceCount + '**.',
+              'Specific first-party festival/holiday event pages (not complete calendars): **' + report.eventSpecificSourceCount + '**.',
+              'Annual festival guides (edition dates must be reconfirmed): **' + report.annualEventsListSourceCount + '**.',
               'Registered older sources awaiting source-type classification: **' + report.unclassifiedSourceCount + '**.',
               'Calendar-source fetches requiring review: **' + failures.length + '**.',
               '',

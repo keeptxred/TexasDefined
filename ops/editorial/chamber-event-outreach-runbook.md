@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Public source/contact-desk mapped: 254 / 254 counties (270 public first-party source records), as of November 22, 2026. Zero county-source roster gaps, but this is NOT 254 active local calendars, Chamber contacts, verified event seasons, subscriptions, or earned links. Explicit public-calendar classification: 54 sources covering 53 counties; contact-only classification: 31; older records still requiring calendar-vs-contact classification: 185; counties still needing explicit first-party community-calendar evidence: 201.**
+**Public source/contact-desk mapped: 254 / 254 counties (273 public first-party source records), as of November 22, 2026. Zero county-source roster gaps, but this is NOT 254 active local calendars, Chamber contacts, verified event seasons, subscriptions, or earned links. Explicit current public-calendar classification: 74 sources covering 73 counties; single-event official source pages: 11; dated or undated annual festival source lists: 4; contact-only classification: 31; older source records still needing specific classification: 153; counties still lacking an explicitly categorized full public calendar: 181.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -143,8 +143,54 @@ Added Oldham County Chamber (Vega Route 66, annual events); Giddings Area Chambe
 
 ## November 22, 2026 — source registry and deliverability reconciliation
 
-The current 254-county public-source registry is an **editorial starting directory**, not a complete press-subscription roster. The classification audit now distinguishes 54 first-party public event-calendar sources, 31 contact-only public source desks, and 185 earlier entries requiring individual calendar/organizer classification. The 54 classified public calendars map to 53 counties; 201 counties still lack an explicitly classified primary calendar. Dynamic JS-driven official destination bureau calendars count as public research calendars but may still need an accessible feed/manual verification and never count as organizer-verified future event dates. Maintain these distinct totals in the automated issue and never collapse all source contacts into verified community festival calendars. Date-specific events may only enter event/county pages after first-party organizer/municipal verification and rights review; no automatic 2027 rollover.
+The current 254-county public-source registry is an **editorial starting directory**, not a complete press-subscription roster. The classification audit now distinguishes 71 first-party public event calendars across 70 counties, 11 event-specific first-party pages, 4 official annual event guides, 31 contact-only desks and 153 unclassified older records. All 254 counties remain mapped to at least one official public contact/source. A Chamber business-events calendar, even when public, is not proof of a full holiday and festival calendar. Dynamic JS-driven official destination bureau calendars count as public research calendars but may still need an accessible feed/manual verification and never count as organizer-verified future event dates. Maintain these distinct totals in the automated issue and never collapse all source contacts into verified community festival calendars. Date-specific events may only enter event/county pages after first-party organizer/municipal verification and rights review; no automatic 2027 rollover.
 
 The protected Microsoft 365 outreach CRM must remain the system of record for recipient and response data. One November 22 Midland Chamber message produced an Outlook delivery rejection (recipient server suspected spam); it has been flagged for deliverability research rather than represented as successfully delivered or re-sent. Four more public, individualized November 22 outreach messages were sent through admin@texasdefined.com to Visit Dallas, Discover Denton, Destination Bryan and the Comanche Chamber; all four were privately entered in the protected CRM. These sends **do not** establish accepted media list subscriptions, media-kit/image permissions, or earned backlinks. No Gmail was used.
 
 Next acceptance gates: retain 254/254 public-source geography, classify and validate actual current public calendars and organizer sources, independently verify upcoming date-specific events, document county ↔ event ↔ permanent-guide crosslinks, repair robots/HTTP source failures without bypass, confirm production release, and track voluntary press-list acceptances and separately verified earned links. Keep checkpoint #7548 open for ongoing work.
+
+
+## 2026-11-22 official-calendar classification follow-on (county coverage quality)
+
+Verified individual first-party community or Chamber event listings and classified 17 previously unclassified public calendar sources. County/audience evidence is not a promise of a festival listing, and dates require organizer-level confirmation. Newly reviewed public calendar sites:
+
+| County | Official calendar or listings | Evidence / scope |
+| --- | --- | --- |
+| Henderson | https://athenstxchamber.org/calendar-of-events | Chamber calendar PDF; verify individual current editions |
+| Hockley | https://www.levelland.com/events/calendar | Levelland Chamber events calendar, currently sparse; separate city Main Street festivals |
+| Erath | https://www.stephenvilletexas.org/events/calendar/ | Public local/Chamber entries, including seasonal community events |
+| Panola | https://www.carthagetexasmainstreet.us/calendar | Carthage Main Street dated community events and November holiday activity |
+| Navarro | https://www.corsicana.org/events/calendar | Corsicana/Navarro Chamber mixed business/community entries |
+| Karnes | https://www.kenedychamber.org/events/ | Chamber listings with December 2026 open house and holiday tour |
+| Wichita | https://www.wichitafallschamber.com/events/ | Chamber programming calendar, not comprehensive local festival coverage |
+| Hutchinson | https://www.borgerchamber.com/events/ | Borger Chamber year selector/calendar; verify current entries |
+| Crockett | https://business.ozona.com/events/calendar | Ozona Chamber public calendar and dated local events |
+| Lampasas | https://business.lampasaschamber.org/events/calendar/ | Public mixed community/business Chamber calendar |
+| Parker | https://www.weatherford-chamber.com/chamber-events.html | Chamber recurring events and Christmas on the Square listing |
+| Lavaca | https://www.hallettsville.com/events-calendar | Dedicated Hallettsville Chamber/community calendar; corrected from Chamber-only listings |
+| Madison | https://www.madisonvilletexas.gov/events | Official city announcements include current 2026 fall/holiday event references |
+| Ellis | https://business.waxahachiechamber.com/events/calendar | Dated public mixed Chamber and holiday event listings |
+| Wilson | https://www.floresvilletx.gov/calendar-events/category/community-events/ | Official municipal community-events calendar |
+| Hamilton | https://www.allthingshamilton.org/events | Main Street community calendar with 2026 holiday and 2027 festival postings; verify original producers |
+| Llano | https://www.llanochamber.org/-calendar | Chamber/visitor listings with 2026 dated events and ICS links |
+
+**Classification refinement:** Eleven organizer/municipal pages were assigned `event-specific` because a parade or holiday edition alone does **not** establish comprehensive community-calendar coverage. Four first-party annual festival directories were assigned `annual-events-list` because repeating a festival name or month is not evidence of this year's exact dates. These classifications remain discovery-only, never grant photo rights or imply earned links, and must not increment county coverage in the “explicit public calendar” metric. Keep chasing organizer release calendars, actual 2026/27 annual event occurrences and source HTTP/robots remediation.
+
+
+### Three independently verified tourism calendar fallbacks for previously HTTP-blocked Chamber feeds
+
+- **McLennan County:** Destination Waco, the local tourism office, maintains an active public community/festival calendar at https://destinationwaco.org/events/ (with current entries, category filters, seasonal/holiday filters, and a submission page). Contact desk: https://destinationwaco.org/about-us/contact-us/. This complements, never replaces, the distinct Greater Waco Chamber organization, whose member-calendar fetch can fail in scheduled research.
+- **Gillespie County:** Fredericksburg Convention & Visitor Bureau maintains a public festivals/events page at https://www.visitfredericksburgtx.com/events/, including major events, community events and submit-event resources. This may render date listings through JavaScript; do not treat an empty static extract as proof no event exists. Contact desk: https://www.visitfredericksburgtx.com/partners/contact/.
+- **Webb County:** Visit Laredo's city convention and visitors bureau has a dated public community calendar at https://visitlaredo.com/events/ with separate annual festival and submission resources; contact via https://visitlaredo.com/cvb-staff/.
+
+These are three **new** first-party organizations with independent calendars, not aliases for Chambers and not proof any Chamber joined the media list. Total registered first-party sources now **273 / 254 counties** (multiple organizations may serve one county). Directly reviewed classified calendars: **74 sources covering 73 counties**. The **181** other counties need direct calendar review, though many already have event-specific evidence, municipal source contacts or published event records elsewhere. Keep 2026/27 edition dates and media permission subject to organizer confirmation.
+
+### November 22, 2026 — verified additions to the live calendar source catalog
+
+Two organizer-dated, current-edition occurrences were added to the existing governed `src/data/events/christmas-community-2026-county-backfill.server.ts` rather than creating thin event doorway articles:
+
+- **Hamilton County / Hamilton Christmas on the Square — A Gingerbread Christmas:** Saturday **November 28, 2026, 3–8 p.m.**, historic downtown Hamilton. Official event page: https://www.allthingshamilton.org/events/christmas-on-the-square-1 . Organizer Hamilton Chamber of Commerce; Hamilton Main Street supports the children's section. Shopping, gingerbread house contest, tree lighting and Santa photos are described as current 2026 programming, not annual guaranteed features.
+- **Karnes County / Kenedy Holiday Tour of Homes (11th):** Thursday **December 17, 2026, 6–9:30 p.m.** Official Chamber source: https://www.kenedychamber.org/event/11th-annual-holiday-tour-of-homes/ . The Kenedy Chamber at 205 S 2nd St is the page's listed venue; individual private-home addresses, entry fees, tickets and routes are **unconfirmed** and must not be inferred from the Chamber venue listing.
+
+Both records carry individual `sourceVerifiedAt: 2026-11-22`, canonical county attribution, source hyperlinks and 2026-only occurrence dates; new regression tests enforce dates, organizer domains, source safety and existing county-calendar crosslinks. No 2027 dates or image rights are presumed. Verify publication on a post-merge production deployment and confirm the county/Christmas hub links resolve, not just that the release gate passes.
+

@@ -601,5 +601,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "City of Bowie Community Development / Bowie Chamber",
   "summary": "The Bowie Chamber's 2026 events calendar explicitly confirms its 35th Annual Fantasy of Lights Christmas Festival and Lighted Parade for Saturday, December 5. The City's parade organizer page says the downtown parade begins at 7 p.m. and travels Mason, Wise and Smythe streets, with the theme 'Merry & Bright Christmas.' Free Santa photographs are scheduled with the Fire Department during Pancakes with Santa, while downtown Christmas activities take place through the day. Check the city for street closure updates.",
   "sourceVerifiedAt": "2026-11-22"
-}
+},
+  {
+    "slug": "hamilton-gingerbread-christmas-on-square-2026",
+    "title": "Hamilton Christmas on the Square · A Gingerbread Christmas",
+    "city": "Hamilton",
+    "countySlug": "hamilton",
+    "countyName": "Hamilton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Historic downtown Hamilton town square",
+    "officialEventUrl": "https://www.allthingshamilton.org/events/christmas-on-the-square-1",
+    "sourceName": "Hamilton Chamber of Commerce via Hamilton Main Street community calendar",
+    "summary": "The Hamilton Chamber confirms Christmas on the Square on Saturday, November 28, 2026, from 3–8 p.m. in historic downtown Hamilton. The Gingerbread Christmas program lists local holiday vendors, a gingerbread-house contest, musical guests, a public tree lighting, a Main Street children's area and free Santa photographs. Individual shopping purchases and any separate activities are not assumed free. Check the organizer for updates before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "kenedy-holiday-tour-of-homes-2026",
+    "title": "Kenedy 11th Annual Holiday Tour of Homes",
+    "city": "Kenedy",
+    "countySlug": "karnes",
+    "countyName": "Karnes County",
+    "region": "south-texas",
+    "startDate": "2026-12-17",
+    "venueName": "Kenedy Chamber of Commerce, 205 South 2nd Street (listed event venue)",
+    "officialEventUrl": "https://www.kenedychamber.org/event/11th-annual-holiday-tour-of-homes/",
+    "sourceName": "Kenedy Chamber of Commerce",
+    "summary": "The Kenedy Chamber's current event notice dates the 11th Annual Holiday Tour of Homes for Thursday, December 17, 2026, from 6–9:30 p.m. It lists the Chamber at 205 South 2nd Street as the event venue. Individual participating homes, admission requirements and travel arrangements are not stated on the official page; confirm those details with the Chamber before visiting.",
+    "sourceVerifiedAt": "2026-11-22"
+  }
 ];

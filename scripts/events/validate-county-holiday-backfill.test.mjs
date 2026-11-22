@@ -49,6 +49,8 @@ test("county official calendars are tracked on the robot-respecting review sched
     austin:"2026-12-05",
     cooke:"2026-12-03",
     camp:"2026-12-05",
+    hamilton:"2026-11-28",
+    karnes:"2026-12-17",
   })) assert.equal(events.find(e=>e.countySlug===slug)?.startDate,expected);
 });
 
@@ -66,4 +68,19 @@ test("all-county holiday audit covers newly added source-qualified calendar and 
   const holidayLinks=countyUi.match(/href="\/events\/christmas-events"/g) ?? [];
   assert.ok(holidayLinks.length >= 2, "Christmas hub must be linked from every county, including counties with unrelated local events");
   assert.ok(countyUi.includes('event.isUpcoming'), "Past editions must be labeled, never passed off as current events");
+});
+
+test("Hamilton and Kenedy official 2026 holiday editions retain precise county/organizer evidence", () => {
+  const cases = [
+    ["hamilton-gingerbread-christmas-on-square-2026", "hamilton", "2026-11-28", "allthingshamilton.org"],
+    ["kenedy-holiday-tour-of-homes-2026", "karnes", "2026-12-17", "kenedychamber.org"],
+  ];
+  for (const [slug, countySlug, date, host] of cases) {
+    const entry = events.find(event => event.slug === slug);
+    assert.ok(entry, "Missing official 2026 holiday record " + slug);
+    assert.equal(entry.countySlug, countySlug);
+    assert.equal(entry.startDate, date);
+    assert.ok(new URL(entry.officialEventUrl).hostname.endsWith(host));
+    assert.ok(entry.sourceName && entry.venueName && entry.summary);
+  }
 });
