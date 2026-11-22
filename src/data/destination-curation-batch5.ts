@@ -120,7 +120,8 @@ const curated: Record<string, Partial<Destination>> = {
       { topic: "hours", label: "Park gate and holiday office hours", detail: "Gate hours are 6 a.m.–10 p.m. daily. The park office closes at noon on Thanksgiving and all day December 25.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-11-21" },
       { topic: "reservations", label: "Reserve day use or overnight lodging", detail: "Book the specific Martin Creek Lake facility through the state reservation system; call (512) 389-8900 for booking assistance.", sourceUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121", checkedAt: "2026-11-21" },
       { topic: "access", label: "Wheelchair-accessible features", detail: "TPWD identifies the headquarters and its restrooms, fishing pier, bridge to the primitive island and picnic sites as wheelchair accessible. Cabins with bathrooms and the pavilion are accessible but not fully ADA compliant.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/martin-creek-lake-accessibility", checkedAt: "2026-11-21" },
-      { topic: "access", label: "Invasive ants and firewood restrictions", detail: "TPWD reports Argentine ants in some campsites. Inspect your gear before leaving and notify staff if found. Buy local firewood because Rusk County is under an emerald ash borer quarantine; separately verify current fire restrictions.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-11-21" },
+      { topic: "access", label: "Invasive ants", detail: "TPWD reports Argentine ants in some campsites. Inspect gear before leaving and notify park staff if you find ants.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-11-21" },
+      { topic: "access", label: "Firewood movement restrictions", detail: "Buy local firewood because Rusk County is under an emerald ash borer quarantine; separately verify current fire restrictions.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake", checkedAt: "2026-11-21" },
     ],
     summary: "Plan a day or weekend at Martin Creek Lake State Park near Tatum: three named hiking and biking routes, warm-water fishing, a four-lane boat ramp, island tent camping, cabins and screened shelters. Compare trails, day passes, water access and accessible facilities.",
     nearestTown: "Tatum",
@@ -136,6 +137,7 @@ const curated: Record<string, Partial<Destination>> = {
       "Choose accommodations according to your trip: developed campsites suit RVs or conventional tent camping, while island sites require carrying gear across a footbridge. Screened shelters and cottages also require different levels of self-sufficiency. The detailed RV guide compares hookup classes and site-selection rules; this park guide focuses on trails, day trips, water access, lodging and history."
     ],
     sourceCheckedAt: "2026-11-21",
+    updatedAt: "2026-11-21",
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
     reservationUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121",
