@@ -168,7 +168,7 @@ const festivalGuideExtras: readonly Extras[] = [
     "planningSections": [
       {
         "title": "How much will 2026 admission cost?",
-        "body": "The Galveston Historical Foundation lists free Friday admission, with paid Saturday and Sunday entry. The initial published standard admission is $20 for adults and $13 for ages 7–12, with children 6 and under free; advance prices increase by $5 on November 20. Special experiences or VIP access are separate. Check live checkout before buying."
+        "body": "The Galveston Historical Foundation lists free Friday admission, with paid Saturday and Sunday entry. The initial published standard admission was $20 for adults and $13 for ages 7–12; the organizer announced a $5 increase on November 20. Check the current checkout rather than relying on those early prices. Children 6 and under enter free. VIP and special-event admission are separate."
       },
       {
         "title": "Walkable districts and accessible arrival",
@@ -176,7 +176,7 @@ const festivalGuideExtras: readonly Extras[] = [
       },
       {
         "title": "What to wear and what to leave behind",
-        "body": "Victorian dress is encouraged, and the organizer advertises a gate-admission discount for Victorian costume—but verify the current terms before assuming it applies to online purchases. Pets, ice chests and recreational wheeled devices are restricted; costume props can be screened."
+        "body": "Victorian dress is encouraged, and the organizer advertises half-price admission for visitors in Victorian costume, available at the gate only. Check the current terms before buying. Pets, ice chests and recreational wheeled devices are restricted; costume props can be screened."
       },
       {
         "title": "A family-friendly Galveston weekend",
