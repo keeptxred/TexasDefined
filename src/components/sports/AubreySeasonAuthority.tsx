@@ -35,6 +35,39 @@ function numericFinal(game: Final) {
 function Source({ href, children }: { href: string; children: ReactNode }) {
   return <a className="font-semibold text-primary underline underline-offset-4 hover:text-foreground" href={href} target="_blank" rel="noreferrer noopener">{children} ↗</a>;
 }
+/**
+ * Editorial-only Aubrey hero: 2026 source-derived facts, not an unlicensed
+ * team photo, school mascot or purported original game-day photography.
+ */
+export function AubreySeasonHero({ games }: { games: readonly Final[] }) {
+  const results = games.map(numericFinal);
+  const district = games.filter((game) => game.district);
+  const districtComplete = district.length === 7 && district.every((g) => numericFinal(g)?.won);
+  const complete = results.length === 12 && results.every(Boolean);
+  const wins = results.filter((item) => item?.won).length;
+  const last = games.find((g) => g.date === '2026-11-19' && g.opponent === 'Canyon');
+  return (
+    <figure aria-label="Aubrey Chaparrals 2026 sourced season visual summary" className="relative flex min-h-[20rem] flex-col justify-between overflow-hidden border-2 border-foreground bg-surface p-6 sm:p-8">
+      <figcaption className="relative z-10 max-w-md">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Aubrey · 2026 season in numbers</p>
+        <p className="mt-3 font-display text-3xl font-bold leading-tight text-foreground">Chaparrals football</p>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Original TexasDefined results-based visual. Not school-owned artwork, a team photo or an official school publication.</p>
+      </figcaption>
+      {complete && districtComplete && wins === 8 && last?.result === 'L 36–39' ? (
+        <div className="relative z-10 mt-8 grid grid-cols-3 gap-3 border-t border-border pt-5">
+          <div><p className="font-display text-4xl font-bold tabular-nums sm:text-5xl">7–0</p><p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">District 4</p></div>
+          <div><p className="font-display text-4xl font-bold tabular-nums sm:text-5xl">8–4</p><p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Overall</p></div>
+          <div><p className="font-display text-4xl font-bold tabular-nums sm:text-5xl">2</p><p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Playoff rounds</p></div>
+        </div>
+      ) : (
+        <p className="relative z-10 mt-8 border-t border-border pt-5 text-sm font-semibold text-foreground">Verified 2026 finals and district results are being reviewed.</p>
+      )}
+      <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-14 h-64 w-64 rotate-12 rounded-full border-[24px] border-primary/10" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-12 right-12 h-44 w-44 rounded-full border-[18px] border-primary/10" />
+    </figure>
+  );
+}
+
 export function AubreySeasonAuthority({ games }: { games: readonly Final[] }) {
   const district = games.filter((game) => game.district);
   const finals = district.map(numericFinal);
