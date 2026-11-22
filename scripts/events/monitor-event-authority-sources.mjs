@@ -154,6 +154,57 @@ async function boundedSourceFetch(url, fetchImpl, now, timeoutMs = 12000) {
   return { ok: false, error: lastError, fetchedAt: now.toISOString() };
 }
 
+
+/** Preserve every overdue route/source in the actionable issue itself.
+ * The editorial selector reads issues, not the separate binary run artifact.
+ * Combine overlapping daily observations and full backlog records without
+ * silently losing any source pair or treating reachability as fact review.
+ */
+export function formatEventSourceIssue(report, runUrl) {
+  if (!Array.isArray(report.editorialBacklog) ||
+      report.editorialBacklog.length !== report.editorialBacklogCount ||
+      !Array.isArray(report.findings) || !Array.isArray(report.coverageErrors))
+    throw new Error('Incomplete event source report; refuse a partial editorial queue');
+  const rows = new Map();
+  const add = (item, overdue) => {
+    const source = item.source || 'missing';
+    const key = item.path + '\t' + source;
+    const row = rows.get(key) || { path: item.path, source, concerns: new Set(),
+      editorialCheck: item.editorialSourceCheckedAt || 'missing', cadence: item.cadenceDays, overdue: false };
+    for (const concern of item.concerns) row.concerns.add(concern);
+    row.overdue ||= overdue;
+    rows.set(key, row);
+  };
+  for (const item of report.editorialBacklog) add(item, true);
+  for (const item of report.findings) add(item, false);
+  const body = [
+    'The GitHub event page source-monitor found official-source or editorial freshness reviews.',
+    '',
+    'Latest run: ' + runUrl,
+    'Coverage: ' + report.coverage.permanent + ' permanent event guides, ' +
+      report.coverage.collectionRoutes + ' event collection routes, ' +
+      report.coverage.specialRoutes + ' separately routed holiday/event pages.',
+    'Due source observations: ' + report.due + '; performed: ' + report.attempted +
+      '; due-cohort concerns: ' + report.findings.length + '; **whole-inventory overdue guides: ' +
+      report.editorialBacklogCount + '**; coverage errors: ' + report.coverageErrors.length + '.',
+    '',
+    '**Source reachability is NOT proof of confirmed dates.** Do not invent next-year dates, silently rewrite tickets, lift noindex, or update sourceCheckedAt based on a simple HTTP 200.',
+    '',
+    ...report.coverageErrors.map(msg => '- COVERAGE FAILURE: ' + msg),
+    '**Complete combined overdue and due-source review queue (unique route/source pairs: ' + rows.size + ')**',
+    ...[...rows.values()].map(row =>
+      '- `' + row.path + '` — ' + [...row.concerns].join(', ') + '; source: ' + row.source +
+      '; editorial check: ' + row.editorialCheck + '; review cadence: ' + row.cadence + ' day(s)'),
+    '',
+    'Keep this issue open until the **entire** index is editorially current and there are no unresolved due-source failures. Resolve using verified official organizer facts and protected GitHub PRs; never refresh dates based on HTTP reachability alone.',
+  ].join('\n');
+  // GitHub has a bounded issue body. Never truncate halfway through a source
+  // or publish a partial queue as complete; the full JSON artifact is retained.
+  if (Buffer.byteLength(body, 'utf8') > 60000)
+    throw new Error('Complete event source issue exceeds safe GitHub body size; split queue explicitly');
+  return body;
+}
+
 export async function reviewEventSources({
   root, now = new Date(), fetchImpl = fetch, outputPath = DEFAULT_REPORT,
   concurrency = 5, maxTargets = 250, timeoutMs = 12000,
