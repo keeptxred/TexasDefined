@@ -8,7 +8,7 @@ export const polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasAr
   brandId: "texasdefined",
   slug: "polk-county-livingston-lake-livingston-alabama-coushatta-piney-woods-texas",
   title: "Polk County: Livingston, Lake Livingston, the Alabama-Coushatta and the Piney Woods",
-  dek: "Polk County is an East Texas landscape of pine forests, the Trinity River, timber towns, Livingston, Lake Livingston and the enduring homeland of the Alabama-Coushatta Tribe of Texas.",
+  dek: "Livingston's 1924 courthouse and the surviving 1905 annex, Alabama-Coushatta tribal history, timber towns and Lake Livingston's Piney Woods.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasAr
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Polk County",
     "Livingston Texas",
@@ -32,6 +33,8 @@ export const polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasAr
     "Piney Woods",
     "East Texas timber",
     "Texas counties",
+    "1924 Polk County Courthouse",
+    "1905 Livingston Courthouse Annex",
   ],
   featured: false,
   internalLinks: [
@@ -76,6 +79,18 @@ export const polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasAr
     p("Polk County's current courthouse is the fifth to serve the county. Early court sessions were held in modest log structures before increasingly substantial buildings reflected Livingston's growth. The present courthouse was completed in 1924 after county officials concluded that the previous building no longer offered enough space or modern facilities."),
     p("Designed by the Houston firm McLelland and Fink, the courthouse uses Classical Revival architecture with Beaux Arts influences. Tall white columns, a symmetrical façade and a strong roofline give the building a formal civic presence. It remains one of the clearest architectural landmarks in downtown Livingston and a useful starting point for exploring county history."),
 
+    h("How the 1905 annex survived demolition of Polk's 1884 courthouse"),
+    p("The courthouse and adjacent annex on Livingston's historic square tell two different stories. Officials built an early courthouse after the county's 1846 organization and constructed a larger brick one in 1884. As county courts and records expanded, a separate annex was erected in 1905 to relieve overcrowding in that older building. The 1905 annex was not built as part of the present 1924 courthouse."),
+    p("By 1923 commissioners chose to demolish the inadequate 1884 courthouse; contractor Isaac Young completed removal by July that year. A new Classical Revival courthouse designed by L. L. Thurmon and constructed by J. P. Eddleman took its place, with initial court meetings in fall 1924. The Texas Historical Commission counts it as Polk County's fifth courthouse. This was a deliberate replacement, not a building lost in a fire."),
+    p("The 1905 annex remained beside the new building. Both the annex and 1924 courthouse were listed together on the National Register of Historic Places in 2001. That listing preserves the story of a civic site changing over several generations, not merely the appearance of its most photographed building."),
+    p("The adjacent annex is a rare survival from the previous courthouse complex and matters to architectural and county-government history. The National Register nomination identifies the way the site's circulation and office functions changed with additional recordkeeping and more formal court facilities. A historical walking route should include both buildings and the THC markers, while distinguishing public government office space from independently operated museums."),
+    p("The county's Indigenous history requires the same attention to continuity. The Alabama-Coushatta tribal community near Livingston is a living sovereign people, not an extinct local artifact. Its own historical and visitor resources should guide references to public programs and access, while county records must distinguish the histories of county government, tribal land and sawmill communities."),
+
+    h("Polk County's courthouse questions"),
+    p("What happened to Livingston's 1884 courthouse? It was intentionally demolished in 1923, not destroyed by a courthouse fire."),
+    p("When did the present Polk County Courthouse open? In fall 1924, according to the official Texas Historical Commission marker."),
+    p("What is the building beside the courthouse? The 1905 Courthouse Annex was built for the earlier courthouse and survived the 1923 demolition."),
+    p("When did the courthouse and annex receive national recognition? Both were listed together on the National Register of Historic Places in 2001."),
     h("River landings mattered before the railroads"),
     p("Before dependable rail service, the Trinity River and rough overland roads connected Polk County to outside markets. River settlements such as Drew's Landing and Smithfield handled agricultural goods and supplies. Movement depended heavily on weather and water levels, making trade slower and less predictable than it would later become."),
     p("Those river routes shaped where early communities formed. A landing, ferry or crossing could become locally important even if the place later disappeared from modern maps. The county's present road system often obscures this older geography, but the Trinity still explains why early settlement clustered along the western side of the county."),
@@ -135,5 +150,13 @@ export const polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasAr
     h("What defines Polk County"),
     p("Polk County is defined by continuity and reinvention. The rivers and forests that supported Indigenous communities later shaped farms, logging camps and railroads. Livingston has remained the county seat since 1846 even as the economy changed around it. The Alabama-Coushatta community has maintained a homeland through political systems that repeatedly transformed the rest of Texas. Timber remains important even after the old-growth lumber era ended."),
     p("Lake Livingston added another layer without erasing the older ones. Courthouse columns, tribal lands, pine plantations, abandoned rail grades, river bottoms, sawmill towns and reservoir coves all belong to the same county story. Together they make Polk County one of the clearest places to see how East Texas history is written in land, water, movement and communities that endure."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Polk County Courthouse, fifth building opened 1924", url: "https://atlas.thc.texas.gov/Details/5373012712" },
+    { label: "Texas Historical Commission — National Register courthouse and 1905 annex", url: "https://atlas.thc.texas.gov/Details/2001000060" },
+    { label: "National Register — Polk County courthouse and annex documented nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/01000060/01000060.pdf" },
+    { label: "KLTV — 2021 historical annex preservation research", url: "https://www.kltv.com/2021/05/22/mark-texas-history-polk-county-courthouse-restoration-long-time-coming/" },
+    { label: "Alabama-Coushatta Tribe of Texas — official government and community", url: "https://www.alabama-coushatta.com/" },
+    { label: "Texas State Historical Association — Polk County", url: "https://www.tshaonline.org/handbook/entries/polk-county" },
   ],
 };
