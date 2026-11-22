@@ -3909,6 +3909,51 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "contact-only"
+    },
+    {
+      "id": "destination-waco-community-calendar",
+      "organization": "Destination Waco official visitor bureau events and festivals",
+      "countySlugs": [
+        "mclennan"
+      ],
+      "homeUrl": "https://destinationwaco.org/",
+      "calendarUrl": "https://destinationwaco.org/events/",
+      "contactPageUrl": "https://destinationwaco.org/about-us/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-fredericksburg-events",
+      "organization": "Fredericksburg Convention and Visitor Bureau official events calendar",
+      "countySlugs": [
+        "gillespie"
+      ],
+      "homeUrl": "https://www.visitfredericksburgtx.com/",
+      "calendarUrl": "https://www.visitfredericksburgtx.com/events/",
+      "contactPageUrl": "https://www.visitfredericksburgtx.com/partners/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-laredo-cvb-calendar",
+      "organization": "Visit Laredo Convention and Visitors Bureau community calendar",
+      "countySlugs": [
+        "webb"
+      ],
+      "homeUrl": "https://visitlaredo.com/",
+      "calendarUrl": "https://visitlaredo.com/events/",
+      "contactPageUrl": "https://visitlaredo.com/cvb-staff/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
