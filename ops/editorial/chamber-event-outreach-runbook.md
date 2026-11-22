@@ -58,7 +58,7 @@ Each of the 254 counties eventually needs reviewed first-party discovery sources
 - Presidio: Visit Marfa — https://visitmarfa.com/events
 - Brewster: Visit Alpine — https://visitalpinetx.com/events-calendar/
 
-**Latest public source/contact-desk mapping: all 254 Texas counties / 284 first-party public sources (Nov 22, 2026). The 116 classified public community calendar records span 111 counties; 143 counties still lack a directly classified public calendar. Eleven? No: 12 specific-event pages, 9 annual/recurring event directories, 32 contact-only desks and 115 still-unclassified earlier sources remain. Neither mapped desks nor current calendars guarantee future event dates, photo permissions, opt-in subscriptions or earned backlinks.**
+**Latest staged source/contact mapping: all 254 Texas counties / 284 first-party public sources (Nov 22, 2026). Classified community-calendar records: 127 sources spanning 122 counties; 132 counties still lack a separately verified current community calendar. Other source types: 19 individual-event pages, 12 annual-event directories, 34 contact-only desks and 92 unclassified older sources. Source contacts do not imply verified event dates, press-list acceptance, image rights or earned backlinks.**
 
 On November 22, 2026, **nineteen individualized O365 outreach messages** were sent to the Gladewater, Lufkin/Angelina, Kimble County, Port Arthur, Henderson tourism, Marshall, Tyler, Lubbock and Amarillo Chamber/event contacts, then Waller, Bellville, Sealy, Washington County and Bastrop Chambers, plus Visit Corpus Christi, Visit San Antonio, Visit Houston, Visit Austin and Visit Galveston public event/media teams. A separate **twentieth** O365 message invited Texas Chamber of Commerce Executives to circulate the voluntary media-list invitation to member Chambers; **no private membership export was requested**. O365 history showed previous outreach to Visit Marfa, Visit Alpine and Visit Nacogdoches, so no duplicate messages were sent to those offices. All new subscription, media rights and earned backlinks are unconfirmed until organizations respond or linking URLs are independently verified.
 
@@ -257,3 +257,30 @@ Ten local business/Chamber full calendars newly researched across Burnet, Marion
 - Somervell: Glen Rose Hometown Christmas Parade & Market, **Nov 28**, market 3 p.m. and parade 5:30 p.m., https://business.glenrosechamber.org/calendar/Details/hometown-christmas-parade-market-2006043?sourceTypeId=Hub; **separate** Storybook Christmas Tour of Homes, **Dec 12, 6–9 p.m.**, https://business.glenrosechamber.org/calendar/Details/storybook-christmas-tour-of-homes-1922816?sourceTypeId=Website (organizer lists $35 general tickets; VIP sold out when checked, but status may change). No speculative private home locations or tickets.
 
 None of these event dates are rolled forward automatically to 2027. Holiday pages and calendar return only source-dated occurrence windows, and attribution uses existing canonical county crosslinks. The daily source audit remains a robots/terms-respecting **research** workflow, not an unattended event publication system.
+
+## Source classification and holiday occurrence review — November 22, 2026 (cohort N)
+
+The staged official-source directory now has **284 registered first-party organizations/event source pages covering all 254 Texas counties**. Of those, **127** are classified public community calendars spanning **122** counties, leaving **132** without directly classified calendar evidence (not necessarily without holiday coverage). Other roles: **19 event-specific**, **12 annual-events-list**, **34 contact-only**, **92 unclassified**; no automated conversion from discovery source to a dated event is permitted.
+
+Eleven more dated public source calendars reviewed and classified:
+- Plantersville municipal community calendar (Grimes) https://cityofplantersville.net/community-calendar-events-1
+- Visit Goliad (Goliad) https://www.visitgoliad.com/event-list
+- Bonham Chamber (Fannin) https://bonhamchamber.com/events/
+- Visit Seguin (Guadalupe) https://visitseguin.com/events/
+- Hearne Chamber (Robertson) https://hearnechamber.com/community-calendar/
+- Goldthwaite Chamber (Mills) https://www.goldthwaiteareachamber.com/events
+- Stamford city public events (Jones) https://www.stamfordtexas.gov/events-calendar
+- Denver City Chamber (Yoakum) https://denvercitychamber.com/events/
+- Mount Vernon/Franklin County (Franklin) https://www.franklincountytx.com/events
+- Crosby County visitor events (Crosby) https://visitcrosbycounty.com/events/
+- Hereford Chamber (Deaf Smith) https://www.herefordtx.org/event-calendar.html
+
+Seven previously unclassified source pages describe only **one particular event**, not full county schedules (Gainesville parade, Uvalde Christmas at the Crossroads, Athens Christmas, Mont Belvieu Christmas parade, Elmendorf Christmas, Eastland parade, Bowie parade). Shelby Chamber parade listing, Oldham Chamber recurring activities and Perryton annual event directory are **annual-events-list** source leads, not date-complete current calendars. Claude/Armstrong Chamber and Poteet municipal notices are **contact-only** source entries; never count them as active public holiday calendars.
+
+Four more distinct, organizer-verified 2026 events were appended to the existing county + statewide Christmas event lifecycle:
+- Goldthwaite Sip, Stroll & Shop, **December 5, 2026, 2–6 p.m.** (Mills); official organizer https://www.goldthwaiteareachamber.com/events/goldthwaite-sip-stroll-and-shop. The Chamber separately advertises a 6 p.m. parade and evening dance. Ticket price and admission rights for individual activities require direct checking.
+- Hearne Annual Downtown Christmas Parade, **December 12, 2026** (Robertson); Chamber https://hearnechamber.com/community-calendar/ explicitly says **start time to be announced**. Do not invent the time.
+- Plantersville Annual Christmas Parade, **December 5, 2026, 10 a.m.** (Grimes), route from Town Hall along FM 1774 to Highway 105; https://cityofplantersville.net/community-calendar-events-1. Participant 9:30 a.m. staging is not a visitor arrival requirement.
+- Bonham Home for the Holidays Christmas Market, **December 5, 2026, 9 a.m.–4 p.m.** (Fannin), Stay Grounded Coffee Cafe, 604 N Center Street; https://bonhamchamber.com/event/annual-christmas-market/. Separate from December 4 parade and Hot Cocoa Hop.
+
+These four new records have first-party organizer URLs, precise county affiliations, source-reviewed 2026 dates, conservative descriptive summaries and regression tests. They are added to the existing holiday record backfill, not standalone thin articles, and cannot be automatically rolled into the 2027 calendar without an actual official announcement. Statewide registry remains a **research system**, not a licensed photograph ingest, spam contact list or reciprocal-link exchange.
