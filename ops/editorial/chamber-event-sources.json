@@ -2783,6 +2783,147 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "ozona-crockett-chamber",
+      "organization": "Ozona Chamber of Commerce and Visitor Center",
+      "countySlugs": [
+        "crockett"
+      ],
+      "homeUrl": "https://www.ozona.com/",
+      "calendarUrl": "https://business.ozona.com/events/calendar",
+      "contactPageUrl": "https://www.ozona.com/chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "dalhart-dallam-hartley-chamber",
+      "organization": "Dalhart Area Chamber of Commerce",
+      "countySlugs": [
+        "dallam",
+        "hartley"
+      ],
+      "homeUrl": "https://dalhart.org/",
+      "calendarUrl": "https://dalhart.org/",
+      "contactPageUrl": "https://dalhart.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "quanah-hardeman-chamber",
+      "organization": "Quanah Chamber of Commerce",
+      "countySlugs": [
+        "hardeman"
+      ],
+      "homeUrl": "https://quanahchamber.com/",
+      "calendarUrl": "https://quanahchamber.com/community-events/",
+      "contactPageUrl": "https://quanahchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "perryton-ochiltree-chamber",
+      "organization": "Perryton-Ochiltree Chamber of Commerce",
+      "countySlugs": [
+        "ochiltree"
+      ],
+      "homeUrl": "https://www.perryton.org/",
+      "calendarUrl": "https://www.perryton.org/events",
+      "contactPageUrl": "https://www.perryton.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "clarksville-red-river-chamber",
+      "organization": "Red River County Chamber of Commerce",
+      "countySlugs": [
+        "red-river"
+      ],
+      "homeUrl": "https://www.redrivercoc.com/",
+      "calendarUrl": "https://www.redrivercoc.com/annual-list-of-events",
+      "contactPageUrl": "https://www.redrivercoc.com/annual-events3050bfee",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "alice-jim-wells-chamber",
+      "organization": "Alice Hub City Chamber of Commerce",
+      "countySlugs": [
+        "jim-wells"
+      ],
+      "homeUrl": "https://www.alicehubcity.com/",
+      "calendarUrl": "https://business.alicehubcity.com/eventcalendar",
+      "contactPageUrl": "https://www.alicehubcity.com/about-our-chamber/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "haskell-city-calendar",
+      "organization": "City of Haskell events and Chamber contact desk",
+      "countySlugs": [
+        "haskell"
+      ],
+      "homeUrl": "https://www.haskelltexasusa.com/",
+      "calendarUrl": "https://www.haskelltexasusa.com/events/",
+      "contactPageUrl": "https://www.haskelltexasusa.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "dimmitt-castro-chamber",
+      "organization": "Dimmitt Chamber of Commerce",
+      "countySlugs": [
+        "castro"
+      ],
+      "homeUrl": "https://www.dimmittchamber.com/",
+      "calendarUrl": "https://www.dimmittchamber.com/",
+      "contactPageUrl": "https://www.dimmittchamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "tulia-swisher-city",
+      "organization": "City of Tulia Chamber contact and community information",
+      "countySlugs": [
+        "swisher"
+      ],
+      "homeUrl": "https://www.tuliatexas.org/",
+      "calendarUrl": "https://www.tuliatexas.org/page/tulia-area-chamber-of-commerce",
+      "contactPageUrl": "https://www.tuliatexas.org/page/tulia-area-chamber-of-commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
+    },
+    {
+      "id": "floydada-floyd-city",
+      "organization": "City of Floydada public news and local event contact",
+      "countySlugs": [
+        "floyd"
+      ],
+      "homeUrl": "https://www.cityoffloydada.com/",
+      "calendarUrl": "https://www.cityoffloydada.com/",
+      "contactPageUrl": "https://www.cityoffloydada.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery"
     }
   ]
 }
