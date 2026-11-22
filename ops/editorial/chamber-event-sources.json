@@ -767,6 +767,20 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery"
+    },
+    {
+      "id": "jacksboro-city-christmas-parade",
+      "organization": "City of Jacksboro",
+      "countySlugs": [
+        "jack"
+      ],
+      "homeUrl": "https://www.cityofjacksboro.com/",
+      "calendarUrl": "https://www.cityofjacksboro.com/m/newsflash?cat=10",
+      "contactPageUrl": "https://www.cityofjacksboro.com/426/Community-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery"
     }
   ]
 }
