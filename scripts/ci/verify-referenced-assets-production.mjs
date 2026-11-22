@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { retentionCandidates } from './retain-critical-hashed-assets.mjs';
 
 const CANONICAL = 'https://texasdefined.com';
 const DIRECT = 'https://texasdefined-site.freddy-coppola.workers.dev';
@@ -320,6 +321,21 @@ export function nextSnapshotHistory(prior, current) {
   return { format: 1, snapshots: [...older, current] };
 }
 
+/**
+ * Require the exact same first-seen, original SHA-256 and 72-hour retention
+ * eligibility as retain-critical-hashed-assets.mjs. A historical snapshot
+ * remains available for diagnostics but an expired file is not promised by the
+ * newly deployed Worker and cannot be treated as an in-window 200 -> 404.
+ * Reconcile every historical sighting BEFORE expiry so a newer observation
+ * cannot renew an old hash's original 72-hour window.
+ */
+export function eligibleCrossReleaseAssets(history, now = Date.now()) {
+  return new Map(retentionCandidates(history, now).map(asset => [
+    asset.path,
+    { path: asset.path, kind: asset.kind, preSha256: asset.preSha256, firstSeenAt: asset.firstSeenAt },
+  ]));
+}
+
 function label(origin) { return origin === CANONICAL ? 'canonical' : 'direct'; }
 function probeUrl(origin, page) {
   const url = new URL(page, origin);
@@ -454,7 +470,9 @@ async function verify() {
   const expected = process.env.EXPECTED_DEPLOYED_WORKER_VERSION;
   if (!expected) throw new Error('EXPECTED_DEPLOYED_WORKER_VERSION is required for production verification');
   const histories = [];
-  const inherited = new Map();
+  const verificationTime = Date.now();
+  const inherited = eligibleCrossReleaseAssets(saved, verificationTime);
+  const knownOriginals = retentionCandidates(saved, verificationTime, [], { includeExpired: true });
   const latest = saved.snapshots.at(-1);
   if (!Array.isArray(latest.builtAssets) || latest.builtAssets.length < REQUIRED_BUILT_ROUTE_PATTERNS.length ||
       !REQUIRED_BUILT_ROUTE_PATTERNS.every(pattern => latest.builtAssets.some(a => pattern.test(a.path.split('/').pop())))) {
@@ -464,30 +482,22 @@ async function verify() {
   for (const snapshot of saved.snapshots) {
     const available = [];
     for (const page of snapshot.pages) for (const asset of page.assets || []) {
-      if (asset.wasAvailable === true) {
-        inherited.set(asset.path, { path: asset.path, kind: asset.kind, preSha256: asset.preSha256 || null });
-        available.push(asset.path);
-      }
+      if (asset.wasAvailable === true) available.push(asset.path);
     }
     histories.push({ capturedAt: snapshot.capturedAt, sourceCommit: snapshot.sourceCommit,
       workerVersions: [...new Set(snapshot.pages.map(x => x.version).filter(Boolean))],
       availableCount: new Set(available).size, builtRouteAssets: snapshot.builtAssets?.map(x => x.path) || [] });
   }
-  // Include only confirmed predeploy-200 former route chunks. A failed old
-  // baseline is recorded separately and never mislabeled as a new 404.
-  for (const a of latest.legacyAssets || []) {
-    if (a.wasAvailable === true) inherited.set(a.path, { ...a });
-  }
-  // The outgoing Worker's old hash bytes were copied into the upcoming
-  // dist/client bundle before Wrangler deployment. Make their continued
-  // availability a hard live production gate, not a best-effort report.
-  for (const asset of latest.retainedAssets || []) {
-    if (asset.wasAvailable === true) inherited.set(asset.path, { ...asset });
-  }
   const results = { format: 1, checkedAt: new Date().toISOString(), expected, histories,
     lazyRouteCanaries: newBuilt.map(x => x.path),
     preExistingLazyFailures: (latest.legacyAssets || []).filter(x => !x.wasAvailable)
       .map(x => ({ path: x.path, status: x.preStatus })),
+    retentionPolicy: {
+      maxAgeHours: 72,
+      eligibleOriginalHashCount: inherited.size,
+      expiredOriginalHashCount: knownOriginals.length - inherited.size,
+      expiresByOriginalFirstSeen: true,
+    },
     pages: [], assets: [], failures: [] };
   try {
     // Validate current Worker identity, cache policy and live HTML on BOTH
