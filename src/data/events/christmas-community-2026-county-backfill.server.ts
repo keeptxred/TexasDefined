@@ -137,5 +137,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "Greater Marshall Chamber of Commerce",
   "summary": "The Greater Marshall Chamber of Commerce official event list confirms its Wonderland of Lights Wassail Walk for Saturday, November 28, 2026 from 1–5 p.m. The Chamber also describes a broader Wonderland of Lights festival from November 25 through December 30, but this calendar entry covers only the verified Wassail Walk day and does not assume every attraction operates on every night.",
   "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "orange-gumdrop-shop-holiday-market-2026",
+  "title": "Orange Gumdrop Shop Holiday Market",
+  "city": "Orange",
+  "countySlug": "orange",
+  "countyName": "Orange County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-05",
+  "venueName": "Orange Recreation Center, 1405 W. Orange Avenue",
+  "officialEventUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+  "sourceName": "City of Orange Convention & Visitors Bureau",
+  "summary": "The City of Orange Convention & Visitors Bureau confirms its indoor Gumdrop Shop Holiday Market on Saturday, December 5, 2026, from 9 a.m. to 3 p.m. at the Orange Recreation Center. Expect local makers, gift shopping and seasonal activities. The city says dogs and coolers are not permitted indoors; the separate Kiwanis Christmas Parade takes place downtown later that evening.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "orange-kiwanis-christmas-parade-2026",
+  "title": "Orange Kiwanis Christmas Parade",
+  "city": "Orange",
+  "countySlug": "orange",
+  "countyName": "Orange County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-05",
+  "venueName": "Downtown Orange, Texas",
+  "officialEventUrl": "https://orangetexas.gov/427/Gumdrop-Shop",
+  "sourceName": "City of Orange Convention & Visitors Bureau",
+  "summary": "The City of Orange's official Gumdrop Shop holiday page confirms the Kiwanis Christmas Parade at 5:50 p.m. on Saturday, December 5, 2026 in downtown Orange. The parade is distinct from the 9 a.m.–3 p.m. indoor Gumdrop Shop market at the Orange Recreation Center; do not mistake market hours for parade hours. Confirm any last-minute route or street-closure instructions with the city.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "levelland-festival-lights-christmas-square-2026",
+  "title": "Levelland Festival of Lights & Christmas on the Square",
+  "city": "Levelland",
+  "countySlug": "hockley",
+  "countyName": "Hockley County",
+  "region": "panhandle",
+  "startDate": "2026-12-03",
+  "venueName": "South Plains College Levelland campus and downtown Levelland square",
+  "officialEventUrl": "https://www.levellandtexas.org/223/Festival-of-Lights-Christmas-on-the-Squa",
+  "sourceName": "City of Levelland Main Street",
+  "summary": "Levelland Main Street's official calendar confirms the Festival of Lights and Christmas on the Square on Thursday, December 3, 2026. The celebration begins at South Plains College with campus lights, Santa and Mrs. Claus, LISD choirs, food trucks, cocoa, youth activities and games. The city also invites parade entries; specific hour-by-hour programming should be verified with Levelland Main Street before travel.",
+  "sourceVerifiedAt": "2026-11-22"
+},
+{
+  "slug": "wharton-chamber-christmas-parade-2026",
+  "title": "Wharton 2026 Christmas Parade",
+  "city": "Wharton",
+  "countySlug": "wharton",
+  "countyName": "Wharton County",
+  "region": "gulf-coast",
+  "startDate": "2026-12-01",
+  "venueName": "Wharton, Texas (route announced by the Chamber)",
+  "officialEventUrl": "https://www.whartonchamber.com/",
+  "sourceName": "Wharton Chamber of Commerce & Agriculture",
+  "summary": "The Wharton Chamber of Commerce's official 2026 events listing schedules its Christmas Parade for Tuesday, December 1, at 7 p.m. The Chamber's annual notice also identifies the celebration as the 2026 Christmas Parade. Check the Chamber directly for staging locations, the parade route, road closures, accessible viewing, and any severe-weather changes; the homepage does not establish those details.",
+  "sourceVerifiedAt": "2026-11-22"
 }
 ];
