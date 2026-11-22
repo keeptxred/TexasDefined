@@ -869,5 +869,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Denver City Chamber of Commerce",
     "summary": "The Denver City Chamber's official upcoming-events page lists its Christmas Parade followed by a Meet and Greet with Santa for Thursday, December 17, 2026, on Downtown Main Avenue. The Chamber has not specified a parade start time, duration, participation fee or spectator parking details on this listing, and its event card includes a broken detail-link placeholder; confirm those particulars with the organizer before travel. This is a 2026 Yoakum County community event and not a recurring fixed December 17 date.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "bonham-christmas-tree-lighting-smores-cookoff-2026",
+    "title": "Christmas in Bonham Tree Lighting & S'mores Cook-Off",
+    "city": "Bonham",
+    "countySlug": "fannin",
+    "countyName": "Fannin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Fannin County Courthouse, 101 East Sam Rayburn Drive, Bonham",
+    "officialEventUrl": "https://bonhamchamber.com/event/christmas-in-bonham-tree-lighting-smores-cook-off/",
+    "sourceName": "Bonham Area Chamber of Commerce",
+    "summary": "The Bonham Chamber confirms the community Christmas tree lighting and S'mores Cook-Off on Saturday, November 28, 2026, from 5:30–6:30 p.m. in the Fannin County Courthouse Square. Local teams offer s'mores samples and compete for the annual prize; the public tree lighting takes place at 6 p.m. The Chamber's registration deadline and zero entry fee apply to competing teams, not to any separate ticketed attraction. This is a different downtown program from Bonham's December 4 parade.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "bonham-home-for-holidays-market-2026",
+    "title": "Bonham Home for the Holidays Christmas Market",
+    "city": "Bonham",
+    "countySlug": "fannin",
+    "countyName": "Fannin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Stay Grounded Coffee Cafe, 604 North Center Street, Bonham",
+    "officialEventUrl": "https://bonhamchamber.com/event/annual-christmas-market/",
+    "sourceName": "Stay Grounded Coffee Cafe (organizer), via Bonham Area Chamber of Commerce calendar",
+    "summary": "The Bonham Chamber's first-party event calendar lists the Home for the Holidays Christmas Market on Saturday, December 5, 2026, from 9 a.m. to 4 p.m. at Stay Grounded Coffee Cafe, 604 North Center Street. Stay Grounded is identified as the organizer; the market features local vendors, shopping and community entertainment. Vendor purchases, seating and any optional program admission should be checked with the organizer. This is distinct from the December 4 lighted parade and November 28 tree lighting.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "goldthwaite-sip-stroll-shop-parade-2026",
+    "title": "Goldthwaite Sip, Stroll & Shop Holiday Festival and Parade of Lights",
+    "city": "Goldthwaite",
+    "countySlug": "mills",
+    "countyName": "Mills County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Goldthwaite, 1011 Fourth Street and surrounding blocks",
+    "officialEventUrl": "https://www.goldthwaiteareachamber.com/events/goldthwaite-sip-stroll-and-shop",
+    "sourceName": "Goldthwaite Area Chamber of Commerce",
+    "summary": "Goldthwaite Chamber confirms Sip, Stroll & Shop on Saturday, December 5, 2026, from 2 to 6 p.m. in downtown Goldthwaite, featuring Santa activities, arts and crafts, local shopping, food trucks, carolers and costumed Dickens characters. A separate Parade of Lights starts at 6 p.m. that evening. The organizer advertises a ticket link and additional activities, so do not represent every component as free or assume one admission price. Contact the Chamber for procession details and current tickets.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
