@@ -84,3 +84,23 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.ok(report.observations.every(x => x.state === "offline-validation"));
   assert.match(report.eventPublication, /^NO/);
 });
+
+test("new local and regional source cohorts retain their correct Texas county geography", () => {
+  const roster = new Set(registry.sources.flatMap(source => source.countySlugs));
+  const documented = [
+    "gillespie", "mclennan", "taylor", "val-verde", "victoria", "johnson",
+    "parker", "midland", "rockwall", "kaufman", "webb", "polk",
+    "san-patricio", "kleberg", "wise", "wichita", "hidalgo",
+    "hood", "hunt", "walker", "lavaca", "matagorda", "comal", "grayson", "guadalupe",
+  ];
+  assert.ok(roster.size >= 123, "Source mapping must not silently lose reviewed county coverage");
+  for (const county of documented)
+    assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
+
+  const denison = registry.sources.find(source => source.id === "denison-city-discover");
+  assert.ok(denison);
+  assert.deepEqual(denison.countySlugs, ["grayson"]);
+  assert.match(denison.organization, /City of Denison/);
+  const bayCity = registry.sources.find(source => source.id === "bay-city-matagorda-events");
+  assert.ok(bayCity?.countySlugs.includes("matagorda"));
+});
