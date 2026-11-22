@@ -99,8 +99,11 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "hutchinson", "wilson", "wilbarger", "sutton", "pecos", "terry", "yoakum",
     "hamilton", "madison", "jackson", "liberty", "karnes", "frio", "leon",
     "houston", "limestone",
+    "mason", "moore", "hale", "gaines", "hansford", "stephens", "reeves", "rains",
+    "robertson", "refugio", "willacy", "wheeler", "starr", "zavala",
+    "tyler", "newton",
   ];
-  assert.ok(roster.size >= 165, "Source mapping must not silently lose reviewed county coverage");
+  assert.ok(roster.size >= 181, "Source mapping must not silently lose reviewed county coverage");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -110,4 +113,11 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.match(denison.organization, /City of Denison/);
   const bayCity = registry.sources.find(source => source.id === "bay-city-matagorda-events");
   assert.ok(bayCity?.countySlugs.includes("matagorda"));
+  const newton = registry.sources.find(source => source.id === "newton-county-chamber-county");
+  assert.ok(newton, "Use a Texas county-hosted Newton Chamber contact, not the Georgia lookalike");
+  assert.deepEqual(newton.countySlugs, ["newton"]);
+  assert.match(newton.homeUrl, /^https:\/\/www\.co\.newton\.tx\.us\//);
+  assert.ok(!registry.sources.some(source => /newtonchamber\.com/i.test(source.homeUrl)),
+    "An out-of-state Newton Chamber may not be mapped to Texas");
+
 });
