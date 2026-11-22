@@ -8,7 +8,7 @@ export const burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle: Article 
   brandId: "texasdefined",
   slug: "burleson-county-caldwell-somerville-brazos-central-texas",
   title: "Burleson County: Caldwell, Somerville, the Brazos and a Central Texas Crossroads",
-  dek: "Burleson County connects Caldwell and Somerville with the Brazos River, Yegua Creek, railroad history, Czech and German heritage, cotton country, energy development and one of Central Texas's most useful lake escapes.",
+  dek: "Caldwell's 1890 courthouse deliberately demolished in 1927, the surviving Classical Revival replacement, and the railroad, Yegua Creek and community history of Burleson County.",
   category: "texas-history",
   region: "central-texas",
   hero: {
@@ -20,7 +20,8 @@ export const burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: [
     "Burleson County",
     "Caldwell Texas",
@@ -71,6 +72,22 @@ export const burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle: Article 
     p("Caldwell developed around its courthouse square, and county government remains the town's most visible civic function. The current Burleson County Courthouse anchors the historic center and gives the county a recognizable architectural landmark. Stores, churches, public offices and neighborhood streets radiate from a pattern established when courthouse access mattered to nearly every legal and commercial transaction."),
     p("For visitors, the square is the best place to begin understanding the county. It connects the nineteenth-century courthouse-town pattern with Caldwell's modern role as a service center for agriculture, energy, construction, local government and residents who commute toward Bryan-College Station or other regional employment centers."),
 
+    h("The 1890 courthouse was demolished rather than lost to fire"),
+    p("Caldwell became a county seat when Burleson County was created in 1846 from territory on the Brazos frontier. County offices first operated from modest, sometimes temporary buildings before a permanent public square grew with cotton, cattle, trade and the arrival of rail links."),
+    p("During the 1890s officials commissioned a substantial courthouse typical of the period's Victorian civic ambition. The 1890 building had a highly ornamented roof and tower, visible in archival photographs. It became inadequate as public records, legal cases and county offices expanded through the next generation."),
+    p("In 1927 the county deliberately demolished the 1890 building to make way for the surviving Classical Revival courthouse. This was a modernization decision, not a fire that consumed the earlier courthouse. Historical photos and county building inventories should therefore be captioned by period, not treated as showing a single structure in a cycle of repairs."),
+    p("The 1927 courthouse uses broad columned entrances, dignified stone and brick surfaces, and a plan suited to a larger court administration. It occupies the downtown square as county government continued to anchor Caldwell even as the rail-served town of Somerville grew into a separate commercial center."),
+
+    h("Public buildings and Czech-German farm communities"),
+    p("The county's early courthouse also served residents from rural towns and agricultural settlements across the lower Brazos and Yegua watersheds. German and Czech communities founded schools, churches, fraternal societies and social halls that were as important to everyday life as the county courthouse."),
+    p("Much of Somerville's historic industrial identity came from railroad repair and lumber operations, while county-seat Caldwell concentrated records, elections, trials and county services. A visitor should interpret the courthouse square alongside rural community buildings rather than assume the largest town and government center were always identical."),
+    p("The surviving courthouse has been altered by routine maintenance, but its exact modern public-access arrangements should be checked with the Burleson County government. Neither a county office nor a local historical marker should be mislabeled as a ticketed museum."),
+
+    h("Burleson County courthouse questions"),
+    p("What happened to the 1890 Caldwell courthouse? It was demolished in 1927 to construct a larger replacement."),
+    p("What year was the current county courthouse built? The present Classical Revival building was completed in 1927."),
+    p("Did an 1890s courthouse fire force the change? The historical building records document deliberate 1927 demolition, not a confirmed fire."),
+    p("Why is Somerville important to county history? Railroads and railroad repair helped make it an industrial center separate from courthouse-town Caldwell."),
     h("Slavery shaped the antebellum farm economy"),
     p("Burleson County's antebellum agricultural growth depended heavily on enslaved African American labor. Cotton and other crops expanded as settlers converted prairie and bottomland into farms. By the eve of the Civil War, enslaved people formed a substantial share of the county's population and produced wealth that they were legally denied the ability to control."),
     p("Emancipation ended slavery but not racial inequality. Black residents established churches, schools, farms, businesses and communities while facing violence, discriminatory labor systems, segregation and barriers to land ownership. The county's cotton history cannot be understood only through gins and crop totals; it also includes the lives of the people whose labor built that economy and the institutions they created after freedom."),
@@ -126,5 +143,13 @@ export const burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle: Article 
     h("Burleson County is a Central Texas crossroads in miniature"),
     p("The county's story contains many of the forces that built Central Texas: Indigenous travel corridors, Mexican-era political tension, Republic and state county formation, slavery and emancipation, cotton, European immigration, railroads, paved highways, reservoirs, energy development and regional commuting. Each period left a different pattern on the land."),
     p("Caldwell remains the civic center, Somerville preserves the railroad story, Lake Somerville draws modern visitors, and the Brazos still defines the eastern edge just as it did before county boundaries existed. Burleson County is not simply the space between Bryan, Brenham and Cameron. It is a compact record of how Central Texas moved from river crossings and cotton fields to highways, reservoirs and a regional twenty-first-century economy."),
+  ],
+  sources: [
+    { label: "Texas courthouse architectural records — Burleson 1890 and 1927 building chronology", url: "https://texascourthouses.com/project/burleson-county-courthouse/" },
+    { label: "Texas historical photography — successive Caldwell courthouses", url: "https://www.texasescapes.com/CentralTexasTownsSouth/Caldwell-Texas-Burleson-County-Courthouse.htm" },
+    { label: "Handbook of Texas — Burleson County", url: "https://www.tshaonline.org/handbook/entries/burleson-county" },
+    { label: "Handbook of Texas — Somerville railroad community", url: "https://www.tshaonline.org/handbook/entries/somerville-tx" },
+    { label: "Burleson County government — public offices and court directory", url: "https://www.co.burleson.tx.us/" },
+    { label: "Texas State Library — Burleson County courthouse archives and microfilm", url: "https://www.tsl.texas.gov/arc/local/burleson.html" },
   ],
 };
