@@ -74,6 +74,13 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
     sourceHref: "https://commons.wikimedia.org/wiki/File:Goldthwaite_High_School_Homecoming_Mum.jpg",
   },
+  "texas-brand-origin-stories": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Modern_Blue_Bell_Creameries_factory_located_in_Brenham%2C_Texas.jpg?width=1280",
+    alt: "Blue Bell Creameries factory in Brenham, Texas, photographed in 2008",
+    caption: "Blue Bell's Brenham factory in 2008 illustrates a Texas-born brand with a continuing local production relationship; the photograph does not establish the origin of every Blue Bell product.",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg",
+  },
   "texas-food-trail": {
     src: bbqBrisket,
     alt: "Sliced Texas barbecue brisket showing dark bark and a smoke ring",
@@ -239,9 +246,21 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-chili-con-carne-history": [
     { label: "Handbook of Texas — San Antonio", href: "https://www.tshaonline.org/handbook/entries/san-antonio-tx", note: "Documents the downtown Chili Queens and San Antonio's open-air chili-stand tradition." },
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },
+    {"label":"Texas State Library and Archives Commission — state symbols","href":"https://www.tsl.texas.gov/ref/abouttx/symbols","note":"Identifies the 1977 chili designation and HCR 18."},
+    {"label":"Original Terlingua International Championship — history","href":"https://abowlofred.com/about/","note":"Organizer's account of the 1967 tied contest and its own competition."},
+    {"label":"CASI — history of chili","href":"https://www.casichili.net/history-of-chili.html","note":"Separate organizer's historical account and competition tradition."},
+    {"label":"Portal to Texas History — Military Plaza chili stands","href":"https://texashistory.unt.edu/ark:/67531/metapth459988/","note":"Archival image record of plaza vendors; linked for research, not reproduced without rights clearance."},
   ],
   "texas-chicken-fried-steak-guide": [
     { label: "Handbook of Texas — Chicken-Fried Steak", href: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak", note: "Explains the disputed origin story and the Southern, German and regional Texas influences associated with the dish." },
+    {"label":"Eater Austin — chicken-fried steak in Austin","href":"https://austin.eater.com/2015/1/30/7951273/the-state-of-chicken-fried-steak-in-austin","note":"Independent reporting on restaurant variation and the regional framework."},
+    {"label":"Washington Post — Deep in the Heart of Texas, We Bread Steak","href":"https://www.washingtonpost.com/archive/lifestyle/2008/06/25/deep-in-the-heart-of-texas-we-bread-steak/0432c28d-8dd4-42f1-b072-1166f634a306/","note":"Independent recipe reporting illustrates exceptions to regional classifications."},
+  ],
+  "texas-breakfast-taco-guide": [
+    {"label":"Texas Legislature — introduced HCR 123, 2019","href":"https://capitol.texas.gov/tlodocs/86R/billtext/html/HC00123I.HTM","note":"Legislative proposal summarizes early historical references; not an enacted designation or direct archive verification."},
+    {"label":"University of Texas Press — American Tacos","href":"https://utpress.utexas.edu/9781477329368/","note":"José R. Ralat's historical survey includes a chapter on breakfast tacos."},
+    {"label":"Texas Standard / KUT — José R. Ralat interview","href":"https://www.kut.org/texas/2020-04-16/from-breakfast-to-barbacoa-new-book-dives-into-american-tacos","note":"Explains the borderland context and contested city-origin claims."},
+    {"label":"Joe's Bakery — official menu","href":"https://joesbakery.com/menu/","note":"Restaurant's own menu and location information."},
   ],
   "texas-homecoming-mums": [
     { label: "UTSA Institute of Texan Cultures — Keeping Texas Traditions", href: "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions", note: "Documents the evolution from chrysanthemum corsage to elaborate Texas mum and the women-led craft, family and community networks sustaining the tradition." },
@@ -253,6 +272,14 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
     { label: "Shiner — Brewery history", href: "https://shiner.com/brewery/", note: "The brewery's timeline documents brewing in Shiner since 1909 and its German and Czech community roots." },
+    {"label":"Whataburger — company history","href":"https://stories.whataburger.com/our-history/","note":"Documents first store, franchise and A-frame chronology, and the 2019 majority investment."},
+    {"label":"Handbook of Texas — Whataburger","href":"https://www.tshaonline.org/handbook/entries/whataburger","note":"Independent account of the founders and first Corpus Christi business."},
+    {"label":"Dickies — brand history","href":"https://www.dickies.com/en-us/pages/dickies-history","note":"Company account of workwear origins in 1922."},
+    {"label":"SEC — VF Corporation November 2025 disclosure","href":"https://www.sec.gov/Archives/edgar/data/103379/000010337925000066/vfc-20251112.htm","note":"Records completion of sale of Dickies to Bluestar Alliance."},
+    {"label":"Texas A&M — Arch Aplin III","href":"https://www.arch.tamu.edu/alumni/arch-aplin-iii/","note":"Documents the first Buc-ee's store in 1982."},
+    {"label":"Southern Living — Buc-ee's history","href":"https://www.southernliving.com/travel/texas/bucees-gas-station-history","note":"Independent reporting on early stores, partners and travel-center expansion."},
+    {"label":"Dr Pepper Museum — history","href":"https://drpeppermuseum.com/history/","note":"Documents the Waco origin and subsequent company development."},
+    {"label":"FTC — origin-claim guidance","href":"https://www.ftc.gov/business-guidance/resources/complying-made-usa-standard","note":"Distinguishes specific manufacturing processes and unqualified claims."},
   ],
   "dr-pepper-texas-history": [
     { label: "Dr Pepper Museum — History", href: "https://drpeppermuseum.com/history/", note: "The museum's history documents the 1885 Waco origin, Morrison's Old Corner Drug Store and Charles Alderton's role." },
@@ -365,6 +392,10 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
     "texas-tall-tales-folklore",
     "texas-dance-halls-honky-tonks",
     "texas-homecoming-mums",
+    "texas-brand-origin-stories",
+    "texas-chili-con-carne-history",
+    "texas-chicken-fried-steak-guide",
+    "texas-breakfast-taco-guide",
   ]);
   const deliveredImageSrc = image && licensedCulturePhotoSlugs.has(guide.slug)
     ? editorialImageSrc(image.src)
@@ -375,6 +406,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const isMusicChild = musicGuideSlugs.has(guide.slug);
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
   const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
+  const foodBrandReviewed = new Set(["texas-brand-origin-stories", "texas-chili-con-carne-history", "texas-chicken-fried-steak-guide", "texas-breakfast-taco-guide"]).has(guide.slug);
   const imageUrl = deliveredImageSrc
     ? deliveredImageSrc.startsWith("http://") || deliveredImageSrc.startsWith("https://")
       ? deliveredImageSrc
@@ -403,7 +435,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
-        ...(reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
+        ...(foodBrandReviewed ? { dateModified: "2026-11-21" } : reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -471,12 +503,13 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
+        {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review November 21, 2026. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Substantive guide update November 20, 2026 (primary-source review November 18). Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}
-            {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}
+            {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}{foodBrandReviewed && image.credit.includes("CC BY 4.0") ? <> · <a href="https://creativecommons.org/licenses/by/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC BY-SA 4.0") ? <> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC0") ? <> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" className="underline">CC0 terms</a></> : null}</> : null}
           </figcaption>
         </figure> : null}
 
