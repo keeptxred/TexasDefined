@@ -981,5 +981,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Visit Marshall city tourism / Marshall Main Street",
     "summary": "Visit Marshall's official 2026 Wonderland of Lights event directory confirms the Christmas Parade on Saturday, December 5, 2026, beginning at 6 p.m. in downtown Marshall. This one-evening parade occurs within the longer Wonderland of Lights festival season, November 25 through December 30; the general holiday lighting program has different opening windows and is not a month-long nonstop parade. Final spectator route, road closures and any separate festival attraction tickets should be checked with Marshall Main Street.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "jacksboro-chamber-christmas-vendor-market-2026",
+    "title": "Jacksboro Chamber Christmas Market at the Jack County Courthouse",
+    "city": "Jacksboro",
+    "countySlug": "jack",
+    "countyName": "Jack County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Jack County Courthouse Square, 100 North Main Street, Jacksboro",
+    "officialEventUrl": "https://jacksborochamber.glueup.com/event/christmas-market-november-jacksboro-vendor-market-201352/",
+    "sourceName": "Jacksboro Chamber of Commerce (presenting organizer)",
+    "summary": "The Jacksboro Chamber confirms its November Christmas Vendor Market on Saturday, November 28, 2026, from 10 a.m. to 2 p.m. around Jack County Courthouse Square, at 100 North Main Street. The market brings small local makers, handcrafted gifts and holiday vendors to the courthouse area. Details for individual vendors, merchandise prices and traffic arrangements can change; contact the Chamber for final visitor information. This vendor market is separate from Jacksboro's already listed December 3 lighted Christmas Parade.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "gonzales-main-street-winterfest-celebration-2026",
+    "title": "Gonzales Main Street Winterfest Celebration & Santa's Market",
+    "city": "Gonzales",
+    "countySlug": "gonzales",
+    "countyName": "Gonzales County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Gonzales Main Street district",
+    "officialEventUrl": "https://app.seemylegacy.com/community/2713/campaigns",
+    "sourceName": "City of Gonzales Main Street Program (official event and vendor campaign)",
+    "summary": "The City of Gonzales Main Street Program's official public campaign directory dates its Winterfest Celebration and Santa's Market vendor program for Saturday, December 5, 2026, in downtown Gonzales. The same producer lists separate lighted-parade participation details, but a specific parade start time, procession route, general festival operating hours and any optional admission fees are not confirmed on the published campaign page. Visitors should consult the city Main Street office for the final program rather than assuming the sponsorship or vendor-registration windows are visitor hours.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
