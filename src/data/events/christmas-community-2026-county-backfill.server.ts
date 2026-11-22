@@ -629,5 +629,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Kenedy Chamber of Commerce",
     "summary": "The Kenedy Chamber's current event notice dates the 11th Annual Holiday Tour of Homes for Thursday, December 17, 2026, from 6–9:30 p.m. It lists the Chamber at 205 South 2nd Street as the event venue. Individual participating homes, admission requirements and travel arrangements are not stated on the official page; confirm those details with the Chamber before visiting.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "pampa-christmas-on-the-bricks-2026",
+    "title": "Pampa Christmas on the Bricks",
+    "city": "Pampa",
+    "countySlug": "gray",
+    "countyName": "Gray County",
+    "region": "panhandle",
+    "startDate": "2026-12-11",
+    "venueName": "Downtown Pampa, 100 block of North Cuyler Street",
+    "officialEventUrl": "https://business.pampachamber.com/events/Details/christmas-on-the-bricks-1927768?sourceTypeId=Website",
+    "sourceName": "Pampa Chamber of Commerce community events calendar",
+    "summary": "The official Pampa Chamber calendar schedules Christmas on the Bricks in downtown Pampa for Friday, December 11, 2026, from 5 to 9 p.m. at the 100 block of North Cuyler Street. The listing provides the confirmed venue and hours but does not establish admission policies, vendor details or a full activity schedule. Check the Chamber's event page for any final changes before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "pampa-cowboy-christmas-parade-of-lights-2026",
+    "title": "Pampa Cowboy Christmas Parade of Lights",
+    "city": "Pampa",
+    "countySlug": "gray",
+    "countyName": "Gray County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Pampa parade route: Somerville Street, Francis Avenue and Cuyler Street",
+    "officialEventUrl": "https://business.pampachamber.com/events/Details/cowboy-christmas-parade-1712334?sourceTypeId=Website",
+    "sourceName": "Pampa Chamber of Commerce (presenting organizer)",
+    "summary": "The Pampa Chamber presents the 2026 Cowboy Christmas Parade of Lights on Saturday, December 12, starting at 6 p.m. and listed through 8 p.m. The Chamber describes a downtown route along Somerville Street, across Francis Avenue and down Cuyler Street. Float staging at the M.K. Brown parking lot begins at 4 p.m. for participants, not spectators. Review any road closures and parking details with the Chamber before attending.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
