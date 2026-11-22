@@ -20,7 +20,8 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  readingMinutes: 20,
+  updatedAt: "2026-11-22",
   tags: [
     "Comanche County",
     "Comanche Texas",
@@ -32,6 +33,11 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     "Texas railroads",
     "Texas agriculture",
     "Texas counties",
+    "Old Cora Courthouse",
+    "Fleming Oak",
+    "Comanche County Historical Museum",
+    "Comanche wineries",
+    "Bull Durham mural",
   ],
   featured: false,
   internalLinks: [
@@ -40,9 +46,27 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { href: "/county/hamilton", label: "Explore Hamilton County", description: "Travel southeast toward Hamilton, Hico and the upper Leon watershed." },
     { href: "/county/mills", label: "Explore Mills County", description: "Head south toward Goldthwaite and Colorado River ranch country." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped the Texas county map." },
+    { href: "/destination/comanche", label: "Historic Comanche city guide", description: "Old Cora, Fleming Oak, Bull Durham mural, Frisco depot, wineries, walking plan and current access." },
+    { href: "/destination/comanche-county-historical-museum", label: "Comanche County Historical Museum", description: "Explore the original Jack Wright Saloon mirror, Hardin exhibits, blacksmith area and visitor hours." },
+    { href: "/fishing/lakes/proctor-lake", label: "Proctor Lake fishing and recreation", description: "Use current fishing, access and water-condition information for the county lake." },
+  ],
+  sources: [
+    { label: "Texas State Historical Association — Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county" },
+    { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
+    { label: "Texas Historical Commission — Current courthouse restoration", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
+    { label: "Texas A&M Forest Service — Fleming Oak", url: "https://tfsweb.tamu.edu/famous-trees-of-texas-254/" },
+    { label: "Authentic Texas — Bull Durham mural discovery", url: "https://authentictexas.com/its-a-lot-of-bull/" },
+    { label: "Comanche County Historical Museum — Collection", url: "https://www.comanchecountytxmuseum.com/collection" },
+    { label: "Comanche County Historical Museum — Hours and background", url: "https://www.comanchecountytxmuseum.com/about-us" },
+    { label: "Comanche Chamber — Explore Comanche and Old Cora closure", url: "https://www.comanchechamber.org/explorecomanche" },
+    { label: "Comanche Chamber — Frisco Depot", url: "https://www.comanchechamber.org/comanchefriscotraindepot" },
+    { label: "Comanche Chamber — Annual events", url: "https://www.comanchechamber.org/comancheevents" },
+    { label: "Brennan Vineyards — Official", url: "https://www.brennanvineyards.com/" },
+    { label: "JW Hardin Wine Company — Official", url: "https://www.jwhardinwine.com/visit/" },
+    { label: "Tribe Vineyards — Tasting room opening target", url: "https://www.tribevineyards.com/" }
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["comanche", "comanche-county-historical-museum"],
   body: [
     p("Comanche County sits in a transition zone where wooded Cross Timbers country meets prairie, farms and the rolling ranch lands of North Central Texas. The city of Comanche anchors the county as its courthouse town, De Leon developed as a separate railroad and agricultural center, and Proctor Lake spreads across the Leon River system near the county's eastern side. Between them are pecan bottoms, sandy fields, limestone ridges and communities whose histories were shaped by cattle, cotton, peanuts, railroads and water."),
     p("The county was created in 1856 from parts of Coryell and Bosque counties and named for the Comanche people, whose homeland and hunting territory included this part of Texas before sustained Anglo-American settlement. Cora first served as county seat, but the more centrally located town of Comanche took that role in 1859. Those early choices still shape the modern county map: government remains centered in Comanche, while transportation and agriculture helped other communities build strong identities of their own."),
@@ -114,6 +138,35 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     h("Comanche County connects several neighboring regions"),
     p("Erath County to the east carries the Cross Timbers toward Stephenville and Dublin. Hamilton County to the southeast follows the Leon watershed through ranch and limestone country, while Mills County to the south transitions toward the Colorado River basin. Westward, the landscape opens toward Brown County and the broader West Central Texas region."),
     p("That position explains why Comanche County has always been a crossroads. Indigenous travel, cattle movement, frontier roads, rail lines, U.S. highways and modern farm-to-market routes all reused the same basic geography: water, ridges, passes and practical connections between larger regions."),
+
+
+    h("The oldest courthouse is a surviving building, not just a marker"),
+    p("The present courthouse square in Comanche preserves a remarkable connection to the county's first seat of government at Cora. A one-room, squared-log courthouse built in 1856 measured approximately 12 feet 7 inches by 12 feet 10 inches. It served county government at Cora until the seat moved to Comanche in 1859. The building was then reused as a residence and moved several times before becoming the protected Old Cora landmark in Comanche. This is among the rare surviving early Texas log courthouses, not the present county government building."),
+    p("Old Cora stands beside a very different courthouse: architect Wyatt Hedrick's WPA-built, native-limestone Art Moderne landmark, with Art Deco details and carved eagles above its entrances. The Texas Historical Commission lists a substantial restoration program for that courthouse, and the local Chamber currently labels Old Cora CLOSED FOR RENOVATION. Visitors can plan to study exterior architecture and markers when the grounds are accessible but must not be promised access to either building's interior. Sources: Texas Historical Commission's Old Cora marker and courthouse restoration program; Comanche Chamber visitor guide."),
+
+    h("Fleming Oak: a frontier tree saved by a resident"),
+    p("Fleming Oak survives near the southwest side of the Comanche courthouse square. According to the Texas A&M Forest Service, Martin V. Fleming and his father spent their first night in the area under the oak after arriving in 1854. In 1911 Fleming protested the city's attempt to remove the tree during street paving, and he intervened again in 1919 when it was threatened. The preserved tree and its historical marker turn a general frontier story into one specific example of a community choosing to protect its landscape. A claim that the oak is more than 200 years old remains an estimate, not a documented ring count. Source: Texas A&M Forest Service, Famous Trees of Texas."),
+
+    h("A rediscovered 1890s advertisement links downtown to the saloon era"),
+    p("In 2019 Clint and Jami Tunnell removed stucco from a historic commercial building in Comanche and found a roughly 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco mural. Contemporary reporting suggests it was painted around 1892–1893, when it faced an outdoor passage. The protected mural has been described as viewable through the glass storefront at 109 West Grand Street. That location, and the story of the Jack Wright Saloon previously associated with the block, are unusually tangible evidence of how town businesses were rebuilt and repeatedly adapted. Access is from permitted public space; building operation and viewing conditions can change. Source: Loretta Fulton's reporting for Authentic Texas."),
+
+    h("The Hardin era also includes victims and vigilante violence"),
+    p("John Wesley Hardin lived in Comanche County, and in 1874 he killed Brown County deputy Charles Webb in Comanche. The aftermath was not a glamorous gunfight: a mob seized and lynched Hardin's brother Joe and two other detained associates. The county's history also includes slavery and post-Reconstruction racial exclusion. The Texas State Historical Association records sixty-one enslaved people living in the county in 1860 and documents the violent expulsion of Black residents in 1886. An accurate frontier account has to include those people, coercion and violence alongside the experiences of ranchers, settlers and town merchants; outlaw folklore is not a substitute for social history. Source: Handbook of Texas, Comanche County."),
+    p("The museum and historical-marker network provide different opportunities to interpret these events. The Comanche County Historical Museum displays John Wesley Hardin memorabilia, a Jack Wright Saloon diorama with the original saloon mirror, and a representation of a Comanche Indigenous family campsite. Visitors should treat a museum diorama as interpretation rather than a complete account of a living Indigenous culture. The historical record is richer when paired with independent scholarship and contemporary Comanche voices."),
+
+    h("Comanche County Historical Museum preserves work, not just outlaws"),
+    p("The Comanche County Historical Museum at 402 Moorman Road in Comanche documents more than fourteen exhibition rooms. Its blacksmith area includes a windmill head and tools associated with the work needed to keep farms and ranches running; other galleries cover military veterans, Indigenous history, children, regional artists and the communities across the county. The institution currently publishes Thursday-through-Saturday hours, 10 a.m.–4 p.m., and arranges group tours by appointment. Check for closures and special-event changes before travel. See the dedicated Comanche County Historical Museum destination guide for a gallery-by-gallery visit plan."),
+    p("The restored Comanche-Frisco Train Depot, built in 1909 at 304 South Austin Street, is another bridge between county history and contemporary visitor life. It helps distinguish the county's early Texas Central Railroad access from the later St. Louis and San Francisco Railway freight and passenger era. The depot now supports local tourism, gatherings and community use. These sites belong in the county guide because their collections and architecture explain regional agricultural markets, not only the city center."),
+
+    h("Wineries carry the farming story into the present"),
+    p("Comanche County has added locally rooted viticulture to its older cotton, livestock, peanut and pecan identity. Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine at the historic McCrary House homestead; JW Hardin Wine Co. identifies a downtown tasting room at 107 West Grand Street. Tribe Vineyards grows estate grapes in Comanche County, but its website says the planned on-site tasting room will open in 2027. A visitor can plan a self-directed history-and-wine route, but should not be promised a commercial guided tour, a currently open Tribe tasting room, or tastings without confirming each business's schedule and reservations. Sources: the three producers' official websites."),
+
+    h("Annual celebrations and the community visitors encounter now"),
+    p("The Comanche Chamber promotes a June rodeo and parade, the long-running Comanche County Pow Wow usually held on the fourth September weekend, a deer hunters' chili supper ahead of hunting season, and an annual Comanche Christmas celebration. These events deserve countywide coverage because they connect agriculture, craft, commerce, performing arts and historic downtown life. The Chamber's calendar is the controlling source for each year's exact dates; do not roll a past edition forward as if it had already been announced."),
+    p("Comanche remains a working county seat and small-business hub rather than an outdoor museum. De Leon has a separate agricultural and railroad identity; Gustine, Proctor, Sidney and Sipe Springs preserve their own local histories. Wineries, locally owned restaurants, shops, churches, schools and volunteer organizations are present-day threads in that county network. Descriptions such as 'tight-knit' and 'people still say yes ma'am and no sir' reflect personal community experience; a guide can describe the hospitality without presenting one resident's quote as a verified fact about everyone."),
+
+    h("Short answers for planning a Comanche County history trip"),
+    p("Where is Old Cora Courthouse? It is on the Comanche courthouse square, though the Chamber currently marks it closed for renovation. What is Fleming Oak? A protected live oak tied to Martin Fleming's 1854 arrival and his 1911 and 1919 preservation efforts. Where is the rediscovered Bull Durham mural? At 109 West Grand Street in Comanche, reported visible through storefront glass. Where is the county museum? At 402 Moorman Road, with published Thursday–Saturday hours. Can visitors take a winery tour? Individual Comanche wineries have visitor information, but a formal packaged tour is not verified; confirm tasting and transport arrangements yourself."),
 
     h("What defines Comanche County"),
     p("Comanche County is defined by the meeting of landscapes and eras. The Cross Timbers still shape soils and vegetation; ranching still occupies broad stretches of land; courthouse history links Cora with modern Comanche; railroads remain visible in the identities of De Leon and other towns; and Proctor Lake added a twentieth-century water system to an older river landscape."),
