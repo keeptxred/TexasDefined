@@ -179,6 +179,21 @@ export function loadEventCollectionPageServer(slug: string) {
 
   const weekendDigest = temporal?.slug === "this-weekend" ? loadTexasThisWeekendDigestServer() : null;
   const christmasPerformances = temporal?.slug === "christmas-events" ? getChristmasPerformances2026Server() : [];
+  // An ended annual edition is not a future calendar occurrence, but its
+  // permanent planning guide remains useful and discoverable all year.
+  const annualHolidayGuides = temporal?.slug === "christmas-events"
+    ? directory.filter((event) =>
+        (event.endDate ?? event.startDate) < new Intl.DateTimeFormat("en-CA", {
+          timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+        }).format(new Date()) &&
+        /christmas|holiday|yule|yuletide|north-pole|winter-lights|tree-lighting|gusherville/i.test(event.slug)
+      ).slice(0, 36).map((event) => ({
+        slug: event.slug, href: event.href, name: event.name,
+        city: event.city, countyName: event.countyName,
+        lastConfirmedYear: event.startDate.slice(0, 4),
+      }))
+    : [];
+
   // Calendar-first local Christmas traditions have verified occurrence dates
   // and primary-source links, but do not require thin individual authority pages.
   const christmasMarketByCity: Readonly<Record<string, string>> = {
@@ -233,6 +248,7 @@ export function loadEventCollectionPageServer(slug: string) {
     weekendDigest,
     christmasPerformances,
     christmasCommunityEvents,
+    annualHolidayGuides,
     fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
     fallToday: temporal?.slug === "fall-festivals" ? texasToday(new Date()) : undefined,
     novemberOfficialPicks,
