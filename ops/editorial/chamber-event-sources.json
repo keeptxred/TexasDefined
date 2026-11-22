@@ -886,7 +886,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "uvalde-chamber-christmas-2026",
@@ -900,7 +901,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "shelby-chamber-christmas-parade",
@@ -909,12 +911,13 @@
         "shelby"
       ],
       "homeUrl": "https://shelbycountychamber.com/",
-      "calendarUrl": "https://shelbycountychamber.com/chamber-events/",
+      "calendarUrl": "https://shelbycountychamber.com/events-calendar/",
       "contactPageUrl": "https://shelbycountychamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "plantersville-official-community-calendar",
@@ -928,7 +931,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hillsboro-chamber-community-calendar",
@@ -986,7 +990,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "clifton-visit-christmas",
@@ -1038,12 +1043,13 @@
         "goliad"
       ],
       "homeUrl": "https://www.visitgoliad.com/",
-      "calendarUrl": "https://www.visitgoliad.com/event-list",
+      "calendarUrl": "https://www.visitgoliad.com/events",
       "contactPageUrl": "https://www.visitgoliad.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "archer-city-visitor-center",
@@ -1692,7 +1698,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "fredericksburg-chamber",
@@ -1749,7 +1756,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "victoria-chamber",
@@ -2051,7 +2059,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "linden-cass-chamber",
@@ -2138,7 +2147,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "eagle-pass-chamber",
@@ -2795,7 +2805,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "refugio-county-chamber",
@@ -3277,7 +3288,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "giddings-lee-chamber",
