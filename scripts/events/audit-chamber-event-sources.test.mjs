@@ -97,8 +97,10 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "freestone", "san-augustine", "milam", "panola",
     "gray", "hardin", "scurry", "dewitt", "runnels", "young", "howard",
     "hutchinson", "wilson", "wilbarger", "sutton", "pecos", "terry", "yoakum",
+    "hamilton", "madison", "jackson", "liberty", "karnes", "frio", "leon",
+    "houston", "limestone",
   ];
-  assert.ok(roster.size >= 156, "Source mapping must not silently lose reviewed county coverage");
+  assert.ok(roster.size >= 165, "Source mapping must not silently lose reviewed county coverage");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
