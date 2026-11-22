@@ -47,4 +47,37 @@ for (const primary of [
   'lindenheritage.org/wp-content/uploads/2016/01/Submittal-DeterminationEligibility-4Jan2016.pdf',
   'preservationtexas.org/linden',
 ]) assert.ok(source.includes(primary), `Missing corroborating source: ${primary}`);
+
+// A county authority check must cover defining cultural history, not just its
+// courthouse. Require people, venue, geography, usable visitor directions,
+// cross-links and independently published evidence in both page surfaces.
+const visitor = fs.readFileSync('src/data/county-visitor-places.ts', 'utf8');
+const culturalSections = [
+  'How Linden became Music City Texas',
+  'Richard Bowden: from Linden bands to Pinkard & Bowden',
+  'Music City Texas Theater: a concert room with a local mission',
+  'T-Bone Walker, Don Henley and Scott Joplin',
+  'The T-Bone Walker Blues Festival and a useful downtown visit',
+  'Quick answers about Richard Bowden and Linden',
+];
+for (const item of culturalSections) {
+  assert.ok(source.includes(item), `Cass County authority gap: ${item}`);
+}
+for (const item of [
+  'Sandy Pinkard', 'Pinkard & Bowden', 'Richard Bowden',
+  '108 Legion Street', 'former American Legion',
+  'musiccitytexas.org', 'T-Bone Walker Blues Festival',
+  'Scott Joplin', 'birthplace is not settled',
+  '/texas-icons/don-henley', '/texas-icons/t-bone-walker',
+  '/texas-icons/scott-joplin', '/texas-music',
+  'texastimetravel.com/cities/linden/',
+  'lindentxchamber.org/aboutus',
+  'houstonpress.com/news/strings-attached-6551821/',
+]) {
+  assert.ok(source.includes(item), `Cass County missing music heritage or source: ${item}`);
+}
+assert.match(visitor, /"county": "cass",[\\s\\S]*?"name": "Music City Texas Theater in Linden",[\\s\\S]*?108 Legion Street/);
+assert.ok(visitor.includes("Richard Bowden helped build"), 'Theater short listing must mention Richard Bowden');
+assert.ok(!source.includes('Joplin was born in Linden.'), 'Do not flatten Scott Joplin birthplace uncertainty');
+
 console.log('Cass County editorial provenance / AEO / historical safety assertions: PASS');
