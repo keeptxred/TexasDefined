@@ -1888,7 +1888,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-kingsville-kleberg",
@@ -1897,12 +1898,13 @@
         "kleberg"
       ],
       "homeUrl": "https://kingsvilletexas.com/",
-      "calendarUrl": "https://kingsvilletexas.com/events/",
+      "calendarUrl": "https://kingsvilletexas.com/event-calendar/",
       "contactPageUrl": "https://kingsvilletexas.com/event-organizer/kingsville-chamber-of-commerce/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "decatur-wise-chamber",
@@ -2540,12 +2542,13 @@
         "yoakum"
       ],
       "homeUrl": "https://denvercitychamber.com/",
-      "calendarUrl": "https://denvercitychamber.com/events/",
+      "calendarUrl": "https://denvercitychamber.com/mec-categories/events/",
       "contactPageUrl": "https://denvercitychamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hamilton-main-street",
@@ -2705,7 +2708,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "plainview-hale-chamber",
@@ -3078,7 +3082,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "franklin-county-mount-vernon-chamber",
@@ -3162,7 +3167,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "memphis-hall-chamber-city",
@@ -3190,7 +3196,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "littlefield-lamb-city-events",
