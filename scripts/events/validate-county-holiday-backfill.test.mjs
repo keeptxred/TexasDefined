@@ -416,8 +416,10 @@ test("Fairfield 2026 holiday celebrations are two dated Chamber editions, not a 
     assert.equal(event.city,"Fairfield");
     assert.equal(event.region,"prairies-lakes");
     assert.equal(event.sourceVerifiedAt,"2026-11-22");
-    assert.equal(new URL(event.officialEventUrl).hostname,"www.fairfieldtexaschamber.com");
-    assert.match(event.summary,/does not confirm|verification is required/);
+    assert.equal(new URL(event.officialEventUrl).hostname,"fliphtml5.com");
+    assert.match(event.sourceName,/Fairfield Chamber/);
+    assert.match(event.venueName,/118 East Commerce Street/);
+    assert.match(event.summary,/confirm|inconsistent/);
   }
   assert.equal(events.filter(e=>e.countySlug==="freestone").length,2);
 });
@@ -438,4 +440,16 @@ test("Gatesville December 5, 2026 Christmas on Marshall Street uses a dated firs
   assert.match(event.summary,/event end time/);
   assert.match(event.summary,/Christmas at the Ballpark/);
   assert.equal(events.filter(e=>e.slug===event.slug).length,1);
+});
+
+
+test("Fairfield Chamber November 2026 newsletter conflicting time labels must not become unsupported event hours",()=>{
+  const square=events.find(e=>e.slug==="fairfield-freestone-christmas-on-the-square-2026");
+  const jingle=events.find(e=>e.slug==="fairfield-freestone-jingle-all-the-way-2026");
+  assert.match(square.summary,/inconsistent overall activity start times/);
+  assert.match(square.summary,/3 p\.m\./);
+  assert.match(square.summary,/4 p\.m\./);
+  assert.match(square.summary,/6 p\.m\. city tree lighting/);
+  assert.match(jingle.summary,/1–4 p\.m\./);
+  assert.equal(square.officialEventUrl,jingle.officialEventUrl);
 });
