@@ -76,7 +76,7 @@ test("robots disallow must not expose even candidate media routes",async()=>{
  const fetchImpl=async input=>{
   const url=String(input);fetched.push(url);
   if(url===origin+"/robots.txt")return {status:200,ok:true,url,
-   headers:{get:()=> "text/plain"},text:async()=>"User-agent: TexasDefined-Events-Research\\nDisallow: /"};
+   headers:{get:()=> "text/plain"},text:async()=>"User-agent: TexasDefined-Events-Research\nDisallow: /"};
   if(url.endsWith("/robots.txt"))return {status:404,ok:false,url,
    headers:{get:()=>null},text:async()=>""};
   return {status:200,ok:true,url,headers:{get:()=> "text/html"},text:async()=>'<a href="/contact">Contact Us</a>'};
