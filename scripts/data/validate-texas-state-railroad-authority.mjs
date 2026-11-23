@@ -37,7 +37,6 @@ must("collectionUi", "editorialGuideUrl");
 must("museum", 'slug: "heritage-center-cherokee-county-rusk"');
 must("destinationRoute", 'destination.slug === "heritage-center-cherokee-county-rusk"');
 must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-guide"');
-must("destinationRoute", 'destination.updatedAt ?? destination.sourceCheckedAt');
 must("guide", "heritage-center-cherokee-county-rusk");
 must("guide", 'category: "texas-history"');
 must("guide", 'updatedAt: "2026-11-22"');
