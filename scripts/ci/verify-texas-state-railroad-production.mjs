@@ -36,9 +36,93 @@ for (const origin of origins) {
   if (canonical !== "https://texasdefined.com"+slug) failures.push(origin + ": missing/incorrect self-canonical");
   if (hasNoindex) failures.push(origin + ": article accidentally noindexed");
 }
+
+const site = origins[0];
+const museumPath = "/destination/heritage-center-cherokee-county-rusk";
+const related = [
+  "/county/anderson",
+  "/county/cherokee",
+  "/destination/palestine",
+  museumPath,
+  "/explore/scenic-trains",
+  "/event/polar-express-palestine",
+  "/article/texas-railroads-town-growth-explained",
+  "/article/texas-historic-travel-transportation-guide",
+];
+
+const cached = new Map();
+async function getPage(path) {
+  if (!cached.has(path)) {
+    cached.set(path, (async () => {
+      const response = await fetch(new URL(path, site), { signal: AbortSignal.timeout(30000) });
+      if (!response.ok) throw new Error(path + ": HTTP " + response.status);
+      return response.text();
+    })());
+  }
+  return cached.get(path);
+}
+
+function hasLink(html, path) {
+  return [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["']/gi)].some(([, href]) => {
+    try {
+      const url = new URL(href, site);
+      return url.origin === site && url.pathname === path;
+    } catch { return false; }
+  });
+}
+
+function schemaNodes(html) {
+  return [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .flatMap(([, json]) => {
+      const item = JSON.parse(json);
+      return item["@graph"] ?? [item];
+    });
+}
+
+async function check(label, verify) {
+  try { await verify(); }
+  catch (error) { failures.push(label + ": " + error.message); }
+}
+
+const checks = related.map((path) => check(path, async () => {
+  const [guide, page] = await Promise.all([getPage(slug), getPage(path)]);
+  if (!hasLink(guide, path)) throw new Error("missing link from the guide");
+  if (!hasLink(page, slug)) throw new Error("missing link back to the guide");
+}));
+checks.push(check("Guide metadata", async () => {
+  const guide = await getPage(slug);
+  const article = schemaNodes(guide).find((node) => ["Article", "NewsArticle", "BlogPosting"].some((type) => [node["@type"]].flat().includes(type)));
+  if (!article?.headline || !article.datePublished || !article.dateModified || !article.image || !article.author) {
+    throw new Error("incomplete Article structured data");
+  }
+  for (const name of ["description", "og:image", "twitter:card", "viewport"]) {
+    if (!guide.includes('="' + name + '"')) throw new Error("missing " + name);
+  }
+}));
+checks.push(check("Museum photo and structured data", async () => {
+  const page = await getPage(museumPath);
+  const museum = schemaNodes(page).find((node) => [node["@type"]].flat().includes("Museum"));
+  if (!museum?.image?.length || !page.includes("Rusk_station") || !page.includes("gnomonic") ||
+      !page.includes("https://creativecommons.org/licenses/by/2.0/")) {
+    throw new Error("museum schema or credited Rusk station image missing");
+  }
+  if (!hasLink(page, "/county/cherokee") || !hasLink(await getPage("/county/cherokee"), museumPath)) {
+    throw new Error("museum and Cherokee County need reciprocal links");
+  }
+}));
+for (const [path, sitemap] of [[slug, "/sitemap.xml"], [museumPath, "/sitemap-explore.xml"]]) {
+  checks.push(check(sitemap, async () => {
+    const xml = await getPage(sitemap);
+    const entry = xml.split("<loc>" + site + path + "</loc>")[1]?.split("</url>", 1)[0];
+    if (!entry || !/<lastmod>\d{4}-\d{2}-\d{2}/.test(entry)) throw new Error("missing canonical URL or lastmod for " + path);
+  }));
+}
+await Promise.all(checks);
+
+
 if (failures.length) {
   for (const failure of failures) console.error("::error::" + failure);
   process.exitCode = 1;
 } else {
-  console.log("Texas State Railroad production authority: canonical and direct Worker 200, title, H1, canonical, indexable.");
+  console.log("Texas State Railroad production authority: canonical and direct Worker HTML, search metadata, reciprocal links, museum photo and sitemap entries checked.");
 }

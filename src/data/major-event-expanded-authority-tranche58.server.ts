@@ -231,6 +231,11 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     relatedLinks: [
       {
+        href: "/article/texas-state-railroad-rusk-palestine-history-guide",
+        label: "Texas State Railroad history and regular excursions",
+        description: "Compare this holiday ride with the regular Rusk–Palestine excursion and learn how the line began."
+      },
+      {
         href: "/event/polar-express-galveston",
         label: "Galveston Polar Express",
         description: "Compare coastal depots, seating and overnight options."

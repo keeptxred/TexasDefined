@@ -2053,6 +2053,27 @@
         "https://www.comanchecountytxmuseum.com/contact",
         "https://www.comanchechamber.org/explorecomanche"
       ]
+    },
+    "heritage-center-cherokee-county-rusk": {
+      "name": "Heritage Center of Cherokee County",
+      "operatorStrengths": [
+        "The Texas Historical Commission directory gives the address, map, phone and an overview of exhibits.",
+        "The East Texas Digital Archives offers access to selected museum photographs."
+      ],
+      "openGaps": [
+        "Confirm hours, admission, parking, dining and step-free access with the museum.",
+        "Find a rights-cleared photograph of the museum grounds. The credited historic Rusk station photo illustrates the railroad exhibit theme.",
+        "Complete live mobile and desktop checks."
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+        "https://digital.sfasu.edu/digital/collection/Cherokee",
+        "https://atlas.thc.texas.gov/Details/5073006614"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

@@ -81,11 +81,12 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     coordinates: { lat: 31.79417, lng: -95.14972 },
     hero: museumPlaceholder("Heritage Center of Cherokee County"),
     bestSeason: "Year-round museum; spring and fall pair especially well with the Texas State Railroad, downtown Rusk and other Piney Woods heritage sites.",
-    entryNote: "The museum currently keeps limited weekend hours—Saturday 11 a.m. to 3 p.m. and Sunday 1 to 5 p.m.—with weekday visits available by arrangement. Verify access before traveling.",
+    entryNote: "Call 903-714-8685 before traveling to confirm opening hours, admission and whether you need to arrange a visit.",
+    updatedAt: "2026-11-23",
     highlights: ["Caddo and pioneer artifacts", "Texas State Railroad history", "Rusk prison and hospital history", "Cherokee County timber heritage"],
     body: [
       "The Heritage Center of Cherokee County is the current institution behind the older Cherokee County museum naming found in statewide lists. Its exhibits move from pre-statehood Caddo material into settlement, timber, transportation, education and twentieth-century community life.",
-      "Several subjects are uniquely tied to Rusk. The Texas State Railroad, the nineteenth-century penitentiary and the later state-hospital story give the museum a local historical identity that would be lost in a generic county overview. Nearby historic structures add further context to the downtown setting. The museum's prison-railroad material complements the longer railroad and penitentiary guide, which connects the 1883 prison, Capitol cast iron and Palestine interchange.",
+      "Several subjects are uniquely tied to Rusk. The Texas State Railroad, the nineteenth-century penitentiary and the later state-hospital story give the museum a local historical identity that would be lost in a generic county overview. Next door, the Old Bonner Bank Building housed Cherokee County’s first bank from 1884 to 1892.",
       "The museum works as a county-history bridge between Rusk, Jacksonville, the Texas State Railroad and the wider Piney Woods. Current institutional naming is used so visitors see the same identity here that they encounter on site."
     ],
     officialUrl: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",

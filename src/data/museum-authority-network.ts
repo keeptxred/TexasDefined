@@ -28,6 +28,84 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "heritage-center-cherokee-county-rusk": {
+    name: "Heritage Center of Cherokee County",
+    slug: "heritage-center-cherokee-county-rusk",
+    county: "Cherokee",
+    city: "Rusk",
+    reviewed: "2026-11-23",
+    topics: [
+      "county-heritage",
+      "texas-museums",
+      "texas-railroads"
+    ],
+    whyVisit: "Start here for a local view of the industries and institutions behind Rusk’s railroad history. The collections also cover Caddo material culture, timber work and everyday life in town.",
+    visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. Call 903-714-8685 to confirm hours, admission, parking and group arrangements. Plan meals separately and ask the museum about on-site options.",
+    accessibility: "Ask the museum about step-free entry, accessible parking, restrooms and quieter visiting times. The Texas Historical Commission directory gives the Henderson Street address and map.",
+    familiesAndGroups: "For a short family visit, look for the bakery delivery box and talk about how people bought bread before supermarkets. Ask about group access and which exhibits are currently on display.",
+    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. Compare its images of schools, downtown businesses and the timber industry with the places and exhibits you see in Rusk.",
+    exhibits: [
+      {
+        heading: "Timber and work",
+        detail: "The local timber display connects the forests of Cherokee County to jobs and transportation."
+      },
+      {
+        heading: "Caddo material culture",
+        detail: "The Texas Historical Commission directory lists locally gathered Caddo artifacts and projectile points."
+      },
+      {
+        heading: "Rusk bakery delivery",
+        detail: "Look for M. M. Troublefield’s delivery box from Rusk’s Betty Lue Bread City Bakery."
+      }
+    ],
+    routes: [
+      {
+        label: "Downtown Rusk in an hour",
+        steps: [
+          "Tour selected museum displays",
+          "See the Old Bonner Bank exterior",
+          "Walk to the courthouse square"
+        ]
+      },
+      {
+        label: "Rusk railroad history",
+        steps: [
+          "Start with Cherokee County history at the museum",
+          "Confirm your separate railroad booking and departure depot",
+          "Arrive early at the depot named on your ticket"
+        ]
+      }
+    ],
+    sources: [
+      {
+        label: "Texas Historical Commission travel directory",
+        url: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+        use: "Museum address, contact and exhibits"
+      },
+      {
+        label: "East Texas Digital Archives",
+        url: "https://digital.sfasu.edu/digital/collection/Cherokee",
+        use: "Digitized selection from the museum collection"
+      },
+      {
+        label: "Old Bonner Bank Building marker",
+        url: "https://atlas.thc.texas.gov/Details/5073006614",
+        use: "Building history and location"
+      }
+    ],
+    connections: [
+      {
+        label: "Texas State Railroad history and visitor guide",
+        href: "/article/texas-state-railroad-rusk-palestine-history-guide",
+        reason: "Follow the story from the Rusk prison foundry to Palestine and today’s excursions."
+      },
+      {
+        label: "Cherokee County and Rusk",
+        href: "/county/cherokee",
+        reason: "Find more Piney Woods history stops and put the museum collections in county context."
+      }
+    ],
+  },
   "comanche-county-historical-museum": {
     name: "Comanche County Historical Museum",
     slug: "comanche-county-historical-museum",

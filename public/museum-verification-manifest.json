@@ -1450,6 +1450,29 @@
       ]
     },
     {
+      "path": "/destination/heritage-center-cherokee-county-rusk",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 4,
+      "sources": [
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+          "fetchUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+          "label": "Texas Historical Commission museum listing and contact"
+        },
+        {
+          "sourceUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+          "fetchUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+          "label": "Museum collection at East Texas Digital Archives"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+          "label": "Texas Historical Commission Old Bonner Bank Building marker"
+        }
+      ]
+    },
+    {
       "path": "/destination/historic-brownsville-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

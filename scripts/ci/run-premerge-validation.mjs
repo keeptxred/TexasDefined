@@ -137,6 +137,7 @@ const prebuildChecks = [
   ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
   ['SEO/SITEMAP', 'Syntax-check THC landmark production sitemap verifier', 'node', ['--check', 'scripts/ci/verify-thc-landmark-sitemap-production.mjs']],
+  ['RAILROAD/AUTHORITY', 'Validate Texas State Railroad sources and reciprocal links', 'node', ['scripts/data/validate-texas-state-railroad-authority.mjs']],
   ['MUSEUM/AUTHORITY', 'Validate museum visitor research, references, new museum requirements and reciprocal links', 'node', ['scripts/data/validate-museum-authority.mjs']],
   ['CONTENT/RUSK-SYRUP', 'Protect Rusk County Syrup Capital, concluded 2026 festival, museum photo rights, sitemap and reciprocal links', 'node', ['scripts/data/validate-rusk-syrup-heritage.mjs']],
   ['SOFTBALL/PUBLISH', 'Reject thin or unapproved UIL softball team pages', 'npm', ['run', 'softball:authority:validate']],

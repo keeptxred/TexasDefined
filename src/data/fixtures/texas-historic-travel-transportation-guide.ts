@@ -26,6 +26,7 @@ export const texasHistoricTravelTransportationGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/state-historic-sites/fanthorp-inn/fanthorp-inn-history",
   internalLinks: [
+    { href: "/article/texas-state-railroad-rusk-palestine-history-guide", label: "Texas State Railroad history and rides", description: "Trace East Texas freight and passenger travel from the Rusk ironworks to the Palestine junction." },
     { href: "/destination/fanthorp-inn", label: "Fanthorp Inn", description: "See an 1830s home that became a major stagecoach stop, post office and travelers' inn." },
     { href: "/destination/landmark-inn", label: "Landmark Inn", description: "Follow the freight and stage road west from San Antonio through Castroville and its historic inn complex." },
     { href: "/destination/slaton-harvey-house", label: "Slaton Harvey House", description: "Move into the railroad era at a Santa Fe eating house built to serve passengers and crews." },
