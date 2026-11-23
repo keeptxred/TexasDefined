@@ -1461,3 +1461,26 @@ test("Kountze 2026 Chamber parade is a precise event source, not full Hardin cou
   const silsbee = registry.sources.find(row => row.id === "silsbee-chamber-community-calendar");
   assert.equal(silsbee?.sourceKind, "public-calendar", "Independent Silsbee calendar remains original and separate");
 });
+
+
+test("Alice Chamber and Rockdale Market original 2026 holiday notices remain event-specific sources", () => {
+  const cases=[
+    ["alice-hub-city-chamber-87th-christmas-parade-2026", "jim-wells",
+      "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq"],
+    ["rockdale-community-market-chamber-winter-wonderland-2026", "milam",
+      "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland"],
+  ];
+  for (const [id, county, url] of cases) {
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,id+": missing first-party organizer source");
+    assert.deepEqual(source.countySlugs,[county]);
+    assert.equal(source.calendarUrl,url);
+    assert.equal(source.sourceKind,"event-specific");
+    assert.equal(source.sourceRole,"discovery");
+    assert.equal(source.reviewedAt,"2026-11-23");
+    assert.equal(source.contactEmail,undefined);
+  }
+  assert.equal(registry.sources.find(x=>x.id==="alice-jim-wells-chamber")?.sourceKind,"public-calendar");
+  assert.equal(registry.sources.find(x=>x.id==="rockdale-chamber-community-calendar-undated-monitor")?.sourceKind,"empty-calendar");
+  assert.equal(registry.sources.find(x=>x.id==="cameron-edc-2026-milam-events-calendar")?.sourceKind,"public-calendar");
+});
