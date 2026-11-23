@@ -3651,6 +3651,62 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Clarendon Economic Development Corporation and Chamber of Commerce",
     "summary": "Clarendon EDC and Chamber's November 17, 2026 announcement confirms Small Town Christmas on Saturday, November 28. Downtown activities start at 2 p.m., including vendors and food trucks at The Roost, children's activities and a community scavenger hunt at 3 and 4 p.m. Santa visits the courthouse for a lighting ceremony at 5 p.m., with carriage rides, s'mores and live music listed at 6:30 p.m. and awards at 7:30 p.m. The source does not establish blanket free admission, approved photographs, 2027 dates or individual street closure details. Check organizer notices for changes.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "columbus-lighted-christmas-parade-2026",
+    "title": "Columbus Lighted Christmas Parade & Courthouse Tree Lighting",
+    "city": "Columbus",
+    "countySlug": "colorado",
+    "countyName": "Colorado County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-01",
+    "venueName": "Downtown Columbus and Colorado County Courthouse Square",
+    "officialEventUrl": "https://business.columbustexas.org/events/details/lighted-christmas-parade-downtown-columbus-14446",
+    "sourceName": "Columbus Chamber of Commerce — original 2026 community event calendar",
+    "summary": "The Columbus Chamber of Commerce confirms its annual downtown Lighted Christmas Parade for Tuesday, December 1, 2026, from 6 to 8 p.m. The Chamber says the downtown parade is followed by lighting of the courthouse-square Christmas tree, pictures with Santa and free hot cocoa and cookies. The official event entry provides a downtown setting but not a turn-by-turn parade route, closure map or a separate exact tree-lighting minute. Neither the published schedule nor Chamber photographs establish 2027 dates or free reuse rights.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "columbus-ladies-night-out-christmas-2026",
+    "title": "19th Columbus Ladies Night Out — Christmas Shopping & Carriage Rides",
+    "city": "Columbus",
+    "countySlug": "colorado",
+    "countyName": "Colorado County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Columbus, Colorado County, Texas",
+    "officialEventUrl": "https://business.columbustexas.org/events/details/ladies-night-out-12-03-2026-14445?calendarMonth=2026-12-01",
+    "sourceName": "Columbus Chamber of Commerce — 19th annual Ladies Night Out notice",
+    "summary": "Columbus Chamber's official listing confirms the 19th Annual Ladies Night Out on Thursday, December 3, 2026, from 4 to 9 p.m. in downtown Columbus. Seasonal shopping, vendors, festive food and horse-drawn carriage rides are listed. The Chamber also advertises commemorative souvenir wine glasses and shopping bags for $25 starting November 16; that price is for the merchandise bundle, not a proven general admission charge. This is a different local program from the December 1 lighted Christmas parade. Confirm individual shop or ride conditions; the notice does not establish photo rights or a 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "kountze-lighted-christmas-parade-2026",
+    "title": "Kountze Lighted Christmas Parade — Downtown Holiday Celebration",
+    "city": "Kountze",
+    "countySlug": "hardin",
+    "countyName": "Hardin County",
+    "region": "piney-woods",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Kountze, Texas",
+    "officialEventUrl": "https://www.kountzechamber.com/upcoming-events",
+    "sourceName": "Kountze Chamber of Commerce — official 2026 parade organizer listing",
+    "summary": "Kountze Chamber of Commerce confirms the 2026 Lighted Christmas Parade for Friday, December 4 beginning at 7 p.m. in downtown Kountze. The Chamber invites the community to see illuminated floats and holiday music under the event theme Let Freedom Ring with the Bells of Christmas. Its event software shows 7:00 to 7:05 p.m., which should not be treated as a verified five-minute procession; the actual ending time is unspecified. 'Free parade entry' does not by itself establish any other admission or vendor policies. The organizer does not publish a complete road closure map, reuse license or 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "cross-plains-sip-n-shop-christmas-parade-2026",
+    "title": "Cross Plains Christmas Parade, Santa Visit & Sip N' Shop",
+    "city": "Cross Plains",
+    "countySlug": "callahan",
+    "countyName": "Callahan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Main Street, downtown Cross Plains, Callahan County, Texas",
+    "officialEventUrl": "https://crossplainschamberofcommerce.com/sidewalk-sale",
+    "sourceName": "Cross Plains Chamber of Commerce — original 2026 Sip N' Shop and Christmas Parade notice",
+    "summary": "Cross Plains Chamber confirms the Sip N' Shop on Thursday, December 3, 2026 from 4 to 9 p.m. on Main Street, held with the community Christmas Parade and Santa visit. The Chamber encourages seasonal crafts, gift shopping, baked goods, food trucks and participating downtown merchants. Its advertised $35 sign-up is for sidewalk vendors, not a verified public or spectator admission fee. The 4–9 p.m. period applies to shopping and is not a confirmed parade start or end time; the original Chamber notice does not specify a precise parade departure time or detailed route. A separate old Christmas page covers the 2025 edition only. No organizer photo reuse or 2027 date is inferred.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];;;;;;;
 
