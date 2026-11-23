@@ -101,6 +101,17 @@ checks.push(check("Guide metadata", async () => {
     if (!guide.includes('="' + name + '"')) throw new Error("missing " + name);
   }
 }));
+checks.push(check("Museum source-freshness on ordinary canonical HTML", async () => {
+  const page = await getPage(museumPath); // Normal visitor URL: deliberately no cache-busting query.
+  for (const [label, marker] of [
+    ["attributed November 2026 hours", "The Cherokeean Herald reported on November 4, 2026"],
+    ["2026 local reporting citation", "thecherokeean.com/articles/55397/view"],
+    ["museum-curator 2023 source", "fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/"],
+    ["operator-hours caveat", "not direct confirmation from the museum"],
+  ]) {
+    if (!page.includes(marker)) throw new Error("ordinary public museum HTML missing " + label + "; inspect edge cache versus current release");
+  }
+}));
 checks.push(check("Museum photo and structured data", async () => {
   const page = await getPage(museumPath);
   if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(page)) throw new Error("museum is noindexed");
