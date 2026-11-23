@@ -453,3 +453,22 @@ test("Fairfield Chamber November 2026 newsletter conflicting time labels must no
   assert.match(jingle.summary,/1–4 p\.m\./);
   assert.equal(square.officialEventUrl,jingle.officialEventUrl);
 });
+
+
+test("Downtown Crockett's independently dated 2026 holiday homes tour is safely represented in Houston County", () => {
+  const e = events.find(e => e.slug === "crockett-holiday-tour-of-homes-2026");
+  assert.ok(e, "No Downtown Crockett holiday organizer publication");
+  assert.equal(events.filter(e => e.slug === "crockett-holiday-tour-of-homes-2026").length, 1);
+  assert.equal(e.startDate, "2026-12-05");
+  assert.equal(e.endDate, undefined);
+  assert.equal(e.countySlug, "houston");
+  assert.equal(e.countyName, "Houston County");
+  assert.equal(e.city, "Crockett");
+  assert.equal(e.region, "piney-woods");
+  assert.equal(e.sourceVerifiedAt, "2026-11-22");
+  assert.equal(new URL(e.officialEventUrl).hostname, "www.discovercrocketttx.com");
+  assert.match(e.venueName, /715 East Goliad Avenue/);
+  assert.match(e.summary, /noon to 4 p.m./);
+  assert.match(e.summary, /\$15 tickets/);
+  assert.match(e.summary, /No 2027 edition date or photo permission is inferred/);
+});

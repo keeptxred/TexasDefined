@@ -528,7 +528,7 @@ test("City and original event publisher calendars recover Midland, Matagorda and
   const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(reviewed.size>=151, "Never lose 151 official public-calendar counties");
   assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
-  assert.ok(!reviewed.has("wise"),"Two individually sourced parade/tree events are not a complete live county calendar");
+  assert.ok(reviewed.has("wise"),"Decatur Chamber independently lists its Community Events Calendar; the two 2026 holiday event pages are separate organizer date evidence");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesTotal,254);
   assert.equal(report.countiesMissingSources,0);
@@ -586,39 +586,63 @@ test("first-party Longview events and original Gilmer Yulefest preserve correct 
   assert.ok(!calendarCounties.has("coryell"),"An undated city community events overview is not a current calendar");
 });
 
-test("only six blocked original Chamber sources remain for explicit calendar-vs-contact review", async () => {
-  const keepUnclassified=[
-    "fredericksburg-chamber","greater-waco-chamber","laredo-chamber",
-    "mcallen-hidalgo-chamber","new-braunfels-chamber","reeves-county-visitor-events",
+test("six formerly blocked official calendars are explicitly reviewed and unclassified source backlog is zero", async () => {
+  const formerlyUnclassified = [
+    "fredericksburg-chamber", "greater-waco-chamber", "laredo-chamber",
+    "mcallen-hidalgo-chamber", "new-braunfels-chamber", "reeves-county-visitor-events",
   ];
-  const unresolved=registry.sources.filter(s=>!s.sourceKind).map(s=>s.id).sort();
-  assert.deepEqual(unresolved,keepUnclassified.sort(),
-    "Review classification changes individually; do not mislabel robots-blocked feeds as fully dated calendars");
-  const direct=[
-    ["gainesville-cooke-chamber","cooke","business.gainesvillecofc.com"],
-    ["midland-chamber","midland","business.midlandtxchamber.com"],
-    ["granbury-chamber","hood","business.granburychamber.com"],
-    ["san-angelo-chamber","tom-green","members.sanangelo.org"],
+  assert.deepEqual(registry.sources.filter(s => !s.sourceKind).map(s => s.id), []);
+  for (const id of formerlyUnclassified)
+    assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "public-calendar", "Research source classification " + id);
+  const direct = [
+    ["gainesville-cooke-chamber", "cooke", "business.gainesvillecofc.com"],
+    ["midland-chamber", "midland", "business.midlandtxchamber.com"],
+    ["granbury-chamber", "hood", "business.granburychamber.com"],
+    ["san-angelo-chamber", "tom-green", "members.sanangelo.org"],
   ];
-  for(const [id,county,host] of direct){
-    const s=registry.sources.find(x=>x.id===id);
+  for (const [id, county, host] of direct) {
+    const s = registry.sources.find(x => x.id === id);
     assert.ok(s);
-    assert.equal(s.sourceKind,"public-calendar");
-    assert.deepEqual(s.countySlugs,[county]);
-    assert.equal(new URL(s.calendarUrl).hostname,host);
+    assert.equal(s.sourceKind, "public-calendar");
+    assert.deepEqual(s.countySlugs, [county]);
+    assert.equal(new URL(s.calendarUrl).hostname, host);
   }
-  for(const id of ["brownwood-area-chamber","spearman-hansford-city"])
-    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"empty-calendar");
-  for(const id of ["main-street-texarkana-2026","denison-city-discover","fairfield-freestone-chamber"])
-    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"annual-events-list");
-  const report=await auditChamberSources({offline:true});
-  assert.equal(report.sourceCount,registry.sources.length);
-  assert.equal(report.countiesWithExplicitCalendarSources,151);
-  assert.equal(report.countiesNeedingCalendarEvidence,103);
-  assert.equal(report.unclassifiedSourceCount,6);
-  assert.equal(report.eventPublication.startsWith("NO"),true);
+  for (const id of ["brownwood-area-chamber", "spearman-hansford-city"])
+    assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "empty-calendar");
+  for (const id of ["main-street-texarkana-2026", "denison-city-discover", "fairfield-freestone-chamber", "seymour-chamber"])
+    assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
+  const report = await auditChamberSources({ offline: true });
+  assert.equal(report.sourceCount, registry.sources.length);
+  assert.equal(report.sourceCount, 320);
+  assert.equal(report.countiesWithRegisteredSources, 254);
+  assert.equal(report.countiesWithExplicitCalendarSources, 154);
+  assert.equal(report.countiesNeedingCalendarEvidence, 100);
+  assert.equal(report.unclassifiedSourceCount, 0);
+  assert.equal(report.eventPublication.startsWith("NO"), true);
 });
 
+test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
+  for (const [id, county, host] of [
+    ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
+    ["city-jourdanton-events-calendar", "atascosa", "jourdantontexas.org"],
+    ["decatur-wise-chamber", "wise", "cca.decaturtx.com"],
+  ]) {
+    const s = registry.sources.find(x => x.id === id);
+    assert.ok(s, "Missing verified official source " + id);
+    assert.deepEqual(s.countySlugs, [county]);
+    assert.equal(s.sourceKind, "public-calendar");
+    assert.equal(new URL(s.calendarUrl).hostname, host);
+    assert.equal(s.contactEmail, undefined);
+  }
+  assert.equal(registry.sources.find(s => s.id === "seymour-chamber")?.sourceKind, "annual-events-list");
+  assert.equal(registry.sources.some(s => s.calendarUrl.includes("business.pleasanton.org")), false,
+    "Do not confuse Pleasanton, California with Pleasanton, Texas");
+  const calendarCounties = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  for (const county of ["atascosa", "wise", "hidalgo"])
+    assert.equal(calendarCounties.has(county), true, "Official active source missing for " + county);
+  for (const county of ["baylor", "coryell", "upshur"])
+    assert.equal(calendarCounties.has(county), false, "Annual or empty calendar is not live event evidence for " + county);
+});
 
 test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, not an entire Coryell county festival calendar", async () => {
   const src=registry.sources.find(s=>s.id==="gatesville-isd-christmas-on-marshall-2026");
@@ -632,4 +656,16 @@ test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, n
   const report=await auditChamberSources({offline:true});
   assert.equal(report.sourceCount,registry.sources.length);
   assert.equal(report.countiesWithRegisteredSources,254);
+});
+
+
+test("Crockett 2026 holiday home tour is a dated Houston County event, not evidence for all county dates", () => {
+  const organizer = registry.sources.find(s => s.id === "crockett-downtown-holiday-homes-2026");
+  assert.ok(organizer);
+  assert.deepEqual(organizer.countySlugs, ["houston"]);
+  assert.equal(organizer.sourceKind, "event-specific");
+  assert.equal(new URL(organizer.calendarUrl).hostname, "www.discovercrocketttx.com");
+  const reviewed = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  assert.equal(reviewed.has("houston"), false,
+    "One dated organizer occurrence does not establish a general Houston County public calendar");
 });
