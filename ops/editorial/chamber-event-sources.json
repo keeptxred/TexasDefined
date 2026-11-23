@@ -4827,6 +4827,66 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-coleman-community-calendar",
+      "organization": "City of Coleman — public community calendar",
+      "countySlugs": [
+        "coleman"
+      ],
+      "homeUrl": "https://www.cityofcolemantx.us/",
+      "calendarUrl": "https://www.cityofcolemantx.us/calendar/index.html",
+      "contactPageUrl": "https://www.cityofcolemantx.us/calendar/index.html",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-ralls-community-calendar-monitor",
+      "organization": "City of Ralls — community calendar source under date review",
+      "countySlugs": [
+        "crosby"
+      ],
+      "homeUrl": "https://www.rallstx.org/",
+      "calendarUrl": "https://www.rallstx.org/calendar-of-events/",
+      "contactPageUrl": "https://www.rallstx.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-daingerfield-community-calendar-monitor",
+      "organization": "City of Daingerfield — community events submission desk",
+      "countySlugs": [
+        "morris"
+      ],
+      "homeUrl": "https://cityofdaingerfield.com/",
+      "calendarUrl": "https://cityofdaingerfield.com/calendar-of-events",
+      "contactPageUrl": "https://cityofdaingerfield.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-memphis-community-calendar-monitor",
+      "organization": "City of Memphis — municipal event calendar (festival editions unconfirmed)",
+      "countySlugs": [
+        "hall"
+      ],
+      "homeUrl": "https://memphistexas.gov/",
+      "calendarUrl": "https://memphistexas.gov/calendar-of-events",
+      "contactPageUrl": "https://memphistexas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
