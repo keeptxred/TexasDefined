@@ -34,12 +34,12 @@ export function assertCassCountyAuthority(html, url) {
   // actually see, not a raw HTML byte sequence. Exclude scripts/styles rather
   // than accidentally accepting invisible JS payloads as editorial content.
   const visibleText = html
-    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')
-    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')
-    .replace(/<!--[\\s\\S]*?-->/g, '')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<[^>]*>/g, ' ')
     .replace(/&amp;|&#38;|&#x26;/gi, '&')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
   for (const marker of cassRequiredMarkers) {
     const expected = marker.replace(/&amp;|&#38;|&#x26;/gi, '&');
