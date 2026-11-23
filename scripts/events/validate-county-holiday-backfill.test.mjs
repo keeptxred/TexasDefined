@@ -539,3 +539,30 @@ test("Pearsall City's dated 2026 parade and tamale contest adds real Frio County
     "No exact parade hour was independently confirmed by the City's 2026 press notice");
   assert.equal(events.filter(x=>x.countySlug==="frio").length,1);
 });
+
+test("Copperas Cove Chamber dates the 32nd Krist Kindl Markt Dec 4–6, 2026 with original hours and parade, independent of Gatesville",()=>{
+  const e=events.find(x=>x.slug==="copperas-cove-krist-kindl-markt-2026");
+  assert.ok(e,"Missing organizer-confirmed 2026 Copperas Cove community holiday");
+  assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+  assert.equal(e.title,"32nd Annual Copperas Cove Krist Kindl Markt & Lighted Parade");
+  assert.equal(e.startDate,"2026-12-04");
+  assert.equal(e.endDate,"2026-12-06");
+  assert.equal(e.countySlug,"coryell");
+  assert.equal(e.countyName,"Coryell County");
+  assert.equal(e.city,"Copperas Cove");
+  assert.equal(e.region,"prairies-lakes");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.equal(e.officialEventUrl,"https://copperascove.glueup.com/event/32nd-annual-krist-kindl-markt-189528/");
+  assert.match(e.sourceName,/Copperas Cove Chamber/);
+  assert.match(e.summary,/Friday 4–10 p.m./);
+  assert.match(e.summary,/Saturday 10 a.m.–10 p.m./);
+  assert.match(e.summary,/Sunday 10 a.m.–3 p.m./);
+  assert.match(e.summary,/Tree Lighting starts 6:30 p.m./);
+  assert.match(e.summary,/Saturday December 5 lighted Krist Kindl Parade starts 6 p.m./);
+  assert.match(e.summary,/no copied event photography or 2027 date is inferred/);
+  assert.ok(e.summary.includes("other parts of Copperas Cove extend into Lampasas and Bell counties"));
+  assert.ok(events.some(x=>x.slug==="gatesville-christmas-on-marshall-street-2026"),
+    "Keep separately confirmed Gatesville 2026 event even though both occur in Coryell County");
+  assert.equal(events.filter(x=>x.countySlug==="coryell").length,2,
+    "Copperas Cove three-day festival and Gatesville single-day community Christmas are distinct");
+});
