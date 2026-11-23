@@ -28,7 +28,7 @@ test("source-verified county holiday additions are unique and present in the glo
     assert.ok(event.title.length >= 12 && event.summary.length >= 110);
     assert.match(event.startDate, /^2026-1[12]-\d{2}$/);
     if (event.endDate) assert.ok(event.endDate >= event.startDate);
-    assert.equal(event.sourceVerifiedAt, "2026-11-22");
+    assert.ok(["2026-11-22", "2026-11-23"].includes(event.sourceVerifiedAt), "Original organizer verification date missing");
     assert.ok(["panhandle","prairies-lakes","hill-country","piney-woods","south-texas","gulf-coast","big-bend"].includes(event.region));
     const sourceUrl = new URL(event.officialEventUrl);
     assert.equal(sourceUrl.protocol, "https:");
@@ -670,4 +670,25 @@ test("county pages surface verified calendar-first holiday events, not only perm
     "Calendar-first event cards must link to a county-filtered dated calendar");
   assert.match(county, /calendar:\$\{event\.slug\}/,
     "Distinct hometown events on the same date must not be deduplicated by calendar URL");
+});
+
+test("Cass and Morris park Christmas nights have exact original TPWD edition windows", () => {
+  const cases = [
+    ["atlanta-state-park-christmas-in-the-park-2026","cass","2026-12-11","2026-12-12","atlanta"],
+    ["daingerfield-state-park-christmas-in-the-park-2026","morris","2026-12-16","2026-12-19","daingerfield"],
+  ];
+  for(const [slug, county, start, end, park] of cases){
+    const item=events.find(event=>event.slug===slug);
+    assert.ok(item,"Missing state park original holiday evidence: " + slug);
+    assert.equal(item.countySlug,county);
+    assert.equal(item.startDate,start);
+    assert.equal(item.endDate,end);
+    assert.equal(item.sourceVerifiedAt,"2026-11-23");
+    assert.equal(item.sourceName,"Texas Parks and Wildlife Department");
+    assert.equal(new URL(item.officialEventUrl).pathname,
+      "/calendar/" + park + "/christmas-in-the-park");
+    assert.match(item.summary,/2026/);
+  }
+  const loader=fs.readFileSync("src/data/events/texas-event-records.server.ts","utf8");
+  assert.match(loader,/alreadyCoveredByOfficialPark/,"Do not publish duplicate daily TPWD activities in sourced Christmas windows");
 });
