@@ -3707,6 +3707,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Cross Plains Chamber of Commerce — original 2026 Sip N' Shop and Christmas Parade notice",
     "summary": "Cross Plains Chamber confirms the Sip N' Shop on Thursday, December 3, 2026 from 4 to 9 p.m. on Main Street, held with the community Christmas Parade and Santa visit. The Chamber encourages seasonal crafts, gift shopping, baked goods, food trucks and participating downtown merchants. Its advertised $35 sign-up is for sidewalk vendors, not a verified public or spectator admission fee. The 4–9 p.m. period applies to shopping and is not a confirmed parade start or end time; the original Chamber notice does not specify a precise parade departure time or detailed route. A separate old Christmas page covers the 2025 edition only. No organizer photo reuse or 2027 date is inferred.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "alice-hub-city-87th-christmas-parade-2026",
+    "title": "87th Annual Alice Christmas Parade — Christmas Books & Movies",
+    "city": "Alice",
+    "countySlug": "jim-wells",
+    "countyName": "Jim Wells County",
+    "region": "south-texas",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Alice — N. Texas Boulevard, Third Street, Cameron Street and Main Street",
+    "officialEventUrl": "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq",
+    "sourceName": "Alice Hub City Chamber of Commerce — 2026 87th Annual Christmas Parade",
+    "summary": "Alice Hub City Chamber of Commerce directly confirms the 87th Annual Christmas Parade for Thursday, December 3, 2026, 6:15–8 p.m. The 2026 theme celebrates Christmas books and movies, with decorated floats, marching bands and community participation. The Chamber's original registration schedule puts float judging between 5:15 and 6 p.m. before the parade. Its route begins staging on Kennedy Street and at the 1800 block of North Texas Boulevard, continues south to Third Street, west to Cameron Street, south to Main Street and west to Dixie Iron Works. Listed $20 Chamber-member, $30 nonmember and $10 extra vehicle fees apply to parade entrants, not necessarily to spectators. Confirm day-of traffic, accessibility and weather with the Chamber. No 2027 date or photograph-use permission is established.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "rockdale-chamber-winter-wonderland-2026",
+    "title": "Rockdale Winter Wonderland — Chamber & Community Holiday Market",
+    "city": "Rockdale",
+    "countySlug": "milam",
+    "countyName": "Milam County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Wolf Park, 106 North Main Street, Rockdale",
+    "officialEventUrl": "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland",
+    "sourceName": "Rockdale Community Market / Rockdale Chamber of Commerce and City of Rockdale — original co-organizer event announcement",
+    "summary": "Rockdale Community Market's original Winter Wonderland event page announces a joint evening with the Rockdale Chamber of Commerce and City of Rockdale at Wolf Park, 106 North Main Street, on Saturday, December 5, 2026, from 5 to 9 p.m. Its published program includes an evening market, Christmas treats, a tamale-eating contest and a holiday train. The registration page lists tickets from $40 to $60 alongside vendor reservation prompts, but does not establish that all visitors must pay those amounts to attend; confirm market, activity and vendor charges with organizers. This is separate from the Community Market's November 14 Christmas market, which has already passed. No independent 2027 date, parking arrangement, parade route or photograph-use license is provided.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];;;;;;;
 

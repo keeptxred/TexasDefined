@@ -707,5 +707,31 @@ assert.match(bySlug.get("cross-plains-sip-n-shop-christmas-parade-2026").summary
 assert.equal(events.filter(e => e.countySlug === "colorado" && e.slug.startsWith("columbus-")).length, 2,
   "December 1 parade and December 3 shopping celebration must remain two distinct dates");
 
+
+for (const [slug, county, city, date, url] of [
+  ["alice-hub-city-87th-christmas-parade-2026", "jim-wells", "Alice", "2026-12-03",
+   "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq"],
+  ["rockdale-chamber-winter-wonderland-2026", "milam", "Rockdale", "2026-12-05",
+   "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland"],
+]) {
+  check(slug, date);
+  const event=bySlug.get(slug);
+  assert.equal(events.filter(item=>item.slug===slug).length,1, "One original Christmas occurrence per event");
+  assert.equal(event.city,city);
+  assert.equal(event.countySlug,county);
+  assert.equal(event.countyName,county==="milam"?"Milam County":"Jim Wells County");
+  assert.equal(event.endDate,undefined);
+  assert.equal(event.officialEventUrl,url);
+  assert.equal(event.sourceVerifiedAt,"2026-11-23");
+  assert.ok(event.summary.length > 290, "Calendar item needs original visitor planning evidence");
+  assert.match(event.summary,/2027/, "Do not extrapolate a new edition");
+}
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /6:15–8 p.m./);
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /fees apply to parade entrants, not necessarily to spectators/);
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /Cameron Street/);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /December 5, 2026, from 5 to 9 p.m./);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /does not establish that all visitors must pay those amounts/);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /November 14 Christmas market, which has already passed/);
+
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 
