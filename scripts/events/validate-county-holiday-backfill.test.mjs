@@ -515,3 +515,27 @@ test("Fairfield Chamber's own November 2026 schedule confirms a separate Dec 3 S
     "Conflicting newsletter column layout cannot be presented as indisputable operating hours");
   assert.equal(events.filter(x=>x.countySlug==="freestone").length,3);
 });
+
+test("Pearsall City's dated 2026 parade and tamale contest adds real Frio County holiday coverage without inventing hours or recurrence",()=>{
+  const e=events.find(x=>x.slug==="pearsall-twelve-days-of-christmas-parade-tamales-2026");
+  assert.ok(e,"Missing City of Pearsall first-party Dec 4, 2026 Christmas announcement");
+  assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+  assert.equal(e.countySlug,"frio");
+  assert.equal(e.countyName,"Frio County");
+  assert.equal(e.city,"Pearsall");
+  assert.equal(e.region,"south-texas");
+  assert.equal(e.startDate,"2026-12-04");
+  assert.equal(e.endDate,undefined,"Separate decorating contest on December 2 does not make this a multiday Dec 2–4 parade");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.equal(e.officialEventUrl,"https://www.cityofpearsall.org/news_detail_T8_R63.php");
+  assert.match(e.sourceName,/City of Pearsall/);
+  assert.match(e.summary,/Friday, December 4, 2026/);
+  assert.match(e.summary,/Tamale Contest/);
+  assert.match(e.summary,/holiday vendor opportunities/);
+  assert.match(e.summary,/December 2, 2026/);
+  assert.match(e.summary,/does not independently establish public start\/end hours/);
+  assert.match(e.summary,/any 2027 edition/);
+  assert.ok(!/\bparade at (?:[0-9]|noon)/i.test(e.summary),
+    "No exact parade hour was independently confirmed by the City's 2026 press notice");
+  assert.equal(events.filter(x=>x.countySlug==="frio").length,1);
+});
