@@ -1,0 +1,42 @@
+name: Review TexasDefined Thanksgiving authority
+
+on:
+  schedule:
+    - cron: '17 14 20 10 *'
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/routes/index.lazy.tsx'
+      - 'src/lib/thanksgiving-season.ts'
+      - 'src/data/fixtures/texas-thanksgiving-*.ts'
+      - 'scripts/data/validate-texas-thanksgiving.mjs'
+      - '.github/workflows/review-texas-thanksgiving.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate-and-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Thanksgiving content and seasonal governance
+        run: node --experimental-strip-types scripts/data/validate-texas-thanksgiving.mjs
+      - name: Open annual fact-check review issue before the next holiday campaign
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          year="$(date -u +%Y)"
+          if [ "$year" -le 2026 ]; then exit 0; fi
+          title="TexasDefined Thanksgiving ${year} authority refresh and parade source review"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --search "$title in:title" --json title --jq '.[].title' | grep -Fxc "$title" || true)"
+          if [ "$existing" -gt 0 ]; then echo "Existing Thanksgiving review issue retained"; exit 0; fi
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "Review all Texas Thanksgiving authority pages before ${year} publication. Recheck NFPA/USDA and Texas A&M AgriLife turkey-fryer advice, recipe food-safety details, local traditions and ALL major parade organizer dates/routes (Houston, San Antonio, Fort Worth, Dallas). Refresh sourceCheckedAt and editorial modified dates only for actual source-backed changes; verify photography licenses, body depth, AEO, SEO, canonical indexing, bidirectional links and the annual Thanksgiving homepage activation year in src/lib/thanksgiving-season.ts. Never reactivate the dated 2026 parade feature before current-year verification. Run node --experimental-strip-types scripts/data/validate-texas-thanksgiving.mjs, merge only after validation, deploy on main and verify production. Current 2026 source and checkpoint: ops/editorial/texas-thanksgiving-2026.md." 
