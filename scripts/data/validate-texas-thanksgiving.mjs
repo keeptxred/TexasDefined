@@ -4,6 +4,9 @@ import { isTexasThanksgivingWeek } from "../../src/lib/thanksgiving-season.ts";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const homepage = read("src/routes/index.lazy.tsx");
+const homepageRoute = read("src/routes/index.tsx");
+assert.match(homepageRoute, /thanksgivingWeek \? "Happy Thanksgiving" : pageTitle/, "Seasonal SEO title must let buildMeta append brand only once");
+assert.doesNotMatch(homepageRoute, /Happy Thanksgiving \| Texas Defined/, "Do not duplicate the brand suffix");
 const loader = read("src/data/fixtures/lazy-evergreen.ts");
 const articleSource = read("src/data/fixtures/texas-thanksgiving-articles.ts");
 const stubSource = read("src/data/fixtures/texas-thanksgiving-stubs.ts");
