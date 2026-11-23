@@ -1275,5 +1275,20 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Pearsall — official November 17, 2026 12 Days of Christmas announcement",
     "summary": "The City of Pearsall's official November 17, 2026 notice confirms its themed 12 Days of Christmas community festivities for Friday, December 4, 2026, with a Christmas parade, Christmas Tamale Contest and holiday vendor opportunities on that date. The city also sets a separate December 2, 2026 date for its Christmas Home & Business Decorating Contest; this single Dec 4 record does not imply that the parade or vendor market runs from Dec 2 to Dec 4. The original city announcement provides separate entry applications but does not independently establish public start/end hours, spectator fees, parade route, exact activity venues, or any 2027 edition. Confirm day-of details with the City and do not reuse organizer photographs without permission.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "copperas-cove-krist-kindl-markt-2026",
+    "title": "32nd Annual Copperas Cove Krist Kindl Markt & Lighted Parade",
+    "city": "Copperas Cove",
+    "countySlug": "coryell",
+    "countyName": "Coryell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Downtown Copperas Cove, Avenue D / Santa Fe parking lot, Coryell County",
+    "officialEventUrl": "https://copperascove.glueup.com/event/32nd-annual-krist-kindl-markt-189528/",
+    "sourceName": "Copperas Cove Chamber of Commerce & Visitors Bureau — original 32nd Annual Krist Kindl Markt 2026 event",
+    "summary": "The Copperas Cove Chamber's original 2026 event page confirms the 32nd Annual Krist Kindl Markt in downtown Copperas Cove Friday, December 4 through Sunday, December 6, 2026. Festival shopping and entertainment hours are Friday 4–10 p.m., Saturday 10 a.m.–10 p.m., and Sunday 10 a.m.–3 p.m. The Friday December 4 community Christmas Tree Lighting starts 6:30 p.m. at the Santa Fe lot on West Avenue D, with a free outdoor holiday movie scheduled afterward. The Saturday December 5 lighted Krist Kindl Parade starts 6 p.m., traveling along Avenue D from behind Copperas Cove High School toward the Cove Terrace parking lot. The organizer also advertises family activities, vendor spaces and Santa photos; listed vendor participation fees do not establish spectator admission charges. The downtown venue is in Coryell County, although other parts of Copperas Cove extend into Lampasas and Bell counties. Confirm public access and any schedule changes with the original Chamber; no copied event photography or 2027 date is inferred.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
