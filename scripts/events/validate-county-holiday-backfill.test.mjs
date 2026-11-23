@@ -383,3 +383,29 @@ test("Decatur, Jasper and Hopkins 2026 holiday editions retain original organize
   assert.ok(events.filter(x=>x.countySlug==="hopkins"&&x.title.includes("Christmas in the Park")).length>=2,
     "Retain the two original museum edition dates, no replacements");
 });
+
+test("Source-confirmed 2026 Christmas events for Snyder, Cuero, and Fort Stockton never infer other-year routes",()=>{
+  const current=[
+    ["snyder-holly-dolly-christmas-parade-tree-lighting-2026","scurry","2026-12-05","www.snyderchamber.org"],
+    ["cuero-downtown-christmas-tree-lighting-2026","dewitt","2026-11-30","member.cuero.org"],
+    ["fort-stockton-red-white-blue-christmas-parade-2026","pecos","2026-12-04","fortstockton.org"]
+  ];
+  for(const [slug,county,date,domain] of current){
+    const e=events.find(x=>x.slug===slug);
+    assert.ok(e,"Missing current organizer-sourced Christmas event "+slug);
+    assert.equal(e.countySlug,county);
+    assert.equal(e.startDate,date);
+    assert.equal(e.endDate,undefined);
+    assert.equal(e.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(e.officialEventUrl).hostname,domain);
+    assert.ok(e.summary.length>=110);
+  }
+  const snyder=events.find(x=>x.slug===current[0][0]);
+  const cuero=events.find(x=>x.slug===current[1][0]);
+  const fort=events.find(x=>x.slug===current[2][0]);
+  assert.match(snyder.summary,/does not establish the exact parade start time/);
+  assert.match(cuero.summary,/at 6 p\.m/);
+  assert.match(fort.summary,/2026 start time/);
+  assert.match(fort.summary,/prior annual visitor guide/);
+  assert.ok(!events.some(e=>e.slug!==fort.slug&&e.countySlug==="pecos"&&e.startDate===fort.startDate&&/parade/i.test(e.title)));
+});
