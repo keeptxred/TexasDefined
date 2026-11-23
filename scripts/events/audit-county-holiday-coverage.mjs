@@ -224,7 +224,7 @@ export function formatCountyHolidayIssue(report) {
       .map(c => "- [ ] [" + c.name + " County](https://texasdefined.com/county/" + c.slug
         + ") — no indexed holiday event yet; confirm dates, venue and organizer from original sources"
         + (c.sourceLeads.length ? "; research leads: " + c.sourceLeads.map(lead =>
-          "[" + lead.organization.replace(/[\\[\\]]/g, "") + "](" + lead.calendarUrl + ")"
+          "[" + lead.organization.replace(/[\[\]]/g, "") + "](" + lead.calendarUrl + ")"
           + " (" + (lead.sourceKind === "public-calendar" ? "public calendar"
             : lead.sourceKind === "annual-events-list" ? "annual list; dates unverified"
             : lead.sourceKind === "empty-calendar" ? "calendar empty; seek source update"
