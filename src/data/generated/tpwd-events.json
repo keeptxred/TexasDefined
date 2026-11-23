@@ -1,49 +1,7 @@
 {
-  "generatedAt": "2026-11-22T18:33:46.118Z",
+  "generatedAt": "2026-11-23T06:31:14.379Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "All About Nature",
-      "startDate": "2026-11-22",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-nature-1/2026-11-22"
-    },
-    {
-      "title": "Alligator Talk",
-      "startDate": "2026-11-22",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/alligator-talk-2/2026-11-22"
-    },
-    {
-      "title": "Basic Fishing",
-      "startDate": "2026-11-22",
-      "parkKey": "galveston-island",
-      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-22"
-    },
-    {
-      "title": "Electric Tram Tour",
-      "startDate": "2026-11-22",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-22"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-22",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-22"
-    },
-    {
-      "title": "Nature Tram Tour (Evening)",
-      "startDate": "2026-11-22",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-22"
-    },
-    {
-      "title": "World Birding Center Birding Tours",
-      "startDate": "2026-11-22",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-22"
-    },
     {
       "title": "Birding with a Ranger",
       "startDate": "2026-11-25",
@@ -1393,6 +1351,30 @@
       "startDate": "2027-02-20",
       "parkKey": "lake-brownwood",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2027-02-20"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2027-02-21",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-21"
+    },
+    {
+      "title": "Backyard Bass",
+      "startDate": "2027-02-21",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/backyard-bass_11-15-26/2027-02-21"
+    },
+    {
+      "title": "Fishing with a Ranger",
+      "startDate": "2027-02-21",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/fishing-with-a-ranger_11-15-256/2027-02-21"
+    },
+    {
+      "title": "Paws and Paths: Exploring the Bauer Unit *Registration Required*",
+      "startDate": "2027-02-21",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/paws-and-paths-exploring-the-bauer-unit-registration-required/2027-02-21"
     }
   ]
 }
