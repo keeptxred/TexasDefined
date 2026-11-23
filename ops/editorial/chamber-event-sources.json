@@ -2689,13 +2689,13 @@
         "frio"
       ],
       "homeUrl": "https://pearsallchamber.org/",
-      "calendarUrl": "https://pearsallchamber.org/",
+      "calendarUrl": "https://pearsallchamber.org/events/",
       "contactPageUrl": "https://pearsallchamber.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "centerville-leon-chamber",
@@ -5187,6 +5187,66 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "pearsall-city-community-events-calendar",
+      "organization": "City of Pearsall — city and community events",
+      "countySlugs": [
+        "frio"
+      ],
+      "homeUrl": "https://www.cityofpearsall.org/",
+      "calendarUrl": "https://www.cityofpearsall.org/calendar.php",
+      "contactPageUrl": "https://www.cityofpearsall.org/contact.php",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-crystal-city-zavala-event-calendar-monitor",
+      "organization": "City of Crystal City — current special events filtered municipal calendar (dated entries unavailable)",
+      "countySlugs": [
+        "zavala"
+      ],
+      "homeUrl": "https://www.crystalcitytx.org/",
+      "calendarUrl": "https://www.crystalcitytx.org/page/calendar",
+      "contactPageUrl": "https://www.crystalcitytx.org/page/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "rio-grande-city-main-street-annual-festivals",
+      "organization": "Rio Grande City Main Street / EDC — annual downtown events and festivals",
+      "countySlugs": [
+        "starr"
+      ],
+      "homeUrl": "https://www.rgcmainstreet.com/",
+      "calendarUrl": "https://www.rgcmainstreet.com/eventonmain",
+      "contactPageUrl": "https://www.rgcmainstreet.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "pearsall-city-christmas-parade-2026-official-announcement",
+      "organization": "City of Pearsall official 2026 Christmas parade and Tamale Contest city announcement",
+      "countySlugs": [
+        "frio"
+      ],
+      "homeUrl": "https://www.cityofpearsall.org/",
+      "calendarUrl": "https://www.cityofpearsall.org/news_detail_T8_R63.php",
+      "contactPageUrl": "https://www.cityofpearsall.org/calendar.php",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }

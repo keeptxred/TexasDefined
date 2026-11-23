@@ -804,6 +804,47 @@ test("Brady, Linden, Cottle, Rains emergency management and Gatesville official 
   assert.equal(registry.rules.noGmail,true);
 });
 
+
+test("Pearsall Chamber and City of Pearsall both independently publish dated Frio County events calendars", async()=>{
+  const chamber=registry.sources.find(s=>s.id==="pearsall-frio-chamber");
+  const city=registry.sources.find(s=>s.id==="pearsall-city-community-events-calendar");
+  assert.ok(chamber && city);
+  assert.deepEqual(chamber.countySlugs,["frio"]);
+  assert.deepEqual(city.countySlugs,["frio"]);
+  assert.equal(chamber.sourceKind,"public-calendar");
+  assert.equal(city.sourceKind,"public-calendar");
+  assert.equal(chamber.calendarUrl,"https://pearsallchamber.org/events/");
+  assert.equal(city.calendarUrl,"https://www.cityofpearsall.org/calendar.php");
+  assert.notEqual(chamber.homeUrl,city.homeUrl,"Chamber does not operate the city government feed");
+  const original=registry.sources.find(s=>s.id==="pearsall-city-christmas-parade-2026-official-announcement");
+  assert.ok(original);
+  assert.equal(original.sourceKind,"event-specific");
+  assert.equal(original.calendarUrl,"https://www.cityofpearsall.org/news_detail_T8_R63.php");
+  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(covered.has("frio"));
+  assert.ok(covered.size>=166);
+});
+
+test("Crystal City undated special events calendar and Rio Grande City recurring guide do not become invented festival dates",()=>{
+  const zavala=registry.sources.find(s=>s.id==="city-crystal-city-zavala-event-calendar-monitor");
+  assert.ok(zavala);
+  assert.deepEqual(zavala.countySlugs,["zavala"]);
+  assert.equal(zavala.sourceKind,"empty-calendar","2022 light-box demo/blank 2026 grid is not an upcoming public festival");
+  assert.equal(zavala.calendarUrl,"https://www.crystalcitytx.org/page/calendar");
+  const starr=registry.sources.find(s=>s.id==="rio-grande-city-main-street-annual-festivals");
+  assert.ok(starr);
+  assert.deepEqual(starr.countySlugs,["starr"]);
+  assert.equal(starr.sourceKind,"annual-events-list");
+  assert.equal(starr.calendarUrl,"https://www.rgcmainstreet.com/eventonmain");
+  const fairs=registry.sources.find(s=>s.id==="starr-county-fair-association");
+  assert.equal(fairs?.sourceKind,"event-specific");
+  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(!covered.has("zavala") && !covered.has("starr"));
+  assert.ok(covered.size>=166);
+  assert.equal(registry.rules.sender,"admin@texasdefined.com");
+  assert.equal(registry.rules.noGmail,true);
+});
+
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
   for (const [id, county, host] of [
     ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
