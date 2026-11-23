@@ -14,6 +14,21 @@ type SourceNote = { label: string; href: string; note: string };
 const venueSources: Record<string, readonly SourceNote[]> = {
   "texas-music-venues": [
     {
+      label: "Texas Historical Commission — Music City Texas Theater",
+      href: "https://texastimetravel.com/directory/music-city-texas-theater/",
+      note: "Documents the 1948–1950 American Legion Auditorium, its 2003 adaptation into a 400-seat nonprofit performance venue and Linden's regional music connections.",
+    },
+    {
+      label: "Music City Texas Theater — Official mission",
+      href: "https://www.musiccitytexas.org/about",
+      note: "Confirms 108 Legion Street, the nonprofit mission of live performance, music education and instrument donations; show listings must be checked independently for current dates.",
+    },
+    {
+      label: "Texas Governor — Linden Music Friendly Texas certification",
+      href: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community",
+      note: "State announcement dated August 21, 2023, naming the certified community and musicians including Richard Bowden and Don Henley.",
+    },
+    {
       label: "Handbook of Texas Music — Venues",
       href: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/venues",
       note: "Provides the statewide Texas music venue collection, including dance halls, clubs, ballrooms and other rooms that shaped regional scenes.",
