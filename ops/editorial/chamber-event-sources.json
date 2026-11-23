@@ -3155,13 +3155,13 @@
         "crosby"
       ],
       "homeUrl": "https://www.crosbytonchamber.com/",
-      "calendarUrl": "https://visitcrosbycounty.com/events/",
+      "calendarUrl": "https://www.crosbytonchamber.com/",
       "contactPageUrl": "https://www.crosbytonchamber.com/contact/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "annual-events-list"
+      "sourceKind": "contact-only"
     },
     {
       "id": "franklin-county-mount-vernon-chamber",
@@ -4942,6 +4942,111 @@
       "homeUrl": "https://www.wheelertexas.org/",
       "calendarUrl": "https://www.wheelertexas.org/",
       "contactPageUrl": "https://www.wheelertexas.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "silsbee-chamber-community-calendar",
+      "organization": "Silsbee Chamber of Commerce — community events calendar",
+      "countySlugs": [
+        "hardin"
+      ],
+      "homeUrl": "https://www.silsbeecoc.com/",
+      "calendarUrl": "https://www.silsbeecoc.com/event-calendar",
+      "contactPageUrl": "https://www.silsbeecoc.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "shamrock-texas-chamber-events",
+      "organization": "Shamrock Texas Chamber — dated community events",
+      "countySlugs": [
+        "wheeler"
+      ],
+      "homeUrl": "https://shamrocktexaschamber.com/",
+      "calendarUrl": "https://shamrocktexaschamber.com/events",
+      "contactPageUrl": "https://shamrocktexaschamber.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-quanah-community-calendar",
+      "organization": "City of Quanah Texas — municipal and community event calendar",
+      "countySlugs": [
+        "hardeman"
+      ],
+      "homeUrl": "https://www.cityofquanah.com/",
+      "calendarUrl": "https://www.cityofquanah.com/calendar",
+      "contactPageUrl": "https://www.cityofquanah.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-hemphill-current-events-calendar",
+      "organization": "City of Hemphill — Events Calendar (not annual festival guide)",
+      "countySlugs": [
+        "sabine"
+      ],
+      "homeUrl": "https://www.cityofhemphill.com/",
+      "calendarUrl": "https://www.cityofhemphill.com/calendar.aspx",
+      "contactPageUrl": "https://www.cityofhemphill.com/1195/Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "sabine-county-chamber-community-calendar",
+      "organization": "Sabine County Chamber — public community event feed",
+      "countySlugs": [
+        "sabine"
+      ],
+      "homeUrl": "https://www.sabinecountychamber.com/",
+      "calendarUrl": "https://www.sabinecountychamber.com/events/",
+      "contactPageUrl": "https://www.sabinecountychamber.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "pittsburg-city-camp-festival-guide",
+      "organization": "City of Pittsburg tourism office — edition-dated festivals and holidays",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://visit.pittsburgtx.gov/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/guides/pittsburgs-festivals",
+      "contactPageUrl": "https://visit.pittsburgtx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "seymour-city-current-events-archive-monitor",
+      "organization": "City of Seymour — eventON current-event archive awaiting access repair",
+      "countySlugs": [
+        "baylor"
+      ],
+      "homeUrl": "https://cityofseymour.org/",
+      "calendarUrl": "https://cityofseymour.org/events/",
+      "contactPageUrl": "https://cityofseymour.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
