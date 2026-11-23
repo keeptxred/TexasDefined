@@ -5097,6 +5097,96 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "clarksville-red-river-chamber-public-calendar",
+      "organization": "Historic Red River County Chamber — community and Chamber event calendar",
+      "countySlugs": [
+        "red-river"
+      ],
+      "homeUrl": "https://www.redrivercoc.com/",
+      "calendarUrl": "https://www.redrivercoc.com/calendar",
+      "contactPageUrl": "https://www.redrivercoc.com/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "brady-mcculloch-chamber-calendar-monitor",
+      "organization": "Brady/McCulloch Chamber — currently undated online community calendar",
+      "countySlugs": [
+        "mcculloch"
+      ],
+      "homeUrl": "https://www.bradytx.com/",
+      "calendarUrl": "https://www.bradytx.com/chambercalendar",
+      "contactPageUrl": "https://www.bradytx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "linden-cass-chamber-calendar-monitor",
+      "organization": "Linden Area Chamber — Wix community calendar with unconfirmed current listings",
+      "countySlugs": [
+        "cass"
+      ],
+      "homeUrl": "https://www.lindentxchamber.org/",
+      "calendarUrl": "https://www.lindentxchamber.org/calendar",
+      "contactPageUrl": "https://www.lindentxchamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "cottle-county-public-notice-calendar-monitor",
+      "organization": "Cottle County official public-notice and government holiday calendar",
+      "countySlugs": [
+        "cottle"
+      ],
+      "homeUrl": "https://www.cottlecountytx.gov/",
+      "calendarUrl": "https://www.cottlecountytx.gov/page/Public.Notices",
+      "contactPageUrl": "https://www.cottlecountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "rains-county-oem-event-desk-monitor",
+      "organization": "Rains County Emergency Management — community events notice desk awaiting 2026 activity",
+      "countySlugs": [
+        "rains"
+      ],
+      "homeUrl": "https://www.rainscountyevents.com/",
+      "calendarUrl": "https://www.rainscountyevents.com/",
+      "contactPageUrl": "https://www.rainscountyevents.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "gatesville-city-community-events-calendar-monitor",
+      "organization": "City of Gatesville — dedicated Community Events filtered calendar awaiting dated festival feed",
+      "countySlugs": [
+        "coryell"
+      ],
+      "homeUrl": "https://www.gatesvilletx.com/",
+      "calendarUrl": "https://www.gatesvilletx.com/calendar/index.php",
+      "contactPageUrl": "https://www.gatesvilletx.com/departments/communications/community_events.php",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
