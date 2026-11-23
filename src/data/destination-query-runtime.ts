@@ -391,7 +391,8 @@ async function getResolvedDestinationBase(slug: Slug) {
   // detail source. A new remote Explore row may be valid enough to pass the
   // generic score while losing the operator-checked fees, group policy and
   // correctly attributed hero. Never let that replace the complete public guide.
-  if (slug === "texas-freshwater-fisheries-center" || slug === "national-ranching-heritage-center-lubbock") {
+  if (slug === "texas-freshwater-fisheries-center" || slug === "national-ranching-heritage-center-lubbock" ||
+      slug === "heritage-center-cherokee-county-rusk") {
     const original = preservedExploreDestinations.find((destination) => destination.slug === slug);
     const readyOriginal = resolveSeoReadyDestination(original);
     if (readyOriginal) return readyOriginal;

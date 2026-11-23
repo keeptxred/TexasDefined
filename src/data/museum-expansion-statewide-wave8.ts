@@ -73,7 +73,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "heritage-center-cherokee-county-rusk",
     name: "Heritage Center of Cherokee County",
-    summary: "The Heritage Center of Cherokee County in downtown Rusk preserves the county's Caddo and pioneer past, timber industry, railroads, Rusk prison and hospital history, education, military service and community life through locally rooted collections and exhibits.",
+    summary: "Visit the Heritage Center of Cherokee County in Rusk for exhibits on Caddo history, timber and railroads, and see the historic Old Bonner Bank next door.",
     category: "historic-sites",
     region: "piney-woods",
     nearestTown: "Rusk",
@@ -92,7 +92,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     officialUrl: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
     managingAuthority: "Heritage Center of Cherokee County",
     address: "208 S Henderson St, Rusk, TX 75785",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-11-23",
   },
   {
     id: "museum-statewide-wave8-calhoun-county",

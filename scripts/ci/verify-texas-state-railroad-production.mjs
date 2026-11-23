@@ -101,8 +101,10 @@ checks.push(check("Guide metadata", async () => {
 }));
 checks.push(check("Museum photo and structured data", async () => {
   const page = await getPage(museumPath);
+  if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(page)) throw new Error("museum is noindexed");
   const museum = schemaNodes(page).find((node) => [node["@type"]].flat().includes("Museum"));
-  if (!museum?.image?.length || !page.includes("Rusk_station") || !page.includes("gnomonic") ||
+  if (!museum?.image?.some((image) => image.license === "https://creativecommons.org/licenses/by/2.0/") ||
+      !page.includes("Rusk_station") || !page.includes("gnomonic") ||
       !page.includes("https://creativecommons.org/licenses/by/2.0/")) {
     throw new Error("museum schema or credited Rusk station image missing");
   }

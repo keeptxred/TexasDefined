@@ -13,6 +13,8 @@ const commonsRights = [
 ] as const;
 
 const REVIEWED_ATTRACTION_IMAGE_RIGHTS = [
+  { file: "Locomotive_125_Texas_State_Railroad_2024.jpg", creator: "Larry D. Moore", license: "https://creativecommons.org/licenses/by/4.0/", copyrightNotice: "© 2024 Larry D. Moore" },
+  { file: "Southern_Pine_Lumber_Co._No._28_at_Rusk_station_on_the_Texas_State_Rail_Road_-_October_2004.jpg", creator: "gnomonic", license: "https://creativecommons.org/licenses/by/2.0/", copyrightNotice: "© gnomonic" },
   { file: "San_Antonio_Japanese_Tea_Garden_2022.jpg", creator: "Jouaienttoi", license: "https://creativecommons.org/licenses/by-sa/4.0/", copyrightNotice: "© Jouaienttoi" },
   { file: "Fort_Worth_Water_Gardens_01.jpg", creator: "Farragutful", license: "https://creativecommons.org/licenses/by-sa/4.0/", copyrightNotice: "© Farragutful" },
   { file: "Houston_Botanic_Garden.jpg", creator: "WhisperToMe", license: "https://creativecommons.org/publicdomain/zero/1.0/", copyrightNotice: "CC0 1.0 public-domain dedication by WhisperToMe; no copyright claim" },

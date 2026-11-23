@@ -249,7 +249,7 @@ export const Route = createFileRoute("/destination/$slug")({
     // These three canonical reviewed Commons heroes have exact-source licenses
     // in image-rights.ts. Lazy-load the registry only for those real photos,
     // retaining the bounded main-client performance budget.
-    const imageRights = /South_Padre_Island_beach_panorama|San_Antonio_Japanese_Tea_Garden_2022|Fort_Worth_Water_Gardens_01|Houston_Botanic_Garden/.test(destination.hero.src)
+    const imageRights = /South_Padre_Island_beach_panorama|San_Antonio_Japanese_Tea_Garden_2022|Fort_Worth_Water_Gardens_01|Houston_Botanic_Garden|Southern_Pine_Lumber_Co[.]_No[.]_28_at_Rusk_station/.test(destination.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(destination.hero.src) : null;
     // Exact-file image rights are destination-only. Do not import the photo
     // registry into the critical site-wide main client bundle.
