@@ -1051,5 +1051,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Texas Czech Heritage and Cultural Center (event organizer)",
     "summary": "The Texas Czech Heritage & Cultural Center confirms its Christmas Open House for Saturday, December 5, 2026, from 10 a.m. to 3 p.m. at its La Grange campus on West Fairgrounds Road. Admission is free. Visitors can explore the Czech Village, learn about St. Nicholas traditions through living-history activities, sample traditional seasonal foods, and browse the gift shop. A separately scheduled tasting in Hanslik Hall runs 11 a.m.–2 p.m. Some purchases and optional activities may cost extra; check the center for final details. This is not the downtown Schmeckenfest on December 3.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "huntsville-main-street-downtown-christmas-fair-2026",
+    "title": "Huntsville for the Holidays · Downtown Christmas Fair",
+    "city": "Huntsville",
+    "countySlug": "walker",
+    "countyName": "Walker County",
+    "region": "piney-woods",
+    "startDate": "2026-12-05",
+    "venueName": "Historic downtown Huntsville, Texas",
+    "officialEventUrl": "https://www.huntsvilletx.gov/593/Christmas-Fair",
+    "sourceName": "City of Huntsville Main Street Program",
+    "summary": "The City of Huntsville Main Street Program confirms its annual Downtown Christmas Fair for Saturday, December 5, 2026, as part of Huntsville for the Holidays. The downtown fair advertises local vendors, children's crafts, face painting, bounce houses and seasonal family activities. The city event page does not state exact opening or closing hours, vendor admission terms or every activity's price, so check the original organizer before traveling. This is Huntsville, Walker County, Texas.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "huntsville-city-movie-park-rise-guardians-2026",
+    "title": "Huntsville Christmas Movie in the Park · Rise of the Guardians",
+    "city": "Huntsville",
+    "countySlug": "walker",
+    "countyName": "Walker County",
+    "region": "piney-woods",
+    "startDate": "2026-12-11",
+    "venueName": "Town Creek Park · Jane Monday Amphitheater, 1212 Avenue M, Huntsville",
+    "officialEventUrl": "https://www.huntsvilletx.gov/m/newsflash/Home/Detail/1447",
+    "sourceName": "City of Huntsville Parks and Recreation",
+    "summary": "The City of Huntsville Parks and Recreation Department confirms its free holiday Movie in the Park for Friday, December 11, 2026, beginning at 6:30 p.m. at the Jane Monday Amphitheater in Town Creek Park by City Hall parking at 1212 Avenue M. The outdoor film is Rise of the Guardians; food and drink concessions accept cash or cards, so purchases are separate from the free screening. The city has not announced a weather contingency or exact end time on this notice; confirm before departing.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
