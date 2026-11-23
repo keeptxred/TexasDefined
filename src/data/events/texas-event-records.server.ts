@@ -359,7 +359,17 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     `${eventIdentity(record.title, record.city)}:${record.startDate}:${record.venueId ?? ""}`));
   for (const activity of loadTpwdEventRecordsServer()) {
     const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}:${activity.venueId ?? ""}`;
-    if (knownActivities.has(key)) continue;
+    // The TPWD crawler may later discover a date already covered by an
+    // organizer-verified multi-day community holiday record. A dated park
+    // calendar entry must not appear twice merely because the TPWD feed URL
+    // adds a /YYYY-MM-DD suffix to the same original event detail URL.
+    const alreadyCoveredByOfficialPark = records.some((record) =>
+      record.sourceName === "Texas Parks and Wildlife Department"
+      && record.officialEventUrl.startsWith("https://tpwd.texas.gov/calendar/")
+      && activity.officialEventUrl.startsWith(record.officialEventUrl.replace(/\/$/, "") + "/")
+      && record.startDate <= activity.startDate
+      && (record.endDate ?? record.startDate) >= activity.startDate);
+    if (knownActivities.has(key) || alreadyCoveredByOfficialPark) continue;
     records.push(activity);
     knownActivities.add(key);
   }

@@ -28,7 +28,7 @@ test("source-verified county holiday additions are unique and present in the glo
     assert.ok(event.title.length >= 12 && event.summary.length >= 110);
     assert.match(event.startDate, /^2026-1[12]-\d{2}$/);
     if (event.endDate) assert.ok(event.endDate >= event.startDate);
-    assert.equal(event.sourceVerifiedAt, "2026-11-22");
+    assert.ok(["2026-11-22", "2026-11-23"].includes(event.sourceVerifiedAt), "Original organizer verification date missing");
     assert.ok(["panhandle","prairies-lakes","hill-country","piney-woods","south-texas","gulf-coast","big-bend"].includes(event.region));
     const sourceUrl = new URL(event.officialEventUrl);
     assert.equal(sourceUrl.protocol, "https:");
@@ -656,4 +656,72 @@ test("Post Chamber original 2026 community calendar confirms Dec 5 Lighted Chris
  assert.match(e.summary,/does not specify a start time/);
  assert.match(e.summary,/subject to change/);
  assert.match(e.summary,/No 2027 schedule or photograph reuse permission/);
+});
+
+test("county pages surface verified calendar-first holiday events, not only permanent guides", () => {
+  const county = fs.readFileSync("src/data/county-major-events.server.ts", "utf8");
+  assert.match(county, /event\.guidePath\.startsWith\("\/events\?"\) && event\.category === "seasonal"/,
+    "Seasonal county events without leaf guides must appear on their county");
+  assert.match(county, /event\.guidePath\.startsWith\("\/events\/"\)/,
+    "Existing Christmas hub anchors must not disappear from county cards");
+  assert.match(county, /event\.status === "scheduled"/,
+    "Postponed and cancelled events must not be represented as verified upcoming dates");
+  assert.match(county, /location=county:/,
+    "Calendar-first event cards must link to a county-filtered dated calendar");
+  assert.match(county, /calendar:\$\{event\.slug\}/,
+    "Distinct hometown events on the same date must not be deduplicated by calendar URL");
+});
+
+test("Cass and Morris park Christmas nights have exact original TPWD edition windows", () => {
+  const cases = [
+    ["atlanta-state-park-christmas-in-the-park-2026","cass","2026-12-11","2026-12-12","atlanta"],
+    ["daingerfield-state-park-christmas-in-the-park-2026","morris","2026-12-16","2026-12-19","daingerfield"],
+  ];
+  for(const [slug, county, start, end, park] of cases){
+    const item=events.find(event=>event.slug===slug);
+    assert.ok(item,"Missing state park original holiday evidence: " + slug);
+    assert.equal(item.countySlug,county);
+    assert.equal(item.startDate,start);
+    assert.equal(item.endDate,end);
+    assert.equal(item.sourceVerifiedAt,"2026-11-23");
+    assert.equal(item.sourceName,"Texas Parks and Wildlife Department");
+    assert.equal(new URL(item.officialEventUrl).pathname,
+      "/calendar/" + park + "/christmas-in-the-park");
+    assert.match(item.summary,/2026/);
+  }
+  const loader=fs.readFileSync("src/data/events/texas-event-records.server.ts","utf8");
+  assert.match(loader,/alreadyCoveredByOfficialPark/,"Do not publish duplicate daily TPWD activities in sourced Christmas windows");
+});
+
+test("Ector and Matagorda municipal 2026 holiday editions retain city-dated direct citations", () => {
+  const cases = [
+    ["odessa-starbright-village-tree-lighting-2026","ector","2026-12-03",undefined,"www.odessa-tx.gov"],
+    ["odessa-starbright-village-holiday-lights-2026","ector","2026-12-04","2027-01-03","www.odessa-tx.gov"],
+    ["odessa-31st-annual-parade-of-lights-2026","ector","2026-12-05",undefined,"www.odessa-tx.gov"],
+    ["bay-city-46th-lighted-christmas-parade-2026","matagorda","2026-12-03",undefined,"www.baycitytx.gov"],
+    ["bay-city-christmas-in-the-park-2026","matagorda","2026-12-05",undefined,"www.baycitytx.gov"],
+    ["bay-city-wilderness-trail-of-lights-2026","matagorda","2026-12-05","2027-01-01","www.baycitytx.gov"],
+  ];
+  for(const [slug,county,date,end,host] of cases) {
+    const event=events.find(x=>x.slug===slug);
+    assert.ok(event,"Missing city-dated festival "+slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.endDate,end);
+    assert.equal(event.sourceVerifiedAt,"2026-11-23");
+    assert.equal(new URL(event.officialEventUrl).hostname,host);
+    assert.ok(event.summary.length>=110 && event.sourceName && event.venueName);
+  }
+});
+
+test("Henderson 2026 downtown Christmas parade uses the city source and never mistakes weather backup for an extra edition",()=>{
+  const item=events.find(e=>e.slug==="henderson-christmas-through-the-ages-parade-2026");
+  assert.ok(item);
+  assert.equal(item.countySlug,"rusk");
+  assert.equal(item.startDate,"2026-12-03");
+  assert.equal(item.endDate,undefined);
+  assert.equal(item.sourceVerifiedAt,"2026-11-23");
+  assert.equal(new URL(item.officialEventUrl).pathname,"/1400/Christmas-Parade");
+  assert.match(item.summary,/December 8/);
+  assert.match(item.summary,/contingency/);
 });
