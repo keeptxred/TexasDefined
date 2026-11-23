@@ -383,3 +383,20 @@ test("Decatur, Jasper and Hopkins 2026 holiday editions retain original organize
   assert.ok(events.filter(x=>x.countySlug==="hopkins"&&x.title.includes("Christmas in the Park")).length>=2,
     "Retain the two original museum edition dates, no replacements");
 });
+
+test("Gilmer Texas Yulefest has independent first-party Dec 5, 2026 evidence and Upshur county attribution",()=>{
+  const e=events.find(e=>e.slug==="gilmer-upshur-yulefest-2026");
+  assert.ok(e,"Missing original East Texas Yamboree organizer evidence for Gilmer");
+  assert.equal(e.startDate,"2026-12-05");
+  assert.equal(e.endDate,undefined,"A one-day festival has no inferred overnight/multiday run");
+  assert.equal(e.countySlug,"upshur");
+  assert.equal(e.countyName,"Upshur County");
+  assert.equal(e.region,"piney-woods");
+  assert.equal(e.city,"Gilmer");
+  assert.equal(new URL(e.officialEventUrl).hostname,"yamboree.com");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.match(e.summary,/not Gilmer County, Georgia/);
+  assert.match(e.summary,/does not confirm precise public hours/);
+  assert.ok(e.summary.length>110);
+  assert.equal(events.filter(e=>e.slug==="gilmer-upshur-yulefest-2026").length,1);
+});
