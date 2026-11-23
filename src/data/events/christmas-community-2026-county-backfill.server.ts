@@ -1346,5 +1346,35 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Post Area Chamber of Commerce — official 2026 Community Calendar",
     "summary": "The Post Area Chamber of Commerce's original 2026 Community Calendar lists the Lighted Christmas Parade and Light Up Post on Saturday, December 5, 2026. It identifies both under the same date, but does not specify a start time, procession route, parking, admission terms or a detailed program. The Chamber warns its dates are subject to change; confirm local arrangements before traveling. No 2027 schedule or photograph reuse permission is implied.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "atlanta-state-park-christmas-in-the-park-2026",
+    "title": "Atlanta State Park Christmas in the Park — 2026 Drive-Through Lights",
+    "city": "Atlanta",
+    "countySlug": "cass",
+    "countyName": "Cass County",
+    "region": "piney-woods",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Atlanta State Park, 927 Park Road 42, Atlanta, Texas",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/atlanta/christmas-in-the-park",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "Texas Parks and Wildlife lists Friday December 11 and Saturday December 12, 2026, for Atlanta State Park's two-night drive-through holiday light event, with Santa, the Grinch and Smokey Bear. TPWD calls the drive-through free and encourages nonperishable food donations. The official event listing has slightly different time descriptions; confirm the evening hours and any weather cancellations with the park before visiting. No 2027 date is announced.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "daingerfield-state-park-christmas-in-the-park-2026",
+    "title": "Daingerfield State Park Christmas in the Park — 2026 Drive-Through Lights",
+    "city": "Daingerfield",
+    "countySlug": "morris",
+    "countyName": "Morris County",
+    "region": "piney-woods",
+    "startDate": "2026-12-16",
+    "endDate": "2026-12-19",
+    "venueName": "Daingerfield State Park, 455 Park Road 17, Daingerfield, Texas",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/daingerfield/christmas-in-the-park",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "Texas Parks and Wildlife confirms the 14th annual Christmas in the Park for Wednesday–Saturday, December 16–19, 2026. The drive-through lights run Wednesday and Thursday 6–9 p.m. and Friday and Saturday 6–10 p.m.; Santa visits near the Historic Pavilion fireplace on Friday and Saturday. Entry is free only during the stated holiday-event hours; canned-food donations are encouraged. The original source does not confirm a 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];
