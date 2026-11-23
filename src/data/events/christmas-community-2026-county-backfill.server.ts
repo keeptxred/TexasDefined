@@ -1574,5 +1574,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Jacksonville Chamber of Commerce — first-party 2026 parade event listing",
     "summary": "The Jacksonville Chamber independently confirms its 2026 Annual Christmas Parade for Thursday, December 3, at 6 p.m. in downtown Jacksonville. Parade starts at Commerce and Bolton; the registered entry lineup begins at 5 p.m. but is not a public parade start. This year's theme is A Christmas Story and the grand marshal is Jacksonville ISD superintendent Brad Stewart. Watching is free; entry fees are for participating floats, not spectators. Verify downtown traffic and any late weather change through the Chamber. No next-year date is assumed.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "beeville-merry-miles-christmas-fun-run-2026",
+    "title": "Beeville Merry Miles 5K Fun Run/Walk & Kids Dash",
+    "city": "Beeville",
+    "countySlug": "bee",
+    "countyName": "Bee County",
+    "region": "south-texas",
+    "startDate": "2026-12-05",
+    "venueName": "Coastal Bend Distillery, 201 N. Madison Street, Beeville, Texas",
+    "officialEventUrl": "https://athleteguild.com/event/beeville-tx/2026-merry-miles-5k-fun-runwalk-kids-dash-presented-by-south-texas-striders-runwal",
+    "sourceName": "South Texas Striders / Athlete Guild Productions official 2026 race-registration page",
+    "summary": "The original race-registration page confirms the Merry Miles holiday 5K and Kids Dash at Coastal Bend Distillery on Saturday, December 5, 2026. The tentative schedule has check-in 3:30–4:25 p.m., Kids Dash at 4:45 p.m., and 5K run/walk at 5 p.m.; race organizers advise that the City of Beeville's Christmas parade follows their event but do not independently provide a confirmed parade start or route. Advance registration information is at the official race page. This is a separate Christmas-themed community activity, not evidence of a 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];

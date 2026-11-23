@@ -764,3 +764,16 @@ test("Wilson and Cherokee 2026 Christmas market and parade dates follow their ow
   assert.match(events.find(e=>e.slug===cases[1][0]).summary,/7:30 p.m./);
   assert.match(events.find(e=>e.slug===cases[2][0]).summary,/Watching is free/);
 });
+
+test("Bee County 2026 Christmas fun run is organizer verified without inventing Beeville parade hours", () => {
+  const e=events.find(e=>e.slug==="beeville-merry-miles-christmas-fun-run-2026");
+  assert.ok(e);
+  assert.equal(e.countySlug,"bee");
+  assert.equal(e.startDate,"2026-12-05");
+  assert.equal(e.endDate,undefined);
+  assert.equal(e.sourceVerifiedAt,"2026-11-23");
+  assert.equal(new URL(e.officialEventUrl).hostname,"athleteguild.com");
+  assert.equal(e.sourceName,"South Texas Striders / Athlete Guild Productions official 2026 race-registration page");
+  assert.match(e.summary,/tentative schedule/);
+  assert.match(e.summary,/do not independently provide a confirmed parade start/);
+});
