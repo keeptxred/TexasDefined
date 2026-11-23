@@ -21,7 +21,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   readingMinutes: 20,
-  updatedAt: "2026-11-22",
+  updatedAt: "2026-11-23",
   tags: [
     "Comanche County",
     "Comanche Texas",
@@ -52,6 +52,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   ],
   sources: [
     { label: "Texas State Historical Association — Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county" },
+    { label: "National Park Service / Texas Historical Commission — Comanche Downtown Historic District", url: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf" },
     { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
     { label: "Texas Historical Commission — Current courthouse restoration", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
     { label: "Texas A&M Forest Service — Fleming Oak", url: "https://tfsweb.tamu.edu/famous-trees-of-texas-254/" },
@@ -96,6 +97,10 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     h("The courthouse tells a New Deal-era story"),
     p("Comanche County used several courthouses as its population and economy changed. The present building was constructed during the Works Progress Administration era, replacing an older courthouse and giving the square a distinctly twentieth-century civic landmark. Its pale stone, strong vertical windows and restrained modern detailing differ sharply from the ornate Romanesque courthouses seen in many neighboring counties."),
     p("For visitors, the courthouse square is still the best place to begin understanding Comanche. The current courthouse, the relocated early Cora building and downtown commercial blocks place frontier government, railroad-era trade and New Deal public works within a compact walkable area."),
+
+    h("Downtown Comanche is a listed historic district"),
+    p("The Comanche Downtown Historic District entered the National Register of Historic Places in July 2023 (reference 100009117). The roughly 17.22-acre designation covers the courthouse square and surrounding commercial blocks, bounded approximately by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. The National Park Service nomination documents 48 contributing buildings, including commercial buildings and civic facilities, and identifies a period of significance from about 1883 through 1974. The district is important because an intact townscape—not just an isolated courthouse—shows how Comanche expanded from a frontier county seat into a regional trading center."),
+    p("For a first-time visitor, compare the Art Moderne courthouse with the older limestone, brick and cast-iron storefronts, former federal post office and city hall/fire station. The district designation does not certify that each building can be entered, and the separate Old Cora courthouse remains closed for renovation. Use the museum\'s Comanche Square audio walking tour and the original National Register nomination to interpret the streets without treating private businesses as public museum sites."),
 
     h("De Leon developed its own agricultural identity"),
     p("De Leon lies in the northeastern part of the county and grew into a significant market town as railroads and agriculture expanded. Its location placed it close to the sandy Cross Timbers soils that proved especially useful for crops such as peanuts, melons and orchard products in addition to traditional cotton and grain."),
