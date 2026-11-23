@@ -40,10 +40,10 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       "texas-railroads"
     ],
     whyVisit: "Start here for a local view of the industries and institutions behind Rusk’s railroad history. The collections also cover Caddo material culture, timber work and everyday life in town. Historical reporting describes a large diorama depicting Cherokee County buildings in the 1890s with a moving model train; treat that as a documented exhibit, not a guarantee that it is presently operating.",
-    visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. A 2013 Cherokeean Herald report documents the bank building's relocation beside the Heritage Center; contemporary reporting dates the bank building to 1884 and describes it as Cherokee County's first bank. The building is a separate historic structure, not the museum's original premises. The Cherokeean Herald reported on November 4, 2026 that the museum opened Saturdays 11 a.m.–3 p.m. and Sundays 1–5 p.m., with weekday visits by appointment. That is a reported schedule, not direct confirmation from the museum. Call 903-714-8685 before traveling to verify hours, admission, parking and group arrangements. Plan meals separately and ask about on-site options.",
+    visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. A 2013 Cherokeean Herald report discussed plans to relocate the historic bank building, while later reporting confirms it stood beside the Heritage Center; contemporary reporting dates the bank building to 1884 and describes it as Cherokee County's first bank. The building is a separate historic structure, not the museum's original premises. The Cherokeean Herald reported on November 4, 2026 that the museum opened Saturdays 11 a.m.–3 p.m. and Sundays 1–5 p.m., with weekday visits by appointment. That is a reported schedule, not direct confirmation from the museum. Call 903-714-8685 before traveling to verify hours, admission, parking and group arrangements. Plan meals separately and ask about on-site options.",
     accessibility: "Ask the museum about step-free entry, accessible parking, restrooms and quieter visiting times. The Texas Historical Commission directory gives the Henderson Street address and map.",
     familiesAndGroups: "For a short family visit, look for the bakery delivery box and talk about how people bought bread before supermarkets. Ask about group access and which exhibits are currently on display.",
-    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. The Heritage Center’s curator Betty Marcontell also compiled a May 2023 Historical Tour of Rusk with then-and-now town views and a dated museum visitor notice; the 2023 booklet confirms the reported hours historically, not the current schedule. Use these sources to compare downtown buildings, schools, timber work and railroad-era landmarks with present-day Rusk; confirm present public access before touring. A 2017 local feature describes a miniature train circling an 1890s Cherokee County building diorama: compare that representation with historic and modern maps, without confusing a model with actual nineteenth-century railroad route alignments. The 2013 newspaper account of the neighboring Bonner Bank relocation helps explain why this 1884 building now stands beside the Heritage Center.",
+    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. The Heritage Center’s curator Betty Marcontell also compiled a May 2023 Historical Tour of Rusk with then-and-now town views and a dated museum visitor notice; the 2023 booklet confirms the reported hours historically, not the current schedule. Use these sources to compare downtown buildings, schools, timber work and railroad-era landmarks with present-day Rusk; confirm present public access before touring. A 2017 local feature describes a miniature train circling an 1890s Cherokee County building diorama: compare that representation with historic and modern maps, without confusing a model with actual nineteenth-century railroad route alignments. The 2013 newspaper discussion of Bonner Bank relocation plans, paired with the 2017 account placing the building next door, helps document the site's evolution.",
     exhibits: [
       {
         heading: "Timber and work",
@@ -59,7 +59,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       },
       {
         heading: "Old Bonner Bank (adjacent building)",
-        detail: "Contemporary local reporting identifies the adjacent building as the 1884 Bonner Bank, described as Cherokee County\u2019s first bank. A 2013 archival article documents its relocation by the Heritage Center; examine the exterior without assuming museum admission includes building access."
+        detail: "Contemporary local reporting identifies the adjacent building as the 1884 Bonner Bank, described as Cherokee County\u2019s first bank. A 2013 archival article discussed relocation plans, and a 2017 local account places it beside the Heritage Center; examine the exterior without assuming museum admission includes building access."
       },
       {
         heading: "Rusk bakery delivery",
@@ -108,7 +108,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       {
         label: "Cherokeean Herald, January 23 2013 (UNT historical archive)",
         url: "https://texashistory.unt.edu/ark:/67531/metapth614711/m1/1/",
-        use: "Archival reporting documenting the historical Bonner Bank relocation near the Heritage Center"
+        use: "Archival reporting describing plans for the historical Bonner Bank relocation; later reporting confirms adjacency"
       },
       {
         label: "East Texas Digital Archives",
