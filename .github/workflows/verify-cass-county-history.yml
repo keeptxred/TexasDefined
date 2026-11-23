@@ -7,6 +7,15 @@ on:
       - 'scripts/ci/verify-cass-county-production.mjs'
       - 'scripts/ci/verify-cass-county-production.test.mjs'
       - 'src/data/county-profile.ts'
+      - 'src/data/county-visitor-places.ts'
+      - 'src/data/texas-music-venue-guides.ts'
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/data/texas-music-historic-places.ts'
+      - 'src/data/texas-music-history-evidence.ts'
+      - 'src/components/editorial/TexasMusicVenueGuide.tsx'
+      - 'src/components/editorial/TexasMusicCityGuide.tsx'
+      - 'scripts/ci/verify-linden-music-discovery-production.mjs'
+      - 'scripts/ci/verify-linden-music-discovery-production.test.mjs'
       - '.github/workflows/verify-cass-county-history.yml'
   push:
     branches: [main]
@@ -16,6 +25,15 @@ on:
       - 'scripts/ci/verify-cass-county-production.mjs'
       - 'scripts/ci/verify-cass-county-production.test.mjs'
       - 'src/data/county-profile.ts'
+      - 'src/data/county-visitor-places.ts'
+      - 'src/data/texas-music-venue-guides.ts'
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/data/texas-music-historic-places.ts'
+      - 'src/data/texas-music-history-evidence.ts'
+      - 'src/components/editorial/TexasMusicVenueGuide.tsx'
+      - 'src/components/editorial/TexasMusicCityGuide.tsx'
+      - 'scripts/ci/verify-linden-music-discovery-production.mjs'
+      - 'scripts/ci/verify-linden-music-discovery-production.test.mjs'
       - '.github/workflows/verify-cass-county-history.yml'
   workflow_dispatch:
 permissions:
@@ -33,3 +51,5 @@ jobs:
       - run: node scripts/ci/verify-cass-county-history.mjs
       - run: node --check scripts/ci/verify-cass-county-production.mjs
       - run: node --test scripts/ci/verify-cass-county-production.test.mjs
+      - run: node --check scripts/ci/verify-linden-music-discovery-production.mjs
+      - run: node --test scripts/ci/verify-linden-music-discovery-production.test.mjs

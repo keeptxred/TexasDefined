@@ -6,7 +6,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
     eyebrow: "Rooms that shaped the sound",
     title: "Legendary Texas Music Venues: Dance Halls, Honky-Tonks and Clubs That Shaped the Sound",
     dek: "Texas music history lives in physical places: rural dance halls, Austin clubs, Fort Worth honky-tonks and rooms where local scenes became national movements.",
-    quickAnswer: "A useful Texas music-venue map starts with different kinds of rooms rather than one city or genre. Gruene Hall preserves the nineteenth-century community dance-hall tradition; the Broken Spoke keeps Austin honky-tonk and two-step culture visible; the Continental Club shows how one South Congress room moved through supper-club, rock, roots and blues eras; Antone's made Austin a nationally important blues stop; and Billy Bob's Texas turned the Fort Worth Stockyards into a massive country-music destination. Together they show that Texas music history was built not only by artists and recordings, but by stages, dance floors, promoters, neighborhoods and audiences.",
+    quickAnswer: "A useful Texas music-venue map starts with different kinds of rooms rather than one city or genre. Gruene Hall preserves the nineteenth-century community dance-hall tradition; the Broken Spoke keeps Austin honky-tonk and two-step culture visible; the Continental Club shows how one South Congress room moved through supper-club, rock, roots and blues eras; Antone's made Austin a nationally important blues stop; and Billy Bob's Texas turned the Fort Worth Stockyards into a massive country-music destination. Together they show that Texas music history was built not only by artists and recordings, but by stages, dance floors, promoters, neighborhoods and audiences. Linden's Music City Texas Theater adds an important small-town counterpoint: a nonprofit music venue created from a historic American Legion auditorium.",
     sections: [
       {
         heading: "Why venues belong in Texas music history",
@@ -55,6 +55,14 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "Its importance is partly geographic. Fort Worth had long connected livestock, Western identity and music; Billy Bob's packaged those elements inside the Stockyards and helped make live country music part of the district's modern visitor identity."
         ],
         links: [{ href: "/billy-bobs-texas-history", label: "Billy Bob's Texas history" }]
+      },
+      {
+        heading: "Music City Texas Theater: a small-town stage in Linden",
+        body: [
+          "The American Legion Auditorium in Linden, Cass County, was built between 1948 and 1950. Music City Texas turned the building into a roughly 400-seat theater in 2003. Its significance is not that it rivals the scale of a Fort Worth or Austin music complex: restoring a local civic room brought regular concerts and national touring connections to a much smaller East Texas community.",
+          "The nonprofit's mission combines year-round live performance with music education and instrument donations. Richard Bowden helped link Linden's local musical heritage to a wider professional network; the town also claims Don Henley's formative years and T-Bone Walker's birthplace. In 2023 the Texas Music Office designated Linden a Music Friendly Texas Certified Community, recognizing its larger music ecosystem. Confirm current performances, ticket rules and visitor access on the theater's official schedule rather than assuming an annual tradition supplies a current booking."
+        ],
+        links: [{ href: "/county/cass", label: "Cass County and Linden music heritage" }, { href: "/texas-icons/don-henley", label: "Don Henley's Linden upbringing" }]
       },
       {
         heading: "The next layer: historic and lost rooms",

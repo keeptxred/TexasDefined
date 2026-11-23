@@ -55,7 +55,15 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Metroplex also supported early recording businesses, country, western swing and rockabilly. Treating Dallas and Fort Worth together does not erase their differences; it shows how a larger North Texas network moved musicians between neighborhoods, venues, studios and touring routes."
         ],
         links: [{ href: "/dallas-fort-worth-music-history", label: "Dallas–Fort Worth music history" }, { href: "/texas-jazz", label: "Texas jazz" }]
-      }
+      },
+      {
+        heading: "Why small music towns like Linden belong on the map",
+        body: [
+          "These five large-city scenes do not exhaust Texas music history. Linden in Cass County shows a contrasting route: T-Bone Walker was born there, Don Henley grew up there, and guitarist Richard Bowden played in early regional bands with Henley before his later touring and Pinkard & Bowden career. Linden is not a sixth metropolitan recording center; it demonstrates how small communities can shape nationally important musicians.",
+          "In 2003 local organizers adapted the town's older American Legion Auditorium into Music City Texas Theater, an intimate nonprofit performance venue that brings touring musicians to Linden and helps develop young players. Linden received the Texas Music Office's Music Friendly Texas Certified Community designation in August 2023. For travelers, the useful connection is the live theater at 108 Legion Street, the county's public heritage sites and the official show calendar, not an invented festival date or an assumption that concerts happen every night."
+        ],
+        links: [{ href: "/county/cass", label: "Cass County: Linden music and historic places" }, { href: "/texas-music-venues", label: "Music City Texas Theater and other Texas venues" }]
+      },
     ],
     related: [
       { href: "/texas-music", label: "Texas Music", description: "Explore Texas genres, artists and regional music scenes." },

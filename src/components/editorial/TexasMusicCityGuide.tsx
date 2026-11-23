@@ -11,6 +11,8 @@ type SourceNote = { label: string; href: string; note: string };
 
 const citySources: Record<string, readonly SourceNote[]> = {
   "texas-music-cities": [
+    { label: "Texas Historical Commission — Music City Texas Theater", href: "https://texastimetravel.com/directory/music-city-texas-theater/", note: "Documents the 2003 conversion of the former American Legion Auditorium and the venue's role in the small-town Linden music scene." },
+    { label: "Governor of Texas — Linden Music Friendly Texas certification", href: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community", note: "August 21, 2023 certification announcement naming Linden and musicians including Richard Bowden and Don Henley." },
     { label: "Handbook of Texas Music", href: "https://www.tshaonline.org/handbook/projects/texas-music", note: "Statewide scholarly collection documenting Texas genres, musicians, venues, recording and regional scenes." },
     { label: "Center for Texas Music History", href: "https://www.txst.edu/ctmh/", note: "Texas State University research center focused on the music history of Texas and the Southwest." },
   ],
