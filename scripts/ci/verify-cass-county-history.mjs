@@ -87,4 +87,29 @@ assert.ok(visitor.slice(theaterEntry, theaterEntry + 520).includes('108 Legion S
 assert.ok(visitor.includes("Richard Bowden helped build"), 'Theater short listing must mention Richard Bowden');
 assert.ok(!source.includes('Joplin was born in Linden.'), 'Do not flatten Scott Joplin birthplace uncertainty');
 
+// The editorial longform already named Atlanta and Hughes Springs, but the
+// main county identity/FAQ still displayed ONLY Linden. Cross-check the
+// separate structured county place list against named, public sources.
+const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
+const cassCommunities = /'cass': \\[([\\s\\S]*?)\\],/.exec(countyProfile)?.[1] ?? '';
+assert.ok(cassCommunities, 'Cass County structured place relationships missing');
+for (const place of [
+  'Atlanta', 'Hughes Springs', 'Queen City', 'Avinger',
+  'Bloomburg', 'Domino', 'Douglassville', 'Marietta',
+  'Bivins', 'Kildare', 'McLeod',
+]) {
+  assert.ok(cassCommunities.includes(`'${place}'`), `Cass County structured place relation missing: ${place}`);
+}
+for (const publishedSource of [
+  'atcog.org/wp-content/uploads/2025/07/CEDS-Booklet-approved-2023-updated-June-26-2025-Board-of-Directors.pdf',
+  'tshaonline.org/handbook/entries/cass-county',
+  'comptroller.texas.gov/taxes/property-tax/county-directory/cass.php',
+]) {
+  assert.ok(countyProfile.includes(publishedSource), `Cass County communities have no corroborating evidence: ${publishedSource}`);
+}
+const identityComponent = fs.readFileSync('src/components/content/CountyIdentitySection.tsx', 'utf8');
+const guideComponent = fs.readFileSync('src/components/content/CountyGuideSections.tsx', 'utf8');
+assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identity must use verified places');
+assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
+
 console.log('Cass County editorial provenance / AEO / historical safety assertions: PASS');
