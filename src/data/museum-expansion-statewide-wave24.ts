@@ -66,7 +66,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       credit: "TexasDefined · Original editorial artwork · not a photograph of the museum building"
     },
     bestSeason: "Year-round during the museum's published Thursday–Saturday visiting window; spring and autumn are comfortable for a companion courthouse-square walk.",
-    entryNote: "The museum lists Thursday–Saturday, 10 a.m.–4 p.m., at 402 Moorman Road in Comanche; school and group tours may be arranged. Check for holiday changes. This visitor guide does not claim a published admission price, accessible building layout or an open-air blacksmith demonstration.",
+    entryNote: "The museum lists Thursday–Saturday, 10 a.m.–4 p.m., at 402 Moorman Road in Comanche; school and group tours may be arranged. Check for holiday changes. The museum confirms free general admission, but an accessible building layout or an open-air blacksmith demonstration has not been verified.",
     highlights: [
       "More than 14 historical exhibit rooms",
       "Jack Wright Saloon diorama with original mirror",
