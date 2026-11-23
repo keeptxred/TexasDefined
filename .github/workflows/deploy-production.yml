@@ -1459,6 +1459,15 @@ jobs:
           node --check scripts/ci/verify-cass-county-production.mjs
           node scripts/ci/verify-cass-county-production.mjs
 
+      # Publication is incomplete if Linden appears only on the Cass county
+      # article but not in the statewide music venue and city discovery routes.
+      - name: Verify Linden music statewide discovery on both production origins
+        id: live_linden_music
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: |
+          node --check scripts/ci/verify-linden-music-discovery-production.mjs
+          node scripts/ci/verify-linden-music-discovery-production.mjs
+
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
       - name: Verify hunting hub and turkey guide in desktop/mobile Chrome
