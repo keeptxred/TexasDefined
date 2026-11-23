@@ -628,6 +628,7 @@ test("City of Pittsburg confirms Dec 4 2026 one-hour Power Wheel Parade distinct
  assert.match(x.sourceName,/City of Pittsburg Tourism/);
  assert.match(x.summary,/from 5 to 6 p\.m\./);
  assert.match(x.summary,/does not separately specify the parade lineup/);
+ assert.match(x.venueName,/200 Rusk Street/,"Publisher-provided City event address must be represented with no asserted parade route");
  assert.match(x.summary,/December 5 A Storybook Christmas/);
  assert.match(x.summary,/does not grant photo reuse rights or establish a 2027 edition/);
  const camp=events.filter(e=>e.countySlug==="camp");
