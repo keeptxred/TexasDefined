@@ -34,7 +34,7 @@ for (const [slug, title] of [
   ["texas-thanksgiving-traditions", "Texas Thanksgiving Traditions: Food & Football"],
   ["texas-thanksgiving-parades-2026", "Texas Thanksgiving Parades 2026: Dates & Cities"],
 ]) {
-  assert.ok(seo.includes('["@'+slug+'", "'+title+'"]'), "Thanksgiving concise SEO title missing: "+slug);
+  assert.ok(seo.includes('"/article/'+slug+'": { title: "'+title+'" }'), "Thanksgiving concise SEO title missing: "+slug);
   assert.ok(title.length <= 52, "Thanksgiving SEO title exceeds 68 character budget after Texas Defined suffix: "+slug);
 }
 
