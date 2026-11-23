@@ -35,6 +35,7 @@ for (const origin of origins) {
   if (!h1.includes("Texas State Railroad")) failures.push(origin + ": missing railroad opening H1");
   if (canonical !== "https://texasdefined.com"+slug) failures.push(origin + ": missing/incorrect self-canonical");
   if (hasNoindex) failures.push(origin + ": article accidentally noindexed");
+  if (!html.includes("1910 (Texas State Library) / 1913 (TSHA)")) failures.push(origin + ": source-attributed foundry closure chronology is not live");
 }
 
 const site = origins[0];
@@ -91,6 +92,7 @@ const checks = related.map((path) => check(path, async () => {
 }));
 checks.push(check("Guide metadata", async () => {
   const guide = await getPage(slug);
+  if (!guide.includes("1910 (Texas State Library) / 1913 (TSHA)")) throw new Error("ordinary visitor HTML has stale, unqualified foundry-closure history; recheck canonical cache purge");
   const article = schemaNodes(guide).find((node) => ["Article", "NewsArticle", "BlogPosting"].some((type) => [node["@type"]].flat().includes(type)));
   if (!article?.headline || !article.datePublished || !article.dateModified || !article.image || !article.author) {
     throw new Error("incomplete Article structured data");
