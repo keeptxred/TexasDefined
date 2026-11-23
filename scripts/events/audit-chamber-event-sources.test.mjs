@@ -873,15 +873,15 @@ test("Copperas Cove Chamber's dated current public events calendar restores inde
 });
 
 
-test("Callahan Chamber date-qualified 2026 Christmas remains one specific event, not a fake fully populated festival calendar",()=>{
+test("Callahan Chamber original 2026 multi-season community programming is a public source while one-off parade stays separate",()=>{
  const c=registry.sources.find(x=>x.id==="cross-plains-chamber-annual-community-events");
  const e=registry.sources.find(x=>x.id==="cross-plains-chamber-sip-shop-christmas-parade-2026");
  assert.ok(c && e);assert.deepEqual(c.countySlugs,["callahan"]);assert.deepEqual(e.countySlugs,["callahan"]);
- assert.equal(c.sourceKind,"annual-events-list");assert.equal(e.sourceKind,"event-specific");
+ assert.equal(c.sourceKind,"public-calendar");assert.equal(e.sourceKind,"event-specific");
  assert.equal(c.calendarUrl,"https://crossplainschamberofcommerce.com/community-events");
  assert.equal(e.calendarUrl,"https://crossplainschamberofcommerce.com/sidewalk-sale");
  const calendars=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
- assert.ok(!calendars.has("callahan"),"One dated Christmas event does not establish year-round county festival calendar coverage");
+ assert.ok(calendars.has("callahan"),"Original Chamber 2026 calendar and independently dated May, November and December programs qualify a community source; distinct individual holiday remains event-specific");
  assert.equal(registry.rules.sender,"admin@texasdefined.com");assert.equal(registry.rules.noGmail,true);
 });
 
@@ -946,9 +946,9 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   assert.equal(registry.sources.find(s=>s.id==="baird-chamber-calendar-undated-monitor")?.contactPageUrl,
     "https://www.bairdchamber.com/join-mailing-list");
   const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
-  assert.equal(c.has("callahan"),false);
+  assert.equal(c.has("callahan"),true,"Independent Cross Plains Chamber multi-season 2026 calendar qualifies Callahan, not the undated Baird monitor");
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
-  assert.equal(c.size,176, "Dalhart, Bailey, Henrietta and Pittsburg calendars preserve all county sources; events remain separately verified");
+  assert.equal(c.size,178, "Dalhart, Bailey, Henrietta and Pittsburg calendars preserve all county sources; events remain separately verified");
   assert.equal(registry.sources.length,359);
 });
 
@@ -962,11 +962,11 @@ test("Muleshoe Chamber official event calendar closes Bailey source gap without 
   assert.equal(src.homeUrl,"https://muleshoetxchamber.com/");
   const counties=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.ok(counties.has("bailey"));
-  assert.equal(counties.size,176);
+  assert.equal(counties.size,178);
   const report=await auditChamberSources({offline:true});
   assert.equal(report.sourceCount,359);
-  assert.equal(report.countiesWithExplicitCalendarSources,176);
-  assert.equal(report.countiesNeedingCalendarEvidence,78);
+  assert.equal(report.countiesWithExplicitCalendarSources,178);
+  assert.equal(report.countiesNeedingCalendarEvidence,76);
   assert.match(report.eventPublication,/^NO/);
   assert.equal(registry.sources.find(x=>x.id==="falls-marlin-chamber")?.sourceTrust,"quarantined",
     "Do not lose the site-safety quarantine while upgrading another source");
@@ -980,12 +980,12 @@ test("Dalhart Area Chamber publisher calendar serves both Dallam and Hartley, wi
  assert.equal(d.homeUrl,"https://dalhart.org/");
  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  for(const county of ["dallam","hartley","bailey"]) assert.ok(covered.has(county));
- assert.equal(covered.size,176);
+ assert.equal(covered.size,178);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
  assert.equal(audit.sourceCount,359);
- assert.equal(audit.countiesWithExplicitCalendarSources,176);
- assert.equal(audit.countiesNeedingCalendarEvidence,78);
+ assert.equal(audit.countiesWithExplicitCalendarSources,178);
+ assert.equal(audit.countiesNeedingCalendarEvidence,76);
  assert.match(audit.eventPublication,/^NO/);
 });
 
@@ -1006,13 +1006,13 @@ test("City of Henrietta and City of Pittsburg official public calendars independ
  }
  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  for(const county of ["clay","camp","dallam","hartley","bailey"])assert.ok(covered.has(county));
- assert.equal(covered.size,176);
+ assert.equal(covered.size,178);
  assert.equal(registry.sources.length,359);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
  assert.equal(audit.countiesTotal,254);
- assert.equal(audit.countiesWithExplicitCalendarSources,176);
- assert.equal(audit.countiesNeedingCalendarEvidence,78);
+ assert.equal(audit.countiesWithExplicitCalendarSources,178);
+ assert.equal(audit.countiesNeedingCalendarEvidence,76);
  assert.match(audit.eventPublication,/^NO/,"Source discovery may never auto-publish a future event or image");
 });
 test("calendar-link discovery on an official Chamber homepage is bounded to same-origin safe HTML links", () => {
@@ -1157,8 +1157,8 @@ test("Post Area Chamber original 2026 public community calendar qualifies Garza 
  const report=await auditChamberSources({offline:true});
  assert.equal(report.sourceCount,359);
  assert.equal(report.countiesWithRegisteredSources,254);
- assert.equal(report.countiesWithExplicitCalendarSources,176);
- assert.equal(report.countiesNeedingCalendarEvidence,78);
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.equal(report.countiesNeedingCalendarEvidence,76);
  assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
 });
 
@@ -1181,8 +1181,8 @@ test("Castro county original City of Dimmitt community calendar adds verified 20
  }});
  assert.equal(report.sourceCount,359);
  assert.equal(report.countiesWithRegisteredSources,254);
- assert.equal(report.countiesWithExplicitCalendarSources,176);
- assert.equal(report.countiesNeedingCalendarEvidence,78);
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.equal(report.countiesNeedingCalendarEvidence,76);
  assert.equal(report.observations.find(o=>o.sourceId===stale.id)?.state,"quarantined-source");
  assert.equal(fetched.some(x=>x.includes("dimmittchamber.com")),false);
  assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
@@ -1200,8 +1200,8 @@ test("Memphis Hall County official publisher posts real 2026 dated community eve
  const report=await auditChamberSources({offline:true});
  assert.equal(report.sourceCount,359);
  assert.equal(report.countiesWithRegisteredSources,254);
- assert.equal(report.countiesWithExplicitCalendarSources,176);
- assert.equal(report.countiesNeedingCalendarEvidence,78);
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.equal(report.countiesNeedingCalendarEvidence,76);
  assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  assert.equal(registry.sources.find(s=>s.id==="dimmitt-castro-chamber")?.sourceTrust,"quarantined");
@@ -1219,9 +1219,58 @@ test("Oldham County Chamber original 2026 dated multi-event full calendar closes
  const report=await auditChamberSources({offline:true});
  assert.equal(report.sourceCount,359);
  assert.equal(report.countiesWithRegisteredSources,254);
- assert.equal(report.countiesWithExplicitCalendarSources,176);
- assert.equal(report.countiesNeedingCalendarEvidence,78);
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.equal(report.countiesNeedingCalendarEvidence,76);
  assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
  for(const unsafe of ["dimmitt-castro-chamber","falls-marlin-chamber"])
    assert.equal(registry.sources.find(s=>s.id===unsafe)?.sourceTrust,"quarantined");
+});
+
+
+test("Cross Plains Chamber and Chambers County library calendars qualify separate first-party 2026 organizers without overstating visitor festival coverage",async()=>{
+ const cross=registry.sources.find(s=>s.id==="cross-plains-chamber-annual-community-events");
+ assert.ok(cross);
+ assert.deepEqual(cross.countySlugs,["callahan"]);
+ assert.equal(cross.sourceKind,"public-calendar");
+ assert.equal(cross.calendarUrl,"https://crossplainschamberofcommerce.com/community-events");
+ assert.equal(registry.sources.find(s=>s.id==="cross-plains-chamber-sip-shop-christmas-parade-2026")?.sourceKind,"event-specific");
+ assert.equal(registry.sources.find(s=>s.id==="baird-chamber-calendar-undated-monitor")?.sourceKind,"empty-calendar");
+ const library=registry.sources.find(s=>s.id==="chambers-library-community");
+ assert.ok(library);
+ assert.deepEqual(library.countySlugs,["chambers"]);
+ assert.equal(library.sourceKind,"public-calendar");
+ assert.equal(library.calendarUrl,"https://www.chambers.lib.tx.us/events/upcoming");
+ assert.ok(!("contactEmail" in library));
+ const report=await auditChamberSources({offline:true});
+ assert.equal(report.sourceCount,359);
+ assert.equal(report.countiesWithRegisteredSources,254);
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.equal(report.countiesNeedingCalendarEvidence,76);
+ assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
+ assert.equal(report.sender,"admin@texasdefined.com");
+ for(const id of ["dimmitt-castro-chamber","falls-marlin-chamber"])
+   assert.equal(registry.sources.find(s=>s.id===id)?.sourceTrust,"quarantined");
+});
+
+test("Original Chambers Library public event feed remains robot-blocked to our research bot, even when editorially source-qualified",async()=>{
+ const source=registry.sources.find(s=>s.id==="chambers-library-community");
+ const origin=new URL(source.calendarUrl).origin;
+ const requests=[];
+ const fetchImpl=async url=>{
+   const href=String(url);requests.push(href);
+   if(href===origin+"/robots.txt")return {status:200,ok:true,url:href,headers:{get:()=> "text/plain"},
+     text:async()=>"User-agent: TexasDefined-Events-Research\nDisallow: /"};
+   if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,headers:{get:()=>null},text:async()=>""};
+   return {status:200,ok:true,url:href,headers:{get:()=> "text/html"},text:async()=>'<a href="/events">Festival</a>'};
+ };
+ const sourceDay=[...source.id].reduce((n,ch)=>(n*31+ch.charCodeAt(0))>>>0,0)%7;
+ const dueDate=new Date("2026-11-22T13:00:00Z");
+ dueDate.setUTCDate(dueDate.getUTCDate()+sourceDay);
+ const report=await auditChamberSources({offline:false,now:dueDate,fetchImpl});
+ const row=report.observations.find(o=>o.sourceId===source.id);
+ assert.equal(row.state,"robots-disallowed");
+ assert.ok(requests.includes(origin+"/robots.txt"));
+ assert.ok(!requests.includes(source.calendarUrl),"Do not bypass source robots block after classification");
+ assert.equal(report.countiesWithExplicitCalendarSources,178);
+ assert.match(report.eventPublication,/^NO/);
 });

@@ -1465,7 +1465,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "childress-chamber",
@@ -5295,7 +5295,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "annual-events-list"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "cross-plains-chamber-sip-shop-christmas-parade-2026",
