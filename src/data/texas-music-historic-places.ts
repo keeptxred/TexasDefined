@@ -159,4 +159,33 @@ export const TEXAS_MUSIC_HISTORIC_PLACES: readonly TexasMusicHistoricPlace[] = [
       { label: "Visit Dallas — Longhorn Ballroom", href: "https://www.visitdallas.com/longhorn-ballroom/" },
     ],
   },
+  {
+    slug: "music-city-texas-theater-linden",
+    name: "Music City Texas Theater",
+    place: "Linden, Cass County",
+    era: "1948–1950 auditorium; performance venue established 2003",
+    status: "Historic auditorium adapted as an operating nonprofit music theater",
+    summary:
+      "Linden reused a postwar American Legion auditorium rather than building a new concert hall, creating an intimate East Texas stage tied to the town's musicians and music-education programs.",
+    significance:
+      "Music City Texas Theater demonstrates that influential Texas music infrastructure is not confined to major cities. The 2003 conversion kept a community building useful, brought touring performers into Cass County, and supported a nonprofit mission of year-round entertainment and instrument donations. It belongs alongside larger historic clubs as a small-town preservation and live-music example, without implying that an undated show listing is a confirmed future booking.",
+    relatedHref: "/county/cass",
+    relatedLabel: "Cass County and Linden music history",
+    sourceUrl: "https://texastimetravel.com/directory/music-city-texas-theater/",
+    sourceLabel: "Texas Historical Commission — Music City Texas Theater",
+    story: [
+      "The American Legion Auditorium in Linden was built between 1948 and 1950. In 2003 Music City Texas transformed it into a 400-seat performance theater rather than replacing the older building. The Texas Historical Commission's heritage tourism program documents performances by Don Henley, Jackson Browne, Rodney Crowell and other touring musicians, connecting the small Cass County town to broader Texas concert circuits.",
+      "The nonprofit says its mission is to preserve regional musical heritage, present entertainment and help young musicians through education and instrument donations. Linden was formally designated a Music Friendly Texas Certified Community in August 2023; the Governor's announcement identified Richard Bowden, Don Henley, T-Bone Walker and Scott Joplin as part of the regional music story. Check the venue's own current shows and ticket page before traveling; dates, pricing and access should never be projected from old listings.",
+    ],
+    related: [
+      { href: "/county/cass", label: "Cass County and Linden music heritage" },
+      { href: "/texas-icons/don-henley", label: "Don Henley and Linden" },
+      { href: "/texas-music-cities", label: "Texas music cities and small-town scenes" },
+    ],
+    sources: [
+      { label: "Texas Historical Commission — Music City Texas Theater", href: "https://texastimetravel.com/directory/music-city-texas-theater/" },
+      { label: "Music City Texas Theater — official mission and location", href: "https://www.musiccitytexas.org/about" },
+      { label: "Governor of Texas — Linden music certification, August 21, 2023", href: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community" },
+    ],
+  },
 ] as const;
