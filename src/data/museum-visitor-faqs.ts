@@ -91,7 +91,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Does the museum charge admission or require advance tickets?",
-      "answer": "Yes. The museum's official homepage explicitly states general admission is free; donations support its work. No ordinary timed-ticket requirement is described. Contact volunteers for school/group tour arrangements or any special programs.",
+      "answer": "No. The museum's official homepage explicitly states general admission is free; donations support its work. No ordinary timed-ticket requirement is described. Contact volunteers for school/group tour arrangements or any special programs.",
       "verificationUrl": "https://www.comanchecountytxmuseum.com/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/",
