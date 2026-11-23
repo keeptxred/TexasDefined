@@ -117,9 +117,9 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
-  assert.ok(registry.sources.length >= 306, "Do not lose the verified original 270 sources plus three official tourism calendars");
+  assert.ok(registry.sources.length >= 313, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 154, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 158, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -469,7 +469,7 @@ test("Current community calendars and empty civic inboxes are different evidence
     assert.deepEqual(s.countySlugs,["walker"]);
   }
   const sourceCalendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(sourceCalendarCounties.size>=148);
+  assert.ok(sourceCalendarCounties.size>=151);
   assert.ok(!sourceCalendarCounties.has("walker"),"Separate confirmed fair and movie cannot misrepresent a complete active county calendar");
   assert.ok(!sourceCalendarCounties.has("hopkins"),"Submit-an-event form is not a full dated Hopkins County calendar");
   const report=await auditChamberSources({offline:true});
@@ -502,4 +502,37 @@ test("Rural official 2026 calendar sources are active and distinct from annual H
   const full=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(full.size>=148);
   assert.ok(!full.has("sabine"),"Sabine County annual overview must not inflate the direct live calendar count");
+});
+
+test("City and original event publisher calendars recover Midland, Matagorda and Hopkins while preserving empty Jasper dates",async()=>{
+  const active=[
+    ["city-midland-community-events-calendar","midland","www.midlandtexas.gov"],
+    ["city-bay-city-community-calendar","matagorda","www.baycitytx.gov"],
+    ["sulphur-springs-downtown-business-alliance-calendar","hopkins","ssdba.org"],
+    ["hopkins-heritage-park-holiday","hopkins","hopkinsmuseum.org"],
+  ];
+  for(const [id,county,host]of active){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing first-party full community calendar "+id);
+    assert.equal(s.sourceKind,"public-calendar");
+    assert.ok(s.countySlugs.includes(county));
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  const jasper=registry.sources.find(s=>s.id==="city-jasper-texas-calendar-monitor");
+  assert.equal(jasper?.sourceKind,"empty-calendar");
+  assert.deepEqual(jasper?.countySlugs,["jasper"]);
+  const individual=["city-jasper-christmas-in-park-2026","decatur-chamber-tree-lighting-2026","decatur-chamber-parade-of-lights-2026"];
+  for(const id of individual)assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
+  const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.equal(reviewed.size,151);
+  assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
+  assert.ok(!reviewed.has("wise"),"Two individually sourced parade/tree events are not a complete live county calendar");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.countiesTotal,254);
+  assert.equal(report.countiesMissingSources,0);
+  assert.equal(report.countiesWithExplicitCalendarSources,151);
+  assert.equal(report.countiesNeedingCalendarEvidence,103);
+  assert.equal(report.sourceCount,313);
+  assert.equal(report.emptyCalendarSourceCount,9);
+  assert.match(report.eventPublication,/^NO/);
 });
