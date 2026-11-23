@@ -5,6 +5,7 @@ import { isTexasThanksgivingWeek } from "../../src/lib/thanksgiving-season.ts";
 const read = (path) => fs.readFileSync(path, "utf8");
 const homepage = read("src/routes/index.lazy.tsx");
 const homepageRoute = read("src/routes/index.tsx");
+const seo = read("src/lib/seo.ts");
 assert.match(homepageRoute, /thanksgivingWeek \? "Happy Thanksgiving" : pageTitle/, "Seasonal SEO title must let buildMeta append brand only once");
 assert.doesNotMatch(homepageRoute, /Happy Thanksgiving \| Texas Defined/, "Do not duplicate the brand suffix");
 const loader = read("src/data/fixtures/lazy-evergreen.ts");
@@ -27,6 +28,16 @@ assert.deepEqual(articles.map(article => article.slug), expected);
 assert.deepEqual(stubs.map(article => article.slug), expected);
 assert.match(homepage, /thanksgivingWeek \? "Happy Thanksgiving" : "The places, stories & life of Texas"/);
 assert.match(homepage, /thanksgivingFeatures\.map/);
+for (const [slug, title] of [
+  ["texas-thanksgiving-turkey-frying-safety", "Turkey Fryer Safety: Texas Thanksgiving Guide"],
+  ["texas-thanksgiving-recipes", "Texas Thanksgiving Recipes: Turkey, Dressing & Pie"],
+  ["texas-thanksgiving-traditions", "Texas Thanksgiving Traditions: Food & Football"],
+  ["texas-thanksgiving-parades-2026", "Texas Thanksgiving Parades 2026: Dates & Cities"],
+]) {
+  assert.ok(seo.includes('"/article/'+slug+'": { title: "'+title+'" }'), "Concise Thanksgiving SEO title missing: "+slug);
+  assert.ok(title.length <= 52, "Thanksgiving title must fit the site title-template budget: "+slug);
+}
+
 assert.match(loader, /\.\.\.texasThanksgivingArticleStubs/);
 assert.match(loader, /await import\("\.\/texas-thanksgiving-articles"\)/);
 for (const article of articles) {
