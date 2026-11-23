@@ -1440,6 +1440,16 @@ jobs:
         if: ${{ always() && steps.live_base.outcome == 'success' }}
         run: node scripts/ci/verify-texas-state-railroad-production.mjs
 
+      # Cass County must expose its researched Linden music history AND the
+      # verified towns in the main AEO/identity sections on both public origins.
+      # Checking source literals alone previously missed the one-town FAQ.
+      - name: Verify Cass County music and structured-place authority on production
+        id: live_cass_county
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: |
+          node --check scripts/ci/verify-cass-county-production.mjs
+          node scripts/ci/verify-cass-county-production.mjs
+
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
       - name: Verify hunting hub and turkey guide in desktop/mobile Chrome
