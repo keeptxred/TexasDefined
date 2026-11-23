@@ -245,6 +245,7 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
 // comparably verified replacement is expressly approved. Remote Explore data can
 // be structurally valid yet stale; generic scoring alone must not erase these
 // November 2026 history, admission, photo-rights and itinerary corrections.
+// Accept later reviewed YYYY-MM-DD dates so quarterly updates cannot revive stale remote copy.
 const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
   "comanche",
   "comanche-county-historical-museum",
@@ -253,7 +254,10 @@ const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
 function reviewedComancheCanonical(slug: string): Destination | undefined {
   if (!COMANCHE_REVIEWED_AUTHORITY_SLUGS.has(slug)) return undefined;
   const preserved = preservedExploreDestinations.find((destination) =>
-    destination.slug === slug && destination.sourceCheckedAt === "2026-11-22",
+    destination.slug === slug
+      && typeof destination.sourceCheckedAt === "string"
+      && /^\d{4}-\d{2}-\d{2}$/.test(destination.sourceCheckedAt)
+      && destination.sourceCheckedAt >= "2026-11-22",
   );
   return resolveSeoReadyDestination(preserved);
 }
