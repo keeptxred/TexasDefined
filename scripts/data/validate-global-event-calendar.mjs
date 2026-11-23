@@ -133,7 +133,7 @@ for(const marker of [
 ]) requireText(seymour2027,marker,"Seymour nonprofit exact original May 8 2027 edition evidence");
 if((seymour2027.match(/id: "curated-seymour-2027:/g)??[]).length!==1)
  failures.push("Seymour source only confirms ONE May 8 2027 date-specific program");
-if(/\\b(startTime|endTime|ticketing|image|officialTicketUrl|affiliateUrl):/.test(seymour2027))
+if(/\b(startTime|endTime|ticketing|image|officialTicketUrl|affiliateUrl):/.test(seymour2027))
  failures.push("Seymour source does not verify show start/end hours, admission, ticket or media permissions");
 if(/startDate: "2026-|startDate: "2028-/.test(seymour2027))
  failures.push("Seymour 2027 car show must not project prior or future year editions");
