@@ -253,7 +253,10 @@ const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
 function reviewedComancheCanonical(slug: string): Destination | undefined {
   if (!COMANCHE_REVIEWED_AUTHORITY_SLUGS.has(slug)) return undefined;
   const preserved = preservedExploreDestinations.find((destination) =>
-    destination.slug === slug && destination.sourceCheckedAt === "2026-11-22",
+    destination.slug === slug
+      && typeof destination.sourceCheckedAt === "string"
+      && /^\d{4}-\d{2}-\d{2}$/.test(destination.sourceCheckedAt)
+      && destination.sourceCheckedAt >= "2026-11-22",
   );
   return resolveSeoReadyDestination(preserved);
 }
