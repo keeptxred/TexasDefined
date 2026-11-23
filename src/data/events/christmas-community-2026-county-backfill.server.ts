@@ -1332,5 +1332,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Pittsburg Tourism — original dated 2026 community calendar",
     "summary": "The City of Pittsburg's official tourism events calendar lists the Christmas Power Wheel Parade for Friday, December 4, 2026, from 5 to 6 p.m., with the City of Pittsburg identified as organizer. The official event detail lists the City at 200 Rusk Street, Pittsburg, but does not separately specify the parade lineup, driving route, safe viewing areas, parking or admission conditions. This is a distinct December 4 city program and should not be merged with the separately published December 5 A Storybook Christmas Market & Parade. The city listing does not grant photo reuse rights or establish a 2027 edition.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "post-lighted-christmas-parade-light-up-post-2026",
+    "title": "Post Lighted Christmas Parade & Light Up Post",
+    "city": "Post",
+    "countySlug": "garza",
+    "countyName": "Garza County",
+    "region": "panhandle",
+    "startDate": "2026-12-05",
+    "venueName": "Post, Texas (parade route not specified in the Chamber calendar)",
+    "officialEventUrl": "https://postcitytexas.com/2026-community-calendar-2/",
+    "sourceName": "Post Area Chamber of Commerce — official 2026 Community Calendar",
+    "summary": "The Post Area Chamber of Commerce's original 2026 Community Calendar lists the Lighted Christmas Parade and Light Up Post on Saturday, December 5, 2026. It identifies both under the same date, but does not specify a start time, procession route, parking, admission terms or a detailed program. The Chamber warns its dates are subject to change; confirm local arrangements before traveling. No 2027 schedule or photograph reuse permission is implied.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
