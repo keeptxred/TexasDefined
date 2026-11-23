@@ -400,3 +400,42 @@ test("Gilmer Texas Yulefest has independent first-party Dec 5, 2026 evidence and
   assert.ok(e.summary.length>110);
   assert.equal(events.filter(e=>e.slug==="gilmer-upshur-yulefest-2026").length,1);
 });
+
+test("Fairfield 2026 holiday celebrations are two dated Chamber editions, not a fabricated multiweek festival",()=>{
+  const cases=[
+    ["fairfield-freestone-christmas-on-the-square-2026","2026-12-05"],
+    ["fairfield-freestone-jingle-all-the-way-2026","2026-12-19"],
+  ];
+  for(const [slug,date] of cases){
+    const event=events.find(e=>e.slug===slug);
+    assert.ok(event,"Missing Fairfield 2026 official Chamber event "+slug);
+    assert.equal(event.startDate,date);
+    assert.equal(event.endDate,undefined);
+    assert.equal(event.countySlug,"freestone");
+    assert.equal(event.countyName,"Freestone County");
+    assert.equal(event.city,"Fairfield");
+    assert.equal(event.region,"prairies-lakes");
+    assert.equal(event.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(event.officialEventUrl).hostname,"www.fairfieldtexaschamber.com");
+    assert.match(event.summary,/does not confirm|verification is required/);
+  }
+  assert.equal(events.filter(e=>e.countySlug==="freestone").length,2);
+});
+
+
+test("Gatesville December 5, 2026 Christmas on Marshall Street uses a dated first-party Coryell source",()=>{
+  const event=events.find(e=>e.slug==="gatesville-christmas-on-marshall-street-2026");
+  assert.ok(event,"Missing Gatesville official 2026 community Christmas event");
+  assert.equal(event.startDate,"2026-12-05");
+  assert.equal(event.endDate,undefined);
+  assert.equal(event.countySlug,"coryell");
+  assert.equal(event.countyName,"Coryell County");
+  assert.equal(event.city,"Gatesville");
+  assert.equal(event.region,"prairies-lakes");
+  assert.equal(event.sourceVerifiedAt,"2026-11-22");
+  assert.equal(new URL(event.officialEventUrl).hostname,"www.gatesvilleisd.org");
+  assert.match(event.summary,/10 a\.m\./);
+  assert.match(event.summary,/event end time/);
+  assert.match(event.summary,/Christmas at the Ballpark/);
+  assert.equal(events.filter(e=>e.slug===event.slug).length,1);
+});
