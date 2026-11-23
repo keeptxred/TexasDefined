@@ -527,7 +527,7 @@ test("City and original event publisher calendars recover Midland, Matagorda and
   for(const id of individual)assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
   const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(reviewed.size>=151, "Never lose 151 official public-calendar counties");
-  assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
+  assert.ok(reviewed.has("jasper"),"Jasper now has independently reviewed Chamber community calendar; the separate city event remains only event-specific");
   assert.ok(reviewed.has("wise"),"Decatur Chamber independently lists its Community Events Calendar; the two 2026 holiday event pages are separate organizer date evidence");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesTotal,254);
