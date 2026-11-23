@@ -40,8 +40,8 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     summary: "The Charles Schwab Challenge returns to Colonial Country Club in Fort Worth for tournament week May 24–30, 2027.",
     whyItMatters: "Colonial is one of the PGA TOUR’s enduring Texas stops, pairing a long-running professional event with one of Fort Worth’s best-known golf venues.",
     planningNotes: [
-      "Use the tournament’s official spectator information for daily gate, parking, rideshare and ticket details as the event approaches.",
-      "Tournament-week dates cover more than championship rounds, so confirm the specific day and access type before booking around a session.",
+      "Use the tournament’s official spectator information for daily gate, parking, rideshare and ticket details as the event approaches. Compare public, VIP and valet parking in the tournament’s Parking Options before choosing how to arrive.",
+      "Tournament-week dates cover more than championship rounds, so confirm the specific day and access type before booking around a session. Use Tee Times & Pairings for each round’s start times and player groupings.",
       "Pair the event with Texas Defined Fort Worth and Tarrant County guides for lodging, dining and other trip planning.",
     ],
     officialUrl: "https://www.charlesschwabchallenge.com/",
