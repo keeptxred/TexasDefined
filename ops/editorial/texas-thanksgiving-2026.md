@@ -1,6 +1,6 @@
 # TexasDefined Thanksgiving 2026 authority checkpoint
 
-Last content/source review: 2026-11-23. Publishing target: homepage November 23–29, 2026 America/Chicago. The seasonal homepage header is **Happy Thanksgiving**, then reverts without manual release. The 2026 campaign guard intentionally blocks replaying 2026 parade dates during 2027 or later until a new editorial review.
+Last content/source review: 2026-11-23. Publishing target: homepage November 23–26, 2026 America/Chicago. The seasonal homepage header is **Happy Thanksgiving** through Thanksgiving Thursday and reverts to its evergreen title, metadata and normal nonholiday homepage sections at **12:00 a.m. CST Friday, November 27, 2026**, without manual release. The four published Thanksgiving guides remain available year-round. The 2026 campaign guard intentionally blocks replaying 2026 parade dates during 2027 or later until a new editorial review.
 
 ## Four authoritative local articles
 - /article/texas-thanksgiving-turkey-frying-safety — NFPA / NPS warning, CDC and 2026 Texas A&M AgriLife sources; >1,000 original content words; fully thawed/dried turkey, oil displacement, at least 10 feet from structures, 165°F internal, water-free grease-fire response and professional alternatives.

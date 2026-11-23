@@ -1,7 +1,8 @@
 /**
  * Thanksgiving week in America/Chicago: Monday before the fourth Thursday of
- * November through the following Sunday. The seasonal homepage automatically
- * reverts to its evergreen title on Monday without another deployment.
+ * November through Thanksgiving Thursday. The seasonal homepage automatically
+ * reverts at midnight America/Chicago on Friday, November 27, 2026,
+ * without another deployment.
  */
 export function isTexasThanksgivingWeek(date: Date = new Date()): boolean {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -15,5 +16,5 @@ export function isTexasThanksgivingWeek(date: Date = new Date()): boolean {
   const firstDay = new Date(Date.UTC(year, 10, 1)).getUTCDay();
   const thanksgiving = 1 + (4 - firstDay + 7) % 7 + 21;
   const today = read("day");
-  return today >= thanksgiving - 3 && today <= thanksgiving + 3;
+  return today >= thanksgiving - 3 && today <= thanksgiving;
 }
