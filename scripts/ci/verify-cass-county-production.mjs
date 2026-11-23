@@ -25,8 +25,9 @@ export const cassRequiredMarkers = [
 export function assertCassCountyAuthority(html, url) {
   if (!html.includes('Cass County') || !html.includes('/county/cass'))
     throw new Error(url + ': Cass County canonical identity or page title missing');
-  if (/<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)
-      || /<meta\\b[^>]*content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots/i.test(html))
+  const robotsMeta = [...html.matchAll(/<meta[^>]*>/gi)].map((match) => match[0].toLowerCase());
+  if (robotsMeta.some((tag) => (tag.includes('name="robots"') || tag.includes("name='robots'"))
+      && tag.includes('noindex')))
     throw new Error(url + ': Cass County incorrectly noindexed');
   for (const marker of cassRequiredMarkers) {
     if (!html.includes(marker)) throw new Error(url + ': required live Cass County evidence missing: ' + marker);
@@ -42,7 +43,7 @@ async function check(origin, fresh) {
     headers: {Accept: 'text/html', 'Cache-Control': 'no-cache', 'User-Agent': 'TexasDefined-Cass-Authority-Acceptance/1.0'},
     signal: AbortSignal.timeout(20000),
   });
-  if (response.status !== 200 || !/text\\/html/i.test(response.headers.get('content-type') || '')
+  if (response.status !== 200 || !(response.headers.get('content-type') || '').toLowerCase().includes('text/html')
       || response.headers.get('cf-mitigated') === 'challenge')
     throw new Error(url + ': expected ordinary HTML 200, got ' + response.status + ' ' + response.headers.get('content-type'));
   const html = await response.text();
