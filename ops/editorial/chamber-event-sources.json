@@ -5401,6 +5401,21 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "refugio-county-fair-official-events-calendar",
+      "organization": "Refugio County Fair Association — current fair and community-program calendar",
+      "countySlugs": [
+        "refugio"
+      ],
+      "homeUrl": "https://www.refugiocountyfair.com/",
+      "calendarUrl": "https://www.refugiocountyfair.com/events/",
+      "contactPageUrl": "https://www.refugiocountyfair.com/about-us/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
