@@ -10,15 +10,15 @@ const host = process.env.COMANCHE_PUBLIC_ORIGIN?.replace(/\/$/, "") || "https://
 const targets = [
   {
     path: "/destination/comanche",
-    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places"],
+    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co."],
   },
   {
     path: "/county/comanche",
-    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Comanche County Historical Museum", "Guide updated", "Comanche Downtown Historic District"],
+    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Comanche County Historical Museum", "Guide updated", "Comanche Downtown Historic District", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co."],
   },
   {
     path: "/destination/comanche-county-historical-museum",
-    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. Its official homepage states general admission is free"],
+    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. Its official homepage states general admission is free", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co."],
   },
 ];
 
@@ -40,6 +40,14 @@ function verify({ path, evidence }, html) {
   if (robots.some((tag) => /noindex/i.test(tag))) missing.push("indexable robots directive (found noindex)");
   if (!html.includes(`https://texasdefined.com${path}`)) missing.push("canonical absolute URL");
   if (text.length < 4000) missing.push("substantial server-rendered page content");
+  const obsoleteBrennanAdvice = [
+    "Brennan Vineyards at 802 South Austin Street makes Texas wine",
+    "Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine",
+    "Brennan Vineyards and JW Hardin Wine Co. both maintain official local presences",
+    "preconfirmed Brennan Vineyards or JW Hardin tasting",
+    "Texas-made wine at the historic McCrary homestead, 802 S. Austin St; confirm tasting reservations",
+  ];
+  if (obsoleteBrennanAdvice.some((advice) => text.includes(advice))) missing.push("obsolete Brennan Comanche tasting-room recommendation");
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||
     text.includes("Yes. The museum\'s official homepage explicitly states general admission is free"))) {
