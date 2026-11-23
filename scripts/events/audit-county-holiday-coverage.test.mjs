@@ -47,6 +47,23 @@ test("all counties receive holiday research status and past events do not become
     const issue = formatCountyHolidayIssue(report);
     assert.match(issue, /Rusk County/);
     assert.match(issue, /Christmas in Gusherville/);
+
+    // A future independently sourced holiday edition must join the inventory
+    // without replacing the prior year's history or guessing another date.
+    put("src/data/events/christmas-community-2027.server.ts", [
+      "const verifiedOccurrences2027 = [",
+      '  { slug: "rusk-christmas-parade-2027", title: "Rusk Christmas Parade",',
+      '    countySlug: "rusk", startDate: "2027-12-04",',
+      '    officialEventUrl: "https://example.org/rusk-parade-2027" }',
+      "];",
+     ].join("\n"));
+    const followingYear = auditCountyHolidayCoverage(root, new Date("2027-11-22T12:00:00Z"), 3);
+    assert.equal(followingYear.counties.find(c => c.slug === "rusk").status, "upcoming-verified");
+    assert.equal(followingYear.counties.find(c => c.slug === "rusk").upcoming[0].lastConfirmedStart, "2027-12-04");
+    assert.equal(followingYear.counties.find(c => c.slug === "upshur").status, "historical-next-date-pending");
+    assert.equal(followingYear.counties.find(c => c.slug === "gregg").status, "historical-next-date-pending");
+    const expiredYear = auditCountyHolidayCoverage(root, new Date("2028-01-05T12:00:00Z"), 3);
+    assert.equal(expiredYear.counties.find(c => c.slug === "rusk").status, "historical-next-date-pending");
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
   }
