@@ -863,9 +863,50 @@ test("Copperas Cove Chamber's dated current public events calendar restores inde
   const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(calendarCounties.has("coryell"));
   assert.ok(calendarCounties.size>=167,"Coryell genuine public Chamber calendar adds one real county without inflating others");
-  assert.equal(registry.sources.length,351);
+  assert.ok(registry.sources.length >= 351, "Preserve original 351 first-party review sources before later monitors");
   assert.equal(registry.rules.sender,"admin@texasdefined.com");
   assert.equal(registry.rules.noGmail,true);
+});
+
+
+test("Quarantined Marlin source never supplies crawl leads or a trustworthy event publisher",async()=>{
+  const marlin=registry.sources.find(s=>s.id==="falls-marlin-chamber");
+  assert.ok(marlin);
+  assert.deepEqual(marlin.countySlugs,["falls"]);
+  assert.equal(marlin.sourceKind,"contact-only");
+  assert.equal(marlin.sourceTrust,"quarantined");
+  assert.match(marlin.riskReview,/adult external link/);
+  assert.match(marlin.riskReview,/2018/);
+  const report=await auditChamberSources({offline:true});
+  const row=report.observations.find(x=>x.sourceId==="falls-marlin-chamber");
+  assert.equal(row.sourceTrust,"quarantined");
+  assert.equal(row.state,"quarantined-source");
+  assert.deepEqual(row.leads,[]);
+  assert.equal(row.sourceKind,"contact-only");
+  assert.throws(()=>validateRegistry({...registry,sources:registry.sources.map(x=>
+    x.id===marlin.id?{...x,sourceTrust:"trusted"}:x)},counties),/Unsupported source-trust status/);
+  assert.throws(()=>validateRegistry({...registry,sources:registry.sources.map(x=>
+    x.id===marlin.id?{...x,riskReview:""}:x)},counties),/substantive public safety review/);
+});
+
+test("Baird and Rockdale official events calendar shells without readable edition dates stay monitored without inflating coverage",async()=>{
+  for(const [id,county,url] of [
+    ["baird-chamber-calendar-undated-monitor","callahan","https://www.bairdchamber.com/events"],
+    ["rockdale-chamber-community-calendar-undated-monitor","milam","https://www.rockdalechamber.org/events"],
+  ]){
+    const item=registry.sources.find(s=>s.id===id);
+    assert.ok(item);
+    assert.equal(item.sourceKind,"empty-calendar");
+    assert.deepEqual(item.countySlugs,[county]);
+    assert.equal(item.calendarUrl,url);
+  }
+  const baird=registry.sources.find(s=>s.id==="baird-chamber-calendar-undated-monitor");
+  assert.equal(baird.contactPageUrl,"https://www.bairdchamber.com/join-mailing-list");
+  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.equal(covered.has("callahan"),false,"A loading-only Chamber calendar cannot certify Callahan festival coverage");
+  assert.equal(covered.has("milam"),true,"Independent Cameron EDC events remains Milam's classified public calendar");
+  assert.equal(covered.size,167);
+  assert.equal(registry.sources.length,353);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
