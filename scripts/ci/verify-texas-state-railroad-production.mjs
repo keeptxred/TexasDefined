@@ -55,9 +55,27 @@ const cached = new Map();
 async function getPage(path) {
   if (!cached.has(path)) {
     cached.set(path, (async () => {
-      const response = await fetch(new URL(path, site), { signal: AbortSignal.timeout(30000) });
-      if (!response.ok) throw new Error(path + ": HTTP " + response.status);
-      return response.text();
+      // A brief canonical origin timeout must not fail an otherwise healthy
+      // release. Re-request the exact ordinary visitor URL; never switch to
+      // a cache-busted URL or relax the subsequent content assertions.
+      let lastError;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const response = await fetch(new URL(path, site), {
+            headers: { Accept: "text/html, application/xml;q=0.9", "User-Agent": "TexasDefinedRailroadAuthorityValidator/1.0" },
+            signal: AbortSignal.timeout(attempt === 1 ? 30000 : 40000),
+          });
+          if (!response.ok) throw new Error(path + ": HTTP " + response.status);
+          return await response.text();
+        } catch (error) {
+          lastError = error;
+          if (attempt < 3) {
+            console.warn(path + ": attempt " + attempt + " failed (" + String(error) + "), retrying the ordinary URL");
+            await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+          }
+        }
+      }
+      throw new Error(path + ": failed after 3 exact-URL attempts: " + String(lastError));
     })());
   }
   return cached.get(path);
@@ -108,6 +126,10 @@ checks.push(check("Museum source-freshness on ordinary canonical HTML", async ()
     ["2026 local reporting citation", "thecherokeean.com/articles/55397/view"],
     ["museum-curator 2023 source", "fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/"],
     ["operator-hours caveat", "not direct confirmation from the museum"],
+    ["Bonner Bank historical context", "1884 Bonner Bank"],
+    ["historically documented model railway", "1890s Cherokee County model railway"],
+    ["historical exhibit reporting citation", "thecherokeean.com/articles/44898/view"],
+    ["Bonner Bank archival citation", "texashistory.unt.edu/ark:/67531/metapth614711/m1/1/"],
   ]) {
     if (!page.includes(marker)) throw new Error("ordinary public museum HTML missing " + label + "; inspect edge cache versus current release");
   }
