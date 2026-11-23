@@ -2313,14 +2313,14 @@
       "countySlugs": [
         "jasper"
       ],
-      "homeUrl": "https://jaspercoc.org/",
-      "calendarUrl": "https://jaspercoc.org/",
-      "contactPageUrl": "https://jaspercoc.org/",
+      "homeUrl": "https://www.jasperchamber.com/",
+      "calendarUrl": "https://www.jasperchamber.com/",
+      "contactPageUrl": "https://www.jasperchamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "glen-rose-somervell-chamber",
@@ -3341,7 +3341,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bronte-coke-city",
@@ -4882,6 +4882,66 @@
       "homeUrl": "https://memphistexas.gov/",
       "calendarUrl": "https://memphistexas.gov/calendar-of-events",
       "contactPageUrl": "https://memphistexas.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "big-spring-cvb-calendar-monitor",
+      "organization": "Big Spring Convention and Visitors Bureau — calendar date-review desk",
+      "countySlugs": [
+        "howard"
+      ],
+      "homeUrl": "https://www.visitbigspring.com/",
+      "calendarUrl": "https://www.visitbigspring.com/Calendar.aspx",
+      "contactPageUrl": "https://www.visitbigspring.com/Calendar.aspx",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-brady-community-calendar-monitor",
+      "organization": "City of Brady — community events calendar date-review desk",
+      "countySlugs": [
+        "mcculloch"
+      ],
+      "homeUrl": "https://bradytx.us/",
+      "calendarUrl": "https://bradytx.us/Calendar.aspx",
+      "contactPageUrl": "https://bradytx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "hardin-county-government-events-monitor",
+      "organization": "Hardin County Texas — public events and notices desk",
+      "countySlugs": [
+        "hardin"
+      ],
+      "homeUrl": "https://www.hardincountytx.gov/",
+      "calendarUrl": "https://www.hardincountytx.gov/",
+      "contactPageUrl": "https://www.hardincountytx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-wheeler-community-calendar-monitor",
+      "organization": "City of Wheeler — community calendar research desk",
+      "countySlugs": [
+        "wheeler"
+      ],
+      "homeUrl": "https://www.wheelertexas.org/",
+      "calendarUrl": "https://www.wheelertexas.org/",
+      "contactPageUrl": "https://www.wheelertexas.org/contact",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
