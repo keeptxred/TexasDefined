@@ -23,7 +23,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "lufkin-angelina-chamber",
@@ -97,7 +98,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "tyler-chamber",
@@ -577,7 +579,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "greater-athens-chamber",
@@ -651,7 +654,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "burnet-chamber",
@@ -815,7 +819,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "jacksboro-city-christmas-parade",
@@ -1037,7 +1042,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "visit-goliad-christmas",
@@ -1066,7 +1072,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "poteet-city-christmas-2026",
@@ -1319,7 +1326,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "seymour-chamber",
@@ -1333,7 +1341,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "bowie-texas-chamber",
@@ -1362,7 +1371,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "visit-canadian-hemphill",
@@ -1391,7 +1401,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "claude-armstrong-chamber",
@@ -1420,7 +1431,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "clifton-chamber",
@@ -1463,7 +1475,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "henrietta-clay-chamber",
@@ -1477,7 +1490,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "coleman-county-chamber",
@@ -1536,7 +1550,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "gainesville-cooke-chamber",
@@ -1698,7 +1713,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "delta-county-chamber",
@@ -1933,7 +1949,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "wichita-falls-chamber",
@@ -2034,7 +2051,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "new-braunfels-chamber",
@@ -2091,7 +2109,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "marion-jefferson-chamber",
@@ -2224,7 +2243,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "lampasas-county-chamber",
@@ -2268,7 +2288,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "jasper-lake-sam-rayburn-chamber",
@@ -2282,7 +2303,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "glen-rose-somervell-chamber",
@@ -2429,7 +2451,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "graham-young-chamber",
@@ -2543,12 +2566,13 @@
         "terry"
       ],
       "homeUrl": "https://brownfieldchamber.com/",
-      "calendarUrl": "https://brownfieldchamber.com/",
+      "calendarUrl": "https://brownfieldchamber.com/events/",
       "contactPageUrl": "https://brownfieldchamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "denver-city-yoakum-chamber",
@@ -2652,7 +2676,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "centerville-leon-chamber",
@@ -2666,7 +2691,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "discover-crockett-houston",
@@ -2680,7 +2706,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "mexia-city-limestone",
@@ -2694,7 +2721,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "mason-county-chamber",
@@ -2782,7 +2810,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "reeves-county-visitor-events",
@@ -2810,7 +2839,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "hearne-robertson-chamber",
@@ -2884,7 +2914,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "crystal-city-zavala-spinach",
@@ -2913,7 +2944,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "newton-county-chamber-county",
@@ -2927,7 +2959,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "ozona-crockett-chamber",
@@ -2957,7 +2990,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "quanah-hardeman-chamber",
@@ -3001,7 +3035,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "alice-jim-wells-chamber",
@@ -3045,7 +3080,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "tulia-swisher-city",
@@ -3059,7 +3095,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "floydada-floyd-city",
@@ -3073,7 +3110,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "spur-dickens-chamber",
@@ -3087,7 +3125,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "crosbyton-chamber",
@@ -3146,7 +3185,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "stamford-jones-city-events",
@@ -3175,7 +3215,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "albany-shackelford-events",
@@ -3204,7 +3245,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "zapata-community-events",
@@ -3263,7 +3305,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "live-oak-county-community-calendar",
@@ -3277,7 +3320,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "bronte-coke-city",
@@ -3291,7 +3335,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "city-crane-texas",
@@ -3305,7 +3350,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "oldham-vega-chamber",
@@ -3349,7 +3395,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "post-garza-chamber",
@@ -3363,7 +3410,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "fort-davis-jeff-davis-chamber",
@@ -3377,7 +3425,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "van-horn-culberson-visitors",
@@ -3391,7 +3440,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "carrizo-springs-dimmit-city",
@@ -3405,7 +3455,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "falfurrias-brooks-city",
@@ -3419,7 +3470,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "borden-county-public-calendar",
@@ -4635,6 +4687,51 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "city-longview-texas-community-calendar",
+      "organization": "City of Longview, Texas Community Events and Parks official 2026 calendar",
+      "countySlugs": [
+        "gregg"
+      ],
+      "homeUrl": "https://www.longviewtexas.gov/",
+      "calendarUrl": "https://www.longviewtexas.gov/Calendar.aspx",
+      "contactPageUrl": "https://www.longviewtexas.gov/4327/Parks-and-Recreation",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "east-texas-yamboree-association-yulefest-2026",
+      "organization": "East Texas Yamboree Association confirmation of Gilmer Yulefest December 2026",
+      "countySlugs": [
+        "upshur"
+      ],
+      "homeUrl": "https://yamboree.com/",
+      "calendarUrl": "https://yamboree.com/",
+      "contactPageUrl": "https://www.gilmerareachamber.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "city-gatesville-texas-community-events",
+      "organization": "City of Gatesville official community special-events notice board",
+      "countySlugs": [
+        "coryell"
+      ],
+      "homeUrl": "https://www.gatesvilletx.com/",
+      "calendarUrl": "https://www.gatesvilletx.com/departments/communications/community_events.php",
+      "contactPageUrl": "https://www.gatesvilletx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     }
   ]
 }

@@ -1163,5 +1163,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Sulphur Springs Downtown Business Alliance",
     "summary": "The Sulphur Springs Downtown Business Alliance confirms its 2026 Hot Cocoa Crawl for Saturday, December 12, 2026, in the historic downtown square. The alliance offers $10 limited-edition keepsake courthouse mugs for pickup at its event booth and participation in the downtown crawl; a purchase is optional unless the organizer specifies it is needed for tastings. The original announcement does not provide exact festival start/end times or establish that all cocoa samples are free. Do not confuse the 2026 event with earlier editions or with the November 28 and December 5 Heritage Park Christmas in the Park nights.",
     "sourceVerifiedAt": "2026-11-22"
-  }
+  },
+{
+  "slug": "gilmer-upshur-yulefest-2026",
+  "title": "Gilmer Yulefest · East Texas Community Christmas Celebration",
+  "city": "Gilmer",
+  "countySlug": "upshur",
+  "countyName": "Upshur County",
+  "region": "piney-woods",
+  "startDate": "2026-12-05",
+  "venueName": "Gilmer, Texas · community Yulefest locations; confirm individual activity sites with Gilmer Area Chamber",
+  "officialEventUrl": "https://yamboree.com/",
+  "sourceName": "East Texas Yamboree Association, referring visitors to Gilmer Area Chamber of Commerce",
+  "summary": "The East Texas Yamboree Association's 2026 notice confirms that Gilmer will celebrate Yulefest on Saturday, December 5, 2026, with several community holiday activities. It directs visitors to the Gilmer Area Chamber of Commerce for the individual events. The official notice does not confirm precise public hours, parade route, vendor fees or a single fixed festival venue; check current Chamber announcements for each activity before traveling. Gilmer, Texas, is in Upshur County, not Gilmer County, Georgia.",
+  "sourceVerifiedAt": "2026-11-22"
+}
 ];

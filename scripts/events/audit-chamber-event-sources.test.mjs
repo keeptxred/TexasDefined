@@ -526,15 +526,62 @@ test("City and original event publisher calendars recover Midland, Matagorda and
   const individual=["city-jasper-christmas-in-park-2026","decatur-chamber-tree-lighting-2026","decatur-chamber-parade-of-lights-2026"];
   for(const id of individual)assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
   const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.equal(reviewed.size,151);
+  assert.ok(reviewed.size>=151, "Never lose 151 official public-calendar counties");
   assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
   assert.ok(!reviewed.has("wise"),"Two individually sourced parade/tree events are not a complete live county calendar");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesTotal,254);
   assert.equal(report.countiesMissingSources,0);
-  assert.equal(report.countiesWithExplicitCalendarSources,151);
-  assert.equal(report.countiesNeedingCalendarEvidence,103);
-  assert.equal(report.sourceCount,313);
-  assert.equal(report.emptyCalendarSourceCount,9);
+  assert.equal(report.countiesWithExplicitCalendarSources,reviewed.size);
+  assert.equal(report.countiesNeedingCalendarEvidence,254-reviewed.size);
+  assert.equal(report.sourceCount,registry.sources.length);
+  assert.equal(report.emptyCalendarSourceCount,registry.sources.filter(s=>s.sourceKind==="empty-calendar").length);
   assert.match(report.eventPublication,/^NO/);
+});
+
+test("contact desks are not automatically counted as full community calendars", async () => {
+  const contactOnly=[
+    "gladewater-chamber","marshall-chamber","rusk-chamber","wharton-chamber",
+    "muleshoe-bailey-chamber","city-quitaque","linden-cass-chamber",
+    "ballinger-runnels-chamber","falfurrias-brooks-city",
+  ];
+  for (const id of contactOnly){
+    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"contact-only",
+      "Do not inflate calendar county coverage from a Chamber or city homepage: "+id);
+  }
+  const empty=registry.sources.find(s=>s.id==="brownfield-terry-chamber");
+  assert.ok(empty);
+  assert.equal(empty.sourceKind,"empty-calendar",
+    "The visible Google Calendar iframe needs current season date verification");
+  assert.equal(empty.calendarUrl,"https://brownfieldchamber.com/events/");
+  assert.equal(registry.sources.find(s=>s.id==="hondo-medina-chamber")?.sourceKind,"empty-calendar");
+  assert.equal(registry.sources.find(s=>s.id==="bay-city-matagorda-events")?.sourceKind,"annual-events-list");
+  for(const id of ["rains-county-fair","starr-county-fair-association","visit-alpine-christmas-program"])
+    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
+  const r=await auditChamberSources({offline:true});
+  assert.equal(r.sourceCount,registry.sources.length);
+  assert.equal(r.contactOnlySourceCount,registry.sources.filter(s=>s.sourceKind==="contact-only").length);
+  assert.equal(r.unclassifiedSourceCount,registry.sources.filter(s=>!s.sourceKind).length);
+  assert.ok(r.unclassifiedSourceCount<=20,"Finish original source role review without new unclassified backlog");
+  assert.equal(r.countiesWithRegisteredSources,254);
+  assert.equal(r.countiesMissingSources,0);
+});
+
+test("first-party Longview events and original Gilmer Yulefest preserve correct Texas county",()=>{
+  const sources=[
+    ["city-longview-texas-community-calendar","gregg","public-calendar","www.longviewtexas.gov"],
+    ["east-texas-yamboree-association-yulefest-2026","upshur","event-specific","yamboree.com"],
+    ["city-gatesville-texas-community-events","coryell","annual-events-list","www.gatesvilletx.com"],
+  ];
+  for(const [id,county,kind,hostname] of sources){
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,"Missing reviewed primary organizer source "+id);
+    assert.deepEqual(source.countySlugs,[county]);
+    assert.equal(source.sourceKind,kind);
+    assert.equal(new URL(source.calendarUrl).hostname,hostname);
+  }
+  const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(calendarCounties.has("gregg"));
+  assert.ok(!calendarCounties.has("upshur"),"A dated Yulefest is not a countywide public events calendar");
+  assert.ok(!calendarCounties.has("coryell"),"An undated city community events overview is not a current calendar");
 });
