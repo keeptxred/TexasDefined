@@ -91,8 +91,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     officialUrl: "https://www.comanchecountytxmuseum.com/",
     managingAuthority: "Comanche County Historical Museum",
     address: "402 Moorman Rd, Comanche, TX 76442",
-    sourceCheckedAt: "2026-11-22",
-    updatedAt: "2026-11-22",
+    sourceCheckedAt: "2026-11-23",
+    updatedAt: "2026-11-23",
     directions: "Museum: 402 Moorman Road, Comanche, TX 76442. Pair with the courthouse square, Old Cora and Fleming Oak in downtown Comanche; confirm operating hours before travel.",
     accessibilityNotes: "The museum has multiple exhibit rooms and historical displays. Its public website does not confirm accessible routes to each area; call (325) 356-5115 for specific needs, parking and any step-free entry arrangements.",
     areaGuide: {
