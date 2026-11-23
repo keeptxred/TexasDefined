@@ -5052,6 +5052,51 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "cameron-edc-2026-milam-events-calendar",
+      "organization": "Cameron Economic Development Corporation — Welcome to Cameron events",
+      "countySlugs": [
+        "milam"
+      ],
+      "homeUrl": "https://www.welcometocameron.com/",
+      "calendarUrl": "https://www.welcometocameron.com/events",
+      "contactPageUrl": "https://www.welcometocameron.com/list-your-event",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "emory-city-christmas-around-park-parade-2026",
+      "organization": "City of Emory — December 5, 2026 Christmas Around the Park and parade announcement",
+      "countySlugs": [
+        "rains"
+      ],
+      "homeUrl": "https://www.cityofemory.com/",
+      "calendarUrl": "https://www.cityofemory.com/",
+      "contactPageUrl": "https://www.cityofemory.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "falls-county-government-civic-calendar-monitor",
+      "organization": "Falls County government — official county meetings and holiday calendar (not local festival calendar)",
+      "countySlugs": [
+        "falls"
+      ],
+      "homeUrl": "https://www.co.falls.tx.us/",
+      "calendarUrl": "https://www.co.falls.tx.us/",
+      "contactPageUrl": "https://www.co.falls.tx.us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
