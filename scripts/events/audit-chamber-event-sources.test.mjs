@@ -585,3 +585,51 @@ test("first-party Longview events and original Gilmer Yulefest preserve correct 
   assert.ok(!calendarCounties.has("upshur"),"A dated Yulefest is not a countywide public events calendar");
   assert.ok(!calendarCounties.has("coryell"),"An undated city community events overview is not a current calendar");
 });
+
+test("only six blocked original Chamber sources remain for explicit calendar-vs-contact review", async () => {
+  const keepUnclassified=[
+    "fredericksburg-chamber","greater-waco-chamber","laredo-chamber",
+    "mcallen-hidalgo-chamber","new-braunfels-chamber","reeves-county-visitor-events",
+  ];
+  const unresolved=registry.sources.filter(s=>!s.sourceKind).map(s=>s.id).sort();
+  assert.deepEqual(unresolved,keepUnclassified.sort(),
+    "Review classification changes individually; do not mislabel robots-blocked feeds as fully dated calendars");
+  const direct=[
+    ["gainesville-cooke-chamber","cooke","business.gainesvillecofc.com"],
+    ["midland-chamber","midland","business.midlandtxchamber.com"],
+    ["granbury-chamber","hood","business.granburychamber.com"],
+    ["san-angelo-chamber","tom-green","members.sanangelo.org"],
+  ];
+  for(const [id,county,host] of direct){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s);
+    assert.equal(s.sourceKind,"public-calendar");
+    assert.deepEqual(s.countySlugs,[county]);
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  for(const id of ["brownwood-area-chamber","spearman-hansford-city"])
+    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"empty-calendar");
+  for(const id of ["main-street-texarkana-2026","denison-city-discover","fairfield-freestone-chamber"])
+    assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"annual-events-list");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.sourceCount,registry.sources.length);
+  assert.equal(report.countiesWithExplicitCalendarSources,151);
+  assert.equal(report.countiesNeedingCalendarEvidence,103);
+  assert.equal(report.unclassifiedSourceCount,6);
+  assert.equal(report.eventPublication.startsWith("NO"),true);
+});
+
+
+test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, not an entire Coryell county festival calendar", async () => {
+  const src=registry.sources.find(s=>s.id==="gatesville-isd-christmas-on-marshall-2026");
+  assert.ok(src,"Missing original Gatesville school-district 2026 community event source");
+  assert.deepEqual(src.countySlugs,["coryell"]);
+  assert.equal(src.sourceKind,"event-specific");
+  assert.equal(new URL(src.calendarUrl).hostname,"www.gatesvilleisd.org");
+  const communityCalendars=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.equal(communityCalendars.has("coryell"),false,
+    "One district community event is not a current statewide festival/holiday community calendar for Coryell");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.sourceCount,registry.sources.length);
+  assert.equal(report.countiesWithRegisteredSources,254);
+});

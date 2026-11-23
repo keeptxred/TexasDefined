@@ -1177,5 +1177,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "East Texas Yamboree Association, referring visitors to Gilmer Area Chamber of Commerce",
   "summary": "The East Texas Yamboree Association's 2026 notice confirms that Gilmer will celebrate Yulefest on Saturday, December 5, 2026, with several community holiday activities. It directs visitors to the Gilmer Area Chamber of Commerce for the individual events. The official notice does not confirm precise public hours, parade route, vendor fees or a single fixed festival venue; check current Chamber announcements for each activity before traveling. Gilmer, Texas, is in Upshur County, not Gilmer County, Georgia.",
   "sourceVerifiedAt": "2026-11-22"
-}
+},
+  {
+    "slug": "fairfield-freestone-christmas-on-the-square-2026",
+    "title": "Fairfield Christmas on the Square 2026",
+    "city": "Fairfield",
+    "countySlug": "freestone",
+    "countyName": "Freestone County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Freestone County Courthouse Square, 118 East Commerce Street, Fairfield",
+    "officialEventUrl": "https://fliphtml5.com/rxipz/2026-November-Newsletter/",
+    "sourceName": "Fairfield Chamber of Commerce & Visitors Center, November 2026 Chamber Chatter newsletter",
+    "summary": "The Fairfield Chamber's November 2026 newsletter confirms Christmas on the Square for Saturday, December 5 at 118 East Commerce Street on the courthouse square. The event flyer identifies a 6 p.m. city tree lighting, with Santa, crafts, wagon rides, carolers and food vendors. The same official newsletter prints inconsistent overall activity start times (3 p.m. on its overview and 4 p.m. on its event flyer), so check directly before planning arrival. This is separate from December 19 Jingle All the Way; individual vendor purchases may cost extra.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "fairfield-freestone-jingle-all-the-way-2026",
+    "title": "Fairfield Jingle All the Way Christmas Celebration 2026",
+    "city": "Fairfield",
+    "countySlug": "freestone",
+    "countyName": "Freestone County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-19",
+    "venueName": "Freestone County Courthouse Square, 118 East Commerce Street, Fairfield",
+    "officialEventUrl": "https://fliphtml5.com/rxipz/2026-November-Newsletter/",
+    "sourceName": "Fairfield Chamber of Commerce & Visitors Center, November 2026 Chamber Chatter newsletter",
+    "summary": "The Fairfield Chamber's November 2026 newsletter dates Jingle All the Way to Saturday, December 19, at 118 East Commerce Street on the downtown courthouse square and prints a 1–4 p.m. activity window. Separate local event reporting has advertised a slightly different opening hour, so confirm the final schedule with the Chamber. Jingle All the Way is a separate event from Fairfield Christmas on the Square on December 5. Do not infer a parade route, a universal free-admission rule, or a 2027 date from these listings.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "gatesville-christmas-on-marshall-street-2026",
+    "title": "Gatesville Christmas on Marshall Street 2026",
+    "city": "Gatesville",
+    "countySlug": "coryell",
+    "countyName": "Coryell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Marshall Street, Gatesville — confirm individual activity locations with organizers",
+    "officialEventUrl": "https://www.gatesvilleisd.org/calendar",
+    "sourceName": "Gatesville Independent School District original community-event announcement",
+    "summary": "Gatesville Independent School District's 2026 community announcement and official activity calendar identify Christmas on Marshall Street for Saturday, December 5, 2026, with a 10 a.m. calendar entry. The school district promotes the local Christmas celebration in Gatesville, Coryell County. The calendar does not establish an event end time, full walking route, vendor schedule, admission prices or the hours of every program; confirm those with the organizer before visiting. This is separate from the city's Christmas at the Ballpark program, for which a 2026 edition date remains unverified.",
+    "sourceVerifiedAt": "2026-11-22"
+  }
 ];
