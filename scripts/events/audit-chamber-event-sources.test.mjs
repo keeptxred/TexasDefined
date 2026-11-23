@@ -613,12 +613,30 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 320);
+  assert.equal(report.sourceCount, 321);
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 154);
-  assert.equal(report.countiesNeedingCalendarEvidence, 100);
+  assert.equal(report.countiesWithExplicitCalendarSources, 156);
+  assert.equal(report.countiesNeedingCalendarEvidence, 98);
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
+});
+
+test("Archer City and Canadian provide actual public event calendars distinct from earlier contact and annual brochures", () => {
+  for (const [id, county, calendar] of [
+    ["archer-city-visitor-center", "archer", "https://visitarchercity.com/events/"],
+    ["canadian-hemphill-community-calendar", "hemphill", "https://www.canadiantx.com/calendar"],
+  ]) {
+    const source = registry.sources.find(s => s.id === id);
+    assert.ok(source, "Missing first-party public calendar " + id);
+    assert.equal(source.sourceKind, "public-calendar");
+    assert.deepEqual(source.countySlugs, [county]);
+    assert.equal(source.calendarUrl, calendar);
+  }
+  assert.equal(registry.sources.find(s=>s.id==="visit-canadian-hemphill")?.sourceKind, "annual-events-list",
+    "A separate Canadian annual-events page must stay distinct from the active chamber calendar");
+  const coverage = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(coverage.has("archer") && coverage.has("hemphill"));
+  assert.equal(coverage.size, 156, "Only separately evidenced current public calendar counties count");
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
