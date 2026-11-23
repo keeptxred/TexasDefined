@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
   },
   head: ({ loaderData }) => {
     const thanksgivingWeek = isTexasThanksgivingWeek();
-    const seasonalTitle = thanksgivingWeek ? "Happy Thanksgiving | Texas Defined" : pageTitle;
+    const seasonalTitle = thanksgivingWeek ? "Happy Thanksgiving" : pageTitle;
     const seasonalDescription = thanksgivingWeek
       ? "Happy Thanksgiving from Texas Defined. Explore turkey-frying fire safety, Texas Thanksgiving recipes and traditions, and confirmed 2026 Houston, El Paso and San Antonio parade schedules."
       : description;
