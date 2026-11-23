@@ -1290,5 +1290,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Copperas Cove Chamber of Commerce & Visitors Bureau — original 32nd Annual Krist Kindl Markt 2026 event",
     "summary": "The Copperas Cove Chamber's original 2026 event page confirms the 32nd Annual Krist Kindl Markt in downtown Copperas Cove Friday, December 4 through Sunday, December 6, 2026. Festival shopping and entertainment hours are Friday 4–10 p.m., Saturday 10 a.m.–10 p.m., and Sunday 10 a.m.–3 p.m. The Friday December 4 community Christmas Tree Lighting starts 6:30 p.m. at the Santa Fe lot on West Avenue D, with a free outdoor holiday movie scheduled afterward. The Saturday December 5 lighted Krist Kindl Parade starts 6 p.m., traveling along Avenue D from behind Copperas Cove High School toward the Cove Terrace parking lot. The organizer also advertises family activities, vendor spaces and Santa photos; listed vendor participation fees do not establish spectator admission charges. The downtown venue is in Coryell County, although other parts of Copperas Cove extend into Lampasas and Bell counties. Confirm public access and any schedule changes with the original Chamber; no copied event photography or 2027 date is inferred.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "muleshoe-wonderland-christmas-parade-2026",
+    "title": "Muleshoe's Wonderland Christmas Parade & Senior Center Celebration",
+    "city": "Muleshoe",
+    "countySlug": "bailey",
+    "countyName": "Bailey County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Muleshoe parade; Muleshoe Senior Center activities afterward",
+    "officialEventUrl": "https://muleshoetxchamber.com/",
+    "sourceName": "Muleshoe Chamber of Commerce & Agriculture — official Muleshoe's Wonderland Christmas 2026 poster",
+    "summary": "The Muleshoe Chamber's original 2026 Magical Wonderland Christmas Parade announcement confirms Saturday, December 12, 2026. Parade lineup is requested by 5:30 p.m. and the public parade begins at 6 p.m. in downtown Muleshoe. After the parade, the poster directs visitors to Muleshoe Senior Center for photos with Santa, hot chocolate and cookies, cookie decorating, wreath decorating, ornament making and family activities. The Chamber says no parade-participant registration is required; this is not an independently confirmed spectator admission price. The announcement does not establish the exact procession route, an end time, a 2027 date or a license to reuse its poster. Check organizer updates for changes.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
