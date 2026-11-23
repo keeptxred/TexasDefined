@@ -117,9 +117,9 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
-  assert.ok(registry.sources.length >= 300, "Do not lose the verified original 270 sources plus three official tourism calendars");
+  assert.ok(registry.sources.length >= 306, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 149, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 154, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -146,7 +146,7 @@ test("festival-specific pages and annual guides are real leads, not complete cou
   assert.equal(parade?.sourceKind, "event-specific");
   const calendar = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
   assert.ok(!calendar.has("camp"), "Annual guides alone must not certify a current county calendar");
-  assert.ok(!calendar.has("san-saba"), "One event page alone must not certify full county calendar coverage");
+  assert.notEqual(parade?.sourceKind, "public-calendar", "A single lighted parade page is not a complete calendar, even after a separate verified full Chamber calendar for the county is added");
 });
 
 
@@ -164,7 +164,7 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
     assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
   }
   const report = await auditChamberSources({ offline: true });
-  assert.ok(report.countiesWithExplicitCalendarSources >= 144);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 148);
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
@@ -469,7 +469,7 @@ test("Current community calendars and empty civic inboxes are different evidence
     assert.deepEqual(s.countySlugs,["walker"]);
   }
   const sourceCalendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(sourceCalendarCounties.size>=144);
+  assert.ok(sourceCalendarCounties.size>=148);
   assert.ok(!sourceCalendarCounties.has("walker"),"Separate confirmed fair and movie cannot misrepresent a complete active county calendar");
   assert.ok(!sourceCalendarCounties.has("hopkins"),"Submit-an-event form is not a full dated Hopkins County calendar");
   const report=await auditChamberSources({offline:true});
@@ -477,4 +477,29 @@ test("Current community calendars and empty civic inboxes are different evidence
   assert.equal(report.countiesNeedingCalendarEvidence,254-report.countiesWithExplicitCalendarSources);
   assert.equal(report.emptyCalendarSourceCount,registry.sources.filter(s=>s.sourceKind==="empty-calendar").length);
   assert.match(report.eventPublication,/^NO/);
+});
+
+test("Rural official 2026 calendar sources are active and distinct from annual Hemphill brochure", () => {
+  const current = [
+    ["san-saba-chamber-community-event-calendar","san-saba","www.sansabachamber.com"],
+    ["san-saba-city-community-calendar","san-saba","sansabatexas.com"],
+    ["canton-main-street-events-calendar","van-zandt","www.cantonmainstreet.org"],
+    ["uvalde-chamber-community-events","uvalde","chamber.uvalde.org"],
+    ["mineral-wells-chamber-calendar","palo-pinto","business.mineralwellstx.com"],
+  ];
+  for(const [id,county,host]of current){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing current official community calendar "+id);
+    assert.equal(s.sourceKind,"public-calendar");
+    assert.deepEqual(s.countySlugs,[county]);
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  const sabine = registry.sources.find(s=>s.id==="city-hemphill-community-annual-festival-guide");
+  assert.ok(sabine);
+  assert.deepEqual(sabine.countySlugs,["sabine"]);
+  assert.equal(sabine.sourceKind,"annual-events-list",
+    "A monthly general annual guide with no date-qualified current editions cannot certify a live calendar");
+  const full=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(full.size>=148);
+  assert.ok(!full.has("sabine"),"Sabine County annual overview must not inflate the direct live calendar count");
 });
