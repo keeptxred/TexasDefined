@@ -11,6 +11,7 @@ const paths = {
   museum: "src/data/museum-expansion-statewide-wave8.ts",
   collections: "src/data/curated-tourism-collections.ts",
   collectionUi: "src/components/explore/CuratedTourismPage.tsx",
+  destinationRoute: "src/routes/destination.$slug.tsx",
   sitemap: "src/routes/sitemap[.]xml.ts",
 };
 const failures = [];
@@ -34,6 +35,9 @@ must("sitemap", "platform.articles.list(scope)");
 must("sitemap", "...indexableLocalArticles.map");
 must("collectionUi", "editorialGuideUrl");
 must("museum", 'slug: "heritage-center-cherokee-county-rusk"');
+must("destinationRoute", 'destination.slug === "heritage-center-cherokee-county-rusk"');
+must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-guide"');
+must("destinationRoute", 'destination.updatedAt ?? destination.sourceCheckedAt');
 must("guide", "heritage-center-cherokee-county-rusk");
 must("guide", 'category: "texas-history"');
 must("guide", 'updatedAt: "2026-11-22"');
