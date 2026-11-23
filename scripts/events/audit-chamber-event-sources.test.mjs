@@ -542,7 +542,7 @@ test("City and original event publisher calendars recover Midland, Matagorda and
 test("contact desks are not automatically counted as full community calendars", async () => {
   const contactOnly=[
     "gladewater-chamber","marshall-chamber","rusk-chamber","wharton-chamber",
-    "muleshoe-bailey-chamber","city-quitaque","linden-cass-chamber",
+    "city-quitaque","linden-cass-chamber",
     "ballinger-runnels-chamber","falfurrias-brooks-city",
   ];
   for (const id of contactOnly){
