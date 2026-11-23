@@ -29,8 +29,22 @@ export function assertCassCountyAuthority(html, url) {
   if (robotsMeta.some((tag) => (tag.includes('name="robots"') || tag.includes("name='robots'"))
       && tag.includes('noindex')))
     throw new Error(url + ': Cass County incorrectly noindexed');
+  // React streams adjacent static/dynamic text with hydration comment boundaries,
+  // e.g. "What the data says about <!-- -->Cass County". Test what readers
+  // actually see, not a raw HTML byte sequence. Exclude scripts/styles rather
+  // than accidentally accepting invisible JS payloads as editorial content.
+  const visibleText = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&amp;|&#38;|&#x26;/gi, '&')
+    .replace(/\s+/g, ' ')
+    .trim();
   for (const marker of cassRequiredMarkers) {
-    if (!html.includes(marker)) throw new Error(url + ': required live Cass County evidence missing: ' + marker);
+    const expected = marker.replace(/&amp;|&#38;|&#x26;/gi, '&');
+    if (!visibleText.includes(expected))
+      throw new Error(url + ': required live Cass County evidence missing: ' + expected);
   }
   if (html.includes('Texas Defined does not add an unsourced list of local communities.'))
     throw new Error(url + ': Cass County still renders the old one-town structured place gap');
