@@ -42,19 +42,36 @@ export function loadCountyMajorEventsServer(countySlug: string, now = new Date()
   const crossCountyUpcoming = Object.entries(additionalCountySlugsByEvent)
     .filter(([, extra]) => extra.includes(county))
     .flatMap(([slug]) => loadUpcomingTexasEventRecordsServer({ limit: 250 }).filter((event) => event.slug === slug));
+  // Calendar-first hometown celebrations and TPWD ranger events have no
+  // standalone /event/ guide. They must still reach their verified county page.
+  // Restrict calendar-only records to seasonal events so ticket-provider concerts
+  // cannot crowd out local holiday traditions.
   const records = [...upcoming, ...crossCountyUpcoming]
-    .filter((event) => event.guidePath.startsWith("/event/") || event.guidePath.startsWith("/events/"));
-  const upcomingItems = buildTexasEventCarouselItemsServer(records).map((event) => ({
-    slug: event.guidePath.startsWith("/event/") ? event.guidePath.slice("/event/".length) : event.guidePath,
-    href: event.guidePath,
-    name: event.title,
-    detail: `${event.city} · ${event.dateLabel}`,
-    startDate: event.startDate,
-    endDate: event.endDate,
-    isUpcoming: true,
-  }));
+    .filter((event) => event.status === "scheduled" &&
+      (event.guidePath.startsWith("/event/") ||
+       (event.guidePath.startsWith("/events?") && event.category === "seasonal")));
+  const upcomingItems = buildTexasEventCarouselItemsServer(records).map((event) => {
+    const isGuide = event.guidePath.startsWith("/event/");
+    // A county-filtered exact-day view is actionable even when several hometown
+    // celebrations share that date. Never suggest a nonexistent event detail route.
+    const calendarHref = `/events?location=county:${encodeURIComponent(county)}&start=${event.startDate}&end=${event.startDate}#calendar`;
+    return {
+      slug: isGuide ? event.guidePath.slice("/event/".length) : event.id,
+      href: isGuide ? event.guidePath : calendarHref,
+      name: event.title,
+      detail: `${event.city} · ${event.dateLabel}`,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      isUpcoming: true,
+    };
+  });
   const byHref = new Map<string, CountyMajorEventItem>();
-  for (const event of upcomingItems) if (!byHref.has(event.href)) byHref.set(event.href, event);
+  for (const event of upcomingItems) {
+    // Do not collapse distinct source-qualified Christmas events onto one
+    // calendar URL simply because they fall on the same county/date.
+    const key = event.href.startsWith("/event/") ? event.href : `calendar:${event.slug}`;
+    if (!byHref.has(key)) byHref.set(key, event);
+  }
 
   // The canonical guide directory includes expired editions; this permits annual
   // traditions to stay linked year-round on all 254 county templates.
