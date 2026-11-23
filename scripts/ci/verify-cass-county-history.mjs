@@ -37,7 +37,7 @@ for (const forbidden of [
 ]) {
   assert.ok(!source.includes(forbidden), `Cass County history contains a disproven or unsupported assertion: ${forbidden}`);
 }
-assert.match(source, /updatedAt: "2026-11-22"/);
+assert.match(source, /updatedAt: "2026-11-23"/);
 assert.match(source, /region: "piney-woods"/);
 assert.match(source, /type: "image"[\s\S]*Linden1\.JPG[\s\S]*Renelibrary/);
 assert.match(source, /sources: \[/);
@@ -72,6 +72,7 @@ for (const item of [
   'Scott Joplin', 'birthplace is not settled',
   '/texas-icons/don-henley', '/texas-icons/t-bone-walker',
   '/texas-icons/scott-joplin', '/texas-music',
+  '/texas-music-venues', '/texas-music-cities',
   'texastimetravel.com/cities/linden/',
   'lindentxchamber.org/aboutus',
   'houstonpress.com/news/strings-attached-6551821/',
@@ -112,4 +113,32 @@ const guideComponent = fs.readFileSync('src/components/content/CountyGuideSectio
 assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identity must use verified places');
 assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
 
+// Keep Linden discoverable from statewide venue and music-city guides, not
+// merely buried within a long county article or an isolated visitor listing.
+const venueGuide = fs.readFileSync('src/data/texas-music-venue-guides.ts', 'utf8');
+const cityGuide = fs.readFileSync('src/data/texas-music-city-guides.ts', 'utf8');
+const historicVenues = fs.readFileSync('src/data/texas-music-historic-places.ts', 'utf8');
+const venueUI = fs.readFileSync('src/components/editorial/TexasMusicVenueGuide.tsx', 'utf8');
+const cityUI = fs.readFileSync('src/components/editorial/TexasMusicCityGuide.tsx', 'utf8');
+for (const value of [
+  'Music City Texas Theater: a small-town stage in Linden',
+  'American Legion Auditorium in Linden, Cass County',
+  '/county/cass', 'Richard Bowden',
+]) assert.ok(venueGuide.includes(value), 'Statewide venue story or county connection missing: ' + value);
+for (const value of [
+  'Why small music towns like Linden belong on the map',
+  'Music Friendly Texas Certified Community',
+  '/county/cass', '/texas-music-venues',
+]) assert.ok(cityGuide.includes(value), 'Statewide music-city small-town coverage missing: ' + value);
+for (const value of [
+  'music-city-texas-theater-linden', 'Music City Texas Theater',
+  '1948–1950', '2003', '108 Legion Street', '400-seat',
+  'texastimetravel.com/directory/music-city-texas-theater/',
+  'www.musiccitytexas.org/about',
+]) assert.ok(historicVenues.includes(value), 'Linden historic venue listing/source missing: ' + value);
+for (const ui of [venueUI, cityUI]) {
+  assert.ok(ui.includes('texastimetravel.com/directory/music-city-texas-theater/'), 'Missing publicly visible heritage research citation');
+  assert.ok(ui.includes('governor-abbott-announces-linden-designated-music-friendly-texas-certified-community'),
+    'Missing original certification source');
+}
 console.log('Cass County editorial provenance / AEO / historical safety assertions: PASS');
