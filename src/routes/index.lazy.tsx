@@ -83,7 +83,7 @@ function HomePage() {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          className="mx-auto block h-auto w-full max-w-[1672px]"
+          className="mx-auto block h-auto w-full" style={{ maxWidth: 1672 }}
         />
       </section>
     )}
