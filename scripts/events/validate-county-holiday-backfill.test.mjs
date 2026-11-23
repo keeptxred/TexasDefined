@@ -325,3 +325,31 @@ test("Two distinct Huntsville, Walker County 2026 holiday occurrences use the or
   assert.match(film.summary,/free holiday Movie in the Park/);
   assert.ok(!events.some(x=>x.slug!==film.slug&&x.city==="Huntsville"&&x.startDate==="2026-12-11"&&/Movie in the Park/i.test(x.title)));
 });
+
+test("San Saba Chamber's first tree lighting and December movie retain different exact organizer dates", () => {
+  const cases=[
+    ["san-saba-first-community-christmas-tree-lighting-2026","2026-11-27",
+      "www.sansabachamber.com"],
+    ["san-saba-chamber-christmas-movie-mill-pond-2026","2026-12-11",
+      "www.sansabachamber.com"]
+  ];
+  for(const [slug,date,host]of cases){
+    const e=events.find(x=>x.slug===slug);
+    assert.ok(e,"Missing original San Saba Chamber 2026 edition "+slug);
+    assert.equal(e.countySlug,"san-saba");
+    assert.equal(e.countyName,"San Saba County");
+    assert.equal(e.startDate,date);
+    assert.equal(e.endDate,undefined,"No assumed festival season or invented all-day event");
+    assert.equal(e.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(e.officialEventUrl).hostname,host);
+    assert.ok(e.sourceName.includes("Chamber"));
+  }
+  const tree=events.find(x=>x.slug===cases[0][0]);
+  const movie=events.find(x=>x.slug===cases[1][0]);
+  const parade=events.find(x=>x.slug==="san-saba-sip-stroll-lighted-christmas-parade-2026");
+  assert.ok(parade);
+  assert.equal(parade.startDate,"2026-12-12");
+  assert.match(tree.summary,/free and open to everyone/);
+  assert.match(movie.summary,/does not identify the film title/);
+  assert.equal(events.filter(e=>e.slug===tree.slug).length,1);
+});
