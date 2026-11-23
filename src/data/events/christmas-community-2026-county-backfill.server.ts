@@ -1304,5 +1304,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Muleshoe Chamber of Commerce & Agriculture — official Muleshoe's Wonderland Christmas 2026 poster",
     "summary": "The Muleshoe Chamber's original 2026 Magical Wonderland Christmas Parade announcement confirms Saturday, December 12, 2026. Parade lineup is requested by 5:30 p.m. and the public parade begins at 6 p.m. in downtown Muleshoe. After the parade, the poster directs visitors to Muleshoe Senior Center for photos with Santa, hot chocolate and cookies, cookie decorating, wreath decorating, ornament making and family activities. The Chamber says no parade-participant registration is required; this is not an independently confirmed spectator admission price. The announcement does not establish the exact procession route, an end time, a 2027 date or a license to reuse its poster. Check organizer updates for changes.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "henrietta-clay-county-christmas-parade-2026",
+    "title": "Clay County Christmas Parade in Henrietta",
+    "city": "Henrietta",
+    "countySlug": "clay",
+    "countyName": "Clay County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-06",
+    "venueName": "Henrietta, Clay County — parade route and assembly location to be confirmed with organizers",
+    "officialEventUrl": "https://cityofhenrietta.com/event/clay-county-christmas-parade/",
+    "sourceName": "City of Henrietta events calendar / Henrietta & Clay County Chamber of Commerce",
+    "summary": "The City of Henrietta's official December 2026 event calendar identifies the Clay County Christmas Parade on Sunday, December 6, 2026, beginning at 6 p.m., with the Henrietta & Clay County Chamber of Commerce listed as organizer. The city event detail confirms the date, time and Chamber organizer, but does not identify an exact spectator route, assembly point, parking plan, end time or admission charge. Confirm visitor logistics with the Chamber before attending. No 2027 edition date, press-list acceptance or image reuse permission is inferred.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];

@@ -591,3 +591,24 @@ test("Muleshoe Chamber original 2026 parade poster confirms Dec 12 and a 6pm sta
   assert.match(e.summary,/license to reuse its poster/);
   assert.ok(e.summary.length>250,"Preserve original program details without duplicate annual filler");
 });
+
+test("Henrietta city confirms one distinct Chamber-organized Sunday Dec 6 2026 Clay County Christmas Parade",()=>{
+ const x=events.find(e=>e.slug==="henrietta-clay-county-christmas-parade-2026");
+ assert.ok(x);
+ assert.equal(events.filter(e=>e.slug===x.slug).length,1);
+ assert.equal(x.title,"Clay County Christmas Parade in Henrietta");
+ assert.equal(x.startDate,"2026-12-06");
+ assert.equal(x.endDate,undefined,"No invented second event date");
+ assert.equal(x.city,"Henrietta");
+ assert.equal(x.countySlug,"clay");
+ assert.equal(x.countyName,"Clay County");
+ assert.equal(x.region,"prairies-lakes");
+ assert.equal(x.sourceVerifiedAt,"2026-11-22");
+ assert.equal(x.officialEventUrl,"https://cityofhenrietta.com/event/clay-county-christmas-parade/");
+ assert.match(x.sourceName,/City of Henrietta/);
+ assert.match(x.sourceName,/Clay County Chamber/);
+ assert.match(x.summary,/6 p\.m\./);
+ assert.match(x.summary,/does not identify an exact spectator route/);
+ assert.match(x.summary,/No 2027 edition date/);
+ assert.match(x.summary,/image reuse permission/);
+});
