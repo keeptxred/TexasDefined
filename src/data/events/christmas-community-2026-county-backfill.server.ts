@@ -1107,5 +1107,61 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "San Saba County Chamber of Commerce community events calendar",
     "summary": "The San Saba County Chamber public events calendar lists Christmas Movie in the Park at Mill Pond Park for Friday, December 11, 2026, beginning at 7 p.m. The Chamber does not identify the film title or establish admission fees, concessions, weather alternatives, or an end time in the accessible calendar listing. Confirm those points with the presenting organizer rather than assuming an outdoor screening includes all activities free. This is a distinct holiday evening before the December 12 downtown parade.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "decatur-chamber-2026-tree-lighting-town-square",
+    "title": "Decatur Christmas Tree Lighting and Santa's Village",
+    "city": "Decatur",
+    "countySlug": "wise",
+    "countyName": "Wise County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-01",
+    "venueName": "Decatur Town Square, downtown Decatur, Texas",
+    "officialEventUrl": "https://www.decaturtx.com/tree-lighting-ceremony",
+    "sourceName": "Decatur Chamber of Commerce",
+    "summary": "The Decatur Chamber confirms its 2026 Christmas Tree Lighting on Tuesday, December 1, with Santa's Village, hot chocolate, bounce houses and community performances scheduled from 5 to 7:30 p.m. The Christmas tree lighting itself begins at 6 p.m. on Decatur Town Square. The city's October 26 meeting reviewed associated street closures, but that meeting's closure times are not festival admission hours. No entry price or blanket free admission is listed for individual attractions; verify conditions before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "decatur-chamber-2026-lighted-christmas-parade",
+    "title": "Decatur Chamber Parade of Lights and Moonlight Madness",
+    "city": "Decatur",
+    "countySlug": "wise",
+    "countyName": "Wise County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Decatur on Walnut Street and Main Street; float staging at Eagle Stadium",
+    "officialEventUrl": "https://www.decaturtx.com/parade-of-lights",
+    "sourceName": "Decatur Chamber of Commerce",
+    "summary": "The Decatur Chamber confirms its Lighted Christmas Parade on Saturday, December 5, 2026, beginning at 6 p.m. Parade entries form at Eagle Stadium, then move along Walnut Street and return on Main Street; downtown merchants participate in Moonlight Madness after the parade. The $10 Chamber entry fee applies to parade entrants, not necessarily spectators. The Decatur city council approved a December 7 rain date, which is a contingency and NOT a second scheduled parade. Verify the current route and road closures before attending.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "jasper-texas-christmas-in-the-park-2026",
+    "title": "Jasper Christmas in the Park · Sandy Creek Park 2026",
+    "city": "Jasper",
+    "countySlug": "jasper",
+    "countyName": "Jasper County",
+    "region": "piney-woods",
+    "startDate": "2026-11-28",
+    "venueName": "Sandy Creek Park, 340 Marvin Hancock Drive, Jasper, Texas",
+    "officialEventUrl": "https://www.jaspertx.org/page/Christmas%20in%20the%20Park",
+    "sourceName": "City of Jasper (Texas) — Christmas in the Park",
+    "summary": "The City of Jasper's original 2026 Christmas in the Park page supplies vendor applications and transportation plans for Saturday, November 28, 2026, at Sandy Creek Park, 340 Marvin Hancock Drive. Jasper ISD shuttle buses run between the park and public parking at North Austin and East Houston streets, South Wheeler and East Houston streets, and 450 Bulldog Avenue. The city's current page does not specify the main festival's start or end time; do not infer all-day availability or borrow schedule information from the different city of Jasper in Alabama. The city also separately advertises December 4, 11 and 18 evening concerts, not a continuous monthlong event.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "sulphur-springs-downtown-hot-cocoa-crawl-2026",
+    "title": "Sulphur Springs Downtown Hot Cocoa Crawl",
+    "city": "Sulphur Springs",
+    "countySlug": "hopkins",
+    "countyName": "Hopkins County",
+    "region": "piney-woods",
+    "startDate": "2026-12-12",
+    "venueName": "Historic downtown Sulphur Springs courthouse square",
+    "officialEventUrl": "https://ssdba.org/hot-cocoa-mugs",
+    "sourceName": "Sulphur Springs Downtown Business Alliance",
+    "summary": "The Sulphur Springs Downtown Business Alliance confirms its 2026 Hot Cocoa Crawl for Saturday, December 12, 2026, in the historic downtown square. The alliance offers $10 limited-edition keepsake courthouse mugs for pickup at its event booth and participation in the downtown crawl; a purchase is optional unless the organizer specifies it is needed for tastings. The original announcement does not provide exact festival start/end times or establish that all cocoa samples are free. Do not confuse the 2026 event with earlier editions or with the November 28 and December 5 Heritage Park Christmas in the Park nights.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
