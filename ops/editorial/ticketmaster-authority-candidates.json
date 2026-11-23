@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-23T16:05:04.821Z",
+  "fetchedAt": "2026-11-23T18:55:16.585Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -483,6 +483,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvVZo"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "SA Stock Show & Rodeo XBulls w/ Ryan Bingham and The Texas Gentlemen",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-21"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn41sw"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/sa-stock-show-rodeo-xbulls-w-san-antonio-texas-02-21-2027/event/3A006507AA54AC72"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
