@@ -5416,6 +5416,21 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "willacy-county-livestock-show-original-2027-fair-calendar",
+      "organization": "Willacy County Livestock Show and Fair Association — original 2027 dated community fair programs",
+      "countySlugs": [
+        "willacy"
+      ],
+      "homeUrl": "https://www.wclsf.com/",
+      "calendarUrl": "https://www.wclsf.com/",
+      "contactPageUrl": "https://www.wclsf.com/contact",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
