@@ -5476,6 +5476,36 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "comanche-chamber-explore-christmas-2026",
+      "organization": "Comanche Chamber of Commerce and Agriculture — 2026 Explore Comanche Christmas organizer notice",
+      "countySlugs": [
+        "comanche"
+      ],
+      "homeUrl": "https://www.comanchechamber.org/",
+      "calendarUrl": "https://www.comanchechamber.org/explorecomanchechristmas",
+      "contactPageUrl": "https://www.comanchechamber.org/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "clarendon-small-town-christmas-2026-organizer",
+      "organization": "Clarendon Economic Development Corporation and Chamber of Commerce — 2026 Small Town Christmas",
+      "countySlugs": [
+        "donley"
+      ],
+      "homeUrl": "https://clarendontx.com/",
+      "calendarUrl": "https://clarendontx.com/2026/11/17/2026-small-town-christmas/",
+      "contactPageUrl": "https://clarendontx.com/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
