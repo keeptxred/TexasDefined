@@ -583,7 +583,7 @@ test("first-party Longview events and original Gilmer Yulefest preserve correct 
   const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(calendarCounties.has("gregg"));
   assert.ok(!calendarCounties.has("upshur"),"A dated Yulefest is not a countywide public events calendar");
-  assert.ok(!calendarCounties.has("coryell"),"An undated city community events overview is not a current calendar");
+  assert.ok(calendarCounties.has("coryell"),"Coryell now has a separate dated Copperas Cove Chamber calendar; Gatesville city overview remains annual-only");
 });
 
 test("six formerly blocked official calendars are explicitly reviewed and unclassified source backlog is zero", async () => {
@@ -797,8 +797,9 @@ test("Brady, Linden, Cottle, Rains emergency management and Gatesville official 
     assert.equal(s.calendarUrl,url);
   }
   const c=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  for(const slug of ["mcculloch","cass","cottle","rains","coryell"])
+  for(const slug of ["mcculloch","cass","cottle","rains"])
     assert.ok(!c.has(slug),"Empty/civic calendar does not close county tourist-festival evidence gap "+slug);
+  assert.ok(c.has("coryell"),"Coryell has an independent Copperas Cove Chamber current calendar, not an active Gatesville city calendar");
   assert.ok(c.size>=165);
   assert.equal(registry.rules.sender,"admin@texasdefined.com");
   assert.equal(registry.rules.noGmail,true);
@@ -845,6 +846,28 @@ test("Crystal City undated special events calendar and Rio Grande City recurring
   assert.equal(registry.rules.noGmail,true);
 });
 
+
+test("Copperas Cove Chamber's dated current public events calendar restores independent Coryell festival source coverage",async()=>{
+  const chamber=registry.sources.find(s=>s.id==="copperas-cove-chamber-public-events-calendar");
+  assert.ok(chamber);
+  assert.deepEqual(chamber.countySlugs,["coryell"]);
+  assert.equal(chamber.sourceKind,"public-calendar");
+  assert.equal(chamber.calendarUrl,"https://copperascove.com/events");
+  const original=registry.sources.find(s=>s.id==="copperas-cove-chamber-krist-kindl-markt-2026");
+  assert.ok(original);
+  assert.equal(original.sourceKind,"event-specific");
+  assert.deepEqual(original.countySlugs,["coryell"]);
+  assert.equal(original.calendarUrl,"https://copperascove.glueup.com/event/32nd-annual-krist-kindl-markt-189528/");
+  assert.equal(registry.sources.find(s=>s.id==="city-gatesville-texas-community-events")?.sourceKind,"annual-events-list");
+  assert.equal(registry.sources.find(s=>s.id==="gatesville-city-community-events-calendar-monitor")?.sourceKind,"empty-calendar");
+  const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(calendarCounties.has("coryell"));
+  assert.ok(calendarCounties.size>=167,"Coryell genuine public Chamber calendar adds one real county without inflating others");
+  assert.equal(registry.sources.length,351);
+  assert.equal(registry.rules.sender,"admin@texasdefined.com");
+  assert.equal(registry.rules.noGmail,true);
+});
+
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
   for (const [id, county, host] of [
     ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
@@ -864,8 +887,9 @@ test("Atascosa municipal events and Decatur community calendar are distinct real
   const calendarCounties = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
   for (const county of ["atascosa", "wise", "hidalgo"])
     assert.equal(calendarCounties.has(county), true, "Official active source missing for " + county);
-  for (const county of ["baylor", "coryell", "upshur"])
+  for (const county of ["baylor", "upshur"])
     assert.equal(calendarCounties.has(county), false, "Annual or empty calendar is not live event evidence for " + county);
+  assert.ok(calendarCounties.has("coryell"), "Original Copperas Cove community event calendar establishes independent Coryell source evidence");
 });
 
 test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, not an entire Coryell county festival calendar", async () => {
@@ -875,8 +899,8 @@ test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, n
   assert.equal(src.sourceKind,"event-specific");
   assert.equal(new URL(src.calendarUrl).hostname,"www.gatesvilleisd.org");
   const communityCalendars=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.equal(communityCalendars.has("coryell"),false,
-    "One district community event is not a current statewide festival/holiday community calendar for Coryell");
+  assert.equal(communityCalendars.has("coryell"),true,
+    "Separate Copperas Cove Chamber events establish a current community source; Gatesville ISD single event remains event-specific");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.sourceCount,registry.sources.length);
   assert.equal(report.countiesWithRegisteredSources,254);
