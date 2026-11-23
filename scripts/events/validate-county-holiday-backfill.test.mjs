@@ -662,6 +662,8 @@ test("county pages surface verified calendar-first holiday events, not only perm
   const county = fs.readFileSync("src/data/county-major-events.server.ts", "utf8");
   assert.match(county, /event\.guidePath\.startsWith\("\/events\?"\) && event\.category === "seasonal"/,
     "Seasonal county events without leaf guides must appear on their county");
+  assert.match(county, /event\.guidePath\.startsWith\("\/events\/"\)/,
+    "Existing Christmas hub anchors must not disappear from county cards");
   assert.match(county, /event\.status === "scheduled"/,
     "Postponed and cancelled events must not be represented as verified upcoming dates");
   assert.match(county, /location=county:/,
