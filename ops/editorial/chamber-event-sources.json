@@ -3425,13 +3425,13 @@
         "garza"
       ],
       "homeUrl": "https://postcitytexas.com/",
-      "calendarUrl": "https://postcitytexas.com/news/",
+      "calendarUrl": "https://postcitytexas.com/",
       "contactPageUrl": "https://postcitytexas.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "fort-davis-jeff-davis-chamber",
