@@ -613,7 +613,7 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 319);
+  assert.equal(report.sourceCount, 320);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources, 154);
   assert.equal(report.countiesNeedingCalendarEvidence, 100);
@@ -656,4 +656,16 @@ test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, n
   const report=await auditChamberSources({offline:true});
   assert.equal(report.sourceCount,registry.sources.length);
   assert.equal(report.countiesWithRegisteredSources,254);
+});
+
+
+test("Crockett 2026 holiday home tour is a dated Houston County event, not evidence for all county dates", () => {
+  const organizer = registry.sources.find(s => s.id === "crockett-downtown-holiday-homes-2026");
+  assert.ok(organizer);
+  assert.deepEqual(organizer.countySlugs, ["houston"]);
+  assert.equal(organizer.sourceKind, "event-specific");
+  assert.equal(new URL(organizer.calendarUrl).hostname, "www.discovercrocketttx.com");
+  const reviewed = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
+  assert.equal(reviewed.has("houston"), false,
+    "One dated organizer occurrence does not establish a general Houston County public calendar");
 });
