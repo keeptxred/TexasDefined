@@ -1069,13 +1069,13 @@
         "archer"
       ],
       "homeUrl": "https://visitarchercity.com/",
-      "calendarUrl": "https://visitarchercity.com/attractions-list/",
+      "calendarUrl": "https://visitarchercity.com/events/",
       "contactPageUrl": "https://visitarchercity.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "poteet-city-christmas-2026",
@@ -4812,6 +4812,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "canadian-hemphill-community-calendar",
+      "organization": "Canadian / Hemphill County Chamber of Commerce — community calendar",
+      "countySlugs": [
+        "hemphill"
+      ],
+      "homeUrl": "https://www.canadiantx.com/",
+      "calendarUrl": "https://www.canadiantx.com/calendar",
+      "contactPageUrl": "https://www.canadiantx.com/calendar",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
