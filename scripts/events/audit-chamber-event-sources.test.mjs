@@ -685,7 +685,7 @@ test("Live Oak government and Jasper Chamber host distinct community calendars w
     assert.deepEqual(s.countySlugs,[county]);
   }
   const publicCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.equal(publicCounties.size,159);
+  assert.equal(publicCounties.size,163, "All newly certified county community calendars must remain counted without conflating undated municipal desks");
   for(const county of ["howard","mcculloch","hardin","wheeler"])
     assert.ok(!publicCounties.has(county),"Do not claim currently reviewed festival calendar from empty city / CVB desk: "+county);
   assert.equal(registry.sources.find(s=>s.id==="big-spring-howard-tourism")?.sourceKind,"annual-events-list");
