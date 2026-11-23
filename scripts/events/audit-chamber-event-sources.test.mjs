@@ -119,7 +119,7 @@ test("new local and regional source cohorts retain their correct Texas county ge
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
   assert.ok(registry.sources.length >= 313, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 158, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 156, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -240,14 +240,14 @@ test("ten additional independently reviewed 2026 official community calendars ke
 
 test("2026 official community calendar source batch does not confuse annual brochures or contact-only sites",()=>{
  const official = {
- "eagle-pass-chamber":"maverick",
+
  "cuero-dewitt-chamber":"dewitt",
  "jackson-edna-chamber":"jackson",
  "snyder-scurry-chamber":"scurry",
  "liberty-trinity-valley-chamber":"liberty",
  "polk-county-chamber":"polk",
  "mason-county-chamber":"mason",
- "fort-stockton-pecos-chamber":"pecos",
+
  "visit-sugar-land-calendar":"fort-bend",
  "discover-denison-tourism-calendar":"grayson",
  "gotxk-leadership-texarkana-community-calendar":"bowie",
@@ -263,6 +263,10 @@ test("2026 official community calendar source batch does not confuse annual broc
   assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"annual-events-list");
  }
  assert.equal(registry.sources.find(s=>s.id==="raymondville-willacy-chamber")?.sourceKind,"contact-only");
+ assert.equal(registry.sources.find(s=>s.id==="eagle-pass-chamber")?.sourceKind,"contact-only",
+   "Maverick newsletter/announcements with no future dated public calendar should not be credited");
+ assert.equal(registry.sources.find(s=>s.id==="fort-stockton-pecos-chamber")?.sourceKind,"empty-calendar",
+   "Blank public calendar must be monitored, not counted as verified upcoming festivals");
  assert.equal(registry.sources.find(s=>s.id==="city-alvin-home-for-holidays-2026")?.sourceKind,"event-specific");
  const all = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  assert.ok(all.size>=139);
@@ -469,7 +473,7 @@ test("Current community calendars and empty civic inboxes are different evidence
     assert.deepEqual(s.countySlugs,["walker"]);
   }
   const sourceCalendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(sourceCalendarCounties.size>=151);
+  assert.ok(sourceCalendarCounties.size>=149);
   assert.ok(!sourceCalendarCounties.has("walker"),"Separate confirmed fair and movie cannot misrepresent a complete active county calendar");
   assert.ok(sourceCalendarCounties.has("hopkins"),"Independently verified Hopkins County Museum events calendar qualifies even while the Chamber submission form is empty");
   assert.equal(registry.sources.find(s=>s.id==="hopkins-county-chamber-calendar")?.sourceKind,"empty-calendar",
@@ -526,15 +530,36 @@ test("City and original event publisher calendars recover Midland, Matagorda and
   const individual=["city-jasper-christmas-in-park-2026","decatur-chamber-tree-lighting-2026","decatur-chamber-parade-of-lights-2026"];
   for(const id of individual)assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
   const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.equal(reviewed.size,151);
+  assert.equal(reviewed.size,149);
   assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
   assert.ok(!reviewed.has("wise"),"Two individually sourced parade/tree events are not a complete live county calendar");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesTotal,254);
   assert.equal(report.countiesMissingSources,0);
-  assert.equal(report.countiesWithExplicitCalendarSources,151);
-  assert.equal(report.countiesNeedingCalendarEvidence,103);
+  assert.equal(report.countiesWithExplicitCalendarSources,149);
+  assert.equal(report.countiesNeedingCalendarEvidence,105);
   assert.equal(report.sourceCount,313);
-  assert.equal(report.emptyCalendarSourceCount,9);
+  assert.equal(report.emptyCalendarSourceCount,12);
+  assert.match(report.eventPublication,/^NO/);
+});
+
+test("A first-party source page showing no 2026 festival dates remains research-only, while original organizer news can verify particular events",async()=>{
+  const empty=["hondo-medina-chamber","spearman-hansford-city","fort-stockton-pecos-chamber"];
+  for(const id of empty){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing monitored organization "+id);
+    assert.equal(s.sourceKind,"empty-calendar");
+    assert.equal(new URL(s.calendarUrl).protocol,"https:");
+  }
+  assert.equal(registry.sources.find(x=>x.id==="eagle-pass-chamber")?.sourceKind,"contact-only");
+  const active=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(!active.has("pecos"),"Pecos Chamber current community calendar has no dated 2026 public entries");
+  assert.ok(!active.has("maverick"),"Eagle Pass Chamber community notices aren't a dated festival calendar");
+  assert.ok(!active.has("hansford"),"Spearman year selector without events isn't festival evidence");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.countiesWithExplicitCalendarSources,149);
+  assert.equal(report.countiesNeedingCalendarEvidence,105);
+  assert.equal(report.emptyCalendarSourceCount,12);
+  assert.equal(report.sourceCount,313);
   assert.match(report.eventPublication,/^NO/);
 });
