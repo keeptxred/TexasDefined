@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-23T18:55:16.585Z",
+  "fetchedAt": "2026-11-23T22:42:59.275Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -449,16 +449,25 @@
       "name": "Premier Womens Rodeo",
       "city": "Fort Worth",
       "dates": [
+        "2026-12-17",
+        "2026-12-18",
+        "2026-12-19",
         "2026-12-20"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A70g86"
+        "Z7r9jZ1A70g86",
+        "Z7r9jZ1A7OYp7",
+        "Z7r9jZ1A7OYpA",
+        "Z7r9jZ1A7OprZ"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70g86"
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70g86",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpA",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OprZ"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -949,8 +958,6 @@
         "2026-12-11",
         "2026-12-12",
         "2026-12-13",
-        "2026-12-18",
-        "2026-12-19",
         "2026-12-26",
         "2026-12-27",
         "2027-01-01",
@@ -973,15 +980,14 @@
         "2027-02-12",
         "2027-02-14",
         "2027-02-19",
-        "2027-02-20"
+        "2027-02-20",
+        "2027-02-21"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
         "Z7r9jZ1A7OYp6",
-        "Z7r9jZ1A7OYp7",
-        "Z7r9jZ1A7OYpA",
         "Z7r9jZ1A7OYpF",
         "Z7r9jZ1A7OYpZ",
         "Z7r9jZ1A7OYpa",
@@ -999,6 +1005,7 @@
         "Z7r9jZ1AA7-F9",
         "Z7r9jZ1AA7-FF",
         "Z7r9jZ1AA7-FK",
+        "Z7r9jZ1AA7-FN",
         "Z7r9jZ1AA7-FO",
         "Z7r9jZ1AA7-F_",
         "Z7r9jZ1AA7-Fa",
@@ -1026,8 +1033,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpA",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpF",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpZ",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
@@ -1045,6 +1050,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F9",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FN",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FO",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F_",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
