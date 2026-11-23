@@ -374,7 +374,6 @@ test("Eastland and La Grange dated official community calendars are distinct fro
   const current = [
     ["eastland-chamber","eastland","business.eastlandchamber.com"],
     ["la-grange-fayette-chamber","fayette","business.lagrangetx.org"],
-    ["littlefield-lamb-city-events","lamb","www.littlefieldtexas.net"],
   ];
   for (const [id,county,host] of current) {
     const source=registry.sources.find(s=>s.id===id);
@@ -383,13 +382,56 @@ test("Eastland and La Grange dated official community calendars are distinct fro
     assert.equal(source.sourceKind,"public-calendar");
     assert.equal(new URL(source.calendarUrl).hostname,host);
   }
-  const researchDesks=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber"];
+  const researchDesks=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber","littlefield-lamb-city-events"];
   for (const id of researchDesks) {
     const source=registry.sources.find(s=>s.id===id);
     assert.ok(source,"Missing public source "+id);
-    assert.ok(["contact-only","public-calendar"].includes(source.sourceKind),
-      "An empty calendar/form is not evidence of an organizer-dated event");
+    assert.equal(source.sourceKind,"empty-calendar", "Blank date/submission page must stay monitored but not count as live festival calendar");
   }
   const officialCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.ok(officialCounties.size>=142,"Protect the 142 distinct public calendar county sources");
+  assert.ok(officialCounties.size>=141,"Protect at least 141 distinct explicitly dated public calendars");
+});
+
+test("Unfilled event pages remain on the scheduled respectful discovery audit without inflating county calendar coverage", async () => {
+  const emptyIds=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber","littlefield-lamb-city-events"];
+  const allCalendars=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  for(const id of emptyIds){
+    const row=registry.sources.find(s=>s.id===id);
+    assert.ok(row);
+    assert.equal(row.sourceKind,"empty-calendar");
+  }
+  assert.ok(!allCalendars.has("hardeman"));
+  assert.ok(!allCalendars.has("haskell"));
+  assert.ok(!allCalendars.has("refugio"));
+  assert.ok(!allCalendars.has("lamb"));
+  const seenDue=new Set();
+  const fetched=[];
+  const fetchStub=async (url)=>{
+    const href=String(url);
+    fetched.push(href);
+    if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,
+      headers:{get:()=>null},text:async()=>""};
+    return {status:200,ok:true,url:href,
+      headers:{get:()=> "text/html"},
+      text:async()=>'<a href="/events/test">Hometown Christmas Parade</a>'};
+  };
+  for(let day=22;day<=28;day++){
+    const report=await auditChamberSources({
+      offline:false,now:new Date("2026-11-"+String(day)+"T12:00:00Z"),fetchImpl:fetchStub,
+    });
+    assert.equal(report.emptyCalendarSourceCount,emptyIds.length);
+    assert.equal(report.countiesWithExplicitCalendarSources,
+      new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs)).size);
+    assert.match(report.eventPublication,/^NO/);
+    for(const obs of report.observations.filter(o=>emptyIds.includes(o.sourceId))){
+      if(obs.state==="reachable-discovery-only"){
+        seenDue.add(obs.sourceId);
+        assert.ok(obs.leads.every(lead=>lead.publishable===false&&lead.organizerVerified===false));
+      }
+    }
+  }
+  assert.deepEqual([...seenDue].sort(),emptyIds.slice().sort(),
+    "Every empty event calendar should be reconsidered by the seven-day source-audit cycle");
+  assert.ok(fetched.some(url=>url.includes("quanahchamber.com/community-events")),
+    "Submitting an event later must not require a manual switch to re-enable discovery");
 });
