@@ -3388,7 +3388,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "annual-events-list"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "giddings-lee-chamber",
