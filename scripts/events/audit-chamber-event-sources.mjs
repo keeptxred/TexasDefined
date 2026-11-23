@@ -199,16 +199,16 @@ export function extractCalendarLinks(html, pageUrl) {
  */
 export function extractContactPageLinks(html, pageUrl) {
   const base = checkedPublicUrl(pageUrl), candidates = [], seen = new Set();
-  const relevant = /\\b(?:contact(?: us| the (?:chamber|team))?|media (?:kit|relations|contact|inquiries)|press (?:kit|room|releases|contact|inquiries)|newsroom|communications (?:office|team)|submit (?:an? )?event|submit (?:an? )?news)\\b/i;
-  for (const match of html.matchAll(/<a\\b[^>]*href\\s*=\\s*[\"']([^\"'#]+)[\"'][^>]*>([\\s\\S]*?)<\\/a>/gi)) {
+  const relevant = /\b(?:contact(?: us| the (?:chamber|team))?|media (?:kit|relations|contact|inquiries)|press (?:kit|room|releases|contact|inquiries)|newsroom|communications (?:office|team)|submit (?:an? )?event|submit (?:an? )?news)\b/i;
+  for (const match of html.matchAll(/<a\b[^>]*href\s*=\s*[\"']([^\"'#]+)[\"'][^>]*>([\s\S]*?)<\/a>/gi)) {
     const label = match[2].replace(/<[^>]*>/g," ").replace(/&(?:amp;|#38;)/gi,"&")
-      .replace(/&[^;]+;/g," ").replace(/\\s+/g," ").trim().slice(0,96);
+      .replace(/&[^;]+;/g," ").replace(/\s+/g," ").trim().slice(0,96);
     let url;
     try { url = checkedPublicUrl(new URL(match[1],base).href); }
     catch { continue; }
     if (url.origin !== base.origin || url.hash || url.search || seen.has(url.href)) continue;
-    if (/\\.(?:pdf|jpe?g|png|webp|svg|docx?|xlsx?|ics|zip|exe)$/i.test(url.pathname) ||
-      /\\/(?:admin|login|signin|sign-in|privacy|terms|checkout|join-mailing-list|unsubscribe)(?:\\/|$)/i.test(url.pathname))
+    if (/\.(?:pdf|jpe?g|png|webp|svg|docx?|xlsx?|ics|zip|exe)$/i.test(url.pathname) ||
+      /\/(?:admin|login|signin|sign-in|privacy|terms|checkout|join-mailing-list|unsubscribe)(?:\/|$)/i.test(url.pathname))
       continue;
     if (!relevant.test(label+" "+url.pathname.replace(/[-_]/g," "))) continue;
     seen.add(url.href);
