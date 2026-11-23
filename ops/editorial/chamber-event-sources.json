@@ -4797,6 +4797,21 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "crockett-downtown-holiday-homes-2026",
+      "organization": "Downtown Crockett Association (Discover Crockett Texas)",
+      "countySlugs": [
+        "houston"
+      ],
+      "homeUrl": "https://www.discovercrocketttx.com/",
+      "calendarUrl": "https://www.discovercrocketttx.com/holidaytourofhomes",
+      "contactPageUrl": "https://www.discovercrocketttx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
