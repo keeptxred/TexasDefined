@@ -4394,6 +4394,51 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "huntsville-main-street-christmas-fair-2026",
+      "organization": "City of Huntsville Main Street Downtown Christmas Fair 2026",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvilletx.gov/",
+      "calendarUrl": "https://www.huntsvilletx.gov/593/Christmas-Fair",
+      "contactPageUrl": "https://www.huntsvilletx.gov/593/Christmas-Fair",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "huntsville-city-christmas-movie-park-2026",
+      "organization": "City of Huntsville Parks and Recreation Movie in the Park December 2026",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvilletx.gov/",
+      "calendarUrl": "https://www.huntsvilletx.gov/m/newsflash/Home/Detail/1447",
+      "contactPageUrl": "https://www.huntsvilletx.gov/182/Recreational-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "hopkins-county-chamber-calendar",
+      "organization": "Hopkins County Chamber of Commerce public events submission calendar",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://hopkinschamber.org/",
+      "calendarUrl": "https://hopkinschamber.org/event-calendar/",
+      "contactPageUrl": "https://hopkinschamber.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
