@@ -3005,13 +3005,13 @@
         "hartley"
       ],
       "homeUrl": "https://dalhart.org/",
-      "calendarUrl": "https://dalhart.org/",
+      "calendarUrl": "https://cca.dalhart.org/evtlistingmainsearch.aspx?class=B",
       "contactPageUrl": "https://dalhart.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "quanah-hardeman-chamber",
