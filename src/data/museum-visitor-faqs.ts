@@ -14,6 +14,44 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "heritage-center-cherokee-county-rusk": [
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Where is the Heritage Center of Cherokee County?",
+      "answer": "The museum is at 208 S. Henderson Street in downtown Rusk, Texas. The Old Bonner Bank Building moved to the same address in 2009. The Texas Historical Commission directory provides a map and the museum’s phone number.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5073006614"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Can I view the museum’s historic photographs online?",
+      "answer": "Yes. The East Texas Digital Archives hosts a selection of digitized photographs from the museum. It includes images of Cherokee County schools, downtown business districts and the timber industry.",
+      "verificationUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "What can families look for at the museum?",
+      "answer": "Look for a local bakery delivery box, the Cherokee County timber industry display and Caddo artifacts. Ask the museum which displays are available and confirm visiting hours before you go.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://www.thecherokeean.com/articles/44898/view"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Can I see the Old Bonner Bank Building on the same stop?",
+      "answer": "Yes. The historic bank building stands next to the museum at 208 S. Henderson Street. Plan on seeing the exterior and ask museum staff whether the interior is open during your visit.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+      "questionEvidenceUrl": "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/"
+    }
+  ],
   "comanche-county-historical-museum": [
     {
       "question": "Does the museum offer a self-guided audio tour of Comanche's historic square?",

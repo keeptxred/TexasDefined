@@ -306,7 +306,7 @@ export const Route = createFileRoute("/article/$slug")({
           creator: { "@type": "Person" as const, name: "Paul B. Joiner" },
         }
       : null;
-    const imageRights = texasFlagImageRights ?? (/29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%2520|%20| )USA|Cafe_Table_at_Ocho_Restaurant|State_Fair_of_Texas_September_2019_13|Magoffin_home_2009|Fredericksburg(?:%2520|%20| )July|Lee_Map_of_Texas_1836_UTA/.test(article.hero.src)
+    const imageRights = texasFlagImageRights ?? (/29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%2520|%20| )USA|Cafe_Table_at_Ocho_Restaurant|State_Fair_of_Texas_September_2019_13|Magoffin_home_2009|Fredericksburg(?:%2520|%20| )July|Lee_Map_of_Texas_1836_UTA|Locomotive_125_Texas_State_Railroad_2024/.test(article.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null);
     return { article, authors, categories, related, destinations, graph, imageRights };
   },

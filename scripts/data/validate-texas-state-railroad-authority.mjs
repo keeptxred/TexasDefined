@@ -9,6 +9,11 @@ const paths = {
   andersonSecondary: "src/data/fixtures/anderson-county-palestine-railroads-dogwoods-east-texas.ts",
   palestine: "src/data/small-town-destinations-wave5.ts",
   museum: "src/data/museum-expansion-statewide-wave8.ts",
+  museumDossier: "src/data/museum-authority-network.ts",
+  museumPhotos: "src/data/museum-authority-heroes.ts",
+  holidayEvent: "src/data/major-event-expanded-authority-tranche58.server.ts",
+  travelHistory: "src/data/fixtures/texas-historic-travel-transportation-guide.ts",
+  railroadHistory: "src/data/fixtures/texas-explained-support-articles-2.ts",
   collections: "src/data/curated-tourism-collections.ts",
   collectionUi: "src/components/explore/CuratedTourismPage.tsx",
   destinationRoute: "src/routes/destination.$slug.tsx",
@@ -39,7 +44,7 @@ must("destinationRoute", 'destination.slug === "heritage-center-cherokee-county-
 must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-guide"');
 must("guide", "heritage-center-cherokee-county-rusk");
 must("guide", 'category: "texas-history"');
-must("guide", 'updatedAt: "2026-11-22"');
+if (!/updatedAt: "\d{4}-\d{2}-\d{2}"/.test(sources.guide ?? "")) failures.push("Guide needs a substantive editorial modification date");
 must("guide", 'readingTimeVerified: false');
 must("guide", 'type: "image"');
 for (const asset of ["TSR_300_at_Rusk.jpg", "Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg", "Car_42_Interior_Texas_State_Railroad_2024.jpg", "Texas_State_Railroad%2C_moving_locomotives.jpg", "CC BY-SA 3.0", "CC BY 2.0"]) must("guide", asset);
@@ -62,7 +67,12 @@ for (const [key, needle] of [
   ["guide", "CC BY 4.0"],
 ]) must(key, needle);
 for (const key of ["anderson", "cherokee", "andersonSecondary"]) must(key, `href: "${guideHref}"`);
-must("palestine", `href: "${guideHref}"`);
+for (const key of ["palestine", "holidayEvent", "travelHistory", "railroadHistory"]) must(key, `href: "${guideHref}"`);
+const museumSlug = "heritage-center-cherokee-county-rusk";
+const museumDossier = sources.museumDossier?.split(`  "${museumSlug}": {`)[1]?.split(/\n  "[a-z0-9-]+": \{/)[0] ?? "";
+const museumPhoto = sources.museumPhotos?.split(`  "${museumSlug}": {`)[1]?.split("  },")[0] ?? "";
+if (!museumDossier.includes(`href: "${guideHref}"`)) failures.push("Museum dossier needs a direct link to the railroad guide");
+if (!museumPhoto.includes("/images/heritage-center-cherokee-county-rusk-station-2004.jpg") || !fs.existsSync("public/images/heritage-center-cherokee-county-rusk-station-2004.jpg") || !museumPhoto.includes("gnomonic · CC BY 2.0")) failures.push("Museum needs its credited Rusk station photograph");
 must("collections", `"editorialGuideUrl": "${guideHref}"`);
 must("guide", 'href: "/county/anderson"');
 must("guide", 'href: "/county/cherokee"');

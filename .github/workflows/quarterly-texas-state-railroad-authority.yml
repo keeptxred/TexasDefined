@@ -17,6 +17,11 @@ on:
       - 'src/data/small-town-destinations-wave5.ts'
       - 'src/data/curated-tourism-collections.ts'
       - 'src/data/museum-expansion-statewide-wave8.ts'
+      - 'src/data/museum-authority-network.ts'
+      - 'src/data/museum-authority-heroes.ts'
+      - 'src/data/major-event-expanded-authority-tranche58.server.ts'
+      - 'src/data/fixtures/texas-explained-support-articles-2.ts'
+      - 'src/data/fixtures/texas-historic-travel-transportation-guide.ts'
       - 'src/components/explore/CuratedTourismPage.tsx'
       - 'src/routes/destination.$slug.tsx'
 
@@ -41,7 +46,8 @@ jobs:
         run: |
           node --check scripts/data/validate-texas-state-railroad-authority.mjs
           node scripts/data/validate-texas-state-railroad-authority.mjs
-      - name: Verify railroad article production canonical and direct Worker
+      - name: Verify deployed railroad pages, links and sitemaps
+        if: github.event_name != 'pull_request'
         run: |
           node --check scripts/ci/verify-texas-state-railroad-production.mjs
           node scripts/ci/verify-texas-state-railroad-production.mjs
@@ -66,7 +72,7 @@ jobs:
           - Recheck [Union Pacific / Texas & Eastern freight interchange](https://www.up.com/shipping/short-line/lines/tsr) and confirm that the operating carrier and current cargo remain accurate.
           - Confirm 1883 prison, 1884 ironworks, the 1880s Capitol iron, 1909 Palestine link, 1917 closure and 1919 Rusk State Hospital with [Texas State Library](https://www.tsl.texas.gov/exhibits/prisons/lease/rusk.html) and [Handbook of Texas](https://www.tshaonline.org/handbook/entries/texas-state-railroad). Don't infer the unverified route through Houston.
           - Review film and rolling-stock statements with [Texas Film Commission](https://gov.texas.gov/film/trail/texas-state-railroad), operator and rights-holder; do not promise access to storage yards or abandoned movie cars.
-          - Confirm photo license and credit for the two Wikimedia Commons images, check mobile layout, metadata, image loading, redirects, AEO question-and-answer clarity, indexability, sitemap lastmod and live canonical source.
+          - Confirm photo license and credit for the Wikimedia Commons photographs on the guide and museum page, check mobile layout, metadata, image loading, redirects, AEO question-and-answer clarity, indexability, sitemap lastmod and live canonical source.
           - Revise editorial content only when underlying verified facts actually change; update `updatedAt` on substantive changes. Run `node scripts/data/validate-texas-state-railroad-authority.mjs` and verify the live release.
 
           Related pages: `/county/anderson`, `/county/cherokee`, `/destination/palestine`, `/destination/heritage-center-cherokee-county-rusk`, `/explore/scenic-trains`.

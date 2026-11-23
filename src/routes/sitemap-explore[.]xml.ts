@@ -539,7 +539,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           destinationEntries.push(auditedMagoffinEntry);
         }
         // The same canonical public detail-resolution pipeline determines
-        // eligibility for these two source-precedence holdouts. The server-only
+        // eligibility for these source-precedence holdouts. The server-only
         // helper preserves the Metro proximity sitemap's separate readiness
         // owner and keeps the destination audit and availability gates intact.
         const { loadCanonicalDestinationSitemapParity } = await import("@/data/destination-sitemap-detail-parity.server");
