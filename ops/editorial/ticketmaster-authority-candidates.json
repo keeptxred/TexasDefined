@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-22T18:33:46.161Z",
+  "fetchedAt": "2026-11-23T06:31:14.413Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -340,30 +340,6 @@
       "publicationAllowed": false
     },
     {
-      "name": "KING OF CARS CUSTOM CAR SHOW & CULTURE FEST",
-      "city": "Houston",
-      "dates": [
-        "2026-11-22"
-      ],
-      "venues": [
-        "Reliant Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_35I4rvI"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/king-of-cars-custom-car-show-houston-texas-11-22-2026/event/3A006522E855E068"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
       "name": "Lights All Night Festival - Ages 18+",
       "city": "Dallas",
       "dates": [
@@ -623,9 +599,11 @@
         "Frost Bank Center"
       ],
       "ticketmasterIds": [
-        "G5dIZ_8rn3Qsr"
+        "G5dIZ_8rn3Qsr",
+        "G5dIZ_8rn8Bso"
       ],
       "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-20-2027/event/3A006507AA43AC51",
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-20-2027/event/3A006507AA49AC5E"
       ],
       "status": "requires-organizer-verification",
@@ -970,7 +948,8 @@
         "2027-02-06",
         "2027-02-12",
         "2027-02-14",
-        "2027-02-19"
+        "2027-02-19",
+        "2027-02-20"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -1013,6 +992,7 @@
         "Z7r9jZ1AA7KjA",
         "Z7r9jZ1AA7KjF",
         "Z7r9jZ1AA7Kje",
+        "Z7r9jZ1AA7KqP",
         "Z7r9jZ1AAAfbK",
         "Z7r9jZ1AAAfbY",
         "Z7r9jZ1AAAfbt",
@@ -1058,6 +1038,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjA",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KqP",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbK",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbY",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbt",
