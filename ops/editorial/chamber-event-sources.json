@@ -5596,6 +5596,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "morris-daingerfield-state-park-tpwd-original-events",
+      "organization": "Texas Parks and Wildlife — Daingerfield State Park current 2026–2027 original ranger and seasonal visitor programs (limited park venue, NOT countywide festivals)",
+      "countySlugs": [
+        "morris"
+      ],
+      "homeUrl": "https://tpwd.texas.gov/state-parks/daingerfield",
+      "calendarUrl": "https://tpwd.texas.gov/state-parks/daingerfield/park_events",
+      "contactPageUrl": "https://tpwd.texas.gov/state-parks/daingerfield",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
