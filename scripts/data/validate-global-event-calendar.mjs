@@ -56,6 +56,38 @@ try {
   failures.push("live Christmas 12-show production acceptance must have valid JavaScript syntax: " + String(error.stderr || error.message));
 }
 
+// Original 2027 Refugio County Fair Association: current-edition event dates,
+// separately confirmed by organizer calendar and Easter-shift notice.
+const refugio2027 = read("src/data/events/refugio-fair-2027.server.ts");
+requireText(adapter,'import { getVerifiedRefugioFairCalendarEvents2027 } from "./refugio-fair-2027.server";',"Refugio statewide server import");
+requireText(adapter,"...getVerifiedRefugioFairCalendarEvents2027()","Refugio shared county/statewide deduplication");
+for (const marker of [
+  'id: "curated-refugio-fair-2027:pride-of-texas-carnival"',
+  'id: "curated-refugio-fair-2027:fair-parade"',
+  'id: "curated-refugio-fair-2027:ranch-rodeo"',
+  'id: "curated-refugio-fair-2027:livestock-shows"',
+  'startDate: "2027-03-24"',
+  'startDate: "2027-03-27"',
+  'startDate: "2027-03-31"',
+  'endDate: "2027-04-02"',
+  'startTime: "10:00 AM"',
+  'startTime: "12:30 PM"',
+  'https://www.refugiocountyfair.com/events/',
+  'https://www.refugiocountyfair.com/uncategorized/2027-refugio-county-fair-dates/',
+  'countySlug: "refugio"',
+  'countyName: "Refugio County"',
+  'status: "scheduled"',
+  'lastVerifiedAt: "2026-11-23"',
+]) requireText(refugio2027,marker,"Refugio organizer-confirmed exact 2027 fair editions");
+if ((refugio2027.match(/id: "curated-refugio-fair-2027:/g)??[]).length !== 4)
+  failures.push("Refugio 2027 must have exactly four individual date-verified first-party events");
+if ((refugio2027.match(/startTime: /g)??[]).length !== 2)
+  failures.push("Only the 10 AM parade and 12:30 PM ranch rodeo exact 2027 Refugio start times may be asserted");
+if (/\b(ticketing|image|officialTicketUrl|affiliateUrl):/.test(refugio2027))
+  failures.push("No Refugio photo/ticket/licensing rights or provider partnership was verified");
+if (/startDate: "2026-|startDate: "2028-/.test(refugio2027))
+  failures.push("Refugio 2027 event records must not project old or future year editions");
+
 const mardiGrasCompanions = read("src/data/events/mardi-gras-companion-events-2027.server.ts");
 const mardiGrasHub = read("src/routes/events.mardi-gras.lazy.tsx");
 const mardiGrasNewFestivals = read("src/data/events/mardi-gras-new-festivals-2027.server.ts");
