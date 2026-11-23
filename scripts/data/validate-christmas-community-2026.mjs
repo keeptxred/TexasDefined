@@ -627,5 +627,34 @@ check("amarillo-electric-light-parade", "2026-12-04");
 check("richardson-santas-village-week1", "2026-12-05", "2026-12-06");
 check("richardson-santas-village-week2", "2026-12-11", "2026-12-13");
 check("richardson-santas-village-week3", "2026-12-18", "2026-12-20");
+
+for (const [slug, county, city, day, sourceUrl, publisher] of [
+  ["comanche-explore-christmas-square-2026", "comanche", "Comanche", "2026-12-12",
+    "https://www.comanchechamber.org/explorecomanchechristmas", "Comanche Chamber"],
+  ["clarendon-small-town-christmas-2026", "donley", "Clarendon", "2026-11-28",
+    "https://clarendontx.com/2026/11/17/2026-small-town-christmas/", "Clarendon Economic Development"],
+]) {
+  check(slug, day);
+  const event = bySlug.get(slug);
+  assert.equal(events.filter(row => row.slug === slug).length, 1, `${slug}: no duplicate seasonal occurrence`);
+  assert.equal(event.endDate, undefined, `${slug}: no invented second or following day`);
+  assert.equal(event.countySlug, county);
+  assert.equal(event.countyName, county === "donley" ? "Donley County" : "Comanche County");
+  assert.equal(event.city, city);
+  assert.equal(event.officialEventUrl, sourceUrl);
+  assert.match(event.sourceName, new RegExp(publisher));
+  assert.equal(event.sourceVerifiedAt, "2026-11-23");
+  assert.match(event.summary, /2027/);
+  assert.match(event.summary, /does not|do not|No future/i);
+}
+assert.match(bySlug.get("comanche-explore-christmas-square-2026").summary,
+  /Parade begins at 6 p.m./, "Only actual Comanche organizer parade start may be published");
+assert.match(bySlug.get("comanche-explore-christmas-square-2026").summary,
+  /Market and Tree Lighting program runs 2:30 to 6 p.m./);
+assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
+  /Saturday, November 28/);
+assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
+  /lighting ceremony at 5 p.m./);
+
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 
