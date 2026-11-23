@@ -1,0 +1,56 @@
+name: Refresh Comanche editorial sources monthly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 14 1 * *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  comanche-source-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Create dated Comanche source-review work item
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          period="$(date -u +%Y-%m)"
+          title="Comanche source refresh — ${period}"
+          existing="$(gh issue list --repo "$GH_REPO" --state all --search "$title in:title" --json title,number --jq '.[] | select(.title == "'"$title"'") | .number' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            echo "Already tracked as issue #$existing"
+            exit 0
+          fi
+          cat > review.md <<'EOF'
+          Monthly editorial fact-check due for the three Comanche authority guides and the Small Towns directory.
+
+          Pages:
+          - https://texasdefined.com/destination/comanche
+          - https://texasdefined.com/county/comanche
+          - https://texasdefined.com/destination/comanche-county-historical-museum
+          - https://texasdefined.com/explore/small-towns
+
+          Source review (check directly, and record the date and substantive change in this issue):
+          - [ ] Comanche Chamber: https://www.comanchechamber.org/explorecomanche — Old Cora closure, historic square, depot, visitor access
+          - [ ] Museum: https://www.comanchecountytxmuseum.com/ — hours, admission, exhibits, self-guided walking tour
+          - [ ] Texas Historical Commission: https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more — Old Cora roof project status; grant award is NOT completed work
+          - [ ] National Register district: https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf — designated district, no change presumed
+          - [ ] JW Hardin official visitor page: https://www.jwhardinwine.com/visit/ — active tasting-room visitor details
+          - [ ] Tribe Vineyards: https://www.tribevineyards.com/ — verify whether planned 2027 opening changed
+          - [ ] Comanche Chamber events: https://www.comanchechamber.org/comancheevents — annual Pow Wow/rodeo/Christmas dates; do not invent or roll over event dates
+          - [ ] Brennan closure: retain historical closure of Comanche facility December 30, 2025; do not silently resurrect its tasting-room listing
+          - [ ] Image licenses and attribution (courthouse + Old Cora); links, responsive accessibility, canonical metadata, crosslinks and FAQ accuracy
+          - [ ] Update the local authority records only for verified changes; update sourceCheckedAt/updatedAt only after substantive human or source-backed verification
+          - [ ] Validate city/county/museum/directory locally, merge, deploy and verify live production; close this issue with PR, run IDs and public evidence
+
+          Source files: src/data/small-town-destinations-wave14.ts, src/data/fixtures/comanche-county-comanche-de-leon-proctor-lake-cross-timbers.ts, src/data/museum-expansion-statewide-wave24.ts.
+          This schedule creates review work, not fictitious automatic fact updates. Weekly on-site verification: .github/workflows/verify-comanche-authority-production.yml.
+          EOF
+          gh issue create --repo "$GH_REPO" --title "$title" --body-file review.md
