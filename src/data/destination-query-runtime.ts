@@ -245,6 +245,7 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
 // comparably verified replacement is expressly approved. Remote Explore data can
 // be structurally valid yet stale; generic scoring alone must not erase these
 // November 2026 history, admission, photo-rights and itinerary corrections.
+// Accept later reviewed YYYY-MM-DD dates so quarterly updates cannot revive stale remote copy.
 const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
   "comanche",
   "comanche-county-historical-museum",
