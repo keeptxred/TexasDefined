@@ -1023,5 +1023,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "El Campo Chamber of Commerce & Agriculture",
     "summary": "The El Campo Chamber of Commerce's exact 2026 event page confirms its Chamber Christmas Parade for Thursday, December 3, from 7–9 p.m. Central. The community holiday parade is listed separately from the Chamber's December 1 Hometown Holiday Shop Hop and December 5–6 Christmas Mall. The official event entry does not publish a detailed procession route, road closures, confirmed spectator parking or admission charge. Confirm those visitor details directly with the Chamber; this is not the Wharton city Christmas Parade held on December 1.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "la-grange-schmeckenfest-wassail-festival-2026",
+    "title": "La Grange Schmeckenfest Christmas & Wassail-Tasting Festival",
+    "city": "La Grange",
+    "countySlug": "fayette",
+    "countyName": "Fayette County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Fayette County Courthouse Square, downtown La Grange",
+    "officialEventUrl": "https://business.lagrangetx.org/events/Details/schmeckenfest-1983730?sourceTypeId=Website",
+    "sourceName": "City of La Grange / La Grange Area Chamber calendar",
+    "summary": "The City of La Grange and the local Chamber calendar confirm Schmeckenfest on Thursday, December 3, 2026, from 5 to 8 p.m. around Fayette County Courthouse Square. The town's seasonal wassail-tasting gathering features downtown Christmas activities, and nearby Texas Quilt Museum participates in the annual celebration. Individual shops, fundraising items and museum programs have separate details; check the organizers for participation, traffic changes and any charges before traveling. This is the 2026 edition only.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
