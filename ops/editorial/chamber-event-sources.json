@@ -853,12 +853,13 @@
         "hopkins"
       ],
       "homeUrl": "https://hopkinsmuseum.org/",
-      "calendarUrl": "https://hopkinsmuseum.org/",
+      "calendarUrl": "https://hopkinsmuseum.org/events/",
       "contactPageUrl": "https://hopkinsmuseum.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "bonham-chamber-christmas-2026",
@@ -4529,6 +4530,111 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "city-midland-community-events-calendar",
+      "organization": "City of Midland Parks and Recreation official community and holiday events calendar",
+      "countySlugs": [
+        "midland"
+      ],
+      "homeUrl": "https://www.midlandtexas.gov/",
+      "calendarUrl": "https://www.midlandtexas.gov/Calendar.aspx",
+      "contactPageUrl": "https://www.midlandtexas.gov/1244/Community-Events-Programs",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-bay-city-community-calendar",
+      "organization": "City of Bay City official municipal special events, parks and public library community calendar",
+      "countySlugs": [
+        "matagorda"
+      ],
+      "homeUrl": "https://www.baycitytx.gov/",
+      "calendarUrl": "https://www.baycitytx.gov/Calendar.aspx",
+      "contactPageUrl": "https://www.baycitytx.gov/371/Annual-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "sulphur-springs-downtown-business-alliance-calendar",
+      "organization": "Sulphur Springs Downtown Business Alliance public dated downtown holiday market and festival calendar",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://ssdba.org/",
+      "calendarUrl": "https://ssdba.org/",
+      "contactPageUrl": "https://ssdba.org/contact",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-jasper-texas-calendar-monitor",
+      "organization": "City of Jasper, Texas public civic event calendar with Special Events and CITP categories",
+      "countySlugs": [
+        "jasper"
+      ],
+      "homeUrl": "https://www.jaspertx.org/",
+      "calendarUrl": "https://www.jaspertx.org/page/calendar",
+      "contactPageUrl": "https://www.jaspertx.org/page/visitors",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-jasper-christmas-in-park-2026",
+      "organization": "City of Jasper official 2026 Christmas in the Park event and parking information",
+      "countySlugs": [
+        "jasper"
+      ],
+      "homeUrl": "https://www.jaspertx.org/",
+      "calendarUrl": "https://www.jaspertx.org/page/Christmas%20in%20the%20Park",
+      "contactPageUrl": "https://www.jaspertx.org/page/visitors",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "decatur-chamber-tree-lighting-2026",
+      "organization": "Decatur Chamber of Commerce 2026 Tree Lighting Ceremony",
+      "countySlugs": [
+        "wise"
+      ],
+      "homeUrl": "https://www.decaturtx.com/",
+      "calendarUrl": "https://www.decaturtx.com/tree-lighting-ceremony",
+      "contactPageUrl": "https://www.decaturtx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "decatur-chamber-parade-of-lights-2026",
+      "organization": "Decatur Chamber of Commerce 2026 Parade of Lights and Moonlight Madness",
+      "countySlugs": [
+        "wise"
+      ],
+      "homeUrl": "https://www.decaturtx.com/",
+      "calendarUrl": "https://www.decaturtx.com/parade-of-lights",
+      "contactPageUrl": "https://www.decaturtx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
