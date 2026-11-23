@@ -147,7 +147,7 @@ test("festival-specific pages and annual guides are real leads, not complete cou
   assert.equal(annual?.sourceKind, "annual-events-list");
   assert.equal(parade?.sourceKind, "event-specific");
   const calendar = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
-  assert.ok(!calendar.has("camp"), "Annual guides alone must not certify a current county calendar");
+  assert.ok(calendar.has("camp"), "New independent City of Pittsburg current events source establishes Camp; old annual guide alone would not");
   assert.notEqual(parade?.sourceKind, "public-calendar", "A single lighted parade page is not a complete calendar, even after a separate verified full Chamber calendar for the county is added");
 });
 
@@ -720,7 +720,8 @@ test("publisher-verified public community calendars recover Hardin, Wheeler, Har
     "Specific 2026/2027 editions on city guide are not a whole community calendar");
   const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   for (const x of ["hardin","wheeler","hardeman","sabine"])assert.ok(counties.has(x));
-  for (const x of ["camp","baylor","crosby"])assert.ok(!counties.has(x),"Do not inflate active calendar coverage via annual, broken or unofficial source: "+x);
+  for (const x of ["baylor","crosby"])assert.ok(!counties.has(x),"Do not inflate calendar coverage via broken or unofficial source: "+x);
+  assert.ok(counties.has("camp"),"City of Pittsburg tourism independently supplies active public calendar separate from annual events guide");
   assert.ok(counties.size >= 163, "Do not lose prior 163 verified calendar-source counties");
 });
 
