@@ -350,6 +350,20 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceVerifiedAt": "2026-11-22"
   },
   {
+    "slug": "canton-main-street-december-2026-sip-shop",
+    "title": "Downtown Canton Christmas Sip & Shop",
+    "city": "Canton",
+    "countySlug": "van-zandt",
+    "countyName": "Van Zandt County",
+    "region": "piney-woods",
+    "startDate": "2026-12-11",
+    "venueName": "Participating businesses in downtown Canton, Texas",
+    "officialEventUrl": "https://www.cantonmainstreet.org/calendar-of-events",
+    "sourceName": "Canton Main Street Program — original direct 2026 event coordinator confirmation November 23",
+    "summary": "Canton Main Street directly confirmed its downtown Christmas Sip & Shop for Friday, December 11, 2026, from 5 to 8 p.m. This is an evening to visit participating local stores in downtown Canton, separate from the next day's Storybook Christmas festival and 6:30 p.m. parade. The organizer's public current-year community notices also identify a Gilmore Girls-inspired Christmas shopping theme; a local storefront's separately listed Friday daytime market is not the same 5–8 p.m. program. The organizer did not confirm a comprehensive participating-shop list, parking plan, event admission policy or photo-reuse rights in the reply. Check the Canton Main Street office before traveling.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
     "slug": "canton-main-street-storybook-christmas-parade-2026",
     "title": "Canton Once Upon a Christmas · Storybook Festival & Parade",
     "city": "Canton",
