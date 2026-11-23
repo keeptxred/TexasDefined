@@ -105,7 +105,7 @@ for(const slug of slugs) {
   // Do not freeze verified music sources to an obsolete Nov. 14 string:
   // each guide needs both material-update and source-review dates, allowing
   // later checked revisions while rejecting missing, invalid or future dates.
-  const reviewed = [...evidence.matchAll(new RegExp('"'+slug+'": "(\\\\d{4}-\\\\d{2}-\\\\d{2})"', 'g'))].map(match => match[1]);
+  const reviewed = [...evidence.matchAll(new RegExp('"'+slug+'": "(\\d{4}-\\d{2}-\\d{2})"', 'g'))].map(match => match[1]);
   const earliest = Date.parse('2026-11-14T00:00:00Z');
   if (reviewed.length < 2 || reviewed.some(date => {
     const ms = Date.parse(date + 'T00:00:00Z');
