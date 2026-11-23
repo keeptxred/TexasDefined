@@ -20,7 +20,7 @@ const thanksgivingFeatures = [
   { slug: "texas-thanksgiving-turkey-frying-safety", title: "Frying a turkey? Read this first", summary: "NFPA warnings, fire hazards, safe thawing, oil overflow prevention and cooking temperatures." },
   { slug: "texas-thanksgiving-recipes", title: "Texas Thanksgiving recipes", summary: "Black-pepper turkey, jalapeño cornbread dressing, pecan pie and a realistic oven schedule." },
   { slug: "texas-thanksgiving-traditions", title: "Thanksgiving traditions in Texas", summary: "Smoked turkey, pecans, Tejano tables, football, turkey trots and family travel." },
-  { slug: "texas-thanksgiving-parades-2026", title: "Texas Thanksgiving parades", summary: "Verified Houston, San Antonio, Fort Worth and Dallas dates for the 2026 season." },
+  { slug: "texas-thanksgiving-parades-2026", title: "Texas Thanksgiving parades", summary: "Houston and El Paso Thanksgiving morning parades, San Antonio Friday and Fort Worth before the holiday." },
 ] as const;
 const HOMEPAGE_DESTINATION_LIMIT = 24;
 const HOMEPAGE_ROAD_TRIP_LIMIT = 8;
@@ -103,7 +103,7 @@ function HomePage() {
           </Link>
         </li>)}
       </ul>
-      <p className="mt-5 text-sm text-muted-foreground">Thanksgiving is Thursday, November 26, 2026. Houston's parade is Thursday, San Antonio's is Friday and Fort Worth's took place Sunday, November 22. Confirm details with each organizer.</p>
+      <p className="mt-5 text-sm text-muted-foreground">Thanksgiving is Thursday, November 26, 2026. Houston and El Paso parades are Thursday; San Antonio's is Friday and Fort Worth's took place Sunday, November 22. Confirm details with each organizer.</p>
     </Container></Section>}
     {hero && <FeatureHero variant="split" eyebrow="From the Texas Defined editors" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={verifiedDiscoveryReadingMinutes(hero) !== null ? formatReadingTime(hero.readingMinutes) : undefined} />}
     {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Editor's picks" title="A Different Side of Texas" description="Handpicked places, landscapes and stops that are worth seeing for yourself." actionLabel="Explore the full guide" actionTo="/explore" /><ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
