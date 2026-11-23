@@ -725,3 +725,23 @@ test("Henderson 2026 downtown Christmas parade uses the city source and never mi
   assert.match(item.summary,/December 8/);
   assert.match(item.summary,/contingency/);
 });
+
+test("Mason, Jackson and Liberty town Christmas celebrations remain organizer-confirmed and distinct", () => {
+  const cases=[
+    ["mason-light-up-our-town-hometown-christmas-2026","mason","2026-11-28","business.masontx.org"],
+    ["edna-market-days-and-christmas-parade-2026","jackson","2026-12-05","www.cityofedna.com"],
+    ["lights-in-liberty-christmas-parade-2026","liberty","2026-12-03","www.lightsinliberty.org"],
+    ["lights-in-liberty-holiday-finale-2026","liberty","2026-12-10","www.lightsinliberty.org"],
+  ];
+  for(const [slug,county,date,host] of cases){
+    const event=events.find(e=>e.slug===slug);
+    assert.ok(event,"Missing organizer-confirmed Christmas event "+slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.sourceVerifiedAt,"2026-11-23");
+    assert.equal(new URL(event.officialEventUrl).hostname,host);
+    assert.ok(event.summary.length>=110&&event.sourceName&&event.venueName);
+  }
+  assert.match(events.find(e=>e.slug==="edna-market-days-and-christmas-parade-2026").summary,/NOT independently confirmed/);
+  assert.match(events.find(e=>e.slug==="lights-in-liberty-holiday-finale-2026").summary,/not a continuous nightly/);
+});
