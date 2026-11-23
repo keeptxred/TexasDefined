@@ -40,6 +40,7 @@ export const smallTownWave14Destinations: Destination[] = [
     bestSeason: "October–April for comfortable downtown walking; wine tastings and the museum can be planned year-round when businesses are operating; verify annual fall and holiday event dates.",
     entryNote: "As of the November 22, 2026 source review, the Chamber lists Old Cora Courthouse as CLOSED FOR RENOVATION. Treat it as an exterior-history stop, not an open interior tour; courthouse restoration may also affect access. Call ahead for museum hours and wineries; do not assume a formal wine tour or walk-in tasting is available.",
     highlights: [
+      "Comanche Downtown Historic District (National Register, 2023)",
       "Old Cora Courthouse (1856; currently closed for renovation)",
       "Fleming Oak and historical markers",
       "Art Moderne Comanche County Courthouse",
@@ -297,6 +298,11 @@ export const smallTownWave14Destinations: Destination[] = [
       }
     ],
     visitorFaqs: [
+      {
+        question: "Is Comanche downtown a National Register historic district?",
+        answer: "Yes. The Comanche Downtown Historic District was listed in 2023 and covers roughly 17 acres centered on the courthouse square. Its National Register nomination identifies 48 contributing buildings and an architectural history spanning about 1883–1974. It is a historic streetscape, not an admission-ticket attraction.",
+        sourceUrl: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf"
+      },
       {
         question: "Can I take a self-guided historic Comanche walking tour?",
         answer: "Yes. The museum publishes a QR-based Comanche Square Walking Tour with audio about Old Cora, Fleming Oak, local mercantile sites and John Wesley Hardin. Verify onsite QR marker access.",
