@@ -299,3 +299,29 @@ test("The 2026 Czech Christmas Open House is directly published by its La Grange
   assert.equal(downtown.startDate,"2026-12-03");
   assert.notEqual(e.venueName,downtown.venueName,"Different Fayette sites may not be collapsed into a single event");
 });
+
+test("Two distinct Huntsville, Walker County 2026 holiday occurrences use the original city organizer", () => {
+  const facts = [
+    ["huntsville-main-street-downtown-christmas-fair-2026","2026-12-05","www.huntsvilletx.gov"],
+    ["huntsville-city-movie-park-rise-guardians-2026","2026-12-11","www.huntsvilletx.gov"],
+  ];
+  for (const [slug,date,host] of facts){
+    const e=events.find(x=>x.slug===slug);
+    assert.ok(e,"Missing original city verified Huntsville 2026 event "+slug);
+    assert.equal(e.city,"Huntsville");
+    assert.equal(e.countySlug,"walker");
+    assert.equal(e.countyName,"Walker County");
+    assert.equal(e.region,"piney-woods");
+    assert.equal(e.startDate,date);
+    assert.equal(e.endDate,undefined,"Do not invent a continuous festival window");
+    assert.equal(new URL(e.officialEventUrl).hostname,host);
+    assert.equal(e.sourceVerifiedAt,"2026-11-22");
+    assert.match(e.sourceName,/City of Huntsville/);
+  }
+  const fair=events.find(x=>x.slug===facts[0][0]);
+  const film=events.find(x=>x.slug===facts[1][0]);
+  assert.match(fair.summary,/does not state exact opening or closing hours/);
+  assert.match(film.summary,/beginning at 6:30 p\.m/);
+  assert.match(film.summary,/free holiday Movie in the Park/);
+  assert.ok(!events.some(x=>x.slug!==film.slug&&x.city==="Huntsville"&&x.startDate==="2026-12-11"&&/Movie in the Park/i.test(x.title)));
+});
