@@ -946,8 +946,28 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.equal(c.has("callahan"),false);
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
-  assert.equal(c.size,167);
+  assert.ok(c.size >= 169, "Dallam and Hartley official Chamber calendar should not regress two county source categories");
   assert.equal(registry.sources.length,356);
+});
+
+
+test("Dalhart Area Chamber first-party dated event calendar serves both Dallam and Hartley County, not unrelated places",async()=>{
+  const d=registry.sources.find(s=>s.id==="dalhart-dallam-hartley-chamber");
+  assert.ok(d);
+  assert.equal(d.organization.includes("Dalhart"),true);
+  assert.deepEqual(d.countySlugs,["dallam","hartley"]);
+  assert.equal(d.sourceKind,"public-calendar");
+  assert.equal(d.homeUrl,"https://dalhart.org/");
+  assert.equal(d.calendarUrl,"https://cca.dalhart.org/evtlistingmainsearch.aspx?class=B");
+  assert.equal(new URL(d.calendarUrl).hostname,"cca.dalhart.org");
+  const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(counties.has("dallam") && counties.has("hartley"));
+  assert.ok(counties.size>=169);
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.countiesTotal,254);
+  assert.ok(report.countiesNeedingCalendarEvidence<=85);
+  assert.match(report.eventPublication,/^NO/);
+  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
