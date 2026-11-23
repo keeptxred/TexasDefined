@@ -544,7 +544,7 @@ test("City and original event publisher calendars recover Midland, Matagorda and
 test("contact desks are not automatically counted as full community calendars", async () => {
   const contactOnly=[
     "gladewater-chamber","marshall-chamber","rusk-chamber","wharton-chamber",
-    "muleshoe-bailey-chamber","city-quitaque","linden-cass-chamber",
+    "city-quitaque","linden-cass-chamber",
     "ballinger-runnels-chamber","falfurrias-brooks-city",
   ];
   for (const id of contactOnly){
@@ -946,10 +946,29 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.equal(c.has("callahan"),false);
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
-  assert.equal(c.size,167);
+  assert.equal(c.size,168, "One independently documented Bailey Chamber calendar raises source coverage, not date-confirmed festivals");
   assert.equal(registry.sources.length,356);
 });
 
+
+test("Muleshoe Chamber official event calendar closes Bailey source gap without unverified Christmas date publication",async()=>{
+  const src=registry.sources.find(x=>x.id==="muleshoe-bailey-chamber");
+  assert.ok(src);
+  assert.deepEqual(src.countySlugs,["bailey"]);
+  assert.equal(src.sourceKind,"public-calendar");
+  assert.equal(src.calendarUrl,"https://muleshoetxchamber.com/events");
+  assert.equal(src.homeUrl,"https://muleshoetxchamber.com/");
+  const counties=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+  assert.ok(counties.has("bailey"));
+  assert.equal(counties.size,168);
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.sourceCount,356);
+  assert.equal(report.countiesWithExplicitCalendarSources,168);
+  assert.equal(report.countiesNeedingCalendarEvidence,86);
+  assert.match(report.eventPublication,/^NO/);
+  assert.equal(registry.sources.find(x=>x.id==="falls-marlin-chamber")?.sourceTrust,"quarantined",
+    "Do not lose the site-safety quarantine while upgrading another source");
+});
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
   for (const [id, county, host] of [
     ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
