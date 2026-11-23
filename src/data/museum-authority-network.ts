@@ -43,7 +43,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. The Cherokeean Herald reported on November 4, 2026 that the museum opened Saturdays 11 a.m.–3 p.m. and Sundays 1–5 p.m., with weekday visits by appointment. That is a reported schedule, not direct confirmation from the museum. Call 903-714-8685 before traveling to verify hours, admission, parking and group arrangements. Plan meals separately and ask about on-site options.",
     accessibility: "Ask the museum about step-free entry, accessible parking, restrooms and quieter visiting times. The Texas Historical Commission directory gives the Henderson Street address and map.",
     familiesAndGroups: "For a short family visit, look for the bakery delivery box and talk about how people bought bread before supermarkets. Ask about group access and which exhibits are currently on display.",
-    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. Compare its images of schools, downtown businesses and the timber industry with the places and exhibits you see in Rusk.",
+    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. The Heritage Center’s curator Betty Marcontell also compiled a May 2023 Historical Tour of Rusk with then-and-now town views and a dated museum visitor notice; the 2023 booklet confirms the reported hours historically, not the current schedule. Use these sources to compare downtown buildings, schools, timber work and railroad-era landmarks with present-day Rusk; confirm present public access before touring.",
     exhibits: [
       {
         heading: "Timber and work",
@@ -86,6 +86,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
         label: "Cherokeean Herald, November 4, 2026",
         url: "https://thecherokeean.com/articles/55397/view",
         use: "Dated local reporting on weekend museum hours and weekday appointments, not operator confirmation"
+      },
+      {
+        label: "Heritage Center curator Betty Marcontell: Historical Tour of Rusk (May 2023)",
+        url: "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/",
+        use: "Museum-authored local history and the museum’s 2023 published hours; historical, not proof of present-day opening"
       },
       {
         label: "East Texas Digital Archives",
