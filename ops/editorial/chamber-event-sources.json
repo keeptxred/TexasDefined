@@ -5611,6 +5611,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "seymour-helping-hands-baylor-community-program-posts",
+      "organization": "Seymour Helping Hands 501(c)(3) — original dated 2026 and 2027 Baylor community programs, ONLY its own nonprofit events (not citywide Chamber festival calendar)",
+      "countySlugs": [
+        "baylor"
+      ],
+      "homeUrl": "https://www.seymourhelpinghands.com/",
+      "calendarUrl": "https://www.seymourhelpinghands.com/stay-informed",
+      "contactPageUrl": "https://www.seymourhelpinghands.com/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
