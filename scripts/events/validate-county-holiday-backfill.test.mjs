@@ -531,6 +531,7 @@ test("Pearsall City's dated 2026 parade and tamale contest adds real Frio County
   assert.match(e.sourceName,/City of Pearsall/);
   assert.match(e.summary,/Friday, December 4, 2026/);
   assert.match(e.summary,/Tamale Contest/);
+  assert.match(e.summary,/holiday vendor opportunities/);
   assert.match(e.summary,/December 2, 2026/);
   assert.match(e.summary,/does not independently establish public start\/end hours/);
   assert.match(e.summary,/any 2027 edition/);
