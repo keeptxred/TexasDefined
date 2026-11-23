@@ -1534,6 +1534,48 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceVerifiedAt": "2026-11-23"
   },
   {
+    "slug": "floresville-downtown-christmas-market-2026",
+    "title": "Floresville Downtown Christmas Market — 2026",
+    "city": "Floresville",
+    "countySlug": "wilson",
+    "countyName": "Wilson County",
+    "region": "south-texas",
+    "startDate": "2026-11-28",
+    "venueName": "Downtown Floresville, Texas — Courthouse Square vendor area",
+    "officialEventUrl": "https://www.floresvillechamberofcommerce.com/christmas-2026",
+    "sourceName": "Floresville Chamber of Commerce — Christmas 2026 organizer page",
+    "summary": "The Floresville Chamber's original Christmas 2026 page confirms its downtown Christmas Market on Saturday, November 28, 2026, open to public shoppers from 4 to 8 p.m., while vendors may set up from noon to 3:30 p.m. The Chamber also promotes the City's separately scheduled Christmas tree lighting and evening parade; market hours should not be mistaken for the parade start. Confirm vendor details and weather updates with the Chamber; the organizer has not published a 2027 market date.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "floresville-christmas-tree-lighting-parade-2026",
+    "title": "Floresville Christmas Tree Lighting & Downtown Parade",
+    "city": "Floresville",
+    "countySlug": "wilson",
+    "countyName": "Wilson County",
+    "region": "south-texas",
+    "startDate": "2026-11-28",
+    "venueName": "Downtown Floresville, 4th and C Streets, Floresville, Texas",
+    "officialEventUrl": "https://www.floresvilletx.gov/calendar-event/christmas-parade-2026/",
+    "sourceName": "City of Floresville — official 2026 community event calendar",
+    "summary": "The City of Floresville formally schedules the annual Christmas celebration for Saturday, November 28, 2026: the FEDC Christmas tree lighting begins at 7 p.m. and the downtown Christmas parade follows at 7:30 p.m. at 4th and C Streets. City and Chamber confirm additional hot cocoa, children's activities and market vendors, while the companion Chamber market is open for shoppers earlier from 4 to 8 p.m. The City posts route and entry details at the original event page; confirm any late traffic or weather changes. No 2027 date is projected.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "jacksonville-annual-christmas-parade-2026",
+    "title": "Jacksonville Annual Christmas Parade — A Christmas Story",
+    "city": "Jacksonville",
+    "countySlug": "cherokee",
+    "countyName": "Cherokee County",
+    "region": "piney-woods",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Jacksonville, Commerce Street at Bolton Street, Jacksonville, Texas",
+    "officialEventUrl": "https://business.jacksonvilletexas.com/events/details/2026-annual-christmas-parade-10347",
+    "sourceName": "Jacksonville Chamber of Commerce — first-party 2026 parade event listing",
+    "summary": "The Jacksonville Chamber independently confirms its 2026 Annual Christmas Parade for Thursday, December 3, at 6 p.m. in downtown Jacksonville. Parade starts at Commerce and Bolton; the registered entry lineup begins at 5 p.m. but is not a public parade start. This year's theme is A Christmas Story and the grand marshal is Jacksonville ISD superintendent Brad Stewart. Watching is free; entry fees are for participating floats, not spectators. Verify downtown traffic and any late weather change through the Chamber. No next-year date is assumed.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
     "slug": "beeville-merry-miles-christmas-fun-run-2026",
     "title": "Beeville Merry Miles 5K Fun Run/Walk & Kids Dash",
     "city": "Beeville",

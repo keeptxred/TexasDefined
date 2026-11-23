@@ -746,6 +746,25 @@ test("Mason, Jackson and Liberty town Christmas celebrations remain organizer-co
   assert.match(events.find(e=>e.slug==="lights-in-liberty-holiday-finale-2026").summary,/not a continuous nightly/);
 });
 
+test("Wilson and Cherokee 2026 Christmas market and parade dates follow their own original organizers", () => {
+  const cases=[
+    ["floresville-downtown-christmas-market-2026","wilson","2026-11-28","www.floresvillechamberofcommerce.com"],
+    ["floresville-christmas-tree-lighting-parade-2026","wilson","2026-11-28","www.floresvilletx.gov"],
+    ["jacksonville-annual-christmas-parade-2026","cherokee","2026-12-03","business.jacksonvilletexas.com"],
+  ];
+  for (const [slug,county,date,host] of cases) {
+    const event=events.find(e=>e.slug===slug);
+    assert.ok(event,"Missing first-party 2026 holiday schedule "+slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.sourceVerifiedAt,"2026-11-23");
+    assert.equal(new URL(event.officialEventUrl).hostname,host);
+  }
+  assert.match(events.find(e=>e.slug===cases[0][0]).summary,/4 to 8 p.m./);
+  assert.match(events.find(e=>e.slug===cases[1][0]).summary,/7:30 p.m./);
+  assert.match(events.find(e=>e.slug===cases[2][0]).summary,/Watching is free/);
+});
+
 test("Bee County 2026 Christmas fun run is organizer verified without inventing Beeville parade hours", () => {
   const e=events.find(e=>e.slug==="beeville-merry-miles-christmas-fun-run-2026");
   assert.ok(e);
