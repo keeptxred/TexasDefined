@@ -946,7 +946,7 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.equal(c.has("callahan"),false);
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
-  assert.equal(c.size,167);
+  assert.equal(c.size,168, "One independently documented Bailey Chamber calendar raises source coverage, not date-confirmed festivals");
   assert.equal(registry.sources.length,356);
 });
 
