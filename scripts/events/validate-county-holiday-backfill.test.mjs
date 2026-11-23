@@ -657,3 +657,15 @@ test("Post Chamber original 2026 community calendar confirms Dec 5 Lighted Chris
  assert.match(e.summary,/subject to change/);
  assert.match(e.summary,/No 2027 schedule or photograph reuse permission/);
 });
+
+test("county pages surface verified calendar-first holiday events, not only permanent guides", () => {
+  const county = fs.readFileSync("src/data/county-major-events.server.ts", "utf8");
+  assert.match(county, /event\.guidePath\.startsWith\("\/events\?"\) && event\.category === "seasonal"/,
+    "Seasonal county events without leaf guides must appear on their county");
+  assert.match(county, /event\.status === "scheduled"/,
+    "Postponed and cancelled events must not be represented as verified upcoming dates");
+  assert.match(county, /location=county:/,
+    "Calendar-first event cards must link to a county-filtered dated calendar");
+  assert.match(county, /calendar:\$\{event\.slug\}/,
+    "Distinct hometown events on the same date must not be deduplicated by calendar URL");
+});
