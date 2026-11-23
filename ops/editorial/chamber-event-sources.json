@@ -2029,13 +2029,13 @@
         "walker"
       ],
       "homeUrl": "https://www.huntsvillewalkerchamber.com/",
-      "calendarUrl": "https://www.huntsvillewalkerchamber.com/",
+      "calendarUrl": "https://www.huntsvillewalkerchamber.com/57553-2/",
       "contactPageUrl": "https://www.huntsvillewalkerchamber.com/chamber-staff/",
-      "reviewedAt": "2026-11-22",
+      "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hallettsville-chamber",
