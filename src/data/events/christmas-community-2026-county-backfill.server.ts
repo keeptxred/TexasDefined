@@ -1037,5 +1037,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of La Grange / La Grange Area Chamber calendar",
     "summary": "The City of La Grange and the local Chamber calendar confirm Schmeckenfest on Thursday, December 3, 2026, from 5 to 8 p.m. around Fayette County Courthouse Square. The town's seasonal wassail-tasting gathering features downtown Christmas activities, and nearby Texas Quilt Museum participates in the annual celebration. Individual shops, fundraising items and museum programs have separate details; check the organizers for participation, traffic changes and any charges before traveling. This is the 2026 edition only.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "la-grange-texas-czech-christmas-open-house-2026",
+    "title": "Texas Czech Heritage Center Christmas Open House · La Grange",
+    "city": "La Grange",
+    "countySlug": "fayette",
+    "countyName": "Fayette County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Texas Czech Heritage & Cultural Center, 250 W. Fairgrounds Road, La Grange",
+    "officialEventUrl": "https://czechtexas.org/celebrate-a-czech-christmas-in-la-grange/",
+    "sourceName": "Texas Czech Heritage and Cultural Center (event organizer)",
+    "summary": "The Texas Czech Heritage & Cultural Center confirms its Christmas Open House for Saturday, December 5, 2026, from 10 a.m. to 3 p.m. at its La Grange campus on West Fairgrounds Road. Admission is free. Visitors can explore the Czech Village, learn about St. Nicholas traditions through living-history activities, sample traditional seasonal foods, and browse the gift shop. A separately scheduled tasting in Hanslik Hall runs 11 a.m.–2 p.m. Some purchases and optional activities may cost extra; check the center for final details. This is not the downtown Schmeckenfest on December 3.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
