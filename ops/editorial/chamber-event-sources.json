@@ -4439,6 +4439,96 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "san-saba-chamber-community-event-calendar",
+      "organization": "San Saba County Chamber of Commerce active public local community calendar",
+      "countySlugs": [
+        "san-saba"
+      ],
+      "homeUrl": "https://www.sansabachamber.com/",
+      "calendarUrl": "https://www.sansabachamber.com/events/",
+      "contactPageUrl": "https://www.sansabachamber.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "san-saba-city-community-calendar",
+      "organization": "City of San Saba official public dated city events calendar",
+      "countySlugs": [
+        "san-saba"
+      ],
+      "homeUrl": "https://sansabatexas.com/",
+      "calendarUrl": "https://sansabatexas.com/events/",
+      "contactPageUrl": "https://sansabatexas.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "canton-main-street-events-calendar",
+      "organization": "City of Canton Main Street historic downtown community event calendar",
+      "countySlugs": [
+        "van-zandt"
+      ],
+      "homeUrl": "https://www.cantonmainstreet.org/",
+      "calendarUrl": "https://www.cantonmainstreet.org/calendar-of-events",
+      "contactPageUrl": "https://www.cantonmainstreet.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "uvalde-chamber-community-events",
+      "organization": "Uvalde Area Chamber of Commerce public town holiday and festival calendar",
+      "countySlugs": [
+        "uvalde"
+      ],
+      "homeUrl": "https://www.uvalde.org/",
+      "calendarUrl": "https://chamber.uvalde.org/events",
+      "contactPageUrl": "https://www.uvalde.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "mineral-wells-chamber-calendar",
+      "organization": "Mineral Wells Area Chamber of Commerce and CVB public event calendar",
+      "countySlugs": [
+        "palo-pinto"
+      ],
+      "homeUrl": "https://www.mineralwellstx.com/",
+      "calendarUrl": "https://business.mineralwellstx.com/events/calendar",
+      "contactPageUrl": "https://www.mineralwellstx.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-hemphill-community-annual-festival-guide",
+      "organization": "City of Hemphill official annual festival and Sabine County event organizer guide",
+      "countySlugs": [
+        "sabine"
+      ],
+      "homeUrl": "https://www.cityofhemphill.com/",
+      "calendarUrl": "https://www.cityofhemphill.com/1195/Events",
+      "contactPageUrl": "https://www.cityofhemphill.com/1207/Sabine-County-Chamber-of-Commerce",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     }
   ]
 }
