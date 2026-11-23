@@ -366,7 +366,7 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     const alreadyCoveredByOfficialPark = records.some((record) =>
       record.sourceName === "Texas Parks and Wildlife Department"
       && record.officialEventUrl.startsWith("https://tpwd.texas.gov/calendar/")
-      && activity.officialEventUrl.startsWith(record.officialEventUrl.replace(/\\/20\\d{2}-\\d{2}-\\d{2}$/, "") + "/")
+      && activity.officialEventUrl.startsWith(record.officialEventUrl.replace(/\/$/, "") + "/")
       && record.startDate <= activity.startDate
       && (record.endDate ?? record.startDate) >= activity.startDate);
     if (knownActivities.has(key) || alreadyCoveredByOfficialPark) continue;
