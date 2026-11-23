@@ -102,7 +102,15 @@ for(const slug of slugs) {
   if(new Set(researchSources.map(u=>new URL(u).hostname)).size < 2)fail("Research must rely on at least two separately hosted institutions: "+slug);
   if(boilerplate.test(research))fail("Boilerplate in researched findings: "+slug);
   if(!deskProfile.includes('href: "/'+slug+'"'))fail("Editorial desk author archive omits historical feature: "+slug);
-  if(!evidence.includes('"'+slug+'": "2026-11-14"'))fail("Article-specific historical research review/modify date absent: "+slug);
+  // Do not freeze verified music sources to an obsolete Nov. 14 string:
+  // each guide needs both material-update and source-review dates, allowing
+  // later checked revisions while rejecting missing, invalid or future dates.
+  const reviewed = [...evidence.matchAll(new RegExp('"'+slug+'": "(\\\\d{4}-\\\\d{2}-\\\\d{2})"', 'g'))].map(match => match[1]);
+  const earliest = Date.parse('2026-11-14T00:00:00Z');
+  if (reviewed.length < 2 || reviewed.some(date => {
+    const ms = Date.parse(date + 'T00:00:00Z');
+    return !Number.isFinite(ms) || ms < earliest || ms > Date.now();
+  })) fail("Article-specific historical research review/modify date absent or invalid: "+slug);
   if(boilerplate.test(base)) fail("Boilerplate wording: "+slug);
   const words = (base.replace(/https?:\/\/\S+/g," ").match(/\b[A-Za-z][A-Za-z'-]*\b/g)||[]).length;
   if(words<520) fail("Insufficient contextual body text: "+slug+" ("+words+" words)");
