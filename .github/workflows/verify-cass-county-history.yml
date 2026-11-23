@@ -4,12 +4,18 @@ on:
     paths:
       - 'src/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas.ts'
       - 'scripts/ci/verify-cass-county-history.mjs'
+      - 'scripts/ci/verify-cass-county-production.mjs'
+      - 'scripts/ci/verify-cass-county-production.test.mjs'
+      - 'src/data/county-profile.ts'
       - '.github/workflows/verify-cass-county-history.yml'
   push:
     branches: [main]
     paths:
       - 'src/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas.ts'
       - 'scripts/ci/verify-cass-county-history.mjs'
+      - 'scripts/ci/verify-cass-county-production.mjs'
+      - 'scripts/ci/verify-cass-county-production.test.mjs'
+      - 'src/data/county-profile.ts'
       - '.github/workflows/verify-cass-county-history.yml'
   workflow_dispatch:
 permissions:
@@ -25,3 +31,5 @@ jobs:
           node-version: '22'
       - run: node --check scripts/ci/verify-cass-county-history.mjs
       - run: node scripts/ci/verify-cass-county-history.mjs
+      - run: node --check scripts/ci/verify-cass-county-production.mjs
+      - run: node --test scripts/ci/verify-cass-county-production.test.mjs
