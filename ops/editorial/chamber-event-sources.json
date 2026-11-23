@@ -3257,18 +3257,18 @@
     },
     {
       "id": "memphis-hall-chamber-city",
-      "organization": "City of Memphis Chamber of Commerce official contact",
+      "organization": "Memphis Texas Chamber of Commerce official 2026 events",
       "countySlugs": [
         "hall"
       ],
-      "homeUrl": "https://memphistexas.gov/",
-      "calendarUrl": "https://memphistexas.gov/chamber-of-commerce",
-      "contactPageUrl": "https://memphistexas.gov/chamber-of-commerce",
+      "homeUrl": "https://memphistexaschamber.com/",
+      "calendarUrl": "https://memphistexaschamber.com/",
+      "contactPageUrl": "https://memphistexaschamber.com/contact",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "zapata-community-events",
