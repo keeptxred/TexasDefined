@@ -1318,5 +1318,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Henrietta events calendar / Henrietta & Clay County Chamber of Commerce",
     "summary": "The City of Henrietta's official December 2026 event calendar identifies the Clay County Christmas Parade on Sunday, December 6, 2026, beginning at 6 p.m., with the Henrietta & Clay County Chamber of Commerce listed as organizer. The city event detail confirms the date, time and Chamber organizer, but does not identify an exact spectator route, assembly point, parking plan, end time or admission charge. Confirm visitor logistics with the Chamber before attending. No 2027 edition date, press-list acceptance or image reuse permission is inferred.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "pittsburg-christmas-power-wheel-parade-2026",
+    "title": "Pittsburg Christmas Power Wheel Parade",
+    "city": "Pittsburg",
+    "countySlug": "camp",
+    "countyName": "Camp County",
+    "region": "piney-woods",
+    "startDate": "2026-12-04",
+    "venueName": "City of Pittsburg official event listing, 200 Rusk Street; spectator route not specified",
+    "officialEventUrl": "https://visit.pittsburgtx.gov/events/christmas-power-wheel-parade",
+    "sourceName": "City of Pittsburg Tourism — original dated 2026 community calendar",
+    "summary": "The City of Pittsburg's official tourism events calendar lists the Christmas Power Wheel Parade for Friday, December 4, 2026, from 5 to 6 p.m., with the City of Pittsburg identified as organizer. The official event detail lists the City at 200 Rusk Street, Pittsburg, but does not separately specify the parade lineup, driving route, safe viewing areas, parking or admission conditions. This is a distinct December 4 city program and should not be merged with the separately published December 5 A Storybook Christmas Market & Parade. The city listing does not grant photo reuse rights or establish a 2027 edition.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
