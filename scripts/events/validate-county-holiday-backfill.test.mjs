@@ -421,3 +421,21 @@ test("Fairfield 2026 holiday celebrations are two dated Chamber editions, not a 
   }
   assert.equal(events.filter(e=>e.countySlug==="freestone").length,2);
 });
+
+
+test("Gatesville December 5, 2026 Christmas on Marshall Street uses a dated first-party Coryell source",()=>{
+  const event=events.find(e=>e.slug==="gatesville-christmas-on-marshall-street-2026");
+  assert.ok(event,"Missing Gatesville official 2026 community Christmas event");
+  assert.equal(event.startDate,"2026-12-05");
+  assert.equal(event.endDate,undefined);
+  assert.equal(event.countySlug,"coryell");
+  assert.equal(event.countyName,"Coryell County");
+  assert.equal(event.city,"Gatesville");
+  assert.equal(event.region,"prairies-lakes");
+  assert.equal(event.sourceVerifiedAt,"2026-11-22");
+  assert.equal(new URL(event.officialEventUrl).hostname,"www.gatesvilleisd.org");
+  assert.match(event.summary,/10 a\.m\./);
+  assert.match(event.summary,/event end time/);
+  assert.match(event.summary,/Christmas at the Ballpark/);
+  assert.equal(events.filter(e=>e.slug===event.slug).length,1);
+});
