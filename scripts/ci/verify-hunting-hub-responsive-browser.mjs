@@ -34,7 +34,16 @@ try {
     const response = await page.goto(url + "?hunting-visual-proof=" + encodeURIComponent(process.env.GITHUB_SHA || "audit"), { waitUntil: "domcontentloaded", timeout: 45000 });
     assert.equal(response?.status(), 200, "hunting visual response");
     await page.locator("#hunting-season-planner").waitFor({ state: "visible", timeout: 20000 });
-    await page.locator('img[alt^="White-tailed deer in Texas brush habitat"]').evaluate(async (image) => { try { await image.decode(); } catch {} });
+    console.log("HUNTING_BROWSER_VIEWPORT_START", spec.label);
+    // An image decode can stay pending forever on an isolated CDN request.
+    // Fail closed with a real error instead of cancelling the entire protected
+    // release after its job timeout; do not claim a broken hero loaded.
+    await page.locator('img[alt^="White-tailed deer in Texas brush habitat"]').evaluate(async (image) => {
+      await Promise.race([
+        image.decode(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("Hunting hub hero image decode exceeded 15 seconds")), 15000)),
+      ]);
+    });
     await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === "1", undefined, { timeout: 25000 });
 
     const select = page.locator("#hunting-species-select");
@@ -135,6 +144,7 @@ try {
     assert.equal(pageErrors.length, 0, "no React runtime errors: " + pageErrors.join(" | "));
     await page.screenshot({ path: output + "/" + spec.label + ".png", fullPage: true });
     results.push({ viewport: spec.label, ...facts, errors: pageErrors });
+    console.log("HUNTING_BROWSER_VIEWPORT_PASS", spec.label);
     await context.close();
   }
 } finally { await browser.close(); }
