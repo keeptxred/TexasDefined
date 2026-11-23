@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
     const thanksgivingWeek = isTexasThanksgivingWeek();
     const seasonalTitle = thanksgivingWeek ? "Happy Thanksgiving | Texas Defined" : pageTitle;
     const seasonalDescription = thanksgivingWeek
-      ? "Happy Thanksgiving from Texas Defined. Explore turkey-frying fire safety, Texas Thanksgiving recipes and traditions, and verified 2026 parade schedules."
+      ? "Happy Thanksgiving from Texas Defined. Explore turkey-frying fire safety, Texas Thanksgiving recipes and traditions, and confirmed 2026 Houston, El Paso and San Antonio parade schedules."
       : description;
     const featured = loaderData?.featured ?? [];
     const latest = loaderData?.latest ?? [];
