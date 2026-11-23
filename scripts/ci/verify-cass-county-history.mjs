@@ -91,7 +91,7 @@ assert.ok(!source.includes('Joplin was born in Linden.'), 'Do not flatten Scott 
 // main county identity/FAQ still displayed ONLY Linden. Cross-check the
 // separate structured county place list against named, public sources.
 const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
-const cassCommunities = /'cass': \\[([\\s\\S]*?)\\],/.exec(countyProfile)?.[1] ?? '';
+const cassCommunities = countyProfile.split("'cass': [")[1]?.split('],')[0] ?? '';
 assert.ok(cassCommunities, 'Cass County structured place relationships missing');
 for (const place of [
   'Atlanta', 'Hughes Springs', 'Queen City', 'Avinger',
