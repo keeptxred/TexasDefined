@@ -107,7 +107,7 @@ export const texasThanksgivingArticleStubs: Article[] = [
       "alt": "Morton Ranch High School drumline at Houston's H-E-B holiday parade in 2008; archival photograph, not a 2026 image",
       "width": 1600,
       "height": 1067,
-      "credit": "Wikimedia Commons contributor · CC BY-SA 2.0 · H-E-B Houston parade archive photo from 2008"
+      "credit": "Ed Uthman, MD · CC BY-SA 2.0 · Houston H-E-B Holiday Parade, November 27, 2008"
     },
     "authorId": "a-marisol",
     "publishedAt": "2026-11-23",
