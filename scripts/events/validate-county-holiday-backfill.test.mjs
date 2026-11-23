@@ -421,7 +421,7 @@ test("Fairfield 2026 holiday celebrations are two dated Chamber editions, not a 
     assert.match(event.venueName,/118 East Commerce Street/);
     assert.match(event.summary,/confirm|inconsistent/);
   }
-  assert.equal(events.filter(e=>e.countySlug==="freestone").length,2);
+  assert.equal(events.filter(e=>e.countySlug==="freestone").length,3, "Keep both established Fairfield events and the distinct Dec 3 shopping edition");
 });
 
 
@@ -492,4 +492,26 @@ test("Rains County 2026 Emory Christmas is grounded in the city's own current an
   assert.match(e.summary,/or 2027 date/i, "The City's 2026 announcement does not authorize a 2027 date");
   assert.match(e.summary,/exact park site/);
   assert.ok(e.summary.length>210);
+});
+
+test("Fairfield Chamber's own November 2026 schedule confirms a separate Dec 3 Sip Snack Shop without 2027 or time guesses",()=>{
+  const e=events.find(x=>x.slug==="fairfield-holiday-sip-snack-shop-december-2026");
+  assert.ok(e,"Missing original-publisher Fairfield 2026 Dec 3 holiday shopping event");
+  assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+  assert.equal(e.title,"Fairfield Holiday Sip, Snack & Shop");
+  assert.equal(e.startDate,"2026-12-03");
+  assert.equal(e.endDate,undefined,"One Thursday evening shopping promotion is not a multi-day festival");
+  assert.equal(e.city,"Fairfield");
+  assert.equal(e.countySlug,"freestone");
+  assert.equal(e.countyName,"Freestone County");
+  assert.equal(e.region,"prairies-lakes");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.equal(e.officialEventUrl,"https://fliphtml5.com/rxipz/2026-November-Newsletter/");
+  assert.match(e.sourceName,/Fairfield Chamber/);
+  assert.match(e.summary,/before Christmas on the Square on December 5/);
+  assert.match(e.summary,/different dates for the separate Christmas on Commerce promotion/);
+  assert.match(e.summary,/No 2027 edition or photo-use permission is inferred/);
+  assert.ok(!/5:00\s?PM\s?[-–]\s?7:30\s?PM/.test(e.summary),
+    "Conflicting newsletter column layout cannot be presented as indisputable operating hours");
+  assert.equal(events.filter(x=>x.countySlug==="freestone").length,3);
 });
