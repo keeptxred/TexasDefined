@@ -1496,10 +1496,10 @@ jobs:
           # third-party image must fail explicitly well before job cancellation.
           # 'timeout' is nonzero on failure and set -e aborts this release.
           echo 'HUNTING_HUB_CHROME_REQUIRED_START'
-          timeout --signal=TERM --kill-after=15s 240s node scripts/ci/verify-hunting-hub-responsive-browser.mjs
+          CHROME_BIN="$CHROME_BIN" timeout --signal=TERM --kill-after=15s 240s node scripts/ci/verify-hunting-hub-responsive-browser.mjs
           echo 'HUNTING_HUB_CHROME_REQUIRED_PASS'
           echo 'TURKEY_CHROME_REQUIRED_START'
-          timeout --signal=TERM --kill-after=15s 300s node scripts/ci/verify-turkey-hunting-browser.mjs
+          CHROME_BIN="$CHROME_BIN" timeout --signal=TERM --kill-after=15s 300s node scripts/ci/verify-turkey-hunting-browser.mjs
           echo 'TURKEY_CHROME_REQUIRED_PASS'
           # Exact live XML lastmod plus both canonical and cache-bypassed deer SSR.
           # Bounded to hunting release scope under the existing single deploy lock.
