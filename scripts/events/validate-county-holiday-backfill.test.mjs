@@ -612,3 +612,26 @@ test("Henrietta city confirms one distinct Chamber-organized Sunday Dec 6 2026 C
  assert.match(x.summary,/No 2027 edition date/);
  assert.match(x.summary,/image reuse permission/);
 });
+
+test("City of Pittsburg confirms Dec 4 2026 one-hour Power Wheel Parade distinct from Dec 5 Storybook Christmas",()=>{
+ const x=events.find(e=>e.slug==="pittsburg-christmas-power-wheel-parade-2026");
+ assert.ok(x,"Original dated City of Pittsburg Power Wheel event missing");
+ assert.equal(events.filter(e=>e.slug===x.slug).length,1);
+ assert.equal(x.startDate,"2026-12-04");
+ assert.equal(x.endDate,undefined);
+ assert.equal(x.city,"Pittsburg");
+ assert.equal(x.countySlug,"camp");
+ assert.equal(x.countyName,"Camp County");
+ assert.equal(x.region,"piney-woods");
+ assert.equal(x.officialEventUrl,"https://visit.pittsburgtx.gov/events/christmas-power-wheel-parade");
+ assert.equal(x.sourceVerifiedAt,"2026-11-22");
+ assert.match(x.sourceName,/City of Pittsburg Tourism/);
+ assert.match(x.summary,/from 5 to 6 p\.m\./);
+ assert.match(x.summary,/does not separately specify the parade lineup/);
+ assert.match(x.venueName,/200 Rusk Street/,"Publisher-provided City event address must be represented with no asserted parade route");
+ assert.match(x.summary,/December 5 A Storybook Christmas/);
+ assert.match(x.summary,/does not grant photo reuse rights or establish a 2027 edition/);
+ const camp=events.filter(e=>e.countySlug==="camp");
+ assert.ok(camp.some(e=>e.slug==="pittsburg-storybook-christmas-2026"&&e.startDate==="2026-12-05"));
+ assert.equal(camp.filter(e=>/pittsburg-(?:storybook|christmas-power-wheel)/.test(e.slug)).length,2);
+});
