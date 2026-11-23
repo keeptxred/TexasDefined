@@ -656,5 +656,56 @@ assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
 assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
   /lighting ceremony at 5 p.m./);
 
+
+for (const [slug, county, city, date, url] of [
+  [
+    "columbus-lighted-christmas-parade-2026",
+    "colorado",
+    "Columbus",
+    "2026-12-01",
+    "https://business.columbustexas.org/events/details/lighted-christmas-parade-downtown-columbus-14446"
+  ],
+  [
+    "columbus-ladies-night-out-christmas-2026",
+    "colorado",
+    "Columbus",
+    "2026-12-03",
+    "https://business.columbustexas.org/events/details/ladies-night-out-12-03-2026-14445?calendarMonth=2026-12-01"
+  ],
+  [
+    "kountze-lighted-christmas-parade-2026",
+    "hardin",
+    "Kountze",
+    "2026-12-04",
+    "https://www.kountzechamber.com/upcoming-events"
+  ],
+  [
+    "cross-plains-sip-n-shop-christmas-parade-2026",
+    "callahan",
+    "Cross Plains",
+    "2026-12-03",
+    "https://crossplainschamberofcommerce.com/sidewalk-sale"
+  ]
+]) {
+  check(slug, date);
+  const event = bySlug.get(slug);
+  assert.equal(events.filter(row => row.slug === slug).length, 1);
+  assert.equal(event.countySlug, county);
+  assert.equal(event.countyName, ({ colorado: "Colorado County", hardin: "Hardin County", callahan: "Callahan County" })[county]);
+  assert.equal(event.city, city);
+  assert.equal(event.endDate, undefined, "Single original festival day cannot invent an additional date");
+  assert.equal(event.officialEventUrl, url);
+  assert.equal(event.sourceVerifiedAt, "2026-11-23");
+  assert.ok(event.summary.length > 240, "Use original visitor-facing planning detail instead of thin event filler");
+  assert.match(event.summary, /2027/, "Future edition is not established");
+}
+assert.match(bySlug.get("columbus-lighted-christmas-parade-2026").summary, /December 1, 2026, from 6 to 8 p.m./);
+assert.match(bySlug.get("columbus-ladies-night-out-christmas-2026").summary, /December 3, 2026, from 4 to 9 p.m./);
+assert.match(bySlug.get("columbus-ladies-night-out-christmas-2026").summary, /merchandise bundle, not a proven general admission charge/);
+assert.match(bySlug.get("kountze-lighted-christmas-parade-2026").summary, /not be treated as a verified five-minute procession/);
+assert.match(bySlug.get("cross-plains-sip-n-shop-christmas-parade-2026").summary, /shopping and is not a confirmed parade start or end time/);
+assert.equal(events.filter(e => e.countySlug === "colorado" && e.slug.startsWith("columbus-")).length, 2,
+  "December 1 parade and December 3 shopping celebration must remain two distinct dates");
+
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 
