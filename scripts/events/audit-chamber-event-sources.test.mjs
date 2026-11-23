@@ -618,3 +618,18 @@ test("only six blocked original Chamber sources remain for explicit calendar-vs-
   assert.equal(report.unclassifiedSourceCount,6);
   assert.equal(report.eventPublication.startsWith("NO"),true);
 });
+
+
+test("Gatesville ISD 2026 seasonal event evidence is an event-specific source, not an entire Coryell county festival calendar", async () => {
+  const src=registry.sources.find(s=>s.id==="gatesville-isd-christmas-on-marshall-2026");
+  assert.ok(src,"Missing original Gatesville school-district 2026 community event source");
+  assert.deepEqual(src.countySlugs,["coryell"]);
+  assert.equal(src.sourceKind,"event-specific");
+  assert.equal(new URL(src.calendarUrl).hostname,"www.gatesvilleisd.org");
+  const communityCalendars=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.equal(communityCalendars.has("coryell"),false,
+    "One district community event is not a current statewide festival/holiday community calendar for Coryell");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.sourceCount,registry.sources.length);
+  assert.equal(report.countiesWithRegisteredSources,254);
+});
