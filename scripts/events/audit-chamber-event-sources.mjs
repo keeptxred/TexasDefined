@@ -165,8 +165,35 @@ export function extractEventLeads(html, pageUrl) {
   return leads;
 }
 
-async function fetchPublicCalendar(source, fetchImpl) {
-  const url = checkedPublicUrl(source.calendarUrl);
+/**
+ * Bounded single-page, same-publisher calendar-link discovery. These are
+ * unverified editorial research pointers, NOT accepted press feeds or events.
+ * No second-page fetch, no cross-origin link following, no publication.
+ */
+export function extractCalendarLinks(html, pageUrl) {
+  const base = checkedPublicUrl(pageUrl), candidates = [], seen = new Set();
+  const relevant = /\b(events?|calendars?|festivals?|community activities|things to do|what(?:'s| is) happening|parades?)\b/i;
+  for (const match of html.matchAll(/<a\b[^>]*href\s*=\s*["']([^"'#]+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    const label = match[2].replace(/<[^>]*>/g," ").replace(/&(?:amp;|#38;)/gi,"&")
+      .replace(/&[^;]+;/g," ").replace(/\s+/g," ").trim().slice(0,96);
+    let url;
+    try { url = checkedPublicUrl(new URL(match[1],base).href); }
+    catch { continue; }
+    if (url.origin !== base.origin || url.hash || seen.has(url.href)) continue;
+    if (/\.(?:pdf|jpg|jpeg|png|webp|svg|docx?|xlsx?|ics|zip)$/i.test(url.pathname) ||
+        /\/(?:admin|login|signin|sign-in|privacy|terms|join-mailing-list)(?:\/|$)/i.test(url.pathname))
+      continue;
+    if (!relevant.test(label+" "+url.pathname.replace(/[-_]/g," "))) continue;
+    seen.add(url.href);
+    candidates.push({ label:label||"Community events/calendar", sourceUrl:url.href,
+      publisherVerified:false, organizerVerified:false, publishable:false });
+    if (candidates.length >= 8) break;
+  }
+  return candidates;
+}
+
+async function fetchPublicCalendar(source, fetchImpl, { discoverOnly = false } = {}) {
+  const url = checkedPublicUrl(discoverOnly ? source.homeUrl : source.calendarUrl);
   const options = { headers: { "User-Agent": BOT, Accept: "text/html,application/ld+json,text/calendar,application/rss+xml" },
     redirect: "follow", signal: AbortSignal.timeout(12000) };
   try {
@@ -187,6 +214,9 @@ async function fetchPublicCalendar(source, fetchImpl) {
     if (Number(response.headers.get("content-length") || 0) > 1200000)
       return { state: "oversized-response", http: response.status, leads: [] };
     const text = (await response.text()).slice(0, 1200000);
+    if (discoverOnly) return { state:"contact-discovery-only", http:response.status,
+      leads:[], calendarCandidates:extractCalendarLinks(text,final.href),
+      sourceAvailabilityIsNotCalendarVerification:true };
     let leads = [];
     if (source.calendarType === "html") leads = extractEventLeads(text, final.href);
     // RSS / iCal imports are not auto-published; such sources must receive
@@ -221,8 +251,8 @@ export async function auditChamberSources({
     const result = source.sourceTrust === "quarantined"
       ? { state: "quarantined-source", leads: [] }
       : offline ? { state: "offline-validation", leads: [] }
-      : source.sourceKind === "contact-only" ? { state: "contact-only-research", leads: [] }
       : !due ? { state: "not-due", leads: [] }
+      : source.sourceKind === "contact-only" ? await fetchPublicCalendar(source,fetchImpl,{discoverOnly:true})
       : await fetchPublicCalendar(source, fetchImpl);
     observations.push({ sourceId: source.id, organization: source.organization,
       countySlugs: source.countySlugs, officialUrl: source.homeUrl,
@@ -256,6 +286,7 @@ export async function auditChamberSources({
     contactOnlySourceCount, emptyCalendarSourceCount, unclassifiedSourceCount, eventSpecificSourceCount, annualEventsListSourceCount,
     sourceCount: registry.sources.length, observations,
     candidateCount: observations.reduce((sum, row) => sum + row.leads.length, 0),
+    contactCalendarCandidateCount: observations.reduce((sum,row) => sum + (row.calendarCandidates?.length||0),0),
     sourceAvailabilityIsNotDateVerification: true,
     outreachStatus: "Outlook sender and replies are tracked privately, not inferred from this report" };
   if (report.countiesTotal !== 254) throw new Error("County research coverage is incomplete");
