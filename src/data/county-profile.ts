@@ -56,6 +56,11 @@ type TigerwebCountyFeature = {
 // Curated county relationships do not assume a town has an independent city page.
  // Verify using the Handbook of Texas and county roads/municipal boundaries map.
 const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
+  // City of Alvin identifies its Brazoria County location; this guards county
+  // directory SSR when a partial/stale place index omits this city.
+  // https://www.alvin.gov/342/History-of-Alvin
+  // https://www.brazoriacountytx.gov/about-us/history
+  brazoria: ['Alvin', 'Angleton', 'Pearland', 'Lake Jackson', 'Freeport', 'Brazoria', 'West Columbia', 'Surfside Beach'],
   'van-zandt': ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'],
   // Source: El Paso County Elections municipalities; TWDB 2022 El Paso County map
   // Additional named places are unincorporated communities, not municipalities.
