@@ -73,6 +73,20 @@ function HomePage() {
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
 
   return <>
+    {thanksgivingWeek && (
+      <section aria-label="Happy Thanksgiving from TexasDefined" className="bg-surface">
+        <img
+          src="/images/seasonal/texasdefined-thanksgiving-2026-hero.jpg"
+          alt="Happy Thanksgiving from TexasDefined — a Texas Hill Country sunset over a festive Thanksgiving table."
+          width={1672}
+          height={941}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="mx-auto block h-auto w-full max-w-[1672px]"
+        />
+      </section>
+    )}
     <header className="border-b border-border bg-surface px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <p className="eyebrow text-primary">Texas Defined</p>
