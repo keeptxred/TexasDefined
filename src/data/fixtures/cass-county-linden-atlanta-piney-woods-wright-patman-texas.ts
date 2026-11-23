@@ -20,7 +20,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  updatedAt: "2026-11-22",
+  updatedAt: "2026-11-23",
   readingMinutes: 27,
   tags: [
     "Cass County",
