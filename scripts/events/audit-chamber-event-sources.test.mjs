@@ -613,10 +613,10 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 321);
+  assert.equal(report.sourceCount, 325);
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 156);
-  assert.equal(report.countiesNeedingCalendarEvidence, 98);
+  assert.equal(report.countiesWithExplicitCalendarSources, 157);
+  assert.equal(report.countiesNeedingCalendarEvidence, 97);
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
 });
@@ -636,7 +636,30 @@ test("Archer City and Canadian provide actual public event calendars distinct fr
     "A separate Canadian annual-events page must stay distinct from the active chamber calendar");
   const coverage = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(coverage.has("archer") && coverage.has("hemphill"));
-  assert.equal(coverage.size, 156, "Only separately evidenced current public calendar counties count");
+  assert.ok(coverage.size >= 156, "Do not lose Archer or Hemphill while adding verified sources");
+});
+
+test("Coleman city has a distinct public calendar; rural undated city desks are monitored, not inflated", () => {
+  const coleman = registry.sources.find(s => s.id === "city-coleman-community-calendar");
+  assert.equal(coleman?.sourceKind, "public-calendar");
+  assert.deepEqual(coleman.countySlugs, ["coleman"]);
+  assert.equal(coleman.calendarUrl, "https://www.cityofcolemantx.us/calendar/index.html");
+  assert.equal(registry.sources.find(s=>s.id==="coleman-county-chamber")?.sourceKind, "annual-events-list",
+    "Old countywide annual dates stay historical until separately reconfirmed");
+  for (const [id, county] of [
+    ["city-ralls-community-calendar-monitor","crosby"],
+    ["city-daingerfield-community-calendar-monitor","morris"],
+    ["city-memphis-community-calendar-monitor","hall"],
+  ]) {
+    const s = registry.sources.find(v=>v.id===id);
+    assert.ok(s, "Missing public city source "+id);
+    assert.deepEqual(s.countySlugs,[county]);
+    assert.equal(s.sourceKind,"empty-calendar","A city events heading or council session is not a dated tourism-festival calendar");
+  }
+  const covered = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(covered.has("coleman"));
+  for(const county of ["crosby","morris","hall"])
+    assert.equal(covered.has(county),false,"Do not imply dated countywide festival calendar for "+county);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
