@@ -1447,3 +1447,17 @@ test("Comanche and Clarendon 2026 holiday records preserve primary publisher sou
   assert.equal(registry.sources.find(row => row.id === "comanche-chamber")?.sourceKind, "public-calendar");
   assert.equal(registry.sources.find(row => row.id === "clarendon-donley-chamber")?.sourceKind, "contact-only");
 });
+
+
+test("Kountze 2026 Chamber parade is a precise event source, not full Hardin county-calendar evidence", () => {
+  const source = registry.sources.find(row => row.id === "kountze-chamber-lighted-christmas-parade-2026");
+  assert.ok(source);
+  assert.deepEqual(source.countySlugs, ["hardin"]);
+  assert.equal(source.calendarUrl, "https://www.kountzechamber.com/upcoming-events");
+  assert.equal(source.sourceKind, "event-specific");
+  assert.equal(source.sourceRole, "discovery");
+  assert.equal(source.reviewedAt, "2026-11-23");
+  assert.equal(source.contactEmail, undefined);
+  const silsbee = registry.sources.find(row => row.id === "silsbee-chamber-community-calendar");
+  assert.equal(silsbee?.sourceKind, "public-calendar", "Independent Silsbee calendar remains original and separate");
+});
