@@ -317,8 +317,8 @@ function assertYouthHuntingAuthority(html, surface) {
 }
 
 // Bounded acceptance of visitor-facing 2027 festival gates on BOTH the cache-busted
-// release and ordinary canonical HTML. No event-specific image rights exist yet:
-// the guide must remain noindex until the separate licensed-photo gate is passed.
+// release and ordinary canonical HTML. The locally accurate, documented CC0
+// Port Arthur context photo now permits indexing; do not claim it depicts Mardi Gras.
 export function assertPortArthurFestivalGateFacts(html, surface) {
   for (const fact of [
     'February 5–7, 2027',
@@ -334,8 +334,11 @@ export function assertPortArthurFestivalGateFacts(html, surface) {
   const robots = [...html.matchAll(/<meta\b[^>]*>/gi)]
     .map((match) => match[0])
     .filter((tag) => /\bname=["']robots["']/i.test(tag));
-  if (!robots.some((tag) => /\bnoindex\b/i.test(tag))) {
-    throw new Error('Port Arthur ' + surface + ' incorrectly indexed without an approved event-specific hero photo');
+  if (robots.some((tag) => /\bnoindex\b/i.test(tag))) {
+    throw new Error('Port Arthur ' + surface + ' unexpectedly noindex despite approved CC0 context image');
+  }
+  for (const marker of ['data-major-event-hero="true"', 'data-major-event-enrichment-image="true"', 'Ente75', 'CC0 1.0', 'Aerial_view_of_Port_Arthur']) {
+    if (!html.includes(marker)) throw new Error('Port Arthur ' + surface + ' missing verified CC0 hero licensing: ' + marker);
   }
 }
 

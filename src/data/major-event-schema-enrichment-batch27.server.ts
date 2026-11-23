@@ -1,14 +1,27 @@
 import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
 
-// Reviewed organizer evidence only. Omit offers, photographs and unannounced 2027
-// event-date promises rather than invent ticket prices or image licensing.
+// Reviewed organizer evidence and verified location-specific Wikimedia Commons reuse licenses.
+// Context photographs clearly identify the real city/community, never misrepresent
+// an old streetscape or aerial as an image of a future Mardi Gras edition.
 export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   {
     slug: "mardi-gras-port-arthur",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Aerial_view_of_Port_Arthur%2C_Texas.JPG?width=1600",
+      alt: "Aerial view of Port Arthur, Texas, photographed in June 2010; city-setting image, not the 2027 downtown Mardi Gras celebration or parade",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Port_Arthur,_Texas.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC0 1.0 — Ente75",
+      licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+      rightsNote: "Ente75 photographed Port Arthur from an airliner on June 20, 2010. This is a location-context city view, NOT the downtown 2027 Mardi Gras festival or its parade. Wikimedia Commons records the creator's CC0 1.0 public-domain dedication permitting commercial publication, resizing and cropping without prior permission. Source photograph was scaled and cropped for the responsive TexasDefined guide; credit Ente75 voluntarily despite no attribution requirement.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Mardi Gras Port Arthur", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
     sources: [
       { label: "Visit Port Arthur — February 5–7, 2027 organizer confirmation", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
       { label: "Ben J. Rogers Regional Visitors Center — Procter Street 2027 festival gate hours", url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/" },
+      { label: "Port Arthur, Texas city aerial by Ente75 (2010), CC0 1.0", url: "https://commons.wikimedia.org/wiki/File:Aerial_view_of_Port_Arthur,_Texas.JPG" },
     ],
     verifiedAt: "2026-10-28",
   },
@@ -50,8 +63,19 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "crystal-beach-mardi-gras-parade",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Crystal_Beach.jpg?width=1600",
+      alt: "Crystal Beach, Texas photographed in November 2022; a Bolivar Peninsula location view, not a photograph of the Mardi Gras parade on Highway 87",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Crystal_Beach.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — RBABUN1111",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "RBABUN1111's own photograph of Crystal Beach, Texas was taken November 28, 2022. It depicts the actual community but NOT the 2027 Lighthouse Krewe Mardi Gras procession or its Highway 87 parade route. Wikimedia Commons publishes the image under CC BY-SA 4.0, allowing commercial reuse with credit, license link and modification notice; the scaled/cropped TexasDefined layout adaptation is offered under the same CC BY-SA 4.0 license.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Lighthouse Krewe", url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027" }],
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027" }, { label: "Crystal Beach location photo by RBABUN1111 (2022), CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Crystal_Beach.jpg" }],
     verifiedAt: "2026-10-21",
   },
   {
@@ -115,8 +139,19 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-on-the-sabine-orange",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Orange%2C_Texas_%283909207412%29.jpg?width=1600",
+      alt: "Aerial view of Orange, Texas, photographed in September 2009; city and Sabine River context, not the Mardi Gras on the Sabine event or riverfront festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Orange,_Texas_(3909207412).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 2.0 — Ken Lund",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      rightsNote: "Ken Lund photographed Orange, Texas on September 9, 2009 (Commons geolocation 30.104444, -93.723850), with verified original Flickr CC BY-SA 2.0 permission. This is a historic city-context aerial, NOT Mardi Gras on the Sabine in 2026/2027, and is not claimed to depict the festival venue. Commercial use and adaptation are permitted with credit and a license link; the responsive TexasDefined scale/crop is an adaptation offered under CC BY-SA 2.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "City of Orange", url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" }],
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" }, { label: "Orange city aerial by Ken Lund (2009), CC BY-SA 2.0", url: "https://commons.wikimedia.org/wiki/File:Orange,_Texas_(3909207412).jpg" }],
     verifiedAt: "2026-10-21",
   },
   {
