@@ -54,7 +54,8 @@ check(catalogStart >= 0 && catalogOverlay > catalogStart,
 "Comanche source authority must also replace stale remote summaries in Explore/search catalogs");
 check(destinationRuntime.includes('"comanche-county-historical-museum"')
   && destinationRuntime.includes('"comanche"')
-  && destinationRuntime.includes('destination.sourceCheckedAt === "2026-11-22"'),
+  && destinationRuntime.includes('destination.sourceCheckedAt >= "2026-11-22"')
+  && destinationRuntime.includes('/^\\d{4}-\\d{2}-\\d{2}$/.test(destination.sourceCheckedAt)'),
 "Both Comanche guides require a dated, reviewed preserved source before overriding remote rows");
 
 const guideSlugs = new Map();
