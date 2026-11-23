@@ -1345,7 +1345,7 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "bowie-texas-chamber",
@@ -1749,7 +1749,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "greater-waco-chamber",
@@ -1763,7 +1764,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "abilene-chamber",
@@ -1897,7 +1899,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "polk-county-chamber",
@@ -1951,13 +1954,13 @@
         "wise"
       ],
       "homeUrl": "https://www.decaturtx.com/",
-      "calendarUrl": "https://www.decaturtx.com/",
+      "calendarUrl": "https://cca.decaturtx.com/webforms/EvtListingMainSearch.aspx?class=B",
       "contactPageUrl": "https://www.decaturtx.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "wichita-falls-chamber",
@@ -1986,7 +1989,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "granbury-chamber",
@@ -2075,7 +2079,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "denison-city-discover",
@@ -2839,7 +2844,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "rains-county-fair",
@@ -4761,6 +4767,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "city-lytle-public-events-calendar",
+      "organization": "City of Lytle, Texas public events calendar",
+      "countySlugs": [
+        "atascosa"
+      ],
+      "homeUrl": "https://lytletx.org/",
+      "calendarUrl": "https://lytletx.org/Calendar.aspx",
+      "contactPageUrl": "https://lytletx.org/9/Visitors",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-jourdanton-events-calendar",
+      "organization": "City of Jourdanton, Texas municipal community event calendar",
+      "countySlugs": [
+        "atascosa"
+      ],
+      "homeUrl": "https://jourdantontexas.org/",
+      "calendarUrl": "https://jourdantontexas.org/calendar.aspx",
+      "contactPageUrl": "https://jourdantontexas.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
