@@ -1079,5 +1079,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Huntsville Parks and Recreation",
     "summary": "The City of Huntsville Parks and Recreation Department confirms its free holiday Movie in the Park for Friday, December 11, 2026, beginning at 6:30 p.m. at the Jane Monday Amphitheater in Town Creek Park by City Hall parking at 1212 Avenue M. The outdoor film is Rise of the Guardians; food and drink concessions accept cash or cards, so purchases are separate from the free screening. The city has not announced a weather contingency or exact end time on this notice; confirm before departing.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "san-saba-first-community-christmas-tree-lighting-2026",
+    "title": "San Saba First Community Christmas Tree Lighting",
+    "city": "San Saba",
+    "countySlug": "san-saba",
+    "countyName": "San Saba County",
+    "region": "hill-country",
+    "startDate": "2026-11-27",
+    "venueName": "Reata Ranch Realty Courtyard, San Saba",
+    "officialEventUrl": "https://www.sansabachamber.com/events/1st-annual-community-christmas-tree-lighting/",
+    "sourceName": "San Saba County Chamber of Commerce",
+    "summary": "San Saba County Chamber confirms its first annual Community Christmas Tree Lighting for Friday, November 27, 2026, starting at 6 p.m. at the Reata Ranch Realty Courtyard. The Chamber calls the gathering free and open to everyone and announces complimentary hot cocoa and cookies before the lighting. The Chamber does not announce an exact end time or guarantee that this new event will repeat in 2027; check its official page for updates before traveling. This is separate from the December 12 Sip N' Stroll and Lighted Christmas Parade.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "san-saba-chamber-christmas-movie-mill-pond-2026",
+    "title": "San Saba Christmas Movie in the Park · Mill Pond Park",
+    "city": "San Saba",
+    "countySlug": "san-saba",
+    "countyName": "San Saba County",
+    "region": "hill-country",
+    "startDate": "2026-12-11",
+    "venueName": "Mill Pond Park, San Saba",
+    "officialEventUrl": "https://www.sansabachamber.com/events/",
+    "sourceName": "San Saba County Chamber of Commerce community events calendar",
+    "summary": "The San Saba County Chamber public events calendar lists Christmas Movie in the Park at Mill Pond Park for Friday, December 11, 2026, beginning at 7 p.m. The Chamber does not identify the film title or establish admission fees, concessions, weather alternatives, or an end time in the accessible calendar listing. Confirm those points with the presenting organizer rather than assuming an outdoor screening includes all activities free. This is a distinct holiday evening before the December 12 downtown parade.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
