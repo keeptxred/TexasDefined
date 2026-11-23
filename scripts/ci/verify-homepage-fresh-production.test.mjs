@@ -30,7 +30,7 @@ test('a fresh source-rendered homepage passes visible editorial and indexability
 });
 
 test('thanksgiving 2026 live parity requires Happy Thanksgiving and rejects stale evergreen HTML', () => {
-  const heading = (value) => valid.replace(/<h1[^>]*>[\\s\\S]*?<\\/h1>/, '<h1>' + value + '</h1>');
+  const heading = (value) => valid.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, '<h1>' + value + '</h1>');
   const holiday = new Date('2026-11-26T18:00:00.000Z');
   const outside = new Date('2026-11-30T16:00:00.000Z');
   assert.equal(expectedHomepageHeading(holiday), 'Happy Thanksgiving');
