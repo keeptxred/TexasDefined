@@ -660,8 +660,9 @@ test("Coleman city has a distinct public calendar; rural undated city desks are 
   }
   const covered = new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(covered.has("coleman"));
-  for(const county of ["crosby","morris","hall"])
+  for(const county of ["crosby","morris"])
     assert.equal(covered.has(county),false,"Do not imply dated countywide festival calendar for "+county);
+  assert.equal(covered.has("hall"),true,"The independently verified Memphis Chamber current 2026 events qualify Hall, though the separate City calendar remains empty");
 });
 
 test("Live Oak government and Jasper Chamber host distinct community calendars while four undated desks stay uncounted", () => {
