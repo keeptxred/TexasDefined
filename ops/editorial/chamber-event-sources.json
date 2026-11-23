@@ -3656,7 +3656,9 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "contact-only",
+      "sourceTrust": "quarantined",
+      "riskReview": "Public Marlin Chamber page exposes an unrelated adult external link in top navigation and event posts chiefly dated 2018; never use for visitor citations, automatic crawling, event publication or link recommendations until site owner confirms cleanup. Local Chamber contact not a verified 2026 events publisher."
     },
     {
       "id": "fisher-county-gov",
@@ -5277,6 +5279,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "baird-chamber-calendar-undated-monitor",
+      "organization": "Baird Chamber of Commerce — calendar currently loads events without readable dated entries",
+      "countySlugs": [
+        "callahan"
+      ],
+      "homeUrl": "https://www.bairdchamber.com/",
+      "calendarUrl": "https://www.bairdchamber.com/events",
+      "contactPageUrl": "https://www.bairdchamber.com/join-mailing-list",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "rockdale-chamber-community-calendar-undated-monitor",
+      "organization": "Rockdale Chamber of Commerce — Wix community event calendar with undated embedded content",
+      "countySlugs": [
+        "milam"
+      ],
+      "homeUrl": "https://www.rockdalechamber.org/",
+      "calendarUrl": "https://www.rockdalechamber.org/events",
+      "contactPageUrl": "https://www.rockdalechamber.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
