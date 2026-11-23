@@ -113,6 +113,43 @@ function texasDay(now) {
   return part("year") + "-" + part("month") + "-" + part("day");
 }
 
+/**
+ * Reuse the maintained 254-county local organizer registry when creating the
+ * research backlog. A calendar/contact page is a LEAD, never date verification.
+ * The holiday run must not double-count sources as published event occurrences.
+ */
+function readCountyDiscoverySourceLeads(root) {
+  const filepath = path.join(root, "ops/editorial/chamber-event-sources.json");
+  if (!fs.existsSync(filepath)) return new Map();
+  const manifest = JSON.parse(fs.readFileSync(filepath, "utf8"));
+  if (!Array.isArray(manifest.sources)) throw new Error("Chamber event source registry is missing sources");
+  const rank = { "public-calendar": 0, "annual-events-list": 1, "event-specific": 2, "contact-only": 3, "empty-calendar": 4 };
+  const byCounty = new Map();
+  for (const source of manifest.sources) {
+    const url = source.calendarUrl || source.homeUrl;
+    if (!Array.isArray(source.countySlugs) || !/^https:\/\/[^\s]+$/i.test(url || "")) continue;
+    const sourceKind = source.sourceKind || "unclassified";
+    const lead = {
+      organization: source.organization,
+      calendarUrl: url,
+      sourceKind,
+      priority: source.priority === "holiday" ? "holiday" : "standard",
+    };
+    for (const county of source.countySlugs) {
+      if (!byCounty.has(county)) byCounty.set(county, []);
+      byCounty.get(county).push(lead);
+    }
+  }
+  for (const [county, leads] of byCounty) {
+    leads.sort((a, b) => (rank[a.sourceKind] ?? 5) - (rank[b.sourceKind] ?? 5)
+      || (a.priority === "holiday" ? -1 : 0) - (b.priority === "holiday" ? -1 : 0)
+      || a.organization.localeCompare(b.organization));
+    byCounty.set(county, leads.filter((lead, index, all) =>
+      all.findIndex(other => other.calendarUrl === lead.calendarUrl) === index).slice(0, 2));
+  }
+  return byCounty;
+}
+
 export function auditCountyHolidayCoverage(root = ROOT, now = new Date(), expectedCountyCount = 254) {
   const counties = getCounties(root);
   if (counties.length !== expectedCountyCount ||
@@ -120,8 +157,9 @@ export function auditCountyHolidayCoverage(root = ROOT, now = new Date(), expect
     throw new Error("County inventory incomplete: " + counties.length + " instead of " + expectedCountyCount);
   }
   const today = texasDay(now);
+  const sourceLeads = readCountyDiscoverySourceLeads(root);
   const byCounty = new Map(counties.map(({ name, slug }) => [slug, {
-    slug, name, lastConfirmed: [], upcoming: [],
+    slug, name, lastConfirmed: [], upcoming: [], sourceLeads: sourceLeads.get(slug) || [],
   }]));
   const seen = new Set();
   for (const source of listSources(root)) {
@@ -184,7 +222,15 @@ export function formatCountyHolidayIssue(report) {
     "### Research new official city / chamber / tourism calendars for these counties",
     ...report.counties.filter(c => c.status === "holiday-source-discovery-needed")
       .map(c => "- [ ] [" + c.name + " County](https://texasdefined.com/county/" + c.slug
-        + ") — no indexed holiday event yet; seek organizer first-party dates, venue and eligible county attribution"),
+        + ") — no indexed holiday event yet; confirm dates, venue and organizer from original sources"
+        + (c.sourceLeads.length ? "; research leads: " + c.sourceLeads.map(lead =>
+          "[" + lead.organization.replace(/[\\[\\]]/g, "") + "](" + lead.calendarUrl + ")"
+          + " (" + (lead.sourceKind === "public-calendar" ? "public calendar"
+            : lead.sourceKind === "annual-events-list" ? "annual list; dates unverified"
+            : lead.sourceKind === "empty-calendar" ? "calendar empty; seek source update"
+            : lead.sourceKind === "contact-only" ? "contact/landing page only"
+            : "source page; date not independently verified") + ")").join("; ")
+          : "; local source not yet registered")),
     "",
     "### Verify next year's dates for established traditions",
     ...report.counties.filter(c => c.status === "historical-next-date-pending")
