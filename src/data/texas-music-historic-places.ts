@@ -162,7 +162,7 @@ export const TEXAS_MUSIC_HISTORIC_PLACES: readonly TexasMusicHistoricPlace[] = [
   {
     slug: "music-city-texas-theater-linden",
     name: "Music City Texas Theater",
-    place: "Linden, Cass County",
+    place: "108 Legion Street, Linden, Cass County, TX 75563",
     era: "1948–1950 auditorium; performance venue established 2003",
     status: "Historic auditorium adapted as an operating nonprofit music theater",
     summary:
