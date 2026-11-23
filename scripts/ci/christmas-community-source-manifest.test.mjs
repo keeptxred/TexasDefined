@@ -77,3 +77,20 @@ test("Hughes Springs Chamber original 2026 two consecutive Cass County Christmas
  assert.ok(!combined.some(x=>x.slug===e.slug&&x!==e));
  assert.equal(new Set(combined.map(x=>x.slug+":"+x.startDate)).size,combined.length);
 });
+
+
+test("Dec 11 downtown Canton Sip & Shop and Dec 12 Christmas Parade are separate organizer-confirmed 2026 county dates",()=>{
+ const {countyBackfill,combined}=readVerifiedChristmasOccurrenceSources();
+ const sip=countyBackfill.find(e=>e.slug==="canton-main-street-december-2026-sip-shop");
+ const parade=countyBackfill.find(e=>e.slug==="canton-main-street-storybook-christmas-parade-2026");
+ assert.ok(sip&&parade);
+ assert.equal(sip.startDate,"2026-12-11");
+ assert.equal(parade.startDate,"2026-12-12");
+ assert.equal(sip.countySlug,"van-zandt");
+ assert.equal(parade.countySlug,"van-zandt");
+ assert.match(sip.summary,/from 5 to 8 p\.m\./);
+ assert.ok(activeVerifiedChristmasOccurrences("2026-12-11").some(e=>e.slug===sip.slug));
+ assert.ok(!activeVerifiedChristmasOccurrences("2026-12-12").some(e=>e.slug===sip.slug),
+   "Do not inflate the Dec 11 evening into the following Dec 12 Christmas parade");
+ assert.equal(combined.filter(x=>x.slug===sip.slug).length,1);
+});
