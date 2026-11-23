@@ -3101,7 +3101,9 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "contact-only",
+      "sourceTrust": "quarantined",
+      "riskReview": "November 22, 2026 original homepage inspected: generic WordPress demo stock posts including unrelated historic Philadelphia and lorem-ipsum paragraphs instead of real Dimmitt Chamber events, casting doubt on current publisher maintenance. Do not crawl, recommend or treat as an official current festival source until original publisher identity and cleanup verified independently. Preserve record only for provenance."
     },
     {
       "id": "tulia-swisher-city",
@@ -5382,6 +5384,21 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "dimmitt-castro-city-public-events-calendar",
+      "organization": "City of Dimmitt municipal community events calendar",
+      "countySlugs": [
+        "castro"
+      ],
+      "homeUrl": "https://www.cityofdimmitt.org/",
+      "calendarUrl": "https://www.cityofdimmitt.org/Calendar.aspx",
+      "contactPageUrl": "https://www.cityofdimmitt.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
     }
