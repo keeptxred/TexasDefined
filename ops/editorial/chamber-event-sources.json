@@ -5354,6 +5354,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "henrietta-clay-city-public-events-calendar",
+      "organization": "City of Henrietta — currently dated community event calendar",
+      "countySlugs": [
+        "clay"
+      ],
+      "homeUrl": "https://cityofhenrietta.com/",
+      "calendarUrl": "https://cityofhenrietta.com/events/",
+      "contactPageUrl": "https://cityofhenrietta.com/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "pittsburg-camp-city-current-community-calendar",
+      "organization": "City of Pittsburg tourism — currently dated city and community events feed",
+      "countySlugs": [
+        "camp"
+      ],
+      "homeUrl": "https://visit.pittsburgtx.gov/",
+      "calendarUrl": "https://visit.pittsburgtx.gov/events",
+      "contactPageUrl": "https://visit.pittsburgtx.gov/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
