@@ -15,7 +15,7 @@ const expandedDetails: ExpandedDetails[] = [
     whyItMatters: "The Central Texas State Fair is one of the first major fall fair weekends on the calendar, combining carnival attractions, concerts, PBR events and family programming in Belton.",
     planningSections: [
       { title: "Choose the headline attraction first", body: "The fair mixes general-admission attractions with separately ticketed PBR and demolition-derby events, so decide which headline program matters before selecting the day." },
-      { title: "Use the published fair hours", body: "Thursday and Friday begin in the evening while Saturday and Sunday start earlier. Match arrival time to the operating hours instead of assuming a full-day schedule every day." },
+      { title: "Getting to the fair", body: "For directions to the fair, use 301 W Loop 121, Belton, TX 76513." },
       { title: "Build around Belton", body: "If you are traveling into Bell County, leave enough time for meals and other local stops rather than treating the fairgrounds as the only destination." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-bell", label: "Explore Bell County", description: "Plan more of the Central Texas trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other fall fairs and festivals." }],
