@@ -117,7 +117,14 @@ try {
         const locator = page.locator("main img[alt^='" + alt + "']");
         assert.equal(await locator.count(), 1, "expected credited image missing: " + alt);
         await locator.scrollIntoViewIfNeeded({ timeout: 15000 });
-        await locator.evaluate(img => img.decode());
+        // Timeout unresolved third-party image requests explicitly. The next
+        // naturalWidth assertion remains required: no fake successful image.
+        await locator.evaluate(async img => {
+          await Promise.race([
+            img.decode(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Turkey image decode exceeded 15 seconds")), 15000)),
+          ]);
+        });
         const details = await locator.evaluate(img => ({ complete: img.complete, width: img.naturalWidth, src: img.currentSrc || img.src, alt: img.alt }));
         assert.ok(details.complete && details.width > 0, "image did not decode: " + alt);
         assert.ok(details.src.startsWith("https://"), "turkey image URL must be HTTPS");
@@ -163,6 +170,7 @@ try {
       assert.equal(errors.length, 0, "browser runtime errors: " + errors.join(" | "));
       await page.screenshot({ path: proofDir + "/" + spec.name + ".png", fullPage: true, timeout: 45000 });
       results.push({ viewport: spec.name, title: snapshot.title, canonical: snapshot.canonicalLinks[0], imageCount: snapshot.mainImages.length, links: snapshot.links.length, sourceCheck: facts.checkedAt, layoutOverflowPx: snapshot.overflow, schemas: snapshot.schemas.map(s => s.type), errors });
+      console.log("TURKEY_BROWSER_VIEWPORT_PASS", spec.name);
     } catch (error) {
       await page.screenshot({ path: proofDir + "/" + spec.name + "-FAILED.png", fullPage: true, timeout: 12000 }).catch(() => {});
       results.push({ viewport: spec.name, failure: String(error) });
