@@ -35,7 +35,9 @@ export const Route = createFileRoute("/")({
     const latest = loaderData?.latest ?? [];
     const selectedArticles = [...featured.slice(0, 1), ...selectHomepageEditorPicks(featured, latest)];
     const destinations = loaderData?.destinations ?? [];
-    const heroImage = featured[0]?.hero?.src;
+    const heroImage = thanksgivingWeek
+      ? "/images/seasonal/texasdefined-thanksgiving-2026-hero.jpg"
+      : featured[0]?.hero?.src;
     const homepageDestinations = destinations.some((item) => item.featured) ? destinations.filter((item) => item.featured).slice(0, 4) : destinations.slice(0, 4);
     const curatedItems = [
       ...selectedArticles.map((article) => ({ "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
