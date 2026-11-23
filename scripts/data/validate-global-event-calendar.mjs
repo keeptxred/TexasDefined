@@ -58,6 +58,34 @@ try {
 
 // Original 2027 Refugio County Fair Association: current-edition event dates,
 // separately confirmed by organizer calendar and Easter-shift notice.
+// Only independently dated original 2027 Willacy County Fair Association
+// programs enter the shared county/statewide list. No guessed exact times.
+const willacy2027 = read("src/data/events/willacy-fair-2027.server.ts");
+requireText(adapter,'import { getVerifiedWillacyFairCalendarEvents2027 } from "./willacy-fair-2027.server";',"Willacy 2027 shared calendar import");
+requireText(adapter,"...getVerifiedWillacyFairCalendarEvents2027()","Willacy statewide and county calendar deduplication");
+for(const marker of [
+  'id: "curated-willacy-fair-2027:beef-syndicate-bbq"',
+  'id: "curated-willacy-fair-2027:chili-cookoff"',
+  'id: "curated-willacy-fair-2027:livestock-show"',
+  'startDate: "2027-01-16"',
+  'startDate: "2027-01-22"',
+  'endDate: "2027-01-23"',
+  'startDate: "2027-01-27"',
+  'endDate: "2027-01-30"',
+  'countySlug: "willacy"',
+  'countyName: "Willacy County"',
+  'city: "Raymondville"',
+  'https://www.wclsf.com/',
+  'status: "scheduled"',
+  'lastVerifiedAt: "2026-11-23"',
+]) requireText(willacy2027,marker,"Original first-party Willacy County 2027 fair event edition");
+if ((willacy2027.match(/id: "curated-willacy-fair-2027:/g)??[]).length !== 3)
+  failures.push("Willacy source-qualified 2027 fair must have exactly 3 distinct original events");
+if (/startTime:|endTime:|officialTicketUrl:|affiliateUrl:|imageUrl:/.test(willacy2027))
+  failures.push("Willacy original 2027 dates did not verify start times, official ticket or photo/affiliate permissions");
+if (/startDate: "2026-|startDate: "2028-/.test(willacy2027))
+  failures.push("Willacy 2027 specific events must not infer 2026 or 2028 annual dates");
+
 const refugio2027 = read("src/data/events/refugio-fair-2027.server.ts");
 requireText(adapter,'import { getVerifiedRefugioFairCalendarEvents2027 } from "./refugio-fair-2027.server";',"Refugio statewide server import");
 requireText(adapter,"...getVerifiedRefugioFairCalendarEvents2027()","Refugio shared county/statewide deduplication");
