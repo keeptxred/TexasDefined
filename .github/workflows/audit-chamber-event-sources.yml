@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: '22'
       - name: Validate 254 counties and private/outreach safety
-        run: node --test scripts/events/audit-chamber-event-sources.test.mjs
+        run: node --test scripts/events/audit-chamber-event-sources.test.mjs scripts/events/audit-chamber-contact-links.test.mjs
       - name: Prove complete county research roster without network
         run: node scripts/events/audit-chamber-event-sources.mjs --offline --output .artifacts/chamber-event-source-offline.json
       - name: Check public chamber calendars, respecting robots exclusions
@@ -105,6 +105,8 @@ jobs:
               'Calendar-source fetches requiring review: **' + failures.length + '**.',
               'Same-publisher event calendar links discovered from due contact homepages, still UNVERIFIED: **' +
                 (report.contactCalendarCandidateCount || 0) + '**. No source is auto-promoted or events published.',
+              'Same-publisher editorial contact PAGE routes found (NOT recipient addresses or press subscriptions): **' +
+                (report.firstPartyContactRouteCandidateCount || 0) + '**. All still unverified and unsent.',
               '',
               '### Counties missing vetted local sources',
               ...report.unservedCounties.map(row => '- ' + row.name + ' — ' + row.url),
@@ -116,6 +118,12 @@ jobs:
               ...report.observations.filter(row => row.state === 'contact-discovery-only')
                 .flatMap(row => (row.calendarCandidates || []).map(candidate =>
                   '- ' + row.organization + ': ' + candidate.sourceUrl + ' — unverified, manual review only'))
+                .slice(0, 80),
+              '',
+              '### UNVERIFIED first-party contact and media page routes — editorial research only',
+              'These are publicly linked **page URLs**, not contact emails, verified staff, opt-in confirmations, kits, or permissions. Never auto-send, auto-subscribe or copy images.',
+              ...report.observations.flatMap(row => (row.contactPageCandidates || []).map(candidate =>
+                '- ' + row.organization + ': ' + candidate.sourceUrl + ' — unverified contact route; manual owner review only'))
                 .slice(0, 80),
               '',
               '### Official source access requiring review',
