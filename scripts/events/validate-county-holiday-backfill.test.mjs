@@ -773,6 +773,7 @@ test("Bee County 2026 Christmas fun run is organizer verified without inventing 
   assert.equal(e.endDate,undefined);
   assert.equal(e.sourceVerifiedAt,"2026-11-23");
   assert.equal(new URL(e.officialEventUrl).hostname,"athleteguild.com");
+  assert.equal(e.sourceName,"South Texas Striders / Athlete Guild Productions official 2026 race-registration page");
   assert.match(e.summary,/tentative schedule/);
   assert.match(e.summary,/do not independently provide a confirmed parade start/);
 });
