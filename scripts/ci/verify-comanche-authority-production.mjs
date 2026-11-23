@@ -9,6 +9,10 @@ import { setTimeout as delay } from "node:timers/promises";
 const host = process.env.COMANCHE_PUBLIC_ORIGIN?.replace(/\/$/, "") || "https://texasdefined.com";
 const targets = [
   {
+    path: "/explore/small-towns",
+    evidence: ["Comanche", "JW Hardin Wine Co. tasting room; Brennan Vineyards history", "Old Cora Courthouse", "Fleming Oak"],
+  },
+  {
     path: "/destination/comanche",
     evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co.", "roof replacement", "Preservation Trust Fund"],
   },
@@ -40,7 +44,8 @@ function verify({ path, evidence }, html) {
   if (robots.some((tag) => /noindex/i.test(tag))) missing.push("indexable robots directive (found noindex)");
   if (!html.includes(`https://texasdefined.com${path}`)) missing.push("canonical absolute URL");
   if (text.length < 4000) missing.push("substantial server-rendered page content");
-  if (!html.includes("texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more")) missing.push("primary-source Old Cora preservation grant link");
+  if (path !== "/explore/small-towns" && !html.includes("texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more")) missing.push("primary-source Old Cora preservation grant link");
+  if (path === "/explore/small-towns" && text.includes("Brennan Vineyards and JW Hardin Wine Co.")) missing.push("stale Comanche wine recommendations in small-towns directory");
   const obsoleteBrennanAdvice = [
     "Brennan Vineyards at 802 South Austin Street makes Texas wine",
     "Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine",
@@ -90,5 +95,5 @@ if (failures.length) {
   console.error("COMANCHE PRODUCTION ACCEPTANCE FAILED:", failures.join("\n - "));
   process.exitCode = 1;
 } else {
-  console.log("COMANCHE PRODUCTION ACCEPTANCE: 3 of 3 verified.");
+  console.log("COMANCHE PRODUCTION ACCEPTANCE: 4 of 4 verified.");
 }
