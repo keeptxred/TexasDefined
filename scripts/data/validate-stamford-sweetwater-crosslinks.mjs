@@ -52,7 +52,7 @@ for (const c of ["haskell", "nolan"]) requireMatch(repo.explore, `to="/county/${
 requireMatch(repo.lakes, '{slug:"lake-stamford",name:"Lake Stamford"}', "neighboring lake route back to Stamford is missing");
 requireMatch(repo.lakes, '{slug:"lake-sweetwater",name:"Lake Sweetwater"}', "neighboring lake route back to Sweetwater is missing");
 requireMatch(repo.countyRenderer, "countySeriesArticle.internalLinks ?? []", "county landing pages no longer consume editorial cross-links");
-requireMatch(repo.countyRenderer, ").slice(0, 8)", "county landing-page link visibility contract changed");
+requireMatch(repo.countyRenderer, ").slice(0, entity.slug === 'cass' ? 14 : 8)", "county landing-page link visibility contract changed: default eight and Cass cultural heritage exception");
 requireMatch(repo.showcase, "STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS", "showcase routing missing statewide lake registry");
 requireMatch(repo.directory, "isCompleteFishingLakeSlug(lake.slug)", "directory no longer shows all complete lake guides");
 requireMatch(repo.search, "fishingFoundationAnchor(\"lake\", lake.slug)", "site search no longer indexes lake guide URLs");
