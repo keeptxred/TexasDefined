@@ -713,3 +713,15 @@ test("Ector and Matagorda municipal 2026 holiday editions retain city-dated dire
     assert.ok(event.summary.length>=110 && event.sourceName && event.venueName);
   }
 });
+
+test("Henderson 2026 downtown Christmas parade uses the city source and never mistakes weather backup for an extra edition",()=>{
+  const item=events.find(e=>e.slug==="henderson-christmas-through-the-ages-parade-2026");
+  assert.ok(item);
+  assert.equal(item.countySlug,"rusk");
+  assert.equal(item.startDate,"2026-12-03");
+  assert.equal(item.endDate,undefined);
+  assert.equal(item.sourceVerifiedAt,"2026-11-23");
+  assert.equal(new URL(item.officialEventUrl).pathname,"/1400/Christmas-Parade");
+  assert.match(item.summary,/December 8/);
+  assert.match(item.summary,/contingency/);
+});
