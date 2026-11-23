@@ -539,3 +539,22 @@ test("Pearsall City's dated 2026 parade and tamale contest adds real Frio County
     "No exact parade hour was independently confirmed by the City's 2026 press notice");
   assert.equal(events.filter(x=>x.countySlug==="frio").length,1);
 });
+
+test("Cross Plains Chamber dates the 2026 Callahan Christmas Sip N Shop without inventing parade hours",()=>{
+ const e=events.find(x=>x.slug==="cross-plains-sip-n-shop-christmas-parade-2026");
+ assert.ok(e,"Original Chamber confirmed Cross Plains December 3 2026 Christmas celebrations");
+ assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+ assert.equal(e.startDate,"2026-12-03");assert.equal(e.endDate,undefined);
+ assert.equal(e.city,"Cross Plains");assert.equal(e.countySlug,"callahan");assert.equal(e.countyName,"Callahan County");
+ assert.equal(e.region,"prairies-lakes");assert.equal(e.sourceVerifiedAt,"2026-11-22");
+ assert.equal(e.officialEventUrl,"https://crossplainschamberofcommerce.com/sidewalk-sale");
+ assert.match(e.sourceName,/Cross Plains Chamber/);
+ assert.match(e.summary,/Thursday, December 3, 2026/);
+ assert.match(e.summary,/4–9 p.m./);
+ assert.match(e.summary,/Christmas Parade and Santa/);
+ assert.match(e.summary,/$35 sign-up applies to sidewalk vendors/);
+ assert.match(e.summary,/does not specify an exact parade departure time or route/);
+ assert.match(e.summary,/2025 edition/);
+ assert.match(e.summary,/No permission to reuse its photos or 2027 dates is inferred/);
+ assert.equal(events.filter(x=>x.countySlug==="callahan").length,1);
+});
