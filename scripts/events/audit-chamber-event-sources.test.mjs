@@ -893,6 +893,25 @@ test("Atlanta Cass public calendar requires organizer confirmation of contradict
  assert.equal(registry.sources.length,354);
 });
 
+
+test("Muleshoe Chamber operates an official Bailey County event-calendar route but event posters require edition verification", async()=>{
+  const b=registry.sources.find(x=>x.id==="muleshoe-bailey-chamber");
+  assert.ok(b);
+  assert.equal(b.sourceKind,"public-calendar");
+  assert.deepEqual(b.countySlugs,["bailey"]);
+  assert.equal(b.homeUrl,"https://muleshoetxchamber.com/");
+  assert.equal(b.calendarUrl,"https://muleshoetxchamber.com/events");
+  const count=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+  assert.ok(count.has("bailey"));
+  assert.equal(count.size,168,"Official current Muleshoe event-calendar source closes one research-only Bailey gap");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.countiesTotal,254);
+  assert.equal(report.countiesWithExplicitCalendarSources,168);
+  assert.equal(report.countiesNeedingCalendarEvidence,86);
+  assert.match(report.eventPublication,/^NO/);
+  assert.equal(report.outreachStatus.includes("Outlook"),true);
+});
+
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
   for (const [id, county, host] of [
     ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
