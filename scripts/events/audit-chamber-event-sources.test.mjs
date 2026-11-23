@@ -404,7 +404,8 @@ test("Unfilled event pages remain on the scheduled respectful discovery audit wi
   }
   assert.ok(allCalendars.has("hardeman"),"Current municipal Quanah community calendar is independently sourced; Chamber-only submission page remains empty");
   assert.ok(!allCalendars.has("haskell"));
-  assert.ok(!allCalendars.has("refugio"));
+  assert.ok(allCalendars.has("refugio"),"The separately verified 2026–27 Refugio County Fair Association original calendar qualifies fair events; the Refugio Chamber empty-event page stays empty");
+  assert.equal(registry.sources.find(s=>s.id==="refugio-county-chamber")?.sourceKind,"empty-calendar");
   assert.ok(!allCalendars.has("lamb"));
   const seenDue=new Set();
   const fetched=[];
