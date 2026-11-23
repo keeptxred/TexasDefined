@@ -1233,5 +1233,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Downtown Crockett Association official 2026 Holiday Tour of Homes",
     "summary": "The Downtown Crockett Association confirms its self-guided Holiday Tour of Homes for Saturday, December 5, 2026, from noon to 4 p.m. in historic Crockett, Houston County. Start at the First Presbyterian Church Fellowship Hall welcome center at 715 East Goliad Avenue; it opens at 11:30 a.m. for tickets and wristbands. The organizer advertises ten tour stops, a 12:30 p.m. Ritz Theatre bell-choir performance and $15 tickets. This is a ticketed multi-stop tour, not a free courthouse-square festival; verify tour-stop access, purchase details and any day-of changes directly with the organizer. No 2027 edition date or photo permission is inferred.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "emory-christmas-around-the-park-2026",
+    "title": "Emory Christmas Around the Park & Christmas Parade",
+    "city": "Emory",
+    "countySlug": "rains",
+    "countyName": "Rains County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Emory, Texas — park celebration and city Christmas parade; confirm exact locations with City of Emory",
+    "officialEventUrl": "https://www.cityofemory.com/",
+    "sourceName": "City of Emory official November 2026 holiday announcement",
+    "summary": "The City of Emory's current 2026 public notice confirms Christmas Around the Park on Saturday, December 5, 2026, with activities beginning at noon. The separate Christmas Parade is scheduled to begin at 7 p.m. on December 5; vendors must submit city applications by November 25 and parade participants by November 30. The city also advertises its fourth annual Tinsel Town storefront-decorating contest without specifying one public attendance time. The homepage does not establish a guaranteed admission price, exact park site, spectator parade route or 2027 date; consult the original City announcement for those details. Do not reuse city imagery without license.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];

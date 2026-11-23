@@ -472,3 +472,24 @@ test("Downtown Crockett's independently dated 2026 holiday homes tour is safely 
   assert.match(e.summary, /\$15 tickets/);
   assert.match(e.summary, /No 2027 edition date or photo permission is inferred/);
 });
+
+test("Rains County 2026 Emory Christmas is grounded in the city's own current announcement, not a 2027 rollover", () => {
+  const e=events.find(x=>x.slug==="emory-christmas-around-the-park-2026");
+  assert.ok(e,"The City of Emory confirmed a December 5, 2026 local celebration");
+  assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+  assert.equal(e.countySlug,"rains");
+  assert.equal(e.countyName,"Rains County");
+  assert.equal(e.city,"Emory");
+  assert.equal(e.region,"prairies-lakes");
+  assert.equal(e.startDate,"2026-12-05");
+  assert.equal(e.endDate,undefined,"Single-day city event is not a fabricated festival weekend");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.equal(new URL(e.officialEventUrl).hostname,"www.cityofemory.com");
+  assert.match(e.sourceName,/City of Emory/);
+  assert.match(e.summary,/Christmas Around the Park/);
+  assert.match(e.summary,/noon/);
+  assert.match(e.summary,/7 p.m./);
+  assert.match(e.summary,/or 2027 date/i, "The City's 2026 announcement does not authorize a 2027 date");
+  assert.match(e.summary,/exact park site/);
+  assert.ok(e.summary.length>210);
+});
