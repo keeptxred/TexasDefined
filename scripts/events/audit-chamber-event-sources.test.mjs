@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  loadCountyNames, validateRegistry, allowedByRobots, extractEventLeads, auditChamberSources,
+  loadCountyNames, validateRegistry, allowedByRobots, extractEventLeads, extractCalendarLinks, auditChamberSources,
 } from "./audit-chamber-event-sources.mjs";
 
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
@@ -969,6 +969,87 @@ test("Muleshoe Chamber official event calendar closes Bailey source gap without 
   assert.equal(registry.sources.find(x=>x.id==="falls-marlin-chamber")?.sourceTrust,"quarantined",
     "Do not lose the site-safety quarantine while upgrading another source");
 });
+
+test("calendar-link discovery on an official Chamber homepage is bounded to same-origin safe HTML links", () => {
+ const html=[
+   '<a href="/events">Community Events</a>',
+   '<a href="/events">Events</a>',
+   '<a href="https://other-chamber.example/events">Other County Festivals</a>',
+   '<a href="http://example.org/calendar">Outside calendar</a>',
+   '<a href="https://example.org/holiday/festival.pdf">Festival PDF</a>',
+   '<a href="/#events">Events anchor</a>',
+   '<a href="/privacy">Community calendar terms</a>',
+   '<a href="/calendar">Calendar of Events</a>',
+   '<a href="/contact/">Contact Us</a>',
+   '<a href="/community/festivals">Annual Festivals</a>',
+   '<a href="/join-mailing-list">Sign up for Event announcements</a>',
+ ].join("");
+ const c=extractCalendarLinks(html,"https://example.org/");
+ assert.deepEqual(c.map(x=>x.sourceUrl),[
+   "https://example.org/events","https://example.org/calendar","https://example.org/community/festivals"
+ ]);
+ assert.ok(c.every(x=>x.publisherVerified===false&&x.organizerVerified===false&&x.publishable===false));
+ assert.ok(c.every(x=>new URL(x.sourceUrl).origin==="https://example.org"));
+ assert.equal(extractCalendarLinks(Array.from({length:20},(_,i)=>'<a href="/calendar/'+i+'">Events Calendar '+i+'</a>').join(""),
+   "https://example.org/").length,8,"Do not expand an editor's one-page audit into large source inventories");
+});
+
+test("daily due contact-only publisher gets robots-limited one-hop calendar-link research without promotion",async()=>{
+ const fetched=[];
+ const fetchStub=async url=>{
+   const value=String(url);
+   fetched.push(value);
+   if(value.includes("marlintexas.com"))throw new Error("Quarantined domain fetched");
+   if(value.endsWith("/robots.txt"))return {status:404,ok:false,url:value,
+     headers:{get:()=>null},text:async()=>""};
+   return {status:200,ok:true,url:value,headers:{get:()=> "text/html"},
+     text:async()=>'<a href="/events/">Community Events</a><a href="https://third-party.test/calendar">External events</a><a href="/contact">Contact</a>'};
+ };
+ const report=await auditChamberSources({offline:false,now:new Date("2026-11-22T12:00:00Z"),fetchImpl:fetchStub});
+ const contacts=report.observations.filter(o=>o.sourceKind==="contact-only"&&o.state==="contact-discovery-only");
+ assert.ok(contacts.length>0,"Daily sharding must examine eligible original Chamber contact homepages");
+ assert.ok(contacts.every(o=>o.leads.length===0));
+ for(const o of contacts){
+   assert.equal(o.calendarCandidates.length,1);
+   assert.equal(o.calendarCandidates[0].sourceUrl,new URL("/events/",o.officialUrl).href);
+   assert.equal(o.calendarCandidates[0].publishable,false);
+   assert.equal(o.sourceAvailabilityIsNotCalendarVerification,true);
+ }
+ assert.equal(report.contactCalendarCandidateCount,contacts.length);
+ assert.equal(report.countiesWithExplicitCalendarSources,
+   new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs)).size);
+ assert.match(report.eventPublication,/^NO/);
+ assert.ok(!fetched.some(url=>url.includes("marlintexas.com")));
+ assert.ok(fetched.filter(x=>!x.endsWith("/robots.txt")).length<=registry.sources.length,
+   "At most one eligible content page per source, never automatic links-following");
+});
+
+test("robots denial prevents scraping a due contact-only publisher's home page",async()=>{
+ const source=registry.sources.find(s=>s.sourceKind==="contact-only" &&
+   [...s.id].reduce((n,ch)=>(n*31+ch.charCodeAt(0))>>>0,0)%7===0 &&
+   s.sourceTrust!=="quarantined");
+ assert.ok(source,"One contact source should be scheduled on Sunday");
+ const blockedOrigin=new URL(source.homeUrl).origin;
+ const fetched=[];
+ const fetchStub=async url=>{
+   const href=String(url);fetched.push(href);
+   if(href===blockedOrigin+"/robots.txt")
+     return {status:200,ok:true,url:href,headers:{get:()=> "text/plain"},
+       text:async()=>"User-agent: TexasDefined-Events-Research\\nDisallow: /"};
+   if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,
+     headers:{get:()=>null},text:async()=>""};
+   return {status:200,ok:true,url:href,headers:{get:()=> "text/html"},
+     text:async()=>'<a href="/events">Events</a>'};
+ };
+ const report=await auditChamberSources({offline:false,now:new Date("2026-11-22T12:00:00Z"),fetchImpl:fetchStub});
+ const observation=report.observations.find(o=>o.sourceId===source.id);
+ assert.equal(observation.state,"robots-disallowed");
+ assert.ok(!fetched.some(href=>href.startsWith(blockedOrigin+"/")&&href!==blockedOrigin+"/robots.txt"),
+   "No contact homepage fetch when publisher robots disallows this bot");
+ assert.equal(observation.leads.length,0);
+ assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
+});
+
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
   for (const [id, county, host] of [
     ["city-lytle-public-events-calendar", "atascosa", "lytletx.org"],
