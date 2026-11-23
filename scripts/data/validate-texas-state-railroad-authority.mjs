@@ -54,7 +54,7 @@ for (const [key, needle] of [
   ["guide", "1894"], ["guide", "300-kilowatt"], ["guide", "1929"],
   ["guide", "Alto–Lufkin"], ["guide", "approximately 22 miles"], ["guide", "https://texashistory.unt.edu/ark:/67531/metapth657280/m1/5/"],
   ["guide", "https://texashistory.unt.edu/ark:/67531/metapth326227/m1/1/"],
-  ["guide", "February 1884"], ["guide", "1909"], ["guide", "1910"], ["guide", "1917"], ["guide", "1919"],
+  ["guide", "February 1884"], ["guide", "1909"], ["guide", "1910"], ["guide", "1913"], ["guide", "1917"], ["guide", "1919"],
   ["guide", "Texas State Capitol"], ["guide", "Prison labor"], ["guide", "power plant"],
   ["guide", "Rusk State Hospital"], ["guide", "Texas & Eastern"], ["guide", "Union Pacific"],
   ["guide", "International & Great Northern"], ["guide", "film"], ["guide", "working facilities"],
