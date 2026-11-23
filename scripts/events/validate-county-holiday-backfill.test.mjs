@@ -552,9 +552,9 @@ test("Cross Plains Chamber dates the 2026 Callahan Christmas Sip N Shop without 
  assert.match(e.summary,/Thursday, December 3, 2026/);
  assert.match(e.summary,/4–9 p.m./);
  assert.match(e.summary,/Christmas Parade and Santa/);
- assert.match(e.summary,/$35 sign-up applies to sidewalk vendors/);
+ assert.match(e.summary,/\$35 sign-up applies to sidewalk vendors/);
  assert.match(e.summary,/does not specify an exact parade departure time or route/);
  assert.match(e.summary,/2025 edition/);
- assert.match(e.summary,/No permission to reuse its photos or 2027 dates is inferred/);
+ assert.match(e.summary,/No permission to reuse its photos or infer a future year's edition date is granted/);
  assert.equal(events.filter(x=>x.countySlug==="callahan").length,1);
 });
