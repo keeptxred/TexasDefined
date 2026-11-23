@@ -114,6 +114,30 @@ if (/startTime:|endTime:|officialTicketUrl:|affiliateUrl:|imageUrl:/.test(willac
 if (/startDate: "2026-|startDate: "2028-/.test(willacy2027))
   failures.push("Willacy 2027 specific events must not infer 2026 or 2028 annual dates");
 
+// Baylor County Seymour Helping Hands original NEW 2027 event is not a replay
+// of generic City of Seymour or Chamber yearly brochure dates.
+const seymour2027 = read("src/data/events/seymour-spring-fling-2027.server.ts");
+requireText(adapter,'import { getVerifiedSeymourSpringFlingEvent2027 } from "./seymour-spring-fling-2027.server";',"Seymour 2027 original nonprofit statewide calendar import");
+requireText(adapter,"...getVerifiedSeymourSpringFlingEvent2027()","Seymour 2027 county and statewide deduped calendar inclusion");
+for(const marker of [
+ 'id: "curated-seymour-2027:spring-fling-car-show"',
+ 'slug: "seymour-spring-fling-car-show"',
+ 'startDate: "2027-05-08"',
+ 'city: "Seymour"',
+ 'countySlug: "baylor"',
+ 'countyName: "Baylor County"',
+ 'region: "prairies-lakes"',
+ 'officialEventUrl: "https://www.seymourhelpinghands.com/post/the-road-to-75-starts-now"',
+ 'status: "scheduled"',
+ 'lastVerifiedAt: "2026-11-23"',
+]) requireText(seymour2027,marker,"Seymour nonprofit exact original May 8 2027 edition evidence");
+if((seymour2027.match(/id: "curated-seymour-2027:/g)??[]).length!==1)
+ failures.push("Seymour source only confirms ONE May 8 2027 date-specific program");
+if(/\\b(startTime|endTime|ticketing|image|officialTicketUrl|affiliateUrl):/.test(seymour2027))
+ failures.push("Seymour source does not verify show start/end hours, admission, ticket or media permissions");
+if(/startDate: "2026-|startDate: "2028-/.test(seymour2027))
+ failures.push("Seymour 2027 car show must not project prior or future year editions");
+
 const refugio2027 = read("src/data/events/refugio-fair-2027.server.ts");
 requireText(adapter,'import { getVerifiedRefugioFairCalendarEvents2027 } from "./refugio-fair-2027.server";',"Refugio statewide server import");
 requireText(adapter,"...getVerifiedRefugioFairCalendarEvents2027()","Refugio shared county/statewide deduplication");
