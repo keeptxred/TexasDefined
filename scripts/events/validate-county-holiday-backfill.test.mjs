@@ -353,3 +353,33 @@ test("San Saba Chamber's first tree lighting and December movie retain different
   assert.match(movie.summary,/does not identify the film title/);
   assert.equal(events.filter(e=>e.slug===tree.slug).length,1);
 });
+
+test("Decatur, Jasper and Hopkins 2026 holiday editions retain original organizer dates without inventing hours",()=>{
+  const cases=[
+    ["decatur-chamber-2026-tree-lighting-town-square","wise","2026-12-01","www.decaturtx.com"],
+    ["decatur-chamber-2026-lighted-christmas-parade","wise","2026-12-05","www.decaturtx.com"],
+    ["jasper-texas-christmas-in-the-park-2026","jasper","2026-11-28","www.jaspertx.org"],
+    ["sulphur-springs-downtown-hot-cocoa-crawl-2026","hopkins","2026-12-12","ssdba.org"]
+  ];
+  for(const [slug,county,date,host] of cases){
+    const e=events.find(x=>x.slug===slug);
+    assert.ok(e,"Missing first-party dated current Christmas event "+slug);
+    assert.equal(e.countySlug,county);
+    assert.equal(e.startDate,date);
+    assert.equal(e.endDate,undefined,"An individual holiday evening must not be treated as continuous or multiday");
+    assert.equal(e.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(e.officialEventUrl).hostname,host);
+  }
+  const tree=events.find(x=>x.slug===cases[0][0]);
+  const parade=events.find(x=>x.slug===cases[1][0]);
+  const jasper=events.find(x=>x.slug===cases[2][0]);
+  const crawl=events.find(x=>x.slug===cases[3][0]);
+  assert.match(tree.summary,/6 p\.m\./);
+  assert.match(parade.summary,/entry fee applies to parade entrants/);
+  assert.match(parade.summary,/December 7 rain date/);
+  assert.match(jasper.summary,/does not specify the main festival.s start or end time/);
+  assert.match(jasper.venueName,/Sandy Creek Park/);
+  assert.match(crawl.summary,/does not provide exact festival start\/end times/);
+  assert.ok(events.filter(x=>x.countySlug==="hopkins"&&x.title.includes("Christmas in the Park")).length>=2,
+    "Retain the two original museum edition dates, no replacements");
+});
