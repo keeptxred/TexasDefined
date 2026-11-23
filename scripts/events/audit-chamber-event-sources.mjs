@@ -192,6 +192,34 @@ export function extractCalendarLinks(html, pageUrl) {
   return candidates;
 }
 
+/**
+ * First-party editorial contact-path candidates from ONE already-permitted HTML
+ * source response. Paths are not fetched, validated inboxes, opt-ins, rights or
+ * outreach addresses. Never extract/store email addresses in public reports.
+ */
+export function extractContactPageLinks(html, pageUrl) {
+  const base = checkedPublicUrl(pageUrl), candidates = [], seen = new Set();
+  const relevant = /\b(?:contact(?: us| the (?:chamber|team))?|media (?:kit|relations|contact|inquiries)|press (?:kit|room|releases|contact|inquiries)|newsroom|communications (?:office|team)|submit (?:an? )?event|submit (?:an? )?news)\b/i;
+  for (const match of html.matchAll(/<a\b[^>]*href\s*=\s*[\"']([^\"'#]+)[\"'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    const label = match[2].replace(/<[^>]*>/g," ").replace(/&(?:amp;|#38;)/gi,"&")
+      .replace(/&[^;]+;/g," ").replace(/\s+/g," ").trim().slice(0,96);
+    let url;
+    try { url = checkedPublicUrl(new URL(match[1],base).href); }
+    catch { continue; }
+    if (url.origin !== base.origin || url.hash || url.search || seen.has(url.href)) continue;
+    if (/\.(?:pdf|jpe?g|png|webp|svg|docx?|xlsx?|ics|zip|exe)$/i.test(url.pathname) ||
+      /\/(?:admin|login|signin|sign-in|privacy|terms|checkout|join-mailing-list|unsubscribe)(?:\/|$)/i.test(url.pathname))
+      continue;
+    if (!relevant.test(label+" "+url.pathname.replace(/[-_]/g," "))) continue;
+    seen.add(url.href);
+    candidates.push({ label:label||"Editorial contact page", sourceUrl:url.href,
+      publisherVerified:false, recipientVerified:false, pressOptInVerified:false,
+      mediaRightsVerified:false, publishable:false, sendable:false });
+    if (candidates.length >= 4) break;
+  }
+  return candidates;
+}
+
 async function fetchPublicCalendar(source, fetchImpl, { discoverOnly = false } = {}) {
   const url = checkedPublicUrl(discoverOnly ? source.homeUrl : source.calendarUrl);
   const options = { headers: { "User-Agent": BOT, Accept: "text/html,application/ld+json,text/calendar,application/rss+xml" },
@@ -214,15 +242,19 @@ async function fetchPublicCalendar(source, fetchImpl, { discoverOnly = false } =
     if (Number(response.headers.get("content-length") || 0) > 1200000)
       return { state: "oversized-response", http: response.status, leads: [] };
     const text = (await response.text()).slice(0, 1200000);
+    // This is URL-only one-hop navigation extraction; never follow candidates
+    // or expose email recipient addresses in a public GitHub report.
+    const contactPageCandidates = /html/i.test(contentType)
+      ? extractContactPageLinks(text,final.href) : [];
     if (discoverOnly) return { state:"contact-discovery-only", http:response.status,
       leads:[], calendarCandidates:extractCalendarLinks(text,final.href),
-      sourceAvailabilityIsNotCalendarVerification:true };
+      contactPageCandidates, sourceAvailabilityIsNotCalendarVerification:true };
     let leads = [];
     if (source.calendarType === "html") leads = extractEventLeads(text, final.href);
     // RSS / iCal imports are not auto-published; such sources must receive
     // their own verified parser and organizer-resolution test before promotion.
     return { state: "reachable-discovery-only", http: response.status, leads,
-      manualParserNeeded: source.calendarType !== "html" };
+      contactPageCandidates, manualParserNeeded: source.calendarType !== "html" };
   } catch (error) {
     return { state: "fetch-failed", http: null, leads: [], error: String(error).slice(0, 200) };
   }
@@ -287,6 +319,7 @@ export async function auditChamberSources({
     sourceCount: registry.sources.length, observations,
     candidateCount: observations.reduce((sum, row) => sum + row.leads.length, 0),
     contactCalendarCandidateCount: observations.reduce((sum,row) => sum + (row.calendarCandidates?.length||0),0),
+    firstPartyContactRouteCandidateCount: observations.reduce((sum,row) => sum + (row.contactPageCandidates?.length||0),0),
     sourceAvailabilityIsNotDateVerification: true,
     outreachStatus: "Outlook sender and replies are tracked privately, not inferred from this report" };
   if (report.countiesTotal !== 254) throw new Error("County research coverage is incomplete");
