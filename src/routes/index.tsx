@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { articlesQuery, destinationsQuery, homepageEventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { selectHomepageEditorPicks } from "@/lib/homepage-editorial";
+import { isTexasThanksgivingWeek } from "@/lib/thanksgiving-season";
 
 const pageTitle = "Texas Travel, Culture & Practical Living Guides";
 const description = "Stories, places and practical advice for making the most of life in Texas — from two-lane roads and swimming holes to barbecue, homes and small-town weekends.";
@@ -25,6 +26,11 @@ export const Route = createFileRoute("/")({
     return { featured, latest, destinations, roadTrips, regions, guides, events };
   },
   head: ({ loaderData }) => {
+    const thanksgivingWeek = isTexasThanksgivingWeek();
+    const seasonalTitle = thanksgivingWeek ? "Happy Thanksgiving | Texas Defined" : pageTitle;
+    const seasonalDescription = thanksgivingWeek
+      ? "Happy Thanksgiving from Texas Defined. Explore turkey-frying fire safety, Texas Thanksgiving recipes and traditions, and verified 2026 parade schedules."
+      : description;
     const featured = loaderData?.featured ?? [];
     const latest = loaderData?.latest ?? [];
     const selectedArticles = [...featured.slice(0, 1), ...selectHomepageEditorPicks(featured, latest)];
@@ -36,11 +42,11 @@ export const Route = createFileRoute("/")({
       ...homepageDestinations.map((destination) => ({ "@type": "TouristAttraction", name: destination.name, description: destination.summary, url: `${siteUrl}/destination/${destination.slug}`, image: absoluteUrl(texasDefinedBrand, destination.hero.src), sameAs: destination.officialUrl, provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined })),
     ];
     const structuredData = { "@context": "https://schema.org", "@graph": [
-      { "@type": "WebPage", "@id": `${siteUrl}/#homepage`, url: `${siteUrl}/`, name: pageTitle, description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${siteUrl}/#organization` }, mainEntity: { "@id": `${siteUrl}/#editorial-picks` }, hasPart: [{ "@id": `${siteUrl}/#editorial-picks` }] },
+      { "@type": "WebPage", "@id": `${siteUrl}/#homepage`, url: `${siteUrl}/`, name: seasonalTitle, description: seasonalDescription, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${siteUrl}/#organization` }, mainEntity: { "@id": `${siteUrl}/#editorial-picks` }, hasPart: [{ "@id": `${siteUrl}/#editorial-picks` }] },
       { "@type": "ItemList", "@id": `${siteUrl}/#editorial-picks`, name: "Stories and places worth knowing", numberOfItems: curatedItems.length, itemListElement: curatedItems.map((item, index) => ({ "@type": "ListItem", position: index + 1, item })) },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { title: pageTitle, description, canonicalPath: "/" }),
+      meta: buildMeta(texasDefinedBrand, { title: seasonalTitle, description: seasonalDescription, canonicalPath: "/" }),
       links: [
         canonicalLink(texasDefinedBrand, "/"),
         ...(heroImage ? [{ rel: "preload", as: "image", href: absoluteUrl(texasDefinedBrand, heroImage), fetchPriority: "high" as const }] : []),
