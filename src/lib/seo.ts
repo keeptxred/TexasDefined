@@ -50,6 +50,17 @@ type TechnicalSeoOverride = { title: string; description?: string };
 // route titles, and server/client metadata remain unchanged.
 // Individually rewritten titles from the 2026-10-12 production crawl retain
 // their long-form page headings and distinct search-result intent.
+// Seasonal editorial search titles are deliberately separate from the audited
+// fixed 107-entry Phase 7 technical override cohort. Keep the historic cohort
+// invariant intact, while giving the newly published November 2026 articles
+// concise titles without truncating the visitor-facing H1.
+const TEXASDEFINED_THANKSGIVING_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  "/article/texas-thanksgiving-turkey-frying-safety": { title: "Turkey Fryer Safety: Texas Thanksgiving Guide" },
+  "/article/texas-thanksgiving-recipes": { title: "Texas Thanksgiving Recipes: Turkey, Dressing & Pie" },
+  "/article/texas-thanksgiving-traditions": { title: "Texas Thanksgiving Traditions: Food & Football" },
+  "/article/texas-thanksgiving-parades-2026": { title: "Texas Thanksgiving Parades 2026: Dates & Cities" },
+};
+
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = Object.fromEntries(
   ([
     ["@adopting-a-dog-in-texas", "Adopting a Dog in Texas: Shelters, Rabies & Matching Tips"],
@@ -799,7 +810,7 @@ export function absoluteUrl(brand: BrandConfig, value: string) {
 
 export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const technicalOverride = brand.identity.id === "texasdefined" && page.canonicalPath
-    ? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
+    ? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_THANKSGIVING_SEO_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
     : undefined;
   const rawTitle = technicalOverride?.title ?? page.title;
   const rawDescription = technicalOverride?.description ?? page.description;
