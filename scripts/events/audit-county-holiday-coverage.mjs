@@ -64,12 +64,18 @@ function getCounties(root) {
 
 function listSources(root) {
   const data = path.join(root, "src/data");
+  const eventsDir = path.join(data, "events");
+  const christmasCalendars = fs.readdirSync(eventsDir)
+    .filter(name => /^christmas-community-\d{4}(?:-[a-z0-9-]+)?\.server\.ts$/.test(name))
+    .sort()
+    .map(name => "src/data/events/" + name);
+  if (!christmasCalendars.length) throw new Error("No year-qualified Christmas community calendar sources found");
   return [
     "src/data/major-event-index.ts",
     ...fs.readdirSync(data).filter(name => /^major-event-expanded-authority-tranche\d+\.server\.ts$/.test(name))
+      .sort()
       .map(name => "src/data/" + name),
-    "src/data/events/christmas-community-2026.server.ts",
-    "src/data/events/christmas-community-2026-county-backfill.server.ts",
+    ...christmasCalendars,
   ];
 }
 function extractHolidayRows(root, source) {
@@ -77,7 +83,7 @@ function extractHolidayRows(root, source) {
   if (!ast) throw new Error("Expected holiday source file missing: " + source);
   const constants = findLiteralConstants(ast);
   const rows = [];
-  const christmasCalendar = source.includes("christmas-community-2026");
+  const christmasCalendar = /\/christmas-community-\d{4}(?:-[a-z0-9-]+)?\.server\.ts$/.test(source);
   const walk = (node) => {
     if (ts.isObjectLiteralExpression(node)) {
       const slug = field(node, "slug", constants);
