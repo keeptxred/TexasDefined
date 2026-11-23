@@ -5521,6 +5521,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "alice-hub-city-chamber-87th-christmas-parade-2026",
+      "organization": "Alice Hub City Chamber of Commerce — original 87th annual Christmas Parade event",
+      "countySlugs": [
+        "jim-wells"
+      ],
+      "homeUrl": "https://business.alicehubcity.com/",
+      "calendarUrl": "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq",
+      "contactPageUrl": "https://business.alicehubcity.com/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "rockdale-community-market-chamber-winter-wonderland-2026",
+      "organization": "Rockdale Community Market and Rockdale Chamber — original 2026 Winter Wonderland co-organizer notice",
+      "countySlugs": [
+        "milam"
+      ],
+      "homeUrl": "https://www.rockdaletxcm.org/",
+      "calendarUrl": "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland",
+      "contactPageUrl": "https://www.rockdaletxcm.org/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
