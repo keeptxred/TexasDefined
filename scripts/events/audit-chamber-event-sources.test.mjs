@@ -288,7 +288,7 @@ test("reconciled official local calendar classifications preserve geography, pub
     "goldthwaite-mills-chamber":["mills","public-calendar"],
     "gainesville-christmas-parade":["cooke","event-specific"],
     "poteet-city-christmas-2026":["atascosa","contact-only"],
-    "crosbyton-chamber":["crosby","annual-events-list"],
+    "crosbyton-chamber":["crosby","contact-only"],
     "oldham-vega-chamber":["oldham","annual-events-list"],
   };
   for (const [id,[county,kind]] of Object.entries(expected)) {
@@ -400,7 +400,7 @@ test("Unfilled event pages remain on the scheduled respectful discovery audit wi
     assert.ok(row);
     assert.equal(row.sourceKind,"empty-calendar");
   }
-  assert.ok(!allCalendars.has("hardeman"));
+  assert.ok(allCalendars.has("hardeman"),"Current municipal Quanah community calendar is independently sourced; Chamber-only submission page remains empty");
   assert.ok(!allCalendars.has("haskell"));
   assert.ok(!allCalendars.has("refugio"));
   assert.ok(!allCalendars.has("lamb"));
@@ -503,7 +503,7 @@ test("Rural official 2026 calendar sources are active and distinct from annual H
     "A monthly general annual guide with no date-qualified current editions cannot certify a live calendar");
   const full=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(full.size>=148);
-  assert.ok(!full.has("sabine"),"Sabine County annual overview must not inflate the direct live calendar count");
+  assert.ok(full.has("sabine"),"Sabine now has independently published city and Chamber public event-calendar desks; annual overview alone does not suffice");
 });
 
 test("City and original event publisher calendars recover Midland, Matagorda and Hopkins while preserving empty Jasper dates",async()=>{
@@ -613,10 +613,10 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 329);
+  assert.equal(report.sourceCount, 336);
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 159);
-  assert.equal(report.countiesNeedingCalendarEvidence, 95);
+  assert.equal(report.countiesWithExplicitCalendarSources, 163);
+  assert.equal(report.countiesNeedingCalendarEvidence, 91);
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
 });
@@ -689,6 +689,47 @@ test("Live Oak government and Jasper Chamber host distinct community calendars w
   for(const county of ["howard","mcculloch","hardin","wheeler"])
     assert.ok(!publicCounties.has(county),"Do not claim currently reviewed festival calendar from empty city / CVB desk: "+county);
   assert.equal(registry.sources.find(s=>s.id==="big-spring-howard-tourism")?.sourceKind,"annual-events-list");
+});
+
+test("publisher-verified public community calendars recover Hardin, Wheeler, Hardeman and Sabine without claiming festive dates", () => {
+  for (const [id, county, hostname] of [
+    ["silsbee-chamber-community-calendar","hardin","www.silsbeecoc.com"],
+    ["shamrock-texas-chamber-events","wheeler","shamrocktexaschamber.com"],
+    ["city-quanah-community-calendar","hardeman","www.cityofquanah.com"],
+    ["city-hemphill-current-events-calendar","sabine","www.cityofhemphill.com"],
+    ["sabine-county-chamber-community-calendar","sabine","www.sabinecountychamber.com"]
+  ]) {
+    const item=registry.sources.find(s=>s.id===id);
+    assert.ok(item, "Missing official Texas public source "+id);
+    assert.deepEqual(item.countySlugs,[county]);
+    assert.equal(new URL(item.calendarUrl).hostname,hostname);
+    assert.equal(item.sourceKind,"public-calendar");
+  }
+  assert.equal(registry.sources.find(s=>s.id==="silsbee-hardin-chamber")?.sourceKind,"annual-events-list",
+    "General annual traditions do not themselves establish next-year dates");
+  assert.equal(registry.sources.find(s=>s.id==="city-hemphill-community-annual-festival-guide")?.sourceKind,"annual-events-list");
+  assert.equal(registry.sources.find(s=>s.id==="quanah-hardeman-chamber")?.sourceKind,"empty-calendar",
+    "Chamber submission page remains distinct from City's real Google community calendar");
+  assert.equal(registry.sources.find(s=>s.id==="seymour-city-current-events-archive-monitor")?.sourceKind,"empty-calendar",
+    "Broken Seymour event archive does not establish current dated festivals");
+  assert.equal(registry.sources.find(s=>s.id==="pittsburg-city-camp-festival-guide")?.sourceKind,"annual-events-list",
+    "Specific 2026/2027 editions on city guide are not a whole community calendar");
+  const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  for (const x of ["hardin","wheeler","hardeman","sabine"])assert.ok(counties.has(x));
+  for (const x of ["camp","baylor","crosby"])assert.ok(!counties.has(x),"Do not inflate active calendar coverage via annual, broken or unofficial source: "+x);
+  assert.equal(counties.size,163);
+});
+
+test("Crosbyton Chamber official source never treats an independent local guide as first-party Chamber material", () => {
+  const s=registry.sources.find(s=>s.id==="crosbyton-chamber");
+  assert.ok(s);
+  assert.equal(s.sourceKind,"contact-only");
+  assert.equal(new URL(s.homeUrl).hostname,"www.crosbytonchamber.com");
+  assert.equal(new URL(s.calendarUrl).hostname,"www.crosbytonchamber.com");
+  assert.ok(!registry.sources.some(x=>x.sourceKind==="public-calendar" &&
+    /visitcrosbycounty\\.com|visitcrosbyton\\.com/.test(x.calendarUrl)),"Unofficial local blog must not become an official full-calendar source");
+  assert.ok(!registry.sources.some(x=>x.countySlugs.includes("newton") &&
+    /newtonchamber\\.com/.test(x.calendarUrl)),"Newton Georgia chamber must never be classified as Texas Newton County");
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
