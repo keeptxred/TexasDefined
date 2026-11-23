@@ -15,11 +15,15 @@ permissions:
 
 jobs:
   verify-comanche-live:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_branch == 'main'
+    # A superseded or failed deploy is not evidence that a later main-branch guide is live.
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Test the source that actually deployed, not a newer main revision.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
