@@ -5581,6 +5581,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "hughes-springs-cass-chamber-calendar",
+      "organization": "Hughes Springs Chamber of Commerce — 2026-2027 original dated community festival and holiday calendar",
+      "countySlugs": [
+        "cass"
+      ],
+      "homeUrl": "https://www.hschamber.org/",
+      "calendarUrl": "https://www.hschamber.org/events",
+      "contactPageUrl": "https://www.hschamber.org/contact-us",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
