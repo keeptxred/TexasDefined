@@ -241,6 +241,23 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
+// Comanche's reviewed local dossiers are the canonical editorial source until a
+// comparably verified replacement is expressly approved. Remote Explore data can
+// be structurally valid yet stale; generic scoring alone must not erase these
+// November 2026 history, admission, photo-rights and itinerary corrections.
+const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
+  "comanche",
+  "comanche-county-historical-museum",
+]);
+
+function reviewedComancheCanonical(slug: string): Destination | undefined {
+  if (!COMANCHE_REVIEWED_AUTHORITY_SLUGS.has(slug)) return undefined;
+  const preserved = preservedExploreDestinations.find((destination) =>
+    destination.slug === slug && destination.sourceCheckedAt === "2026-11-22",
+  );
+  return resolveSeoReadyDestination(preserved);
+}
+
 function reconcileExploreCatalog(destinations: Destination[]) {
   const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
     reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
@@ -264,7 +281,10 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
+  // Maintain original Magoffin, state-park photograph, and SEO publication
+  // contracts while applying the two verified Comanche guides last.
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority)
+    .map((destination) => reviewedComancheCanonical(destination.slug) ?? destination);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
@@ -360,6 +380,8 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 }
 
 async function getResolvedDestinationBase(slug: Slug) {
+  const comancheAuthority = reviewedComancheCanonical(slug);
+  if (comancheAuthority) return comancheAuthority;
   const reviewed = reviewedAttractionDestinations.find((item) => item.slug === slug);
   if (reviewed) {
     const readyReviewed = resolveSeoReadyDestination(reviewed);
