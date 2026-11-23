@@ -635,3 +635,21 @@ test("City of Pittsburg confirms Dec 4 2026 one-hour Power Wheel Parade distinct
  assert.ok(camp.some(e=>e.slug==="pittsburg-storybook-christmas-2026"&&e.startDate==="2026-12-05"));
  assert.equal(camp.filter(e=>/pittsburg-(?:storybook|christmas-power-wheel)/.test(e.slug)).length,2);
 });
+
+
+test("Post Chamber original 2026 community calendar confirms Dec 5 Lighted Christmas Parade and Light Up Post without timing guesses",()=>{
+ const e=events.find(e=>e.slug==="post-lighted-christmas-parade-light-up-post-2026");
+ assert.ok(e,"Verified Post holiday must appear on statewide and Garza County event lifecycle");
+ assert.equal(events.filter(x=>x.slug===e.slug).length,1);
+ assert.equal(e.countySlug,"garza");
+ assert.equal(e.countyName,"Garza County");
+ assert.equal(e.city,"Post");
+ assert.equal(e.startDate,"2026-12-05");
+ assert.equal(e.endDate,undefined);
+ assert.equal(e.region,"panhandle");
+ assert.equal(e.officialEventUrl,"https://postcitytexas.com/2026-community-calendar-2/");
+ assert.match(e.sourceName,/Post Area Chamber/);
+ assert.match(e.summary,/does not specify a start time/);
+ assert.match(e.summary,/subject to change/);
+ assert.match(e.summary,/No 2027 schedule or photograph reuse permission/);
+});
