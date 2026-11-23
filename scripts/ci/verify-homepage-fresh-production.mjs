@@ -70,7 +70,23 @@ export function extractGenericArticleReadingMinutes(html) {
   return time ? Number(time[1]) : null;
 }
 
-export function checkHomepageHtml(html, contentType = 'text/html') {
+/**
+ * The newsroom's 2026 homepage campaign runs Monday, November 23 through
+ * Sunday, November 29, in America/Chicago. Do not accept the prior evergreen
+ * H1 as a successful *fresh* release during the Thanksgiving campaign.
+ */
+export function expectedHomepageHeading(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: 'numeric', day: 'numeric',
+  }).formatToParts(now);
+  const get = (type) => Number(parts.find((part) => part.type === type)?.value);
+  const day = get('day');
+  return get('year') === 2026 && get('month') === 11 && day >= 23 && day <= 29
+    ? 'Happy Thanksgiving'
+    : 'The places, stories & life of Texas';
+}
+
+export function checkHomepageHtml(html, contentType = 'text/html', now = new Date()) {
   const text = typeof html === 'string' ? html : '';
   const checks = {
     htmlDocument: /<html\b/i.test(text) && /<h1\b/i.test(text),
@@ -79,8 +95,8 @@ export function checkHomepageHtml(html, contentType = 'text/html') {
     // Lexington parity while its heading is actually rendered here.
     lexingtonHomepageReadTime: !findLexingtonHeading(text) ||
       extractLexingtonReadingMinutes(text) === EXPECTED_LEXINGTON_READING_MINUTES,
-    expectedHomepageTitle: text.includes('The places, stories &amp; life of Texas') ||
-      text.includes('The places, stories & life of Texas'),
+    expectedHomepageTitle: (text.match(/<h1\\b[^>]*>([\\s\\S]{0,600}?)<\\/h1>/i)?.[1] ?? '')
+      .replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').trim() === expectedHomepageHeading(now),
     editorialContact: text.includes('Share a correction or firsthand Texas tip'),
     compactDisclosure: text.includes('Explore more outdoor, river, city and regional guides'),
     noDuplicateBand: !text.includes('Need a Texas answer, not another destination?'),
