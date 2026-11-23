@@ -489,7 +489,7 @@ test("Rains County 2026 Emory Christmas is grounded in the city's own current an
   assert.match(e.summary,/Christmas Around the Park/);
   assert.match(e.summary,/noon/);
   assert.match(e.summary,/7 p.m./);
-  assert.match(e.summary,/no 2027 date/i);
+  assert.match(e.summary,/or 2027 date/i, "The City's 2026 announcement does not authorize a 2027 date");
   assert.match(e.summary,/exact park site/);
   assert.ok(e.summary.length>210);
 });
