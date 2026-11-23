@@ -5277,6 +5277,51 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "cross-plains-chamber-annual-community-events",
+      "organization": "Cross Plains Chamber of Commerce — original 2026 annual community events",
+      "countySlugs": [
+        "callahan"
+      ],
+      "homeUrl": "https://crossplainschamberofcommerce.com/",
+      "calendarUrl": "https://crossplainschamberofcommerce.com/community-events",
+      "contactPageUrl": "https://crossplainschamberofcommerce.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "cross-plains-chamber-sip-shop-christmas-parade-2026",
+      "organization": "Cross Plains Chamber of Commerce — confirmed December 3, 2026 Sip N Shop and Christmas Parade",
+      "countySlugs": [
+        "callahan"
+      ],
+      "homeUrl": "https://crossplainschamberofcommerce.com/",
+      "calendarUrl": "https://crossplainschamberofcommerce.com/sidewalk-sale",
+      "contactPageUrl": "https://crossplainschamberofcommerce.com/contact-us",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "atlanta-texas-chamber-undated-calendar-monitor",
+      "organization": "Atlanta Texas Area Chamber of Commerce — publicly visible community events calendar requiring 2026 parade date confirmation",
+      "countySlugs": [
+        "cass"
+      ],
+      "homeUrl": "https://atlantatexaschamber.com/",
+      "calendarUrl": "https://atlantatexaschamber.com/calendar.php",
+      "contactPageUrl": "https://atlantatexaschamber.com/contact_us/index.php",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
