@@ -1247,5 +1247,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Emory official November 2026 holiday announcement",
     "summary": "The City of Emory's current 2026 public notice confirms Christmas Around the Park on Saturday, December 5, 2026, with activities beginning at noon. The separate Christmas Parade is scheduled to begin at 7 p.m. on December 5; vendors must submit city applications by November 25 and parade participants by November 30. The city also advertises its fourth annual Tinsel Town storefront-decorating contest without specifying one public attendance time. The homepage does not establish a guaranteed admission price, exact park site, spectator parade route or 2027 date; consult the original City announcement for those details. Do not reuse city imagery without license.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "fairfield-holiday-sip-snack-shop-december-2026",
+    "title": "Fairfield Holiday Sip, Snack & Shop",
+    "city": "Fairfield",
+    "countySlug": "freestone",
+    "countyName": "Freestone County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Fairfield, Texas — participating shops; check exact locations with Fairfield Chamber",
+    "officialEventUrl": "https://fliphtml5.com/rxipz/2026-November-Newsletter/",
+    "sourceName": "Fairfield Chamber of Commerce & Visitors Center — November 3, 2026 Chamber Chatter",
+    "summary": "The Fairfield Chamber's November 2026 Chamber Chatter community schedule lists Holiday Sip, Snack & Shop on Thursday, December 3, 2026, as a distinct local shopping celebration before Christmas on the Square on December 5 and Jingle All the Way on December 19. The Chamber's published calendar places the event in Fairfield, but participating shop addresses, reliable activity hours, admission terms and promotions should be reconfirmed with the organizer. The same Chamber's earlier schedule gives different dates for the separate Christmas on Commerce promotion, which is not conflated with this event. No 2027 edition or photo-use permission is inferred.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
