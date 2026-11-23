@@ -2838,7 +2838,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "raymondville-willacy-chamber",
@@ -2970,7 +2970,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "perryton-ochiltree-chamber",
@@ -3029,7 +3029,7 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "dimmitt-castro-chamber",
@@ -3232,7 +3232,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "public-calendar"
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "friona-parmer-chamber",
