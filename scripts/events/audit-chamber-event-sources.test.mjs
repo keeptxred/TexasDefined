@@ -365,7 +365,73 @@ test("El Campo and Friona public 2026 community event calendar sources remain co
  assert.deepEqual(friona.countySlugs,["parmer"]);
  assert.equal(elCampo.calendarUrl,"https://www.elcampochamber.com/events");
  assert.equal(friona.calendarUrl,"https://www.friona-chamber.com/new-events-2");
- assert.equal(registry.sources.length,292);
+ assert.ok(registry.sources.length>=292, "Keep the verified county source baseline while expanding sources");
  const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  assert.ok(counties.size>=139);
+});
+
+test("Eastland and La Grange dated official community calendars are distinct from empty local event submission desks", () => {
+  const current = [
+    ["eastland-chamber","eastland","business.eastlandchamber.com"],
+    ["la-grange-fayette-chamber","fayette","business.lagrangetx.org"],
+  ];
+  for (const [id,county,host] of current) {
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,"Missing verified official calendar "+id);
+    assert.ok(source.countySlugs.includes(county));
+    assert.equal(source.sourceKind,"public-calendar");
+    assert.equal(new URL(source.calendarUrl).hostname,host);
+  }
+  const researchDesks=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber","littlefield-lamb-city-events"];
+  for (const id of researchDesks) {
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,"Missing public source "+id);
+    assert.equal(source.sourceKind,"empty-calendar", "Blank date/submission page must stay monitored but not count as live festival calendar");
+  }
+  const officialCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(officialCounties.size>=141,"Protect at least 141 distinct explicitly dated public calendars");
+});
+
+test("Unfilled event pages remain on the scheduled respectful discovery audit without inflating county calendar coverage", async () => {
+  const emptyIds=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber","littlefield-lamb-city-events"];
+  const allCalendars=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  for(const id of emptyIds){
+    const row=registry.sources.find(s=>s.id===id);
+    assert.ok(row);
+    assert.equal(row.sourceKind,"empty-calendar");
+  }
+  assert.ok(!allCalendars.has("hardeman"));
+  assert.ok(!allCalendars.has("haskell"));
+  assert.ok(!allCalendars.has("refugio"));
+  assert.ok(!allCalendars.has("lamb"));
+  const seenDue=new Set();
+  const fetched=[];
+  const fetchStub=async (url)=>{
+    const href=String(url);
+    fetched.push(href);
+    if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,
+      headers:{get:()=>null},text:async()=>""};
+    return {status:200,ok:true,url:href,
+      headers:{get:()=> "text/html"},
+      text:async()=>'<a href="/events/test">Hometown Christmas Parade</a>'};
+  };
+  for(let day=22;day<=28;day++){
+    const report=await auditChamberSources({
+      offline:false,now:new Date("2026-11-"+String(day)+"T12:00:00Z"),fetchImpl:fetchStub,
+    });
+    assert.equal(report.emptyCalendarSourceCount,emptyIds.length);
+    assert.equal(report.countiesWithExplicitCalendarSources,
+      new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs)).size);
+    assert.match(report.eventPublication,/^NO/);
+    for(const obs of report.observations.filter(o=>emptyIds.includes(o.sourceId))){
+      if(obs.state==="reachable-discovery-only"){
+        seenDue.add(obs.sourceId);
+        assert.ok(obs.leads.every(lead=>lead.publishable===false&&lead.organizerVerified===false));
+      }
+    }
+  }
+  assert.deepEqual([...seenDue].sort(),emptyIds.slice().sort(),
+    "Every empty event calendar should be reconsidered by the seven-day source-audit cycle");
+  assert.ok(fetched.some(url=>url.includes("quanahchamber.com/community-events")),
+    "Submitting an event later must not require a manual switch to re-enable discovery");
 });

@@ -61,7 +61,7 @@ export function validateRegistry(registry, counties) {
       throw new Error("Missing verified source-review date: " + source.id);
     if (source.sourceRole !== "discovery" ||
         !["html","rss","ics"].includes(source.calendarType) ||
-        (source.sourceKind !== undefined && !["public-calendar","contact-only","event-specific","annual-events-list","unclassified"].includes(source.sourceKind)))
+        (source.sourceKind !== undefined && !["public-calendar","contact-only","empty-calendar","event-specific","annual-events-list","unclassified"].includes(source.sourceKind)))
       throw new Error("Unsupported source classification: " + source.id);
     for (const field of ["homeUrl", "calendarUrl", "contactPageUrl"])
       checkedPublicUrl(source[field]);
@@ -231,6 +231,8 @@ export async function auditChamberSources({
     .flatMap(s => s.countySlugs));
   const countiesNeedingCalendarEvidence = rows.filter(c => !calendarSourceCountySlugs.has(c.slug));
   const contactOnlySourceCount = registry.sources.filter(s => s.sourceKind === "contact-only").length;
+  // Empty official calendar/submission desks are monitored but cannot certify an active festival calendar.
+  const emptyCalendarSourceCount = registry.sources.filter(s => s.sourceKind === "empty-calendar").length;
   const unclassifiedSourceCount = registry.sources.filter(s => !s.sourceKind || s.sourceKind === "unclassified").length;
   const eventSpecificSourceCount = registry.sources.filter(s => s.sourceKind === "event-specific").length;
   const annualEventsListSourceCount = registry.sources.filter(s => s.sourceKind === "annual-events-list").length;
@@ -241,7 +243,7 @@ export async function auditChamberSources({
     countiesWithExplicitCalendarSources: calendarSourceCountySlugs.size,
     countiesNeedingCalendarEvidence: countiesNeedingCalendarEvidence.length,
     countiesNeedingCalendarEvidenceDetails: countiesNeedingCalendarEvidence,
-    contactOnlySourceCount, unclassifiedSourceCount, eventSpecificSourceCount, annualEventsListSourceCount,
+    contactOnlySourceCount, emptyCalendarSourceCount, unclassifiedSourceCount, eventSpecificSourceCount, annualEventsListSourceCount,
     sourceCount: registry.sources.length, observations,
     candidateCount: observations.reduce((sum, row) => sum + row.leads.length, 0),
     sourceAvailabilityIsNotDateVerification: true,

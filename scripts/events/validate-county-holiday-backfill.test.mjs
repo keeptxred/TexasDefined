@@ -268,3 +268,34 @@ test("El Campo Dec 3 2026 Chamber parade is a separate organizer-confirmed Whart
  assert.match(e.summary,/route/);
  assert.ok(!events.some(x=>x.slug!==e.slug&&x.city==="El Campo"&&x.startDate===e.startDate&&/parade/i.test(x.title)));
 });
+
+test("La Grange Schmeckenfest is dated from a 2026 Chamber and city organizer listing and scoped to Fayette County",()=>{
+  const slug="la-grange-schmeckenfest-wassail-festival-2026";
+  const e=events.find(item=>item.slug===slug);
+  assert.ok(e,"Missing verified Schmeckenfest 2026 occurrence");
+  assert.equal(e.city,"La Grange");
+  assert.equal(e.countySlug,"fayette");
+  assert.equal(e.countyName,"Fayette County");
+  assert.equal(e.startDate,"2026-12-03");
+  assert.equal(e.endDate,undefined,"Do not extend festival to invented overnight dates");
+  assert.equal(new URL(e.officialEventUrl).hostname,"business.lagrangetx.org");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.match(e.summary,/5 to 8 p\.m\./);
+  assert.ok(e.venueName.includes("Courthouse"));
+  assert.equal(events.filter(item=>item.slug===slug).length,1,"No duplicate festival entries");
+});
+
+test("The 2026 Czech Christmas Open House is directly published by its La Grange organizer, separate from Schmeckenfest",()=>{
+  const e=events.find(x=>x.slug==="la-grange-texas-czech-christmas-open-house-2026");
+  const downtown=events.find(x=>x.slug==="la-grange-schmeckenfest-wassail-festival-2026");
+  assert.ok(e&&downtown);
+  assert.equal(e.countySlug,"fayette");
+  assert.equal(e.countyName,"Fayette County");
+  assert.equal(e.startDate,"2026-12-05");
+  assert.equal(new URL(e.officialEventUrl).hostname,"czechtexas.org");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.match(e.summary,/Admission is free/);
+  assert.match(e.venueName,/Fairgrounds Road/);
+  assert.equal(downtown.startDate,"2026-12-03");
+  assert.notEqual(e.venueName,downtown.venueName,"Different Fayette sites may not be collapsed into a single event");
+});

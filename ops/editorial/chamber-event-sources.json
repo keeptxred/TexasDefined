@@ -1591,7 +1591,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "odessa-ector-chamber",
@@ -1665,7 +1666,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hereford-deaf-smith-chamber",
@@ -2835,7 +2837,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "raymondville-willacy-chamber",
@@ -2966,7 +2969,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "perryton-ochiltree-chamber",
@@ -3024,7 +3028,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "dimmitt-castro-chamber",
@@ -3221,12 +3226,13 @@
         "lamb"
       ],
       "homeUrl": "https://littlefieldtexas.net/",
-      "calendarUrl": "https://littlefieldtexas.net/Calendar.aspx",
+      "calendarUrl": "https://www.littlefieldtexas.net/Calendar.aspx",
       "contactPageUrl": "https://littlefieldtexas.net/list.aspx",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "friona-parmer-chamber",
