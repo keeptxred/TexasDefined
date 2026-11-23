@@ -15,7 +15,8 @@ test('strict draft contract targets useful original 900 words and only approved 
   assert.equal(TEXASDEFINED_EDITORIAL_MAX_DRAFT_ATTEMPTS,3);
   assert.equal(TEXASDEFINED_ALLOWED_NEWS_CATEGORIES.includes('fishing'),false);
   assert.equal(TEXASDEFINED_ALLOWED_NEWS_CATEGORIES.includes('outdoors'),true);
-  assert.match(guide,/900 distinct, original, factual body words/);
+  assert.match(guide,/850–975 distinct, original, factual body words/);
+  assert.match(guide,/mandatory verified minimum of 750/);
   assert.match(guide,/Texas Parks & Wildlife/);
   assert.match(guide,/25 or more words/);
   assert.match(guide,/If the supplied original release and verified official follow-ups cannot support/);

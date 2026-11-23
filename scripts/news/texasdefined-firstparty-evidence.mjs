@@ -5,7 +5,7 @@
  * published evidence pages, with no redirects, private hosts or crawling.
  */
 const MAX_ORIGINAL_HTML = 650_000;
-const MAX_EVIDENCE_CHARS = 1_650;
+const MAX_EVIDENCE_CHARS = 2_800;
 const MAX_LINKED_PAGES = 3;
 
 // Confirmed first-party links from TPWD's November 17 winter-trout release.
