@@ -88,7 +88,9 @@ test("offline audit enumerates every uncovered county without network, email or 
   assert.ok(!report.unservedCounties.some(county => county.slug === "borden"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "gregg"));
   assert.ok(!report.unservedCounties.some(c => c.slug === "comanche"));
-  assert.ok(report.observations.every(x => x.state === "offline-validation"));
+  assert.ok(report.observations.every(x => x.state === "offline-validation" ||
+    (x.sourceTrust === "quarantined" && x.state === "quarantined-source" && x.leads.length === 0)),
+    "Offline validation cannot override a security quarantine or generate leads");
   assert.match(report.eventPublication, /^NO/);
 });
 
@@ -890,7 +892,62 @@ test("Atlanta Cass public calendar requires organizer confirmation of contradict
  assert.equal(new URL(a.homeUrl).hostname,"atlantatexaschamber.com");
  const calendars=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
  assert.ok(!calendars.has("cass"),"Empty event calendar and secondary conflicting holiday listings do not validate a date-confirmed county public calendar");
- assert.equal(registry.sources.length,354);
+ assert.equal(registry.sources.length,356);
+});
+
+test("Compromised Marlin Chamber source is quarantined before offline or online HTTP requests", async () => {
+  const marlin=registry.sources.find(s=>s.id==="falls-marlin-chamber");
+  assert.ok(marlin);
+  assert.equal(marlin.sourceKind,"contact-only");
+  assert.deepEqual(marlin.countySlugs,["falls"]);
+  assert.equal(marlin.sourceTrust,"quarantined");
+  assert.match(marlin.riskReview,/adult external link/);
+  assert.match(marlin.riskReview,/2018/);
+  const offline=await auditChamberSources({offline:true});
+  const item=offline.observations.find(o=>o.sourceId===marlin.id);
+  assert.equal(item.sourceTrust,"quarantined");
+  assert.equal(item.state,"quarantined-source");
+  assert.deepEqual(item.leads,[]);
+  assert.throws(()=>validateRegistry({...registry,sources:registry.sources.map(x=>
+    x.id===marlin.id ? {...x,sourceTrust:"trusted"} : x)},counties),/Unsupported source-trust status/);
+  assert.throws(()=>validateRegistry({...registry,sources:registry.sources.map(x=>
+    x.id===marlin.id ? {...x,riskReview:""} : x)},counties),/substantive public safety review/);
+  const seen=[];
+  const fetchStub=async (url)=>{
+    seen.push(String(url));
+    if (String(url).includes("marlintexas.com"))
+      throw new Error("Security regression: quarantined publisher was fetched");
+    if (String(url).endsWith("/robots.txt"))
+      return new Response("",{status:404});
+    return new Response("<html><body>Nonpublishing calendar research</body></html>",
+      {status:200,headers:{"content-type":"text/html"}});
+  };
+  const online=await auditChamberSources({offline:false,
+    now:new Date("2026-11-22T12:00:00Z"),fetchImpl:fetchStub});
+  assert.equal(online.observations.find(x=>x.sourceId===marlin.id)?.state,"quarantined-source");
+  assert.ok(!seen.some(x=>x.includes("marlintexas.com")));
+  assert.ok(!online.observations.find(x=>x.sourceId===marlin.id).leads.length);
+  assert.match(online.eventPublication,/^NO/);
+});
+
+test("Baird and Rockdale official event-calendar shells are monitored, not classified as current festivals", () => {
+  for(const [id,county,url] of [
+    ["baird-chamber-calendar-undated-monitor","callahan","https://www.bairdchamber.com/events"],
+    ["rockdale-chamber-community-calendar-undated-monitor","milam","https://www.rockdalechamber.org/events"]
+  ]) {
+    const x=registry.sources.find(s=>s.id===id);
+    assert.ok(x);
+    assert.deepEqual(x.countySlugs,[county]);
+    assert.equal(x.calendarUrl,url);
+    assert.equal(x.sourceKind,"empty-calendar");
+  }
+  assert.equal(registry.sources.find(s=>s.id==="baird-chamber-calendar-undated-monitor")?.contactPageUrl,
+    "https://www.bairdchamber.com/join-mailing-list");
+  const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+  assert.equal(c.has("callahan"),false);
+  assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
+  assert.equal(c.size,167);
+  assert.equal(registry.sources.length,356);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {

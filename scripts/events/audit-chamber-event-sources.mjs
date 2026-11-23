@@ -65,6 +65,11 @@ export function validateRegistry(registry, counties) {
       throw new Error("Unsupported source classification: " + source.id);
     for (const field of ["homeUrl", "calendarUrl", "contactPageUrl"])
       checkedPublicUrl(source[field]);
+    if (source.sourceTrust !== undefined && source.sourceTrust !== "quarantined")
+      throw new Error("Unsupported source-trust status: " + source.id);
+    if (source.sourceTrust === "quarantined" &&
+        (typeof source.riskReview !== "string" || source.riskReview.length < 30))
+      throw new Error("Quarantined source requires a substantive public safety review: " + source.id);
     if ("contactEmail" in source || "recipient" in source || "mediaKit" in source)
       throw new Error("Do not commit contact records or private media kits");
   }
@@ -211,7 +216,11 @@ export async function auditChamberSources({
     const holidayBoost = source.priority === "holiday" && [10,11,0].includes(now.getUTCMonth());
     const due = registry.sources.length <= 12 || hash % 7 === day ||
       (holidayBoost && hash % 2 === day % 2);
-    const result = offline ? { state: "offline-validation", leads: [] }
+    // Quarantine beats both offline mode and refresh cadence, so a future
+    // source-kind change can never crawl a publisher under site-safety review.
+    const result = source.sourceTrust === "quarantined"
+      ? { state: "quarantined-source", leads: [] }
+      : offline ? { state: "offline-validation", leads: [] }
       : source.sourceKind === "contact-only" ? { state: "contact-only-research", leads: [] }
       : !due ? { state: "not-due", leads: [] }
       : await fetchPublicCalendar(source, fetchImpl);
@@ -219,6 +228,7 @@ export async function auditChamberSources({
       countySlugs: source.countySlugs, officialUrl: source.homeUrl,
       calendarUrl: source.calendarUrl, sourceRole: source.sourceRole,
       sourceKind: source.sourceKind ?? "unclassified",
+      sourceTrust: source.sourceTrust ?? "normal",
       reviewedAt: source.reviewedAt, ...result });
   }
   const rows = [...map.values()];
