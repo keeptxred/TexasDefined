@@ -11,6 +11,20 @@ function fixture() {
 test('fully evidenced Cass visitor page passes', () => {
   assert.doesNotThrow(() => assertCassCountyAuthority(fixture(), 'https://texasdefined.com/county/cass'));
 });
+test('React streamed text boundaries and HTML ampersand encoding do not hide visible county facts', () => {
+  const streamed = fixture()
+    .replace('What the data says about Cass County', 'What the data says about <!-- -->Cass County')
+    .replace('Cass County includes communities such as Linden, Atlanta, Hughes Springs',
+      'Cass County includes communities such as <!-- -->Linden, Atlanta, Hughes Springs')
+    .replace('Pinkard &amp; Bowden', 'Pinkard &#38; Bowden');
+  assert.doesNotThrow(() => assertCassCountyAuthority(streamed, '/county/cass'));
+});
+test('scripts cannot counterfeit visibly missing people or town relationships', () => {
+  const marker = 'Richard Bowden: from Linden bands to Pinkard';
+  const html = fixture().replace('<section>' + marker + '</section>', '')
+    + '<script>window.fake = ' + JSON.stringify(marker) + ';</script>';
+  assert.throws(() => assertCassCountyAuthority(html, '/county/cass'), /evidence missing/);
+});
 test('loss of a named musician, venue, county town or visitor fact is an error', () => {
   for (const marker of cassRequiredMarkers) {
     assert.throws(() => assertCassCountyAuthority(fixture().replace('<section>' + marker + '</section>', ''), '/county/cass'), /evidence missing/);
