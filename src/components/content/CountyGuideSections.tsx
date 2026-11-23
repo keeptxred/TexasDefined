@@ -109,7 +109,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
     ? mergeEditorialLinks(
         [...corridorItineraryLinks, ...(countySeriesArticle.internalLinks ?? [])],
         articleInternalLinks[countySeriesArticle.slug] ?? [],
-      ).slice(0, 8)
+      ).slice(0, entity.slug === 'cass' ? 14 : 8)
     : corridorItineraryLinks;
   const countyIndustryPathways = COUNTY_INDUSTRY_PATHWAYS[entity.slug] ?? [];
   const countyRiverLinks = riverAuthorityLinksForCounty(entity.slug);
