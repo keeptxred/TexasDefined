@@ -613,10 +613,10 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 336);
+  assert.equal(report.sourceCount, 339);
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 163);
-  assert.equal(report.countiesNeedingCalendarEvidence, 91);
+  assert.equal(report.countiesWithExplicitCalendarSources, 164);
+  assert.equal(report.countiesNeedingCalendarEvidence, 90);
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
 });
@@ -685,7 +685,7 @@ test("Live Oak government and Jasper Chamber host distinct community calendars w
     assert.deepEqual(s.countySlugs,[county]);
   }
   const publicCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
-  assert.equal(publicCounties.size,163, "All newly certified county community calendars must remain counted without conflating undated municipal desks");
+  assert.ok(publicCounties.size >= 163, "Do not lose 163 previous classified calendar-source counties while adding Cameron");
   for(const county of ["howard","mcculloch"])
     assert.ok(!publicCounties.has(county),"Do not claim current festival calendar solely from empty city/CVB desk: "+county);
   for(const county of ["hardin","wheeler"])
@@ -719,7 +719,7 @@ test("publisher-verified public community calendars recover Hardin, Wheeler, Har
   const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   for (const x of ["hardin","wheeler","hardeman","sabine"])assert.ok(counties.has(x));
   for (const x of ["camp","baylor","crosby"])assert.ok(!counties.has(x),"Do not inflate active calendar coverage via annual, broken or unofficial source: "+x);
-  assert.equal(counties.size,163);
+  assert.ok(counties.size >= 163, "Do not lose prior 163 verified calendar-source counties");
 });
 
 test("Crosbyton Chamber official source never treats an independent local guide as first-party Chamber material", () => {
@@ -732,6 +732,39 @@ test("Crosbyton Chamber official source never treats an independent local guide 
     /visitcrosbycounty\\.com|visitcrosbyton\\.com/.test(x.calendarUrl)),"Unofficial local blog must not become an official full-calendar source");
   assert.ok(!registry.sources.some(x=>x.countySlugs.includes("newton") &&
     /newtonchamber\\.com/.test(x.calendarUrl)),"Newton Georgia chamber must never be classified as Texas Newton County");
+});
+
+test("Cameron EDC is a real Milam County Texas public event-calendar publisher, not Cameron County or an external aggregator",()=>{
+  const s=registry.sources.find(x=>x.id==="cameron-edc-2026-milam-events-calendar");
+  assert.ok(s);
+  assert.deepEqual(s.countySlugs,["milam"]);
+  assert.equal(s.sourceKind,"public-calendar");
+  assert.equal(new URL(s.calendarUrl).hostname,"www.welcometocameron.com");
+  assert.equal(s.calendarUrl,"https://www.welcometocameron.com/events");
+  assert.equal(new URL(s.contactPageUrl).pathname,"/list-your-event");
+  assert.ok(!s.countySlugs.includes("cameron"),"City of Cameron in Milam County is NOT Cameron County Texas");
+  const covered=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+  assert.ok(covered.has("milam"));
+  assert.equal(covered.size,164);
+});
+
+test("Rains City confirms individual 2026 Christmas dates but county civic desks do not become full public festival calendars",()=>{
+  const emory=registry.sources.find(x=>x.id==="emory-city-christmas-around-park-parade-2026");
+  assert.ok(emory);
+  assert.equal(emory.sourceKind,"event-specific");
+  assert.deepEqual(emory.countySlugs,["rains"]);
+  assert.equal(new URL(emory.calendarUrl).hostname,"www.cityofemory.com");
+  assert.equal(emory.reviewedAt,"2026-11-22");
+  const falls=registry.sources.find(x=>x.id==="falls-county-government-civic-calendar-monitor");
+  assert.ok(falls);
+  assert.equal(falls.sourceKind,"empty-calendar");
+  assert.deepEqual(falls.countySlugs,["falls"]);
+  assert.equal(new URL(falls.calendarUrl).hostname,"www.co.falls.tx.us");
+  const covered=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+  assert.equal(covered.has("rains"),false,"One dated Emory Christmas announcement does not certify countywide calendar");
+  assert.equal(covered.has("falls"),false,"Falls public holiday and Commissioners' Court calendar does not certify festival programming");
+  assert.equal(covered.size,164);
+  assert.equal(registry.sources.length,339);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
