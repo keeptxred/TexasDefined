@@ -45,6 +45,7 @@ must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-gui
 must("guide", "heritage-center-cherokee-county-rusk");
 must("guide", 'category: "texas-history"');
 if (!/updatedAt: "\d{4}-\d{2}-\d{2}"/.test(sources.guide ?? "")) failures.push("Guide needs a substantive editorial modification date");
+if (!sources.guide.includes("1910 (Texas State Library) / 1913 (TSHA)") || !sources.guide.includes("Texas State Historical Association's Texas State Railroad entry instead says the prison foundry closed in 1913")) failures.push("Guide must explicitly attribute the 1910 vs 1913 official-source foundry closure conflict");
 must("guide", 'readingTimeVerified: false');
 must("guide", 'type: "image"');
 for (const asset of ["TSR_300_at_Rusk.jpg", "Palestine_Depot_Platform_Texas_State_Railroad_2024.jpg", "Car_42_Interior_Texas_State_Railroad_2024.jpg", "Texas_State_Railroad%2C_moving_locomotives.jpg", "CC BY-SA 3.0", "CC BY 2.0"]) must("guide", asset);
