@@ -111,8 +111,12 @@ jobs:
               ...report.countiesNeedingCalendarEvidenceDetails.map(row => '- ' + row.name + ' — ' + row.url),
               '',
               '### Official source access requiring review',
-              ...failures.map(row => '- ' + row.organization + ': ' + row.state +
-                ' — ' + row.calendarUrl),
+              // Never promote an unsafe quarantined publisher to a clickable
+              // URL in the public research backlog. Retain the organization
+              // and quarantine state so an editor can investigate privately.
+              ...failures.map(row => row.state === 'quarantined-source'
+                ? '- ' + row.organization + ': security quarantine — no automatic fetch or public link; obtain verified safe replacement'
+                : '- ' + row.organization + ': ' + row.state + ' — ' + row.calendarUrl),
               '',
               '### Editorial gates',
               '- Deduplicate by organization and domain; use O365 admin@texasdefined.com only, never Gmail.',
