@@ -1205,5 +1205,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Fairfield Chamber of Commerce & Visitors Center",
     "summary": "The Fairfield Chamber of Commerce and Visitors Center lists Jingle All the Way for Saturday, December 19, 2026. Local Freestone County community notices identify the courthouse square in downtown Fairfield as the gathering area. This is a different holiday date and event from Christmas on the Square on December 5. The Chamber's current listing does not confirm individual performance times, vendors, entry costs or other activity details; check directly with the organizer before traveling.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "gatesville-christmas-on-marshall-street-2026",
+    "title": "Gatesville Christmas on Marshall Street 2026",
+    "city": "Gatesville",
+    "countySlug": "coryell",
+    "countyName": "Coryell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Marshall Street, Gatesville — confirm individual activity locations with organizers",
+    "officialEventUrl": "https://www.gatesvilleisd.org/calendar",
+    "sourceName": "Gatesville Independent School District original community-event announcement",
+    "summary": "Gatesville Independent School District's 2026 community announcement and official activity calendar identify Christmas on Marshall Street for Saturday, December 5, 2026, with a 10 a.m. calendar entry. The school district promotes the local Christmas celebration in Gatesville, Coryell County. The calendar does not establish an event end time, full walking route, vendor schedule, admission prices or the hours of every program; confirm those with the organizer before visiting. This is separate from the city's Christmas at the Ballpark program, for which a 2026 edition date remains unverified.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
