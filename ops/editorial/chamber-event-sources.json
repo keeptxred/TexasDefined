@@ -2854,13 +2854,13 @@
         "rains"
       ],
       "homeUrl": "https://rainscountyfair.com/",
-      "calendarUrl": "https://rainscountyfair.com/",
+      "calendarUrl": "https://rainscountyfair.com/schedule/",
       "contactPageUrl": "https://rainscountyfair.com/about-us/",
-      "reviewedAt": "2026-11-22",
+      "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "event-specific"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "hearne-robertson-chamber",
@@ -2931,11 +2931,11 @@
       "homeUrl": "https://starrcountyfair.com/",
       "calendarUrl": "https://starrcountyfair.com/events-home",
       "contactPageUrl": "https://starrcountyfair.com/",
-      "reviewedAt": "2026-11-22",
+      "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "event-specific"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "crystal-city-zavala-spinach",
@@ -5426,6 +5426,21 @@
       "homeUrl": "https://www.wclsf.com/",
       "calendarUrl": "https://www.wclsf.com/",
       "contactPageUrl": "https://www.wclsf.com/contact",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "tyler-county-dogwood-festival-original-calendar",
+      "organization": "Tyler County Dogwood Festival Association — original 2026 schedules and 2027 dated weekends",
+      "countySlugs": [
+        "tyler"
+      ],
+      "homeUrl": "https://www.tylercountydogwoodfestival.org/",
+      "calendarUrl": "https://www.tylercountydogwoodfestival.org/",
+      "contactPageUrl": "https://www.tylercountydogwoodfestival.org/contact",
       "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "standard",
