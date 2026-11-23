@@ -18,7 +18,7 @@ const targets = [
   },
   {
     path: "/destination/comanche-county-historical-museum",
-    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg"],
+    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. The museum\'s official homepage explicitly states general admission is free"],
   },
 ];
 
@@ -40,6 +40,11 @@ function verify({ path, evidence }, html) {
   if (robots.some((tag) => /noindex/i.test(tag))) missing.push("indexable robots directive (found noindex)");
   if (!html.includes(`https://texasdefined.com${path}`)) missing.push("canonical absolute URL");
   if (text.length < 4000) missing.push("substantial server-rendered page content");
+  if (path === "/destination/comanche-county-historical-museum" &&
+    (text.includes("This visitor guide does not claim a published admission price") ||
+    text.includes("Yes. The museum\'s official homepage explicitly states general admission is free"))) {
+    missing.push("outdated, contradictory museum admission guidance");
+  }
   return missing;
 }
 
