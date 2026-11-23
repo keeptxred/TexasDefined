@@ -566,3 +566,28 @@ test("Copperas Cove Chamber dates the 32nd Krist Kindl Markt Dec 4–6, 2026 wit
   assert.equal(events.filter(x=>x.countySlug==="coryell").length,2,
     "Copperas Cove three-day festival and Gatesville single-day community Christmas are distinct");
 });
+
+test("Muleshoe Chamber original 2026 parade poster confirms Dec 12 and a 6pm start without invented fees or next-year edition",()=>{
+  const slug="muleshoe-wonderland-christmas-parade-2026";
+  const e=events.find(x=>x.slug===slug);
+  assert.ok(e,"Muleshoe Chamber official 2026 Christmas poster is missing");
+  assert.equal(events.filter(x=>x.slug===slug).length,1);
+  assert.equal(e.countySlug,"bailey");
+  assert.equal(e.countyName,"Bailey County");
+  assert.equal(e.region,"panhandle");
+  assert.equal(e.city,"Muleshoe");
+  assert.equal(e.startDate,"2026-12-12");
+  assert.equal(e.endDate,undefined,"A single Saturday parade is not a month-long festival");
+  assert.equal(e.sourceVerifiedAt,"2026-11-22");
+  assert.equal(e.officialEventUrl,"https://muleshoetxchamber.com/");
+  assert.match(e.sourceName,/Muleshoe Chamber/);
+  assert.match(e.summary,/5:30 p\.m\./);
+  assert.match(e.summary,/6 p\.m\./);
+  assert.match(e.summary,/Muleshoe Senior Center/);
+  assert.match(e.summary,/hot chocolate and cookies/);
+  assert.match(e.summary,/no parade-participant registration is required/);
+  assert.match(e.summary,/not an independently confirmed spectator admission price/);
+  assert.match(e.summary,/a 2027 date/);
+  assert.match(e.summary,/license to reuse its poster/);
+  assert.ok(e.summary.length>250,"Preserve original program details without duplicate annual filler");
+});
