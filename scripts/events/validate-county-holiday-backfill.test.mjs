@@ -777,3 +777,22 @@ test("Bee County 2026 Christmas fun run is organizer verified without inventing 
   assert.match(e.summary,/tentative schedule/);
   assert.match(e.summary,/do not independently provide a confirmed parade start/);
 });
+
+
+test("2026 Canton Christmas Sip N Shop direct original organizer confirmation remains distinct from next-day Storybook festival",()=>{
+ const sip=events.find(e=>e.slug==="canton-main-street-december-2026-sip-shop");
+ const parade=events.find(e=>e.slug==="canton-main-street-storybook-christmas-parade-2026");
+ assert.ok(sip && parade, "Both first-party Canton 2026 holiday programs required");
+ assert.equal(sip.countySlug,"van-zandt");
+ assert.equal(sip.countyName,"Van Zandt County");
+ assert.equal(sip.startDate,"2026-12-11");
+ assert.equal(sip.endDate,undefined);
+ assert.equal(sip.sourceVerifiedAt,"2026-11-23");
+ assert.equal(sip.officialEventUrl,"https://www.cantonmainstreet.org/calendar-of-events");
+ assert.match(sip.sourceName,/direct 2026 event coordinator confirmation/);
+ assert.match(sip.summary,/5 to 8 p\.m\./);
+ assert.match(sip.summary,/not the same 5–8 p\.m\. program/);
+ assert.match(sip.summary,/did not confirm a comprehensive participating-shop list/);
+ assert.equal(parade.startDate,"2026-12-12");
+ assert.equal(new Set(events.map(e=>e.slug)).size,events.length);
+});
