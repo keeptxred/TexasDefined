@@ -58,6 +58,8 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { href: "/texas-icons/t-bone-walker", label: "T-Bone Walker: born in Linden", description: "Explore the pioneering blues guitarist's Cass County origins and Dallas career." },
     { href: "/texas-icons/scott-joplin", label: "Scott Joplin: Northeast Texas beginnings", description: "Read what historians know—and cannot confirm—about the composer's birthplace." },
     { href: "/texas-music", label: "Texas music history", description: "Put Linden's blues, ragtime and rock stories in statewide context." },
+    { href: "/texas-music-venues", label: "Music City Texas Theater and Texas venues", description: "See how Linden's restored nonprofit concert room compares with larger Texas music landmarks." },
+    { href: "/texas-music-cities", label: "Linden beyond the major music cities", description: "Follow the small-town music network that helped launch Henley and Bowden." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
