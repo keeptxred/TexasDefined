@@ -2346,11 +2346,11 @@
       "homeUrl": "https://www.fairfieldtexaschamber.com/",
       "calendarUrl": "https://www.fairfieldtexaschamber.com/",
       "contactPageUrl": "https://www.fairfieldtexaschamber.com/",
-      "reviewedAt": "2026-11-22",
+      "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "annual-events-list"
+      "sourceKind": "public-calendar"
     },
     {
       "id": "visit-san-augustine",
