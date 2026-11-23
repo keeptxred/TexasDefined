@@ -893,7 +893,7 @@ test("Atlanta Cass public calendar requires organizer confirmation of contradict
  assert.equal(new URL(a.homeUrl).hostname,"atlantatexaschamber.com");
  const calendars=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
  assert.ok(!calendars.has("cass"),"Empty event calendar and secondary conflicting holiday listings do not validate a date-confirmed county public calendar");
- assert.equal(registry.sources.length,358);
+ assert.equal(registry.sources.length,359);
 });
 
 test("Compromised Marlin Chamber source is quarantined before offline or online HTTP requests", async () => {
@@ -948,7 +948,7 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   assert.equal(c.has("callahan"),false);
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
   assert.equal(c.size,174, "Dalhart, Bailey, Henrietta and Pittsburg calendars preserve all county sources; events remain separately verified");
-  assert.equal(registry.sources.length,358);
+  assert.equal(registry.sources.length,359);
 });
 
 
@@ -963,7 +963,7 @@ test("Muleshoe Chamber official event calendar closes Bailey source gap without 
   assert.ok(counties.has("bailey"));
   assert.equal(counties.size,174);
   const report=await auditChamberSources({offline:true});
-  assert.equal(report.sourceCount,358);
+  assert.equal(report.sourceCount,359);
   assert.equal(report.countiesWithExplicitCalendarSources,174);
   assert.equal(report.countiesNeedingCalendarEvidence,80);
   assert.match(report.eventPublication,/^NO/);
@@ -982,7 +982,7 @@ test("Dalhart Area Chamber publisher calendar serves both Dallam and Hartley, wi
  assert.equal(covered.size,174);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
- assert.equal(audit.sourceCount,358);
+ assert.equal(audit.sourceCount,359);
  assert.equal(audit.countiesWithExplicitCalendarSources,174);
  assert.equal(audit.countiesNeedingCalendarEvidence,80);
  assert.match(audit.eventPublication,/^NO/);
@@ -1006,7 +1006,7 @@ test("City of Henrietta and City of Pittsburg official public calendars independ
  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  for(const county of ["clay","camp","dallam","hartley","bailey"])assert.ok(covered.has(county));
  assert.equal(covered.size,174);
- assert.equal(registry.sources.length,358);
+ assert.equal(registry.sources.length,359);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
  assert.equal(audit.countiesTotal,254);
@@ -1154,7 +1154,7 @@ test("Post Area Chamber original 2026 public community calendar qualifies Garza 
  assert.equal(src.calendarUrl,"https://postcitytexas.com/", "HTML publisher landing page links its genuine 2026 PDF annual community calendar; do not fetch PDF as HTML");
  assert.equal(src.contactEmail,undefined);
  const report=await auditChamberSources({offline:true});
- assert.equal(report.sourceCount,358);
+ assert.equal(report.sourceCount,359);
  assert.equal(report.countiesWithRegisteredSources,254);
  assert.equal(report.countiesWithExplicitCalendarSources,174);
  assert.equal(report.countiesNeedingCalendarEvidence,80);
