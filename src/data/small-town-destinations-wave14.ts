@@ -65,8 +65,8 @@ export const smallTownWave14Destinations: Destination[] = [
       "For deeper county context, read the Comanche County guide, which follows the Cora-to-Comanche seat change, De Leon's peanut economy, the Texas Central and Frisco railroad chapters, the Leon River watershed and Proctor Lake. The city and county stories complement each other; neither one should substitute for the other's history."
     ],
     officialUrl: "https://www.comanchechamber.org/explorecomanche",
-    sourceCheckedAt: "2026-11-22",
-    updatedAt: "2026-11-22",
+    sourceCheckedAt: "2026-11-23",
+    updatedAt: "2026-11-23",
     directions: "Comanche is at U.S. 67/377 and Texas 16. Start at the courthouse square; the 1909 Frisco Depot / Chamber visitor center is at 304 S. Austin St. The museum is at 402 Moorman Rd; the historic Bull Durham mural is reported at 109 W. Grand St. Proctor Lake is northeast of town.",
     accessibilityNotes: "The courthouse square offers an outdoor downtown route, but sidewalk conditions, street crossings and ongoing restoration affect access. Old Cora's interior is currently closed. The museum includes historic displays and should be contacted directly about accessible entrances, restrooms and tour needs; winery facilities differ.",
     areaGuide: {
