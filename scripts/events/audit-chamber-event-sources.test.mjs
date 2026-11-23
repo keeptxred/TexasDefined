@@ -686,8 +686,10 @@ test("Live Oak government and Jasper Chamber host distinct community calendars w
   }
   const publicCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.equal(publicCounties.size,163, "All newly certified county community calendars must remain counted without conflating undated municipal desks");
-  for(const county of ["howard","mcculloch","hardin","wheeler"])
-    assert.ok(!publicCounties.has(county),"Do not claim currently reviewed festival calendar from empty city / CVB desk: "+county);
+  for(const county of ["howard","mcculloch"])
+    assert.ok(!publicCounties.has(county),"Do not claim current festival calendar solely from empty city/CVB desk: "+county);
+  for(const county of ["hardin","wheeler"])
+    assert.ok(publicCounties.has(county),"Independent Silsbee/Shamrock Chamber calendar establishes source access without confirming future festival editions");
   assert.equal(registry.sources.find(s=>s.id==="big-spring-howard-tourism")?.sourceKind,"annual-events-list");
 });
 
