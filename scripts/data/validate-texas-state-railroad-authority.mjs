@@ -42,6 +42,7 @@ must("collectionUi", "editorialGuideUrl");
 must("museum", 'slug: "heritage-center-cherokee-county-rusk"');
 must("museum", "The November 4, 2026 Cherokeean Herald reported Saturday 11 a.m.");
 must("museumDossier", "https://thecherokeean.com/articles/55397/view");
+must("museumDossier", "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/");
 must("destinationRoute", 'destination.slug === "heritage-center-cherokee-county-rusk"');
 must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-guide"');
 must("guide", "heritage-center-cherokee-county-rusk");
