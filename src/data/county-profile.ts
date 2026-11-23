@@ -56,6 +56,10 @@ type TigerwebCountyFeature = {
 // Curated county relationships do not assume a town has an independent city page.
  // Verify using the Handbook of Texas and county roads/municipal boundaries map.
 const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
+  // Verified Brazoria cities and communities: City of Alvin and Brazoria County historical references.
+  // https://www.alvin.gov/342/History-of-Alvin
+  // https://www.brazoriacountytx.gov/about-us/history
+  brazoria: ['Alvin', 'Angleton', 'Pearland', 'Lake Jackson', 'Freeport', 'Brazoria', 'West Columbia', 'Surfside Beach'],
   // Cass County incorporated places: Arkansas-Texarkana Council of Governments,
   // Northeast Texas Economic Development District CEDS 2023–2028, June 2025 update,
   // page "Counties/Cities/Towns/Communities of NETEDD"; county relationship also
