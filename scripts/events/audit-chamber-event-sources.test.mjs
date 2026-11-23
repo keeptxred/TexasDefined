@@ -117,9 +117,9 @@ test("new local and regional source cohorts retain their correct Texas county ge
     "oldham", "lee", "donley", "garza", "jeff-davis",
   ];
   assert.equal(roster.size, 254, "Every canonical Texas county needs at least one reviewed public event-source contact");
-  assert.ok(registry.sources.length >= 292, "Do not lose the verified original 270 sources plus three official tourism calendars");
+  assert.ok(registry.sources.length >= 300, "Do not lose the verified original 270 sources plus three official tourism calendars");
   const directCalendars = registry.sources.filter(source => source.sourceKind === "public-calendar");
-  assert.ok(directCalendars.length >= 144, "Keep the reviewed official community calendar sources");
+  assert.ok(directCalendars.length >= 149, "Keep the reviewed official community calendar sources");
   for (const county of documented)
     assert.ok(roster.has(county), "Missing official event-source mapping for " + county);
 
@@ -164,7 +164,7 @@ test("independent first-party tourism calendars supplement blocked Chamber sourc
     assert.ok(new URL(source.calendarUrl).hostname.endsWith(domain));
   }
   const report = await auditChamberSources({ offline: true });
-  assert.ok(report.countiesWithExplicitCalendarSources >= 139);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 144);
   assert.equal(report.countiesMissingSources, 0);
   assert.equal(report.countiesWithRegisteredSources, 254);
   assert.equal(report.countiesWithExplicitCalendarSources + report.countiesNeedingCalendarEvidence, 254);
@@ -419,7 +419,7 @@ test("Unfilled event pages remain on the scheduled respectful discovery audit wi
     const report=await auditChamberSources({
       offline:false,now:new Date("2026-11-"+String(day)+"T12:00:00Z"),fetchImpl:fetchStub,
     });
-    assert.equal(report.emptyCalendarSourceCount,emptyIds.length);
+    assert.equal(report.emptyCalendarSourceCount,registry.sources.filter(s => s.sourceKind === "empty-calendar").length);
     assert.equal(report.countiesWithExplicitCalendarSources,
       new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs)).size);
     assert.match(report.eventPublication,/^NO/);
@@ -434,4 +434,47 @@ test("Unfilled event pages remain on the scheduled respectful discovery audit wi
     "Every empty event calendar should be reconsidered by the seven-day source-audit cycle");
   assert.ok(fetched.some(url=>url.includes("quanahchamber.com/community-events")),
     "Submitting an event later must not require a manual switch to re-enable discovery");
+});
+
+test("Current community calendars and empty civic inboxes are different evidence tiers, never press subscribers", async () => {
+  const calendar = [
+    ["hillsboro-chamber-community-calendar","hill","business.hillsborochamber.org"],
+    ["visit-longview-texas-community-events","gregg","www.visitlongviewtexas.com"],
+    ["downtown-san-angelo-mainstreet-events","tom-green","www.downtownsanangelo.com"],
+  ];
+  const empty = [
+    ["hopkins-county-chamber-calendar","hopkins","hopkinschamber.org"],
+    ["city-sulphur-springs-tourism-community-calendar","hopkins","www.visitsulphurspringstx.org"],
+    ["gilmer-area-chamber-public-event-calendar","upshur","www.gilmerareachamber.com"],
+    ["city-huntsville-wynne-home-tourism-calendar","walker","www.huntsvilletx.gov"],
+  ];
+  for (const [id,county,host] of calendar) {
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing current first-party public calendar "+id);
+    assert.equal(s.sourceKind,"public-calendar");
+    assert.ok(s.countySlugs.includes(county));
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  for(const [id,county,host] of empty){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing monitored organizer calendar "+id);
+    assert.equal(s.sourceKind,"empty-calendar");
+    assert.ok(s.countySlugs.includes(county));
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  for(const id of ["huntsville-main-street-christmas-fair-2026","huntsville-city-christmas-movie-park-2026"]){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s);
+    assert.equal(s.sourceKind,"event-specific");
+    assert.deepEqual(s.countySlugs,["walker"]);
+  }
+  const sourceCalendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(sourceCalendarCounties.size>=144);
+  assert.ok(!sourceCalendarCounties.has("walker"),"Separate confirmed fair and movie cannot misrepresent a complete active county calendar");
+  assert.ok(!sourceCalendarCounties.has("hopkins"),"Submit-an-event form is not a full dated Hopkins County calendar");
+  const report=await auditChamberSources({offline:true});
+  assert.equal(report.countiesMissingSources,0);
+  assert.equal(report.countiesNeedingCalendarEvidence,254-report.countiesWithExplicitCalendarSources);
+  assert.equal(report.emptyCalendarSourceCount,registry.sources.filter(s=>s.sourceKind==="empty-calendar").length);
+  assert.match(report.eventPublication,/^NO/);
 });
