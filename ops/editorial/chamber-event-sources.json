@@ -5247,6 +5247,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "copperas-cove-chamber-public-events-calendar",
+      "organization": "Copperas Cove Chamber of Commerce & Visitors Bureau — official dated public events",
+      "countySlugs": [
+        "coryell"
+      ],
+      "homeUrl": "https://copperascove.com/",
+      "calendarUrl": "https://copperascove.com/events",
+      "contactPageUrl": "https://copperascove.com/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "copperas-cove-chamber-krist-kindl-markt-2026",
+      "organization": "Copperas Cove Chamber — official organizer event 32nd Krist Kindl Markt Dec 4–6, 2026",
+      "countySlugs": [
+        "coryell"
+      ],
+      "homeUrl": "https://copperascove.com/",
+      "calendarUrl": "https://copperascove.glueup.com/event/32nd-annual-krist-kindl-markt-189528/",
+      "contactPageUrl": "https://copperascove.com/events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
