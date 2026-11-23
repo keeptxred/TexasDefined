@@ -99,8 +99,8 @@ export const texasThanksgivingArticleStubs: Article[] = [
     "id": "evergreen-texas-thanksgiving-parades-2026",
     "brandId": "texasdefined",
     "slug": "texas-thanksgiving-parades-2026",
-    "title": "Texas Thanksgiving Parades 2026: Houston, San Antonio and Fort Worth Dates",
-    "dek": "Confirmed schedules separate Houston's Thanksgiving Day parade on November 26 from the November 27 River Walk parade and Fort Worth's November 22 holiday parade.",
+    "title": "Texas Thanksgiving Parades 2026: Houston, El Paso, San Antonio and Fort Worth",
+    "dek": "Organizer-confirmed Texas parades: Houston Thursday, November 26 at 9 a.m.; El Paso's Sun Bowl Parade Thursday at 10 a.m.; San Antonio Friday; Fort Worth held November 22.",
     "category": "food-bbq",
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morton-Ranch-HS-Drumline-HEB-Parade-Nov-27-08.jpg?width=1600",
@@ -112,16 +112,29 @@ export const texasThanksgivingArticleStubs: Article[] = [
     "authorId": "a-marisol",
     "publishedAt": "2026-11-23",
     "updatedAt": "2026-11-23",
-    "readingMinutes": 9,
+    "readingMinutes": 10,
     "tags": [
       "Texas Thanksgiving",
       "Thanksgiving 2026",
-      "Major Texas Thanksgiving parades"
+      "Major Texas Thanksgiving parades",
+      "Sun Bowl Thanksgiving Parade",
+      "El Paso Thanksgiving parade"
     ],
     "featured": false,
     "sourceName": "City of Houston — 2026 Thanksgiving Day Parade",
     "sourceUrl": "https://www.houstontx.gov/thanksgivingparade/",
-    "internalLinks": [],
+    "internalLinks": [
+      {
+        "href": "https://sunbowl.org/events/glasheen-valles-inderman-sun-bowl-parade",
+        "label": "Official El Paso Sun Bowl Thanksgiving Parade",
+        "description": "Sun Bowl Association's confirmed November 26, 2026 Thanksgiving Day parade."
+      },
+      {
+        "href": "https://visitelpaso.com/events/annual-events-and-festivals/sun-bowl-thanksgiving-parade",
+        "label": "Visit El Paso Sun Bowl parade",
+        "description": "Official visitor information for the El Paso Thanksgiving Day parade."
+      }
+    ],
     "relatedCollections": [],
     "relatedDestinations": [],
     "body": []
