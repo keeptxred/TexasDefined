@@ -5506,6 +5506,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "kountze-chamber-lighted-christmas-parade-2026",
+      "organization": "Kountze Chamber of Commerce — original December 2026 lighted parade announcement",
+      "countySlugs": [
+        "hardin"
+      ],
+      "homeUrl": "https://www.kountzechamber.com/",
+      "calendarUrl": "https://www.kountzechamber.com/upcoming-events",
+      "contactPageUrl": "https://www.kountzechamber.com/contact",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
