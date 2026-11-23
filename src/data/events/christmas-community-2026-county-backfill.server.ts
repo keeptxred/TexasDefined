@@ -1462,5 +1462,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Bay City Parks and Recreation official HomeTown Christmas schedule",
     "summary": "Bay City's municipal HomeTown Christmas announcement explicitly lists the 17th Annual Wilderness Trail of Lights as nightly from December 5, 2026 through January 1, 2027. Riverside Park is the holiday light-display location. The department separately identifies Trail of Lights hayrides December 5–13; this nightly light listing does not imply that paid hayrides or other activities run every night. Confirm park access hours and any charges with the original city source before traveling.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "henderson-christmas-through-the-ages-parade-2026",
+    "title": "Henderson Christmas Through the Ages — Tree Lighting & Parade",
+    "city": "Henderson",
+    "countySlug": "rusk",
+    "countyName": "Rusk County",
+    "region": "piney-woods",
+    "startDate": "2026-12-03",
+    "venueName": "Historic downtown Henderson, Texas — Heritage Square and Main Street",
+    "officialEventUrl": "https://www.hendersontx.us/1400/Christmas-Parade",
+    "sourceName": "City of Henderson Tourism — official Christmas Through the Ages 2026 event page",
+    "summary": "The City of Henderson sets the Christmas Through the Ages tree-lighting and nighttime parade for Thursday, December 3, 2026. Downtown street closures begin at 5 p.m.; the Christmas tree lights at 6 p.m. and the Main Street parade begins at 6:15 p.m. The City provides float lineup details and traffic instructions and lists December 8 at 6 p.m. solely as a weather-contingency alternative, not a second scheduled parade. Confirm the city's go/no-go notice on December 3; no 2027 date is inferred.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];
