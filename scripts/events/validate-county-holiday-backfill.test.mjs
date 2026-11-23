@@ -67,8 +67,12 @@ test("county official calendars are tracked on the robot-respecting review sched
 test("all-county holiday audit covers newly added source-qualified calendar and on-going county weekends",()=>{
   const audit=fs.readFileSync("scripts/events/audit-county-holiday-coverage.mjs","utf8");
   const county=fs.readFileSync("src/data/county-major-events.server.ts","utf8");
-  assert.ok(audit.includes('"src/data/events/christmas-community-2026-county-backfill.server.ts"'));
-  assert.ok(audit.includes('source.includes("christmas-community-2026")'));
+  assert.match(audit, /christmasCalendars = fs\.readdirSync\(eventsDir\)/,
+    "County audit must discover every year-qualified Christmas community file");
+  assert.match(audit, /\.\.\.christmasCalendars/,
+    "County audit must include all discovered annual editions");
+  assert.match(audit, /const christmasCalendar = .*christmas-community-/,
+    "Future editions must remain recognized as Christmas source records");
   assert.ok(county.includes("loadUpcomingTexasEventRecordsServer({ countySlug: county, limit: 250 })"),
     "County server must use the canonical ongoing-aware event selector");
   const selector=fs.readFileSync("src/data/events/texas-event-record.ts","utf8");
