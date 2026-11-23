@@ -692,3 +692,24 @@ test("Cass and Morris park Christmas nights have exact original TPWD edition win
   const loader=fs.readFileSync("src/data/events/texas-event-records.server.ts","utf8");
   assert.match(loader,/alreadyCoveredByOfficialPark/,"Do not publish duplicate daily TPWD activities in sourced Christmas windows");
 });
+
+test("Ector and Matagorda municipal 2026 holiday editions retain city-dated direct citations", () => {
+  const cases = [
+    ["odessa-starbright-village-tree-lighting-2026","ector","2026-12-03",undefined,"www.odessa-tx.gov"],
+    ["odessa-starbright-village-holiday-lights-2026","ector","2026-12-04","2027-01-03","www.odessa-tx.gov"],
+    ["odessa-31st-annual-parade-of-lights-2026","ector","2026-12-05",undefined,"www.odessa-tx.gov"],
+    ["bay-city-46th-lighted-christmas-parade-2026","matagorda","2026-12-03",undefined,"www.baycitytx.gov"],
+    ["bay-city-christmas-in-the-park-2026","matagorda","2026-12-05",undefined,"www.baycitytx.gov"],
+    ["bay-city-wilderness-trail-of-lights-2026","matagorda","2026-12-05","2027-01-01","www.baycitytx.gov"],
+  ];
+  for(const [slug,county,date,end,host] of cases) {
+    const event=events.find(x=>x.slug===slug);
+    assert.ok(event,"Missing city-dated festival "+slug);
+    assert.equal(event.countySlug,county);
+    assert.equal(event.startDate,date);
+    assert.equal(event.endDate,end);
+    assert.equal(event.sourceVerifiedAt,"2026-11-23");
+    assert.equal(new URL(event.officialEventUrl).hostname,host);
+    assert.ok(event.summary.length>=110 && event.sourceName && event.venueName);
+  }
+});
