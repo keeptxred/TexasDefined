@@ -143,9 +143,28 @@ checks.push(check("Museum photo and structured data", async () => {
       !page.includes("https://creativecommons.org/licenses/by/2.0/")) {
     throw new Error("museum schema or credited Rusk station image missing");
   }
-  const photo = await fetch(site + "/images/heritage-center-cherokee-county-rusk-station-2004.jpg", { signal: AbortSignal.timeout(15000) });
-  if (!photo.ok || !photo.headers.get("content-type")?.startsWith("image/")) throw new Error("museum photo does not load");
-  await photo.body?.cancel();
+  // Check the licensed local asset without failing the entire production
+  // release on one transient fetch reset. Keep the image URL and MIME rules.
+  const imageUrl = site + "/images/heritage-center-cherokee-county-rusk-station-2004.jpg";
+  let photoVerified = false;
+  let photoError = "no image response";
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const photo = await fetch(imageUrl, { signal: AbortSignal.timeout(attempt === 1 ? 15000 : 25000) });
+      const mime = photo.headers.get("content-type") || "";
+      photoVerified = photo.ok && mime.startsWith("image/");
+      photoError = "HTTP " + photo.status + " / " + mime;
+      await photo.body?.cancel();
+      if (photoVerified) break;
+    } catch (error) {
+      photoError = String(error);
+    }
+    if (attempt < 3) {
+      console.warn("Museum photo attempt " + attempt + ": " + photoError + "; retrying the exact same asset");
+      await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+    }
+  }
+  if (!photoVerified) throw new Error("museum photo does not load after 3 attempts: " + photoError);
   if (!hasLink(page, "/county/cherokee") || !hasLink(await getPage("/county/cherokee"), museumPath)) {
     throw new Error("museum and Cherokee County need reciprocal links");
   }
