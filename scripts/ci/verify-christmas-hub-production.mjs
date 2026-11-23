@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { activeVerifiedChristmasOccurrences, readVerifiedChristmasOccurrenceSources } from "./christmas-community-source-manifest.mjs";
 
 // Fail closed if a successful Cloudflare upload leaves the 2026 Christmas
 // calendar hidden behind stale HTML or an older edition of the site.
@@ -26,19 +26,16 @@ const required = [
   "Christmas travel sponsorships",
 ];
 
-// Read the exact manifest used by the production build. Events automatically
-// disappear after their final verified date; a fixed count or fixed list of
-// expired events would make an otherwise healthy December deploy fail.
-const source = readFileSync("src/data/events/christmas-community-2026.server.ts", "utf8");
-const start = source.indexOf("const verifiedOccurrences");
-const end = source.indexOf("\n];", start);
-if (start < 0 || end <= start) throw new Error("Christmas source manifest boundaries missing");
-const literal = source.slice(source.indexOf("= [", start) + 2, end + 2).trim();
-const allCommunityEvents = JSON.parse(literal);
-const remainingCommunityEvents = allCommunityEvents.filter((event) =>
-  (event.endDate ?? event.startDate) >= date
-);
+// Count exactly the same TWO source arrays as the live Christmas hub
+// renderer: base occurrence list + 2026 source-verified county backfill.
+// The previous single-source check misreported a healthy release as stale
+// (Nov 23: expected 240, while the actual active total was 335).
+// Date-filter both manifests on Texas-local date; never assert expired nights.
+const { primary, countyBackfill } = readVerifiedChristmasOccurrenceSources();
+const remainingCommunityEvents = activeVerifiedChristmasOccurrences(date);
 const expectedActiveCommunityCount = remainingCommunityEvents.length;
+if (!countyBackfill.length || !primary.length)
+  throw new Error("Christmas production verification requires both original and county backfill sources");
 if (!expectedActiveCommunityCount) throw new Error("2026 Christmas dates expired earlier than expected");
 
 // A small representative sample proves recent source batches survived the
@@ -57,6 +54,8 @@ const sampleSlugs = [
   "bastrop-lost-pines-christmas-parade-2026",
   "san-antonio-pearl-holiday-tree-lighting-2026",
   "san-antonio-pearl-holiday-night-market-dec-23-2026",
+  "gilmer-upshur-yulefest-2026",
+  "post-lighted-christmas-parade-light-up-post-2026",
 ];
 const expectedLiveWitnesses = remainingCommunityEvents.filter((event) =>
   sampleSlugs.includes(event.slug)
