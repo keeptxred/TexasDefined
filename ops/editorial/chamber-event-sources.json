@@ -4746,6 +4746,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "annual-events-list"
+    },
+    {
+      "id": "gatesville-isd-christmas-on-marshall-2026",
+      "organization": "Gatesville Independent School District community Christmas on Marshall Street 2026 announcement",
+      "countySlugs": [
+        "coryell"
+      ],
+      "homeUrl": "https://www.gatesvilleisd.org/",
+      "calendarUrl": "https://www.gatesvilleisd.org/calendar",
+      "contactPageUrl": "https://www.gatesvilleisd.org/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
