@@ -3623,6 +3623,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.baytown.org/hangout",
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
+  },
+  {
+    "slug": "comanche-explore-christmas-square-2026",
+    "title": "Explore Comanche Christmas — Market, Parade & Tree Lighting",
+    "city": "Comanche",
+    "countySlug": "comanche",
+    "countyName": "Comanche County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Comanche Square and Comanche Mercantile, Comanche",
+    "officialEventUrl": "https://www.comanchechamber.org/explorecomanchechristmas",
+    "sourceName": "Comanche Chamber of Commerce and Agriculture",
+    "summary": "The Comanche Chamber's official 2026 Christmas program confirms Saturday, December 12 around Comanche Square. Santa's Workshop and Santa photos at Comanche Mercantile are listed from 1 to 5 p.m.; the Christmas Market and Tree Lighting program runs 2:30 to 6 p.m. on the square; the Lighted Christmas Parade begins at 6 p.m.; and the town shop crawl is listed from 5 to 7 p.m. The Chamber does not establish a separate precise tree-switch-on moment, parade route, street closures, universal free admission, image-use permissions, or any 2027 edition date. Confirm conditions with the organizer before travel.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "clarendon-small-town-christmas-2026",
+    "title": "Clarendon Small Town Christmas — Courthouse Lighting & Downtown Festival",
+    "city": "Clarendon",
+    "countySlug": "donley",
+    "countyName": "Donley County",
+    "region": "panhandle",
+    "startDate": "2026-11-28",
+    "venueName": "Historic downtown Clarendon, The Roost and Donley County Courthouse",
+    "officialEventUrl": "https://clarendontx.com/2026/11/17/2026-small-town-christmas/",
+    "sourceName": "Clarendon Economic Development Corporation and Chamber of Commerce",
+    "summary": "Clarendon EDC and Chamber's November 17, 2026 announcement confirms Small Town Christmas on Saturday, November 28. Downtown activities start at 2 p.m., including vendors and food trucks at The Roost, children's activities and a community scavenger hunt at 3 and 4 p.m. Santa visits the courthouse for a lighting ceremony at 5 p.m., with carriage rides, s'mores and live music listed at 6:30 p.m. and awards at 7:30 p.m. The source does not establish blanket free admission, approved photographs, 2027 dates or individual street closure details. Check organizer notices for changes.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];;;;;;;
 
