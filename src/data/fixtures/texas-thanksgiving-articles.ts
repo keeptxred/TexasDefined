@@ -396,6 +396,11 @@ export const texasThanksgivingArticles: Article[] = [
         "href": "https://www.cdc.gov/food-safety/foods/holiday-turkey.html",
         "label": "CDC holiday turkey guidance",
         "description": "Cooking, thawing and leftover safety."
+      },
+      {
+        "href": "https://sunbowl.org/events/glasheen-valles-inderman-sun-bowl-parade",
+        "label": "Sun Bowl Association Thanksgiving Day parade",
+        "description": "El Paso's 2026 Thanksgiving parade and organizer schedule."
       }
     ],
     "relatedCollections": [],
@@ -467,7 +472,7 @@ export const texasThanksgivingArticles: Article[] = [
       },
       {
         "type": "paragraph",
-        "text": "Houston's 77th H-E-B Thanksgiving Day Parade is scheduled for 9 a.m. Thursday, November 26, 2026. San Antonio's Ford Holiday River Parade is Friday, November 27, and Fort Worth's GM Financial Parade of Lights took place Sunday, November 22. These are related holiday spectacles, but only Houston's listed event actually occurs on Thanksgiving Day. That timing is useful to families making a weekend itinerary."
+        "text": "Texas has at least two major Thanksgiving Day parades in 2026. Houston's 77th H-E-B Thanksgiving Day Parade begins at 9 a.m. Central Time on Thursday, November 26; El Paso's longstanding Sun Bowl Thanksgiving Parade begins at 10 a.m. Mountain Time the same day. San Antonio's Ford Holiday River Parade is Friday, November 27, and Fort Worth's GM Financial Parade of Lights was Sunday, November 22. Those details matter for a family itinerary, because a major holiday parade is not necessarily held on Thanksgiving itself."
       },
       {
         "type": "paragraph",
@@ -503,8 +508,8 @@ export const texasThanksgivingArticles: Article[] = [
     "id": "evergreen-texas-thanksgiving-parades-2026",
     "brandId": "texasdefined",
     "slug": "texas-thanksgiving-parades-2026",
-    "title": "Texas Thanksgiving Parades 2026: Houston, San Antonio and Fort Worth Dates",
-    "dek": "Confirmed schedules separate Houston's Thanksgiving Day parade on November 26 from the November 27 River Walk parade and Fort Worth's November 22 holiday parade.",
+    "title": "Texas Thanksgiving Parades 2026: Houston, El Paso, San Antonio and Fort Worth",
+    "dek": "Organizer-confirmed Texas parades: Houston Thursday, November 26 at 9 a.m.; El Paso's Sun Bowl Parade Thursday at 10 a.m.; San Antonio Friday; Fort Worth held November 22.",
     "category": "food-bbq",
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morton-Ranch-HS-Drumline-HEB-Parade-Nov-27-08.jpg?width=1600",
@@ -516,11 +521,13 @@ export const texasThanksgivingArticles: Article[] = [
     "authorId": "a-marisol",
     "publishedAt": "2026-11-23",
     "updatedAt": "2026-11-23",
-    "readingMinutes": 9,
+    "readingMinutes": 10,
     "tags": [
       "Texas Thanksgiving",
       "Thanksgiving 2026",
-      "Major Texas Thanksgiving parades"
+      "Major Texas Thanksgiving parades",
+      "Sun Bowl Thanksgiving Parade",
+      "El Paso Thanksgiving parade"
     ],
     "featured": false,
     "sourceName": "City of Houston — 2026 Thanksgiving Day Parade",
@@ -590,6 +597,16 @@ export const texasThanksgivingArticles: Article[] = [
         "href": "https://www.dfwi.org/do/gm-parade-of-lights",
         "label": "Official Fort Worth parade",
         "description": "2026 Sunday schedule."
+      },
+      {
+        "href": "https://sunbowl.org/events/glasheen-valles-inderman-sun-bowl-parade",
+        "label": "Official El Paso Sun Bowl Thanksgiving Parade",
+        "description": "Sun Bowl Association's confirmed November 26, 2026 Thanksgiving Day parade."
+      },
+      {
+        "href": "https://visitelpaso.com/events/annual-events-and-festivals/sun-bowl-thanksgiving-parade",
+        "label": "Visit El Paso Sun Bowl parade",
+        "description": "Official visitor information for the El Paso Thanksgiving Day parade."
       }
     ],
     "relatedCollections": [],
@@ -601,11 +618,11 @@ export const texasThanksgivingArticles: Article[] = [
       },
       {
         "type": "paragraph",
-        "text": "In 2026, the biggest Texas event in this group that is actually a Thanksgiving Day parade is Houston's H-E-B Thanksgiving Day Parade on Thursday, November 26, starting at 9 a.m. The Ford Holiday River Parade in San Antonio is on Friday, November 27, while Fort Worth's GM Financial Parade of Lights was held Sunday, November 22. A roundup that places all three on Thanksgiving Thursday is incorrect."
+        "text": "There are at least two major Texas parades actually held on Thanksgiving Day in 2026: Houston's H-E-B Thanksgiving Day Parade on Thursday, November 26 at 9 a.m., and El Paso's Sun Bowl Thanksgiving Parade the same day at 10 a.m. San Antonio's Ford Holiday River Parade is on Friday, November 27. Fort Worth's GM Financial Parade of Lights took place on Sunday, November 22, before Thanksgiving. Treating all of these as Thursday events would mislead visitors."
       },
       {
         "type": "paragraph",
-        "text": "These are major public holiday celebrations, but their different dates shape travel, parking and lodging plans. This guide uses dates confirmed on November 23, 2026 with the city or event organizers. If you are reading after an event, treat it as a historical listing rather than a promise that a parade is still upcoming. Check official pages for late route or weather changes."
+        "text": "Texas holiday parades are not a single statewide program. Houston and El Paso each host major Thanksgiving-morning celebrations with different starting times and street routes. San Antonio's illuminated River Walk parade begins the following evening, and Fort Worth launched its holiday season the preceding Sunday. The Dallas Holiday Parade is December 5, outside Thanksgiving weekend. These 2026 dates were checked November 23 against the organizers, and may change with official advisories."
       },
       {
         "type": "heading",
@@ -618,6 +635,18 @@ export const texasThanksgivingArticles: Article[] = [
       {
         "type": "paragraph",
         "text": "Plan to be downtown before the parade starts, not at 9 a.m. Road closures can begin earlier and can affect both garages and surface-street approaches. Public sidewalk viewing and optional reserved seating are different experiences. Use the City of Houston's event page for its map, live updates, ticket information and viewing guidance rather than assuming any intersection on an old route will work."
+      },
+      {
+        "type": "heading",
+        "text": "El Paso: Sun Bowl Thanksgiving Parade — Thursday, November 26 at 10 a.m."
+      },
+      {
+        "type": "paragraph",
+        "text": "The Sun Bowl Association confirms El Paso's Thanksgiving Day parade for Thursday, November 26, 2026, at 10 a.m. The longstanding Glasheen, Valles & Inderman Injury Lawyers Sun Bowl Parade takes place on Montana Avenue, from the Ochoa Street area toward Copia Street. Visit El Paso independently lists November 26, and the City of El Paso has considered Thanksgiving-morning street closures for the parade. It is one of the state's signature Thanksgiving-day parades, not a football bowl game held in December."
+      },
+      {
+        "type": "paragraph",
+        "text": "El Paso is in Mountain Time, so its 10 a.m. start is local, not Houston's Central Time. Leave extra time for closed crossings, parking and reaching the viewing area on foot. The Sun Bowl Association's official event page provides the latest theme, route, grand marshal and any reserved seating information. Do not confuse the Thanksgiving Sun Bowl Parade with the Old El Paso Sun Bowl football game scheduled later in the year, or with the city's downtown WinterFest lights parade."
       },
       {
         "type": "heading",
