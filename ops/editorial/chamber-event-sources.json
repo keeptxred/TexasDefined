@@ -834,7 +834,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     },
     {
       "id": "hemphill-lions-holiday",
@@ -1028,7 +1029,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "visit-alpine-christmas-program",
@@ -1237,7 +1239,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "burleson-county-chamber",
@@ -1461,7 +1464,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "childress-chamber",
@@ -1560,12 +1564,13 @@
         "cooke"
       ],
       "homeUrl": "https://gainesvillecofc.com/",
-      "calendarUrl": "https://business.gainesvillecofc.com/events/search",
+      "calendarUrl": "https://business.gainesvillecofc.com/events",
       "contactPageUrl": "https://gainesvillecofc.com/contact/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "gatesville-coryell-chamber",
@@ -1579,7 +1584,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "levelland-hockley-chamber",
@@ -1846,7 +1852,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "rockwall-chamber",
@@ -1993,7 +2000,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "greenville-hunt-chamber",
@@ -2022,7 +2030,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "hallettsville-chamber",
@@ -2080,7 +2089,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "visit-seguin-city",
@@ -2169,7 +2179,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "sweetwater-nolan-chamber",
@@ -2328,12 +2339,13 @@
         "freestone"
       ],
       "homeUrl": "https://www.fairfieldtexaschamber.com/",
-      "calendarUrl": "https://www.fairfieldtexaschamber.com/events",
+      "calendarUrl": "https://www.fairfieldtexaschamber.com/",
       "contactPageUrl": "https://www.fairfieldtexaschamber.com/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "annual-events-list"
     },
     {
       "id": "visit-san-augustine",
@@ -2362,7 +2374,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "standard",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "contact-only"
     },
     {
       "id": "carthage-panola-main-street",
@@ -2796,7 +2809,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "breckenridge-stephens-chamber",
