@@ -40,7 +40,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       "texas-railroads"
     ],
     whyVisit: "Start here for a local view of the industries and institutions behind Rusk’s railroad history. The collections also cover Caddo material culture, timber work and everyday life in town.",
-    visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. Call 903-714-8685 to confirm hours, admission, parking and group arrangements. Plan meals separately and ask the museum about on-site options.",
+    visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. The Cherokeean Herald reported on November 4, 2026 that the museum opened Saturdays 11 a.m.–3 p.m. and Sundays 1–5 p.m., with weekday visits by appointment. That is a reported schedule, not direct confirmation from the museum. Call 903-714-8685 before traveling to verify hours, admission, parking and group arrangements. Plan meals separately and ask about on-site options.",
     accessibility: "Ask the museum about step-free entry, accessible parking, restrooms and quieter visiting times. The Texas Historical Commission directory gives the Henderson Street address and map.",
     familiesAndGroups: "For a short family visit, look for the bakery delivery box and talk about how people bought bread before supermarkets. Ask about group access and which exhibits are currently on display.",
     researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. Compare its images of schools, downtown businesses and the timber industry with the places and exhibits you see in Rusk.",
@@ -81,6 +81,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
         label: "Texas Historical Commission travel directory",
         url: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
         use: "Museum address, contact and exhibits"
+      },
+      {
+        label: "Cherokeean Herald, November 4, 2026",
+        url: "https://thecherokeean.com/articles/55397/view",
+        use: "Dated local reporting on weekend museum hours and weekday appointments, not operator confirmation"
       },
       {
         label: "East Texas Digital Archives",
