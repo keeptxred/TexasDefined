@@ -96,7 +96,7 @@ function HomePage() {
       <SectionHeader eyebrow="Thanksgiving in Texas" title="Your Texas Thanksgiving guide" description="Food safety, original holiday recipes, Texas traditions and verified 2026 parade dates." />
       <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {thanksgivingFeatures.map((feature) => <li key={feature.slug}>
-          <Link to="/article/$slug" params={{ slug: feature.slug }} className="group block h-full border-t-2 border-primary py-5 pr-3 transition-colors hover:text-primary focus-visible:outline-offset-4">
+          <Link to="/article/$slug" params={{ slug: feature.slug }} className="group block h-full border-t border-primary py-5 hover:text-primary">
             <h2 className="font-display text-xl font-semibold leading-tight">{feature.title}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{feature.summary}</p>
             <span className="eyebrow mt-4 inline-block text-primary">Read the guide →</span>
