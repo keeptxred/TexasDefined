@@ -81,7 +81,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     coordinates: { lat: 31.79417, lng: -95.14972 },
     hero: museumPlaceholder("Heritage Center of Cherokee County"),
     bestSeason: "Year-round museum; spring and fall pair especially well with the Texas State Railroad, downtown Rusk and other Piney Woods heritage sites.",
-    entryNote: "Call 903-714-8685 before traveling to confirm opening hours, admission and whether you need to arrange a visit.",
+    entryNote: "The November 4, 2026 Cherokeean Herald reported Saturday 11 a.m.–3 p.m., Sunday 1–5 p.m., and weekday visits by appointment. Call 903-714-8685 to reconfirm current hours, admission and access.",
     updatedAt: "2026-11-23",
     highlights: ["Caddo and pioneer artifacts", "Texas State Railroad history", "Rusk prison and hospital history", "Cherokee County timber heritage"],
     body: [
