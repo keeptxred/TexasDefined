@@ -112,6 +112,7 @@ const identityComponent = fs.readFileSync('src/components/content/CountyIdentity
 const guideComponent = fs.readFileSync('src/components/content/CountyGuideSections.tsx', 'utf8');
 assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identity must use verified places');
 assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
+assert.ok(guideComponent.includes("entity.slug === 'cass' ? 14 : 8"), 'Cass County music and musician links must not be silently truncated to eight cards');
 
 // Keep Linden discoverable from statewide venue and music-city guides, not
 // merely buried within a long county article or an isolated visitor listing.
