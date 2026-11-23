@@ -471,7 +471,9 @@ test("Current community calendars and empty civic inboxes are different evidence
   const sourceCalendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(sourceCalendarCounties.size>=151);
   assert.ok(!sourceCalendarCounties.has("walker"),"Separate confirmed fair and movie cannot misrepresent a complete active county calendar");
-  assert.ok(!sourceCalendarCounties.has("hopkins"),"Submit-an-event form is not a full dated Hopkins County calendar");
+  assert.ok(sourceCalendarCounties.has("hopkins"),"Independently verified Hopkins County Museum events calendar qualifies even while the Chamber submission form is empty");
+  assert.equal(registry.sources.find(s=>s.id==="hopkins-county-chamber-calendar")?.sourceKind,"empty-calendar",
+    "The empty Hopkins Chamber calendar itself must never be promoted merely because a different local organizer publishes dates");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesMissingSources,0);
   assert.equal(report.countiesNeedingCalendarEvidence,254-report.countiesWithExplicitCalendarSources);
