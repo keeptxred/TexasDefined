@@ -152,6 +152,16 @@ function TexasFoodHistoryPage() {
         </div>
       </section>
 
+      <section aria-labelledby="thanksgiving-food-story" className="border-t border-border py-10">
+        <p className="eyebrow text-primary">Seasonal Texas table</p>
+        <h2 id="thanksgiving-food-story" className="mt-2 font-display text-3xl">Texas Thanksgiving meals and the traditions behind them</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Thanksgiving kitchens bring regional Texas food history into one meal without creating a single statewide menu. Explore the recipes, the families behind the food and essential turkey-fryer fire safety.</p>
+        <div className="mt-5 flex flex-wrap gap-6 text-sm font-semibold text-primary">
+          <Link to="/article/$slug" params={{ slug: "texas-thanksgiving-recipes" }}>Texas Thanksgiving recipes →</Link>
+          <Link to="/article/$slug" params={{ slug: "texas-thanksgiving-traditions" }}>Texas Thanksgiving traditions →</Link>
+          <Link to="/article/$slug" params={{ slug: "texas-thanksgiving-turkey-frying-safety" }}>Turkey frying safety →</Link>
+        </div>
+      </section>
       <section className="grid gap-6 border-y border-border py-10 md:grid-cols-3">
         <Link to="/texas-food-trail" className="group"><p className="eyebrow text-primary">Travel</p><h2 className="mt-2 font-display text-3xl group-hover:text-primary">Turn history into a food trip</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Build a route through barbecue country, San Antonio, Czech bakeries, the Gulf Coast and other regional food landscapes.</p></Link>
         <Link to="/article/texas-cultural-regions-explained" className="group md:border-l md:border-border md:pl-6"><p className="eyebrow text-primary">Context</p><h2 className="mt-2 font-display text-3xl group-hover:text-primary">See the cultural regions</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Migration, language, agriculture and transportation explain why the Texas table changes as you cross the state.</p></Link>
