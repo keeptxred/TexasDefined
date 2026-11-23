@@ -34,6 +34,11 @@ test("all counties receive holiday research status and past events do not become
       "];",
     ].join("\n"));
     put("src/data/events/christmas-community-2026-county-backfill.server.ts", "export const records = [];");
+    put("ops/editorial/chamber-event-sources.json", JSON.stringify({sources: [
+      {organization:"Rusk Chamber",countySlugs:["rusk"],calendarUrl:"https://rusk.example.org/calendar",sourceKind:"public-calendar",priority:"holiday"},
+      {organization:"Rusk City",countySlugs:["rusk"],calendarUrl:"https://city.example.org/events",sourceKind:"contact-only",priority:"standard"},
+      {organization:"Upshur Future Contact",countySlugs:["upshur"],calendarUrl:"https://upshur.example.org",sourceKind:"empty-calendar",priority:"holiday"},
+    ]}));
     const report = auditCountyHolidayCoverage(root, new Date("2026-11-22T12:00:00Z"), 3);
     assert.equal(report.summary.counties, 3);
     const gregg = report.counties.find(c => c.slug === "gregg");
@@ -47,6 +52,14 @@ test("all counties receive holiday research status and past events do not become
     const issue = formatCountyHolidayIssue(report);
     assert.match(issue, /Rusk County/);
     assert.match(issue, /Christmas in Gusherville/);
+    assert.match(issue, /https:\/\/rusk.example.org\/calendar/);
+    assert.match(issue, /public calendar/);
+    assert.match(issue, /contact\/landing page only/);
+    assert.equal(report.counties.find(c => c.slug === "rusk").sourceLeads.length, 2);
+    assert.equal(report.counties.find(c => c.slug === "rusk").upcoming.length, 0,
+      "A listed source is not a verified holiday date");
+    assert.ok(!issue.includes("upshur.example.org"),
+      "Only counties needing source discovery should show their source leads");
 
     // A future independently sourced holiday edition must join the inventory
     // without replacing the prior year's history or guessing another date.
