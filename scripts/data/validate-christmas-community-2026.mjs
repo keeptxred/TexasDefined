@@ -733,5 +733,30 @@ assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /Dec
 assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /does not establish that all visitors must pay those amounts/);
 assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /November 14 Christmas market, which has already passed/);
 
+
+for (const [slug, county, city, date, url] of [
+  ["ozona-evening-on-the-town-2026", "crockett", "Ozona", "2026-12-10",
+    "https://business.ozona.com/events/details/evening-on-the-town-5487"],
+  ["seminole-chamber-jingle-mingle-tree-lighting-2026", "gaines", "Seminole", "2026-12-05",
+    "https://seminoletxchamber.org/event/jingle-mingle-2/"],
+]) {
+  check(slug, date);
+  const item=bySlug.get(slug);
+  assert.equal(events.filter(e=>e.slug===slug).length,1);
+  assert.equal(item.countySlug,county);
+  assert.equal(item.countyName,county==="crockett"?"Crockett County":"Gaines County");
+  assert.equal(item.city,city);
+  assert.equal(item.officialEventUrl,url);
+  assert.equal(item.endDate,undefined,"One date cannot create an inferred multiday run");
+  assert.equal(item.sourceVerifiedAt,"2026-11-23");
+  assert.ok(item.summary.length>330,"Original local planning details must not be thin");
+  assert.match(item.summary,/2027|next year's edition/);
+}
+assert.match(bySlug.get("ozona-evening-on-the-town-2026").summary,/Thursday, December 10, 2026, from 5 to 8 p.m./);
+assert.match(bySlug.get("ozona-evening-on-the-town-2026").summary,/Ozona's Historic Town Square/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").summary,/Saturday, December 5, 2026/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").summary,/does not independently confirm an actual public tree-lighting start/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").venueName,/confirm tree-lighting venue/);
+
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 

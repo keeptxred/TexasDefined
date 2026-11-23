@@ -3735,6 +3735,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Rockdale Community Market / Rockdale Chamber of Commerce and City of Rockdale — original co-organizer event announcement",
     "summary": "Rockdale Community Market's original Winter Wonderland event page announces a joint evening with the Rockdale Chamber of Commerce and City of Rockdale at Wolf Park, 106 North Main Street, on Saturday, December 5, 2026, from 5 to 9 p.m. Its published program includes an evening market, Christmas treats, a tamale-eating contest and a holiday train. The registration page lists tickets from $40 to $60 alongside vendor reservation prompts, but does not establish that all visitors must pay those amounts to attend; confirm market, activity and vendor charges with organizers. This is separate from the Community Market's November 14 Christmas market, which has already passed. No independent 2027 date, parking arrangement, parade route or photograph-use license is provided.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "ozona-evening-on-the-town-2026",
+    "title": "Ozona Evening on the Town — Historic Square Holiday Shopping",
+    "city": "Ozona",
+    "countySlug": "crockett",
+    "countyName": "Crockett County",
+    "region": "big-bend",
+    "startDate": "2026-12-10",
+    "venueName": "Ozona Historic Town Square, Ozona",
+    "officialEventUrl": "https://business.ozona.com/events/details/evening-on-the-town-5487",
+    "sourceName": "Ozona Chamber of Commerce & Visitor Center — original 2026 Chamber event notice",
+    "summary": "The Ozona Chamber of Commerce and Visitor Center's official event listing confirms its annual Evening on the Town for Thursday, December 10, 2026, from 5 to 8 p.m. at Ozona's Historic Town Square. Local Chamber member businesses are invited to remain open for holiday shopping, with festive music, food and raffles included in the Chamber's published program. The hours and square location come from the actual 2026 event detail rather than the recurring event's undated general visitor guide. The organizer does not specify a separate tree-lighting ceremony, universal free admission, individual store hours or guaranteed activities in 2027. Contact the Chamber for parking, participating businesses and any updates before traveling.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "seminole-chamber-jingle-mingle-tree-lighting-2026",
+    "title": "Seminole Jingle Mingle — Chamber Christmas Tree Lighting",
+    "city": "Seminole",
+    "countySlug": "gaines",
+    "countyName": "Gaines County",
+    "region": "panhandle",
+    "startDate": "2026-12-05",
+    "venueName": "Seminole, Texas — confirm tree-lighting venue with the Chamber",
+    "officialEventUrl": "https://seminoletxchamber.org/event/jingle-mingle-2/",
+    "sourceName": "Seminole Chamber of Commerce — 2026 Jingle Mingle original event calendar",
+    "summary": "The Seminole Chamber of Commerce's first-party 2026 event calendar explicitly lists Jingle Mingle on Saturday, December 5, 2026, identifies Christmas Tree Lighting as the featured program and links to its dedicated event page. Its event software displays 8 a.m.–5 p.m., but that could reflect an administrative event block and does not independently confirm an actual public tree-lighting start or evening ceremony time. The original page also does not establish an exact public gathering location, admission policy, additional market activities, weather arrangements, photo reuse rights or next year's edition. Confirm the venue and actual lighting time directly with the Chamber before attending.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];;;;;;;
 

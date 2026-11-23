@@ -5551,6 +5551,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "ozona-chamber-evening-on-town-2026",
+      "organization": "Ozona Chamber of Commerce & Visitor Center — dated 2026 Evening on the Town",
+      "countySlugs": [
+        "crockett"
+      ],
+      "homeUrl": "https://business.ozona.com/",
+      "calendarUrl": "https://business.ozona.com/events/details/evening-on-the-town-5487",
+      "contactPageUrl": "https://business.ozona.com/contact/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "seminole-chamber-jingle-mingle-2026",
+      "organization": "Seminole Chamber of Commerce — 2026 Jingle Mingle Christmas Tree Lighting",
+      "countySlugs": [
+        "gaines"
+      ],
+      "homeUrl": "https://seminoletxchamber.org/",
+      "calendarUrl": "https://seminoletxchamber.org/event/jingle-mingle-2/",
+      "contactPageUrl": "https://seminoletxchamber.org/contact/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }

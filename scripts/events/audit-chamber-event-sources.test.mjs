@@ -1484,3 +1484,22 @@ test("Alice Chamber and Rockdale Market original 2026 holiday notices remain eve
   assert.equal(registry.sources.find(x=>x.id==="rockdale-chamber-community-calendar-undated-monitor")?.sourceKind,"empty-calendar");
   assert.equal(registry.sources.find(x=>x.id==="cameron-edc-2026-milam-events-calendar")?.sourceKind,"public-calendar");
 });
+
+
+test("Ozona and Seminole current-year Christmas notices preserve source type and historical date caution", () => {
+  for (const [id, county, url] of [
+    ["ozona-chamber-evening-on-town-2026", "crockett", "https://business.ozona.com/events/details/evening-on-the-town-5487"],
+    ["seminole-chamber-jingle-mingle-2026", "gaines", "https://seminoletxchamber.org/event/jingle-mingle-2/"],
+  ]) {
+    const entry=registry.sources.find(s=>s.id===id);
+    assert.ok(entry,id+": first-party 2026 organizer URL required");
+    assert.deepEqual(entry.countySlugs,[county]);
+    assert.equal(entry.calendarUrl,url);
+    assert.equal(entry.sourceKind,"event-specific");
+    assert.equal(entry.sourceRole,"discovery");
+    assert.equal(entry.reviewedAt,"2026-11-23");
+    assert.equal(entry.contactEmail,undefined);
+  }
+  assert.equal(registry.sources.find(s=>s.id==="ozona-crockett-chamber")?.sourceKind,"public-calendar");
+  assert.equal(registry.sources.find(s=>s.id==="seminole-gaines-chamber")?.sourceKind,"public-calendar");
+});
