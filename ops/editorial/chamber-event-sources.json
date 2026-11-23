@@ -2180,7 +2180,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "public-calendar"
+      "sourceKind": "contact-only"
     },
     {
       "id": "mt-pleasant-titus-chamber",
@@ -2268,7 +2268,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "jasper-lake-sam-rayburn-chamber",
@@ -2534,7 +2535,7 @@
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
-      "sourceKind": "public-calendar"
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "brownfield-terry-chamber",
@@ -2768,7 +2769,8 @@
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     },
     {
       "id": "breckenridge-stephens-chamber",
