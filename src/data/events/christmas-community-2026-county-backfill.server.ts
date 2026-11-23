@@ -1163,5 +1163,47 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Sulphur Springs Downtown Business Alliance",
     "summary": "The Sulphur Springs Downtown Business Alliance confirms its 2026 Hot Cocoa Crawl for Saturday, December 12, 2026, in the historic downtown square. The alliance offers $10 limited-edition keepsake courthouse mugs for pickup at its event booth and participation in the downtown crawl; a purchase is optional unless the organizer specifies it is needed for tastings. The original announcement does not provide exact festival start/end times or establish that all cocoa samples are free. Do not confuse the 2026 event with earlier editions or with the November 28 and December 5 Heritage Park Christmas in the Park nights.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "snyder-holly-dolly-christmas-parade-tree-lighting-2026",
+    "title": "Snyder Holly Dolly Christmas Parade and Tree Lighting",
+    "city": "Snyder",
+    "countySlug": "scurry",
+    "countyName": "Scurry County",
+    "region": "panhandle",
+    "startDate": "2026-12-05",
+    "venueName": "City of Snyder downtown community festival and parade area",
+    "officialEventUrl": "https://www.snyderchamber.org/event-details/annual-christmas-parade-and-tree-lighting",
+    "sourceName": "Snyder Chamber of Commerce",
+    "summary": "The Snyder Chamber confirms its annual Christmas Parade and Tree Lighting on Saturday, December 5, 2026. The current 2026 listing provides a 10 a.m.–8 p.m. overall festival window and identifies the Holly Dolly Christmas theme, Santa visits, music, Cocoa with a Cop, seasonal food and merchandise vendors. That all-day listing does not establish the exact parade start time or tree-lighting hour; visitors should verify individual activity times and route with the Chamber. Vendor purchases are separate from any stated festival admission policy.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "cuero-downtown-christmas-tree-lighting-2026",
+    "title": "Cuero Downtown Christmas Tree Lighting",
+    "city": "Cuero",
+    "countySlug": "dewitt",
+    "countyName": "DeWitt County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-30",
+    "venueName": "Downtown Main Street, Cuero, Texas",
+    "officialEventUrl": "https://member.cuero.org/calendar/Details/christmas-tree-lighting-2002202?sourceTypeId=Hub",
+    "sourceName": "Cuero Chamber of Commerce community calendar",
+    "summary": "The Cuero Chamber's official calendar confirms downtown Main Street Christmas Tree Lighting on Monday, November 30, 2026, at 6 p.m. The Chamber listing supplies the current edition date, start time and downtown location, but it does not establish the evening's end time, exact parking restrictions or universal free admission to other activities. This is a separate occasion from Cuero's Christmas in the Park lights beginning November 23 and the multi-day Christmas in Downtown festivities listed for December.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "fort-stockton-red-white-blue-christmas-parade-2026",
+    "title": "Fort Stockton Red, White and Blue Christmas Parade",
+    "city": "Fort Stockton",
+    "countySlug": "pecos",
+    "countyName": "Pecos County",
+    "region": "big-bend",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Fort Stockton, Texas (confirm the current parade route with the Chamber)",
+    "officialEventUrl": "https://fortstockton.org/ambassadors/ambassador-minutes-10132026/",
+    "sourceName": "Fort Stockton Chamber of Commerce Ambassadors, October 13 2026 meeting",
+    "summary": "The Fort Stockton Chamber's published October 13, 2026 Ambassador meeting minutes list the Red, White and Blue Christmas Parade for Friday, December 4, 2026, alongside a separate Chamber open house that day. The publicly accessible current meeting record gives the parade date but no confirmed 2026 start time, viewing route or admission terms. A prior annual visitor guide describes a customary Dickinson Boulevard to Main Street route, but that is not independent proof of the 2026 route; verify with the Chamber before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
