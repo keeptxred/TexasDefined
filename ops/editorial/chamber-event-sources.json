@@ -942,12 +942,13 @@
         "hill"
       ],
       "homeUrl": "https://hillsborochamber.org/",
-      "calendarUrl": "https://hillsborochamber.org/2026/04/06/events-on-the-hillsboro-calendar-for-the-week-of-april-6th-2026/",
+      "calendarUrl": "https://business.hillsborochamber.org/events/calendar",
       "contactPageUrl": "https://hillsborochamber.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
-      "sourceRole": "discovery"
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     },
     {
       "id": "canton-main-street-christmas",
@@ -4318,6 +4319,126 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-longview-texas-community-events",
+      "organization": "Visit Longview Texas / City of Longview official visitor-event calendar",
+      "countySlugs": [
+        "gregg"
+      ],
+      "homeUrl": "https://www.visitlongviewtexas.com/",
+      "calendarUrl": "https://www.visitlongviewtexas.com/events/",
+      "contactPageUrl": "https://www.visitlongviewtexas.com/268/Christmas-Parade",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "downtown-san-angelo-mainstreet-events",
+      "organization": "Downtown San Angelo Inc., official Texas Main Street downtown events calendar",
+      "countySlugs": [
+        "tom-green"
+      ],
+      "homeUrl": "https://www.downtownsanangelo.com/",
+      "calendarUrl": "https://www.downtownsanangelo.com/events",
+      "contactPageUrl": "https://www.downtownsanangelo.com/about",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "city-sulphur-springs-tourism-community-calendar",
+      "organization": "City of Sulphur Springs Department of Tourism public embedded community calendar desk",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://www.visitsulphurspringstx.org/",
+      "calendarUrl": "https://www.visitsulphurspringstx.org/",
+      "contactPageUrl": "https://www.visitsulphurspringstx.org/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "gilmer-area-chamber-public-event-calendar",
+      "organization": "Gilmer Area Chamber of Commerce / Upshur County public event calendar",
+      "countySlugs": [
+        "upshur"
+      ],
+      "homeUrl": "https://www.gilmerareachamber.com/",
+      "calendarUrl": "https://www.gilmerareachamber.com/calendar-of-events/",
+      "contactPageUrl": "https://www.gilmerareachamber.com/contact-us/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "city-huntsville-wynne-home-tourism-calendar",
+      "organization": "City of Huntsville Wynne Home Arts & Visitor Center public event calendar",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvilletx.gov/",
+      "calendarUrl": "https://www.huntsvilletx.gov/570/Calendar-of-Events",
+      "contactPageUrl": "https://www.huntsvilletx.gov/570/Calendar-of-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "huntsville-main-street-christmas-fair-2026",
+      "organization": "City of Huntsville Main Street Downtown Christmas Fair 2026",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvilletx.gov/",
+      "calendarUrl": "https://www.huntsvilletx.gov/593/Christmas-Fair",
+      "contactPageUrl": "https://www.huntsvilletx.gov/593/Christmas-Fair",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "huntsville-city-christmas-movie-park-2026",
+      "organization": "City of Huntsville Parks and Recreation Movie in the Park December 2026",
+      "countySlugs": [
+        "walker"
+      ],
+      "homeUrl": "https://www.huntsvilletx.gov/",
+      "calendarUrl": "https://www.huntsvilletx.gov/m/newsflash/Home/Detail/1447",
+      "contactPageUrl": "https://www.huntsvilletx.gov/182/Recreational-Events",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "hopkins-county-chamber-calendar",
+      "organization": "Hopkins County Chamber of Commerce public events submission calendar",
+      "countySlugs": [
+        "hopkins"
+      ],
+      "homeUrl": "https://hopkinschamber.org/",
+      "calendarUrl": "https://hopkinschamber.org/event-calendar/",
+      "contactPageUrl": "https://hopkinschamber.org/contact/",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
     }
   ]
 }
