@@ -146,7 +146,7 @@ test("festival-specific pages and annual guides are real leads, not complete cou
   assert.equal(parade?.sourceKind, "event-specific");
   const calendar = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
   assert.ok(!calendar.has("camp"), "Annual guides alone must not certify a current county calendar");
-  assert.ok(!calendar.has("san-saba"), "One event page alone must not certify full county calendar coverage");
+  assert.notEqual(parade?.sourceKind, "public-calendar", "A single lighted parade page is not a complete calendar, even after a separate verified full Chamber calendar for the county is added");
 });
 
 
