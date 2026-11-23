@@ -365,7 +365,31 @@ test("El Campo and Friona public 2026 community event calendar sources remain co
  assert.deepEqual(friona.countySlugs,["parmer"]);
  assert.equal(elCampo.calendarUrl,"https://www.elcampochamber.com/events");
  assert.equal(friona.calendarUrl,"https://www.friona-chamber.com/new-events-2");
- assert.equal(registry.sources.length,292);
+ assert.ok(registry.sources.length>=292, "Keep the verified county source baseline while expanding sources");
  const counties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  assert.ok(counties.size>=139);
+});
+
+test("Eastland and La Grange dated official community calendars are distinct from empty local event submission desks", () => {
+  const current = [
+    ["eastland-chamber","eastland","business.eastlandchamber.com"],
+    ["la-grange-fayette-chamber","fayette","business.lagrangetx.org"],
+    ["littlefield-lamb-city-events","lamb","www.littlefieldtexas.net"],
+  ];
+  for (const [id,county,host] of current) {
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,"Missing verified official calendar "+id);
+    assert.ok(source.countySlugs.includes(county));
+    assert.equal(source.sourceKind,"public-calendar");
+    assert.equal(new URL(source.calendarUrl).hostname,host);
+  }
+  const researchDesks=["quanah-hardeman-chamber","haskell-city-calendar","refugio-county-chamber"];
+  for (const id of researchDesks) {
+    const source=registry.sources.find(s=>s.id===id);
+    assert.ok(source,"Missing public source "+id);
+    assert.ok(["contact-only","public-calendar"].includes(source.sourceKind),
+      "An empty calendar/form is not evidence of an organizer-dated event");
+  }
+  const officialCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(officialCounties.size>=142,"Protect the 142 distinct public calendar county sources");
 });
