@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T06:31:14.379Z",
+  "generatedAt": "2026-11-23T22:42:59.223Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -393,6 +393,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-05"
     },
     {
+      "title": "Brazos River Pickers",
+      "startDate": "2026-12-05",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/copy_of_brazos-river-pickers_10-03-26/2026-12-05"
+    },
+    {
       "title": "Dutch Oven Cooking & Tasting",
       "startDate": "2026-12-05",
       "parkKey": "daingerfield",
@@ -601,12 +607,6 @@
       "startDate": "2026-12-12",
       "parkKey": "lake-arrowhead",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-arrowhead/bird-outing-13/2026-12-12"
-    },
-    {
-      "title": "Brazos River Pickers",
-      "startDate": "2026-12-12",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/copy_of_brazos-river-pickers_10-03-26/2026-12-12"
     },
     {
       "title": "Christmas in the Park",
