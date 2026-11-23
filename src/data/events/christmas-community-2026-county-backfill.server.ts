@@ -1589,4 +1589,18 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "summary": "The original race-registration page confirms the Merry Miles holiday 5K and Kids Dash at Coastal Bend Distillery on Saturday, December 5, 2026. The tentative schedule has check-in 3:30–4:25 p.m., Kids Dash at 4:45 p.m., and 5K run/walk at 5 p.m.; race organizers advise that the City of Beeville's Christmas parade follows their event but do not independently provide a confirmed parade start or route. Advance registration information is at the official race page. This is a separate Christmas-themed community activity, not evidence of a 2027 edition.",
     "sourceVerifiedAt": "2026-11-23"
   }
+  ,{
+    "slug": "hughes-springs-christmas-parade-and-christmas-in-park-2026",
+    "title": "Hughes Springs Christmas Parade & Christmas in the Park",
+    "city": "Hughes Springs",
+    "countySlug": "cass",
+    "countyName": "Cass County",
+    "region": "piney-woods",
+    "startDate": "2026-12-05",
+    "venueName": "Hughes Springs ISD parking lot to Curtis Performing Arts Center, then Spring Park",
+    "officialEventUrl": "https://www.hschamber.org/events",
+    "sourceName": "Hughes Springs Chamber of Commerce — original December 5, 2026 calendar",
+    "summary": "The Hughes Springs Chamber of Commerce's 2026–27 original event calendar confirms two consecutive Saturday, December 5, 2026 community programs in Cass County. The Christmas Parade runs 5–6 p.m., starting at the HSISD parking lot and continuing to the Curtis Performing Arts parking lot; the Chamber gives float lineups at 3:45 p.m. and other participant lineups at 4:15 p.m., which are NOT visitor parade start times. Christmas in the Park follows from 6–7 p.m. with its annual tree lighting at Spring Park, and decorated community trees remain on display afterward. The Chamber has not published a confirmed 2026 parade theme, admission charge, traffic-closure plan or weather contingency; check the original organizer for updates before traveling. This one combined visitor itinerary does not create 2027 Christmas dates or grant image reuse rights.",
+    "sourceVerifiedAt": "2026-11-23"
+  }
 ];

@@ -56,3 +56,24 @@ test("date-scoped Christmas count removes expired original and backfill events w
     previous = active.length;
   }
 });
+
+
+test("Hughes Springs Chamber original 2026 two consecutive Cass County Christmas programs are date-gated and never misattributed to Morris",()=>{
+ const { countyBackfill, combined }=readVerifiedChristmasOccurrenceSources();
+ const e=countyBackfill.find(x=>x.slug==="hughes-springs-christmas-parade-and-christmas-in-park-2026");
+ assert.ok(e,"Original Hughes Springs Chamber Dec 5 2026 holiday visitor itinerary missing");
+ assert.equal(e.title,"Hughes Springs Christmas Parade & Christmas in the Park");
+ assert.equal(e.countySlug,"cass","Hughes Springs specific downtown original Chamber events are Cass County, not Morris");
+ assert.equal(e.startDate,"2026-12-05");
+ assert.equal(e.endDate,undefined,"Do not invent a multi-day Christmas celebration");
+ assert.equal(e.city,"Hughes Springs");
+ assert.equal(e.officialEventUrl,"https://www.hschamber.org/events");
+ assert.match(e.summary,/5–6 p\.m\./);
+ assert.match(e.summary,/6–7 p\.m\./);
+ assert.match(e.summary,/HSISD parking lot/);
+ assert.match(e.summary,/Spring Park/);
+ assert.ok(activeVerifiedChristmasOccurrences("2026-12-05").some(x=>x.slug===e.slug));
+ assert.ok(!activeVerifiedChristmasOccurrences("2026-12-06").some(x=>x.slug===e.slug));
+ assert.ok(!combined.some(x=>x.slug===e.slug&&x!==e));
+ assert.equal(new Set(combined.map(x=>x.slug+":"+x.startDate)).size,combined.length);
+});
