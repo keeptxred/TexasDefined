@@ -527,7 +527,7 @@ test("City and original event publisher calendars recover Midland, Matagorda and
   for(const id of individual)assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"event-specific");
   const reviewed=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(reviewed.size>=151, "Never lose 151 official public-calendar counties");
-  assert.ok(!reviewed.has("jasper"),"A municipal event with a future year is not a whole county public calendar");
+  assert.ok(reviewed.has("jasper"),"Jasper now has independently reviewed Chamber community calendar; the separate city event remains only event-specific");
   assert.ok(reviewed.has("wise"),"Decatur Chamber independently lists its Community Events Calendar; the two 2026 holiday event pages are separate organizer date evidence");
   const report=await auditChamberSources({offline:true});
   assert.equal(report.countiesTotal,254);
@@ -613,10 +613,10 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 325);
+  assert.equal(report.sourceCount, 329);
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 157);
-  assert.equal(report.countiesNeedingCalendarEvidence, 97);
+  assert.equal(report.countiesWithExplicitCalendarSources, 159);
+  assert.equal(report.countiesNeedingCalendarEvidence, 95);
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
 });
@@ -660,6 +660,35 @@ test("Coleman city has a distinct public calendar; rural undated city desks are 
   assert.ok(covered.has("coleman"));
   for(const county of ["crosby","morris","hall"])
     assert.equal(covered.has(county),false,"Do not imply dated countywide festival calendar for "+county);
+});
+
+test("Live Oak government and Jasper Chamber host distinct community calendars while four undated desks stay uncounted", () => {
+  for(const [id,county,host] of [
+    ["live-oak-county-community-calendar","live-oak","www.co.live-oak.tx.us"],
+    ["jasper-lake-sam-rayburn-chamber","jasper","www.jasperchamber.com"],
+  ]) {
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s);
+    assert.equal(s.sourceKind,"public-calendar");
+    assert.deepEqual(s.countySlugs,[county]);
+    assert.equal(new URL(s.calendarUrl).hostname,host);
+  }
+  for(const [id,county] of [
+    ["big-spring-cvb-calendar-monitor","howard"],
+    ["city-brady-community-calendar-monitor","mcculloch"],
+    ["hardin-county-government-events-monitor","hardin"],
+    ["city-wheeler-community-calendar-monitor","wheeler"],
+  ]) {
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s);
+    assert.equal(s.sourceKind,"empty-calendar","Undated civic calendar must not be counted as current festival coverage");
+    assert.deepEqual(s.countySlugs,[county]);
+  }
+  const publicCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.equal(publicCounties.size,159);
+  for(const county of ["howard","mcculloch","hardin","wheeler"])
+    assert.ok(!publicCounties.has(county),"Do not claim currently reviewed festival calendar from empty city / CVB desk: "+county);
+  assert.equal(registry.sources.find(s=>s.id==="big-spring-howard-tourism")?.sourceKind,"annual-events-list");
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
