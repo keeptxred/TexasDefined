@@ -18,6 +18,7 @@ on:
       - 'src/data/curated-tourism-collections.ts'
       - 'src/data/museum-expansion-statewide-wave8.ts'
       - 'src/components/explore/CuratedTourismPage.tsx'
+      - 'src/routes/destination.$slug.tsx'
 
 permissions:
   contents: read
