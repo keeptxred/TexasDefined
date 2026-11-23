@@ -5,6 +5,7 @@ import { isTexasThanksgivingWeek } from "../../src/lib/thanksgiving-season.ts";
 const read = (path) => fs.readFileSync(path, "utf8");
 const homepage = read("src/routes/index.lazy.tsx");
 const homepageMeta = read("src/routes/index.tsx");
+const seo = read("src/lib/seo.ts");
 const loader = read("src/data/fixtures/lazy-evergreen.ts");
 const articleSource = read("src/data/fixtures/texas-thanksgiving-articles.ts");
 const stubSource = read("src/data/fixtures/texas-thanksgiving-stubs.ts");
@@ -27,6 +28,16 @@ assert.match(homepage, /thanksgivingWeek \? "Happy Thanksgiving" : "The places, 
 assert.match(homepage, /thanksgivingFeatures\.map/);
 assert.match(homepageMeta, /const seasonalTitle = thanksgivingWeek \? "Happy Thanksgiving" : pageTitle/);
 assert.ok(!homepageMeta.includes('"Happy Thanksgiving | Texas Defined"'), "Publisher suffix must be applied only once by buildMeta");
+for (const [slug, title] of [
+  ["texas-thanksgiving-turkey-frying-safety", "Turkey Fryer Safety: Texas Thanksgiving Guide"],
+  ["texas-thanksgiving-recipes", "Texas Thanksgiving Recipes: Turkey, Dressing & Pie"],
+  ["texas-thanksgiving-traditions", "Texas Thanksgiving Traditions: Food & Football"],
+  ["texas-thanksgiving-parades-2026", "Texas Thanksgiving Parades 2026: Dates & Cities"],
+]) {
+  assert.ok(seo.includes('["@'+slug+'", "'+title+'"]'), "Thanksgiving concise SEO title missing: "+slug);
+  assert.ok(title.length <= 52, "Thanksgiving SEO title exceeds 68 character budget after Texas Defined suffix: "+slug);
+}
+
 assert.match(loader, /\.\.\.texasThanksgivingArticleStubs/);
 assert.match(loader, /await import\("\.\/texas-thanksgiving-articles"\)/);
 for (const article of articles) {
