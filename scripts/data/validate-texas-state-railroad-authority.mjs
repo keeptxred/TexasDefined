@@ -69,7 +69,7 @@ const museumSlug = "heritage-center-cherokee-county-rusk";
 const museumDossier = sources.museumDossier?.split(`  "${museumSlug}": {`)[1]?.split(/\n  "[a-z0-9-]+": \{/)[0] ?? "";
 const museumPhoto = sources.museumPhotos?.split(`  "${museumSlug}": {`)[1]?.split("  },")[0] ?? "";
 if (!museumDossier.includes(`href: "${guideHref}"`)) failures.push("Museum dossier needs a direct link to the railroad guide");
-if (!museumPhoto.includes("Rusk_station") || !museumPhoto.includes("gnomonic · CC BY 2.0")) failures.push("Museum needs its credited Rusk station photograph");
+if (!museumPhoto.includes("/images/heritage-center-cherokee-county-rusk-station-2004.jpg") || !fs.existsSync("public/images/heritage-center-cherokee-county-rusk-station-2004.jpg") || !museumPhoto.includes("gnomonic · CC BY 2.0")) failures.push("Museum needs its credited Rusk station photograph");
 must("collections", `"editorialGuideUrl": "${guideHref}"`);
 must("guide", 'href: "/county/anderson"');
 must("guide", 'href: "/county/cherokee"');

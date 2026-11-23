@@ -5,7 +5,7 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   // Exhibit context from Rusk station, identified by location in the visible credit.
   "heritage-center-cherokee-county-rusk": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Southern_Pine_Lumber_Co._No._28_at_Rusk_station_on_the_Texas_State_Rail_Road_-_October_2004.jpg",
+    src: "/images/heritage-center-cherokee-county-rusk-station-2004.jpg",
     alt: "Southern Pine Lumber Company steam locomotive No. 28 at the Texas State Railroad Rusk station in October 2004",
     width: 820, height: 649,
     credit: "Rusk station archival photograph · gnomonic · CC BY 2.0 · Wikimedia Commons",

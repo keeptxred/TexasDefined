@@ -104,10 +104,13 @@ checks.push(check("Museum photo and structured data", async () => {
   if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(page)) throw new Error("museum is noindexed");
   const museum = schemaNodes(page).find((node) => [node["@type"]].flat().includes("Museum"));
   if (!museum?.image?.some((image) => image.license === "https://creativecommons.org/licenses/by/2.0/") ||
-      !page.includes("Rusk_station") || !page.includes("gnomonic") ||
+      !page.includes("/images/heritage-center-cherokee-county-rusk-station-2004.jpg") || !page.includes("gnomonic") ||
       !page.includes("https://creativecommons.org/licenses/by/2.0/")) {
     throw new Error("museum schema or credited Rusk station image missing");
   }
+  const photo = await fetch(site + "/images/heritage-center-cherokee-county-rusk-station-2004.jpg", { signal: AbortSignal.timeout(15000) });
+  if (!photo.ok || !photo.headers.get("content-type")?.startsWith("image/")) throw new Error("museum photo does not load");
+  await photo.body?.cancel();
   if (!hasLink(page, "/county/cherokee") || !hasLink(await getPage("/county/cherokee"), museumPath)) {
     throw new Error("museum and Cherokee County need reciprocal links");
   }

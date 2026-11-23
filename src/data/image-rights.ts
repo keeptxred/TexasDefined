@@ -27,6 +27,10 @@ function reviewedAttractionImageRights(src: string) {
     let parsed: URL;
     try { parsed = new URL(candidate, "https://texasdefined.com"); }
     catch { return null; }
+    if (parsed.origin === "https://texasdefined.com" && parsed.pathname === "/images/heritage-center-cherokee-county-rusk-station-2004.jpg") {
+      candidate = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Southern_Pine_Lumber_Co._No._28_at_Rusk_station_on_the_Texas_State_Rail_Road_-_October_2004.jpg";
+      continue;
+    }
     if (parsed.hostname === "commons.wikimedia.org") {
       const prefix = "/wiki/Special:Redirect/file/";
       // Malformed unrelated Commons URLs must not crash SSR or receive photo rights.
