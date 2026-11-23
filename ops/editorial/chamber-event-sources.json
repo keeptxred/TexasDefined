@@ -2944,9 +2944,9 @@
         "zavala"
       ],
       "homeUrl": "https://www.spinachfestival.org/",
-      "calendarUrl": "https://www.spinachfestival.org/faq",
+      "calendarUrl": "https://www.spinachfestival.org/",
       "contactPageUrl": "https://www.spinachfestival.org/",
-      "reviewedAt": "2026-11-22",
+      "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "holiday",
       "sourceRole": "discovery",
@@ -5441,6 +5441,36 @@
       "homeUrl": "https://www.tylercountydogwoodfestival.org/",
       "calendarUrl": "https://www.tylercountydogwoodfestival.org/",
       "contactPageUrl": "https://www.tylercountydogwoodfestival.org/contact",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "yamboree-upshur-2026-original-festival-schedule",
+      "organization": "East Texas Yamboree Association — 2026 original multiple-program fair calendar",
+      "countySlugs": [
+        "upshur"
+      ],
+      "homeUrl": "https://yamboree.com/",
+      "calendarUrl": "https://yamboree.com/",
+      "contactPageUrl": "https://yamboree.com/contact/",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "visit-brady-2026-original-community-calendar",
+      "organization": "Visit Brady, Brady/McCulloch Chamber — original 2026 local visitor events",
+      "countySlugs": [
+        "mcculloch"
+      ],
+      "homeUrl": "https://www.visitbrady.com/",
+      "calendarUrl": "https://www.visitbrady.com/local-events",
+      "contactPageUrl": "https://www.visitbrady.com/",
       "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "standard",
