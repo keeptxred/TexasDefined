@@ -86,13 +86,13 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       "Veterans collections include clothing, photographs, equipment and service-related objects from the First World War through Vietnam. A children's area focuses on play and everyday life. Those galleries broaden a visit beyond outlaws and landmark architecture: they show how ordinary residents learned, worked, served, raised families and built institutions through several generations.",
       "The museum's homepage confirms free general admission, supported by donations. Its Thursday–Saturday public hours, currently published as 10 a.m.–4 p.m., suit a half-day Comanche itinerary. Private, school and group tours are offered by arrangement; the organization welcomes donations, memberships, volunteers and appropriate artifact contributions. The museum does not publish a complete accessibility inventory, so call before a special visit; free general admission does not guarantee all privately arranged group programs have the same terms.",
       "The museum also publishes a Comanche Square Walking Tour with QR-triggered audio commentary on Old Cora, Fleming Oak and other landmarks. Check its online map and onsite QR access; this is a self-guided audio resource, not an advertised staffed guided tour. Combine the museum with the current Art Moderne Comanche County Courthouse, the Old Cora log courthouse and Fleming Oak on the town square. Old Cora was first used in Cora in 1856 and is presently listed by the Chamber as closed for renovation, so plan for an exterior history stop only when grounds are accessible. The restored 1909 Comanche-Frisco depot at 304 South Austin Street is another nearby heritage stop with its own visitor-center opening arrangements.",
-      "For a longer county day, use the museum first to interpret De Leon's peanut history, the rail era, Cora's original county-seat role, and the Leon River landscape before driving to Proctor Lake. Alternatively, explore Comanche's present-day wine businesses. Brennan Vineyards and JW Hardin Wine Co. both maintain official local presences, but tasting hours and reservations should be verified independently; this museum itinerary does not imply a guided wine-tour service."
+      "For a longer county day, use the museum first to interpret De Leon's peanut history, the rail era, Cora's original county-seat role, and the Leon River landscape before driving to Proctor Lake. Alternatively, explore Comanche's active downtown wine scene through JW Hardin Wine Co., checking the operator's current hours. Historic Brennan Vineyards operated at the nearby McCrary House for two decades, but its Comanche facility closed December 30, 2025, and is not an operating 2026 tasting destination. The former facility is being marketed for sale. Tribe Vineyards plans a tasting room for 2027; do not represent it as currently open. This is a self-planned itinerary, not a claim of a staffed wine-tour service."
     ],
     officialUrl: "https://www.comanchecountytxmuseum.com/",
     managingAuthority: "Comanche County Historical Museum",
     address: "402 Moorman Rd, Comanche, TX 76442",
-    sourceCheckedAt: "2026-11-22",
-    updatedAt: "2026-11-22",
+    sourceCheckedAt: "2026-11-23",
+    updatedAt: "2026-11-23",
     directions: "Museum: 402 Moorman Road, Comanche, TX 76442. Pair with the courthouse square, Old Cora and Fleming Oak in downtown Comanche; confirm operating hours before travel.",
     accessibilityNotes: "The museum has multiple exhibit rooms and historical displays. Its public website does not confirm accessible routes to each area; call (325) 356-5115 for specific needs, parking and any step-free entry arrangements.",
     areaGuide: {
@@ -121,9 +121,9 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
           href: "/destination/comanche"
         },
         {
-          name: "Brennan Vineyards",
-          description: "Comanche winemaking and historic McCrary House; check tasting plans.",
-          href: "https://www.brennanvineyards.com/"
+          name: "JW Hardin Wine Co.",
+          description: "Operating downtown Comanche tasting room; confirm current hours and reservations before travel.",
+          href: "https://www.jwhardinwine.com/visit/"
         }
       ],
       lodging: [
@@ -234,6 +234,11 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
           label: "Texas Historical Association — Comanche County",
           url: "https://www.tshaonline.org/handbook/entries/comanche-county",
           scope: "Historical timeline, Hardin incident, agricultural and railroad changes"
+        },
+        {
+          label: "Texas Wine Lover — Brennan Comanche facility closure (2025)",
+          url: "https://txwinelover.com/news-flash/",
+          scope: "Contemporaneous December 2025 closure announcement reproduced from Brennan and move to Texas Wine Collective"
         },
         {
           label: "Authentic Texas — It's a Lot of Bull!",

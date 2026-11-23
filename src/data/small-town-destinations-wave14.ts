@@ -40,32 +40,34 @@ export const smallTownWave14Destinations: Destination[] = [
     bestSeason: "October–April for comfortable downtown walking; wine tastings and the museum can be planned year-round when businesses are operating; verify annual fall and holiday event dates.",
     entryNote: "As of the November 22, 2026 source review, the Chamber lists Old Cora Courthouse as CLOSED FOR RENOVATION. Treat it as an exterior-history stop, not an open interior tour; courthouse restoration may also affect access. Call ahead for museum hours and wineries; do not assume a formal wine tour or walk-in tasting is available.",
     highlights: [
+      "Comanche Downtown Historic District (National Register, 2023)",
       "Old Cora Courthouse (1856; currently closed for renovation)",
       "Fleming Oak and historical markers",
       "Art Moderne Comanche County Courthouse",
       "1892–93 Bull Durham mural at 109 W. Grand",
       "Comanche County Historical Museum",
       "1909 Frisco Train Depot",
-      "Brennan Vineyards and JW Hardin Wine Co.",
+      "JW Hardin Wine Co. tasting room; Brennan Vineyards history",
       "Comanche County Pow Wow and local rodeo"
     ],
     body: [
       "Why visit Comanche? The historic county seat brings several layers of Texas history into a compact downtown: a surviving one-room log courthouse from 1856, the living Fleming Oak, a New Deal-era stone courthouse, a 1909 railroad depot, and a remarkable tobacco advertisement hidden behind stucco for more than a century. The Comanche County Historical Museum then tells the wider county story. Nearby Proctor Lake and small wineries broaden a history-focused stop into a full-day visit.",
       "Begin on the courthouse square. The modern Comanche County Courthouse, designed by Wyatt Hedrick and built with WPA labor and local limestone, uses stepped Art Moderne forms with Art Deco details and carved eagles above its entrances. Restoration work may limit access; appreciate its exterior and historic square without assuming tours of the interior. The courthouse stands amid monuments and markers documenting more than one era of county government.",
+      "Comanche's downtown is itself a formally recognized historic district, listed in the National Register of Historic Places in July 2023 (reference 100009117). The approximately 17-acre district surrounds the square, roughly bounded by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. Its National Register nomination documents 48 contributing buildings from the commercial, governmental and architectural development of roughly 1883–1974, including historic storefronts, the courthouse, former post office and city hall/fire station. Look beyond a single landmark: the changing storefront materials and building styles make the square a legible history of how Comanche traded, governed and rebuilt. National Register listing recognizes the district; it does not imply every business is open to visitors or that every structure within the boundary contributes.",
       "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Chamber currently marks the building closed for renovation; there is no reason to promise interior entry.",
       "The museum also hosts a Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and confirm active QR access on arrival. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
       "One of Comanche's most unusual downtown artifacts was discovered by Clint and Jami Tunnell in October 2019. Removing stucco from their building exposed an approximately 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco wall advertisement. Reporting dates the painting to about 1892–1893, when the wall faced an open passage. The mural is at 109 West Grand Street and has been described as visible through the storefront glass. Because this is a privately used building, view it respectfully from permitted public space and confirm visibility before a special trip.",
       "The mural's story intersects with another downtown chapter: Jack Wright's Saloon occupied the property area during the 1870s, a period associated with outlaw John Wesley Hardin. In 1874 Hardin shot and killed Brown County deputy Charles Webb in Comanche; the ensuing violence included the lynching of three people connected to Hardin. The Comanche County Historical Museum has exhibits about this history, including a recreated Jack Wright Saloon and its original mirror. These are historical events, not a staged gunfight or operating saloon attraction.",
       "The Comanche-Frisco Train Depot at 304 South Austin Street anchors the railroad chapter. The brick Prairie School-style depot was built in 1909, replacing an earlier structure, and today serves as a local tourism and community venue. Earlier railway lines transformed county cotton and livestock shipping; the preserved Frisco depot shows how rail travel later shaped Comanche's commercial center. Check Chamber visitor-center hours rather than assuming the depot is always open.",
       "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans more than fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
-      "Wine adds a contemporary agricultural chapter. Brennan Vineyards at 802 South Austin Street makes Texas wine from a historic 1879 homestead. JW Hardin Wine Co. lists a tasting room in downtown Comanche at 107 West Grand Street. A self-guided wine-and-history afternoon can combine the downtown landmarks with a prearranged tasting; check availability, whether reservations are needed, and who will drive before setting out. Tribe Vineyards grows wine grapes in Comanche County but says its vineyard tasting room is coming in 2027, so it should NOT be listed as an open public tasting stop in 2026.",
+      "Wine adds a contemporary agricultural chapter, but old winery listings need correction. Brennan Vineyards operated at the historic McCrary House, 802 South Austin Street, for two decades; the business announced that its Comanche facility would close December 30, 2025, with operations transitioning to Texas Wine Collective in Fredericksburg in January 2026. The former Comanche winery property is marketed for sale and is NOT an active tasting-room stop in 2026, despite outdated content on the Brennan brand website. JW Hardin Wine Co. continues to publish a tasting room at 107 West Grand Street; check its official visitor page for current service and hours. Tribe Vineyards grows grapes in Comanche County but says its vineyard tasting room is planned for 2027, not currently open. For a self-guided wine-and-history afternoon, use a verified operating venue and a designated driver. Texas Wine Lover reproduced Brennan's closure announcement in December 2025, corroborated by the former property's real-estate listing.",
       "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak, then stroll Grand Street for the Bull Durham mural, shops and restaurants. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
       "Comanche also works as a living town, not simply a preserved frontier set. Agricultural businesses, schools, churches, independent shops, annual festivals and long-standing gathering places keep the square tied to everyday local life. The Chamber lists an annual rodeo and parade, the Comanche County Pow Wow (usually the fourth September weekend), a pre-deer-season chili supper and Explore Comanche Christmas. Dates change each year: use the organizer's event pages rather than recycling 2026 dates into future calendars.",
       "For deeper county context, read the Comanche County guide, which follows the Cora-to-Comanche seat change, De Leon's peanut economy, the Texas Central and Frisco railroad chapters, the Leon River watershed and Proctor Lake. The city and county stories complement each other; neither one should substitute for the other's history."
     ],
     officialUrl: "https://www.comanchechamber.org/explorecomanche",
-    sourceCheckedAt: "2026-11-22",
-    updatedAt: "2026-11-22",
+    sourceCheckedAt: "2026-11-23",
+    updatedAt: "2026-11-23",
     directions: "Comanche is at U.S. 67/377 and Texas 16. Start at the courthouse square; the 1909 Frisco Depot / Chamber visitor center is at 304 S. Austin St. The museum is at 402 Moorman Rd; the historic Bull Durham mural is reported at 109 W. Grand St. Proctor Lake is northeast of town.",
     accessibilityNotes: "The courthouse square offers an outdoor downtown route, but sidewalk conditions, street crossings and ongoing restoration affect access. Old Cora's interior is currently closed. The museum includes historic displays and should be contacted directly about accessible entrances, restrooms and tour needs; winery facilities differ.",
     areaGuide: {
@@ -93,11 +95,6 @@ export const smallTownWave14Destinations: Destination[] = [
       ],
       foodAndDrink: [
         {
-          name: "Brennan Vineyards",
-          description: "Texas-made wine at the historic McCrary homestead, 802 S. Austin St; confirm tasting reservations.",
-          href: "https://www.brennanvineyards.com/"
-        },
-        {
           name: "JW Hardin Wine Co.",
           description: "Downtown Comanche tasting room, 107 W. Grand St; check current service and hours.",
           href: "https://www.jwhardinwine.com/visit/"
@@ -120,7 +117,7 @@ export const smallTownWave14Destinations: Destination[] = [
         },
         {
           name: "South Austin and depot corridor",
-          description: "Visitor center, railroad history and Brennan Vineyards."
+          description: "Visitor center, railroad history and the former Brennan Vineyards homestead (private former winery, not an active tasting room)."
         }
       ],
       familyStops: [
@@ -179,7 +176,7 @@ export const smallTownWave14Destinations: Destination[] = [
           steps: [
             "Walk the courthouse square and mural route",
             "Visit the Comanche County Historical Museum during its published opening window",
-            "Eat downtown and choose a preconfirmed Brennan Vineyards or JW Hardin tasting if desired"
+            "Eat downtown and, if desired, check JW Hardin Wine Co. tasting-room hours; Brennan Vineyards closed its Comanche facility in 2025"
           ]
         },
         {
@@ -224,6 +221,11 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "Wyatt Hedrick, limestone Art Moderne courthouse and restoration"
         },
         {
+          label: "National Park Service / Texas Historical Commission — Comanche Downtown Historic District", 
+          url: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf",
+          scope: "2023 National Register district nomination, boundaries, 48 contributing buildings and 1883–1974 period of significance"
+        },
+        {
           label: "Texas A&M Forest Service — Fleming Oak",
           url: "https://tfsweb.tamu.edu/famous-trees-of-texas-254/",
           scope: "Martin Fleming and the 1911/1919 preservation story"
@@ -239,9 +241,14 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "Saloon, blacksmith, John Wesley Hardin and other exhibits"
         },
         {
-          label: "Brennan Vineyards — Official",
-          url: "https://www.brennanvineyards.com/",
-          scope: "Wine and Comanche location"
+          label: "Texas Wine Lover — Brennan Vineyards Comanche closure",
+          url: "https://txwinelover.com/news-flash/",
+          scope: "December 2025 announcement that Brennan would close its Comanche facility on December 30, 2025, and relocate operations to Fredericksburg"
+        },
+        {
+          label: "Burgher Ray — Former Brennan winery property for sale",
+          url: "https://burgherray.com/listings/brennan-vineyards/",
+          scope: "Former Comanche winery buildings and private property marketed for sale, not a current tasting attraction"
         },
         {
           label: "JW Hardin Wine Co. — Visit",
@@ -285,12 +292,17 @@ export const smallTownWave14Destinations: Destination[] = [
       {
         topic: "reservations",
         label: "Winery tastings",
-        detail: "Do not assume walk-in availability; contact the winery for current tasting arrangements and any reservation requirement.",
-        sourceUrl: "https://www.brennanvineyards.com/",
-        checkedAt: "2026-11-22"
+        detail: "JW Hardin Wine Co. publishes a downtown tasting room; confirm current hours and reservations. Brennan Vineyards closed its Comanche facility December 30, 2025, so do not use its old tasting listings.",
+        sourceUrl: "https://www.jwhardinwine.com/visit/",
+        checkedAt: "2026-11-23"
       }
     ],
     visitorFaqs: [
+      {
+        question: "Is Comanche downtown a National Register historic district?",
+        answer: "Yes. The Comanche Downtown Historic District was listed in 2023 and covers roughly 17 acres centered on the courthouse square. Its National Register nomination identifies 48 contributing buildings and an architectural history spanning about 1883–1974. It is a historic streetscape, not an admission-ticket attraction.",
+        sourceUrl: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf"
+      },
       {
         question: "Can I take a self-guided historic Comanche walking tour?",
         answer: "Yes. The museum publishes a QR-based Comanche Square Walking Tour with audio about Old Cora, Fleming Oak, local mercantile sites and John Wesley Hardin. Verify onsite QR marker access.",
@@ -313,8 +325,8 @@ export const smallTownWave14Destinations: Destination[] = [
       },
       {
         question: "Are there wineries to visit in Comanche, Texas?",
-        answer: "Brennan Vineyards is on South Austin Street, and JW Hardin Wine Co. lists a downtown tasting room. Verify each tasting schedule before driving. Tribe Vineyards says its visitor tasting room is planned for 2027.",
-        sourceUrl: "https://www.brennanvineyards.com/"
+        answer: "JW Hardin Wine Co. lists a downtown Comanche tasting room; verify hours on its visitor page. Brennan Vineyards closed its Comanche winery on December 30, 2025, and is not a current tasting stop. Tribe Vineyards says its public vineyard tasting room is planned for 2027.",
+        sourceUrl: "https://txwinelover.com/news-flash/"
       },
       {
         question: "What annual events take place in Comanche?",

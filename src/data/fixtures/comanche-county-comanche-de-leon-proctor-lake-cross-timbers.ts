@@ -21,7 +21,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   readingMinutes: 20,
-  updatedAt: "2026-11-22",
+  updatedAt: "2026-11-23",
   tags: [
     "Comanche County",
     "Comanche Texas",
@@ -52,6 +52,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   ],
   sources: [
     { label: "Texas State Historical Association — Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county" },
+    { label: "National Park Service / Texas Historical Commission — Comanche Downtown Historic District", url: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf" },
     { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
     { label: "Texas Historical Commission — Current courthouse restoration", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
     { label: "Texas A&M Forest Service — Fleming Oak", url: "https://tfsweb.tamu.edu/famous-trees-of-texas-254/" },
@@ -63,7 +64,8 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { label: "Comanche Chamber — Explore Comanche and Old Cora closure", url: "https://www.comanchechamber.org/explorecomanche" },
     { label: "Comanche Chamber — Frisco Depot", url: "https://www.comanchechamber.org/comanchefriscotraindepot" },
     { label: "Comanche Chamber — Annual events", url: "https://www.comanchechamber.org/comancheevents" },
-    { label: "Brennan Vineyards — Official", url: "https://www.brennanvineyards.com/" },
+    { label: "Texas Wine Lover — Brennan Comanche facility closure (Dec. 2025)", url: "https://txwinelover.com/news-flash/" },
+    { label: "Burgher Ray — Former Brennan Vineyards facility listing", url: "https://burgherray.com/listings/brennan-vineyards/" },
     { label: "JW Hardin Wine Company — Official", url: "https://www.jwhardinwine.com/visit/" },
     { label: "Tribe Vineyards — Tasting room opening target", url: "https://www.tribevineyards.com/" }
   ],
@@ -96,6 +98,10 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     h("The courthouse tells a New Deal-era story"),
     p("Comanche County used several courthouses as its population and economy changed. The present building was constructed during the Works Progress Administration era, replacing an older courthouse and giving the square a distinctly twentieth-century civic landmark. Its pale stone, strong vertical windows and restrained modern detailing differ sharply from the ornate Romanesque courthouses seen in many neighboring counties."),
     p("For visitors, the courthouse square is still the best place to begin understanding Comanche. The current courthouse, the relocated early Cora building and downtown commercial blocks place frontier government, railroad-era trade and New Deal public works within a compact walkable area."),
+
+    h("Downtown Comanche is a listed historic district"),
+    p("The Comanche Downtown Historic District entered the National Register of Historic Places in July 2023 (reference 100009117). The roughly 17.22-acre designation covers the courthouse square and surrounding commercial blocks, bounded approximately by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. The National Park Service nomination documents 48 contributing buildings, including commercial buildings and civic facilities, and identifies a period of significance from about 1883 through 1974. The district is important because an intact townscape—not just an isolated courthouse—shows how Comanche expanded from a frontier county seat into a regional trading center."),
+    p("For a first-time visitor, compare the Art Moderne courthouse with the older limestone, brick and cast-iron storefronts, former federal post office and city hall/fire station. The district designation does not certify that each building can be entered, and the separate Old Cora courthouse remains closed for renovation. Use the museum\'s Comanche Square audio walking tour and the original National Register nomination to interpret the streets without treating private businesses as public museum sites."),
 
     h("De Leon developed its own agricultural identity"),
     p("De Leon lies in the northeastern part of the county and grew into a significant market town as railroads and agriculture expanded. Its location placed it close to the sandy Cross Timbers soils that proved especially useful for crops such as peanuts, melons and orchard products in addition to traditional cotton and grain."),
@@ -161,7 +167,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     p("The restored Comanche-Frisco Train Depot, built in 1909 at 304 South Austin Street, is another bridge between county history and contemporary visitor life. It helps distinguish the county's early Texas Central Railroad access from the later St. Louis and San Francisco Railway freight and passenger era. The depot now supports local tourism, gatherings and community use. These sites belong in the county guide because their collections and architecture explain regional agricultural markets, not only the city center."),
 
     h("Wineries carry the farming story into the present"),
-    p("Comanche County has added locally rooted viticulture to its older cotton, livestock, peanut and pecan identity. Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine at the historic McCrary House homestead; JW Hardin Wine Co. identifies a downtown tasting room at 107 West Grand Street. Tribe Vineyards grows estate grapes in Comanche County, but its website says the planned on-site tasting room will open in 2027. A visitor can plan a self-directed history-and-wine route, but should not be promised a commercial guided tour, a currently open Tribe tasting room, or tastings without confirming each business's schedule and reservations. Sources: the three producers' official websites."),
+    p("Comanche County has added locally rooted viticulture to its older cotton, livestock, peanut and pecan identity. Brennan Vineyards historically operated at 802 South Austin Street in Comanche, at the McCrary House homestead, but its owner announced closure of the COMANCHE facility effective December 30, 2025, with operations transitioning to the sister Texas Wine Collective in Fredericksburg in January 2026. The historic Comanche property is now marketed as a former winery; it should NOT be recommended as an active 2026 tasting stop. JW Hardin Wine Co. identifies a downtown tasting room at 107 West Grand Street; its current opening days and hours should be verified directly. Tribe Vineyards grows estate grapes but says its own tasting room is planned for 2027. A visitor can arrange a self-directed history-and-wine route through a verified open business, but there is no verified commercial guided wine tour here. Sources: December 2025 Brennan announcement as reproduced by Texas Wine Lover, the former facility's real-estate listing, JW Hardin's official visitor page and Tribe's official website."),
 
     h("Annual celebrations and the community visitors encounter now"),
     p("The Comanche Chamber promotes a June rodeo and parade, the long-running Comanche County Pow Wow usually held on the fourth September weekend, a deer hunters' chili supper ahead of hunting season, and an annual Comanche Christmas celebration. These events deserve countywide coverage because they connect agriculture, craft, commerce, performing arts and historic downtown life. The Chamber's calendar is the controlling source for each year's exact dates; do not roll a past edition forward as if it had already been announced."),
@@ -170,7 +176,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     h("Self-guided Comanche Square audio walking tour"),
     p("The museum provides a QR-based Comanche Square Walking Tour with recorded interpretation, including Old Cora, Fleming Oak, local mercantile history and John Wesley Hardin. Use the operator’s live map and audio at https://www.comanchecountytxmuseum.com/about-1-1. It is a self-guided experience, not an advertised commercial guided wine or history tour, and outdoor QR-code availability should be checked on arrival."),
     h("Short answers for planning a Comanche County history trip"),
-    p("Where is Old Cora Courthouse? It is on the Comanche courthouse square, though the Chamber currently marks it closed for renovation. What is Fleming Oak? A protected live oak tied to Martin Fleming's 1854 arrival and his 1911 and 1919 preservation efforts. Where is the rediscovered Bull Durham mural? At 109 West Grand Street in Comanche, reported visible through storefront glass. Where is the county museum? At 402 Moorman Road, with published Thursday–Saturday hours. Can visitors take a winery tour? Individual Comanche wineries have visitor information, but a formal packaged tour is not verified; confirm tasting and transport arrangements yourself."),
+    p("Where is Old Cora Courthouse? It is on the Comanche courthouse square, though the Chamber currently marks it closed for renovation. What is Fleming Oak? A protected live oak tied to Martin Fleming's 1854 arrival and his 1911 and 1919 preservation efforts. Where is the rediscovered Bull Durham mural? At 109 West Grand Street in Comanche, reported visible through storefront glass. Where is the county museum? At 402 Moorman Road, with published Thursday–Saturday hours. Can visitors take a winery tour? JW Hardin Wine Co. lists a downtown tasting room, but a formal packaged tour is not verified. Brennan closed its Comanche facility at the end of 2025, and Tribe's vineyard tasting room is planned for 2027. Confirm hours and transport arrangements with the current operator."),
 
     h("What defines Comanche County"),
     p("Comanche County is defined by the meeting of landscapes and eras. The Cross Timbers still shape soils and vegetation; ranching still occupies broad stretches of land; courthouse history links Cora with modern Comanche; railroads remain visible in the identities of De Leon and other towns; and Proctor Lake added a twentieth-century water system to an older river landscape."),
