@@ -4,6 +4,7 @@ import { isTexasThanksgivingWeek } from "../../src/lib/thanksgiving-season.ts";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const homepage = read("src/routes/index.lazy.tsx");
+const homepageMeta = read("src/routes/index.tsx");
 const loader = read("src/data/fixtures/lazy-evergreen.ts");
 const articleSource = read("src/data/fixtures/texas-thanksgiving-articles.ts");
 const stubSource = read("src/data/fixtures/texas-thanksgiving-stubs.ts");
@@ -24,6 +25,8 @@ assert.deepEqual(articles.map(article => article.slug), expected);
 assert.deepEqual(stubs.map(article => article.slug), expected);
 assert.match(homepage, /thanksgivingWeek \? "Happy Thanksgiving" : "The places, stories & life of Texas"/);
 assert.match(homepage, /thanksgivingFeatures\.map/);
+assert.match(homepageMeta, /const seasonalTitle = thanksgivingWeek \? "Happy Thanksgiving" : pageTitle/);
+assert.doesNotMatch(homepageMeta, /const seasonalTitle = thanksgivingWeek \? "Happy Thanksgiving \\| Texas Defined" : pageTitle/);
 assert.match(loader, /\.\.\.texasThanksgivingArticleStubs/);
 assert.match(loader, /await import\("\.\/texas-thanksgiving-articles"\)/);
 for (const article of articles) {
