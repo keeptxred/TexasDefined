@@ -796,3 +796,25 @@ test("2026 Canton Christmas Sip N Shop direct original organizer confirmation re
  assert.equal(parade.startDate,"2026-12-12");
  assert.equal(new Set(events.map(e=>e.slug)).size,events.length);
 });
+
+
+test("two distinct Goodnight Ranch original 2026 dates stay in Armstrong despite Clarendon mailing address",()=>{
+ const ornament=events.find(e=>e.slug==="goodnight-ranch-edwardian-ornament-workshop-2026");
+ const open=events.find(e=>e.slug==="goodnight-ranch-pioneer-christmas-open-house-2026");
+ assert.ok(ornament&&open);
+ for(const record of [ornament,open]){
+  assert.equal(record.countySlug,"armstrong");assert.equal(record.countyName,"Armstrong County");
+  assert.equal(record.city,"Goodnight");assert.equal(record.region,"panhandle");
+  assert.equal(record.sourceVerifiedAt,"2026-11-23");
+  assert.equal(new URL(record.officialEventUrl).hostname,"thc.texas.gov");
+  assert.equal(record.endDate,undefined);
+  assert.match(record.summary,/Clarendon/);
+  assert.match(record.summary,/2027/);
+ }
+ assert.equal(ornament.startDate,"2026-11-28");assert.match(ornament.summary,/11 a\.m\. to noon/);
+ assert.match(ornament.summary,/free/);
+ assert.equal(open.startDate,"2026-12-05");assert.match(open.summary,/5:30 to 7:30 p\.m\./);
+ assert.match(open.summary,/free/);
+ assert.notEqual(open.slug,ornament.slug);
+ assert.equal(new Set(events.map(e=>e.slug)).size,events.length);
+});

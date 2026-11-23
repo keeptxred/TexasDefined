@@ -5686,6 +5686,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "armstrong-goodnight-ranch-thc-2026-historic-site-events",
+      "organization": "Texas Historical Commission — Goodnight Ranch ORIGINAL 2026 holiday and ranch history programs, limited to ON-SITE Armstrong County events (NOT Amarillo offsite or full Armstrong festival calendar)",
+      "countySlugs": [
+        "armstrong"
+      ],
+      "homeUrl": "https://thc.texas.gov/historic-sites/goodnight-ranch",
+      "calendarUrl": "https://thc.texas.gov/historic-sites/goodnight-ranch",
+      "contactPageUrl": "https://thc.texas.gov/historic-sites/goodnight-ranch",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "shackelford-fort-griffin-thc-filtered-2026-site-events",
+      "organization": "Texas Historical Commission — original Fort Griffin Shackelford County historic site 2026 dated living history and photography programs (PAST season only, NOT whole-county Chamber festivals)",
+      "countySlugs": [
+        "shackelford"
+      ],
+      "homeUrl": "https://thc.texas.gov/historic-sites/fort-griffin",
+      "calendarUrl": "https://thc.texas.gov/events?audience=&field_event_start_value=&historic_site%5B74%5D=74&type=All",
+      "contactPageUrl": "https://thc.texas.gov/historic-sites/fort-griffin",
+      "reviewedAt": "2026-11-23",
+      "calendarType": "html",
+      "priority": "monthly",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }

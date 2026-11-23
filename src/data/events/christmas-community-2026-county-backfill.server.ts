@@ -10,6 +10,34 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "region" | "startDate" | "endDate" | "venueName" | "officialEventUrl" | "sourceName"
 > & { sourceVerifiedAt: string }> = [
   {
+    "slug": "goodnight-ranch-edwardian-ornament-workshop-2026",
+    "title": "Goodnight Ranch Edwardian Decor and Ornament Making",
+    "city": "Goodnight",
+    "countySlug": "armstrong",
+    "countyName": "Armstrong County",
+    "region": "panhandle",
+    "startDate": "2026-11-28",
+    "venueName": "Charles and Mary Ann Goodnight Ranch State Historic Site, 2000 US Highway 287, Goodnight, Texas",
+    "officialEventUrl": "https://thc.texas.gov/events/edwardian-decor-and-ornament-making",
+    "sourceName": "Texas Historical Commission — original 2026 Goodnight Ranch Edwardian Decor and Ornament Making program",
+    "summary": "The Texas Historical Commission independently lists a free Edwardian-inspired holiday ornament and décor program at the historic Goodnight Ranch on Saturday, November 28, 2026, from 11 a.m. to noon. Visitors can explore the seasonal decorations and take a self-guided tour of the Goodnight Home following the workshop. The property sits in Armstrong County even though some official correspondence uses a Clarendon mailing address. This on-site program is distinct from Goodnight Ranch presentations held at the Amarillo Public Library, which are not Armstrong County visitor events. Check the site for any last-minute program changes; no additional admission, photo-use permission, capacity guarantee or 2027 date is assumed.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "goodnight-ranch-pioneer-christmas-open-house-2026",
+    "title": "Pioneer Christmas Open House at Goodnight Ranch",
+    "city": "Goodnight",
+    "countySlug": "armstrong",
+    "countyName": "Armstrong County",
+    "region": "panhandle",
+    "startDate": "2026-12-05",
+    "venueName": "Charles and Mary Ann Goodnight Ranch State Historic Site, 2000 US Highway 287, Goodnight, Texas",
+    "officialEventUrl": "https://thc.texas.gov/events/pioneer-christmas-open-house",
+    "sourceName": "Texas Historical Commission — original 2026 Goodnight Ranch Pioneer Christmas Open House",
+    "summary": "The Texas Historical Commission directly confirms the Pioneer Christmas Open House for Saturday, December 5, 2026, from 5:30 to 7:30 p.m. at the restored 1887 Goodnight Ranch home in Armstrong County, Texas. The free evening event features Christmas decorations inspired by the Edwardian period and an interpretation of how Charles and Mary Ann Goodnight celebrated holidays in the early 1900s. The site is on US Highway 287 near the Armstrong/Donley border; the 2000 US Highway 287 Clarendon mailing address does not mean it is a Donley County event. This is not an announcement of a 2027 repeat; check the original state historic site for changes, accessibility and travel instructions before visiting.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
     "slug": "andrews-holly-jolly-weekend-2026",
     "title": "Andrews Holly Jolly Weekend & Christmas Parade",
     "city": "Andrews",

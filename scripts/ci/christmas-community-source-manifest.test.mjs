@@ -94,3 +94,18 @@ test("Dec 11 downtown Canton Sip & Shop and Dec 12 Christmas Parade are separate
    "Do not inflate the Dec 11 evening into the following Dec 12 Christmas parade");
  assert.equal(combined.filter(x=>x.slug===sip.slug).length,1);
 });
+
+
+test("Goodnight Ranch November workshop and December free open house are first-party confirmed 2026 Armstrong holiday occurrences",()=>{
+ const {countyBackfill,combined}=readVerifiedChristmasOccurrenceSources();
+ const rows=["goodnight-ranch-edwardian-ornament-workshop-2026","goodnight-ranch-pioneer-christmas-open-house-2026"]
+  .map(slug=>countyBackfill.find(x=>x.slug===slug));
+ assert.ok(rows.every(Boolean));
+ assert.equal(rows[0].startDate,"2026-11-28");assert.equal(rows[1].startDate,"2026-12-05");
+ for(const e of rows){assert.equal(e.countySlug,"armstrong");assert.equal(e.endDate,undefined);
+  assert.equal(combined.filter(x=>x.slug===e.slug).length,1);
+  assert.ok(activeVerifiedChristmasOccurrences(e.startDate).some(x=>x.slug===e.slug));
+ }
+ assert.ok(!activeVerifiedChristmasOccurrences("2026-11-29").some(x=>x.slug===rows[0].slug));
+ assert.ok(!activeVerifiedChristmasOccurrences("2026-12-06").some(x=>x.slug===rows[1].slug));
+});
