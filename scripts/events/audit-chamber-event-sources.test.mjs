@@ -1035,7 +1035,7 @@ test("robots denial prevents scraping a due contact-only publisher's home page",
    const href=String(url);fetched.push(href);
    if(href===blockedOrigin+"/robots.txt")
      return {status:200,ok:true,url:href,headers:{get:()=> "text/plain"},
-       text:async()=>"User-agent: TexasDefined-Events-Research\\nDisallow: /"};
+       text:async()=>"User-agent: TexasDefined-Events-Research\nDisallow: /"};
    if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,
      headers:{get:()=>null},text:async()=>""};
    return {status:200,ok:true,url:href,headers:{get:()=> "text/html"},
