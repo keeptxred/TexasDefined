@@ -10,15 +10,15 @@ const host = process.env.COMANCHE_PUBLIC_ORIGIN?.replace(/\/$/, "") || "https://
 const targets = [
   {
     path: "/destination/comanche",
-    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour"],
+    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places"],
   },
   {
     path: "/county/comanche",
-    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Comanche County Historical Museum", "Guide updated"],
+    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Comanche County Historical Museum", "Guide updated", "Comanche Downtown Historic District"],
   },
   {
     path: "/destination/comanche-county-historical-museum",
-    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. The museum\'s official homepage explicitly states general admission is free"],
+    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. Its official homepage states general admission is free"],
   },
 ];
 
