@@ -400,3 +400,24 @@ test("Gilmer Texas Yulefest has independent first-party Dec 5, 2026 evidence and
   assert.ok(e.summary.length>110);
   assert.equal(events.filter(e=>e.slug==="gilmer-upshur-yulefest-2026").length,1);
 });
+
+test("Fairfield 2026 holiday celebrations are two dated Chamber editions, not a fabricated multiweek festival",()=>{
+  const cases=[
+    ["fairfield-freestone-christmas-on-the-square-2026","2026-12-05"],
+    ["fairfield-freestone-jingle-all-the-way-2026","2026-12-19"],
+  ];
+  for(const [slug,date] of cases){
+    const event=events.find(e=>e.slug===slug);
+    assert.ok(event,"Missing Fairfield 2026 official Chamber event "+slug);
+    assert.equal(event.startDate,date);
+    assert.equal(event.endDate,undefined);
+    assert.equal(event.countySlug,"freestone");
+    assert.equal(event.countyName,"Freestone County");
+    assert.equal(event.city,"Fairfield");
+    assert.equal(event.region,"prairies-lakes");
+    assert.equal(event.sourceVerifiedAt,"2026-11-22");
+    assert.equal(new URL(event.officialEventUrl).hostname,"www.fairfieldtexaschamber.com");
+    assert.match(event.summary,/does not confirm|verification is required/);
+  }
+  assert.equal(events.filter(e=>e.countySlug==="freestone").length,2);
+});
