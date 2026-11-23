@@ -1259,18 +1259,18 @@ test("Original Chambers Library public event feed remains robot-blocked to our r
  const fetchImpl=async url=>{
    const href=String(url);requests.push(href);
    if(href===origin+"/robots.txt")return {status:200,ok:true,url:href,headers:{get:()=> "text/plain"},
-     text:async()=>"User-agent: TexasDefined-Events-Research\\nDisallow: /"};
+     text:async()=>"User-agent: TexasDefined-Events-Research\nDisallow: /"};
    if(href.endsWith("/robots.txt"))return {status:404,ok:false,url:href,headers:{get:()=>null},text:async()=>""};
    return {status:200,ok:true,url:href,headers:{get:()=> "text/html"},text:async()=>'<a href="/events">Festival</a>'};
  };
- const report=await auditChamberSources({offline:false,now:new Date("2026-11-22T13:00:00Z"),fetchImpl});
+ const sourceDay=[...source.id].reduce((n,ch)=>(n*31+ch.charCodeAt(0))>>>0,0)%7;
+ const dueDate=new Date("2026-11-22T13:00:00Z");
+ dueDate.setUTCDate(dueDate.getUTCDate()+sourceDay);
+ const report=await auditChamberSources({offline:false,now:dueDate,fetchImpl});
  const row=report.observations.find(o=>o.sourceId===source.id);
- if(row.state==="not-due"){
-   assert.ok(!requests.includes(source.calendarUrl),"Not-due original site must not be crawled");
- } else {
-   assert.equal(row.state,"robots-disallowed");
-   assert.ok(!requests.includes(source.calendarUrl),"Do not bypass source robots block after classification");
- }
+ assert.equal(row.state,"robots-disallowed");
+ assert.ok(requests.includes(origin+"/robots.txt"));
+ assert.ok(!requests.includes(source.calendarUrl),"Do not bypass source robots block after classification");
  assert.equal(report.countiesWithExplicitCalendarSources,178);
  assert.match(report.eventPublication,/^NO/);
 });
