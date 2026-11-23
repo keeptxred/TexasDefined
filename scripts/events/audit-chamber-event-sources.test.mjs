@@ -863,9 +863,34 @@ test("Copperas Cove Chamber's dated current public events calendar restores inde
   const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
   assert.ok(calendarCounties.has("coryell"));
   assert.ok(calendarCounties.size>=167,"Coryell genuine public Chamber calendar adds one real county without inflating others");
-  assert.equal(registry.sources.length,351);
+  assert.ok(registry.sources.length >= 351, "Preserve 351 previously reviewed official source desks when researching more organizers");
   assert.equal(registry.rules.sender,"admin@texasdefined.com");
   assert.equal(registry.rules.noGmail,true);
+});
+
+
+test("Callahan Chamber date-qualified 2026 Christmas remains one specific event, not a fake fully populated festival calendar",()=>{
+ const c=registry.sources.find(x=>x.id==="cross-plains-chamber-annual-community-events");
+ const e=registry.sources.find(x=>x.id==="cross-plains-chamber-sip-shop-christmas-parade-2026");
+ assert.ok(c && e);assert.deepEqual(c.countySlugs,["callahan"]);assert.deepEqual(e.countySlugs,["callahan"]);
+ assert.equal(c.sourceKind,"annual-events-list");assert.equal(e.sourceKind,"event-specific");
+ assert.equal(c.calendarUrl,"https://crossplainschamberofcommerce.com/community-events");
+ assert.equal(e.calendarUrl,"https://crossplainschamberofcommerce.com/sidewalk-sale");
+ const calendars=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+ assert.ok(!calendars.has("callahan"),"One dated Christmas event does not establish year-round county festival calendar coverage");
+ assert.equal(registry.rules.sender,"admin@texasdefined.com");assert.equal(registry.rules.noGmail,true);
+});
+
+test("Atlanta Cass public calendar requires organizer confirmation of contradictory December 2026 parade dates",()=>{
+ const a=registry.sources.find(x=>x.id==="atlanta-texas-chamber-undated-calendar-monitor");
+ assert.ok(a);
+ assert.deepEqual(a.countySlugs,["cass"]);
+ assert.equal(a.sourceKind,"empty-calendar");
+ assert.equal(a.calendarUrl,"https://atlantatexaschamber.com/calendar.php");
+ assert.equal(new URL(a.homeUrl).hostname,"atlantatexaschamber.com");
+ const calendars=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
+ assert.ok(!calendars.has("cass"),"Empty event calendar and secondary conflicting holiday listings do not validate a date-confirmed county public calendar");
+ assert.equal(registry.sources.length,354);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
