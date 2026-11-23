@@ -95,7 +95,7 @@ export function checkHomepageHtml(html, contentType = 'text/html', now = new Dat
     // Lexington parity while its heading is actually rendered here.
     lexingtonHomepageReadTime: !findLexingtonHeading(text) ||
       extractLexingtonReadingMinutes(text) === EXPECTED_LEXINGTON_READING_MINUTES,
-    expectedHomepageTitle: (text.match(/<h1\\b[^>]*>([\\s\\S]{0,600}?)<\\/h1>/i)?.[1] ?? '')
+    expectedHomepageTitle: (text.match(/<h1\b[^>]*>([\s\S]{0,600}?)<\/h1>/i)?.[1] ?? '')
       .replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').trim() === expectedHomepageHeading(now),
     editorialContact: text.includes('Share a correction or firsthand Texas tip'),
     compactDisclosure: text.includes('Explore more outdoor, river, city and regional guides'),
