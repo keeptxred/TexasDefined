@@ -3656,7 +3656,9 @@
       "calendarType": "html",
       "priority": "standard",
       "sourceRole": "discovery",
-      "sourceKind": "contact-only"
+      "sourceKind": "contact-only",
+      "sourceTrust": "quarantined",
+      "riskReview": "The historic-looking Marlin Chamber public page currently exposes an unrelated adult external link in top navigation and local event posts principally dated 2018. Do not recommend, crawl, publish event leads or use images until the publisher verifies its ownership and cleans the site."
     },
     {
       "id": "fisher-county-gov",
@@ -5317,6 +5319,36 @@
       "homeUrl": "https://atlantatexaschamber.com/",
       "calendarUrl": "https://atlantatexaschamber.com/calendar.php",
       "contactPageUrl": "https://atlantatexaschamber.com/contact_us/index.php",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "baird-chamber-calendar-undated-monitor",
+      "organization": "Baird Chamber of Commerce — public events calendar loading-only monitoring",
+      "countySlugs": [
+        "callahan"
+      ],
+      "homeUrl": "https://www.bairdchamber.com/",
+      "calendarUrl": "https://www.bairdchamber.com/events",
+      "contactPageUrl": "https://www.bairdchamber.com/join-mailing-list",
+      "reviewedAt": "2026-11-22",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "empty-calendar"
+    },
+    {
+      "id": "rockdale-chamber-community-calendar-undated-monitor",
+      "organization": "Rockdale Chamber of Commerce — community event calendar awaiting dated records",
+      "countySlugs": [
+        "milam"
+      ],
+      "homeUrl": "https://www.rockdalechamber.org/",
+      "calendarUrl": "https://www.rockdalechamber.org/events",
+      "contactPageUrl": "https://www.rockdalechamber.org/",
       "reviewedAt": "2026-11-22",
       "calendarType": "html",
       "priority": "holiday",
