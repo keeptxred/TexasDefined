@@ -1177,5 +1177,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
   "sourceName": "East Texas Yamboree Association, referring visitors to Gilmer Area Chamber of Commerce",
   "summary": "The East Texas Yamboree Association's 2026 notice confirms that Gilmer will celebrate Yulefest on Saturday, December 5, 2026, with several community holiday activities. It directs visitors to the Gilmer Area Chamber of Commerce for the individual events. The official notice does not confirm precise public hours, parade route, vendor fees or a single fixed festival venue; check current Chamber announcements for each activity before traveling. Gilmer, Texas, is in Upshur County, not Gilmer County, Georgia.",
   "sourceVerifiedAt": "2026-11-22"
-}
+},
+  {
+    "slug": "fairfield-freestone-christmas-on-the-square-2026",
+    "title": "Fairfield Christmas on the Square 2026",
+    "city": "Fairfield",
+    "countySlug": "freestone",
+    "countyName": "Freestone County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Historic downtown Fairfield courthouse square",
+    "officialEventUrl": "https://www.fairfieldtexaschamber.com/",
+    "sourceName": "Fairfield Chamber of Commerce & Visitors Center",
+    "summary": "The Fairfield Chamber of Commerce and Visitors Center's official 2026 upcoming-events listing identifies Christmas on the Square on Saturday, December 5, 2026, in downtown Fairfield, Freestone County. This is the community's holiday celebration, distinct from the December 19 Jingle All the Way event. The Chamber listing verifies the event title and date; a separate organizer confirmation is required before asserting the exact parade time, vendors, admission, full route or activity schedule. The member website may restrict automated calendar access.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "fairfield-freestone-jingle-all-the-way-2026",
+    "title": "Fairfield Jingle All the Way Christmas Celebration 2026",
+    "city": "Fairfield",
+    "countySlug": "freestone",
+    "countyName": "Freestone County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-19",
+    "venueName": "Downtown Fairfield courthouse square",
+    "officialEventUrl": "https://www.fairfieldtexaschamber.com/",
+    "sourceName": "Fairfield Chamber of Commerce & Visitors Center",
+    "summary": "The Fairfield Chamber of Commerce and Visitors Center lists Jingle All the Way for Saturday, December 19, 2026. Local Freestone County community notices identify the courthouse square in downtown Fairfield as the gathering area. This is a different holiday date and event from Christmas on the Square on December 5. The Chamber's current listing does not confirm individual performance times, vendors, entry costs or other activity details; check directly with the organizer before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  }
 ];
