@@ -1275,5 +1275,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "City of Pearsall — official November 17, 2026 12 Days of Christmas announcement",
     "summary": "The City of Pearsall's official November 17, 2026 notice confirms its themed 12 Days of Christmas community festivities for Friday, December 4, 2026, with a Christmas parade, Christmas Tamale Contest and holiday vendor opportunities on that date. The city also sets a separate December 2, 2026 date for its Christmas Home & Business Decorating Contest; this single Dec 4 record does not imply that the parade or vendor market runs from Dec 2 to Dec 4. The original city announcement provides separate entry applications but does not independently establish public start/end hours, spectator fees, parade route, exact activity venues, or any 2027 edition. Confirm day-of details with the City and do not reuse organizer photographs without permission.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "cross-plains-sip-n-shop-christmas-parade-2026",
+    "title": "Cross Plains Christmas Parade, Santa Visit & Sip N' Shop",
+    "city": "Cross Plains",
+    "countySlug": "callahan",
+    "countyName": "Callahan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Main Street, downtown Cross Plains, Callahan County, Texas",
+    "officialEventUrl": "https://crossplainschamberofcommerce.com/sidewalk-sale",
+    "sourceName": "Cross Plains Chamber of Commerce — original 2026 Sip N' Shop and Christmas Parade notice",
+    "summary": "The Cross Plains Chamber of Commerce confirms its downtown Christmas Sip N' Shop on Thursday, December 3, 2026, from 4–9 p.m. along Main Street, held alongside the Cross Plains Christmas Parade and Santa's visit. The Chamber invites holiday shopping, local crafts, food vendors, baked goods and food trucks; individual merchants may offer refreshments. The advertised $35 sign-up applies to sidewalk vendors and is not an admission fee for parade spectators. The 4–9 p.m. window is for the Sip N' Shop; the Chamber's dated 2026 notice does not specify an exact parade departure time or route. Its separate /christmas page still describes the 2025 edition and must not be used to replace the 2026 date. Confirm traffic details with the Chamber. No permission to reuse its photos or 2027 dates is inferred.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
