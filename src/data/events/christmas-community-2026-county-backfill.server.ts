@@ -1261,5 +1261,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Fairfield Chamber of Commerce & Visitors Center — November 3, 2026 Chamber Chatter",
     "summary": "The Fairfield Chamber's November 2026 Chamber Chatter community schedule lists Holiday Sip, Snack & Shop on Thursday, December 3, 2026, as a distinct local shopping celebration before Christmas on the Square on December 5 and Jingle All the Way on December 19. The Chamber's published calendar places the event in Fairfield, but participating shop addresses, reliable activity hours, admission terms and promotions should be reconfirmed with the organizer. The same Chamber's earlier schedule gives different dates for the separate Christmas on Commerce promotion, which is not conflated with this event. No 2027 edition or photo-use permission is inferred.",
     "sourceVerifiedAt": "2026-11-22"
+  },
+  {
+    "slug": "pearsall-twelve-days-of-christmas-parade-tamales-2026",
+    "title": "Pearsall 12 Days of Christmas Parade, Tamale Contest & Holiday Vendors",
+    "city": "Pearsall",
+    "countySlug": "frio",
+    "countyName": "Frio County",
+    "region": "south-texas",
+    "startDate": "2026-12-04",
+    "venueName": "Pearsall, Texas — city Christmas celebration; route and individual activity locations to be confirmed with City of Pearsall",
+    "officialEventUrl": "https://www.cityofpearsall.org/news_detail_T8_R63.php",
+    "sourceName": "City of Pearsall — official November 17, 2026 12 Days of Christmas announcement",
+    "summary": "The City of Pearsall's official November 17, 2026 notice confirms its themed 12 Days of Christmas community festivities for Friday, December 4, 2026, with a Christmas parade, Christmas Tamale Contest and holiday vendor opportunities on that date. The city also sets a separate December 2, 2026 date for its Christmas Home & Business Decorating Contest; this single Dec 4 record does not imply that the parade or vendor market runs from Dec 2 to Dec 4. The original city announcement provides separate entry applications but does not independently establish public start/end hours, spectator fees, parade route, exact activity venues, or any 2027 edition. Confirm day-of details with the City and do not reuse organizer photographs without permission.",
+    "sourceVerifiedAt": "2026-11-22"
   }
 ];
