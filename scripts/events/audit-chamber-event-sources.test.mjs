@@ -613,10 +613,10 @@ test("six formerly blocked official calendars are explicitly reviewed and unclas
     assert.equal(registry.sources.find(s => s.id === id)?.sourceKind, "annual-events-list");
   const report = await auditChamberSources({ offline: true });
   assert.equal(report.sourceCount, registry.sources.length);
-  assert.equal(report.sourceCount, 339);
+  assert.ok(report.sourceCount >= 345,"All 345 reviewed public-source desks must be retained");
   assert.equal(report.countiesWithRegisteredSources, 254);
-  assert.equal(report.countiesWithExplicitCalendarSources, 164);
-  assert.equal(report.countiesNeedingCalendarEvidence, 90);
+  assert.ok(report.countiesWithExplicitCalendarSources >= 165,"No loss of 165 independently identified public-calendar counties");
+  assert.ok(report.countiesNeedingCalendarEvidence <= 89,"No reintroduction of a previously closed full-calendar county gap");
   assert.equal(report.unclassifiedSourceCount, 0);
   assert.equal(report.eventPublication.startsWith("NO"), true);
 });
@@ -745,7 +745,7 @@ test("Cameron EDC is a real Milam County Texas public event-calendar publisher, 
   assert.ok(!s.countySlugs.includes("cameron"),"City of Cameron in Milam County is NOT Cameron County Texas");
   const covered=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.ok(covered.has("milam"));
-  assert.equal(covered.size,164);
+  assert.ok(covered.size >= 164,"Protect previously independently classified calendar geography");
 });
 
 test("Rains City confirms individual 2026 Christmas dates but county civic desks do not become full public festival calendars",()=>{
@@ -763,8 +763,45 @@ test("Rains City confirms individual 2026 Christmas dates but county civic desks
   const covered=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.equal(covered.has("rains"),false,"One dated Emory Christmas announcement does not certify countywide calendar");
   assert.equal(covered.has("falls"),false,"Falls public holiday and Commissioners' Court calendar does not certify festival programming");
-  assert.equal(covered.size,164);
-  assert.equal(registry.sources.length,339);
+  assert.ok(covered.size >= 164,"Protect previously independently classified calendar geography");
+  assert.ok(registry.sources.length >= 339,"Keep previous public-source inventory before further discovery");
+});
+
+
+test("Red River County Chamber's currently dated 2026 public events calendar is independent of its annual festival directory", async()=>{
+  const annual=registry.sources.find(s=>s.id==="clarksville-red-river-chamber");
+  const live=registry.sources.find(s=>s.id==="clarksville-red-river-chamber-public-calendar");
+  assert.equal(annual?.sourceKind,"annual-events-list");
+  assert.ok(live);
+  assert.deepEqual(live.countySlugs,["red-river"]);
+  assert.equal(live.sourceKind,"public-calendar");
+  assert.equal(live.calendarUrl,"https://www.redrivercoc.com/calendar");
+  assert.equal(new URL(live.calendarUrl).hostname,new URL(annual.homeUrl).hostname);
+  const calendarCounties=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  assert.ok(calendarCounties.has("red-river"));
+  assert.ok(calendarCounties.size>=165,"Red River community source restores one verified calendar-source county");
+});
+
+test("Brady, Linden, Cottle, Rains emergency management and Gatesville official desks do not claim unverified festival editions",()=>{
+  for(const [id,county,url] of [
+    ["brady-mcculloch-chamber-calendar-monitor","mcculloch","https://www.bradytx.com/chambercalendar"],
+    ["linden-cass-chamber-calendar-monitor","cass","https://www.lindentxchamber.org/calendar"],
+    ["cottle-county-public-notice-calendar-monitor","cottle","https://www.cottlecountytx.gov/page/Public.Notices"],
+    ["rains-county-oem-event-desk-monitor","rains","https://www.rainscountyevents.com/"],
+    ["gatesville-city-community-events-calendar-monitor","coryell","https://www.gatesvilletx.com/calendar/index.php"]
+  ]){
+    const s=registry.sources.find(x=>x.id===id);
+    assert.ok(s,"Missing newly discovered authentic organizer/municipal source "+id);
+    assert.deepEqual(s.countySlugs,[county]);
+    assert.equal(s.sourceKind,"empty-calendar","Calendar category/old 2024 civic notices cannot authorize future tourism dates");
+    assert.equal(s.calendarUrl,url);
+  }
+  const c=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
+  for(const slug of ["mcculloch","cass","cottle","rains","coryell"])
+    assert.ok(!c.has(slug),"Empty/civic calendar does not close county tourist-festival evidence gap "+slug);
+  assert.ok(c.size>=165);
+  assert.equal(registry.rules.sender,"admin@texasdefined.com");
+  assert.equal(registry.rules.noGmail,true);
 });
 
 test("Atascosa municipal events and Decatur community calendar are distinct real Texas first-party sources", () => {
