@@ -725,3 +725,15 @@ test("Henderson 2026 downtown Christmas parade uses the city source and never mi
   assert.match(item.summary,/December 8/);
   assert.match(item.summary,/contingency/);
 });
+
+test("Bee County 2026 Christmas fun run is organizer verified without inventing Beeville parade hours", () => {
+  const e=events.find(e=>e.slug==="beeville-merry-miles-christmas-fun-run-2026");
+  assert.ok(e);
+  assert.equal(e.countySlug,"bee");
+  assert.equal(e.startDate,"2026-12-05");
+  assert.equal(e.endDate,undefined);
+  assert.equal(e.sourceVerifiedAt,"2026-11-23");
+  assert.equal(new URL(e.officialEventUrl).hostname,"athleteguild.com");
+  assert.match(e.summary,/tentative schedule/);
+  assert.match(e.summary,/do not independently provide a confirmed parade start/);
+});
