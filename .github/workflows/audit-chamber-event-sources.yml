@@ -84,7 +84,7 @@ jobs:
             });
             const previous = issues.find(issue => !issue.pull_request && issue.title === title);
             const failures = report.observations.filter(row =>
-              !['reachable-discovery-only', 'not-due', 'offline-validation', 'contact-only-research'].includes(row.state));
+              !['reachable-discovery-only', 'contact-discovery-only', 'not-due', 'offline-validation', 'contact-only-research'].includes(row.state));
             const body = [
               'Chamber source coverage is an editorial discovery roster, not evidence of confirmed event occurrences or backlinks.',
               '',
@@ -103,12 +103,20 @@ jobs:
               'Annual festival guides (edition dates must be reconfirmed): **' + report.annualEventsListSourceCount + '**.',
               'Registered older sources awaiting source-type classification: **' + report.unclassifiedSourceCount + '**.',
               'Calendar-source fetches requiring review: **' + failures.length + '**.',
+              'Same-publisher event calendar links discovered from due contact homepages, still UNVERIFIED: **' +
+                (report.contactCalendarCandidateCount || 0) + '**. No source is auto-promoted or events published.',
               '',
               '### Counties missing vetted local sources',
               ...report.unservedCounties.map(row => '- ' + row.name + ' — ' + row.url),
               '',
               '### Counties with no explicitly classified community calendar / organizer source',
               ...report.countiesNeedingCalendarEvidenceDetails.map(row => '- ' + row.name + ' — ' + row.url),
+              '',
+              '### Unverified calendar links from official Chamber contact homepages',
+              ...report.observations.filter(row => row.state === 'contact-discovery-only')
+                .flatMap(row => (row.calendarCandidates || []).map(candidate =>
+                  '- ' + row.organization + ': ' + candidate.sourceUrl + ' — unverified, manual review only'))
+                .slice(0, 80),
               '',
               '### Official source access requiring review',
               // Never promote an unsafe quarantined publisher to a clickable
