@@ -20,12 +20,13 @@ const dir = ".artifacts/texas-food-brand-live";
 await mkdir(dir,{recursive:true});
 const report={checkedAt:new Date().toISOString(),sha:process.env.GITHUB_SHA??null,checks:[],failures:[]};
 async function check(label,fn){try{await fn();report.checks.push(label);}catch(e){report.failures.push({label,error:e.message});console.error("FAIL",label,e.message);}}
-async function fetchLive(path,uncached=true){
+async function fetchLive(path,uncached=true,{versionedSitemap=false}={}){
   const url=origin+path+(uncached?"?__td_refresh_proof="+randomUUID():"");
   const res=await fetch(url,{headers:uncached?{"Cache-Control":"no-cache, no-store, max-age=0"}:{},signal:AbortSignal.timeout(25000)});
   assert.equal(res.status,200);
   assert.equal(new URL(res.url).pathname,path);
-  if(uncached)assert.ok(!["HIT","STALE","UPDATING"].includes((res.headers.get("cf-cache-status")??"").toUpperCase()));
+  if(uncached && !versionedSitemap)assert.ok(!["HIT","STALE","UPDATING"].includes((res.headers.get("cf-cache-status")??"").toUpperCase()));
+  if(versionedSitemap){assert.equal(path,"/sitemap.xml");assert.doesNotMatch(res.headers.get("cf-cache-status")??"",/^(STALE|UPDATING)$/i,"Sitemap served stale during verification");}
   return {html:await res.text(),res};
 }
 const link=(html,href)=>html.includes('href="'+href+'"')||html.includes('href="'+origin+href+'"');
@@ -49,8 +50,10 @@ for(const [path,target] of reverse)await check(path+" contextual backlink",async
   const {html}=await fetchLive(path);
   assert.ok(link(html,target),"Reverse guide link absent");
 });
-await check("All five sitemap dates",async()=>{
-  const {html}=await fetchLive("/sitemap.xml");
+// Public query parameters are intentionally stripped from the versioned sitemap cache key.
+// A cache HIT is valid only when the actual XML independently passes all date checks.
+for(const uncached of [true,false])await check("All five sitemap dates "+(uncached?"cache-busted":"ordinary"),async()=>{
+  const {html}=await fetchLive("/sitemap.xml",uncached,{versionedSitemap:true});
   for(const [path] of cases){
     const entry=html.split(/<url>/).find(x=>x.includes("<loc>"+origin+path+"</loc>"));
     assert.ok(entry,"Missing "+path);
@@ -73,6 +76,7 @@ if(process.argv.includes("--browser")){
      await page.locator("main h1").waitFor({state:"visible"});
      await page.waitForFunction(()=>document.documentElement.dataset.tdRootHydrated==="1",null,{timeout:30000});
      assert.equal(await page.locator("h1").count(),1);
+     assert.equal(await page.locator("main").count(),1,"Exactly one main landmark required");
      assert.ok((await page.locator("main").innerText()).includes(marker));
      assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"),origin+path);
      assert.ok(await page.locator('main a[href="'+related+'"]').count()>0);
