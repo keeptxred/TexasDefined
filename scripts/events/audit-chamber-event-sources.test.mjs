@@ -8,8 +8,8 @@ import {
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
 const registry = JSON.parse(readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
 // Exact reviewed registry baseline; update once per accepted source batch.
-const REVIEWED_SOURCE_COUNT = 387;
-const REVIEWED_CALENDAR_COUNTIES = 202;
+const REVIEWED_SOURCE_COUNT = 391;
+const REVIEWED_CALENDAR_COUNTIES = 204;
 const REVIEWED_CALENDAR_GAPS = 254 - REVIEWED_CALENDAR_COUNTIES;
 
 test("all 254 canonical county guides are present in the research roster", () => {
@@ -1734,4 +1734,15 @@ test("Cow Country Christmas exact Throckmorton organizer page is not a full coun
 
 test("Sanderson seasonal distillery program calendar is venue-only in Terrell County, not Terrell city",()=>{
  const src=registry.sources.find(s=>s.id==="terrell-sanderson-tall-texan-distillery-2026-programs");assert.ok(src);assert.deepEqual(src.countySlugs,["terrell"]);assert.equal(src.sourceKind,"public-calendar");assert.equal(src.calendarUrl,"https://talltexandistilling.com/distillery-events");assert.match(src.organization,/VENUE ONLY/);assert.equal(registry.sources.find(s=>s.id==="terrell-county-gov")?.sourceKind,"contact-only");
+});
+
+
+test("Martin County Community Complex is a dated venue calendar, not a countywide chamber festival feed",()=>{
+ const src=registry.sources.find(s=>s.id==="martin-county-community-complex-events");assert.ok(src);assert.deepEqual(src.countySlugs,["martin"]);assert.equal(src.sourceKind,"public-calendar");assert.equal(src.calendarUrl,"https://martincountycommunitycomplex.com/events/");assert.match(src.organization,/VENUE ONLY/);assert.equal(registry.sources.find(s=>s.id==="martin-county-chamber")?.sourceKind,"contact-only");assert.equal(src.contactEmail,undefined);
+});
+
+
+test("Schleicher local Extension calendar qualifies only local dated programs; Terry and Perryton individual events do not inflate county coverage",()=>{
+ const local=registry.sources.find(s=>s.id==="schleicher-agrilife-local-2026-programs");assert.ok(local);assert.deepEqual(local.countySlugs,["schleicher"]);assert.equal(local.sourceKind,"public-calendar");assert.equal(local.calendarUrl,"https://agrilifeextension.tamu.edu/counties/schleicher-county/");assert.match(local.organization,/LOCAL EXTENSION PROGRAMS ONLY/);assert.equal(registry.sources.find(s=>s.id==="schleicher-county-gov")?.sourceKind,"contact-only");
+ for(const [id,county] of [["terry-agrilife-january-2027-stock-show","terry"],["ochiltree-bolerjack-perryton-concert-2026","ochiltree"]]){const src=registry.sources.find(s=>s.id===id);assert.ok(src);assert.deepEqual(src.countySlugs,[county]);assert.equal(src.sourceKind,"event-specific");assert.match(src.organization,/EVENT ONLY/);assert.equal(src.contactEmail,undefined);}
 });
