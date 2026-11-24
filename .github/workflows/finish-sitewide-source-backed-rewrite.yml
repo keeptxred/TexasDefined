@@ -1,6 +1,10 @@
 name: Finish sitewide source-backed editorial rewrite
 
 on:
+  # Recover stranded protected bot PRs without purchasing another model run.
+  # The quiet overnight window reduces collisions with daytime editorial batches.
+  schedule:
+    - cron: '17 8 * * *'
   push:
     branches: [main]
     paths:
@@ -28,7 +32,7 @@ concurrency:
 
 jobs:
   finish:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
@@ -53,7 +57,7 @@ jobs:
             run="$EVENT_RUN"
           elif [[ "$EVENT_NAME" = workflow_dispatch ]]; then
             run="$MANUAL_RUN"
-          elif [[ "$EVENT_NAME" = push ]]; then
+          elif [[ "$EVENT_NAME" = push || "$EVENT_NAME" = schedule ]]; then
             # Recover an older OPEN bot PR even if newer successful source
             # runs reviewed sources and safely generated no content change.
             pr_candidates="$(gh pr list --repo "$REPO" --base main --state open --limit 100 \
