@@ -24,7 +24,11 @@ for (const contract of [
   'gh workflow run "$workflow" --ref "$branch"',
   '--event workflow_dispatch',
   'select(.headSha ==',
-  'gh run watch "$run_id" --exit-status',
+  'gh api "repos/{owner}/{repo}/actions/runs/$run_id"',
+  'jq -e --arg sha "$sha" --arg branch "$branch"',
+  '.head_sha == $sha and .head_branch == $branch and .event == "workflow_dispatch"',
+  '[[ "$conclusion" != success ]]',
+  'poll_failures >= 8',
 ]) {
   requireText(dispatcherPath, dispatcher, contract);
 }
