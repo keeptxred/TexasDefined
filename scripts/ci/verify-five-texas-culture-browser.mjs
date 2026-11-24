@@ -96,6 +96,17 @@ try {
         check("image decoded",imageData.complete&&imageData.naturalWidth>120,imageData.naturalWidth);
         check("image within viewport",imageData.visibleWidth<=viewport.width+4,imageData.visibleWidth);
       }
+      if(spec.path==="/texas-rock-climbing-bouldering-guide") {
+        const hero=page.locator('main img[alt*="Granite dome landscape"]').first();
+        const optimization=await hero.evaluate(img=>({
+          src:img.getAttribute("src"),width:img.getAttribute("width"),
+          height:img.getAttribute("height"),decoded:img.complete&&img.naturalWidth>0
+        }));
+        check("climbing hero is compressed, reserved and decoded",
+          optimization.src==="/images/editorial/enchanted-rock-climbing-720.webp" &&
+          optimization.width==="720" && optimization.height==="405" &&
+          optimization.decoded,optimization);
+      }
       if(spec.path==="/texas-homecoming-mums") {
         const hero=page.locator('main img[alt*="Goldthwaite"]').first();
         const sizing=await hero.evaluate(el=>({
