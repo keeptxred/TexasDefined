@@ -131,11 +131,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-04",
     venue: "Rockport Festival Grounds",
     officialUrl: "https://members.rockport-fulton.org/events/details/2026-seafair-64771",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Rockport-Fulton SeaFair is a long-running Gulf Coast community festival with seafood, crab races, arts and crafts, a market, boat and car displays, cardboard boat races and live entertainment at the Rockport Festival Grounds.",
     planningSections: [
-      { title: "Use October 1-4 as the organizer-confirmed 2026 window", body: "The Rockport-Fulton Chamber lists SeaFair from Thursday, October 1 through Sunday, October 4, 2026 at the Rockport Festival Grounds. Check the official event page for the final daily schedule, contest times and ticket details." },
-      { title: "Choose a day around the signature competitions", body: "SeaFair mixes staged entertainment with crab races, cardboard boat races, a cook-off, market vendors and vehicle displays. Review the organizer schedule before choosing a single day so the activity you care about is actually running." },
+      { title: "Treat October 1–4, 2026 as a completed edition", body: "The chamber still lists the 51st SeaFair held October 1–4, 2026, at 101 Seabreeze Drive in Rockport Harbor. No 2027 dates are confirmed on the reviewed organizer pages. The 2026 Thursday community night had free grounds admission but a separate carnival charge; do not assume those terms will recur." },
+      { title: "Choose a day around the signature competitions", body: "SeaFair mixes staged entertainment with crab races, cardboard boat races, a cook-off, market vendors and vehicle displays. The 2026 program also included a Saturday morning parade. The chamber’s linked schedule still identifies the completed edition; check the next published program for contest registration and timing." },
       { title: "Pair SeaFair with the Rockport-Fulton waterfront", body: "The festival is one piece of a broader coastal trip. Leave room for the waterfront, seafood, birding and other Aransas County stops before or after the festival grounds." },
     ],
     relatedLinks: [
@@ -144,6 +144,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Rockport-Fulton Chamber — 2026 SeaFair", url: "https://members.rockport-fulton.org/events/details/2026-seafair-64771" },
+      { label: "Rockport-Fulton Chamber SeaFair festival information", url: "https://www.rockport-fulton.org/seafair/" },
+      { label: "Rockport-Fulton Chamber SeaFair schedule", url: "https://www.rockport-fulton.org/seafair-schedule/" },
       { label: "Rockport-Fulton Chamber festival calendar", url: "https://members.rockport-fulton.org/events/search?Lookahead=&c=1&q=" },
     ],
   },
