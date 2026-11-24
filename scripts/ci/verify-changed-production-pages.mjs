@@ -983,6 +983,36 @@ for (const path of plan.selectedPaths) {
   }
   if (failure) results.push({ path, passed: false, error: failure });
 }
+// Verify the exact, content-versioned sitemap rows for the bounded Alvin release.
+const alvinAuthorityPages = plan.alvinAuthorityPages ?? [];
+if (alvinAuthorityPages.length) {
+  if (!Array.isArray(alvinAuthorityPages) || alvinAuthorityPages.length !== 3 ||
+      !['/city/alvin', '/county/brazoria', '/destination/alvin-historical-museum'].every(path => alvinAuthorityPages.includes(path) && plan.selectedPaths.includes(path))) {
+    throw new Error('Invalid Alvin authority sitemap scope');
+  }
+  for (const [sitemap, paths] of [
+    ['/sitemap.xml', ['/city/alvin', '/county/brazoria']],
+    ['/sitemap-explore.xml', ['/destination/alvin-historical-museum']],
+  ]) {
+    let failure;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const response = await fetchImpl(new URL(sitemap, origin), { headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-Alvin-Sitemap-Smoke/1.0' }, signal: AbortSignal.timeout(30000) });
+        if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') throw new Error('Alvin sitemap HTTP ' + response.status);
+        const xml = await response.text();
+        for (const path of paths) {
+          const rows = [...xml.matchAll(/<url\b[^>]*>[\s\S]*?<\/url>/gi)].map(m => m[0]).filter(row => row.includes('<loc>' + origin + path + '</loc>'));
+          const date = rows[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+          if (rows.length !== 1 || !date || date < '2026-11-24') throw new Error('Alvin sitemap missing unique current row for ' + path + ': ' + (date ?? 'missing'));
+        }
+        results.push({ path: sitemap, passed: true, attempt, requiredUrls: paths });
+        failure = null;
+        break;
+      } catch (error) { failure = String(error); }
+    }
+    if (failure) results.push({ path: sitemap, passed: false, error: failure });
+  }
+}
 // Fredericksburg's dynamic sitemap membership is a separate acceptance from
 // the page's HTTP 200/canonical. Only run after the sitemap or this planner
 // changes; fetch one live XML document, never enumerate statewide URLs.
