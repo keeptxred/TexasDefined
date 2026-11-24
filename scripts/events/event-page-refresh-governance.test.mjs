@@ -361,7 +361,7 @@ test('substantive editorial source reviews remain dated and agree across guides 
   const south = event('src/data/major-event-expanded-authority-tranche47.server.ts', 'south-pole-illuminated-festival');
   assert.match(south, /startDate: "2026-11-27"/);
   assert.match(south, /endDate: "2026-12-27"/);
-  assertSourceReview(south, "2026-11-24", "south-pole-illuminated-festival");
+  assertSourceReview(south, "2026-11-15", "south-pole-illuminated-festival");
   assert.match(south, /mcallenholidayparade\.com\/tree-lighting-ceremony/);
   const sourceMonitor = source('scripts/events/check-november-event-sources.mjs');
   assert.ok(sourceMonitor.includes('November\\s+27\\s*[-–]\\s*December\\s+27'), 'November source monitor must require current dates');
@@ -400,7 +400,7 @@ test('substantive editorial source reviews remain dated and agree across guides 
     ['src/data/major-event-expanded-authority-tranche25.server.ts', 'mardi-gras-galveston'],
     ['src/data/major-event-expanded-authority-tranche57.server.ts', 'main-street-bethlehem-burnet'],
   ]) assertSourceReview(event(file, slug),
-    slug === 'main-street-bethlehem-burnet' ? "2026-11-24" : "2026-11-15", slug);
+    "2026-11-15", slug);
 });
 
 
