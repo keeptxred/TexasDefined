@@ -1644,5 +1644,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Hughes Springs Chamber of Commerce — original December 5, 2026 calendar",
     "summary": "The Hughes Springs Chamber of Commerce's 2026–27 original event calendar confirms two consecutive Saturday, December 5, 2026 community programs in Cass County. The Christmas Parade runs 5–6 p.m., starting at the HSISD parking lot and continuing to the Curtis Performing Arts parking lot; the Chamber gives float lineups at 3:45 p.m. and other participant lineups at 4:15 p.m., which are NOT visitor parade start times. Christmas in the Park follows from 6–7 p.m. with its annual tree lighting at Spring Park, and decorated community trees remain on display afterward. The Chamber has not published a confirmed 2026 parade theme, admission charge, traffic-closure plan or weather contingency; check the original organizer for updates before traveling. This one combined visitor itinerary does not create 2027 Christmas dates or grant image reuse rights.",
     "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "mission-tejas-holiday-hot-chocolate-ranger-2026",
+    "title": "Holiday Hot Chocolate with a Ranger at Mission Tejas",
+    "city": "Grapeland",
+    "countySlug": "houston",
+    "countyName": "Houston County",
+    "region": "piney-woods",
+    "startDate": "2026-12-12",
+    "venueName": "Group Amphitheatre, day-use area, Mission Tejas State Park, 19343 State Highway 21 E., Grapeland",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/mission-tejas/holiday-hot-chocolate-with-a-ranger",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "The park's ranger-led holiday gathering runs 7–8 p.m. Saturday, December 12, 2026. Meet at the day-use group amphitheatre for hot chocolate, campfire conversation and the history of holiday traditions. Regular park admission is $4 per person; children 12 and younger and valid Texas State Parks Pass holders enter free. Check with the park about capacity, weather and access before traveling. This is a single confirmed 2026 program, not an announced 2027 repeat.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "mission-tejas-christmas-ornaments-2026",
+    "title": "Tejas Christmas Ornaments at Mission Tejas State Park",
+    "city": "Grapeland",
+    "countySlug": "houston",
+    "countyName": "Houston County",
+    "region": "piney-woods",
+    "startDate": "2026-12-19",
+    "venueName": "Visitor Center near park headquarters, Mission Tejas State Park, 19343 State Highway 21 E., Grapeland",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/mission-tejas/tejas-christmas-ornaments",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "Park staff will lead a holiday craft session from 1:30–3:30 p.m. Saturday, December 19, 2026, at the visitor center by headquarters. Activities include decorating wooden ornaments and painting small stocking pins. Regular park admission is $4 per person; children 12 and younger and valid Texas State Parks Pass holders enter free. Confirm availability and accessibility with the park before visiting. No 2027 edition or image permission is assumed.",
+    "sourceVerifiedAt": "2026-11-24"
   }
 ];
