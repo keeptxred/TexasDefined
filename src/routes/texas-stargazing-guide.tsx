@@ -76,7 +76,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Stargazing: 5 Certified Dark Sky State Parks",
-        description: "Compare five Texas dark-sky state parks by Bortle class, viewing areas, moonrise and twilight, official sky monitors and after-hours access.",
+        description: "Compare Texas dark-sky parks, Bortle ratings, viewing areas, seasonal observing, moonrise, twilight and legal nighttime access.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
