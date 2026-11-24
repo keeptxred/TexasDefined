@@ -128,13 +128,13 @@ export const VERIFIED_TOURNAMENT_BATCH3_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 UIL Softball State Championships are scheduled for June 3–5 at Red & Charline McCombs Field in Austin.",
     whyItMatters: "The UIL softball championships concentrate Texas public-school title games across classifications at the University of Texas softball venue over three days.",
     planningNotes: [
-      "Use the UIL schedule to select the classification and championship game that anchors your visit.",
-      "McCombs Field is the confirmed 2027 venue; check current UIL and venue instructions for tickets, parking and entry close to travel.",
+      "The UIL schedule assigns 2A and 3A finals to June 3, 4A and 5A to June 4, and 1A and 6A to June 5. The first game each day is scheduled for 10 a.m.; the competing schools are not yet listed.",
+      "The finals are scheduled for McCombs Field in Austin. UIL’s official 2027 schedule is available on its tournament page; confirm the specific game’s admission and venue access rather than reusing last season’s terms.",
       "Keep Austin and Travis County sightseeing secondary to the championship schedule on game day, then add nearby stops around the fixed event window.",
     ],
     officialUrl: "https://www.uiltexas.org/softball/state",
     officialSourceLabel: "UIL Softball State Championships official page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "uil-soccer-state-championships",
@@ -151,13 +151,13 @@ export const VERIFIED_TOURNAMENT_BATCH3_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 UIL Soccer State Championships are scheduled for April 8–10 at Birkelbach Field in Georgetown.",
     whyItMatters: "The UIL soccer championships bring boys and girls public-school title matches across classifications to Georgetown for a three-day statewide final series.",
     planningNotes: [
-      "Match the classification and boys or girls final you want to the current UIL schedule before choosing your travel day.",
-      "Birkelbach Field is the confirmed 2027 championship site; use UIL guidance for final ticket, entry and weather-related instructions.",
+      "UIL’s published 2027 schedule assigns 4A finals to April 8, 5A to April 9 and 6A to April 10. Each day has four matches, with the Division II girls followed by boys and then the Division I girls and boys.",
+      "Birkelbach Field in Georgetown hosts the finals. UIL’s postseason manual sets March 16 as the district-champion deadline; final participants are not yet listed. Check the actual tournament ticket and access arrangements once announced.",
       "Use Georgetown and Williamson County planning around the championship window after the match schedule is fixed.",
     ],
     officialUrl: "https://www.uiltexas.org/soccer/state",
     officialSourceLabel: "UIL Soccer State Championships official page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "uil-tennis-state-tournaments",
