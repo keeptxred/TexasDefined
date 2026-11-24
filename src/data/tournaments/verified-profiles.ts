@@ -40,13 +40,14 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     summary: "The Charles Schwab Challenge returns to Colonial Country Club in Fort Worth for tournament week May 24–30, 2027.",
     whyItMatters: "Colonial is one of the PGA TOUR’s enduring Texas stops, pairing a long-running professional event with one of Fort Worth’s best-known golf venues.",
     planningNotes: [
-      "Use the tournament’s official spectator information for daily gate, parking, rideshare and ticket details as the event approaches. Compare public, VIP and valet parking in the tournament’s Parking Options before choosing how to arrive.",
+      "The official 2027 ticket pages currently show prices explicitly based on the 2026 tournament, despite advertising the May 24–30, 2027 event. Do not treat these as confirmed 2027 admission rates or promise that a specific ticket type is on sale. Recheck the 2027 checkout before buying or publishing prices.",
+      "Use current official spectator information for daily gates, parking, rideshare and tickets. Compare public, VIP and valet parking only after the organizer updates its 2027 Parking Options; an older lot map is not proof of future access.",
       "Tournament-week dates cover more than championship rounds, so confirm the specific day and access type before booking around a session. Use Tee Times & Pairings for each round’s start times and player groupings.",
       "Pair the event with Texas Defined Fort Worth and Tarrant County guides for lodging, dining and other trip planning.",
     ],
     officialUrl: "https://www.charlesschwabchallenge.com/",
     officialSourceLabel: "Charles Schwab Challenge official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "the-cj-cup-byron-nelson",
