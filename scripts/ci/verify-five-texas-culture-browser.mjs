@@ -111,10 +111,12 @@ try {
         const hero=page.locator('main img[alt*="Goldthwaite"]').first();
         const sizing=await hero.evaluate(el=>({
           width:el.getAttribute("width"),height:el.getAttribute("height"),
+          src:el.getAttribute("src"),decoded:el.complete&&el.naturalWidth>0,
           aspect:el.naturalWidth&&el.naturalHeight?el.naturalWidth/el.naturalHeight:null
         }));
-        check("portrait homecoming hero reserves licensed image intrinsic aspect",
-          sizing.width==="1876" && sizing.height==="3922",sizing);
+        check("portrait homecoming hero reserves intrinsic aspect, uses 720px licensed thumbnail and decodes",
+          sizing.width==="1876" && sizing.height==="3922" &&
+          sizing.src?.includes("width%3D720") && sizing.decoded,sizing);
       }
       const dims=await page.evaluate(()=>({
         viewport:document.documentElement.clientWidth,
