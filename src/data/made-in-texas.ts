@@ -99,7 +99,7 @@ export const MADE_IN_TEXAS_ENTRIES: TexasMadeEntry[] = [
   entry('Pappas Restaurants', 'Houston', 'harris', 'food-drink', 'headquartered', 'Houston-based restaurant group with multiple Texas-born concepts.'),
   entry('Shipley Do-Nuts', 'Houston', 'harris', 'food-drink', 'founded', 'Houston-founded doughnut chain.'),
   entry('Saint Arnold Brewing Company', 'Houston', 'harris', 'food-drink', 'made-or-processed', 'Houston craft brewery and a long-running local beer institution.'),
-  entry('Texas Tamale Company', 'Houston', 'harris', 'food-drink', 'founded', 'Originated in Houston in 1988; current production must be verified separately.'),
+  entry('Texas Tamale Company', 'Houston', 'harris', 'food-drink', 'founded', 'The Houston company traces its 1985 origins to a street cart, then Highway 6 roadside sales in 1988 and its first restaurant kitchen in 1993.'),
   entry('Pitts & Spitts', 'Houston', 'harris', 'home-outdoors', 'made-or-processed', 'Houston smoker and grill maker tied to Texas barbecue equipment.'),
   entry('Klose Smokers', 'Houston', 'harris', 'home-outdoors', 'made-or-processed', 'Houston-built barbecue pits and smokers.'),
   entry('Gator Pit of Texas', 'Houston', 'harris', 'home-outdoors', 'made-or-processed', 'Houston-area maker of custom barbecue pits.'),
