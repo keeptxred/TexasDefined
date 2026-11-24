@@ -1195,7 +1195,7 @@ test('Alvin authority release checks all three canonical pages, normal visitor c
       const rows = url.pathname === '/sitemap.xml' ? paths.slice(0,2) : paths.slice(2);
       return new Response('<urlset>' + rows.map(path => '<url><loc>'+origin+path+'</loc><lastmod>'+(staleDate ? '2026-08-04' : '2026-11-24')+'</lastmod></url>').join('') + '</urlset>');
     }
-    const body = stale && url.pathname === paths[2] && !url.searchParams.has('deploy_smoke') ? 'Explain the difference between the main historic museum' : contents[url.pathname];
+    const body = stale && url.pathname === paths[2] && !url.searchParams.has('deploy_smoke') ? 'Explain the difference between the main historic museum' : contents[url.pathname] + ' 25635261034 26147334682 5822129305 DeGolyer Library No known copyright restrictions';
     return new Response('<html><head><title>Alvin authority</title><link rel="canonical" href="'+origin+url.pathname+'"></head><body>'+body+'</body></html>');
   };
   const good = await verifyChangedPages({ plan, head, fetchImpl: async url => responseFor(url) });
