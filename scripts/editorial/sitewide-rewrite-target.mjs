@@ -39,7 +39,14 @@ export function findScheduledOperatorPages(value, root = ROOT) {
   const monitor = fs.readFileSync(path.join(root, 'scripts/data/authority/monitor-operator-sources.mjs'), 'utf8');
   const section = monitor.split('export const heritageDestinationMonitorRows = [')[1]?.split('];')[0] || '';
   for (const match of section.matchAll(/\{ id: "([a-z0-9-]+)", sourceUrl: "(https:[^"]+)"/g)) {
-    if (input.includes(match[2])) mapped.push('/destination/' + match[1]);
+    if (match[1] === 'alvin-historical-museum') {
+      // This monitored inventory covers the city and county as well as the museum.
+      // Match an actual source URL, not a prefix of an unrelated URL.
+      if (!findOfficialSourceUrls(input).includes(match[2])) continue;
+      mapped.push('/city/alvin', '/county/brazoria');
+      if (match[2].includes('alvinmuseum.org/') || match[2].includes('/alvin-art-trail') ||
+          match[2].includes('/Historic-Depot-Centre-')) mapped.push('/destination/alvin-historical-museum');
+    } else if (input.includes(match[2])) mapped.push('/destination/' + match[1]);
   }
   const reviewed = fs.readFileSync(path.join(root,'src/data/reviewed-attraction-authorities.ts'),'utf8');
   const marker='export const reviewedAttractionDestinations: Destination[] = ';

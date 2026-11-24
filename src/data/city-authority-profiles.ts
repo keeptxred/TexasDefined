@@ -35,6 +35,7 @@ export type CityAuthorityProfile = {
     sourceUrl?: string;
     credit?: string;
   };
+  supportingPhoto?: { src: string; alt: string; width: number; height: number; sourceUrl: string; credit: string; licenseUrl: string; license: string };
   districts?: ReadonlyArray<{
     name: string;
     summary: string;
@@ -66,6 +67,15 @@ const profiles: Record<string, CityAuthorityProfile> = {
       alt: 'Alvin Historical Museum in the former 1940 U.S. Post Office at 300 West Sealy Street',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg',
       credit: 'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
+    },
+    supportingPhoto: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Alvin_RR_Depot_%285822129305%29.jpg',
+      alt: 'Red-trimmed entrance of the restored Alvin railroad depot in June 2011',
+      width: 720, height: 576,
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Alvin_RR_Depot_(5822129305).jpg',
+      credit: 'BFS Man (Mike Fisher) · Wikimedia Commons',
+      licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+      license: 'CC BY 2.0',
     },
     districts: [
       { name: 'Historic downtown and the railroad depot', summary: 'The restored 1907 Gulf, Colorado and Santa Fe railway depot and National Oak Park form a compact railroad-history stop. The depot is used as a historic venue, not an active passenger station.' },
@@ -120,8 +130,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: '1907 railroad depot and downtown',
-        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building now hosts events beside National Oak Park; it is not an operating passenger railway depot.',
-        links: [{ label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
+        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building at 200 Depot Centre Boulevard now hosts events beside National Oak Park; it is not an operating passenger railway depot. The city lists rental inquiries at 281-388-4299.',
+        links: [{ label: 'City depot and trail information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1' }, { label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
       },
       {
         title: 'Maury Maverick Bridge: a relocated 1932 truss',
@@ -130,12 +140,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Nolan Ryan and the old post office museum',
-        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum also preserves the former 1940 post office building and its restored mural.',
-        links: [{ label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
+        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum preserves the 1940 post office and Loren Mozley’s 1942 mural, Emigrants at Nightfall, restored in 2015. Visit Alvin’s Art Trail also includes outdoor murals such as Anat Ronen’s 2022 Stanton’s History Mural at 219 N Taylor Street. The indoor mural requires museum access.',
+        links: [{ label: 'Official Alvin Art Trail', href: 'https://www.visitalvin.com/business/alvin-art-trail' }, { label: 'Museum mural history', href: 'https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/' }, { label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
       },
       {
         title: 'Froberg’s Farm and Bob Briscoe Park',
-        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
+        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. The farm describes January through late May as the usual strawberry season, with picking subject to crop and weather conditions. Its market operates separately from field access. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
         links: [{ label: 'Froberg’s official calendar', href: 'https://frobergsfarm.com/' }, { label: 'City park information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3' }],
       },
       {
