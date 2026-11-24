@@ -55,7 +55,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Mountain Biking: 5 Trail Systems, Maps & Rides",
-        description: "Compare five Texas mountain bike systems with named routes, difficulty, trailhead directions, elevation context, parking and official trail maps.",
+        description: "Compare Texas mountain bike routes, difficulty, parking and trail maps, plus Huntsville and Ray Roberts options near Houston and DFW.",
         image: heroImage.src,
         imageAlt: "Franklin Mountains State Park above El Paso, a major Texas public mountain-biking landscape",
         imageWidth: heroImage.width,
