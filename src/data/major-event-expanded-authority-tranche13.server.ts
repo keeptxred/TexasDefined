@@ -42,12 +42,12 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer has published the 99th annual North Texas Fair & Rodeo for August 20-29, 2027. Recheck the official schedule before traveling because nightly rodeo, concert and attraction details can change.",
     venue: "North Texas Fair & Rodeo grounds",
     officialUrl: "https://ntfair.com/",
-    sourceCheckedAt: "2026-09-11",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The North Texas Fair & Rodeo gives Denton a ten-night late-summer destination built around rodeo competition, country music, livestock shows, family attractions and a community-supported fair tradition.",
     planningSections: [
       { title: "Start with the confirmed 2027 dates", body: "The organizer lists the 99th annual fair for August 20-29, 2027. Use that ten-day window for lodging and trip planning, then check the official schedule before choosing a specific night because the rodeo and entertainment lineup changes across the run." },
-      { title: "Wait for the 2027 nightly program before choosing tickets", body: "The organizer has published the 2027 fair dates, but year-specific concert, rodeo-night and attraction details can change. Do not rely on the completed 2026 lineup or prices when planning the 2027 trip." },
-      { title: "Use Denton as the trip base", body: "The fair works naturally with a Denton visit. Build dining, downtown and other Denton County stops around the fixed event time instead of making separate cross-region trips." },
+      { title: "Wait for the 2027 nightly program before choosing tickets", body: "The 2027 homepage confirms August 20–29, but the separate gate-hours page still displays August 2026 programming. That earlier edition advertised $15 daily parking and Saturday shuttles from First Baptist Church and the TWU lot near Pioneer Soccer Park. These are historical logistics, not confirmed 2027 terms; wait for the updated gate and shuttle schedule." },
+      { title: "Use Denton as the trip base", body: "Use the organizer’s grounds address, 2217 N Carroll Boulevard, and distinguish fair access from parking and nightly rodeo programming. The association dates its incorporation to 1928 and reports more than 700 members and volunteers, which helps explain its local livestock and scholarship connections." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-denton", label: "Explore Denton County", description: "Build a broader North Texas itinerary around the fair." },
@@ -55,6 +55,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "North Texas Fair & Rodeo official 2027 event page", url: "https://ntfair.com/" },
+      { label: "Organizer gate hours and parking (currently 2026)", url: "https://ntfair.com/about/gate-hours-and-parking-information/" },
     ],
   },
   {
