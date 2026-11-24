@@ -37,6 +37,7 @@ const museumFiles = await Promise.all([
 ]);
 const museumRecord = museumFiles[0].split('slug: "alvin-historical-museum"')[1]?.split('\n  },')[0] ?? '';
 const museumDossier = museumFiles[1].split('"alvin-historical-museum": {')[1]?.split('\n  },')[0] ?? '';
+check('Alvin museum documented seasonal admission', museumRecord.includes('2026 Summer Museum Passport') && museumRecord.includes('$5 admission') && museumDossier.includes('https://bcsummerpassport.org/sites/') && museumDossier.includes('confirm current'), 'Published 2026 admission with explicit current-price caveat');
 check('Museum visitor copy', !!museumRecord && !!museumDossier && !/Explain the difference|its exhibi"|inventing a fr"/.test(museumRecord + museumDossier), 'No known truncated text or editorial instruction');
 const photos = await readFile('src/components/editorial/AlvinHistoricalPhotographs.tsx', 'utf8');
 for (const id of ['25635261034', '26147334682', '5822129305']) check('Alvin photograph source ' + id, photos.includes(id), 'Exact archival original');
@@ -52,6 +53,7 @@ check('Brazoria current appraisal name and direct service links', ['Brazoria Cen
 if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
   // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
+    ['https://bcsummerpassport.org/sites/', ['Alvin Historical Museum', 'Admission: $5, 12 and under free']],
     ['https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225', ['30,115','27,098']],
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
     ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org','500 N Chenango St','Marcel Pierel III']],
@@ -104,6 +106,7 @@ for (const target of targets) {
       check(url + ' direct office contacts', ['Marcel Pierel III','979-849-7792','Kristin R. Bulanek','979-864-1320','Official appraisal district contact details','Official tax office contact details'].every(s=>visible.includes(s)), 'Dated contact facts must actually render; expired or missing facts require editorial review');
       for (const official of ['https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/']) check(url + ' official service ' + official, anchors.includes(official), 'Rendered direct service link');
     }
+    if (target.path === '/destination/alvin-historical-museum' && process.env.GITHUB_EVENT_NAME !== 'pull_request') check(url + ' dated admission evidence', visible.includes('2026') && visible.includes('$5') && visible.includes('12 and under') && anchors.includes('https://bcsummerpassport.org/sites/'), 'Dated sourced price, not guaranteed current tariff');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
     if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');
