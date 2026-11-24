@@ -52,6 +52,7 @@ function verify({ path, evidence }, html) {
   if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
   if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
+  if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path) && !html.includes("www.comanchenation.com/about/page/history")) missing.push("first-person Comanche Nation history citation");
   if (path === "/county/comanche" && !html.includes("Comanche County TX: History, De Leon &amp; Proctor Lake") && !html.includes("Comanche County TX: History, De Leon & Proctor Lake")) missing.push("distinctive Comanche County search title");
   if (path === "/destination/comanche-county-historical-museum" && !html.includes("Comanche County Historical Museum: Free Admission &amp; Hours") && !html.includes("Comanche County Historical Museum: Free Admission & Hours")) missing.push("museum fee-and-hours search title");
   const obsoleteBrennanAdvice = [
