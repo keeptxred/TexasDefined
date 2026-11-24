@@ -68,15 +68,13 @@ test('server-side scoreboard overlay refuses opponent/date mismatch and contradi
 
 
 test('November 24 postseason catch-up covers omitted fixtures without publishing future finals',()=>{
- const expected=[['allen',12,1,7,0],['austin-westlake',11,1,6,0],['angleton',11,1,7,1],['amarillo',11,1,7,0],['belton',8,4,4,1]];
- // Allen's record has no losses; the second slot records wins and losses explicitly below.
- expected[0][2]=0;
+ const expected=[['allen',12,0,7,0],['austin-westlake',11,1,6,0],['angleton',11,1,7,1],['amarillo',11,1,7,0],['belton',8,4,4,1]];
  const authored=readFileSync(join(ROOT,'src/data/high-school-football/program-editorial.ts'),'utf8');
  const dates={Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Sept:'09',Oct:'10',Nov:'11',Dec:'12'};
- const iso=s=>{if(/^2026-/.test(s))return s;const m=/^([A-Za-z]+)\\.? (\\d+)$/.exec(s);assert.ok(m,s);return '2026-'+dates[m[1]]+'-'+m[2].padStart(2,'0')};
+ const iso=s=>{if(/^2026-/.test(s))return s;const m=/^([A-Za-z]+)\.? (\d+)$/.exec(s);assert.ok(m,s);return '2026-'+dates[m[1]]+'-'+m[2].padStart(2,'0')};
  for(const [slug,w,l,dw,dl] of expected){
   const key='  "'+slug+'": ';
-  const start=authored.indexOf(key),end=authored.indexOf('\\n  },',start)+4;
+  const start=authored.indexOf(key),end=authored.indexOf('\n  },',start)+4;
   assert.ok(start>=0&&end>start,slug);
   const team=JSON.parse(authored.slice(start+key.length,end));
   let wins=0,losses=0,districtWins=0,districtLosses=0;
