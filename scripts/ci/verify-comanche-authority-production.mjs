@@ -49,6 +49,7 @@ function verify({ path, evidence }, html) {
   if (path === "/destination/comanche" && !html.includes("atlas.thc.texas.gov/Details/5000022414")) missing.push("THC historic marker corroborating Comanche Frisco depot");
   if (path !== "/explore/small-towns" && !html.includes("npgallery.nps.gov/AssetDetail/NRIS/100001872")) missing.push("NPS separate National Register depot source");
   if (path === "/destination/comanche" && !text.includes("2012")) missing.push("dated Frisco depot preservation reopening");
+  if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
   if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
   const obsoleteBrennanAdvice = [
@@ -59,6 +60,16 @@ function verify({ path, evidence }, html) {
     "Texas-made wine at the historic McCrary homestead, 802 S. Austin St; confirm tasting reservations",
   ];
   if (obsoleteBrennanAdvice.some((advice) => text.includes(advice))) missing.push("obsolete Brennan Comanche tasting-room recommendation");
+  if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
+    for (const phrase of ["1891 courthouse", "leg irons", "1938", "City Hall and Fire Station"]) {
+      if (!text.includes(phrase)) missing.push("NPS landmark context: " + phrase);
+    }
+    if (!html.includes("atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf")) missing.push("National Register district nomination citation");
+  }
+  if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
+    if (!/fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("official fourteen-room museum inventory");
+    if (/more than fourteen|more than 14/i.test(text)) missing.push("unsupported museum room count contradicts current official homepage");
+  }
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||
     text.includes("Yes. The museum\'s official homepage explicitly states general admission is free"))) {
