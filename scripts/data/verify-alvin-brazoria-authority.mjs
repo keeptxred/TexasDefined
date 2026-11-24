@@ -25,6 +25,7 @@ const source = {
   county: await readFile('src/data/county-profile.ts', 'utf8'),
   feature: await readFile('src/data/fixtures/brazoria-county-brazos-gulf-angleton.ts', 'utf8'),
 };
+check('Alvin verified Census estimate', /alvin: \{\s*population2020: 27_098,\s*censusUrl: '[^']+PST045225',\s*populationEstimate: \{ value: 30_115, year: 2025, asOf: 'July 1, 2025' \}/.test(source.city), '2020 decennial count and July 2025 Census estimate');
 check('Brazoria county roster source', source.county.includes("brazoria: ['Alvin', 'Angleton', 'Pearland', 'Lake Jackson', 'Freeport', 'Brazoria', 'West Columbia', 'Surfside Beach']"), 'Explicit verified communities including Alvin');
 for (const term of ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan', 'Slover', 'Maury Maverick Bridge']) {
   check('Alvin city source: ' + term, source.city.includes(term), 'City authority profile');
@@ -50,6 +51,7 @@ check('Brazoria current appraisal name and direct service links', ['Brazoria Cen
 if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
   // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
+    ['https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225', ['30,115','27,098']],
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
     ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org']],
     ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
@@ -93,6 +95,9 @@ for (const target of targets) {
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     const anchors = [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
     for (const link of target.links) check(url + ' link ' + link, anchors.includes(link) || anchors.includes('https://texasdefined.com' + link), 'Rendered reciprocal link');
+    if (target.path === '/city/alvin' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      check(url + ' current Census estimate', visible.includes('30,115') && visible.includes('July 1, 2025'), 'Rendered dated estimate distinct from decennial count');
+    }
     if (target.path === '/county/brazoria' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       check(url + ' verified civic facts', visible.includes('419,080') && visible.includes('Brazoria Central Appraisal District'), 'Current Census estimate and appraisal district name');
       for (const official of ['https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/']) check(url + ' official service ' + official, anchors.includes(official), 'Rendered direct service link');
