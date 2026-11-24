@@ -5,23 +5,10 @@
 import { mkdir,writeFile } from "node:fs/promises";
 import { summarizePageSpeed } from "./audit-homepage-vitals.mjs";
 
-export const PAGES=Object.freeze([
-  "/texas-tall-tales-folklore",
-  "/texas-dance-halls-honky-tonks",
-  "/texas-homecoming-mums",
-  "/texas-natural-wonders-bucket-list",
-  "/texas-rock-climbing-bouldering-guide",
-]);
-export const STRATEGIES=Object.freeze(["mobile","desktop"]);
+import {PAGES,STRATEGIES,isSameCanonical} from "./five-culture-guide-roster.mjs";
+export {PAGES,STRATEGIES,isSameCanonical};
 const ORIGIN="https://texasdefined.com";
 export const OUTPUT=".artifacts/five-culture-guide-vitals.json";
-export function isSameCanonical(actual,expected) {
-  try {
-    const a=new URL(actual),b=new URL(expected);
-    return a.origin===b.origin && a.pathname.replace(/\/$/,"")===b.pathname.replace(/\/$/,"") &&
-      !a.search && !a.hash;
-  } catch {return false;}
-}
 export function interpret(data,url,strategy) {
   const out=summarizePageSpeed(data,strategy);
   const fieldId=data?.loadingExperience?.id||null;
