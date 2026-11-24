@@ -7,13 +7,13 @@ const targets = [
     path: '/city/alvin',
     phrases: ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan', '1907'],
     links: ['/county/brazoria', '/destination/alvin-historical-museum'],
-    schema: '"@type":"City"',
+    schema: 'City',
   },
   {
     path: '/county/brazoria',
     phrases: ['Alvin', 'Lake Jackson', 'West Columbia', "Froberg", 'Bob Briscoe Park', 'Nolan Ryan'],
     links: ['/city/alvin', '/destination/alvin-historical-museum'],
-    schema: '"@type":"AdministrativeArea"',
+    schema: 'AdministrativeArea',
   },
 ];
 
@@ -48,7 +48,7 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
     path: '/destination/alvin-historical-museum',
     phrases: ['Nolan Ryan', 'Loren Mozley', 'Emigrants at Nightfall', 'Slover'],
     links: ['/city/alvin', '/county/brazoria', '/texas-icons/nolan-ryan'],
-    schema: '"@type":"Museum"',
+    schema: 'Museum',
   });
 }
 for (const target of targets) {
@@ -68,14 +68,18 @@ for (const target of targets) {
     const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
       ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge', 'Loren Mozley'];
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
-    for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
+    const anchors = [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
+    for (const link of target.links) check(url + ' link ' + link, anchors.includes(link) || anchors.includes('https://texasdefined.com' + link), 'Rendered reciprocal link');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
     if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');
       check(url + ' photograph credits', visible.includes('DeGolyer Library') && visible.includes('No known copyright restrictions'), 'Reader-visible archival attribution');
     }
-    const compact = html.replace(/\s+/g, '');
-    check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
+    const nodes = [...html.matchAll(/<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(m => {
+      try { const value = JSON.parse(m[1]); return Array.isArray(value) ? value : value['@graph'] ?? [value]; }
+      catch { return []; }
+    });
+    check(url + ' JSON-LD ' + target.schema, nodes.some(node => [node?.['@type']].flat().includes(target.schema)), 'Parsed structured entity (including multi-type Museum/TouristAttraction)');
   } catch (error) {
     check(url + ' retrieval', false, String(error));
   }
