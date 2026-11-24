@@ -68,7 +68,7 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     sourceHref: "https://commons.wikimedia.org/wiki/File:Gruene_hall.jpg",
   },
   "texas-homecoming-mums": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
     caption: "A 2023 Texas high-school homecoming mum shows how a chrysanthemum-centered tradition became a large, personalized display.",
     credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
