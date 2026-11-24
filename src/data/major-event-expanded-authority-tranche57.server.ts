@@ -778,7 +778,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2026-12-13",
     venue: "Main Street Bethlehem, Burnet",
     officialUrl: "https://www.fbcburnet.org/main-street-bethlehem",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Main Street Bethlehem is Burnet's outdoor living-history-style interpretation of biblical Bethlehem, presented by First Baptist Church Burnet. Its two December weekends are a community and faith-based visitor tradition rather than a commercial holiday light park.",
     quickFacts: [
       {
@@ -809,7 +809,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Plan for a queue and outdoor walking",
-        body: "Arrive comfortably before the last-entry window and dress for Central Texas December weather. The venue involves movement through recreated streets and exhibits; verify stroller, wheelchair and accessibility support with the church before visiting."
+        body: "The church requires guests to join the entry line by 8:30 p.m.; this is the last line-entry cutoff, not a guaranteed entrance time. First Baptist Church says waits can reach 90 minutes on popular evenings. The recreated streets are hard-packed but not paved, with a wheelchair-accessible route; a nearby staffed Family Life Center offers indoor seating for guests with disabilities or those unable to stand for a long period. Accessible portable toilets are provided. Dress for weather and consult the operator about individual mobility needs."
       },
       {
         title: "Be precise about parking and highways",
@@ -817,7 +817,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Admission is free; observe the church's current entry policy",
-        body: "First Baptist Church Burnet explicitly says the December 2026 Main Street Bethlehem experience is free for everyone. The site prohibits large backpacks and requires clear bags and inspection of bags or purses at entry; pets are prohibited except for service animals. Donations support the presentation and local and global missions. Do not attach an affiliate checkout or promise reserved admission."
+        body: "First Baptist Church Burnet confirms free admission without any tickets or reservations. Large backpacks are prohibited and a clear-bag and inspection policy applies; service animals are welcome but pets are not. Weather-cancellation decisions are published on the official site by noon of the event day. Donations support the production and local and global missions; this must not be sold as a ticketed attraction."
       },
       {
         title: "Make it a Burnet-area family trip",
