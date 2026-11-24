@@ -26,7 +26,7 @@ const source = {
   feature: await readFile('src/data/fixtures/brazoria-county-brazos-gulf-angleton.ts', 'utf8'),
 };
 check('Brazoria county roster source', source.county.includes("brazoria: ['Alvin', 'Angleton', 'Pearland', 'Lake Jackson', 'Freeport', 'Brazoria', 'West Columbia', 'Surfside Beach']"), 'Explicit verified communities including Alvin');
-for (const term of ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan', 'Slover']) {
+for (const term of ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan', 'Slover', 'Maury Maverick Bridge']) {
   check('Alvin city source: ' + term, source.city.includes(term), 'City authority profile');
   check('Brazoria editorial source: ' + term, source.feature.includes(term), 'County editorial feature');
 }
@@ -42,7 +42,11 @@ for (const target of targets) {
     check(url + ' HTTP', response.ok, 'HTTP ' + response.status);
     check(url + ' canonical', html.includes('https://texasdefined.com' + target.path) && /rel=["']canonical["']/.test(html), 'Self canonical');
     check(url + ' indexable', !/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html), 'No robots noindex');
-    for (const phrase of target.phrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
+    // The PR verifies researched source content before it is published. On the
+    // quarterly production run, additionally require the new bridge section.
+    const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
+      ? target.phrases : [...target.phrases, 'Maury Maverick Bridge'];
+    for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
     const compact = html.replace(/\s+/g, '');
     check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
