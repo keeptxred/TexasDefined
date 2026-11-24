@@ -343,7 +343,7 @@ test('the entire real editorial backlog has a bounded seven-day GitHub source-ch
 });
 
 
-test('November 15 editorial corrections agree across guide, provider and organizer-source gates', () => {
+test('substantive editorial source reviews remain dated and agree across guides and organizer gates', () => {
   const source = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8');
   const event = (file, slug) => {
     const body = source(file);
@@ -352,20 +352,26 @@ test('November 15 editorial corrections agree across guide, provider and organiz
     const end = body.indexOf('\n  },', start);
     return body.slice(start, end < 0 ? undefined : end);
   };
+  const assertSourceReview = (record, minimum, slug) => {
+    const reviewDate = /sourceCheckedAt: "(\\d{4}-\\d{2}-\\d{2})"/.exec(record)?.[1];
+    assert.ok(reviewDate && !Number.isNaN(Date.parse(reviewDate)), 'Missing valid source review date for ' + slug);
+    assert.ok(reviewDate >= minimum, 'Source review must not regress below researched baseline for ' + slug);
+    assert.ok(reviewDate <= new Date().toISOString().slice(0, 10), 'Source review cannot be future dated for ' + slug);
+  };
   const south = event('src/data/major-event-expanded-authority-tranche47.server.ts', 'south-pole-illuminated-festival');
   assert.match(south, /startDate: "2026-11-27"/);
   assert.match(south, /endDate: "2026-12-27"/);
-  assert.match(south, /sourceCheckedAt: "2026-11-15"/);
+  assertSourceReview(south, "2026-11-24", "south-pole-illuminated-festival");
   assert.match(south, /mcallenholidayparade\.com\/tree-lighting-ceremony/);
   const sourceMonitor = source('scripts/events/check-november-event-sources.mjs');
   assert.ok(sourceMonitor.includes('November\\s+27\\s*[-–]\\s*December\\s+27'), 'November source monitor must require current dates');
   const partner = source('src/data/events/ticketmaster-events.server.ts');
   assert.doesNotMatch(partner, /event\.startDate === '2026-11-27'\) return \[\]/);
   const prairie = event('src/data/major-event-expanded-authority-tranche59.server.ts', 'grand-prairie-prairie-lights');
-  assert.match(prairie, /2026-11-15/);
+  assertSourceReview(prairie, "2026-11-15", "grand-prairie-prairie-lights");
   assert.match(prairie, /motorcycle preview November 20/);
   const big12 = event('src/data/major-event-expanded-authority-tranche47.server.ts', 'big-12-football-championship');
-  assert.match(big12, /2026-11-15/);
+  assertSourceReview(big12, "2026-11-15", "big-12-football-championship");
   assert.match(big12, /final edition/);
   assert.match(big12, /2026\/11\/9\/2026-edward-jones-big-12-football-championship/);
   const sun = event('src/data/tournaments/verified-profiles.ts', 'the-sun-bowl');
@@ -393,8 +399,8 @@ test('November 15 editorial corrections agree across guide, provider and organiz
     ['src/data/major-event-expanded-authority-tranche52.server.ts', 'mardi-gras-port-arthur'],
     ['src/data/major-event-expanded-authority-tranche25.server.ts', 'mardi-gras-galveston'],
     ['src/data/major-event-expanded-authority-tranche57.server.ts', 'main-street-bethlehem-burnet'],
-  ]) assert.match(event(file, slug), /sourceCheckedAt: "2026-11-15"/,
-    'Reverified organizer facts need a per-record editorial evidence date: ' + slug);
+  ]) assertSourceReview(event(file, slug),
+    slug === 'main-street-bethlehem-burnet' ? "2026-11-24" : "2026-11-15", slug);
 });
 
 
