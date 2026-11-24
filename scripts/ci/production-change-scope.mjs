@@ -716,6 +716,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    alvinAuthorityPages: selectedPaths.filter(p => alvinAuthorityPages.has(p)),
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
     corporateEventPages: selectedPaths.filter(p => corporateEventPages.has(p)),
     eventAuthorityPages: selectedPaths.filter(p => boundedEventAuthorityPages.has(p)),
