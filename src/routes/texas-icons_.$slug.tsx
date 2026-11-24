@@ -3,6 +3,7 @@ import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIconProfile } from "@/data/texas-icons.functions";
+import { cassMusicPortraits } from "@/data/texas-icons-cass-photography";
 import {
   TEXAS_ICON_CATEGORIES,
   TEXAS_ICON_CATEGORY_AUTHORITY_HUBS,
@@ -74,12 +75,22 @@ function TexasIconProfilePage() {
   const canonicalPath = `/texas-icons/${icon.slug}`;
   const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
   const narrativeProfile: TexasIconNarrativeProfile = talentProfile ?? researchProfile!;
+  const portrait = cassMusicPortraits[icon.slug];
   const schema = {
     "@context": "https://schema.org",
     "@type": schemaType(icon.subjectType),
     name: icon.name,
     description: narrativeProfile.dek,
     url: canonicalUrl,
+    ...(portrait ? {
+      image: {
+        "@type": "ImageObject",
+        contentUrl: portrait.src,
+        license: portrait.licenseUrl,
+        creditText: portrait.credit,
+        acquireLicensePage: portrait.sourcePage,
+      },
+    } : {}),
     isPartOf: {
       "@type": "CollectionPage",
       name: "250 Texas Icons",
@@ -139,6 +150,31 @@ function TexasIconProfilePage() {
             </dl>
           </header>
 
+          {portrait ? (
+            <figure className="grid gap-3 border-b border-border py-9">
+              <img
+                src={portrait.src}
+                alt={portrait.alt}
+                width={portrait.width}
+                height={portrait.height}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                className="h-auto max-h-[30rem] w-auto max-w-full object-contain"
+              />
+              <figcaption className="max-w-3xl text-sm leading-6 text-muted-foreground">
+                {portrait.caption} Photo:{" "}
+                <a href={portrait.sourcePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
+                  {portrait.credit}
+                </a>
+                {" · "}
+                <a href={portrait.licenseUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">
+                  {portrait.license}
+                </a>
+                {" · Wikimedia Commons · Shown without editing"}
+              </figcaption>
+            </figure>
+          ) : null}
           <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} slug={icon.slug} />
           {icon.slug === "sam-rayburn" ? <SamRayburnContext surface="profile" /> : null}
 
