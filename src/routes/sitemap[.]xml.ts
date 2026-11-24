@@ -7,7 +7,7 @@ import { TEXAS_DEER_AUTHORITY_TOPIC } from "@/data/hunting/authority-deer";
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 // Five guides underwent substantive source-backed editorial revisions on Nov 20 and Nov 21.
 // This date must not advance for automated source checks or non-editorial deploys.
-const OUTDOOR_GUIDES_LASTMOD = "2026-11-21";
+const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";
 type SitemapEntry = { path: string; lastmod?: string };
 
 type EdgeCache = {
