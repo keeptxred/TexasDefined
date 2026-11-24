@@ -49,6 +49,7 @@ function verify({ path, evidence }, html) {
   if (path === "/destination/comanche" && !html.includes("atlas.thc.texas.gov/Details/5000022414")) missing.push("THC historic marker corroborating Comanche Frisco depot");
   if (path !== "/explore/small-towns" && !html.includes("npgallery.nps.gov/AssetDetail/NRIS/100001872")) missing.push("NPS separate National Register depot source");
   if (path === "/destination/comanche" && !text.includes("2012")) missing.push("dated Frisco depot preservation reopening");
+  if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
   if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
   const obsoleteBrennanAdvice = [
