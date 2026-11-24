@@ -50,12 +50,18 @@ jobs:
           node --check scripts/ci/verify-outdoor-guides-responsive.mjs
           node scripts/ci/verify-outdoor-guides-responsive.mjs --self-test
       - name: Verify official facts and live canonical pages
+        id: facts
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
       - name: Prove licensed real-location photos and byte-identical delivery on both origins
+        id: photos
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-outdoor-photography-live.mjs
       - name: Verify responsive layout, complete cards, maps and image decoding in Chrome
+        id: browser
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: |
           set -euo pipefail
@@ -64,6 +70,16 @@ jobs:
           export CHROME_BIN
           npm install --prefix /tmp/texasdefined-outdoor-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
           node scripts/ci/verify-outdoor-guides-responsive.mjs
+      - name: Fail closed after collecting all independent production evidence
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
+        env:
+          FACTS: ${{ steps.facts.outcome }}
+          PHOTOS: ${{ steps.photos.outcome }}
+          BROWSER: ${{ steps.browser.outcome }}
+        run: |
+          test "$FACTS" = success
+          test "$PHOTOS" = success
+          test "$BROWSER" = success
       - name: Retain audit evidence
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         uses: actions/upload-artifact@v4
