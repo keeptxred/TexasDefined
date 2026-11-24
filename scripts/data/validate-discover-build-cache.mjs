@@ -20,12 +20,12 @@ assert.match(workflow, /select\(\.expired == false and \(\.name \| startswith\(\
 // Production may see dozens of superseded main pushes before a costly cache-miss
 // image build finishes. Bounded run search must reach the last valid artifact,
 // but must stop immediately once all governed derivatives have been restored.
-const recentWindow = workflow.match(/deploy-production\\.yml\\/runs\\?per_page=(\\d+)/);
+const recentWindow = workflow.match(/deploy-production\.yml\/runs\?per_page=(\d+)/);
 assert.ok(recentWindow && Number(recentWindow[1]) >= 40 && Number(recentWindow[1]) <= 100,
   "production artifact restore window must cover rapid-merge bursts without unbounded repository scans");
-assert.match(workflow, /expected_count="\\$\\(node scripts\\/assets\\/materialize-discover-overrides\\.mjs --list-slugs \\| wc -l/, 
+assert.match(workflow, /expected_count="\$\(node scripts\/assets\/materialize-discover-overrides\.mjs --list-slugs \| wc -l/, 
   "restore must derive the governed route count from the canonical materializer");
-assert.match(workflow, /"\\$current_count" -ge "\\$expected_count"/,
+assert.match(workflow, /"\$current_count" -ge "\$expected_count"/,
   "production cache restore must stop once all governed files are found");
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build/);
 assert.match(workflow, /- name: Capture governed Discover derivatives after failed build/);
