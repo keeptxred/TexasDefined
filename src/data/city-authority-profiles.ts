@@ -35,6 +35,7 @@ export type CityAuthorityProfile = {
     sourceUrl?: string;
     credit?: string;
   };
+  supportingPhoto?: { src: string; alt: string; width: number; height: number; sourceUrl: string; credit: string; licenseUrl: string; license: string };
   districts?: ReadonlyArray<{
     name: string;
     summary: string;
@@ -66,6 +67,15 @@ const profiles: Record<string, CityAuthorityProfile> = {
       alt: 'Alvin Historical Museum in the former 1940 U.S. Post Office at 300 West Sealy Street',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg',
       credit: 'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
+    },
+    supportingPhoto: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Alvin_RR_Depot_%285822129305%29.jpg',
+      alt: 'Red-trimmed entrance of the restored Alvin railroad depot in June 2011',
+      width: 720, height: 576,
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Alvin_RR_Depot_(5822129305).jpg',
+      credit: 'BFS Man (Mike Fisher) · Wikimedia Commons',
+      licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+      license: 'CC BY 2.0',
     },
     districts: [
       { name: 'Historic downtown and the railroad depot', summary: 'The restored 1907 Gulf, Colorado and Santa Fe railway depot and National Oak Park form a compact railroad-history stop. The depot is used as a historic venue, not an active passenger station.' },
