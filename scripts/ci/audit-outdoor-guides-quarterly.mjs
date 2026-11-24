@@ -2,6 +2,13 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "TPWD Huntsville biking access", url: "https://tpwd.texas.gov/state-parks/huntsville/trails-info/", patterns: [/hiking and biking/i] },
+  { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i] },
+  { name: "TPWD assisted family riding", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /3 to 14/i] },
+  { name: "TPWD Buffalo Bayou shuttle listings", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/Rentals and Shuttles/i] },
+  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i] },
+  { name: "TPWD Mill Pond shuttle option", url: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/", patterns: [/shuttle/i, /entrance fee/i] },
+  { name: "DarkSky Caprock designation", url: "https://darksky.org/places/caprock-canyons-state-park-texas/", patterns: [/Caprock Canyons/i, /International Dark Sky Park/i] },
   { name: "TPWD Big Bend Ranch check-in and interior road", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map", patterns: [/27 miles/i, /permanently closed/i, /Contrabando/i] },
   { name: "TPWD all four Lighthouse Lakes initial access coordinates", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/", patterns: [/27\.8753/i, /27\.8691/i, /27\.8622/i, /27\.8680/i] },
   { name: "TPWD Lady Bird Lake additional official access points", url: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", patterns: [/30\.2748/i, /30\.2642/i, /30\.2515/i, /30\.2483/i] },
@@ -44,11 +51,11 @@ const official = [
   { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
 ];
 const livePages = [
-  { slug: "texas-mountain-biking-guide", must: ["Which Texas mountain bike trail should you ride first?", "Mobile comparison summary", "Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
-  { slug: "texas-horseback-riding-guide", must: ["Where can you book horseback riding without owning a horse?", "Mobile comparison summary", "Trailhead, equestrian campsite and guided service are three separate decisions", "Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
-  { slug: "texas-ohv-guide", must: ["Which Texas OHV permits and access points should you confirm before towing?", "Mobile comparison summary", "Trail names, entrance approaches and closure checks", "Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
-  { slug: "texas-paddling-guide", must: ["Which put-in and takeout make a practical Texas paddle?", "Mobile comparison summary", "Buffalo Bayou (west to east) numbered access point locations", "Lady Bird Lake (west to east) numbered access point locations", "Waco: Bosque Bluffs and Brazos Bridges numbered access point locations", "Half Acre numbered access point locations", "Lighthouse Lakes: coastal access numbered access point locations", "Individual put-ins, takeouts and water-condition links", "100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
-  { slug: "texas-stargazing-guide", must: ["When is the best time to stargaze in a Texas dark-sky park?", "Mobile comparison summary", "Where to set up, how to gain access, and what to check that night", "Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
+  { slug: "texas-mountain-biking-guide", must: ["Two additional riding bases near Houston and Dallas–Fort Worth", "Which Texas mountain bike trail should you ride first?", "Mobile comparison summary", "Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
+  { slug: "texas-horseback-riding-guide", must: ["A family ride without hauling a horse", "Where can you book horseback riding without owning a horse?", "Mobile comparison summary", "Trailhead, equestrian campsite and guided service are three separate decisions", "Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
+  { slug: "texas-ohv-guide", must: ["Compare vehicle fit and total trip expense", "Which Texas OHV permits and access points should you confirm before towing?", "Mobile comparison summary", "Trail names, entrance approaches and closure checks", "Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
+  { slug: "texas-paddling-guide", must: ["Rentals, shuttles and a manageable first outing", "Which put-in and takeout make a practical Texas paddle?", "Mobile comparison summary", "Buffalo Bayou (west to east) numbered access point locations", "Lady Bird Lake (west to east) numbered access point locations", "Waco: Bosque Bluffs and Brazos Bridges numbered access point locations", "Half Acre numbered access point locations", "Lighthouse Lakes: coastal access numbered access point locations", "Individual put-ins, takeouts and water-condition links", "100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
+  { slug: "texas-stargazing-guide", must: ["A Panhandle alternative and seasonal observing plan", "When is the best time to stargaze in a Texas dark-sky park?", "Mobile comparison summary", "Where to set up, how to gain access, and what to check that night", "Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
 ];
 // Protect keyboard access to each guide's intact, responsive comparison table.
 const comparisonLabels = {
@@ -115,8 +122,8 @@ for (const origin of ["https://texasdefined.com", "https://texasdefined-site.fre
     try {
       const xml = await get(url);
       const missing = Object.keys(comparisonLabels).filter((slug) =>
-        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-21</lastmod>"));
-      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov21 editorial lastmod for " + missing.join(", "));
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-24</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov24 editorial lastmod for " + missing.join(", "));
       evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
     } catch (error) {
       failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));
