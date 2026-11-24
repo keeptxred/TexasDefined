@@ -198,6 +198,8 @@ assert.ok(!portraits.includes('TB_Walker.png'), 'Incorrectly attributed Minnesot
 for(const value of ['cassMusicPortraits[icon.slug]', '"@type": "ImageObject"',
   'license: portrait.licenseUrl', 'creditText: portrait.credit',
   'alt={portrait.alt}', 'loading="lazy"', 'portrait.sourcePage', 'portrait.licenseUrl',
+  'image: cassMusicPortraits[loaderData.icon.slug]?.src',
+  'imageAlt: cassMusicPortraits[loaderData.icon.slug]?.alt',
   'shown without editing'.replace(/^s/, 'S')]) {
   assert.ok(iconRenderer.includes(value), 'Artist photo accessibility/rights requirement missing: ' + value);
 }
