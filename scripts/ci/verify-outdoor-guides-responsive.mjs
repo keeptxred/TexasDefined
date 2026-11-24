@@ -33,11 +33,13 @@ try {
         const response = await page.goto("https://texasdefined.com" + path + "?outdoor_browser=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual"), { waitUntil: "domcontentloaded", timeout: 45000 });
         assert.equal(response.status(), 200);
         await page.locator("#" + marker).waitFor({ state: "visible", timeout: 20000 });
-        await page.locator('button[aria-controls="mobile-main-menu"]').evaluateAll(nodes => Promise.all(nodes.map(n => !n.disabled || new Promise(resolve => {
-          const observer = new MutationObserver(() => { if (!n.disabled) { observer.disconnect(); resolve(true); } });
-          observer.observe(n, { attributes: true });
-          setTimeout(() => { observer.disconnect(); resolve(!n.disabled); }, 8000);
-        }))));
+        // Wait for the client navigation to hydrate; otherwise SSR-only snapshots
+        // can falsely pass mobile parity immediately before a Suspense replacement.
+        await page.waitForFunction(() => {
+          const toggle = document.querySelector('button[aria-controls="mobile-main-menu"]');
+          return toggle instanceof HTMLButtonElement && !toggle.disabled;
+        }, null, { timeout: 25000 });
+        assert.equal(await page.locator("main h1").count(), 1, "exactly one H1");
         const hero = page.locator("main article figure img").first();
         await hero.scrollIntoViewIfNeeded();
         await hero.evaluate(async img => { await img.decode(); });
