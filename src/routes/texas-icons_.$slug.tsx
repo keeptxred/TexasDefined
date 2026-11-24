@@ -160,7 +160,7 @@ function TexasIconProfilePage() {
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
-                className="h-auto max-h-[30rem] w-auto max-w-full object-contain"
+                className="h-auto w-full max-w-md"
               />
               <figcaption className="max-w-3xl text-sm leading-6 text-muted-foreground">
                 {portrait.caption} Photo:{" "}
