@@ -12,6 +12,7 @@ on:
       - 'ops/editorial/texas-culture-outdoors-review-groups.json'
       - 'scripts/ci/check-five-texas-guide-authority.mjs'
       - 'scripts/ci/verify-five-texas-culture-browser.mjs'
+      - 'scripts/ci/audit-five-culture-guide-vitals.mjs'
       - '.github/workflows/texas-culture-outdoors-authority.yml'
   schedule:
     - cron: '23 14 * * 3'       # Weekly: rock-climbing safety, access and official alerts
@@ -44,6 +45,10 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Assert 15-case Chrome contract is deterministic
         run: node scripts/ci/verify-five-texas-culture-browser.mjs --self-test
+      - name: Verify five-guide exact URL field-vitals interpretation
+        run: |
+          node --check scripts/ci/audit-five-culture-guide-vitals.mjs
+          node scripts/ci/audit-five-culture-guide-vitals.mjs --self-test
       - name: Parse modified TypeScript and TSX modules
         run: |
           node --input-type=module <<'JS'
@@ -130,4 +135,54 @@ jobs:
           gh issue comment 7368 --body "Five-guide primary sources, source-specific indexable HTML, and 15 actual 320/390/1366 Chrome viewports passed on a single identified Worker (screenshots and report preserved) in [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}), checked from commit \`${{ github.sha }}\`. This validates the bounded public checks, not independent image rights, manual accessibility or Google indexing."
       - name: Fail scheduled assurance on unresolved source changes
         if: ${{ steps.sourcewatch.outcome == 'failure' }}
+        run: exit 1
+
+  page-vitals:
+    name: Measure five canonical guide URLs on mobile and desktop
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '17 14 5 * *') ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.number == 7754 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/audit-five-culture-vitals')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove no URL-origin CrUX fallback can become a false pass
+        run: node scripts/ci/audit-five-culture-guide-vitals.mjs --self-test
+      - name: Query independent PageSpeed mobile and desktop evidence
+        id: vitals
+        continue-on-error: true
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: node scripts/ci/audit-five-culture-guide-vitals.mjs
+      - name: Preserve all measurements, including missing field-data reasons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: five-culture-guide-vitals-${{ github.run_id }}
+          path: .artifacts/five-culture-guide-vitals.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Open or update one issue on confirmed measured performance regression
+        if: ${{ steps.vitals.outcome == 'failure' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Five culture and outdoor guides: measured page-speed regression'
+          issue="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Five culture and outdoor guides: measured page-speed regression") | .number' | head -1)"
+          message="Official URL-level PageSpeed observations or Lighthouse labs require correction. Evidence: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Separate exact-page CrUX from origin fallback, lab timing and missing API data. Fix actual code and retest; do not change page facts or dates only for a new test."
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
+      - name: Enforce genuine measured regressions without pretending unavailable data passed
+        if: ${{ steps.vitals.outcome == 'failure' }}
         run: exit 1
