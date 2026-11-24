@@ -15,6 +15,9 @@ on:
       - 'src/data/museum-visitor-faqs.ts'
       - 'public/museum-verification-manifest.json'
       - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/components/editorial/AlvinHistoricalPhotographs.tsx'
+      - 'src/components/editorial/MuseumAuthorityNetworkSection.tsx'
       - 'src/routes/$kind.$slug.lazy.tsx'
 permissions:
   contents: read

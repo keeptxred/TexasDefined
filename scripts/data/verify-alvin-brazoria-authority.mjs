@@ -1,4 +1,4 @@
-// Quarterly production/source consistency review for Alvin and Brazoria County.
+// Monthly production/source consistency review for Alvin, Brazoria County and Alvin Historical Museum.
 // This is an audit, not a content publisher. Reports failures for editorial follow-up.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
@@ -7,13 +7,13 @@ const targets = [
     path: '/city/alvin',
     phrases: ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan', '1907'],
     links: ['/county/brazoria', '/destination/alvin-historical-museum'],
-    schema: '"@type":"City"',
+    schema: 'City',
   },
   {
     path: '/county/brazoria',
     phrases: ['Alvin', 'Lake Jackson', 'West Columbia', "Froberg", 'Bob Briscoe Park', 'Nolan Ryan'],
     links: ['/city/alvin', '/destination/alvin-historical-museum'],
-    schema: '"@type":"AdministrativeArea"',
+    schema: 'AdministrativeArea',
   },
 ];
 
@@ -37,6 +37,9 @@ const museumFiles = await Promise.all([
 const museumRecord = museumFiles[0].split('slug: "alvin-historical-museum"')[1]?.split('\n  },')[0] ?? '';
 const museumDossier = museumFiles[1].split('"alvin-historical-museum": {')[1]?.split('\n  },')[0] ?? '';
 check('Museum visitor copy', !!museumRecord && !!museumDossier && !/Explain the difference|its exhibi"|inventing a fr"/.test(museumRecord + museumDossier), 'No known truncated text or editorial instruction');
+const photos = await readFile('src/components/editorial/AlvinHistoricalPhotographs.tsx', 'utf8');
+for (const id of ['25635261034', '26147334682', '5822129305']) check('Alvin photograph source ' + id, photos.includes(id), 'Exact archival original');
+check('Alvin photo delivery and attribution', photos.includes('/media/remote?url=') && photos.includes('DeGolyer Library') && photos.includes('No known copyright restrictions') && photos.includes('CC BY 2.0'), 'First-party broker with explicit source and rights captions');
 const manifest = JSON.parse(await readFile('public/museum-verification-manifest.json', 'utf8'));
 const museum = manifest.museums.find(x => x.path === '/destination/alvin-historical-museum');
 check('Museum source review contract', museum?.cadenceDays <= 30 && museum?.faqCount >= 10 && museum?.sources.some(x => x.sourceUrl.includes('tour-18_emigrants')), 'Monthly source manifest and researched questions');
@@ -45,13 +48,13 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
     path: '/destination/alvin-historical-museum',
     phrases: ['Nolan Ryan', 'Loren Mozley', 'Emigrants at Nightfall', 'Slover'],
     links: ['/city/alvin', '/county/brazoria', '/texas-icons/nolan-ryan'],
-    schema: '"@type":"Museum"',
+    schema: 'Museum',
   });
 }
 for (const target of targets) {
   const url = 'https://texasdefined.com' + target.path;
   try {
-    const response = await fetch(url, {
+    const response = await fetch(url + '?alvin-authority=' + (process.env.GITHUB_SHA?.slice(0,12) ?? 'manual'), {
       headers: { 'user-agent': 'TexasDefined scheduled source integrity check/1.0', 'cache-control': 'no-cache' },
       signal: AbortSignal.timeout(25000),
     });
@@ -63,14 +66,38 @@ for (const target of targets) {
     // The PR verifies researched source content before it is published. On the
     // quarterly production run, additionally require the new bridge section.
     const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
-      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge'];
+      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge', 'Loren Mozley'];
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
-    for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
+    const anchors = [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
+    for (const link of target.links) check(url + ' link ' + link, anchors.includes(link) || anchors.includes('https://texasdefined.com' + link), 'Rendered reciprocal link');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
-    const compact = html.replace(/\s+/g, '');
-    check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
+    if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');
+      check(url + ' photograph credits', visible.includes('DeGolyer Library') && visible.includes('No known copyright restrictions'), 'Reader-visible archival attribution');
+    }
+    const nodes = [...html.matchAll(/<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(m => {
+      try { const value = JSON.parse(m[1]); return Array.isArray(value) ? value : value['@graph'] ?? [value]; }
+      catch { return []; }
+    });
+    check(url + ' JSON-LD ' + target.schema, nodes.some(node => [node?.['@type']].flat().includes(target.schema)), 'Parsed structured entity (including multi-type Museum/TouristAttraction)');
   } catch (error) {
     check(url + ' retrieval', false, String(error));
+  }
+}
+if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  for (const [sitemap, paths] of [
+    ['/sitemap.xml', ['/city/alvin', '/county/brazoria']],
+    ['/sitemap-explore.xml', ['/destination/alvin-historical-museum']],
+  ]) {
+    try {
+      const response = await fetch('https://texasdefined.com' + sitemap, { signal: AbortSignal.timeout(30000), headers: { 'cache-control': 'no-cache' } });
+      const xml = await response.text();
+      for (const path of paths) {
+        const entries = [...xml.matchAll(/<url\b[^>]*>[\s\S]*?<\/url>/gi)].map(m => m[0]).filter(row => row.includes('<loc>https://texasdefined.com' + path + '</loc>'));
+        const date = entries[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+        check('Sitemap ' + path, response.ok && entries.length === 1 && !!date && date >= '2026-11-24', 'Unique canonical with actual editorial lastmod; observed ' + (date ?? 'missing'));
+      }
+    } catch(error) { check('Sitemap ' + sitemap, false, String(error)); }
   }
 }
 await mkdir('artifacts/alvin-brazoria-authority', { recursive: true });
