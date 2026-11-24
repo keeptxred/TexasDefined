@@ -344,6 +344,27 @@ else {
  if(venueRows.length!==expected.length || new Set(venueRows.map(e=>e.id)).size!==venueRows.length) failures.push("Venue programs contain unexpected or duplicate records");
 }
 
+const terrellOchiltree = read("src/data/events/terrell-ochiltree-programs-2026.server.ts");
+requireText(adapter, "...getVerifiedTerrellOchiltreePrograms()", "Terrell and Ochiltree original program integration");
+const localProgramLiteral = terrellOchiltree.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!localProgramLiteral) failures.push("Local programs must have auditable source records");
+else {
+ const rows=JSON.parse(localProgramLiteral[1]);
+ const expected=[
+  ["sanderson-distillery-visitor-program-nov27-2026","terrell","big-bend","2026-11-27",undefined,"https://talltexandistilling.com/distillery-events"],
+  ["sanderson-distillery-visitor-program-nov28-dec13-2026","terrell","big-bend","2026-11-28","2026-12-13","https://talltexandistilling.com/distillery-events"],
+  ["perryton-blake-jenna-bolerjack-concert-2026","ochiltree","panhandle","2026-12-13",undefined,"https://linktr.ee/blakeandjenna"]
+ ];
+ for(const [slug,county,region,start,end,url] of expected){
+  const matches=rows.filter(e=>e.slug===slug);const e=matches[0];
+  if(matches.length!==1 || e.countySlug!==county || e.region!==region || e.startDate!==start || e.endDate!==end || e.officialEventUrl!==url || e.status!=="scheduled" || e.image || e.ticketing || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid original local program: "+slug);
+  if(e && !e.guidePath.includes("location=county%3A"+county+"&start="+start+"&end="+(end??start))) failures.push("Missing county calendar crosslink "+slug);
+ }
+ const tours=rows.filter(e=>e.countySlug==="terrell");
+ if(tours.length!==2 || !tours.every(e=>e.summary.includes("21 and older")) || !tours.some(e=>e.summary.includes("does not mean tours run every day"))) failures.push("Distillery program must distinguish age-restricted, non-daily tours from daily visitor hours");
+ if(rows.length!==expected.length || new Set(rows.map(e=>e.id)).size!==rows.length) failures.push("Duplicate or unexpected local programs");
+}
+
 if (failures.length) {
   console.error("Global event/calendar validation failed:\n" + failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
