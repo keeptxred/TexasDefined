@@ -39,11 +39,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       "texas-museums",
       "texas-railroads"
     ],
-    whyVisit: "Start here for a local view of the industries and institutions behind Rusk’s railroad history. The collections also cover Caddo material culture, timber work and everyday life in town. Historical reporting describes a large diorama depicting Cherokee County buildings in the 1890s with a moving model train; treat that as a documented exhibit, not a guarantee that it is presently operating.",
+    whyVisit: "Start here for a local view of the industries and institutions behind Rusk’s railroad history. The collections also cover Caddo material culture, timber work and everyday life in town. A July 2009 account describes the museum as occupying the adapted former Barr grocery store, which was donated for the project, and notes displays about the vanished iron-making town of New Birmingham and the Texas State Railroad. Historical reporting describes a large diorama depicting Cherokee County buildings in the 1890s with a moving model train; treat that as a documented exhibit, not a guarantee that it is presently operating.",
     visitorStrategy: "Allow about an hour for selected displays and an exterior look at the Old Bonner Bank next door. A January 23, 2013 Cherokeean Herald report described an upcoming fundraiser celebrating the completed relocation of the historic bank building beside the Heritage Center, near the bank's original site. A June 2018 local report dates the 1884 Bonner Bank building and describes it as Cherokee County's first bank. The building is a separate historic structure, not the museum's original premises. The Cherokeean Herald reported on November 4, 2026 that the museum opened Saturdays 11 a.m.–3 p.m. and Sundays 1–5 p.m., with weekday visits by appointment. That is a reported schedule, not direct confirmation from the museum. Call 903-714-8685 before traveling to verify hours, admission, parking and group arrangements. Plan meals separately and ask about on-site options.",
     accessibility: "Ask the museum about step-free entry, accessible parking, restrooms and quieter visiting times. The Texas Historical Commission directory gives the Henderson Street address and map.",
     familiesAndGroups: "For a short family visit, look for the bakery delivery box and talk about how people bought bread before supermarkets. Ask about group access and which exhibits are currently on display.",
-    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. The Heritage Center’s curator Betty Marcontell also compiled a May 2023 Historical Tour of Rusk with then-and-now town views and a dated museum visitor notice; the 2023 booklet confirms the reported hours historically, not the current schedule. Use these sources to compare downtown buildings, schools, timber work and railroad-era landmarks with present-day Rusk; confirm present public access before touring. A 2017 local feature describes a miniature train circling an 1890s Cherokee County building diorama: compare that representation with historic and modern maps, without confusing a model with actual nineteenth-century railroad route alignments. The 2013 newspaper report explicitly described a fundraiser celebrating Bonner Bank's relocation, and June 2018 reporting independently described its location beside the museum. A separate October 2025 local feature gives more recent descriptions of Rusk State Hospital and local sports displays, but individual exhibits can change.",
+    researchValue: "Stephen F. Austin State University hosts historic photographs from the museum collection. The Heritage Center’s curator Betty Marcontell also compiled a May 2023 Historical Tour of Rusk with then-and-now town views and a dated museum visitor notice; the 2023 booklet confirms the reported hours historically, not the current schedule. Use these sources to compare downtown buildings, schools, timber work and railroad-era landmarks with present-day Rusk; confirm present public access before touring. A June 2018 local feature describes a miniature train circling an 1890s Cherokee County building diorama: compare that representation with historic and modern maps, without confusing a model with actual nineteenth-century railroad route alignments. The 2013 newspaper report explicitly described a fundraiser celebrating Bonner Bank's relocation, and June 2018 reporting independently described its location beside the museum. In a May 2022 Texas Parks & Wildlife Magazine interview, curator Betty Marcontell explained that the museum originated in the late 1980s as a place for local businessmen's World War II memorabilia, and that she became curator after helping with a 2013 fundraiser. This is a reported institutional history, not a claim that all original holdings remain on view. A separate October 2025 local feature gives more recent descriptions of Rusk State Hospital and local sports displays, but individual exhibits can change.",
     exhibits: [
       {
         heading: "Timber and work",
@@ -68,6 +68,10 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       {
         heading: "Local athletes and Rusk High School",
         detail: "An October 2025 East Texas Weekend visit documented a local sports display with Rusk High School memorabilia and athletes who progressed to professional sports; current exhibits may differ."
+      },
+      {
+        heading: "Rex Brasher bird art and Rusk connections",
+        detail: "Texas Parks & Wildlife Magazine reported in May 2022 that seven Rex Brasher lithographic artworks, donated to a Rusk library by the family of Viola Gregg Dickinson in 1973, had subsequently moved to the Heritage Center. This archival report documents a historical display, not a guarantee that these particular works remain available to view."
       },
       {
         heading: "Rusk bakery delivery",
@@ -122,6 +126,16 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
         label: "East Texas Weekend, October 20 2025: Preserving Rusk\u2019s Rich History",
         url: "https://www.theeasttexasweekend.com/2025/10/20/preserving-rusks-rich-history/",
         use: "More recent independent reporting on the Rusk State Hospital and local sports exhibits; does not verify current hours or individual display availability"
+      },
+      {
+        label: "Texas Parks & Wildlife Magazine, May 2022: Rusk, the town that built its own railroad",
+        url: "https://tpwmagazine.com/travel-culture/discover-the-east-texas-town-that-built-its-own-railroad/",
+        use: "Firsthand curator interview on museum founding and 2013 fundraising, Rex Brasher and Viola Gregg Dickinson artworks; independent railroad dates must be checked against the guide\u2019s primary chronology"
+      },
+      {
+        label: "Texas Escapes, Bob Bowman, July 12 2009: Heritage Center of Cherokee County",
+        url: "https://www.texasescapes.com/BobBowman/New-Museum-Heritage-Center-of-Cherokee-County-Rusk-Texas.htm",
+        use: "Early local reporting describing the adaptive reuse of the donated former Barr grocery store, New Birmingham and Texas State Railroad artifacts, and original museum exhibits; historical description only"
       },
       {
         label: "East Texas Digital Archives",
