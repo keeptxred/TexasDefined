@@ -121,7 +121,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2026-12-31",
     "venue": "Lynn Creek Park · 5610 Lake Ridge Parkway, Grand Prairie",
     "officialUrl": "https://www.gptx.org/Community-Calendar/Prairie-Lights-2026",
-    "sourceCheckedAt": "2026-11-15",
+    "sourceCheckedAt": "2026-11-24",
     "seoTitle": "Prairie Lights 2026 Grand Prairie: Dates, Drive-Through & Parking",
     "seoDescription": "Prairie Lights at Lynn Creek Park runs nightly Nov. 26–Dec. 31, 2026, 6–10 p.m. Plan drive-through admission, peak holiday traffic and a DFW light-filled day trip.",
     "whyItMatters": "Grand Prairie's Prairie Lights is a signature two-mile drive-through light park at Lynn Creek Park, with millions of lights arranged along the vehicle route. Unlike a downtown free-to-walk display, admission and the driving queue are part of the experience. The city confirms nightly 6–10 p.m. operation from Thanksgiving through New Year's Eve 2026.",
@@ -158,7 +158,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Check the ticket's vehicle terms",
-        "body": "The City of Grand Prairie currently lists a $50 regular general-admission car pass and advertises a conditional $35 advance-only offer for November 30–December 4 with code EARLY26. This promotional window is not the all-season price; confirm checkout terms and vehicle category directly with the operator before purchasing."
+        "body": "The city lists a $50 regular general-admission car pass and conditional $35 early-week admission November 30–December 4 with code EARLY26. That is not an all-season price. The city also advertises special theme nights: Nov. 30 first 200 arriving vehicles receive a tree ornament; Dec. 1 is a children’s bike-donation drive (first 100 contributing guests through the gate receive free admission, and other new-bike donors receive $30 off); Dec. 2 is dog night at Holiday Village; Dec. 3 features live reindeer. These offers apply only on their stated dates and can depend on capacity, vehicle type and the city’s event rules. Verify current tickets before driving."
       },
       {
         title: "Do not confuse walk-through previews with drive-through nights",
