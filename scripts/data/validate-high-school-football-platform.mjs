@@ -3292,8 +3292,11 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
    if(['clarksville','cleburne'].includes(slug)!==graphic.includes("'"+slug+"'"))
      errors.push('Dated 2026 original-score graphics must be restricted to two source-backed schools: '+slug);
  }
- if(!editorial.includes('2026-10-24')||!editorial.includes('2026-10-23'))
-   errors.push('Date-specific October results evidence missing from Batch010 second five');
+ for(const [school,opponent,result] of [['clarksville','Big Sandy','W 50-14'],['cleburne','Mansfield Summit','L 7-55']]){
+   const section=editorial.split('"'+school+'": {')[1]?.split(/\n  },\n  "/)[0]??'';
+   if(!section.includes('"date": "2026-10-23"')||!section.includes('"opponent": "'+opponent+'"')||!section.includes('"result": "'+result+'"'))
+      errors.push('Date-specific October results evidence missing from Batch010 second five: '+school);
+ }
  if(!editorial.includes('six-man Class 1A Division I')||!editorial.includes('2000 E Houston St')&& !editorial.includes('1600 E Houston St'))
    errors.push('Claude six-man or Cleveland actual campus identity missing');
  for(const token of ["workflows: ['Deploy TexasDefined production']","github.event.workflow_run.conclusion == 'success'",

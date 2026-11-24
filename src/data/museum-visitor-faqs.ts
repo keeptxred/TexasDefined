@@ -14,6 +14,163 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "heritage-center-cherokee-county-rusk": [
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Where is the Heritage Center of Cherokee County?",
+      "answer": "The museum is at 208 S. Henderson Street in downtown Rusk, Texas. The Old Bonner Bank Building moved to the same address in 2009. The Texas Historical Commission directory provides a map and the museum’s phone number.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5073006614"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Can I view the museum’s historic photographs online?",
+      "answer": "Yes. The East Texas Digital Archives hosts a selection of digitized photographs from the museum. It includes images of Cherokee County schools, downtown business districts and the timber industry.",
+      "verificationUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "What can families look for at the museum?",
+      "answer": "Look for a local bakery delivery box, the Cherokee County timber industry display and Caddo artifacts. Ask the museum which displays are available and confirm visiting hours before you go.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://www.thecherokeean.com/articles/44898/view"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-23",
+      "question": "Can I see the Old Bonner Bank Building on the same stop?",
+      "answer": "Yes. The historic bank building stands next to the museum at 208 S. Henderson Street. Plan on seeing the exterior and ask museum staff whether the interior is open during your visit.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+      "questionEvidenceUrl": "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/"
+    }
+  ],
+  "comanche-county-historical-museum": [
+    {
+      "question": "Does the museum offer a self-guided audio tour of Comanche's historic square?",
+      "answer": "Yes. The museum publishes a Comanche Square Walking Tour with QR-linked audio stops including Old Cora, Fleming Oak and John Wesley Hardin history. The online guide explains its map, but visitors should verify onsite QR-code access.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Where is the Comanche County Historical Museum and how do I get there?",
+      "answer": "The museum's official contact information places it at 402 Moorman Road in Comanche, Texas 76442, separate from the courthouse square. Confirm your travel directions and any group parking arrangements directly with its staff before making the trip.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/contact",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/contact",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "What days and hours is the Comanche County Historical Museum open?",
+      "answer": "The museum publishes Thursday, Friday and Saturday hours of 10 a.m. to 4 p.m. on its official About Us page. Holiday closures, staffing and private tours may change that schedule, so confirm with the museum before traveling.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Can I arrange a school field trip or private museum tour?",
+      "answer": "Yes. The museum offers school, private and group tours by arrangement in addition to its published public viewing window. Contact its staff in advance about group size, preferred date, tour topics, staffing and accessibility needs.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Does the museum charge admission or require advance tickets?",
+      "answer": "No. The museum's official homepage explicitly states general admission is free; donations support its work. No ordinary timed-ticket requirement is described. Contact volunteers for school/group tour arrangements or any special programs.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "What is the Jack Wright Saloon exhibit and is the saloon still operating?",
+      "answer": "The museum presents a historical recreation of Jack Wright's Saloon and reports having the saloon's original mirror, which was subsequently used in a Gustine barbershop. This is a museum history exhibit, not an active bar or Wild West show.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Can visitors learn about John Wesley Hardin at the museum?",
+      "answer": "The museum exhibits photographs and memorabilia associated with the outlaw John Wesley Hardin, whose history includes the fatal shooting of deputy Charles Webb in Comanche in 1874. The context involves real killings and subsequent lynchings, which may not suit every child.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Does the museum contain a blacksmith shop or demonstrations?",
+      "answer": "The museum's official collection description includes a blacksmith area with tools and a windmill head, helping explain farm repair and rural water equipment. A working blacksmith or scheduled live demonstration is not confirmed, so ask staff before expecting one.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "What Indigenous history can visitors explore in the exhibits?",
+      "answer": "The collection describes a diorama depicting a Comanche Indigenous family campsite. This is an interpretation of historical lifeways rather than a complete account of Comanche people today; visitors seeking more should consult tribal voices and specialist history sources.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Is the Comanche museum a good place to take children?",
+      "answer": "The museum lists a children's area and exhibits about everyday play, work, agriculture and county families. Adults should consider age and sensitivity when choosing whether to explore the John Wesley Hardin and saloon exhibits, which involve violence.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/collection",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "Is wheelchair access and visitor parking confirmed at the museum?",
+      "answer": "The publicly available museum pages do not supply a complete verified account of step-free entrance routes, every exhibit room, accessible parking or restrooms. Call the museum at (325) 356-5115 to make a specific accessibility or parking plan.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/contact",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/contact",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "What other Comanche historic sites can I combine with the museum?",
+      "answer": "Visit the Comanche courthouse square for the surviving 1856 Old Cora log courthouse, Fleming Oak and the historic courthouse exterior. The Chamber currently marks Old Cora closed for renovation, so do not plan an interior tour there; a historic mural is also nearby on West Grand.",
+      "verificationUrl": "https://www.comanchechamber.org/explorecomanche",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchechamber.org/explorecomanche",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-22"
+    },
+    {
+      "question": "How much time should I plan for the Comanche County Historical Museum?",
+      "answer": "For a self-directed selection of galleries, TexasDefined suggests allowing roughly one to two hours, with extra time for a school group or specialist interest. This is an editorial itinerary estimate, not a museum guarantee or published guided-tour duration.",
+      "verificationUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-22"
+    }
+  ],
   "austin-county-jail-museum-bellville": [
     {
       "question": "Is the Austin County Jail Museum in Austin or Bellville?",

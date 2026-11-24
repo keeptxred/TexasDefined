@@ -8,7 +8,7 @@ export const rainsCountyEmoryLakeTawakoniLakeForkTexasArticle: Article = {
   brandId: "texasdefined",
   slug: "rains-county-emory-lake-tawakoni-lake-fork-texas",
   title: "Rains County: Emory, Lake Tawakoni, Lake Fork and the Sabine Country",
-  dek: "Rains County is one of Texas's smallest counties, a compact Northeast Texas landscape shaped by Emory, the Sabine watershed, cotton, railroads, Lake Tawakoni, Lake Fork and a modern outdoor economy.",
+  dek: "Rains County's courthouse burned twice—but a steel vault saved the records in 1908. Explore Emory's history, Populist politics, and lakes Fork and Tawakoni.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const rainsCountyEmoryLakeTawakoniLakeForkTexasArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 18,
   tags: [
     "Rains County",
     "Emory Texas",
@@ -32,6 +33,9 @@ export const rainsCountyEmoryLakeTawakoniLakeForkTexasArticle: Article = {
     "Texas agriculture",
     "Texas history",
     "Texas counties",
+    "Rains County Courthouse fire 1908",
+    "Emory steel county records vault",
+    "Texas agrarian Populist history",
   ],
   featured: false,
   internalLinks: [
@@ -104,6 +108,22 @@ export const rainsCountyEmoryLakeTawakoniLakeForkTexasArticle: Article = {
     p("The Rains County Courthouse is the most recognizable civic landmark in Emory. Its early-twentieth-century Neoclassical form reflects the period when Texas counties invested heavily in permanent public buildings meant to communicate stability and civic ambition."),
     p("The courthouse is also a reminder of repeated fires in the county's early records history. The succession from log building to frame courthouse, brick courthouse and present structure mirrors Rains County's transition from Reconstruction-era frontier government to a more established twentieth-century institution."),
 
+    h("Two courthouse fires, and the vault that saved the records in 1908"),
+    p("The Rains County Courthouse represents a particularly revealing survival story. When the county was created in 1870, its officials met in an existing log house in Springville, renamed Emory in honor of the county's namesake Emory Rains. A later wooden courthouse was built but destroyed by fire, sending county government temporarily back to the earlier log structure. This was a period when courts could move back into frontier buildings after emergencies rather than ceasing to operate."),
+    p("The county completed a brick courthouse in 1884. Fire gutted that building in 1908, but this time a steel vault protected the official records. The Texas Historical Commission's courthouse marker confirms that the vault survived, while the Handbook of Texas independently distinguishes the 1908 fire from the earlier building loss. The contrast with Upshur County, which lost most of its files in an 1888 blaze, demonstrates why the design of storage spaces matters in county history."),
+    p("The damaged courthouse was repaired and later altered. The surviving building has a layered history rather than being an entirely new '1908 courthouse' constructed from an empty lot. Later twentieth-century renovations and preservation work changed its appearance. A historical photograph of the pre-fire brick building, a twentieth-century postcard and today's exterior therefore record different phases of one civic site."),
+    p("For family researchers the main practical implication is that the 1908 blaze did not eliminate the county's entire deed and court archive. Individual record series still require confirmation with the county clerk, but the common assumption that all historic records were destroyed in a courthouse fire is wrong for this event."),
+
+    h("Agrarian revolt, not just reservoirs, shaped Rains County"),
+    p("Rains County's late nineteenth-century politics grew out of small-farm organizing and economic strain. Farmers faced crop liens, volatile cotton prices, debt and limited transportation choices. The Farmers' Alliance and the People's Party gained influence across northeastern Texas, and the Handbook of Texas discusses Rains County as an important center of agrarian and Populist politics."),
+    p("That political history provides context for the courthouse square itself. County offices served as venues for elections and legal disputes while local residents organized against rail rates, creditors and the concentration of economic power. Modern lake tourism can obscure the county's earlier role as a center of rural political mobilization."),
+    p("Emory and Point's old school sites, newspapers and surviving courthouse records can help recover those stories, but a present-day lakeshore subdivision is not proof of where Populist political meetings took place. Archives and historical markers, rather than tourist inference, are needed for a precise site designation."),
+
+    h("Rains County courthouse answers"),
+    p("Was the Rains County Courthouse destroyed by fire? A wooden predecessor burned, and the brick courthouse built in 1884 was gutted by fire in 1908; the later building was repaired."),
+    p("Were the county's historical records lost in 1908? The steel courthouse vault survived and saved the official records according to the Texas Historical Commission."),
+    p("Why is the county seat named Emory? Springville was renamed for Emory Rains, the public figure for whom the county itself was named."),
+    p("What does this history mean for genealogy? A 1908 fire does not automatically indicate an archive gap, although the county clerk should be consulted for availability of particular record series."),
     h("A small county can have a complicated regional identity"),
     p("Rains County sits near the meeting point of several Texas regions. Its western side feels increasingly connected to Greenville and the Dallas-facing corridor. Its wooded creek bottoms and Sabine drainage point east toward the Piney Woods. Its farm country retains the look of Northeast Texas pasture and former cotton land."),
     p("That mix helps explain why the county can feel both remote and accessible. A traveler can leave the Dallas suburbs and reach Emory quickly, yet county roads, lake coves and wooded bottoms still preserve a distinctly rural landscape."),
@@ -115,5 +135,12 @@ export const rainsCountyEmoryLakeTawakoniLakeForkTexasArticle: Article = {
     h("What defines Rains County"),
     p("Rains County is defined by compact scale and repeated adaptation. It began as a Reconstruction-era county centered on Springville, renamed Emory for the man whose name the county also carries. Cotton dominated the first economy, railroads created new connections, clay supported an unusual industrial chapter, and farm mechanization reduced the rural population."),
     p("Then water changed the map. Lake Tawakoni and Lake Fork turned a small inland farming county into a place associated with fishing, waterfront living and recreation. Courthouse government, rural land and agriculture remain central, but the two reservoirs now frame the county physically and economically. That combination makes Rains County a small place with an unusually complete Texas story."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — Rains County Courthouse 1908 fire and saved vault", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5379013149&fn=print" },
+    { label: "Texas State Historical Association — Rains County and fires", url: "https://www.tshaonline.org/handbook/entries/rains-county" },
+    { label: "Texas Historical Commission — courthouse architecture and fireproof records", url: "https://atlas.thc.texas.gov/Details?atlasnumber=4302000273" },
+    { label: "Rains County government — county clerk and historic records", url: "https://www.rainscountytx.gov/page/rains.County.Clerk" },
+    { label: "Texas State Historical Association — agrarian Populism in Texas", url: "https://www.tshaonline.org/handbook/entries/peoples-party" },
   ],
 };

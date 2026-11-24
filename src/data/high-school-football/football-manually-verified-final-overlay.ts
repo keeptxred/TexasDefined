@@ -4,11 +4,21 @@ import type { FootballProgramEditorial } from './program-editorial';
 type Editorial = FootballProgramEditorial | null;
 type Game = NonNullable<FootballProgramEditorial['season']>['games'][number];
 type Verified = {
-  slug: string; date: string; opponent: string; pointsFor: number;
-  pointsAgainst: number; verifiedAt: string; primarySourceUrl: string;
-  secondarySourceUrl: string; verificationMethod: 'manual-editorial-review';
-};
+  slug: string; date: string; opponent: string; playedDate?: string;
+  verifiedAt: string; primarySourceUrl: string; secondarySourceUrl: string;
+  verificationMethod: 'manual-editorial-review';
+} & ({pointsFor: number; pointsAgainst: number; outcome?: never} |
+  {outcome: 'forfeit-win' | 'forfeit-loss'; pointsFor?: never; pointsAgainst?: never});
 const registry = snapshot.verifiedFinals as readonly Verified[];
+function validOutcome(row: Verified): boolean {
+  return row.outcome !== undefined ?
+    ['forfeit-win','forfeit-loss'].includes(row.outcome) && row.pointsFor === undefined && row.pointsAgainst === undefined :
+    Number.isInteger(row.pointsFor) && Number.isInteger(row.pointsAgainst) && Math.min(row.pointsFor,row.pointsAgainst)>=0 && row.pointsFor!==row.pointsAgainst;
+}
+function resultText(row: Verified): string {
+  if(row.outcome) return row.outcome==='forfeit-win'?'W by forfeit':'L by forfeit';
+  return (row.pointsFor>row.pointsAgainst?'W ':'L ')+row.pointsFor+'–'+row.pointsAgainst;
+}
 const normalized = (value: string) => value.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ');
 function fixtureDate(raw: string): string {
   if (/^2026-\d{2}-\d{2}$/.test(raw)) return raw;
@@ -34,8 +44,7 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
     if (!/^2026-\d{2}-\d{2}$/.test(row.date) ||
         !/^2026-\d{2}-\d{2}$/.test(row.verifiedAt) ||
         row.verificationMethod !== 'manual-editorial-review' ||
-        !Number.isInteger(row.pointsFor) || !Number.isInteger(row.pointsAgainst) ||
-        Math.min(row.pointsFor,row.pointsAgainst)<0 || row.pointsFor===row.pointsAgainst ||
+        !validOutcome(row) || (row.playedDate !== undefined && (!/^2026-\d{2}-\d{2}$/.test(row.playedDate) || row.playedDate>row.verifiedAt)) ||
         first.protocol !== 'https:' || second.protocol !== 'https:' ||
         first.hostname === second.hostname ||
         publishedDates.has(row.date)) throw Error('Unapproved duplicate or invalid football final: '+slug+' '+row.date);
@@ -47,12 +56,12 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
     if (!row) return game;
     if (normalized(game.opponent)!==normalized(row.opponent)) throw Error(
       'Football postgame opponent mismatch, no score published: '+slug+' '+row.date);
-    const result=(row.pointsFor>row.pointsAgainst?'W ':'L ')+row.pointsFor+'–'+row.pointsAgainst;
+    const result=resultText(row);
     if (game.result && game.result !== result) throw Error(
       'Football source result conflicts with previously published final: '+slug+' '+row.date);
     found.add(row.date);
     if (!game.result) corrections.add(row.date);
-    return {...game,result};
+    return {...game,...(row.playedDate?{date:row.playedDate}:{}),result};
   });
   for (const row of updates) if (!found.has(row.date)) throw Error(
     'Unlisted football fixture, refusing to publish result: '+slug+' '+row.date);
@@ -67,12 +76,13 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
   const record=won+'–'+lost+(tied?'–'+tied:'')+' in '+completed.length+
     ' individually verified listed final'+(completed.length===1?'':'s')+
     ' (partial season snapshot'+(districtGames.length?'; '+districtWins+'–'+districtLosses+' among listed district finals':'')+')';
-  const mostRecent=updates.reduce((latest,row)=>row.date>latest.date?row:latest);
-  const headline=mostRecent.pointsFor>mostRecent.pointsAgainst?'won':'lost';
+  const mostRecent=updates.reduce((latest,row)=>(row.playedDate??row.date)>(latest.playedDate??latest.date)?row:latest);
+  const recentResult=resultText(mostRecent);
+  const headline=(recentResult.startsWith('W ')?'won ':'lost ')+recentResult.slice(2);
   const displayedName=slug.split('-').map(part=>part.slice(0,1).toUpperCase()+part.slice(1)).join(' ');
   const gameDate=new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric',timeZone:'UTC'})
-    .format(new Date(mostRecent.date+'T12:00:00Z'));
-  const updateNotice=displayedName+' '+headline+' '+mostRecent.pointsFor+'–'+mostRecent.pointsAgainst+
+    .format(new Date((mostRecent.playedDate??mostRecent.date)+'T12:00:00Z'));
+  const updateNotice=displayedName+' '+headline+
     ' against '+mostRecent.opponent+' on '+gameDate+', independently reviewed '+mostRecent.verifiedAt+'.'+
     ' This is a source-dated published result, not live scores.'+(games.some(game=>!game.result)?' Other fixtures without confirmed finals remain unverified.':' All listed fixtures now have reported finals.');
   const original=editorial.season;
@@ -86,8 +96,7 @@ export function applyManuallyVerifiedFootballFinals(editorial: Editorial, slug: 
       latestResultSourceUrl:mostRecent.primarySourceUrl,
     },
     seo:editorial.seo?{...editorial.seo,description:
-      displayedName+' football 2026: '+headline+' '+mostRecent.pointsFor+'–'+
-      mostRecent.pointsAgainst+' against '+mostRecent.opponent+' on '+gameDate+'. '+completed.length+
+      displayedName+' football 2026: '+headline+' against '+mostRecent.opponent+' on '+gameDate+'. '+completed.length+
       ' independently checked reported scores.'}:editorial.seo,
     faq:editorial.faq?.map(entry=>/(2026.*record|record.*2026)/i.test(entry.question)
       ?{...entry,answer:record+'. Additional dated results require independently published sources.'}

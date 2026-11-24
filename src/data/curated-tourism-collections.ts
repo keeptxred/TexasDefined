@@ -18,6 +18,7 @@ export const CURATED_TOURISM_COLLECTIONS = [
     "items": [
       {
         "name": "Texas State Railroad",
+        "editorialGuideUrl": "/article/texas-state-railroad-rusk-palestine-history-guide",
         "town": "Palestine / Rusk",
         "countySlug": "anderson",
         "why": "The signature East Texas Piney Woods excursion links two historic railroad communities. Steam and diesel service varies by scheduled excursion, and special-event trains may have different ticket rules.",

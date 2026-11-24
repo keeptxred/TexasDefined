@@ -182,6 +182,7 @@ export const texasRailroadsTownGrowthGuideArticle: Article = {
   sourceName: "Texas Department of Transportation", sourceUrl: "https://www.txdot.gov/projects/projects-studies/statewide/texas-rail-plan-update.html",
   internalLinks: [
     { href: "/article/texas-settlement-patterns-explained", label: "Texas settlement patterns explained", description: "See the older water, mission, farming and county-seat map that railroads transformed." },
+    { href: "/article/texas-state-railroad-rusk-palestine-history-guide", label: "Texas State Railroad from Rusk to Palestine", description: "See how a state industrial line reached a freight junction and later became a heritage railroad." },
     { href: "/article/texas-farm-to-market-roads-explained", label: "Farm-to-market roads explained", description: "Follow the next transportation layer that connected rural Texas to towns and markets." },
     { href: "/article/texas-highway-designations-explained", label: "Texas highway designations", description: "Decode the road system that eventually replaced rail for many passenger and local freight trips." },
     { href: "/article/texas-main-street-downtowns-guide", label: "Texas Main Streets explained", description: "See how depots and commercial blocks reshaped downtown geography." },

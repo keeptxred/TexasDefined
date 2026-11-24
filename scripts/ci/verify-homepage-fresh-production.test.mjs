@@ -3,13 +3,13 @@ import test from 'node:test';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { checkHomepageHtml, verifyHomepageProduction, extractLexingtonReadingMinutes, extractDiscoveryArticleCards, extractGenericArticleReadingMinutes, EXPECTED_LEXINGTON_READING_MINUTES } from './verify-homepage-fresh-production.mjs';
+import { checkHomepageHtml, verifyHomepageProduction, extractLexingtonReadingMinutes, extractDiscoveryArticleCards, extractGenericArticleReadingMinutes, EXPECTED_LEXINGTON_READING_MINUTES, expectedHomepageHeading } from './verify-homepage-fresh-production.mjs';
 
 const valid = [
   '<!doctype html><html><head>',
   '<link rel="canonical" href="https://texasdefined.com/">',
   '<meta name="robots" content="index, follow"></head><body><main>',
-  '<h1>The places, stories &amp; life of Texas</h1>',
+  `<h1>${expectedHomepageHeading().replaceAll('&', '&amp;')}</h1>`,
   '<section><h2>USS Lexington (CV-16): The Blue Ghost, World War II Aircraft Carrier and Corpus Christi Museum</h2>',
   '<a href="/article/uss-lexington-cv16-history-visitor-guide">Read the story</a>',
   `<p>About ${EXPECTED_LEXINGTON_READING_MINUTES} minutes</p></section>`,
@@ -27,6 +27,18 @@ const validArticle = [
 
 test('a fresh source-rendered homepage passes visible editorial and indexability markers', () => {
   assert.deepEqual(checkHomepageHtml(valid, 'text/html; charset=utf-8').failures, []);
+});
+
+test('thanksgiving 2026 live parity requires Happy Thanksgiving and rejects stale evergreen HTML', () => {
+  const heading = (value) => valid.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, '<h1>' + value + '</h1>');
+  const holiday = new Date('2026-11-26T18:00:00.000Z');
+  const outside = new Date('2026-11-30T16:00:00.000Z');
+  assert.equal(expectedHomepageHeading(holiday), 'Happy Thanksgiving');
+  assert.equal(expectedHomepageHeading(outside), 'The places, stories & life of Texas');
+  assert.ok(!checkHomepageHtml(heading('Happy Thanksgiving'), 'text/html', holiday).failures.includes('expectedHomepageTitle'));
+  assert.ok(checkHomepageHtml(heading('The places, stories &amp; life of Texas'), 'text/html', holiday).failures.includes('expectedHomepageTitle'));
+  assert.ok(checkHomepageHtml(heading('Happy Thanksgiving'), 'text/html', outside).failures.includes('expectedHomepageTitle'));
+  assert.ok(!checkHomepageHtml(heading('The places, stories &amp; life of Texas'), 'text/html', outside).failures.includes('expectedHomepageTitle'));
 });
 
 test('rejects cached previous layout, generic Terlingua copy, noindex and wrong canonical', () => {

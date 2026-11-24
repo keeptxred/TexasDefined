@@ -56,6 +56,17 @@ type TigerwebCountyFeature = {
 // Curated county relationships do not assume a town has an independent city page.
  // Verify using the Handbook of Texas and county roads/municipal boundaries map.
 const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
+  // Verified Brazoria cities and communities: City of Alvin and Brazoria County historical references.
+  // https://www.alvin.gov/342/History-of-Alvin
+  // https://www.brazoriacountytx.gov/about-us/history
+  brazoria: ['Alvin', 'Angleton', 'Pearland', 'Lake Jackson', 'Freeport', 'Brazoria', 'West Columbia', 'Surfside Beach'],
+  // Cass County incorporated places: Arkansas-Texarkana Council of Governments,
+  // Northeast Texas Economic Development District CEDS 2023–2028, June 2025 update,
+  // page "Counties/Cities/Towns/Communities of NETEDD"; county relationship also
+  // corroborated by the Handbook of Texas and Cass appraisal/tax records.
+  // These are places, not individual verified municipal-office contacts.
+  'cass': ['Atlanta', 'Hughes Springs', 'Queen City', 'Avinger', 'Bloomburg', 'Domino',
+    'Douglassville', 'Marietta', 'Bivins', 'Kildare', 'McLeod'],
   'van-zandt': ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'],
   // Source: El Paso County Elections municipalities; TWDB 2022 El Paso County map
   // Additional named places are unincorporated communities, not municipalities.
@@ -144,6 +155,11 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
       ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
       ...(slug === 'van-zandt' ? ['https://www.tshaonline.org/handbook/entries/van-zandt-county', 'https://www.census.gov/quickfacts/fact/table/vanzandtcountytexas/PST045225', 'https://www.vanzandtcounty.org/upload/page/2695/2025%20DOCS/VanZandtCountyWallMap11292023.pdf'] : []),
       ...(slug === 'el-paso' ? ['https://www.census.gov/quickfacts/fact/table/elpasocountytexas/PST045225', 'https://epcountyvotestx.gov/maps/municipalities', 'https://www.twdb.texas.gov/board/2022/01/Board/Brd06.pdf'] : []),
+      ...(slug === 'cass' ? [
+        'https://atcog.org/wp-content/uploads/2025/07/CEDS-Booklet-approved-2023-updated-June-26-2025-Board-of-Directors.pdf',
+        'https://www.tshaonline.org/handbook/entries/cass-county',
+        'https://comptroller.texas.gov/taxes/property-tax/county-directory/cass.php',
+      ] : []),
     ],
   };
 }

@@ -56,6 +56,118 @@ try {
   failures.push("live Christmas 12-show production acceptance must have valid JavaScript syntax: " + String(error.stderr || error.message));
 }
 
+// Original 2027 Refugio County Fair Association: current-edition event dates,
+// separately confirmed by organizer calendar and Easter-shift notice.
+// Only independently dated original 2027 Willacy County Fair Association
+// programs enter the shared county/statewide list. No guessed exact times.
+// Tyler County Dogwood Festival Association ORIGINAL dated 2027
+// weekends are confirmed. Its detail page program/times remain 2026 only.
+const tylerDogwood2027 = read("src/data/events/tyler-dogwood-2027.server.ts");
+requireText(adapter,'import { getVerifiedTylerCountyDogwoodEvents2027 } from "./tyler-dogwood-2027.server";',"Tyler County 2027 statewide event adapter import");
+requireText(adapter,"...getVerifiedTylerCountyDogwoodEvents2027()","Tyler County 2027 county/statewide deduplication");
+for(const marker of [
+  'id: "curated-tyler-county-dogwood-2027:festival-of-the-arts"',
+  'id: "curated-tyler-county-dogwood-2027:western-weekend"',
+  'id: "curated-tyler-county-dogwood-2027:queens-weekend"',
+  'startDate: "2027-03-21"',
+  'startDate: "2027-03-26"',
+  'endDate: "2027-03-27"',
+  'startDate: "2027-04-03"',
+  'city: "Woodville"',
+  'countySlug: "tyler"',
+  'countyName: "Tyler County"',
+  'region: "east-texas"',
+  'officialEventUrl: "https://www.tylercountydogwoodfestival.org/"',
+  'lastVerifiedAt: "2026-11-23"',
+  'status: "scheduled"',
+]) requireText(tylerDogwood2027,marker,"Original 2027 Woodville Tyler County Dogwood Festival date");
+if ((tylerDogwood2027.match(/id: "curated-tyler-county-dogwood-2027:/g)??[]).length !== 3)
+  failures.push("Tyler County Dogwood 2027 must have exactly three organizer-confirmed weekends");
+if (/startTime:|endTime:|affiliateUrl:|officialTicketUrl:|imageUrl:/.test(tylerDogwood2027))
+  failures.push("Tyler Dogwood 2026 detailed program times/fees/media rights cannot be projected onto 2027");
+if (/startDate: "2026-|startDate: "2028-/.test(tylerDogwood2027))
+  failures.push("Tyler Dogwood 2027 source records must not contain prior or projected year editions");
+
+const willacy2027 = read("src/data/events/willacy-fair-2027.server.ts");
+requireText(adapter,'import { getVerifiedWillacyFairCalendarEvents2027 } from "./willacy-fair-2027.server";',"Willacy 2027 shared calendar import");
+requireText(adapter,"...getVerifiedWillacyFairCalendarEvents2027()","Willacy statewide and county calendar deduplication");
+for(const marker of [
+  'id: "curated-willacy-fair-2027:beef-syndicate-bbq"',
+  'id: "curated-willacy-fair-2027:chili-cookoff"',
+  'id: "curated-willacy-fair-2027:livestock-show"',
+  'startDate: "2027-01-16"',
+  'startDate: "2027-01-22"',
+  'endDate: "2027-01-23"',
+  'startDate: "2027-01-27"',
+  'endDate: "2027-01-30"',
+  'countySlug: "willacy"',
+  'countyName: "Willacy County"',
+  'city: "Raymondville"',
+  'https://www.wclsf.com/',
+  'status: "scheduled"',
+  'lastVerifiedAt: "2026-11-23"',
+]) requireText(willacy2027,marker,"Original first-party Willacy County 2027 fair event edition");
+if ((willacy2027.match(/id: "curated-willacy-fair-2027:/g)??[]).length !== 3)
+  failures.push("Willacy source-qualified 2027 fair must have exactly 3 distinct original events");
+if (/startTime:|endTime:|officialTicketUrl:|affiliateUrl:|imageUrl:/.test(willacy2027))
+  failures.push("Willacy original 2027 dates did not verify start times, official ticket or photo/affiliate permissions");
+if (/startDate: "2026-|startDate: "2028-/.test(willacy2027))
+  failures.push("Willacy 2027 specific events must not infer 2026 or 2028 annual dates");
+
+// Baylor County Seymour Helping Hands original NEW 2027 event is not a replay
+// of generic City of Seymour or Chamber yearly brochure dates.
+const seymour2027 = read("src/data/events/seymour-spring-fling-2027.server.ts");
+requireText(adapter,'import { getVerifiedSeymourSpringFlingEvent2027 } from "./seymour-spring-fling-2027.server";',"Seymour 2027 original nonprofit statewide calendar import");
+requireText(adapter,"...getVerifiedSeymourSpringFlingEvent2027()","Seymour 2027 county and statewide deduped calendar inclusion");
+for(const marker of [
+ 'id: "curated-seymour-2027:spring-fling-car-show"',
+ 'slug: "seymour-spring-fling-car-show"',
+ 'startDate: "2027-05-08"',
+ 'city: "Seymour"',
+ 'countySlug: "baylor"',
+ 'countyName: "Baylor County"',
+ 'region: "prairies-lakes"',
+ 'officialEventUrl: "https://www.seymourhelpinghands.com/post/the-road-to-75-starts-now"',
+ 'status: "scheduled"',
+ 'lastVerifiedAt: "2026-11-23"',
+]) requireText(seymour2027,marker,"Seymour nonprofit exact original May 8 2027 edition evidence");
+if((seymour2027.match(/id: "curated-seymour-2027:/g)??[]).length!==1)
+ failures.push("Seymour source only confirms ONE May 8 2027 date-specific program");
+if(/\b(startTime|endTime|ticketing|image|officialTicketUrl|affiliateUrl):/.test(seymour2027))
+ failures.push("Seymour source does not verify show start/end hours, admission, ticket or media permissions");
+if(/startDate: "2026-|startDate: "2028-/.test(seymour2027))
+ failures.push("Seymour 2027 car show must not project prior or future year editions");
+
+const refugio2027 = read("src/data/events/refugio-fair-2027.server.ts");
+requireText(adapter,'import { getVerifiedRefugioFairCalendarEvents2027 } from "./refugio-fair-2027.server";',"Refugio statewide server import");
+requireText(adapter,"...getVerifiedRefugioFairCalendarEvents2027()","Refugio shared county/statewide deduplication");
+for (const marker of [
+  'id: "curated-refugio-fair-2027:pride-of-texas-carnival"',
+  'id: "curated-refugio-fair-2027:fair-parade"',
+  'id: "curated-refugio-fair-2027:ranch-rodeo"',
+  'id: "curated-refugio-fair-2027:livestock-shows"',
+  'startDate: "2027-03-24"',
+  'startDate: "2027-03-27"',
+  'startDate: "2027-03-31"',
+  'endDate: "2027-04-02"',
+  'startTime: "10:00 AM"',
+  'startTime: "12:30 PM"',
+  'https://www.refugiocountyfair.com/events/',
+  'https://www.refugiocountyfair.com/uncategorized/2027-refugio-county-fair-dates/',
+  'countySlug: "refugio"',
+  'countyName: "Refugio County"',
+  'status: "scheduled"',
+  'lastVerifiedAt: "2026-11-23"',
+]) requireText(refugio2027,marker,"Refugio organizer-confirmed exact 2027 fair editions");
+if ((refugio2027.match(/id: "curated-refugio-fair-2027:/g)??[]).length !== 4)
+  failures.push("Refugio 2027 must have exactly four individual date-verified first-party events");
+if ((refugio2027.match(/startTime: /g)??[]).length !== 2)
+  failures.push("Only the 10 AM parade and 12:30 PM ranch rodeo exact 2027 Refugio start times may be asserted");
+if (/\b(ticketing|image|officialTicketUrl|affiliateUrl):/.test(refugio2027))
+  failures.push("No Refugio photo/ticket/licensing rights or provider partnership was verified");
+if (/startDate: "2026-|startDate: "2028-/.test(refugio2027))
+  failures.push("Refugio 2027 event records must not project old or future year editions");
+
 const mardiGrasCompanions = read("src/data/events/mardi-gras-companion-events-2027.server.ts");
 const mardiGrasHub = read("src/routes/events.mardi-gras.lazy.tsx");
 const mardiGrasNewFestivals = read("src/data/events/mardi-gras-new-festivals-2027.server.ts");

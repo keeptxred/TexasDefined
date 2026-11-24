@@ -1,4 +1,5 @@
 import type { TexasEventRecord } from "./texas-event-record";
+import { verifiedCountyChristmasEvents2026 } from "./christmas-community-2026-county-backfill.server.ts";
 
 /**
  * First-party-verified community Christmas occurrences for 2026–27.
@@ -2501,6 +2502,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceVerifiedAt": "2026-10-27"
   },
   {
+    "slug": "caldwell-christmas-on-the-square-2026",
+    "title": "Caldwell Christmas on the Square · Lighted Christmas Parade",
+    "city": "Caldwell",
+    "countySlug": "burleson",
+    "countyName": "Burleson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "venueName": "Downtown Caldwell · parade lineup on Buck Street",
+    "officialEventUrl": "https://www.burlesoncountytx.com/",
+    "sourceName": "Burleson County Chamber of Commerce",
+    "summary": "The Burleson County Chamber's current Christmas on the Square announcement confirms Friday, December 11, 2026, with holiday music, dance performances and a lighted Christmas parade at approximately 7 p.m. Participant lineup begins around 6:40 p.m. on Buck Street behind the Caldwell Fire Truck; that lineup is not a visitor arrival or parade start time. Confirm the public parade route, parking and remaining evening schedule with the Chamber before traveling.",
+    "sourceVerifiedAt": "2026-11-22"
+  },
+  {
     "slug": "tpwd-lake-bob-sandlin-christmas-2026",
     "title": "14th Annual Christmas in the Park · Lake Bob Sandlin",
     "city": "Pittsburg",
@@ -3608,6 +3623,146 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.baytown.org/hangout",
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
+  },
+  {
+    "slug": "comanche-explore-christmas-square-2026",
+    "title": "Explore Comanche Christmas — Market, Parade & Tree Lighting",
+    "city": "Comanche",
+    "countySlug": "comanche",
+    "countyName": "Comanche County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Comanche Square and Comanche Mercantile, Comanche",
+    "officialEventUrl": "https://www.comanchechamber.org/explorecomanchechristmas",
+    "sourceName": "Comanche Chamber of Commerce and Agriculture",
+    "summary": "The Comanche Chamber's official 2026 Christmas program confirms Saturday, December 12 around Comanche Square. Santa's Workshop and Santa photos at Comanche Mercantile are listed from 1 to 5 p.m.; the Christmas Market and Tree Lighting program runs 2:30 to 6 p.m. on the square; the Lighted Christmas Parade begins at 6 p.m.; and the town shop crawl is listed from 5 to 7 p.m. The Chamber does not establish a separate precise tree-switch-on moment, parade route, street closures, universal free admission, image-use permissions, or any 2027 edition date. Confirm conditions with the organizer before travel.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "clarendon-small-town-christmas-2026",
+    "title": "Clarendon Small Town Christmas — Courthouse Lighting & Downtown Festival",
+    "city": "Clarendon",
+    "countySlug": "donley",
+    "countyName": "Donley County",
+    "region": "panhandle",
+    "startDate": "2026-11-28",
+    "venueName": "Historic downtown Clarendon, The Roost and Donley County Courthouse",
+    "officialEventUrl": "https://clarendontx.com/2026/11/17/2026-small-town-christmas/",
+    "sourceName": "Clarendon Economic Development Corporation and Chamber of Commerce",
+    "summary": "Clarendon EDC and Chamber's November 17, 2026 announcement confirms Small Town Christmas on Saturday, November 28. Downtown activities start at 2 p.m., including vendors and food trucks at The Roost, children's activities and a community scavenger hunt at 3 and 4 p.m. Santa visits the courthouse for a lighting ceremony at 5 p.m., with carriage rides, s'mores and live music listed at 6:30 p.m. and awards at 7:30 p.m. The source does not establish blanket free admission, approved photographs, 2027 dates or individual street closure details. Check organizer notices for changes.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "columbus-lighted-christmas-parade-2026",
+    "title": "Columbus Lighted Christmas Parade & Courthouse Tree Lighting",
+    "city": "Columbus",
+    "countySlug": "colorado",
+    "countyName": "Colorado County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-01",
+    "venueName": "Downtown Columbus and Colorado County Courthouse Square",
+    "officialEventUrl": "https://business.columbustexas.org/events/details/lighted-christmas-parade-downtown-columbus-14446",
+    "sourceName": "Columbus Chamber of Commerce — original 2026 community event calendar",
+    "summary": "The Columbus Chamber of Commerce confirms its annual downtown Lighted Christmas Parade for Tuesday, December 1, 2026, from 6 to 8 p.m. The Chamber says the downtown parade is followed by lighting of the courthouse-square Christmas tree, pictures with Santa and free hot cocoa and cookies. The official event entry provides a downtown setting but not a turn-by-turn parade route, closure map or a separate exact tree-lighting minute. Neither the published schedule nor Chamber photographs establish 2027 dates or free reuse rights.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "columbus-ladies-night-out-christmas-2026",
+    "title": "19th Columbus Ladies Night Out — Christmas Shopping & Carriage Rides",
+    "city": "Columbus",
+    "countySlug": "colorado",
+    "countyName": "Colorado County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Columbus, Colorado County, Texas",
+    "officialEventUrl": "https://business.columbustexas.org/events/details/ladies-night-out-12-03-2026-14445?calendarMonth=2026-12-01",
+    "sourceName": "Columbus Chamber of Commerce — 19th annual Ladies Night Out notice",
+    "summary": "Columbus Chamber's official listing confirms the 19th Annual Ladies Night Out on Thursday, December 3, 2026, from 4 to 9 p.m. in downtown Columbus. Seasonal shopping, vendors, festive food and horse-drawn carriage rides are listed. The Chamber also advertises commemorative souvenir wine glasses and shopping bags for $25 starting November 16; that price is for the merchandise bundle, not a proven general admission charge. This is a different local program from the December 1 lighted Christmas parade. Confirm individual shop or ride conditions; the notice does not establish photo rights or a 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "kountze-lighted-christmas-parade-2026",
+    "title": "Kountze Lighted Christmas Parade — Downtown Holiday Celebration",
+    "city": "Kountze",
+    "countySlug": "hardin",
+    "countyName": "Hardin County",
+    "region": "piney-woods",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Kountze, Texas",
+    "officialEventUrl": "https://www.kountzechamber.com/upcoming-events",
+    "sourceName": "Kountze Chamber of Commerce — official 2026 parade organizer listing",
+    "summary": "Kountze Chamber of Commerce confirms the 2026 Lighted Christmas Parade for Friday, December 4 beginning at 7 p.m. in downtown Kountze. The Chamber invites the community to see illuminated floats and holiday music under the event theme Let Freedom Ring with the Bells of Christmas. Its event software shows 7:00 to 7:05 p.m., which should not be treated as a verified five-minute procession; the actual ending time is unspecified. 'Free parade entry' does not by itself establish any other admission or vendor policies. The organizer does not publish a complete road closure map, reuse license or 2027 edition.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "cross-plains-sip-n-shop-christmas-parade-2026",
+    "title": "Cross Plains Christmas Parade, Santa Visit & Sip N' Shop",
+    "city": "Cross Plains",
+    "countySlug": "callahan",
+    "countyName": "Callahan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Main Street, downtown Cross Plains, Callahan County, Texas",
+    "officialEventUrl": "https://crossplainschamberofcommerce.com/sidewalk-sale",
+    "sourceName": "Cross Plains Chamber of Commerce — original 2026 Sip N' Shop and Christmas Parade notice",
+    "summary": "Cross Plains Chamber confirms the Sip N' Shop on Thursday, December 3, 2026 from 4 to 9 p.m. on Main Street, held with the community Christmas Parade and Santa visit. The Chamber encourages seasonal crafts, gift shopping, baked goods, food trucks and participating downtown merchants. Its advertised $35 sign-up is for sidewalk vendors, not a verified public or spectator admission fee. The 4–9 p.m. period applies to shopping and is not a confirmed parade start or end time; the original Chamber notice does not specify a precise parade departure time or detailed route. A separate old Christmas page covers the 2025 edition only. No organizer photo reuse or 2027 date is inferred.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "alice-hub-city-87th-christmas-parade-2026",
+    "title": "87th Annual Alice Christmas Parade — Christmas Books & Movies",
+    "city": "Alice",
+    "countySlug": "jim-wells",
+    "countyName": "Jim Wells County",
+    "region": "south-texas",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Alice — N. Texas Boulevard, Third Street, Cameron Street and Main Street",
+    "officialEventUrl": "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq",
+    "sourceName": "Alice Hub City Chamber of Commerce — 2026 87th Annual Christmas Parade",
+    "summary": "Alice Hub City Chamber of Commerce directly confirms the 87th Annual Christmas Parade for Thursday, December 3, 2026, 6:15–8 p.m. The 2026 theme celebrates Christmas books and movies, with decorated floats, marching bands and community participation. The Chamber's original registration schedule puts float judging between 5:15 and 6 p.m. before the parade. Its route begins staging on Kennedy Street and at the 1800 block of North Texas Boulevard, continues south to Third Street, west to Cameron Street, south to Main Street and west to Dixie Iron Works. Listed $20 Chamber-member, $30 nonmember and $10 extra vehicle fees apply to parade entrants, not necessarily to spectators. Confirm day-of traffic, accessibility and weather with the Chamber. No 2027 date or photograph-use permission is established.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "rockdale-chamber-winter-wonderland-2026",
+    "title": "Rockdale Winter Wonderland — Chamber & Community Holiday Market",
+    "city": "Rockdale",
+    "countySlug": "milam",
+    "countyName": "Milam County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Wolf Park, 106 North Main Street, Rockdale",
+    "officialEventUrl": "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland",
+    "sourceName": "Rockdale Community Market / Rockdale Chamber of Commerce and City of Rockdale — original co-organizer event announcement",
+    "summary": "Rockdale Community Market's original Winter Wonderland event page announces a joint evening with the Rockdale Chamber of Commerce and City of Rockdale at Wolf Park, 106 North Main Street, on Saturday, December 5, 2026, from 5 to 9 p.m. Its published program includes an evening market, Christmas treats, a tamale-eating contest and a holiday train. The registration page lists tickets from $40 to $60 alongside vendor reservation prompts, but does not establish that all visitors must pay those amounts to attend; confirm market, activity and vendor charges with organizers. This is separate from the Community Market's November 14 Christmas market, which has already passed. No independent 2027 date, parking arrangement, parade route or photograph-use license is provided.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "ozona-evening-on-the-town-2026",
+    "title": "Ozona Evening on the Town — Historic Square Holiday Shopping",
+    "city": "Ozona",
+    "countySlug": "crockett",
+    "countyName": "Crockett County",
+    "region": "big-bend",
+    "startDate": "2026-12-10",
+    "venueName": "Ozona Historic Town Square, Ozona",
+    "officialEventUrl": "https://business.ozona.com/events/details/evening-on-the-town-5487",
+    "sourceName": "Ozona Chamber of Commerce & Visitor Center — original 2026 Chamber event notice",
+    "summary": "The Ozona Chamber of Commerce and Visitor Center's official event listing confirms its annual Evening on the Town for Thursday, December 10, 2026, from 5 to 8 p.m. at Ozona's Historic Town Square. Local Chamber member businesses are invited to remain open for holiday shopping, with festive music, food and raffles included in the Chamber's published program. The hours and square location come from the actual 2026 event detail rather than the recurring event's undated general visitor guide. The organizer does not specify a separate tree-lighting ceremony, universal free admission, individual store hours or guaranteed activities in 2027. Contact the Chamber for parking, participating businesses and any updates before traveling.",
+    "sourceVerifiedAt": "2026-11-23"
+  },
+  {
+    "slug": "seminole-chamber-jingle-mingle-tree-lighting-2026",
+    "title": "Seminole Jingle Mingle — Chamber Christmas Tree Lighting",
+    "city": "Seminole",
+    "countySlug": "gaines",
+    "countyName": "Gaines County",
+    "region": "panhandle",
+    "startDate": "2026-12-05",
+    "venueName": "Seminole, Texas — confirm tree-lighting venue with the Chamber",
+    "officialEventUrl": "https://seminoletxchamber.org/event/jingle-mingle-2/",
+    "sourceName": "Seminole Chamber of Commerce — 2026 Jingle Mingle original event calendar",
+    "summary": "The Seminole Chamber of Commerce's first-party 2026 event calendar explicitly lists Jingle Mingle on Saturday, December 5, 2026, identifies Christmas Tree Lighting as the featured program and links to its dedicated event page. Its event software displays 8 a.m.–5 p.m., but that could reflect an administrative event block and does not independently confirm an actual public tree-lighting start or evening ceremony time. The original page also does not establish an exact public gathering location, admission policy, additional market activities, weather arrangements, photo reuse rights or next year's edition. Confirm the venue and actual lighting time directly with the Chamber before attending.",
+    "sourceVerifiedAt": "2026-11-23"
   }
 ];;;;;;;
 
@@ -3639,7 +3794,7 @@ function texasTodayIso(now = new Date()): string {
 
 export function getVerifiedChristmasCommunityEvents2026(now = new Date()): TexasEventRecord[] {
   const today = texasTodayIso(now);
-  return verifiedOccurrences
+  return [...verifiedOccurrences, ...verifiedCountyChristmasEvents2026]
     .filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)
     .map((occurrence) => ({
       ...occurrence,

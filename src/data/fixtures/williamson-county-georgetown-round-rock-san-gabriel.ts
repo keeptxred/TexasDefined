@@ -8,9 +8,9 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
   brandId: "texasdefined",
   slug: "williamson-county-georgetown-round-rock-san-gabriel-texas",
   title: "Williamson County: Georgetown, Round Rock, the San Gabriel and a Central Texas Growth Corridor",
-  dek: "Williamson County reaches from Georgetown's restored courthouse and the limestone hills around Lake Georgetown to Round Rock's technology corridor, Taylor's railroad-and-cotton history and the Blackland Prairie east of I-35.",
+  dek: "How Williamson County’s 1911 courthouse lost its ornate roofline in 1965 and regained it in 2007, plus Georgetown’s voting-rights and 1923 Klan-trial history.",
   category: "texas-history",
-  region: "central-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://www.wilcotx.gov/ImageRepository/Document?documentId=4272",
     alt: "Historic Williamson County Courthouse on the Georgetown square at sunset",
@@ -20,7 +20,8 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: ["Williamson County", "Georgetown", "Round Rock", "Taylor", "Hutto", "San Gabriel River", "Lake Georgetown", "Blackland Prairie", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -53,6 +54,22 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
     p("Georgetown's square works because it remains part of daily life rather than functioning only as a museum district. Restaurants, shops, events and offices occupy surrounding blocks, while the courthouse provides a permanent visual anchor. The arrangement makes it easy to understand the original logic of a county-seat town: streets converge on the place where government and commerce once depended on face-to-face access."),
     p("For visitors trying to understand Williamson County as a whole, the square is the best starting point. It represents the county's older institutional center before highways and suburban growth shifted much of the population south and west. From there, a drive in almost any direction reveals a different layer of the county's history."),
 
+    h("Georgetown lost its Beaux-Arts roofline in 1965 and restored it in 2007"),
+    p("The Williamson County Courthouse in Georgetown is the county's fifth courthouse, completed in 1911. The Beaux-Arts building, designed by Austin architects Charles H. Page and Louis C. Page, replaced a series of earlier county buildings and reflected Williamson County's growing importance as a cotton and railroad region. Its monumental limestone porticoes and ornamented roofline were designed to make the courthouse the architectural focus of Georgetown's square."),
+    p("During repairs in 1965, county officials removed much of the upper terra-cotta ornament, including balustrades and pediments, and later subdivided the original double-height courtroom. These changes made the courthouse more utilitarian but substantially altered its original appearance. Historic photos show a roofline unlike the simplified courthouse that stood during much of the late twentieth century."),
+    p("The Texas Historical Commission supported an approximately $9 million full preservation program, begun in 2006 and completed with a public rededication in December 2007. Workers reconstructed the roofline from documentary evidence, restored courthouse chambers and reestablished the high courtroom ceiling. The building people see today therefore contains reconstructed 1911-period architectural features; it is not a completely untouched survivor."),
+    p("County services have expanded into separate locations as Georgetown has grown. The historic square courthouse is a living public landmark, but visitors should check the county's current directory before assuming a particular filing, jury summons or courtroom still operates inside it."),
+
+    h("The courthouse was a stage for voting rights and a Klan conviction"),
+    p("Georgetown's courthouse history is also social history. Jessie Daniel Ames, a suffrage and anti-lynching organizer who lived in Georgetown, helped register women voters after Texas granted women the right to vote in primary elections in 1918. The local preservation association records that more than 3,000 women came to the courthouse to register during that first campaign."),
+    p("In September 1923 the county courthouse hosted a landmark trial of men associated with the Ku Klux Klan after the violent flogging of traveling salesman R. W. Burleson. The prosecution secured convictions that included prison sentences, a nationally significant result at a time when Klan intimidation was common in Texas politics. Some local summaries call it the 'first successful prosecution' of a Klan member; historians distinguish this specific imprisonment and its contemporary publicity from an unsupported claim that no Klan member had ever been prosecuted anywhere else."),
+    p("These events illustrate the courthouse's contradictory roles: a place where new voters claimed political participation and where public courts confronted organized intimidation. The restored architecture is valuable, but a serious authority guide must also tell the stories of the people whose rights and safety were contested within it."),
+
+    h("Questions about the Williamson courthouse"),
+    p("When was the historic Williamson County Courthouse completed? In 1911, as the fifth courthouse serving the county."),
+    p("Why was its ornate roofline missing in historic photographs? The terra-cotta balustrade and pediments were removed during 1965 repairs, then reconstructed during the 2006–07 restoration."),
+    p("When did the restoration finish? Georgetown publicly rededicated the courthouse in December 2007."),
+    p("Why is the 1923 courthouse trial remembered? It included convictions and imprisonment in a prominent prosecution related to Ku Klux Klan violence."),
     h("Round Rock began at Brushy Creek"),
     p("Round Rock started as a settlement on Brushy Creek. The Texas State Historical Association records that Jacob Harrell established a shop there in 1848 and that the community was first called Brushy Creek. In 1854 the name changed to Round Rock, referring to the large limestone rock in the creek that residents used as a local landmark. The rock remains one of those simple geographic features that explains how Texas towns often got names before formal mapping and highway signage standardized place identity."),
     p("Brushy Creek also placed the settlement on an important cattle-route landscape. Feeder routes associated with the Chisholm Trail passed through Williamson County, and cattle crossed near Round Rock on their way north. That period survives in the county's historical identity even though the modern city is better known for corporate campuses, suburban neighborhoods, sports facilities and one of the busiest stretches of the Austin-region transportation network."),
@@ -116,5 +133,12 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
     h("Why Williamson County matters to the Texas story"),
     p("Williamson County matters because it shows how Central Texas repeatedly reorganized itself around movement and opportunity. Indigenous travel and settlement followed water and resources. Pioneers built communities near streams and crossings. Cattle routes connected ranches to northern markets. Railroads created towns and powered cotton agriculture. Highways connected the county to Austin, and technology and population growth transformed the same corridor again."),
     p("Yet the older layers remain visible. Georgetown still gathers around its courthouse. Round Rock still has the limestone landmark that gave the city its name. The San Gabriel still crosses the county from rocky western terrain into prairie farmland. Taylor still shows its railroad-and-cotton roots. Williamson County is not simply a fast-growing suburb north of Austin; it is a compact history of how geography, transportation, agriculture, government and technology have successively defined Central Texas."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — 1911 Williamson County Courthouse and 2007 restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/williamson-county" },
+    { label: "Texas Historical Commission — Williamson Courthouse 1911 historic marker", url: "https://atlas.thc.texas.gov/Details/5507013880" },
+    { label: "Preservation Georgetown — women's voting campaign and the 1923 Klan trial", url: "https://www.preservationgeorgetown.org/walk-this-way/2.-historic-williamson-county-courthouse" },
+    { label: "Texas Historical Commission — courthouse restoration feature and 2007 dedication", url: "https://www.thc.texas.gov/public/upload/MS%20Matters%20october_4.pdf" },
+    { label: "Texas State Historical Association — Jessie Daniel Ames", url: "https://www.tshaonline.org/handbook/entries/ames-jessie-daniel" },
   ],
 };

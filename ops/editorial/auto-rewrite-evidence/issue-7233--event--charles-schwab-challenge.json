@@ -1,0 +1,17 @@
+{
+  "issue": 7233,
+  "page": "/event/charles-schwab-challenge",
+  "updatedAt": "2026-11-23T15:27:31.061Z",
+  "facts": [
+    {
+      "sourceUrl": "https://www.charlesschwabchallenge.com/",
+      "sourceQuote": "Parking Options Choose from public, VIP, or valet parking for easy tournament access.",
+      "newCopy": "Compare public, VIP and valet parking in the tournament’s Parking Options before choosing how to arrive."
+    },
+    {
+      "sourceUrl": "https://www.charlesschwabchallenge.com/",
+      "sourceQuote": "Tee Times & Pairings Check the latest tee times and player pairings for each round.",
+      "newCopy": "Use Tee Times & Pairings for each round’s start times and player groupings."
+    }
+  ]
+}

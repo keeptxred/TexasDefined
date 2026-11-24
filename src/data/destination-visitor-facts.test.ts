@@ -166,19 +166,23 @@ test("ten additional TPWD state parks preserve site-specific exact-source visito
     ["mother-neff-state-park", 3], ["lockhart-state-park", 3],
     ["longhorn-cavern-state-park", 3], ["martin-dies-jr-state-park", 2],
     ["mission-tejas-state-park", 2], ["meridian-state-park", 2],
-    ["martin-creek-lake-state-park", 2], ["atlanta-state-park", 2],
+    ["martin-creek-lake-state-park", 6], ["atlanta-state-park", 2],
     ["bonham-state-park", 2], ["buescher-state-park", 2],
   ];
   for (const [slug, count] of parkFacts) {
     const destination = applyCuratedDestinationBatch5({ slug } as Destination);
-    const fresh = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    const isMartinCreek = slug === "martin-creek-lake-state-park";
+    const checkedDay = isMartinCreek ? "2026-11-21" : "2026-10-21";
+    const fresh = reviewDestinationVisitorFacts(destination.visitorFacts, checkedDay);
     assert.deepEqual(fresh.issues, [], slug);
     assert.equal(fresh.visible.length, count, slug);
     assert.ok(fresh.visible.every(({ sourceUrl, checkedAt }) =>
-      sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/") && checkedAt === "2026-10-21"), slug);
-    const afterFourMonths = reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible;
+      (sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/") ||
+        (isMartinCreek && sourceUrl.startsWith("https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/"))) &&
+        checkedAt === checkedDay), slug);
+    const afterFourMonths = reviewDestinationVisitorFacts(destination.visitorFacts, "2027-04-01").visible;
     assert.deepEqual(afterFourMonths.map(({ topic }) => topic), slug === "longhorn-cavern-state-park" ? ["camping"] : [], slug);
-    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-10-23").visible.length, 0, slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-11-23").visible.length, 0, slug);
   }
 });
 

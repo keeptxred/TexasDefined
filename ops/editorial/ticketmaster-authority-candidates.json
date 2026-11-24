@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-21T18:02:27.090Z",
+  "fetchedAt": "2026-11-23T22:42:59.275Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -42,30 +42,6 @@
       "officialTicketUrls": [
         "https://www.ticketmaster.com/card-expo-hidalgo-texas-12-05-2026/event/3A006522D1987F21",
         "https://www.ticketmaster.com/card-expo-hidalgo-texas-12-06-2026/event/3A006522D19C7F38"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Carousel Club Burlesque Presents Rhinestone Rodeo (Ages 18 & Up)",
-      "city": "Fort Worth",
-      "dates": [
-        "2026-11-21"
-      ],
-      "venues": [
-        "Tannahill's Music Hall & Lounge"
-      ],
-      "ticketmasterIds": [
-        "vvG1YZ_3DmtmLH"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/carousel-club-burlesque-presents-rhinestone-rodeo-fort-worth-texas-11-21-2026/event/0C00652EEEA6E7FC"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -364,30 +340,6 @@
       "publicationAllowed": false
     },
     {
-      "name": "KING OF CARS CUSTOM CAR SHOW & CULTURE FEST",
-      "city": "Houston",
-      "dates": [
-        "2026-11-22"
-      ],
-      "venues": [
-        "Reliant Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_35I4rvI"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/king-of-cars-custom-car-show-houston-texas-11-22-2026/event/3A006522E855E068"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
       "name": "Lights All Night Festival - Ages 18+",
       "city": "Dallas",
       "dates": [
@@ -497,16 +449,25 @@
       "name": "Premier Womens Rodeo",
       "city": "Fort Worth",
       "dates": [
+        "2026-12-17",
+        "2026-12-18",
+        "2026-12-19",
         "2026-12-20"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A70g86"
+        "Z7r9jZ1A70g86",
+        "Z7r9jZ1A7OYp7",
+        "Z7r9jZ1A7OYpA",
+        "Z7r9jZ1A7OprZ"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70g86"
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70g86",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpA",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OprZ"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -531,6 +492,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvVZo"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "SA Stock Show & Rodeo XBulls w/ Ryan Bingham and The Texas Gentlemen",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-21"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn41sw"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/sa-stock-show-rodeo-xbulls-w-san-antonio-texas-02-21-2027/event/3A006507AA54AC72"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -627,6 +612,56 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-13-2027/event/3A006507AA16ABD5"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo followed by Keith Urban",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-20"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn3Qsr",
+        "G5dIZ_8rn8Bso"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-20-2027/event/3A006507AA43AC51",
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-20-2027/event/3A006507AA49AC5E"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Followed By Koe Wetzel",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-19"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn2Qsv"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-19-2027/event/3A006507AA3DAC41"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -782,30 +817,6 @@
       "publicationAllowed": false
     },
     {
-      "name": "San Antonio Stock Show & Rodeo Saturday Qualifier",
-      "city": "Uvalde",
-      "dates": [
-        "2026-11-21"
-      ],
-      "venues": [
-        "Uvalde County Fairplex"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_o5Hbdcu"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-saturday-uvalde-texas-11-21-2026/event/3A006512FC603B4D"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
       "name": "South Pole Illuminated Festival",
       "city": "McAllen",
       "dates": [
@@ -938,7 +949,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-21",
         "2026-11-27",
         "2026-11-28",
         "2026-11-29",
@@ -948,8 +958,6 @@
         "2026-12-11",
         "2026-12-12",
         "2026-12-13",
-        "2026-12-18",
-        "2026-12-19",
         "2026-12-26",
         "2026-12-27",
         "2027-01-01",
@@ -970,17 +978,16 @@
         "2027-02-05",
         "2027-02-06",
         "2027-02-12",
-        "2027-02-14"
+        "2027-02-14",
+        "2027-02-19",
+        "2027-02-20",
+        "2027-02-21"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A7OY4M",
-        "Z7r9jZ1A7OY4z",
         "Z7r9jZ1A7OYp6",
-        "Z7r9jZ1A7OYp7",
-        "Z7r9jZ1A7OYpA",
         "Z7r9jZ1A7OYpF",
         "Z7r9jZ1A7OYpZ",
         "Z7r9jZ1A7OYpa",
@@ -998,11 +1005,13 @@
         "Z7r9jZ1AA7-F9",
         "Z7r9jZ1AA7-FF",
         "Z7r9jZ1AA7-FK",
+        "Z7r9jZ1AA7-FN",
         "Z7r9jZ1AA7-FO",
         "Z7r9jZ1AA7-F_",
         "Z7r9jZ1AA7-Fa",
         "Z7r9jZ1AA7-Fb",
         "Z7r9jZ1AA7-Fo",
+        "Z7r9jZ1AA7-Fx",
         "Z7r9jZ1AA74PM",
         "Z7r9jZ1AA74Pw",
         "Z7r9jZ1AA7KQ4",
@@ -1014,6 +1023,7 @@
         "Z7r9jZ1AA7KjA",
         "Z7r9jZ1AA7KjF",
         "Z7r9jZ1AA7Kje",
+        "Z7r9jZ1AA7KqP",
         "Z7r9jZ1AAAfbK",
         "Z7r9jZ1AAAfbY",
         "Z7r9jZ1AAAfbt",
@@ -1022,11 +1032,7 @@
         "Z7r9jZ1AAvPqK"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpA",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpF",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpZ",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
@@ -1044,11 +1050,13 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F9",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FN",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FO",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F_",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fb",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fo",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fx",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74PM",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74Pw",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ4",
@@ -1060,6 +1068,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjA",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KqP",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbK",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbY",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAAfbt",

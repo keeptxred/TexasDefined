@@ -107,6 +107,34 @@ const texasHistoricTravelTransportationGuideStub: Article = {
   relatedDestinations: ["fanthorp-inn", "landmark-inn", "slaton-harvey-house", "fort-lancaster"],
 };
 
+const texasStateRailroadRuskPalestineHistoryGuideStub: Article = {
+  id: "evergreen-texas-state-railroad-rusk-palestine-history-guide",
+  brandId: "texasdefined",
+  slug: "texas-state-railroad-rusk-palestine-history-guide",
+  title: "Texas State Railroad: Rusk, Palestine & Prison Ironworks",
+  dek: "Explore the Texas State Railroad’s Rusk prison and Capitol iron history, the 1909 Palestine connection, and how to plan a heritage train ride today.",
+  category: "texas-history",
+  region: "piney-woods",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Locomotive_125_Texas_State_Railroad_2024.jpg?width=1600",
+    alt: "Texas State Railroad diesel locomotive 125 at the Rusk Depot in March 2024",
+    width: 1600,
+    height: 1067,
+    credit: "Larry D. Moore · 2024 · Wikimedia Commons · CC BY 4.0",
+  },
+  authorId: "a-hollis",
+  publishedAt: "2026-11-22",
+  updatedAt: "2026-11-23",
+  readingMinutes: 15,
+  tags: ["Texas State Railroad", "Rusk Penitentiary", "East Texas", "Rusk", "Palestine", "Texas State Capitol", "Piney Woods"],
+  featured: false,
+  sourceName: "Texas State Historical Association — Texas State Railroad",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/texas-state-railroad",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["palestine", "heritage-center-cherokee-county-rusk"],
+};
+
 const texasBeforeUnitedStatesLink = {
   href: "/article/texas-before-united-states-how-texas-began",
   label: "Texas before the United States: how Texas began",
@@ -133,6 +161,7 @@ export const historicSupportingStubs: Article[] = [
   texasBeforeUnitedStatesStub,
   texasCattleRanchingHistoryGuideStub,
   texasHistoricTravelTransportationGuideStub,
+  texasStateRailroadRuskPalestineHistoryGuideStub,
 ];
 
 export async function loadHistoricSupportingArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -141,5 +170,6 @@ export async function loadHistoricSupportingArticle(brandId: string, slug: strin
   if (slug === texasBeforeUnitedStatesStub.slug) return import("./texas-before-united-states-how-texas-began").then((module) => module.texasBeforeUnitedStatesArticle);
   if (slug === texasCattleRanchingHistoryGuideStub.slug) return import("./texas-cattle-ranching-history-guide").then((module) => module.texasCattleRanchingHistoryGuideArticle);
   if (slug === texasHistoricTravelTransportationGuideStub.slug) return import("./texas-historic-travel-transportation-guide").then((module) => module.texasHistoricTravelTransportationGuideArticle);
+  if (slug === texasStateRailroadRuskPalestineHistoryGuideStub.slug) return import("./texas-state-railroad-rusk-palestine-history-guide").then((module) => module.texasStateRailroadRuskPalestineHistoryGuideArticle);
   return null;
 }

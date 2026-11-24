@@ -8,9 +8,9 @@ export const wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle: 
   brandId: "texasdefined",
   slug: "wise-county-decatur-bridgeport-cross-timbers-lake-bridgeport-texas",
   title: "Wise County: Decatur, Bridgeport and the Cross Timbers of North Texas",
-  dek: "Wise County sits northwest of Fort Worth where Grand Prairie country meets the Western Cross Timbers, combining Decatur's courthouse square, Bridgeport's energy history, Lake Bridgeport, ranching and fast-changing North Texas communities.",
+  dek: "Decatur’s two courthouse fires in 1881 and 1895, missing records, the 1896 granite replacement and the fully restored Wise County Courthouse rededicated in 2025.",
   category: "texas-history",
-  region: "north-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wise_County_Courthouse_Decatur%2C_TX.JPG?width=1800",
     alt: "Wise County Courthouse in Decatur, Texas",
@@ -20,7 +20,8 @@ export const wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle: 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 15,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Wise County",
     "Decatur Texas",
@@ -32,6 +33,9 @@ export const wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle: 
     "Texas ranching",
     "Texas energy",
     "Texas counties",
+    "1881 Wise courthouse fire",
+    "1895 Wise courthouse fire",
+    "2025 Wise courthouse restoration",
   ],
   featured: false,
   internalLinks: [
@@ -79,6 +83,22 @@ export const wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle: 
     p("The present Wise County Courthouse was completed in 1896 after an earlier courthouse burned. Designed by James Riely Gordon, it is a Richardsonian Romanesque landmark of heavy stone, arches and a prominent central tower. The building was later listed on the National Register of Historic Places and remains one of the most distinctive courthouses in North Texas."),
     p("For visitors, the courthouse square is the best place to begin understanding Decatur. Historic commercial buildings surround the civic core, while modern U.S. 287 and U.S. 380 traffic passes only a short distance away. That contrast between a nineteenth-century county seat and a twenty-first-century regional crossroads captures Wise County's broader identity."),
 
+    h("Two courthouse fires and the story of saved—and missing—records"),
+    p("Decatur's courthouse was not always the imposing granite landmark visible today. Wise County organized in 1856 and held court in early temporary buildings before building a wooden courthouse on its new square around 1860–61. The original building burned on the night of November 26, 1881. Local accounts suggest arson, but the surviving official chronology establishes the destruction, not a definitive conviction for its cause."),
+    p("Officials erected a larger courthouse in 1882–83. Fearing another fire, county authorities for years posted a guard to help evacuate records in an emergency. By January 8, 1895, that precaution had been dropped. The courthouse burned again early that morning. The state archival inventory documents lost civil-case packets; as in Denton and Upshur counties, the fire created real gaps in historical research, although some county ledgers survived."),
+    p("Local historical sources and the later National Register nomination differ by one day for the second fire, giving January 8 or January 9, 1895. The county government's history and Wise County Historical Society both use January 8; this guide follows those local accounts while recording the disagreement."),
+    p("The county erected a third substantial courthouse during 1895–96. Its architect was James Riely Gordon, and contractor work was overseen by the county. Built of pink granite with elaborate terra-cotta details, the building included a working clock and two-thousand-pound bell. The first court met there in December 1896, while formal county acceptance took place January 1, 1897. The much-loved courthouse was thus a direct response to two earlier fires."),
+
+    h("The courthouse bells rang again at the October 23, 2025 rededication"),
+    p("The Texas Historical Commission awarded Wise County an $8.4 million restoration grant in 2023. The project conserved granite and terra-cotta masonry, restored the historic courtroom and reopened architectural details concealed by decades of alterations. On October 23, 2025, the courthouse bells sounded again and the county publicly rededicated the restored 1896 landmark."),
+    p("The ceremony attracted roughly 700 residents and visitors according to the THC's November 2025 report. This matters for current travel writing: older county pages or preservation lists that still say the project is 'in progress' are stale compared with the commission's dated rededication news release. It would be equally misleading to call the structure a new courthouse built in 2025; the historic building is the 1896–97 survivor."),
+    p("A square walk can pair the restored courthouse with the history of the lost wooden buildings and the local museum. Current county departments may occupy other facilities, so use official county contacts for legal services and check museum opening notices before visiting."),
+
+    h("Wise County courthouse questions"),
+    p("When did Decatur's early courthouses burn? The wooden courthouse burned November 26, 1881; a replacement burned January 8, 1895, according to local county records."),
+    p("Did the fires destroy court records? The second fire consumed some early civil-case packets, as documented in the Texas State Library microfilm inventory."),
+    p("When was the present Wise County Courthouse completed? It was in use in December 1896 and formally accepted in January 1897."),
+    p("Has the courthouse's restoration finished? Yes. The Texas Historical Commission documented its public rededication on October 23, 2025."),
     h("Bridgeport built a different identity around coal and energy"),
     p("Bridgeport's development was tied closely to natural resources. Lignite coal deposits were mined commercially in the late nineteenth and early twentieth centuries, and the town became an important fuel-producing center for the region. Mining drew workers and created an industrial economy distinct from the farm-and-ranch pattern elsewhere in the county."),
     p("Natural gas eventually displaced much of the local coal market, but energy remained important. Oil and gas production became a significant part of Wise County's twentieth-century economy, and modern drilling, pipelines and service businesses continue to share the landscape with ranching and residential growth."),
@@ -110,5 +130,13 @@ export const wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle: 
     h("Wise County explains North Texas in transition"),
     p("Wise County's appeal is not one famous attraction but the way multiple North Texas stories overlap. Indigenous travel routes preceded settlement. County organization created Decatur. Stage roads and cattle trails connected the frontier. Railroads built new markets. Coal, oil and gas reshaped Bridgeport and the wider economy. Lake Bridgeport added recreation and water infrastructure, while modern highways connected the county to the Metroplex."),
     p("Those layers remain visible today. The Wise County Courthouse still anchors Decatur, ranches still spread across the Cross Timbers, energy infrastructure shares space with pasture, and new development pushes outward from Fort Worth and Denton. Wise County is one of the clearest places to see how historic rural Texas and modern metropolitan Texas meet without fully replacing one another."),
+  ],
+  sources: [
+    { label: "Wise County government — courthouse fires, January 1895 and early county history", url: "https://www.wisecountytx.gov/300/History" },
+    { label: "Wise County Historical Society — Nov 1881 and Jan 1895 fire chronology", url: "https://wisehistory.com/site/the-wise-county-courthouse/" },
+    { label: "Texas Historical Commission — November 2025 Wise courthouse rededication report", url: "https://thc.texas.gov/news-releases/wise-county-celebrates-historic-courthouse-restoration" },
+    { label: "Texas Historical Commission — restored courthouse conservation and 2023 grant", url: "https://thc.texas.gov/news-releases/wise-county-texas-historical-commission-celebrate-historic-courthouse-rededication" },
+    { label: "Texas State Library — Wise County fire-damaged record inventory", url: "https://www.tsl.texas.gov/arc/local/wise.html" },
+    { label: "Handbook of Texas — Wise County", url: "https://www.tshaonline.org/handbook/entries/wise-county" },
   ],
 };

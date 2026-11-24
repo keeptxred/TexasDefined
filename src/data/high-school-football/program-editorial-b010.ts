@@ -1156,10 +1156,10 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "clint-mountain-view": {
     "season": {
-      "record": "3–5 overall, 1–1 in district through October 23, 2026 (MaxPreps source snapshot updated October 27; not UIL-certified)",
+      "record": "5-6 overall; 3-1 district (season ended November 13, 2026)",
       "sourceUrl": "https://www.maxpreps.com/tx/el-paso/mountain-view-lobos/football/schedule/",
-      "sourceLabel": "Dated 2026-10-27 team schedule listing eight specific finals; not future fixtures",
-      "verifiedAt": "2026-10-28",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -1210,6 +1210,26 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "result": "W 22-18",
           "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Bowie",
+          "site": "Away",
+          "district": true,
+          "result": "W 31-7"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Clint",
+          "site": "Home",
+          "district": true,
+          "result": "W 14-6"
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Big Spring",
+          "site": "Home",
+          "result": "L 20-28"
         }
       ]
     },
@@ -1245,7 +1265,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "2026 4A Division II realignment and an explicitly dated football snapshot",
-      "body": "Mountain View competed in 4A Division I during the 2025 season and recorded a 3–7 result then; its 2026 classification is 4A Division II District 1, the same district as Clint High but not Horizon High. The secondary schedule has eight actual game finals through October 23 and future games October 30 at Bowie and November 6 against Clint. These future fixtures are not completed results. Coach DJ Check is independently corroborated by the district and varsity staff pages.",
+      "body": "Mountain View competed in 4A Division I during the 2025 season and recorded a 3–7 result then; its 2026 classification is 4A Division II District 1, the same district as Clint High but not Horizon High. The secondary schedule has eight actual game finals through October 23 and future games October 30 at Bowie and November 6 against Clint. At the October 28 snapshot these were future fixtures; November reporting now supplies the finals below. Coach DJ Check is independently corroborated by the district and varsity staff pages.",
       "sourceUrl": "https://www.maxpreps.com/tx/el-paso/mountain-view-lobos/football/schedule/",
       "sourceLabel": "MaxPreps current 2026 dated schedule through October 23 and upcoming fixtures",
       "verifiedAt": "2026-10-28"
@@ -1285,10 +1305,11 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "5-6 overall; 3-1 district (season ended November 13, 2026). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Mountain View Lobos play UIL Class 4A Division II District 1 in the 2026 realignment.",
       "Clint ISD names DJ Check athletic coordinator for Mountain View; the 2026 varsity roster names him football head coach.",
       "The campus is on Greg Drive in El Paso, and should not be confused with Clint High on Alameda Avenue or Horizon in Horizon City.",
-      "Older 2025 results, currently reported October finals and future November games belong to separate time periods."
+      "The 2025 record and the completed 2026 season belong to separate time periods."
     ],
     "faq": [
       {
@@ -1301,7 +1322,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What is the latest source-dated 2026 result cited on this page?",
-        "answer": "The October 23 varsity schedule reports Mountain View beat Fabens 22-18; remaining October 30 and November 6 games are future fixtures, not results."
+        "answer": "The October 23 varsity schedule reports Mountain View beat Fabens 22-18; the later Bowie, Clint and Big Spring results are now listed in the November review."
       }
     ]
   },
@@ -1383,7 +1404,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "clarksville": {
     "slug": "clarksville",
-    "intro": "Clarksville's Tigers compete in UIL 2A Division II District 10 in 2026–28 with Big Sandy, Detroit, Linden-Kildare, Maud and Simms Bowie. A 2026 program history listing identifies Thavis Miller as head coach, and the team's October 24 Big Sandy win was posted as a named, dated game result. That is not an official final 2026 district standing.",
+    "intro": "Clarksville's Tigers compete in UIL 2A Division II District 10 in 2026–28 with Big Sandy, Detroit, Linden-Kildare, Maud and Simms Bowie. A 2026 program history listing identifies Thavis Miller as head coach, and the team's October 23 Big Sandy win was posted as a named, dated game result. That is not an official final 2026 district standing.",
     "theme": {
       "accentHex": "#7B4B35",
       "label": "Original TexasDefined editorial warm-brown panel, not a Clarksville logo or published uniform palette."
@@ -1408,29 +1429,99 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "Clarksville Tigers 2026 schedule and dated finals",
       "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
-      "sourceLabel": "2026 published schedule and October 24 Big Sandy result",
+      "sourceLabel": "2026 published schedule and October 23 Big Sandy result",
       "verifiedAt": "2026-10-28",
       "officialScheduleUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/schedule/"
     },
     "development": {
       "title": "Season context after the Big Sandy district fixture",
-      "body": "The October 24 2026 Big Sandy away game is listed as a 50–14 Clarksville win. UIL's district table includes Detroit, Linden-Kildare, Maud and Simms Bowie as other opponents. A third-party score must be labeled with its date and source rather than inflated into an official current UIL playoff seed or a forecast for the remaining October 30 and November 6 fixtures.",
+      "body": "The October 23 2026 Big Sandy away game is listed as a 50–14 Clarksville win. UIL's district table includes Detroit, Linden-Kildare, Maud and Simms Bowie as other opponents. A third-party score must be labeled with its date and source rather than inflated into an official current UIL playoff seed or a forecast for subsequent fixtures.",
       "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
       "sourceLabel": "MaxPreps October 25 ranking update and game card",
       "verifiedAt": "2026-10-28"
     },
     "season": {
-      "record": "Latest individually identified district result: October 24 Big Sandy W 50–14; not a complete verified season record",
-      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
-      "sourceLabel": "Dated October 24 Big Sandy 50–14 result and remaining fixtures",
-      "verifiedAt": "2026-10-28",
+      "record": "10-2 overall; 5-0 district through November 19, 2026 (area playoff win)",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
-          "date": "2026-10-24",
+          "date": "2026-08-28",
+          "opponent": "Whitewright",
+          "site": "Away",
+          "result": "L 10-43"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Boles",
+          "site": "Home",
+          "result": "W 48-30"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Quitman",
+          "site": "Away",
+          "result": "W 38-36"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Harleton",
+          "site": "Home",
+          "result": "W 57-35"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Winona",
+          "site": "Away",
+          "result": "L 18-24"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Maud",
+          "site": "Home",
+          "district": true,
+          "result": "W 47-16"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Simms Bowie",
+          "site": "Home",
+          "district": true,
+          "result": "W 56-28"
+        },
+        {
+          "date": "2026-10-23",
           "opponent": "Big Sandy",
           "site": "Away",
           "district": true,
           "result": "W 50-14"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Linden-Kildare",
+          "site": "Home",
+          "district": true,
+          "result": "W 64-0"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Detroit",
+          "site": "Away",
+          "district": true,
+          "result": "W 34-6"
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Boles",
+          "site": "Home",
+          "result": "W 24-14"
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "Grapeland",
+          "site": "Neutral",
+          "result": "W 56-0"
         }
       ]
     },
@@ -1443,7 +1534,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "sourceLabel": "Official UIL table"
       },
       {
-        "date": "October 24, 2026",
+        "date": "October 23, 2026",
         "title": "Tigers win at Big Sandy",
         "body": "A current 2026 team page records Clarksville's 50–14 win; later games are still scheduled at the reporting date.",
         "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
@@ -1451,10 +1542,11 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "10-2 overall; 5-0 district through November 19, 2026 (area playoff win). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "This Clarksville football program is the Red River County Tigers, not a similarly named out-of-state school.",
       "2026 district opponents are established by UIL's 2A Division II District 10 alignment.",
       "The current season history names Thavis Miller; school-controlled confirmation of the full current staffing role remains desirable.",
-      "The October 24 Big Sandy final is a dated score snapshot and does not guarantee a district finish or playoff slot."
+      "The October 23 Big Sandy final is a dated score snapshot and does not guarantee a district finish or playoff slot."
     ],
     "faq": [
       {
@@ -1467,7 +1559,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Did Clarksville beat Big Sandy?",
-        "answer": "Its published October 24, 2026 result is a 50–14 win at Big Sandy, subject to corrections by the official teams."
+        "answer": "Its published October 23, 2026 result is a 50–14 win at Big Sandy, subject to corrections by the official teams."
       }
     ]
   },
@@ -1593,10 +1685,10 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "note": "Published home game location does not certify a universal stadium entrance, parking rules, bag restrictions or ADA services."
     },
     "season": {
-      "record": "0–8 in eight school-listed varsity finals through October 23, 2026; October 30 and November 5 still scheduled",
-      "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
-      "sourceLabel": "Cleburne High school athletics current scorecard",
-      "verifiedAt": "2026-10-28",
+      "record": "0-10 overall; 0-7 district (final 2026 regular-season record, November 5)",
+      "sourceUrl": "https://www.maxpreps.com/tx/cleburne/cleburne-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reported record and named game results, checked November 21; not UIL-certified standings",
+      "verifiedAt": "2026-11-21",
       "games": [
         {
           "date": "2026-08-28",
@@ -1650,6 +1742,20 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true,
           "result": "L 7-55"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Cedar Hill",
+          "site": "Home",
+          "district": true,
+          "result": "L 13-44"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "DeSoto",
+          "site": "Away",
+          "district": true,
+          "result": "L 0-83"
         }
       ]
     },
@@ -1677,6 +1783,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "0-10 overall; 0-7 district (final 2026 regular-season record, November 5). The season section lists dated reported results; selected game lists may not include every game. Historical October observations below are retained as dated context.",
       "Cleburne's Yellow Jackets compete in 5A Division I District 8 for 2026–28.",
       "The 2026 program was coached by AJ Sheppard according to dated Cleburne sports reporting.",
       "Official Cleburne High schedule lists eight 2026 finals through October 23, with a further two varsity dates not yet settled in that source snapshot.",

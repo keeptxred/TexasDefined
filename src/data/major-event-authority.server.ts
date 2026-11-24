@@ -26,6 +26,44 @@ export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventA
 // organizer/host sources control verified dates stored in major-event-index.ts.
 const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
+    slug: "heritage-syrup-festival",
+    whyItMatters: "Henderson's annual Heritage Syrup Festival preserves the labor and community life surrounding East Texas ribbon-cane syrup making. The museum demonstrates traditional cane crushing and boiling while the nearby historic downtown hosts local crafts, food, music and family activities. The museum traces festival demonstrations on its grounds to 1989; Rusk County was designated the official Syrup Capital of Texas under the Legislature's H.C.R. 83 in 2025. The 37th annual festival took place November 14, 2026; that edition has ended and next-edition details await official confirmation.",
+    seoTitle: "Heritage Syrup Festival in Henderson: 2026 Recap & Visitor Guide",
+    seoDescription: "Learn about Henderson's Heritage Syrup Festival, the 37th annual 2026 edition, ribbon-cane demonstrations, Depot Museum grounds and planning future visits.",
+    quickFacts: [
+      { label: "2026 edition", value: "37th annual · Saturday, November 14, 2026 (concluded)" },
+      { label: "2026 public hours", value: "9 a.m.–5 p.m.; museum demonstrations generally 10 a.m.–4 p.m." },
+      { label: "Two main areas", value: "Depot Museum, 514 N. High St; historic downtown, 100 E. Main St, Henderson" },
+      { label: "Main heritage activity", value: "Traditional ribbon-cane crushing and syrup boiling on the museum grounds" },
+      { label: "State designation", value: "Rusk County, not Henderson alone, designated Syrup Capital of Texas in 2025" },
+      { label: "Next edition", value: "Not yet independently confirmed by an organizer; verify before making plans" }
+    ],
+    planningSections: [
+      { title: "The 37th annual 2026 festival has passed", body: "Henderson's city government and the Rusk County Depot Museum confirmed November 14, 2026, 9 a.m.–5 p.m. for the 37th annual Heritage Syrup Festival. This is a historical recap and permanent guide, not an advertisement for an upcoming 2026 event. The organizers call the second Saturday of November the annual tradition, but do not treat a calculated 2027 date, vendor form or past schedule as a fresh official announcement." },
+      { title: "The syrup demonstration is at the Depot Museum", body: "Head to 514 N. High Street for the old-fashioned syrup process: ribbon cane is pressed for juice and the juice is boiled into syrup using preserved equipment. Museum programming for the 2026 edition was described as 10 a.m.–4 p.m., narrower than the overall festival window. See also the other folk-life and working-history exhibits on the museum grounds. Availability and public demonstrations outside festival day are not guaranteed." },
+      { title: "Historic downtown is a second festival zone", body: "The festival spreads from the museum into the downtown National Register historic district near 100 E. Main Street. The city's program describes handcrafted vendor booths, East Texas food, live music, antique and classic cars and activities for children. The courthouse square and the museum are different locations; allow time to move between them rather than expecting a single-stage event." },
+      { title: "Plan parking and transport from the current edition, not a copied map", body: "For November 2026 the city listed free parking at the Henderson Municipal Services Complex / City Hall, 300 W. Main Street, and a festival information booth near 100 E. Main. It also described hayride shuttles linking downtown and the museum, with a historic 2026 fare of $2 per person. These are documented 2026 arrangements only. Street closures, shuttle boarding zones, accessibility information and any fee can change for a future festival; obtain the current city map before leaving home." },
+      { title: "Understand what 'Syrup Capital of Texas' means", body: "The 89th Texas Legislature's 2025 House Concurrent Resolution 83 officially designated Rusk County the Syrup Capital of Texas for a 10-year period ending in 2035. Henderson is the county seat and host of the festival. The honor recognizes a cultural and agricultural tradition, not a commercial-sales claim or a separate official title for Henderson County." },
+      { title: "Include the museum on a regular Henderson trip", body: "Festival dates are not required to appreciate the history. The Rusk County Depot Museum & History Center has a restored 1901 railroad depot, the Children's Discovery Center and historic structures including a syrup mill, cotton gin, country store, sawmill and caboose. The museum currently lists free regular admission and separate museum hours; call 903-657-4303 or check its official website ahead of a normal visit." },
+      { title: "What to expect when the next festival is confirmed", body: "Choose whether to prioritize hands-on heritage demonstrations at the museum or shopping and entertainment downtown. The two areas work as one event but have different attractions. Recheck the official year-specific date, hours, vendor and shuttle arrangements, parking, street closures and bad-weather information; do not rely on the archived 2026 particulars to make nonrefundable plans." }
+    ],
+    relatedLinks: [
+      { href: "/county/rusk", label: "Rusk County authority guide", description: "Read the county's syrup heritage, Republic-era settlement, railroads and 1930s oil story." },
+      { href: "/destination/rusk-county-depot-museum-history-center-henderson", label: "Rusk County Depot Museum & History Center", description: "See the original depot and historic grounds where the syrup-mill demonstrations take place." },
+      { href: "/texas-capital-designations", label: "Official Texas capital designations", description: "Verify the 2025 legislative title for Rusk County." },
+      { href: "/events/november-events", label: "November events in Texas", description: "Explore other Texas fall traditions and the latest confirmed upcoming events." },
+      { href: "/events", label: "Texas events calendar", description: "Find more current source-verified festivals and celebrations." }
+    ],
+    sources: [
+      { label: "City of Henderson — Heritage Syrup Festival dates, parking and visitor areas", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" },
+      { label: "Rusk County Depot Museum & History Center — 37th annual festival", url: "https://www.ruskcountyhistory.org/syrup-festival" },
+      { label: "Museum grounds — syrup mill and historic structures", url: "https://www.ruskcountyhistory.org/our-grounds" },
+      { label: "Museum historical account of the syrup mill and festival", url: "https://www.ruskcountyhistory.org/syrup-mill-history" },
+      { label: "Texas State Library — official Syrup Capital of Texas", url: "https://www.tsl.texas.gov/ref/abouttx/capitals" },
+      { label: "Texas Legislature — H.C.R. 83 (2025)", url: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00083F.htm" }
+    ]
+  },
+  {
     slug: "grapefest",
     whyItMatters: "The 41st GrapeFest is scheduled for September 16–19, 2027 in historic downtown Grapevine, turning the walkable Main Street district into a four-day celebration of Texas and international wine, live entertainment and food. Unlike a general winery tour, tasting sessions can require separately timed purchases in addition to festival admission.",
     quickFacts: [

@@ -85,7 +85,10 @@ function dedupeUrlEntries(entries: readonly string[]): string[] {
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
   if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
-  const lastmod = validLastModified(lastModified);
+  // A source-only check must not advance these dates; the paired authority guides had substantive edits on November 21.
+  const martinCreekPage = normalized === "/destination/martin-creek-lake-state-park" || normalized === "/destination/martin-creek-lake-state-park-rv-area";
+  const actual = validLastModified(lastModified);
+  const lastmod = martinCreekPage && (!actual || actual < "2026-11-21") ? "2026-11-21" : actual;
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 
@@ -536,7 +539,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           destinationEntries.push(auditedMagoffinEntry);
         }
         // The same canonical public detail-resolution pipeline determines
-        // eligibility for these two source-precedence holdouts. The server-only
+        // eligibility for these source-precedence holdouts. The server-only
         // helper preserves the Metro proximity sitemap's separate readiness
         // owner and keeps the destination audit and availability gates intact.
         const { loadCanonicalDestinationSitemapParity } = await import("@/data/destination-sitemap-detail-parity.server");

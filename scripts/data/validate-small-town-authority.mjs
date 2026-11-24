@@ -38,6 +38,26 @@ const knownTownSourceRoutes = {
   },
 };
 
+// Comanche source authority must win on BOTH detail and catalog surfaces.
+// An otherwise valid older Supabase/Explore row must not erase the verified
+// local history, museum's free admission or owned editorial illustration.
+const destinationRuntime = read("src/data/destination-query-runtime.ts");
+const detailStart = destinationRuntime.indexOf("async function getResolvedDestinationBase");
+const detailComanche = destinationRuntime.indexOf("reviewedComancheCanonical(slug)", detailStart);
+const detailRemote = destinationRuntime.indexOf("fetchExploreDestination(slug)", detailStart);
+check(detailStart >= 0 && detailComanche > detailStart && detailComanche < detailRemote
+  && destinationRuntime.includes("if (comancheAuthority) return comancheAuthority;"),
+"Comanche reviewed authority must outrank the generic remote Explore detail row");
+const catalogStart = destinationRuntime.indexOf("function reconcileExploreCatalog");
+const catalogOverlay = destinationRuntime.indexOf("reviewedComancheCanonical(destination.slug) ?? destination", catalogStart);
+check(catalogStart >= 0 && catalogOverlay > catalogStart,
+"Comanche source authority must also replace stale remote summaries in Explore/search catalogs");
+check(destinationRuntime.includes('"comanche-county-historical-museum"')
+  && destinationRuntime.includes('"comanche"')
+  && destinationRuntime.includes('destination.sourceCheckedAt >= "2026-11-22"')
+  && destinationRuntime.includes('/^\\d{4}-\\d{2}-\\d{2}$/.test(destination.sourceCheckedAt)'),
+"Both Comanche guides require a dated, reviewed preserved source before overriding remote rows");
+
 const guideSlugs = new Map();
 const researchedMetadata = new Map();
 let recordCount = 0;

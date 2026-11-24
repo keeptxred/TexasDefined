@@ -71,7 +71,7 @@ export const articleQuery = (slug: Slug) => queryOptions({
 const PUBLIC_CAVERN_QUERY_REVISION = "public-caverns-11-v1";
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
-  queryKey: ["destinations", scope.brandId, params, params.category === "caverns" ? PUBLIC_CAVERN_QUERY_REVISION : "default"],
+  queryKey: ["destinations", scope.brandId, params, params.category === "caverns" ? PUBLIC_CAVERN_QUERY_REVISION : params.category === "small-towns" ? "comanche-winery-closure-20261123" : "default"],
   staleTime: params.category === "caverns" ? 0 : 10 * 60 * 1000,
   gcTime: 30 * 60 * 1000,
   refetchOnWindowFocus: false,

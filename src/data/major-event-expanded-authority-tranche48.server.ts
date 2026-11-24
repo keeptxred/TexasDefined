@@ -109,7 +109,8 @@ const records: MajorEventAuthorityRecord[] = [
     sourceCheckedAt: "2026-09-30",
     whyItMatters: "Boo at the Zoo gives families a recurring October night event with a clearly published official schedule, making it useful for weekend planning without relying on stale third-party Halloween roundups.",
     planningSections: [
-      { title: "Use the listed event nights, not the full date span", body: "Austin Zoo lists eight specific Friday and Saturday nights in October. Texas Defined uses the broader October 2-24 window for discovery but visitors should only attend on the dates published by the zoo." },
+      { title: "Check dates for the next edition", body: "Austin Zoo listed eight nights for the 2026 edition. Check the official calendar for the next edition before making plans." },
+      { title: "Find the zoo", body: "Austin Zoo is at 10808 Rawhide Trail, Austin, TX 78736." },
       { title: "Treat it as an evening family event", body: "The zoo promotes costumes, train rides, entertainment and haunted-house access. Check the current ticket and arrival guidance before choosing daytime zoo activities around the same visit." },
       { title: "Recheck weather and ticket availability", body: "Outdoor evening programming can be affected by weather and capacity. Use Austin Zoo as the final authority close to departure." },
     ],
@@ -315,7 +316,7 @@ const records: MajorEventAuthorityRecord[] = [
     sourceCheckedAt: "2026-09-30",
     whyItMatters: "Big Bend Bluegrass Festival is a destination-scale indoor music weekend in Alpine with first-party dates, workshops and jamming, adding useful fall depth to a Far West Texas region where event inventory must remain selective and source-led.",
     planningSections: [
-      { title: "Plan around the two-day indoor program", body: "The organizer identifies Friday and Saturday festival dates and describes an indoor format with performances, workshops and jamming. Check the current schedule before choosing which day or full-weekend ticket fits the trip." },
+      { title: "Plan around the two-day indoor program", body: "The organizer identifies Friday and Saturday festival dates and describes an indoor format with performances, workshops and jamming. For the 2026 festival, the organizer said attendees could use the indoor seating or bring their own chairs. Check the organizer’s schedule and seating guidance before planning a future visit." },
       { title: "Use Alpine as the trip base", body: "The festival is at the Alpine Civic Center. Treat Alpine as the event anchor rather than trying to commute late at night from another Big Bend community after performances." },
       { title: "Keep park and scenic drives separate from fixed music times", body: "Far West Texas distances are large. Build scenic drives, museums or park time into separate blocks so the festival schedule is not squeezed by long regional drives." },
     ],

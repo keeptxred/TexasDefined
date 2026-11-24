@@ -241,6 +241,27 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
+// Comanche's reviewed local dossiers are the canonical editorial source until a
+// comparably verified replacement is expressly approved. Remote Explore data can
+// be structurally valid yet stale; generic scoring alone must not erase these
+// November 2026 history, admission, photo-rights and itinerary corrections.
+// Accept later reviewed YYYY-MM-DD dates so quarterly updates cannot revive stale remote copy.
+const COMANCHE_REVIEWED_AUTHORITY_SLUGS = new Set([
+  "comanche",
+  "comanche-county-historical-museum",
+]);
+
+function reviewedComancheCanonical(slug: string): Destination | undefined {
+  if (!COMANCHE_REVIEWED_AUTHORITY_SLUGS.has(slug)) return undefined;
+  const preserved = preservedExploreDestinations.find((destination) =>
+    destination.slug === slug
+      && typeof destination.sourceCheckedAt === "string"
+      && /^\d{4}-\d{2}-\d{2}$/.test(destination.sourceCheckedAt)
+      && destination.sourceCheckedAt >= "2026-11-22",
+  );
+  return resolveSeoReadyDestination(preserved);
+}
+
 function reconcileExploreCatalog(destinations: Destination[]) {
   const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
     reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
@@ -264,7 +285,10 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
+  // Maintain original Magoffin, state-park photograph, and SEO publication
+  // contracts while applying the two verified Comanche guides last.
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority)
+    .map((destination) => reviewedComancheCanonical(destination.slug) ?? destination);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
@@ -360,6 +384,8 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 }
 
 async function getResolvedDestinationBase(slug: Slug) {
+  const comancheAuthority = reviewedComancheCanonical(slug);
+  if (comancheAuthority) return comancheAuthority;
   const reviewed = reviewedAttractionDestinations.find((item) => item.slug === slug);
   if (reviewed) {
     const readyReviewed = resolveSeoReadyDestination(reviewed);
@@ -369,7 +395,8 @@ async function getResolvedDestinationBase(slug: Slug) {
   // detail source. A new remote Explore row may be valid enough to pass the
   // generic score while losing the operator-checked fees, group policy and
   // correctly attributed hero. Never let that replace the complete public guide.
-  if (slug === "texas-freshwater-fisheries-center" || slug === "national-ranching-heritage-center-lubbock") {
+  if (slug === "texas-freshwater-fisheries-center" || slug === "national-ranching-heritage-center-lubbock" ||
+      slug === "heritage-center-cherokee-county-rusk") {
     const original = preservedExploreDestinations.find((destination) => destination.slug === slug);
     const readyOriginal = resolveSeoReadyDestination(original);
     if (readyOriginal) return readyOriginal;

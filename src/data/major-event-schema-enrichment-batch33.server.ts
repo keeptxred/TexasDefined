@@ -6,6 +6,36 @@ import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment
 // omitted until a dated operator offer or reusable exact-location image
 // has been independently verified. Do not invent winter imagery or prices.
 export const majorEventSchemaEnrichmentBatch33: MajorEventSchemaEnrichment[] = [
+  // Officially documented 37th festival; museum venue photo is 2017 and accurately labeled.
+  {
+    slug: "heritage-syrup-festival",
+    organizer: {
+      type: "Organization",
+      name: "City of Henderson, Texas",
+      url: "https://www.hendersontx.us/",
+    },
+    // Licensed photograph of the exact festival's museum venue—not a claim
+    // that the image depicts the concluded 37th annual festival in 2026.
+    // Past occurrence schema stays WebPage, not Event, via lifecycle policy.
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Henderson_July_2017_09_%28Depot_Museum%29.jpg?width=1600",
+      alt: "Rusk County Depot Museum building in Henderson, the Heritage Syrup Festival's traditional syrup-making venue, photographed in 2017, not at the 2026 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Henderson_July_2017_09_(Depot_Museum).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera, July 22, 2017; Wikimedia Commons, CC BY-SA 4.0. Exact historic depot museum event venue, photographed nine years before the 37th annual 2026 edition. Resized for delivery; not a photograph of festival attendees or the syrup-making demonstration.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "City of Henderson — 2026 Heritage Syrup Festival venue and schedule", url: "https://www.hendersontx.us/14/Heritage-Syrup-Festival" },
+      { label: "Rusk County Depot Museum — 37th annual festival and museum grounds", url: "https://www.ruskcountyhistory.org/syrup-festival" },
+      { label: "Wikimedia Commons — source photograph, photographer and license", url: "https://commons.wikimedia.org/wiki/File:Henderson_July_2017_09_(Depot_Museum).jpg" },
+    ],
+    verifiedAt: "2026-11-22",
+  },
+
   {
     slug: "gaylord-texan-ice",
     organizer: { type: "Organization", name: "Gaylord Texan Resort & Convention Center", url: "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/overview/" },
@@ -49,5 +79,26 @@ export const majorEventSchemaEnrichmentBatch33: MajorEventSchemaEnrichment[] = [
       { label: "Dallas Zoo visit rules and parking", url: "https://www.dallaszoo.com/plan-your-visit/general-information/" },
     ],
     verifiedAt: "2026-10-23",
+  },
+  {
+    slug: "christmas-in-gusherville",
+    organizer: { type: "Organization", name: "Gladewater Chamber of Commerce", url: "https://gladewaterchamber.org/" },
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:FilePath/Downtown_Gladewater_3_%281_of_1%29.jpg?width=1600",
+      alt: "Historic Gladewater, Texas downtown storefronts photographed in January 2019, not the Christmas in Gusherville holiday event",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Gladewater_3_(1_of_1).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo: Renelibrary, January 2019, CC BY-SA 4.0. Unmodified downtown location photo; not a depiction of the November 2026 holiday celebration.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Gladewater Chamber of Commerce official organizer", url: "https://gladewaterchamber.org/" },
+      { label: "Gladewater Mirror — confirmed November 14, 2026 program", url: "https://www.gladewatermirror.com/event-season-starts-saturday-with-slew-of-local-activities" },
+      { label: "Licensed downtown photograph by Renelibrary (2019)", url: "https://commons.wikimedia.org/wiki/File:Downtown_Gladewater_3_(1_of_1).jpg" },
+    ],
+    verifiedAt: "2026-11-22",
   },
 ];

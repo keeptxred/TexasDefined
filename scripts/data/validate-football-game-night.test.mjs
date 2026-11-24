@@ -26,7 +26,8 @@ test('governed sports placements are looked up only for valid active football pr
   assert.match(profile, /SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
   // Most programs show sponsors near the top; school-specific authority pages may
   // defer the same governed placement until after sourced football coverage.
-  assert.match(profile, /\{slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && sponsorPlacement \? \(/, 'Retain only active governed sponsors at ordinary football profiles, with Frisco and Canyon Lake deferred until after editorial coverage');
+  assert.match(profile, /\{slug !== 'frisco-lone-star' && slug !== 'comal-canyon-lake' && slug !== 'aubrey' && sponsorPlacement \? \(/, 'Retain governed sponsors at ordinary football profiles while Canyon Lake and Aubrey defer placement until after original editorial coverage');
+  assert.match(profile, /slug === 'aubrey' && sponsorPlacement && <div[^>]*>[\s\S]*?<SponsoredSportsPlacement/, 'Aubrey active sponsor must still render below the independent editorial results');
   assert.match(profile, /slug === 'frisco-lone-star'[\s\S]*?<SponsoredSportsPlacement/);
   assert.match(profile, /<SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
   assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);

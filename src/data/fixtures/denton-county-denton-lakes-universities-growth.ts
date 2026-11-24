@@ -8,9 +8,9 @@ export const dentonCountyDentonLakesUniversitiesGrowthArticle: Article = {
   brandId: "texasdefined",
   slug: "denton-county-denton-lakes-universities-growth-texas",
   title: "Denton County: Courthouse Square, Lakes, Universities and North Texas Growth",
-  dek: "Denton County stretches from a historic courthouse square and university town to Lewisville Lake, Ray Roberts Lake, horse country, major highways and some of the fastest-growing communities in North Texas.",
+  dek: "The Christmas Eve 1875 Denton courthouse fire and lost records, the 1896–97 Courthouse-on-the-Square, preserved court oak and university history.",
   category: "texas-history",
-  region: "north-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Denton_County_Courthouse_On_The_Square.jpg?width=1600",
     alt: "Denton County Courthouse-on-the-Square in Denton, Texas",
@@ -20,7 +20,8 @@ export const dentonCountyDentonLakesUniversitiesGrowthArticle: Article = {
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
-  readingMinutes: 13,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: ["Denton County", "Denton", "Lewisville", "University of North Texas", "Texas Woman's University", "Lewisville Lake", "Ray Roberts Lake", "Cross Timbers", "North Texas", "Texas counties"],
   featured: false,
   internalLinks: [
@@ -48,6 +49,22 @@ export const dentonCountyDentonLakesUniversitiesGrowthArticle: Article = {
     p("Denton's first courthouse was a two-story frame building. It burned in 1875, destroying many county records. A brick replacement later suffered lightning damage and was condemned. Construction of the present Courthouse-on-the-Square began in 1895; its cornerstone was laid in 1896 and the building was dedicated in 1897. The courthouse survives as one of the county's most recognizable landmarks and now serves as a museum and public history center as well as a symbol of county government."),
     p("The surrounding square preserves the compact commercial pattern of an older county-seat town. Stores, restaurants, offices and gathering spaces face the courthouse, and the street grid makes the building a visual center. In a county now filled with large subdivisions, multilane roads and modern employment centers, the square gives Denton County a physical reference point for the era when most public and commercial life happened within walking distance of the courthouse."),
 
+    h("Christmas Eve 1875: the courthouse fire destroyed most of Denton's early records"),
+    p("Denton County's courthouse history begins before Denton itself. When the county was organized in 1846, officials first used a meeting place near Pinckneyville, perhaps a log cabin or an oak tree, then moved county government to Old Alton. A stump associated with the original judicial oak survives today as a historical relic, although its precise historical setting has been moved."),
+    p("After the present county seat was platted in 1857, county offices moved onto Denton's square. A wooden courthouse on the north side of the square burned on Christmas Eve, December 24, 1875. Denton County's Office of History and Culture reports that most county records were lost. It is a defining genealogical break: a missing nineteenth-century deed or court file might reflect the destruction of the archive, rather than an absence of the transaction."),
+    p("Officials erected a replacement courthouse in 1876, and it served through the 1890s. In 1894 the county commissioned architect W. C. Dodson to design the monumental courthouse visible today, completed in 1896 with a formal dedication in 1897. Its limestone and granite exterior, strong central tower and carefully arranged entrances reflect the ambitions of a prosperous wheat-producing county."),
+    p("The 1875 fire has occasionally been attributed to outlaws connected with the Sam Bass Gang. The Texas Historical Commission's marker mentions this as a crime 'charged' to one such person, not a conclusively established trial finding. A historically careful guide should distinguish a popular account from the solidly documented fact of the fire and loss of county records."),
+    p("The old courthouse eventually became a museum rather than the county's main court complex. Its clock, square and museum exhibitions remain useful starting points, but people needing current county court services should use Denton County's current office directories."),
+
+    h("The saved original courthouse oak stump is a different kind of monument"),
+    p("Denton County's own historical office records that the stump of the tree under which early court was held was saved by local preservationists in 1931 and moved near a county building. A tree remnant may be less dramatic than an ornate Victorian tower, but it represents continuity across three different county seats and the loss of early civic records."),
+    p("For a heritage walk, begin at the Courthouse-on-the-Square and the surviving commercial district; then use local history interpretation to connect old Alton, the 1875 fire and the move of courts to their modern facilities. The courthouse museum's visitor hours and event programming are independently maintained and should be checked before traveling."),
+
+    h("Denton County courthouse questions"),
+    p("When did the old Denton courthouse burn? On Christmas Eve, December 24, 1875."),
+    p("Did the 1875 fire destroy court records? The county historian reports that most county records were lost."),
+    p("When was the current historic courthouse built? Construction of W. C. Dodson's courthouse was completed in 1896; its dedication is dated to 1897."),
+    p("Where did Denton's first court sessions take place? Early meetings preceded Denton at Pinckneyville and Old Alton; a preserved stump recalls an early outdoor court site."),
     h("Prairie and Cross Timbers shaped settlement"),
     p("Denton County occupies a transition zone between several North Texas landscapes. Its official history describes the Eastern Cross Timbers cutting through the central county, with prairie to the east and west. The Elm Fork of the Trinity River and its tributaries cross the county, creating water sources and corridors that influenced settlement. The result was a mix of grassland, wooded belts, creek bottoms and productive agricultural land."),
     p("These landscapes supported ranching and farming. Early families raised livestock and grew food for local use before cotton and wheat became larger commercial crops. By the late nineteenth and early twentieth centuries, Denton County became especially important for wheat production. Even as urban development has spread, remnants of prairie, wooded creek corridors and open ranch land still make the county's physical geography visible."),
@@ -103,5 +120,13 @@ export const dentonCountyDentonLakesUniversitiesGrowthArticle: Article = {
     h("Why Denton County matters to the Texas story"),
     p("Denton County matters because it compresses much of modern Texas history into one place. It began as a frontier county whose government moved in search of water and a practical central location. Farming, ranching and railroads built its early economy. Universities gave Denton a distinctive cultural role. Reservoirs and highways created the infrastructure for metropolitan expansion, and the Dallas-Fort Worth economy pushed growth across the county until the population exceeded one million."),
     p("Yet the older landscape is still readable. The courthouse remains at the center of Denton's square. The Cross Timbers still breaks up the prairie. Horse ranches survive north of the urban edge. Lakes interrupt the subdivisions, and historic towns remain embedded inside the growth corridors. Denton County is therefore more than another booming suburb. It is a record of how North Texas moved from frontier settlement to metropolitan region while keeping pieces of each earlier era visible."),
+  ],
+  sources: [
+    { label: "Denton County — history and Christmas Eve 1875 courthouse fire", url: "https://www.dentoncounty.gov/352/Denton-County-History" },
+    { label: "Denton County historical office — early courts, preserved oak stump and 1896 courthouse", url: "https://www.dentoncounty.gov/Blog.aspx?IID=56" },
+    { label: "Denton County Office of History and Culture — county timeline", url: "https://www.dentoncounty.gov/Blog.aspx?IID=186" },
+    { label: "Texas Historical Commission — Denton County Courthouse marker and folklore", url: "https://atlas.thc.texas.gov/Details/5121001208" },
+    { label: "UNT Portal to Texas History — old courthouse and archival records", url: "https://texashistory.unt.edu/ark:/67531/metapth24873/" },
+    { label: "Texas State Historical Association — Denton County", url: "https://www.tshaonline.org/handbook/entries/denton-county" },
   ],
 };

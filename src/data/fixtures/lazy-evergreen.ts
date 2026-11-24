@@ -1,3 +1,4 @@
+import { texasThanksgivingArticleStubs } from "./texas-thanksgiving-stubs";
 import hillCountryHero from "@/assets/generated/hill-country-identity.jpg";
 import roadTripHero from "@/assets/road-trip.jpg";
 import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.jpg";
@@ -137,7 +138,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 };
 
 export const lazyEvergreenArticleStubs: Article[] = [
-  buyingLandInTexasGuideStub, texasFarmToMarketRoadsExplainedStub, texasRoadTripRulesStub, texasWildflowersGuideStub, texasTreesGuideStub,
+  ...texasThanksgivingArticleStubs, buyingLandInTexasGuideStub, texasFarmToMarketRoadsExplainedStub, texasRoadTripRulesStub, texasWildflowersGuideStub, texasTreesGuideStub,
   texasWildlifeGuideStub, texasCulturalRegionsExplainedStub, texasHomeArchitectureRegionsStub, texasHurricanePreparationStub,
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
@@ -190,6 +191,10 @@ const culturalRegionsReciprocalLink = { href: "/article/texas-cultural-regions-e
 
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (texasThanksgivingArticleStubs.some((article) => article.slug === slug)) {
+    const { texasThanksgivingArticles } = await import("./texas-thanksgiving-articles");
+    return texasThanksgivingArticles.find((article) => article.slug === slug) ?? null;
+  }
 
   if (slug === buyingLandInTexasGuideStub.slug) { const { buyingLandInTexasGuideArticle } = await import("./buying-land-in-texas-guide"); return addSourceLinks(buyingLandInTexasGuideArticle, buyingLandOfficialLinks); }
   if (slug === texasFarmToMarketRoadsExplainedStub.slug) { const { texasFarmToMarketRoadsExplainedArticle } = await import("./texas-farm-to-market-roads-explained"); return texasFarmToMarketRoadsExplainedArticle; }

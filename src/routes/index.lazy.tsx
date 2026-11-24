@@ -14,7 +14,14 @@ import { verifiedDiscoveryReadingMinutes } from "@/data/verified-discovery-readi
 import { formatReadingTime } from "@/domain/utils/format";
 import { selectHomepageEditorPicks, selectHomepageMoreStories } from "@/lib/homepage-editorial";
 import { recoverOrHideImage } from "@/lib/image-fallback";
+import { isTexasThanksgivingWeek } from "@/lib/thanksgiving-season";
 
+const thanksgivingFeatures = [
+  { slug: "texas-thanksgiving-turkey-frying-safety", title: "Frying a turkey? Read this first", summary: "NFPA warnings, fire hazards, safe thawing, oil overflow prevention and cooking temperatures." },
+  { slug: "texas-thanksgiving-recipes", title: "Texas Thanksgiving recipes", summary: "Black-pepper turkey, jalapeño cornbread dressing, pecan pie and a realistic oven schedule." },
+  { slug: "texas-thanksgiving-traditions", title: "Thanksgiving traditions in Texas", summary: "Smoked turkey, pecans, Tejano tables, football, turkey trots and family travel." },
+  { slug: "texas-thanksgiving-parades-2026", title: "Texas Thanksgiving parades", summary: "Houston and El Paso Thanksgiving morning parades, San Antonio Friday and Fort Worth before the holiday." },
+] as const;
 const HOMEPAGE_DESTINATION_LIMIT = 24;
 const HOMEPAGE_ROAD_TRIP_LIMIT = 8;
 const texasExplainedPicks = [
@@ -47,6 +54,7 @@ export const Route = createLazyFileRoute("/")({ component: HomePage });
 
 function HomePage() {
   const brand = useBrand();
+  const thanksgivingWeek = isTexasThanksgivingWeek();
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
   const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 16 }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ limit: HOMEPAGE_DESTINATION_LIMIT }));
@@ -65,10 +73,24 @@ function HomePage() {
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
 
   return <>
+    {thanksgivingWeek && (
+      <section aria-label="Happy Thanksgiving from TexasDefined" className="bg-surface">
+        <img
+          src="/images/seasonal/texasdefined-thanksgiving-2026-hero.jpg"
+          alt="Happy Thanksgiving from TexasDefined — a Texas Hill Country sunset over a festive Thanksgiving table."
+          width={1672}
+          height={941}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="mx-auto block h-auto w-full" style={{ maxWidth: 1672 }}
+        />
+      </section>
+    )}
     <header className="border-b border-border bg-surface px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <p className="eyebrow text-primary">Texas Defined</p>
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">The places, stories & life of Texas</h1>
+        <h1 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">{thanksgivingWeek ? "Happy Thanksgiving" : "The places, stories & life of Texas"}</h1>
         <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
           Explore Texas destinations, local traditions, history, events and practical guides for living here.
           Start with a trip, find something happening or get an answer about everyday Texas life.
@@ -84,6 +106,19 @@ function HomePage() {
         </nav>
       </div>
     </header>
+    {thanksgivingWeek && <Section tone="surface"><Container>
+      <SectionHeader eyebrow="Thanksgiving in Texas" title="Your Texas Thanksgiving guide" description="Food safety, original holiday recipes, Texas traditions and verified 2026 parade dates." />
+      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {thanksgivingFeatures.map((feature) => <li key={feature.slug}>
+          <Link to="/article/$slug" params={{ slug: feature.slug }} className="group block h-full border-t border-primary py-5 hover:text-primary">
+            <h2 className="font-display text-xl font-semibold leading-tight">{feature.title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{feature.summary}</p>
+            <span className="eyebrow mt-4 inline-block text-primary">Read the guide →</span>
+          </Link>
+        </li>)}
+      </ul>
+      <p className="mt-5 text-sm text-muted-foreground">Thanksgiving is Thursday, November 26, 2026. Houston and El Paso parades are Thursday; San Antonio's is Friday and Fort Worth's took place Sunday, November 22. Confirm details with each organizer.</p>
+    </Container></Section>}
     {hero && <FeatureHero variant="split" eyebrow="From the Texas Defined editors" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={verifiedDiscoveryReadingMinutes(hero) !== null ? formatReadingTime(hero.readingMinutes) : undefined} />}
     {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Editor's picks" title="A Different Side of Texas" description="Handpicked places, landscapes and stops that are worth seeing for yourself." actionLabel="Explore the full guide" actionTo="/explore" /><ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
     {editorPicks.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="From the editors" title="More from the editors" description="People, places and ideas that reveal something memorable about Texas." /><div className="mt-10 grid gap-8 lg:grid-cols-[1.45fr_1fr]"><ArticleCard article={editorPicks[0]} size="feature" /><div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">{editorPicks.slice(1).map((article) => <ArticleCard key={article.id} article={article} size="compact" />)}</div></div></Container></Section>}

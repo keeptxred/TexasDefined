@@ -40,7 +40,7 @@ export default function MartinCreekRvAuthority() {
         </p>
 
         <div role="region" aria-label="RV campsite comparison table; scroll horizontally on small screens" tabIndex={0} className="mt-7 overflow-x-auto rounded-md border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
-          <table className="w-full min-w-[640px] text-left text-sm">
+          <table className="w-full min-w-[40rem] text-left text-sm">
             <caption className="sr-only">Official Martin Creek Lake State Park RV site types and nightly rates, checked November 18, 2026</caption>
             <thead className="bg-background">
               <tr className="border-b border-border">
@@ -155,7 +155,7 @@ export default function MartinCreekRvAuthority() {
             <a href={MAP} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Download the official campground map (PDF) ↗</a>
             <figure className="mt-5 overflow-hidden rounded-md border border-border bg-background">
               <img
-                src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg?width=960"
+                src={"/media/remote?url=" + encodeURIComponent("https://commons.wikimedia.org/wiki/Special:Redirect/file/Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg?width=960")}
                 alt="The footbridge to the Island Trails at Martin Creek Lake State Park, photographed in April 2025; this is a park trail, not an RV campsite"
                 loading="lazy"
                 decoding="async"
@@ -164,7 +164,7 @@ export default function MartinCreekRvAuthority() {
                 className="h-auto w-full"
               />
               <figcaption className="px-3 py-2 text-xs leading-5 text-muted-foreground">
-                Real park photograph: Island Trails footbridge, April 2025, not an RV parking pad. Larry D. Moore,
+                Real park photograph: Island Trails footbridge, April 2025, not an RV parking pad. Larry D. Moore, resized for web,
                 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="ml-1 underline">CC BY 4.0</a>,
                 <a href="https://commons.wikimedia.org/wiki/File:Bridge_Martin_Creek_Lake_State_Park_Texas_2025.jpg" target="_blank" rel="noopener noreferrer" className="ml-1 underline">Wikimedia Commons source</a>.
               </figcaption>

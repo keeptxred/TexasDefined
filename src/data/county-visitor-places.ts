@@ -421,7 +421,7 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "cass",
     "name": "Music City Texas Theater in Linden",
     "category": "Arts & culture",
-    "description": "Independent nonprofit live-music venue in Linden presenting scheduled country, blues and regional performances; confirm the calendar and ticket availability.",
+    "description": "Nonprofit music theater at 108 Legion Street in a restored former American Legion auditorium, reopened in 2003. Richard Bowden helped build Linden\'s concert tradition, connected to Pinkard & Bowden and the T-Bone Walker Blues Festival. Check the official show calendar and ticket availability before visiting.",
     "sourceUrl": "https://www.musiccitytexas.org/"
   },
   {
@@ -560,17 +560,43 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "comanche",
+    "name": "Comanche Downtown Historic District",
+    "category": "History & heritage",
+    "description": "National Register-listed historic courthouse-square district, with architecture and commercial buildings from the late 1800s through the twentieth century; individual interiors are not automatically open.",
+    "sourceUrl": "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf",
+    "relatedGuideHref": "/destination/comanche"
+  },
+  {
+    "county": "comanche",
+    "name": "Comanche-Frisco Train Depot",
+    "category": "History & heritage",
+    "description": "Restored 1909 railroad depot at 304 South Austin Street, used for local visitor and community services; check Chamber access before visiting.",
+    "sourceUrl": "https://www.comanchechamber.org/comanchefriscotraindepot",
+    "relatedGuideHref": "/destination/comanche"
+  },
+  {
+    "county": "comanche",
     "name": "Fleming Oak",
     "category": "History & heritage",
-    "description": "Well-known historic oak in central Comanche associated with local frontier history and legend.",
-    "sourceUrl": "https://texastimetravel.com/cities/comanche/"
+    "description": "Historic courthouse-square oak associated with Martin Fleming's 1854 arrival and his 1911 and 1919 efforts to save the tree; its reputed age is an estimate.",
+    "sourceUrl": "https://tfsweb.tamu.edu/famous-trees-of-texas-254/",
+    "relatedGuideHref": "/destination/comanche"
+  },
+  {
+    "county": "comanche",
+    "name": "Historic Bull Durham Wall Advertisement",
+    "category": "Art & architecture",
+    "description": "About 1892–1893 tobacco mural uncovered by Clint and Jami Tunnell in 2019 at 109 West Grand Street; check current storefront visibility and respect private property.",
+    "sourceUrl": "https://authentictexas.com/its-a-lot-of-bull/",
+    "relatedGuideHref": "/destination/comanche"
   },
   {
     "county": "comanche",
     "name": "Old Cora Log Courthouse",
     "category": "History & heritage",
-    "description": "Texas' historic log courthouse from the former county seat of Cora, moved to Comanche; view the public grounds.",
-    "sourceUrl": "https://texastimetravel.com/cities/comanche/"
+    "description": "Surviving 1856 frontier log courthouse on Comanche square, selected for FY2026 roof preservation; closed for renovation, with exterior viewing only where public grounds are accessible.",
+    "sourceUrl": "https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more",
+    "relatedGuideHref": "/destination/comanche"
   },
   {
     "county": "cooke",

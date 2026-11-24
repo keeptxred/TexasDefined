@@ -1,0 +1,75 @@
+name: County holiday event discovery and annual verification
+
+on:
+  schedule:
+    # Twice weekly Aug-Jan, when annual holiday schedules are announced.
+    - cron: '41 14 * 1,8-12 1,4'
+    # Keep an offseason coverage check monthly, without inventing next dates.
+    - cron: '41 14 1 2-7 *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/events/audit-county-holiday-coverage.mjs'
+      - 'scripts/events/audit-county-holiday-coverage.test.mjs'
+      - '.github/workflows/county-holiday-event-coverage.yml'
+      - 'src/data/events/christmas-community-*.server.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/events/audit-county-holiday-coverage.mjs'
+      - 'src/data/major-event-index.ts'
+      - 'src/data/major-event-expanded-authority-tranche*.server.ts'
+      - 'src/data/events/christmas-community-*.server.ts'
+      - 'src/data/texas-places.ts'
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: county-holiday-event-coverage
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked parser and test county/annual-date safety
+        run: npm ci --ignore-scripts
+      - name: Test cross-county and no-guessed-date rules
+        run: node --test scripts/events/audit-county-holiday-coverage.test.mjs scripts/events/validate-county-holiday-backfill.test.mjs
+      - name: Generate all-254 county holiday coverage and official-source research queue
+        run: node scripts/events/audit-county-holiday-coverage.mjs
+      - name: Preserve the full auditable county inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: county-holiday-coverage
+          path: |
+            .artifacts/county-holiday-coverage.json
+            .artifacts/county-holiday-coverage.md
+          if-no-files-found: error
+          retention-days: 90
+      - name: Maintain one statewide annual county holiday research issue
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const issueTitle = '[Events] Verify annual holiday celebrations in all 254 Texas counties';
+            const body = fs.readFileSync('.artifacts/county-holiday-coverage.md','utf8');
+            const { owner, repo } = context.repo;
+            const list = await github.paginate(github.rest.issues.listForRepo,
+              { owner, repo, state: 'all', per_page: 100 });
+            const existing = list.find(issue => !issue.pull_request && issue.title === issueTitle);
+            if (existing) {
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number,
+                body, state: 'open' });
+            } else {
+              await github.rest.issues.create({ owner, repo, title: issueTitle, body });
+            }

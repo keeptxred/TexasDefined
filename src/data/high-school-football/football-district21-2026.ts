@@ -7,19 +7,19 @@ export const DISTRICT_21_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/2
 export const DISTRICT_21_FBISD_CALENDAR_URL = 'https://thebend.fortbendisd.gov/athletics-home/schedules';
 export const DISTRICT_21_STRAKE_SCHEDULE_URL = 'https://www.strakejesuit.org/team-detail?Team=247354&fromId=238083';
 export const DISTRICT_21_VERIFIED_AT = '2026-11-20';
-export const DISTRICT_21_STANDINGS_AS_OF = '2026-10-14';
+export const DISTRICT_21_STANDINGS_AS_OF = '2026-11-21';
 
 // Overall 2026 W-L is a MaxPreps published snapshot, not calculated from the
 // following district-only games. Never show it without the snapshot date.
-export const DISTRICT_21_OVERALL_OCT14: Readonly<Record<string, string>> = {
-  'Fort Bend Austin': '1–6',
-  'Fort Bend Bush': '1–6',
-  'Fort Bend Clements': '3–4',
-  'Fort Bend Elkins': '2–5',
-  'Fort Bend Hightower': '5–2',
-  'Fort Bend Ridge Point': '7–0',
-  'Fort Bend Travis': '6–1',
-  'Houston Strake Jesuit': '2–5',
+export const DISTRICT_21_OVERALL_SNAPSHOT: Readonly<Record<string, string>> = {
+  'Fort Bend Austin': '1–9',
+  'Fort Bend Bush': '3–7',
+  'Fort Bend Clements': '4–6',
+  'Fort Bend Elkins': '4–6',
+  'Fort Bend Hightower': '7–4',
+  'Fort Bend Ridge Point': '12–0',
+  'Fort Bend Travis': '6–5',
+  'Houston Strake Jesuit': '4–7',
 };
 
 const final = (date: string, away: string, home: string, awayScore: number, homeScore: number, resultSourceUrl = DISTRICT_21_SCHEDULE_URL): DistrictFootballGame => ({

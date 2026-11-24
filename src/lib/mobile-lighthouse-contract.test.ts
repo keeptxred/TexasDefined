@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const root = readFileSync(new URL("../routes/__root.tsx", import.meta.url), "utf8");
+const authAttacher = readFileSync(new URL("../integrations/supabase/auth-attacher.ts", import.meta.url), "utf8");
+const startSource = readFileSync(new URL("../start.ts", import.meta.url), "utf8");
 const routerSource = readFileSync(new URL("../router.tsx", import.meta.url), "utf8");
 const homeRoute = readFileSync(new URL("../routes/index.tsx", import.meta.url), "utf8");
 const homeView = readFileSync(new URL("../routes/index.lazy.tsx", import.meta.url), "utf8");
@@ -26,6 +28,17 @@ describe("mobile Lighthouse performance contract", () => {
     expect(routerSource).toContain("defaultStaleTime: 30_000");
     expect(routerSource).toContain("defaultPreloadStaleTime: 0");
     expect(root).toContain('min-h-screen flex-1');
+  });
+
+  it("loads the auth SDK on actual server-function calls, not public initial entry", () => {
+    expect(startSource).toContain("functionMiddleware: [attachSupabaseAuth]");
+    expect(authAttacher).not.toMatch(/import\s+\{\s*supabase\s*\}\s+from/);
+    expect(authAttacher).toContain("const { supabase } = await import('./client')");
+    expect(authAttacher).toContain("await supabase.auth.getSession()");
+    expect(authAttacher).toContain("data.session?.access_token");
+    expect(authAttacher).toContain('Authorization: `Bearer ${token}`');
+    expect(authAttacher.indexOf("await import('./client')")).toBeGreaterThan(authAttacher.indexOf("async ({ next }) =>"));
+    expect(authAttacher).not.toContain("catch");
   });
 
   it("preloads the homepage hero image used for LCP", () => {

@@ -8,7 +8,7 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
   brandId: "texasdefined",
   slug: "fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas",
   title: "Fannin County: Bonham, Bois d'Arc Lake, Sam Rayburn and the Red River Country",
-  dek: "Fannin County is a Northeast Texas county shaped by the Red River, Bois d'Arc Creek, Republic-era settlement, cotton and railroads, Sam Rayburn's political legacy, and a new reservoir changing the modern landscape.",
+  dek: "Bonham's courthouse survived a 1929 fire, lost its clock tower, and regained its nineteenth-century skyline in 2022; explore Fannin County's original civic history and lake country.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 21,
   tags: [
     "Fannin County",
     "Bonham Texas",
@@ -32,6 +33,9 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
     "Northeast Texas",
     "Texas history",
     "Texas counties",
+    "Bonham courthouse fire December 1929",
+    "2022 Fannin courthouse clock tower restoration",
+    "Wesley Clark Dodson courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -105,6 +109,26 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
     p("The Fannin County Courthouse occupies the center of Bonham's traditional downtown square. The courthouse site reflects nearly two centuries of county government, from temporary frontier meeting places and early log structures to the substantial stone courthouse erected in the late nineteenth century and repeatedly altered in later decades."),
     p("The building has undergone major changes over time, including reconstruction after fire and later remodeling. Its presence still organizes downtown Bonham spatially and symbolically: roads, businesses and public institutions radiate from the courthouse square just as they did when county government was one of the strongest forces shaping Texas towns."),
 
+    h("The 1888 courthouse and the December 29, 1929 fire"),
+    p("Bonham's present courthouse should be understood as a repeatedly damaged and transformed nineteenth-century building, not a modern replacement. Fannin County commissioned its monumental stone courthouse in 1887 from architect Wesley Clark Dodson; Scottish immigrant stonemasons Kane and Cormack used locally quarried limestone from near Gober. County court records show acceptance of the nearly finished building on May 27, 1889, although the foundation and cornerstone carry the date 1888."),
+    p("The original design rose three stories beneath a tall clock tower, arched and gabled entrances, stone columns and a distinctive octagonal cupola. The clock and bell marked time for the surrounding square. The Fannin County Historical Commission's detailed reading of commissioners' minutes preserves the debates over construction funds, the clock mechanism and eventual acceptance, making the building unusually well documented."),
+    p("On December 29, 1929, fire began in the cupola and spread across the tower and roof. Falling clock parts and the bell crashed into lower floors. Fire companies from Paris, Honey Grove and Leonard assisted. The structure and outer walls survived, but the ornate upper works did not. Some photographic captions say December 31 rather than 29; the county Historical Commission's narrative based on commissioners' minutes uses December 29, which is the date adopted here."),
+    p("The county temporarily rented space for court, sheriff and tax offices. Officials considered replacing the courthouse and put a $290,000 bond proposal to voters in March 1930. Voters rejected it, 2,191 to 869, so the county used insurance proceeds and contracts to rebuild the surviving structure. A flatter roof, simplified entrances and new clock faces dramatically changed its appearance. A later 1960s remodeling hid even more of the original facade beneath a modern stone-panel skin."),
+
+    h("How the 2022 restoration recovered a lost skyline"),
+    p("The Texas Historical Commission and Fannin County completed a four-year, approximately $27.8 million historic restoration that reversed much of the 1929 and 1966 alterations. The project reconstructed the soaring clock tower and its cupola, uncovered and repaired historic local stone, restored elaborate entrances and returned important interior spaces, including the double-height courtroom, to a form closer to Dodson's original design."),
+    p("The courthouse was publicly rededicated on March 10, 2022, with the restored bell tower clock striking at 10 a.m. The THC reports $5.6 million in state construction-grant funding awarded in 2016 and major county investment, after an earlier 2008 planning grant. Crowds watched the clocktower return, making the restoration a modern milestone in Bonham's history rather than merely a cosmetic maintenance project."),
+    p("This history is useful on a walk around the courthouse square. The building looks like a nineteenth-century landmark today, but portions of the conspicuous stonework and tower are carefully documented reconstructions. A visitor who compares 1890s, 1950s and post-2022 photographs can see three substantially different versions of the same structure. The present courthouse is still used for public county government, so confirm court hours and restrictions before an interior visit."),
+
+    h("The county seat moved from Warren before Bonham became permanent"),
+    p("Fannin County's government did not begin in the present courthouse. County officials first met at Jacob Black's home, and the early county seat stood at Warren before it moved to Bois d'Arc, the town renamed Bonham. Log and frame buildings preceded the 1888–89 stone structure. The site was developed gradually as settlement grew and money became available."),
+    p("The early construction records also preserve an architectural lesson: a planned brick courthouse in the 1840s was abandoned after disputes over material quality and funding. A later 1850s brick building developed cracks and was sold. The present stone structure followed the county's determination to build a more permanent landmark. This longer sequence explains why a singular claim that 'the Bonham Courthouse was built in 1888' omits much of the story."),
+
+    h("Fannin County courthouse questions"),
+    p("Did the Fannin County Courthouse burn down? Fire destroyed its original clock steeple and roof in December 1929, but the masonry building survived and was extensively remodeled."),
+    p("When was Bonham's original stone courthouse built? Its construction spanned 1887 to 1889; a 1888 cornerstone and 1889 county acceptance explain differing dates on landmarks and articles."),
+    p("When was the courthouse restored? Its major historic reconstruction was rededicated on March 10, 2022."),
+    p("Is the restored clock tower entirely original? No. Its conspicuous upper sections are documented reconstructions of elements destroyed in the 1929 fire and removed during later modernization."),
     h("Small communities preserve different pieces of the county story"),
     p("Dodd City, Ector, Savoy, Ravenna, Windom and other communities may be small, but together they explain how Fannin County functioned before automobiles concentrated commerce in larger towns. Many originated near farms, road junctions, post offices or rail stops and served residents who once needed nearby schools, stores, churches and gins."),
     p("Modern highways make it easy to pass through these places quickly, but their street patterns, cemeteries, historic buildings and place-names preserve a decentralized settlement pattern that once defined rural Northeast Texas."),
@@ -120,5 +144,13 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
     h("What defines Fannin County"),
     p("Fannin County is defined by layers rather than a single attraction. Republic-era settlement gave it one of the oldest county governments in North Texas. Bonham grew from a frontier station beside Bois d'Arc Creek. Agriculture and railroads built a network of towns. Sam Rayburn connected the county to national political history, while New Deal projects left parks and recreation sites that remain useful today."),
     p("Now Bois d'Arc Lake is adding another layer. A creek that once guided settlers has become part of a regional water system serving modern North Texas. Courthouse square, farm roads, railroad towns, historic homes, prairie fields, Red River bottoms and new reservoir shoreline all belong to the same county. That combination makes Fannin County one of Northeast Texas's clearest examples of how old Texas landscapes keep adapting without losing their historical shape."),
+  ],
+  sources: [
+    { label: "Fannin County Historical Commission — construction, fire and original commissioners records", url: "https://www.fannincountyhistory.org/history-of-the-courthouse" },
+    { label: "Texas Historical Commission — 2022 Fannin Courthouse restoration", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/fannin-county" },
+    { label: "Texas Historical Commission — Fannin Courthouse historic marker", url: "https://atlas.thc.texas.gov/Details/5147008871" },
+    { label: "Texas Historical Commission — Fannin courthouse architectural record", url: "https://atlas.thc.texas.gov/Details?atlasnumber=4302002791&fn=print" },
+    { label: "Fannin County Historical Commission — dated courthouse photographs", url: "https://www.fannincountyhistory.org/courthouse-photos" },
+    { label: "Texas State Historical Association — Fannin County", url: "https://www.tshaonline.org/handbook/entries/fannin-county" },
   ],
 };

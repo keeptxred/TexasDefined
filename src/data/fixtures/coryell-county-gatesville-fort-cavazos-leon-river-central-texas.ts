@@ -8,9 +8,9 @@ export const coryellCountyGatesvilleFortCavazosLeonRiverCentralTexasArticle: Art
   brandId: "texasdefined",
   slug: "coryell-county-gatesville-fort-cavazos-leon-river-central-texas",
   title: "Coryell County: Gatesville, the Leon River and Fort Hood Country",
-  dek: "Coryell County sits where Central Texas prairie, limestone hills, frontier history and one of the nation's largest military communities meet, with Gatesville, Copperas Cove and the Leon River anchoring a county shaped by movement and service.",
+  dek: "The 1898 Coryell County Courthouse retained its limestone tower and regained lost Justice statues and eagle in 1988; explore Gatesville’s civic and military history.",
   category: "texas-history",
-  region: "central-texas",
+  region: "prairies-lakes",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Coryell_county_courthouse.jpg?width=1600",
     alt: "Coryell County Courthouse in Gatesville, Texas",
@@ -20,7 +20,8 @@ export const coryellCountyGatesvilleFortCavazosLeonRiverCentralTexasArticle: Art
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 20,
   tags: ["Coryell County", "Gatesville Texas", "Copperas Cove", "Fort Hood", "Leon River", "Central Texas", "Texas counties", "Texas history"],
   featured: false,
   internalLinks: [
@@ -49,6 +50,23 @@ export const coryellCountyGatesvilleFortCavazosLeonRiverCentralTexasArticle: Art
     p("The present Coryell County Courthouse was completed in the late 1890s from limestone and red sandstone. Its tall central clock tower, domed corner pavilions and elaborate masonry make it one of the most recognizable courthouse buildings in Central Texas. The building and surrounding historic district are listed on the National Register of Historic Places."),
     p("The courthouse square remains the best place to begin understanding Gatesville. The architecture reflects the confidence of a county that had moved beyond its frontier phase and was investing in permanent civic institutions. Nearby streets, museums and older commercial buildings preserve the scale of a traditional Texas county seat even as modern growth has spread outward."),
 
+    h("The 1898 courthouse kept its carved eagles but lost roof statues"),
+    p("Gatesville's courthouse is a strong example of a Texas county preserving rather than replacing a late-Victorian public building. Coryell County commissioners voted February 11, 1897 to erect a new courthouse, hiring architect W. C. Dodson and builder Tom Lovell. Workers cut local limestone from quarries in the surrounding hills and numbered each block for wagon shipment to the square. The courthouse was finished in 1898 for slightly more than $70,000."),
+    p("Four allegorical rooftop statues—two figures of Justice and two of Liberty—surrounded a prominent central clock tower topped by a large eagle. As the roof aged, some metal and stone ornament disappeared or was taken down for safety. The courthouse itself remained in judicial use. Unlike the old Grimes County courthouse lost in successive 1890 and 1893 fires, Gatesville's nineteenth-century courthouse survives."),
+    p("The county authorized an approximately $1 million restoration in 1986, completing the project in 1988. Preservation work replaced the missing eagle and two roof statues, removed a dropped ceiling from the district courtroom, repaired utilities and introduced an elevator and accessible entrance. The same county source records additional interior changes from 1962–63 and 1974, meaning the building is neither frozen in its 1898 condition nor wholly modern."),
+    p("The county's web history contains an internal date inconsistency: after giving its own 1897 construction authorization and 1898 completion, it says a cornerstone ceremony occurred October 2, 1907. The construction chronology does not support a 1907 initial cornerstone date for an 1898 completed courthouse, so this guide does not repeat that date as verified. The 1897–98 construction is corroborated by the National Register-era architectural description."),
+    p("Visitors can still see the historic courthouse at 620 East Main Street, where the county says district and county courts-at-law continue operating. Court access is not a museum admission; observe legal security rules and verify current departmental hours."),
+
+    h("Local stone and the preservation of a courthouse skyline"),
+    p("Coryell's limestone building reflects how regional geology shaped nineteenth-century public construction. Wagons hauling quarried stone from nearby hills connected rural workers and the county seat. Its dome, eagles and figures of Liberty and Justice are not merely scenic decoration: they were intended to represent public authority and a civic ideal."),
+    p("The 1986–88 restoration shows the value of preserving decorative features safely, while the building's continuing daily use demonstrates why maintaining modern systems is essential. Nearby Gatesville storefronts and public squares also host festivals, but historical landmark status does not create public access to adjacent private buildings."),
+    p("Other county institutions, particularly the prison economy and the Fort Cavazos military training landscape, have complicated relationships with the courthouse and community. The building's architectural story should be told alongside these broader institutions, not allowed to crowd them out."),
+
+    h("Coryell County courthouse questions"),
+    p("When was the current Coryell County Courthouse built? Commissioners authorized it in February 1897, and it was completed in 1898."),
+    p("Who designed it? Architect W. C. Dodson, with building construction supervised by contractor Tom Lovell."),
+    p("What happened to the roof eagle and Justice/Liberty statues? Some disappeared during twentieth-century changes; the 1986–88 restoration replaced the eagle and two statues."),
+    p("Is it still an active courthouse? Yes. The county states that judicial courts and support offices remain in the historic building, with public visits subject to court security."),
     h("The Leon River is a constant through the county's history"),
     p("The Leon River drains much of northern and eastern Coryell County and has shaped settlement for thousands of years. Archaeological evidence indicates human occupation in the region for millennia, with hunting and gathering communities using the river corridor long before European colonization."),
     p("Later settlers relied on the Leon for water, timber and fertile bottomland. River crossings influenced roads and fort locations, and farms and ranches developed along its tributaries. The river ultimately joins the Little River system and links Coryell County hydrologically to the Brazos basin."),
@@ -96,5 +114,12 @@ export const coryellCountyGatesvilleFortCavazosLeonRiverCentralTexasArticle: Art
     h("What defines Coryell County"),
     p("Coryell County is defined by the overlap of frontier and modern Central Texas. Gatesville's courthouse and Fort Gates history speak to nineteenth-century settlement, while Copperas Cove and Fort Hood represent the enormous demographic and economic changes of the twentieth century. The Leon River and Cowhouse Creek tie both eras to the same geography."),
     p("The county is therefore more than a military suburb, more than a rural courthouse county and more than a waypoint between Waco and Killeen. Its identity comes from the way these pieces coexist: ranches beside training lands, historic streets beside institutional campuses, and small communities connected to one of the fastest-changing regions in Texas."),
+  ],
+  sources: [
+    { label: "Coryell County government — 1897 building authorization, 1898 completion and 1988 restoration", url: "https://www.co.coryell.tx.us/page/coryell.courthouse" },
+    { label: "Texas Historical Commission — Coryell Courthouse architectural inventory", url: "https://atlas.thc.texas.gov/Details/4302000176" },
+    { label: "Texas State Historical Association — Coryell County history", url: "https://www.tshaonline.org/handbook/entries/coryell-county" },
+    { label: "Texas Historical Commission — restored historic county courthouse program", url: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation" },
+    { label: "Coryell County — courts and official departmental offices", url: "https://www.co.coryell.tx.us/" },
   ],
 };

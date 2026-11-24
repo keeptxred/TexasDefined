@@ -3,6 +3,10 @@ import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
 import { getVerifiedMardiGrasCompanionCalendarEvents2027 } from "./mardi-gras-companion-events-2027.server";
 import { getVerifiedMardiGrasNewFestivalCalendarEvents2027 } from "./mardi-gras-new-festivals-2027.server";
+import { getVerifiedRefugioFairCalendarEvents2027 } from "./refugio-fair-2027.server";
+import { getVerifiedWillacyFairCalendarEvents2027 } from "./willacy-fair-2027.server";
+import { getVerifiedTylerCountyDogwoodEvents2027 } from "./tyler-dogwood-2027.server";
+import { getVerifiedSeymourSpringFlingEvent2027 } from "./seymour-spring-fling-2027.server";
 import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
 import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent, isReviewedChristmasTicketmasterDoorTime } from "./christmas-performances-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
@@ -284,7 +288,9 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // Keep exact identity/date deduplication ahead of official venue and ticket providers.
   const knownCompanions = new Set(records.map((record) =>
     `${eventIdentity(record.title, record.city)}:${record.startDate}`));
-  for (const companion of [...getVerifiedMardiGrasCompanionCalendarEvents2027(), ...getVerifiedMardiGrasNewFestivalCalendarEvents2027()]) {
+  // Individually confirmed Refugio 2027 fair programs use the same deduplicated
+  // statewide and county-scoped event pipeline as other organizer-led festivals.
+  for (const companion of [...getVerifiedMardiGrasCompanionCalendarEvents2027(), ...getVerifiedMardiGrasNewFestivalCalendarEvents2027(), ...getVerifiedRefugioFairCalendarEvents2027(), ...getVerifiedWillacyFairCalendarEvents2027(), ...getVerifiedTylerCountyDogwoodEvents2027(), ...getVerifiedSeymourSpringFlingEvent2027()]) {
     const key = `${eventIdentity(companion.title, companion.city)}:${companion.startDate}`;
     if (knownCompanions.has(key)) continue;
     records.push(companion);
@@ -354,7 +360,17 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     `${eventIdentity(record.title, record.city)}:${record.startDate}:${record.venueId ?? ""}`));
   for (const activity of loadTpwdEventRecordsServer()) {
     const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}:${activity.venueId ?? ""}`;
-    if (knownActivities.has(key)) continue;
+    // The TPWD crawler may later discover a date already covered by an
+    // organizer-verified multi-day community holiday record. A dated park
+    // calendar entry must not appear twice merely because the TPWD feed URL
+    // adds a /YYYY-MM-DD suffix to the same original event detail URL.
+    const alreadyCoveredByOfficialPark = records.some((record) =>
+      record.sourceName === "Texas Parks and Wildlife Department"
+      && record.officialEventUrl.startsWith("https://tpwd.texas.gov/calendar/")
+      && activity.officialEventUrl.startsWith(record.officialEventUrl.replace(/\/$/, "") + "/")
+      && record.startDate <= activity.startDate
+      && (record.endDate ?? record.startDate) >= activity.startDate);
+    if (knownActivities.has(key) || alreadyCoveredByOfficialPark) continue;
     records.push(activity);
     knownActivities.add(key);
   }

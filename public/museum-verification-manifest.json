@@ -875,6 +875,44 @@
       ]
     },
     {
+      "path": "/destination/comanche-county-historical-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 13,
+      "sources": [
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/about-us",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/about-us",
+          "label": "Museum official hours, group visits and institutional status"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/collection",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/collection",
+          "label": "Museum specific original saloon mirror, Hardin, blacksmith and family exhibits"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/contact",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/contact",
+          "label": "Museum official address and visitor contact"
+        },
+        {
+          "sourceUrl": "https://www.comanchechamber.org/explorecomanche",
+          "fetchUrl": "https://www.comanchechamber.org/explorecomanche",
+          "label": "Old Cora courthouse renovation/closure and nearby landmarks"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/",
+          "label": "Museum official free admission, donations and visitor hours"
+        },
+        {
+          "sourceUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "fetchUrl": "https://www.comanchecountytxmuseum.com/about-1-1",
+          "label": "Museum official self-guided Comanche Square QR audio tour"
+        }
+      ]
+    },
+    {
       "path": "/destination/corpus-christi-museum-science-history",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1408,6 +1446,39 @@
           "sourceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
           "fetchUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
           "label": "Harry Ransom Center — FAQs"
+        }
+      ]
+    },
+    {
+      "path": "/destination/heritage-center-cherokee-county-rusk",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 4,
+      "sources": [
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+          "fetchUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+          "label": "Texas Historical Commission museum listing and contact"
+        },
+        {
+          "sourceUrl": "https://thecherokeean.com/articles/55397/view",
+          "fetchUrl": "https://thecherokeean.com/articles/55397/view",
+          "label": "Cherokeean Herald, November 4 2026: reported opening hours; verify with operator before travel"
+        },
+        {
+          "sourceUrl": "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/",
+          "fetchUrl": "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/",
+          "label": "Museum-authored 2023 historic Rusk tour: contemporary 2023 schedule and archival local interpretation; not current hours"
+        },
+        {
+          "sourceUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+          "fetchUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
+          "label": "Museum collection at East Texas Digital Archives"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5073006614",
+          "label": "Texas Historical Commission Old Bonner Bank Building marker"
         }
       ]
     },

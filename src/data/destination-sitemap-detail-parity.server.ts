@@ -17,6 +17,7 @@ const DETAIL_PARITY_SLUGS = [
   "texas-freshwater-fisheries-center",
   "national-ranching-heritage-center-lubbock",
   "albert-bessie-kronkosky-state-natural-area",
+  "heritage-center-cherokee-county-rusk",
 ] as const;
 
 export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ path: string; lastmod?: string }>> {
@@ -29,7 +30,7 @@ export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ p
       if (!destination || destination.slug !== slug ||
           !(isPrimaryTripPlannerDestination(destination) || isEditoriallyIndexablePreopeningDestination(destination)) ||
           !auditDestination(destination).readyForIndexing) return null;
-      return { path: `/destination/${destination.slug}`, lastmod: destination.sourceCheckedAt };
+      return { path: `/destination/${destination.slug}`, lastmod: destination.updatedAt ?? destination.sourceCheckedAt };
     } catch (error) {
       console.error(`Destination sitemap parity resolution failed for ${slug}`, error);
       return null;

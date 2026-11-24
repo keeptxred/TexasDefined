@@ -54,4 +54,51 @@ assert.ok(scoreOverlay.includes('How did Aubrey finish its 2026 regular-season s
 assert.ok(scoreOverlay.includes("game.result ?? 'result awaiting verification'"), 'Late-season FAQ must use effective scores and explicitly flag unconfirmed results');
 assert.ok(scoreOverlay.includes('const lateRegularSeason = regularSeason.slice(-3);'), 'FAQ must derive the late regular-season schedule separately from postseason');
 assert.ok(scoreOverlay.includes('individually verified finals are reflected in this dated editorial snapshot'), 'Effective source label must not freeze last review on Oct 16');
-console.log('Aubrey editorial, scoreboard snapshot, visitor links and public-copy guards passed.');
+
+// Authority-level 2026 retrospective and visible AEO: derive the district math
+// from authored/individually verified scores, never from marketing language.
+const verified = JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json', 'utf8'));
+const effective = games.map((game) => ({
+  ...game,
+  result: verified.verifiedResults.find((result) => result.date === game.date)?.aubreyScore !== undefined
+    ? (() => { const score = verified.verifiedResults.find((result) => result.date === game.date);
+      return (score.aubreyScore > score.opponentScore ? 'W ' : 'L ') + score.aubreyScore + '–' + score.opponentScore; })()
+    : game.result,
+}));
+const districtFinals = effective.filter((game) => game.district);
+assert.equal(districtFinals.length, 7, 'Aubrey full 2026 district ledger should have seven matches');
+const districtTotals = districtFinals.reduce((acc, game) => {
+  const match = game.result?.match(/^W (\d+)[–-](\d+)/);
+  assert.ok(match, 'District title cannot be asserted without corroborated win: ' + game.date);
+  const scored = Number(match[1]), conceded = Number(match[2]);
+  return { scored: acc.scored + scored, conceded: acc.conceded + conceded, close: acc.close + Number(scored - conceded <= 8) };
+}, { scored: 0, conceded: 0, close: 0 });
+assert.deepEqual(districtTotals, { scored: 328, conceded: 132, close: 3 }, '2026 district scoring analysis must match scoreboard ledger');
+assert.deepEqual(
+  verified.verifiedResults.filter((result) => ['2026-11-12', '2026-11-19'].includes(result.date)).map((r) => [r.opponent, r.aubreyScore, r.opponentScore]),
+  [['Andrews', 63, 24], ['Canyon', 36, 39]],
+  'Aubrey postseason retrospective must match vetted final scores',
+);
+const authority = readFileSync('src/components/sports/AubreySeasonAuthority.tsx', 'utf8');
+for (const marker of ['data-aubrey-authority="2026"', '2026-11-12', '2026-11-19', 'district.length !== 7',
+  '39–36', '36–7', 'Sweetwater', 'Burkburnett', 'Canyon News', 'Aubrey ISD',
+  '/texas-high-school-football-teams/andrews', '/texas-high-school-football-teams/canyon',
+  'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies']) {
+  assert.ok(authority.includes(marker), 'Missing 2026 Aubrey authority source or editorial fact: ' + marker);
+}
+assert.ok(route.includes('<AubreySeasonAuthority games={editorial.season.games} />'), 'Aubrey retrospective must be server-rendered from current results');
+assert.ok(route.includes('footballProgramProfilePath(game.opponent)'), 'Aubrey table opponent names should link to school profiles');
+assert.ok(route.includes("slug === 'comal-canyon-lake' || slug === 'aubrey'"), 'Aubrey commercial content should not displace its team analysis');
+const a = readFileSync('src/data/high-school-football/aubrey-auto-results.ts', 'utf8');
+for (const marker of ['Unbeaten district champions', 'Bi-district win over Andrews', 'Area-round comeback against Canyon',
+  'District 4-4A Division I', 'https://www.aubreyisd.net/o/ahs', '2026-11-22']) {
+  assert.ok(a.includes(marker), 'Aubrey source overlay missing authority milestone or venue correction: ' + marker);
+}
+assert.ok(!a.includes("sourceUrl: 'https://www.texasfootball.com/team/aubrey-chaparrals'"), 'Do not restore redirecting Dave Campbell source');
+const sitemap = readFileSync('src/data/high-school-football/football-sitemap.server.ts', 'utf8');
+const lastmod = JSON.parse(readFileSync('src/data/high-school-football/football-profile-lastmod.json', 'utf8'));
+assert.equal(lastmod.aubrey, '2026-11-22', 'Substantive Aubrey revision must have truthful sitemap date');
+assert.ok(sitemap.includes('footballProfileLastmod['), 'Individual Aubrey lastmod override must feed actual XML sitemap');
+assert.ok(!authority.includes('<img ') && !authority.includes('<Image '), 'Never add unlicensed Aubrey team photos');
+
+console.log('Aubrey editorial, new authority retrospective, source/rights, current standings math, SEO and sitemap guards passed.');

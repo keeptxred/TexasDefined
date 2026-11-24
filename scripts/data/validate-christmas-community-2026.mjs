@@ -627,5 +627,136 @@ check("amarillo-electric-light-parade", "2026-12-04");
 check("richardson-santas-village-week1", "2026-12-05", "2026-12-06");
 check("richardson-santas-village-week2", "2026-12-11", "2026-12-13");
 check("richardson-santas-village-week3", "2026-12-18", "2026-12-20");
+
+for (const [slug, county, city, day, sourceUrl, publisher] of [
+  ["comanche-explore-christmas-square-2026", "comanche", "Comanche", "2026-12-12",
+    "https://www.comanchechamber.org/explorecomanchechristmas", "Comanche Chamber"],
+  ["clarendon-small-town-christmas-2026", "donley", "Clarendon", "2026-11-28",
+    "https://clarendontx.com/2026/11/17/2026-small-town-christmas/", "Clarendon Economic Development"],
+]) {
+  check(slug, day);
+  const event = bySlug.get(slug);
+  assert.equal(events.filter(row => row.slug === slug).length, 1, `${slug}: no duplicate seasonal occurrence`);
+  assert.equal(event.endDate, undefined, `${slug}: no invented second or following day`);
+  assert.equal(event.countySlug, county);
+  assert.equal(event.countyName, county === "donley" ? "Donley County" : "Comanche County");
+  assert.equal(event.city, city);
+  assert.equal(event.officialEventUrl, sourceUrl);
+  assert.match(event.sourceName, new RegExp(publisher));
+  assert.equal(event.sourceVerifiedAt, "2026-11-23");
+  assert.match(event.summary, /2027/);
+  assert.match(event.summary, /does not|do not|No future/i);
+}
+assert.match(bySlug.get("comanche-explore-christmas-square-2026").summary,
+  /Parade begins at 6 p.m./, "Only actual Comanche organizer parade start may be published");
+assert.match(bySlug.get("comanche-explore-christmas-square-2026").summary,
+  /Market and Tree Lighting program runs 2:30 to 6 p.m./);
+assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
+  /Saturday, November 28/);
+assert.match(bySlug.get("clarendon-small-town-christmas-2026").summary,
+  /lighting ceremony at 5 p.m./);
+
+
+for (const [slug, county, city, date, url] of [
+  [
+    "columbus-lighted-christmas-parade-2026",
+    "colorado",
+    "Columbus",
+    "2026-12-01",
+    "https://business.columbustexas.org/events/details/lighted-christmas-parade-downtown-columbus-14446"
+  ],
+  [
+    "columbus-ladies-night-out-christmas-2026",
+    "colorado",
+    "Columbus",
+    "2026-12-03",
+    "https://business.columbustexas.org/events/details/ladies-night-out-12-03-2026-14445?calendarMonth=2026-12-01"
+  ],
+  [
+    "kountze-lighted-christmas-parade-2026",
+    "hardin",
+    "Kountze",
+    "2026-12-04",
+    "https://www.kountzechamber.com/upcoming-events"
+  ],
+  [
+    "cross-plains-sip-n-shop-christmas-parade-2026",
+    "callahan",
+    "Cross Plains",
+    "2026-12-03",
+    "https://crossplainschamberofcommerce.com/sidewalk-sale"
+  ]
+]) {
+  check(slug, date);
+  const event = bySlug.get(slug);
+  assert.equal(events.filter(row => row.slug === slug).length, 1);
+  assert.equal(event.countySlug, county);
+  assert.equal(event.countyName, ({ colorado: "Colorado County", hardin: "Hardin County", callahan: "Callahan County" })[county]);
+  assert.equal(event.city, city);
+  assert.equal(event.endDate, undefined, "Single original festival day cannot invent an additional date");
+  assert.equal(event.officialEventUrl, url);
+  assert.equal(event.sourceVerifiedAt, "2026-11-23");
+  assert.ok(event.summary.length > 240, "Use original visitor-facing planning detail instead of thin event filler");
+  assert.match(event.summary, /2027/, "Future edition is not established");
+}
+assert.match(bySlug.get("columbus-lighted-christmas-parade-2026").summary, /December 1, 2026, from 6 to 8 p.m./);
+assert.match(bySlug.get("columbus-ladies-night-out-christmas-2026").summary, /December 3, 2026, from 4 to 9 p.m./);
+assert.match(bySlug.get("columbus-ladies-night-out-christmas-2026").summary, /merchandise bundle, not a proven general admission charge/);
+assert.match(bySlug.get("kountze-lighted-christmas-parade-2026").summary, /not be treated as a verified five-minute procession/);
+assert.match(bySlug.get("cross-plains-sip-n-shop-christmas-parade-2026").summary, /shopping and is not a confirmed parade start or end time/);
+assert.equal(events.filter(e => e.countySlug === "colorado" && e.slug.startsWith("columbus-")).length, 2,
+  "December 1 parade and December 3 shopping celebration must remain two distinct dates");
+
+
+for (const [slug, county, city, date, url] of [
+  ["alice-hub-city-87th-christmas-parade-2026", "jim-wells", "Alice", "2026-12-03",
+   "https://business.alicehubcity.com/ap/Events/Register/eZFObdJsYCWCq"],
+  ["rockdale-chamber-winter-wonderland-2026", "milam", "Rockdale", "2026-12-05",
+   "https://www.rockdaletxcm.org/event-details/rockdale-chamber-of-commerce-winter-wonderland"],
+]) {
+  check(slug, date);
+  const event=bySlug.get(slug);
+  assert.equal(events.filter(item=>item.slug===slug).length,1, "One original Christmas occurrence per event");
+  assert.equal(event.city,city);
+  assert.equal(event.countySlug,county);
+  assert.equal(event.countyName,county==="milam"?"Milam County":"Jim Wells County");
+  assert.equal(event.endDate,undefined);
+  assert.equal(event.officialEventUrl,url);
+  assert.equal(event.sourceVerifiedAt,"2026-11-23");
+  assert.ok(event.summary.length > 290, "Calendar item needs original visitor planning evidence");
+  assert.match(event.summary,/2027/, "Do not extrapolate a new edition");
+}
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /6:15–8 p.m./);
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /fees apply to parade entrants, not necessarily to spectators/);
+assert.match(bySlug.get("alice-hub-city-87th-christmas-parade-2026").summary, /Cameron Street/);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /December 5, 2026, from 5 to 9 p.m./);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /does not establish that all visitors must pay those amounts/);
+assert.match(bySlug.get("rockdale-chamber-winter-wonderland-2026").summary, /November 14 Christmas market, which has already passed/);
+
+
+for (const [slug, county, city, date, url] of [
+  ["ozona-evening-on-the-town-2026", "crockett", "Ozona", "2026-12-10",
+    "https://business.ozona.com/events/details/evening-on-the-town-5487"],
+  ["seminole-chamber-jingle-mingle-tree-lighting-2026", "gaines", "Seminole", "2026-12-05",
+    "https://seminoletxchamber.org/event/jingle-mingle-2/"],
+]) {
+  check(slug, date);
+  const item=bySlug.get(slug);
+  assert.equal(events.filter(e=>e.slug===slug).length,1);
+  assert.equal(item.countySlug,county);
+  assert.equal(item.countyName,county==="crockett"?"Crockett County":"Gaines County");
+  assert.equal(item.city,city);
+  assert.equal(item.officialEventUrl,url);
+  assert.equal(item.endDate,undefined,"One date cannot create an inferred multiday run");
+  assert.equal(item.sourceVerifiedAt,"2026-11-23");
+  assert.ok(item.summary.length>330,"Original local planning details must not be thin");
+  assert.match(item.summary,/2027|next year's edition/);
+}
+assert.match(bySlug.get("ozona-evening-on-the-town-2026").summary,/Thursday, December 10, 2026, from 5 to 8 p.m./);
+assert.match(bySlug.get("ozona-evening-on-the-town-2026").summary,/Ozona's Historic Town Square/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").summary,/Saturday, December 5, 2026/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").summary,/does not independently confirm an actual public tree-lighting start/);
+assert.match(bySlug.get("seminole-chamber-jingle-mingle-tree-lighting-2026").venueName,/confirm tree-lighting venue/);
+
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 

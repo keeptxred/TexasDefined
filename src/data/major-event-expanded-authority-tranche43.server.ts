@@ -92,12 +92,12 @@ const records: EventRecordWithWindows[] = [
     dateNote: "The official 2026 schedule has family programming and Santa photos November 13–15 at the Junior League of Austin Community Impact Center. Palmer Events Center special events begin November 18, while general-admission shopping is November 19–22; it is not continuous daily programming November 13–22.",
     venue: "Junior League of Austin Community Impact Center and Palmer Events Center",
     officialUrl: "https://www.jlaustin.org/a-christmas-affair/",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-21",
     whyItMatters: "A Christmas Affair is the Junior League of Austin's signature holiday fundraiser, bringing more than 200 merchants, themed events and family programming to Austin while supporting the league's community-impact work.",
     planningSections: [
       { title: "Use the two official 2026 event windows", body: "The organizer separates November 13–15 family programming at the Community Impact Center from November 18–22 special events at Palmer Events Center. General market admission applies on November 19–22, not automatically November 18. Texas Defined keeps the two occurrence windows distinct and does not imply events on November 16–17." },
-      { title: "Choose market admission or a special event", body: "General market admission covers a single shopping day at Palmer Events Center, while opening night, brunch, evening parties, children's events and other experiences use separate tickets. The Junior League of Austin says 2026 tickets are available onsite at Palmer Events Center. Review the official ticket page before purchasing because schedules, age guidance and inclusions differ." },
-      { title: "Plan around Palmer Events Center crowds", body: "The principal market draws a large audience and more than 200 merchants. Choose your shopping day in advance, review parking and transportation guidance, and use Austin stops outside the event only when the ticketed schedule leaves enough time." },
+      { title: "Choose market admission or a special event", body: "General market admission covers a single shopping day at Palmer Events Center, while opening night, brunch, evening parties, children's events and other experiences use separate tickets. For the remaining Sunday, November 22 market session, public shopping opens at 10 a.m. and closes at 4 p.m. Children aged five or younger do not need a market ticket; the ticket covers only that day’s shopping rather than separately ticketed programming. The official event ticket page lists the final raffle drawing virtually at 3:30 p.m." },
+      { title: "Plan around Palmer Events Center crowds", body: "The principal market draws a large audience and more than 200 merchants. Palmer’s adjacent 1,200-space garage is cashless and publishes $12 event parking unless a special rate is posted, with no re-entry. Riverside Drive west of the roundabout is closed for construction from November 9 through February 16; use the venue’s current garage-access directions. Accessible parking is near elevators on each level. Do not assume a parking rate or shuttle timetable from the 2025 event still applies." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build more Austin-area stops around the holiday market." },
@@ -106,6 +106,8 @@ const records: EventRecordWithWindows[] = [
     sources: [
       { label: "Junior League of Austin — A Christmas Affair", url: "https://www.jlaustin.org/a-christmas-affair/" },
       { label: "2026 A Christmas Affair tickets and events", url: "https://www.jlaustin.org/a-christmas-affair/2026-a-christmas-affair-tickets-events/" },
+      { label: "Palmer Events Center October 30 venue confirmation", url: "https://www.palmereventscenter.com/news/youth-career-fest-and-junior-league-austins-christmas-affair-headline-november-events-palmer" },
+      { label: "Palmer Events Center current directions and parking", url: "https://www.palmereventscenter.com/directions-and-parking" },
       { label: "2026 A Christmas Affair about page", url: "https://www.jlaustin.org/a-christmas-affair/2026-a-christmas-affair-about/" },
     ],
   },

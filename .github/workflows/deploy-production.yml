@@ -772,6 +772,7 @@ jobs:
             https://texasdefined.com/texas-data
             https://texasdefined.com/article/texas-high-school-football-playoffs-explained
             https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake
+            https://texasdefined.com/texas-high-school-football-teams/aubrey
             https://texasdefined.com/texas-data/texas-homeowners-premium-history
             https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026
             https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026
@@ -809,7 +810,20 @@ jobs:
             https://texasdefined.com/texas-homecoming-mums
             https://texasdefined.com/texas-natural-wonders-bucket-list
             https://texasdefined.com/texas-rock-climbing-bouldering-guide
+            https://texasdefined.com/article/texas-state-railroad-rusk-palestine-history-guide
+            https://texasdefined.com/destination/heritage-center-cherokee-county-rusk
+            https://texasdefined.com/county/anderson
+            https://texasdefined.com/county/cherokee
+            https://texasdefined.com/destination/palestine
+            https://texasdefined.com/explore/scenic-trains
+            https://texasdefined.com/event/polar-express-palestine
+            https://texasdefined.com/article/texas-railroads-town-growth-explained
+            https://texasdefined.com/article/texas-historic-travel-transportation-guide
             https://texasdefined.com/sitemap.xml
+            https://texasdefined.com/events/christmas-events
+            https://texasdefined.com/events
+            https://texasdefined.com/event/caldwell-kolache-festival
+            https://texasdefined.com/county/burleson
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Publish live verification pending
@@ -1428,6 +1442,32 @@ jobs:
           node scripts/ci/verify-el-paso-fredericksburg-release.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
           node scripts/ci/verify-authority-category-live.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
 
+      # Dedicated rail authority acceptance: this route must be a real,
+      # indexable 200-page on both public origins, beyond just compiling a bundle.
+      - name: Verify Texas State Railroad authority on both production origins
+        id: live_railroad
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: node scripts/ci/verify-texas-state-railroad-production.mjs
+
+      # Cass County must expose its researched Linden music history AND the
+      # verified towns in the main AEO/identity sections on both public origins.
+      # Checking source literals alone previously missed the one-town FAQ.
+      - name: Verify Cass County music and structured-place authority on production
+        id: live_cass_county
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: |
+          node --check scripts/ci/verify-cass-county-production.mjs
+          node scripts/ci/verify-cass-county-production.mjs
+
+      # Publication is incomplete if Linden appears only on the Cass county
+      # article but not in the statewide music venue and city discovery routes.
+      - name: Verify Linden music statewide discovery on both production origins
+        id: live_linden_music
+        if: ${{ always() && steps.live_base.outcome == 'success' }}
+        run: |
+          node --check scripts/ci/verify-linden-music-discovery-production.mjs
+          node scripts/ci/verify-linden-music-discovery-production.mjs
+
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
       - name: Verify hunting hub and turkey guide in desktop/mobile Chrome
@@ -1452,8 +1492,15 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-          CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-hunting-hub-responsive-browser.mjs
-           CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-turkey-hunting-browser.mjs
+          # The two browsers are independently REQUIRED, but a stalled
+          # third-party image must fail explicitly well before job cancellation.
+          # 'timeout' is nonzero on failure and set -e aborts this release.
+          echo 'HUNTING_HUB_CHROME_REQUIRED_START'
+          CHROME_BIN="$CHROME_BIN" timeout --signal=TERM --kill-after=15s 240s node scripts/ci/verify-hunting-hub-responsive-browser.mjs
+          echo 'HUNTING_HUB_CHROME_REQUIRED_PASS'
+          echo 'TURKEY_CHROME_REQUIRED_START'
+          CHROME_BIN="$CHROME_BIN" timeout --signal=TERM --kill-after=15s 300s node scripts/ci/verify-turkey-hunting-browser.mjs
+          echo 'TURKEY_CHROME_REQUIRED_PASS'
           # Exact live XML lastmod plus both canonical and cache-bypassed deer SSR.
           # Bounded to hunting release scope under the existing single deploy lock.
           node scripts/data/verify-hunting-production.mjs

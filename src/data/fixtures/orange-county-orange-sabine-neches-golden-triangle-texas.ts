@@ -8,7 +8,7 @@ export const orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle: Article =
   brandId: "texasdefined",
   slug: "orange-county-orange-sabine-neches-golden-triangle-texas",
   title: "Orange County: Where the Sabine Meets the Gulf Coast",
-  dek: "Orange County sits at Texas's eastern gateway, where the Sabine and Neches rivers, Piney Woods, coastal marshes, shipbuilding, petrochemicals, historic Orange and fast-growing communities all meet.",
+  dek: "Orange's April 1898 courthouse fire, surviving record vault, 1880 fire department, 1937 Moderne courthouse and the Gulf Coast shipbuilding story.",
   category: "texas-history",
   region: "east-texas",
   hero: {
@@ -20,7 +20,8 @@ export const orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle: Article =
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-21",
-  readingMinutes: 16,
+  updatedAt: "2026-11-22",
+  readingMinutes: 22,
   tags: [
     "Orange County",
     "Orange Texas",
@@ -33,6 +34,9 @@ export const orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle: Article =
     "Golden Triangle",
     "Texas shipbuilding",
     "Texas counties",
+    "1898 Orange County Courthouse fire",
+    "1937 Orange County Courthouse",
+    "1880 Orange Volunteer Fire Department",
   ],
   featured: false,
   internalLinks: [
@@ -89,6 +93,22 @@ export const orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle: Article =
     p("The Orange County Courthouse stands in downtown Orange near the historic civic core. The county has occupied several courthouse buildings over time as population, government responsibilities and architectural tastes changed. The present complex represents the modern era of county government while still anchoring the same basic downtown landscape that has served as the political center of the county since the nineteenth century."),
     p("For visitors, the courthouse is a useful starting point because so many layers of Orange County history sit nearby: the riverfront, historic homes, museums, churches, commercial blocks and cultural institutions created by generations of lumber and industrial wealth. The county's story is unusually concentrated in a walkable section of the city."),
 
+    h("The April 1898 courthouse fire left the record vault standing"),
+    p("The Orange County Courthouse has occupied several successive buildings rather than one surviving nineteenth-century landmark. The county first met in temporary quarters and used an 1853 single-story wooden courthouse. A more substantial two-story pine courthouse, completed in 1884 with a brick record vault, served as county government during the peak lumber years. The county had already begun planning a replacement when fire destroyed the building in April 1898."),
+    p("Historical sources differ by one day, recording either April 14 or April 15, 1898. The official record series and local histories agree on the general sequence: the wooden courthouse burned, but its brick record vault protected many county documents. That is a materially different outcome from a fire that destroyed an entire clerk's archive. County officials rented space in Orange's old opera house while a new three-story courthouse was constructed."),
+    p("The new courthouse, designed by architects F. S. Glover and Glenn Allen, was completed in 1898. It in turn became inadequate as Orange expanded with shipbuilding and later petroleum. The 1937 Moderne courthouse, designed by C. H. Page and Brother, was built as a separate replacement with help from federal public-works funding. Later wings were added in the 1960s by Orange architect Gale Cook. A historic postcard of the 1898 turreted courthouse should not be used to depict the present buff-brick courthouse."),
+    p("This history is important to genealogy and public records. The fact that the vault survived the 1898 blaze does not establish that every county record from every period remains complete; researchers should verify specific record books through the county clerk and the Texas State Library. It does explain why Orange's governmental history did not necessarily vanish with the wooden building."),
+
+    h("Orange's 1880 fire department and waterworks preceded the courthouse disaster"),
+    p("The City of Orange records a state charter issued to the volunteer fire department in 1880, just two years after city incorporation. Firefighters obtained a horse-drawn steam pumper in 1881 and constructed a central station by 1890 on the southeast corner of Market and Division Streets, near the courthouse. Orange already had organized fire protection before the 1898 courthouse fire, unlike Linden where modern equipment and a permanent firehouse followed the 1933 fire."),
+    p("In 1912 the city bought its first motorized firefighting apparatus. This change from steam and horses to motor vehicles was part of a wider modernization of emergency services during a period of rapid port and industrial expansion. The city's historical exhibits and recorded markers preserve the details, so these claims should be sourced to municipal records rather than generic histories of firefighting."),
+    p("The 1916 deepwater channel also altered local fire and safety demands. Orange became a port capable of handling larger vessels and shipbuilding facilities, a distinction in the city's economy from the earlier lumber mills. By the second world war naval shipbuilding employed large numbers of workers and reshaped neighborhoods and waterfront infrastructure."),
+    
+    h("Orange County courthouse and fire history questions"),
+    p("When did the old Orange County Courthouse burn? In April 1898; secondary sources disagree between the 14th and 15th."),
+    p("Were county records destroyed in the 1898 fire? The courthouse's brick record vault survived and protected many documents, but completeness of individual record series must be checked."),
+    p("When was the current Orange County Courthouse built? The Moderne courthouse dates to 1937; it was designed by C. H. Page and Brother and later enlarged."),
+    p("When did Orange organize its volunteer fire department? It received a state charter in 1880, acquired a steam pumper in 1881 and built an early central station by 1890."),
     h("The Stark legacy shaped Orange culture"),
     p("Orange's industrial fortunes produced one of the most distinctive cultural legacies in Southeast Texas. The Stark family used wealth connected to the lumber era to support art, education, preservation and public institutions. The W. H. Stark House preserves the world of a prominent late-nineteenth-century family, while the Stark Museum of Art holds collections focused in part on the art and material culture of the American West."),
     p("The Lutcher Theater adds another dimension to downtown cultural life, bringing performing arts to a city that might otherwise be defined only by heavy industry. Together these institutions show how Orange developed a civic identity that paired mills, ports and shipyards with architecture, collecting, philanthropy and education."),
@@ -128,5 +148,15 @@ export const orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle: Article =
     h("Why Orange County matters to the Texas story"),
     p("Orange County explains why Texas cannot be reduced to one landscape or one historical narrative. It is a border county, a Gulf Coast county and an East Texas county at once. Its history moves from Indigenous river cultures to Spanish-French borderlands, from steamboats to railroads, from lumber to oil, from shipyards to petrochemicals, and from private industrial fortunes to major cultural institutions."),
     p("The courthouse in Orange is an appropriate symbol for that continuity. County government still sits near the Sabine River community that became the seat in 1852, even as the economy around it has been remade repeatedly. Orange County endures because it has always adapted to the same fundamental geography: two great rivers, access to the Gulf, forests to the north, marshes to the south and a position at the eastern door of Texas."),
+  ],
+  sources: [
+    { label: "City of Orange — 1880 Volunteer Fire Department and early apparatus history", url: "https://orangetexas.gov/376/History" },
+    { label: "2026 Orange Record — courthouse generations and 1898 courthouse fire", url: "https://www.therecordlive.com/story/2026/07/01/news/courthouse-in-past-174-years-goes-through-changes/38235.html" },
+    { label: "Texas Historical Commission — 1937 Orange County Courthouse inventory", url: "https://atlas.thc.texas.gov/Details/4302000067" },
+    { label: "Society of Architectural Historians — C. H. Page and later Orange courthouse additions", url: "https://sah-archipedia.org/buildings/TX-01-OP1" },
+    { label: "Texas County Progress — Orange courthouses and April 1898 fire", url: "https://countyprogress.com/monuments-of-justice-orange-county-courthouse/" },
+    { label: "City of Orange — historic marker inventory and wartime shipbuilding", url: "https://orangetexas.gov/479/Historical-Markers" },
+    { label: "Port of Orange — 1916 deepwater channel and shipping history", url: "https://www.portoforange.com/about/history" },
+    { label: "Texas State Historical Association — Orange city history", url: "https://www.tshaonline.org/handbook/entries/orange-tx" },
   ],
 };

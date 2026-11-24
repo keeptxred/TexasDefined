@@ -105,6 +105,14 @@ const alwaysPurgeUrls = [
   ].map((path) => "https://" + zoneName + path),
   // Preserve the live, ordinary Fredericksburg weekend article after editorial rewrites.
   `https://${zoneName}/article/fredericksburg-texas-wineries-things-to-do-guide`,
+  // This Texas-local holiday calendar loses expired 2026–27 occurrences at
+  // midnight even when the source bundle is unchanged. A cached canonical
+  // HTML response triggered deploy run #45072884807's strict 245-item mismatch.
+  // Purge only the affected visitor pages after successful Worker replacement.
+  `https://${zoneName}/events/christmas-events`,
+  `https://${zoneName}/events`,
+  `https://${zoneName}/event/caldwell-kolache-festival`,
+  `https://${zoneName}/county/burleson`,
   // Keep source-verified 2027 Mardi Gras guide and statewide calendar canonical HTML in sync
   // with new Worker releases. A cancelled deploy can otherwise leave 2026 edge HTML cached.
   `https://${zoneName}/event/oak-cliff-mardi-gras-parade`,

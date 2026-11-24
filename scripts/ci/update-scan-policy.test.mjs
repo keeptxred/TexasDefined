@@ -168,14 +168,17 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
-test('Port Arthur festival gate hours remain explicit without exposing unlicensed images or inventing parade times', () => {
-  const valid = '<html><head><meta name="robots" content="noindex, follow, max-image-preview:large"></head><body>'
+test('Port Arthur festival gate hours and genuinely licensed CC0 city-context image cannot regress', () => {
+  const valid = '<html><head><meta name="robots" content="index, follow"></head><body>'
     + 'February 5–7, 2027; Friday February 5, 6–11:30 p.m.; Saturday February 6, noon–11:30 p.m.; '
     + 'Sunday February 7, noon–7 p.m.; These are FESTIVAL GATE windows, not parade or concert start times. '
-    + 'individual parade start times, road-closure maps and ticket prices; Ben J. Rogers Regional Visitors Center</body></html>';
+    + 'individual parade start times, road-closure maps and ticket prices; Ben J. Rogers Regional Visitors Center '
+    + '<figure data-major-event-hero="true"><img data-major-event-enrichment-image="true" src="Aerial_view_of_Port_Arthur.jpg" alt="City view, not parade" />'
+    + '<figcaption>Ente75 CC0 1.0</figcaption></figure></body></html>';
   assert.doesNotThrow(() => assertPortArthurFestivalGateFacts(valid, 'fixture'));
   assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('Friday February 5, 6–11:30 p.m.', '2027 times pending'), 'fixture'), /missing current gate-hour/);
-  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('noindex, follow, max-image-preview:large', 'index, follow'), 'fixture'), /incorrectly indexed/);
+  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('index, follow', 'noindex, follow'), 'fixture'), /unexpectedly noindex/);
+  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('Ente75', 'other creator'), 'fixture'), /missing verified CC0 hero licensing/);
   assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('not parade or concert start times', 'parade starts at 6 p.m.'), 'fixture'), /missing current gate-hour/);
 });
 
@@ -412,7 +415,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/texas-data', '/texas-data/texas-homeowners-premium-history',
     '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
-    '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
+    '/destination/martin-creek-lake-state-park', '/destination/martin-creek-lake-state-park-rv-area', '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
@@ -428,7 +431,8 @@ test('planner corrections retest previously missed editorial SSR links, not enti
 test('Martin Creek RV edits select exact canonical page for live smoke and cache purge', () => {
   for (const source of ['src/components/editorial/MartinCreekRvAuthority.tsx', 'src/data/rv-parks/curated-public-wave4.ts', 'scripts/ci/verify-martin-creek-rv-live.mjs']) {
     const plan = buildChangePlan({ baseline, head, changedFiles: [source] });
-    assert.deepEqual(plan.selectedPaths, ['/destination/martin-creek-lake-state-park-rv-area']);
+    assert.deepEqual([...plan.selectedPaths].sort(), ['/destination/martin-creek-lake-state-park', '/destination/martin-creek-lake-state-park-rv-area']);
+    assert.deepEqual(plan.expectedHrefsByPage['/destination/martin-creek-lake-state-park'], ['/destination/martin-creek-lake-state-park-rv-area', '/fishing/access', '/fishing/regulations']);
     assert.deepEqual(plan.expectedHrefsByPage['/destination/martin-creek-lake-state-park-rv-area'], [
       '/destination/martin-creek-lake-state-park', '/explore/rv-parks', '/explore/state-parks', '/fishing/access',
     ]);

@@ -8,7 +8,7 @@ export const huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle: Article
   brandId: "texasdefined",
   slug: "hunt-county-greenville-cotton-railroads-blackland-prairie-texas",
   title: "Hunt County: Greenville, Cotton, Railroads and the Blackland Prairie",
-  dek: "Hunt County sits at the eastern edge of the Dallas-Fort Worth orbit, where Blackland Prairie farms, railroad towns, university life and Lake Tawakoni meet around the historic county seat of Greenville.",
+  dek: "Why Hunt County had seven courthouses, the fire that burned Greenville's 1883 landmark and downtown, and how the 1929 courthouse reflects Blackland Prairie growth.",
   category: "texas-history",
   region: "north-texas",
   hero: {
@@ -20,7 +20,8 @@ export const huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle: Article
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
-  readingMinutes: 14,
+  updatedAt: "2026-11-22",
+  readingMinutes: 19,
   tags: [
     "Hunt County",
     "Greenville Texas",
@@ -32,6 +33,9 @@ export const huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle: Article
     "East Texas A&M University",
     "Northeast Texas",
     "Texas counties",
+    "1884 Greenville courthouse fire",
+    "Seven Courthouses of Hunt County",
+    "1929 Greenville Courthouse",
   ],
   featured: false,
   internalLinks: [
@@ -59,6 +63,21 @@ export const huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle: Article
     p("Like many Texas county seats, Greenville first organized itself around a public square. Hunt County held some of its earliest court sessions beneath oak trees before constructing a log courthouse in 1847. Successive buildings followed as population and county government grew."),
     p("The present Hunt County Courthouse is the seventh courthouse associated with the county seat. Construction replaced the nineteenth-century courthouse on the square, and the current building was formally dedicated on April 11, 1929, the eighty-third anniversary of Hunt County's creation. Its pale masonry, classical columns and restrained Art Deco-era detailing give downtown Greenville a civic landmark that is visually different from the red sandstone Romanesque courthouses found elsewhere in North Texas."),
 
+    h("The fire that destroyed Greenville's fifth courthouse in 1884"),
+    p("Greenville has had seven courthouses, not because county lines changed seven times but because frontier construction, growth, fire and modernization repeatedly reshaped the same public square. The Texas Historical Commission's Seven Courthouses of Hunt County marker provides an unusually complete chronology: court sessions began under oak trees at St. John and Bourland Streets before the county erected a log courthouse in 1847."),
+    p("That first courthouse stood on the west of the square; a two-story frame building replaced it in 1853. An 1858 brick courthouse was the first brick building in the county, but officials condemned it in 1874. County offices then moved temporarily to a former Methodist Episcopal Church South building at 2610 Lee Street. These temporary sites matter: the courthouse 'square' was not always occupied by a permanent civic building."),
+    p("In 1883 Hunt County erected its fifth courthouse, an ornate red-brick building with contrasting white stone. Only thirteen months later, in 1884, a fire destroyed it and heavily damaged Greenville's commercial district. It was a downtown disaster, not just a maintenance loss. A sixth courthouse built in 1885 intentionally resembled its burned predecessor, allowing the same civic skyline to return."),
+    p("By 1928 officials demolished the sixth building to make way for a larger courthouse. They dedicated the present, seventh Hunt County Courthouse on April 11, 1929, exactly eighty-three years after the county's founding. The current structure therefore dates to a deliberate replacement, not to an 1884 fire or postwar disaster. The sequence explains why Greenville's courthouse architecture differs from the limestone Romanesque and Victorian towers of its East Texas neighbors."),
+
+    h("Other Greenville landmarks also reveal fires and rebuilding"),
+    p("Greenville's commercial and entertainment district saw later fires too. Contemporary and historical tourism records describe fires at the King Opera House in the 1890s, when theater structures were vulnerable to large crowds, wooden interior finishes and gas lighting. The loss of performance buildings helps explain why a current downtown facade may not correspond to the original business at that address."),
+    p("Local heritage tourism sources also record the evolution of Greenville's railroad and cotton-market economy. The 1884 courthouse disaster occurred when the city was rapidly becoming a rail-served agricultural hub, so destruction of neighboring commercial buildings affected merchants and farmers throughout Hunt County. In a walking tour, compare the present courthouse, older storefronts and the historical marker on the lawn before assuming a building's appearance reflects its first period of use."),
+
+    h("Hunt County courthouse questions"),
+    p("How many courthouses has Hunt County had? Seven, including temporary buildings and purpose-built structures, according to a Texas Historical Commission marker."),
+    p("When did Greenville's fifth courthouse burn? It was constructed in 1883 and destroyed by a major fire thirteen months later, during 1884."),
+    p("Is the present Greenville courthouse the one that burned? No. The present building is the seventh courthouse and was dedicated April 11, 1929."),
+    p("Where is the courthouse fire story documented? A publicly accessible THC historical marker entitled The Seven Courthouses of Hunt County stands on the courthouse lawn at Stonewall and Lee Streets."),
     h("Cotton made Greenville a regional market town"),
     p("Hunt County's black soils produced cotton at a scale that tied local farmers to national and international markets. Greenville became a collecting and processing center where merchants bought crops, banks financed production and gins and compresses prepared cotton for shipment."),
     p("City histories recall an era when Greenville promoted itself as a cotton capital and operated an enormous cotton compress. That agricultural wealth financed commercial buildings, hotels, newspapers, churches and civic institutions while also making the county vulnerable to swings in commodity prices, weather, soil exhaustion and the boll weevil."),
@@ -114,5 +133,12 @@ export const huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle: Article
     h("What defines Hunt County"),
     p("Hunt County is not simply a Dallas exurb and not simply a rural Northeast Texas county. It is both. Greenville's courthouse and industrial corridors, Commerce's university, the old cotton towns, the prairie landscape and Lake Tawakoni all represent different layers of the same place."),
     p("That tension is what makes Hunt County worth understanding. Few Texas counties show the movement from cotton frontier to railroad economy to highway corridor so clearly while still retaining a visible rural landscape. As metropolitan growth continues eastward, Hunt County is becoming a living record of how North Texas changes when the city reaches the prairie."),
+  ],
+  sources: [
+    { label: "Texas Historical Commission — The Seven Courthouses of Hunt County official marker", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5231007785&fn=print" },
+    { label: "Hunt County Historical Commission — seven courthouses and landmark markers", url: "https://huntcohc.org/marker1.htm" },
+    { label: "Texas Historical Commission — Hunt County Courthouse, 1929 marker", url: "https://atlas.thc.texas.gov/Details?atlasnumber=5231007756" },
+    { label: "City of Greenville — downtown heritage travel guide", url: "https://www.greenvilletx.gov/1106/Discoveries-for-Heritage-Travelers" },
+    { label: "Texas State Historical Association — Hunt County history", url: "https://www.tshaonline.org/handbook/entries/hunt-county" },
   ],
 };

@@ -1,0 +1,57 @@
+name: Cass County history accuracy and sources
+on:
+  pull_request:
+    paths:
+      - 'src/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas.ts'
+      - 'scripts/ci/verify-cass-county-history.mjs'
+      - 'scripts/ci/verify-cass-county-production.mjs'
+      - 'scripts/ci/verify-cass-county-production.test.mjs'
+      - 'src/data/county-profile.ts'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/data/county-visitor-places.ts'
+      - 'src/data/texas-music-venue-guides.ts'
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/data/texas-music-historic-places.ts'
+      - 'src/data/texas-music-history-evidence.ts'
+      - 'src/components/editorial/TexasMusicVenueGuide.tsx'
+      - 'src/components/editorial/TexasMusicCityGuide.tsx'
+      - 'scripts/ci/verify-linden-music-discovery-production.mjs'
+      - 'scripts/ci/verify-linden-music-discovery-production.test.mjs'
+      - '.github/workflows/verify-cass-county-history.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas.ts'
+      - 'scripts/ci/verify-cass-county-history.mjs'
+      - 'scripts/ci/verify-cass-county-production.mjs'
+      - 'scripts/ci/verify-cass-county-production.test.mjs'
+      - 'src/data/county-profile.ts'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/data/county-visitor-places.ts'
+      - 'src/data/texas-music-venue-guides.ts'
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/data/texas-music-historic-places.ts'
+      - 'src/data/texas-music-history-evidence.ts'
+      - 'src/components/editorial/TexasMusicVenueGuide.tsx'
+      - 'src/components/editorial/TexasMusicCityGuide.tsx'
+      - 'scripts/ci/verify-linden-music-discovery-production.mjs'
+      - 'scripts/ci/verify-linden-music-discovery-production.test.mjs'
+      - '.github/workflows/verify-cass-county-history.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-cass-county-history.mjs
+      - run: node scripts/ci/verify-cass-county-history.mjs
+      - run: node --check scripts/ci/verify-cass-county-production.mjs
+      - run: node --test scripts/ci/verify-cass-county-production.test.mjs
+      - run: node --check scripts/ci/verify-linden-music-discovery-production.mjs
+      - run: node --test scripts/ci/verify-linden-music-discovery-production.test.mjs
