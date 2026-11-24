@@ -162,13 +162,15 @@ jobs:
           expected_count="$(node scripts/assets/materialize-discover-overrides.mjs --list-slugs | wc -l | tr -d ' ')"
           # Recent first: preserve the freshest verified artifact's copy of each
           # filename; older matching artifacts can supply additional files.
+          # Some successful production runs contain 17+ artifacts; per_page=50
+          # ensures the governed image artifact is never hidden beyond page one.
           while IFS= read -r prior_run; do
             [[ "$prior_run" =~ ^[0-9]+$ ]] || continue
             [[ "$prior_run" == "$GITHUB_RUN_ID" ]] && continue
 
             artifact_json=""
             for attempt in 1 2; do
-              if artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/artifacts?per_page=10" 2>"$cache_dir/artifacts.err")" &&
+              if artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/artifacts?per_page=50" 2>"$cache_dir/artifacts.err")" &&
                  jq -e '.artifacts | type == "array"' >/dev/null 2>&1 <<<"$artifact_json"; then
                 break
               fi
