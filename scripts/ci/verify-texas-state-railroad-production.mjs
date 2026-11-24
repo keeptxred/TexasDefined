@@ -130,6 +130,14 @@ checks.push(check("Museum source-freshness on ordinary canonical HTML", async ()
     ["historically documented model railway", "1890s Cherokee County model railway"],
     ["historical exhibit reporting citation", "thecherokeean.com/articles/44898/view"],
     ["Bonner Bank archival citation", "texashistory.unt.edu/ark:/67531/metapth614711/m1/1/"],
+    ["completed relocation", "celebration of the completed relocation"],
+    ["dated model railway report", "June 2018"],
+    ["2025 hospital exhibit reporting", "October 2025"],
+    ["museum's former grocery building", "Barr grocery store"],
+    ["New Birmingham history", "New Birmingham"],
+    ["Rex Brasher artwork", "Rex Brasher bird art"],
+    ["2022 curator interview citation", "tpwmagazine.com/travel-culture/discover-the-east-texas-town-that-built-its-own-railroad/"],
+    ["2009 museum history citation", "texasescapes.com/BobBowman/New-Museum-Heritage-Center-of-Cherokee-County-Rusk-Texas.htm"],
   ]) {
     if (!page.includes(marker)) throw new Error("ordinary public museum HTML missing " + label + "; inspect edge cache versus current release");
   }
@@ -174,6 +182,7 @@ for (const [path, sitemap] of [[slug, "/sitemap.xml"], [museumPath, "/sitemap-ex
     const xml = await getPage(sitemap);
     const entry = xml.split("<loc>" + site + path + "</loc>")[1]?.split("</url>", 1)[0];
     if (!entry || !/<lastmod>\d{4}-\d{2}-\d{2}/.test(entry)) throw new Error("missing canonical URL or lastmod for " + path);
+    if (path === museumPath && (entry.match(/<lastmod>(\d{4}-\d{2}-\d{2})/)?.[1] ?? "") < "2026-11-24") throw new Error("museum sitemap lastmod predates substantive November 24 history revision");
   }));
 }
 await Promise.all(checks);
