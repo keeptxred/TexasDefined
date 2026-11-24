@@ -135,7 +135,7 @@ export function HoustonCommuterPlanner() {
     </div>
     <div className="space-y-3 border-t border-border pt-6">
       <h3 className="font-display text-xl font-semibold">Two-address commute cost worksheet</h3>
-      <p className="text-sm text-muted-foreground">Compare two real prospective homes and choose driving or scheduled transit independently for each. Enter tested mileage, tolls and parking if driving, or actual round-trip fares and access costs if transit is confirmed. $0 defaults are unfilled inputs, not real-world price estimates.</p>
+      <p className="text-sm text-muted-foreground">Compare two real prospective homes and choose driving or scheduled transit independently for each. Enter tested mileage, tolls and parking if driving, or actual round-trip fares and access costs if transit is confirmed. $0 defaults are unfilled inputs, not real-world price estimates. The Woodlands Express officially increased its round-trip fare to $17 effective April 1, 2026; use that only when the relevant operator and fare product match your candidate route, and check its Museum District service and holiday schedule.</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">Office days per week
           <input className="mt-1 w-full rounded-xl border border-border bg-background p-4" type="number" min="1" max="7" step="1" value={days} onChange={(event) => setDays(Math.min(7, Math.max(1, Number(event.target.value) || 1)))} />
@@ -162,6 +162,7 @@ export function HoustonCommuterPlanner() {
       <ul className="mt-2 list-disc pl-5">
         <li><a href="https://www.ridemetro.org/riding-metro/transit-services/park-and-ride-bus" target="_blank" rel="noopener noreferrer" className="text-primary underline">METRO Park & Ride routes and schedules</a></li>
         <li><a href="https://www.woodlandstransit.com/Express/Schedules" target="_blank" rel="noopener noreferrer" className="text-primary underline">The Woodlands Express: routes and schedules</a></li>
+        <li><a href="https://www.woodlandstransit.com/Express/Public-Notice" target="_blank" rel="noopener noreferrer" className="text-primary underline">The Woodlands Express: fare change effective April 2026</a></li>
         <li><a href="https://www.fortbendcountytx.gov/government/departments/public-transportation/services/commuter-park-and-ride-services" target="_blank" rel="noopener noreferrer" className="text-primary underline">Fort Bend Transit: commuter Park & Ride</a></li>
         <li><a href="https://traffic.houstontranstar.org/hist/hist_traveltimes_menu.aspx" target="_blank" rel="noopener noreferrer" className="text-primary underline">Houston TranStar historical freeway travel times</a></li>
       </ul>
