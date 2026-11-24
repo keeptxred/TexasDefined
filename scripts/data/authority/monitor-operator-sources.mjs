@@ -60,6 +60,16 @@ export function reviewedAttractionMonitorRows(sourceText) {
  * A failed source remains a research flag rather than silently passing.
  */
 export const heritageDestinationMonitorRows = [
+  { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/alvin-musuem/", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/tour-01_intro-to-museum/", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/slover-rogers-cottage/", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://www.visitalvin.com/business/alvin-art-trail", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3", checkedAt: "2026-11-24" },
+  { id: "alvin-historical-museum", sourceUrl: "https://www.alvin.gov/342/History-of-Alvin", checkedAt: "2026-11-24" },
   { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/tours/tours.html", checkedAt: "2026-11-18" },
   { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/access/access.html", checkedAt: "2026-11-18" },
   { id: "texas-state-capitol", sourceUrl: "https://tspb.texas.gov/plan/hours/hours.html", checkedAt: "2026-11-18" },
