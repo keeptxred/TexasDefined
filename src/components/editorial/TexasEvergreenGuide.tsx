@@ -569,6 +569,8 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
   const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
   const foodBrandReviewed = new Set(["texas-brand-origin-stories", "texas-chili-con-carne-history", "texas-chicken-fried-steak-guide", "texas-breakfast-taco-guide"]).has(guide.slug);
+  const foodBrandLastmod = guide.slug === "texas-brand-origin-stories" ? "2026-11-24" : "2026-11-21";
+  const foodBrandReviewLabel = guide.slug === "texas-brand-origin-stories" ? "November 24, 2026" : "November 21, 2026";
   const imageUrl = deliveredImageSrc
     ? deliveredImageSrc.startsWith("http://") || deliveredImageSrc.startsWith("https://")
       ? deliveredImageSrc
@@ -597,7 +599,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
-        ...(foodBrandReviewed ? { dateModified: "2026-11-21" } : reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
+        ...(foodBrandReviewed ? { dateModified: foodBrandLastmod } : reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -665,7 +667,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
-        {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review November 21, 2026. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
+        {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review {foodBrandReviewLabel}. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Substantive guide update November 20, 2026 (primary-source review November 18). Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
           <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={hasHomecomingMumSupplies ? 1876 : foodBrandReviewed ? 1280 : undefined} height={hasHomecomingMumSupplies ? 3922 : foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
