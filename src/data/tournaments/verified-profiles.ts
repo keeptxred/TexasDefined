@@ -88,13 +88,13 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     summary: "The Texas Children’s Houston Open is scheduled for March 25–28, 2027 at Memorial Park Golf Course in Houston.",
     whyItMatters: "Houston’s PGA TOUR stop brings championship golf into a central city park setting and anchors a major spring sports weekend in Harris County.",
     planningNotes: [
-      "Check the tournament site for the current ticket release, parking plan, shuttle details and daily spectator schedule.",
-      "Memorial Park is an urban venue, so build transportation time into the day rather than treating course arrival like a suburban resort stop.",
-      "Texas Defined’s Houston and Harris County pages can help fill out lodging, food and nearby attractions around the tournament.",
+      "The official March 25–28, 2027 event currently publishes a 2027 ticket-interest form for General Admission, Venue Hopper and shared or private hospitality. That form is a request for information, NOT a confirmed ticket purchase, seat reservation or proof of an available price. The ticket page still marks many 2027 categories COMING SOON; check the exact offer and event date rather than reusing archived 2026 ticket images.",
+      "Memorial Park Golf Course is in a busy urban park. The operator’s spectator guidance prohibits re-entry after the mobile ticket is scanned, restricts large bags and coolers, and does not provide a bag-check service. Review the 2027 approved parking/shuttle instructions and use a compliant bag before arriving; earlier-year maps may no longer apply.",
+      "The separate official 2027 volunteer registration is open now, but volunteer enrollment does not guarantee admission as a spectator or a future tournament job. Plan tickets or the volunteer program separately, then use the Houston and Harris County guides for lodging, dining and other stops.",
     ],
     officialUrl: "https://www.tchouopen.com/",
     officialSourceLabel: "Texas Children’s Houston Open official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "valero-texas-open",
