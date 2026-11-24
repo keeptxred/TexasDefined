@@ -27,7 +27,7 @@ assert.match(workflow, /expected_count="\$\(node scripts\/assets\/materialize-di
   "restore must derive the governed route count from the canonical materializer");
 assert.match(workflow, /"\$current_count" -ge "\$expected_count"/,
   "production cache restore must stop once all governed files are found");
-const artifactWindow = workflow.match(/artifacts\\?per_page=(\\d+)/);
+const artifactWindow = workflow.match(/artifacts\?per_page=(\d+)/);
 assert.ok(artifactWindow && Number(artifactWindow[1]) >= 30 && Number(artifactWindow[1]) <= 100,
   "production image artifact search must cover all matching assets in successful runs with dozens of other release artifacts");
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build/);
