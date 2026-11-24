@@ -10,6 +10,12 @@ import {
 } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const cassMusicSeoTitles: Readonly<Record<string, string>> = {
+  "don-henley": "Don Henley: Linden, Early Texas Bands & the Eagles",
+  "t-bone-walker": "T-Bone Walker: Linden Birthplace & Electric Blues Pioneer",
+  "scott-joplin": "Scott Joplin: Ragtime & Northeast Texas Beginnings",
+};
+
 // Named historical links instead of auto-generated county backlinks. Scott
 // Joplin's possible Cass County birth area is disputed, not a confirmed origin.
 const cassMusicHistoryLinks: Readonly<Record<string, readonly { href: string; label: string; description: string }[]>> = {
@@ -49,8 +55,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: narrativeProfile?.seoTitle ?? `${loaderData.icon.name}: Texas Icon`,
-        description: loaderData.icon.summary,
+        title: narrativeProfile?.seoTitle ?? cassMusicSeoTitles[loaderData.icon.slug] ?? `${loaderData.icon.name}: Texas Icon`,
+        description: cassMusicSeoTitles[loaderData.icon.slug]
+          ? (narrativeProfile?.dek ?? loaderData.icon.summary)
+          : loaderData.icon.summary,
         type: "article",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
