@@ -14,7 +14,7 @@ const targets = [
   },
   {
     path: "/destination/comanche",
-    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co.", "roof replacement", "Preservation Trust Fund"],
+    evidence: ["Clint and Jami Tunnell", "Fleming Oak", "Old Cora", "Brennan Vineyards", "Comanche Square Walking Tour", "National Register of Historic Places", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co.", "roof replacement", "Preservation Trust Fund", "1969", "Prairie School", "parking", "Renelibrary"],
   },
   {
     path: "/county/comanche",
@@ -46,6 +46,9 @@ function verify({ path, evidence }, html) {
   if (text.length < 4000) missing.push("substantial server-rendered page content");
   if (path !== "/explore/small-towns" && !html.includes("texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more")) missing.push("primary-source Old Cora preservation grant link");
   if (path === "/explore/small-towns" && text.includes("Brennan Vineyards and JW Hardin Wine Co.")) missing.push("stale Comanche wine recommendations in small-towns directory");
+  if (path === "/destination/comanche" && !html.includes("atlas.thc.texas.gov/Details/5000022414")) missing.push("THC historic marker corroborating Comanche Frisco depot");
+  if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
+  if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
   const obsoleteBrennanAdvice = [
     "Brennan Vineyards at 802 South Austin Street makes Texas wine",
     "Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine",
