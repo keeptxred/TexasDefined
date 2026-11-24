@@ -5742,6 +5742,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "howard-big-spring-symphony-2026-2027-season",
+      "organization": "Big Spring Symphony Orchestra — original 2026–27 dated concert season at Big Spring Municipal Auditorium (VENUE ONLY, NOT countywide festival calendar)",
+      "countySlugs": [
+        "howard"
+      ],
+      "homeUrl": "https://bigspringsymphony.org/",
+      "calendarUrl": "https://bigspringsymphony.org/season-letter/",
+      "contactPageUrl": "https://bigspringsymphony.org/contact/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "collingsworth-wellington-ritz-2026-2027-programs",
+      "organization": "Wellington Ritz Theatre — original current cinema and concert schedule (VENUE ONLY, NOT Collingsworth countywide festivals)",
+      "countySlugs": [
+        "collingsworth"
+      ],
+      "homeUrl": "https://www.wellingtonritztheatre.com/",
+      "calendarUrl": "https://www.wellingtonritztheatre.com/",
+      "contactPageUrl": "https://www.wellingtonritztheatre.com/contact-us/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
