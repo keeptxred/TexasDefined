@@ -127,3 +127,13 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
     assert.ok(publication.includes(link) && research.includes(link), 'publication source must match researched operator URL: '+link);
   }
 });
+
+
+test('Stamford and Falcon editorial SSR do not await the optional live-level network request', () => {
+  const functions = readFileSync('src/data/fishing/showcase-lakes-page-data.functions.ts', 'utf8');
+  const strip = readFileSync('src/components/fishing/LiveLakeLevelStrip.tsx', 'utf8');
+  assert.ok(functions.includes('data.slug === "lake-stamford" || data.slug === "falcon-international-reservoir"'));
+  assert.ok(functions.includes('? null : await loadPageLiveLakeLevel(lake.sources.liveLevel.url)'));
+  assert.ok(strip.includes('getLiveLakeLevel({ data: { sourceUrl } })'), 'keep current readings after hydration');
+  assert.ok(strip.includes('href={sourceUrl}'), 'official source remains visible even when live data fails');
+});
