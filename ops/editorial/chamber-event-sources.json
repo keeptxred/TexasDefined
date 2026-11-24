@@ -7,7 +7,18 @@
     "noGmail": true,
     "contactInformation": "Private Outlook and protected outreach command center only; never commit recipient lists",
     "publication": "Require current organizer confirmation for dates, venue, cancellations and image rights",
-    "backlinks": "Earned, optional citations only; never paid, required or reciprocal"
+    "backlinks": "Earned, optional citations only; never paid, required or reciprocal",
+    "outreachScope": {
+      "ownerApprovedOn": "2026-11-24",
+      "allowed": ["chambers-of-commerce", "chamber-associations", "official-tourism-bureaus", "municipalities-and-public-authorities", "historical-cultural-organizations", "actual-event-organizers-and-authorized-venues"],
+      "excluded": ["independent-newspapers", "news-outlets", "journalists", "publishers", "editorial-intermediaries"],
+      "separateExplicitOwnerAuthorizationRequired": true,
+      "firstPartyOrganizationRoleVerificationRequired": true,
+      "unknownEligibility": "do-not-contact",
+      "declinesOptOutsAndFailedAddressSuppression": "always-honor",
+      "newsReports": "research-leads-only; confirm with actual event organizer",
+      "automatedSending": false
+    }
   },
   "sources": [
     {
