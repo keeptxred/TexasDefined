@@ -127,6 +127,8 @@ jobs:
             # These are the actual canonical protected full-suite checks,
             # not green statuses invented for a new bot-generated SHA.
             # Both canonical workflows validate the same pinned source head.
+            # The dispatch helper tolerates bounded status API failures and
+            # still requires an exact-head successful conclusion.
             # Execute concurrently to shorten the period in which an unrelated
             # main branch merge can supersede the revision. Both MUST pass;
             # neither test nor required branch-protection check is waived.
