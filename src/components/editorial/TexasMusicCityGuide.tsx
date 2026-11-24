@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
 import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
-import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
+import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 type SourceNote = { label: string; href: string; note: string };
@@ -13,6 +13,8 @@ const citySources: Record<string, readonly SourceNote[]> = {
   "texas-music-cities": [
     { label: "Texas Historical Commission — Music City Texas Theater", href: "https://texastimetravel.com/directory/music-city-texas-theater/", note: "Documents the 2003 conversion of the former American Legion Auditorium and the venue's role in the small-town Linden music scene." },
     { label: "Governor of Texas — Linden Music Friendly Texas certification", href: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community", note: "August 21, 2023 certification announcement naming Linden and musicians including Richard Bowden and Don Henley." },
+    { label: "Friends of the Texas Historical Commission — historic Texas Music Barn", href: "https://downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563", note: "Historic-property evidence of a second Linden music room in a 1927 church; current programming is not independently verified." },
+    { label: "UNT Libraries — Texas Highways 2012 Linden venue history", href: "https://texashistory.unt.edu/ark:/67531/metadc1924028/", note: "Preserved reporting on both Music City Texas Theater and Texas Music Barn as separate local institutions." },
     { label: "Handbook of Texas Music", href: "https://www.tshaonline.org/handbook/projects/texas-music", note: "Statewide scholarly collection documenting Texas genres, musicians, venues, recording and regional scenes." },
     { label: "Center for Texas Music History", href: "https://www.txst.edu/ctmh/", note: "Texas State University research center focused on the music history of Texas and the Southwest." },
   ],
@@ -97,6 +99,17 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
           <p className="mt-5 text-sm text-muted-foreground">By <Link to="/authors/a-hollis" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={sourceReviewedAt}>{musicHistoryDateLabel(sourceReviewedAt)}</time></p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link>{!isHub ? <Link to="/texas-music-cities" className="border-b border-primary pb-1 text-primary">Compare Texas music cities →</Link> : null}</div>
         </header>
+        {isHub ? <figure className="border-b border-border py-8">
+          <img src={musicVenuePhotography["billy-bobs-texas-history"].src}
+            alt={musicVenuePhotography["billy-bobs-texas-history"].alt}
+            width={musicVenuePhotography["billy-bobs-texas-history"].width}
+            height={musicVenuePhotography["billy-bobs-texas-history"].height}
+            loading="eager" fetchPriority="high" decoding="async" referrerPolicy="no-referrer"
+            className="w-full max-w-4xl h-auto rounded-sm" />
+          <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+            {musicVenuePhotography["billy-bobs-texas-history"].caption} Photo: <a href={musicVenuePhotography["billy-bobs-texas-history"].sourcePage} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{musicVenuePhotography["billy-bobs-texas-history"].credit}</a>, <a href={musicVenuePhotography["billy-bobs-texas-history"].licenseUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{musicVenuePhotography["billy-bobs-texas-history"].license}</a> via Wikimedia Commons; displayed without image editing. The photo illustrates Fort Worth's venue network, not the Linden theater.
+          </figcaption>
+        </figure> : null}
         <section className="border-b border-border py-8" aria-labelledby="quick-answer"><p className="eyebrow text-primary">Quick answer</p><h2 id="quick-answer" className="mt-2 font-display text-3xl">{shortAnswerHeading[guide.slug] ?? "Why this city matters to Texas music"}</h2><p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p></section>
         <div>{guide.sections.map((section, index) => <section key={section.heading} className="grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]"><div><p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")}</p><h2 className="mt-2 font-display text-3xl leading-tight">{section.heading}</h2></div><div className="max-w-3xl space-y-5">{section.body.map((paragraph) => <p key={paragraph} className="text-base leading-8 text-muted-foreground">{paragraph}</p>)}{section.bullets?.length ? <ul className="grid gap-3 border-l border-primary/40 pl-5 text-sm leading-7">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}{section.links?.length ? <div className="flex flex-wrap gap-x-6 gap-y-3 pt-1 text-sm font-semibold">{section.links.map((link) => <Link key={link.href} to={link.href} className="border-b border-primary text-primary">{link.label}</Link>)}</div> : null}</div></section>)}</div>
         {isHub ? <section className="border-b border-border py-10" aria-labelledby="music-city-comparison">

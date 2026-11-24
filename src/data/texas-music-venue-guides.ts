@@ -5,7 +5,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-music-venues",
     eyebrow: "Rooms that shaped the sound",
     title: "Legendary Texas Music Venues: Dance Halls, Honky-Tonks and Clubs That Shaped the Sound",
-    dek: "Texas music history lives in physical places: rural dance halls, Austin clubs, Fort Worth honky-tonks and rooms where local scenes became national movements.",
+    dek: "Explore Gruene Hall, Austin's blues clubs, Billy Bob's in Fort Worth and Linden's Music City Texas Theater through researched history and useful visitor context.",
     quickAnswer: "A useful Texas music-venue map starts with different kinds of rooms rather than one city or genre. Gruene Hall preserves the nineteenth-century community dance-hall tradition; the Broken Spoke keeps Austin honky-tonk and two-step culture visible; the Continental Club shows how one South Congress room moved through supper-club, rock, roots and blues eras; Antone's made Austin a nationally important blues stop; and Billy Bob's Texas turned the Fort Worth Stockyards into a massive country-music destination. Together they show that Texas music history was built not only by artists and recordings, but by stages, dance floors, promoters, neighborhoods and audiences. Linden's Music City Texas Theater adds an important small-town counterpoint: a nonprofit music venue created from a historic American Legion auditorium.",
     sections: [
       {
@@ -63,6 +63,14 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The nonprofit's mission combines year-round live performance with music education and instrument donations. Richard Bowden helped link Linden's local musical heritage to a wider professional network; the town also claims Don Henley's formative years and T-Bone Walker's birthplace. In 2023 the Texas Music Office designated Linden a Music Friendly Texas Certified Community, recognizing its larger music ecosystem. Confirm current performances, ticket rules and visitor access on the theater's official schedule rather than assuming an annual tradition supplies a current booking."
         ],
         links: [{ href: "/county/cass", label: "Cass County and Linden music heritage" }, { href: "/texas-icons/don-henley", label: "Don Henley's Linden upbringing" }]
+      },
+      {
+        heading: "Linden also preserved a second listening-room tradition",
+        body: [
+          "A historic-property register maintained by Friends of the Texas Historical Commission identifies the Texas Music Barn at 301 East Houston Street, in Linden's former Methodist church, built in 1927. The Academy of Texas Music received the building in 2009 through a gift from the Cass County Conservancy and adapted its small interior for live performance. A 2012 Texas Highways story preserved by the University of North Texas describes both the Barn and Music City Texas Theater. That contemporaneous report explains why Linden's music reputation was built around multiple civic-scale rooms rather than a single marquee.",
+          "The Music Barn is not another name for Music City Texas Theater: the former is associated with the East Houston Street church building; the latter uses a former American Legion auditorium at 108 Legion Street. The older music-barn account cannot confirm today's ownership, shows or visitor access. For a current performance, use Music City Texas Theater's official show and ticket calendar, and treat the Barn primarily as a documented cultural-history stop unless its operator independently confirms access."
+        ],
+        links: [{ href: "/county/cass", label: "Linden's two historic music venues and courthouse" }, { href: "/texas-music-cities", label: "Small towns in Texas music networks" }]
       },
       {
         heading: "The next layer: historic and lost rooms",
