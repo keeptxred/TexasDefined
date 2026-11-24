@@ -136,6 +136,21 @@ for (const origin of ["https://texasdefined.com", "https://texasdefined-site.fre
     }
   }
 }
+// Verify visitor-facing inbound destination links, not just the source-code map.
+const inboundDestinations = [["huntsville-state-park","mountain-biking"],["ray-roberts-lake-state-park","mountain-biking"],["dinosaur-valley-state-park","horseback-riding"],["caddo-lake-state-park","paddling"],["caprock-canyons-state-park","stargazing"],["eisenhower-state-park","ohv"],["palo-duro-canyon-state-park","mountain-biking"],["big-bend-ranch-state-park","horseback-riding"],["hill-country-state-natural-area","horseback-riding"],["tyler-state-park","mountain-biking"],["franklin-mountains-state-park","mountain-biking"],["copper-breaks-state-park","stargazing"],["south-llano-river-state-park","stargazing"]];
+for (const [destination, activity] of inboundDestinations) {
+  const url = "https://texasdefined.com/destination/" + destination + "?outdoor_link_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual");
+  try {
+    const html = await get(url);
+    const href = "/texas-" + activity + "-guide";
+    const verified = html.includes('href="' + href + '"') && !/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html);
+    if (!verified) failures.push(destination + ": missing visible outdoor activity link " + href);
+    evidence.push({ name: "destination-activity-link", url, verified, href });
+  } catch (error) {
+    failures.push(destination + ": inbound link check failed " + error.message);
+    evidence.push({ name: "destination-activity-link", url, verified: false, error: error.message });
+  }
+}
 const report = { checkedAt: new Date().toISOString(), officialSourceCount: official.length, livePageCount: livePages.length, evidence, failures };
 fs.writeFileSync("outdoor-guides-authority-audit.json", JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify(report, null, 2));
