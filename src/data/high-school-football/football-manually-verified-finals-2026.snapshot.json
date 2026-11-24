@@ -4734,6 +4734,17 @@
       "secondarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
       "verifiedAt": "2026-11-21",
       "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvin-iowa-colony",
+      "date": "2026-11-13",
+      "opponent": "Pflugerville Weiss",
+      "pointsFor": 7,
+      "pointsAgainst": 56,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-playoff-football-scores-22530147.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
     }
   ]
 }

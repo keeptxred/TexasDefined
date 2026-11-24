@@ -20593,8 +20593,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "Iowa Colony Pioneers 2026 varsity schedule and results",
       "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
-      "sourceLabel": "MaxPreps 2026 team schedule snapshot, last updated Sept. 26",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "MaxPreps 2026 varsity schedule, updated November 15; playoff result corroborated by Houston Chronicle and AP",
+      "verifiedAt": "2026-11-24"
     },
     "season": {
       "record": "2–3 through September 25, 2026; later October finals not verified",
@@ -20664,6 +20664,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "South Houston",
           "site": "Away",
           "district": true
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Pflugerville Weiss",
+          "site": "Away",
+          "district": false
         }
       ]
     },
@@ -20678,8 +20684,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Iowa Colony High School's Pioneers are a rapidly developing Alvin ISD football program, distinct from the district's original Alvin Yellowjackets and neighboring Shadow Creek Sharks. The published varsity history begins in 2022 with a 2–7 season; the program's later results show a notably rapid rise without a state championship.",
       "MaxPreps records three consecutive twelve-win seasons: 12–1 in 2023, then 12–2 in both 2024 and 2025. The 2026 coach listing names Ray Garza. These are independently useful year-by-year milestones, not a vague assertion of long-standing tradition or a claim of winning a UIL state title.",
       "The Dave Campbell team archive reports three playoff appearances and zero championship-game appearances or state championships, consistent with the three recent postseason teams. Its displayed Freedom Field capacity reads '10', which is obviously not a plausible public spectator capacity and is deliberately excluded from this page.",
-      "The 2026–28 UIL alignment places Iowa Colony in Class 5A Division I District 11. The Pioneers' 2026 early slate included defeats to College Park and Manvel, a 62–0 league win over Pasadena, a 31–16 victory at Katy Freeman and a 34–24 loss to Angleton. The last cross-checked five-game snapshot is 2–3 through September 25; Friendswood on October 2 must be verified before revising that record.",
-      "The October 9 fixture with Richmond Randle is another significant current district game, but the program's 2025 Randle defeat (49–42) should not be transposed to 2026. The opponent list also includes Victoria East, Dulles and South Houston.",
+      "The 2026–28 UIL alignment places Iowa Colony in Class 5A Division I District 11. The Pioneers finished 5–5 in the regular season (5–3 district), then lost 7–56 at Pflugerville Weiss in the November 13 bi-district round to finish 5–6. The October 23 Dulles victory remains in the record, but the numerical score is disputed between published sources.",
+      "The 2026 district schedule includes Richmond Randle, Victoria East, Dulles and South Houston. Distinguish these dated finals from the 2025 results. Iowa Colony’s November 13 playoff loss is corroborated by the Houston Chronicle, the Associated Press playoff results and MaxPreps.",
       "The program is officially named for Iowa Colony, Brazoria County, despite the site registry's longer 'alvin-iowa-colony' slug. Use the correct locality on maps, SEO and reciprocal pages. Alvin ISD operates district athletic facilities; the high school's mailing address is not the verified Freedom Field football ticket gate."
     ],
     "milestones": [
@@ -20724,6 +20730,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The published UIL alignment and game list include Pasadena, Freeman, Angleton, Friendswood, Randle, Victoria East, Dulles and South Houston.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
         "sourceLabel": "UIL 2026–28 alignment"
+      },
+      {
+        "date": "Nov. 13, 2026",
+        "title": "2026 season ends in bi-district round",
+        "body": "Pflugerville Weiss defeated Iowa Colony 56–7, ending the Pioneers’ 2026 season at 5–6 overall (5–3 district). Houston Chronicle and AP playoff results agree with the team’s published schedule.",
+        "sourceUrl": "https://www.nbcdfw.com/news/sports/hs-sports/2026-class-5a-texas-high-school-football-bi-district-playoff-schedule/4103099/",
+        "sourceLabel": "AP/Dave Campbell 2026 Class 5A bi-district scores, distributed by NBC DFW"
       }
     ],
     "faq": [
@@ -20749,7 +20762,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What is Iowa Colony's 2026 football district?",
-        "answer": "UIL Class 5A Division I, District 11 for the 2026–28 realignment cycle. Scores here are dated through September 25, not a live standings feed."
+        "answer": "UIL Class 5A Division I, District 11 for the 2026–28 realignment cycle. The Pioneers finished 5–3 in district; the dated result ledger is not a live standings feed."
+      },
+      {
+        "question": "How did Iowa Colony finish the 2026 football season?",
+        "answer": "Iowa Colony finished 5–6 overall and 5–3 in district. Pflugerville Weiss won their November 13 bi-district playoff 56–7. Iowa Colony’s Dulles victory counts in the record; the exact October 23 score is disputed."
       }
     ]
   },
