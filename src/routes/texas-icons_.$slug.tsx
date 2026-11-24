@@ -64,6 +64,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
         imageAlt: cassMusicPortraits[loaderData.icon.slug]?.alt,
         imageWidth: cassMusicPortraits[loaderData.icon.slug]?.width,
         imageHeight: cassMusicPortraits[loaderData.icon.slug]?.height,
+        // The local heritage links and licensed photo publication materially
+        // changed these three profiles on Nov 24. This is not a blanket
+        // rewrite of older biography source-review dates.
+        modifiedTime: cassMusicPortraits[loaderData.icon.slug] ? "2026-11-24" : undefined,
         type: "article",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],

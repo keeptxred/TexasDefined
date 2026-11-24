@@ -174,6 +174,19 @@ for (const value of [
   'Cass County and the disputed Caves Spring connection',
   '<NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} slug={icon.slug} />',
 ]) assert.ok(iconRenderer.includes(value), 'Reverse biographical link or disputed-origin qualification missing: ' + value);
+// The three newly edited canonical icon profiles must expose truthful
+// date-scoped XML freshness, without artificially dating the other 217 icons.
+const iconSitemap = fs.readFileSync('src/routes/sitemap-texas-icons[.]xml.ts', 'utf8');
+for(const slug of ['don-henley','t-bone-walker','scott-joplin']) {
+  assert.ok(iconSitemap.includes('"/texas-icons/' + slug + '": "2026-11-24"'),
+    'Source-backed Texas Icons sitemap lastmod missing for ' + slug);
+}
+assert.ok(iconSitemap.includes('CASS_MUSIC_ICON_LASTMOD_BY_PATH[path]'),
+  'Icon sitemap must use exact date map instead of a blanket restamp');
+assert.ok(iconSitemap.includes('lastmod ?') && iconSitemap.includes('<lastmod>'),
+  'Icon sitemap must serialize date only for editorially revised icons');
+assert.ok(iconRenderer.includes('modifiedTime: cassMusicPortraits[loaderData.icon.slug] ? "2026-11-24" : undefined'),
+  'Article modification metadata must reflect only the three genuinely revised musician profiles');
 assert.ok(countyRoute.includes("entity.slug === 'cass') return 'Cass County, Texas: Linden Music, Courthouse & Atlanta'"),
   'Cass County has regressed to a generic and non-distinctive search title');
 assert.ok(venueUI.includes('musicVenuePhotography["broken-spoke-austin-history"]'),

@@ -96,6 +96,15 @@ try {
         check("image decoded",imageData.complete&&imageData.naturalWidth>120,imageData.naturalWidth);
         check("image within viewport",imageData.visibleWidth<=viewport.width+4,imageData.visibleWidth);
       }
+      if(spec.path==="/texas-homecoming-mums") {
+        const hero=page.locator('main img[alt*="Goldthwaite"]').first();
+        const sizing=await hero.evaluate(el=>({
+          width:el.getAttribute("width"),height:el.getAttribute("height"),
+          aspect:el.naturalWidth&&el.naturalHeight?el.naturalWidth/el.naturalHeight:null
+        }));
+        check("portrait homecoming hero reserves licensed image intrinsic aspect",
+          sizing.width==="1876" && sizing.height==="3922",sizing);
+      }
       const dims=await page.evaluate(()=>({
         viewport:document.documentElement.clientWidth,
         scroll:document.documentElement.scrollWidth,
@@ -124,6 +133,10 @@ try {
         }))[0]||null
       }));
       result.syntheticLab=lab;
+      if(spec.path==="/texas-homecoming-mums") {
+        check("homecoming synthetic CLS below poor threshold after intrinsic photo sizing",
+          Number.isFinite(lab.cls) && lab.cls < .25,lab.cls);
+      }
       if(spec.path==="/texas-homecoming-mums") {
         const jsonLd=await page.locator('script[type="application/ld+json"]').allTextContents();
         check("no unsupported consumer FAQPage markup",!jsonLd.some(v=>/"@type"\s*:\s*"FAQPage"/.test(v)));

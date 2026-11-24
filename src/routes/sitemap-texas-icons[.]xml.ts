@@ -4,6 +4,15 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
 
+// Only claim a sitemap modification date for three verified Nov 24 profile
+// revisions (sourced county/biography links and independently licensed photos).
+// Do not invent fresh editorial dates for the remaining Texas Icons profiles.
+const CASS_MUSIC_ICON_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/texas-icons/don-henley": "2026-11-24",
+  "/texas-icons/t-bone-walker": "2026-11-24",
+  "/texas-icons/scott-joplin": "2026-11-24",
+};
+
 function escapeXml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -45,7 +54,10 @@ export const Route = createFileRoute("/sitemap-texas-icons.xml")({
         }
 
         const entries = paths
-          .map((path) => `  <url>\n    <loc>${escapeXml(`${BASE_URL}${path}`)}</loc>\n  </url>`)
+          .map((path) => {
+            const lastmod = CASS_MUSIC_ICON_LASTMOD_BY_PATH[path];
+            return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${path}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
+          })
           .join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
 
