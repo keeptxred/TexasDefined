@@ -127,6 +127,11 @@ for (const marker of [
   'fetchPriority="high"',
 ]) if (!lazyRoute.includes(marker)) errors.push('Missing stargazing photo rights or visible media: ' + marker);
 
+
+for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflow-x-auto border border-border md:block","aria-labelledby=\"dark-sky-observing-window\""]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
+}
+
 if (errors.length) {
   console.error('Texas stargazing authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);

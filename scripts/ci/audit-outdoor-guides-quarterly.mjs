@@ -2,6 +2,18 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "TPWD Big Bend Ranch check-in and interior road", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map", patterns: [/27 miles/i, /permanently closed/i, /Contrabando/i] },
+  { name: "TPWD all four Lighthouse Lakes initial access coordinates", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/", patterns: [/27\.8753/i, /27\.8691/i, /27\.8622/i, /27\.8680/i] },
+  { name: "TPWD Lady Bird Lake additional official access points", url: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", patterns: [/30\.2748/i, /30\.2642/i, /30\.2515/i, /30\.2483/i] },
+  { name: "Federal Sam Houston pass purchase and offline proof", url: "https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645", patterns: [/888-361-6908/i, /non-refundable/i, /license plate/i, /printing is encouraged/i] },
+  { name: "TPWD Tyler trail progression and clockwise bike direction", url: "https://tpwd.texas.gov/state-parks/tyler/trails-info/", patterns: [/EZ Loop/i, /0\.8 mi/i, /clockwise/i, /C Loop/i, /D Loop/i] },
+  { name: "TPWD Palo Duro CCC descent and MTB loop", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info", patterns: [/500 feet/i, /Capitol Peak/i, /3\.5 mi/i] },
+  { name: "TPWD Hill Country equestrian campsite products", url: "https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/horse-sites", patterns: [/Primitive Campsites/i, /Chapas Camp/i, /first-come/i] },
+  { name: "TPWD Dinosaur Valley guided ride", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /817\D{0,5}382\D{0,3}9855/i] },
+  { name: "NPS Lake Meredith ORV road access and permit application", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/FM 1913/i, /87\/287/i, /Application For Special Use Permit/i] },
+  { name: "TPWD Buffalo Bayou and Lady Bird Lake access coordinate evidence", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/29\.7647/i, /-95\.3592/i, /Dairy Ashford/i, /Sabine Street/i] },
+  { name: "TPWD South Llano monitor interpretation", url: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies", patterns: [/21\.5/i, /22\.5/i, /15 minutes/i] },
+  { name: "TPWD Copper Breaks seasonal scheduled programs", url: "https://tpwd.texas.gov/state-parks/copper-breaks/stargazing", patterns: [/April through November/i, /campsite/i] },
   { name: "TPWD Austin Redbud and Festival Beach verified GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/", patterns: [/30\.2911/i, /30\.2483/i] },
   { name: "TPWD Buffalo Bayou Highway 6 and Terry Hershy GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/29\.7694/i, /29\.7733/i] },
   { name: "TPWD Waco two loops and Bledsoe dock GPS", url: "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/", patterns: [/31\.5929/i, /31\.5879/i, /31\.5628/i] },
@@ -32,11 +44,11 @@ const official = [
   { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
 ];
 const livePages = [
-  { slug: "texas-mountain-biking-guide", must: ["Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
-  { slug: "texas-horseback-riding-guide", must: ["Trailhead, equestrian campsite and guided service are three separate decisions", "Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
-  { slug: "texas-ohv-guide", must: ["Trail names, entrance approaches and closure checks", "Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
-  { slug: "texas-paddling-guide", must: ["Individual put-ins, takeouts and water-condition links", "100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
-  { slug: "texas-stargazing-guide", must: ["Where to set up, how to gain access, and what to check that night", "Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
+  { slug: "texas-mountain-biking-guide", must: ["Which Texas mountain bike trail should you ride first?", "Mobile comparison summary", "Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
+  { slug: "texas-horseback-riding-guide", must: ["Where can you book horseback riding without owning a horse?", "Mobile comparison summary", "Trailhead, equestrian campsite and guided service are three separate decisions", "Compare trailer logistics", "Trailer and rider checklist", "Lajitas Stables", "Bandera Historical Rides", "Guided ride or your own horse?"] },
+  { slug: "texas-ohv-guide", must: ["Which Texas OHV permits and access points should you confirm before towing?", "Mobile comparison summary", "Trail names, entrance approaches and closure checks", "Which venue fits your machine?", "Before loading the trailer", "When does a Texas OHV decal apply?", "ordinary private property", "Sam Houston Multiple-Use Trail Pass", "50 inches", "NPS photo"] },
+  { slug: "texas-paddling-guide", must: ["Which put-in and takeout make a practical Texas paddle?", "Mobile comparison summary", "Buffalo Bayou (west to east) numbered access point locations", "Lady Bird Lake (west to east) numbered access point locations", "Waco: Bosque Bluffs and Brazos Bridges numbered access point locations", "Half Acre numbered access point locations", "Lighthouse Lakes: coastal access numbered access point locations", "Individual put-ins, takeouts and water-condition links", "100 certified paddling trails", "Bosque Bluffs", "Lighthouse Lakes", "Launch and current-condition decision", "USGS river gauge", "NWS Corpus Christi marine conditions"] },
+  { slug: "texas-stargazing-guide", must: ["When is the best time to stargaze in a Texas dark-sky park?", "Mobile comparison summary", "Where to set up, how to gain access, and what to check that night", "Compare actual sky darkness", "Plan the observing window", "Five certified state parks", "Big Bend National Park", "US Naval Observatory", "moonrise", "Where to view and what to confirm"] },
 ];
 // Protect keyboard access to each guide's intact, responsive comparison table.
 const comparisonLabels = {
@@ -78,7 +90,7 @@ for (const item of livePages) {
       const url = origin + "/" + item.slug + (cacheBust ? "?outdoor_authority_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual") : "");
       try {
         const body = await get(url);
-        const visible = body.replace(/&amp;/g, "&");
+        const visible = body.replace(/&amp;/g, "&").replace(/&#(?:x27|39);/gi, "'").replace(/&quot;/g, '\"');
         const missing = item.must.filter((token) => !visible.includes(token));
         const noindex = /<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body);
         const canonicalMatch = body.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
@@ -103,8 +115,8 @@ for (const origin of ["https://texasdefined.com", "https://texasdefined-site.fre
     try {
       const xml = await get(url);
       const missing = Object.keys(comparisonLabels).filter((slug) =>
-        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-20</lastmod>"));
-      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov20 editorial lastmod for " + missing.join(", "));
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-21</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov21 editorial lastmod for " + missing.join(", "));
       evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
     } catch (error) {
       failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));

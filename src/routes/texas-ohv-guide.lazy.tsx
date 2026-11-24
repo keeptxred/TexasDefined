@@ -177,6 +177,7 @@ const ohvAreas = [
 ] as const;
 
 const planningPaths = [
+  { to: "/texas-paddling-guide", label: "Water access and weather", description: "Plan a separate non-motorized water outing around official access and water conditions." },
   { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Keep OHV travel inside the larger public-land, weather, habitat and seasonal-planning picture." },
   { to: "/explore/state-parks", label: "Texas state parks", description: "Understand ordinary state-park access before assuming a road or trail is open to specialty vehicles." },
   { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare non-motorized public-trail systems where shared-use and current closures also shape access." },
@@ -239,12 +240,34 @@ function TexasOhvGuidePage() {
             <p className="eyebrow text-primary">Legal access by vehicle</p>
             <h2 id="ohv-comparison" className="mt-2 font-display text-3xl">Which venue fits your machine?</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">An OHV decal is not permission to ride wherever you want. Vehicle categories, trail width, mapped zones, operator waivers and separate permits can differ. This table is a screening tool; the current operator or land manager has the final say.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to see all vehicle and permit columns.</p>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five legal Texas OHV riding areas comparison table">
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
+            <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
+              {legalRideComparison.map((row) => (
+                <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
+                  <h3 className="font-display text-xl">{row.name}</h3>
+                  <dl className="mt-3 space-y-2 text-sm leading-6">
+                    <div><dt className="font-semibold">Vehicle and area</dt><dd className="text-muted-foreground break-words">{row.vehicles}</dd></div>
+                    <div><dt className="font-semibold">Permission to arrange</dt><dd className="text-muted-foreground break-words">{row.permission}</dd></div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five legal Texas OHV riding areas comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "820px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Legal venue</th><th scope="col" className="border-b border-border p-4">Vehicle / area</th><th scope="col" className="border-b border-border p-4">Permission to arrange</th></tr></thead>
                 <tbody>{legalRideComparison.map((area) => <tr key={area.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{area.name}</th><td className="border-b border-border p-4 text-muted-foreground">{area.vehicles}</td><td className="border-b border-border p-4 text-muted-foreground">{area.permission}</td></tr>)}</tbody>
               </table>
+            </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="ohv-permit-before-towing">
+            <h2 id="ohv-permit-before-towing" className="font-display text-3xl">Which Texas OHV permits and access points should you confirm before towing?</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8">A Texas OHV decal is not a substitute for the Sam Houston individual trail pass, Lake Meredith's federal permit or a venue's admission. Use actual measured vehicle width and current route designation, not the marketing label on an ATV or side-by-side.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Sam Houston — confirm access before buying a nonrefundable pass</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Call the Forest Service at 936-344-6205 or 888-361-6908, option 2, before buying the nonrefundable Recreation.gov pass and again before towing. Obtain a separate pass for each user; register the trailhead vehicle plate and carry a downloaded or printed pass where reception is unreliable. The machine must be no wider than 50 inches. The 85-mile system is not a guarantee of open mileage. Use the current federal map and signed closures.</p><a href="https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Buy the official pass and verify requirements</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Sam Houston — choose the correct staging area</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Lake Conroe's local visitor directions identify East Side Trailhead via Forest Road 233, West Side via Forest Road 208, Kelly's Pond via Forest Roads 204 and 271, and Northwest via FM 149 and FM 1791. The listed Forest Road 234 equestrian trailhead is not an OHV entrance. Verify the current Forest Service Motor Vehicle Use Map, road condition and permitted trail segment before using any of these approaches; unload only in an authorized staging area. Forest Service roads themselves require street-legal vehicles.</p><a href="https://lake-conroe.org/trails/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Local trailhead directions</a> · <a href="https://www.recreation.gov/activitypass/f7f9e063-17cc-11eb-8594-76eb6c9a5645" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Federal pass and route rules</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Blue Creek — FM 1913</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Approach the northwest side of Lake Meredith via FM 1913. Riding is confined to the creek-bed area, not its banks or surrounding uplands. There is no potable water; vault toilets do not make this a serviced staging area. Check current conditions before descending.</p><a href="https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">NPS ORV maps and rules</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Rosita Flats — US 87/287</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Approach the Canadian River site from US 87/287. Remain within the designated area and below the 3,000-foot limit. For the free NPS annual permit, apply using the NPS instructions or contact lamr_permits@nps.gov; retain the approved permit in the tow vehicle or on the authorized equipment. NPS headquarters: 806-857-3151.</p><a href="https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Federal permit application</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Camping is separate from vehicle permission</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">At Lake Meredith, an ORV permit is not needed merely to camp at Rosita Flats, but is mandatory for operating in the designated ORV area. Bring drinking water; primitive campsites and picnic tables do not imply utilities or guaranteed availability.</p><a href="https://home.nps.gov/lamr/planyourvisit/camping.htm" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">NPS campsite and access information</a></div>
             </div>
           </section>
           <section className="border-b border-border py-10" aria-labelledby="ohv-named-access">
@@ -344,7 +367,7 @@ function TexasOhvGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify the legal venue, decal and current rules</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel. Lake Meredith access roads, NPS permit applications and camping distinctions checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

@@ -112,6 +112,17 @@ for (const origin of origins) {
     }
   }
 }
+try {
+  const file = await get(ohvPhoto, "image/jpeg");
+  const bytes = Buffer.from(await file.arrayBuffer());
+  const type = file.headers.get("content-type") || "";
+  if (!/image\/jpeg/i.test(type) || bytes.length < 10000 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
+    throw Error("NPS Rosita Flats asset is not a valid JPEG");
+  }
+  evidence.push({ page: "/texas-ohv-guide", origin: "NPS direct", image: ohvPhoto, sha256: createHash("sha256").update(bytes).digest("hex"), bytes: bytes.length, type });
+} catch (error) {
+  errors.push("NPS OHV hero bytes unavailable: " + error.message);
+}
 fs.mkdirSync(".artifacts", { recursive: true });
 fs.writeFileSync(".artifacts/outdoor-image-live-authority.json", JSON.stringify({
   checkedAt: new Date().toISOString(), runId: process.env.GITHUB_RUN_ID || null,
