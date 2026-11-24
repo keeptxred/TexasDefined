@@ -185,4 +185,28 @@ for (const value of ['downtowntx.org/linden-texas/301-e-houston-st-linden-texas-
   assert.ok(venueUI.includes(value) && cityUI.includes(value),
     'Statewide music research source is not actually cited in visible guide: ' + value);
 }
+// Artist pictures must be real photographs of the intended musician and
+// published under an independently verified reusable license. In particular,
+// Commons' unrelated "TB Walker" images depict a Minnesota art collector;
+// T-Bone Walker is the Linden-born blues musician photographed in 1972.
+const portraits = fs.readFileSync('src/data/texas-icons-cass-photography.ts', 'utf8');
+for(const value of [
+  '"don-henley": {', '"t-bone-walker": {', '"scott-joplin": {',
+  'Don_Henley_%28254840967%29.jpg', 'Alan Light', 'CC BY 2.0',
+  'T-Bone_Walker_1972.jpg', 'Heinrich Klaffs', 'CC BY-SA 2.0',
+  'Scott_Joplin_portrait_photo_highres.jpg', 'American Musician, 1907',
+  'U.S. public domain (published 1907)',
+  'creativecommons.org/licenses/by/2.0/',
+  'creativecommons.org/licenses/by-sa/2.0/',
+  'creativecommons.org/publicdomain/mark/1.0/',
+]) assert.ok(portraits.includes(value), 'Cass musician photo identity/license provenance missing: ' + value);
+assert.ok(!portraits.includes('TB_Walker.png'), 'Incorrectly attributed Minnesota T.B. Walker portrait');
+for(const value of ['cassMusicPortraits[icon.slug]', '"@type": "ImageObject"',
+  'license: portrait.licenseUrl', 'creditText: portrait.credit',
+  'alt={portrait.alt}', 'loading="lazy"', 'portrait.sourcePage', 'portrait.licenseUrl',
+  'image: cassMusicPortraits[loaderData.icon.slug]?.src',
+  'imageAlt: cassMusicPortraits[loaderData.icon.slug]?.alt',
+  'shown without editing'.replace(/^s/, 'S')]) {
+  assert.ok(iconRenderer.includes(value), 'Artist photo accessibility/rights requirement missing: ' + value);
+}
 console.log('Cass County editorial provenance / AEO / historical safety assertions: PASS');
