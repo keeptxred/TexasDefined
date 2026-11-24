@@ -8,7 +8,7 @@ import {
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
 const registry = JSON.parse(readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
 // Exact reviewed registry baseline; update once per accepted source batch.
-const REVIEWED_SOURCE_COUNT = 391;
+const REVIEWED_SOURCE_COUNT = 393;
 const REVIEWED_CALENDAR_COUNTIES = 204;
 const REVIEWED_CALENDAR_GAPS = 254 - REVIEWED_CALENDAR_COUNTIES;
 
@@ -1745,4 +1745,11 @@ test("Martin County Community Complex is a dated venue calendar, not a countywid
 test("Schleicher local Extension calendar qualifies only local dated programs; Terry and Perryton individual events do not inflate county coverage",()=>{
  const local=registry.sources.find(s=>s.id==="schleicher-agrilife-local-2026-programs");assert.ok(local);assert.deepEqual(local.countySlugs,["schleicher"]);assert.equal(local.sourceKind,"public-calendar");assert.equal(local.calendarUrl,"https://agrilifeextension.tamu.edu/counties/schleicher-county/");assert.match(local.organization,/LOCAL EXTENSION PROGRAMS ONLY/);assert.equal(registry.sources.find(s=>s.id==="schleicher-county-gov")?.sourceKind,"contact-only");
  for(const [id,county] of [["terry-agrilife-january-2027-stock-show","terry"],["ochiltree-bolerjack-perryton-concert-2026","ochiltree"]]){const src=registry.sources.find(s=>s.id===id);assert.ok(src);assert.deepEqual(src.countySlugs,[county]);assert.equal(src.sourceKind,"event-specific");assert.match(src.organization,/EVENT ONLY/);assert.equal(src.contactEmail,undefined);}
+});
+
+
+test("Wink and Kermit original holiday announcements are event-specific, not a full Winkler calendar",()=>{
+ for(const [id,url] of [["winkler-wink-city-christmas-parade-2026","https://cityofwink.com/news-detail?item_id=36162"],["winkler-kermit-elf-run-2026","https://runsignup.com/Race/TX/Kermit/elfrunkermittx"]]){const src=registry.sources.find(s=>s.id===id);assert.ok(src);assert.deepEqual(src.countySlugs,["winkler"]);assert.equal(src.sourceKind,"event-specific");assert.equal(src.calendarUrl,url);assert.match(src.organization,/EVENT ONLY/);assert.equal(src.contactEmail,undefined);}
+ assert.equal(registry.sources.find(s=>s.id==="winkler-county-gov")?.sourceKind,"contact-only");
+ assert.ok(!registry.sources.some(s=>s.sourceKind==="public-calendar"&&s.countySlugs.includes("winkler")));
 });

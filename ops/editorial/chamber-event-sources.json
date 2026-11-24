@@ -5922,6 +5922,36 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "winkler-wink-city-christmas-parade-2026",
+      "organization": "City of Wink — original 2026 Christmas parade announcement (EVENT ONLY)",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://cityofwink.com/",
+      "calendarUrl": "https://cityofwink.com/news-detail?item_id=36162",
+      "contactPageUrl": "https://cityofwink.com/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "winkler-kermit-elf-run-2026",
+      "organization": "City of Kermit and The Pit Stop — organizer-maintained Elf Run registration (EVENT ONLY)",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "calendarUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "contactPageUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
