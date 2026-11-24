@@ -1496,6 +1496,21 @@
           "label": "Museum-authored 2023 historic Rusk tour: contemporary 2023 schedule and archival local interpretation; not current hours"
         },
         {
+          "sourceUrl": "https://www.thecherokeean.com/articles/44898/view",
+          "fetchUrl": "https://www.thecherokeean.com/articles/44898/view",
+          "label": "Cherokeean, June 20 2018: historical museum exhibits, moving model railway and Bonner Bank site"
+        },
+        {
+          "sourceUrl": "https://texashistory.unt.edu/ark:/67531/metapth614711/m1/1/",
+          "fetchUrl": "https://texashistory.unt.edu/ark:/67531/metapth614711/m1/1/",
+          "label": "Cherokeean Herald, January 23 2013: fundraiser celebrating relocated Bonner Bank building"
+        },
+        {
+          "sourceUrl": "https://www.theeasttexasweekend.com/2025/10/20/preserving-rusks-rich-history/",
+          "fetchUrl": "https://www.theeasttexasweekend.com/2025/10/20/preserving-rusks-rich-history/",
+          "label": "October 2025 regional report documenting museum's hospital and local sports exhibits; historical observation, not guaranteed current display"
+        },
+        {
           "sourceUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
           "fetchUrl": "https://digital.sfasu.edu/digital/collection/Cherokee",
           "label": "Museum collection at East Texas Digital Archives"
