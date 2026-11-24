@@ -46,6 +46,8 @@ on:
       - 'src/data/fishing/fixtures.ts'
       - 'src/routes/fishing.lakes.tsx'
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
+      - 'scripts/ci/fishing-fort-parker-alert-matcher.mjs'
+      - 'scripts/ci/fishing-fort-parker-alert-matcher.test.mjs'
       - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
       - 'scripts/ci/tpwd-lake-source-identity.mjs'
       - 'scripts/ci/tpwd-lake-source-identity.test.mjs'
@@ -86,6 +88,7 @@ jobs:
           node --check scripts/ci/verify-fishing-lakes-fresh-production.mjs
           node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
+          node --test scripts/ci/fishing-fort-parker-alert-matcher.test.mjs
           node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
           node --test scripts/ci/tpwd-lake-source-identity.test.mjs
           node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan

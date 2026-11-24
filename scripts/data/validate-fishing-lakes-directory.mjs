@@ -27,6 +27,8 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/wave2-showcase-lakes-prototype.ts"),
 ]);
 
+const fortParkerMatcher = await read("scripts/ci/fishing-fort-parker-alert-matcher.mjs");
+const fortParkerTests = await read("scripts/ci/fishing-fort-parker-alert-matcher.test.mjs");
 const liveChromeVerifier = await read("scripts/ci/verify-fishing-lakes-directory-browser.mjs");
 const decisionGuide = await read("src/components/fishing/FishingLakeDecisionGuide.tsx");
 const errors = [];
@@ -241,7 +243,12 @@ assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-p
 assert(advisories["lake-abilene"]?.verifiedAt && advisories["lake-abilene"]?.notice.includes("fishing"), "Lake Abilene restriction requires a dated, explicit visible warning.");
 assert(advisories["fort-parker-state-park-lake"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/fort-parker/alert", "Fort Parker launch closure must cite the official TPWD alert.");
 assert(advisories["fort-parker-state-park-lake"]?.verifiedAt === "2026-11-15" && /Navasota River boat ramp closed October 19, 2026 through January 10, 2027/.test(advisories["fort-parker-state-park-lake"]?.notice || ""), "Fort Parker advisory must retain the dated river-ramp closure and no unsupported reopening.");
-assert(sourceAudit.includes("isFortParker") && sourceAudit.includes("Navasota River boat ramp") && sourceAudit.includes("both fishing piers are closed"), "Scheduled primary-source monitor must fail closed on Fort Parker official ramp/pier alert drift.");
+assert(sourceAudit.includes("isFortParker") && sourceAudit.includes("matchesFortParkerAlertText(text)")
+  && fortParkerMatcher.includes("Navasota River boat ramp")
+  && fortParkerMatcher.includes("Both fishing piers are closed")
+  && fortParkerTests.includes("missing or changed date, pier closure or wrong river fails closed")
+  && refreshWorkflow.includes("node --test scripts/ci/fishing-fort-parker-alert-matcher.test.mjs"),
+  "Scheduled primary-source monitor must use the tested fail-closed Fort Parker official ramp/pier alert matcher.");
 const samRayburnStart = lakeFixtures.indexOf('slug: "sam-rayburn-reservoir"');
 const samRayburnSection = lakeFixtures.slice(samRayburnStart, samRayburnStart + 1400);
 for (const county of ["Angelina", "Jasper", "Nacogdoches", "Sabine", "San Augustine"]) assert(samRayburnSection.includes(`"${county}"`), `Sam Rayburn missing TPWD reservoir-boundary county: ${county}`);

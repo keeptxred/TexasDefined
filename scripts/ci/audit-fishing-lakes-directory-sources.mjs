@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { matchesFortParkerAlertText } from "./fishing-fort-parker-alert-matcher.mjs";
 
 const advisoryFile = "src/data/fishing/lake-directory-advisories.json";
 const advisories = JSON.parse(fs.readFileSync(advisoryFile, "utf8"));
@@ -37,9 +38,7 @@ async function checkAdvisory(slug, record) {
         && /boat ramps are closed/i.test(text)
         && /swimming and fishing are not allowed/i.test(text)
       : isFortParker
-        ? /Navasota River boat ramp/i.test(text)
-          && /closed from Oct\\.?\\s*19,?\\s*2026 to Jan\\.?\\s*10,?\\s*2027/i.test(text)
-          && /both fishing piers are closed/i.test(text)
+        ? matchesFortParkerAlertText(text)
         : text.length > 400;
     checks.push({ slug, url: record.sourceUrl, response: response.status, matched });
     if (!matched) errors.push(slug + ": official source no longer supports the published restriction verbatim; review before changing public advice");
