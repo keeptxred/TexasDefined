@@ -13,7 +13,9 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Brand Origin Stories: Six Local Names That Became Icons",
+      title: "Texas Brand Origin Stories: Founders, Hometowns & History",
+      image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Modern_Blue_Bell_Creameries_factory_located_in_Brenham%2C_Texas.jpg?width=1280",
+      imageAlt: "Blue Bell Creameries factory in Brenham, Texas",
       description: guide.dek,
       type: "article",
     }),
