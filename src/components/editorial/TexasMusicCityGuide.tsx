@@ -104,7 +104,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
             alt={musicVenuePhotography["billy-bobs-texas-history"].alt}
             width={musicVenuePhotography["billy-bobs-texas-history"].width}
             height={musicVenuePhotography["billy-bobs-texas-history"].height}
-            loading="lazy" decoding="async" referrerPolicy="no-referrer"
+            loading="eager" fetchPriority="high" decoding="async" referrerPolicy="no-referrer"
             className="w-full max-w-4xl h-auto rounded-sm" />
           <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
             {musicVenuePhotography["billy-bobs-texas-history"].caption} Photo: <a href={musicVenuePhotography["billy-bobs-texas-history"].sourcePage} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{musicVenuePhotography["billy-bobs-texas-history"].credit}</a>, <a href={musicVenuePhotography["billy-bobs-texas-history"].licenseUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{musicVenuePhotography["billy-bobs-texas-history"].license}</a> via Wikimedia Commons; displayed without image editing. The photo illustrates Fort Worth's venue network, not the Linden theater.
