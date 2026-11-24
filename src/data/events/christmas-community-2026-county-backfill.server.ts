@@ -1728,5 +1728,33 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Throckmorton Chamber of Commerce",
     "summary": "The Chamber confirms its downtown courthouse-square Christmas event for Saturday, December 12, 2026, from 2 to 6 p.m. Vendors will be on assigned downtown sidewalk spaces; vendor setup is scheduled from 1 to 2 p.m. The organizer lists registration fees of $30 for non-food vendors and $50 for vendors selling full meals. These are vendor charges, not spectator admission. Check the Chamber for current program and visitor arrangements; no 2027 edition is confirmed.",
     "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "wink-christmas-parade-2026",
+    "title": "Wink Christmas Parade",
+    "city": "Wink",
+    "countySlug": "winkler",
+    "countyName": "Winkler County",
+    "region": "big-bend",
+    "startDate": "2026-12-04",
+    "venueName": "Wink, Texas (parade route to be announced)",
+    "officialEventUrl": "https://cityofwink.com/news-detail?item_id=36162",
+    "sourceName": "City of Wink",
+    "summary": "The City of Wink announced its 2026 Christmas parade for Friday, December 4. Its October 14 announcement does not establish a parade time or route. The city's November 5 registration notice sets November 30 as the entry deadline. Check the city for the final route, viewing arrangements and any changes before traveling. No 2027 date is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "kermit-elf-run-2026",
+    "title": "Kermit Elf Run 5K and 1.5-Mile Walk",
+    "city": "Kermit",
+    "countySlug": "winkler",
+    "countyName": "Winkler County",
+    "region": "big-bend",
+    "startDate": "2026-12-12",
+    "venueName": "Winkler County Recreation Center, 1991 Tommy Thompson, Kermit",
+    "officialEventUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+    "sourceName": "City of Kermit and The Pit Stop — organizer registration",
+    "summary": "The organizers confirm the third annual holiday run and walk for Saturday, December 12, 2026, at the Winkler County Recreation Center. The registration listing shows a 7:30 a.m.–noon program window, with packet pickup from 7:30 to 8:15 a.m. and registration closing at 8:15 a.m. The listed participant fees are $35 for the 5K and $20 for the walk; proceeds benefit Kermit Animal Control. Check the organizer for the actual race start, current registration availability and any changes. No spectator admission fee or 2027 edition is assumed.",
+    "sourceVerifiedAt": "2026-11-24"
   }
 ];
