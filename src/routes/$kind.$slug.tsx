@@ -113,6 +113,7 @@ function sportsVenuePriority(entity: TexasEntityRecord) {
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'county' && entity.slug === 'comanche') return 'Comanche County TX: History, De Leon & Proctor Lake';
   if (entity.kind === 'county' && entity.slug === 'rusk') return 'Rusk County, Texas: Henderson, Syrup Capital & History';
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
