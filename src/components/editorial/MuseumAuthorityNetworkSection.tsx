@@ -1,3 +1,4 @@
+import { AlvinHistoricalPhotographs } from "@/components/editorial/AlvinHistoricalPhotographs";
 import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
 import { museumAuthorityDirectory, museumDossierFor } from "@/data/museum-authority-network";
@@ -85,6 +86,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
             </div>
             <h3 className="mt-12 font-display text-3xl">Historical and research context</h3>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{dossier.researchValue}</p>
+            {destination.slug === "alvin-historical-museum" ? <AlvinHistoricalPhotographs /> : null}
           </div>
           <aside className="space-y-6">
             <div className="border-t border-foreground pt-5">
