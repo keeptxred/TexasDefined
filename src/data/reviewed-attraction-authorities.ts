@@ -32,18 +32,18 @@ export const reviewedAttractionDestinations: Destination[] = [
     ],
     "body": [
       "San Antonio's Japanese Tea Garden occupies a former limestone quarry and cement works. Stone bridges cross koi ponds beneath steep quarry walls, while a waterfall and planted terraces turn the industrial excavation into part of the landscape rather than hiding it. The upper level offers the broadest overview without a descent.",
-      "San Antonio Parks Commissioner Ray Lambert's project turned an abandoned cement quarry into lily ponds and gardens between 1917 and 1918. Donated bulbs, the city nursery and the public utility helped furnish the early setting; the bridges, pagoda and tiered walls still demonstrate how the former industrial terrain shaped the design. The city records German masons' earlier quarry work, a 1920 Mexican Village supporting local artisans, and a concrete torii-style entrance gate by Dionicio Rodríguez.",
+      "San Antonio Parks Commissioner Ray Lambert's project turned an abandoned cement quarry into lily ponds and gardens between 1917 and 1918. The city records that incarcerated workers shaped the site into a garden, an important part of its history. Donated bulbs, the city nursery and the public utility helped furnish the early setting; the bridges, pagoda and tiered walls still demonstrate how the former industrial terrain shaped the design. The city records German masons' earlier quarry work, a 1920 Mexican Village supporting local artisans, and a concrete torii-style entrance gate by Dionicio Rodríguez.",
       "The Jingu family's story is essential to the garden's identity. Japanese-American artist Kimi Eizo Jingu and his wife Miyoshi lived and worked at the garden, and the family opened the Bamboo Room for tea and light food in 1926. After Eizo's death in 1938, the family continued operations until they were evicted amid anti-Japanese sentiment during World War II in 1942. The gardens were renamed the Chinese Sunken Garden before the original name was formally restored in the 1980s. Understanding the displacement and later rededication adds historical context beyond the ponds and waterfall.",
       "Visitors interested in that history can use the Foundation's augmented-reality garden guide, which includes archival photographs, a site map and stories of the Jingu family. The upper quarry overlook also makes it easier to see how paths and stonework follow the site's steep grades.",
       "Visitors able to use stairs can explore the lower bridges, koi ponds and waterfall approaches. Those who need a step-free visit should stay with the ramp-accessible upper garden and pavilion; the operator does not describe the lower paths or waterfall base as wheelchair accessible. Families with strollers should plan around the stairways and open pond edges.",
       "Allow 30–60 minutes for the garden itself, or longer for photographs, interpretive material and a stop at Jingu House if it is serving. In summer, the exposed upper areas can be hot; water, shoes with grip and a morning visit are sensible. Wet stairs warrant extra care.",
-      "Leashed dogs are allowed. The Foundation prohibits drones, balloons, confetti, rose petals, equipment, props and wagons; ordinary personal photography does not need a garden permit. Check the operator's event and photography rules for organized shoots.",
-      "Use 3853 N. St. Mary's Street for the entrance. Jingu House food service has its own schedule; confirm availability before counting on a meal. San Antonio Zoo and Brackenridge Park are adjacent, but zoo admission and hours are separate from this free garden."
+      "The Foundation allows leashed dogs and ordinary personal photography, but prohibits drones, certain props, balloons, confetti and wagons. The city separately requires advance scheduling of professional photo sessions through the Foundation. Do not interpret the general no-permit notice as permission for a professional shoot; call the Foundation at 210-559-3148 to arrange one.",
+      "Use 3853 N. St. Mary's Street for the entrance. Jingu House food service has its own schedule; confirm availability before counting on a meal. San Antonio Zoo and Brackenridge Park are adjacent, but zoo admission and hours are separate from this free garden. The city's general description says dawn to dusk, but its facility-hours table and the Foundation both specify 7 a.m.–5 p.m. Use those posted hours for planning. The city also identifies lower-garden lighting as a planned improvement, not a completed installation."
     ],
     "managingAuthority": "San Antonio Parks Foundation",
     "officialUrl": "https://saparks.org/japanese-tea-garden/",
-    "sourceCheckedAt": "2026-11-14",
-    "updatedAt": "2026-11-14",
+    "sourceCheckedAt": "2026-11-24",
+    "updatedAt": "2026-11-24",
     "address": "3853 N St Mary's St, San Antonio, TX 78212",
     "visitorFaqs": [
       {
@@ -111,7 +111,7 @@ export const reviewedAttractionDestinations: Destination[] = [
         "label": "Admission",
         "detail": "Free public admission; operator lists 7 a.m.–5 p.m. daily. Upper pavilion/Jingu House accessible by ramp; lower garden requires stairs.",
         "sourceUrl": "https://saparks.org/japanese-tea-garden/",
-        "checkedAt": "2026-11-14"
+        "checkedAt": "2026-11-24"
       }
     ],
     "gallery": [
@@ -163,16 +163,16 @@ export const reviewedAttractionDestinations: Destination[] = [
       "The Quiet Pool presents a contrasting still surface and a more secluded setting, with planted edges and a reflective mood. Its calmness makes the scale and noise of the Active Pool more noticeable by comparison.",
       "The Aerated Pool's 40 nozzles send fountains up from ground level, a striking opposite to the Active Pool's descent. Watch from the designated surrounding paths, not from the water. Seeing all three pool environments makes the park's contrasting sounds and forms clearer than a single viewpoint.",
       "The Water Gardens opened in 1974 as a gift from the Amon G. Carter Foundation to the city. This block had been part of Fort Worth's nineteenth-century Hell's Half Acre district; the new civic park gave a very different purpose to downtown land once known for cattle-trail saloons and entertainment. The city reports about 19,000 gallons of water circulating per minute across the park, including roughly 10,500 at the Active Pool. The engineering makes the architects' concrete forms feel different at each basin.",
-      "The City of Fort Worth lists an improvement project in final design with a projected 2027 completion. That schedule does not establish that the park is currently closed or that any particular route is blocked. Review the official park page and the project status before visiting, especially if construction affects access.",
+      "The City of Fort Worth's project page identifies a $6.5 million allocation from the 2022 bond program for project 104751, including fountain machinery and pedestrian-lighting upgrades. As checked November 24, 2026, it still lists final design, a contractor to be determined and projected completion in 2027. This does not establish a current closure or a guaranteed reopening date. Check the park's official notices before visiting.",
       "Budget roughly 30–60 minutes for the three pools and upper viewpoints. Longer time suits architectural photography, but changing light, weather and downtown events can alter conditions. Wear secure footwear; exposed terraces can be hot in summer.",
       "Swimming and wading are forbidden. Supervise children closely near water, drops and hard concrete edges, and do not use the Active Pool's lower steps as a mandatory route.",
       "Visitors who avoid steps can still view much of the architectural composition from the upper public approaches and adjoining sidewalks. The Active Pool descent uses stairs and is not a suitable mobility route. For detailed step-free access, current entrances or accessible parking arrangements, contact Fort Worth Parks rather than assuming every terrace is barrier-free.",
-      "The City identifies the primary entrance near the northwest corner of the park. Use 1502 Commerce Street and its park map to plan your approach; garages, nearby transit and construction detours can change. The convention-center district and downtown Fort Worth museums are separate outings with their own hours."
+      "The City identifies the primary entrance near the northwest corner of the park. Use 1502 Commerce Street and its park map to plan your approach; garages, nearby transit and construction detours can change. The convention-center district and downtown Fort Worth museums are separate outings with their own hours. Beyond the pools, the city's 5.4-acre park includes a Central Square, a 20-foot terraced structure called the Mountain and a stage-and-lawn area. Compare these upper-level features when planning a visit that avoids the Active Pool descent."
     ],
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
-    "sourceCheckedAt": "2026-11-14",
-    "updatedAt": "2026-11-14",
+    "sourceCheckedAt": "2026-11-24",
+    "updatedAt": "2026-11-24",
     "address": "1502 Commerce St, Fort Worth, TX 76102",
     "visitorFaqs": [
       {
@@ -250,14 +250,14 @@ export const reviewedAttractionDestinations: Destination[] = [
         "label": "Admission",
         "detail": "Free public admission confirmed by Visit Fort Worth; no ticket purchase required for ordinary park entry.",
         "sourceUrl": "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/",
-        "checkedAt": "2026-11-14"
+        "checkedAt": "2026-11-24"
       },
       {
         "topic": "hours",
         "label": "Hours and safety",
         "detail": "City of Fort Worth lists 6 a.m.–10 p.m. daily, prohibits swimming and wading, and posts project notices separately.",
         "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
-        "checkedAt": "2026-11-14"
+        "checkedAt": "2026-11-24"
       }
     ],
     "gallery": [
