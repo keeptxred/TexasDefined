@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: alvin-brazoria-browser-${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
@@ -34,6 +35,14 @@ jobs:
           node-version: '22'
       - name: Validate browser verifier syntax
         run: node --check scripts/ci/verify-alvin-brazoria-browser.mjs
+      - name: Download exact deployment change plan
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          name: production-change-plan-${{ github.event.workflow_run.id }}
+          path: .artifacts/deployed-change-plan
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
       - name: Scope live verification to relevant successful deployments
         id: scope
         shell: bash
@@ -41,8 +50,16 @@ jobs:
           set -euo pipefail
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             echo 'run=true' >> "$GITHUB_OUTPUT"
-          elif [[ "$GITHUB_EVENT_NAME" == "workflow_run" ]] && git diff --name-only HEAD^ HEAD | grep -Eq '(alvin-brazoria|brazoria-county|city-authority-profiles|county-profile|local-government-profile|CountyGuideSections|EntityDepthSections|AlvinHistoricalPhotographs|MuseumAuthorityNetworkSection|museum-authority-new-destinations|museum-authority-network|museum-visitor-faqs|museum-verification-manifest)'; then
-            echo 'run=true' >> "$GITHUB_OUTPUT"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_run" ]]; then
+            EXPECTED_HEAD="$(git rev-parse HEAD)" node --input-type=module -e '
+              import {readFileSync, appendFileSync} from "node:fs";
+              const plan = JSON.parse(readFileSync(".artifacts/deployed-change-plan/production-change-plan.json", "utf8"));
+              if (plan.head !== process.env.EXPECTED_HEAD || !Array.isArray(plan.changedFiles) || !plan.changedFiles.every(file => typeof file === "string")) throw new Error("Deployment plan missing or does not match verified source SHA");
+              const relevant = /alvin-brazoria|brazoria-county|city-authority-profiles|county-profile|local-government-profile|CountyGuideSections|EntityDepthSections|AlvinHistoricalPhotographs|MuseumAuthorityNetworkSection|museum-authority-new-destinations|museum-authority-network|museum-visitor-faqs|museum-verification-manifest/;
+              const run = plan.changedFiles.some(file => relevant.test(file));
+              appendFileSync(process.env.GITHUB_OUTPUT, `run=${run}\n`);
+              console.log(`Browser acceptance ${run ? "required" : "not in deployment scope"}; baseline ${plan.baseline ?? "unknown"}, head ${plan.head}`);
+            '
           else
             echo 'run=false' >> "$GITHUB_OUTPUT"
           fi
