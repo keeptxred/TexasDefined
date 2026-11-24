@@ -60,6 +60,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
         description: cassMusicSeoTitles[loaderData.icon.slug]
           ? (narrativeProfile?.dek ?? loaderData.icon.summary)
           : loaderData.icon.summary,
+        image: cassMusicPortraits[loaderData.icon.slug]?.src,
+        imageAlt: cassMusicPortraits[loaderData.icon.slug]?.alt,
+        imageWidth: cassMusicPortraits[loaderData.icon.slug]?.width,
+        imageHeight: cassMusicPortraits[loaderData.icon.slug]?.height,
         type: "article",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
