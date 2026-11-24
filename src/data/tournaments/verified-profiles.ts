@@ -162,13 +162,13 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     summary: "The 2027 Houston Livestock Show and Rodeo is scheduled for March 2–21, with the World’s Championship Bar-B-Que Contest preceding it February 25–27.",
     whyItMatters: "RODEOHOUSTON combines professional rodeo competition, livestock events, concerts and a massive fair into one of Texas’s defining annual event traditions.",
     planningNotes: [
-      "A grounds ticket and a rodeo-and-concert ticket are different products; confirm what your ticket includes before arrival.",
-      "Daily programs, entertainers, livestock schedules and transportation details vary across the multi-week run, so plan around a specific date.",
-      "Use the Houston and Harris County guides for hotels, food and nearby stops once your rodeo date is set.",
+      "The November 17, 2026 organizer announcement schedules the 2027 entertainer reveal for January 7 at about 7 p.m. and public single-event ticket sales on January 14 in two waves at 10 a.m. and 2 p.m. The genre calendar is not the artist lineup. Check the official news page before booking.",
+      "The genre schedule includes rock on March 3, R&B on March 5, Latin on March 9, regional Mexican on March 14, pop on March 15 and Christian music on March 7 and 17, alongside country dates. The organizer’s March 10 Community Day is distinct from its separate February 25–27 cook-off.",
+      "Compare grounds admission with stadium rodeo-and-concert tickets; the separately advertised grounds season pass includes cook-off grounds admission, not stadium concerts or carnival rides. Confirm current availability and transportation for the specific date.",
     ],
     officialUrl: "https://www.rodeohouston.com/the-houston-livestock-show-and-rodeo-announces-2027-dates/",
     officialSourceLabel: "Houston Livestock Show and Rodeo official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "fort-worth-stock-show-rodeo",
