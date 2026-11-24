@@ -2,7 +2,7 @@ name: Texas food and brand authority source refresh
 on:
   workflow_dispatch:
   schedule:
-    # Directory monthly; four historical articles quarterly (January, April, July, October).
+    # Directory monthly; four historical guides every two months (January, March, May, July, September, November), meeting the 90-day source-review ceiling.
     - cron: "37 14 5 * *"
 permissions:
   contents: read
