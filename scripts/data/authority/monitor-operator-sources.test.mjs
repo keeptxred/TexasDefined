@@ -85,16 +85,17 @@ test("three approved attraction sources are monitored from real canonical record
 
 
 test("all three historic destination canonical guides have bounded, verified operator-source watch", () => {
-  assert.equal(heritageDestinationMonitorRows.length, 14);
-  assert.deepEqual([...new Set(heritageDestinationMonitorRows.map((r) => r.id))].sort(), [
+  const heritage = heritageDestinationMonitorRows.filter(r => r.id !== "alvin-historical-museum");
+  assert.equal(heritage.length, 14);
+  assert.deepEqual([...new Set(heritage.map((r) => r.id))].sort(), [
     "lbj-presidential-library-austin", "mission-san-jose-san-antonio", "texas-state-capitol",
   ]);
-  assert.equal(new Set(heritageDestinationMonitorRows.map((r) => r.sourceUrl)).size, 14);
-  for (const row of heritageDestinationMonitorRows) {
+  assert.equal(new Set(heritage.map((r) => r.sourceUrl)).size, 14);
+  for (const row of heritage) {
     assert.equal(row.checkedAt, "2026-11-18", "Source timestamps must record verified editorial reviews, never job dates");
     assert.match(row.sourceUrl, /^https:\/\//);
   }
-  const all = sourceIndex([], heritageDestinationMonitorRows);
+  const all = sourceIndex([], heritage);
   assert.equal(all.length, 14);
   for (const url of [
     "https://tspb.texas.gov/plan/tours/tours.html",
@@ -120,4 +121,19 @@ test("expiring LBJ exhibitions prompt human review without relying on page-finge
   assert.deepEqual(heritageExhibitionDeadlineAlerts(updated, "2027-01-02").map((r) => r.title),
     ["The American Experiment"], "A factual correction resolves the matching exhibition alert");
   assert.throws(() => heritageExhibitionDeadlineAlerts(dossier, "tomorrow"), /Invalid audit date/);
+});
+
+
+test("Alvin museum and shared city/county visitor sources retain bounded weekly coverage", async () => {
+  const {readFile} = await import("node:fs/promises");
+  const read = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const alvin = heritageDestinationMonitorRows.filter(r => r.id === "alvin-historical-museum");
+  assert.equal(alvin.length, 11);
+  assert.equal(new Set(alvin.map(r => r.sourceUrl)).size, 11);
+  for (const row of alvin) assert.equal(row.checkedAt, "2026-11-24");
+  for (const url of ["https://alvinmuseum.org/", "https://alvinmuseum.org/slover-rogers-cottage/", "https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/", "https://frobergsfarm.com/", "https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8"]) assert.ok(alvin.some(r => r.sourceUrl === url), url);
+  const offers = await read("../../../src/data/authority/experience-offers.json");
+  const operators = await read("../../../src/data/authority/independent-operators.json");
+  const attraction = reviewedAttractionMonitorRows(await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8"));
+  assert.ok(sourceIndex(offers, [...operators, ...attraction, ...heritageDestinationMonitorRows]).length <= 48);
 });
