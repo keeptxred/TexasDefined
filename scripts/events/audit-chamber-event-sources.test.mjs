@@ -8,8 +8,8 @@ import {
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
 const registry = JSON.parse(readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
 // Exact reviewed registry baseline; update once per accepted source batch.
-const REVIEWED_SOURCE_COUNT = 393;
-const REVIEWED_CALENDAR_COUNTIES = 204;
+const REVIEWED_SOURCE_COUNT = 394;
+const REVIEWED_CALENDAR_COUNTIES = 205;
 const REVIEWED_CALENDAR_GAPS = 254 - REVIEWED_CALENDAR_COUNTIES;
 
 test("all 254 canonical county guides are present in the research roster", () => {
@@ -1752,4 +1752,9 @@ test("Wink and Kermit original holiday announcements are event-specific, not a f
  for(const [id,url] of [["winkler-wink-city-christmas-parade-2026","https://cityofwink.com/news-detail?item_id=36162"],["winkler-kermit-elf-run-2026","https://runsignup.com/Race/TX/Kermit/elfrunkermittx"]]){const src=registry.sources.find(s=>s.id===id);assert.ok(src);assert.deepEqual(src.countySlugs,["winkler"]);assert.equal(src.sourceKind,"event-specific");assert.equal(src.calendarUrl,url);assert.match(src.organization,/EVENT ONLY/);assert.equal(src.contactEmail,undefined);}
  assert.equal(registry.sources.find(s=>s.id==="winkler-county-gov")?.sourceKind,"contact-only");
  assert.ok(!registry.sources.some(s=>s.sourceKind==="public-calendar"&&s.countySlugs.includes("winkler")));
+});
+
+
+test("Choke Canyon Calliham Unit original dated park programs qualify only McMullen County",()=>{
+ const src=registry.sources.find(s=>s.id==="mcmullen-choke-canyon-calliham-tpwd-ranger-events-2026");assert.ok(src);assert.deepEqual(src.countySlugs,["mcmullen"]);assert.equal(src.sourceKind,"public-calendar");assert.equal(src.sourceRole,"discovery");assert.equal(src.calendarUrl,"https://tpwd.texas.gov/state-parks/choke-canyon/park_events");assert.match(src.organization,/PARK ONLY/);assert.equal(src.contactEmail,undefined);
 });
