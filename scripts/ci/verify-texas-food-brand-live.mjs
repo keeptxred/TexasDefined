@@ -42,7 +42,8 @@ for(const [path,marker,related] of cases)for(const uncached of [true,false])awai
   assert.ok(html.includes("BreadcrumbList"));
   assert.ok(html.includes(path==="/made-in-texas"?"CollectionPage":"Article"));
   const dates=[...html.matchAll(/"dateModified"\s*:\s*"([0-9]{4}-[0-9]{2}-[0-9]{2})/g)].map(m=>m[1]);
-  assert.ok(dates.some(date=>date>="2026-11-21"),"Meaningful modification date missing");
+  const expectedDate = ["/made-in-texas","/texas-brand-origin-stories"].includes(path) ? "2026-11-24" : "2026-11-21";
+  assert.ok(dates.some(date=>date>=expectedDate),"Meaningful modification date missing: "+expectedDate);
 });
 for(const [path,target] of reverse)await check(path+" contextual backlink",async()=>{
   const {html}=await fetchLive(path);
@@ -53,7 +54,8 @@ await check("All five sitemap dates",async()=>{
   for(const [path] of cases){
     const entry=html.split(/<url>/).find(x=>x.includes("<loc>"+origin+path+"</loc>"));
     assert.ok(entry,"Missing "+path);
-    const date=entry.match(/<lastmod>([0-9]{4}-[0-9]{2}-[0-9]{2})/);assert.ok(date&&date[1]>="2026-11-21","Stale sitemap entry "+path);
+    const date=entry.match(/<lastmod>([0-9]{4}-[0-9]{2}-[0-9]{2})/);const expectedDate = ["/made-in-texas","/texas-brand-origin-stories"].includes(path) ? "2026-11-24" : "2026-11-21";
+    assert.ok(date&&date[1]>=expectedDate,"Stale sitemap entry "+path+" (expected "+expectedDate+")");
   }
 });
 if(process.argv.includes("--browser")){

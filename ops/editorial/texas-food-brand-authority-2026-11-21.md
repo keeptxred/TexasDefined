@@ -33,3 +33,17 @@ Evidence below documents editorial differentiation, not an invented Google score
 - Static inventory replay: 104 unique entries, 36 production citations, 68 non-production citations; no missing or mismatched non-production names. This is a structural check, not a guarantee every source remains reachable.
 - Production gate: inspect the exact PR head, Merge Gate, then deploy current main. The scoped release check tests ordinary and cache-bypassed HTML, canonical, indexability, metadata, revised content markers, structured data, sitemap dates, 3 reciprocal restaurant links, desktop/mobile rendering and actual lead image loads, and search/reset/CSV export in one sequential Chrome process.
 - Acceptance status: pending protected CI and actual deployed evidence. Do not claim 95+ certification or task completion before the outstanding checks are complete.
+
+
+## November 24 corrective source verification
+
+Independent public-source review found four substantive citation problems not detectable from citation-count validation alone:
+
+- 7-Eleven's original Smithsonian object URL intermittently returns inaccessible responses. Replaced with the [Handbook of Texas account of Southland Corporation](https://www.tshaonline.org/handbook/entries/southland-corporation), documenting its 1927 Dallas-area formation, in both the directory and brand-origin bibliography.
+- Meat Church's former 114 W. Main Street supply-store address had become stale. The [company's own contact page](https://www.meatchurch.com/pages/about-us) gives 441 S. College Street in Waxahachie; independent September 2026 reporting documents the relocation to the historic Boyce Feed Store. Updated its source claim and local directory note.
+- Igloo's previous Katy-area economic-development citation did not individually establish the entire claim about Igloo manufacturing and research. The [company's current FAQ](https://www.igloocoolers.com/pages/faq) establishes the Katy headquarters at 777 Igloo Road. The directory now makes only that qualified claim, not a product-level manufacturing assertion.
+- Big Tex Trailers' investor-relations page has a fragile redirect. Replaced with the [NHTSA manufacturer registration](https://vpic.nhtsa.dot.gov/mid/manufacturer/details/9132) confirming its Mount Pleasant address. This record does not prove every trailer is made there.
+- Siete Foods' previous PepsiCo acquisition release established the Austin founding year but did not independently document the Laredo almond-flour tortilla origin. Replaced with the [Texas Business Hall of Fame biographies of the Garzas](https://texasbusiness.org/garzas/), which establishes both connections.
+- [Texas Tamale Company's own chronology](https://texastamale.com/pages/our-story) dates its first Houston street cart to 1985, Highway 6 roadside sales to 1988, and the first restaurant kitchen to 1993. Corrected the directory's misleading 1988 founding year and expanded its provenance.
+
+All six records' manually verified dates are November 24, 2026. Other citations retain their original check dates; automated link accessibility alone is not proof of content accuracy. The corrections preserve 104 records and four distinct relationship categories.

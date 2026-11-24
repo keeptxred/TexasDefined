@@ -88,10 +88,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "7-Eleven",
-    "claim": "The Smithsonian traces the convenience-store chain to Southland Ice in Dallas in 1927.",
-    "sourceLabel": "Smithsonian National Museum of American History",
-    "sourceUrl": "https://www.si.edu/object/7-eleven-display-rooster%3Anmah_1204808",
-    "checkedAt": "2026-11-21"
+    "claim": "The Handbook of Texas documents the 1927 formation of Southland Ice Company from Dallas-area ice businesses, the predecessor of 7-Eleven.",
+    "sourceLabel": "Handbook of Texas — Southland Corporation",
+    "sourceUrl": "https://www.tshaonline.org/handbook/entries/southland-corporation",
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "Half Price Books",
@@ -200,10 +200,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Siete Foods",
-    "claim": "PepsiCo identifies Austin as the 2014 founding location; the Garza family developed its original almond-flour tortilla in Laredo.",
-    "sourceLabel": "PepsiCo acquisition announcement",
-    "sourceUrl": "https://www.pepsico.com/en/newsroom/press-releases/2025/pepsico-completes-acquisition-of-siete-foods",
-    "checkedAt": "2026-11-21"
+    "claim": "The Texas Business Hall of Fame identifies Austin-based Siete Foods as founded by the Garza family in 2014 and traces its first almond-flour tortilla to Veronica Garza's kitchen in Laredo.",
+    "sourceLabel": "Texas Business Hall of Fame — Miguel and Veronica Garza",
+    "sourceUrl": "https://texasbusiness.org/garzas/",
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "Howler Brothers",
@@ -284,10 +284,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Igloo",
-    "claim": "The Katy economic development corporation documents its Katy headquarters, cooler manufacturing, research and distribution; individual product labels still determine origin.",
-    "sourceLabel": "Katy Area Economic Development Council",
-    "sourceUrl": "https://www.katyedc.org/for-site-selectors/target-industries",
-    "checkedAt": "2026-11-21"
+    "claim": "Igloo's official FAQ lists its headquarters at 777 Igloo Road in Katy. This verifies the headquarters location, not whether a particular Igloo product is made in Texas.",
+    "sourceLabel": "Igloo official FAQ",
+    "sourceUrl": "https://www.igloocoolers.com/pages/faq",
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "Academy Sports + Outdoors",
@@ -319,10 +319,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Texas Tamale Company",
-    "claim": "The Houston business began selling tamales roadside in 1988 and opened its first restaurant kitchen in Houston in 1993; current product origins require separate evidence.",
+    "claim": "The company dates its Houston street-cart origins to 1985, Highway 6 roadside sales to 1988 and its first Galleria-area restaurant kitchen to 1993; this chronology does not establish current product-specific origin.",
     "sourceLabel": "Texas Tamale Company",
     "sourceUrl": "https://texastamale.com/pages/our-story",
-    "checkedAt": "2026-11-21"
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "NOV",
@@ -375,10 +375,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Meat Church",
-    "claim": "The operator lists its barbecue supply shop at 114 W Main Street in Waxahachie; no manufacturing or headquarters claim is inferred.",
-    "sourceLabel": "Meat Church",
+    "claim": "Meat Church's current company contact page locates its BBQ supply store at 441 S. College Street in Waxahachie, following its September 2026 move from Main Street. The store is not proof of manufacturing origin.",
+    "sourceLabel": "Meat Church official contact page",
     "sourceUrl": "https://www.meatchurch.com/pages/about-us",
-    "checkedAt": "2026-11-21"
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "King Ranch Saddle Shop",
@@ -389,10 +389,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Big Tex Trailers",
-    "claim": "The company lists its corporate offices at 950 I-30 East in Mount Pleasant; this does not certify the origin of every trailer.",
-    "sourceLabel": "Big Tex Trailers",
-    "sourceUrl": "https://www.bigtextrailers.com/investor-relations/",
-    "checkedAt": "2026-11-21"
+    "claim": "The federal NHTSA manufacturer registry lists Big Tex Trailer Manufacturing LLC at 950 I-30 East in Mount Pleasant. The registered address does not certify every individual trailer's manufacturing location.",
+    "sourceLabel": "NHTSA manufacturer registry",
+    "sourceUrl": "https://vpic.nhtsa.dot.gov/mid/manufacturer/details/9132",
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "Top Hat Trailers",
