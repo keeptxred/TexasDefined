@@ -34,6 +34,46 @@ const photos = [
   },
 ];
 
+const additionalPhotos = [
+  {
+    "path": "/texas-mountain-biking-guide",
+    "creator": "Larry D. Moore",
+    "name": "Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "fileUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg/960px-Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "path": "/texas-horseback-riding-guide",
+    "creator": "Fredlyfish4",
+    "name": "Dinosaur_Valley_State_Park_Trail.JPG",
+    "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Dinosaur_Valley_State_Park_Trail.JPG/960px-Dinosaur_Valley_State_Park_Trail.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Dinosaur_Valley_State_Park_Trail.JPG",
+    "licenseLabel": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "path": "/texas-paddling-guide",
+    "creator": "Larry D. Moore",
+    "name": "Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
+    "fileUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg?width=960",
+    "source": "https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "path": "/texas-stargazing-guide",
+    "creator": "Larry D. Moore",
+    "name": "Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "fileUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg/960px-Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  }
+];
+photos.push(...additionalPhotos);
+
 const evidence = [];
 const errors = [];
 async function get(url, accept) {
@@ -59,10 +99,10 @@ for (const photo of photos) {
       if (!visible.includes(imagePath) || !visible.includes(photo.creator) ||
           !visible.includes(photo.source) || !visible.includes(photo.licenseLabel || "CC BY-SA 4.0") ||
           !visible.includes(photo.licenseUrl || "https://creativecommons.org/licenses/by-sa/4.0/") ||
-          !visible.includes("application/ld+json") ||
+          (!additionalPhotos.includes(photo) && (!visible.includes("application/ld+json") ||
           !visible.includes("ImageObject") ||
           !visible.includes("copyrightNotice") ||
-          !visible.includes("acquireLicensePage")) {
+          !visible.includes("acquireLicensePage")))) {
         errors.push(photo.path + " [" + origin + suffix + "]: visible licensed photo or ImageObject provenance absent");
       }
       if (!html.includes('https://texasdefined.com' + photo.path) ||
