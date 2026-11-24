@@ -23,7 +23,8 @@ required(article, [
   "2024 five-year", "27.0 ± 2.6", "32.7 ± 1.0",
   "2025 weekday historical freeway review", "79%", "57%", "46%",
   "Methodology, sources and what this guide cannot claim",
-  "not a measured drive-time dataset", "three normal weekdays"
+  "not a measured drive-time dataset", "three normal weekdays",
+  "April 1, 2026 round-trip Express fare", "eight morning trips", "Black Friday November 27", "woodlandstransit.com/Express/Public-Notice"
 ], "editorial content");
 required(tool, [
   "houston-commute-planner", "Regional orientation map",
@@ -34,6 +35,7 @@ required(tool, [
   "League City city", "Katy city proper", "Pearland city",
   "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min",
   'mode: "drive" | "transit"', "Round-trip transit fares per office day",
+  "$17 effective April 1, 2026", "woodlandstransit.com/Express/Public-Notice",
   "Station access, parking and last-mile cost per office day",
   "Drive to workplace", "Scheduled transit (if verified)"
 ], "comparison tool");
@@ -46,8 +48,8 @@ required(route, [
   "license: houstonCommuterImageRights.licenseUrl",
   'creator: { "@type": "Person", name: "Famartin" }'
 ], "article route");
-required(stub, [slug, "Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-08"'], "catalog");
-required(article, ["Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-08"'], "article");
+required(stub, [slug, "Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-24"'], "catalog");
+required(article, ["Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-24"'], "article");
 if (article.includes("guaranteed commute") || article.includes("universally best suburb")) fail("unsubstantiated commute guarantee");
 const reviewed = article.match(/updatedAt:\s*"(\d{4}-\d{2}-\d{2})"/);
 if (!reviewed) fail("review date missing");
@@ -59,6 +61,7 @@ console.log("PASS local Houston editorial, map, calculator and source coverage")
 const references = [
   ["METRO", "https://www.ridemetro.org/riding-metro/transit-services/park-and-ride-bus"],
   ["The Woodlands Express", "https://www.woodlandstransit.com/Express/Schedules"],
+  ["The Woodlands Express fare", "https://www.woodlandstransit.com/Express/Public-Notice"],
   ["Fort Bend Transit", "https://www.fortbendcountytx.gov/government/departments/public-transportation/services/commuter-park-and-ride-services"],
   ["Houston TranStar", "https://traffic.houstontranstar.org/hist/hist_traveltimes_menu.aspx"],
   ["TxDOT", "https://www.txdot.gov/about/newsroom/stories/2025/state-transportation-investments-continue-to-save-texas-commuters-millions.html"],
@@ -105,7 +108,7 @@ if (process.argv.includes("--live")) {
   required(html, [
     "Best Houston Suburbs for Commuters: Compare by Job Corridor",
     "The Woodlands Express", "Fort Bend Transit",
-    "31.1-minute", "79% of the time",
+    "31.1-minute", "79% of the time", "April 1, 2026 round-trip Express fare",
     "Methodology, sources and what this guide cannot claim"
   ], "live HTML");
   const canonical = origin + "/article/" + slug;
