@@ -69,6 +69,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     },
     districts: [
       { name: 'Historic downtown and the railroad depot', summary: 'The restored 1907 Gulf, Colorado and Santa Fe railway depot and National Oak Park form a compact railroad-history stop. The depot is used as a historic venue, not an active passenger station.' },
+      { name: 'Mustang Bayou and the Maury Maverick Bridge', summary: 'A preserved 1932 Warren pony-truss bridge was moved from its original San Antonio River crossing in Karnes County to span Mustang Bayou in Alvin’s National Oak Park in 2003. The pedestrian crossing connects to the Tom Blakeney Jr. Hike and Bike Trail.' },
       { name: 'West Sealy museum district', summary: 'The Alvin Historical Museum occupies the former 1940 post office. The Nolan Ryan exhibit, restored post-office mural and regional-history displays make this a distinct destination from the separately booked Slover–Rogers Cottage.' },
       { name: 'Highway 6 farm corridor', summary: 'Froberg’s Farm, 3601 West Highway 6, offers seasonal pick-your-own produce and family events. Fields, crop availability, festival dates and admission may change.' },
       { name: 'South Alvin parks', summary: 'Bob Briscoe Park, 3625 Briscoe Drive, provides an inclusive playground, dog park, pavilion facilities and a lighted 18-hole disc-golf course with walking-trail access.' },
@@ -76,6 +77,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     featured: [
       { title: 'Alvin Historical Museum', eyebrow: 'Local history', href: '/destination/alvin-historical-museum', summary: 'Former 1940 post office at 300 W Sealy with a Nolan Ryan collection, restored mural and exhibits on local railroad and agricultural life.' },
       { title: 'Alvin Train Depot', eyebrow: 'Railroad heritage', href: 'https://www.visitalvin.com/business/alvin-train-depot', summary: 'Restored 1907 passenger depot beside National Oak Park; verify public access and event rentals with Visit Alvin.' },
+      { title: 'Maury Maverick Bridge and National Oak Park', eyebrow: 'Historic pedestrian bridge', href: 'https://www.alvin.gov/DocumentCenter/View/358/Comprehensive-Master-Plan-2035-PDF', summary: 'See the restored 1932 truss bridge over Mustang Bayou on the Tom Blakeney Jr. Hike and Bike Trail. Moved to Alvin in 2003 from Karnes County; not the historic Brazoria Bridge near Brazoria.' },
       { title: 'Froberg’s Farm', eyebrow: 'Seasonal agriculture', href: 'https://frobergsfarm.com/', summary: 'Fourth-generation farm market and strawberry picking when the fields are open, with separate seasonal festivals.' },
       { title: 'Bob Briscoe Park', eyebrow: 'Parks and recreation', href: 'https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3', summary: 'Inclusive play space, dog park and an 18-hole lighted disc-golf course; confirm park rules and any pavilion reservations.' },
       { title: 'Nolan Ryan’s Texas story', eyebrow: 'Baseball heritage', href: '/texas-icons/nolan-ryan', summary: 'Connect Ryan’s childhood in Alvin with his wider Major League career and the local museum exhibit.' },
@@ -84,6 +86,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     tripPlanning: {
       firstTime: [
         { title: 'Start in historic downtown', summary: 'See the 1907 depot and National Oak Park, then visit the Alvin Historical Museum at 300 West Sealy during verified opening hours.', href: '/destination/alvin-historical-museum' },
+        { title: 'Walk the relocated Maury Maverick Bridge', summary: 'From National Oak Park, explore Alvin’s historical pedestrian bridge over Mustang Bayou. The bridge originally crossed the San Antonio River in Karnes County before its rehabilitation and relocation in 2003.', href: 'https://www.alvin.gov/DocumentCenter/View/358/Comprehensive-Master-Plan-2035-PDF' },
         { title: 'Plan strawberries around the farm', summary: 'Froberg’s U-pick dates, harvest conditions and festival admission are seasonal; check the operator before making a special trip.', href: 'https://frobergsfarm.com/' },
         { title: 'Separate Alvin from the Brazoria Bridge', summary: 'The National Register-listed Brazoria Bridge is near the town of Brazoria, not in downtown Alvin. Save it for a different county route.', href: '/county/brazoria' },
       ],
@@ -119,6 +122,11 @@ const profiles: Record<string, CityAuthorityProfile> = {
         title: '1907 railroad depot and downtown',
         summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building now hosts events beside National Oak Park; it is not an operating passenger railway depot.',
         links: [{ label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
+      },
+      {
+        title: 'Maury Maverick Bridge: a relocated 1932 truss',
+        summary: 'Alvin acquired the decommissioned Maury Maverick Bridge through a state historic-bridge program in 2000. Its approximately 116-foot center span, originally used on County Road 207 over the San Antonio River in Karnes County, was rehabilitated and moved to National Oak Park in 2003, where it crosses Mustang Bayou for pedestrians and cyclists. The city reported replacement decking and railings in 2018; confirm present trail conditions before a visit. Do not confuse the relocated Alvin bridge with the separate historic Brazoria Bridge near the town of Brazoria.',
+        links: [{ label: 'City of Alvin adopted comprehensive plan: park history', href: 'https://www.alvin.gov/DocumentCenter/View/358/Comprehensive-Master-Plan-2035-PDF' }, { label: 'City of Alvin: historic pedestrian bridge 2018 improvements', href: 'https://www.alvin.gov/Archive/ViewFile/Item/59' }],
       },
       {
         title: 'Nolan Ryan and the old post office museum',
