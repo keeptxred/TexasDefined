@@ -153,3 +153,10 @@ test("2026 state historic-site holiday programs and Big Spring ballet retain sou
   assert.ok(!activeVerifiedChristmasOccurrences(date==="2026-12-12"?"2026-12-13":"2026-12-20").some(x=>x.slug===slug));
  }
 });
+
+
+test("2026 Throckmorton Cow Country Christmas is a single verified courthouse-square occurrence with vendor charges distinguished from spectator fees",()=>{
+ const {countyBackfill,combined}=readVerifiedChristmasOccurrenceSources();
+ const slug="throckmorton-cow-country-christmas-2026";
+ const e=countyBackfill.find(x=>x.slug===slug);assert.ok(e);assert.equal(e.countySlug,"throckmorton");assert.equal(e.startDate,"2026-12-12");assert.equal(e.endDate,undefined);assert.equal(e.sourceVerifiedAt,"2026-11-24");assert.equal(e.officialEventUrl,"https://www.throckmortonchamber.com/copy-of-cow-country-christmas");assert.match(e.summary,/2 to 6 p\.m\./);assert.match(e.summary,/vendor charges, not spectator admission/);assert.equal(combined.filter(x=>x.slug===slug).length,1);assert.ok(activeVerifiedChristmasOccurrences("2026-12-12").some(x=>x.slug===slug));assert.ok(!activeVerifiedChristmasOccurrences("2026-12-13").some(x=>x.slug===slug));
+});
