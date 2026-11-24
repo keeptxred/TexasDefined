@@ -9,6 +9,8 @@ const origin = `https://${texasDefinedBrand.identity.domain}`;
 // Five guides underwent substantive source-backed editorial revisions on Nov 20 and Nov 21.
 // This date must not advance for automated source checks or non-editorial deploys.
 const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";
+// Actual 2026-11-21 substantive food and brand editorial revision (no automated date restamps).
+const FOOD_BRAND_LASTMOD = "2026-11-21";
 // Only a material, independently verified admission-price change updates its own guide.
 const MTB_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.huntsville.evidenceDate, outdoorAdmission.rayRoberts.evidenceDate].sort().at(-1)!;
 const STARGAZING_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.caprock.evidenceDate].sort().at(-1)!;
@@ -47,6 +49,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   // Separate cache key ensures the sitemap cannot retain August county lastmod.
   cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24");
   cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", [OUTDOOR_GUIDES_LASTMOD, MTB_GUIDE_LASTMOD, STARGAZING_GUIDE_LASTMOD, outdoorAdmission.huntsville.adult, outdoorAdmission.rayRoberts.adult, outdoorAdmission.caprock.adult].join(":"));
+  cacheUrl.searchParams.set("food-brand-editorial-lastmod", FOOD_BRAND_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -66,6 +69,11 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/texas-brand-origin-stories": FOOD_BRAND_LASTMOD,
+  "/made-in-texas": FOOD_BRAND_LASTMOD,
+  "/texas-chili-con-carne-history": FOOD_BRAND_LASTMOD,
+  "/texas-chicken-fried-steak-guide": FOOD_BRAND_LASTMOD,
+  "/texas-breakfast-taco-guide": FOOD_BRAND_LASTMOD,
   // Source-backed changes to all five guides merged Nov 20: route/permit/access updates, media rights, original comparisons and internal links.
   "/texas-mountain-biking-guide": MTB_GUIDE_LASTMOD,
   "/texas-horseback-riding-guide": OUTDOOR_GUIDES_LASTMOD,
