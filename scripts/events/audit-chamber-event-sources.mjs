@@ -30,9 +30,21 @@ export function loadCountyNames(source) {
   }));
 }
 
+const EXCLUDED_PUBLISHER_DOMAINS = ["doublemountainchronicle.com", "dmchronicle.com"];
+const EXCLUDED_PUBLISHER_ALIASES = ["Double Mountain Chronicle", "The Newspaper Office LLC", "DMC Weekly Edition", "Signal 735"];
+function excludedPublisherName(value) {
+  const normalized = String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  return EXCLUDED_PUBLISHER_ALIASES.some(name => normalized.includes(name.toLowerCase().replace(/[^a-z0-9]/g, "")));
+}
+function excludedPublisherHost(host) {
+  host = host.toLowerCase().replace(/\.$/, "");
+  return EXCLUDED_PUBLISHER_DOMAINS.some(domain => host === domain || host.endsWith("." + domain));
+}
+
 function checkedPublicUrl(value) {
   const url = new URL(value);
   const host = url.hostname.toLowerCase();
+  if (excludedPublisherHost(host)) throw new Error("Owner-excluded publisher source URL");
   if (url.protocol !== "https:" || url.username || url.password ||
       !host.includes(".") || host === "localhost" ||
       /^(\d{1,3}\.){3}\d{1,3}$/.test(host) ||
@@ -62,10 +74,18 @@ export function validateRegistry(registry, counties) {
       scope.newsReports !== "research-leads-only; confirm with actual event organizer" ||
       scope.automatedSending !== false)
     throw new Error("Owner-approved outreach scope is missing or weakened");
+  const block = registry.rules?.excludedPublishers?.find(p => p.publisher === "Double Mountain Chronicle / The Newspaper Office LLC");
+  if (!block || !sameCategories(block.domains, EXCLUDED_PUBLISHER_DOMAINS) ||
+      !sameCategories(block.aliases, EXCLUDED_PUBLISHER_ALIASES) ||
+      block.policy !== "no-research-no-content-no-images-no-outreach" ||
+      block.includeSyndicationAndDerivatives !== true)
+    throw new Error("Owner-ordered publisher exclusion is missing or weakened");
   const ids = new Set();
   for (const source of registry.sources) {
     if (!source.id || ids.has(source.id)) throw new Error("Duplicate or missing source id");
     ids.add(source.id);
+    if (excludedPublisherName(source.organization) || excludedPublisherName(source.id))
+      throw new Error("Owner-excluded publisher source");
     if (!source.organization || !Array.isArray(source.countySlugs) ||
         !source.countySlugs.length || source.countySlugs.some(s => !known.has(s)))
       throw new Error("Unmatched county reference: " + source.id);
@@ -145,7 +165,7 @@ export function extractEventLeads(html, pageUrl) {
   const add = (name, url, startDate = null, kind = "calendar-link") => {
     name = String(name || "").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&")
       .replace(/\s+/g, " ").trim().slice(0, 150);
-    if (name.length < 5) return;
+    if (name.length < 5 || excludedPublisherName(name)) return;
     let normalized;
     try { normalized = checkedPublicUrl(new URL(url, pageUrl).href).href; }
     catch { return; }
@@ -192,7 +212,7 @@ export function extractCalendarLinks(html, pageUrl) {
     let url;
     try { url = checkedPublicUrl(new URL(match[1],base).href); }
     catch { continue; }
-    if (url.origin !== base.origin || url.hash || seen.has(url.href)) continue;
+    if (excludedPublisherName(label) || url.origin !== base.origin || url.hash || seen.has(url.href)) continue;
     if (/\.(?:pdf|jpg|jpeg|png|webp|svg|docx?|xlsx?|ics|zip)$/i.test(url.pathname) ||
         /\/(?:admin|login|signin|sign-in|privacy|terms|join-mailing-list)(?:\/|$)/i.test(url.pathname))
       continue;
@@ -219,7 +239,7 @@ export function extractContactPageLinks(html, pageUrl) {
     let url;
     try { url = checkedPublicUrl(new URL(match[1],base).href); }
     catch { continue; }
-    if (url.origin !== base.origin || url.hash || url.search || seen.has(url.href)) continue;
+    if (excludedPublisherName(label) || url.origin !== base.origin || url.hash || url.search || seen.has(url.href)) continue;
     if (/\.(?:pdf|jpe?g|png|webp|svg|docx?|xlsx?|ics|zip|exe)$/i.test(url.pathname) ||
       /\/(?:admin|login|signin|sign-in|privacy|terms|checkout|join-mailing-list|unsubscribe)(?:\/|$)/i.test(url.pathname))
       continue;
