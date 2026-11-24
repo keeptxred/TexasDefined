@@ -11,23 +11,23 @@ const records: MajorEventAuthorityRecord[] = [
     category: "food",
     startDate: "2026-10-17",
     endDate: "2026-10-17",
-    dateNote: "The 2026 festival runs Saturday, October 17 in downtown Johnson City. The producer lists Texas Bubbles & Brunch at 10:30 a.m., VIP entry at noon, general admission at 1 p.m. and the festival conclusion at 6 p.m.; severe-weather fallback is Sunday, October 18.",
+    dateNote: "The October 17, 2026 festival has ended. The producer still displays the 2026 program; no confirmed 2027 date was found in the reviewed official information.",
     venue: "Memorial Park",
     officialUrl: "https://www.txwinejam.com/",
-    sourceCheckedAt: "2026-09-19",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Texas Wine Jam turns downtown Johnson City into a one-day Texas wine marketplace rather than a conventional tasting festival: visitors meet producers, taste across multiple wineries, buy bottles directly from the source, attend educational Spotlight Sessions and hear live music while supporting industry education and scholarships.",
     planningSections: [
       {
-        title: "Choose GA, VIP or designated-driver access before arrival",
-        body: "The current producer page lists general admission at $69 with entry at 1 p.m., VIP at $99 with noon entry and designated-driver or under-21 passes at $29. The separate $49 Texas Bubbles & Brunch is currently sold out. Recheck ticket availability and pricing before purchasing because these are live 2026 offers.",
+        title: "What the 2026 admission tiers included",
+        body: "The 2026 general-admission package was $69 and included tasting access, a glass, bottle-check service and educational sessions subject to space. VIP was $99, with earlier entry, lounge access and preferred session seating. Designated-driver and under-21 passes were $29. The separate $49 brunch was marked sold out. These are historical offers, not active purchase recommendations.",
       },
       {
-        title: "Build the day around the published schedule",
-        body: "Texas Bubbles & Brunch begins at 10:30 a.m., VIP and early access opens at noon, general admission begins at 1 p.m., Jam Sessions are scheduled at noon, 2 p.m. and 4 p.m., and the festival concludes at 6 p.m. Spotlight Sessions add educational programming with growers and winemakers throughout the afternoon.",
+        title: "How the 2026 program was organized",
+        body: "The published 2026 schedule opened with a sparkling-wine brunch, followed by early admission at noon, general admission at 1 p.m. and a 6 p.m. conclusion. The brunch included a producer panel and guided tasting; the main festival included educational Spotlight Sessions.",
       },
       {
-        title: "Treat October 18 as weather backup, not a second festival day",
-        body: "The event is rain or shine. The producer says unsafe severe weather would move the festival to Sunday, October 18, 2026; if neither date can operate, ticket holders receive admission to the 2027 Texas Wine Jam under the current policy.",
+        title: "The 2026 weather contingency has expired",
+        body: "October 18 was the designated severe-weather fallback for the completed 2026 program. Do not interpret it as a second annual festival date or a future ticket-validity guarantee.",
       },
       {
         title: "Make Johnson City part of the wine weekend",
@@ -57,23 +57,23 @@ const records: MajorEventAuthorityRecord[] = [
     category: "music",
     startDate: "2026-10-24",
     endDate: "2026-10-24",
-    dateNote: "Explore Johnson City's current festival page lists Saturday, October 24 starting at 5 p.m. in downtown Memorial Park with free admission. The current lineup is Adrian Ruiz Quintet at 5 p.m., Jerry Z Trio at 6:30 p.m. and Elena Diaz with Daniel Durham Quintet at 8 p.m.",
+    dateNote: "The free October 24, 2026 Memorial Park concert has ended. Explore Johnson City still lists that edition; no confirmed 2027 date was found.",
     venue: "Memorial Park",
     officialUrl: "https://explorejctx.com/johnson-city-jazz-fest/",
-    sourceCheckedAt: "2026-09-19",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Johnson City Jazz Fest gives the Hill Country town a free outdoor music anchor in its downtown park, bringing Texas jazz musicians into the same walkable core as restaurants, tasting rooms, museums and the Blanco County courthouse.",
     planningSections: [
       {
-        title: "Use 5 p.m. as the concert start",
-        body: "The current Explore Johnson City page lists the festival for Saturday, October 24 beginning at 5 p.m. in Memorial Park. Admission is free, so the main planning variables are arrival time, seating, food and weather rather than ticket inventory.",
+        title: "2026 concert format and location",
+        body: "The completed edition began at 5 p.m. in downtown Memorial Park, with free admission. Check the city's upcoming-events calendar for the next dated announcement.",
       },
       {
-        title: "Follow the published 2026 lineup",
-        body: "Adrian Ruiz Quintet is scheduled for 5 p.m., Jerry Z Trio for 6:30 p.m. and Elena Diaz with Daniel Durham Quintet for 8 p.m. Recheck the official page close to the event because outdoor-event schedules can change.",
+        title: "2026 lineup, not future performers",
+        body: "The published October 24 program listed Adrian Ruiz Quintet at 5 p.m., Jerry Z Trio at 6:30 p.m. and Elena Diaz with Daniel Durham Quintet at 8 p.m. Those artists and times apply only to the completed edition.",
       },
       {
-        title: "Johnson City has a full event day on October 24",
-        body: "Explore Johnson City also lists the 5th Annual Gears & Beers Car and Motorcycle Show from 9 a.m. to 3 p.m. the same day. Visitors who want both can use the afternoon gap for food or downtown browsing rather than making two separate trips.",
+        title: "Pairing downtown events",
+        body: "The car and motorcycle show and evening jazz concert shared October 24 in 2026. That pairing is useful historical itinerary context, but future dates must be independently announced.",
       },
       {
         title: "Plan for an outdoor Hill Country evening",
