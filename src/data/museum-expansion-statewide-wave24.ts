@@ -213,8 +213,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
           ]
         }
       ],
-        { label: "Comanche Nation — The Nation’s published history", url: "https://www.comanchenation.com/about/page/history", scope: "Self-identification as Nʉmʉnʉʉ and contemporary Nation’s account of southern plains history; no museum endorsement implied" },
       sources: [
+        { label: "Comanche Nation — The Nation’s published history", url: "https://www.comanchenation.com/about/page/history", scope: "Self-identification as Nʉmʉnʉʉ and contemporary Nation’s account of southern plains history; no museum endorsement implied" },
         { label: "National Park Service — Comanche Downtown Historic District nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf", scope: "Historic 1891 courthouse columns, old jail leg-irons stone, public well and 1938 City Hall/Fire Station" },
         { label: "National Park Service — Separate Comanche Frisco Depot National Register listing", url: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872", scope: "Depot significance and distinct National Register designation, 1909–1969" },
         { label: "Preservation Texas — Friends of Historic Comanche depot restoration", url: "https://www.preservationtexas.org/mep/st-louis-san-francisco-railway-depot", scope: "2012 depot public reopening after conservation" },
