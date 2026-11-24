@@ -3354,7 +3354,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     reviewed: "2026-11-24",
     topics: ["texas-history", "railroads", "sports", "family"],
     whyVisit: "Start with two connections between national history and Alvin: the New Deal mural restored in its original post-office building and artifacts from Nolan Ryan’s childhood. Railroad, farm and school displays explain the town beyond its famous pitcher.",
-    visitorStrategy: "Visit 300 West Sealy Street Tuesday–Saturday, 11 a.m.–3 p.m. Allow about 60–90 minutes for selected exhibits. Call 281-331-4469 for admission, parking questions, holiday hours or group arrangements. The separate cottage requires advance booking.",
+    visitorStrategy: "Visit 300 West Sealy Street Tuesday–Saturday, 11 a.m.–3 p.m. Allow about 60–90 minutes for selected exhibits. The 2026 Brazoria County Summer Museum Passport listed $5 admission, free for ages 12 and under. Call 281-331-4469 to confirm current rates, parking, holiday hours and group arrangements. The separate cottage requires advance booking.",
     accessibility: "The operator describes a wheelchair-accessible entry added on the east wall of the former post office. It does not fully document the accessible route through all twenty-one permanent exhibit areas, restroom details or sensory supports. Confirm access to particular rooms, mobility equipment or accommodations before a visit. The 1909 Slover–Rogers Cottage is a separate historic property with different accessibility constraints and appointment procedures.",
     familiesAndGroups: "Families can choose a focused visit based on Nolan Ryan's early baseball life, the former post office, school history or how the railroads shaped Alvin. An independent 60–90-minute estimate allows time for a handful of exhibits without suggesting that every artifact must be seen. The former postal-counter area houses a gift shop; dining service is not confirmed. School groups and cottage tours should contact the volunteer society before arriving.",
     researchValue: "The society was chartered in 1978; its museum opened in May 2007. The Portal to Texas History hosts the society’s digitized local materials for archival research. The original terrazzo floor and former postal-service counter preserve traces of the building’s 1940 function.",
@@ -3372,6 +3372,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
     sources: [
       { label: "Museum Society — official hours and location", url: "https://alvinmuseum.org/", use: "Current site hours, phone, address, cottage appointment distinction" },
+      { label: "Brazoria County Summer Museum Passport — 2026 participating sites", url: "https://bcsummerpassport.org/sites/", use: "Published summer 2026 admission of $5, free for ages 12 and under; confirm current pricing with the museum" },
       { label: "Alvin Museum — exhibits", url: "https://alvinmuseum.org/alvin-musuem/", use: "Nolan Ryan, schools, war, post-office mural" },
       { label: "Alvin Museum — building interpretation", url: "https://alvinmuseum.org/tour-01_intro-to-museum/", use: "Former post-office story and accessible east entrance" },
       { label: "Alvin Museum — separate cottage booking", url: "https://alvinmuseum.org/slover-rogers-cottage/", use: "Slover–Rogers location and advance tours" },

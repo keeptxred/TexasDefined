@@ -6952,8 +6952,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Is there an admission fee to Alvin Historical Museum?",
-      "answer": "The museum homepage clearly gives public visiting hours but does not publish a dependable current admission price. Rather than assume entry is free, call the society at 281-331-4469 to check admission or group costs before traveling.",
-      "verificationUrl": "https://alvinmuseum.org/",
+      "answer": "The 2026 Brazoria County Summer Museum Passport listed admission at $5, with children 12 and under free. The museum's own current homepage does not list a price, so confirm today's admission and separate cottage or group charges by calling 281-331-4469.",
+      "verificationUrl": "https://bcsummerpassport.org/sites/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/",
       "reviewCycle": "monthly",
