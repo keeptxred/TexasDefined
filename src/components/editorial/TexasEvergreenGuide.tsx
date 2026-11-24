@@ -440,7 +440,7 @@ const foodBrandComparisons: Partial<Record<string, { heading: string; columns: s
         "First convenience store"
       ]
     ],
-    "note": "Founding dates describe the historical business or product, not present ownership or factory location."
+    "note": "Six brands receive full case studies in this article; Dr Pepper and 7-Eleven appear as additional Texas-born historical context. Dates identify the original product or business, not present ownership or product manufacture."
   },
   "texas-chili-con-carne-history": {
     "heading": "Three ways to understand a Texas bowl of red",
