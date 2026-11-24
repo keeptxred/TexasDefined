@@ -12,6 +12,9 @@ on:
       - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
       - 'scripts/ci/verify-outdoor-photography-live.mjs'
       - 'scripts/ci/verify-outdoor-guides-responsive.mjs'
+      - 'src/data/outdoor-guide-admission.json'
+      - 'scripts/editorial/refresh-outdoor-admission*.mjs'
+      - 'src/components/editorial/StateParkVisitorEssentials.tsx'
       - '.github/workflows/review-outdoor-authority-guides.yml'
   workflow_dispatch:
   issue_comment:
@@ -42,6 +45,9 @@ jobs:
           node-version: '22'
       - name: Protect five guides and structured metadata
         run: |
+          node --test scripts/editorial/refresh-outdoor-admission.test.mjs
+          node --check scripts/ci/audit-outdoor-guides-quarterly.mjs
+          node --check scripts/ci/verify-outdoor-photography-live.mjs
           node scripts/data/validate-mountain-biking-authority.mjs
           node scripts/data/validate-horseback-riding-authority.mjs
           node scripts/data/validate-ohv-authority.mjs
@@ -121,3 +127,54 @@ jobs:
           else
             gh issue comment "$issue" --body "Scheduled outdoor guide audit failed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Check evidence and correct source drift."
           fi
+
+  admission-refresh:
+    name: Prepare source-verified outdoor admission corrections
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    concurrency:
+      group: outdoor-admission-source-refresh
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test deterministic source parsing and editorial date guards
+        run: node --test scripts/editorial/refresh-outdoor-admission.test.mjs
+      - name: Fetch exact published TPWD admission amounts and prepare data-only correction
+        run: node scripts/editorial/refresh-outdoor-admission.mjs
+      - name: Create protected evidence-backed price correction PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: automation/outdoor-admission-source-refresh
+          delete-branch: true
+          add-paths: src/data/outdoor-guide-admission.json
+          commit-message: "chore(outdoors): update independently verified daily admission"
+          title: "Correct outdoor guide admission prices from TPWD"
+          body: |
+            The scheduled source monitor matched each exact park identity, adult age, published daily price, and free-child rule. See the source URLs and observed excerpts in the linked workflow evidence.
+            Only changed prices and their own evidence dates are written; the affected guide's visitor total and sitemap date follow the data.
+            Require protected CI and live release acceptance. Ambiguous policy, safety, permit or closure changes remain an editorial task rather than guessed rewrites.
+      - name: Preserve actual source excerpts and correction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outdoor-admission-source-evidence
+          path: .artifacts/outdoor-admission-refresh.json
+          if-no-files-found: warn
+      - name: Open correction issue on ambiguous or inaccessible fee source
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Outdoor admission correction requires verified source review'
+          issue="$(gh issue list --state open --search '"Outdoor admission correction requires verified source review" in:title' --json number --jq '.[0].number // empty')"
+          message="No unverified prices were published. Inspect the exact source evidence at $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, correct the parser or changed age/access rule, and retest."
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
