@@ -136,13 +136,14 @@ export const VERIFIED_TOURNAMENT_PROFILES: readonly VerifiedTournamentProfile[] 
     summary: "The Chevron Championship, an LPGA major, is scheduled for April 19–25, 2027 at Memorial Park Golf Course in Houston.",
     whyItMatters: "The move to Memorial Park puts one of women’s golf’s major championships in central Houston and creates another nationally significant golf week in Harris County.",
     planningNotes: [
-      "The full event week includes practice and pro-am days before championship rounds, so match your ticket to the day you intend to attend.",
+      "The official championship week runs April 19–25, 2027 at Memorial Park Golf Course. Practice and pro-am sessions differ from championship rounds; check the exact day before buying.",
+      "The official 2027 tickets-and-parking page states general public ticket sales begin in December 2026, with no exact date or price confirmed. As of November 24, do not claim spectator tickets are on sale or reuse 2026 ticket prices; hospitality and pro-am packages are distinct products.",
       "Use the championship’s current spectator rules for permitted items, mobile-device policy and entry procedures.",
       "The venue changed from the tournament’s earlier Woodlands home; use current Houston information rather than older travel guides.",
     ],
     officialUrl: "https://www.thechevronchampionship.com/tournament/schedule-of-events/",
     officialSourceLabel: "The Chevron Championship official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "houston-livestock-show-and-rodeo",
