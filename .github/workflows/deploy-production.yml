@@ -235,7 +235,13 @@ jobs:
           # rebuild every derivative without depending on a prior artifact.
           npm run prebuild
           node scripts/assets/materialize-discover-overrides.mjs
-          npm run build
+          # npm run build normally invokes prebuild automatically a second time,
+          # redundantly generating governed image derivatives AFTER Discover is
+          # already materialized. Run the explicitly requested build only; npm's
+          # documented ignore-scripts setting suppresses implicit pre/post hooks
+          # but DOES run the named build script. Keep the explicit prebuild above.
+          node -e "const s=require('./package.json').scripts; if(!s.prebuild||s.postbuild||s.build!=='vite build')process.exit(1)"
+          npm --ignore-scripts run build
           mkdir -p dist/client/images/discover
           cp -f public/images/discover/*.webp dist/client/images/discover/
           discover_asset_count="$(find dist/client/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
