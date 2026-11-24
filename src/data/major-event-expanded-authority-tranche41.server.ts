@@ -18,11 +18,11 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     dateNote: "The organizer says the festival is always built around the fourth Saturday in April and its current format runs Friday through Sunday. Applying that published recurrence to 2027 yields April 23-25. Recheck the organizer when the dedicated 2027 schedule is released.",
     venue: "Knights of Columbus Hall",
     officialUrl: "https://fiddlersfrolics.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Texas State Championship Fiddlers' Frolics is a three-day Hallettsville heritage festival combining championship fiddling, country music, a major barbecue cook-off and generations of Texas string-band tradition.",
     planningSections: [
       { title: "Use the fourth-Saturday rule for the 2027 planning window", body: "The organizer closes its current schedule by saying the festival returns every year around the fourth Saturday in April. With the established Friday-through-Sunday format, that maps to April 23-25, 2027. Texas Defined labels the dates as recurrence-derived until the organizer publishes the year-specific program." },
-      { title: "Choose the day around the competition you want", body: "The current format spreads youth and other fiddle divisions across Saturday, with senior and Texas State Championship competition on Sunday, while major entertainment also runs Friday and Saturday nights. Use the organizer's next schedule to pick the best day rather than assuming every day is interchangeable." },
+      { title: "Choose the day around the competition you want", body: "The 2026 competition schedule placed youth and out-of-state divisions on Saturday and the Texas championship and senior division on Sunday. The organizer's published rules restrict the state title to Texas residents, allow out-of-state players in Gone to Texas, and permit Twin Fiddle as an additional entry. Beginning in 2026, a Junior winner must enter an open division in later years. Verify the new schedule and registration rules before competing." },
       { title: "Make Hallettsville part of the weekend", body: "The KC grounds are in Hallettsville, so the festival can anchor a broader Lavaca County trip. Leave room for the town and surrounding Czech-German-Texas heritage rather than treating the grounds as the only stop." },
     ],
     relatedLinks: [
@@ -32,7 +32,8 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     ],
     sources: [
       { label: "Fiddlers' Frolics official site", url: "https://fiddlersfrolics.com/" },
-      { label: "Fiddlers' Frolics official event schedule", url: "https://fiddlersfrolics.com/event-schedule/" },
+      { label: "Fiddlers' Frolics official 2026 event schedule", url: "https://fiddlersfrolics.com/event-schedule/" },
+      { label: "Fiddlers' Frolics competition eligibility and rules", url: "https://fiddlersfrolics.com/fiddle-competition/" },
     ],
   },
   {
@@ -114,11 +115,11 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     endDate: "2026-10-17",
     venue: "Texas Czech Heritage & Cultural Center",
     officialUrl: "https://czechtexas.org/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Heritage Fest & Muziky brings Czech-Texan music, food, traditional skills, museum collections, agricultural demonstrations and community history together at the Texas Czech Heritage & Cultural Center in La Grange.",
     planningSections: [
-      { title: "Use October 16-17 as the confirmed 2026 weekend", body: "The Texas Czech Heritage & Cultural Center publishes Heritage Fest & Muziky for Friday and Saturday, October 16-17, 2026. Friday begins with an evening atmosphere, while Saturday carries the larger daytime heritage program and closing concert." },
-      { title: "Allow time for the museum campus", body: "The festival is more than stage entertainment. Demonstrations, museum spaces, the Czech village and heritage exhibits are part of the event, so arrive early enough to explore the campus before the evening performance." },
+      { title: "Use October 16-17 as the confirmed 2026 weekend", body: "October 16–17, 2026 is the completed edition. The center lists the recurring third weekend of October, but its current calendar has not announced specific 2027 festival dates. Friday 2026 programming started at 4:30 p.m.; Saturday included village tours and the evening amphitheater concert." },
+      { title: "Allow time for the museum campus", body: "The 2026 program included sawmill demonstrations, historic newspaper printing, crop-processing demonstrations, village tours and a Taroky card tournament. The separately priced evening amphitheater concert cost adults $15 and students $10, with children 12 and younger admitted free; those are historical concert prices, not 2027 quotes." },
       { title: "Connect La Grange to the wider Czech-Texan story", body: "Fayette County is central to Texas's Czech and German settlement history. Pair the festival with La Grange and nearby heritage communities rather than making the cultural center a stand-alone stop." },
     ],
     relatedLinks: [
@@ -128,7 +129,8 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     ],
     sources: [
       { label: "Texas Czech Heritage & Cultural Center", url: "https://czechtexas.org/" },
-      { label: "Heritage Fest 2026 official event page", url: "https://czechtexas.org/event/save-the-date-heritage-fest-2026-at-the-texas-czech-heritage-cultural-center/" },
+      { label: "Heritage Fest 2026 official detailed program and concert admission", url: "https://czechtexas.org/event/heritage-fest-muziky-2026/" },
+      { label: "Center annual event pattern and current announcements", url: "https://czechtexas.org/news-events/" },
       { label: "Heritage Fest & Muziky 2026 organizer announcement", url: "https://czechtexas.org/sponsorship-opportunities-now-available-for-heritage-fest-muziky-2026/" },
     ],
   },

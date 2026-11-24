@@ -13,11 +13,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-09-20",
     venue: "Rockport-Fulton venues",
     officialUrl: "https://www.rockport-fulton.org/hummerbird-celebration/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Rockport-Fulton HummerBird Celebration turns the coast's fall hummingbird migration into a four-day nature and community event with speaker programs, birding trips, home tours, photography, public bird banding and a dedicated Hummer Mall.",
     planningSections: [
-      { title: "Use September 17-20 as the confirmed 2026 window", body: "The Rockport-Fulton Chamber publishes the 38th annual HummerBird Celebration for Thursday through Sunday, September 17-20, 2026. Check the current activity schedule before traveling because speakers, field trips and tours run at specific times and locations." },
-      { title: "Choose activities before choosing the day", body: "The event spans speaker venues, the Fulton Convention Center, birding sites and organized tours. Reserve limited-capacity trips early and use the official schedule to decide which day best matches birding, photography, banding or educational priorities." },
+      { title: "Use September 17-20 as the confirmed 2026 window", body: "The chamber still displays the 38th celebration dated September 17–20, 2026; that edition is over. Its linked activity page now prominently advertises the separate Winter Texan Appreciation Day on January 21, 2027. That January date is not a HummerBird festival date. No 2027 HummerBird window or current ticket offer is confirmed here." },
+      { title: "Choose activities before choosing the day", body: "Speaker sessions, field trips and home tours are distinct activities, some with capacity limits. The chamber's currently displayed HummerBird ticket button refers to the 2026 page; wait for the dated next-edition program and booking links. Independent birding in Rockport-Fulton is a separate trip from festival registration." },
       { title: "Build a coastal nature weekend", body: "Rockport and Fulton make the celebration a natural anchor for a broader Aransas County trip. Leave time for coastal birding, beaches, seafood and nearby wildlife destinations outside the programmed festival hours." },
     ],
     relatedLinks: [
@@ -27,6 +27,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Rockport-Fulton Chamber — HummerBird Celebration", url: "https://www.rockport-fulton.org/hummerbird-celebration/" },
       { label: "Rockport-Fulton Chamber — 2026 event listing", url: "https://members.rockport-fulton.org/events/details/2026-hummerbird-celebration-64768" },
+      { label: "Chamber activity page (mixed event content; verify identity and date)", url: "https://www.rockport-fulton.org/about-the-hummerbird-celebration/" },
     ],
   },
   {
@@ -69,14 +70,14 @@ const records: MajorEventAuthorityRecord[] = [
     category: "rodeo",
     startDate: "2026-09-04",
     endDate: "2026-09-06",
-    dateNote: "The association promotes September 3-6, 2026 for the overall fair program. September 3 is primarily exhibit-entry activity; the public Fair, Rodeo & Livestock Show schedule runs September 4-6.",
+    dateNote: "The September 3–6, 2026 program is complete; the public fair ran September 4–6, with Thursday exhibit intake and scholarship pageant. The association now says it will see visitors next year but has not published a dated 2027 fair schedule.",
     venue: "Kendall County Fairgrounds",
     officialUrl: "https://kcfa.org/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Kendall County Fair, Rodeo & Livestock Show is a Hill Country Labor Day-weekend tradition in Boerne with rodeo competition, livestock, exhibits, contests, a major Saturday parade and community entertainment.",
     planningSections: [
-      { title: "Use September 4-6 for the visitor-facing fair window", body: "The Kendall County Fair Association banner covers September 3-6, while its event calendar shows September 3 as exhibit-entry activity and the Fair, Rodeo & Livestock Show running Friday September 4 through Sunday September 6." },
-      { title: "Saturday carries the parade and a full fair day", body: "The association schedules its annual fair parade for Saturday morning, followed by a full day of fair and rodeo activity. If the parade is important, arrive before downtown access tightens and confirm the current route and parking guidance." },
+      { title: "Use September 4-6 for the visitor-facing fair window", body: "The 2026 day-by-day program opened Friday at 5 p.m., Saturday at 10 a.m. and Sunday at 9 a.m.; Friday admission was $20. These are historical terms, not a 2027 ticket or hour guarantee." },
+      { title: "Saturday carries the parade and a full fair day", body: "The 2026 program included a downtown parade, youth livestock exhibits and evening rodeos. The organizer's archived parade rows give inconsistent day and time information, so use the next edition's separate parade announcement before planning road closures or arrival." },
       { title: "Make Boerne part of the trip", body: "The fairgrounds sit within a broader Hill Country destination. Combine the event with downtown Boerne and Kendall County rather than treating the rodeo grounds as the only stop." },
     ],
     relatedLinks: [
@@ -86,6 +87,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Kendall County Fair Association official site", url: "https://kcfa.org/" },
       { label: "Kendall County Fair Association September 2026 calendar", url: "https://kcfa.org/events/month/2026-09/" },
+      { label: "Kendall County Fair Association fair program and next-edition notice", url: "https://kcfa.org/fair-rodeo-livestock-show/" },
     ],
   },
   {
