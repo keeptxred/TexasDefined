@@ -30,6 +30,24 @@ for (const term of ['Alvin Morgan', 'Froberg', 'Bob Briscoe Park', 'Nolan Ryan',
   check('Alvin city source: ' + term, source.city.includes(term), 'City authority profile');
   check('Brazoria editorial source: ' + term, source.feature.includes(term), 'County editorial feature');
 }
+const museumFiles = await Promise.all([
+  readFile('src/data/museum-authority-new-destinations.ts', 'utf8'),
+  readFile('src/data/museum-authority-network.ts', 'utf8'),
+]);
+const museumRecord = museumFiles[0].split('slug: "alvin-historical-museum"')[1]?.split('\n  },')[0] ?? '';
+const museumDossier = museumFiles[1].split('"alvin-historical-museum": {')[1]?.split('\n  },')[0] ?? '';
+check('Museum visitor copy', !!museumRecord && !!museumDossier && !/Explain the difference|its exhibi"|inventing a fr"/.test(museumRecord + museumDossier), 'No known truncated text or editorial instruction');
+const manifest = JSON.parse(await readFile('public/museum-verification-manifest.json', 'utf8'));
+const museum = manifest.museums.find(x => x.path === '/destination/alvin-historical-museum');
+check('Museum source review contract', museum?.cadenceDays <= 30 && museum?.faqCount >= 10 && museum?.sources.some(x => x.sourceUrl.includes('tour-18_emigrants')), 'Monthly source manifest and researched questions');
+if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  targets.push({
+    path: '/destination/alvin-historical-museum',
+    phrases: ['Nolan Ryan', 'Loren Mozley', 'Emigrants at Nightfall', 'Slover'],
+    links: ['/city/alvin', '/county/brazoria', '/texas-icons/nolan-ryan'],
+    schema: '"@type":"Museum"',
+  });
+}
 for (const target of targets) {
   const url = 'https://texasdefined.com' + target.path;
   try {
@@ -38,16 +56,17 @@ for (const target of targets) {
       signal: AbortSignal.timeout(25000),
     });
     const html = await response.text();
-    const visible = normalize(html);
+    const visible = normalize(html.replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ').replace(/<[^>]*>/g, ' '));
     check(url + ' HTTP', response.ok, 'HTTP ' + response.status);
-    check(url + ' canonical', html.includes('https://texasdefined.com' + target.path) && /rel=["']canonical["']/.test(html), 'Self canonical');
+    check(url + ' canonical', [...html.matchAll(/<link\b[^>]*>/gi)].some(([tag]) => /\brel=["']canonical["']/i.test(tag) && tag.match(/\bhref=["']([^"']+)["']/i)?.[1] === url), 'Self canonical');
     check(url + ' indexable', !/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html), 'No robots noindex');
     // The PR verifies researched source content before it is published. On the
     // quarterly production run, additionally require the new bridge section.
     const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
-      ? target.phrases : [...target.phrases, 'Maury Maverick Bridge'];
+      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge'];
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
+    if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
     const compact = html.replace(/\s+/g, '');
     check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
   } catch (error) {
