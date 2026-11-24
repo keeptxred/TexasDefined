@@ -20,7 +20,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-20",
-  updatedAt: "2026-11-23",
+  updatedAt: "2026-11-24",
   readingMinutes: 27,
   tags: [
     "Cass County",
@@ -149,6 +149,10 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     p("In August 2023 Linden received the state\'s Music Friendly Texas Certified Community designation, formal recognition of a local music ecosystem that also depends on promotion, performance space and community partners. The Governor of Texas announcement specifically named Richard Bowden alongside Joplin, Walker and Henley as part of the town\'s heritage."),
     p("Historical reports document appearances by well-known artists such as Jackson Browne at the theater. Lineups, concessions, age policies and ticket arrangements vary by show; do not use an older concert listing as evidence that a performer is currently booked. For a planned visit, check the theater's own schedule and ticket links at musiccitytexas.org. The theater lists its address as 108 Legion Street, Linden, TX 75563."),
 
+    h("The Texas Music Barn: another historic Linden listening room"),
+    p("Music City Texas Theater was not Linden's only small concert room. A historic-property record maintained by Friends of the Texas Historical Commission identifies the Texas Music Barn at 301 East Houston Street inside the former Linden Methodist Church, constructed in 1927. The record says the Academy of Texas Music received the building from the Cass County Conservancy in 2009 and adapted it for intimate performances, with the farthest seat reportedly 44 feet from the stage. This was a separate institution and location from the theater at 108 Legion Street."),
+    p("A 2012 Texas Highways feature, preserved in the University of North Texas Randy Mallory Papers, documented both the Music City Texas Theater and the Texas Music Barn as part of Linden's live-music revival. These are historical sources, not a current concert calendar. The property record mentions a step-free rear entrance, but current venue operations, accessibility, ownership and entry policies have not been independently confirmed; do not treat the Music Barn as a guaranteed open attraction or substitute it for a booked theater performance."),
+
     h("T-Bone Walker, Don Henley and Scott Joplin: three distinct connections"),
     p("Aaron 'T-Bone' Walker was born in Linden in 1910. His later development in Dallas and work with amplified guitar helped establish a language that shaped electric blues and, through it, rock music. Don Henley was born in Gilmer and raised in Linden, where early bands and regional performance experience preceded his national career with the Eagles. Their contributions are not interchangeable: Walker's place in Black blues innovation is distinct from Henley's East Texas-to-country-rock trajectory."),
     p("Scott Joplin is also associated with the Linden and Caves Spring area, but his precise birthplace is not settled. The Texas State Historical Association identifies a possible birth location near Caves Spring; other research emphasizes the broader Northeast Texas border region and his childhood around Texarkana. An accurate county history should discuss that connection without claiming an undisputed Linden birth. Joplin's role in the rise of composed ragtime is a different chapter from Walker's electric guitar or the later Linden concert project."),
@@ -160,6 +164,7 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     h("Quick answers about Richard Bowden and Linden's music history"),
     p("Who is Richard Bowden? He is a Linden-connected guitarist who worked with Don Henley, performed in the national country-comedy duo Pinkard & Bowden with Sandy Pinkard, and helped build the local Music City Texas Theater project."),
     p("Where is Music City Texas Theater? The nonprofit theater is at 108 Legion Street in Linden, Texas, in a renovated former American Legion auditorium. Visit its official website for current performance dates and tickets."),
+    p("Is the Texas Music Barn the same as Music City Texas Theater? No. The historical Texas Music Barn was documented at 301 East Houston Street in a former 1927 Methodist church, whereas Music City Texas Theater performs at 108 Legion Street. The Barn's current concert and public-access status is not verified."),
     p("Was Scott Joplin born in Linden? His birthplace is disputed. Some historical research suggests the Caves Spring area near Linden, but the precise site has not been established; Northeast Texas is the safer geographic description."),
     p("Does the T-Bone Walker Blues Festival happen every June? The June timing appears in historical tourism materials, but upcoming dates must be confirmed with organizers rather than copied from a previous year's schedule."),
 
@@ -239,6 +244,10 @@ export const cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle: Article 
     { label: "Wikimedia Commons — Downtown Linden water towers, image rights", url: "https://commons.wikimedia.org/wiki/File:Linden1.JPG" },
     { label: "Music City Texas Theater — official mission, location and shows", url: "https://www.musiccitytexas.org/about" },
     { label: "Linden Area Chamber of Commerce — local musical heritage and 2003 theater renovation", url: "https://www.lindentxchamber.org/aboutus" },
+    { label: "Friends of the Texas Historical Commission — 1927 Linden Methodist Church and Texas Music Barn", url: "https://downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563" },
+    { label: "UNT Libraries — Texas Highways 2012 article on Linden's two music venues", url: "https://texashistory.unt.edu/ark:/67531/metadc1924028/" },
+    { label: "Linden Economic Development Corporation — Richard Bowden's early bands and theater leadership", url: "https://www.lindenedc.org/board-of-directors" },
+    { label: "Music City Texas Theater — official current shows and tickets", url: "https://www.musiccitytexas.org/shows" },
     { label: "Texas Historical Commission — Linden music history and theater", url: "https://texastimetravel.com/cities/linden/" },
     { label: "Governor of Texas — Linden Music Friendly Texas certification (2023)", url: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community" },
     { label: "Houston Press — contemporary reporting on Richard Bowden and Music City Texas", url: "https://www.houstonpress.com/news/strings-attached-6551821/" },
