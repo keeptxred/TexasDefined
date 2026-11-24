@@ -153,12 +153,12 @@ const records: EventRecordWithWindows[] = [
     endDate: "2026-10-24",
     venue: "Mexic-Arte Museum and downtown Austin",
     officialUrl: "https://mexic-artemuseum.org/event/43rd-annual-viva-la-vida-festival-parade/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Mexic-Arte Museum's Viva La Vida Festival & Parade is Austin's longest-running Día de los Muertos celebration, bringing a downtown procession, art activities, food, artists, performances and community traditions to Congress Avenue.",
     planningSections: [
-      { title: "Use October 24 as the confirmed 2026 date", body: "Mexic-Arte Museum publishes the 43rd annual festival for Saturday, October 24, 2026, from noon to 6 p.m. The Grand Procession begins at noon and culminates near 4th Street and Congress Avenue." },
-      { title: "Arrive before the procession if the parade matters most", body: "The procession is a major part of the event and moves through downtown before the festival activities continue. Downtown street activity and parking demand make an early arrival useful." },
-      { title: "Treat it as a free downtown cultural day", body: "The organizer describes the festival as free and family-friendly, with art-making, traditional foods, artists, retail booths, lowriders and live performances. Use the official page for final street and parking instructions." },
+      { title: "The 2026 festival is complete; 2027 dates await announcement", body: "The museum now lists its October 24, 2026 celebration under past festivals. The 43rd edition ran noon–6 p.m. at Fourth Street and Congress Avenue. The 2027 date and route are not published in the reviewed archive." },
+      { title: "Arrive before the procession if the parade matters most", body: "The 2026 procession traveled along historic Sixth Street to Fourth and Congress, with artist-designed ofrenda components assembled into a stage installation. The museum archive also documents a 2025 rescheduling to November 1 at Republic Square, a reason to check the new route instead of assuming a fixed annual street closure." },
+      { title: "Treat it as a free downtown cultural day", body: "The completed 2026 free celebration featured hands-on art in Mariposa Plaza and a Muertos Mercado. The organizer’s explanation of ofrendas emphasizes remembering deceased loved ones through offerings; the event is a cultural observance, not simply a costume parade. The old RSVP and garage instructions relate to the completed edition." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build more Austin cultural stops around Viva La Vida." },
