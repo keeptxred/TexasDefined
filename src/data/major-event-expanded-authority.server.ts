@@ -103,12 +103,12 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "wings-over-houston-airshow",
     whyItMatters: "Wings Over Houston is a large aviation event at Ellington Airport where transportation, arrival time and outdoor conditions can shape the day as much as the flying schedule.",
     planningSections: [
-      { title: "Arrive with transportation settled", body: "For the October 31–November 1, 2026 show, parking at Ellington is constrained by construction. Free ticket-included shuttles run from 7:30 a.m. to 6 p.m.; the last inbound shuttle departs at 2:30 p.m. Review the official park-and-ride locations and maps, and arrive before the 2:30 p.m. outbound-only traffic conversion." },
-      { title: "Plan for a long outdoor day", body: "Gates open at 8 a.m.; the official ticket page lists flying roughly 10:30 a.m.–4 p.m. Sun protection, hearing protection, comfortable footwear and restrictions on what you can carry all matter for this long airfield day." },
-      { title: "Check the performer schedule", body: "Flying demonstrations and performers can change; confirm the official schedule close to the event rather than relying on an older lineup." },
+      { title: "Arrive with transportation settled", body: "The completed October 31–November 1, 2026 edition used shuttles because of construction and parking constraints. The organizer's homepage now identifies 2027 but has not published a dated 2027 schedule there. Do not assume last year's shuttle timetable or parking locations apply; wait for the new travel map before booking around arrival times." },
+      { title: "Plan for a long outdoor day", body: "The 2026 gates and flight schedule are historical. For 2027, plan a flexible outdoor day with sun and hearing protection, comfortable shoes and a review of the new event's bag and access policies. The official current FAQ still refers to 2026 customer information, so do not use it as confirmation of 2027 ticket sales." },
+      { title: "Check the performer schedule", body: "The organizer's homepage identifies 2027 and offers its email insider signup for new announcements; the separate show schedule still explicitly describes 2026. Wait for dated 2027 confirmation of performers, admission and access rather than reusing a completed lineup." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston stops around the airshow." }, { href: "/events/air-shows", label: "Texas air shows", description: "Compare other confirmed air-show weekends." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
-    sources: [{ label: "Wings Over Houston official site", url: "https://wingsoverhouston.com/" }, { label: "Wings Over Houston travel and parking", url: "https://wingsoverhouston.com/travel/" }],
+    sources: [{ label: "Wings Over Houston official site", url: "https://wingsoverhouston.com/" }, { label: "Wings Over Houston travel and parking", url: "https://wingsoverhouston.com/travel/" }, { label: "Wings Over Houston official show information (2026 archive until updated)", url: "https://wingsoverhouston.com/show-info/" }, { label: "Wings Over Houston official FAQ", url: "https://wingsoverhouston.com/faq/" }],
   },
   {
     slug: "amigo-airsho",
