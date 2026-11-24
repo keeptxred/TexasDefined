@@ -1,4 +1,25 @@
 {
   "schemaVersion": 1,
-  "sources": []
+  "sources": [
+    {
+      "id": "handbook",
+      "url": "https://www.tshaonline.org/handbook/entries/flags-of-texas",
+      "hash": "ff1fdb926a0c8a93d44743587473c78d01fdfc7ad5368c314ef497b0b2c25450"
+    },
+    {
+      "id": "archive",
+      "url": "https://www.tsl.texas.gov/historicflags/1974066001LoneStar.html",
+      "hash": "56b826ff680154eda70b752dbc5498d2b176391c9fdd17dd8d66980efd823705"
+    },
+    {
+      "id": "flag-code",
+      "url": "https://tcss.legis.texas.gov/resources/GV/htm/GV.3100.htm",
+      "hash": "d310c34644251da70e494aa067d6b6b3c48ebcf1f381261ce0c3093d14ad6ec8"
+    },
+    {
+      "id": "flag-day",
+      "url": "https://tcss.legis.texas.gov/resources/GV/htm/GV.662.htm",
+      "hash": "3bcf77d8851fa151d6cb601d18311c66104f11dec4850e0b257489bb9483aad7"
+    }
+  ]
 }
