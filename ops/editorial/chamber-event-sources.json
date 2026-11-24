@@ -5847,6 +5847,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "terrell-sanderson-tall-texan-distillery-2026-programs",
+      "organization": "Tall Texan Distilling — Sanderson dated seasonal visitor programs (VENUE ONLY, adult tours)",
+      "countySlugs": [
+        "terrell"
+      ],
+      "homeUrl": "https://talltexandistilling.com/",
+      "calendarUrl": "https://talltexandistilling.com/distillery-events",
+      "contactPageUrl": "https://talltexandistilling.com/distillery-events",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
