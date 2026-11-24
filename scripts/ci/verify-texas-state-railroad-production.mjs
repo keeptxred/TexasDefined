@@ -52,16 +52,17 @@ const related = [
 ];
 
 const cached = new Map();
-async function getPage(path) {
-  if (!cached.has(path)) {
-    cached.set(path, (async () => {
+async function getPage(path, origin = site) {
+  const key = origin + path;
+  if (!cached.has(key)) {
+    cached.set(key, (async () => {
       // A brief canonical origin timeout must not fail an otherwise healthy
       // release. Re-request the exact ordinary visitor URL; never switch to
       // a cache-busted URL or relax the subsequent content assertions.
       let lastError;
       for (let attempt = 1; attempt <= 3; attempt++) {
         try {
-          const response = await fetch(new URL(path, site), {
+          const response = await fetch(new URL(path, origin), {
             headers: { Accept: "text/html, application/xml;q=0.9", "User-Agent": "TexasDefinedRailroadAuthorityValidator/1.0" },
             signal: AbortSignal.timeout(attempt === 1 ? 30000 : 40000),
           });
@@ -78,7 +79,7 @@ async function getPage(path) {
       throw new Error(path + ": failed after 3 exact-URL attempts: " + String(lastError));
     })());
   }
-  return cached.get(path);
+  return cached.get(key);
 }
 
 function hasLink(html, path) {
@@ -119,8 +120,8 @@ checks.push(check("Guide metadata", async () => {
     if (!guide.includes('="' + name + '"')) throw new Error("missing " + name);
   }
 }));
-checks.push(check("Museum source-freshness on ordinary canonical HTML", async () => {
-  const page = await getPage(museumPath); // Normal visitor URL: deliberately no cache-busting query.
+for (const origin of origins) checks.push(check("Museum source-freshness on ordinary HTML: " + origin, async () => {
+  const page = await getPage(museumPath, origin); // Normal visitor URL: deliberately no cache-busting query.
   for (const [label, marker] of [
     ["attributed November 2026 hours", "The Cherokeean Herald reported on November 4, 2026"],
     ["2026 local reporting citation", "thecherokeean.com/articles/55397/view"],
@@ -130,6 +131,13 @@ checks.push(check("Museum source-freshness on ordinary canonical HTML", async ()
     ["historically documented model railway", "1890s Cherokee County model railway"],
     ["historical exhibit reporting citation", "thecherokeean.com/articles/44898/view"],
     ["Bonner Bank archival citation", "texashistory.unt.edu/ark:/67531/metapth614711/m1/1/"],
+    ["Bonner Bank relocation correction", "completed relocation"],
+    ["June 2018 exhibit date", "June 2018"],
+    ["2025 hospital and sports display source", "theeasttexasweekend.com/2025/10/20/preserving-rusks-rich-history/"],
+    ["2009 institutional history", "former Barr grocery store"],
+    ["New Birmingham exhibit", "New Birmingham"],
+    ["2022 curator interview source", "tpwmagazine.com/travel-culture/discover-the-east-texas-town-that-built-its-own-railroad/"],
+    ["Rex Brasher exhibit", "Rex Brasher"],
   ]) {
     if (!page.includes(marker)) throw new Error("ordinary public museum HTML missing " + label + "; inspect edge cache versus current release");
   }
@@ -169,11 +177,13 @@ checks.push(check("Museum photo and structured data", async () => {
     throw new Error("museum and Cherokee County need reciprocal links");
   }
 }));
-for (const [path, sitemap] of [[slug, "/sitemap.xml"], [museumPath, "/sitemap-explore.xml"]]) {
-  checks.push(check(sitemap, async () => {
-    const xml = await getPage(sitemap);
-    const entry = xml.split("<loc>" + site + path + "</loc>")[1]?.split("</url>", 1)[0];
-    if (!entry || !/<lastmod>\d{4}-\d{2}-\d{2}/.test(entry)) throw new Error("missing canonical URL or lastmod for " + path);
+for (const origin of origins) for (const [path, sitemap, editorialFloor] of [[slug, "/sitemap.xml", "2026-11-23"], [museumPath, "/sitemap-explore.xml", "2026-11-24"]]) {
+  checks.push(check(origin + sitemap, async () => {
+    const xml = await getPage(sitemap, origin);
+    const matches = xml.split("<loc>" + site + path + "</loc>");
+    const entry = matches[1]?.split("</url>", 1)[0];
+    const lastmod = entry?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+    if (matches.length !== 2 || !lastmod || lastmod < editorialFloor || lastmod > new Date().toISOString().slice(0, 10)) throw new Error("missing, duplicate, or stale/future sitemap lastmod for " + path + ": " + lastmod);
   }));
 }
 await Promise.all(checks);

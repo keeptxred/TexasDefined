@@ -82,7 +82,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     hero: museumPlaceholder("Heritage Center of Cherokee County"),
     bestSeason: "Year-round museum; spring and fall pair especially well with the Texas State Railroad, downtown Rusk and other Piney Woods heritage sites.",
     entryNote: "The November 4, 2026 Cherokeean Herald reported Saturday 11 a.m.–3 p.m., Sunday 1–5 p.m., and weekday visits by appointment. Call 903-714-8685 to reconfirm current hours, admission and access.",
-    updatedAt: "2026-11-23",
+    updatedAt: "2026-11-24",
     highlights: ["Caddo and pioneer artifacts", "Texas State Railroad history", "Rusk prison and hospital history", "Cherokee County timber heritage"],
     body: [
       "The Heritage Center of Cherokee County is the current institution behind the older Cherokee County museum naming found in statewide lists. Its exhibits move from pre-statehood Caddo material into settlement, timber, transportation, education and twentieth-century community life.",
