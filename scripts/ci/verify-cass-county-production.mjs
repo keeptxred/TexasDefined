@@ -14,6 +14,8 @@ export const cassRequiredMarkers = [
   'Richard Bowden: from Linden bands to Pinkard',
   'Pinkard &amp; Bowden',
   'Music City Texas Theater: a concert room with a local mission',
+  'The Texas Music Barn: another historic Linden listening room',
+  '301 East Houston Street',
   '108 Legion Street',
   'Cass County Boys',
   'T-Bone Walker Blues Festival',
