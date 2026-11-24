@@ -584,6 +584,9 @@ for (const path of plan.selectedPaths) {
           for (const marker of markers[path]) {
             if (!(marker.startsWith('/') ? body.includes(marker) : visible.includes(marker))) throw new Error(path + ' ' + label + ' missing ' + marker);
           }
+          for (const marker of ['25635261034', '26147334682', '5822129305', 'DeGolyer Library', 'No known copyright restrictions']) {
+            if (!body.includes(marker)) throw new Error(path + ' ' + label + ' missing archival photo evidence ' + marker);
+          }
           if (visible.includes('Explain the difference between the main historic museum')) throw new Error(path + ' exposes stale editorial instructions');
           if ([...body.matchAll(/<meta\b[^>]*>/gi)].some(([tag]) => /name=["']robots["']/i.test(tag) && /noindex/i.test(tag))) throw new Error(path + ' unexpectedly noindexed');
         };
