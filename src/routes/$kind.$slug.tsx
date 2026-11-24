@@ -85,7 +85,9 @@ export const Route = createFileRoute('/$kind/$slug')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: searchIntentTitle(loaderData.entity),
+        title: loaderData.entity.kind === "county" && loaderData.entity.slug === "comanche"
+          ? "Comanche County TX: History, De Leon & Proctor Lake"
+          : searchIntentTitle(loaderData.entity),
         description,
         image: countyHeroImage?.src ?? countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
         imageAlt: countyHeroImage?.alt ?? countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
