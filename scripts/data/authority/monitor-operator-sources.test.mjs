@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows, heritageDestinationMonitorRows, heritageExhibitionDeadlineAlerts,
+  sourceIndex, normalizedSourceFingerprint, reconcile, sourceByteLimit, readBoundedHtml, reviewedAttractionMonitorRows, heritageDestinationMonitorRows, heritageExhibitionDeadlineAlerts,
 } from "./monitor-operator-sources.mjs";
 
 const html = (text) => "<html><body><main><h1>Operator experience</h1><p>" +
@@ -136,4 +136,22 @@ test("Alvin museum and shared city/county visitor sources retain bounded weekly 
   const operators = await read("../../../src/data/authority/independent-operators.json");
   const attraction = reviewedAttractionMonitorRows(await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8"));
   assert.ok(sourceIndex(offers, [...operators, ...attraction, ...heritageDestinationMonitorRows]).length <= 48);
+});
+
+
+test("operator response budget is scoped and enforces streamed bytes, including absent content length", async () => {
+  assert.equal(sourceByteLimit("https://example.org/"), 850_000);
+  assert.equal(sourceByteLimit("https://www.signorvineyards.com/reservations"), 4_000_000);
+  assert.equal(sourceByteLimit("https://www.signorvineyards.com/unreviewed"), 850_000);
+  assert.equal(await readBoundedHtml(new Response("Texas"), 5), "Texas");
+  await assert.rejects(readBoundedHtml(new Response("Texas"), 4), /byte cap/);
+  await assert.rejects(readBoundedHtml(new Response("x", {headers: {"content-length": "9"}}), 8), /byte cap/);
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode("Texas — travel");
+  const stream = new ReadableStream({start(controller) {
+    controller.enqueue(bytes.slice(0, 7));
+    controller.enqueue(bytes.slice(7));
+    controller.close();
+  }});
+  assert.equal(await readBoundedHtml(new Response(stream), bytes.length), "Texas — travel");
 });

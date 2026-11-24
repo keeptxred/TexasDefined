@@ -7,6 +7,44 @@ import operators from "../../../src/data/authority/independent-operators.json" w
 // 48 URLs / 3 concurrent probes * 12s timeout = 192s maximum network wait.
 const MAX_SOURCES = 48;
 const MAX_BYTES = 850_000;
+// These directly approved Wix pages exceed the ordinary source budget because
+// their server-rendered HTML includes large application scripts. Keep the
+// exception URL-specific and enforce it during streaming, not after buffering.
+const LARGE_SOURCE_URLS = new Set([
+  "https://www.signorvineyards.com/",
+  "https://www.signorvineyards.com/reservations",
+]);
+export function sourceByteLimit(url) {
+  return LARGE_SOURCE_URLS.has(url) ? 4_000_000 : MAX_BYTES;
+}
+export async function readBoundedHtml(response, limit) {
+  const declaredSize = Number(response.headers.get("content-length") ?? 0);
+  if (declaredSize > limit) {
+    await response.body?.cancel();
+    throw new Error("Operator page exceeds byte cap");
+  }
+  if (!response.body) throw new Error("Missing operator response body");
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks = [];
+  let bytes = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > limit) {
+        await reader.cancel();
+        throw new Error("Operator page exceeds byte cap");
+      }
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join("");
+  } finally {
+    reader.releaseLock();
+  }
+}
 const TIMEOUT_MS = 12_000;
 
 /** Dates refer to actual operator fact checks, never to the monitor's HTTP request. */
@@ -152,10 +190,7 @@ async function fetchFingerprint(url) {
   if (!response.ok) throw new Error("HTTP " + response.status);
   if (!/text\/html|application\/xhtml\+xml/i.test(response.headers.get("content-type") ?? ""))
     throw new Error("Unexpected response content type");
-  const declaredSize = Number(response.headers.get("content-length") ?? 0);
-  if (declaredSize > MAX_BYTES) throw new Error("Operator page exceeds byte cap");
-  const html = await response.text();
-  if (Buffer.byteLength(html, "utf8") > MAX_BYTES) throw new Error("Operator page exceeds byte cap");
+  const html = await readBoundedHtml(response, sourceByteLimit(url));
   return normalizedSourceFingerprint(html);
 }
 
