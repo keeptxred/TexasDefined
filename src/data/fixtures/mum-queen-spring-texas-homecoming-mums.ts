@@ -13,7 +13,7 @@ export const mumQueenSpringArticle: Article = {
   category: "guides",
   region: "gulf-coast",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
     alt: "A large Texas high-school homecoming mum with ribbons, charms and school colors, used to illustrate the custom mum tradition",
     width: 1200,
     height: 2509,
