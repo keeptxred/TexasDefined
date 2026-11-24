@@ -257,8 +257,10 @@ if (!moodyRoute.includes('"moody-gardens": "' + moodyTitle + '"')
   errors.push('Moody Gardens hydrated destination metadata must exactly match the SSR title and description; do not let browser hydration replace them with generic travel SEO.');
 }
 if (!moodyCuration.includes('museumFactsReviewed: "2026-11-14"')
-    || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-14"')
-    || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time>')
+    || !moodyCuration.includes('holidayFactsReviewed: "2026-11-24"')
+    || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-24"')
+    || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 24, 2026</time>')
+    || !moodySpotlights.includes('Official day-by-day attraction and holiday hours')
     || !moodyRoute.includes('moodyGardensEditorialDates.lastSubstantiveEdit')) {
   errors.push('Moody Gardens must separate substantive WebPage dateModified from its older, honest source-review dates.');
 }
