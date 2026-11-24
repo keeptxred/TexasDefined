@@ -21,17 +21,21 @@ for (const marker of additional95PlusEvidence) {
 }
 
 // The five guides received substantive editorial revisions on November 20 and 21, 2026.
-// Guard the truthful sitemap lastmod and content-versioned cache key; do not
-// restamp those dates merely because an automated source audit succeeds.
+// Preserve independently changed page dates and versioned cache keys.
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
-if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";') ||
-    !primarySitemap.includes('cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);')) {
-  errors.push('Five outdoor guides need truthful Nov 21 editorial sitemap freshness and a versioned cache key.');
+const feeData = JSON.parse(fs.readFileSync(path.join(root, 'src/data/outdoor-guide-admission.json'), 'utf8'));
+for (const key of ['huntsville','rayRoberts','caprock']) {
+  const row = feeData[key];
+  if (!row || !Number.isInteger(row.adult) || row.adult < 1 || row.adult > 100 || !/^\d{4}-\d\d-\d\d$/.test(row.evidenceDate)) errors.push('Invalid source-verified admission data: ' + key);
 }
-for (const slug of ['texas-mountain-biking-guide', 'texas-horseback-riding-guide', 'texas-ohv-guide', 'texas-paddling-guide', 'texas-stargazing-guide']) {
-  if (!primarySitemap.includes('"/' + slug + '": OUTDOOR_GUIDES_LASTMOD,')) {
-    errors.push('Sitemap must preserve the actual content-change lastmod for /' + slug);
-  }
+if (!primarySitemap.includes('const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";') ||
+    !primarySitemap.includes('cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", [OUTDOOR_GUIDES_LASTMOD, MTB_GUIDE_LASTMOD, STARGAZING_GUIDE_LASTMOD') ||
+    !primarySitemap.includes('outdoorAdmission.huntsville.evidenceDate, outdoorAdmission.rayRoberts.evidenceDate') ||
+    !primarySitemap.includes('outdoorAdmission.caprock.evidenceDate')) {
+  errors.push('Outdoor guides must preserve content-change lastmod and a versioned cache key.');
+}
+for (const [slug, date] of [['texas-mountain-biking-guide', 'MTB_GUIDE_LASTMOD'], ['texas-horseback-riding-guide','OUTDOOR_GUIDES_LASTMOD'], ['texas-ohv-guide','OUTDOOR_GUIDES_LASTMOD'], ['texas-paddling-guide','OUTDOOR_GUIDES_LASTMOD'], ['texas-stargazing-guide','STARGAZING_GUIDE_LASTMOD']]) {
+  if (!primarySitemap.includes('"/' + slug + '": ' + date + ',')) errors.push('Sitemap must preserve content-change lastmod for /' + slug);
 }
 
 // Keep horizontally scrolling comparison tables keyboard-operable and named for screen readers.
