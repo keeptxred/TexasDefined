@@ -99,11 +99,25 @@ for (const photo of photos) {
       if (!visible.includes(imagePath) || !visible.includes(photo.creator) ||
           !visible.includes(photo.source) || !visible.includes(photo.licenseLabel || "CC BY-SA 4.0") ||
           !visible.includes(photo.licenseUrl || "https://creativecommons.org/licenses/by-sa/4.0/") ||
-          (!additionalPhotos.includes(photo) && (!visible.includes("application/ld+json") ||
+          !visible.includes("application/ld+json") ||
           !visible.includes("ImageObject") ||
           !visible.includes("copyrightNotice") ||
-          !visible.includes("acquireLicensePage")))) {
+          !visible.includes("acquireLicensePage")) {
         errors.push(photo.path + " [" + origin + suffix + "]: visible licensed photo or ImageObject provenance absent");
+      }
+      if (additionalPhotos.includes(photo)) {
+        const nodes = [];
+        for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+          try {
+            const json = JSON.parse(match[1]);
+            if (Array.isArray(json["@graph"])) nodes.push(...json["@graph"]);
+            else nodes.push(json);
+          } catch {}
+        }
+        const node = nodes.find(item => item?.["@type"] === "ImageObject" && item.contentUrl === "https://texasdefined.com" + imagePath);
+        if (!node || node.license !== photo.licenseUrl || node.acquireLicensePage !== photo.source || node.creator?.name !== photo.creator || !node.copyrightNotice) {
+          errors.push(photo.path + " [" + origin + suffix + "]: exact supplementary ImageObject rights do not match the displayed image");
+        }
       }
       if (!html.includes('https://texasdefined.com' + photo.path) ||
           /<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html)) {
