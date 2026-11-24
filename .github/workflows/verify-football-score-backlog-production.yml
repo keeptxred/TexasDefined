@@ -1,5 +1,10 @@
 name: Verify football score backlog on production
 on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-football-score-backlog-production.yml'
+      - 'scripts/ci/verify-football-score-backlog-production.mjs'
+      - 'scripts/ci/verify-football-score-backlog-production.test.mjs'
   workflow_dispatch:
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
@@ -8,9 +13,20 @@ on:
 permissions:
   contents: read
   actions: read
+  deployments: read
 jobs:
+  contract:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test scripts/ci/verify-football-score-backlog-production.test.mjs
   verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:
@@ -32,7 +48,7 @@ jobs:
             echo "run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          hash=$(git ls-files -s src/data/high-school-football src/components/sports/District16Coverage.tsx src/components/sports/District21TeamSeason.tsx 'src/routes/texas-high-school-football*' scripts/ci/verify-football-score-backlog-production.mjs | sha256sum | cut -c1-32)
+          hash=$(git ls-files -s src/data/high-school-football src/components/sports 'src/routes/texas-high-school-football*' scripts/ci/verify-football-score-backlog-production.mjs .github/workflows/verify-football-score-backlog-production.yml | sha256sum | cut -c1-32)
           echo "hash=$hash" >> "$GITHUB_OUTPUT"
           count=$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=football-live-passed-$hash" --jq '[.artifacts[]|select(.expired==false)]|length')
           if [ "$count" -gt 0 ] && [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
@@ -42,6 +58,11 @@ jobs:
           fi
       - name: Verify actual published pages and individual score rows on both origins
         if: steps.fingerprint.outputs.run == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          EXPECTED_DEPLOYMENT_RUN_ID: ${{ github.event.workflow_run.id }}
+          EXPECTED_DEPLOYMENT_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
         run: node scripts/ci/verify-football-score-backlog-production.mjs
       - name: Preserve verification evidence
         if: always() && steps.fingerprint.outputs.run == 'true'
