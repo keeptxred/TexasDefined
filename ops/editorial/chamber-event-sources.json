@@ -5716,6 +5716,21 @@
       "priority": "monthly",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "houston-mission-tejas-tpwd-ranger-events-2026-2027",
+      "organization": "Texas Parks and Wildlife — Mission Tejas State Park original 2026–2027 dated ranger programs (PARK ONLY, NOT Crockett or Houston County chamber festival dates)",
+      "countySlugs": [
+        "houston"
+      ],
+      "homeUrl": "https://tpwd.texas.gov/state-parks/mission-tejas",
+      "calendarUrl": "https://tpwd.texas.gov/state-parks/mission-tejas/park_events/",
+      "contactPageUrl": "https://tpwd.texas.gov/state-parks/mission-tejas",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
