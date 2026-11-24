@@ -119,6 +119,17 @@ assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identi
 assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
 assert.ok(guideComponent.includes("entity.slug === 'cass' ? 14 : 8"), 'Cass County music and musician links must not be silently truncated to eight cards');
 
+// Google discovery is not complete when a November 24 article change still
+// advertises an August 4 sitemap lastmod. The protected sitemap override
+// must match the page metadata and get a fresh internal edge-cache key.
+const primarySitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+for (const path of ['/county/cass', '/texas-music-venues', '/texas-music-cities']) {
+  assert.ok(primarySitemap.includes('"' + path + '": "2026-11-24"'),
+    'Cass/Linden source-backed sitemap lastmod is stale: ' + path);
+}
+assert.ok(primarySitemap.includes('cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24")'),
+  'Cass/Linden primary sitemap XML cache key would serve an older lastmod');
+
 // Keep Linden discoverable from statewide venue and music-city guides, not
 // merely buried within a long county article or an isolated visitor listing.
 const venueGuide = fs.readFileSync('src/data/texas-music-venue-guides.ts', 'utf8');
