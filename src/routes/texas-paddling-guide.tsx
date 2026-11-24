@@ -42,6 +42,8 @@ export const Route = createFileRoute(canonicalPath)({
       "@graph": [
         {
           "@type": "CollectionPage",
+          author: { "@type": "Organization", name: "Texas Defined Travel & Outdoors Desk", url: `${siteUrl}/authors/a-dell` },
+          publisher: { "@type": "Organization", name: "Texas Defined", url: siteUrl },
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Texas Paddling Guide",

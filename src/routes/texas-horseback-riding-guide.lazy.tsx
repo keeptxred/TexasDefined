@@ -185,6 +185,7 @@ function TexasHorsebackRidingGuidePage() {
             <p className="eyebrow text-primary">Public trails · permits · horse facilities</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Horseback Riding Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five public riding destinations, with the documentation, permits, trail-sharing, water, camping and current-access questions to resolve before hauling a horse across Texas.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">By <a href="/authors/a-dell" className="font-semibold text-primary underline underline-offset-4">Texas Defined Travel &amp; Outdoors Desk</a> · Substantive guide update November 24, 2026.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -335,6 +336,8 @@ function TexasHorsebackRidingGuidePage() {
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify documentation and access with TPWD</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Documentation requirements, permits, trail closures, water, facilities and operating conditions can change. These first-party sources support this guide and should control current trip decisions. Official TPWD riding and campsite information checked November 18, 2026; expanded horse-site and guide-service options checked November 20, 2026. Call for current routes, water and facilities. Outfitter reservation resources and Chapas campsite rules checked November 21, 2026.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> We compared public-land rules, campsite and trailer facilities, horse-health documentation and operator booking information. Guided riding and privately owned horses are treated separately; a park's listing of a guide is not a booking confirmation or a quoted ride price. This is desk research, not a claim of personal field visits. Weekly source checks and quarterly editorial review identify changes; an unchanged check does not reset the content date.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7"><a href="/editorial-policy" className="text-primary underline">Editorial policy</a> · <a href="/corrections-policy" className="text-primary underline">Report a correction or firsthand visitor update</a>.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

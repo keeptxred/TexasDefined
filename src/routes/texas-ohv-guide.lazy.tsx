@@ -207,6 +207,7 @@ function TexasOhvGuidePage() {
             <p className="eyebrow text-primary">Legal venues · decals · land-manager rules</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas OHV Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five legal off-highway vehicle destinations, with the Texas decal, vehicle-class, permit, map and closure questions to resolve before loading a trailer.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">By <a href="/authors/a-dell" className="font-semibold text-primary underline underline-offset-4">Texas Defined Travel &amp; Outdoors Desk</a> · Substantive guide update November 24, 2026.</p>
           </header>
 
           {/* NPS photo provenance is shipped in the route-lazy HTML, not the eager app bundle. */}
@@ -374,6 +375,8 @@ function TexasOhvGuidePage() {
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify the legal venue, decal and current rules</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Legal venues, decal requirements, vehicle classes, permits, maps, closures and operating conditions can change. These first-party TPWD sources support this guide and should control current trip decisions. TPWD, NPS, Forest Service and TMTC sources checked November 18, 2026; named trail, permit, GPS and closure contacts reviewed November 20, 2026. Current official maps and on-site rules still control travel. Lake Meredith access roads, NPS permit applications and camping distinctions checked November 21, 2026.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> We compared TPWD decal rules, federal land-manager permits, legal vehicle classes, trail width and operator fee tables. The two-day riding and camping example is calculated from published operator prices; the governing agency's rules take precedence over older operator references. This is desk research, not a claim of personal field visits. Weekly source checks and quarterly editorial review identify changes; an unchanged check does not reset the content date.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7"><a href="/editorial-policy" className="text-primary underline">Editorial policy</a> · <a href="/corrections-policy" className="text-primary underline">Report a correction or firsthand visitor update</a>.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

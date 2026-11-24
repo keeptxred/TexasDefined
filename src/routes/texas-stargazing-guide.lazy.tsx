@@ -192,6 +192,7 @@ function TexasStargazingGuidePage() {
             <p className="eyebrow text-primary">Dark skies · moon phase · park access</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Stargazing Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five Texas state parks certified as International Dark Sky Parks, with moon phase, weather, Bortle ratings and access details to check before a night-sky trip.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">By <a href="/authors/a-dell" className="font-semibold text-primary underline underline-offset-4">Texas Defined Travel &amp; Outdoors Desk</a> · Substantive guide update November 24, 2026.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -364,6 +365,8 @@ function TexasStargazingGuidePage() {
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify darkness, access and events with TPWD</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Designations, park access, alerts, hours, event schedules and night-activity rules can change. These first-party sources support this guide and should control current trip decisions. TPWD park ratings, designations and stargazing guidance cross-checked November 18, 2026. Exact viewing-area locations and after-hours access rechecked November 20, 2026. Always verify current park access and forecast. TPWD sky-monitor interpretation and independent viewing versus program access checked November 21, 2026.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> We compared DarkSky designation records, TPWD Bortle classifications and permitted viewing areas, then connected those facts to moon and twilight calculators, local sky monitors and park access. Designation and Bortle ratings are not predictions of tonight's viewing conditions. This is desk research, not a claim of personal field visits. Weekly source checks and quarterly editorial review identify changes; an unchanged check does not reset the content date.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7"><a href="/editorial-policy" className="text-primary underline">Editorial policy</a> · <a href="/corrections-policy" className="text-primary underline">Report a correction or firsthand visitor update</a>.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">
