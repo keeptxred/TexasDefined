@@ -1433,11 +1433,11 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   'cameron-yoe': {
     slug: 'cameron-yoe',
-    intro: "Cameron Yoe is one of the deepest-history programs in this batch: four state championships, six title-game appearances and 49 playoff trips. The current 2026 team is unbeaten in the available game ledger, but the October 23 Little River Academy result is internally inconsistent across sources — KBTX reports a played 31-13 Cameron win, while MaxPreps currently shows a 13-10 forfeit entry. TexasDefined preserves that discrepancy instead of inventing a single uncontested official score.",
+    intro: "Cameron Yoe is 11–1 overall and 6–1 in district through November 20, 2026, after beating Edna and Orangefield in the playoffs. The Yoemen face Lorena again November 27 in Salado. The program has four state championships, six title-game appearances and 49 playoff trips. The October 23 Little River Academy win has conflicting score and forfeit reports; both are identified below.",
     theme: { accentHex: '#7A263A', label: 'Original TexasDefined maroon editorial treatment; no Cameron ISD logo or school-owned photography reproduced.' },
     seo: {
       title: 'Cameron Yoe Football | 2026 Scores, Aaron Babino & 4 State Titles',
-      description: 'Cameron Yoe Yoemen football: Aaron Babino, four state titles, 2026 District 12-3A Division I run, Yoe Field and the disputed Little River Academy result.'
+      description: 'Cameron Yoe football: 11–1 through Nov. 20, 50–48 area-round win over Orangefield, Nov. 27 Lorena rematch, Aaron Babino and four state titles.'
     },
     coach: {
       name: 'Aaron Babino',
@@ -1456,16 +1456,17 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
     schedule: {
       label: 'Cameron Yoe 2026 schedule and current result sources',
       sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/',
-      sourceLabel: 'Current UIL-partner schedule, cross-checked against KBTX local game reporting',
-      verifiedAt: '2026-10-25',
+      sourceLabel: 'MaxPreps schedule, KBTX playoff results and Lorena ISD regional semifinal calendar',
+      verifiedAt: '2026-11-24',
       officialScheduleUrl: 'https://www.cameronisd.net/page/yhs.Home'
     },
     season: {
-      record: '8 wins in the current game ledger through October 23; Little River Academy final carries a source conflict',
-      verifiedAt: '2026-10-25',
+      record: '11–1 overall · 6–1 district through November 20, 2026; includes two playoff wins',
+      recordLabel: '2026 reported varsity record through November 20; reviewed November 24',
+      verifiedAt: '2026-11-24',
       sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/',
-      sourceLabel: 'MaxPreps current ledger plus KBTX Oct. 24 played-game report',
-      latestResultSourceUrl: 'https://www.kbtx.com/2026/10/24/cameron-yoe-stays-perfect-tops-academy-31-13/',
+      sourceLabel: 'MaxPreps team schedules and KBTX playoff results, checked against AP and Houston Chronicle; disagreements identified below',
+      latestResultSourceUrl: 'https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php',
       games: [
         { date: '2026-08-28', opponent: 'Teague', site: 'Home', result: 'W 21-14' },
         { date: '2026-09-03', opponent: 'Whitney', site: 'Home', result: 'W 62-61' },
@@ -1475,8 +1476,11 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
         { date: '2026-10-09', opponent: 'Rockdale', site: 'Away', district: true, result: 'W 65-28' },
         { date: '2026-10-16', opponent: 'Troy', site: 'Home', district: true, result: 'W 40-26' },
         { date: '2026-10-23', opponent: 'Little River Academy', site: 'Away', district: true, result: 'W — KBTX 31-13 played final; MaxPreps shows 13-10 FF' },
-        { date: '2026-10-30', opponent: 'Caldwell', site: 'Away', district: true, kickoff: '7:30 PM' },
-        { date: '2026-11-06', opponent: 'Lorena', site: 'Home', district: true, kickoff: '7:30 PM' }
+        { date: '2026-10-30', opponent: 'Caldwell', site: 'Away', district: true, result: 'W 48–14' },
+        { date: '2026-11-06', opponent: 'Lorena', site: 'Home', district: true, result: 'L 14–64' },
+        { date: '2026-11-13', opponent: 'Edna', site: 'Neutral', result: 'W 35–28' },
+        { date: '2026-11-20', opponent: 'Orangefield', site: 'Neutral', result: 'W 50–48' },
+        { date: '2026-11-27', opponent: 'Lorena', site: 'Neutral', kickoff: '7:00 PM' }
       ]
     },
     venue: {
@@ -1489,28 +1493,34 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     development: {
       title: 'Four-title history, with a current result dispute handled transparently',
-      body: "Dave Campbell's credits Cameron Yoe with four state championships — 1981, 2012, 2013 and 2014 — six title-game appearances and 49 playoff trips. The 2026 Yoemen have won every game in the current ledger, but the October 23 Academy result is not source-clean: KBTX reports a played 31-13 Cameron victory at John Glover Stadium, while MaxPreps shows 13-10 marked as a forfeit. TexasDefined reports the win and the disagreement rather than silently choosing one score.",
+      body: "Dave Campbell's credits Cameron Yoe with four state championships — 1981, 2012, 2013 and 2014 — six title-game appearances and 49 playoff trips. The Yoemen finished their regular season 9–1 after the November 6 loss to Lorena, then won two playoff games. KBTX reported a played 31–13 win at Little River Academy on October 23, while a MaxPreps entry listed a 13–10 forfeit; the win is counted but the conflicting treatment remains disclosed.",
       sourceUrl: 'https://www.texasfootball.com/article/2026/05/14/cameron-yoe-yoemen-when-small-towns-produce-big-time-results',
-      sourceLabel: "Dave Campbell's May 2026 Cameron Yoe history plus KBTX Oct. 24 game report",
-      verifiedAt: '2026-10-25'
+      sourceLabel: "Dave Campbell's May 2026 history, KBTX October 24 and November playoff reporting",
+      verifiedAt: '2026-11-24'
     },
     milestones: [
       { date: '1981, 2012-2014', title: 'Four state championships', body: 'Cameron Yoe owns four state titles, including three straight from 2012 through 2014.', sourceUrl: 'https://www.texasfootball.com/article/2026/05/14/cameron-yoe-yoemen-when-small-towns-produce-big-time-results', sourceLabel: "Dave Campbell's Cameron Yoe history" },
       { date: 'October 2, 2026', title: 'Yoemen edge Franklin 43-42', body: 'The one-point district win is part of Cameron’s unbeaten 2026 start.', sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/', sourceLabel: 'MaxPreps current schedule' },
-      { date: 'October 23, 2026', title: 'Academy win carries conflicting score treatment', body: 'KBTX reports Cameron 31-13 in a played game; MaxPreps currently shows Cameron 13-10 with an FF label. The disagreement remains visible.', sourceUrl: 'https://www.kbtx.com/2026/10/24/cameron-yoe-stays-perfect-tops-academy-31-13/', sourceLabel: 'KBTX local postgame report' }
+      { date: 'October 23, 2026', title: 'Academy win carries conflicting score treatment', body: 'KBTX reports Cameron 31-13 in a played game; MaxPreps currently shows Cameron 13-10 with an FF label. The disagreement remains visible.', sourceUrl: 'https://www.kbtx.com/2026/10/24/cameron-yoe-stays-perfect-tops-academy-31-13/', sourceLabel: 'KBTX local postgame report' },
+      { date: 'November 13, 2026', title: 'Bi-district win over Edna', body: 'KBTX, AP and both team schedules report a 35–28 Cameron Yoe victory. Some other scoreboard feeds reported 14–7; the ledger uses the corroborated local report and AP final, not the conflicting feed.', sourceUrl: 'https://www.kbtx.com/2026/11/08/2026-brazos-valley-high-school-football-playoff-pairings-results/', sourceLabel: 'KBTX playoff results; AP and both current team schedules corroborate' },
+      { date: 'November 20, 2026', title: 'Area-round win in three overtimes', body: 'Cameron Yoe defeated Orangefield 50–48. Houston Chronicle and Beaumont Enterprise report the same final; the current MaxPreps schedule records three overtimes. An inconsistent 54–48 game-page entry is not used.', sourceUrl: 'https://www.beaumontenterprise.com/sports/high-school/article/high-school-football-second-round-playoff-scores-22542847.php', sourceLabel: 'Beaumont Enterprise area-round report, cross-checked against Houston Chronicle and the team schedule' },
+      { date: 'November 27, 2026', title: 'Scheduled regional semifinal against Lorena', body: 'Lorena ISD lists the rematch at 7 p.m. Central at Salado Eagle Stadium, 640 Thomas Arnold Road, Salado. Check school athletics before traveling for changes and ticket details.', sourceUrl: 'https://www.lorenaisd.net/apps/events/2026/11/27/63105883/?id=5', sourceLabel: 'Lorena ISD official event calendar, checked November 24' }
     ],
     overview: [
       'C.H. Yoe High School is in Cameron, Milam County, at 303 E. 12th Street.',
       'Cameron ISD officially lists Aaron Babino as Athletic Director / Head Football Coach.',
       'UIL places Cameron Yoe in Class 3A Division I District 12 for 2026-28.',
       "The program owns four state titles, six title-game appearances and 49 playoff appearances according to Dave Campbell's.",
-      'The October 23 Little River Academy win remains score-disputed between current sources and is not flattened into a false consensus.'
+      'The October 23 Little River Academy win has conflicting score and forfeit reports. KBTX and AP corroborate the November 13 Edna final of 35–28; other feeds list 14–7. Houston Chronicle and Beaumont Enterprise corroborate the November 20 Orangefield final of 50–48; an inconsistent game-page entry lists 54–48.',
+      'The regional semifinal is scheduled for November 27 at 7 p.m. in Salado, against the Lorena team that won their November 6 district game 64–14.'
     ],
     faq: [
       { question: 'Who coaches Cameron Yoe football in 2026?', answer: 'Aaron Babino. Cameron ISD officially lists him as Athletic Director / Head Football Coach.' },
       { question: 'How many state football titles has Cameron Yoe won?', answer: 'Four: 1981, 2012, 2013 and 2014.' },
       { question: 'What happened in the Cameron Yoe-Little River Academy game?', answer: 'KBTX reports a played 31-13 Cameron win on October 23. MaxPreps currently shows a 13-10 Cameron win marked FF. TexasDefined preserves the source conflict.' },
-      { question: 'Where does Cameron Yoe play?', answer: "Dave Campbell's identifies Yoe Field as the program stadium." }
+      { question: 'What is Cameron Yoe’s 2026 football record?', answer: 'Through November 20, Cameron Yoe is 11–1 overall and 6–1 in district, including wins over Edna and Orangefield. The October 23 win has conflicting score reports.' },
+      { question: 'When and where is Cameron Yoe’s next playoff game?', answer: 'Lorena ISD lists Friday, November 27 at 7 p.m. at Salado Eagle Stadium, 640 Thomas Arnold Road, Salado. Confirm game and ticket details with school athletics before traveling.' },
+      { question: 'Where does Cameron Yoe play?', answer: "Dave Campbell's identifies Yoe Field as the program stadium; playoff games can be played at neutral sites." }
     ]
   },
   campbell: {
