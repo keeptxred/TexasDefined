@@ -5,7 +5,7 @@ import { mkdir,readFile,writeFile } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { join } from "node:path";
-import { PAGES,STRATEGIES,isSameCanonical } from "./audit-five-culture-guide-vitals.mjs";
+import { PAGES,STRATEGIES,isSameCanonical } from "./five-culture-guide-roster.mjs";
 const execFileAsync=promisify(execFile);
 const ORIGIN="https://texasdefined.com";
 const DIR=".artifacts/five-culture-lighthouse";
