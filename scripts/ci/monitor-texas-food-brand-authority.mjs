@@ -9,7 +9,7 @@ const paths = [
   ['/texas-breakfast-taco-guide', 'https://www.jstor.org/stable/10.7560/316528', 'https://joesbakery.com/menu/'],
 ];
 const rows = [['/made-in-texas', 'https://www.ftc.gov/business-guidance/resources/complying-made-usa-standard']];
-if (process.argv.includes('--all') || [1,4,7,10].includes(new Date().getUTCMonth()+1)) rows.push(...paths);
+if (process.argv.includes('--all') || [1,3,5,7,9,11].includes(new Date().getUTCMonth()+1)) rows.push(...paths);
 // Collect every guide-level citation and section source, scoped to this cluster.
 const batch3 = await fs.readFile('src/data/texas-evergreen-guides-batch3.ts','utf8');
 const batch4 = await fs.readFile('src/data/texas-evergreen-guides-batch4.ts','utf8');
