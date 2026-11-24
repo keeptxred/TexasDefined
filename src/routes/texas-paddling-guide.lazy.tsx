@@ -516,6 +516,11 @@ function TexasPaddlingGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">Rentals, shuttles and a manageable first outing</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>TPWD lists rental and shuttle contacts for Buffalo Bayou. Confirm service at your exact put-in and takeout, including whether the operator transports privately owned boats. At Caddo Lake, canoe rentals are available at park headquarters; the Mill Pond route can be paddled as a return loop or a one-way outing with a separate shuttle and park admission.</p><p>Compare the complete quote: boat, paddle, properly fitted PFD, shuttle, launch fees, deposit and cancellation terms. A rental does not establish safe conditions. Choose a short protected outing with a clear exit plan when learning, wear a PFD and postpone if conditions exceed the group's skills.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/">Buffalo Bayou rental and shuttle contacts</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/">Caddo canoe rentals</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/">Mill Pond shuttle details</a>.</p><p>Compare the <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link> for a land-based alternative or the <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link> for an overnight trip.</p></div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build the paddle into the wider Texas trip</h2>
