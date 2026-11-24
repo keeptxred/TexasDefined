@@ -52,6 +52,8 @@ function verify({ path, evidence }, html) {
   if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
   if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
+  if (path === "/county/comanche" && !html.includes("Comanche County TX: History, De Leon &amp; Proctor Lake") && !html.includes("Comanche County TX: History, De Leon & Proctor Lake")) missing.push("distinctive Comanche County search title");
+  if (path === "/destination/comanche-county-historical-museum" && !html.includes("Comanche County Historical Museum: Free Admission &amp; Hours") && !html.includes("Comanche County Historical Museum: Free Admission & Hours")) missing.push("museum fee-and-hours search title");
   const obsoleteBrennanAdvice = [
     "Brennan Vineyards at 802 South Austin Street makes Texas wine",
     "Brennan Vineyards at 802 South Austin Street in Comanche produces Texas wine",
