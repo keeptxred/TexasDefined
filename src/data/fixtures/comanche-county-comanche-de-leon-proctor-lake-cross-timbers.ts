@@ -56,6 +56,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
     { label: "Texas Historical Commission — Old Cora FY2026 full roof replacement grant", url: "https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more" },
     { label: "Texas Historical Commission — Current courthouse restoration", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
+    { label: "Texas Historical Commission — Comanche Frisco Depot marker", url: "https://atlas.thc.texas.gov/Details/5000022414" },
     { label: "Texas A&M Forest Service — Fleming Oak", url: "https://tfsweb.tamu.edu/famous-trees-of-texas-254/" },
     { label: "Authentic Texas — Bull Durham mural discovery", url: "https://authentictexas.com/its-a-lot-of-bull/" },
     { label: "Comanche County Historical Museum — Collection", url: "https://www.comanchecountytxmuseum.com/collection" },
