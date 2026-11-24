@@ -213,6 +213,8 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
         }
       ],
       sources: [
+        { label: "National Park Service — Separate Comanche Frisco Depot National Register listing", url: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872", scope: "Depot significance and distinct National Register designation, 1909–1969" },
+        { label: "Preservation Texas — Friends of Historic Comanche depot restoration", url: "https://www.preservationtexas.org/mep/st-louis-san-francisco-railway-depot", scope: "2012 depot public reopening after conservation" },
         { label: "Museum operator — Free admission", url: "https://www.comanchecountytxmuseum.com/", scope: "Museum confirms free entry and voluntary donation support" },
         { label: "Museum operator — Comanche square audio tour", url: "https://www.comanchecountytxmuseum.com/about-1-1", scope: "QR-triggered audio stops and walking map" },
         {
