@@ -17,6 +17,8 @@ on:
   issue_comment:
     types: [created]
   schedule:
+    # Weekly source/access checks for the five guides; includes time-sensitive riding and paddling rules.
+    - cron: '37 15 * * 1'
     - cron: '37 15 10 * *'
     - cron: '41 15 12 1,4,7,10 *'
 
