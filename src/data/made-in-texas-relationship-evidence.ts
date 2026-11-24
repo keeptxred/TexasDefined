@@ -200,10 +200,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Siete Foods",
-    "claim": "PepsiCo identifies Austin as the 2014 founding location; the Garza family developed its original almond-flour tortilla in Laredo.",
-    "sourceLabel": "PepsiCo acquisition announcement",
-    "sourceUrl": "https://www.pepsico.com/en/newsroom/press-releases/2025/pepsico-completes-acquisition-of-siete-foods",
-    "checkedAt": "2026-11-21"
+    "claim": "The Texas Business Hall of Fame identifies Austin-based Siete Foods as founded by the Garza family in 2014 and traces its first almond-flour tortilla to Veronica Garza's kitchen in Laredo.",
+    "sourceLabel": "Texas Business Hall of Fame — Miguel and Veronica Garza",
+    "sourceUrl": "https://texasbusiness.org/garzas/",
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "Howler Brothers",
