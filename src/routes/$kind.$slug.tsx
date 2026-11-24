@@ -113,6 +113,8 @@ function sportsVenuePriority(entity: TexasEntityRecord) {
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'county' && entity.slug === 'brazoria') return 'Brazoria County, Texas: History, Alvin, Angleton & Gulf Coast';
+  if (entity.kind === 'city' && entity.slug === 'alvin') return 'Alvin, Texas: Railroad History, Museum, Farm & Things to Do';
   if (entity.kind === 'county' && entity.slug === 'rusk') return 'Rusk County, Texas: Henderson, Syrup Capital & History';
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
