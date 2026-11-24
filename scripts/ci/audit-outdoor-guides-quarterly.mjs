@@ -15,7 +15,7 @@ const official = [
   { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i, /EXPERT only/i, /9\.3 mi/i] },
   { name: "TPWD assisted family riding", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /3 to 14/i] },
   { name: "TPWD Buffalo Bayou shuttle listings", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/Rentals and Shuttles/i] },
-  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i, /700 pounds/i, /Saw Mill Pond only/i, /4:30 p\.m\./i] },
+  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i, /700 pounds/i, /Saw Mill Pond only/i, /4:30 p\.m\./i, /679-3351/i, /24- and 48-hour/i] },
   { name: "TPWD Mill Pond shuttle option", url: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/", patterns: [/shuttle/i, /entrance fee/i] },
   { name: "DarkSky Caprock designation", url: "https://darksky.org/places/caprock-canyons-state-park-texas/", patterns: [/Caprock Canyons/i, /International Dark Sky Park/i] },
   { name: "TPWD Big Bend Ranch check-in and interior road", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map", patterns: [/27 miles/i, /permanently closed/i, /Contrabando/i] },
@@ -58,7 +58,7 @@ const official = [
   { name: "TPWD e-bike policy", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", patterns: [/E-bikes are allowed/i, /not on park trails/i] },
   { name: "Barnwell gate fees", url: "https://www.barnwellmountainra.com/calculator", patterns: [/Non-Member Park Usage Fee/i, /\$30/i, /Primitive Camping/i, /\$10/i] },
   { name: "Barnwell operator", url: "https://www.barnwellmountainra.com/info_directions", patterns: [/Barnwell/i] },
-  { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
+  { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i, /Park Usage Fee Per Day/i, /\$30\.00/i, /\$10\.00/i] },
 ];
 const livePages = [
   { slug: "texas-mountain-biking-guide", must: ["Two additional riding bases near Houston and Dallas–Fort Worth", "Which Texas mountain bike trail should you ride first?", "Mobile comparison summary", "Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
