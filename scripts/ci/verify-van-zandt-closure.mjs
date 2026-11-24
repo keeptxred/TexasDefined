@@ -61,8 +61,18 @@ async function normalContentAndLinks() {
     assert.equal(raw.status(), 200, 'Football source API');
     const payload = await raw.json();
     assert.equal(payload.ok, true, 'County football source unavailable');
+    const directoryDiagnostic = {
+      directoryAvailable: payload.directoryAvailable,
+      historyAvailable: payload.historyAvailable,
+      allTimeHistoryAvailable: payload.allTimeHistoryAvailable,
+      matchedTotal: payload.matchedTotal,
+      programs: Array.isArray(payload.programs) ? payload.programs.map(p => ({ schoolName: p.schoolName, countyName: p.countyName, profilePath: p.profilePath })) : null,
+      workerVersion: raw.headers()['x-texasdefined-worker-version'] ?? null,
+    };
+    console.log('Van Zandt football source diagnostic: ' + JSON.stringify(directoryDiagnostic));
+    assert.equal(payload.directoryAvailable, true, 'AskTED directory enrichment unavailable; not evidence of a county with fewer schools');
     assert.ok(Array.isArray(payload.programs) && payload.programs.length >= 7,
-      'Previously verified Van Zandt programs unexpectedly missing');
+      'Previously verified Van Zandt programs unexpectedly missing: ' + JSON.stringify(directoryDiagnostic));
     const paths = new Set(payload.programs.map(p => p.profilePath));
     assert.equal(paths.size, payload.programs.length, 'Duplicate county football paths');
     for (const program of payload.programs) {
