@@ -62,7 +62,7 @@ const experiences = [
   },
   {
     name: "Recreational karting",
-    access: "Temporarily closed as of October 9, 2026",
+    access: "Temporarily closed as of November 24, 2026",
     action: "Do not buy a trip around karting until the operator confirms reopening",
     href: references.karting,
   },
@@ -129,12 +129,12 @@ export function MSRHoustonStatusNotice() {
   return <div className="border-b border-border">
     <section aria-labelledby="msr-status" className="border-b border-border py-10">
       <div className="border-l-4 border-amber-600 bg-amber-50/80 px-5 py-5 text-stone-900 dark:bg-amber-950/20 dark:text-foreground">
-        <p className="text-xs font-bold uppercase tracking-widest">Operational alert · checked October 9, 2026</p>
+        <p className="text-xs font-bold uppercase tracking-widest">Operational alert · checked November 24, 2026</p>
         <h2 id="msr-status" className="mt-2 font-display text-2xl sm:text-3xl">Karting is temporarily closed. The road course is a separate operation.</h2>
         <p className="mt-3 text-sm leading-7">
           MSR Houston's karting pages explicitly say the karting operation is temporarily closed. The facility's
           road-course calendar separately lists member sessions, schools and racing. Do not assume you can arrive
-          for a walk-in kart session, and do not mistake posted member-track hours for public driving availability.
+          for a walk-in kart session, and do not mistake posted member-track hours for public driving availability. The karting page still displays crossed-out operating hours and placeholder pricing; an older calendar entry does not establish that recreational karting has reopened. Contact the facility before making a karting trip.
         </p>
         <p className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
           <SourceLink href={references.karting}>Check the karting status</SourceLink>
@@ -196,7 +196,7 @@ export function MSRHoustonAuthoritySections() {
       <p className="mt-5 text-sm leading-7 text-muted-foreground">
         Beginner route: a registered driver-education event or an instructed session may be more practical than
         committing to a membership. A club's HPDE is driver education, not automatically a race or a timed qualifying
-        session. The organizer controls eligibility, instruction and registration. <SourceLink href={references.schools}>Driving programs</SourceLink>
+        session. The organizer controls eligibility, instruction and registration. At the November 24, 2026 source check, MSR's events archive listed the December 5–6 Lone Star Region PCA HPDE separately from its past November driving schools. This is a dated example of the event types, not a guarantee of available registration. <SourceLink href={references.events}>Official event archive</SourceLink> · <SourceLink href={references.schools}>Driving programs</SourceLink>
       </p>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">Xtreme Xperience advertises instructor-guided supercar drives and ride-alongs on a 1.30-mile event configuration, not automatic access to the full 2.38-mile MSR road course. Check program age and license requirements, bookable dates and total prices directly with the <SourceLink href={references.supercars}>experience operator</SourceLink>.</p>
     </section>
@@ -235,7 +235,7 @@ export function MSRHoustonAuthoritySections() {
         </div>
         <div className="border-t border-border pt-4">
           <h3 className="font-display text-2xl">Guest driving fee</h3>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">The venue's published member-guest driving fee was <strong>$175 plus tax</strong> on October 9, 2026, for eligible, accompanied guests. That is <strong>not</strong> a general admission ticket or an HPDE-school price. Other programs, event admission, initiation fees and monthly membership dues are separate; reconfirm pricing before booking.</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The venue's published member-guest driving fee was <strong>$175 plus tax</strong> on November 24, 2026, for eligible, accompanied guests. That is <strong>not</strong> a general admission ticket or an HPDE-school price. Other programs, event admission, initiation fees and monthly membership dues are separate; reconfirm pricing before booking.</p>
           <p className="mt-3 text-sm"><SourceLink href={references.membership}>Verify current guest fee and policies</SourceLink></p>
         </div>
         <div className="border-t border-border pt-4">
@@ -353,7 +353,7 @@ export function MSRHoustonAuthoritySections() {
         <a href="/sports-venues" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Compare Texas sports venues →</a>
         <a href="/explore/road-trips" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Texas road trips →</a>
       </div>
-      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized venue information, with core operator claims checked Oct. 9, 2026 and visitor experience, contact and local-planning additions checked Oct. 20, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston or Xtreme Xperience.</p>
+      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized venue information, with core operator claims checked Oct. 9, 2026 and visitor experience, contact and local-planning additions checked Oct. 20, 2026. Karting status, the published member-guest fee and event archive were checked again Nov. 24, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston or Xtreme Xperience.</p>
     </section>
   </div>;
 }
