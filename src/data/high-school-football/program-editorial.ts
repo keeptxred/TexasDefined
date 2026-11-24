@@ -11584,8 +11584,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "Belton ISD official football schedules",
       "sourceUrl": "https://www.beltontigers.com/sport/football/boys/",
-      "sourceLabel": "Belton ISD school/district sports resources",
-      "verifiedAt": "2026-10-10"
+      "sourceLabel": "Current school/varsity schedule, checked against independently reported final scores and playoff pairing sources on November 24",
+      "verifiedAt": "2026-11-24"
     },
     "development": {
       "title": "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton",
@@ -11622,13 +11622,21 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "4–2 through October 9, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The 2026 Tigers fixture grid is independent of Lake Belton's varsity program. Bell County campus and venue checks should not conflate those two schools.",
         "sourceUrl": "https://www.maxpreps.com/tx/belton/belton-tigers/football/schedule/",
         "sourceLabel": "Current 2026 varsity schedule, independently reported"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "2026 playoff result and season record",
+        "body": "Belton ended its Class 5A Division II playoff run with an area-round loss to South Oak Cliff after beating Ennis 35–33. MaxPreps' game record and North Channel Star agree on 57–14 for South Oak Cliff; the Houston Chronicle statewide list gives 57–7. The published 14–57 team-side result is attributed to the two agreeing sources; the differing report is disclosed. The record is 8–4 overall and 4–1 in district, final season record.",
+        "sourceUrl": "https://www.northchannelstar.com/2026/11/high-school-football-scores-area-round-playoff-results-nov-20/",
+        "sourceLabel": "Independent dated score report; corroborated by MaxPreps current varsity schedule"
       }
     ],
     "overview": [
       "Belton High School Tigers football is a Bell County school program with a dedicated first-party athletic website. The current UIL roster places Belton High in Class 5A Division II District 8, while Lake Belton High School is a **separate** program; shared district geography does not make them one team.",
       "The official 2026 football site has distinct varsity, JV Red, JV White and ninth-grade fixtures. An October 15 Waco JV game is listed at Tiger Stadium in Belton, but the October 16 varsity match is listed at Waco ISD Sports Complex. The useful travel instruction is to follow the precise squad and fixture, not merely search the school name.",
       "Belton High School athletics publishes visitor documents including a clear-bag policy, a composite calendar and 2026–27 football listing. Its athletics contact footer identifies 624 Lake Road. No state-title claim or current coach role is invented from an unlabeled staff directory listing.",
-      "The 2026 Tigers fixture grid is independent of Lake Belton's varsity program. Bell County campus and venue checks should not conflate those two schools."
+      "The 2026 Tigers fixture grid is independent of Lake Belton's varsity program. Bell County campus and venue checks should not conflate those two schools.",
+      "Belton ended its Class 5A Division II playoff run with an area-round loss to South Oak Cliff after beating Ennis 35–33. MaxPreps' game record and North Channel Star agree on 57–14 for South Oak Cliff; the Houston Chronicle statewide list gives 57–7. The published 14–57 team-side result is attributed to the two agreeing sources; the differing report is disclosed. The record is 8–4 overall and 4–1 in district, final season record."
     ],
     "faq": [
       {
@@ -11644,8 +11652,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. The website labels multiple freshman and JV groups separately from varsity. Check that label before traveling."
       },
       {
-        "question": "What is the reported 2026 football record for Belton Tigers as of October 13?",
-        "answer": "The attributed scoreboard indicates 4–2 through October 9, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+        "question": "How did Belton finish the 2026 football season?",
+        "answer": "Belton finished 8–4 overall and 4–1 in district, defeating Ennis 35–33 before an area-round loss to South Oak Cliff. The published score conflict is identified in the season review."
       },
       {
         "question": "How can I check Belton Tigers' 2026 varsity schedule?",
@@ -11730,6 +11738,18 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Brenham",
           "site": "Away",
           "district": true
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Ennis",
+          "site": "Neutral",
+          "district": false
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "South Oak Cliff",
+          "site": "Neutral",
+          "district": false
         }
       ]
     }
@@ -14442,8 +14462,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "2026 official varsity scores and future fixtures",
       "sourceUrl": "https://www.westlakenation.com/teams/fb",
-      "sourceLabel": "Official Westlake varsity scores and fixtures",
-      "verifiedAt": "2026-10-10"
+      "sourceLabel": "Current school/varsity schedule, checked against independently reported final scores and playoff pairing sources on November 24",
+      "verifiedAt": "2026-11-24"
     },
     "development": {
       "title": "Four state crowns across two football eras",
@@ -14487,13 +14507,27 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The official varsity scoreboard lists five wins, one loss and a 2–0 district record through the October 8 Westwood game; scores beyond this dated snapshot are not claimed.",
         "sourceUrl": "https://www.westlakenation.com/teams/fb",
         "sourceLabel": "Westlake Nation varsity scoreboard"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "Regional semifinal — scheduled",
+        "body": "Edinburg Vela, 2:00 PM Central at Heroes Stadium, San Antonio. Listed as of November 24; verify current ticket and venue details with school athletics.",
+        "sourceUrl": "https://txhsfb.net/?p=30136",
+        "sourceLabel": "Published regional-semifinal pairing and venue; current team schedule cross-check"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "2026 playoff result and season record",
+        "body": "Westlake finished the regular season 9–1 and entered the Class 6A Division II regional semifinal after defeating Buda Hays 45–0 and Comal Pieper 59–14. The record is 11–1 overall and 6–0 in district through November 19.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-thursday-22540994.php",
+        "sourceLabel": "Independent dated score report; corroborated by MaxPreps current varsity schedule"
       }
     ],
     "overview": [
       "Four documented state football crowns set Westlake's historical stature: 1996, 2019, 2020 and 2021. The 2024 championship-game loss to North Crowley was a final appearance, not an additional title.",
       "Westlake Nation publishes precise historical streaks, including 71 consecutive district victories and 13 straight 10-win seasons. These are explicitly dated records and not automatically active 2026 streaks.",
       "Westlake High School's official athletic office is at 4100 Westbank Drive; football ticketing, exact game venues and accessibility arrangements must be checked for each 2026 matchup. The official team page lists the program in District 25-6A.",
-      "As of the October 10 source snapshot, the school lists Tony Salazar as current head football coach; official varsity results show a 5–1 overall and 2–0 district start. This is not a final 2026 record."
+      "Westlake finished the regular season 9–1 and entered the Class 6A Division II regional semifinal after defeating Buda Hays 45–0 and Comal Pieper 59–14. The record is 11–1 overall and 6–0 in district through November 19. The next listed game is 2026-11-27 against Edinburg Vela at 2:00 PM Central, Heroes Stadium, San Antonio; verify any changes with school athletics."
     ],
     "faq": [
       {
@@ -14507,6 +14541,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where is Westlake High School's athletics office?",
         "answer": "Official Westlake Nation lists 4100 Westbank Drive, Austin, TX 78746."
+      },
+      {
+        "question": "What is the 2026 football record and next playoff game?",
+        "answer": "11–1 overall and 6–0 in district through November 19. The next listed game is 2026-11-27 against Edinburg Vela at 2:00 PM Central, Heroes Stadium, San Antonio. Check the school’s current event details."
       }
     ],
     "campus": {
@@ -14578,6 +14616,37 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Lake Travis",
           "site": "Away",
           "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Round Rock Cedar Ridge",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Round Rock Stony Point",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-12",
+          "opponent": "Buda Hays",
+          "site": "Home",
+          "district": false
+        },
+        {
+          "date": "2026-11-19",
+          "opponent": "Comal Pieper",
+          "site": "Neutral",
+          "district": false
+        },
+        {
+          "date": "2026-11-27",
+          "opponent": "Edinburg Vela",
+          "site": "Neutral",
+          "district": false,
+          "kickoff": "2:00 PM"
         }
       ]
     }
@@ -18477,8 +18546,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "Angleton Wildcats 2026 season game listings",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
-      "sourceLabel": "DCTF 2026 team schedule, partial score snapshot",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "Current school/varsity schedule, checked against independently reported final scores and playoff pairing sources on November 24",
+      "verifiedAt": "2026-11-24"
     },
     "season": {
       "record": "Published DCTF partial snapshot: 3–0 through September 10; additional 2026 results require separate reconciliation",
@@ -18502,7 +18571,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "Sept. 10",
           "opponent": "Fort Bend Dulles",
           "site": "Away",
-          "result": "W 80–0"
+          "result": "W 80–0",
+          "district": true
         },
         {
           "date": "Sept. 18",
@@ -18545,6 +18615,25 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Victoria East",
           "site": "Home",
           "district": true
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "Georgetown",
+          "site": "Home",
+          "district": false
+        },
+        {
+          "date": "2026-11-20",
+          "opponent": "Beaumont United",
+          "site": "Neutral",
+          "district": false
+        },
+        {
+          "date": "2026-11-27",
+          "opponent": "La Porte",
+          "site": "Neutral",
+          "district": false,
+          "kickoff": "7:00 PM"
         }
       ]
     },
@@ -18562,7 +18651,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "DCTF's program history attributes 30 playoff appearances, one state championship-game appearance and no state titles. The year and opponent of that sole historical title-game appearance require a separate UIL primary-source review and should not be inferred from the 2024 record.",
       "Current 2026 team staff lists Jason Brittain as head coach. MaxPreps also lists Brittain for the 13–2 season in 2024 and 9–2 finish in 2025, offering a school-specific coaching continuity story rather than recycling statewide football text.",
       "DCTF reports 2025 at 9–2 and 2023 at 7–5. An alternate historical source reports a different 2025 overall total; the page uses DCTF for this season record while identifying unverified discrepancies in the individual research audit.",
-      "The partial 2026 DCTF season snapshot provides opening wins over Fort Bend Bush, Dayton and Fort Bend Dulles and then lists upcoming district fixtures including Iowa Colony, Friendswood and Richmond Randle. The source's missing later final scores are not presented as a complete October record.",
+      "Angleton finished the regular season 9–1, then beat Georgetown 17–10 and Beaumont United 31–12 in the Class 5A Division I playoffs. Its only reported loss was to Richmond Randle. The record is 11–1 overall and 7–1 in district through November 20. The next listed game is 2026-11-27 against La Porte at 7:00 PM Central, Alvin ISD Freedom Field; verify any changes with school athletics.",
       "The named home venue is Wildcat Stadium. Its directory-listed 8,800 capacity is not verification of accessible seating, tickets or spectator parking, so visitors should confirm arrangements with Angleton ISD."
     ],
     "milestones": [
@@ -18593,6 +18682,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Current roster lists Jason Brittain; DCTF's early snapshot records 24–0, 42–0 and 80–0 opening wins without asserting a full October record.",
         "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
         "sourceLabel": "DCTF partial 2026 results"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "Regional semifinal — scheduled",
+        "body": "La Porte, 7:00 PM Central at Alvin ISD Freedom Field. Listed as of November 24; verify current ticket and venue details with school athletics.",
+        "sourceUrl": "https://lpisdathletics.com/news/2026/11/22/football-the-bulldogs-are-moving-on.aspx",
+        "sourceLabel": "Published regional-semifinal pairing and venue; current team schedule cross-check"
+      },
+      {
+        "date": "2026-11-20",
+        "title": "2026 playoff result and season record",
+        "body": "Angleton finished the regular season 9–1, then beat Georgetown 17–10 and Beaumont United 31–12 in the Class 5A Division I playoffs. Its only reported loss was to Richmond Randle. The record is 11–1 overall and 7–1 in district through November 20.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+        "sourceLabel": "Independent dated score report; corroborated by MaxPreps current varsity schedule"
       }
     ],
     "faq": [
@@ -18611,6 +18714,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where do the Wildcats play home games?",
         "answer": "DCTF lists Wildcat Stadium in Angleton. Confirm stadium gate, accessible seating and tickets through Angleton ISD."
+      },
+      {
+        "question": "What is the 2026 football record and next playoff game?",
+        "answer": "11–1 overall and 7–1 in district through November 20. The next listed game is 2026-11-27 against La Porte at 7:00 PM Central, Alvin ISD Freedom Field. Check the school’s current event details."
       }
     ]
   },
@@ -20054,8 +20161,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "2026 Sandies fixtures and recorded finals",
       "sourceUrl": "https://txprepfootball.com/schools/amarillo-sandies/",
-      "sourceLabel": "Texas Prep Football dated 2026 schedule",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "Current school/varsity schedule, checked against independently reported final scores and playoff pairing sources on November 24",
+      "verifiedAt": "2026-11-24"
     },
     "season": {
       "record": "2–1 in the three independently sourced 2026 finals through Sept. 11; subsequent results not verified",
@@ -20080,6 +20187,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Midland",
           "site": "Away",
           "result": "W 17–14"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Frenship Memorial",
+          "site": "Away",
+          "district": true
         },
         {
           "date": "Oct. 2",
@@ -20116,6 +20229,25 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Caprock",
           "site": "Home",
           "district": true
+        },
+        {
+          "date": "2026-11-13",
+          "opponent": "El Paso Bel Air",
+          "site": "Home",
+          "district": false
+        },
+        {
+          "date": "2026-11-20",
+          "opponent": "Denton",
+          "site": "Neutral",
+          "district": false
+        },
+        {
+          "date": "2026-11-28",
+          "opponent": "Fort Worth Arlington Heights",
+          "site": "Neutral",
+          "district": false,
+          "kickoff": "3:00 PM"
         }
       ]
     },
@@ -20132,7 +20264,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Blair Cherry coached the 1934–36 three-peat. The Texas High School Football Hall of Fame credits Cherry with an 85–5–1 record across seven Amarillo seasons and later a Southwest Conference title at Texas. Howard Lynch's succeeding era yielded the 1940 state football crown and the 1948 final appearance. The current program history identifies Stan Maudlin among the historic Amarillo players who went on to collegiate success.",
       "The Sandies' own history page enumerates dozens of district championship seasons and the Amarillo–Tascosa football series: 45 wins, 21 losses and three ties at its published snapshot. That is a documented local rivalry, unlike merely grouping every present district opponent as a traditional rival. The exact series tally is a dated school-site figure, not a live result after 2026.",
       "The 2026–28 UIL alignment places Amarillo in Class 5A Division I District 2; its posted 2026 league games include Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock. The Amarillo Sandies football program's coaching roster names Chad Dunnam head football coach, while Amarillo ISD's official campus staff list corroborates his athletic director position.",
-      "The three cross-checked early 2026 game finals include a 21–7 win over Palo Duro, 28–35 loss to Cleveland and 17–14 win at Midland. Since later dates in the retrieved results schedule did not include independently established finals, this page does not make a misleading October 9 live-record claim. Dick Bivins Stadium is the named historical venue; a verified game ticket should determine the entrance and parking, not the Danbury Drive school-campus address."
+      "The Sandies finished the regular season 9–1. Their Class 5A Division I postseason victories were 63–13 over El Paso Bel Air and 24–21 over Denton. The September 25 Frenship Memorial win (59–21) is a separate league game from the October 22 victory over Frenship (41–14). The record is 11–1 overall and 7–0 in district through November 20. The next listed game is 2026-11-28 against Fort Worth Arlington Heights at 3:00 PM Central, Astound Broadband Stadium, Midland; verify any changes with school athletics."
     ],
     "milestones": [
       {
@@ -20176,6 +20308,27 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The 2026 league slate includes Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock; check updated school schedules before travel.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
         "sourceLabel": "UIL 2026–28 football alignment"
+      },
+      {
+        "date": "2026-11-28",
+        "title": "Regional semifinal — scheduled",
+        "body": "Fort Worth Arlington Heights, 3:00 PM Central at Astound Broadband Stadium, Midland. Listed as of November 24; verify current ticket and venue details with school athletics.",
+        "sourceUrl": "https://txhsfb.net/?p=30139",
+        "sourceLabel": "Published regional-semifinal pairing and venue; current team schedule cross-check"
+      },
+      {
+        "date": "2026-11-20",
+        "title": "2026 playoff result and season record",
+        "body": "The Sandies finished the regular season 9–1. Their Class 5A Division I postseason victories were 63–13 over El Paso Bel Air and 24–21 over Denton. The September 25 Frenship Memorial win (59–21) is a separate league game from the October 22 victory over Frenship (41–14). The record is 11–1 overall and 7–0 in district through November 20.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+        "sourceLabel": "Independent dated score report; corroborated by MaxPreps current varsity schedule"
+      },
+      {
+        "date": "2026-09-25",
+        "title": "District win over Frenship Memorial",
+        "body": "Amarillo defeated Frenship Memorial 59–21, a distinct opponent from Wolfforth Frenship.",
+        "sourceUrl": "https://sports.yahoo.com/articles/scores-every-week-5-high-155650039.html",
+        "sourceLabel": "Amarillo Globe-News weekly scoreboard, corroborated by MaxPreps"
       }
     ],
     "faq": [
@@ -20202,6 +20355,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Who is the 2026 head coach?",
         "answer": "The Sandies football program's published coaching roster lists Chad Dunnam as head football coach; Amarillo ISD lists him as athletic director."
+      },
+      {
+        "question": "What is the 2026 football record and next playoff game?",
+        "answer": "11–1 overall and 7–0 in district through November 20. The next listed game is 2026-11-28 against Fort Worth Arlington Heights at 3:00 PM Central, Astound Broadband Stadium, Midland. Check the school’s current event details."
       }
     ]
   },
@@ -21659,8 +21816,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "schedule": {
       "label": "Official Allen Eagles 2026 varsity football schedule",
       "sourceUrl": "https://www.alleneaglesfb.com/schedule",
-      "sourceLabel": "Allen Eagles football team site",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "Current school/varsity schedule, checked against independently reported final scores and playoff pairing sources on November 24",
+      "verifiedAt": "2026-11-24"
     },
     "season": {
       "record": "5–0 through September 25, 2026; October 9 McKinney result not yet verified",
@@ -21729,6 +21886,25 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "opponent": "Prosper Walnut Grove",
           "site": "Home",
           "district": true
+        },
+        {
+          "date": "2026-11-12",
+          "opponent": "Lewisville Hebron",
+          "site": "Home",
+          "district": false
+        },
+        {
+          "date": "2026-11-20",
+          "opponent": "Euless Trinity",
+          "site": "Neutral",
+          "district": false
+        },
+        {
+          "date": "2026-11-27",
+          "opponent": "Odessa Permian",
+          "site": "Neutral",
+          "district": false,
+          "kickoff": "6:00 PM"
         }
       ]
     },
@@ -21745,7 +21921,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Allen football history reaches back to 1936 according to the program's own Protect the Tradition history. That football history records the five title seasons, 18,000-seat Eagle Stadium and multiple state semifinal appearances. Enrollment and win-tally summaries on promotional pages can use different counting windows; a documented title list is stronger than a guessed program-wide percentage.",
       "The 2013 championship team was led by quarterback Kyler Murray during the Tom Westerberg years; Dave Campbell's 2026 program retrospective identifies the 2013 Eagles as one of the top teams in state history and reports 807 points that season. Tom Westerberg coached Allen's 2012–14 champion era, followed by Terry Gambill for the 2017 UIL crown. These coaching eras should not be conflated with the current staff.",
       "The current Allen Eagles team directory names Lee Wiginton head coach, hired in June 2022, with John Broom offensive coordinator and Chase Hargis defensive coordinator. This is an important 2026 update: older season archives still display Terry Gambill or Tom Westerberg as coaches for their own historical seasons. Allen's 2026–28 alignment puts it in 6A District 6 with McKinney, Princeton, Prosper and other North Texas opponents.",
-      "Allen's 2026 season opened with wins over Duncanville 26–7, DeSoto 50–6, Southlake Carroll 56–35, Prosper 51–21 and Princeton 65–7. The Oct. 9 McKinney contest is scheduled but no result was verified in this October 9 snapshot. Those results do not by themselves establish a current playoff championship or completed unbeaten season.",
+      "Allen finished the regular season unbeaten and opened the Class 6A Division I playoffs with two shutouts: 73–0 over Lewisville Hebron at Eagle Stadium on November 12 and 44–0 over Euless Trinity at DATCU Stadium on November 20. The record is 12–0 overall and 7–0 in district through November 20. The next listed game is 2026-11-27 against Odessa Permian at 6:00 PM Central, Shotwell Stadium, Abilene; verify any changes with school athletics.",
       "Eagle Stadium is a practical part of Allen's football story. Allen ISD's 2026 security release establishes actual visitor-side gate direction, transparent bag restrictions, card-only gate purchases and metal screening. Its event calendar places football at 155 Rivercrest Boulevard; avoid directing visitors to the nearby high-school campus contact address as though it were necessarily their ticket-scanning entrance."
     ],
     "milestones": [
@@ -21797,6 +21973,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The Eagles' first five completed match records include wins over Duncanville, DeSoto and Southlake Carroll before district wins against Prosper and Princeton.",
         "sourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
         "sourceLabel": "2026 varsity score listing"
+      },
+      {
+        "date": "2026-11-27",
+        "title": "Regional semifinal — scheduled",
+        "body": "Odessa Permian, 6:00 PM Central at Shotwell Stadium, Abilene. Listed as of November 24; verify current ticket and venue details with school athletics.",
+        "sourceUrl": "https://txhsfb.net/?p=30128",
+        "sourceLabel": "Published regional-semifinal pairing and venue; current team schedule cross-check"
+      },
+      {
+        "date": "2026-11-20",
+        "title": "2026 playoff result and season record",
+        "body": "Allen finished the regular season unbeaten and opened the Class 6A Division I playoffs with two shutouts: 73–0 over Lewisville Hebron at Eagle Stadium on November 12 and 44–0 over Euless Trinity at DATCU Stadium on November 20. The record is 12–0 overall and 7–0 in district through November 20.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+        "sourceLabel": "Independent dated score report; corroborated by MaxPreps current varsity schedule"
       }
     ],
     "faq": [
@@ -21823,6 +22013,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What is the current Eagle Stadium bag and ticket policy?",
         "answer": "The district's August 2026 stadium policy permits a clear tote up to 12×12×6 inches or one-gallon clear bag, plus a small clutch up to 4.5×6.5 inches. Gate tickets require a debit or credit card, and the district encourages HomeTown Fan tickets."
+      },
+      {
+        "question": "What is the 2026 football record and next playoff game?",
+        "answer": "12–0 overall and 7–0 in district through November 20. The next listed game is 2026-11-27 against Odessa Permian at 6:00 PM Central, Shotwell Stadium, Abilene. Check the school’s current event details."
       }
     ]
   },

@@ -65,6 +65,28 @@ test('server-side scoreboard overlay refuses opponent/date mismatch and contradi
 });
 
 
+
+
+test('November 24 postseason catch-up covers omitted fixtures without publishing future finals',()=>{
+ const expected=[['allen',12,1,7,0],['austin-westlake',11,1,6,0],['angleton',11,1,7,1],['amarillo',11,1,7,0],['belton',8,4,4,1]];
+ // Allen's record has no losses; the second slot records wins and losses explicitly below.
+ expected[0][2]=0;
+ const authored=readFileSync(join(ROOT,'src/data/high-school-football/program-editorial.ts'),'utf8');
+ const dates={Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Sept:'09',Oct:'10',Nov:'11',Dec:'12'};
+ const iso=s=>{if(/^2026-/.test(s))return s;const m=/^([A-Za-z]+)\\.? (\\d+)$/.exec(s);assert.ok(m,s);return '2026-'+dates[m[1]]+'-'+m[2].padStart(2,'0')};
+ for(const [slug,w,l,dw,dl] of expected){
+  const key='  "'+slug+'": ';
+  const start=authored.indexOf(key),end=authored.indexOf('\\n  },',start)+4;
+  assert.ok(start>=0&&end>start,slug);
+  const team=JSON.parse(authored.slice(start+key.length,end));
+  let wins=0,losses=0,districtWins=0,districtLosses=0;
+  for(const g of team.season.games){const r=byFixture.get(slug+'|'+iso(g.date));const result=r?(r.pointsFor>r.pointsAgainst?'W':'L'):g.result?.[0];if(iso(g.date)>'2026-11-24'){assert.equal(result,undefined,slug+' future score');continue;}assert.ok(result==='W'||result==='L',slug+' '+g.date);if(result==='W'){wins++;if(g.district)districtWins++;}else{losses++;if(g.district)districtLosses++;}}
+  assert.deepEqual([wins,losses,districtWins,districtLosses],[w,l,dw,dl],slug);
+ }
+ const state=inventory({today:'2026-11-24'});
+ for(const [slug] of expected)assert.ok(!state.pages.find(p=>p.page.endsWith('/'+slug))?.overdue.length,slug);
+});
+
 test('November 21 source-verified corrections preserve team-side orientation',()=>{
   assert.deepEqual([byFixture.get('alvarado|2026-10-30').pointsFor,byFixture.get('alvarado|2026-10-30').pointsAgainst],[40,70]);
   assert.deepEqual([byFixture.get('arlington-lamar|2026-10-30').pointsFor,byFixture.get('arlington-lamar|2026-10-30').pointsAgainst],[28,7]);
