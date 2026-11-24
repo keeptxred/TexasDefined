@@ -19,12 +19,16 @@ for (const [slug,{source,body}] of routes) {
   assert(source.includes('canonicalLink(texasDefinedBrand, path)'), slug + ': canonical missing');
   assert(source.includes('"@type": "BreadcrumbList"'), slug + ': breadcrumb LD missing');
   assert(source.includes('"@type": "Article"'), slug + ': article LD missing');
-  assert(source.includes('dateModified: "2026-11-10"'), slug + ': publication provenance missing');
+  const reviewedDate = slug === 'texas-government-jobs' ? '2026-11-24' : '2026-11-10';
+  assert(source.includes('dateModified: "' + reviewedDate + '"'), slug + ': publication provenance missing');
   assert(body.includes('createLazyFileRoute("' + path + '")'), slug + ': lazy route missing or mismatched');
   assert(body.includes('<h1'), slug + ': visible H1 missing');
-  assert(body.includes('November 10, 2026'), slug + ': dated source review missing');
+  assert(body.includes(slug === 'texas-government-jobs' ? 'November 24, 2026' : 'November 10, 2026'), slug + ': dated source review missing');
   assert((body.match(/<h1\b/g) || []).length === 1, slug + ': multiple H1s');
   assert(body.length > 8000, slug + ': not enough research-backed practical depth');
+  if (slug === 'texas-government-jobs') for (const marker of ['CAPPS Recruit moved to PeopleSoft','June 29, 2026','August 28, 2026','capps.taleo.net','fmx.cpa.texas.gov/fmx/capps/recruit_transition.php','comptroller.texas.gov/about/careers/capps-faq.php']) {
+    assert(body.includes(marker), slug + ': current official CAPPS transition or applicant warning missing: ' + marker);
+  }
   const linked = [...body.matchAll(/(?:\bto|href)="(\/[^"#?]+)"/g)].map(match => match[1]);
   assert(new Set(linked).size >= 4, slug + ': fewer than four relevant internal navigation links');
   for(const href of linked) {
