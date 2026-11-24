@@ -2,11 +2,16 @@ import fs from "node:fs";
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
+  { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$7/i, /12 Years and Under/i] },
+  { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", patterns: [/\$7/i, /12 years/i] },
+  { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$5/i] },
+  { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/entrance pass is not required/i] },
+  { name: "Dinosaur Valley actual operator booking page", url: "https://www.eercc.com/dinosaur-valley-park-trail-rides/", patterns: [/Dinosaur Valley/i, /book\.peek\.com/i] },
   { name: "TPWD Huntsville biking access", url: "https://tpwd.texas.gov/state-parks/huntsville/trails-info/", patterns: [/hiking and biking/i] },
-  { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i] },
+  { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i, /EXPERT only/i, /9\.3 mi/i] },
   { name: "TPWD assisted family riding", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /3 to 14/i] },
   { name: "TPWD Buffalo Bayou shuttle listings", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/Rentals and Shuttles/i] },
-  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i] },
+  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i, /700 pounds/i, /Saw Mill Pond only/i, /4:30 p\.m\./i] },
   { name: "TPWD Mill Pond shuttle option", url: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/", patterns: [/shuttle/i, /entrance fee/i] },
   { name: "DarkSky Caprock designation", url: "https://darksky.org/places/caprock-canyons-state-park-texas/", patterns: [/Caprock Canyons/i, /International Dark Sky Park/i] },
   { name: "TPWD Big Bend Ranch check-in and interior road", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map", patterns: [/27 miles/i, /permanently closed/i, /Contrabando/i] },
@@ -44,7 +49,7 @@ const official = [
   { name: "TPWD OHV legal venues", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas", patterns: [/Barnwell/i, /Sam Houston/i] },
   { name: "TPWD OHV decal FAQ", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/faqs-about-the-texas-ohv-program", patterns: [/Barnwell Mountain/i, /private/i, /grant/i] },
   { name: "TPWD current decal price and period", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-buy-a-texas-ohv-decal", patterns: [/\$16/i, /Sept/i, /Aug/i] },
-  { name: "NPS Meredith ORV permits", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/Blue Creek/i, /Rosita/i, /permit/i] },
+  { name: "NPS Meredith ORV permits", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/Blue Creek/i, /Rosita/i, /no-cost NPS ORV permit/i] },
   { name: "TPWD Bortle ratings", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", patterns: [/Caprock Canyons/i, /Copper Breaks/i, /South Llano River/i] },
   { name: "TPWD e-bike policy", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", patterns: [/E-bikes are allowed/i, /not on park trails/i] },
   { name: "Barnwell operator", url: "https://www.barnwellmountainra.com/info_directions", patterns: [/Barnwell/i] },
