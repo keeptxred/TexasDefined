@@ -1,17 +1,21 @@
 import fs from "node:fs";
+import { parseTpwdDailyAdultFee, SOURCES as feeSources } from "../editorial/refresh-outdoor-admission.mjs";
+const fees = JSON.parse(fs.readFileSync(new URL("../../src/data/outdoor-guide-admission.json", import.meta.url), "utf8"));
+const editorialDate = "2026-11-24";
+const lastmodFor = slug => slug === "texas-mountain-biking-guide" ? [editorialDate, fees.huntsville.evidenceDate, fees.rayRoberts.evidenceDate].sort().at(-1) : slug === "texas-stargazing-guide" ? [editorialDate, fees.caprock.evidenceDate].sort().at(-1) : editorialDate;
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
-  { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$7/i, /12 Years and Under/i] },
-  { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", patterns: [/\$7/i, /12 years/i] },
-  { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$5/i] },
-  { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/entrance pass is not required/i] },
+  { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", feeKey: "rayRoberts" },
+  { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", feeKey: "huntsville" },
+  { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", feeKey: "caprock" },
+  { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/Lake Meredith National Recreation Area is a fee-free park/i] },
   { name: "Dinosaur Valley actual operator booking page", url: "https://www.eercc.com/dinosaur-valley-park-trail-rides/", patterns: [/Dinosaur Valley/i, /book\.peek\.com/i] },
   { name: "TPWD Huntsville biking access", url: "https://tpwd.texas.gov/state-parks/huntsville/trails-info/", patterns: [/hiking and biking/i] },
   { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i, /EXPERT only/i, /9\.3 mi/i] },
   { name: "TPWD assisted family riding", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /3 to 14/i] },
   { name: "TPWD Buffalo Bayou shuttle listings", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/Rentals and Shuttles/i] },
-  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i, /700 pounds/i, /Saw Mill Pond only/i, /4:30 p\.m\./i] },
+  { name: "TPWD Caddo rentals", url: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/", patterns: [/Rentals available/i, /700 pounds/i, /Saw Mill Pond only/i, /4:30 p\.m\./i, /679-3351/i, /24- and 48-hour/i] },
   { name: "TPWD Mill Pond shuttle option", url: "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/", patterns: [/shuttle/i, /entrance fee/i] },
   { name: "DarkSky Caprock designation", url: "https://darksky.org/places/caprock-canyons-state-park-texas/", patterns: [/Caprock Canyons/i, /International Dark Sky Park/i] },
   { name: "TPWD Big Bend Ranch check-in and interior road", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map", patterns: [/27 miles/i, /permanently closed/i, /Contrabando/i] },
@@ -43,7 +47,7 @@ const official = [
   { name: "TPWD official Big Bend Ranch outfitter listing", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/outfitters", patterns: [/horseback riding/i, /guide service providers/i] },
   { name: "TPWD Hill Country SNA listed riding services", url: "https://tpwd.texas.gov/state-parks/hill-country/guide-service", patterns: [/Bandera Historical Rides/i, /Guide Service Providers/i] },
   { name: "TPWD paddling access and river FAQs", url: "https://tpwd.texas.gov/boating/paddling-trails/faqs/", patterns: [/take-out/i, /flow/i, /shuttle/i] },
-  { name: "U.S. Naval Observatory moonrise/moonset tool", url: "https://aa.usno.navy.mil/data/RS_OneYear", patterns: [/Sun/i, /Moon/i] },
+  { name: "U.S. Naval Observatory moonrise/moonset tool", url: "https://aa.usno.navy.mil/data/RS_OneYear", patterns: [/Sun/i, /Moon/i], corroboration: { url: "https://www.weather.gov/fwd/astrodata", patterns: [/moonrise/i, /moonset/i, /USNO/i] }, alternateTool: { url: "https://www.timeanddate.com/astronomy/", patterns: [/Moonrise/i, /Moonset/i, /Twilight/i] } },
   { name: "TPWD certified paddling trails", url: "https://tpwd.texas.gov/boating/paddling-trails/", patterns: [/100 certified trails/i] },
   { name: "TPWD horse requirements", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", patterns: [/Coggins/i, /Dinosaur Valley/i] },
   { name: "TPWD OHV legal venues", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas", patterns: [/Barnwell/i, /Sam Houston/i] },
@@ -52,8 +56,9 @@ const official = [
   { name: "NPS Meredith ORV permits", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/Blue Creek/i, /Rosita/i, /no-cost NPS ORV permit/i] },
   { name: "TPWD Bortle ratings", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", patterns: [/Caprock Canyons/i, /Copper Breaks/i, /South Llano River/i] },
   { name: "TPWD e-bike policy", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", patterns: [/E-bikes are allowed/i, /not on park trails/i] },
+  { name: "Barnwell gate fees", url: "https://www.barnwellmountainra.com/calculator", patterns: [/Non-Member Park Usage Fee/i, /\$30/i, /Primitive Camping/i, /\$10/i] },
   { name: "Barnwell operator", url: "https://www.barnwellmountainra.com/info_directions", patterns: [/Barnwell/i] },
-  { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
+  { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i, /Park Usage Fee Per Day/i, /\$30\.00/i, /\$10\.00/i] },
 ];
 const livePages = [
   { slug: "texas-mountain-biking-guide", must: ["Two additional riding bases near Houston and Dallas–Fort Worth", "Which Texas mountain bike trail should you ride first?", "Mobile comparison summary", "Five trailhead decisions that change the ride", "Choose an actual route", "e-bikes may use public park roadways", "Trailhead and parking decision", "Tom Mays Unit"] },
@@ -87,10 +92,31 @@ async function get(url) {
 for (const item of official) {
   try {
     const body = await get(item.url);
-    const missing = item.patterns.filter((pattern) => !pattern.test(body)).map(String);
+    const missing = item.feeKey
+      ? (parseTpwdDailyAdultFee(body, feeSources.find(source => source.key === item.feeKey).park).adult === fees[item.feeKey].adult ? [] : ["Published daily admission differs from verified data; correction PR required"])
+      : item.patterns.filter((pattern) => !pattern.test(body)).map(String);
     if (missing.length) failures.push(item.name + ": possible fact drift " + missing.join(", "));
     evidence.push({ name: item.name, url: item.url, verified: missing.length === 0, missing });
   } catch (error) {
+    // An inaccessible calculator does not imply incorrect astronomical facts.
+    // Only accept the alternative if NWS corroborates the USNO resource AND
+    // the independently published visitor fallback actually works.
+    if (item.corroboration && item.alternateTool) {
+      try {
+        const officialBody = await get(item.corroboration.url);
+        const alternateBody = await get(item.alternateTool.url);
+        if (!item.corroboration.patterns.every(p => p.test(officialBody)) ||
+            !item.alternateTool.patterns.every(p => p.test(alternateBody))) throw Error("corroboration or alternate tool anchors missing");
+        evidence.push({ name: item.name, url: item.url, verified: true, primaryAvailable: false,
+          primaryError: String(error.message), corroboratingOfficialSource: item.corroboration.url,
+          usableVisitorFallback: item.alternateTool.url, note: "Resource claim corroborated, primary calculator availability unverified; visitor fallback accessible." });
+        continue;
+      } catch (fallbackError) {
+        failures.push(item.name + ": primary and fallback verification failed: " + String(fallbackError.message));
+        evidence.push({ name: item.name, url: item.url, verified: false, primaryAvailable: false, error: String(error.message), fallbackError: String(fallbackError.message) });
+        continue;
+      }
+    }
     failures.push(item.name + ": inaccessible " + String(error.message));
     evidence.push({ name: item.name, url: item.url, verified: false, error: String(error.message) });
   }
@@ -127,13 +153,28 @@ for (const origin of ["https://texasdefined.com", "https://texasdefined-site.fre
     try {
       const xml = await get(url);
       const missing = Object.keys(comparisonLabels).filter((slug) =>
-        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-24</lastmod>"));
-      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov24 editorial lastmod for " + missing.join(", "));
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>" + lastmodFor(slug) + "</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing source-backed editorial lastmod for " + missing.join(", "));
       evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
     } catch (error) {
       failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));
       evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: false, error: String(error.message) });
     }
+  }
+}
+// Verify visitor-facing inbound destination links, not just the source-code map.
+const inboundDestinations = [["huntsville-state-park","mountain-biking"],["ray-roberts-lake-state-park","mountain-biking"],["dinosaur-valley-state-park","horseback-riding"],["caddo-lake-state-park","paddling"],["caprock-canyons-state-park","stargazing"],["eisenhower-state-park","ohv"],["palo-duro-canyon-state-park","mountain-biking"],["big-bend-ranch-state-park","horseback-riding"],["hill-country-state-natural-area","horseback-riding"],["tyler-state-park","mountain-biking"],["franklin-mountains-state-park","mountain-biking"],["copper-breaks-state-park","stargazing"],["south-llano-river-state-park","stargazing"]];
+for (const [destination, activity] of inboundDestinations) {
+  const url = "https://texasdefined.com/destination/" + destination + "?outdoor_link_audit=" + encodeURIComponent(process.env.GITHUB_RUN_ID || "manual");
+  try {
+    const html = await get(url);
+    const href = "/texas-" + activity + "-guide";
+    const verified = html.includes('href="' + href + '"') && !/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html);
+    if (!verified) failures.push(destination + ": missing visible outdoor activity link " + href);
+    evidence.push({ name: "destination-activity-link", url, verified, href });
+  } catch (error) {
+    failures.push(destination + ": inbound link check failed " + error.message);
+    evidence.push({ name: "destination-activity-link", url, verified: false, error: error.message });
   }
 }
 const report = { checkedAt: new Date().toISOString(), officialSourceCount: official.length, livePageCount: livePages.length, evidence, failures };
