@@ -109,3 +109,23 @@ test("Goodnight Ranch November workshop and December free open house are first-p
  assert.ok(!activeVerifiedChristmasOccurrences("2026-11-29").some(x=>x.slug===rows[0].slug));
  assert.ok(!activeVerifiedChristmasOccurrences("2026-12-06").some(x=>x.slug===rows[1].slug));
 });
+
+
+test("Mission Tejas December 2026 park holiday programs use original dated detail URLs and expire independently",()=>{
+ const {countyBackfill,combined}=readVerifiedChristmasOccurrenceSources();
+ const cases=[["mission-tejas-holiday-hot-chocolate-ranger-2026","2026-12-12","holiday-hot-chocolate-with-a-ranger",/7–8 p\.m\./],["mission-tejas-christmas-ornaments-2026","2026-12-19","tejas-christmas-ornaments",/1:30–3:30 p\.m\./]];
+ for(const [slug,date,urlSuffix,time] of cases){
+  const e=countyBackfill.find(x=>x.slug===slug);
+  assert.ok(e); assert.equal(e.countySlug,"houston"); assert.equal(e.city,"Grapeland"); assert.equal(e.startDate,date); assert.equal(e.endDate,undefined);
+  assert.equal(e.sourceName,"Texas Parks and Wildlife Department");
+  assert.equal(e.officialEventUrl,"https://tpwd.texas.gov/calendar/mission-tejas/"+urlSuffix);
+  assert.match(e.summary,time); assert.match(e.summary,/\$4 per person/); assert.match(e.summary,/12 and younger/);
+  assert.equal(combined.filter(x=>x.slug===slug).length,1);
+  assert.ok(activeVerifiedChristmasOccurrences(date).some(x=>x.slug===slug));
+  const next=new Date(date+"T12:00:00Z");next.setUTCDate(next.getUTCDate()+1);
+  assert.ok(!activeVerifiedChristmasOccurrences(next.toISOString().slice(0,10)).some(x=>x.slug===slug));
+ }
+ const adapter=readFileSync("src/data/events/texas-event-records.server.ts","utf8");
+ assert.match(adapter,/alreadyCoveredByOfficialPark/);
+ assert.match(adapter,/record\.sourceName === "Texas Parks and Wildlife Department"/);
+});
