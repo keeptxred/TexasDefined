@@ -60,6 +60,7 @@ export function reviewedAttractionMonitorRows(sourceText) {
  * A failed source remains a research flag rather than silently passing.
  */
 export const heritageDestinationMonitorRows = [
+  { id: "alvin-historical-museum", sourceUrl: "https://frobergsfarm.com/", checkedAt: "2026-11-24" },
   { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/", checkedAt: "2026-11-24" },
   { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/alvin-musuem/", checkedAt: "2026-11-24" },
   { id: "alvin-historical-museum", sourceUrl: "https://alvinmuseum.org/tour-01_intro-to-museum/", checkedAt: "2026-11-24" },
