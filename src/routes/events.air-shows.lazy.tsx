@@ -21,7 +21,7 @@ const showDetails: Record<string, { kind: string; planning: string; tickets?: st
   },
   "wings-over-houston-airshow": {
     kind: "Major public air show",
-    planning: "Free shuttles are included with admission. Limited on-site parking and the last inbound shuttle at 2:30 p.m. make advance parking planning especially important.",
+    planning: "The completed 2026 edition used ticket-included shuttles and limited parking. Wait for dated 2027 admission and transportation instructions before relying on those arrangements.",
     tickets: "https://wingsoverhouston.com/2026-woha-tickets-sasp/",
     source: "https://wingsoverhouston.com/travel/",
   },
