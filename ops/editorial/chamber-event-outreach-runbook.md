@@ -4,6 +4,10 @@
 **Checkpoint:** https://github.com/keeptxred/TexasDefined/issues/7548  
 **Opened:** November 22, 2026. This program has started, but does not claim 254 active relationships.
 
+## Absolute publisher content exclusion — owner ordered November 24, 2026
+
+Double Mountain Chronicle and The Newspaper Office LLC (doublemountainchronicle.com, dmchronicle.com, affiliated channels, syndication and rehosts) are excluded from all TexasDefined content sourcing, not merely outbound email. Do not retrieve or use their original reporting, descriptions, photography, illustrations, screenshots, audiovisual content, podcasts, quotations, paraphrases, summaries, rewrites or derivative material, even as discovery leads. Do not solicit or contact them. Use independently verified official records, historical authorities and actual organizers; obtain images from independently verified photographers or properly licensed original sources. If provenance is unclear, omit or replace the material. This publisher-specific exclusion takes precedence over the general news-report research policy below. The geographic landmark Double Mountain is not excluded. No private correspondence is published.
+
 ## Mandatory outreach scope — owner approved November 24, 2026
 
 Effective immediately, this campaign may contact **only** verified Chambers of Commerce and their associations, official tourism bureaus/CVBs, municipalities and competent public authorities, historical/cultural organizations, and actual event organizers or their authorized venue teams. **Independent newspapers, news outlets, journalists, publishers and editorial intermediaries are excluded** unless the owner separately and explicitly authorizes the specific contact. An existing decline, opt-out or failed-address suppression must still be honored.
