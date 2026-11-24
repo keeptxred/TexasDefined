@@ -12,6 +12,7 @@ on:
       - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
       - 'scripts/ci/verify-outdoor-photography-live.mjs'
       - 'scripts/ci/verify-outdoor-guides-responsive.mjs'
+      - 'scripts/ci/audit-outdoor-guide-vitals.mjs'
       - 'src/data/outdoor-guide-admission.json'
       - 'scripts/editorial/refresh-outdoor-admission*.mjs'
       - 'src/components/editorial/StateParkVisitorEssentials.tsx'
@@ -54,6 +55,7 @@ jobs:
           node scripts/data/validate-paddling-authority.mjs
           node scripts/data/validate-stargazing-authority.mjs
           node --check scripts/ci/verify-outdoor-guides-responsive.mjs
+          node --check scripts/ci/audit-outdoor-guide-vitals.mjs
           node scripts/ci/verify-outdoor-guides-responsive.mjs --self-test
       - name: Verify official facts and live canonical pages
         id: facts
@@ -177,4 +179,43 @@ jobs:
           title='Outdoor admission correction requires verified source review'
           issue="$(gh issue list --state open --search '"Outdoor admission correction requires verified source review" in:title' --json number --jq '.[0].number // empty')"
           message="No unverified prices were published. Inspect the exact source evidence at $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, correct the parser or changed age/access rule, and retest."
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
+
+  page-vitals:
+    name: Independently measure all five guide URLs on mobile and desktop
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '41 15 12 1,4,7,10 *') ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7436 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/verify-outdoor-guides-live')
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch URL-level CrUX and separate diagnostic lab measurements
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: node scripts/ci/audit-outdoor-guide-vitals.mjs
+      - name: Retain measurements and unavailable-data reasons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outdoor-guide-vitals
+          path: .artifacts/outdoor-guide-vitals.json
+          if-no-files-found: warn
+      - name: Open a deduplicated issue for measured performance concerns
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Five outdoor guides: measured performance needs correction'
+          issue="$(gh issue list --state open --search '"Five outdoor guides: measured performance needs correction" in:title' --json number --jq '.[0].number // empty')"
+          message="Check exact guide and device measurements in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Do not describe missing URL field data as a CrUX pass."
           if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
