@@ -60,6 +60,12 @@ function verify({ path, evidence }, html) {
   ];
   if (obsoleteBrennanAdvice.some((advice) => text.includes(advice))) missing.push("obsolete Brennan Comanche tasting-room recommendation");
   if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
+    for (const phrase of ["1891 courthouse", "leg irons", "1938", "City Hall and Fire Station"]) {
+      if (!text.includes(phrase)) missing.push("NPS landmark context: " + phrase);
+    }
+    if (!html.includes("atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf")) missing.push("National Register district nomination citation");
+  }
+  if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
     if (!/fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("official fourteen-room museum inventory");
     if (/more than fourteen|more than 14/i.test(text)) missing.push("unsupported museum room count contradicts current official homepage");
   }
