@@ -1,7 +1,7 @@
 import {inventory} from './inventory-statewide-football-scores.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {safeLink,decode,parseNews,parseExtraNews,additionalResearchTargets,publicProviders,chooseSearches,conductResearch,reportMarkdown} from './research-statewide-football-scores.mjs';
+import {safeLink,decode,parseNews,parseExtraNews,additionalResearchTargets,publicProviders,chooseSearches,conductResearch,reportMarkdown,retryAfterMs,createRssDownloader} from './research-statewide-football-scores.mjs';
 
 const fixture={date:'2026-11-19',away:'Aubrey',home:'Canyon',pages:['https://texasdefined.com/texas-high-school-football-teams/aubrey']};
 const xml='<?xml version="1.0"?><rss><channel>'+
@@ -106,4 +106,40 @@ test('current score pages and the bracket hub are actively researched even witho
   assert.ok(targets.some(t=>t.page.endsWith('/katy')));
   assert.ok(targets.some(t=>t.page.endsWith('/texas-high-school-football-playoff-brackets')));
   for(const p of state.coverage.enrollment.filter(p=>p.kind!=='matchup'))assert.ok(targets.some(t=>t.page===p.page)||p.kind==='team'&&state.pages.some(q=>q.page===p.page&&q.overdue.length),p.page);
+});
+
+
+test('429 respects Retry-After and retries once without bypassing the provider',async()=>{
+  let time=100000,calls=[];
+  const download=createRssDownloader({now:()=>time,wait:async ms=>{time+=ms;},fetchImpl:async url=>{
+    calls.push({url,time});
+    return calls.length===1?new Response('rate limited',{status:429,headers:{'Retry-After':'3'}}):new Response(xml);
+  }});
+  assert.equal(await download('https://news.google.com/rss/search?q=fixture'),xml);
+  assert.equal(calls.length,2);
+  assert.ok(calls[1].time-calls[0].time>=3000);
+  assert.equal(retryAfterMs(null),30000);
+  assert.equal(retryAfterMs('Thu, 01 Jan 1970 00:02:00 GMT',100000),20000);
+});
+test('persistent 429 pauses only the affected provider and never retries beyond its wait budget',async()=>{
+  let time=100000,calls=[];
+  const download=createRssDownloader({now:()=>time,wait:async ms=>{time+=ms;},fetchImpl:async url=>{
+    calls.push(url);
+    return url.includes('google.com')?new Response('rate limited',{status:429,headers:{'Retry-After':'120'}}):new Response(xml);
+  }});
+  await assert.rejects(download('https://news.google.com/rss/search?q=a'),/HTTP 429/);
+  await assert.rejects(download('https://news.google.com/rss/search?q=b'),/paused/);
+  assert.equal(calls.length,1);
+  assert.equal(await download('https://www.bing.com/news/search?q=a'),xml);
+  assert.equal(calls.length,2);
+});
+test('repeated rate limiting stops that provider instead of hammering it',async()=>{
+  let time=100000,calls=0;
+  const download=createRssDownloader({now:()=>time,wait:async ms=>{time+=ms;},fetchImpl:async()=>{
+    calls++;
+    return new Response('rate limited',{status:429,headers:{'Retry-After':'1'}});
+  }});
+  await assert.rejects(download('https://news.google.com/rss/search?q=a'),/HTTP 429/);
+  await assert.rejects(download('https://news.google.com/rss/search?q=b'),/paused/);
+  assert.equal(calls,2);
 });
