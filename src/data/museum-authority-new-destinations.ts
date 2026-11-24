@@ -659,7 +659,7 @@ export const museumAuthorityDestinations: Destination[] = [
     coordinates: { lat: 29.423918, lng: -95.2460146 },
     hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "Alvin Historical Museum — no rights-cleared exact-location photograph yet; do not substitute a different museum", width: 1600, height: 1067 },
     bestSeason: "Year-round during individually confirmed museum public hours.",
-    entryNote: "Tuesday–Saturday, 11 a.m.–3 p.m. at 300 West Sealy Street. The cottage at 113 East Dumble requires an appointment. Admission price is not confirmed; call 281-331-4469.",
+    entryNote: "Tuesday–Saturday, 11 a.m.–3 p.m. at 300 West Sealy Street. The cottage at 113 East Dumble requires an appointment. The 2026 Summer Museum Passport listed $5 admission and free entry for ages 12 and under; confirm current prices at 281-331-4469.",
     highlights: ["Nolan Ryan's Alvin baseball story", "Historic 1940 post office and restored mural", "Schools, railroads and dairy farming", "Alvin wartime stories", "Slover–Rogers Cottage (separate appointment)"],
     body: [
       "The former post office opened as Alvin Historical Museum in May 2007. Look down at its original terrazzo floor and toward the former postal counter before exploring the displays. The museum links the 1879 railroad loading site with local schools, dairying, ranching and baseball.",
