@@ -14,6 +14,7 @@ on:
       - 'scripts/ci/verify-five-texas-culture-browser.mjs'
       - 'scripts/ci/audit-five-culture-guide-vitals.mjs'
       - 'scripts/ci/audit-five-culture-lighthouse-local.mjs'
+      - 'scripts/ci/five-culture-guide-roster.mjs'
       - '.github/workflows/texas-culture-outdoors-authority.yml'
   schedule:
     - cron: '23 14 * * 3'       # Weekly: rock-climbing safety, access and official alerts
@@ -50,6 +51,7 @@ jobs:
         run: |
           node --check scripts/ci/audit-five-culture-guide-vitals.mjs
           node scripts/ci/audit-five-culture-guide-vitals.mjs --self-test
+          node --check scripts/ci/five-culture-guide-roster.mjs
           node --check scripts/ci/audit-five-culture-lighthouse-local.mjs
           node scripts/ci/audit-five-culture-lighthouse-local.mjs --self-test
       - name: Parse modified TypeScript and TSX modules
