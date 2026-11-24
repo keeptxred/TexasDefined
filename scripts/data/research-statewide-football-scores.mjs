@@ -6,7 +6,7 @@ import {writeFileSync,mkdirSync} from 'node:fs';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {inventory,OUT} from './inventory-statewide-football-scores.mjs';
-const REQUEST_TIMEOUT=8500, MAX_RESPONSE=350000, MAX_QUERIES=800, WORKERS=8;
+const REQUEST_TIMEOUT=8500, MAX_RESPONSE=350000, MAX_QUERIES=800, WORKERS=4;
 export function safeLink(raw){
   try{const u=new URL(raw);return u.protocol==='https:'&&!u.username&&!u.password&&!u.port
     &&!/^(?:localhost|127\.|0\.|10\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|.*\.local$)/i.test(u.hostname);}
@@ -52,10 +52,50 @@ function rssUrl(provider,fixture){
   else u.searchParams.set('format','rss');
   return u.toString();
 }
-async function download(url){
-  const r=await fetch(url,{redirect:'error',headers:{accept:'application/rss+xml, application/xml, text/xml'},
-    signal:AbortSignal.timeout(REQUEST_TIMEOUT)});
-  if(!r.ok)throw Error('HTTP '+r.status);
+// Pace each public provider across all workers. Respect Retry-After rather
+// than intensifying traffic on a rate-limited service. A repeated 429 stops
+// requests to that provider for the rest of this run; failures stay visible.
+export function retryAfterMs(value,now=Date.now()){
+  if(value==null||String(value).trim()==='')return 30000;
+  const seconds=Number(value);
+  if(Number.isFinite(seconds)&&seconds>=0)return Math.max(1000,Math.ceil(seconds*1000));
+  const until=Date.parse(value);
+  return Number.isFinite(until)?Math.max(1000,until-now):30000;
+}
+export function createRssDownloader({fetchImpl=fetch,wait=ms=>new Promise(resolve=>setTimeout(resolve,ms)),now=Date.now}={}){
+  const providers=new Map();
+  const MAX_WAIT=60000,SPACING=500;
+  return async function download(url){
+    const host=new URL(url).hostname;
+    if(!providers.has(host))providers.set(host,{next:0,cooldown:0,stopped:false,limited:0});
+    const state=providers.get(host);
+    for(let attempt=0;attempt<2;attempt++){
+      for(;;){
+        if(state.stopped)throw Error('HTTP 429 — provider paused for this run');
+        const delay=Math.max(state.next,state.cooldown)-now();
+        if(delay>MAX_WAIT){state.stopped=true;throw Error('HTTP 429 — Retry-After exceeds run wait budget');}
+        if(delay>0){await wait(delay);continue;}
+        state.next=now()+SPACING;
+        break;
+      }
+      const r=await fetchImpl(url,{redirect:'error',headers:{accept:'application/rss+xml, application/xml, text/xml'},
+        signal:AbortSignal.timeout(REQUEST_TIMEOUT)});
+      if(r.status===429){
+        const delay=retryAfterMs(r.headers.get('retry-after'),now());
+        state.cooldown=Math.max(state.cooldown,now()+delay);
+        state.limited++;
+        await r.body?.cancel();
+        if(delay>MAX_WAIT||state.limited>=2||attempt===1){state.stopped=true;throw Error('HTTP 429 — provider paused after rate limit');}
+        continue;
+      }
+      if(!r.ok)throw Error('HTTP '+r.status);
+      return readRssBody(r);
+    }
+    throw Error('HTTP 429 — retry exhausted');
+  };
+}
+const download=createRssDownloader();
+async function readRssBody(r){
   if(Number(r.headers.get('content-length')||0)>MAX_RESPONSE)throw Error('RSS too large');
   const reader=r.body.getReader(),chunks=[];let bytes=0;
   for(;;){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;
@@ -285,6 +325,13 @@ async function main(){
   for(const g of r.researchedGames.filter(x=>x.articles.length).slice(0,15)){
     condensed.push('- '+flat(g.fixture.date+' '+g.fixture.away+' vs '+g.fixture.home)+': '+
       g.articles.slice(0,2).map(a=>a.url).join(' ; '));
+  }
+  if(r.queryFailures){
+    condensed.push('','## Failed public-source lookups (remain enrolled)');
+    for(const row of r.researchedGames)for(const e of row.failures)
+      condensed.push('- '+flat(row.fixture.date+' '+row.fixture.away+' vs '+row.fixture.home)+' · '+flat(e.provider+': '+e.error));
+    for(const row of r.additionalResearch)for(const e of row.failures)
+      condensed.push('- '+row.target.page+' · '+flat(e.provider+': '+e.error));
   }
   condensed.push('','## Published district and hub source references and recent sourced leads');
   for(const row of r.additionalResearch){
