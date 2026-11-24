@@ -19,7 +19,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2027-01-03",
     "venue": "Gaylord Texan Resort & Convention Center · Lake Grapevine",
     "officialUrl": "https://tickets.gaylordtexan.com/eventperformances.asp?evt=243",
-    "sourceCheckedAt": "2026-11-10",
+    "sourceCheckedAt": "2026-11-24",
     "seoTitle": "Gaylord Texan ICE! 2026: Harry Potter, Tickets & Grapevine Christmas",
     "seoDescription": "Plan Gaylord Texan ICE! featuring Harry Potter, Nov. 13, 2026–Jan. 3, 2027: timed tickets, cold-room advice, resort attractions and a Grapevine holiday weekend.",
     "whyItMatters": "ICE! is a ticketed resort attraction, not the free historic Grapevine Main Street Christmas experience. In the 2026–27 season, Gaylord Texan displays ice-carved scenes themed to Harry Potter in a temperature-controlled cold room with ice slides, with separate resort holiday offerings. It is especially worthwhile for travelers who want to pair a centerpiece indoor experience with a full Grapevine Christmas trip.",
@@ -56,7 +56,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Compare resort attractions as separate purchases",
-        "body": "The holiday event can include other seasonal activities and packages beyond ICE!. Check whether a bundle genuinely covers your preferred activities and dates; do not treat every decorating, show, photograph, skating or hotel amenity as included with one ticket."
+        "body": "The current official ticket page names three separate passes, not a single all-inclusive ICE! admission. Silver advertises up to 20% savings and includes ICE!, ice tubing, a scavenger hunt, a Harry Potter Cookie Kit and Butterbeer; Gold adds a Christmas Carousel and Snowball Build & Blast with advertised savings up to 30%; Ultimate Holi-DAY advertises savings up to 40% and includes most holiday activities and shows. These are maximum advertised savings, not a guaranteed price or inclusion of every attraction. Confirm the actual selected date, time and age-based eligibility at checkout."
       },
       {
         title: "Use the right Grapevine base",
@@ -68,7 +68,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Compare lodging without implying event access",
-        "body": "Hotel stays may simplify a late holiday evening but are optional. Compare Gaylord packages to other Grapevine/DFW lodging based on the actual night and group requirements. General hotel affiliate links elsewhere on TexasDefined are not ICE! admission."
+        "body": "Hotel stays may simplify an evening visit but are optional. The resort has a time-limited Cyber Sale for eligible room/ICE! holiday packages with a November 30 booking deadline and travel dates through January 3; do not assume every room rate includes admission. Compare the package’s explicit ICE! tickets and restrictions against separate tickets plus non-resort lodging. General hotel affiliate links elsewhere on TexasDefined are not ICE! admission."
       }
     ],
     relatedLinks: [
@@ -101,6 +101,10 @@ const records: ChristmasExtendedRecord[] = [
       {
         "label": "Gaylord Texan direct dated ICE! tickets, entry rules and 2026–27 calendar",
         "url": "https://tickets.gaylordtexan.com/eventperformances.asp?evt=243"
+      },
+      {
+        "label": "Gaylord Texan November 30 booking-deadline package",
+        "url": "https://www.marriott.com/offers/cyber-sale-on-ice-packages-holiday-stays-off-260149/dalgt-gaylord-texan-resort-and-convention-center"
       },
       {
         "label": "Gaylord Hotels 2026 ICE! themed announcements",

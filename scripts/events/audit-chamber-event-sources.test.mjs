@@ -55,6 +55,27 @@ test("owner-approved outreach scope fails closed when broadened or removed", () 
   }, counties), /Owner-approved outreach scope/);
 });
 
+test("Chronicle publisher exclusion rejects named, hosted and syndicated leads", () => {
+  const block = registry.rules.excludedPublishers[0];
+  for (const patch of [
+    { domains: ["doublemountainchronicle.com"] },
+    { includeSyndicationAndDerivatives: false },
+    { policy: "research-only" },
+  ]) assert.throws(() => validateRegistry({
+    ...registry, rules: { ...registry.rules, excludedPublishers: [{ ...block, ...patch }] },
+  }, counties), /Owner-ordered publisher exclusion/);
+  for (const patch of [
+    { organization: "Double Mountain Chronicle" },
+    { organization: "The Newspaper Office, LLC" },
+    { calendarUrl: "https://www.doublemountainchronicle.com/events" },
+    { contactPageUrl: "https://dmchronicle.com/contact" },
+  ]) assert.throws(() => validateRegistry({
+    ...registry, sources: [{ ...registry.sources[0], ...patch }],
+  }, counties), /Owner-excluded publisher/);
+  assert.deepEqual(extractEventLeads('<a href="https://www.doublemountainchronicle.com/festival">Christmas Festival</a><a href="https://example.org/reprint">Double Mountain Chronicle Festival</a>', "https://example.org/calendar"), []);
+  assert.equal(extractEventLeads('<a href="/festival">Double Mountain Festival</a>', "https://example.org/calendar").length, 1);
+});
+
 test("robot restriction takes precedence over calendar discoverability", () => {
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /calendar", "/calendar/2026"), false);
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /private", "/calendar"), true);

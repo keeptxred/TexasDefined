@@ -94,7 +94,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-11-29",
     venue: "Homestead Heritage, 747 Dry Creek Road",
     officialUrl: "https://www.homesteadfair.com/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "At Homestead Fair, a working-farm setting becomes a three-day Thanksgiving-weekend introduction to handmade crafts, farm animals, draft-horse demonstrations, cooking and music. A free admission policy does not mean that parking and optional experiences are free.",
     quickFacts: [
       {
@@ -111,13 +111,13 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Sunday",
-        value: "Public Fair noon–5 p.m.; Sunday worship 10 a.m. (organizer schedule has a conflicting 10 a.m. listing)"
+        value: "Public Fair noon–5 p.m.; separate Sunday worship at 10 a.m."
       }
     ],
     planningSections: [
       {
         title: "Separate admission from parking and activities",
-        body: "The organizer lists general admission as free, with a per-vehicle weekend parking pass. Optional make-your-own crafts, rides and other experiences may involve separate purchases; check current availability and pass terms on the official ticket page."
+        body: "Admission is free, while one per-vehicle parking pass covers all three days. As of November 24, the organizer advertises $28 advance parking through Thursday November 26, discounted from $35. After that deadline do not assume the promotional price applies. Craft projects, slides and reservable farm experiences can have separate charges."
       },
       {
         title: "Pick a practical workshop itinerary",
@@ -125,7 +125,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Use the posted opening hours rather than a generic festival timetable",
-        body: "The current organizer home page and Thanksgiving-weekend guide identify Friday and Saturday public Fair hours as 9 a.m.–9 p.m. and Sunday public Fair hours as noon–5 p.m., with worship beginning at 10 a.m. Sunday. Its preliminary schedule page also shows a 10 a.m. Sunday opening, so these sources are inconsistent: visitors planning Sunday morning should confirm directly with Homestead Heritage rather than assume all activities open at 10. Time-specific demonstrations remain subject to change."
+        body: "The current official home page and 2026 day-by-day schedule agree: the public Fair operates 9 a.m.–9 p.m. Friday and Saturday and noon–5 p.m. Sunday; Sunday worship starts separately at 10 a.m. Attending worship does not mean the crafts, rides and market open early. Check the specific demonstration schedule before traveling."
       },
       {
         title: "Plan for a rural-property visit",
@@ -180,7 +180,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-12-06",
     venue: "Heritage Square, Downtown Waco",
     officialUrl: "https://www.wacowonderland.com/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Waco Wonderland transforms Heritage Square into a downtown holiday gathering with the parade, tree lighting, Santa visits, a market and family rides. Visitors should distinguish free festival access from paid attraction wristbands.",
     quickFacts: [
       {
@@ -207,11 +207,11 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Plan around parade and fireworks notices",
-        body: "The 14th annual downtown festival includes a tree lighting, holiday parade, markets and family attractions. Times, road closures and fireworks can change independently of the confirmed December 4–6 season. Choose an actual day from the organizer's updated 2026 event schedule instead of relying on a prior-year parade route or fireworks time."
+        body: "The 14th annual downtown festival includes a tree lighting, holiday parade, markets and family attractions. The current official timetable puts Friday’s festival at 5–10 p.m. with tree lighting and fireworks at 7 p.m. Saturday begins at 10 a.m. with the downtown parade, continues until 9 p.m., and Sunday is noon–6 p.m. Snow hills do not open Friday; they operate 3–9 p.m. Saturday and noon–6 p.m. Sunday. Check updates before traveling."
       },
       {
         title: "Allow a walkable downtown itinerary",
-        body: "Heritage Square is near restaurants and downtown shopping. Organizers give 300 Austin Avenue as the visitor location; check the current parking plan and road restrictions before attempting to arrive during parade staging."
+        body: "Heritage Square is near restaurants and downtown shopping. The organizer lists 300 Austin Avenue as the visitor location and free City of Waco visitor-garage parking at the Dr. Mae Jackson Development Center, 401 Franklin Avenue. Access the garage via 4th Street between Austin Avenue and Franklin Avenue. Leave time for Saturday’s 10 a.m. parade and related street access changes."
       },
       {
         title: "Prepare for outdoor winter activities",

@@ -37,6 +37,7 @@ const museumFiles = await Promise.all([
 ]);
 const museumRecord = museumFiles[0].split('slug: "alvin-historical-museum"')[1]?.split('\n  },')[0] ?? '';
 const museumDossier = museumFiles[1].split('"alvin-historical-museum": {')[1]?.split('\n  },')[0] ?? '';
+check('Alvin museum documented seasonal admission', museumRecord.includes('2026 Summer Museum Passport') && museumRecord.includes('$5 admission') && museumDossier.includes('https://bcsummerpassport.org/sites/') && museumDossier.includes('confirm current'), 'Published 2026 admission with explicit current-price caveat');
 check('Museum visitor copy', !!museumRecord && !!museumDossier && !/Explain the difference|its exhibi"|inventing a fr"/.test(museumRecord + museumDossier), 'No known truncated text or editorial instruction');
 const photos = await readFile('src/components/editorial/AlvinHistoricalPhotographs.tsx', 'utf8');
 for (const id of ['25635261034', '26147334682', '5822129305']) check('Alvin photograph source ' + id, photos.includes(id), 'Exact archival original');
@@ -47,17 +48,19 @@ check('Museum source review contract', museum?.cadenceDays <= 30 && museum?.faqC
 const localGovernment = await readFile('src/data/local-government-profile.ts', 'utf8');
 const countySection = await readFile('src/components/content/CountyGuideSections.tsx', 'utf8');
 check('Brazoria verified civic snapshot', source.county.includes('population2025Estimate: 419080') && source.county.includes('population2020: 372031') && localGovernment.includes('Kristin R. Bulanek') && localGovernment.includes('Marcel Pierel III'), 'Census 2020 and July 2025 facts; direct current office contacts');
+check('Direct office provenance and expiry', (localGovernment.match(/directVerifiedAt: '\d{4}-\d{2}-\d{2}'/g) ?? []).length >= 2 && countySection.includes('directAppraisalCurrent') && countySection.includes('directTaxCurrent'), 'Independent source dates, not fabricated Comptroller dates');
 check('Brazoria current appraisal name and direct service links', ['Brazoria Central Appraisal District','https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/'].every(s => countySection.includes(s)), 'Official first-party resources');
 if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
   // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
+    ['https://bcsummerpassport.org/sites/', ['Alvin Historical Museum', 'Admission: $5, 12 and under free']],
     ['https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225', ['30,115','27,098']],
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
-    ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org']],
+    ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org','500 N Chenango St','Marcel Pierel III']],
     ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
     ['https://tigerweb.geo.census.gov/tigerwebmain/Files/bas26/tigerweb_bas26_county_2020_tab20_tx.html', ['48039','Brazoria County','3530984446','635433878','29.1678175','95.4346470']],
     ['https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/', ['Brazoria Central Appraisal District','January 1, 2026']],
-    ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320']],
+    ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320','237 E. Locust St.']],
     ['https://esearch.brazoriacad.org/', ['Property Search']],
     ['https://brazoriacad.org/property-tax-exemption-forms/', ['Exemption']],
     ['https://brazoriacad.org/how-to-efile-a-protest/', ['Protest']],
@@ -100,8 +103,10 @@ for (const target of targets) {
     }
     if (target.path === '/county/brazoria' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       check(url + ' verified civic facts', visible.includes('419,080') && visible.includes('Brazoria Central Appraisal District'), 'Current Census estimate and appraisal district name');
+      check(url + ' direct office contacts', ['Marcel Pierel III','979-849-7792','Kristin R. Bulanek','979-864-1320','Official appraisal district contact details','Official tax office contact details'].every(s=>visible.includes(s)), 'Dated contact facts must actually render; expired or missing facts require editorial review');
       for (const official of ['https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/']) check(url + ' official service ' + official, anchors.includes(official), 'Rendered direct service link');
     }
+    if (target.path === '/destination/alvin-historical-museum' && process.env.GITHUB_EVENT_NAME !== 'pull_request') check(url + ' dated admission evidence', visible.includes('2026') && visible.includes('$5') && visible.includes('12 and under') && anchors.includes('https://bcsummerpassport.org/sites/'), 'Dated sourced price, not guaranteed current tariff');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
     if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');

@@ -71,7 +71,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-11-27",
     venue: "San Antonio River Walk",
     officialUrl: "https://www.thesanantonioriverwalk.com/events/ford-holiday-river-parade/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Ford Holiday River Parade is San Antonio's signature start to the Christmas season, combining illuminated river floats, live entertainment and the River Walk lighting ceremony in one of Texas's most recognizable visitor districts.",
     quickFacts: [
       { label: "Confirmed date", value: "Friday, November 27, 2026" },
@@ -88,7 +88,7 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Know family ticketing and item restrictions", body: "Children ages two and up require tickets for ticketed viewing areas. The organizer prohibits strollers, ice chests and carriers on the River Walk for this event, so families need to plan light and verify how babies, seating and bags are accommodated at their chosen section." },
       { title: "Choose an accessible viewing section in advance", body: "The official 2026 page identifies designated ADA sections including the Tobin Center, Hotel Valencia, Main Plaza, Arneson River Theatre and others. Purchase the applicable accessible section or contact the organizer in advance; not every block of the narrow River Walk has equivalent access." },
       { title: "Book a dinner package only if it includes a view", body: "Some riverside restaurants sell dinner-and-parade packages, but an ordinary restaurant reservation does not necessarily include reserved parade viewing. Verify which seat, timing, menu, tax and cancellation terms are included in the exact restaurant package." },
-      { title: "Allow for the holiday crowd and closures", body: "Street closures, river access restrictions and the lighting ceremony make this an unusually crowded downtown evening. Consider downtown hotels or transit outside the closure area, and plan the rest of San Antonio's holiday attractions as a separate itinerary." },
+      { title: "Allow for the holiday crowd and closures", body: "The city’s current downtown-events notice lists no street closures for this parade; however, River Walk access and reserved seating are restricted. The current operator page also displays a route image labeled 2025, so do not assume that older graphic is the final 2026 seating layout. Confirm your 2026 section with the ticket provider and plan an exit meeting point outside the River Walk crowd." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build more San Antonio and Bexar County stops around the parade." },
@@ -96,6 +96,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Official 2026 Ford Holiday River Parade, sections and rules", url: "https://www.thesanantonioriverwalk.com/events/ford-holiday-river-parade/" },
+      { label: "City of San Antonio 2026 holiday parade notice", url: "https://www.sa.gov/Directory/News-Releases/Celebrate-the-Holidays-in-Downtown-San-Antonio-2026" },
       { label: "Official River Walk event schedule", url: "https://www.thesanantonioriverwalk.com/events/" },
     ],
   },

@@ -10,15 +10,45 @@
     "backlinks": "Earned, optional citations only; never paid, required or reciprocal",
     "outreachScope": {
       "ownerApprovedOn": "2026-11-24",
-      "allowed": ["chambers-of-commerce", "chamber-associations", "official-tourism-bureaus", "municipalities-and-public-authorities", "historical-cultural-organizations", "actual-event-organizers-and-authorized-venues"],
-      "excluded": ["independent-newspapers", "news-outlets", "journalists", "publishers", "editorial-intermediaries"],
+      "allowed": [
+        "chambers-of-commerce",
+        "chamber-associations",
+        "official-tourism-bureaus",
+        "municipalities-and-public-authorities",
+        "historical-cultural-organizations",
+        "actual-event-organizers-and-authorized-venues"
+      ],
+      "excluded": [
+        "independent-newspapers",
+        "news-outlets",
+        "journalists",
+        "publishers",
+        "editorial-intermediaries"
+      ],
       "separateExplicitOwnerAuthorizationRequired": true,
       "firstPartyOrganizationRoleVerificationRequired": true,
       "unknownEligibility": "do-not-contact",
       "declinesOptOutsAndFailedAddressSuppression": "always-honor",
       "newsReports": "research-leads-only; confirm with actual event organizer",
       "automatedSending": false
-    }
+    },
+    "excludedPublishers": [
+      {
+        "publisher": "Double Mountain Chronicle / The Newspaper Office LLC",
+        "domains": [
+          "doublemountainchronicle.com",
+          "dmchronicle.com"
+        ],
+        "aliases": [
+          "Double Mountain Chronicle",
+          "The Newspaper Office LLC",
+          "DMC Weekly Edition",
+          "Signal 735"
+        ],
+        "policy": "no-research-no-content-no-images-no-outreach",
+        "includeSyndicationAndDerivatives": true
+      }
+    ]
   },
   "sources": [
     {

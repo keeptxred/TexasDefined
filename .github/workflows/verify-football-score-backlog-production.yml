@@ -1,0 +1,59 @@
+name: Verify football score backlog on production
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: football-score-backlog-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check score source fingerprint for an already verified release
+        id: fingerprint
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -f scripts/ci/verify-football-score-backlog-production.mjs ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          hash=$(git ls-files -s src/data/high-school-football src/components/sports/District16Coverage.tsx src/components/sports/District21TeamSeason.tsx 'src/routes/texas-high-school-football*' scripts/ci/verify-football-score-backlog-production.mjs | sha256sum | cut -c1-32)
+          echo "hash=$hash" >> "$GITHUB_OUTPUT"
+          count=$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=football-live-passed-$hash" --jq '[.artifacts[]|select(.expired==false)]|length')
+          if [ "$count" -gt 0 ] && [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify actual published pages and individual score rows on both origins
+        if: steps.fingerprint.outputs.run == 'true'
+        run: node scripts/ci/verify-football-score-backlog-production.mjs
+      - name: Preserve verification evidence
+        if: always() && steps.fingerprint.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-live-evidence-${{ github.run_id }}
+          path: artifacts/football-score-live/report.json
+          if-no-files-found: error
+      - name: Record passed score source fingerprint
+        if: success() && steps.fingerprint.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-live-passed-${{ steps.fingerprint.outputs.hash }}
+          path: artifacts/football-score-live/report.json
+          if-no-files-found: error

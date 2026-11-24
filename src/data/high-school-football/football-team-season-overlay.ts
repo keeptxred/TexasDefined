@@ -1,3 +1,4 @@
+import { footballFixtureCalendarDate } from './football-fixture-calendar.ts';
 import type { FootballMatchup } from './football-matchups';
 import type { FootballProgramEditorial } from './program-editorial';
 import type { DistrictFootballGame } from './football-district-game-week';
@@ -87,13 +88,14 @@ export function applyFootballMatchupSnapshot(
   const snapshotByDate = new Map(relevant.map((game) => [game.date, game]));
   let recordChanged = false;
   let anyChanged = false;
-  const existingDates = new Set(editorial.season.games.map((game) => game.date));
+  const existingDates = new Set(editorial.season.games.map((game) => footballFixtureCalendarDate(game.date)??game.date));
 
   const games = editorial.season.games.map((game) => {
-    const match = snapshotByDate.get(game.date);
+    const match = snapshotByDate.get(footballFixtureCalendarDate(game.date)??game.date);
     if (!match) return game;
 
     const row = snapshotRow(teamSlug, match);
+    if (game.opponent.trim().toLowerCase()!==row.opponent.trim().toLowerCase())return game;
     if (game.result && row.result && game.result !== row.result) {
       // Preserve the authored final when sources disagree. A focused validator
       // should surface the conflict for editorial reconciliation rather than
@@ -121,7 +123,7 @@ export function applyFootballMatchupSnapshot(
   }
 
   if (!anyChanged) return editorial;
-  games.sort((a, b) => a.date.localeCompare(b.date) || a.opponent.localeCompare(b.opponent));
+  games.sort((a, b) => (footballFixtureCalendarDate(a.date)??a.date).localeCompare(footballFixtureCalendarDate(b.date)??b.date) || a.opponent.localeCompare(b.opponent));
 
   const record = recordFromListedFinals(games);
   const recordText = recordChanged
@@ -165,11 +167,11 @@ export function applyVerifiedDistrictFinalsToTeam(
   ).sort((a,b)=>a.date.localeCompare(b.date));
   if(!confirmed.length)return editorial;
   const current = editorial?.season?.games ?? [];
-  const occupiedDates=new Set(current.map(x=>x.date));
+  const occupiedDates=new Set(current.map(x=>footballFixtureCalendarDate(x.date)??x.date));
   const byDate=new Map(confirmed.map(x=>[x.date,x]));
   let changed=false,conflicts=0;
   const games=current.map(game=>{
-    const found=byDate.get(game.date);
+    const found=byDate.get(footballFixtureCalendarDate(game.date)??game.date);
     if(!found)return game;
     const opponent=found.home===schoolName?found.away:found.home;
     if(game.opponent!==opponent)return game;
@@ -191,7 +193,7 @@ export function applyVerifiedDistrictFinalsToTeam(
     changed=true;
   }
   if(!changed)return editorial;
-  games.sort((a,b)=>a.date.localeCompare(b.date)||a.opponent.localeCompare(b.opponent));
+  games.sort((a,b)=>(footballFixtureCalendarDate(a.date)??a.date).localeCompare(footballFixtureCalendarDate(b.date)??b.date)||a.opponent.localeCompare(b.opponent));
   const record=recordFromListedFinals(games);
   const last=confirmed.at(-1)!;
   const recordText=editorial?.season

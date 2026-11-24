@@ -19,7 +19,7 @@ test('all manually reviewed 2026 results have explicit editorial authority and i
     assert.match(row.verifiedAt,/^2026-\d{2}-\d{2}$/);
     assert.ok(row.verifiedAt>=row.date);
     assert.equal(row.verificationMethod,'manual-editorial-review');
-    if(row.outcome!==undefined){assert.ok(['forfeit-win','forfeit-loss'].includes(row.outcome));assert.equal(row.pointsFor,undefined);assert.equal(row.pointsAgainst,undefined);}else{assert.ok(Number.isInteger(row.pointsFor)&&Number.isInteger(row.pointsAgainst));assert.ok(row.pointsFor>=0&&row.pointsAgainst>=0&&row.pointsFor!==row.pointsAgainst);}
+    if(row.outcome!==undefined){assert.ok(['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(row.outcome));assert.equal(row.pointsFor,undefined);assert.equal(row.pointsAgainst,undefined);}else{assert.ok(Number.isInteger(row.pointsFor)&&Number.isInteger(row.pointsAgainst));assert.ok(row.pointsFor>=0&&row.pointsAgainst>=0&&row.pointsFor!==row.pointsAgainst);}
     if(row.playedDate){assert.match(row.playedDate,/^2026-\d{2}-\d{2}$/);assert.ok(row.playedDate<=row.verifiedAt);}
     const first=new URL(row.primarySourceUrl),second=new URL(row.secondarySourceUrl);
     assert.equal(first.protocol,'https:');
@@ -40,6 +40,7 @@ test('all manually reviewed 2026 results have explicit editorial authority and i
 test('source-locked November finals never reenter statewide missing-final review for their own pages',()=>{
   const state=inventory({today:'2026-11-20'});
   for(const row of rows){
+    if(row.outcome==='score-disputed-win')continue;
     const page=state.pages.find(p=>p.page.endsWith('/'+row.slug));
     assert.ok(!page?.overdue?.some(g=>g.date===row.date),'Sourced final wrongly due on '+row.slug);
   }
@@ -56,7 +57,7 @@ test('server-side scoreboard overlay refuses opponent/date mismatch and contradi
   for(const mark of [
     "if (!updates.length) return editorial", "publishedDates.has(row.date)",
     "normalized(game.opponent)!==normalized(row.opponent)",
-    "if (game.result && game.result !== result)", "if (!found.has(row.date))",
+    "if (game.result && game.result.replace(", "if (!found.has(row.date))",
     "Partial 2026 scorecard from independently verified final results",
     "verifiedAt:mostRecent.verifiedAt",
   ])assert.ok(overlay.includes(mark),mark);
@@ -858,7 +859,7 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     "opponent": "LASAA",
     "outcome": "forfeit-win",
     "primarySourceUrl": "https://www.expressnews.com/news/article/austin-lasa-football-season-22497100.php",
-    "secondarySourceUrl": "https://sports.yahoo.com/articles/feel-horrible-lasa-forfeits-3-023104824.html",
+    "secondarySourceUrl": "https://www.bastroppassport.com/sports/football?school=bastrop",
     "verifiedAt": "2026-11-21",
     "verificationMethod": "manual-editorial-review"
   },
@@ -911,3 +912,106 @@ test('Reconciled remaining dated fixtures retain exact editorial keys and corrob
     assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);
   }
 });
+
+
+test('remaining confirmed results preserve fixture keys, corrected opponents and bye weeks',()=>{
+ for(const row of [
+  {
+    "slug": "anton",
+    "date": "2026-10-30",
+    "opponent": "Lorenzo",
+    "pointsFor": 53,
+    "pointsAgainst": 6,
+    "verifiedAt": "2026-11-21",
+    "primarySourceUrl": "https://txprepfootball.com/schools/anton-bulldogs/",
+    "secondarySourceUrl": "https://www.maxpreps.com/tx/lorenzo/lorenzo-hornets/football/",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bay-city",
+    "date": "2026-10-30",
+    "opponent": "Columbia",
+    "pointsFor": 42,
+    "pointsAgainst": 0,
+    "verifiedAt": "2026-11-21",
+    "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/bay-city-vs-columbia-west-columbia/10-30-2026/?c=8ce1098b-3066-40fe-a4dd-a77052e01b68",
+    "secondarySourceUrl": "https://txprepfootball.com/schools/columbia-roughnecks/",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "blue-ridge",
+    "date": "2026-10-30",
+    "opponent": "Sadler S&S Consolidated",
+    "pointsFor": 55,
+    "pointsAgainst": 7,
+    "verifiedAt": "2026-11-21",
+    "primarySourceUrl": "https://www.maxpreps.com/tx/blue-ridge/blue-ridge-tigers/football/",
+    "secondarySourceUrl": "https://txprepfootball.com/schools/s-and-s-consolidated-rams/",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "bluff-dale",
+    "date": "2026-10-29",
+    "opponent": "Pinnacle Christian",
+    "pointsFor": 40,
+    "pointsAgainst": 59,
+    "verifiedAt": "2026-11-21",
+    "primarySourceUrl": "https://www.maxpreps.com/news/4-t9wzr_iEWHLayRixB5eA/football-recap-bluff-dale-struggles-against-grace-classical-christian-academy.htm",
+    "secondarySourceUrl": "https://www.pigskinprep.com/showscores.asp?cid=7&wk=10&yr=2026",
+    "verificationMethod": "manual-editorial-review",
+    "playedDate": "2026-10-30",
+    "playedOpponent": "Grace Classical Christian Academy (Granbury)",
+    "playedSite": "Away"
+  },
+  {
+    "slug": "anton",
+    "date": "2026-10-09",
+    "opponent": "Cotton Center",
+    "outcome": "not-played",
+    "verifiedAt": "2026-11-21",
+    "primarySourceUrl": "https://klvtsports.wordpress.com/2026/10/11/football-district-updates-for-levelland-ropes-smyer-sundown-whiteface-whitharral-from-friday-oct-9th/",
+    "secondarySourceUrl": "https://www.pigskinprep.com/showscores.asp?cid=5&wk=7&yr=2026",
+    "verificationMethod": "manual-editorial-review"
+  }
+])assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);
+ const state=inventory({today:'2026-11-22'});
+ assert.ok(!state.pages.some(p=>p.slug==='alpine'&&p.reason==='dated-score-review'));
+});
+
+
+test('final reviewed six-man outcomes and a disclosed numeric disagreement retain evidence',()=>{for(const row of [
+  {
+    "slug": "anton",
+    "date": "2026-10-16",
+    "opponent": "Amherst",
+    "outcome": "forfeit-win",
+    "primarySourceUrl": "https://sixmanfootball.com/scores/2026/week-8/",
+    "secondarySourceUrl": "https://txhsfb.net/?p=29395",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "benavides",
+    "date": "2026-10-23",
+    "opponent": "Pawnee",
+    "outcome": "not-played",
+    "primarySourceUrl": "https://sixmanfootball.com/teams/benavides-eagles.19121/schedule/",
+    "secondarySourceUrl": "https://texasfootballroundup.com/teams/benavides/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  },
+  {
+    "slug": "alvin-iowa-colony",
+    "date": "2026-10-23",
+    "opponent": "Fort Bend Dulles",
+    "outcome": "score-disputed-win",
+    "reportedScores": [
+      "48–8",
+      "42–8"
+    ],
+    "primarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+    "secondarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
+    "verifiedAt": "2026-11-21",
+    "verificationMethod": "manual-editorial-review"
+  }
+])assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);const state=inventory({today:'2026-11-22'});assert.ok(state.pages.some(p=>p.slug==='alvin-iowa-colony'&&p.overdue.some(g=>g.date==='2026-10-23')),'A confirmed winner with conflicting score reports remains on the numerical-score research queue');});

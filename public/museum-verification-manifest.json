@@ -136,6 +136,11 @@
         {
           "sourceUrl": "https://alvinmuseum.org/",
           "fetchUrl": "https://alvinmuseum.org/",
+          "label": "Museum Society — current hours and direct admission confirmation"
+        },
+        {
+          "sourceUrl": "https://bcsummerpassport.org/sites/",
+          "fetchUrl": "https://bcsummerpassport.org/sites/",
           "label": "FAQ source: Is there an admission fee to Alvin Historical Museum?"
         },
         {

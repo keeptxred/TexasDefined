@@ -1192,7 +1192,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   for (const marker of [
     "import { footballMatchups } from './football-matchups';",
     "import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';",
-    'applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)',
+    'applyFootballMatchupSnapshot(seasonReviewedEditorial, canonicalSlug, footballMatchups)',
   ]) requireText(programProfileServer, marker, 'Statewide football matchup overlay wiring');
 
   for (const marker of [

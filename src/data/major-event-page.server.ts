@@ -591,7 +591,7 @@ export function loadMajorEventPageServer(slug: string) {
     : "";
   const enrichmentReviewMarkup = isPalestinePolarExpress || !schemaEnrichment
     ? ""
-    : `<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p>`;
+    : `<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)} for organizer and ticketing metadata only. ${event.sourceCheckedAt ? `Event schedule facts separately source-checked ${esc(event.sourceCheckedAt)}. ` : ""}Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p>`;
   const enrichmentMarkup = schemaEnrichment
     ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}${enrichmentReviewMarkup}</div></section>`
     : "";

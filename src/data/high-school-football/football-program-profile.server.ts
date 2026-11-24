@@ -14,6 +14,7 @@ import { footballClassificationRank, footballProgramProfilePath, footballProgram
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
+import { alpine2026Scorecard } from './program-editorial-alpine-2026';
 import { footballMatchups } from './football-matchups';
 import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';
 import { getDistrictFootballGames } from './football-district-game-week';
@@ -313,6 +314,9 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
+  const seasonReviewedEditorial = canonicalSlug==='alpine' && aubreyAdjustedEditorial
+    ? {...aubreyAdjustedEditorial,season:alpine2026Scorecard.season,overview:['Alpine ended the 2026 regular season 3–7 overall and 1–4 in district play. All ten results are listed below.',...(aubreyAdjustedEditorial.overview??[])],faq:aubreyAdjustedEditorial.faq?.map(entry=>/(2026.*record|record.*2026)/i.test(entry.question)?{...entry,answer:alpine2026Scorecard.season.record+'.'}:entry)??[]}
+    : aubreyAdjustedEditorial;
   // Latest individually researched district finals are reused on member
   // school pages. This never fetches live scores and never changes the
   // underlying source ledger; independent district reports are PR-reviewed.
@@ -321,7 +325,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     seed.classification,seed.district,
   );
   const editorial = applyManuallyVerifiedFootballFinals(applyVerifiedDistrictFinalsToTeam(
-    applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups),
+    applyFootballMatchupSnapshot(seasonReviewedEditorial, canonicalSlug, footballMatchups),
     canonicalSlug,seed.schoolName,verifiedDistrictGames,
   ), canonicalSlug);
   const profileContent = {

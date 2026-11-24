@@ -273,8 +273,11 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
     if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(result.slug)||!isoDate(result.date)
        ||!result.date.startsWith('2026-')||!isoDate(result.verifiedAt)
        ||result.verificationMethod!=='manual-editorial-review'
-       ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
+       ||(result.outcome!==undefined ? !['forfeit-win','forfeit-loss','not-played','score-disputed-win'].includes(result.outcome)||result.pointsFor!==undefined||result.pointsAgainst!==undefined : !Number.isInteger(result.pointsFor)||!Number.isInteger(result.pointsAgainst)||Math.min(result.pointsFor,result.pointsAgainst)<0||result.pointsFor===result.pointsAgainst)
+       ||(result.outcome==='score-disputed-win' ? !Array.isArray(result.reportedScores)||result.reportedScores.length!==2||new Set(result.reportedScores).size!==2||!result.reportedScores.every(score=>{const m=/^(\d+)–(\d+)$/.exec(score);return !!m&&Number(m[1])>Number(m[2]);}) : result.reportedScores!==undefined)
        ||(result.playedDate!==undefined&&(!isoDate(result.playedDate)||!result.playedDate.startsWith('2026-')||result.playedDate>result.verifiedAt))
+       ||(result.playedOpponent!==undefined&&(!result.playedDate||typeof result.playedOpponent!=='string'||!result.playedOpponent.trim()||result.outcome!==undefined||!['Home','Away','Neutral'].includes(result.playedSite)))
+       ||(result.playedSite!==undefined&&!result.playedOpponent)
        ||a.protocol!=='https:'||b.protocol!=='https:'||a.hostname===b.hostname)
       throw Error('Invalid reviewed score research row '+String(result.slug)+' '+String(result.date));
     if(!reviewedBySlug.has(result.slug))reviewedBySlug.set(result.slug,[]);
@@ -289,7 +292,7 @@ export function inventory({today=texasToday(),dir=DIR,read=p=>readFileSync(p,'ut
       const visitorOpponent=normalizeTeam(game.away)===teamName?game.home:
         normalizeTeam(game.home)===teamName?game.away:null;
       if(!visitorOpponent)return true;
-      return !rows.some(row=>row.date===game.date&&normalizeTeam(row.opponent)===normalizeTeam(visitorOpponent));
+      return !rows.some(row=>row.outcome!=='score-disputed-win'&&row.date===game.date&&normalizeTeam(row.opponent)===normalizeTeam(visitorOpponent));
     });
     const latest=rows.map(row=>row.verifiedAt).sort().at(-1);
     if(latest>=(page.verifiedAt??''))page.verifiedAt=latest;
