@@ -307,6 +307,11 @@ function TexasHorsebackRidingGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">A family ride without hauling a horse</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>At Dinosaur Valley, TPWD identifies Eagle Eye Ranch Carriage Company as a provider of guided horseback rides, wagon rides and wrangler-assisted rides for children ages 3–14. That age range describes the assisted service, not every guided ride.</p><p>Ask for the total group price, minimum age, weight limits, helmet policy, ride duration, cancellation terms and whether park admission is separate. An assisted ride or wagon outing may suit first-time riders better than an independent backcountry trip.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/dinosaur-valley/">Dinosaur Valley visitor and outfitter information</a>. If hauling your own horse, confirm trailer turning space, stock water, and the appropriate campsite.</p><p>For companions bringing bicycles, consult the <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link>; for overnight plans, see the <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link>.</p></div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build the riding day into a Texas trip</h2>

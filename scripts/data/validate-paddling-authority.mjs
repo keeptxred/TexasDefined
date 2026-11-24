@@ -161,6 +161,8 @@ try {
   errors.push('Paddling access diagram: ' + error.message);
 }
 
+if (!lazyRoute.includes('aria-labelledby="extended-trip-planning"') || !lazyRoute.includes('to="/texas-mountain-biking-guide"')) errors.push('Missing expanded visitor planning or contextual reciprocal outdoor guide link.');
+
 if (errors.length) {
   console.error('Texas paddling authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);

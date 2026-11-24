@@ -406,6 +406,11 @@ function TexasMountainBikingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">Two additional riding bases near Houston and Dallas–Fort Worth</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>For a wooded East Texas weekend, Huntsville State Park offers trails open to cycling unless marked otherwise. Near Dallas–Fort Worth, the Isle du Bois unit of Ray Roberts Lake State Park has five consecutive DORBA mountain-bike trails rated moderate by TPWD. Do not confuse them with the separate Greenbelt unit.</p><p>Start with a shorter marked segment and extend only if daylight, conditions and rider skill permit. Budget separately for admission, camping, transport and repairs.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/huntsville/trails-info/">Huntsville trail descriptions</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info">Ray Roberts trail descriptions</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees">Ray Roberts admission</a>.</p><p>See our <Link className="text-primary underline" to="/texas-horseback-riding-guide">horseback riding guide</Link> for shared-use considerations, <Link className="text-primary underline" to="/texas-ohv-guide">OHV guide</Link> for designated motorized alternatives, or <Link className="text-primary underline" to="/texas-paddling-guide">paddling guide</Link> and <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link> for a camping weekend.</p></div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Turn the ride into a better Texas trip</h2>

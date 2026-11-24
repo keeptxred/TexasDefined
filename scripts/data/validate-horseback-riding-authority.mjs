@@ -136,6 +136,8 @@ for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflo
   if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
 }
 
+if (!lazyRoute.includes('aria-labelledby="extended-trip-planning"') || !lazyRoute.includes('to="/texas-mountain-biking-guide"')) errors.push('Missing expanded visitor planning or contextual reciprocal outdoor guide link.');
+
 if (errors.length) {
   console.error('Texas horseback riding authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);

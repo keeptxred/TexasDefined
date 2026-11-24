@@ -85,7 +85,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Paddling Guide: 5 Official Trails to Plan",
-        description: "Compare five Texas paddling trails with mapped put-ins and takeouts, shuttle plans, current stream gauges, NOAA tides and coastal conditions.",
+        description: "Compare five Texas paddling trails with mapped launches, rental and shuttle options, stream gauges, NOAA tides and coastal conditions.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,
