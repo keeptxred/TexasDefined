@@ -319,10 +319,10 @@ export const MADE_IN_TEXAS_RELATIONSHIP_EVIDENCE: MadeInTexasEvidence[] = [
   },
   {
     "entryName": "Texas Tamale Company",
-    "claim": "The Houston business began selling tamales roadside in 1988 and opened its first restaurant kitchen in Houston in 1993; current product origins require separate evidence.",
+    "claim": "The company dates its Houston street-cart origins to 1985, Highway 6 roadside sales to 1988 and its first Galleria-area restaurant kitchen to 1993; this chronology does not establish current product-specific origin.",
     "sourceLabel": "Texas Tamale Company",
     "sourceUrl": "https://texastamale.com/pages/our-story",
-    "checkedAt": "2026-11-21"
+    "checkedAt": "2026-11-24"
   },
   {
     "entryName": "NOV",
