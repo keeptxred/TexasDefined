@@ -39,6 +39,10 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("rusk-syrup-20261122", "county-museum-festival-v1");
   cacheUrl.searchParams.set("comanche-county-editorial-lastmod", "2026-11-24");
   cacheUrl.searchParams.set("alvin-brazoria-editorial-lastmod", "2026-11-24");
+  // Cass and statewide music pages were materially expanded with Nov 24
+  // source-checked historical venue research and biographical crosslinks.
+  // Bust only this XML cache key; never stamp unrelated counties today.
+  cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24");
   cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
@@ -70,6 +74,9 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/county/brazoria": "2026-11-24", // Substantive museum, art trail and local-history revision.
   "/city/alvin": "2026-11-24", // Substantive depot, farm and mural visitor guidance.
   "/county/comanche": "2026-11-24", // Independently sourced Nov 24 depot chronology, NPS listing and preservation evidence.
+  "/county/cass": "2026-11-24", // Original Cass/Linden history and second venue added Nov 24.
+  "/texas-music-venues": "2026-11-24", // Texas Music Barn archival sources, authored comparison and licensed photo.
+  "/texas-music-cities": "2026-11-24", // Independently sourced small-town music scene and updated crosslinks.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",
   "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
