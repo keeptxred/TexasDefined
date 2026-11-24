@@ -1,4 +1,4 @@
-// Quarterly production/source consistency review for Alvin and Brazoria County.
+// Monthly production/source consistency review for Alvin, Brazoria County and Alvin Historical Museum.
 // This is an audit, not a content publisher. Reports failures for editorial follow-up.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
@@ -51,7 +51,7 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
 for (const target of targets) {
   const url = 'https://texasdefined.com' + target.path;
   try {
-    const response = await fetch(url, {
+    const response = await fetch(url + '?alvin-authority=' + (process.env.GITHUB_SHA?.slice(0,12) ?? 'manual'), {
       headers: { 'user-agent': 'TexasDefined scheduled source integrity check/1.0', 'cache-control': 'no-cache' },
       signal: AbortSignal.timeout(25000),
     });
@@ -63,7 +63,7 @@ for (const target of targets) {
     // The PR verifies researched source content before it is published. On the
     // quarterly production run, additionally require the new bridge section.
     const requiredPhrases = process.env.GITHUB_EVENT_NAME === 'pull_request'
-      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge'];
+      ? target.phrases : target.path.startsWith('/destination/') ? target.phrases : [...target.phrases, 'Maury Maverick Bridge', 'Loren Mozley'];
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
@@ -71,6 +71,22 @@ for (const target of targets) {
     check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
   } catch (error) {
     check(url + ' retrieval', false, String(error));
+  }
+}
+if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  for (const [sitemap, paths] of [
+    ['/sitemap.xml', ['/city/alvin', '/county/brazoria']],
+    ['/sitemap-explore.xml', ['/destination/alvin-historical-museum']],
+  ]) {
+    try {
+      const response = await fetch('https://texasdefined.com' + sitemap, { signal: AbortSignal.timeout(30000), headers: { 'cache-control': 'no-cache' } });
+      const xml = await response.text();
+      for (const path of paths) {
+        const entries = [...xml.matchAll(/<url\b[^>]*>[\s\S]*?<\/url>/gi)].map(m => m[0]).filter(row => row.includes('<loc>https://texasdefined.com' + path + '</loc>'));
+        const date = entries[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+        check('Sitemap ' + path, response.ok && entries.length === 1 && !!date && date >= '2026-11-24', 'Unique canonical with actual editorial lastmod; observed ' + (date ?? 'missing'));
+      }
+    } catch(error) { check('Sitemap ' + sitemap, false, String(error)); }
   }
 }
 await mkdir('artifacts/alvin-brazoria-authority', { recursive: true });
