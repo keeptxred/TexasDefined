@@ -119,6 +119,15 @@ assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identi
 assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
 assert.ok(guideComponent.includes("entity.slug === 'cass' ? 14 : 8"), 'Cass County music and musician links must not be silently truncated to eight cards');
 
+// Protect independently sourced Nov 24 editorial freshness for the county
+// and both statewide music guides without falsely restamping other counties.
+const lindenSitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+for(const path of ['/county/cass','/texas-music-venues','/texas-music-cities']) {
+  assert.ok(lindenSitemap.includes('"' + path + '": "2026-11-24"'),
+    'Stale Cass/Linden sitemap lastmod: ' + path);
+}
+assert.ok(lindenSitemap.includes('cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24")'),
+  'Cass/Linden sitemap cache key must reflect the verified editorial update');
 // Keep Linden discoverable from statewide venue and music-city guides, not
 // merely buried within a long county article or an isolated visitor listing.
 const venueGuide = fs.readFileSync('src/data/texas-music-venue-guides.ts', 'utf8');
