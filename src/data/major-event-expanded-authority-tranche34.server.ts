@@ -42,13 +42,13 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2027-03-05",
     endDate: "2027-03-07",
     venue: "Circuit of The Americas",
-    officialUrl: "https://www.nascar.com/",
-    sourceCheckedAt: "2026-08-29",
+    officialUrl: "https://www.nascaratcota.com/",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "NASCAR returns to Circuit of The Americas for a March 5-7, 2027 road-course weekend, with national-series action culminating in the DuraMAX Texas Grand Prix and extending Austin's role as one of the country's most varied motorsports destinations.",
     planningSections: [
-      { title: "Use March 5-7 as the race-weekend window", body: "NASCAR's official 2027 schedule announcement confirms the COTA weekend for March 5-7, with the Cup Series DuraMAX Texas Grand Prix on Sunday, March 7. Additional start times and on-track details can be added when NASCAR and COTA publish them." },
-      { title: "Plan the circuit trip before arrival", body: "COTA is outside central Austin, so parking, shuttle and road-access choices matter. Recheck official race-weekend transportation instructions and allow extra time for peak arrival and departure periods." },
-      { title: "Separate the weekend from Austin's other COTA events", body: "Formula 1, Formula E and other series use the same facility under different schedules and policies. Use NASCAR's current weekend guide for ticket access, allowed items, camping and fan programming." },
+      { title: "Use March 5-7 as the race-weekend window", body: "NASCAR's official 2027 schedule announcement confirms the COTA weekend for March 5-7, with the Cup Series DuraMAX Texas Grand Prix on Sunday, March 7. The race organizer now identifies Friday March 5 as O'Reilly Auto Parts Series practice and qualifying, Saturday March 6 as that series' race and Sunday March 7 as the Cup Series race. The weekend is not three equivalent race days; check the dated session schedule for the specific ticket you buy." },
+      { title: "Plan the circuit trip before arrival", body: "COTA is outside central Austin, so parking, shuttle and road-access choices matter. The organizer's Friday ticket page identifies Lot A as a closer preferred-parking option for Main Grandstand and Turn 1 seats and Lot E for Turns 12 and 15. These are separately offered parking products, not automatic admission benefits. Confirm your day's current parking map before buying." },
+      { title: "Separate the weekend from Austin's other COTA events", body: "Formula 1, Formula E and other series use the same facility under different schedules and policies. Use NASCAR's current weekend guide for ticket access, allowed items, camping and fan programming. The official 2027 Sunday ticket page differentiates reserved grandstands from general admission at designated viewing areas; general admission does not provide a reserved seat or grandstand access. Compare single-day and weekend products before buying. The promoter advertises select youth weekend tickets from $10 for children 12 and under; verify the product and checkout conditions." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Turn the COTA weekend into a broader Austin-area trip." },
@@ -58,6 +58,10 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "NASCAR official 2027 schedule announcement", url: "https://www.nascar.com/news-media/2026/08/12/2027-nascar-schedule-announcements-latest-dates-tracks-and-changes/" },
       { label: "NASCAR official 2027 national-series schedule", url: "https://www.nascar.com/news-media/2026/08/26/2027-nascar-schedule-confirmed-dates-tracks-for-all-three-national-series/" },
+      { label: "COTA official 2027 race weekend", url: "https://circuitoftheamericas.com/event/nascar/" },
+      { label: "NASCAR at COTA official Friday program and preferred parking", url: "https://www.nascaratcota.com/events/nascar-friday/" },
+      { label: "NASCAR at COTA official Saturday race", url: "https://www.nascaratcota.com/events/nascar-oreilly-auto-parts-series-race/" },
+      { label: "NASCAR at COTA official Sunday ticket products", url: "https://www.nascaratcota.com/events/duramax-texas-grand-prix/tickets/" },
     ],
   },
   {

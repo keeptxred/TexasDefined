@@ -5802,6 +5802,66 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "dawson-lamesa-library-2026-programs",
+      "organization": "Dawson County Public Library — original dated public programs (LIBRARY ONLY, not countywide festivals)",
+      "countySlugs": [
+        "dawson"
+      ],
+      "homeUrl": "https://dclib.ploud.net/",
+      "calendarUrl": "https://dclib.ploud.net/news-events",
+      "contactPageUrl": "https://dclib.ploud.net/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "stephens-national-theatre-breckenridge-2026-2027",
+      "organization": "Friends of Historic Breckenridge — National Theatre 2026–27 Performance Series (VENUE ONLY)",
+      "countySlugs": [
+        "stephens"
+      ],
+      "homeUrl": "https://friendsofhistoricbreckenridge.org/",
+      "calendarUrl": "https://friendsofhistoricbreckenridge.org/",
+      "contactPageUrl": "https://friendsofhistoricbreckenridge.org/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "throckmorton-chamber-cow-country-christmas-2026",
+      "organization": "Throckmorton Chamber of Commerce — original dated Cow Country Christmas 2026 announcement (EVENT ONLY)",
+      "countySlugs": [
+        "throckmorton"
+      ],
+      "homeUrl": "https://www.throckmortonchamber.com/",
+      "calendarUrl": "https://www.throckmortonchamber.com/copy-of-cow-country-christmas",
+      "contactPageUrl": "https://www.throckmortonchamber.com/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "terrell-sanderson-tall-texan-distillery-2026-programs",
+      "organization": "Tall Texan Distilling — Sanderson dated seasonal visitor programs (VENUE ONLY, adult tours)",
+      "countySlugs": [
+        "terrell"
+      ],
+      "homeUrl": "https://talltexandistilling.com/",
+      "calendarUrl": "https://talltexandistilling.com/distillery-events",
+      "contactPageUrl": "https://talltexandistilling.com/distillery-events",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }

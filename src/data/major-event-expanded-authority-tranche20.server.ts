@@ -43,14 +43,14 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The official Viva! El Paso schedule lists its 48th production for Friday and Saturday performances from June 19 through August 1, 2026 at McKelligon Canyon. The supplied discovery inventory projected a July-August 2027 run, but the organizer has not yet published a 2027 schedule, so this guide uses the latest confirmed season window.",
     venue: "McKelligon Canyon Amphitheatre",
     officialUrl: "https://vivaelpaso.org/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Viva! El Paso is an outdoor musical built around the city's layered regional history and cultures, using McKelligon Canyon as a dramatic setting for a summer production that has become one of El Paso's signature performing-arts traditions.",
     planningSections: [
       { title: "Choose a specific Friday or Saturday performance", body: "The official 2026 schedule listed 8 p.m. shows on Fridays and Saturdays from June 19 through August 1, weather permitting. Future visitors should use the organizer's next published season schedule rather than extrapolating from the discovery inventory." },
       { title: "Plan for an outdoor canyon venue", body: "McKelligon Canyon is part of the experience. Check the current weather policy, arrival guidance and ticket information before traveling, and allow extra time for venue access compared with an indoor downtown theater." },
       { title: "Use the show as an El Paso history anchor", body: "The production is designed around four centuries and multiple cultures in the El Paso region. Pair the performance with local historic districts, museums or Franklin Mountains stops to give the stage narrative geographic context." },
-      { title: "Choose seating and timing for the canyon", body: "A 2026 evening production was offered on Fridays and Saturdays, but 2027 dates are not yet confirmed. Confirm seating categories, entry policy, show time and any weather notices with the current organizer before buying. Do not assume amphitheater access or temperature will match a downtown indoor theater." },
-      { title: "Account for driving and arrival in McKelligon Canyon", body: "The amphitheater is within McKelligon Canyon, north of central El Paso. Plan transportation before the show and allow extra time to reach the venue and find the proper entrance; use the latest official guidance for parking and accessible seating." },
+      { title: "Choose seating and timing for the canyon", body: "A 2026 evening production was offered on Fridays and Saturdays, but 2027 dates are not yet confirmed. The official FAQ still refers to 2025 ticket sales, so its displayed admission prices must not be treated as 2027 pricing. Confirm the next season's ticket release and seating with the organizer or Plaza Theatre Box Office (915-231-1100). Do not assume amphitheater access or temperature will match a downtown indoor theater." },
+      { title: "Account for driving and arrival in McKelligon Canyon", body: "The amphitheater is within McKelligon Canyon, north of central El Paso. Plan transportation before the show and allow extra time to reach the venue and find the proper entrance; the official FAQ identifies separate pavilion, amphitheater and accessible parking areas, accessible seating and restrooms. Its published policy prohibits outside food and beverages and describes on-site concessions. Confirm the next season's venue policies, and use the organizer's current social updates for weather cancellations." },
       { title: "Build a two-part El Paso culture day", body: "Use a daytime museum or historic-site visit to provide context for the region's Indigenous, Spanish, Mexican and U.S. histories, then attend the show as the evening anchor. Leave enough time between stops for El Paso traffic and summer heat." },
     ],
     relatedLinks: [
@@ -63,6 +63,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Viva! El Paso official site", url: "https://vivaelpaso.org/" },
       { label: "Viva! El Paso official schedule", url: "https://vivaelpaso.org/schedule" },
+      { label: "Viva! El Paso official visitor FAQ (ticket information still references 2025)", url: "https://vivaelpaso.org/faqs" },
     ],
   },
   {

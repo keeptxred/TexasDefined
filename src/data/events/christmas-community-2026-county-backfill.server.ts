@@ -1714,5 +1714,19 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "Big Spring Symphony Orchestra",
     "summary": "The orchestra's 45th season includes a full production of Tchaikovsky's Nutcracker with Ballet San Angelo, scheduled Saturday, December 19, 2026, at 5:30 p.m. The concert is at Big Spring Municipal Auditorium. Check the orchestra's box office for current ticket prices, seating and availability; this is the Big Spring performance, not a San Angelo performance. No future holiday edition is confirmed.",
     "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "throckmorton-cow-country-christmas-2026",
+    "title": "Cow Country Christmas in Throckmorton",
+    "city": "Throckmorton",
+    "countySlug": "throckmorton",
+    "countyName": "Throckmorton County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown courthouse square, Throckmorton",
+    "officialEventUrl": "https://www.throckmortonchamber.com/copy-of-cow-country-christmas",
+    "sourceName": "Throckmorton Chamber of Commerce",
+    "summary": "The Chamber confirms its downtown courthouse-square Christmas event for Saturday, December 12, 2026, from 2 to 6 p.m. Vendors will be on assigned downtown sidewalk spaces; vendor setup is scheduled from 1 to 2 p.m. The organizer lists registration fees of $30 for non-food vendors and $50 for vendors selling full meals. These are vendor charges, not spectator admission. Check the Chamber for current program and visitor arrangements; no 2027 edition is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
   }
 ];
