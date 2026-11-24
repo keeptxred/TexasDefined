@@ -8,8 +8,8 @@ import {
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
 const registry = JSON.parse(readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
 // Exact reviewed registry baseline; update once per accepted source batch.
-const REVIEWED_SOURCE_COUNT = 386;
-const REVIEWED_CALENDAR_COUNTIES = 201;
+const REVIEWED_SOURCE_COUNT = 387;
+const REVIEWED_CALENDAR_COUNTIES = 202;
 const REVIEWED_CALENDAR_GAPS = 254 - REVIEWED_CALENDAR_COUNTIES;
 
 test("all 254 canonical county guides are present in the research roster", () => {
@@ -1729,4 +1729,9 @@ test("Dawson library and Stephens theatre are dated original program calendars, 
 test("Cow Country Christmas exact Throckmorton organizer page is not a full county calendar",()=>{
  const src=registry.sources.find(s=>s.id==="throckmorton-chamber-cow-country-christmas-2026");
  assert.ok(src);assert.deepEqual(src.countySlugs,["throckmorton"]);assert.equal(src.sourceKind,"event-specific");assert.equal(src.calendarUrl,"https://www.throckmortonchamber.com/copy-of-cow-country-christmas");assert.match(src.organization,/EVENT ONLY/);assert.equal(registry.sources.find(s=>s.id==="throckmorton-chamber")?.sourceKind,"contact-only");
+});
+
+
+test("Sanderson seasonal distillery program calendar is venue-only in Terrell County, not Terrell city",()=>{
+ const src=registry.sources.find(s=>s.id==="terrell-sanderson-tall-texan-distillery-2026-programs");assert.ok(src);assert.deepEqual(src.countySlugs,["terrell"]);assert.equal(src.sourceKind,"public-calendar");assert.equal(src.calendarUrl,"https://talltexandistilling.com/distillery-events");assert.match(src.organization,/VENUE ONLY/);assert.equal(registry.sources.find(s=>s.id==="terrell-county-gov")?.sourceKind,"contact-only");
 });
