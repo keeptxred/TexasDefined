@@ -351,6 +351,11 @@ function TexasOhvGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">Compare vehicle fit and total trip expense</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>A narrow motorcycle or ATV trail is not interchangeable with a full-size four-wheel-drive area. At Lake Meredith, NPS requires a separate no-cost ORV permit for Blue Creek and Rosita Flats; other Texas riding areas may have fees and different vehicle restrictions.</p><p>Budget for fuel, applicable decals and passes, trailer transport, lodging and recovery equipment. Confirm vehicle width, access status and operator requirements before paying. A permit does not authorize travel on closed or undesignated ground.</p><p><a className="text-primary underline" href="https://home.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm">NPS vehicle and permit requirements</a> · <a className="text-primary underline" href="https://www.nps.gov/lamr/planyourvisit/camping.htm">Lake Meredith camping information</a>. For a nonmotorized alternative, compare the <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link>; do not assume bicycle trails allow OHVs.</p></div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build a legal riding venue into the wider trip</h2>
