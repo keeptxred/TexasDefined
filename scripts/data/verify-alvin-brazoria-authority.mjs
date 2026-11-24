@@ -37,6 +37,9 @@ const museumFiles = await Promise.all([
 const museumRecord = museumFiles[0].split('slug: "alvin-historical-museum"')[1]?.split('\n  },')[0] ?? '';
 const museumDossier = museumFiles[1].split('"alvin-historical-museum": {')[1]?.split('\n  },')[0] ?? '';
 check('Museum visitor copy', !!museumRecord && !!museumDossier && !/Explain the difference|its exhibi"|inventing a fr"/.test(museumRecord + museumDossier), 'No known truncated text or editorial instruction');
+const photos = await readFile('src/components/editorial/AlvinHistoricalPhotographs.tsx', 'utf8');
+for (const id of ['25635261034', '26147334682', '5822129305']) check('Alvin photograph source ' + id, photos.includes(id), 'Exact archival original');
+check('Alvin photo delivery and attribution', photos.includes('/media/remote?url=') && photos.includes('DeGolyer Library') && photos.includes('No known copyright restrictions') && photos.includes('CC BY 2.0'), 'First-party broker with explicit source and rights captions');
 const manifest = JSON.parse(await readFile('public/museum-verification-manifest.json', 'utf8'));
 const museum = manifest.museums.find(x => x.path === '/destination/alvin-historical-museum');
 check('Museum source review contract', museum?.cadenceDays <= 30 && museum?.faqCount >= 10 && museum?.sources.some(x => x.sourceUrl.includes('tour-18_emigrants')), 'Monthly source manifest and researched questions');
@@ -67,6 +70,10 @@ for (const target of targets) {
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     for (const link of target.links) check(url + ' link ' + link, html.includes(link), 'Reciprocal editorial link');
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
+    if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');
+      check(url + ' photograph credits', visible.includes('DeGolyer Library') && visible.includes('No known copyright restrictions'), 'Reader-visible archival attribution');
+    }
     const compact = html.replace(/\s+/g, '');
     check(url + ' JSON-LD ' + target.schema, compact.includes(target.schema), 'Structured entity');
   } catch (error) {
