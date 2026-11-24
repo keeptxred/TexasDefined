@@ -113,6 +113,7 @@ function sportsVenuePriority(entity: TexasEntityRecord) {
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'county' && entity.slug === 'cass') return 'Cass County, Texas: Linden Music, Courthouse & Atlanta';
   if (entity.kind === 'county' && entity.slug === 'brazoria') return 'Brazoria County, Texas: History, Alvin, Angleton & Gulf Coast';
   if (entity.kind === 'city' && entity.slug === 'alvin') return 'Alvin, Texas: Railroad History, Museum, Farm & Things to Do';
   if (entity.kind === 'county' && entity.slug === 'comanche') return 'Comanche County TX: History, De Leon & Proctor Lake';
