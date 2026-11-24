@@ -5,7 +5,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-music-cities",
     eyebrow: "Five scenes, one statewide story",
     title: "Texas Music Cities: Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth",
-    dek: "Texas music makes more sense when you follow the cities that gave artists places to rehearse, record, perform, broadcast and build audiences.",
+    dek: "Compare Texas music in Austin, Houston, San Antonio, Lubbock, Dallas–Fort Worth and Corpus Christi—and why smaller towns like Linden mattered.",
     quickAnswer: "No single city explains Texas music. Austin became a meeting point for progressive country, blues and public-television performance; Houston built deep blues, gospel, R&B and hip-hop systems; San Antonio fused border, Black, Mexican American and Anglo traditions; Lubbock and the South Plains helped launch a globally influential strain of rock and roll; and Dallas–Fort Worth connected Deep Ellum blues, jazz, country, recording and later experimental music. Together these scenes show how local institutions turn individual talent into durable musical culture.",
     sections: [
       {
