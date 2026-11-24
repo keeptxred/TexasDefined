@@ -65,6 +65,14 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         links: [{ href: "/county/cass", label: "Cass County and Linden music heritage" }, { href: "/texas-icons/don-henley", label: "Don Henley's Linden upbringing" }]
       },
       {
+        heading: "Linden also preserved a second listening-room tradition",
+        body: [
+          "A historic-property register maintained by Friends of the Texas Historical Commission identifies the Texas Music Barn at 301 East Houston Street, in Linden's former Methodist church, built in 1927. The Academy of Texas Music received the building in 2009 through a gift from the Cass County Conservancy and adapted its small interior for live performance. A 2012 Texas Highways story preserved by the University of North Texas describes both the Barn and Music City Texas Theater. That contemporaneous report explains why Linden's music reputation was built around multiple civic-scale rooms rather than a single marquee.",
+          "The Music Barn is not another name for Music City Texas Theater: the former is associated with the East Houston Street church building; the latter uses a former American Legion auditorium at 108 Legion Street. The older music-barn account cannot confirm today's ownership, shows or visitor access. For a current performance, use Music City Texas Theater's official show and ticket calendar, and treat the Barn primarily as a documented cultural-history stop unless its operator independently confirms access."
+        ],
+        links: [{ href: "/county/cass", label: "Linden's two historic music venues and courthouse" }, { href: "/texas-music-cities", label: "Small towns in Texas music networks" }]
+      },
+      {
         heading: "The next layer: historic and lost rooms",
         body: [
           "A complete Texas venue history cannot stop with places that still sell tickets. Deep Ellum clubs, Houston's Eldorado Ballroom, Austin's Armadillo World Headquarters, Pasadena's Gilley's, Dallas's Longhorn Ballroom, East Austin's Victory Grill and many other rooms shaped scenes even when the original operation changed or disappeared.",
