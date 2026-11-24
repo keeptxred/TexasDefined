@@ -8,7 +8,7 @@ import {
 const counties = loadCountyNames(readFileSync("src/data/texas-places.ts", "utf8"));
 const registry = JSON.parse(readFileSync("ops/editorial/chamber-event-sources.json", "utf8"));
 // Exact reviewed registry baseline; update once per accepted source batch.
-const REVIEWED_SOURCE_COUNT = 385;
+const REVIEWED_SOURCE_COUNT = 386;
 const REVIEWED_CALENDAR_COUNTIES = 201;
 const REVIEWED_CALENDAR_GAPS = 254 - REVIEWED_CALENDAR_COUNTIES;
 
@@ -1723,4 +1723,10 @@ test("Dawson library and Stephens theatre are dated original program calendars, 
  for (const id of ["lamesa-dawson-chamber","breckenridge-stephens-chamber"]) assert.equal(registry.sources.find(s=>s.id===id)?.sourceKind,"contact-only");
  const report=await auditChamberSources({offline:true});
  assert.equal(report.sourceCount,REVIEWED_SOURCE_COUNT);assert.equal(report.countiesWithRegisteredSources,254);assert.equal(report.countiesWithExplicitCalendarSources,REVIEWED_CALENDAR_COUNTIES);assert.equal(report.countiesNeedingCalendarEvidence,REVIEWED_CALENDAR_GAPS);assert.equal(report.sourceAvailabilityIsNotDateVerification,true);
+});
+
+
+test("Cow Country Christmas exact Throckmorton organizer page is not a full county calendar",()=>{
+ const src=registry.sources.find(s=>s.id==="throckmorton-chamber-cow-country-christmas-2026");
+ assert.ok(src);assert.deepEqual(src.countySlugs,["throckmorton"]);assert.equal(src.sourceKind,"event-specific");assert.equal(src.calendarUrl,"https://www.throckmortonchamber.com/copy-of-cow-country-christmas");assert.match(src.organization,/EVENT ONLY/);assert.equal(registry.sources.find(s=>s.id==="throckmorton-chamber")?.sourceKind,"contact-only");
 });
