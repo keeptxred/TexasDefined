@@ -71,9 +71,18 @@ async function normalContentAndLinks() {
     };
     console.log('Van Zandt football source diagnostic: ' + JSON.stringify(directoryDiagnostic));
     assert.equal(payload.directoryAvailable, true, 'AskTED directory enrichment unavailable; not evidence of a county with fewer schools');
-    assert.ok(Array.isArray(payload.programs) && payload.programs.length >= 7,
-      'Previously verified Van Zandt programs unexpectedly missing: ' + JSON.stringify(directoryDiagnostic));
+    // Oct 27 run 40453374136 included Mabank as a seventh match. The
+    // 2026 TEA campus comparison identifies Mabank HS (129905001) in Kaufman:
+    // https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&id=129905001&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas
+    // TDLR project TABS2025017846 independently confirms the campus location.
+    // Mabank ISD spans three counties; district service area is not campus county.
+    const expected = ['canton','van','wills-point','edgewood','grand-saline','fruitvale']
+      .map(slug => '/texas-high-school-football-teams/' + slug);
+    assert.ok(Array.isArray(payload.programs), 'Missing county directory rows');
     const paths = new Set(payload.programs.map(p => p.profilePath));
+    for (const path of expected) assert.ok(paths.has(path), 'Missing verified Van Zandt campus: ' + path);
+    assert.ok(!paths.has('/texas-high-school-football-teams/mabank'), 'Mabank High School belongs to Kaufman County, not Van Zandt');
+    assert.ok(payload.programs.every(p => /^van zandt(?: county)?$/i.test(p.countyName ?? '')), 'County match has inconsistent campus attribution');
     assert.equal(paths.size, payload.programs.length, 'Duplicate county football paths');
     for (const program of payload.programs) {
       assert.match(program.profilePath, /^\/texas-high-school-football-teams\/[a-z0-9-]+$/, 'Profile path must be canonical');
