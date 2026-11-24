@@ -131,6 +131,8 @@ for (const marker of ["888-361-6908", "nonrefundable Recreation.gov pass", "East
   if (!lazyRoute.includes(marker)) errors.push('Missing specific federal rider, payment or staging guidance: ' + marker);
 }
 
+if (!lazyRoute.includes('aria-labelledby="extended-trip-planning"') || !lazyRoute.includes('to="/texas-mountain-biking-guide"')) errors.push('Missing expanded visitor planning or contextual reciprocal outdoor guide link.');
+
 if (errors.length) {
   console.error('Texas OHV authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);
