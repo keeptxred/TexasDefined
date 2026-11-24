@@ -40,7 +40,8 @@ assert.equal(games.find((game) => !game.result)?.date, '2026-10-16', 'the reconc
 assert.ok(!source.includes("footballMatchups"), 'base editorial registry must not own the runtime matchup overlay');
 assert.ok(profileServer.includes("import { footballMatchups } from './football-matchups';"), 'profile server must load the verified matchup snapshot');
 assert.ok(profileServer.includes("import { applyFootballMatchupSnapshot, applyVerifiedDistrictFinalsToTeam } from './football-team-season-overlay';"), 'profile server must use the shared sourced matchup and district overlays');
-assert.ok(profileServer.includes("applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)"), 'overlay must run after authored shard and Aubrey precedence');
+assert.match(profileServer, /const seasonReviewedEditorial = canonicalSlug==='alpine' && aubreyAdjustedEditorial[\s\S]*?: aubreyAdjustedEditorial;/, 'Alpine-only season review must preserve Aubrey-adjusted authored editorial for every other team');
+assert.match(profileServer, /applyManuallyVerifiedFootballFinals\(applyVerifiedDistrictFinalsToTeam\(\s*applyFootballMatchupSnapshot\(seasonReviewedEditorial, canonicalSlug, footballMatchups\),/, 'matchup overlay must follow authored, Aubrey and season review precedence and precede district and individually reviewed finals');
 assert.ok(overlay.includes("editorial ?? { slug: teamSlug, overview: [], faq: [] }"), 'snapshot-only teams must receive a minimal season container');
 assert.ok(overlay.includes("recordLabel: 'Verified snapshot record'"), 'partial snapshot record must be labeled honestly');
 assert.ok(overlay.includes("game.result && row.result && game.result !== row.result"), 'conflicting authored finals must be preserved for reconciliation');
