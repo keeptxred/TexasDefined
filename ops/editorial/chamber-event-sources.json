@@ -5952,6 +5952,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "event-specific"
+    },
+    {
+      "id": "mcmullen-choke-canyon-calliham-tpwd-ranger-events-2026",
+      "organization": "Texas Parks & Wildlife — Choke Canyon Calliham Unit dated ranger programs (PARK ONLY; McMullen County, not South Shore)",
+      "countySlugs": [
+        "mcmullen"
+      ],
+      "homeUrl": "https://tpwd.texas.gov/state-parks/choke-canyon",
+      "calendarUrl": "https://tpwd.texas.gov/state-parks/choke-canyon/park_events",
+      "contactPageUrl": "https://tpwd.texas.gov/state-parks/choke-canyon",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
