@@ -323,6 +323,27 @@ for (const stale of ["SportsVenueEventItem", "SportsVenueEventsIntegration", "Sp
 }
 if (sportsVenueRoute.includes("texas-event-records.server") || sportsVenueRoute.includes("texas-event-calendar.server")) failures.push("sports venue route must keep event registry/normalization behind the server-function boundary");
 
+const venuePrograms = read("src/data/events/howard-collingsworth-venue-programs-2026-2027.server.ts");
+requireText(adapter, "...getVerifiedHowardCollingsworthVenuePrograms()", "Howard and Collingsworth exact venue program integration");
+const venueLiteral = venuePrograms.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!venueLiteral) failures.push("Venue program source literal must be independently auditable");
+else {
+ const venueRows=JSON.parse(venueLiteral[1]);
+ const expected=[
+  ["big-spring-symphony-night-out-at-the-movies-2027","howard","2027-02-20","5:30 PM","https://bigspringsymphony.org/season-letter/"],
+  ["big-spring-symphony-jazzy-night-out-2027","howard","2027-04-24","5:30 PM","https://bigspringsymphony.org/season-letter/"],
+  ["wellington-ritz-retro-reels-december-2026","collingsworth","2026-12-06","3:00 PM","https://www.wellingtonritztheatre.com/"],
+  ["wellington-ritz-josh-abbott-william-clark-green-2027","collingsworth","2027-01-17","6:00 PM","https://www.wellingtonritztheatre.com/"],
+ ];
+ for(const [slug,county,date,time,url] of expected){
+  const matches=venueRows.filter(e=>e.slug===slug);
+  const e=matches[0];
+  if(matches.length!==1 || e.countySlug!==county || e.startDate!==date || e.startTime!==time || e.officialEventUrl!==url || e.region!=="panhandle" || e.endDate!==undefined || e.image || e.ticketing || e.status!=="scheduled" || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid original venue occurrence: "+slug);
+  if(e && !e.guidePath.includes("location=county%3A"+county+"&start="+date+"&end="+date)) failures.push("County calendar crosslink missing for "+slug);
+ }
+ if(venueRows.length!==expected.length || new Set(venueRows.map(e=>e.id)).size!==venueRows.length) failures.push("Venue programs contain unexpected or duplicate records");
+}
+
 if (failures.length) {
   console.error("Global event/calendar validation failed:\n" + failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
