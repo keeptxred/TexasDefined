@@ -18,6 +18,7 @@ const DETAIL_PARITY_SLUGS = [
   "national-ranching-heritage-center-lubbock",
   "albert-bessie-kronkosky-state-natural-area",
   "heritage-center-cherokee-county-rusk",
+  "alvin-historical-museum",
 ] as const;
 
 export async function loadCanonicalDestinationSitemapParity(): Promise<Array<{ path: string; lastmod?: string }>> {
