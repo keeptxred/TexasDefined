@@ -81,7 +81,7 @@ const records: MajorEventAuthorityRecord[] = [
     whyItMatters: "The Conroe Cajun Catfish Festival is a three-day Montgomery County food-and-music tradition that combines Cajun flavor, live entertainment, festival vendors and community fundraising at the Montgomery County Fairgrounds.",
     planningSections: [
       { title: "Use October 9-11 as the confirmed 2026 festival weekend", body: "Friends of Conroe identifies the 37th annual Conroe Cajun Catfish Festival for October 9 through 11, 2026 at the Montgomery County Fairgrounds. The organizer publishes separate Friday, Saturday and Sunday operating hours." },
-      { title: "Choose between a single day and the full weekend", body: "The organizer offers both one-day admission and a weekend pass, with different operating hours each day. Use the entertainment lineup and final festival schedule to decide whether one day is enough for your priorities." },
+      { title: "Tickets and updates for the next edition", body: "The 2026 festival offered one-day admission and a weekend pass, with different operating hours each day. The organizer's entertainment lineup is labeled 2026. Use Get Updates on the official festival site to follow announcements for the next edition." },
       { title: "Connect the festival to Conroe and Montgomery County", body: "The fairgrounds location makes the festival easy to pair with Conroe, Lake Conroe and other Montgomery County stops. Build the food-and-music weekend into a broader local itinerary instead of treating the ticket gate as the whole trip." },
     ],
     relatedLinks: [

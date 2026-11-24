@@ -107,6 +107,22 @@ export function GenericFishingLakeGuide({
         <div className="mt-7 grid gap-x-8 md:grid-cols-2">{reports.slice(0, 4).map((report) => <article key={report.id} className="border-t border-border py-6"><p className="eyebrow text-primary">{formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div>
       </section> : null}
 
+      {lake.slug === "proctor-lake" && lake.nearestCities.some((city) => city.trim().toLowerCase() === "comanche") ? (
+        <section className="border-t border-border py-12" aria-labelledby="proctor-comanche-heritage">
+          <p className="eyebrow text-primary">Add a separate county-history stop</p>
+          <h2 id="proctor-comanche-heritage" className="mt-3 font-display text-3xl">Historic Comanche near Proctor Lake</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+            Proctor Lake and Comanche are different stops: the reservoir has its own public-access and fishing rules,
+            while Comanche's courthouse square and county museum explain the region's frontier, railroad and everyday
+            community history. Plan the drive separately and confirm museum hours and Old Cora restoration access.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+            <a className="text-primary underline underline-offset-4" href="/destination/comanche">Comanche: courthouse, depot and walking guide</a>
+            <a className="text-primary underline underline-offset-4" href="/destination/comanche-county-historical-museum">Comanche County Historical Museum</a>
+          </div>
+        </section>
+      ) : null}
+
       <section className="border-t border-border py-12">
         <p className="eyebrow text-primary">Sources</p>
         <h2 className="mt-3 font-display text-3xl">Check Current Conditions Before You Go</h2>

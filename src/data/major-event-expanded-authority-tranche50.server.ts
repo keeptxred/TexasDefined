@@ -47,7 +47,7 @@ const records: MajorEventAuthorityRecord[] = [
     venue: "David Campbell Field, Corsicana Municipal Airport",
     officialUrl: "https://coyotesquadron.org/airsho",
     sourceCheckedAt: "2026-10-17",
-    dateNote: "The Commemorative Air Force Coyote Squadron's published 2026 date is October 17. Confirm same-day status with the organizer; no later edition is announced in the cited source.",
+    dateNote: "The 2026 Corsicana Airsho has concluded. Check the Coyote Squadron's event page for the next announced date.",
     whyItMatters: "The Corsicana Airsho brings historical trainers, warbirds and visiting performers to an airport that operated as an Army Air Corps training field in World War II. The Commemorative Air Force Coyote Squadron preserves that local aviation legacy with its Fairchild PT-19 and Beechcraft T-34. The verified show date is October 17, 2026; this is not evidence of a confirmed date next year.",
     quickFacts: [
       { label: "2026 date", value: "Saturday, October 17" },
