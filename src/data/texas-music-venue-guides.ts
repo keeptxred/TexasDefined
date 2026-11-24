@@ -5,7 +5,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-music-venues",
     eyebrow: "Rooms that shaped the sound",
     title: "Legendary Texas Music Venues: Dance Halls, Honky-Tonks and Clubs That Shaped the Sound",
-    dek: "Texas music history lives in physical places: rural dance halls, Austin clubs, Fort Worth honky-tonks and rooms where local scenes became national movements.",
+    dek: "Explore Gruene Hall, Austin's blues clubs, Billy Bob's in Fort Worth and Linden's Music City Texas Theater through researched history and useful visitor context.",
     quickAnswer: "A useful Texas music-venue map starts with different kinds of rooms rather than one city or genre. Gruene Hall preserves the nineteenth-century community dance-hall tradition; the Broken Spoke keeps Austin honky-tonk and two-step culture visible; the Continental Club shows how one South Congress room moved through supper-club, rock, roots and blues eras; Antone's made Austin a nationally important blues stop; and Billy Bob's Texas turned the Fort Worth Stockyards into a massive country-music destination. Together they show that Texas music history was built not only by artists and recordings, but by stages, dance floors, promoters, neighborhoods and audiences. Linden's Music City Texas Theater adds an important small-town counterpoint: a nonprofit music venue created from a historic American Legion auditorium.",
     sections: [
       {
