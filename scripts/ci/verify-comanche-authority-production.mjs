@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Comanche three-canonical public release acceptance.
+ * Comanche four-page public release and sitemap acceptance.
  * Invoke after a successful deploy, or on the weekly drift-monitor schedule.
  * No remote source row is allowed to replace November 2026 reviewed copy.
  */
@@ -90,6 +90,39 @@ for (let attempt = 1; attempt <= 5; attempt++) {
       else console.log(`PASS ${target.path}: all source-verified content, canonical and indexability checks`);
     } catch (error) {
       failures.push(`${target.path}: ${error instanceof Error ? error.message : error}`);
+    }
+  }
+  // Indexable canonicals should be discoverable with the actual editorial dates.
+  // The county primary sitemap has a separately versioned edge cache.
+  for (const [sitemap, expected] of [
+    ["/sitemap.xml", { "/county/comanche": "2026-11-24" }],
+    ["/sitemap-explore.xml", {
+      "/destination/comanche": "2026-11-24",
+      "/destination/comanche-county-historical-museum": "2026-11-24",
+    }],
+  ]) {
+    try {
+      const url = new URL(host + sitemap);
+      url.searchParams.set("comanche-sitemap-acceptance", `${process.env.GITHUB_SHA?.slice(0, 12) || "local"}-${attempt}`);
+      const response = await fetch(url, {
+        headers: { "cache-control": "no-cache", "user-agent": "TexasDefined-Comanche-sitemap-acceptance/1.0" },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!response.ok) {
+        failures.push(`${sitemap}: HTTP ${response.status}`);
+        continue;
+      }
+      const xml = await response.text();
+      for (const [page, lastmod] of Object.entries(expected)) {
+        const location = host + page;
+        const entry = xml.match(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>\s*<\/url>/g) ?? [];
+        const found = entry.find((item) => item.includes(`<loc>${location}</loc>`));
+        if (!found || !found.includes(`<lastmod>${lastmod}</lastmod>`)) {
+          failures.push(`${sitemap}: missing ${page} with verified lastmod ${lastmod}`);
+        }
+      }
+    } catch (error) {
+      failures.push(`${sitemap}: ${error instanceof Error ? error.message : error}`);
     }
   }
   if (!failures.length) break;
