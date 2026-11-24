@@ -11,31 +11,31 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-10-24",
     endDate: "2026-10-24",
-    dateNote: "The official 2026 show is Saturday, October 24 in downtown Johnson City. Explore Johnson City lists the public event window as 9 a.m.-3 p.m.; the organizer lists participant check-in from 7:30-9:30 a.m., judging from 10:30 a.m.-12:30 p.m., raffle announcements at 1:30 p.m. and awards from 2-2:30 p.m.",
+    dateNote: "The October 24, 2026 show has ended. The organizer's site marks registration sold out and closed. No confirmed 2027 date was found.",
     venue: "Downtown Johnson City / Pecan Street Brewing",
     officialUrl: "https://jctxcarshow.com/",
-    sourceCheckedAt: "2026-09-19",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Gears & Beers combines Johnson City's downtown courthouse setting, local craft beer and live music with a serious regional car-and-motorcycle show. The fifth annual event specifically includes vintage, antique, classic and custom cars, trucks and motorcycles, plus six motorcycle categories tied into the local enthusiast community around the Texas Vintage Motorcycle Museum.",
     planningSections: [
       {
-        title: "The public show runs 9 a.m.-3 p.m.",
-        body: "Explore Johnson City publishes a 9 a.m.-3 p.m. event window for Saturday, October 24. Vehicle participants have an earlier 7:30-9:30 a.m. check-in period, followed by judging from 10:30 a.m.-12:30 p.m., raffle announcements at 1:30 p.m. and awards from 2-2:30 p.m.",
+        title: "2026 participant and spectator timing",
+        body: "The organizer's completed 2026 schedule separated participant check-in (7:30–9:30 a.m.) from judging (10:30 a.m.–12:30 p.m.) and afternoon raffles and awards. Future schedules and public hours require a new announcement.",
       },
       {
-        title: "Participant registration is not the same as spectator admission",
-        body: "The organizer currently lists vehicle pre-registration at $35 with a T-shirt and beer token, while day-of-show vehicle registration is $45 and subject to available space. The official pages reviewed do not publish a separate spectator admission price, so Texas Defined does not present the participant fees as general-admission tickets.",
+        title: "2026 registration was closed",
+        body: "The organizer lists the completed edition as sold out. Its historical $35 advance and conditional $45 day-of vehicle registration were entry fees for vehicles, not spectator admission. Do not use these fees as current ticket prices.",
       },
       {
-        title: "Motorcycles are a major part of the 2026 show",
-        body: "The official show site says six dedicated motorcycle categories are returning and directs motorcycle questions to Gordon Massie, owner of the Texas Vintage Motorcycle Museum in Johnson City. That makes the event a natural companion to the museum for riders and collectors.",
+        title: "Vehicle categories and local purpose",
+        body: "The 2026 show featured six motorcycle categories and a Junkyard Dog class for drivable older vehicles. The organizer identifies Project Gratitude and the local DAR as beneficiaries or partners; check the next edition for its classes and charitable program.",
       },
       {
-        title: "Use the same-day Jazz Fest as the evening plan",
-        body: "Johnson City Jazz Fest starts at 5 p.m. in downtown Memorial Park on the same Saturday. The car and motorcycle show ends at 3 p.m., leaving a practical gap for food, the motorcycle museum or downtown browsing before the free evening concert.",
+        title: "A downtown pairing, not a future schedule",
+        body: "The free Memorial Park jazz concert was held the evening of the 2026 car show. The next dates for both events must be confirmed separately.",
       },
       {
-        title: "Plan for rain-or-shine conditions",
-        body: "The organizer labels the show rain or shine and states there are no refunds for participant registration. Check the current forecast, participant rules and organizer updates close to the event.",
+        title: "2026 weather policy",
+        body: "The completed edition was advertised as rain or shine, with no refunds for participant registrations. Future entry conditions may differ.",
       },
     ],
     relatedLinks: [
