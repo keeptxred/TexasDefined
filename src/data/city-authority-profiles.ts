@@ -120,8 +120,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: '1907 railroad depot and downtown',
-        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building now hosts events beside National Oak Park; it is not an operating passenger railway depot.',
-        links: [{ label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
+        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building at 200 Depot Centre Boulevard now hosts events beside National Oak Park; it is not an operating passenger railway depot. The city lists rental inquiries at 281-388-4299.',
+        links: [{ label: 'City depot and trail information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1' }, { label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
       },
       {
         title: 'Maury Maverick Bridge: a relocated 1932 truss',
@@ -135,7 +135,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Froberg’s Farm and Bob Briscoe Park',
-        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
+        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. The farm describes January through late May as the usual strawberry season, with picking subject to crop and weather conditions. Its market operates separately from field access. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
         links: [{ label: 'Froberg’s official calendar', href: 'https://frobergsfarm.com/' }, { label: 'City park information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3' }],
       },
       {
