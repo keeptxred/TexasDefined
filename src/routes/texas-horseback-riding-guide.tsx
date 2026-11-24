@@ -73,7 +73,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Horseback Riding: 5 Public-Land Destinations",
-        description: "Find guided Texas horseback rides or bring your own horse. Compare five state parks, outfitters, trailer access, Coggins rules and equestrian campsites.",
+        description: "Find Texas guided horseback rides, family options and five public riding destinations with trailer access, Coggins rules and horse campsites.",
         image: deliveredHeroUrl,
         imageAlt: equestrianHero.alt,
         imageWidth: equestrianHero.width,
