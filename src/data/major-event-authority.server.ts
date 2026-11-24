@@ -284,6 +284,27 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
   montgomery: "piney-woods",
 };
 
+// Event-specific first-party documents supplement the date announcement. Keep
+// the original monitored officialUrl intact when another official endpoint
+// contains the detailed rules or a separately dated operational announcement.
+const tournamentPlanningSources: Record<string, MajorEventSource[]> = {
+  "houston-livestock-show-and-rodeo": [
+    { label: "RODEOHOUSTON November 17 genre calendar and ticket release", url: "https://www.rodeohouston.com/rodeohouston-previews-2027-entertainer-lineup-with-genre-calendar/" },
+    { label: "Cook-off and grounds season pass inclusions", url: "https://www.rodeohouston.com/worlds-championship-bar-b-que/" },
+  ],
+  "uil-soccer-state-championships": [
+    { label: "UIL 2027 soccer finals schedule", url: "https://www.uiltexas.org/soccer/state/" },
+    { label: "UIL soccer postseason manual", url: "https://www.uiltexas.org/soccer/manual/soccer-post-season-information" },
+  ],
+  "uil-softball-state-tournament": [
+    { label: "UIL 2027 softball finals schedule (official alternate host)", url: "https://wwwprod.uiltexas.org/softball/state" },
+  ],
+  "uil-cross-country-state-championships": [
+    { label: "UIL 2026 championship schedule and results", url: "https://www.uiltexas.org/cross-country/state/" },
+    { label: "UIL official 2026 cross-country results links", url: "https://www.uiltexas.org/cross-country/state/cross-country-state-meet-qualifiers-results" },
+  ],
+};
+
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
   if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
   const profile = verifiedTournamentBySlug(slug)
@@ -337,7 +358,7 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
         description: "Return to the statewide tournament directory and all competition categories.",
       },
     ],
-    sources: [{ label: profile.officialSourceLabel, url: profile.officialUrl }],
+    sources: [{ label: profile.officialSourceLabel, url: profile.officialUrl }, ...(tournamentPlanningSources[slug] ?? [])],
   };
 }
 

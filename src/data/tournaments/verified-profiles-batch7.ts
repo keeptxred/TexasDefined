@@ -38,13 +38,13 @@ export const VERIFIED_TOURNAMENT_BATCH7_PROFILES: readonly VerifiedTournamentBat
     summary: "Memorial Hermann IRONMAN Texas is scheduled for April 24, 2027 in The Woodlands, with the race anchored around Lake Woodlands, Town Green Park and The Woodlands Waterway.",
     whyItMatters: "IRONMAN Texas is one of the state's signature endurance events, bringing a full-distance 2.4-mile swim, 112-mile bike leg and 26.2-mile run to The Woodlands and serving as a major destination weekend for athletes and spectators.",
     planningNotes: [
-      "Visit The Woodlands publishes April 24, 2027 as the confirmed host date, and The Woodlands Township's host agreement reserves the local event footprint for that date; recheck IRONMAN's athlete guide when the 2027 edition is released.",
-      "The race begins around Lake Woodlands and uses multiple public spaces and road segments rather than one closed arena, so spectator access, road closures and parking should be planned from the current race-week guidance.",
-      "Use The Woodlands and Montgomery County as the trip base, but remember the bike course extends beyond the immediate park footprint and can affect regional road access on race day.",
+      "Visit The Woodlands confirms April 24, 2027, and gives Northshore Park at 2505 Lake Woodlands Drive as the starting area. Check the race organizer’s current athlete guide for registration and race-day rules.",
+      "The host describes a point-to-point swim from Northshore Park to the Waterway at Town Green Park, a bike leg starting at Town Green Park and a finish on Waterway Avenue near Waterway Square. These are separate viewing locations, not a single start/finish venue.",
+      "The bike route includes closed toll-road segments. Athletes and spectators should use current race-week access and road-closure instructions rather than assume normal driving routes; plan the swim start and finish viewing separately.",
     ],
     officialUrl: "https://www.visitthewoodlands.com/event/memorial-hermann-ironman-texas/2980/",
     officialSourceLabel: "Visit The Woodlands official IRONMAN Texas host page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "world-skeet-shooting-championships",
