@@ -131,7 +131,7 @@
       "path": "/destination/alvin-historical-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 8,
+      "faqCount": 10,
       "sources": [
         {
           "sourceUrl": "https://alvinmuseum.org/",
@@ -162,6 +162,26 @@
           "sourceUrl": "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
           "fetchUrl": "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
           "label": "Museum building: 1940 former Alvin US Post Office, now Alvin Historical Museum; Larry D. Moore CC BY 4.0, May 2015"
+        },
+        {
+          "sourceUrl": "https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/",
+          "fetchUrl": "https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/",
+          "label": "Mural history and artist"
+        },
+        {
+          "sourceUrl": "https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1",
+          "fetchUrl": "https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1",
+          "label": "Depot and trail visitor access"
+        },
+        {
+          "sourceUrl": "https://www.visitalvin.com/business/alvin-art-trail",
+          "fetchUrl": "https://www.visitalvin.com/business/alvin-art-trail",
+          "label": "Art trail"
+        },
+        {
+          "sourceUrl": "https://texashistory.unt.edu/explore/partners/AMS/",
+          "fetchUrl": "https://texashistory.unt.edu/explore/partners/AMS/",
+          "label": "Digitized historical materials"
         }
       ]
     },
