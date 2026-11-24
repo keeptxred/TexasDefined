@@ -721,7 +721,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
 
         {comparison ? <section className="border-b border-border py-8" aria-labelledby="quick-comparison">
           <h2 id="quick-comparison" className="font-display text-3xl">{comparison.heading}</h2>
-          <div className="mt-5 overflow-x-auto"><table className="w-full border-collapse text-left text-sm">
+          <div className="mt-5 overflow-x-auto"><table aria-labelledby="quick-comparison" className="w-full border-collapse text-left text-sm">
             <thead><tr>{comparison.columns.map(column => <th key={column} scope="col" className="border border-border bg-muted p-3">{column}</th>)}</tr></thead>
             <tbody>{comparison.rows.map(row => <tr key={row[0]}>{row.map((cell,index) => index === 0 ? <th key={index} scope="row" className="border border-border p-3">{cell}</th> : <td key={index} className="border border-border p-3">{cell}</td>)}</tr>)}</tbody>
           </table></div><p className="mt-3 text-xs leading-5 text-muted-foreground">{comparison.note}</p>
