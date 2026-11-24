@@ -115,7 +115,7 @@ export const MADE_IN_TEXAS_ENTRIES: TexasMadeEntry[] = [
   entry('James Avery Artisan Jewelry', 'Kerrville', 'kerr', 'retail-lifestyle', 'founded', 'Texas jewelry company founded in Kerrville.'),
   entry('Southside Market & Barbeque', 'Elgin', 'bastrop', 'food-drink', 'made-or-processed', 'Historic Elgin sausage and barbecue company.'),
   entry('Meyer\'s Elgin Sausage', 'Elgin', 'bastrop', 'food-drink', 'made-or-processed', 'Elgin meat-market tradition represented by a locally rooted sausage producer.'),
-  entry('Meat Church', 'Waxahachie', 'ellis', 'food-drink', 'major-operations', 'Barbecue supply store in downtown Waxahachie.'),
+  entry('Meat Church', 'Waxahachie', 'ellis', 'food-drink', 'major-operations', 'The BBQ supply store moved in September 2026 from Main Street into the historic Boyce Feed Store property at 441 S. College Street.'),
   entry('Ennis Flint', 'Ennis', 'ellis', 'energy-industrial', 'major-operations', 'Traffic-safety materials company with Ennis roots and operations.'),
   entry('American Hat Company', 'Bowie', 'montague', 'western-wear', 'made-or-processed', 'Cowboy-hat maker tied directly to Bowie manufacturing.'),
   entry('King Ranch Saddle Shop', 'Kingsville', 'kleberg', 'western-wear', 'founded', 'Leather and ranch-goods brand rooted in the King Ranch and Kingsville story.'),
