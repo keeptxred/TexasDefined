@@ -522,7 +522,7 @@ function TexasPaddlingGuidePage() {
           
             <p className="mt-4 text-sm leading-7">Destination details: <a className="text-primary underline" href="/destination/caddo-lake-state-park">Caddo Lake State Park visitor guide</a>.</p>
             <figure className="mt-6 max-w-3xl overflow-hidden border border-border">
-              <img src={editorialImageSrc("https://commons.wikimedia.org/wiki/Special:FilePath/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg?width=960")} alt="Canoeing on Saw Mill Pond at Caddo Lake State Park." width={3556} height={2000} loading="lazy" decoding="async" className="w-full h-auto" />
+              <img src={editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg")} alt="Canoeing on Saw Mill Pond at Caddo Lake State Park." width={3556} height={2000} loading="lazy" decoding="async" className="w-full h-auto" />
               <figcaption className="p-3 text-sm leading-6 text-muted-foreground">Canoeing on Saw Mill Pond at Caddo Lake State Park. Photo: © 2023 Larry D. Moore, <a className="text-primary underline" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a className="text-primary underline" href="https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg">Wikimedia Commons</a>. Resized for display; no crop.</figcaption>
             </figure>
           </section>
