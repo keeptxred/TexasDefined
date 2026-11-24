@@ -9,6 +9,8 @@ export type LocalOfficeProfile = {
   email?: string;
   address?: string;
   lastUpdated?: string;
+  directVerifiedAt?: string;
+  directSourceUrl?: string;
 };
 
 export type LocalGovernmentProfile = {
@@ -31,6 +33,8 @@ export function loadLocalGovernmentProfile(countySlug: string, countyName: strin
       countyWebsiteUrl: 'https://www.brazoriacountytx.gov/',
       appraisalDistrict: {
         name: 'Marcel Pierel III',
+        directVerifiedAt: '2026-11-24',
+        directSourceUrl: 'https://brazoriacad.org/contact-us/',
         websiteUrl: 'https://brazoriacad.org/',
         phone: '979-849-7792',
         email: 'help@brazoriacad.org',
@@ -38,6 +42,8 @@ export function loadLocalGovernmentProfile(countySlug: string, countyName: strin
       },
       taxOffice: {
         name: 'Kristin R. Bulanek',
+        directVerifiedAt: '2026-11-24',
+        directSourceUrl: 'https://tax.brazoriacountytx.gov/contact-en-us',
         websiteUrl: 'https://tax.brazoriacountytx.gov/',
         phone: '979-864-1320',
         address: '237 E. Locust St., Suite 104, Angleton, TX 77515',

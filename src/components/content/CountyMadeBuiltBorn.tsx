@@ -18,8 +18,8 @@ export function CountyMadeBuiltBorn({ countySlug }: { countySlug: string }) {
         <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
           {entries.map((entry) => {
             const evidence = evidenceForMadeInTexasEntry(entry.name);
-            const relationshipLabel = entry.relationship === 'made-or-processed' && !evidence
-              ? 'Texas production claim · source review queued'
+            const relationshipLabel = !evidence
+              ? `${MADE_IN_TEXAS_RELATIONSHIP_LABELS[entry.relationship]} · source review queued`
               : MADE_IN_TEXAS_RELATIONSHIP_LABELS[entry.relationship];
             return (
               <article key={`${entry.name}-${entry.city}`} className="bg-background p-5">
@@ -27,7 +27,7 @@ export function CountyMadeBuiltBorn({ countySlug }: { countySlug: string }) {
                 <h3 className="mt-2 font-display text-2xl leading-tight">{entry.name}</h3>
                 <p className="mt-1 text-sm font-medium">{entry.city}</p>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                {evidence ? <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Verified source: {evidence.sourceLabel} ↗</a> : null}
+                {evidence ? <div className="mt-3 text-xs leading-5 text-muted-foreground"><p>{evidence.claim}</p><p>Evidence reviewed: <time dateTime={evidence.checkedAt}>{evidence.checkedAt}</time></p><a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Verified source: {evidence.sourceLabel} ↗</a></div> : null}
                 {entry.href ? <a href={entry.href} className="mt-4 block text-sm font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Go deeper →</a> : null}
               </article>
             );

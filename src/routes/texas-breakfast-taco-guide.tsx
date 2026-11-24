@@ -4,7 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-breakfast-taco-guide";
-const heroImage = "https://commons.wikimedia.org/wiki/Special:Redirect/file/BreakfastTaco.jpg?width=1200";
+const heroImage = "https://commons.wikimedia.org/wiki/Special:Redirect/file/2009-265-56-_Two_Soft_Tacos_and_a_Microphone_(3310171849).jpg?width=1600";
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async () => {
@@ -18,7 +18,7 @@ export const Route = createFileRoute(canonicalPath)({
       description: guide.dek,
       type: "article",
       image: heroImage,
-      imageAlt: "Egg and sausage breakfast taco with salsa on a flour tortilla",
+      imageAlt: "Two chorizo breakfast tacos on flour tortillas in San Antonio",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),

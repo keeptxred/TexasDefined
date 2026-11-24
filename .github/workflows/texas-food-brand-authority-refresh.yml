@@ -1,0 +1,41 @@
+name: Texas food and brand authority source refresh
+on:
+  workflow_dispatch:
+  schedule:
+    # Directory monthly; four historical articles quarterly (January, April, July, October).
+    - cron: "37 14 5 * *"
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: texas-food-brand-authority-refresh
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/data/validate-made-in-texas-evidence.mjs
+      - run: node scripts/ci/monitor-texas-food-brand-authority.mjs --static
+      - name: Review source accessibility and public SEO; prepare factual review queue
+        run: node scripts/ci/monitor-texas-food-brand-authority.mjs ${{ github.event_name == 'workflow_dispatch' && '--all' || '' }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: texas-food-brand-source-review
+          path: .artifacts/texas-food-brand-source-review.*
+      - name: Create monthly source-review issue for protected source-backed editorial refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Texas food and brand authority source review $(date -u +%Y-%m)"
+          number="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "'"$title"'") | .number' | head -1)"
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body-file .artifacts/texas-food-brand-source-review.md
+          else
+            gh issue create --title "$title" --body-file .artifacts/texas-food-brand-source-review.md
+          fi

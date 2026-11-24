@@ -579,6 +579,13 @@ for (const path of plan.selectedPaths) {
           '/county/brazoria': ['Loren Mozley', 'Guide updated', '/city/alvin'],
           '/destination/alvin-historical-museum': ['Loren Mozley', 'Emigrants at Nightfall', '/city/alvin', '/county/brazoria'],
         };
+        // A focused Alvin/Brazoria release must prove the actual newly
+        // researched facts, not just the older historical content markers.
+        if (plan.alvinAuthorityPages?.includes(path)) {
+          markers['/city/alvin'].push('30,115', 'July 1, 2025');
+          markers['/county/brazoria'].push('419,080', 'Official appraisal district contact details', 'Official tax office contact details');
+          markers['/destination/alvin-historical-museum'].push('$5', '12 and under', '2026');
+        }
         const verifyAlvin = (body, label) => {
           const visible = body.replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
           for (const marker of markers[path]) {
@@ -587,6 +594,7 @@ for (const path of plan.selectedPaths) {
           for (const marker of ['25635261034', '26147334682', '5822129305', 'DeGolyer Library', 'No known copyright restrictions']) {
             if (!body.includes(marker)) throw new Error(path + ' ' + label + ' missing archival photo evidence ' + marker);
           }
+          if (plan.alvinAuthorityPages?.includes(path) && path === '/destination/alvin-historical-museum' && !body.includes('https://bcsummerpassport.org/sites/')) throw new Error(path + ' ' + label + ' missing dated admission source');
           if (visible.includes('Explain the difference between the main historic museum')) throw new Error(path + ' exposes stale editorial instructions');
           if ([...body.matchAll(/<meta\b[^>]*>/gi)].some(([tag]) => /name=["']robots["']/i.test(tag) && /noindex/i.test(tag))) throw new Error(path + ' unexpectedly noindexed');
         };
