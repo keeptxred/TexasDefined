@@ -1707,7 +1707,7 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "city": "Big Spring",
     "countySlug": "howard",
     "countyName": "Howard County",
-    "region": "big-bend",
+    "region": "panhandle",
     "startDate": "2026-12-19",
     "venueName": "Big Spring Municipal Auditorium, 310 E. 3rd Street, Big Spring",
     "officialEventUrl": "https://bigspringsymphony.org/season-letter/",
