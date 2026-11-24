@@ -1177,3 +1177,33 @@ test('protected Worker release rejects stale main before costly work and again b
   assert.match(workflow, /name: Verify current and previous release JS\/CSS on both public origins/,
     'Do not bypass hashed asset continuity checks');
 });
+
+
+test('Alvin authority release checks all three canonical pages, normal visitor copy and exact editorial sitemap rows', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/data/verify-alvin-brazoria-authority.mjs'] });
+  const paths = ['/city/alvin', '/county/brazoria', '/destination/alvin-historical-museum'];
+  assert.deepEqual(plan.alvinAuthorityPages, paths);
+  for (const path of paths) assert.ok(plan.selectedPaths.includes(path));
+  const origin = 'https://texasdefined.com';
+  const contents = {
+    '/city/alvin': 'Loren Mozley Maury Maverick Bridge <a href="/destination/alvin-historical-museum">Museum</a>',
+    '/county/brazoria': 'Loren Mozley Guide updated <a href="/city/alvin">Alvin</a>',
+    '/destination/alvin-historical-museum': 'Loren Mozley Emigrants at Nightfall <a href="/city/alvin">Alvin</a><a href="/county/brazoria">County</a>',
+  };
+  const responseFor = (url, stale = false, staleDate = false) => {
+    if (url.pathname === '/sitemap.xml' || url.pathname === '/sitemap-explore.xml') {
+      const rows = url.pathname === '/sitemap.xml' ? paths.slice(0,2) : paths.slice(2);
+      return new Response('<urlset>' + rows.map(path => '<url><loc>'+origin+path+'</loc><lastmod>'+(staleDate ? '2026-08-04' : '2026-11-24')+'</lastmod></url>').join('') + '</urlset>');
+    }
+    const body = stale && url.pathname === paths[2] && !url.searchParams.has('deploy_smoke') ? 'Explain the difference between the main historic museum' : contents[url.pathname];
+    return new Response('<html><head><title>Alvin authority</title><link rel="canonical" href="'+origin+url.pathname+'"></head><body>'+body+'</body></html>');
+  };
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => responseFor(url) });
+  assert.equal(good.length, 5);
+  assert.ok(good.every(row => row.passed), JSON.stringify(good));
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url => responseFor(url, true) });
+  assert.ok(stale.some(row => row.path === paths[2] && !row.passed && /ordinary visitor URL/.test(row.error)));
+  const oldSitemap = await verifyChangedPages({ plan, head, fetchImpl: async url => responseFor(url, false, true) });
+  assert.ok(oldSitemap.some(row => row.path === '/sitemap.xml' && !row.passed));
+  assert.ok(oldSitemap.some(row => row.path === '/sitemap-explore.xml' && !row.passed));
+});
