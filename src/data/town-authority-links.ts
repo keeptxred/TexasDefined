@@ -12,6 +12,11 @@ const townBySlug = new Map(TOWN_AUTHORITY_LINK_PLACES.map((town) => [town.slug, 
 export const TOWN_AUTHORITY_SLUGS = [...townBySlug.keys()] as readonly string[];
 
 const pairedTowns: Record<string, TownLink[]> = {
+  "comanche": [
+    { href: "/county/comanche", label: "Comanche County history and Proctor Lake", description: "Connect the county-seat move, ranching, railroads, De Leon and Leon River to surviving Comanche landmarks." },
+    { href: "/destination/comanche-county-historical-museum", label: "Comanche County Historical Museum", description: "Explore saloon, blacksmith, agricultural and county-community history; confirm visiting hours." },
+    { href: "/fishing/lakes/proctor-lake", label: "Proctor Lake fishing and recreation", description: "Plan a distinct lake outing with current public-access guidance rather than assuming downtown access." },
+  ],
   "fredericksburg": [
     townLink("boerne", "Boerne's Hill Country Main Street", "Contrast Fredericksburg's German-Texan and winery mix with Boerne's historic downtown and Cibolo nature." ),
     townLink("marble-falls", "Marble Falls and the Highland Lakes", "Build a separate lakeside Hill Country weekend west of Austin." ),
@@ -91,6 +96,7 @@ const attractionToTowns: Record<string, string[]> = {
   "lake-granbury": ["granbury"],
   "fort-davis-national-historic-site": ["fort-davis"],
   "davis-mountains-state-park": ["fort-davis"],
+  "comanche-county-historical-museum": ["comanche"],
   "museum-of-the-big-bend": ["alpine"],
   "chinati-foundation": ["marfa"],
 };
