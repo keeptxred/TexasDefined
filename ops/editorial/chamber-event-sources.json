@@ -5802,6 +5802,36 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "dawson-lamesa-library-2026-programs",
+      "organization": "Dawson County Public Library — original dated public programs (LIBRARY ONLY, not countywide festivals)",
+      "countySlugs": [
+        "dawson"
+      ],
+      "homeUrl": "https://dclib.ploud.net/",
+      "calendarUrl": "https://dclib.ploud.net/news-events",
+      "contactPageUrl": "https://dclib.ploud.net/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "stephens-national-theatre-breckenridge-2026-2027",
+      "organization": "Friends of Historic Breckenridge — National Theatre 2026–27 Performance Series (VENUE ONLY)",
+      "countySlugs": [
+        "stephens"
+      ],
+      "homeUrl": "https://friendsofhistoricbreckenridge.org/",
+      "calendarUrl": "https://friendsofhistoricbreckenridge.org/",
+      "contactPageUrl": "https://friendsofhistoricbreckenridge.org/#contact-us",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
