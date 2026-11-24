@@ -17,7 +17,7 @@ const PHOTO_SOURCE = {
     credit: "Larry D. Moore",
   },
   "/texas-homecoming-mums": {
-    original: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    original: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
     credit: "Sillyputty1967",
   },
 };
