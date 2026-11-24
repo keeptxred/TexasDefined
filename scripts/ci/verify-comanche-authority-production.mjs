@@ -51,6 +51,9 @@ function verify({ path, evidence }, html) {
   if (path === "/destination/comanche" && !text.includes("2012")) missing.push("dated Frisco depot preservation reopening");
   if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
   if (path === "/destination/comanche" && !html.includes("Downtown_Comanche_Wiki_1_")) missing.push("licensed downtown Comanche image");
+  if (path === "/destination/comanche" && !html.includes("Comanche_tx_city_hall")) missing.push("licensed Comanche city-hall storefront photograph");
+  if (["/destination/comanche", "/county/comanche"].includes(path) && !(text.includes("State National Bank") && text.includes("114 West Central Avenue"))) missing.push("bank-to-city-hall adaptive reuse chronology and exact place address");
+  if (["/destination/comanche", "/county/comanche"].includes(path) && !html.includes("THC_Quarterly_Public_Nov2025.pdf")) missing.push("THC source for Comanche bank / city hall conservation");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
   if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path) && !html.includes("www.comanchenation.com/about/page/history")) missing.push("first-person Comanche Nation history citation");
   if (path === "/county/comanche" && !html.includes("Comanche County TX: History, De Leon &amp; Proctor Lake") && !html.includes("Comanche County TX: History, De Leon & Proctor Lake")) missing.push("distinctive Comanche County search title");
