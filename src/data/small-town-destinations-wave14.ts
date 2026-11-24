@@ -60,6 +60,7 @@ export const smallTownWave14Destinations: Destination[] = [
       "Comanche County Historical Museum",
       "1909 Frisco Train Depot",
       "JW Hardin Wine Co. tasting room; Brennan Vineyards history",
+      "Comanche City Park trails, playgrounds, disc golf and seasonal pool",
       "Comanche County Pow Wow and local rodeo"
     ],
     body: [
@@ -75,6 +76,7 @@ export const smallTownWave14Destinations: Destination[] = [
       "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
       "Wine adds a contemporary agricultural chapter, but old winery listings need correction. Brennan Vineyards operated at the historic McCrary House, 802 South Austin Street, for two decades; the business announced that its Comanche facility would close December 30, 2025, with operations transitioning to Texas Wine Collective in Fredericksburg in January 2026. The former Comanche winery property is marketed for sale and is NOT an active tasting-room stop in 2026, despite outdated content on the Brennan brand website. JW Hardin Wine Co. continues to publish a tasting room at 107 West Grand Street; check its official visitor page for current service and hours. Tribe Vineyards grows grapes in Comanche County but says its vineyard tasting room is planned for 2027, not currently open. For a self-guided wine-and-history afternoon, use a verified operating venue and a designated driver. Texas Wine Lover reproduced Brennan's closure announcement in December 2025, corroborated by the former property's real-estate listing.",
       "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak at the southwest side of the square, then stroll Grand Street for the Bull Durham mural, shops and restaurants. This remains a working downtown with vehicle traffic. Use legal parking, read posted restrictions, cross at safe marked locations and treat restoration barricades as potential route interruptions; no specific free parking lot or guaranteed step-free circuit has been independently verified. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
+      "For families who want outdoor time without adding the drive to Proctor Lake, the Comanche Chamber describes Comanche City Park on the west side of town with walking and nature trails, playgrounds, disc golf, ball fields and a summer swimming pool. The pool is seasonal; its actual dates, admission, lifeguard arrangements, restroom access and trail conditions are not verified by the Chamber's general attractions listing. The park can make a practical break between the historic square and museum, but check local conditions before promising specific amenities or an accessible trail.",
       "Comanche also works as a living town, not simply a preserved frontier set. Agricultural businesses, schools, churches, independent shops, annual festivals and long-standing gathering places keep the square tied to everyday local life. The Chamber lists an annual rodeo and parade, the Comanche County Pow Wow (usually the fourth September weekend), a pre-deer-season chili supper and Explore Comanche Christmas. Dates change each year: use the organizer's event pages rather than recycling 2026 dates into future calendars.",
       "For deeper county context, read the Comanche County guide, which follows the Cora-to-Comanche seat change, De Leon's peanut economy, the Texas Central and Frisco railroad chapters, the Leon River watershed and Proctor Lake. The city and county stories complement each other; neither one should substitute for the other's history."
     ],
@@ -134,6 +136,11 @@ export const smallTownWave14Destinations: Destination[] = [
         }
       ],
       familyStops: [
+        {
+          name: "Comanche City Park",
+          description: "West-side town park for a separate family playground, trail or disc-golf stop; swimming pool is seasonal and requires current operator verification.",
+          href: "https://www.comanchechamber.org/explorecomanche"
+        },
         {
           name: "Comanche County Historical Museum",
           description: "Children's area and artifact-rich exhibits; check visiting hours.",
@@ -212,6 +219,11 @@ export const smallTownWave14Destinations: Destination[] = [
           label: "Museum — Admission",
           url: "https://www.comanchecountytxmuseum.com/",
           scope: "Free general admission, voluntary donations and museum public hours"
+        },
+        {
+          label: "Comanche Chamber — City Park amenities",
+          url: "https://www.comanchechamber.org/explorecomanche",
+          scope: "West-side City Park, trails, playgrounds, disc golf and seasonal pool, with schedules and access to be verified"
         },
         {
           label: "Comanche Chamber — Explore",
@@ -336,6 +348,11 @@ export const smallTownWave14Destinations: Destination[] = [
       }
     ],
     visitorFaqs: [
+      {
+        question: "What can families do in Comanche besides the historical museum?",
+        answer: "The Chamber lists playgrounds, trails, disc golf and a seasonal swimming pool at Comanche City Park on the west side of town. Pool operating hours and visitor fees are not confirmed by its general attractions listing. Proctor Lake is a separate drive with independently managed public-access rules.",
+        sourceUrl: "https://www.comanchechamber.org/explorecomanche"
+      },
       {
         question: "What historic artifacts are around Fleming Oak besides Old Cora?",
         answer: "The downtown district's National Register nomination identifies four saved columns from the 1891 courthouse, a partly reconstructed public well, and a stone with leg irons from the original calaboose around the southwest courthouse corner. A separate 1938 City Hall and Fire Station stands on Austin Street one block north. Look for exterior markers and respect temporary restoration barriers.",
