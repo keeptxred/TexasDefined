@@ -19,6 +19,16 @@ const venueSources: Record<string, readonly SourceNote[]> = {
       note: "Documents the 1948–1950 American Legion Auditorium, its 2003 adaptation into a 400-seat nonprofit performance venue and Linden's regional music connections.",
     },
     {
+      label: "Friends of the Texas Historical Commission — Texas Music Barn",
+      href: "https://downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563",
+      note: "Documents the 1927 Linden church building, the 2009 Academy of Texas Music transfer and a separate historic listening room at 301 East Houston Street; present operation is not certified.",
+    },
+    {
+      label: "UNT Libraries — 2012 Texas Highways account of Linden's two venues",
+      href: "https://texashistory.unt.edu/ark:/67531/metadc1924028/",
+      note: "Archival newspaper-magazine history naming Music City Texas Theater and the separate Texas Music Barn; this is historical evidence, not a concert schedule.",
+    },
+    {
       label: "Music City Texas Theater — Official mission",
       href: "https://www.musiccitytexas.org/about",
       note: "Confirms 108 Legion Street, the nonprofit mission of live performance, music education and instrument donations; show listings must be checked independently for current dates.",
@@ -122,7 +132,8 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = venueSources[guide.slug] ?? [];
   const milestones = musicHistoryMilestones[guide.slug] ?? [];
-  const photograph = musicVenuePhotography[guide.slug];
+  const photograph = musicVenuePhotography[guide.slug]
+    ?? (guide.slug === "texas-music-venues" ? musicVenuePhotography["broken-spoke-austin-history"] : undefined);
   const shortAnswerHeading: Record<string, string> = {
     "broken-spoke-austin-history": "A South Lamar dance floor that endured",
     "continental-club-austin-history": "From supper club to Austin landmark",
