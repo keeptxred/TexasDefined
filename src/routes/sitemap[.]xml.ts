@@ -37,6 +37,8 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-22");
   // Rusk county source-backed syrup designation, museum and archived event all changed on November 22.
   cacheUrl.searchParams.set("rusk-syrup-20261122", "county-museum-festival-v1");
+  // Distinct Nov 24 Comanche county history revision must not inherit older cached XML.
+  cacheUrl.searchParams.set("comanche-county-20261124", "frisco-depot-verified-v1");
   cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
@@ -65,6 +67,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-stargazing-guide": OUTDOOR_GUIDES_LASTMOD,
   "/county/dallas": "2026-11-22", // November 22 Old Red, Allen Brooks and Trinity history; verified Nov 15 Institute of Letters context retained.
   "/county/rusk": "2026-11-22", // Substantive H.C.R. 83 syrup, 1989 festival and Depot Museum history revision.
+  "/county/comanche": "2026-11-24", // Substantive NPS Frisco depot and preservation research, verified Nov 24.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",
   "/things-unique-to-texas/roadside-small-towns": "2026-11-17",
