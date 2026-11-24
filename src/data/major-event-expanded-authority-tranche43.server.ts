@@ -123,12 +123,12 @@ const records: EventRecordWithWindows[] = [
     endDate: "2026-10-17",
     venue: "Austin festival venues",
     officialUrl: "https://www.hotluckfest.com/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Hot Luck combines chef-driven food events with live music across Austin, pairing a Friday live-fire gathering at Franklin Barbecue with a Saturday culinary event at Assembly Hall and music programming at city venues.",
     planningSections: [
-      { title: "Use October 16-17 as the confirmed 2026 festival weekend", body: "The organizer states that the 2026 Austin edition runs Friday and Saturday, October 16-17. Friday centers on Giddy Up at Franklin Barbecue and live music, while Saturday's House Party is the largest culinary event of the weekend." },
-      { title: "Match the pass to the experience you want", body: "The Whole Enchilada pass covers the main food events and music programming, while some individual-event tickets may also be available. Review the current ticket page before purchasing because inclusions and remaining inventory can change." },
-      { title: "Expect to move between Austin venues", body: "Hot Luck is deliberately multi-venue rather than a single fairground festival. Build transportation time between Franklin Barbecue, music venues and Assembly Hall into the plan." },
+      { title: "Use October 16-17 as the confirmed 2026 festival weekend", body: "The October 16–17, 2026 edition is complete. Hot Luck's homepage now displays 2027 promotional wording, but still contains its 2026 lineup and even archived 2023 pricing. No specific 2027 festival dates are confirmed by that mixed-year page." },
+      { title: "Match the pass to the experience you want", body: "Previous editions offered multi-event passes and individual events. At the November 24 source check, the homepage's 2027 ticket promotion linked to a missing ticket page. Do not treat that wording or the obsolete 2023 package price as proof of current availability. Confirm a working dated checkout and exact inclusions with the organizer." },
+      { title: "Expect to move between Austin venues", body: "The completed 2026 program used Franklin Barbecue for Giddy Up and Assembly Hall for House Party, plus music venues. Check the next edition's specific venue list rather than assuming the old locations recur. Plan travel separately for each booked event." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect Hot Luck to more Austin food and culture stops." },
