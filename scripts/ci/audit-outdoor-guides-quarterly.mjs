@@ -1,10 +1,14 @@
 import fs from "node:fs";
+import { parseTpwdDailyAdultFee, SOURCES as feeSources } from "../editorial/refresh-outdoor-admission.mjs";
+const fees = JSON.parse(fs.readFileSync(new URL("../../src/data/outdoor-guide-admission.json", import.meta.url), "utf8"));
+const editorialDate = "2026-11-24";
+const lastmodFor = slug => slug === "texas-mountain-biking-guide" ? [editorialDate, fees.huntsville.evidenceDate, fees.rayRoberts.evidenceDate].sort().at(-1) : slug === "texas-stargazing-guide" ? [editorialDate, fees.caprock.evidenceDate].sort().at(-1) : editorialDate;
 
 // Read official facts and production pages. Never update editorial dates from HTTP success.
 const official = [
-  { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$7/i, /12 Years and Under/i] },
-  { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", patterns: [/\$7/i, /12 years/i] },
-  { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$5/i] },
+  { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", feeKey: "rayRoberts" },
+  { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", feeKey: "huntsville" },
+  { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", feeKey: "caprock" },
   { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/Lake Meredith National Recreation Area is a fee-free park/i] },
   { name: "Dinosaur Valley actual operator booking page", url: "https://www.eercc.com/dinosaur-valley-park-trail-rides/", patterns: [/Dinosaur Valley/i, /book\.peek\.com/i] },
   { name: "TPWD Huntsville biking access", url: "https://tpwd.texas.gov/state-parks/huntsville/trails-info/", patterns: [/hiking and biking/i] },
@@ -87,7 +91,9 @@ async function get(url) {
 for (const item of official) {
   try {
     const body = await get(item.url);
-    const missing = item.patterns.filter((pattern) => !pattern.test(body)).map(String);
+    const missing = item.feeKey
+      ? (parseTpwdDailyAdultFee(body, feeSources.find(source => source.key === item.feeKey).park).adult === fees[item.feeKey].adult ? [] : ["Published daily admission differs from verified data; correction PR required"])
+      : item.patterns.filter((pattern) => !pattern.test(body)).map(String);
     if (missing.length) failures.push(item.name + ": possible fact drift " + missing.join(", "));
     evidence.push({ name: item.name, url: item.url, verified: missing.length === 0, missing });
   } catch (error) {
@@ -146,8 +152,8 @@ for (const origin of ["https://texasdefined.com", "https://texasdefined-site.fre
     try {
       const xml = await get(url);
       const missing = Object.keys(comparisonLabels).filter((slug) =>
-        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>2026-11-24</lastmod>"));
-      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing Nov24 editorial lastmod for " + missing.join(", "));
+        !xml.includes("<loc>https://texasdefined.com/" + slug + "</loc><lastmod>" + lastmodFor(slug) + "</lastmod>"));
+      if (missing.length) failures.push("Primary sitemap [" + origin + (cacheBust ? ",busted" : ",visitor") + "]: missing source-backed editorial lastmod for " + missing.join(", "));
       evidence.push({ name: "five-outdoor-guides-sitemap", url, verified: missing.length === 0, missing });
     } catch (error) {
       failures.push("Primary sitemap [" + origin + "]: inaccessible " + String(error.message));
