@@ -18,7 +18,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-01",
     venue: "Historic Main Street, Grapevine",
     officialUrl: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Grapevine organizes an entire holiday destination rather than a single light show: the 2026 season brings more than 1,400 listed happenings across roughly 40 days, with illuminated Historic Main Street, a parade, the North Pole Express, drone performances, markets, skating and theatrical events. A smart visit starts with choosing the specific experience before locking in a date.",
     quickFacts: [
       {
@@ -49,7 +49,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Know the November kickoff and December headline dates",
-        body: "The city's October 15 media guide lists Carol of Lights on Monday November 23, Parade of Lights on December 3 and the 600-drone Merry & Bright show on December 7. Crowds and road closures concentrate around these evenings."
+        body: "The city’s November 20 release confirms Carol of Lights already took place Monday November 23 (4–8 p.m.), including a 6:30 p.m. kickoff ceremony. Upcoming anchors are the December 3 Parade of Lights at 7 p.m. and December 7 Merry & Bright drone show at 7 p.m. with 600 drones launching from the Northwest Highway end of Main Street. Choose a future date instead of treating the kickoff as an upcoming event."
       },
       {
         title: "Book North Pole Express separately",
@@ -57,7 +57,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Use free parking and check announced Main Street closures",
-        body: "The organizer lists free parking and a free shuttle from the Grapevine Convention Center (1201 Municipal Way), plus free parking at 307 and 410 W. Dallas Road and 636 S. Main Street. Its October 2026 planning reference lists Main Street traffic closures starting November 22, December 3, December 7, December 11 and December 18, with varying reopening times. Check the current city street-closure map before selecting parking, especially for the December 3 parade and December 7 drone show."
+        body: "The organizer lists free parking and a free shuttle from the Grapevine Convention Center (1201 Municipal Way), plus free parking at 307 and 410 W. Dallas Road and 636 S. Main Street. The November 20 city notice confirms four major Main Street closure windows: November 22 at 1 p.m.–November 30 at 6 a.m.; December 3 at 6 p.m.–December 8 at 6 a.m.; December 11 at 6 a.m.–December 14 at 6 a.m.; and December 18 at 6 a.m.–December 28 at 6 a.m. The 2026 parade and drone show fall inside the second closure. Recheck current access and shuttle operation instead of promising curbside Main Street parking."
       },
       {
         title: "Build a DFW holiday weekend",
@@ -89,6 +89,10 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Grapevine CVB 2026 Christmas reference",
         url: "https://www.grapevinetexasusa.com/articles/post/2026-writers-reference-guide-to-the-christmas-capital-of-texas/"
+      },
+      {
+        label: "Grapevine CVB November 20 confirmed dates and street closures",
+        url: "https://www.grapevinetexasusa.com/articles/post/2026-carol-of-lights/"
       },
       {
         label: "Grapevine CVB holiday hub",
