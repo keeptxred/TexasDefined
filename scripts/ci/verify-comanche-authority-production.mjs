@@ -59,6 +59,10 @@ function verify({ path, evidence }, html) {
     "Texas-made wine at the historic McCrary homestead, 802 S. Austin St; confirm tasting reservations",
   ];
   if (obsoleteBrennanAdvice.some((advice) => text.includes(advice))) missing.push("obsolete Brennan Comanche tasting-room recommendation");
+  if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
+    if (!/fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("official fourteen-room museum inventory");
+    if (/more than fourteen|more than 14/i.test(text)) missing.push("unsupported museum room count contradicts current official homepage");
+  }
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||
     text.includes("Yes. The museum\'s official homepage explicitly states general admission is free"))) {
