@@ -160,3 +160,10 @@ test("2026 Throckmorton Cow Country Christmas is a single verified courthouse-sq
  const slug="throckmorton-cow-country-christmas-2026";
  const e=countyBackfill.find(x=>x.slug===slug);assert.ok(e);assert.equal(e.countySlug,"throckmorton");assert.equal(e.startDate,"2026-12-12");assert.equal(e.endDate,undefined);assert.equal(e.sourceVerifiedAt,"2026-11-24");assert.equal(e.officialEventUrl,"https://www.throckmortonchamber.com/copy-of-cow-country-christmas");assert.match(e.summary,/2 to 6 p\.m\./);assert.match(e.summary,/vendor charges, not spectator admission/);assert.equal(combined.filter(x=>x.slug===slug).length,1);assert.ok(activeVerifiedChristmasOccurrences("2026-12-12").some(x=>x.slug===slug));assert.ok(!activeVerifiedChristmasOccurrences("2026-12-13").some(x=>x.slug===slug));
 });
+
+
+test("Winkler County has two independently verified 2026 holiday occurrences without inferred parade or race start times",()=>{
+ const {countyBackfill,combined}=readVerifiedChristmasOccurrenceSources();
+ const cases=[["wink-christmas-parade-2026","Wink","2026-12-04","https://cityofwink.com/news-detail?item_id=36162",/does not establish a parade time or route/],["kermit-elf-run-2026","Kermit","2026-12-12","https://runsignup.com/Race/TX/Kermit/elfrunkermittx",/packet pickup from 7:30 to 8:15 a\.m\./]];
+ for(const [slug,city,date,url,detail] of cases){const e=countyBackfill.find(x=>x.slug===slug);assert.ok(e);assert.equal(e.countySlug,"winkler");assert.equal(e.region,"big-bend");assert.equal(e.city,city);assert.equal(e.startDate,date);assert.equal(e.endDate,undefined);assert.equal(e.sourceVerifiedAt,"2026-11-24");assert.equal(e.officialEventUrl,url);assert.match(e.summary,detail);assert.equal(combined.filter(x=>x.slug===slug).length,1);assert.ok(activeVerifiedChristmasOccurrences(date).some(x=>x.slug===slug));assert.ok(!activeVerifiedChristmasOccurrences(date==="2026-12-04"?"2026-12-05":"2026-12-13").some(x=>x.slug===slug));}
+});
