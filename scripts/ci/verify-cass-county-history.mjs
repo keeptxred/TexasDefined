@@ -185,6 +185,8 @@ assert.ok(iconSitemap.includes('CASS_MUSIC_ICON_LASTMOD_BY_PATH[path]'),
   'Icon sitemap must use exact date map instead of a blanket restamp');
 assert.ok(iconSitemap.includes('lastmod ?') && iconSitemap.includes('<lastmod>'),
   'Icon sitemap must serialize date only for editorially revised icons');
+assert.ok(iconRenderer.includes('modifiedTime: cassMusicPortraits[loaderData.icon.slug] ? "2026-11-24" : undefined'),
+  'Article modification metadata must reflect only the three genuinely revised musician profiles');
 assert.ok(countyRoute.includes("entity.slug === 'cass') return 'Cass County, Texas: Linden Music, Courthouse & Atlanta'"),
   'Cass County has regressed to a generic and non-distinctive search title');
 assert.ok(venueUI.includes('musicVenuePhotography["broken-spoke-austin-history"]'),
