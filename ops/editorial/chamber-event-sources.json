@@ -5862,6 +5862,66 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "martin-county-community-complex-events",
+      "organization": "Martin County Community Complex — official dated event calendar (VENUE ONLY, NOT countywide festival calendar)",
+      "countySlugs": [
+        "martin"
+      ],
+      "homeUrl": "https://martincountycommunitycomplex.com/",
+      "calendarUrl": "https://martincountycommunitycomplex.com/events/",
+      "contactPageUrl": "https://martincountycommunitycomplex.com/about/contact-us/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "schleicher-agrilife-local-2026-programs",
+      "organization": "Texas A&M AgriLife Extension Schleicher County — dated local agriculture and youth programs (LOCAL EXTENSION PROGRAMS ONLY, not statewide syndicated calendar)",
+      "countySlugs": [
+        "schleicher"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/schleicher-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/schleicher-county/",
+      "contactPageUrl": "https://agrilifepeople.tamu.edu/units/view/202",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "terry-agrilife-january-2027-stock-show",
+      "organization": "Texas A&M AgriLife Extension Terry County — original January 14–16 2027 stock show dates (EVENT ONLY; heading retains 2026)",
+      "countySlugs": [
+        "terry"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "contactPageUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "ochiltree-bolerjack-perryton-concert-2026",
+      "organization": "Blake & Jenna Bolerjack — original artist tour announcement for Perryton (EVENT ONLY, not a local calendar)",
+      "countySlugs": [
+        "ochiltree"
+      ],
+      "homeUrl": "https://linktr.ee/blakeandjenna",
+      "calendarUrl": "https://linktr.ee/blakeandjenna",
+      "contactPageUrl": "https://linktr.ee/blakeandjenna",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
