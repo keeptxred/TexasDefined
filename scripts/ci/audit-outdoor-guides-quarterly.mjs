@@ -9,7 +9,7 @@ const official = [
   { name: "TPWD Tyler trail progression and clockwise bike direction", url: "https://tpwd.texas.gov/state-parks/tyler/trails-info/", patterns: [/EZ Loop/i, /0\.8 mi/i, /clockwise/i, /C Loop/i, /D Loop/i] },
   { name: "TPWD Palo Duro CCC descent and MTB loop", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info", patterns: [/500 feet/i, /Capitol Peak/i, /3\.5 mi/i] },
   { name: "TPWD Hill Country equestrian campsite products", url: "https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/horse-sites", patterns: [/Primitive Campsites/i, /Chapas Camp/i, /first-come/i] },
-  { name: "TPWD Dinosaur Valley guided ride", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /817-382-9855/i] },
+  { name: "TPWD Dinosaur Valley guided ride", url: "https://tpwd.texas.gov/state-parks/dinosaur-valley/", patterns: [/Eagle Eye Ranch/i, /817\D{0,5}382\D{0,3}9855/i] },
   { name: "NPS Lake Meredith ORV road access and permit application", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/FM 1913/i, /87\/287/i, /Application For Special Use Permit/i] },
   { name: "TPWD Buffalo Bayou and Lady Bird Lake access coordinate evidence", url: "https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/", patterns: [/29\.7647/i, /-95\.3592/i, /Dairy Ashford/i, /Sabine Street/i] },
   { name: "TPWD South Llano monitor interpretation", url: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies", patterns: [/21\.5/i, /22\.5/i, /15 minutes/i] },
