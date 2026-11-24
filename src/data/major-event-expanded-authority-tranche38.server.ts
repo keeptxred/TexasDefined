@@ -38,12 +38,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-25",
     venue: "Downtown Flatonia",
     officialUrl: "https://www.czhilispiel.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Czhilispiel turns Flatonia's Czech and German heritage into a three-day small-town destination built around chili competition, Texas music, a biergarten, carnival, parade, arts and crafts and community races.",
     planningSections: [
-      { title: "Use October 23-25 as the confirmed 2026 weekend", body: "The organizer publishes Czhilispiel for Friday through Sunday, October 23-25, 2026 and says the festival is held every year on the fourth full weekend of October. Use the current schedule to choose among concerts, cook-off activity, the parade and other programs." },
-      { title: "Plan around the festival's heritage mix", body: "The event name itself reflects Flatonia's Czech and German roots, and the organizer pairs that heritage with chili, music, a biergarten and community traditions. Build enough time to experience more than a headline concert or cook-off entry." },
-      { title: "Make Flatonia part of the trip", body: "Czhilispiel occupies a compact small-town setting that works well as a Fayette County road trip. Pair the festival with local history, food and nearby communities instead of planning only for the event footprint." },
+      { title: "Use October 23-25 as the confirmed 2026 weekend", body: "The October 23–25, 2026 edition is complete. The organizer states its recurring fourth-full-weekend-of-October pattern, but its site still displays the 2026 lineup and schedule. Do not treat a calculated 2027 weekend as announced dates." },
+      { title: "Plan around the festival's heritage mix", body: "The organizer traces the festival to Flatonia's 1973 centennial. The name combines a Czech-influenced spelling of chili with the German word for play. The volunteer-run celebration has grown to include cook-offs, races, a carnival and concerts." },
+      { title: "Make Flatonia part of the trip", body: "The 2026 schedule illustrates distinct visitor choices: Friday cooking-team registration and evening music; Saturday running events, chili and barbecue judging, and visits to the Central Texas Rail History Center and E. A. Arnim Museum; Sunday downtown parade and car show. Check the next year's schedule and museum hours rather than relying on old times." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-fayette", label: "Explore Fayette County", description: "Connect Czhilispiel to Flatonia and the surrounding county." },
@@ -52,7 +52,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Czhilispiel official site", url: "https://www.czhilispiel.com/" },
-      { label: "Czhilispiel official weekend schedule", url: "https://www.czhilispiel.com/full-schedule-2025" },
+      { label: "Czhilispiel official 2026 weekend schedule (historical)", url: "https://www.czhilispiel.com/full-schedule-2025" },
     ],
   },
   {

@@ -70,15 +70,15 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-10-23",
     endDate: "2026-10-25",
-    dateNote: "The organizer programs a remembrance and altar-viewing evening on Friday, October 23, followed by the main public festival on Saturday and Sunday, October 24-25. This page uses the full confirmed three-day program window.",
+    dateNote: "The October 23–25, 2026 celebration is complete. The organizer still displays its 2026 program; no specific 2027 date is confirmed here.",
     venue: "Hemisfair",
     officialUrl: "https://muertosfest.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Muertos Fest at Hemisfair is a large San Antonio Día de los Muertos celebration built around public altars, processions, music, workshops, art and remembrance programming in the center of downtown San Antonio.",
     planningSections: [
-      { title: "Choose between remembrance night and the main festival days", body: "The organizer lists Friday, October 23 for altar viewing and remembrance, followed by full festival programming on Saturday, October 24 and Sunday, October 25. Decide which experience matters most before choosing a one-day visit." },
+      { title: "Choose between remembrance night and the main festival days", body: "The 2026 free festival opened Friday from 5–11 p.m., Saturday 10 a.m.–11 p.m. and Sunday noon–9 p.m.; Friday 5–7 p.m. was a reduced-sound sensory-friendly session. All these hours refer to the completed edition. Check the next dated program for comparable access before making travel plans." },
       { title: "Use the app and official map for the multi-stage program", body: "The festival advertises four stages, altars, processions, workshops and a Muertos Mercado. Use the organizer's app and final schedule to prioritize programming instead of trying to cover every area in sequence." },
-      { title: "Plan for limited downtown parking", body: "The organizer explicitly warns visitors to expect little downtown parking and encourages transit, biking and walking. Review VIA and current festival transportation guidance before driving into the Hemisfair area." },
+      { title: "Plan for limited downtown parking", body: "The 2026 FAQ recommended public garages, VIA Park & Ride or rideshare. It allowed blankets but not chairs or coolers and described the park as dog-friendly, with a warning about loud crowds. Recheck those policies and the sensory-friendly schedule for the next edition." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Extend Muertos Fest into a broader San Antonio and Bexar County trip." },
@@ -86,6 +86,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Muertos Fest official site", url: "https://muertosfest.com/" },
+      { label: "Muertos Fest official 2026 visitor and sensory-access FAQ", url: "https://muertosfest.com/muertos-fest-faqs/" },
     ],
   },
   {
