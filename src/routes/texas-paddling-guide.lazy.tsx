@@ -380,6 +380,7 @@ function TexasPaddlingGuidePage() {
             <p className="eyebrow text-primary">Official trails · access points · current conditions</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Paddling Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five official paddling trails, with the launch, takeout, water-level, wind, private-property and current-condition questions to resolve before getting on the water.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">By <a href="/authors/a-dell" className="font-semibold text-primary underline underline-offset-4">Texas Defined Travel &amp; Outdoors Desk</a> · Substantive guide update November 24, 2026.</p>
           </header>
 
           <figure className="border-b border-border py-8">
@@ -544,6 +545,8 @@ function TexasPaddlingGuidePage() {
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access and conditions with TPWD</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 20, 2026. Recheck current access and conditions for travel. Additional Houston and Austin access-point coordinates and segment estimates checked November 21, 2026.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> We selected five contrasting official TPWD routes and plotted their published launch coordinates. The access diagrams are original orientation aids, not water-route navigation charts. Published route lengths, water conditions, tides and rental terms come from TPWD, USGS, NOAA and the relevant operator. This is desk research, not a claim of personal field visits. Weekly source checks and quarterly editorial review identify changes; an unchanged check does not reset the content date.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7"><a href="/editorial-policy" className="text-primary underline">Editorial policy</a> · <a href="/corrections-policy" className="text-primary underline">Report a correction or firsthand visitor update</a>.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

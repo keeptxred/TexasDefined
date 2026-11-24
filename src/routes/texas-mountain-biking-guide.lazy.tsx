@@ -236,6 +236,7 @@ function TexasMountainBikingGuidePage() {
               <p className="eyebrow text-primary">Texas trails · five very different rides</p>
               <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Mountain Biking in Texas: 5 Public Trail Systems &amp; Where to Ride</h1>
               <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Compare desert mountains, Big Bend backcountry, an MTB-only canyon loop, rocky Hill Country and East Texas forest riding—with trail mileage, difficulty cues, maps and practical planning links for each system.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">By <a href="/authors/a-dell" className="font-semibold text-primary underline underline-offset-4">Texas Defined Travel &amp; Outdoors Desk</a> · Substantive guide update November 24, 2026.</p>
             </div>
             <div className="border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">
               <strong className="block text-foreground">Not an exhaustive Texas MTB directory.</strong>
@@ -436,6 +437,8 @@ function TexasMountainBikingGuidePage() {
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Maps and conditions should come from TPWD</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules. Tyler loop progression, Bandera approach, and Palo Duro CCC descent checked November 21, 2026.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground"><strong>How this guide was researched:</strong> We compared the five primary riding systems for terrain, published trail mileage, skill progression and trailhead logistics, then added two North and East Texas alternatives. Official TPWD trail maps and access notices control the route facts; the two-visitor admission examples are calculated from the published per-person prices. This is desk research, not a claim of personal field visits. Weekly source checks and quarterly editorial review identify changes; an unchanged check does not reset the content date.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7"><a href="/editorial-policy" className="text-primary underline">Editorial policy</a> · <a href="/corrections-policy" className="text-primary underline">Report a correction or firsthand visitor update</a>.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

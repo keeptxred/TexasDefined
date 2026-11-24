@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T22:42:59.223Z",
+  "generatedAt": "2026-11-24T21:20:05.900Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -603,6 +603,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-12-12"
     },
     {
+      "title": "Bean Mountain Loop Hike",
+      "startDate": "2026-12-12",
+      "parkKey": "albert-bessie-kronkosky-state-natural-area",
+      "officialUrl": "https://tpwd.texas.gov/calendar/albert-bessie-kronkosky-state-natural-area/bean-mountain-loop-hike/2026-12-12"
+    },
+    {
       "title": "Bird Outing",
       "startDate": "2026-12-12",
       "parkKey": "lake-arrowhead",
@@ -789,6 +795,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/art-in-the-park-1/2026-12-19"
     },
     {
+      "title": "Bean Mountain Loop Hike",
+      "startDate": "2026-12-19",
+      "parkKey": "albert-bessie-kronkosky-state-natural-area",
+      "officialUrl": "https://tpwd.texas.gov/calendar/albert-bessie-kronkosky-state-natural-area/bean-mountain-loop-hike/2026-12-19"
+    },
+    {
       "title": "Meet The Longhorns",
       "startDate": "2026-12-19",
       "parkKey": "copper-breaks",
@@ -907,6 +919,12 @@
       "startDate": "2026-12-26",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-26"
+    },
+    {
+      "title": "Bean Mountain Loop Hike",
+      "startDate": "2026-12-26",
+      "parkKey": "albert-bessie-kronkosky-state-natural-area",
+      "officialUrl": "https://tpwd.texas.gov/calendar/albert-bessie-kronkosky-state-natural-area/bean-mountain-loop-hike/2026-12-26"
     },
     {
       "title": "Discovery Night",

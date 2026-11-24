@@ -25,7 +25,7 @@ export const relocationAuthorityExpansionStubs: Article[] = [
     region: "gulf-coast",
     hero: houstonCommuterHero,
     publishedAt: "2026-09-29",
-    updatedAt: "2026-11-08",
+    updatedAt: "2026-11-24",
     readingMinutes: 11,
     tags: ["houston", "suburbs", "commuting", "relocation", "moving to texas"],
     sourceName: "Houston TranStar historical travel times",

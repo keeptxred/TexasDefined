@@ -2,6 +2,8 @@
 // Do not automatically restamp dates, report openings, or rewrite guidance.
 import { appendFileSync } from 'node:fs';
 const sources = [
+  { label: 'Comptroller 2026 CAPPS Recruit migration and new application portal', url: 'https://fmx.cpa.texas.gov/fmx/capps/recruit_transition.php', evidence: ['June 29', 'Aug. 28', 'Candidate Gateway'] },
+  { label: 'Comptroller current applicant FAQ and supplemental CAPPS questions', url: 'https://comptroller.texas.gov/about/careers/capps-faq.php', evidence: ['CAPPS Recruit', 'supplemental questions'] },
   { label: 'TWC WorkInTexas state hiring instructions', url: 'https://www.twc.texas.gov/jobseekers/job-search', evidence: ['WorkInTexas','State of Texas'] },
   { label: 'March 2026 simplified state application', url: 'https://gov.texas.gov/news/post/governor-abbott-twc-launch-streamlined-state-of-texas-application', evidence: ['March 10, 2026','WorkInTexas'] },
   { label: 'Texas Department of Insurance CAPPS application', url: 'https://www.tdi.texas.gov/jobs/', evidence: ['CAPPS','Work'] },

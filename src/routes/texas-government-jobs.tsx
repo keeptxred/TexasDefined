@@ -19,7 +19,7 @@ export const Route = createFileRoute("/texas-government-jobs")({
           "@id": pageUrl + "#article",
           headline: title,
           description,
-          dateModified: "2026-11-10",
+          dateModified: "2026-11-24",
           mainEntityOfPage: pageUrl,
           publisher: { "@id": absoluteUrl(texasDefinedBrand, "/") + "#organization" }
         },

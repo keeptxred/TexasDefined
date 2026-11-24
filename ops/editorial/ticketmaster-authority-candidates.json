@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-23T22:42:59.275Z",
+  "fetchedAt": "2026-11-24T21:20:05.946Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -503,6 +503,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "SA Rodeo Noche Del Vaquero followed by Los Tigres del Norte",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-21"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnKnsI"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/sa-rodeo-noche-del-vaquero-followed-san-antonio-texas-02-21-2027/event/3A006507AA4EAC68"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "SA Stock Show & Rodeo XBulls w/ Ryan Bingham and The Texas Gentlemen",
       "city": "San Antonio",
       "dates": [
@@ -673,6 +697,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo followed by Parker McCollum",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-17"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnGnY2"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-17-2027/event/3A006507AA32AC0F"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed By Riley Green",
       "city": "San Antonio",
       "dates": [
@@ -686,30 +734,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-12-2027/event/3A006507AA0AABB9"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "San Antonio Stock Show & Rodeo followed by TBA",
-      "city": "San Antonio",
-      "dates": [
-        "2027-02-17"
-      ],
-      "venues": [
-        "Frost Bank Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_8rnGnY2"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-17-2027/event/3A006507AA32AC0F"
       ],
       "status": "requires-organizer-verification",
       "evidence": {

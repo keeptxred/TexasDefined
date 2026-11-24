@@ -129,7 +129,8 @@ for (const item of livePages) {
       try {
         const body = await get(url);
         const visible = body.replace(/&amp;/g, "&").replace(/&#(?:x27|39);/gi, "'").replace(/&quot;/g, '\"');
-        const missing = item.must.filter((token) => !visible.includes(token));
+        const editorialMarkers = ["Texas Defined Travel & Outdoors Desk", 'href="/authors/a-dell"', "How this guide was researched:", "not a claim of personal field visits", 'href="/corrections-policy"'];
+        const missing = [...item.must, ...editorialMarkers].filter((token) => !visible.includes(token));
         const noindex = /<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body);
         const canonicalMatch = body.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
         const wrongCanonical = canonicalMatch !== canonical;
