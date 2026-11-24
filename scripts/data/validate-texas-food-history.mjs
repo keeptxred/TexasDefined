@@ -91,7 +91,7 @@ for (const token of [
 const imageContracts = [
   ['src/routes/texas-chili-con-carne-history.tsx', 'Pot_of_Chili_Con_Carne.jpg', 'Pot of chili con carne'],
   ['src/routes/texas-chicken-fried-steak-guide.tsx', 'Chicken_fried_steak.jpg', 'Chicken-fried steak'],
-  ['src/routes/texas-breakfast-taco-guide.tsx', 'BreakfastTaco.jpg', 'Egg and sausage breakfast taco'],
+  ['src/routes/texas-breakfast-taco-guide.tsx', '2009-265-56-_Two_Soft_Tacos_and_a_Microphone_(3310171849).jpg', 'Two chorizo breakfast tacos on flour tortillas in San Antonio'],
   ['src/routes/dr-pepper-texas-history.tsx', 'Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg', 'Dr Pepper Museum'],
   ['src/routes/texas-ranch-water-guide.tsx', 'Ranch_water.jpg', 'Ranch Water cocktail'],
   ['src/routes/san-antonio-puffy-taco-history.tsx', 'Puffy_taco.jpg', 'Puffy taco served'],
@@ -105,7 +105,7 @@ for (const [file, imageNeedle, altNeedle] of imageContracts) {
 for (const token of [
   'Punkgobliner · CC BY-SA 4.0 · Wikimedia Commons',
   'Mr. Gray · CC0 · Wikimedia Commons',
-  'Paxsimius · CC BY-SA 4.0 · Wikimedia Commons',
+  'Alan Levine (cogdogblog) · CC0 · Wikimedia Commons',
   'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
   'BanjoZebra · CC BY 4.0 · Wikimedia Commons',
   'y6y6y6 · CC BY 2.0 · Wikimedia Commons',
