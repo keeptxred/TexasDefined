@@ -62,13 +62,13 @@ export const VERIFIED_TOURNAMENT_BATCH6_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 Texas Science & Engineering Fair is scheduled for April 2–3 at Texas A&M University in College Station.",
     whyItMatters: "TXSEF is Texas’s statewide science and engineering competition for students who advance from regional fairs, bringing hundreds of projects, judges and STEM disciplines together at Texas A&M.",
     planningNotes: [
-      "Students must qualify through a regional fair before advancing to TXSEF, so use the official regional-fairs information for participation requirements and deadlines.",
-      "The official TXSEF site lists the Texas A&M University Student Recreation Center in College Station as the fair venue; confirm the final participant and visitor schedule before traveling.",
-      "Build College Station and Brazos County plans around the competition timetable, especially if the trip includes judging, exhibits or award activities across both days.",
+      "Students qualify through an eligible Texas Regional Fair, and the official FAQ lists a $50 per-student registration fee. Every project must submit a virtual board and overview video. Regional entry deadlines vary, and incomplete late registrations cannot compete; do not mistake the fair for public walk-in project entry.",
+      "The official TXSEF site lists Texas A&M University in College Station. Family visitor access on Friday April 2 covers student check-in/display 9:30 a.m.–5 p.m. and Night at the ZACH 6–9 p.m.; Saturday April 3 judging-area access is restricted to finalists, staff and judges, so families cannot plan to watch judging inside.",
+      "The organizer lists the Saturday April 3 awards ceremony for 7:30–9 p.m. and poster breakdown 9–10 p.m. Confirm the actual family arrival and awards access instructions rather than assuming the competition hall is open all day. Plan College Station lodging around the two distinct schedules.",
     ],
     officialUrl: "https://txsef.tamu.edu/",
     officialSourceLabel: "Texas A&M University Texas Science & Engineering Fair official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-24",
   },
 ];
 
