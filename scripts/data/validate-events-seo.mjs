@@ -246,6 +246,8 @@ for (const feature of [
   'const offersMarkup = displayOffers.length',
   'Event details',
   'Last reviewed',
+  'for organizer and ticketing metadata only',
+  'Event schedule facts separately source-checked',
 ]) {
   if (!eventLeaf.includes(feature)) errors.push(`Dedicated Event leaf SEO feature missing: ${feature}.`);
 }
