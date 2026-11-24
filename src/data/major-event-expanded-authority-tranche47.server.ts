@@ -244,13 +244,13 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The current festival organizer calendar lists November 27–December 27, 2026 at the McAllen Convention Center; Ticketmaster also lists Friday November 27. The city holiday parade organizer separately advertises a Saturday November 28 tree-lighting ceremony, which is not the festival\'s first ticketed date. Confirm the selected session before visiting.",
     venue: "McAllen Convention Center",
     officialUrl: "https://www.southpoleoftexas.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "South Pole Illuminated Festival is one of McAllen's signature holiday events, turning the Convention Center district into a light-and-family-entertainment destination and linking directly with the city's larger South Pole of Texas holiday season.",
     planningSections: [
-      { title: "Separate Friday entry from Saturday opening ceremony", body: "The festival organizer advertises November 27–December 27, 2026, and Ticketmaster lists an opening Friday session. The McAllen parade organizer separately promotes a November 28 public tree-lighting celebration. Do not treat the November 28 ceremony as evidence that November 27 ticketed admission is invalid; use the session-specific ticket details." },
+      { title: "Separate Friday entry from Saturday opening ceremony", body: "The main South Pole organizer calendar currently gives November 27–December 27, 2026 and offers Friday tickets; its separate volunteer recruitment page says November 28–December 28. A related city announcement promotes a free tree-lighting November 28. These are conflicting first-party windows, so the selected date and admission terms in the actual ticket checkout govern. Do not infer that the volunteer call or the Saturday ceremony cancels Friday’s advertised ticketed session." },
       { title: "Treat the festival and Holiday Parade as separate plans", body: "South Pole Illuminated Festival and the McAllen Holiday Parade are related pieces of the city's holiday season, but they have different dates, venues and ticket products. Build each day from its own current organizer information." },
       { title: "Use the Convention Center district as the base", body: "The festival is centered on the McAllen Convention Center campus and its outdoor district. Plan parking and walking around the full campus instead of a single indoor show entrance." },
-      { title: "Use published hours, not a continuous nightly assumption", body: "The organizer publishes 5:30–9:30 p.m. on Wednesday, Thursday and Sunday, and 5:30–10:30 p.m. on Friday and Saturday. Monday and Tuesday hours are not shown on the published operating-hours table; confirm the selected ticketed date and any extreme-weather closure directly before traveling." },
+      { title: "Use published hours, not a continuous nightly assumption", body: "Published hours are Wednesday, Thursday and Sunday 5:30–9:30 p.m., and Friday and Saturday 5:30–10:30 p.m.; no general Monday or Tuesday schedule is posted. The separate Driscoll Electric Parade of illuminated spinning floats and its accompanying Above Beyond Fireworks are advertised Friday through Sunday at 8:30 p.m. and included with festival admission. This program is NOT the distinct December 5 citywide McAllen Holiday Parade. Confirm the performance occurs on your chosen ticket date." },
     ],
     relatedLinks: [
       { href: "/event/mcallen-holiday-parade", label: "McAllen Holiday Parade", description: "Connect the festival to McAllen's other major December holiday tradition." },
@@ -259,6 +259,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "South Pole Illuminated Festival — current 2026 season and operating hours", url: "https://www.southpoleoftexas.com/" },
+      { label: "South Pole — Friday–Sunday 8:30 p.m. included illuminated parade", url: "https://www.southpoleoftexas.com/driscoll-electric-parade" },
       { label: "South Pole — 2026 visitor FAQ", url: "https://www.southpoleoftexas.com/faq" },
       { label: "McAllen holiday parade organizer — November 28 tree-lighting ceremony", url: "https://mcallenholidayparade.com/tree-lighting-ceremony/" },
       { label: "Experience McAllen — signature events", url: "https://experiencemcallen.com/events-in-mcallen/signature-events/" },
