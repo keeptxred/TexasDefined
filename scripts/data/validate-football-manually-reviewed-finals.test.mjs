@@ -1015,3 +1015,19 @@ test('final reviewed six-man outcomes and a disclosed numeric disagreement retai
     "verificationMethod": "manual-editorial-review"
   }
 ])assert.deepEqual(byFixture.get(row.slug+'|'+row.date),row);const state=inventory({today:'2026-11-22'});assert.ok(state.pages.some(p=>p.slug==='alvin-iowa-colony'&&p.overdue.some(g=>g.date==='2026-10-23')),'A confirmed winner with conflicting score reports remains on the numerical-score research queue');});
+
+
+test('Iowa Colony postseason result is independently verified, with disputed Dulles win retained',()=>{
+ const row=byFixture.get('alvin-iowa-colony|2026-11-13');
+ assert.deepEqual([row.opponent,row.pointsFor,row.pointsAgainst],['Pflugerville Weiss',7,56]);
+ assert.equal(byFixture.get('alvin-iowa-colony|2026-10-23').outcome,'score-disputed-win');
+ const authored=readFileSync(join(ROOT,'src/data/high-school-football/program-editorial.ts'),'utf8');
+ const start=authored.indexOf('  "alvin-iowa-colony": {');
+ const end=authored.indexOf('\n  },',start)+4;
+ const team=JSON.parse(authored.slice(start+'  "alvin-iowa-colony": '.length,end));
+ assert.equal(team.season.games.length,11);
+ assert.deepEqual(team.season.games.at(-1),{date:'2026-11-13',opponent:'Pflugerville Weiss',site:'Away',district:false});
+ assert.ok(team.overview.some(s=>s.includes('5–6')&&s.includes('5–3')));
+ const state=inventory({today:'2026-11-24'});
+ assert.ok(!state.pages.find(p=>p.page.endsWith('/alvin-iowa-colony'))?.overdue.some(g=>g.date==='2026-11-13'));
+});
