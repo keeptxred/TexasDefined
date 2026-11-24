@@ -56,6 +56,7 @@ const official = [
   { name: "NPS Meredith ORV permits", url: "https://www.nps.gov/lamr/planyourvisit/ohv-off-highway-vehicles.htm", patterns: [/Blue Creek/i, /Rosita/i, /no-cost NPS ORV permit/i] },
   { name: "TPWD Bortle ratings", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing/bortle-ratings", patterns: [/Caprock Canyons/i, /Copper Breaks/i, /South Llano River/i] },
   { name: "TPWD e-bike policy", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks", patterns: [/E-bikes are allowed/i, /not on park trails/i] },
+  { name: "Barnwell gate fees", url: "https://www.barnwellmountainra.com/calculator", patterns: [/Non-Member Park Usage Fee/i, /\$30/i, /Primitive Camping/i, /\$10/i] },
   { name: "Barnwell operator", url: "https://www.barnwellmountainra.com/info_directions", patterns: [/Barnwell/i] },
   { name: "Escondido operator", url: "https://www.escondidodraw.org/policies_fees.html", patterns: [/Escondido/i] },
 ];
