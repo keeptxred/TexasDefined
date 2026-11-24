@@ -57,7 +57,7 @@ const additionalPhotos = [
     "path": "/texas-paddling-guide",
     "creator": "Larry D. Moore",
     "name": "Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
-    "fileUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg?width=960",
+    "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
     "licenseLabel": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
