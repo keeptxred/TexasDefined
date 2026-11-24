@@ -353,7 +353,7 @@ test('substantive editorial source reviews remain dated and agree across guides 
     return body.slice(start, end < 0 ? undefined : end);
   };
   const assertSourceReview = (record, minimum, slug) => {
-    const reviewDate = /sourceCheckedAt: "([0-9]{4}-[0-9]{2}-[0-9]{2})"/.exec(record)?.[1];
+    const reviewDate = /"?sourceCheckedAt"?:[ ]*"([0-9]{4}-[0-9]{2}-[0-9]{2})"/.exec(record)?.[1];
     assert.ok(reviewDate && !Number.isNaN(Date.parse(reviewDate)), 'Missing valid source review date for ' + slug);
     assert.ok(reviewDate >= minimum, 'Source review must not regress below researched baseline for ' + slug);
     assert.ok(reviewDate <= new Date().toISOString().slice(0, 10), 'Source review cannot be future dated for ' + slug);
