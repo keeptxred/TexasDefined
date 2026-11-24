@@ -421,7 +421,7 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "cass",
     "name": "Music City Texas Theater in Linden",
     "category": "Arts & culture",
-    "description": "Nonprofit music theater at 108 Legion Street in a restored former American Legion auditorium, reopened in 2003. Richard Bowden helped build Linden\'s concert tradition, connected to Pinkard & Bowden and the T-Bone Walker Blues Festival. Check the official show calendar and ticket availability before visiting.",
+    "description": "Nonprofit music theater at 108 Legion Street in a restored former American Legion auditorium, reopened in 2003. Richard Bowden helped build Linden\'s concert tradition, connected to Pinkard & Bowden and the historic T-Bone Walker Blues Festival (held in Linden 2006–2013, not a confirmed current annual event). Check the official show calendar and ticket availability before visiting.",
     "sourceUrl": "https://www.musiccitytexas.org/"
   },
   {
