@@ -13,6 +13,7 @@ on:
       - 'scripts/ci/check-five-texas-guide-authority.mjs'
       - 'scripts/ci/verify-five-texas-culture-browser.mjs'
       - 'scripts/ci/audit-five-culture-guide-vitals.mjs'
+      - 'scripts/ci/audit-five-culture-lighthouse-local.mjs'
       - '.github/workflows/texas-culture-outdoors-authority.yml'
   schedule:
     - cron: '23 14 * * 3'       # Weekly: rock-climbing safety, access and official alerts
@@ -49,6 +50,8 @@ jobs:
         run: |
           node --check scripts/ci/audit-five-culture-guide-vitals.mjs
           node scripts/ci/audit-five-culture-guide-vitals.mjs --self-test
+          node --check scripts/ci/audit-five-culture-lighthouse-local.mjs
+          node scripts/ci/audit-five-culture-lighthouse-local.mjs --self-test
       - name: Parse modified TypeScript and TSX modules
         run: |
           node --input-type=module <<'JS'
@@ -147,7 +150,7 @@ jobs:
        github.event.comment.user.login == 'keeptxred' &&
        github.event.comment.body == '/audit-five-culture-vitals')
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 28
     permissions:
       contents: read
       issues: write
@@ -164,16 +167,29 @@ jobs:
         env:
           PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
         run: node scripts/ci/audit-five-culture-guide-vitals.mjs
+      - name: Install pinned, no-cost local Lighthouse (independent of PSI quota)
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/texasdefined-five-culture-lighthouse --no-save --no-package-lock --ignore-scripts lighthouse@13.6.0
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+      - name: Measure five guides locally with real Chrome and Lighthouse accessibility/performance audits
+        id: local_lighthouse
+        continue-on-error: true
+        run: node scripts/ci/audit-five-culture-lighthouse-local.mjs
       - name: Preserve all measurements, including missing field-data reasons
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: five-culture-guide-vitals-${{ github.run_id }}
-          path: .artifacts/five-culture-guide-vitals.json
+          path: |
+            .artifacts/five-culture-guide-vitals.json
+            .artifacts/five-culture-lighthouse/
           retention-days: 30
           if-no-files-found: warn
       - name: Open or update one issue on confirmed measured performance regression
-        if: ${{ steps.vitals.outcome == 'failure' }}
+        if: ${{ steps.vitals.outcome == 'failure' || steps.local_lighthouse.outcome == 'failure' }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -181,7 +197,7 @@ jobs:
           set -euo pipefail
           title='Five culture and outdoor guides: measured page-speed regression'
           issue="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Five culture and outdoor guides: measured page-speed regression") | .number' | head -1)"
-          message="Official URL-level PageSpeed observations or Lighthouse labs require correction. Evidence: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Separate exact-page CrUX from origin fallback, lab timing and missing API data. Fix actual code and retest; do not change page facts or dates only for a new test."
+          message="Official URL-level PageSpeed or independent local Chrome Lighthouse performance/accessibility observations require correction. Evidence: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Separate exact-page CrUX from origin fallback, lab timing and missing API data. Fix actual code and retest; do not change page facts or dates only for a new test."
           if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
       - name: Enforce genuine measured regressions without pretending unavailable data passed
         if: ${{ steps.vitals.outcome == 'failure' }}
