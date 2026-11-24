@@ -176,6 +176,14 @@ export function dueForReview(event, asOf = new Date(), cadenceOverrideDays = nul
   const cadence = cadenceOverrideDays ?? refreshCadenceDays(event, asOf);
   if (!Number.isInteger(cadence) || cadence < 1) throw new Error('Invalid event review cadence');
   if (cadence === 1) return true;
+  // A new near-event cadence window must receive an immediate check.
+  // Otherwise the old 7-day hash slot can fall exactly on the first 3-day
+  // date, while the new 3-day hash slot is later, leaving a stale guide with
+  // no observation in any promised rolling seven-day window.
+  const previousDay = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(), asOf.getUTCDate() - 1));
+  const previousNaturalCadence = refreshCadenceDays(event, previousDay);
+  const currentNaturalCadence = refreshCadenceDays(event, asOf);
+  if (currentNaturalCadence < previousNaturalCadence && cadence <= currentNaturalCadence) return true;
   const day = Math.floor(Date.parse(asOf.toISOString().slice(0, 10) + 'T00:00:00Z') / 86400000);
   let hash = 2166136261;
   for (const char of event.path) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;

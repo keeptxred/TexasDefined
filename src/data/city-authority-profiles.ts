@@ -35,6 +35,7 @@ export type CityAuthorityProfile = {
     sourceUrl?: string;
     credit?: string;
   };
+  supportingPhoto?: { src: string; alt: string; width: number; height: number; sourceUrl: string; credit: string; licenseUrl: string; license: string };
   districts?: ReadonlyArray<{
     name: string;
     summary: string;
@@ -54,7 +55,8 @@ export type CityAuthorityProfile = {
 const profiles: Record<string, CityAuthorityProfile> = {
   alvin: {
     population2020: 27_098,
-    censusUrl: 'https://www.census.gov/quickfacts/fact/table/alvincitytexas/POP010220',
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225',
+    populationEstimate: { value: 30_115, year: 2025, asOf: 'July 1, 2025' },
     jurisdiction: {
       primaryCounty: 'Brazoria County',
       counties: ['Brazoria County'],
@@ -67,8 +69,18 @@ const profiles: Record<string, CityAuthorityProfile> = {
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg',
       credit: 'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
     },
+    supportingPhoto: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Alvin_RR_Depot_%285822129305%29.jpg',
+      alt: 'Red-trimmed entrance of the restored Alvin railroad depot in June 2011',
+      width: 720, height: 576,
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Alvin_RR_Depot_(5822129305).jpg',
+      credit: 'BFS Man (Mike Fisher) · Wikimedia Commons',
+      licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+      license: 'CC BY 2.0',
+    },
     districts: [
       { name: 'Historic downtown and the railroad depot', summary: 'The restored 1907 Gulf, Colorado and Santa Fe railway depot and National Oak Park form a compact railroad-history stop. The depot is used as a historic venue, not an active passenger station.' },
+      { name: 'Mustang Bayou and the Maury Maverick Bridge', summary: 'A preserved 1932 Warren pony-truss bridge was moved from its original San Antonio River crossing in Karnes County to span Mustang Bayou in Alvin’s National Oak Park in 2003. The pedestrian crossing connects to the Tom Blakeney Jr. Hike and Bike Trail.' },
       { name: 'West Sealy museum district', summary: 'The Alvin Historical Museum occupies the former 1940 post office. The Nolan Ryan exhibit, restored post-office mural and regional-history displays make this a distinct destination from the separately booked Slover–Rogers Cottage.' },
       { name: 'Highway 6 farm corridor', summary: 'Froberg’s Farm, 3601 West Highway 6, offers seasonal pick-your-own produce and family events. Fields, crop availability, festival dates and admission may change.' },
       { name: 'South Alvin parks', summary: 'Bob Briscoe Park, 3625 Briscoe Drive, provides an inclusive playground, dog park, pavilion facilities and a lighted 18-hole disc-golf course with walking-trail access.' },
@@ -76,6 +88,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     featured: [
       { title: 'Alvin Historical Museum', eyebrow: 'Local history', href: '/destination/alvin-historical-museum', summary: 'Former 1940 post office at 300 W Sealy with a Nolan Ryan collection, restored mural and exhibits on local railroad and agricultural life.' },
       { title: 'Alvin Train Depot', eyebrow: 'Railroad heritage', href: 'https://www.visitalvin.com/business/alvin-train-depot', summary: 'Restored 1907 passenger depot beside National Oak Park; verify public access and event rentals with Visit Alvin.' },
+      { title: 'Maury Maverick Bridge and National Oak Park', eyebrow: 'Historic pedestrian bridge', href: 'https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8', summary: 'See the restored 1932 truss bridge over Mustang Bayou on the Tom Blakeney Jr. Hike and Bike Trail. Moved to Alvin in 2003 from Karnes County; not the historic Brazoria Bridge near Brazoria.' },
       { title: 'Froberg’s Farm', eyebrow: 'Seasonal agriculture', href: 'https://frobergsfarm.com/', summary: 'Fourth-generation farm market and strawberry picking when the fields are open, with separate seasonal festivals.' },
       { title: 'Bob Briscoe Park', eyebrow: 'Parks and recreation', href: 'https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3', summary: 'Inclusive play space, dog park and an 18-hole lighted disc-golf course; confirm park rules and any pavilion reservations.' },
       { title: 'Nolan Ryan’s Texas story', eyebrow: 'Baseball heritage', href: '/texas-icons/nolan-ryan', summary: 'Connect Ryan’s childhood in Alvin with his wider Major League career and the local museum exhibit.' },
@@ -84,6 +97,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     tripPlanning: {
       firstTime: [
         { title: 'Start in historic downtown', summary: 'See the 1907 depot and National Oak Park, then visit the Alvin Historical Museum at 300 West Sealy during verified opening hours.', href: '/destination/alvin-historical-museum' },
+        { title: 'Walk the relocated Maury Maverick Bridge', summary: 'Begin at National Oak Park, 118 S. Magnolia Street; the city also identifies a Sidnor Street parking area used to reach the pedestrian bridge and nature area. The bridge originally crossed the San Antonio River in Karnes County before moving here in 2003. Check current trail and parking notices.', href: 'https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8' },
         { title: 'Plan strawberries around the farm', summary: 'Froberg’s U-pick dates, harvest conditions and festival admission are seasonal; check the operator before making a special trip.', href: 'https://frobergsfarm.com/' },
         { title: 'Separate Alvin from the Brazoria Bridge', summary: 'The National Register-listed Brazoria Bridge is near the town of Brazoria, not in downtown Alvin. Save it for a different county route.', href: '/county/brazoria' },
       ],
@@ -117,17 +131,22 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: '1907 railroad depot and downtown',
-        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building now hosts events beside National Oak Park; it is not an operating passenger railway depot.',
-        links: [{ label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
+        summary: 'Alvin’s restored Gulf, Colorado and Santa Fe depot speaks to the livestock, agriculture and transport economy that developed around the railroad. The historic building at 200 Depot Centre Boulevard now hosts events beside National Oak Park; it is not an operating passenger railway depot. The city lists rental inquiries at 281-388-4299.',
+        links: [{ label: 'City depot and trail information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1' }, { label: 'Visit Alvin depot guide', href: 'https://www.visitalvin.com/business/alvin-train-depot' }, { label: 'National Register nomination', href: 'https://atlas.thc.texas.gov/NR/pdfs/100003467/100003467.pdf' }],
+      },
+      {
+        title: 'Maury Maverick Bridge: a relocated 1932 truss',
+        summary: 'Alvin acquired the decommissioned Maury Maverick Bridge through a state historic-bridge program in 2000. Its approximately 116-foot center span, originally used on County Road 207 over the San Antonio River in Karnes County, was rehabilitated and moved to National Oak Park in 2003, where it crosses Mustang Bayou for pedestrians and cyclists. The city reported replacement decking and railings in 2018; confirm present trail conditions before a visit. Do not confuse the relocated Alvin bridge with the separate historic Brazoria Bridge near the town of Brazoria.',
+        links: [{ label: 'National Oak Park official visitor location', href: 'https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8' }, { label: 'City of Alvin adopted comprehensive plan: park history', href: 'https://www.alvin.gov/DocumentCenter/View/358/Comprehensive-Master-Plan-2035-PDF' }, { label: 'City of Alvin: historic pedestrian bridge 2018 improvements', href: 'https://www.alvin.gov/Archive/ViewFile/Item/59' }, { label: '2026 city park improvements identify Sidnor Street parking for bridge access', href: 'https://www.alvin.gov/AgendaCenter/ViewFile/Agenda/_02192026-422' }],
       },
       {
         title: 'Nolan Ryan and the old post office museum',
-        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum also preserves the former 1940 post office building and its restored mural.',
-        links: [{ label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
+        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum preserves the 1940 post office and Loren Mozley’s 1942 mural, Emigrants at Nightfall, restored in 2015. Visit Alvin’s Art Trail also includes outdoor murals such as Anat Ronen’s 2022 Stanton’s History Mural at 219 N Taylor Street. The indoor mural requires museum access.',
+        links: [{ label: 'Official Alvin Art Trail', href: 'https://www.visitalvin.com/business/alvin-art-trail' }, { label: 'Museum mural history', href: 'https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/' }, { label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
       },
       {
         title: 'Froberg’s Farm and Bob Briscoe Park',
-        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
+        summary: 'Froberg’s Farm connects today’s visitors with Alvin’s agricultural history through seasonal strawberry picking and family events. The farm describes January through late May as the usual strawberry season, with picking subject to crop and weather conditions. Its market operates separately from field access. Bob Briscoe Park provides the city’s inclusive playground, dog park, and disc-golf and walking amenities. These are separate venues with separately verified access rules.',
         links: [{ label: 'Froberg’s official calendar', href: 'https://frobergsfarm.com/' }, { label: 'City park information', href: 'https://www.alvin.gov/Facilities/Facility/Details/Bob-Briscoe-Park-3' }],
       },
       {

@@ -5,7 +5,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-music-cities",
     eyebrow: "Five scenes, one statewide story",
     title: "Texas Music Cities: Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth",
-    dek: "Texas music makes more sense when you follow the cities that gave artists places to rehearse, record, perform, broadcast and build audiences.",
+    dek: "Compare Texas music in Austin, Houston, San Antonio, Lubbock, Dallas–Fort Worth and Corpus Christi—and why smaller towns like Linden mattered.",
     quickAnswer: "No single city explains Texas music. Austin became a meeting point for progressive country, blues and public-television performance; Houston built deep blues, gospel, R&B and hip-hop systems; San Antonio fused border, Black, Mexican American and Anglo traditions; Lubbock and the South Plains helped launch a globally influential strain of rock and roll; and Dallas–Fort Worth connected Deep Ellum blues, jazz, country, recording and later experimental music. Together these scenes show how local institutions turn individual talent into durable musical culture.",
     sections: [
       {
@@ -59,8 +59,8 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
       {
         heading: "Why small music towns like Linden belong on the map",
         body: [
-          "These five large-city scenes do not exhaust Texas music history. Linden in Cass County shows a contrasting route: T-Bone Walker was born there, Don Henley grew up there, and guitarist Richard Bowden played in early regional bands with Henley before his later touring and Pinkard & Bowden career. Linden is not a sixth metropolitan recording center; it demonstrates how small communities can shape nationally important musicians.",
-          "In 2003 local organizers adapted the town's older American Legion Auditorium into Music City Texas Theater, an intimate nonprofit performance venue that brings touring musicians to Linden and helps develop young players. Linden received the Texas Music Office's Music Friendly Texas Certified Community designation in August 2023. For travelers, the useful connection is the live theater at 108 Legion Street, the county's public heritage sites and the official show calendar, not an invented festival date or an assumption that concerts happen every night."
+          "These six regional music centers do not exhaust Texas music history. Linden in Cass County shows a contrasting route: T-Bone Walker was born there, Don Henley grew up there, and guitarist Richard Bowden played in early regional bands with Henley before his later touring and Pinkard & Bowden career. Linden is not a sixth metropolitan recording center; it demonstrates how small communities can shape nationally important musicians.",
+          "In 2003 local organizers adapted the town's older American Legion Auditorium into Music City Texas Theater, an intimate nonprofit performance venue that brings touring musicians to Linden and helps develop young players. A distinct, historically documented Texas Music Barn occupied a former 1927 church at 301 East Houston Street; archival coverage describes how more than one small listening room supported Linden's music identity, but the Barn's current schedule is unverified. Linden received the Texas Music Office's Music Friendly Texas Certified Community designation in August 2023. For travelers, the useful connection is the live theater at 108 Legion Street, the county's public heritage sites and the official show calendar, not an invented festival date or an assumption that concerts happen every night."
         ],
         links: [{ href: "/county/cass", label: "Cass County: Linden music and historic places" }, { href: "/texas-music-venues", label: "Music City Texas Theater and other Texas venues" }]
       },

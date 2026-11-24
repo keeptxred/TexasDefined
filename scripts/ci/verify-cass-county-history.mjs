@@ -37,7 +37,7 @@ for (const forbidden of [
 ]) {
   assert.ok(!source.includes(forbidden), `Cass County history contains a disproven or unsupported assertion: ${forbidden}`);
 }
-assert.match(source, /updatedAt: "2026-11-23"/);
+assert.match(source, /updatedAt: "2026-11-24"/);
 assert.match(source, /region: "piney-woods"/);
 assert.match(source, /type: "image"[\s\S]*Linden1\.JPG[\s\S]*Renelibrary/);
 assert.match(source, /sources: \[/);
@@ -56,6 +56,7 @@ const culturalSections = [
   'How Linden became Music City Texas',
   'Richard Bowden: from Linden bands to Pinkard & Bowden',
   'Music City Texas Theater: a concert room with a local mission',
+  'The Texas Music Barn: another historic Linden listening room',
   'T-Bone Walker, Don Henley and Scott Joplin',
   'The T-Bone Walker Blues Festival and a useful downtown visit',
   'Quick answers about Richard Bowden and Linden',
@@ -68,6 +69,10 @@ for (const item of [
   'The Four Speeds, Felicity and Shiloh', 'Cass County Boys',
   'Music Friendly Texas Certified Community',
   '108 Legion Street', 'former American Legion',
+  '301 East Houston Street', '1927', '2009',
+  'The Barn\'s current concert and public-access status is not verified',
+  'downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563',
+  'texashistory.unt.edu/ark:/67531/metadc1924028/',
   'musiccitytexas.org', 'T-Bone Walker Blues Festival',
   'Scott Joplin', 'birthplace is not settled',
   '/texas-icons/don-henley', '/texas-icons/t-bone-walker',
@@ -114,6 +119,15 @@ assert.ok(identityComponent.includes('profile.majorCommunities'), 'County identi
 assert.ok(guideComponent.includes('profile.majorCommunities.slice(0, 6)'), 'County AEO answer must use verified places');
 assert.ok(guideComponent.includes("entity.slug === 'cass' ? 14 : 8"), 'Cass County music and musician links must not be silently truncated to eight cards');
 
+// Protect independently sourced Nov 24 editorial freshness for the county
+// and both statewide music guides without falsely restamping other counties.
+const lindenSitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+for(const path of ['/county/cass','/texas-music-venues','/texas-music-cities']) {
+  assert.ok(lindenSitemap.includes('"' + path + '": "2026-11-24"'),
+    'Stale Cass/Linden sitemap lastmod: ' + path);
+}
+assert.ok(lindenSitemap.includes('cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24")'),
+  'Cass/Linden sitemap cache key must reflect the verified editorial update');
 // Keep Linden discoverable from statewide venue and music-city guides, not
 // merely buried within a long county article or an isolated visitor listing.
 const venueGuide = fs.readFileSync('src/data/texas-music-venue-guides.ts', 'utf8');
@@ -124,6 +138,8 @@ const cityUI = fs.readFileSync('src/components/editorial/TexasMusicCityGuide.tsx
 for (const value of [
   'Music City Texas Theater: a small-town stage in Linden',
   'American Legion Auditorium in Linden, Cass County',
+  'Linden also preserved a second listening-room tradition',
+  'Texas Music Barn',
   '/county/cass', 'Richard Bowden',
 ]) assert.ok(venueGuide.includes(value), 'Statewide venue story or county connection missing: ' + value);
 for (const value of [
@@ -134,6 +150,7 @@ for (const value of [
 for (const value of [
   'music-city-texas-theater-linden', 'Music City Texas Theater',
   '1948–1950', '2003', '108 Legion Street', '400-seat',
+  'texas-music-barn-linden', '301 East Houston Street',
   'texastimetravel.com/directory/music-city-texas-theater/',
   'www.musiccitytexas.org/about',
 ]) assert.ok(historicVenues.includes(value), 'Linden historic venue listing/source missing: ' + value);
@@ -141,5 +158,25 @@ for (const ui of [venueUI, cityUI]) {
   assert.ok(ui.includes('texastimetravel.com/directory/music-city-texas-theater/'), 'Missing publicly visible heritage research citation');
   assert.ok(ui.includes('governor-abbott-announces-linden-designated-music-friendly-texas-certified-community'),
     'Missing original certification source');
+}
+// Require the researched Cass County music network to link in both directions
+// from the actual published Texas Icons renderer, not merely from the county.
+const iconRenderer = fs.readFileSync('src/routes/texas-icons_.$slug.tsx', 'utf8');
+const countyRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
+for (const value of [
+  'cassMusicHistoryLinks', 'cassMusicSeoTitles', '"don-henley": [', '"t-bone-walker": [', '"scott-joplin": [',
+  'Cass County and the disputed Caves Spring connection',
+  '<NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} slug={icon.slug} />',
+]) assert.ok(iconRenderer.includes(value), 'Reverse biographical link or disputed-origin qualification missing: ' + value);
+assert.ok(countyRoute.includes("entity.slug === 'cass') return 'Cass County, Texas: Linden Music, Courthouse & Atlanta'"),
+  'Cass County has regressed to a generic and non-distinctive search title');
+assert.ok(venueUI.includes('musicVenuePhotography["broken-spoke-austin-history"]'),
+  'Missing license-governed statewide venue photograph');
+assert.ok(cityUI.includes('musicVenuePhotography["billy-bobs-texas-history"]'),
+  'Missing independently credited Texas music cities photograph');
+for (const value of ['downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563',
+  'texashistory.unt.edu/ark:/67531/metadc1924028/']) {
+  assert.ok(venueUI.includes(value) && cityUI.includes(value),
+    'Statewide music research source is not actually cited in visible guide: ' + value);
 }
 console.log('Cass County editorial provenance / AEO / historical safety assertions: PASS');

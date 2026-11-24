@@ -1,7 +1,7 @@
-name: Quarterly Alvin and Brazoria County authority verification
+name: Alvin and Brazoria County monthly authority verification
 on:
   schedule:
-    - cron: '37 14 15 1,4,7,10 *'
+    - cron: '37 14 15 * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -9,7 +9,17 @@ on:
       - 'scripts/data/verify-alvin-brazoria-authority.mjs'
       - 'src/data/city-authority-profiles.ts'
       - 'src/data/county-profile.ts'
+      - 'src/data/local-government-profile.ts'
       - 'src/data/fixtures/brazoria-county-brazos-gulf-angleton.ts'
+      - 'src/data/museum-authority-new-destinations.ts'
+      - 'src/data/museum-authority-network.ts'
+      - 'src/data/museum-visitor-faqs.ts'
+      - 'public/museum-verification-manifest.json'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/components/editorial/AlvinHistoricalPhotographs.tsx'
+      - 'src/components/editorial/MuseumAuthorityNetworkSection.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
 permissions:
   contents: read
   issues: write
@@ -41,7 +51,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment 7673 --repo "$GITHUB_REPOSITORY" --body "Quarterly Alvin/Brazoria authority check found missing page data or a live/source mismatch. Review run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and its dated evidence artifact. Fix and redeploy; this audit does not automatically rewrite editorial facts."
+          gh issue comment 7673 --repo "$GITHUB_REPOSITORY" --body "Monthly Alvin/Brazoria authority check found missing page data or a live/source mismatch. Review run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and its dated evidence artifact. Fix and redeploy; this audit does not automatically rewrite editorial facts."
       - name: Fail on unresolved drift
         if: steps.check.outcome == 'failure'
         run: exit 1

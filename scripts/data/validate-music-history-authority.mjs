@@ -183,7 +183,14 @@ for (const slug of ["broken-spoke-austin-history","continental-club-austin-histo
   }
   if(!photo.includes('creativecommons.org/licenses/'))fail("Creative Commons license source missing: "+slug);
 }
-if(!venueView.includes("photograph.sourcePage") || !venueView.includes("photograph.licenseUrl") || !venueView.includes('alt={photograph.alt}') || !venueView.includes('loading="lazy"')) fail("Venue photos missing visible author/license, alt or deferred loading");
+if(!venueView.includes("photograph.sourcePage") || !venueView.includes("photograph.licenseUrl") || !venueView.includes('alt={photograph.alt}')
+  || !venueView.includes('loading={isHub ? "eager" : "lazy"}')
+  || !venueView.includes('fetchPriority={isHub ? "high" : undefined}'))
+  fail("Venue photographs require credited source/license/alt, eager loading on first-fold statewide hub and deferred loading on detail guides");
+if(!cityView.includes('musicVenuePhotography["billy-bobs-texas-history"]')
+  || !cityView.includes('loading="eager" fetchPriority="high"')
+  || !cityView.includes('sourcePage') || !cityView.includes('licenseUrl'))
+  fail("Music cities hub must publish a dated, accurately described and credited documentary venue photograph with appropriate first-fold priority");
 if(!evidence.includes('https://atlas.thc.texas.gov/Details') || !evidence.includes('https://www.tshaonline.org/handbook/entries/billy-bobs-texas')) fail("Historical marker / Billy Bob primary source missing");
 for(const x of ["Austin","Houston","San Antonio","Lubbock","Dallas–Fort Worth","Corpus Christi"]){
  if(!evidence.includes('name: "'+x+'"')) fail("Six-city comparison missing "+x);

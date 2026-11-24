@@ -60,6 +60,7 @@ export const Route = createFileRoute(canonicalPath)({
             license: editorialHeroImage.license,
             acquireLicensePage: editorialHeroImage.source,
           },
+          associatedMedia: { "@id": `${pageUrl}#location-photo` },
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: {
             "@type": "ItemList",
@@ -67,6 +68,17 @@ export const Route = createFileRoute(canonicalPath)({
             numberOfItems: itemListElement.length,
             itemListElement,
           },
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `${pageUrl}#location-photo`,
+          contentUrl: absoluteUrl(texasDefinedBrand, editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg")),
+          caption: "Canoeing on Saw Mill Pond, Caddo Lake State Park",
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          creditText: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+          copyrightNotice: "© 2023 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
         },
         {
           "@type": "BreadcrumbList",
@@ -85,7 +97,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Paddling Guide: 5 Official Trails to Plan",
-        description: "Plan five official Texas paddling trails from Austin and Houston to Waco, Caddo Lake and Lighthouse Lakes with current TPWD access guidance.",
+        description: "Compare five Texas paddling trails with mapped launches, rental and shuttle options, stream gauges, NOAA tides and coastal conditions.",
         image: deliveredEditorialHeroUrl,
         imageAlt: editorialHeroImage.alt,
         imageWidth: editorialHeroImage.width,

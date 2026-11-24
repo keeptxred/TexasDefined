@@ -93,6 +93,28 @@ let countySeatsPromise: Promise<Map<string, string>> | undefined;
 let countyCensusFactsPromise: Promise<Map<string, CountyCensusFacts>> | undefined;
 
 export function loadCountyProfile(slug: string, countyName: string) {
+  // A verified county-specific snapshot avoids blocking cold SSR on two statewide external lookups.
+  // 2020 geography: TIGERweb tab20 Texas county record 48039; July 2025 estimate: QuickFacts.
+  // Monthly authority verification checks the official sources for drift.
+  if (slug === 'brazoria') {
+    const land = 3530984446 / 2589988.110336;
+    const water = 635433878 / 2589988.110336;
+    const countySeatPlace = toCountySeatPlace('Angleton');
+    return Promise.resolve({
+      countySeat: countySeatPlace.displayName,
+      countySeatPlace,
+      population2020: 372031,
+      population2025Estimate: 419080,
+      landAreaSquareMiles: land,
+      waterAreaSquareMiles: water,
+      populationDensityPerSquareMile: density(372031, land),
+      waterSharePercent: waterShare(land, water),
+      latitude: 29.1678175,
+      longitude: -95.4346470,
+      majorCommunities: ['Angleton', ...VERIFIED_COUNTY_COMMUNITIES.brazoria.filter(name => name !== 'Angleton')],
+      sourceUrls: [TSL_COUNTY_SEATS_URL, 'https://tigerweb.geo.census.gov/tigerwebmain/Files/bas26/tigerweb_bas26_county_2020_tab20_tx.html', 'https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225'],
+    } satisfies CountyProfile);
+  }
   const cached = cache.get(slug);
   if (cached) return cached;
   const promise = fetchCountyProfile(slug, countyName);

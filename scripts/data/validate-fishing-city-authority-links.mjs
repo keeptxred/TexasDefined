@@ -35,6 +35,24 @@ const target = "src/data/fishing/city-lake-links.generated.json";
 const expected = JSON.stringify(sorted, null, 2) + "\n";
 if (process.argv.includes("--write")) fs.writeFileSync(target, expected);
 else if (read(target) !== expected) throw Error("City/lake internal linking registry drifted. Regenerate with node scripts/data/validate-fishing-city-authority-links.mjs --write");
+const genericLakeNavigation = read("src/components/fishing/GenericFishingLakeGuide.tsx");
+for (const marker of [
+  'lake.slug === "proctor-lake"',
+  'lake.nearestCities.some((city) => city.trim().toLowerCase() === "comanche")',
+  'href="/destination/comanche"',
+  'href="/destination/comanche-county-historical-museum"',
+]) {
+  if (!genericLakeNavigation.includes(marker)) throw Error("Generic Proctor Lake is missing its actual SSR reverse links: " + marker);
+}
+const lakeNavigation = read("src/data/fishing/FishingLakeAuthorityLinks.tsx");
+for (const marker of [
+  'slug === "proctor-lake"',
+  'href: "/destination/comanche"',
+  'href: "/destination/comanche-county-historical-museum"',
+  'cities.some((city) => city.trim().toLowerCase() === "comanche")',
+]) {
+  if (!lakeNavigation.includes(marker)) throw Error("Missing verified Proctor Lake to Comanche reciprocal context link: " + marker);
+}
 const page = read("src/routes/$kind.$slug.lazy.tsx");
 if (!page.includes("lakeGuidesNearCity") || !page.includes("/fishing/lakes/"))
   throw Error("City entity template does not expose verified lake guide links");

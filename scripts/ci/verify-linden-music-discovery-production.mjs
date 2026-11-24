@@ -10,18 +10,22 @@ export const lindenMusicPages = {
     'Music City Texas Theater: a concert room with a local mission',
     'Music City Texas Theater and Texas venues',
     'Linden beyond the major music cities',
+    'The Texas Music Barn: another historic Linden listening room',
   ],
   '/texas-music-venues': [
     'Music City Texas Theater: a small-town stage in Linden',
     'American Legion Auditorium in Linden, Cass County',
     'Richard Bowden',
     'Texas Historical Commission',
+    'Linden also preserved a second listening-room tradition',
+    'Texas Music Barn',
   ],
   '/texas-music-cities': [
     'Why small music towns like Linden belong on the map',
     'Music Friendly Texas Certified Community',
     'Richard Bowden',
     'Music City Texas Theater',
+    'Texas Music Barn',
   ],
 };
 const internalLinks = {

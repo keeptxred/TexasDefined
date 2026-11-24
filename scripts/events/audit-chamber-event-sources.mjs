@@ -49,6 +49,19 @@ export function validateRegistry(registry, counties) {
       registry.rules?.mailProvider !== "Microsoft 365 Outlook only" ||
       registry.rules?.noGmail !== true)
     throw new Error("O365-only outreach governance was removed");
+  const scope = registry.rules?.outreachScope;
+  const allowed = ["chambers-of-commerce", "chamber-associations", "official-tourism-bureaus", "municipalities-and-public-authorities", "historical-cultural-organizations", "actual-event-organizers-and-authorized-venues"];
+  const excluded = ["independent-newspapers", "news-outlets", "journalists", "publishers", "editorial-intermediaries"];
+  const sameCategories = (actual, expected) => Array.isArray(actual) &&
+    actual.length === expected.length && expected.every(value => actual.includes(value));
+  if (!scope || !sameCategories(scope.allowed, allowed) || !sameCategories(scope.excluded, excluded) ||
+      scope.separateExplicitOwnerAuthorizationRequired !== true ||
+      scope.firstPartyOrganizationRoleVerificationRequired !== true ||
+      scope.unknownEligibility !== "do-not-contact" ||
+      scope.declinesOptOutsAndFailedAddressSuppression !== "always-honor" ||
+      scope.newsReports !== "research-leads-only; confirm with actual event organizer" ||
+      scope.automatedSending !== false)
+    throw new Error("Owner-approved outreach scope is missing or weakened");
   const ids = new Set();
   for (const source of registry.sources) {
     if (!source.id || ids.has(source.id)) throw new Error("Duplicate or missing source id");
@@ -321,7 +334,7 @@ export async function auditChamberSources({
     contactCalendarCandidateCount: observations.reduce((sum,row) => sum + (row.calendarCandidates?.length||0),0),
     firstPartyContactRouteCandidateCount: observations.reduce((sum,row) => sum + (row.contactPageCandidates?.length||0),0),
     sourceAvailabilityIsNotDateVerification: true,
-    outreachStatus: "Outlook sender and replies are tracked privately, not inferred from this report" };
+    outreachStatus: "Outlook sender and replies are tracked privately; source and contact-page candidates do not establish outreach eligibility; independent newsrooms are excluded absent separate explicit owner authorization; this audit never sends messages" };
   if (report.countiesTotal !== 254) throw new Error("County research coverage is incomplete");
   return report;
 }

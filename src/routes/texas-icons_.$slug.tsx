@@ -10,6 +10,28 @@ import {
 } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const cassMusicSeoTitles: Readonly<Record<string, string>> = {
+  "don-henley": "Don Henley: Linden, Early Texas Bands & the Eagles",
+  "t-bone-walker": "T-Bone Walker: Linden Birthplace & Electric Blues Pioneer",
+  "scott-joplin": "Scott Joplin: Ragtime & Northeast Texas Beginnings",
+};
+
+// Named historical links instead of auto-generated county backlinks. Scott
+// Joplin's possible Cass County birth area is disputed, not a confirmed origin.
+const cassMusicHistoryLinks: Readonly<Record<string, readonly { href: string; label: string; description: string }[]>> = {
+  "don-henley": [
+    { href: "/county/cass", label: "Linden and Cass County music history", description: "Follow Henley's East Texas school bands, his early work with Richard Bowden and Linden's later community theater." },
+    { href: "/texas-music-venues", label: "Music City Texas Theater and other Texas stages", description: "See how a reused Linden auditorium brought touring music back to a small East Texas town." },
+  ],
+  "t-bone-walker": [
+    { href: "/county/cass", label: "Cass County: T-Bone Walker's Linden birthplace", description: "Follow the local history of the blues guitarist's birthplace and the later T-Bone Walker festival." },
+    { href: "/texas-music-venues", label: "Linden's surviving and historic music venues", description: "Compare the town's later concert rooms with the older blues legacy they help commemorate." },
+  ],
+  "scott-joplin": [
+    { href: "/county/cass", label: "Cass County and the disputed Caves Spring connection", description: "See why Joplin is associated with northeast Texas without treating a specific Linden-area birthplace as certain." },
+  ],
+};
+
 export const Route = createFileRoute("/texas-icons/$slug")({
   loader: async ({ params }) => {
     const result = await getTexasIconProfile({ data: { slug: params.slug } });
@@ -33,8 +55,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: narrativeProfile?.seoTitle ?? `${loaderData.icon.name}: Texas Icon`,
-        description: loaderData.icon.summary,
+        title: narrativeProfile?.seoTitle ?? cassMusicSeoTitles[loaderData.icon.slug] ?? `${loaderData.icon.name}: Texas Icon`,
+        description: cassMusicSeoTitles[loaderData.icon.slug]
+          ? (narrativeProfile?.dek ?? loaderData.icon.summary)
+          : loaderData.icon.summary,
         type: "article",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -115,7 +139,7 @@ function TexasIconProfilePage() {
             </dl>
           </header>
 
-          <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} />
+          <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} slug={icon.slug} />
           {icon.slug === "sam-rayburn" ? <SamRayburnContext surface="profile" /> : null}
 
           <section className="py-12">
@@ -166,11 +190,15 @@ function RelatedIcon({ candidate, index }: { candidate: { slug: string; name: st
 function NarrativeProfile({
   profile,
   subjectType,
+  slug,
 }: {
   profile: TexasIconNarrativeProfile;
   subjectType: string;
+  slug: string;
 }) {
   const storyHeading = subjectType === "person" ? "Life and career" : "Story and significance";
+  const relatedReading = [...(profile.relatedLinks ?? []), ...(cassMusicHistoryLinks[slug] ?? [])]
+    .filter((link, index, all) => all.findIndex((other) => other.href === link.href) === index);
   return (
     <>
       <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
@@ -239,14 +267,14 @@ function NarrativeProfile({
         </div>
       </section>
 
-      {profile.relatedLinks?.length ? (
+      {relatedReading.length ? (
         <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">Related reading</p>
             <h2 className="mt-2 font-display text-3xl">Continue the story</h2>
           </div>
           <div className="grid gap-px bg-border sm:grid-cols-2">
-            {profile.relatedLinks.map((link) => (
+            {relatedReading.map((link) => (
               <a key={link.href} href={link.href} className="bg-background p-5 hover:bg-muted/40">
                 <strong className="font-display text-2xl">{link.label}</strong>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{link.description}</p>

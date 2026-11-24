@@ -174,6 +174,8 @@ const trails = [
 ] as const;
 
 const planningPaths = [
+  { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare land-based trail options and entry planning for multi-activity travel." },
+  { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Check separate equestrian reservations and trail access when planning shared destinations." },
   { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Put official paddling trails inside the broader Texas waterway and access picture." },
   { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Connect paddling to weather, habitat, public-land access and seasonal conditions." },
   { to: "/explore/state-parks", label: "Texas state parks", description: "Find managed public-water access, camping and park-specific paddling opportunities." },
@@ -181,6 +183,181 @@ const planningPaths = [
   { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Plan coastal paddles around bays, barrier islands, wind and marine conditions." },
   { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Sequence launches, takeouts, shuttles, lodging and nearby stops around realistic drive times." },
 ] as const;
+
+
+// TPWD's exact published decimal coordinates, not points inferred from route maps.
+const plottedPaddlingAccess = [
+  {
+    "name": "Buffalo Bayou (west to east)",
+    "description": "Use TPWD's segment order to select a lawful entry and downstream exit. The one-way trip needs a shuttle.",
+    "points": [
+      {
+        "name": "Highway 6",
+        "coordinate": "29.7694, -95.6434"
+      },
+      {
+        "name": "Terry Hershy Park",
+        "coordinate": "29.7733, -95.6233"
+      },
+      {
+        "name": "Dairy Ashford Road",
+        "coordinate": "29.7617, -95.6064"
+      },
+      {
+        "name": "West Sam Houston Parkway",
+        "coordinate": "29.7622, -95.5583"
+      },
+      {
+        "name": "Briar Bend Park",
+        "coordinate": "29.7460, -95.5072"
+      },
+      {
+        "name": "Woodway Memorial Park",
+        "coordinate": "29.7647, -95.4569"
+      },
+      {
+        "name": "Hogg Bird Sanctuary",
+        "coordinate": "29.7583, -95.4217"
+      },
+      {
+        "name": "Eleanor Tinsley Park",
+        "coordinate": "29.7617, -95.3783"
+      },
+      {
+        "name": "Sabine Street Access",
+        "coordinate": "29.7622, -95.3736"
+      },
+      {
+        "name": "Allen's Landing Park",
+        "coordinate": "29.7647, -95.3592"
+      }
+    ]
+  },
+  {
+    "name": "Lady Bird Lake (west to east)",
+    "description": "Choose the named lake loop and access point; no universal launch serves every route. Check wind and designated access rules.",
+    "points": [
+      {
+        "name": "Redbud Trail",
+        "coordinate": "30.2911, -97.7879"
+      },
+      {
+        "name": "UT Women's Rowing Center",
+        "coordinate": "30.2748, -97.7745"
+      },
+      {
+        "name": "Texas Rowing Center",
+        "coordinate": "30.2719, -97.7690"
+      },
+      {
+        "name": "Barton Creek",
+        "coordinate": "30.2642, -97.7681"
+      },
+      {
+        "name": "Cesar Chavez",
+        "coordinate": "30.2702, -97.7660"
+      },
+      {
+        "name": "Holiday Inn",
+        "coordinate": "30.2524, -97.7374"
+      },
+      {
+        "name": "IH 35 Bridge",
+        "coordinate": "30.2515, -97.7363"
+      },
+      {
+        "name": "Festival Beach",
+        "coordinate": "30.2483, -97.7278"
+      }
+    ]
+  },
+  {
+    "name": "Waco: Bosque Bluffs and Brazos Bridges",
+    "description": "Both loops return to their starting ramps. The middle ramp serves as the Bosque turnaround and the Brazos Bridges launch.",
+    "points": [
+      {
+        "name": "McLennan Community College Boat Ramp",
+        "coordinate": "31.5929, -97.1693"
+      },
+      {
+        "name": "Brazos Park East Kayak/Canoe Ramp",
+        "coordinate": "31.5879, -97.1534"
+      },
+      {
+        "name": "Bledsoe Miller Community Center Dock",
+        "coordinate": "31.5628, -97.1293"
+      }
+    ]
+  },
+  {
+    "name": "Caddo Lake: Hell's Half Acre",
+    "description": "The 8.8-mile loop starts and finishes at the Mill Pond launch. From Hwy 43 turn onto FM 2198, then Park Road 2. Follow TPWD's red reflective arrows, not a straight line to a waypoint.",
+    "points": [
+      {
+        "name": "Mill Pond Canoe/Kayak Launch",
+        "coordinate": "32.6942, -94.1758"
+      }
+    ]
+  },
+  {
+    "name": "Lighthouse Lakes: coastal access",
+    "description": "Use the exact launch for your selected loop. Check wind, tide and boat traffic before crossing Aransas Channel. The additional access point is not assigned a loop in TPWD's access list.",
+    "points": [
+      {
+        "name": "Crabman Marina — South Bay Loop",
+        "coordinate": "27.8753, -97.0901"
+      },
+      {
+        "name": "Lighthouse Lakes Trail Park — Cutters Loop",
+        "coordinate": "27.8691, -97.0834"
+      },
+      {
+        "name": "Red Fish Loop initial access",
+        "coordinate": "27.8622, -97.0759"
+      },
+      {
+        "name": "Additional initial access point",
+        "coordinate": "27.8680, -97.0853"
+      }
+    ]
+  }
+] as const;
+
+function PaddlingAccessDiagram({ group }: { group: (typeof plottedPaddlingAccess)[number] }) {
+  const points = group.points.map((point) => {
+    const [latitude, longitude] = point.coordinate.split(", ").map(Number);
+    return { ...point, latitude, longitude };
+  });
+  const minLat = Math.min(...points.map((point) => point.latitude));
+  const maxLat = Math.max(...points.map((point) => point.latitude));
+  const minLon = Math.min(...points.map((point) => point.longitude));
+  const maxLon = Math.max(...points.map((point) => point.longitude));
+  const position = (value: number, min: number, max: number, offset: number, span: number) =>
+    max === min ? offset + span / 2 : offset + ((value - min) / (max - min)) * span;
+  const ordered = points.map((point, index) => ({
+    ...point,
+    x: position(point.longitude, minLon, maxLon, 24, 352),
+    y: position(maxLat - point.latitude, 0, maxLat - minLat, 68, 54),
+    labelX: points.length === 1 ? 200 : 24 + (index * 352) / (points.length - 1),
+    labelY: index % 2 === 0 ? 37 : 153,
+  }));
+  return (
+    <figure className="min-w-0 rounded-sm border border-border p-3 sm:p-5">
+      <figcaption className="font-display text-2xl">{group.name}</figcaption>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">{group.description}</p>
+      <svg viewBox="0 0 400 180" role="img" aria-label={group.name + " numbered access point locations"} className="mt-4 h-auto w-full border border-border bg-muted/30">
+        <text x="8" y="16" fontSize="11" fill="currentColor">N ↑</text>
+        {ordered.map((point) => <line key={point.name} x1={point.x} y1={point.y} x2={point.labelX} y2={point.labelY} stroke="currentColor" strokeWidth="0.8" opacity="0.55" />)}
+        {ordered.map((point) => <circle key={point.name} cx={point.x} cy={point.y} r="3.5" fill="currentColor" />)}
+        {ordered.map((point, index) => <g key={point.name}><circle cx={point.labelX} cy={point.labelY} r="11" fill="currentColor" /><text x={point.labelX} y={point.labelY + 4} textAnchor="middle" fontSize="12" className="fill-background">{index + 1}</text></g>)}
+      </svg>
+      <p className="mt-2 text-xs leading-5 text-muted-foreground">North is up. Dots are plotted access coordinates; numbered callouts are offset for readability. Axes are stretched to fit and no water route is drawn.</p>
+      <ol className="mt-4 grid list-decimal gap-x-4 gap-y-2 pl-5 text-sm sm:grid-cols-2">
+        {points.map((point) => <li key={point.name} className="min-w-0"><a className="break-words text-primary underline" href={"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(point.coordinate)} target="_blank" rel="noopener noreferrer">{point.name}</a><span className="block text-xs tabular-nums text-muted-foreground">{point.coordinate}</span></li>)}
+      </ol>
+    </figure>
+  );
+}
 
 export const Route = createLazyFileRoute("/texas-paddling-guide")({ component: TexasPaddlingGuidePage });
 
@@ -228,13 +405,36 @@ function TexasPaddlingGuidePage() {
             <p className="eyebrow text-primary">Compare real outings</p>
             <h2 id="trail-comparison" className="mt-2 font-display text-3xl">Five different paddles, five different launch plans</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Distances and durations below come from the named TPWD trail pages, not a guessed statewide average. Times are approximate and change with wind, current, stops and ability. Match the put-in to the exact route before leaving.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare route distances and put-in choices.</p>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table">
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
+            <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
+              {verifiedTrips.map((row) => (
+                <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
+                  <h3 className="font-display text-xl">{row.name}</h3>
+                  <dl className="mt-3 space-y-2 text-sm leading-6">
+                    <div><dt className="font-semibold">Route choice and scale</dt><dd className="text-muted-foreground break-words">{row.route}</dd></div>
+                    <div><dt className="font-semibold">Launch and shuttle</dt><dd className="text-muted-foreground break-words">{row.access}</dd></div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five official Texas paddling trails comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "760px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Paddling trail</th><th scope="col" className="border-b border-border p-4">Route choice / scale</th><th scope="col" className="border-b border-border p-4">Launch and shuttle</th></tr></thead>
                 <tbody>{verifiedTrips.map((trip) => <tr key={trip.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{trip.name}</th><td className="border-b border-border p-4 text-muted-foreground">{trip.route}</td><td className="border-b border-border p-4 text-muted-foreground">{trip.access}</td></tr>)}</tbody>
               </table>
             </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="paddle-launch-selection">
+            <h2 id="paddle-launch-selection" className="font-display text-3xl">Which put-in and takeout make a practical Texas paddle?</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8">Choose a return-to-launch loop when traveling with one vehicle; plan a legal downstream takeout and shuttle before entering a one-way bayou segment. Use the plotted access-point locations below for trip planning, not as a navigational chart or swimming clearance.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Buffalo Bayou: shorter first shuttle</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">TPWD estimates roughly one hour from Highway 6 to Terry Hershy Park and another hour to Dairy Ashford. Farther downstream, the West Sam Houston Parkway to Briar Bend segment alone can take three to four hours. These are estimates, not safe-flow promises.</p><a href="https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD complete segment times</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Lady Bird Lake: choose a loop</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">The 3.15-mile Tom Miller Dam loop, 3.25-mile Barton Springs loop and 4.8-mile Festival Beach loop differ in launch location and distance. Match the loop to the TPWD map and confirm wind, dam boundaries, launch rules and return transport.</p><a href="https://tpwd.texas.gov/boating/paddling-trails/hill-country/lady-bird-lake/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD route and access locations</a></div>
+            </div>
+            <div className="mt-5 grid gap-4">
+              {plottedPaddlingAccess.map((group) => <PaddlingAccessDiagram key={group.name} group={group} />)}
+            </div>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Confirm the current operator's legal access, parking and any closures before launching. Coordinate pins do not grant permission to cross private land.</p>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="paddle-access-map">
@@ -316,6 +516,17 @@ function TexasPaddlingGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">Rentals, shuttles and a manageable first outing</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>TPWD lists rental and shuttle contacts for Buffalo Bayou. Confirm service at your exact put-in and takeout, including whether the operator transports privately owned boats. At Caddo Lake, park-owned canoes must launch from Saw Mill Pond and cannot be carried away by vehicle. TPWD rents them first come, first served to adults 18 or older who can launch without staff assistance. The maximum is three people and 700 pounds of combined cargo and occupants; paddles and life jackets are included. Day-use rentals are offered from 8:15 a.m. to 3 p.m. with return by 4:30 p.m. (subject to weather). Bring identification and sign the liability waiver. Overnight campers have 24- or 48-hour rental options; unused time is not refundable. The published rental instructions do not quote a dollar amount: call <a href="tel:+19036793351" className="text-primary underline">903-679-3351</a>, option 2, for the current rate before visiting. For a separate Mill Pond one-way outing from Backwater Jack's, arrange independent boat transport and pay park admission at the takeout. Do not assume a park rental includes that shuttle.</p><p>Compare the complete quote: boat, paddle, properly fitted PFD, shuttle, launch fees, deposit and cancellation terms. A rental does not establish safe conditions. Choose a short protected outing with a clear exit plan when learning, wear a PFD and postpone if conditions exceed the group's skills.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/boating/paddling-trails/gulf-coast/buffalo-bayou/">Buffalo Bayou rental and shuttle contacts</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information/">Caddo canoe rentals</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/boating/paddling-trails/pineywoods/mill-pond/">Mill Pond shuttle details</a>.</p><p>Compare the <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link> for a land-based alternative or the <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link> for an overnight trip.</p></div>
+          
+            <p className="mt-4 text-sm leading-7">Destination details: <a className="text-primary underline" href="/destination/caddo-lake-state-park">Caddo Lake State Park visitor guide</a>.</p>
+            <figure className="mt-6 max-w-3xl overflow-hidden border border-border">
+              <img src={editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg")} alt="Canoeing on Saw Mill Pond at Caddo Lake State Park." width={3556} height={2000} loading="lazy" decoding="async" className="w-full h-auto" />
+              <figcaption className="p-3 text-sm leading-6 text-muted-foreground">Canoeing on Saw Mill Pond at Caddo Lake State Park. Photo: © 2023 Larry D. Moore, <a className="text-primary underline" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a className="text-primary underline" href="https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg">Wikimedia Commons</a>. Resized for display; no crop.</figcaption>
+            </figure>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build the paddle into the wider Texas trip</h2>
@@ -332,7 +543,7 @@ function TexasPaddlingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify access and conditions with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 20, 2026. Recheck current access and conditions for travel.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Access points, route conditions, water levels, private-property boundaries and operating guidance can change. These first-party sources support this guide and should control current trip decisions. Official TPWD trail pages cross-checked November 18, 2026; exact published launch GPS points, USGS gauges and coastal conditions reviewed November 20, 2026. Recheck current access and conditions for travel. Additional Houston and Austin access-point coordinates and segment estimates checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

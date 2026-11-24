@@ -1,13 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import outdoorAdmission from "@/data/outdoor-guide-admission.json";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 import { TEXAS_DEER_AUTHORITY_TOPIC } from "@/data/hunting/authority-deer";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
-// Five guides underwent substantive source-backed editorial revisions on Nov 20.
+// Five guides underwent substantive source-backed editorial revisions on Nov 20 and Nov 21.
 // This date must not advance for automated source checks or non-editorial deploys.
-const OUTDOOR_GUIDES_LASTMOD = "2026-11-20";
+const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";
+// Actual 2026-11-21 substantive food and brand editorial revision (no automated date restamps).
+const FOOD_BRAND_LASTMOD = "2026-11-21";
+// Only a material, independently verified admission-price change updates its own guide.
+const MTB_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.huntsville.evidenceDate, outdoorAdmission.rayRoberts.evidenceDate].sort().at(-1)!;
+const STARGAZING_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.caprock.evidenceDate].sort().at(-1)!;
 type SitemapEntry = { path: string; lastmod?: string };
 
 type EdgeCache = {
@@ -37,7 +43,13 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("dallas-editorial-lastmod", "2026-11-22");
   // Rusk county source-backed syrup designation, museum and archived event all changed on November 22.
   cacheUrl.searchParams.set("rusk-syrup-20261122", "county-museum-festival-v1");
-  cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
+  cacheUrl.searchParams.set("comanche-county-editorial-lastmod", "2026-11-24");
+  cacheUrl.searchParams.set("alvin-brazoria-editorial-lastmod", "2026-11-24");
+  // Substantive Cass and statewide music editorial revisions reviewed Nov 24.
+  // Separate cache key ensures the sitemap cannot retain August county lastmod.
+  cacheUrl.searchParams.set("linden-music-editorial-lastmod", "2026-11-24");
+  cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", [OUTDOOR_GUIDES_LASTMOD, MTB_GUIDE_LASTMOD, STARGAZING_GUIDE_LASTMOD, outdoorAdmission.huntsville.adult, outdoorAdmission.rayRoberts.adult, outdoorAdmission.caprock.adult].join(":"));
+  cacheUrl.searchParams.set("food-brand-editorial-lastmod", FOOD_BRAND_LASTMOD);
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -57,14 +69,25 @@ const AUTHORITY_STATIC_PATHS = [
   "/everything-bigger-in-texas",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/texas-brand-origin-stories": FOOD_BRAND_LASTMOD,
+  "/made-in-texas": FOOD_BRAND_LASTMOD,
+  "/texas-chili-con-carne-history": FOOD_BRAND_LASTMOD,
+  "/texas-chicken-fried-steak-guide": FOOD_BRAND_LASTMOD,
+  "/texas-breakfast-taco-guide": FOOD_BRAND_LASTMOD,
   // Source-backed changes to all five guides merged Nov 20: route/permit/access updates, media rights, original comparisons and internal links.
-  "/texas-mountain-biking-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-mountain-biking-guide": MTB_GUIDE_LASTMOD,
   "/texas-horseback-riding-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-ohv-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-paddling-guide": OUTDOOR_GUIDES_LASTMOD,
-  "/texas-stargazing-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-stargazing-guide": STARGAZING_GUIDE_LASTMOD,
   "/county/dallas": "2026-11-22", // November 22 Old Red, Allen Brooks and Trinity history; verified Nov 15 Institute of Letters context retained.
   "/county/rusk": "2026-11-22", // Substantive H.C.R. 83 syrup, 1989 festival and Depot Museum history revision.
+  "/county/brazoria": "2026-11-24", // Substantive museum, art trail and local-history revision.
+  "/city/alvin": "2026-11-24", // Substantive depot, farm and mural visitor guidance.
+  "/county/comanche": "2026-11-24", // Independently sourced Nov 24 depot chronology, NPS listing and preservation evidence.
+  "/county/cass": "2026-11-24", // Cass/Linden sourced theater, Barn, biographies and county history updated Nov 24.
+  "/texas-music-venues": "2026-11-24", // Researched Music Barn, citations and licensed editorial photograph.
+  "/texas-music-cities": "2026-11-24", // Researched Linden scene, reciprocal links and documentary photo.
   // Actual November 17 editorial source revision for these five individual culture chapters.
   "/things-unique-to-texas/landmarks": "2026-11-17",
   "/things-unique-to-texas/roadside-small-towns": "2026-11-17",

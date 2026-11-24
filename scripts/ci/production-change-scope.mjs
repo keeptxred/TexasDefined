@@ -121,6 +121,17 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       candidates.add(path);
     }
   }
+  const alvinAuthorityPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/fixtures/brazoria-county-brazos-gulf-angleton.ts',
+    'scripts/data/verify-alvin-brazoria-authority.mjs',
+    'src/data/destination-sitemap-detail-parity.server.ts',
+  ].includes(path))) {
+    for (const page of ['/city/alvin', '/county/brazoria', '/destination/alvin-historical-museum']) {
+      alvinAuthorityPages.add(page);
+      candidates.add(page);
+    }
+  }
   const expectedHrefsByPage = {};
   // A researched RV campground lives behind the shared destination slug route and
   // shared curation registry. Changes there must smoke/purge this exact public URL;
@@ -701,10 +712,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...texasCultureAuthorityPages, ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...moodyGardensPages, ...davisHillPages, ...imageRightsPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...alvinAuthorityPages, ...texasCultureAuthorityPages, ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...moodyGardensPages, ...davisHillPages, ...imageRightsPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    alvinAuthorityPages: selectedPaths.filter(p => alvinAuthorityPages.has(p)),
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
     corporateEventPages: selectedPaths.filter(p => corporateEventPages.has(p)),
     eventAuthorityPages: selectedPaths.filter(p => boundedEventAuthorityPages.has(p)),

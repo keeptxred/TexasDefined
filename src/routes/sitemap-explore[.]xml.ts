@@ -88,7 +88,8 @@ function entry(path: string, lastModified?: string): string | null {
   // A source-only check must not advance these dates; the paired authority guides had substantive edits on November 21.
   const martinCreekPage = normalized === "/destination/martin-creek-lake-state-park" || normalized === "/destination/martin-creek-lake-state-park-rv-area";
   const actual = validLastModified(lastModified);
-  const lastmod = martinCreekPage && (!actual || actual < "2026-11-21") ? "2026-11-21" : actual;
+  const editorialFloor = normalized === "/destination/alvin-historical-museum" ? "2026-11-24" : martinCreekPage ? "2026-11-21" : undefined;
+  const lastmod = editorialFloor && (!actual || actual < editorialFloor) ? editorialFloor : actual;
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 

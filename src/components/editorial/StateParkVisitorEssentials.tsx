@@ -3,6 +3,103 @@ import type { Destination } from "@/data/types";
 import { getTpwdActivitiesForDestination } from "@/data/tpwd-calendar";
 import { isTexasStateParkDestination, stateParkOfficialResources, VERIFIED_PARK_FACILITIES } from "@/data/state-park-authority";
 
+const outdoorActivityLinks: Readonly<Record<string, ReadonlyArray<readonly [string, string]>>> = {
+  "huntsville-state-park": [
+    [
+      "mountain-biking",
+      "Compare Pineywoods mountain-bike routes and admission with other Texas riding destinations."
+    ]
+  ],
+  "ray-roberts-lake-state-park": [
+    [
+      "mountain-biking",
+      "Compare Isle du Bois DORBA loop distances and the expert-only Loop D before riding."
+    ]
+  ],
+  "dinosaur-valley-state-park": [
+    [
+      "horseback-riding",
+      "Compare guided family rides with bring-your-own-horse destinations and trailer logistics."
+    ]
+  ],
+  "caddo-lake-state-park": [
+    [
+      "paddling",
+      "Check Saw Mill Pond canoe rental restrictions and compare legal launch and shuttle arrangements."
+    ]
+  ],
+  "caprock-canyons-state-park": [
+    [
+      "stargazing",
+      "Plan a dark-sky visit around moonrise, weather and permitted after-hours access."
+    ],
+    [
+      "horseback-riding",
+      "Compare canyon riding and equestrian access with other public-land destinations."
+    ]
+  ],
+  "palo-duro-canyon-state-park": [
+    [
+      "mountain-biking",
+      "Compare Capitol Peak route difficulty and canyon trail access."
+    ],
+    [
+      "horseback-riding",
+      "Compare designated canyon horse trails and equestrian camping."
+    ]
+  ],
+  "big-bend-ranch-state-park": [
+    [
+      "mountain-biking",
+      "Compare remote riding routes and trailhead logistics."
+    ],
+    [
+      "horseback-riding",
+      "Check backcountry horse permits and trailer logistics."
+    ]
+  ],
+  "hill-country-state-natural-area": [
+    [
+      "mountain-biking",
+      "Compare shared-use trail difficulty and route selection."
+    ],
+    [
+      "horseback-riding",
+      "Compare guided operators and equestrian facilities."
+    ]
+  ],
+  "tyler-state-park": [
+    [
+      "mountain-biking",
+      "Compare named bike loops and trail direction."
+    ]
+  ],
+  "franklin-mountains-state-park": [
+    [
+      "mountain-biking",
+      "Compare El Paso mountain-bike trailhead access and terrain."
+    ]
+  ],
+  "eisenhower-state-park": [
+    [
+      "ohv",
+      "Compare designated OHV riding areas, vehicle width and permit requirements."
+    ]
+  ],
+  "copper-breaks-state-park": [
+    [
+      "stargazing",
+      "Check dark-sky viewing locations and nighttime access."
+    ]
+  ],
+  "south-llano-river-state-park": [
+    [
+      "stargazing",
+      "Compare sky conditions, nighttime activity fees and access."
+    ]
+  ]
+};
+
 /**
  * Show only independently checked park-specific claims. Never fill five slots with
  * the same "verification pending" boilerplate or imply an unconfirmed amenity exists.
@@ -65,6 +162,10 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
     <p className="mt-5 text-sm">
       <Link to="/explore/$category" params={{ category: "state-parks" }} className="font-semibold text-primary underline underline-offset-4">Explore Texas state parks</Link>
     </p>
+    {outdoorActivityLinks[destination.slug]?.length > 0 && <nav aria-label={`Activity guides for ${destination.name}`} className="mt-5 space-y-3">
+      <h3 className="font-display text-xl">Plan your activity</h3>
+      {outdoorActivityLinks[destination.slug].map(([activity, detail]) => <p key={activity} className="text-sm leading-7"><a href={`/texas-${activity}-guide`} className="font-semibold text-primary underline underline-offset-4">Texas {activity.replaceAll("-", " ")} guide</a>{": "}{detail}</p>)}
+    </nav>}
     {upcomingActivities.length > 0 && <section aria-labelledby="tpwd-activities" className="mt-8 border-t border-border pt-6">
       <p className="eyebrow text-primary">Upcoming TPWD programs</p>
       <h3 id="tpwd-activities" className="mt-2 font-display text-2xl">Activities scheduled at this park</h3>

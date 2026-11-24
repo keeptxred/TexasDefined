@@ -131,6 +131,13 @@ for (const marker of [
   'fetchPriority="high"',
 ]) if (!lazyRoute.includes(marker)) errors.push('Missing horseback public-domain photo rights or visible media: ' + marker);
 
+
+for (const marker of ["aria-label=\"Mobile comparison summary\"","hidden overflow-x-auto border border-border md:block","aria-labelledby=\"horse-reservation-decisions\""]) {
+  if (!lazyRoute.includes(marker)) errors.push('Missing source-backed mobile comparison or access planning: ' + marker);
+}
+
+if (!lazyRoute.includes('aria-labelledby="extended-trip-planning"') || !lazyRoute.includes('to="/texas-mountain-biking-guide"')) errors.push('Missing expanded visitor planning or contextual reciprocal outdoor guide link.');
+
 if (errors.length) {
   console.error('Texas horseback riding authority validation failed:');
   for (const error of errors) console.error(`- ${error}`);

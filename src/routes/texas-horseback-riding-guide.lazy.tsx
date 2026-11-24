@@ -154,6 +154,7 @@ const ridingAreas = [
 ] as const;
 
 const planningPaths = [
+  { to: "/texas-paddling-guide", label: "Paddling access", description: "Compare trailhead logistics with river and lake put-ins for a multi-activity trip." },
   { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Put equestrian travel inside the larger public-land, weather, habitat and seasonal planning picture." },
   { to: "/explore/state-parks", label: "Texas state parks", description: "Find more managed public lands and verify park-specific equestrian access and facilities." },
   { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare another shared-trail activity across Texas public lands and regions." },
@@ -198,12 +199,33 @@ function TexasHorsebackRidingGuidePage() {
             <p className="eyebrow text-primary">Choose the right riding option</p>
             <h2 id="horse-comparison" className="mt-2 font-display text-3xl">Compare trailer logistics, facilities and guided-ride options</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">These five destinations are not interchangeable. Most public horseback trails are for visitors bringing a horse, not walk-up rental rides. A park's equestrian campsite, water trough or designated acreage does not prove a specific route is open today.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Scroll sideways to compare rider type and facilities.</p>
-            <div className="mt-6 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five Texas horseback riding destinations comparison table">
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
+            <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
+              {equestrianPlanning.map((row) => (
+                <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
+                  <h3 className="font-display text-xl">{row.name}</h3>
+                  <dl className="mt-3 space-y-2 text-sm leading-6">
+                    <div><dt className="font-semibold">Rider type</dt><dd className="text-muted-foreground break-words">{row.type}</dd></div>
+                    <div><dt className="font-semibold">Facilities and permits</dt><dd className="text-muted-foreground break-words">{row.facilities}</dd></div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five Texas horseback riding destinations comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "780px" }}>
                 <thead className="bg-muted/50"><tr><th scope="col" className="border-b border-border p-4">Destination</th><th scope="col" className="border-b border-border p-4">Rider type</th><th scope="col" className="border-b border-border p-4">Facilities / permissions</th></tr></thead>
                 <tbody>{equestrianPlanning.map((park) => <tr key={park.name} className="align-top"><th scope="row" className="border-b border-border p-4 font-semibold">{park.name}</th><td className="border-b border-border p-4 text-muted-foreground">{park.type}</td><td className="border-b border-border p-4 text-muted-foreground">{park.facilities}</td></tr>)}</tbody>
               </table>
+            </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="horse-reservation-decisions">
+            <h2 id="horse-reservation-decisions" className="font-display text-3xl">Where can you book horseback riding without owning a horse?</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8">Big Bend Ranch, Hill Country and Dinosaur Valley have documented guided-ride options. Reserve with the outfitter, separately from park admission; confirm departure location, age and weight limits, horse availability, pace and cancellation terms directly. For private horses, choose a trailer-accessible campsite or trailhead before paying.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Lajitas Stables — Big Bend Ranch</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">TPWD lists Lajitas Stables as its equestrian outfitter with rental horses and guided trips. Ask whether the itinerary actually enters the state park; confirm duration, rider restrictions and meeting location. Call 800-887-4331 or 432-371-3064.</p><a href="https://lajitasstables.com/the-stables" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Outfitter information</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Bandera Historical Rides — Hill Country</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">The operator offers rides from different locations, including its ranch and the natural area; request the park ride specifically. The operator publishes rider restrictions and requires reservations. Call 830-328-2203.</p><a href="https://www.banderahistoricalrides.com/rider-guidelines" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Rider guidelines and reservation requirements</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Eagle Eye Ranch — Dinosaur Valley</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">The park identifies Eagle Eye Ranch Carriage Company for guided horseback riding, wagon rides and wrangler-assisted rides for children. Use the park's reservation link or call 817-382-9855. Its offered ride is not the same as unguided use of the unmarked South Primitive Area.</p><a href="https://tpwd.texas.gov/state-parks/dinosaur-valley/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Official guide and reservation link</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Chapas Camp vs trailhead campsites</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Hill Country SNA lists six primitive equestrian trailhead campsites with water and two overnight pens. Chapas is a separate group camp with nine stalls and ten electric hookups; if not booked by a group, those individual campsites are first-come, first-served rather than individually reservable. Confirm trailer and horse capacity before choosing either product.</p><a href="https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/horse-sites" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">Official equestrian campsite inventory</a></div>
             </div>
           </section>
           <section className="border-b border-border py-10" aria-labelledby="horse-guide-or-byo">
@@ -285,6 +307,17 @@ function TexasHorsebackRidingGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">A family ride without hauling a horse</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>At Dinosaur Valley, TPWD identifies Eagle Eye Ranch Carriage Company as a provider of guided horseback rides, wagon rides and wrangler-assisted rides for children ages 3–14. That age range describes the assisted service, not every guided ride.</p><p>Use the <a className="text-primary underline" href="https://www.eercc.com/dinosaur-valley-park-trail-rides/">operator's actual booking calendar</a> for the date and ride type. The public information page does not display a fixed ride price; ask for the total group price, minimum age, weight limits, helmet policy, ride duration, cancellation terms and whether park admission is separate. An assisted ride or wagon outing may suit first-time riders better than an independent backcountry trip.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/dinosaur-valley/">Dinosaur Valley visitor and outfitter information</a>. If hauling your own horse, confirm trailer turning space, stock water, and the appropriate campsite.</p><p>For companions bringing bicycles, consult the <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link>; for overnight plans, see the <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link>.</p></div>
+          
+            <p className="mt-4 text-sm leading-7">Destination details: <a className="text-primary underline" href="/destination/dinosaur-valley-state-park">Dinosaur Valley State Park visitor guide</a>.</p>
+            <figure className="mt-6 max-w-3xl overflow-hidden border border-border">
+              <img src={editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Dinosaur_Valley_State_Park_Trail.JPG/960px-Dinosaur_Valley_State_Park_Trail.JPG")} alt="A trail in Dinosaur Valley State Park; the photograph does not identify a particular guided riding route." width={2448} height={3264} loading="lazy" decoding="async" className="w-full h-auto" />
+              <figcaption className="p-3 text-sm leading-6 text-muted-foreground">A trail in Dinosaur Valley State Park; the photograph does not identify a particular guided riding route. Photo: © 2013 Fredlyfish4, <a className="text-primary underline" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>, <a className="text-primary underline" href="https://commons.wikimedia.org/wiki/File:Dinosaur_Valley_State_Park_Trail.JPG">Wikimedia Commons</a>. Resized for display; no crop.</figcaption>
+            </figure>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build the riding day into a Texas trip</h2>
@@ -301,7 +334,7 @@ function TexasHorsebackRidingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Verify documentation and access with TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Documentation requirements, permits, trail closures, water, facilities and operating conditions can change. These first-party sources support this guide and should control current trip decisions. Official TPWD riding and campsite information checked November 18, 2026; expanded horse-site and guide-service options checked November 20, 2026. Call for current routes, water and facilities.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Documentation requirements, permits, trail closures, water, facilities and operating conditions can change. These first-party sources support this guide and should control current trip decisions. Official TPWD riding and campsite information checked November 18, 2026; expanded horse-site and guide-service options checked November 20, 2026. Call for current routes, water and facilities. Outfitter reservation resources and Chapas campsite rules checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

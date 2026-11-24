@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const canonicalPath = "/texas-mountain-biking-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -36,8 +37,20 @@ export const Route = createFileRoute(canonicalPath)({
           name: "Mountain Biking in Texas: 5 Public Trail Systems & Where to Ride",
           description: "Compare five Texas mountain-biking trail systems and official maps.",
           image: absoluteUrl(texasDefinedBrand, heroImage.src),
+          associatedMedia: { "@id": `${pageUrl}#location-photo` },
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: { "@type": "ItemList", "@id": `${pageUrl}#trail-systems`, numberOfItems: itemListElement.length, itemListElement },
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `${pageUrl}#location-photo`,
+          contentUrl: absoluteUrl(texasDefinedBrand, editorialImageSrc("https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg/960px-Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg")),
+          caption: "Headwater Boardwalks at Huntsville State Park",
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          creditText: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+          copyrightNotice: "© 2025 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
         },
         {
           "@type": "BreadcrumbList",
@@ -55,7 +68,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas Mountain Biking: 5 Trail Systems, Maps & Rides",
-        description: "Compare Franklin Mountains, Big Bend Ranch, Palo Duro, Hill Country and Tyler State Park with trail mileage, terrain, route ideas and official maps.",
+        description: "Compare Texas mountain bike routes, difficulty, parking and trail maps, plus Huntsville and Ray Roberts options near Houston and DFW.",
         image: heroImage.src,
         imageAlt: "Franklin Mountains State Park above El Paso, a major Texas public mountain-biking landscape",
         imageWidth: heroImage.width,

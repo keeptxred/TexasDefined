@@ -61,7 +61,7 @@ export const Route = createFileRoute(canonicalPath)({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: "Texas OHV Guide: 5 Legal Riding Areas & Decal Rules",
-        description: "Find five legal Texas OHV riding areas and plan around decals, allowed vehicle classes, land-manager maps, permits, closures and current rules.",
+        description: "Compare five legal Texas OHV areas, vehicle width limits, permits, decals, trip expenses, access directions and current closures.",
         image: ohvHeroUrl,
         imageAlt: "Real designated off-road route at Rosita Flats, Lake Meredith, Texas",
       }),

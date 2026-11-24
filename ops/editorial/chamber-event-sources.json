@@ -7,7 +7,18 @@
     "noGmail": true,
     "contactInformation": "Private Outlook and protected outreach command center only; never commit recipient lists",
     "publication": "Require current organizer confirmation for dates, venue, cancellations and image rights",
-    "backlinks": "Earned, optional citations only; never paid, required or reciprocal"
+    "backlinks": "Earned, optional citations only; never paid, required or reciprocal",
+    "outreachScope": {
+      "ownerApprovedOn": "2026-11-24",
+      "allowed": ["chambers-of-commerce", "chamber-associations", "official-tourism-bureaus", "municipalities-and-public-authorities", "historical-cultural-organizations", "actual-event-organizers-and-authorized-venues"],
+      "excluded": ["independent-newspapers", "news-outlets", "journalists", "publishers", "editorial-intermediaries"],
+      "separateExplicitOwnerAuthorizationRequired": true,
+      "firstPartyOrganizationRoleVerificationRequired": true,
+      "unknownEligibility": "do-not-contact",
+      "declinesOptOutsAndFailedAddressSuppression": "always-honor",
+      "newsReports": "research-leads-only; confirm with actual event organizer",
+      "automatedSending": false
+    }
   },
   "sources": [
     {
@@ -5714,6 +5725,51 @@
       "reviewedAt": "2026-11-23",
       "calendarType": "html",
       "priority": "monthly",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "houston-mission-tejas-tpwd-ranger-events-2026-2027",
+      "organization": "Texas Parks and Wildlife — Mission Tejas State Park original 2026–2027 dated ranger programs (PARK ONLY, NOT Crockett or Houston County chamber festival dates)",
+      "countySlugs": [
+        "houston"
+      ],
+      "homeUrl": "https://tpwd.texas.gov/state-parks/mission-tejas",
+      "calendarUrl": "https://tpwd.texas.gov/state-parks/mission-tejas/park_events/",
+      "contactPageUrl": "https://tpwd.texas.gov/state-parks/mission-tejas",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "howard-big-spring-symphony-2026-2027-season",
+      "organization": "Big Spring Symphony Orchestra — original 2026–27 dated concert season at Big Spring Municipal Auditorium (VENUE ONLY, NOT countywide festival calendar)",
+      "countySlugs": [
+        "howard"
+      ],
+      "homeUrl": "https://bigspringsymphony.org/",
+      "calendarUrl": "https://bigspringsymphony.org/season-letter/",
+      "contactPageUrl": "https://bigspringsymphony.org/contact/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "collingsworth-wellington-ritz-2026-2027-programs",
+      "organization": "Wellington Ritz Theatre — original current cinema and concert schedule (VENUE ONLY, NOT Collingsworth countywide festivals)",
+      "countySlugs": [
+        "collingsworth"
+      ],
+      "homeUrl": "https://www.wellingtonritztheatre.com/",
+      "calendarUrl": "https://www.wellingtonritztheatre.com/",
+      "contactPageUrl": "https://www.wellingtonritztheatre.com/contact-us/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
     }

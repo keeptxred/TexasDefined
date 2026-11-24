@@ -1,3 +1,5 @@
+import outdoorAdmission from "@/data/outdoor-guide-admission.json";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
@@ -200,6 +202,7 @@ const trailSystems = [
 ] as const;
 
 const planningPaths = [
+  { to: "/texas-paddling-guide", label: "Paddling after a woodland ride", description: "Compare Tyler-area outdoor travel with named Texas paddling access and water conditions." },
   { to: "/explore/state-parks", label: "Texas state parks", description: "Browse more public lands and destination guides across the state." },
   { to: "/best-places-to-go-camping-in-texas", label: "Camping in Texas", description: "Turn a trail day into an overnight park or road-trip stop." },
   { to: "/explore/road-trips", label: "Texas road trips", description: "Build the drive around parks, towns and worthwhile stops instead of an out-and-back slog." },
@@ -252,8 +255,21 @@ function TexasMountainBikingGuidePage() {
             <p className="eyebrow text-primary">Choose your ride</p>
             <h2 id="compare-rides" className="mt-2 font-display text-4xl">Five Texas trail systems at a glance</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">If you only need the decision-making version of this guide, start here. Trail status can change, so the official map linked inside each section should still be your final check.</p>
-            <p className="mt-3 text-sm text-muted-foreground md:hidden">Swipe the comparison horizontally for all route columns.</p>
-            <div className="mt-7 overflow-x-auto border border-border" role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table">
+            <p className="mt-3 text-sm text-muted-foreground md:hidden">Compare the same destinations and details in the cards below.</p>
+            <div className="mt-5 grid gap-3 md:hidden" aria-label="Mobile comparison summary">
+              {trailSystems.map((row) => (
+                <div key={row.name} className="min-w-0 rounded-sm border border-border p-4">
+                  <h3 className="font-display text-xl">{row.name}</h3>
+                  <dl className="mt-3 space-y-2 text-sm leading-6">
+                    <div><dt className="font-semibold">Best for</dt><dd className="text-muted-foreground break-words">{row.bestFor}</dd></div>
+                    <div><dt className="font-semibold">Trail scale</dt><dd className="text-muted-foreground break-words">{row.trailScale}</dd></div>
+                    <div><dt className="font-semibold">Terrain</dt><dd className="text-muted-foreground break-words">{row.terrain}</dd></div>
+                    <div><dt className="font-semibold">Start here</dt><dd className="text-muted-foreground break-words">{row.startHere}</dd></div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+            <div className="mt-7 hidden overflow-x-auto border border-border md:block" role="region" tabIndex={0} aria-label="Five Texas mountain biking trail systems comparison table">
               <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "900px" }}>
                 <thead className="bg-muted/50">
                   <tr>
@@ -276,6 +292,17 @@ function TexasMountainBikingGuidePage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </section>
+          <section className="border-b border-border py-10" aria-labelledby="mtb-route-progression">
+            <h2 id="mtb-route-progression" className="font-display text-3xl">Which Texas mountain bike trail should you ride first?</h2>
+            <p className="mt-4 max-w-4xl text-base leading-8">For a short, low-commitment skills check, choose Tyler's EZ Loop or Hill Country's Heritage Loop. For an MTB-specific technical progression, choose Capitol Peak. Treat Big Bend Ranch and Franklin Mountains as longer, remote-terrain trips, not as equivalent rides simply because the trail map shows a similar distance.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Tyler: progress by difficulty</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Start on the 0.8-mile easy EZ Loop, then choose A Loop (2.6 miles) or B Loop (3.1 miles) if comfortable with moderate terrain. C Loop (1.5 miles) and D Loop (2.2 miles) are rated challenging despite shorter mileage. Ride clockwise on mixed-use trails. Do not add distances without checking trail connections.</p><a href="https://tpwd.texas.gov/state-parks/tyler/trails-info/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD named trails</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Hill Country: headquarters approach</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">From FM 173 near Bandera follow FM 1077 west about 10.4 miles; the approach changes to dirt before the park entrance. Cross West Verde Creek and check in at headquarters. Compare Heritage Loop (1.1 miles, easy) and Merrick Mile (1 mile, easy–moderate) before attempting more exposed rocky climbs.</p><a href="https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/hotw/bandera-loop" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD approach and headquarters</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Palo Duro: compare trail types</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Capitol Peak is an MTB-only 3.5-mile loop; the CCC trail is rated difficult and drops 500 feet from rim toward canyon floor over 1.4 miles one way. That figure is a vertical descent, not total climbing or a recommendation to combine routes. Check signed bicycle access before choosing any connector.</p><a href="https://tpwd.texas.gov/state-parks/palo-duro-canyon/trails-info" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD trail descriptions</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Franklin Mountains: plan around gate hours</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Reserve day access before departure and check current Tom Mays gate times, particularly for early rides in hot weather. The park headquarters, trailhead and camping areas are not interchangeable; campsites lack water and electrical hookups. Carry water independently of the park's facilities.</p><a href="https://tpwd.texas.gov/state-parks/franklin-mountains" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD entrance and gate information</a></div>
+              <div className="min-w-0 border border-border p-4"><h3 className="font-display text-xl">Big Bend Ranch: two check-in approaches, one remote interior</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Check in at Barton Warnock (21800 FM 170, Terlingua) in the east or Fort Leaton (16952 FM 170 East, Presidio) in the west. Contrabando access is distinct from the Sauceda interior: the ranger station lies 27 miles along a rugged dirt road from FM 170. TPWD discourages trailers and motorhomes on this approach and says the northern entrance is permanently closed. Choose a route from the official Contrabando and topographic maps rather than following an app through the closed entrance.</p><a href="https://tpwd.texas.gov/state-parks/big-bend-ranch/map" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block break-words font-semibold text-primary underline underline-offset-4">TPWD entrance addresses, maps and access restrictions</a></div>
             </div>
           </section>
 
@@ -381,6 +408,17 @@ function TexasMountainBikingGuidePage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">Two additional riding bases near Houston and Dallas–Fort Worth</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>For a wooded East Texas weekend, Huntsville State Park offers trails open to cycling unless marked otherwise. Near Dallas–Fort Worth, the Isle du Bois unit of Ray Roberts Lake State Park has five consecutive DORBA mountain-bike trails rated moderate by TPWD. Do not confuse them with the separate Greenbelt unit.</p><p>At Isle du Bois, TPWD lists Loop A (0.2 mile), Loop B (0.7 mile) and longer round-trip options C (4.4 miles), D (7 miles) and E (9.3 miles). Despite the table's moderate rating, TPWD explicitly reserves Loop D for experts; do not treat the full system as a beginner progression. Published daily admission for ages 13 and up: <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees">Huntsville</a> {"$" + outdoorAdmission.huntsville.adult} (price evidence {outdoorAdmission.huntsville.evidenceDate}); Ray Roberts {"$" + outdoorAdmission.rayRoberts.adult} (price evidence {outdoorAdmission.rayRoberts.evidenceDate}). Ages 12 and under enter free. Two paying visitors would spend {"$" + outdoorAdmission.huntsville.adult * 2} at Huntsville or {"$" + outdoorAdmission.rayRoberts.adult * 2} at Ray Roberts before camping or equipment costs. Check the <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/park-information/notices/ray-rob-trails-update">current Ray Roberts trail notice</a> before departure.</p><p><a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/huntsville/trails-info/">Huntsville trail descriptions</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info">Ray Roberts trail descriptions</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees">Ray Roberts admission</a>.</p><p>See our <Link className="text-primary underline" to="/texas-horseback-riding-guide">horseback riding guide</Link> for shared-use considerations, <Link className="text-primary underline" to="/texas-ohv-guide">OHV guide</Link> for designated motorized alternatives, or <Link className="text-primary underline" to="/texas-paddling-guide">paddling guide</Link> and <Link className="text-primary underline" to="/texas-stargazing-guide">stargazing guide</Link> for a camping weekend.</p></div>
+          
+            <p className="mt-4 text-sm leading-7">Destination details: <a className="text-primary underline" href="/destination/huntsville-state-park">Huntsville State Park visitor guide</a> · <a className="text-primary underline" href="/destination/ray-roberts-lake-state-park">Ray Roberts Lake State Park visitor guide</a>.</p>
+            <figure className="mt-6 max-w-3xl overflow-hidden border border-border">
+              <img src={editorialImageSrc("https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg/960px-Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg")} alt="Headwater Boardwalks at Huntsville State Park; wetland scenery, not a guarantee that bicycles are permitted on the pictured boardwalk." width={3556} height={2000} loading="lazy" decoding="async" className="w-full h-auto" />
+              <figcaption className="p-3 text-sm leading-6 text-muted-foreground">Headwater Boardwalks at Huntsville State Park; wetland scenery, not a guarantee that bicycles are permitted on the pictured boardwalk. Photo: © 2025 Larry D. Moore, <a className="text-primary underline" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a className="text-primary underline" href="https://commons.wikimedia.org/wiki/File:Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg">Wikimedia Commons</a>. Resized for display; no crop.</figcaption>
+            </figure>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Turn the ride into a better Texas trip</h2>
@@ -397,7 +435,7 @@ function TexasMountainBikingGuidePage() {
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
             <h2 id="sources" className="mt-2 font-display text-3xl">Maps and conditions should come from TPWD</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Mileage, access, trail direction, closures and park operations can change. These first-party sources support the guide and should control current trip decisions. TPWD maps, route descriptions and statewide e-bike restrictions checked November 18, 2026; expanded trailhead and park-elevation research checked November 20, 2026. Recheck current closures and park rules. Tyler loop progression, Bandera approach, and Palo Duro CCC descent checked November 21, 2026.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {officialSources.map((source) => (
                 <li key={source.href} className="py-4">

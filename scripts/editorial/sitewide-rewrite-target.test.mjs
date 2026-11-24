@@ -196,3 +196,13 @@ test('pending protected edit locks only its exact page, not the entire umbrella 
   assert.ok(sourcePairLocked(mixed,7233,'/event/dallas-zoo-lights'));
   assert.equal(pendingSourceLocks([{...p,head:{ref:'untrusted/branch'}}]).size,0);
 });
+
+
+test('Alvin source alerts resolve to the affected canonical guides rather than an unrelated museum record',()=>{
+  const source='https://frobergsfarm.com/';
+  assert.deepEqual(issuePageSourcePairs('SOURCE_CHANGED '+source).map(x=>[x.page,x.sourceUrl]),[
+    ['/city/alvin',source],['/county/brazoria',source]
+  ]);
+  const mural='https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/';
+  assert.deepEqual(issuePageSourcePairs('SOURCE_CHANGED '+mural).map(x=>x.page),['/city/alvin','/county/brazoria','/destination/alvin-historical-museum']);
+});

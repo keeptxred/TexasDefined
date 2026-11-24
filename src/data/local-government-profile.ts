@@ -24,6 +24,34 @@ const profileCache = new Map<string, Promise<LocalGovernmentProfile>>();
 let comptrollerDirectoryPromise: Promise<Map<string, string>> | undefined;
 
 export function loadLocalGovernmentProfile(countySlug: string, countyName: string) {
+  // Direct local-government sources verified 2026-11-24. Avoid chained directory
+  // HTTP requests on every cold Brazoria SSR; keep scheduled source review.
+  if (countySlug === 'brazoria') {
+    return Promise.resolve({
+      countyWebsiteUrl: 'https://www.brazoriacountytx.gov/',
+      appraisalDistrict: {
+        name: 'Marcel Pierel III',
+        websiteUrl: 'https://brazoriacad.org/',
+        phone: '979-849-7792',
+        email: 'help@brazoriacad.org',
+        address: '500 N Chenango St, Angleton, TX 77515-4650',
+      },
+      taxOffice: {
+        name: 'Kristin R. Bulanek',
+        websiteUrl: 'https://tax.brazoriacountytx.gov/',
+        phone: '979-864-1320',
+        address: '237 E. Locust St., Suite 104, Angleton, TX 77515',
+      },
+      comptrollerCountyUrl: 'https://comptroller.texas.gov/taxes/property-tax/county-directory/brazoria.php',
+      tacCountyUrl: `${TAC_COUNTY_BASE_URL}/brazoria-county`,
+      sourceUrls: [
+        'https://brazoriacad.org/contact-us/',
+        'https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/',
+        'https://tax.brazoriacountytx.gov/contact-en-us',
+        'https://tax.brazoriacountytx.gov/',
+      ],
+    } satisfies LocalGovernmentProfile);
+  }
   const cached = profileCache.get(countySlug);
   if (cached) return cached;
   const promise = fetchLocalGovernmentProfile(countySlug, countyName);

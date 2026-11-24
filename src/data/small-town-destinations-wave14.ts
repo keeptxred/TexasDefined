@@ -35,6 +35,28 @@ export const smallTownWave14Destinations: Destination[] = [
         },
         caption: "The surviving Old Cora Courthouse began life in Cora in 1856 and now stands by the Comanche courthouse. Photograph: 25or6to4, CC BY-SA 4.0.",
         sourceUrl: "https://commons.wikimedia.org/wiki/File:Old_Comanche_County_Courthouse,_Comanche,_TX.jpg"
+      },
+      {
+        image: {
+          src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown_Comanche_Wiki_1_%281_of_1%29.jpg?width=1280",
+          alt: "Historic commercial storefronts and street-level view of downtown Comanche, Texas",
+          width: 5455,
+          height: 2967,
+          credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons"
+        },
+        caption: "Downtown Comanche in December 2022. Photo: Renelibrary, CC BY-SA 4.0, Wikimedia Commons; no editorial alteration.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Comanche_Wiki_1_(1_of_1).jpg"
+      },
+      {
+        image: {
+          src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comanche_tx_city_hall.jpg?width=1280",
+          alt: "Brick City Hall storefront facade in downtown Comanche with windows and a Comanche Texas sign, photographed in June 2014",
+          width: 1800,
+          height: 1200,
+          credit: "Larry D. Moore · Wikimedia Commons · CC BY 4.0"
+        },
+        caption: "Comanche’s downtown City Hall storefront in June 2014. Photographer: Larry D. Moore, CC BY 4.0. The separate THC historic tax-credit record documents how one former bank/City Hall building was later adapted as a restaurant; do not infer today's use from this older photograph.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Comanche_tx_city_hall.jpg"
       }
     ],
     bestSeason: "October–April for comfortable downtown walking; wine tastings and the museum can be planned year-round when businesses are operating; verify annual fall and holiday event dates.",
@@ -42,34 +64,41 @@ export const smallTownWave14Destinations: Destination[] = [
     highlights: [
       "Comanche Downtown Historic District (National Register, 2023)",
       "Old Cora Courthouse (1856; currently closed for renovation)",
+      "1891 courthouse columns, original-jail leg-irons stone and 1938 city hall/fire station",
+      "c.1910 State National Bank / former City Hall, now adapted for restaurant use",
       "Fleming Oak and historical markers",
       "Art Moderne Comanche County Courthouse",
       "1892–93 Bull Durham mural at 109 W. Grand",
       "Comanche County Historical Museum",
       "1909 Frisco Train Depot",
       "JW Hardin Wine Co. tasting room; Brennan Vineyards history",
+      "Comanche City Park trails, playgrounds, disc golf and seasonal pool",
       "Comanche County Pow Wow and local rodeo"
     ],
     body: [
       "Why visit Comanche? The historic county seat brings several layers of Texas history into a compact downtown: a surviving one-room log courthouse from 1856, the living Fleming Oak, a New Deal-era stone courthouse, a 1909 railroad depot, and a remarkable tobacco advertisement hidden behind stucco for more than a century. The Comanche County Historical Museum then tells the wider county story. Nearby Proctor Lake and small wineries broaden a history-focused stop into a full-day visit.",
-      "Begin on the courthouse square. The modern Comanche County Courthouse, designed by Wyatt Hedrick and built with WPA labor and local limestone, uses stepped Art Moderne forms with Art Deco details and carved eagles above its entrances. Restoration work may limit access; appreciate its exterior and historic square without assuming tours of the interior. The courthouse stands amid monuments and markers documenting more than one era of county government.",
+      "Begin on the courthouse square. The modern Comanche County Courthouse, designed by Wyatt Hedrick and built with WPA labor and local limestone, uses stepped Art Moderne forms with Art Deco details and carved eagles above its entrances. The Texas Historical Commission's published restoration scope includes repair of historic materials, removal of nonoriginal partitions, replication of missing fixtures, replacement of building systems and accessibility compliance. These describe planned work, not a completed project. Restoration may limit access; appreciate the exterior without assuming interior tours. The courthouse stands amid monuments and markers documenting more than one era of county government.",
       "Comanche's downtown is itself a formally recognized historic district, listed in the National Register of Historic Places in July 2023 (reference 100009117). The approximately 17-acre district surrounds the square, roughly bounded by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. Its National Register nomination documents 48 contributing buildings from the commercial, governmental and architectural development of roughly 1883–1974, including historic storefronts, the courthouse, former post office and city hall/fire station. Look beyond a single landmark: the changing storefront materials and building styles make the square a legible history of how Comanche traded, governed and rebuilt. National Register listing recognizes the district; it does not imply every business is open to visitors or that every structure within the boundary contributes.",
       "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Texas Historical Commission selected Old Cora for an FY2026 Texas Preservation Trust Fund project calling for a full roof replacement. The Chamber currently marks the building closed for renovation; no interior entry should be promised while work is underway.",
+      "There is a second, quieter layer of courthouse history around Fleming Oak and Bicentennial Park. The 2023 National Register nomination records four salvaged limestone columns from the 1891 courthouse, a repaired and partly reconstructed public well, and a large stone fitted with leg irons from the county's original calaboose (small jail) near the southwest corner of the square. Those are separate artifacts, not intact surviving rooms of the former jail or the 1891 courthouse. Their current visibility can change during restoration, so use the nomination and existing markers to identify them rather than assuming unimpeded access. The same nomination records Comanche's 1938 New Deal City Hall and Fire Station, with distinctive fossil-stone veneer, on Austin Street a block north of the courthouse: a different civic-history stop often missed by short courthouse-only tours.",
+      "A separate former City Hall helps explain the district’s changing use. The Texas Historical Commission’s 2025 historic tax-credit case study identifies the circa-1910 State National Bank at 114 West Central Avenue, later First State Bank of Comanche, as a bank through 1968 and subsequently a City Hall. The project was certified June 13, 2025 after adaptation for restaurant use: rehabilitators retained the original tin ceiling and vault, and reused later teller counters as seating. The building is a contributing part of the 2023 downtown historic district. This is not the 1938 New Deal City Hall and Fire Station on Austin Street, nor a claim that any named restaurant will be operating when you arrive. Read the façade as commercial reuse, and verify present business hours separately.",
       "The museum also hosts a Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and confirm active QR access on arrival. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
       "One of Comanche's most unusual downtown artifacts was discovered by Clint and Jami Tunnell in October 2019. Removing stucco from their building exposed an approximately 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco wall advertisement. Reporting dates the painting to about 1892–1893, when the wall faced an open passage. The mural is at 109 West Grand Street and has been described as visible through the storefront glass. Because this is a privately used building, view it respectfully from permitted public space and confirm visibility before a special trip.",
       "The mural's story intersects with another downtown chapter: Jack Wright's Saloon occupied the property area during the 1870s, a period associated with outlaw John Wesley Hardin. In 1874 Hardin shot and killed Brown County deputy Charles Webb in Comanche; the ensuing violence included the lynching of three people connected to Hardin. The Comanche County Historical Museum has exhibits about this history, including a recreated Jack Wright Saloon and its original mirror. These are historical events, not a staged gunfight or operating saloon attraction.",
-      "The Comanche-Frisco Train Depot at 304 South Austin Street anchors the railroad chapter. The brick Prairie School-style depot was built in 1909, replacing an earlier structure, and today serves as a local tourism and community venue. Earlier railway lines transformed county cotton and livestock shipping; the preserved Frisco depot shows how rail travel later shaped Comanche's commercial center. Check Chamber visitor-center hours rather than assuming the depot is always open.",
-      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans more than fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
+      "The Comanche-Frisco Train Depot at 304 South Austin Street anchors the railroad chapter. The Texas Historical Commission marker documents the first railway's arrival in 1890, Frisco's acquisition in 1901 and the 1909 replacement depot. Look for its brick-and-limestone Prairie School composition, wide overhanging eaves and hipped terra-cotta tile roof. The building served passengers until 1969 and later freight operations before rehabilitation for community use. The National Park Service independently records the depot on the National Register of Historic Places (NRIS 100001872), with architecture and transportation significance and a 1909–1969 period of significance. Friends of Historic Comanche later rescued the deteriorated depot; Preservation Texas reports a public reopening celebration in 2012. Some older preservation summaries contain conflicting construction and train-service dates, so the 2019 Texas Historical Commission marker and National Park Service record control the timeline here. This conservation history explains how the building survived the rail line. Check the Chamber's current opening arrangements rather than assuming interior access.",
+      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
+      "The county and town take their name from the Comanche people, but the 1850s founding story is not the beginning of local human history. The contemporary Comanche Nation calls itself Nʉmʉnʉʉ (The People), describes a homeland extending across the southern plains including Texas, and explains the importance of horses to its cultural and trading networks. A visitor should not mistake a museum campsite diorama for a complete tribal history or suggest the tribe exists only in the nineteenth century. For the Nation’s own account, see https://www.comanchenation.com/about/page/history; compare it with the Texas State Historical Association’s broader Comanchería chronology. The tribe’s current political identity is distinct from the county that bears its name.",
       "Wine adds a contemporary agricultural chapter, but old winery listings need correction. Brennan Vineyards operated at the historic McCrary House, 802 South Austin Street, for two decades; the business announced that its Comanche facility would close December 30, 2025, with operations transitioning to Texas Wine Collective in Fredericksburg in January 2026. The former Comanche winery property is marketed for sale and is NOT an active tasting-room stop in 2026, despite outdated content on the Brennan brand website. JW Hardin Wine Co. continues to publish a tasting room at 107 West Grand Street; check its official visitor page for current service and hours. Tribe Vineyards grows grapes in Comanche County but says its vineyard tasting room is planned for 2027, not currently open. For a self-guided wine-and-history afternoon, use a verified operating venue and a designated driver. Texas Wine Lover reproduced Brennan's closure announcement in December 2025, corroborated by the former property's real-estate listing.",
-      "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak, then stroll Grand Street for the Bull Durham mural, shops and restaurants. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
+      "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak at the southwest side of the square, then stroll Grand Street for the Bull Durham mural, shops and restaurants. This remains a working downtown with vehicle traffic. Use legal parking, read posted restrictions, cross at safe marked locations and treat restoration barricades as potential route interruptions; no specific free parking lot or guaranteed step-free circuit has been independently verified. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
+      "For families who want outdoor time without adding the drive to Proctor Lake, the Comanche Chamber describes Comanche City Park on the west side of town with walking and nature trails, playgrounds, disc golf, ball fields and a summer swimming pool. The pool is seasonal; its actual dates, admission, lifeguard arrangements, restroom access and trail conditions are not verified by the Chamber's general attractions listing. The park can make a practical break between the historic square and museum, but check local conditions before promising specific amenities or an accessible trail.",
       "Comanche also works as a living town, not simply a preserved frontier set. Agricultural businesses, schools, churches, independent shops, annual festivals and long-standing gathering places keep the square tied to everyday local life. The Chamber lists an annual rodeo and parade, the Comanche County Pow Wow (usually the fourth September weekend), a pre-deer-season chili supper and Explore Comanche Christmas. Dates change each year: use the organizer's event pages rather than recycling 2026 dates into future calendars.",
       "For deeper county context, read the Comanche County guide, which follows the Cora-to-Comanche seat change, De Leon's peanut economy, the Texas Central and Frisco railroad chapters, the Leon River watershed and Proctor Lake. The city and county stories complement each other; neither one should substitute for the other's history."
     ],
     officialUrl: "https://www.comanchechamber.org/explorecomanche",
-    sourceCheckedAt: "2026-11-23",
-    updatedAt: "2026-11-23",
+    sourceCheckedAt: "2026-11-24",
+    updatedAt: "2026-11-24",
     directions: "Comanche is at U.S. 67/377 and Texas 16. Start at the courthouse square; the 1909 Frisco Depot / Chamber visitor center is at 304 S. Austin St. The museum is at 402 Moorman Rd; the historic Bull Durham mural is reported at 109 W. Grand St. Proctor Lake is northeast of town.",
-    accessibilityNotes: "The courthouse square offers an outdoor downtown route, but sidewalk conditions, street crossings and ongoing restoration affect access. Old Cora's interior is currently closed. The museum includes historic displays and should be contacted directly about accessible entrances, restrooms and tour needs; winery facilities differ.",
+    accessibilityNotes: "The outdoor square has road crossings and potentially uneven pavements. Verify accessible parking, curb ramps and building entrances with local operators; courthouse restoration can change pedestrian routes. Old Cora's interior is currently closed. The museum includes historic displays and should be contacted directly about accessible entrances, restrooms and tour needs; winery facilities differ.",
     areaGuide: {
       intro: "Follow a documented route from Old Cora and Fleming Oak through historic Grand Street, then choose the museum, wine tasting or Proctor Lake.",
       nearbyAttractions: [
@@ -89,7 +118,7 @@ export const smallTownWave14Destinations: Destination[] = [
         },
         {
           name: "Comanche-Frisco Depot",
-          description: "1909 Prairie School brick depot and present-day Chamber visitor services.",
+          description: "1909 Prairie School brick depot; passengers through 1969, later freight service and community restoration (THC marker).",
           href: "https://www.comanchechamber.org/comanchefriscotraindepot"
         }
       ],
@@ -121,6 +150,11 @@ export const smallTownWave14Destinations: Destination[] = [
         }
       ],
       familyStops: [
+        {
+          name: "Comanche City Park",
+          description: "West-side town park for a separate family playground, trail or disc-golf stop; swimming pool is seasonal and requires current operator verification.",
+          href: "https://www.comanchechamber.org/explorecomanche"
+        },
         {
           name: "Comanche County Historical Museum",
           description: "Children's area and artifact-rich exhibits; check visiting hours.",
@@ -191,6 +225,16 @@ export const smallTownWave14Destinations: Destination[] = [
       ],
       sources: [
         {
+          label: "Comanche Nation — History in the Nation’s own words",
+          url: "https://www.comanchenation.com/about/page/history",
+          scope: "Nʉmʉnʉʉ self-identification, living tribal nation, southern plains geography and horse culture"
+        },
+        {
+          label: "Texas State Historical Association — Comanche people",
+          url: "https://www.tshaonline.org/handbook/entries/comanche-indians",
+          scope: "Historical Comanchería, Native presence and nineteenth-century Texas context"
+        },
+        {
           label: "Museum — Comanche Square Walking Tour",
           url: "https://www.comanchecountytxmuseum.com/about-1-1",
           scope: "Self-guided QR audio historic square and Old Cora stops"
@@ -199,6 +243,11 @@ export const smallTownWave14Destinations: Destination[] = [
           label: "Museum — Admission",
           url: "https://www.comanchecountytxmuseum.com/",
           scope: "Free general admission, voluntary donations and museum public hours"
+        },
+        {
+          label: "Comanche Chamber — City Park amenities",
+          url: "https://www.comanchechamber.org/explorecomanche",
+          scope: "West-side City Park, trails, playgrounds, disc golf and seasonal pool, with schedules and access to be verified"
         },
         {
           label: "Comanche Chamber — Explore",
@@ -219,6 +268,36 @@ export const smallTownWave14Destinations: Destination[] = [
           label: "Texas Historical Commission — Old Cora preservation grant",
           url: "https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more",
           scope: "FY2026 preservation grant selection for full roof replacement at Old Cora; not evidence the roof work is finished"
+        },
+        {
+          label: "Texas Historical Commission — State National Bank / former City Hall rehabilitation",
+          url: "https://thc.texas.gov/sites/default/files/2025-10/THC_Quarterly_Public_Nov2025.pdf",
+          scope: "114 W Central, c.1910 bank-to-City-Hall history, 1968 bank relocation, 2025 certified rehabilitation into restaurant with safe, tin ceiling and counters"
+        },
+        {
+          label: "Wikimedia Commons — Comanche City Hall photograph",
+          url: "https://commons.wikimedia.org/wiki/File:Comanche_tx_city_hall.jpg",
+          scope: "Larry D. Moore June 2014 image, 1800×1200, CC BY 4.0 licensed original photograph"
+        },
+        {
+          label: "National Park Service — Frisco Depot National Register listing",
+          url: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872",
+          scope: "Separate National Register listing, architectural significance, transportation and 1909–1969 significance period"
+        },
+        {
+          label: "Preservation Texas — Frisco Depot preservation campaign",
+          url: "https://www.preservationtexas.org/mep/st-louis-san-francisco-railway-depot",
+          scope: "Saved threatened depot and public reopening celebration in 2012; older date claims superseded by THC and NPS"
+        },
+        {
+          label: "Texas Historical Commission — Frisco railway depot historic marker",
+          url: "https://atlas.thc.texas.gov/Details/5000022414",
+          scope: "1890 rail arrival, 1901 Frisco acquisition, 1909 depot architecture, passenger service through 1969 and subsequent freight service"
+        },
+        {
+          label: "Wikimedia Commons — Downtown Comanche photograph",
+          url: "https://commons.wikimedia.org/wiki/File:Downtown_Comanche_Wiki_1_(1_of_1).jpg",
+          scope: "Renelibrary 2022 streetscape, CC BY-SA 4.0 license and original photo metadata"
         },
         {
           label: "Texas Historical Commission — Courthouse restoration",
@@ -303,6 +382,36 @@ export const smallTownWave14Destinations: Destination[] = [
       }
     ],
     visitorFaqs: [
+      {
+        question: "What can families do in Comanche besides the historical museum?",
+        answer: "The Chamber lists playgrounds, trails, disc golf and a seasonal swimming pool at Comanche City Park on the west side of town. Pool operating hours and visitor fees are not confirmed by its general attractions listing. Proctor Lake is a separate drive with independently managed public-access rules.",
+        sourceUrl: "https://www.comanchechamber.org/explorecomanche"
+      },
+      {
+        question: "What historic artifacts are around Fleming Oak besides Old Cora?",
+        answer: "The downtown district's National Register nomination identifies four saved columns from the 1891 courthouse, a partly reconstructed public well, and a stone with leg irons from the original calaboose around the southwest courthouse corner. A separate 1938 City Hall and Fire Station stands on Austin Street one block north. Look for exterior markers and respect temporary restoration barriers.",
+        sourceUrl: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf"
+      },
+      {
+        question: "Where should I park for a Comanche courthouse-square walk?",
+        answer: "Use available legal downtown parking and check local signs. A specific free lot, guaranteed accessible space or continuously step-free route has not been independently verified. Watch road crossings and restoration barriers; the Chamber depot visitor center can help confirm current arrangements.",
+        sourceUrl: "https://www.comanchechamber.org/comanchefriscotraindepot"
+      },
+      {
+        question: "Is the historic State National Bank building still Comanche City Hall?",
+        answer: "No. The Texas Historical Commission records that the circa-1910 bank building at 114 West Central Avenue became City Hall after banking ended there in 1968. A rehabilitation certified in June 2025 converted that historic space for restaurant use while retaining the vault and exposed tin ceiling. This former City Hall should not be confused with the separate 1938 City Hall and Fire Station on Austin Street; verify any current restaurant operation independently.",
+        sourceUrl: "https://thc.texas.gov/sites/default/files/2025-10/THC_Quarterly_Public_Nov2025.pdf"
+      },
+      {
+        question: "Is the Comanche Frisco depot itself a National Register landmark?",
+        answer: "Yes. The National Park Service lists the St. Louis and San Francisco Railway Depot separately under NRIS 100001872. The 1909 Prairie School depot is recognized for architecture and transportation history; this is distinct from the downtown historic district listed in 2023. Friends of Historic Comanche celebrated its restored depot's public reopening in 2012.",
+        sourceUrl: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872"
+      },
+      {
+        question: "When did passenger trains stop using the Comanche Frisco depot?",
+        answer: "The 1909 depot served as Comanche's passenger station until 1969, according to its Texas Historical Commission marker. Freight operations continued afterward; the restored depot now has community uses.",
+        sourceUrl: "https://atlas.thc.texas.gov/Details/5000022414"
+      },
       {
         question: "Is Comanche downtown a National Register historic district?",
         answer: "Yes. The Comanche Downtown Historic District was listed in 2023 and covers roughly 17 acres centered on the courthouse square. Its National Register nomination identifies 48 contributing buildings and an architectural history spanning about 1883–1974. It is a historic streetscape, not an admission-ticket attraction.",

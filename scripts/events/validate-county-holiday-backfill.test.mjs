@@ -28,7 +28,7 @@ test("source-verified county holiday additions are unique and present in the glo
     assert.ok(event.title.length >= 12 && event.summary.length >= 110);
     assert.match(event.startDate, /^2026-1[12]-\d{2}$/);
     if (event.endDate) assert.ok(event.endDate >= event.startDate);
-    assert.ok(["2026-11-22", "2026-11-23"].includes(event.sourceVerifiedAt), "Original organizer verification date missing");
+    assert.ok(["2026-11-22", "2026-11-23", "2026-11-24"].includes(event.sourceVerifiedAt), "Original organizer verification date missing");
     assert.ok(["panhandle","prairies-lakes","hill-country","piney-woods","south-texas","gulf-coast","big-bend"].includes(event.region));
     const sourceUrl = new URL(event.officialEventUrl);
     assert.equal(sourceUrl.protocol, "https:");
