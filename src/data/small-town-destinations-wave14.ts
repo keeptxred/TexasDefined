@@ -46,6 +46,17 @@ export const smallTownWave14Destinations: Destination[] = [
         },
         caption: "Downtown Comanche in December 2022. Photo: Renelibrary, CC BY-SA 4.0, Wikimedia Commons; no editorial alteration.",
         sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Comanche_Wiki_1_(1_of_1).jpg"
+      },
+      {
+        image: {
+          src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comanche_tx_city_hall.jpg?width=1280",
+          alt: "Brick City Hall storefront facade in downtown Comanche with windows and a Comanche Texas sign, photographed in June 2014",
+          width: 1800,
+          height: 1200,
+          credit: "Larry D. Moore · Wikimedia Commons · CC BY 4.0"
+        },
+        caption: "Comanche’s downtown City Hall storefront in June 2014. Photographer: Larry D. Moore, CC BY 4.0. The separate THC historic tax-credit record documents how one former bank/City Hall building was later adapted as a restaurant; do not infer today's use from this older photograph.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Comanche_tx_city_hall.jpg"
       }
     ],
     bestSeason: "October–April for comfortable downtown walking; wine tastings and the museum can be planned year-round when businesses are operating; verify annual fall and holiday event dates.",
@@ -54,6 +65,7 @@ export const smallTownWave14Destinations: Destination[] = [
       "Comanche Downtown Historic District (National Register, 2023)",
       "Old Cora Courthouse (1856; currently closed for renovation)",
       "1891 courthouse columns, original-jail leg-irons stone and 1938 city hall/fire station",
+      "c.1910 State National Bank / former City Hall, now adapted for restaurant use",
       "Fleming Oak and historical markers",
       "Art Moderne Comanche County Courthouse",
       "1892–93 Bull Durham mural at 109 W. Grand",
@@ -69,6 +81,7 @@ export const smallTownWave14Destinations: Destination[] = [
       "Comanche's downtown is itself a formally recognized historic district, listed in the National Register of Historic Places in July 2023 (reference 100009117). The approximately 17-acre district surrounds the square, roughly bounded by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. Its National Register nomination documents 48 contributing buildings from the commercial, governmental and architectural development of roughly 1883–1974, including historic storefronts, the courthouse, former post office and city hall/fire station. Look beyond a single landmark: the changing storefront materials and building styles make the square a legible history of how Comanche traded, governed and rebuilt. National Register listing recognizes the district; it does not imply every business is open to visitors or that every structure within the boundary contributes.",
       "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Texas Historical Commission selected Old Cora for an FY2026 Texas Preservation Trust Fund project calling for a full roof replacement. The Chamber currently marks the building closed for renovation; no interior entry should be promised while work is underway.",
       "There is a second, quieter layer of courthouse history around Fleming Oak and Bicentennial Park. The 2023 National Register nomination records four salvaged limestone columns from the 1891 courthouse, a repaired and partly reconstructed public well, and a large stone fitted with leg irons from the county's original calaboose (small jail) near the southwest corner of the square. Those are separate artifacts, not intact surviving rooms of the former jail or the 1891 courthouse. Their current visibility can change during restoration, so use the nomination and existing markers to identify them rather than assuming unimpeded access. The same nomination records Comanche's 1938 New Deal City Hall and Fire Station, with distinctive fossil-stone veneer, on Austin Street a block north of the courthouse: a different civic-history stop often missed by short courthouse-only tours.",
+      "A separate former City Hall helps explain the district’s changing use. The Texas Historical Commission’s 2025 historic tax-credit case study identifies the circa-1910 State National Bank at 114 West Central Avenue, later First State Bank of Comanche, as a bank through 1968 and subsequently a City Hall. The project was certified June 13, 2025 after adaptation for restaurant use: rehabilitators retained the original tin ceiling and vault, and reused later teller counters as seating. The building is a contributing part of the 2023 downtown historic district. This is not the 1938 New Deal City Hall and Fire Station on Austin Street, nor a claim that any named restaurant will be operating when you arrive. Read the façade as commercial reuse, and verify present business hours separately.",
       "The museum also hosts a Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and confirm active QR access on arrival. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
       "One of Comanche's most unusual downtown artifacts was discovered by Clint and Jami Tunnell in October 2019. Removing stucco from their building exposed an approximately 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco wall advertisement. Reporting dates the painting to about 1892–1893, when the wall faced an open passage. The mural is at 109 West Grand Street and has been described as visible through the storefront glass. Because this is a privately used building, view it respectfully from permitted public space and confirm visibility before a special trip.",
       "The mural's story intersects with another downtown chapter: Jack Wright's Saloon occupied the property area during the 1870s, a period associated with outlaw John Wesley Hardin. In 1874 Hardin shot and killed Brown County deputy Charles Webb in Comanche; the ensuing violence included the lynching of three people connected to Hardin. The Comanche County Historical Museum has exhibits about this history, including a recreated Jack Wright Saloon and its original mirror. These are historical events, not a staged gunfight or operating saloon attraction.",
@@ -257,6 +270,16 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "FY2026 preservation grant selection for full roof replacement at Old Cora; not evidence the roof work is finished"
         },
         {
+          label: "Texas Historical Commission — State National Bank / former City Hall rehabilitation",
+          url: "https://thc.texas.gov/sites/default/files/2025-10/THC_Quarterly_Public_Nov2025.pdf",
+          scope: "114 W Central, c.1910 bank-to-City-Hall history, 1968 bank relocation, 2025 certified rehabilitation into restaurant with safe, tin ceiling and counters"
+        },
+        {
+          label: "Wikimedia Commons — Comanche City Hall photograph",
+          url: "https://commons.wikimedia.org/wiki/File:Comanche_tx_city_hall.jpg",
+          scope: "Larry D. Moore June 2014 image, 1800×1200, CC BY 4.0 licensed original photograph"
+        },
+        {
           label: "National Park Service — Frisco Depot National Register listing",
           url: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872",
           scope: "Separate National Register listing, architectural significance, transportation and 1909–1969 significance period"
@@ -373,6 +396,11 @@ export const smallTownWave14Destinations: Destination[] = [
         question: "Where should I park for a Comanche courthouse-square walk?",
         answer: "Use available legal downtown parking and check local signs. A specific free lot, guaranteed accessible space or continuously step-free route has not been independently verified. Watch road crossings and restoration barriers; the Chamber depot visitor center can help confirm current arrangements.",
         sourceUrl: "https://www.comanchechamber.org/comanchefriscotraindepot"
+      },
+      {
+        question: "Is the historic State National Bank building still Comanche City Hall?",
+        answer: "No. The Texas Historical Commission records that the circa-1910 bank building at 114 West Central Avenue became City Hall after banking ended there in 1968. A rehabilitation certified in June 2025 converted that historic space for restaurant use while retaining the vault and exposed tin ceiling. This former City Hall should not be confused with the separate 1938 City Hall and Fire Station on Austin Street; verify any current restaurant operation independently.",
+        sourceUrl: "https://thc.texas.gov/sites/default/files/2025-10/THC_Quarterly_Public_Nov2025.pdf"
       },
       {
         question: "Is the Comanche Frisco depot itself a National Register landmark?",
