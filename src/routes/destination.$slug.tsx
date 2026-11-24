@@ -155,6 +155,7 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
   "comanche": "Comanche Texas: Old Cora Courthouse, Historic Square & Museum",
+  "comanche-county-historical-museum": "Comanche County Historical Museum: Free Admission & Hours",
   "texas-freshwater-fisheries-center": "Texas Freshwater Fisheries Center: Hours, Fishing & Exhibits",
   "texas-forestry-museum-lufkin": "Texas Forestry Museum Lufkin: Free Admission & Exhibits",
   "national-ranching-heritage-center-lubbock": "National Ranching Heritage Center: Lubbock Visitor Guide",
@@ -376,7 +377,9 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.slug === "martin-creek-lake-state-park-rv-area" ? "Martin Creek Lake State Park RV Camping: Sites, Hookups & Rules" : destination.slug === "martin-creek-lake-state-park" ? "Martin Creek Lake State Park: Trails, Fishing & Camping" : isGainesvilleMedalMuseum ? "Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide" : isOldSocorro ? "Old Socorro Mission, Texas: Archaeology, History & Closure" : destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.slug === "comanche"
+        description: destination.slug === "comanche-county-historical-museum"
+          ? "Visit Comanche County Historical Museum: free admission, Thursday–Saturday hours, fourteen exhibit rooms, original saloon mirror, blacksmith tools and audio walking tour."
+          : destination.slug === "comanche"
           ? "Explore Comanche, Texas: Old Cora Courthouse, Fleming Oak, the Bull Durham mural, Frisco depot, county museum and practical walking tips."
           : destination.slug === "albert-bessie-kronkosky-state-natural-area"
           ? "Plan Kronkosky State Natural Area: opening dates, 26 miles of trails, cabin and camping choices, $6 day use, accessible exhibits and TPWD alerts."
