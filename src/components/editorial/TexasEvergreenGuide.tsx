@@ -277,7 +277,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-brand-origin-stories": [
     { label: "Blue Bell — dated production facility fact sheet", href: "https://www.bluebell.com/news/food-safety-fact-sheet/", note: "Identifies the three production sites as of June 2022." },
     { label: "Texas Historical Commission — Spoetzl Brewery marker", href: "https://atlas.thc.texas.gov/Details/5285005011", note: "Dates the purchase to 1915 and documents Prohibition and family ownership." },
-    { label: "Smithsonian — 7-Eleven display rooster", href: "https://www.si.edu/object/7-eleven-display-rooster%3Anmah_1204808", note: "Documents the Dallas Southland Ice Company origins and development of convenience retail." },
+    { label: "Handbook of Texas — Southland Corporation", href: "https://www.tshaonline.org/handbook/entries/southland-corporation", note: "Documented origin of Dallas-area Southland Ice in 1927, predecessor of 7-Eleven." },
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
     { label: "Shiner — Brewery history", href: "https://shiner.com/brewery/", note: "The brewery's timeline documents brewing in Shiner since 1909 and its German and Czech community roots." },
