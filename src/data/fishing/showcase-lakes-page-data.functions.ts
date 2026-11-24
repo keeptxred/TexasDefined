@@ -27,7 +27,11 @@ export const getShowcaseLakePageData = createServerFn({ method: "GET" })
       if (!lake) return null;
       return {
         ...lake,
-        liveLakeLevel: await loadPageLiveLakeLevel(lake.sources.liveLevel.url),
+        // These two routes have documented intermittent production HTTP 500s.
+        // Avoid the duplicate remote water-level fetch on their SSR critical path;
+        // LiveLakeLevelStrip already calls the official source after hydration.
+        liveLakeLevel: data.slug === "lake-stamford" || data.slug === "falcon-international-reservoir"
+          ? null : await loadPageLiveLakeLevel(lake.sources.liveLevel.url),
       };
     } catch (error) {
       console.error("[fishing-lake-page-data] Unable to render lake", data.slug, error);

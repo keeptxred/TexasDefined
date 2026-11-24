@@ -41,7 +41,16 @@ try {
   const listed = new Set(feeds.flatMap((xml) => [...xml.matchAll(/<loc>\s*(https:\/\/[^<]+)\s*<\/loc>/g)].map((m) => m[1].trim().replace(/&amp;/g, "&"))));
   for (const path of paths) {
     const url = `${origin}${path}`;
-    const html = await fetchText(`${url}?release_probe=${encodeURIComponent(process.env.GITHUB_RUN_ID || "manual")}`);
+    let html;
+    try {
+      html = await fetchText(`${url}?release_probe=${encodeURIComponent(process.env.GITHUB_RUN_ID || "manual")}`);
+    } catch (error) {
+      // Preserve failure and keep checking the remaining governed URLs; one
+      // HTTP 500 must not conceal the publication state of the other sections.
+      evidence.checks.push({ path, http: null, error: String(error), inSitemap: listed.has(url) });
+      errors.push(String(error));
+      continue;
+    }
     if (path === "/fishing/lakes/lake-conroe/camping" && !html.includes('data-conroe-camping-isolated="true"')) {
       errors.push(path + ": dedicated no-fetch route not rendered; possible heavy dynamic fallback");
     }

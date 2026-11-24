@@ -51,7 +51,9 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
   // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
-    ['https://brazoriacad.org/contact-us/', ['Marcel Pierel','979-849-7792']],
+    ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org']],
+    ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
+    ['https://tigerweb.geo.census.gov/tigerwebmain/Files/bas26/tigerweb_bas26_county_2020_tab20_tx.html', ['48039','Brazoria County','3530984446','635433878','29.1678175','95.4346470']],
     ['https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/', ['Brazoria Central Appraisal District','January 1, 2026']],
     ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320']],
     ['https://esearch.brazoriacad.org/', ['Property Search']],
