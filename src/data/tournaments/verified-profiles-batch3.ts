@@ -36,13 +36,13 @@ export const VERIFIED_TOURNAMENT_BATCH3_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2026 UIL Football State Championships run December 16–19 at AT&T Stadium in Arlington.",
     whyItMatters: "UIL football championship week brings every Texas public-school football classification to one Arlington venue, making it one of the state's most concentrated high-school sports traditions.",
     planningNotes: [
-      "The UIL now publishes all 12 2026 title-game slots December 16–19 at AT&T Stadium: 1A/2A Wednesday, 2A/3A Thursday, 4A/5A/6A sessions Friday and Saturday. Choose the correct classification and kickoff before purchasing tickets or booking travel.",
-      "The UIL publishes 2026 championship broadcasts through local TV and participating digital streaming partners, with free viewing options varying by TV market; consult the official broadcast information page rather than assuming a paid subscription or a specific local channel. For in-person viewing, check AT&T Stadium gate, session ticket and parking rules for the exact game.",
+      "UIL’s official 2026 bracket-free title schedule lists December 16: 1A Six-Man Division II 11 a.m., 1A Six-Man Division I 2 p.m., 2A Division II 7 p.m.; December 17: 3A Division II 11 a.m., 2A Division I 3 p.m., 3A Division I 7 p.m.; December 18: 5A Division II 11 a.m., 4A Division II 3 p.m., 6A Division II 7 p.m.; December 19: 5A Division I 11 a.m., 4A Division I 3 p.m., 6A Division I 7 p.m., all at AT&T Stadium. Participating teams are not yet shown and must not be invented.",
+      "UIL and broadcaster Nexstar announced free access to all 12 title games across participating Texas television stations and streaming platforms for December 16–19. Channel and device access depends on market and distributor; confirm official UIL media information rather than assuming one statewide channel. AT&T Stadium ticketing and parking are separate from watching remotely; plan around the actual title-game session, not a generic all-day ticket assumption.",
       "Use Texas Defined's Tarrant County and football coverage to build a broader Arlington or Fort Worth trip around championship day.",
     ],
     officialUrl: "https://www.uiltexas.org/football/state",
     officialSourceLabel: "UIL Football State Championships official page",
-    sourceCheckedAt: "2026-11-07",
+    sourceCheckedAt: "2026-11-24",
   },
   {
     slug: "uil-boys-basketball-state-tournament",
