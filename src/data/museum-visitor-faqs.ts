@@ -6894,7 +6894,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Do I need an appointment for the Slover–Rogers Cottage?",
@@ -6903,7 +6903,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Is the Nolan Ryan exhibit part of the Alvin Historical Museum?",
@@ -6912,7 +6912,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Where is Alvin Historical Museum and is it still in the old post office?",
@@ -6921,7 +6921,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Can wheelchair users visit the former Alvin post office building?",
@@ -6930,7 +6930,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "How long does a typical visit to the Alvin museum take?",
@@ -6939,16 +6939,16 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Does Alvin Museum have a café or gift shop?",
-      "answer": "The museum has a volunteer-run gift shop in the former post-office foyer, usually open during museum hours. Its official pages do not establish a cafeteria or full-service restaurant; plan meals elsewhere in Alvin.",
+      "answer": "The building tour identifies a gift shop at the former postal-service windows. Shop hours and food service are not confirmed; plan meals elsewhere.",
       "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
     },
     {
       "question": "Is there an admission fee to Alvin Historical Museum?",
@@ -6957,7 +6957,25 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://alvinmuseum.org/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-24"
+    },
+    {
+      "question": "Who painted the Alvin post office mural?",
+      "answer": "Loren Mozley painted Emigrants at Nightfall in 1942. Lee Casbeer restored it in 2015 with support from Nolan and Ruth Ryan, and it returned to its original building.",
+      "verificationUrl": "https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitalvin.com/business/alvin-art-trail",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-24"
+    },
+    {
+      "question": "Can I visit the railroad depot on the same outing?",
+      "answer": "Yes, the 1907 depot at 200 Depot Centre Boulevard and the adjacent park are natural companions to the museum. The depot is a rental venue; confirm interior access separately with the city.",
+      "verificationUrl": "https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-24"
     }
   ],
   "el-paso-holocaust-museum": [

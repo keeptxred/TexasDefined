@@ -89,6 +89,10 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
               {cityProfile.hero.sourceUrl ? <a href={cityProfile.hero.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">{cityProfile.hero.credit ?? 'Image source'} ↗</a> : cityProfile.hero.credit}
             </figcaption> : null}
           </figure> : null}
+          {cityProfile.supportingPhoto ? <figure className="mb-8 max-w-xl overflow-hidden border border-border bg-muted/20">
+            <img src={cityProfile.supportingPhoto.src} alt={cityProfile.supportingPhoto.alt} width={cityProfile.supportingPhoto.width} height={cityProfile.supportingPhoto.height} className="h-auto w-full" loading="lazy" decoding="async" />
+            <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">{cityProfile.supportingPhoto.alt}. Photograph: <a href={cityProfile.supportingPhoto.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{cityProfile.supportingPhoto.credit}</a> · <a href={cityProfile.supportingPhoto.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{cityProfile.supportingPhoto.license}</a>.</figcaption>
+          </figure> : null}
           <div className="grid gap-px border-y border-border bg-border sm:grid-cols-2">
             <div className="bg-background py-5 pr-5 sm:pr-6">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">2020 Census population</p>
