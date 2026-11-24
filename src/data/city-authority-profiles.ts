@@ -55,7 +55,8 @@ export type CityAuthorityProfile = {
 const profiles: Record<string, CityAuthorityProfile> = {
   alvin: {
     population2020: 27_098,
-    censusUrl: 'https://www.census.gov/quickfacts/fact/table/alvincitytexas/POP010220',
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/alvincitytexas/PST045225',
+    populationEstimate: { value: 30_115, year: 2025, asOf: 'July 1, 2025' },
     jurisdiction: {
       primaryCounty: 'Brazoria County',
       counties: ['Brazoria County'],
