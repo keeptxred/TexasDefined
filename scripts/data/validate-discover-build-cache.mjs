@@ -17,6 +17,19 @@ assert.equal(fpResult.status, 0, "registry fingerprint must be printable with no
 assert.match(fpResult.stdout.trim(), /^[a-f0-9]{64}$/, "source/transform fingerprint must be SHA-256");
 assert.match(workflow, /artifact_prefix="governed-discover-derivatives-\$\{source_fingerprint\}-"/);
 assert.match(workflow, /select\(\.expired == false and \(\.name \| startswith\(\$prefix\)\)\)/);
+// Production may see dozens of superseded main pushes before a costly cache-miss
+// image build finishes. Bounded run search must reach the last valid artifact,
+// but must stop immediately once all governed derivatives have been restored.
+const recentWindow = workflow.match(/deploy-production\.yml\/runs\?per_page=(\d+)/);
+assert.ok(recentWindow && Number(recentWindow[1]) >= 40 && Number(recentWindow[1]) <= 100,
+  "production artifact restore window must cover rapid-merge bursts without unbounded repository scans");
+assert.match(workflow, /expected_count="\$\(node scripts\/assets\/materialize-discover-overrides\.mjs --list-slugs \| wc -l/, 
+  "restore must derive the governed route count from the canonical materializer");
+assert.match(workflow, /"\$current_count" -ge "\$expected_count"/,
+  "production cache restore must stop once all governed files are found");
+const artifactWindow = workflow.match(/artifacts\?per_page=(\d+)/);
+assert.ok(artifactWindow && Number(artifactWindow[1]) >= 30 && Number(artifactWindow[1]) <= 100,
+  "production image artifact search must cover all matching assets in successful runs with dozens of other release artifacts");
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build/);
 assert.match(workflow, /- name: Capture governed Discover derivatives after failed build/);
 const explicitPrebuild = workflow.indexOf("npm run prebuild");
