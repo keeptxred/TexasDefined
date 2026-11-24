@@ -201,6 +201,6 @@ jobs:
           issue="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Five culture and outdoor guides: measured page-speed regression") | .number' | head -1)"
           message="Official URL-level PageSpeed or independent local Chrome Lighthouse performance/accessibility observations require correction. Evidence: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Separate exact-page CrUX from origin fallback, lab timing and missing API data. Fix actual code and retest; do not change page facts or dates only for a new test."
           if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
-      - name: Enforce genuine measured regressions without pretending unavailable data passed
-        if: ${{ steps.vitals.outcome == 'failure' }}
+      - name: Enforce genuine measured regressions from PSI OR local Chrome Lighthouse
+        if: ${{ steps.vitals.outcome == 'failure' || steps.local_lighthouse.outcome == 'failure' }}
         run: exit 1
