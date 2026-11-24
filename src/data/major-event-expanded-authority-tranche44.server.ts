@@ -20,14 +20,14 @@ const records: EventRecordWithWindows[] = [
       { label: "Weekend 2", startDate: "2026-09-26", endDate: "2026-09-26" },
       { label: "Weekend 3", startDate: "2026-10-03", endDate: "2026-10-03" },
     ],
-    dateNote: "Three separate Saturday events are scheduled September 19, September 26 and October 3 at K. Spoetzl Brewery & Distillery; this is not a continuous September 19-October 3 event.",
+    dateNote: "The three 2026 Saturday programs (September 19, September 26 and October 3) have ended. The brewery's current events calendar does not establish 2027 Oktoberfest dates.",
     venue: "K. Spoetzl Brewery & Distillery",
     officialUrl: "https://shiner.com/event/oktoberfest-weekend-1/",
-    sourceCheckedAt: "2026-09-19",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Shiner Oktoberfest Weekends turn the Spoetzl Brewery campus into a three-Saturday fall heritage event, connecting Shiner's German and Czech community story with seasonal beer, German-style food, music and family games at the working brewery.",
     planningSections: [
-      { title: "Treat the three Saturdays as separate event dates", body: "The brewery publishes September 19, September 26 and October 3 as three distinct Oktoberfest weekends. Texas Defined models them as separate occurrence windows so visitors do not mistake the span between September 19 and October 3 for continuous daily programming." },
-      { title: "Admission is free, but the brewery still has normal visitor logistics", body: "The official event pages list free admission and all-day programming. Brewery tours, distillery tours, restaurant service and other campus experiences have their own schedules and capacity, so reserve a timed tour separately if it is part of the trip." },
+      { title: "2026 dates are historical, not a 2027 schedule", body: "The three official event listings confirm the separate Saturday programs, with free admission and all-day family activities. The final October 3 listing specifically identifies German games, music and food. Do not book a future visit using the completed 2026 dates." },
+      { title: "Separate festival admission from brewery tours", body: "The completed 2026 programs were free. Tour availability, dining and the next Oktoberfest program are separate decisions; consult the brewery's current visitor and events pages for operating details." },
       { title: "Use the event to explore Shiner beyond the brewery", body: "Shiner's painted church, local museum, municipal park and downtown are close enough to combine with the brewery. A full-day plan works better than arriving only for a single food or music block if this is your first trip to town." },
     ],
     relatedLinks: [
@@ -38,6 +38,7 @@ const records: EventRecordWithWindows[] = [
       { href: "/events", label: "Texas events calendar", description: "See other current Texas fall events." },
     ],
     sources: [
+      { label: "Shiner current events calendar", url: "https://shiner.com/events/" },
       { label: "Shiner official Oktoberfest Weekend 1", url: "https://shiner.com/event/oktoberfest-weekend-1/" },
       { label: "Shiner official Oktoberfest Weekend 2", url: "https://shiner.com/event/oktoberfest-weekend-2/" },
       { label: "Shiner official Oktoberfest Weekend 3", url: "https://shiner.com/event/oktoberfest-weekend-3/" },
