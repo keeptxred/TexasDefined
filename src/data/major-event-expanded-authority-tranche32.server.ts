@@ -89,12 +89,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     ],
     venue: "Dallas City Hall Plaza",
     officialUrl: "https://dallasmarathon.com/",
-    sourceCheckedAt: "2026-11-10",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The BMW Dallas Marathon festival now spans three distinct race dates: the Friday Night Lights Mile at Dallas City Hall Plaza, Saturday's shorter-distance races, and Sunday's marathon, half marathon and 50K. Treating it as a two-day event would hide the organizer-confirmed December 11 opening race.",
     planningSections: [
       { title: "Distinguish all three official 2026 race dates", body: "The BMW Dallas Marathon organizers confirm the Friday Night Lights Mile at 7 p.m. on December 11 at Dallas City Hall Plaza, the 5K, 5K Walk and 10K on Saturday, December 12, and the marathon, half marathon, half-marathon walk and 50K on Sunday, December 13. This guide records three separate occurrence windows, rather than implying every race operates continuously across the weekend." },
-      { title: "Use Dallas City Hall Plaza as the race anchor", body: "The organizer says BMW Dallas Marathon events begin and end in downtown Dallas at Dallas City Hall Plaza. Plan parking, transit and spectator movement around the race-weekend road environment rather than normal downtown access." },
-      { title: "Pick up race packets before the actual race day", body: "The organizer lists packet pickup at Kay Bailey Hutchison Dallas Convention Center Hall A, 650 S. Griffin St., Friday December 11 from 11 a.m.–6 p.m. and Saturday December 12 from 9 a.m.–6 p.m. It says there is no race-day packet pickup. Confirm any separate Friday Mile pickup instructions and registration status with the organizer before traveling." },
+      { title: "Use the real Sunday start corrals at Dallas City Hall", body: "The organizer locates start and finish at Marilla Street and South Akard Street at City Hall Plaza. Sunday December 13 events begin in four waves: A at 8 a.m. (corral closes 7:55), B at 8:10 (closes 8), C at 8:20 (closes 8:05), and D/walkers at 8:30 (closes 8:15). Corrals open at 7 a.m.; runners may move backward to a slower corral, not forward. Saturday start times differ by race and must not be copied from Sunday." },
+      { title: "Bring the organizer-issued bag and collect packets before race day", body: "The Expo is at Kay Bailey Hutchison Dallas Convention Center Hall A, 650 S. Griffin St.; packet pickup is Friday December 11 from 11 a.m.–6 p.m. and Saturday December 12 from 9 a.m.–6 p.m., with no race-day pickup. Saturday and Sunday gear check begins at 6:30 a.m. and accepts only the clear organizer-issued participant bag obtained with the race packet, not personal luggage. Runners should distinguish the Friday Night Lights Mile from Saturday or Sunday races and confirm its dedicated instructions." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-dallas", label: "Explore Dallas County", description: "Build a wider Dallas trip around race weekend." },
@@ -103,7 +103,7 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     sources: [
       { label: "BMW Dallas Marathon official events page", url: "https://dallasmarathon.com/dallas-marathon-festival/events" },
       { label: "BMW Dallas Marathon official Weekend Series", url: "https://dallasmarathon.com/dallas-marathon-festival/events/weekend-series" },
-      { label: "BMW Dallas Marathon official race-weekend information", url: "https://dallasmarathon.com/dallas-marathon-festival/participants" },
+      { label: "BMW Dallas Marathon Sunday corral, aid-station and packet details", url: "https://dallasmarathon.com/dallas-marathon-festival/participants" },
       { label: "BMW Dallas Marathon official 2026 Friday Night Lights Mile", url: "https://dallasmarathon.com/dallas-marathon-festival/events/friday-night-lights-mile" },
     ],
   },
