@@ -5,7 +5,7 @@ const official = [
   { name: "TPWD Ray Roberts current admission", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$7/i, /12 Years and Under/i] },
   { name: "TPWD Huntsville current admission", url: "https://tpwd.texas.gov/state-parks/huntsville/fees-facilities/entrance-fees", patterns: [/\$7/i, /12 years/i] },
   { name: "TPWD Caprock current admission", url: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/entrance-fees", patterns: [/13 years and older/i, /\$5/i] },
-  { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/entrance pass is not required/i] },
+  { name: "NPS Lake Meredith fee-free entry", url: "https://www.nps.gov/lamr/planyourvisit/fees.htm", patterns: [/Lake Meredith National Recreation Area is a fee-free park/i] },
   { name: "Dinosaur Valley actual operator booking page", url: "https://www.eercc.com/dinosaur-valley-park-trail-rides/", patterns: [/Dinosaur Valley/i, /book\.peek\.com/i] },
   { name: "TPWD Huntsville biking access", url: "https://tpwd.texas.gov/state-parks/huntsville/trails-info/", patterns: [/hiking and biking/i] },
   { name: "TPWD Ray Roberts DORBA trails", url: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/trails-info", patterns: [/Dallas Off-Road Bicycle Association/i, /five consecutive trails/i, /EXPERT only/i, /9\.3 mi/i] },
@@ -43,7 +43,7 @@ const official = [
   { name: "TPWD official Big Bend Ranch outfitter listing", url: "https://tpwd.texas.gov/state-parks/big-bend-ranch/outfitters", patterns: [/horseback riding/i, /guide service providers/i] },
   { name: "TPWD Hill Country SNA listed riding services", url: "https://tpwd.texas.gov/state-parks/hill-country/guide-service", patterns: [/Bandera Historical Rides/i, /Guide Service Providers/i] },
   { name: "TPWD paddling access and river FAQs", url: "https://tpwd.texas.gov/boating/paddling-trails/faqs/", patterns: [/take-out/i, /flow/i, /shuttle/i] },
-  { name: "U.S. Naval Observatory moonrise/moonset tool", url: "https://aa.usno.navy.mil/data/RS_OneYear", patterns: [/Sun/i, /Moon/i] },
+  { name: "U.S. Naval Observatory moonrise/moonset tool", url: "https://aa.usno.navy.mil/data/RS_OneYear", patterns: [/Sun/i, /Moon/i], corroboration: { url: "https://www.weather.gov/fwd/astrodata", patterns: [/moonrise/i, /moonset/i, /USNO/i] }, alternateTool: { url: "https://www.timeanddate.com/astronomy/", patterns: [/Moonrise/i, /Moonset/i, /Twilight/i] } },
   { name: "TPWD certified paddling trails", url: "https://tpwd.texas.gov/boating/paddling-trails/", patterns: [/100 certified trails/i] },
   { name: "TPWD horse requirements", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", patterns: [/Coggins/i, /Dinosaur Valley/i] },
   { name: "TPWD OHV legal venues", url: "https://tpwd.texas.gov/state-parks/texas-off-highway-program/where-to-ride-ohvs-in-texas", patterns: [/Barnwell/i, /Sam Houston/i] },
@@ -91,6 +91,25 @@ for (const item of official) {
     if (missing.length) failures.push(item.name + ": possible fact drift " + missing.join(", "));
     evidence.push({ name: item.name, url: item.url, verified: missing.length === 0, missing });
   } catch (error) {
+    // An inaccessible calculator does not imply incorrect astronomical facts.
+    // Only accept the alternative if NWS corroborates the USNO resource AND
+    // the independently published visitor fallback actually works.
+    if (item.corroboration && item.alternateTool) {
+      try {
+        const officialBody = await get(item.corroboration.url);
+        const alternateBody = await get(item.alternateTool.url);
+        if (!item.corroboration.patterns.every(p => p.test(officialBody)) ||
+            !item.alternateTool.patterns.every(p => p.test(alternateBody))) throw Error("corroboration or alternate tool anchors missing");
+        evidence.push({ name: item.name, url: item.url, verified: true, primaryAvailable: false,
+          primaryError: String(error.message), corroboratingOfficialSource: item.corroboration.url,
+          usableVisitorFallback: item.alternateTool.url, note: "Resource claim corroborated, primary calculator availability unverified; visitor fallback accessible." });
+        continue;
+      } catch (fallbackError) {
+        failures.push(item.name + ": primary and fallback verification failed: " + String(fallbackError.message));
+        evidence.push({ name: item.name, url: item.url, verified: false, primaryAvailable: false, error: String(error.message), fallbackError: String(fallbackError.message) });
+        continue;
+      }
+    }
     failures.push(item.name + ": inaccessible " + String(error.message));
     evidence.push({ name: item.name, url: item.url, verified: false, error: String(error.message) });
   }
