@@ -35,10 +35,10 @@ const photographs = [
 ] as const;
 
 export function AlvinHistoricalPhotographs({ includeDepot = true }: { includeDepot?: boolean }) {
-  return <section className="my-9 min-w-0" aria-label="Alvin historical photographs">
+  return <section className="mt-8 mb-8 min-w-0" aria-label="Alvin historical photographs">
     <h3 className="font-display text-2xl">Alvin through historic photographs</h3>
     <p className="mt-3 text-sm leading-6 text-muted-foreground">Archival postcards document Alvin’s commercial and community life. These are views of the town, not photographs of the museum’s interior or its current exhibits.</p>
-    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+    <div className="mt-5 grid gap-4 sm:grid-cols-2">
       {(includeDepot ? photographs : photographs.slice(0, 2)).map(photo => <figure key={photo.source} className="min-w-0 overflow-hidden border border-border bg-muted/20">
         <img src={"/media/remote?url=" + encodeURIComponent(photo.original)} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" className="h-auto w-full" />
         <figcaption className="space-y-2 p-4 text-xs leading-5 text-muted-foreground">
