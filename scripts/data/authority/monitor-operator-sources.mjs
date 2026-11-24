@@ -4,7 +4,8 @@ import { pathToFileURL } from "node:url";
 import offers from "../../../src/data/authority/experience-offers.json" with { type: "json" };
 import operators from "../../../src/data/authority/independent-operators.json" with { type: "json" };
 
-const MAX_SOURCES = 36;
+// 48 URLs / 3 concurrent probes * 12s timeout = 192s maximum network wait.
+const MAX_SOURCES = 48;
 const MAX_BYTES = 850_000;
 const TIMEOUT_MS = 12_000;
 
