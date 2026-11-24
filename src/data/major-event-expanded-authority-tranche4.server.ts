@@ -14,12 +14,12 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "west-texas-fair-rodeo",
     whyItMatters: "The West Texas Fair & Rodeo is a ten-day Abilene fairground event with livestock, carnival and entertainment programming, with the PRCA rodeo concentrated in the second half of the run.",
     planningSections: [
-      { title: "Separate fair days from rodeo nights", body: "The fair runs September 10-19, while the official 2026 PRCA Pro Rodeo is scheduled September 15-19 at 7:30 p.m. Choose the date around the program you want to see." },
+      { title: "The 2027 fair dates are published; 2027 rodeo sessions are not yet confirmed", body: "The Expo Center of Taylor County now lists the West Texas Fair & Rodeo for September 9–18, 2027. Its PRCA rodeo details page still advertises September 15–19, 2026 at 7:30 p.m., an already completed season. That earlier rodeo timetable is not a verified 2027 performance calendar. Recheck the specific rodeo night and time with the organizer before planning an arena visit, even though the broader fair window is confirmed." },
       { title: "Know what the rodeo ticket covers", body: "The Expo Center states that a rodeo ticket also serves as grounds admission for that day, so check the current ticket page before buying duplicate admission." },
       { title: "Plan for a large fairground footprint", body: "Allow enough time for livestock exhibits, carnival areas and other fair programming before a nighttime rodeo performance rather than arriving at arena start time." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-taylor", label: "Explore Taylor County", description: "Build more of an Abilene-area trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other Texas fairs and rodeos." }],
-    sources: [{ label: "Expo Center of Taylor County fair schedule", url: "https://www.taylorcountyexpocenter.com/location/all-facilities" }, { label: "West Texas Fair & Rodeo PRCA schedule", url: "https://www.taylorcountyexpocenter.com/events/wtfr/prca-rodeo" }],
+    sources: [{ label: "Expo Center of Taylor County confirmed September 9–18, 2027 fair dates", url: "https://www.taylorcountyexpocenter.com/location/all-facilities" }, { label: "PRCA rodeo page (2026 historical only; not 2027 schedule)", url: "https://www.taylorcountyexpocenter.com/events/wtfr/prca-rodeo" }],
   },
   {
     slug: "denton-blues-festival",
@@ -36,12 +36,13 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "texas-sounds-country-music-awards",
     whyItMatters: "Texas Sounds brings international country performers to a small historic theater in Marshall, creating a distinctive East Texas music weekend built around three competition nights and a Sunday awards program.",
     planningSections: [
-      { title: "Choose competition nights or the full run", body: "Competitive performances are scheduled Thursday through Saturday, with the awards program on Sunday. Use the official lineup to decide whether a single night or multi-night pass fits your trip." },
+      { title: "Use the confirmed 2027 festival window, not archived 2026 performance hours", body: "The Texas Sounds organizer now advertises September 29–October 3, 2027 in Marshall. Its main site also has an older body headed October 1–4, 2026, and the schedule page still describes 2026 competition and awards dates. That archived day-by-day breakdown is not evidence for the 2027 program. Confirm your exact selected 2027 performance and actual admission details through the organizer rather than copying prior-year doors, awards or ticket hours." },
       { title: "Arrive early in downtown Marshall", body: "The organizer notes limited parking around the square and no dedicated venue lot, so arrive earlier than the 6 p.m. doors and plan to walk from downtown parking." },
-      { title: "Include the September 30 welcome event if useful", body: "The official schedule includes a parade of international flags and a free outdoor concert the evening before the ticketed competition begins." },
+      { title: "Confirm the actual 2027 welcome events separately", body: "The organizer now identifies September 29, 2027 as its international country-music awards day and offers multiple-night ticket categories, but the existing schedule page retains a September 30, 2026 international flag parade and street concert. Do not treat the 2026 parade or an old ticket product as a confirmed free 2027 gathering. Arrange Marshall lodging around confirmed performances, not a carried-forward program." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-harrison", label: "Explore Harrison County", description: "Add more East Texas stops around Marshall." }, { href: "/events", label: "Texas events calendar", description: "Compare other Texas music festivals." }],
-    sources: [{ label: "Texas Sounds official 2026 schedule", url: "https://www.texassounds.org/schedule/" }, { label: "Texas Sounds official venue guide", url: "https://www.texassounds.org/venue/" }],
+    sources: [{ label: "Texas Sounds official 2027 festival dates and ticket categories (old 2026 copy remains on page)", url: "https://www.texassounds.org/" },
+      { label: "Texas Sounds detailed schedule (contains archived 2026 event descriptions)", url: "https://www.texassounds.org/schedule/" }, { label: "Texas Sounds official venue guide", url: "https://www.texassounds.org/venue/" }],
   },
   {
     slug: "terlingua-international-chili-championship",
