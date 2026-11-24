@@ -44,6 +44,9 @@ const requiredFreshnessMarkers = [
   "galvestoncm.org/exhibits",
   "Galveston Bay ecosystems",
   "This guide was substantively updated on",
+  "Holiday day-of attraction calendar",
+  "Official day-by-day attraction and holiday hours",
+  "November 24, 2026",
 ];
 const staleClosureMarkers = [
   "children's museum entry is included with a Moody Gardens ticket",
@@ -144,8 +147,8 @@ for (const [label, rawUrl] of targets) {
   // The original Nov. 9 operator review remains visible, but real editorial
   // additions on Nov. 14 must have their own accurately dated WebPage markup.
   const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
-  if (currentSchemaDate !== "2026-11-14") {
-    failures.push(`${label}: WebPage dateModified must reflect Nov. 14 substantive change, found ${currentSchemaDate ?? "missing"}`);
+  if (currentSchemaDate !== "2026-11-24") {
+    failures.push(`${label}: WebPage dateModified must reflect Nov. 24 substantive holiday change, found ${currentSchemaDate ?? "missing"}`);
   }
   const canonicalLink = (html.match(/<link\b[^>]*>/gi) ?? [])
     .find((tag) => /\brel=["']canonical["']/i.test(tag));

@@ -533,12 +533,15 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     waterway: "Big Cypress Bayou", riverBasin: "Cypress River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "168.5 ft msl", fluctuation: "About 4–8 feet", clarity: "Moderately clear to stained",
     identity: "Caddo Lake is unlike almost every other major Texas fishing destination: a shallow cypress-and-bayou natural lake on the Louisiana line with strong bass, crappie, white-bass and chain-pickerel identity.",
     habitat: ["Bald cypress, aquatic vegetation, bayous and backwater channels create a complex shallow-water fishery.", "Navigation routes and marked channels matter because of timber and shallow habitat.", "Texas and Louisiana rules both matter on this border water."],
+    // TPWD Caddo Lake Angling Opportunities table rechecked November 24, 2026:
+    // crappie, white bass and sunfish all explicitly marked Excellent.
+    // These are fishery-quality grades, NOT catch or possession limits.
     fish: [
       fish("largemouth-bass","Largemouth bass","excellent","spring","Trophy-capable bass use cypress, vegetation, channels and shallow cover.",["soft-plastics","spinnerbaits","topwater"]),
-      fish("crappie","Crappie","good","spring","Quality crappie use timber, channels and spawning cover.",["jigs-and-minnows"]),
-      fish("white-bass","White bass","good","spring","White bass add a seasonal river-and-bayou schooling fishery.",["jigs-and-minnows","topwater"]),
+      fish("crappie","Crappie","excellent","spring","Quality crappie use timber, channels and spawning cover.",["jigs-and-minnows"]),
+      fish("white-bass","White bass","excellent","spring","White bass add a seasonal river-and-bayou schooling fishery.",["jigs-and-minnows","topwater"]),
       fish("catfish","Catfish","good","year-round","Channel, blue and flathead catfish provide seasonal and year-round opportunities.",["cut-bait","live-bait"]),
-      fish("sunfish","Sunfish","good","summer","Shallow vegetated habitat supports accessible sunfish fishing.",["jigs-and-minnows"]),
+      fish("sunfish","Sunfish","excellent","summer","Shallow vegetated habitat supports accessible sunfish fishing.",["jigs-and-minnows"]),
     ],
     access: "Caddo Lake State Park, public ramps and private marinas provide boat access, fishing piers and lodging/camping options.", specialRules: true,     accessPoints: [
       { name: "Highway 43 Ramp", operator: "Harrison County", kind: "public-ramp", launch: "South bank of Cypress Bayou upstream of lake, Texas 43 east from Marshall; two-lane concrete ramp.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; Harrison County (903) 935-4808." },

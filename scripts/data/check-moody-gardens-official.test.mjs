@@ -67,7 +67,10 @@ test("split editorial review and modification dates keep the older source-review
   const curation = readFileSync("src/data/destination-curation-moody-gardens.ts", "utf8");
   assert.deepEqual(validateEditorialReview(curation, Date.parse("2026-11-14T12:00:00Z")), []);
   assert.ok(validateEditorialReview(curation, Date.parse("2026-12-15T12:00:00Z")).some(e => e.includes("days old")));
-  assert.match(curation, /lastSubstantiveEdit: "2026-11-14"/);
+  assert.match(curation, /fullGuideReviewed: "2026-11-09"/);
+  assert.match(curation, /museumFactsReviewed: "2026-11-14"/);
+  assert.match(curation, /holidayFactsReviewed: "2026-11-24"/);
+  assert.match(curation, /lastSubstantiveEdit: "2026-11-24"/);
 });
 
 test("a generic navigation 'now open' cannot hide a museum closure", () => {

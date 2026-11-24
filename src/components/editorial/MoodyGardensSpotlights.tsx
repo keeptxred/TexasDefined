@@ -120,6 +120,17 @@ export function MoodyGardensSpotlights() {
               Buy for the itinerary you can actually complete. Moody Gardens offers individual-attraction admission, a combined Aquarium + Rainforest ticket and a broader Value Pass. Compare the eligible attractions and date-specific checkout totals before you pay: a Value Pass is not automatically the best deal for a shorter stop.
             </p>
             <div className="mt-6 border-t border-border pt-5">
+              <h3 className="font-display text-xl">Holiday day-of attraction calendar</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Holiday in the Gardens operates November 21, 2026–January 2, 2027, but the entire campus does not share one schedule. The operator lists ICE LAND from noon to 10 p.m. and the Holiday Lights Trail from 5:30 to 10 p.m. on its daily calendar. The Holiday Evening Pass is valid only after 4 p.m.; ice skate rental is additional. Do not use the evening start time as the opening time for the Aquarium, Rainforest, films or the children's museum.
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Moody Gardens opens on Thanksgiving Day, Christmas Eve, Christmas Day, New Year's Eve and New Year's Day, with general attractions opening at noon on Christmas Day. The Galveston Children's Museum has separate holiday closures, including Thanksgiving, Christmas Eve, Christmas Day and New Year's Day; plan the museum visit on another day.
+              </p>
+              <a href="https://www.moodygardens.com/visitor-info/hours" target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official day-by-day attraction and holiday hours</a>
+              <a href="/event/moody-gardens-holiday-in-the-gardens" className="ml-4 mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Compare the holiday attraction tickets and dates</a>
+            </div>
+            <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">Museum-only cost example</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Normal public hours are 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). To enter, guests need a Moody Gardens membership, a ticket that includes Galveston Children's Museum admission, or separate museum admission.
@@ -187,7 +198,7 @@ export function MoodyGardensSpotlights() {
             <a href="https://www.moodygardens.com/visitor-info/accessibility" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official accessibility details</a>
           </div>
         </div>
-        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026, and checked the Galveston Children's Museum admission, member-hour, exhibits and holiday-closure details on November 14, 2026. This guide was substantively updated on <time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time> (separate from the original full-guide source review). Attraction hours, showtimes and ticket terms can change.</p>
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026, and checked the Galveston Children's Museum admission, member-hour, exhibits and holiday-closure details on November 14, 2026. Holiday attraction operating hours and Christmas/Thanksgiving exceptions were separately checked on November 24, 2026. This guide was substantively updated on <time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 24, 2026</time> (separate from the original full-guide and museum reviews). Attraction hours, showtimes and ticket terms can change.</p>
       </Container>
     </Section>
 
