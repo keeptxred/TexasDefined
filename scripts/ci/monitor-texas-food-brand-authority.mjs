@@ -9,7 +9,8 @@ const paths = [
   ['/texas-breakfast-taco-guide', 'https://www.jstor.org/stable/10.7560/316528', 'https://joesbakery.com/menu/'],
 ];
 const rows = [['/made-in-texas', 'https://www.ftc.gov/business-guidance/resources/complying-made-usa-standard']];
-if (process.argv.includes('--all') || [1,4,7,10].includes(new Date().getUTCMonth()+1)) rows.push(...paths);
+const GUIDE_REVIEW_MONTHS = [1,3,5,7,9,11];
+if (process.argv.includes('--all') || GUIDE_REVIEW_MONTHS.includes(new Date().getUTCMonth()+1)) rows.push(...paths);
 // Collect every guide-level citation and section source, scoped to this cluster.
 const batch3 = await fs.readFile('src/data/texas-evergreen-guides-batch3.ts','utf8');
 const batch4 = await fs.readFile('src/data/texas-evergreen-guides-batch4.ts','utf8');
@@ -48,6 +49,12 @@ const missing = [...entries].filter(([n,r])=>r!=='made-or-processed'&&!names.has
 console.log('Directory coverage', {total:entries.size,production:prodUrls.length,other:extra.length,missing});
 assert.equal(missing.length, 0, 'Every retained non-production relationship must have its own published evidence');
 assert.equal(entries.size, prodUrls.length + extra.length, 'Every directory record must have one evidence record');
+const schedule = await fs.readFile('.github/workflows/texas-food-brand-authority-refresh.yml','utf8');
+assert.ok(schedule.includes('cron: "37 14 5 * *"'), 'Monthly source-review workflow schedule must remain active');
+assert.ok(GUIDE_REVIEW_MONTHS.every((m, i) => i === 0 || m - GUIDE_REVIEW_MONTHS[i - 1] <= 2) &&
+          GUIDE_REVIEW_MONTHS[0] + 12 - GUIDE_REVIEW_MONTHS.at(-1) <= 2,
+  'No history guide should go more than two months without scheduled source review');
+assert.ok(component.includes('<table aria-labelledby="quick-comparison"'), 'Four original comparison tables must retain accessible heading association');
 if (process.argv.includes('--static')) process.exit(0);
 const report=[]; const alerts=[];
 for (const [route,...sources] of rows) {
