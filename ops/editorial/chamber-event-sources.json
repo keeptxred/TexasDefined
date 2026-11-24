@@ -5832,6 +5832,21 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "throckmorton-chamber-cow-country-christmas-2026",
+      "organization": "Throckmorton Chamber of Commerce — original dated Cow Country Christmas 2026 announcement (EVENT ONLY)",
+      "countySlugs": [
+        "throckmorton"
+      ],
+      "homeUrl": "https://www.throckmortonchamber.com/",
+      "calendarUrl": "https://www.throckmortonchamber.com/copy-of-cow-country-christmas",
+      "contactPageUrl": "https://www.throckmortonchamber.com/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }
