@@ -155,7 +155,7 @@ for (const ui of [venueUI, cityUI]) {
 const iconRenderer = fs.readFileSync('src/routes/texas-icons_.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 for (const value of [
-  'cassMusicHistoryLinks', '"don-henley": [', '"t-bone-walker": [', '"scott-joplin": [',
+  'cassMusicHistoryLinks', 'cassMusicSeoTitles', '"don-henley": [', '"t-bone-walker": [', '"scott-joplin": [',
   'Cass County and the disputed Caves Spring connection',
   '<NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} slug={icon.slug} />',
 ]) assert.ok(iconRenderer.includes(value), 'Reverse biographical link or disputed-origin qualification missing: ' + value);
