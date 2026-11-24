@@ -27,7 +27,18 @@ permissions:
   contents: read
   issues: write
 concurrency:
-  group: five-texas-guide-authority-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'schedule' && github.event.schedule || 'manual' }}
+  # Unrelated issue comments must never replace a pending owner verification.
+  # Separate the two authorized commands so browser and vitals runs can coexist.
+  group: >-
+    five-texas-guide-authority-${{
+      github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) ||
+      github.event_name == 'schedule' && github.event.schedule ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7368 &&
+       github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-five-culture-live') && 'manual-browser' ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7754 &&
+       github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/audit-five-culture-vitals') && 'manual-vitals' ||
+      github.event_name == 'issue_comment' && format('ignored-{0}', github.run_id) ||
+      'manual-dispatch' }}
   cancel-in-progress: false
 jobs:
   static-authority-check:
