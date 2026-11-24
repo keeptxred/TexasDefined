@@ -335,6 +335,11 @@ function TexasStargazingGuidePage() {
             ))}
           </div>
 
+          <section className="border-b border-border py-10" aria-labelledby="extended-trip-planning">
+            <h2 id="extended-trip-planning" className="font-display text-3xl">A Panhandle alternative and seasonal observing plan</h2>
+            <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground"><p>Caprock Canyons State Park near Quitaque is listed by DarkSky International as an International Dark Sky Park. It gives Panhandle visitors another canyon-country option without a drive to the Big Bend region. Confirm legal after-hours access; designation does not authorize nighttime entry.</p><p>For spring and summer Milky Way trips, check the target's local rise time and a moonless window. For late-summer Perseids or winter Geminids, consult current annual predictions rather than assuming identical peak times or Moon conditions every year. If the forecast is cloudy, switch to a daytime park visit.</p><p><a className="text-primary underline" href="https://darksky.org/places/caprock-canyons-state-park-texas/">Independent DarkSky designation record</a> · <a className="text-primary underline" href="https://tpwd.texas.gov/calendar/stargazing">Current TPWD astronomy programs</a>.</p><p>For a day-and-night canyon itinerary, compare the <Link className="text-primary underline" to="/texas-horseback-riding-guide">horseback riding guide</Link>, <Link className="text-primary underline" to="/texas-mountain-biking-guide">mountain biking guide</Link> or <Link className="text-primary underline" to="/texas-paddling-guide">paddling guide</Link> and confirm separate activity restrictions.</p></div>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="planning">
             <p className="eyebrow text-primary">Keep planning</p>
             <h2 id="planning" className="mt-2 font-display text-3xl">Build the night sky into a complete Texas trip</h2>
