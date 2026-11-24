@@ -303,6 +303,24 @@ test('overdue distant event guides receive weekly source verification slots with
 });
 
 
+test('new 90-day review window gets an immediate verification despite hash phase changes', () => {
+  // The 2026 Washington-on-the-Brazos edition is past. The next annual
+  // season estimate crosses the 90-day threshold on 2026-11-30; the old
+  // 7-day hash slot also falls on November 30, but the 3-day hash does not.
+  // The transition itself must be due rather than silently skipping a week.
+  const event = {
+    path: '/event/washington-on-the-brazos-texas-independence-day',
+    startDate: '2026-02-28', endDate: '2026-02-28',
+  };
+  const asOf = new Date('2026-11-24T13:07:00Z');
+  const before = new Date('2026-11-29T13:07:00Z');
+  const transition = new Date('2026-11-30T13:07:00Z');
+  assert.equal(refreshCadenceDays(event, before), 7);
+  assert.equal(refreshCadenceDays(event, transition), 3);
+  assert.equal(dueForReview(event, transition, 3), true);
+  assert.equal(nextSourceReviewAt(event, asOf, 7), '2026-11-30');
+});
+
 test('the entire real editorial backlog has a bounded seven-day GitHub source-check schedule', () => {
   const inventory = collectEventPageRefreshInventory();
   const asOf = new Date();
