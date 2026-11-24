@@ -188,4 +188,32 @@ export const TEXAS_MUSIC_HISTORIC_PLACES: readonly TexasMusicHistoricPlace[] = [
       { label: "Governor of Texas — Linden music certification, August 21, 2023", href: "https://gov.texas.gov/news/post/governor-abbott-announces-linden-designated-music-friendly-texas-certified-community" },
     ],
   },
+  {
+    slug: "texas-music-barn-linden",
+    name: "Texas Music Barn",
+    place: "301 East Houston Street, Linden, Cass County, TX 75563",
+    era: "1927 church building; transferred to Academy of Texas Music in 2009",
+    status: "Historically documented listening room; present operations and public entry unverified",
+    summary:
+      "A 1927 Linden church building was repurposed into another intimate East Texas performance space, separate from Music City Texas Theater.",
+    significance:
+      "The Barn shows that Linden's music revival involved more than one preserved community building. A Texas Historical Commission partner's property record describes the Academy of Texas Music acquiring the former Linden Methodist Church in 2009 and adapting it for concerts. University of North Texas archival holdings preserve a 2012 Texas Highways account of both the Barn and Music City Texas Theater. Neither record establishes a current public concert schedule.",
+    relatedHref: "/county/cass",
+    relatedLabel: "Cass County: Linden's distinct music venues",
+    sourceUrl: "https://downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563",
+    sourceLabel: "Friends of the Texas Historical Commission — Texas Music Barn property history",
+    story: [
+      "At 301 East Houston Street in Linden, the former Methodist church was built in 1927. A historic-property directory maintained by Friends of the Texas Historical Commission says the Cass County Conservancy gave the building to the Academy of Texas Music in 2009; the Academy subsequently adapted it as the Texas Music Barn listening room. The source describes an intimate arrangement with the furthest seat 44 feet from its stage.",
+      "The Barn should not be conflated with the separate Music City Texas Theater at 108 Legion Street. Archival coverage from 2012 documents Linden's two-room music story, but sources consulted for this guide do not independently confirm that the Barn still hosts public events or is open to visitors. Check directly rather than relying on old venue descriptions for bookings, access or accessibility.",
+    ],
+    related: [
+      { href: "/county/cass", label: "Cass County and Linden cultural history" },
+      { href: "/texas-music-venues", label: "Texas landmark music venue comparison" },
+    ],
+    sources: [
+      { label: "Friends of the Texas Historical Commission — historic building record", href: "https://downtowntx.org/linden-texas/301-e-houston-st-linden-texas-75563" },
+      { label: "UNT Libraries — Texas Highways 2012 Linden venue article", href: "https://texashistory.unt.edu/ark:/67531/metadc1924028/" },
+      { label: "Music City Texas Theater — current theater's separate address", href: "https://www.musiccitytexas.org/contact" },
+    ],
+  },
 ] as const;
