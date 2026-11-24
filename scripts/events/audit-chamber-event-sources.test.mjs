@@ -953,7 +953,7 @@ test("Baird and Rockdale official event-calendar shells are monitored, not class
   const c=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.equal(c.has("callahan"),true,"Independent Cross Plains Chamber multi-season 2026 calendar qualifies Callahan, not the undated Baird monitor");
   assert.equal(c.has("milam"),true,"Separate Cameron Economic Development Corporation operates dated events calendar");
-  assert.equal(c.size,196, "Dalhart, Bailey, Henrietta and Pittsburg calendars preserve all county sources; events remain separately verified");
+  assert.equal(c.size,197, "Dalhart, Bailey, Henrietta and Pittsburg calendars preserve all county sources; events remain separately verified");
   assert.ok(registry.sources.length >= 366, "Verified first-party source roster must not shrink");
 });
 
@@ -967,7 +967,7 @@ test("Muleshoe Chamber official event calendar closes Bailey source gap without 
   assert.equal(src.homeUrl,"https://muleshoetxchamber.com/");
   const counties=new Set(registry.sources.filter(x=>x.sourceKind==="public-calendar").flatMap(x=>x.countySlugs));
   assert.ok(counties.has("bailey"));
-  assert.equal(counties.size,196);
+  assert.equal(counties.size,197);
   const report=await auditChamberSources({offline:true});
   assert.ok(report.sourceCount >= 366, "Verified first-party source roster must not shrink");
   assert.equal(report.countiesWithExplicitCalendarSources,197);
@@ -985,7 +985,7 @@ test("Dalhart Area Chamber publisher calendar serves both Dallam and Hartley, wi
  assert.equal(d.homeUrl,"https://dalhart.org/");
  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  for(const county of ["dallam","hartley","bailey"]) assert.ok(covered.has(county));
- assert.equal(covered.size,196);
+ assert.equal(covered.size,197);
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
  assert.ok(audit.sourceCount >= 366, "Verified first-party source roster must not shrink");
@@ -1011,7 +1011,7 @@ test("City of Henrietta and City of Pittsburg official public calendars independ
  }
  const covered=new Set(registry.sources.filter(s=>s.sourceKind==="public-calendar").flatMap(s=>s.countySlugs));
  for(const county of ["clay","camp","dallam","hartley","bailey"])assert.ok(covered.has(county));
- assert.equal(covered.size,196);
+ assert.equal(covered.size,197);
  assert.ok(registry.sources.length >= 366, "Verified first-party source roster must not shrink");
  assert.equal(registry.sources.find(s=>s.id==="falls-marlin-chamber")?.sourceTrust,"quarantined");
  const audit=await auditChamberSources({offline:true});
@@ -1146,8 +1146,8 @@ test("Crockett 2026 holiday home tour is a dated Houston County event, not evide
   assert.equal(organizer.sourceKind, "event-specific");
   assert.equal(new URL(organizer.calendarUrl).hostname, "www.discovercrocketttx.com");
   const reviewed = new Set(registry.sources.filter(s => s.sourceKind === "public-calendar").flatMap(s => s.countySlugs));
-  assert.equal(reviewed.has("houston"), false,
-    "One dated organizer occurrence does not establish a general Houston County public calendar");
+  assert.equal(reviewed.has("houston"), true, "Independent Mission Tejas source now qualifies for park programs only");
+  assert.deepEqual(registry.sources.filter(s => s.sourceKind === "public-calendar" && s.countySlugs.includes("houston")).map(s=>s.id), ["houston-mission-tejas-tpwd-ranger-events-2026-2027"], "Crockett single occurrence is still not a general calendar");
 });
 
 
