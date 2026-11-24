@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import outdoorAdmission from "@/data/outdoor-guide-admission.json";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 import { TEXAS_DEER_AUTHORITY_TOPIC } from "@/data/hunting/authority-deer";
 
@@ -8,6 +9,9 @@ const origin = `https://${texasDefinedBrand.identity.domain}`;
 // Five guides underwent substantive source-backed editorial revisions on Nov 20 and Nov 21.
 // This date must not advance for automated source checks or non-editorial deploys.
 const OUTDOOR_GUIDES_LASTMOD = "2026-11-24";
+// Only a material, independently verified admission-price change updates its own guide.
+const MTB_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.huntsville.evidenceDate, outdoorAdmission.rayRoberts.evidenceDate].sort().at(-1)!;
+const STARGAZING_GUIDE_LASTMOD = [OUTDOOR_GUIDES_LASTMOD, outdoorAdmission.caprock.evidenceDate].sort().at(-1)!;
 type SitemapEntry = { path: string; lastmod?: string };
 
 type EdgeCache = {
@@ -39,7 +43,7 @@ function primarySitemapCacheRequest(request: Request): Request {
   cacheUrl.searchParams.set("rusk-syrup-20261122", "county-museum-festival-v1");
   cacheUrl.searchParams.set("comanche-county-editorial-lastmod", "2026-11-24");
   cacheUrl.searchParams.set("alvin-brazoria-editorial-lastmod", "2026-11-24");
-  cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", OUTDOOR_GUIDES_LASTMOD);
+  cacheUrl.searchParams.set("outdoor-guides-editorial-lastmod", [OUTDOOR_GUIDES_LASTMOD, MTB_GUIDE_LASTMOD, STARGAZING_GUIDE_LASTMOD, outdoorAdmission.huntsville.adult, outdoorAdmission.rayRoberts.adult, outdoorAdmission.caprock.adult].join(":"));
   cacheUrl.hash = "";
   return new Request(cacheUrl.toString(), { method: "GET" });
 }
@@ -60,11 +64,11 @@ const AUTHORITY_STATIC_PATHS = [
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   // Source-backed changes to all five guides merged Nov 20: route/permit/access updates, media rights, original comparisons and internal links.
-  "/texas-mountain-biking-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-mountain-biking-guide": MTB_GUIDE_LASTMOD,
   "/texas-horseback-riding-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-ohv-guide": OUTDOOR_GUIDES_LASTMOD,
   "/texas-paddling-guide": OUTDOOR_GUIDES_LASTMOD,
-  "/texas-stargazing-guide": OUTDOOR_GUIDES_LASTMOD,
+  "/texas-stargazing-guide": STARGAZING_GUIDE_LASTMOD,
   "/county/dallas": "2026-11-22", // November 22 Old Red, Allen Brooks and Trinity history; verified Nov 15 Institute of Letters context retained.
   "/county/rusk": "2026-11-22", // Substantive H.C.R. 83 syrup, 1989 festival and Depot Museum history revision.
   "/county/brazoria": "2026-11-24", // Substantive museum, art trail and local-history revision.

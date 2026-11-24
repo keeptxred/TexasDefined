@@ -43,6 +43,14 @@ try {
         const hero = page.locator("main article figure img").first();
         await hero.scrollIntoViewIfNeeded();
         await hero.evaluate(async img => { await img.decode(); });
+        // Decode the supplementary real-place photograph, not only the primary hero.
+        const additionalPhoto = page.locator('section[aria-labelledby="extended-trip-planning"] figure img');
+        if (guide !== "ohv") {
+          assert.equal(await additionalPhoto.count(), 1, "missing supplementary location photo");
+          await additionalPhoto.scrollIntoViewIfNeeded();
+          await additionalPhoto.evaluate(async img => { await img.decode(); });
+          assert.ok(await additionalPhoto.evaluate(img => img.naturalWidth >= 600 && img.naturalHeight >= 300 && img.alt.length > 0), "supplementary photo failed decode or alt");
+        }
         const metrics = await page.evaluate(({ width, marker }) => {
           const cards = document.querySelector('[aria-label="Mobile comparison summary"]');
           const region = cards?.nextElementSibling;

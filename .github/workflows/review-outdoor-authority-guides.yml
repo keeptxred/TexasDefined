@@ -12,6 +12,10 @@ on:
       - 'scripts/ci/audit-outdoor-guides-quarterly.mjs'
       - 'scripts/ci/verify-outdoor-photography-live.mjs'
       - 'scripts/ci/verify-outdoor-guides-responsive.mjs'
+      - 'scripts/ci/audit-outdoor-guide-vitals.mjs'
+      - 'src/data/outdoor-guide-admission.json'
+      - 'scripts/editorial/refresh-outdoor-admission*.mjs'
+      - 'src/components/editorial/StateParkVisitorEssentials.tsx'
       - '.github/workflows/review-outdoor-authority-guides.yml'
   workflow_dispatch:
   issue_comment:
@@ -42,20 +46,30 @@ jobs:
           node-version: '22'
       - name: Protect five guides and structured metadata
         run: |
+          node --test scripts/editorial/refresh-outdoor-admission.test.mjs
+          node --check scripts/ci/audit-outdoor-guides-quarterly.mjs
+          node --check scripts/ci/verify-outdoor-photography-live.mjs
           node scripts/data/validate-mountain-biking-authority.mjs
           node scripts/data/validate-horseback-riding-authority.mjs
           node scripts/data/validate-ohv-authority.mjs
           node scripts/data/validate-paddling-authority.mjs
           node scripts/data/validate-stargazing-authority.mjs
           node --check scripts/ci/verify-outdoor-guides-responsive.mjs
+          node --check scripts/ci/audit-outdoor-guide-vitals.mjs
           node scripts/ci/verify-outdoor-guides-responsive.mjs --self-test
       - name: Verify official facts and live canonical pages
+        id: facts
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/audit-outdoor-guides-quarterly.mjs
       - name: Prove licensed real-location photos and byte-identical delivery on both origins
+        id: photos
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-outdoor-photography-live.mjs
       - name: Verify responsive layout, complete cards, maps and image decoding in Chrome
+        id: browser
+        continue-on-error: true
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: |
           set -euo pipefail
@@ -64,6 +78,16 @@ jobs:
           export CHROME_BIN
           npm install --prefix /tmp/texasdefined-outdoor-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
           node scripts/ci/verify-outdoor-guides-responsive.mjs
+      - name: Fail closed after collecting all independent production evidence
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
+        env:
+          FACTS: ${{ steps.facts.outcome }}
+          PHOTOS: ${{ steps.photos.outcome }}
+          BROWSER: ${{ steps.browser.outcome }}
+        run: |
+          test "$FACTS" = success
+          test "$PHOTOS" = success
+          test "$BROWSER" = success
       - name: Retain audit evidence
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         uses: actions/upload-artifact@v4
@@ -105,3 +129,93 @@ jobs:
           else
             gh issue comment "$issue" --body "Scheduled outdoor guide audit failed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Check evidence and correct source drift."
           fi
+
+  admission-refresh:
+    name: Prepare source-verified outdoor admission corrections
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    concurrency:
+      group: outdoor-admission-source-refresh
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test deterministic source parsing and editorial date guards
+        run: node --test scripts/editorial/refresh-outdoor-admission.test.mjs
+      - name: Fetch exact published TPWD admission amounts and prepare data-only correction
+        run: node scripts/editorial/refresh-outdoor-admission.mjs
+      - name: Create protected evidence-backed price correction PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: automation/outdoor-admission-source-refresh
+          delete-branch: true
+          add-paths: src/data/outdoor-guide-admission.json
+          commit-message: "chore(outdoors): update independently verified daily admission"
+          title: "Correct outdoor guide admission prices from TPWD"
+          body: |
+            The scheduled source monitor matched each exact park identity, adult age, published daily price, and free-child rule. See the source URLs and observed excerpts in the linked workflow evidence.
+            Only changed prices and their own evidence dates are written; the affected guide's visitor total and sitemap date follow the data.
+            Require protected CI and live release acceptance. Ambiguous policy, safety, permit or closure changes remain an editorial task rather than guessed rewrites.
+      - name: Preserve actual source excerpts and correction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outdoor-admission-source-evidence
+          path: .artifacts/outdoor-admission-refresh.json
+          if-no-files-found: warn
+      - name: Open correction issue on ambiguous or inaccessible fee source
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Outdoor admission correction requires verified source review'
+          issue="$(gh issue list --state open --search '"Outdoor admission correction requires verified source review" in:title' --json number --jq '.[0].number // empty')"
+          message="No unverified prices were published. Inspect the exact source evidence at $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID, correct the parser or changed age/access rule, and retest."
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi
+
+  page-vitals:
+    name: Independently measure all five guide URLs on mobile and desktop
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '41 15 12 1,4,7,10 *') ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7436 &&
+       github.event.comment.user.login == 'keeptxred' &&
+       github.event.comment.body == '/verify-outdoor-guides-live')
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch URL-level CrUX and separate diagnostic lab measurements
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: node scripts/ci/audit-outdoor-guide-vitals.mjs
+      - name: Retain measurements and unavailable-data reasons
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outdoor-guide-vitals
+          path: .artifacts/outdoor-guide-vitals.json
+          if-no-files-found: warn
+      - name: Open a deduplicated issue for measured performance concerns
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Five outdoor guides: measured performance needs correction'
+          issue="$(gh issue list --state open --search '"Five outdoor guides: measured performance needs correction" in:title' --json number --jq '.[0].number // empty')"
+          message="Check exact guide and device measurements in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Do not describe missing URL field data as a CrUX pass."
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$message"; else gh issue create --title "$title" --body "$message"; fi

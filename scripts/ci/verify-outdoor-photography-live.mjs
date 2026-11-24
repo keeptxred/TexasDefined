@@ -34,6 +34,46 @@ const photos = [
   },
 ];
 
+const additionalPhotos = [
+  {
+    "path": "/texas-mountain-biking-guide",
+    "creator": "Larry D. Moore",
+    "name": "Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "fileUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg/960px-Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Headwater_Boardwalks_Huntsville_State_Park_Texas_2025.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "path": "/texas-horseback-riding-guide",
+    "creator": "Fredlyfish4",
+    "name": "Dinosaur_Valley_State_Park_Trail.JPG",
+    "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Dinosaur_Valley_State_Park_Trail.JPG/960px-Dinosaur_Valley_State_Park_Trail.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Dinosaur_Valley_State_Park_Trail.JPG",
+    "licenseLabel": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "path": "/texas-paddling-guide",
+    "creator": "Larry D. Moore",
+    "name": "Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
+    "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  {
+    "path": "/texas-stargazing-guide",
+    "creator": "Larry D. Moore",
+    "name": "Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "fileUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg/960px-Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Holmes_Creek_Caprock_Canyon_State_Park_Texas_2023.jpg",
+    "licenseLabel": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  }
+];
+photos.push(...additionalPhotos);
+
 const evidence = [];
 const errors = [];
 async function get(url, accept) {
@@ -64,6 +104,20 @@ for (const photo of photos) {
           !visible.includes("copyrightNotice") ||
           !visible.includes("acquireLicensePage")) {
         errors.push(photo.path + " [" + origin + suffix + "]: visible licensed photo or ImageObject provenance absent");
+      }
+      if (additionalPhotos.includes(photo)) {
+        const nodes = [];
+        for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+          try {
+            const json = JSON.parse(match[1]);
+            if (Array.isArray(json["@graph"])) nodes.push(...json["@graph"]);
+            else nodes.push(json);
+          } catch {}
+        }
+        const node = nodes.find(item => item?.["@type"] === "ImageObject" && item.contentUrl === "https://texasdefined.com" + imagePath);
+        if (!node || node.license !== photo.licenseUrl || node.acquireLicensePage !== photo.source || node.creator?.name !== photo.creator || !node.copyrightNotice) {
+          errors.push(photo.path + " [" + origin + suffix + "]: exact supplementary ImageObject rights do not match the displayed image");
+        }
       }
       if (!html.includes('https://texasdefined.com' + photo.path) ||
           /<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html)) {

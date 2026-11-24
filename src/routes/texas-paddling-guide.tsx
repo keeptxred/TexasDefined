@@ -60,6 +60,7 @@ export const Route = createFileRoute(canonicalPath)({
             license: editorialHeroImage.license,
             acquireLicensePage: editorialHeroImage.source,
           },
+          associatedMedia: { "@id": `${pageUrl}#location-photo` },
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: {
             "@type": "ItemList",
@@ -67,6 +68,17 @@ export const Route = createFileRoute(canonicalPath)({
             numberOfItems: itemListElement.length,
             itemListElement,
           },
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `${pageUrl}#location-photo`,
+          contentUrl: absoluteUrl(texasDefinedBrand, editorialImageSrc("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg/1280px-Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg")),
+          caption: "Canoeing on Saw Mill Pond, Caddo Lake State Park",
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          creditText: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+          copyrightNotice: "© 2023 Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg",
         },
         {
           "@type": "BreadcrumbList",
