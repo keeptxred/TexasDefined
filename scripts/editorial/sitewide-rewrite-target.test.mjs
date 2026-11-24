@@ -206,3 +206,16 @@ test('Alvin source alerts resolve to the affected canonical guides rather than a
   const mural='https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/';
   assert.deepEqual(issuePageSourcePairs('SOURCE_CHANGED '+mural).map(x=>x.page),['/city/alvin','/county/brazoria','/destination/alvin-historical-museum']);
 });
+
+
+test('trusted editorial finisher periodically retries the oldest stranded bot PR without drafting new content',()=>{
+  const finisher=fs.readFileSync(new URL('../../.github/workflows/finish-sitewide-source-backed-rewrite.yml',import.meta.url),'utf8');
+  assert.ok(finisher.includes("cron: '17 8 * * *'"));
+  assert.ok(finisher.includes("github.event_name == 'schedule'"));
+  assert.ok(finisher.includes('elif [[ "$EVENT_NAME" = push || "$EVENT_NAME" = schedule ]]; then'));
+  assert.ok(finisher.includes('sort_by(.createdAt)'));
+  assert.ok(finisher.includes('"$author" == \'github-actions[bot]\''));
+  assert.ok(finisher.includes('--base=origin/main --live-sources'));
+  assert.ok(finisher.includes('--match-head-commit "$validated_sha"'));
+  assert.ok(!finisher.includes('openai/codex-action'));
+});
