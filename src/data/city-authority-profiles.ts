@@ -130,8 +130,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Nolan Ryan and the old post office museum',
-        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum also preserves the former 1940 post office building and its restored mural.',
-        links: [{ label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
+        summary: 'Alvin Historical Museum’s 2021 Nolan Ryan exhibit honors the pitcher who grew up here. The original Alvin Community College exhibit’s collection moved to Waco in 2016. The museum preserves the 1940 post office and Loren Mozley’s 1942 mural, Emigrants at Nightfall, restored in 2015. Visit Alvin’s Art Trail also includes outdoor murals such as Anat Ronen’s 2022 Stanton’s History Mural at 219 N Taylor Street. The indoor mural requires museum access.',
+        links: [{ label: 'Official Alvin Art Trail', href: 'https://www.visitalvin.com/business/alvin-art-trail' }, { label: 'Museum mural history', href: 'https://alvinmuseum.org/tour-18_emigrants-at-nightfall-mural/' }, { label: 'Museum’s official exhibits', href: 'https://alvinmuseum.org/alvin-musuem/' }, { label: 'Texas Defined museum guide', href: '/destination/alvin-historical-museum' }, { label: 'Nolan Ryan profile', href: '/texas-icons/nolan-ryan' }],
       },
       {
         title: 'Froberg’s Farm and Bob Briscoe Park',
