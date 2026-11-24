@@ -365,6 +365,27 @@ else {
  if(rows.length!==expected.length || new Set(rows.map(e=>e.id)).size!==rows.length) failures.push("Duplicate or unexpected local programs");
 }
 
+const stephensTheatre = read("src/data/events/stephens-national-theatre-programs-2026-2027.server.ts");
+requireText(adapter, "...getVerifiedStephensNationalTheatrePrograms()", "Stephens National Theatre original dated program integration");
+const stephensLiteral = stephensTheatre.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!stephensLiteral) failures.push("National Theatre source literal must be independently auditable");
+else {
+ const rows = JSON.parse(stephensLiteral[1]);
+ const dates = {
+  "breckenridge-national-theatre-amini-wright-2026":"2026-12-05",
+  "breckenridge-boomtown-revue-2027":"2027-01-30",
+  "breckenridge-national-theatre-hayden-baker-2027":"2027-02-13",
+  "breckenridge-national-theatre-jarrod-morris-2027":"2027-04-10"
+ };
+ for (const [slug,date] of Object.entries(dates)) {
+  const matches=rows.filter(e=>e.slug===slug);
+  const e=matches[0];
+  if(matches.length!==1 || e.countySlug!=="stephens" || e.city!=="Breckenridge" || e.region!=="panhandle" || e.startDate!==date || e.startTime!==undefined || e.endDate!==undefined || e.officialEventUrl!=="https://friendsofhistoricbreckenridge.org/" || e.image || e.ticketing || e.status!=="scheduled" || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid National Theatre occurrence: "+slug);
+  if(e && !e.guidePath.includes("location=county%3Astephens&start="+date+"&end="+date)) failures.push("Stephens calendar crosslink missing: "+slug);
+ }
+ if(rows.length!==Object.keys(dates).length || new Set(rows.map(e=>e.id)).size!==rows.length || rows.some(e=>e.startDate==="2027-01-10")) failures.push("National Theatre records contain duplicates or audition-only dates");
+}
+
 if (failures.length) {
   console.error("Global event/calendar validation failed:\n" + failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
