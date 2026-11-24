@@ -1,19 +1,19 @@
 import type { FootballProgramEditorial } from './program-editorial';
 
-/** Individually researched Canyon Lake Hawks snapshot, reviewed Nov. 21, 2026.
+/** Individually researched Canyon Lake Hawks snapshot, results reviewed Nov. 21; playoff fixture reviewed Nov. 24, 2026.
  * Scores are source-attributed factual results, not a licensed or live feed.
  * All photo/logo rights remain ungranted; use the original school-colored artwork.
  * Next-round site and kickoff require school confirmation. */
 const CANYON_LAKE: FootballProgramEditorial = {
   "slug": "comal-canyon-lake",
-  "intro": "Canyon Lake High School's Hawks are 9–2 overall and 6–1 in District 13 after a 33–26 area-round win over Port Lavaca Calhoun on November 20, 2026, an independently corroborated final. They advance to the regional semifinals against Comal Davenport. Dave Campbell's Texas Football lists Friday at 3 p.m. at Warrior Coliseum in San Antonio; confirm the date, kickoff, venue and tickets with the schools before travel.",
+  "intro": "Canyon Lake's Hawks are 9–2 overall and 6–1 in District 13 after a 33–26 area-round win over Port Lavaca Calhoun on November 20, 2026, an independently corroborated final. The regional semifinal against Comal Davenport is listed for Friday, November 27 at 3 p.m. Central at Warrior Coliseum in San Antonio. The November 23 Houston Chronicle playoff schedule and both teams' schedules agree; confirm tickets and any changes with school athletics before traveling.",
   "theme": {
     "accentHex": "#246A46",
     "label": "Green-and-gold-inspired original TexasDefined design based on Canyon Lake High's published school colors; not an official Hawks emblem or licensed team photo."
   },
   "seo": {
     "title": "Canyon Lake Hawks Football 2026 | Scores, Playoffs & District 13",
-    "description": "Canyon Lake Hawks 2026 football: 9–2 record, 33–26 Calhoun playoff win, Davenport regional semifinal, District 13, coach Sam Parker and school athletics links."
+    "description": "Canyon Lake Hawks football 2026: 9–2 record, 33–26 Calhoun win, November 27 Davenport playoff rematch at 3 p.m., District 13 and official school sources."
   },
   "coach": {
     "name": "Sam Parker",
@@ -117,12 +117,18 @@ const CANYON_LAKE: FootballProgramEditorial = {
         "site": "Neutral",
         "kickoff": "7:00 PM",
         "result": "W 33–26"
+      },
+      {
+        "date": "2026-11-27",
+        "opponent": "Comal Davenport",
+        "site": "Neutral",
+        "kickoff": "3:00 PM"
       }
     ]
   },
   "venue": {
     "name": "Hawk Stadium",
-    "note": "Canyon Lake High's official October 23 home event identifies Hawk Stadium in Fischer. The November 20 neutral-site area playoff was played at a different location. The host La Grange High School's November 17 announcement specifically confirms Canyon Lake versus Calhoun, Friday November 20 at 7 p.m. at Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. La Grange ISD requires online-only tickets and clear bags for this matchup. The host announcement is archived context, not a ticket offer for the next round. Recheck the next game's host for parking and accessibility.",
+    "note": "Canyon Lake High's official October 23 home event identifies Hawk Stadium in Fischer. The November 20 neutral-site area playoff was played at a different location. The host La Grange High School's November 17 announcement specifically confirms Canyon Lake versus Calhoun, Friday November 20 at 7 p.m. at Leopard Stadium, 805 S. Vail St., La Grange, TX 78945. La Grange ISD requires online-only tickets and clear bags for this matchup. The host announcement is archived context, not a ticket offer for the next round. Recheck the next game's host for parking and accessibility. The November 27 regional semifinal is listed at Warrior Coliseum in San Antonio, not Leopard Stadium; the earlier La Grange ticket rules do not establish the new event's rules.",
     "sourceUrl": "https://clhs.comalisd.org/apps/events/2026/10/23/59963650/?id=0",
     "sourceLabel": "Canyon Lake High October 23 game calendar (Hawk Stadium); separate Nov. 20 playoff site from regional pairings",
     "verifiedAt": "2026-11-21"
@@ -141,7 +147,8 @@ const CANYON_LAKE: FootballProgramEditorial = {
     "Comal ISD appointed Sam Parker head football coach in January 2024. The school's athletics directory uses his formal name Lawrence Parker in its athletic-director role. Dave Campbell's Texas Football recorded an improvement from 2–8 in 2023 to 8–4 in Parker's first 2024 season.",
     "Across eleven reported 2026 finals through the area round, Canyon Lake totaled 546 points for and 333 against (+213), averaging 49.6 scored and 30.3 allowed per game. These calculations use the cited MaxPreps ledger, including the 33–26 final corroborated by the San Antonio Express-News. The Hawks' eight-game winning streak is now followed by a regional-semifinal rematch with Davenport.",
     "The MaxPreps recap published November 19 for the November 13 Pleasanton game credits Jace Wheeler with 266 passing yards, four passing touchdowns and 79 rushing yards, and Isaac Torres with 191 rushing yards and two touchdowns. These are reported single-game statistics from an automated recap using submitted data, not independently verified season totals.",
-    "Canyon Lake High opened August 6, 2007, initially serving freshmen and sophomores. The school publishes green and gold as its colors. TexasDefined's football-field artwork uses those colors without copying school marks or suggesting affiliation."
+    "Canyon Lake High opened August 6, 2007, initially serving freshmen and sophomores. The school publishes green and gold as its colors. TexasDefined's football-field artwork uses those colors without copying school marks or suggesting affiliation.",
+    "The November 27 neutral-site rematch with Davenport is listed at 3 p.m. Central at Warrior Coliseum, San Antonio. The teams' September 24 district meeting ended 56–41 in Davenport's favor. A regional semifinal result will not enter the record until independently confirmed after the game."
   ],
   "milestones": [
     {
@@ -201,11 +208,11 @@ const CANYON_LAKE: FootballProgramEditorial = {
       "sourceLabel": "San Antonio Express-News November 20 area-round scoreboard; independently cross-checked with MaxPreps game report"
     },
     {
-      "date": "November 21, 2026 (reporting)",
+      "date": "November 27, 2026 (scheduled)",
       "title": "Regional semifinal: Davenport rematch",
-      "body": "Dave Campbell's Texas Football lists Canyon Lake (9–2) vs Davenport (9–3) for Friday at 3 p.m. in San Antonio's Warrior Coliseum. The opponent is corroborated by the MaxPreps schedule, but the school has not yet independently confirmed this specific date, time, venue or ticket procedure. Verify with school athletics before making plans.",
-      "sourceUrl": "https://www.davecampbells.com/articles/2026/11/07/txhsfb-playoffs-game-times-and-locations",
-      "sourceLabel": "Dave Campbell's Texas Football updated UIL playoff pairings"
+      "body": "Houston Chronicle's November 23 statewide pairings list Canyon Lake (9–2) versus Davenport (9–3) on Friday, November 27 at 3 p.m. at Warrior Coliseum in San Antonio. Both MaxPreps team schedules agree with the date and kickoff. The November 24 review did not establish an event-specific school ticket link or gate policy. Confirm those details with Comal ISD before travel; this is a scheduled fixture, not a final.",
+      "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-texas-high-school-football-playoffs-schedule-22545644.php",
+      "sourceLabel": "Houston Chronicle November 23 regional semifinal pairings; both team schedules and UIL-listed broadcast corroborate"
     }
   ],
   "faq": [
@@ -219,7 +226,7 @@ const CANYON_LAKE: FootballProgramEditorial = {
     },
     {
       "question": "When and where is Canyon Lake's next playoff game?",
-      "answer": "Canyon Lake advances to face Comal Davenport in the regional semifinals after a 33–26 win over Port Lavaca Calhoun. Dave Campbell's Texas Football lists Friday at 3 p.m. at San Antonio's Warrior Coliseum; verify date, kickoff, venue and tickets with school athletics before travel. The November 20 La Grange host notice is archived, not a current ticket offer."
+      "answer": "Comal Davenport is listed for Friday, November 27, 2026 at 3 p.m. Central at Warrior Coliseum in San Antonio, following Canyon Lake's 33–26 area-round win over Port Lavaca Calhoun. Houston Chronicle and both team schedules corroborate the date and kickoff; verify date, kickoff, venue and tickets with school athletics. The November 20 La Grange host notice is archived, not a current ticket offer."
     },
     {
       "question": "What happened in Canyon Lake's first playoff game?",

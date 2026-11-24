@@ -189,6 +189,8 @@ function Page() {
   const overdueUnverifiedGames = editorial?.season?.games.filter((game) => !game.result && footballFixtureCalendarStatus(game.date, todayTexas) === 'past') ?? [];
   const canyonLakeAreaGame = slug === 'comal-canyon-lake' ? editorial?.season?.games.find((game) => game.date === '2026-11-20') : undefined;
   const canyonLakeFinalPending = canyonLakeAreaGame && !canyonLakeAreaGame.result && canyonLakeAreaGame.date < todayTexas;
+  const canyonLakeRegionalGame = slug === 'comal-canyon-lake' ? editorial?.season?.games.find((game) => game.date === '2026-11-27' && game.opponent === 'Comal Davenport') : undefined;
+  const canyonLakeUpcomingVenue = slug === 'comal-canyon-lake' ? (nextListedFixture?.date === '2026-11-20' && nextListedFixture.opponent === 'Port Lavaca Calhoun' ? 'Leopard Stadium, La Grange' : nextListedFixture?.date === '2026-11-27' && nextListedFixture.opponent === 'Comal Davenport' ? 'Warrior Coliseum, San Antonio' : undefined) : undefined;
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
@@ -682,7 +684,7 @@ function Page() {
           {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
             <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={footballFixtureCalendarDate(nextListedFixture.date) ?? undefined}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}{nextListedFixture.kickoff ? ` · ${nextListedFixture.kickoff} (${slug === 'comal-canyon-lake' ? 'host-confirmed' : 'listed'}; recheck before travel)` : ' · verify kickoff'}{slug === 'comal-canyon-lake' ? ' · Leopard Stadium, La Grange' : ''}</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={footballFixtureCalendarDate(nextListedFixture.date) ?? undefined}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}{nextListedFixture.kickoff ? ` · ${nextListedFixture.kickoff} (${slug === 'comal-canyon-lake' && nextListedFixture.date === '2026-11-20' && nextListedFixture.opponent === 'Port Lavaca Calhoun' ? 'host-confirmed' : 'listed'}; recheck before travel)` : ' · verify kickoff'}{canyonLakeUpcomingVenue ? ` · ${canyonLakeUpcomingVenue}` : ''}</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
           <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
@@ -795,19 +797,28 @@ function Page() {
 
       {slug === 'comal-canyon-lake' && <section aria-labelledby="canyon-lake-playoff-guide" className="border-b border-border py-8 sm:py-10">
         <p className="eyebrow text-primary">Canyon Lake · 2026 playoff trail</p>
-        <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">November 20 area-round game and Hawks links</h2>
+        <h2 id="canyon-lake-playoff-guide" className="mt-2 font-display text-3xl">Canyon Lake playoff results and regional semifinal</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-foreground">
           {canyonLakeAreaGame?.result
-            ? <>The November 20 area-round game against Port Lavaca Calhoun concluded <strong>{canyonLakeAreaGame.result}</strong> for Canyon Lake at neutral-site Leopard Stadium in La Grange. The final is corroborated by independent public reporting. The regional-semifinal opponent is Comal Davenport; confirm date, venue, kickoff and tickets with school athletics before travel.</>
+            ? <>The November 20 area-round game against Port Lavaca Calhoun concluded <strong>{canyonLakeAreaGame.result}</strong> for Canyon Lake at neutral-site Leopard Stadium in La Grange. The final is corroborated by independent public reporting. See the dated regional-semifinal fixture below.</>
             : canyonLakeFinalPending
               ? <>The November 20 area-round game against Port Lavaca Calhoun at <strong>Leopard Stadium in La Grange</strong> has passed, but its final score has not yet been independently verified here. The latest confirmed final remains the November 13 win over Pleasanton. Check the dated source trail; no victory, advancement or next opponent is assumed.</>
               : <>After a 49–28 bi-district win over Pleasanton, Canyon Lake was scheduled to meet Port Lavaca Calhoun on Friday, November 20 at 7 p.m. at <strong>Leopard Stadium, 805 S. Vail St., La Grange, TX 78945</strong>. The host confirmed neutral-site play, online tickets and a clear-bag policy. Recheck the announcement for changes before travel.</>}
         </p>
+        {canyonLakeRegionalGame && <p className="mt-3 max-w-4xl text-sm leading-7 text-foreground">
+          {canyonLakeRegionalGame.result
+            ? <>The November 27 regional semifinal against Comal Davenport: <strong>{canyonLakeRegionalGame.result}</strong>.</>
+            : canyonLakeRegionalGame.date < todayTexas
+              ? <>The November 27 Davenport regional semifinal has passed; the result is awaiting independent verification. No score or advancement is assumed.</>
+              : <>The regional semifinal against Comal Davenport is listed for <strong>Friday, November 27 at 3 p.m. Central, Warrior Coliseum, San Antonio</strong>. The November 23 Houston Chronicle pairings and both team schedules agree. Verify tickets, venue changes and accessibility with Comal ISD before travel; the La Grange ticket notice is for the previous round.</>}
+        </p>}
         <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+          {canyonLakeRegionalGame && <a href="https://www.houstonchronicle.com/sports/high-school/football/article/uil-texas-high-school-football-playoffs-schedule-22545644.php" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Nov. 27 regional-semifinal pairings ↗</a>}
+          {canyonLakeRegionalGame && <a href="https://www.comalisd.org/apps/pages/athletics" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Comal ISD athletics &amp; stadium information ↗</a>}
           <a href="https://www.lgisd.net/o/lhs/article/3260936" target="_blank" rel="noreferrer noopener" className="text-primary font-semibold underline underline-offset-4">{canyonLakeAreaGame?.result || canyonLakeFinalPending ? 'Nov. 20 host announcement (archive)' : 'Nov. 20 playoff host notice & ticket link'} ↗</a>
           <a href="https://clhs.comalisd.org/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School athletics &amp; schedules ↗</a>
           {!canyonLakeFinalPending && !canyonLakeAreaGame?.result && <a href="https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2607625&type=d&uREC_ID=1195906" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Other Canyon Lake home-game tickets ↗</a>}
-          <a href="https://www.lagrangeleopardsathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Leopard Stadium and clear-bag rules ↗</a>
+          <a href="https://www.lagrangeleopardsathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{canyonLakeAreaGame?.result || canyonLakeFinalPending ? 'Nov. 20 Leopard Stadium rules (archive)' : 'Leopard Stadium and clear-bag rules'} ↗</a>
           <a href="https://txhsfb.net/?p=29640" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">November 20 playoff pairings ↗</a>
           {districtPath && <Link to={districtPath} className="text-primary underline underline-offset-4">2026 District 13 programs →</Link>}
           <Link to="/texas-high-school-football-teams/comal-davenport" className="text-primary underline underline-offset-4">Davenport Wolves →</Link>

@@ -63,9 +63,12 @@ assert.match(ui, /\(slug === 'frisco-lone-star' \|\| slug === 'comal-canyon-lake
 assert.match(seo, /canonicalLink\(texasDefinedBrand, canonicalPath\)/);
 
 const games = team.season.games;
-const hasAreaFinal = Boolean(games.at(-1)?.result);
-const areaFinal = games.at(-1);
-assert.equal(games.length, 11, 'Ten locked finals plus one sourced area-round fixture');
+const areaFinal = games.find(g=>g.date==='2026-11-20');
+const hasAreaFinal = Boolean(areaFinal?.result);
+const regional = games.find(g=>g.date==='2026-11-27');
+assert.equal(games.length, 12, 'Eleven dated games through the area round and the sourced regional semifinal');
+assert.deepEqual(regional,{date:'2026-11-27',opponent:'Comal Davenport',site:'Neutral',kickoff:'3:00 PM'},'Listed semifinal must not acquire a guessed result');
+assert.ok(hasAreaFinal,'Regional semifinal follows the independently confirmed area win');
 const done = games.filter(g => g.result);
 const wins = done.filter(g => g.result.startsWith('W '));
 const losses = done.filter(g => g.result.startsWith('L '));
@@ -108,7 +111,7 @@ assert.deepEqual(done.slice(0, 10).map(g => [g.date, g.result]), [
   ['2026-11-06', 'W 50–40'],
   ['2026-11-13', 'W 49–28'],
 ], 'Every score must match the November 19 MaxPreps schedule, not just aggregate W–L totals');
-const next = games.at(-1);
+const next = areaFinal;
 assert.equal(next.date, '2026-11-20');
 assert.equal(next.opponent, 'Port Lavaca Calhoun');
 assert.ok(!next.result || /^(W|L) \d+–\d+$/.test(next.result), 'Area-round result must remain pending or a well-formed independently confirmed final');
@@ -158,5 +161,9 @@ assert.ok(ui.includes('href="https://www.lagrangeleopardsathletics.com/facilitie
 assert.ok(!/156 Canyon Lake points/.test(teamFile));
 const f = watch.sources.filter(s=>s.slug === 'comal-canyon-lake');
 assert.equal(f.length,1,'Exactly one Comal Canyon Lake official-source monitor, not duplicated workflows');
-assert.equal(f[0].reviewAfter,'2026-11-21', 'Post-playoff review must be scheduled immediately');
+assert.equal(f[0].reviewAfter,'2026-11-28', 'Post-playoff review must be scheduled immediately');
+assert.ok(ui.includes("nextListedFixture?.date === '2026-11-27' && nextListedFixture.opponent === 'Comal Davenport' ? 'Warrior Coliseum, San Antonio'"),'Use the venue associated with the dated semifinal, not the prior round');
+assert.ok(!ui.includes("{slug === 'comal-canyon-lake' ? ' · Leopard Stadium, La Grange' : ''}"),'Never reuse the November 20 venue for later games');
+assert.match(team.milestones.find(m=>m.title==='Regional semifinal: Davenport rematch').sourceUrl,/houstonchronicle\.com/);
+assert.match(team.faq[2].answer,/November 27, 2026 at 3 p\.m\. Central at Warrior Coliseum/);
 console.log('PASS: Canyon Lake Hawks authority contract, records, score math, coach, colors, original graphic, SEO and source watch');
