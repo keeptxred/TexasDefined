@@ -43,7 +43,28 @@ check('Alvin photo delivery and attribution', photos.includes('/media/remote?url
 const manifest = JSON.parse(await readFile('public/museum-verification-manifest.json', 'utf8'));
 const museum = manifest.museums.find(x => x.path === '/destination/alvin-historical-museum');
 check('Museum source review contract', museum?.cadenceDays <= 30 && museum?.faqCount >= 10 && museum?.sources.some(x => x.sourceUrl.includes('tour-18_emigrants')), 'Monthly source manifest and researched questions');
+const localGovernment = await readFile('src/data/local-government-profile.ts', 'utf8');
+const countySection = await readFile('src/components/content/CountyGuideSections.tsx', 'utf8');
+check('Brazoria verified civic snapshot', source.county.includes('population2025Estimate: 419080') && source.county.includes('population2020: 372031') && localGovernment.includes('Kristin R. Bulanek') && localGovernment.includes('Marcel Pierel III'), 'Census 2020 and July 2025 facts; direct current office contacts');
+check('Brazoria current appraisal name and direct service links', ['Brazoria Central Appraisal District','https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/'].every(s => countySection.includes(s)), 'Official first-party resources');
 if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+  // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
+  const civicSources = [
+    ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
+    ['https://brazoriacad.org/contact-us/', ['Marcel Pierel','979-849-7792']],
+    ['https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/', ['Brazoria Central Appraisal District','January 1, 2026']],
+    ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320']],
+    ['https://esearch.brazoriacad.org/', ['Property Search']],
+    ['https://brazoriacad.org/property-tax-exemption-forms/', ['Exemption']],
+    ['https://brazoriacad.org/how-to-efile-a-protest/', ['Protest']],
+  ];
+  await Promise.all(civicSources.map(async ([url, markers]) => {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(25000), headers: {'user-agent':'TexasDefined scheduled source integrity check/1.0'} });
+      const visible = normalize((await response.text()).replace(/<[^>]*>/g, ' ')).toLowerCase();
+      check('Brazoria civic source ' + url, response.ok && markers.every(marker=>visible.includes(marker.toLowerCase())), 'HTTP ' + response.status + '; source claims must be reviewed if changed');
+    } catch (error) { check('Brazoria civic source ' + url, false, String(error)); }
+  }));
   targets.push({
     path: '/destination/alvin-historical-museum',
     phrases: ['Nolan Ryan', 'Loren Mozley', 'Emigrants at Nightfall', 'Slover'],
@@ -70,6 +91,10 @@ for (const target of targets) {
     for (const phrase of requiredPhrases) check(url + ' phrase ' + phrase, visible.includes(phrase), 'Visible page data');
     const anchors = [...html.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>/gi)].map(m => m[1]);
     for (const link of target.links) check(url + ' link ' + link, anchors.includes(link) || anchors.includes('https://texasdefined.com' + link), 'Rendered reciprocal link');
+    if (target.path === '/county/brazoria' && process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      check(url + ' verified civic facts', visible.includes('419,080') && visible.includes('Brazoria Central Appraisal District'), 'Current Census estimate and appraisal district name');
+      for (const official of ['https://esearch.brazoriacad.org/','https://brazoriacad.org/property-tax-exemption-forms/','https://brazoriacad.org/how-to-efile-a-protest/','https://tax.brazoriacountytx.gov/']) check(url + ' official service ' + official, anchors.includes(official), 'Rendered direct service link');
+    }
     if (target.path.startsWith('/destination/')) check(url + ' no editorial instruction', !/Explain the difference between the main historic museum/.test(visible), 'No internal editorial language');
     if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
       for (const id of ['25635261034', '26147334682', '5822129305']) check(url + ' photograph ' + id, html.includes(id), 'Visible page includes exact archival record');

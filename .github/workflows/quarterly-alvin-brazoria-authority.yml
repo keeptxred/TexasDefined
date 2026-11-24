@@ -9,6 +9,7 @@ on:
       - 'scripts/data/verify-alvin-brazoria-authority.mjs'
       - 'src/data/city-authority-profiles.ts'
       - 'src/data/county-profile.ts'
+      - 'src/data/local-government-profile.ts'
       - 'src/data/fixtures/brazoria-county-brazos-gulf-angleton.ts'
       - 'src/data/museum-authority-new-destinations.ts'
       - 'src/data/museum-authority-network.ts'
