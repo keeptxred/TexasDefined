@@ -134,6 +134,10 @@ try {
       }));
       result.syntheticLab=lab;
       if(spec.path==="/texas-homecoming-mums") {
+        check("homecoming synthetic CLS below poor threshold after intrinsic photo sizing",
+          Number.isFinite(lab.cls) && lab.cls < .25,lab.cls);
+      }
+      if(spec.path==="/texas-homecoming-mums") {
         const jsonLd=await page.locator('script[type="application/ld+json"]').allTextContents();
         check("no unsupported consumer FAQPage markup",!jsonLd.some(v=>/"@type"\s*:\s*"FAQPage"/.test(v)));
       }
