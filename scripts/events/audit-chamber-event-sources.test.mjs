@@ -31,6 +31,26 @@ test("verified chamber source registry maps only real counties and requires O365
   }, counties), /approved public HTTPS/);
 });
 
+test("owner-approved outreach scope fails closed when broadened or removed", () => {
+  const scope = registry.rules.outreachScope;
+  assert.equal(validateRegistry(registry, counties), true);
+  for (const patch of [
+    { allowed: [...scope.allowed, "independent-newspapers"] },
+    { excluded: scope.excluded.filter(x => x !== "independent-newspapers") },
+    { separateExplicitOwnerAuthorizationRequired: false },
+    { firstPartyOrganizationRoleVerificationRequired: false },
+    { unknownEligibility: "contact" },
+    { declinesOptOutsAndFailedAddressSuppression: "ignore" },
+    { newsReports: "contact newsroom" },
+    { automatedSending: true },
+  ]) assert.throws(() => validateRegistry({
+    ...registry, rules: { ...registry.rules, outreachScope: { ...scope, ...patch } },
+  }, counties), /Owner-approved outreach scope/);
+  assert.throws(() => validateRegistry({
+    ...registry, rules: { ...registry.rules, outreachScope: undefined },
+  }, counties), /Owner-approved outreach scope/);
+});
+
 test("robot restriction takes precedence over calendar discoverability", () => {
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /calendar", "/calendar/2026"), false);
   assert.equal(allowedByRobots("User-agent: *\nDisallow: /private", "/calendar"), true);

@@ -4,6 +4,12 @@
 **Checkpoint:** https://github.com/keeptxred/TexasDefined/issues/7548  
 **Opened:** November 22, 2026. This program has started, but does not claim 254 active relationships.
 
+## Mandatory outreach scope — owner approved November 24, 2026
+
+Effective immediately, this campaign may contact **only** verified Chambers of Commerce and their associations, official tourism bureaus/CVBs, municipalities and competent public authorities, historical/cultural organizations, and actual event organizers or their authorized venue teams. **Independent newspapers, news outlets, journalists, publishers and editorial intermediaries are excluded** unless the owner separately and explicitly authorizes the specific contact. An existing decline, opt-out or failed-address suppression must still be honored.
+
+A news report may be used as a lawful discovery lead only; respect copyright and access terms, and confirm dates, locations and other event facts directly with first-party organizers. Never solicit a newsroom for its community contacts, reporting, press lists, media kits, photography, or backlinks in this campaign. A public contact page, source registry record or CRM source-type label alone does not establish eligibility. Before any send or follow-up, verify the actual organization and its role on its official first-party site; if the role is unknown or excluded, do not send. Preserve the historical declined records privately and never recontact them. Use Microsoft 365 only, accurate owner-approved sender identification, and existing Sent/CRM deduplication. This restriction overrides all previous campaign notes and recovery instructions. The automated source audit remains research-only and never sends messages.
+
 ## Objectives
 
 Improve local festivals, community celebrations, parades, holiday programming and annual traditions on TexasDefined county guides and the statewide events calendar. Build reliable announcements and media relationships with organizations serving **all 254 Texas counties**. Invite independently earned resource links to genuinely useful TexasDefined coverage; no payment, reciprocal exchange or coverage-for-link arrangement.
@@ -21,7 +27,7 @@ A county may have several city Chambers or no distinct countywide Chamber. A Cha
 ## Verified outreach workflow
 
 1. Research verified official Chambers for each county, using the TCCE and U.S. Chamber directories as starting points, followed by first-party sites. Register all counties covered by one Chamber, but do not mistake a nearby Chamber for a representative of an unrelated county.
-2. Find a published email, media contact or contact form. Check the existing O365 Sent Items and protected outreach records to avoid duplicate messages. Do not guess addresses or scrape Chamber member lists.
+2. Apply the mandatory eligibility rule above; then find a published email, official media contact or contact form for the eligible organization. Check the existing O365 Sent Items and protected outreach records to avoid duplicate messages. Do not guess addresses or scrape Chamber member lists.
 3. From the O365 sender, introduce the existing TexasDefined events calendar and exact relevant county guide. Request opt-in to press releases, official annual-festival and holiday announcements, material date changes and corrections, and any available media kit, press photography and publication terms.
 4. Optional reference invitation: if the Chamber finds a specific TexasDefined guide independently useful, it may link to it from an appropriate visitor/media resource page. No paid, traded, required or guaranteed backlink; no editorial preference in exchange.
 5. Store responses, press-list acceptance, contact data, email and image rights in O365 and existing protected outreach systems. Public GitHub contains only official source names/URLs and the nonpersonal county coverage queue.
@@ -35,7 +41,7 @@ A county may have several city Chambers or no distinct countywide Chamber. A Cha
 - A Chamber calendar is for **discovery**, not authoritative publication. The event organizer/venue or competent city authority must independently confirm current event dates, location, organizer, tickets, changes, cancellation status and media reuse permission.
 - Do not copy event descriptions/photos, guess subsequent years, move source verification dates following a mere HTTP 200, or emit Event schema for an unverified future occurrence.
 - Resolved, current events belong in the **existing** authoritative calendar and permanent event guide lifecycle, with applicable county-page and regional crosslinks. No separate thin county/event doorway pages.
-- If automated access fails or is forbidden, leave it as manual research, honor access restrictions, and use email or official human-submitted media lists.
+- If automated access fails or is forbidden, leave it as manual research, honor access restrictions, and use email or official human-submitted media lists only from eligible organizations.
 
 ## County-level acceptance standard
 
