@@ -8,8 +8,8 @@
     "minAge": 21,
     "maxParty": 4,
     "sourceUrl": "https://www.signorvineyards.com/reservations",
-    "checkedAt": "2026-11-02",
-    "notes": "Estate location; tasting bar; booking recommended"
+    "checkedAt": "2026-11-24",
+    "notes": "Estate standing tasting; 21+ and pet-free; multiple bookings for one group not permitted"
   },
   {
     "id": "signor-seated-estate",
@@ -20,8 +20,8 @@
     "minAge": 21,
     "maxParty": 6,
     "sourceUrl": "https://www.signorvineyards.com/reservations",
-    "checkedAt": "2026-11-02",
-    "notes": "Estate location; charcuterie costs extra"
+    "checkedAt": "2026-11-24",
+    "notes": "Estate seated tasting; 21+ and pet-free; multiple bookings for one group not permitted; charcuterie costs extra; confirm upgrade price because official pages disagree"
   },
   {
     "id": "william-chris-winemaker",
