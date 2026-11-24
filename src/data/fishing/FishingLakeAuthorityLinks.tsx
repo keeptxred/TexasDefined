@@ -62,6 +62,10 @@ export function FishingLakeAuthorityLinks({
     .map((row) => ({ href: `/fishing/species/${row.id}`, label: row.name })), 6);
   const placeLinks = uniqueLinks([
     ...counties.map((county) => ({ href: `/county/${slugify(county)}`, label: `${county} County guide` })),
+    ...(slug === "proctor-lake" && cities.some((city) => city.trim().toLowerCase() === "comanche")
+      ? [{ href: "/destination/comanche", label: "Historic Comanche: Old Cora, depot and downtown" },
+         { href: "/destination/comanche-county-historical-museum", label: "Comanche County Historical Museum" }]
+      : []),
     ...(LAKE_VISITOR_DESTINATIONS[slug] ?? []).map((park) => ({ href: `/destination/${park.slug}`, label: park.label })),
   ], 9);
   const lakeLinks = uniqueLinks(relatedLakes.filter((link) => {

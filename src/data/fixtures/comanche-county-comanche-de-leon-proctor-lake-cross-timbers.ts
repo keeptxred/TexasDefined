@@ -51,6 +51,8 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { href: "/fishing/lakes/proctor-lake", label: "Proctor Lake fishing and recreation", description: "Use current fishing, access and water-condition information for the county lake." },
   ],
   sources: [
+    { label: "Comanche Nation — History and living self-identification", url: "https://www.comanchenation.com/about/page/history" },
+    { label: "Texas State Historical Association — Comanche people and Comanchería", url: "https://www.tshaonline.org/handbook/entries/comanche-indians" },
     { label: "Texas State Historical Association — Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county" },
     { label: "National Park Service / Texas Historical Commission — Comanche Downtown Historic District", url: "https://atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf" },
     { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
@@ -78,6 +80,9 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   body: [
     p("Comanche County sits in a transition zone where wooded Cross Timbers country meets prairie, farms and the rolling ranch lands of North Central Texas. The city of Comanche anchors the county as its courthouse town, De Leon developed as a separate railroad and agricultural center, and Proctor Lake spreads across the Leon River system near the county's eastern side. Between them are pecan bottoms, sandy fields, limestone ridges and communities whose histories were shaped by cattle, cotton, peanuts, railroads and water."),
     p("The county was created in 1856 from parts of Coryell and Bosque counties and named for the Comanche people, whose homeland and hunting territory included this part of Texas before sustained Anglo-American settlement. Cora first served as county seat, but the more centrally located town of Comanche took that role in 1859. Those early choices still shape the modern county map: government remains centered in Comanche, while transportation and agriculture helped other communities build strong identities of their own."),
+
+    h("Comanche Nation: the people behind the county name"),
+    p("The name Comanche County commemorates a Native nation, not a vanished population. The Comanche Nation today calls itself Nʉmʉnʉʉ—The People—and describes a history across the southern plains that includes Texas. Its own published history explains the importance of horse breeding and trade; the Texas State Historical Association places the eighteenth- and nineteenth-century Comanchería across much of North, Central and West Texas. County founding narratives often describe only incoming settlers and county-seat elections. Read those accounts alongside the Nation’s own history rather than treating frontier markers or a single museum diorama as complete evidence of Indigenous life. This passage does not imply the county museum’s exhibits have been curated or endorsed by the Nation."),
 
     h("Cross Timbers and prairie meet here"),
     p("Comanche County covers roughly nine hundred forty square miles of rolling country. Its northern section belongs to the Western Cross Timbers, where post oak, other hardwoods, sandy soils and brush create a wooded landscape unlike the broad open prairie farther south and east. The southern portion grades toward the Grand Prairie, with darker soils and more open agricultural ground."),
