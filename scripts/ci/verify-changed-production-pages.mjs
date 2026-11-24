@@ -573,6 +573,25 @@ for (const path of plan.selectedPaths) {
       if (finalPage.origin !== origin) throw new Error('Redirect left the production origin');
       const expectedCanonical = finalPage.origin + finalPage.pathname;
       if (links.length !== 1 || actual !== expectedCanonical) throw new Error(`Unexpected canonical: ${actual || 'missing'}`);
+      if (['/city/alvin', '/county/brazoria', '/destination/alvin-historical-museum'].includes(path)) {
+        const markers = {
+          '/city/alvin': ['Loren Mozley', 'Maury Maverick Bridge', '/destination/alvin-historical-museum'],
+          '/county/brazoria': ['Loren Mozley', 'Guide updated', '/city/alvin'],
+          '/destination/alvin-historical-museum': ['Loren Mozley', 'Emigrants at Nightfall', '/city/alvin', '/county/brazoria'],
+        };
+        const verifyAlvin = (body, label) => {
+          const visible = body.replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+          for (const marker of markers[path]) {
+            if (!(marker.startsWith('/') ? body.includes(marker) : visible.includes(marker))) throw new Error(path + ' ' + label + ' missing ' + marker);
+          }
+          if (visible.includes('Explain the difference between the main historic museum')) throw new Error(path + ' exposes stale editorial instructions');
+          if ([...body.matchAll(/<meta\b[^>]*>/gi)].some(([tag]) => /name=["']robots["']/i.test(tag) && /noindex/i.test(tag))) throw new Error(path + ' unexpectedly noindexed');
+        };
+        verifyAlvin(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, { redirect: 'follow', headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Alvin-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(30000) });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') throw new Error(path + ' canonical visitor request failed');
+        verifyAlvin(await visitor.text(), 'ordinary visitor URL');
+      }
       if (Object.hasOwn(TEXAS_CULTURE_PUBLICATION_MARKERS, path)) {
         assertTexasCulturePublication(path, html, 'cache-busted release');
         // A query-param URL may bypass a stale CDN object. Check the URL an
