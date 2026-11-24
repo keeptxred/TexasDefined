@@ -5862,6 +5862,21 @@
       "priority": "standard",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "martin-county-community-complex-events",
+      "organization": "Martin County Community Complex — official dated event calendar (VENUE ONLY, NOT countywide festival calendar)",
+      "countySlugs": [
+        "martin"
+      ],
+      "homeUrl": "https://martincountycommunitycomplex.com/",
+      "calendarUrl": "https://martincountycommunitycomplex.com/events/",
+      "contactPageUrl": "https://martincountycommunitycomplex.com/about/contact-us/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
     }
   ]
 }
