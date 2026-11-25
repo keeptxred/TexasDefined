@@ -5802,6 +5802,156 @@
       "priority": "holiday",
       "sourceRole": "discovery",
       "sourceKind": "public-calendar"
+    },
+    {
+      "id": "dawson-lamesa-library-2026-programs",
+      "organization": "Dawson County Public Library — original dated public programs (LIBRARY ONLY, not countywide festivals)",
+      "countySlugs": [
+        "dawson"
+      ],
+      "homeUrl": "https://dclib.ploud.net/",
+      "calendarUrl": "https://dclib.ploud.net/news-events",
+      "contactPageUrl": "https://dclib.ploud.net/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "stephens-national-theatre-breckenridge-2026-2027",
+      "organization": "Friends of Historic Breckenridge — National Theatre 2026–27 Performance Series (VENUE ONLY)",
+      "countySlugs": [
+        "stephens"
+      ],
+      "homeUrl": "https://friendsofhistoricbreckenridge.org/",
+      "calendarUrl": "https://friendsofhistoricbreckenridge.org/",
+      "contactPageUrl": "https://friendsofhistoricbreckenridge.org/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "throckmorton-chamber-cow-country-christmas-2026",
+      "organization": "Throckmorton Chamber of Commerce — original dated Cow Country Christmas 2026 announcement (EVENT ONLY)",
+      "countySlugs": [
+        "throckmorton"
+      ],
+      "homeUrl": "https://www.throckmortonchamber.com/",
+      "calendarUrl": "https://www.throckmortonchamber.com/copy-of-cow-country-christmas",
+      "contactPageUrl": "https://www.throckmortonchamber.com/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "terrell-sanderson-tall-texan-distillery-2026-programs",
+      "organization": "Tall Texan Distilling — Sanderson dated seasonal visitor programs (VENUE ONLY, adult tours)",
+      "countySlugs": [
+        "terrell"
+      ],
+      "homeUrl": "https://talltexandistilling.com/",
+      "calendarUrl": "https://talltexandistilling.com/distillery-events",
+      "contactPageUrl": "https://talltexandistilling.com/distillery-events",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "martin-county-community-complex-events",
+      "organization": "Martin County Community Complex — official dated event calendar (VENUE ONLY, NOT countywide festival calendar)",
+      "countySlugs": [
+        "martin"
+      ],
+      "homeUrl": "https://martincountycommunitycomplex.com/",
+      "calendarUrl": "https://martincountycommunitycomplex.com/events/",
+      "contactPageUrl": "https://martincountycommunitycomplex.com/about/contact-us/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "schleicher-agrilife-local-2026-programs",
+      "organization": "Texas A&M AgriLife Extension Schleicher County — dated local agriculture and youth programs (LOCAL EXTENSION PROGRAMS ONLY, not statewide syndicated calendar)",
+      "countySlugs": [
+        "schleicher"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/schleicher-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/schleicher-county/",
+      "contactPageUrl": "https://agrilifepeople.tamu.edu/units/view/202",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "public-calendar"
+    },
+    {
+      "id": "terry-agrilife-january-2027-stock-show",
+      "organization": "Texas A&M AgriLife Extension Terry County — original January 14–16 2027 stock show dates (EVENT ONLY; heading retains 2026)",
+      "countySlugs": [
+        "terry"
+      ],
+      "homeUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "calendarUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "contactPageUrl": "https://agrilifeextension.tamu.edu/counties/terry-county/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "ochiltree-bolerjack-perryton-concert-2026",
+      "organization": "Blake & Jenna Bolerjack — original artist tour announcement for Perryton (EVENT ONLY, not a local calendar)",
+      "countySlugs": [
+        "ochiltree"
+      ],
+      "homeUrl": "https://linktr.ee/blakeandjenna",
+      "calendarUrl": "https://linktr.ee/blakeandjenna",
+      "contactPageUrl": "https://linktr.ee/blakeandjenna",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "standard",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "winkler-wink-city-christmas-parade-2026",
+      "organization": "City of Wink — original 2026 Christmas parade announcement (EVENT ONLY)",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://cityofwink.com/",
+      "calendarUrl": "https://cityofwink.com/news-detail?item_id=36162",
+      "contactPageUrl": "https://cityofwink.com/",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
+    },
+    {
+      "id": "winkler-kermit-elf-run-2026",
+      "organization": "City of Kermit and The Pit Stop — organizer-maintained Elf Run registration (EVENT ONLY)",
+      "countySlugs": [
+        "winkler"
+      ],
+      "homeUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "calendarUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "contactPageUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+      "reviewedAt": "2026-11-24",
+      "calendarType": "html",
+      "priority": "holiday",
+      "sourceRole": "discovery",
+      "sourceKind": "event-specific"
     }
   ]
 }

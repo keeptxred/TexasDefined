@@ -27,6 +27,39 @@
     },
     {
       "slug": "amarillo",
+      "date": "2026-09-25",
+      "opponent": "Frenship Memorial",
+      "pointsFor": 59,
+      "pointsAgainst": 21,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://sports.yahoo.com/articles/scores-every-week-5-high-155650039.html",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/amarillo/amarillo-sandies/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "amarillo",
+      "date": "2026-11-13",
+      "opponent": "El Paso Bel Air",
+      "pointsFor": 63,
+      "pointsAgainst": 13,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-playoff-football-scores-22530147.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/amarillo/amarillo-sandies/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "amarillo",
+      "date": "2026-11-20",
+      "opponent": "Denton",
+      "pointsFor": 24,
+      "pointsAgainst": 21,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/amarillo/amarillo-sandies/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "amarillo",
       "date": "2026-11-06",
       "opponent": "Caprock",
       "pointsFor": 52,
@@ -335,6 +368,28 @@
     },
     {
       "slug": "angleton",
+      "date": "2026-11-13",
+      "opponent": "Georgetown",
+      "pointsFor": 17,
+      "pointsAgainst": 10,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-playoff-football-scores-22530147.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "angleton",
+      "date": "2026-11-20",
+      "opponent": "Beaumont United",
+      "pointsFor": 31,
+      "pointsAgainst": 12,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "angleton",
       "date": "2026-11-06",
       "opponent": "Victoria East",
       "pointsFor": 59,
@@ -474,6 +529,28 @@
       "verifiedAt": "2026-11-21",
       "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-nov-6-22517995.php",
       "secondarySourceUrl": "https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-november-6-01m6rw22dr0m",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "belton",
+      "date": "2026-11-13",
+      "opponent": "Ennis",
+      "pointsFor": 35,
+      "pointsAgainst": 33,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-playoff-football-scores-22530147.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/belton/belton-tigers/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "belton",
+      "date": "2026-11-19",
+      "opponent": "South Oak Cliff",
+      "pointsFor": 14,
+      "pointsAgainst": 57,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.northchannelstar.com/2026/11/high-school-football-scores-area-round-playoff-results-nov-20/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/belton/belton-tigers/football/schedule/",
       "verificationMethod": "manual-editorial-review"
     },
     {
@@ -1057,6 +1134,28 @@
       "verifiedAt": "2026-11-21",
       "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-nov-6-22517995.php",
       "secondarySourceUrl": "https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-november-6-01m6rw22dr0m",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "allen",
+      "date": "2026-11-12",
+      "opponent": "Lewisville Hebron",
+      "pointsFor": 73,
+      "pointsAgainst": 0,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.allenisd.org/o/ahs/article/3254818/",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "allen",
+      "date": "2026-11-20",
+      "opponent": "Euless Trinity",
+      "pointsFor": 44,
+      "pointsAgainst": 0,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-frid-22542424.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
       "verificationMethod": "manual-editorial-review"
     },
     {
@@ -2267,6 +2366,50 @@
       "verifiedAt": "2026-11-21",
       "primarySourceUrl": "https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-22492121.php",
       "secondarySourceUrl": "https://www.maxpreps.com/tx/football/scores/?date=10%2F23%2F2026",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "austin-westlake",
+      "date": "2026-10-30",
+      "opponent": "Round Rock Cedar Ridge",
+      "pointsFor": 56,
+      "pointsAgainst": 21,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=286&yr=2026",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/austin/westlake-chaparrals/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "austin-westlake",
+      "date": "2026-11-06",
+      "opponent": "Round Rock Stony Point",
+      "pointsFor": 68,
+      "pointsAgainst": 33,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=286&yr=2026",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/austin/westlake-chaparrals/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "austin-westlake",
+      "date": "2026-11-12",
+      "opponent": "Buda Hays",
+      "pointsFor": 45,
+      "pointsAgainst": 0,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.fox7austin.com/sports/texas-high-school-football-playoffs-2026-week-1-scores-highlights",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/austin/westlake-chaparrals/football/schedule/",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "austin-westlake",
+      "date": "2026-11-19",
+      "opponent": "Comal Pieper",
+      "pointsFor": 59,
+      "pointsAgainst": 14,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/uil-football-texas-playoff-scores-thursday-22540994.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/austin/westlake-chaparrals/football/schedule/",
       "verificationMethod": "manual-editorial-review"
     },
     {
@@ -4733,6 +4876,17 @@
       "primarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
       "secondarySourceUrl": "https://www.northchannelstar.com/2026/10/friday-night-lights-live-updates-from-area-football-games-oct-23/",
       "verifiedAt": "2026-11-21",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "slug": "alvin-iowa-colony",
+      "date": "2026-11-13",
+      "opponent": "Pflugerville Weiss",
+      "pointsFor": 7,
+      "pointsAgainst": 56,
+      "verifiedAt": "2026-11-24",
+      "primarySourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-playoff-football-scores-22530147.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
       "verificationMethod": "manual-editorial-review"
     }
   ]

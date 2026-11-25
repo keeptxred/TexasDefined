@@ -115,8 +115,8 @@
         6
       ],
       "maxReviewAgeDays": 7,
-      "lastFactReviewAt": "2026-11-14",
-      "lastFactReviewScope": "UIL verified season/bracket source; NCAA FBS, RODEOHOUSTON and COTA official calendars; NBA official schedule linked but current games not replicated. More specific team/venue sources required for live articles. New November 14 independently sourced cross-sport current analysis registered as a publish-date-locked lead and reviewed by the same refresh group.",
+      "lastFactReviewAt": "2026-11-24",
+      "lastFactReviewScope": "Reverified UIL bracket rules, NCAA FBS and NBA official calendars, RODEOHOUSTON March 2–21 2027, COTA Formula E February 6, NASCAR March 5–7 and MotoGP April 23–25 2027; added distinct date and admission planning guidance. Original November 14 article retains its publication date.",
       "requiredLiveMarkers": [
         "Find the authoritative schedule, then plan the trip",
         "Choose the sport first"
@@ -183,8 +183,8 @@
         6
       ],
       "maxReviewAgeDays": 7,
-      "lastFactReviewAt": "2026-11-14",
-      "lastFactReviewScope": "UIL current bracket, qualification and 2026 dates; individual games require school verification",
+      "lastFactReviewAt": "2026-11-24",
+      "lastFactReviewScope": "Reverified UIL 2026 playoff windows, classification qualification rules, December 9 exception and championship assignments by conference/division; no individual game or kickoff inferred.",
       "requiredLiveMarkers": [
         "Why the playoff path changes by classification",
         "6A, Divisions I and II",

@@ -323,6 +323,69 @@ for (const stale of ["SportsVenueEventItem", "SportsVenueEventsIntegration", "Sp
 }
 if (sportsVenueRoute.includes("texas-event-records.server") || sportsVenueRoute.includes("texas-event-calendar.server")) failures.push("sports venue route must keep event registry/normalization behind the server-function boundary");
 
+const venuePrograms = read("src/data/events/howard-collingsworth-venue-programs-2026-2027.server.ts");
+requireText(adapter, "...getVerifiedHowardCollingsworthVenuePrograms()", "Howard and Collingsworth exact venue program integration");
+const venueLiteral = venuePrograms.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!venueLiteral) failures.push("Venue program source literal must be independently auditable");
+else {
+ const venueRows=JSON.parse(venueLiteral[1]);
+ const expected=[
+  ["big-spring-symphony-night-out-at-the-movies-2027","howard","2027-02-20","5:30 PM","https://bigspringsymphony.org/season-letter/"],
+  ["big-spring-symphony-jazzy-night-out-2027","howard","2027-04-24","5:30 PM","https://bigspringsymphony.org/season-letter/"],
+  ["wellington-ritz-retro-reels-december-2026","collingsworth","2026-12-06","3:00 PM","https://www.wellingtonritztheatre.com/"],
+  ["wellington-ritz-josh-abbott-william-clark-green-2027","collingsworth","2027-01-17","6:00 PM","https://www.wellingtonritztheatre.com/"],
+ ];
+ for(const [slug,county,date,time,url] of expected){
+  const matches=venueRows.filter(e=>e.slug===slug);
+  const e=matches[0];
+  if(matches.length!==1 || e.countySlug!==county || e.startDate!==date || e.startTime!==time || e.officialEventUrl!==url || e.region!=="panhandle" || e.endDate!==undefined || e.image || e.ticketing || e.status!=="scheduled" || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid original venue occurrence: "+slug);
+  if(e && !e.guidePath.includes("location=county%3A"+county+"&start="+date+"&end="+date)) failures.push("County calendar crosslink missing for "+slug);
+ }
+ if(venueRows.length!==expected.length || new Set(venueRows.map(e=>e.id)).size!==venueRows.length) failures.push("Venue programs contain unexpected or duplicate records");
+}
+
+const terrellOchiltree = read("src/data/events/terrell-ochiltree-programs-2026.server.ts");
+requireText(adapter, "...getVerifiedTerrellOchiltreePrograms()", "Terrell and Ochiltree original program integration");
+const localProgramLiteral = terrellOchiltree.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!localProgramLiteral) failures.push("Local programs must have auditable source records");
+else {
+ const rows=JSON.parse(localProgramLiteral[1]);
+ const expected=[
+  ["sanderson-distillery-visitor-program-nov27-2026","terrell","big-bend","2026-11-27",undefined,"https://talltexandistilling.com/distillery-events"],
+  ["sanderson-distillery-visitor-program-nov28-dec13-2026","terrell","big-bend","2026-11-28","2026-12-13","https://talltexandistilling.com/distillery-events"],
+  ["perryton-blake-jenna-bolerjack-concert-2026","ochiltree","panhandle","2026-12-13",undefined,"https://linktr.ee/blakeandjenna"]
+ ];
+ for(const [slug,county,region,start,end,url] of expected){
+  const matches=rows.filter(e=>e.slug===slug);const e=matches[0];
+  if(matches.length!==1 || e.countySlug!==county || e.region!==region || e.startDate!==start || e.endDate!==end || e.officialEventUrl!==url || e.status!=="scheduled" || e.image || e.ticketing || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid original local program: "+slug);
+  if(e && !e.guidePath.includes("location=county%3A"+county+"&start="+start+"&end="+(end??start))) failures.push("Missing county calendar crosslink "+slug);
+ }
+ const tours=rows.filter(e=>e.countySlug==="terrell");
+ if(tours.length!==2 || !tours.every(e=>e.summary.includes("21 and older")) || !tours.some(e=>e.summary.includes("does not mean tours run every day"))) failures.push("Distillery program must distinguish age-restricted, non-daily tours from daily visitor hours");
+ if(rows.length!==expected.length || new Set(rows.map(e=>e.id)).size!==rows.length) failures.push("Duplicate or unexpected local programs");
+}
+
+const stephensTheatre = read("src/data/events/stephens-national-theatre-programs-2026-2027.server.ts");
+requireText(adapter, "...getVerifiedStephensNationalTheatrePrograms()", "Stephens National Theatre original dated program integration");
+const stephensLiteral = stephensTheatre.match(/const records: TexasEventRecord\[\] = (\[[\s\S]*?\]);/);
+if (!stephensLiteral) failures.push("National Theatre source literal must be independently auditable");
+else {
+ const rows = JSON.parse(stephensLiteral[1]);
+ const dates = {
+  "breckenridge-national-theatre-amini-wright-2026":"2026-12-05",
+  "breckenridge-boomtown-revue-2027":"2027-01-30",
+  "breckenridge-national-theatre-hayden-baker-2027":"2027-02-13",
+  "breckenridge-national-theatre-jarrod-morris-2027":"2027-04-10"
+ };
+ for (const [slug,date] of Object.entries(dates)) {
+  const matches=rows.filter(e=>e.slug===slug);
+  const e=matches[0];
+  if(matches.length!==1 || e.countySlug!=="stephens" || e.city!=="Breckenridge" || e.region!=="panhandle" || e.startDate!==date || e.startTime!==undefined || e.endDate!==undefined || e.officialEventUrl!=="https://friendsofhistoricbreckenridge.org/" || e.image || e.ticketing || e.status!=="scheduled" || e.lastVerifiedAt!=="2026-11-24") failures.push("Invalid National Theatre occurrence: "+slug);
+  if(e && !e.guidePath.includes("location=county%3Astephens&start="+date+"&end="+date)) failures.push("Stephens calendar crosslink missing: "+slug);
+ }
+ if(rows.length!==Object.keys(dates).length || new Set(rows.map(e=>e.id)).size!==rows.length || rows.some(e=>e.startDate==="2027-01-10")) failures.push("National Theatre records contain duplicates or audition-only dates");
+}
+
 if (failures.length) {
   console.error("Global event/calendar validation failed:\n" + failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);

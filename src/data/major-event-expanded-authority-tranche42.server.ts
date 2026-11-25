@@ -13,11 +13,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-09-20",
     venue: "Rockport-Fulton venues",
     officialUrl: "https://www.rockport-fulton.org/hummerbird-celebration/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Rockport-Fulton HummerBird Celebration turns the coast's fall hummingbird migration into a four-day nature and community event with speaker programs, birding trips, home tours, photography, public bird banding and a dedicated Hummer Mall.",
     planningSections: [
-      { title: "Use September 17-20 as the confirmed 2026 window", body: "The Rockport-Fulton Chamber publishes the 38th annual HummerBird Celebration for Thursday through Sunday, September 17-20, 2026. Check the current activity schedule before traveling because speakers, field trips and tours run at specific times and locations." },
-      { title: "Choose activities before choosing the day", body: "The event spans speaker venues, the Fulton Convention Center, birding sites and organized tours. Reserve limited-capacity trips early and use the official schedule to decide which day best matches birding, photography, banding or educational priorities." },
+      { title: "Use September 17-20 as the confirmed 2026 window", body: "The chamber still displays the 38th celebration dated September 17–20, 2026; that edition is over. Its linked activity page now prominently advertises the separate Winter Texan Appreciation Day on January 21, 2027. That January date is not a HummerBird festival date. No 2027 HummerBird window or current ticket offer is confirmed here." },
+      { title: "Choose activities before choosing the day", body: "Speaker sessions, field trips and home tours are distinct activities, some with capacity limits. The chamber's currently displayed HummerBird ticket button refers to the 2026 page; wait for the dated next-edition program and booking links. Independent birding in Rockport-Fulton is a separate trip from festival registration." },
       { title: "Build a coastal nature weekend", body: "Rockport and Fulton make the celebration a natural anchor for a broader Aransas County trip. Leave time for coastal birding, beaches, seafood and nearby wildlife destinations outside the programmed festival hours." },
     ],
     relatedLinks: [
@@ -27,6 +27,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Rockport-Fulton Chamber — HummerBird Celebration", url: "https://www.rockport-fulton.org/hummerbird-celebration/" },
       { label: "Rockport-Fulton Chamber — 2026 event listing", url: "https://members.rockport-fulton.org/events/details/2026-hummerbird-celebration-64768" },
+      { label: "Chamber activity page (mixed event content; verify identity and date)", url: "https://www.rockport-fulton.org/about-the-hummerbird-celebration/" },
     ],
   },
   {
@@ -37,16 +38,16 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Washington County",
     region: "prairies-lakes",
     category: "rodeo",
-    startDate: "2026-09-11",
-    endDate: "2026-09-19",
-    dateNote: "The organizer's main 2026 fair schedule runs September 11-19. A separate Prospect Steer & Heifer Show is scheduled for September 5 before the principal fair week.",
+    startDate: "2027-09-10",
+    endDate: "2027-09-18",
+    dateNote: "The organizer’s Future Dates page confirms September 10–18, 2027 and separately September 15–23, 2028. The completed 2026 fair is not the current program; individual 2027 attractions and ticket details need separate confirmation.",
     venue: "Washington County Expo",
     officialUrl: "https://www.washingtoncofair.com/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Washington County Fair, promoted by its organizer as the oldest county fair in Texas, combines youth livestock, rodeo, a downtown Brenham parade, carnival attractions, contests and live entertainment across a full September fair week.",
     planningSections: [
-      { title: "Use September 11-19 for the principal 2026 fair week", body: "The official schedule begins its main sequence with youth rodeo and fair-week activities on Friday, September 11 and continues through rodeo, livestock sales and entertainment on Saturday, September 19. The organizer separately schedules a prospect show on September 5." },
-      { title: "Pick the weekend around your priority", body: "The opening weekend includes the parade, barbecue cook-off and ranch rodeo, while September 17-19 brings the headline rodeo run and later livestock sales. Review the official category schedules before booking because the fair is not the same program every day." },
+      { title: "Use September 10–18 for the confirmed 2027 fair", body: "The association publishes the 2027 nine-day fair window separately from its detailed activity calendar. Do not transfer the 2026 youth rodeo, prospect show or entertainment dates to the 2027 edition." },
+      { title: "Pick the weekend around your priority", body: "The organizer’s current menu separates the ranch rodeo, youth rodeo, team roping, barbecue cook-off and livestock events, with 2026 champions archived separately. Choose the particular competition or attraction first; confirm its 2027 date, public admission and venue before buying." },
       { title: "Pair the fair with Brenham and Washington County", body: "The Expo is the event hub, but Brenham and the surrounding county support a fuller road trip. Leave time for the historic downtown and nearby Washington County destinations outside fair hours." },
     ],
     relatedLinks: [
@@ -54,6 +55,7 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas fairs and rodeos." },
     ],
     sources: [
+      { label: "Washington County Fair official future dates", url: "https://www.washingtoncofair.com/p/schedule-/future-dates" },
       { label: "Washington County Fair official schedule", url: "https://www.washingtoncofair.com/events" },
       { label: "Washington County Fair official rodeo schedule", url: "https://www.washingtoncofair.com/events/rodeo" },
       { label: "Washington County Fair official parade page", url: "https://www.washingtoncofair.com/p/thefair/parade" },
@@ -69,14 +71,14 @@ const records: MajorEventAuthorityRecord[] = [
     category: "rodeo",
     startDate: "2026-09-04",
     endDate: "2026-09-06",
-    dateNote: "The association promotes September 3-6, 2026 for the overall fair program. September 3 is primarily exhibit-entry activity; the public Fair, Rodeo & Livestock Show schedule runs September 4-6.",
+    dateNote: "The September 3–6, 2026 program is complete; the public fair ran September 4–6, with Thursday exhibit intake and scholarship pageant. The association now says it will see visitors next year but has not published a dated 2027 fair schedule.",
     venue: "Kendall County Fairgrounds",
     officialUrl: "https://kcfa.org/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Kendall County Fair, Rodeo & Livestock Show is a Hill Country Labor Day-weekend tradition in Boerne with rodeo competition, livestock, exhibits, contests, a major Saturday parade and community entertainment.",
     planningSections: [
-      { title: "Use September 4-6 for the visitor-facing fair window", body: "The Kendall County Fair Association banner covers September 3-6, while its event calendar shows September 3 as exhibit-entry activity and the Fair, Rodeo & Livestock Show running Friday September 4 through Sunday September 6." },
-      { title: "Saturday carries the parade and a full fair day", body: "The association schedules its annual fair parade for Saturday morning, followed by a full day of fair and rodeo activity. If the parade is important, arrive before downtown access tightens and confirm the current route and parking guidance." },
+      { title: "Use September 4-6 for the visitor-facing fair window", body: "The 2026 day-by-day program opened Friday at 5 p.m., Saturday at 10 a.m. and Sunday at 9 a.m.; Friday admission was $20. These are historical terms, not a 2027 ticket or hour guarantee." },
+      { title: "Saturday carries the parade and a full fair day", body: "The 2026 program included a downtown parade, youth livestock exhibits and evening rodeos. The organizer's archived parade rows give inconsistent day and time information, so use the next edition's separate parade announcement before planning road closures or arrival." },
       { title: "Make Boerne part of the trip", body: "The fairgrounds sit within a broader Hill Country destination. Combine the event with downtown Boerne and Kendall County rather than treating the rodeo grounds as the only stop." },
     ],
     relatedLinks: [
@@ -86,6 +88,7 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Kendall County Fair Association official site", url: "https://kcfa.org/" },
       { label: "Kendall County Fair Association September 2026 calendar", url: "https://kcfa.org/events/month/2026-09/" },
+      { label: "Kendall County Fair Association fair program and next-edition notice", url: "https://kcfa.org/fair-rodeo-livestock-show/" },
     ],
   },
   {
@@ -131,11 +134,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-04",
     venue: "Rockport Festival Grounds",
     officialUrl: "https://members.rockport-fulton.org/events/details/2026-seafair-64771",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Rockport-Fulton SeaFair is a long-running Gulf Coast community festival with seafood, crab races, arts and crafts, a market, boat and car displays, cardboard boat races and live entertainment at the Rockport Festival Grounds.",
     planningSections: [
-      { title: "Use October 1-4 as the organizer-confirmed 2026 window", body: "The Rockport-Fulton Chamber lists SeaFair from Thursday, October 1 through Sunday, October 4, 2026 at the Rockport Festival Grounds. Check the official event page for the final daily schedule, contest times and ticket details." },
-      { title: "Choose a day around the signature competitions", body: "SeaFair mixes staged entertainment with crab races, cardboard boat races, a cook-off, market vendors and vehicle displays. Review the organizer schedule before choosing a single day so the activity you care about is actually running." },
+      { title: "Treat October 1–4, 2026 as a completed edition", body: "The chamber still lists the 51st SeaFair held October 1–4, 2026, at 101 Seabreeze Drive in Rockport Harbor. No 2027 dates are confirmed on the reviewed organizer pages. The 2026 Thursday community night had free grounds admission but a separate carnival charge; do not assume those terms will recur." },
+      { title: "Choose a day around the signature competitions", body: "SeaFair mixes staged entertainment with crab races, cardboard boat races, a cook-off, market vendors and vehicle displays. The 2026 program also included a Saturday morning parade. The chamber’s linked schedule still identifies the completed edition; check the next published program for contest registration and timing." },
       { title: "Pair SeaFair with the Rockport-Fulton waterfront", body: "The festival is one piece of a broader coastal trip. Leave room for the waterfront, seafood, birding and other Aransas County stops before or after the festival grounds." },
     ],
     relatedLinks: [
@@ -144,6 +147,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Rockport-Fulton Chamber — 2026 SeaFair", url: "https://members.rockport-fulton.org/events/details/2026-seafair-64771" },
+      { label: "Rockport-Fulton Chamber SeaFair festival information", url: "https://www.rockport-fulton.org/seafair/" },
+      { label: "Rockport-Fulton Chamber SeaFair schedule", url: "https://www.rockport-fulton.org/seafair-schedule/" },
       { label: "Rockport-Fulton Chamber festival calendar", url: "https://members.rockport-fulton.org/events/search?Lookahead=&c=1&q=" },
     ],
   },

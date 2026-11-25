@@ -1,16 +1,91 @@
 import assert from "node:assert/strict";
 import { readFile, appendFile } from "node:fs/promises";
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 const registry = JSON.parse(await readFile("ops/editorial/texas-culture-outdoors-review-groups.json", "utf8"));
+const mumPhoto = await readFile("public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp");
+assert.ok(mumPhoto.length > 10000 && mumPhoto.length <= 125000, "Licensed mum hero exceeds byte budget");
+assert.equal(mumPhoto.subarray(0,4).toString(), "RIFF");
+assert.equal(mumPhoto.subarray(8,12).toString(), "WEBP");
+assert.equal(createHash("sha256").update(mumPhoto).digest("hex"), "9785d27a3f43ed12f4bb8b5cb299cc12ba798d689f52f4e1f1d2095c4028079f", "Pinned licensed photograph changed without provenance review");
 const argv = new Set(process.argv.slice(2));
 const scopeFlag = process.argv.find(value => value.startsWith("--scope="));
 const scope = scopeFlag?.slice(8) || "all";
 const today = new Date().toISOString().slice(0, 10);
 const problems = [];
 const rows = [];
+const independentProofs = [];
+const INDEPENDENT_SOURCE_PATH = "/texas-dance-halls-honky-tonks";
+const INDEPENDENT_SOURCES = new Set([
+  "https://gruenehall.com/events/month/",
+  "https://gruenehall.com/faq/",
+]);
+const MAX_INDEPENDENT_AGE_MS = 30 * 86400000;
+const SOURCE_LEDGER_ORIGIN = "https://ftkznprjljkhymknvhye.supabase.co";
+
+// A publisher's GitHub-runner 403 is a transport restriction, not a
+// factual change. Only these two separately enrolled sources may use
+// fresh, exact-fingerprint editorial review + independent HTTP evidence.
+// A plain 200, changed fingerprint, expired review, or missing credential
+// never establishes success. No browser or page-canonical check uses this.
+function validIndependentEvidence(row, review, url, now = Date.now()) {
+  if (!INDEPENDENT_SOURCES.has(url) || !row || !review) return false;
+  const probeAt = Date.parse(row.last_checked_at), reviewAt = Date.parse(review.checked_at);
+  const evidenceProbeAt = Date.parse(review.details?.probe_checked_at);
+  if (![probeAt, reviewAt, evidenceProbeAt].every(Number.isFinite)) return false;
+  if ([probeAt, reviewAt, evidenceProbeAt].some(t => t > now || now-t > MAX_INDEPENDENT_AGE_MS)) return false;
+  if (reviewAt < evidenceProbeAt || probeAt < evidenceProbeAt) return false;
+  return row.path === INDEPENDENT_SOURCE_PATH && row.source_url === url &&
+    row.http_status === 200 && row.pending_request_id === null &&
+    ["source_reviewed","source_unchanged"].includes(row.result) &&
+    typeof row.fingerprint === "string" && /^[a-f0-9]{32}$/i.test(row.fingerprint) &&
+    review.path === INDEPENDENT_SOURCE_PATH && review.source_url === url &&
+    review.event_type === "editorial_verified" &&
+    review.details?.source === url &&
+    review.details?.source_fingerprint === row.fingerprint &&
+    typeof review.details?.independent_comparison === "string" &&
+    review.details.independent_comparison.length > 30;
+}
+{
+  const url = [...INDEPENDENT_SOURCES][0], now = Date.parse("2026-11-25T15:00:00Z");
+  const at = "2026-11-25T14:52:37Z", hash = "a".repeat(32);
+  const row = {path:INDEPENDENT_SOURCE_PATH,source_url:url,http_status:200,pending_request_id:null,result:"source_reviewed",fingerprint:hash,last_checked_at:at};
+  const review = {path:INDEPENDENT_SOURCE_PATH,source_url:url,event_type:"editorial_verified",checked_at:"2026-11-25T14:55:00Z",details:{source:url,source_fingerprint:hash,probe_checked_at:at,independent_comparison:"Actual source claims compared with published guide."}};
+  assert.ok(validIndependentEvidence(row,review,url,now));
+  for (const bad of [{...row,result:"source_changed"},{...row,fingerprint:"b".repeat(32)},{...row,pending_request_id:123},{...row,http_status:403},{...row,last_checked_at:"2026-10-01T00:00:00Z"}]) {
+    assert.equal(validIndependentEvidence(bad,review,url,now),false);
+  }
+  assert.equal(validIndependentEvidence(row,{...review,details:{...review.details,source_fingerprint:null}},url,now),false);
+  assert.equal(validIndependentEvidence(row,review,"https://other.invalid/",now),false);
+  assert.equal(validIndependentEvidence(row,review,url,now+31*86400000),false);
+}
+
+async function independentSourceProof(url, description) {
+  if (!INDEPENDENT_SOURCES.has(url) || description !== INDEPENDENT_SOURCE_PATH + " primary source") return null;
+  const key = process.env.TD_SOURCE_LEDGER_READ_KEY;
+  if (!key) return null;
+  const headers = {apikey:key,Authorization:"Bearer "+key,Accept:"application/json"};
+  // Fixed, authenticated project's read-only GET queries only; no secret
+  // is sent to a source publisher or emitted into the Actions log.
+  async function readLedger(table, fields, extra={}) {
+    const request = new URL("/rest/v1/"+table,SOURCE_LEDGER_ORIGIN);
+    for (const [k,v] of Object.entries({select:fields,path:"eq."+INDEPENDENT_SOURCE_PATH,source_url:"eq."+url,...extra})) request.searchParams.set(k,v);
+    const response=await fetch(request,{headers,redirect:"error",signal:AbortSignal.timeout(12000)});
+    if(!response.ok) return [];
+    const data=await response.json();
+    return Array.isArray(data)?data:[];
+  }
+  try {
+    const [row] = await readLedger("td_authority_verification_sources","path,source_url,http_status,pending_request_id,result,fingerprint,last_checked_at",{limit:"1"});
+    const reviews = await readLedger("td_authority_verification_checks","path,source_url,event_type,checked_at,details",{event_type:"eq.editorial_verified",order:"checked_at.desc",limit:"5"});
+    const reviewed=reviews.find(review=>validIndependentEvidence(row,review,url));
+    return reviewed?{source:url,probeAt:row.last_checked_at,reviewAt:reviewed.checked_at,transport:"GitHub HTTP 403; independent source ledger"}:null;
+  } catch { return null; }
+}
+
 
 assert.equal(registry.schemaVersion, 1);
 assert.equal(registry.groups.length, 5);
@@ -101,6 +176,15 @@ if (argv.has("--watch")) {
         }
       }
       if (!response.ok) {
+        if (!marker && response.status === 403) {
+          await response.body?.cancel();
+          const proof = await independentSourceProof(url,description);
+          if (proof) {
+            independentProofs.push(proof);
+            console.log("FIVE_GUIDE_INDEPENDENT_SOURCE_REVIEW "+JSON.stringify(proof));
+            return;
+          }
+        }
         problems.push(description + ": official/live response HTTP " + response.status + " at " + url);
         return;
       }
@@ -163,6 +247,7 @@ const summary = [
     .map(row => "| " + row.path + " | " + row.lastFactReview + " | " + row.ageDays + " | " + row.maxAgeDays + " |"),
   "",
   problems.length ? "### Action required\n" + problems.map(problem => "- " + problem).join("\n") : "No selected source reachability/age alerts.",
+  ...independentProofs.map(proof => "- Independent source proof (direct GitHub transport HTTP 403): "+proof.source+"; HTTP probe "+proof.probeAt+"; exact-fingerprint editorial review "+proof.reviewAt),
   "",
   "HTTP success does **not** certify factual accuracy. Do not alter reviewedAt until a person or verified research workflow actually rechecks facts.",
   "",

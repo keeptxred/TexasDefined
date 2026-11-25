@@ -9,6 +9,7 @@ import {readEditorial} from './refresh-canyon-lake-results.mjs';
 
 const team=readEditorial(readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8'));
 const pending=structuredClone(team);
+pending.season.games=pending.season.games.filter(g=>g.date<='2026-11-20');
 delete pending.season.games.at(-1).result;
 pending.season.record='8–2 overall · 6–1 district (through Nov. 13)';
 const NOW=new Date('2026-11-21T15:00:00.000Z');
@@ -139,4 +140,12 @@ test('November 20 published final reconciles and is no longer overdue',()=>{
   assert.equal(result.completed,11);
   assert.deepEqual(result.due,[]);
   assert.ok(result.recordMatchesAuthor);
+});
+
+
+test('November 27 semifinal is scheduled but not stale until the next Texas calendar day',()=>{
+  assert.deepEqual(scoreSnapshot(team,'2026-11-27').due,[]);
+  assert.deepEqual(scoreSnapshot(team,'2026-11-28').due,[{date:'2026-11-27',opponent:'Comal Davenport'}]);
+  assert.equal(scoreSnapshot(team,'2026-11-28').record,'9–2');
+  assert.ok(postGameSearchQueries(team,'2026-11-28').some(q=>q.query.includes('Comal Davenport')&&q.query.includes('2026-11-27')));
 });

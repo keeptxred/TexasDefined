@@ -4,7 +4,10 @@ import { readFileSync } from 'node:fs';
 import { readEditorial, validatedFeed, reconcile, applyUpdate, texasToday } from './refresh-canyon-lake-results.mjs';
 
 const source=readFileSync('src/data/high-school-football/program-editorial-comal-canyon-lake.ts','utf8');
-const original=readEditorial(source);
+const current=readEditorial(source);
+// Keep the historical area-round test fixture isolated from later scheduled games.
+const original=structuredClone(current);
+original.season.games=original.season.games.filter(g=>g.date<='2026-11-20');
 const pending=structuredClone(original);
 delete pending.season.games.at(-1).result;
 pending.season.record='8–2 overall · 6–1 district (through Nov. 13; includes one playoff win)';
@@ -92,4 +95,13 @@ test('historical finals are locked against later contradictory provider reports'
 test('timezone-based review date is Texas-local rather than UTC rollover',()=>{
   assert.equal(texasToday(new Date('2026-11-21T02:00:00Z')),'2026-11-20');
   assert.equal(texasToday(new Date('2026-11-21T15:00:00Z')),'2026-11-21');
+});
+
+
+test('regional semifinal remains a future fixture through game day and becomes due next day',()=>{
+  const fixture=current.season.games.find(g=>g.date==='2026-11-27');
+  assert.deepEqual(fixture,{date:'2026-11-27',opponent:'Comal Davenport',site:'Neutral',kickoff:'3:00 PM'});
+  const empty={season:'2026',teamSlug:'comal-canyon-lake',games:[]};
+  for(const today of ['2026-11-24','2026-11-27'])assert.deepEqual(reconcile({editorial:current,primary:empty,secondary:empty,primaryHost,secondaryHost,today}).missing,[]);
+  assert.deepEqual(reconcile({editorial:current,primary:empty,secondary:empty,primaryHost,secondaryHost,today:'2026-11-28'}).missing,['2026-11-27 / Comal Davenport: two independent finals missing']);
 });

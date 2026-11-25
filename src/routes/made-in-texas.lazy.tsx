@@ -41,7 +41,7 @@ function MadeInTexasPage() {
     const link = document.createElement('a'); link.href = url; link.download = 'texasdefined-made-in-texas.csv'; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   return (
-    <main>
+    <div>
       <section className="border-b border-border bg-muted/30 py-16 sm:py-24">
         <Container>
           <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
@@ -50,7 +50,7 @@ function MadeInTexasPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas industry & homegrown brands</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">Made, Built & Born in Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas products and companies are part of the story of their hometowns. This guide separates things actually made or processed in Texas from brands that were founded here, are headquartered here or maintain major Texas operations.</p>
-          <p className="mt-4 text-xs text-muted-foreground">TexasDefined <a href="/editorial-policy" className="underline">Editorial Desk</a> · Directory updated November 21, 2026. Individual evidence dates reflect the cited record, not a product-origin guarantee.</p>
+          <p className="mt-4 text-xs text-muted-foreground">TexasDefined <a href="/editorial-policy" className="underline">Editorial Desk</a> · Directory updated November 24, 2026. Individual evidence dates reflect the cited record, not a product-origin guarantee.</p>
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
             <Stat value={String(MADE_IN_TEXAS_ENTRIES.length)} label="Entries" />
             <Stat value={String(new Set(MADE_IN_TEXAS_ENTRIES.map((item) => item.countySlug)).size)} label="Counties represented" />
@@ -134,7 +134,7 @@ function MadeInTexasPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 

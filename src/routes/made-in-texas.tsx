@@ -24,7 +24,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: 'Made, Built & Born in Texas',
           description,
-          dateModified: '2026-11-21',
+          dateModified: '2026-11-24',
           isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
           publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
         },

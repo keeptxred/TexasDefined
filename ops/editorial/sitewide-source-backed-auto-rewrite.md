@@ -89,3 +89,14 @@ For a genuinely new source-supported correction on the same canonical, the exact
 evidence ledger may be updated with a newer timestamp; Git history preserves its
 previous versions. Unchanged pre-existing ledgers are treated as no-op, not as a new
 content patch. Public review dates and substantive source requirements remain protected.
+
+
+## Stranded bot PR recovery
+
+At 08:17 UTC daily, the existing trusted finisher selects the oldest open
+source-backed bot PR, if any. This does not rerun the model or charge for a
+new draft. It retains the same verified source-run identity, immutable source
+artifact, current-source quotation checks, exact-head full validation, merge
+protection, and post-merge deployment dispatch. If main is too active or the
+source artifact has expired, the run fails closed and leaves the PR for
+review; it never substitutes another page's evidence or claims success.

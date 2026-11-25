@@ -68,9 +68,9 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     sourceHref: "https://commons.wikimedia.org/wiki/File:Gruene_hall.jpg",
   },
   "texas-homecoming-mums": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
-    caption: "A 2023 Texas high-school homecoming mum shows how a chrysanthemum-centered tradition became a large, personalized display.",
+    caption: "A 2023 Goldthwaite High School mum made by L & L Spirit Co. illustrates the personalized school tradition. Original photograph resized and WebP-compressed; no crop.",
     credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
     sourceHref: "https://commons.wikimedia.org/wiki/File:Goldthwaite_High_School_Homecoming_Mum.jpg",
   },
@@ -277,7 +277,7 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-brand-origin-stories": [
     { label: "Blue Bell — dated production facility fact sheet", href: "https://www.bluebell.com/news/food-safety-fact-sheet/", note: "Identifies the three production sites as of June 2022." },
     { label: "Texas Historical Commission — Spoetzl Brewery marker", href: "https://atlas.thc.texas.gov/Details/5285005011", note: "Dates the purchase to 1915 and documents Prohibition and family ownership." },
-    { label: "Smithsonian — 7-Eleven display rooster", href: "https://www.si.edu/object/7-eleven-display-rooster%3Anmah_1204808", note: "Documents the Dallas Southland Ice Company origins and development of convenience retail." },
+    { label: "Handbook of Texas — Southland Corporation", href: "https://www.tshaonline.org/handbook/entries/southland-corporation", note: "Documented origin of Dallas-area Southland Ice in 1927, predecessor of 7-Eleven." },
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
     { label: "Shiner — Brewery history", href: "https://shiner.com/brewery/", note: "The brewery's timeline documents brewing in Shiner since 1909 and its German and Czech community roots." },
@@ -440,7 +440,7 @@ const foodBrandComparisons: Partial<Record<string, { heading: string; columns: s
         "First convenience store"
       ]
     ],
-    "note": "Founding dates describe the historical business or product, not present ownership or factory location."
+    "note": "Six brands receive full case studies in this article; Dr Pepper and 7-Eleven appear as additional Texas-born historical context. Dates identify the original product or business, not present ownership or product manufacture."
   },
   "texas-chili-con-carne-history": {
     "heading": "Three ways to understand a Texas bowl of red",
@@ -559,9 +559,12 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
     "texas-chicken-fried-steak-guide",
     "texas-breakfast-taco-guide",
   ]);
-  const deliveredImageSrc = image && licensedCulturePhotoSlugs.has(guide.slug)
-    ? editorialImageSrc(image.src)
-    : image?.src;
+  // Serve the exact licensed portrait as a compressed local derivative.
+  const deliveredImageSrc = guide.slug === "texas-homecoming-mums"
+    ? "/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp"
+    : image && licensedCulturePhotoSlugs.has(guide.slug)
+      ? editorialImageSrc(image.src)
+      : image?.src;
   const sources = guideSources[guide.slug] ?? [];
   const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
@@ -569,6 +572,8 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
   const reviewedNovember2026 = new Set(["texas-tall-tales-folklore", "texas-dance-halls-honky-tonks", "texas-homecoming-mums", "texas-natural-wonders-bucket-list"]).has(guide.slug);
   const foodBrandReviewed = new Set(["texas-brand-origin-stories", "texas-chili-con-carne-history", "texas-chicken-fried-steak-guide", "texas-breakfast-taco-guide"]).has(guide.slug);
+  const foodBrandLastmod = guide.slug === "texas-brand-origin-stories" ? "2026-11-24" : "2026-11-21";
+  const foodBrandReviewLabel = guide.slug === "texas-brand-origin-stories" ? "November 24, 2026" : "November 21, 2026";
   const imageUrl = deliveredImageSrc
     ? deliveredImageSrc.startsWith("http://") || deliveredImageSrc.startsWith("https://")
       ? deliveredImageSrc
@@ -597,7 +602,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
-        ...(foodBrandReviewed ? { dateModified: "2026-11-21" } : reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
+        ...(foodBrandReviewed ? { dateModified: foodBrandLastmod } : reviewedNovember2026 ? { dateModified: "2026-11-20" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -665,10 +670,10 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
-        {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review November 21, 2026. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
+        {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review {foodBrandReviewLabel}. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Substantive guide update November 20, 2026 (primary-source review November 18). Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
-          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={hasHomecomingMumSupplies ? 1876 : foodBrandReviewed ? 1280 : undefined} height={hasHomecomingMumSupplies ? 3922 : foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
+          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={hasHomecomingMumSupplies ? 640 : foodBrandReviewed ? 1280 : undefined} height={hasHomecomingMumSupplies ? 1338 : foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}{foodBrandReviewed ? " Display crop for page layout." : ""}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}{foodBrandReviewed && image.credit.includes("CC BY 4.0") ? <> · <a href="https://creativecommons.org/licenses/by/4.0/" className="underline">License terms</a></> : (foodBrandReviewed || hasHomecomingMumSupplies) && image.credit.includes("CC BY-SA 4.0") ? <> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC0") ? <> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" className="underline">CC0 terms</a></> : null}</> : null}
@@ -719,7 +724,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
 
         {comparison ? <section className="border-b border-border py-8" aria-labelledby="quick-comparison">
           <h2 id="quick-comparison" className="font-display text-3xl">{comparison.heading}</h2>
-          <div className="mt-5 overflow-x-auto"><table className="w-full border-collapse text-left text-sm">
+          <div className="mt-5 overflow-x-auto"><table aria-labelledby="quick-comparison" className="w-full border-collapse text-left text-sm">
             <thead><tr>{comparison.columns.map(column => <th key={column} scope="col" className="border border-border bg-muted p-3">{column}</th>)}</tr></thead>
             <tbody>{comparison.rows.map(row => <tr key={row[0]}>{row.map((cell,index) => index === 0 ? <th key={index} scope="row" className="border border-border p-3">{cell}</th> : <td key={index} className="border border-border p-3">{cell}</td>)}</tr>)}</tbody>
           </table></div><p className="mt-3 text-xs leading-5 text-muted-foreground">{comparison.note}</p>

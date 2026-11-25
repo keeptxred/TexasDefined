@@ -14,12 +14,12 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "central-texas-state-fair",
     whyItMatters: "The Central Texas State Fair is one of the first major fall fair weekends on the calendar, combining carnival attractions, concerts, PBR events and family programming in Belton.",
     planningSections: [
-      { title: "Choose the headline attraction first", body: "The fair mixes general-admission attractions with separately ticketed PBR and demolition-derby events, so decide which headline program matters before selecting the day." },
-      { title: "Getting to the fair", body: "For directions to the fair, use 301 W Loop 121, Belton, TX 76513." },
+      { title: "Choose the headline attraction first", body: "The organizer’s September 2–5, 2027 calendar lists demolition derby on Friday and PBR at 7 p.m. Saturday and Sunday. Some page labels still contain old dates; choose the dated 2027 event listing rather than an archived attraction caption." },
+      { title: "Getting to the fair", body: "At 301 W Loop 121, the organizer’s 2027 carnival page lists free parking, 5 p.m.–midnight Thursday/Friday and noon–midnight on the weekend. It says carnival wristbands are day-specific and do not include grounds admission, and requires closed-toe shoes. Its older FAQ gives a different Thursday closing time; use the dated carnival page and confirm before departure." },
       { title: "Build around Belton", body: "If you are traveling into Bell County, leave enough time for meals and other local stops rather than treating the fairgrounds as the only destination." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-bell", label: "Explore Bell County", description: "Plan more of the Central Texas trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other fall fairs and festivals." }],
-    sources: [{ label: "Central Texas State Fair official events calendar", url: "https://www.centraltexasstatefair.com/events" }, { label: "Central Texas State Fair official ticket information", url: "https://www.centraltexasstatefair.com/p/tickets--deals" }],
+    sources: [{ label: "Central Texas State Fair official events calendar", url: "https://www.centraltexasstatefair.com/events" }, { label: "Central Texas State Fair official ticket information", url: "https://www.centraltexasstatefair.com/p/tickets--deals" }, { label: "Official dated 2027 carnival hours and wristbands", url: "https://www.centraltexasstatefair.com/events/2027/carnival2" }, { label: "Organizer FAQ (some older-year operational terms)", url: "https://www.centraltexasstatefair.com/p/about-ctsf/faqs" }],
   },
   {
     slug: "bandera-round-up-cattle-drive",

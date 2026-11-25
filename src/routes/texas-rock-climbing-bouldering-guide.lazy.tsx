@@ -1,6 +1,5 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import enchantedRock from "@/assets/enchanted-rock.jpg";
 import { Container } from "@/components/layout/Container";
 
 const officialSources = [
@@ -124,7 +123,7 @@ function TexasClimbingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={enchantedRock} alt="Granite dome landscape at Enchanted Rock in the Texas Hill Country" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <img src="/images/editorial/enchanted-rock-climbing-720.webp" width={720} height={405} alt="Granite dome landscape at Enchanted Rock in the Texas Hill Country" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
             <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock is one of several Texas public landscapes where climbing access is managed alongside conservation and other visitor uses.</figcaption>
           </figure>
 

@@ -131,7 +131,9 @@ jobs:
         shell: bash
         run: |
           # GitHub's repository-wide artifact response can be very large and has
-          # failed with truncated JSON. Search recent production runs instead.
+          # failed with truncated JSON. Search bounded recent production runs instead.
+          # Large editorial merge bursts can create >12 runs during one remote-image build;
+          # a 60-run window recovers the exact fingerprint-matched derivative artifact.
           # Only reuse artifacts with the exact source-URL/slug and WebP transform contract checksum.
           set -uo pipefail
           mkdir -p public/images/discover
@@ -142,7 +144,7 @@ jobs:
 
           runs_json=""
           for attempt in 1 2 3; do
-            if runs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=12" 2>"$cache_dir/runs.err")" &&
+            if runs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=60" 2>"$cache_dir/runs.err")" &&
                jq -e '.workflow_runs | type == "array"' >/dev/null 2>&1 <<<"$runs_json"; then
               break
             fi
@@ -157,15 +159,18 @@ jobs:
           fi
 
           restored_artifacts=0
+          expected_count="$(node scripts/assets/materialize-discover-overrides.mjs --list-slugs | wc -l | tr -d ' ')"
           # Recent first: preserve the freshest verified artifact's copy of each
           # filename; older matching artifacts can supply additional files.
+          # Some successful production runs contain 17+ artifacts; per_page=50
+          # ensures the governed image artifact is never hidden beyond page one.
           while IFS= read -r prior_run; do
             [[ "$prior_run" =~ ^[0-9]+$ ]] || continue
             [[ "$prior_run" == "$GITHUB_RUN_ID" ]] && continue
 
             artifact_json=""
             for attempt in 1 2; do
-              if artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/artifacts?per_page=10" 2>"$cache_dir/artifacts.err")" &&
+              if artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/artifacts?per_page=50" 2>"$cache_dir/artifacts.err")" &&
                  jq -e '.artifacts | type == "array"' >/dev/null 2>&1 <<<"$artifact_json"; then
                 break
               fi
@@ -194,7 +199,13 @@ jobs:
               unzip -j -n "$archive" '*.webp' -d public/images/discover >/dev/null || true
               restored_artifacts=$((restored_artifacts + 1))
             done < <(jq -r --arg prefix "$artifact_prefix"               '.artifacts[] | select(.expired == false and (.name | startswith($prefix))) | .id' <<<"$artifact_json")
-            [[ "$restored_artifacts" -ge 8 ]] && break
+            # A fingerprint-matching artifact with all required derivatives is sufficient;
+            # avoid querying dozens more GitHub run artifact endpoints under rapid merge churn.
+            current_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
+            if [[ "$current_count" -ge "$expected_count" ]]; then
+              echo "All $expected_count governed derivatives restored; no additional artifact lookups needed."
+              break
+            fi
           done < <(jq -r '.workflow_runs[].id' <<<"$runs_json")
 
           restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
@@ -224,7 +235,13 @@ jobs:
           # rebuild every derivative without depending on a prior artifact.
           npm run prebuild
           node scripts/assets/materialize-discover-overrides.mjs
-          npm run build
+          # npm run build normally invokes prebuild automatically a second time,
+          # redundantly generating governed image derivatives AFTER Discover is
+          # already materialized. Run the explicitly requested build only; npm's
+          # documented ignore-scripts setting suppresses implicit pre/post hooks
+          # but DOES run the named build script. Keep the explicit prebuild above.
+          node -e "const s=require('./package.json').scripts; if(!s.prebuild||s.postbuild||s.build!=='vite build')process.exit(1)"
+          npm --ignore-scripts run build
           mkdir -p dist/client/images/discover
           cp -f public/images/discover/*.webp dist/client/images/discover/
           discover_asset_count="$(find dist/client/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"

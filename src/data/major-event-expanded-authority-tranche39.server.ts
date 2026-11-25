@@ -77,11 +77,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-11",
     venue: "Montgomery County Fairgrounds",
     officialUrl: "https://www.friendsofconroe.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Conroe Cajun Catfish Festival is a three-day Montgomery County food-and-music tradition that combines Cajun flavor, live entertainment, festival vendors and community fundraising at the Montgomery County Fairgrounds.",
     planningSections: [
-      { title: "Use October 9-11 as the confirmed 2026 festival weekend", body: "Friends of Conroe identifies the 37th annual Conroe Cajun Catfish Festival for October 9 through 11, 2026 at the Montgomery County Fairgrounds. The organizer publishes separate Friday, Saturday and Sunday operating hours." },
-      { title: "Tickets and updates for the next edition", body: "The 2026 festival offered one-day admission and a weekend pass, with different operating hours each day. The organizer's entertainment lineup is labeled 2026. Use Get Updates on the official festival site to follow announcements for the next edition." },
+      { title: "Use October 9-11 as the confirmed 2026 festival weekend", body: "The October 9–11, 2026 edition at the Montgomery County Fairgrounds is complete. Friends of Conroe now welcomes visitors to its 38th edition in 2027 and describes the annual second-full-weekend-of-October pattern. The 2027 FAQ says details are forthcoming; no exact new dates, venue or admission terms are confirmed here." },
+      { title: "Tickets and updates for the next edition", body: "The completed 2026 festival offered individual-day and weekend admission. The official FAQ has been replaced with a 2027 information-coming-soon notice. Wait for the new ticket release and entertainment schedule; use the organizer's update signup rather than an old ticket link." },
       { title: "Connect the festival to Conroe and Montgomery County", body: "The fairgrounds location makes the festival easy to pair with Conroe, Lake Conroe and other Montgomery County stops. Build the food-and-music weekend into a broader local itinerary instead of treating the ticket gate as the whole trip." },
     ],
     relatedLinks: [
@@ -91,6 +91,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Friends of Conroe official festival site", url: "https://www.friendsofconroe.com/" },
+      { label: "Friends of Conroe 2027 edition announcement and annual pattern", url: "https://www.friendsofconroe.com/p/catfishfestival/festival-information" },
+      { label: "Friends of Conroe current festival FAQ", url: "https://www.friendsofconroe.com/p/catfishfestival/festival-faqs" },
       { label: "2026 Conroe Cajun Catfish Festival sponsor notice", url: "https://www.friendsofconroe.com/p/catfishfestival/friend-of-tfoc-sign-sponsor" },
       { label: "Conroe Cajun Catfish Festival tickets and hours", url: "https://www.friendsofconroe.com/p/catfishfestival/tickets-and-packages" },
     ],

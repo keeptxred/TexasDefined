@@ -1630,8 +1630,8 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "sourceName": "South Texas Striders / Athlete Guild Productions official 2026 race-registration page",
     "summary": "The original race-registration page confirms the Merry Miles holiday 5K and Kids Dash at Coastal Bend Distillery on Saturday, December 5, 2026. The tentative schedule has check-in 3:30–4:25 p.m., Kids Dash at 4:45 p.m., and 5K run/walk at 5 p.m.; race organizers advise that the City of Beeville's Christmas parade follows their event but do not independently provide a confirmed parade start or route. Advance registration information is at the official race page. This is a separate Christmas-themed community activity, not evidence of a 2027 edition.",
     "sourceVerifiedAt": "2026-11-23"
-  }
-  ,{
+  },
+  {
     "slug": "hughes-springs-christmas-parade-and-christmas-in-park-2026",
     "title": "Hughes Springs Christmas Parade & Christmas in the Park",
     "city": "Hughes Springs",
@@ -1671,6 +1671,90 @@ export const verifiedCountyChristmasEvents2026: ReadonlyArray<Pick<TexasEventRec
     "officialEventUrl": "https://tpwd.texas.gov/calendar/mission-tejas/tejas-christmas-ornaments",
     "sourceName": "Texas Parks and Wildlife Department",
     "summary": "Park staff will lead a holiday craft session from 1:30–3:30 p.m. Saturday, December 19, 2026, at the visitor center by headquarters. Activities include decorating wooden ornaments and painting small stocking pins. Regular park admission is $4 per person; children 12 and younger and valid Texas State Parks Pass holders enter free. Confirm availability and accessibility with the park before visiting. No 2027 edition or image permission is assumed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "fort-lancaster-frontier-ornament-workshop-2026",
+    "title": "Fort Lancaster Frontier Ornament Workshop",
+    "city": "Sheffield",
+    "countySlug": "crockett",
+    "countyName": "Crockett County",
+    "region": "big-bend",
+    "startDate": "2026-12-19",
+    "venueName": "Fort Lancaster and Battlefield State Historic Site, 629 Fort Lancaster Rd., Sheffield",
+    "officialEventUrl": "https://thc.texas.gov/holidays-state-historic-sites",
+    "sourceName": "Texas Historical Commission",
+    "summary": "The Texas Historical Commission schedules the second edition of this craft program for Saturday, December 19, 2026, from 1 to 3 p.m. at Fort Lancaster. Visitors can make a holiday decoration inspired by frontier history. The site is east of Sheffield in Crockett County; check the site's current admission, supply availability and any registration requirements before leaving. No next-year date is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "fort-mckavett-victorian-christmas-2026",
+    "title": "Victorian Christmas at Fort McKavett",
+    "city": "Fort McKavett",
+    "countySlug": "menard",
+    "countyName": "Menard County",
+    "region": "hill-country",
+    "startDate": "2026-12-12",
+    "venueName": "Fort McKavett State Historic Site, 7066 FM 864, Fort McKavett",
+    "officialEventUrl": "https://thc.texas.gov/events/victorian-christmas-1",
+    "sourceName": "Texas Historical Commission",
+    "summary": "A living-history program runs Saturday, December 12, 2026, from 10 a.m. to 4 p.m. at the restored military post in Menard County. Historical interpreters portray nineteenth-century holiday customs of soldiers and civilian families. Check the site for admission, accessibility and weather updates before traveling. The organizer has not announced a next-year edition.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "big-spring-symphony-nutcracker-2026",
+    "title": "The Nutcracker — Big Spring Symphony and Ballet San Angelo",
+    "city": "Big Spring",
+    "countySlug": "howard",
+    "countyName": "Howard County",
+    "region": "panhandle",
+    "startDate": "2026-12-19",
+    "venueName": "Big Spring Municipal Auditorium, 310 E. 3rd Street, Big Spring",
+    "officialEventUrl": "https://bigspringsymphony.org/season-letter/",
+    "sourceName": "Big Spring Symphony Orchestra",
+    "summary": "The orchestra's 45th season includes a full production of Tchaikovsky's Nutcracker with Ballet San Angelo, scheduled Saturday, December 19, 2026, at 5:30 p.m. The concert is at Big Spring Municipal Auditorium. Check the orchestra's box office for current ticket prices, seating and availability; this is the Big Spring performance, not a San Angelo performance. No future holiday edition is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "throckmorton-cow-country-christmas-2026",
+    "title": "Cow Country Christmas in Throckmorton",
+    "city": "Throckmorton",
+    "countySlug": "throckmorton",
+    "countyName": "Throckmorton County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown courthouse square, Throckmorton",
+    "officialEventUrl": "https://www.throckmortonchamber.com/copy-of-cow-country-christmas",
+    "sourceName": "Throckmorton Chamber of Commerce",
+    "summary": "The Chamber confirms its downtown courthouse-square Christmas event for Saturday, December 12, 2026, from 2 to 6 p.m. Vendors will be on assigned downtown sidewalk spaces; vendor setup is scheduled from 1 to 2 p.m. The organizer lists registration fees of $30 for non-food vendors and $50 for vendors selling full meals. These are vendor charges, not spectator admission. Check the Chamber for current program and visitor arrangements; no 2027 edition is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "wink-christmas-parade-2026",
+    "title": "Wink Christmas Parade",
+    "city": "Wink",
+    "countySlug": "winkler",
+    "countyName": "Winkler County",
+    "region": "big-bend",
+    "startDate": "2026-12-04",
+    "venueName": "Wink, Texas (parade route to be announced)",
+    "officialEventUrl": "https://cityofwink.com/news-detail?item_id=36162",
+    "sourceName": "City of Wink",
+    "summary": "The City of Wink announced its 2026 Christmas parade for Friday, December 4. Its October 14 announcement does not establish a parade time or route. The city's November 5 registration notice sets November 30 as the entry deadline. Check the city for the final route, viewing arrangements and any changes before traveling. No 2027 date is confirmed.",
+    "sourceVerifiedAt": "2026-11-24"
+  },
+  {
+    "slug": "kermit-elf-run-2026",
+    "title": "Kermit Elf Run 5K and 1.5-Mile Walk",
+    "city": "Kermit",
+    "countySlug": "winkler",
+    "countyName": "Winkler County",
+    "region": "big-bend",
+    "startDate": "2026-12-12",
+    "venueName": "Winkler County Recreation Center, 1991 Tommy Thompson, Kermit",
+    "officialEventUrl": "https://runsignup.com/Race/TX/Kermit/elfrunkermittx",
+    "sourceName": "City of Kermit and The Pit Stop — organizer registration",
+    "summary": "The organizers confirm the third annual holiday run and walk for Saturday, December 12, 2026, at the Winkler County Recreation Center. The registration listing shows a 7:30 a.m.–noon program window, with packet pickup from 7:30 to 8:15 a.m. and registration closing at 8:15 a.m. The listed participant fees are $35 for the 5K and $20 for the walk; proceeds benefit Kermit Animal Control. Check the organizer for the actual race start, current registration availability and any changes. No spectator admission fee or 2027 edition is assumed.",
     "sourceVerifiedAt": "2026-11-24"
   }
 ];

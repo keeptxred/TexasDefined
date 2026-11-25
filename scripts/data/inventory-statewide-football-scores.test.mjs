@@ -124,3 +124,10 @@ test('a season before the slug belongs to its own school, never the preceding sc
  const rows=inspectEditorial(source,'program-editorial-b010.ts','2026-11-21');
  assert.equal(rows.find(r=>r.slug==='first').published,false);assert.equal(rows.find(r=>r.slug==='second').record,'3–5');assert.equal(rows.find(r=>r.slug==='second').overdue[0].opponent,undefined);assert.equal(rows.find(r=>r.slug==='second').overdue[0].away,'second');assert.equal(rows.find(r=>r.slug==='third').published,false);
 });
+
+
+test('statewide monitor adds the new Canyon Lake semifinal to next-day review, never before kickoff day ends',()=>{
+  const due=(today)=>inventory({today}).pages.find(p=>p.slug==='comal-canyon-lake')?.overdue??[];
+  assert.ok(!due('2026-11-27').some(g=>g.date==='2026-11-27'));
+  assert.ok(due('2026-11-28').some(g=>g.date==='2026-11-27'),'Newly scheduled semifinal must enter the public-source next-day research queue');
+});

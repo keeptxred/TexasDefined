@@ -62,3 +62,23 @@ for (const imagePath of affected) {
   );
 }
 console.log("Optimized 8 audited local images; saved " + savedBytes + " bytes in build assets.");
+
+// Also keep the already-used Enchanted Rock hero but deliver an intentionally
+// small mobile/desktop 16:9 derivative. Build-time only; source and license
+// provenance remain unchanged. Never fetch or hotlink an unlicensed image.
+const climbingSource=path.join(root,"src","assets","enchanted-rock.jpg");
+const climbingDestination=path.join(root,"public","images","editorial","enchanted-rock-climbing-720.webp");
+const climbingOriginal=await fs.readFile(climbingSource);
+const climbingImage=await sharp(climbingOriginal).rotate()
+  .resize(720,405,{fit:"cover",position:"attention"})
+  .webp({quality:70,effort:5})
+  .toBuffer();
+if(climbingImage.length>125000 || climbingImage.length>=climbingOriginal.length)
+  throw new Error("Enchanted Rock hero did not meet sub-125KB lossless-source build budget");
+await fs.mkdir(path.dirname(climbingDestination),{recursive:true});
+await fs.writeFile(climbingDestination,climbingImage);
+console.log("CLIMBING_HERO_WEBP_PASS "+JSON.stringify({
+  originalBytes:climbingOriginal.length,webpBytes:climbingImage.length,
+  width:720,height:405
+}));
+

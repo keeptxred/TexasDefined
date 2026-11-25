@@ -38,12 +38,12 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-25",
     venue: "Downtown Flatonia",
     officialUrl: "https://www.czhilispiel.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "Czhilispiel turns Flatonia's Czech and German heritage into a three-day small-town destination built around chili competition, Texas music, a biergarten, carnival, parade, arts and crafts and community races.",
     planningSections: [
-      { title: "Use October 23-25 as the confirmed 2026 weekend", body: "The organizer publishes Czhilispiel for Friday through Sunday, October 23-25, 2026 and says the festival is held every year on the fourth full weekend of October. Use the current schedule to choose among concerts, cook-off activity, the parade and other programs." },
-      { title: "Plan around the festival's heritage mix", body: "The event name itself reflects Flatonia's Czech and German roots, and the organizer pairs that heritage with chili, music, a biergarten and community traditions. Build enough time to experience more than a headline concert or cook-off entry." },
-      { title: "Make Flatonia part of the trip", body: "Czhilispiel occupies a compact small-town setting that works well as a Fayette County road trip. Pair the festival with local history, food and nearby communities instead of planning only for the event footprint." },
+      { title: "Use October 23-25 as the confirmed 2026 weekend", body: "The October 23–25, 2026 edition is complete. The organizer states its recurring fourth-full-weekend-of-October pattern, but its site still displays the 2026 lineup and schedule. Do not treat a calculated 2027 weekend as announced dates." },
+      { title: "Plan around the festival's heritage mix", body: "The organizer traces the festival to Flatonia's 1973 centennial. The name combines a Czech-influenced spelling of chili with the German word for play. The volunteer-run celebration has grown to include cook-offs, races, a carnival and concerts." },
+      { title: "Make Flatonia part of the trip", body: "The 2026 schedule illustrates distinct visitor choices: Friday cooking-team registration and evening music; Saturday running events, chili and barbecue judging, and visits to the Central Texas Rail History Center and E. A. Arnim Museum; Sunday downtown parade and car show. Check the next year's schedule and museum hours rather than relying on old times." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-fayette", label: "Explore Fayette County", description: "Connect Czhilispiel to Flatonia and the surrounding county." },
@@ -52,7 +52,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Czhilispiel official site", url: "https://www.czhilispiel.com/" },
-      { label: "Czhilispiel official weekend schedule", url: "https://www.czhilispiel.com/full-schedule-2025" },
+      { label: "Czhilispiel official 2026 weekend schedule (historical)", url: "https://www.czhilispiel.com/full-schedule-2025" },
     ],
   },
   {
@@ -121,15 +121,21 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Fayette County",
     region: "prairies-lakes",
     category: "culture",
-    startDate: "2026-10-25",
-    endDate: "2026-10-31",
+    startDate: "2027-01-21",
+    endDate: "2027-03-27",
+    occurrenceWindows: [
+      { label: "Winter Show at the Big Red Barn", startDate: "2027-01-21", endDate: "2027-01-23" },
+      { label: "Spring Show (Designer Day and regular shopping)", startDate: "2027-03-21", endDate: "2027-03-27" },
+    ],
+    dateNote: "The fair has two separately dated 2027 editions: Winter Show January 21–23 at Big Red Barn (Blue Hills through January 24) and Spring Show March 21–27, with Designer Day March 21 and opening day March 22. Blue Hills independently opens March 13. This is not a continuously open January–March fair; fall 2027 dates are not yet published.",
     venue: "Big Red Barn and Continental Barn",
     officialUrl: "https://www.roundtoptexasantiques.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-11-24",
     whyItMatters: "The Original Round Top Antiques Fair anchors one of Texas's most unusual shopping pilgrimages, drawing visitors to rural Fayette County for antiques, vintage finds, art and design across the historic Big Red Barn and Continental Barn during the much larger Round Top show season.",
     planningSections: [
-      { title: "Use October 25-31 as the official Fall Show window", body: "The Original Round Top Antiques Fair publishes its Fall Show for October 25 through 31, 2026, beginning with Designer Day on October 25 and regular opening-day shopping on October 26. Check the official ticket page before choosing a day because hours and admission vary across the week." },
+      { title: "Choose Winter or Spring 2027—not the completed 2026 Fall Show", body: "The organizer confirms winter shopping at the Big Red Barn January 21–23 and at Blue Hills January 21–24. Spring at the original fair is March 21–27; the March 21 Designer Day precedes the March 22 regular opening. Blue Hills separately advertises March 13–27. These are separate show windows; do not assume admission or vendor availability is identical across venues." },
       { title: "Understand the difference between the original fair and the wider Round Top season", body: "The organizer is the original show founded in 1968, while many other markets now operate along Highway 237 during the broader antiques season. This guide uses the Original Round Top Antiques Fair's own verified dates rather than assigning every surrounding venue the same schedule." },
+      { title: "Avoid borrowing another market’s dates or tickets", body: "The producer runs the Big Red Barn and Continental Barn, while Blue Hills and surrounding Round Top venues may publish different calendars. Winter 2027 tickets are advertised to begin sales November 29, 2026; check that release and venue-specific pricing rather than buying an old fall ticket or guessing the 2027 admission amount." },
       { title: "Treat the drive as part of the plan", body: "Round Top's rural setting and multi-venue antiques traffic reward an early start. Leave room for parking, carrying or shipping purchases and additional Fayette County stops instead of planning a tight in-and-out visit." },
     ],
     relatedLinks: [
@@ -138,7 +144,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Original Round Top Antiques Fair official site", url: "https://www.roundtoptexasantiques.com/" },
-      { label: "Original Round Top Antiques Fair Fall Show 2026", url: "https://www.roundtoptexasantiques.com/fall-show" },
+      { label: "Original Round Top Antiques Fair confirmed Winter 2027 dates", url: "https://www.roundtoptexasantiques.com/winter-show" },
+      { label: "Original Round Top Antiques Fair confirmed Spring 2027 dates", url: "https://www.roundtoptexasantiques.com/spring-show" },
       { label: "Original Round Top Antiques Fair ticket information", url: "https://www.roundtoptexasantiques.com/ticket-info" },
     ],
   },

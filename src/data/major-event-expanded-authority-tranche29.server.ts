@@ -138,11 +138,11 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-17",
     venue: "Civic Park at Hemisfair",
     officialUrl: "https://sanantoniobeerfestival.com/",
-    sourceCheckedAt: "2026-08-29",
-    whyItMatters: "The 21st annual San Antonio Beer Festival brings a large tasting lineup, music, food vendors and games to Civic Park at Hemisfair while supporting the San Antonio Food Bank, creating a major adults-only fall event in downtown San Antonio.",
+    sourceCheckedAt: "2026-11-24",
+    whyItMatters: "Founded in 2005, the San Antonio Beer Festival brings a large tasting lineup, music, food vendors and games to Civic Park at Hemisfair while supporting the San Antonio Food Bank, creating a major adults-only fall event in downtown San Antonio.",
     planningSections: [
-      { title: "Use October 17 as the fixed festival day", body: "The organizer confirms Saturday, October 17, 2026 at Civic Park at Hemisfair. VIP entry begins at noon, GA Plus at 1 p.m., general admission at 2 p.m., and the festival closes at 6:30 p.m." },
-      { title: "Remember that this is strictly 21-plus", body: "The festival requires every guest to be at least 21 with valid identification. Build the group plan around that restriction before purchasing tickets or arranging transportation." },
+      { title: "2026 is complete; 2027 participation is not a ticket announcement", body: "The October 17, 2026 event at Civic Park is over. The organizer invites prospective 2027 breweries to contact it, but its public schedule and ticket information still identify 2026. No 2027 date or admission price is confirmed here." },
+      { title: "Remember that this is strictly 21-plus", body: "The festival requires every guest to be at least 21 with valid identification. The 2026 FAQ explicitly included infants in the age restriction. It also listed a separate $20 designated-driver wristband without sampling privileges, and no refunds. These are historical admission terms, not a confirmed 2027 offer. Check the next edition before buying." },
       { title: "Avoid depending on downtown parking", body: "The organizer describes parking as limited and encourages rideshare. Decide on a safe arrival and departure plan in advance, especially because the event centers on beverage sampling." },
     ],
     relatedLinks: [
