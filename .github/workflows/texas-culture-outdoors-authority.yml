@@ -27,7 +27,18 @@ permissions:
   contents: read
   issues: write
 concurrency:
-  group: five-texas-guide-authority-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.event_name == 'schedule' && github.event.schedule || 'manual' }}
+  # Unrelated issue comments must never replace a pending owner verification.
+  # Separate the two authorized commands so browser and vitals runs can coexist.
+  group: >-
+    five-texas-guide-authority-${{
+      github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) ||
+      github.event_name == 'schedule' && github.event.schedule ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7368 &&
+       github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-five-culture-live') && 'manual-browser' ||
+      (github.event_name == 'issue_comment' && github.event.issue.number == 7754 &&
+       github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/audit-five-culture-vitals') && 'manual-vitals' ||
+      github.event_name == 'issue_comment' && format('ignored-{0}', github.run_id) ||
+      'manual-dispatch' }}
   cancel-in-progress: false
 jobs:
   static-authority-check:
@@ -113,7 +124,8 @@ jobs:
             gh issue create --title "$issue_title" --body-file /tmp/texas-five-guide-review-issue.md
           fi
       - name: Install browser driver for owner-triggered production proof
-        if: ${{ github.event_name == 'issue_comment' && steps.sourcewatch.outcome == 'success' }}
+        id: browser_setup
+        if: ${{ !cancelled() && github.event_name == 'issue_comment' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -122,7 +134,8 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-five-culture-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify five pages in 15 genuine browser viewports on one Worker
-        if: ${{ github.event_name == 'issue_comment' && steps.sourcewatch.outcome == 'success' }}
+        id: browser
+        if: ${{ !cancelled() && github.event_name == 'issue_comment' && steps.browser_setup.outcome == 'success' }}
         run: node scripts/ci/verify-five-texas-culture-browser.mjs
       - uses: actions/upload-artifact@v4
         if: ${{ always() && github.event_name == 'issue_comment' }}
@@ -132,12 +145,12 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
       - name: Record non-skipped source-specific live acceptance in authority checkpoint
-        if: ${{ github.event_name == 'issue_comment' && steps.sourcewatch.outcome == 'success' }}
+        if: ${{ !cancelled() && github.event_name == 'issue_comment' && steps.browser.outcome == 'success' }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          gh issue comment 7368 --body "Five-guide primary sources, source-specific indexable HTML, and 15 actual 320/390/1366 Chrome viewports passed on a single identified Worker (screenshots and report preserved) in [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}), checked from commit \`${{ github.sha }}\`. This validates the bounded public checks, not independent image rights, manual accessibility or Google indexing."
+          gh issue comment 7368 --body "Five-guide source-specific indexable HTML, and 15 actual 320/390/1366 Chrome viewports passed on a single identified Worker (screenshots and report preserved) in [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}), checked from commit \`${{ github.sha }}\`. Independent primary-source watch outcome: ${{ steps.sourcewatch.outcome }}. Browser success does not clear a failed source watch. This validates the bounded public checks, not independent image rights, manual accessibility or Google indexing."
       - name: Fail scheduled assurance on unresolved source changes
         if: ${{ steps.sourcewatch.outcome == 'failure' }}
         run: exit 1
