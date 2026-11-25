@@ -146,7 +146,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-09-24",
     endDate: "2026-09-26",
-    dateNote: "Visit El Paso lists the 2026 El Paso Film Festival for September 24-26 in downtown El Paso. Individual screenings appear at multiple downtown venues, so use the festival program for the exact film and location.",
+    dateNote: "Visit El Paso lists the 2026 El Paso Film Festival for September 24-26 in downtown El Paso. Individual screenings appear at multiple downtown venues, so use the festival program for the exact film and location. The festival organizer says the next edition will take place in fall 2027.",
     venue: "Downtown El Paso venues",
     officialUrl: "https://elpasofilmfestival.org/",
     sourceCheckedAt: "2026-09-21",
