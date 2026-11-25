@@ -1,0 +1,56 @@
+name: Materialize exact licensed Goldthwaite mum photo once
+on:
+  push:
+    branches: [fix/mum-local-licensed-hero-20261125]
+    paths: ['.github/workflows/materialize-mum-photo-once.yml']
+permissions:
+  contents: write
+jobs:
+  pin-photo:
+    if: github.ref == 'refs/heads/fix/mum-local-licensed-hero-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Acquire exact Commons photograph and create width-bounded original-subject WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE='https://upload.wikimedia.org/wikipedia/commons/d/db/Goldthwaite_High_School_Homecoming_Mum.jpg'
+          curl -fL --max-time 40 --retry 2 --user-agent 'TexasDefined editorial image preparation (admin@texasdefined.com)' "$SOURCE" -o /tmp/mum-original.jpg
+          mkdir -p public/images/editorial/optimized
+          node --input-type=module <<'JS'
+          import sharp from 'sharp';
+          import fs from 'node:fs';
+          import {createHash} from 'node:crypto';
+          const input=fs.readFileSync('/tmp/mum-original.jpg');
+          const meta=await sharp(input).metadata();
+          if(meta.format!=='jpeg'||meta.width!==1876||meta.height!==3922)throw Error('Exact original photograph dimensions or format mismatch');
+          const file='public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp';
+          let bytes;
+          for (const quality of [72,66,60,54]) {
+            bytes=await sharp(input).rotate().resize({width:640,withoutEnlargement:true}).webp({quality,effort:6}).toBuffer();
+            if(bytes.length<=125000)break;
+          }
+          const out=await sharp(bytes).metadata();
+          if(out.width!==640||out.height!==1338||out.format!=='webp'||bytes.length>125000)throw Error('Derivative violates approved portrait or byte budget');
+          fs.writeFileSync(file,bytes);
+          console.log(JSON.stringify({sourceSha256:createHash('sha256').update(input).digest('hex'),sourceBytes:input.length,derivativeSha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,width:out.width,height:out.height}));
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: goldthwaite-mum-exact-webp
+          path: public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp
+      - name: Commit image only to the exact feature branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp
+          git commit -m 'Pin original licensed Goldthwaite mum photograph as compressed WebP'
+          git push origin HEAD:refs/heads/fix/mum-local-licensed-hero-20261125
