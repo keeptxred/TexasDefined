@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
 import { readFile, appendFile } from "node:fs/promises";
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 const registry = JSON.parse(await readFile("ops/editorial/texas-culture-outdoors-review-groups.json", "utf8"));
+const mumPhoto = await readFile("public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp");
+assert.ok(mumPhoto.length > 10000 && mumPhoto.length <= 125000, "Licensed mum hero exceeds byte budget");
+assert.equal(mumPhoto.subarray(0,4).toString(), "RIFF");
+assert.equal(mumPhoto.subarray(8,12).toString(), "WEBP");
+assert.equal(createHash("sha256").update(mumPhoto).digest("hex"), "9785d27a3f43ed12f4bb8b5cb299cc12ba798d689f52f4e1f1d2095c4028079f", "Pinned licensed photograph changed without provenance review");
 const argv = new Set(process.argv.slice(2));
 const scopeFlag = process.argv.find(value => value.startsWith("--scope="));
 const scope = scopeFlag?.slice(8) || "all";
