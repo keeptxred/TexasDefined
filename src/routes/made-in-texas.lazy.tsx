@@ -41,7 +41,7 @@ function MadeInTexasPage() {
     const link = document.createElement('a'); link.href = url; link.download = 'texasdefined-made-in-texas.csv'; document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   return (
-    <main>
+    <div>
       <section className="border-b border-border bg-muted/30 py-16 sm:py-24">
         <Container>
           <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
@@ -134,7 +134,7 @@ function MadeInTexasPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 

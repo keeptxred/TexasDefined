@@ -5,11 +5,17 @@
  */
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import { readFileSync } from "node:fs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH
   || "/tmp/texasdefined-wp-qa/node_modules/playwright-core");
 const canonical = "https://texasdefined.com/destination/moody-gardens";
+// Compare with the substantive edit in the exact deployed checkout, not the
+// older museum-fact review date. Fail closed if the governed field disappears.
+const curationSource = readFileSync(new URL("../../src/data/destination-curation-moody-gardens.ts", import.meta.url), "utf8");
+const expectedDate = curationSource.match(/\blastSubstantiveEdit:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+assert.ok(expectedDate, "Missing governed Moody Gardens substantive edit date");
 let pinnedWorkerVersion = process.env.MOODY_EXPECTED_WORKER_VERSION?.trim() || "";
 const browser = await chromium.launch({
   headless: true,
@@ -88,7 +94,7 @@ try {
       assert.equal(facts.metaDescription, "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.", width + "px hydrated description");
       assert.equal(facts.h1Count, 1, width + "px H1");
       assert.doesNotMatch(facts.robots, /noindex/i, width + "px indexability");
-      assert.equal(facts.dateModified, "2026-11-14", width + "px WebPage dateModified");
+      assert.equal(facts.dateModified, expectedDate, width + "px WebPage dateModified");
       assert.ok(facts.horizontalOverflow <= 8, width + "px horizontal overflow: " + facts.horizontalOverflow);
       for (const key of ["hasGuide", "hasRainforest", "hasDiscovery", "hasFacts", "hasSources", "hasGalvestonBay", "relatedSectionVisible"]) {
         assert.equal(facts[key], true, width + "px missing " + key);
