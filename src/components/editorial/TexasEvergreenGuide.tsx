@@ -70,7 +70,7 @@ const guideImages: Partial<Record<string, GuideImage>> = {
   "texas-homecoming-mums": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
-    caption: "A 2023 Texas high-school homecoming mum shows how a chrysanthemum-centered tradition became a large, personalized display.",
+    caption: "A 2023 Goldthwaite High School mum made by L & L Spirit Co. illustrates the personalized school tradition. Original photograph resized and WebP-compressed; no crop.",
     credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
     sourceHref: "https://commons.wikimedia.org/wiki/File:Goldthwaite_High_School_Homecoming_Mum.jpg",
   },
@@ -559,9 +559,12 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
     "texas-chicken-fried-steak-guide",
     "texas-breakfast-taco-guide",
   ]);
-  const deliveredImageSrc = image && licensedCulturePhotoSlugs.has(guide.slug)
-    ? editorialImageSrc(image.src)
-    : image?.src;
+  // Serve the exact licensed portrait as a compressed local derivative.
+  const deliveredImageSrc = guide.slug === "texas-homecoming-mums"
+    ? "/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp"
+    : image && licensedCulturePhotoSlugs.has(guide.slug)
+      ? editorialImageSrc(image.src)
+      : image?.src;
   const sources = guideSources[guide.slug] ?? [];
   const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
@@ -670,7 +673,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         {foodBrandReviewed ? <p className="border-b border-border py-3 text-xs text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Historical and source review {foodBrandReviewLabel}. Historical claims are distinguished from oral tradition; company and restaurant details may change.</p> : null}
         {reviewedNovember2026 ? <p className="border-b border-border py-3 text-xs text-muted-foreground">Researched and reviewed by <Link to="/editorial-policy" className="font-semibold underline">TexasDefined Editorial Desk</Link> · Substantive guide update November 20, 2026 (primary-source review November 18). Visitor conditions and event details can change.</p> : null}
         {image ? <figure className="border-b border-border py-8">
-          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={hasHomecomingMumSupplies ? 1876 : foodBrandReviewed ? 1280 : undefined} height={hasHomecomingMumSupplies ? 3922 : foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
+          <img src={deliveredImageSrc} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} width={hasHomecomingMumSupplies ? 640 : foodBrandReviewed ? 1280 : undefined} height={hasHomecomingMumSupplies ? 1338 : foodBrandReviewed ? 720 : undefined} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}{foodBrandReviewed ? " Display crop for page layout." : ""}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}{foodBrandReviewed && image.credit.includes("CC BY 4.0") ? <> · <a href="https://creativecommons.org/licenses/by/4.0/" className="underline">License terms</a></> : (foodBrandReviewed || hasHomecomingMumSupplies) && image.credit.includes("CC BY-SA 4.0") ? <> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline">License terms</a></> : foodBrandReviewed && image.credit.includes("CC0") ? <> · <a href="https://creativecommons.org/publicdomain/zero/1.0/" className="underline">CC0 terms</a></> : null}</> : null}

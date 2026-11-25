@@ -98,6 +98,10 @@ jobs:
         id: sourcewatch
         continue-on-error: true
         shell: bash
+        env:
+          # Only trusted main runs may consult the existing private source ledger.
+          # The script makes fixed-origin, exact-source read-only requests.
+          TD_SOURCE_LEDGER_READ_KEY: ${{ github.ref == 'refs/heads/main' && (secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY) || '' }}
         run: |
           set -o pipefail
           node scripts/ci/check-five-texas-guide-authority.mjs --watch --scope="$SCOPE" 2>&1 | tee /tmp/texas-five-guide-review.log

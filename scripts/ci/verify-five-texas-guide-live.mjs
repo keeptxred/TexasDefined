@@ -18,6 +18,7 @@ const PHOTO_SOURCE = {
   },
   "/texas-homecoming-mums": {
     original: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=720",
+    local: "/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp",
     credit: "Sillyputty1967",
   },
 };
@@ -91,7 +92,7 @@ function assertPageHtml({ html, origin, response, guide }) {
   }
   const image = PHOTO_SOURCE[guide.path];
   if (image) {
-    const expectedImagePath = "/media/remote?url=" + encodeURIComponent(image.original);
+    const expectedImagePath = image.local ?? ("/media/remote?url=" + encodeURIComponent(image.original));
     assert.ok(html.includes('src="' + expectedImagePath + '"'),
       guide.path + ": licensed hero bypassed first-party image delivery");
     assert.ok(body.includes(image.credit.toLowerCase()), guide.path + ": creator credit missing");
@@ -135,6 +136,11 @@ async function checkPage(origin, guide) {
     assert.match(mime, /^image\/(?:jpeg|png|webp|avif)\b/, "Hero is not a real raster image: " + mime);
     const bytes = new Uint8Array(await hero.arrayBuffer());
     assert.ok(bytes.byteLength > 10000, "Hero response too small to be verified photo");
+    if (PHOTO_SOURCE[guide.path]?.local) {
+      assert.match(mime, /^image\/webp\b/, "Pinned licensed hero must be WebP");
+      assert.ok(bytes.byteLength <= 125000, "Pinned licensed hero exceeds mobile byte budget");
+      assert.ok(html.includes("https://creativecommons.org/licenses/by-sa/4.0/"), "Pinned photograph license link missing");
+    }
   }
   return { path: guide.path, origin, workerVersion: version, licensedHero: Boolean(image), status: 200 };
 }
