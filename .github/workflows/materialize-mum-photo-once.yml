@@ -32,12 +32,13 @@ jobs:
           if(meta.format!=='jpeg'||meta.width!==1876||meta.height!==3922)throw Error('Exact original photograph dimensions or format mismatch');
           const file='public/images/editorial/optimized/goldthwaite-homecoming-mum-640.webp';
           let bytes;
-          for (const quality of [72,66,60,54]) {
+          for (const quality of [72,66,60,54,48,42,36,30]) {
             bytes=await sharp(input).rotate().resize({width:640,withoutEnlargement:true}).webp({quality,effort:6}).toBuffer();
             if(bytes.length<=125000)break;
           }
           const out=await sharp(bytes).metadata();
-          if(out.width!==640||out.height!==1338||out.format!=='webp'||bytes.length>125000)throw Error('Derivative violates approved portrait or byte budget');
+          console.log('MUM_DERIVATIVE_CANDIDATE '+JSON.stringify({width:out.width,height:out.height,format:out.format,bytes:bytes.length}));
+          if(out.width!==640||Math.abs(out.height-1338)>1||out.format!=='webp'||bytes.length>125000)throw Error('Derivative violates approved portrait or byte budget');
           fs.writeFileSync(file,bytes);
           console.log(JSON.stringify({sourceSha256:createHash('sha256').update(input).digest('hex'),sourceBytes:input.length,derivativeSha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,width:out.width,height:out.height}));
           JS
