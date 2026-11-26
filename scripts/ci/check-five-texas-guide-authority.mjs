@@ -182,26 +182,39 @@ if (argv.has("--watch")) {
       "--location","--silent","--show-error","--compressed",
       "--max-time","30","--retry","2","--retry-all-errors","--retry-delay","1",
       "--user-agent","TexasDefined-Five-Guides-Source-Monitor/1.0",
-      "--write-out","\\n__TD_HTTP_STATUS__%{http_code}",
+      "--write-out","\\n__TD_HTTP_STATUS__%{http_code}\\n__TD_CONTENT_TYPE__%{content_type}",
       url
     ],{timeout:100000,maxBuffer:12*1024*1024});
-    const m=stdout.match(/\\n__TD_HTTP_STATUS__(\\d{3})$/);
-    if(!m)throw new Error("curl response status unavailable");
-    const status=Number(m[1]);
-    return {ok:status>=200&&status<300,status,headers:{get:()=>null},
-      body:{cancel:async()=>{}},text:async()=>stdout.slice(0,m.index)};
+    const m=stdout.match(/\n__TD_HTTP_STATUS__(\d{3})\n__TD_CONTENT_TYPE__([^\r\n]*)$/);
+    if(!m)throw new Error("curl response status/content type unavailable");
+    const status=Number(m[1]), contentType=m[2], body=stdout.slice(0,m.index);
+    return {ok:status>=200&&status<300,status,
+      headers:{get:name=>name.toLowerCase()==="content-type"?contentType:null},
+      body:{cancel:async()=>{}},text:async()=>body,json:async()=>JSON.parse(body)};
   }
   async function probe(url, description, marker) {
     try {
       if (!marker && url === UNT_ARCHIVE_PAGE && description === "/texas-tall-tales-folklore primary source") {
-        const response = await fetchWithRetry(UNT_ARCHIVE_OCR);
+        let response, transport = "official IIIF OCR annotations via Node fetch";
+        try { response = await fetchWithRetry(UNT_ARCHIVE_OCR); }
+        catch(primaryError) {
+          // A different network stack may recover a transient TLS/DNS failure.
+          // Keep the exact official OCR URL, MIME and identity/content proof.
+          try {
+            response = await curlSourceFallback(UNT_ARCHIVE_OCR);
+            transport = "official IIIF OCR annotations via curl";
+          } catch(fallbackError) {
+            throw new Error("UNT OCR Node fetch: "+String(primaryError).slice(0,60)+
+              "; curl: "+String(fallbackError).slice(0,100));
+          }
+        }
         if (!response.ok || !/^application\/json\b/i.test(response.headers.get("content-type")||"")) {
           await response.body?.cancel();
           throw new Error("UNT public OCR API did not return JSON HTTP 200");
         }
         const document = await response.json();
         if (!validUntArchiveOcr(document)) throw new Error("UNT exact archival page OCR identity or source fact markers mismatch");
-        const proof = {readerSource:url,machineSource:UNT_ARCHIVE_OCR,annotations:document.resources.length,transport:"official IIIF OCR annotations; reader HTML not tested"};
+        const proof = {readerSource:url,machineSource:UNT_ARCHIVE_OCR,annotations:document.resources.length,transport:transport+"; reader HTML not tested"};
         archiveProofs.push(proof);
         console.log("FIVE_GUIDE_ARCHIVE_OCR_PROOF "+JSON.stringify(proof));
         return;
