@@ -297,7 +297,13 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     // Source-review date and substantive page modification are distinct events.
-    const substantiveModifiedAt = destination.slug === "moody-gardens"
+    // The reviewed Comanche museum record can retain an older source-check date
+    // even after a substantive editorial revision. Its sitemap already uses updatedAt;
+    // WebPage.dateModified must use that same verified revision date, never stale review metadata.
+    const substantiveModifiedAt = destination.slug === "comanche-county-historical-museum"
+      ? (destination.updatedAt && destination.updatedAt > (destination.sourceCheckedAt ?? "")
+        ? destination.updatedAt : destination.sourceCheckedAt)
+      : destination.slug === "moody-gardens"
       ? moodyGardensEditorialDates.lastSubstantiveEdit : ["martin-creek-lake-state-park", "martin-creek-lake-state-park-rv-area"].includes(destination.slug) ? destination.updatedAt ?? "2026-11-21" : destination.sourceCheckedAt;
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(substantiveModifiedAt ? { dateModified: substantiveModifiedAt } : {}) };
     // The licensed exact-site Magoffin hero has verified Wikimedia provenance.
