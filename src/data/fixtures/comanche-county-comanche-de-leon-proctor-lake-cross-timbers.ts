@@ -21,7 +21,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   readingMinutes: 20,
-  updatedAt: "2026-11-24",
+  updatedAt: "2026-11-25",
   tags: [
     "Comanche County",
     "Comanche Texas",
@@ -58,6 +58,8 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { label: "Texas Historical Commission — 2025 State National Bank/City Hall adaptive reuse", url: "https://thc.texas.gov/sites/default/files/2025-10/THC_Quarterly_Public_Nov2025.pdf" },
     { label: "Texas Historical Commission — Old Cora Courthouse", url: "https://atlas.thc.texas.gov/Details/5093003711" },
     { label: "Texas Historical Commission — Old Cora FY2026 full roof replacement grant", url: "https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more" },
+    { label: "Comanche County commissioners — November 9, 2026 official renovation-status minutes", url: "https://www.comanchecountytx.gov/AgendaCenter/ViewFile/Minutes/_11092026-152" },
+    { label: "Comanche County commissioners — November 23, 2026 meeting agenda", url: "https://www.comanchecountytx.gov/AgendaCenter/ViewFile/Agenda/_11232026-154" },
     { label: "Texas Historical Commission — Current courthouse restoration", url: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects" },
     { label: "Texas Historical Commission — Comanche Frisco Depot marker", url: "https://atlas.thc.texas.gov/Details/5000022414" },
     { label: "National Park Service — Frisco depot independently listed on National Register", url: "https://npgallery.nps.gov/AssetDetail/NRIS/100001872" },
@@ -168,7 +170,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     p("The present courthouse square in Comanche preserves a remarkable connection to the county's first seat of government at Cora. A one-room, squared-log building used as the courthouse in 1856 measured approximately 12 feet 7 inches by 12 feet 10 inches. It served county government at Cora until the seat moved to Comanche in 1859. The building was then reused as a residence and moved several times before becoming the protected Old Cora landmark in Comanche. This is among the rare surviving early Texas log courthouses, not the present county government building."),
     p("Old Cora stands beside a very different courthouse: architect Wyatt Hedrick's WPA-built, native-limestone Art Moderne landmark, with Art Deco details and carved eagles above its entrances. The Texas Historical Commission lists a substantial restoration program for that courthouse, and the local Chamber currently labels Old Cora CLOSED FOR RENOVATION. Visitors can plan to study exterior architecture and markers when the grounds are accessible but must not be promised access to either building's interior. Sources: Texas Historical Commission's Old Cora marker and courthouse restoration program; Comanche Chamber visitor guide."),
 
-    p("Preservation remains an active story rather than a completed tourist attraction: on December 1, 2025, the Texas Historical Commission named a full roof replacement at Old Cora Log Courthouse among projects selected for FY2026 Texas Preservation Trust Fund assistance. That selection does not verify that construction has finished or the interior has reopened. The Chamber still marks the log courthouse closed for renovation, so check access before making a special trip."),
+    p("Preservation remains an active story rather than a completed tourist attraction: on December 1, 2025, the Texas Historical Commission named a full roof replacement at Old Cora Log Courthouse among projects selected for FY2026 Texas Preservation Trust Fund assistance. That selection does not verify that construction has finished or the interior has reopened. The official Comanche County Commissioners' Court minutes for November 9, 2026 list no new update for Old Cora renovations or the separate Comanche County Courthouse restoration; both projects retained Komatsu plans and Texas Historical Commission grants among their status items. Both remained on the posted November 23 agenda, which by itself records neither a decision nor a completion. The Chamber still marks the log courthouse closed for renovation, so check access before making a special trip."),
 
     h("Fleming Oak: a frontier tree saved by a resident"),
     p("Fleming Oak survives near the southwest side of the Comanche courthouse square. According to the Texas A&M Forest Service, Martin V. Fleming and his father spent their first night in the area under the oak after arriving in 1854. In 1911 Fleming protested the city's attempt to remove the tree during street paving, and he intervened again in 1919 when it was threatened. The preserved tree and its historical marker turn a general frontier story into one specific example of a community choosing to protect its landscape. A claim that the oak is more than 200 years old remains an estimate, not a documented ring count. Source: Texas A&M Forest Service, Famous Trees of Texas."),
