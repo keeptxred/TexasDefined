@@ -1051,3 +1051,11 @@ test('Iowa Colony postseason result is independently verified, with disputed Dul
  const state=inventory({today:'2026-11-24'});
  assert.ok(!state.pages.find(p=>p.page.endsWith('/alvin-iowa-colony'))?.overdue.some(g=>g.date==='2026-11-13'));
 });
+
+
+test('private and TAPPS profiles also apply the reviewed score ledger before SSR',()=>{
+  const server=readFileSync(join(ROOT,'src/data/high-school-football/football-program-profile.server.ts'),'utf8');
+  const branch=server.slice(server.indexOf('if (!seed) {'),server.indexOf('const result = await searchFootballPrograms'));
+  assert.match(branch,/applyManuallyVerifiedFootballFinals\(\s*applyFootballMatchupSnapshot\(authoredEditorial, legacy\.featured\.slug, footballMatchups\),\s*legacy\.featured\.slug,/);
+  assert.ok(branch.indexOf('applyManuallyVerifiedFootballFinals(')<branch.indexOf('const profileContent'));
+});

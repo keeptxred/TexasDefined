@@ -4,6 +4,10 @@
  * Does not fetch, crawl, republish or scrape any third-party score service.
  */
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const source = readFileSync('src/data/high-school-football/football-district11-2026.ts','utf8');
+const sourceDate = source.match(/export const DISTRICT_11_VERIFIED_AT = '([0-9]{4}-[0-9]{2}-[0-9]{2})'/)?.[1];
+assert.ok(sourceDate, 'Missing source-backed District 11 review date');
 
 const pathname = '/texas-high-school-football-districts/4a-division-i-district-11';
 const origins = [
@@ -38,7 +42,7 @@ async function verify(origin) {
     'Royal',
     'Sealy',
     'West Columbia Columbia',
-    '2026-10-29',
+    `District 11 2026 season results were source-checked ${sourceDate}`,
     'not UIL-certified standings',
     '4a-1-region-iii-district-11',
     'data-football-district-section="coverage"',
@@ -58,7 +62,8 @@ async function verify(origin) {
   const finals = cards.filter(([tag]) => tag.includes('data-status="reported-final"')).length;
   const scheduled = cards.filter(([tag]) => tag.includes('data-status="schedule-only"')).length;
   assert.equal(cards.length, 21, origin + ' expected all 21 league game cards');
-  assert.ok(finals >= 15 && finals <= 21, origin + ' at least 15 sourced finals must remain; got ' + finals);
+  assert.equal(finals, 21, origin + ' all 21 independently reported finals must appear');
+  assert.equal(scheduled, 0, origin + ' no verified final may regress to schedule-only');
   assert.equal(finals + scheduled, 21, origin + ' every game must be either a sourced final or an unconfirmed fixture');
   const records = html.match(/data-football-district-records="source-derived"[\s\S]*?<tbody[^>]*>([\s\S]*?)<\/tbody>/i)?.[1];
   assert.ok(records, origin + ' missing standings snapshot');
