@@ -49,7 +49,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "comanche-county-historical-museum",
     name: "Comanche County Historical Museum",
-    summary: "An artifact-rich Comanche museum with fourteen exhibit rooms, a Jack Wright Saloon diorama and original mirror, John Wesley Hardin history, blacksmith tools, an Indigenous campsite display, and generations of Comanche County farm and community life.",
+    summary: "An artifact-rich Comanche museum with at least fourteen exhibit rooms, a Jack Wright Saloon diorama and original mirror, John Wesley Hardin history, blacksmith tools, an Indigenous campsite display, and generations of Comanche County farm and community life.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Comanche",
@@ -68,7 +68,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     bestSeason: "Year-round during the museum's published Thursday–Saturday visiting window; spring and autumn are comfortable for a companion courthouse-square walk.",
     entryNote: "The museum lists Thursday–Saturday, 10 a.m.–4 p.m., at 402 Moorman Road in Comanche; school and group tours may be arranged. Check for holiday changes. The museum confirms free general admission, but an accessible building layout or an open-air blacksmith demonstration has not been verified.",
     highlights: [
-      "Fourteen historical exhibit rooms",
+      "At least fourteen historical exhibit rooms",
       "Jack Wright Saloon diorama with original mirror",
       "John Wesley Hardin photographs and memorabilia",
       "Blacksmith work area with windmill head and tools",
@@ -77,7 +77,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       "Bernice Jones artwork and Comanche County heritage"
     ],
     body: [
-      "The Comanche County Historical Museum tells the stories visitors may otherwise miss while walking the courthouse square. It is a community museum at 402 Moorman Road, with fourteen exhibit rooms covering the county's Indigenous history, frontier settlement, small-town commerce, ranching and agriculture, transportation, military service and family life. The museum reports a roughly 50,000-square-foot facility; that number is its own description, not an independently measured visitor gallery area.",
+      "The Comanche County Historical Museum tells the stories visitors may otherwise miss while walking the courthouse square. It is a community museum at 402 Moorman Road, with at least fourteen exhibit rooms covering the county's Indigenous history, frontier settlement, small-town commerce, ranching and agriculture, transportation, military service and family life. The museum reports a roughly 50,000-square-foot facility; that number is its own description, not an independently measured visitor gallery area. Its homepage advertises fourteen rooms while its About Us page says more than fourteen; the number of exhibit spaces may differ by how rooms are counted, so this guide uses at least fourteen rather than claiming a precise total.",
       "One standout display recreates the 1870s Jack Wright Saloon, which operated on the northeast side of the Comanche courthouse square. The museum says the diorama includes the saloon's original mirror, later used in a barber shop in Gustine before it was donated. That physical object's journey helps connect downtown Comanche's commercial life to the county's smaller communities and makes the exhibit more than a Western-themed set.",
       "The museum also exhibits photographs, artwork and memorabilia associated with John Wesley Hardin, who lived in Comanche County. In May 1874 Hardin killed Brown County deputy Charles Webb in Comanche. Later violence included the lynching of Hardin's brother Joe and two other jailed associates. Visitors should understand this as real frontier violence and a failure of justice, not as a family-friendly gunfight performance or an occasion for outlaw celebration.",
       "The real downtown story extends beyond the museum walls. Clint and Jami Tunnell uncovered an approximately 18-foot-square Bull Durham tobacco advertisement, thought to date from 1892–1893, while renovating a building at 109 West Grand Street in 2019. The former Jack Wright Saloon site and surrounding redevelopment help explain why the mural was preserved under later building materials. Pair the museum's saloon display with the mural and other square landmarks for a richer understanding of changing storefronts, not an invented reenactment.",
