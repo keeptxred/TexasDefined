@@ -22,7 +22,7 @@ const targets = [
   },
   {
     path: "/destination/comanche-county-historical-museum",
-    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-county-historical-museum-editorial.svg", "The museum confirms free general admission", "No. Its official homepage states general admission is free", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co.", "roof replacement", "Preservation Trust Fund"],
+    evidence: ["Jack Wright Saloon", "blacksmith", "free general admission", "Comanche Square Walking Tour", "comanche-museum-hero.avif", "The museum confirms free general admission", "No. Its official homepage states general admission is free", "Brennan Vineyards", "December 30, 2025", "JW Hardin Wine Co.", "roof replacement", "Preservation Trust Fund"],
   },
 ];
 
@@ -82,7 +82,7 @@ function verify({ path, evidence }, html) {
     if (!/at least fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("museum room count must acknowledge differing official pages");
     if (path === "/destination/comanche-county-historical-museum" && !text.includes("Its homepage advertises fourteen rooms while its About Us page says more than fourteen")) missing.push("operator homepage/about-us discrepancy explained");
   }
-  if (path === "/destination/comanche-county-historical-museum" && html.includes("comanche-county-historical-museum-editorial.svg") && !text.includes("Illustration:")) missing.push("illustration credit label (not photography)");
+  if (path === "/destination/comanche-county-historical-museum" && html.includes("comanche-museum-hero.avif") && (!text.includes("Illustration:") || !text.includes("AI-generated editorial illustration"))) missing.push("illustration credit label (not photography)");
   if (path === "/destination/comanche-county-historical-museum" && (!text.includes("Joe Maxwell") || !text.includes("October 1978") || !html.includes("atlas.thc.texas.gov/Details/4200000078"))) missing.push("museum founding history and outdated state directory guidance");
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||

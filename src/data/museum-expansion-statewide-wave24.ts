@@ -59,7 +59,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
       lng: -98.618822
     },
     hero: {
-      src: "/images/comanche-museum-hero.webp",
+      src: "/images/comanche-museum-hero.avif",
       alt: "AI-generated editorial illustration of a saloon mirror, saddle, blacksmith tools and Texas prairie; not a photograph of the museum or its exhibits",
       width: 1586,
       height: 992,

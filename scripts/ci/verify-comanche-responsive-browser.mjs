@@ -60,7 +60,11 @@ try {
         assert.ok(d.scrollWidth <= d.width + 1, "horizontal document overflow: " + d.scrollWidth + " vs " + d.width);
         for (const link of links) assert.ok(d.links.includes(link), "missing contextual reciprocal link: " + link);
         if (path.startsWith("/destination/")) assert.ok(d.hero?.width > 0 && d.hero.alt, "hero not loaded or alt absent");
-        if (path.endsWith("historical-museum")) assert.match(d.hero.alt, /not a photograph/i, "illustration must not impersonate museum");
+        if (path.endsWith("historical-museum")) {
+          assert.match(d.hero.alt, /AI-generated editorial illustration.*not a photograph/i, "illustration must not impersonate museum");
+          assert.ok(d.hero.src.includes("comanche-museum-hero.avif"), "generated museum artwork must actually load");
+          assert.equal(d.hero.width, 1586, "generated museum image must retain full resolution");
+        }
         await page.addScriptTag({ path: driverRoot + "/axe-core/axe.min.js" });
         entry.accessibility = await page.evaluate(async () => {
           const result = await window.axe.run(document.querySelector("main"), { runOnly: { type: "tag", values: ["wcag2a","wcag2aa","wcag21a","wcag21aa"] } });

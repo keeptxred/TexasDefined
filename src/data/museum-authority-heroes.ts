@@ -12,7 +12,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
   // TexasDefined-created interpretive illustration, not a representation or photo of the building.
   "comanche-county-historical-museum": {
-    src: "/images/comanche-museum-hero.webp",
+    src: "/images/comanche-museum-hero.avif",
     alt: "AI-generated editorial illustration of a saloon mirror, saddle, blacksmith tools and Texas prairie; not a photograph of the museum or its exhibits",
     width: 1586, height: 992,
     credit: "TexasDefined · AI-generated editorial illustration · not a museum photograph",
