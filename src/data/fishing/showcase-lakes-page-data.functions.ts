@@ -4,6 +4,9 @@ import { loadLiveLakeLevelResilient } from "./live-lake-level-fetch.server";
 import { loadShowcaseLakesPageDataServer } from "./showcase-lakes-page-data.server";
 
 const PAGE_LIVE_LEVEL_BUDGET_MS = 1_500;
+// Exact routes with observed intermittent production HTTP 500s. The live strip
+// still uses the official source after hydration; no invented or stale value.
+const DEFERRED_LIVE_LEVEL_SLUGS = new Set(["lake-stamford", "falcon-international-reservoir", "lake-abilene"]);
 
 async function loadPageLiveLakeLevel(sourceUrl: string) {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -14,6 +17,10 @@ async function loadPageLiveLakeLevel(sourceUrl: string) {
         timeoutId = setTimeout(() => resolve(null), PAGE_LIVE_LEVEL_BUDGET_MS);
       }),
     ]);
+  } catch {
+    // The provider is optional. Keep the verified guide and official-source link
+    // available if parsing, transport, or a runtime rejection escapes the adapter.
+    return null;
   } finally {
     if (timeoutId) clearTimeout(timeoutId);
   }
@@ -27,10 +34,8 @@ export const getShowcaseLakePageData = createServerFn({ method: "GET" })
       if (!lake) return null;
       return {
         ...lake,
-        // These two routes have documented intermittent production HTTP 500s.
-        // Avoid the duplicate remote water-level fetch on their SSR critical path;
-        // LiveLakeLevelStrip already calls the official source after hydration.
-        liveLakeLevel: data.slug === "lake-stamford" || data.slug === "falcon-international-reservoir"
+        // Keep optional remote readings off these editorial SSR critical paths.
+        liveLakeLevel: DEFERRED_LIVE_LEVEL_SLUGS.has(data.slug)
           ? null : await loadPageLiveLakeLevel(lake.sources.liveLevel.url),
       };
     } catch (error) {

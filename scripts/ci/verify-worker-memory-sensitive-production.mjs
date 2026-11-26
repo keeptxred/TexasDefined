@@ -25,6 +25,7 @@ const routes = [
   '/fishing/lakes/lake-stamford/nearby',
   '/fishing/lakes/lake-stamford/regulations',
   '/fishing/lakes/falcon-international-reservoir',
+  '/fishing/lakes/lake-abilene',
   '/sports/teams/dallas-mavericks',
   '/sports/teams/san-antonio-spurs',
   '/destination/sam-rayburn-house',
