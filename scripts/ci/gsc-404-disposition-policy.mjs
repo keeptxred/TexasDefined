@@ -252,7 +252,7 @@ export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, fi
     const expected = NOV26_GSC_404_ALIASES[path];
     const served = !error && firstStatus === 301 && finalStatus === 200
       && isExactRestoredCanonical(finalUrl, expected) && isExactRestoredCanonical(canonical, expected)
-      && (path.startsWith('/texas-high-school-football-isds/') || !/\\bnoindex\\b/i.test(robots || ''));
+      && (path.startsWith('/texas-high-school-football-isds/') || !/\bnoindex\b/i.test(robots || ''));
     return { intent: 'restored-valuable-page', policyReason: 'nov26-verified-equivalent-canonical', review: served ? 'served-200' : 'restore-regression' };
   }
   if (RESTORE_REQUIRED_GSC_PATHS.has(path)) {
