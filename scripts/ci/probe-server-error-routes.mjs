@@ -1,6 +1,25 @@
 import { mkdir, writeFile, appendFile } from 'node:fs/promises';
 
+// Exact owner-authenticated GSC 5xx sample supplied 2026-11-26 (issue #7307).
+// The four filtered/search views are functional URLs, not indexation targets.
+export const GSC_5XX_PATHS = Object.freeze([
+  "/events?venue=sports-venue%3Adickies-arena&start=2026-11-04&end=2026-11-04",
+  "/events?venue=sports-venue%3Amemorial-park-golf-course",
+  "/events?venue=sports-venue%3Acircuit-of-the-americas&start=2026-10-12&end=2026-10-12",
+  "/search?q=best%20lighthouses%20in%20texas",
+  "/texas-high-school-football-isds/tahoka-isd",
+  "/property-tax/taxing-unit/edna",
+  "/property-tax/taxing-unit/jackson-county-esd-1"
+]);
+
+export function sameRequestedView(requested, final) {
+  const a = new URL(requested), b = new URL(final);
+  a.searchParams.sort(); b.searchParams.sort();
+  return a.origin === b.origin && a.pathname === b.pathname && a.search === b.search;
+}
+
 export const PROBES = [
+  ...GSC_5XX_PATHS.map(path => ({ site: 'TexasDefined', url: 'https://texasdefined.com' + path, kind: 'html', exactView: true })),
   { site: 'TexasDefined', url: 'https://texasdefined.com/', kind: 'html' },
   { site: 'TexasDefined', url: 'https://texasdefined.com/events', kind: 'html' },
   { site: 'TexasDefined', url: 'https://texasdefined.com/explore/search', kind: 'html' },
@@ -49,7 +68,8 @@ async function runOne(probe) {
         signal: AbortSignal.timeout(20000),
       });
       const bytes = Buffer.from(await response.arrayBuffer());
-      const error = assessProbe(probe, response.status, response.headers.get('content-type'), bytes);
+      const error = assessProbe(probe, response.status, response.headers.get('content-type'), bytes)
+        || (probe.exactView && !sameRequestedView(probe.url, response.url) ? 'unexpected final URL: ' + response.url : null);
       last = { ...last, status: response.status, ok: !error, error: error || '', attempt,
         ray: response.headers.get('cf-ray') || '',
         workerVersion: response.headers.get('x-texasdefined-worker-version') || '' };
