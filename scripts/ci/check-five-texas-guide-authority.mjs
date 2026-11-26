@@ -18,6 +18,35 @@ const today = new Date().toISOString().slice(0, 10);
 const problems = [];
 const rows = [];
 const independentProofs = [];
+const UNT_ARCHIVE_PAGE = "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/";
+const UNT_ARCHIVE_OCR = UNT_ARCHIVE_PAGE + "annotations/ocr/";
+const UNT_ARCHIVE_CANVAS = UNT_ARCHIVE_PAGE + "canvas/";
+const archiveProofs = [];
+// UNT explicitly supports IIIF programmatic access: https://texashistory.unt.edu/api/.
+// The item's official manifest links this exact canvas's OCR AnnotationList.
+// The reader-facing archival link stays intact; validate actual page text,
+// not a challenge HTML response or merely a metadata record.
+function validUntArchiveOcr(data) {
+  if (data?.["@id"] !== UNT_ARCHIVE_OCR || data?.["@type"] !== "sc:AnnotationList" ||
+      !Array.isArray(data.resources) || data.resources.length < 100) return false;
+  if (data.resources.some(entry => entry?.["@type"] !== "oa:Annotation" ||
+      typeof entry.on !== "string" || !entry.on.startsWith(UNT_ARCHIVE_CANVAS + "#") ||
+      typeof entry.resource?.chars !== "string")) return false;
+  const text = data.resources.map(entry => entry.resource.chars).join(" ");
+  return /PECOS\s+BILL\s+AND\s+HIS\s+PEDIGREE\s+183/i.test(text) &&
+    /Edward\s+O['’]Reilly/i.test(text) && /1923/.test(text) &&
+    /Century\s+Magazine/i.test(text) && /first\s+known\s+Pecos\s+Bill\s+stories/i.test(text);
+}
+{
+  const words = ("PECOS BILL AND HIS PEDIGREE 183 Edward O'Reilly 1923 Century Magazine first known Pecos Bill stories " + "word ".repeat(110)).trim().split(/\s+/);
+  const valid = {"@id":UNT_ARCHIVE_OCR,"@type":"sc:AnnotationList",resources:words.map(chars=>({"@type":"oa:Annotation",on:UNT_ARCHIVE_CANVAS+"#xywh=1,2,3,4",resource:{chars}}))};
+  assert.ok(validUntArchiveOcr(valid));
+  assert.equal(validUntArchiveOcr({...valid,"@id":"https://other.invalid"}),false);
+  assert.equal(validUntArchiveOcr({...valid,resources:valid.resources.map(x=>({...x,on:"https://other.invalid"}))}),false);
+  assert.equal(validUntArchiveOcr({...valid,resources:valid.resources.map(x=>({...x,resource:{chars:"unrelated"}}))}),false);
+  assert.equal(validUntArchiveOcr({html:"Validating your request..."}),false);
+}
+
 const INDEPENDENT_SOURCE_PATH = "/texas-dance-halls-honky-tonks";
 const INDEPENDENT_SOURCES = new Set([
   "https://gruenehall.com/events/month/",
@@ -163,6 +192,19 @@ if (argv.has("--watch")) {
   }
   async function probe(url, description, marker) {
     try {
+      if (!marker && url === UNT_ARCHIVE_PAGE && description === "/texas-tall-tales-folklore primary source") {
+        const response = await fetchWithRetry(UNT_ARCHIVE_OCR);
+        if (!response.ok || !/^application\/json\b/i.test(response.headers.get("content-type")||"")) {
+          await response.body?.cancel();
+          throw new Error("UNT public OCR API did not return JSON HTTP 200");
+        }
+        const document = await response.json();
+        if (!validUntArchiveOcr(document)) throw new Error("UNT exact archival page OCR identity or source fact markers mismatch");
+        const proof = {readerSource:url,machineSource:UNT_ARCHIVE_OCR,annotations:document.resources.length,transport:"official IIIF OCR annotations; reader HTML not tested"};
+        archiveProofs.push(proof);
+        console.log("FIVE_GUIDE_ARCHIVE_OCR_PROOF "+JSON.stringify(proof));
+        return;
+      }
       let response;
       try { response = await fetchWithRetry(url); }
       catch(primaryError) {
@@ -247,6 +289,7 @@ const summary = [
     .map(row => "| " + row.path + " | " + row.lastFactReview + " | " + row.ageDays + " | " + row.maxAgeDays + " |"),
   "",
   problems.length ? "### Action required\n" + problems.map(problem => "- " + problem).join("\n") : "No selected source reachability/age alerts.",
+  ...archiveProofs.map(proof => "- Official UNT IIIF OCR evidence: "+proof.machineSource+"; "+proof.annotations+" exact-page annotations validated. Reader-facing HTML transport is not certified."),
   ...independentProofs.map(proof => "- Independent source proof (direct GitHub transport HTTP 403): "+proof.source+"; HTTP probe "+proof.probeAt+"; exact-fingerprint editorial review "+proof.reviewAt),
   "",
   "HTTP success does **not** certify factual accuracy. Do not alter reviewedAt until a person or verified research workflow actually rechecks facts.",
