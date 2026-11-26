@@ -21,6 +21,8 @@ const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xm
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
+const comancheHero = path.join(root, 'public/images/comanche-museum-hero.avif');
+if (!fs.existsSync(comancheHero) || fs.statSync(comancheHero).size !== 31576 || fs.readFileSync(comancheHero).subarray(4, 12).toString('ascii') !== 'ftypavif') errors.push('Comanche museum generated AVIF must be present and intact.');
 // Museum, county and town narrative paragraphs often contain long primary-source URLs.
 // Keep them readable at 390px mobile widths rather than letting a single URL widen the page.
 const editorialStyles = fs.readFileSync(path.join(root, 'src/styles.css'), 'utf8');
