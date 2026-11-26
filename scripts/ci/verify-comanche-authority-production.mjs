@@ -49,6 +49,8 @@ function verify({ path, evidence }, html) {
   if (path !== "/explore/small-towns" && !text.includes("November 9, 2026")) missing.push("dated November 9 county restoration status context");
   if (path === "/explore/small-towns" && text.includes("Brennan Vineyards and JW Hardin Wine Co.")) missing.push("stale Comanche wine recommendations in small-towns directory");
   if (path === "/destination/comanche" && !html.includes("atlas.thc.texas.gov/Details/5000022414")) missing.push("THC historic marker corroborating Comanche Frisco depot");
+  if (path !== "/explore/small-towns" && (!text.includes("Robert Thomas Hill") || !html.includes("atlas.thc.texas.gov/Details/5093004302") || !html.includes("ngmdb.usgs.gov/Prodesc/proddesc_89459.htm"))) missing.push("Robert Thomas Hill and original Comanche-series scientific publication sources");
+  if (path === "/county/comanche" && (!text.includes("Sidney: a schoolhouse") || !html.includes("atlas.thc.texas.gov/Details/5093001012"))) missing.push("Sidney schoolhouse and dairy history source");
   if (path !== "/explore/small-towns" && !html.includes("npgallery.nps.gov/AssetDetail/NRIS/100001872")) missing.push("NPS separate National Register depot source");
   if (path === "/destination/comanche" && !text.includes("2012")) missing.push("dated Frisco depot preservation reopening");
   if (path === "/destination/comanche" && !text.includes("Comanche City Park")) missing.push("family park visitor planning");
@@ -58,7 +60,7 @@ function verify({ path, evidence }, html) {
   if (["/destination/comanche", "/county/comanche"].includes(path) && !(text.includes("State National Bank") && text.includes("114 West Central Avenue"))) missing.push("bank-to-city-hall adaptive reuse chronology and exact place address");
   if (["/destination/comanche", "/county/comanche"].includes(path) && !html.includes("THC_Quarterly_Public_Nov2025.pdf")) missing.push("THC source for Comanche bank / city hall conservation");
   if (path === "/destination/comanche" && !html.includes("Comanche Texas: Old Cora Courthouse, Historic Square")) missing.push("specific Comanche search title");
-  if (["/destination/comanche", "/destination/comanche-county-historical-museum"].includes(path) && !/"dateModified"\s*:\s*"2026-11-25"/.test(html)) missing.push("WebPage structured dateModified does not match verified November 25 editorial revision and sitemap lastmod");
+  if (["/destination/comanche", "/destination/comanche-county-historical-museum"].includes(path) && !/"dateModified"\s*:\s*"2026-11-26"/.test(html)) missing.push("WebPage structured dateModified does not match verified November 26 editorial revision and sitemap lastmod");
   if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path) && !html.includes("www.comanchenation.com/about/page/history")) missing.push("first-person Comanche Nation history citation");
   if (path === "/county/comanche" && !html.includes("Comanche County TX: History, De Leon &amp; Proctor Lake") && !html.includes("Comanche County TX: History, De Leon & Proctor Lake")) missing.push("distinctive Comanche County search title");
   if (path === "/destination/comanche-county-historical-museum" && !html.includes("Comanche County Historical Museum: Free Admission &amp; Hours") && !html.includes("Comanche County Historical Museum: Free Admission & Hours")) missing.push("museum fee-and-hours search title");
@@ -80,6 +82,8 @@ function verify({ path, evidence }, html) {
     if (!/at least fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("museum room count must acknowledge differing official pages");
     if (path === "/destination/comanche-county-historical-museum" && !text.includes("Its homepage advertises fourteen rooms while its About Us page says more than fourteen")) missing.push("operator homepage/about-us discrepancy explained");
   }
+  if (path === "/destination/comanche-county-historical-museum" && html.includes("comanche-county-historical-museum-editorial.svg") && !text.includes("Illustration:")) missing.push("illustration credit label (not photography)");
+  if (path === "/destination/comanche-county-historical-museum" && (!text.includes("Joe Maxwell") || !text.includes("October 1978") || !html.includes("atlas.thc.texas.gov/Details/4200000078"))) missing.push("museum founding history and outdated state directory guidance");
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||
     text.includes("Yes. The museum\'s official homepage explicitly states general admission is free"))) {
@@ -116,10 +120,10 @@ for (let attempt = 1; attempt <= 5; attempt++) {
   // Indexable canonicals should be discoverable with the actual editorial dates.
   // The county primary sitemap has a separately versioned edge cache.
   for (const [sitemap, expected] of [
-    ["/sitemap.xml", { "/county/comanche": "2026-11-25" }],
+    ["/sitemap.xml", { "/county/comanche": "2026-11-26" }],
     ["/sitemap-explore.xml", {
-      "/destination/comanche": "2026-11-25",
-      "/destination/comanche-county-historical-museum": "2026-11-25",
+      "/destination/comanche": "2026-11-26",
+      "/destination/comanche-county-historical-museum": "2026-11-26",
     }],
   ]) {
     try {
