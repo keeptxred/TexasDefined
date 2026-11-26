@@ -223,6 +223,17 @@ function isExactRestoredCanonical(urlValue, expectedPath) {
 /** Annotate rather than suppress unexpected HTTP outcomes. Source-backed
  * "intentional 404" is not permission to return HTTP 200 as a thin placeholder.
  */
+// Six additional exact examples from the November 22 report, independently verified Nov 26.
+// Keep the original 99-path evidence frozen; never infer the entire current report.
+export const NOV26_GSC_404_ALIASES = Object.freeze({
+  "/texas-high-school-football-isds/eagle-mountain-saginaw-isd": "/texas-high-school-football-isds/eagle-mt-saginaw-isd",
+  "/destination/bishops-palace-galveston": "/destination/1892-bishops-palace-galveston",
+  "/texas-property-tax-calculator": "/texas-property-tax-estimator",
+  "/state-fair-of-texas": "/texas-state-fair",
+  "/explore/events": "/events"
+});
+export const NOV26_GSC_404_TEMPLATE = '/property-tax/taxing-unit/$unit';
+
 export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, robots, outcome, error }) {
   const policy = INTENTIONAL_404_DISPOSITIONS[path] ?? null;
   if (invalidTemplate) {
@@ -236,6 +247,13 @@ export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, fi
     const expected = !error && (firstStatus === 404 || firstStatus === 410)
       && (finalStatus === 404 || finalStatus === 410);
     return { intent: 'intentional-404', policyReason: policy.reason, source: policy.source, review: expected ? 'expected-404' : 'policy-regression' };
+  }
+  if (Object.hasOwn(NOV26_GSC_404_ALIASES, path)) {
+    const expected = NOV26_GSC_404_ALIASES[path];
+    const served = !error && firstStatus === 301 && finalStatus === 200
+      && isExactRestoredCanonical(finalUrl, expected) && isExactRestoredCanonical(canonical, expected)
+      && (path.startsWith('/texas-high-school-football-isds/') || !/\\bnoindex\\b/i.test(robots || ''));
+    return { intent: 'restored-valuable-page', policyReason: 'nov26-verified-equivalent-canonical', review: served ? 'served-200' : 'restore-regression' };
   }
   if (RESTORE_REQUIRED_GSC_PATHS.has(path)) {
     const expected = RESTORED_GSC_CANONICAL_PATHS[path];
