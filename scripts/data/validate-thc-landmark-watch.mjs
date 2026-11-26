@@ -69,6 +69,22 @@ function nearestListingDate(markupBeforeLink) {
   const heading = listingHeadingMatches(markupBeforeLink).at(-1);
   return heading ? { month: heading.month, year: heading.year } : null;
 }
+// THC sometimes lists newly designated properties without an Atlas PDF link.
+// Confirm those records from the visible month section, exact name and city/county
+// instead of exempting them from monitoring or inventing a nomination URL.
+function observedUnlinkedListing(html, entry) {
+  const visible = visibleListingText(html);
+  const headings = listingHeadingMatches(html);
+  const needle = normalize([entry.name, entry.town, entry.county].join(" "));
+  for (let i = 0; i < headings.length; i++) {
+    const heading = headings[i];
+    const section = normalize(visible.slice(heading.offset, headings[i + 1]?.offset ?? visible.length));
+    if ((" " + section + " ").includes(" " + needle + " county ")) {
+      return { name: entry.name, year: heading.year, month: heading.month, sourceUrl: source };
+    }
+  }
+  return null;
+}
 // Pending nomination stages are separate from National Register listing status.
 // Track official stage transitions automatically without publishing attractions.
 function extractPendingSections(html) {
@@ -133,6 +149,15 @@ if (julyFixtures.some((markup) => {
   return date?.month !== "July" || date.year !== 2026;
 })) errors.push("THC listing month HTML parsing regression");
 
+const unlinkedFixture = "<h4>Listed November 2026</h4><p>Scotus College<br>Hebbronville, Jim Hogg County</p><h4>Listed October 2026</h4><p>Montopolis Negro School<br>Austin, Travis County</p>";
+const unlinkedScotus = { name: "Scotus College", town: "Hebbronville", county: "Jim Hogg" };
+const unlinkedMontopolis = { name: "Montopolis Negro School", town: "Austin", county: "Travis" };
+if (observedUnlinkedListing(unlinkedFixture, unlinkedScotus)?.month !== "November" ||
+    observedUnlinkedListing(unlinkedFixture, unlinkedMontopolis)?.month !== "October" ||
+    observedUnlinkedListing(unlinkedFixture, {...unlinkedScotus, county: "Travis"}) ||
+    observedUnlinkedListing("<p>Scotus College, Hebbronville, Jim Hogg County</p>", unlinkedScotus)) {
+  errors.push("THC unlinked official listing date/location regression");
+}
 const pendingFixture = extractPendingSections("<h3>Submitted to the National Park Service</h3><p>Evergreen Cemetery</p><p>Chambersea, Chambers County (Relocation Proposal Approved)</p><h3>Final Draft in Progress</h3><p>Rosewood Park</p><h3>Recent Listings and Nomination Search</h3>");
 if (observedPendingStage("Evergreen Cemetery", pendingFixture) !== "submitted" ||
     observedPendingStage("Rosewood Park", pendingFixture) !== "review" ||
@@ -185,6 +210,11 @@ if (!process.argv.includes("--live")) {
       const left = normalize(label), right = normalize(reference);
       return left === right || (left.length >= 15 && right.startsWith(left)) || (right.length >= 15 && left.startsWith(right));
     };
+    for (const entry of listed.filter(row => ["Scotus College", "Montopolis Negro School"].includes(row.name))) {
+      if (links.some(link => matches(link.name, entry.name))) continue;
+      const observed = observedUnlinkedListing(html, entry);
+      if (observed) links.push(observed);
+    }
     const newlyObserved = links.filter((link) => !listed.some((row) => matches(link.name, row.name)));
     const missingFromCurrent = listed.filter((row) =>
       !links.some((link) => matches(link.name, row.name)) &&
