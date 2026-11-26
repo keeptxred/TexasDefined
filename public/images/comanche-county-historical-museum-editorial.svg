@@ -26,14 +26,6 @@
  <path d="M79 304h145" stroke="#f6d0a0" stroke-width="15" stroke-linecap="round"/>
 </g>
 <g fill="#d7bc8e" opacity=".62"><circle cx="1320" cy="78" r="3"/><circle cx="1463" cy="224" r="4"/><circle cx="1078" cy="728" r="4"/></g>
-<path d="M84 161H924" stroke="#e6bf8c" stroke-width="3" opacity=".8"/>
-<text x="89" y="118" font-family="Arial,sans-serif" font-size="27" letter-spacing="7" fill="#edcf9b">A TEXAS DEFINED HISTORY GUIDE</text>
-<text x="82" y="315" font-family="Georgia,serif" font-size="122" fill="#faf2e2">COMANCHE</text>
-<text x="89" y="413" font-family="Georgia,serif" font-size="75" fill="#faf2e2">COUNTY HISTORICAL</text>
-<text x="89" y="508" font-family="Georgia,serif" font-size="96" fill="#faf2e2">MUSEUM</text>
-<path d="M91 557H944" stroke="#e6bf8c" stroke-width="3"/>
-<text x="91" y="620" font-family="Arial,sans-serif" font-size="27" letter-spacing="3" fill="#e6d6bc">SALOON MIRROR  /  BLACKSMITH TOOLS</text>
-<text x="91" y="666" font-family="Arial,sans-serif" font-size="27" letter-spacing="3" fill="#e6d6bc">FRONTIER HISTORY  /  COUNTY LIFE</text>
-<g transform="translate(90 782)"><rect width="890" height="91" rx="5" fill="#0b1c24" opacity=".87"/><text x="24" y="39" font-family="Arial,sans-serif" font-size="21" letter-spacing="1.3" fill="#eedcc2">ORIGINAL EDITORIAL ILLUSTRATION · NOT A PHOTOGRAPH</text><text x="24" y="69" font-family="Arial,sans-serif" font-size="19" fill="#c5ccc8">Exhibit symbols, not a depiction of the museum building</text></g>
-<text x="90" y="948" font-family="Arial,sans-serif" font-size="18" fill="#e1cbaa" opacity=".85">402 MOORMAN ROAD · COMANCHE, TEXAS</text>
+<!-- Keep the left half quiet for the HTML heading and visitor summary. The
+     visible page credit and SVG title/description distinguish illustration from photography. -->
 </svg>
