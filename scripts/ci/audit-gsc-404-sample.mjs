@@ -156,7 +156,13 @@ const blockingRegressions = results.filter(isBlockingGsc404Result);
 const templateCount = results.filter((r) => r.invalidTemplate).length;
 const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
 const templateRedirectCount = results.filter((r) => r.outcome === 'invalid_template_redirect_chain').length;
+const reportPaths = (await readFile('ops/seo/gsc-404-2026-11-26-paths.txt', 'utf8')).split(/\r?\n/).filter(p => p.startsWith('/'));
+const reportSet = new Set(reportPaths);
+if (reportPaths.length !== 103 || reportSet.size !== 103 || reportPaths.some(p => !paths.includes(p))) throw new Error('Current GSC report inventory must be exactly 103 unique paths within audited union');
+const reportResults = results.filter(r => reportSet.has(r.path));
+const reportCounts = Object.fromEntries([...new Set(reportResults.map(r => r.review))].sort().map(review => [review, reportResults.filter(r => r.review === review).length]));
 const summary = {
+  currentReport: { source: 'ops/seo/gsc-404-2026-11-26-paths.txt', count: reportResults.length, dispositionCounts: reportCounts, blockingRegressions: reportResults.filter(isBlockingGsc404Result).map(r => ({ path:r.path, review:r.review, firstStatus:r.firstStatus, finalStatus:r.finalStatus })) },
   createdAt: new Date().toISOString(),
   auditBoundary: 'Read-only HTTP observation; GSC coverage labels may lag and a genuine 404 can remain appropriate.',
   actionableReviewCount,
