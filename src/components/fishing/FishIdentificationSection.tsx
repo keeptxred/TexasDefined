@@ -1,8 +1,9 @@
 import type { FishIdentification } from "@/data/fishing/species-identification";
 
-export function FishIdentificationSection({ speciesName, identification }: {
+export function FishIdentificationSection({ speciesName, identification, comparisonGuides = [] }: {
   speciesName: string;
   identification: FishIdentification | null | undefined;
+  comparisonGuides?: readonly { name: string; href: string }[];
 }) {
   if (!identification) return null;
   return (
@@ -22,6 +23,20 @@ export function FishIdentificationSection({ speciesName, identification }: {
         <article className="border-t border-border pt-5">
           <h3 className="font-display text-2xl">Compare with similar fish</h3>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">{identification.similarSpecies}</p>
+          {comparisonGuides.length ? (
+            <div className="mt-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Illustrated fish identification guides</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {comparisonGuides.map((guide) => (
+                  <li key={guide.href}>
+                    <a href={guide.href} className="inline-flex border border-border px-3 py-2 text-sm font-semibold text-primary hover:border-primary hover:underline">
+                      Compare with {guide.name} →
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </article>
         <article className="border-t border-border pt-5">
           <h3 className="font-display text-2xl">Size in the field guide</h3>

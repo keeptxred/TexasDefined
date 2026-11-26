@@ -3,7 +3,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
-import { fishingFoundationAnchor } from "./slugs";
+import { fishingFoundationAnchor, isCompleteFishingSpeciesSlug } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
 import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
@@ -71,10 +71,15 @@ async function buildLargemouthBassPageData() {
     .filter((row) => Boolean(row.advertiser));
 
   const regions = [...new Set(rankedLakes.map((row) => row.lake.region))];
+  const comparisonGuides = (fishIdentification["largemouth-bass"].compareSlugs ?? [])
+    .map((compareSlug) => allSpecies.find((candidate) => candidate.slug === compareSlug))
+    .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
+    .map((candidate) => ({ name: candidate!.commonName, href: fishingFoundationAnchor("species", candidate!.slug) }));
   return {
     species,
     profile: largemouthBassEditorialProfile,
     identification: fishIdentification["largemouth-bass"],
+    comparisonGuides,
     rankedLakes,
     recommendedTechniques,
     relatedSpecies,

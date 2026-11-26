@@ -78,7 +78,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           </aside>
         </section>
 
-        <FishIdentificationSection speciesName={species.commonName} identification={pageData.identification} />
+        <FishIdentificationSection speciesName={species.commonName} identification={pageData.identification} comparisonGuides={pageData.comparisonGuides} />
 
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="seasonal-patterns">
           <p className="eyebrow text-primary">Seasonal behavior</p>
