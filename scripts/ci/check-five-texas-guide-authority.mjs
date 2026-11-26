@@ -117,6 +117,7 @@ async function independentSourceProof(url, description) {
 
 
 assert.equal(registry.schemaVersion, 1);
+assert.deepEqual(registry.groups.find(group=>group.id==="culture-folklore").machineSourceOverrides, {[UNT_ARCHIVE_PAGE]:UNT_ARCHIVE_OCR}, "Exact archival reader-to-machine source identity must remain governed");
 assert.equal(registry.groups.length, 5);
 assert.equal(new Set(registry.groups.map(group => group.path)).size, 5);
 assert.deepEqual(registry.groups.map(group => group.path), [
