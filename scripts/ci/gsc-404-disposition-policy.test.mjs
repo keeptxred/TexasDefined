@@ -242,3 +242,13 @@ test('November 26 six new exact examples do not alter the frozen 99-path audit',
   assert.ok(!inventory.includes(NOV26_GSC_404_TEMPLATE));
   assert.equal(observed(NOV26_GSC_404_TEMPLATE, 404, 404, {invalidTemplate:true}).review, 'expected-404');
 });
+
+
+test('complete November 26 owner export contains 103 exact distinct paths covered by the protected 105-path union', () => {
+  const current = readFileSync('ops/seo/gsc-404-2026-11-26-paths.txt', 'utf8').split(/\r?\n/).filter(l => l.startsWith('/'));
+  assert.equal(current.length, 103);
+  assert.equal(new Set(current).size, 103);
+  assert.equal(current.filter(p => inventory.includes(p)).length, 97);
+  assert.deepEqual(current.filter(p => !inventory.includes(p)).sort(), [...Object.keys(NOV26_GSC_404_ALIASES), NOV26_GSC_404_TEMPLATE].sort());
+  assert.deepEqual(inventory.filter(p => !current.includes(p)).sort(), ['/city/del-rio', '/destination/fort-leaton-state-historic-site']);
+});
