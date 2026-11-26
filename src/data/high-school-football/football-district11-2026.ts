@@ -1,7 +1,7 @@
 import type { DistrictFootballGame } from './football-district-game-week';
 
 /**
- * 2026 UIL 4A Division I Region III District 11 — source-checked Oct 29, 2026.
+ * 2026 UIL 4A Division I Region III District 11 — latest source check November 20, 2026.
  * MaxPreps is UIL's partner; these are dated source snapshots, NOT certified
  * district standings and NOT a live scoreboard. Every row was compared against
  * the 2026 varsity school schedule, and opponent names use the UIL roster.
