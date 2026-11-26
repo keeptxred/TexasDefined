@@ -21,7 +21,7 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
   readingMinutes: 20,
-  updatedAt: "2026-11-25",
+  updatedAt: "2026-11-26",
   tags: [
     "Comanche County",
     "Comanche Texas",
@@ -51,6 +51,10 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     { href: "/fishing/lakes/proctor-lake", label: "Proctor Lake fishing and recreation", description: "Use current fishing, access and water-condition information for the county lake." },
   ],
   sources: [
+    { label: "Texas Historical Commission — Robert Thomas Hill courthouse marker", url: "https://atlas.thc.texas.gov/Details/5093004302" },
+    { label: "Texas Historical Commission — Community of Sidney marker", url: "https://atlas.thc.texas.gov/Details/5093001012/print" },
+    { label: "Handbook of Texas — Robert Thomas Hill", url: "https://www.tshaonline.org/handbook/entries/hill-robert-thomas" },
+    { label: "USGS — Hill’s 1891 Comanche series bibliographic record", url: "https://ngmdb.usgs.gov/Prodesc/proddesc_89459.htm" },
     { label: "Comanche Nation — History and living self-identification", url: "https://www.comanchenation.com/about/page/history" },
     { label: "Texas State Historical Association — Comanche people and Comanchería", url: "https://www.tshaonline.org/handbook/entries/comanche-indians" },
     { label: "Texas State Historical Association — Comanche County", url: "https://www.tshaonline.org/handbook/entries/comanche-county" },
@@ -92,6 +96,10 @@ export const comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle: Article
     p("Comanche County covers roughly nine hundred forty square miles of rolling country. Its northern section belongs to the Western Cross Timbers, where post oak, other hardwoods, sandy soils and brush create a wooded landscape unlike the broad open prairie farther south and east. The southern portion grades toward the Grand Prairie, with darker soils and more open agricultural ground."),
     p("That ecological boundary matters because it encouraged a mixed economy. Timber, grazing, row crops, orchards and livestock could all succeed in different parts of the county. The changing soils are still visible from the road: wooded ridges and sandy fields can give way quickly to limestone country, broad pasture and cultivated acreage."),
 
+    h("Round Mountain and the origins of Texas geological science"),
+    p("Robert Thomas Hill, who came to Comanche in 1874 to work at the Comanche Chief, explored the rocks and fossils of nearby Round Mountain. His local field observations helped shape a career in geology: he earned a Cornell degree in 1887, worked for the U.S. Geological Survey, investigated the Cretaceous strata he called the Comanche Series and identified the Balcones Escarpment. The USGS National Geologic Map Database catalogs his 1891 Comanche-series paper. Hill’s career makes the county’s geology more than scenery: a local landscape became a starting point for scientific mapping of Texas. Read the 1995 state marker on the southwest courthouse grounds in Comanche when restoration access permits. No public trail or access to Round Mountain has been established."),
+    h("Sidney: a schoolhouse, dairy farms and a scientific connection"),
+    p("The 1969 state historical marker at FM 1689 and FM 589 records Sidney’s beginnings around 1870, a shared log schoolhouse built in 1877 and an 1886 post office named for postmaster J. C. Stapp’s son. Holstein cattle arrived in the 1880s and dairy farming became important to the community. The same marker connects nearby Round Mountain to Hill’s early field studies. These details give Sidney a distinct place in county history, beyond a generic list of small towns; treat the marker as a roadside interpretive stop only where it is legal and safe to stop."),
     h("The Leon River system organizes the landscape"),
     p("North and South Leon river branches and their tributaries drain much of Comanche County toward the Brazos River basin. Indian Creek crosses the central part of the county, while the Sabana River and other streams feed the Leon system farther east. These waterways provided water, wildlife and travel corridors long before formal county government existed."),
     p("The river network also explains why Proctor Lake became one of the county's defining modern landmarks. Built on the Leon River system in the early 1960s, the reservoir added flood control, water supply and recreation to a landscape that had depended on smaller creeks, wells and stock tanks for generations."),
