@@ -129,10 +129,13 @@ test('dedicated Lake Conroe camping has a tiny metadata route and independently 
 });
 
 
-test('Stamford and Falcon editorial SSR do not await the optional live-level network request', () => {
+test('Stamford, Falcon and Abilene editorial SSR do not await the optional live-level network request', () => {
   const functions = readFileSync('src/data/fishing/showcase-lakes-page-data.functions.ts', 'utf8');
   const strip = readFileSync('src/components/fishing/LiveLakeLevelStrip.tsx', 'utf8');
-  assert.ok(functions.includes('data.slug === "lake-stamford" || data.slug === "falcon-international-reservoir"'));
+  assert.ok(functions.includes('new Set(["lake-stamford", "falcon-international-reservoir", "lake-abilene"])'));
+  assert.ok(functions.includes('DEFERRED_LIVE_LEVEL_SLUGS.has(data.slug)'));
+  assert.ok(/catch\s*\{[\s\S]*?return null;[\s\S]*?finally/.test(functions), 'optional level errors cannot break the guide');
+  assert.ok(monitor.includes("'/fishing/lakes/lake-abilene'"), 'exact failed page must be checked on both origins');
   assert.ok(functions.includes('? null : await loadPageLiveLakeLevel(lake.sources.liveLevel.url)'));
   assert.ok(strip.includes('getLiveLakeLevel({ data: { sourceUrl } })'), 'keep current readings after hydration');
   assert.ok(strip.includes('href={sourceUrl}'), 'official source remains visible even when live data fails');
