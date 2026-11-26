@@ -21,6 +21,12 @@ const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xm
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
+// Museum, county and town narrative paragraphs often contain long primary-source URLs.
+// Keep them readable at 390px mobile widths rather than letting a single URL widen the page.
+const editorialStyles = fs.readFileSync(path.join(root, 'src/styles.css'), 'utf8');
+if (!/@utility editorial-body\\s*\\{[^}]*overflow-wrap:\\s*anywhere\\s*;/.test(editorialStyles)) {
+  errors.push("Editorial body must wrap long primary-source URLs without horizontal mobile overflow.");
+}
 
 for (const feature of [
   'explore_park_profiles(', 'explore_lake_profiles(', 'explore_entity_activities(',
