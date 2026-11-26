@@ -32,7 +32,7 @@ const newFish = new Set([
 ]);
 const identificationSource = await readFile("src/data/fishing/species-identification.ts", "utf8");
 const identificationMarker = "export const fishIdentification: Record<string, FishIdentification> = ";
-const fieldGuides = JSON.parse(identificationSource.split(identificationMarker)[1].split(";\\n")[0]);
+const fieldGuides = JSON.parse(identificationSource.split(identificationMarker)[1].split(";\n")[0]);
 const expectedLookalikeLinks = Object.values(fieldGuides)
   .reduce((count, guide) => count + (guide.compareSlugs ?? []).length, 0);
 const results = [];
