@@ -114,7 +114,8 @@
 }
 
 @utility eyebrow { font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-@utility editorial-body { font-family: var(--font-family-sans); font-size: 1.125rem; line-height: 1.85; }
+// Long primary-source URLs and historic-document references must wrap rather than force sideways mobile scrolling.
+@utility editorial-body { font-family: var(--font-family-sans); font-size: 1.125rem; line-height: 1.85; overflow-wrap: anywhere; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
