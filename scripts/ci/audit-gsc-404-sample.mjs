@@ -1,4 +1,4 @@
-// Read-only, bounded recheck of the 99 exact historical GSC 404 URLs.
+// Read-only, bounded recheck of 105 exact historical GSC 404 URLs.
 // No sitemap/crawl sweep, no mutation of production resources, and no claims
 // that historical Search Console entries represent present-day HTTP failures.
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
@@ -303,7 +303,7 @@ await writeFile(path.join(outDir, 'summary.md'), markdown);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown);
 console.log(markdown);
 if (results.every((r) => r.error)) {
-  throw new Error('All 99 checks failed on transport or redirect chain; no valid HTTP results obtained');
+  throw new Error('All 105 checks failed on transport or redirect chain; no valid HTTP results obtained');
 }
 if (blockingRegressions.length) {
   throw new Error('Historical GSC 404 audit has ' + blockingRegressions.length + ' evidence-backed route regressions; inspect retained results.json and summary.md. Do not convert intentional 404s into 200.');
