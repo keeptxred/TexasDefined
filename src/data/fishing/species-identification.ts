@@ -35,7 +35,7 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "fieldSize": "Often 12–25 in; much larger fish occur.",
     "markings": "Heavy body, bronze-to-golden scales, long-based dorsal fin and two pairs of barbels beside the mouth.",
     "texasHabitat": "Introduced and now widespread in Texas ponds, lakes, reservoirs and rivers, often foraging along soft bottoms.",
-    "similarSpecies": "Unlike grass carp, common carp have conspicuous mouth barbels and a much longer dorsal fin.",
+    "similarSpecies": "Common carp have two pairs of mouth barbels and a long-based dorsal fin. Grass carp lack those barbels and have a shorter dorsal fin; native smallmouth buffalo also lack barbels. Do not identify an unfamiliar heavy-bodied fish from color alone.",
     "approach": "Present bait close to the bottom where carp feed; use light, sensitive rigs and handle larger fish with adequate support.",
     "caution": "Do not assume statewide nongame status overrides site-specific restrictions, including Lady Bird Lake.",
     "naturalHistory": [
@@ -371,7 +371,7 @@ export const fishIdentification: Record<string, FishIdentification> = {
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wild/species/rbt/",
     "fieldSize": "Commonly under 5 lb.",
     "markings": "Silvery sides with a pink-to-rose lateral stripe and dark spots on body, dorsal fin and tail.",
-    "texasHabitat": "In Texas primarily seasonal cool-weather stockings and a few suitable cool-water habitats rather than a statewide permanent warm-water fishery.",
+    "texasHabitat": "TPWD stocks rainbow trout in many Texas community ponds, selected rivers, and state-park waters during cool winter weather. Warm-water summer survival is generally poor, although suitable cool tailwaters can provide exceptions. Stocking sites and dates change, so check the current TPWD schedule rather than relying on last season's locations.",
     "similarSpecies": "Unlike most Texas native panfish, rainbow trout have an adipose fin and a spotted tail; do not confuse stocked trout with other cold-water salmonids.",
     "approach": "Use small flies, spinners or legal baits at current stocked waters; verify the latest TPWD stocking report.",
     "caution": "Do not represent last winter's stocking schedule as a current stocking announcement.",
