@@ -42,6 +42,17 @@ for (const slug of expected) {
     row.naturalHistory.every((paragraph) => typeof paragraph === "string" && paragraph.length >= 180),
     `${slug} requires two researched TPWD-grounded diet, spawning and ecology paragraphs`);
   assert(row.sourceUrl.startsWith("https://tpwd.texas.gov/"), `${slug} missing authoritative TPWD citation`);
+  if (row.compareSlugs !== undefined) {
+    assert(Array.isArray(row.compareSlugs) && row.compareSlugs.length > 0 && row.compareSlugs.length <= 3,
+      `${slug} needs a bounded, explicit lookalike list`);
+    assert.equal(new Set(row.compareSlugs).size, row.compareSlugs.length, `${slug} repeats lookalike links`);
+    for (const compareSlug of row.compareSlugs) {
+      assert.notEqual(compareSlug, slug, `${slug} links to itself as a lookalike`);
+      assert(slugs.includes(`"${compareSlug}"`), `${slug} links to unpublished guide ${compareSlug}`);
+      assert((catalog + foundation).includes(`"${compareSlug}"`),
+        `${slug} links to unregistered comparison species ${compareSlug}`);
+    }
+  }
   assert(slugs.includes(`"${slug}"`), `Missing standalone route for ${slug}`);
   assert(images.includes(`"${slug}": `) || images.includes(`  ${slug}:`), `Missing individually licensed image for ${slug}`);
   assert((catalog + foundation).includes(`"${slug}"`), `Missing catalog entry for ${slug}`);
@@ -58,9 +69,17 @@ for (const token of [
 for (const token of ["fishIdentification[species.slug]", "identification,", "FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT"]) {
   assert(server.includes(token), `Dynamic species source/metadata integration missing ${token}`);
 }
-assert(component.includes("identification={data.identification}"), "Standalone species UI missing identification");
+assert(component.includes("identification={data.identification}") && component.includes("comparisonGuides={data.comparisonGuides}"),
+  "Standalone species UI missing source-backed identification comparison guides");
+assert(ui.includes("comparisonGuides.map") && ui.includes("Compare with {guide.name}"),
+  "Lookalike links missing inside the field identification section");
+assert(server.includes("comparisonGuides,") && server.includes("identification?.compareSlugs"),
+  "Standard species resolver must only link published comparison guides");
 assert(flagshipServer.includes('fishIdentification["largemouth-bass"]'), "Flagship bass identification not passed through server");
-assert(flagshipUI.includes("identification={pageData.identification}"), "Flagship bass UI missing identification");
+assert(flagshipUI.includes("identification={pageData.identification}") && flagshipUI.includes("comparisonGuides={pageData.comparisonGuides}"),
+  "Flagship bass UI missing identification and comparison links");
+assert(flagshipServer.includes("comparisonGuides,") && flagshipServer.includes("isCompleteFishingSpeciesSlug"),
+  "Flagship bass server missing published-guide lookalike resolution");
 assert(sitemap.includes("FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT"), "Species sitemap editorial refresh date missing");
 assert(directory.includes("row.verifiedAt"), "Directory falsely presents uniform source-review freshness");
-console.log("TPWD freshwater fish identification validation passed: all 22 species covered, nine new canonical guides, licensed individually attributed illustrations, distinct ID/habitat/lookalike/tactics text, visible citations and sitemap freshness.");
+console.log("TPWD freshwater fish identification validation passed: all 22 species covered, nine new canonical guides, licensed illustrations, verified habitat and source fields, contextual published-guide lookalike links and sitemap freshness.");
