@@ -45,6 +45,8 @@ function verify({ path, evidence }, html) {
   if (!html.includes(`https://texasdefined.com${path}`)) missing.push("canonical absolute URL");
   if (text.length < 4000) missing.push("substantial server-rendered page content");
   if (path !== "/explore/small-towns" && !html.includes("texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more")) missing.push("primary-source Old Cora preservation grant link");
+  if (path !== "/explore/small-towns" && !html.includes("comanchecountytx.gov/AgendaCenter/ViewFile/Minutes/_11092026-152")) missing.push("latest primary-source county commissioners renovation status");
+  if (path !== "/explore/small-towns" && !text.includes("November 9, 2026")) missing.push("dated November 9 county restoration status context");
   if (path === "/explore/small-towns" && text.includes("Brennan Vineyards and JW Hardin Wine Co.")) missing.push("stale Comanche wine recommendations in small-towns directory");
   if (path === "/destination/comanche" && !html.includes("atlas.thc.texas.gov/Details/5000022414")) missing.push("THC historic marker corroborating Comanche Frisco depot");
   if (path !== "/explore/small-towns" && !html.includes("npgallery.nps.gov/AssetDetail/NRIS/100001872")) missing.push("NPS separate National Register depot source");
@@ -112,10 +114,10 @@ for (let attempt = 1; attempt <= 5; attempt++) {
   // Indexable canonicals should be discoverable with the actual editorial dates.
   // The county primary sitemap has a separately versioned edge cache.
   for (const [sitemap, expected] of [
-    ["/sitemap.xml", { "/county/comanche": "2026-11-24" }],
+    ["/sitemap.xml", { "/county/comanche": "2026-11-25" }],
     ["/sitemap-explore.xml", {
-      "/destination/comanche": "2026-11-24",
-      "/destination/comanche-county-historical-museum": "2026-11-24",
+      "/destination/comanche": "2026-11-25",
+      "/destination/comanche-county-historical-museum": "2026-11-25",
     }],
   ]) {
     try {
