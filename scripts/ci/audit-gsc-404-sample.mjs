@@ -7,6 +7,7 @@ import { classifyHistoricalGsc404, REVIEW_OUTCOMES, isBlockingGsc404Result } fro
 import {
   reviewGsc404Disposition,
   INTENTIONAL_404_DISPOSITIONS,
+  NOV26_GSC_404_ALIASES, NOV26_GSC_404_TEMPLATE,
   RESTORED_GSC_CANONICAL_PATHS,
   INDEXABLE_RESTORED_GSC_PATHS,
   collectGscRobotsDirectives,
@@ -25,10 +26,13 @@ const maxRedirects = 5;
 const concurrency = 3;
 
 const lines = (await readFile(inventoryPath, 'utf8')).split(/\r?\n/);
-const paths = lines.map((line) => line.trim()).filter((line) => line && !line.startsWith('#'));
-if (paths.length !== 99 || new Set(paths).size !== 99 || paths.some((p) => !p.startsWith('/') || p.startsWith('//') || p.includes('?'))) {
+const historicalPaths = lines.map((line) => line.trim()).filter((line) => line && !line.startsWith('#'));
+if (historicalPaths.length !== 99 || new Set(historicalPaths).size !== 99 || historicalPaths.some((p) => !p.startsWith('/') || p.startsWith('//') || p.includes('?'))) {
   throw new Error('GSC audit inventory must contain 99 distinct, path-only URLs');
 }
+
+const paths = [...historicalPaths, ...Object.keys(NOV26_GSC_404_ALIASES), NOV26_GSC_404_TEMPLATE];
+if (paths.length !== 105 || new Set(paths).size !== paths.length) throw new Error('Expected 99 frozen plus six distinct Nov 26 paths');
 
 function unresolvedToken(input) {
   let pathValue = input;
@@ -134,7 +138,7 @@ await Promise.all(Array.from({ length: concurrency }, async () => {
     const index = nextIndex++;
     if (index >= paths.length) return;
     results[index] = await inspect(paths[index]);
-    console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome + ' (' + results[index].review + ') [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
+    console.log(String(index + 1).padStart(2, '0') + '/' + paths.length + ' ' + paths[index] + ': ' + results[index].outcome + ' (' + results[index].review + ') [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
   }
 }));
 const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].sort().map((name) => [
@@ -161,7 +165,7 @@ const summary = {
   templateCount,
   expectedTemplate404Count,
   templateRedirectCount,
-  source: 'TexasDefined GSC 99 historical Not found (404) examples supplied 2026-11-13',
+  source: 'TexasDefined GSC 99 historical examples supplied Nov 13 plus six additional examples supplied Nov 26',
   inventoryPath,
   origin: origin.origin,
   count: paths.length,
@@ -240,7 +244,7 @@ while (sitemapQueue.length && visitedSitemaps.size < 10) {
 if (sitemapQueue.length) sitemapErrors.push({ path: 'sitemap-index', error: 'More than ten distinct XML sources require inspection; bounded audit incomplete' });
 if (sitemapLocations.size === 0) sitemapErrors.push({ path: 'sitemap-set', error: 'No same-host published URLs found; sitemap verification cannot be certified' });
 const intentionallyMissing = [...Object.keys(INTENTIONAL_404_DISPOSITIONS), ...paths.filter(unresolvedToken)];
-const expectedCanonicalBySource = { ...LIVE_VERIFIED_GSC_CANONICAL_PATHS, ...RESTORED_GSC_CANONICAL_PATHS };
+const expectedCanonicalBySource = { ...LIVE_VERIFIED_GSC_CANONICAL_PATHS, ...RESTORED_GSC_CANONICAL_PATHS, ...NOV26_GSC_404_ALIASES };
 const noncanonicalAliases = Object.entries(expectedCanonicalBySource)
   .filter(([source, destination]) => source !== destination).map(([source]) => source);
 const sitemapLeaks = identifyGscSitemapLeaks([...sitemapLocations], intentionallyMissing, noncanonicalAliases);
@@ -282,7 +286,7 @@ const cols = ['path','invalidTemplate','outcome','intent','review','policyReason
 const csv = cols.join(',') + '\n' + results.map((row) => cols.map((col) => csvCell(row[col])).join(',')).join('\n') + '\n';
 await writeFile(path.join(outDir, 'results.csv'), csv);
 const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
-  '**Sample:** 99 exact historical paths. **Checked:** ' + summary.createdAt + '\n\n' +
+  '**Sample:** 105 distinct paths (99 frozen plus six additional Nov 26 examples). **Checked:** ' + summary.createdAt + '\n\n' +
   Object.entries(counts).map(([label, count]) => '- ' + label + ': ' + count).join('\n') + '\n\n' +
   '- Invalid template URLs: ' + templateCount + ' (direct 404/410: ' + expectedTemplate404Count + ', redirected: ' + templateRedirectCount + ')\n' +
   '- Source-backed intentional 404 URLs: ' + ((dispositionCounts['expected-404'] ?? 0) - expectedTemplate404Count) + '\n' +
