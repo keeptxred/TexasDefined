@@ -64,10 +64,11 @@ async function fetchPage(path, normalizedPath) {
         const actual = new URL(location, url);
         const expected = new URL(normalizedPath, origin);
         expected.searchParams.set("_gsc_proof", url.searchParams.get("_gsc_proof"));
+        const nextUrl = actual.href;
         actual.searchParams.sort(); expected.searchParams.sort();
-        assert(actual.href === expected.href, path + ": unexpected normalization redirect " + actual.href);
+        assert(actual.href === expected.href, path + ": unexpected normalization redirect " + nextUrl);
         await response.body?.cancel();
-        response = await fetch(actual, options);
+        response = await fetch(nextUrl, options);
       }
       const html = await response.text();
       if (response.status === 200 && response.headers.get("cf-mitigated") !== "challenge" &&
