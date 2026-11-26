@@ -24,7 +24,7 @@ const errors = [];
 // Museum, county and town narrative paragraphs often contain long primary-source URLs.
 // Keep them readable at 390px mobile widths rather than letting a single URL widen the page.
 const editorialStyles = fs.readFileSync(path.join(root, 'src/styles.css'), 'utf8');
-if (!/@utility editorial-body\\s*\\{[^}]*overflow-wrap:\\s*anywhere\\s*;/.test(editorialStyles)) {
+if (!/@utility editorial-body\s*\{[^}]*overflow-wrap:\s*anywhere\s*;/.test(editorialStyles)) {
   errors.push("Editorial body must wrap long primary-source URLs without horizontal mobile overflow.");
 }
 
