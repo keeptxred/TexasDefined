@@ -75,8 +75,8 @@ function verify({ path, evidence }, html) {
     if (!html.includes("atlas.thc.texas.gov/NR/pdfs/100009117/100009117.pdf")) missing.push("National Register district nomination citation");
   }
   if (["/destination/comanche", "/county/comanche", "/destination/comanche-county-historical-museum"].includes(path)) {
-    if (!/fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("official fourteen-room museum inventory");
-    if (/more than fourteen|more than 14/i.test(text)) missing.push("unsupported museum room count contradicts current official homepage");
+    if (!/at least fourteen (?:exhibit|exhibition|historical exhibit) rooms/i.test(text)) missing.push("museum room count must acknowledge differing official pages");
+    if (path === "/destination/comanche-county-historical-museum" && !text.includes("Its homepage advertises fourteen rooms while its About Us page says more than fourteen")) missing.push("operator homepage/about-us discrepancy explained");
   }
   if (path === "/destination/comanche-county-historical-museum" &&
     (text.includes("This visitor guide does not claim a published admission price") ||
