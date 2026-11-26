@@ -43,11 +43,13 @@ for (const feature of [
   'destination.accessibilityNotes', 'destination.directions', 'destination.address',
   'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
-if (!route.includes('const substantiveModifiedAt = destination.slug === "moody-gardens"')
+if (!route.includes('const substantiveModifiedAt = destination.slug === "comanche-county-historical-museum"')
+    || !route.includes('destination.updatedAt && destination.updatedAt > (destination.sourceCheckedAt ?? "")')
+    || !route.includes(': destination.slug === "moody-gardens"')
     || !route.includes('moodyGardensEditorialDates.lastSubstantiveEdit :')
     || !route.includes('destination.updatedAt ?? "2026-11-21" : destination.sourceCheckedAt')
     || !route.includes('["martin-creek-lake-state-park", "martin-creek-lake-state-park-rv-area"].includes(destination.slug)')) {
-  errors.push("Destination dateModified must preserve the existing source-review fallback and use actual Moody Gardens and paired Martin Creek substantive edit dates.");
+  errors.push("Destination dateModified must respect the later Comanche museum editorial revision while preserving Moody Gardens, paired Martin Creek and other source-review fallbacks.");
 }
 
 for (const feature of [
