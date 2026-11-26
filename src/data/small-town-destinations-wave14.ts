@@ -125,7 +125,7 @@ export const smallTownWave14Destinations: Destination[] = [
       foodAndDrink: [
         {
           name: "JW Hardin Wine Co.",
-          description: "Downtown Comanche tasting room, 107 W. Grand St; check current service and hours.",
+          description: "107 W. Grand St. Operator publishes $15 tastings, Wed–Thu 4–8 p.m. and Fri–Sat noon–8 p.m.; Sunday bottle service is through Baby Cow Brewing. Verify before visiting.",
           href: "https://www.jwhardinwine.com/visit/"
         },
         {
@@ -345,6 +345,11 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "Former Comanche winery buildings and private property marketed for sale, not a current tasting attraction"
         },
         {
+          label: "JW Hardin Wine Co. — Current tasting fees and hours",
+          url: "https://www.jwhardinwine.com/contact-us/",
+          scope: "Operator-published $15 tasting, Wed–Thu and Fri–Sat opening times and separate Sunday bottle service"
+        },
+        {
           label: "JW Hardin Wine Co. — Visit",
           url: "https://www.jwhardinwine.com/visit/",
           scope: "Tasting room visitor context"
@@ -386,9 +391,9 @@ export const smallTownWave14Destinations: Destination[] = [
       {
         topic: "reservations",
         label: "Winery tastings",
-        detail: "JW Hardin Wine Co. publishes a downtown tasting room; confirm current hours and reservations. Brennan Vineyards closed its Comanche facility December 30, 2025, so do not use its old tasting listings.",
-        sourceUrl: "https://www.jwhardinwine.com/visit/",
-        checkedAt: "2026-11-23"
+        detail: "JW Hardin Wine Co. lists $15 tastings, Wed–Thu 4–8 p.m. and Fri–Sat noon–8 p.m. at 107 W. Grand St. Sunday is bottle service through Baby Cow Brewing, not ordinary tasting-room hours. Recheck operator updates and any reservations; Brennan Vineyards closed its local winery in 2025.",
+        sourceUrl: "https://www.jwhardinwine.com/contact-us/",
+        checkedAt: "2026-11-25"
       }
     ],
     visitorFaqs: [
@@ -451,6 +456,11 @@ export const smallTownWave14Destinations: Destination[] = [
         question: "What can I see at the Comanche County Historical Museum?",
         answer: "Its exhibits include a Jack Wright Saloon diorama and mirror, John Wesley Hardin material, a blacksmith display, an Indigenous campsite diorama, veterans' items and a children's area.",
         sourceUrl: "https://www.comanchecountytxmuseum.com/collection"
+      },
+      {
+        question: "When is JW Hardin Wine Co. open, and what does a wine tasting cost?",
+        answer: "The operator lists $15 tastings at 107 West Grand Street, Wednesday and Thursday 4–8 p.m. and Friday and Saturday noon–8 p.m. Sunday is bottle service through Baby Cow Brewing, not a regular tasting-room session. Hours, prices and reservation practices may change, so confirm on the official contact page.",
+        sourceUrl: "https://www.jwhardinwine.com/contact-us/"
       },
       {
         question: "Are there wineries to visit in Comanche, Texas?",
