@@ -60,7 +60,7 @@ export const smallTownWave14Destinations: Destination[] = [
       }
     ],
     bestSeason: "October–April for comfortable downtown walking; wine tastings and the museum can be planned year-round when businesses are operating; verify annual fall and holiday event dates.",
-    entryNote: "As of the November 23, 2026 source review, the Chamber lists Old Cora Courthouse as CLOSED FOR RENOVATION. Treat it as an exterior-history stop, not an open interior tour; courthouse restoration may also affect access. Call ahead for museum hours and wineries; do not assume a formal wine tour or walk-in tasting is available.",
+    entryNote: "As of the November 25, 2026 source review, the Chamber lists Old Cora Courthouse as CLOSED FOR RENOVATION, consistent with the November 9 county commissioners’ no-update minutes. Treat it as an exterior-history stop, not an open interior tour; courthouse restoration may also affect access. Call ahead for museum hours and wineries; do not assume a formal wine tour or walk-in tasting is available.",
     highlights: [
       "Comanche Downtown Historic District (National Register, 2023)",
       "Old Cora Courthouse (1856; currently closed for renovation)",
@@ -79,14 +79,14 @@ export const smallTownWave14Destinations: Destination[] = [
       "Why visit Comanche? The historic county seat brings several layers of Texas history into a compact downtown: a surviving one-room log courthouse from 1856, the living Fleming Oak, a New Deal-era stone courthouse, a 1909 railroad depot, and a remarkable tobacco advertisement hidden behind stucco for more than a century. The Comanche County Historical Museum then tells the wider county story. Nearby Proctor Lake and small wineries broaden a history-focused stop into a full-day visit.",
       "Begin on the courthouse square. The modern Comanche County Courthouse, designed by Wyatt Hedrick and built with WPA labor and local limestone, uses stepped Art Moderne forms with Art Deco details and carved eagles above its entrances. The Texas Historical Commission's published restoration scope includes repair of historic materials, removal of nonoriginal partitions, replication of missing fixtures, replacement of building systems and accessibility compliance. These describe planned work, not a completed project. Restoration may limit access; appreciate the exterior without assuming interior tours. The courthouse stands amid monuments and markers documenting more than one era of county government.",
       "Comanche's downtown is itself a formally recognized historic district, listed in the National Register of Historic Places in July 2023 (reference 100009117). The approximately 17-acre district surrounds the square, roughly bounded by West College Avenue, North Pearl Street, Oak Avenue and the rear property line along North Mary Street. Its National Register nomination documents 48 contributing buildings from the commercial, governmental and architectural development of roughly 1883–1974, including historic storefronts, the courthouse, former post office and city hall/fire station. Look beyond a single landmark: the changing storefront materials and building styles make the square a legible history of how Comanche traded, governed and rebuilt. National Register listing recognizes the district; it does not imply every business is open to visitors or that every structure within the boundary contributes.",
-      "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Texas Historical Commission selected Old Cora for an FY2026 Texas Preservation Trust Fund project calling for a full roof replacement. The Chamber currently marks the building closed for renovation; no interior entry should be promised while work is underway.",
+      "Old Cora Courthouse is not merely an old-looking cabin. Comanche County was created in 1856, when Cora, roughly ten miles southeast of today's county seat, was selected as the first seat of government. The original courthouse structure was a small squared-log building about 12 feet 7 inches by 12 feet 10 inches; historical markers describe it as a dwelling before the county organized in 1856. After the seat moved to Comanche in 1859, the building was reused as a home and moved several times before being preserved beside the present courthouse. It is among Texas's rare surviving frontier-era courthouses. The Texas Historical Commission selected Old Cora for an FY2026 Texas Preservation Trust Fund project calling for a full roof replacement. The Chamber currently marks the building closed for renovation; no interior entry should be promised while work is underway. This is supported by the county's own newer record: the November 9, 2026 Commissioners' Court minutes explicitly reported no new update on either Old Cora renovations or the separate county-courthouse restoration, listing Komatsu plans and Texas Historical Commission grants as pending-status agenda items. The November 23 agenda kept both projects under review, but an agenda is not proof of finished work or an approved action. Keep the outdoor-history stop conditional on local access; do not publish the grant date as a reopening date.",
       "There is a second, quieter layer of courthouse history around Fleming Oak and Bicentennial Park. The 2023 National Register nomination records four salvaged limestone columns from the 1891 courthouse, a repaired and partly reconstructed public well, and a large stone fitted with leg irons from the county's original calaboose (small jail) near the southwest corner of the square. Those are separate artifacts, not intact surviving rooms of the former jail or the 1891 courthouse. Their current visibility can change during restoration, so use the nomination and existing markers to identify them rather than assuming unimpeded access. The same nomination records Comanche's 1938 New Deal City Hall and Fire Station, with distinctive fossil-stone veneer, on Austin Street a block north of the courthouse: a different civic-history stop often missed by short courthouse-only tours.",
       "A separate former City Hall helps explain the district’s changing use. The Texas Historical Commission’s 2025 historic tax-credit case study identifies the circa-1910 State National Bank at 114 West Central Avenue, later First State Bank of Comanche, as a bank through 1968 and subsequently a City Hall. The project was certified June 13, 2025 after adaptation for restaurant use: rehabilitators retained the original tin ceiling and vault, and reused later teller counters as seating. The building is a contributing part of the 2023 downtown historic district. This is not the 1938 New Deal City Hall and Fire Station on Austin Street, nor a claim that any named restaurant will be operating when you arrive. Read the façade as commercial reuse, and verify present business hours separately.",
       "The museum also hosts a Comanche Square Walking Tour with QR-triggered audio commentary and a map. Stops include Old Cora, Fleming Oak, mercantile history and John Wesley Hardin; see https://www.comanchecountytxmuseum.com/about-1-1 and confirm active QR access on arrival. Look for Fleming Oak at the southwest side of the square. Martin V. Fleming and his father reportedly sheltered under this live oak on arriving in 1854. When street workers threatened it during paving around 1911, Fleming defended the tree; he did so again in 1919. This is a documented preservation story, not proof of a precise tree age: descriptions claiming the oak is more than 200 years old should be treated as estimates. Take time to read the nearby historical markers before leaving the square.",
       "One of Comanche's most unusual downtown artifacts was discovered by Clint and Jami Tunnell in October 2019. Removing stucco from their building exposed an approximately 18-by-18-foot Blackwell's Genuine Bull Durham Tobacco wall advertisement. Reporting dates the painting to about 1892–1893, when the wall faced an open passage. The mural is at 109 West Grand Street and has been described as visible through the storefront glass. Because this is a privately used building, view it respectfully from permitted public space and confirm visibility before a special trip.",
       "The mural's story intersects with another downtown chapter: Jack Wright's Saloon occupied the property area during the 1870s, a period associated with outlaw John Wesley Hardin. In 1874 Hardin shot and killed Brown County deputy Charles Webb in Comanche; the ensuing violence included the lynching of three people connected to Hardin. The Comanche County Historical Museum has exhibits about this history, including a recreated Jack Wright Saloon and its original mirror. These are historical events, not a staged gunfight or operating saloon attraction.",
       "The Comanche-Frisco Train Depot at 304 South Austin Street anchors the railroad chapter. The Texas Historical Commission marker documents the first railway's arrival in 1890, Frisco's acquisition in 1901 and the 1909 replacement depot. Look for its brick-and-limestone Prairie School composition, wide overhanging eaves and hipped terra-cotta tile roof. The building served passengers until 1969 and later freight operations before rehabilitation for community use. The National Park Service independently records the depot on the National Register of Historic Places (NRIS 100001872), with architecture and transportation significance and a 1909–1969 period of significance. Friends of Historic Comanche later rescued the deteriorated depot; Preservation Texas reports a public reopening celebration in 2012. Some older preservation summaries contain conflicting construction and train-service dates, so the 2019 Texas Historical Commission marker and National Park Service record control the timeline here. This conservation history explains how the building survived the rail line. Check the Chamber's current opening arrangements rather than assuming interior access.",
-      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans fourteen exhibit rooms, with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
+      "Allow a separate stop for the Comanche County Historical Museum at 402 Moorman Road. Its collection spans at least fourteen exhibit rooms (the museum's home and About Us pages describe the room count slightly differently), with a blacksmith area and windmill tools, a Jack Wright Saloon diorama, John Wesley Hardin material, an Indigenous campsite diorama, veterans' displays, children's activities and local artwork. The museum states Thursday–Saturday, 10 a.m.–4 p.m., and its homepage advertises free general admission with donations welcome. Tours are offered by arrangement; confirm holiday exceptions. Go for the county's everyday work, farm, family and community histories, not only the outlaw exhibits.",
       "The county and town take their name from the Comanche people, but the 1850s founding story is not the beginning of local human history. The contemporary Comanche Nation calls itself Nʉmʉnʉʉ (The People), describes a homeland extending across the southern plains including Texas, and explains the importance of horses to its cultural and trading networks. A visitor should not mistake a museum campsite diorama for a complete tribal history or suggest the tribe exists only in the nineteenth century. For the Nation’s own account, see https://www.comanchenation.com/about/page/history; compare it with the Texas State Historical Association’s broader Comanchería chronology. The tribe’s current political identity is distinct from the county that bears its name.",
       "Wine adds a contemporary agricultural chapter, but old winery listings need correction. Brennan Vineyards operated at the historic McCrary House, 802 South Austin Street, for two decades; the business announced that its Comanche facility would close December 30, 2025, with operations transitioning to Texas Wine Collective in Fredericksburg in January 2026. The former Comanche winery property is marketed for sale and is NOT an active tasting-room stop in 2026, despite outdated content on the Brennan brand website. JW Hardin Wine Co. continues to publish a tasting room at 107 West Grand Street; check its official visitor page for current service and hours. Tribe Vineyards grows grapes in Comanche County but says its vineyard tasting room is planned for 2027, not currently open. For a self-guided wine-and-history afternoon, use a verified operating venue and a designated driver. Texas Wine Lover reproduced Brennan's closure announcement in December 2025, corroborated by the former property's real-estate listing.",
       "For a first-time walking sequence, start with the courthouse exterior, Old Cora and Fleming Oak at the southwest side of the square, then stroll Grand Street for the Bull Durham mural, shops and restaurants. This remains a working downtown with vehicle traffic. Use legal parking, read posted restrictions, cross at safe marked locations and treat restoration barricades as potential route interruptions; no specific free parking lot or guaranteed step-free circuit has been independently verified. Continue to the depot and book the museum during its published visiting window. If you prefer a relaxed afternoon, choose one verified winery tasting; otherwise drive toward Proctor Lake for shoreline recreation where public access and weather permit. These are suggested combinations, not a mapped or commercially operated wine tour.",
@@ -95,8 +95,8 @@ export const smallTownWave14Destinations: Destination[] = [
       "For deeper county context, read the Comanche County guide, which follows the Cora-to-Comanche seat change, De Leon's peanut economy, the Texas Central and Frisco railroad chapters, the Leon River watershed and Proctor Lake. The city and county stories complement each other; neither one should substitute for the other's history."
     ],
     officialUrl: "https://www.comanchechamber.org/explorecomanche",
-    sourceCheckedAt: "2026-11-24",
-    updatedAt: "2026-11-24",
+    sourceCheckedAt: "2026-11-25",
+    updatedAt: "2026-11-25",
     directions: "Comanche is at U.S. 67/377 and Texas 16. Start at the courthouse square; the 1909 Frisco Depot / Chamber visitor center is at 304 S. Austin St. The museum is at 402 Moorman Rd; the historic Bull Durham mural is reported at 109 W. Grand St. Proctor Lake is northeast of town.",
     accessibilityNotes: "The outdoor square has road crossings and potentially uneven pavements. Verify accessible parking, curb ramps and building entrances with local operators; courthouse restoration can change pedestrian routes. Old Cora's interior is currently closed. The museum includes historic displays and should be contacted directly about accessible entrances, restrooms and tour needs; winery facilities differ.",
     areaGuide: {
@@ -125,7 +125,7 @@ export const smallTownWave14Destinations: Destination[] = [
       foodAndDrink: [
         {
           name: "JW Hardin Wine Co.",
-          description: "Downtown Comanche tasting room, 107 W. Grand St; check current service and hours.",
+          description: "107 W. Grand St. Operator publishes $15 tastings, Wed–Thu 4–8 p.m. and Fri–Sat noon–8 p.m.; Sunday bottle service is through Baby Cow Brewing. Verify before visiting.",
           href: "https://www.jwhardinwine.com/visit/"
         },
         {
@@ -265,6 +265,16 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "Log-courthouse measurements, county seat move and relocation"
         },
         {
+          label: "Comanche County Commissioners' Court — November 9, 2026 minutes",
+          url: "https://www.comanchecountytx.gov/AgendaCenter/ViewFile/Minutes/_11092026-152",
+          scope: "Official county record: no update on courthouse restoration or Old Cora renovation; preserves difference between plans/grants and completed work"
+        },
+        {
+          label: "Comanche County Commissioners' Court — November 23, 2026 agenda",
+          url: "https://www.comanchecountytx.gov/AgendaCenter/ViewFile/Agenda/_11232026-154",
+          scope: "Both restoration projects remained agenda items; agenda alone does not establish any vote or construction outcome"
+        },
+        {
           label: "Texas Historical Commission — Old Cora preservation grant",
           url: "https://thc.texas.gov/news-releases/texas-preservation-trust-fund-benefits-historic-tavern-dance-hall-log-courthouse-more",
           scope: "FY2026 preservation grant selection for full roof replacement at Old Cora; not evidence the roof work is finished"
@@ -335,6 +345,11 @@ export const smallTownWave14Destinations: Destination[] = [
           scope: "Former Comanche winery buildings and private property marketed for sale, not a current tasting attraction"
         },
         {
+          label: "JW Hardin Wine Co. — Current tasting fees and hours",
+          url: "https://www.jwhardinwine.com/contact-us/",
+          scope: "Operator-published $15 tasting, Wed–Thu and Fri–Sat opening times and separate Sunday bottle service"
+        },
+        {
           label: "JW Hardin Wine Co. — Visit",
           url: "https://www.jwhardinwine.com/visit/",
           scope: "Tasting room visitor context"
@@ -362,9 +377,9 @@ export const smallTownWave14Destinations: Destination[] = [
       {
         topic: "access",
         label: "Old Cora Courthouse",
-        detail: "Chamber lists CLOSED FOR RENOVATION; exterior viewing only where publicly accessible.",
+        detail: "Chamber lists CLOSED FOR RENOVATION; county commissioners reported no renovation update November 9, 2026. Exterior viewing only where publicly accessible.",
         sourceUrl: "https://www.comanchechamber.org/explorecomanche",
-        checkedAt: "2026-11-22"
+        checkedAt: "2026-11-25"
       },
       {
         topic: "hours",
@@ -376,9 +391,9 @@ export const smallTownWave14Destinations: Destination[] = [
       {
         topic: "reservations",
         label: "Winery tastings",
-        detail: "JW Hardin Wine Co. publishes a downtown tasting room; confirm current hours and reservations. Brennan Vineyards closed its Comanche facility December 30, 2025, so do not use its old tasting listings.",
-        sourceUrl: "https://www.jwhardinwine.com/visit/",
-        checkedAt: "2026-11-23"
+        detail: "JW Hardin Wine Co. lists $15 tastings, Wed–Thu 4–8 p.m. and Fri–Sat noon–8 p.m. at 107 W. Grand St. Sunday is bottle service through Baby Cow Brewing, not ordinary tasting-room hours. Recheck operator updates and any reservations; Brennan Vineyards closed its local winery in 2025.",
+        sourceUrl: "https://www.jwhardinwine.com/contact-us/",
+        checkedAt: "2026-11-25"
       }
     ],
     visitorFaqs: [
@@ -423,6 +438,11 @@ export const smallTownWave14Destinations: Destination[] = [
         sourceUrl: "https://www.comanchecountytxmuseum.com/about-1-1"
       },
       {
+        question: "Has Comanche County finished restoring Old Cora and the courthouse?",
+        answer: "Not confirmed. The November 9, 2026 county commissioners' minutes report no update on either Old Cora or county courthouse renovations, with plans and grants still listed. Both were on the November 23 meeting agenda, but that alone does not document completion. The Chamber continues to list Old Cora closed for renovation, so plan an exterior visit only where accessible.",
+        sourceUrl: "https://www.comanchecountytx.gov/AgendaCenter/ViewFile/Minutes/_11092026-152"
+      },
+      {
         question: "Is the 1856 Old Cora Courthouse open for tours?",
         answer: "No interior visit should be assumed. The Chamber currently labels Old Cora closed for renovation. You can plan an exterior/history-marker visit when the grounds are accessible.",
         sourceUrl: "https://www.comanchechamber.org/explorecomanche"
@@ -436,6 +456,11 @@ export const smallTownWave14Destinations: Destination[] = [
         question: "What can I see at the Comanche County Historical Museum?",
         answer: "Its exhibits include a Jack Wright Saloon diorama and mirror, John Wesley Hardin material, a blacksmith display, an Indigenous campsite diorama, veterans' items and a children's area.",
         sourceUrl: "https://www.comanchecountytxmuseum.com/collection"
+      },
+      {
+        question: "When is JW Hardin Wine Co. open, and what does a wine tasting cost?",
+        answer: "The operator lists $15 tastings at 107 West Grand Street, Wednesday and Thursday 4–8 p.m. and Friday and Saturday noon–8 p.m. Sunday is bottle service through Baby Cow Brewing, not a regular tasting-room session. Hours, prices and reservation practices may change, so confirm on the official contact page.",
+        sourceUrl: "https://www.jwhardinwine.com/contact-us/"
       },
       {
         question: "Are there wineries to visit in Comanche, Texas?",
