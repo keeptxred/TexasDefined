@@ -175,7 +175,12 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       ?? (await loadBatch010FootballProgramEditorial(legacy.featured.slug))
       ?? (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
       ?? getFootballProgramEditorial(legacy.featured.slug);
-    const editorial = applyFootballMatchupSnapshot(authoredEditorial, legacy.featured.slug, footballMatchups);
+    // Private/TAPPS programs also have exact individually reviewed finals.
+    // Preserve the same opponent/date/source/conflict guards as UIL profiles.
+    const editorial = applyManuallyVerifiedFootballFinals(
+      applyFootballMatchupSnapshot(authoredEditorial, legacy.featured.slug, footballMatchups),
+      legacy.featured.slug,
+    );
     const profileContent = {
       displayName: legacy.featured.displayName,
       program: legacy.program,
