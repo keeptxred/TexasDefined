@@ -97,6 +97,13 @@ for (const slug of historicalArticleSlugs) {
   LEGACY_EDITORIAL_REDIRECTS[`/news/${slug}`] = `/article/${slug}`;
 }
 
+// Nov 26 owner GSC: exact old URLs, independently verified same-intent live targets.
+LEGACY_EDITORIAL_REDIRECTS["/texas-high-school-football-isds/eagle-mountain-saginaw-isd"] = "/texas-high-school-football-isds/eagle-mt-saginaw-isd";
+LEGACY_EDITORIAL_REDIRECTS["/destination/bishops-palace-galveston"] = "/destination/1892-bishops-palace-galveston";
+LEGACY_EDITORIAL_REDIRECTS["/texas-property-tax-calculator"] = "/texas-property-tax-estimator";
+LEGACY_EDITORIAL_REDIRECTS["/state-fair-of-texas"] = "/texas-state-fair";
+LEGACY_EDITORIAL_REDIRECTS["/explore/events"] = "/events";
+
 /** Point editorial collection links directly at the published canonical
  * destination, while preserving separate 301s for incoming historical URLs.
  */

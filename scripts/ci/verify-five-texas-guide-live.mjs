@@ -36,7 +36,7 @@ const GUIDES = [
   },
   {
     path: "/texas-homecoming-mums",
-    markers: ["homecoming mum", "Elizabeth Cleaver", "Test the finished mum", "DIY build"],
+    markers: ["homecoming mum", "Elizabeth Cleaver", "test the finished piece while standing, walking and sitting", "DIY build"],
     hrefs: ["/article/mum-queen-spring-texas-homecoming-mums", "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions"],
   },
   {

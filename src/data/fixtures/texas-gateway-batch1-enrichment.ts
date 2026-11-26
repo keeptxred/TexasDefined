@@ -206,7 +206,7 @@ export const texasGatewayBatch1Enrichment: Record<string, GatewayBatch1Enrichmen
     sourceName: "Texas Department of Insurance — Home insurance guide",
     sourceUrl: "https://www.tdi.texas.gov/pubs/consumer/cb025.html",
     internalLinks: [
-      { href: "/texas-property-tax-calculator", label: "Texas property-tax calculator" },
+      { href: "/texas-property-tax-estimator", label: "Texas property-tax calculator" },
       { href: "/texas-home-insurance-calculator", label: "Texas home-insurance calculator" },
       { href: "/moving-to-texas", label: "Moving to Texas hub" },
       { href: "/moving-to-texas-checklist", label: "Moving to Texas checklist" },

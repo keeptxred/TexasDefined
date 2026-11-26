@@ -317,6 +317,11 @@ const redirectTargets = [
   { path: '/destination/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/seminole-canyon-state-park-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/seminole-canyon-state-park-and-historic-site?source=crawlstats', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'crawlstats'], label: 'long-form Seminole source cannot remain a separate noindexed public canonical' },
+  { path: '/texas-high-school-football-isds/eagle-mountain-saginaw-isd?source=gsc', expectedStatus: 301, expectedPath: '/texas-high-school-football-isds/eagle-mt-saginaw-isd', expectedQuery: ['source', 'gsc'], label: 'November 26 GSC exact equivalent alias' },
+  { path: '/destination/bishops-palace-galveston?source=gsc', expectedStatus: 301, expectedPath: '/destination/1892-bishops-palace-galveston', expectedQuery: ['source', 'gsc'], label: 'November 26 GSC exact equivalent alias' },
+  { path: '/texas-property-tax-calculator?source=gsc', expectedStatus: 301, expectedPath: '/texas-property-tax-estimator', expectedQuery: ['source', 'gsc'], label: 'November 26 GSC exact equivalent alias' },
+  { path: '/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'November 26 GSC exact equivalent alias' },
+  { path: '/explore/events?source=gsc', expectedStatus: 301, expectedPath: '/events', expectedQuery: ['source', 'gsc'], label: 'November 26 GSC exact equivalent alias' },
   { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
   { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
   // Preserve incoming dated Carnival links without serving an unverified leaf
@@ -553,6 +558,7 @@ async function checkRedirectTarget(target, attemptToken) {
 // The same real Worker must 404 historical router-template strings before SSR,
 // including encoded values that previously produced a 307 -> 404 chain.
 const forbiddenTemplateRoutes = [
+  { path: '/property-tax/taxing-unit/$unit', label: 'literal taxing unit router template remains direct 404' },
   { path: '/explore/casinos/$slug', label: 'unsubstituted casino route' },
   { path: '/explore/near/$metro/$collection', label: 'unsubstituted proximity route' },
   { path: '/explore/painted-churches_/guides_/$slug', label: 'legacy guide template must not become undefined' },

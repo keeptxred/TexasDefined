@@ -11,6 +11,7 @@ on:
       - 'scripts/ci/gsc-404-sitemap.mjs'
       - 'scripts/ci/gsc-404-sitemap.test.mjs'
       - 'ops/seo/gsc-404-2026-11-13-paths.txt'
+      - 'ops/seo/gsc-404-2026-11-26-paths.txt'
       - '.github/workflows/validate-gsc-404-dispositions.yml'
   push:
     branches: [main]
@@ -22,6 +23,7 @@ on:
       - 'scripts/ci/gsc-404-sitemap.mjs'
       - 'scripts/ci/gsc-404-sitemap.test.mjs'
       - 'ops/seo/gsc-404-2026-11-13-paths.txt'
+      - 'ops/seo/gsc-404-2026-11-26-paths.txt'
       - '.github/workflows/validate-gsc-404-dispositions.yml'
   workflow_dispatch:
 

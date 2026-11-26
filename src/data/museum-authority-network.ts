@@ -905,7 +905,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     connections: [
       { label: "Galveston County", href: "/county/galveston", reason: "Connect the museum with the island and county's maritime and civic history." },
       { label: "Texas museum directory", href: "/explore/museums", reason: "Compare history museums around the state." },
-      { label: "Bishop's Palace Galveston", href: "/destination/bishops-palace-galveston", reason: "A separate historic Galveston building with its own admission and opening rules." }
+      { label: "Bishop's Palace Galveston", href: "/destination/1892-bishops-palace-galveston", reason: "A separate historic Galveston building with its own admission and opening rules." }
     ],
   },
   "east-texas-oil-museum-kilgore": {

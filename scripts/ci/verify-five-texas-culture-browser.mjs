@@ -82,6 +82,21 @@ try {
       const robots=await page.locator('meta[name="robots"]').first().getAttribute("content").catch(()=>null);
       check("indexable robots",!/\bnoindex\b/i.test(robots||""),robots);
       check("at least one primary external citation",await page.locator('main a[href^="https://"]').count()>=1);
+      if(spec.path==="/texas-homecoming-mums") {
+        const order=await page.evaluate(()=>{
+          const answer=document.querySelector('#quick-answer');
+          const portrait=document.querySelector('main img[alt*="Goldthwaite"]');
+          return {answers:document.querySelectorAll('#quick-answer').length,
+            before:Boolean(answer&&portrait&&(answer.compareDocumentPosition(portrait)&Node.DOCUMENT_POSITION_FOLLOWING)),
+            answerY:answer?.getBoundingClientRect().top,
+            portraitY:portrait?.getBoundingClientRect().top,
+            portraitLoading:portrait?.getAttribute('loading'),
+            viewportHeight:innerHeight};
+        });
+        check("definition is presented once, before the tall portrait and diagrams",order.answers===1&&order.before,order);
+        check("portrait is deferred only after the answer in the reading flow",order.portraitLoading==="lazy"&&order.portraitY>order.answerY,order);
+        if(viewport.width<=390)check("tall portrait lies below initial mobile viewport",order.portraitY>=order.viewportHeight,order);
+      }
       const images=page.locator("main img");
       check("editorial image present",await images.count()>0,await images.count());
       if(await images.count()) {

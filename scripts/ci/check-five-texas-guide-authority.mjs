@@ -18,6 +18,35 @@ const today = new Date().toISOString().slice(0, 10);
 const problems = [];
 const rows = [];
 const independentProofs = [];
+const UNT_ARCHIVE_PAGE = "https://texashistory.unt.edu/ark:/67531/metadc271470/m1/196/";
+const UNT_ARCHIVE_OCR = UNT_ARCHIVE_PAGE + "annotations/ocr/";
+const UNT_ARCHIVE_CANVAS = UNT_ARCHIVE_PAGE + "canvas/";
+const archiveProofs = [];
+// UNT explicitly supports IIIF programmatic access: https://texashistory.unt.edu/api/.
+// The item's official manifest links this exact canvas's OCR AnnotationList.
+// The reader-facing archival link stays intact; validate actual page text,
+// not a challenge HTML response or merely a metadata record.
+function validUntArchiveOcr(data) {
+  if (data?.["@id"] !== UNT_ARCHIVE_OCR || data?.["@type"] !== "sc:AnnotationList" ||
+      !Array.isArray(data.resources) || data.resources.length < 100) return false;
+  if (data.resources.some(entry => entry?.["@type"] !== "oa:Annotation" ||
+      typeof entry.on !== "string" || !entry.on.startsWith(UNT_ARCHIVE_CANVAS + "#") ||
+      typeof entry.resource?.chars !== "string")) return false;
+  const text = data.resources.map(entry => entry.resource.chars).join(" ");
+  return /PECOS\s+BILL\s+AND\s+HIS\s+PEDIGREE\s+183/i.test(text) &&
+    /Edward\s+O['’]Reilly/i.test(text) && /1923/.test(text) &&
+    /Century\s+Magazine/i.test(text) && /first\s+known\s+Pecos\s+Bill\s+stories/i.test(text);
+}
+{
+  const words = ("PECOS BILL AND HIS PEDIGREE 183 Edward O'Reilly 1923 Century Magazine first known Pecos Bill stories " + "word ".repeat(110)).trim().split(/\s+/);
+  const valid = {"@id":UNT_ARCHIVE_OCR,"@type":"sc:AnnotationList",resources:words.map(chars=>({"@type":"oa:Annotation",on:UNT_ARCHIVE_CANVAS+"#xywh=1,2,3,4",resource:{chars}}))};
+  assert.ok(validUntArchiveOcr(valid));
+  assert.equal(validUntArchiveOcr({...valid,"@id":"https://other.invalid"}),false);
+  assert.equal(validUntArchiveOcr({...valid,resources:valid.resources.map(x=>({...x,on:"https://other.invalid"}))}),false);
+  assert.equal(validUntArchiveOcr({...valid,resources:valid.resources.map(x=>({...x,resource:{chars:"unrelated"}}))}),false);
+  assert.equal(validUntArchiveOcr({html:"Validating your request..."}),false);
+}
+
 const INDEPENDENT_SOURCE_PATH = "/texas-dance-halls-honky-tonks";
 const INDEPENDENT_SOURCES = new Set([
   "https://gruenehall.com/events/month/",
@@ -88,6 +117,7 @@ async function independentSourceProof(url, description) {
 
 
 assert.equal(registry.schemaVersion, 1);
+assert.deepEqual(registry.groups.find(group=>group.id==="culture-folklore").machineSourceOverrides, {[UNT_ARCHIVE_PAGE]:UNT_ARCHIVE_OCR}, "Exact archival reader-to-machine source identity must remain governed");
 assert.equal(registry.groups.length, 5);
 assert.equal(new Set(registry.groups.map(group => group.path)).size, 5);
 assert.deepEqual(registry.groups.map(group => group.path), [
@@ -152,17 +182,43 @@ if (argv.has("--watch")) {
       "--location","--silent","--show-error","--compressed",
       "--max-time","30","--retry","2","--retry-all-errors","--retry-delay","1",
       "--user-agent","TexasDefined-Five-Guides-Source-Monitor/1.0",
-      "--write-out","\\n__TD_HTTP_STATUS__%{http_code}",
+      "--write-out","\\n__TD_HTTP_STATUS__%{http_code}\\n__TD_CONTENT_TYPE__%{content_type}",
       url
     ],{timeout:100000,maxBuffer:12*1024*1024});
-    const m=stdout.match(/\\n__TD_HTTP_STATUS__(\\d{3})$/);
-    if(!m)throw new Error("curl response status unavailable");
-    const status=Number(m[1]);
-    return {ok:status>=200&&status<300,status,headers:{get:()=>null},
-      body:{cancel:async()=>{}},text:async()=>stdout.slice(0,m.index)};
+    const m=stdout.match(/\n__TD_HTTP_STATUS__(\d{3})\n__TD_CONTENT_TYPE__([^\r\n]*)$/);
+    if(!m)throw new Error("curl response status/content type unavailable");
+    const status=Number(m[1]), contentType=m[2], body=stdout.slice(0,m.index);
+    return {ok:status>=200&&status<300,status,
+      headers:{get:name=>name.toLowerCase()==="content-type"?contentType:null},
+      body:{cancel:async()=>{}},text:async()=>body,json:async()=>JSON.parse(body)};
   }
   async function probe(url, description, marker) {
     try {
+      if (!marker && url === UNT_ARCHIVE_PAGE && description === "/texas-tall-tales-folklore primary source") {
+        let response, transport = "official IIIF OCR annotations via Node fetch";
+        try { response = await fetchWithRetry(UNT_ARCHIVE_OCR); }
+        catch(primaryError) {
+          // A different network stack may recover a transient TLS/DNS failure.
+          // Keep the exact official OCR URL, MIME and identity/content proof.
+          try {
+            response = await curlSourceFallback(UNT_ARCHIVE_OCR);
+            transport = "official IIIF OCR annotations via curl";
+          } catch(fallbackError) {
+            throw new Error("UNT OCR Node fetch: "+String(primaryError).slice(0,60)+
+              "; curl: "+String(fallbackError).slice(0,100));
+          }
+        }
+        if (!response.ok || !/^application\/json\b/i.test(response.headers.get("content-type")||"")) {
+          await response.body?.cancel();
+          throw new Error("UNT public OCR API did not return JSON HTTP 200");
+        }
+        const document = await response.json();
+        if (!validUntArchiveOcr(document)) throw new Error("UNT exact archival page OCR identity or source fact markers mismatch");
+        const proof = {readerSource:url,machineSource:UNT_ARCHIVE_OCR,annotations:document.resources.length,transport:transport+"; reader HTML not tested"};
+        archiveProofs.push(proof);
+        console.log("FIVE_GUIDE_ARCHIVE_OCR_PROOF "+JSON.stringify(proof));
+        return;
+      }
       let response;
       try { response = await fetchWithRetry(url); }
       catch(primaryError) {
@@ -247,6 +303,7 @@ const summary = [
     .map(row => "| " + row.path + " | " + row.lastFactReview + " | " + row.ageDays + " | " + row.maxAgeDays + " |"),
   "",
   problems.length ? "### Action required\n" + problems.map(problem => "- " + problem).join("\n") : "No selected source reachability/age alerts.",
+  ...archiveProofs.map(proof => "- Official UNT IIIF OCR evidence: "+proof.machineSource+"; "+proof.annotations+" exact-page annotations validated. Reader-facing HTML transport is not certified."),
   ...independentProofs.map(proof => "- Independent source proof (direct GitHub transport HTTP 403): "+proof.source+"; HTTP probe "+proof.probeAt+"; exact-fingerprint editorial review "+proof.reviewAt),
   "",
   "HTTP success does **not** certify factual accuracy. Do not alter reviewedAt until a person or verified research workflow actually rechecks facts.",

@@ -187,6 +187,10 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .map((candidate) => ({ species: candidate!, href: fishingFoundationAnchor("species", candidate!.slug) }));
 
   const identification = fishIdentification[species.slug] ?? null;
+  const comparisonGuides = (identification?.compareSlugs ?? [])
+    .map((compareSlug) => allSpecies.find((candidate) => candidate.slug === compareSlug))
+    .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
+    .map((candidate) => ({ name: candidate!.commonName, href: fishingFoundationAnchor("species", candidate!.slug) }));
   const sources = uniqueByUrl([
     ...species.sources,
     ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT, sourceType: "state" as const }] : []),
@@ -198,6 +202,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
   return {
     species,
     identification,
+    comparisonGuides,
     canonicalPath,
     lakes,
     seasonalPatterns,

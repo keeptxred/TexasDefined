@@ -9,7 +9,7 @@
 export const THC_LISTINGS_URL =
   "https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places";
 export const THC_ATLAS_URL = "https://atlas.thc.texas.gov/";
-export const THC_RESEARCH_REVIEWED_ON = "2026-10-30";
+export const THC_RESEARCH_REVIEWED_ON = "2026-11-26";
 export type ThcLandmarkKind =
   | "building" | "district" | "church" | "cemetery" | "courthouse"
   | "cultural-landscape" | "school" | "bridge" | "memorial" | "stadium";
@@ -25,6 +25,9 @@ export type ThcPendingLandmark = {
 // Do not interpret a district boundary amendment as a new freestanding attraction.
 // Cultural/archeological sensitivity also takes priority over public-map discovery.
 export const THC_RECENT_LISTED_RAW = `
+2026|November|San Bernard Historic District|Austin|Travis|district
+2026|November|Scotus College|Hebbronville|Jim Hogg|school
+2026|October|Montopolis Negro School|Austin|Travis|school
 2026|October|Rosewood Elementary|Austin|Travis|school
 2026|October|First Methodist Episcopal Church South|Dallas|Dallas|church
 2026|September|Style-in-Steel Townhouses|Houston|Harris|building
@@ -95,8 +98,6 @@ export const THC_RECENT_LISTED_RAW = `
 `.trim();
 
 export const THC_PENDING_RAW = `
-Montopolis Negro School|Austin|Travis|submitted
-San Bernard Historic District|Austin|Travis|submitted
 Chambersea (relocation proposal)|Anahuac|Chambers|submitted
 Little Chapel in the Woods|Denton|Denton|review
 USAA Building|San Antonio|Bexar|review
@@ -111,8 +112,7 @@ Keystone Dam Archeological Site|El Paso|El Paso|review
 Ursuline Academy|Galveston|Galveston|review
 Lyons Avenue Historic District|Houston|Harris|review
 Mercedes City Hall and Fire Station|Mercedes|Hidalgo|review
-Scotus College|Hebbronville|Jim Hogg|submitted
-Irving Elementary School|Cleburne|Johnson|review
+Irving Elementary School|Cleburne|Johnson|submitted
 Cibolo Preserve Menger Creek Site|Boerne area|Kendall|review
 `.trim();
 
