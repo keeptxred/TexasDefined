@@ -46,7 +46,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       </section>
       )}
 
-      <FishIdentificationSection speciesName={species.commonName} identification={data.identification} />
+      <FishIdentificationSection speciesName={species.commonName} identification={data.identification} comparisonGuides={data.comparisonGuides} />
 
       <FishingMerchSpotlight speciesName={species.commonName} />
 
