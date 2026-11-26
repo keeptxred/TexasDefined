@@ -367,7 +367,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Choose a pass based on the experience",
-        body: "A film-screening visitor, an industry participant and a person attending one filmmaker conversation may require different products. Confirm eligibility, entry windows, age ratings and ticket-refund terms through DIFF's official purchase channels."
+        body: "On the DIFF Dallas website, open Festival Passes 2027 to compare pass options. Confirm eligibility, entry windows, age ratings and ticket-refund terms through DIFF's official purchase channels."
       },
       {
         title: "Minimize cross-town transfers",
