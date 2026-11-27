@@ -288,6 +288,23 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
 // the original monitored officialUrl intact when another official endpoint
 // contains the detailed rules or a separately dated operational announcement.
 const tournamentPlanningSources: Record<string, MajorEventSource[]> = {
+  "the-armed-forces-bowl": [
+    { label: "Official current game-day FAQ", url: "https://www.armedforcesbowl.com/faqs" },
+  ],
+  "the-cotton-bowl-classic": [
+    { label: "Official 91st Classic Huddle Up Fan Fest", url: "https://cottonbowl.com/sports/2026/10/19/huddle-up-fan-fest" },
+  ],
+  "the-first-responder-bowl": [
+    { label: "Organizer FAQ with older launch information", url: "https://www.firstresponderbowl.com/faqs" },
+  ],
+  "the-sun-bowl": [
+    { label: "Official 2026 Sun Bowl community and game-week schedule", url: "https://sunbowl.org/events" },
+  ],
+  "the-texas-bowl": [
+    { label: "ESPN Events current Texas Bowl event page", url: "https://espnevents.com/texas-bowl/" },
+    { label: "ESPN Events 2026–27 bowl announcement", url: "https://espnevents.com/press/event/espn-events-announces-17-game-college-football-bowl-schedule-for-2026-27-season/" },
+    { label: "ESPN Events title sponsor and charitable beneficiary announcement", url: "https://espnevents.com/press/event/kinders-named-new-title-sponsor-of-the-texas-bowl/" },
+  ],
   "houston-livestock-show-and-rodeo": [
     { label: "RODEOHOUSTON November 17 genre calendar and ticket release", url: "https://www.rodeohouston.com/rodeohouston-previews-2027-entertainer-lineup-with-genre-calendar/" },
     { label: "Cook-off and grounds season pass inclusions", url: "https://www.rodeohouston.com/worlds-championship-bar-b-que/" },
