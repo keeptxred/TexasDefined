@@ -56,7 +56,10 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
     const body = await response.json();
     const summary = body?.summary;
     const groups = ['county','cities','schoolDistricts','specialDistricts'];
-    const valid = response.ok && body.ready === true && Number.isInteger(summary?.year) && groups.every(group => Array.isArray(summary?.[group]) && summary[group].length > 0 && summary[group].every(record => typeof record.name === 'string' && record.name.trim() && typeof record.slug === 'string' && record.slug.trim() && !record.slug.includes(' drift is reported, not silently restamped.
+    const valid = response.ok && body.ready === true && Number.isInteger(summary?.year) && groups.every(group => Array.isArray(summary?.[group]) && summary[group].length > 0 && summary[group].every(record => typeof record.name === 'string' && record.name.trim() && typeof record.slug === 'string' && record.slug.trim() && !record.slug.includes(String.fromCharCode(36))));
+    check('Brazoria live property-tax API', !!valid, 'HTTP ' + response.status + '; finalized year ' + (summary?.year ?? 'missing') + '; group counts ' + groups.map(group => group + '=' + (summary?.[group]?.length ?? 'missing')).join(', '));
+  } catch (error) { check('Brazoria live property-tax API', false, String(error)); }
+  // Direct source checks run away from visitor request paths; drift is reported, not silently restamped.
   const civicSources = [
     ['https://bcsummerpassport.org/sites/', ['Alvin Historical Museum', 'Admission: $5, 12 and under free']],
     ['https://www.alvin.gov/482/Park-Rules', ['6:30 a.m. to 10:30 p.m.', 'designated parking areas', 'No overnight parking']],
