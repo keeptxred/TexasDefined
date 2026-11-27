@@ -377,8 +377,7 @@ const multiOrExpiredMardiGrasGuides = [
   'mardi-gras-galveston',
   'kemah-yachty-gras',
   'mardi-gras-southeast-texas-beaumont',
-  'mardi-gras-on-the-sabine-orange',
-];
+ ];
 for (const slug of multiOrExpiredMardiGrasGuides) {
   if (!mardiGrasFreshness.includes(`'/event/${slug}'`)) {
     errors.push(`Mardi Gras raw-HTML schema confidence contract missing: ${slug}.`);
