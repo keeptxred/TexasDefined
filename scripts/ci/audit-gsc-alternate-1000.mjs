@@ -36,6 +36,7 @@ async function one(row){
  if(out.ogUrls.some(x=>x!==expected)||out.headerCanonicals.some(x=>x!==expected))issues.push("Conflicting canonical signal");
  const directives=[...out.metaRobots,out.xRobots||""].join(",");
  if(/(?:^|[,\s:])noindex(?:$|[,\s;])/i.test(directives)&&/(?:^|[,\s:])index(?:$|[,\s;])/i.test(directives))issues.push("Contradictory index/noindex directives");
+ if(new URL(row.url).pathname==="/events"&&!/(?:^|[,\s:])noindex(?:$|[,\s;])/i.test(directives))issues.push("Filtered event URL missing noindex");
  if(out.redirects.length)issues.push("Redirect requires individual state-retention review");
  out.issues=issues;out.result=issues.length?"REVIEW":"PASS";
  }catch(e){out.result="ERROR";out.issues=[String(e)];}
@@ -45,7 +46,7 @@ const results=new Array(manifest.rows.length);let next=0;
 async function worker(){while(true){const i=next++;if(i>=manifest.rows.length)return;const row=await one(manifest.rows[i]);results[i]=row;await fs.appendFile(dir+"/results.ndjson",JSON.stringify({index:i+1,...row})+"\n");if((i+1)%50===0)console.log("Processed row",i+1);await new Promise(r=>setTimeout(r,350));}}
 await fs.writeFile(dir+"/results.ndjson","");
 await Promise.all(Array.from({length:4},worker));
-const summary={reportedTotal:manifest.reportedTotal,provided:manifest.rows.length,unlisted:manifest.unlistedCount,checked:results.length,pass:results.filter(r=>r.result==="PASS").length,review:results.filter(r=>r.result==="REVIEW").length,errors:results.filter(r=>r.result==="ERROR").length,sourceSha:process.env.GITHUB_SHA||null,verifiedBaseline:process.env.BASELINE_SHA||null};
+const summary={reportedTotal:manifest.reportedTotal,provided:manifest.rows.length,unlisted:manifest.unlistedCount,checked:results.length,pass:results.filter(r=>r.result==="PASS").length,review:results.filter(r=>r.result==="REVIEW").length,errors:results.filter(r=>r.result==="ERROR").length,sourceSha:process.env.GITHUB_SHA||null,verifiedBaseline:process.env.VERIFIED_PRODUCTION_SHA||null,requiredAncestor:process.env.BASELINE_SHA||null};
 await fs.writeFile(dir+"/results.json",JSON.stringify({summary,results},null,2));
 console.log(JSON.stringify(summary));if(process.env.GITHUB_STEP_SUMMARY)await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,"Exact owner-export audit (live HTTP, not Google index):\n\n"+JSON.stringify(summary,null,2)+"\n");
 if(summary.checked!==manifest.providedCount||summary.pass+summary.review+summary.errors!==manifest.providedCount)throw Error("Incomplete audit ledger");
