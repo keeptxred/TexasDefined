@@ -27,6 +27,7 @@ on:
         default: false
 permissions:
   contents: read
+  statuses: read
 concurrency:
   group: fishing-authority-${{ github.event_name }}
   cancel-in-progress: true
