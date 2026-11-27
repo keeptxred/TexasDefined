@@ -197,13 +197,13 @@ export const VERIFIED_TOURNAMENT_BATCH3_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2027 U.S. Men’s Clay Court Championship is scheduled for March 27–April 4 at River Oaks Country Club in Houston.",
     whyItMatters: "Houston's long-running professional clay-court tournament is a distinctive Texas stop on the men's tennis calendar, pairing ATP-level competition with River Oaks Country Club's red-clay courts.",
     planningNotes: [
-      "Use the tournament's official schedule for the exact session and round you want because the published event window spans qualifying and main-draw play.",
+      "The published 2027 schedule starts qualifying March 27–28 at 11 a.m.; main-draw play begins March 29 at 1 p.m. March 30 through April 2 have separate day and evening sessions, with April 2 quarterfinals. April 3 is semifinal day and April 4 lists doubles final at noon and singles final at 2:30 p.m. Confirm the actual order of play before travel.",
       "Parking and shuttle arrangements around River Oaks are event-specific, so review the organizer's current FAQ before driving to the club.",
-      "Pair the tournament with Harris County and Houston planning after choosing your session, especially if attending multiple days.",
+      "The organizer announced November 17 that 2023 champion Frances Tiafoe was its first 2027 player commitment and that Tommy Paul won the 2026 singles title. A commitment is not a final draw or guaranteed appearance; check current entry and session information.",
     ],
     officialUrl: "https://www.mensclaycourt.com/",
     officialSourceLabel: "U.S. Men’s Clay Court Championship official site",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-27",
   },
 ];
 
