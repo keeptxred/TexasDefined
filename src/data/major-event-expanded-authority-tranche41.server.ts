@@ -50,15 +50,15 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     occurrenceWindows: [
       { label: "Product Costume Style Show", startDate: "2027-01-25", endDate: "2027-01-25" },
       { label: "Royal Coronation", startDate: "2027-01-28", endDate: "2027-01-28" },
-      { label: "Fun Fair", startDate: "2027-01-29", endDate: "2027-01-29" },
+      { label: "Fun Fair", startDate: "2027-01-29", endDate: "2027-01-30" },
       { label: "Parade of Oranges and Royal Ball", startDate: "2027-01-30", endDate: "2027-01-30" },
     ],
     venue: "Mission Event Center and downtown Mission venues",
     officialUrl: "https://www.texascitrusfiesta.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Texas Citrus Fiesta has celebrated Mission and the Rio Grande Valley's citrus-growing heritage since 1932 through elaborate citrus-themed costumes, royal traditions, community festivities and the downtown Parade of Oranges.",
     planningSections: [
-      { title: "Choose a featured event before booking the trip", body: "The 2027 organizer calendar spreads major Fiesta programs across January 25, 28, 29 and 30 rather than operating as one continuous festival site. Pick the Product Costume Style Show, coronation, Fun Fair, parade or Royal Ball first, then build the trip around that exact date." },
+      { title: "Choose a featured event before booking the trip", body: "The Product Costume Style Show starts January 25 at 6:30 p.m. at Mission Event Center; entrants must use at least 50% citrus product. The separate Fun Fair at Leo Peña Placita Park runs January 29 from 5–11 p.m. and January 30 from 2–10 p.m. The main event list still leaves coronation time and venue unresolved; its dedicated page describes January ticket sales but has not announced the release date." },
       { title: "Use the official January 30 Parade of Oranges route", body: "The 2027 Parade of Oranges is scheduled Saturday, January 30 at noon along Conway Avenue in Mission, from Griffin Parkway/495 to First Street. The parade producer lists participant check-in at 8 a.m. and judging at 10 a.m.; those are pre-parade organizational times, not the public parade start. Leave extra time for local street access." },
       { title: "Connect the Fiesta to the Rio Grande Valley", body: "Mission's citrus story is regional, so the event works well as the fixed point of a broader Hidalgo County trip. Leave room for nearby Valley destinations instead of treating one Fiesta program as the entire visit." },
     ],
@@ -67,6 +67,9 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas winter heritage events." },
     ],
     sources: [
+      { label: "Official 2027 Product Costume Style Show", url: "https://www.texascitrusfiesta.com/Product-Costume-Style-Show" },
+      { label: "Official two-day Fun Fair hours", url: "https://www.texascitrusfiesta.com/fun-fair" },
+      { label: "Royal Coronation announcement and ticket status", url: "https://www.texascitrusfiesta.com/Coronation" },
       { label: "Texas Citrus Fiesta official site", url: "https://www.texascitrusfiesta.com/" },
       { label: "Texas Citrus Fiesta official event list", url: "https://www.texascitrusfiesta.com/event-list" },
       { label: "Parade of Oranges official page", url: "https://www.texascitrusfiesta.com/parade-of-oranges" },

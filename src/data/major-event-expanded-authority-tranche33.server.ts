@@ -57,11 +57,11 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-01-17",
     venue: "Austin, Texas",
     officialUrl: "https://downhilltodowntown.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Spurs Austin International Half, formerly the 3M Half Marathon, carries a long-running Austin road-racing tradition into a newly branded 2027 event built around a fast downhill 13.1-mile course and a downtown finish.",
     planningSections: [
-      { title: "Race day is Sunday, January 17", body: "The organizer publishes January 17, 2027 as race day with a 7:30 a.m. start. Friday and Saturday are expo and packet-pickup days, so the Event date remains the actual Sunday race rather than the full administrative weekend." },
-      { title: "Plan for a point-to-point race day", body: "The event markets a downhill-to-downtown course and publishes shuttle and gear-check timing. Review the current course, start-area and return-shuttle instructions before deciding where to park or stay." },
+      { title: "Race day is Sunday, January 17", body: "The organizer publishes January 17, 2027 as race day with a 7:30 a.m. start. Packet pickup is Friday January 15 from 1–7 p.m. and Saturday January 16 from 10 a.m.–5 p.m. The Sunday wheelchair start is 7:25 a.m., followed by the main race at 7:30 a.m." },
+      { title: "Plan for a point-to-point race day", body: "The official schedule opens gear check at 6 a.m.; return shuttles from the finish begin at 8:45 a.m., with the last at 12:15 p.m. The course closes at 11:30 a.m. Unsafe weather can delay the start by up to 45 minutes or cancel the race; confirm current organizer instructions." },
       { title: "Race weekend and the elite-entry deadline are different dates", body: "The organizer reconfirms race day Sunday, January 17, 2027 and describes a point-to-point, net-downhill USATF-certified half-marathon. Its November 10 update sets a December 31, 2026 deadline for elite-field applications; that deadline is not the public race registration deadline. Check the current race-weekend schedule for packet pickup, transportation and start corrals." },
     ],
     relatedLinks: [
