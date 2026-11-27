@@ -74,5 +74,30 @@
       "reviewedAt": "2026-11-19",
       "researchPr": 7417
     }
-  ]
+  ],
+  "followUp": {
+    "reviewedAt": "2026-11-27",
+    "researchIssue": 7874,
+    "proof": {
+      "runId": 45905533150,
+      "artifactId": 15156889737
+    },
+    "approvals": [
+      {
+        "url": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+        "sha256": "3a7a4e030528eaa94a625c2bd72af1e0278d2bf771757ac82cfc4ce1cb8d1e3a",
+        "comparison": "Official park page confirms camping and recreation plus emerald ash borer firewood quarantine. Site inventory checked against official campsite detail."
+      },
+      {
+        "url": "https://tpwd.texas.gov/state-parks/cedar-hill",
+        "sha256": "cf9913949104aa77a9ac4ce089b8f777f915e46c74d97b8535fcc164c9490257",
+        "comparison": "Official park page adds firewood quarantine guidance; official campsite detail still lists 147 full-hookup, 192 electric and 30 primitive sites. Official alerts corroborate invasive ants."
+      },
+      {
+        "url": "https://tpwd.texas.gov/state-parks/cooper-lake/alert",
+        "sha256": "4875eda047854be829acb275731d8f74f02c06368498b0cc9c351b246dc10d18",
+        "comparison": "November 25 notice now permits charcoal or contained-fuel cooking while prohibiting wood fires. Low-water ramp notice and hunt restrictions remain listed; no reopening inferred."
+      }
+    ]
+  }
 }

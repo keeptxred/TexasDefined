@@ -120,7 +120,7 @@ export const CAMPING_PROFILES_WAVE7: CampingProfile[] = [
     reservationUrl: TPWD_RESERVATIONS,
     campingNotes: [
       "TPWD's current campsite inventory lists 47 50-amp electric sites in Live Oak, 30 30-amp electric sites in Plateau, 11 water-only sites in Post Oak and 20 water-only equestrian sites in Cross Timbers. The latter allow non-equestrian tents and small trailers up to 20 feet but have no electric hookup.",
-      "The park has bathrooms with showers, accessible campsite features, lake swimming and fishing, and direct trail access.",
+      "The park has bathrooms with showers, accessible campsite features, lake swimming and fishing, and direct trail access. TPWD reports emerald ash borer quarantine restrictions on transporting firewood; buy firewood locally rather than bringing it from another area.",
       "Hike-in primitive campsites are not reservable online: TPWD says to obtain a permit in person at park headquarters during office hours and at least two hours before dusk. The primitive area has no nearby water or restrooms and prohibits ground fires. Confirm current trail and campsite access before travel.",
     ],
     searchTerms: ["Lake Mineral Wells camping", "camping near Fort Worth", "North Texas camping", "primitive camping near DFW", "RV camping Mineral Wells"],
