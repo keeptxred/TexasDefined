@@ -251,8 +251,8 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2026-07-04",
     venue: "Indian Spring Park (series) and Touchdown Alley (July 4 finale)",
     officialUrl: "https://www.brazosnightswaco.com/brazos-nights",
-    sourceCheckedAt: "2026-10-21",
-    dateNote: "The four 2026 concerts were April 17, May 8, June 19 and July 4, not a continuous April–July festival. All dates are completed; 2027 dates remain unannounced.",
+    sourceCheckedAt: "2026-11-27",
+    dateNote: "The four 2026 concerts were April 17, May 8, June 19 and July 4, not a continuous April–July festival. All dates are completed; the city’s current season-end message says 2027 announcements are forthcoming, with no specific dates.",
     whyItMatters: "City of Waco's long-running free concert series pairs live music with food vendors and evenings along the Brazos River. Most concerts happen at Indian Spring Park by the historic Suspension Bridge; the July Fourth finale uses a different venue near McLane Stadium. Visitors need the correct date and location, not a single misleading continuous festival window.",
     quickFacts: [
       {
@@ -291,7 +291,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Explore Waco before the evening performance",
-        body: "The historic suspension bridge and riverside paths make an easy afternoon pairing with a regular concert. Free downtown parking locations were publicized for 2026, but construction and road closures may change the options next season."
+        body: "The historic suspension bridge and riverside paths make an easy afternoon pairing with a regular concert. The 2026 city visitor guide lists City Hall, Heritage Square, River Square Center and Fifth/Franklin garage, plus Foster Pavilion's garage at 650 S. University Parks Drive (entrance off Clay Avenue). Recheck parking for 2027; the older info page still contains May 1 in a location paragraph, although the dated concert list confirms May 8 was the rescheduled 2026 performance."
       }
     ],
     relatedLinks: [
