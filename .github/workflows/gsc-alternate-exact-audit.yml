@@ -1,0 +1,64 @@
+name: GSC exact 1000 alternate URL audit
+on:
+  pull_request:
+    paths:
+      - 'ops/seo/gsc-alternate-2026-11-27.json'
+      - 'scripts/ci/audit-gsc-alternate-1000.mjs'
+      - '.github/workflows/gsc-alternate-exact-audit.yml'
+  workflow_dispatch:
+concurrency:
+  group: gsc-exact-alternate-1000-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+  statuses: read
+jobs:
+  exact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      BASELINE_SHA: 2f64dd4bb1f872edada23c29ce31cdb442d6751f
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate exact owner manifest
+        run: node scripts/ci/audit-gsc-alternate-1000.mjs --manifest-only
+      - name: Require the corrected release to reach protected production
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 100); do
+            git fetch origin main --quiet
+            if ! git merge-base --is-ancestor "$BASELINE_SHA" origin/main; then
+              echo "::error::Main no longer contains the GSC correction"
+              exit 1
+            fi
+            candidates="$(git rev-list --first-parent --max-count=15 origin/main)"
+            for candidate in $candidates; do
+              git merge-base --is-ancestor "$BASELINE_SHA" "$candidate" || continue
+              state="$(gh api "repos/$GITHUB_REPOSITORY/commits/$candidate/status" --jq '[.statuses[] | select(.context == "texasdefined-production") | .state] | first // "missing"')"
+              if [[ "$state" == success ]]; then
+                echo "Verified protected release: $candidate"
+                echo "VERIFIED_PRODUCTION_SHA=$candidate" >> "$GITHUB_ENV"
+                exit 0
+              fi
+            done
+            sleep 20
+          done
+          echo "::error::No successful protected release containing the correction within bounded wait"
+          exit 1
+      - name: Individually fetch and validate all 1000 supplied URLs
+        run: node scripts/ci/audit-gsc-alternate-1000.mjs
+      - name: Preserve all per-URL evidence including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-gsc-alternate-1000
+          path: artifacts/gsc-alternate-2026-11-27/
+          if-no-files-found: warn
+          retention-days: 30
