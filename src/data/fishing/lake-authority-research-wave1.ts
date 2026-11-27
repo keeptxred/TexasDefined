@@ -2467,7 +2467,7 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
     "regulations": [
       {
         "label": "Alan Henry special bass rules",
-        "text": "TPWD's Alan Henry waterbody regulations identify local bass-size restrictions rather than allowing an angler to assume the statewide 14-inch largemouth minimum. Check the actual current reservoir schedule before harvesting largemouth or the stocked Alabama spotted bass population; fish identification changes which limits apply.",
+        "text": "TPWD's Alan Henry waterbody regulations identify local bass-size restrictions rather than allowing an angler to assume the statewide 14-inch largemouth minimum. Check the actual current reservoir schedule before harvesting largemouth or the stocked Alabama bass population (distinct from spotted bass in the TPWD fisheries survey); fish identification changes which limits apply.",
         "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0006"
       },
       {

@@ -15,7 +15,7 @@ export async function loadFishSpeciesDirectoryDataServer() {
 
   for (const relation of lakeSpecies) {
     const lake = completeLakeById.get(relation.lakeId);
-    if (!lake) continue;
+    if (!lake || !relation.verifiedAt || !relation.sources.length) continue;
     const current = completeLakesBySpeciesId.get(relation.speciesId) ?? [];
     current.push({
       name: lake.name,

@@ -43,6 +43,7 @@ const completeSpecies = [
   "sunfish",
   "bluegill",
   "rainbow-trout",
+  "bowfin","common-carp","spotted-gar","redear-sunfish","green-sunfish","warmouth","longear-sunfish","redbreast-sunfish","rio-grande-cichlid",
 ];
 
 requireText(files.slugs, "COMPLETE_FISHING_SPECIES_SLUGS", "complete species allowlist missing");
@@ -75,14 +76,14 @@ requireText(files.functions, "loadFishingSpeciesProfileServer", "species profile
 
 for (const token of ['createFileRoute("/fishing/species/$slug")', "throw notFound()", 'content: "noindex, nofollow"', "head: ({ loaderData }) => loaderData?.head"]) requireText(files.profileRoute, token, `dynamic species critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/species/$slug")', "FishingSpeciesProfile data={Route.useLoaderData()}"]) requireText(files.profileLazy, token, `dynamic species native lazy route missing ${token}`);
-for (const token of ["Texas range & habitat", "Seasonal behavior in the lake records", "Where to catch", "They are not a statewide popularity ranking", "Fishing Techniques for", "Tackle & approach", "Check the current rule before you fish.", "Related fish to compare", "shared lake", "rather than inventing a generic recommendation", "Use durable species guidance", 'target="_blank"', 'rel="noopener noreferrer"']) requireText(files.profileComponent, token, `species profile UI integrity contract missing ${token}`);
+for (const token of ["Texas range & habitat", "Seasonal behavior in the lake records", "Where to catch", "Unlisted waters may also contain it", "Fishing Techniques for", "Tackle & approach", "Check the current rule before you fish.", "Related fish to compare", "shared lake", "rather than inventing a generic recommendation", "Check conditions before your trip.", 'target="_blank"', 'rel="noopener noreferrer"']) requireText(files.profileComponent, token, `species profile UI integrity contract missing ${token}`);
 if (files.profileRoute.includes("@/components/fishing/FishingSpeciesProfile") || /\bcomponent\s*:/.test(files.profileRoute)) throw new Error("Fishing Batch 14 validation failed: species page component leaked back into critical dynamic route.");
 if (files.profileRoute.includes('from "@/data/fishing/species-guide-data.server"')) throw new Error("Fishing Batch 14 validation failed: dynamic client route imports species server module directly.");
 for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand", '"@type":']) if (files.profileRoute.includes(eagerHeadToken)) throw new Error(`Fishing Batch 14 validation failed: eager SEO/schema payload leaked into dynamic species route (${eagerHeadToken}).`);
 
 requireText(files.directoryServer, "isCompleteFishingSpeciesSlug(row.slug)", "directory full-guide badges must use shared completion gate");
-requireText(files.directoryComponent, "Directory records versus standalone guides", "directory all-species guide promise missing");
-requireText(files.directoryComponent, "Every published fish has a sourced directory entry", "directory source-backed growth policy missing");
+requireText(files.directoryComponent, "Which Texas fish did you catch?", "directory all-species guide promise missing");
+requireText(files.directoryComponent, "A historical record alone is not a present-day lake recommendation", "directory historical evidence scope missing");
 
 for (const token of ["buildLargemouthBassHead", '"@type": "WebPage"', '"@type": "BreadcrumbList"', "canonicalPath"]) requireText(files.bassServer, token, `flagship server-head optimization missing ${token}`);
 for (const token of ['createFileRoute("/fishing/species/largemouth-bass")', "head: ({ loaderData }) => loaderData?.head"]) requireText(files.bassRoute, token, `flagship critical route contract missing ${token}`);
@@ -98,4 +99,4 @@ for (const forbidden of ["guaranteed catch", "today's best lake", "sponsored ran
   if (`${files.server}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 14 validation failed: unsupported species claim leaked (${forbidden}).`);
 }
 
-console.log("Fishing Batch 14 species-depth validation passed: all 19 published species/group routes, verified lake relationships, source-backed range/habitat/season/technique depth, related-fish discovery, regulations guidance, native lazy routes, server-side SEO head payloads, transparent missing coverage and editorial/commercial separation are protected.");
+console.log("Fishing Batch 14 species-depth validation passed: all 28 published species/group routes, verified lake relationships, source-backed range/habitat/season/technique depth, related-fish discovery, regulations guidance, native lazy routes, server-side SEO head payloads, transparent missing coverage and editorial/commercial separation are protected.");

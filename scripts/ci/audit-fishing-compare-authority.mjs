@@ -19,11 +19,11 @@ function getLakeBlock(slug) {
   return network.slice(start, end < 0 ? undefined : end);
 }
 const expected = [
-  { slug: "alan-henry-reservoir", tpwdSlug: "alan_henry", grades: { "Largemouth Bass": "Good", "Catfish": "Good", "Spotted Bass": "Good", "Crappie": "Poor" } },
+  { slug: "alan-henry-reservoir", tpwdSlug: "alan_henry", grades: { "Largemouth Bass": "Good", "Catfish": "Good", "Alabama Bass": "Good", "Crappie": "Poor" }, tpwdGrades: { "Largemouth Bass": "Good", "Catfish": "Good", "Spotted Bass": "Good", "Crappie": "Poor" } },
   { slug: "amistad-reservoir", tpwdSlug: "amistad", grades: { "Largemouth Bass": "Excellent", "Catfish": "Good", "Striped Bass": "Good", "White Bass": "Good" }, tpwdGrades: { "Largemouth Bass": "Excellent", "Channel & Blue Catfish": "Good", "White & Striped Bass": "Good" } },
   { slug: "aquilla-lake", tpwdSlug: "aquilla", grades: { "Largemouth Bass": "Fair", "Catfish": "Good", "Crappie": "Good", "White Bass": "Fair" } },
 ];
-const speciesIds = { "Largemouth Bass": "largemouth-bass", Catfish: "catfish", "Spotted Bass": "spotted-bass", Crappie: "crappie", "Striped Bass": "striped-bass", "White Bass": "white-bass" };
+const speciesIds = { "Largemouth Bass": "largemouth-bass", Catfish: "catfish", "Spotted Bass": "spotted-bass", "Alabama Bass": "alabama-bass", Crappie: "crappie", "Striped Bass": "striped-bass", "White Bass": "white-bass" };
 for (const entry of expected) {
   const isExpanded = entry.slug === "amistad-reservoir";
   const lake = isExpanded ? expanded : getLakeBlock(entry.slug);

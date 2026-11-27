@@ -14,6 +14,8 @@ const dallasProximityRoute = fs.readFileSync('src/routes/explore.near.$metro.$co
 const dallasProximityServer = fs.readFileSync('src/data/metro-proximity-page-data.server.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
+const fishAuthoritySource = fs.readFileSync('src/data/fishing/species-authority-notes.ts', 'utf8');
+const fishAuthorityNotes = JSON.parse(fishAuthoritySource.split('export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = ')[1].split(';\n')[0]);
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
 const stateFairLazyRoute = fs.readFileSync('src/routes/texas-state-fair.lazy.tsx', 'utf8');
 const stateFairEnhancements = fs.readFileSync('src/components/editorial/StateFairGuideEnhancements.tsx', 'utf8');
@@ -95,9 +97,10 @@ const exactQuerySourceTargets = [
     label: '/fishing/species/blue-catfish',
     source: fishingSpeciesServer,
     tokens: [
-      'canonicalPath === "/fishing/species/blue-catfish"',
-      '"Blue Catfish in Texas: Fishing Guide"',
-      '"Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."',
+      'FISH_AUTHORITY_NOTES[species.slug]',
+      'const title = note?.title',
+      'const description = note?.description',
+      'title,\n      description,\n      canonicalPath,',
     ],
   },
   {
@@ -114,6 +117,8 @@ const exactQuerySourceTargets = [
 ];
 
 const failures = [];
+const blueCatfish = fishAuthorityNotes['blue-catfish'];
+if (blueCatfish?.title !== 'Blue Catfish in Texas: River Channels & Fishing Tactics' || blueCatfish?.description !== 'Identify blue catfish, choose channel habitat and plan a trip around documented Texas fisheries.') failures.push('Blue catfish exact canonical search-intent metadata regression');
 // Reconstruct the compact, exact URL/title/description records from the SEO
 // source. This validates the same content contract even when a positional
 // representation avoids shipping repetitive field names in the client bundle.

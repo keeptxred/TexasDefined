@@ -83,11 +83,28 @@ for (let start = 0; start < species.length; start += 4) {
   }));
   problems.push(...checks.filter(Boolean));
 }
+const authority = fs.readFileSync("src/data/fishing/species-authority-notes.ts","utf8");
+const supplemental = JSON.parse(authority.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
+const witnesses = { alabama:["Alabama Bass","Bluegill"], ladybird:["redbreast","redear","carp"], llano:["Guadalupe Bass","Channel Catfish","Largemouth"], fork:["Bowfin","Gar, Spotted","Drum, Freshwater"], rayburn:["Bowfin","Gar, Spotted","Drum, Freshwater"], flyrecords:["Sunfish, Longear","Brazos River","Sunfish, Warmouth","Comal River","Sunfish, Green","Somerville"], corpus:["Cichlid, Rio Grande","Carp, Common"], travis:["Cichlid, Rio Grande"] };
+const entries = Object.entries(supplemental);
+for (let start=0;start<entries.length;start+=4) {
+  const results=await Promise.all(entries.slice(start,start+4).map(async ([key,source])=>{
+    try {
+      const response=await fetch(source.url,{headers:{"user-agent":"TexasDefined-FishingSourceMonitor/1.1 (+https://texasdefined.com/fishing/species)",accept:"text/html"},redirect:"follow",signal:AbortSignal.timeout(20000)});
+      if(!response.ok || new URL(response.url).hostname!=="tpwd.texas.gov") throw Error("Unexpected HTTP status or redirect: "+response.status);
+      const normalized=(await response.text()).replace(/<script[\s\S]*?<\/script>/gi," ").replace(/<style[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").toLowerCase();
+      for(const witness of witnesses[key]??[source.witness]) if(!normalized.includes(witness.toLowerCase())) throw Error("Missing source witness: "+witness);
+      console.log("TPWD supplemental source identity: "+key+" "+source.url);
+      return null;
+    }catch(error){return "Supplemental TPWD source needs review: "+key+" "+String(error)+" ("+source.url+")";}
+  }));
+  problems.push(...results.filter(Boolean));
+}
 if (problems.length) {
   console.error("TPWD fish source check failed: " + problems.length + " of " +
-    species.length + " official pages require review.");
+    (species.length+entries.length) + " official pages require review.");
   for (const problem of problems) console.error(problem);
   process.exitCode = 1;
 } else {
-  console.log("PASS: All 22 TPWD freshwater-fish source identity pages are reachable and identify the expected fish.");
+  console.log("PASS: All 22 TPWD species identities and supplemental official source witnesses passed. This is not a complete factual re-review.");
 }

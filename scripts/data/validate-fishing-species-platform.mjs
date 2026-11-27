@@ -104,8 +104,8 @@ if (!failures.length) {
   if (!speciesRoute.includes('createFileRoute("/fishing/species/$slug")') || !speciesRoute.includes("throw notFound()") || !speciesRoute.includes("loaderData?.head")) failures.push("General species critical route is incomplete.");
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");
-  if (!speciesUi.includes("They are not a statewide popularity ranking") || !speciesUi.includes("Use durable species guidance")) failures.push("General species source/conditions integrity copy is missing.");
-  for (const phrase of ["Techniques listed", "Linked lake profiles", "Fishing Techniques for", "verified lake-to-species relationship", "verified lake-technique relationship"]) {
+  if (!speciesUi.includes("Unlisted waters may also contain it") || !speciesUi.includes("Check conditions before your trip.") || !speciesUi.includes("not a live bite forecast")) failures.push("General species source/conditions integrity copy is missing.");
+  for (const phrase of ["Techniques listed", "Linked lake profiles", "Fishing Techniques for", "documented fishing opportunities", "verified lake-technique relationship"]) {
     if (!speciesUi.includes(phrase)) failures.push(`Fishing species profile is missing visitor-facing label: ${phrase}.`);
   }
   for (const stale of ["Verified techniques", "Verified lake coverage", "Verified method relationships", "verified dataset", "verified complete-lake technique relationship"]) {
@@ -119,13 +119,13 @@ if (!failures.length) {
   if (directoryUi.includes("species-catalog") || bassUi.includes("species-catalog") || bassUi.includes("fixtures") || speciesUi.includes("fixtures")) failures.push("Client species UI imports heavyweight catalog/fixture data instead of server page data.");
   if (!directoryUi.includes("pageData.groups") || !bassUi.includes("rankedLakes") || !bassUi.includes("profile.seasonalBehavior")) failures.push("Species UI is not hydrated from reusable server view models.");
   if (directoryUi.includes("Batch 14") || directoryUi.includes("Verified relationships first")) failures.push("Species directory must not expose internal batch/verification language.");
-  if (!directoryUi.includes("How Lake Coverage Expands")) failures.push("Species directory visitor-facing relationship label missing.");
+  if (!directoryUi.includes("Check fishing conditions before you go") || !directoryUi.includes("A historical record alone is not a present-day lake recommendation")) failures.push("Species directory visitor-facing relationship label missing.");
   if (!bassUi.includes("No largemouth-bass guide has cleared") || !bassUi.includes("do not fabricate or scrape")) failures.push("Verified-guide empty-state integrity copy missing.");
   if (!bassUi.includes("Sponsored placement") || !bassUi.includes("noopener sponsored")) failures.push("Species sponsorship disclosure/link contract missing.");
 
   if (!directoryRoute.includes('createFileRoute("/fishing/species")') || !directoryRoute.includes('"@type": "CollectionPage"') || !directoryRoute.includes('"@type": "ItemList"') || !directoryRoute.includes('"@type": "BreadcrumbList"')) failures.push("Species directory route/schema incomplete.");
   if (!directoryRoute.includes('lazy(() => import("@/components/fishing/FishSpeciesDirectory")') || !directoryRoute.includes("FishSpeciesDirectory pageData={pageData}")) failures.push("Species directory UI is not protected by its lazy boundary.");
-  if (!bassServer.includes('"@type": "WebPage"') || !bassServer.includes('"@type": "BreadcrumbList"') || !bassServer.includes("dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT") || !bassServer.includes('const BASS_GUIDE_EDITORIAL_UPDATED_AT = FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT')) failures.push("Largemouth server schema/freshness metadata incomplete.");
+  if (!bassServer.includes('"@type": "WebPage"') || !bassServer.includes('"@type": "BreadcrumbList"') || !bassServer.includes("dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT") || !bassServer.includes('const BASS_GUIDE_EDITORIAL_UPDATED_AT = FISH_AUTHORITY_EDITORIAL_UPDATED_AT')) failures.push("Largemouth server schema/freshness metadata incomplete.");
   if (!bassRoute.includes('createFileRoute("/fishing/species/largemouth-bass")') || !bassRoute.includes("loaderData?.head")) failures.push("Largemouth critical route/server-head handoff incomplete.");
   if (!bassLazy.includes('createLazyFileRoute("/fishing/species/largemouth-bass")') || !bassLazy.includes("FishSpeciesGuide pageData={Route.useLoaderData()}")) failures.push("Largemouth guide UI is not protected by a native lazy route.");
   if (bassRoute.includes('from "@/components/fishing/FishSpeciesGuide"') || /\bcomponent\s*:/.test(bassRoute) || bassRoute.includes("buildMeta") || bassRoute.includes('"@type":')) failures.push("Largemouth UI or SEO payload leaked back into the critical route.");

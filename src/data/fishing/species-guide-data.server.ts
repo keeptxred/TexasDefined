@@ -4,6 +4,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
 import { getFishingFishImage } from "./image-library";
+import { FISH_AUTHORITY_NOTES, FISH_AUTHORITY_SOURCES, FISH_AUTHORITY_EDITORIAL_UPDATED_AT } from "./species-authority-notes";
 import { fishSpeciesFamilies } from "./species-catalog";
 import { fishIdentification, FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT } from "./species-identification";
 import {
@@ -39,19 +40,9 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
   const { species, canonicalPath, lakes, sources } = entry;
   const url = `${origin}${canonicalPath}`;
   const speciesImage = getFishingFishImage(species.slug);
-  const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
-  const hasLinkedLakes = lakes.length > 0;
-  const hasFieldGuide = Boolean(fishIdentification[species.slug]);
-  const title = isBlueCatfish
-    ? "Blue Catfish in Texas: Fishing Guide"
-    : !hasLinkedLakes && hasFieldGuide
-      ? `${species.commonName} in Texas — Fish Identification & Habitat`
-      : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
-  const description = isBlueCatfish
-    ? "Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."
-    : !hasLinkedLakes && hasFieldGuide
-      ? `Identify ${species.commonName} in Texas: TPWD-backed markings, size, similar fish, habitats, seasonal biology, fishing context and current regulation sources.`
-      : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
+  const note = FISH_AUTHORITY_NOTES[species.slug];
+  const title = note?.title ?? `${species.commonName} Fishing in Texas`;
+  const description = note?.description ?? species.summary;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -59,9 +50,9 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         "@type": "WebPage",
         "@id": url,
         url,
-        name: `${species.commonName} Fishing in Texas`,
+        name: title,
         description,
-        dateModified: fishIdentification[species.slug] ? FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT : FISHING_SPECIES_VERIFIED_AT,
+        dateModified: note ? FISH_AUTHORITY_EDITORIAL_UPDATED_AT : fishIdentification[species.slug] ? FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT : FISHING_SPECIES_VERIFIED_AT,
         isPartOf: { "@id": `${origin}/#website` },
         mainEntity: { "@id": `${url}#species` },
         citation: sources.map((source) => source.url),
@@ -73,10 +64,10 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         name: species.commonName,
         alternateName: species.aliases,
         description: species.summary,
-        sameAs: species.sources[0]?.url,
+        ...(fishIdentification[species.slug]?.sourceUrl ? { sameAs: fishIdentification[species.slug].sourceUrl } : {}),
         ...(speciesImage ? { image: speciesImage.src } : {}),
       },
-      {
+      ...(lakes.length ? [{
         "@type": "ItemList",
         "@id": `${url}#complete-lakes`,
         numberOfItems: lakes.length,
@@ -86,7 +77,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
           name: `${species.commonName} — ${row.lake.name}`,
           url: `${origin}${row.href}`,
         })),
-      },
+      }] : []),
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumbs`,
@@ -128,6 +119,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
   const speciesRelations = lakeSpecies.filter((relation) => relation.speciesId === species.id);
   const lakes = speciesRelations
     .filter((relation) => lakeById.has(relation.lakeId))
+    .filter((relation) => !(slug === "spotted-bass" && lakeById.get(relation.lakeId)?.slug === "alan-henry-reservoir"))
     .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
     .map((relation) => ({
       lake: lakeById.get(relation.lakeId)!,
@@ -142,6 +134,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
   const techniqueApplications = lakeTechniques
     .filter((profile) => profile.speciesIds.includes(species.id))
     .filter((profile) => lakeById.has(profile.lakeId))
+    .filter((profile) => !(slug === "spotted-bass" && lakeById.get(profile.lakeId)?.slug === "alan-henry-reservoir"))
     .filter((profile) => Boolean(profile.verifiedAt) && profile.sources.length > 0)
     .map((profile) => ({
       profile,
@@ -191,9 +184,12 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .map((compareSlug) => allSpecies.find((candidate) => candidate.slug === compareSlug))
     .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
     .map((candidate) => ({ name: candidate!.commonName, href: fishingFoundationAnchor("species", candidate!.slug) }));
+  const authorityNote = FISH_AUTHORITY_NOTES[species.slug];
+  const authoritySourceKeys = authorityNote ? [...new Set([authorityNote.source, ...(authorityNote.extraSources ?? [])])] : [];
   const sources = uniqueByUrl([
     ...species.sources,
-    ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: FISH_IDENTIFICATION_EDITORIAL_UPDATED_AT, sourceType: "state" as const }] : []),
+    ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: species.sources.find(source => source.url === identification.sourceUrl)?.checkedAt ?? "2026-11-15", sourceType: "state" as const }] : []),
+    ...authoritySourceKeys.map(key => ({ id: `authority-${key}`, name: `TPWD — ${FISH_AUTHORITY_SOURCES[key].label}`, url: FISH_AUTHORITY_SOURCES[key].url, checkedAt: FISH_AUTHORITY_EDITORIAL_UPDATED_AT, sourceType: "state" as const })),
     ...lakes.flatMap((row) => row.relation.sources),
     ...techniqueApplications.flatMap((row) => [...row.profile.sources, ...row.technique.sources]),
   ]);

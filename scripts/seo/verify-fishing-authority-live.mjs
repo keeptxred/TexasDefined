@@ -14,6 +14,9 @@ const out = process.env.FISHING_AUDIT_OUTPUT || "fishing-live-authority-report.j
 const size = Math.max(1, Number(process.env.FISHING_AUDIT_BATCH_SIZE || "120"));
 const full = process.env.FISHING_AUDIT_FULL === "1";
 const speciesOnly = process.env.FISHING_AUDIT_SPECIES_ONLY === "1";
+const authorityRegistry = fs.readFileSync("src/data/fishing/species-authority-notes.ts","utf8");
+const authorityNotes = JSON.parse(authorityRegistry.split("export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = ")[1].split(";\n")[0]);
+const authoritySources = JSON.parse(authorityRegistry.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
 const concurrency = Math.min(3, Math.max(1, Number(process.env.FISHING_AUDIT_CONCURRENCY || "2")));
 const timeoutMs = 12000;
 const getAttr = (tag, name) => {
@@ -52,7 +55,7 @@ async function dynamicSitemap() {
       .map((m) => decode(m[1].trim())).filter((href) => href.startsWith(base+"/fishing/"))
       .map((href) => new URL(href).pathname);
     const dynamic = pages.filter((p) => /^\/fishing\/(?:access|services|guides|reports)\/[a-z0-9-]+$/.test(p));
-    return { pages: [...new Set(dynamic)], error: null };
+    return { pages: [...new Set(dynamic)], allPaths: [...new Set(pages)], error: null };
   } catch (e) { return { pages: [], error: String(e) }; }
 }
 function auditHtml(row, fetched) {
@@ -85,6 +88,29 @@ function auditHtml(row, fetched) {
   if (row.family === "lake-overview" && tags(html,"img").length === 0) warnings.push("no_HTML_image_verify_governed_photo_or_map");
   if (row.family === "species" && tags(html, "img").length === 0) critical.push("species_identification_photo_missing");
   if (row.family === "species" && !/tpwd\.texas\.gov/.test(html)) critical.push("species_TPWD_reference_missing");
+  if (row.family === "species" && speciesOnly) {
+    const slug = row.path.split("/").at(-1);
+    const note = authorityNotes[slug];
+    if (!sitemap.allPaths?.includes(row.path)) critical.push("missing_species_from_live_sitemap");
+    if (!note) critical.push("missing_species_authority_registry");
+    else {
+      if (!title.includes(note.title)) critical.push("species_specific_title_mismatch");
+      if (decode(description) !== note.description) critical.push("species_specific_description_mismatch");
+      if (!html.includes("texas-fish-practical-guide")) critical.push("missing_practical_guide_in_SSR");
+      for(const key of [note.source,...(note.extraSources??[]),"limits","advisories"])
+        if (!hrefs.includes(authoritySources[key].url)) critical.push("missing_official_source_"+key);
+      for(const target of note.related)
+        if (!internal.includes("/fishing/species/"+target)) critical.push("missing_contextual_species_link_"+target);
+      for(const target of note.lakes)
+        if (!internal.includes("/fishing/lakes/"+target)) critical.push("missing_historical_waterbody_link_"+target);
+      const schema = [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap(match=>{
+        try { const parsed=JSON.parse(match[1]); return parsed["@graph"]??[parsed]; }
+        catch { critical.push("malformed_species_jsonld"); return []; }
+      });
+      if (!schema.some(x=>x["@type"]==="WebPage" && x.url===base+row.path)) critical.push("missing_canonical_WebPage_schema");
+      if (schema.some(x=>x["@type"]==="ItemList" && (!x.numberOfItems || !x.itemListElement?.length))) critical.push("empty_species_ItemList");
+    }
+  }
   if (row.family === "lake-section" && row.section === "regulations" && official.length < 1) critical.push("no_direct_official_regulation_source_link");
   if (row.family === "lake-section" && ["camping","nearby"].includes(row.section) && external.length < 1) critical.push("missing_campground_or_attraction_source");
   if (!html.includes("application/ld+json")) { if (expectedIndex) critical.push("missing_schema_JSONLD"); else warnings.push("missing_schema_JSONLD"); }
@@ -103,6 +129,7 @@ function auditHtml(row, fetched) {
     canonical: canon, robots, noindex, structuredData: html.includes("application/ld+json"),
     internalUnique: internal.length, relevantCrosslinks: contextual.length, officialSourceLinks: official.length,
     imageCount: tags(html,"img").length, approxRenderedWords: approxWords,
+    ...(row.family === "species" && speciesOnly ? { sitemapMember: Boolean(sitemap.allPaths?.includes(row.path)), contextualSpeciesPaths: internal.filter(p=>p.startsWith("/fishing/species/") && p!==row.path) } : {}),
     critical, warnings,
     acceptance: critical.length ? "FAIL" : noindex ? "NOINDEX_NOT_AUTHORITY" : "TECHNICAL_SCREEN_PASS_EDITORIAL_AND_MOBILE_PENDING",
   };

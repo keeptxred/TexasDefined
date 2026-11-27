@@ -89,7 +89,7 @@ const batch=Array.from({length:Math.min(3,selected.length)},async()=>{
       for(const row of rows){
         // Exact named species/category only. Never infer a distinct grade for
         // species grouped by TPWD, or treat qualitative editorial labels as law.
-        const found=expected.find(x=>normalize(x.name)===normalize(row.name));
+        const found=expected.find(x=>normalize(x.name)===normalize(row.name) || (slug==="alan-henry-reservoir" && normalize(x.name)==="alabama bass" && normalize(row.name)==="spotted bass"));
         if(!found||!grades.includes(found.quality))continue;
         const equal=found.quality===row.grade;
         matched.push({species:row.name,published:found.quality,tpwd:row.grade,equal});

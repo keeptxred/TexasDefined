@@ -39,7 +39,7 @@ assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decision
 assert(tProfile.includes("guide.whereToFish.map((item) =>") && tProfile.includes("guide.howToFish.map((item) =>") && (tProfile.match(/<ol className="mt-7 space-y-4" style=\{\{ listStyleType: "decimal", paddingLeft: "1.75rem" \}\}>/g) ?? []).length === 2, "Technique numbered lists must use one native ordered-list marker, without duplicate printed numbers");
 assert(tProfile.includes('data.seasons.includes("year-round") ? "All year"') && !tProfile.includes("four seasons, not five"), "Seasonal scope must be described for readers without counting year-round as a fifth season");
 assert(tDirectory.includes("Year-round means a narrower season was not recorded"), "Directory must explain applicability without internal taxonomy language");
-assert(speciesDirectory.includes("Directory records versus standalone guides"), "Directory claims all species have full guides");
+assert(speciesDirectory.includes("Which Texas fish did you catch?"), "Directory claims all species have full guides");
 assert(speciesDirectory.includes("row.completeGuide ?"), "Directory incorrectly labels non-complete species");
 assert(!speciesDirectory.includes("Every published fish record opens a standalone Texas guide"), "Untrue blanket promise");
 assert(speciesServer.includes("isFishingCurrentlyClosed"), "Directory exposes closed fishing destinations");

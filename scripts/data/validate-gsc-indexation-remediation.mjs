@@ -164,7 +164,8 @@ for (const [path, expectedCount] of [
   ['src/routes/sports-venue.$slug.tsx', 1],
   ['src/components/fishing/FishingHub.tsx', 1],
   ['src/components/fishing/GenericFishingLakeGuide.tsx', 2],
-  ['src/components/fishing/FishingSpeciesProfile.tsx', 3],
+  // Two real prefill links remain; empty-fishery duplicate CTA was removed.
+  ['src/components/fishing/FishingSpeciesProfile.tsx', 2],
   ['src/routes/horse-racing.lazy.tsx', 1],
   ['src/routes/events.$collection.lazy.tsx', 1],
   ['src/routes/things-unique-to-texas_.$category.lazy.tsx', 1],
