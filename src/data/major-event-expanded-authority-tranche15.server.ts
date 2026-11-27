@@ -73,10 +73,10 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "Texas A&M AgriLife-linked 4-H stock-show guidance lists the 2027 SandHills Stock Show & Rodeo for January 7-16 in Odessa, and the Ector County Coliseum ticketing venue lists event entries throughout that same window.",
     venue: "Ector County Coliseum",
     officialUrl: "https://sandhillsstockshow.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Sandhills Stock Show & Rodeo is one of the early anchors of the Texas winter livestock-and-rodeo calendar, bringing agricultural exhibitors and rodeo competition to Odessa at the start of the major-show season.",
     planningSections: [
-      { title: "Use the January 7–16 show window; check performance status", body: "Texas A&M AgriLife's Uvalde County major-show calendar lists January 7–16, 2027 in Odessa. The WPRA's circuit schedule lists evening rodeo performances January 7–9 and January 14–16 at 7:30 p.m., but its entry still carries a Pending designation. Confirm each session and ticket status with the organizer before making a nonrefundable booking." },
+      { title: "Use the January 7–16 show window; check performance status", body: "Texas A&M AgriLife's Uvalde County major-show calendar lists January 7–16, 2027 in Odessa. The current WPRA calendar now marks the January 7–16 rodeo Approved, with six evening performances January 7–9 and 14–16 at 7:30 p.m. and a separate January 11 morning slack session at 8 a.m. The latter is a competition schedule entry, not proof of public admission. An AXS listing for January 17 appears outside the approved WPRA and AgriLife window; confirm directly before buying tickets for that date." },
       { title: "Separate livestock and rodeo planning", body: "A stock show and a ticketed rodeo are related but not interchangeable experiences. Decide whether livestock judging, exhibitors or a rodeo performance is the primary goal, then use the relevant official schedule and entry information." },
       { title: "Plan Odessa logistics before arrival", body: "The Ector County Coliseum is the main venue anchor. Check current parking, gate and ticket details before traveling, particularly for evening rodeo performances and higher-attendance weekend dates." },
     ],
@@ -87,8 +87,9 @@ const records: MajorEventAuthorityRecord[] = [
     sources: [
       { label: "Sandhills Stock Show & Rodeo official site", url: "https://sandhillsstockshow.com/" },
       { label: "Texas A&M AgriLife — Uvalde County major show dates", url: "https://agrilifeextension.tamu.edu/counties/uvalde-county/" },
-      { label: "WPRA Sandhills 2027 rodeo performances (pending)", url: "https://test.wpra.com/standings-circuit-auto/?month=01&standingsYear=2027&type=pro" },
+      { label: "WPRA Sandhills 2027 approved rodeo performances", url: "https://test.wpra.com/standings-circuit-auto/?month=01&standingsYear=2027&type=pro" },
       { label: "Ector County Coliseum event ticketing calendar", url: "https://www.axs.com/venues/100925/ector-county-coliseum-odessa-tickets" },
+      { label: "AXS January 17 listing — outside approved rodeo window; confirm", url: "https://www.axs.com/events/1665840/sandhills-stock-show-and-rodeo-tickets" },
     ],
   },
 ];
