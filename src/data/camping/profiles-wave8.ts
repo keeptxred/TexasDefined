@@ -22,7 +22,7 @@ export const CAMPING_PROFILES_WAVE8: CampingProfile[] = [
     campingNotes: [
       "A close-to-DFW public camping base on Joe Pool Lake with a large developed inventory, primitive hike-in camping, swimming, fishing and trail access.",
       "TPWD currently lists 147 full-hookup sites, 192 additional electric sites and 30 hike-in primitive sites; developed camping is near restrooms and hot showers.",
-      "Full-hookup inventory includes water, sewer and 30/50-amp service; several developed sites and the Shady Ridge group camp have verified accessible features. TPWD's current park alert says trails close for wet weather or maintenance and identifies Argentine ants at some campsites; confirm trail status and prepare camping equipment accordingly.",
+      "Full-hookup inventory includes water, sewer and 30/50-amp service; several developed sites and the Shady Ridge group camp have verified accessible features. TPWD warns that trails may close in wet conditions or for maintenance and identifies invasive Argentine ants at some campsites. Firewood transport is restricted by an emerald ash borer quarantine; obtain firewood locally. Check current park alerts before arrival.",
     ],
     searchTerms: ["Cedar Hill camping", "camping near Dallas", "camping near Fort Worth", "DFW camping", "Joe Pool Lake camping", "full hookup camping DFW", "primitive camping near Dallas"],
     verifiedAt: "2026-11-19",
