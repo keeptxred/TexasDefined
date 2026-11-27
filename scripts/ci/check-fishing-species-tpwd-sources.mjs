@@ -85,7 +85,7 @@ for (let start = 0; start < species.length; start += 4) {
 }
 const authority = fs.readFileSync("src/data/fishing/species-authority-notes.ts","utf8");
 const supplemental = JSON.parse(authority.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
-const witnesses = { alabama:["Alabama Bass","Bluegill"], ladybird:["redbreast","redear","carp"], llano:["Guadalupe Bass","Channel Catfish","Largemouth"], fork:["Bowfin","Gar","Drum"], rayburn:["Bowfin","Gar","Drum"], flyrecords:["Longear","Warmouth","Green Sunfish"] };
+const witnesses = { alabama:["Alabama Bass","Bluegill"], ladybird:["redbreast","redear","carp"], llano:["Guadalupe Bass","Channel Catfish","Largemouth"], fork:["Bowfin","Gar, Spotted","Drum, Freshwater"], rayburn:["Bowfin","Gar, Spotted","Drum, Freshwater"], flyrecords:["Sunfish, Longear","Brazos River","Sunfish, Warmouth","Comal River","Sunfish, Green","Somerville"], corpus:["Cichlid, Rio Grande","Carp, Common"], travis:["Cichlid, Rio Grande"] };
 const entries = Object.entries(supplemental);
 for (let start=0;start<entries.length;start+=4) {
   const results=await Promise.all(entries.slice(start,start+4).map(async ([key,source])=>{
