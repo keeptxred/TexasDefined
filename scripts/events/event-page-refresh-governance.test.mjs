@@ -531,3 +531,17 @@ test('pull-request source contracts do not share the pending live source review 
   assert.ok(concurrency.includes("|| 'live'"));
   assert.match(concurrency, /cancel-in-progress: false/);
 });
+
+
+test('UIL winter championship guides preserve confirmed dates and distinguish pending spectator details', () => {
+  const source = fs.readFileSync('src/data/tournaments/verified-profiles-batch4.ts', 'utf8');
+  const record = slug => source.slice(source.indexOf('slug: "' + slug + '"'), source.indexOf('\n  },', source.indexOf('slug: "' + slug + '"')));
+  const spirit = record('uil-spirit-state-championships');
+  const wrestling = record('uil-wrestling-state-championships');
+  assert.match(spirit, /January 13–16/);
+  assert.match(spirit, /first performance order is due December 4, 2026/);
+  assert.match(spirit, /spectator packet, maps and ticket-day classification labels remain pending/);
+  assert.match(wrestling, /February 12–13/);
+  assert.match(wrestling, /2027 timetable will be released later/);
+  assert.match(wrestling, /Do not use those entry times or ticket details for the 2027 Cypress tournament/);
+});
