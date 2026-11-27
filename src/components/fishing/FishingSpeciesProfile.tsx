@@ -95,11 +95,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             </div>}
             <a href={row.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} →</a>
           </article>)}
-        </div> : <div className="mt-8 border-y border-border py-9">
-          <h3 className="font-display text-2xl">No TexasDefined Lake Guide Is Linked Yet</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The species guide remains useful for identification and statewide fishing context, but TexasDefined will not invent lake recommendations. The finder will gain results as verified lake relationships are added.</p>
-          <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" rel="nofollow">Check the lake finder →</a>
-        </div>}
+        </div> : null}
       </section>}
 
       {data.techniqueApplications.length > 0 && <section className="border-y border-border py-12" aria-labelledby="species-techniques">
@@ -136,7 +132,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         </div>
         <div>
           <p className="eyebrow text-muted-foreground">Related fish to compare</p>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">These links are based on shared verified lake relationships, not a claim of biological similarity.</p>
+          {data.relatedSpecies.length > 0 && <p className="mt-3 text-sm leading-7 text-muted-foreground">Other fish documented in some of the same lakes.</p>}
           {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : null}
           {data.familyPeers.length > 0 && <div className="mt-7">
             <p className="eyebrow text-primary">More guides in this fishing collection</p>
