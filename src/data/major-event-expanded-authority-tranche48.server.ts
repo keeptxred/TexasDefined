@@ -15,14 +15,14 @@ const records: MajorEventAuthorityRecord[] = [
       "The Blanco Chamber of Commerce has published June 4-6, 2027 for the 22nd annual Blanco Lavender Festival. The detailed Festival Info page still shows 2026 market, farm, parking and shuttle operations, so those values should not be assumed for 2027 until the organizer refreshes them.",
     venue: "Old Blanco County Courthouse, Bindseil Park and Hill Country Lavender",
     officialUrl: "https://www.blancolavenderfest.com/",
-    sourceCheckedAt: "2026-09-24",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters:
       "Blanco Lavender Festival turns the town's real lavender-growing history into a multi-site Hill Country weekend: a courthouse-square artisan market, live music in Bindseil Park, Texas-made food and drink, and a separate farm component at Hill Country Lavender. The Chamber says the festival began in 2005 after commercial lavender farming took root near Blanco in 1999, so the event connects agriculture, downtown heritage and a recurring community fundraiser rather than using lavender as a generic theme.",
     planningSections: [
       {
         title: "The 2027 dates are confirmed; the detailed hours are not yet",
         body:
-          "The organizer's homepage publishes June 4-6, 2027 for the 22nd annual festival. Its detailed Festival Info page still carries the 2026 market hours, farm hours, parking prices and shuttle price. Use the 2027 dates for trip planning now, but recheck the official operating page before relying on exact daily hours, parking fees or shuttle pricing.",
+          "The organizer's homepage publishes June 4-6, 2027 for the 22nd annual festival. Its detailed Festival Info page still carries the 2026 market hours, farm hours, parking prices and shuttle price. Use the 2027 dates for trip planning now, but recheck the official operating page before relying on exact daily hours, parking fees or shuttle pricing. Prospective vendors should contact the Chamber directly in early March 2027; the organizer explicitly warns that it does not arrange vendor participation through Facebook. Avoid paying unofficial social-media vendors.",
       },
       {
         title: "Treat downtown and the lavender farm as two different stops",
