@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-26T20:13:39.201Z",
+  "fetchedAt": "2026-11-27T20:00:47.210Z",
   "candidates": [
     {
       "name": "Big 12 Football Championship",
@@ -162,6 +162,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvaay"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "FESTIVAL OF BLACK DANCE - Student Performance",
+      "city": "Dallas",
+      "dates": [
+        "2027-02-25"
+      ],
+      "venues": [
+        "Bruton Theatre"
+      ],
+      "ticketmasterIds": [
+        "vvG1YZ_f1DZQND"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/festival-of-black-dance-student-performance-dallas-texas-02-25-2027/event/0C006542BB01A8FB"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -647,6 +671,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed By Jo Dee Messina",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-24"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rn_nwG"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-24-2027/event/3A006507AA66AC8C"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Followed By Kaitlin Butts",
       "city": "San Antonio",
       "dates": [
@@ -922,7 +970,6 @@
       "name": "South Pole Illuminated Festival  - McAllen Convention Center",
       "city": "McAllen",
       "dates": [
-        "2026-11-27",
         "2026-11-28",
         "2026-11-29",
         "2026-12-02",
@@ -946,7 +993,6 @@
       ],
       "ticketmasterIds": [
         "G5dIZ_2Ri1sI1",
-        "G5dIZ_2RiFsES",
         "G5dIZ_2RiasEH",
         "G5dIZ_pCQ-4b1",
         "G5dIZ_pCQ0gbx",
@@ -965,7 +1011,6 @@
         "G5dIZ_piaszZi"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-27-2026/event/3A0064FBEC2319F3",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-28-2026/event/3A0064FBEC2719FC",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-29-2026/event/3A0064FBEC2B1A0A",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-02-2026/event/3A0065639A815605",
@@ -1067,7 +1112,6 @@
         "Z7r9jZ1A7OpPE",
         "Z7r9jZ1A7OpPI",
         "Z7r9jZ1A7OpPJ",
-        "Z7r9jZ1A7OpPP",
         "Z7r9jZ1A7OpPY",
         "Z7r9jZ1A7OpPs",
         "Z7r9jZ1A7OpPt",
@@ -1112,7 +1156,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPE",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPJ",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPP",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPt",
