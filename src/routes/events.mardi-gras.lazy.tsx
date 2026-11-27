@@ -185,8 +185,10 @@ const prettyDate = (iso: string) => new Intl.DateTimeFormat("en-US", {
   month: "long", day: "numeric", year: "numeric", timeZone: "UTC",
 }).format(new Date(iso + "T12:00:00Z"));
 const confirmed: ConfirmedCelebration[] = [
-  ...editorConfirmed,
-  ...promotedCelebrations.filter(fact => !editorConfirmed.some(existing => existing.slug === fact.slug))
+  ...editorConfirmed.filter(existing => !promotedCelebrations.some(fact => fact.slug === existing.slug &&
+    (existing.slug !== "mardi-gras-on-the-sabine-orange" || announcements[fact.slug].startDate !== "2027-01-30" || announcements[fact.slug].endDate !== "2027-01-30"))),
+  ...promotedCelebrations.filter(fact => !editorConfirmed.some(existing => existing.slug === fact.slug &&
+    existing.slug === "mardi-gras-on-the-sabine-orange" && announcements[fact.slug].startDate === "2027-01-30" && announcements[fact.slug].endDate === "2027-01-30"))
     .map(fact => {
       const source = announcements[fact.slug];
       return { ...fact, date: source.startDate === source.endDate
