@@ -86,6 +86,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         </div>
       </section>
 
+      <aside className="mt-8 border-y border-border py-5 text-sm leading-7"><strong>Winter stocking:</strong> Find the official schedule and practical cold-season advice in our <a className="font-semibold underline text-primary" href="/fishing/species/rainbow-trout">Texas rainbow trout guide</a>. Stocking sites are separate from routine lake fishery listings.</aside>
       <section id="month-checklist" className="mt-12 border-t border-border pt-10" aria-labelledby="month-checklist-heading">
         <p className="eyebrow text-primary">Independent planning notes</p>
         <h2 id="month-checklist-heading" className="mt-2 font-display text-3xl">What to check in each Texas fishing month</h2>
