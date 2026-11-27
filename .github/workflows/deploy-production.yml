@@ -606,26 +606,42 @@ jobs:
           # identity on both origins, then --capture re-probes every reachable
           # old JS/CSS hash from that seed and all current HTML before the
           # protected original-byte retention and post-deploy SHA gates.
-          # This is a bounded Nov18 recovery, not a general fail-open switch.
+          # Historical paths are time-bounded, not pinned to one expiring
+          # artifact. Require a recent successful protected main release, exact
+          # source SHA, complete dual-origin hashes and successful deploy job.
           if [[ "$restored" != 1 ]]; then
-            seed_run=44339126466
-            seed_sha=d30e9b2cbb19884102d9b5db692d207fbe296dd6
-            seed_worker=d18f351a-7176-417a-9fc5-0f17046a6dba
-            # Keep the fallback's archive isolated: the exhaustive candidate scan
-            # above may already have extracted this exact run into prior-asset-extraction.
-            # gh run download refuses to overwrite existing archive members.
-            seed_dir=".artifacts/verified-successful-seed/$seed_run"
-            mkdir -p "$seed_dir"
-            gh run download "$seed_run" -n "asset-handoff-$seed_run" -D "$seed_dir"
-            node scripts/ci/verify-prior-asset-handoff.mjs \
-              "$seed_dir/asset-handoff-snapshot.json" "$seed_dir/asset-delivery-report.json" \
-              "$seed_worker" "$seed_sha"
-            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$seed_run/jobs?per_page=100" \
-              | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
-            node scripts/ci/verify-active-worker-asset-bridge.mjs live "$EXPECTED_ACTIVE_WORKER_VERSION"
-            cp "$seed_dir/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
-            echo "::notice title=Independently verified active Worker::Historic successful release supplied only candidate old asset paths, not identity or current-byte proof. Fresh current-worker capture and full dual-origin original-byte verification remain mandatory."
-            restored=1
+            seed_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=20" | node scripts/ci/select-recent-verified-asset-seeds.mjs)"
+            while read -r seed_run seed_sha; do
+              [[ "$seed_run" =~ ^[0-9]+$ && "$seed_sha" =~ ^[a-f0-9]{40}$ ]] || continue
+              seed_dir=".artifacts/verified-successful-seed/$seed_run"
+              mkdir -p "$seed_dir"
+              if ! gh run download "$seed_run" -n "asset-handoff-$seed_run" -D "$seed_dir"; then
+                echo "::warning title=Unavailable historical seed::Successful release $seed_run has no downloadable retained artifact."
+                continue
+              fi
+              if ! seed_worker="$(jq -er '.expected | select(type == "string")' "$seed_dir/asset-delivery-report.json")"; then
+                continue
+              fi
+              if ! node scripts/ci/verify-prior-asset-handoff.mjs \
+                "$seed_dir/asset-handoff-snapshot.json" "$seed_dir/asset-delivery-report.json" \
+                "$seed_worker" "$seed_sha"; then
+                continue
+              fi
+              jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$seed_run/jobs?per_page=100")"
+              if ! jq -e '[.jobs[] | select(.name == "deploy" and .conclusion == "success")] | length == 1' <<<"$jobs_json" >/dev/null; then
+                continue
+              fi
+              if ! printf '%s\n' "$jobs_json" | node scripts/ci/verify-prior-deploy-job-eligibility.mjs; then
+                continue
+              fi
+              # The seed worker is NOT evidence of the outgoing Worker identity.
+              # A failing live identity probe must block rather than try another seed.
+              node scripts/ci/verify-active-worker-asset-bridge.mjs live "$EXPECTED_ACTIVE_WORKER_VERSION"
+              cp "$seed_dir/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+              echo "::notice title=Independently verified active Worker::Recent successful release $seed_run supplied only historical paths; current Worker capture and full dual-origin original-byte verification remain mandatory."
+              restored=1
+              break
+            done <<< "$seed_runs"
           fi
           if [[ "$restored" != 1 ]]; then
             echo "::error title=Wrong prior asset handoff::No source-verified published asset handoff matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
