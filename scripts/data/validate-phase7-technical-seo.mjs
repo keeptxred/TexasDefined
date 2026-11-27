@@ -100,7 +100,7 @@ const exactQuerySourceTargets = [
       'FISH_AUTHORITY_NOTES[species.slug]',
       'const title = note?.title',
       'const description = note?.description',
-      'title, description,',
+      'title,\n      description,\n      canonicalPath,',
     ],
   },
   {
