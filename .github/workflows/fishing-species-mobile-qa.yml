@@ -29,6 +29,8 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -36,9 +38,11 @@ jobs:
 
   live-mobile:
     # A source push can race the production Worker deployment; only check the
-    # new code on the deployed site after the successful deploy or on schedules.
+    # new code on the deployed site after the matching successful deploy or on schedules.
+    # An older deployment may finish after main has advanced; never compare that
+    # earlier release to the newer main branch's editorial expectations.
     needs: [script-syntax]
-    if: ${{ github.event_name != 'pull_request' && github.event_name != 'push' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ github.event_name != 'pull_request' && github.event_name != 'push' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha == github.sha)) }}
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
@@ -46,6 +50,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Confirm the audited source revision has completed production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUDIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(gh api "repos/$GITHUB_REPOSITORY/commits/$AUDIT_SHA/status" --jq '[.statuses[] | select(.context == "texasdefined-production")][0].state // "missing"')"
+          test "$state" = success || { echo "::error::Source revision $AUDIT_SHA is not certified on production ($state). Do not compare unpublished editorial content to live pages."; exit 1; }
       - name: Install isolated Chrome driver
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
