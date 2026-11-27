@@ -2060,12 +2060,13 @@
         "The Texas Historical Commission directory gives the address, map, phone and an overview of exhibits.",
         "The East Texas Digital Archives offers access to selected museum photographs.",
         "A November 4, 2026 Cherokeean Herald notice reports Saturday 11 a.m.–3 p.m., Sunday 1–5 p.m. and weekday appointments; operator confirmation is still needed.",
-        "Museum curator Betty Marcontell published a May 2023 Historical Tour of Rusk confirming those days and hours as of 2023 and providing a source-rich downtown history tour."
+        "Museum curator Betty Marcontell published a May 2023 Historical Tour of Rusk confirming those days and hours as of 2023 and providing a source-rich downtown history tour.",
+        "Rusk Economic Development Corporation describes local museum and downtown heritage context; the THC marker record establishes the 2009 bank move."
       ],
       "openGaps": [
-        "Confirm reported weekend hours and weekday appointments, admission, parking, dining and step-free access directly with the museum.",
-        "Find a rights-cleared photograph of the museum grounds. The credited historic Rusk station photo illustrates the railroad exhibit theme.",
-        "Complete live mobile and desktop checks."
+        "Current operator admission, accessible entrance, parking, and group arrangements are not directly confirmed; the guide qualifies unknowns.",
+        "Exact-building photograph has no verified commercial reuse permission; retain accurately identified licensed contextual station photo.",
+        "Fresh 320/390/1440 px hydrated layout, keyboard and field performance verification after structural repair."
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -2075,7 +2076,8 @@
         "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
         "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/",
         "https://digital.sfasu.edu/digital/collection/Cherokee",
-        "https://atlas.thc.texas.gov/Details/5073006614"
+        "https://atlas.thc.texas.gov/Details/5073006614",
+        "https://redc.rusktx.org/recreation-and-entertainment/"
       ]
     }
   },

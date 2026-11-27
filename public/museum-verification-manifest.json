@@ -1478,7 +1478,7 @@
       "path": "/destination/heritage-center-cherokee-county-rusk",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 4,
+      "faqCount": 9,
       "sources": [
         {
           "sourceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
@@ -1529,6 +1529,16 @@
           "sourceUrl": "https://atlas.thc.texas.gov/Details/5073006614",
           "fetchUrl": "https://atlas.thc.texas.gov/Details/5073006614",
           "label": "Texas Historical Commission Old Bonner Bank Building marker"
+        },
+        {
+          "sourceUrl": "https://texasstaterailroad.net/faq-2/",
+          "fetchUrl": "https://texasstaterailroad.net/faq-2/",
+          "label": "Rusk museum visitor FAQ and planning evidence"
+        },
+        {
+          "sourceUrl": "https://redc.rusktx.org/recreation-and-entertainment/",
+          "fetchUrl": "https://redc.rusktx.org/recreation-and-entertainment/",
+          "label": "Rusk museum visitor FAQ and planning evidence"
         }
       ]
     },
