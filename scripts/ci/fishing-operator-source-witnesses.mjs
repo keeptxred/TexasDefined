@@ -1,5 +1,5 @@
 /**
- * Pinned first-party operator detail-page witnesses for two fishing businesses.
+ * Pinned first-party operator detail-page witnesses for individually reviewed fishing businesses.
  * Never treat an unrelated site, generic search result or HTTP-200 challenge as
  * sufficient source evidence; source URL changes require individual review.
  * The public listing's operator homepage is deliberately preserved.
@@ -10,6 +10,12 @@ const reviewed = Object.freeze({
     witness: "https://wildlifedepartment.com/fishing/fishing-guides",
     sourceKind: "oklahoma-licensed-guide-list",
     identity: Object.freeze(["Capt.Steve Barnes Guide Servic", "(940)841-0910", "Steve L Barnes"]),
+  }),
+  "adventure-texoma-guide": Object.freeze({
+    homepage: "https://adventuretex.com/",
+    witness: "https://wildlifedepartment.com/fishing/fishing-guides",
+    sourceKind: "oklahoma-licensed-guide-list",
+    identity: Object.freeze(["Adventure Texoma", "(903)744-6169", "Lake Texoma"]),
   }),
   "reel-um-n-sam-rayburn-guide": Object.freeze({
     homepage: "https://www.rayburncountry.com/",
@@ -28,7 +34,7 @@ export function sourceForFishingGuideReview(guide) {
   const witness = new URL(proof.witness);
   const governmentLicense = proof.sourceKind === "oklahoma-licensed-guide-list";
   const approvedOrigin = governmentLicense
-    ? (guide.slug === "captain-steve-barnes-texoma" && witness.origin === "https://wildlifedepartment.com")
+    ? (["captain-steve-barnes-texoma", "adventure-texoma-guide"].includes(guide.slug) && witness.origin === "https://wildlifedepartment.com")
     : homepage.origin === witness.origin;
   if (guide.url !== proof.homepage || homepage.protocol !== "https:"
       || witness.protocol !== "https:" || !approvedOrigin
