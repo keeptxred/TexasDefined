@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { LakeFishEvidenceLinks } from "@/components/fishing/LakeFishEvidenceLinks";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { FishingLakeAuthorityLinks } from "@/data/fishing/FishingLakeAuthorityLinks";
@@ -72,6 +73,7 @@ export function ShowcaseLakeGuide({
         attraction={pageData.nearby.find((row) => row.external) && (() => { const row = pageData.nearby.find((item) => item.external)!; return { label: row.label, summary: row.description, href: row.href }; })()}
       />}
       {section === "fish" && <Fish pageData={pageData} />}
+      {(!section || section === "fish") && <LakeFishEvidenceLinks lakeSlug={pageData.slug} />}
       {section === "access" && <Access pageData={pageData} />}
       {section === "boating" && <Boating pageData={pageData} />}
       {section === "regulations" && <Regulations pageData={pageData} />}
