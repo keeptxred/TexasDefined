@@ -18,6 +18,7 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 concurrency:
   group: fishing-species-mobile-${{ github.event_name }}
@@ -47,6 +48,8 @@ jobs:
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
