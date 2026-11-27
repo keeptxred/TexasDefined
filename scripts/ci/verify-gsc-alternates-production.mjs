@@ -7,6 +7,8 @@ const origin = String(process.env.PRODUCTION_ORIGIN || "https://texasdefined.com
 const checks = [
   ["/events", "/events", false, true],
   ["/fishing/plan", "/fishing/plan", false, false],
+  ["/fishing/seasons", "/fishing/seasons", false, false],
+  ["/fishing/seasons?season=winter", "/fishing/seasons", false, false],
   // Exact November 22 owner GSC duplicate report and Google-selected planner alias.
   ["/events?venue=sports-venue%3Adickies-arena&start=2026-10-29&end=2026-10-29", "/events", true, true],
   ["/fishing/plan?species=%5B%22hybrid-striped-bass%22%5D&view=map", "/fishing/plan", false, false],
@@ -144,7 +146,7 @@ async function verifyPrimarySitemap() {
       if (response.status === 200 && /<urlset\b/i.test(xml)) {
         const sitemapUrls = [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
           .map(match => match[1].replace(/&amp;/gi, "&").trim());
-        for (const parent of ["/events", "/texas-property-tax-estimator", "/corporate-events", "/moving-to-texas", "/partner-with-us", "/fishing/plan"]) {
+        for (const parent of ["/events", "/texas-property-tax-estimator", "/corporate-events", "/moving-to-texas", "/partner-with-us", "/fishing/plan", "/fishing/seasons"]) {
           const count = sitemapUrls.filter(url => url === origin + parent).length;
           assert(count === 1, "Primary sitemap must list clean " + parent + " exactly once; found " + count);
         }
@@ -152,7 +154,7 @@ async function verifyPrimarySitemap() {
           try { return new URL(item).search.length > 0; }
           catch { return true; }
         }), "Primary sitemap contains a parameterized or invalid <loc>");
-        console.log("[GSC alternate] OK primary sitemap: six clean parents, zero query URLs");
+        console.log("[GSC alternate] OK primary sitemap: seven clean parents, zero query URLs");
         return;
       }
       last = "HTTP " + response.status + "; location=" + (response.headers.get("location") || "none") +
