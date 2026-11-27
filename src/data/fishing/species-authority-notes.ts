@@ -112,7 +112,7 @@ export const FISH_AUTHORITY_SOURCES = {
     "witness": "advisories"
   }
 } as const;
-export interface FishAuthorityNote { title: string; description: string; guidance: string; source: keyof typeof FISH_AUTHORITY_SOURCES; related: readonly string[]; lakes: readonly string[]; }
+export interface FishAuthorityNote { title: string; description: string; guidance: string; source: keyof typeof FISH_AUTHORITY_SOURCES; extraSources?: readonly (keyof typeof FISH_AUTHORITY_SOURCES)[]; related: readonly string[]; lakes: readonly string[]; }
 export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "largemouth-bass": {
     "title": "Largemouth Bass in Texas: Lakes, Tackle & Identification",
@@ -124,7 +124,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "spotted-bass",
       "smallmouth-bass"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "blackBass"
+    ]
   },
   "smallmouth-bass": {
     "title": "Smallmouth Bass in Texas: Rocky Water & Identification",
@@ -136,7 +139,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "largemouth-bass",
       "spotted-bass"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "blackBass"
+    ]
   },
   "guadalupe-bass": {
     "title": "Guadalupe Bass: Texas State Fish & Hill Country Fishing",
@@ -148,7 +154,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "largemouth-bass",
       "spotted-bass"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "conservation"
+    ]
   },
   "spotted-bass": {
     "title": "Spotted Bass in Texas: Identification & Fishing Habitat",
@@ -160,8 +169,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "guadalupe-bass",
       "smallmouth-bass"
     ],
-    "lakes": [
-      "alan-henry-reservoir"
+    "lakes": [],
+    "extraSources": [
+      "spotted",
+      "blackBass"
     ]
   },
   "crappie": {
@@ -195,7 +206,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "black-crappie",
       "crappie"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "limits"
+    ]
   },
   "catfish": {
     "title": "Texas Catfish Fishing: Blue, Channel & Flathead",
@@ -259,7 +273,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "hybrid-striped-bass",
       "freshwater-drum"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "blackBass"
+    ]
   },
   "striped-bass": {
     "title": "Striped Bass in Texas: Open-Water Fishing & Identification",
@@ -292,7 +309,10 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "spotted-gar",
       "bowfin"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "freshwater"
+    ]
   },
   "freshwater-drum": {
     "title": "Freshwater Drum in Texas: Identification & Documented Waters",
@@ -306,6 +326,9 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
     "lakes": [
       "lake-fork",
       "sam-rayburn-reservoir"
+    ],
+    "extraSources": [
+      "rayburn"
     ]
   },
   "sunfish": {
@@ -327,15 +350,17 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "bluegill": {
     "title": "Bluegill in Texas: Identification & Light-Tackle Fishing",
     "description": "Identify bluegill by mouth and gill flap and fish small presentations near shallow cover.",
-    "guidance": "Compare bluegill with redear and other sunfish by the mouth, ear flap and body shape. Start with a small bait suspended under a float near cover; if fish follow without taking, reduce the presentation or change depth. TPWD's freshwater species index links sunfish resources and its rules describe the sunfish group; a general sunfish listing does not establish a specific bluegill fishery.",
-    "source": "freshwater",
+    "guidance": "TPWD’s Alan Henry 2018–2021 fisheries survey identifies bluegill among the reservoir’s principal forage fish. This is biological survey evidence, not a current catch forecast or a recommendation to travel there specifically for bluegill. Compare bluegill with redear by the mouth, ear flap and body shape. Start with a small bait suspended under a float near cover; if fish follow without taking, reduce the presentation or change depth. A general sunfish listing does not establish a specific bluegill fishery.",
+    "source": "alabama",
     "related": [
       "redear-sunfish",
       "green-sunfish",
       "longear-sunfish",
       "sunfish"
     ],
-    "lakes": []
+    "lakes": [
+      "alan-henry-reservoir"
+    ]
   },
   "rainbow-trout": {
     "title": "Rainbow Trout in Texas: Winter Stocking & Fishing",
@@ -343,30 +368,37 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
     "guidance": "TPWD's 2026–2027 schedule includes Possum Kingdom Tailrace and Neighborhood Fishin' ponds; stocking dates are plans, not evidence of fish being present on the day you arrive. Match a small presentation to the current and available depth; check the latest schedule, public access and site-specific restrictions before traveling. The tailrace differs from the reservoir itself.",
     "source": "trout",
     "related": [],
-    "lakes": [
-      "possum-kingdom-reservoir"
+    "lakes": [],
+    "extraSources": [
+      "neighborhood"
     ]
   },
   "bowfin": {
     "title": "Bowfin in Texas: Identification & East Texas Backwaters",
     "description": "Identify native bowfin versus snakeheads and gar; explore documented Texas fish records.",
-    "guidance": "Lake Fork and Sam Rayburn have documented historical bowfin catches in TPWD records. Search shallow vegetated edges and protected backwaters rather than the middle of open water; approach quietly and use a manageable bait or lure around woody cover. Its long dorsal fin and rounded tail help distinguish it from gar, while its ability to breathe air explains occasional surfacing.",
+    "guidance": "Lake Fork and Sam Rayburn have documented historical bowfin catches in TPWD records. Search shallow vegetated edges and protected backwaters rather than the middle of open water; approach quietly and use a manageable bait or lure around woody cover. Its long dorsal fin and rounded tail help distinguish it from gar, while its ability to breathe air explains occasional surfacing. Common carp also uses slow water, but its feeding behavior is different from this predator.",
     "source": "fork",
     "related": [
       "spotted-gar",
-      "alligator-gar"
+      "alligator-gar",
+      "common-carp"
     ],
     "lakes": [
       "lake-fork",
       "sam-rayburn-reservoir"
+    ],
+    "extraSources": [
+      "rayburn"
     ]
   },
   "common-carp": {
     "title": "Common Carp in Texas: Identification & Bank Fishing",
     "description": "Recognize common carp and explore documented Texas carp waters, including Austin's Lady Bird Lake.",
-    "guidance": "TPWD's Lady Bird Lake paddling guide specifically describes large common carp. For a bank approach, look for safe legal access near feeding shallows, present a small bottom bait and watch for line movement rather than repeatedly casting over fish. Barbels near the mouth distinguish common carp from superficially similar fish; do not transfer this identification to grass carp or other carp species.",
+    "guidance": "TPWD's Lady Bird Lake paddling guide specifically describes large common carp. For a bank approach, look for safe legal access near feeding shallows, present a small bottom bait and watch for line movement rather than repeatedly casting over fish. Barbels near the mouth distinguish common carp from superficially similar fish; do not transfer this identification to grass carp or other carp species. Unlike bowfin, which is a native predator, common carp is an introduced bottom feeder; the two require very different fishing approaches.",
     "source": "ladybird",
-    "related": [],
+    "related": [
+      "bowfin"
+    ],
     "lakes": []
   },
   "spotted-gar": {
@@ -381,6 +413,9 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
     "lakes": [
       "lake-fork",
       "sam-rayburn-reservoir"
+    ],
+    "extraSources": [
+      "fork"
     ]
   },
   "redear-sunfish": {
