@@ -22,7 +22,7 @@ const supplementalPath = 'src/data/major-event-supplemental-registry.server.ts';
 export const STATIC_EVENT_PAGES = [
   { path: '/texas-state-fair', sourceUrl: 'https://bigtex.com/faq/', kind: 'announcement-pending', sourceCheckedAt: '2026-11-07', note: 'Official 2026 edition concluded October 18; do not infer 2027 dates without a current-year announcement' },
   { path: '/holiday/enchant-christmas-arlington', sourceUrl: 'https://www.enchantchristmas.com/locations/', kind: 'announcement-pending', sourceCheckedAt: '2026-11-07', note: 'Organizer current 2026 locations exclude all Texas cities; do not advertise 2026 Arlington tickets' },
-  { path: '/holiday/magical-winter-lights', sourceUrl: 'https://tickets.magicalwinterlights.com/contact.aspx', kind: 'announcement-pending' },
+  { path: '/holiday/magical-winter-lights', sourceUrl: 'https://tickets.magicalwinterlights.com/contact.aspx', kind: 'announcement-pending', sourceCheckedAt: '2026-11-27', note: 'Organizer portal has conflicting venue/date text; Nov 24 local reporting quotes Nov 23 opening-delay announcement; no confirmed new occurrence' },
 ];
 
 export const DEDICATED_EVENT_REFRESHES = [
