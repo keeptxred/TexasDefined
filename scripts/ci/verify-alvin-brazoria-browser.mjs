@@ -89,15 +89,17 @@ try {
           // page JavaScript is disabled. Playwright can still inspect DOM state.
           // Require actual decoded image pixels and meaningful alt in every mode.
           assert.ok((await matching.getAttribute('alt'))?.trim(), 'Missing archive photo alt ' + id);
-          try {
-            await page.waitForFunction(srcId => {
-              const img = document.querySelector('img[src*="' + srcId + '"]');
-              return img?.complete && img.naturalWidth > 0;
-            }, id, { timeout: 20000 });
-          } catch (error) {
-            const state = await matching.evaluate(el => ({src:el.currentSrc, complete:el.complete, width:el.naturalWidth, loading:el.loading}));
-            throw new Error('Archive photo failed to load ' + id + ': ' + JSON.stringify(state), {cause:error});
-          }
+          // Poll from the Node runner, not page.waitForFunction: its injected
+          // animation-frame polling does not resolve with JavaScript disabled,
+          // even when the image has completed (confirmed in run 46010599010).
+          const deadline = Date.now() + 20000;
+          let state;
+          do {
+            state = await matching.evaluate(el => ({src:el.currentSrc, complete:el.complete, width:el.naturalWidth, loading:el.loading}));
+            if (state.complete && state.width > 0) break;
+            await new Promise(resolve => setTimeout(resolve, 250));
+          } while (Date.now() < deadline);
+          assert.ok(state.complete && state.width > 0, 'Archive photo failed to load ' + id + ': ' + JSON.stringify(state));
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
