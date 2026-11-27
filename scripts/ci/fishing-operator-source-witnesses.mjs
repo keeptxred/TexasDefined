@@ -19,8 +19,9 @@ const reviewed = Object.freeze({
   }),
   "reel-um-n-sam-rayburn-guide": Object.freeze({
     homepage: "https://www.rayburncountry.com/",
-    witness: "https://www.rayburncountry.com/contact/",
-    identity: Object.freeze(["Lynn Atkinson", "979-220-0251", "Bass Half-Day Fishing Trips", "Crappie Half-Day Fishing Trips"]),
+    witness: "https://tpwd.texas.gov/fishboat/fish/action/reptform2.php?Submit=Go&archive=wholeyear&lake=SAM+RAYBURN&yearcat=current",
+    sourceKind: "tpwd-attributed-fishing-report",
+    identity: Object.freeze(["Sam Rayburn Fishing Report", "Report by Captain Lynn Atkinson, Reel Um N Guide Service", "Feb 25, 2026"]),
   }),
 });
 
@@ -33,7 +34,10 @@ export function sourceForFishingGuideReview(guide) {
   const homepage = new URL(guide.url);
   const witness = new URL(proof.witness);
   const governmentLicense = proof.sourceKind === "oklahoma-licensed-guide-list";
-  const approvedOrigin = governmentLicense
+  const governmentReport = proof.sourceKind === "tpwd-attributed-fishing-report";
+  const approvedOrigin = governmentReport
+    ? (guide.slug === "reel-um-n-sam-rayburn-guide" && witness.origin === "https://tpwd.texas.gov")
+    : governmentLicense
     ? (["captain-steve-barnes-texoma", "adventure-texoma-guide"].includes(guide.slug) && witness.origin === "https://wildlifedepartment.com")
     : homepage.origin === witness.origin;
   if (guide.url !== proof.homepage || homepage.protocol !== "https:"
@@ -42,7 +46,7 @@ export function sourceForFishingGuideReview(guide) {
     throw new Error("Reviewed fishing operator homepage/witness identity drift: " + guide.slug);
   }
   return { url: proof.witness, identity: [...proof.identity],
-    sourceKind: governmentLicense ? "government-license" : "operator-detail" };
+    sourceKind: governmentReport ? "government-report-identity-only" : governmentLicense ? "government-license" : "operator-detail" };
 }
 
 export const PINNED_FISHING_OPERATOR_SOURCE_SLUGS = Object.freeze(Object.keys(reviewed));
