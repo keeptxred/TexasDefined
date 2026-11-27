@@ -121,7 +121,6 @@ export function CorporateEventMetroGuides() {
             eligibleFor45.filter((venue) => venue.categories.includes(b)).length -
             eligibleFor45.filter((venue) => venue.categories.includes(a)).length
           )[0];
-          const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=' + recommendedCategory;
           return <article key={guide.slug} id={'corporate-events-' + guide.slug}
             className="scroll-mt-28 border border-border bg-background p-5 sm:p-7">
             <h3 className="font-display text-2xl sm:text-3xl">{guide.title}</h3>
@@ -135,9 +134,14 @@ export function CorporateEventMetroGuides() {
               </li>)}
             </ul>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Source websites open directly; no partner discount, guaranteed rate, or booking is implied. The finder includes additional venues and filter options.</p>
-            <a href={link} className="mt-5 inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">
-              Compare {guide.city} options for 45 guests →
-            </a>
+            <form action="/corporate-events" method="get" className="mt-5">
+              <input type="hidden" name="city" value={guide.city} />
+              <input type="hidden" name="guests" value="45" />
+              <input type="hidden" name="type" value={recommendedCategory} />
+              <button type="submit" className="inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">
+                Compare {guide.city} options for 45 guests →
+              </button>
+            </form>
           </article>;
         })}
       </div>
