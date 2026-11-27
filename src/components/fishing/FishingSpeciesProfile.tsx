@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishAuthorityNote } from "@/components/fishing/FishAuthorityNote";
 import { FishIdentificationSection } from "@/components/fishing/FishIdentificationSection";
 import { getFishingFishImage } from "@/data/fishing/image-library";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
@@ -26,7 +27,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
-            <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold" rel="nofollow">Find lakes for {species.commonName} →</a>
+            {data.lakes.length > 0 && <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold" rel="nofollow">Find lakes for {species.commonName} →</a>}
             <a href="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1">Browse fishing lakes →</a>
             <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Current regulations →</a>
             <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
@@ -48,6 +49,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
 
       <FishIdentificationSection speciesName={species.commonName} identification={data.identification} comparisonGuides={data.comparisonGuides} />
 
+      <FishAuthorityNote slug={species.slug} />
       <FishingMerchSpotlight speciesName={species.commonName} />
 
       {(data.regions.length > 0 || data.habitats.length > 0) && <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
@@ -70,11 +72,11 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         {data.seasonalPatterns.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">{data.seasonalPatterns.slice(0, 12).map((pattern, index) => <article key={`${pattern.lake.id}-${pattern.season}-${index}`} className="border-t border-border py-6"><div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl">{titleCase(pattern.season)}</h3><a href={pattern.href} className="text-xs text-primary hover:underline">{pattern.lake.name}</a></div><p className="mt-3 text-sm leading-7 text-muted-foreground">{pattern.summary}</p>{pattern.habitats?.length ? <p className="mt-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Habitat:</strong> {pattern.habitats.join(" · ")}</p> : null}{pattern.methods?.length ? <p className="mt-2 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Methods:</strong> {pattern.methods.join(" · ")}</p> : null}</article>)}</div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified seasonal pattern is attached to this species yet.</p>}
       </section>}
 
-      <section className="py-12" aria-labelledby="where-to-fish">
+      {data.lakes.length > 0 && <section className="py-12" aria-labelledby="where-to-fish">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Where to fish</p>
           <h2 id="where-to-fish" className="mt-3 font-display text-4xl sm:text-5xl">Where to catch {species.commonName} in Texas</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These lake links appear only where the TexasDefined fishing catalog has a verified lake-to-species relationship. They are not a statewide popularity ranking and do not imply that unlisted waters lack this fish.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Explore lakes with documented fishing opportunities for this fish. Unlisted waters may also contain it; confirm current access and fishery conditions before traveling.</p>
         </div>
 
         {data.lakes.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
@@ -98,7 +100,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The species guide remains useful for identification and statewide fishing context, but TexasDefined will not invent lake recommendations. The finder will gain results as verified lake relationships are added.</p>
           <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" rel="nofollow">Check the lake finder →</a>
         </div>}
-      </section>
+      </section>}
 
       {data.techniqueApplications.length > 0 && <section className="border-y border-border py-12" aria-labelledby="species-techniques">
         <div className="max-w-3xl">
@@ -135,7 +137,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <div>
           <p className="eyebrow text-muted-foreground">Related fish to compare</p>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">These links are based on shared verified lake relationships, not a claim of biological similarity.</p>
-          {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : <p className="mt-5 text-sm text-muted-foreground">No other published species currently shares a verified lake relationship in this dataset.</p>}
+          {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : null}
           {data.familyPeers.length > 0 && <div className="mt-7">
             <p className="eyebrow text-primary">More guides in this fishing collection</p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">Explore other published guides grouped for easier browsing. Collection membership does not imply shared lakes or close biological relationships.</p>
@@ -147,10 +149,9 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <section className="grid gap-8 py-12 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Plan Your Visit</p><h2 className="mt-2 font-display text-3xl">Use durable species guidance, then verify current conditions.</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
-          <p>{data.policy.sourcing}</p>
-          <p>{data.policy.conditions}</p>
+          <p>Seasonal patterns are planning guidance, not a forecast of today’s fishing.</p>
           <p>Before a trip, check <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather and water conditions, access status, and <a href="/fishing/regulations" className="border-b border-primary text-primary">current TPWD regulations</a>.</p>
-          <a href={finderHref} className="inline-block border-b border-primary pb-1 font-semibold text-primary" rel="nofollow">Find Texas lakes for {species.commonName} →</a>
+          {data.lakes.length > 0 && <a href={finderHref} className="inline-block border-b border-primary pb-1 font-semibold text-primary" rel="nofollow">Find Texas lakes for {species.commonName} →</a>}
         </div>
       </section>
 
