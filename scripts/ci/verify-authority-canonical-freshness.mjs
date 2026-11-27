@@ -102,9 +102,9 @@ const pages = [
     forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
   },
   {
-    label: 'Orange historical date remains distinct from 2027 and CC licensed city image is indexable',
+    label: 'Orange confirmed 2027 festival and CC licensed city image are indexable',
     url: 'https://texasdefined.com/event/mardi-gras-on-the-sabine-orange',
-    required: ['Mardi Gras on the Sabine', 'February 7, 2026', '2027', 'City of Orange', 'Ken Lund', 'CC BY-SA 2.0', 'data-major-event-hero="true"'],
+    required: ['Mardi Gras on the Sabine', 'February 7, 2026', 'January 30, 2027', '6 p.m.', 'City of Orange', 'Ken Lund', 'CC BY-SA 2.0', 'data-major-event-hero="true"'],
     forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
   },
   {
@@ -222,15 +222,14 @@ const observedMardiGrasRoutes = new Set(mardiGrasPages.map((item) => new URL(ite
  * Four evergreen guides deliberately withhold one-off Event rich markup:
  * two independently dated parades under one guide (Galveston/Kemah) and
  * expired 2026 organizer records with no confirmed 2027 occurrence
- * (Beaumont/Orange). Their canonical JSON-LD must be WebPage, NOT Event.
+ * (Beaumont). Their canonical JSON-LD must be WebPage, NOT Event.
  * Keep this aligned with applyEventSchemaConfidencePolicy in the server bridge.
  */
 const evergreenMardiGrasWebPageRoutes = new Set([
   '/event/mardi-gras-galveston',
   '/event/kemah-yachty-gras',
   '/event/mardi-gras-southeast-texas-beaumont',
-  '/event/mardi-gras-on-the-sabine-orange',
-]);
+ ]);
 if (mardiGrasPages.length !== 12 || observedMardiGrasRoutes.size !== 12) {
   throw new Error('Mardi Gras canonical acceptance must cover exactly 11 distinct guides plus the statewide hub');
 }
