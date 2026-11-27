@@ -86,12 +86,12 @@ const records: MultiWindowMajorEventAuthorityRecord[] = [
     endDate: "2027-02-28",
     venue: "Westwood Country Club",
     officialUrl: "https://atxopen.com/",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The ATX Open is Austin's professional WTA Tour tournament and one of the country's limited women-only tour-level tennis events, bringing a full qualifying and main-draw week to Westwood Country Club.",
     planningSections: [
       { title: "Qualifying February 20–21 is not the main draw", body: "The organizer's 2027 WTA schedule confirms qualifying February 20–21 and the 32-player singles/16-team doubles main draw February 22–28. Ticket sessions are sold separately; match order and player placement depend on the draw. Check the exact date and whether the ticket includes qualifying or main-draw admission." },
       { title: "Use the correct 2027 venue, not historical ATX Open parking", body: "The 2027 venue is Westwood Country Club, 3808 W. 35th St., Austin, following a multiyear Westwood partnership. Historical Austin tournament sites and their parking instructions do not apply; consult official transportation guidance before driving." },
-      { title: "Choose sessions rather than assuming all-day access", body: "The ATX Open sells single-session and multi-session ticket products across qualifying, early rounds, quarterfinals, semifinals and finals. Match orders can change, so use the official schedule and ticket calendar when planning a specific player or round." },
+      { title: "Choose sessions rather than assuming all-day access", body: "The dated ticket calendar includes reserved Center Court seats and first-come, unreserved Grandstand seating. February 20–21 qualifying is advertised from $10 but marked coming soon; February 22 first-round day and evening sessions are listed from $45, with a combined day/night option from $60. These are November 27 starting prices, not guarantees; quarterfinals are February 26, semifinals February 27 and finals February 28. Confirm availability and fees at checkout." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build a broader Austin itinerary around tournament week." },
