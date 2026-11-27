@@ -51,7 +51,9 @@ must("museumDossier", "https://fliphtml5.com/mynmf/okij/Historic_Tour_of_Rusk/")
 must("museumDossier", "https://www.theeasttexasweekend.com/2025/10/20/preserving-rusks-rich-history/");
 must("museumDossier", "https://texashistory.unt.edu/ark:/67531/metapth614711/m1/1/");
 must("museumDossier", "1890s Cherokee County model railway");
-must("museumDossier", "1884 Bonner Bank");
+must("museumDossier", "1884 to 1892");
+must("museumDossier", "1865");
+must("museumDossier", "1868");
 must("museumDossier", "https://tpwmagazine.com/travel-culture/discover-the-east-texas-town-that-built-its-own-railroad/");
 must("museumDossier", "https://www.texasescapes.com/BobBowman/New-Museum-Heritage-Center-of-Cherokee-County-Rusk-Texas.htm");
 must("museumDossier", "Rex Brasher bird art");

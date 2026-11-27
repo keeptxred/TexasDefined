@@ -1539,6 +1539,11 @@
           "sourceUrl": "https://redc.rusktx.org/recreation-and-entertainment/",
           "fetchUrl": "https://redc.rusktx.org/recreation-and-entertainment/",
           "label": "Rusk museum visitor FAQ and planning evidence"
+        },
+        {
+          "sourceUrl": "https://texashistory.unt.edu/ark:/67531/metapth354360/m1/75/",
+          "fetchUrl": "https://texashistory.unt.edu/ark:/67531/metapth354360/m1/75/",
+          "label": "Cherokee County History: construction-date discrepancy and bank chronology"
         }
       ]
     },

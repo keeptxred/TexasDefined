@@ -73,7 +73,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "heritage-center-cherokee-county-rusk",
     name: "Heritage Center of Cherokee County",
-    summary: "Explore Rusk, Texas history at the Heritage Center of Cherokee County: prison ironworks, railroad exhibits, Caddo and timber heritage, and the 1884 Bonner Bank.",
+    summary: "Explore Rusk, Texas history at the Heritage Center of Cherokee County: prison ironworks, railroad exhibits, Caddo and timber heritage, and the historic Old Bonner Bank building.",
     category: "historic-sites",
     region: "piney-woods",
     nearestTown: "Rusk",
