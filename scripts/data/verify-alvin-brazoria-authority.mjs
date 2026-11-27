@@ -65,14 +65,14 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
     ['https://www.alvin.gov/482/Park-Rules', ['6:30 a.m. to 10:30 p.m.', 'designated parking areas', 'No overnight parking']],
     ['https://www.alvin.gov/Facilities/Facility/Details/National-Oak-Park-8', ['118 S Magnolia', 'Parking', 'Picnic Tables', 'Playground']],
     ['https://www.alvin.gov/Facilities/Facility/Details/Historic-Depot-Centre-and-Tom-Blakeney-J-1', ['200 Depot Centre Boulevard', '1907', '281-388-4299']],
-    ['https://alvinmuseum.org/', ['300 West Sealy', '281-331-4469', '11am-3pm', 'appointment']],
+    ['https://alvinmuseum.org/', ['300 West Sealy', '2813314469', '11am3pm', 'appointment']],
     ['https://www.census.gov/quickfacts/alvincitytexas', ['30,115','27,098','July 1, 2025']],
     ['https://www.census.gov/quickfacts/fact/table/brazoriacountytexas/PST045225', ['419,080','372,031']],
     ['https://brazoriacad.org/contact-us/', ['849-7792','help@brazoriacad.org','500 N Chenango St','Marcel Pierel III']],
     ['https://brazoriacad.org/administration/', ['Marcel Pierel']],
     ['https://tigerweb.geo.census.gov/tigerwebmain/Files/bas26/tigerweb_bas26_county_2020_tab20_tx.html', ['48039','Brazoria County','3530984446','635433878','29.1678175','95.4346470']],
-    ['https://brazoriacad.org/welcome-to-brazoria-central-appraisal-district/', ['Brazoria Central Appraisal District','January 1, 2026']],
-    ['https://tax.brazoriacountytx.gov/contact-en-us', ['BULANEK','864-1320','237 E. Locust St.']],
+    ['https://brazoriacad.org/', ['Brazoria Central Appraisal District','January 1, 2026']],
+    ['https://www.brazoriacountytx.gov/departments/tax-office/contact-us/', ['BULANEK','864-1320','237 E. Locust']],
     ['https://esearch.brazoriacad.org/', ['Property Search']],
     ['https://brazoriacad.org/property-tax-exemption-forms/', ['Exemption']],
     ['https://brazoriacad.org/how-to-efile-a-protest/', ['Protest']],
@@ -81,7 +81,10 @@ if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
     try {
       const response = await fetch(url, { signal: AbortSignal.timeout(25000), headers: {'user-agent':'TexasDefined scheduled source integrity check/1.0'} });
       const visible = normalize((await response.text()).replace(/<[^>]*>/g, ' ')).toLowerCase();
-      check('Brazoria civic source ' + url, response.ok && markers.every(marker=>visible.includes(marker.toLowerCase())), 'HTTP ' + response.status + '; source claims must be reviewed if changed');
+      // Match typography variants (phone punctuation, nonbreaking spaces, en dashes), not changed facts.
+      const comparable = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const missing = markers.filter(marker => !comparable(visible).includes(comparable(marker)));
+      check('Brazoria civic source ' + url, response.ok && missing.length === 0, 'HTTP ' + response.status + (missing.length ? '; missing markers: ' + missing.join(', ') : '') + '; source claims must be reviewed if changed');
     } catch (error) { check('Brazoria civic source ' + url, false, String(error)); }
   }));
   targets.push({

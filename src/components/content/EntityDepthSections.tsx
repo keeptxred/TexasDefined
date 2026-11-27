@@ -232,7 +232,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
             <h3 className="font-display text-2xl">Getting around</h3>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">These are visitor-planning patterns, not live schedules. Recheck transit service, construction, event traffic, parking and road conditions for the day you travel.</p>
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
-              {cityProfile.tripPlanning.gettingAround.map((item) => <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+              {cityProfile.tripPlanning.gettingAround.map((item) => <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p>{item.href ? <a href={item.href} className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{item.title} — source and planning details</a> : null}</article>)}
             </div>
           </div>
           <div>
