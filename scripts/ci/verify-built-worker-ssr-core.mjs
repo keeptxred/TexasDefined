@@ -139,7 +139,11 @@ const smokeTargets = [
   { path: '/events/mardi-gras', requiredText: '6:30 p.m.', label: 'Statewide Mardi Gras hub shows verified Fat Tuesday parade time' },
   { path: '/event/mardi-gras-galveston', requiredText: 'Knights of Momus Grand Night Parade at 6 p.m.', label: 'Galveston guide preserves 2027 signature parade time' },
   { path: '/event/mardi-gras-port-arthur', requiredText: 'These are FESTIVAL GATE windows, not parade or concert start times.', label: 'Port Arthur published 2027 gate hours must not be mistaken for a parade timetable' },
-  { path: '/event/mardi-gras-port-arthur', requiredText: 'individual parade start times, road-closure maps and ticket prices', label: 'Port Arthur guide preserves the still-unconfirmed parade route and paid admission details' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'Friday night parade at 6:15 p.m.', label: 'Port Arthur guide publishes newly confirmed parade starts' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'gate ticket includes all concerts', label: 'Port Arthur guide distinguishes admission from optional purchases' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'Check the official ticket link for current prices and eligibility', label: 'Port Arthur avoids guessing admission prices' },
+  { path: '/event/mardi-gras-on-the-sabine-orange', requiredText: 'January 30, 2027', label: 'Orange publishes confirmed current festival date' },
+  { path: '/event/mardi-gras-on-the-sabine-orange', requiredText: '6 p.m. Krewe of Krewes', label: 'Orange publishes confirmed parade start' },
   { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
   { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
   // El Paso authority acceptance: real SSR must publish the researched metro guide

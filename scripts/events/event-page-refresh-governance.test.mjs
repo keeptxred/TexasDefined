@@ -537,3 +537,22 @@ test('pull-request source contracts do not share the pending live source review 
   assert.ok(concurrency.includes("|| 'live'"));
   assert.match(concurrency, /cancel-in-progress: false/);
 });
+
+
+test('Orange 2027 city-published program is not left in the historical or pending category', () => {
+  const records = fs.readFileSync(path.join(process.cwd(), 'src/data/major-event-expanded-authority-tranche52.server.ts'), 'utf8');
+  const orange = records.slice(records.indexOf('slug: "mardi-gras-on-the-sabine-orange"'));
+  const guide = orange.slice(0, orange.indexOf('\n  },'));
+  assert.match(guide, /startDate: "2027-01-30"/);
+  assert.match(guide, /endDate: "2027-01-30"/);
+  assert.match(guide, /2–10 p\.m\./);
+  assert.match(guide, /6 p\.m\. Krewe of Krewes/);
+  assert.match(guide, /601 W\. Division Street/);
+  assert.match(guide, /February 7, 2026 \(the completed previous festival\)/);
+  assert.match(guide, /registration form is still forthcoming/);
+  const hub = fs.readFileSync(path.join(process.cwd(), 'src/routes/events.mardi-gras.lazy.tsx'), 'utf8');
+  assert.ok(hub.indexOf('"slug": "mardi-gras-on-the-sabine-orange"') < hub.indexOf('const editorPending:'));
+  assert.doesNotMatch(hub.slice(hub.indexOf('const editorPending:'), hub.indexOf('type VerifiedAnnouncement')), /mardi-gras-on-the-sabine-orange/);
+  const auto = fs.readFileSync(path.join(process.cwd(), 'src/data/events/mardi-gras-auto-published.server.ts'), 'utf8');
+  assert.match(auto, /event\.startDate === fact\.startDate && event\.endDate === fact\.endDate/);
+});

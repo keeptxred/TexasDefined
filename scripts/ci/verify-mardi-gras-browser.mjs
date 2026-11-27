@@ -19,19 +19,18 @@ const GUIDES = [
   { slug: "kemah-yachty-gras", text: "Yachty Gras", licensed: true, credit: "Tony Webster", year: "2027" },
   { slug: "palestine-mardi-gras-parade", text: "Palestine Mardi Gras Parade", licensed: true, credit: "Renelibrary", year: "2027" },
   { slug: "beaumont-pardi-gras", text: "Beaumont Pardi Gras", licensed: true, credit: "LUSportsFan", year: "2027" },
-  { slug: "mardi-gras-on-the-sabine-orange", text: "Mardi Gras on the Sabine", licensed: true, credit: "Ken Lund", year: "2026", pending: true },
+  { slug: "mardi-gras-on-the-sabine-orange", text: "Mardi Gras on the Sabine", licensed: true, credit: "Ken Lund", year: "2027" },
   { slug: "oak-cliff-mardi-gras-parade", text: "Oak Cliff Mardi Gras Parade", licensed: true, credit: "Michael Barera", year: "2027" },
   { slug: "mardi-gras-southeast-texas-beaumont", text: "Mardi Gras of Southeast Texas", licensed: true, credit: "2C2KPhotography", year: "2026", pending: true },
 ];
 // The shared server authority bridge withholds one-off Event markup for
 // multi-occurrence event guides or unannounced/expired 2026 festivals.
-// These four still require parseable WebPage JSON-LD and MUST NOT assert
+// These three still require parseable WebPage JSON-LD and MUST NOT assert
 // one fabricated single confirmed future Event.
 const WEBPAGE_ONLY_SLUGS = new Set([
   "mardi-gras-galveston",
   "kemah-yachty-gras",
   "mardi-gras-southeast-texas-beaumont",
-  "mardi-gras-on-the-sabine-orange",
 ]);
 const HUB = "/events/mardi-gras";
 const VIEWPORTS = [
@@ -44,7 +43,7 @@ if (process.argv.includes("--self-test")) {
   assert.equal(GUIDES.length, 11, "exactly 11 original major event guides");
   assert.equal(GUIDES.filter(x => x.licensed).length, 11, "all eleven guide heroes must be independently licensed");
   assert.equal(GUIDES.filter(x => !x.licensed).length, 0, "no unlicensed guide can be indexed");
-  assert.equal(WEBPAGE_ONLY_SLUGS.size, 4, "four multi-window or expired/unannounced guide schemas");
+  assert.equal(WEBPAGE_ONLY_SLUGS.size, 3, "three multi-window or expired/unannounced guide schemas");
   for (const slug of WEBPAGE_ONLY_SLUGS) assert.ok(GUIDES.some(guide => guide.slug === slug));
   assert.equal(new Set(allPaths).size, 12, "every route unique");
   assert.equal(VIEWPORTS.length, 2);
