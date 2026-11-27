@@ -21,6 +21,11 @@ test("individually researched fishing sources retain strict operator or governme
     if (["captain-steve-barnes-texoma", "adventure-texoma-guide"].includes(slug)) {
       assert.equal(new URL(result.url).origin, "https://wildlifedepartment.com");
       assert.equal(result.sourceKind, "government-license");
+    } else if (slug === "reel-um-n-sam-rayburn-guide") {
+      assert.equal(new URL(result.url).origin, "https://tpwd.texas.gov");
+      assert.equal(result.sourceKind, "government-report-identity-only");
+      assert.ok(result.identity.includes("Report by Captain Lynn Atkinson, Reel Um N Guide Service"));
+      assert.ok(result.identity.includes("Sam Rayburn Fishing Report"));
     } else {
       assert.equal(new URL(result.url).origin, new URL(guide.url).origin);
       assert.equal(result.sourceKind, "operator-detail");
@@ -28,7 +33,11 @@ test("individually researched fishing sources retain strict operator or governme
     assert.notEqual(result.url, guide.url, "detail witness must be more specific than an unreliable homepage");
     assert.ok(result.identity.length >= 3);
     const digits = (s) => s.replace(/[^0-9]/g, "");
-    assert.ok(result.identity.some(value => digits(value).includes(digits(guide.phone))), "phone must corroborate identity");
+    if (result.sourceKind !== "government-report-identity-only") {
+      assert.ok(result.identity.some(value => digits(value).includes(digits(guide.phone))), "phone must corroborate identity");
+    } else {
+      assert.ok(!result.identity.some(value => digits(value).includes(digits(guide.phone))), "historical government attribution is not a phone verification");
+    }
   }
 });
 
