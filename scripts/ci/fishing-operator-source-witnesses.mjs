@@ -19,8 +19,8 @@ const reviewed = Object.freeze({
   }),
   "reel-um-n-sam-rayburn-guide": Object.freeze({
     homepage: "https://www.rayburncountry.com/",
-    witness: "https://www.rayburncountry.com/prices/",
-    identity: Object.freeze(["Lynn Atkinson", "979-220-0251", "Bass Fishing", "Crappie"]),
+    witness: "https://www.rayburncountry.com/contact/",
+    identity: Object.freeze(["Lynn Atkinson", "979-220-0251", "Bass Half-Day Fishing Trips", "Crappie Half-Day Fishing Trips"]),
   }),
 });
 
