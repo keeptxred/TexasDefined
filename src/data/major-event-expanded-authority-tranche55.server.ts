@@ -342,7 +342,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-04-29",
     venue: "Multiple Dallas-area screening venues; see official program",
     officialUrl: "https://diffdallas.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "Dallas International Film Festival brings independent and international filmmakers into conversation with North Texas audiences. The permanent guide helps readers plan passes, screening travel and industry sessions while leaving the still-developing 2027 film lineup to the organizer.",
     quickFacts: [
       {
@@ -369,7 +369,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Choose a pass based on the experience",
-        body: "On the DIFF Dallas website, open Festival Passes 2027 to compare pass options. Confirm eligibility, entry windows, age ratings and ticket-refund terms through DIFF's official purchase channels."
+        body: "The official 2027 pass page distinguishes screening access from industry sessions: the standard Festival Pass lists $250 for one person, while the $100 Film Pass requires a current student ID or age 65 or older. The $100 Conference Pass covers conference sessions rather than general screening admission. Star and Star Plus passes list $350 for one and $700 for two with priority screenings and selected parties. These are posted list prices, not guaranteed checkout totals. Recheck current discounts and terms before purchase."
       },
       {
         title: "Minimize cross-town transfers",
@@ -401,7 +401,8 @@ const records: FestivalEventRecord[] = [
       {
         label: "DIFF Dallas official 2027 dates and festival mission",
         url: "https://diffdallas.org/"
-      }
+      },
+      { label: "Official 2027 festival pass options and eligibility", url: "https://diffdallas.org/diff/passes" }
     ]
   },
   {
@@ -809,7 +810,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2027-06-19",
     venue: "Southern Methodist University and Morton H. Meyerson Symphony Center",
     officialUrl: "https://cliburn.org/competitions/2027-young-pianists",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Cliburn's 2027 Dallas competition showcases outstanding young pianists ages 13–17 in a sequence of juried recitals and a final with the Dallas Symphony Orchestra. This is a distinct competition from the main Van Cliburn International Piano Competition, which is not an annual Fort Worth event.",
     quickFacts: [
       {
@@ -832,11 +833,11 @@ const records: FestivalEventRecord[] = [
     planningSections: [
       {
         title: "Choose the competition round to attend",
-        body: "Preliminary and semifinal recitals are scheduled on the SMU campus while the six finalists appear with the Dallas Symphony Orchestra at the Morton H. Meyerson Symphony Center. This is not one continuous concert at a single building; confirm the published round-by-round visitor program."
+        body: "Preliminary and semifinal recitals are scheduled on the SMU campus while the six finalists appear with the Dallas Symphony Orchestra at the Morton H. Meyerson Symphony Center. The 38 fellows begin their program June 7, before the public competition. Of 24 competitors, 12 advance to the semifinal and six to the orchestral final. The rules confirm every competition round is open to the public and available by webcast live and on demand. Exact audience session times and ticket prices remain subject to the official program."
       },
       {
         title: "Do not confuse contestant applications with tickets",
-        body: "The organizer's current page emphasizes pianist applications, due November 17, 2026, while visitor tickets are expected to go on sale in January 2027. An application deadline does not mean an audience seat is available for purchase yet."
+        body: "The November 17, 2026 application deadline has passed; the official rules say late submissions are not accepted, despite the overview retaining an application invitation. Acceptance notices are scheduled January 26, Piano Fellows announced February 9 and public ticket sales in January 2027. Application fees are not audience admission."
       },
       {
         title: "Plan different transport for the SMU and Meyerson venues",
