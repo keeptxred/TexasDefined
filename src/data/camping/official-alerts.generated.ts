@@ -28,9 +28,9 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "big-bend-national-park",
     "parkName": "Big Bend National Park",
     "sourceUrl": "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
-    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
-    "checkedAt": "2026-11-26",
-    "status": "needs-review"
+    "notice": "NPS reports that Black Gap Road remains closed because of damage from 2025 flash flooding. Check official alerts and road conditions before travel; omission of other roads from this advisory does not establish that they are open.",
+    "checkedAt": "2026-11-27",
+    "status": "confirmed"
   },
   {
     "destinationSlug": "brazos-bend-state-park",
