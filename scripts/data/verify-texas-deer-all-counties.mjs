@@ -5,6 +5,9 @@
  */
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+const execFileAsync=promisify(execFile);
 
 const countySource=fs.readFileSync('src/data/texas-places.ts','utf8');
 const names=countySource.match(/const COUNTY_NAMES = \x60([^\x60]+)\x60\.split\('\|'\);/)?.[1]?.split('|');
@@ -28,13 +31,14 @@ function checkCountyContent(county,html){
   if(text.length<250)throw new Error('Official TPWD county page unexpectedly short');
   if(!text.includes(String(season.startYear))&&!text.includes(String(season.startYear+1)))
     throw new Error('TPWD county page did not identify the governed hunting season');
+  const heading=clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]??'');
+  const expected=county.name+' '+season.startYear+'-'+(season.startYear+1)+' Hunting Seasons';
+  if(!heading.startsWith(expected))throw new Error('TPWD county identity or season mismatch');
   if(WITHOUT_WHITETAIL_SEASON.has(county.name)){
     // The two exceptions require affirmative, identity-matched evidence, not a
     // generic 200 response. A new deer heading forces review rather than
     // silently accepting changed legal conditions.
-    const heading=clean(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]??'');
-    const expected=county.name+' '+season.startYear+'-'+(season.startYear+1)+' Hunting Seasons';
-    if(!heading.startsWith(expected)||!/Mule Deer/i.test(text)||!/Bag Limit/i.test(text)||/White-tailed Deer/i.test(text))
+    if(!/Mule Deer/i.test(text)||!/Bag Limit/i.test(text)||/White-tailed Deer/i.test(text))
       throw new Error('TPWD exceptional county deer season or identity changed; review official rules');
     return 'official county page verified: no white-tailed deer section';
   }
@@ -58,6 +62,7 @@ if(process.argv.includes('--self-test')){
   assert.throws(()=>checkCountyContent({name:'El Paso'},fixture('El Paso','White-tailed Deer')));
   assert.throws(()=>checkCountyContent({name:'Hudspeth'},fixture('Hudspeth','Quail')));
   assert.throws(()=>checkCountyContent({name:'Tarrant'},fixture('Tarrant','Mule Deer')));
+  assert.throws(()=>checkCountyContent({name:'Tarrant'},fixture('Wrong County','White-tailed Deer')));
   assert.throws(()=>checkCountyContent({name:'El Paso'},fixture('Wrong County','Mule Deer')));
   console.log('TPWD deer 254-county/11-batch coverage and official route contracts passed.');
   process.exit(0);
@@ -83,6 +88,22 @@ async function validateCounty(county){
       const verdict=checkCountyContent(county,await response.text());
       return verdict;
     }catch(e){error=e;}
+  }
+  // Only use a second network stack after a Node transport failure. A
+  // content/HTTP failure must never be certified through an alternative.
+  if(error instanceof TypeError || error?.name==='TimeoutError'){
+    try{
+      const {stdout}=await execFileAsync('curl',[
+        '--silent','--show-error','--fail','--compressed','--max-time','25',
+        '--proto','=https','--user-agent','TexasDefined-deer-county-rules-health/1.0',
+        '--header','Accept: text/html','--write-out','\\n__TD_STATUS__%{http_code}\\n__TD_URL__%{url_effective}',url
+      ],{timeout:30000,maxBuffer:2*1024*1024});
+      const m=stdout.match(/\n__TD_STATUS__(\d{3})\n__TD_URL__([^\r\n]+)$/);
+      if(!m||m[1]!=='200'||m[2]!==url)throw new Error('Curl source identity/status mismatch');
+      const verdict=checkCountyContent(county,stdout.slice(0,m.index));
+      console.log('TPWD independent transport verified: '+county.name);
+      return verdict;
+    }catch(fallback){throw new Error(county.name+': Node '+String(error).slice(0,80)+'; curl '+String(fallback).slice(0,120));}
   }
   throw new Error(county.name+': '+String(error).slice(0,200));
 }
