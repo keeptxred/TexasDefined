@@ -4,6 +4,7 @@ import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotligh
 import { FishAuthorityNote } from "@/components/fishing/FishAuthorityNote";
 import { FishIdentificationSection } from "@/components/fishing/FishIdentificationSection";
 import { getFishingFishImage } from "@/data/fishing/image-library";
+import { FISH_AUTHORITY_NOTES } from "@/data/fishing/species-authority-notes";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import type { FishingSpeciesProfileData } from "@/data/fishing/species-guide-data.server";
 
@@ -23,7 +24,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <Container className={speciesImage ? "grid gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:items-center" : "py-14 sm:py-20"}>
         <div>
           <p className="eyebrow text-ink-foreground/65">{species.taxonKind === "group" ? "Texas fishing group" : "Texas fish species"}</p>
-          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{data.identification && data.lakes.length === 0 ? `${species.commonName} in Texas: Identification and Habitat` : `${species.commonName} fishing in Texas`}</h1>
+          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{FISH_AUTHORITY_NOTES[species.slug]?.title ?? `${species.commonName} fishing in Texas`}</h1>
           {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
@@ -56,12 +57,12 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <div>
           <p className="eyebrow text-primary">Texas range & habitat</p>
           <h2 id="species-range-habitat" className="mt-3 font-display text-4xl">Texas Range and Habitat for {species.commonName}</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">This is a fishing-planning view of the published TexasDefined lake relationships, not a biological range map. It shows only regions and habitat signals supported by the verified lake records behind this page.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These are regions represented by the linked lakes, not the fish’s complete biological distribution.</p>
           {data.regions.length ? <div className="mt-6"><p className="eyebrow text-muted-foreground">Regions represented</p><div className="mt-3 flex flex-wrap gap-2">{data.regions.map((region) => <span key={region} className="border border-border px-3 py-1.5 text-xs">{formatRegion(region)}</span>)}</div></div> : null}
         </div>
         <div>
           <p className="eyebrow text-muted-foreground">Habitat signals in the lake data</p>
-          {data.habitats.length ? <div className="mt-3 flex flex-wrap gap-2">{data.habitats.map((habitat) => <span key={habitat} className="border border-border px-3 py-1.5 text-xs">{habitat}</span>)}</div> : <p className="mt-3 text-sm leading-7 text-muted-foreground">No habitat labels are published in the verified lake relationships yet. TexasDefined leaves that gap visible instead of generalizing from unrelated waters.</p>}
+          {data.habitats.length ? <div className="mt-3 flex flex-wrap gap-2">{data.habitats.map((habitat) => <span key={habitat} className="border border-border px-3 py-1.5 text-xs">{habitat}</span>)}</div> : <p className="mt-3 text-sm leading-7 text-muted-foreground">See the identification and habitat guidance above.</p>}
         </div>
       </section>}
 
@@ -102,7 +103,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">How to fish for them</p>
           <h2 id="species-techniques" className="mt-3 font-display text-4xl">Fishing Techniques for {species.commonName}</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">Methods appear only when a verified lake-technique relationship explicitly includes {species.commonName.toLowerCase()}. This keeps generic tackle advice separate from sourced lake guidance.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These methods are documented for particular waters. Use the lake and habitat details to choose where and when to try them.</p>
         </div>
         {data.techniqueApplications.length > 0 ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.techniqueApplications.map((row) => <article key={row.profile.id} className="border-t border-border py-6">
@@ -132,7 +133,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         </div>
         <div>
           <p className="eyebrow text-muted-foreground">Related fish to compare</p>
-          {data.relatedSpecies.length > 0 && <p className="mt-3 text-sm leading-7 text-muted-foreground">Other fish documented in some of the same lakes.</p>}
+          {data.relatedSpecies.length > 0 && <p className="mt-3 text-sm leading-7 text-muted-foreground">Other fish documented in some of the same lakes. These are shared-lake links, not identification comparisons.</p>}
           {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : null}
           {data.familyPeers.length > 0 && <div className="mt-7">
             <p className="eyebrow text-primary">More guides in this fishing collection</p>
@@ -143,7 +144,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       </section>
 
       <section className="grid gap-8 py-12 lg:grid-cols-[15rem_1fr]">
-        <div><p className="eyebrow text-primary">Plan Your Visit</p><h2 className="mt-2 font-display text-3xl">Use durable species guidance, then verify current conditions.</h2></div>
+        <div><p className="eyebrow text-primary">Plan Your Visit</p><h2 className="mt-2 font-display text-3xl">Check conditions before your trip.</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
           <p>Seasonal patterns are planning guidance, not a forecast of today’s fishing.</p>
           <p>Before a trip, check <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather and water conditions, access status, and <a href="/fishing/regulations" className="border-b border-primary text-primary">current TPWD regulations</a>.</p>
