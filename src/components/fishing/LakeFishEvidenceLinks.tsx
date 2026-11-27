@@ -15,6 +15,13 @@ const links: Record<string, readonly { slug: string; name: string; context: stri
     { slug: "bluegill", name: "Bluegill", context: "2018–2021 TPWD fisheries survey: forage fish" },
     { slug: "spotted-bass", name: "Spotted bass vs. Alabama bass", context: "Identification distinction; not a spotted-bass occurrence claim" },
   ],
+  "lake-corpus-christi": [
+    { slug: "common-carp", name: "Common carp", context: "TPWD historical catch, July 2022" },
+    { slug: "rio-grande-cichlid", name: "Rio Grande cichlid", context: "TPWD historical catch, May 1993" },
+  ],
+  "lake-travis": [
+    { slug: "rio-grande-cichlid", name: "Rio Grande cichlid", context: "TPWD historical catch, June 2024" },
+  ],
   "lake-somerville": [
     { slug: "green-sunfish", name: "Green sunfish", context: "TPWD historical fly-fishing record" },
   ],
