@@ -26,7 +26,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
-            <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold">Find lakes for {species.commonName} →</a>
+            <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold" rel="nofollow">Find lakes for {species.commonName} →</a>
             <a href="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1">Browse fishing lakes →</a>
             <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Current regulations →</a>
             <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
@@ -96,7 +96,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         </div> : <div className="mt-8 border-y border-border py-9">
           <h3 className="font-display text-2xl">No TexasDefined Lake Guide Is Linked Yet</h3>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The species guide remains useful for identification and statewide fishing context, but TexasDefined will not invent lake recommendations. The finder will gain results as verified lake relationships are added.</p>
-          <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Check the lake finder →</a>
+          <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" rel="nofollow">Check the lake finder →</a>
         </div>}
       </section>
 
@@ -150,7 +150,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           <p>{data.policy.sourcing}</p>
           <p>{data.policy.conditions}</p>
           <p>Before a trip, check <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather and water conditions, access status, and <a href="/fishing/regulations" className="border-b border-primary text-primary">current TPWD regulations</a>.</p>
-          <a href={finderHref} className="inline-block border-b border-primary pb-1 font-semibold text-primary">Find Texas lakes for {species.commonName} →</a>
+          <a href={finderHref} className="inline-block border-b border-primary pb-1 font-semibold text-primary" rel="nofollow">Find Texas lakes for {species.commonName} →</a>
         </div>
       </section>
 

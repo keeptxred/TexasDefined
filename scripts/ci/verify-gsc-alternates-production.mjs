@@ -7,6 +7,8 @@ const origin = String(process.env.PRODUCTION_ORIGIN || "https://texasdefined.com
 const checks = [
   ["/events", "/events", false, true],
   ["/fishing/plan", "/fishing/plan", false, false],
+  ["/fishing/seasons", "/fishing/seasons", false, false],
+  ["/fishing/seasons?season=winter", "/fishing/seasons", false, false],
   // Exact November 22 owner GSC duplicate report and Google-selected planner alias.
   ["/events?venue=sports-venue%3Adickies-arena&start=2026-10-29&end=2026-10-29", "/events", true, true],
   ["/fishing/plan?species=%5B%22hybrid-striped-bass%22%5D&view=map", "/fishing/plan", false, false],
@@ -18,6 +20,8 @@ const checks = [
   ["/events?venue=sports-venue%3Aeagle-stadium-allen&start=2027-04-15&end=2027-04-15", "/events", true, true],
   ["/texas-property-tax-estimator?county=bailey", "/texas-property-tax-estimator", false, false],
   ["/corporate-events?city=Texas&guests=45&type=meetings", "/corporate-events", false, false],
+  // Latest owner export: Google fetched this facet on November 23.
+  ["/corporate-events?city=Texas&guests=45&type=outdoor-adventure", "/corporate-events", false, false],
   // Owner-GSC URL Inspection still saw these two parameterized URLs indexed as
   // their own canonicals on Nov 18. They must declare the clean parent in live HTML.
   ["/corporate-events?city=Dallas&guests=45&type=company-parties", "/corporate-events", false, false],
@@ -142,7 +146,7 @@ async function verifyPrimarySitemap() {
       if (response.status === 200 && /<urlset\b/i.test(xml)) {
         const sitemapUrls = [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
           .map(match => match[1].replace(/&amp;/gi, "&").trim());
-        for (const parent of ["/events", "/texas-property-tax-estimator", "/corporate-events", "/moving-to-texas", "/partner-with-us", "/fishing/plan"]) {
+        for (const parent of ["/events", "/texas-property-tax-estimator", "/corporate-events", "/moving-to-texas", "/partner-with-us", "/fishing/plan", "/fishing/seasons"]) {
           const count = sitemapUrls.filter(url => url === origin + parent).length;
           assert(count === 1, "Primary sitemap must list clean " + parent + " exactly once; found " + count);
         }
@@ -150,7 +154,7 @@ async function verifyPrimarySitemap() {
           try { return new URL(item).search.length > 0; }
           catch { return true; }
         }), "Primary sitemap contains a parameterized or invalid <loc>");
-        console.log("[GSC alternate] OK primary sitemap: six clean parents, zero query URLs");
+        console.log("[GSC alternate] OK primary sitemap: seven clean parents, zero query URLs");
         return;
       }
       last = "HTTP " + response.status + "; location=" + (response.headers.get("location") || "none") +
@@ -197,6 +201,20 @@ for (const [path, preferred, filtered, calendar, normalizedPath] of checks) {
   else assert(!anyNoindex(metaRobots) && !anyNoindex(headerRobots),
     path + ": clean canonical landing must not noindex in meta/header; meta=" + metaRobots + "; header=" + headerRobots);
   if (calendar) assertCalendarButtons(html, path);
+  if (path === "/corporate-events") {
+    const anchors = html.match(/<a\b[^>]*>/gi) || [];
+    assert(!anchors.some(tag => {
+      const href = attr(tag, "href");
+      try { const url = new URL(href, origin); return url.origin === origin && url.pathname === "/corporate-events" && ["city", "guests", "type"].some(key => url.searchParams.has(key)); }
+      catch { return false; }
+    }), path + ": crawlable corporate filter links reintroduced");
+    const presets = (html.match(/<form\b[^>]*>[\s\S]*?<\/form>/gi) || []).filter(form => {
+      const opening = form.slice(0, form.indexOf(">") + 1);
+      return attr(opening, "action") === "/corporate-events" && attr(opening, "method").toLowerCase() === "get";
+    });
+    assert(presets.length >= 6, path + ": accessible corporate preset forms missing");
+    assert(presets.every(form => /name=["']city["']/i.test(form) && /name=["']guests["']/i.test(form) && /name=["']type["']/i.test(form) && /<button\b[^>]*type=["']submit["']/i.test(form)), path + ": preset form must retain city, guests and type");
+  }
   if (path.startsWith("/fishing/plan?")) {
     const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
     assert(/Hybrid Striped Bass/i.test(visible) && /Map coverage:/i.test(visible), path + ": species/map view lost");

@@ -146,7 +146,7 @@ export function StartBusinessTexasGuide() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Existing companies</p>
             <h2 className="mt-2 font-display text-3xl font-bold">Moving or expanding an existing company?</h2>
             <p className="mt-3 leading-7 text-muted-foreground"><strong className="text-foreground">If the business move includes employees or a new Texas site</strong>, formation and tax registration are only part of the project. You may also need to compare labor markets, commute corridors, housing, schools, utilities, incentives and site-level operating conditions.</p>
-            <div className="mt-5 flex flex-wrap gap-4"><a className="font-semibold underline underline-offset-4" href="/moving-to-texas?companyMove=employer#corporate-relocation">Corporate relocation to Texas</a><a className="font-semibold underline underline-offset-4" href="/texas-industries">Research Texas industries</a></div>
+            <div className="mt-5 flex flex-wrap gap-4"><a className="font-semibold underline underline-offset-4" href="/moving-to-texas?companyMove=employer#corporate-relocation" rel="nofollow">Corporate relocation to Texas</a><a className="font-semibold underline underline-offset-4" href="/texas-industries">Research Texas industries</a></div>
           </section>
 
           <section id="costs" className="border-b border-border py-10">

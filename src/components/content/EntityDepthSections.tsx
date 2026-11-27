@@ -310,7 +310,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
             {countyName ? ` Verify ${countyName} and every property-specific jurisdiction for the address.` : ''}
             {regionName ? ` Use the wider ${regionName} context when comparing work corridors, airports and nearby communities.` : ''}
           </p>
-          <a href={cityRelocationHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Add {entity.name} to My Texas Move →</a>
+          <a href={cityRelocationHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4" rel="nofollow">Add {entity.name} to My Texas Move →</a>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {CITY_RELOCATION_LINKS.map((resource) => <a key={resource.href} href={resource.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{resource.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{resource.copy}</span><span className="mt-3 block text-sm font-semibold text-primary">Open tool →</span></a>)}
           </div>
