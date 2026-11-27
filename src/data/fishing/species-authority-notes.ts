@@ -122,7 +122,7 @@ export const FISH_AUTHORITY_SOURCES = {
     "witness": "Cichlid, Rio Grande"
   }
 } as const;
-export interface FishAuthorityNote { title: string; description: string; guidance: string; source: keyof typeof FISH_AUTHORITY_SOURCES; extraSources?: readonly (keyof typeof FISH_AUTHORITY_SOURCES)[]; related: readonly string[]; lakes: readonly string[]; }
+export interface FishAuthorityNote { title: string; description: string; guidance: string; source: keyof typeof FISH_AUTHORITY_SOURCES; extraSources?: readonly (keyof typeof FISH_AUTHORITY_SOURCES)[]; related: readonly string[]; lakes: readonly string[]; riverGuides?: readonly {slug:string; name:string}[]; }
 export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "largemouth-bass": {
     "title": "Largemouth Bass in Texas: Lakes, Tackle & Identification",
@@ -137,6 +137,12 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
     "lakes": [],
     "extraSources": [
       "blackBass"
+    ],
+    "riverGuides": [
+      {
+        "slug": "texas-llano-river-guide",
+        "name": "Llano River access and visitor guide"
+      }
     ]
   },
   "smallmouth-bass": {
@@ -167,6 +173,12 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
     "lakes": [],
     "extraSources": [
       "conservation"
+    ],
+    "riverGuides": [
+      {
+        "slug": "texas-llano-river-guide",
+        "name": "Llano River access and visitor guide"
+      }
     ]
   },
   "spotted-bass": {
@@ -259,7 +271,13 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "flathead-catfish",
       "catfish"
     ],
-    "lakes": []
+    "lakes": [],
+    "riverGuides": [
+      {
+        "slug": "texas-llano-river-guide",
+        "name": "Llano River access and visitor guide"
+      }
+    ]
   },
   "flathead-catfish": {
     "title": "Flathead Catfish in Texas: Cover, Bait & Identification",
@@ -475,7 +493,13 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
       "bluegill",
       "sunfish"
     ],
-    "lakes": []
+    "lakes": [],
+    "riverGuides": [
+      {
+        "slug": "texas-comal-river-guide",
+        "name": "Comal River access and local rules"
+      }
+    ]
   },
   "longear-sunfish": {
     "title": "Longear Sunfish in Texas: Creek Fish Identification",
