@@ -13,18 +13,19 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-20",
     venue: "Sul Ross State University and Alpine venues",
     officialUrl: "https://lonestarcowboypoetry.com/2027/alpine/index.html",
-    sourceCheckedAt: "2026-11-15",
+    sourceCheckedAt: "2026-11-27",
     whyItMatters: "The Alpine edition of the Lone Star Cowboy Poetry Gathering keeps a long West Texas cowboy-poetry tradition rooted in the Big Bend, bringing poets, musicians, open-mic sessions, chuckwagon breakfasts, cowboy suppers and other western-cultural programming to Alpine.",
     planningSections: [
       { title: "Use the confirmed February 18–20, 2027 Alpine schedule", body: "The Lone Star Cowboy Poetry Gathering's specific Alpine 2027 page confirms February 18–20 with poetry, music, open mic sessions and chuckwagon meals. Public ticket sales began November 1, 2026, following member early access October 1; check the session listing rather than assuming a single pass includes every meal or performance." },
       { title: "Book lodging unusually early", body: "The organizer is already warning 2027 visitors that Alpine room availability is constrained. Reserve lodging before building side trips to Fort Davis, Marathon or Marfa, then recheck the final event schedule once tickets and performers are posted." },
-      { title: "Expect more than stage performances", body: "The organizer expects cowboy poets and musicians plus open mics, chuckwagon breakfasts, cowboy suppers and additional programming. Review the final schedule before deciding whether one day is enough." },
+      { title: "Expect more than stage performances", body: "The published program includes the Thursday 7 p.m. dance at Alpine Civic Center, Friday and Saturday chuckwagon breakfasts at Poet’s Grove in Kokernot Park, and evening shows at Marshall Auditorium. Free open-mic sessions are distinct from paid shows. November 27 listed prices: breakfasts $10, daytime shows $20 advance/$25 onsite, evening shows $35 advance/$40 onsite; the $35 supper requires advance purchase by February 10. The Saturday early-afternoon schedule has an inconsistent a.m. label; reconfirm that session." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-brewster", label: "Explore Brewster County", description: "Connect the Gathering to Alpine and a broader Big Bend itinerary." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas heritage and music events." },
     ],
     sources: [
+      { label: "Official Alpine 2027 session schedule and meal deadlines", url: "https://lonestarcowboypoetry.com/schedule/2027/alpine.html" },
       { label: "Lone Star Cowboy Poetry Gathering — Alpine 2027", url: "https://lonestarcowboypoetry.com/2027/alpine/index.html" },
       { label: "Lone Star Cowboy Poetry Gathering — welcome and annual date rule", url: "https://lonestarcowboypoetry.com/welcome/index.html" },
       { label: "Lone Star Cowboy Poetry Gathering — Alpine lodging guidance", url: "https://lonestarcowboypoetry.com/lodging/alpine/index.html" },
