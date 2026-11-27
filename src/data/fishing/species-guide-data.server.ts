@@ -64,7 +64,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         name: species.commonName,
         alternateName: species.aliases,
         description: species.summary,
-        sameAs: species.sources[0]?.url,
+        ...(fishIdentification[species.slug]?.sourceUrl ? { sameAs: fishIdentification[species.slug].sourceUrl } : {}),
         ...(speciesImage ? { image: speciesImage.src } : {}),
       },
       ...(lakes.length ? [{
@@ -185,11 +185,11 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
     .map((candidate) => ({ name: candidate!.commonName, href: fishingFoundationAnchor("species", candidate!.slug) }));
   const authorityNote = FISH_AUTHORITY_NOTES[species.slug];
-  const authoritySource = authorityNote ? FISH_AUTHORITY_SOURCES[authorityNote.source] : null;
+  const authoritySourceKeys = authorityNote ? [...new Set([authorityNote.source, ...(authorityNote.extraSources ?? [])])] : [];
   const sources = uniqueByUrl([
     ...species.sources,
     ...(identification ? [{ id: `tpwd-${species.slug}-identification`, name: "Texas Parks & Wildlife Department — Freshwater Fish Identification", url: identification.sourceUrl, checkedAt: species.sources.find(source => source.url === identification.sourceUrl)?.checkedAt ?? "2026-11-15", sourceType: "state" as const }] : []),
-    ...(authoritySource ? [{ id: `authority-${authorityNote.source}`, name: `TPWD — ${authoritySource.label}`, url: authoritySource.url, checkedAt: FISH_AUTHORITY_EDITORIAL_UPDATED_AT, sourceType: "state" as const }] : []),
+    ...authoritySourceKeys.map(key => ({ id: `authority-${key}`, name: `TPWD — ${FISH_AUTHORITY_SOURCES[key].label}`, url: FISH_AUTHORITY_SOURCES[key].url, checkedAt: FISH_AUTHORITY_EDITORIAL_UPDATED_AT, sourceType: "state" as const })),
     ...lakes.flatMap((row) => row.relation.sources),
     ...techniqueApplications.flatMap((row) => [...row.profile.sources, ...row.technique.sources]),
   ]);
