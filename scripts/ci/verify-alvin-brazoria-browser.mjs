@@ -143,4 +143,15 @@ try {
   await browser.close();
   await writeFile(output+'/report.json',JSON.stringify({checkedAt:new Date().toISOString(),workerVersion,sourceSha:process.env.GITHUB_SHA,labOnly:true,reports},null,2));
 }
+// Verify sitemap coverage independently of browser mode, against live XML.
+for (const [path, sitemap] of targets.map(t => [t.path, t.schema === 'Museum' ? '/sitemap-explore.xml' : '/sitemap.xml'])) {
+  const response = await fetch(origin + sitemap);
+  assert.equal(response.status, 200, 'Sitemap HTTP status');
+  const xml = await response.text();
+  const rows = [...xml.matchAll(/<url(?:\s[^>]*)?>[\s\S]*?<\/url>/g)].map(m => m[0]).filter(row => row.includes('<loc>' + origin + path + '</loc>'));
+  assert.equal(rows.length, 1, 'Unique sitemap row ' + path);
+  const lastmod = rows[0].match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+  assert.ok(lastmod && lastmod.slice(0,10) >= '2026-11-24', 'Sitemap lastmod ' + path);
+  console.log('PASS sitemap ' + path + ' ' + lastmod);
+}
 if (reports.length !== 9 || reports.some(r=>!r.passed)) process.exitCode = 1;
