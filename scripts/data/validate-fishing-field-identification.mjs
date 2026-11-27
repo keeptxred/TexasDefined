@@ -86,7 +86,7 @@ console.log("TPWD freshwater fish identification validation passed: all 22 speci
 
 const authority = read("src/data/fishing/species-authority-notes.ts");
 const sources = JSON.parse(authority.split("export const FISH_AUTHORITY_SOURCES = ")[1].split(" as const;")[0]);
-const notes = JSON.parse(authority.split("export const FISH_AUTHORITY_NOTES: Record<string, FishAuthorityNote> = ")[1].split(";\n")[0]);
+const notes = JSON.parse(authority.split("export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = ")[1].split(";\n")[0]);
 const complete = [...slugs.match(/COMPLETE_FISHING_SPECIES_SLUGS\s*=\s*\[([\s\S]*?)\]/)[1].matchAll(/"([^"]+)"/g)].map(x=>x[1]);
 assert.equal(complete.length,28);
 assert.deepEqual(new Set(Object.keys(notes)),new Set(complete));
