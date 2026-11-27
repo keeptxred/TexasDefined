@@ -6,7 +6,7 @@
  */
 import fs from "node:fs";
 import { getFishingAuthorityInventory } from "./fishing-authority-inventory.mjs";
-import { assessFishingCanonical } from "./fishing-canonical-policy.mjs";
+import { assessFishingCanonical, decodeFishingHtml } from "./fishing-canonical-policy.mjs";
 
 const inventory = getFishingAuthorityInventory();
 const base = (process.env.FISHING_AUDIT_ORIGIN || inventory.origin).replace(/\/$/, "");
@@ -24,7 +24,7 @@ const getAttr = (tag, name) => {
   return match ? match[2] : "";
 };
 const tags = (html, name) => [...html.matchAll(new RegExp("<" + name + "\\b[^>]*>", "gi"))].map((m) => m[0]);
-const decode = (s) => s.replace(/&amp;/gi,"&").replace(/&#38;/gi,"&").replace(/&quot;/gi,'"').replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+const decode = decodeFishingHtml;
 const tidy = (s) => decode(s.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim());
 const meta = (html, name) => { const tag = tags(html,"meta").find((row) => getAttr(row,"name").toLowerCase() === name); return tag ? getAttr(tag,"content") : ""; };
 function canonical(html) {
@@ -190,4 +190,5 @@ const summary = [
 fs.writeFileSync(out.replace(/\.json$/,".md"),summary);
 if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary);
 console.log(JSON.stringify({urlCount:fullList.length,scanned:results.length,failed:failed.length,noindex:noindex.length,dynamic:sitemap.pages.length,output:out},null,2));
+for (const row of failed) console.error(row.url + ": " + row.critical.join(", "));
 if (failed.length) process.exitCode=1;
