@@ -51,6 +51,10 @@ try {
           await page.waitForTimeout(1500);
           await page.locator('h1').first().waitFor({state:'visible',timeout:30000});
         }
+        // DCL can precede the external stylesheet, especially for a page
+        // without hydration. Check the actual rendered layout after load,
+        // while retaining DCL in the timing report.
+        await page.waitForLoadState('load', {timeout:30000});
         report.details = await page.evaluate(() => {
           const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(el => {
             const parsed = JSON.parse(el.textContent);
@@ -85,12 +89,35 @@ try {
           const matching = page.locator('img[src*="' + id + '"]').first();
           assert.ok(await matching.count(), 'Missing archive photo ' + id);
           await matching.scrollIntoViewIfNeeded({timeout:15000});
-          if (mode.javaScriptEnabled) await matching.evaluate(el => el.decode());
-          else await page.waitForTimeout(1000);
+          // Native image requests can take longer than one second even when
+          // page JavaScript is disabled. Playwright can still inspect DOM state.
+          // Require actual decoded image pixels and meaningful alt in every mode.
+          assert.ok((await matching.getAttribute('alt'))?.trim(), 'Missing archive photo alt ' + id);
+          // Poll from the Node runner, not page.waitForFunction: its injected
+          // animation-frame polling does not resolve with JavaScript disabled,
+          // even when the image has completed (confirmed in run 46010599010).
+          const deadline = Date.now() + 20000;
+          let state;
+          do {
+            state = await matching.evaluate(el => ({src:el.currentSrc, complete:el.complete, width:el.naturalWidth, loading:el.loading}));
+            if (state.complete && state.width > 0) break;
+            await new Promise(resolve => setTimeout(resolve, 250));
+          } while (Date.now() < deadline);
+          assert.ok(state.complete && state.width > 0, 'Archive photo failed to load ' + id + ': ' + JSON.stringify(state));
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
-        assert.ok(d.scrollWidth <= d.viewport + 3, 'Horizontal overflow');
+        // Recheck after the lazy gallery has been revealed. Retain both
+        // measurements; do not accept persistent overflow at either point.
+        d.finalLayout = await page.evaluate(() => ({
+          viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+          offenders: [...document.querySelectorAll('body *')].map(el => {
+            const rect = el.getBoundingClientRect();
+            return {tag:el.tagName, id:el.id, className:typeof el.className === 'string' ? el.className.slice(0,200) : '', right:Math.round(rect.right), width:Math.round(rect.width)};
+          }).filter(el => el.right > innerWidth + 3 && el.width > 0).sort((a,b)=>b.right-a.right).slice(0,12)
+        }));
+        assert.ok(d.scrollWidth <= d.viewport + 3 && d.finalLayout.scrollWidth <= d.finalLayout.viewport + 3,
+          'Horizontal overflow ' + JSON.stringify({initial:{viewport:d.viewport,scrollWidth:d.scrollWidth},final:d.finalLayout}));
         assert.deepEqual(d.missingAlt, [], 'Missing image alt attributes');
         assert.deepEqual(errors, [], 'Uncaught client errors');
         // Record network failures for diagnosis; fail on any failed first-party
