@@ -16,6 +16,7 @@ import { isHoustonBotanicRecyclingOfferActive } from "@/lib/houston-botanic-recy
 import { verifiedReviewedAttractionGalleryRights } from "@/lib/reviewed-attraction-gallery-rights";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { MuseumDossierContent } from "@/components/editorial/MuseumDossierContent";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { moodyGardensEditorialDates } from "@/data/destination-curation-moody-gardens";
@@ -154,6 +155,7 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // exceeded the internal 90-character live audit limit after brand suffixing.
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "heritage-center-cherokee-county-rusk": "Heritage Center of Cherokee County, Rusk TX: Hours & Exhibits",
   "comanche": "Comanche Texas: Old Cora Courthouse, Historic Square & Museum",
   "comanche-county-historical-museum": "Comanche County Historical Museum: Free Admission & Hours",
   "texas-freshwater-fisheries-center": "Texas Freshwater Fisheries Center: Hours, Fishing & Exhibits",
@@ -258,11 +260,12 @@ export const Route = createFileRoute("/destination/$slug")({
     const rights = /(state-capitol|presidential-library-austin|mission-san-jose)/.test(destination.slug)
       ? (await import("@/data/three-heritage-hero-image-rights")).verifiedHeritageHeroImageRights(destination.slug, destination.hero)
       : null;
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage, imageRights, rights };
+    const ruskMuseum = destination.slug === "heritage-center-cherokee-county-rusk" ? await Promise.all([import("@/data/museum-authority-network"), import("@/data/museum-visitor-faqs")]).then(([network, faq]) => ({ dossier: network.museumDossierFor(destination.slug), faqs: faq.museumVisitorFaqFor(destination.slug) })) : null;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage, imageRights, rights, ruskMuseum };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { destination, categories, relationshipGroups, dallasHeritage, imageRights, rights } = loaderData;
+    const { destination, categories, relationshipGroups, dallasHeritage, imageRights, rights, ruskMuseum } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
     const isGainesvilleMedalMuseum = destination.slug === "medal-of-honor-host-city-museum-gainesville";
@@ -272,7 +275,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const isHotelPasoDelNorte = destination.slug === "hotel-paso-del-norte";
     const isOldSocorro = destination.slug === "old-socorro-mission";
     const authorityGuide = destination.authorityGuide;
-    const authorityCitations = [...new Set([...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? []), ...(destination.slug === "martin-creek-lake-state-park" && destination.officialUrl ? [destination.officialUrl, destination.officialUrl + "/trails-info", destination.officialUrl + "/history/", "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/martin_creek/", ...(destination.visitorFacts?.map(fact => fact.sourceUrl) ?? [])] : [])].filter(validExternalUrl))];
+    const authorityCitations = [...new Set([...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(ruskMuseum?.dossier?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? []), ...(destination.slug === "martin-creek-lake-state-park" && destination.officialUrl ? [destination.officialUrl, destination.officialUrl + "/trails-info", destination.officialUrl + "/history/", "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/martin_creek/", ...(destination.visitorFacts?.map(fact => fact.sourceUrl) ?? [])] : [])].filter(validExternalUrl))];
     const audit = auditDestination(destination);
     const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas", "davis-hill-state-park"].includes(destination.slug);
 // This closed museum's researched historical guide is indexable even though the
@@ -300,12 +303,12 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     // The reviewed Comanche museum record can retain an older source-check date
     // even after a substantive editorial revision. Its sitemap already uses updatedAt;
     // WebPage.dateModified must use that same verified revision date, never stale review metadata.
-    const substantiveModifiedAt = destination.slug === "comanche-county-historical-museum"
+    const substantiveModifiedAt = ["comanche-county-historical-museum", "heritage-center-cherokee-county-rusk"].includes(destination.slug)
       ? (destination.updatedAt && destination.updatedAt > (destination.sourceCheckedAt ?? "")
         ? destination.updatedAt : destination.sourceCheckedAt)
       : destination.slug === "moody-gardens"
       ? moodyGardensEditorialDates.lastSubstantiveEdit : ["martin-creek-lake-state-park", "martin-creek-lake-state-park-rv-area"].includes(destination.slug) ? destination.updatedAt ?? "2026-11-21" : destination.sourceCheckedAt;
-    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(substantiveModifiedAt ? { dateModified: substantiveModifiedAt } : {}) };
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...((authorityGuide || ruskMuseum?.dossier) ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(substantiveModifiedAt ? { dateModified: substantiveModifiedAt } : {}) };
     // The licensed exact-site Magoffin hero has verified Wikimedia provenance.
     // Attribute it only when that photographer's image is actually being served.
     const magoffinImageRights = destination.slug === "magoffin-home" && destination.hero.credit?.includes("Larry D. Moore")
@@ -415,7 +418,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage, imageRights } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage, imageRights, ruskMuseum } = Route.useLoaderData();
   if (destination.slug === "old-socorro-mission") return <Suspense fallback={null}><OldSocorroMissionAuthority /></Suspense>;
   if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
@@ -532,6 +535,7 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
+        {destination.slug === "heritage-center-cherokee-county-rusk" && <p className="mt-2 max-w-2xl text-sm text-ink-foreground/85">Context photograph of the separate Rusk railroad station, not the museum building.</p>}
         {destination.slug === "national-ranching-heritage-center-lubbock" && <p className="mt-2 max-w-2xl text-xs leading-5 text-ink-foreground/80">Illustrative Texas ranching photograph; not taken at the National Ranching Heritage Center.</p>}
        {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{destination.slug === "comanche-county-historical-museum" && destination.hero.src.includes("comanche-museum-hero.avif") ? "Illustration: " : oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{museumArchivePhotoRights && <> · <a href={museumArchivePhotoRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY 2.0 license ↗</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
       </Container>
@@ -682,6 +686,7 @@ function DestinationPage() {
             <p className="mt-4"><Link to="/article/$slug" params={{ slug: "texas-state-railroad-rusk-palestine-history-guide" }} className="font-semibold text-primary underline underline-offset-4">Read the Texas State Railroad, Rusk penitentiary and Capitol iron guide</Link></p>
             <p className="mt-3 text-sm text-muted-foreground">For historic context, also see <Link to="/$kind/$slug" params={{ kind: "county", slug: "cherokee" }} className="underline underline-offset-4">Cherokee County</Link> and <Link to="/$kind/$slug" params={{ kind: "county", slug: "anderson" }} className="underline underline-offset-4">Anderson County</Link>. Confirm museum access before visiting; hospital and working rail facilities are not unrestricted attractions.</p>
           </aside>}
+          {["texas-state-capitol", "caddo-mounds-state-historic-site"].includes(destination.slug) && <aside className="mt-8 border-l-4 border-primary p-5" aria-label="Related Rusk and East Texas heritage research"><h3 className="font-display text-xl">{destination.slug === "texas-state-capitol" ? "The Rusk iron behind the Capitol" : "Continue exploring Cherokee County history"}</h3><p className="mt-2 text-sm leading-6">{destination.slug === "texas-state-capitol" ? "Prison labor at the Rusk ironworks produced iron for the Texas Capitol before the railroad reached Palestine in 1909." : "The Heritage Center in downtown Rusk interprets local Caddo, timber, railroad and county history; its exhibits and operating hours are separate from this historic site."}</p><a href={destination.slug === "texas-state-capitol" ? "/article/texas-state-railroad-rusk-palestine-history-guide" : "/destination/heritage-center-cherokee-county-rusk"} className="mt-3 inline-block font-semibold text-primary underline">{destination.slug === "texas-state-capitol" ? "Read the Texas State Railroad and Capitol iron history" : "Explore the Heritage Center of Cherokee County"}</a></aside>}
           {destination.slug === "rusk-county-depot-museum-history-center-henderson" && <aside aria-label="Henderson syrup festival and county history" className="mt-8 rounded-xl border border-border bg-surface p-6">
             <h3 className="font-display text-2xl">Henderson's syrup heritage starts here</h3>
             <p className="mt-3 leading-7 text-muted-foreground">The museum's historic syrup mill is central to the annual Heritage Syrup Festival. The 37th edition took place November 14, 2026, and has ended. Rusk County, not Henderson County, is the officially designated Syrup Capital of Texas. Consult the organizers for the next confirmed festival dates.</p>
@@ -798,6 +803,7 @@ function DestinationPage() {
       </aside>
     </Container>
 
+    {ruskMuseum?.dossier && <MuseumDossierContent dossier={ruskMuseum.dossier} faqs={ruskMuseum.faqs} />}
     {countySlug === "el-paso" ? <Container><ElPasoAreaCrossLinks kind="destination" slug={destination.slug} /></Container> : null}
     {isChokeCanyon ? compactNearby.length > 0 && <Section className="py-10 sm:py-12 lg:py-14" tone="surface"><Container><SectionHeader eyebrow="Nearby" title="Three practical additions near Choke Canyon" description="A short list of close-by stops instead of a long statewide recommendation feed." /><div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{compactNearby.map((item) => <DestinationCard key={item.id} destination={item} regionLabel={item.region === destination.region ? region?.name : undefined} />)}</div></Container></Section> : <DestinationRelationships destination={destination} groups={relationshipGroupsForPage} regionName={region?.name} />}
     {!isChokeCanyon && destination.slug !== "moody-gardens" && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}

@@ -18,11 +18,56 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     {
       "questionOrigin": "editorial-research",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-11-23",
+      "reviewed": "2026-11-27",
       "question": "Where is the Heritage Center of Cherokee County?",
-      "answer": "The museum is at 208 S. Henderson Street in downtown Rusk, Texas. The Old Bonner Bank Building moved to the same address in 2009. The Texas Historical Commission directory provides a map and the museum’s phone number.",
-      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "answer": "The museum is at 208 S Henderson Street in downtown Rusk, Texas. The Texas Historical Commission records the separate Old Bonner Bank building moving here in 2009; a January 2013 newspaper report documents a subsequent celebration.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5073006614",
       "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5073006614"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-27",
+      "question": "When is the Heritage Center of Cherokee County open?",
+      "answer": "A November 4, 2026 local report lists Saturday 11 a.m.–3 p.m., Sunday 1–5 p.m., and weekdays by appointment. This is reported, not directly operator-confirmed; call 903-714-8685 before visiting.",
+      "verificationUrl": "https://thecherokeean.com/articles/55397/view",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-27",
+      "question": "Is admission to the Rusk museum free?",
+      "answer": "A June 2018 local feature reported free admission at the time. No current operator admission policy was independently confirmed in November 2026. Call the museum to verify admission and donations before visiting.",
+      "verificationUrl": "https://www.thecherokeean.com/articles/44898/view",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-27",
+      "question": "Is the museum wheelchair accessible, and where can I park?",
+      "answer": "The Texas Historical Commission lists the downtown Henderson Street address and map, but the current step-free entrance, parking spaces and restroom access are not independently confirmed. Call the museum to discuss your needs.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-27",
+      "question": "How long should I allow for the Heritage Center?",
+      "answer": "Budget 45–60 minutes as a planning estimate for the selected exhibits and adjacent bank exterior, not a published tour duration. Allow additional time for the courthouse square or research and arrange group visits separately.",
+      "verificationUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
+      "questionEvidenceUrl": "https://redc.rusktx.org/recreation-and-entertainment/"
+    },
+    {
+      "questionOrigin": "editorial-research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-27",
+      "question": "Can I visit the museum during a Texas State Railroad layover?",
+      "answer": "Plan the museum as a separate road stop: Rusk Depot is at 535 Park Road 76 while the museum is downtown. A normal train layover is intended for the depot grounds, not a guaranteed downtown visit.",
+      "verificationUrl": "https://texasstaterailroad.net/faq-2/",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/heritage-center-cherokee-county/"
     },
     {
       "questionOrigin": "editorial-research",

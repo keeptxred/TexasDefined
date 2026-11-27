@@ -532,7 +532,7 @@ function ArticlePage() {
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
   const foliageHeroRights = imageRights;
-  const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const hideGenericRelatedRail = article.slug === "texas-state-railroad-rusk-palestine-history-guide" || article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const showFootballTravelOffers = isFootballTravelPlanningArticle(article) && !shouldNoindexTexasGatewayArticle(article);

@@ -1482,6 +1482,33 @@ jobs:
         if: ${{ always() && steps.live_base.outcome == 'success' }}
         run: node scripts/ci/verify-texas-state-railroad-production.mjs
 
+      # A changed railroad/Rusk dossier must pass the actual hydrated page,
+      # not merely source markers. Use one Chrome, sequential viewports only.
+      - name: Verify changed railroad and Rusk museum in one Chrome browser
+        id: live_railroad_browser
+        if: ${{ always() && steps.live_railroad.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if node --input-type=module -e 'import fs from "node:fs"; const p=JSON.parse(fs.readFileSync(".artifacts/production-change-plan.json","utf8")); process.exit(p.changedFiles.some(x=>/^(src\/data\/fixtures\/texas-state-railroad-rusk-palestine-history-guide\.ts|src\/data\/museum-(authority-network|visitor-faqs|expansion-statewide-wave8)\.ts|src\/components\/editorial\/MuseumDossierContent\.tsx|scripts\/ci\/verify-railroad-rusk-browser\.mjs|public\/images\/editorial\/texas-state-railroad-depot-schematic\.svg)$/.test(x))?0:10)'; then
+            export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+            test -n "$CHROME_BIN"
+            npm install --prefix /tmp/texasdefined-rail-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+            node scripts/ci/verify-railroad-rusk-browser.mjs
+          else
+            code=$?
+            if [[ "$code" != 10 ]]; then exit "$code"; fi
+            echo "No railroad/Rusk authority change in this production change plan."
+          fi
+      - name: Preserve railroad and Rusk museum real-browser evidence
+        if: ${{ always() && steps.live_railroad_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: railroad-rusk-browser-${{ github.run_id }}
+          path: artifacts/railroad-rusk-browser/
+          if-no-files-found: ignore
+          retention-days: 30
+
       # Cass County must expose its researched Linden music history AND the
       # verified towns in the main AEO/identity sections on both public origins.
       # Checking source literals alone previously missed the one-town FAQ.

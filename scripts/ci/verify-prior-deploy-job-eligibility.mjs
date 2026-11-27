@@ -483,6 +483,30 @@ export function qualifyPriorDeployJob(payload) {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
   }
+  // Nov 27 run 46009980394 actually published c085b2b2 from 2f64dd4b.
+  // All five critical safety gates and 3,254 original-byte checks passed.
+  // Only the homepage Thanksgiving cutoff assertion failed; #7881 corrected
+  // the exact America/Chicago Nov 26 end date. This permits only its original
+  // asset handoff, never certification of the failed release or a page bypass.
+  const nov27Homepage = { runId: 46009980394, jobId: 140542710392,
+    sourceSha: '2f64dd4bb1f872edada23c29ce31cdb442d6751f',
+    workerVersion: 'c085b2b2-303e-4ad9-aa1e-772156fafb95',
+    failedStep: 'Verify updated homepage HTML on canonical and direct Worker' };
+  if (job.run_id === nov27Homepage.runId && job.id === nov27Homepage.jobId &&
+      failures.length === 1 && failures[0] === nov27Homepage.failedStep) {
+    const homepage = readFileSync('scripts/ci/verify-homepage-fresh-production.mjs', 'utf8');
+    for (const token of ["timeZone: 'America/Chicago'", 'day >= 23 && day <= 26',
+      'expectedHomepageHeading(now)', 'expectedHomepageTitle:', 'Live homepage parity failed:']) {
+      if (!homepage.includes(token)) throw Error('Nov27 original asset handoff requires the corrected strict homepage cutoff: ' + token);
+    }
+    return { eligible: true, mode: 'exact-nov27-homepage-cutoff-original-assets-only',
+      exactRun: nov27Homepage.runId, requiredSourceSha: nov27Homepage.sourceSha,
+      requiredWorkerVersion: nov27Homepage.workerVersion, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, priorReleaseStillFailed: true };
+  }
+  if (job.run_id === nov27Homepage.runId || job.id === nov27Homepage.jobId) {
+    throw Error('Nov27 original asset handoff rejects altered run/job/failure evidence: ' + failures.join(', '));
+  }
   const d132 = NOV18_PUBLISHED_D132_DAVIS_PHOTO_ASSETS;
   if (job.run_id === d132.runId && job.id === d132.jobId &&
       failures.length === 1 && failures[0] === d132.failedStep) {
