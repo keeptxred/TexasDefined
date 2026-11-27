@@ -27,12 +27,13 @@ on:
         default: false
 permissions:
   contents: read
+  statuses: read
 concurrency:
   group: fishing-authority-${{ github.event_name }}
   cancel-in-progress: true
 jobs:
   canonical-policy:
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -43,7 +44,7 @@ jobs:
       - run: node --test scripts/seo/fishing-canonical-policy.test.mjs
 
   audit:
-    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ github.event_name != 'pull_request' && github.event_name != 'push' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_sha == github.sha)) }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -54,13 +55,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Confirm matching production release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUDIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(gh api "repos/$GITHUB_REPOSITORY/commits/$AUDIT_SHA/status" --jq '[.statuses[] | select(.context == "texasdefined-production")][0].state // "missing"')"
+          test "$state" = success || { echo "::error::Cannot compare live SSR against unpublished source $AUDIT_SHA ($state)."; exit 1; }
       - name: Check whether release changed fishing
         id: scope
         shell: bash
         run: |
           if [[ "${{ github.event_name }}" != "workflow_run" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
-          elif git diff-tree --no-commit-id --name-only -r HEAD | grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing[.]|scripts/seo/fishing-|scripts/seo/verify-fishing-authority-live[.]mjs|docs/fishing/)'; then
+          elif git diff-tree --no-commit-id --name-only -r HEAD | grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing[.]|scripts/seo/fishing-|scripts/seo/verify-fishing-authority-live[.]mjs|[.]github/workflows/fishing-url-authority[.]yml|docs/fishing/)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
@@ -84,7 +94,7 @@ jobs:
           FISHING_AUDIT_OUTPUT: fishing-live-authority-report.json
         run: node scripts/seo/verify-fishing-authority-live.mjs
       - name: Verify all published fish species in live SSR on each fishing authority audit
-        # Also run on the scheduled/manual audit and on workflow changes.
+        # Run after matching deployment, scheduled and manual audits; a source push only runs the policy test.
         # Deployment scope intentionally skips unrelated releases; a verified
         # recovery deployment must not be the only way to trigger a fish check.
         if: ${{ always() && steps.scope.outputs.run == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
