@@ -2,7 +2,8 @@ name: Quarterly Texas State Railroad authority and source review
 
 on:
   schedule:
-    - cron: '23 14 5 1,4,7,10 *'
+    # Monthly operational-source review; historical chronology is also reviewed on each run.
+    - cron: '23 14 5 * *'
   workflow_dispatch:
   pull_request:
     paths:
@@ -18,6 +19,10 @@ on:
       - 'src/data/curated-tourism-collections.ts'
       - 'src/data/museum-expansion-statewide-wave8.ts'
       - 'src/data/museum-authority-network.ts'
+      - 'src/data/museum-visitor-faqs.ts'
+      - 'src/components/editorial/MuseumDossierContent.tsx'
+      - 'src/data/region-authority-overviews.ts'
+      - 'public/images/editorial/texas-state-railroad-depot-schematic.svg'
       - 'src/data/museum-authority-heroes.ts'
       - 'src/data/major-event-expanded-authority-tranche58.server.ts'
       - 'src/data/fixtures/texas-explained-support-articles-2.ts'
@@ -51,22 +56,21 @@ jobs:
         run: |
           node --check scripts/ci/verify-texas-state-railroad-production.mjs
           node scripts/ci/verify-texas-state-railroad-production.mjs
-      - name: Open one quarterly editorial source-review ticket
+      - name: Open one monthly editorial source-review ticket
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          quarter=$(( (10#$(date -u +%m) - 1) / 3 + 1 ))
-          title="Texas State Railroad authority source check: $(date -u +%Y) Q${quarter}"
+          title="Texas State Railroad authority source check: $(date -u +%Y-%m)"
           open_count="$(gh issue list --repo "${GITHUB_REPOSITORY}" --state open --search "in:title \"${title}\"" --json title --jq "[.[] | select(.title == \"${title}\")] | length")"
           if [[ "${open_count}" != "0" ]]; then
-            echo "The current quarter already has an open source-review ticket."
+            echo "The current month already has an open source-review ticket."
             exit 0
           fi
           cat > /tmp/railroad-review.md <<'EOF'
-          Quarterly editorial verification for `/article/texas-state-railroad-rusk-palestine-history-guide` and its county/destination cross-links.
+          Monthly operational and editorial verification for `/article/texas-state-railroad-rusk-palestine-history-guide` and its county/destination cross-links.
 
           - Recheck the [official excursion calendar and FAQ](https://texasstaterailroad.net/faq-2/): depot location, travel times, accessible boarding, operator, train assignments and seasonal excursions. Do not convert ticket availability into a guarantee.
           - Recheck [Union Pacific / Texas & Eastern freight interchange](https://www.up.com/shipping/short-line/lines/tsr) and confirm that the operating carrier and current cargo remain accurate.

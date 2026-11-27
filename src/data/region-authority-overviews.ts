@@ -72,6 +72,8 @@ export const REGION_AUTHORITY_OVERVIEWS: Record<TexasRegion, RegionAuthorityOver
     ],
     "safety": "Warm humid weather, mosquitoes and thunderstorms make visitor preparation important. Check the park or reservoir's own access and water notices; lake shorelines are not uniformly public. Ask before entering working timberland.",
     "links": [
+      { "href": "/article/texas-state-railroad-rusk-palestine-history-guide", "label": "Texas State Railroad: Rusk, Palestine and prison ironworks" },
+      { "href": "/destination/heritage-center-cherokee-county-rusk", "label": "Heritage Center of Cherokee County in Rusk" },
       {
         "href": "/article/scenic-drives-in-texas",
         "label": "Piney Woods driving routes"

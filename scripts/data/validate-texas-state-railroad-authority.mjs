@@ -10,6 +10,8 @@ const paths = {
   palestine: "src/data/small-town-destinations-wave5.ts",
   museum: "src/data/museum-expansion-statewide-wave8.ts",
   museumDossier: "src/data/museum-authority-network.ts",
+  museumFaq: "src/data/museum-visitor-faqs.ts",
+  region: "src/data/region-authority-overviews.ts",
   museumPhotos: "src/data/museum-authority-heroes.ts",
   holidayEvent: "src/data/major-event-expanded-authority-tranche58.server.ts",
   travelHistory: "src/data/fixtures/texas-historic-travel-transportation-guide.ts",
@@ -53,6 +55,11 @@ must("museumDossier", "1884 Bonner Bank");
 must("museumDossier", "https://tpwmagazine.com/travel-culture/discover-the-east-texas-town-that-built-its-own-railroad/");
 must("museumDossier", "https://www.texasescapes.com/BobBowman/New-Museum-Heritage-Center-of-Cherokee-County-Rusk-Texas.htm");
 must("museumDossier", "Rex Brasher bird art");
+for (const token of ["75–80 minutes", "powered mobility scooters", "texas-state-railroad-depot-schematic.svg"]) must("guide", token);
+for (const token of ["When is the Heritage Center of Cherokee County open?", "Is admission to the Rusk museum free?", "Can I visit the museum during a Texas State Railroad layover?"]) must("museumFaq", token);
+must("destinationRoute", "<MuseumDossierContent dossier={ruskMuseum.dossier}");
+must("region", guideHref);
+if (!fs.existsSync("public/images/editorial/texas-state-railroad-depot-schematic.svg")) failures.push("Missing original depot schematic");
 must("destinationRoute", 'destination.slug === "heritage-center-cherokee-county-rusk"');
 must("destinationRoute", 'slug: "texas-state-railroad-rusk-palestine-history-guide"');
 must("guide", "heritage-center-cherokee-county-rusk");

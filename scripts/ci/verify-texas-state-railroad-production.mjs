@@ -49,6 +49,8 @@ const related = [
   "/event/polar-express-palestine",
   "/article/texas-railroads-town-growth-explained",
   "/article/texas-historic-travel-transportation-guide",
+  "/explore/piney-woods",
+  "/destination/texas-state-capitol",
 ];
 
 const cached = new Map();
@@ -111,6 +113,7 @@ const checks = related.map((path) => check(path, async () => {
 checks.push(check("Guide metadata", async () => {
   const guide = await getPage(slug);
   if (!guide.includes("1910 (Texas State Library) / 1913 (TSHA)")) throw new Error("ordinary visitor HTML has stale, unqualified foundry-closure history; recheck canonical cache purge");
+  for (const marker of ["75–80 minutes", "855-632-7729", "powered mobility scooters", "texas-state-railroad-depot-schematic.svg", "Can I visit downtown Rusk during the layover?"]) if (!guide.includes(marker)) throw new Error("Guide planning content missing: " + marker);
   const article = schemaNodes(guide).find((node) => ["Article", "NewsArticle", "BlogPosting"].some((type) => [node["@type"]].flat().includes(type)));
   if (!article?.headline || !article.datePublished || !article.dateModified || !article.image || !article.author) {
     throw new Error("incomplete Article structured data");
@@ -121,6 +124,10 @@ checks.push(check("Guide metadata", async () => {
 }));
 checks.push(check("Museum source-freshness on ordinary canonical HTML", async () => {
   const page = await getPage(museumPath); // Normal visitor URL: deliberately no cache-busting query.
+  const main = page.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+  for (const marker of ["Rex Brasher bird art", "Frequently asked questions about", "Is admission to the Rusk museum free?", "When is the Heritage Center of Cherokee County open?", "2009 relocation"]) if (!main.includes(marker)) throw new Error("Museum authority content missing from initial main landmark: " + marker);
+  if (!hasLink(main, "/explore/piney-woods") || !hasLink(await getPage("/explore/piney-woods"), museumPath)) throw new Error("Missing reciprocal Piney Woods museum links");
+  if (!hasLink(main, "/destination/caddo-mounds-state-historic-site") || !hasLink(await getPage("/destination/caddo-mounds-state-historic-site"), museumPath)) throw new Error("Missing reciprocal Caddo Mounds museum links");
   for (const [label, marker] of [
     ["attributed November 2026 hours", "The Cherokeean Herald reported on November 4, 2026"],
     ["2026 local reporting citation", "thecherokeean.com/articles/55397/view"],
@@ -182,7 +189,7 @@ for (const [path, sitemap] of [[slug, "/sitemap.xml"], [museumPath, "/sitemap-ex
     const xml = await getPage(sitemap);
     const entry = xml.split("<loc>" + site + path + "</loc>")[1]?.split("</url>", 1)[0];
     if (!entry || !/<lastmod>\d{4}-\d{2}-\d{2}/.test(entry)) throw new Error("missing canonical URL or lastmod for " + path);
-    if (path === museumPath && (entry.match(/<lastmod>(\d{4}-\d{2}-\d{2})/)?.[1] ?? "") < "2026-11-24") throw new Error("museum sitemap lastmod predates substantive November 24 history revision");
+    if ((entry.match(/<lastmod>(\d{4}-\d{2}-\d{2})/)?.[1] ?? "") < "2026-11-27") throw new Error("sitemap lastmod predates substantive November 27 revision");
   }));
 }
 await Promise.all(checks);
