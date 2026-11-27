@@ -33,8 +33,20 @@ try {
         return /width\s*=\s*device-width/i.test(m)&&links.length>0&&links.every(link=>Boolean(link.sheet));
       },null,{timeout:30000});
       result.styled=true;
-      result.oneH1=await page.locator("h1").count()===1;
-      assert(result.oneH1,`${path}: expected one visible H1`);
+      const stableHeading = await page.waitForFunction((directory) => {
+        const headings = [...document.querySelectorAll("h1")].filter(el => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden");
+        const loaded = !directory || Boolean(document.querySelector("#species-directory-policy")) && document.querySelectorAll("article[id^='species-']").length >= 28;
+        const title = headings.length === 1 && headings[0].innerText.trim();
+        const valid = Boolean(loaded && title && (!directory || title === "Texas Fish Species"));
+        if (!valid) { delete window.__fishHeadingStable; return false; }
+        const prior = window.__fishHeadingStable;
+        if (!prior || prior.title !== title) { window.__fishHeadingStable = { title, at: performance.now() }; return false; }
+        return performance.now() - prior.at >= 150 ? title : false;
+      },path==="/fishing/species",{timeout:30000,polling:"raf"});
+      result.h1 = await stableHeading.jsonValue();
+      await stableHeading.dispose();
+      result.oneH1 = Boolean(result.h1);
+      assert(result.oneH1,path+": expected one stable visible H1");
       await page.waitForFunction(()=>document.documentElement.scrollWidth<=window.innerWidth+12,null,{timeout:12000});
       result.noHorizontalOverflow=true;
       if(path.startsWith("/fishing/techniques/")) {
