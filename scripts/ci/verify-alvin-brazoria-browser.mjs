@@ -51,6 +51,10 @@ try {
           await page.waitForTimeout(1500);
           await page.locator('h1').first().waitFor({state:'visible',timeout:30000});
         }
+        // DCL can precede the external stylesheet, especially for a page
+        // without hydration. Check the actual rendered layout after load,
+        // while retaining DCL in the timing report.
+        await page.waitForLoadState('load', {timeout:30000});
         report.details = await page.evaluate(() => {
           const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(el => {
             const parsed = JSON.parse(el.textContent);
@@ -103,7 +107,17 @@ try {
           assert.ok(await matching.evaluate(el=>el.complete && el.naturalWidth > 0 && !!el.alt), 'Broken archive photo or missing alt ' + id);
         }
         assert.ok(d.bodyText.includes('DeGolyer Library') && d.bodyText.includes('No known copyright restrictions'), 'Archive provenance');
-        assert.ok(d.scrollWidth <= d.viewport + 3, 'Horizontal overflow');
+        // Recheck after the lazy gallery has been revealed. Retain both
+        // measurements; do not accept persistent overflow at either point.
+        d.finalLayout = await page.evaluate(() => ({
+          viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+          offenders: [...document.querySelectorAll('body *')].map(el => {
+            const rect = el.getBoundingClientRect();
+            return {tag:el.tagName, id:el.id, className:typeof el.className === 'string' ? el.className.slice(0,200) : '', right:Math.round(rect.right), width:Math.round(rect.width)};
+          }).filter(el => el.right > innerWidth + 3 && el.width > 0).sort((a,b)=>b.right-a.right).slice(0,12)
+        }));
+        assert.ok(d.scrollWidth <= d.viewport + 3 && d.finalLayout.scrollWidth <= d.finalLayout.viewport + 3,
+          'Horizontal overflow ' + JSON.stringify({initial:{viewport:d.viewport,scrollWidth:d.scrollWidth},final:d.finalLayout}));
         assert.deepEqual(d.missingAlt, [], 'Missing image alt attributes');
         assert.deepEqual(errors, [], 'Uncaught client errors');
         // Record network failures for diagnosis; fail on any failed first-party
