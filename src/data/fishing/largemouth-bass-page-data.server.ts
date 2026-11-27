@@ -20,7 +20,7 @@ const bassAuthorityNote = FISH_AUTHORITY_NOTES["largemouth-bass"];
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
   const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: bassAuthorityNote.title, description: bassAuthorityNote.description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: [...new Set([...profile.sources.map((source) => source.url), FISH_AUTHORITY_SOURCES[bassAuthorityNote.source].url])] };
+  const webPage = { "@type": "WebPage", "@id": url, url, name: bassAuthorityNote.title, description: bassAuthorityNote.description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: [...new Set([...profile.sources.map((source) => source.url), ...([bassAuthorityNote.source, ...(bassAuthorityNote.extraSources ?? [])].map(key => FISH_AUTHORITY_SOURCES[key].url))])] };
   const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
