@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  statuses: read
 concurrency:
   group: fishing-13-production-${{ github.event_name }}
   cancel-in-progress: true
