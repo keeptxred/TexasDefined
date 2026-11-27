@@ -110,6 +110,16 @@ export const FISH_AUTHORITY_SOURCES = {
     "url": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
     "label": "Fish consumption bans and advisories",
     "witness": "advisories"
+  },
+  "corpus": {
+    "url": "https://tpwd.texas.gov/fishboat/fish/action/waterecords.php?WB_code=0201",
+    "label": "Lake Corpus Christi historical fish records",
+    "witness": "Cichlid, Rio Grande"
+  },
+  "travis": {
+    "url": "https://tpwd.texas.gov/fishboat/fish/action/waterecords.php?WB_code=0743",
+    "label": "Lake Travis historical fish records",
+    "witness": "Cichlid, Rio Grande"
   }
 } as const;
 export interface FishAuthorityNote { title: string; description: string; guidance: string; source: keyof typeof FISH_AUTHORITY_SOURCES; extraSources?: readonly (keyof typeof FISH_AUTHORITY_SOURCES)[]; related: readonly string[]; lakes: readonly string[]; }
@@ -132,7 +142,7 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "smallmouth-bass": {
     "title": "Smallmouth Bass in Texas: Rocky Water & Identification",
     "description": "Learn how to recognize smallmouth bass, choose rocky or flowing habitat and distinguish it from Texas' other black bass.",
-    "guidance": "TPWD reports that smallmouth have been stocked in Texas, including Edwards Plateau streams. Rocky points, shoals and current edges offer a useful starting pattern; start with a small crawfish-style or minnow presentation and adjust to depth. Do not assume every Hill Country bass is a smallmouth: Guadalupe bass and hybrids complicate identification.",
+    "guidance": "TPWD reports that smallmouth have been stocked in Texas, including Edwards Plateau streams. Rocky points, shoals and current edges offer a useful starting pattern; start with a small crawfish-style or minnow presentation and adjust to depth. Do not assume every Hill Country bass is a smallmouth: Guadalupe bass and hybrids complicate identification. For identification, look at the jaw with the mouth closed, check the connected dorsal fins, and compare the body bars. TPWD's species account gives 13–15 soft dorsal rays; use the comparison diagram because neither bars nor color alone settles the identification.",
     "source": "smallmouth",
     "related": [
       "guadalupe-bass",
@@ -162,7 +172,7 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "spotted-bass": {
     "title": "Spotted Bass in Texas: Identification & Fishing Habitat",
     "description": "Distinguish spotted bass from largemouth, Guadalupe and Alabama bass; learn which habitat and source records to check.",
-    "guidance": "Do not count Alan Henry Reservoir's Alabama bass stocking as proof of spotted bass (Micropterus punctulatus). The two are separately recognized; TPWD's Alan Henry survey explains the historical management terminology. For spotted bass, verify the actual species in waterbody records and compare several identification traits rather than relying on a single spot or jaw measurement.",
+    "guidance": "Do not count Alan Henry Reservoir's Alabama bass stocking as proof of spotted bass (Micropterus punctulatus). The two are separately recognized; TPWD's Alan Henry survey explains the historical management terminology. For spotted bass, verify the actual species in waterbody records and compare several identification traits rather than relying on a single spot or jaw measurement. TPWD groups Guadalupe, Alabama and spotted bass together for several visual characters; the jaw does not extend beyond the eye. Compare body markings and dorsal fins, and use confirmed geographic records as supporting evidence rather than treating a single mark as a definitive identification.",
     "source": "alabama",
     "related": [
       "largemouth-bass",
@@ -178,7 +188,7 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "crappie": {
     "title": "Texas Crappie Fishing: Black vs. White Crappie",
     "description": "Compare black and white crappie and choose a depth, presentation and Texas fishing destination.",
-    "guidance": "Crappie is a group rather than one species. Start with brush piles or other fish-holding structure, then vary depth with a small jig or minnow until fish respond. Count dorsal spines and compare body markings if you need to distinguish white from black crappie; do not use a combined fishery listing as proof of either individual species.",
+    "guidance": "Crappie is a group rather than one species. Start with brush piles or other fish-holding structure, then vary depth with a small jig or minnow until fish respond. Count dorsal spines and compare body markings if you need to distinguish white from black crappie; do not use a combined fishery listing as proof of either individual species. Black crappie usually have seven or eight dorsal spines, while white crappie usually have five or six. The general crappie fishing opportunity at a lake does not establish which of those species is currently present. Follow TPWD's combined crappie rules and any waterbody exceptions.",
     "source": "crappie",
     "related": [
       "black-crappie",
@@ -214,7 +224,7 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "catfish": {
     "title": "Texas Catfish Fishing: Blue, Channel & Flathead",
     "description": "Choose between blue, channel and flathead catfish by habitat, bait and identification; check Texas harvest rules.",
-    "guidance": "Catfish is a practical fishing group, not one biological species. At Lake Houston, TPWD describes blue catfish as a dominant sportfish along river channels. For a new water, compare the species accounts before picking bait and location: channel cats are a different target from large predatory flatheads. Confirm the specific fish and waterbody rules before keeping it.",
+    "guidance": "Catfish is a practical fishing group, not one biological species. At Lake Houston, TPWD describes blue catfish as a dominant sportfish along river channels. For a new water, compare the species accounts before picking bait and location: channel cats are a different target from large predatory flatheads. Confirm the specific fish and waterbody rules before keeping it. The forked tails of blue and channel catfish contrast with the flathead's less forked tail. Use the anal-fin shape and ray count to distinguish blue and channel catfish; check the individual species guides before choosing a bait or applying local restrictions.",
     "source": "houston",
     "related": [
       "blue-catfish",
@@ -292,13 +302,17 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "hybrid-striped-bass": {
     "title": "Hybrid Striped Bass in Texas: Wipers & Identification",
     "description": "Understand the white bass and striped bass cross, distinguish hybrids and plan open-water fishing.",
-    "guidance": "TPWD hatcheries produce a cross between a male white bass and female striped bass. A hybrid is not simply a striped bass with a broken stripe. Compare several characteristics using the official identification guidance; locate schools around baitfish and vary retrieval depth instead of assuming every surface disturbance is a hybrid.",
+    "guidance": "TPWD hatcheries produce a cross between a male white bass and female striped bass. A hybrid is not simply a striped bass with a broken stripe. Compare several characteristics using the official identification guidance; locate schools around baitfish and vary retrieval depth instead of assuming every surface disturbance is a hybrid. TPWD's comparison guide describes joined dorsal fins and broken stripes above the anal fin as hybrid clues. White bass typically have one tooth patch at the rear of the tongue; striped bass and hybrids have two. Use the full comparison, especially when the markings do not look typical.",
     "source": "hybrid",
     "related": [
       "striped-bass",
       "white-bass"
     ],
-    "lakes": []
+    "lakes": [],
+    "extraSources": [
+      "blackBass",
+      "whitebass"
+    ]
   },
   "alligator-gar": {
     "title": "Alligator Gar in Texas: Identification & Responsible Fishing",
@@ -334,7 +348,7 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "sunfish": {
     "title": "Texas Sunfish Guide: Bluegill, Redear & Other Species",
     "description": "Identify common Texas sunfish, choose light tackle and compare documented fishing opportunities.",
-    "guidance": "Lady Bird Lake is an especially useful example because TPWD identifies redear and redbreast sunfish and recommends light tackle. Fish a small bait near cover first; try closer to the bottom when specifically looking for redear. Sunfish is a group name, so inspect the gill flap, mouth and markings before assigning a species.",
+    "guidance": "Lady Bird Lake is an especially useful example because TPWD identifies redear and redbreast sunfish and recommends light tackle. Fish a small bait near cover first; try closer to the bottom when specifically looking for redear. Sunfish is a group name, so inspect the gill flap, mouth and markings before assigning a species. Bluegill's small mouth and dark ear flap differ from the larger mouth of green sunfish and warmouth. Redear's distinctive ear-flap border is useful when fishing for bottom-feeding sunfish. Compare individual species before assuming size or harvest rules.",
     "source": "ladybird",
     "related": [
       "bluegill",
@@ -394,12 +408,17 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "common-carp": {
     "title": "Common Carp in Texas: Identification & Bank Fishing",
     "description": "Recognize common carp and explore documented Texas carp waters, including Austin's Lady Bird Lake.",
-    "guidance": "TPWD's Lady Bird Lake paddling guide specifically describes large common carp. For a bank approach, look for safe legal access near feeding shallows, present a small bottom bait and watch for line movement rather than repeatedly casting over fish. Barbels near the mouth distinguish common carp from superficially similar fish; do not transfer this identification to grass carp or other carp species. Unlike bowfin, which is a native predator, common carp is an introduced bottom feeder; the two require very different fishing approaches.",
+    "guidance": "TPWD's Lady Bird Lake paddling guide specifically describes large common carp. For a bank approach, look for safe legal access near feeding shallows, present a small bottom bait and watch for line movement rather than repeatedly casting over fish. Barbels near the mouth distinguish common carp from superficially similar fish; do not transfer this identification to grass carp or other carp species. Unlike bowfin, which is a native predator, common carp is an introduced bottom feeder; the two require very different fishing approaches. A July 2022 common-carp entry at Lake Corpus Christi documents a fish caught on dough bait; that is a historical observation, not an estimate of present stock or a recommended bait for every water.",
     "source": "ladybird",
     "related": [
       "bowfin"
     ],
-    "lakes": []
+    "lakes": [
+      "lake-corpus-christi"
+    ],
+    "extraSources": [
+      "corpus"
+    ]
   },
   "spotted-gar": {
     "title": "Spotted Gar in Texas: Identification & Backwater Fishing",
@@ -486,12 +505,19 @@ export const FISH_AUTHORITY_NOTES: Record<string,FishAuthorityNote> = {
   "rio-grande-cichlid": {
     "title": "Rio Grande Cichlid in Texas: Native Range & Identification",
     "description": "Distinguish the Texas cichlid from sunfish and learn why warm, stable waters matter.",
-    "guidance": "TPWD describes the Rio Grande cichlid as sensitive to cold and notes favorable spring-fed or heated waters. Focus on observation in warm, sheltered habitat rather than assuming every Texas lake contains the fish. Its turquoise spotting can resemble markings on sunfish, but it belongs to a different family. Compare body and fin shape before identification, and never move live fish between waters.",
+    "guidance": "TPWD describes the Rio Grande cichlid as sensitive to cold and notes favorable spring-fed or heated waters. Focus on observation in warm, sheltered habitat rather than assuming every Texas lake contains the fish. Its turquoise spotting can resemble markings on sunfish, but it belongs to a different family. Compare body and fin shape before identification, and never move live fish between waters. TPWD also records catches at Lake Corpus Christi in 1993 and Lake Travis in 2024. These observations establish recorded occurrence at those dates, not a present population assessment or an indication that those lakes are its native range.",
     "source": "cichlid",
     "related": [
       "green-sunfish",
       "sunfish"
     ],
-    "lakes": []
+    "lakes": [
+      "lake-corpus-christi",
+      "lake-travis"
+    ],
+    "extraSources": [
+      "corpus",
+      "travis"
+    ]
   }
 };
