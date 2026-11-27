@@ -72,7 +72,7 @@ export function extractGenericArticleReadingMinutes(html) {
 
 /**
  * The newsroom's 2026 homepage campaign runs Monday, November 23 through
- * Sunday, November 29, in America/Chicago. Do not accept the prior evergreen
+ * Thursday, November 26, in America/Chicago. Do not accept the prior evergreen
  * H1 as a successful *fresh* release during the Thanksgiving campaign.
  */
 export function expectedHomepageHeading(now = new Date()) {
@@ -81,7 +81,7 @@ export function expectedHomepageHeading(now = new Date()) {
   }).formatToParts(now);
   const get = (type) => Number(parts.find((part) => part.type === type)?.value);
   const day = get('day');
-  return get('year') === 2026 && get('month') === 11 && day >= 23 && day <= 29
+  return get('year') === 2026 && get('month') === 11 && day >= 23 && day <= 26
     ? 'Happy Thanksgiving'
     : 'The places, stories & life of Texas';
 }
